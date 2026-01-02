@@ -32,12 +32,12 @@ export const ModelSelectOption: React.FC<Props> = ({ iconClassName = "size-5" })
       const providerRaw = (d.provider || "other").toLowerCase()
       const groupKey = providerRaw === 'chrome' ? 'default' : (localProviders.has(providerRaw) ? 'custom' : providerRaw)
       const labelNode = (
-        <div className="w-52 gap-2 text-sm truncate inline-flex items-center leading-5 dark:border-gray-700">
+        <div className="w-52 gap-2 text-sm truncate inline-flex items-center leading-5">
           <div>
             {d.avatar ? (
               <Avatar src={d.avatar} alt={d.name} size="small" />
             ) : (
-              <ProviderIcons provider={d?.provider} className="h-4 w-4 text-gray-400" />
+              <ProviderIcons provider={d?.provider} className="h-4 w-4 text-text-subtle" />
             )}
           </div>
           {d?.nickname || d.model}
@@ -65,7 +65,7 @@ export const ModelSelectOption: React.FC<Props> = ({ iconClassName = "size-5" })
         type: 'group',
         key: `group-${groupKey}`,
         label: (
-          <div className="flex items-center gap-1.5 text-xs leading-4 font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-1.5 text-xs leading-4 font-medium uppercase tracking-wider text-text-subtle">
             <ProviderIcons provider={iconKey} className="h-3 w-3" />
             <span>{labelText}</span>
           </div>
@@ -89,7 +89,7 @@ export const ModelSelectOption: React.FC<Props> = ({ iconClassName = "size-5" })
           placement={"topLeft"}
           trigger={["click"]}>
           <Tooltip title={t("selectAModel")}>
-            <IconButton ariaLabel={t("selectAModel") as string} hasPopup="menu" className="dark:text-gray-300">
+            <IconButton ariaLabel={t("selectAModel") as string} hasPopup="menu" className="text-text-muted">
               <LucideBrain className={iconClassName} />
             </IconButton>
           </Tooltip>

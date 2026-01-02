@@ -7,6 +7,7 @@ import { useMessageOption, MAX_COMPARE_MODELS } from "~/hooks/useMessageOption"
 import {
   Checkbox,
   Dropdown,
+  Radio,
   Select,
   Switch,
   Tooltip,
@@ -29,7 +30,8 @@ import {
   FileText,
   PaperclipIcon,
   Gauge,
-  Search
+  Search,
+  CornerUpLeft
 } from "lucide-react"
 import { getVariable } from "@/utils/select-variable"
 import { useTranslation } from "react-i18next"
@@ -52,12 +54,20 @@ import { ConnectionPhase } from "@/types/connection"
 import { Link, useNavigate } from "react-router-dom"
 import { fetchChatModels } from "@/services/tldw-server"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { useTldwAudioStatus } from "@/hooks/useTldwAudioStatus"
+import { useMcpTools } from "@/hooks/useMcpTools"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { CharacterSelect } from "@/components/Common/CharacterSelect"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import type { Character } from "@/types/character"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
 import { BetaTag } from "@/components/Common/Beta"
+import {
+  SlashCommandMenu,
+  type SlashCommandItem
+} from "@/components/Sidepanel/Chat/SlashCommandMenu"
+import { DocumentGeneratorDrawer } from "@/components/Common/Playground/DocumentGeneratorDrawer"
+import { useUiModeStore } from "@/store/ui-mode"
 
 const getPersistenceModeLabel = (
   t: (...args: any[]) => any,
@@ -98,6 +108,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     onSubmit,
     selectedModel,
     chatMode,
+    setChatMode,
     compareMode,
     setCompareMode,
     compareFeatureEnabled,
@@ -111,6 +122,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     streaming: isSending,
     webSearch,
     setWebSearch,
+    toolChoice,
+    setToolChoice,
     selectedQuickPrompt,
     textareaRef,
     setSelectedQuickPrompt,
@@ -138,7 +151,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     serverChatState,
     setServerChatState,
     serverChatSource,
-    setServerChatSource
+    setServerChatSource,
+    setServerChatVersion,
+    replyTarget,
+    clearReplyTarget
   } = useMessageOption()
 
   const [autoSubmitVoiceMessage] = useStorage("autoSubmitVoiceMessage", false)
@@ -149,11 +165,26 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const { phase, isConnected } = useConnectionState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
   const { capabilities, loading: capsLoading } = useServerCapabilities()
+  const {
+    hasMcp,
+    healthState: mcpHealthState,
+    tools: mcpTools,
+    toolsLoading: mcpToolsLoading
+  } = useMcpTools()
   const hasServerAudio =
     isConnectionReady && !capsLoading && capabilities?.hasAudio
+  const { healthState: audioHealthState } = useTldwAudioStatus()
+  const canUseServerAudio = hasServerAudio && audioHealthState !== "unhealthy"
   const [hasShownConnectBanner, setHasShownConnectBanner] = React.useState(false)
   const [showConnectBanner, setShowConnectBanner] = React.useState(false)
   const [showQueuedBanner, setShowQueuedBanner] = React.useState(true)
+  const [documentGeneratorOpen, setDocumentGeneratorOpen] =
+    React.useState(false)
+  const [documentGeneratorSeed, setDocumentGeneratorSeed] = React.useState<{
+    conversationId?: string | null
+    message?: string | null
+    messageId?: string | null
+  }>({})
   const [autoStopTimeout] = useStorage("autoStopTimeout", 2000)
   const [sttModel] = useStorage("sttModel", "whisper-1")
   const [sttUseSegmentation] = useStorage("sttUseSegmentation", false)
@@ -184,10 +215,21 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
   const [showServerPersistenceHint, setShowServerPersistenceHint] =
     React.useState(false)
+  const uiMode = useUiModeStore((state) => state.mode)
+  const isProMode = uiMode === "pro"
   const [contextToolsOpen, setContextToolsOpen] = useStorage(
     "playgroundKnowledgeSearchOpen",
     false
   )
+  const replyLabel = replyTarget
+    ? [
+        t("common:replyingTo", "Replying to"),
+        replyTarget.name ? `${replyTarget.name}:` : null,
+        replyTarget.preview
+      ]
+        .filter(Boolean)
+        .join(" ")
+    : ""
 
   React.useEffect(() => {
     if (typeof window === "undefined") return
@@ -197,6 +239,23 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       window.removeEventListener("tldw:open-actor-settings", handler)
     }
   }, [])
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent)?.detail || {}
+      setDocumentGeneratorSeed({
+        conversationId: detail?.conversationId ?? serverChatId ?? null,
+        message: detail?.message ?? null,
+        messageId: detail?.messageId ?? null
+      })
+      setDocumentGeneratorOpen(true)
+    }
+    window.addEventListener("tldw:open-document-generator", handler)
+    return () => {
+      window.removeEventListener("tldw:open-document-generator", handler)
+    }
+  }, [serverChatId])
 
   const {
     tabMentionsEnabled,
@@ -326,7 +385,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       value: model.model,
       label: (
         <div className="flex items-center gap-2">
-          <ProviderIcons provider={model.provider} className="h-3 w-3 text-gray-400" />
+          <ProviderIcons provider={model.provider} className="h-3 w-3 text-text-subtle" />
           <span className="truncate">
             {model.nickname || model.model}
           </span>
@@ -621,6 +680,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   })
   const { sendWhenEnter, setSendWhenEnter } = useWebUI()
+  const speechAvailable =
+    browserSupportsSpeechRecognition || canUseServerAudio
+  const speechUsesServer = canUseServerAudio
 
   React.useEffect(() => {
     if (isListening) {
@@ -709,8 +771,16 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   const submitForm = () => {
     form.onSubmit(async (value) => {
+      const slashResult = applySlashCommand(value.message)
+      if (slashResult.handled) {
+        form.setFieldValue("message", slashResult.message)
+      }
+      const nextMessage = slashResult.handled
+        ? slashResult.message
+        : value.message
+      const trimmed = nextMessage.trim()
       if (
-        value.message.trim().length === 0 &&
+        trimmed.length === 0 &&
         value.image.length === 0 &&
         selectedDocuments.length === 0 &&
         uploadedFiles.length === 0
@@ -719,7 +789,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       }
       if (!isConnectionReady) {
         addQueuedMessage({
-          message: value.message.trim(),
+          message: trimmed,
           image: value.image
         })
         form.reset()
@@ -757,7 +827,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       textAreaFocus()
       await sendMessage({
         image: value.image,
-        message: value.message.trim(),
+        message: trimmed,
         docs: selectedDocuments.map((doc) => ({
           type: "tab",
           tabId: doc.id,
@@ -774,6 +844,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       return
     }
     form.onSubmit(async () => {
+      const slashResult = applySlashCommand(message)
+      const nextMessage = slashResult.handled
+        ? slashResult.message
+        : message
+      const trimmed = nextMessage.trim()
+      if (
+        trimmed.length === 0 &&
+        image.length === 0 &&
+        selectedDocuments.length === 0 &&
+        uploadedFiles.length === 0
+      ) {
+        return
+      }
       const defaultEM = await defaultEmbeddingModelForRag()
       if (!compareModeActive) {
         if (!selectedModel || selectedModel.length === 0) {
@@ -803,7 +886,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       textAreaFocus()
       await sendMessage({
         image,
-        message,
+        message: trimmed,
         docs: selectedDocuments.map((doc) => ({
           type: "tab",
           tabId: doc.id,
@@ -968,6 +1051,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           "in-progress"
       )
       setServerChatSource((created as any)?.source ?? serverChatSource ?? null)
+      setServerChatVersion((created as any)?.version ?? null)
 
       for (const msg of snapshot) {
         const content = (msg.content || "").trim()
@@ -1066,6 +1150,134 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     fileInputRef.current?.click()
   }, [])
 
+  const slashCommands = React.useMemo<SlashCommandItem[]>(
+    () => [
+      {
+        id: "slash-search",
+        command: "search",
+        label: t(
+          "common:commandPalette.toggleKnowledgeSearch",
+          "Toggle Knowledge Search"
+        ),
+        description: t(
+          "common:commandPalette.toggleKnowledgeSearchDesc",
+          "Search your knowledge base"
+        ),
+        keywords: ["rag", "context", "knowledge", "search"],
+        action: () => setChatMode(chatMode === "rag" ? "normal" : "rag")
+      },
+      {
+        id: "slash-web",
+        command: "web",
+        label: t(
+          "common:commandPalette.toggleWebSearch",
+          "Toggle Web Search"
+        ),
+        description: t(
+          "common:commandPalette.toggleWebDesc",
+          "Search the internet"
+        ),
+        keywords: ["web", "internet", "browse"],
+        action: () => setWebSearch(!webSearch)
+      },
+      {
+        id: "slash-vision",
+        command: "vision",
+        label: t("playground:actions.upload", "Attach image"),
+        description: t(
+          "playground:composer.slashVisionDesc",
+          "Attach an image for vision"
+        ),
+        keywords: ["image", "ocr", "vision"],
+        action: handleImageUpload
+      },
+      {
+        id: "slash-model",
+        command: "model",
+        label: t("common:commandPalette.switchModel", "Switch Model"),
+        description: t(
+          "common:currentChatModelSettings",
+          "Open current chat settings"
+        ),
+        keywords: ["settings", "parameters", "temperature"],
+        action: () => setOpenModelSettings(true)
+      }
+    ],
+    [chatMode, handleImageUpload, setChatMode, setWebSearch, t, webSearch, setOpenModelSettings]
+  )
+
+  const slashCommandLookup = React.useMemo(
+    () => new Map(slashCommands.map((command) => [command.command, command])),
+    [slashCommands]
+  )
+
+  const slashMatch = React.useMemo(
+    () => form.values.message.match(/^\s*\/(\w*)$/),
+    [form.values.message]
+  )
+  const slashQuery = slashMatch?.[1] ?? ""
+  const showSlashMenu = Boolean(slashMatch)
+  const [slashActiveIndex, setSlashActiveIndex] = React.useState(0)
+
+  const filteredSlashCommands = React.useMemo(() => {
+    if (!slashQuery) return slashCommands
+    const q = slashQuery.toLowerCase()
+    return slashCommands.filter((command) => {
+      if (command.command.startsWith(q)) return true
+      if (command.label.toLowerCase().includes(q)) return true
+      return (command.keywords || []).some((keyword) =>
+        keyword.toLowerCase().includes(q)
+      )
+    })
+  }, [slashCommands, slashQuery])
+
+  React.useEffect(() => {
+    if (!showSlashMenu) {
+      setSlashActiveIndex(0)
+      return
+    }
+    setSlashActiveIndex((prev) => {
+      if (filteredSlashCommands.length === 0) return 0
+      return Math.min(prev, filteredSlashCommands.length - 1)
+    })
+  }, [showSlashMenu, filteredSlashCommands.length, slashQuery])
+
+  const parseSlashInput = React.useCallback((text: string) => {
+    const trimmed = text.trimStart()
+    const match = trimmed.match(/^\/(\w+)(?:\s+([\s\S]*))?$/)
+    if (!match) return null
+    return {
+      command: match[1].toLowerCase(),
+      remainder: match[2] || ""
+    }
+  }, [])
+
+  const applySlashCommand = React.useCallback(
+    (text: string) => {
+      const parsed = parseSlashInput(text)
+      if (!parsed) {
+        return { handled: false, message: text }
+      }
+      const command = slashCommandLookup.get(parsed.command)
+      if (!command) {
+        return { handled: false, message: text }
+      }
+      command.action()
+      return { handled: true, message: parsed.remainder }
+    },
+    [parseSlashInput, slashCommandLookup]
+  )
+
+  const handleSlashCommandSelect = React.useCallback(
+    (command: SlashCommandItem) => {
+      const parsed = parseSlashInput(form.values.message)
+      command.action()
+      form.setFieldValue("message", parsed?.remainder || "")
+      requestAnimationFrame(() => textareaRef.current?.focus())
+    },
+    [form, parseSlashInput, textareaRef]
+  )
+
   const serverRecorderRef = React.useRef<MediaRecorder | null>(null)
   const serverChunksRef = React.useRef<BlobPart[]>([])
   const [isServerDictating, setIsServerDictating] = React.useState(false)
@@ -1102,6 +1314,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             "in-progress"
         )
         setServerChatSource((updated as any)?.source ?? null)
+        setServerChatVersion((updated as any)?.version ?? null)
       } catch (e: any) {
         notification.error({
           message: t("error", { defaultValue: "Error" }),
@@ -1115,6 +1328,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       serverChatId,
       setServerChatSource,
       setServerChatState,
+      setServerChatVersion,
       t
     ]
   )
@@ -1124,11 +1338,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       stopServerDictation()
       return
     }
-    if (!hasServerAudio) {
+    if (!canUseServerAudio) {
       notification.error({
-        message: t("playground:actions.speechErrorTitle", "Dictation unavailable"),
+        message: t(
+          "playground:actions.speechUnavailableTitle",
+          "Dictation unavailable"
+        ),
         description: t(
-          "playground:actions.speechErrorBody",
+          "playground:actions.speechUnavailableBody",
           "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
         )
       })
@@ -1261,7 +1478,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       })
     }
   }, [
-    hasServerAudio,
+    canUseServerAudio,
     isServerDictating,
     speechToTextLanguage,
     sttModel,
@@ -1282,7 +1499,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     () => (
       <div className="flex w-64 flex-col gap-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-700 dark:text-gray-200">
+          <span className="text-sm text-text">
             {webSearch
               ? t("playground:actions.webSearchOn")
               : t("playground:actions.webSearchOff")}
@@ -1295,10 +1512,110 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             unCheckedChildren={t("form.webSearch.off")}
           />
         </div>
+        <div className="panel-divider my-1" />
+        <div className="text-xs font-semibold text-text-muted">
+          {t("playground:composer.toolChoiceLabel", "Tool choice")}
+        </div>
+        <Tooltip
+          title={
+            !hasMcp
+              ? t(
+                  "playground:composer.mcpToolsUnavailable",
+                  "MCP tools unavailable"
+                )
+              : mcpHealthState === "unhealthy"
+                ? t("playground:composer.mcpToolsUnhealthy", "MCP tools are offline")
+                : mcpToolsLoading
+                  ? t("playground:composer.mcpToolsLoading", "Loading tools...")
+                  : mcpTools.length === 0
+                    ? t("playground:composer.mcpToolsEmpty", "No MCP tools available")
+                    : ""
+          }
+          open={
+            !hasMcp ||
+            mcpHealthState === "unhealthy" ||
+            mcpToolsLoading ||
+            mcpTools.length === 0
+              ? undefined
+              : false
+          }
+        >
+          <Radio.Group
+            size="small"
+            value={toolChoice}
+            onChange={(e) => setToolChoice(e.target.value as typeof toolChoice)}
+            className="flex flex-wrap gap-2"
+            aria-label={t("playground:composer.toolChoiceLabel", "Tool choice")}
+            disabled={
+              !hasMcp ||
+              mcpHealthState === "unhealthy" ||
+              mcpToolsLoading ||
+              mcpTools.length === 0
+            }
+          >
+            <Radio.Button value="auto">
+              {t("playground:composer.toolChoiceAuto", "Auto")}
+            </Radio.Button>
+            <Radio.Button value="required">
+              {t("playground:composer.toolChoiceRequired", "Required")}
+            </Radio.Button>
+            <Radio.Button value="none">
+              {t("playground:composer.toolChoiceNone", "None")}
+            </Radio.Button>
+          </Radio.Group>
+        </Tooltip>
+        <div className="text-xs font-semibold text-text-muted">
+          {t("playground:composer.mcpToolsLabel", "MCP tools")}
+        </div>
+        {mcpToolsLoading ? (
+          <div className="text-xs text-text-muted">
+            {t("playground:composer.mcpToolsLoading", "Loading tools...")}
+          </div>
+        ) : mcpTools.length === 0 ? (
+          <div className="text-xs text-text-muted">
+            {!hasMcp
+              ? t(
+                  "playground:composer.mcpToolsUnavailable",
+                  "MCP tools unavailable"
+                )
+              : mcpHealthState === "unhealthy"
+                ? t("playground:composer.mcpToolsUnhealthy", "MCP tools are offline")
+                : t("playground:composer.mcpToolsEmpty", "No MCP tools available")}
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-1">
+            {mcpTools.slice(0, 6).map((tool, index) => {
+              const toolFn = (tool as any)?.function
+              const name =
+                (typeof tool?.name === "string" && tool.name) ||
+                (typeof toolFn?.name === "string" && toolFn.name) ||
+                (typeof (tool as any)?.id === "string" && (tool as any).id) ||
+                `tool-${index + 1}`
+              const description =
+                (typeof tool?.description === "string" && tool.description) ||
+                (typeof toolFn?.description === "string" && toolFn.description) ||
+                ""
+              return (
+                <span
+                  key={`${name}-${index}`}
+                  title={description || name}
+                  className="rounded-full border border-border px-2 py-0.5 text-[11px] text-text"
+                >
+                  {name}
+                </span>
+              )
+            })}
+            {mcpTools.length > 6 && (
+              <span className="rounded-full border border-border px-2 py-0.5 text-[11px] text-text-muted">
+                +{mcpTools.length - 6}
+              </span>
+            )}
+          </div>
+        )}
         <button
           type="button"
           onClick={() => setCompareSettingsOpen(true)}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
         >
           <span>{compareButtonLabel}</span>
           <GitBranch className="h-4 w-4" />
@@ -1307,7 +1624,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           type="button"
           onClick={handleImageUpload}
           disabled={chatMode === "rag"}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-40 disabled:text-text-muted"
         >
           <span>{t("playground:actions.upload", "Attach image")}</span>
           <ImageIcon className="h-4 w-4" />
@@ -1315,7 +1632,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         <button
           type="button"
           onClick={handleDocumentUpload}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
         >
           <span>{t("tooltip.uploadDocuments")}</span>
           <PaperclipIcon className="h-4 w-4" />
@@ -1324,7 +1641,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           type="button"
           onClick={handleClearContext}
           disabled={history.length === 0}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-40 disabled:text-text-muted"
         >
           <span>{t("tooltip.clearContext")}</span>
           <EraserIcon className="h-4 w-4" />
@@ -1340,14 +1657,56 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       history.length,
       setCompareSettingsOpen,
       setWebSearch,
+      setToolChoice,
       t,
-      webSearch
+      toolChoice,
+      webSearch,
+      hasMcp,
+      mcpHealthState,
+      mcpTools,
+      mcpToolsLoading
     ]
   )
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (import.meta.env.BROWSER !== "firefox") {
       if (e.key === "Process" || e.key === "229") return
+    }
+
+    if (showSlashMenu) {
+      if (e.key === "ArrowDown" && filteredSlashCommands.length > 0) {
+        e.preventDefault()
+        setSlashActiveIndex((prev) =>
+          prev + 1 >= filteredSlashCommands.length ? 0 : prev + 1
+        )
+        return
+      }
+      if (e.key === "ArrowUp" && filteredSlashCommands.length > 0) {
+        e.preventDefault()
+        setSlashActiveIndex((prev) =>
+          prev <= 0 ? filteredSlashCommands.length - 1 : prev - 1
+        )
+        return
+      }
+      if (
+        (e.key === "Enter" || (e.key === "Tab" && !e.shiftKey)) &&
+        filteredSlashCommands.length > 0
+      ) {
+        e.preventDefault()
+        const command = filteredSlashCommands[slashActiveIndex]
+        if (command) {
+          handleSlashCommandSelect(command)
+        }
+        return
+      }
+      if (e.key === "Escape") {
+        e.preventDefault()
+        form.setFieldValue(
+          "message",
+          form.values.message.replace(/^\s*\//, "")
+        )
+        return
+      }
     }
 
     if (
@@ -1357,6 +1716,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         e.key === "Enter" ||
         e.key === "Escape")
     ) {
+      return
+    }
+
+    if (!isConnectionReady) {
+      if (e.key === "Enter") {
+        e.preventDefault()
+      }
       return
     }
 
@@ -1432,11 +1798,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           <div
             data-istemporary-chat={temporaryChat}
             data-checkwidemode={checkWideMode}
-            className={` bg-neutral-50  dark:bg-[#2D2D2D] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 data-[checkwidemode='true']:max-w-none ${
+            className={`relative w-full max-w-[48rem] rounded-t-xl border border-border bg-surface p-1 text-text backdrop-blur-lg duration-100 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 data-[checkwidemode='true']:max-w-none ${
               !isConnectionReady ? "opacity-80" : ""
             }`}>
             <div
-              className={`border-b border-gray-200 dark:border-gray-600 relative ${
+              className={`relative border-b border-border ${
                 form.values.image.length === 0 ? "hidden" : "block"
               }`}>
               <button
@@ -1444,7 +1810,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 onClick={() => {
                   form.setFieldValue("image", "")
                 }}
-                className="absolute top-1 left-1 flex items-center justify-center z-10 bg-white dark:bg-[#2D2D2D] p-0.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-black dark:text-gray-100">
+                className="absolute top-1 left-1 z-10 flex items-center justify-center rounded-full border border-border bg-surface p-0.5 text-text hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
                 <X className="h-4 w-4" />
               </button>{" "}
               <Image
@@ -1456,8 +1822,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             </div>
             {selectedDocuments.length > 0 && (
               <div className="p-3" data-playground-tabs="true" tabIndex={-1}>
-                <div className="max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
-                  <div className="flex flex-wrap gap-1.5">
+                <div className="max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+                  <div className="flex flex-wrap gap-2">
                     {selectedDocuments.map((document) => (
                       <DocumentChip
                         key={document.id}
@@ -1471,7 +1837,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             )}
             {uploadedFiles.length > 0 && (
               <div
-                className="p-3 border-b border-gray-200 dark:border-gray-600"
+                className="border-b border-border p-3"
                 data-playground-uploads="true"
                 tabIndex={-1}
               >
@@ -1479,7 +1845,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                   <div className="flex items-center gap-2">
                     <Tooltip title={t("fileRetrievalEnabled")}>
                       <div className="inline-flex items-center gap-2">
-                        <FileText className="h-4 w-4 dark:text-gray-300" />
+                        <FileText className="h-4 w-4 text-text-subtle" />
                         <Switch
                           size="small"
                           checked={fileRetrievalEnabled}
@@ -1495,21 +1861,21 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                     </Tooltip>
                   </div>
                 </div>
-                <div className="max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
-                  <div className="flex flex-wrap gap-1.5">
+                <div className="max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+                  <div className="flex flex-wrap gap-2">
                     {uploadedFiles.map((file) => (
                       <button
                         key={file.id}
-                        className="relative group p-1.5 w-60 flex items-center gap-1 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/5 rounded-2xl text-left"
+                        className="relative group w-60 flex items-center gap-1 rounded-2xl border border-border bg-surface p-2 text-left text-text hover:bg-surface2"
                         type="button">
-                        <div className="p-3 bg-black/20 dark:bg-white/10 text-white rounded-xl">
-                          <FileIcon className="size-5" />
+                        <div className="rounded-xl bg-surface2 p-3 text-text">
+                          <FileIcon className="size-5 text-text" />
                         </div>
-                        <div className="flex flex-col justify-center -space-y-0.5 px-2.5 w-full">
-                          <div className="dark:text-gray-100 text-sm font-medium line-clamp-1 mb-1">
+                        <div className="flex flex-col justify-center -space-y-1 px-3 w-full">
+                          <div className="mb-1 line-clamp-1 text-sm font-medium text-text">
                             {file.filename}
                           </div>
-                          <div className="flex justify-between text-gray-500 text-xs line-clamp-1">
+                          <div className="flex justify-between text-xs text-text-muted line-clamp-1">
                             File{" "}
                             <span className="capitalize">
                               {new Intl.NumberFormat(undefined, {
@@ -1523,7 +1889,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         <div className="absolute -top-1 -right-1">
                           <button
                             onClick={() => removeUploadedFile(file.id)}
-                            className="bg-white dark:bg-gray-700 text-black dark:text-gray-100 border border-gray-50 dark:border-gray-600 rounded-full group-hover:visible invisible transition"
+                            className="invisible rounded-full border border-border bg-surface text-text shadow-sm transition group-hover:visible hover:bg-surface2"
                             type="button">
                             <X className="w-4 h-4" />
                           </button>
@@ -1536,7 +1902,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             )}
             {compareModeActive && compareSelectedModels.length > 1 && (
               <div className="px-3 pb-2">
-                <div className="flex flex-wrap items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-[11px] text-blue-900 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-100">
+                <div className="flex flex-wrap items-center gap-2 rounded-md border border-primary bg-surface2 px-3 py-2 text-[11px] text-primaryStrong">
                   <span className="text-[10px] font-semibold uppercase tracking-wide">
                     {t("playground:composer.compareActiveModelsLabel", "Active models")}
                   </span>
@@ -1546,7 +1912,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         key={`active-${modelId}`}
                         type="button"
                         onClick={() => removeCompareModel(modelId)}
-                        className="flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-blue-800 shadow-sm hover:bg-blue-100 dark:bg-blue-900/60 dark:text-blue-100 dark:hover:bg-blue-800/60">
+                        className="flex items-center gap-1 rounded-full bg-surface px-2 py-0.5 text-[10px] font-medium text-primaryStrong shadow-sm hover:bg-surface2">
                         <span>
                           {compareModelLabelById.get(modelId) || modelId}
                         </span>
@@ -1554,7 +1920,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                       </button>
                     ))}
                   </div>
-                  <span className="text-[10px] text-blue-700/80 dark:text-blue-200/80">
+                  <span className="text-[10px] text-primary">
                     {t(
                       "playground:composer.compareActiveModelsHint",
                       "Your next message will be sent to each active model."
@@ -1575,14 +1941,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
               <div className="space-y-4 text-sm">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <div className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <div className="flex items-center gap-2 text-sm font-medium text-text">
                       {t(
                         "playground:composer.compareFeatureToggle",
                         "Enable Compare mode"
                       )}
                       <BetaTag className="!m-0" />
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted">
                       {t(
                         "playground:composer.compareFeatureToggleHint",
                         "Unlock experimental multi-model compare features."
@@ -1596,13 +1962,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <div className="text-sm font-medium text-text">
                       {t(
                         "playground:composer.compareSettingsToggle",
                         "Enable Compare mode"
                       )}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted">
                       {t(
                         "playground:composer.compareSettingsToggleHint",
                         "Send your next message to multiple models."
@@ -1623,7 +1989,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                       : "space-y-2 opacity-50 pointer-events-none"
                   }
                 >
-                  <div className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-text-subtle">
                     {t(
                       "playground:composer.compareModelPickerLabel",
                       "Select models"
@@ -1642,12 +2008,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                     style={{ width: "100%" }}
                   />
                   {compareSummaryLabel && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted">
                       {compareSummaryLabel}
                     </div>
                   )}
                   {compareActiveSummary && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted">
                       {compareActiveSummary}
                     </div>
                   )}
@@ -1656,8 +2022,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 <div
                   className={
                     compareModeActive
-                      ? "flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
-                      : "flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 opacity-50 pointer-events-none"
+                      ? "flex items-center gap-2 text-xs text-text-muted"
+                      : "flex items-center gap-2 text-xs text-text-muted opacity-50 pointer-events-none"
                   }
                 >
                   <span>
@@ -1692,7 +2058,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                     className={`ml-1 ${
                       compareSelectedModels.length >=
                       (compareMaxModels || MAX_COMPARE_MODELS)
-                        ? "text-amber-600 dark:text-amber-400"
+                        ? "text-warn"
                         : ""
                     }`}
                   >
@@ -1791,17 +2157,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                   <div
                     className={`w-full flex flex-col px-2 ${
                       !isConnectionReady
-                        ? "rounded-md border border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-[#1b1b1b]"
+                        ? "rounded-md border border-dashed border-border bg-surface2"
                         : ""
                     }`}>
                     <div
                       className={contextToolsOpen ? "mb-2" : "hidden"}
                       aria-hidden={!contextToolsOpen}
                     >
-                      <div className="rounded-md border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                      <div className="rounded-md border border-border bg-surface p-3">
                         <div className="flex flex-col gap-4">
                           <div>
-                            <div className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-200">
+                            <div className="mb-2 text-xs font-semibold text-text">
                               {t(
                                 "playground:composer.knowledgeSearch",
                                 "Knowledge search"
@@ -1828,8 +2194,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               variant="embedded"
                             />
                           </div>
-                          <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
-                            <div className="mb-3 text-xs font-semibold text-gray-700 dark:text-gray-200">
+                          <div className="border-t border-border pt-4">
+                            <div className="mb-3 text-xs font-semibold text-text">
                               {t(
                                 "playground:composer.contextManagerTitle",
                                 "Context Management"
@@ -1838,13 +2204,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <div className="flex flex-col gap-5">
                               <div className="flex items-start justify-between gap-3">
                                 <div>
-                                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                  <div className="text-sm font-semibold text-text">
                                     {t(
                                       "playground:composer.contextTabsTitle",
                                       "Tabs in context"
                                     )}
                                   </div>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                  <p className="text-xs text-text-muted">
                                     {t(
                                       "playground:composer.contextTabsHint",
                                       "Review or remove referenced tabs, or add more from your open browser tabs."
@@ -1855,14 +2221,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   <button
                                     type="button"
                                     onClick={() => reloadTabs()}
-                                    className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                    className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                     {t("common:refresh", "Refresh")}
                                   </button>
                                   {selectedDocuments.length > 0 && (
                                     <button
                                       type="button"
                                       onClick={clearSelectedDocuments}
-                                      className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                      className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                       {t(
                                         "playground:composer.clearTabs",
                                         "Remove all tabs"
@@ -1871,32 +2237,32 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   )}
                                 </div>
                               </div>
-                              <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                              <div className="rounded-lg border border-border bg-surface p-3">
                                 {selectedDocuments.length > 0 ? (
                                   <div className="flex flex-col gap-2">
                                     {selectedDocuments.map((doc) => (
                                       <div
                                         key={doc.id}
-                                        className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-[#111]">
+                                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface2 px-3 py-2">
                                         <div className="min-w-0">
-                                          <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                          <div className="truncate text-sm font-medium text-text">
                                             {doc.title}
                                           </div>
-                                          <div className="truncate text-xs text-gray-500 dark:text-gray-400">
+                                          <div className="truncate text-xs text-text-muted">
                                             {doc.url}
                                           </div>
                                         </div>
                                         <button
                                           type="button"
                                           onClick={() => removeDocument(doc.id)}
-                                          className="rounded-full border border-gray-200 p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-[#2a2a2a]">
+                                          className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
                                           <X className="h-4 w-4" />
                                         </button>
                                       </div>
                                     ))}
                                   </div>
                                 ) : (
-                                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                                  <div className="text-sm text-text-muted">
                                     {t(
                                       "playground:composer.contextTabsEmpty",
                                       "No tabs added yet."
@@ -1904,7 +2270,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   </div>
                                 )}
                                 <div className="mt-3">
-                                  <div className="text-xs font-semibold text-gray-700 dark:text-gray-200">
+                                  <div className="text-xs font-semibold text-text">
                                     {t(
                                       "playground:composer.contextTabsAvailable",
                                       "Open tabs"
@@ -1915,25 +2281,25 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                       availableTabs.map((tab) => (
                                         <div
                                           key={tab.id}
-                                          className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-white px-3 py-2 shadow-sm dark:border-gray-700 dark:bg-[#161616]">
+                                          className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface px-3 py-2 shadow-sm">
                                           <div className="min-w-0">
-                                            <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                            <div className="truncate text-sm font-medium text-text">
                                               {tab.title}
                                             </div>
-                                            <div className="truncate text-xs text-gray-500 dark:text-gray-400">
+                                            <div className="truncate text-xs text-text-muted">
                                               {tab.url}
                                             </div>
                                           </div>
                                           <button
                                             type="button"
                                             onClick={() => addDocument(tab)}
-                                            className="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                            className="rounded-md border border-border px-2 py-1 text-xs font-medium text-text hover:bg-surface2">
                                             {t("common:add", "Add")}
                                           </button>
                                         </div>
                                       ))
                                     ) : (
-                                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                                      <div className="text-xs text-text-muted">
                                         {t(
                                           "playground:composer.noTabsFound",
                                           "No eligible open tabs found."
@@ -1945,13 +2311,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               </div>
                               <div className="flex items-start justify-between gap-3">
                                 <div>
-                                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                  <div className="text-sm font-semibold text-text">
                                     {t(
                                       "playground:composer.contextFilesTitle",
                                       "Files in context"
                                     )}
                                   </div>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                  <p className="text-xs text-text-muted">
                                     {t(
                                       "playground:composer.contextFilesHint",
                                       "Review attached files, remove them, or add more."
@@ -1964,14 +2330,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     onClick={() => {
                                       fileInputRef.current?.click()
                                     }}
-                                    className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                    className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                     {t("playground:composer.addFile", "Add file")}
                                   </button>
                                   {uploadedFiles.length > 0 && (
                                     <button
                                       type="button"
                                       onClick={clearUploadedFiles}
-                                      className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                      className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                       {t(
                                         "playground:composer.clearFiles",
                                         "Remove all files"
@@ -1980,32 +2346,32 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   )}
                                 </div>
                               </div>
-                              <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                              <div className="rounded-lg border border-border bg-surface p-3">
                                 {uploadedFiles.length > 0 ? (
                                   <div className="flex flex-col gap-2">
                                     {uploadedFiles.map((file) => (
                                       <div
                                         key={file.id}
-                                        className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-[#111]">
+                                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface2 px-3 py-2">
                                         <div className="min-w-0">
-                                          <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                          <div className="truncate text-sm font-medium text-text">
                                             {file.filename}
                                           </div>
-                                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                                          <div className="text-xs text-text-muted">
                                             {(file.size / (1024 * 1024)).toFixed(2)} MB
                                           </div>
                                         </div>
                                         <button
                                           type="button"
                                           onClick={() => removeUploadedFile(file.id)}
-                                          className="rounded-full border border-gray-200 p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-[#2a2a2a]">
+                                          className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
                                           <X className="h-4 w-4" />
                                         </button>
                                       </div>
                                     ))}
                                   </div>
                                 ) : (
-                                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                                  <div className="text-sm text-text-muted">
                                     {t(
                                       "playground:composer.contextFilesEmpty",
                                       "No files attached yet."
@@ -2019,6 +2385,38 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                       </div>
                     </div>
                     <div className="relative">
+                      {isProMode && replyTarget && (
+                        <div className="mb-2 flex items-center justify-between gap-2 rounded-md border border-border bg-surface2 px-3 py-2 text-xs text-text">
+                          <div className="flex min-w-0 items-center gap-2">
+                            <CornerUpLeft className="h-3.5 w-3.5 text-text-subtle" />
+                            <span className="min-w-0 truncate">
+                              {replyLabel}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={clearReplyTarget}
+                            aria-label={t(
+                              "common:clearReply",
+                              "Clear reply target"
+                            )}
+                            className="rounded p-1 text-text-subtle hover:bg-surface hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+                            <X className="h-3.5 w-3.5" aria-hidden="true" />
+                          </button>
+                        </div>
+                      )}
+                      <SlashCommandMenu
+                        open={showSlashMenu}
+                        commands={filteredSlashCommands}
+                        activeIndex={slashActiveIndex}
+                        onActiveIndexChange={setSlashActiveIndex}
+                        onSelect={handleSlashCommandSelect}
+                        emptyLabel={t(
+                          "common:commandPalette.noResults",
+                          "No results found"
+                        )}
+                        className="absolute bottom-full left-2 right-2 mb-2"
+                      />
                       <textarea
                         id="textarea-message"
                         onCompositionStart={() => {
@@ -2032,19 +2430,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           }
                         }}
                         onKeyDown={(e) => {
-                          if (!isConnectionReady) {
-                            if (e.key === "Enter") {
-                              e.preventDefault()
-                            }
-                            return
-                          }
                           handleKeyDown(e)
                         }}
                         onFocus={handleDisconnectedFocus}
                         ref={textareaRef}
-                        className={`px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
+                        className={`w-full resize-none bg-transparent px-2 py-2 text-text placeholder:text-text-muted focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0 ${
                           !isConnectionReady
-                            ? "cursor-not-allowed text-gray-500 placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500"
+                            ? "cursor-not-allowed text-text-muted placeholder:text-text-subtle"
                             : ""
                         }`}
                         onPaste={handlePaste}
@@ -2099,7 +2491,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                     <div className="mt-2 flex flex-col gap-1">
                       <div className="mt-1 flex flex-col gap-2">
                         <div className="flex flex-wrap items-start gap-3">
-                          <div className="flex flex-col gap-0.5 text-xs text-gray-700 dark:text-gray-200">
+                          <div className="flex flex-col gap-0.5 text-xs text-text">
                             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                               <Switch
                                 size="small"
@@ -2129,10 +2521,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                       "Save chat to history"
                                     )}
                               </span>
-                              <span className="inline-flex items-center rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[11px] font-medium text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200">
+                              <span className="inline-flex items-center rounded-full border border-border bg-surface px-2 py-0.5 text-[11px] font-medium text-text shadow-sm">
                                 {persistencePillLabel}
                               </span>
-                              <span className="text-[11px] text-gray-500 dark:text-gray-400 font-semibold">
+                              <span className="text-[11px] font-semibold text-text-muted">
                                 {persistenceModeLabel}
                               </span>
                             </div>
@@ -2140,7 +2532,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               <button
                                 type="button"
                                 onClick={handleSaveChatToServer}
-                                className="mt-1 inline-flex w-fit items-center gap-1 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 hover:bg-blue-100 dark:border-blue-500/60 dark:bg-blue-900/30 dark:text-blue-200 dark:hover:bg-blue-900/50">
+                                className="mt-1 inline-flex w-fit items-center gap-1 rounded-full border border-primary bg-surface2 px-2 py-0.5 text-[11px] font-medium text-primaryStrong hover:bg-surface">
                                 {t(
                                   "playground:composer.persistence.saveToServer",
                                   "Also save this chat to server"
@@ -2151,7 +2543,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               <button
                                 type="button"
                                 onClick={focusConnectionCard}
-                                className="mt-1 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
+                                className="mt-1 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-primary hover:text-primaryStrong">
                                 {t(
                                   "playground:composer.persistence.connectToSave",
                                   "Connect your server to save chats there."
@@ -2159,7 +2551,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               </button>
                             )}
                             {!temporaryChat && serverChatId && showServerPersistenceHint && (
-                              <p className="mt-1 max-w-md text-[11px] text-gray-600 dark:text-gray-300">
+                              <p className="mt-1 max-w-md text-[11px] text-text-muted">
                                 <span className="font-semibold">
                                   {t(
                                     "playground:composer.persistence.serverInlineTitle",
@@ -2174,7 +2566,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 <button
                                   type="button"
                                   onClick={() => setShowServerPersistenceHint(false)}
-                                  className="ml-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                                  className="ml-1 text-[11px] font-medium text-primary hover:text-primaryStrong"
                                 >
                                   {t("common:dismiss", "Dismiss")}
                                 </button>
@@ -2183,7 +2575,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           </div>
                         </div>
                           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                          <div className="flex flex-wrap items-center gap-2 text-[11px] text-gray-600 dark:text-gray-300">
+                          <div className="flex flex-wrap items-center gap-2 text-[11px] text-text-muted">
                             <button
                               type="button"
                               onClick={handleToggleContextTools}
@@ -2202,8 +2594,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               aria-expanded={contextToolsOpen}
                               className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium transition ${
                                 contextToolsOpen
-                                  ? "border-pink-200 bg-pink-50 text-pink-700 hover:bg-pink-100 dark:border-pink-700 dark:bg-pink-900/30 dark:text-pink-200 dark:hover:bg-pink-900/40"
-                                  : "border-gray-200 text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+                                  ? "border-accent bg-surface2 text-accent hover:bg-surface"
+                                  : "border-border text-text-muted hover:bg-surface2 hover:text-text"
                               }`}
                             >
                               <Search className="h-3 w-3" />
@@ -2238,8 +2630,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     "Review or remove referenced tabs, or add more from your open browser tabs."
                                   ) as string
                                 }
-                                className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-[#262626]">
-                                <FileText className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+                                className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-border hover:bg-surface2">
+                                <FileText className="h-3 w-3 text-text-subtle" />
                                 <span>
                                   {t("playground:composer.contextTabs", {
                                     defaultValue: "{{count}} tabs",
@@ -2267,8 +2659,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     "Review attached files, remove them, or add more."
                                   ) as string
                                 }
-                                className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-[#262626]">
-                                <FileIcon className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+                                className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-border hover:bg-surface2">
+                                <FileIcon className="h-3 w-3 text-text-subtle" />
                                 <span>
                                   {t("playground:composer.contextFiles", {
                                     defaultValue: "{{count}} files",
@@ -2279,50 +2671,63 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             )}
                           </div>
                           <div className="flex items-center justify-end gap-3 flex-wrap">
-                            <CharacterSelect className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100" iconClassName="size-5" />
+                            <CharacterSelect className="text-text-muted hover:text-text" iconClassName="size-5" />
                             {(browserSupportsSpeechRecognition || hasServerAudio) && (
                               <>
                                 <Tooltip
                                   title={
-                                    hasServerAudio
+                                    !speechAvailable
                                       ? t(
-                                          "playground:tooltip.speechToTextServer",
-                                          "Dictation via your tldw server"
-                                        ) +
-                                        " " +
-                                        t(
-                                          "playground:tooltip.speechToTextDetails",
-                                          "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text.",
-                                          {
-                                            model: sttModel || "whisper-1",
-                                            task:
-                                              sttTask === "translate"
-                                                ? "translate"
-                                                : "transcribe",
-                                            format: (sttResponseFormat || "json").toUpperCase()
-                                          } as any
+                                          "playground:actions.speechUnavailableBody",
+                                          "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
                                         )
-                                      : t(
-                                          "playground:tooltip.speechToTextBrowser",
-                                          "Dictation via browser speech recognition"
-                                        )
+                                      : speechUsesServer
+                                        ? t(
+                                            "playground:tooltip.speechToTextServer",
+                                            "Dictation via your tldw server"
+                                          ) +
+                                          " " +
+                                          t(
+                                            "playground:tooltip.speechToTextDetails",
+                                            "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text.",
+                                            {
+                                              model: sttModel || "whisper-1",
+                                              task:
+                                                sttTask === "translate"
+                                                  ? "translate"
+                                                  : "transcribe",
+                                              format: (sttResponseFormat || "json").toUpperCase()
+                                            } as any
+                                          )
+                                        : t(
+                                            "playground:tooltip.speechToTextBrowser",
+                                            "Dictation via browser speech recognition"
+                                          )
                                   }>
                                   <button
                                     type="button"
-                                    onClick={hasServerAudio ? handleServerDictationToggle : handleSpeechToggle}
-                                    className={`inline-flex items-center justify-center rounded-full border px-2 py-1 text-xs transition hover:bg-gray-100 dark:hover:bg-[#2a2a2a] ${
-                                      (hasServerAudio && isServerDictating) || (!hasServerAudio && isListening)
-                                        ? "border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300"
-                                        : "border-gray-200 text-gray-700 dark:border-gray-600 dark:text-gray-200"
+                                    onClick={speechUsesServer ? handleServerDictationToggle : handleSpeechToggle}
+                                    disabled={!speechAvailable}
+                                    className={`inline-flex items-center justify-center rounded-full border px-2 py-1 text-xs transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-50 ${
+                                      speechAvailable &&
+                                      ((speechUsesServer && isServerDictating) ||
+                                        (!speechUsesServer && isListening))
+                                        ? "border-primary text-primaryStrong"
+                                        : "border-border text-text-muted"
                                     }`}
                                     aria-label={
-                                      hasServerAudio
-                                        ? (isServerDictating
-                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
-                                            : (t("playground:actions.speechStart", "Start dictation") as string))
-                                        : (isListening
-                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
-                                            : (t("playground:actions.speechStart", "Start dictation") as string))
+                                      !speechAvailable
+                                        ? (t(
+                                            "playground:actions.speechUnavailableTitle",
+                                            "Dictation unavailable"
+                                          ) as string)
+                                        : speechUsesServer
+                                          ? (isServerDictating
+                                              ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                              : (t("playground:actions.speechStart", "Start dictation") as string))
+                                          : (isListening
+                                              ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                              : (t("playground:actions.speechStart", "Start dictation") as string))
                                     }>
                                     <MicIcon className="h-4 w-4" />
                                   </button>
@@ -2343,7 +2748,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     "common:currentChatModelSettings"
                                   ) as string
                                 }
-                                className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text transition hover:bg-surface2">
                                 <Gauge
                                   className="h-4 w-4"
                                   aria-hidden="true"
@@ -2352,7 +2757,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   <span className="font-medium">
                                     {t("playground:composer.chatSettings", "Chat Settings")}
                                   </span>
-                                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                                  <span className="text-[11px] text-text-muted">
                                     {modelSummaryLabel} • {promptSummaryLabel}
                                   </span>
                                 </span>
@@ -2367,7 +2772,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               type="button"
                               aria-label={t("playground:composer.moreTools", "More tools") as string}
                               title={t("playground:composer.moreTools", "More tools") as string}
-                              className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                              className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-sm text-text transition hover:bg-surface2">
                                 <span>
                                   {t(
                                     "playground:composer.toolsButton",
@@ -2468,7 +2873,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 <button
                                   type="button"
                                   onClick={stopStreamingRequest}
-                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
+                                  className="rounded-md border border-border p-1 text-text hover:bg-surface2">
                                   <StopCircleIcon className="size-5" />
                                 </button>
                               </Tooltip>
@@ -2593,6 +2998,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         isOCREnabled={useOCR}
       />
       <ActorPopout open={openActorSettings} setOpen={setOpenActorSettings} />
+      <DocumentGeneratorDrawer
+        open={documentGeneratorOpen}
+        onClose={() => {
+          setDocumentGeneratorOpen(false)
+          setDocumentGeneratorSeed({})
+        }}
+        conversationId={
+          documentGeneratorSeed?.conversationId ?? serverChatId ?? null
+        }
+        defaultModel={selectedModel || null}
+        seedMessage={documentGeneratorSeed?.message ?? null}
+        seedMessageId={documentGeneratorSeed?.messageId ?? null}
+      />
     </div>
   )
 }

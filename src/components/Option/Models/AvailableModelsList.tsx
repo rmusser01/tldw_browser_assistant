@@ -104,7 +104,7 @@ export const AvailableModelsList: React.FC = () => {
         </Card>
       ))}
       {isEmpty && (
-        <div className="text-sm text-gray-600 dark:text-gray-300">
+        <div className="text-sm text-text-muted">
           <div className="mb-1 font-medium">
             {t('settings:models.noProvidersTitle', 'No providers available.')}
           </div>

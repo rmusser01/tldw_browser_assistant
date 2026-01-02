@@ -290,7 +290,7 @@ export const CompareView: React.FC<CompareViewProps> = ({
 
       {/* Empty state */}
       {!result.isLoading && result.chunks.length === 0 && !result.error && (
-        <div className="text-center py-4 text-gray-400 text-sm">
+        <div className="text-center py-4 text-text-subtle text-sm">
           {t("settings:chunkingPlayground.clickToChunk", "Click 'Compare' to see results")}
         </div>
       )}
@@ -355,7 +355,7 @@ export const CompareView: React.FC<CompareViewProps> = ({
             <div>
               <Text type="secondary">Config A</Text>
               <div className="text-lg font-medium">{statsA.count} chunks</div>
-              <div className="text-xs text-gray-400">avg {statsA.avgCharCount} chars</div>
+              <div className="text-xs text-text-subtle">avg {statsA.avgCharCount} chars</div>
             </div>
             <div className="flex items-center justify-center">
               <Text type="secondary">vs</Text>
@@ -363,11 +363,11 @@ export const CompareView: React.FC<CompareViewProps> = ({
             <div>
               <Text type="secondary">Config B</Text>
               <div className="text-lg font-medium">{statsB.count} chunks</div>
-              <div className="text-xs text-gray-400">avg {statsB.avgCharCount} chars</div>
+              <div className="text-xs text-text-subtle">avg {statsB.avgCharCount} chars</div>
             </div>
           </div>
           <Divider className="my-3" />
-          <div className="text-center text-sm text-gray-500">
+          <div className="text-center text-sm text-text-muted">
             {statsA.count < statsB.count
               ? t(
                   "settings:chunkingPlayground.fewerChunks",

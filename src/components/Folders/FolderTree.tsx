@@ -112,7 +112,7 @@ export const FolderTree = ({
               {node.title}
             </span>
             {node.itemCount > 0 && (
-              <span className="text-xs text-gray-400 dark:text-gray-500">
+              <span className="text-xs text-text-subtle">
                 ({node.itemCount})
               </span>
             )}
@@ -193,9 +193,9 @@ export const FolderTree = ({
       showIcon
       switcherIcon={({ expanded }: { expanded?: boolean }) =>
         expanded ? (
-          <ChevronDown className="w-3 h-3 text-gray-400" />
+          <ChevronDown className="w-3 h-3 text-text-subtle" />
         ) : (
-          <ChevronRight className="w-3 h-3 text-gray-400" />
+          <ChevronRight className="w-3 h-3 text-text-subtle" />
         )
       }
       className="folder-tree bg-transparent"

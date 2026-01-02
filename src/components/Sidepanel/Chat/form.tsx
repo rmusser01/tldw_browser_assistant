@@ -4,7 +4,7 @@ import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { useMessage } from "~/hooks/useMessage"
 import { toBase64 } from "~/libs/to-base64"
-import { Checkbox, Dropdown, Switch, Image, Tooltip, message, Modal } from "antd"
+import { Checkbox, Dropdown, Switch, Tooltip, message, Modal } from "antd"
 import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
@@ -12,6 +12,7 @@ import {
   MicIcon,
   StopCircleIcon,
   X,
+  CornerUpLeft,
   EyeIcon,
   EyeOffIcon,
   Gauge
@@ -29,8 +30,11 @@ import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useFocusShortcuts } from "@/hooks/keyboard"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
 import { ControlRow } from "@/components/Sidepanel/Chat/ControlRow"
+import { ContextChips } from "@/components/Sidepanel/Chat/ContextChips"
+import { SlashCommandMenu, type SlashCommandItem } from "@/components/Sidepanel/Chat/SlashCommandMenu"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
 import { ActorPopout } from "@/components/Common/Settings/ActorPopout"
+import { DocumentGeneratorDrawer } from "@/components/Common/Playground/DocumentGeneratorDrawer"
 import QuickIngestModal from "@/components/Common/QuickIngestModal"
 import {
   useConnectionState,
@@ -38,10 +42,14 @@ import {
 } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { useTldwAudioStatus } from "@/hooks/useTldwAudioStatus"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useFocusComposerOnConnect } from "@/hooks/useComposerFocus"
 import { useQuickIngestStore } from "@/store/quick-ingest"
+import { useUiModeStore } from "@/store/ui-mode"
+import { useStoreMessageOption } from "@/store/option"
+import { Button } from "@/components/Common/Button"
 
 type Props = {
   dropedFile: File | undefined
@@ -89,6 +97,14 @@ export const SidepanelForm = ({
   const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
   const queuedQuickIngestCount = useQuickIngestStore((s) => s.queuedCount)
   const quickIngestHadFailure = useQuickIngestStore((s) => s.hadRecentFailure)
+  const uiMode = useUiModeStore((state) => state.mode)
+  const isProMode = uiMode === "pro"
+  const { replyTarget, clearReplyTarget } = useStoreMessageOption()
+  const composerPadding = isProMode ? "px-3" : "px-4"
+  const composerGap = isProMode ? "gap-2" : "gap-3"
+  const cardPadding = isProMode ? "p-3" : "p-4"
+  const textareaMaxHeight = isProMode ? 160 : 48
+  const textareaMinHeight = isProMode ? 60 : 48
   const storageKey = draftKey || "tldw:sidepanelChatDraft"
   const form = useForm({
     initialValues: {
@@ -238,17 +254,82 @@ export const SidepanelForm = ({
     React.useState(false)
   const quickIngestBtnRef = React.useRef<HTMLButtonElement>(null)
   const [openActorSettings, setOpenActorSettings] = React.useState(false)
+  const [documentGeneratorOpen, setDocumentGeneratorOpen] =
+    React.useState(false)
+  const [documentGeneratorSeed, setDocumentGeneratorSeed] = React.useState<{
+    conversationId?: string | null
+    message?: string | null
+    messageId?: string | null
+  }>({})
   const { phase, isConnected, serverUrl } = useConnectionState()
   const { uxState } = useConnectionUxState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
   const { capabilities, loading: capsLoading } = useServerCapabilities()
   const hasServerAudio =
     isConnectionReady && !capsLoading && capabilities?.hasAudio
+  const { healthState: audioHealthState } = useTldwAudioStatus()
+  const canUseServerAudio = hasServerAudio && audioHealthState !== "unhealthy"
+  const speechAvailable =
+    browserSupportsSpeechRecognition || canUseServerAudio
+  const speechUsesServer = canUseServerAudio
   const [isFlushingQueue, setIsFlushingQueue] = React.useState(false)
+  const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const [debouncedPlaceholder, setDebouncedPlaceholder] = React.useState<string>(
     t("form.textarea.placeholder")
   )
   const placeholderTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hasImage = form.values.image.length > 0
+  const replyLabel = replyTarget
+    ? [
+        t("common:replyingTo", "Replying to"),
+        replyTarget.name ? `${replyTarget.name}:` : null,
+        replyTarget.preview
+      ]
+        .filter(Boolean)
+        .join(" ")
+    : ""
+  const contextChips = [
+    ...(replyTarget && isProMode
+      ? [
+          {
+            id: "reply",
+            label: replyLabel,
+            icon: <CornerUpLeft className="h-3 w-3 text-text-subtle" />,
+            onRemove: clearReplyTarget,
+            removeLabel: t("common:clearReply", "Clear reply target")
+          }
+        ]
+      : []),
+    ...(hasImage
+      ? [
+          {
+            id: "image",
+            label: t("playground:actions.upload", "Attach image"),
+            previewSrc: form.values.image,
+            onRemove: () => {
+              form.setFieldValue("image", "")
+            },
+            removeLabel: t(
+              "sidepanel:composer.removeImage",
+              "Remove uploaded image"
+            )
+          }
+        ]
+      : [])
+  ]
+
+  const sendButtonTitle = !isConnectionReady
+    ? (t(
+        "playground:composer.connectToSend",
+        "Connect to your tldw server to start chatting."
+      ) as string)
+    : sendWhenEnter
+      ? (t("playground:sendWhenEnter") as string)
+      : undefined
+
+  const openUploadDialog = () => {
+    fileInputRef.current?.click()
+  }
 
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement> | File
@@ -308,6 +389,15 @@ export const SidepanelForm = ({
     }
   }, [])
 
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    const handler = () => setOpenModelSettings(true)
+    window.addEventListener("tldw:open-model-settings", handler)
+    return () => {
+      window.removeEventListener("tldw:open-model-settings", handler)
+    }
+  }, [])
+
   // When sidepanel connection transitions to CONNECTED, focus the composer
   useFocusComposerOnConnect(phase)
 
@@ -342,6 +432,8 @@ export const SidepanelForm = ({
     defaultChatWithWebsite,
     temporaryChat,
     setTemporaryChat,
+    toolChoice,
+    setToolChoice,
     messages,
     clearChat,
     queuedMessages,
@@ -349,6 +441,152 @@ export const SidepanelForm = ({
     clearQueuedMessages,
     serverChatId
   } = useMessage()
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent)?.detail || {}
+      setDocumentGeneratorSeed({
+        conversationId: detail?.conversationId ?? serverChatId ?? null,
+        message: detail?.message ?? null,
+        messageId: detail?.messageId ?? null
+      })
+      setDocumentGeneratorOpen(true)
+    }
+    window.addEventListener("tldw:open-document-generator", handler)
+    return () => {
+      window.removeEventListener("tldw:open-document-generator", handler)
+    }
+  }, [serverChatId])
+
+  const slashCommands = React.useMemo<SlashCommandItem[]>(
+    () => [
+      {
+        id: "slash-search",
+        command: "search",
+        label: t(
+          "common:commandPalette.toggleKnowledgeSearch",
+          "Toggle Knowledge Search"
+        ),
+        description: t(
+          "common:commandPalette.toggleKnowledgeSearchDesc",
+          "Search your knowledge base"
+        ),
+        keywords: ["rag", "context", "knowledge", "search"],
+        action: () => setChatMode(chatMode === "rag" ? "normal" : "rag")
+      },
+      {
+        id: "slash-web",
+        command: "web",
+        label: t(
+          "common:commandPalette.toggleWebSearch",
+          "Toggle Web Search"
+        ),
+        description: t(
+          "common:commandPalette.toggleWebDesc",
+          "Search the internet"
+        ),
+        keywords: ["web", "internet", "browse"],
+        action: () => setWebSearch(!webSearch)
+      },
+      {
+        id: "slash-vision",
+        command: "vision",
+        label: t("sidepanel:controlRow.vision", "Vision"),
+        description: t(
+          "sidepanel:controlRow.visionTooltip",
+          "Enable Vision to analyze images"
+        ),
+        keywords: ["image", "ocr", "vision"],
+        action: () =>
+          setChatMode(chatMode === "vision" ? "normal" : "vision")
+      },
+      {
+        id: "slash-model",
+        command: "model",
+        label: t("common:commandPalette.switchModel", "Switch Model"),
+        description: t(
+          "common:currentChatModelSettings",
+          "Open current chat settings"
+        ),
+        keywords: ["settings", "parameters", "temperature"],
+        action: () => setOpenModelSettings(true)
+      }
+    ],
+    [chatMode, t, webSearch, setChatMode, setWebSearch, setOpenModelSettings]
+  )
+
+  const slashCommandLookup = React.useMemo(
+    () => new Map(slashCommands.map((command) => [command.command, command])),
+    [slashCommands]
+  )
+
+  const slashMatch = React.useMemo(
+    () => form.values.message.match(/^\s*\/(\w*)$/),
+    [form.values.message]
+  )
+  const slashQuery = slashMatch?.[1] ?? ""
+  const showSlashMenu = Boolean(slashMatch)
+  const [slashActiveIndex, setSlashActiveIndex] = React.useState(0)
+
+  const filteredSlashCommands = React.useMemo(() => {
+    if (!slashQuery) return slashCommands
+    const q = slashQuery.toLowerCase()
+    return slashCommands.filter((command) => {
+      if (command.command.startsWith(q)) return true
+      if (command.label.toLowerCase().includes(q)) return true
+      return (command.keywords || []).some((keyword) =>
+        keyword.toLowerCase().includes(q)
+      )
+    })
+  }, [slashCommands, slashQuery])
+
+  React.useEffect(() => {
+    if (!showSlashMenu) {
+      setSlashActiveIndex(0)
+      return
+    }
+    setSlashActiveIndex((prev) => {
+      if (filteredSlashCommands.length === 0) return 0
+      return Math.min(prev, filteredSlashCommands.length - 1)
+    })
+  }, [showSlashMenu, filteredSlashCommands.length, slashQuery])
+
+  const parseSlashInput = React.useCallback((text: string) => {
+    const trimmed = text.trimStart()
+    const match = trimmed.match(/^\/(\w+)(?:\s+([\s\S]*))?$/)
+    if (!match) return null
+    return {
+      command: match[1].toLowerCase(),
+      remainder: match[2] || ""
+    }
+  }, [])
+
+  const applySlashCommand = React.useCallback(
+    (text: string) => {
+      const parsed = parseSlashInput(text)
+      if (!parsed) {
+        return { handled: false, message: text }
+      }
+      const command = slashCommandLookup.get(parsed.command)
+      if (!command) {
+        return { handled: false, message: text }
+      }
+      command.action()
+      return { handled: true, message: parsed.remainder }
+    },
+    [parseSlashInput, slashCommandLookup]
+  )
+
+  const handleSlashCommandSelect = React.useCallback(
+    (command: SlashCommandItem) => {
+      const parsed = parseSlashInput(form.values.message)
+      command.action()
+      form.setFieldValue("message", parsed?.remainder || "")
+      requestAnimationFrame(() => textareaRef.current?.focus())
+    },
+    [form, parseSlashInput, textareaRef]
+  )
 
 
   const handlePaste = (e: React.ClipboardEvent) => {
@@ -400,7 +638,12 @@ export const SidepanelForm = ({
     rawMessage: string,
     image: string
   ): Promise<void> {
-    const trimmed = rawMessage.trim()
+    const slashResult = applySlashCommand(rawMessage)
+    if (slashResult.handled) {
+      form.setFieldValue("message", slashResult.message)
+    }
+    const nextMessage = slashResult.handled ? slashResult.message : rawMessage
+    const trimmed = nextMessage.trim()
     if (trimmed.length === 0 && image.length === 0) {
       return
     }
@@ -422,15 +665,58 @@ export const SidepanelForm = ({
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (showSlashMenu) {
+      if (e.key === "ArrowDown" && filteredSlashCommands.length > 0) {
+        e.preventDefault()
+        setSlashActiveIndex((prev) =>
+          prev + 1 >= filteredSlashCommands.length ? 0 : prev + 1
+        )
+        return
+      }
+      if (e.key === "ArrowUp" && filteredSlashCommands.length > 0) {
+        e.preventDefault()
+        setSlashActiveIndex((prev) =>
+          prev <= 0 ? filteredSlashCommands.length - 1 : prev - 1
+        )
+        return
+      }
+      if (
+        (e.key === "Enter" || (e.key === "Tab" && !e.shiftKey)) &&
+        filteredSlashCommands.length > 0
+      ) {
+        e.preventDefault()
+        const command = filteredSlashCommands[slashActiveIndex]
+        if (command) {
+          handleSlashCommandSelect(command)
+        }
+        return
+      }
+      if (e.key === "Escape") {
+        e.preventDefault()
+        form.setFieldValue(
+          "message",
+          form.values.message.replace(/^\s*\//, "")
+        )
+        return
+      }
+    }
     if (!isConnectionReady) {
       if (e.key === "Enter") {
         e.preventDefault()
         form.onSubmit(async (value) => {
-          if (value.message.trim().length === 0 && value.image.length === 0) {
+          const slashResult = applySlashCommand(value.message)
+          if (slashResult.handled) {
+            form.setFieldValue("message", slashResult.message)
+          }
+          const nextMessage = slashResult.handled
+            ? slashResult.message
+            : value.message
+          const trimmed = nextMessage.trim()
+          if (trimmed.length === 0 && value.image.length === 0) {
             return
           }
           addQueuedMessage({
-            message: value.message.trim(),
+            message: trimmed,
             image: value.image
           })
           form.reset()
@@ -454,7 +740,6 @@ export const SidepanelForm = ({
     }
   }
 
-  const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const openSettings = React.useCallback(() => {
     try {
       // @ts-ignore
@@ -622,14 +907,14 @@ export const SidepanelForm = ({
       stopServerDictation()
       return
     }
-    if (!hasServerAudio) {
+    if (!canUseServerAudio) {
       notification.error({
         message: t(
-          "playground:actions.speechErrorTitle",
+          "playground:actions.speechUnavailableTitle",
           "Dictation unavailable"
         ),
         description: t(
-          "playground:actions.speechErrorBody",
+          "playground:actions.speechUnavailableBody",
           "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
         )
       })
@@ -787,7 +1072,7 @@ export const SidepanelForm = ({
       })
     }
   }, [
-    hasServerAudio,
+    canUseServerAudio,
     isServerDictating,
     speechToTextLanguage,
     sttModel,
@@ -926,7 +1211,7 @@ export const SidepanelForm = ({
     }
   }, [dropedFile])
 
-  useDynamicTextareaSize(textareaRef, form.values.message, 120)
+  useDynamicTextareaSize(textareaRef, form.values.message, textareaMaxHeight)
 
   React.useEffect(() => {
     if (isListening) {
@@ -1061,32 +1346,15 @@ export const SidepanelForm = ({
   }, [isConnectionReady, uxState, t])
 
   return (
-    <div ref={formContainerRef} className="flex w-full flex-col items-center px-2">
-      <div className="relative z-10 flex w-full flex-col items-center justify-center gap-2 text-base">
+    <div
+      ref={formContainerRef}
+      className={`flex w-full flex-col items-center ${composerPadding}`}>
+      <div
+        className={`relative z-10 flex w-full flex-col items-center justify-center ${composerGap} text-body`}>
         <div className="relative flex w-full flex-row justify-center gap-2">
           <div
             aria-disabled={!isConnectionReady}
-            className="bg-neutral-50 dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl dark:border-gray-600">
-            <div
-              className={`border-b border-gray-200 dark:border-gray-600 relative ${
-                form.values.image.length === 0 ? "hidden" : "block"
-              }`}>
-              <button
-                type="button"
-                onClick={() => {
-                  form.setFieldValue("image", "")
-                }}
-                aria-label={t("sidepanel:composer.removeImage", "Remove uploaded image")}
-                className="absolute top-1 left-1 flex items-center justify-center z-10 bg-white dark:bg-[#262626] p-0.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-black dark:text-gray-100">
-                <X className="h-3 w-3" />
-              </button>{" "}
-              <Image
-                src={form.values.image}
-                alt="Uploaded Image"
-                preview={false}
-                className="rounded-md max-h-32"
-              />
-            </div>
+            className={`relative w-full max-w-[48rem] rounded-xl border border-border bg-surface shadow-card backdrop-blur-lg duration-100 ${cardPadding}`}>
             <div>
               <div className="flex">
                 <form
@@ -1114,7 +1382,7 @@ export const SidepanelForm = ({
                     }`}>
                     {/* Connection status indicator when disconnected */}
                     {!isConnectionReady && (
-                      <div className={`flex items-center gap-2 px-2 py-1.5 text-xs ${
+                      <div className={`flex items-center gap-2 px-2 py-2 text-xs ${
                         uxState === "testing"
                           ? "text-amber-700 dark:text-amber-300"
                           : "text-red-700 dark:text-red-300"
@@ -1144,33 +1412,35 @@ export const SidepanelForm = ({
                       </div>
                     )}
                     {/* RAG Search Bar: search KB, insert snippets, ask directly */}
-                    <RagSearchBar
-                      onInsert={(text) => {
-                        const current = form.values.message || ""
-                        const next = current ? `${current}\n\n${text}` : text
-                        form.setFieldValue("message", next)
-                        // Focus textarea for quick edits
-                        textareaRef.current?.focus()
-                      }}
-                      onAsk={async (text) => {
-                        // Set message and submit immediately
-                        const trimmed = text.trim()
-                        if (!trimmed) return
-                        form.setFieldValue("message", text)
-                        if (!isConnectionReady) {
-                          addQueuedMessage({
-                            message: trimmed,
-                            image: form.values.image
-                          })
-                          form.reset()
-                          return
-                        }
-                        await sendCurrentFormMessage(trimmed, "")
-                      }}
-                    />
+                    {isProMode && (
+                      <RagSearchBar
+                        onInsert={(text) => {
+                          const current = form.values.message || ""
+                          const next = current ? `${current}\n\n${text}` : text
+                          form.setFieldValue("message", next)
+                          // Focus textarea for quick edits
+                          textareaRef.current?.focus()
+                        }}
+                        onAsk={async (text) => {
+                          // Set message and submit immediately
+                          const trimmed = text.trim()
+                          if (!trimmed) return
+                          form.setFieldValue("message", text)
+                          if (!isConnectionReady) {
+                            addQueuedMessage({
+                              message: trimmed,
+                              image: form.values.image
+                            })
+                            form.reset()
+                            return
+                          }
+                          await sendCurrentFormMessage(trimmed, "")
+                        }}
+                      />
+                    )}
                     {/* Queued messages banner - shown above input area */}
                     {queuedMessages.length > 0 && (
-                      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-900 dark:border-green-500 dark:bg-[#102a10] dark:text-green-100">
+                      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-success bg-success/10 px-3 py-2 text-xs text-success">
                         <p className="max-w-xs text-left">
                           <span className="block font-medium">
                             {t(
@@ -1240,7 +1510,7 @@ export const SidepanelForm = ({
                                   }
                                 }}
                                 disabled={!isConnectionReady || isFlushingQueue}
-                                className={`rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419] ${
+                                className={`rounded-md border border-success bg-surface px-2 py-1 text-xs font-medium text-success hover:bg-surface2 ${
                                   !isConnectionReady || isFlushingQueue
                                     ? "cursor-not-allowed opacity-60"
                                     : ""
@@ -1280,7 +1550,7 @@ export const SidepanelForm = ({
                                 }
                               })
                             }}
-                            className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
+                            className="text-xs font-medium text-success underline hover:text-success">
                             {t(
                               "playground:composer.queuedBanner.clear",
                               "Clear queue"
@@ -1289,7 +1559,7 @@ export const SidepanelForm = ({
                           <button
                             type="button"
                             onClick={openDiagnostics}
-                            className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300">
+                            className="text-xs font-medium text-success underline hover:text-success">
                             {t(
                               "settings:healthSummary.diagnostics",
                               "Health & diagnostics"
@@ -1298,15 +1568,34 @@ export const SidepanelForm = ({
                         </div>
                       </div>
                     )}
+                    {contextChips.length > 0 && (
+                      <ContextChips
+                        items={contextChips}
+                        ariaLabel={t("playground:composer.contextLabel", "Context:")}
+                        className="px-2 pb-2"
+                      />
+                    )}
                     <div className="relative">
+                      <SlashCommandMenu
+                        open={showSlashMenu}
+                        commands={filteredSlashCommands}
+                        activeIndex={slashActiveIndex}
+                        onActiveIndexChange={setSlashActiveIndex}
+                        onSelect={handleSlashCommandSelect}
+                        emptyLabel={t(
+                          "common:commandPalette.noResults",
+                          "No results found"
+                        )}
+                        className="absolute bottom-full left-2 right-2 mb-2"
+                      />
                       <textarea
                         onKeyDown={(e) => handleKeyDown(e)}
                         ref={textareaRef}
                         data-testid="chat-input"
-                        className={`px-2 py-2 w-full resize-none focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
+                        className={`w-full resize-none border-0 bg-transparent px-3 py-2 text-body text-text placeholder:text-text-muted focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 ${
                           !isConnectionReady
-                            ? "cursor-not-allowed text-gray-400 placeholder:text-gray-400 dark:text-gray-500 dark:placeholder:text-gray-500 bg-transparent"
-                            : "bg-transparent"
+                            ? "cursor-not-allowed text-text-muted placeholder:text-text-subtle"
+                            : ""
                         }`}
                         readOnly={!isConnectionReady}
                         aria-readonly={!isConnectionReady}
@@ -1321,7 +1610,7 @@ export const SidepanelForm = ({
                         }
                         onPaste={handlePaste}
                         rows={1}
-                        style={{ minHeight: "60px" }}
+                        style={{ minHeight: `${textareaMinHeight}px` }}
                         tabIndex={0}
                         onCompositionStart={() => {
                           if (import.meta.env.BROWSER !== "firefox") {
@@ -1339,7 +1628,7 @@ export const SidepanelForm = ({
                       {/* Draft saved indicator */}
                       {draftSaved && (
                         <span
-                          className="absolute bottom-1 right-2 text-[10px] text-gray-500 dark:text-gray-400 animate-pulse pointer-events-none"
+                          className="absolute bottom-1 right-2 text-label text-text-subtle animate-pulse pointer-events-none"
                           role="status"
                           aria-live="polite"
                         >
@@ -1353,9 +1642,9 @@ export const SidepanelForm = ({
                         role="alert"
                         aria-live="assertive"
                         aria-atomic="true"
-                        className="flex items-center justify-between gap-1.5 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
+                        className="flex items-center justify-between gap-2 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
                       >
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-2">
                           <svg className="h-3.5 w-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                           </svg>
@@ -1373,7 +1662,7 @@ export const SidepanelForm = ({
                     )}
                     {/* Proactive validation hints - show why send might be disabled */}
                     {!form.errors.message && isConnectionReady && !streaming && (
-                      <div className="px-2 py-0.5 text-[10px] text-gray-400 dark:text-gray-500">
+                      <div className="px-2 py-1 text-label text-text-subtle">
                         {!selectedModel ? (
                           <span className="flex items-center gap-1">
                             <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1391,213 +1680,358 @@ export const SidepanelForm = ({
                       </div>
                     )}
                     <div className="mt-2 flex w-full flex-row items-center justify-between gap-2">
-                      {/* Control Row - contains Prompt, Model, RAG, Save, and More tools */}
-                      <ControlRow
-                        selectedSystemPrompt={selectedSystemPrompt}
-                        setSelectedSystemPrompt={setSelectedSystemPrompt}
-                        setSelectedQuickPrompt={setSelectedQuickPrompt}
-                        temporaryChat={temporaryChat}
-                        serverChatId={serverChatId}
-                        setTemporaryChat={handleToggleTemporaryChat}
-                        webSearch={webSearch}
-                        setWebSearch={setWebSearch}
-                        chatMode={chatMode}
-                        setChatMode={setChatMode}
-                        onImageUpload={onInputChange}
-                        onToggleRag={handleRagToggle}
-                        isConnected={isConnectionReady}
-                      />
-                      <div className="flex flex-wrap items-center justify-end gap-2">
-                        <div
-                          role="group"
-                          aria-label={t(
-                            "playground:composer.actions",
-                            "Send options"
-                          )}
-                          className="flex items-center gap-2">
-                          {/* L15: gap-2 provides visual separation */}
-                          {!streaming ? (
-                            <>
-                              <Dropdown.Button
+                      {isProMode ? (
+                        <>
+                          {/* Control Row - contains Prompt, Model, RAG, Save, and More tools */}
+                          <ControlRow
+                            selectedSystemPrompt={selectedSystemPrompt}
+                            setSelectedSystemPrompt={setSelectedSystemPrompt}
+                            setSelectedQuickPrompt={setSelectedQuickPrompt}
+                            temporaryChat={temporaryChat}
+                            serverChatId={serverChatId}
+                            setTemporaryChat={handleToggleTemporaryChat}
+                            webSearch={webSearch}
+                            setWebSearch={setWebSearch}
+                            chatMode={chatMode}
+                            setChatMode={setChatMode}
+                            onImageUpload={onInputChange}
+                            onToggleRag={handleRagToggle}
+                            isConnected={isConnectionReady}
+                            toolChoice={toolChoice}
+                            setToolChoice={setToolChoice}
+                          />
+                          <div className="flex flex-wrap items-center justify-end gap-2">
+                            <div
+                              role="group"
+                              aria-label={t(
+                                "playground:composer.actions",
+                                "Send options"
+                              )}
+                              className="flex items-center gap-2">
+                              {/* L15: gap-2 provides visual separation */}
+                              {!streaming ? (
+                                <>
+                                  {(browserSupportsSpeechRecognition || hasServerAudio) && (
+                                    <Tooltip
+                                      title={
+                                        !speechAvailable
+                                          ? t(
+                                              "playground:actions.speechUnavailableBody",
+                                              "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
+                                            )
+                                          : speechUsesServer
+                                            ? t(
+                                                "playground:tooltip.speechToTextServer",
+                                                "Dictation via your tldw server"
+                                              )
+                                            : t(
+                                                "playground:tooltip.speechToTextBrowser",
+                                                "Dictation via browser speech recognition"
+                                              )
+                                      }
+                                    >
+                                      <button
+                                        type="button"
+                                        onClick={speechUsesServer ? handleServerDictationToggle : handleSpeechToggle}
+                                        disabled={!speechAvailable}
+                                        className={`rounded-md border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text disabled:cursor-not-allowed disabled:opacity-50 ${
+                                          speechAvailable &&
+                                          ((speechUsesServer && isServerDictating) ||
+                                            (!speechUsesServer && isListening))
+                                            ? "border-primary text-primaryStrong"
+                                            : ""
+                                        }`}
+                                        aria-label={
+                                          !speechAvailable
+                                            ? (t(
+                                                "playground:actions.speechUnavailableTitle",
+                                                "Dictation unavailable"
+                                              ) as string)
+                                            : speechUsesServer
+                                              ? (isServerDictating
+                                                  ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                                  : (t("playground:actions.speechStart", "Start dictation") as string))
+                                              : (isListening
+                                                  ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                                  : (t("playground:actions.speechStart", "Start dictation") as string))
+                                        }
+                                      >
+                                        <MicIcon className="h-4 w-4" />
+                                      </button>
+                                    </Tooltip>
+                                  )}
+                                  <Dropdown.Button
+                                    aria-label={t(
+                                      "playground:composer.submitAria",
+                                      "Send message"
+                                    )}
+                                    data-testid="chat-send"
+                                    title={sendButtonTitle}
+                                    htmlType="submit"
+                                    disabled={isSending || !isConnectionReady}
+                                    className="!justify-end !w-auto"
+                                    icon={
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-4 h-4">
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                                        />
+                                      </svg>
+                                    }
+                                    menu={{
+                                      items: [
+                                        {
+                                          key: "send-section",
+                                          type: "group",
+                                          label: t(
+                                            "playground:composer.actions",
+                                            "Send options"
+                                          ),
+                                          children: [
+                                            {
+                                              key: 1,
+                                              label: (
+                                                <Checkbox
+                                                  checked={sendWhenEnter}
+                                                  onChange={(e) =>
+                                                    setSendWhenEnter(e.target.checked)
+                                                  }>
+                                                  {t("sendWhenEnter")}
+                                                </Checkbox>
+                                              )
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          type: "divider",
+                                          key: "divider-1"
+                                        },
+                                        {
+                                          key: "context-section",
+                                          type: "group",
+                                          label: t(
+                                            "playground:composer.coreTools",
+                                            "Conversation options"
+                                          ),
+                                          children: [
+                                            {
+                                              key: 2,
+                                              label: (
+                                                <Checkbox
+                                                  checked={chatMode === "rag"}
+                                                  onChange={(e) => {
+                                                    setChatMode(
+                                                      e.target.checked
+                                                        ? "rag"
+                                                        : "normal"
+                                                    )
+                                                  }}>
+                                                  {t("common:chatWithCurrentPage")}
+                                                </Checkbox>
+                                              )
+                                            },
+                                            {
+                                              key: 3,
+                                              label: (
+                                                <Checkbox
+                                                  checked={useOCR}
+                                                  onChange={(e) =>
+                                                    setUseOCR(e.target.checked)
+                                                  }>
+                                                  {t("useOCR")}
+                                                </Checkbox>
+                                              )
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }}>
+                                    <div className="inline-flex gap-2">
+                                      {sendWhenEnter ? (
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth="2"
+                                          className="h-4 w-4"
+                                          viewBox="0 0 24 24">
+                                          <path d="M9 10L4 15 9 20"></path>
+                                          <path d="M20 4v7a4 4 0 01-4 4H4"></path>
+                                        </svg>
+                                      ) : null}
+                                      {t("common:send", "Send")}
+                                    </div>
+                                  </Dropdown.Button>
+                                  {/* Current Conversation Settings button to the right of submit */}
+                                  <Tooltip
+                                    title={
+                                      t("common:currentChatModelSettings") as string
+                                    }>
+                                    <button
+                                      type="button"
+                                      onClick={() => setOpenModelSettings(true)}
+                                      className="rounded-md p-1 text-text-muted hover:bg-surface2 hover:text-text">
+                                      <Gauge className="h-5 w-5" />
+                                      <span className="sr-only">
+                                        {t(
+                                          "playground:composer.openModelSettings",
+                                          "Open current chat settings"
+                                        )}
+                                      </span>
+                                    </button>
+                                  </Tooltip>
+                                </>
+                              ) : (
+                                <>
+                                  <Tooltip title={t("tooltip.stopStreaming")}>
+                                    <button
+                                      type="button"
+                                      onClick={stopStreamingRequest}
+                                      data-testid="chat-stop-streaming"
+                                      className="rounded-md border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
+                                      <StopCircleIcon className="h-5 w-5" />
+                                      <span className="sr-only">
+                                        {t(
+                                          "playground:composer.stopStreaming",
+                                          "Stop streaming response"
+                                        )}
+                                      </span>
+                                    </button>
+                                  </Tooltip>
+                                  {/* L15: Visual separator between Stop and settings buttons */}
+                                  <Tooltip
+                                    title={
+                                      t("common:currentChatModelSettings") as string
+                                    }>
+                                    <button
+                                      type="button"
+                                      onClick={() => setOpenModelSettings(true)}
+                                      className="rounded-md border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
+                                      <Gauge className="h-5 w-5" />
+                                      <span className="sr-only">
+                                        {t(
+                                          "playground:composer.openModelSettings",
+                                          "Open current chat settings"
+                                        )}
+                                      </span>
+                                    </button>
+                                  </Tooltip>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex items-center gap-2">
+                            <Tooltip
+                              title={t("playground:actions.upload", "Attach image")}
+                            >
+                              <button
+                                type="button"
+                                onClick={openUploadDialog}
+                                className="rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
                                 aria-label={t(
+                                  "playground:actions.upload",
+                                  "Attach image"
+                                )}
+                              >
+                                <ImageIcon className="h-4 w-4" />
+                              </button>
+                            </Tooltip>
+                            {(browserSupportsSpeechRecognition || hasServerAudio) && (
+                              <Tooltip
+                                title={
+                                  !speechAvailable
+                                    ? t(
+                                        "playground:actions.speechUnavailableBody",
+                                        "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
+                                      )
+                                    : speechUsesServer
+                                      ? t(
+                                          "playground:tooltip.speechToTextServer",
+                                          "Dictation via your tldw server"
+                                        )
+                                      : t(
+                                          "playground:tooltip.speechToTextBrowser",
+                                          "Dictation via browser speech recognition"
+                                        )
+                                }
+                              >
+                                <button
+                                  type="button"
+                                  onClick={speechUsesServer ? handleServerDictationToggle : handleSpeechToggle}
+                                  disabled={!speechAvailable}
+                                  className={`rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-not-allowed disabled:opacity-50 ${
+                                    speechAvailable &&
+                                    ((speechUsesServer && isServerDictating) ||
+                                      (!speechUsesServer && isListening))
+                                      ? "border-primary text-primaryStrong"
+                                      : ""
+                                  }`}
+                                  aria-label={
+                                    !speechAvailable
+                                      ? (t(
+                                          "playground:actions.speechUnavailableTitle",
+                                          "Dictation unavailable"
+                                        ) as string)
+                                      : speechUsesServer
+                                        ? (isServerDictating
+                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                            : (t("playground:actions.speechStart", "Start dictation") as string))
+                                        : (isListening
+                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                            : (t("playground:actions.speechStart", "Start dictation") as string))
+                                  }
+                                >
+                                  <MicIcon className="h-4 w-4" />
+                                </button>
+                              </Tooltip>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {!streaming ? (
+                              <Button
+                                type="submit"
+                                variant="primary"
+                                size="md"
+                                disabled={isSending || !isConnectionReady}
+                                ariaLabel={t(
                                   "playground:composer.submitAria",
                                   "Send message"
                                 )}
-                                data-testid="chat-send"
-                                title={
-                                  !isConnectionReady
-                                    ? (t(
-                                        "playground:composer.connectToSend",
-                                        "Connect to your tldw server to start chatting."
-                                      ) as string)
-                                    : sendWhenEnter
-                                      ? (t(
-                                          "playground:sendWhenEnter"
-                                        ) as string)
-                                      : undefined
-                                }
-                                htmlType="submit"
-                                disabled={isSending || !isConnectionReady}
-                                className="!justify-end !w-auto"
-                                icon={
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-4 h-4">
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                                    />
-                                  </svg>
-                                }
-                                menu={{
-                                  items: [
-                                    {
-                                      key: "send-section",
-                                      type: "group",
-                                      label: t(
-                                        "playground:composer.actions",
-                                        "Send options"
-                                      ),
-                                      children: [
-                                        {
-                                          key: 1,
-                                          label: (
-                                            <Checkbox
-                                              checked={sendWhenEnter}
-                                              onChange={(e) =>
-                                                setSendWhenEnter(e.target.checked)
-                                              }>
-                                              {t("sendWhenEnter")}
-                                            </Checkbox>
-                                          )
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      type: "divider",
-                                      key: "divider-1"
-                                    },
-                                    {
-                                      key: "context-section",
-                                      type: "group",
-                                      label: t(
-                                        "playground:composer.coreTools",
-                                        "Conversation options"
-                                      ),
-                                      children: [
-                                        {
-                                          key: 2,
-                                          label: (
-                                            <Checkbox
-                                              checked={chatMode === "rag"}
-                                              onChange={(e) => {
-                                                setChatMode(
-                                                  e.target.checked
-                                                    ? "rag"
-                                                    : "normal"
-                                                )
-                                              }}>
-                                              {t("common:chatWithCurrentPage")}
-                                            </Checkbox>
-                                          )
-                                        },
-                                        {
-                                          key: 3,
-                                          label: (
-                                            <Checkbox
-                                              checked={useOCR}
-                                              onChange={(e) =>
-                                                setUseOCR(e.target.checked)
-                                              }>
-                                              {t("useOCR")}
-                                            </Checkbox>
-                                          )
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }}>
-                                <div className="inline-flex gap-2">
-                                  {sendWhenEnter ? (
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      className="h-4 w-4"
-                                      viewBox="0 0 24 24">
-                                      <path d="M9 10L4 15 9 20"></path>
-                                      <path d="M20 4v7a4 4 0 01-4 4H4"></path>
-                                    </svg>
-                                  ) : null}
-                                  {t("common:send", "Send")}
-                                </div>
-                              </Dropdown.Button>
-                              {/* Current Conversation Settings button to the right of submit */}
-                              <Tooltip
-                                title={
-                                  t("common:currentChatModelSettings") as string
-                                }>
-                                <button
-                                  type="button"
-                                  onClick={() => setOpenModelSettings(true)}
-                                  className="text-gray-700 dark:text-gray-300 p-1 hover:text-gray-900 dark:hover:text-gray-100">
-                                  <Gauge className="h-5 w-5" />
-                                  <span className="sr-only">
-                                    {t(
-                                      "playground:composer.openModelSettings",
-                                      "Open current chat settings"
-                                    )}
-                                  </span>
-                                </button>
-                              </Tooltip>
-                            </>
-                          ) : (
-                            <>
+                                title={sendButtonTitle}
+                              >
+                                {t("common:send", "Send")}
+                              </Button>
+                            ) : (
                               <Tooltip title={t("tooltip.stopStreaming")}>
                                 <button
                                   type="button"
                                   onClick={stopStreamingRequest}
                                   data-testid="chat-stop-streaming"
-                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
+                                  className="rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                                  aria-label={t(
+                                    "playground:composer.stopStreaming",
+                                    "Stop streaming response"
+                                  )}
+                                >
                                   <StopCircleIcon className="h-5 w-5" />
-                                  <span className="sr-only">
-                                    {t(
-                                      "playground:composer.stopStreaming",
-                                      "Stop streaming response"
-                                    )}
-                                  </span>
                                 </button>
                               </Tooltip>
-                              {/* L15: Visual separator between Stop and settings buttons */}
-                              <Tooltip
-                                title={
-                                  t("common:currentChatModelSettings") as string
-                                }>
-                                <button
-                                  type="button"
-                                  onClick={() => setOpenModelSettings(true)}
-                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
-                                  <Gauge className="h-5 w-5" />
-                                  <span className="sr-only">
-                                    {t(
-                                      "playground:composer.openModelSettings",
-                                      "Open current chat settings"
-                                    )}
-                                  </span>
-                                </button>
-                              </Tooltip>
-                            </>
-                          )}
-                        </div>
-                      </div>
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </form>
@@ -1613,6 +2047,19 @@ export const SidepanelForm = ({
         isOCREnabled={useOCR}
       />
       <ActorPopout open={openActorSettings} setOpen={setOpenActorSettings} />
+      <DocumentGeneratorDrawer
+        open={documentGeneratorOpen}
+        onClose={() => {
+          setDocumentGeneratorOpen(false)
+          setDocumentGeneratorSeed({})
+        }}
+        conversationId={
+          documentGeneratorSeed?.conversationId ?? serverChatId ?? null
+        }
+        defaultModel={selectedModel || null}
+        seedMessage={documentGeneratorSeed?.message ?? null}
+        seedMessageId={documentGeneratorSeed?.messageId ?? null}
+      />
       {/* Quick ingest modal */}
       <QuickIngestModal
         open={ingestOpen}

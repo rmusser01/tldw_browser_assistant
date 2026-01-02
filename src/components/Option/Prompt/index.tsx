@@ -472,8 +472,8 @@ export const PromptBody = () => {
         <div className="mb-6 space-y-3">
           {/* Bulk action bar - shown when rows are selected */}
           {selectedRowKeys.length > 0 && (
-            <div className="flex items-center gap-3 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-md border border-blue-200 dark:border-blue-800">
-              <span className="text-sm text-blue-700 dark:text-blue-300">
+            <div className="flex items-center gap-3 p-2 bg-primary/10 rounded-md border border-primary/30">
+              <span className="text-sm text-primary">
                 {t("managePrompts.bulk.selected", {
                   defaultValue: "{{count}} selected",
                   count: selectedRowKeys.length
@@ -482,7 +482,7 @@ export const PromptBody = () => {
               <button
                 onClick={() => triggerBulkExport()}
                 data-testid="prompts-bulk-export"
-                className="inline-flex items-center gap-1 px-2 py-1 text-sm rounded border border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-800">
+                className="inline-flex items-center gap-1 px-2 py-1 text-sm rounded border border-primary/30 text-primary hover:bg-primary/10">
                 <Download className="size-3" /> {t("managePrompts.bulk.export", { defaultValue: "Export selected" })}
               </button>
               <button
@@ -502,13 +502,13 @@ export const PromptBody = () => {
                 }}
                 disabled={isBulkDeleting}
                 data-testid="prompts-bulk-delete"
-                className="inline-flex items-center gap-1 px-2 py-1 text-sm rounded border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 disabled:opacity-50">
+                className="inline-flex items-center gap-1 px-2 py-1 text-sm rounded border border-danger/30 text-danger hover:bg-danger/10 disabled:opacity-50">
                 <Trash2 className="size-3" /> {t("managePrompts.bulk.delete", { defaultValue: "Delete selected" })}
               </button>
               <button
                 onClick={() => setSelectedRowKeys([])}
                 data-testid="prompts-clear-selection"
-                className="ml-auto text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                className="ml-auto text-sm text-text-muted hover:text-text">
                 {t("common:clearSelection", { defaultValue: "Clear selection" })}
               </button>
             </div>
@@ -522,24 +522,24 @@ export const PromptBody = () => {
                   setOpen(true)
                 }}
                 data-testid="prompts-add"
-                className="inline-flex items-center rounded-md border border-transparent bg-black px-2 py-2 text-md font-medium leading-4 text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50">
+                className="inline-flex items-center rounded-md border border-transparent bg-primary px-2 py-2 text-md font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 disabled:opacity-50">
                 {t("managePrompts.addBtn")}
               </button>
               <button
                 onClick={() => triggerExport()}
                 data-testid="prompts-export"
-                className="inline-flex items-center gap-2 rounded-md border border-gray-300 dark:border-gray-700 px-2 py-2 text-md font-medium leading-4 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+                className="inline-flex items-center gap-2 rounded-md border border-border px-2 py-2 text-md font-medium leading-4 text-text hover:bg-surface2">
                 <Download className="size-4" /> {t("managePrompts.export", { defaultValue: "Export" })}
               </button>
               {/* Import controls grouped together */}
-              <div className="inline-flex items-center rounded-md border border-gray-300 dark:border-gray-700 overflow-hidden">
+              <div className="inline-flex items-center rounded-md border border-border overflow-hidden">
                 <button
                   onClick={() => {
                     if (guardPrivateMode()) return
                     fileInputRef.current?.click()
                   }}
                   data-testid="prompts-import"
-                  className="inline-flex items-center gap-2 px-2 py-2 text-md font-medium leading-4 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  className="inline-flex items-center gap-2 px-2 py-2 text-md font-medium leading-4 text-text hover:bg-surface2">
                   <UploadCloud className="size-4" /> {t("managePrompts.import", { defaultValue: "Import" })}
                 </button>
                 <Select
@@ -657,7 +657,7 @@ export const PromptBody = () => {
                         favorite: !record?.favorite
                       })
                     }
-                    className="text-yellow-500"
+                    className="text-warn"
                     title={record?.favorite ? t("managePrompts.unfavorite", { defaultValue: "Unfavorite" }) : t("managePrompts.favorite", { defaultValue: "Favorite" })}
                     data-testid={`prompt-favorite-${record.id}`}
                   >
@@ -675,7 +675,7 @@ export const PromptBody = () => {
                       {record?.name || record?.title}
                     </span>
                     {record?.author && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-text-muted ">
                         {t("managePrompts.form.author.label", {
                           defaultValue: "Author"
                         })}
@@ -683,7 +683,7 @@ export const PromptBody = () => {
                       </span>
                     )}
                     {record?.details && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                      <span className="text-xs text-text-muted line-clamp-2">
                         {record.details}
                       </span>
                     )}
@@ -790,7 +790,7 @@ export const PromptBody = () => {
                           setOpenEdit(true)
                         }}
                         disabled={isFireFoxPrivateMode}
-                        className="inline-flex items-center gap-1 text-gray-500 dark:text-gray-400 disabled:opacity-50">
+                        className="inline-flex items-center gap-1 text-text-muted disabled:opacity-50">
                         <Pen className="size-4" />
                         <span>{t("common:edit", { defaultValue: "Edit" })}</span>
                       </button>
@@ -819,7 +819,7 @@ export const PromptBody = () => {
                           })
                         }}
                         disabled={isFireFoxPrivateMode}
-                        className="inline-flex items-center gap-1 text-gray-500 dark:text-gray-400 disabled:opacity-50">
+                        className="inline-flex items-center gap-1 text-text-muted disabled:opacity-50">
                         <CopyIcon className="size-4" />
                         <span>{t("managePrompts.tooltip.duplicate", { defaultValue: "Duplicate Prompt" })}</span>
                       </button>
@@ -862,7 +862,7 @@ export const PromptBody = () => {
                           }
                         }}
                         disabled={isFireFoxPrivateMode}
-                        className="inline-flex items-center gap-1 text-gray-500 dark:text-gray-400 disabled:opacity-50">
+                        className="inline-flex items-center gap-1 text-text-muted disabled:opacity-50">
                         <MessageCircle className="size-4" />
                         <span>{t("option:promptInsert.useInChat", { defaultValue: "Use in chat" })}</span>
                       </button>
@@ -884,7 +884,7 @@ export const PromptBody = () => {
                           deletePrompt(record.id)
                         }}
                         disabled={isFireFoxPrivateMode}
-                        className="inline-flex items-center gap-1 text-red-500 dark:text-red-400 disabled:opacity-50">
+                        className="inline-flex items-center gap-1 text-danger disabled:opacity-50">
                         <Trash2 className="size-4" />
                         <span>{t("common:delete", { defaultValue: "Delete" })}</span>
                       </button>
@@ -1003,7 +1003,7 @@ export const PromptBody = () => {
                           editCopilotForm.setFieldsValue(record)
                           setOpenCopilotEdit(true)
                         }}
-                        className="text-gray-500 dark:text-gray-400">
+                        className="text-text-muted ">
                         <Pen className="size-4" />
                       </button>
                     </Tooltip>
@@ -1068,7 +1068,7 @@ export const PromptBody = () => {
             setSelectedSegment(value as "custom" | "copilot")
           }}
         />
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+        <p className="text-xs text-text-muted ">
           {selectedSegment === "custom"
             ? t("managePrompts.segmented.helpCustom", {
                 defaultValue:
@@ -1174,7 +1174,7 @@ export const PromptBody = () => {
             <button
               disabled={savePromptLoading}
               data-testid="prompt-create-save"
-              className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50 ">
+              className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-primary px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 disabled:opacity-50">
               {savePromptLoading
                 ? t("managePrompts.form.btnSave.saving")
                 : t("managePrompts.form.btnSave.save")}
@@ -1274,7 +1274,7 @@ export const PromptBody = () => {
             <button
               disabled={isUpdatingPrompt}
               data-testid="prompt-edit-save"
-              className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50 ">
+              className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-primary px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 disabled:opacity-50">
               {isUpdatingPrompt
                 ? t("managePrompts.form.btnEdit.saving")
                 : t("managePrompts.form.btnEdit.save")}
@@ -1327,7 +1327,7 @@ export const PromptBody = () => {
           <Form.Item>
             <button
               disabled={isUpdatingCopilotPrompt}
-              className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50 ">
+              className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-primary px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 disabled:opacity-50">
               {isUpdatingCopilotPrompt
                 ? t("managePrompts.form.btnEdit.saving")
                 : t("managePrompts.form.btnEdit.save")}
@@ -1343,7 +1343,7 @@ export const PromptBody = () => {
         open={!!insertPrompt}
         onCancel={() => setInsertPrompt(null)}
         footer={null}>
-        <p className="text-sm text-gray-600 dark:text-gray-300">
+        <p className="text-sm text-text-muted ">
           {t("managePrompts.form.isSystem.help", {
             defaultValue:
               "System prompts set AI behavior and appear in the system message. Quick prompts are inserted as user message templates."
@@ -1354,7 +1354,7 @@ export const PromptBody = () => {
             type="button"
             onClick={() => handleInsertChoice("system")}
             data-testid="prompt-insert-system"
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-800">
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-medium text-text hover:bg-surface2">
             <Computer className="size-4" />
             {systemPromptLabel}
           </button>
@@ -1362,7 +1362,7 @@ export const PromptBody = () => {
             type="button"
             onClick={() => handleInsertChoice("quick")}
             data-testid="prompt-insert-quick"
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-800">
+            className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-medium text-text hover:bg-surface2">
             <Zap className="size-4" />
             {quickPromptLabel}
           </button>

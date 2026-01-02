@@ -1,0 +1,1763 @@
+{
+  "newChat": {
+    "message": "Ny Chat"
+  },
+  "selectAPrompt": {
+    "message": "Velg en Prompt"
+  },
+  "githubRepository": {
+    "message": "GitHub-repositorium"
+  },
+  "settings": {
+    "message": "Innstillinger"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "Koble tldw Assistant til serveren din"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "Søker etter tldw-serveren din…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "Koblet til tldw-serveren din"
+  },
+  "connectionCard_headlineError": {
+    "message": "Kan ikke nå tldw-serveren din"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server is the backend that powers chat, knowledge search, and media processing. Connect your own tldw server URL to start using the assistant."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "We’re checking {{host}} to see if your tldw server is reachable. This may take a moment while we wait for a response."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "Connected to your tldw server at {{host}}. You can start chatting or use Review, Knowledge, and other tools."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Gjennomgå medier og transkripsjoner"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Søk i kunnskap og notater"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Bruk RAG med dine egne dokumenter"
+  },
+  "connectionCard_descriptionError": {
+    "message": "We couldn’t reach your tldw server at {{host}}. Make sure the server is running, the URL is correct, and your browser can reach it over the network."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "Start chat"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "Prøv på nytt"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "Bytt server"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "Åpne diagnostikk"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "Vis diagnostikk"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "Åpne Quick Ingest"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "Prøv en demo"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "Fortsett frakoblet"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "Deaktiver frakoblet modus"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "Frakoblet modus — kun staging"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "Gå til serverkortet"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "Tips: Trenger du ingest-hjelp når du er frakoblet?"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "Når serveren er frakoblet, fungerer Quick Ingest som et staging-område. Du kan legge URL-er og filer i kø nå og behandle dem når du kobler til igjen."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "Tilbake til arbeidsområdet"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "Innstillinger åpnes i en ny nettleserfane slik at du kan konfigurere tldw-serveren."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "Quick Ingest kan legge URL-er og filer i kø mens serveren er frakoblet, så du kan behandle dem når du kobler til igjen."
+  },
+  "connectionCard_connectedCaption": {
+    "message": "Chat og verktøy er nå tilgjengelige i Innstillinger og i sidepanelet."
+  },
+  "header_showShortcuts": {
+    "message": "Vis snarveier"
+  },
+  "header_hideShortcuts": {
+    "message": "Skjul snarveier"
+  },
+  "header_groupWorkspace": {
+    "message": "Arbeidsområde"
+  },
+  "header_groupKnowledge": {
+    "message": "Kunnskap"
+  },
+  "header_groupSettings": {
+    "message": "Innstillingssnarveier"
+  },
+  "header_backToHome": {
+    "message": "Tilbake til start"
+  },
+  "header_openSidebar": {
+    "message": "Åpne sidepanel"
+  },
+  "header_untitledChat": {
+    "message": "Navnløs"
+  },
+  "header_modelLabel": {
+    "message": "Modell"
+  },
+  "header_contentReview": {
+    "message": "Innholdsgjennomgang"
+  },
+  "header_promptLabel": {
+    "message": "Ledetekst"
+  },
+  "header_review": {
+    "message": "Gjennomgang"
+  },
+  "header_flashcards": {
+    "message": "Flashkort"
+  },
+  "header_quiz": {
+    "message": "Kunnskapsquiz"
+  },
+  "header_media": {
+    "message": "Medier"
+  },
+  "header_libraryView": {
+    "message": "Gjennomgang av flere elementer"
+  },
+  "header_notes": {
+    "message": "Notater"
+  },
+  "header_modesLabel": {
+    "message": "Moduser"
+  },
+  "header_modePlayground": {
+    "message": "Samtale"
+  },
+  "header_modeReview": {
+    "message": "Gjennomgang"
+  },
+  "header_modeMedia": {
+    "message": "Medier"
+  },
+  "header_modeKnowledge": {
+    "message": "Kunnskap Q&A"
+  },
+  "header_modeNotes": {
+    "message": "Notater"
+  },
+  "header_modePrompts": {
+    "message": "Prompter"
+  },
+  "header_modePromptsPlayground": {
+    "message": "Prompter"
+  },
+  "header_modeStt": {
+    "message": "STT-verksted"
+  },
+  "header_modePromptStudio": {
+    "message": "Prompt-studio"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashkort"
+  },
+  "header_modeWorldBooks": {
+    "message": "Verdensbøker"
+  },
+  "header_modeDictionaries": {
+    "message": "Chat-ordbøker"
+  },
+  "header_modeCharacters": {
+    "message": "Karakterer"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} for å bytte"
+  },
+  "header_quickIngest": {
+    "message": "Quick Ingest"
+  },
+  "header_modelSettings": {
+    "message": "Modellinnstillinger"
+  },
+  "header_serverSettings": {
+    "message": "Server settings"
+  },
+  "header_more": {
+    "message": "AI-verktøy"
+  },
+  "header_moreMenu_title": {
+    "message": "Avanserte verktøy"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "Avanserte verktøy som sidepanel, repo og feilsøkingsalternativer"
+  },
+  "header_moreActions": {
+    "message": "Flere handlinger"
+  },
+  "header_toolsMenu": {
+    "message": "Chatverktøy"
+  },
+  "header_serverBackedLabel": {
+    "message": "Serverbasert chat"
+  },
+  "header_serverBackedTooltip": {
+    "message": "Meldinger i denne chatten lagres også på tldw-serveren din."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "Søk i skjermer, chatter, medier, notater…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "Ingen treff for \"{{query}}\"."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "Opprett notat \"{{query}}\""
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "Notat \"{{query}}\" opprettet"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "Opprett flashkort-samling \"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "Flashkort-samling \"{{query}}\" opprettet"
+  },
+  "header_omniSearchStartChat": {
+    "message": "Start ny chat \"{{query}}\""
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} elementer i kø — klikk for å gjennomgå og behandle"
+  },
+  "header_modeSpeech": {
+    "message": "Tale"
+  },
+  "sidebarTitle": {
+    "message": "Chathistorikk"
+  },
+  "error": {
+    "message": "Feil"
+  },
+  "somethingWentWrong": {
+    "message": "Noe gikk galt"
+  },
+  "validationSelectModel": {
+    "message": "Vennligst velg en modell for å fortsette"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "Er du sikker på at du vil slette denne historikken?"
+  },
+  "editHistoryTitle": {
+    "message": "Skriv inn en ny tittel"
+  },
+  "temporaryChat": {
+    "message": "Midlertidig chat (ikke lagret)"
+  },
+  "more_copy_group": {
+    "message": "Kopier"
+  },
+  "more_copy_asText": {
+    "message": "Kopier som tekst"
+  },
+  "more_copy_asMarkdown": {
+    "message": "Kopier som Markdown"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "Kopier kanonisk transkripsjon"
+  },
+  "more_copy_success": {
+    "message": "Kopiert til utklippstavlen!"
+  },
+  "more_download_group": {
+    "message": "Last ned"
+  },
+  "more_download_text": {
+    "message": "Tekstfil (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Markdown-fil (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "Kanonisk transkripsjon (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON-fil (.json)"
+  },
+  "more_download_image": {
+    "message": "Bilde (.png)"
+  },
+  "more_share": {
+    "message": "Del"
+  },
+  "libraryView": {
+    "message": "Bibliotekvisning"
+  },
+  "notes": {
+    "message": "Notater"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "Filen er for stor"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "Filstørrelsen må være under 10 MB"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "Opplasting mislyktes"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "Klarte ikke å laste opp filen. Prøv igjen."
+  },
+  "promptStudio_title": {
+    "message": "Prompt Studio-verksted"
+  },
+  "promptStudio_subtitle": {
+    "message": "Administrer Prompt Studio-prosjekter, prompter, kjøringer, testtilfeller og evalueringer."
+  },
+  "promptStudio_capabilityError": {
+    "message": "Kunne ikke nå Prompt Studio"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "Sjekk servertilkoblingen eller deaktiver denne delen til Prompt Studio-API-ene er tilgjengelige."
+  },
+  "promptStudio_offline": {
+    "message": "Koble til serveren din for å bruke Prompt Studio"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "Prosjekter og prompter"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "Opprett eller åpne et prosjekt for å redigere prompter."
+  },
+  "promptStudio_projectsError": {
+    "message": "Kunne ikke laste prosjekter"
+  },
+  "promptStudio_promptVersion": {
+    "message": "Versjon"
+  },
+  "promptStudio_changeDescription": {
+    "message": "Endre beskrivelse"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "Systemprompt"
+  },
+  "promptStudio_userPrompt": {
+    "message": "Brukerprompt"
+  },
+  "promptStudio_fewShot": {
+    "message": "Few-shot-eksempler (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "Modulkonfigurasjon (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "Historikk"
+  },
+  "promptStudio_executeCard": {
+    "message": "Ad-hoc-kjøring"
+  },
+  "promptStudio_executeHint": {
+    "message": "Leverandør, modell, temperatur, inndata."
+  },
+  "promptStudio_provider": {
+    "message": "Leverandør"
+  },
+  "promptStudio_model": {
+    "message": "Modell"
+  },
+  "promptStudio_runPrompt": {
+    "message": "Kjør prompt"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "Kjøringsskjema kommer snart. Bruk denne ruten til å kjøre enkeltinntak mot en prompt via /prompt-studio/prompts/execute."
+  },
+  "promptStudio_testsCard": {
+    "message": "Testtilfeller og evalueringer"
+  },
+  "promptStudio_testsHint": {
+    "message": "List/opp­rett testtilfeller, kjør evalueringer, hent status."
+  },
+  "promptStudio_testCases": {
+    "message": "Testtilfeller"
+  },
+  "promptStudio_evaluations": {
+    "message": "Evalueringer"
+  },
+  "promptStudio_inputsJson": {
+    "message": "Inndata (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "Forventede utdata (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "Er gullstandard?"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "Legg til flere"
+  },
+  "promptStudio_bulkJson": {
+    "message": "JSON-array med testtilfeller"
+  },
+  "promptStudio_runAsync": {
+    "message": "Kjør asynkront"
+  },
+  "promptStudio_temperature": {
+    "message": "Temperatur"
+  },
+  "promptStudio_maxTokens": {
+    "message": "Maks tokens"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "Kjør evaluering"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "Plassholder: koble til CRUD for testtilfeller, opprett/list/detalj for evalueringer og asynkron polling i denne delen."
+  },
+  "promptStudio_unavailable": {
+    "message": "Prompt Studio er ikke aktivert på denne serveren."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "Når tilgjengelig, vil du se prosjekter, prompt-historikk, kjøringer og evalueringer her."
+  },
+  "promptSearch_title": {
+    "message": "Tittel"
+  },
+  "promptSearch_content": {
+    "message": "Innhold"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "Systemprompt"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "Lagre også på server"
+  },
+  "promptSearch_cancel": {
+    "message": "Avbryt"
+  },
+  "promptSearch_insert": {
+    "message": "Sett inn"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "Lagre som ny"
+  },
+  "promptSearch_saveLocal": {
+    "message": "Lagre endringer (lokalt)"
+  },
+  "promptSearch_saveServer": {
+    "message": "Lagre endringer (server)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "Lagre lokal kopi"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "Lagre som ny (kun server)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "Prompt oppdatert lokalt"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "Prompt oppdatert på server"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "Kunne ikke oppdatere lokal prompt"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "Kunne ikke oppdatere serverprompt"
+  },
+  "promptSearch_manageLink": {
+    "message": "Vis / administrer prompter"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "Overskriv lokal prompt (valgfritt)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "Velg en lokal prompt å overskrive"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "Prompt lagret"
+  },
+  "promptSearch_saveFailed": {
+    "message": "Kunne ikke lagre prompt"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest-medier"
+  },
+  "quickIngest_subtitle": {
+    "message": "Skriv inn én eller flere URL-er. Tving type per rad ved behov."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server frakoblet — kun staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Du kan legge URL-er og filer i kø her og se over felter, men innlasting kjører ikke før tldw-serveren er på nett. Koble til igjen for å behandle ventende elementer."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Kilde-URL-er eller filer"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Lagre i ekstern database"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Lagre ingest-resultater på tldw-serveren din"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Behandle ingest-resultater kun lokalt"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Laster opp til tldw-serveren din for indeksering."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Behandle bare og behold resultatene lokalt (last ned JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Hvor ingest-resultatene lagres"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Lagret på tldw-serveren din (anbefales for RAG og delte arbeidsområder)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Beholdes kun i denne nettleseren; ingen data skrives til serveren."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Lagre etter gjennomgang"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Gjennomgå før lagring"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Behandle nå, og rediger deretter kladder lokalt før du lagrer på serveren."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Gjennomgangsmodus"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Lokale kladder er begrenset til {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Lagre kladder lokalt?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Kladder lagres i denne nettleseren og kan inneholde sensitive data. Du kan fjerne kladder fra siden Innholdsgjennomgang når som helst."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Gjennomgangsmodus holder innholdet på klientsiden til du lagrer det på serveren."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Aktiver gjennomgang"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Gjennomgang"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Kladder klare for gjennomgang."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Kunne ikke opprette gjennomgangskladder."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Oppretting av gjennomgangskladder mislyktes."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Prøv å opprette kladder på nytt"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Lagre uten gjennomgang"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Kunne ikke åpne Innholdsgjennomgang. Prøv igjen."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Prøv å åpne Innholdsgjennomgang på nytt"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Åpne Innholdsgjennomgang"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Lær mer om ingest og lagring"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Lim inn URL-er (én per linje)"
+  },
+  "quickIngest_or": {
+    "message": "eller"
+  },
+  "quickIngest_remove": {
+    "message": "Fjern"
+  },
+  "quickIngest_add": {
+    "message": "Legg til URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Innhentingsalternativer"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Lydalternativer"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Språk (f.eks. en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Slå på for å skille talere i transkripsjoner."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Dokumentalternativer"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR hjelper med å hente ut tekst fra skannede PDF-er eller bilder."
+  },
+  "quickIngest_videoOptions": {
+    "message": "Videoalternativer"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Inkluder tidsstempler/undertekster når tilgjengelig."
+  },
+  "quickIngest_cancel": {
+    "message": "Avbryt"
+  },
+  "quickIngest_ingest": {
+    "message": "Innhent"
+  },
+  "quickIngest_process": {
+    "message": "Behandle"
+  },
+  "quickIngest_results": {
+    "message": "Resultater"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Last ned JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} avanserte felt lastet"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Ingen avanserte alternativer oppdaget — prøv å laste spesifikasjonen på nytt."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} endret"
+  },
+  "quickIngest_progress": {
+    "message": "Behandler {{done}} av {{total}} elementer…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Vi kunne ikke behandle ingest-elementene akkurat nå."
+  },
+  "quickIngest_errorHint": {
+    "message": "Prøv igjen etter at du har sjekket tldw-serveren din. Health & diagnostics kan hjelpe med å feilsøke ingest-problemer."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Sjekk serverhelsen i Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Nylige kjøringer mislyktes — åpne Health & diagnostics fra toppmenyen for flere detaljer."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Avansert spesifikasjon lastet inn på nytt fra serveren"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Avansert spesifikasjon lastet inn på nytt fra serveren (felter lagt til: {{added}}, fjernet: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Bruker medfølgende media.add-skjema som reserve (v{{version}}); verifiser mot tldw_server /openapi.json hvis feltene ser utdaterte ut."
+  },
+  "notesSearch_placeholder": {
+    "message": "Søk i titler og innhold"
+  },
+  "notesSearch_clear": {
+    "message": "Tøm søk og filtre"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "Filtrer etter nøkkelord"
+  },
+  "notesSearch_new": {
+    "message": "Nytt notat"
+  },
+  "notesSearch_newTooltip": {
+    "message": "Opprett nytt notat"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} notater"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "Eksporter samsvarende notater som Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "Eksporter samsvarende notater som CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "Eksporter samsvarende notater som JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Eksportert ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Eksporterte {{count}} notater ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Eksporterte {{count}} notater som CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Eksporterte {{count}} notater som JSON ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "Eksporter notat som Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "Lagre notat"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "Kopier notatinnhold"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "Slett notat"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "Eksporter"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "Resultater"
+  },
+  "notesSearch_showingRange": {
+    "message": "Viser {{start}}-{{end}} av {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "Utvid sidefelt"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "Skjul sidefelt"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "Tittel"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "Nøkkelord (tagger)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "Nøkkelord hjelper deg å finne dette notatet ved å bruke nøkkelordfilteret til venstre."
+  },
+  "tts_playground": {
+    "message": "TTS-lekeplass"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "Koble til for å bruke Notater"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "For å bruke Notater må du først koble til tildw-serveren din."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "Bruk Notater sammen med Media og Review for å holde oversikt over funnene dine."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Eksempelnotater (kun forhåndsvisning)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "Eksempelnotat: ukentlig møtereferat"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "Beslutninger, hindringer og oppfølgingspunkter fra et nylig teammøte."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "I dag · 09:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "Eksempelnotat: forskningshøydepunkter"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "Viktige innsikter hentet fra en lang artikkel eller rapport."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "I går · 16:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "Eksempelnotat: samtalereferat"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "Sammendrag av en kundesamtale med neste steg og ansvarlige."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "Denne uken"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL-en din."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "Bruk Diagnostikk hvis serveren kjører men ikke kan nås."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "Utforsk Notater i demomodus"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "Denne demoen viser hvordan Notater kan organisere innsiktene dine. Senere kan du koble til din egen server for å opprette og lagre ekte notater."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "Se hvordan notattitler, forhåndsvisninger og tidsstempler vises i listen."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "Når du kobler til, kan du opprette notater fra møter, gjennomganger og mer."
+  },
+  "notesEmpty_title": {
+    "message": "Ingen notater ennå"
+  },
+  "notesEmpty_description": {
+    "message": "Fang opp og organiser friformnotater knyttet til tldw-innsiktene dine."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "Opprett et nytt notat for et nylig møte eller en transkripsjon."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "Lagre resultatene fra gjennomganger i Notater slik at du kan se dem igjen senere."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "Opprett notat"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "Utforsk verdensbøker i demomodus"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "Denne demoen viser hvordan verdensbøker kan organisere strukturert kunnskap om verdener, settinger eller produkter."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "Se eksempelbøker som et fantasy‑setting, et produktleksikon eller kampanjenotater."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "Når du kobler til, kan du opprette verdensbøker som tldw kan bruke mens du chatter."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "Koble til for å bruke verdensbøker"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "For å bruke verdensbøker må du først koble til tldw-serveren din slik at verdenskunnskap kan lagres og hentes."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL-en din."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "Bruk diagnostikk hvis serveren kjører, men ikke er tilgjengelig."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "Opprett og administrer strukturerte kunnskapsbaser som karakterer og chatter kan referere til."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "Verdensbøker er frakoblet"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "Koble til tldw-serveren din fra hovedinnstillinger for å se og redigere verdensbøker."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "Utforsk chat-ordbøker i demomodus"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "Denne demoen viser hvordan chat-ordbøker kan normalisere navn, akronymer og begreper før de når modellen."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "Se eksempelordbøker for produktnavn, prosjektkodenavn eller firmasjargong."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "Når du kobler til, kan du aktivere ordbøker i alle chatter."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "Koble til for å bruke chat-ordbøker"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "For å bruke chat-ordbøker må du først koble til tldw-serveren din slik at erstatninger kan lagres."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL-en din."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "Bruk diagnostikk hvis serveren kjører, men ikke er tilgjengelig."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "Definer gjenbrukbare erstatninger slik at tldw forstår organisasjonens navn, akronymer og terminologi."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "Chat-ordbøker er frakoblet"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "Koble til tldw-serveren din fra hovedinnstillinger for å se og redigere chat-ordbøker."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "Utforsk karakterer i demomodus"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "Denne demoen viser hvordan karakterer kapsler inn en persona og en systemprompt du kan chatte med."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "Se eksempelkarakterer som skrivecoach, lore‑ekspert eller kodeassistent."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "Når du kobler til, kan du opprette karakterer som vises i chatoverskriften og i utvalget."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "Koble til for å bruke karakterer"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "For å bruke karakterer må du først koble til tldw-serveren din slik at karakterdefinisjoner kan lagres."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL-en din."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "Bruk diagnostikk hvis serveren kjører, men ikke er tilgjengelig."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "Opprett gjenbrukbare karakterer du kan velge fra chatoverskriften og bruke på tvers av samtaler."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "Opprett en karakter for å gjenbruke personligheten på tvers av chatter. Bruk «Ny karakter» for å komme i gang."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "Karakter-API er ikke tilgjengelig på denne serveren"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "Denne serveren annonserer ikke /api/v1/characters."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "Åpne diagnostikk for å bekrefte serverversjon og tilgjengelige API-er for karakterer."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "Hvis du oppgraderer serveren, last inn utvidelsen på nytt og gå tilbake til karakterer."
+  },
+  "characters_selectCharacter": {
+    "message": "Velg karakter"
+  },
+  "characters_chattingAs": {
+    "message": "Du chatter nå som {{name}}."
+  },
+  "characters_clearCharacter": {
+    "message": "Fjern karakter"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "Kan ikke laste inn karakterer"
+  },
+  "characters_fetchErrorBody": {
+    "message": "Kontroller tilkoblingen eller serverstatusen, og prøv igjen."
+  },
+  "characters_none": {
+    "message": "Ingen (ingen karakter)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "Søk etter karakterer etter navn"
+  },
+  "characters_noMatches": {
+    "message": "Det finnes foreløpig ingen karakterer som samsvarer med søket ditt."
+  },
+  "characters_refresh": {
+    "message": "Oppdater karakterer"
+  },
+  "characters_refreshing": {
+    "message": "Oppdaterer karakterer…"
+  },
+  "promptInsert_useInChat": {
+    "message": "Bruk i chat"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "Åpne chat og sett inn denne prompten i redigeringsfeltet."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "Bruke prompt i chat?"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "Meldingen din har allerede tekst. Vil du overskrive den med denne prompten eller legge til prompten under den?"
+  },
+  "promptInsert_overwrite": {
+    "message": "Overskriv melding"
+  },
+  "promptInsert_append": {
+    "message": "Legg til"
+  },
+  "flashcards_review": {
+    "message": "Repetisjon"
+  },
+  "flashcards_create": {
+    "message": "Opprett"
+  },
+  "flashcards_manage": {
+    "message": "Administrer"
+  },
+  "flashcards_importExport": {
+    "message": "Importer / eksporter"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "Koble til for å bruke Flashcards"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "For å repetere eller generere flashcards må du først koble til tldw-serveren din."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "Gå til Innstillinger → tldw-server for å legge til server-URL-en din."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "Når du er tilkoblet, kan du repetere forfalte kort eller opprette nye kortstokker fra notater og media."
+  },
+  "flashcards_demoTitle": {
+    "message": "Utforsk Flashcards i demomodus"
+  },
+  "flashcards_demoDescription": {
+    "message": "Denne demoen viser hvordan Flashcards kan gjøre innholdet ditt om til kort for mellomromsrepetisjon. Du kan koble til din egen server senere for å generere og repetere kort fra egne notater og medier."
+  },
+  "flashcards_demoExample1": {
+    "message": "Se hvordan kortstokker, kort og etiketter er organisert på fanene Repetisjon og Administrer."
+  },
+  "flashcards_demoExample2": {
+    "message": "Når du kobler til, kan du generere kort fra forelesninger, møter eller notater og repetere dem etter en plan."
+  },
+  "flashcards_demoExample3": {
+    "message": "Bruk Flashcards sammen med Notes og Media for å holde viktige ideer friske."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "Eksempelstokker (kun forhåndsvisning)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "Demostokk: grunnleggende konsepter"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 kort · Flott for å teste intervaller og vurderinger."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "Demostokk: produktbegreper"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 kort · Navn, akronymer og viktige definisjoner."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "Demostokk: oppfølging etter møter"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 kort · Eksempler på oppgavepunkter å repetere."
+  },
+  "flashcards_selectDeck": {
+    "message": "Velg kortstokk"
+  },
+  "flashcards_nextDue": {
+    "message": "Neste forfall"
+  },
+  "flashcards_front": {
+    "message": "Forside"
+  },
+  "flashcards_back": {
+    "message": "Bakside"
+  },
+  "flashcards_extra": {
+    "message": "Ekstra"
+  },
+  "flashcards_showAnswer": {
+    "message": "Vis svar"
+  },
+  "flashcards_hideAnswer": {
+    "message": "Skjul svar"
+  },
+  "flashcards_preview": {
+    "message": "Forhåndsvisning"
+  },
+  "flashcards_rate": {
+    "message": "Vurder"
+  },
+  "flashcards_answerMs": {
+    "message": "Svarstid (sekunder, valgfritt)"
+  },
+  "flashcards_noDue": {
+    "message": "Ingen kort forfaller"
+  },
+  "flashcards_deck": {
+    "message": "Kortstokk"
+  },
+  "flashcards_newDeck": {
+    "message": "Ny kortstokk"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Skriv inn et kortstokknavn."
+  },
+  "flashcards_modelType": {
+    "message": "Kortmal"
+  },
+  "flashcards_reverse": {
+    "message": "Lag også omvendt kort"
+  },
+  "flashcards_isCloze": {
+    "message": "Cloze-sletting"
+  },
+  "flashcards_tags": {
+    "message": "Etiketter"
+  },
+  "flashcards_dueStatus": {
+    "message": "Forfallsstatus"
+  },
+  "flashcards_dueAll": {
+    "message": "Alle"
+  },
+  "flashcards_dueNew": {
+    "message": "Nye"
+  },
+  "flashcards_dueLearning": {
+    "message": "Læring"
+  },
+  "flashcards_dueDue": {
+    "message": "Forfaller"
+  },
+  "flashcards_tag": {
+    "message": "Etikett"
+  },
+  "flashcards_noCards": {
+    "message": "Ingen kort"
+  },
+  "flashcards_due": {
+    "message": "Forfaller"
+  },
+  "flashcards_editCard": {
+    "message": "Rediger kort"
+  },
+  "flashcards_importTitle": {
+    "message": "Importer flashcards"
+  },
+  "flashcards_exportTitle": {
+    "message": "Eksporter flashcards"
+  },
+  "flashcards_importHelp": {
+    "message": "Lim inn TSV/CSV-linjer: Kortstokk, Forside, Bakside, Etiketter, Notater"
+  },
+  "flashcards_pasteContent": {
+    "message": "Lim inn innhold her..."
+  },
+  "flashcards_tab": {
+    "message": "Tabulator"
+  },
+  "flashcards_comma": {
+    "message": ", (Komma)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (Semikolon)"
+  },
+  "flashcards_pipe": {
+    "message": "| (Rør)"
+  },
+  "flashcards_hasHeader": {
+    "message": "Har overskrift"
+  },
+  "flashcards_import": {
+    "message": "Importer"
+  },
+  "flashcards_imported": {
+    "message": "Importert"
+  },
+  "flashcards_importLimits": {
+    "message": "Importgrenser"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV-fil"
+  },
+  "flashcards_apkg": {
+    "message": "Anki (.apkg) fil"
+  },
+  "flashcards_includeReverse": {
+    "message": "Inkluder omvendt"
+  },
+  "flashcards_includeHeader": {
+    "message": "Inkluder overskriftsrad"
+  },
+  "flashcards_extendedHeader": {
+    "message": "Utvidet overskrift (teknisk metadata)"
+  },
+  "flashcards_download": {
+    "message": "Last ned"
+  },
+  "flashcards_duplicate": {
+    "message": "Dupliser"
+  },
+  "flashcards_move": {
+    "message": "Flytt"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Gjennomgang mislyktes"
+  },
+  "flashcards_updateFailed": {
+    "message": "Oppdatering mislyktes"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Sletting mislyktes"
+  },
+  "flashcards_missingVersion": {
+    "message": "Mangler versjon; last inn på nytt og prøv igjen"
+  },
+  "flashcards_bulkMove": {
+    "message": "Masseflytting"
+  },
+  "flashcards_bulkDelete": {
+    "message": "Massesletting"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} slettet · {{failed}} mislyktes"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Operasjonen er begrenset til de første {{limit}} elementene."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "Eksporter valgte (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "Valgt"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "Velg alle på siden"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "Velg alle i resultatene"
+  },
+  "flashcards_clearSelection": {
+    "message": "Fjern valg"
+  },
+  "flashcards_ratingAgain": {
+    "message": "Igjen"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "Jeg husket ikke dette kortet."
+  },
+  "flashcards_ratingHard": {
+    "message": "Vanskelig"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "Jeg husket så vidt; det føltes vanskelig."
+  },
+  "flashcards_ratingGood": {
+    "message": "Bra"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "Jeg husket med litt innsats."
+  },
+  "flashcards_ratingEasy": {
+    "message": "Enkelt"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "Jeg husket raskt og trygt."
+  },
+  "flashcards_showTiming": {
+    "message": "Spor svartid"
+  },
+  "flashcards_hideTiming": {
+    "message": "Skjul tidtaking"
+  },
+  "flashcards_noDueTitle": {
+    "message": "Ingen kort å repetere"
+  },
+  "flashcards_noDueDescription": {
+    "message": "Du er oppdatert. Opprett nye kort eller importer en eksisterende kortstokk for å starte repetisjon."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "Opprett et nytt kort"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "Importer en kortstokk"
+  },
+  "flashcards_createTitle": {
+    "message": "Opprett flashcards fra notatene dine"
+  },
+  "flashcards_createDescription": {
+    "message": "Bruk forsiden til spørsmålet og baksiden til svaret. Du kan gruppere kort i kortstokker og legge til etiketter for raskere søk."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Basic viser spørsmål på forsiden og svar på baksiden. Reverse lager også motsatt kort. Cloze skjuler deler av teksten med {{...}}."
+  },
+  "flashcards_reverseHelp": {
+    "message": "Lag også et kort der baksiden blir spørsmålet."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "For utfyllingskort. Pakk inn skjult tekst i {{...}} på forsiden."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Støtter Markdown og LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Valgfrie hint/forklaringer (Markdown + LaTeX støttes)."
+  },
+  "flashcards_notesHint": {
+    "message": "Interne notater (Markdown + LaTeX støttes)."
+  },
+  "flashcards_bulkActions": {
+    "message": "Massehandlinger"
+  },
+  "flashcards_selectionHelp": {
+    "message": "«Velg alle i resultatene» bruker handlinger på alle kort som matcher filtrene dine, ikke bare denne siden."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "Ingen flashcards ennå"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "Opprett kort fra notater og medier, eller importer en eksisterende kortstokk."
+  },
+  "flashcards_clearFilters": {
+    "message": "Fjern filtre"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "Opprett ditt første kort"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "Importer flashcards"
+  },
+  "flashcards_mapping": {
+    "message": "Kolonnekartlegging"
+  },
+  "flashcards_mappingPreview": {
+    "message": "Forhåndsvisning av de første radene:"
+  },
+  "flashcards_exportHelp": {
+    "message": "Filtrer etter kortstokk, etikett eller søk, og eksporter som CSV/TSV for regneark eller Anki (.apkg) for Anki-klienter."
+  },
+  "contentReview_title": {
+    "message": "Innholdsgjennomgang"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} klar"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} bekreftet"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} totalt"
+  },
+  "contentReview_commitAll": {
+    "message": "Bekreft alle"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Tøm utkast"
+  },
+  "contentReview_emptyDescription": {
+    "message": "Ingen utkast ennå. Bruk Quick Ingest med «Gjennomgå før lagring» for å opprette utkast."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Åpne Quick Ingest"
+  },
+  "contentReview_batchLabel": {
+    "message": "Bunt"
+  },
+  "contentReview_batchName": {
+    "message": "Bunt {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Utkast"
+  },
+  "contentReview_selectDraft": {
+    "message": "Velg et utkast for å starte gjennomgangen."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Tittel på utkast"
+  },
+  "contentReview_lastSaved": {
+    "message": "Lagret {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Tilbakestille utkast?"
+  },
+  "contentReview_resetBody": {
+    "message": "Dette gjenoppretter det opprinnelige innholdet for dette utkastet."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Tilbakestill"
+  },
+  "contentReview_resetCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_resetContent": {
+    "message": "Tilbakestill"
+  },
+  "contentReview_diffView": {
+    "message": "Diff-visning"
+  },
+  "contentReview_saveDraft": {
+    "message": "Lagre utkast"
+  },
+  "contentReview_editorLabel": {
+    "message": "Innhold"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} ord"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} tegn"
+  },
+  "contentReview_aiFix": {
+    "message": "AI‑retting"
+  },
+  "contentReview_aiHint": {
+    "message": "Sender innholdet i utkastet til serveren din for AI‑behandling."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Standard for server"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Sende utkast til serveren?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Dette sender utkastinnholdet til tldw‑serveren din for AI‑behandling. Utkast forblir lokale til du bekrefter dem."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Fortsett"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI‑rettelser er brukt."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Ingen endringer returnert."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI returnerte ikke noe innhold."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Chatfullføringer er ikke tilgjengelige."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Velg mal"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Bruk mal"
+  },
+  "contentReview_templateApplied": {
+    "message": "Mal brukt."
+  },
+  "contentReview_templateMissing": {
+    "message": "Velg en mal først."
+  },
+  "contentReview_detectSections": {
+    "message": "Oppdag seksjoner"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Oppdage seksjoner på nytt?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Dette erstatter eksisterende seksjoner og tilbakestiller valgene dine."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Oppdag på nytt"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Ingen seksjoner funnet."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Seksjonsfilter"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Rens transkripsjon"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normaliserer tegnsetting og store/små bokstaver, samtidig som linjestrukturen beholdes."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Taletur"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Sikrer at hver taletur står på sin egen linje med tydelige etiketter."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Kapitteloverskrifter"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Setter inn Markdown‑overskrifter for å gruppere emner uten å fjerne innhold."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Metainformasjon"
+  },
+  "contentReview_mediaType": {
+    "message": "Mediatype"
+  },
+  "contentReview_keywords": {
+    "message": "Nøkkelord"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Legg til nøkkelord"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Notater for gjennomgang"
+  },
+  "contentReview_missingSource": {
+    "message": "Kilde­fil mangler"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Legg ved originalfilen for å bekrefte dette utkastet."
+  },
+  "contentReview_attachSource": {
+    "message": "Legg ved fil"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Handlinger"
+  },
+  "contentReview_commit": {
+    "message": "Bekreft"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Legg ved den opprinnelige lyd-/videofilen før du bekrefter."
+  },
+  "contentReview_markReviewed": {
+    "message": "Merk som gjennomgått"
+  },
+  "contentReview_skipNext": {
+    "message": "Hopp over"
+  },
+  "contentReview_discard": {
+    "message": "Forkast"
+  },
+  "contentReview_discardTitle": {
+    "message": "Forkaste utkast?"
+  },
+  "contentReview_discardBody": {
+    "message": "Dette utkastet blir merket som forkastet og fjernet fra gjennomgangen."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Forkast"
+  },
+  "contentReview_discardCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Utkast bekreftet."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Bekrefte gjennomgåtte utkast?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Bare utkast som er merket som gjennomgått blir bekreftet."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Bekreft alle"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} bekreftet · {{failed}} mislyktes"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Denne filen overskrider den lokale grensen for utkast ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Tømme alle utkast?"
+  },
+  "contentReview_clearBody": {
+    "message": "Dette fjerner alle lokale utkast og ressurser for innholdsgjennomgang."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Tøm utkast"
+  },
+  "contentReview_clearCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Utkast tømt."
+  },
+  "contentReview_originalLabel": {
+    "message": "Originaltekst"
+  },
+  "contentReview_editedLabel": {
+    "message": "Redigert"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer overskrider den lokale kladdegrensen ({{cap}}). Legg ved kilder før du lagrer lyd/video."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Lagre etter gjennomgang"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Gjennomgå før lagring"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Behandle nå, og rediger deretter kladder lokalt før du lagrer på serveren."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Gjennomgangsmodus"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Lokale kladder er begrenset til {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Lagre kladder lokalt?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Kladder lagres i denne nettleseren og kan inneholde sensitive data. Du kan fjerne kladder fra siden Innholdsgjennomgang når som helst."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Gjennomgangsmodus holder innholdet på klientsiden til du lagrer det på serveren."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Aktiver gjennomgang"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Gjennomgang"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Kladder klare for gjennomgang."
+  },
+  "contentReview_openContentReview": {
+    "message": "Åpne Innholdsgjennomgang"
+  },
+  "omniSearch_filterScreen": {
+    "message": "Skjermer"
+  },
+  "omniSearch_filterChat": {
+    "message": "Samtaler"
+  },
+  "omniSearch_filterMedia": {
+    "message": "Medier"
+  },
+  "omniSearch_filterNote": {
+    "message": "Notater"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Flashkort-samlinger"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Prompter"
+  },
+  "omniSearch_filteringBy": {
+    "message": "Filtrerer etter:"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "Hurtig chat-hjelper"
+  },
+  "quickChatHelper_title": {
+    "message": "Hurtig chat-hjelper"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "Still et raskt spørsmål..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "Send melding"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "Start en rask sidechat for å holde hovedsamtalen ryddig."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "Åpne i eget vindu"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "Velg først en modell i hovedchatten."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "Meldingen din"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "Assistentens melding"
+  },
+  "quiz_itemsPerPage": {
+    "message": "elementer/side"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Rediger quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz oppdatert."
+  },
+  "quiz_updateError": {
+    "message": "Kunne ikke oppdatere quiz."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Spørsmålstekst er påkrevd."
+  },
+  "quiz_optionsRequired": {
+    "message": "Oppgi minst to alternativer."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Spørsmål opprettet."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Spørsmål oppdatert."
+  },
+  "quiz_questionSaveError": {
+    "message": "Kunne ikke lagre spørsmål."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Spørsmål slettet."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Kunne ikke slette spørsmål."
+  },
+  "quiz_editQuestion": {
+    "message": "Rediger spørsmål"
+  },
+  "quiz_points": {
+    "message": "Poeng"
+  },
+  "quiz_orderIndex": {
+    "message": "Rekkefølge"
+  },
+  "quiz_startError": {
+    "message": "Kunne ikke starte quiz"
+  },
+  "quiz_answerAll": {
+    "message": "Svar på alle spørsmål før du sender inn."
+  },
+  "quiz_submitError": {
+    "message": "Kunne ikke sende inn quiz."
+  },
+  "quiz_scoreSummary": {
+    "message": "Poengsum: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Riktig"
+  },
+  "quiz_incorrect": {
+    "message": "Feil"
+  },
+  "quiz_yourAnswer": {
+    "message": "Ditt svar"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Riktig svar"
+  },
+  "quiz_backToList": {
+    "message": "Tilbake til listen"
+  },
+  "quiz_retake": {
+    "message": "Ta quizen på nytt"
+  },
+  "searchPrompts": {
+    "message": "Søk i promptene..."
+  },
+  "noMatchingPrompts": {
+    "message": "Ingen matchende prompter"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoritter"
+  },
+  "promptSelect_system": {
+    "message": "Systemprompter"
+  },
+  "promptSelect_quick": {
+    "message": "Hurtigprompter"
+  }
+}

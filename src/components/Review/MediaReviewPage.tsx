@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import { bgRequest } from "@/services/background-proxy"
 import { useQuery, keepPreviousData } from "@tanstack/react-query"
 import { useServerOnline } from "@/hooks/useServerOnline"
+import { getNoteKeywords, searchNoteKeywords } from "@/services/note-keywords"
 import { CopyIcon, HelpCircle, Settings2, ChevronLeft, ChevronRight, Layers, LayoutGrid, Focus, Rows3 } from "lucide-react"
 import { useVirtualizer, type VirtualItem } from "@tanstack/react-virtual"
 import { ChevronDown, ChevronUp } from "lucide-react"
@@ -230,12 +231,10 @@ export const MediaReviewPage: React.FC = () => {
   const loadKeywordSuggestions = React.useCallback(async (q?: string) => {
     try {
       if (q && q.trim().length > 0) {
-        const abs = await bgRequest<any>({ path: `/api/v1/notes/keywords/search/?query=${encodeURIComponent(q)}&limit=10` as any, method: 'GET' as any })
-        const arr = Array.isArray(abs) ? abs.map((x: any) => String(x?.keyword || x?.keyword_text || x?.text || "")).filter(Boolean) : []
+        const arr = await searchNoteKeywords(q, 10)
         setKeywordOptions(arr)
       } else {
-        const abs = await bgRequest<any>({ path: `/api/v1/notes/keywords/?limit=200` as any, method: 'GET' as any })
-        const arr = Array.isArray(abs) ? abs.map((x: any) => String(x?.keyword || x?.keyword_text || x?.text || "")).filter(Boolean) : []
+        const arr = await getNoteKeywords(200)
         setKeywordOptions(arr)
       }
     } catch {
@@ -289,8 +288,8 @@ export const MediaReviewPage: React.FC = () => {
   }, [selectedIds, ensureDetail])
 
   const cardCls = orientation === 'vertical'
-    ? 'border dark:border-gray-700 rounded p-3 bg-white dark:bg-[#171717] w-full'
-    : 'border dark:border-gray-700 rounded p-3 bg-white dark:bg-[#171717] w-full md:w-[48%]'
+    ? 'border border-border rounded p-3 bg-surface w-full'
+    : 'border border-border rounded p-3 bg-surface w-full md:w-[48%]'
 
   const allResults: MediaItem[] = Array.isArray(data) ? data : []
   const hasResults = allResults.length > 0
@@ -448,9 +447,9 @@ export const MediaReviewPage: React.FC = () => {
           <div className="min-w-0">
             <div className="font-semibold leading-tight flex items-center gap-2">
               <span>{d.title || `${t('mediaPage.media', 'Media')} ${d.id}`}</span>
-              <ChevronDown className="h-4 w-4 text-gray-400" />
+              <ChevronDown className="h-4 w-4 text-text-subtle" />
             </div>
-            <div className="text-[11px] text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-1 flex-wrap">
+            <div className="text-[11px] text-text-muted flex items-center gap-2 mt-1 flex-wrap">
               {isAllMode && <Tag>{t("mediaPage.stackPosition", "#{{num}}", { num: idx + 1 })}</Tag>}
               {d.type && <Tag>{String(d.type).toLowerCase()}</Tag>}
               {d.created_at && <span>{new Date(d.created_at).toLocaleString()}</span>}
@@ -496,7 +495,7 @@ export const MediaReviewPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-3 rounded border dark:border-gray-700 p-2">
+        <div className="mt-3 rounded border border-border p-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Typography.Text type="secondary">{t('mediaPage.mediaContent', 'Media Content')}</Typography.Text>
@@ -518,18 +517,18 @@ export const MediaReviewPage: React.FC = () => {
               {contentExpanded ? t('mediaPage.collapse', 'Collapse') : t('mediaPage.expand', 'Expand')}
             </Button>
           </div>
-          <div className="mt-2 prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap break-words text-sm text-gray-700 dark:text-gray-300 min-h-[8rem] leading-relaxed">
+          <div className="mt-2 prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap break-words text-sm text-text min-h-[8rem] leading-relaxed">
             {isLoadingDetail ? (
               <Skeleton active paragraph={{ rows: 3 }} title={false} />
             ) : content ? (
               contentShown
             ) : (
-              <span className="text-gray-500">{t('mediaPage.noContent', 'No content available')}</span>
+              <span className="text-text-muted">{t('mediaPage.noContent', 'No content available')}</span>
             )}
           </div>
         </div>
 
-        <div className="mt-3 rounded border dark:border-gray-700 p-2">
+        <div className="mt-3 rounded border border-border p-2">
           <div className="flex items-center justify-between">
             <Typography.Text type="secondary">{t("mediaPage.analysis", "Analysis")}</Typography.Text>
             <Button
@@ -548,13 +547,13 @@ export const MediaReviewPage: React.FC = () => {
               {analysisExpanded ? t('mediaPage.collapse', 'Collapse') : t('mediaPage.expand', 'Expand')}
             </Button>
           </div>
-          <div className="mt-2 prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap break-words text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+          <div className="mt-2 prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap break-words text-sm text-text leading-relaxed">
             {isLoadingDetail ? (
               <Skeleton active paragraph={{ rows: 2 }} title={false} />
             ) : analysisText ? (
               analysisShown
             ) : (
-              <span className="text-gray-500">{t("mediaPage.noAnalysis", "No analysis available")}</span>
+              <span className="text-text-muted">{t("mediaPage.noAnalysis", "No analysis available")}</span>
             )}
           </div>
         </div>
@@ -566,7 +565,7 @@ export const MediaReviewPage: React.FC = () => {
     <div className="w-full h-[calc(100dvh-4rem)] mt-16 flex flex-col">
       <div className="shrink-0 mb-3 flex items-center justify-between gap-3">
         <div className="w-full">
-          <p className="mb-1 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mb-1 text-xs text-text-muted">
             {t(
               'mediaPage.modeHint',
               'Search and stack multiple media items to compare them in the viewer on the right.'
@@ -618,7 +617,7 @@ export const MediaReviewPage: React.FC = () => {
             <Button onClick={() => { setTypes([]); setKeywordTokens([]); setPage(1); refetch() }}>{t('mediaPage.resetFilters', 'Clear filters')}</Button>
             <Checkbox checked={includeContent} onChange={(e) => { setIncludeContent(e.target.checked); setPage(1); refetch() }}>{t('mediaPage.content', 'Content')} {contentLoading && (<Spin size="small" className="ml-1" />)}</Checkbox>
           </div>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-xs text-text-muted">
             {t(
               'mediaPage.filterHelp',
               'Search matches title and content; Types and Keywords further narrow the results.'
@@ -629,10 +628,10 @@ export const MediaReviewPage: React.FC = () => {
 
       <div className="flex flex-1 min-h-0 w-full gap-4">
         {!sidebarHidden && (
-          <div className="w-full lg:w-1/3 border rounded p-2 bg-white dark:bg-[#171717] h-full flex flex-col">
+          <div className="w-full lg:w-1/3 border border-border rounded p-2 bg-surface h-full flex flex-col">
             <div className="flex items-center justify-between mb-1">
               <div
-                className="text-sm text-gray-600 dark:text-gray-300"
+                className="text-sm text-text-muted"
                 role="heading"
                 aria-level={2}
                 data-testid="media-review-results-header"
@@ -640,7 +639,7 @@ export const MediaReviewPage: React.FC = () => {
                 {t("mediaPage.results", "Results")}{" "}
                 {hasResults ? `(${allResults.length})` : ""}
               </div>
-              <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-2 text-[11px] text-text-muted">
                 {hasResults && (
                   <span>
                     {t('mediaPage.resultsCount', '{{selected}} selected · {{open}} open', {
@@ -664,15 +663,15 @@ export const MediaReviewPage: React.FC = () => {
             </div>
             {isFetching && (
               <div
-                className="mb-2 rounded-md border border-blue-200 bg-blue-50 px-2 py-1 text-xs text-blue-800 dark:border-blue-500 dark:bg-[#102a43] dark:text-blue-100"
+                className="mb-2 rounded-md border border-primary/30 bg-primary/10 px-2 py-1 text-xs text-primary"
                 role="status"
                 aria-live="polite">
                 {t("mediaPage.searchingBanner", "Searching media…")}
               </div>
             )}
             {isFetching && !hasResults ? (
-              <div className="relative flex-1 min-h-0 overflow-auto rounded border border-dashed border-gray-200 dark:border-gray-700">
-                <div className="divide-y divide-gray-100 dark:divide-gray-800">
+              <div className="relative flex-1 min-h-0 overflow-auto rounded border border-dashed border-border">
+                <div className="divide-y divide-border">
                   {Array.from({ length: 6 }).map((_, idx) => (
                     <div key={idx} className="px-3 py-2">
                       <Skeleton
@@ -686,7 +685,7 @@ export const MediaReviewPage: React.FC = () => {
               </div>
             ) : hasResults ? (
               <>
-                <div ref={listParentRef} className="relative flex-1 min-h-0 overflow-auto rounded border border-dashed border-gray-200 dark:border-gray-700">
+                <div ref={listParentRef} className="relative flex-1 min-h-0 overflow-auto rounded border border-dashed border-border">
                   <div
                     style={{
                       height: `${listVirtualizer.getTotalSize()}px`,
@@ -718,17 +717,17 @@ export const MediaReviewPage: React.FC = () => {
                             width: "100%",
                             transform: `translateY(${virtualRow.start}px)`
                           }}
-                          className={`px-3 py-2 border-b dark:border-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 ${isSelected ? "bg-gray-100 dark:bg-gray-800" : ""}`}
+                          className={`px-3 py-2 border-b border-border cursor-pointer hover:bg-surface2 ${isSelected ? "bg-surface2" : ""}`}
                         >
                           <div className="flex items-start justify-between gap-2">
                             <div className="min-w-0">
                               <div className="font-medium truncate">{item.title}</div>
-                              <div className="text-[11px] text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-1">
+                              <div className="text-[11px] text-text-muted flex items-center gap-2 mt-1">
                                 {item.type && <Tag>{item.type}</Tag>}
                                 {item.created_at && <span>{new Date(item.created_at).toLocaleString()}</span>}
                               </div>
                               {item.snippet && (
-                                <div className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
+                                <div className="text-xs text-text-muted line-clamp-2">
                                   {item.snippet}
                                 </div>
                               )}
@@ -749,7 +748,7 @@ export const MediaReviewPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="mt-2 flex justify-between items-center">
-                  <div className="text-[11px] text-gray-500 dark:text-gray-400">{t("mediaPage.paginationHint", "Use pagination or open all visible items")}</div>
+                  <div className="text-[11px] text-text-muted">{t("mediaPage.paginationHint", "Use pagination or open all visible items")}</div>
                   <Pagination size="small" current={page} pageSize={pageSize} total={total} onChange={(p, ps) => { setPage(p); setPageSize(ps); }} />
                 </div>
               </>
@@ -768,19 +767,19 @@ export const MediaReviewPage: React.FC = () => {
                 : (t('mediaPage.hideSidebar', 'Hide sidebar') as string)
             }
             onClick={() => setSidebarHidden((v) => !v)}
-            className="h-full w-6 rounded bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300"
+            className="h-full w-6 rounded bg-surface2 hover:bg-surface flex items-center justify-center text-xs font-semibold text-text-muted"
           >
             {sidebarHidden ? '>>' : '<<'}
           </button>
         </div>
-        <div className="flex-1 border rounded p-2 bg-white dark:bg-[#171717] h-full flex flex-col min-w-0 relative">
-          <div className="sticky top-0 z-20 bg-white dark:bg-[#171717] pb-2 border-b dark:border-gray-800">
+        <div className="flex-1 border border-border rounded p-2 bg-surface h-full flex flex-col min-w-0 relative">
+          <div className="sticky top-0 z-20 bg-surface pb-2 border-b border-border">
             {/* Row 1: View Controls */}
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-3 flex-wrap">
                 <div className="flex items-center gap-2">
-                  <div className="text-sm font-medium text-gray-700 dark:text-gray-200">{t('mediaPage.viewer', 'Viewer')}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-sm font-medium text-text">{t('mediaPage.viewer', 'Viewer')}</div>
+                  <div className="text-xs text-text-muted">
                     {viewMode === "spread"
                       ? t("mediaPage.viewerCount", "{{count}} open", { count: viewerItems.length })
                       : viewMode === "list"
@@ -847,7 +846,7 @@ export const MediaReviewPage: React.FC = () => {
                     }))}
                   />
                 )}
-                <div className="h-5 w-px bg-gray-200 dark:bg-gray-700 mx-1" />
+                <div className="h-5 w-px bg-border mx-1" />
                 <Radio.Group
                   size="small"
                   value={orientation}
@@ -901,7 +900,7 @@ export const MediaReviewPage: React.FC = () => {
                     {t("mediaPage.prevItem", "Prev")}
                   </Button>
                 </Tooltip>
-                <span className="text-xs text-gray-600 dark:text-gray-300 min-w-[5rem] text-center">
+                <span className="text-xs text-text-muted min-w-[5rem] text-center">
                   {focusIndex >= 0
                     ? t("mediaPage.itemPosition", "Item {{current}} of {{total}}", { current: focusIndex + 1, total: allResults.length })
                     : t("mediaPage.noItemSelected", "No item selected")}
@@ -954,7 +953,7 @@ export const MediaReviewPage: React.FC = () => {
                         "Multi-Item Review keyboard shortcuts"
                       ) as string
                     }
-                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                    className="text-text-subtle hover:text-text"
                   >
                     ?
                   </Button>
@@ -962,7 +961,7 @@ export const MediaReviewPage: React.FC = () => {
               </div>
             </div>
             {selectedIds.length > 0 && (
-              <div className="mt-2 flex items-center gap-2 overflow-x-auto text-xs text-gray-600 dark:text-gray-300">
+              <div className="mt-2 flex items-center gap-2 overflow-x-auto text-xs text-text-muted">
                 <span className="font-medium">{t("mediaPage.openMiniMap", "Open items")}</span>
                 {selectedIds.map((id, idx) => {
                   const d = details[id]
@@ -989,25 +988,25 @@ export const MediaReviewPage: React.FC = () => {
                 <div className="flex flex-col items-center justify-center h-full p-8 text-center">
                   {!helpDismissedLoading && !helpDismissed ? (
                     <div className="max-w-md">
-                      <HelpCircle className="w-10 h-10 mx-auto mb-4 text-blue-500" />
-                      <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                      <HelpCircle className="w-10 h-10 mx-auto mb-4 text-primary" />
+                      <h3 className="text-lg font-medium text-text mb-3">
                         {t('mediaPage.firstUseTitle', 'Quick Guide: Multi-Item Review')}
                       </h3>
-                      <ol className="text-left text-sm text-gray-600 dark:text-gray-300 space-y-3 mb-6">
+                      <ol className="text-left text-sm text-text-muted space-y-3 mb-6">
                         <li className="flex gap-2">
-                          <span className="font-semibold text-blue-600 dark:text-blue-400">1.</span>
+                          <span className="font-semibold text-primary">1.</span>
                           <span>
                             <strong>{t('mediaPage.firstUseStep1', 'Select items')}</strong> — {t('mediaPage.firstUseStep1Desc', 'Click items in the left panel to add them to your viewer.')}
                           </span>
                         </li>
                         <li className="flex gap-2">
-                          <span className="font-semibold text-blue-600 dark:text-blue-400">2.</span>
+                          <span className="font-semibold text-primary">2.</span>
                           <span>
                             <strong>{t('mediaPage.firstUseStep2', 'Choose a view')}</strong> — {t('mediaPage.firstUseStep2Desc', 'Use "Compare" for side-by-side, "Focus" for one at a time, or "Stack" to see all.')}
                           </span>
                         </li>
                         <li className="flex gap-2">
-                          <span className="font-semibold text-blue-600 dark:text-blue-400">3.</span>
+                          <span className="font-semibold text-primary">3.</span>
                           <span>
                             <strong>{t('mediaPage.firstUseStep3', 'Navigate')}</strong> — {t('mediaPage.firstUseStep3Desc', 'Use Prev/Next buttons or keyboard (Tab + Enter) to move through items.')}
                           </span>
@@ -1018,7 +1017,7 @@ export const MediaReviewPage: React.FC = () => {
                       </Button>
                     </div>
                   ) : (
-                    <div className="text-gray-500 dark:text-gray-400">
+                    <div className="text-text-muted">
                       <Empty
                         description={t('mediaPage.selectItemsHint', 'Select items on the left to view here.')}
                         image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -1055,8 +1054,8 @@ export const MediaReviewPage: React.FC = () => {
               )}
             </div>
             {selectedIds.length > 0 && (
-              <div className="w-52 sticky top-[4.5rem] self-start max-h-[calc(100vh-8rem)] overflow-auto border-l dark:border-gray-800 pl-2">
-                <div className="text-xs text-gray-500 dark:text-gray-300 mb-1">
+              <div className="w-52 sticky top-[4.5rem] self-start max-h-[calc(100vh-8rem)] overflow-auto border-l border-border pl-2">
+                <div className="text-xs text-text-muted mb-1">
                   {t("mediaPage.miniMapTitle", "Jump to item")}
                 </div>
                 <div className="space-y-1">

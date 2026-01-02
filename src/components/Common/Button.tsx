@@ -19,14 +19,14 @@ type ButtonProps = {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800 dark:bg-blue-500 dark:hover:bg-blue-600 dark:active:bg-blue-700",
+    "bg-primary text-white hover:bg-primaryStrong active:bg-primaryStrong",
   secondary:
-    "bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 dark:active:bg-gray-500",
+    "bg-surface2 text-text hover:bg-surface active:bg-surface",
   danger:
-    "bg-red-600 text-white hover:bg-red-700 active:bg-red-800 dark:bg-red-500 dark:hover:bg-red-600 dark:active:bg-red-700",
+    "bg-danger text-white hover:bg-danger active:bg-danger",
   ghost:
-    "bg-transparent text-gray-700 hover:bg-gray-100 active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700",
-  text: "bg-transparent text-blue-600 hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+    "bg-transparent text-text-muted hover:bg-surface2 hover:text-text active:bg-surface2",
+  text: "bg-transparent text-primary hover:text-primaryStrong hover:underline"
 }
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -36,7 +36,7 @@ const sizeStyles: Record<ButtonSize, string> = {
 }
 
 const baseStyles =
-  "inline-flex items-center justify-center gap-1.5 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+  "inline-flex items-center justify-center gap-1.5 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:cursor-not-allowed"
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (

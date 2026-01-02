@@ -142,8 +142,8 @@ export function QuickIngestButton({ className }: QuickIngestButtonProps) {
             ) as string
           }
           className={classNames(
-            "relative inline-flex min-w-[180px] items-center justify-center gap-2 rounded-full border border-transparent px-4 py-2 text-sm font-medium transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]",
-            "text-gray-600 dark:text-gray-200"
+            "relative inline-flex min-w-[180px] items-center justify-center gap-2 rounded-full border border-transparent px-4 py-2 text-sm font-medium transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+            "text-text-muted"
           )}
           data-has-queued-ingest={hasQueuedQuickIngest ? "true" : "false"}
           aria-disabled={false}
@@ -151,7 +151,7 @@ export function QuickIngestButton({ className }: QuickIngestButtonProps) {
           <UploadCloud className="h-3 w-3" aria-hidden="true" />
           <span>{t("option:header.quickIngest", "Quick ingest")}</span>
           {hasQueuedQuickIngest && (
-            <span className="absolute -top-1 -right-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-semibold text-white">
+            <span className="absolute -top-1 -right-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[9px] font-semibold text-white">
               {queuedQuickIngestCount > 9 ? "9+" : queuedQuickIngestCount}
             </span>
           )}
@@ -167,7 +167,7 @@ export function QuickIngestButton({ className }: QuickIngestButtonProps) {
                 focusTrigger: false,
               })
             }
-            className="inline-flex items-center rounded-full border border-transparent px-2 py-1 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400"
+            className="inline-flex items-center rounded-full border border-transparent px-2 py-1 text-xs text-primary hover:text-primaryStrong"
           >
             {t(
               "quickIngest:processQueuedItemsShort",

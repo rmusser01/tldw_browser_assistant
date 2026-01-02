@@ -153,7 +153,7 @@
     "message": "O TTS do navegador usa o áudio do sistema"
   },
   "tts_browserInfoDescription": {
-    "message": "Browser TTS plays using your system synthesizer and does not expose a downloadable audio file. Use the segment controls below, or switch providers for a track list and player."
+    "message": "O TTS do navegador reproduz usando o sintetizador do sistema e não disponibiliza um arquivo de áudio para download. Use os controles de segmentos abaixo ou troque de provedor para ver a lista de faixas e o player."
   },
   "tts_unsupportedProviderTitle": {
     "message": "Provedor de TTS não suportado"
@@ -168,19 +168,19 @@
     "message": "O formato de resposta \"{{format}}\" não é suportado. Voltando para MP3."
   },
   "tts_elevenLabsMissingTitle": {
-    "message": "ElevenLabs needs an API key"
+    "message": "O ElevenLabs precisa de uma chave de API"
   },
   "tts_elevenLabsMissingBody": {
-    "message": "Add your ElevenLabs API key in Settings to load voices and models."
+    "message": "Adicione sua chave de API do ElevenLabs em Configurações para carregar vozes e modelos."
   },
   "tts_elevenLabsUnavailableTitle": {
-    "message": "ElevenLabs voices unavailable"
+    "message": "Vozes do ElevenLabs indisponíveis"
   },
   "tts_elevenLabsUnavailableBody": {
-    "message": "We couldn't load voices or models. Check your API key and try again."
+    "message": "Não foi possível carregar vozes ou modelos. Verifique sua chave de API e tente novamente."
   },
   "tts_elevenLabsMissingCta": {
-    "message": "Set API key in Settings"
+    "message": "Defina a chave de API em Configurações"
   },
   "tts_generateErrorTitle": {
     "message": "Erro ao gerar áudio"
@@ -201,13 +201,13 @@
     "message": "Enable text-to-speech above to play audio."
   },
   "tts_playDisabledElevenLabs": {
-    "message": "Add an ElevenLabs API key, voice, and model to enable Play."
+    "message": "Adicione uma chave de API do ElevenLabs, uma voz e um modelo para habilitar Play."
   },
   "tts_stopDisabled": {
     "message": "Stop activates after audio starts."
   },
   "tts_providerChangeHelper": {
-    "message": "Open the provider selector below to switch between Browser, tldw, OpenAI, or Supersonic."
+    "message": "Abra o seletor de provedores abaixo para alternar entre Navegador, tldw, OpenAI ou Supersonic."
   },
   "tts_changeProvider": {
     "message": "Change provider"
@@ -252,31 +252,31 @@
     "message": "Stop"
   },
   "tts_browserSegmentsTitle": {
-    "message": "Browser TTS segments"
+    "message": "Segmentos de TTS do navegador"
   },
   "tts_browserSegmentsHelp": {
-    "message": "Queue segments or play an individual segment using system audio."
+    "message": "Enfileire segmentos ou reproduza um segmento individual usando o áudio do sistema."
   },
   "tts_browserQueueAll": {
-    "message": "Queue all"
+    "message": "Enfileirar tudo"
   },
   "tts_browserQueueFromHere": {
-    "message": "Queue from here"
+    "message": "Enfileirar a partir daqui"
   },
   "tts_browserSegmentPlay": {
-    "message": "Play segment"
+    "message": "Reproduzir segmento"
   },
   "tts_browserStatusSpeaking": {
-    "message": "Speaking segment {{current}}/{{total}}"
+    "message": "Reproduzindo segmento {{current}}/{{total}}"
   },
   "tts_browserStatusPaused": {
-    "message": "Paused"
+    "message": "Pausado"
   },
   "tts_browserPause": {
-    "message": "Pause"
+    "message": "Pausar"
   },
   "tts_browserResume": {
-    "message": "Resume"
+    "message": "Retomar"
   },
   "tts_tldwStatusOnline": {
     "message": "tldw server audio API detected (audio/speech)"
@@ -420,13 +420,13 @@
     "message": "Stop and send to server"
   },
   "stt_transcribingButton": {
-    "message": "Transcribing..."
+    "message": "Transcrevendo..."
   },
   "stt_transcribingTooltip": {
-    "message": "Transcribing audio..."
+    "message": "Transcrevendo áudio..."
   },
   "stt_transcribingPlaceholder": {
-    "message": "Transcribing audio..."
+    "message": "Transcrevendo áudio..."
   },
   "stt_historyTitle": {
     "message": "Transcription history"
@@ -1081,5 +1081,146 @@
   },
   "actor_sceneTemplateActive": {
     "message": "Template de cena ativo: Actor respeita as configurações de interação com templates."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "Ativar modo de comparação"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "Desbloqueia recursos experimentais de comparação multi‑modelo."
+  },
+  "composer_compareDisabled": {
+    "message": "O modo de comparação está desativado nas configurações."
+  },
+  "composer_compareChosenHint": {
+    "message": "Continue com a resposta escolhida ou compare novamente."
+  },
+  "composer_compareChosenLabel": {
+    "message": "Escolhida"
+  },
+  "composer_compareLatency": {
+    "message": "Latência"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "Comparar: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(da comparação)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "Respostas de vários modelos"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} modelos"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "Modelos selecionados: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "Abrir cada resposta selecionada como seu próprio chat"
+  },
+  "composer_compareThreadLabel": {
+    "message": "Thread por modelo"
+  },
+  "composer_compareThreadYou": {
+    "message": "Você"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "Abrir como chat completo"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "Abrir chat separado"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "Canônica"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "Fixar como canônica"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "Resposta canônica"
+  },
+  "composer_compareFilterLabel": {
+    "message": "Filtrar modelos"
+  },
+  "composer_compareFilterClear": {
+    "message": "Mostrar tudo"
+  },
+  "composer_compareFilterCount": {
+    "message": "Mostrando {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
   }
 }

@@ -23,7 +23,7 @@ const Preview: React.FC<PreviewProps> = ({ content, showPreview }) => {
   const { t } = useTranslation(["option"])
   if (!showPreview || !content) return null
   return (
-    <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+    <div className="mt-2 rounded border border-border bg-surface p-2 text-xs">
       <Text type="secondary" className="block text-[11px] mb-1">
         {t("flashcards.preview", { defaultValue: "Preview" })}
       </Text>
@@ -230,7 +230,7 @@ export const CreateTab: React.FC = () => {
         <div className="flex items-center gap-4 mb-4">
           <button
             type="button"
-            className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            className="text-xs text-primary hover:text-primaryStrong"
             onClick={() => setShowPreview((v) => !v)}
           >
             {showPreview

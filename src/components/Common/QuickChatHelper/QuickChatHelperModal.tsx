@@ -77,11 +77,11 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     ? t("common:connected", "Connected")
     : t("common:notConnected", "Not connected")
   const connectionBadgeClass = isConnectionReady
-    ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-100"
-    : "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-100"
+    ? "border-success/30 bg-success/10 text-success"
+    : "border-warn/30 bg-warn/10 text-warn"
   const connectionDotClass = isConnectionReady
-    ? "bg-emerald-500"
-    : "bg-amber-500"
+    ? "bg-success"
+    : "bg-warn"
   const descriptionId =
     messages.length === 0 ? "quick-chat-description" : undefined
 
@@ -121,7 +121,7 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
           <span
             role="status"
             aria-live="polite"
-            className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium ${connectionBadgeClass}`}
+            className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[11px] font-medium ${connectionBadgeClass}`}
           >
             <span className={`h-1.5 w-1.5 rounded-full ${connectionDotClass}`} />
             <span>{connectionLabel}</span>
@@ -136,10 +136,10 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
           {messages.length === 0 ? (
             <div
               id="quick-chat-description"
-              className="flex flex-col items-center justify-center h-full text-gray-500 dark:text-gray-400 text-center px-4">
+              className="flex flex-col items-center justify-center h-full text-text-subtle text-center px-4">
               <p className="text-sm">{emptyState}</p>
               {!hasModel && (
-                <div className="mt-3 flex items-center gap-2 text-amber-600 dark:text-amber-400 text-xs">
+                <div className="mt-3 flex items-center gap-2 text-warn text-xs">
                   <AlertCircle className="h-4 w-4" />
                   <span>
                     {t(

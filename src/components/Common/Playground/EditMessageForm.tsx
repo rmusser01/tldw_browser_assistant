@@ -60,7 +60,7 @@ export const EditMessageForm = (props: Props) => {
         tabIndex={0}
         placeholder={t("editMessage.placeholder")}
         ref={textareaRef}
-        className="w-full  bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100"
+        className="w-full bg-transparent text-body text-text placeholder:text-text-muted focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0"
       />
       <div className="flex flex-wrap gap-2 mt-2">
         <div
@@ -75,21 +75,21 @@ export const EditMessageForm = (props: Props) => {
                 props.onClose()
               }}
               aria-label={t("save")}
-              className="border border-gray-600 px-2 py-1.5 rounded-lg text-gray-700 dark:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 text-sm">
+              className="rounded-lg border border-border bg-surface px-2 py-2 text-sm text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus hover:bg-surface2">
               {t("save")}
             </button>
           )}
           <div className="flex space-x-2">
             <button
               aria-label={t("save")}
-              className="bg-black px-2 py-1.5 rounded-lg text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500 hover:bg-gray-900 text-sm">
+              className="rounded-lg bg-primary px-2 py-2 text-sm text-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus hover:bg-primaryStrong">
               {props.isBot ? t("save") : t("saveAndSubmit")}
             </button>
 
             <button
               onClick={props.onClose}
               aria-label={t("cancel")}
-              className="border dark:border-gray-600 px-2 py-1.5 rounded-lg text-gray-700 dark:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 text-sm">
+              className="rounded-lg border border-border bg-surface px-2 py-2 text-sm text-text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-focus hover:bg-surface2 hover:text-text">
               {t("cancel")}
             </button>
           </div>

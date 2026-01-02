@@ -291,7 +291,7 @@ export function HeaderShortcuts({
           "option:header.shortcutsKeyHint",
           "Press ? to toggle shortcuts"
         )}
-        className="inline-flex items-center self-start rounded-md border border-transparent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-gray-500 transition hover:border-gray-300 hover:bg-white dark:text-gray-300 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+        className="inline-flex items-center self-start rounded-md border border-transparent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-text-muted transition hover:border-border hover:bg-surface"
       >
         <ChevronDown
           className={classNames(
@@ -303,7 +303,7 @@ export function HeaderShortcuts({
           ? t("option:header.hideShortcuts", "Hide shortcuts")
           : t("option:header.showShortcuts", "Show shortcuts")}
         {!shortcutsExpanded && (
-          <span className="ml-1.5 text-[10px] font-normal normal-case tracking-normal text-gray-400">
+          <span className="ml-1.5 text-[10px] font-normal normal-case tracking-normal text-text-subtle">
             {t("option:header.shortcutsKeyHintInline", "(Press ?)")}
           </span>
         )}
@@ -337,7 +337,7 @@ export function HeaderShortcuts({
                 >
                   <h3
                     id={groupId}
-                    className="text-xs font-semibold uppercase tracking-wide text-gray-400"
+                    className="text-xs font-semibold uppercase tracking-wide text-text-subtle"
                   >
                     {group.title}
                   </h3>
@@ -357,10 +357,10 @@ export function HeaderShortcuts({
                           to={item.to}
                           className={({ isActive }) =>
                             classNames(
-                              "flex w-full items-center gap-2 rounded-md border px-3 py-2 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 sm:w-auto",
+                              "flex w-full items-center gap-2 rounded-md border px-3 py-2 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus sm:w-auto",
                               isActive
-                                ? "border-gray-300 bg-white text-gray-900 dark:border-gray-500 dark:bg-[#1f1f1f] dark:text-white"
-                                : "border-transparent text-gray-600 hover:border-gray-300 hover:bg-white dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                                ? "border-border bg-surface text-text"
+                                : "border-transparent text-text-muted hover:border-border hover:bg-surface"
                             )
                           }
                         >

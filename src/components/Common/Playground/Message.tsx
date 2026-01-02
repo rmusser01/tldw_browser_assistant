@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Tag, Image, Tooltip, Collapse, Popover, Avatar } from "antd"
+import { Tag, Image, Tooltip, Collapse, Popover, Avatar, message } from "antd"
 import { IconButton } from "../IconButton"
 import { LoadingStatus } from "./ActionInfo"
 import {
@@ -7,16 +7,19 @@ import {
   CopyIcon,
   GitBranchIcon,
   InfoIcon,
+  Layers,
   Pen,
   PlayCircle,
   RotateCcw,
   Square,
-  Volume2Icon
+  StickyNote,
+  FileText,
+  Volume2Icon,
+  CornerUpLeft
 } from "lucide-react"
 import { StopCircle as StopCircleIcon } from "lucide-react"
 import { EditMessageForm } from "./EditMessageForm"
 import { useTranslation } from "react-i18next"
-import { MessageSource } from "./MessageSource"
 import { useTTS } from "@/hooks/useTTS"
 import { tagColors } from "@/utils/color"
 import { removeModelSuffix } from "@/db/dexie/models"
@@ -31,9 +34,19 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { PlaygroundUserMessageBubble } from "./PlaygroundUserMessage"
 import { copyToClipboard } from "@/utils/clipboard"
 import { ChatDocuments } from "@/models/ChatTypes"
-import { PiGitBranch } from "react-icons/pi"
 import { buildChatTextClass } from "@/utils/chat-style"
 import { highlightText } from "@/utils/text-highlight"
+import { FeedbackButtons } from "@/components/Sidepanel/Chat/FeedbackButtons"
+import { FeedbackModal } from "@/components/Sidepanel/Chat/FeedbackModal"
+import { SourceFeedback } from "@/components/Sidepanel/Chat/SourceFeedback"
+import { useFeedback } from "@/hooks/useFeedback"
+import { useImplicitFeedback } from "@/hooks/useImplicitFeedback"
+import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { useTldwAudioStatus } from "@/hooks/useTldwAudioStatus"
+import { getSourceFeedbackKey } from "@/utils/feedback"
+import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { useUiModeStore } from "@/store/ui-mode"
+import { useStoreMessageOption } from "@/store/option"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
 
@@ -74,18 +87,14 @@ const ErrorBubble: React.FC<{
 const ActionButtonWithLabel: React.FC<{
   icon: React.ReactNode
   label: string
-  isLastMessage: boolean
+  showLabel?: boolean
   className?: string
-}> = ({ icon, label, isLastMessage, className = "" }) => (
+}> = ({ icon, label, showLabel = false, className = "" }) => (
   <span className={`inline-flex items-center gap-1 ${className}`}>
     {icon}
-    <span
-      className={`text-[10px] text-gray-500 dark:text-gray-400 transition-opacity ${
-        isLastMessage ? "opacity-100" : "opacity-0 group-focus-within:opacity-100"
-      }`}
-    >
-      {label}
-    </span>
+    {showLabel && (
+      <span className="text-label text-text-subtle">{label}</span>
+    )}
   </span>
 )
 
@@ -124,6 +133,8 @@ type Props = {
   onStopStreaming?: () => void
   serverChatId?: string | null
   serverMessageId?: string | null
+  messageId?: string
+  feedbackQuery?: string | null
   searchQuery?: string
   isEmbedding?: boolean
   // Compare/multi-model metadata (optional)
@@ -135,7 +146,7 @@ type Props = {
 }
 
 const ACTION_BUTTON_CLASS =
-  "flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full bg-gray-100 dark:bg-[#2d2d2d] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+  "flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus"
 
 export const PlaygroundMessage = (props: Props) => {
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
@@ -154,17 +165,137 @@ export const PlaygroundMessage = (props: Props) => {
   const [assistantTextFont] = useStorage("chatAssistantTextFont", "default")
   const [userTextSize] = useStorage("chatUserTextSize", "md")
   const [assistantTextSize] = useStorage("chatAssistantTextSize", "md")
+  const [ttsProvider] = useStorage("ttsProvider", "browser")
   const { t } = useTranslation(["common", "playground"])
+  const { capabilities } = useServerCapabilities()
+  const uiMode = useUiModeStore((state) => state.mode)
+  const isProMode = uiMode === "pro"
+  const setReplyTarget = useStoreMessageOption((state) => state.setReplyTarget)
   const { cancel, isSpeaking, speak } = useTTS()
+  const { healthState: audioHealthState, voicesAvailable } =
+    useTldwAudioStatus({
+      requireVoices: ttsProvider === "tldw"
+    })
+  const [isFeedbackOpen, setIsFeedbackOpen] = React.useState(false)
+  const [savingKnowledge, setSavingKnowledge] = React.useState<
+    "note" | "flashcard" | null
+  >(null)
   const isLastMessage: boolean =
     props.currentMessageIndex === props.totalMessages - 1
   const errorPayload = decodeChatErrorPayload(props.message)
   const errorFriendlyText = React.useMemo(() => {
     if (!errorPayload) return null
     return [errorPayload.summary, errorPayload.hint, errorPayload.detail]
-      .filter(Boolean)
-      .join("\n")
+    .filter(Boolean)
+    .join("\n")
   }, [errorPayload])
+
+  const messageKey = React.useMemo(() => {
+    if (props.serverMessageId) return `srv:${props.serverMessageId}`
+    if (props.messageId) return `local:${props.messageId}`
+    if (props.serverChatId) {
+      return `chat:${props.serverChatId}:${props.currentMessageIndex}`
+    }
+    return `idx:${props.currentMessageIndex}`
+  }, [
+    props.currentMessageIndex,
+    props.messageId,
+    props.serverChatId,
+    props.serverMessageId
+  ])
+
+  const {
+    thumb,
+    detail,
+    sourceFeedback,
+    canSubmit,
+    isSubmitting: isFeedbackSubmitting,
+    showThanks,
+    submitThumb,
+    submitDetail,
+    submitSourceThumb
+  } = useFeedback({
+    messageKey,
+    conversationId: props.serverChatId ?? null,
+    messageId: props.serverMessageId ?? null,
+    query: props.feedbackQuery ?? null
+  })
+
+  const feedbackExplicitAvailable = Boolean(capabilities?.hasFeedbackExplicit)
+  const feedbackImplicitAvailable = Boolean(capabilities?.hasFeedbackImplicit)
+  const canSaveKnowledge =
+    Boolean(capabilities?.hasChatKnowledgeSave) &&
+    Boolean(capabilities?.hasNotes || capabilities?.hasFlashcards) &&
+    Boolean(props.serverChatId) &&
+    Boolean(props.serverMessageId) &&
+    !props.temporaryChat &&
+    !errorPayload
+  const canSaveToNotes = canSaveKnowledge && Boolean(capabilities?.hasNotes)
+  const canSaveToFlashcards =
+    canSaveKnowledge && Boolean(capabilities?.hasFlashcards)
+  const canGenerateDocument =
+    Boolean(capabilities?.hasChatDocuments) &&
+    Boolean(props.serverChatId) &&
+    props.isBot &&
+    !props.temporaryChat &&
+    !errorPayload
+  const replyId = props.messageId ?? props.serverMessageId ?? null
+  const canReply =
+    isProMode &&
+    Boolean(replyId) &&
+    !props.compareSelectable &&
+    !props.message_type?.startsWith("compare")
+
+  const buildReplyPreview = React.useCallback(
+    (value: string) => {
+      const collapsed = value.replace(/\s+/g, " ").trim()
+      if (!collapsed) {
+        return t("common:replyTargetFallback", "Message")
+      }
+      if (collapsed.length > 140) {
+        return `${collapsed.slice(0, 137)}...`
+      }
+      return collapsed
+    },
+    [t]
+  )
+
+  const { trackCopy, trackSourcesExpanded, trackSourceClick } =
+    useImplicitFeedback({
+      conversationId: props.serverChatId ?? null,
+      messageId: props.serverMessageId ?? null,
+      query: props.feedbackQuery ?? null,
+      sources: props.sources ?? [],
+      enabled: feedbackImplicitAvailable
+    })
+
+  const handleSaveKnowledge = async (makeFlashcard: boolean) => {
+    if (!props.serverChatId || !props.serverMessageId) return
+    const snippet = (errorFriendlyText || props.message || "").trim()
+    if (!snippet) {
+      message.error(t("saveToNotesEmpty", "Nothing to save yet."))
+      return
+    }
+    setSavingKnowledge(makeFlashcard ? "flashcard" : "note")
+    try {
+      await tldwClient.initialize().catch(() => null)
+      await tldwClient.saveChatKnowledge({
+        conversation_id: props.serverChatId,
+        message_id: props.serverMessageId,
+        snippet,
+        make_flashcard: makeFlashcard
+      })
+      message.success(
+        makeFlashcard
+          ? t("savedToFlashcards", "Saved to Flashcards")
+          : t("savedToNotes", "Saved to Notes")
+      )
+    } catch (err: any) {
+      message.error(err?.message || t("somethingWentWrong"))
+    } finally {
+      setSavingKnowledge(null)
+    }
+  }
 
   const autoCopyToClipboard = async () => {
     if (
@@ -174,12 +305,14 @@ export const PlaygroundMessage = (props: Props) => {
       !props.isStreaming &&
       !props.isProcessing &&
       props.message.trim().length > 0 &&
-      !errorPayload
+      !errorPayload &&
+      !ttsActionDisabled
     ) {
       await copyToClipboard({
         text: props.message,
         formatted: copyAsFormattedText
       })
+      trackCopy()
       setIsBtnPressed(true)
       setTimeout(() => {
         setIsBtnPressed(false)
@@ -225,6 +358,66 @@ export const PlaygroundMessage = (props: Props) => {
       props.actionInfo ||
       props.isEmbedding)
 
+  const isActiveResponse =
+    props.isBot &&
+    isLastMessage &&
+    (props.isStreaming || props.isProcessing)
+  const feedbackDisabled =
+    !canSubmit ||
+    Boolean(errorPayload) ||
+    !feedbackExplicitAvailable ||
+    isActiveResponse
+  const feedbackDisabledReason =
+    !canSubmit || Boolean(errorPayload) || !feedbackExplicitAvailable
+      ? t(
+          "playground:feedback.unavailable",
+          "Feedback is unavailable for this message."
+        )
+      : t(
+          "playground:feedback.disabled",
+          "Feedback is available after the response finishes."
+        )
+
+  const tldwTtsSelected = ttsProvider === "tldw"
+  const ttsBlockedByHealth =
+    tldwTtsSelected &&
+    (audioHealthState === "unhealthy" || audioHealthState === "unavailable")
+  const ttsBlockedByVoices = tldwTtsSelected && voicesAvailable === false
+  const ttsActionDisabled = ttsBlockedByHealth || ttsBlockedByVoices
+  const ttsDisabledReason = ttsBlockedByHealth
+    ? audioHealthState === "unavailable"
+      ? t(
+          "playground:tts.tldwStatusOffline",
+          "Audio API not detected; check your tldw server version."
+        )
+      : t(
+          "playground:tts.chatDisabledUnhealthy",
+          "Audio service is unhealthy. Check Settings → Health."
+        )
+    : ttsBlockedByVoices
+      ? t(
+          "playground:tts.chatDisabledNoVoices",
+          "No TTS voices are available on the server."
+        )
+      : null
+
+  const actionBarVisibility = isProMode
+    ? "opacity-100"
+    : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
+
+  const handleThumbUp = React.useCallback(() => {
+    void submitThumb("up")
+  }, [submitThumb])
+
+  const handleThumbDown = React.useCallback(() => {
+    setIsFeedbackOpen(true)
+    void submitThumb("down")
+  }, [submitThumb])
+
+  const handleOpenDetails = React.useCallback(() => {
+    setIsFeedbackOpen(true)
+  }, [])
+
   useEffect(() => {
     if (
       autoPlayTTS &&
@@ -251,7 +444,8 @@ export const PlaygroundMessage = (props: Props) => {
     props.isStreaming,
     props.isProcessing,
     props.message,
-    errorPayload
+    errorPayload,
+    ttsActionDisabled
   ])
 
   const compareLabel = t("playground:composer.compareTag", "Compare")
@@ -261,14 +455,17 @@ export const PlaygroundMessage = (props: Props) => {
   }
 
   const MARKDOWN_BASE_CLASSES =
-    "prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
+    "prose break-words text-message dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
+  const messageCardClass = props.isBot
+    ? "flex flex-col gap-3 rounded-2xl border border-border bg-surface/70 p-4 shadow-sm"
+    : "flex flex-col gap-3 rounded-2xl border border-border bg-surface2/70 p-4 shadow-sm"
 
   return (
     <div
       data-testid="chat-message"
       data-role={props.isBot ? "assistant" : "user"}
       data-index={props.currentMessageIndex}
-      className={`group relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 text-gray-800 dark:text-gray-100 ${checkWideMode ? "max-w-none" : ""}`}>
+      className={`group relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 text-text ${checkWideMode ? "max-w-none" : ""}`}>
       {/* Inline stop button while streaming on the latest assistant message */}
       {props.isBot && (props.isStreaming || props.isProcessing) && isLastMessage && props.onStopStreaming && (
         <div className="absolute right-2 top-0 z-10">
@@ -277,7 +474,7 @@ export const PlaygroundMessage = (props: Props) => {
               type="button"
               onClick={props.onStopStreaming}
               data-testid="chat-message-stop-streaming"
-              className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1 bg-white/70 dark:bg-[#1f1f1f]/70 backdrop-blur hover:bg-white dark:hover:bg-[#2a2a2a]">
+              className="rounded-md border border-border bg-surface/70 p-1 text-text backdrop-blur hover:bg-surface">
               <StopCircleIcon className="w-5 h-5" />
               <span className="sr-only">{t("playground:composer.stopStreaming")}</span>
             </button>
@@ -308,54 +505,55 @@ export const PlaygroundMessage = (props: Props) => {
           )}
         </div>
         <div className="flex w-[calc(100%-50px)] flex-col gap-2 lg:w-[calc(100%-115px)]">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-800 dark:text-white">
-              {props.isBot
-                ? removeModelSuffix(
-                    `${props?.modelName || props?.name}`?.replaceAll(
-                      /accounts\/[^\/]+\/models\//g,
-                      ""
+          <div className={messageCardClass}>
+            <div className="flex items-center gap-2">
+              <span className="text-caption font-semibold text-text">
+                {props.isBot
+                  ? removeModelSuffix(
+                      `${props?.modelName || props?.name}`?.replaceAll(
+                        /accounts\/[^\/]+\/models\//g,
+                        ""
+                      )
                     )
-                  )
-                : "You"}
-            </span>
-            {props.isBot && props.message_type === "compare:reply" && (
-              <div className="flex items-center gap-1.5">
-                {props.compareSelectable && props.onToggleCompareSelect ? (
-                  <button
-                    type="button"
-                    onClick={props.onToggleCompareSelect}
-                    aria-label={compareLabel}
-                    aria-pressed={props.compareSelected}
-                    className={`rounded-full px-2 py-0.5 text-[10px] font-medium border transition ${
-                      props.compareSelected
-                        ? "bg-blue-600 text-white border-blue-600"
-                        : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
-                    }`}
-                  >
-                    {compareLabel}
-                  </button>
-                ) : (
-                  <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
-                    {compareLabel}
-                  </span>
-                )}
-                {props.compareError && (
-                  <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-medium text-red-700 dark:bg-red-900/40 dark:text-red-200">
-                    {t("error.label", "Error")}
-                  </span>
-                )}
-                {props.compareChosen && (
-                  <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
-                    {t(
-                      "playground:composer.compareChosenLabel",
-                      "Chosen"
-                    )}
-                  </span>
-                )}
-              </div>
-            )}
-          </div>
+                  : "You"}
+              </span>
+              {props.isBot && props.message_type === "compare:reply" && (
+                <div className="flex items-center gap-2">
+                  {props.compareSelectable && props.onToggleCompareSelect ? (
+                    <button
+                      type="button"
+                      onClick={props.onToggleCompareSelect}
+                      aria-label={compareLabel}
+                      aria-pressed={props.compareSelected}
+                      className={`rounded-full px-2 py-1 text-[10px] font-medium border transition ${
+                        props.compareSelected
+                          ? "bg-blue-600 text-white border-blue-600"
+                          : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
+                      }`}
+                    >
+                      {compareLabel}
+                    </button>
+                  ) : (
+                    <span className="rounded-full bg-blue-50 px-2 py-1 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                      {compareLabel}
+                    </span>
+                  )}
+                  {props.compareError && (
+                    <span className="rounded-full bg-red-50 px-2 py-1 text-[10px] font-medium text-red-700 dark:bg-red-900/40 dark:text-red-200">
+                      {t("error.label", "Error")}
+                    </span>
+                  )}
+                  {props.compareChosen && (
+                    <span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
+                      {t(
+                        "playground:composer.compareChosenLabel",
+                        "Chosen"
+                      )}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
 
           {/* Unified loading status indicator */}
           {shouldShowLoadingStatus && (
@@ -398,7 +596,7 @@ export const PlaygroundMessage = (props: Props) => {
                         return (
                           <Collapse
                             key={i}
-                            className="border-none text-gray-500 dark:text-gray-400 !mb-3 "
+                            className="border-none text-text-muted !mb-3 "
                             defaultActiveKey={
                               props?.openReasoning ? "reasoning" : undefined
                             }
@@ -421,7 +619,7 @@ export const PlaygroundMessage = (props: Props) => {
                                         )}
                                       </span>
                                       {props.reasoningTimeTaken != null && (
-                                        <span className="text-[11px] text-gray-400">
+                                        <span className="text-label text-text-subtle">
                                           {humanizeMilliseconds(
                                             props.reasoningTimeTaken
                                           )}
@@ -433,7 +631,7 @@ export const PlaygroundMessage = (props: Props) => {
                                   <React.Suspense
                                     fallback={
                                       <p
-                                        className={`text-sm text-gray-500 dark:text-gray-400 ${assistantTextClass}`}>
+                                        className={`text-body text-text-muted ${assistantTextClass}`}>
                                         {t("reasoning.loading")}
                                       </p>
                                     }>
@@ -455,7 +653,7 @@ export const PlaygroundMessage = (props: Props) => {
                           key={i}
                           fallback={
                             <p
-                              className={`text-sm text-gray-500 dark:text-gray-400 ${assistantTextClass}`}>
+                              className={`text-body text-text-muted ${assistantTextClass}`}>
                               {t("loading.content")}
                             </p>
                           }>
@@ -473,7 +671,7 @@ export const PlaygroundMessage = (props: Props) => {
                 <p
                   className={`prose dark:prose-invert whitespace-pre-line prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark ${chatTextClass} ${
                     props.message_type &&
-                    "italic text-gray-500 dark:text-gray-400 text-sm"
+                    "italic text-text-muted text-body"
                   }
                   ${checkWideMode ? "max-w-none" : ""}
                   `}>
@@ -541,23 +739,48 @@ export const PlaygroundMessage = (props: Props) => {
             <Collapse
               className="mt-6"
               ghost
+              onChange={(activeKey) => {
+                const opened = Array.isArray(activeKey)
+                  ? activeKey.length > 0
+                  : Boolean(activeKey)
+                if (opened) {
+                  trackSourcesExpanded()
+                }
+              }}
               items={[
                 {
                   key: "1",
                   label: (
-                    <div className="italic text-gray-500 dark:text-gray-400">
+                    <div className="italic text-text-muted">
                       {t("citations")}
                     </div>
                   ),
                   children: (
-                    <div className="mb-3 flex flex-wrap gap-2">
-                      {props?.sources?.map((source, index) => (
-                        <MessageSource
-                          onSourceClick={props.onSourceClick}
-                          key={index}
-                          source={source}
-                        />
-                      ))}
+                    <div className="mb-3 flex flex-col gap-2">
+                      {props?.sources?.map((source, index) => {
+                        const sourceKey = getSourceFeedbackKey(source, index)
+                        const selected =
+                          sourceFeedback?.[sourceKey]?.thumb ?? null
+                        return (
+                          <SourceFeedback
+                            key={sourceKey}
+                            source={source}
+                            sourceKey={sourceKey}
+                            sourceIndex={index}
+                            selected={selected}
+                            disabled={feedbackDisabled || isFeedbackSubmitting}
+                            onRate={(key, payload, thumb) =>
+                              submitSourceThumb({
+                                sourceKey: key,
+                                source: payload,
+                                thumb
+                              })
+                            }
+                            onSourceClick={props.onSourceClick}
+                            onTrackClick={trackSourceClick}
+                          />
+                        )
+                      })}
                     </div>
                   )
                 }
@@ -566,16 +789,13 @@ export const PlaygroundMessage = (props: Props) => {
           )}
           {!props.isProcessing && !editMode ? (
             <div
-              className={`space-x-2 gap-2 flex ${
-                props.currentMessageIndex !== props.totalMessages - 1
-                  ? "invisible group-hover:visible group-focus-within:visible"
-                  : ""
-              }`}>
+              className={`flex flex-wrap items-center gap-2 transition-opacity ${actionBarVisibility}`}>
               {props.isTTSEnabled && (
-                <Tooltip title={t("tts")}>
+                <Tooltip title={ttsDisabledReason || t("tts")}>
                   <IconButton
                     ariaLabel={t("tts") as string}
                     onClick={() => {
+                      if (ttsActionDisabled) return
                       if (isSpeaking) {
                         cancel()
                       } else {
@@ -584,17 +804,24 @@ export const PlaygroundMessage = (props: Props) => {
                         })
                       }
                     }}
-                    className={ACTION_BUTTON_CLASS}>
+                    className={`${ACTION_BUTTON_CLASS} disabled:cursor-not-allowed disabled:opacity-50`}
+                    disabled={ttsActionDisabled}>
                     <ActionButtonWithLabel
                       icon={
                         !isSpeaking ? (
-                          <Volume2Icon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          <Volume2Icon
+                            className={`w-3 h-3 ${
+                              ttsActionDisabled
+                                ? "text-text-muted"
+                                : "text-text-subtle group-hover:text-text"
+                            }`}
+                          />
                         ) : (
-                          <Square className="w-3 h-3 text-red-400 group-hover:text-red-500" />
+                          <Square className="w-3 h-3 text-danger group-hover:text-danger" />
                         )
                       }
                       label={t("ttsShort", "TTS")}
-                      isLastMessage={isLastMessage}
+                      showLabel={isProMode}
                     />
                   </IconButton>
                 </Tooltip>
@@ -608,6 +835,7 @@ export const PlaygroundMessage = (props: Props) => {
                         text: errorFriendlyText || props.message,
                         formatted: copyAsFormattedText
                       })
+                      trackCopy()
 
                       // navigator.clipboard.writeText(props.message)
                       setIsBtnPressed(true)
@@ -619,19 +847,115 @@ export const PlaygroundMessage = (props: Props) => {
                     <ActionButtonWithLabel
                       icon={
                         !isBtnPressed ? (
-                          <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                          <CopyIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
                         ) : (
-                          <CheckIcon className="w-3 h-3 text-green-400 group-hover:text-green-500" />
+                          <CheckIcon className="w-3 h-3 text-success group-hover:text-success" />
                         )
                       }
                       label={t("copyShort", "Copy")}
-                      isLastMessage={isLastMessage}
+                      showLabel={isProMode}
+                    />
+                  </IconButton>
+                </Tooltip>
+              )}
+              {canReply && (
+                <Tooltip title={t("common:reply", "Reply")}>
+                  <IconButton
+                    ariaLabel={t("common:reply", "Reply") as string}
+                    onClick={() => {
+                      if (!replyId) return
+                      setReplyTarget({
+                        id: replyId,
+                        preview: buildReplyPreview(
+                          errorFriendlyText || props.message
+                        ),
+                        name: props.name,
+                        isBot: props.isBot
+                      })
+                    }}
+                    className={ACTION_BUTTON_CLASS}>
+                    <ActionButtonWithLabel
+                      icon={
+                        <CornerUpLeft className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                      }
+                      label={t("common:replyShort", "Reply")}
+                      showLabel={isProMode}
                     />
                   </IconButton>
                 </Tooltip>
               )}
               {props.isBot && (
                 <>
+                  {canSaveToNotes && (
+                    <Tooltip title={t("saveToNotes", "Save to Notes")}>
+                      <IconButton
+                        ariaLabel={t("saveToNotes", "Save to Notes") as string}
+                        onClick={() => handleSaveKnowledge(false)}
+                        disabled={savingKnowledge !== null}
+                        className={ACTION_BUTTON_CLASS}>
+                        <ActionButtonWithLabel
+                          icon={
+                            <StickyNote className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                          }
+                          label={t("saveNoteShort", "Note")}
+                          showLabel={isProMode}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                  {canSaveToFlashcards && (
+                    <Tooltip
+                      title={t("saveToFlashcards", "Save to Flashcards")}>
+                      <IconButton
+                        ariaLabel={
+                          t("saveToFlashcards", "Save to Flashcards") as string
+                        }
+                        onClick={() => handleSaveKnowledge(true)}
+                        disabled={savingKnowledge !== null}
+                        className={ACTION_BUTTON_CLASS}>
+                        <ActionButtonWithLabel
+                          icon={
+                            <Layers className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                          }
+                          label={t("saveFlashcardShort", "Card")}
+                          showLabel={isProMode}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                  {canGenerateDocument && (
+                    <Tooltip
+                      title={t("generateDocument", "Generate document")}>
+                      <IconButton
+                        ariaLabel={
+                          t(
+                            "generateDocument",
+                            "Generate document"
+                          ) as string
+                        }
+                        onClick={() => {
+                          if (typeof window === "undefined") return
+                          window.dispatchEvent(
+                            new CustomEvent("tldw:open-document-generator", {
+                              detail: {
+                                conversationId: props.serverChatId,
+                                message: errorFriendlyText || props.message,
+                                messageId: props.serverMessageId
+                              }
+                            })
+                          )
+                        }}
+                        className={ACTION_BUTTON_CLASS}>
+                        <ActionButtonWithLabel
+                          icon={
+                            <FileText className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                          }
+                          label={t("documentShort", "Doc")}
+                          showLabel={isProMode}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  )}
                   {props.generationInfo && (
                     <Popover
                       content={
@@ -643,10 +967,10 @@ export const PlaygroundMessage = (props: Props) => {
                         className={ACTION_BUTTON_CLASS}>
                         <ActionButtonWithLabel
                           icon={
-                            <InfoIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                            <InfoIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
                           }
                           label={t("infoShort", "Info")}
-                          isLastMessage={isLastMessage}
+                          showLabel={isProMode}
                         />
                       </IconButton>
                     </Popover>
@@ -660,10 +984,10 @@ export const PlaygroundMessage = (props: Props) => {
                         className={ACTION_BUTTON_CLASS}>
                         <ActionButtonWithLabel
                           icon={
-                            <RotateCcw className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                            <RotateCcw className="w-3 h-3 text-text-subtle group-hover:text-text" />
                           }
                           label={t("regenShort", "Redo")}
-                          isLastMessage={isLastMessage}
+                          showLabel={isProMode}
                         />
                       </IconButton>
                     </Tooltip>
@@ -677,10 +1001,10 @@ export const PlaygroundMessage = (props: Props) => {
                         className={ACTION_BUTTON_CLASS}>
                         <ActionButtonWithLabel
                           icon={
-                            <GitBranchIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                            <GitBranchIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
                           }
                           label={t("branchShort", "Branch")}
-                          isLastMessage={isLastMessage}
+                          showLabel={isProMode}
                         />
                       </IconButton>
                     </Tooltip>
@@ -694,10 +1018,10 @@ export const PlaygroundMessage = (props: Props) => {
                         className={ACTION_BUTTON_CLASS}>
                         <ActionButtonWithLabel
                           icon={
-                            <PlayCircle className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                            <PlayCircle className="w-3 h-3 text-text-subtle group-hover:text-text" />
                           }
                           label={t("continueShort", "More")}
-                          isLastMessage={isLastMessage}
+                          showLabel={isProMode}
                         />
                       </IconButton>
                     </Tooltip>
@@ -712,10 +1036,10 @@ export const PlaygroundMessage = (props: Props) => {
                     className={ACTION_BUTTON_CLASS}>
                     <ActionButtonWithLabel
                       icon={
-                        <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                        <Pen className="w-3 h-3 text-text-subtle group-hover:text-text" />
                       }
                       label={t("edit", "Edit")}
-                      isLastMessage={isLastMessage}
+                      showLabel={isProMode}
                     />
                   </IconButton>
                 </Tooltip>
@@ -727,9 +1051,33 @@ export const PlaygroundMessage = (props: Props) => {
               <div className={ACTION_BUTTON_CLASS}></div>
             </div>
           )}
+            {!editMode && props.isBot && (
+              <FeedbackButtons
+                selected={thumb}
+                disabled={feedbackDisabled}
+                disabledReason={feedbackDisabledReason}
+                isSubmitting={isFeedbackSubmitting}
+                onThumbUp={handleThumbUp}
+                onThumbDown={handleThumbDown}
+                onOpenDetails={handleOpenDetails}
+                showThanks={showThanks}
+              />
+            )}
+          </div>
         </div>
       </div>
       {/* </div> */}
+      {props.isBot && (
+        <FeedbackModal
+          open={isFeedbackOpen}
+          onClose={() => setIsFeedbackOpen(false)}
+          onSubmit={submitDetail}
+          isSubmitting={isFeedbackSubmitting}
+          initialRating={detail?.rating ?? null}
+          initialIssues={detail?.issues ?? []}
+          initialNotes={detail?.notes ?? ""}
+        />
+      )}
     </div>
   )
 }

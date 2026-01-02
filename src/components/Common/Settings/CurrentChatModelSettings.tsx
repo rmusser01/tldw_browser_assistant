@@ -16,8 +16,7 @@ import {
   notification,
   Select,
   Skeleton,
-  Switch,
-  Tooltip
+  Switch
 } from "antd"
 import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -89,7 +88,8 @@ export const CurrentChatModelSettings = ({
     serverChatTopic,
     setServerChatTopic,
     serverChatState,
-    setServerChatState
+    setServerChatState,
+    setServerChatVersion
   } = useMessageOption()
 
   const [selectedCharacter] = useStorage<Character | null>(
@@ -226,7 +226,13 @@ export const CurrentChatModelSettings = ({
       numKeep: cUserSettings.numKeep ?? data?.numKeep,
       numThread: cUserSettings.numThread ?? data?.numThread,
       reasoningEffort: cUserSettings?.reasoningEffort,
-      thinking: cUserSettings?.thinking
+      thinking: cUserSettings?.thinking,
+      historyMessageLimit: cUserSettings.historyMessageLimit,
+      historyMessageOrder: cUserSettings.historyMessageOrder,
+      slashCommandInjectionMode: cUserSettings.slashCommandInjectionMode,
+      apiProvider: cUserSettings.apiProvider,
+      extraHeaders: cUserSettings.extraHeaders,
+      extraBody: cUserSettings.extraBody
     }),
     [cUserSettings]
   )
@@ -303,28 +309,29 @@ export const CurrentChatModelSettings = ({
     retry: 2
   })
 
+  const providerDisplayName = React.useCallback((provider?: string) => {
+    const key = String(provider || "unknown").toLowerCase()
+    if (key === "openai") return "OpenAI"
+    if (key === "anthropic") return "Anthropic"
+    if (key === "google") return "Google"
+    if (key === "mistral") return "Mistral"
+    if (key === "cohere") return "Cohere"
+    if (key === "groq") return "Groq"
+    if (key === "huggingface") return "HuggingFace"
+    if (key === "openrouter") return "OpenRouter"
+    if (key === "ollama") return "Ollama"
+    if (key === "llama") return "Llama.cpp"
+    if (key === "kobold") return "Kobold.cpp"
+    if (key === "ooba") return "Oobabooga"
+    if (key === "tabby") return "TabbyAPI"
+    if (key === "vllm") return "vLLM"
+    if (key === "aphrodite") return "Aphrodite"
+    if (key === "zai") return "Z.AI"
+    if (key === "custom_openai_api") return "Custom OpenAI API"
+    return provider || "API"
+  }, [])
+
   const modelOptions = useMemo(() => {
-    const providerDisplayName = (provider?: string) => {
-      const key = String(provider || "unknown").toLowerCase()
-      if (key === "openai") return "OpenAI"
-      if (key === "anthropic") return "Anthropic"
-      if (key === "google") return "Google"
-      if (key === "mistral") return "Mistral"
-      if (key === "cohere") return "Cohere"
-      if (key === "groq") return "Groq"
-      if (key === "huggingface") return "HuggingFace"
-      if (key === "openrouter") return "OpenRouter"
-      if (key === "ollama") return "Ollama"
-      if (key === "llama") return "Llama.cpp"
-      if (key === "kobold") return "Kobold.cpp"
-      if (key === "ooba") return "Oobabooga"
-      if (key === "tabby") return "TabbyAPI"
-      if (key === "vllm") return "vLLM"
-      if (key === "aphrodite") return "Aphrodite"
-      if (key === "zai") return "Z.AI"
-      if (key === "custom_openai_api") return "Custom OpenAI API"
-      return provider || "API"
-    }
 
     type GroupOption = {
       label: React.ReactNode
@@ -385,17 +392,17 @@ export const CurrentChatModelSettings = ({
             {(hasVision || hasTools || hasFast) && (
               <div className="mt-0.5 flex flex-wrap gap-1 text-[10px]">
                 {hasVision && (
-                  <span className="rounded-full bg-blue-50 px-1.5 py-0.5 text-blue-700 dark:bg-blue-900/30 dark:text-blue-100">
+                  <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-primary">
                     Vision
                   </span>
                 )}
                 {hasTools && (
-                  <span className="rounded-full bg-purple-50 px-1.5 py-0.5 text-purple-700 dark:bg-purple-900/30 dark:text-purple-100">
+                  <span className="rounded-full bg-accent/10 px-1.5 py-0.5 text-accent">
                     Tools
                   </span>
                 )}
                 {hasFast && (
-                  <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-100">
+                  <span className="rounded-full bg-success/10 px-1.5 py-0.5 text-success">
                     Fast
                   </span>
                 )}
@@ -408,7 +415,7 @@ export const CurrentChatModelSettings = ({
       if (!groups.has(providerKey)) {
         groups.set(providerKey, {
           label: (
-            <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+            <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-text-subtle">
               <ProviderIcons provider={rawProvider} className="h-3 w-3" />
               <span>{providerLabel}</span>
             </div>
@@ -455,7 +462,96 @@ export const CurrentChatModelSettings = ({
     }
 
     return groupedOptions
-  }, [composerModels, selectedModel])
+  }, [composerModels, providerDisplayName, selectedModel])
+
+  const providerOptions = useMemo(() => {
+    const models = (composerModels as any[]) || []
+    const providers = new Map<string, string>()
+    for (const model of models) {
+      const rawProvider = (model.details && model.details.provider) || model.provider
+      if (!rawProvider) continue
+      const key = String(rawProvider)
+      if (!providers.has(key)) {
+        providers.set(key, providerDisplayName(rawProvider))
+      }
+    }
+    return Array.from(providers.entries()).map(([value, label]) => ({
+      value,
+      label
+    }))
+  }, [composerModels, providerDisplayName])
+
+  const historyOrderOptions = useMemo(
+    () => [
+      {
+        value: "desc",
+        label: t(
+          "modelSettings.form.historyMessageOrder.options.desc",
+          "Newest first"
+        ) as string
+      },
+      {
+        value: "asc",
+        label: t(
+          "modelSettings.form.historyMessageOrder.options.asc",
+          "Oldest first"
+        ) as string
+      }
+    ],
+    [t]
+  )
+
+  const slashInjectionOptions = useMemo(
+    () => [
+      {
+        value: "system",
+        label: t(
+          "modelSettings.form.slashCommandInjectionMode.options.system",
+          "System message"
+        ) as string
+      },
+      {
+        value: "preface",
+        label: t(
+          "modelSettings.form.slashCommandInjectionMode.options.preface",
+          "Preface user message"
+        ) as string
+      },
+      {
+        value: "replace",
+        label: t(
+          "modelSettings.form.slashCommandInjectionMode.options.replace",
+          "Replace user message"
+        ) as string
+      }
+    ],
+    [t]
+  )
+
+  const validateJsonObject = useCallback(
+    (_: unknown, value?: string) => {
+      if (!value || value.trim().length === 0) {
+        return Promise.resolve()
+      }
+      try {
+        const parsed = JSON.parse(value)
+        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+          return Promise.resolve()
+        }
+      } catch {
+        // fall through
+      }
+      return Promise.reject(
+        new Error(
+          t(
+            "modelSettings.form.guardrails.invalidJson",
+            "Enter a valid JSON object."
+          ) as string
+        )
+      )
+    },
+    [t]
+  )
 
   const renderBody = () => {
     return (
@@ -499,8 +595,8 @@ export const CurrentChatModelSettings = ({
                       onChange={(e) => savePrompt(e.target.value)}
                     />
                     {selectedSystemPrompt && (
-                      <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[11px] text-blue-700 dark:border-blue-500/40 dark:bg-blue-900/20 dark:text-blue-100">
-                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-blue-500" />
+                      <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[11px] text-primary">
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
                         <span>
                           {t(
                             "playground:composer.sceneTemplateActive",
@@ -517,7 +613,7 @@ export const CurrentChatModelSettings = ({
 
             {isOCREnabled && (
               <div className="flex flex-col space-y-2 mb-3">
-                <span className="text-gray-700   dark:text-neutral-50">
+                <span className="text-text">
                   OCR Language
                 </span>
 
@@ -625,11 +721,11 @@ export const CurrentChatModelSettings = ({
                 <Divider />
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-medium text-gray-900 dark:text-gray-100">
+                    <h4 className="font-medium text-text">
                       Uploaded Files ({uploadedFiles.length})
                     </h4>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">
+                      <span className="text-sm text-text-muted">
                         File Retrieval
                       </span>
                       <Switch
@@ -643,22 +739,22 @@ export const CurrentChatModelSettings = ({
                     {uploadedFiles.map((file) => (
                       <div
                         key={file.id}
-                        className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded-md">
+                        className="flex items-center justify-between p-2 bg-surface2 rounded-md">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
-                          <FileIcon className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                          <FileIcon className="h-4 w-4 flex-shrink-0 text-text-subtle" />
                           <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                            <p className="text-sm font-medium text-text truncate">
                               {file.filename}
                             </p>
-                            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                            <div className="flex items-center gap-2 text-xs text-text-subtle">
                               <span>{(file.size / 1024).toFixed(1)} KB</span>
                               {fileRetrievalEnabled && (
                                 <span className="flex items-center gap-1">
                                   <span
                                     className={`inline-block w-2 h-2 rounded-full ${
                                       file.processed
-                                        ? "bg-green-500"
-                                        : "bg-yellow-500"
+                                        ? "bg-success"
+                                        : "bg-warn"
                                     }`}
                                   />
                                   {file.processed
@@ -671,7 +767,7 @@ export const CurrentChatModelSettings = ({
                         </div>
                         <button
                           onClick={() => removeUploadedFile(file.id)}
-                          className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded">
+                          className="rounded p-1 text-danger hover:bg-danger/10 hover:text-danger">
                           <X className="h-4 w-4" />
                         </button>
                       </div>
@@ -799,6 +895,95 @@ export const CurrentChatModelSettings = ({
                       </Form.Item>
                     </React.Fragment>
                   )
+                },
+                {
+                  key: "2",
+                  label: t("modelSettings.requestOverrides", "Request overrides"),
+                  children: (
+                    <React.Fragment>
+                      <Form.Item
+                        name="historyMessageLimit"
+                        label={t("modelSettings.form.historyMessageLimit.label")}
+                        help={t("modelSettings.form.historyMessageLimit.help")}>
+                        <InputNumber
+                          min={1}
+                          style={{ width: "100%" }}
+                          placeholder={t(
+                            "modelSettings.form.historyMessageLimit.placeholder"
+                          )}
+                        />
+                      </Form.Item>
+
+                      <Form.Item
+                        name="historyMessageOrder"
+                        label={t("modelSettings.form.historyMessageOrder.label")}
+                        help={t("modelSettings.form.historyMessageOrder.help")}>
+                        <Select
+                          allowClear
+                          placeholder={t(
+                            "modelSettings.form.historyMessageOrder.placeholder"
+                          )}
+                          options={historyOrderOptions}
+                        />
+                      </Form.Item>
+
+                      <Form.Item
+                        name="slashCommandInjectionMode"
+                        label={t(
+                          "modelSettings.form.slashCommandInjectionMode.label"
+                        )}
+                        help={t(
+                          "modelSettings.form.slashCommandInjectionMode.help"
+                        )}>
+                        <Select
+                          allowClear
+                          placeholder={t(
+                            "modelSettings.form.slashCommandInjectionMode.placeholder"
+                          )}
+                          options={slashInjectionOptions}
+                        />
+                      </Form.Item>
+
+                      <Form.Item
+                        name="apiProvider"
+                        label={t("modelSettings.form.apiProvider.label")}
+                        help={t("modelSettings.form.apiProvider.help")}>
+                        <Select
+                          allowClear
+                          showSearch
+                          placeholder={t(
+                            "modelSettings.form.apiProvider.placeholder"
+                          )}
+                          options={providerOptions}
+                          optionFilterProp="label"
+                        />
+                      </Form.Item>
+
+                      <Form.Item
+                        name="extraHeaders"
+                        label={t("modelSettings.form.extraHeaders.label")}
+                        help={t("modelSettings.form.extraHeaders.help")}
+                        rules={[{ validator: validateJsonObject }]}>
+                        <Input.TextArea
+                          rows={4}
+                          placeholder={t(
+                            "modelSettings.form.extraHeaders.placeholder"
+                          )}
+                        />
+                      </Form.Item>
+
+                      <Form.Item
+                        name="extraBody"
+                        label={t("modelSettings.form.extraBody.label")}
+                        help={t("modelSettings.form.extraBody.help")}
+                        rules={[{ validator: validateJsonObject }]}>
+                        <Input.TextArea
+                          rows={4}
+                          placeholder={t("modelSettings.form.extraBody.placeholder")}
+                        />
+                      </Form.Item>
+                    </React.Fragment>
+                  )
                 }
               ]}
             />
@@ -816,7 +1001,10 @@ export const CurrentChatModelSettings = ({
                   setServerChatState(next as any)
                   if (!serverChatId) return
                   try {
-                    await tldwClient.updateChat(serverChatId, { state: next })
+                    const updated = await tldwClient.updateChat(serverChatId, {
+                      state: next
+                    })
+                    setServerChatVersion((updated as any)?.version ?? null)
                   } catch (error: any) {
                     notification.error({
                       message: t("error", { defaultValue: "Error" }),
@@ -846,9 +1034,10 @@ export const CurrentChatModelSettings = ({
                   setServerChatTopic(topicValue)
                   if (!serverChatId) return
                   try {
-                    await tldwClient.updateChat(serverChatId, {
+                    const updated = await tldwClient.updateChat(serverChatId, {
                       topic_label: topicValue || undefined
                     })
+                    setServerChatVersion((updated as any)?.version ?? null)
                   } catch (error: any) {
                     notification.error({
                       message: t("error", { defaultValue: "Error" }),
@@ -872,13 +1061,13 @@ export const CurrentChatModelSettings = ({
             <div className="space-y-3">
               <div className="flex items-center justify-between">
               <div className="flex flex-col">
-                <span className="font-medium text-gray-900 dark:text-gray-100">
+                <span className="font-medium text-text">
                   {t(
                     "playground:composer.actorTitle",
                     "Scene Director (Actor)"
                   )}
                 </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-text-subtle">
                   {t(
                     "playground:composer.actorHelp",
                     "Configure per-chat scene context: roles, mood, world, goals, and notes."

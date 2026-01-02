@@ -1,0 +1,941 @@
+{
+  "pageAssist": {
+    "message": "tldw അസിസ്റ്റന്റ്"
+  },
+  "titles_options": {
+    "message": "tldw Assistant — Options"
+  },
+  "titles_sidepanel": {
+    "message": "tldw Assistant — Sidepanel"
+  },
+  "pdf_passwordTitle": {
+    "message": "PDF പാസ്‌വേഡ് നൽകുക"
+  },
+  "pdf_unlock": {
+    "message": "തുറക്കുക"
+  },
+  "loading_title": {
+    "message": "ലോഡുചെയ്യുന്നു…"
+  },
+  "loading_description": {
+    "message": "എല്ലാം തയ്യാറാക്കുന്നുവരികയാണ്, ദയവായി കാത്തിരിക്കുക."
+  },
+  "loading_content": {
+    "message": "ഉള്ളടക്കം ലോഡുചെയ്യുന്നു…"
+  },
+  "selectAModel": {
+    "message": "ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക"
+  },
+  "save": {
+    "message": "സേവ് ചെയ്യുക"
+  },
+  "saved": {
+    "message": "സേവ് ചെയ്തു"
+  },
+  "cancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "retry": {
+    "message": "വീണ്ടും ശ്രമിക്കുക"
+  },
+  "share_tooltip_share": {
+    "message": "പങ്കിടുക"
+  },
+  "share_modal_title": {
+    "message": "ചാറ്റ് ലിങ്ക് പങ്കിടുക"
+  },
+  "share_form_defaultValue_name": {
+    "message": "അജ്ഞാതന്‍"
+  },
+  "share_form_defaultValue_title": {
+    "message": "പേരില്ലാത്ത ചാറ്റ്"
+  },
+  "share_form_title_label": {
+    "message": "ചാറ്റ് തലക്കെട്ട്"
+  },
+  "share_form_title_placeholder": {
+    "message": "ചാറ്റ് തലക്കെട്ട് നല്കുക"
+  },
+  "share_form_title_required": {
+    "message": "ചാറ്റ് തലക്കെട്ട് ആവശ്യമാണ്"
+  },
+  "share_form_name_label": {
+    "message": "നിങ്ങളുടെ പേര്"
+  },
+  "share_form_name_placeholder": {
+    "message": "നിങ്ങളുടെ പേര് നല്കുക"
+  },
+  "share_form_name_required": {
+    "message": "നിങ്ങളുടെ പേര് ആവശ്യമാണ്"
+  },
+  "share_form_btn_save": {
+    "message": "ലിങ്ക് ജനറേറ്റ് ചെയ്യുക"
+  },
+  "share_form_btn_saving": {
+    "message": "ലിങ്ക് ജനറേറ്റ് ചെയ്യുന്നു..."
+  },
+  "share_notification_successGenerate": {
+    "message": "ലിങ്ക് ക്ലിപ്ബോര്‍ഡിലേക്ക് പകര്‍ത്തി"
+  },
+  "share_notification_failGenerate": {
+    "message": "ലിങ്ക് ജനറേറ്റ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
+  },
+  "copyToClipboard": {
+    "message": "ക്ലിപ്ബോര്‍ഡിലേക്ക് പകര്‍ത്തുക"
+  },
+  "webSearch": {
+    "message": "വെബ് തിരയുന്നു"
+  },
+  "regenerate": {
+    "message": "വീണ്ടും ജനറേറ്റ് ചെയ്യുക"
+  },
+  "continue": {
+    "message": "പ്രതികരണം തുടരുക"
+  },
+  "edit": {
+    "message": "എഡിറ്റ് ചെയ്യുക"
+  },
+  "delete": {
+    "message": "ഇല്ലാതാക്കുക"
+  },
+  "saveAndSubmit": {
+    "message": "സേവ് ചെയ്ത് സമര്‍പ്പിക്കുക"
+  },
+  "editMessage_placeholder": {
+    "message": "ഒരു സന്ദേശം ടൈപ്പ് ചെയ്യുക..."
+  },
+  "submit": {
+    "message": "സമർപ്പിക്കുക"
+  },
+  "send": {
+    "message": "സമർപ്പിക്കുക"
+  },
+  "connectToServer": {
+    "message": "സെർവറുമായി ബന്ധിപ്പിക്കുക"
+  },
+  "noData": {
+    "message": "ഡാറ്റ ലഭ്യമല്ല"
+  },
+  "noHistory": {
+    "message": "ചാറ്റ് ചരിത്രം ലഭ്യമല്ല"
+  },
+  "chatWithCurrentPage": {
+    "message": "നിലവിലെ പേജിനുമായി ചാറ്റ് ചെയ്യുക"
+  },
+  "openQuickIngest": {
+    "message": "ക്വിക് ഇൻജെസ്റ്റ് തുറക്കുക"
+  },
+  "beta": {
+    "message": "ബീറ്റ"
+  },
+  "currentChatModelSettings": {
+    "message": "നിലവിലെ ചാറ്റ് മോഡൽ ക്രമീകരണങ്ങൾ"
+  },
+  "modelSettings_label": {
+    "message": "മോഡൽ ക്രമീകരണങ്ങൾ"
+  },
+  "modelSettings_description": {
+    "message": "എല്ലാ ചാറ്റുകൾക്കും മോഡൽ ഓപ്ഷനുകൾ ഗ്ലോബലായി സജ്ജമാക്കുക"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "കീപ്പ് ആലൈവ്"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "അഭ്യർത്ഥനയെ തുടർന്ന് മോഡൽ മെമ്മറിയിൽ എത്രനേരം നിലനിൽക്കുമെന്ന് നിയന്ത്രിക്കുന്നു (സ്ഥിരം: 5 മിനിറ്റ്)"
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "കീപ്പ് ആലൈവ് കാലയളവ് നൽകുക (ഉദാ: 5 മിനിറ്റ്, 10 മിനിറ്റ്, 1 മണിക്കൂർ)"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "താപനില"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "താപനില മൂല്യം നൽകുക (ഉദാ: 0.7, 1.0)"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "കോൺടെക്സ്റ്റ് വിൻഡോ വലുപ്പം (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "കോൺടെക്സ്റ്റ് വിൻഡോ വലുപ്പ മൂല്യം നൽകുക (സ്ഥിരം: 2048)"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "പരമാവധി ടോക്കണുകൾ (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "പരമാവധി ടോക്കൺ മൂല്യം നൽകുക (ഉദാ: 2048, 4096)"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "സീഡ്"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "സീഡ് വില്യമ നൽകുക (ഉദാ: 1234)"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "മോഡൽ ഔട്ട്പുട്ടിന്റെ പുനഃസൃഷ്ടിയോഗ്യത"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "ടോപ് K"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "ടോപ് K മൂല്യം നൽകുക (ഉദാ: 40, 100)"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "ടോപ് P"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "ടോപ് P മൂല്യം നൽകുക (ഉദാ: 0.9, 0.95)"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "ജിപിയു എണ്ണം"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "ജിപിയു(കൾ)ക്ക് അയക്കേണ്ട ലേയറുകളുടെ എണ്ണം നൽകുക"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "താൽക്കാലിക സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് നൽകുക"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "നിലവിലുള്ള ചാറ്റിൽ സിസ്റ്റം പ്രോംപ്റ്റ് സെറ്റ് ചെയ്യാനുള്ള വേഗത്തിലുള്ള മാർഗമാണിത്, ഇത് തിരഞ്ഞെടുത്ത സിസ്റ്റം പ്രോംപ്റ്റ് നിലവിലുണ്ടെങ്കിൽ അതിനെ മറികടക്കും."
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "ചിന്താ മോഡ്"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap (മെമ്മറി മാപ്പിംഗ്)"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z (TFS പരാമീറ്റർ)"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "ഉദാ: 1.0, 1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Num Keep (നിലനിർത്തേണ്ട എണ്ണം)"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "ഉദാ: 256, 512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Num Thread (ത്രെഡ് എണ്ണം)"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "ഉദാ: 8, 16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock (മെമ്മറി ലോക്ക് ചെയ്യുക)"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "താർക്കിക പരിശ്രമം"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "low (കുറവ്), medium (ഇടത്തരം), high (കൂടുതൽ)"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P (കുറഞ്ഞ P)"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "ഉദാ: 0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "പുനരാവർത്തന ശിക്ഷ"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "ഉദാ: 1.1, 1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "അവസാന N പുനരാവർത്തിക്കുക"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "ഉദാ: 64, 128"
+  },
+  "modelSettings_advanced": {
+    "message": "കൂടുതൽ മോഡൽ ക്രമീകരണങ്ങൾ"
+  },
+  "copilot_summary": {
+    "message": "സംഗ്രഹിക്കുക"
+  },
+  "copilot_explain": {
+    "message": "വിശദീകരിക്കുക"
+  },
+  "copilot_rephrase": {
+    "message": "പുനഃരൂപീകരിക്കുക"
+  },
+  "copilot_translate": {
+    "message": "വിവർത്തനം ചെയ്യുക"
+  },
+  "copilot_custom": {
+    "message": "ഇഷ്ടാനുസൃതം"
+  },
+  "citations": {
+    "message": "ഉദ്ധരണികൾ"
+  },
+  "downloadCode": {
+    "message": "കോഡ് ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "date_pinned": {
+    "message": "പിൻ ചെയ്തത്"
+  },
+  "date_today": {
+    "message": "ഇന്ന്"
+  },
+  "date_yesterday": {
+    "message": "ഇന്നലെ"
+  },
+  "date_last7Days": {
+    "message": "കഴിഞ്ഞ 7 ദിവസം"
+  },
+  "date_older": {
+    "message": "പഴയത്"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "പിൻ ചെയ്ത എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?"
+  },
+  "range_deleteConfirm_today": {
+    "message": "ഇന്നത്തെ എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "ഇന്നലത്തെ എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "കഴിഞ്ഞ 7 ദിവസത്തെ എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?"
+  },
+  "range_deleteConfirm_older": {
+    "message": "പഴയ എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?"
+  },
+  "range_tooltip_pinned": {
+    "message": "പിൻ ചെയ്ത എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കുക"
+  },
+  "range_tooltip_today": {
+    "message": "ഇന്നത്തെ എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കുക"
+  },
+  "range_tooltip_yesterday": {
+    "message": "ഇന്നലത്തെ എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കുക"
+  },
+  "range_tooltip_last7Days": {
+    "message": "കഴിഞ്ഞ 7 ദിവസത്തെ എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കുക"
+  },
+  "range_tooltip_older": {
+    "message": "പഴയ എല്ലാ സന്ദേശങ്ങളും ഇല്ലാതാക്കുക"
+  },
+  "pin": {
+    "message": "പിൻ ചെയ്യുക"
+  },
+  "unpin": {
+    "message": "അൺപിൻ ചെയ്യുക"
+  },
+  "generationInfo": {
+    "message": "ജനറേഷൻ വിവരങ്ങൾ"
+  },
+  "sidebarChat": {
+    "message": "സൈഡ്ബാർ ചാറ്റ്"
+  },
+  "reasoning_thinking": {
+    "message": "ചിന്തിക്കുന്നു...."
+  },
+  "reasoning_loading": {
+    "message": "യുക്തിചിന്തനം ലോഡുചെയ്യുന്നു...."
+  },
+  "reasoning_thought": {
+    "message": "{{time}} നേരത്തെ ചിന്ത"
+  },
+  "embeddingGen": {
+    "message": "എംബെഡിങ്ങുകൾ സൃഷ്ടിക്കുന്നു, ഇതിന് കുറച്ച് സമയമെടുക്കും"
+  },
+  "semanticSearch": {
+    "message": "സെമാന്റിക് തിരയൽ നടത്തുന്നു"
+  },
+  "downloading": {
+    "message": "ഡൗൺലോഡ് ചെയ്യുന്നു"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "ഡൗൺലോഡ് റദ്ദാക്കണമെന്നുറപ്പാണോ? ഇത് ഡൗൺലോഡ് പ്രക്രിയ നിർത്തും. ഒല്ലാമ ഡോക്യുമെന്റേഷൻ പ്രകാരം, നിങ്ങൾ തുടർന്നിടത്തുനിന്ന് വീണ്ടും ആരംഭിക്കാം."
+  },
+  "table_copyCsv": {
+    "message": "CSV ആയി പകർത്തുക"
+  },
+  "table_downloadCsv": {
+    "message": "CSV ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "dismiss": {
+    "message": "അടയ്ക്കുക"
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant ന് ഡാറ്റ സംരക്ഷിക്കാൻ സാധിക്കുന്നില്ല"
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "ഈ കുറിപ്പ് സംരക്ഷിക്കാൻ സൈഡ്ബാർ തുറക്കാനായില്ല. tldw Assistant സൈഡ്ബാർ ഈ സൈറ്റിൽ അനുവദിച്ചിട്ടുണ്ടെന്ന് ഉറപ്പാക്കി വീണ്ടും ശ്രമിക്കുക."
+  },
+  "confirmTitle": {
+    "message": "ദയവായി സ്ഥിരീകരിക്കുക"
+  },
+  "saving": {
+    "message": "സേവ് ചെയ്യുന്നു..."
+  },
+  "close": {
+    "message": "അടയ്ക്കുക"
+  },
+  "loadMore": {
+    "message": "കൂടുതൽ ലോഡ് ചെയ്യുക..."
+  },
+  "startChat": {
+    "message": "ചാറ്റ് ആരംഭിക്കുക"
+  },
+  "previous": {
+    "message": "മുൻപത്തെത്"
+  },
+  "next": {
+    "message": "അടുത്തത്"
+  },
+  "chatWithCharacter": {
+    "message": "കഥാപാത്രവുമായി ചാറ്റ് ചെയ്യുക"
+  },
+  "tts": {
+    "message": "ശബ്ദമായി വായിക്കുക"
+  },
+  "ttsShort": {
+    "message": "ശബ്ദം"
+  },
+  "copyShort": {
+    "message": "പകർത്തുക"
+  },
+  "branchShort": {
+    "message": "ബ്രാഞ്ച്"
+  },
+  "infoShort": {
+    "message": "വിവരം"
+  },
+  "regenShort": {
+    "message": "വീണ്ടും"
+  },
+  "continueShort": {
+    "message": "കൂടുതൽ"
+  },
+  "fileChanges": {
+    "message": "ഫയൽ മാറ്റങ്ങൾ"
+  },
+  "deletions": {
+    "message": "ഇല്ലാതാക്കലുകൾ"
+  },
+  "gitOperations": {
+    "message": "Git പ്രവർത്തനങ്ങൾ"
+  },
+  "commands": {
+    "message": "കമാൻഡുകൾ"
+  },
+  "otherOperations": {
+    "message": "മറ്റ് പ്രവർത്തനങ്ങൾ"
+  },
+  "fileAccess": {
+    "message": "ഫയൽ പ്രവേശനം"
+  },
+  "notebookEdits": {
+    "message": "നോട്ട്ബുക്ക് തിരുത്തലുകൾ"
+  },
+  "applyPatch": {
+    "message": "പാച്ച് പ്രയോഗിക്കുക"
+  },
+  "recursive": {
+    "message": "(ആവർത്തനപരമായ)"
+  },
+  "complexArguments": {
+    "message": "[സങ്കീർണ്ണ ആർഗ്യുമെന്റുകൾ]"
+  },
+  "segmented_available": {
+    "message": "സെർവർ മോഡലുകൾ"
+  },
+  "segmented_custom": {
+    "message": "കസ്റ്റം മോഡലുകൾ"
+  },
+  "success": {
+    "message": "വിജയകരം"
+  },
+  "created": {
+    "message": "സൃഷ്‌ടിച്ചു"
+  },
+  "updated": {
+    "message": "അപ്ഡേറ്റ് ചെയ്തു"
+  },
+  "deleted": {
+    "message": "ഇല്ലാതാക്കി"
+  },
+  "create": {
+    "message": "സൃഷ്‌ടിക്കുക"
+  },
+  "reset": {
+    "message": "റീസെറ്റ് ചെയ്യുക"
+  },
+  "serverOffline": {
+    "message": "സെർവർ ഓഫ്ലൈനിലോ കോൺഫിഗർ ചെയ്തിട്ടില്ലയോ ആണ്"
+  },
+  "serverChats": {
+    "message": "സെർവർ ചാറ്റുകൾ"
+  },
+  "serverChatLoadError": {
+    "message": "സെർവർ ചാറ്റ് ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. നിങ്ങളുടെ കണക്ഷൻ പരിശോധന ചെയ്ത് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "serverChatSourceLabel": {
+    "message": "സെർവർ"
+  },
+  "serverChatForkedLabel": {
+    "message": "ഫോർക്കുചെയ്ത ചാറ്റ്"
+  },
+  "serverChatForkedTooltip": {
+    "message": "ചാറ്റ് {{chatId}} നിന്ന് ഫോർക്കുചെയ്തത്"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "നിങ്ങളുടെ tldw സെർവറിലേക്ക് കണക്റ്റ് ചെയ്താൽ സെർവർ ചാറ്റുകൾ ലഭ്യമാകും."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "സെർവർ ചാറ്റുകൾ ഇപ്പോൾ ലഭ്യമല്ല. സെർവർ ലോഗുകൾ പരിശോധിക്കുകയോ വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യുക."
+  },
+  "historiesDeleted": {
+    "message": "{{count}} ചരിത്രങ്ങൾ ഇല്ലാതാക്കി"
+  },
+  "deleteHistoriesError": {
+    "message": "ചരിത്രങ്ങൾ ഇല്ലാതാക്കുന്നതിനിടെ പിശക് സംഭവിച്ചു"
+  },
+  "mermaid": {
+    "message": "Mermaid ഡയറഗ്രാം"
+  },
+  "search": {
+    "message": "തിരയുക"
+  },
+  "searchResults": {
+    "message": "തിരച്ചിൽ ഫലങ്ങൾ"
+  },
+  "newBranch": {
+    "message": "പുതിയ ബ്രാഞ്ച്"
+  },
+  "error_label": {
+    "message": "പിശക്"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "നിങ്ങളുടെ tldw സർവറെ സമീപിക്കാൻ കഴിഞ്ഞില്ല."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "നിങ്ങളുടെ API കീ അസാധുവായിരിക്കാം. ക്രമീകരണങ്ങൾ → tldw സർവർ തുറന്ന് നിങ്ങളുടെ URLയും API കീയും പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "നിങ്ങളുടെ ചാറ്റിന് സമയപരിധി കഴിഞ്ഞു."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "സർവർ പ്രതികരണങ്ങൾ അയക്കുന്നത് നിർത്തി. വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ സർവർ നില പരിശോധിക്കാൻ ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുക."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "നിങ്ങളുടെ tldw സർവറുമായി ബന്ധപ്പെടുന്നതിനിടെ എന്തോ പിശക് സംഭവിച്ചു."
+  },
+  "error_friendlyGenericHint": {
+    "message": "കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുകയോ സർവർ നില പരിശോധിക്കാൻ ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുകയോ ചെയ്യുക."
+  },
+  "error_showDetails": {
+    "message": "സാങ്കേതിക വിശദാംശങ്ങൾ കാണിക്കുക"
+  },
+  "error_hideDetails": {
+    "message": "സാങ്കേതിക വിശദാംശങ്ങൾ മറയ്ക്കുക"
+  },
+  "folders": {
+    "message": "ഫോൾഡറുകൾ"
+  },
+  "folderView": {
+    "message": "ഫോൾഡർ കാഴ്ച"
+  },
+  "dateView": {
+    "message": "തീയതി കാഴ്ച"
+  },
+  "newFolder": {
+    "message": "പുതിയ ഫോൾഡർ"
+  },
+  "folderName": {
+    "message": "ഫോൾഡർ പേര്"
+  },
+  "selectFolder": {
+    "message": "ഫോൾഡർ തിരഞ്ഞെടുക്കുക"
+  },
+  "noFolders": {
+    "message": "ഫോൾഡറുകളൊന്നുമില്ല"
+  },
+  "expandAll": {
+    "message": "എല്ലാം വികസിപ്പിക്കുക"
+  },
+  "collapseAll": {
+    "message": "എല്ലാം ചുരുക്കുക"
+  },
+  "refresh": {
+    "message": "പുതുക്കുക"
+  },
+  "confirm": {
+    "message": "സ്ഥിരീകരിക്കുക"
+  },
+  "untitled": {
+    "message": "പേരില്ലാത്തത്"
+  },
+  "moveToFolder": {
+    "message": "ഫോൾഡറിലേക്ക് നീക്കുക"
+  },
+  "noToolCalls": {
+    "message": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല"
+  },
+  "status_pending": {
+    "message": "തീരുമാനിക്കാനുണ്ട്"
+  },
+  "status_running": {
+    "message": "പ്രോസസ്സിംഗ്"
+  },
+  "status_complete": {
+    "message": "പൂർത്തീകരിച്ചു"
+  },
+  "status_error": {
+    "message": "പിശക്"
+  },
+  "arguments": {
+    "message": "ആർഗ്യുമെന്റുകൾ"
+  },
+  "invalidJson": {
+    "message": "അസാധുവായ JSON; അസംസ്കൃത മൂല്യം കാണിക്കുന്നു"
+  },
+  "result": {
+    "message": "ഫലം"
+  },
+  "tools_fs_list": {
+    "message": "ഡയറക്ടറി പട്ടികപ്പെടുത്തുക"
+  },
+  "tools_fs_read": {
+    "message": "ഫയൽ വായിക്കുക"
+  },
+  "tools_fs_write": {
+    "message": "ഫയൽ എഴുതുക"
+  },
+  "tools_fs_apply_patch": {
+    "message": "പാച്ച് പ്രയോഗിക്കുക"
+  },
+  "tools_fs_mkdir": {
+    "message": "ഡയറക്ടറി സൃഷ്ടിക്കുക"
+  },
+  "tools_fs_delete": {
+    "message": "ഇല്ലാതാക്കുക"
+  },
+  "tools_search_grep": {
+    "message": "ഉള്ളടക്കം തിരയുക"
+  },
+  "tools_search_glob": {
+    "message": "ഫയലുകൾ കണ്ടെത്തുക"
+  },
+  "tools_git_status": {
+    "message": "Git നില"
+  },
+  "tools_git_diff": {
+    "message": "Git വ്യത്യാസം"
+  },
+  "tools_git_log": {
+    "message": "Git ലോഗ്"
+  },
+  "tools_git_branch": {
+    "message": "Git ബ്രാഞ്ച്"
+  },
+  "tools_git_add": {
+    "message": "ഫയലുകൾ സ്റ്റേജ് ചെയ്യുക"
+  },
+  "tools_git_commit": {
+    "message": "കമ്മിറ്റ്"
+  },
+  "tools_exec_run": {
+    "message": "കമാൻഡ് പ്രവർത്തിപ്പിക്കുക"
+  },
+  "markdown_unableToRender": {
+    "message": "ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "സന്ദേശത്തിന്റെ ഉള്ളടക്കം പ്രദർശിപ്പിക്കാൻ കഴിഞ്ഞില്ല. ഇത് അസാധുവായ ഫോർമാറ്റിംഗ് കാരണം ആയിരിക്കാം."
+  },
+  "markdown_showRawContent": {
+    "message": "അസംസ്കൃത ഉള്ളടക്കം കാണിക്കുക"
+  },
+  "commandPalette_goToChat": {
+    "message": "ചാറ്റിലേക്കു പോകുക"
+  },
+  "commandPalette_goToMedia": {
+    "message": "മീഡിയയിലേക്കു പോകുക"
+  },
+  "commandPalette_goToNotes": {
+    "message": "നോട്ടുകളിലേക്കു പോകുക"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകളിലേക്കു പോകുക"
+  },
+  "commandPalette_goToSettings": {
+    "message": "സെറ്റിംഗ്സിലേക്കു പോകുക"
+  },
+  "commandPalette_goToHealth": {
+    "message": "ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുക"
+  },
+  "commandPalette_newChat": {
+    "message": "പുതിയ ചാറ്റ്"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "നോളെജ് തിരച്ചിൽ ടോഗിൾ ചെയ്യുക"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "നിങ്ങളുടെ നോളെജ് ബേസിൽ തിരയുക"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "വെബ് തിരച്ചിൽ ടോഗിൾ ചെയ്യുക"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "ഇന്റർനെറ്റിൽ തിരയുക"
+  },
+  "commandPalette_ingestPage": {
+    "message": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "ഈ പേജ് നിങ്ങളുടെ നോളെജ് ബേസിൽ സംരക്ഷിക്കുക"
+  },
+  "commandPalette_switchModel": {
+    "message": "മോഡൽ മാറ്റുക"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "സൈഡ്ബാർ ടോഗിൾ ചെയ്യുക"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "ചാറ്റ് സൈഡ്ബാർ കാണിക്കുക/മറയ്ക്കുക"
+  },
+  "commandPalette_placeholder": {
+    "message": "ഒരു കമാൻഡ് ടൈപ്പ് ചെയ്യുക അല്ലെങ്കിൽ തിരയുക…"
+  },
+  "commandPalette_noResults": {
+    "message": "ഫലങ്ങളൊന്നും കണ്ടെത്തിയില്ല"
+  },
+  "commandPalette_title": {
+    "message": "കമാൻഡ് പാലറ്റ്"
+  },
+  "commandPalette_navigate": {
+    "message": "നാവിഗേറ്റ്"
+  },
+  "commandPalette_select": {
+    "message": "തിരഞ്ഞെടുക്കുക"
+  },
+  "commandPalette_toOpen": {
+    "message": "തുറക്കാൻ"
+  },
+  "commandPalette_categoryActions": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "നാവിഗേഷൻ"
+  },
+  "commandPalette_categorySettings": {
+    "message": "സെറ്റിംഗുകൾ"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "സമീപകാലത്"
+  },
+  "featureHints_knowledge_title": {
+    "message": "നിങ്ങളുടെ നോളെജ് തിരയുക"
+  },
+  "featureHints_knowledge_description": {
+    "message": "നോളെജ് തിരച്ചിൽ പാനൽ തുറന്ന് സ്നിപ്പറ്റുകൾ കണ്ടെത്തി നിങ്ങളുടെ ചാറ്റിൽ ചേർക്കുക."
+  },
+  "featureHints_moreTools_title": {
+    "message": "കൂടുതൽ ഉപകരണങ്ങൾ ലഭ്യമാണ്"
+  },
+  "featureHints_moreTools_description": {
+    "message": "വിഷൻ മോഡ്, ചിത്രം അപ്‌ലോഡ്, ക്വിക്ക് ഇൻജെസ്റ്റ്, പൂർണ്ണ ആപ്പ് എന്നിവയ്ക്ക് ആക്‌സസ് ചെയ്യുക."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "വേഗത്തിലുള്ള കമാൻഡുകൾ"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "കമാൻഡുകളും സെറ്റിംഗുകളും തുടങ്ങിയവ തിരയാൻ {{shortcut}} അമർത്തുക."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "മോഡൽ പാരാമീറ്ററുകൾ ക്രമീകരിക്കുക"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "ടെംപറേച്ചർ, കോൺടെക്സ്റ്റ് നീളം, മറ്റ് മോഡൽ സെറ്റിംഗുകൾ എന്നിവ സൂക്ഷ്മമായി ക്രമീകരിക്കുക."
+  },
+  "chatSidebar_title": {
+    "message": "ചാറ്റുകൾ"
+  },
+  "chatSidebar_newChat": {
+    "message": "പുതിയ ചാറ്റ്"
+  },
+  "chatSidebar_collapse": {
+    "message": "സൈഡ്ബാർ ചുരുക്കുക"
+  },
+  "chatSidebar_expand": {
+    "message": "സൈഡ്ബാർ വിപുലീകരിക്കുക"
+  },
+  "chatSidebar_search": {
+    "message": "ചാറ്റുകൾ തിരയുക..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക"
+  },
+  "chatSidebar_media": {
+    "message": "മീഡിയ"
+  },
+  "chatSidebar_notes": {
+    "message": "നോട്ടുകൾ"
+  },
+  "chatSidebar_flashcards": {
+    "message": "ഫ്ലാഷ്കാർഡുകൾ"
+  },
+  "chatSidebar_prompts": {
+    "message": "പ്രോംപ്റ്റുകൾ"
+  },
+  "chatSidebar_multiItem": {
+    "message": "പല ഇനങ്ങൾ"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "ഷോർട്ട്കട്ടുകൾ"
+  },
+  "chatSidebar_settings": {
+    "message": "സെറ്റിംഗുകൾ"
+  },
+  "chatSidebar_loadError": {
+    "message": "ചാറ്റുകൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "chatSidebar_localTab": {
+    "message": "ലോക്കൽ"
+  },
+  "chatSidebar_serverTab": {
+    "message": "സർവർ"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "ഫോൾഡറുകൾ"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "ലോക്കൽ"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "സർവർ"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "ഫോൾഡറുകൾ"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "സർവർ ചാറ്റുകൾ ഇതുവരെ ഇല്ല"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "ഫോൾഡറുകൾക്ക് സർവർ കണക്ഷൻ ആവശ്യമുണ്ട്"
+  },
+  "extName": {
+    "message": "tldw അസിസ്റ്റന്റ്"
+  },
+  "extDescription": {
+    "message": "ഇന്റർനെറ്റ് ബ്രൌസ് ചെയ്യുമ്പോൾ സ്ഥലിപ്പായി പ്രവർത്തിക്കുന്ന എയ്‌ മോഡൽ ഉപയോഗിക്കുക."
+  },
+  "openSidePanelToChat": {
+    "message": "ചാറ്റ് ചെയ്യാൻ സൈഡ് പാനൽ തുറക്കുക"
+  },
+  "openOptionToChat": {
+    "message": "ചാറ്റ് ചെയ്യാൻ Web UI തുറക്കുക"
+  },
+  "contextSummarize": {
+    "message": "സംഗ്രഹിക്കുക"
+  },
+  "contextExplain": {
+    "message": "വിശദീകരിക്കുക"
+  },
+  "contextRephrase": {
+    "message": "പുനഃരൂപീകരിക്കുക"
+  },
+  "contextTranslate": {
+    "message": "വിവർത്തനം ചെയ്യുക"
+  },
+  "contextCustom": {
+    "message": "ഇഷ്ടാനുസൃതം"
+  },
+  "contextSendToTldw": {
+    "message": "tldw_server-ലേക്ക് അയയ്ക്കുക"
+  },
+  "contextProcessLocalTldw": {
+    "message": "tldw_server ഉപയോഗിച്ച് പ്രോസസ്സ് ചെയ്യുക (സംഭരിക്കരുത്)"
+  },
+  "contextTranscribeMedia": {
+    "message": "വീഡിയോ/ഓഡിയോ ട്രാൻസ്ക്രൈബ് ചെയ്യുക"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "വീഡിയോ/ഓഡിയോ ട്രാൻസ്ക്രൈബ് ചെയ്ത് സംക്ഷിപ്തമാക്കുക"
+  },
+  "contextSaveToNotes": {
+    "message": "കുറിപ്പുകളിൽ സേവ് ചെയ്യുക"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "കുറിപ്പുകളിൽ സേവ് ചെയ്യാൻ ആദ്യം ടെക്സ്റ്റ് തിരഞ്ഞെടുക്കുക."
+  },
+  "contextSidebarOpening": {
+    "message": "സൈഡ്ബാർ തുറക്കുന്നു..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "കുറിപ്പ് സംരക്ഷിക്കാന്‍ സൈഡ്ബാർ തുറക്കുന്നു..."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] ഈ പേജ് tldw_server-ലേക്ക് അയക്കാനുള്ള അഭ്യർത്ഥന നിരസിക്കപ്പെട്ടു."
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] ഈ പേജ് tldw_server-ലേക്ക് അയയ്ക്കാൻ കഴിഞ്ഞില്ല: $1. Settings → tldw server പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] ഈ പേജ് tldw_server-ലേക്ക് അയയ്ക്കാൻ കഴിഞ്ഞില്ല. Settings → tldw server പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] ഈ പേജ് പ്രോസസ്സിംഗിന് tldw_server-ലേക്ക് അയച്ചു."
+  },
+  "hfSendPageException": {
+    "message": "[tldw] ഈ പേജ് tldw_server-ലേക്ക് അയയ്ക്കുമ്പോൾ എന്തോ പിഴവ് സംഭവിച്ചു. tldw_serverയും എക്‌സ്റ്റൻഷനും പ്രവർത്തിക്കുന്നുണ്ടോ എന്ന് പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] ഒരു മോഡൽ പുൾ അഭ്യർത്ഥന ഇതിനകം നടന്നു കൊണ്ടിരിക്കുന്നു. മറ്റൊന്ന് തുടങ്ങുന്നതിനുമുമ്പ് അത് പൂർത്തിയാകുന്നത് വരെ കാത്തിരിക്കുക."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] \"$1\" മോഡൽ പുൾ ചെയ്യാൻ നിങ്ങളുടെ tldw_server-ലേക്ക് അഭ്യർത്ഥന അയക്കണമോ? ഇത് huggingface.co വെബ്‌സൈറ്റിൽ നിന്ന് സ്വതന്ത്രമായ പ്രക്രിയയാണ്. നിങ്ങൾ സ്ഥിരീകരിച്ച ശേഷം സർവർ മോഡൽ ഡൗൺലോഡ് ചെയ്യാൻ തുടങ്ങും."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] \"$1\" മോഡൽ പുൾ ചെയ്യാൻ tldw_server-ലേക്ക് അഭ്യർത്ഥന അയയ്ക്കുന്നു. പുരോഗതി എക്‌സ്റ്റൻഷൻ ഐക്കണിലോ tldw_server ലോഗുകളിലോ പരിശോധിക്കാം."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] \"$1\" മോഡലിന് പുൾ അഭ്യർത്ഥന അയയ്ക്കാൻ കഴിഞ്ഞില്ല: $2. Settings → tldw server പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] \"$1\" മോഡലിന് പുൾ അഭ്യർത്ഥന അയയ്ക്കാൻ കഴിഞ്ഞില്ല. Settings → tldw server പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] \"$1\" മോഡൽ പുൾ ചെയ്യാൻ tldw_server-ലേക്ക് അഭ്യർത്ഥന അയച്ചു. നില എക്‌സ്റ്റൻഷൻ ഐക്കണിലോ tldw_server ലോഗുകളിലോ പരിശോധിക്കുക."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] \"$1\" മോഡലിന്റെ പുൾ അഭ്യർത്ഥന tldw_server-ലേക്ക് അയയ്ക്കുമ്പോൾ പ്രശ്നം സംഭവിച്ചു. tldw_serverയും എക്‌സ്റ്റൻഷനും പ്രവർത്തിക്കുന്നുണ്ടോ എന്ന് ഉറപ്പാക്കി വീണ്ടും ശ്രമിക്കുക."
+  },
+  "stepLabel": {
+    "message": "സ്വാഗതം"
+  },
+  "path": {
+    "message": "തുടങ്ങാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നത് എങ്ങനെ?"
+  },
+  "nextSteps": {
+    "message": "നിങ്ങൾ തുടക്കം കുറിക്കാൻ തയ്യാറാണ്"
+  },
+  "restartOnboardingLabel": {
+    "message": "ഓൺബോർഡിംഗ് തുടക്കം മുതൽ വീണ്ടും ആരംഭിക്കുക"
+  },
+  "restartOnboardingButton": {
+    "message": "ഓൺബോർഡിംഗ് വീണ്ടും ആരംഭിക്കുക"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "ഓൺബോർഡിംഗ് വീണ്ടും ആരംഭിക്കണോ?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "ഇത് നിങ്ങളുടെ ഓൺബോർഡിംഗ് നില റീസെറ്റ് ചെയ്ത് നിങ്ങളെ സജ്ജീകരണ പ്രവാഹത്തിന്റെ തുടക്കത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും."
+  }
+}

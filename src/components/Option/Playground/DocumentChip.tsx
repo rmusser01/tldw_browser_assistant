@@ -15,7 +15,7 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({
 }) => {
   const { t } = useTranslation(["option"]) 
   return (
-    <div className="inline-flex items-center gap-2 bg-neutral-50 dark:bg-[#404040] border border-neutral-200 dark:border-[#525252] rounded-lg px-3 py-1.5 mr-2 mb-2">
+    <div className="inline-flex items-center gap-2 bg-surface2 border border-border rounded-lg px-3 py-1.5 mr-2 mb-2">
       <div className="flex items-center gap-2 flex-1 min-w-0">
         <div className="flex-shrink-0">
           {document.favIconUrl ? (
@@ -31,11 +31,11 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({
             />
           ) : null}
           <Globe
-            className={`w-4 h-4 text-neutral-600 dark:text-neutral-400 ${document.favIconUrl ? "hidden" : ""}`}
+            className={`w-4 h-4 text-text-subtle ${document.favIconUrl ? "hidden" : ""}`}
           />
         </div>
         <div className="flex flex-col max-w-60 truncate">
-          <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 ">
+          <span className="text-sm font-medium text-text">
             {document.title}
           </span>
         </div>{" "}
@@ -44,7 +44,7 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({
       <IconButton
         ariaLabel={t("quickIngest.remove", { defaultValue: "Remove" }) as string}
         onClick={() => onRemove(document.id)}
-        className="flex-shrink-0 text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+        className="flex-shrink-0 text-text-subtle hover:text-text transition-colors"
         type="button">
         <X className="w-3 h-3" />
       </IconButton>

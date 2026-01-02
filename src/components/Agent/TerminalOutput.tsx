@@ -42,22 +42,22 @@ interface TerminalOutputProps {
 // ANSI escape code patterns and color mappings
 const ANSI_REGEX = /\x1b\[([0-9;]+)m/g
 const ANSI_COLOR_MAP: Record<string, string> = {
-  "30": "text-gray-900 dark:text-gray-100",
+  "30": "text-text",
   "31": "text-red-500",
   "32": "text-green-500",
   "33": "text-yellow-500",
   "34": "text-blue-500",
   "35": "text-purple-500",
   "36": "text-cyan-500",
-  "37": "text-gray-300",
-  "90": "text-gray-500",
+  "37": "text-text",
+  "90": "text-text-muted",
   "91": "text-red-400",
   "92": "text-green-400",
   "93": "text-yellow-400",
   "94": "text-blue-400",
   "95": "text-purple-400",
   "96": "text-cyan-400",
-  "97": "text-white",
+  "97": "text-text",
   "1": "font-bold",
   "0": ""
 }
@@ -137,17 +137,17 @@ const StatusIndicator: FC<{ status: CommandExecution["status"]; exitCode?: numbe
 }) => {
   switch (status) {
     case "pending":
-      return <Clock className="size-4 text-gray-400" />
+      return <Clock className="size-4 text-text-subtle" />
     case "running":
-      return <Loader2 className="size-4 text-blue-500 animate-spin" />
+      return <Loader2 className="size-4 text-primary animate-spin" />
     case "complete":
       return exitCode === 0
-        ? <CheckCircle2 className="size-4 text-green-500" />
-        : <XCircle className="size-4 text-red-500" />
+        ? <CheckCircle2 className="size-4 text-success" />
+        : <XCircle className="size-4 text-danger" />
     case "error":
-      return <XCircle className="size-4 text-red-500" />
+      return <XCircle className="size-4 text-danger" />
     case "timeout":
-      return <AlertTriangle className="size-4 text-yellow-500" />
+      return <AlertTriangle className="size-4 text-warn" />
     default:
       return null
   }
@@ -242,30 +242,30 @@ const ExecutionOutput: FC<{
   }
 
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+    <div className="border border-border rounded-lg overflow-hidden">
       {/* Header */}
       <button
         onClick={() => collapsible && setExpanded(!expanded)}
-        className="w-full flex items-center gap-2 px-3 py-2 bg-gray-900 text-left hover:bg-gray-800 transition-colors"
+        className="w-full flex items-center gap-2 px-3 py-2 bg-surface text-left hover:bg-surface2 transition-colors"
         disabled={!collapsible}
         aria-expanded={collapsible ? expanded : undefined}
       >
         {collapsible && (
           expanded
-            ? <ChevronDown className="size-4 text-gray-400" />
-            : <ChevronRight className="size-4 text-gray-400" />
+            ? <ChevronDown className="size-4 text-text-subtle" />
+            : <ChevronRight className="size-4 text-text-subtle" />
         )}
 
         <StatusIndicator status={execution.status} exitCode={execution.exitCode} />
 
-        <Terminal className="size-4 text-gray-400" />
+        <Terminal className="size-4 text-text-subtle" />
 
-        <span className="font-mono text-sm text-green-400 flex-1 truncate">
+        <span className="font-mono text-sm text-success flex-1 truncate">
           $ {getCommandDisplay(execution)}
         </span>
 
         {execution.cwd && (
-          <span className="text-xs text-gray-500 truncate max-w-[150px]">
+          <span className="text-xs text-text-subtle truncate max-w-[150px]">
             {execution.cwd}
           </span>
         )}
@@ -273,15 +273,15 @@ const ExecutionOutput: FC<{
         {execution.status === "complete" && execution.exitCode !== undefined && (
           <span className={`text-xs px-1.5 py-0.5 rounded ${
             execution.exitCode === 0
-              ? "bg-green-900/50 text-green-400"
-              : "bg-red-900/50 text-red-400"
+              ? "bg-success/10 text-success"
+              : "bg-danger/10 text-danger"
           }`}>
             exit {execution.exitCode}
           </span>
         )}
 
         {execution.durationMs !== undefined && (
-          <span className="flex items-center gap-1 text-xs text-gray-500">
+          <span className="flex items-center gap-1 text-xs text-text-subtle">
             <Clock className="size-3" />
             {formatDuration(execution.durationMs)}
           </span>
@@ -290,18 +290,18 @@ const ExecutionOutput: FC<{
 
       {/* Output */}
       {expanded && hasOutput && (
-        <div className="relative bg-gray-950">
+        <div className="relative bg-surface2">
           {/* Copy button */}
           <button
             onClick={copyOutput}
-            className="absolute top-2 right-2 p-1.5 rounded bg-gray-800 hover:bg-gray-700 transition-colors"
+            className="absolute top-2 right-2 p-1.5 rounded bg-surface hover:bg-surface2 transition-colors"
             title={t("copyOutput", "Copy output")}
             aria-label={t("copyOutput", "Copy output")}
           >
             {copied ? (
-              <CheckCheck className="size-4 text-green-500" />
+              <CheckCheck className="size-4 text-success" />
             ) : (
-              <Copy className="size-4 text-gray-400" />
+              <Copy className="size-4 text-text-subtle" />
             )}
           </button>
 
@@ -322,10 +322,10 @@ const ExecutionOutput: FC<{
 
           {/* stderr */}
           {execution.stderr && (
-            <div className="p-3 font-mono text-sm overflow-x-auto border-t border-gray-800 bg-red-950/30">
-              <div className="text-xs text-red-400 mb-1 font-sans">stderr:</div>
+            <div className="p-3 font-mono text-sm overflow-x-auto border-t border-border bg-danger/10">
+              <div className="text-xs text-danger mb-1 font-sans">stderr:</div>
               {execution.stderr.split("\n").map((line, idx) => (
-                <div key={idx} className="text-red-400 whitespace-pre-wrap break-all">
+                <div key={idx} className="text-danger whitespace-pre-wrap break-all">
                   {line}
                 </div>
               ))}
@@ -336,25 +336,25 @@ const ExecutionOutput: FC<{
 
       {/* Running indicator */}
       {execution.status === "running" && (
-        <div className="px-3 py-2 bg-gray-950 border-t border-gray-800 flex items-center gap-2">
-          <Loader2 className="size-4 text-blue-500 animate-spin" />
-          <span className="text-sm text-gray-400">{t("running", "Running...")}</span>
+        <div className="px-3 py-2 bg-surface2 border-t border-border flex items-center gap-2">
+          <Loader2 className="size-4 text-primary animate-spin" />
+          <span className="text-sm text-text-muted">{t("running", "Running...")}</span>
         </div>
       )}
 
       {/* Pending indicator */}
       {execution.status === "pending" && (
-        <div className="px-3 py-2 bg-gray-950 border-t border-gray-800 flex items-center gap-2">
-          <Clock className="size-4 text-gray-500" />
-          <span className="text-sm text-gray-500">{t("waitingApproval", "Waiting for approval...")}</span>
+        <div className="px-3 py-2 bg-surface2 border-t border-border flex items-center gap-2">
+          <Clock className="size-4 text-text-subtle" />
+          <span className="text-sm text-text-muted">{t("waitingApproval", "Waiting for approval...")}</span>
         </div>
       )}
 
       {/* Timeout message */}
       {execution.status === "timeout" && (
-        <div className="px-3 py-2 bg-yellow-950/30 border-t border-yellow-800/50 flex items-center gap-2">
-          <AlertTriangle className="size-4 text-yellow-500" />
-          <span className="text-sm text-yellow-400">{t("commandTimedOut", "Command timed out")}</span>
+        <div className="px-3 py-2 bg-warn/10 border-t border-warn/30 flex items-center gap-2">
+          <AlertTriangle className="size-4 text-warn" />
+          <span className="text-sm text-warn">{t("commandTimedOut", "Command timed out")}</span>
         </div>
       )}
     </div>
@@ -380,7 +380,7 @@ export const TerminalOutput: FC<TerminalOutputProps> = ({
 
   if (executions.length === 0) {
     return (
-      <div className={`flex flex-col items-center justify-center h-32 text-gray-400 dark:text-gray-500 ${className}`}>
+      <div className={`flex flex-col items-center justify-center h-32 text-text-muted ${className}`}>
         <Terminal className="size-8 mb-2 opacity-50" />
         <span className="text-sm">{t("noCommands", "No commands executed yet")}</span>
       </div>

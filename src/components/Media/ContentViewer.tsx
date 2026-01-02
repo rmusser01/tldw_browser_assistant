@@ -426,25 +426,25 @@ export function ContentViewer({
 
   if (!selectedMedia) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-gray-50 dark:bg-[#101010]">
+      <div className="flex-1 flex items-center justify-center bg-bg">
         <div className="text-center max-w-md px-6">
           <div className="mb-6 flex justify-center">
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center">
               <FileSearch className="w-16 h-16 text-blue-400 dark:text-blue-500" />
             </div>
           </div>
-          <h2 className="text-gray-900 dark:text-gray-100 mb-2 text-xl font-semibold">
+          <h2 className="mb-2 text-xl font-semibold text-text">
             {t('review:mediaPage.noSelectionTitle', {
               defaultValue: 'No media item selected'
             })}
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-text-muted">
             {t('review:mediaPage.noSelectionDescription', {
               defaultValue:
                 'Select a media item from the left sidebar to view its content and analyses here.'
             })}
           </p>
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-4">
+          <p className="mt-4 text-xs text-text-subtle">
             {t('review:mediaPage.keyboardHint', {
               defaultValue: 'Tip: Use j/k to navigate items, arrow keys to change pages'
             })}
@@ -455,9 +455,9 @@ export function ContentViewer({
   }
 
   return (
-    <div ref={contentRef} className="flex-1 flex flex-col bg-gray-50 dark:bg-[#101010]">
+    <div ref={contentRef} className="flex-1 flex flex-col bg-bg">
       {/* Compact Header */}
-      <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#111]">
+      <div className="px-4 py-2 border-b border-border bg-surface">
         <div className="flex flex-col md:flex-row items-center gap-3">
           {/* Left: Navigation */}
           <div className="flex items-center gap-1">
@@ -467,13 +467,13 @@ export function ContentViewer({
               <button
                 onClick={onPrevious}
                 disabled={!hasPrevious}
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-1.5 text-text-muted hover:bg-surface2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.prevItem', { defaultValue: 'Previous' })}
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
             </Tooltip>
-            <span className="text-xs text-gray-500 dark:text-gray-400 tabular-nums min-w-[40px] text-center">
+            <span className="text-xs text-text-muted tabular-nums min-w-[40px] text-center">
               {totalResults > 0 ? `${currentIndex + 1}/${totalResults}` : '0/0'}
             </span>
             <Tooltip
@@ -482,7 +482,7 @@ export function ContentViewer({
               <button
                 onClick={onNext}
                 disabled={!hasNext}
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-1.5 text-text-muted hover:bg-surface2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.nextItem', { defaultValue: 'Next' })}
               >
                 <ChevronRight className="w-4 h-4" />
@@ -492,7 +492,7 @@ export function ContentViewer({
 
           {/* Center: Title */}
           <Tooltip title={selectedMedia.title || ''} placement="bottom">
-            <h3 className="flex-1 text-sm font-medium text-gray-900 dark:text-gray-100 truncate text-center px-2 max-w-[300px] md:max-w-none">
+            <h3 className="flex-1 text-sm font-medium text-text truncate text-center px-2 max-w-[300px] md:max-w-none">
               {selectedMedia.title || `${selectedMedia.kind} ${selectedMedia.id}`}
             </h3>
           </Tooltip>
@@ -503,7 +503,7 @@ export function ContentViewer({
               <Tooltip title={t('review:reviewPage.chatWithMedia', { defaultValue: 'Chat with this media' })}>
                 <button
                   onClick={onChatWithMedia}
-                  className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded"
+                  className="p-1.5 text-text-muted hover:bg-surface2 rounded"
                   aria-label={t('review:reviewPage.chatWithMedia', { defaultValue: 'Chat with this media' })}
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -516,7 +516,7 @@ export function ContentViewer({
               placement="bottomRight"
             >
               <button
-                className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#262626] rounded"
+                className="p-1.5 text-text-muted hover:bg-surface2 rounded"
                 aria-label={t('review:mediaPage.actionsLabel', {
                   defaultValue: 'Actions'
                 })}
@@ -532,7 +532,7 @@ export function ContentViewer({
       <div className="flex-1 overflow-y-auto p-4">
         {isDetailLoading ? (
           <div
-            className="flex flex-col items-center justify-center h-64 text-gray-500 dark:text-gray-400"
+            className="flex flex-col items-center justify-center h-64 text-text-muted"
             role="status"
             aria-live="polite"
           >
@@ -544,9 +544,9 @@ export function ContentViewer({
         ) : (
         <div className="max-w-4xl mx-auto">
           {/* Meta Row */}
-          <div className="flex items-center gap-3 flex-wrap text-xs text-gray-500 dark:text-gray-400 mb-3">
+          <div className="flex items-center gap-3 flex-wrap text-xs text-text-muted mb-3">
             {selectedMedia.meta?.type && (
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 capitalize font-medium">
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-surface2 text-text capitalize font-medium">
                 {selectedMedia.meta.type}
               </span>
             )}
@@ -606,19 +606,19 @@ export function ContentViewer({
           </div>
 
           {/* Main Content */}
-          <div className="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-700 rounded-lg mb-2 overflow-hidden">
-            <div className="flex items-center justify-between px-3 py-2 bg-gray-50 dark:bg-[#0c0c0c]">
+          <div className="bg-surface border border-border rounded-lg mb-2 overflow-hidden">
+            <div className="flex items-center justify-between px-3 py-2 bg-surface2">
               <button
                 onClick={() => toggleSection('content')}
-                className="flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-[#151515] -ml-1 px-1 rounded transition-colors"
+                className="flex items-center gap-2 hover:bg-surface -ml-1 px-1 rounded transition-colors"
               >
-                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                <span className="text-sm font-medium text-text">
                   {t('review:mediaPage.content', { defaultValue: 'Content' })}
                 </span>
                 {collapsedSections.content ? (
-                  <ChevronDown className="w-4 h-4 text-gray-400" />
+                  <ChevronDown className="w-4 h-4 text-text-subtle" />
                 ) : (
-                  <ChevronUp className="w-4 h-4 text-gray-400" />
+                  <ChevronUp className="w-4 h-4 text-text-subtle" />
                 )}
               </button>
               <div className="flex items-center gap-1">
@@ -628,7 +628,7 @@ export function ContentViewer({
                       setEditingContentText(content)
                       setContentEditModalOpen(true)
                     }}
-                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                    className="p-1 text-text-muted hover:text-text transition-colors"
                     title={t('review:mediaPage.editContent', {
                       defaultValue: 'Edit content'
                     })}
@@ -643,7 +643,7 @@ export function ContentViewer({
                 {!collapsedSections.content && shouldShowExpandToggle && (
                   <button
                     onClick={() => setContentExpanded((v) => !v)}
-                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                    className="p-1 text-text-muted hover:text-text transition-colors"
                     title={
                       contentExpanded
                         ? t('review:mediaPage.collapse', {
@@ -664,32 +664,32 @@ export function ContentViewer({
               </div>
             </div>
             {!collapsedSections.content && (
-              <div className="p-3 bg-white dark:bg-[#171717] animate-in fade-in slide-in-from-top-1 duration-150">
+              <div className="p-3 bg-surface animate-in fade-in slide-in-from-top-1 duration-150">
                 <div
                   className={`prose prose-slate dark:prose-invert max-w-none ${
                     !contentExpanded && shouldShowExpandToggle ? 'max-h-64 overflow-hidden relative' : ''
                   }`}
                 >
                   <Suspense fallback={
-                    <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                    <div className="text-sm text-text whitespace-pre-wrap leading-relaxed">
                       {content || t('review:mediaPage.noContent', { defaultValue: 'No content available' })}
                     </div>
                   }>
                     <Markdown
                       message={content || t('review:mediaPage.noContent', { defaultValue: 'No content available' })}
-                      className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed prose-p:leading-relaxed prose-pre:p-0"
+                      className="text-sm text-text leading-relaxed prose-p:leading-relaxed prose-pre:p-0"
                     />
                   </Suspense>
                   {/* Fade overlay when collapsed */}
                   {!contentExpanded && shouldShowExpandToggle && (
-                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-[#171717] to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-surface to-transparent" />
                   )}
                 </div>
                 {/* Show more/less button */}
                 {shouldShowExpandToggle && (
                   <button
                     onClick={() => setContentExpanded(v => !v)}
-                    className="mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                    className="mt-2 text-xs text-primary hover:underline"
                   >
                     {contentExpanded
                       ? t('review:mediaPage.showLess', { defaultValue: 'Show less' })
@@ -704,25 +704,25 @@ export function ContentViewer({
 
           {/* Analysis - only for media, not notes */}
           {!isNote && (
-            <div className="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-700 rounded-lg mb-2 overflow-hidden">
-              <div className="flex items-center justify-between px-3 py-2 bg-gray-50 dark:bg-[#0c0c0c]">
+            <div className="bg-surface border border-border rounded-lg mb-2 overflow-hidden">
+              <div className="flex items-center justify-between px-3 py-2 bg-surface2">
               <button
                 onClick={() => toggleSection('analysis')}
-                className="flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-[#151515] -ml-1 px-1 rounded transition-colors"
+                className="flex items-center gap-2 hover:bg-surface -ml-1 px-1 rounded transition-colors"
               >
-                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                <span className="text-sm font-medium text-text">
                   {t('review:reviewPage.analysisTitle', { defaultValue: 'Analysis' })}
                 </span>
                   {collapsedSections.analysis ? (
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                    <ChevronDown className="w-4 h-4 text-text-subtle" />
                   ) : (
-                    <ChevronUp className="w-4 h-4 text-gray-400" />
+                    <ChevronUp className="w-4 h-4 text-text-subtle" />
                   )}
                 </button>
                 <div className="flex items-center gap-2">
                 <button
                   onClick={() => setAnalysisModalOpen(true)}
-                  className="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium flex items-center gap-1 transition-colors"
+                  className="px-2 py-1 bg-primary hover:bg-primaryStrong text-white rounded text-xs font-medium flex items-center gap-1 transition-colors"
                   title={t('review:mediaPage.generateAnalysisHint', {
                     defaultValue: 'Generate new analysis'
                   })}
@@ -738,7 +738,7 @@ export function ContentViewer({
                           setEditingAnalysisText(existingAnalyses[0].text)
                           setAnalysisEditModalOpen(true)
                         }}
-                        className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                        className="p-1 text-text-muted hover:text-text transition-colors"
                         title={t('review:mediaPage.editAnalysis', { defaultValue: 'Edit analysis' })}
                       >
                         <Edit3 className="w-3.5 h-3.5" />
@@ -747,7 +747,7 @@ export function ContentViewer({
                       {onSendAnalysisToChat && (
                         <button
                           onClick={() => onSendAnalysisToChat(existingAnalyses[0].text)}
-                          className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                          className="p-1 text-text-muted hover:text-text transition-colors"
                           title={t('review:reviewPage.sendAnalysisToChat', {
                             defaultValue: 'Send analysis to chat'
                           })}
@@ -764,7 +764,7 @@ export function ContentViewer({
                             'Analysis copied'
                           )
                         }
-                        className="p-1 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                        className="p-1 text-text-muted hover:text-text transition-colors"
                         title={t('review:reviewPage.copyAnalysis', { defaultValue: 'Copy analysis' })}
                       >
                         <Copy className="w-3.5 h-3.5" />
@@ -774,13 +774,13 @@ export function ContentViewer({
                 </div>
               </div>
               {!collapsedSections.analysis && (
-                <div className="p-3 bg-white dark:bg-[#171717] animate-in fade-in slide-in-from-top-1 duration-150">
+                <div className="p-3 bg-surface animate-in fade-in slide-in-from-top-1 duration-150">
                   {existingAnalyses.length > 0 ? (
                     <div className="space-y-3">
                     {existingAnalyses.map((analysis, idx) => (
                       <div key={idx} className="space-y-1">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                          <span className="text-xs font-medium text-text-muted uppercase">
                             {analysis.type}
                           </span>
                           <button
@@ -791,7 +791,7 @@ export function ContentViewer({
                                 'Analysis copied'
                               )
                             }
-                          className="p-0.5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+                          className="p-0.5 text-text-subtle hover:text-text"
                               aria-label={t('review:mediaPage.copyAnalysis', {
                                 defaultValue: 'Copy analysis to clipboard'
                               })}
@@ -799,17 +799,17 @@ export function ContentViewer({
                               <Copy className="w-3 h-3" />
                             </button>
                           </div>
-                          <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                          <div className="text-sm text-text whitespace-pre-wrap leading-relaxed">
                             {analysis.text}
                           </div>
                           {idx < existingAnalyses.length - 1 && (
-                            <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-3" />
+                            <div className="border-t border-border pt-3 mt-3" />
                           )}
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                    <div className="text-sm text-text-muted text-center py-4">
                       {t('review:reviewPage.noAnalysis', {
                         defaultValue: 'No analysis yet'
                       })}
@@ -821,44 +821,44 @@ export function ContentViewer({
           )}
 
           {/* Statistics */}
-          <div className="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-700 rounded-lg mb-2 overflow-hidden">
+          <div className="bg-surface border border-border rounded-lg mb-2 overflow-hidden">
             <button
               onClick={() => toggleSection('statistics')}
-              className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 dark:bg-[#0c0c0c] hover:bg-gray-100 dark:hover:bg-[#151515] transition-colors"
+              className="w-full flex items-center justify-between px-3 py-2 bg-surface2 hover:bg-surface transition-colors"
             >
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              <span className="text-sm font-medium text-text">
                 {t('review:mediaPage.statistics', { defaultValue: 'Statistics' })}
               </span>
               {collapsedSections.statistics ? (
-                <ChevronDown className="w-4 h-4 text-gray-400" />
+                <ChevronDown className="w-4 h-4 text-text-subtle" />
               ) : (
-                <ChevronUp className="w-4 h-4 text-gray-400" />
+                <ChevronUp className="w-4 h-4 text-text-subtle" />
               )}
             </button>
             {!collapsedSections.statistics && (
-              <div className="p-3 bg-white dark:bg-[#171717] animate-in fade-in slide-in-from-top-1 duration-150">
+              <div className="p-3 bg-surface animate-in fade-in slide-in-from-top-1 duration-150">
                 <div className="grid grid-cols-3 gap-3 text-sm">
                   <div className="flex flex-col">
-                    <span className="text-gray-500 dark:text-gray-400 text-xs">
+                    <span className="text-text-muted text-xs">
                       {t('review:mediaPage.words', { defaultValue: 'Words' })}
                     </span>
-                    <span className="text-gray-900 dark:text-gray-100 font-medium">
+                    <span className="text-text font-medium">
                       {wordCount}
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-gray-500 dark:text-gray-400 text-xs">
+                    <span className="text-text-muted text-xs">
                       {t('review:mediaPage.characters', { defaultValue: 'Characters' })}
                     </span>
-                    <span className="text-gray-900 dark:text-gray-100 font-medium">
+                    <span className="text-text font-medium">
                       {charCount}
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-gray-500 dark:text-gray-400 text-xs">
+                    <span className="text-text-muted text-xs">
                       {t('review:mediaPage.paragraphs', { defaultValue: 'Paragraphs' })}
                     </span>
-                    <span className="text-gray-900 dark:text-gray-100 font-medium">
+                    <span className="text-text font-medium">
                       {paragraphCount}
                     </span>
                   </div>
@@ -868,55 +868,55 @@ export function ContentViewer({
           </div>
 
           {/* Metadata */}
-          <div className="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-700 rounded-lg mb-2 overflow-hidden">
+          <div className="bg-surface border border-border rounded-lg mb-2 overflow-hidden">
             <button
               onClick={() => toggleSection('metadata')}
-              className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 dark:bg-[#0c0c0c] hover:bg-gray-100 dark:hover:bg-[#151515] transition-colors"
+              className="w-full flex items-center justify-between px-3 py-2 bg-surface2 hover:bg-surface transition-colors"
             >
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              <span className="text-sm font-medium text-text">
                 {t('review:mediaPage.metadata', { defaultValue: 'Metadata' })}
               </span>
               {collapsedSections.metadata ? (
-                <ChevronDown className="w-4 h-4 text-gray-400" />
+                <ChevronDown className="w-4 h-4 text-text-subtle" />
               ) : (
-                <ChevronUp className="w-4 h-4 text-gray-400" />
+                <ChevronUp className="w-4 h-4 text-text-subtle" />
               )}
             </button>
             {!collapsedSections.metadata && (
-              <div className="p-3 bg-white dark:bg-[#171717] animate-in fade-in slide-in-from-top-1 duration-150">
+              <div className="p-3 bg-surface animate-in fade-in slide-in-from-top-1 duration-150">
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between py-1">
-                    <span className="text-gray-500 dark:text-gray-400 text-xs">
+                    <span className="text-text-muted text-xs">
                       {t('review:mediaPage.idLabel', { defaultValue: 'ID' })}
                     </span>
-                    <span className="text-gray-900 dark:text-gray-100 font-mono text-xs">
+                    <span className="text-text font-mono text-xs">
                       {selectedMedia.id}
                     </span>
                   </div>
                   {selectedMedia.meta?.type && (
                     <div className="flex justify-between py-1">
-                      <span className="text-gray-500 dark:text-gray-400 text-xs">
+                      <span className="text-text-muted text-xs">
                         {t('review:mediaPage.typeLabel', { defaultValue: 'Type' })}
                       </span>
-                      <span className="text-gray-900 dark:text-gray-100 text-xs capitalize">
+                      <span className="text-text text-xs capitalize">
                         {selectedMedia.meta.type}
                       </span>
                     </div>
                   )}
                   <div className="flex justify-between py-1">
-                    <span className="text-gray-500 dark:text-gray-400 text-xs">
+                    <span className="text-text-muted text-xs">
                       {t('review:mediaPage.titleLabel', { defaultValue: 'Title' })}
                     </span>
-                    <span className="text-gray-900 dark:text-gray-100 text-xs truncate max-w-[200px]">
+                    <span className="text-text text-xs truncate max-w-[200px]">
                       {selectedMedia.title || t('review:mediaPage.notAvailable', { defaultValue: 'N/A' })}
                     </span>
                   </div>
                   {selectedMedia.meta?.source && (
                     <div className="flex justify-between py-1">
-                      <span className="text-gray-500 dark:text-gray-400 text-xs">
+                      <span className="text-text-muted text-xs">
                         {t('review:mediaPage.source', { defaultValue: 'Source' })}
                       </span>
-                      <span className="text-gray-900 dark:text-gray-100 text-xs truncate max-w-[200px]">
+                      <span className="text-text text-xs truncate max-w-[200px]">
                         {selectedMedia.meta.source}
                       </span>
                     </div>

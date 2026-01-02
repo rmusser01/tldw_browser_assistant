@@ -216,14 +216,14 @@ export function AnalysisModal({
       <div className="space-y-4">
         {/* M9: Show indeterminate spinner with elapsed time instead of misleading progress bar */}
         {generating && (
-          <div className="rounded-md border border-blue-200 bg-blue-50 dark:border-blue-700 dark:bg-blue-900/20 p-3">
+          <div className="rounded-md border border-primary bg-surface2 p-3">
             <div className="flex items-center gap-3">
               <Spin size="small" />
               <div className="flex-1">
-                <div className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                <div className="text-sm font-medium text-primaryStrong">
                   {t('mediaPage.generatingAnalysis', 'Generating analysis...')}
                 </div>
-                <div className="text-xs text-blue-700 dark:text-blue-300">
+                <div className="text-xs text-primary">
                   {t('mediaPage.elapsedTime', 'Elapsed: {{seconds}}s', { seconds: elapsedSeconds })}
                 </div>
               </div>
@@ -233,7 +233,7 @@ export function AnalysisModal({
         <div>
           <label
             htmlFor="media-analysis-model"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            className="block text-sm font-medium text-text mb-2">
             {t('mediaPage.model', 'Model')}
           </label>
           <Select
@@ -259,7 +259,7 @@ export function AnalysisModal({
 
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-medium text-text">
               {t('mediaPage.promptPresets', 'Prompt Presets')}
             </label>
             <Button
@@ -294,7 +294,7 @@ export function AnalysisModal({
         <div>
           <label
             htmlFor="systemPrompt"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            className="block text-sm font-medium text-text mb-2">
             {t('mediaPage.systemPromptLabel', 'System Prompt')}
           </label>
           <Input.TextArea
@@ -315,9 +315,9 @@ export function AnalysisModal({
         <div>
           <label
             htmlFor="userPromptPrefix"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            className="block text-sm font-medium text-text mb-2">
             {t('mediaPage.userPromptPrefixLabel', 'User Prompt Prefix')}
-            <span className="text-xs text-gray-500 ml-2">
+            <span className="text-xs text-text-muted ml-2">
               {t(
                 'mediaPage.prependedBeforeContent',
                 '(prepended before content)'

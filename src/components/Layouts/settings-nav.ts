@@ -59,6 +59,7 @@ export const SETTINGS_NAV_GROUPS: SettingsNavGroup[] = [
       { to: "/settings/knowledge", icon: BookText, labelToken: "settings:manageKnowledge.title" },
       { to: "/settings/world-books", icon: BookOpen, labelToken: "settings:worldBooksNav" },
       { to: "/settings/chat-dictionaries", icon: BookMarked, labelToken: "settings:chatDictionariesNav" },
+      { to: "/settings/chatbooks", icon: BookText, labelToken: "settings:chatbooksNav" },
       { to: "/settings/characters", icon: BookIcon, labelToken: "settings:charactersNav" },
       { to: "/media", icon: BookText, labelToken: "settings:mediaNav" }
     ]

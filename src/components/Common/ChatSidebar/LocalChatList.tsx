@@ -490,7 +490,7 @@ export function LocalChatList({
       {chatHistories.map((group, groupIndex) => (
         <div key={groupIndex}>
           <div className="flex items-center justify-between mt-2 px-1">
-            <h3 className="px-2 text-[11px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            <h3 className="px-2 text-[11px] font-medium text-text-subtle uppercase tracking-wide">
               {group.label === "searchResults"
                 ? t("common:searchResults")
                 : t(`common:date:${group.label}`)}
@@ -502,12 +502,12 @@ export function LocalChatList({
               >
                 <button
                   onClick={() => handleDeleteHistoriesByRange(group.label)}
-                  className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="p-1 rounded hover:bg-surface2"
                 >
                   {deleteRangeLoading && deleteGroup === group.label ? (
                     <Spin size="small" />
                   ) : (
-                    <Trash2 className="w-3.5 h-3.5 text-gray-500 hover:text-gray-700 dark:hover:text-gray-200" />
+                    <Trash2 className="w-3.5 h-3.5 text-text-muted hover:text-text" />
                   )}
                 </button>
               </Tooltip>
@@ -524,18 +524,18 @@ export function LocalChatList({
                   className={cn(
                     "flex py-2 px-2 items-start gap-2 relative rounded-md group transition-opacity duration-300 ease-in-out border",
                     effectiveSelectedChatId === chat.id
-                      ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-                      : "bg-gray-50 dark:bg-[#2d2d2d] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#3d3d3d]"
+                      ? "bg-surface2 border-borderStrong text-text"
+                      : "bg-surface text-text border-border hover:bg-surface2"
                   )}
                 >
                   {chat?.message_source === "copilot" && (
-                    <BotIcon className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+                    <BotIcon className="size-3 text-text-subtle mt-1 flex-shrink-0" />
                   )}
                   {chat?.message_source === "branch" && (
-                    <GitBranch className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+                    <GitBranch className="size-3 text-text-subtle mt-1 flex-shrink-0" />
                   )}
                   <button
-                    className="flex-1 overflow-hidden text-start w-full min-w-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1 rounded"
+                    className="flex-1 overflow-hidden text-start w-full min-w-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 rounded"
                     onClick={() => {
                       loadLocalConversation(chat.id).catch((error) => {
                         // eslint-disable-next-line no-console
@@ -545,12 +545,12 @@ export function LocalChatList({
                       onSelectChat?.(chat.id)
                     }}
                   >
-                    <div className="flex flex-col gap-0.5">
+                    <div className="flex flex-col gap-1">
                       <span className="truncate font-medium" title={chat.title}>
                         {chat.title}
                       </span>
                       {metadata && (
-                        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center gap-2 text-xs text-text-subtle">
                           <span className="flex items-center gap-1">
                             <MessageSquare className="size-3" />
                             {metadata.messageCount || 0}
@@ -566,7 +566,7 @@ export function LocalChatList({
                         </div>
                       )}
                       {lastMessage && (
-                        <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                        <span className="text-xs text-text-subtle truncate">
                           {truncateMessage(lastMessage.content || "")}
                         </span>
                       )}
@@ -635,7 +635,7 @@ export function LocalChatList({
                     onOpenChange={(open) => setOpenMenuFor(open ? chat.id : null)}
                   >
                     <IconButton
-                      className="text-gray-500 dark:text-gray-400 opacity-80 hover:opacity-100"
+                      className="text-text-subtle opacity-80 hover:opacity-100"
                       ariaLabel={`${t("option:header.moreActions", "More actions")}: ${chat.title}`}
                       hasPopup="menu"
                       ariaExpanded={openMenuFor === chat.id}

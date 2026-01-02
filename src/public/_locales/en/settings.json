@@ -1,0 +1,2987 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "Server & Auth"
+  },
+  "navigation_knowledgeTools": {
+    "message": "Knowledge Tools"
+  },
+  "navigation_workspace": {
+    "message": "Workspace"
+  },
+  "navigation_about": {
+    "message": "About"
+  },
+  "healthNav": {
+    "message": "Health"
+  },
+  "worldBooksNav": {
+    "message": "World Books"
+  },
+  "chatDictionariesNav": {
+    "message": "Chat Dictionaries"
+  },
+  "charactersNav": {
+    "message": "Characters"
+  },
+  "mediaNav": {
+    "message": "Media"
+  },
+  "evaluationsSettingsNav": {
+    "message": "Evaluations"
+  },
+  "promptStudioNav": {
+    "message": "Prompt Studio"
+  },
+  "chatSettingsNav": {
+    "message": "Chat"
+  },
+  "admin_adminGuardForbiddenTitle": {
+    "message": "Admin access required for these controls"
+  },
+  "admin_adminGuardNotFoundTitle": {
+    "message": "Admin APIs are not available on this server"
+  },
+  "admin_adminGuardForbiddenBody": {
+    "message": "Sign in as an admin user on your tldw server to view and manage users, roles, and system statistics."
+  },
+  "admin_adminGuardNotFoundBody": {
+    "message": "This tldw server does not expose the /admin endpoints, or they are disabled. Upgrade or reconfigure the server to enable these views."
+  },
+  "admin_adminGuardLearnMore": {
+    "message": "Learn more in the tldw server documentation."
+  },
+  "admin_adminGuardLimitedInfo": {
+    "message": "Admin-level details and controls are hidden until admin APIs are available."
+  },
+  "admin_adminGuardConnectionHint": {
+    "message": "Only basic connection details are shown; admin dashboards are disabled until admin APIs are available."
+  },
+  "promptStudio_nav": {
+    "message": "Prompt Studio"
+  },
+  "promptStudio_title": {
+    "message": "Prompt Studio"
+  },
+  "promptStudio_subtitle": {
+    "message": "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings."
+  },
+  "promptStudio_probeError": {
+    "message": "Unable to reach Prompt Studio"
+  },
+  "promptStudio_statusCard": {
+    "message": "Status"
+  },
+  "promptStudio_statusHint": {
+    "message": "Button calls /prompt-studio/status with warn_seconds."
+  },
+  "promptStudio_statusError": {
+    "message": "Status endpoint unavailable"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "Warn seconds"
+  },
+  "promptStudio_testButton": {
+    "message": "Test Prompt Studio"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "Defaults"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "Store default project, model configs, and list page size."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "Persist defaults using existing settings storage (TBD) for initial project selection, execute/evaluation model presets, and pagination."
+  },
+  "promptStudio_defaultProject": {
+    "message": "Default project ID"
+  },
+  "promptStudio_pageSize": {
+    "message": "Page size"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "Execute defaults"
+  },
+  "promptStudio_executeProvider": {
+    "message": "Provider"
+  },
+  "promptStudio_executeModel": {
+    "message": "Model"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "Temperature"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "Max tokens"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "Evaluation defaults"
+  },
+  "promptStudio_evalModel": {
+    "message": "Model"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "Temperature"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "Max tokens"
+  },
+  "promptStudio_unavailable": {
+    "message": "Prompt Studio isn’t available on the server yet."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "Once enabled, you can monitor queue health and set defaults here."
+  },
+  "chatAppearance_title": {
+    "message": "Chat appearance"
+  },
+  "chatAppearance_description": {
+    "message": "Customize colors, fonts, and text sizes for chat messages."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "Looking for chat behavior settings (wide mode, reasoning, copy options)?"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "Go to General Settings"
+  },
+  "chatAppearance_userHeading": {
+    "message": "User messages"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "Assistant messages"
+  },
+  "chatAppearance_userColor": {
+    "message": "User text color"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "Assistant text color"
+  },
+  "chatAppearance_userFont": {
+    "message": "User font"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "Assistant font"
+  },
+  "chatAppearance_userSize": {
+    "message": "User text size"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "Assistant text size"
+  },
+  "chatAppearance_color_default": {
+    "message": "Default"
+  },
+  "chatAppearance_color_blue": {
+    "message": "Blue"
+  },
+  "chatAppearance_color_green": {
+    "message": "Green"
+  },
+  "chatAppearance_color_purple": {
+    "message": "Purple"
+  },
+  "chatAppearance_color_orange": {
+    "message": "Orange"
+  },
+  "chatAppearance_color_red": {
+    "message": "Red"
+  },
+  "chatAppearance_font_default": {
+    "message": "Default"
+  },
+  "chatAppearance_font_sans": {
+    "message": "Sans serif"
+  },
+  "chatAppearance_font_serif": {
+    "message": "Serif"
+  },
+  "chatAppearance_font_mono": {
+    "message": "Monospace"
+  },
+  "chatAppearance_size_sm": {
+    "message": "Small"
+  },
+  "chatAppearance_size_md": {
+    "message": "Medium"
+  },
+  "chatAppearance_size_lg": {
+    "message": "Large"
+  },
+  "generalSettings_title": {
+    "message": "General Settings"
+  },
+  "generalSettings_settings_heading": {
+    "message": "Web UI Settings"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "Speech Recognition Language"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "Select a language"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "Language"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "Select a language"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "Change Theme"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "Light"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "Dark"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "Resume the last chat when opening the Sidebar (Copilot)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "Enable Chat with Website by default (Copilot)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "Resume the last chat when opening the Web UI"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "Hide the current Chat Model Settings"
+  },
+  "generalSettings_settings_hideQuickChatHelper_label": {
+    "message": "Hide Quick Chat Helper button"
+  },
+  "generalSettings_settings_hideQuickChatHelper_showLabel": {
+    "message": "Show Quick Chat Helper button"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "Restore last used model for previous chats"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "Send Notification After Finishing Processing the Knowledge Base"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "Generate Title using AI"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "Enable or disable server connection status check"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "Enable wide screen mode"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "Open Reasoning Collapse by default"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "Use Chat Bubble for User Messages"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "Automatically Copy Response to Clipboard"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "Enable Markdown formatting for User messages"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "Copy as Formatted Text"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "Enable Tab Mentions (@tab)"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "Paste Large Text as File"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "Enable OCR (downloads ~5MB on first use)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "Enabling OCR will download ~5MB of language data on first use"
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "OCR assets enabled and ready"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "Default OCR Language"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "Select an OCR language"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "Enable Temporary Chat in Sidebar by default"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "Remove Reasoning Tag from Copied Text"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "Include server prompts in prompt search"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "Restart onboarding from the beginning"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "Restart onboarding"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "Restart onboarding?"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "This will reset your onboarding state and take you back to the setup flow."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "Onboarding has been reset"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "We’ll take you back to the welcome step so you can review your server URL and API key."
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "System"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "Default UI Mode"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "Full Screen (Web UI)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "Sidebar"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "Browser Action Button"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "Context Menu Action"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "Show Web UI button in Sidebar"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "Chat Background Image"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "Font Size"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "Data"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "Firefox Private Mode Sync"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "Sync Data"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "System Reset"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "Reset All"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "Are you sure you want to perform a system reset? This will clear all data and cannot be undone."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "Export Chat History, Knowledge Base, and Prompts"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "Export Data"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "Export Success"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "Import Chat History, Knowledge Base, and Prompts"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "Import Data"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "Import Success"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "Import Error"
+  },
+  "generalSettings_chatbooks_heading": {
+    "message": "Chatbooks"
+  },
+  "generalSettings_chatbooks_subheading": {
+    "message": "Export conversations into portable archives, or import them later."
+  },
+  "generalSettings_chatbooks_unavailable": {
+    "message": "Chatbooks are not available on this server."
+  },
+  "generalSettings_chatbooks_exportTitle": {
+    "message": "Export chatbook"
+  },
+  "generalSettings_chatbooks_exportName": {
+    "message": "Chatbook name"
+  },
+  "generalSettings_chatbooks_exportDescription": {
+    "message": "Short description"
+  },
+  "generalSettings_chatbooks_exportConversationIds": {
+    "message": "Conversation IDs (comma-separated)"
+  },
+  "generalSettings_chatbooks_includeMedia": {
+    "message": "Include media"
+  },
+  "generalSettings_chatbooks_includeEmbeddings": {
+    "message": "Include embeddings"
+  },
+  "generalSettings_chatbooks_includeGenerated": {
+    "message": "Include generated docs"
+  },
+  "generalSettings_chatbooks_runAsync": {
+    "message": "Run as background job"
+  },
+  "generalSettings_chatbooks_exportButton": {
+    "message": "Export chatbook"
+  },
+  "generalSettings_chatbooks_noExportJobs": {
+    "message": "No export jobs yet."
+  },
+  "generalSettings_chatbooks_download": {
+    "message": "Download"
+  },
+  "generalSettings_chatbooks_importTitle": {
+    "message": "Import chatbook"
+  },
+  "generalSettings_chatbooks_conflictSkip": {
+    "message": "Skip conflicts"
+  },
+  "generalSettings_chatbooks_conflictOverwrite": {
+    "message": "Overwrite existing"
+  },
+  "generalSettings_chatbooks_conflictRename": {
+    "message": "Rename imported"
+  },
+  "generalSettings_chatbooks_conflictMerge": {
+    "message": "Merge when possible"
+  },
+  "generalSettings_chatbooks_prefixImported": {
+    "message": "Prefix imported"
+  },
+  "generalSettings_chatbooks_importMedia": {
+    "message": "Import media"
+  },
+  "generalSettings_chatbooks_importEmbeddings": {
+    "message": "Import embeddings"
+  },
+  "generalSettings_chatbooks_importButton": {
+    "message": "Import chatbook"
+  },
+  "generalSettings_chatbooks_noImportJobs": {
+    "message": "No import jobs yet."
+  },
+  "generalSettings_chatbooks_importedCount": {
+    "message": "{{count}} items imported"
+  },
+  "generalSettings_chatbooks_jobsError": {
+    "message": "Unable to load chatbook jobs"
+  },
+  "generalSettings_chatbooks_exportMissingIds": {
+    "message": "Add at least one conversation ID."
+  },
+  "generalSettings_chatbooks_exportDescriptionFallback": {
+    "message": "Chatbook export"
+  },
+  "generalSettings_chatbooks_exportQueued": {
+    "message": "Export job created"
+  },
+  "generalSettings_chatbooks_exportComplete": {
+    "message": "Chatbook export complete"
+  },
+  "generalSettings_chatbooks_exportError": {
+    "message": "Chatbook export failed"
+  },
+  "generalSettings_chatbooks_downloadError": {
+    "message": "Download failed"
+  },
+  "generalSettings_chatbooks_importQueued": {
+    "message": "Import job created"
+  },
+  "generalSettings_chatbooks_importComplete": {
+    "message": "Chatbook import complete"
+  },
+  "generalSettings_chatbooks_importError": {
+    "message": "Chatbook import failed"
+  },
+  "generalSettings_chatbooks_defaultName": {
+    "message": "Chatbook {{date}}"
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "Retrieval Settings"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "Enable Embedding and Retrieval"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "Maximum Content Size for Full Context Mode"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "Content size (default 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "Manage Web Search"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "Perform Simple Internet Search"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "Search Engine"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "Select a search engine"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "Total Search Results"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "Enter Total Search Results"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "Visit the website mentioned in the message"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "SearXNG URL"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "Brave API Key"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "Enter your Brave API key"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "Tavily API Key "
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "Enter your Tavily API key"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "Exa API Key"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "Enter your Exa API key"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "Google Domain"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "Internet Search ON by default"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "Firecrawl API Key"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "Enter your Firecrawl API key"
+  },
+  "generalSettings_tts_heading": {
+    "message": "Text-to-Speech Settings"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "Enable Text-to-Speech"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "Auto play voice response after completion"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "Text-to-Speech Provider"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "Select a provider"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "Text-to-Speech Voice"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "Select a voice"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "Enable SSML (Speech Synthesis Markup Language)"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "Response Splitting"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "Remove Reasoning Tag from TTS"
+  },
+  "generalSettings_stt_heading": {
+    "message": "Speech-to-Text Settings"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar."
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "Auto Stop Timeout (ms)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "Enter auto-stop timeout in milliseconds"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "Auto Submit Voice Message"
+  },
+  "generalSettings_stt_model_label": {
+    "message": "Transcription model (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "Run segmentation for transcripts (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "Timestamp granularity"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "Per segment"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "Per word"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "Segment + word"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "Transcription task"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "Transcribe (same language)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "Translate to English"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "Response format"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON (text + segments)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "Verbose JSON"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "Plain text"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "SRT subtitles"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "VTT subtitles"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "Sampling temperature"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "Default transcription prompt"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "Optional text to guide style"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "Max segments (TreeSeg K)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "Minimum items per segment"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "Balance penalty (TreeSeg λ)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "Utterance expansion width"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "Segmentation embeddings provider"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "Segmentation embeddings model"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "Connect tldw Assistant to your server"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "Some settings only take effect when your tldw server is reachable. Connect your server to get the full experience."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL and API key."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "Use Diagnostics to confirm your server is healthy before trying advanced tools."
+  },
+  "generalSettings_empty_title": {
+    "message": "Tune how tldw Assistant behaves"
+  },
+  "generalSettings_empty_description": {
+    "message": "Adjust defaults for the Web UI, sidepanel, speech, search, and data handling from one place."
+  },
+  "generalSettings_empty_example1": {
+    "message": "Choose your default language, theme, and chat resume behavior."
+  },
+  "generalSettings_empty_example2": {
+    "message": "Control whether chats are temporary, how large pastes are handled, and how reasoning is displayed."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "Configure server & auth"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "Dismiss"
+  },
+  "manageModels_title": {
+    "message": "Manage Models"
+  },
+  "manageModels_addBtn": {
+    "message": "Add New Model"
+  },
+  "manageModels_columns_name": {
+    "message": "Name"
+  },
+  "manageModels_columns_digest": {
+    "message": "Digest"
+  },
+  "manageModels_columns_nickname": {
+    "message": "Nickname"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "Modified At"
+  },
+  "manageModels_columns_size": {
+    "message": "Size"
+  },
+  "manageModels_columns_actions": {
+    "message": "Actions"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "Parent Model"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "Format"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "Family"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "Parameter Size"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "Quantization Level"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "Delete Model"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "Re-Pull Model"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "Edit Nickname"
+  },
+  "manageModels_confirm_delete": {
+    "message": "Are you sure you want to delete this model?"
+  },
+  "manageModels_confirm_repull": {
+    "message": "Are you sure you want to re-pull this model?"
+  },
+  "manageModels_modal_title": {
+    "message": "Add New Model"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "Enter Model Name"
+  },
+  "manageModels_modal_pull": {
+    "message": "Pull Model"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "Pulling Model"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "Pulling {{modelName}} model. For more details, check the extension icon."
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "Cancelling Download"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "Model download is being cancelled..."
+  },
+  "manageModels_notification_success": {
+    "message": "Success"
+  },
+  "manageModels_notification_error": {
+    "message": "Error"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "Successfully pulled the model"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "Successfully deleted the model"
+  },
+  "manageModels_notification_someError": {
+    "message": "Something went wrong. Please try again later"
+  },
+  "managePrompts_title": {
+    "message": "Manage Prompts"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "Prompts workspace"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "Reusable prompts are managed from the Prompts workspace. Use the button below to open it."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "Open Prompts workspace"
+  },
+  "managePrompts_addBtn": {
+    "message": "Add New Prompt"
+  },
+  "managePrompts_option1": {
+    "message": "Normal"
+  },
+  "managePrompts_option2": {
+    "message": "RAG"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "Question Prompt"
+  },
+  "managePrompts_search": {
+    "message": "Search titles and contents"
+  },
+  "managePrompts_filter_all": {
+    "message": "All"
+  },
+  "managePrompts_filter_system": {
+    "message": "System"
+  },
+  "managePrompts_filter_quick": {
+    "message": "Quick"
+  },
+  "managePrompts_tags_label": {
+    "message": "Tags"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "Add tags"
+  },
+  "managePrompts_import": {
+    "message": "Import"
+  },
+  "managePrompts_export": {
+    "message": "Export"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Merge"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Replace"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Replace will overwrite all current prompts with the imported file. Continue?"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "Custom prompts"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "Copilot prompts"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "Create and manage reusable prompts you can insert into chat."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "View and tweak predefined Copilot prompts provided by your server."
+  },
+  "managePrompts_columns_title": {
+    "message": "Title"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "Prompt"
+  },
+  "managePrompts_columns_type": {
+    "message": "Prompt Type"
+  },
+  "managePrompts_columns_actions": {
+    "message": "Actions"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "System Prompt"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "Quick Prompt"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "Delete Prompt"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "Edit Prompt"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "Duplicate Prompt"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "Are you sure you want to delete this prompt? This action cannot be undone."
+  },
+  "managePrompts_favorite": {
+    "message": "Favorite"
+  },
+  "managePrompts_unfavorite": {
+    "message": "Unfavorite"
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "Add New Prompt"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "Edit Prompt"
+  },
+  "managePrompts_form_title_label": {
+    "message": "Title"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "My Awesome Prompt"
+  },
+  "managePrompts_form_title_required": {
+    "message": "Please enter a title"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "Prompt"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "Enter Prompt"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "Please enter a prompt"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "You can use {key} as variable in your prompt."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "The {text} variable is missing in the prompt. Please add it."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "Use as system prompt"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "Adding Prompt..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "Add Prompt"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "Updating Prompt..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "Update Prompt"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "Prompt Added"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "Prompt has been added successfully"
+  },
+  "managePrompts_notification_error": {
+    "message": "Error"
+  },
+  "managePrompts_notification_someError": {
+    "message": "Something went wrong. Please try again later"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "Prompt Updated"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "Prompt has been updated successfully"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "Prompt Deleted"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "Prompt has been deleted successfully"
+  },
+  "managePrompts_partialLoad": {
+    "message": "Some prompt data isn’t available"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "Check your server connection and refresh to try again."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "Connect to use Prompts"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "To manage reusable prompts, first connect to your tldw server."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "Once connected, create custom prompts you can reuse across chats."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "No custom prompts yet"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "Create reusable prompts for recurring tasks, workflows, and team conventions."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "Save your favorite system prompt for summaries, explanations, or translations."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "Create quick prompts for common actions like drafting emails or refining notes."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "Create prompt"
+  },
+  "managePrompts_filterHelp": {
+    "message": "Search matches title and prompt content. Use type and tags to narrow the list."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "No Copilot prompts available"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "Copilot prompts are predefined templates provided by your tldw server."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "Check your server version or configuration if you expect Copilot prompts to be available."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "After updating your server, reload the extension and return to this tab."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "Open Diagnostics"
+  },
+  "manageShare_title": {
+    "message": "Manage Share"
+  },
+  "manageShare_heading": {
+    "message": "Configure Page Share URL"
+  },
+  "manageShare_form_url_label": {
+    "message": "Page Share URL"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "Enter Page Share URL"
+  },
+  "manageShare_form_url_required": {
+    "message": "Please input your Page Share URL!"
+  },
+  "manageShare_form_url_help": {
+    "message": "For privacy reasons, you can self-host the page share and provide the URL here. <anchor>Learn More</anchor>."
+  },
+  "manageShare_webshare_heading": {
+    "message": "Web Share"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "Title"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "URL"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "Actions"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "Delete Share"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "Are you sure you want to delete this share? This action cannot be undone."
+  },
+  "manageShare_webshare_label": {
+    "message": "Manage Page Share"
+  },
+  "manageShare_webshare_description": {
+    "message": "Enable or disable the page share feature"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "Page Share URL updated successfully"
+  },
+  "manageShare_notification_someError": {
+    "message": "Something went wrong. Please try again later"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "Web Share deleted successfully"
+  },
+  "ollamaSettings_title": {
+    "message": "Server Integration"
+  },
+  "ollamaSettings_heading": {
+    "message": "Configure Server Integration"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "Server URL"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "Enter Server URL"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "Enable or Disable Server Integration Globally"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "By disabling the server integration globally, tldw Browser_Assistant won't fetch models from the server. You can still add providers from the <anchor>OpenAI compatible API</anchor> section if needed."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "Advanced Server URL Configuration"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "Enable or Disable Custom Origin URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "Custom Origin URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "Enter Custom Origin URL"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "Enable or Disable Automatic CORS Fix"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "Custom Headers"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "Add Header"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "Header Key"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "Authorization"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "Header Value"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "Bearer token"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "If you have connection issues with the server, you can configure a custom origin URL. To learn more about the configuration, <anchor>click here</anchor>."
+  },
+  "manageSearch_title": {
+    "message": "Manage Web Search"
+  },
+  "manageSearch_heading": {
+    "message": "Configure Web Search"
+  },
+  "about_title": {
+    "message": "About"
+  },
+  "about_heading": {
+    "message": "About"
+  },
+  "about_chromeVersion": {
+    "message": "tldw Browser_Assistant Version"
+  },
+  "about_ollamaVersion": {
+    "message": "Server Version"
+  },
+  "about_support": {
+    "message": "You can support the tldw Browser_Assistant project by donating or sponsoring through the following platforms:"
+  },
+  "about_koFi": {
+    "message": "Support on Ko-fi"
+  },
+  "about_githubSponsor": {
+    "message": "Sponsor on GitHub"
+  },
+  "about_githubRepo": {
+    "message": "GitHub Repository"
+  },
+  "manageKnowledge_title": {
+    "message": "Knowledge QA"
+  },
+  "manageKnowledge_heading": {
+    "message": "Knowledge QA"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "World Books workspace"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "World Books are managed from the World Books workspace. Use the button below to open it."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "Open World Books workspace"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "Chat dictionaries workspace"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "Chat dictionaries are managed from the Chat dictionaries workspace. Use the button below to open it."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "Open Chat dictionaries workspace"
+  },
+  "charactersSettingsTitle": {
+    "message": "Characters workspace"
+  },
+  "charactersSettingsDescription": {
+    "message": "Characters are managed from the Characters workspace. Use the button below to open it."
+  },
+  "charactersOpenWorkspace": {
+    "message": "Open Characters workspace"
+  },
+  "manageCharacters_title": {
+    "message": "Manage Characters"
+  },
+  "manageCharacters_addBtn": {
+    "message": "New character"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Name"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Description"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Actions"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Avatar"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chat"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Edit"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Delete"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplicate"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "View conversations"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "—"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Match all tags"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Tags"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Add tags"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Use tags to group characters by use case (e.g., “writing”, “teaching”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Edit character"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Delete character"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chat as {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Edit character {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Delete character {{name}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Duplicate character {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "View conversations for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} characters found"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Are you sure you want to delete this character? This action cannot be undone."
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversations for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Character conversations"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Select a conversation to continue as this character."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "No conversations found for this character yet."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Unable to load conversations for this character."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Updated {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Unknown"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continue chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Untitled"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Most recent"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Load chat history and continue this conversation"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Preview"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Show preview"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Hide preview"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Untitled character"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Greeting"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Behavior"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fill in the form to see a preview"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Avatar (optional)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Upload"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Please select an image file"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Only PNG, JPEG, and GIF images are supported"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Invalid image file"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Failed to process image"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Click or drag image to upload"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG, or GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Preview"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Show advanced fields"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Hide advanced fields"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Name"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "e.g. Writing coach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Please enter a name"
+  },
+  "manageCharacters_form_description": {
+    "message": "Define a reusable character you can chat with in the sidebar."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Behavior / instructions"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "E.g., You are a patient math teacher who explains concepts step by step and checks understanding with short examples."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Explain the character's role, tone, and constraints. For example: \"You are a patient math tutor who explains concepts step by step.\""
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Please add instructions to guide responses."
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Provide instructions so the character responds appropriately."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "System prompt must be 2000 characters or less."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar URL (optional)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Greeting message (optional)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hi there! I’m your writing coach. Paste your draft and I’ll help you tighten it up."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Optional first message the character will send when you start a chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Creating character..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Create character"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Saving changes..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Save changes"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Character created"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Error"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Something went wrong. Please try again later"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Character updated"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Character deleted"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Couldn't load characters"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Check your connection and try again."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "No characters yet"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Create a reusable character with a name, description, and system prompt you can chat with."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Define a writing coach, lore expert, or coding assistant you can reuse across chats."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Give each character a clear description and behavior so their responses stay consistent."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Create character"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar of {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "User avatar"
+  },
+  "rag_title": {
+    "message": "RAG Settings"
+  },
+  "rag_ragSettings_label": {
+    "message": "RAG Settings"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "Embedding Model"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "Please select a model"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "Highly recommended to use embedding models like `nomic-embed-text`."
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "Recommended: {{model}} (from server config)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "Previously saved embedding model is no longer available on the server. Please choose another model."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "Select a model"
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "Chunk Size"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "Enter Chunk Size"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "Please enter a chunk size"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "Chunk Overlap"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "Enter Chunk Overlap"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "Please enter a chunk overlap"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "Knowledge Base Default File Upload Limit"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "Enter default file upload limit (e.g., 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "Please enter the default file upload limit"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "Number of Retrieved Documents"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "Enter Number of Retrieved Documents"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "Please enter the number of retrieved documents"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "Separator"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "Enter Separator (e.g., \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "Please enter a separator"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "Text Splitter"
+  },
+  "rag_prompt_label": {
+    "message": "Configure RAG Prompt"
+  },
+  "rag_prompt_option1": {
+    "message": "Normal"
+  },
+  "rag_prompt_option2": {
+    "message": "Web"
+  },
+  "rag_prompt_alert": {
+    "message": "Configuring the system prompt here is deprecated. Please use the Manage Prompts section to add or edit prompts. This section will be removed in a future release"
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "System Prompt"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "Enter System Prompt"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "Web Search Prompt"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "Do not remove `{search_results}` from the prompt."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "Please enter a web search prompt"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "Enter Web Search Prompt"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "Web Search Follow Up Prompt"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "Do not remove `{chat_history}` and `{question}` from the prompt."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "Please input your Web Search Follow Up Prompt!"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "Your Web Search Follow Up Prompt"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Chunking Playground"
+  },
+  "chunkingPlayground_title": {
+    "message": "Chunking Playground"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experiment with different chunking settings to see how text gets split into smaller pieces for processing."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text to chunk"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Paste text here or select a sample..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Upload File"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Chunk Text"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Chunking Method"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Max Chunk Size"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlap"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Language"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Auto-detect"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "English"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanish"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "French"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "German"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italian"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portuguese"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chinese"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanese"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Korean"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Cards"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inline"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} chunks, avg {{avgSize}} chars"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text loaded"
+  },
+  "chunkingPlayground_characters": {
+    "message": "characters"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Single"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Compare"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Chunk {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Chunk {{index}}: {{words}} words"
+  },
+  "chunkingPlayground_position": {
+    "message": "Position: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} more"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} characters"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} words"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Please provide text to chunk"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Shared Input Text"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Compare Both"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparison"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Config A produces {{diff}} fewer chunks"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Config A produces {{diff}} more chunks"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Both configs produce the same number of chunks"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Click 'Compare' to see results"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlap Region"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Click on a highlighted section to focus on that chunk"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No text content found for this media item"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Failed to load media content"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Failed to load media library"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Select media item..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Loading content..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No media found"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Paste Text"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Upload File"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Sample Text"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "From Media Library"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "News Article"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Multi-paragraph article with headers"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Source Code"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python code with classes and functions"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcript"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Timestamped podcast transcript"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Academic Paper"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Technical writing with citations"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Compare Settings"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuration A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuration B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Single"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Compare"
+  },
+  "mermaid": {
+    "message": "Mermaid"
+  },
+  "switchToSidebar": {
+    "message": "Switch to Sidebar"
+  },
+  "healthPage_title": {
+    "message": "Health Status"
+  },
+  "healthPage_subtitle": {
+    "message": "Quick overview of how your tldw server powers chat, Knowledge search, media ingest, and other tools."
+  },
+  "healthPage_backToChat": {
+    "message": "Back to chat"
+  },
+  "healthPage_openSettings": {
+    "message": "Open tldw Settings"
+  },
+  "healthPage_noServerBannerTitle": {
+    "message": "Don’t have a server yet?"
+  },
+  "healthPage_noServerBannerBody": {
+    "message": "You can explore the UI first, then connect a tldw server later to enable chat history, media ingest, and Knowledge search."
+  },
+  "healthPage_noServerBannerCta": {
+    "message": "Learn how tldw server works"
+  },
+  "healthPage_recheckAll": {
+    "message": "Recheck All"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "Copy diagnostics"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "Copies JSON diagnostics (server URL, status codes, and anonymized environment info) to your clipboard. API keys and message content are not included."
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "Server is not configured."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "Unable to reach server core health endpoint."
+  },
+  "healthPage_triedGet": {
+    "message": "Tried GET {{url}}"
+  },
+  "healthPage_configureHint": {
+    "message": "Please configure a server URL under tldw settings."
+  },
+  "healthPage_configureCta": {
+    "message": "Configure"
+  },
+  "healthPage_connectedTo": {
+    "message": "Connected to {{host}}"
+  },
+  "healthPage_autoRefresh": {
+    "message": "Auto-refresh"
+  },
+  "healthPage_intervalLabel": {
+    "message": "Interval (s):"
+  },
+  "healthPage_nextRefreshIn": {
+    "message": "Next auto-refresh in {{seconds}}s"
+  },
+  "healthPage_intervalWarning": {
+    "message": "Short intervals can put load on your server. Consider using at least {{seconds}}s."
+  },
+  "healthPage_checking": {
+    "message": "Checking…"
+  },
+  "healthPage_recheck": {
+    "message": "Recheck"
+  },
+  "healthPage_healthy": {
+    "message": "Healthy"
+  },
+  "healthPage_unhealthy": {
+    "message": "Unhealthy"
+  },
+  "healthPage_unknown": {
+    "message": "Unknown"
+  },
+  "healthPage_statusHealthy": {
+    "message": "Healthy"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "Unhealthy"
+  },
+  "healthPage_statusUnknown": {
+    "message": "Unknown"
+  },
+  "healthPage_statusCodeTag": {
+    "message": "HTTP {{code}}"
+  },
+  "healthPage_statusCodeNetwork": {
+    "message": "Network/timeout"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "Updated just now"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "Updated {{seconds}}s ago"
+  },
+  "healthPage_troubleshootLink": {
+    "message": "Troubleshooting tips"
+  },
+  "healthPage_errorDetailsLabel": {
+    "message": "Technical details (for advanced users)"
+  },
+  "healthPage_copyError": {
+    "message": "Copy error"
+  },
+  "healthPage_rawResponseFrom": {
+    "message": "Raw response from {{path}}"
+  },
+  "healthPage_queueTitle": {
+    "message": "Chat queue diagnostics"
+  },
+  "healthPage_queueError": {
+    "message": "Queue diagnostics unavailable"
+  },
+  "healthPage_queueStatusTitle": {
+    "message": "Queue status"
+  },
+  "healthPage_queueEnabled": {
+    "message": "Enabled"
+  },
+  "healthPage_queueDisabled": {
+    "message": "Disabled"
+  },
+  "healthPage_queueDepth": {
+    "message": "Queued"
+  },
+  "healthPage_queueProcessing": {
+    "message": "Processing"
+  },
+  "healthPage_queueMax": {
+    "message": "Max queue"
+  },
+  "healthPage_queueMaxConcurrent": {
+    "message": "Max concurrent"
+  },
+  "healthPage_queueTotalProcessed": {
+    "message": "Processed"
+  },
+  "healthPage_queueTotalRejected": {
+    "message": "Rejected"
+  },
+  "healthPage_queueActivityTitle": {
+    "message": "Recent activity"
+  },
+  "healthPage_queueActivityEmpty": {
+    "message": "No recent activity."
+  },
+  "healthPage_queueItem": {
+    "message": "Request"
+  },
+  "healthPage_queueItemMeta": {
+    "message": "Priority {{priority}} · {{duration}}s"
+  },
+  "healthPage_checks_core": {
+    "message": "Core API"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG"
+  },
+  "healthPage_checks_audio": {
+    "message": "Audio"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "Embeddings"
+  },
+  "healthPage_checks_metrics": {
+    "message": "Metrics Health"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "Chat Metrics"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP"
+  },
+  "healthPage_checks_coreDescription": {
+    "message": "Verifies the main chat API. If this is unhealthy, confirm your server URL, API key, and core logs."
+  },
+  "healthPage_checks_ragDescription": {
+    "message": "Powers Knowledge search & retrieval. If this is unhealthy, ensure RAG is enabled and the knowledge index has been built on your server."
+  },
+  "healthPage_checks_audioDescription": {
+    "message": "Covers text-to-speech and speech-to-text APIs. If this is unhealthy, confirm your audio endpoints are enabled and reachable."
+  },
+  "healthPage_checks_embeddingsDescription": {
+    "message": "Checks the embeddings and indexing services used for retrieval. If this is unhealthy, rebuild your embedding index or restart the worker."
+  },
+  "healthPage_checks_metricsDescription": {
+    "message": "Verifies metrics and monitoring endpoints. If this is unhealthy, metrics dashboards or alerting may be unavailable."
+  },
+  "healthPage_checks_chatMetricsDescription": {
+    "message": "Tracks chat analytics such as volume and latency. If this is unhealthy, chat metrics collection or endpoints may be failing."
+  },
+  "healthPage_checks_mcpDescription": {
+    "message": "Checks Model Context Protocol (MCP) tools. If this is unhealthy, external tools and plugins may not be available in chat."
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthSummary_diagnostics": {
+    "message": "Health & diagnostics"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "Open detailed diagnostics to troubleshoot or inspect health checks."
+  },
+  "healthSummary_fullDiagnosticsAria": {
+    "message": "{{label}}. {{status}}. {{help}}"
+  },
+  "healthSummary_core": {
+    "message": "Server"
+  },
+  "healthSummary_rag": {
+    "message": "Knowledge"
+  },
+  "healthSummary_coreAria": {
+    "message": "Server: server/API health"
+  },
+  "healthSummary_ragAria": {
+    "message": "Knowledge: knowledge index health"
+  },
+  "healthSummary_coreOnline": {
+    "message": "Server: Online"
+  },
+  "healthSummary_coreOffline": {
+    "message": "Server: Offline"
+  },
+  "healthSummary_coreChecking": {
+    "message": "Server: Checking…"
+  },
+  "healthSummary_ragReady": {
+    "message": "Knowledge: Ready"
+  },
+  "healthSummary_ragOffline": {
+    "message": "Knowledge: Offline"
+  },
+  "healthSummary_ragChecking": {
+    "message": "Knowledge: Checking…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "These checks summarize the last successful ping to your tldw server and knowledge index."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "Too many settings writes in a short period; please wait a few seconds and try again."
+  },
+  "storage_quotaTitle": {
+    "message": "Storage limit reached"
+  },
+  "storage_writeError": {
+    "message": "Could not save settings"
+  },
+  "storage_writeErrorDescription": {
+    "message": "We couldn't save your settings. Please try again shortly."
+  },
+  "savedSuccessfully": {
+    "message": "Settings saved"
+  },
+  "saveFailed": {
+    "message": "Failed to save settings"
+  },
+  "siteAccessGranted": {
+    "message": "Host permission granted for {{origin}}"
+  },
+  "onboarding_title": {
+    "message": "Welcome to tldw Browser Assistant— Let’s get you connected"
+  },
+  "onboarding_description": {
+    "message": "Connect this extension to your tldw server (a separate app running on your machine or server). We’ll walk through adding the URL, API key, and checking that everything is reachable."
+  },
+  "onboarding_exploreWithoutServer": {
+    "message": "You can explore the UI without a server; some features (chat, media ingest, Knowledge search) will stay disabled until you connect."
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverDocsCta": {
+    "message": "Learn how tldw server works"
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "Learn how tldw server works"
+  },
+  "onboarding_serverUrl_label": {
+    "message": "Server URL"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "Default address for local installs: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "Enter your tldw server URL to enable Next."
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "Enter a full URL such as http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "Use http or https URLs, for example http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "We’ll enable Next once we can reach this address."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "Checking reachability…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "Server responded successfully. You can continue."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "We couldn’t reach this address yet. Double-check the URL or try again."
+  },
+  "onboarding_authMode_label": {
+    "message": "Authentication Mode"
+  },
+  "onboarding_authMode_single": {
+    "message": "Single User (API Key)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "Multi User (Login)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "API Key"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "Enter your API key (or use the default demo key THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+  },
+  "onboarding_username_label": {
+    "message": "Username"
+  },
+  "onboarding_username_placeholder": {
+    "message": "Username"
+  },
+  "onboarding_password_label": {
+    "message": "Password"
+  },
+  "onboarding_password_placeholder": {
+    "message": "Password"
+  },
+  "onboarding_buttons_next": {
+    "message": "Next"
+  },
+  "onboarding_buttons_back": {
+    "message": "Back"
+  },
+  "onboarding_buttons_continue": {
+    "message": "Continue"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "Recheck"
+  },
+  "onboarding_buttons_finish": {
+    "message": "Finish"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "Finish without connecting"
+  },
+  "onboarding_buttons_skip": {
+    "message": "Skip for now"
+  },
+  "onboarding_connection_label": {
+    "message": "Connection:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "Unknown"
+  },
+  "onboarding_connection_connected": {
+    "message": "Connected"
+  },
+  "onboarding_connection_failed": {
+    "message": "Failed"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "You can finish setup now and explore the UI without a server. Chat, media ingest, and Knowledge search will remain limited until you connect a tldw server from Settings → tldw Server."
+  },
+  "onboarding_rag_label": {
+    "message": "Knowledge search & retrieval:"
+  },
+  "onboarding_rag_healthy": {
+    "message": "Healthy"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "Unhealthy"
+  },
+  "onboarding_rag_unknown": {
+    "message": "Unknown"
+  },
+  "onboarding_rag_help": {
+    "message": "Checks whether your server can search your notes, media, and other connected knowledge sources."
+  },
+  "onboarding_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "onboarding_progressAria": {
+    "message": "Onboarding progress"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "Welcome"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "Connect to your tldw server"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "Choose how you sign in"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "Confirm connection & Knowledge"
+  },
+  "onboarding_startServer_title": {
+    "message": "Before you start — Start your tldw server"
+  },
+  "onboarding_startServer_body": {
+    "message": "If you have not started your server yet, run one of these commands in the tldw_server repository, then return here."
+  },
+  "onboarding_startServer_copy": {
+    "message": "Copy command"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "Run locally with Python"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "Run inside your tldw_server virtualenv from the server repository root."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "Run with Docker Compose (single-user)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "Run from the tldw_server repository root to start the API and database."
+  },
+  "onboarding_path_heading": {
+    "message": "How would you like to get started?"
+  },
+  "onboarding_path_hasServer": {
+    "message": "I already run tldw_server"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "Connect to an existing tldw_server you already run."
+  },
+  "onboarding_path_noServer": {
+    "message": "I don’t have a server yet"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "Follow a setup guide for tldw_server, or start in demo mode."
+  },
+  "onboarding_path_demo": {
+    "message": "Just explore with a local demo"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "Try the workspace with sample data; connect your own server later."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "No server yet? You can still explore."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server is a separate, self-hosted app. You can follow the setup guide now, or come back later and continue in demo mode."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "Run locally with Docker or Python on your own machine."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "Deploy tldw_server to a remote VPS or managed hosting."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "Use a managed commercial tldw_server deployment when available."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "Open setup guide"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "Use local demo mode"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "Remind me later"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "Explore the extension in demo mode"
+  },
+  "onboarding_path_demoBody": {
+    "message": "Demo mode lets you try chat, notes, and media with sample data. Server-dependent features like Knowledge search will stay limited until you connect your own tldw_server."
+  },
+  "onboarding_path_demoCta": {
+    "message": "Use local demo mode"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Single User (API Key) is recommended for personal or small-team servers. Multi User (Login) is for shared deployments where people sign in with usernames or SSO. Choose the mode that matches how your tldw_server is set up."
+  },
+  "onboarding_auth_missingCredentials": {
+    "message": "Enter both a username and password to continue."
+  },
+  "onboarding_auth_missingApiKey": {
+    "message": "API key is required."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "Find your API key in tldw_server → Settings → API Keys. Generate a key there and paste it here."
+  },
+  "onboarding_apiKeyRequired": {
+    "message": "Enter your API key to continue."
+  },
+  "onboarding_usernameRequired": {
+    "message": "Enter your username to continue."
+  },
+  "onboarding_passwordRequired": {
+    "message": "Enter your password to continue."
+  },
+  "onboarding_authStepAria": {
+    "message": "Step 2 of 3 — Choose how you sign in"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "Step 3 of 3 — connection summary and next steps"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "You’re ready to go"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "From here you can open the sidepanel, ingest a page, or explore media and notes."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "Start chatting"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "Open the sidepanel and ask your first question."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "Open sidepanel"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "Ingest your first page"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "Use Quick ingest from the header to save the current tab to your server."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "Explore media & notes"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "Visit Media and Notes in Options to see what’s stored and searchable."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "Show quick shortcuts in the header"
+  },
+  "onboarding_footerHelp": {
+    "message": "Once connected, you can revisit these settings anytime from the extension menu."
+  },
+  "onboarding_errors_invalidCredentials": {
+    "message": "Login failed. Check your username and password or confirm multi-user login is enabled on your tldw server."
+  },
+  "onboarding_errors_forbidden": {
+    "message": "Forbidden. Check that your user account has permission to log in."
+  },
+  "onboarding_errors_serverUnreachable": {
+    "message": "Couldn’t reach your tldw server. Check the server URL or open Health & diagnostics for more details."
+  },
+  "onboarding_errors_generic": {
+    "message": "Login failed. Open Health & diagnostics from the header to inspect server errors."
+  },
+  "tldw_setupLink": {
+    "message": "Set up server"
+  },
+  "tldw_loadError": {
+    "message": "Unable to load tldw server settings. Check your connection and try again."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "API Key"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "Enter your API key (default demo key: THIS-IS-A-SECURE-KEY-123-REPLACE-ME for local single-user setups)"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "Please enter your API key"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "Your tldw_server API key for authentication. For local single-user demos, you can use the default key THIS-IS-A-SECURE-KEY-123-REPLACE-ME unless you have changed it on the server."
+  },
+  "tldw_fields_username_label": {
+    "message": "Username"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "Enter username"
+  },
+  "tldw_fields_username_required": {
+    "message": "Please enter your username"
+  },
+  "tldw_fields_password_label": {
+    "message": "Password"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "Enter password"
+  },
+  "tldw_fields_password_required": {
+    "message": "Please enter your password"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "Server URL"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://127.0.0.1:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "Please enter the server URL"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "Please enter a valid URL"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "The URL of your tldw_server instance. Default address for local installs: http://127.0.0.1:8000"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "Invalid API key"
+  },
+  "tldw_errors_forbidden": {
+    "message": "Forbidden (check permissions)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "API key validation failed"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "Server unreachable"
+  },
+  "tldw_errors_serverUnreachableDetailed": {
+    "message": "Server not reachable. Check that your tldw_server is running and that your browser can reach it, then try again. Health & diagnostics can help debug connectivity issues."
+  },
+  "tldw_errors_connectionFailedDetailed": {
+    "message": "Connection failed. Please check your server URL and API key, then open Health & diagnostics for more details."
+  },
+  "tldw_errors_seeHealth": {
+    "message": "Open Health & diagnostics for more details."
+  },
+  "tldw_about_title": {
+    "message": "About tldw server integration"
+  },
+  "tldw_about_description": {
+    "message": "tldw server turns this extension into a full workspace for chat, Knowledge search, and media."
+  },
+  "tldw_advancedTimeouts": {
+    "message": "Advanced Timeouts"
+  },
+  "tldw_requestTimeout": {
+    "message": "Request Timeout (seconds)"
+  },
+  "tldw_streamingIdle": {
+    "message": "Streaming Idle Timeout (seconds)"
+  },
+  "tldw_chatRequest": {
+    "message": "Chat Request Timeout"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "Chat Stream Idle"
+  },
+  "tldw_ragRequest": {
+    "message": "RAG Request Timeout"
+  },
+  "tldw_mediaRequest": {
+    "message": "Media Request Timeout"
+  },
+  "tldw_uploadRequest": {
+    "message": "Upload Request Timeout"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "Timeout profile"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "Balanced"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "Extended"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "Custom"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "Balanced works well for most setups. Extended adds extra headroom for slower networks or long-running jobs."
+  },
+  "tldw_reset": {
+    "message": "Reset to recommended"
+  },
+  "tldw_resetDone": {
+    "message": "Reset to recommended defaults"
+  },
+  "tldw_serverNav": {
+    "message": "tldw Server"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "tldw Server Configuration"
+  },
+  "tldw_serverLabel": {
+    "message": "Server:"
+  },
+  "tldw_notConfigured": {
+    "message": "Not configured"
+  },
+  "tldw_buttons_health": {
+    "message": "Health"
+  },
+  "tldw_buttons_recheck": {
+    "message": "Recheck"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "Test Connection"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "Grant Site Access"
+  },
+  "tldw_buttons_login": {
+    "message": "Login"
+  },
+  "tldw_buttons_logout": {
+    "message": "Logout"
+  },
+  "tldw_loginRequired_title": {
+    "message": "Login Required"
+  },
+  "tldw_loginRequired_description": {
+    "message": "Please login with your tldw_server credentials"
+  },
+  "tldw_loggedIn_title": {
+    "message": "Logged In"
+  },
+  "tldw_loggedIn_description": {
+    "message": "You are currently logged in to tldw_server"
+  },
+  "tldw_connection_success": {
+    "message": "Server responded successfully. You can continue."
+  },
+  "tldw_connection_failed": {
+    "message": "Connection failed. Please check your settings."
+  },
+  "tldw_authMode_label": {
+    "message": "Authentication Mode"
+  },
+  "tldw_authMode_single": {
+    "message": "Single User (API Key)"
+  },
+  "tldw_authMode_multi": {
+    "message": "Multi User (Login)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "Abort initial requests if no response within this time. Default: {{seconds}}s."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "Abort streaming if no updates received within this time. Default: {{seconds}}s."
+  },
+  "tldw_login_success": {
+    "message": "Login successful!"
+  },
+  "tldw_login_failed": {
+    "message": "Login failed"
+  },
+  "tldw_login_invalidCredentials": {
+    "message": "Login failed. Check your username/password or confirm multi-user auth is enabled on your tldw server."
+  },
+  "tldw_login_forbidden": {
+    "message": "Forbidden. Check that this user has permission to log in."
+  },
+  "tldw_login_serverUnreachable": {
+    "message": "Couldn’t reach your tldw server. Check the server URL or open Health & diagnostics for more details."
+  },
+  "tldw_login_generic": {
+    "message": "Login failed. See Health & diagnostics for server details."
+  },
+  "tldw_logout_success": {
+    "message": "Logged out successfully"
+  },
+  "tldw_logout_failed": {
+    "message": "Logout failed"
+  },
+  "evaluations_title": {
+    "message": "Evaluations playground"
+  },
+  "evaluations_subtitle": {
+    "message": "Define evaluations against your tldw server and inspect recent runs."
+  },
+  "evaluations_listTitle": {
+    "message": "Recent evaluations"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "New evaluation"
+  },
+  "evaluations_startRunCta": {
+    "message": "Start run"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "Unable to load evaluations"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "Check your tldw server connection and API credentials, then try again."
+  },
+  "evaluations_emptyList": {
+    "message": "No evaluations yet. Once you create one, it will appear here."
+  },
+  "evaluations_selectedTag": {
+    "message": "Selected"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "Evaluation limits"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "Unable to fetch rate limits"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "We could not retrieve evaluation quotas from the server."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "Rate limit information is not available for this server."
+  },
+  "evaluations_tierLabel": {
+    "message": "Tier"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "Daily evaluations"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "Tokens today"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "Per-minute limit"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "Resets at"
+  },
+  "evaluations_runsTitle": {
+    "message": "Runs"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "Select an evaluation to see its recent runs."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "Unable to load runs"
+  },
+  "evaluations_runsEmpty": {
+    "message": "No runs yet for this evaluation."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "Run details"
+  },
+  "evaluations_noRunSelected": {
+    "message": "Select a run to see details."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "Unable to load run details"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "Status"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "Target model"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "Evaluation"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "Error"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "Results (snippet)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "Progress"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "Usage"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "Datasets"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "New dataset"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "Unable to load datasets"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "No datasets yet. Create one to attach to evaluations."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} samples"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "Name"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "my_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "Description"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "Metadata (JSON, optional)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "Sample input"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "Expected output (optional)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "Samples JSON (optional, overrides fields)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "Dataset (optional)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "Select dataset"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "Dataset created"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "Your dataset is ready to use in evaluations."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "Failed to create dataset"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "The server rejected this dataset. Check the fields and try again."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "Dataset deleted"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "Failed to delete dataset"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "Failed to load dataset"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "Dataset details"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "Invalid samples JSON"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "New evaluation"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "Edit evaluation"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "Name"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "my_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "Use only letters, numbers, hyphens, and underscores."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "Evaluation type"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "Evaluation spec (JSON)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "Evaluation spec must be valid JSON."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "Metadata (JSON, optional)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "Attach inline dataset instead of referencing dataset_id"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "Invalid inline dataset"
+  },
+  "evaluations_runModelLabel": {
+    "message": "Run model (used for quick runs)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "Evaluation created"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "Failed to create evaluation"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "The server rejected this evaluation. Ensure name, type, and spec are valid."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "Evaluation updated"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "Failed to update evaluation"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "Failed to delete evaluation"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "Delete this evaluation?"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "This will remove the evaluation definition. Runs already created remain in history."
+  },
+  "evaluations_detailTitle": {
+    "message": "Evaluation details"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "Unable to load evaluation details"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "Description"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "Select an evaluation to inspect its spec."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "Run started"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "Your evaluation run has started. You can monitor it from the server UI."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "Failed to start run"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "The server rejected this run request. Check the model and try again."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "Config (JSON)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "Dataset override (JSON array of samples)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "Invalid config JSON"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "Run cancellation requested"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "Failed to cancel run"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "Cancel run"
+  },
+  "evaluations_historyTitle": {
+    "message": "History"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "Type"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "User ID"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "Start date (ISO)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "End date (ISO)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "Fetch history"
+  },
+  "evaluations_historyEmpty": {
+    "message": "Run a query to see recent activity."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "Failed to fetch history"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "Webhooks"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "URL"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "Events"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "Register webhook"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "Webhook registered"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "Failed to register webhook"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "Failed to delete webhook"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "Unable to load webhooks"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "No webhooks registered yet."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "Secret"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "Idempotency key"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "Connect to use Evaluations"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "To create and run evaluations, first connect to your tldw server."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "Open Settings → tldw server to add your server URL and API key."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "Once connected, you can define evaluations and inspect metrics here."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "Samples"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "No samples returned for this page."
+  },
+  "evaluations_metricsLabel": {
+    "message": "Metrics"
+  },
+  "evaluationsSettings_title": {
+    "message": "Evaluations"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "Configure defaults used by the Evaluations playground."
+  },
+  "evaluationsSettings_offline": {
+    "message": "Connect to your tldw server to test Evaluations."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "Default evaluation type"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "Default target model"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "Default run config (JSON)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "Default dataset id (optional)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "Spec preset for selected type"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "Test Evaluations API"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "Evaluations API reachable"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "Unable to reach Evaluations API"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "Imported data successfully"
+  },
+  "systemNotifications_importError": {
+    "message": "Import error"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Firefox data synced successfully, You don't need to do this again"
+  },
+  "systemNotifications_syncError": {
+    "message": "Firefox data sync failed"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "Please select a valid image file"
+  },
+  "prompts_enterPrompt": {
+    "message": "Enter a prompt."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "Enter a prompt."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "Enter a follow up prompt."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "Enter a follow up prompt."
+  },
+  "prompts_privateModeDescription": {
+    "message": "Firefox Private Mode does not support saving data to IndexedDB. Please add prompts from a normal window."
+  },
+  "models_privateModeDescription": {
+    "message": "Firefox Private Mode does not support saving data to IndexedDB. Please add custom model from a normal window."
+  },
+  "serverOverview_docsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "chatbooksNav": {
+    "message": "Chatbooks"
+  }
+}

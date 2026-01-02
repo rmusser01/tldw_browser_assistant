@@ -279,8 +279,8 @@ export const CreateTab: React.FC<CreateTabProps> = ({ onNavigateToTake }) => {
         </div>
 
         {questions.length === 0 ? (
-          <Card className="text-center py-8">
-            <p className="text-gray-500 mb-4">
+          <Card className="py-8 text-center">
+            <p className="mb-4 text-text-subtle">
               {t("option:quiz.noQuestionsYet", { defaultValue: "No questions added yet" })}
             </p>
             <Button type="primary" icon={<PlusOutlined />} onClick={addQuestion}>

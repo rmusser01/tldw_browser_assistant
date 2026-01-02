@@ -1081,5 +1081,146 @@
   },
   "actor_sceneTemplateActive": {
     "message": "场景模板已激活：Actor 遵循模板交互设置。"
+  },
+  "composer_compareFeatureToggle": {
+    "message": "启用对比模式"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "解锁实验性的多模型对比功能。"
+  },
+  "composer_compareDisabled": {
+    "message": "对比模式在设置中已禁用。"
+  },
+  "composer_compareChosenHint": {
+    "message": "继续使用所选答案或再次对比。"
+  },
+  "composer_compareChosenLabel": {
+    "message": "已选"
+  },
+  "composer_compareLatency": {
+    "message": "延迟"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "对比：{{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "（来自对比）"
+  },
+  "composer_compareClusterLabel": {
+    "message": "多模型回答"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} 个模型"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "已选模型：{{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "将每个已选答案分别打开为独立聊天"
+  },
+  "composer_compareThreadLabel": {
+    "message": "按模型的对话"
+  },
+  "composer_compareThreadYou": {
+    "message": "你"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "作为完整聊天打开"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "打开分拆聊天"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "标准"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "标记为标准答案"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "标准答案"
+  },
+  "composer_compareFilterLabel": {
+    "message": "筛选模型"
+  },
+  "composer_compareFilterClear": {
+    "message": "显示全部"
+  },
+  "composer_compareFilterCount": {
+    "message": "显示 {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Token：{{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
   }
 }

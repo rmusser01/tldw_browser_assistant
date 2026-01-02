@@ -4,6 +4,8 @@ import {
   getModelSettings
 } from "@/services/model-settings"
 import { useStoreChatModelSettings } from "@/store/model"
+import { useStoreMessageOption, type ToolChoice } from "@/store/option"
+import { useMcpToolsStore } from "@/store/mcp-tools"
 
 const isValidReasoningEffort = (
   value: unknown
@@ -11,12 +13,114 @@ const isValidReasoningEffort = (
   return value === "low" || value === "medium" || value === "high"
 }
 
-export const pageAssistModel = async ({
-  model
-}: {
+type PageAssistModelOptions = {
   model: string
-}): Promise<ChatTldw> => {
+  toolChoice?: ToolChoice
+  tools?: Record<string, unknown>[]
+  saveToDb?: boolean
+  conversationId?: string
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: string
+  extraBody?: string
+}
+
+const parseJsonObject = (value?: string) => {
+  if (!value || typeof value !== "string") return undefined
+  const trimmed = value.trim()
+  if (!trimmed) return undefined
+  try {
+    const parsed = JSON.parse(trimmed)
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return parsed as Record<string, unknown>
+    }
+  } catch {
+    return undefined
+  }
+  return undefined
+}
+
+export const pageAssistModel = async ({
+  model,
+  toolChoice,
+  tools,
+  saveToDb,
+  conversationId,
+  historyMessageLimit,
+  historyMessageOrder,
+  slashCommandInjectionMode,
+  apiProvider,
+  extraHeaders,
+  extraBody
+}: PageAssistModelOptions): Promise<ChatTldw> => {
   const currentChatModelSettings = useStoreChatModelSettings.getState()
+  const {
+    toolChoice: storedToolChoice,
+    serverChatId,
+    temporaryChat
+  } = useStoreMessageOption.getState()
+  const {
+    tools: storedTools,
+    healthState: mcpHealthState
+  } = useMcpToolsStore.getState()
+  const resolvedToolChoice = toolChoice ?? storedToolChoice
+  const resolvedTools = tools ?? storedTools
+  const toolsEnabled =
+    mcpHealthState !== "unavailable" && mcpHealthState !== "unhealthy"
+  const effectiveToolChoice = toolsEnabled ? resolvedToolChoice : "none"
+  const effectiveTools =
+    toolsEnabled &&
+    effectiveToolChoice !== "none" &&
+    Array.isArray(resolvedTools) &&
+    resolvedTools.length > 0
+      ? resolvedTools
+      : undefined
+  const resolvedConversationId =
+    conversationId && conversationId.trim().length > 0
+      ? conversationId.trim()
+      : serverChatId ?? undefined
+  const resolvedSaveToDb =
+    typeof saveToDb === "boolean"
+      ? saveToDb
+      : Boolean(resolvedConversationId) && !temporaryChat
+  const finalConversationId = resolvedSaveToDb
+    ? resolvedConversationId
+    : undefined
+  const resolvedHistoryMessageLimit =
+    typeof historyMessageLimit === "number"
+      ? historyMessageLimit
+      : currentChatModelSettings.historyMessageLimit
+  const normalizedHistoryMessageLimit =
+    typeof resolvedHistoryMessageLimit === "number" &&
+    resolvedHistoryMessageLimit > 0
+      ? resolvedHistoryMessageLimit
+      : undefined
+  const resolvedHistoryMessageOrder =
+    historyMessageOrder ?? currentChatModelSettings.historyMessageOrder
+  const normalizedHistoryMessageOrder =
+    resolvedHistoryMessageOrder && resolvedHistoryMessageOrder.trim().length > 0
+      ? resolvedHistoryMessageOrder.trim()
+      : undefined
+  const resolvedSlashInjectionMode =
+    slashCommandInjectionMode ??
+    currentChatModelSettings.slashCommandInjectionMode
+  const normalizedSlashInjectionMode =
+    resolvedSlashInjectionMode && resolvedSlashInjectionMode.trim().length > 0
+      ? resolvedSlashInjectionMode.trim()
+      : undefined
+  const resolvedApiProvider = apiProvider ?? currentChatModelSettings.apiProvider
+  const normalizedApiProvider =
+    resolvedApiProvider && resolvedApiProvider.trim().length > 0
+      ? resolvedApiProvider.trim()
+      : undefined
+  const resolvedExtraHeaders = parseJsonObject(
+    extraHeaders ?? currentChatModelSettings.extraHeaders
+  )
+  const resolvedExtraBody = parseJsonObject(
+    extraBody ?? currentChatModelSettings.extraBody
+  )
   const userDefaultModelSettings = await getAllDefaultModelSettings()
 
   const {
@@ -108,6 +212,16 @@ export const pageAssistModel = async ({
       ? modelSettings.reasoningEffort
       : isValidReasoningEffort(reasoningEffort)
         ? reasoningEffort
-        : undefined
+        : undefined,
+    toolChoice: effectiveToolChoice,
+    tools: effectiveTools,
+    saveToDb: resolvedSaveToDb,
+    conversationId: finalConversationId,
+    historyMessageLimit: normalizedHistoryMessageLimit,
+    historyMessageOrder: normalizedHistoryMessageOrder,
+    slashCommandInjectionMode: normalizedSlashInjectionMode,
+    apiProvider: normalizedApiProvider,
+    extraHeaders: resolvedExtraHeaders,
+    extraBody: resolvedExtraBody
   })
 }

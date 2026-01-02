@@ -18,16 +18,30 @@ import {
   Command,
   ArrowRight,
 } from "lucide-react"
-import { useShortcut, formatShortcut } from "@/hooks/useKeyboardShortcuts"
+import {
+  useShortcut,
+  formatShortcut,
+  type ShortcutModifier
+} from "@/hooks/useKeyboardShortcuts"
 import { searchSettings, type SettingDefinition } from "@/data/settings-index"
 import { cn } from "@/libs/utils"
+
+type CommandShortcut = { key: string; modifiers: ShortcutModifier[] }
+
+const buildShortcut = (
+  key: string,
+  ...modifiers: ShortcutModifier[]
+): CommandShortcut => ({
+  key,
+  modifiers
+})
 
 export interface CommandItem {
   id: string
   label: string
   description?: string
   icon: React.ReactNode
-  shortcut?: { key: string; modifiers: ("meta" | "ctrl" | "alt" | "shift")[] }
+  shortcut?: CommandShortcut
   action: () => void
   category: "navigation" | "action" | "setting" | "recent"
   keywords?: string[]
@@ -43,6 +57,7 @@ interface CommandPaletteProps {
   onIngestPage?: () => void
   onSwitchModel?: () => void
   onToggleSidebar?: () => void
+  scope?: "global" | "sidepanel"
 }
 
 export function CommandPalette({
@@ -53,6 +68,7 @@ export function CommandPalette({
   onIngestPage,
   onSwitchModel,
   onToggleSidebar,
+  scope = "global",
 }: CommandPaletteProps) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
@@ -61,6 +77,7 @@ export function CommandPalette({
   const listRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
   const { t } = useTranslation(["common", "settings"])
+  const isSidepanel = scope === "sidepanel"
 
   // Register ⌘K shortcut to open
   useShortcut({
@@ -81,129 +98,146 @@ export function CommandPalette({
   })
 
   // Build default commands
-  const defaultCommands: CommandItem[] = useMemo(() => [
-    // Navigation
-    {
-      id: "nav-chat",
-      label: t("common:commandPalette.goToChat", "Go to Chat"),
-      icon: <MessageSquare className="size-4" />,
-      action: () => { navigate("/"); setOpen(false) },
-      category: "navigation",
-      keywords: ["playground", "conversation"],
-    },
-    {
-      id: "nav-media",
-      label: t("common:commandPalette.goToMedia", "Go to Media"),
-      icon: <BookText className="size-4" />,
-      shortcut: { key: "m", modifiers: ["meta", "shift"] },
-      action: () => { navigate("/media"); setOpen(false) },
-      category: "navigation",
-      keywords: ["documents", "files", "library"],
-    },
-    {
-      id: "nav-notes",
-      label: t("common:commandPalette.goToNotes", "Go to Notes"),
-      icon: <StickyNote className="size-4" />,
-      action: () => { navigate("/notes"); setOpen(false) },
-      category: "navigation",
-      keywords: ["notes", "notebook"],
-    },
-    {
-      id: "nav-flashcards",
-      label: t("common:commandPalette.goToFlashcards", "Go to Flashcards"),
-      icon: <Layers className="size-4" />,
-      action: () => { navigate("/flashcards"); setOpen(false) },
-      category: "navigation",
-      keywords: ["study", "cards", "learn"],
-    },
-    {
-      id: "nav-settings",
-      label: t("common:commandPalette.goToSettings", "Go to Settings"),
-      icon: <Settings className="size-4" />,
-      shortcut: { key: ",", modifiers: ["meta"] },
-      action: () => { navigate("/settings"); setOpen(false) },
-      category: "navigation",
-      keywords: ["preferences", "config", "options"],
-    },
-    {
-      id: "nav-health",
-      label: t("common:commandPalette.goToHealth", "Health & Diagnostics"),
-      icon: <Activity className="size-4" />,
-      action: () => { navigate("/settings/health"); setOpen(false) },
-      category: "navigation",
-      keywords: ["status", "connection", "diagnostic"],
-    },
-
-    // Actions
-    {
-      id: "action-new-chat",
-      label: t("common:commandPalette.newChat", "New Chat"),
-      icon: <MessageSquare className="size-4" />,
-      shortcut: { key: "u", modifiers: ["ctrl", "shift"] },
-      action: () => { onNewChat?.(); setOpen(false) },
-      category: "action",
-      keywords: ["create", "start", "conversation"],
-    },
-    {
-      id: "action-toggle-rag",
-      label: t("common:commandPalette.toggleKnowledgeSearch", "Toggle Knowledge Search"),
-      description: t("common:commandPalette.toggleKnowledgeSearchDesc", "Search your knowledge base"),
-      icon: <Search className="size-4" />,
-      shortcut: { key: "r", modifiers: ["alt"] },
-      action: () => { onToggleRag?.(); setOpen(false) },
-      category: "action",
-      keywords: ["search", "knowledge", "retrieve", "rag"],
-    },
-    {
-      id: "action-toggle-web",
-      label: t("common:commandPalette.toggleWebSearch", "Toggle Web Search"),
-      description: t("common:commandPalette.toggleWebDesc", "Search the internet"),
-      icon: <Globe className="size-4" />,
-      shortcut: { key: "w", modifiers: ["alt"] },
-      action: () => { onToggleWebSearch?.(); setOpen(false) },
-      category: "action",
-      keywords: ["internet", "online", "browse"],
-    },
-    {
-      id: "action-ingest",
-      label: t("common:commandPalette.ingestPage", "Ingest Current Page"),
-      description: t("common:commandPalette.ingestDesc", "Save this page to your knowledge base"),
-      icon: <UploadCloud className="size-4" />,
-      shortcut: { key: "i", modifiers: ["meta"] },
-      action: () => { onIngestPage?.(); setOpen(false) },
-      category: "action",
-      keywords: ["save", "import", "add", "upload"],
-    },
-    {
-      id: "action-switch-model",
-      label: t("common:commandPalette.switchModel", "Switch Model"),
-      icon: <BrainCircuit className="size-4" />,
-      shortcut: { key: "e", modifiers: ["meta"] },
-      action: () => { onSwitchModel?.(); setOpen(false) },
-      category: "action",
-      keywords: ["model", "ai", "llm", "change"],
-    },
-    {
-      id: "action-toggle-sidebar",
-      label: t("common:commandPalette.toggleSidebar", "Toggle Sidebar"),
-      description: t(
-        "common:commandPalette.toggleSidebarDesc",
-        "Show or hide the chat sidebar"
-      ),
-      icon: <Eye className="size-4" />,
-      shortcut: { key: "b", modifiers: ["ctrl", "shift"] },
-      action: () => {
-        onToggleSidebar?.()
-        setOpen(false)
+  const defaultCommands: CommandItem[] = useMemo(() => {
+    const commands: CommandItem[] = [
+      // Navigation
+      {
+        id: "nav-chat",
+        label: t("common:commandPalette.goToChat", "Go to Chat"),
+        icon: <MessageSquare className="size-4" />,
+        action: () => { navigate("/"); setOpen(false) },
+        category: "navigation",
+        keywords: ["playground", "conversation"],
       },
-      category: "action",
-      keywords: ["sidebar", "layout", "panel"],
-    },
-  ], [t, navigate, onNewChat, onToggleRag, onToggleWebSearch, onIngestPage, onSwitchModel, onToggleSidebar])
+      ...(!isSidepanel ? [
+        {
+          id: "nav-media",
+          label: t("common:commandPalette.goToMedia", "Go to Media"),
+          icon: <BookText className="size-4" />,
+          shortcut: buildShortcut("m", "meta", "shift"),
+          action: () => { navigate("/media"); setOpen(false) },
+          category: "navigation" as const,
+          keywords: ["documents", "files", "library"],
+        },
+        {
+          id: "nav-notes",
+          label: t("common:commandPalette.goToNotes", "Go to Notes"),
+          icon: <StickyNote className="size-4" />,
+          action: () => { navigate("/notes"); setOpen(false) },
+          category: "navigation" as const,
+          keywords: ["notes", "notebook"],
+        },
+        {
+          id: "nav-flashcards",
+          label: t("common:commandPalette.goToFlashcards", "Go to Flashcards"),
+          icon: <Layers className="size-4" />,
+          action: () => { navigate("/flashcards"); setOpen(false) },
+          category: "navigation" as const,
+          keywords: ["study", "cards", "learn"],
+        },
+      ] : []),
+      {
+        id: "nav-settings",
+        label: t("common:commandPalette.goToSettings", "Go to Settings"),
+        icon: <Settings className="size-4" />,
+        shortcut: buildShortcut(",", "meta"),
+        action: () => { navigate("/settings"); setOpen(false) },
+        category: "navigation",
+        keywords: ["preferences", "config", "options"],
+      },
+      ...(!isSidepanel ? [
+        {
+          id: "nav-health",
+          label: t("common:commandPalette.goToHealth", "Health & Diagnostics"),
+          icon: <Activity className="size-4" />,
+          action: () => { navigate("/settings/health"); setOpen(false) },
+          category: "navigation" as const,
+          keywords: ["status", "connection", "diagnostic"],
+        }
+      ] : []),
+      // Actions
+      {
+        id: "action-new-chat",
+        label: t("common:commandPalette.newChat", "New Chat"),
+        icon: <MessageSquare className="size-4" />,
+        shortcut: buildShortcut("u", "ctrl", "shift"),
+        action: () => { onNewChat?.(); setOpen(false) },
+        category: "action",
+        keywords: ["create", "start", "conversation"],
+      },
+      {
+        id: "action-toggle-rag",
+        label: t("common:commandPalette.toggleKnowledgeSearch", "Toggle Knowledge Search"),
+        description: t("common:commandPalette.toggleKnowledgeSearchDesc", "Search your knowledge base"),
+        icon: <Search className="size-4" />,
+        shortcut: buildShortcut("r", "alt"),
+        action: () => { onToggleRag?.(); setOpen(false) },
+        category: "action",
+        keywords: ["search", "knowledge", "retrieve", "rag"],
+      },
+      {
+        id: "action-toggle-web",
+        label: t("common:commandPalette.toggleWebSearch", "Toggle Web Search"),
+        description: t("common:commandPalette.toggleWebDesc", "Search the internet"),
+        icon: <Globe className="size-4" />,
+        shortcut: buildShortcut("w", "alt"),
+        action: () => { onToggleWebSearch?.(); setOpen(false) },
+        category: "action",
+        keywords: ["internet", "online", "browse"],
+      },
+      {
+        id: "action-ingest",
+        label: t("common:commandPalette.ingestPage", "Ingest Current Page"),
+        description: t("common:commandPalette.ingestDesc", "Save this page to your knowledge base"),
+        icon: <UploadCloud className="size-4" />,
+        shortcut: buildShortcut("i", "meta"),
+        action: () => { onIngestPage?.(); setOpen(false) },
+        category: "action",
+        keywords: ["save", "import", "add", "upload"],
+      },
+      {
+        id: "action-switch-model",
+        label: t("common:commandPalette.switchModel", "Switch Model"),
+        icon: <BrainCircuit className="size-4" />,
+        shortcut: buildShortcut("e", "meta"),
+        action: () => { onSwitchModel?.(); setOpen(false) },
+        category: "action",
+        keywords: ["model", "ai", "llm", "change"],
+      },
+      {
+        id: "action-toggle-sidebar",
+        label: t("common:commandPalette.toggleSidebar", "Toggle Sidebar"),
+        description: t(
+          "common:commandPalette.toggleSidebarDesc",
+          "Show or hide the chat sidebar"
+        ),
+        icon: <Eye className="size-4" />,
+        shortcut: buildShortcut("b", "ctrl", "shift"),
+        action: () => {
+          onToggleSidebar?.()
+          setOpen(false)
+        },
+        category: "action",
+        keywords: ["sidebar", "layout", "panel"],
+      },
+    ]
+
+    return commands
+  }, [
+    t,
+    navigate,
+    onNewChat,
+    onToggleRag,
+    onToggleWebSearch,
+    onIngestPage,
+    onSwitchModel,
+    onToggleSidebar,
+    isSidepanel
+  ])
 
   // Convert settings to commands
   const settingCommands: CommandItem[] = useMemo(() => {
-    if (!query) return []
+    if (isSidepanel || !query) return []
     // Create a translation wrapper that matches searchSettings expected signature
     const translateFn = (key: string, defaultValue?: string): string => {
       return t(key, defaultValue ?? key) as string
@@ -220,7 +254,7 @@ export function CommandPalette({
       category: "setting" as const,
       keywords: setting.keywords,
     }))
-  }, [query, t, navigate])
+  }, [isSidepanel, query, t, navigate])
 
   // Combine all commands
   const allCommands = useMemo(() => {
@@ -366,27 +400,27 @@ export function CommandPalette({
 
       {/* Palette */}
       <div
-        className="fixed left-1/2 top-[15%] sm:top-[20%] z-50 w-[calc(100%-2rem)] sm:w-full max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+        className="fixed left-1/2 top-[15%] sm:top-[20%] z-50 w-[calc(100%-2rem)] sm:w-full max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-surface shadow-modal"
         role="dialog"
         aria-modal="true"
         aria-label={t("common:commandPalette.title", "Command Palette")}
         onKeyDown={handleKeyDown}
       >
         {/* Search input */}
-        <div className="flex items-center gap-3 border-b border-gray-200 px-4 py-3 dark:border-gray-700">
-          <Search className="size-5 text-gray-400" />
+        <div className="flex items-center gap-3 border-b border-border px-4 py-3">
+          <Search className="size-5 text-text-subtle" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("common:commandPalette.placeholder", "Type a command or search...")}
-            className="flex-1 bg-transparent text-base outline-none placeholder:text-gray-400 dark:text-white"
+            className="flex-1 bg-transparent text-base text-text outline-none placeholder:text-text-subtle"
             autoComplete="off"
             autoCorrect="off"
             spellCheck={false}
           />
-          <kbd className="hidden items-center gap-1 rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:border-gray-600 dark:bg-gray-800 sm:flex">
+          <kbd className="hidden items-center gap-1 rounded border border-border bg-surface2 px-1.5 py-0.5 text-xs text-text-subtle sm:flex">
             Esc
           </kbd>
         </div>
@@ -398,7 +432,7 @@ export function CommandPalette({
           role="listbox"
         >
           {filteredCommands.length === 0 ? (
-            <div className="px-4 py-8 text-center text-sm text-gray-500">
+            <div className="px-4 py-8 text-center text-sm text-text-subtle">
               {t("common:commandPalette.noResults", "No results found")}
             </div>
           ) : (
@@ -413,7 +447,7 @@ export function CommandPalette({
 
                 return (
                   <div key={category} className="mb-2">
-                    <div className="px-2 py-1.5 text-xs font-medium text-gray-500 dark:text-gray-400">
+                    <div className="px-2 py-1.5 text-xs font-medium text-text-subtle">
                       {categoryLabels[category]}
                     </div>
                     {items.map((cmd, idx) => {
@@ -429,30 +463,30 @@ export function CommandPalette({
                           className={cn(
                             "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors",
                             isSelected
-                              ? "bg-pink-50 text-pink-900 dark:bg-pink-900/20 dark:text-pink-100"
-                              : "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+                              ? "bg-primary/10 text-text"
+                              : "text-text hover:bg-surface2"
                           )}
                           role="option"
                           aria-selected={isSelected}
                         >
-                          <span className={`${isSelected ? "text-pink-600 dark:text-pink-400" : "text-gray-400"}`}>
+                          <span className={`${isSelected ? "text-primary" : "text-text-subtle"}`}>
                             {cmd.icon}
                           </span>
                           <div className="flex-1 min-w-0">
                             <div className="font-medium truncate">{cmd.label}</div>
                             {cmd.description && (
-                              <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                              <div className="text-xs text-text-subtle truncate">
                                 {cmd.description}
                               </div>
                             )}
                           </div>
                           {cmd.shortcut && (
-                            <kbd className="ml-2 flex items-center gap-0.5 rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:border-gray-600 dark:bg-gray-800">
+                            <kbd className="ml-2 flex items-center gap-0.5 rounded border border-border bg-surface2 px-1.5 py-0.5 text-xs text-text-subtle">
                               {formatShortcut(cmd.shortcut)}
                             </kbd>
                           )}
                           {isSelected && (
-                            <ArrowRight className="size-4 text-pink-500" />
+                            <ArrowRight className="size-4 text-primary" />
                           )}
                         </button>
                       )
@@ -465,19 +499,19 @@ export function CommandPalette({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between border-t border-gray-200 px-4 py-2 text-xs text-gray-500 dark:border-gray-700">
+        <div className="flex items-center justify-between border-t border-border px-4 py-2 text-xs text-text-subtle">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              <kbd className="rounded border border-gray-200 bg-gray-100 px-1 dark:border-gray-600 dark:bg-gray-800">
+              <kbd className="rounded border border-border bg-surface2 px-1">
                 ↑
               </kbd>
-              <kbd className="rounded border border-gray-200 bg-gray-100 px-1 dark:border-gray-600 dark:bg-gray-800">
+              <kbd className="rounded border border-border bg-surface2 px-1">
                 ↓
               </kbd>
               <span className="ml-1">{t("common:commandPalette.navigate", "navigate")}</span>
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="rounded border border-gray-200 bg-gray-100 px-1 dark:border-gray-600 dark:bg-gray-800">
+              <kbd className="rounded border border-border bg-surface2 px-1">
                 ↵
               </kbd>
               <span className="ml-1">{t("common:commandPalette.select", "select")}</span>

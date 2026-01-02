@@ -116,11 +116,11 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
 
   return (
     <div className="not-prose">
-      <div className="my-4 bg-white dark:bg-[#171717] rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div className="flex flex-row px-4 py-2 rounded-t-xl bg-gray-50 dark:bg-[#1a1a1a] border-b border-gray-200 dark:border-gray-700">
+      <div className="my-4 bg-surface rounded-xl border border-border overflow-hidden">
+        <div className="flex flex-row px-4 py-2 rounded-t-xl bg-surface2 border-b border-border">
           <div className="flex items-center gap-2 flex-1">
-            <TableIcon className="size-4 text-gray-600 dark:text-gray-300" />
-            <span className="font-mono text-xs text-gray-700 dark:text-gray-300">
+            <TableIcon className="size-4 text-text-muted" />
+            <span className="font-mono text-xs text-text-muted">
               Table
             </span>
           </div>
@@ -130,9 +130,9 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
               <IconButton
                 ariaLabel={t('table.copyCsv', 'Copy as CSV') as string}
                 onClick={handleCopyCSV}
-                className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none transition-colors">
+                className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none transition-colors">
                 {copyStatus === "csv" ? (
-                  <CopyCheckIcon className="size-4 text-green-500" />
+                  <CopyCheckIcon className="size-4 text-success" />
                 ) : (
                   <CopyIcon className="size-4" />
                 )}
@@ -143,9 +143,9 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
               theme={{
                 components: {
                   Dropdown: {
-                    colorBgElevated: "#1a1a1a",
-                    colorText: "#ffffff",
-                    colorBgTextHover: "#2a2a2a",
+                    colorBgElevated: "var(--color-elevated)",
+                    colorText: "var(--color-text)",
+                    colorBgTextHover: "var(--color-surface-2)",
                     borderRadiusOuter: 8,
                     boxShadowSecondary:
                       "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)"
@@ -156,7 +156,7 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
                 <IconButton
                   ariaLabel={t('table.downloadCsv', 'Download CSV') as string}
                   onClick={handleDownloadCSV}
-                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none transition-colors">
+                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none transition-colors">
                   <DownloadIcon className="size-4" />
                 </IconButton>
               </Tooltip>
@@ -167,7 +167,7 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
         <div className="overflow-x-auto">
           <div
             ref={ref}
-            className={`prose prose-gray dark:prose-invert max-w-none [&_table]:table-fixed [&_table]:text-sm [&_table]:w-full [&_table]:border-collapse [&_thead]:bg-neutral-50 [&_thead]:dark:bg-[#2D2D2D] [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-semibold [&_th]:text-gray-900 [&_th]:dark:text-gray-100 [&_th]:text-xs [&_th]:uppercase [&_th]:tracking-wider [&_th]:whitespace-nowrap [&_th:nth-child(1)]:w-1/2 [&_th:nth-child(2)]:w-1/2 [&_th:nth-child(3)]:w-1/3 [&_th]:border-b [&_th]:border-gray-200 [&_th]:dark:border-gray-700 [&_td]:px-6 [&_td]:py-4 [&_td]:text-gray-700 [&_td]:dark:text-gray-300 [&_td]:text-sm [&_td]:text-left [&_td]:whitespace-nowrap  [&_td]:border-b [&_td]:border-gray-200 [&_td]:dark:border-gray-700 [&_tr:last-child_td]:border-b-0`}>
+            className={`prose dark:prose-invert max-w-none [&_table]:table-fixed [&_table]:text-sm [&_table]:w-full [&_table]:border-collapse [&_thead]:bg-surface2 [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-semibold [&_th]:text-text [&_th]:text-xs [&_th]:uppercase [&_th]:tracking-wider [&_th]:whitespace-nowrap [&_th:nth-child(1)]:w-1/2 [&_th:nth-child(2)]:w-1/2 [&_th:nth-child(3)]:w-1/3 [&_th]:border-b [&_th]:border-border [&_td]:px-6 [&_td]:py-4 [&_td]:text-text-muted [&_td]:text-sm [&_td]:text-left [&_td]:whitespace-nowrap  [&_td]:border-b [&_td]:border-border [&_tr:last-child_td]:border-b-0`}>
             {children}
           </div>
         </div>

@@ -726,7 +726,7 @@
     "message": "채팅 {{count}}개를 만들지 못했습니다"
   },
   "composer_validationCompareSelectModelsInline": {
-    "message": "Select at least one model for Compare mode."
+    "message": "비교 모드에서는 최소 하나의 모델을 선택하세요."
   },
   "speech_title": {
     "message": "음성 플레이그라운드"
@@ -1081,5 +1081,146 @@
   },
   "actor_sceneTemplateActive": {
     "message": "장면 템플릿 활성: Actor가 템플릿 상호작용 설정을 존중합니다."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "비교 모드 사용"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "실험적인 다중 모델 비교 기능을 사용합니다."
+  },
+  "composer_compareDisabled": {
+    "message": "비교 모드는 설정에서 비활성화되어 있습니다."
+  },
+  "composer_compareChosenHint": {
+    "message": "선택한 답변으로 계속하거나 다시 비교하세요."
+  },
+  "composer_compareChosenLabel": {
+    "message": "선택됨"
+  },
+  "composer_compareLatency": {
+    "message": "지연 시간"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "비교: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(비교에서)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "다중 모델 답변"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}}개 모델"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "선택한 모델: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "각 선택 답변을 별도 채팅으로 열기"
+  },
+  "composer_compareThreadLabel": {
+    "message": "모델별 스레드"
+  },
+  "composer_compareThreadYou": {
+    "message": "나"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "전체 채팅으로 열기"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "분리된 채팅 열기"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "표준"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "표준으로 고정"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "표준 답변"
+  },
+  "composer_compareFilterLabel": {
+    "message": "모델 필터"
+  },
+  "composer_compareFilterClear": {
+    "message": "모두 표시"
+  },
+  "composer_compareFilterCount": {
+    "message": "{{visible}} / {{total}} 표시"
+  },
+  "composer_compareTokens": {
+    "message": "토큰: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
   }
 }

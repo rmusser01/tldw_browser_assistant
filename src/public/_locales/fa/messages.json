@@ -3277,5 +3277,74 @@
   },
   "mediaPage_presetQAAnalysis": {
     "message": "تحلیل پرسش‌وپاسخ"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "فعال\u200cسازی حالت مقایسه"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "قابلیت\u200cهای آزمایشی مقایسه چندمدلی را فعال می\u200cکند."
+  },
+  "playground_composer_compareDisabled": {
+    "message": "حالت مقایسه در تنظیمات غیرفعال است."
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "با پاسخ انتخاب\u200cشده ادامه دهید یا دوباره مقایسه کنید."
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "انتخاب\u200cشده"
+  },
+  "playground_composer_compareLatency": {
+    "message": "تأخیر"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "مقایسه: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(از مقایسه)"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "پاسخ\u200cهای چندمدلی"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} مدل"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "مدل\u200cهای انتخاب\u200cشده: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "هر پاسخ انتخاب\u200cشده را در یک گفت\u200cوگوی جدا باز کنید"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "رشته برای هر مدل"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "شما"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "باز کردن به\u200cعنوان گفت\u200cوگوی کامل"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "باز کردن گفت\u200cوگوی جداشده"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "قانونی"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "پین کردن به\u200cعنوان پاسخ قانونی"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "پاسخ قانونی"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "فیلتر مدل\u200cها"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "نمایش همه"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "نمایش {{visible}} / {{total}}"
+  },
+  "playground_composer_compareTokens": {
+    "message": "توکن\u200cها: {{count}}"
   }
 }

@@ -3,8 +3,9 @@ import { PlaygroundMessage } from "~/components/Common/Playground/Message"
 import { useMessage } from "~/hooks/useMessage"
 import { EmptySidePanel } from "../Chat/empty"
 import { useWebUI } from "@/store/webui"
-import { MessageSourcePopup } from "@/components/Common/Playground/MessageSourcePopup"
+import { useUiModeStore } from "@/store/ui-mode"
 import { useVirtualizer } from "@tanstack/react-virtual"
+import { useStorage } from "@plasmohq/storage/hook"
 
 type Props = {
   scrollParentRef?: React.RefObject<HTMLDivElement>
@@ -29,10 +30,21 @@ export const SidePanelBody = ({
     serverChatId,
     isEmbedding
   } = useMessage()
-  const [isSourceOpen, setIsSourceOpen] = React.useState(false)
-  const [source, setSource] = React.useState<any>(null)
   const { ttsEnabled } = useWebUI()
+  const [openReasoning] = useStorage("openReasoning", false)
+  const uiMode = useUiModeStore((state) => state.mode)
   const scrollAnchorRef = React.useRef<number | null>(null)
+  const topPaddingClass = uiMode === "pro" ? "pt-12" : "pt-16"
+
+  const getPreviousUserMessage = (index: number) => {
+    for (let i = index - 1; i >= 0; i--) {
+      const candidate = messages[i]
+      if (!candidate?.isBot) {
+        return candidate
+      }
+    }
+    return null
+  }
 
   const parentEl = scrollParentRef?.current || null
   const rowVirtualizer = useVirtualizer({
@@ -74,12 +86,15 @@ export const SidePanelBody = ({
 
   return (
     <>
-      <div className="relative flex w-full flex-col items-center pt-24 pb-4">
+      <div
+        className={`relative flex w-full flex-col items-center ${topPaddingClass} pb-4`}
+      >
         {messages.length === 0 && <EmptySidePanel inputRef={inputRef} />}
         <div style={{ height: rowVirtualizer.getTotalSize(), width: '100%', position: 'relative' }}>
           {rowVirtualizer.getVirtualItems().map((vr) => {
             const index = vr.index
             const message = messages[index]
+            const previousUserMessage = getPreviousUserMessage(index)
             return (
               <div key={vr.key} ref={rowVirtualizer.measureElement} data-index={index} style={{ position: 'absolute', top: 0, left: 0, transform: `translateY(${vr.start}px)`, width: '100%' }}>
                 <PlaygroundMessage
@@ -96,17 +111,19 @@ export const SidePanelBody = ({
                   sources={message.sources}
                   onEditFormSubmit={(value) => { editMessage(index, value, !message.isBot) }}
                   onNewBranch={() => { createChatBranch(index) }}
-                  onSourceClick={(data) => { setSource(data); setIsSourceOpen(true) }}
                   isTTSEnabled={ttsEnabled}
                   generationInfo={message?.generationInfo}
                   isStreaming={streaming}
                   reasoningTimeTaken={message?.reasoning_time_taken}
+                  openReasoning={openReasoning}
                   modelImage={message?.modelImage}
                   modelName={message?.modelName}
                   temporaryChat={temporaryChat}
                   onStopStreaming={stopStreamingRequest}
                   serverChatId={serverChatId}
                   serverMessageId={message.serverMessageId}
+                  messageId={message.id}
+                  feedbackQuery={previousUserMessage?.message ?? null}
                   searchQuery={searchQuery}
                   isEmbedding={isEmbedding}
                 />
@@ -116,11 +133,6 @@ export const SidePanelBody = ({
         </div>
       </div>
 
-      <MessageSourcePopup
-        open={isSourceOpen}
-        setOpen={setIsSourceOpen}
-        source={source}
-      />
     </>
   )
 }

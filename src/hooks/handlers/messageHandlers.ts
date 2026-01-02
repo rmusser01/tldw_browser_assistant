@@ -129,6 +129,7 @@ export const createBranchMessage = ({
   serverChatId,
   setServerChatId,
   setServerChatState,
+  setServerChatVersion,
   setServerChatTopic,
   setServerChatClusterId,
   setServerChatSource,
@@ -151,6 +152,7 @@ export const createBranchMessage = ({
   serverChatId?: string | null
   setServerChatId?: (id: string | null) => void
   setServerChatState?: (state: ConversationState | null) => void
+  setServerChatVersion?: (version: number | null) => void
   setServerChatTopic?: (topic: string | null) => void
   setServerChatClusterId?: (clusterId: string | null) => void
   setServerChatSource?: (source: string | null) => void
@@ -237,6 +239,9 @@ export const createBranchMessage = ({
               (created as any)?.conversation_state ??
               "in-progress"
           )
+        }
+        if (setServerChatVersion) {
+          setServerChatVersion((created as any)?.version ?? null)
         }
         if (setServerChatTopic) {
           setServerChatTopic((created as any)?.topic_label ?? null)

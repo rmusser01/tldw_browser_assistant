@@ -1,0 +1,1763 @@
+{
+  "newChat": {
+    "message": "Ny chatt"
+  },
+  "selectAPrompt": {
+    "message": "Välj en fråga"
+  },
+  "githubRepository": {
+    "message": "GitHub-repository"
+  },
+  "settings": {
+    "message": "Inställningar"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "Anslut tldw Assistant till din server"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "Söker efter din tldw-server…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "Ansluten till din tldw-server"
+  },
+  "connectionCard_headlineError": {
+    "message": "Det går inte att nå din tldw-server"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw-server är en valfri backend som körs på din egen dator eller server. Den driver chatthistorik, kunskapssökning och mediebearbetning. Du kan först utforska tillägget och sedan ansluta din egen server när du är redo."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "Vi kontrollerar {{host}} för att se om din tldw-server går att nå. Det kan ta några sekunder första gången eller efter att servern har startats om."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "Ansluten till din tldw-server på {{host}}. Du kan börja chatta, söka i kunskap, granska media och använda andra verktyg från headern."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Granska media och transkriptioner"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Sök i kunskap och anteckningar"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Använd RAG med dina egna dokument"
+  },
+  "connectionCard_descriptionError": {
+    "message": "Vi kunde inte nå din tldw-server på {{host}}. Kontrollera att servern körs, att URL:en stämmer med din tldw_server och att din webbläsare får nå den över nätverket. Använd Diagnostik för detaljerade fel och nästa steg."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "Börja chatta"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "Försök igen"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "Ändra server"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "Öppna diagnostik"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "Visa diagnostik"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "Öppna Quick Ingest"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "Prova en demo"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "Fortsätt offline"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "Inaktivera offline-läge"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "Offline-läge — endast staging"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "Gå till serverkortet"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "Tips: Behöver du hjälp med ingest när du är offline?"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "När din server är offline fungerar Quick Ingest som en staging-yta. Du kan köa URL:er och filer nu och bearbeta dem när du återansluter."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "Tillbaka till arbetsytan"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "Inställningarna öppnas i en ny flik så att du kan konfigurera din tldw-server."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "Quick Ingest kan köa URL:er och filer medan servern är offline så att du kan bearbeta dem när du återansluter."
+  },
+  "header_showShortcuts": {
+    "message": "Visa genvägar"
+  },
+  "header_hideShortcuts": {
+    "message": "Dölj genvägar"
+  },
+  "header_groupWorkspace": {
+    "message": "Arbetsyta"
+  },
+  "header_groupKnowledge": {
+    "message": "Kunskap"
+  },
+  "header_groupSettings": {
+    "message": "Inställningsgenvägar"
+  },
+  "header_backToHome": {
+    "message": "Tillbaka till startsidan"
+  },
+  "header_openSidebar": {
+    "message": "Öppna sidopanelen"
+  },
+  "header_untitledChat": {
+    "message": "Utan titel"
+  },
+  "header_modelLabel": {
+    "message": "Modell"
+  },
+  "header_contentReview": {
+    "message": "Innehållsgranskning"
+  },
+  "header_promptLabel": {
+    "message": "Prompttext"
+  },
+  "header_review": {
+    "message": "Granskning"
+  },
+  "header_flashcards": {
+    "message": "Flashcards"
+  },
+  "header_quiz": {
+    "message": "Quiz"
+  },
+  "header_media": {
+    "message": "Medier"
+  },
+  "header_libraryView": {
+    "message": "Granskning av flera objekt"
+  },
+  "header_notes": {
+    "message": "Anteckningar"
+  },
+  "header_modesLabel": {
+    "message": "Lägen"
+  },
+  "header_modePlayground": {
+    "message": "Chatt"
+  },
+  "header_modeReview": {
+    "message": "Granskning"
+  },
+  "header_modeMedia": {
+    "message": "Medier"
+  },
+  "header_modeKnowledge": {
+    "message": "Kunskaps‑QA"
+  },
+  "header_modeNotes": {
+    "message": "Anteckningar"
+  },
+  "header_modePrompts": {
+    "message": "Prompter"
+  },
+  "header_modePromptsPlayground": {
+    "message": "Prompter"
+  },
+  "header_modeStt": {
+    "message": "STT‑lekplats"
+  },
+  "header_modePromptStudio": {
+    "message": "Prompt Studio"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "header_modeWorldBooks": {
+    "message": "World Books"
+  },
+  "header_modeDictionaries": {
+    "message": "Chatordböcker"
+  },
+  "header_modeCharacters": {
+    "message": "Karaktärer"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} för att växla"
+  },
+  "header_quickIngest": {
+    "message": "Quick Ingest"
+  },
+  "header_modelSettings": {
+    "message": "Modellinställningar"
+  },
+  "header_serverSettings": {
+    "message": "Server settings"
+  },
+  "header_more": {
+    "message": "AI‑verktyg"
+  },
+  "header_moreMenu_title": {
+    "message": "Avancerade verktyg"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "Avancerade verktyg som sidopanel, repository och felsökningsalternativ"
+  },
+  "header_moreActions": {
+    "message": "Fler åtgärder"
+  },
+  "header_toolsMenu": {
+    "message": "Chattverktyg"
+  },
+  "header_serverBackedLabel": {
+    "message": "Serverlagrad chatt"
+  },
+  "header_serverBackedTooltip": {
+    "message": "Meddelanden i den här chatten sparas också på din tldw-server."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "Sök i skärmar, chattar, media, anteckningar…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "Inga träffar för \"{{query}}\"."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "Skapa anteckning \"{{query}}\""
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "Anteckning \"{{query}}\" skapad"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "Skapa Flashcards-samling \"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "Flashcards-samling \"{{query}}\" skapad"
+  },
+  "header_omniSearchStartChat": {
+    "message": "Starta ny chatt \"{{query}}\""
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "Chatt och verktyg är nu tillgängliga i Inställningar och sidopanelen."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} objekt i kö — klicka för att granska och bearbeta"
+  },
+  "header_modeSpeech": {
+    "message": "Tal"
+  },
+  "sidebarTitle": {
+    "message": "Chatthistorik"
+  },
+  "error": {
+    "message": "Fel"
+  },
+  "somethingWentWrong": {
+    "message": "Något gick fel"
+  },
+  "validationSelectModel": {
+    "message": "Vänligen välj en modell för att fortsätta"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "Är du säker på att du vill radera denna historik?"
+  },
+  "editHistoryTitle": {
+    "message": "Ange en ny titel"
+  },
+  "temporaryChat": {
+    "message": "Tillfällig chatt (sparas inte)"
+  },
+  "more_copy_group": {
+    "message": "Kopiera"
+  },
+  "more_copy_asText": {
+    "message": "Kopiera som text"
+  },
+  "more_copy_asMarkdown": {
+    "message": "Kopiera som Markdown"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "Kopiera kanonisk transkription"
+  },
+  "more_copy_success": {
+    "message": "Kopierat till urklipp!"
+  },
+  "more_download_group": {
+    "message": "Ladda ner"
+  },
+  "more_download_text": {
+    "message": "Textfil (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Markdown‑fil (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "Kanonisk transkription (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON-fil (.json)"
+  },
+  "more_download_image": {
+    "message": "Bild (.png)"
+  },
+  "more_share": {
+    "message": "Dela"
+  },
+  "libraryView": {
+    "message": "Biblioteksvy"
+  },
+  "notes": {
+    "message": "Anteckningar"
+  },
+  "omniSearch_filterScreen": {
+    "message": "Skärmar"
+  },
+  "omniSearch_filterChat": {
+    "message": "Chattar"
+  },
+  "omniSearch_filterMedia": {
+    "message": "Medier"
+  },
+  "omniSearch_filterNote": {
+    "message": "Anteckningar"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Flashcards-samlingar"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Frågor"
+  },
+  "omniSearch_filteringBy": {
+    "message": "Filtrerar efter:"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "Filen är för stor"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "Filstorleken måste vara under 10 MB"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "Uppladdning misslyckades"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "Det gick inte att ladda upp filen. Försök igen."
+  },
+  "promptStudio_title": {
+    "message": "Prompt Studio‑lekplats"
+  },
+  "promptStudio_subtitle": {
+    "message": "Hantera Prompt Studio‑projekt, prompter, körningar, testfall och utvärderingar."
+  },
+  "promptStudio_capabilityError": {
+    "message": "Kan inte nå Prompt Studio"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "Kontrollera serveranslutningen eller inaktivera den här sektionen tills Prompt Studio‑API:erna är tillgängliga."
+  },
+  "promptStudio_offline": {
+    "message": "Anslut till din server för att använda Prompt Studio"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "Projekt och prompter"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "Skapa eller öppna ett projekt för att redigera prompter."
+  },
+  "promptStudio_projectsError": {
+    "message": "Kunde inte läsa in projekt"
+  },
+  "promptStudio_promptVersion": {
+    "message": "Promptversion"
+  },
+  "promptStudio_changeDescription": {
+    "message": "Ändra beskrivning"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "Systemprompt"
+  },
+  "promptStudio_userPrompt": {
+    "message": "Användarprompt"
+  },
+  "promptStudio_fewShot": {
+    "message": "Few-shot‑exempel (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "Modulkonfiguration (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "Historik"
+  },
+  "promptStudio_executeCard": {
+    "message": "Ad hoc‑körning"
+  },
+  "promptStudio_executeHint": {
+    "message": "Leverantör, modell, temperatur, indata."
+  },
+  "promptStudio_provider": {
+    "message": "Leverantör"
+  },
+  "promptStudio_model": {
+    "message": "Modell"
+  },
+  "promptStudio_runPrompt": {
+    "message": "Kör prompt"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "Körningsformulär kommer snart. Använd den här panelen för att köra enstaka indata mot en prompt via /prompt-studio/prompts/execute."
+  },
+  "promptStudio_testsCard": {
+    "message": "Testfall och utvärderingar"
+  },
+  "promptStudio_testsHint": {
+    "message": "Lista/skapa testfall, kör utvärderingar och hämta status."
+  },
+  "promptStudio_testCases": {
+    "message": "Testfall"
+  },
+  "promptStudio_evaluations": {
+    "message": "Utvärderingar"
+  },
+  "promptStudio_inputsJson": {
+    "message": "Indata (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "Förväntade utdata (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "Är guldstandard?"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "Lägg till i bulk"
+  },
+  "promptStudio_bulkJson": {
+    "message": "JSON‑array med testfall"
+  },
+  "promptStudio_runAsync": {
+    "message": "Kör asynkront"
+  },
+  "promptStudio_temperature": {
+    "message": "Temperatur"
+  },
+  "promptStudio_maxTokens": {
+    "message": "Max antal tokens"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "Kör utvärdering"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "Platshållare: koppla in CRUD för testfall, skapa/lista/detaljera utvärderingar och asynkron polling i denna sektion."
+  },
+  "promptStudio_unavailable": {
+    "message": "Prompt Studio är inte aktiverat på den här servern."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "När det är tillgängligt ser du projekt, prompthistorik, körflöden och utvärderingar här."
+  },
+  "promptSearch_title": {
+    "message": "Titel"
+  },
+  "promptSearch_content": {
+    "message": "Innehåll"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "Systemprompt"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "Spara även på servern"
+  },
+  "promptSearch_cancel": {
+    "message": "Avbryt"
+  },
+  "promptSearch_insert": {
+    "message": "Infoga"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "Spara som ny"
+  },
+  "promptSearch_saveLocal": {
+    "message": "Spara ändringar (lokalt)"
+  },
+  "promptSearch_saveServer": {
+    "message": "Spara ändringar (server)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "Spara lokal kopia"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "Spara som ny (endast server)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "Prompt uppdaterad lokalt"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "Prompt uppdaterad på servern"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "Det gick inte att uppdatera lokal prompt"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "Det gick inte att uppdatera prompt på servern"
+  },
+  "promptSearch_manageLink": {
+    "message": "Visa / hantera prompter"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "Skriv över lokal prompt (valfritt)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "Välj en lokal prompt att skriva över"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "Prompt sparad"
+  },
+  "promptSearch_saveFailed": {
+    "message": "Det gick inte att spara prompt"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest‑media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Ange en eller flera URL:er. Ange typ per rad vid behov."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline — endast staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Du kan köa URL:er och filer här och granska fält, men ingest körs inte förrän din tldw-server är online. Återanslut för att bearbeta väntande objekt."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Käll‑URL:er eller filer"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Lagra i fjärrdatabas"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Lagra ingest-resultat på din tldw-server"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Bearbeta ingest-resultat endast lokalt"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Laddar upp till din tldw-server för indexering."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Bearbeta bara och behåll resultaten lokalt (ladda ner JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Var ingest-resultaten lagras"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Lagrade på din tldw-server (rekommenderas för RAG och delade arbetsytor)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Behålls bara i denna webbläsare; inga data skrivs till servern."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Spara efter granskning"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Granska före sparning"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Granskningsläge"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Lokala utkast är begränsade till {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Spara utkast lokalt?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Aktivera granskning"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Granska"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Utkast redo för granskning."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Kunde inte skapa granskningsutkast."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Det gick inte att skapa granskningsutkast."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Försök skapa utkast igen"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Spara utan granskning"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Det gick inte att öppna Innehållsgranskning. Försök igen."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Försök öppna Innehållsgranskning igen"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Öppna Innehållsgranskning"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Läs mer om ingest och lagring"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Klistra in URL:er (en per rad)"
+  },
+  "quickIngest_or": {
+    "message": "eller"
+  },
+  "quickIngest_remove": {
+    "message": "Ta bort"
+  },
+  "quickIngest_add": {
+    "message": "Lägg till URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingest‑alternativ"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Ljudalternativ"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Språk (t.ex. en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Aktivera för att skilja talare i transkriptioner."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Dokumentalternativ"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR hjälper till att extrahera text från skannade PDF-filer eller bilder."
+  },
+  "quickIngest_videoOptions": {
+    "message": "Videoalternativ"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Inkludera tidsstämplar/undertexter när det finns."
+  },
+  "quickIngest_cancel": {
+    "message": "Avbryt"
+  },
+  "quickIngest_ingest": {
+    "message": "Importera"
+  },
+  "quickIngest_process": {
+    "message": "Bearbeta"
+  },
+  "quickIngest_results": {
+    "message": "Resultat"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Ladda ner JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} avancerade fält inlästa"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Inga avancerade alternativ hittades — försök ladda om specifikationen."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} ändrade"
+  },
+  "quickIngest_progress": {
+    "message": "Bearbetar {{done}} av {{total}} objekt…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Vi kunde inte bearbeta ingest-objekten just nu."
+  },
+  "quickIngest_errorHint": {
+    "message": "Försök igen efter att du kontrollerat din tldw-server. Health & diagnostics kan hjälpa dig att felsöka ingest-problem."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Kontrollera serverns status i Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Senaste körningarna misslyckades — öppna Health & diagnostics från rubriken för mer information."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Avancerad spec har laddats om från servern"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Avancerad spec har laddats om från servern (fält tillagda: {{added}}, borttagna: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Använder inbyggd reservschema för media.add (v{{version}}); verifiera mot din tldw_server /openapi.json om fälten verkar inaktuella."
+  },
+  "notesSearch_placeholder": {
+    "message": "Sök titlar och innehåll"
+  },
+  "notesSearch_clear": {
+    "message": "Rensa sökning och filter"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "Filtrera efter nyckelord"
+  },
+  "notesSearch_new": {
+    "message": "Ny anteckning"
+  },
+  "notesSearch_newTooltip": {
+    "message": "Skapa en ny anteckning"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} anteckningar"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "Exportera matchande anteckningar som Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "Exportera matchande anteckningar som CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "Exportera matchande anteckningar som JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exporterad ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exporterade {{count}} anteckningar ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exporterade {{count}} anteckningar som CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exporterade {{count}} anteckningar som JSON ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "Exportera anteckning som Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "Spara anteckning"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "Kopiera anteckningsinnehåll"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "Ta bort anteckning"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "Exportera"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "Resultat"
+  },
+  "notesSearch_showingRange": {
+    "message": "Visar {{start}}–{{end}} av {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "Expandera sidopanelen"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "Fäll in sidopanelen"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "Titel"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "Nyckelord (taggar)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "Nyckelord hjälper dig att hitta den här anteckningen med nyckelordsfiltret till vänster."
+  },
+  "tts_playground": {
+    "message": "TTS‑lekplats"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "Anslut för att använda Anteckningar"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "För att använda Anteckningar måste du först ansluta till din tldw-server."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "Använd Notes tillsammans med Media och Review för att hålla reda på dina insikter."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Exempelanteckningar (endast förhandsvisning)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "Demoanteckning: sammanfattning av veckomöte"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "Beslut, hinder och uppföljningar från en nylig teamsynk."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "Idag · 09:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "Demoanteckning: forskningshöjdpunkter"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "Viktiga insikter hämtade från en lång artikel eller rapport."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "Igår · 16:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "Demoanteckning: sammanfattning av samtal"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "Sammanfattning av ett kundsamtal med nästa steg och ansvariga."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "Den här veckan"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "Öppna Settings → tldw server för att lägga till din server-URL."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "Använd Diagnostics om din server körs men inte kan nås."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "Utforska Anteckningar i demoläge"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "Den här demon visar hur Anteckningar kan organisera dina insikter. Senare kan du ansluta din egen server för att skapa och spara riktiga anteckningar."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "Se hur anteckningstitlar, förhandsvisningar och tidsstämplar visas i listan."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "När du ansluter kan du skapa anteckningar från möten, granskningar och mer."
+  },
+  "notesEmpty_title": {
+    "message": "Inga anteckningar ännu"
+  },
+  "notesEmpty_description": {
+    "message": "Fånga och organisera fria anteckningar kopplade till dina tldw‑insikter."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "Skapa en ny anteckning för ett nyligen hållit möte eller en transkribering."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "Spara resultat från granskningar i Anteckningar så att du kan gå tillbaka till dem senare."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "Skapa anteckning"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "Utforska World Books i demoläge"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "Den här demon visar hur World Books kan organisera strukturerad kunskap om dina världar, miljöer eller produkter."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "Se exempelböcker som en fantasymiljö, produktordlista eller kampanjanteckningar."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "När du ansluter kan du skapa World Books som tldw kan använda under chatt."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "Anslut för att använda World Books"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "För att använda World Books måste du först ansluta till din tldw-server så att världskunskap kan sparas och hämtas."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "Öppna Inställningar → tldw-server för att lägga till din server‑URL."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "Använd Diagnostik om din server körs men inte kan nås."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "Skapa och hantera strukturerade kunskapsbaser som karaktärer och chattar kan referera."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "World Books är offline"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "Anslut till din tldw-server från huvudsidan i Inställningar för att visa och redigera World Books."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "Utforska chatordböcker i demoläge"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "Den här demon visar hur chatordböcker kan normalisera namn, akronymer och termer innan de når modellen."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "Se exempelordböcker för produktnamn, projektnamn eller företagsjargong."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "När du ansluter kan du aktivera ordböcker i alla chattar."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "Anslut för att använda chatordböcker"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "För att använda chatordböcker måste du först ansluta till din tldw-server så att ersättningar kan lagras."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "Öppna Inställningar → tldw-server för att lägga till din server‑URL."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "Använd Diagnostik om din server körs men inte kan nås."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "Definiera återanvändbara ersättningar så att tldw förstår organisationens namn, akronymer och terminologi."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "Chatordböcker är offline"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "Anslut till din tldw-server från huvudsidan i Inställningar för att visa och redigera chatordböcker."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "Utforska karaktärer i demoläge"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "Den här demon visar hur karaktärer kapslar in en persona och systemprompt som du kan chatta med."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "Se exempelkaraktärer som en skrivcoach, lore‑expert eller kodassistent."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "När du ansluter kan du skapa karaktärer som visas i chatthuvudet och urvalet."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "Anslut för att använda karaktärer"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "För att använda karaktärer måste du först ansluta till din tldw-server så att karaktärsdefinitioner kan lagras."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "Öppna Inställningar → tldw-server för att lägga till din server‑URL."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "Använd Diagnostik om din server körs men inte kan nås."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "Skapa återanvändbara karaktärer som du kan välja i chatthuvudet och använda i flera samtal."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "Skapa en karaktär för att återanvända deras persona i flera chattar. Använd ”Ny karaktär” för att komma igång."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "Karaktärs-API:t är inte tillgängligt på den här servern"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "Den här servern annonserar inte /api/v1/characters."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "Öppna Diagnostik för att bekräfta serverversion och tillgängliga API:er för karaktärer."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "Om du uppgraderar servern, ladda om tillägget och återvänd till Karaktärer."
+  },
+  "characters_selectCharacter": {
+    "message": "Välj karaktär"
+  },
+  "characters_chattingAs": {
+    "message": "Du chattar nu som {{name}}."
+  },
+  "characters_clearCharacter": {
+    "message": "Rensa karaktär"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "Det gick inte att läsa in karaktärer"
+  },
+  "characters_fetchErrorBody": {
+    "message": "Kontrollera din anslutning eller serverns status och försök igen."
+  },
+  "characters_none": {
+    "message": "Ingen (ingen karaktär)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "Sök karaktärer efter namn"
+  },
+  "characters_noMatches": {
+    "message": "Inga karaktärer matchar din sökning ännu."
+  },
+  "characters_refresh": {
+    "message": "Uppdatera karaktärer"
+  },
+  "characters_refreshing": {
+    "message": "Uppdaterar karaktärer…"
+  },
+  "promptInsert_useInChat": {
+    "message": "Använd i chatten"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "Öppna chatten och infoga den här prompten i skrivfältet."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "Använd prompt i chatten?"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "Ditt meddelande innehåller redan text. Vill du skriva över den med denna prompt eller lägga till prompten under den?"
+  },
+  "promptInsert_overwrite": {
+    "message": "Skriv över meddelande"
+  },
+  "promptInsert_append": {
+    "message": "Lägg till"
+  },
+  "flashcards_review": {
+    "message": "Repetition"
+  },
+  "flashcards_create": {
+    "message": "Skapa"
+  },
+  "flashcards_manage": {
+    "message": "Hantera"
+  },
+  "flashcards_importExport": {
+    "message": "Importera / exportera"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "Anslut för att använda Flashcards"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "För att repetera eller skapa flashcards måste du först ansluta till din tldw-server."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "Gå till Inställningar → tldw-server för att lägga till URL:en till din server."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "När du är ansluten kan du repetera förfallna kort eller skapa nya kortlekar från dina anteckningar och media."
+  },
+  "flashcards_demoTitle": {
+    "message": "Utforska Flashcards i demoläge"
+  },
+  "flashcards_demoDescription": {
+    "message": "Den här demon visar hur Flashcards kan göra ditt innehåll till kort för upprepning med mellanrum. Du kan ansluta din egen server senare för att skapa och repetera kort från dina egna anteckningar och media."
+  },
+  "flashcards_demoExample1": {
+    "message": "Se hur kortlekar, kort och taggar är organiserade på flikarna Repetition och Hantera."
+  },
+  "flashcards_demoExample2": {
+    "message": "När du ansluter kan du skapa kort från föreläsningar, möten eller anteckningar och repetera dem enligt ett schema."
+  },
+  "flashcards_demoExample3": {
+    "message": "Använd Flashcards tillsammans med Notes och Media för att hålla viktiga idéer färska."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "Exempellekar (endast förhandsvisning)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "Demolek: grundläggande begrepp"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 kort · Perfekt för att testa intervaller och betyg."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "Demolek: produkttermer"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 kort · Namn, akronymer och viktiga definitioner."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "Demolek: uppföljning efter möten"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 kort · Exempel på åtgärdspunkter att repetera."
+  },
+  "flashcards_selectDeck": {
+    "message": "Välj lek"
+  },
+  "flashcards_nextDue": {
+    "message": "Nästa förfallodatum"
+  },
+  "flashcards_front": {
+    "message": "Framsida"
+  },
+  "flashcards_back": {
+    "message": "Baksida"
+  },
+  "flashcards_extra": {
+    "message": "Tillägg"
+  },
+  "flashcards_showAnswer": {
+    "message": "Visa svar"
+  },
+  "flashcards_hideAnswer": {
+    "message": "Dölj svar"
+  },
+  "flashcards_preview": {
+    "message": "Förhandsvisa"
+  },
+  "flashcards_rate": {
+    "message": "Betygsätt"
+  },
+  "flashcards_answerMs": {
+    "message": "Tid för svar (sekunder, valfritt)"
+  },
+  "flashcards_noDue": {
+    "message": "Inga kort att repetera"
+  },
+  "flashcards_deck": {
+    "message": "Lek"
+  },
+  "flashcards_newDeck": {
+    "message": "Ny lek"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Ange ett leknamn."
+  },
+  "flashcards_modelType": {
+    "message": "Kortmall"
+  },
+  "flashcards_reverse": {
+    "message": "Skapa även omvänt kort"
+  },
+  "flashcards_isCloze": {
+    "message": "Cloze-borttagning"
+  },
+  "flashcards_tags": {
+    "message": "Taggar"
+  },
+  "flashcards_dueStatus": {
+    "message": "Förfallostatus"
+  },
+  "flashcards_dueAll": {
+    "message": "Alla"
+  },
+  "flashcards_dueNew": {
+    "message": "Nya"
+  },
+  "flashcards_dueLearning": {
+    "message": "Inlärning"
+  },
+  "flashcards_dueDue": {
+    "message": "Förfallna"
+  },
+  "flashcards_tag": {
+    "message": "Tagg"
+  },
+  "flashcards_noCards": {
+    "message": "Inga kort"
+  },
+  "flashcards_due": {
+    "message": "Förfaller"
+  },
+  "flashcards_editCard": {
+    "message": "Redigera kort"
+  },
+  "flashcards_importTitle": {
+    "message": "Importera Flashcards"
+  },
+  "flashcards_exportTitle": {
+    "message": "Exportera Flashcards"
+  },
+  "flashcards_importHelp": {
+    "message": "Klistra in TSV/CSV-rader: Lek, framsida, baksida, taggar, anteckningar"
+  },
+  "flashcards_pasteContent": {
+    "message": "Klistra in innehåll här..."
+  },
+  "flashcards_tab": {
+    "message": "Tabb"
+  },
+  "flashcards_comma": {
+    "message": ", (komma)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (semikolon)"
+  },
+  "flashcards_pipe": {
+    "message": "| (pipe)"
+  },
+  "flashcards_hasHeader": {
+    "message": "Har rubrikrad"
+  },
+  "flashcards_import": {
+    "message": "Importera"
+  },
+  "flashcards_imported": {
+    "message": "Importerad"
+  },
+  "flashcards_importLimits": {
+    "message": "Importbegränsningar"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV"
+  },
+  "flashcards_apkg": {
+    "message": "Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "Inkludera omvänt kort"
+  },
+  "flashcards_includeHeader": {
+    "message": "Inkludera rubrikrad"
+  },
+  "flashcards_extendedHeader": {
+    "message": "Utökad rubrik (tekniska metadata)"
+  },
+  "flashcards_download": {
+    "message": "Ladda ner"
+  },
+  "flashcards_duplicate": {
+    "message": "Duplicera"
+  },
+  "flashcards_move": {
+    "message": "Flytta"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Repetition misslyckades"
+  },
+  "flashcards_updateFailed": {
+    "message": "Uppdateringen misslyckades"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Borttagningen misslyckades"
+  },
+  "flashcards_missingVersion": {
+    "message": "Version saknas; ladda om och försök igen"
+  },
+  "flashcards_bulkMove": {
+    "message": "Flytta i bulk"
+  },
+  "flashcards_bulkDelete": {
+    "message": "Ta bort i bulk"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} borttagna · {{failed}} misslyckades"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Åtgärden är begränsad till de första {{limit}} objekten."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "Exportera markerade (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "Markerade"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "Markera alla på sidan"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "Markera alla i resultaten"
+  },
+  "flashcards_clearSelection": {
+    "message": "Rensa markering"
+  },
+  "flashcards_ratingAgain": {
+    "message": "Igen"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "Jag kom inte ihåg det här kortet."
+  },
+  "flashcards_ratingHard": {
+    "message": "Svårt"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "Jag kom knappt ihåg det; det kändes svårt."
+  },
+  "flashcards_ratingGood": {
+    "message": "Bra"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "Jag kom ihåg det med lite ansträngning."
+  },
+  "flashcards_ratingEasy": {
+    "message": "Lätt"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "Jag kom ihåg det snabbt och säkert."
+  },
+  "flashcards_showTiming": {
+    "message": "Spåra svarstid"
+  },
+  "flashcards_hideTiming": {
+    "message": "Dölj tidtagning"
+  },
+  "flashcards_noDueTitle": {
+    "message": "Inga kort att repetera"
+  },
+  "flashcards_noDueDescription": {
+    "message": "Du är helt ikapp. Skapa nya kort eller importera en befintlig lek för att börja repetera."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "Skapa ett nytt kort"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "Importera en lek"
+  },
+  "flashcards_createTitle": {
+    "message": "Skapa flashcards från dina anteckningar"
+  },
+  "flashcards_createDescription": {
+    "message": "Använd framsidan för frågan och baksidan för svaret. Du kan gruppera kort i lekar och lägga till taggar för snabbare sökning."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Basic visar en fråga på framsidan och svaret på baksidan. Omvänt skapar också det motsatta kortet. Cloze döljer delar av texten med {{...}}."
+  },
+  "flashcards_reverseHelp": {
+    "message": "Skapa också ett kort där baksidan blir frågan."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "Använd för lucktext-kort. Omslut dold text med {{...}} på framsidan."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Stöder Markdown och LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Valfria tips/förklaringar (Markdown + LaTeX stöds)."
+  },
+  "flashcards_notesHint": {
+    "message": "Interna anteckningar (Markdown + LaTeX stöds)."
+  },
+  "flashcards_bulkActions": {
+    "message": "Massåtgärder"
+  },
+  "flashcards_selectionHelp": {
+    "message": "”Markera alla i resultaten” tillämpar åtgärder på alla kort som matchar dina filter, inte bara den här sidan."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "Inga flashcards ännu"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "Skapa kort från dina anteckningar och media, eller importera en befintlig lek."
+  },
+  "flashcards_clearFilters": {
+    "message": "Rensa filter"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "Skapa ditt första kort"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "Importera flashcards"
+  },
+  "flashcards_mapping": {
+    "message": "Kolumnmappning"
+  },
+  "flashcards_mappingPreview": {
+    "message": "Förhandsvisning av de första mappade raderna:"
+  },
+  "flashcards_exportHelp": {
+    "message": "Filtrera efter lek, tagg eller sökning och exportera sedan som CSV/TSV för kalkylblad eller Anki (.apkg) för Anki-klienter."
+  },
+  "contentReview_title": {
+    "message": "Innehållsgranskning"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} klara"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} sparade"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} totalt"
+  },
+  "contentReview_commitAll": {
+    "message": "Spara alla"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Rensa utkast"
+  },
+  "contentReview_emptyDescription": {
+    "message": "Inga utkast än. Använd Quick Ingest med Granska innan du sparar för att skapa utkast."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Öppna Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Spara efter granskning"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Granska före sparning"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Bearbeta nu och redigera sedan utkast lokalt innan du sparar till servern."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Granskningsläge"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Lokala utkast är begränsade till {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Spara utkast lokalt?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Utkast sparas i den här webbläsaren och kan innehålla känsliga data. Du kan rensa utkast från sidan Innehållsgranskning när som helst."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Granskningsläget håller innehållet på klientsidan tills du sparar det på servern."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Aktivera granskning"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Granska"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Utkast redo för granskning."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} fil överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} filer överskrider den lokala utkastgränsen ({{cap}}). Bifoga källor innan du sparar ljud/video."
+  },
+  "contentReview_openContentReview": {
+    "message": "Öppna Innehållsgranskning"
+  },
+  "contentReview_batchLabel": {
+    "message": "Omgång"
+  },
+  "contentReview_batchName": {
+    "message": "Omgång {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Utkast"
+  },
+  "contentReview_selectDraft": {
+    "message": "Välj ett utkast för att börja granska."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Utkasttitel"
+  },
+  "contentReview_lastSaved": {
+    "message": "Sparat {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Återställa utkast?"
+  },
+  "contentReview_resetBody": {
+    "message": "Detta återställer ursprungligt innehåll för det här utkastet."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Återställ"
+  },
+  "contentReview_resetCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_resetContent": {
+    "message": "Återställ"
+  },
+  "contentReview_diffView": {
+    "message": "Diff-vy"
+  },
+  "contentReview_saveDraft": {
+    "message": "Spara utkast"
+  },
+  "contentReview_editorLabel": {
+    "message": "Innehåll"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} ord"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} tecken"
+  },
+  "contentReview_aiFix": {
+    "message": "Korrigera med AI"
+  },
+  "contentReview_aiHint": {
+    "message": "Skickar utkastets innehåll till servern för AI-bearbetning."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Serverstandard"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Skicka utkast till servern?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Detta skickar utkastets innehåll till din tldw-server för AI-bearbetning. Utkast ligger kvar lokalt tills du sparar dem."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Fortsätt"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI-korrigeringar tillämpade."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Inga ändringar returnerades."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI returnerade inget innehåll."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Chattsvar är inte tillgängliga."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Välj mall"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Tillämpa mall"
+  },
+  "contentReview_templateApplied": {
+    "message": "Mall tillämpad."
+  },
+  "contentReview_templateMissing": {
+    "message": "Välj en mall först."
+  },
+  "contentReview_detectSections": {
+    "message": "Identifiera avsnitt"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Identifiera avsnitt igen?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Detta ersätter befintliga avsnitt och återställer dina val."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Identifiera igen"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Inga avsnitt hittades."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Avsnittsfilter"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Rensa transkript"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normaliserar interpunktion och versaler/gemener samtidigt som radstrukturen bevaras."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Talarturer"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Säkerställer att varje talartur ligger på en egen rad med tydliga etiketter."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Kapitelrubriker"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Infogar Markdown-rubriker för att gruppera ämnen utan att ta bort innehåll."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Metadata"
+  },
+  "contentReview_mediaType": {
+    "message": "Mediatyp"
+  },
+  "contentReview_keywords": {
+    "message": "Nyckelord"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Lägg till nyckelord"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Granskningsanteckningar"
+  },
+  "contentReview_missingSource": {
+    "message": "Källfil saknas"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Bifoga originalfilen för att spara det här utkastet."
+  },
+  "contentReview_attachSource": {
+    "message": "Bifoga fil"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Åtgärder"
+  },
+  "contentReview_commit": {
+    "message": "Spara"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Bifoga originalets ljud-/videofil innan du sparar."
+  },
+  "contentReview_markReviewed": {
+    "message": "Markera som granskad"
+  },
+  "contentReview_skipNext": {
+    "message": "Hoppa över"
+  },
+  "contentReview_discard": {
+    "message": "Kassera"
+  },
+  "contentReview_discardTitle": {
+    "message": "Kassera utkast?"
+  },
+  "contentReview_discardBody": {
+    "message": "Detta utkast markeras som kasserat och tas bort från granskningslistan."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Kassera"
+  },
+  "contentReview_discardCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Utkast sparat."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Spara granskade utkast?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Endast utkast markerade som granskade sparas."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Spara alla"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} sparade · {{failed}} misslyckades"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Denna fil överskrider den lokala gränsen för utkast ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Rensa alla utkast?"
+  },
+  "contentReview_clearBody": {
+    "message": "Tar bort alla lokala utkast och resurser för innehållsgranskning."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Rensa utkast"
+  },
+  "contentReview_clearCancel": {
+    "message": "Avbryt"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Utkast rensade."
+  },
+  "contentReview_originalLabel": {
+    "message": "Originaltext"
+  },
+  "contentReview_editedLabel": {
+    "message": "Redigerad"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "Snabbchatsassistent"
+  },
+  "quickChatHelper_title": {
+    "message": "Snabbchatsassistent"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "Ställ en snabb fråga..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "Skicka"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "Starta en snabb sidokonversation för att hålla huvudtråden ren."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "Öppna i separat fönster"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "Välj först en modell i huvudchatten."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "Ditt meddelande"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "Assistentens meddelande"
+  },
+  "quiz_itemsPerPage": {
+    "message": "objekt/sida"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Redigera quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz uppdaterades."
+  },
+  "quiz_updateError": {
+    "message": "Det gick inte att uppdatera quizet."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Frågetext krävs."
+  },
+  "quiz_optionsRequired": {
+    "message": "Ange minst två alternativ."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Frågan skapades."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Frågan uppdaterades."
+  },
+  "quiz_questionSaveError": {
+    "message": "Det gick inte att spara frågan."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Frågan togs bort."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Det gick inte att ta bort frågan."
+  },
+  "quiz_editQuestion": {
+    "message": "Redigera fråga"
+  },
+  "quiz_points": {
+    "message": "Poäng"
+  },
+  "quiz_orderIndex": {
+    "message": "Ordning"
+  },
+  "quiz_startError": {
+    "message": "Det gick inte att starta quizet."
+  },
+  "quiz_answerAll": {
+    "message": "Svara på alla frågor innan du skickar."
+  },
+  "quiz_submitError": {
+    "message": "Det gick inte att skicka quizet."
+  },
+  "quiz_scoreSummary": {
+    "message": "Poäng: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Rätt"
+  },
+  "quiz_incorrect": {
+    "message": "Fel"
+  },
+  "quiz_yourAnswer": {
+    "message": "Ditt svar"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Rätt svar"
+  },
+  "quiz_backToList": {
+    "message": "Tillbaka till listan"
+  },
+  "quiz_retake": {
+    "message": "Gör om quizet"
+  },
+  "searchPrompts": {
+    "message": "Sök frågor..."
+  },
+  "noMatchingPrompts": {
+    "message": "Inga matchande frågor"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoriter"
+  },
+  "promptSelect_system": {
+    "message": "Systemfrågor"
+  },
+  "promptSelect_quick": {
+    "message": "Snabbfrågor"
+  }
+}

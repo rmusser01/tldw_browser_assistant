@@ -309,37 +309,37 @@ export function VersionHistoryPanel({
   ]
 
   return (
-    <div className="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+    <div className="rounded-lg border border-border bg-surface overflow-hidden">
       <button
         onClick={() => setExpanded(v => !v)}
-        className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 dark:bg-[#0c0c0c] hover:bg-gray-100 dark:hover:bg-[#151515] transition-colors"
+        className="w-full flex items-center justify-between px-3 py-2 bg-surface2 hover:bg-surface transition-colors text-text"
       >
         <div className="flex items-center gap-2">
-          <History className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          <History className="w-4 h-4 text-text-subtle" />
+          <span className="text-sm font-medium text-text">
             {t('mediaPage.versionHistory', 'Version History')}
           </span>
           {versions.length > 0 && (
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-text-muted">
               ({versions.length})
             </span>
           )}
         </div>
         {expanded ? (
-          <ChevronUp className="w-4 h-4 text-gray-400" />
+          <ChevronUp className="w-4 h-4 text-text-subtle" />
         ) : (
-          <ChevronDown className="w-4 h-4 text-gray-400" />
+          <ChevronDown className="w-4 h-4 text-text-subtle" />
         )}
       </button>
 
       {expanded && (
-        <div className="p-3 bg-white dark:bg-[#171717] animate-in fade-in slide-in-from-top-1 duration-150">
+        <div className="p-3 bg-surface animate-in fade-in slide-in-from-top-1 duration-150">
           {loading ? (
             <div className="flex items-center justify-center py-4">
-              <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+              <Loader2 className="w-5 h-5 animate-spin text-text-subtle" />
             </div>
           ) : versions.length === 0 ? (
-            <div className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+            <div className="text-sm text-text-muted text-center py-4">
               {t('mediaPage.noVersions', 'No versions available')}
             </div>
           ) : (
@@ -356,13 +356,13 @@ export function VersionHistoryPanel({
                       setSelectedIndex(-1)
                     }}
                   >
-                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <span className="text-xs text-text-muted">
                       {t('mediaPage.onlyWithAnalysis', 'Only with analysis')}
                     </span>
                   </Checkbox>
                   {/* M5: Show count badge when filter is active */}
                   {onlyWithAnalysis && versionsWithAnalysisCount > 0 && (
-                    <span className="px-1.5 py-0.5 text-[10px] bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded font-medium">
+                    <span className="px-1.5 py-0.5 text-[10px] bg-primary/10 text-primaryStrong rounded font-medium">
                       {versionsWithAnalysisCount} {t('mediaPage.withAnalysis', 'with analysis')}
                     </span>
                   )}
@@ -370,14 +370,14 @@ export function VersionHistoryPanel({
                 <div className="flex items-center gap-1">
                   <button
                     onClick={handleCopyAll}
-                    className="px-2 py-1 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+                    className="px-2 py-1 text-xs text-text-muted hover:bg-surface2 rounded transition-colors"
                     title={t('mediaPage.copyAll', 'Copy All')}
                   >
                     {t('mediaPage.copyAllShort', 'Copy All')}
                   </button>
                   <button
                     onClick={handleCopyMd}
-                    className="px-2 py-1 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+                    className="px-2 py-1 text-xs text-text-muted hover:bg-surface2 rounded transition-colors"
                     title={t('mediaPage.copyMd', 'Copy as Markdown')}
                   >
                     {t('mediaPage.copyMdShort', 'Copy MD')}
@@ -401,29 +401,29 @@ export function VersionHistoryPanel({
                       onClick={() => setSelectedIndex(globalIdx)}
                       className={`p-2 rounded border transition-colors cursor-pointer ${
                         isSelected
-                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                          : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-[#1a1a1a]'
+                          ? 'border-primary bg-surface2'
+                          : 'border-border hover:bg-surface2'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                          <span className="text-xs font-medium text-text">
                             v{vNum}
                           </span>
                           {isCurrent && (
-                            <span className="px-1.5 py-0.5 text-[10px] bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded">
+                            <span className="px-1.5 py-0.5 text-[10px] bg-success/10 text-success rounded">
                               {t('mediaPage.currentVersion', 'Current')}
                             </span>
                           )}
                           {analysis && (
-                            <span className="px-1.5 py-0.5 text-[10px] bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded">
+                            <span className="px-1.5 py-0.5 text-[10px] bg-primary/10 text-primaryStrong rounded">
                               {t('mediaPage.hasAnalysis', 'Has analysis')}
                             </span>
                           )}
                         </div>
                         <div className="flex items-center gap-1">
                           {timestamp && (
-                            <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                            <span className="text-[10px] text-text-subtle">
                               {timestamp}
                             </span>
                           )}
@@ -434,7 +434,7 @@ export function VersionHistoryPanel({
                           >
                             <button
                               onClick={e => e.stopPropagation()}
-                              className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                              className="p-1 text-text-subtle hover:text-text"
                             >
                               <MoreHorizontal className="w-3.5 h-3.5" />
                             </button>
@@ -442,7 +442,7 @@ export function VersionHistoryPanel({
                         </div>
                       </div>
                       {analysis && (
-                        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                        <div className="mt-1 text-xs text-text-muted line-clamp-2">
                           {analysis.substring(0, 150)}
                           {analysis.length > 150 && '...'}
                         </div>
@@ -454,22 +454,22 @@ export function VersionHistoryPanel({
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
+                  <span className="text-xs text-text-muted">
                     {t('mediaPage.pageOf', 'Page {{current}} of {{total}}', { current: page, total: totalPages })}
                   </span>
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => setPage(p => Math.max(1, p - 1))}
                       disabled={page <= 1}
-                      className="p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="p-1 text-text-muted hover:bg-surface2 rounded disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                       disabled={page >= totalPages}
-                      className="p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="p-1 text-text-muted hover:bg-surface2 rounded disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>

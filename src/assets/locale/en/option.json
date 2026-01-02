@@ -488,6 +488,35 @@
     "offlineTitle": "Chat dictionaries are offline",
     "offlineDescription": "Connect to your tldw server from the main settings page to view and edit Chat dictionaries."
   },
+  "dictionariesTools": {
+    "validateTitle": "Validate dictionary",
+    "validateHelp": "Check schema, regex safety, and template syntax for this dictionary.",
+    "validateButton": "Run validation",
+    "validateEmpty": "Add at least one entry to validate.",
+    "validateError": "Validation failed.",
+    "strictLabel": "Strict validation",
+    "validationOk": "Valid",
+    "schemaVersion": "Schema version",
+    "entryStats": "Entry stats",
+    "errorsLabel": "Errors",
+    "noErrors": "No errors found.",
+    "warningsLabel": "Warnings",
+    "noWarnings": "No warnings found.",
+    "previewTitle": "Preview transforms",
+    "previewHelp": "Test how this dictionary rewrites sample text.",
+    "sampleTextLabel": "Sample text",
+    "sampleTextPlaceholder": "Paste text to preview dictionary substitutions.",
+    "tokenBudgetLabel": "Token budget",
+    "maxIterationsLabel": "Max iterations",
+    "previewButton": "Run preview",
+    "previewEmpty": "Enter sample text to preview.",
+    "previewError": "Preview failed.",
+    "processedTextLabel": "Processed text",
+    "replacementsLabel": "Replacements",
+    "iterationsLabel": "Iterations",
+    "entriesUsedLabel": "Entries used",
+    "tokenBudgetExceeded": "Token budget exceeded"
+  },
   "charactersEmpty": {
     "demoTitle": "Explore Characters in demo mode",
     "demoDescription": "This demo shows how Characters encapsulate a persona and system prompt that you can chat with.",
@@ -810,6 +839,7 @@
   "searchPrompts": "Search prompts...",
   "noMatchingPrompts": "No matching prompts",
   "promptSelect": {
+    "label": "Prompt",
     "favorites": "Favorites",
     "system": "System prompts",
     "quick": "Quick prompts"

@@ -16,7 +16,7 @@ export const ServerOverviewHint: React.FC = () => {
   }
 
   return (
-    <div className="mt-2 w-full rounded-md border border-gray-200 bg-gray-50 p-3 text-left text-xs text-gray-700 dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200">
+    <div className="mt-2 w-full rounded-md border border-border bg-surface2 p-3 text-left text-xs text-text">
       <p className="mb-1 text-sm font-medium">
         {t(
           "serverOverview.title",
@@ -46,7 +46,7 @@ export const ServerOverviewHint: React.FC = () => {
       <button
         type="button"
         onClick={openDocs}
-        className="text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        className="text-xs font-medium text-primary hover:text-primaryStrong"
       >
         {t(
           "serverOverview.docsCta",

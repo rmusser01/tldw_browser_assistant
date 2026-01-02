@@ -14,6 +14,7 @@ const OptionProcessed = lazy(() => import("./option-settings-processed"))
 const OptionHealth = lazy(() => import("./option-settings-health"))
 const OptionKnowledgeBase = lazy(() => import("./option-settings-knowledge"))
 const OptionAbout = lazy(() => import("./option-settings-about"))
+const OptionChatbooks = lazy(() => import("./option-settings-chatbooks"))
 const OptionRagSettings = lazy(() => import("./option-rag"))
 const OptionMedia = lazy(() => import("./option-media"))
 const OptionMediaMulti = lazy(() => import("./option-media-multi"))
@@ -53,6 +54,7 @@ export const OptionRoutingFirefox = () => {
       <Route path="/settings/processed" element={<OptionProcessed />} />
       <Route path="/settings/health" element={<OptionHealth />} />
       <Route path="/settings/knowledge" element={<OptionKnowledgeBase />} />
+      <Route path="/settings/chatbooks" element={<OptionChatbooks />} />
       <Route path="/settings/characters" element={<OptionCharacters />} />
       <Route path="/settings/world-books" element={<OptionWorldBooks />} />
       <Route path="/settings/chat-dictionaries" element={<OptionDictionaries />} />

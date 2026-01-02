@@ -127,12 +127,12 @@ export const EvaluationsSettings = () => {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+        <h2 className="text-base font-semibold leading-7 text-text">
           {t("settings:evaluationsSettings.title", {
             defaultValue: "Evaluations defaults"
           })}
         </h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+        <p className="mt-1 text-sm text-text-muted">
           {t("settings:evaluationsSettings.subtitle", {
             defaultValue:
               "Configure default eval type, target model, and spec snippets used by the Evaluations playground."

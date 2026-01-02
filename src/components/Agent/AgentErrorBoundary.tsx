@@ -54,10 +54,10 @@ export class AgentErrorBoundary extends Component<Props, State> {
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <div className="flex flex-col items-center justify-center h-full p-8 bg-white dark:bg-[#171717]">
+        <div className="flex h-full flex-col items-center justify-center bg-surface p-8">
           <div className="flex flex-col items-center max-w-md text-center">
-            <div className="p-4 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
-              <AlertTriangle className="size-8 text-red-500" />
+            <div className="mb-4 rounded-full bg-danger/10 p-4">
+              <AlertTriangle className="size-8 text-danger" />
             </div>
 
             <h2 className="text-lg font-semibold mb-2">
@@ -69,7 +69,7 @@ export class AgentErrorBoundary extends Component<Props, State> {
                 )}
             </h2>
 
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            <p className="mb-4 text-sm text-text-muted">
               {translateMessage(
                 i18n.t,
                 "common:agent.errorBoundary.description",
@@ -79,19 +79,19 @@ export class AgentErrorBoundary extends Component<Props, State> {
 
             {this.state.error && (
               <details className="w-full mb-4 text-left">
-                <summary className="text-sm text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-200">
+                <summary className="cursor-pointer text-sm text-text-subtle hover:text-text">
                   {translateMessage(
                     i18n.t,
                     "common:agent.errorBoundary.viewDetails",
                     "View error details"
                   )}
                 </summary>
-                <pre className="mt-2 p-3 text-xs bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-                  <code className="text-red-600 dark:text-red-400">
+                <pre className="mt-2 overflow-x-auto rounded-lg bg-surface2 p-3 text-xs text-text">
+                  <code className="text-danger">
                     {this.state.error.message}
                   </code>
                   {this.state.errorInfo?.componentStack && (
-                    <code className="block mt-2 text-gray-500 dark:text-gray-400">
+                    <code className="mt-2 block text-text-subtle">
                       {this.state.errorInfo.componentStack}
                     </code>
                   )}

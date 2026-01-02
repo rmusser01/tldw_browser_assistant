@@ -3478,5 +3478,74 @@
   },
   "flashcards_bulkLimitWarning": {
     "message": "操作仅限前 {{limit}} 个项目。"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "启用对比模式"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "解锁实验性的多模型对比功能。"
+  },
+  "playground_composer_compareDisabled": {
+    "message": "对比模式在设置中已禁用。"
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "继续使用所选答案或再次对比。"
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "已选"
+  },
+  "playground_composer_compareLatency": {
+    "message": "延迟"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "对比：{{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "（来自对比）"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "多模型回答"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} 个模型"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "已选模型：{{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "将每个已选答案分别打开为独立聊天"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "按模型的对话"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "你"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "作为完整聊天打开"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "打开分拆聊天"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "标准"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "标记为标准答案"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "标准答案"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "筛选模型"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "显示全部"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "显示 {{visible}} / {{total}}"
+  },
+  "playground_composer_compareTokens": {
+    "message": "Token：{{count}}"
   }
 }

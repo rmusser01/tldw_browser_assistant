@@ -333,18 +333,22 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem,
         />
       </Tooltip>
       {open && results.length > 0 && (
-        <div className="absolute mt-1 z-30 w-72 max-h-80 overflow-auto rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1f1f1f] shadow">
+        <div className="absolute mt-1 z-30 w-72 max-h-80 overflow-auto rounded-md border border-border bg-surface shadow">
           <List
             size="small"
             dataSource={results}
             renderItem={(item) => (
-              <List.Item className="!px-2 !py-1 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer" onMouseDown={(e) => e.preventDefault()} onClick={() => openEditor(item)}>
+              <List.Item
+                className="!px-2 !py-1 cursor-pointer hover:bg-surface2"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => openEditor(item)}
+              >
                 <div className="truncate text-sm">
                   <div className="flex items-center justify-between gap-2">
                     <span className="font-medium">{item.title}</span>
                     <Tag color={item.source === 'server' ? 'geekblue' : 'default'}>{item.source}</Tag>
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">{item.content}</div>
+                  <div className="text-xs text-text-subtle line-clamp-2">{item.content}</div>
                 </div>
               </List.Item>
             )}
@@ -361,14 +365,14 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem,
         centered
       >
         <Space direction="vertical" className="w-full" onKeyDown={(e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); handleInsert() } }}>
-          <label className="text-xs text-gray-500">{t('promptSearch.title')}</label>
+          <label className="text-xs text-text-subtle">{t('promptSearch.title')}</label>
           <Input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
-          <label className="text-xs text-gray-500">{t('promptSearch.content')}</label>
+          <label className="text-xs text-text-subtle">{t('promptSearch.content')}</label>
           <Input.TextArea value={editContent} onChange={(e) => setEditContent(e.target.value)} autoSize={{ minRows: 6 }} onKeyDown={(e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); handleInsert() } }} />
           <Checkbox checked={editIsSystem} onChange={(e) => setEditIsSystem(e.target.checked)}>{t('promptSearch.systemPrompt')}</Checkbox>
           {selected?.source === 'server' && (
             <div className="mt-1">
-              <label className="text-xs text-gray-500">{t('promptSearch.overwriteLocalLabel') || 'Overwrite local prompt (optional)'}</label>
+              <label className="text-xs text-text-subtle">{t('promptSearch.overwriteLocalLabel') || 'Overwrite local prompt (optional)'}</label>
               <Select
                 className="w-full"
                 allowClear
@@ -380,7 +384,12 @@ export const PromptSearch: React.FC<Props> = ({ onInsertMessage, onInsertSystem,
             </div>
           )}
           <div className="flex items-center justify-between gap-2 mt-2">
-            <Link to="/settings/prompt" className="text-xs underline text-gray-600 dark:text-gray-300">{t('promptSearch.manageLink') || 'View/Manage Prompts'}</Link>
+            <Link
+              to="/settings/prompt"
+              className="text-xs underline text-primary hover:text-primaryStrong"
+            >
+              {t('promptSearch.manageLink') || 'View/Manage Prompts'}
+            </Link>
             <div className="flex gap-2 items-center">
               <Button onClick={() => setEditorOpen(false)}>{t('promptSearch.cancel')}</Button>
               <Dropdown.Button

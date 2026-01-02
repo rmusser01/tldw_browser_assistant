@@ -1,0 +1,2744 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "Сервер та автентифікація"
+  },
+  "navigation_knowledgeTools": {
+    "message": "Інструменти знань"
+  },
+  "navigation_workspace": {
+    "message": "Робочий простір"
+  },
+  "navigation_about": {
+    "message": "Про нас"
+  },
+  "healthNav": {
+    "message": "Стан"
+  },
+  "worldBooksNav": {
+    "message": "Книги світу"
+  },
+  "chatDictionariesNav": {
+    "message": "Словники чату"
+  },
+  "charactersNav": {
+    "message": "Персонажі"
+  },
+  "mediaNav": {
+    "message": "Медіа"
+  },
+  "chatAppearance_title": {
+    "message": "Вигляд чату"
+  },
+  "chatAppearance_description": {
+    "message": "Налаштуйте кольори, шрифти та розмір тексту для повідомлень у чаті."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "Шукаєте налаштування поведінки чату (широкий режим, міркування, параметри копіювання тощо)?"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "Перейти до Загальних налаштувань"
+  },
+  "chatAppearance_userHeading": {
+    "message": "Повідомлення користувача"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "Повідомлення асистента"
+  },
+  "chatAppearance_userColor": {
+    "message": "Колір тексту користувача"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "Колір тексту асистента"
+  },
+  "chatAppearance_userFont": {
+    "message": "Шрифт користувача"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "Шрифт асистента"
+  },
+  "chatAppearance_userSize": {
+    "message": "Розмір тексту користувача"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "Розмір тексту асистента"
+  },
+  "chatAppearance_color_default": {
+    "message": "За замовчуванням"
+  },
+  "chatAppearance_color_blue": {
+    "message": "Синій"
+  },
+  "chatAppearance_color_green": {
+    "message": "Зелений"
+  },
+  "chatAppearance_color_purple": {
+    "message": "Фіолетовий"
+  },
+  "chatAppearance_color_orange": {
+    "message": "Помаранчевий"
+  },
+  "chatAppearance_color_red": {
+    "message": "Червоний"
+  },
+  "chatAppearance_font_default": {
+    "message": "За замовчуванням"
+  },
+  "chatAppearance_font_sans": {
+    "message": "Без засічок"
+  },
+  "chatAppearance_font_serif": {
+    "message": "З засічками"
+  },
+  "chatAppearance_font_mono": {
+    "message": "Моноширинний"
+  },
+  "chatAppearance_size_sm": {
+    "message": "Малий"
+  },
+  "chatAppearance_size_md": {
+    "message": "Середній"
+  },
+  "chatAppearance_size_lg": {
+    "message": "Великий"
+  },
+  "generalSettings_title": {
+    "message": "Загальні налаштування"
+  },
+  "generalSettings_settings_heading": {
+    "message": "Налаштування веб-інтерфейсу"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "Мова для розпізнавання голосу"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "Виберіть мову"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "Мова інтерфейсу"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "Виберіть мову"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "Змінити тему"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "Світла"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "Темна"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "Поновити останню розмову при відкритті бічної панелі (Copilot)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "Увімкнути чат з веб-сайтом за замовчуванням (Copilot)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "Поновити останню розмову при відкритті веб-інтерфейсу"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "Приховати налаштування поточної моделі чату"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "Відновити останню використану модель для попередніх чатів"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "Надсилати сповіщення після завершення обробки бази знань"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "Створювати заголовок за допомогою AI"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "Увімкнути або вимкнути перевірку стану підключення до сервера"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "Увімкнути широкоекранний режим"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "Розгорнути міркування за замовчуванням"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "Використовувати бульбашку чату для повідомлень користувача"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "Автоматично копіювати відповідь до буфера обміну"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "Увімкнути форматування Markdown для повідомлень користувача"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "Копіювати як форматований текст"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "Увімкнути згадування вкладок (@tab)"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "Вставити великий текст як файл"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "Увімкнути тимчасовий чат у бічній панелі за замовчуванням"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "Увімкнути OCR (завантажує ~5 МБ під час першого використання)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "Після увімкнення OCR під час першого використання буде завантажено приблизно 5 МБ мовних даних."
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "Ресурси OCR увімкнено та підготовлено"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "Мова OCR за замовчуванням"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "Виберіть мову OCR"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "Видаляти тег міркувань зі скопійованого тексту"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "Додавати серверні запити до пошуку запитів"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "Перезапустити онбординг з самого початку"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "Перезапустити онбординг"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "Перезапустити онбординг?"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "Це скине стан онбордингу та поверне вас на початок процесу налаштування."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "Онбординг було скинуто"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "Ми повернемо вас до кроку привітання, щоб ви могли перевірити URL сервера та ключ API."
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "Налаштування пошуку"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "Увімкнути вбудовування та пошук"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "Максимальний розмір вмісту для режиму повного контексту"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "Розмір вмісту (за замовчуванням 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "Управління веб-пошуком"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "Виконувати простий пошук в Інтернеті"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "Пошукова система"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "Виберіть пошукову систему"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "Загальна кількість результатів пошуку"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "Введіть загальну кількість результатів пошуку"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "Відвідати веб-сайт, згаданий у повідомленні"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "SearXNG URL-адреса"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "Ключ API Brave"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "Введіть ваш ключ API Brave"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "Пошук в Інтернеті увімкнено за замовчуванням"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "Ключ API Tavily"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "Введіть ваш ключ API Tavily"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "Ключ API Exa"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "Введіть ваш ключ API Exa"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "Домен Google"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "Ключ API Firecrawl"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "Введіть ваш ключ API Firecrawl"
+  },
+  "generalSettings_system_heading": {
+    "message": "Системні налаштування"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "Режим інтерфейсу за замовчуванням"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "Повноекранний (Web UI)"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "Бічна панель"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "Скидання системи"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "Скинути все"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "Ви впевнені, що хочете виконати скидання системи? Це призведе до видалення всіх даних, і цю дію неможливо буде скасувати."
+  },
+  "generalSettings_system_export_label": {
+    "message": "Експорт історії чату, бази знань та запитів"
+  },
+  "generalSettings_system_export_button": {
+    "message": "Експортувати дані"
+  },
+  "generalSettings_system_export_success": {
+    "message": "Експорт успішний"
+  },
+  "generalSettings_system_import_label": {
+    "message": "Імпорт історії чату, бази знань, та запитів"
+  },
+  "generalSettings_system_import_button": {
+    "message": "Імпортувати дані"
+  },
+  "generalSettings_system_import_success": {
+    "message": "Імпорт успішний"
+  },
+  "generalSettings_system_import_error": {
+    "message": "Помилка імпорту"
+  },
+  "generalSettings_tts_heading": {
+    "message": "Налаштування Текст-у-Голос"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "Увімкнути Текст-у-Голос"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "Автоматично відтворювати голосову відповідь після завершення"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "Поставник Текст-у-Голос"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "Виберіть постачальника"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "Голос Текст-у-Голос"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "Виберіть голос"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "Ввімкнути SSML (Мова Розмітки для Синтезу Голосу)"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "Видалити тег міркування з TTS"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "Розбиття відповіді"
+  },
+  "generalSettings_stt_heading": {
+    "message": "Налаштування Голос-у-Текст"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "Час автоматичної зупинки (мс)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "Введіть час автоматичної зупинки в мілісекундах"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "Автоматичне надсилання голосового повідомлення"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "Ці стандартні налаштування перетворення мовлення на текст використовуються кнопкою диктування у Playground та бічній панелі."
+  },
+  "generalSettings_stt_model_label": {
+    "message": "Модель транскрипції (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "Виконувати сегментацію транскриптів (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "Гранулярність часових міток"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "На сегмент"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "На слово"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "Сегмент + слово"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "Завдання транскрипції"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "Транскрибувати (та сама мова)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "Перекласти англійською"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "Формат відповіді"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON (текст + сегменти)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "Розширений JSON"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "Звичайний текст"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "Субтитри SRT"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "Субтитри VTT"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "Температура семплування"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "Підказка транскрипції за замовчуванням"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "Необов’язковий текст для стилю"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "Макс. кількість сегментів (TreeSeg K)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "Мінімум елементів у сегменті"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "Штраф балансу (TreeSeg λ)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "Ширина розширення висловлювань"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "Постачальник ембедингів для сегментації"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "Модель ембедингів для сегментації"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "Система"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "Режим інтерфейсу за замовчуванням"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "Повноекранний (Web UI)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "Бічна панель"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "Кнопка дій браузера"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "Дія контекстного меню"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "Показувати кнопку Web UI в бічній панелі"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "Фонове зображення чату"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "Розмір шрифту"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "Дані"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "Синхронізація у приватному режимі Firefox"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "Синхронізувати дані"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "Скидання системи"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "Скинути все"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "Ви впевнені, що хочете скинути систему? Це очистить усі дані й не може бути скасовано."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "Експорт історії чату, бази знань і запитів"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "Експортувати дані"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "Експорт успішний"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "Імпорт історії чату, бази знань і запитів"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "Імпортувати дані"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "Імпорт успішний"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "Помилка імпорту"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "Підключіть tldw Assistant до вашого сервера"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "Деякі налаштування застосовуються лише коли tldw сервер доступний. Підключіть сервер, щоб отримати повний функціонал."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "Відкрийте Налаштування → tldw сервер, щоб додати URL сервера та ключ API."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "Скористайтесь Діагностикою, щоб переконатися, що сервер працює, перш ніж використовувати розширені інструменти."
+  },
+  "generalSettings_empty_title": {
+    "message": "Налаштуйте поведінку tldw Assistant"
+  },
+  "generalSettings_empty_description": {
+    "message": "Налаштуйте параметри для веб-інтерфейсу, бічної панелі, голосу, пошуку та обробки даних в одному місці."
+  },
+  "generalSettings_empty_example1": {
+    "message": "Виберіть мову, тему та поведінку відновлення чату."
+  },
+  "generalSettings_empty_example2": {
+    "message": "Керуйте тим, чи є чати тимчасовими, як обробляються великі вставки та як відображаються міркування."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "Налаштувати сервер і автентифікацію"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "Закрити"
+  },
+  "manageModels_title": {
+    "message": "Управління моделями"
+  },
+  "manageModels_addBtn": {
+    "message": "Додати нову модель"
+  },
+  "manageModels_columns_name": {
+    "message": "Назва"
+  },
+  "manageModels_columns_digest": {
+    "message": "Хеш"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "Оновлено"
+  },
+  "manageModels_columns_size": {
+    "message": "Розмір"
+  },
+  "manageModels_columns_actions": {
+    "message": "Дії"
+  },
+  "manageModels_columns_nickname": {
+    "message": "Псевдонім"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "Батьківська модель"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "Формат"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "Сімʼя"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "Розмір параметрів"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "Рівень квантування"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "Видалити модель"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "Повторно завантажити модель"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "Редагувати псевдонім"
+  },
+  "manageModels_confirm_delete": {
+    "message": "Ви впевнені, що хочете видалити цю модель?"
+  },
+  "manageModels_confirm_repull": {
+    "message": "Ви впевнені, що хочете повторно завантажити цю модель?"
+  },
+  "manageModels_modal_title": {
+    "message": "Додати нову модель"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "Введіть назву моделі"
+  },
+  "manageModels_modal_pull": {
+    "message": "Завантажити модель"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "Завантаження моделі"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "Завантажується модель {{modelName}}. Для отримання додаткової інформації перевірте іконку розширення."
+  },
+  "manageModels_notification_success": {
+    "message": "Успіх"
+  },
+  "manageModels_notification_error": {
+    "message": "Помилка"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "Модель успішно завантажена"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "Модель успішно видалена"
+  },
+  "manageModels_notification_someError": {
+    "message": "Щось пішло не так. Будь ласка, спробуйте пізніше."
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "Скасування завантаження"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "Завантаження моделі скасовується..."
+  },
+  "managePrompts_title": {
+    "message": "Управління запитами"
+  },
+  "managePrompts_addBtn": {
+    "message": "Додати новий запит"
+  },
+  "managePrompts_option1": {
+    "message": "Нормальний"
+  },
+  "managePrompts_option2": {
+    "message": "RAG (пошук)"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "Питання-запит"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "Власні запити"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "Запити Copilot"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "Створюйте та керуйте багаторазовими запитами, які можна вставляти у чат."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "Переглядайте та налаштовуйте попередньо визначені запити Copilot, надані вашим сервером."
+  },
+  "managePrompts_columns_title": {
+    "message": "Назва"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "Запит"
+  },
+  "managePrompts_columns_type": {
+    "message": "Тип запиту"
+  },
+  "managePrompts_columns_actions": {
+    "message": "Дії"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "Системний запит"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "Швидкий запит"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "Видалити запит"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "Редагувати запит"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "Дублювати запит"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "Ви впевнені, що хочете видалити цей запит? Його не вдасться відновити."
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "Додати новий запит"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "Редагувати запит"
+  },
+  "managePrompts_form_title_label": {
+    "message": "Назва"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "Мій чудовий запит"
+  },
+  "managePrompts_form_title_required": {
+    "message": "Будь ласка, введіть назву"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "Запит"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "Введіть запит"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "Будь ласка, введіть запит"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "Ви можете використовувати {key} як змінну у вашому запиті."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "Змінна {text} відсутня в запиті. Додайте її, будь ласка."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "Це системний запит"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "Додавання запиту..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "Додати запит"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "Оновлення запиту..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "Оновити запит"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "Запит додано"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "Запит успішно додано"
+  },
+  "managePrompts_notification_error": {
+    "message": "Збій"
+  },
+  "managePrompts_notification_someError": {
+    "message": "Щось пішло не так. Спробуйте знову пізніше"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "Запит оновлено"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "Запит успішно оновлено"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "Запит видалено"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "Запит успішно видалено"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "Робочий простір запитів"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "Багаторазові запити керуються у робочому просторі запитів. Використайте кнопку нижче, щоб відкрити його."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "Відкрити робочий простір запитів"
+  },
+  "managePrompts_search": {
+    "message": "Пошук за назвами та вмістом"
+  },
+  "managePrompts_filter_all": {
+    "message": "Усі"
+  },
+  "managePrompts_filter_system": {
+    "message": "Системні"
+  },
+  "managePrompts_filter_quick": {
+    "message": "Швидкі"
+  },
+  "managePrompts_tags_label": {
+    "message": "Теги"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "Додати теги"
+  },
+  "managePrompts_import": {
+    "message": "Імпорт"
+  },
+  "managePrompts_export": {
+    "message": "Експорт"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Об’єднати"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Замінити"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Заміна перезапише всі поточні запити імпортованим файлом. Продовжити?"
+  },
+  "managePrompts_favorite": {
+    "message": "Улюблене"
+  },
+  "managePrompts_unfavorite": {
+    "message": "Прибрати з улюблених"
+  },
+  "managePrompts_partialLoad": {
+    "message": "Деякі дані запитів недоступні"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "Перевірте підключення до сервера та оновіть сторінку, щоб спробувати знову."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "Підключіться, щоб використовувати запити"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "Щоб керувати багаторазовими запитами, спочатку підключіться до свого tldw сервера."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "Відкрийте Налаштування → tldw сервер, щоб додати URL сервера."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "Після підключення створюйте власні запити для повторного використання в чатах."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "Поки немає власних запитів"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "Створюйте багаторазові запити для повторюваних задач, робочих процесів і командних правил."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "Збережіть улюблений системний запит для підсумків, пояснень або перекладів."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "Створіть швидкі запити для поширених дій, як-от написання листів або редагування нотаток."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "Створити запит"
+  },
+  "managePrompts_filterHelp": {
+    "message": "Пошук охоплює назви та текст запитів. Використовуйте тип і теги, щоб звузити список."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "Немає доступних запитів Copilot"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "Запити Copilot — це заздалегідь визначені шаблони, які надає ваш tldw сервер."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "Перевірте версію або конфігурацію сервера, якщо очікуєте запити Copilot."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "Після оновлення сервера перезавантажте розширення і поверніться до цієї вкладки."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "Відкрити діагностику"
+  },
+  "manageShare_title": {
+    "message": "Управління спільним доступом"
+  },
+  "manageShare_heading": {
+    "message": "Налаштування URL спільного доступу до сторінки"
+  },
+  "manageShare_form_url_label": {
+    "message": "URL спільного доступу до сторінки"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "Введіть URL спільного доступу до сторінки"
+  },
+  "manageShare_form_url_required": {
+    "message": "Будь ласка, введіть ваш URL спільного доступу!"
+  },
+  "manageShare_form_url_help": {
+    "message": "З міркувань конфіденційності, ви можете самостійно обробляти спільний доступ до сторінки через цей URL. <anchor>Дізнатися більше</anchor>."
+  },
+  "manageShare_webshare_heading": {
+    "message": "Спільний доступ через веб"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "Назва"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "URL-адреса"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "Дії"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "Видалити спільний доступ"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "Ви впевнені, що хочете видалити цей спільний доступ? Його не вдасться відновити."
+  },
+  "manageShare_webshare_label": {
+    "message": "Управління спільним доступом до сторінки"
+  },
+  "manageShare_webshare_description": {
+    "message": "Включіть або вимкніть функцію спільного доступу до сторінки"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "URL спільного доступу до сторінки оновлено успішно"
+  },
+  "manageShare_notification_someError": {
+    "message": "Щось пішло не так. Будь ласка, спробуйте пізніше"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "Спільний доступ видалено успішно"
+  },
+  "ollamaSettings_title": {
+    "message": "Налаштування сервера"
+  },
+  "ollamaSettings_heading": {
+    "message": "Налаштуйте сервер"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "URL сервера"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "Введіть URL сервера"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "Увімкнути або вимкнути інтеграцію сервера глобально"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "При вимкненні інтеграції сервера tldw Browser_Assistant не отримуватиме моделі з сервера. Ви все ще можете додати постачальників у розділі <anchor>API, сумісного з OpenAI</anchor>."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "Розширене налаштування URL сервера"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "Увімкнути або вимкнути налаштування власного URL походження запиту"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "Власний URL походження запиту"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "Введіть власний URL походження"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "Увімкнути або вимкнути автоматичне виправлення CORS"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "Власні заголовки"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "Додати заголовок"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "Ключ заголовка"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "Авторизація"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "Значення заголовка"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "Bearer токен"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "Якщо у вас виникають проблеми з підключенням до сервера, ви можете налаштувати власний URL походження запиту. Щоб дізнатися більше, <anchor>натисніть тут</anchor>."
+  },
+  "manageSearch_title": {
+    "message": "Управління пошуком в Інтернеті"
+  },
+  "manageSearch_heading": {
+    "message": "Налаштуйте пошук в Інтернеті"
+  },
+  "about_title": {
+    "message": "Про додаток"
+  },
+  "about_heading": {
+    "message": "Інформація про цей додаток"
+  },
+  "about_chromeVersion": {
+    "message": "Версія tldw Browser_Assistant"
+  },
+  "about_ollamaVersion": {
+    "message": "Версія сервера"
+  },
+  "about_support": {
+    "message": "Ви можете підтримати проект tldw Browser_Assistant, зробивши пожертву або ставши спонсором через наступні платформи:"
+  },
+  "about_koFi": {
+    "message": "Підтримка на Ko-fi"
+  },
+  "about_githubSponsor": {
+    "message": "Стати спонсором на GitHub"
+  },
+  "about_githubRepo": {
+    "message": "Репозиторій GitHub"
+  },
+  "switchToSidebar": {
+    "message": "Перейти до бічної панелі"
+  },
+  "healthPage_title": {
+    "message": "Стан системи"
+  },
+  "healthPage_subtitle": {
+    "message": "Quick overview of subsystem health endpoints exposed by the server."
+  },
+  "healthPage_backToChat": {
+    "message": "Повернутися до чату"
+  },
+  "healthPage_openSettings": {
+    "message": "Відкрити налаштування tldw"
+  },
+  "healthPage_recheckAll": {
+    "message": "Перевірити все знову"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "Копіювати діагностику"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "Сервер не налаштовано."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "Не вдалося звернутися до ендпоїнта стану ядра сервера."
+  },
+  "healthPage_triedGet": {
+    "message": "Спроба GET {{url}}"
+  },
+  "healthPage_configureHint": {
+    "message": "Налаштуйте URL сервера у налаштуваннях tldw."
+  },
+  "healthPage_configureCta": {
+    "message": "Налаштувати"
+  },
+  "healthPage_connectedTo": {
+    "message": "Підключено до {{host}}"
+  },
+  "healthPage_autoRefresh": {
+    "message": "Автоматичне оновлення"
+  },
+  "healthPage_intervalLabel": {
+    "message": "Інтервал (с):"
+  },
+  "healthPage_checking": {
+    "message": "Перевірка…"
+  },
+  "healthPage_recheck": {
+    "message": "Перевірити знову"
+  },
+  "healthPage_healthy": {
+    "message": "Справний"
+  },
+  "healthPage_unhealthy": {
+    "message": "Несправний"
+  },
+  "healthPage_unknown": {
+    "message": "Невідомо"
+  },
+  "healthPage_checks_core": {
+    "message": "API ядра"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG (пошук)"
+  },
+  "healthPage_checks_audio": {
+    "message": "Аудіо"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "Ембедінги"
+  },
+  "healthPage_checks_metrics": {
+    "message": "Стан метрик"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "Метрики чату"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP (протокол контексту моделей)"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "Copies JSON diagnostics to clipboard"
+  },
+  "healthPage_statusHealthy": {
+    "message": "Справний"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "Несправний"
+  },
+  "healthPage_statusUnknown": {
+    "message": "Невідомо"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "Щойно оновлено"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "Оновлено {{seconds}} с тому"
+  },
+  "savedSuccessfully": {
+    "message": "Налаштування збережено"
+  },
+  "saveFailed": {
+    "message": "Не вдалося зберегти налаштування"
+  },
+  "siteAccessGranted": {
+    "message": "Дозвіл на доступ до хоста надано для {{origin}}"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "Розширені тайм-аути"
+  },
+  "tldw_requestTimeout": {
+    "message": "Тайм-аут запиту (секунди)"
+  },
+  "tldw_streamingIdle": {
+    "message": "Тайм-аут бездіяльності стриму (секунди)"
+  },
+  "tldw_chatRequest": {
+    "message": "Тайм-аут запиту чату"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "Бездіяльність стриму чату"
+  },
+  "tldw_ragRequest": {
+    "message": "Тайм-аут запиту RAG"
+  },
+  "tldw_mediaRequest": {
+    "message": "Тайм-аут медіазапиту"
+  },
+  "tldw_uploadRequest": {
+    "message": "Тайм-аут запиту завантаження"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "Профіль тайм-аутів"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "Збалансований"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "Розширений"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "Користувацький"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "«Збалансований» підходить для більшості налаштувань. «Розширений» додає запас для повільних мереж чи тривалих задач."
+  },
+  "tldw_reset": {
+    "message": "Скинути до рекомендованого"
+  },
+  "tldw_resetDone": {
+    "message": "Скинуто до рекомендованих значень"
+  },
+  "tldw_serverNav": {
+    "message": "Сервер tldw"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "Конфігурація сервера tldw"
+  },
+  "tldw_serverLabel": {
+    "message": "Сервер:"
+  },
+  "tldw_notConfigured": {
+    "message": "Не налаштовано"
+  },
+  "tldw_buttons_health": {
+    "message": "Стан"
+  },
+  "tldw_buttons_recheck": {
+    "message": "Перевірити знову"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "Перевірити з’єднання"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "Надати доступ до сайту"
+  },
+  "tldw_buttons_login": {
+    "message": "Увійти"
+  },
+  "tldw_buttons_logout": {
+    "message": "Вийти"
+  },
+  "tldw_loginRequired_title": {
+    "message": "Потрібен вхід"
+  },
+  "tldw_loginRequired_description": {
+    "message": "Увійдіть, використовуючи свої облікові дані tldw_server"
+  },
+  "tldw_loggedIn_title": {
+    "message": "Вхід виконано"
+  },
+  "tldw_loggedIn_description": {
+    "message": "Ви зараз увійшли в tldw_server"
+  },
+  "tldw_connection_success": {
+    "message": "З’єднання успішне!"
+  },
+  "tldw_connection_failed": {
+    "message": "Помилка з’єднання. Перевірте налаштування."
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "Помилка з’єднання. Перевірте URL сервера та ключ API."
+  },
+  "tldw_authMode_label": {
+    "message": "Режим автентифікації"
+  },
+  "tldw_authMode_single": {
+    "message": "Один користувач (API-ключ)"
+  },
+  "tldw_authMode_multi": {
+    "message": "Багатокористувацький (вхід)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "Перервати початкові запити, якщо немає відповіді за цей час. Типово: {{seconds}}s."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "Зупинити стрим, якщо немає оновлень за цей час. Типово: {{seconds}}s."
+  },
+  "tldw_login_success": {
+    "message": "Вхід успішний!"
+  },
+  "tldw_login_failed": {
+    "message": "Не вдалося увійти"
+  },
+  "tldw_logout_success": {
+    "message": "Успішно вийшли"
+  },
+  "tldw_logout_failed": {
+    "message": "Не вдалося вийти"
+  },
+  "tldw_setupLink": {
+    "message": "Налаштувати сервер"
+  },
+  "tldw_loadError": {
+    "message": "Не вдалося завантажити налаштування сервера tldw. Перевірте з’єднання і спробуйте ще раз."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "API-ключ"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "Введіть свій API-ключ"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "Будь ласка, введіть свій API-ключ"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "Ваш API-ключ tldw_server для автентифікації"
+  },
+  "tldw_fields_username_label": {
+    "message": "Ім’я користувача"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "Введіть ім’я користувача"
+  },
+  "tldw_fields_username_required": {
+    "message": "Будь ласка, введіть ім’я користувача"
+  },
+  "tldw_fields_password_label": {
+    "message": "Пароль"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "Введіть пароль"
+  },
+  "tldw_fields_password_required": {
+    "message": "Будь ласка, введіть пароль"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "URL сервера"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "Будь ласка, введіть URL сервера"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "Будь ласка, введіть дійсний URL"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "URL вашого екземпляра tldw_server (наприклад, http://localhost:8000)"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "Невірний API-ключ"
+  },
+  "tldw_errors_forbidden": {
+    "message": "Заборонено (перевірте дозволи)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "Не вдалося перевірити API-ключ"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "Сервер недоступний"
+  },
+  "tldw_about_title": {
+    "message": "Про інтеграцію з tldw_server"
+  },
+  "tldw_about_description": {
+    "message": "Це розширення підключається до вашого екземпляра tldw_server і надає доступ до:"
+  },
+  "tldw_about_points_providers": {
+    "message": "Декількох провайдерів LLM через єдиний API"
+  },
+  "tldw_about_points_rag": {
+    "message": "Пошуку RAG (Retrieval-Augmented Generation)"
+  },
+  "tldw_about_points_media": {
+    "message": "Прийому та обробки медіа"
+  },
+  "tldw_about_points_notes": {
+    "message": "Керування нотатками та підказками"
+  },
+  "tldw_about_points_stt": {
+    "message": "Транскрипції мовлення в текст"
+  },
+  "manageKnowledge_title": {
+    "message": "Питання й відповіді знань"
+  },
+  "manageKnowledge_heading": {
+    "message": "Питання й відповіді знань"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "Робочий простір книг світу"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "Книги світу керуються у робочому просторі книг світу. Натисніть кнопку нижче, щоб відкрити його."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "Відкрити робочий простір книг світу"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "Робочий простір словників чату"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "Словники чату керуються у робочому просторі словників чату. Натисніть кнопку нижче, щоб відкрити його."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "Відкрити робочий простір словників чату"
+  },
+  "rag_title": {
+    "message": "Налаштування RAG"
+  },
+  "rag_ragSettings_label": {
+    "message": "Налаштування RAG"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "Модель вбудованих даних"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "Будь ласка, виберіть модель"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "Рекомендується використовувати моделі вбудованих даних, такі як `nomic-embed-text`."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "Вибрати модель"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "Рекомендовано: {{model}} (із конфігурації сервера)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "Раніше збережена модель ембедингів більше недоступна на сервері. Виберіть іншу модель."
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "Розмір шматка"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "Ввести розмір шматка"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "Будь ласка, введіть розмір шматка"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "Перекриття шматків"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "Ввести перекриття шматків"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "Будь ласка, введіть перекриття шматків"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "Типовий ліміт кількості завантажень файлів до бази знань"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "Введіть типовий ліміт (напр. 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "Будь ласка, введіть типовий ліміт кількості файлів для завантаження"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "Кількість отриманих документів"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "Ввести кількість отриманих документів"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "Будь ласка, введіть кількість документів"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "Роздільник"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "Введіть роздільник (напр., \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "Будь ласка, введіть роздільник"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "Розділювач тексту"
+  },
+  "rag_prompt_label": {
+    "message": "Налаштування запиту з RAG"
+  },
+  "rag_prompt_option1": {
+    "message": "Нормальний"
+  },
+  "rag_prompt_option2": {
+    "message": "З Веб-пошуком"
+  },
+  "rag_prompt_alert": {
+    "message": "Налаштування системного запиту тут застаріло. Використовуйте розділ «Управління запитами», щоб додавати або редагувати запити. Цей розділ буде видалено в майбутньому оновленні"
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "Системний запит"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "Ввести системний запит"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "Запит веб-пошуку"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "Не видаляйте `{search_results}` із запиту."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "Будь ласка, введіть запит для веб-пошуку"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "Ввести запит для веб-пошуку"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "Запит для подальшого пошуку в мережі"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "Не видаляйте `{chat_history}` і `{question}` із запиту."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "Будь ласка, введіть запит для подальшого пошуку в мережі!"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "Ваш запит для подальшого пошуку в мережі"
+  },
+  "onboarding_title": {
+    "message": "Welcome — Let’s get you connected"
+  },
+  "onboarding_description": {
+    "message": "Configure your server and authentication. We’ll verify the connection and RAG health inline."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "Дізнайтеся, як працює сервер tldw"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "напр. http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "Приклад: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "Введіть повну URL‑адресу, наприклад http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "Використовуйте адреси http або https, наприклад http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_label": {
+    "message": "URL сервера"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "Введіть URL tldw сервера, щоб активувати Далі."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "Ми активуємо «Далі», коли зможемо досягти цієї адреси."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "Перевірка доступності…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "Сервер відповів успішно. Ви можете продовжити."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "Поки не вдалося досягти цієї адреси. Перевірте URL або спробуйте ще раз."
+  },
+  "onboarding_buttons_next": {
+    "message": "Далі"
+  },
+  "onboarding_buttons_back": {
+    "message": "Назад"
+  },
+  "onboarding_buttons_continue": {
+    "message": "Продовжити"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "Перевірити знову"
+  },
+  "onboarding_buttons_finish": {
+    "message": "Завершити"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "Завершити без підключення"
+  },
+  "onboarding_buttons_skip": {
+    "message": "Пропустити"
+  },
+  "onboarding_authMode_label": {
+    "message": "Режим автентифікації"
+  },
+  "onboarding_authMode_single": {
+    "message": "Один користувач (API ключ)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "Багато користувачів (Вхід)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "API ключ"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "Введіть ваш API ключ (або використайте демо-ключ THIS-IS-A-SECURE-KEY-123-REPLACE-ME для локальних одноосібних установок)"
+  },
+  "onboarding_username_label": {
+    "message": "Імʼя користувача"
+  },
+  "onboarding_username_placeholder": {
+    "message": "Імʼя користувача"
+  },
+  "onboarding_password_label": {
+    "message": "Пароль"
+  },
+  "onboarding_password_placeholder": {
+    "message": "Пароль"
+  },
+  "onboarding_connection_label": {
+    "message": "Зʼєднання:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "Невідомо"
+  },
+  "onboarding_connection_connected": {
+    "message": "Підключено"
+  },
+  "onboarding_connection_failed": {
+    "message": "Не вдалося"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+  },
+  "onboarding_rag_label": {
+    "message": "RAG:"
+  },
+  "onboarding_rag_healthy": {
+    "message": "Справний"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "Несправний"
+  },
+  "onboarding_rag_unknown": {
+    "message": "Невідомо"
+  },
+  "onboarding_connectionFailed": {
+    "message": "Підключення не вдалося"
+  },
+  "onboarding_footerHelp": {
+    "message": "Після підключення ви можете будь-коли повернутися до цих налаштувань через меню розширення."
+  },
+  "onboarding_progressAria": {
+    "message": "Прогрес початкового налаштування"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "Ласкаво просимо"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "Підключіть свій сервер tldw"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "Виберіть спосіб входу"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "Підтвердіть підключення та Knowledge"
+  },
+  "onboarding_startServer_title": {
+    "message": "Перш ніж почати — запустіть свій сервер tldw"
+  },
+  "onboarding_startServer_body": {
+    "message": "Якщо ви ще не запустили свій сервер, виконайте одну з цих команд у репозиторії tldw_server, а потім поверніться сюди."
+  },
+  "onboarding_startServer_copy": {
+    "message": "Копіювати команду"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "Запустити локально за допомогою Python"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "Запустіть її всередині virtualenv tldw_server з кореня репозиторію сервера."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "Запустити з Docker Compose (один користувач)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "Запустіть її з кореня репозиторію tldw_server, щоб запустити API та базу даних."
+  },
+  "onboarding_path_heading": {
+    "message": "З чого ви хочете почати?"
+  },
+  "onboarding_path_hasServer": {
+    "message": "Я вже запускаю tldw_server"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "Підключіться до наявного tldw_server, який ви вже запускаєте."
+  },
+  "onboarding_path_noServer": {
+    "message": "У мене ще немає сервера"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "Дотримуйтесь інструкції з налаштування tldw_server або почніть у демо-режимі."
+  },
+  "onboarding_path_demo": {
+    "message": "Просто дослідити за допомогою локальної демо-версії"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "Спробуйте робочий простір із прикладними даними; підключіть свій сервер пізніше."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "Ще немає сервера? Ви все одно можете продовжити знайомство."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server — це окремий застосунок із самостійним хостингом. Ви можете пройти інструкцію з налаштування зараз або повернутися пізніше й продовжити в демо-режимі."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "Запустити локально за допомогою Docker або Python на вашій машині."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "Розгорнути tldw_server на віддаленому VPS або керованому хостингу."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "Використовувати кероване комерційне розгортання tldw_server, коли воно доступне."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "Відкрити інструкцію з налаштування"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "Використовувати локальний демо-режим"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "Нагадати пізніше"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "Ознайомитися з розширенням у демо-режимі"
+  },
+  "onboarding_path_demoBody": {
+    "message": "Демо-режим дозволяє випробувати чат, нотатки та медіа на прикладних даних. Функції, що залежать від сервера, як-от пошук у Knowledge, залишатимуться обмеженими, доки ви не підключите власний tldw_server."
+  },
+  "onboarding_path_demoCta": {
+    "message": "Використовувати локальний демо-режим"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Режим Single User (API Key) рекомендовано для персональних серверів або серверів невеликих команд. Multi User (Login) підходить для спільних розгортань, де користувачі входять за допомогою імені користувача або SSO. Оберіть режим, що відповідає конфігурації вашого tldw_server."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "Знайдіть свій API-ключ у tldw_server → Settings → API Keys. Згенеруйте там ключ і вставте його тут."
+  },
+  "onboarding_authStepAria": {
+    "message": "Крок {{current}} з {{total}} — налаштування автентифікації"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "Крок {{current}} з {{total}} — підтвердження підключення та наступні кроки"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "Ви готові до роботи"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "Звідси ви можете відкрити бічну панель, завантажити сторінку або дослідити медіа й нотатки."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "Почніть спілкування"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "Відкрийте бічну панель і задайте своє перше питання."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "Відкрити бічну панель"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "Завантажте вашу першу сторінку"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "Використайте швидке завантаження в заголовку, щоб зберегти поточну вкладку на сервері."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "Досліджуйте медіа й нотатки"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "Відвідайте Розділ медіа й нотаток в Налаштуваннях, щоб побачити те, що збережено та доступне для пошуку."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "Показувати швидкі ярлики в заголовку"
+  },
+  "manageCharacters_title": {
+    "message": "Керування персонажами"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Новий персонаж"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Назва"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Опис"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Дії"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Аватар"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Чат"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Редагувати"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Видалити"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "Переглянути розмови"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Дублювати"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Теги"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Додати теги"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Використовуйте теги, щоб групувати персонажів за сценаріями (наприклад, «письмо», «викладання»)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Редагувати персонажа"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Видалити персонажа"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Чат як {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Редагувати персонажа {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Видалити персонажа {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "Переглянути розмови для {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "Знайдено персонажів: {{count}}"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Дублювати персонажа {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Ви впевнені, що хочете видалити цього персонажа? Цю дію неможливо скасувати."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Назва"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "наприклад, тренер з письма"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Будь ласка, введіть назву"
+  },
+  "manageCharacters_form_description": {
+    "message": "Створіть багаторазового персонажа, з яким можна чатити на бічній панелі."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Поведінка / інструкції"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "Напр., ви терплячий вчитель математики, який пояснює концепції крок за кроком і перевіряє розуміння короткими прикладами."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Опишіть роль персонажа, тон і обмеження. Наприклад: \"Ви терплячий репетитор з математики, який пояснює крок за кроком.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Додайте короткий опис, щоб персонаж знав, як відповідати."
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Додайте інструкції, щоб спрямовувати відповіді."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Системний промпт має бути не довший за 2000 символів."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "URL аватара (необов’язково)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "наприклад https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Привітальне повідомлення (необов’язково)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Привіт! Я ваш тренер з письма. Вставте чернетку, і я допоможу зробити текст більш чітким."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Необов’язкове перше повідомлення, яке персонаж надішле при старті чату."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Створення персонажа..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Створити персонажа"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Збереження змін..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Зберегти зміни"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Персонажа створено"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Помилка"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Щось пішло не так. Спробуйте пізніше"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Персонажа оновлено"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Персонажа видалено"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Не вдалося завантажити персонажів"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Перевірте підключення та спробуйте ще раз."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Персонажів поки немає"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Створіть багаторазового персонажа з іменем, описом і системною підказкою, з яким можна чатити."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Визначте тренера з письма, знавця лору або помічника з коду, якого можна використовувати в різних чатах."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Дайте кожному персонажу чіткий опис і поведінку, щоб відповіді були послідовними."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Створити персонажа"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Аватар {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Аватар користувача"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Розмови для {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Розмови персонажа"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Виберіть розмову, щоб продовжити спілкування цим персонажем."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "Для цього персонажа ще немає розмов."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Не вдалося завантажити розмови для цього персонажа."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Оновлено {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Невідомо"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Продовжити чат"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Без назви"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Найновіше"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Завантажити історію чату та продовжити цю розмову"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Попередній перегляд"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Показати попередній перегляд"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Приховати попередній перегляд"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Персонаж без назви"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Привітання"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Поведінка"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Заповніть форму, щоб побачити попередній перегляд"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Показати розширені поля"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Приховати розширені поля"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Немає опису"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Збіг усіх тегів"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Аватар (необов'язково)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL-адреса"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Завантажити"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Виберіть файл зображення"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Підтримуються лише зображення PNG, JPEG і GIF"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Недійсний файл зображення"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Не вдалося обробити зображення"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Клацніть або перетягніть зображення для завантаження"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG або GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Попередній перегляд"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "Дані успішно імпортовано"
+  },
+  "systemNotifications_importError": {
+    "message": "Помилка імпорту"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Дані Firefox синхронізовано, повторювати не потрібно"
+  },
+  "systemNotifications_syncError": {
+    "message": "Не вдалося синхронізувати дані Firefox"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "Будь ласка, виберіть коректний файл зображення"
+  },
+  "prompts_enterPrompt": {
+    "message": "Введіть підказку."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "Введіть підказку."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "Введіть наступну підказку."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "Введіть наступну підказку."
+  },
+  "prompts_privateModeDescription": {
+    "message": "Приватний режим Firefox не підтримує збереження в IndexedDB. Додайте підказки у звичайному вікні."
+  },
+  "models_privateModeDescription": {
+    "message": "Приватний режим Firefox не підтримує збереження в IndexedDB. Додайте власну модель у звичайному вікні."
+  },
+  "evaluationsSettingsNav": {
+    "message": "Оцінювання"
+  },
+  "promptStudioNav": {
+    "message": "Промпт-студія"
+  },
+  "promptStudio_nav": {
+    "message": "Промпт-студія"
+  },
+  "promptStudio_title": {
+    "message": "Промпт-студія"
+  },
+  "promptStudio_subtitle": {
+    "message": "Налаштуйте значення за замовчуванням і відстежуйте стан Prompt Studio. Підключення та автентифікація використовують основні налаштування сервера."
+  },
+  "promptStudio_probeError": {
+    "message": "Не вдалося підключитися до Prompt Studio"
+  },
+  "promptStudio_statusCard": {
+    "message": "Стан"
+  },
+  "promptStudio_statusHint": {
+    "message": "Кнопка викликає /prompt-studio/status із warn_seconds."
+  },
+  "promptStudio_statusError": {
+    "message": "Ендпоїнт стану недоступний"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "Секунди попередження"
+  },
+  "promptStudio_testButton": {
+    "message": "Перевірити Prompt Studio"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "Значення за замовчуванням"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "Зберігайте стандартний проєкт, конфігурації моделей і розмір списку сторінки."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "Зберігайте значення за замовчуванням через наявне сховище налаштувань (TBD) для початкового вибору проєкту, пресетів моделей виконання/оцінювання та пагінації."
+  },
+  "promptStudio_defaultProject": {
+    "message": "ID проєкту за замовчуванням"
+  },
+  "promptStudio_pageSize": {
+    "message": "Розмір сторінки"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "Значення виконання за замовчуванням"
+  },
+  "promptStudio_executeProvider": {
+    "message": "Провайдер"
+  },
+  "promptStudio_executeModel": {
+    "message": "Модель"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "Температура"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "Макс. токенів"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "Значення оцінювання за замовчуванням"
+  },
+  "promptStudio_evalModel": {
+    "message": "Модель"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "Температура"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "Макс. токенів"
+  },
+  "promptStudio_unavailable": {
+    "message": "Prompt Studio поки недоступна на сервері."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "Коли буде увімкнено, тут можна буде відстежувати стан черги та задавати значення за замовчуванням."
+  },
+  "charactersSettingsTitle": {
+    "message": "Робочий простір персонажів"
+  },
+  "charactersSettingsDescription": {
+    "message": "Персонажі керуються в робочому просторі персонажів. Натисніть кнопку нижче, щоб відкрити його."
+  },
+  "charactersOpenWorkspace": {
+    "message": "Відкрити робочий простір персонажів"
+  },
+  "mermaid": {
+    "message": "Діаграми Mermaid"
+  },
+  "healthSummary_diagnostics": {
+    "message": "Diagnostics"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "Відкрити детальну діагностику, щоб усунути несправності або перевірити стан."
+  },
+  "healthSummary_core": {
+    "message": "Сервер"
+  },
+  "healthSummary_rag": {
+    "message": "Знання"
+  },
+  "healthSummary_coreAria": {
+    "message": "Сервер: стан сервера/API"
+  },
+  "healthSummary_ragAria": {
+    "message": "Знання: стан індексу знань"
+  },
+  "healthSummary_coreOnline": {
+    "message": "Сервер: онлайн"
+  },
+  "healthSummary_coreOffline": {
+    "message": "Сервер: офлайн"
+  },
+  "healthSummary_coreChecking": {
+    "message": "Сервер: перевірка…"
+  },
+  "healthSummary_ragReady": {
+    "message": "Знання: готово"
+  },
+  "healthSummary_ragOffline": {
+    "message": "Знання: офлайн"
+  },
+  "healthSummary_ragChecking": {
+    "message": "Знання: перевірка…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "Ці перевірки підсумовують останній успішний пінг до вашого tldw сервера та індексу знань."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "Забагато записів налаштувань за короткий час; зачекайте кілька секунд і спробуйте знову."
+  },
+  "storage_quotaTitle": {
+    "message": "Досягнуто ліміту сховища"
+  },
+  "storage_writeError": {
+    "message": "Не вдалося зберегти налаштування"
+  },
+  "storage_writeErrorDescription": {
+    "message": "Не вдалося зберегти ваші налаштування. Спробуйте трохи пізніше."
+  },
+  "evaluations_title": {
+    "message": "Пісочниця оцінювань"
+  },
+  "evaluations_subtitle": {
+    "message": "Створюйте оцінювання для вашого tldw сервера та переглядайте останні запуски."
+  },
+  "evaluations_listTitle": {
+    "message": "Останні оцінювання"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "Нове оцінювання"
+  },
+  "evaluations_startRunCta": {
+    "message": "Запустити"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "Не вдалося завантажити оцінювання"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "Перевірте підключення до tldw сервера та облікові дані API, потім спробуйте ще раз."
+  },
+  "evaluations_emptyList": {
+    "message": "Оцінювань ще немає. Після створення вони з’являться тут."
+  },
+  "evaluations_selectedTag": {
+    "message": "Вибрано"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "Ліміти оцінювання"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "Не вдалося отримати ліміти"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "Не вдалося отримати квоти оцінювання з сервера."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "Для цього сервера немає інформації про ліміти."
+  },
+  "evaluations_tierLabel": {
+    "message": "Тариф"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "Оцінювань на день"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "Токени сьогодні"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "Ліміт за хвилину"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "Скидання о"
+  },
+  "evaluations_runsTitle": {
+    "message": "Запуски"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "Виберіть оцінювання, щоб побачити його останні запуски."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "Не вдалося завантажити запуски"
+  },
+  "evaluations_runsEmpty": {
+    "message": "Запусків для цього оцінювання ще немає."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "Деталі запуску"
+  },
+  "evaluations_noRunSelected": {
+    "message": "Виберіть запуск, щоб переглянути деталі."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "Не вдалося завантажити деталі запуску"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "Статус"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "Цільова модель"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "Оцінювання"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "Помилка"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "Результати (фрагмент)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "Прогрес"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "Використання"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "Набори даних"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "Новий набір даних"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "Не вдалося завантажити набори даних"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "Наборів даних ще немає. Створіть один, щоб додати до оцінювань."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} прикладів"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "Назва"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "наприклад my_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "Опис"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "Метадані (JSON, необов’язково)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "Вхідні дані прикладу"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "Очікуваний результат (необов’язково)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "JSON прикладів (необов’язково, перевизначає поля)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "Набір даних (необов’язково)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "Виберіть набір даних"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "Набір даних створено"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "Ваш набір даних готовий для використання в оцінюваннях."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "Не вдалося створити набір даних"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "Сервер відхилив цей набір даних. Перевірте поля та спробуйте ще раз."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "Набір даних видалено"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "Не вдалося видалити набір даних"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "Не вдалося завантажити набір даних"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "Деталі набору даних"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "Невірний JSON прикладів"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "Нове оцінювання"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "Редагувати оцінювання"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "Назва"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "наприклад my_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "Використовуйте лише літери, цифри, дефіси та підкреслення."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "Тип оцінювання"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "Специфікація оцінювання (JSON)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "Специфікація оцінювання має бути коректним JSON."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "Метадані (JSON, необов’язково)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "Додати вбудований набір даних замість посилання на dataset_id"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "Невірний вбудований набір даних"
+  },
+  "evaluations_runModelLabel": {
+    "message": "Модель запуску (для швидких запусків)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "Оцінювання створено"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "Не вдалося створити оцінювання"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "Сервер відхилив це оцінювання. Переконайтеся, що назва, тип і специфікація коректні."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "Оцінювання оновлено"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "Не вдалося оновити оцінювання"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "Не вдалося видалити оцінювання"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "Видалити це оцінювання?"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "Це видалить визначення оцінювання. Уже створені запуски залишаться в історії."
+  },
+  "evaluations_detailTitle": {
+    "message": "Деталі оцінювання"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "Не вдалося завантажити деталі оцінювання"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "Опис"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "Виберіть оцінювання, щоб переглянути його специфікацію."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "Запуск розпочато"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "Запуск оцінювання розпочато. Ви можете відстежувати його в інтерфейсі сервера."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "Не вдалося запустити"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "Сервер відхилив цей запит на запуск. Перевірте модель і спробуйте ще раз."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "Конфігурація (JSON)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "Перевизначення набору даних (JSON-масив прикладів)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "Невірний JSON конфігурації"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "Запит на скасування запуску надіслано"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "Не вдалося скасувати запуск"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "Скасувати запуск"
+  },
+  "evaluations_historyTitle": {
+    "message": "Історія"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "Тип"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "ID користувача"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "Дата початку (ISO)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "Дата завершення (ISO)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "Отримати історію"
+  },
+  "evaluations_historyEmpty": {
+    "message": "Виконайте запит, щоб побачити останню активність."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "Не вдалося отримати історію"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "Вебхуки"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "URL-адреса"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "Події"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "Зареєструвати вебхук"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "Вебхук зареєстровано"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "Не вдалося зареєструвати вебхук"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "Не вдалося видалити вебхук"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "Не вдалося завантажити вебхуки"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "Поки що вебхуків немає."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "Секрет"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "Ідемпотентний ключ"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "Підключіться, щоб використовувати оцінювання"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "Щоб створювати й запускати оцінювання, спочатку підключіться до tldw сервера."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "Відкрийте Налаштування → tldw сервер, щоб додати URL сервера та ключ API."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "Після підключення ви зможете визначати оцінювання та переглядати метрики тут."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "Приклади"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "Для цієї сторінки немає прикладів."
+  },
+  "evaluations_metricsLabel": {
+    "message": "Метрики"
+  },
+  "evaluationsSettings_title": {
+    "message": "Оцінювання"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "Налаштуйте значення за замовчуванням для пісочниці оцінювань."
+  },
+  "evaluationsSettings_offline": {
+    "message": "Підключіться до tldw сервера, щоб тестувати оцінювання."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "Тип оцінювання за замовчуванням"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "Цільова модель за замовчуванням"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "Конфігурація запуску за замовчуванням (JSON)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "ID набору даних за замовчуванням (необов’язково)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "Шаблон специфікації для вибраного типу"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "Перевірити API оцінювань"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "API оцінювань доступний"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "Не вдалося підключитися до API оцінювань"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Пісочниця чанкування"
+  },
+  "chunkingPlayground_title": {
+    "message": "Пісочниця чанкування"
+  },
+  "chunkingPlayground_description": {
+    "message": "Експериментуйте з різними налаштуваннями чанкування, щоб побачити, як текст розбивається на менші частини для обробки."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Текст для чанкування"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Вставте текст тут або виберіть зразок..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Завантажити файл"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Розбити текст"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Метод чанкування"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Максимальний розмір чанка"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Перекриття"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Мова"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Автовизначення"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "Англійська"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Іспанська"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "Французька"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "Німецька"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Італійська"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Португальська"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Китайська"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Японська"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Корейська"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Картки"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Вбудовано"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} чанків, середній розмір {{avgSize}} символів"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Текст завантажено"
+  },
+  "chunkingPlayground_characters": {
+    "message": "символів"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Один"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Порівняння"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Чанк {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Чанк {{index}}: {{words}} слів"
+  },
+  "chunkingPlayground_position": {
+    "message": "Позиція: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} ще"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} символів"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} слів"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Будь ласка, надайте текст для чанкування"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Спільний вхідний текст"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Порівняти обидва"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Порівняння"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Конфігурація A створює на {{diff}} менше чанків"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Конфігурація A створює на {{diff}} більше чанків"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Обидві конфігурації створюють однакову кількість чанків"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Натисніть «Порівняти», щоб побачити результати"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Область перекриття"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Клацніть підсвічений фрагмент, щоб сфокусуватися на цьому чанку"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "Не знайдено текстового вмісту для цього медіа-елемента"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Не вдалося завантажити вміст медіа"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Не вдалося завантажити медіатеку"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Виберіть медіа-елемент..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Завантаження вмісту..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "Медіа не знайдено"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "Доступно {{count}} медіа-елементів"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Вставити текст"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Завантажити файл"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Зразок тексту"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "З медіатеки"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "Новинна стаття"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Багатоабзацна стаття із заголовками"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Вихідний код"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Код Python із класами та функціями"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Транскрипт"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Транскрипт подкасту з мітками часу"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Наукова стаття"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Технічний текст із посиланнями"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Порівняти налаштування"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Конфігурація A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Конфігурація B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Один"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Порівняння"
+  }
+}

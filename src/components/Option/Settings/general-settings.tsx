@@ -189,14 +189,14 @@ export const GeneralSettings = () => {
         </div>
       )}
       <div>
-        <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+        <h2 className="text-base font-semibold leading-7 text-text">
           {t("generalSettings.title")}
         </h2>
-        <div className="border border-b border-gray-200 dark:border-gray-600 mt-3"></div>
+        <div className="border-b border-border mt-3"></div>
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-gray-700   dark:text-neutral-50">
+        <span className="text-text">
           {t("generalSettings.settings.language.label")}
         </span>
 
@@ -219,7 +219,7 @@ export const GeneralSettings = () => {
       </div>
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.copilotResumeLastChat.label")}
           </span>
         </div>
@@ -231,7 +231,7 @@ export const GeneralSettings = () => {
       </div>
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.turnOnChatWithWebsite.label")}
           </span>
         </div>
@@ -243,7 +243,7 @@ export const GeneralSettings = () => {
       </div>
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.webUIResumeLastChat.label")}
           </span>
           {webUIResumeLastChat === DEFAULT_CHAT_SETTINGS.webUIResumeLastChat && (
@@ -260,7 +260,7 @@ export const GeneralSettings = () => {
       </div>
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.hideCurrentChatModelSettings.label")}
           </span>
           {hideCurrentChatModelSettings === DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings && (
@@ -278,7 +278,7 @@ export const GeneralSettings = () => {
       </div>
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.hideQuickChatHelper.label", "Hide Quick Chat Helper button")}
           </span>
         </div>
@@ -291,7 +291,7 @@ export const GeneralSettings = () => {
       </div>
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.restoreLastChatModel.label")}
           </span>
           {restoreLastChatModel === DEFAULT_CHAT_SETTINGS.restoreLastChatModel && (
@@ -310,7 +310,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.sendNotificationAfterIndexing.label")}
           </span>
         </div>
@@ -324,7 +324,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.generateTitle.label")}
           </span>
         </div>
@@ -338,7 +338,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.ollamaStatus.label")}
           </span>
         </div>
@@ -352,7 +352,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.wideMode.label")}
           </span>
           {checkWideMode === DEFAULT_CHAT_SETTINGS.checkWideMode && (
@@ -371,7 +371,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.menuDensity.label", "Menu density")}
           </span>
           {menuDensity === DEFAULT_CHAT_SETTINGS.menuDensity && (
@@ -394,7 +394,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.openReasoning.label")}
           </span>
           {openReasoning === DEFAULT_CHAT_SETTINGS.openReasoning && (
@@ -413,7 +413,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.userChatBubble.label")}
           </span>
           {userChatBubble === DEFAULT_CHAT_SETTINGS.userChatBubble && (
@@ -432,7 +432,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.autoCopyResponseToClipboard.label")}
           </span>
           {autoCopyResponseToClipboard === DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard && (
@@ -451,7 +451,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.useMarkdownForUserMessage.label")}
           </span>
           {useMarkdownForUserMessage === DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage && (
@@ -470,7 +470,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.copyAsFormattedText.label")}
           </span>
           {copyAsFormattedText === DEFAULT_CHAT_SETTINGS.copyAsFormattedText && (
@@ -489,7 +489,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t(
               "generalSettings.settings.onboardingAutoFinish.label",
               "Auto-finish onboarding after successful connection"
@@ -506,7 +506,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t(
               "generalSettings.settings.restartOnboarding.label",
               "Restart onboarding from the beginning"
@@ -516,7 +516,7 @@ export const GeneralSettings = () => {
 
         <button
           type="button"
-          className="text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400"
+          className="text-xs text-primary hover:text-primaryStrong"
           onClick={() => {
             Modal.confirm({
               title: t(
@@ -560,7 +560,7 @@ export const GeneralSettings = () => {
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
           <BetaTag />
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.tabMentionsEnabled.label")}
           </span>
         </div>
@@ -573,7 +573,7 @@ export const GeneralSettings = () => {
       </div>
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.pasteLargeTextAsFile.label")}
           </span>
         </div>
@@ -587,7 +587,7 @@ export const GeneralSettings = () => {
 
       <div className="space-y-2">
         <div className="flex flex-row justify-between">
-          <span className="text-gray-700   dark:text-neutral-50">
+          <span className="text-text">
             {t("generalSettings.settings.enableOcrAssets.label")}
           </span>
 
@@ -622,7 +622,7 @@ export const GeneralSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-gray-700   dark:text-neutral-50">
+        <span className="text-text">
           {t("generalSettings.settings.ocrLanguage.label")}
         </span>
 
@@ -644,7 +644,7 @@ export const GeneralSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-gray-700 dark:text-neutral-50 ">
+        <span className="text-text ">
           {t("generalSettings.settings.sidepanelTemporaryChat.label")}
         </span>
 
@@ -657,7 +657,7 @@ export const GeneralSettings = () => {
 
       <div className="flex flex-row justify-between">
         <div className="inline-flex items-center gap-2">
-          <span className="text-gray-700 dark:text-neutral-50 ">
+          <span className="text-text">
             {t("generalSettings.settings.removeReasoningTagFromCopy.label")}
           </span>
           {removeReasoningTagFromCopy ===
@@ -676,7 +676,7 @@ export const GeneralSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-gray-700 dark:text-neutral-50 ">
+        <span className="text-text">
           {t("generalSettings.settings.promptSearchIncludeServer.label")}
         </span>
         <Switch
@@ -687,13 +687,14 @@ export const GeneralSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-gray-700 dark:text-neutral-50 ">
+        <span className="text-text">
           {t("generalSettings.settings.darkMode.label")}
         </span>
 
         <button
           onClick={toggleDarkMode}
-          className={`inline-flex mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm  dark:bg-white dark:text-gray-800 disabled:opacity-50 whitespace-nowrap`}>
+          className="mt-4 inline-flex items-center rounded-md border border-transparent bg-primary px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus disabled:opacity-50 whitespace-nowrap"
+        >
           {mode === "dark" ? (
             <SunIcon className="w-4 h-4 mr-2" />
           ) : (

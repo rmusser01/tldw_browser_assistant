@@ -1,0 +1,938 @@
+{
+  "pageAssist": {
+    "message": "tldw アシスタント"
+  },
+  "titles_options": {
+    "message": "tldw Assistant — Options"
+  },
+  "titles_sidepanel": {
+    "message": "tldw Assistant — Sidepanel"
+  },
+  "pdf_passwordTitle": {
+    "message": "PDF のパスワードを入力してください"
+  },
+  "pdf_unlock": {
+    "message": "ロック解除"
+  },
+  "loading_title": {
+    "message": "読み込み中…"
+  },
+  "loading_description": {
+    "message": "準備が整うまでお待ちください。"
+  },
+  "loading_content": {
+    "message": "コンテンツを読み込み中…"
+  },
+  "selectAModel": {
+    "message": "モデルを選択"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "saved": {
+    "message": "保存済み"
+  },
+  "cancel": {
+    "message": "キャンセル"
+  },
+  "retry": {
+    "message": "再試行"
+  },
+  "share_tooltip_share": {
+    "message": "共有"
+  },
+  "share_modal_title": {
+    "message": "チャットリンクを共有"
+  },
+  "share_form_defaultValue_name": {
+    "message": "匿名"
+  },
+  "share_form_defaultValue_title": {
+    "message": "無題のチャット"
+  },
+  "share_form_title_label": {
+    "message": "チャットタイトル"
+  },
+  "share_form_title_placeholder": {
+    "message": "チャットタイトルを入力"
+  },
+  "share_form_title_required": {
+    "message": "チャットタイトルは必須です"
+  },
+  "share_form_name_label": {
+    "message": "あなたの名前"
+  },
+  "share_form_name_placeholder": {
+    "message": "名前を入力"
+  },
+  "share_form_name_required": {
+    "message": "名前は必須です"
+  },
+  "share_form_btn_save": {
+    "message": "リンクを生成"
+  },
+  "share_form_btn_saving": {
+    "message": "リンクを生成中..."
+  },
+  "share_notification_successGenerate": {
+    "message": "リンクがクリップボードにコピーされました"
+  },
+  "share_notification_failGenerate": {
+    "message": "リンクの生成に失敗しました"
+  },
+  "copyToClipboard": {
+    "message": "クリップボードにコピー"
+  },
+  "webSearch": {
+    "message": "ウェブを検索中"
+  },
+  "regenerate": {
+    "message": "再生成"
+  },
+  "continue": {
+    "message": "続ける"
+  },
+  "edit": {
+    "message": "編集"
+  },
+  "delete": {
+    "message": "削除"
+  },
+  "saveAndSubmit": {
+    "message": "保存して送信"
+  },
+  "editMessage_placeholder": {
+    "message": "メッセージを入力..."
+  },
+  "submit": {
+    "message": "送信"
+  },
+  "send": {
+    "message": "送信"
+  },
+  "connectToServer": {
+    "message": "サーバーに接続"
+  },
+  "noData": {
+    "message": "データがありません"
+  },
+  "noHistory": {
+    "message": "チャット履歴がありません"
+  },
+  "chatWithCurrentPage": {
+    "message": "現在のページでチャット"
+  },
+  "beta": {
+    "message": "ベータ"
+  },
+  "tts": {
+    "message": "読み上げ"
+  },
+  "currentChatModelSettings": {
+    "message": "現在のチャットモデル設定"
+  },
+  "modelSettings_label": {
+    "message": "モデル設定"
+  },
+  "modelSettings_description": {
+    "message": "すべてのチャットに対してモデルオプションをグローバルに設定します"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "キープアライブ"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "リクエスト後にモデルがメモリに保持される時間をコントロールします（デフォルト: 5 分）"
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "キープアライブの期間を入力してください（例：5分、10分、1時間）"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "温度"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "温度値を入力してください（例：0.7、1.0）"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "コンテキストウィンドウサイズ (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "コンテキストウィンドウサイズを入力してください（デフォルト：2048）"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "最大トークン数 (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "最大トークン数を入力してください（例：2048、4096）"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "シード"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "シード値を入力してください（例：1234）"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "モデル出力の再現性"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "Top K（上位 K）"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "Top K 値を入力してください（例：40、100）"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "Top P（上位 P）"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "Top P 値を入力してください（例：0.9、0.95）"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "Num GPU（GPU 数）"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "GPU に送信するレイヤー数を入力してください"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "一時的なシステムプロンプト"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "システムプロンプトを入力"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "これは現在のチャットでシステムプロンプトを素早く設定する方法で、選択されたシステムプロンプトが存在する場合はそれを上書きします。"
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "思考モード"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap（メモリマップ）"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z（TFS パラメータ）"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "例: 1.0, 1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Num Keep（保持する数）"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "例: 256, 512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Num Thread（スレッド数）"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "例: 8, 16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock（メモリをロック）"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "推論の強さ"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "low（低）、medium（中）、high（高）"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P（最小 P）"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "例: 0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "反復ペナルティ"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "例: 1.1, 1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "直近 N トークンの反復"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "例: 64, 128"
+  },
+  "modelSettings_advanced": {
+    "message": "その他のモデル設定"
+  },
+  "copilot_summary": {
+    "message": "要約"
+  },
+  "copilot_explain": {
+    "message": "説明"
+  },
+  "copilot_rephrase": {
+    "message": "言い換え"
+  },
+  "copilot_translate": {
+    "message": "翻訳"
+  },
+  "copilot_custom": {
+    "message": "カスタム"
+  },
+  "citations": {
+    "message": "引用"
+  },
+  "downloadCode": {
+    "message": "コードをダウンロード"
+  },
+  "date_pinned": {
+    "message": "固定"
+  },
+  "date_today": {
+    "message": "今日"
+  },
+  "date_yesterday": {
+    "message": "昨日"
+  },
+  "date_last7Days": {
+    "message": "過去7日間"
+  },
+  "date_older": {
+    "message": "それ以前"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "固定されたメッセージをすべて削除してもよろしいですか？"
+  },
+  "range_deleteConfirm_today": {
+    "message": "今日のメッセージをすべて削除してもよろしいですか？"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "昨日のメッセージをすべて削除してもよろしいですか？"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "過去7日間のメッセージをすべて削除してもよろしいですか？"
+  },
+  "range_deleteConfirm_older": {
+    "message": "それ以前のメッセージをすべて削除してもよろしいですか？"
+  },
+  "range_tooltip_pinned": {
+    "message": "固定されたメッセージをすべて削除"
+  },
+  "range_tooltip_today": {
+    "message": "今日のメッセージをすべて削除"
+  },
+  "range_tooltip_yesterday": {
+    "message": "昨日のメッセージをすべて削除"
+  },
+  "range_tooltip_last7Days": {
+    "message": "過去7日間のメッセージをすべて削除"
+  },
+  "range_tooltip_older": {
+    "message": "それ以前のメッセージをすべて削除"
+  },
+  "pin": {
+    "message": "固定"
+  },
+  "unpin": {
+    "message": "固定解除"
+  },
+  "generationInfo": {
+    "message": "生成情報"
+  },
+  "sidebarChat": {
+    "message": "サイドバーチャット"
+  },
+  "reasoning_thinking": {
+    "message": "考え中...."
+  },
+  "reasoning_loading": {
+    "message": "推論を読み込み中...."
+  },
+  "reasoning_thought": {
+    "message": "{{time}}の思考"
+  },
+  "embeddingGen": {
+    "message": "埋め込みを作成中です。時間がかかる場合があります"
+  },
+  "semanticSearch": {
+    "message": "意味検索を実行中"
+  },
+  "downloading": {
+    "message": "ダウンロード中"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "ダウンロードをキャンセルしてもよろしいですか？これによりダウンロードプロセスが停止します。Ollamaのドキュメントによると、中断した場所から再開できます。"
+  },
+  "table_copyCsv": {
+    "message": "CSV としてコピー"
+  },
+  "table_downloadCsv": {
+    "message": "CSV をダウンロード"
+  },
+  "dismiss": {
+    "message": "閉じる"
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant はデータを保存できません"
+  },
+  "confirmTitle": {
+    "message": "確認してください"
+  },
+  "saving": {
+    "message": "保存中..."
+  },
+  "close": {
+    "message": "閉じる"
+  },
+  "loadMore": {
+    "message": "さらに読み込む..."
+  },
+  "startChat": {
+    "message": "チャットを開始"
+  },
+  "previous": {
+    "message": "前へ"
+  },
+  "next": {
+    "message": "次へ"
+  },
+  "chatWithCharacter": {
+    "message": "キャラクターとチャット"
+  },
+  "ttsShort": {
+    "message": "音声"
+  },
+  "copyShort": {
+    "message": "コピー"
+  },
+  "branchShort": {
+    "message": "ブランチ"
+  },
+  "infoShort": {
+    "message": "情報"
+  },
+  "regenShort": {
+    "message": "再実行"
+  },
+  "continueShort": {
+    "message": "さらに"
+  },
+  "fileChanges": {
+    "message": "ファイルの変更"
+  },
+  "deletions": {
+    "message": "削除"
+  },
+  "gitOperations": {
+    "message": "Git 操作"
+  },
+  "commands": {
+    "message": "コマンド"
+  },
+  "otherOperations": {
+    "message": "その他の操作"
+  },
+  "fileAccess": {
+    "message": "ファイルアクセス"
+  },
+  "notebookEdits": {
+    "message": "ノートブック編集"
+  },
+  "applyPatch": {
+    "message": "パッチを適用"
+  },
+  "recursive": {
+    "message": "(再帰)"
+  },
+  "complexArguments": {
+    "message": "[複雑な引数]"
+  },
+  "segmented_available": {
+    "message": "サーバーモデル"
+  },
+  "segmented_custom": {
+    "message": "カスタムモデル"
+  },
+  "success": {
+    "message": "成功しました"
+  },
+  "created": {
+    "message": "作成済み"
+  },
+  "updated": {
+    "message": "更新済み"
+  },
+  "deleted": {
+    "message": "削除済み"
+  },
+  "create": {
+    "message": "作成"
+  },
+  "reset": {
+    "message": "リセット"
+  },
+  "serverOffline": {
+    "message": "サーバーがオフラインか、設定されていません"
+  },
+  "serverChats": {
+    "message": "サーバーチャット"
+  },
+  "serverChatLoadError": {
+    "message": "サーバーチャットの読み込みに失敗しました。接続を確認して再試行してください。"
+  },
+  "serverChatSourceLabel": {
+    "message": "サーバー"
+  },
+  "serverChatForkedLabel": {
+    "message": "フォークしたチャット"
+  },
+  "serverChatForkedTooltip": {
+    "message": "チャット {{chatId}} からフォーク"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "tldw サーバーに接続すると、サーバーチャットを利用できるようになります。"
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "現在サーバーチャットを利用できません。サーバーログを確認するか、もう一度お試しください。"
+  },
+  "historiesDeleted": {
+    "message": "{{count}} 件の履歴を削除しました"
+  },
+  "deleteHistoriesError": {
+    "message": "履歴の削除中にエラーが発生しました"
+  },
+  "mermaid": {
+    "message": "Mermaid ダイアグラム"
+  },
+  "search": {
+    "message": "検索"
+  },
+  "searchResults": {
+    "message": "検索結果"
+  },
+  "newBranch": {
+    "message": "新しいブランチ"
+  },
+  "error_label": {
+    "message": "エラー"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "tldw サーバーに接続できませんでした。"
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "API キーが無効の可能性があります。設定 → tldw サーバーで URL と API キーを確認してから、もう一度お試しください。"
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "チャットがタイムアウトしました。"
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "サーバーが応答の送信を停止しました。もう一度お試しになるか、「ヘルスと診断」を開いてサーバーの状態を確認してください。"
+  },
+  "error_friendlyGenericSummary": {
+    "message": "tldw サーバーとの通信中に問題が発生しました。"
+  },
+  "error_friendlyGenericHint": {
+    "message": "しばらくしてから再試行するか、「ヘルスと診断」を開いてサーバーの状態を確認してください。"
+  },
+  "error_showDetails": {
+    "message": "技術的な詳細を表示"
+  },
+  "error_hideDetails": {
+    "message": "技術的な詳細を非表示"
+  },
+  "folders": {
+    "message": "フォルダー"
+  },
+  "folderView": {
+    "message": "フォルダー表示"
+  },
+  "dateView": {
+    "message": "日付表示"
+  },
+  "newFolder": {
+    "message": "新しいフォルダー"
+  },
+  "folderName": {
+    "message": "フォルダー名"
+  },
+  "selectFolder": {
+    "message": "フォルダーを選択"
+  },
+  "noFolders": {
+    "message": "フォルダーがありません"
+  },
+  "expandAll": {
+    "message": "すべて展開"
+  },
+  "collapseAll": {
+    "message": "すべて折りたたむ"
+  },
+  "refresh": {
+    "message": "再読み込み"
+  },
+  "confirm": {
+    "message": "確認"
+  },
+  "untitled": {
+    "message": "無題"
+  },
+  "moveToFolder": {
+    "message": "フォルダーに移動"
+  },
+  "noToolCalls": {
+    "message": "ツール呼び出しはまだありません"
+  },
+  "status_pending": {
+    "message": "保留中"
+  },
+  "status_running": {
+    "message": "処理中"
+  },
+  "status_complete": {
+    "message": "完了"
+  },
+  "status_error": {
+    "message": "エラー"
+  },
+  "arguments": {
+    "message": "引数"
+  },
+  "invalidJson": {
+    "message": "無効な JSON です。生の値を表示しています"
+  },
+  "result": {
+    "message": "結果"
+  },
+  "tools_fs_list": {
+    "message": "ディレクトリ一覧"
+  },
+  "tools_fs_read": {
+    "message": "ファイルを読む"
+  },
+  "tools_fs_write": {
+    "message": "ファイルを書く"
+  },
+  "tools_fs_apply_patch": {
+    "message": "パッチを適用"
+  },
+  "tools_fs_mkdir": {
+    "message": "ディレクトリを作成"
+  },
+  "tools_fs_delete": {
+    "message": "削除"
+  },
+  "tools_search_grep": {
+    "message": "内容を検索"
+  },
+  "tools_search_glob": {
+    "message": "ファイルを検索"
+  },
+  "tools_git_status": {
+    "message": "Git ステータス"
+  },
+  "tools_git_diff": {
+    "message": "Git 差分"
+  },
+  "tools_git_log": {
+    "message": "Git ログ"
+  },
+  "tools_git_branch": {
+    "message": "Git ブランチ"
+  },
+  "tools_git_add": {
+    "message": "ファイルをステージ"
+  },
+  "tools_git_commit": {
+    "message": "コミット"
+  },
+  "tools_exec_run": {
+    "message": "コマンドを実行"
+  },
+  "markdown_unableToRender": {
+    "message": "コンテンツをレンダリングできません"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "メッセージの内容を表示できませんでした。これは無効なフォーマットによる可能性があります。"
+  },
+  "markdown_showRawContent": {
+    "message": "生のコンテンツを表示"
+  },
+  "commandPalette_goToChat": {
+    "message": "チャットへ移動"
+  },
+  "commandPalette_goToMedia": {
+    "message": "メディアへ移動"
+  },
+  "commandPalette_goToNotes": {
+    "message": "ノートへ移動"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "フラッシュカードへ移動"
+  },
+  "commandPalette_goToSettings": {
+    "message": "設定へ移動"
+  },
+  "commandPalette_goToHealth": {
+    "message": "ヘルスと診断を開く"
+  },
+  "commandPalette_newChat": {
+    "message": "新しいチャット"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "ナレッジ検索を切り替え"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "ナレッジベースを検索します"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Web 検索を切り替え"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "インターネットを検索します"
+  },
+  "commandPalette_ingestPage": {
+    "message": "現在のページを取り込む"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "このページをナレッジベースに保存します"
+  },
+  "commandPalette_switchModel": {
+    "message": "モデルを切り替え"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "サイドバーを切り替え"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "チャットサイドバーの表示／非表示を切り替えます"
+  },
+  "commandPalette_placeholder": {
+    "message": "コマンドを入力するか検索します…"
+  },
+  "commandPalette_noResults": {
+    "message": "結果が見つかりませんでした"
+  },
+  "commandPalette_title": {
+    "message": "コマンドパレット"
+  },
+  "commandPalette_navigate": {
+    "message": "移動"
+  },
+  "commandPalette_select": {
+    "message": "選択"
+  },
+  "commandPalette_toOpen": {
+    "message": "で開く"
+  },
+  "commandPalette_categoryActions": {
+    "message": "アクション"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "ナビゲーション"
+  },
+  "commandPalette_categorySettings": {
+    "message": "設定"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "最近使用したもの"
+  },
+  "featureHints_knowledge_title": {
+    "message": "ナレッジを検索"
+  },
+  "featureHints_knowledge_description": {
+    "message": "ナレッジ検索パネルを開き、スニペットを見つけてチャットに挿入します。"
+  },
+  "featureHints_moreTools_title": {
+    "message": "さらに多くのツール"
+  },
+  "featureHints_moreTools_description": {
+    "message": "ビジョンモード、画像アップロード、クイック取り込み、フルアプリにアクセスできます。"
+  },
+  "featureHints_commandPalette_title": {
+    "message": "クイックコマンド"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "{{shortcut}} を押してコマンドや設定などを検索します。"
+  },
+  "featureHints_modelSettings_title": {
+    "message": "モデルパラメータを調整"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "温度、コンテキスト長などのモデル設定を微調整します。"
+  },
+  "chatSidebar_title": {
+    "message": "チャット"
+  },
+  "chatSidebar_newChat": {
+    "message": "新しいチャット"
+  },
+  "chatSidebar_collapse": {
+    "message": "サイドバーを折りたたむ"
+  },
+  "chatSidebar_expand": {
+    "message": "サイドバーを展開"
+  },
+  "chatSidebar_search": {
+    "message": "チャットを検索..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "ページを取り込む"
+  },
+  "chatSidebar_media": {
+    "message": "メディア"
+  },
+  "chatSidebar_notes": {
+    "message": "ノート"
+  },
+  "chatSidebar_flashcards": {
+    "message": "フラッシュカード"
+  },
+  "chatSidebar_prompts": {
+    "message": "プロンプト"
+  },
+  "chatSidebar_multiItem": {
+    "message": "複数アイテム"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "ショートカット"
+  },
+  "chatSidebar_settings": {
+    "message": "設定"
+  },
+  "chatSidebar_loadError": {
+    "message": "チャットの読み込みに失敗しました"
+  },
+  "chatSidebar_localTab": {
+    "message": "ローカル"
+  },
+  "chatSidebar_serverTab": {
+    "message": "サーバー"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "フォルダー"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "ローカル"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "サーバー"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "フォルダー"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "サーバーチャットはまだありません"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "フォルダーにはサーバー接続が必要です"
+  },
+  "extName": {
+    "message": "tldw アシスタント"
+  },
+  "extDescription": {
+    "message": "ローカルで実行中のAIモデルを使って、Webブラウジングをアシストします。"
+  },
+  "openSidePanelToChat": {
+    "message": "チャット用サイドバーを開く"
+  },
+  "openOptionToChat": {
+    "message": "チャット用 Web UI を開く"
+  },
+  "contextSummarize": {
+    "message": "要約"
+  },
+  "contextExplain": {
+    "message": "説明"
+  },
+  "contextRephrase": {
+    "message": "言い換え"
+  },
+  "contextTranslate": {
+    "message": "翻訳"
+  },
+  "contextCustom": {
+    "message": "カスタム"
+  },
+  "contextSendToTldw": {
+    "message": "tldw_server に送信"
+  },
+  "contextProcessLocalTldw": {
+    "message": "tldw_server で処理（保存しない）"
+  },
+  "contextTranscribeMedia": {
+    "message": "動画/音声を書き起こす"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "動画/音声を書き起こして要約する"
+  },
+  "contextSaveToNotes": {
+    "message": "ノートに保存"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "ノートに保存するには、まずテキストを選択してください。"
+  },
+  "contextSidebarOpening": {
+    "message": "サイドバーを開いています..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "ノートを保存するためにサイドバーを開いています..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "このノートを保存するためにサイドバーを開けませんでした。tldw Assistant のサイドバーがこのサイトで許可されているか確認し、もう一度お試しください。"
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] ページを tldw_server に送信する要求が拒否されました。"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] このページを tldw_server に送信できませんでした: $1。Settings → tldw server を確認して、もう一度お試しください。"
+  },
+  "hfSendPageError": {
+    "message": "[tldw] このページを tldw_server に送信できませんでした。Settings → tldw server を確認して、もう一度お試しください。"
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] このページを tldw_server に送信して処理を開始しました。"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] このページを tldw_server に送信中に問題が発生しました。tldw_server と拡張機能が実行中であることを確認し、もう一度お試しください。"
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] モデルのプルリクエストがすでに実行中です。完了するまでお待ちいただいてから、もう一度お試しください。"
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] tldw_server に「$1」モデルのプルをリクエストしますか？これは huggingface.co の Web サイトとは独立した処理です。確認すると、サーバー側でモデルの取得が開始されます。"
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] tldw_server に「$1」モデルのプルをリクエストしています。進捗は拡張機能のアイコンまたは tldw_server のログで確認できます。"
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] 「$1」モデルのプルリクエストを送信できませんでした: $2。Settings → tldw server を確認して、もう一度お試しください。"
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] 「$1」モデルのプルリクエストを送信できませんでした。Settings → tldw server を確認して、もう一度お試しください。"
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] 「$1」モデルのプルを tldw_server にリクエストしました。拡張機能のアイコンまたは tldw_server のログで状態を確認してください。"
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] 「$1」モデルのプルリクエストを tldw_server に送信中に問題が発生しました。tldw_server と拡張機能が実行中であることを確認し、もう一度お試しください。"
+  },
+  "stepLabel": {
+    "message": "ようこそ"
+  },
+  "path": {
+    "message": "どのように始めますか？"
+  },
+  "nextSteps": {
+    "message": "準備ができました"
+  },
+  "restartOnboardingLabel": {
+    "message": "オンボーディングを最初からやり直す"
+  },
+  "restartOnboardingButton": {
+    "message": "オンボーディングをやり直す"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "オンボーディングをやり直しますか？"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "オンボーディングの状態をリセットし、設定フローの最初に戻ります。"
+  }
+}

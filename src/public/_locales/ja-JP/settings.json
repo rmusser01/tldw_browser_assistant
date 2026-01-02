@@ -1,0 +1,2747 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "サーバーと認証"
+  },
+  "navigation_knowledgeTools": {
+    "message": "ナレッジツール"
+  },
+  "navigation_workspace": {
+    "message": "ワークスペース"
+  },
+  "navigation_about": {
+    "message": "情報"
+  },
+  "healthNav": {
+    "message": "ヘルス"
+  },
+  "worldBooksNav": {
+    "message": "ワールドブック"
+  },
+  "chatDictionariesNav": {
+    "message": "チャット辞書"
+  },
+  "charactersNav": {
+    "message": "キャラクター"
+  },
+  "mediaNav": {
+    "message": "メディア"
+  },
+  "chatAppearance_title": {
+    "message": "チャットの外観"
+  },
+  "chatAppearance_description": {
+    "message": "チャットメッセージの色、フォント、文字サイズをカスタマイズします。"
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "チャットの動作設定（ワイドモード、推論、コピーオプション）をお探しですか？"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "一般設定へ移動"
+  },
+  "chatAppearance_userHeading": {
+    "message": "ユーザーメッセージ"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "アシスタントメッセージ"
+  },
+  "chatAppearance_userColor": {
+    "message": "ユーザーの文字色"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "アシスタントの文字色"
+  },
+  "chatAppearance_userFont": {
+    "message": "ユーザーのフォント"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "アシスタントのフォント"
+  },
+  "chatAppearance_userSize": {
+    "message": "ユーザーの文字サイズ"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "アシスタントの文字サイズ"
+  },
+  "chatAppearance_color_default": {
+    "message": "デフォルト"
+  },
+  "chatAppearance_color_blue": {
+    "message": "青"
+  },
+  "chatAppearance_color_green": {
+    "message": "緑"
+  },
+  "chatAppearance_color_purple": {
+    "message": "紫"
+  },
+  "chatAppearance_color_orange": {
+    "message": "オレンジ"
+  },
+  "chatAppearance_color_red": {
+    "message": "赤"
+  },
+  "chatAppearance_font_default": {
+    "message": "デフォルト"
+  },
+  "chatAppearance_font_sans": {
+    "message": "サンセリフ体（ゴシック）"
+  },
+  "chatAppearance_font_serif": {
+    "message": "セリフ体（明朝）"
+  },
+  "chatAppearance_font_mono": {
+    "message": "等幅フォント"
+  },
+  "chatAppearance_size_sm": {
+    "message": "小"
+  },
+  "chatAppearance_size_md": {
+    "message": "中"
+  },
+  "chatAppearance_size_lg": {
+    "message": "大"
+  },
+  "generalSettings_title": {
+    "message": "一般設定"
+  },
+  "generalSettings_settings_heading": {
+    "message": "Web UIの設定"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "音声認識の言語"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "言語を選択"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "言語"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "言語を選択"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "テーマを変更"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "ライト"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "ダーク"
+  },
+  "generalSettings_settings_searchMode_label": {
+    "message": "簡易インターネット検索を実行"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "サイドパネルを開いたときに最後のチャットを再開 (Copilot)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "デフォルトでウェブサイトとのチャットを有効にする (Copilot)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "Web UIを開いたときに最後のチャットを再開"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "現在のチャットモデル設定を非表示"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "以前のチャットで最後に使用したモデルを復元する"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "ナレッジベースの処理完了後に通知を送信"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "AIを使用してタイトルを生成"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "サーバーの接続状態チェックを有効または無効にする"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "ワイドスクリーンモードを有効にする"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "デフォルトで推論を展開する"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "ユーザーメッセージにチャットバブルを使用"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "応答を自動的にクリップボードにコピー"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "ユーザーメッセージのMarkdown形式を有効にする"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "書式付きテキストとしてコピー"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "タブメンション（@tab）を有効にする"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "大きなテキストをファイルとして貼り付け"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "サイドパネルでの一時チャットをデフォルトで有効にする"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "OCR を有効にする（初回使用時に約 5MB をダウンロード）"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "OCR を有効にすると、初回使用時に約 5MB の言語データをダウンロードします。"
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "OCR アセットが有効化され、利用可能です"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "デフォルトの OCR 言語"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "OCR 言語を選択"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "コピーしたテキストから推論タグを削除"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "プロンプト検索にサーバーのプロンプトを含める"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "オンボーディングを最初からやり直す"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "オンボーディングをやり直す"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "オンボーディングをやり直しますか？"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "オンボーディングの状態をリセットし、設定フローの最初に戻します。"
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "オンボーディングをリセットしました"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "サーバー URL と API キーを確認できるよう、ようこそステップに戻ります。"
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "検索設定"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "埋め込みと検索を有効にする"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "フルコンテキストモードの最大コンテンツサイズ"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "コンテンツサイズ（デフォルト4028）"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "ウェブ検索を管理する"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "簡単なインターネット検索を実行する"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "検索エンジン"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "検索エンジンを選択する"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "合計検索結果"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "合計検索結果を入力する"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "メッセージに記載されたウェブサイトを訪問してください"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "SearXNG のURL"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "Brave APIキー"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "Brave APIキーを入力してください"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "デフォルトでインターネット検索をオンにする"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "Tavily APIキー"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "Tavily APIキーを入力してください"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "Exa APIキー"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "Exa APIキーを入力してください"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "Googleドメイン"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "Firecrawl APIキー"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "Firecrawl APIキーを入力してください"
+  },
+  "generalSettings_system_heading": {
+    "message": "システム設定"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "デフォルトのUIモード"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "フルスクリーン（Web UI）"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "サイドバー"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "システムリセット"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "すべてリセット"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "システムリセットを実行してもよろしいですか？すべてのデータが消去され、元に戻すことはできません。"
+  },
+  "generalSettings_system_export_label": {
+    "message": "チャット履歴、知識ベース、プロンプトをエクスポート"
+  },
+  "generalSettings_system_export_button": {
+    "message": "データをエクスポート"
+  },
+  "generalSettings_system_export_success": {
+    "message": "エクスポート成功"
+  },
+  "generalSettings_system_import_label": {
+    "message": "チャット履歴、知識ベース、プロンプトをインポート"
+  },
+  "generalSettings_system_import_button": {
+    "message": "データをインポート"
+  },
+  "generalSettings_system_import_success": {
+    "message": "インポート成功"
+  },
+  "generalSettings_system_import_error": {
+    "message": "インポートエラー"
+  },
+  "generalSettings_tts_heading": {
+    "message": "テキスト読み上げ設定"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "テキスト読み上げを有効にする"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "応答完了後に音声を自動再生"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "テキスト読み上げプロバイダー"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "プロバイダーを選択"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "テキスト読み上げの音声"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "音声を選択"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "SSML (Speech Synthesis Markup Language) を有効にする"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "テキスト読み上げから推論タグを削除"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "応答分割"
+  },
+  "generalSettings_stt_heading": {
+    "message": "音声認識設定"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "自動停止タイムアウト (ミリ秒)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "自動停止タイムアウトをミリ秒単位で入力"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "音声メッセージを自動送信"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "この音声文字起こしの既定値は、プレイグラウンドとサイドバーの音声入力ボタンで使用されます。"
+  },
+  "generalSettings_stt_model_label": {
+    "message": "文字起こしモデル (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "文字起こしにセグメンテーションを適用 (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "タイムスタンプの粒度"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "セグメントごと"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "単語ごと"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "セグメント + 単語"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "文字起こしタスク"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "文字起こし（同じ言語）"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "英語に翻訳"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "応答形式"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON（テキスト＋セグメント）"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "詳細JSON"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "プレーンテキスト"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "SRT字幕"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "VTT字幕"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "サンプリング温度"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "既定の文字起こしプロンプト"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "スタイルを指定する任意のテキスト"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "最大セグメント数（TreeSeg K）"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "セグメントあたりの最小項目数"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "バランス罰則（TreeSeg λ）"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "発話拡張幅"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "セグメンテーション埋め込みプロバイダー"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "セグメンテーション埋め込みモデル"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "システム"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "既定のUIモード"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "全画面（Web UI）"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "サイドバー"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "ブラウザアクションボタン"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "コンテキストメニューの操作"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "サイドバーにWeb UIボタンを表示"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "チャット背景画像"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "フォントサイズ"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "データ"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "Firefox プライベートモード同期"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "データを同期"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "システムリセット"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "すべてリセット"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "システムをリセットしますか？すべてのデータが消去され、元に戻せません。"
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "チャット履歴、知識ベース、プロンプトをエクスポート"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "データをエクスポート"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "エクスポート成功"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "チャット履歴、知識ベース、プロンプトをインポート"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "データをインポート"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "インポート成功"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "インポートエラー"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "tldw Assistant をサーバーに接続"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "一部の設定は tldw サーバーに接続しているときのみ有効です。サーバーを接続してフル機能を利用してください。"
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "設定 → tldw サーバーを開き、サーバーURLとAPIキーを追加してください。"
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "高度なツールを使う前に、診断でサーバーの健全性を確認してください。"
+  },
+  "generalSettings_empty_title": {
+    "message": "tldw Assistant の動作を調整"
+  },
+  "generalSettings_empty_description": {
+    "message": "Web UI、サイドパネル、音声、検索、データ処理の既定値を1か所で調整できます。"
+  },
+  "generalSettings_empty_example1": {
+    "message": "既定の言語、テーマ、チャット再開の挙動を選択します。"
+  },
+  "generalSettings_empty_example2": {
+    "message": "チャットを一時的にするか、貼り付けの扱い、推論表示を制御します。"
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "サーバーと認証を設定"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "閉じる"
+  },
+  "manageModels_title": {
+    "message": "モデルを管理"
+  },
+  "manageModels_addBtn": {
+    "message": "新しいモデルを追加"
+  },
+  "manageModels_columns_name": {
+    "message": "名前"
+  },
+  "manageModels_columns_digest": {
+    "message": "ダイジェスト"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "修正日時"
+  },
+  "manageModels_columns_size": {
+    "message": "サイズ"
+  },
+  "manageModels_columns_actions": {
+    "message": "アクション"
+  },
+  "manageModels_columns_nickname": {
+    "message": "ニックネーム"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "親モデル"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "フォーマット"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "ファミリー"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "パラメータサイズ"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "量子化レベル"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "モデルを削除"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "モデルを再取得"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "ニックネームを編集"
+  },
+  "manageModels_confirm_delete": {
+    "message": "本当にこのモデルを削除しますか？"
+  },
+  "manageModels_confirm_repull": {
+    "message": "本当にこのモデルを再取得しますか？"
+  },
+  "manageModels_modal_title": {
+    "message": "新しいモデルを追加"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "モデル名を入力"
+  },
+  "manageModels_modal_pull": {
+    "message": "モデルを取得"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "モデルを取得中"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "{{modelName}}モデルを取得中。詳細は拡張機能のアイコンをご確認ください。"
+  },
+  "manageModels_notification_success": {
+    "message": "成功"
+  },
+  "manageModels_notification_error": {
+    "message": "エラー"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "モデルの取得が完了しました"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "モデルの削除が完了しました"
+  },
+  "manageModels_notification_someError": {
+    "message": "問題が発生しました。後ほど再度お試しください。"
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "ダウンロードをキャンセル中"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "モデルのダウンロードをキャンセルしています..."
+  },
+  "managePrompts_title": {
+    "message": "プロンプトを管理"
+  },
+  "managePrompts_addBtn": {
+    "message": "新しいプロンプトを追加"
+  },
+  "managePrompts_option1": {
+    "message": "通常"
+  },
+  "managePrompts_option2": {
+    "message": "RAG（検索）"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "質問プロンプト"
+  },
+  "managePrompts_columns_title": {
+    "message": "タイトル"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "プロンプト"
+  },
+  "managePrompts_columns_type": {
+    "message": "プロンプトタイプ"
+  },
+  "managePrompts_columns_actions": {
+    "message": "アクション"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "システムプロンプト"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "クイックプロンプト"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "プロンプトを削除"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "プロンプトを編集"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "プロンプトを複製"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "本当にこのプロンプトを削除しますか？この操作は元に戻せません。"
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "新しいプロンプトを追加"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "プロンプトを編集"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "カスタムプロンプト"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "Copilotプロンプト"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "チャットに挿入できる再利用可能なプロンプトを作成・管理します。"
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "サーバーが提供する Copilot の定義済みプロンプトを確認・調整します。"
+  },
+  "managePrompts_form_title_label": {
+    "message": "タイトル"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "素晴らしいプロンプト"
+  },
+  "managePrompts_form_title_required": {
+    "message": "タイトルを入力してください"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "プロンプト"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "プロンプトを入力"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "プロンプトを入力してください"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "プロンプト内で{key}を変数として使用できます。"
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "プロンプトに{text}変数がありません。追加してください。"
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "システムプロンプト"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "プロンプトを追加中..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "プロンプトを追加"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "プロンプトを更新中..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "プロンプトを更新"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "プロンプトが追加されました"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "プロンプトが正常に追加されました"
+  },
+  "managePrompts_notification_error": {
+    "message": "エラー"
+  },
+  "managePrompts_notification_someError": {
+    "message": "問題が発生しました。後ほど再度お試しください。"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "プロンプトが更新されました"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "プロンプトが正常に更新されました"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "プロンプトが削除されました"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "プロンプトが正常に削除されました"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "プロンプトのワークスペース"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "再利用可能なプロンプトはプロンプトのワークスペースで管理されます。下のボタンで開いてください。"
+  },
+  "managePrompts_openWorkspace": {
+    "message": "プロンプトのワークスペースを開く"
+  },
+  "managePrompts_search": {
+    "message": "タイトルと内容を検索"
+  },
+  "managePrompts_filter_all": {
+    "message": "すべて"
+  },
+  "managePrompts_filter_system": {
+    "message": "システム"
+  },
+  "managePrompts_filter_quick": {
+    "message": "クイック"
+  },
+  "managePrompts_tags_label": {
+    "message": "タグ"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "タグを追加"
+  },
+  "managePrompts_import": {
+    "message": "インポート"
+  },
+  "managePrompts_export": {
+    "message": "エクスポート"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "マージ"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "置換"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "置換すると、インポートしたファイルで現在のプロンプトがすべて上書きされます。続行しますか？"
+  },
+  "managePrompts_favorite": {
+    "message": "お気に入り"
+  },
+  "managePrompts_unfavorite": {
+    "message": "お気に入り解除"
+  },
+  "managePrompts_partialLoad": {
+    "message": "一部のプロンプトデータが利用できません"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "サーバー接続を確認し、更新して再試行してください。"
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "接続してプロンプトを使用"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "再利用可能なプロンプトを管理するには、まず tldw サーバーに接続してください。"
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "設定 → tldw サーバーを開き、サーバーURLを追加してください。"
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "接続後、チャットで再利用できるカスタムプロンプトを作成できます。"
+  },
+  "managePrompts_emptyTitle": {
+    "message": "カスタムプロンプトがありません"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "繰り返しタスク、ワークフロー、チームの規約向けに再利用可能なプロンプトを作成しましょう。"
+  },
+  "managePrompts_emptyExample1": {
+    "message": "要約、説明、翻訳用のお気に入りのシステムプロンプトを保存しましょう。"
+  },
+  "managePrompts_emptyExample2": {
+    "message": "メールの下書きやノートの整理など、よくある作業のためのクイックプロンプトを作成しましょう。"
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "プロンプトを作成"
+  },
+  "managePrompts_filterHelp": {
+    "message": "タイトルとプロンプト内容が検索対象です。種類とタグで一覧を絞り込みます。"
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "Copilot プロンプトがありません"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "Copilot プロンプトは tldw サーバーが提供する定義済みテンプレートです。"
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "Copilot プロンプトがあるはずなら、サーバーバージョンや設定を確認してください。"
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "サーバーを更新した後、拡張機能を再読み込みしてこのタブに戻ってください。"
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "診断を開く"
+  },
+  "manageShare_title": {
+    "message": "共有を管理"
+  },
+  "manageShare_heading": {
+    "message": "ページ共有URLを設定"
+  },
+  "manageShare_form_url_label": {
+    "message": "ページ共有URL"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "ページ共有URLを入力"
+  },
+  "manageShare_form_url_required": {
+    "message": "ページ共有URLを入力してください！"
+  },
+  "manageShare_form_url_help": {
+    "message": "プライバシー保護のため、ページ共有を自身でホストし、そのURLをここに入力することができます。<anchor>詳細</anchor>"
+  },
+  "manageShare_webshare_heading": {
+    "message": "ウェブ共有"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "タイトル"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "URLアドレス"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "アクション"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "共有を削除"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "本当にこの共有を削除しますか？この操作は元に戻せません。"
+  },
+  "manageShare_webshare_label": {
+    "message": "ページ共有を管理する"
+  },
+  "manageShare_webshare_description": {
+    "message": "ページ共有機能を有効または無効にする"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "ページ共有URLが正常に更新されました"
+  },
+  "manageShare_notification_someError": {
+    "message": "問題が発生しました。後ほど再度お試しください。"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "ウェブ共有が正常に削除されました"
+  },
+  "ollamaSettings_title": {
+    "message": "サーバー連携"
+  },
+  "ollamaSettings_heading": {
+    "message": "サーバー連携の設定"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "サーバーURL"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "サーバーURLを入力"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "サーバー連携を全体的に有効または無効にする"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "サーバー連携を無効にすると、tldw Assistantはサーバーからモデルを取得しません。<anchor>OpenAI互換API</anchor>セクションからプロバイダーを追加できます。"
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "サーバーURLの高度な設定"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "カスタムOriginのURLを有効化または無効化する"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "カスタムOriginのURL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "カスタムOriginのURLを入力"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "自動CORS修正を有効または無効にする"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "カスタムヘッダー"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "ヘッダーを追加"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "ヘッダーキー"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "認証"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "ヘッダー値"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "ベアラートークン"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "サーバーへの接続に問題がある場合は、カスタムOriginのURLを設定できます。詳細は<anchor>こちら</anchor>をご確認ください。"
+  },
+  "manageSearch_title": {
+    "message": "Web検索の管理"
+  },
+  "manageSearch_heading": {
+    "message": "Web検索を設定する"
+  },
+  "about_title": {
+    "message": "概要"
+  },
+  "about_heading": {
+    "message": "概要"
+  },
+  "about_chromeVersion": {
+    "message": "tldw Assistantのバージョン"
+  },
+  "about_ollamaVersion": {
+    "message": "サーバーのバージョン"
+  },
+  "about_support": {
+    "message": "tldw Assistantプロジェクトは、以下のプラットフォームで寄付やスポンサーシップをすることで支援できます:"
+  },
+  "about_koFi": {
+    "message": "Ko-fiで支援する"
+  },
+  "about_githubSponsor": {
+    "message": "GitHubでスポンサーする"
+  },
+  "about_githubRepo": {
+    "message": "GitHubリポジトリ"
+  },
+  "switchToSidebar": {
+    "message": "サイドバーに切り替える"
+  },
+  "healthPage_title": {
+    "message": "ヘルスステータス"
+  },
+  "healthPage_subtitle": {
+    "message": "Quick overview of subsystem health endpoints exposed by the server."
+  },
+  "healthPage_backToChat": {
+    "message": "チャットに戻る"
+  },
+  "healthPage_openSettings": {
+    "message": "tldw 設定を開く"
+  },
+  "healthPage_recheckAll": {
+    "message": "すべて再チェック"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "診断をコピー"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "サーバーが設定されていません。"
+  },
+  "healthPage_unableToReachCore": {
+    "message": "サーバーのコアヘルスエンドポイントに到達できません。"
+  },
+  "healthPage_triedGet": {
+    "message": "GET {{url}} を試行"
+  },
+  "healthPage_configureHint": {
+    "message": "tldw 設定でサーバーURLを設定してください。"
+  },
+  "healthPage_configureCta": {
+    "message": "設定する"
+  },
+  "healthPage_connectedTo": {
+    "message": "{{host}} に接続"
+  },
+  "healthPage_autoRefresh": {
+    "message": "自動更新"
+  },
+  "healthPage_intervalLabel": {
+    "message": "間隔 (秒):"
+  },
+  "healthPage_checking": {
+    "message": "チェック中…"
+  },
+  "healthPage_recheck": {
+    "message": "再チェック"
+  },
+  "healthPage_healthy": {
+    "message": "正常"
+  },
+  "healthPage_unhealthy": {
+    "message": "異常"
+  },
+  "healthPage_unknown": {
+    "message": "不明"
+  },
+  "healthPage_checks_core": {
+    "message": "コア API"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG（検索）"
+  },
+  "healthPage_checks_audio": {
+    "message": "オーディオ"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "埋め込み"
+  },
+  "healthPage_checks_metrics": {
+    "message": "メトリクス状態"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "チャットメトリクス"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP（モデルコンテキストプロトコル）"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "Copies JSON diagnostics to clipboard"
+  },
+  "healthPage_statusHealthy": {
+    "message": "正常"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "異常"
+  },
+  "healthPage_statusUnknown": {
+    "message": "不明"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "たった今更新"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "{{seconds}} 秒前に更新"
+  },
+  "savedSuccessfully": {
+    "message": "設定を保存しました"
+  },
+  "saveFailed": {
+    "message": "設定の保存に失敗しました"
+  },
+  "siteAccessGranted": {
+    "message": "{{origin}} のホスト権限が付与されました"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "高度なタイムアウト"
+  },
+  "tldw_requestTimeout": {
+    "message": "リクエストのタイムアウト（秒）"
+  },
+  "tldw_streamingIdle": {
+    "message": "ストリーミング待機タイムアウト（秒）"
+  },
+  "tldw_chatRequest": {
+    "message": "チャットリクエストのタイムアウト"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "チャットストリームのアイドル"
+  },
+  "tldw_ragRequest": {
+    "message": "RAGリクエストのタイムアウト"
+  },
+  "tldw_mediaRequest": {
+    "message": "メディアリクエストのタイムアウト"
+  },
+  "tldw_uploadRequest": {
+    "message": "アップロードリクエストのタイムアウト"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "タイムアウトプロファイル"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "バランス"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "拡張"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "カスタム"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "バランスはほとんどの環境で機能します。拡張は遅いネットワークや長時間のジョブに余裕を持たせます。"
+  },
+  "tldw_reset": {
+    "message": "推奨値にリセット"
+  },
+  "tldw_resetDone": {
+    "message": "推奨のデフォルトにリセットしました"
+  },
+  "tldw_serverNav": {
+    "message": "tldwサーバー"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "tldwサーバー設定"
+  },
+  "tldw_serverLabel": {
+    "message": "サーバー:"
+  },
+  "tldw_notConfigured": {
+    "message": "未設定"
+  },
+  "tldw_buttons_health": {
+    "message": "状態"
+  },
+  "tldw_buttons_recheck": {
+    "message": "再チェック"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "接続テスト"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "サイトアクセスを許可"
+  },
+  "tldw_buttons_login": {
+    "message": "ログイン"
+  },
+  "tldw_buttons_logout": {
+    "message": "ログアウト"
+  },
+  "tldw_loginRequired_title": {
+    "message": "ログインが必要です"
+  },
+  "tldw_loginRequired_description": {
+    "message": "tldw_serverの認証情報でログインしてください"
+  },
+  "tldw_loggedIn_title": {
+    "message": "ログイン済み"
+  },
+  "tldw_loggedIn_description": {
+    "message": "現在 tldw_server にログインしています"
+  },
+  "tldw_connection_success": {
+    "message": "接続に成功しました！"
+  },
+  "tldw_connection_failed": {
+    "message": "接続に失敗しました。設定を確認してください。"
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "接続に失敗しました。サーバーURLとAPIキーを確認してください。"
+  },
+  "tldw_authMode_label": {
+    "message": "認証モード"
+  },
+  "tldw_authMode_single": {
+    "message": "単一ユーザー（APIキー）"
+  },
+  "tldw_authMode_multi": {
+    "message": "マルチユーザー（ログイン）"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "この時間内に応答がない場合、初期リクエストを中断します。既定: {{seconds}}s。"
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "この時間内に更新がない場合、ストリーミングを中断します。既定: {{seconds}}s。"
+  },
+  "tldw_login_success": {
+    "message": "ログインに成功しました！"
+  },
+  "tldw_login_failed": {
+    "message": "ログインに失敗しました"
+  },
+  "tldw_logout_success": {
+    "message": "正常にログアウトしました"
+  },
+  "tldw_logout_failed": {
+    "message": "ログアウトに失敗しました"
+  },
+  "tldw_setupLink": {
+    "message": "サーバーを設定"
+  },
+  "tldw_loadError": {
+    "message": "tldw サーバー設定を読み込めません。接続を確認して再試行してください。"
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "APIキー"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "APIキーを入力"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "APIキーを入力してください"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "認証用の tldw_server の APIキー"
+  },
+  "tldw_fields_username_label": {
+    "message": "ユーザー名"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "ユーザー名を入力"
+  },
+  "tldw_fields_username_required": {
+    "message": "ユーザー名を入力してください"
+  },
+  "tldw_fields_password_label": {
+    "message": "パスワード"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "パスワードを入力"
+  },
+  "tldw_fields_password_required": {
+    "message": "パスワードを入力してください"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "サーバーURL"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "サーバーURLを入力してください"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "有効なURLを入力してください"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "tldw_server インスタンスのURL（例: http://localhost:8000）"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "無効な API キーです"
+  },
+  "tldw_errors_forbidden": {
+    "message": "禁止されています（権限を確認してください）"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "APIキーの検証に失敗しました"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "サーバーに到達できません"
+  },
+  "tldw_about_title": {
+    "message": "tldw_server 連携について"
+  },
+  "tldw_about_description": {
+    "message": "この拡張機能は tldw_server インスタンスに接続し、次の機能を提供します:"
+  },
+  "tldw_about_points_providers": {
+    "message": "統一APIを通じた複数のLLMプロバイダー"
+  },
+  "tldw_about_points_rag": {
+    "message": "RAG（検索拡張生成）検索"
+  },
+  "tldw_about_points_media": {
+    "message": "メディアの取り込みと処理"
+  },
+  "tldw_about_points_notes": {
+    "message": "ノートとプロンプトの管理"
+  },
+  "tldw_about_points_stt": {
+    "message": "音声からテキストへの文字起こし"
+  },
+  "manageKnowledge_title": {
+    "message": "知識 QA"
+  },
+  "manageKnowledge_heading": {
+    "message": "知識 QA"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "ワールドブックのワークスペース"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "ワールドブックはワールドブックのワークスペースで管理されます。下のボタンで開いてください。"
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "ワールドブックのワークスペースを開く"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "チャット辞書のワークスペース"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "チャット辞書はチャット辞書のワークスペースで管理されます。下のボタンで開いてください。"
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "チャット辞書のワークスペースを開く"
+  },
+  "rag_title": {
+    "message": "RAGの設定"
+  },
+  "rag_ragSettings_label": {
+    "message": "RAGの設定"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "エンベディングモデル"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "モデルを選択してください"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "`nomic-embed-text`などのエンベディングモデルの使用を強くおすすめします。"
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "モデルを選択"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "推奨: {{model}}（サーバー設定より）"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "以前保存した埋め込みモデルがサーバーで利用できません。別のモデルを選択してください。"
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "チャンクサイズ"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "チャンクサイズを入力"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "チャンクサイズを入力してください"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "チャンクオーバーラップ"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "チャンクオーバーラップを入力"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "チャンクオーバーラップを入力してください"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "知識ベースのデフォルトファイルアップロード制限"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "デフォルトのファイルアップロード制限を入力してください（例：10）"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "デフォルトのファイルアップロード制限を入力してください"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "取得ドキュメント数"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "取得ドキュメント数を入力"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "取得ドキュメント数を入力してください"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "セパレーター"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "セパレーターを入力（例：\\n\\n）"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "セパレーターを入力してください"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "テキスト分割方式"
+  },
+  "rag_prompt_label": {
+    "message": "RAGプロンプトを設定"
+  },
+  "rag_prompt_option1": {
+    "message": "通常"
+  },
+  "rag_prompt_option2": {
+    "message": "ウェブ"
+  },
+  "rag_prompt_alert": {
+    "message": "ここでシステムプロンプトを設定することは非推奨となりました。プロンプトの追加や編集には「プロンプトを管理」セクションをご利用ください。このセクションは今後のリリースで削除される予定です。"
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "システムプロンプト"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "システムプロンプトを入力"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "Web検索プロンプト"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "プロンプトから`{search_results}`を削除しないでください。"
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "Web検索プロンプトを入力してください"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "Web検索プロンプトを入力"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "Web検索フォローアッププロンプト"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "プロンプトから`{chat_history}`と`{question}`を削除しないでください。"
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "Web検索フォローアッププロンプトを入力してください！"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "Web検索フォローアッププロンプト"
+  },
+  "onboarding_title": {
+    "message": "Welcome — Let’s get you connected"
+  },
+  "onboarding_description": {
+    "message": "Configure your server and authentication. We’ll verify the connection and RAG health inline."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "tldw サーバーの仕組みを学ぶ"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "例: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "例: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "http://127.0.0.1:8000 のような完全な URL を入力してください。"
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "http または https の URL を使用してください（例: http://127.0.0.1:8000）。"
+  },
+  "onboarding_serverUrl_label": {
+    "message": "サーバーURL"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "次へ進むには tldw サーバーURLを入力してください。"
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "このアドレスに到達できたら「次へ」を有効にします。"
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "到達性を確認中…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "サーバーから応答がありました。続行できます。"
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "このアドレスにまだ到達できません。URLを確認するか再試行してください。"
+  },
+  "onboarding_buttons_next": {
+    "message": "次へ"
+  },
+  "onboarding_buttons_back": {
+    "message": "戻る"
+  },
+  "onboarding_buttons_continue": {
+    "message": "続行"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "再チェック"
+  },
+  "onboarding_buttons_finish": {
+    "message": "完了"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "接続せずに完了"
+  },
+  "onboarding_buttons_skip": {
+    "message": "今はスキップ"
+  },
+  "onboarding_authMode_label": {
+    "message": "認証モード"
+  },
+  "onboarding_authMode_single": {
+    "message": "単一ユーザー（APIキー）"
+  },
+  "onboarding_authMode_multi": {
+    "message": "複数ユーザー（ログイン）"
+  },
+  "onboarding_apiKey_label": {
+    "message": "APIキー"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "APIキーを入力してください（またはローカル単一ユーザー用のデモキー THIS-IS-A-SECURE-KEY-123-REPLACE-ME を使用）"
+  },
+  "onboarding_username_label": {
+    "message": "ユーザー名"
+  },
+  "onboarding_username_placeholder": {
+    "message": "ユーザー名"
+  },
+  "onboarding_password_label": {
+    "message": "パスワード"
+  },
+  "onboarding_password_placeholder": {
+    "message": "パスワード"
+  },
+  "onboarding_connection_label": {
+    "message": "接続:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "不明"
+  },
+  "onboarding_connection_connected": {
+    "message": "接続済み"
+  },
+  "onboarding_connection_failed": {
+    "message": "失敗"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+  },
+  "onboarding_rag_label": {
+    "message": "RAG:"
+  },
+  "onboarding_rag_healthy": {
+    "message": "正常"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "異常"
+  },
+  "onboarding_rag_unknown": {
+    "message": "不明"
+  },
+  "onboarding_connectionFailed": {
+    "message": "接続に失敗しました"
+  },
+  "onboarding_footerHelp": {
+    "message": "接続が完了すると、拡張機能のメニューからいつでもこの設定画面に戻ることができます。"
+  },
+  "onboarding_progressAria": {
+    "message": "オンボーディングの進行状況"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "ようこそ"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "tldw サーバーに接続"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "サインイン方法を選択"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "接続と Knowledge を確認"
+  },
+  "onboarding_startServer_title": {
+    "message": "始める前に — tldw サーバーを起動する"
+  },
+  "onboarding_startServer_body": {
+    "message": "まだサーバーを起動していない場合は、tldw_server リポジトリで次のコマンドのいずれかを実行してから、この画面に戻ってください。"
+  },
+  "onboarding_startServer_copy": {
+    "message": "コマンドをコピー"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "Python でローカル実行"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "tldw_server の仮想環境内で、サーバーリポジトリのルートから実行します。"
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "Docker Compose で実行（単一ユーザー）"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "API とデータベースを起動するために、tldw_server リポジトリのルートから実行します."
+  },
+  "onboarding_path_heading": {
+    "message": "どのように始めますか？"
+  },
+  "onboarding_path_hasServer": {
+    "message": "すでに tldw_server を稼働させています"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "すでに稼働している tldw_server に接続します。"
+  },
+  "onboarding_path_noServer": {
+    "message": "まだサーバーを持っていません"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "tldw_server のセットアップガイドに従うか、デモモードで始めます。"
+  },
+  "onboarding_path_demo": {
+    "message": "ローカルのデモで試してみるだけ"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "サンプルデータ入りのワークスペースを試し、あとから自分のサーバーを接続します。"
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "まだサーバーがなくても、機能を確認できます。"
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server は別途動かすセルフホスト型アプリです。今すぐセットアップガイドに沿って設定することも、後で戻ってデモモードのまま続けることもできます。"
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "自分のマシン上で Docker または Python を使ってローカルで実行します。"
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "tldw_server をリモート VPS やマネージドホスティングにデプロイします。"
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "利用可能な場合は、マネージド型の商用 tldw_server を利用します。"
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "セットアップガイドを開く"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "ローカルのデモモードを使う"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "あとで通知する"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "デモモードで拡張機能を試す"
+  },
+  "onboarding_path_demoBody": {
+    "message": "デモモードでは、サンプルデータを使ってチャット、メモ、メディアを試すことができます。Knowledge 検索などサーバーに依存する機能は、ご自身の tldw_server を接続するまで制限されたままになります。"
+  },
+  "onboarding_path_demoCta": {
+    "message": "ローカルのデモモードを使う"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Single User（API キー）は個人または小規模チームのサーバーに推奨されます。Multi User（ログイン）は、ユーザー名や SSO でサインインする共有環境向けです。お使いの tldw_server の構成に合ったモードを選択してください。"
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "tldw_server の「Settings」→「API Keys」で API キーを確認できます。そこでキーを作成し、この欄に貼り付けてください。"
+  },
+  "onboarding_authStepAria": {
+    "message": "手順 2/3 — 認証の設定"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "手順 3/3 — 接続の要約と次の手順"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "準備完了"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "ここからサイドパネルを開いたり、ページを取り込んだり、メディアやノートを確認できます。"
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "チャットを始める"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "サイドパネルを開いて最初の質問をしてください。"
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "サイドパネルを開く"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "最初のページを取り込む"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "ヘッダーのクイック取り込みを使って現在のタブをサーバーに保存してください。"
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "メディアとノートを確認する"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "オプションの「メディアとノート」を開いて保存され検索可能な項目を確認してください。"
+  },
+  "onboarding_headerShortcuts": {
+    "message": "ヘッダーにクイックショートカットを表示する"
+  },
+  "manageCharacters_title": {
+    "message": "キャラクター管理"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新しいキャラクター"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名前"
+  },
+  "manageCharacters_columns_description": {
+    "message": "説明"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "アバター"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "チャット"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "編集"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "削除"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "会話を表示"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "複製"
+  },
+  "manageCharacters_tags_label": {
+    "message": "タグ"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "タグを追加"
+  },
+  "manageCharacters_tags_help": {
+    "message": "タグを使って用途別にキャラクターをまとめます（例:「ライティング」「指導」）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "キャラクターを編集"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "キャラクターを削除"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}} としてチャット"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "キャラクター {{name}} を編集"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "キャラクター {{name}} を削除"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "{{name}} の会話を表示"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} 件のキャラクターが見つかりました"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "キャラクター「{{name}}」を複製"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "このキャラクターを削除してもよろしいですか？この操作は元に戻せません。"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名前"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例: ライティングコーチ"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "名前を入力してください"
+  },
+  "manageCharacters_form_description": {
+    "message": "サイドバーでチャットできる再利用可能なキャラクターを定義します。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "振る舞い / 指示"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例: あなたは忍耐強い数学教師で、概念を段階的に説明し、短い例で理解を確認します。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "キャラクターの役割、口調、制約を説明します。例: 「あなたは忍耐強い数学チューターで、概念を段階的に説明します。」"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "キャラクターが応答方法を理解できるよう、短い説明を追加してください。"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "回答を導く指示を追加してください。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "システムプロンプトは2000文字以内である必要があります。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "アバター URL（任意）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "挨拶メッセージ（任意）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "こんにちは！あなたのライティングコーチです。下書きを貼り付けていただければ整えます。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "チャット開始時にキャラクターが送る任意の最初のメッセージ。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "キャラクターを作成中..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "キャラクターを作成"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "変更を保存中..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "変更を保存"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "キャラクターを作成しました"
+  },
+  "manageCharacters_notification_error": {
+    "message": "エラー"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "問題が発生しました。後でもう一度お試しください。"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "キャラクターを更新しました"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "キャラクターを削除しました"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "キャラクターを読み込めません"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "接続状況を確認してから、もう一度お試しください。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "キャラクターはまだありません"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "名前、説明、システムプロンプトを設定して、再利用できるキャラクターを作成しましょう。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "ライティングコーチ、設定の専門家、コーディングアシスタントなどを定義して、チャット間で再利用できます。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "各キャラクターに明確な説明と振る舞いを与えて、回答を一貫させましょう。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "キャラクターを作成"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} のアバター"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "ユーザーアバター"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}} の会話"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "キャラクターの会話"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "このキャラクターとして続ける会話を選択してください。"
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "このキャラクターの会話はまだありません。"
+  },
+  "manageCharacters_conversations_error": {
+    "message": "このキャラクターの会話を読み込めません。"
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "{{time}} に更新"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "不明"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "チャットを続ける"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "無題"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "最新"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "チャット履歴を読み込んでこの会話を続けます"
+  },
+  "manageCharacters_preview_title": {
+    "message": "プレビュー"
+  },
+  "manageCharacters_preview_show": {
+    "message": "プレビューを表示"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "プレビューを非表示"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "無題のキャラクター"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "挨拶"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "振る舞い"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "フォームを入力するとプレビューが表示されます"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "詳細フィールドを表示"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "詳細フィールドを非表示"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "説明なし"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "すべてのタグに一致"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "アバター（任意）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URLアドレス"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "アップロード"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "画像ファイルを選択してください"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG、JPEG、GIF の画像のみ対応しています"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "無効な画像ファイルです"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "画像の処理に失敗しました"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "クリックまたはドラッグして画像をアップロード"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG または GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "プレビュー"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "データを正常にインポートしました"
+  },
+  "systemNotifications_importError": {
+    "message": "インポートエラー"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Firefox のデータを同期しました。再実行は不要です"
+  },
+  "systemNotifications_syncError": {
+    "message": "Firefox データの同期に失敗しました"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "有効な画像ファイルを選択してください"
+  },
+  "prompts_enterPrompt": {
+    "message": "プロンプトを入力してください。"
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "プロンプトを入力してください。"
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "フォローアップのプロンプトを入力してください。"
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "フォローアップのプロンプトを入力してください。"
+  },
+  "prompts_privateModeDescription": {
+    "message": "Firefox のプライベートモードは IndexedDB への保存をサポートしません。通常ウィンドウでプロンプトを追加してください。"
+  },
+  "models_privateModeDescription": {
+    "message": "Firefox のプライベートモードは IndexedDB への保存をサポートしません。通常ウィンドウでカスタムモデルを追加してください。"
+  },
+  "evaluationsSettingsNav": {
+    "message": "評価"
+  },
+  "promptStudioNav": {
+    "message": "プロンプトスタジオ"
+  },
+  "promptStudio_nav": {
+    "message": "プロンプトスタジオ"
+  },
+  "promptStudio_title": {
+    "message": "プロンプトスタジオ"
+  },
+  "promptStudio_subtitle": {
+    "message": "既定値を設定し、Prompt Studio の健全性を監視します。接続と認証はメインのサーバー設定を再利用します。"
+  },
+  "promptStudio_probeError": {
+    "message": "Prompt Studio に到達できません"
+  },
+  "promptStudio_statusCard": {
+    "message": "ステータス"
+  },
+  "promptStudio_statusHint": {
+    "message": "ボタンは warn_seconds 付きで /prompt-studio/status を呼び出します。"
+  },
+  "promptStudio_statusError": {
+    "message": "ステータスエンドポイントが利用できません"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "警告までの秒数"
+  },
+  "promptStudio_testButton": {
+    "message": "Prompt Studio をテスト"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "既定値"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "既定のプロジェクト、モデル設定、一覧ページサイズを保存します。"
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "既定値は既存の設定ストレージ (TBD) を用いて、初期プロジェクト選択、実行/評価モデルのプリセット、ページネーションに保存します。"
+  },
+  "promptStudio_defaultProject": {
+    "message": "既定のプロジェクトID"
+  },
+  "promptStudio_pageSize": {
+    "message": "ページサイズ"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "実行の既定値"
+  },
+  "promptStudio_executeProvider": {
+    "message": "プロバイダー"
+  },
+  "promptStudio_executeModel": {
+    "message": "モデル"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "温度"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "最大トークン数"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "評価の既定値"
+  },
+  "promptStudio_evalModel": {
+    "message": "モデル"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "温度"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "最大トークン数"
+  },
+  "promptStudio_unavailable": {
+    "message": "サーバーで Prompt Studio はまだ利用できません。"
+  },
+  "promptStudio_unavailableBody": {
+    "message": "有効化されると、キューの健全性を監視し、ここで既定値を設定できます。"
+  },
+  "charactersSettingsTitle": {
+    "message": "キャラクターのワークスペース"
+  },
+  "charactersSettingsDescription": {
+    "message": "キャラクターはキャラクターのワークスペースで管理されます。下のボタンで開いてください。"
+  },
+  "charactersOpenWorkspace": {
+    "message": "キャラクターのワークスペースを開く"
+  },
+  "mermaid": {
+    "message": "Mermaid 図"
+  },
+  "healthSummary_diagnostics": {
+    "message": "Diagnostics"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "詳細な診断を開いてトラブルシュートやヘルスチェックの確認ができます。"
+  },
+  "healthSummary_core": {
+    "message": "サーバー"
+  },
+  "healthSummary_rag": {
+    "message": "知識"
+  },
+  "healthSummary_coreAria": {
+    "message": "サーバー: サーバー/APIの状態"
+  },
+  "healthSummary_ragAria": {
+    "message": "知識: ナレッジインデックスの状態"
+  },
+  "healthSummary_coreOnline": {
+    "message": "サーバー: オンライン"
+  },
+  "healthSummary_coreOffline": {
+    "message": "サーバー: オフライン"
+  },
+  "healthSummary_coreChecking": {
+    "message": "サーバー: 確認中…"
+  },
+  "healthSummary_ragReady": {
+    "message": "知識: 準備完了"
+  },
+  "healthSummary_ragOffline": {
+    "message": "知識: オフライン"
+  },
+  "healthSummary_ragChecking": {
+    "message": "知識: 確認中…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "これらのチェックは、tldw サーバーとナレッジインデックスへの最後の成功した ping を要約しています。"
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "短時間に設定保存が多すぎます。数秒待ってから再試行してください。"
+  },
+  "storage_quotaTitle": {
+    "message": "ストレージの上限に達しました"
+  },
+  "storage_writeError": {
+    "message": "設定を保存できませんでした"
+  },
+  "storage_writeErrorDescription": {
+    "message": "設定を保存できませんでした。しばらくしてから再試行してください。"
+  },
+  "evaluations_title": {
+    "message": "評価プレイグラウンド"
+  },
+  "evaluations_subtitle": {
+    "message": "tldw サーバーに対する評価を定義し、最近の実行を確認できます。"
+  },
+  "evaluations_listTitle": {
+    "message": "最近の評価"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "新しい評価"
+  },
+  "evaluations_startRunCta": {
+    "message": "実行開始"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "評価を読み込めませんでした"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "tldw サーバーへの接続とAPI認証情報を確認してから再試行してください。"
+  },
+  "evaluations_emptyList": {
+    "message": "評価はまだありません。作成するとここに表示されます。"
+  },
+  "evaluations_selectedTag": {
+    "message": "選択済み"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "評価の制限"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "レート制限を取得できませんでした"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "サーバーから評価クォータを取得できませんでした。"
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "このサーバーではレート制限情報を利用できません。"
+  },
+  "evaluations_tierLabel": {
+    "message": "ティア"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "1日あたりの評価数"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "本日のトークン"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "1分あたりの制限"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "リセット時刻"
+  },
+  "evaluations_runsTitle": {
+    "message": "実行"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "最近の実行を見るには評価を選択してください。"
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "実行を読み込めませんでした"
+  },
+  "evaluations_runsEmpty": {
+    "message": "この評価の実行はまだありません。"
+  },
+  "evaluations_runDetailTitle": {
+    "message": "実行の詳細"
+  },
+  "evaluations_noRunSelected": {
+    "message": "詳細を見るには実行を選択してください。"
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "実行の詳細を読み込めませんでした"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "ステータス"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "対象モデル"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "評価"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "エラー"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "結果（抜粋）"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "進行状況"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "使用量"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "データセット"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "新しいデータセット"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "データセットを読み込めませんでした"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "データセットはまだありません。評価に紐づけるため作成してください。"
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} サンプル"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "名前"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "例: my_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "説明"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "メタデータ（JSON、任意）"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "サンプル入力"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "期待出力（任意）"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "サンプルJSON（任意、フィールド上書き）"
+  },
+  "evaluations_datasetLabel": {
+    "message": "データセット（任意）"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "データセットを選択"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "データセットを作成しました"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "データセットを評価に使用できます。"
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "データセットの作成に失敗しました"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "サーバーがこのデータセットを拒否しました。入力を確認して再試行してください。"
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "データセットを削除しました"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "データセットの削除に失敗しました"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "データセットを読み込めませんでした"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "データセットの詳細"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "無効なサンプルJSON"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "新しい評価"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "評価の編集"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "名前"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "例: my_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "英数字、ハイフン、アンダースコアのみ使用できます。"
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "評価タイプ"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "評価仕様（JSON）"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "評価仕様は有効なJSONである必要があります。"
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "メタデータ（JSON、任意）"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "dataset_id を参照せずにインラインデータセットを付与"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "無効なインラインデータセット"
+  },
+  "evaluations_runModelLabel": {
+    "message": "実行モデル（クイック実行で使用）"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "評価を作成しました"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "評価の作成に失敗しました"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "サーバーがこの評価を拒否しました。名前、タイプ、仕様が正しいか確認してください。"
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "評価を更新しました"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "評価の更新に失敗しました"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "評価の削除に失敗しました"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "この評価を削除しますか？"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "評価の定義が削除されます。既存の実行は履歴に残ります。"
+  },
+  "evaluations_detailTitle": {
+    "message": "評価の詳細"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "評価の詳細を読み込めませんでした"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "説明"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "仕様を確認するには評価を選択してください。"
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "実行を開始しました"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "評価の実行が開始されました。サーバーUIで監視できます。"
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "実行の開始に失敗しました"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "サーバーがこの実行リクエストを拒否しました。モデルを確認して再試行してください。"
+  },
+  "evaluations_runConfigLabel": {
+    "message": "設定（JSON）"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "データセット上書き（サンプルJSON配列）"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "無効な設定JSON"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "実行キャンセルを要求しました"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "実行のキャンセルに失敗しました"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "実行をキャンセル"
+  },
+  "evaluations_historyTitle": {
+    "message": "履歴"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "種別"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "ユーザーID"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "開始日（ISO）"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "終了日（ISO）"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "履歴を取得"
+  },
+  "evaluations_historyEmpty": {
+    "message": "クエリを実行して最近の活動を確認してください。"
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "履歴を取得できませんでした"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "Webhook"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "URLアドレス"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "イベント"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "Webhook を登録"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "Webhook を登録しました"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "Webhook の登録に失敗しました"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "Webhook の削除に失敗しました"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "Webhook を読み込めませんでした"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "Webhook はまだ登録されていません。"
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "シークレット"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "冪等キー"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "評価を利用するには接続してください"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "評価を作成・実行するには、まず tldw サーバーに接続してください。"
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "設定 → tldw サーバーを開き、サーバーURLとAPIキーを追加してください。"
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "接続後、評価を定義しここでメトリクスを確認できます。"
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "サンプル"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "このページのサンプルはありません。"
+  },
+  "evaluations_metricsLabel": {
+    "message": "メトリクス"
+  },
+  "evaluationsSettings_title": {
+    "message": "評価"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "評価プレイグラウンドで使用する既定値を設定します。"
+  },
+  "evaluationsSettings_offline": {
+    "message": "評価をテストするには tldw サーバーに接続してください。"
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "既定の評価タイプ"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "既定の対象モデル"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "既定の実行設定（JSON）"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "既定のデータセットID（任意）"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "選択したタイプの仕様プリセット"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "評価 API をテスト"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "評価 API に到達できます"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "評価 API に到達できません"
+  },
+  "chunkingPlayground_nav": {
+    "message": "チャンク分割プレイグラウンド"
+  },
+  "chunkingPlayground_title": {
+    "message": "チャンク分割プレイグラウンド"
+  },
+  "chunkingPlayground_description": {
+    "message": "さまざまなチャンク設定を試して、テキストが処理用の小さな塊に分割される様子を確認できます。"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "分割するテキスト"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "ここにテキストを貼り付けるか、サンプルを選択..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "ファイルをアップロード"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "テキストを分割"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "チャンク方式"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "最大チャンクサイズ"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "重なり"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "言語"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "自動検出"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "英語"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "スペイン語"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "フランス語"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "ドイツ語"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "イタリア語"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "ポルトガル語"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "中国語"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "日本語"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "韓国語"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "カード"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "インライン"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} 個のチャンク、平均 {{avgSize}} 文字"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "テキストを読み込みました"
+  },
+  "chunkingPlayground_characters": {
+    "message": "文字"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "単一"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "比較"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "チャンク {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "チャンク {{index}}: {{words}} 語"
+  },
+  "chunkingPlayground_position": {
+    "message": "位置: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} 件の追加"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} 文字"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} 語"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "分割するテキストを入力してください"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "共有入力テキスト"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "両方を比較"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "比較"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "設定 A は {{diff}} 個少ないチャンクになります"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "設定 A は {{diff}} 個多いチャンクになります"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "両設定は同じ数のチャンクになります"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "「比較」をクリックして結果を表示"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "重なり領域"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "ハイライトされたセクションをクリックすると、そのチャンクにフォーカスします"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "このメディア項目のテキストが見つかりません"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "メディア内容の読み込みに失敗しました"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "メディアライブラリの読み込みに失敗しました"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "メディア項目を選択..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "内容を読み込み中..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "メディアが見つかりません"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} 件のメディア項目があります"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "テキストを貼り付け"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "ファイルをアップロード"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "サンプルテキスト"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "メディアライブラリから"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "ニュース記事"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "見出し付きの複数段落記事"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "ソースコード"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "クラスと関数を含む Python コード"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "書き起こし"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "タイムスタンプ付きポッドキャスト書き起こし"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "学術論文"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "引用付きの技術文書"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "設定を比較"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "設定 A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "設定 B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "単一"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "比較"
+  }
+}

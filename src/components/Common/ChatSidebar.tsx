@@ -31,6 +31,7 @@ import { cn } from "@/libs/utils"
 import { LocalChatList } from "./ChatSidebar/LocalChatList"
 import { ServerChatList } from "./ChatSidebar/ServerChatList"
 import { FolderChatList } from "./ChatSidebar/FolderChatList"
+import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
 
 const storage = new Storage({ area: "local" })
 
@@ -157,7 +158,7 @@ export function ChatSidebar({
       <div
         data-testid="chat-sidebar"
         className={cn(
-          "flex flex-col h-screen items-center py-4 gap-2 w-12 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900",
+          "flex flex-col h-screen items-center py-4 gap-2 w-12 border-r border-border bg-surface2",
           className
         )}
       >
@@ -168,13 +169,13 @@ export function ChatSidebar({
           <button
             data-testid="chat-sidebar-toggle"
             onClick={onToggleCollapse}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-text"
           >
             <ChevronRight className="size-4" />
           </button>
         </Tooltip>
 
-        <div className="h-px w-6 bg-gray-200 dark:bg-gray-700 my-2" />
+        <div className="h-px w-6 bg-border my-2" />
 
         <Tooltip
           title={t("common:chatSidebar.newChat", "New Chat")}
@@ -183,7 +184,7 @@ export function ChatSidebar({
           <button
             data-testid="chat-sidebar-new-chat"
             onClick={handleNewChat}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 hover:text-pink-600"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-primary"
           >
             <Plus className="size-4" />
           </button>
@@ -196,7 +197,7 @@ export function ChatSidebar({
           <button
             onClick={handleIngest}
             disabled={!isConnected}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 hover:text-pink-600 disabled:opacity-50"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-primary disabled:opacity-50"
           >
             <UploadCloud className="size-4" />
             <span className="sr-only">
@@ -205,7 +206,7 @@ export function ChatSidebar({
           </button>
         </Tooltip>
 
-        <div className="h-px w-6 bg-gray-200 dark:bg-gray-700 my-2" />
+        <div className="h-px w-6 bg-border my-2" />
 
         <Tooltip
           title={t("common:chatSidebar.media", "Media")}
@@ -213,7 +214,7 @@ export function ChatSidebar({
         >
           <button
             onClick={() => navigate("/media")}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-text"
           >
             <BookText className="size-4" />
           </button>
@@ -225,7 +226,7 @@ export function ChatSidebar({
         >
           <button
             onClick={() => navigate("/notes")}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-text"
           >
             <StickyNote className="size-4" />
           </button>
@@ -237,7 +238,7 @@ export function ChatSidebar({
         >
           <button
             onClick={() => navigate("/flashcards")}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-text"
           >
             <Layers className="size-4" />
           </button>
@@ -249,7 +250,7 @@ export function ChatSidebar({
         >
           <button
             onClick={() => navigate("/prompts")}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-text"
           >
             <NotebookPen className="size-4" />
           </button>
@@ -261,7 +262,7 @@ export function ChatSidebar({
         >
           <button
             onClick={() => navigate("/media-multi")}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-text"
           >
             <Microscope className="size-4" />
           </button>
@@ -275,7 +276,7 @@ export function ChatSidebar({
         >
           <button
             onClick={() => navigate("/settings")}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+            className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-text"
           >
             <Settings className="size-4" />
           </button>
@@ -288,14 +289,14 @@ export function ChatSidebar({
   return (
     <div
       data-testid="chat-sidebar"
-      className={cn(
-        "flex flex-col h-screen w-64 border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900",
-        className
-      )}
-    >
+        className={cn(
+          "flex flex-col h-screen w-64 border-r border-border bg-surface2",
+          className
+        )}
+      >
       {/* Header */}
-      <div className="flex items-center justify-between px-3 py-3 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="font-semibold text-gray-900 dark:text-gray-100">
+      <div className="flex items-center justify-between px-3 py-3 border-b border-border">
+        <h2 className="font-semibold text-text">
           {t("common:chatSidebar.title", "Chats")}
         </h2>
         <div className="flex items-center gap-1">
@@ -303,7 +304,7 @@ export function ChatSidebar({
             <button
               data-testid="chat-sidebar-new-chat"
               onClick={handleNewChat}
-              className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 hover:text-pink-600"
+              className="p-2 rounded text-text-muted hover:bg-surface hover:text-primary"
             >
               <Plus className="size-4" />
             </button>
@@ -314,7 +315,7 @@ export function ChatSidebar({
             <button
               data-testid="chat-sidebar-toggle"
               onClick={onToggleCollapse}
-              className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+              className="p-2 rounded text-text-muted hover:bg-surface hover:text-text"
             >
               <ChevronLeft className="size-4" />
             </button>
@@ -323,21 +324,21 @@ export function ChatSidebar({
       </div>
 
       {/* Search */}
-      <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-700">
+      <div className="px-3 py-2 border-b border-border">
         <Input
           data-testid="chat-sidebar-search"
-          prefix={<Search className="size-3.5 text-gray-400" />}
+          prefix={<Search className="size-3.5 text-text-subtle" />}
           placeholder={t("common:chatSidebar.search", "Search chats...")}
           value={searchQuery}
           onChange={handleSearchChange}
           size="small"
-          className="bg-white dark:bg-gray-800"
+          className="bg-surface"
           allowClear
         />
       </div>
 
       {/* Tabs */}
-      <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-700">
+      <div className="px-3 py-2 border-b border-border">
         <Segmented
           value={currentTab}
           onChange={(value) => setActiveTab(value as SidebarTab)}
@@ -350,7 +351,7 @@ export function ChatSidebar({
 
       {/* Quick Actions */}
       <div className="px-3 py-2 flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+        <span className="text-xs font-semibold uppercase tracking-wide text-text-subtle">
           {t("common:chatSidebar.shortcuts", "Shortcuts")}
         </span>
         <button
@@ -358,7 +359,7 @@ export function ChatSidebar({
           aria-expanded={showShortcuts}
           aria-controls="chat-sidebar-shortcuts"
           onClick={() => setShortcutsCollapsed(showShortcuts)}
-          className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500"
+          className="p-1 rounded text-text-muted hover:bg-surface hover:text-text"
           title={t("common:chatSidebar.shortcuts", "Shortcuts")}
         >
           <ChevronDown
@@ -374,42 +375,42 @@ export function ChatSidebar({
           <button
             onClick={handleIngest}
             disabled={!isConnected}
-            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 disabled:opacity-50"
+            className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text disabled:opacity-50"
           >
             <UploadCloud className="size-4" />
             <span>{t("common:chatSidebar.ingest", "Ingest Page")}</span>
           </button>
           <button
             onClick={() => navigate("/media")}
-            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <BookText className="size-4" />
             <span>{t("common:chatSidebar.media", "Media")}</span>
           </button>
           <button
             onClick={() => navigate("/notes")}
-            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <StickyNote className="size-4" />
             <span>{t("common:chatSidebar.notes", "Notes")}</span>
           </button>
           <button
             onClick={() => navigate("/flashcards")}
-            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <Layers className="size-4" />
             <span>{t("common:chatSidebar.flashcards", "Flashcards")}</span>
           </button>
           <button
             onClick={() => navigate("/prompts")}
-            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <NotebookPen className="size-4" />
             <span>{t("common:chatSidebar.prompts", "Prompts")}</span>
           </button>
           <button
             onClick={() => navigate("/chunking-playground")}
-            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <Scissors className="size-4" />
             <span>
@@ -421,7 +422,7 @@ export function ChatSidebar({
           </button>
           <button
             onClick={() => navigate("/media-multi")}
-            className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <Microscope className="size-4" />
             <span>{t("common:chatSidebar.multiItem", "Multi-Item")}</span>
@@ -429,7 +430,7 @@ export function ChatSidebar({
         </div>
       )}
 
-      <div className="h-px bg-gray-200 dark:bg-gray-700 mx-3" />
+      <div className="h-px bg-border mx-3" />
 
       {/* Tab Content */}
       <div
@@ -460,14 +461,17 @@ export function ChatSidebar({
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-200 dark:border-gray-700 px-3 py-2">
+      <div className="border-t border-border px-3 py-2">
         <button
           onClick={() => navigate("/settings")}
-          className="flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
         >
           <Settings className="size-4" />
           <span>{t("common:chatSidebar.settings", "Settings")}</span>
         </button>
+        <div className="mt-2 border-t border-border pt-2">
+          <ModeToggle />
+        </div>
       </div>
     </div>
   )

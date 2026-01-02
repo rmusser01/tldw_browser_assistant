@@ -41,8 +41,8 @@ export function CharacterPreview({
   })
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-[#0f1115]">
-      <div className="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+    <div className="rounded-lg border border-border bg-surface2 p-4">
+      <div className="mb-3 text-xs font-medium uppercase tracking-wide text-text-subtle">
         {t("settings:manageCharacters.preview.title", {
           defaultValue: "Preview"
         })}
@@ -56,25 +56,25 @@ export function CharacterPreview({
             <img
               src={avatarSrc}
               alt={displayName}
-              className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
+              className="h-12 w-12 rounded-full object-cover ring-2 ring-border"
               onError={() => {
                 setAvatarImgError(true)
               }}
             />
           ) : (
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600">
-              <UserCircle2 className="h-8 w-8 text-gray-400 dark:text-gray-500" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface2 ring-2 ring-border">
+              <UserCircle2 className="h-8 w-8 text-text-subtle" />
             </div>
           )}
         </div>
 
         {/* Info */}
         <div className="min-w-0 flex-1 space-y-1">
-          <div className="font-semibold text-gray-900 dark:text-gray-100 truncate">
+          <div className="font-semibold text-text truncate">
             {displayName}
           </div>
           {description && (
-            <div className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+            <div className="text-sm text-text-muted line-clamp-2">
               {description}
             </div>
           )}
@@ -83,12 +83,12 @@ export function CharacterPreview({
               {tags.slice(0, 4).map((tag, i) => (
                 <span
                   key={`${tag}-${i}`}
-                  className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                  className="inline-flex items-center rounded-full bg-surface2 px-2 py-0.5 text-xs text-text-muted">
                   {tag}
                 </span>
               ))}
               {tags.length > 4 && (
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-text-subtle">
                   +{tags.length - 4}
                 </span>
               )}
@@ -99,13 +99,13 @@ export function CharacterPreview({
 
       {/* Greeting Preview */}
       {greeting && (
-        <div className="mt-4 rounded-md bg-white p-3 shadow-sm dark:bg-[#1a1a1a]">
-          <div className="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">
+        <div className="mt-4 rounded-md bg-surface p-3 shadow-sm">
+          <div className="mb-1 text-xs font-medium text-text-subtle">
             {t("settings:manageCharacters.preview.greeting", {
               defaultValue: "Greeting"
             })}
           </div>
-          <div className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 italic">
+          <div className="text-sm text-text-muted line-clamp-3 italic">
             "{greeting}"
           </div>
         </div>
@@ -113,13 +113,13 @@ export function CharacterPreview({
 
       {/* System Prompt Preview */}
       {system_prompt && (
-        <div className="mt-3 rounded-md bg-white p-3 shadow-sm dark:bg-[#1a1a1a]">
-          <div className="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">
+        <div className="mt-3 rounded-md bg-surface p-3 shadow-sm">
+          <div className="mb-1 text-xs font-medium text-text-subtle">
             {t("settings:manageCharacters.preview.behavior", {
               defaultValue: "Behavior"
             })}
           </div>
-          <div className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+          <div className="text-sm text-text-muted line-clamp-3">
             {system_prompt}
           </div>
         </div>
@@ -127,7 +127,7 @@ export function CharacterPreview({
 
       {/* Empty State */}
       {!name && !description && !system_prompt && !greeting && (
-        <div className="mt-3 text-center text-sm text-gray-400 dark:text-gray-500">
+        <div className="mt-3 text-center text-sm text-text-subtle">
           {t("settings:manageCharacters.preview.empty", {
             defaultValue: "Fill in the form to see a preview"
           })}

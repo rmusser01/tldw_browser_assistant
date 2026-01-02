@@ -18,10 +18,12 @@ import { createSafeStorage } from "@/utils/safe-storage"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { useTranslation } from "react-i18next"
 import { useStoreMessageOption } from "@/store/option"
+import { useArtifactsStore } from "@/store/artifacts"
+import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
-  const { t } = useTranslation(["playground"])
+  const { t } = useTranslation(["playground", "common"])
   const [chatBackgroundImage] = useStorage({
     key: "chatBackgroundImage",
     instance: createSafeStorage({
@@ -195,6 +197,8 @@ export const Playground = () => {
   const compareParentByHistory = useStoreMessageOption(
     (state) => state.compareParentByHistory
   )
+  const artifactsOpen = useArtifactsStore((state) => state.isOpen)
+  const closeArtifacts = useArtifactsStore((state) => state.closeArtifact)
 
   const parentMeta =
     historyId && compareParentByHistory
@@ -205,7 +209,7 @@ export const Playground = () => {
     <div
       ref={drop}
       data-is-dragging={dropState === "dragging"}
-      className="relative flex h-full flex-col items-center bg-white dark:bg-[#171717] data-[is-dragging=true]:bg-gray-100 data-[is-dragging=true]:dark:bg-gray-800"
+      className="relative flex h-full flex-col items-center bg-bg text-text data-[is-dragging=true]:bg-surface2"
       style={
         chatBackgroundImage
           ? {
@@ -219,14 +223,14 @@ export const Playground = () => {
       {/* Background overlay for opacity effect */}
       {chatBackgroundImage && (
         <div
-          className="absolute inset-0 bg-white dark:bg-[#171717]"
+          className="absolute inset-0 bg-bg"
           style={{ opacity: 0.9, pointerEvents: "none" }}
         />
       )}
 
       {dropState === "dragging" && (
         <div className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center">
-          <div className="rounded-2xl border border-dashed border-white/70 bg-black/70 px-6 py-4 text-center text-sm font-medium text-white shadow-lg backdrop-blur-sm dark:border-white/40">
+          <div className="rounded-2xl border border-dashed border-border bg-elevated px-6 py-4 text-center text-sm font-medium text-text shadow-card">
             {t("playground:drop.hint", "Drop files to attach them to your message")}
           </div>
         </div>
@@ -239,8 +243,8 @@ export const Playground = () => {
             aria-live="polite"
             className={`max-w-lg rounded-full px-4 py-2 text-sm shadow-lg backdrop-blur-sm ${
               dropFeedback.type === "error"
-                ? "bg-red-600 text-white"
-                : "bg-slate-900/80 text-white dark:bg-slate-100/90 dark:text-slate-900"
+                ? "border border-danger bg-danger text-white"
+                : "border border-border bg-elevated text-text"
             }`}
           >
             {dropFeedback.message}
@@ -248,52 +252,72 @@ export const Playground = () => {
         </div>
       )}
 
-      <div className="relative z-10 flex h-full w-full flex-col">
-        {parentMeta?.parentHistoryId && (
-          <div className="flex w-full justify-center px-5 pt-2">
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-[11px] font-medium text-blue-700 hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-900/30 dark:text-blue-200 dark:hover:bg-blue-900/50"
-              onClick={() => {
-                window.dispatchEvent(
-                  new CustomEvent("tldw:open-history", {
-                    detail: { historyId: parentMeta.parentHistoryId }
-                  })
-                )
-              }}>
-              <span aria-hidden="true">←</span>
-              <span>
-                {t(
-                  "playground:composer.compareBreadcrumb",
-                  "Back to comparison chat"
-                )}
-              </span>
-            </button>
-          </div>
-        )}
-        <div
-          ref={containerRef}
-          role="log"
-          aria-live="polite"
-          aria-relevant="additions"
-          aria-label={t("playground:aria.chatTranscript", "Chat messages")}
-          className="custom-scrollbar flex-1 min-h-0 w-full overflow-x-hidden overflow-y-auto px-5">
-          <PlaygroundChat />
-        </div>
-        <div className="relative w-full">
-          {!isAutoScrollToBottom && (
-            <div className="pointer-events-none absolute -top-10 left-0 right-0 flex justify-center">
+      <div className="relative z-10 flex h-full w-full">
+        <div className="flex h-full min-w-0 flex-1 flex-col">
+          {parentMeta?.parentHistoryId && (
+            <div className="flex w-full justify-center px-5 pt-2">
               <button
-                onClick={() => autoScrollToBottom()}
-                aria-label={t("playground:composer.scrollToLatest", "Scroll to latest messages")}
-                title={t("playground:composer.scrollToLatest", "Scroll to latest messages") as string}
-                className="bg-gray-50 shadow border border-gray-200 dark:border-none dark:bg-white/20 p-1.5 rounded-full pointer-events-auto hover:bg-gray-100 dark:hover:bg-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
-                <ChevronDown className="size-4 text-gray-600 dark:text-gray-300" aria-hidden="true" />
+                type="button"
+                className="inline-flex items-center gap-2 rounded-full border border-primary bg-surface2 px-3 py-1 text-[11px] font-medium text-primaryStrong hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+                onClick={() => {
+                  window.dispatchEvent(
+                    new CustomEvent("tldw:open-history", {
+                      detail: { historyId: parentMeta.parentHistoryId }
+                    })
+                  )
+                }}>
+                <span aria-hidden="true">←</span>
+                <span>
+                  {t(
+                    "playground:composer.compareBreadcrumb",
+                    "Back to comparison chat"
+                  )}
+                </span>
               </button>
             </div>
           )}
-          <PlaygroundForm dropedFile={dropedFile} />
+          <div
+            ref={containerRef}
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions"
+            aria-label={t("playground:aria.chatTranscript", "Chat messages")}
+            className="custom-scrollbar flex-1 min-h-0 w-full overflow-x-hidden overflow-y-auto px-5">
+            <PlaygroundChat />
+          </div>
+          <div className="relative w-full">
+            {!isAutoScrollToBottom && (
+              <div className="pointer-events-none absolute -top-10 left-0 right-0 flex justify-center">
+                <button
+                  onClick={() => autoScrollToBottom()}
+                  aria-label={t("playground:composer.scrollToLatest", "Scroll to latest messages")}
+                  title={t("playground:composer.scrollToLatest", "Scroll to latest messages") as string}
+                  className="pointer-events-auto rounded-full border border-border bg-surface p-2 text-text-subtle shadow-card transition-colors hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+                  <ChevronDown className="size-4 text-text-subtle" aria-hidden="true" />
+                </button>
+              </div>
+            )}
+            <PlaygroundForm dropedFile={dropedFile} />
+          </div>
         </div>
+        {artifactsOpen && (
+          <>
+            <div className="hidden h-full w-[36%] min-w-[280px] max-w-[520px] shrink-0 lg:flex">
+              <ArtifactsPanel />
+            </div>
+            <div className="lg:hidden">
+              <button
+                type="button"
+                aria-label={t("common:close", "Close")}
+                onClick={closeArtifacts}
+                className="fixed inset-0 z-40 bg-black/40"
+              />
+              <div className="fixed inset-y-0 right-0 z-50 w-full max-w-[520px]">
+                <ArtifactsPanel />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )

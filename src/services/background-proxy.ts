@@ -11,6 +11,42 @@ import type {
 } from "@/services/tldw/openapi-guard"
 import { isPlaceholderApiKey } from "@/utils/api-key"
 
+const ERROR_LOG_THROTTLE_MS = 15_000
+const RATE_LIMIT_LOG_THROTTLE_MS = 60_000
+const ERROR_LOG_MAX_ENTRIES = 200
+const errorLogHistory = new Map<string, number>()
+
+const isRateLimitEntry = (entry: { status?: number; error?: string }): boolean => {
+  if (entry.status === 429) return true
+  const msg = String(entry.error || "").toLowerCase()
+  return msg.includes("rate limit") || msg.includes("429")
+}
+
+const shouldRecordRequestError = (entry: {
+  method: string
+  path: string
+  status?: number
+  error?: string
+  source: "background" | "direct"
+}): boolean => {
+  const now = Date.now()
+  const key = `${entry.source}:${entry.method}:${entry.path}:${entry.status ?? "na"}:${entry.error ?? ""}`
+  const lastAt = errorLogHistory.get(key)
+  const throttleMs = isRateLimitEntry(entry)
+    ? RATE_LIMIT_LOG_THROTTLE_MS
+    : ERROR_LOG_THROTTLE_MS
+  if (lastAt && now - lastAt < throttleMs) return false
+  errorLogHistory.set(key, now)
+  if (errorLogHistory.size > ERROR_LOG_MAX_ENTRIES) {
+    const sorted = Array.from(errorLogHistory.entries()).sort((a, b) => a[1] - b[1])
+    const overflow = sorted.length - ERROR_LOG_MAX_ENTRIES
+    for (let i = 0; i < overflow; i++) {
+      errorLogHistory.delete(sorted[i][0])
+    }
+  }
+  return true
+}
+
 export interface BgRequestInit<
   P extends PathOrUrl = AllowedPath,
   M extends AllowedMethodFor<P> = AllowedMethodFor<P>
@@ -39,6 +75,7 @@ export async function bgRequest<
     source: "background" | "direct"
   }) => {
     try {
+      if (!shouldRecordRequestError(entry)) return
       const storage = createSafeStorage({ area: "local" })
       const at = new Date().toISOString()
       const payload = { ...entry, at }

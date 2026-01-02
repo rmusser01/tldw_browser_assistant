@@ -207,11 +207,11 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         <h2
           className={`${
             !hideBorder ? "text-base font-semibold leading-7" : "text-md"
-          } text-gray-900 dark:text-white`}>
+          } text-text`}>
           {t("generalSettings.tts.heading")}
         </h2>
         {!hideBorder && (
-          <div className="border border-b border-gray-200 dark:border-gray-600 mt-3"></div>
+          <div className="border-b border-border mt-3"></div>
         )}
       </div>
       <form
@@ -221,7 +221,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         className="space-y-4">
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
           <label
-            className="text-gray-700 dark:text-neutral-50 "
+            className="text-text "
             htmlFor={ids.ttsEnabled}>
             {t("generalSettings.tts.ttsEnabled.label")}
           </label>
@@ -238,7 +238,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         </div>
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
           <label
-            className="text-gray-700 dark:text-neutral-50 "
+            className="text-text "
             htmlFor={ids.ttsAutoPlay}>
             {t("generalSettings.tts.ttsAutoPlay.label")}
           </label>
@@ -255,7 +255,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         </div>
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
           <label
-            className="text-gray-700 dark:text-neutral-50 "
+            className="text-text "
             htmlFor={ids.ttsProvider}>
             {t("generalSettings.tts.ttsProvider.label")}
           </label>
@@ -286,7 +286,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         </div>
         {form.values.ttsProvider === "browser" && (
           <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-            <span className="text-gray-700 dark:text-neutral-50 ">
+            <span className="text-text ">
               {t("generalSettings.tts.ttsVoice.label")}
             </span>
             <div>
@@ -307,7 +307,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         {form.values.ttsProvider === "elevenlabs" && (
           <>
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.tts.elevenLabs.apiKey", "API Key")}
               </span>
               <Space.Compact className="mt-4 sm:mt-0">
@@ -353,7 +353,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             {elevenLabsData && (
               <>
                 <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-                  <span className="text-gray-700 dark:text-neutral-50">
+                  <span className="text-text">
                     {t("generalSettings.tts.elevenLabs.voice", "TTS Voice")}
                   </span>
                   <Select
@@ -370,7 +370,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                 </div>
 
                 <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-                  <span className="text-gray-700 dark:text-neutral-50">
+                  <span className="text-text">
                     {t("generalSettings.tts.elevenLabs.model", "TTS Model")}
                   </span>
                   <Select
@@ -386,7 +386,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                   />
                 </div>
                 <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-                  <span className="text-gray-700 dark:text-neutral-50 ">
+                  <span className="text-text ">
                     {t("generalSettings.tts.responseSplitting.label")}
                   </span>
                   <div>
@@ -411,7 +411,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         {form.values.ttsProvider === "openai" && (
           <>
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 Base URL
               </span>
               <Input
@@ -423,7 +423,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 API Key
               </span>
               <Input.Password
@@ -434,7 +434,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 TTS Voice
               </span>
               <Select
@@ -455,7 +455,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 TTS Model
               </span>
               <Select
@@ -475,7 +475,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         {form.values.ttsProvider === "tldw" && (
           <>
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 TTS Model
               </span>
               {tldwModels && tldwModels.length > 0 ? (
@@ -499,7 +499,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               )}
             </div>
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 TTS Voice
               </span>
               {tldwVoices && tldwVoices.length > 0 ? (
@@ -523,7 +523,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               )}
           </div>
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 Response format
               </span>
               <Select
@@ -539,7 +539,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               />
             </div>
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 Synthesis speed
               </span>
               <InputNumber
@@ -557,7 +557,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         )}
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
           <label
-            className="text-gray-700 dark:text-neutral-50 "
+            className="text-text "
             htmlFor={ids.ssmlEnabled}>
             {t("generalSettings.tts.ssmlEnabled.label")}
           </label>
@@ -575,7 +575,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
 
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
           <label
-            className="text-gray-700 dark:text-neutral-50 "
+            className="text-text "
             htmlFor={ids.removeReasoning}>
             {t("generalSettings.tts.removeReasoningTagTTS.label")}
           </label>
@@ -595,7 +595,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
 
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
           <label
-            className="text-gray-700 dark:text-neutral-50"
+            className="text-text"
             htmlFor={ids.playbackSpeed}>
             {t("generalSettings.tts.playbackSpeed.label", "Playback Speed")}
           </label>
@@ -610,7 +610,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
               {...form.getInputProps("playbackSpeed")}
             />
-            <span className="text-xs text-gray-500 dark:text-gray-400 sm:text-right">
+            <span className="text-xs text-text-subtle sm:text-right">
               {t("generalSettings.tts.playbackSpeed.range", "0.25-2x")}
             </span>
           </div>

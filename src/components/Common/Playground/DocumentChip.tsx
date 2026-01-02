@@ -15,7 +15,7 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({ document }) => {
       href={document.url}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex items-center gap-2 bg-neutral-50 dark:bg-[#242424] border border-neutral-200 dark:border-[#2D2D2D] rounded-2xl px-3 py-1.5 mr-2 mb-2">
+      className="mb-2 mr-2 inline-flex items-center gap-2 rounded-2xl border border-border bg-surface2 px-3 py-2 text-text hover:bg-surface">
       <div className="flex items-center gap-2 flex-1 min-w-0">
         <div className="flex-shrink-0">
           {document.favIconUrl ? (
@@ -31,14 +31,14 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({ document }) => {
             />
           ) : null}
           <Globe
-            className={`w-4 h-4 text-neutral-600 dark:text-neutral-400 ${document.favIconUrl ? "hidden" : ""}`}
+            className={`h-4 w-4 text-text-muted ${document.favIconUrl ? "hidden" : ""}`}
           />
         </div>
         <div className="flex flex-col max-w-60 truncate">
-          <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200 ">
+          <span className="text-sm font-medium text-text">
             {document.title}
           </span>
-          <span className="text-xs text-neutral-600 dark:text-neutral-400 ">
+          <span className="text-xs text-text-muted">
             {document.url}
           </span>
         </div>{" "}

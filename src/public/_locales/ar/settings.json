@@ -1,0 +1,2744 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "الخادم والمصادقة"
+  },
+  "navigation_knowledgeTools": {
+    "message": "أدوات المعرفة"
+  },
+  "navigation_workspace": {
+    "message": "مساحة العمل"
+  },
+  "navigation_about": {
+    "message": "نبذة"
+  },
+  "healthNav": {
+    "message": "الحالة"
+  },
+  "worldBooksNav": {
+    "message": "كتب العوالم"
+  },
+  "chatDictionariesNav": {
+    "message": "قواميس الدردشة"
+  },
+  "charactersNav": {
+    "message": "الشخصيات"
+  },
+  "mediaNav": {
+    "message": "الوسائط"
+  },
+  "chatAppearance_title": {
+    "message": "مظهر الدردشة"
+  },
+  "chatAppearance_description": {
+    "message": "تخصيص الألوان والخطوط وأحجام النص لرسائل الدردشة."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "هل تبحث عن إعدادات سلوك الدردشة (الوضع العريض، التفسير، خيارات النسخ)؟"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "اذهب إلى الإعدادات العامة"
+  },
+  "chatAppearance_userHeading": {
+    "message": "رسائل المستخدم"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "رسائل المساعد"
+  },
+  "chatAppearance_userColor": {
+    "message": "لون نص المستخدم"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "لون نص المساعد"
+  },
+  "chatAppearance_userFont": {
+    "message": "خط المستخدم"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "خط المساعد"
+  },
+  "chatAppearance_userSize": {
+    "message": "حجم نص المستخدم"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "حجم نص المساعد"
+  },
+  "chatAppearance_color_default": {
+    "message": "افتراضي"
+  },
+  "chatAppearance_color_blue": {
+    "message": "أزرق"
+  },
+  "chatAppearance_color_green": {
+    "message": "أخضر"
+  },
+  "chatAppearance_color_purple": {
+    "message": "بنفسجي"
+  },
+  "chatAppearance_color_orange": {
+    "message": "برتقالي"
+  },
+  "chatAppearance_color_red": {
+    "message": "أحمر"
+  },
+  "chatAppearance_font_default": {
+    "message": "افتراضي"
+  },
+  "chatAppearance_font_sans": {
+    "message": "بدون زوائد (Sans serif)"
+  },
+  "chatAppearance_font_serif": {
+    "message": "بزوائد (Serif)"
+  },
+  "chatAppearance_font_mono": {
+    "message": "ثابت العرض (Monospace)"
+  },
+  "chatAppearance_size_sm": {
+    "message": "صغير"
+  },
+  "chatAppearance_size_md": {
+    "message": "متوسط"
+  },
+  "chatAppearance_size_lg": {
+    "message": "كبير"
+  },
+  "generalSettings_title": {
+    "message": "الإعدادات العامة"
+  },
+  "generalSettings_settings_heading": {
+    "message": "إعدادات واجهة المستخدم"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "لغة التعرف على الكلام"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "اختر لغة"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "اللغة"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "اختر لغة"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "تغيير المظهر"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "فاتح"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "داكن"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "استئناف آخر محادثة عند فتح اللوحة الجانبية (كوبيلوت)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "تمكين الدردشة مع الموقع بشكل افتراضي (كوبيلوت)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "استئناف آخر محادثة عند فتح واجهة المستخدم"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "إخفاء إعدادات نموذج المحادثة الحالي"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "استعادة آخر نموذج مستخدم للمحادثات السابقة"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "إرسال إشعار بعد الانتهاء من معالجة قاعدة المعرفة"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "توليد العنوان باستخدام الذكاء الاصطناعي"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "تمكين أو تعطيل فحص حالة اتصال الخادم"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "تمكين وضع الشاشة العريضة"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "فتح التفكير المنطقي بشكل افتراضي"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "استخدام فقاعة الدردشة لرسائل المستخدم"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "نسخ الرد تلقائياً إلى الحافظة"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "تمكين تنسيق ماركداون لرسائل المستخدم"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "نسخ كنص منسق"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "تمكين إشارات التبويب (@tab)"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "لصق النص الكبير كملف"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "تمكين المحادثة المؤقتة في اللوحة الجانبية بشكل افتراضي"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "تفعيل OCR (تنزيل حوالي 5 ميجابايت عند أول استخدام)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "سيؤدي تفعيل OCR إلى تنزيل حوالي 5MB من بيانات اللغة عند أول استخدام."
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "تم تمكين حزم OCR وهي جاهزة للاستخدام"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "لغة OCR الافتراضية"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "اختر لغة OCR"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "إزالة علامة التفكير من النص المنسوخ"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "تضمين موجّهات الخادم في البحث"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "إعادة بدء عملية الإعداد من البداية"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "إعادة بدء الإعداد"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "هل تريد إعادة بدء الإعداد؟"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "سيؤدي هذا إلى إعادة تعيين حالة الإعداد وإعادتك إلى مسار الإعداد من جديد."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "تمت إعادة تعيين عملية الإعداد"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "سنرجعك إلى خطوة الترحيب حتى تتمكن من مراجعة عنوان خادمك (URL) ومفتاح الـ API."
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "إعدادات الاسترجاع"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "تمكين التضمين والاسترجاع"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "الحد الأقصى لحجم المحتوى لوضع السياق الكامل"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "حجم المحتوى (الافتراضي 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "إدارة البحث على الإنترنت"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "إجراء بحث بسيط على الإنترنت"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "محرك البحث"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "اختر محرك بحث"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "إجمالي نتائج البحث"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "أدخل إجمالي نتائج البحث"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "زيارة الموقع المذكور في الرسالة"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "رابط SearXNG"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "مفتاح واجهة برنامج Brave"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "أدخل مفتاح واجهة برنامج Brave"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "نطاق جوجل"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "تفعيل البحث على الإنترنت بشكل افتراضي"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "مفتاح واجهة برمجة تطبيقات Tavily"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "أدخل مفتاح واجهة برمجة تطبيقات Tavily"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "مفتاح واجهة برمجة تطبيقات Exa"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "أدخل مفتاح واجهة برمجة تطبيقات Exa"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "مفتاح واجهة برمجة تطبيقات Firecrawl"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "أدخل مفتاح واجهة برمجة تطبيقات Firecrawl"
+  },
+  "generalSettings_system_heading": {
+    "message": "النظام"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "الوضع الافتراضي للواجهة"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "ملء الشاشة (واجهة الويب)"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "الشريط الجانبي"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "إعادة تعيين النظام"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "إعادة تعيين الكل"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "هل أنت متأكد أنك تريد إجراء إعادة تعيين النظام؟ سيؤدي هذا إلى مسح جميع البيانات ولا يمكن التراجع عنه."
+  },
+  "generalSettings_system_export_label": {
+    "message": "تصدير سجل المحادثات وقاعدة المعرفة والإرشادات"
+  },
+  "generalSettings_system_export_button": {
+    "message": "تصدير البيانات"
+  },
+  "generalSettings_system_export_success": {
+    "message": "تم التصدير بنجاح"
+  },
+  "generalSettings_system_import_label": {
+    "message": "استيراد سجل المحادثات وقاعدة المعرفة والإرشادات"
+  },
+  "generalSettings_system_import_button": {
+    "message": "استيراد البيانات"
+  },
+  "generalSettings_system_import_success": {
+    "message": "تم الاستيراد بنجاح"
+  },
+  "generalSettings_system_import_error": {
+    "message": "خطأ في الاستيراد"
+  },
+  "generalSettings_tts_heading": {
+    "message": "إعدادات تحويل النص إلى كلام"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "تمكين تحويل النص إلى كلام"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "تشغيل الرد الصوتي تلقائياً بعد الاكتمال"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "مزود خدمة تحويل النص إلى كلام"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "اختر مزود خدمة"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "صوت تحويل النص إلى كلام"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "اختر صوتاً"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "تمكين SSML (لغة ترميز توليف الكلام)"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "إزالة علامة التفكير من تحويل النص إلى كلام"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "تقسيم الرد"
+  },
+  "generalSettings_stt_heading": {
+    "message": "إعدادات تحويل الكلام إلى نص"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "مهلة التوقف التلقائي (مللي ثانية)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "أدخل مهلة التوقف التلقائي بالمللي ثانية"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "إرسال الرسالة الصوتية تلقائياً"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "تُستخدم إعدادات تحويل الكلام إلى نص هذه بواسطة زر الإملاء في ساحة التجربة والشريط الجانبي."
+  },
+  "generalSettings_stt_model_label": {
+    "message": "نموذج النسخ (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "تشغيل التقسيم للنصوص (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "درجة دقة الطابع الزمني"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "لكل مقطع"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "لكل كلمة"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "مقطع + كلمة"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "مهمة النسخ"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "نسخ (نفس اللغة)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "ترجمة إلى الإنجليزية"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "تنسيق الاستجابة"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON (النص + المقاطع)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "JSON تفصيلي"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "نص عادي"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "ترجمات SRT"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "ترجمات VTT"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "درجة حرارة أخذ العينات"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "إرشاد النسخ الافتراضي"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "نص اختياري لتوجيه الأسلوب"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "الحد الأقصى للمقاطع (TreeSeg K)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "الحد الأدنى للعناصر لكل مقطع"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "موازنة العقوبة (TreeSeg λ)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "عرض توسيع المقطع المنطوق"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "مزود تضمينات التقسيم"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "نموذج تضمينات التقسيم"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "إعدادات النظام"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "الوضع الافتراضي للواجهة"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "ملء الشاشة (واجهة الويب)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "الشريط الجانبي"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "زر إجراء المتصفح"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "إجراء قائمة السياق"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "إظهار زر واجهة الويب في الشريط الجانبي"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "صورة خلفية الدردشة"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "حجم الخط"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "البيانات"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "مزامنة الوضع الخاص في Firefox"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "مزامنة البيانات"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "إعادة تعيين النظام"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "إعادة تعيين الكل"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "هل أنت متأكد أنك تريد إجراء إعادة تعيين النظام؟ سيؤدي هذا إلى مسح جميع البيانات ولا يمكن التراجع عنه."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "تصدير سجل المحادثات وقاعدة المعرفة والإرشادات"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "تصدير البيانات"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "تم التصدير بنجاح"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "استيراد سجل المحادثات وقاعدة المعرفة والإرشادات"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "استيراد البيانات"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "تم الاستيراد بنجاح"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "خطأ في الاستيراد"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "ربط مساعد tldw بخادمك"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "بعض الإعدادات لا تسري إلا عندما يكون خادم tldw متاحاً. قم بربط خادمك للحصول على التجربة الكاملة."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان الخادم ومفتاح API."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "استخدم التشخيصات للتأكد من سلامة الخادم قبل تجربة الأدوات المتقدمة."
+  },
+  "generalSettings_empty_title": {
+    "message": "اضبط طريقة عمل مساعد tldw"
+  },
+  "generalSettings_empty_description": {
+    "message": "اضبط الإعدادات الافتراضية لواجهة الويب والشريط الجانبي والكلام والبحث ومعالجة البيانات من مكان واحد."
+  },
+  "generalSettings_empty_example1": {
+    "message": "اختر لغتك وسمتك وسلوك استئناف المحادثة الافتراضي."
+  },
+  "generalSettings_empty_example2": {
+    "message": "تحكم فيما إذا كانت الدردشات مؤقتة وكيفية التعامل مع اللصق الكبير وكيفية عرض التفكير."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "تهيئة الخادم والمصادقة"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "تجاهل"
+  },
+  "manageModels_title": {
+    "message": "إدارة النماذج"
+  },
+  "manageModels_addBtn": {
+    "message": "إضافة نموذج جديد"
+  },
+  "manageModels_columns_name": {
+    "message": "الاسم"
+  },
+  "manageModels_columns_digest": {
+    "message": "الملخص"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "تم التعديل في"
+  },
+  "manageModels_columns_size": {
+    "message": "الحجم"
+  },
+  "manageModels_columns_actions": {
+    "message": "الإجراءات"
+  },
+  "manageModels_columns_nickname": {
+    "message": "الاسم المستعار"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "النموذج الأصلي"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "التنسيق"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "العائلة"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "حجم المعلمة"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "مستوى التكميم"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "حذف النموذج"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "إعادة سحب النموذج"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "تحرير الاسم المستعار"
+  },
+  "manageModels_confirm_delete": {
+    "message": "هل أنت متأكد أنك تريد حذف هذا النموذج؟"
+  },
+  "manageModels_confirm_repull": {
+    "message": "هل أنت متأكد أنك تريد إعادة سحب هذا النموذج؟"
+  },
+  "manageModels_modal_title": {
+    "message": "إضافة نموذج جديد"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "أدخل اسم النموذج"
+  },
+  "manageModels_modal_pull": {
+    "message": "سحب النموذج"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "جاري سحب النموذج"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "جاري سحب نموذج {{modelName}}. لمزيد من التفاصيل، تحقق من أيقونة الإضافة."
+  },
+  "manageModels_notification_success": {
+    "message": "نجاح"
+  },
+  "manageModels_notification_error": {
+    "message": "خطأ"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "تم سحب النموذج بنجاح"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "تم حذف النموذج بنجاح"
+  },
+  "manageModels_notification_someError": {
+    "message": "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقاً"
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "جارٍ إلغاء التنزيل"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "جارٍ إلغاء تنزيل النموذج..."
+  },
+  "managePrompts_title": {
+    "message": "إدارة الإرشادات"
+  },
+  "managePrompts_addBtn": {
+    "message": "إضافة إرشاد جديد"
+  },
+  "managePrompts_option1": {
+    "message": "عادي"
+  },
+  "managePrompts_option2": {
+    "message": "RAG"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "إرشاد السؤال"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "إرشادات مخصصة"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "إرشادات كوبيلوت"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "أنشئ وأدر الإرشادات القابلة لإعادة الاستخدام التي يمكنك إدراجها في الدردشة."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "اعرض وعدّل إرشادات Copilot المعرّفة مسبقاً التي يوفرها خادمك."
+  },
+  "managePrompts_columns_title": {
+    "message": "العنوان"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "الإرشاد"
+  },
+  "managePrompts_columns_type": {
+    "message": "نوع الإرشاد"
+  },
+  "managePrompts_columns_actions": {
+    "message": "الإجراءات"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "إرشاد النظام"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "إرشاد سريع"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "حذف الإرشاد"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "تعديل الإرشاد"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "تكرار الإرشاد"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "هل أنت متأكد أنك تريد حذف هذا الإرشاد؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "إضافة إرشاد جديد"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "تعديل الإرشاد"
+  },
+  "managePrompts_form_title_label": {
+    "message": "العنوان"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "إرشادي الرائع"
+  },
+  "managePrompts_form_title_required": {
+    "message": "الرجاء إدخال عنوان"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "الإرشاد"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "أدخل الإرشاد"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "الرجاء إدخال إرشاد"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "يمكنك استخدام {key} كمتغير في إرشادك."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "المتغير {text} مفقود في الإرشاد. الرجاء إضافته."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "إرشاد نظام"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "جاري إضافة الإرشاد..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "إضافة الإرشاد"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "جاري تحديث الإرشاد..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "تحديث الإرشاد"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "تمت إضافة الإرشاد"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "تمت إضافة الإرشاد بنجاح"
+  },
+  "managePrompts_notification_error": {
+    "message": "خطأ"
+  },
+  "managePrompts_notification_someError": {
+    "message": "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقاً"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "تم تحديث الإرشاد"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "تم تحديث الإرشاد بنجاح"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "تم حذف الإرشاد"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "تم حذف الإرشاد بنجاح"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "مساحة عمل الإرشادات"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "تُدار الإرشادات القابلة لإعادة الاستخدام من مساحة عمل الإرشادات. استخدم الزر أدناه لفتحها."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "فتح مساحة عمل الإرشادات"
+  },
+  "managePrompts_search": {
+    "message": "ابحث في العناوين والمحتوى"
+  },
+  "managePrompts_filter_all": {
+    "message": "الكل"
+  },
+  "managePrompts_filter_system": {
+    "message": "النظام"
+  },
+  "managePrompts_filter_quick": {
+    "message": "سريع"
+  },
+  "managePrompts_tags_label": {
+    "message": "الوسوم"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "أضف وسوماً"
+  },
+  "managePrompts_import": {
+    "message": "استيراد"
+  },
+  "managePrompts_export": {
+    "message": "تصدير"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "دمج"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "استبدال"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "سيؤدي الاستبدال إلى الكتابة فوق جميع المطالبات الحالية بالملف المستورد. هل تريد المتابعة؟"
+  },
+  "managePrompts_favorite": {
+    "message": "مفضلة"
+  },
+  "managePrompts_unfavorite": {
+    "message": "إزالة من المفضلة"
+  },
+  "managePrompts_partialLoad": {
+    "message": "بعض بيانات الإرشادات غير متاحة"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "تحقق من اتصال خادمك ثم حدّث للمحاولة مرة أخرى."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "اتصل لاستخدام الإرشادات"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "لإدارة الإرشادات القابلة لإعادة الاستخدام، اتصل أولاً بخادم tldw."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان الخادم."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "بعد الاتصال، أنشئ إرشادات مخصصة يمكنك إعادة استخدامها عبر الدردشات."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "لا توجد إرشادات مخصصة بعد"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "أنشئ إرشادات قابلة لإعادة الاستخدام للمهام المتكررة وسير العمل ومعايير الفريق."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "احفظ إرشاد النظام المفضل لديك للملخصات أو الشروحات أو الترجمات."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "أنشئ إرشادات سريعة للمهام الشائعة مثل صياغة الرسائل أو تحسين الملاحظات."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "إنشاء إرشاد"
+  },
+  "managePrompts_filterHelp": {
+    "message": "تطابق نتائج البحث العنوان ومحتوى الإرشاد. استخدم النوع والوسوم لتضييق القائمة."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "لا توجد إرشادات Copilot متاحة"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "إرشادات Copilot هي قوالب محددة مسبقاً يوفرها خادم tldw."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "تحقق من إصدار الخادم أو إعداداته إذا كنت تتوقع توفر إرشادات Copilot."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "بعد تحديث الخادم، أعد تحميل الإضافة وارجع إلى هذا التبويب."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "فتح التشخيصات"
+  },
+  "manageShare_title": {
+    "message": "إدارة المشاركة"
+  },
+  "manageShare_heading": {
+    "message": "تكوين رابط مشاركة الصفحة"
+  },
+  "manageShare_form_url_label": {
+    "message": "رابط مشاركة الصفحة"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "أدخل رابط مشاركة الصفحة"
+  },
+  "manageShare_form_url_required": {
+    "message": "الرجاء إدخال رابط مشاركة الصفحة!"
+  },
+  "manageShare_form_url_help": {
+    "message": "لأسباب تتعلق بالخصوصية، يمكنك استضافة مشاركة الصفحة ذاتياً وتوفير الرابط هنا. <anchor>تعلم المزيد</anchor>."
+  },
+  "manageShare_webshare_heading": {
+    "message": "مشاركة الويب"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "العنوان"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "الرابط"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "الإجراءات"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "حذف المشاركة"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "هل أنت متأكد أنك تريد حذف هذه المشاركة؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "manageShare_webshare_label": {
+    "message": "إدارة مشاركة الصفحة"
+  },
+  "manageShare_webshare_description": {
+    "message": "تمكين أو تعطيل ميزة مشاركة الصفحة"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "تم تحديث رابط مشاركة الصفحة بنجاح"
+  },
+  "manageShare_notification_someError": {
+    "message": "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقاً"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "تم حذف مشاركة الويب بنجاح"
+  },
+  "ollamaSettings_title": {
+    "message": "تكامل الخادم"
+  },
+  "ollamaSettings_heading": {
+    "message": "تكوين تكامل الخادم"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "رابط الخادم"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "أدخل رابط الخادم"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "تمكين أو تعطيل تكامل الخادم عالمياً"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "عند تعطيل تكامل الخادم، لن يقوم مساعد الصفحة بجلب النماذج من الخادم. لا يزال بإمكانك إضافة مزودين من قسم <anchor>واجهة برمجة التطبيقات المتوافقة مع OpenAI</anchor>."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "تكوين رابط الخادم المتقدم"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "تمكين أو تعطيل رابط المصدر المخصص"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "رابط المصدر المخصص"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "أدخل رابط المصدر المخصص"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "تمكين أو تعطيل إصلاح CORS التلقائي"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "الترويسات المخصصة"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "إضافة ترويسة"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "مفتاح الترويسة"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "التفويض"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "قيمة الترويسة"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "رمز Bearer"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "إذا كنت تواجه مشاكل في الاتصال بالخادم، يمكنك تكوين رابط مصدر مخصص. لمعرفة المزيد، <anchor>انقر هنا</anchor>."
+  },
+  "manageSearch_title": {
+    "message": "إدارة البحث في الويب"
+  },
+  "manageSearch_heading": {
+    "message": "تكوين البحث في الويب"
+  },
+  "about_title": {
+    "message": "حول"
+  },
+  "about_heading": {
+    "message": "حول"
+  },
+  "about_chromeVersion": {
+    "message": "إصدار مساعد الصفحة"
+  },
+  "about_ollamaVersion": {
+    "message": "إصدار الخادم"
+  },
+  "about_support": {
+    "message": "يمكنك دعم مشروع مساعد الصفحة من خلال التبرع أو الرعاية عبر المنصات التالية:"
+  },
+  "about_koFi": {
+    "message": "ادعم على Ko-fi"
+  },
+  "about_githubSponsor": {
+    "message": "كن راعياً على GitHub"
+  },
+  "about_githubRepo": {
+    "message": "مستودع GitHub"
+  },
+  "switchToSidebar": {
+    "message": "التبديل إلى الشريط الجانبي"
+  },
+  "healthPage_title": {
+    "message": "حالة الصحة"
+  },
+  "healthPage_subtitle": {
+    "message": "نظرة سريعة على نقاط صحة الأنظمة الفرعية التي يعرضها الخادم."
+  },
+  "healthPage_backToChat": {
+    "message": "العودة إلى الدردشة"
+  },
+  "healthPage_openSettings": {
+    "message": "فتح إعدادات tldw"
+  },
+  "healthPage_recheckAll": {
+    "message": "إعادة الفحص للجميع"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "نسخ بيانات التشخيص"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "لم يتم تكوين الخادم."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "تعذر الوصول إلى نقطة صحة النواة في الخادم."
+  },
+  "healthPage_triedGet": {
+    "message": "تمت محاولة GET {{url}}"
+  },
+  "healthPage_configureHint": {
+    "message": "يرجى تكوين عنوان خادم في إعدادات tldw."
+  },
+  "healthPage_configureCta": {
+    "message": "تكوين"
+  },
+  "healthPage_connectedTo": {
+    "message": "متصل بـ {{host}}"
+  },
+  "healthPage_autoRefresh": {
+    "message": "تحديث تلقائي"
+  },
+  "healthPage_intervalLabel": {
+    "message": "الفاصل (ث):"
+  },
+  "healthPage_checking": {
+    "message": "جارٍ الفحص..."
+  },
+  "healthPage_recheck": {
+    "message": "إعادة الفحص"
+  },
+  "healthPage_healthy": {
+    "message": "سليم"
+  },
+  "healthPage_unhealthy": {
+    "message": "غير سليم"
+  },
+  "healthPage_unknown": {
+    "message": "غير معروف"
+  },
+  "healthPage_checks_core": {
+    "message": "واجهة برمجة التطبيقات الأساسية"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG"
+  },
+  "healthPage_checks_audio": {
+    "message": "الصوت"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "التضمينات"
+  },
+  "healthPage_checks_metrics": {
+    "message": "سلامة المقاييس"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "مقاييس الدردشة"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "ينسخ تشخيصات JSON إلى الحافظة"
+  },
+  "healthPage_statusHealthy": {
+    "message": "سليم"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "غير سليم"
+  },
+  "healthPage_statusUnknown": {
+    "message": "غير معروف"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "تم التحديث الآن"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "تم التحديث قبل {{seconds}} ثانية"
+  },
+  "savedSuccessfully": {
+    "message": "تم حفظ الإعدادات"
+  },
+  "saveFailed": {
+    "message": "فشل حفظ الإعدادات"
+  },
+  "siteAccessGranted": {
+    "message": "تم منح إذن المضيف لـ {{origin}}"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "مهلات متقدمة"
+  },
+  "tldw_requestTimeout": {
+    "message": "مهلة الطلب (ثوانٍ)"
+  },
+  "tldw_streamingIdle": {
+    "message": "مهلة خمول البث (ثوانٍ)"
+  },
+  "tldw_chatRequest": {
+    "message": "مهلة طلب الدردشة"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "خمول بث الدردشة"
+  },
+  "tldw_ragRequest": {
+    "message": "مهلة طلب RAG"
+  },
+  "tldw_mediaRequest": {
+    "message": "مهلة طلب الوسائط"
+  },
+  "tldw_uploadRequest": {
+    "message": "مهلة طلب الرفع"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "ملف تعريف المهلة"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "متوازن"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "ممتد"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "مخصص"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "الوضع المتوازن يناسب معظم الإعدادات. الوضع الممتد يضيف هامشًا إضافيًا للشبكات البطيئة أو المهام طويلة الأمد."
+  },
+  "tldw_reset": {
+    "message": "إعادة الضبط للقيم الموصى بها"
+  },
+  "tldw_resetDone": {
+    "message": "أعيد الضبط إلى القيم الموصى بها"
+  },
+  "tldw_serverNav": {
+    "message": "خادم tldw"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "تهيئة خادم tldw"
+  },
+  "tldw_serverLabel": {
+    "message": "الخادم:"
+  },
+  "tldw_notConfigured": {
+    "message": "غير مُهيأ"
+  },
+  "tldw_buttons_health": {
+    "message": "الحالة"
+  },
+  "tldw_buttons_recheck": {
+    "message": "إعادة الفحص"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "اختبار الاتصال"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "منح صلاحية الموقع"
+  },
+  "tldw_buttons_login": {
+    "message": "تسجيل الدخول"
+  },
+  "tldw_buttons_logout": {
+    "message": "تسجيل الخروج"
+  },
+  "tldw_loginRequired_title": {
+    "message": "يتطلب تسجيل الدخول"
+  },
+  "tldw_loginRequired_description": {
+    "message": "يرجى تسجيل الدخول ببيانات tldw_server"
+  },
+  "tldw_loggedIn_title": {
+    "message": "تم تسجيل الدخول"
+  },
+  "tldw_loggedIn_description": {
+    "message": "أنت مسجل الدخول حاليًا إلى tldw_server"
+  },
+  "tldw_connection_success": {
+    "message": "تم الاتصال بنجاح!"
+  },
+  "tldw_connection_failed": {
+    "message": "فشل الاتصال. يرجى التحقق من إعداداتك."
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "فشل الاتصال. يرجى التحقق من عنوان الخادم ومفتاح API."
+  },
+  "tldw_authMode_label": {
+    "message": "وضع المصادقة"
+  },
+  "tldw_authMode_single": {
+    "message": "مستخدم واحد (مفتاح API)"
+  },
+  "tldw_authMode_multi": {
+    "message": "متعدد المستخدمين (تسجيل الدخول)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "إلغاء الطلبات الأولية إذا لم يصل رد خلال هذه المدة. الافتراضي: {{seconds}}s."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "إيقاف البث إذا لم تصل تحديثات خلال هذه المدة. الافتراضي: {{seconds}}s."
+  },
+  "tldw_login_success": {
+    "message": "تم تسجيل الدخول بنجاح!"
+  },
+  "tldw_login_failed": {
+    "message": "فشل تسجيل الدخول"
+  },
+  "tldw_logout_success": {
+    "message": "تم تسجيل الخروج بنجاح"
+  },
+  "tldw_logout_failed": {
+    "message": "فشل تسجيل الخروج"
+  },
+  "tldw_setupLink": {
+    "message": "إعداد الخادم"
+  },
+  "tldw_loadError": {
+    "message": "تعذر تحميل إعدادات خادم tldw. تحقق من الاتصال وحاول مرة أخرى."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "مفتاح API"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "أدخل مفتاح API الخاص بك"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "يرجى إدخال مفتاح API الخاص بك"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "مفتاح API الخاص بـ tldw_server للمصادقة"
+  },
+  "tldw_fields_username_label": {
+    "message": "اسم المستخدم"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "أدخل اسم المستخدم"
+  },
+  "tldw_fields_username_required": {
+    "message": "يرجى إدخال اسم المستخدم"
+  },
+  "tldw_fields_password_label": {
+    "message": "كلمة المرور"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "أدخل كلمة المرور"
+  },
+  "tldw_fields_password_required": {
+    "message": "يرجى إدخال كلمة المرور"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "عنوان الخادم"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "يرجى إدخال عنوان الخادم"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "يرجى إدخال عنوان صالح"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "عنوان مثيل tldw_server الخاص بك (مثل http://localhost:8000)"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "مفتاح API غير صالح"
+  },
+  "tldw_errors_forbidden": {
+    "message": "ممنوع (تحقق من الصلاحيات)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "فشل التحقق من مفتاح API"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "الخادم غير متاح"
+  },
+  "tldw_about_title": {
+    "message": "حول تكامل tldw_server"
+  },
+  "tldw_about_description": {
+    "message": "يَتصل هذا الامتداد بمثيل tldw_server الخاص بك لتوفير الوصول إلى:"
+  },
+  "tldw_about_points_providers": {
+    "message": "عدة مزودي نماذج LLM عبر واجهة موحدة"
+  },
+  "tldw_about_points_rag": {
+    "message": "بحث RAG (توليد مدعوم بالاسترجاع)"
+  },
+  "tldw_about_points_media": {
+    "message": "استيعاب الوسائط ومعالجتها"
+  },
+  "tldw_about_points_notes": {
+    "message": "إدارة الملاحظات والمحفزات"
+  },
+  "tldw_about_points_stt": {
+    "message": "تحويل الكلام إلى نص"
+  },
+  "manageKnowledge_title": {
+    "message": "أسئلة وأجوبة المعرفة"
+  },
+  "manageKnowledge_heading": {
+    "message": "أسئلة وأجوبة المعرفة"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "مساحة عمل كتب العالم"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "تُدار كتب العالم من مساحة عمل كتب العالم. استخدم الزر أدناه لفتحها."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "فتح مساحة عمل كتب العالم"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "مساحة عمل قواميس الدردشة"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "تُدار قواميس الدردشة من مساحة عمل قواميس الدردشة. استخدم الزر أدناه لفتحها."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "فتح مساحة عمل قواميس الدردشة"
+  },
+  "rag_title": {
+    "message": "إعدادات RAG"
+  },
+  "rag_ragSettings_label": {
+    "message": "إعدادات RAG"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "نموذج التضمين"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "الرجاء اختيار نموذج"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "يوصى بشدة باستخدام نماذج التضمين مثل `nomic-embed-text`."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "اختر نموذجاً"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "موصى به: {{model}} (من إعدادات الخادم)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "نموذج التضمين المحفوظ سابقاً لم يعد متاحاً على الخادم. الرجاء اختيار نموذج آخر."
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "حجم القطعة"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "أدخل حجم القطعة"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "الرجاء إدخال حجم القطعة"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "تداخل القطع"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "أدخل تداخل القطع"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "الرجاء إدخال تداخل القطع"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "حد رفع الملفات الافتراضي لقاعدة المعرفة"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "أدخل حد رفع الملفات الافتراضي (مثال: 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "الرجاء إدخال حد رفع الملفات الافتراضي"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "عدد المستندات المسترجعة"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "أدخل عدد المستندات المسترجعة"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "الرجاء إدخال عدد المستندات المسترجعة"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "الفاصل"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "أدخل الفاصل (مثال: \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "الرجاء إدخال الفاصل"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "مقسم النص"
+  },
+  "rag_prompt_label": {
+    "message": "تكوين إرشاد RAG"
+  },
+  "rag_prompt_option1": {
+    "message": "عادي"
+  },
+  "rag_prompt_option2": {
+    "message": "ويب"
+  },
+  "rag_prompt_alert": {
+    "message": "تكوين إرشاد النظام هنا مهمل. يرجى استخدام قسم إدارة الإرشادات لإضافة أو تعديل الإرشادات. سيتم إزالة هذا القسم في إصدار مستقبلي"
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "إرشاد النظام"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "أدخل إرشاد النظام"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "إرشاد بحث الويب"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "لا تقم بإزالة `{search_results}` من الإرشاد."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "الرجاء إدخال إرشاد بحث الويب"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "أدخل إرشاد بحث الويب"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "إرشاد متابعة بحث الويب"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "لا تقم بإزالة `{chat_history}` و `{question}` من الإرشاد."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "الرجاء إدخال إرشاد متابعة بحث الويب!"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "إرشاد متابعة بحث الويب الخاص بك"
+  },
+  "onboarding_title": {
+    "message": "مرحبًا — لنقم بتوصيلك"
+  },
+  "onboarding_description": {
+    "message": "قم بإعداد الخادم وطريقة المصادقة. سنتحقق مباشرة من اتصال الخادم وحالة نظام البحث المعرفي (RAG)."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "تعرّف على كيفية عمل خادم tldw"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "مثال: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "أدخل عنوان URL كاملًا مثل http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "استخدم عناوين http أو https، على سبيل المثال http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_label": {
+    "message": "عنوان خادم tldw"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "أدخل عنوان خادم tldw لتمكين زر «التالي»."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "سنفعّل زر «التالي» عندما نتمكن من الوصول إلى هذا العنوان."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "جارٍ التحقق من إمكانية الوصول…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "استجاب الخادم بنجاح. يمكنك المتابعة."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "لم نتمكن من الوصول إلى هذا العنوان بعد. تحقّق من العنوان أو حاول مرة أخرى."
+  },
+  "onboarding_buttons_next": {
+    "message": "التالي"
+  },
+  "onboarding_buttons_back": {
+    "message": "رجوع"
+  },
+  "onboarding_buttons_continue": {
+    "message": "متابعة"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "إعادة التحقق"
+  },
+  "onboarding_buttons_finish": {
+    "message": "إنهاء"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "إنهاء بدون اتصال"
+  },
+  "onboarding_buttons_skip": {
+    "message": "تخطي الآن"
+  },
+  "onboarding_authMode_label": {
+    "message": "وضع المصادقة"
+  },
+  "onboarding_authMode_single": {
+    "message": "مستخدم واحد (مفتاح API)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "متعدد المستخدمين (تسجيل الدخول)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "مفتاح API"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "أدخل مفتاح الـ API الخاص بك (أو استخدم مفتاح التجربة الافتراضي THIS-IS-A-SECURE-KEY-123-REPLACE-ME للإعدادات المحلية ذات المستخدم الواحد)"
+  },
+  "onboarding_username_label": {
+    "message": "اسم المستخدم"
+  },
+  "onboarding_username_placeholder": {
+    "message": "اسم المستخدم"
+  },
+  "onboarding_password_label": {
+    "message": "كلمة المرور"
+  },
+  "onboarding_password_placeholder": {
+    "message": "كلمة المرور"
+  },
+  "onboarding_connection_label": {
+    "message": "الاتصال:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "غير معروف"
+  },
+  "onboarding_connection_connected": {
+    "message": "متصل"
+  },
+  "onboarding_connection_failed": {
+    "message": "فشل"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "يمكنك المتابعة وإكمال الإعداد الآن، وستتمكن من التحقق من الاتصال لاحقًا من صفحة الإعدادات."
+  },
+  "onboarding_rag_label": {
+    "message": "البحث المعرفي (RAG):"
+  },
+  "onboarding_rag_healthy": {
+    "message": "سليم"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "به مشكلات"
+  },
+  "onboarding_rag_unknown": {
+    "message": "غير معروف"
+  },
+  "onboarding_connectionFailed": {
+    "message": "فشل الاتصال"
+  },
+  "onboarding_footerHelp": {
+    "message": "بعد الاتصال، يمكنك العودة إلى هذه الإعدادات في أي وقت من قائمة الامتداد."
+  },
+  "onboarding_progressAria": {
+    "message": "تقدّم الإعداد الأولي"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "مرحبًا"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "اتصال بخادم tldw الخاص بك"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "اختر طريقة تسجيل الدخول"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "تأكيد الاتصال وفحص المعرفة"
+  },
+  "onboarding_startServer_title": {
+    "message": "قبل البدء — شغِّل خادم tldw الخاص بك"
+  },
+  "onboarding_startServer_body": {
+    "message": "إذا لم تكن قد شغَّلت الخادم بعد، نفِّذ أحد الأوامر التالية في مستودع tldw_server ثم عُد إلى هنا."
+  },
+  "onboarding_startServer_copy": {
+    "message": "نسخ الأمر"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "تشغيل محليًا باستخدام Python"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "شغِّله داخل virtualenv الخاص بـ tldw_server من جذر مستودع الخادم."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "تشغيل باستخدام Docker Compose (مستخدم واحد)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "شغِّله من جذر مستودع tldw_server لبدء واجهة البرمجة وقاعدة البيانات."
+  },
+  "onboarding_path_heading": {
+    "message": "كيف تود أن تبدأ؟"
+  },
+  "onboarding_path_hasServer": {
+    "message": "أقوم بتشغيل tldw_server بالفعل"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "اتصل بخادم tldw_server موجود تشغِّله بالفعل."
+  },
+  "onboarding_path_noServer": {
+    "message": "لا يوجد لدي خادم بعد"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "ابدأ خادم tldw_server جديد محليًا أو اتبع الوثائق لإعداده عن بُعد."
+  },
+  "onboarding_path_demo": {
+    "message": "استكشف فقط من خلال وضع تجريبي محلي"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "جرب وضع العرض التوضيحي للاتصال بخادم تجريبي دون إعداد محلي."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "لا يوجد خادم بعد؟ لا يزال بإمكانك الاستكشاف."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server تطبيق منفصل تستضيفه بنفسك. يمكنك اتباع دليل الإعداد الآن، أو العودة لاحقًا والمتابعة في الوضع التجريبي."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "شغِّله محليًا باستخدام Docker أو Python على جهازك."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "انشر tldw_server على خادم VPS بعيد أو استضافة مُدارة."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "استخدم نشرًا تجاريًا مدارًا لـ tldw_server عندما يكون متاحًا."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "فتح دليل الإعداد"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "استخدام الوضع التجريبي المحلي"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "ذكّرني لاحقًا"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "استكشف الامتداد في الوضع التجريبي"
+  },
+  "onboarding_path_demoBody": {
+    "message": "يتيح لك الوضع التجريبي تجربة الدردشة والملاحظات والوسائط باستخدام بيانات نموذجية. ستظل الميزات المعتمدة على الخادم مثل بحث «المعرفة» محدودة إلى أن تتصل بخادم tldw_server الخاص بك."
+  },
+  "onboarding_path_demoCta": {
+    "message": "استخدام الوضع التجريبي المحلي"
+  },
+  "onboarding_authModeHelp": {
+    "message": "يوصى بوضع المستخدم الواحد (مفتاح API) للخوادم الشخصية أو خوادم الفرق الصغيرة. وضع متعددي المستخدمين (تسجيل الدخول) مخصص للنشر المشترك حيث يسجّل الأشخاص الدخول بأسماء مستخدمين أو عبر SSO. اختر الوضع الذي يطابق طريقة إعداد tldw_server لديك."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "ستجد مفتاح الـ API في tldw_server → الإعدادات → مفاتيح API. أنشئ مفتاحًا هناك ثم الصقه هنا."
+  },
+  "onboarding_authStepAria": {
+    "message": "الخطوة 2 من 3 — اختيار طريقة تسجيل الدخول"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "الخطوة 3 من 3 — تأكيد الاتصال ومراجعة الخطوات التالية"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "أنت جاهز للانطلاق"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "من هنا يمكنك فتح اللوحة الجانبية، واستيعاب صفحة، أو استكشاف الوسائط والملاحظات."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "ابدأ الدردشة"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "افتح اللوحة الجانبية واطرح سؤالك الأول."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "فتح اللوحة الجانبية"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "استيعاب صفحتك الأولى"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "استخدم «الإدخال السريع» من الشريط العلوي لحفظ علامة التبويب الحالية في خادمك."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "استكشف الوسائط والملاحظات"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "انتقل إلى «الوسائط» و«الملاحظات» في صفحة الخيارات لمعرفة ما هو مخزَّن وقابل للبحث."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "إظهار الاختصارات السريعة في الشريط العلوي"
+  },
+  "manageCharacters_title": {
+    "message": "إدارة الشخصيات"
+  },
+  "manageCharacters_addBtn": {
+    "message": "شخصية جديدة"
+  },
+  "manageCharacters_columns_name": {
+    "message": "الاسم"
+  },
+  "manageCharacters_columns_description": {
+    "message": "الوصف"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "الإجراءات"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "الصورة الرمزية"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "دردشة"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "تعديل"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "حذف"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "عرض المحادثات"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "تكرار"
+  },
+  "manageCharacters_tags_label": {
+    "message": "الوسوم"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "أضف وسومًا"
+  },
+  "manageCharacters_tags_help": {
+    "message": "استخدم الوسوم لتجميع الشخصيات حسب الاستخدام (مثل \"الكتابة\"، \"التدريس\")."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "تعديل الشخصية"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "حذف الشخصية"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "الدردشة كشخصية {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "تعديل الشخصية {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "حذف الشخصية {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "عرض المحادثات لـ {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "تم العثور على {{count}} شخصية"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "تكرار الشخصية {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "هل أنت متأكد أنك تريد حذف هذه الشخصية؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "الاسم"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "مثال: مدرب كتابة"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "يرجى إدخال اسم"
+  },
+  "manageCharacters_form_description": {
+    "message": "عرّف شخصية قابلة لإعادة الاستخدام يمكنك الدردشة معها في الشريط الجانبي."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "السلوك / التعليمات"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "مثال: أنت معلم رياضيات صبور تشرح المفاهيم خطوة بخطوة وتتحقق من الفهم بأمثلة قصيرة."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "اشرح دور الشخصية ونبرتها والقيود. مثال: \"أنت معلم رياضيات صبور تشرح المفاهيم خطوة بخطوة.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "أضف وصفًا قصيرًا حتى تعرف الشخصية كيف ترد."
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "يرجى إضافة تعليمات لتوجيه الردود."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "يجب ألا يزيد إرشاد النظام عن 2000 حرف."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "رابط الصورة الرمزية (اختياري)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "مثال: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "رسالة ترحيبية (اختياري)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "مرحبًا! أنا مدرب الكتابة الخاص بك. ضع مسودتك وسأساعدك على تحسينها."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "رسالة أولى اختيارية ترسلها الشخصية عند بدء الدردشة."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "جارٍ إنشاء الشخصية..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "إنشاء شخصية"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "جارٍ حفظ التغييرات..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "حفظ التغييرات"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "تم إنشاء الشخصية"
+  },
+  "manageCharacters_notification_error": {
+    "message": "خطأ"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "حدث خطأ ما. يرجى المحاولة لاحقًا"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "تم تحديث الشخصية"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "تم حذف الشخصية"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "تعذر تحميل الشخصيات"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "تحقق من الاتصال وحاول مرة أخرى."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "لا توجد شخصيات بعد"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "أنشئ شخصية قابلة لإعادة الاستخدام بالاسم والوصف وإرشادات النظام للدردشة."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "عرّف مدرب كتابة أو خبير قصص أو مساعد برمجة يمكن إعادة استخدامه عبر الدردشات."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "امنح كل شخصية وصفًا وسلوكًا واضحين لتحافظ على استجابات متسقة."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "إنشاء شخصية"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "الصورة الرمزية لـ {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "الصورة الرمزية للمستخدم"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "محادثات {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "محادثات الشخصية"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "اختر محادثة للمتابعة بهذه الشخصية."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "لا توجد محادثات لهذه الشخصية حتى الآن."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "تعذر تحميل المحادثات لهذه الشخصية."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "تم التحديث {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "غير معروف"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "متابعة الدردشة"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "بدون عنوان"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "الأحدث"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "تحميل سجل الدردشة ومتابعة هذه المحادثة"
+  },
+  "manageCharacters_preview_title": {
+    "message": "معاينة"
+  },
+  "manageCharacters_preview_show": {
+    "message": "إظهار المعاينة"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "إخفاء المعاينة"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "شخصية بدون عنوان"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "رسالة الترحيب"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "السلوك"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "املأ النموذج لرؤية المعاينة"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "إظهار الحقول المتقدمة"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "إخفاء الحقول المتقدمة"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "بدون وصف"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "مطابقة جميع الوسوم"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "الصورة الرمزية (اختياري)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "الرابط"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "رفع"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "يرجى اختيار ملف صورة"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "يتم دعم صور PNG وJPEG وGIF فقط"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "ملف صورة غير صالح"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "فشل معالجة الصورة"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "انقر أو اسحب الصورة للرفع"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG أو JPEG أو GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "معاينة"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "تم استيراد البيانات بنجاح"
+  },
+  "systemNotifications_importError": {
+    "message": "خطأ في الاستيراد"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "تمت مزامنة بيانات فايرفوكس بنجاح، لست بحاجة لإعادة ذلك"
+  },
+  "systemNotifications_syncError": {
+    "message": "فشلت مزامنة بيانات فايرفوكس"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "يرجى اختيار ملف صورة صالح"
+  },
+  "prompts_enterPrompt": {
+    "message": "أدخل مطالبة."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "أدخل مطالبة."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "أدخل مطالبة متابعة."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "أدخل مطالبة متابعة."
+  },
+  "prompts_privateModeDescription": {
+    "message": "وضع التصفح الخاص في فايرفوكس لا يدعم حفظ البيانات في IndexedDB. الرجاء إضافة المطالبات من نافذة عادية."
+  },
+  "models_privateModeDescription": {
+    "message": "وضع التصفح الخاص في فايرفوكس لا يدعم حفظ البيانات في IndexedDB. الرجاء إضافة نموذج مخصص من نافذة عادية."
+  },
+  "evaluationsSettingsNav": {
+    "message": "التقييمات"
+  },
+  "promptStudioNav": {
+    "message": "استوديو الإرشادات"
+  },
+  "promptStudio_nav": {
+    "message": "استوديو الإرشادات"
+  },
+  "promptStudio_title": {
+    "message": "استوديو الإرشادات"
+  },
+  "promptStudio_subtitle": {
+    "message": "قم بتكوين الإعدادات الافتراضية ومراقبة صحة استوديو الإرشادات. يعيد الاتصال والمصادقة استخدام إعدادات الخادم الرئيسية."
+  },
+  "promptStudio_probeError": {
+    "message": "تعذر الوصول إلى استوديو الإرشادات"
+  },
+  "promptStudio_statusCard": {
+    "message": "الحالة"
+  },
+  "promptStudio_statusHint": {
+    "message": "يستدعي الزر ‎/prompt-studio/status‎ مع warn_seconds."
+  },
+  "promptStudio_statusError": {
+    "message": "نقطة نهاية الحالة غير متاحة"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "ثواني التحذير"
+  },
+  "promptStudio_testButton": {
+    "message": "اختبار استوديو الإرشادات"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "الإعدادات الافتراضية"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "احفظ المشروع الافتراضي وتكوينات النموذج وحجم صفحة القائمة."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "حفظ القيم الافتراضية باستخدام تخزين الإعدادات الحالي (قيد التنفيذ) لاختيار المشروع الأولي وإعدادات نماذج التنفيذ/التقييم والترقيم."
+  },
+  "promptStudio_defaultProject": {
+    "message": "معرّف المشروع الافتراضي"
+  },
+  "promptStudio_pageSize": {
+    "message": "حجم الصفحة"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "الإعدادات الافتراضية للتنفيذ"
+  },
+  "promptStudio_executeProvider": {
+    "message": "المزوّد"
+  },
+  "promptStudio_executeModel": {
+    "message": "النموذج"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "درجة الحرارة"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "الحد الأقصى للرموز"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "الإعدادات الافتراضية للتقييم"
+  },
+  "promptStudio_evalModel": {
+    "message": "النموذج"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "درجة الحرارة"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "الحد الأقصى للرموز"
+  },
+  "promptStudio_unavailable": {
+    "message": "استوديو الإرشادات غير متاح على الخادم بعد."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "بعد تمكينه، يمكنك مراقبة صحة قائمة الانتظار وضبط الإعدادات الافتراضية هنا."
+  },
+  "charactersSettingsTitle": {
+    "message": "مساحة عمل الشخصيات"
+  },
+  "charactersSettingsDescription": {
+    "message": "تُدار الشخصيات من مساحة عمل الشخصيات. استخدم الزر أدناه لفتحها."
+  },
+  "charactersOpenWorkspace": {
+    "message": "فتح مساحة عمل الشخصيات"
+  },
+  "mermaid": {
+    "message": "مخططات Mermaid"
+  },
+  "healthSummary_diagnostics": {
+    "message": "التشخيصات"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "افتح التشخيصات التفصيلية لاستكشاف الأخطاء أو فحص فحوصات الصحة."
+  },
+  "healthSummary_core": {
+    "message": "الخادم"
+  },
+  "healthSummary_rag": {
+    "message": "المعرفة"
+  },
+  "healthSummary_coreAria": {
+    "message": "الخادم: صحة الخادم/واجهة برمجة التطبيقات"
+  },
+  "healthSummary_ragAria": {
+    "message": "المعرفة: صحة فهرس المعرفة"
+  },
+  "healthSummary_coreOnline": {
+    "message": "الخادم: متصل"
+  },
+  "healthSummary_coreOffline": {
+    "message": "الخادم: غير متصل"
+  },
+  "healthSummary_coreChecking": {
+    "message": "الخادم: جارٍ الفحص..."
+  },
+  "healthSummary_ragReady": {
+    "message": "المعرفة: جاهزة"
+  },
+  "healthSummary_ragOffline": {
+    "message": "المعرفة: غير متصلة"
+  },
+  "healthSummary_ragChecking": {
+    "message": "المعرفة: جارٍ الفحص..."
+  },
+  "healthSummary_footerInfo": {
+    "message": "تلخص هذه الفحوصات آخر اتصال ناجح بخادم tldw وفهرس المعرفة."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "هناك الكثير من عمليات كتابة الإعدادات خلال فترة قصيرة؛ يرجى الانتظار لبضع ثوانٍ ثم المحاولة مرة أخرى."
+  },
+  "storage_quotaTitle": {
+    "message": "تم بلوغ حد التخزين"
+  },
+  "storage_writeError": {
+    "message": "تعذر حفظ الإعدادات"
+  },
+  "storage_writeErrorDescription": {
+    "message": "لم نتمكن من حفظ إعداداتك. يرجى المحاولة مرة أخرى قريباً."
+  },
+  "evaluations_title": {
+    "message": "ساحة التقييمات"
+  },
+  "evaluations_subtitle": {
+    "message": "عرّف التقييمات مقابل خادم tldw وافحص أحدث التشغيلات."
+  },
+  "evaluations_listTitle": {
+    "message": "أحدث التقييمات"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "تقييم جديد"
+  },
+  "evaluations_startRunCta": {
+    "message": "بدء تشغيل"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "تعذر تحميل التقييمات"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "تحقق من اتصال خادم tldw وبيانات اعتماد API ثم حاول مرة أخرى."
+  },
+  "evaluations_emptyList": {
+    "message": "لا توجد تقييمات بعد. عندما تنشئ واحداً سيظهر هنا."
+  },
+  "evaluations_selectedTag": {
+    "message": "محدد"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "حدود التقييم"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "تعذر جلب حدود المعدل"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "تعذر علينا استرداد حصص التقييم من الخادم."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "معلومات حدود المعدل غير متاحة لهذا الخادم."
+  },
+  "evaluations_tierLabel": {
+    "message": "الفئة"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "التقييمات اليومية"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "الرموز اليوم"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "الحد لكل دقيقة"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "يُعاد التعيين في"
+  },
+  "evaluations_runsTitle": {
+    "message": "التشغيلات"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "اختر تقييماً لعرض تشغيلاته الأخيرة."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "تعذر تحميل التشغيلات"
+  },
+  "evaluations_runsEmpty": {
+    "message": "لا توجد تشغيلات بعد لهذا التقييم."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "تفاصيل التشغيل"
+  },
+  "evaluations_noRunSelected": {
+    "message": "اختر تشغيلًا لعرض التفاصيل."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "تعذر تحميل تفاصيل التشغيل"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "الحالة"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "النموذج المستهدف"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "التقييم"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "خطأ"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "النتائج (مقتطف)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "التقدم"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "الاستخدام"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "مجموعات البيانات"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "مجموعة بيانات جديدة"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "تعذر تحميل مجموعات البيانات"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "لا توجد مجموعات بيانات بعد. أنشئ واحدة لإرفاقها بالتقييمات."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} عينة"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "الاسم"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "my_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "الوصف"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "البيانات الوصفية (JSON، اختياري)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "مدخل العينة"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "المخرجات المتوقعة (اختياري)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "JSON للعينات (اختياري، يتجاوز الحقول)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "مجموعة البيانات (اختياري)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "اختر مجموعة بيانات"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "تم إنشاء مجموعة البيانات"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "مجموعة البيانات جاهزة للاستخدام في التقييمات."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "فشل إنشاء مجموعة البيانات"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "رفض الخادم مجموعة البيانات هذه. تحقق من الحقول ثم حاول مرة أخرى."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "تم حذف مجموعة البيانات"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "فشل حذف مجموعة البيانات"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "فشل تحميل مجموعة البيانات"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "تفاصيل مجموعة البيانات"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "JSON العينات غير صالح"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "تقييم جديد"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "تعديل التقييم"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "الاسم"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "my_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "استخدم الحروف والأرقام والشرطات والشرطات السفلية فقط."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "نوع التقييم"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "مواصفات التقييم (JSON)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "يجب أن تكون مواصفات التقييم JSON صالحاً."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "البيانات الوصفية (JSON، اختياري)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "إرفاق مجموعة بيانات مضمنة بدلاً من الإشارة إلى dataset_id"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "مجموعة البيانات المضمنة غير صالحة"
+  },
+  "evaluations_runModelLabel": {
+    "message": "نموذج التشغيل (يُستخدم للتشغيلات السريعة)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "تم إنشاء التقييم"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "فشل إنشاء التقييم"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "رفض الخادم هذا التقييم. تأكد من صحة الاسم والنوع والمواصفات."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "تم تحديث التقييم"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "فشل تحديث التقييم"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "فشل حذف التقييم"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "حذف هذا التقييم؟"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "سيؤدي ذلك إلى إزالة تعريف التقييم. ستظل التشغيلات التي أُنشئت مسبقاً في السجل."
+  },
+  "evaluations_detailTitle": {
+    "message": "تفاصيل التقييم"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "تعذر تحميل تفاصيل التقييم"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "الوصف"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "اختر تقييماً لعرض مواصفاته."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "تم بدء التشغيل"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "بدأ تشغيل التقييم. يمكنك مراقبته من واجهة الخادم."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "فشل بدء التشغيل"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "رفض الخادم طلب التشغيل هذا. تحقق من النموذج ثم حاول مرة أخرى."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "الإعدادات (JSON)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "تجاوز مجموعة البيانات (مصفوفة JSON للعينات)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "إعدادات JSON غير صالحة"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "تم طلب إلغاء التشغيل"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "فشل إلغاء التشغيل"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "إلغاء التشغيل"
+  },
+  "evaluations_historyTitle": {
+    "message": "السجل"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "النوع"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "معرّف المستخدم"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "تاريخ البدء (ISO)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "تاريخ الانتهاء (ISO)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "جلب السجل"
+  },
+  "evaluations_historyEmpty": {
+    "message": "قم بتشغيل استعلام لعرض النشاط الأخير."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "فشل جلب السجل"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "ويب هوكس"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "الرابط"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "الأحداث"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "تسجيل ويب هوك"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "تم تسجيل ويب هوك"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "فشل تسجيل ويب هوك"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "فشل حذف ويب هوك"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "تعذر تحميل الويب هوكس"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "لا توجد ويب هوكس مسجلة بعد."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "السر"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "مفتاح عدم التكرار"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "اتصل لاستخدام التقييمات"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "لإنشاء التقييمات وتشغيلها، اتصل أولاً بخادم tldw."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان الخادم ومفتاح API."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "بعد الاتصال، يمكنك تعريف التقييمات وفحص المقاييس هنا."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "العينات"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "لم يتم إرجاع عينات لهذه الصفحة."
+  },
+  "evaluations_metricsLabel": {
+    "message": "المقاييس"
+  },
+  "evaluationsSettings_title": {
+    "message": "التقييمات"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "قم بتكوين الإعدادات الافتراضية المستخدمة في ساحة التقييمات."
+  },
+  "evaluationsSettings_offline": {
+    "message": "اتصل بخادم tldw لاختبار التقييمات."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "نوع التقييم الافتراضي"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "النموذج المستهدف الافتراضي"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "إعداد التشغيل الافتراضي (JSON)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "معرّف مجموعة البيانات الافتراضي (اختياري)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "قالب المواصفات للنوع المحدد"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "اختبار واجهة برمجة التقييمات"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "واجهة برمجة التقييمات متاحة"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "تعذر الوصول إلى واجهة برمجة التقييمات"
+  },
+  "chunkingPlayground_nav": {
+    "message": "ساحة تجزئة النص"
+  },
+  "chunkingPlayground_title": {
+    "message": "ساحة تجزئة النص"
+  },
+  "chunkingPlayground_description": {
+    "message": "جرّب إعدادات تجزئة مختلفة لمعرفة كيف يُقسَّم النص إلى أجزاء أصغر للمعالجة."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "النص المراد تجزئته"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "الصق النص هنا أو اختر نموذجًا..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "رفع ملف"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "جزّئ النص"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "طريقة التجزئة"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "الحد الأقصى لحجم الجزء"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "التداخل"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "اللغة"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "الكشف التلقائي"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "الإنجليزية"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "الإسبانية"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "الفرنسية"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "الألمانية"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "الإيطالية"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "البرتغالية"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "الصينية"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "اليابانية"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "الكورية"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "بطاقات"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "مضمّن"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} أجزاء، متوسط {{avgSize}} حرفًا"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "تم تحميل النص"
+  },
+  "chunkingPlayground_characters": {
+    "message": "أحرف"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "مفرد"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "مقارنة"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "جزء {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "جزء {{index}}: {{words}} كلمة"
+  },
+  "chunkingPlayground_position": {
+    "message": "الموضع: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} أخرى"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} حرفًا"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} كلمة"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "يرجى إدخال نص لتجزئته"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "نص الإدخال المشترك"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "قارن الاثنين"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "مقارنة"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "الإعداد أ ينتج {{diff}} جزءًا أقل"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "الإعداد أ ينتج {{diff}} جزءًا أكثر"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "كلا الإعدادين ينتج العدد نفسه من الأجزاء"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "انقر «مقارنة» لرؤية النتائج"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "منطقة التداخل"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "انقر على القسم المميَّز للتركيز على ذلك الجزء"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "لم يتم العثور على محتوى نصي لهذا العنصر"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "فشل تحميل محتوى الوسائط"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "فشل تحميل مكتبة الوسائط"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "اختر عنصر وسائط..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "جارٍ تحميل المحتوى..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "لم يتم العثور على وسائط"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} عنصر وسائط متاح"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "لصق النص"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "رفع ملف"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "نص نموذجي"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "من مكتبة الوسائط"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "مقال إخباري"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "مقال متعدد الفقرات مع عناوين"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "شفرة المصدر"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "شفرة بايثون مع أصناف ودوال"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "تفريغ"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "تفريغ بودكاست مُؤقّت"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "ورقة أكاديمية"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "كتابة تقنية مع مراجع"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "مقارنة الإعدادات"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "الإعداد أ"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "الإعداد ب"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "مفرد"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "مقارنة"
+  }
+}

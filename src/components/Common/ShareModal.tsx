@@ -45,7 +45,7 @@ export const PlaygroundMessage = (
   }
 ) => {
   return (
-    <div className="group w-full text-gray-800 dark:text-gray-100">
+    <div className="group w-full text-text">
       <div className="text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex lg:px-0 m-auto w-full">
         <div className="flex flex-row gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl m-auto w-full">
           <div className="w-8 flex flex-col relative items-end">
@@ -58,7 +58,7 @@ export const PlaygroundMessage = (
             </div>
           </div>
           <div className="flex w-[calc(100%-50px)] flex-col gap-3 lg:w-[calc(100%-115px)]">
-            <span className="text-xs font-bold text-gray-800 dark:text-white">
+            <span className="text-xs font-bold text-text">
               {props.isBot
                 ? removeModelSuffix(
                     `${props?.modelName || props?.name}`?.replaceAll(
@@ -193,7 +193,7 @@ export const ShareModal: React.FC<Props> = ({
         </Form.Item>
 
         <Form.Item>
-          <div className="max-h-[180px] overflow-x-auto border dark:border-gray-700 rounded-md p-2">
+          <div className="max-h-[180px] overflow-x-auto rounded-md border border-border bg-surface p-2">
             <div className="flex flex-col p-3">
               {messages.map((message, index) => (
                 <PlaygroundMessage
@@ -211,7 +211,7 @@ export const ShareModal: React.FC<Props> = ({
           <div className="flex justify-end">
             <button
               type="submit"
-              className="inline-flex items-center rounded-md border border-transparent bg-black px-2 py-2.5 text-md font-medium leading-4 text-white shadow-sm dark:bg-white dark:text-gray-800 disabled:opacity-50 ">
+              className="inline-flex items-center rounded-md border border-transparent bg-primary px-2 py-2.5 text-md font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus disabled:opacity-50">
               {isPending
                 ? t("share.form.btn.saving")
                 : t("share.form.btn.save")}

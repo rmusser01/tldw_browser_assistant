@@ -27,8 +27,8 @@ const CHAT_TEXT_FONT_CLASS: Record<ChatTextFontOption, string> = {
 }
 
 const CHAT_TEXT_SIZE_CLASS: Record<ChatTextSizeOption, string> = {
-  sm: "text-sm",
-  md: "text-base",
+  sm: "text-body",
+  md: "text-message",
   lg: "text-lg"
 }
 
@@ -52,4 +52,3 @@ export const buildChatTextClass = (
 
   return classes.filter(Boolean).join(" ")
 }
-

@@ -1,6 +1,6 @@
 import { cleanUrl } from "~/libs/clean-url"
 import { promptForRag } from "~/services/tldw-server"
-import { type ChatHistory, type Message } from "~/store/option"
+import { type ChatHistory, type Message, type ToolChoice } from "~/store/option"
 import { addFileToSession, generateID, getSessionFiles } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
@@ -59,6 +59,7 @@ export const documentChatMode = async (
     selectedModel,
     useOCR,
     currentChatModelSettings,
+    toolChoice,
     setMessages,
     saveMessageOnSuccess,
     saveMessageOnError,
@@ -84,6 +85,7 @@ export const documentChatMode = async (
     selectedModel: string
     useOCR: boolean
     currentChatModelSettings: ChatModelSettings | null
+    toolChoice?: ToolChoice
     setMessages: (
       messages: Message[] | ((prev: Message[]) => Message[])
     ) => void
@@ -123,7 +125,7 @@ export const documentChatMode = async (
   )
 
   const allFiles = [...sessionFiles, ...newFiles]
-  const ollama = await pageAssistModel({ model: selectedModel })
+  const ollama = await pageAssistModel({ model: selectedModel, toolChoice })
 
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
   const resolvedUserMessageId =

@@ -79,13 +79,17 @@ export const useMessage = () => {
     setIsSearchingInternet,
     webSearch,
     setWebSearch,
+    toolChoice,
+    setToolChoice,
     isSearchingInternet,
     temporaryChat,
     setTemporaryChat,
     queuedMessages,
     addQueuedMessage,
     setQueuedMessages,
-    clearQueuedMessages
+    clearQueuedMessages,
+    replyTarget,
+    clearReplyTarget
   } = useStoreMessageOption()
   const [defaultInternetSearchOn] = useStorage("defaultInternetSearchOn", false)
 
@@ -131,6 +135,7 @@ export const useMessage = () => {
     setServerChatId,
     serverChatState,
     setServerChatState,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -149,6 +154,7 @@ export const useMessage = () => {
 
   const resetServerChatState = () => {
     setServerChatState("in-progress")
+    setServerChatVersion(null)
     setServerChatTopic(null)
     setServerChatClusterId(null)
     setServerChatSource(null)
@@ -166,6 +172,7 @@ export const useMessage = () => {
             (chat as any)?.conversation_state ??
             "in-progress"
         )
+        setServerChatVersion((chat as any)?.version ?? null)
         setServerChatTopic((chat as any)?.topic_label ?? null)
         setServerChatClusterId((chat as any)?.cluster_id ?? null)
         setServerChatSource((chat as any)?.source ?? null)
@@ -181,7 +188,8 @@ export const useMessage = () => {
     setServerChatExternalRef,
     setServerChatSource,
     setServerChatState,
-    setServerChatTopic
+    setServerChatTopic,
+    setServerChatVersion
   ])
 
   React.useEffect(() => {
@@ -214,6 +222,7 @@ export const useMessage = () => {
     if (sidepanelTemporaryChat) {
       setTemporaryChat(true)
     }
+    clearReplyTarget()
   }
 
   const saveMessageOnSuccess = createSaveMessageOnSuccess(
@@ -331,7 +340,11 @@ export const useMessage = () => {
         const promptForQuestion = questionPrompt
           .replaceAll("{chat_history}", chat_history)
           .replaceAll("{question}", message)
-        const questionOllama = await pageAssistModel({ model })
+        const questionOllama = await pageAssistModel({
+          model,
+          toolChoice: "none",
+          saveToDb: false
+        })
         const questionMessage = await humanMessageFormatter({
           content: [
             {
@@ -880,6 +893,7 @@ export const useMessage = () => {
           const {
             id,
             chat_id,
+            version,
             state,
             conversation_state,
             topic_label,
@@ -889,6 +903,7 @@ export const useMessage = () => {
           } = created as {
             id?: string | number
             chat_id?: string | number
+            version?: number
             state?: string | null
             conversation_state?: string | null
             topic_label?: string | null
@@ -901,6 +916,7 @@ export const useMessage = () => {
             state ?? conversation_state ?? null
           )
           setServerChatState(normalizedState)
+          setServerChatVersion(typeof version === "number" ? version : null)
           setServerChatTopic(topic_label ?? null)
           setServerChatClusterId(cluster_id ?? null)
           setServerChatSource(source ?? null)
@@ -957,31 +973,29 @@ export const useMessage = () => {
         })
       }
 
-      // Get messages formatted for completions with character context
-      type TldwListMessagesResponse =
-        | {
-            messages?: any[]
-          }
-        | any[]
-        | null
-        | undefined
-
-      const formatted = (await tldwClient.listChatMessages(chatId, {
-        include_character_context: true,
-        format_for_completions: true
-      })) as TldwListMessagesResponse
-      const msgs = Array.isArray(formatted)
-        ? formatted
-        : formatted?.messages || []
-
-      // Stream completion from server /chat/completions
+      // Stream completion from server /chats/{id}/complete-v2
       let count = 0
       let reasoningStartTime: Date | null = null
       let reasoningEndTime: Date | null = null
       let timetaken = 0
       let apiReasoning = false
 
-      for await (const chunk of tldwClient.streamChatCompletion({ messages: msgs, model, stream: true }, { signal })) {
+      const resolvedApiProvider =
+        currentChatModelSettings.apiProvider &&
+        currentChatModelSettings.apiProvider.trim().length > 0
+          ? currentChatModelSettings.apiProvider.trim()
+          : undefined
+
+      for await (const chunk of tldwClient.streamCharacterChatCompletion(
+        chatId,
+        {
+          include_character_context: true,
+          model,
+          provider: resolvedApiProvider,
+          save_to_db: false
+        },
+        { signal }
+      )) {
         const chunkState = consumeStreamingChunk(
           { fullText, contentToSave, apiReasoning },
           chunk
@@ -1375,79 +1389,104 @@ export const useMessage = () => {
       setAbortController(controller)
       signal = controller.signal
     }
+    const replyActive =
+      Boolean(replyTarget) &&
+      !isRegenerate &&
+      !messageType &&
+      chatMode === "normal" &&
+      !selectedCharacter?.id
+    const replyOverrides = replyActive
+      ? (() => {
+          const userMessageId = generateID()
+          const assistantMessageId = generateID()
+          return {
+            userMessageId,
+            assistantMessageId,
+            userParentMessageId: replyTarget?.id ?? null,
+            assistantParentMessageId: userMessageId
+          }
+        })()
+      : {}
 
-    // this means that the user is trying to send something from a selected text on the web
-    if (messageType) {
-      await presetChatMode(
-        message,
-        image,
-        isRegenerate,
-        chatHistory || messages,
-        memory || history,
-        signal,
-        messageType
-      )
-    } else {
-      if (chatMode === "normal") {
-        if (selectedCharacter?.id) {
-          await characterChatMode(
-            message,
-            image,
-            isRegenerate,
-            chatHistory || messages,
-            memory || history,
-            signal,
-            model
-          )
-        } else {
-          await normalChatMode(
-            message,
-            image,
-            isRegenerate,
-            chatHistory || messages,
-            memory || history,
-            signal,
-            {
-              selectedModel: model,
-              useOCR,
-              selectedSystemPrompt: selectedSystemPrompt ?? "",
-              currentChatModelSettings,
-              setMessages,
-              saveMessageOnSuccess,
-              saveMessageOnError,
-              setHistory,
-              setIsProcessing,
-              setStreaming,
-              setAbortController,
-              historyId,
-              setHistoryId: setHistoryId as (id: string) => void,
-              webSearch,
-              setIsSearchingInternet
-            }
-          )
-        }
-      } else if (chatMode === "vision") {
-        await visionChatMode(
-          message,
-          image,
-          isRegenerate,
-          chatHistory || messages,
-          memory || history,
-          signal
-        )
-      } else {
-        const newEmbeddingController = new AbortController()
-        let embeddingSignal = newEmbeddingController.signal
-        setEmbeddingController(newEmbeddingController)
-        await chatWithWebsiteMode(
+    try {
+      // this means that the user is trying to send something from a selected text on the web
+      if (messageType) {
+        await presetChatMode(
           message,
           image,
           isRegenerate,
           chatHistory || messages,
           memory || history,
           signal,
-          embeddingSignal
+          messageType
         )
+      } else {
+        if (chatMode === "normal") {
+          if (selectedCharacter?.id) {
+            await characterChatMode(
+              message,
+              image,
+              isRegenerate,
+              chatHistory || messages,
+              memory || history,
+              signal,
+              model
+            )
+          } else {
+            await normalChatMode(
+              message,
+              image,
+              isRegenerate,
+              chatHistory || messages,
+              memory || history,
+              signal,
+              {
+                selectedModel: model,
+                useOCR,
+                selectedSystemPrompt: selectedSystemPrompt ?? "",
+                currentChatModelSettings,
+                setMessages,
+                saveMessageOnSuccess,
+                saveMessageOnError,
+                setHistory,
+                setIsProcessing,
+                setStreaming,
+                setAbortController,
+                historyId,
+                setHistoryId: setHistoryId as (id: string) => void,
+                webSearch,
+                setIsSearchingInternet,
+                ...replyOverrides
+              }
+            )
+          }
+        } else if (chatMode === "vision") {
+          await visionChatMode(
+            message,
+            image,
+            isRegenerate,
+            chatHistory || messages,
+            memory || history,
+            signal
+          )
+        } else {
+          const newEmbeddingController = new AbortController()
+          let embeddingSignal = newEmbeddingController.signal
+          setEmbeddingController(newEmbeddingController)
+          await chatWithWebsiteMode(
+            message,
+            image,
+            isRegenerate,
+            chatHistory || messages,
+            memory || history,
+            signal,
+            embeddingSignal
+          )
+        }
+      }
+    } finally {
+      if (replyActive) {
+        clearReplyTarget()
       }
     }
   }
@@ -1580,6 +1619,7 @@ export const useMessage = () => {
     setServerChatId,
     serverChatState,
     setServerChatState,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -1633,6 +1673,7 @@ export const useMessage = () => {
     setServerChatId,
     serverChatState,
     setServerChatState,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -1645,6 +1686,8 @@ export const useMessage = () => {
     createChatBranch,
     temporaryChat,
     setTemporaryChat,
+    toolChoice,
+    setToolChoice,
     sidepanelTemporaryChat,
     queuedMessages,
     addQueuedMessage,

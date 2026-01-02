@@ -146,7 +146,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
   if (status === "error") {
     return (
       <div className={cn("flex justify-center items-center py-8 px-2", className)}>
-        <span className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        <span className="text-xs text-text-subtle text-center">
           {t("common:serverChatsUnavailableServerError", {
             defaultValue:
               "Server chats unavailable right now. Check your server logs or try again."
@@ -175,10 +175,10 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
         <button
           key={chat.id}
           className={cn(
-            "flex py-2 px-2 items-center gap-3 relative rounded-md truncate group transition-opacity duration-300 ease-in-out border text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1",
+            "flex py-2 px-2 items-center gap-3 relative rounded-md truncate group transition-opacity duration-300 ease-in-out border text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1",
             serverChatId === chat.id
-              ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-              : "bg-gray-50 dark:bg-[#2d2d2d] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#3d3d3d]"
+              ? "bg-surface2 border-borderStrong text-text"
+              : "bg-surface text-text border-border hover:bg-surface2"
           )}
           onClick={() => void loadServerChat(chat)}
         >
@@ -186,8 +186,8 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
             <span className="truncate text-sm" title={chat.title}>
               {chat.title}
             </span>
-            <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              <span className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium lowercase text-gray-700 dark:bg-gray-700 dark:text-gray-100">
+            <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle mt-1">
+              <span className="inline-flex items-center rounded-full bg-surface2 px-2 py-1 text-[11px] font-medium lowercase text-text">
                 {(chat.state as string) || "in-progress"}
               </span>
               {chat.topic_label && (
@@ -199,7 +199,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
                 </span>
               )}
             </div>
-            <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+            <span className="flex items-center gap-1 text-xs text-text-subtle">
               {chat.parent_conversation_id ? (
                 <Tooltip
                   title={t("common:serverChatForkedTooltip", {

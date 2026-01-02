@@ -119,8 +119,8 @@ export function Pagination({
   // Handle empty results case - after all hooks
   if (currentItemsCount === 0) {
     return (
-      <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
-        <div className="text-xs text-gray-600 dark:text-gray-400 text-center">
+      <div className="px-4 py-2 border-t border-border bg-surface">
+        <div className="text-xs text-text-muted text-center">
           {t(
             'mediaPage.showingZero',
             '0 of {{total}} results',
@@ -133,8 +133,8 @@ export function Pagination({
 
   if (totalPages <= 1) {
     return (
-      <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
-        <div className="text-xs text-gray-600 dark:text-gray-400 text-center">
+      <div className="px-4 py-2 border-t border-border bg-surface">
+        <div className="text-xs text-text-muted text-center">
           {t(
             'mediaPage.showingCount',
             '{{count}} of {{total}} results',
@@ -146,9 +146,9 @@ export function Pagination({
   }
 
   return (
-    <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
+    <div className="px-4 py-2 border-t border-border bg-surface">
       {/* Items count */}
-      <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 text-center">
+      <div className="text-xs text-text-muted mb-2 text-center">
         {t(
           'mediaPage.showingRange',
           'Showing {{start}}-{{end}} of {{total}}',
@@ -162,10 +162,10 @@ export function Pagination({
         <button
           onClick={handlePrevious}
           disabled={currentPage === 1}
-          className="px-1.5 py-0.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-1.5 py-0.5 rounded hover:bg-surface2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           aria-label={t('mediaPage.previousPage', 'Previous page')}
         >
-          <ChevronLeft className="w-3.5 h-3.5 text-gray-600 dark:text-gray-400" />
+          <ChevronLeft className="w-3.5 h-3.5 text-text-muted" />
         </button>
 
         {/* Page numbers */}
@@ -174,7 +174,7 @@ export function Pagination({
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="px-1.5 py-0.5 text-gray-400 dark:text-gray-500 text-xs"
+                className="px-1.5 py-0.5 text-text-subtle text-xs"
                 aria-hidden="true"
                 role="presentation"
               >
@@ -192,10 +192,10 @@ export function Pagination({
               onClick={() => handlePageClick(pageNum)}
               aria-label={t('mediaPage.goToPage', 'Go to page {{num}}', { num: pageNum })}
               aria-current={isActive ? 'page' : undefined}
-              className={`px-2 py-0.5 rounded text-xs transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 ${
+              className={`px-2 py-0.5 rounded text-xs transition-colors focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 ${
                 isActive
-                  ? 'bg-blue-600 dark:bg-blue-600 text-white font-medium'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  ? 'bg-primary text-white font-medium'
+                  : 'text-text-muted hover:bg-surface2'
               }`}
             >
               {pageNum}
@@ -207,17 +207,17 @@ export function Pagination({
         <button
           onClick={handleNext}
           disabled={currentPage === totalPages}
-          className="px-1.5 py-0.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-1.5 py-0.5 rounded hover:bg-surface2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           aria-label={t('mediaPage.nextPage', 'Next page')}
         >
-          <ChevronRight className="w-3.5 h-3.5 text-gray-600 dark:text-gray-400" />
+          <ChevronRight className="w-3.5 h-3.5 text-text-muted" />
         </button>
       </div>
 
       {/* Jump to page - only show if there are many pages */}
       {totalPages > 5 && (
         <div className="flex items-center justify-center gap-1.5">
-          <label htmlFor="jump-to-page" className="text-xs text-gray-600 dark:text-gray-400">
+          <label htmlFor="jump-to-page" className="text-xs text-text-muted">
             {t('mediaPage.pageLabel', 'Page:')}
           </label>
           <Tooltip
@@ -234,10 +234,10 @@ export function Pagination({
               onChange={handleJumpInputChange}
               onKeyDown={handleJumpKeyPress}
               placeholder={`1-${totalPages}`}
-              className={`w-16 px-1.5 py-0.5 text-xs border bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:border-transparent transition-colors ${
+              className={`w-16 px-1.5 py-0.5 text-xs border bg-surface text-text rounded focus:outline-none focus:ring-2 focus:border-transparent transition-colors ${
                 jumpError
-                  ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500 dark:focus:ring-blue-600'
+                  ? 'border-danger focus:ring-danger'
+                  : 'border-border focus:ring-focus'
               }`}
               aria-invalid={!!jumpError}
               aria-describedby={jumpError ? 'jump-page-error' : undefined}
@@ -250,7 +250,7 @@ export function Pagination({
           )}
           <button
             onClick={handleJumpToPage}
-            className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded transition-colors"
+            className="px-2 py-0.5 text-xs bg-surface2 hover:bg-surface text-text rounded transition-colors"
           >
             {t('mediaPage.go', 'Go')}
           </button>

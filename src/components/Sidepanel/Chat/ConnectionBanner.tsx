@@ -180,7 +180,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
         description={
           config.description && (
             <div className="mt-1">
-              <p className="text-xs text-gray-600 dark:text-gray-300">
+              <p className="text-xs text-text-muted">
                 {config.description}
               </p>
 
@@ -217,7 +217,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       setShowApiKeyForm(false)
                       setApiKeyInput("")
                     }}
-                    className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 underline"
+                    className="text-xs text-text-subtle hover:text-text underline"
                   >
                     {t("common:cancel", "Cancel")}
                   </button>

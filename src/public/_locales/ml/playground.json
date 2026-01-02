@@ -312,7 +312,7 @@
     "message": "വ്യത്യസ്ത മോഡലുകളും പ്രോംപ്റ്റുകളും അറിവ് ഉറവിടങ്ങളും ഇവിടെ പരീക്ഷിക്കുക."
   },
   "empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "നിങ്ങൾ ഡെമോ മോഡിലാണ് — അസിസ്റ്റന്റ് എങ്ങനെ പ്രതികരിക്കുന്നു എന്ന് കാണാൻ ഒരു ചോദ്യം ചോദിക്കുക. പിന്നീട് നിങ്ങളുടെ tldw സെർവർ കണക്റ്റ് ചെയ്യാം."
   },
   "empty_example1": {
     "message": "ഒരു ചോദ്യം ചോദിച്ച്, ചർച്ച ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ഡോക്യുമെന്റുകളോ വെബ് പേജുകളോ ഇവിടെ ഡ്രാഗ് ചെയ്യുക."
@@ -369,7 +369,7 @@
     "message": "അപ്‌ലോഡുകൾ & ഇൻജെസ്റ്റ്"
   },
   "fileRetrievalEnabled": {
-    "message": "Enable RAG for Documents"
+    "message": "ഡോക്യുമെന്റുകൾക്കായി RAG സജീവമാക്കുക"
   },
   "stt_title": {
     "message": "STT പ്ലേഗ്രൗണ്ട്"
@@ -1081,5 +1081,146 @@
   },
   "actor_sceneTemplateActive": {
     "message": "സീൻ ടെംപ്ലേറ്റ് സജീവമാണ്: Actor ടെംപ്ലേറ്റ് ഇടപെടൽ ക്രമീകരണങ്ങളെ മാനിക്കുന്നു."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "താരതമ്യ മോഡ് പ്രവർത്തിപ്പിക്കുക"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "പരീക്ഷണാത്മക നിരവധി മോഡൽ താരതമ്യ സവിശേഷതകൾ അൺലോക്ക് ചെയ്യുക."
+  },
+  "composer_compareDisabled": {
+    "message": "സെറ്റിംഗ്സിൽ താരതമ്യ മോഡ് അപ്രാപ്തമാക്കിയിട്ടുണ്ട്."
+  },
+  "composer_compareChosenHint": {
+    "message": "തിരഞ്ഞെടുത്ത ഉത്തരത്തോടെ തുടരുക അല്ലെങ്കിൽ വീണ്ടും താരതമ്യം ചെയ്യുക."
+  },
+  "composer_compareChosenLabel": {
+    "message": "തിരഞ്ഞെടുക്കപ്പെട്ടു"
+  },
+  "composer_compareLatency": {
+    "message": "വിലംബം"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "താരതമ്യം: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(താരതമ്യത്തിൽ നിന്ന്)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "അനേകം മോഡലുകളുടെ ഉത്തരങ്ങൾ"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} മോഡലുകൾ"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "തിരഞ്ഞെടുത്ത മോഡലുകൾ: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "തിരഞ്ഞെടുത്ത ഓരോ ഉത്തരവും അതിന്റേതായ ചാറ്റായി തുറക്കുക"
+  },
+  "composer_compareThreadLabel": {
+    "message": "മോഡൽപ്രതി ത്രെഡ്"
+  },
+  "composer_compareThreadYou": {
+    "message": "നിങ്ങൾ"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "പൂർണ്ണ ചാറ്റായി തുറക്കുക"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "വിഭജിച്ച ചാറ്റ് തുറക്കുക"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "കാനോണിക്കൽ"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "കാനോണിക്കലായി പിൻ ചെയ്യുക"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "കാനോണിക്കൽ ഉത്തരമ്"
+  },
+  "composer_compareFilterLabel": {
+    "message": "മോഡലുകൾ ഫിൽറ്റർ ചെയ്യുക"
+  },
+  "composer_compareFilterClear": {
+    "message": "എല്ലാം കാണിക്കുക"
+  },
+  "composer_compareFilterCount": {
+    "message": "{{visible}} / {{total}} കാണിക്കുന്നു"
+  },
+  "composer_compareTokens": {
+    "message": "ടോക്കൺ: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
   }
 }

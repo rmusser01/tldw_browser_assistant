@@ -73,10 +73,10 @@ export const FeatureHint: React.FC<FeatureHintProps> = ({
 
   // Arrow position classes
   const arrowClasses = {
-    top: "top-full left-1/2 -translate-x-1/2 border-t-gray-800 dark:border-t-gray-700 border-l-transparent border-r-transparent border-b-transparent",
-    bottom: "bottom-full left-1/2 -translate-x-1/2 border-b-gray-800 dark:border-b-gray-700 border-l-transparent border-r-transparent border-t-transparent",
-    left: "left-full top-1/2 -translate-y-1/2 border-l-gray-800 dark:border-l-gray-700 border-t-transparent border-b-transparent border-r-transparent",
-    right: "right-full top-1/2 -translate-y-1/2 border-r-gray-800 dark:border-r-gray-700 border-t-transparent border-b-transparent border-l-transparent"
+    top: "top-full left-1/2 -translate-x-1/2 border-t-elevated border-l-transparent border-r-transparent border-b-transparent",
+    bottom: "bottom-full left-1/2 -translate-x-1/2 border-b-elevated border-l-transparent border-r-transparent border-t-transparent",
+    left: "left-full top-1/2 -translate-y-1/2 border-l-elevated border-t-transparent border-b-transparent border-r-transparent",
+    right: "right-full top-1/2 -translate-y-1/2 border-r-elevated border-t-transparent border-b-transparent border-l-transparent"
   }
 
   return (
@@ -85,7 +85,7 @@ export const FeatureHint: React.FC<FeatureHintProps> = ({
       aria-live="polite"
       className={`absolute z-50 ${positionClasses[position]} ${className || ""}`}
     >
-      <div className="relative bg-gray-800 dark:bg-gray-700 text-white rounded-lg shadow-lg max-w-xs animate-in fade-in slide-in-from-bottom-2 duration-200">
+      <div className="relative max-w-xs rounded-lg bg-elevated text-text shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-200">
         {/* Arrow */}
         <div
           className={`absolute w-0 h-0 border-[6px] ${arrowClasses[position]}`}
@@ -96,19 +96,19 @@ export const FeatureHint: React.FC<FeatureHintProps> = ({
         <div className="px-3 py-2">
           <div className="flex items-start gap-2">
             <Lightbulb
-              className="size-4 text-yellow-400 flex-shrink-0 mt-0.5"
+              className="mt-0.5 size-4 flex-shrink-0 text-warn"
               aria-hidden="true"
             />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white">{title}</p>
-              <p className="text-xs text-gray-300 mt-0.5">{description}</p>
+              <p className="text-sm font-medium text-text">{title}</p>
+              <p className="mt-0.5 text-xs text-text-muted">{description}</p>
             </div>
             <button
               onClick={handleDismiss}
-              className="p-0.5 rounded hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 flex-shrink-0"
+              className="flex-shrink-0 rounded p-0.5 hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
               aria-label={t("common:dismiss", "Dismiss")}
             >
-              <X className="size-3.5 text-gray-400 hover:text-white" />
+              <X className="size-3.5 text-text-subtle hover:text-text" />
             </button>
           </div>
         </div>

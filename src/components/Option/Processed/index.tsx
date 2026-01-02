@@ -36,21 +36,21 @@ export default function OptionProcessed() {
           Clear all
         </Button>
       </div>
-      <p className="text-xs text-gray-500 dark:text-gray-400">
+      <p className="text-xs text-text-subtle">
         These items are cached locally in your browser after media runs. Clearing them does not delete anything from your tldw server.
       </p>
       {loading ? (
         <div>Loading…</div>
       ) : items.length === 0 ? (
-        <div className="text-sm text-gray-500">No processed items stored locally.</div>
+        <div className="text-sm text-text-subtle">No processed items stored locally.</div>
       ) : (
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+        <ul className="divide-y divide-border">
           {items.map((it) => (
             <li key={it.id} className="py-3">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <div className="text-sm font-medium break-all">{it.title || it.url}</div>
-                  <div className="text-xs text-gray-500 break-all">{it.url}</div>
+                  <div className="text-xs text-text-subtle break-all">{it.url}</div>
                   {it.content && (
                     <div className="mt-2 text-sm line-clamp-3 whitespace-pre-wrap">{it.content.slice(0, 500)}</div>
                   )}

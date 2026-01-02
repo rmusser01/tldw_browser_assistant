@@ -105,12 +105,12 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
 
   if (migrationLoading) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-slate-50 dark:bg-[#101010]">
+      <div className="flex h-screen w-full items-center justify-center bg-bg ">
         <div className="text-center space-y-2">
-          <div className="text-base font-medium text-gray-800 dark:text-gray-100">
+          <div className="text-base font-medium text-text ">
             Migrating your chat history…
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">
+          <div className="text-xs text-text-muted ">
             This runs once after an update and will reload the extension when finished.
           </div>
         </div>
@@ -133,13 +133,13 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
               window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
             }
           }}
-          className="sticky top-0 shrink-0 border-r border-gray-200 dark:border-gray-800"
+          className="sticky top-0 shrink-0 border-r border-border border-border"
         />
       )}
       <main
         className={classNames(
           "relative flex-1 flex flex-col",
-          hideHeader ? "bg-slate-50 dark:bg-[#101010]" : ""
+          hideHeader ? "bg-bg " : ""
         )}
         data-demo-mode={demoEnabled ? "on" : "off"}>
         {hideHeader ? (
@@ -168,7 +168,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
                     ariaLabel={t('common:close', { defaultValue: 'Close' }) as string}
                     title={t('common:close', { defaultValue: 'Close' }) as string}
                     className="-ml-1">
-                    <XIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                    <XIcon className="h-5 w-5 text-text-muted " />
                   </IconButton>
                   <span>{t("sidebarTitle")}</span>
                 </div>
@@ -211,7 +211,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
                         })
                         clearChat()
                       }}
-                      className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
+                      className="text-text-muted hover:text-text">
                       <EraserIcon className="size-5" />
                     </IconButton>
                   </Tooltip>

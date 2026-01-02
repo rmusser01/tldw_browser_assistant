@@ -16,6 +16,16 @@ export interface ChatTldwOptions {
   systemPrompt?: string
   streaming?: boolean
   reasoningEffort?: "low" | "medium" | "high"
+  toolChoice?: "auto" | "none" | "required"
+  tools?: Record<string, unknown>[]
+  saveToDb?: boolean
+  conversationId?: string
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: Record<string, unknown>
+  extraBody?: Record<string, unknown>
 }
 
 export class ChatTldw {
@@ -28,6 +38,16 @@ export class ChatTldw {
   systemPrompt?: string
   streaming: boolean
   reasoningEffort?: "low" | "medium" | "high"
+  toolChoice?: "auto" | "none" | "required"
+  tools?: Record<string, unknown>[]
+  saveToDb?: boolean
+  conversationId?: string
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: Record<string, unknown>
+  extraBody?: Record<string, unknown>
 
   constructor(options: ChatTldwOptions) {
     // Normalize model id: drop internal prefix like "tldw:" so server receives provider/model
@@ -40,6 +60,16 @@ export class ChatTldw {
     this.systemPrompt = options.systemPrompt
     this.streaming = options.streaming ?? false
     this.reasoningEffort = options.reasoningEffort
+    this.toolChoice = options.toolChoice
+    this.tools = options.tools
+    this.saveToDb = options.saveToDb
+    this.conversationId = options.conversationId
+    this.historyMessageLimit = options.historyMessageLimit
+    this.historyMessageOrder = options.historyMessageOrder
+    this.slashCommandInjectionMode = options.slashCommandInjectionMode
+    this.apiProvider = options.apiProvider
+    this.extraHeaders = options.extraHeaders
+    this.extraBody = options.extraBody
   }
 
   /**
@@ -61,17 +91,27 @@ export class ChatTldw {
     const { signal, callbacks } = options || {}
 
     const tldwMessages = this.convertToTldwMessages(messages)
-    const stream = tldwChat.streamMessage(tldwMessages, {
-      model: this.model,
-      temperature: this.temperature,
-      maxTokens: this.maxTokens,
-      topP: this.topP,
-      frequencyPenalty: this.frequencyPenalty,
-      presencePenalty: this.presencePenalty,
-      systemPrompt: this.systemPrompt,
-      stream: true,
-      reasoningEffort: this.reasoningEffort
-    })
+      const stream = tldwChat.streamMessage(tldwMessages, {
+        model: this.model,
+        temperature: this.temperature,
+        maxTokens: this.maxTokens,
+        topP: this.topP,
+        frequencyPenalty: this.frequencyPenalty,
+        presencePenalty: this.presencePenalty,
+        systemPrompt: this.systemPrompt,
+        stream: true,
+        reasoningEffort: this.reasoningEffort,
+        toolChoice: this.toolChoice,
+        tools: this.tools,
+        saveToDb: this.saveToDb,
+        conversationId: this.conversationId,
+        historyMessageLimit: this.historyMessageLimit,
+        historyMessageOrder: this.historyMessageOrder,
+        slashCommandInjectionMode: this.slashCommandInjectionMode,
+        apiProvider: this.apiProvider,
+        extraHeaders: this.extraHeaders,
+        extraBody: this.extraBody
+      })
 
     async function* generator() {
       let fullText = ""
@@ -123,7 +163,17 @@ export class ChatTldw {
       presencePenalty: this.presencePenalty,
       systemPrompt: this.systemPrompt,
       stream: false,
-      reasoningEffort: this.reasoningEffort
+      reasoningEffort: this.reasoningEffort,
+      toolChoice: this.toolChoice,
+      tools: this.tools,
+      saveToDb: this.saveToDb,
+      conversationId: this.conversationId,
+      historyMessageLimit: this.historyMessageLimit,
+      historyMessageOrder: this.historyMessageOrder,
+      slashCommandInjectionMode: this.slashCommandInjectionMode,
+      apiProvider: this.apiProvider,
+      extraHeaders: this.extraHeaders,
+      extraBody: this.extraBody
     })
 
     return {

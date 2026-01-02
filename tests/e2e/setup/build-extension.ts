@@ -9,7 +9,22 @@ export default async function globalSetup() {
     process.env.FORCE_BUILD_CHROME === '1' ||
     process.env.FORCE_BUILD_CHROME === 'true'
 
-  if (fs.existsSync(builtChromePath) && !forceBuildChrome) {
+  const isDevBuild = (dir: string) => {
+    const optionsPath = path.join(dir, 'options.html')
+    if (!fs.existsSync(optionsPath)) return false
+    const html = fs.readFileSync(optionsPath, 'utf8')
+    return (
+      html.includes('http://localhost:') ||
+      html.includes('/@vite/client') ||
+      html.includes('virtual:wxt-html-plugins')
+    )
+  }
+
+  if (
+    fs.existsSync(builtChromePath) &&
+    !forceBuildChrome &&
+    !isDevBuild(builtChromePath)
+  ) {
     return
   }
 

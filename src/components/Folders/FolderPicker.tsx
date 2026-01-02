@@ -69,10 +69,10 @@ export const FolderPicker = ({
       key: node.key,
       title: (
         <span className="flex items-center gap-2">
-          <Folder className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+          <Folder className="w-4 h-4 text-text-muted" />
           <span>{node.title}</span>
           {selected.includes(node.key) && (
-            <Check className="w-4 h-4 text-green-500 ml-auto" />
+            <Check className="w-4 h-4 text-success ml-auto" />
           )}
         </span>
       ),

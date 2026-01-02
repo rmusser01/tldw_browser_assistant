@@ -51,7 +51,9 @@ export const generateTitle = async (model: string, query: string, fallBackTitle:
 
     try {
         const titleModel = await pageAssistModel({
-            model
+            model,
+            toolChoice: "none",
+            saveToDb: false
         })
 
         const prompt = DEFAULT_TITLE_GEN_PROMPT.replace("{{query}}", query)

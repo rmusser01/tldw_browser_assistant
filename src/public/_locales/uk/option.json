@@ -1,0 +1,1775 @@
+{
+  "newChat": {
+    "message": "Новий чат"
+  },
+  "selectAPrompt": {
+    "message": "Виберіть запит"
+  },
+  "githubRepository": {
+    "message": "Репозиторій GitHub"
+  },
+  "settings": {
+    "message": "Налаштування"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "Під'єднайте tldw Assistant до свого сервера"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "Пошук вашого сервера tldw…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "Під'єднано до вашого сервера tldw"
+  },
+  "connectionCard_headlineError": {
+    "message": "Не вдається підключитися до вашого сервера tldw"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server — це бекенд, який забезпечує чат, пошук знань і обробку медіа. Підключіть URL свого сервера tldw, щоб почати користуватися асистентом."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "Ми перевіряємо {{host}}, чи доступний ваш сервер tldw. Це може зайняти трохи часу, поки ми чекаємо на відповідь."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "Під'єднано до вашого сервера tldw за адресою {{host}}. Ви можете почати чат або скористатися Оглядом, Пошуком знань та іншими інструментами."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Перегляд медіа та транскриптів"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Пошук знань і нотаток"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Використання RAG зі своїми документами"
+  },
+  "connectionCard_descriptionError": {
+    "message": "Нам не вдалося підключитися до вашого сервера tldw за адресою {{host}}. Переконайтеся, що сервер запущено, URL правильний, а ваш браузер має доступ до нього через мережу."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "Почати чат"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "Повторити підключення"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "Змінити сервер"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "Відкрити діагностику"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "Переглянути діагностику"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "Відкрити швидке імпортування"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "Спробувати демо"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "Продовжити офлайн"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "Вимкнути офлайн-режим"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "Офлайн-режим — лише staging"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "Перейти до картки сервера"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "Порада: потрібна допомога зі швидким імпортуванням, коли ви офлайн?"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "Коли сервер офлайн, швидке імпортування працює як зона підготовки. Ви можете поставити URL і файли в чергу зараз і обробити їх після повторного підключення."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "Повернутися до робочого простору"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "Налаштування відкриваються в новій вкладці браузера, щоб ви могли налаштувати сервер tldw."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "Швидке імпортування може ставити URL і файли в чергу, поки сервер офлайн, щоб ви могли обробити їх після відновлення з'єднання."
+  },
+  "header_showShortcuts": {
+    "message": "Показати ярлики"
+  },
+  "header_hideShortcuts": {
+    "message": "Приховати ярлики"
+  },
+  "header_groupWorkspace": {
+    "message": "Робочий простір"
+  },
+  "header_groupKnowledge": {
+    "message": "Знання"
+  },
+  "header_groupSettings": {
+    "message": "Ярлики налаштувань"
+  },
+  "header_backToHome": {
+    "message": "Назад на головну"
+  },
+  "header_openSidebar": {
+    "message": "Відкрити бокову панель"
+  },
+  "header_untitledChat": {
+    "message": "Без назви"
+  },
+  "header_modelLabel": {
+    "message": "Модель"
+  },
+  "header_contentReview": {
+    "message": "Перевірка контенту"
+  },
+  "header_promptLabel": {
+    "message": "Запит"
+  },
+  "header_review": {
+    "message": "Огляд"
+  },
+  "header_flashcards": {
+    "message": "Флеш-картки"
+  },
+  "header_quiz": {
+    "message": "Вікторина"
+  },
+  "header_media": {
+    "message": "Медіа"
+  },
+  "header_libraryView": {
+    "message": "Огляд кількох елементів"
+  },
+  "header_notes": {
+    "message": "Нотатки"
+  },
+  "header_modesLabel": {
+    "message": "Режими"
+  },
+  "header_modePlayground": {
+    "message": "Чат"
+  },
+  "header_modeReview": {
+    "message": "Огляд"
+  },
+  "header_modeMedia": {
+    "message": "Медіа"
+  },
+  "header_modeKnowledge": {
+    "message": "Питання й відповіді зі знань"
+  },
+  "header_modeNotes": {
+    "message": "Нотатки"
+  },
+  "header_modePrompts": {
+    "message": "Запити"
+  },
+  "header_modePromptsPlayground": {
+    "message": "Запити"
+  },
+  "header_modeStt": {
+    "message": "STT-полігон"
+  },
+  "header_modePromptStudio": {
+    "message": "Студія запитів"
+  },
+  "header_modeFlashcards": {
+    "message": "Флеш-картки"
+  },
+  "header_modeWorldBooks": {
+    "message": "Книги світу"
+  },
+  "header_modeDictionaries": {
+    "message": "Словники чату"
+  },
+  "header_modeCharacters": {
+    "message": "Персонажі"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} для перемикання"
+  },
+  "header_quickIngest": {
+    "message": "Швидке імпортування"
+  },
+  "header_modelSettings": {
+    "message": "Налаштування моделі"
+  },
+  "header_serverSettings": {
+    "message": "Налаштування сервера"
+  },
+  "header_more": {
+    "message": "Інструменти ШІ"
+  },
+  "header_moreMenu_title": {
+    "message": "Розширені інструменти"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "Розширені інструменти на кшталт бічної панелі, репозиторію та параметрів налагодження"
+  },
+  "header_moreActions": {
+    "message": "Більше дій"
+  },
+  "header_toolsMenu": {
+    "message": "Інструменти чату"
+  },
+  "header_serverBackedLabel": {
+    "message": "Чат із підтримкою сервера"
+  },
+  "header_serverBackedTooltip": {
+    "message": "Повідомлення в цьому чаті також зберігаються на вашому сервері tldw."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "Шукати екрани, чати, медіа, нотатки…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "Немає збігів для \"{{query}}\"."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "Створити нотатку \"{{query}}\""
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "Нотатку \"{{query}}\" створено"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "Створити колекцію флеш-карток \"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "Колекцію флеш-карток \"{{query}}\" створено"
+  },
+  "header_omniSearchStartChat": {
+    "message": "Почати новий чат \"{{query}}\""
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "Чат та інструменти тепер доступні в Налаштуваннях і бічній панелі."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} елементів у черзі — натисніть, щоб переглянути та обробити"
+  },
+  "header_modeSpeech": {
+    "message": "Мовлення"
+  },
+  "sidebarTitle": {
+    "message": "Історія чату"
+  },
+  "error": {
+    "message": "Збій"
+  },
+  "somethingWentWrong": {
+    "message": "Щось пішло не так"
+  },
+  "validationSelectModel": {
+    "message": "Будь ласка, виберіть модель для продовження"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "Ви впевнені, що хочете видалити цю історію?"
+  },
+  "editHistoryTitle": {
+    "message": "Введіть нову назву"
+  },
+  "temporaryChat": {
+    "message": "Тимчасовий чат (не зберігається)"
+  },
+  "more_copy_group": {
+    "message": "Копіювати"
+  },
+  "more_copy_asText": {
+    "message": "Копіювати як текст"
+  },
+  "more_copy_asMarkdown": {
+    "message": "Копіювати як Markdown"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "Копіювати канонічну транскрипцію"
+  },
+  "more_copy_success": {
+    "message": "Скопійовано в буфер обміну!"
+  },
+  "more_download_group": {
+    "message": "Завантажити"
+  },
+  "more_download_text": {
+    "message": "Текстовий файл (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Файл Markdown (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "Канонічна транскрипція (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON файл (.json)"
+  },
+  "more_download_image": {
+    "message": "Зображення (.png)"
+  },
+  "more_share": {
+    "message": "Поділитися"
+  },
+  "libraryView": {
+    "message": "Перегляд бібліотеки"
+  },
+  "notes": {
+    "message": "Нотатки"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "Файл надто великий"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "Розмір файлу має бути менше 10 МБ"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "Не вдалося завантажити"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "Не вдалося завантажити файл. Спробуйте ще раз."
+  },
+  "promptStudio_title": {
+    "message": "Пісочниця промпт-студії"
+  },
+  "promptStudio_subtitle": {
+    "message": "Керуйте проєктами промпт-студії, промптами, запусками, тест-кейсами та оцінюваннями."
+  },
+  "promptStudio_capabilityError": {
+    "message": "Не вдається підключитися до промпт-студії"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "Перевірте з’єднання з сервером або вимкніть цей розділ, доки API промпт-студії не стануть доступні."
+  },
+  "promptStudio_offline": {
+    "message": "Підключіться до свого сервера, щоб користуватися промпт-студією"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "Проєкти та промпти"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "Створіть або відкрийте проєкт, щоб редагувати промпти."
+  },
+  "promptStudio_projectsError": {
+    "message": "Не вдалося завантажити проєкти"
+  },
+  "promptStudio_promptVersion": {
+    "message": "Версія"
+  },
+  "promptStudio_changeDescription": {
+    "message": "Змінити опис"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "Системний промпт"
+  },
+  "promptStudio_userPrompt": {
+    "message": "Користувацький промпт"
+  },
+  "promptStudio_fewShot": {
+    "message": "Приклади few-shot (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "Конфігурація модулів (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "Історія"
+  },
+  "promptStudio_executeCard": {
+    "message": "Разовий запуск"
+  },
+  "promptStudio_executeHint": {
+    "message": "Провайдер, модель, температура, вхідні дані."
+  },
+  "promptStudio_provider": {
+    "message": "Провайдер"
+  },
+  "promptStudio_model": {
+    "message": "Модель"
+  },
+  "promptStudio_runPrompt": {
+    "message": "Запустити промпт"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "Форма запуску з’явиться незабаром. Використовуйте цю панель, щоб запускати одиночні вхідні дані для промпту через /prompt-studio/prompts/execute."
+  },
+  "promptStudio_testsCard": {
+    "message": "Тест-кейси та оцінювання"
+  },
+  "promptStudio_testsHint": {
+    "message": "Перегляд/створення тест-кейсів, запуск оцінювань, опитування статусу."
+  },
+  "promptStudio_testCases": {
+    "message": "Тест-кейси"
+  },
+  "promptStudio_evaluations": {
+    "message": "Оцінювання"
+  },
+  "promptStudio_inputsJson": {
+    "message": "Вхідні дані (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "Очікувані вихідні дані (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "Еталонний?"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "Масове додавання"
+  },
+  "promptStudio_bulkJson": {
+    "message": "JSON-масив тест-кейсів"
+  },
+  "promptStudio_runAsync": {
+    "message": "Запустити асинхронно"
+  },
+  "promptStudio_temperature": {
+    "message": "Температура"
+  },
+  "promptStudio_maxTokens": {
+    "message": "Макс. токенів"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "Запустити оцінювання"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "Заглушка: підключіть CRUD для тест-кейсів, створення/список/деталі оцінювань і асинхронне опитування в цьому розділі."
+  },
+  "promptStudio_unavailable": {
+    "message": "Промпт-студію не ввімкнено на цьому сервері."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "Коли буде доступно, тут з’являться проєкти, історія промптів, сценарії запуску та оцінювання."
+  },
+  "promptSearch_title": {
+    "message": "Назва"
+  },
+  "promptSearch_content": {
+    "message": "Вміст"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "Системний промпт"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "Також зберегти на сервері"
+  },
+  "promptSearch_cancel": {
+    "message": "Скасувати"
+  },
+  "promptSearch_insert": {
+    "message": "Вставити"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "Зберегти як новий"
+  },
+  "promptSearch_saveLocal": {
+    "message": "Зберегти зміни (локально)"
+  },
+  "promptSearch_saveServer": {
+    "message": "Зберегти зміни (на сервері)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "Зберегти локальну копію"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "Зберегти як новий (лише сервер)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "Промпт оновлено локально"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "Промпт оновлено на сервері"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "Не вдалося оновити локальний промпт"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "Не вдалося оновити промпт на сервері"
+  },
+  "promptSearch_manageLink": {
+    "message": "Переглянути / керувати промптами"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "Перезаписати локальний промпт (необов’язково)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "Виберіть локальний промпт для перезапису"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "Промпт збережено"
+  },
+  "promptSearch_saveFailed": {
+    "message": "Не вдалося зберегти промпт"
+  },
+  "quickIngest_title": {
+    "message": "Швидкий імпорт медіа"
+  },
+  "quickIngest_subtitle": {
+    "message": "Введіть один або кілька URL. За потреби задайте тип для кожного рядка."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Сервер офлайн — лише тестове середовище"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Ви можете додавати URL і файли в чергу та переглядати поля, але обробка не відбудеться, поки ваш сервер tldw не в мережі. Підключіться знову, щоб обробити очікувані елементи."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Джерельні URL або файли"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Зберегти у віддаленій БД"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Зберігати результати інжесту на вашому сервері tldw"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Обробляти результати інжесту лише локально"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Завантажує результати на ваш сервер tldw для індексації."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Лише обробляє та зберігає результати локально (експорт JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Де зберігаються результати інжесту"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Зберігаються на вашому сервері tldw (рекомендовано для RAG і спільних просторів)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Зберігаються лише в цьому браузері; дані не надсилаються на сервер."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Зберігати після перевірки"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Перевірити перед збереженням"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Створювати чернетки та перевіряти їх перед збереженням"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Перевірка ввімкнена"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Ліміт збереження перевірки"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Зберегти чернетки локально?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Чернетки зберігаються у цьому браузері й можуть містити конфіденційні дані. Ви можете очистити чернетки на сторінці «Перевірка контенту» в будь-який час."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Режим перевірки зберігає контент локально, доки ви не зафіксуєте його на сервері."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Увімкнути перевірку"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Скасувати"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Запустити перевірку"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Чернетки створено"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Не вдалося створити чернетки для перевірки."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Помилка створення чернеток для перевірки."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Повторити створення чернеток"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Зберегти без перевірки"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Не вдалося відкрити Перевірку контенту. Спробуйте ще раз."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Повторити відкриття Перевірки контенту"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} файл перевищує ліміт збереження для перевірки ({{cap}})."
+  },
+  "quickIngest_reviewStorageCapWarning_few": {
+    "message": "{{count}} файли перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "quickIngest_reviewStorageCapWarning_many": {
+    "message": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Відкрити Перевірку контенту"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Дізнайтесь більше про інжест і зберігання"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Вставте URL (по одному в рядку)"
+  },
+  "quickIngest_or": {
+    "message": "або"
+  },
+  "quickIngest_remove": {
+    "message": "Видалити"
+  },
+  "quickIngest_add": {
+    "message": "Додати URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Параметри імпорту"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Параметри аудіо"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Мова (наприклад, en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Увімкніть, щоб розділяти мовців у транскриптах."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Параметри документів"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR допомагає витягувати текст зі сканованих PDF-файлів або зображень."
+  },
+  "quickIngest_videoOptions": {
+    "message": "Параметри відео"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Додавати часові мітки/субтитри, якщо доступні."
+  },
+  "quickIngest_cancel": {
+    "message": "Скасувати"
+  },
+  "quickIngest_ingest": {
+    "message": "Імпортувати"
+  },
+  "quickIngest_process": {
+    "message": "Обробити"
+  },
+  "quickIngest_results": {
+    "message": "Результати"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Завантажити JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "Завантажено {{count}} розширених полів"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Розширені параметри не знайдено — спробуйте перезавантажити специфікацію."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "Змінено: {{count}}"
+  },
+  "quickIngest_progress": {
+    "message": "Оброблено {{done}} з {{total}} елементів…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Зараз нам не вдалося обробити елементи інжесту."
+  },
+  "quickIngest_errorHint": {
+    "message": "Спробуйте ще раз після перевірки свого сервера tldw. Розділ Health & diagnostics може допомогти усунути проблеми з інжестом."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Перевірте стан сервера в Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Останні запуски завершилися помилкою — відкрийте Health & diagnostics у верхньому меню, щоб дізнатися більше."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Розширену специфікацію перезавантажено із сервера"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Розширену специфікацію перезавантажено із сервера (додано полів: {{added}}, видалено: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Використовується вбудований резервний варіант схеми media.add (v{{version}}); перевірте tldw_server /openapi.json, якщо поля виглядають застарілими."
+  },
+  "notesSearch_placeholder": {
+    "message": "Пошук за заголовками та вмістом"
+  },
+  "notesSearch_clear": {
+    "message": "Очистити пошук і фільтри"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "Фільтр за ключовим словом"
+  },
+  "notesSearch_new": {
+    "message": "Нова нотатка"
+  },
+  "notesSearch_newTooltip": {
+    "message": "Створити нову нотатку"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} нотаток"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "Експортувати відповідні нотатки як Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "Експортувати відповідні нотатки як CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "Експортувати відповідні нотатки як JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Експортовано ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Експортовано {{count}} нотаток ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Експортовано {{count}} нотаток як CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Експортовано {{count}} нотаток як JSON ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "Експортувати нотатку як Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "Зберегти нотатку"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "Скопіювати вміст нотатки"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "Видалити нотатку"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "Експорт"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "Результати"
+  },
+  "notesSearch_showingRange": {
+    "message": "Показано {{start}}–{{end}} з {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "Розгорнути бічну панель"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "Згорнути бічну панель"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "Заголовок"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "Ключові слова (теги)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "Ключові слова допомагають знайти цю нотатку за допомогою фільтра ключових слів ліворуч."
+  },
+  "tts_playground": {
+    "message": "Майданчик для TTS"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "Підключіться, щоб використовувати нотатки"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "Щоб використовувати нотатки, спочатку підключіть свій сервер tldw."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "Використовуйте нотатки разом із медіа та оглядами, щоб відстежувати свої знахідки."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Приклад нотаток (лише попередній перегляд)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "Демо-нотатка: підсумок щотижневої зустрічі"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "Рішення, перешкоди та подальші дії з нещодавньої командної зустрічі."
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "Демо-нотатка: основні результати дослідження"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "Ключові висновки з довгої статті або наукової роботи."
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "Демо-нотатка: підсумок дзвінка"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "Підсумок дзвінка з клієнтом із подальшими кроками та відповідальними."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "Сьогодні · 9:32"
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "Учора · 16:10"
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "Цього тижня"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "Відкрийте «Налаштування» → «Сервер tldw», щоб додати URL свого сервера."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "Скористайтеся розділом «Діагностика», якщо ваш сервер запущений, але недоступний."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "Ознайомтеся з нотатками в демо-режимі"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "Ця демонстрація показує, як нотатки можуть впорядковувати ваші інсайти. Пізніше ви зможете підключити власний сервер і створювати та зберігати реальні нотатки."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "Подивіться, як заголовки, короткі описи й позначки часу відображаються в списку."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "Після підключення ви зможете створювати нотатки на основі зустрічей, оглядів та іншого."
+  },
+  "notesEmpty_title": {
+    "message": "Ще немає нотаток"
+  },
+  "notesEmpty_description": {
+    "message": "Фіксуйте й організовуйте довільні нотатки, пов'язані з вашими інсайтами tldw."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "Створіть нову нотатку для недавньої зустрічі або транскрипції."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "Зберігайте результати огляду в нотатках, щоб повертатися до них пізніше."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "Створити нотатку"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "Ознайомтеся з World Books у демо-режимі"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "Ця демонстрація показує, як World Books допомагає впорядковувати структуровані знання про ваші світи, налаштування чи продукти."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "Подивіться прикладові книги, такі як фентезі-світ, глосарій продукту або нотатки до кампанії."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "Після підключення ви зможете створювати світові книги, які tldw використовуватиме під час спілкування в чаті."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "Підключіться, щоб використовувати World Books"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "Щоб використовувати World Books, спочатку підключіть свій сервер tldw, щоб знання про світи можна було зберігати й отримувати."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "Відкрийте «Налаштування» → «Сервер tldw», щоб додати URL свого сервера."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "Скористайтеся розділом «Діагностика», якщо ваш сервер запущений, але недоступний."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "Створюйте й керуйте структурованими базами знань, до яких можуть звертатися персонажі та чати."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "World Books недоступні"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "Підключіться до свого сервера tldw на головній сторінці налаштувань, щоб переглядати й редагувати World Books."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "Ознайомтеся зі словниками чату в демо-режимі"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "Ця демонстрація показує, як словники чату нормалізують назви, абревіатури та терміни ще до того, як вони потраплять до моделі."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "Перегляньте прикладові словники для назв продуктів, кодових назв проєктів або корпоративного жаргону."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "Після підключення ви зможете активувати словники в усіх чатах."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "Підключіться, щоб використовувати словники чату"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "Щоб використовувати словники чату, спочатку підключіть свій сервер tldw, щоб можна було зберігати підстановки."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "Відкрийте «Налаштування» → «Сервер tldw», щоб додати URL свого сервера."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "Скористайтеся розділом «Діагностика», якщо ваш сервер запущений, але недоступний."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "Визначайте багаторазові підстановки, щоб tldw розумів назви, абревіатури й терміни вашої організації."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "Словники чату недоступні"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "Підключіться до свого сервера tldw на головній сторінці налаштувань, щоб переглядати й редагувати словники чату."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "Ознайомтеся з персонажами в демо-режимі"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "Ця демонстрація показує, як персонажі поєднують особистість і системний запит, з якими можна спілкуватися в чаті."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "Перегляньте прикладові персонажі, наприклад тренера з письма, експерта з лору чи помічника з програмування."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "Після підключення ви зможете створювати персонажів, які з’являтимуться в заголовку чату та в списку вибору."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "Підключіться, щоб використовувати персонажів"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "Щоб використовувати персонажів, спочатку підключіть свій сервер tldw, щоб можна було зберігати визначення персонажів."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "Відкрийте «Налаштування» → «Сервер tldw», щоб додати URL свого сервера."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "Скористайтеся розділом «Діагностика», якщо ваш сервер запущений, але недоступний."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "Створюйте багаторазові персонажі, яких можна обирати в заголовку чату й використовувати в різних розмовах."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "Створіть персонажа, щоб повторно використовувати його особистість у різних чатах. Натисніть «Новий персонаж», щоб почати."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "API персонажів недоступний на цьому сервері"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "Цей сервер не надає /api/v1/characters."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "Відкрийте «Діагностику», щоб перевірити версію сервера та доступні API для персонажів."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "Якщо ви оновите сервер, перезавантажте розширення й поверніться до розділу персонажів."
+  },
+  "characters_selectCharacter": {
+    "message": "Вибрати персонажа"
+  },
+  "characters_chattingAs": {
+    "message": "Зараз ви спілкуєтеся як {{name}}"
+  },
+  "characters_clearCharacter": {
+    "message": "Очистити персонажа"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "Не вдалося завантажити персонажів"
+  },
+  "characters_fetchErrorBody": {
+    "message": "Перевірте підключення або стан сервера й спробуйте ще раз."
+  },
+  "characters_none": {
+    "message": "Немає (без персонажа)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "Пошук за ім'ям персонажа"
+  },
+  "characters_noMatches": {
+    "message": "Поки що немає персонажів, що відповідають цьому пошуку."
+  },
+  "characters_refresh": {
+    "message": "Оновити персонажів"
+  },
+  "characters_refreshing": {
+    "message": "Оновлюємо персонажів…"
+  },
+  "promptInsert_useInChat": {
+    "message": "Використати в чаті"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "Відкрити чат і вставити цей промпт у поле введення."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "Використати промпт у чаті?"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "У вашому повідомленні вже є текст. Перезаписати його цим промптом чи додати промпт унизу?"
+  },
+  "promptInsert_overwrite": {
+    "message": "Перезаписати повідомлення"
+  },
+  "promptInsert_append": {
+    "message": "Додати"
+  },
+  "flashcards_review": {
+    "message": "Повторення"
+  },
+  "flashcards_create": {
+    "message": "Створити"
+  },
+  "flashcards_manage": {
+    "message": "Керувати"
+  },
+  "flashcards_importExport": {
+    "message": "Імпорт / Експорт"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "Підключіться, щоб використовувати Flashcards"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "Щоб переглядати або генерувати флешкарти, спочатку підключіть свій сервер tldw."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "Відкрийте «Налаштування» → «Сервер tldw», щоб додати URL свого сервера."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "Після підключення переглядайте картки, термін повторення яких настав, або створюйте нові колоди з ваших нотаток і медіа."
+  },
+  "flashcards_demoTitle": {
+    "message": "Ознайомтеся з Flashcards у демо-режимі"
+  },
+  "flashcards_demoDescription": {
+    "message": "Ця демонстрація показує, як Flashcards перетворює ваш вміст на картки для інтервального повторення. Пізніше ви зможете підключити власний сервер, щоб генерувати й повторювати картки на основі ваших нотаток і медіа."
+  },
+  "flashcards_demoExample1": {
+    "message": "Подивіться, як колоди, картки та теги організовані на вкладках «Повторення» та «Керування»."
+  },
+  "flashcards_demoExample2": {
+    "message": "Після підключення ви зможете генерувати картки з лекцій, зустрічей або нотаток і повторювати їх за розкладом."
+  },
+  "flashcards_demoExample3": {
+    "message": "Використовуйте Flashcards разом із нотатками та медіа, щоб важливі ідеї залишалися актуальними."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "Прикладові колоди (лише перегляд)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "Демо-колода: базові поняття"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 карток · Чудово підходить для перевірки інтервалів і оцінок."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "Демо-колода: терміни продукту"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 карток · Назви, абревіатури та ключові визначення."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "Демо-колода: підсумки зустрічей"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 карток · Приклади дій для подальшого опрацювання."
+  },
+  "flashcards_selectDeck": {
+    "message": "Вибрати колоду"
+  },
+  "flashcards_nextDue": {
+    "message": "Наступна до повторення"
+  },
+  "flashcards_front": {
+    "message": "Лицьовий бік"
+  },
+  "flashcards_back": {
+    "message": "Зворотний бік"
+  },
+  "flashcards_extra": {
+    "message": "Додатково"
+  },
+  "flashcards_showAnswer": {
+    "message": "Показати відповідь"
+  },
+  "flashcards_hideAnswer": {
+    "message": "Приховати відповідь"
+  },
+  "flashcards_preview": {
+    "message": "Попередній перегляд"
+  },
+  "flashcards_rate": {
+    "message": "Оцінити"
+  },
+  "flashcards_answerMs": {
+    "message": "Час відповіді (у секундах, необов’язково)"
+  },
+  "flashcards_noDue": {
+    "message": "Немає карток для повторення"
+  },
+  "flashcards_deck": {
+    "message": "Колода"
+  },
+  "flashcards_newDeck": {
+    "message": "Нова колода"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Введіть назву колоди."
+  },
+  "flashcards_modelType": {
+    "message": "Шаблон картки"
+  },
+  "flashcards_reverse": {
+    "message": "Також створити зворотну картку"
+  },
+  "flashcards_isCloze": {
+    "message": "Cloze-видалення"
+  },
+  "flashcards_tags": {
+    "message": "Теги"
+  },
+  "flashcards_dueStatus": {
+    "message": "Статус повторення"
+  },
+  "flashcards_dueAll": {
+    "message": "Усі"
+  },
+  "flashcards_dueNew": {
+    "message": "Нові"
+  },
+  "flashcards_dueLearning": {
+    "message": "У навчанні"
+  },
+  "flashcards_dueDue": {
+    "message": "До повторення"
+  },
+  "flashcards_tag": {
+    "message": "Тег"
+  },
+  "flashcards_noCards": {
+    "message": "Немає карток"
+  },
+  "flashcards_due": {
+    "message": "До повторення"
+  },
+  "flashcards_editCard": {
+    "message": "Редагувати картку"
+  },
+  "flashcards_importTitle": {
+    "message": "Імпорт Flashcards"
+  },
+  "flashcards_exportTitle": {
+    "message": "Експорт Flashcards"
+  },
+  "flashcards_importHelp": {
+    "message": "Вставте рядки TSV/CSV: Колода, Лицьовий бік, Зворотний бік, Теги, Нотатки"
+  },
+  "flashcards_pasteContent": {
+    "message": "Вставте вміст тут..."
+  },
+  "flashcards_tab": {
+    "message": "Табуляція"
+  },
+  "flashcards_comma": {
+    "message": ", (кома)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (крапка з комою)"
+  },
+  "flashcards_pipe": {
+    "message": "| (вертикальна риска)"
+  },
+  "flashcards_hasHeader": {
+    "message": "Має заголовок"
+  },
+  "flashcards_import": {
+    "message": "Імпорт"
+  },
+  "flashcards_imported": {
+    "message": "Імпортовано"
+  },
+  "flashcards_importLimits": {
+    "message": "Обмеження імпорту"
+  },
+  "flashcards_csv": {
+    "message": "Файл CSV/TSV"
+  },
+  "flashcards_apkg": {
+    "message": "Файл Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "Додати зворотну"
+  },
+  "flashcards_includeHeader": {
+    "message": "Додати рядок заголовка"
+  },
+  "flashcards_extendedHeader": {
+    "message": "Розширений заголовок (технічні метадані)"
+  },
+  "flashcards_download": {
+    "message": "Завантажити"
+  },
+  "flashcards_duplicate": {
+    "message": "Дублювати"
+  },
+  "flashcards_move": {
+    "message": "Перемістити"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Помилка повторення"
+  },
+  "flashcards_updateFailed": {
+    "message": "Помилка оновлення"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Помилка видалення"
+  },
+  "flashcards_missingVersion": {
+    "message": "Відсутня версія; перезавантажте і спробуйте знову"
+  },
+  "flashcards_bulkMove": {
+    "message": "Масове переміщення"
+  },
+  "flashcards_bulkDelete": {
+    "message": "Масове видалення"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} видалено · {{failed}} не вдалося"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Операцію обмежено першими {{limit}} елементами."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "Експортувати вибране (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "Вибрано"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "Вибрати все на сторінці"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "Вибрати все в результатах"
+  },
+  "flashcards_clearSelection": {
+    "message": "Очистити вибір"
+  },
+  "flashcards_ratingAgain": {
+    "message": "Ще раз"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "Я не згадав(ла) цю картку."
+  },
+  "flashcards_ratingHard": {
+    "message": "Складно"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "Ледь згадав(ла); було складно."
+  },
+  "flashcards_ratingGood": {
+    "message": "Добре"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "Згадав(ла) із певним зусиллям."
+  },
+  "flashcards_ratingEasy": {
+    "message": "Легко"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "Я швидко й упевнено згадав(ла) відповідь."
+  },
+  "flashcards_showTiming": {
+    "message": "Відстежувати час відповіді"
+  },
+  "flashcards_hideTiming": {
+    "message": "Приховати час відповіді"
+  },
+  "flashcards_noDueTitle": {
+    "message": "Немає карток для повторення"
+  },
+  "flashcards_noDueDescription": {
+    "message": "Ви все опрацювали. Створіть нові картки або імпортуйте наявну колоду, щоб розпочати повторення."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "Створити нову картку"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "Імпортувати колоду"
+  },
+  "flashcards_createTitle": {
+    "message": "Створюйте флешкарти з ваших нотаток"
+  },
+  "flashcards_createDescription": {
+    "message": "Використовуйте лицьовий бік для запитання, а зворотний — для відповіді. Ви можете об’єднувати картки в колоди й додавати теги для швидкого пошуку."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Тип «Basic» показує запитання спереду й відповідь ззаду. «Reverse» також створює зворотну картку. «Cloze» приховує частини тексту, обгорнуті в {{...}}."
+  },
+  "flashcards_reverseHelp": {
+    "message": "Також створює картку, де зворотний бік стає запитанням."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "Використовуйте для карток із пропусками. Обгорніть прихований текст на лицьовому боці в {{...}}."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Підтримує Markdown і LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Необов’язкові підказки/пояснення (підтримуються Markdown і LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "Внутрішні нотатки (підтримуються Markdown і LaTeX)."
+  },
+  "flashcards_bulkActions": {
+    "message": "Масові дії"
+  },
+  "flashcards_selectionHelp": {
+    "message": "«Вибрати все в результатах» застосовує дії до кожної картки, що відповідає вашим фільтрам, а не лише до цієї сторінки."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "Ще немає флешкарт"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "Створюйте картки з ваших нотаток і медіа або імпортуйте наявну колоду."
+  },
+  "flashcards_clearFilters": {
+    "message": "Очистити фільтри"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "Створити першу картку"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "Імпортувати флешкарти"
+  },
+  "flashcards_mapping": {
+    "message": "Відповідність стовпців"
+  },
+  "flashcards_mappingPreview": {
+    "message": "Попередній перегляд перших кількох зіставлених рядків:"
+  },
+  "flashcards_exportHelp": {
+    "message": "Відфільтруйте за колодою, тегом або пошуком, а потім експортуйте як CSV/TSV для таблиць або Anki (.apkg) для клієнтів Anki."
+  },
+  "contentReview_title": {
+    "message": "Перевірка контенту"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} готові"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} зафіксовано"
+  },
+  "contentReview_totalCount": {
+    "message": "Разом {{count}}"
+  },
+  "contentReview_commitAll": {
+    "message": "Зафіксувати все"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Очистити чернетки"
+  },
+  "contentReview_emptyDescription": {
+    "message": "Чернеток ще немає. Використовуйте Quick Ingest з параметром \"Перевірити перед збереженням\", щоб створювати чернетки."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Відкрити Quick Ingest"
+  },
+  "contentReview_batchLabel": {
+    "message": "Пакет"
+  },
+  "contentReview_batchName": {
+    "message": "Пакет {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Чернетки"
+  },
+  "contentReview_selectDraft": {
+    "message": "Виберіть чернетку, щоб розпочати перевірку."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Назва чернетки"
+  },
+  "contentReview_lastSaved": {
+    "message": "Збережено {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Скинути чернетку?"
+  },
+  "contentReview_resetBody": {
+    "message": "Це відновить початковий вміст цієї чернетки."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Скинути"
+  },
+  "contentReview_resetCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_resetContent": {
+    "message": "Скинути"
+  },
+  "contentReview_diffView": {
+    "message": "Перегляд diff"
+  },
+  "contentReview_saveDraft": {
+    "message": "Зберегти чернетку"
+  },
+  "contentReview_editorLabel": {
+    "message": "Вміст"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} слів"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} символів"
+  },
+  "contentReview_aiFix": {
+    "message": "Виправити за допомогою ШІ"
+  },
+  "contentReview_aiHint": {
+    "message": "Надсилає вміст чернетки на ваш сервер для обробки ШІ."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Типове значення сервера"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Надіслати чернетку на сервер?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Вміст чернетки буде надіслано на ваш сервер tldw для обробки ШІ. Чернетки залишаються локальними, доки ви їх не зафіксуєте."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Продовжити"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_aiApplied": {
+    "message": "Виправлення ШІ застосовано."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Змін не отримано."
+  },
+  "contentReview_aiEmpty": {
+    "message": "ШІ не повернув вміст."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Доповнення чату недоступні."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Виберіть шаблон"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Застосувати шаблон"
+  },
+  "contentReview_templateApplied": {
+    "message": "Шаблон застосовано."
+  },
+  "contentReview_templateMissing": {
+    "message": "Спочатку виберіть шаблон."
+  },
+  "contentReview_detectSections": {
+    "message": "Визначити розділи"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Повторно визначити розділи?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Це замінить наявні розділи та скине ваш вибір."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Визначити знову"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Розділів не виявлено."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Фільтр розділів"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Очистити транскрипт"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Нормалізує пунктуацію та регістр, зберігаючи структуру рядків."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Репліки спікерів"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Гарантує, що кожна репліка спікера знаходиться в окремому рядку з чіткими мітками."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Заголовки розділів"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Вставляє заголовки Markdown для групування тем без видалення вмісту."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Метадані"
+  },
+  "contentReview_mediaType": {
+    "message": "Тип медіа"
+  },
+  "contentReview_keywords": {
+    "message": "Ключові слова"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Додати ключові слова"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Нотатки перевірки"
+  },
+  "contentReview_missingSource": {
+    "message": "Вихідний файл відсутній"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Прикріпіть вихідний файл, щоб зафіксувати цю чернетку."
+  },
+  "contentReview_attachSource": {
+    "message": "Прикріпити файл"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Дії"
+  },
+  "contentReview_commit": {
+    "message": "Зафіксувати"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Прикріпіть вихідний аудіо/відеофайл перед фіксацією."
+  },
+  "contentReview_markReviewed": {
+    "message": "Позначити як перевірену"
+  },
+  "contentReview_skipNext": {
+    "message": "Пропустити"
+  },
+  "contentReview_discard": {
+    "message": "Відхилити"
+  },
+  "contentReview_discardTitle": {
+    "message": "Відхилити чернетку?"
+  },
+  "contentReview_discardBody": {
+    "message": "Цю чернетку буде позначено як відхилену та вилучено з перевірки."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Відхилити"
+  },
+  "contentReview_discardCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Чернетку зафіксовано."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Зафіксувати перевірені чернетки?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Буде зафіксовано лише чернетки, позначені як перевірені."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Зафіксувати все"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} зафіксовано · {{failed}} з помилкою"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Цей файл перевищує локальний ліміт чернеток ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Очистити всі чернетки?"
+  },
+  "contentReview_clearBody": {
+    "message": "Видаляє всі локальні чернетки та файли, що використовуються для перевірки контенту."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Очистити чернетки"
+  },
+  "contentReview_clearCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Чернетки видалено."
+  },
+  "contentReview_originalLabel": {
+    "message": "Оригінал"
+  },
+  "contentReview_editedLabel": {
+    "message": "Змінено"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} файл перевищує ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_few": {
+    "message": "{{count}} файли перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_many": {
+    "message": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} файлів перевищують ліміт збереження для перевірки ({{cap}})."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Зберігати після перевірки"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Перевірити перед збереженням"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Створювати чернетки та перевіряти їх перед збереженням"
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Перевірка ввімкнена"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Ліміт збереження перевірки"
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Зберегти чернетки локально?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Чернетки зберігаються у цьому браузері й можуть містити конфіденційні дані. Ви можете очистити чернетки на сторінці «Перевірка контенту» в будь-який час."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Режим перевірки зберігає контент локально, доки ви не зафіксуєте його на сервері."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Увімкнути перевірку"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Скасувати"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Запустити перевірку"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Чернетки створено"
+  },
+  "contentReview_openContentReview": {
+    "message": "Відкрити Перевірку контенту"
+  },
+  "omniSearch_filterScreen": {
+    "message": "Екрани"
+  },
+  "omniSearch_filterChat": {
+    "message": "Чати"
+  },
+  "omniSearch_filterMedia": {
+    "message": "Медіа"
+  },
+  "omniSearch_filterNote": {
+    "message": "Нотатки"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Колекції флешкарт"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Промпти"
+  },
+  "omniSearch_filteringBy": {
+    "message": "Фільтрація за:"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "Помічник швидкого чату"
+  },
+  "quickChatHelper_title": {
+    "message": "Помічник швидкого чату"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "Поставте швидке запитання..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "Надіслати"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "Почніть швидку бічну розмову, щоб основний діалог залишався охайним."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "Відкрити в окремому вікні"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "Спочатку виберіть модель в основному чаті."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "Ваше повідомлення"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "Повідомлення асистента"
+  },
+  "quiz_itemsPerPage": {
+    "message": "елементів/сторінка"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Редагувати вікторину"
+  },
+  "quiz_updateSuccess": {
+    "message": "Вікторину успішно оновлено."
+  },
+  "quiz_updateError": {
+    "message": "Не вдалося оновити вікторину."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Текст запитання є обов’язковим."
+  },
+  "quiz_optionsRequired": {
+    "message": "Будь ласка, додайте щонайменше два варіанти."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Запитання створено успішно."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Запитання оновлено успішно."
+  },
+  "quiz_questionSaveError": {
+    "message": "Не вдалося зберегти запитання."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Запитання видалено успішно."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Не вдалося видалити запитання."
+  },
+  "quiz_editQuestion": {
+    "message": "Редагувати запитання"
+  },
+  "quiz_points": {
+    "message": "Бали"
+  },
+  "quiz_orderIndex": {
+    "message": "Порядок"
+  },
+  "quiz_startError": {
+    "message": "Не вдалося розпочати вікторину."
+  },
+  "quiz_answerAll": {
+    "message": "Будь ласка, дайте відповідь на всі запитання перед надсиланням."
+  },
+  "quiz_submitError": {
+    "message": "Не вдалося надіслати вікторину."
+  },
+  "quiz_scoreSummary": {
+    "message": "Результат: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Правильно"
+  },
+  "quiz_incorrect": {
+    "message": "Неправильно"
+  },
+  "quiz_yourAnswer": {
+    "message": "Ваша відповідь"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Правильна відповідь"
+  },
+  "quiz_backToList": {
+    "message": "Повернутися до списку"
+  },
+  "quiz_retake": {
+    "message": "Повторити вікторину"
+  },
+  "searchPrompts": {
+    "message": "Пошук промптів..."
+  },
+  "noMatchingPrompts": {
+    "message": "Немає відповідних промптів"
+  },
+  "promptSelect_favorites": {
+    "message": "Улюблені"
+  },
+  "promptSelect_system": {
+    "message": "Системні промпти"
+  },
+  "promptSelect_quick": {
+    "message": "Швидкі промпти"
+  }
+}

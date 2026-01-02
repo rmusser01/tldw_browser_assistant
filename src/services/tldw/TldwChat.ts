@@ -10,6 +10,16 @@ export interface TldwChatOptions {
   stream?: boolean
   systemPrompt?: string
   reasoningEffort?: "low" | "medium" | "high"
+  toolChoice?: "auto" | "none" | "required"
+  tools?: Record<string, unknown>[]
+  saveToDb?: boolean
+  conversationId?: string
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: Record<string, unknown>
+  extraBody?: Record<string, unknown>
 }
 
 export interface ChatStreamChunk {
@@ -49,7 +59,17 @@ export class TldwChatService {
         top_p: options.topP,
         frequency_penalty: options.frequencyPenalty,
         presence_penalty: options.presencePenalty,
-        reasoning_effort: options.reasoningEffort
+        reasoning_effort: options.reasoningEffort,
+        tool_choice: options.toolChoice,
+        tools: options.tools,
+        save_to_db: options.saveToDb,
+        conversation_id: options.conversationId,
+        history_message_limit: options.historyMessageLimit,
+        history_message_order: options.historyMessageOrder,
+        slash_command_injection_mode: options.slashCommandInjectionMode,
+        api_provider: options.apiProvider,
+        extra_headers: options.extraHeaders,
+        extra_body: options.extraBody
       }
 
       // Add system prompt if provided
@@ -99,7 +119,17 @@ export class TldwChatService {
         top_p: options.topP,
         frequency_penalty: options.frequencyPenalty,
         presence_penalty: options.presencePenalty,
-        reasoning_effort: options.reasoningEffort
+        reasoning_effort: options.reasoningEffort,
+        tool_choice: options.toolChoice,
+        tools: options.tools,
+        save_to_db: options.saveToDb,
+        conversation_id: options.conversationId,
+        history_message_limit: options.historyMessageLimit,
+        history_message_order: options.historyMessageOrder,
+        slash_command_injection_mode: options.slashCommandInjectionMode,
+        api_provider: options.apiProvider,
+        extra_headers: options.extraHeaders,
+        extra_body: options.extraBody
       }
 
       // Add system prompt if provided

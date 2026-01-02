@@ -920,7 +920,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                         </Tag>
                       )}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-subtle">
                       {t(
                         "playground:stt.settingsNotice",
                         "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
@@ -933,7 +933,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                     </Text>
                     <div className="flex items-center gap-2">
                       <Switch checked={useLongRunning} onChange={setUseLongRunning} size="small" />
-                      <span className="text-xs text-gray-600 dark:text-gray-300">
+                      <span className="text-xs text-text-muted">
                         {useLongRunning
                           ? t("playground:stt.modeLong", "Long-running (chunked recording)")
                           : t("playground:stt.modeShort", "Short dictation (single clip)")}
@@ -1004,7 +1004,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                   </Tooltip>
                 </div>
 
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-text-subtle">
                   {t(
                     "playground:tooltip.speechToTextDetails",
                     "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text.",
@@ -1128,7 +1128,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                       </Tooltip>
                     </div>
                     {isTldw && ttsSettings && (
-                      <div className="text-xs text-gray-500 dark:text-gray-400 space-y-0.5">
+                      <div className="text-xs text-text-subtle space-y-0.5">
                         <div>
                           <Text strong>Model:</Text>{" "}
                           <Text code>{ttsSettings.tldwTtsModel || "kokoro"}</Text>
@@ -1188,7 +1188,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                               <span key={v.id || v.name || idx}>
                                 <Text code>{v.name || v.id}</Text>
                                 {v.language && (
-                                  <span className="ml-0.5 text-gray-400">({v.language})</span>
+                                  <span className="ml-0.5 text-text-subtle">({v.language})</span>
                                 )}
                                 {idx < activeVoices.length - 1 && <span>, </span>}
                               </span>
@@ -1198,7 +1198,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                               Array.isArray(providersInfo.voices?.[activeProviderCaps.key]) &&
                               providersInfo.voices[activeProviderCaps.key].length >
                                 activeVoices.length && (
-                                <span className="ml-1 text-gray-400">…</span>
+                                <span className="ml-1 text-text-subtle">…</span>
                               )}
                           </div>
                         )}
@@ -1296,7 +1296,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                     <Space className="flex flex-wrap" size="middle">
                       <div>
                         <label
-                          className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                          className="block text-xs mb-1 text-text"
                           htmlFor="speech-eleven-voice"
                         >
                           Voice
@@ -1317,7 +1317,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                       </div>
                       <div>
                         <label
-                          className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                          className="block text-xs mb-1 text-text"
                           htmlFor="speech-eleven-model"
                         >
                           Model
@@ -1351,7 +1351,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                     <Space className="flex flex-wrap" size="middle">
                       <div>
                         <label
-                          className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                          className="block text-xs mb-1 text-text"
                           htmlFor="speech-tldw-voice"
                         >
                           Voice
@@ -1374,7 +1374,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                       </div>
                       <div>
                         <label
-                          className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                          className="block text-xs mb-1 text-text"
                           htmlFor="speech-tldw-model"
                         >
                           Model
@@ -1420,7 +1420,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                     <Space className="flex flex-wrap" size="middle">
                       <div>
                         <label
-                          className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                          className="block text-xs mb-1 text-text"
                           htmlFor="speech-openai-model"
                         >
                           Model
@@ -1447,7 +1447,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                       </div>
                       <div>
                         <label
-                          className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                          className="block text-xs mb-1 text-text"
                           htmlFor="speech-openai-voice"
                         >
                           Voice
@@ -1507,14 +1507,14 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                   <div className="mt-2 space-y-2 w-full">
                     <div>
                       <Text strong>{t("playground:tts.outputTitle", "Generated audio segments")}</Text>
-                      <Paragraph className="!mb-1 text-xs text-gray-500 dark:text-gray-400">
+                      <Paragraph className="!mb-1 text-xs text-text-subtle">
                         {t(
                           "playground:tts.outputHelp",
                           "Select a segment, then use the player controls to play, pause, or seek."
                         )}
                       </Paragraph>
                     </div>
-                    <div className="border border-gray-200 dark:border-gray-700 rounded-md p-3 space-y-2">
+                    <div className="border border-border rounded-md p-3 space-y-2">
                       <audio
                         ref={audioRef}
                         controls
@@ -1531,7 +1531,7 @@ export const SpeechPlaygroundPage: React.FC<SpeechPlaygroundPageProps> = ({
                         active={Boolean(segments.length)}
                         label={t("playground:speech.playbackWaveform", "Playback waveform") as string}
                       />
-                      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center justify-between text-xs text-text-subtle">
                         <span>
                           {activeSegmentIndex != null
                             ? t("playground:tts.currentSegment", "Segment") +

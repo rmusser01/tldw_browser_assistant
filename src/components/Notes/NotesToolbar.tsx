@@ -35,11 +35,11 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
   const { t } = useTranslation(['option'])
 
   return (
-    <div className="p-4 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] space-y-3">
+    <div className="p-4 rounded-lg border border-border bg-surface space-y-3">
       <div className="flex items-center justify-between gap-2">
-        <div className="text-xs uppercase tracking-[0.16em] text-gray-500">
+        <div className="text-xs uppercase tracking-[0.16em] text-text-muted">
           {t('option:notesSearch.headerLabel', { defaultValue: 'Notes' })}
-          <span className="ml-2 text-gray-400">
+          <span className="ml-2 text-text-subtle">
             {visibleCount > 0 && total > 0
               ? t('option:notesSearch.headerCount', {
                   defaultValue: '{{visible}} of {{total}}',
@@ -75,7 +75,7 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
           placeholder={t('option:notesSearch.placeholder', {
             defaultValue: 'Search notes...'
           })}
-          prefix={(<SearchIcon className="w-4 h-4 text-gray-400" />) as any}
+          prefix={(<SearchIcon className="w-4 h-4 text-text-subtle" />) as any}
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           onPressEnter={onSubmitSearch}
@@ -103,7 +103,7 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
           size="small"
           onClick={onClearFilters}
           icon={(<PlusIcon className="w-3 h-3 rotate-45" />) as any}
-          className="w-full justify-center text-xs text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+          className="w-full justify-center text-xs text-text-muted hover:text-text"
         >
           {t('option:notesSearch.clear', {
             defaultValue: 'Clear search & filters'
@@ -115,4 +115,3 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
 }
 
 export default NotesToolbar
-

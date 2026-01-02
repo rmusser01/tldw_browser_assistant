@@ -1081,5 +1081,146 @@
   },
   "actor_sceneTemplateActive": {
     "message": "Template de scène actif : Actor respecte les paramètres d'interaction avec les templates."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "Activer le mode Comparer"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "Débloquez les fonctionnalités expérimentales de comparaison multi‑modèles."
+  },
+  "composer_compareDisabled": {
+    "message": "Le mode Comparer est désactivé dans les paramètres."
+  },
+  "composer_compareChosenHint": {
+    "message": "Continuez avec la réponse choisie ou comparez à nouveau."
+  },
+  "composer_compareChosenLabel": {
+    "message": "Choisie"
+  },
+  "composer_compareLatency": {
+    "message": "Latence"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "Comparer : {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(depuis la comparaison)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "Réponses multi‑modèles"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} modèles"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "Modèles sélectionnés : {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "Ouvrir chaque réponse sélectionnée dans son propre chat"
+  },
+  "composer_compareThreadLabel": {
+    "message": "Fil par modèle"
+  },
+  "composer_compareThreadYou": {
+    "message": "Vous"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "Ouvrir en chat complet"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "Ouvrir le chat scindé"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "Canonique"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "Épingler comme canonique"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "Réponse canonique"
+  },
+  "composer_compareFilterLabel": {
+    "message": "Filtrer les modèles"
+  },
+  "composer_compareFilterClear": {
+    "message": "Tout afficher"
+  },
+  "composer_compareFilterCount": {
+    "message": "Affichage {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Tokens : {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
   }
 }

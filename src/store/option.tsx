@@ -20,6 +20,13 @@ type WebSearch = {
     link: string
   }[]
 }
+export type ToolChoice = "auto" | "none" | "required"
+export type ReplyTarget = {
+  id: string
+  preview: string
+  name?: string
+  isBot?: boolean
+}
 export type Message = {
   isBot: boolean
   name: string
@@ -71,6 +78,8 @@ type State = {
   setIsEmbedding: (isEmbedding: boolean) => void
   webSearch: boolean
   setWebSearch: (webSearch: boolean) => void
+  toolChoice: ToolChoice
+  setToolChoice: (toolChoice: ToolChoice) => void
   isSearchingInternet: boolean
   setIsSearchingInternet: (isSearchingInternet: boolean) => void
 
@@ -137,6 +146,8 @@ type State = {
   setServerChatId: (id: string | null) => void
   serverChatState: ConversationState | null
   setServerChatState: (state: ConversationState | null) => void
+  serverChatVersion: number | null
+  setServerChatVersion: (version: number | null) => void
   serverChatTopic: string | null
   setServerChatTopic: (topic: string | null) => void
   serverChatClusterId: string | null
@@ -172,6 +183,10 @@ type State = {
   // Split-off chats per compare cluster/model
   compareSplitChats: Record<string, Record<string, string>>
   setCompareSplitChat: (clusterId: string, modelKey: string, historyId: string) => void
+
+  replyTarget: ReplyTarget | null
+  setReplyTarget: (target: ReplyTarget) => void
+  clearReplyTarget: () => void
 }
 
 export const useStoreMessageOption = create<State>((set) => ({
@@ -190,6 +205,7 @@ export const useStoreMessageOption = create<State>((set) => ({
       // When switching to a local Dexie-backed chat, clear any active server-backed session id.
       serverChatId: historyId ? null : state.serverChatId,
       serverChatState: historyId ? "in-progress" : state.serverChatState,
+      serverChatVersion: historyId ? null : state.serverChatVersion,
       serverChatTopic: historyId ? null : state.serverChatTopic,
       serverChatClusterId: historyId ? null : state.serverChatClusterId,
       serverChatSource: historyId ? null : state.serverChatSource,
@@ -210,6 +226,8 @@ export const useStoreMessageOption = create<State>((set) => ({
   setIsEmbedding: (isEmbedding) => set({ isEmbedding }),
   webSearch: false,
   setWebSearch: (webSearch) => set({ webSearch }),
+  toolChoice: "auto",
+  setToolChoice: (toolChoice) => set({ toolChoice }),
   isSearchingInternet: false,
   setIsSearchingInternet: (isSearchingInternet) => set({ isSearchingInternet }),
   selectedSystemPrompt: null,
@@ -274,6 +292,7 @@ export const useStoreMessageOption = create<State>((set) => ({
     set(() => ({
       serverChatId: id,
       serverChatState: id ? "in-progress" : "in-progress",
+      serverChatVersion: null,
       serverChatTopic: id ? null : null,
       serverChatClusterId: id ? null : null,
       serverChatSource: id ? null : null,
@@ -282,6 +301,9 @@ export const useStoreMessageOption = create<State>((set) => ({
   serverChatState: "in-progress",
   setServerChatState: (state) =>
     set({ serverChatState: state ?? "in-progress" }),
+  serverChatVersion: null,
+  setServerChatVersion: (version) =>
+    set({ serverChatVersion: version != null ? version : null }),
   serverChatTopic: null,
   setServerChatTopic: (topic) =>
     set({ serverChatTopic: topic != null ? topic : null }),
@@ -342,7 +364,10 @@ export const useStoreMessageOption = create<State>((set) => ({
           [modelKey]: historyId
         }
       }
-    }))
+    })),
+  replyTarget: null,
+  setReplyTarget: (target) => set({ replyTarget: target }),
+  clearReplyTarget: () => set({ replyTarget: null })
 }))
 
 if (typeof window !== "undefined") {

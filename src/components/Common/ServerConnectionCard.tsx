@@ -71,7 +71,7 @@ const ConnectionToastContent: React.FC<ConnectionToastContentProps> = ({
       <button
         type="button"
         onClick={onDismiss}
-        className="mt-2 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
+        className="mt-2 text-xs text-primary hover:text-primaryStrong">
         {t("dismiss", { defaultValue: "Dismiss" })}
       </button>
     </div>
@@ -596,7 +596,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
         isCompact ? "mt-4 max-w-md px-3" : "mt-12 max-w-xl px-4"
       }`}>
       <div
-        className={`flex flex-col items-center rounded-xl border border-gray-200 bg-white text-center shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-100 ${
+        className={`flex flex-col items-center rounded-xl border border-border bg-surface text-center shadow-sm text-text ${
           isCompact ? "gap-3 px-4 py-4" : "gap-4 px-6 py-8"
         }`}>
         <div
@@ -607,7 +607,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
           <span>{headline}</span>
         </div>
 
-        <p className="text-sm text-gray-600 dark:text-gray-300 text-center">
+        <p className="text-sm text-text-muted text-center">
           {descriptionCopy}
         </p>
 
@@ -617,7 +617,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
 
         {!isCompact && statusVariant === "ok" && (
           <>
-            <ul className="mt-1 max-w-sm list-disc text-left text-xs text-gray-600 dark:text-gray-300">
+            <ul className="mt-1 max-w-sm list-disc text-left text-xs text-text-muted">
               <li>
                 {t(
                   "option:connectionCard.descriptionConnectedList.reviewMedia",
@@ -637,7 +637,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                 )}
               </li>
             </ul>
-            <p className="mt-1 max-w-sm text-xs text-gray-600 dark:text-gray-300">
+            <p className="mt-1 max-w-sm text-xs text-text-muted">
               {t(
                 "option:connectionCard.connectedCaption",
                 "Chat and tools are now available in Options and the sidepanel."
@@ -711,7 +711,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
           )}
         </div>
 
-        <div className="flex flex-col items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col items-center gap-2 text-xs text-text-subtle">
           {isSearching && (
             <span className="inline-flex items-center gap-1">
               <Clock className="h-3 w-3" />
@@ -726,7 +726,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
           )}
           {secondsSinceLastCheck != null &&
             !(phase === ConnectionPhase.SEARCHING && isChecking) && (
-            <span className="inline-flex items-center gap-1 text-sm text-gray-600 dark:text-gray-300">
+            <span className="inline-flex items-center gap-1 text-sm text-text-muted">
               <Clock className="h-3.5 w-3.5" />
               {t("tldwState.lastChecked", "Checked {{seconds}}s ago", { seconds: secondsSinceLastCheck })}
             </span>
@@ -734,18 +734,18 @@ export const ServerConnectionCard: React.FC<Props> = ({
         </div>
 
         {statusVariant === "error" && lastError && (
-          <div className="flex flex-col items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex flex-col items-center gap-1 text-xs text-text-subtle">
             <button
               type="button"
               onClick={() => setShowErrorDetails((prev) => !prev)}
-              className="text-[11px] text-blue-600 hover:text-blue-500 dark:text-blue-400"
+              className="text-[11px] text-primary hover:text-primaryStrong"
             >
               {showErrorDetails
                 ? t("tldwState.hideDetails", "Hide details")
                 : t("tldwState.showDetails", "Show details")}
             </button>
             {showErrorDetails && (
-              <div className="mt-1 w-full max-w-md rounded-md bg-red-50 px-3 py-2 text-left text-[11px] text-red-700 dark:bg-red-900/30 dark:text-red-200">
+              <div className="mt-1 w-full max-w-md rounded-md bg-danger/10 px-3 py-2 text-left text-[11px] text-danger">
                 <div className="font-medium">
                   {t(
                     "tldwState.errorDetailsLabel",
@@ -832,7 +832,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
         </div>
 
         {isCompact && (statusVariant === "missing" || statusVariant === "error") && (
-          <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-[11px] text-text-subtle">
             {t(
               "option:connectionCard.sidepanelOpenSettingsHint",
               "Settings open in a new browser tab so you can configure your tldw server."
@@ -848,7 +848,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
               type="button"
               data-testid="toggle-advanced-troubleshooting"
               onClick={() => setShowAdvanced((prev) => !prev)}
-              className="mt-1 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400">
+              className="mt-1 text-xs text-primary hover:text-primaryStrong">
               {showAdvanced
                 ? t(
                     "option:connectionCard.hideAdvanced",
@@ -860,7 +860,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   )}
             </button>
             {showAdvanced && (
-              <div className="flex w-full flex-col gap-2 text-xs text-gray-600 dark:text-gray-300">
+              <div className="flex w-full flex-col gap-2 text-xs text-text-muted">
                 <div className="flex flex-wrap items-center gap-2">
                   <Button
                     size="small"
@@ -897,7 +897,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   <Button
                     size="small"
                     onClick={handleOpenHelpDocs}
-                    className="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200">
+                    className="border-border text-text">
                     {t(
                       "option:connectionCard.buttonHelpDocs",
                       "Help docs"
@@ -906,21 +906,21 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   <Button
                     size="small"
                     onClick={handleOpenDiagnostics}
-                    className="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200">
+                    className="border-border text-text">
                     {t(
                       "settings:healthSummary.diagnostics",
                       "Health & diagnostics"
                     )}
                   </Button>
                 </div>
-                <div className="text-[11px] text-gray-500 dark:text-gray-400">
+                <div className="text-[11px] text-text-subtle">
                   {t(
                     "option:connectionCard.quickIngestHelpInline",
                     "Tip: The ? icon reopens the Quick Ingest intro. You can stage items offline; they will process after you reconnect."
                   )}
                 </div>
                 {isSearching && serverHost ? (
-                  <div className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <div className="text-[11px] text-text-subtle">
                     {t(
                       "option:connectionCard.checkingWithConfig",
                       "Checking {{host}} with your saved API key…",
@@ -929,14 +929,14 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   </div>
                 ) : null}
                 {offlineHintVisible || offlineBypass ? (
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <span className="text-[11px] text-text-subtle">
                     {t(
                       "option:connectionCard.quickIngestHint",
                       "When your server is offline, Quick Ingest works as a staging area. You can queue URLs and files now and process them once you reconnect."
                     )}
                   </span>
                 ) : (
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <span className="text-[11px] text-text-subtle">
                     {t(
                       "option:connectionCard.quickIngestInlineHint",
                       "Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect."
@@ -952,7 +952,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
           <button
             type="button"
             onClick={handleOpenDiagnostics}
-            className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400">
+            className="inline-flex items-center gap-1 text-xs text-primary hover:text-primaryStrong">
             <ExternalLink className="h-3 w-3" />
             {diagnosticsLabel}
           </button>

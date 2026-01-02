@@ -1,5 +1,5 @@
 import { promptForRag } from "~/services/tldw-server" // Reuse prompts storage for now
-import { type ChatHistory, type Message } from "~/store/option"
+import { type ChatHistory, type Message, type ToolChoice } from "~/store/option"
 import { generateID } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
@@ -23,6 +23,7 @@ type RagModeParams = {
   useOCR: boolean
   selectedKnowledge: any
   currentChatModelSettings: any
+  toolChoice?: ToolChoice
   setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
   saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
   saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
@@ -47,6 +48,7 @@ type RagModeParams = {
   assistantMessageId?: string
   userParentMessageId?: string | null
   assistantParentMessageId?: string | null
+  historyForModel?: ChatHistory
 }
 
 export const ragMode = async (
@@ -61,6 +63,7 @@ export const ragMode = async (
     useOCR,
     selectedKnowledge,
     currentChatModelSettings,
+    toolChoice,
     setMessages,
     saveMessageOnSuccess,
     saveMessageOnError,
@@ -74,22 +77,24 @@ export const ragMode = async (
     ragSearchMode,
     ragTopK,
     ragEnableGeneration,
-    ragEnableCitations,
-    ragSources,
-    actorSettings,
-    clusterId,
+  ragEnableCitations,
+  ragSources,
+  actorSettings,
+  clusterId,
     userMessageType,
-    assistantMessageType,
-    modelIdOverride,
-    userMessageId,
-    assistantMessageId,
-    userParentMessageId,
-    assistantParentMessageId
-  }: RagModeParams
+  assistantMessageType,
+  modelIdOverride,
+  userMessageId,
+  assistantMessageId,
+  userParentMessageId,
+  assistantParentMessageId,
+  historyForModel
+}: RagModeParams
 ) => {
   console.log("Using ragMode")
   const ollama = await pageAssistModel({
-    model: selectedModel
+    model: selectedModel,
+    toolChoice
   })
 
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
@@ -185,7 +190,9 @@ export const ragMode = async (
         .replaceAll("{chat_history}", chat_history)
         .replaceAll("{question}", message)
       const questionOllama = await pageAssistModel({
-        model: selectedModel
+        model: selectedModel,
+        toolChoice: "none",
+        saveToDb: false
       })
       const questionMessage = await humanMessageFormatter({
         content: [
@@ -259,7 +266,10 @@ export const ragMode = async (
       useOCR: useOCR
     })
 
-    let applicationChatHistory = generateHistory(history, selectedModel)
+    let applicationChatHistory = generateHistory(
+      historyForModel ?? history,
+      selectedModel
+    )
 
     const templatesActive = false
     applicationChatHistory = await maybeInjectActorMessage(

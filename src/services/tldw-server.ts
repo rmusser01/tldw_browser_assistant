@@ -103,6 +103,73 @@ export const fetchChatModels = async ({ returnEmpty = false }: { returnEmpty?: b
     // Only tldw_server models are exposed as chat models
     const combined = [...tldw]
 
+    const dedupeByModel = (models: any[]) => {
+      const unique: any[] = []
+      const indexByModel = new Map<string, number>()
+      const duplicates: string[] = []
+
+      for (const model of models) {
+        const key = String(model?.model || model?.name || "").trim()
+        if (!key) {
+          unique.push(model)
+          continue
+        }
+        const existingIndex = indexByModel.get(key)
+        if (existingIndex == null) {
+          indexByModel.set(key, unique.length)
+          unique.push(model)
+          continue
+        }
+        duplicates.push(key)
+        const existing = unique[existingIndex] || {}
+        const merged: any = { ...existing }
+        if (!merged.nickname && model?.nickname) merged.nickname = model.nickname
+        if (!merged.name && model?.name) merged.name = model.name
+        if (!merged.provider && model?.provider) merged.provider = model.provider
+        if (!merged.details && model?.details) merged.details = model.details
+        if (!merged.modified_at && model?.modified_at) {
+          merged.modified_at = model.modified_at
+        }
+
+        const existingDetails =
+          merged.details && typeof merged.details === "object"
+            ? merged.details
+            : {}
+        const incomingDetails =
+          model?.details && typeof model.details === "object"
+            ? model.details
+            : {}
+        const mergedDetails: any = { ...incomingDetails, ...existingDetails }
+        const capabilities = new Set<string>()
+        const existingCaps = existingDetails.capabilities
+        const incomingCaps = incomingDetails.capabilities
+        if (Array.isArray(existingCaps)) {
+          existingCaps.forEach((cap) => capabilities.add(String(cap)))
+        }
+        if (Array.isArray(incomingCaps)) {
+          incomingCaps.forEach((cap) => capabilities.add(String(cap)))
+        }
+        if (capabilities.size > 0) {
+          mergedDetails.capabilities = Array.from(capabilities)
+        }
+        if (Object.keys(mergedDetails).length > 0) {
+          merged.details = mergedDetails
+        }
+        unique[existingIndex] = merged
+      }
+
+      if (import.meta.env?.DEV && duplicates.length > 0) {
+        const uniqueDupes = Array.from(new Set(duplicates))
+        console.debug("tldw_server: deduped chat models", {
+          duplicates: uniqueDupes,
+          total: models.length,
+          unique: unique.length
+        })
+      }
+
+      return unique
+    }
+
     if (import.meta.env?.DEV) {
       console.debug("tldw_server: fetchChatModels resolved", {
         tldwCount: tldw.length,
@@ -110,7 +177,7 @@ export const fetchChatModels = async ({ returnEmpty = false }: { returnEmpty?: b
       })
     }
 
-    return combined
+    return dedupeByModel(combined)
   } catch (e) {
     console.error("Failed to fetch chat models:", e)
     if (returnEmpty) return []

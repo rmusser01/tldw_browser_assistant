@@ -1,0 +1,938 @@
+{
+  "pageAssist": {
+    "message": "دستیار tldw"
+  },
+  "titles_options": {
+    "message": "تنظیمات دستیار tldw"
+  },
+  "titles_sidepanel": {
+    "message": "پنل کناری دستیار tldw"
+  },
+  "pdf_passwordTitle": {
+    "message": "رمز عبور PDF را وارد کنید"
+  },
+  "pdf_unlock": {
+    "message": "باز کردن"
+  },
+  "loading_title": {
+    "message": "در حال بارگذاری…"
+  },
+  "loading_description": {
+    "message": "لطفاً صبر کنید تا همه‌چیز آماده شود."
+  },
+  "loading_content": {
+    "message": "در حال بارگذاری محتوا…"
+  },
+  "selectAModel": {
+    "message": "یک مدل انتخاب کنید"
+  },
+  "save": {
+    "message": "ذخیره"
+  },
+  "saved": {
+    "message": "ذخیره شد"
+  },
+  "cancel": {
+    "message": "لغو"
+  },
+  "retry": {
+    "message": "تلاش مجدد"
+  },
+  "share_tooltip_share": {
+    "message": "اشتراک گذاری"
+  },
+  "share_modal_title": {
+    "message": "اشتراک گذاری لینک به گپ"
+  },
+  "share_form_defaultValue_name": {
+    "message": "ناشناس"
+  },
+  "share_form_defaultValue_title": {
+    "message": "گپ بی نام"
+  },
+  "share_form_title_label": {
+    "message": "عنوان گپ"
+  },
+  "share_form_title_placeholder": {
+    "message": "عنوان گپ را وارد کنید"
+  },
+  "share_form_title_required": {
+    "message": "وارد کردن عنوان چت الزامی است"
+  },
+  "share_form_name_label": {
+    "message": "نام شما"
+  },
+  "share_form_name_placeholder": {
+    "message": "نام خود را وارد کنید"
+  },
+  "share_form_name_required": {
+    "message": "وارد کردن نام الزامی است"
+  },
+  "share_form_btn_save": {
+    "message": "ایجاد لینک"
+  },
+  "share_form_btn_saving": {
+    "message": "در حال ایجاد لینک..."
+  },
+  "share_notification_successGenerate": {
+    "message": "پیوند در کلیپ بورد کپی شد"
+  },
+  "share_notification_failGenerate": {
+    "message": "پیوند ایجاد نشد"
+  },
+  "copyToClipboard": {
+    "message": "کپی به کلیپ بورد"
+  },
+  "webSearch": {
+    "message": "جستجوی وب"
+  },
+  "regenerate": {
+    "message": "ایجاد مجدد"
+  },
+  "continue": {
+    "message": "ادامه پاسخ"
+  },
+  "edit": {
+    "message": "ویرایش"
+  },
+  "delete": {
+    "message": "حذف"
+  },
+  "saveAndSubmit": {
+    "message": "ذخیره و ارسال"
+  },
+  "editMessage_placeholder": {
+    "message": "یک پیام وارد کنید..."
+  },
+  "submit": {
+    "message": "ارسال"
+  },
+  "send": {
+    "message": "ارسال"
+  },
+  "connectToServer": {
+    "message": "اتصال به سرور"
+  },
+  "noData": {
+    "message": "اطلاعاتی وجود ندارد"
+  },
+  "noHistory": {
+    "message": "تاریخچه گپ وجود ندارد"
+  },
+  "chatWithCurrentPage": {
+    "message": "گپ زدن با این صفحه"
+  },
+  "beta": {
+    "message": "بتا"
+  },
+  "tts": {
+    "message": "بلند بخوان"
+  },
+  "currentChatModelSettings": {
+    "message": "تنظیمات مدل گپ فعلی"
+  },
+  "modelSettings_label": {
+    "message": "تنظیمات مدل"
+  },
+  "modelSettings_description": {
+    "message": "گزینه های مدل را به صورت کلی برای همه گپ ها تنظیم کنید"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "Keep Alive (زنده نگه‌داشتن)"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "کنترل می‌کند مدل پس از هر درخواست چه مدت در حافظه بماند (پیش‌فرض: ۵ دقیقه)"
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "مدت Keep Alive را وارد کنید (مثلاً 5m, 10m, 1h)"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "Temperature (دما)"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "مقدار Temperature را وارد کنید (مثلاً 0.7, 1.0)"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "اندازه پنجره متن (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "مقدار اندازه پنجره متن را وارد کنید (پیش فرض: 2048)"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "حداکثر توکن‌ها (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "مقدار حداکثر توکن‌ها را وارد کنید (مثلا 2048، 4096)"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "Seed (بذر تصادفی)"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "مقدار Seed را وارد کنید (مثلاً 1234)"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "برای قابل‌تکرار بودن خروجی مدل"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "Top K (بالاترین K)"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "مقدار Top K را وارد کنید (مثلاً 40, 100)"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "Top P (بالاترین P)"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "مقدار Top P را وارد کنید (مثلاً 0.9, 0.95)"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "Num GPU (تعداد GPU)"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "تعداد لایه‌هایی که به GPU(ها) ارسال می‌شود را وارد کنید"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "پرامپت سیستم موقت"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "پرامپت سیستم را وارد کنید"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "این یک روش سریع برای تنظیم پرامپت سیستم در گفتگوی فعلی است که در صورت وجود، پرامپت سیستم انتخاب شده را لغو خواهد کرد."
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "حالت فکر کردن"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap (نگاشت در حافظه)"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z (پارامتر TFS)"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "مثلاً 1.0، 1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Num Keep (تعداد حفظ‌شده‌ها)"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "مثلاً 256، 512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Num Thread (تعداد رشته‌ها)"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "مثلاً 8، 16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock (قفل‌کردن در حافظه)"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "میزان تلاش استدلال"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "کم، متوسط، زیاد"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P (حداقل P)"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "مثلاً 0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "جریمه تکرار"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "مثلاً 1.1، 1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "تکرار آخرین N"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "مثلاً 64، 128"
+  },
+  "modelSettings_advanced": {
+    "message": "تنظیمات بیشتر مدل"
+  },
+  "citations": {
+    "message": "ارجاعات"
+  },
+  "downloadCode": {
+    "message": "دانلود کد"
+  },
+  "date_pinned": {
+    "message": "پین شده"
+  },
+  "date_today": {
+    "message": "امروز"
+  },
+  "date_yesterday": {
+    "message": "دیروز"
+  },
+  "date_last7Days": {
+    "message": "۷ روز گذشته"
+  },
+  "date_older": {
+    "message": "قدیمی‌تر"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "آیا مطمئن هستید که می‌خواهید تمام پیام‌های پین شده را حذف کنید؟"
+  },
+  "range_deleteConfirm_today": {
+    "message": "آیا مطمئن هستید که می‌خواهید تمام پیام‌های امروز را حذف کنید؟"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "آیا مطمئن هستید که می‌خواهید تمام پیام‌های دیروز را حذف کنید؟"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "آیا مطمئن هستید که می‌خواهید تمام پیام‌های ۷ روز گذشته را حذف کنید؟"
+  },
+  "range_deleteConfirm_older": {
+    "message": "آیا مطمئن هستید که می‌خواهید تمام پیام‌های قدیمی‌تر را حذف کنید؟"
+  },
+  "range_tooltip_pinned": {
+    "message": "حذف تمام پیام‌های پین شده"
+  },
+  "range_tooltip_today": {
+    "message": "حذف تمام پیام‌های امروز"
+  },
+  "range_tooltip_yesterday": {
+    "message": "حذف تمام پیام‌های دیروز"
+  },
+  "range_tooltip_last7Days": {
+    "message": "حذف تمام پیام‌های ۷ روز گذشته"
+  },
+  "range_tooltip_older": {
+    "message": "حذف تمام پیام‌های قدیمی‌تر"
+  },
+  "pin": {
+    "message": "پین کردن"
+  },
+  "unpin": {
+    "message": "حذف پین"
+  },
+  "generationInfo": {
+    "message": "اطلاعات تولید"
+  },
+  "sidebarChat": {
+    "message": "چت کناری"
+  },
+  "reasoning_thinking": {
+    "message": "در حال فکر کردن...."
+  },
+  "reasoning_loading": {
+    "message": "در حال بارگذاری استدلال...."
+  },
+  "reasoning_thought": {
+    "message": "فکر کردن برای {{time}}"
+  },
+  "embeddingGen": {
+    "message": "در حال ایجاد تمثیلات، این ممکن است چند لحظه طول بکشد"
+  },
+  "semanticSearch": {
+    "message": "در حال جستجوی معنایی"
+  },
+  "downloading": {
+    "message": "در حال دانلود"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "آیا مطمئن هستید که می‌خواهید دانلود را لغو کنید؟ این کار فرآیند دانلود را متوقف می‌کند. طبق مستندات Ollama، می‌توانید دانلود را از همان جایی که متوقف شده ادامه دهید."
+  },
+  "table_copyCsv": {
+    "message": "کپی به‌صورت CSV"
+  },
+  "table_downloadCsv": {
+    "message": "دانلود CSV"
+  },
+  "dismiss": {
+    "message": "بستن"
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant نمی‌تواند داده‌ها را ذخیره کند"
+  },
+  "confirmTitle": {
+    "message": "لطفاً تأیید کنید"
+  },
+  "saving": {
+    "message": "در حال ذخیره..."
+  },
+  "close": {
+    "message": "بستن"
+  },
+  "loadMore": {
+    "message": "نمایش موارد بیشتر..."
+  },
+  "startChat": {
+    "message": "شروع گپ"
+  },
+  "previous": {
+    "message": "قبلی"
+  },
+  "next": {
+    "message": "بعدی"
+  },
+  "chatWithCharacter": {
+    "message": "گپ با شخصیت"
+  },
+  "ttsShort": {
+    "message": "صدا"
+  },
+  "copyShort": {
+    "message": "کپی"
+  },
+  "branchShort": {
+    "message": "شاخه"
+  },
+  "infoShort": {
+    "message": "اطلاعات"
+  },
+  "regenShort": {
+    "message": "تکرار"
+  },
+  "continueShort": {
+    "message": "بیشتر"
+  },
+  "fileChanges": {
+    "message": "تغییرات فایل"
+  },
+  "deletions": {
+    "message": "حذف‌ها"
+  },
+  "gitOperations": {
+    "message": "عملیات Git"
+  },
+  "commands": {
+    "message": "دستورها"
+  },
+  "otherOperations": {
+    "message": "سایر عملیات"
+  },
+  "fileAccess": {
+    "message": "دسترسی به فایل‌ها"
+  },
+  "notebookEdits": {
+    "message": "ویرایش‌های دفترچه یادداشت"
+  },
+  "applyPatch": {
+    "message": "اعمال وصله"
+  },
+  "recursive": {
+    "message": "(بازگشتی)"
+  },
+  "complexArguments": {
+    "message": "[آرگومان‌های پیچیده]"
+  },
+  "copilot_summary": {
+    "message": "خلاصه کردن"
+  },
+  "copilot_explain": {
+    "message": "توضیح دادن"
+  },
+  "copilot_rephrase": {
+    "message": "بازنویسی"
+  },
+  "copilot_translate": {
+    "message": "ترجمه"
+  },
+  "copilot_custom": {
+    "message": "سفارشی"
+  },
+  "segmented_available": {
+    "message": "مدل‌های سرور"
+  },
+  "segmented_custom": {
+    "message": "مدل‌های سفارشی"
+  },
+  "success": {
+    "message": "موفقیت‌آمیز"
+  },
+  "created": {
+    "message": "ایجاد شد"
+  },
+  "updated": {
+    "message": "به‌روزرسانی شد"
+  },
+  "deleted": {
+    "message": "حذف شد"
+  },
+  "create": {
+    "message": "ایجاد"
+  },
+  "reset": {
+    "message": "بازنشانی"
+  },
+  "serverOffline": {
+    "message": "سرور آفلاین است یا پیکربندی نشده است"
+  },
+  "serverChats": {
+    "message": "گپ‌های سرور"
+  },
+  "serverChatLoadError": {
+    "message": "بارگذاری گپ سرور ناموفق بود. اتصال خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "serverChatSourceLabel": {
+    "message": "سرور"
+  },
+  "serverChatForkedLabel": {
+    "message": "گفتگوی منشعب"
+  },
+  "serverChatForkedTooltip": {
+    "message": "منشعب از گفتگوی {{chatId}}"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید."
+  },
+  "historiesDeleted": {
+    "message": "{{count}} تاریخچه حذف شد"
+  },
+  "deleteHistoriesError": {
+    "message": "خطا در حذف تاریخچه‌ها"
+  },
+  "mermaid": {
+    "message": "نمودارهای Mermaid"
+  },
+  "search": {
+    "message": "جستجو"
+  },
+  "searchResults": {
+    "message": "نتایج جستجو"
+  },
+  "newBranch": {
+    "message": "شاخه جدید"
+  },
+  "error_label": {
+    "message": "خطا"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "نتوانستیم به سرور tldw شما متصل شویم."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "ممکن است کلید API شما نامعتبر باشد. تنظیمات → سرور tldw را باز کنید تا آدرس URL و کلید API را بررسی کنید و دوباره تلاش کنید."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "گفتگوی شما منقضی شد."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "سرور ارسال پاسخ‌ها را متوقف کرد. دوباره تلاش کنید یا وضعیت سرور را در سلامت و عیب‌یابی بررسی کنید."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "در برقراری ارتباط با سرور tldw شما مشکلی پیش آمد."
+  },
+  "error_friendlyGenericHint": {
+    "message": "بعداً دوباره تلاش کنید یا سلامت و عیب‌یابی را برای بررسی وضعیت سرور باز کنید."
+  },
+  "error_showDetails": {
+    "message": "نمایش جزئیات فنی"
+  },
+  "error_hideDetails": {
+    "message": "پنهان کردن جزئیات فنی"
+  },
+  "folders": {
+    "message": "پوشه‌ها"
+  },
+  "folderView": {
+    "message": "نمای پوشه"
+  },
+  "dateView": {
+    "message": "نمای تاریخ"
+  },
+  "newFolder": {
+    "message": "پوشه جدید"
+  },
+  "folderName": {
+    "message": "نام پوشه"
+  },
+  "selectFolder": {
+    "message": "انتخاب پوشه"
+  },
+  "noFolders": {
+    "message": "پوشه‌ای وجود ندارد"
+  },
+  "expandAll": {
+    "message": "گسترش همه"
+  },
+  "collapseAll": {
+    "message": "جمع کردن همه"
+  },
+  "refresh": {
+    "message": "بازخوانی"
+  },
+  "confirm": {
+    "message": "تأیید"
+  },
+  "untitled": {
+    "message": "بدون عنوان"
+  },
+  "moveToFolder": {
+    "message": "انتقال به پوشه"
+  },
+  "noToolCalls": {
+    "message": "هنوز هیچ فراخوانی ابزاری انجام نشده است"
+  },
+  "status_pending": {
+    "message": "انتظار"
+  },
+  "status_running": {
+    "message": "در حال پردازش"
+  },
+  "status_complete": {
+    "message": "تمام"
+  },
+  "status_error": {
+    "message": "خطا"
+  },
+  "arguments": {
+    "message": "آرگومان‌ها"
+  },
+  "invalidJson": {
+    "message": "JSON نامعتبر؛ مقدار خام نمایش داده می‌شود"
+  },
+  "result": {
+    "message": "نتیجه"
+  },
+  "tools_fs_list": {
+    "message": "فهرست پوشه"
+  },
+  "tools_fs_read": {
+    "message": "خواندن فایل"
+  },
+  "tools_fs_write": {
+    "message": "نوشتن فایل"
+  },
+  "tools_fs_apply_patch": {
+    "message": "اعمال وصله"
+  },
+  "tools_fs_mkdir": {
+    "message": "ایجاد پوشه"
+  },
+  "tools_fs_delete": {
+    "message": "حذف"
+  },
+  "tools_search_grep": {
+    "message": "جستجوی محتوا"
+  },
+  "tools_search_glob": {
+    "message": "یافتن فایل‌ها"
+  },
+  "tools_git_status": {
+    "message": "وضعیت گیت"
+  },
+  "tools_git_diff": {
+    "message": "تفاوت گیت"
+  },
+  "tools_git_log": {
+    "message": "گزارش گیت"
+  },
+  "tools_git_branch": {
+    "message": "شاخه گیت"
+  },
+  "tools_git_add": {
+    "message": "مرحله‌بندی فایل‌ها"
+  },
+  "tools_git_commit": {
+    "message": "کامیت"
+  },
+  "tools_exec_run": {
+    "message": "اجرای دستور"
+  },
+  "markdown_unableToRender": {
+    "message": "محتوا قابل نمایش نیست"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "محتوای پیام قابل نمایش نبود. این ممکن است به دلیل قالب‌بندی نامعتبر باشد."
+  },
+  "markdown_showRawContent": {
+    "message": "نمایش محتوای خام"
+  },
+  "commandPalette_goToChat": {
+    "message": "رفتن به چت"
+  },
+  "commandPalette_goToMedia": {
+    "message": "رفتن به رسانه‌ها"
+  },
+  "commandPalette_goToNotes": {
+    "message": "رفتن به یادداشت‌ها"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "رفتن به فلش‌کارت‌ها"
+  },
+  "commandPalette_goToSettings": {
+    "message": "رفتن به تنظیمات"
+  },
+  "commandPalette_goToHealth": {
+    "message": "رفتن به سلامت و تشخیص"
+  },
+  "commandPalette_newChat": {
+    "message": "گفتگوی جدید"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "تغییر وضعیت جستجوی دانش"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "جستجو در پایگاه دانش شما"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "تغییر وضعیت جستجوی وب"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "جستجو در اینترنت"
+  },
+  "commandPalette_ingestPage": {
+    "message": "وارد کردن صفحه فعلی"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "ذخیره این صفحه در پایگاه دانش شما"
+  },
+  "commandPalette_switchModel": {
+    "message": "تغییر مدل"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "نمایش/مخفی کردن نوار کناری"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "نمایش یا پنهان کردن نوار کناری چت"
+  },
+  "commandPalette_placeholder": {
+    "message": "یک دستور بنویسید یا جستجو کنید..."
+  },
+  "commandPalette_noResults": {
+    "message": "هیچ نتیجه‌ای یافت نشد"
+  },
+  "commandPalette_title": {
+    "message": "پالت دستورات"
+  },
+  "commandPalette_navigate": {
+    "message": "حرکت"
+  },
+  "commandPalette_select": {
+    "message": "انتخاب"
+  },
+  "commandPalette_toOpen": {
+    "message": "برای باز کردن"
+  },
+  "commandPalette_categoryActions": {
+    "message": "اقدامات"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "ناوبری"
+  },
+  "commandPalette_categorySettings": {
+    "message": "تنظیمات"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "اخیر"
+  },
+  "featureHints_knowledge_title": {
+    "message": "در دانش خود جستجو کنید"
+  },
+  "featureHints_knowledge_description": {
+    "message": "پنل جستجوی دانش را باز کنید تا تکه‌ها را پیدا کرده و در چت خود درج کنید."
+  },
+  "featureHints_moreTools_title": {
+    "message": "ابزارهای بیشتری در دسترس است"
+  },
+  "featureHints_moreTools_description": {
+    "message": "به حالت بینایی، بارگذاری تصویر، وارد کردن سریع و اپ کامل دسترسی پیدا کنید."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "فرمان‌های سریع"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "برای جستجو در فرمان‌ها، تنظیمات و موارد دیگر {{shortcut}} را فشار دهید."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "تنظیم پارامترهای مدل"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "دما، طول زمینه و سایر تنظیمات مدل را دقیق تنظیم کنید."
+  },
+  "chatSidebar_title": {
+    "message": "گفتگوها"
+  },
+  "chatSidebar_newChat": {
+    "message": "گفتگوی جدید"
+  },
+  "chatSidebar_collapse": {
+    "message": "بستن نوار کناری"
+  },
+  "chatSidebar_expand": {
+    "message": "گسترش نوار کناری"
+  },
+  "chatSidebar_search": {
+    "message": "جستجوی گفتگوها..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "وارد کردن صفحه"
+  },
+  "chatSidebar_media": {
+    "message": "رسانه‌ها"
+  },
+  "chatSidebar_notes": {
+    "message": "یادداشت‌ها"
+  },
+  "chatSidebar_flashcards": {
+    "message": "فلش‌کارت‌ها"
+  },
+  "chatSidebar_prompts": {
+    "message": "پرامپت‌ها"
+  },
+  "chatSidebar_multiItem": {
+    "message": "چند موردی"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "میانبرها"
+  },
+  "chatSidebar_settings": {
+    "message": "تنظیمات"
+  },
+  "chatSidebar_loadError": {
+    "message": "بارگذاری گفتگوها ناموفق بود"
+  },
+  "chatSidebar_localTab": {
+    "message": "محلی"
+  },
+  "chatSidebar_serverTab": {
+    "message": "سرور"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "پوشه‌ها"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "محلی"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "سرور"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "پوشه‌ها"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "هنوز گفتگویی در سرور نیست"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "پوشه‌ها به اتصال به سرور نیاز دارند"
+  },
+  "extName": {
+    "message": "دستیار tldw"
+  },
+  "extDescription": {
+    "message": "از مدل های هوش مصنوعی لوکال خود برای دریافت کمک در هنگام مرور وب استفاده کنید."
+  },
+  "openSidePanelToChat": {
+    "message": "باز کردن نوار کناری برای گفتگو"
+  },
+  "openOptionToChat": {
+    "message": "باز کردن رابط کاربری وب برای گفتگو"
+  },
+  "contextSummarize": {
+    "message": "خلاصه کردن"
+  },
+  "contextExplain": {
+    "message": "توضیح دادن"
+  },
+  "contextRephrase": {
+    "message": "بازنویسی"
+  },
+  "contextTranslate": {
+    "message": "ترجمه کردن"
+  },
+  "contextCustom": {
+    "message": "سفارشی"
+  },
+  "contextSendToTldw": {
+    "message": "ارسال به tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "پردازش با tldw_server (بدون ذخیره‌سازی)"
+  },
+  "contextTranscribeMedia": {
+    "message": "رونویسی ویدیو/صدا"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "رونویسی و خلاصه‌سازی ویدیو/صدا"
+  },
+  "contextSaveToNotes": {
+    "message": "ذخیره در یادداشت‌ها"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "برای ذخیره در یادداشت‌ها ابتدا متن را انتخاب کنید."
+  },
+  "contextSidebarOpening": {
+    "message": "در حال باز کردن نوار کناری..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "در حال باز کردن نوار کناری برای ذخیره یادداشت..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "نتوانستیم نوار کناری را برای ذخیره این یادداشت باز کنیم. بررسی کنید که نوار کناری tldw Assistant در این سایت مجاز است و دوباره تلاش کنید."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] درخواست ارسال صفحه توسط tldw_server رد شد"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] ارسال این صفحه به tldw_server ناموفق بود: $1. «Settings → tldw server» را بررسی کرده و دوباره تلاش کنید."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] ارسال این صفحه به tldw_server ناموفق بود. «Settings → tldw server» را بررسی کرده و دوباره تلاش کنید."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] صفحه برای پردازش به tldw_server ارسال شد"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] هنگام ارسال این صفحه به tldw_server خطایی رخ داد. مطمئن شوید tldw_server و افزونه فعال هستند و دوباره تلاش کنید."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] یک درخواست دریافت مدل هم‌اکنون در حال انجام است. لطفاً قبل از شروع درخواست جدید، منتظر بمانید تا این فرایند تمام شود."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] آیا می‌خواهید درخواستی به tldw_server خود بفرستید تا مدل \"$1\" را دریافت کند؟ این کار مستقل از وب‌سایت huggingface.co است. پس از تأیید شما، سرور شروع به دریافت مدل خواهد کرد."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] در حال ارسال درخواست به tldw_server شما برای دریافت \"$1\". برای مشاهده پیشرفت، آیکون افزونه یا لاگ‌های tldw_server را بررسی کنید."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] ارسال درخواست دریافت برای \"$1\" ناموفق بود: $2. «Settings → tldw server» را بررسی کرده و دوباره تلاش کنید."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] ارسال درخواست دریافت برای \"$1\" ناموفق بود. «Settings → tldw server» را بررسی کرده و دوباره تلاش کنید."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] درخواست دریافت \"$1\" به tldw_server شما ارسال شد. برای وضعیت، آیکون افزونه یا لاگ‌های tldw_server را بررسی کنید."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] هنگام ارسال درخواست دریافت \"$1\" به tldw_server شما خطایی رخ داد. مطمئن شوید tldw_server و افزونه فعال هستند و دوباره تلاش کنید."
+  },
+  "stepLabel": {
+    "message": "خوش آمدید"
+  },
+  "path": {
+    "message": "دوست دارید چگونه شروع کنید؟"
+  },
+  "nextSteps": {
+    "message": "شما آماده‌اید"
+  },
+  "restartOnboardingLabel": {
+    "message": "شروع دوباره فرایند راه‌اندازی از ابتدا"
+  },
+  "restartOnboardingButton": {
+    "message": "شروع دوباره راه‌اندازی"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "شروع دوباره راه‌اندازی؟"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "با این کار وضعیت راه‌اندازی شما بازنشانی می‌شود و دوباره به جریان تنظیمات اولیه برمی‌گردید."
+  }
+}

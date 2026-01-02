@@ -1,5 +1,5 @@
 import { systemPromptForNonRagOption } from "~/services/tldw-server"
-import { type ChatHistory, type Message } from "~/store/option"
+import { type ChatHistory, type Message, type ToolChoice } from "~/store/option"
 import { generateID, getPromptById } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
@@ -33,6 +33,7 @@ export const normalChatMode = async (
     useOCR,
     selectedSystemPrompt,
     currentChatModelSettings,
+    toolChoice,
     setMessages,
     saveMessageOnSuccess,
     saveMessageOnError,
@@ -60,6 +61,7 @@ export const normalChatMode = async (
     useOCR: boolean
     selectedSystemPrompt: string
     currentChatModelSettings: any
+    toolChoice?: ToolChoice
     setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
     saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
     saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
@@ -312,7 +314,7 @@ export const normalChatMode = async (
     return
   }
 
-  const ollama = await pageAssistModel({ model: selectedModel })
+  const ollama = await pageAssistModel({ model: selectedModel, toolChoice })
 
   try {
     const prompt = await systemPromptForNonRagOption()

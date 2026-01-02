@@ -1,0 +1,2747 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "Server og Auth"
+  },
+  "navigation_knowledgeTools": {
+    "message": "Kunnskapsverktøy"
+  },
+  "navigation_workspace": {
+    "message": "Arbeidsområde"
+  },
+  "navigation_about": {
+    "message": "Om"
+  },
+  "healthNav": {
+    "message": "Helse"
+  },
+  "worldBooksNav": {
+    "message": "Verdensbøker"
+  },
+  "chatDictionariesNav": {
+    "message": "Chatordbøker"
+  },
+  "charactersNav": {
+    "message": "Tegn"
+  },
+  "mediaNav": {
+    "message": "Medier"
+  },
+  "chatAppearance_title": {
+    "message": "Chat-utseende"
+  },
+  "chatAppearance_description": {
+    "message": "Tilpass farger, skrifttyper og tekststørrelse for chatmeldinger."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "Leter du etter innstillinger for chatteadferd (breddemodus, resonnement, kopieringsvalg)?"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "Gå til Generelle innstillinger"
+  },
+  "chatAppearance_userHeading": {
+    "message": "Brukermeldinger"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "Assistentmeldinger"
+  },
+  "chatAppearance_userColor": {
+    "message": "Farge på brukertekst"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "Farge på assistenttekst"
+  },
+  "chatAppearance_userFont": {
+    "message": "Skrift for bruker"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "Skrift for assistent"
+  },
+  "chatAppearance_userSize": {
+    "message": "Tekststørrelse for bruker"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "Tekststørrelse for assistent"
+  },
+  "chatAppearance_color_default": {
+    "message": "Standard"
+  },
+  "chatAppearance_color_blue": {
+    "message": "Blå"
+  },
+  "chatAppearance_color_green": {
+    "message": "Grønn"
+  },
+  "chatAppearance_color_purple": {
+    "message": "Lilla"
+  },
+  "chatAppearance_color_orange": {
+    "message": "Oransje"
+  },
+  "chatAppearance_color_red": {
+    "message": "Rød"
+  },
+  "chatAppearance_font_default": {
+    "message": "Standard"
+  },
+  "chatAppearance_font_sans": {
+    "message": "Sans serif (grotesk)"
+  },
+  "chatAppearance_font_serif": {
+    "message": "Serif (antiqua)"
+  },
+  "chatAppearance_font_mono": {
+    "message": "Monospace (fastbredde)"
+  },
+  "chatAppearance_size_sm": {
+    "message": "Liten"
+  },
+  "chatAppearance_size_md": {
+    "message": "Middels"
+  },
+  "chatAppearance_size_lg": {
+    "message": "Stor"
+  },
+  "generalSettings_title": {
+    "message": "Generelle Innstillinger"
+  },
+  "generalSettings_settings_heading": {
+    "message": "Web UI Innstillinger"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "Talegjenkjenning Språk"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "Velg et språk"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "Språk"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "Velg et språk"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "Endre Tema"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "Lyst"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "Mørkt"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "Gjenoppta siste chat ved åpning av SidePanel (copilot)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "Aktiver Chat med Nettsted som standard (Copilot)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "Gjenoppta siste chat når Web UI åpnes"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "Skjul gjeldende chat modell innstillinger"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "Gjenopprett sist brukte chatmodell for fremtidig bruk"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "Send varsel etter ferdigbehandling av kunnskapsbasen"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "Generer tittel med AI"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "Aktiver eller deaktiver servertilkoblingsstatussjekk"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "Aktiver bredskjerm-modus"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "Åpne Resonnement Sammenfoldet som standard"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "Bruk chatboble for bruker meldinger"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "Automatisk kopier svar til utklippstavle"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "Aktiver Markdown-formatering for brukermeldinger"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "Kopier som formatert tekst"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "Aktiver Fane Henvisninger (@tab)"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "Lim inn stor tekst som fil"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "Aktiver midlertidig chat i sidepanelet som standard"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "Aktiver OCR (laster ned ~5 MB ved første bruk)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "Når du aktiverer OCR, lastes ~5 MB språkdata ned ved første bruk."
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "OCR-ressurser er aktivert og klare"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "Standard OCR-språk"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "Velg et OCR-språk"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "Fjern Resonneringsmerke fra kopiert tekst"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "Inkluder server-prompter i prompt-søk"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "Start onboarding på nytt fra begynnelsen"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "Start onboarding på nytt"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "Starte onboarding på nytt?"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "Dette tilbakestiller onboarding-statusen din og tar deg tilbake til oppsettflyten."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "Onboarding er tilbakestilt"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "Vi tar deg tilbake til velkomststeget slik at du kan kontrollere server‑URL og API‑nøkkel."
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "Gjenfinningsinnstillinger"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "Aktiver Innbygging og Gjenfinning"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "Maksimal Innholdsstørrelse for Full Kontekst Modus"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "Innholdsstørrelse (standard 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "Administrer Web Søk"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "Søkemodus"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "Søkemotor"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "Velg en søkemotor"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "Antall søkeresultater"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "Skriv inn antall søkeresultater"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "Besøk nettstedet nevnt i samtalen"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "SearXNG-URL"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "Brave API Nøkkel"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "Skriv inn din Brave API nøkkel"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "Internett-søk PÅ som standard"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "Tavily API-nøkkel"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "Skriv inn Tavily API-nøkkelen din"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "Exa API-nøkkel"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "Skriv inn Exa API-nøkkelen din"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "Google-domene"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "Firecrawl API-nøkkel"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "Skriv inn Firecrawl API-nøkkelen din"
+  },
+  "generalSettings_system_heading": {
+    "message": "Systeminnstillinger"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "Standard grensesnittmodus"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "Fullskjerm (Web UI)"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "Sidepanel"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "System Tilbakestilling"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "Tilbakestill Alt"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "Er du sikker på at du vil utføre en system tilbakestilling? Dette vil slette alle data og kan ikke angres."
+  },
+  "generalSettings_system_export_label": {
+    "message": "Eksporter chathistorikk, kunnskapsbase og prompts"
+  },
+  "generalSettings_system_export_button": {
+    "message": "Eksporter Data"
+  },
+  "generalSettings_system_export_success": {
+    "message": "Eksport vellykket"
+  },
+  "generalSettings_system_import_label": {
+    "message": "Importer chathistorikk, kunnskapsbase og prompts"
+  },
+  "generalSettings_system_import_button": {
+    "message": "Importer Data"
+  },
+  "generalSettings_system_import_success": {
+    "message": "Import vellykket"
+  },
+  "generalSettings_system_import_error": {
+    "message": "Importfeil"
+  },
+  "generalSettings_tts_heading": {
+    "message": "Tekst-til-tale Innstillinger"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "Legg til Tekst-til-Tale"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "Automatisk avspilling av stemmerespons etter fullføring"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "Tekst-til-Tale Tilbyder"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "Velg en tilbyder"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "Tekst-til-Tale Stemme"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "Velg en stemme"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "Aktiver SSML (Speech Synthesis Markup Language)"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "Fjern Resonneringsmerke fra TTS"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "Oppdeling av svar"
+  },
+  "generalSettings_stt_heading": {
+    "message": "Tale-til-tekst Innstillinger"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "Auto-stopp Tidsavbrudd (ms)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "Skriv inn auto-stopp tidsavbrudd i millisekunder"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "Auto-send Talemelding"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "Disse tale-til-tekst standardene brukes av dikteringsknappen i Playground og sidepanelet."
+  },
+  "generalSettings_stt_model_label": {
+    "message": "Transkripsjonsmodell (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "Kjør segmentering for transkripsjoner (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "Tidsstempel-nivå"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "Pr. segment"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "Per ord"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "Segment + ord"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "Transkripsjonsoppgave"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "Transkriber (samme språk)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "Oversett til engelsk"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "Svarformat"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON (tekst + segmenter)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "Detaljert JSON"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "Ren tekst"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "SRT-undertekster"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "VTT-undertekster"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "Sampling-temperatur"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "Standard transkripsjons-prompt"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "Valgfri tekst for å styre stil"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "Maks segmenter (TreeSeg K)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "Minimum elementer per segment"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "Balanse-penalitet (TreeSeg λ)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "Utvidelsesbredde for ytring"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "Leverandør for segmenterings-embedding"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "Modell for segmenterings-embedding"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "Systeminnstillinger"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "Standard UI-modus"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "Fullskjerm (Web UI)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "Sidepanel"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "Nettleser-handlingsknapp"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "Handling i hurtigmeny"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "Vis Web UI-knapp i sidepanelet"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "Bakgrunnsbilde for chat"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "Skriftstørrelse"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "Datahåndtering"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "Synkronisering i Firefox privatmodus"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "Synkroniser data"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "Systemtilbakestilling"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "Tilbakestill alt"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "Er du sikker på at du vil tilbakestille systemet? Dette sletter alle data og kan ikke angres."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "Eksporter chathistorikk, kunnskapsbase og prompter"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "Eksporter data"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "Eksport vellykket"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "Importer chathistorikk, kunnskapsbase og prompter"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "Importer data"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "Import vellykket"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "Importfeil"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "Koble tldw Assistant til serveren din"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "Noen innstillinger fungerer bare når tldw-serveren din er tilgjengelig. Koble til serveren for full opplevelse."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL og API-nøkkel."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "Bruk Diagnostikk for å bekrefte at serveren er frisk før du prøver avanserte verktøy."
+  },
+  "generalSettings_empty_title": {
+    "message": "Juster hvordan tldw Assistant oppfører seg"
+  },
+  "generalSettings_empty_description": {
+    "message": "Juster standarder for Web UI, sidepanel, tale, søk og datahåndtering på ett sted."
+  },
+  "generalSettings_empty_example1": {
+    "message": "Velg standardspråk, tema og hvordan chat gjenopptas."
+  },
+  "generalSettings_empty_example2": {
+    "message": "Kontroller om chatter er midlertidige, hvordan store innliminger håndteres og hvordan resonnement vises."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "Konfigurer server og autentisering"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "Avvis"
+  },
+  "manageModels_title": {
+    "message": "Administrer Modeller"
+  },
+  "manageModels_addBtn": {
+    "message": "Legg til ny Modell"
+  },
+  "manageModels_columns_name": {
+    "message": "Navn"
+  },
+  "manageModels_columns_digest": {
+    "message": "Sjekksum"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "Endret den"
+  },
+  "manageModels_columns_size": {
+    "message": "Størrelse"
+  },
+  "manageModels_columns_actions": {
+    "message": "Handlinger"
+  },
+  "manageModels_columns_nickname": {
+    "message": "Kallenavn"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "Overordnet modell"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "Filformat"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "Familie"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "Parameterstørrelse"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "Kvantifiseringsnivå"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "Slett Modell"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "Hent Modell På Nytt"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "Rediger kallenavn"
+  },
+  "manageModels_confirm_delete": {
+    "message": "Er du sikker på at du vil slette denne modellen?"
+  },
+  "manageModels_confirm_repull": {
+    "message": "Er du sikker på at du vil hente denne modellen på nytt?"
+  },
+  "manageModels_modal_title": {
+    "message": "Legg til Ny Modell"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "Skriv inn Modellnavn"
+  },
+  "manageModels_modal_pull": {
+    "message": "Hent Modell"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "Henter Modell"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "Henter {{modelName}} modell. For flere detaljer, sjekk utvidelsesikonet."
+  },
+  "manageModels_notification_success": {
+    "message": "Suksess"
+  },
+  "manageModels_notification_error": {
+    "message": "Feil"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "Modellen ble hentet vellykket"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "Modellen ble slettet vellykket"
+  },
+  "manageModels_notification_someError": {
+    "message": "Noe gikk galt. Vennligst prøv igjen senere"
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "Avbryter nedlasting"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "Nedlasting av modell avbrytes..."
+  },
+  "managePrompts_title": {
+    "message": "Administrer Prompts"
+  },
+  "managePrompts_addBtn": {
+    "message": "Legg til Ny Prompt"
+  },
+  "managePrompts_option1": {
+    "message": "Vanlig"
+  },
+  "managePrompts_option2": {
+    "message": "RAG (søkeutvidelse)"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "Spørsmålsprompt"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "Tilpassede Prompts"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "Copilot Prompts"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "Opprett og administrer gjenbrukbare prompter du kan sette inn i chat."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "Se og juster forhåndsdefinerte Copilot-prompter levert av serveren din."
+  },
+  "managePrompts_columns_title": {
+    "message": "Tittel"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "Ledetekst"
+  },
+  "managePrompts_columns_type": {
+    "message": "Prompttype"
+  },
+  "managePrompts_columns_actions": {
+    "message": "Handlinger"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "Systemprompt"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "Hurtigprompt"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "Slett Prompt"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "Endre Prompt"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "Dupliser prompt"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "Er du sikker på at du vil slette denne prompten? Denne handlingen kan ikke angres."
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "Legg til ny Prompt"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "Endre Prompt"
+  },
+  "managePrompts_form_title_label": {
+    "message": "Tittel"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "Min Kule Prompt"
+  },
+  "managePrompts_form_title_required": {
+    "message": "Vennligst skriv inn en tittel"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "Ledetekst"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "Skriv inn Prompt"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "Vennligst skriv inn en prompt"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "Du kan bruke {key} som variabel i din prompt."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "Variabelen {text} mangler i prompten. Vennligst legg til dette."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "Er Systemprompt"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "Legger til Prompt..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "Legg til Prompt"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "Oppdaterer Prompt..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "Oppdater Prompt"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "Prompt Lagt Til"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "Prompt ble lagt til vellykket"
+  },
+  "managePrompts_notification_error": {
+    "message": "Feil"
+  },
+  "managePrompts_notification_someError": {
+    "message": "Noe gikk galt. Vennligst prøv igjen senere"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "Prompt Oppdatert"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "Prompt ble oppdatert vellykket"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "Prompt Slettet"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "Prompt ble slettet vellykket"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "Prompt-arbeidsområde"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "Gjenbrukbare prompter administreres i prompt-arbeidsområdet. Bruk knappen nedenfor for å åpne det."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "Åpne prompt-arbeidsområde"
+  },
+  "managePrompts_search": {
+    "message": "Søk i titler og innhold"
+  },
+  "managePrompts_filter_all": {
+    "message": "Alle"
+  },
+  "managePrompts_filter_system": {
+    "message": "Systemprompter"
+  },
+  "managePrompts_filter_quick": {
+    "message": "Hurtig"
+  },
+  "managePrompts_tags_label": {
+    "message": "Tagger"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "Legg til tagger"
+  },
+  "managePrompts_import": {
+    "message": "Importer"
+  },
+  "managePrompts_export": {
+    "message": "Eksporter"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Slå sammen"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Erstatt"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Erstatt vil overskrive alle gjeldende prompter med den importerte filen. Fortsette?"
+  },
+  "managePrompts_favorite": {
+    "message": "Favoritt"
+  },
+  "managePrompts_unfavorite": {
+    "message": "Fjern favoritt"
+  },
+  "managePrompts_partialLoad": {
+    "message": "Noen prompt-data er ikke tilgjengelige"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "Sjekk servertilkoblingen og oppdater for å prøve igjen."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "Koble til for å bruke prompter"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "Koble til tldw-serveren din for å administrere gjenbrukbare prompter."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "Når du er koblet til kan du lage egendefinerte prompter du kan gjenbruke på tvers av chatter."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "Ingen egendefinerte prompter ennå"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "Lag gjenbrukbare prompter for gjentatte oppgaver, arbeidsflyter og teamkonvensjoner."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "Lagre favoritt-systemprompten din for sammendrag, forklaringer eller oversettelser."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "Lag hurtigprompter for vanlige oppgaver som å skrive e-post eller forbedre notater."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "Opprett prompt"
+  },
+  "managePrompts_filterHelp": {
+    "message": "Søket matcher tittel og prompt-innhold. Bruk type og tagger for å snevre inn listen."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "Ingen Copilot-prompter tilgjengelig"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "Copilot-prompter er forhåndsdefinerte maler levert av tldw-serveren din."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "Sjekk serverversjon eller konfigurasjon hvis du forventer Copilot-prompter."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "Etter oppdatering av serveren, last inn utvidelsen på nytt og gå tilbake til denne fanen."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "Åpne diagnostikk"
+  },
+  "manageShare_title": {
+    "message": "Administrer Deling"
+  },
+  "manageShare_heading": {
+    "message": "Konfigurer Side deling URL"
+  },
+  "manageShare_form_url_label": {
+    "message": "Side Deling URL"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "Skriv inn side deling URL"
+  },
+  "manageShare_form_url_required": {
+    "message": "Vennligst skriv inn din Side deling URL!"
+  },
+  "manageShare_form_url_help": {
+    "message": "For personvern kan du selv hoste side delingen og angi URL-en her. <anchor>Lær Mer</anchor>."
+  },
+  "manageShare_webshare_heading": {
+    "message": "Web Deling"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "Tittel"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "URL-adresse"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "Handlinger"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "Slett Deling"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "Er du sikker på at du vil slette denne delingen? Dette kan ikke angres."
+  },
+  "manageShare_webshare_label": {
+    "message": "Administrer Side Deling"
+  },
+  "manageShare_webshare_description": {
+    "message": "Legg til eller deaktiver side delingsfunksjonen"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "Side Deling URL oppdatert vellykket"
+  },
+  "manageShare_notification_someError": {
+    "message": "Noe gikk galt. Vennligst prøv igjen senere"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "Webdeling ble slettet vellykket"
+  },
+  "ollamaSettings_title": {
+    "message": "Serverinnstillinger"
+  },
+  "ollamaSettings_heading": {
+    "message": "Konfigurer server"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "Server-URL"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "Skriv inn server-URL"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "Aktiver eller deaktiver serverintegrasjon globalt"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "Ved å deaktivere serverintegrasjonen vil ikke tldw Assistant hente modeller fra serveren. Du kan fortsatt legge til leverandører under <anchor>OpenAI-kompatibel API</anchor>."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "Avansert server-URL-konfigurasjon"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "Aktiver eller deaktiver tilpasset opprinnelses-URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "Tilpasset opprinnelses-URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "Skriv inn tilpasset opprinnelses-URL"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "Aktiver eller deaktiver automatisk CORS-fiks"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "Tilpass Headers"
+  },
+  "ollamaSettings_settings_advanced_headers_LeggTil": {
+    "message": "Legg til Header"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "Header Nøkkel"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "Autorisasjon"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "Header Verdi"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "Bearer-token"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "Legg til header"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "Hvis du har tilkoblingsproblemer med serveren, kan du konfigurere en egendefinert opprinnelses-URL. For mer informasjon, <anchor>klikk her</anchor>."
+  },
+  "manageSearch_title": {
+    "message": "Administrer Web Søk"
+  },
+  "manageSearch_heading": {
+    "message": "Konfigurer Web Søk"
+  },
+  "about_title": {
+    "message": "Om"
+  },
+  "about_heading": {
+    "message": "Om"
+  },
+  "about_chromeVersion": {
+    "message": "tldw Assistant Versjon"
+  },
+  "about_ollamaVersion": {
+    "message": "Serverversjon"
+  },
+  "about_support": {
+    "message": "Du kan støtte tldw Assistant-prosjektet ved å donere eller sponse via følgende plattformer:"
+  },
+  "about_koFi": {
+    "message": "Støtt på Ko-fi"
+  },
+  "about_githubSponsor": {
+    "message": "Spons på GitHub"
+  },
+  "about_githubRepo": {
+    "message": "GitHub-repositorium"
+  },
+  "switchToSidebar": {
+    "message": "Bytt til sidepanel"
+  },
+  "healthPage_title": {
+    "message": "Helsestatus"
+  },
+  "healthPage_subtitle": {
+    "message": "Kort oversikt over helsetilstand for delsystemene som serveren eksponerer."
+  },
+  "healthPage_backToChat": {
+    "message": "Tilbake til chat"
+  },
+  "healthPage_openSettings": {
+    "message": "Åpne tldw-innstillinger"
+  },
+  "healthPage_recheckAll": {
+    "message": "Sjekk alt på nytt"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "Kopier diagnostikk"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "Serveren er ikke konfigurert."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "Kan ikke nå serverens kjerne-helseendepunkt."
+  },
+  "healthPage_triedGet": {
+    "message": "Prøvde GET {{url}}"
+  },
+  "healthPage_configureHint": {
+    "message": "Konfigurer en server-URL under tldw-innstillinger."
+  },
+  "healthPage_configureCta": {
+    "message": "Konfigurer"
+  },
+  "healthPage_connectedTo": {
+    "message": "Tilkoblet {{host}}"
+  },
+  "healthPage_autoRefresh": {
+    "message": "Automatisk oppdatering"
+  },
+  "healthPage_intervalLabel": {
+    "message": "Intervall (s):"
+  },
+  "healthPage_checking": {
+    "message": "Sjekker…"
+  },
+  "healthPage_recheck": {
+    "message": "Sjekk igjen"
+  },
+  "healthPage_healthy": {
+    "message": "Frisk"
+  },
+  "healthPage_unhealthy": {
+    "message": "Ufrisk"
+  },
+  "healthPage_unknown": {
+    "message": "Ukjent"
+  },
+  "healthPage_checks_core": {
+    "message": "Kjerne-API"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG (søkeutvidelse)"
+  },
+  "healthPage_checks_audio": {
+    "message": "Lyd"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "Embeddinger"
+  },
+  "healthPage_checks_metrics": {
+    "message": "Metrikk-helse"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "Chat-metrikker"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP (modellkontekstprotokoll)"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "Kopierer JSON-diagnostikk til utklippstavlen"
+  },
+  "healthPage_statusHealthy": {
+    "message": "Frisk"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "Ufrisk"
+  },
+  "healthPage_statusUnknown": {
+    "message": "Ukjent"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "Oppdatert nå"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "Oppdatert for {{seconds}} sek siden"
+  },
+  "savedSuccessfully": {
+    "message": "Innstillinger lagret"
+  },
+  "saveFailed": {
+    "message": "Kunne ikke lagre innstillinger"
+  },
+  "siteAccessGranted": {
+    "message": "Vertstillatelse gitt for {{origin}}"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "Avanserte tidsavbrudd"
+  },
+  "tldw_requestTimeout": {
+    "message": "Tidsavbrudd for forespørsel (sekunder)"
+  },
+  "tldw_streamingIdle": {
+    "message": "Tidsavbrudd for inaktiv streaming (sekunder)"
+  },
+  "tldw_chatRequest": {
+    "message": "Tidsavbrudd for chatteforespørsel"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "Inaktivitet i chat-strøm"
+  },
+  "tldw_ragRequest": {
+    "message": "Tidsavbrudd for RAG-forespørsel"
+  },
+  "tldw_mediaRequest": {
+    "message": "Tidsavbrudd for mediaforespørsel"
+  },
+  "tldw_uploadRequest": {
+    "message": "Tidsavbrudd for opplastingsforespørsel"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "Timeout-profil"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "Balansert"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "Utvidet"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "Tilpasset"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "Balansert fungerer godt for de fleste oppsett. Utvidet gir ekstra slingringsmonn for tregere nettverk eller langvarige jobber."
+  },
+  "tldw_reset": {
+    "message": "Tilbakestill til anbefalt"
+  },
+  "tldw_resetDone": {
+    "message": "Tilbakestilt til anbefalte standarder"
+  },
+  "tldw_serverNav": {
+    "message": "tldw-server"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "tldw-serverkonfigurasjon"
+  },
+  "tldw_serverLabel": {
+    "message": "Tjener:"
+  },
+  "tldw_notConfigured": {
+    "message": "Ikke konfigurert"
+  },
+  "tldw_buttons_health": {
+    "message": "Status"
+  },
+  "tldw_buttons_recheck": {
+    "message": "Sjekk på nytt"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "Test tilkobling"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "Gi nettstedstilgang"
+  },
+  "tldw_buttons_login": {
+    "message": "Logg inn"
+  },
+  "tldw_buttons_logout": {
+    "message": "Logg ut"
+  },
+  "tldw_loginRequired_title": {
+    "message": "Innlogging kreves"
+  },
+  "tldw_loginRequired_description": {
+    "message": "Logg inn med tldw_server-legitimasjonen din"
+  },
+  "tldw_loggedIn_title": {
+    "message": "Logget inn"
+  },
+  "tldw_loggedIn_description": {
+    "message": "Du er logget inn på tldw_server"
+  },
+  "tldw_connection_success": {
+    "message": "Tilkobling vellykket!"
+  },
+  "tldw_connection_failed": {
+    "message": "Tilkoblingen mislyktes. Kontroller innstillingene dine."
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "Tilkoblingen mislyktes. Kontroller server-URL og API-nøkkel."
+  },
+  "tldw_authMode_label": {
+    "message": "Godkjenningsmodus"
+  },
+  "tldw_authMode_single": {
+    "message": "Enkeltbruker (API-nøkkel)"
+  },
+  "tldw_authMode_multi": {
+    "message": "Flerbruker (innlogging)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "Avbryt første forespørsler hvis det ikke kommer svar innen dette tidsrommet. Standard: {{seconds}}s."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "Avbryt streaming hvis det ikke kommer oppdateringer innen dette tidsrommet. Standard: {{seconds}}s."
+  },
+  "tldw_login_success": {
+    "message": "Innlogging vellykket!"
+  },
+  "tldw_login_failed": {
+    "message": "Innlogging mislyktes"
+  },
+  "tldw_logout_success": {
+    "message": "Logget ut"
+  },
+  "tldw_logout_failed": {
+    "message": "Utlogging mislyktes"
+  },
+  "tldw_setupLink": {
+    "message": "Sett opp server"
+  },
+  "tldw_loadError": {
+    "message": "Kunne ikke laste tldw-serverinnstillinger. Kontroller tilkoblingen og prøv igjen."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "API-nøkkel"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "Angi API-nøkkelen din"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "Skriv inn API-nøkkelen din"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "Din tldw_server API-nøkkel for autentisering"
+  },
+  "tldw_fields_username_label": {
+    "message": "Brukernavn"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "Angi brukernavn"
+  },
+  "tldw_fields_username_required": {
+    "message": "Skriv inn brukernavnet ditt"
+  },
+  "tldw_fields_password_label": {
+    "message": "Passord"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "Angi passord"
+  },
+  "tldw_fields_password_required": {
+    "message": "Skriv inn passordet ditt"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "Server-URL"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "Skriv inn server-URLen"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "Skriv inn en gyldig URL"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "URL-en til din tldw_server-instans (f.eks. http://localhost:8000)"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "Ugyldig API-nøkkel"
+  },
+  "tldw_errors_forbidden": {
+    "message": "Forbudt (sjekk rettigheter)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "Validering av API-nøkkel mislyktes"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "Server utilgjengelig"
+  },
+  "tldw_about_title": {
+    "message": "Om tldw_server-integrasjonen"
+  },
+  "tldw_about_description": {
+    "message": "Denne utvidelsen kobler seg til din tldw_server-instans og gir tilgang til:"
+  },
+  "tldw_about_points_providers": {
+    "message": "Flere LLM-leverandører via et samlet API"
+  },
+  "tldw_about_points_rag": {
+    "message": "RAG-søk (Retrieval-Augmented Generation)"
+  },
+  "tldw_about_points_media": {
+    "message": "Inntak og behandling av media"
+  },
+  "tldw_about_points_notes": {
+    "message": "Håndtering av notater og prompt"
+  },
+  "tldw_about_points_stt": {
+    "message": "Tale-til-tekst-transkripsjon"
+  },
+  "manageKnowledge_title": {
+    "message": "Kunnskaps-QA"
+  },
+  "manageKnowledge_heading": {
+    "message": "Kunnskaps-QA"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "Verdensbøker-arbeidsområde"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "Verdensbøker administreres i Verdensbøker-arbeidsområdet. Bruk knappen nedenfor for å åpne det."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "Åpne Verdensbøker-arbeidsområde"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "Chat-ordbøker-arbeidsområde"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "Chat-ordbøker administreres i chat-ordbøker-arbeidsområdet. Bruk knappen nedenfor for å åpne det."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "Åpne chat-ordbøker-arbeidsområde"
+  },
+  "rag_title": {
+    "message": "RAG Innstillinger"
+  },
+  "rag_ragSettings_label": {
+    "message": "RAG Innstillinger"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "Embedding Modell"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "Vennligst velg en modell"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "Det anbefales sterkt å bruke embeddingsmodeller som `nomic-embed-text`."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "Velg en modell"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "Anbefalt: {{model}} (fra serverkonfigurasjonen)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "Tidligere lagret embedding-modell er ikke lenger tilgjengelig på serveren. Velg en annen modell."
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "Delstørrelse"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "Skriv inn delstørrelse"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "Vennligst skriv inn en delstørrelse"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "Deloverlapp"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "Skriv inn deloverlapp"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "Vennligst skriv inn deloverlapp"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "Kunnskapsbase standard filopplastingsgrense"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "Skriv inn standard filopplastingsgrense (f.eks. 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "Vennligst skriv inn standard filopplastingsgrense"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "Antall hentede dokumenter"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "Skriv inn antall hentede dokumenter"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "Vennligst skriv inn antall hentede dokumenter"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "Skilletegn"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "Skriv inn separator (f.eks. \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "Vennligst skriv inn en separator"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "Tekstdeler"
+  },
+  "rag_prompt_label": {
+    "message": "Konfigurer RAG Prompt"
+  },
+  "rag_prompt_option1": {
+    "message": "Vanlig"
+  },
+  "rag_prompt_option2": {
+    "message": "Nett"
+  },
+  "rag_prompt_alert": {
+    "message": "Konfigurering av systemprompt her er foreldet. Vennligst bruk Administrer Prompts-seksjonen for å legge til eller endre prompts. Denne seksjonen vil bli fjernet i fremtidige versjoner."
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "Systemprompt"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "Skriv inn systemprompt"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "Websøke-prompt"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "Ikke fjern `{search_results}` fra prompten."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "Vennligst skriv inn en websøke-prompt"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "Skriv inn websøke-prompt"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "Oppfølgingsprompt for websøking"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "Ikke fjern `{chat_history}` og `{question}` fra prompten."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "Vennligst skriv inn din oppfølgingsprompt for websøking!"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "Din oppfølgingsprompt for websøking"
+  },
+  "onboarding_title": {
+    "message": "Velkommen — La oss koble deg til"
+  },
+  "onboarding_description": {
+    "message": "Konfigurer server og autentisering. Vi sjekker tilkobling og RAG-helse underveis."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "Lær hvordan tldw-serveren fungerer"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "Eksempel: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "Skriv inn en full URL som http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "Bruk http- eller https-adresser, f.eks. http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_label": {
+    "message": "Server-URL"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "Skriv inn tldw-server-URL for å aktivere Neste."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "Neste aktiveres når vi kan nå denne adressen."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "Sjekker rekkevidde…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "Serveren svarte. Du kan fortsette."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "Vi kunne ikke nå denne adressen ennå. Sjekk URL-en eller prøv igjen."
+  },
+  "onboarding_buttons_next": {
+    "message": "Neste"
+  },
+  "onboarding_buttons_back": {
+    "message": "Tilbake"
+  },
+  "onboarding_buttons_continue": {
+    "message": "Fortsett"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "Sjekk igjen"
+  },
+  "onboarding_buttons_finish": {
+    "message": "Fullfør"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "Fullfør uten å koble til"
+  },
+  "onboarding_buttons_skip": {
+    "message": "Hopp over for nå"
+  },
+  "onboarding_authMode_label": {
+    "message": "Autentiseringsmodus"
+  },
+  "onboarding_authMode_single": {
+    "message": "Enkeltbruker (API-nøkkel)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "Flerbruker (innlogging)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "API-nøkkel"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "Skriv inn API-nøkkelen din (eller bruk standard demo-nøkkel THIS-IS-A-SECURE-KEY-123-REPLACE-ME for lokale enkeltbrukeroppsett)"
+  },
+  "onboarding_username_label": {
+    "message": "Brukernavn"
+  },
+  "onboarding_username_placeholder": {
+    "message": "Brukernavn"
+  },
+  "onboarding_password_label": {
+    "message": "Passord"
+  },
+  "onboarding_password_placeholder": {
+    "message": "Passord"
+  },
+  "onboarding_connection_label": {
+    "message": "Tilkobling:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "Ukjent"
+  },
+  "onboarding_connection_connected": {
+    "message": "Tilkoblet"
+  },
+  "onboarding_connection_failed": {
+    "message": "Mislykket"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "Du kan fortsette og fullføre oppsettet nå. Du kan verifisere tilkoblingen senere i Innstillinger."
+  },
+  "onboarding_rag_label": {
+    "message": "RAG:"
+  },
+  "onboarding_rag_healthy": {
+    "message": "Frisk"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "Ufrisk"
+  },
+  "onboarding_rag_unknown": {
+    "message": "Ukjent"
+  },
+  "onboarding_connectionFailed": {
+    "message": "Tilkobling mislyktes"
+  },
+  "onboarding_footerHelp": {
+    "message": "Når du er tilkoblet, kan du når som helst åpne disse innstillingene igjen fra utvidelsesmenyen."
+  },
+  "onboarding_progressAria": {
+    "message": "Fremdrift for onboarding"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "Velkommen"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "Koble til tldw-serveren din"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "Velg hvordan du logger inn"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "Bekreft tilkobling og Knowledge"
+  },
+  "onboarding_startServer_title": {
+    "message": "Før du begynner — start tldw-serveren din"
+  },
+  "onboarding_startServer_body": {
+    "message": "Hvis du ikke har startet serveren din ennå, kjør én av disse kommandoene i tldw_server-repositoriet og kom tilbake hit."
+  },
+  "onboarding_startServer_copy": {
+    "message": "Kopier kommando"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "Kjør lokalt med Python"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "Kjør den i tldw_server-virtualenv-en fra roten av server-repositoriet."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "Kjør med Docker Compose (enkel bruker)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "Kjør den fra roten av tldw_server-repositoriet for å starte API-et og databasen."
+  },
+  "onboarding_path_heading": {
+    "message": "Hvordan vil du komme i gang?"
+  },
+  "onboarding_path_hasServer": {
+    "message": "Jeg kjører allerede tldw_server"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "Koble til en eksisterende tldw_server du allerede kjører."
+  },
+  "onboarding_path_noServer": {
+    "message": "Jeg har ikke en server ennå"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "Følg en oppsettguide for tldw_server, eller start i demo-modus."
+  },
+  "onboarding_path_demo": {
+    "message": "Bare utforsk med en lokal demo"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "Prøv arbeidsområdet med eksempeldata; koble til din egen server senere."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "Ingen server ennå? Du kan fortsatt utforske."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server er en egen, selvhostet app. Du kan følge oppsettveiledningen nå, eller komme tilbake senere og fortsette i demomodus."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "Kjør lokalt med Docker eller Python på din egen maskin."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "Distribuer tldw_server til en ekstern VPS eller administrert hosting."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "Bruk en administrert kommersiell tldw_server-distribusjon når det er tilgjengelig."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "Åpne oppsettveiledning"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "Bruk lokal demomodus"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "Minn meg på det senere"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "Utforsk utvidelsen i demomodus"
+  },
+  "onboarding_path_demoBody": {
+    "message": "Demomodus lar deg teste chat, notater og media med eksempeldata. Serveravhengige funksjoner som Knowledge-søk vil være begrenset til du kobler til din egen tldw_server."
+  },
+  "onboarding_path_demoCta": {
+    "message": "Bruk lokal demomodus"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Single User (API Key) anbefales for personlige servere eller små team. Multi User (Login) er for delte miljøer der brukere logger inn med brukernavn eller SSO. Velg modusen som samsvarer med hvordan tldw_server er satt opp."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "Finn API-nøkkelen din i tldw_server → Settings → API Keys. Generer en nøkkel der og lim den inn her."
+  },
+  "onboarding_authStepAria": {
+    "message": "Trinn 2 av 3 — velg hvordan du logger inn"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "Trinn 3 av 3 — bekreft tilkoblingen og se gjennom neste trinn"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "Du er klar til å komme i gang"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "Herfra kan du åpne sidepanelet, lese inn en side eller utforske medier og notater."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "Begynn å chatte"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "Åpne sidepanelet og still ditt første spørsmål."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "Åpne sidepanel"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "Les inn din første side"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "Bruk Quick ingest i toppfeltet for å lagre den gjeldende fanen på serveren din."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "Utforsk medier og notater"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "Gå til Medier og Notater under Innstillinger for å se hva som er lagret og søkbart."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "Vis hurtige snarveier i toppfeltet"
+  },
+  "manageCharacters_title": {
+    "message": "Administrer karakterer"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Ny karakter"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Navn"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Beskrivelse"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Handlinger"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Profilbilde"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Samtale"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Rediger"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Slett"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "Vis samtaler"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Dupliser"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Tagger"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Legg til tagger"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Bruk tagger for å gruppere karakterer etter brukstilfelle (f.eks. «skriving», «undervisning»)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Rediger karakter"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Slett karakter"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chat som {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Rediger karakter {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Slett karakter {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "Vis samtaler for {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} karakterer funnet"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Dupliser karakter {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Er du sikker på at du vil slette denne karakteren? Denne handlingen kan ikke angres."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Navn"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "f.eks. Skrivecoach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Vennligst skriv inn et navn"
+  },
+  "manageCharacters_form_description": {
+    "message": "Definer en gjenbrukbar karakter du kan chatte med i sidepanelet."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Atferd / instruksjoner"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "F.eks. Du er en tålmodig mattelærer som forklarer konsepter trinn for trinn og sjekker forståelse med korte eksempler."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Forklar karakterens rolle, tone og begrensninger. For eksempel: \"Du er en tålmodig mattetutor som forklarer konsepter trinn for trinn.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Legg til en kort beskrivelse slik at karakteren vet hvordan den skal svare."
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Legg til instruksjoner for å styre svarene."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Systemprompten må være på 2000 tegn eller mindre."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar-URL (valgfritt)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "f.eks. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Hilsen (valgfritt)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hei! Jeg er skrivecoachen din. Lim inn utkastet ditt, så hjelper jeg deg å stramme det inn."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Valgfri første melding karakteren sender når du starter en chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Oppretter karakter..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Opprett karakter"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Lagrer endringer..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Lagre endringer"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Karakter opprettet"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Feil"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Noe gikk galt. Prøv igjen senere"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Karakter oppdatert"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Karakter slettet"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Kunne ikke laste inn karakterer"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Sjekk tilkoblingen og prøv igjen."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Ingen karakterer ennå"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Opprett en gjenbrukbar karakter med navn, beskrivelse og systemprompt du kan chatte med."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Definer en skrivecoach, lore-ekspert eller kodeassistent du kan gjenbruke i chatter."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Gi hver karakter en tydelig beskrivelse og atferd slik at svarene forblir konsistente."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Opprett karakter"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar for {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Brukeravatar"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Samtaler for {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Karaktersamtaler"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Velg en samtale for å fortsette som denne karakteren."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "Ingen samtaler funnet for denne karakteren ennå."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Kunne ikke laste samtaler for denne karakteren."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Oppdatert {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Ukjent"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Fortsett chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Uten tittel"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Nyeste"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Last inn chathistorikk og fortsett denne samtalen"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Forhåndsvisning"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Vis forhåndsvisning"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Skjul forhåndsvisning"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Karakter uten tittel"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Hilsen"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Atferd"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fyll ut skjemaet for å se en forhåndsvisning"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Vis avanserte felt"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Skjul avanserte felt"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Ingen beskrivelse"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Match alle tagger"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Profilbilde (valgfritt)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL-adresse"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Last opp"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Velg en bildefil"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Bare PNG-, JPEG- og GIF-bilder støttes"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Ugyldig bildefil"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Kunne ikke behandle bildet"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Klikk eller dra bilde for å laste opp"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG eller GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Forhåndsvisning"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "Data importert"
+  },
+  "systemNotifications_importError": {
+    "message": "Importfeil"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Firefox-data ble synkronisert, du trenger ikke gjøre det igjen"
+  },
+  "systemNotifications_syncError": {
+    "message": "Synkronisering av Firefox-data mislyktes"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "Velg en gyldig bildefil"
+  },
+  "prompts_enterPrompt": {
+    "message": "Skriv inn en prompt."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "Skriv inn en prompt."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "Skriv inn en oppfølgingsprompt."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "Skriv inn en oppfølgingsprompt."
+  },
+  "prompts_privateModeDescription": {
+    "message": "Firefox privatmodus støtter ikke lagring i IndexedDB. Legg til promptene fra et vanlig vindu."
+  },
+  "models_privateModeDescription": {
+    "message": "Firefox privatmodus støtter ikke lagring i IndexedDB. Legg til en egendefinert modell fra et vanlig vindu."
+  },
+  "evaluationsSettingsNav": {
+    "message": "Evalueringer"
+  },
+  "promptStudioNav": {
+    "message": "Prompt-studio"
+  },
+  "promptStudio_nav": {
+    "message": "Prompt-studio"
+  },
+  "promptStudio_title": {
+    "message": "Prompt-studio"
+  },
+  "promptStudio_subtitle": {
+    "message": "Konfigurer standardverdier og overvåk helsen til Prompt-studio. Tilkobling og autentisering bruker hovedserverinnstillingene."
+  },
+  "promptStudio_probeError": {
+    "message": "Kan ikke nå Prompt-studio"
+  },
+  "promptStudio_statusCard": {
+    "message": "Statuskort"
+  },
+  "promptStudio_statusHint": {
+    "message": "Knappen kaller /prompt-studio/status med warn_seconds."
+  },
+  "promptStudio_statusError": {
+    "message": "Status-endepunkt utilgjengelig"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "Varselsekunder"
+  },
+  "promptStudio_testButton": {
+    "message": "Test Prompt-studio"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "Standarder"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "Lagre standard prosjekt, modellkonfigurasjoner og sidestørrelse."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "Lagre standarder ved å bruke eksisterende innstillingslagring (TBD) for valg av første prosjekt, kjøre-/evalueringsmodeller og paginering."
+  },
+  "promptStudio_defaultProject": {
+    "message": "Standard prosjekt-ID"
+  },
+  "promptStudio_pageSize": {
+    "message": "Sidestørrelse"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "Kjøringsstandarder"
+  },
+  "promptStudio_executeProvider": {
+    "message": "Leverandør"
+  },
+  "promptStudio_executeModel": {
+    "message": "Modell"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "Temperatur"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "Maks tokens"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "Evalueringsstandarder"
+  },
+  "promptStudio_evalModel": {
+    "message": "Modell"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "Temperatur"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "Maks tokens"
+  },
+  "promptStudio_unavailable": {
+    "message": "Prompt-studio er ikke tilgjengelig på serveren ennå."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "Når det er aktivert kan du overvåke køhelse og sette standarder her."
+  },
+  "charactersSettingsTitle": {
+    "message": "Karakterarbeidsområde"
+  },
+  "charactersSettingsDescription": {
+    "message": "Karakterer administreres i karakterarbeidsområdet. Bruk knappen nedenfor for å åpne det."
+  },
+  "charactersOpenWorkspace": {
+    "message": "Åpne karakterarbeidsområde"
+  },
+  "mermaid": {
+    "message": "Mermaid-diagram"
+  },
+  "healthSummary_diagnostics": {
+    "message": "Diagnostikk"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "Åpne detaljert diagnostikk for feilsøking eller for å inspisere helsesjekker."
+  },
+  "healthSummary_core": {
+    "message": "Tjener"
+  },
+  "healthSummary_rag": {
+    "message": "Kunnskap"
+  },
+  "healthSummary_coreAria": {
+    "message": "Server: server/API-helse"
+  },
+  "healthSummary_ragAria": {
+    "message": "Kunnskap: helse for kunnskapsindeks"
+  },
+  "healthSummary_coreOnline": {
+    "message": "Server: På nett"
+  },
+  "healthSummary_coreOffline": {
+    "message": "Server: Frakoblet"
+  },
+  "healthSummary_coreChecking": {
+    "message": "Server: Sjekker…"
+  },
+  "healthSummary_ragReady": {
+    "message": "Kunnskap: Klar"
+  },
+  "healthSummary_ragOffline": {
+    "message": "Kunnskap: Frakoblet"
+  },
+  "healthSummary_ragChecking": {
+    "message": "Kunnskap: Sjekker…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "Disse sjekkene oppsummerer siste vellykkede ping til tldw-serveren og kunnskapsindeksen."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "For mange innstillingslagringer på kort tid; vent noen sekunder og prøv igjen."
+  },
+  "storage_quotaTitle": {
+    "message": "Lagringsgrense nådd"
+  },
+  "storage_writeError": {
+    "message": "Kunne ikke lagre innstillinger"
+  },
+  "storage_writeErrorDescription": {
+    "message": "Vi kunne ikke lagre innstillingene dine. Prøv igjen om litt."
+  },
+  "evaluations_title": {
+    "message": "Evalueringslekeplass"
+  },
+  "evaluations_subtitle": {
+    "message": "Definer evalueringer mot tldw-serveren og inspiser nylige kjøringer."
+  },
+  "evaluations_listTitle": {
+    "message": "Nylige evalueringer"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "Ny evaluering"
+  },
+  "evaluations_startRunCta": {
+    "message": "Start kjøring"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "Kunne ikke laste evalueringer"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "Sjekk tldw-servertilkoblingen og API-opplysningene, og prøv igjen."
+  },
+  "evaluations_emptyList": {
+    "message": "Ingen evalueringer ennå. Når du oppretter en, vises den her."
+  },
+  "evaluations_selectedTag": {
+    "message": "Valgt"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "Evalueringsgrenser"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "Kunne ikke hente hastighetsgrenser"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "Vi kunne ikke hente evalueringskvoter fra serveren."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "Grenseinformasjon er ikke tilgjengelig for denne serveren."
+  },
+  "evaluations_tierLabel": {
+    "message": "Nivå"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "Daglige evalueringer"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "Tokens i dag"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "Per minutt-grense"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "Nullstilles"
+  },
+  "evaluations_runsTitle": {
+    "message": "Kjøringer"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "Velg en evaluering for å se nylige kjøringer."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "Kunne ikke laste kjøringer"
+  },
+  "evaluations_runsEmpty": {
+    "message": "Ingen kjøringer ennå for denne evalueringen."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "Kjøringsdetaljer"
+  },
+  "evaluations_noRunSelected": {
+    "message": "Velg en kjøring for å se detaljer."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "Kunne ikke laste kjøringsdetaljer"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "Kjøringsstatus"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "Målmodell"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "Evaluering"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "Feil"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "Resultater (utdrag)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "Fremdrift"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "Bruk"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "Datasett"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "Nytt datasett"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "Kunne ikke laste datasett"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "Ingen datasett ennå. Lag ett for å knytte til evalueringer."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} prøver"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "Navn"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "f.eks. my_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "Beskrivelse"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "Metadata (JSON, valgfritt)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "Eksempelinput"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "Forventet output (valgfritt)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "Prøver JSON (valgfritt, overstyrer felter)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "Datasett (valgfritt)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "Velg datasett"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "Datasett opprettet"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "Datasettet er klart til bruk i evalueringer."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "Kunne ikke opprette datasett"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "Serveren avviste dette datasettet. Sjekk feltene og prøv igjen."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "Datasett slettet"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "Kunne ikke slette datasett"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "Kunne ikke laste datasett"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "Datasett-detaljer"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "Ugyldig prøver-JSON"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "Ny evaluering"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "Rediger evaluering"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "Navn"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "f.eks. my_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "Bruk bare bokstaver, tall, bindestreker og understreker."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "Evalueringstype"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "Evalueringsspesifikasjon (JSON)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "Evalueringsspesifikasjon må være gyldig JSON."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "Metadata (JSON, valgfritt)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "Legg ved inline-datasett i stedet for å referere til dataset_id"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "Ugyldig inline-datasett"
+  },
+  "evaluations_runModelLabel": {
+    "message": "Kjøringsmodell (brukes for raske kjøringer)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "Evaluering opprettet"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "Kunne ikke opprette evaluering"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "Serveren avviste denne evalueringen. Sørg for at navn, type og spesifikasjon er gyldige."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "Evaluering oppdatert"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "Kunne ikke oppdatere evaluering"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "Kunne ikke slette evaluering"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "Slette denne evalueringen?"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "Dette fjerner evalueringens definisjon. Kjøringer som allerede er opprettet, forblir i historikken."
+  },
+  "evaluations_detailTitle": {
+    "message": "Evalueringsdetaljer"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "Kunne ikke laste evalueringsdetaljer"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "Beskrivelse"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "Velg en evaluering for å inspisere spesifikasjonen."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "Kjøring startet"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "Evalueringen er startet. Du kan overvåke den i serverens UI."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "Kunne ikke starte kjøring"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "Serveren avviste denne kjøringsforespørselen. Sjekk modellen og prøv igjen."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "Konfigurasjon (JSON)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "Datasett-overstyring (JSON-array av prøver)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "Ugyldig konfigurasjons-JSON"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "Kansellering av kjøring forespurt"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "Kunne ikke avbryte kjøring"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "Avbryt kjøring"
+  },
+  "evaluations_historyTitle": {
+    "message": "Historikk"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "Kategori"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "Bruker-ID"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "Startdato (ISO)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "Sluttdato (ISO)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "Hent historikk"
+  },
+  "evaluations_historyEmpty": {
+    "message": "Kjør en spørring for å se nylig aktivitet."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "Kunne ikke hente historikk"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "Webhooker"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "URL-adresse"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "Hendelser"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "Registrer webhook"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "Webhook registrert"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "Kunne ikke registrere webhook"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "Kunne ikke slette webhook"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "Kunne ikke laste webhooker"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "Ingen webhooker registrert ennå."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "Hemmelighet"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "Idempotensnøkkel"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "Koble til for å bruke evalueringer"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "For å opprette og kjøre evalueringer må du først koble til tldw-serveren din."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "Åpne Innstillinger → tldw-server for å legge til server-URL og API-nøkkel."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "Når du er koblet til kan du definere evalueringer og inspisere målinger her."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "Prøver"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "Ingen prøver returnert for denne siden."
+  },
+  "evaluations_metricsLabel": {
+    "message": "Målinger"
+  },
+  "evaluationsSettings_title": {
+    "message": "Evalueringer"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "Konfigurer standarder brukt av Evalueringslekeplassen."
+  },
+  "evaluationsSettings_offline": {
+    "message": "Koble til tldw-serveren for å teste evalueringer."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "Standard evalueringstype"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "Standard målmodell"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "Standard kjøringskonfigurasjon (JSON)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "Standard datasett-ID (valgfritt)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "Spesifikasjonspreset for valgt type"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "Test Evalueringer API"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "Evalueringer API tilgjengelig"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "Kunne ikke nå Evalueringer API"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Oppdelingslekeplass"
+  },
+  "chunkingPlayground_title": {
+    "message": "Oppdelingslekeplass"
+  },
+  "chunkingPlayground_description": {
+    "message": "Eksperimenter med ulike oppdelingsinnstillinger for å se hvordan tekst deles opp i mindre biter for behandling."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Tekst som skal deles opp"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Lim inn tekst her eller velg et eksempel..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Last opp fil"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Del opp tekst"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Oppdelingsmetode"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Maksimal delstørrelse"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Overlapping"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Språk"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Oppdag automatisk"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "Engelsk"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spansk"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "Fransk"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "Tysk"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italiensk"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portugisisk"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Kinesisk"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japansk"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Koreansk"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Kort"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "På linje"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} deler, snitt {{avgSize}} tegn"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Tekst lastet inn"
+  },
+  "chunkingPlayground_characters": {
+    "message": "tegn"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Enkelt"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Sammenlign"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Del {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Del {{index}}: {{words}} ord"
+  },
+  "chunkingPlayground_position": {
+    "message": "Posisjon: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} flere"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} tegn"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} ord"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Vennligst oppgi tekst som skal deles opp"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Felles inndatatekst"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Sammenlign begge"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Sammenligning"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Konfigurasjon A gir {{diff}} færre deler"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Konfigurasjon A gir {{diff}} flere deler"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Begge konfigurasjonene gir samme antall deler"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Klikk på \"Sammenlign\" for å se resultatene"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Overlappende område"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Klikk på et uthevet område for å fokusere på den delen"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "Ingen tekstinnhold funnet for dette medieelementet"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Kunne ikke laste medieinnhold"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Kunne ikke laste mediebiblioteket"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Velg medieelement..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Laster innhold..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "Ingen medier funnet"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} medieelementer tilgjengelig"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Lim inn tekst"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Last opp fil"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Eksempeltekst"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "Fra mediebiblioteket"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "Nyhetsartikkel"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Artikkel med flere avsnitt og overskrifter"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Kildekode"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python-kode med klasser og funksjoner"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transkripsjon"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Tidsstemplet podkasttranskripsjon"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Akademisk artikkel"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Teknisk tekst med siteringer"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Sammenlign innstillinger"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Konfigurasjon A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Konfigurasjon B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Enkelt"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Sammenlign"
+  }
+}

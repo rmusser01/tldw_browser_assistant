@@ -91,7 +91,7 @@ export const AdvancedCORSSettings = () => {
               </h3>
               <button
                 type="button"
-                className="dark:bg-white dark:text-black text-white bg-black p-1.5 text-xs rounded-md"
+                className="rounded-md bg-primary p-1.5 text-xs text-white transition-colors hover:bg-primaryStrong"
                 onClick={() => {
                   add()
                 }}>
@@ -133,7 +133,7 @@ export const AdvancedCORSSettings = () => {
                   onClick={() => {
                     remove(field.name)
                   }}
-                  className="shrink-0 ml-2 text-red-500 dark:text-red-400">
+                  className="ml-2 shrink-0 text-danger">
                   <Trash2Icon className="w-5 h-5" />
                 </button>
               </div>

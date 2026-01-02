@@ -176,7 +176,7 @@ export function AvatarField({ value, onChange }: AvatarFieldProps) {
           placeholder={t("settings:manageCharacters.form.avatarUrl.placeholder", {
             defaultValue: "https://example.com/avatar.png"
           })}
-          prefix={<Link className="w-4 h-4 text-gray-400" />}
+          prefix={<Link className="w-4 h-4 text-text-subtle" />}
         />
       )}
 
@@ -188,12 +188,12 @@ export function AvatarField({ value, onChange }: AvatarFieldProps) {
               <img
                 src={previewUrl || ""}
                 alt="Avatar preview"
-                className="w-16 h-16 rounded-lg object-cover border border-gray-200 dark:border-gray-700"
+                className="w-16 h-16 rounded-lg object-cover border border-border"
               />
               <button
                 type="button"
                 onClick={handleClearUpload}
-                className="absolute -top-2 -right-2 rounded-full bg-red-500 p-1 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                className="absolute -top-2 -right-2 rounded-full bg-danger p-1 text-white shadow-sm hover:bg-danger focus:outline-none focus:ring-2 focus:ring-danger focus:ring-offset-1"
                 aria-label={t("common:clear", { defaultValue: "Clear" })}>
                 <X className="w-3 h-3" />
               </button>
@@ -204,17 +204,17 @@ export function AvatarField({ value, onChange }: AvatarFieldProps) {
               showUploadList={false}
               beforeUpload={handleUpload}
               disabled={loading}
-              className="!border-dashed !border-gray-300 dark:!border-gray-600 hover:!border-blue-400 dark:hover:!border-blue-500">
+              className="!border-dashed !border-border hover:!border-primary">
               <div className="flex flex-col items-center gap-2 py-4">
-                <ImageIcon className="w-8 h-8 text-gray-400" />
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <ImageIcon className="w-8 h-8 text-text-subtle" />
+                <p className="text-sm text-text-muted">
                   {loading
                     ? t("common:loading", { defaultValue: "Loading..." })
                     : t("settings:manageCharacters.avatar.dropzone", {
                         defaultValue: "Click or drag image to upload"
                       })}
                 </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500">
+                <p className="text-xs text-text-subtle">
                   {t("settings:manageCharacters.avatar.formats", {
                     defaultValue: "PNG, JPEG, or GIF"
                   })}
@@ -231,12 +231,12 @@ export function AvatarField({ value, onChange }: AvatarFieldProps) {
           <img
             src={urlValue}
             alt="Avatar preview"
-            className="w-10 h-10 rounded-lg object-cover border border-gray-200 dark:border-gray-700"
+            className="w-10 h-10 rounded-lg object-cover border border-border"
             onError={() => {
               setUrlImgError(true)
             }}
           />
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-text-subtle">
             {t("settings:manageCharacters.avatar.preview", {
               defaultValue: "Preview"
             })}

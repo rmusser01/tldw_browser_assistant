@@ -24,14 +24,14 @@ export const ModelSettings = () => {
       <div>
         <div className="inline-flex items-center gap-2">
           <BetaTag />
-          <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+          <h2 className="text-base font-semibold leading-7 text-text">
             {t("modelSettings.label")}
           </h2>
         </div>
-        <p className="text-sm text-gray-700 dark:text-neutral-400 mt-1">
+        <p className="text-sm text-text-muted mt-1">
           {t("modelSettings.description")}
         </p>
-        <div className="border border-b border-gray-200 dark:border-gray-600 mt-3 mb-6"></div>
+        <div className="border-b border-border mt-3 mb-6"></div>
       </div>
       {!isLoading ? (
         <Form

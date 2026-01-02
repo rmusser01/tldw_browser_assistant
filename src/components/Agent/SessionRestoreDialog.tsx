@@ -58,7 +58,7 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
     <Modal
       title={
         <div className="flex items-center gap-2">
-          <AlertTriangle className="size-5 text-yellow-500" />
+          <AlertTriangle className="size-5 text-warn" />
           <span>{t("sessionFound", "Previous Session Found")}</span>
         </div>
       }
@@ -68,17 +68,17 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
       centered
       width={480}
     >
-      <div className="space-y-4 py-2">
+        <div className="space-y-4 py-2">
         {/* Session info */}
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+        <div className="rounded-lg bg-surface2 p-4">
           <h4
-            className="font-medium text-gray-900 dark:text-gray-100 mb-2 line-clamp-2"
+            className="mb-2 line-clamp-2 font-medium text-text"
             title={session.title || session.task}
           >
             {session.title || session.task}
           </h4>
 
-          <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-4 text-sm text-text-subtle">
             <span className="flex items-center gap-1">
               <Clock className="size-4" />
               {formatRelativeTime(session.updatedAt, t)}
@@ -104,10 +104,10 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
 
         {/* Pending approvals summary */}
         {approvalSummary && (
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+          <div className="rounded-lg border border-warn/30 bg-warn/10 p-4">
             <div className="flex items-center gap-2 mb-2">
-              <AlertTriangle className="size-4 text-yellow-600 dark:text-yellow-400" />
-              <span className="font-medium text-yellow-800 dark:text-yellow-200">
+              <AlertTriangle className="size-4 text-warn" />
+              <span className="font-medium text-warn">
                 {approvalSummary.total}{" "}
                 {t("pendingApprovals", {
                   count: approvalSummary.total,
@@ -117,7 +117,7 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
               </span>
             </div>
 
-            <div className="flex items-center gap-3 text-sm text-yellow-700 dark:text-yellow-300">
+            <div className="flex items-center gap-3 text-sm text-warn">
               {approvalSummary.fileChanges > 0 && (
                 <span className="flex items-center gap-1">
                   <FileEdit className="size-3.5" />
@@ -150,7 +150,7 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
         )}
 
         {/* Description */}
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-sm text-text-muted">
           {t(
             "restoreSessionDesc",
             "You have an unfinished session with pending approvals. Would you like to restore it and continue where you left off, or start fresh?"
@@ -180,7 +180,7 @@ export const SessionRestoreDialog: FC<SessionRestoreDialogProps> = ({
         </div>
 
         {/* Notes */}
-        <div className="space-y-1 text-xs text-gray-500 dark:text-gray-400 text-center">
+        <div className="space-y-1 text-center text-xs text-text-subtle">
           <p>
             {t(
               "startFreshNote",

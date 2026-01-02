@@ -252,31 +252,31 @@
     "message": "Stop"
   },
   "tts_browserSegmentsTitle": {
-    "message": "Browser TTS segments"
+    "message": "Webbläsarens TTS-segment"
   },
   "tts_browserSegmentsHelp": {
-    "message": "Queue segments or play an individual segment using system audio."
+    "message": "Köa segment eller spela upp ett enskilt segment med systemljud."
   },
   "tts_browserQueueAll": {
-    "message": "Queue all"
+    "message": "Köa alla"
   },
   "tts_browserQueueFromHere": {
-    "message": "Queue from here"
+    "message": "Köa härifrån"
   },
   "tts_browserSegmentPlay": {
-    "message": "Play segment"
+    "message": "Spela upp segment"
   },
   "tts_browserStatusSpeaking": {
-    "message": "Speaking segment {{current}}/{{total}}"
+    "message": "Spelar upp segment {{current}}/{{total}}"
   },
   "tts_browserStatusPaused": {
-    "message": "Paused"
+    "message": "Pausad"
   },
   "tts_browserPause": {
-    "message": "Pause"
+    "message": "Pausa"
   },
   "tts_browserResume": {
-    "message": "Resume"
+    "message": "Återuppta"
   },
   "tts_tldwStatusOnline": {
     "message": "tldw server audio API detected (audio/speech)"
@@ -420,13 +420,13 @@
     "message": "Stop and send to server"
   },
   "stt_transcribingButton": {
-    "message": "Transcribing..."
+    "message": "Transkriberar..."
   },
   "stt_transcribingTooltip": {
-    "message": "Transcribing audio..."
+    "message": "Transkriberar ljud..."
   },
   "stt_transcribingPlaceholder": {
-    "message": "Transcribing audio..."
+    "message": "Transkriberar ljud..."
   },
   "stt_historyTitle": {
     "message": "Transcription history"
@@ -1081,5 +1081,146 @@
   },
   "actor_sceneTemplateActive": {
     "message": "Scenmall aktiv: Actor respekterar inställningar för mallinteraktion."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "Aktivera jämförelseläge"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "Lås upp experimentella jämförelsefunktioner för flera modeller."
+  },
+  "composer_compareDisabled": {
+    "message": "Jämförelseläge är inaktiverat i inställningarna."
+  },
+  "composer_compareChosenHint": {
+    "message": "Fortsätt med det valda svaret eller jämför igen."
+  },
+  "composer_compareChosenLabel": {
+    "message": "Vald"
+  },
+  "composer_compareLatency": {
+    "message": "Latens"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "Jämför: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(från jämförelse)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "Svar från flera modeller"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} modeller"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "Valda modeller: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "Öppna varje valt svar som egen chatt"
+  },
+  "composer_compareThreadLabel": {
+    "message": "Tråd per modell"
+  },
+  "composer_compareThreadYou": {
+    "message": "Du"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "Öppna som fullständig chatt"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "Öppna uppdelad chatt"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "Kanonisk"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "Fäst som kanonisk"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "Kanoniskt svar"
+  },
+  "composer_compareFilterLabel": {
+    "message": "Filtrera modeller"
+  },
+  "composer_compareFilterClear": {
+    "message": "Visa alla"
+  },
+  "composer_compareFilterCount": {
+    "message": "Visar {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
   }
 }

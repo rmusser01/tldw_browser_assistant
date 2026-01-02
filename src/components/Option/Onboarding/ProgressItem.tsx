@@ -17,43 +17,42 @@ export const ProgressItem = ({ label, status }: ProgressItemProps) => {
       <div
         className={cn(
           "w-5 h-5 rounded-full flex items-center justify-center",
-          status === "idle" && "bg-gray-200 dark:bg-gray-700",
-          status === "checking" && "bg-blue-100 dark:bg-blue-900/30",
-          status === "success" && "bg-green-100 dark:bg-green-900/30",
-          status === "error" && "bg-red-100 dark:bg-red-900/30",
-          status === "empty" && "bg-amber-100 dark:bg-amber-900/30"
+          status === "idle" && "bg-border",
+          status === "checking" && "bg-primary/10",
+          status === "success" && "bg-success/10",
+          status === "error" && "bg-danger/10",
+          status === "empty" && "bg-warn/10"
         )}
       >
         {status === "idle" && (
-          <div className="w-2 h-2 rounded-full bg-gray-400" />
+          <div className="h-2 w-2 rounded-full bg-border-strong" />
         )}
         {status === "checking" && (
-          <Loader2 className="size-3 text-blue-600 animate-spin" />
+          <Loader2 className="size-3 animate-spin text-primary" />
         )}
-        {status === "success" && <Check className="size-3 text-green-600" />}
-        {status === "error" && <X className="size-3 text-red-600" />}
+        {status === "success" && <Check className="size-3 text-success" />}
+        {status === "error" && <X className="size-3 text-danger" />}
         {status === "empty" && (
-          <AlertCircle className="size-3 text-amber-600" />
+          <AlertCircle className="size-3 text-warn" />
         )}
       </div>
       <span
         className={cn(
-          "text-gray-700 dark:text-gray-300",
-          status === "checking" &&
-            "font-medium text-blue-600 dark:text-blue-400",
-          status === "success" && "text-green-600 dark:text-green-400",
-          status === "error" && "text-red-600 dark:text-red-400"
+          "text-text",
+          status === "checking" && "font-medium text-primary",
+          status === "success" && "text-success",
+          status === "error" && "text-danger"
         )}
       >
         {label}
       </span>
       {status === "checking" && (
-        <span className="text-xs text-gray-400 animate-pulse">
+        <span className="text-xs text-text-subtle animate-pulse">
           {t("common:checking", "Checking...")}
         </span>
       )}
       {status === "empty" && (
-        <span className="text-xs text-amber-600 dark:text-amber-400">
+        <span className="text-xs text-warn">
           {t(
             "settings:onboarding.progress.noIndex",
             "No documents indexed yet"
@@ -63,4 +62,3 @@ export const ProgressItem = ({ label, status }: ProgressItemProps) => {
     </div>
   )
 }
-

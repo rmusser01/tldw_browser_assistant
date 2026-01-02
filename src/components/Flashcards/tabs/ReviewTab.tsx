@@ -160,7 +160,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
               <Title level={5} className="!mb-2">
                 {t("option:flashcards.front", { defaultValue: "Front" })}
               </Title>
-              <div className="border rounded p-3 bg-white dark:bg-[#111] text-sm">
+              <div className="rounded border border-border bg-surface p-3 text-sm">
                 <MarkdownWithBoundary
                   content={reviewQuery.data.front}
                   size="sm"
@@ -173,7 +173,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                 <Title level={5} className="!mb-2">
                   {t("option:flashcards.back", { defaultValue: "Back" })}
                 </Title>
-                <div className="border rounded p-3 bg-white dark:bg-[#111] text-sm">
+                <div className="rounded border border-border bg-surface p-3 text-sm">
                   <MarkdownWithBoundary
                     content={reviewQuery.data.back}
                     size="sm"
@@ -244,7 +244,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                   </div>
                   <button
                     type="button"
-                    className="self-start text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    className="self-start text-xs text-text-subtle hover:text-text"
                     onClick={() => setShowAdvancedTiming((v) => !v)}
                   >
                     {showAdvancedTiming

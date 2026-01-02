@@ -3171,5 +3171,74 @@
   },
   "mediaPage_presetQAAnalysis": {
     "message": "Q&A വിശകലനം"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "താരതമ്യ മോഡ് പ്രവർത്തിപ്പിക്കുക"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "പരീക്ഷണാത്മക നിരവധി മോഡൽ താരതമ്യ സവിശേഷതകൾ അൺലോക്ക് ചെയ്യുക."
+  },
+  "playground_composer_compareDisabled": {
+    "message": "സെറ്റിംഗ്സിൽ താരതമ്യ മോഡ് അപ്രാപ്തമാക്കിയിട്ടുണ്ട്."
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "തിരഞ്ഞെടുത്ത ഉത്തരത്തോടെ തുടരുക അല്ലെങ്കിൽ വീണ്ടും താരതമ്യം ചെയ്യുക."
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "തിരഞ്ഞെടുക്കപ്പെട്ടു"
+  },
+  "playground_composer_compareLatency": {
+    "message": "വിലംബം"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "താരതമ്യം: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(താരതമ്യത്തിൽ നിന്ന്)"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "അനേകം മോഡലുകളുടെ ഉത്തരങ്ങൾ"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} മോഡലുകൾ"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "തിരഞ്ഞെടുത്ത മോഡലുകൾ: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "തിരഞ്ഞെടുത്ത ഓരോ ഉത്തരവും അതിന്റേതായ ചാറ്റായി തുറക്കുക"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "മോഡൽപ്രതി ത്രെഡ്"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "നിങ്ങൾ"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "പൂർണ്ണ ചാറ്റായി തുറക്കുക"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "വിഭജിച്ച ചാറ്റ് തുറക്കുക"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "കാനോണിക്കൽ"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "കാനോണിക്കലായി പിൻ ചെയ്യുക"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "കാനോണിക്കൽ ഉത്തരമ്"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "മോഡലുകൾ ഫിൽറ്റർ ചെയ്യുക"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "എല്ലാം കാണിക്കുക"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "{{visible}} / {{total}} കാണിക്കുന്നു"
+  },
+  "playground_composer_compareTokens": {
+    "message": "ടോക്കൺ: {{count}}"
   }
 }

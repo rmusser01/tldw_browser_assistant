@@ -176,7 +176,7 @@ const WaveformCanvas: React.FC<WaveformCanvasProps> = ({
     <div className="w-full" role="img" aria-label={label}>
       <canvas
         ref={canvasRef}
-        className="w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white/40 dark:bg-gray-900/40"
+        className="w-full rounded-md border border-border bg-surface/40"
         style={{ height }}
       />
     </div>

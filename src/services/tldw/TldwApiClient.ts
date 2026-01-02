@@ -55,6 +55,16 @@ export interface ChatCompletionRequest {
   frequency_penalty?: number
   presence_penalty?: number
   reasoning_effort?: "low" | "medium" | "high"
+  tool_choice?: "auto" | "none" | "required"
+  tools?: Record<string, unknown>[]
+  save_to_db?: boolean
+  conversation_id?: string
+  history_message_limit?: number
+  history_message_order?: string
+  slash_command_injection_mode?: string
+  api_provider?: string
+  extra_headers?: Record<string, unknown>
+  extra_body?: Record<string, unknown>
 }
 
 export interface ServerChatSummary {
@@ -71,6 +81,7 @@ export interface ServerChatSummary {
   character_id?: string | number | null
   parent_conversation_id?: string | null
   root_id?: string | null
+  version?: number | null
 }
 
 export type ConversationState =
@@ -427,6 +438,15 @@ export class TldwApiClient {
     } catch {
       return null
     }
+  }
+
+  async postChatMetric(payload: Record<string, unknown>): Promise<any> {
+    return await this.request<any>({
+      path: "/api/v1/metrics/chat",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
   }
 
   async getModels(): Promise<TldwModel[]> {
@@ -1017,7 +1037,13 @@ export class TldwApiClient {
       character_id: input?.character_id ?? input?.characterId ?? null,
       parent_conversation_id:
         input?.parent_conversation_id ?? input?.parentConversationId ?? null,
-      root_id: input?.root_id ?? input?.rootId ?? null
+      root_id: input?.root_id ?? input?.rootId ?? null,
+      version:
+        typeof input?.version === "number"
+          ? input.version
+          : typeof input?.expected_version === "number"
+            ? input.expected_version
+            : null
     }
   }
 
@@ -1070,11 +1096,27 @@ export class TldwApiClient {
 
   async updateChat(
     chat_id: string | number,
-    payload: Record<string, any>
+    payload: Record<string, any>,
+    options?: { expectedVersion?: number }
   ): Promise<ServerChatSummary> {
     const cid = String(chat_id)
+    let expectedVersion = options?.expectedVersion
+    if (expectedVersion == null) {
+      try {
+        const current = await this.getChat(cid)
+        if (typeof current?.version === "number") {
+          expectedVersion = current.version
+        }
+      } catch {
+        // ignore and fall back to unversioned update
+      }
+    }
+    const qp =
+      typeof expectedVersion === "number"
+        ? `?expected_version=${encodeURIComponent(String(expectedVersion))}`
+        : ""
     const res = await bgRequest<any>({
-      path: `/api/v1/chats/${cid}`,
+      path: `/api/v1/chats/${cid}${qp}`,
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: payload
@@ -1143,6 +1185,57 @@ export class TldwApiClient {
       headers: { "Content-Type": "application/json" },
       body: payload
     })
+  }
+
+  async prepareCharacterCompletion(
+    chat_id: string | number,
+    payload?: Record<string, any>
+  ): Promise<any> {
+    const cid = String(chat_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chats/${cid}/completions`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload || {}
+    })
+  }
+
+  async persistCharacterCompletion(
+    chat_id: string | number,
+    payload: Record<string, any>
+  ): Promise<any> {
+    const cid = String(chat_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chats/${cid}/completions/persist`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async *streamCharacterChatCompletion(
+    chat_id: string | number,
+    payload?: Record<string, any>,
+    options?: { signal?: AbortSignal; streamIdleTimeoutMs?: number }
+  ): AsyncGenerator<any> {
+    const cid = String(chat_id)
+    const body = { ...(payload || {}), stream: true }
+    for await (const line of bgStream({
+      path: `/api/v1/chats/${cid}/complete-v2`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      abortSignal: options?.signal,
+      streamIdleTimeoutMs: options?.streamIdleTimeoutMs
+    })) {
+      if (!line) continue
+      try {
+        const parsed = JSON.parse(line)
+        yield parsed
+      } catch {
+        yield line
+      }
+    }
   }
 
   async searchChatMessages(chat_id: string | number, query: string, limit?: number): Promise<any> {
@@ -1333,9 +1426,310 @@ export class TldwApiClient {
     return await bgRequest<any>({ path: '/api/v1/chat/dictionaries/import/json', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { data, activate: !!activate } })
   }
 
+  async validateDictionary(payload: {
+    data: Record<string, any>
+    schema_version?: number
+    strict?: boolean
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/dictionaries/validate",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async processDictionary(payload: {
+    text: string
+    token_budget?: number
+    dictionary_id?: number | string
+    max_iterations?: number
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/dictionaries/process",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
   async dictionaryStatistics(dictionary_id: number | string): Promise<any> {
     const id = String(dictionary_id)
     return await bgRequest<any>({ path: `/api/v1/chat/dictionaries/${id}/statistics`, method: 'GET' })
+  }
+
+  // Chat Documents
+  async generateChatDocument(payload: {
+    conversation_id: string | number
+    document_type: string
+    provider: string
+    model: string
+    specific_message?: string | null
+    custom_prompt?: string | null
+    stream?: boolean
+    async_generation?: boolean
+  }): Promise<any> {
+    const body = {
+      ...payload,
+      conversation_id: String(payload.conversation_id)
+    }
+    return await bgRequest<any>({
+      path: "/api/v1/chat/documents/generate",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body
+    })
+  }
+
+  async listChatDocuments(params?: {
+    conversation_id?: string | number
+    document_type?: string
+    limit?: number
+  }): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents${query}`,
+      method: "GET"
+    })
+  }
+
+  async getChatDocument(document_id: number | string): Promise<any> {
+    const id = String(document_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/${id}`,
+      method: "GET"
+    })
+  }
+
+  async deleteChatDocument(document_id: number | string): Promise<any> {
+    const id = String(document_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async getChatDocumentJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/jobs/${id}`,
+      method: "GET"
+    })
+  }
+
+  async cancelChatDocumentJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/jobs/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async saveChatDocumentPrompt(payload: {
+    document_type: string
+    system_prompt: string
+    user_prompt: string
+    temperature?: number
+    max_tokens?: number
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/documents/prompts",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async getChatDocumentPrompt(document_type: string): Promise<any> {
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/prompts/${encodeURIComponent(document_type)}`,
+      method: "GET"
+    })
+  }
+
+  async chatDocumentStatistics(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/documents/statistics",
+      method: "GET"
+    })
+  }
+
+  // Chatbooks
+  async exportChatbook(payload: {
+    name: string
+    description: string
+    content_selections: Record<string, string[]>
+    author?: string
+    include_media?: boolean
+    media_quality?: string
+    include_embeddings?: boolean
+    include_generated_content?: boolean
+    tags?: string[]
+    categories?: string[]
+    async_mode?: boolean
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chatbooks/export",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async previewChatbook(file: File): Promise<any> {
+    const data = await file.arrayBuffer()
+    const name = file.name || "chatbook.zip"
+    const type = file.type || "application/zip"
+    return await bgUpload<any>({
+      path: "/api/v1/chatbooks/preview",
+      method: "POST",
+      file: { name, type, data }
+    })
+  }
+
+  async importChatbook(
+    file: File,
+    options?: {
+      conflict_resolution?: string
+      prefix_imported?: boolean
+      import_media?: boolean
+      import_embeddings?: boolean
+      async_mode?: boolean
+    }
+  ): Promise<any> {
+    const data = await file.arrayBuffer()
+    const name = file.name || "chatbook.zip"
+    const type = file.type || "application/zip"
+    const normalized: Record<string, any> = {}
+    for (const [k, v] of Object.entries(options || {})) {
+      if (typeof v === "undefined" || v === null) continue
+      normalized[k] = typeof v === "boolean" ? (v ? "true" : "false") : v
+    }
+    return await bgUpload<any>({
+      path: "/api/v1/chatbooks/import",
+      method: "POST",
+      fields: normalized,
+      file: { name, type, data }
+    })
+  }
+
+  async listChatbookExportJobs(params?: { limit?: number; offset?: number }): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/export/jobs${query}`,
+      method: "GET"
+    })
+  }
+
+  async listChatbookImportJobs(params?: { limit?: number; offset?: number }): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/import/jobs${query}`,
+      method: "GET"
+    })
+  }
+
+  async getChatbookExportJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/export/jobs/${id}`,
+      method: "GET"
+    })
+  }
+
+  async getChatbookImportJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/import/jobs/${id}`,
+      method: "GET"
+    })
+  }
+
+  async cancelChatbookExportJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/export/jobs/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async cancelChatbookImportJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/import/jobs/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async cleanupChatbooks(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chatbooks/cleanup",
+      method: "POST"
+    })
+  }
+
+  async chatbooksHealth(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chatbooks/health",
+      method: "GET"
+    })
+  }
+
+  async downloadChatbookExport(job_id: string): Promise<{ blob: Blob; filename: string }> {
+    await this.initialize()
+    const cfg = await this.ensureConfigForRequest(true)
+    const base = (this.baseUrl || cfg?.serverUrl || "").replace(/\/$/, "")
+    if (!base) throw new Error("Server not configured")
+    const headers: Record<string, string> = {}
+    if (cfg.authMode === "single-user") {
+      const key = String(cfg.apiKey || "").trim()
+      if (key) headers["X-API-KEY"] = key
+    } else if (cfg.authMode === "multi-user") {
+      const token = String(cfg.accessToken || "").trim()
+      if (token) headers["Authorization"] = `Bearer ${token}`
+    }
+    const url = `${base}/api/v1/chatbooks/download/${encodeURIComponent(job_id)}`
+    const res = await fetch(url, {
+      method: "GET",
+      headers,
+      credentials: "include"
+    })
+    if (!res.ok) {
+      throw new Error(`Download failed: ${res.status}`)
+    }
+    const blob = await res.blob()
+    const disposition = res.headers.get("content-disposition")
+    let filename = `chatbook-${job_id}.zip`
+    if (disposition) {
+      const utfMatch = disposition.match(/filename\*=UTF-8''([^;]+)/i)
+      const plainMatch = disposition.match(/filename="?([^\";]+)"?/i)
+      const raw = utfMatch?.[1] || plainMatch?.[1]
+      if (raw) {
+        try {
+          filename = decodeURIComponent(raw)
+        } catch {
+          filename = raw
+        }
+      }
+    }
+    return { blob, filename }
+  }
+
+  async chatQueueStatus(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/queue/status",
+      method: "GET"
+    })
+  }
+
+  async chatQueueActivity(limit?: number): Promise<any> {
+    const query = this.buildQuery(
+      typeof limit === "number" ? { limit } : undefined
+    )
+    return await bgRequest<any>({
+      path: `/api/v1/chat/queue/activity${query}`,
+      method: "GET"
+    })
   }
 
   // STT Methods

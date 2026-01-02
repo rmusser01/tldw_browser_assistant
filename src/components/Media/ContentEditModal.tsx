@@ -112,7 +112,7 @@ export function ContentEditModal({
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopy}
-              className="px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded flex items-center gap-1.5 transition-colors"
+              className="px-3 py-1.5 text-sm text-text hover:bg-surface2 rounded flex items-center gap-1.5 transition-colors"
             >
               <Copy className="w-4 h-4" />
               {t('common:copy', 'Copy')}
@@ -121,7 +121,7 @@ export function ContentEditModal({
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+              className="px-3 py-1.5 text-sm text-text-muted hover:bg-surface2 rounded transition-colors"
             >
               {t('common:cancel', 'Cancel')}
             </button>
@@ -129,7 +129,7 @@ export function ContentEditModal({
               <button
                 onClick={handleSaveAsNewVersion}
                 disabled={saving}
-                className="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded flex items-center gap-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-1.5 text-sm bg-primary hover:bg-primaryStrong text-white rounded flex items-center gap-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Save className="w-4 h-4" />
                 {t('mediaPage.saveAsVersion', 'Save as New Version')}
@@ -144,13 +144,13 @@ export function ContentEditModal({
           ref={textareaRef}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full min-h-[300px] p-3 text-sm font-mono rounded-lg border bg-white dark:bg-[#171717] text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 border-gray-200 dark:border-gray-700 focus:ring-blue-500 resize-y leading-relaxed"
+          className="w-full min-h-[300px] p-3 text-sm font-mono rounded-lg border bg-surface text-text focus:outline-none focus:ring-2 border-border focus:ring-focus resize-y leading-relaxed"
           placeholder={t(
             'mediaPage.contentPlaceholder',
             'Edit content text...'
           )}
         />
-        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex items-center justify-between text-xs text-text-muted">
           <div>
             {t('mediaPage.wordCount', '{{count}} words', { count: wordCount })}
             {' • '}

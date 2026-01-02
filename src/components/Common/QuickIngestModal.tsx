@@ -493,7 +493,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             "Store drafts locally?"
           ),
           content: (
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-2 text-sm text-text-muted">
               <p>
                 {qi(
                   "reviewWarningBody",
@@ -905,7 +905,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   }, [])
 
   const typeIcon = React.useCallback((type: Entry['type']) => {
-    const cls = 'w-4 h-4 text-gray-500'
+    const cls = 'w-4 h-4 text-text-subtle'
     switch (type) {
       case 'audio':
         return <Headphones className={cls} />
@@ -1511,7 +1511,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   }
 
   const iconForGroup = (group: string) => {
-    const cls = 'w-4 h-4 mr-1 text-gray-500'
+    const cls = 'w-4 h-4 mr-1 text-text-subtle'
     switch (group) {
       case 'Recommended':
         return <Star className={cls} />
@@ -2329,7 +2329,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       <div className="relative" data-state={modalReady ? 'ready' : 'loading'}>
       <Space direction="vertical" className="w-full">
         {!isOnlineForIngest && connectionBannerTitle && (
-          <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-600 dark:bg-amber-900/20 dark:text-amber-100">
+          <div className="rounded-md border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
             <div className="font-medium">{connectionBannerTitle}</div>
             {connectionBannerBody ? (
               <div className="mt-0.5">{connectionBannerBody}</div>
@@ -2339,7 +2339,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={openHealthDiagnostics}
-                  className="inline-flex items-center text-[11px] font-medium text-amber-900 underline underline-offset-2 dark:text-amber-100"
+                  className="inline-flex items-center text-[11px] font-medium text-warn underline underline-offset-2"
                 >
                   {t(
                     "quickIngest.checkHealthLink",
@@ -2381,7 +2381,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           </div>
         )}
         {lastRunError && (
-          <div className="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-800 dark:border-red-600 dark:bg-red-900/30 dark:text-red-100">
+          <div className="mt-2 rounded-md border border-danger/30 bg-danger/10 px-3 py-2 text-xs text-danger">
             <div className="font-medium">
               {t(
                 "quickIngest.errorSummary",
@@ -2406,14 +2406,14 @@ export const QuickIngestModal: React.FC<Props> = ({
                   "Health & diagnostics"
                 )}
               </Button>
-              <Typography.Text className="text-[11px] text-red-700 dark:text-red-200">
+              <Typography.Text className="text-[11px] text-danger">
                 {lastRunError}
               </Typography.Text>
             </div>
           </div>
         )}
         {draftCreationError && (
-          <div className="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-800 dark:border-red-600 dark:bg-red-900/30 dark:text-red-100">
+          <div className="mt-2 rounded-md border border-danger/30 bg-danger/10 px-3 py-2 text-xs text-danger">
             <div className="font-medium">
               {qi(
                 "reviewDraftsFailedTitle",
@@ -2449,7 +2449,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           </div>
         )}
         {reviewNavigationError && (
-          <div className="mt-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-800 dark:border-red-600 dark:bg-red-900/30 dark:text-red-100">
+          <div className="mt-2 rounded-md border border-danger/30 bg-danger/10 px-3 py-2 text-xs text-danger">
             <div className="font-medium">{reviewNavigationError}</div>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <Button
@@ -2471,14 +2471,14 @@ export const QuickIngestModal: React.FC<Props> = ({
         )}
         <div className="flex flex-col gap-1">
           <Typography.Text strong>{t('quickIngest.howItWorks', 'How this works')}</Typography.Text>
-          <Typography.Paragraph type="secondary" className="!mb-1 text-sm text-gray-600">
+          <Typography.Paragraph type="secondary" className="!mb-1 text-sm text-text-muted">
             {t(
               'quickIngest.howItWorksDesc',
               'Add URLs or files, pick processing mode (store vs process-only), tweak options, then run Ingest/Process.'
             )}
           </Typography.Paragraph>
         </div>
-        <div className="rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#161616] dark:text-gray-200">
+        <div className="rounded-md border border-border bg-surface2 px-3 py-2 text-xs text-text">
           <div className="font-medium mb-1">
             {qi('tipsTitle', 'Tips')}
           </div>
@@ -2504,7 +2504,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           </ul>
         </div>
         <div className="space-y-3">
-          <div className="rounded-md border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#121212]">
+          <div className="rounded-md border border-border bg-surface p-3">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <Typography.Title level={5} className="!mb-1">
@@ -2513,7 +2513,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 <Typography.Text>
                   {t('quickIngest.subtitle') || 'Drop files or paste URLs; items immediately join the queue.'}
                 </Typography.Text>
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-text-subtle mt-1">
                   {qi(
                     'supportedFormats',
                     'Supported: docs, PDFs, audio, video, and web URLs.'
@@ -2546,7 +2546,7 @@ export const QuickIngestModal: React.FC<Props> = ({
               accept=".pdf,.txt,.rtf,.doc,.docx,.md,.epub,application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*"
             />
             <div
-              className="mt-3 w-full rounded-md border border-dashed border-gray-300 bg-gray-50 px-4 py-4 text-center dark:border-gray-700 dark:bg-[#1a1a1a]"
+              className="mt-3 w-full rounded-md border border-dashed border-border bg-surface2 px-4 py-4 text-center"
               onDragOver={(e) => {
                 e.preventDefault()
                 e.stopPropagation()
@@ -2580,13 +2580,13 @@ export const QuickIngestModal: React.FC<Props> = ({
                 <Typography.Text strong>
                   {qi('pasteUrlsTitle', 'Paste URLs')}
                 </Typography.Text>
-                <Typography.Text className="text-xs text-gray-500">
+                <Typography.Text className="text-xs text-text-subtle">
                   {qi('pasteUrlsHint', 'Separate with commas or new lines')}
                 </Typography.Text>
               </div>
               <label
                 htmlFor="quick-ingest-url-input"
-                className="text-xs font-medium text-gray-700 dark:text-gray-200"
+                className="text-xs font-medium text-text"
               >
                 {qi('urlsLabel', 'URLs to ingest')}
               </label>
@@ -2614,8 +2614,8 @@ export const QuickIngestModal: React.FC<Props> = ({
                     {qi('addUrls', 'Add URLs')}
                   </Button>
                 </Space.Compact>
-              <div className="flex items-center gap-2 text-xs text-gray-600">
-                <AlertTriangle className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-2 text-xs text-text-muted">
+                <AlertTriangle className="w-4 h-4 text-text-subtle" />
                 <span>
                   {qi(
                     'authRequiredHint',
@@ -2626,7 +2626,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             </div>
           </div>
 
-          <div className="rounded-md border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#121212]">
+          <div className="rounded-md border border-border bg-surface p-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <Typography.Title level={5} className="!mb-0">
                 {qi('queueTitle', 'Queue')}
@@ -2660,7 +2660,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   </Button>
                 </div>
               </div>
-            <div className="text-xs text-gray-500 mb-2">
+            <div className="text-xs text-text-subtle mb-2">
               {qi(
                 'queueDescription',
                 'Staged items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention.'
@@ -2692,7 +2692,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 return (
                   <div
                     key={row.id}
-                  className={`group relative rounded-md border px-3 py-2 transition hover:border-blue-400 ${isSelected ? 'border-blue-500 shadow-sm' : 'border-gray-200 dark:border-gray-700'}`}
+                  className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${isSelected ? 'border-primary shadow-sm' : 'border-border'}`}
                   onClick={() => {
                     setSelectedRowId(row.id)
                     setSelectedFileIndex(null)
@@ -2711,7 +2711,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                         setSelectedFileIndex(null)
                         setInspectorOpen(true)
                       }}>
-                      <Info className="w-4 h-4 text-gray-500" />
+                      <Info className="w-4 h-4 text-text-subtle" />
                     </Button>
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
@@ -2720,7 +2720,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                           <Typography.Text className="text-sm font-medium">
                             {row.url ? row.url : qi('untitledUrl', 'Untitled URL')}
                           </Typography.Text>
-                          <div className="flex items-center gap-2 text-[11px] text-gray-500">
+                          <div className="flex items-center gap-2 text-[11px] text-text-subtle">
                             <Tag color="geekblue">{detected.toUpperCase()}</Tag>
                             {status.reason ? <span className="text-orange-600">{status.reason}</span> : (
                               <span>{qi('defaultsApplied', 'Defaults will be applied.')}</span>
@@ -2744,7 +2744,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                         aria-label={qi('sourceUrlAria', 'Source URL')}
                         title={qi('sourceUrlAria', 'Source URL')}
                       />
-                      <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle">
                         <Select
                           className="min-w-32"
                           value={row.type}
@@ -2808,7 +2808,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 return (
                   <div
                     key={`${f.name}-${idx}`}
-                  className={`group relative rounded-md border px-3 py-2 transition hover:border-blue-400 ${isSelected ? 'border-blue-500 shadow-sm' : 'border-gray-200 dark:border-gray-700'}`}
+                  className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${isSelected ? 'border-primary shadow-sm' : 'border-border'}`}
                   onClick={() => {
                     setSelectedFileIndex(idx)
                     setSelectedRowId(null)
@@ -2827,7 +2827,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                         setSelectedRowId(null)
                         setInspectorOpen(true)
                       }}>
-                      <Info className="w-4 h-4 text-gray-500" />
+                      <Info className="w-4 h-4 text-text-subtle" />
                     </Button>
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
@@ -2836,7 +2836,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                           <Typography.Text className="text-sm font-medium truncate max-w-[360px]">
                             {f.name}
                           </Typography.Text>
-                          <div className="flex items-center gap-2 text-[11px] text-gray-500">
+                          <div className="flex items-center gap-2 text-[11px] text-text-subtle">
                             <Tag color="geekblue">{type.toUpperCase()}</Tag>
                             <span>{formatBytes((f as any)?.size)} {f.type ? `· ${f.type}` : ''}</span>
                             {status.reason ? <span className="text-orange-600">{status.reason}</span> : null}
@@ -2849,7 +2849,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                         {pendingTag}
                       </div>
                     </div>
-                    <div className="mt-2 flex items-center gap-2 text-xs text-gray-600">
+                    <div className="mt-2 flex items-center gap-2 text-xs text-text-muted">
                         <Button
                           size="small"
                           danger
@@ -2875,14 +2875,14 @@ export const QuickIngestModal: React.FC<Props> = ({
                 })}
 
               {rows.length === 0 && localFiles.length === 0 && (
-                <div className="rounded-md border border-dashed border-gray-300 p-4 text-center text-sm text-gray-600 dark:border-gray-700 dark:text-gray-300">
+                <div className="rounded-md border border-dashed border-border p-4 text-center text-sm text-text-muted">
                   {qi('emptyQueue', 'No items queued yet. Drop files or add URLs to start.')}
                 </div>
               )}
             </div>
           </div>
 
-          <div className="rounded-md border border-gray-200 bg-white p-3 space-y-3 dark:border-gray-700 dark:bg-[#121212]">
+          <div className="rounded-md border border-border bg-surface p-3 space-y-3">
             <Typography.Title level={5} className="!mb-2">{t('quickIngest.commonOptions') || 'Ingestion options'}</Typography.Title>
             <Space wrap size="middle" align="center">
                 <Space align="center">
@@ -2924,7 +2924,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             </Space>
 
             {ragEmbeddingLabel && (
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-text-subtle">
                 <span>
                   {t(
                     "quickIngest.ragEmbeddingHintInline",
@@ -2935,7 +2935,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={openModelSettings}
-                  className="text-blue-600 underline underline-offset-2"
+                  className="text-primary underline underline-offset-2"
                 >
                   {t("option:header.modelSettings", "Model settings")}
                 </button>
@@ -2979,7 +2979,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   {t('quickIngest.audioDiarizationHelp') || 'Turn on to separate speakers in transcripts; applies to all audio rows in this batch.'}
                 </Typography.Text>
                 <Typography.Text
-                  className="text-[11px] text-gray-500 block"
+                  className="text-[11px] text-text-subtle block"
                   title={qi('audioSettingsTitle', 'These audio settings apply to every audio item in this run.')}>
                   {qi('audioSettingsHint', 'These settings apply to every audio item in this run.')}
                 </Typography.Text>
@@ -3009,7 +3009,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   {t('quickIngest.ocrHelp') || 'OCR helps extract text from scanned PDFs or images; applies to all document/PDF rows.'}
                 </Typography.Text>
                 <Typography.Text
-                  className="text-[11px] text-gray-500 block"
+                  className="text-[11px] text-text-subtle block"
                   title={qi('documentSettingsTitle', 'These document settings apply to every document/PDF in this run.')}>
                   {qi('documentSettingsHint', 'Applies to all document/PDF items in this batch.')}
                 </Typography.Text>
@@ -3039,14 +3039,14 @@ export const QuickIngestModal: React.FC<Props> = ({
                   {t('quickIngest.captionsHelp') || 'Include timestamps/captions for all video rows; helpful for search and summaries.'}
                 </Typography.Text>
                 <Typography.Text
-                  className="text-[11px] text-gray-500 block"
+                  className="text-[11px] text-text-subtle block"
                   title={qi('videoSettingsTitle', 'These video settings apply to every video in this run.')}>
                   {qi('videoSettingsHint', 'Applies to all video items in this batch.')}
                 </Typography.Text>
               </div>
             )}
 
-            <div className="rounded-md border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-[#0f0f0f]">
+            <div className="rounded-md border border-border bg-surface2 p-3">
               <div className="flex flex-col gap-2">
                 {(() => {
                   const done = processedCount || results.length
@@ -3066,9 +3066,9 @@ export const QuickIngestModal: React.FC<Props> = ({
                     </>
                   )
                 })()}
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between text-sm text-gray-700 dark:text-gray-200">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between text-sm text-text">
                   <div className="flex-1">
-                    <div className="rounded-md border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-[#151515]">
+                    <div className="rounded-md border border-border bg-surface2 p-3">
                       <div className="flex flex-col gap-2">
                         <div className="flex items-start justify-between gap-2">
                           <Typography.Text strong>
@@ -3107,7 +3107,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                             </Typography.Text>
                           </Space>
                         </div>
-                        <div className="mt-1 space-y-1 text-xs text-gray-600 dark:text-gray-300">
+                        <div className="mt-1 space-y-1 text-xs text-text-muted">
                           <div className="flex items-start gap-2">
                             <span className="mt-[2px]">•</span>
                             <span>
@@ -3130,7 +3130,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                             <div className="pt-1">
                               <button
                                 type="button"
-                                className="text-xs underline text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                                className="text-xs underline text-primary hover:text-primaryStrong"
                                 onClick={() => {
                                   try {
                                     const docsUrl =
@@ -3163,7 +3163,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                             </div>
                           )}
                         </div>
-                        <div className="mt-3 border-t border-gray-200 pt-3 text-xs text-gray-600 dark:border-gray-700 dark:text-gray-300">
+                        <div className="mt-3 border-t border-border pt-3 text-xs text-text-muted">
                           <div className="flex items-start justify-between gap-2">
                             <Space align="center" size="small">
                               <Switch
@@ -3212,7 +3212,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     </div>
                   </div>
                   <span
-                    className="mt-2 text-xs text-gray-500 dark:text-gray-400 sm:mt-0"
+                    className="mt-2 text-xs text-text-subtle sm:mt-0"
                     title={
                       running && (liveTotalCount || totalPlanned) > 0
                         ? qi('ingestProgressTitle', 'Current ingest progress')
@@ -3325,7 +3325,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 </Button>
               </div>
               {ingestBlocked && (
-                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-amber-700 dark:text-amber-200">
+                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-warn">
                   <span>
                     {ingestConnectionStatus === "unconfigured"
                       ? t(
@@ -3377,7 +3377,7 @@ export const QuickIngestModal: React.FC<Props> = ({
               {progressMeta.total > 0 && (
                 <div className="mt-2">
                   <Progress percent={progressMeta.pct} showInfo={false} size="small" />
-                  <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-1">
+                  <div className="flex justify-between text-xs text-text-muted mt-1">
                     <span>
                       {qi(
                         'processedCount',
@@ -3403,7 +3403,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           aria-hidden
           className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ease-out ${inspectorOpen && (selectedRow || selectedFile) ? 'opacity-100' : 'opacity-0'}`}
         >
-          <div className="absolute right-0 top-0 h-full w-40 bg-gradient-to-l from-blue-300/40 via-blue-200/20 to-transparent blur-md" />
+          <div className="absolute right-0 top-0 h-full w-40 bg-gradient-to-l from-primary/30 via-primary/10 to-transparent blur-md" />
         </div>
 
         <Drawer
@@ -3416,7 +3416,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         >
           <div className="space-y-3">
             {showInspectorIntro && (
-              <div className="rounded-md border border-blue-100 bg-blue-50 p-3 text-sm text-gray-700">
+              <div className="rounded-md border border-primary/20 bg-primary/10 p-3 text-sm text-text">
                 <Typography.Text strong className="block mb-1">
                   {qi('inspectorIntroTitle', 'How to use the Inspector')}
                 </Typography.Text>
@@ -3471,7 +3471,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     {selectedRow ? (selectedRow.url || qi('untitledUrl', 'Untitled URL')) : selectedFile?.name}
                   </Typography.Text>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 text-xs text-gray-600">
+                <div className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
                   {selectedRow ? (
                     <>
                       <Tag color={statusForUrlRow(selectedRow).color === 'default' ? undefined : statusForUrlRow(selectedRow).color}>{statusForUrlRow(selectedRow).label}</Tag>
@@ -3493,7 +3493,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   ) : null}
                 </div>
                 {selectedRow ? (
-                  <div className="text-xs text-gray-600">
+                  <div className="text-xs text-text-muted">
                     {qi(
                       'inspectorRowEditHint',
                       'Editing the URL or forcing a type marks this item as Custom.'
@@ -3501,14 +3501,14 @@ export const QuickIngestModal: React.FC<Props> = ({
                   </div>
                 ) : null}
                 {selectedFile ? (
-                  <div className="text-xs text-gray-600">
+                  <div className="text-xs text-text-muted">
                     {qi(
                       'inspectorFileHint',
                       'File settings follow the per-type controls on the main panel.'
                     )}
                   </div>
                 ) : null}
-                <div className="text-xs text-gray-500">
+                <div className="text-xs text-text-subtle">
                   {qi(
                     'inspectorAdvancedHint',
                     'Use Advanced options to set cookies/auth if required. Errors or warnings appear on each row.'
@@ -3516,7 +3516,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 </div>
               </div>
             ) : (
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-text-muted">
                 {qi('inspectorEmpty', 'Select a queued item to view details.')}
               </div>
             )}
@@ -3541,7 +3541,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 )}
                 {specSourceLabel && <Tag color="geekblue">{specSourceLabel}</Tag>}
                 {lastRefreshedLabel && (
-                  <Typography.Text className="text-[11px] text-gray-500">
+                  <Typography.Text className="text-[11px] text-text-subtle">
                     {t('quickIngest.advancedRefreshed', 'Refreshed {{time}}', { time: lastRefreshedLabel })}
                   </Typography.Text>
                 )}
@@ -3555,13 +3555,13 @@ export const QuickIngestModal: React.FC<Props> = ({
                       </div>
                     }
                   >
-                    <Info className="w-4 h-4 text-gray-500" />
+                    <Info className="w-4 h-4 text-text-subtle" />
                   </AntTooltip>
                 )}
               </div>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 ml-auto">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle ml-auto">
                 {ragEmbeddingLabel && (
-                  <Typography.Text className="text-[11px] text-gray-500">
+                  <Typography.Text className="text-[11px] text-text-subtle">
                     {t(
                       'quickIngest.ragEmbeddingHint',
                       'RAG embedding model: {{label}}',
@@ -3583,7 +3583,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   {qi('resetInspectorIntro', 'Reset Inspector Intro')}
                 </Button>
                 <Space size="small" align="center">
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-text-subtle">
                     {qi('preferServerLabel', 'Prefer server')}
                   </span>
                   <Switch
@@ -3607,7 +3607,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   }}>
                   {qi('reloadFromServer', 'Reload from server')}
                 </Button>
-                <span className="h-4 border-l border-gray-300 dark:border-gray-600" aria-hidden />
+                <span className="h-4 border-l border-border" aria-hidden />
                 <Button
                   size="small"
                   aria-label={qi('saveAdvancedDefaultsAria', 'Save current advanced options as defaults')}
@@ -3638,7 +3638,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 >
                   {qi('saveAdvancedDefaults', 'Save as default')}
                 </Button>
-                <span className="h-4 border-l border-gray-300 dark:border-gray-600" aria-hidden />
+                <span className="h-4 border-l border-border" aria-hidden />
                 <Button
                   size="small"
                   danger
@@ -3778,7 +3778,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                               )}
                               {f.description ? (
                                 <AntTooltip placement="right" trigger={["hover","click"]} title={<div className="max-w-96 text-xs">{f.description}</div>}>
-                                  <HelpCircle className="w-3.5 h-3.5 text-gray-500 cursor-help" />
+                                  <HelpCircle className="w-3.5 h-3.5 text-text-subtle cursor-help" />
                                 </AntTooltip>
                               ) : null}
                             </div>
@@ -3797,7 +3797,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                                 />
                                 {canShowDetailsHere && (
                                   <button
-                                    className="text-xs underline text-gray-500"
+                                    className="text-xs underline text-text-subtle"
                                     onClick={() => setOpen(!isOpen)}
                                   >
                                     {isOpen
@@ -3824,7 +3824,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                                   disabled={boolState === 'unset'}>
                                   {qi('unset', 'Unset')}
                                 </Button>
-                                <Typography.Text type="secondary" className="text-[11px] text-gray-500">
+                                <Typography.Text type="secondary" className="text-[11px] text-text-subtle">
                                   {boolState === 'unset'
                                     ? qi('unsetLabel', 'Currently unset (server defaults)')
                                     : boolState === 'true'
@@ -3833,7 +3833,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                                 </Typography.Text>
                                 {canShowDetailsHere && (
                                   <button
-                                    className="text-xs underline text-gray-500"
+                                    className="text-xs underline text-text-subtle"
                                     onClick={() => setOpen(!isOpen)}
                                   >
                                     {isOpen
@@ -3856,7 +3856,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                                 />
                                 {canShowDetailsHere && (
                                   <button
-                                    className="text-xs underline text-gray-500"
+                                    className="text-xs underline text-text-subtle"
                                     onClick={() => setOpen(!isOpen)}
                                   >
                                     {isOpen
@@ -3878,7 +3878,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                               />
                               {canShowDetailsHere && (
                                 <button
-                                  className="text-xs underline text-gray-500"
+                                  className="text-xs underline text-text-subtle"
                                   onClick={() => setOpen(!isOpen)}
                                 >
                                   {isOpen
@@ -3900,7 +3900,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                           return showHere ? (
                             <div
                               key={`${f.name}-details`}
-                              className="ml-4 mt-1 p-2 rounded bg-gray-50 dark:bg-[#262626] text-xs text-gray-600 dark:text-gray-300 max-w-[48rem]"
+                              className="ml-4 mt-1 p-2 rounded bg-surface2 text-xs text-text-muted max-w-[48rem]"
                             >
                               {f.description}
                             </div>
@@ -3968,7 +3968,7 @@ export const QuickIngestModal: React.FC<Props> = ({
               </div>
             </div>
             {resultSummary && !running && (
-              <div className="mt-2 rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#161616] dark:text-gray-200">
+              <div className="mt-2 rounded-md border border-border bg-surface2 px-3 py-2 text-xs text-text">
                 <div className="font-medium">
                   {resultSummary.failCount === 0
                     ? t(
@@ -4053,7 +4053,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       type="button"
                       onClick={() => downloadJson(item)}
                       aria-label={`Download JSON for ${item.url || item.fileName || "item"}`}
-                      className="text-blue-600 hover:underline"
+                      className="text-primary hover:underline"
                     >
                       {t("quickIngest.downloadJson") || "Download JSON"}
                     </button>
@@ -4065,7 +4065,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       key="open-media"
                       type="button"
                       onClick={() => openInMediaViewer(item)}
-                      className="text-blue-600 hover:underline"
+                      className="text-primary hover:underline"
                     >
                       {t("quickIngest.openInMedia", "Open in Media viewer")}
                     </button>
@@ -4075,7 +4075,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       key="discuss-chat"
                       type="button"
                       onClick={() => discussInChat(item)}
-                      className="text-blue-600 hover:underline"
+                      className="text-primary hover:underline"
                     >
                       {t("quickIngest.discussInChat", "Discuss in chat")}
                     </button>
@@ -4090,18 +4090,18 @@ export const QuickIngestModal: React.FC<Props> = ({
                         </Tag>
                         <span>{item.type.toUpperCase()}</span>
                       </div>
-                      <div className="text-xs text-gray-500 break-all">
+                      <div className="text-xs text-text-subtle break-all">
                         {item.url || item.fileName}
                       </div>
                       {hasMediaId ? (
-                        <div className="text-[11px] text-gray-500">
+                        <div className="text-[11px] text-text-subtle">
                           {t("quickIngest.savedAsMedia", "Saved as media {{id}}", {
                             id: String(mediaId)
                           })}
                         </div>
                       ) : null}
                       {item.error ? (
-                        <div className="text-xs text-red-500">{item.error}</div>
+                        <div className="text-xs text-danger">{item.error}</div>
                       ) : null}
                     </div>
                   </List.Item>

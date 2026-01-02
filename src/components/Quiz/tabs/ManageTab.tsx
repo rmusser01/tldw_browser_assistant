@@ -453,7 +453,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                 description={
                   <div className="space-y-1">
                     {quiz.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-1">
+                      <p className="text-sm text-text-muted line-clamp-1">
                         {quiz.description}
                       </p>
                     )}

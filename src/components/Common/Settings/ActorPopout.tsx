@@ -170,13 +170,13 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
-                <span className="font-medium text-gray-900 dark:text-gray-100">
+                <span className="font-medium text-text">
                   {t(
                     "playground:composer.actorTitle",
                     "Scene Director (Actor)"
                   )}
                 </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-text-subtle">
                   {t(
                     "playground:composer.actorHelp",
                     "Configure per-chat scene context: roles, mood, world, goals, and notes."

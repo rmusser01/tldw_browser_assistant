@@ -15,7 +15,7 @@ type FeatureEmptyStateProps = {
   secondaryDisabled?: boolean
   /** Optional icon to display above the title for visual interest */
   icon?: LucideIcon
-  /** Icon color class (default: text-gray-400) */
+  /** Icon color class (default: text-text-subtle) */
   iconClassName?: string
 }
 
@@ -36,30 +36,30 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
   return (
     <div
       className={
-        "mx-auto max-w-xl rounded-lg border border-gray-200 bg-white p-6 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200 " +
+        "mx-auto max-w-xl rounded-lg border border-border bg-surface p-6 text-sm text-text shadow-sm " +
         (className || "")
       }>
       <div className="space-y-3">
         {Icon && (
           <div className="flex justify-center">
-            <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-800">
+            <div className="p-3 rounded-full bg-surface2">
               <Icon
-                className={iconClassName || "h-8 w-8 text-gray-500 dark:text-gray-400"}
+                className={iconClassName || "h-8 w-8 text-text-subtle"}
                 aria-hidden="true"
               />
             </div>
           </div>
         )}
-        <h2 className={`text-base font-semibold text-gray-900 dark:text-gray-50 ${Icon ? "text-center" : ""}`}>
+        <h2 className={`text-base font-semibold text-text ${Icon ? "text-center" : ""}`}>
           {title}
         </h2>
         {description && (
-          <p className="text-xs text-gray-600 dark:text-gray-300">
+          <p className="text-xs text-text-muted">
             {description}
           </p>
         )}
         {examples && examples.length > 0 && (
-          <div className="text-xs text-gray-600 dark:text-gray-300">
+          <div className="text-xs text-text-muted">
             <ul className="list-disc pl-4 space-y-1">
               {examples.map((example, index) => (
                 <li key={index}>{example}</li>

@@ -68,10 +68,10 @@ const NotesEditorHeader: React.FC<NotesEditorHeaderProps> = ({
         })
 
   return (
-    <div className="flex items-center justify-between gap-4 px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
+    <div className="flex items-center justify-between gap-4 px-4 py-3 border-b border-border bg-surface">
       <div className="flex flex-col gap-0.5 min-w-0">
         <div className="flex items-center gap-2">
-          <Typography.Title level={5} className="!mb-0 truncate !text-gray-900 dark:!text-gray-100">
+          <Typography.Title level={5} className="!mb-0 truncate !text-text">
             {displayTitle}
           </Typography.Title>
           {isDirty && (
@@ -81,7 +81,7 @@ const NotesEditorHeader: React.FC<NotesEditorHeaderProps> = ({
           )}
         </div>
         {backlinkConversationId && (
-          <div className="text-xs text-blue-600 dark:text-blue-300">
+          <div className="text-xs text-primary">
             {t('option:notesSearch.linkedConversation', {
               defaultValue: 'Linked to conversation'
             })}{' '}
@@ -249,4 +249,3 @@ const NotesEditorHeader: React.FC<NotesEditorHeaderProps> = ({
 }
 
 export default NotesEditorHeader
-

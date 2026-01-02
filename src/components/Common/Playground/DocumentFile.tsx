@@ -11,16 +11,16 @@ interface DocumentFileProps {
 export const DocumentFile: React.FC<DocumentFileProps> = ({ document }) => {
   return (
     <button
-      className="relative group p-1.5 w-80 flex items-center gap-1 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/5 rounded-2xl text-left"
+      className="relative group w-80 flex items-center gap-1 rounded-2xl border border-border bg-surface p-2 text-left text-text hover:bg-surface2"
       type="button">
-      <div className="p-3 bg-black/20 dark:bg-white/10 text-white rounded-xl">
-        <FileIcon className="size-5" />
+      <div className="rounded-xl bg-surface2 p-3 text-text">
+        <FileIcon className="size-5 text-text" />
       </div>
-      <div className="flex flex-col justify-center -space-y-0.5 px-2.5 w-full">
-        <div className="dark:text-gray-100 text-sm font-medium line-clamp-1 mb-1">
+      <div className="flex flex-col justify-center -space-y-1 px-3 w-full">
+        <div className="mb-1 line-clamp-1 text-sm font-medium text-text">
           {document.filename}
         </div>
-        <div className="flex justify-between text-gray-500 text-xs line-clamp-1">
+        <div className="flex justify-between text-xs text-text-muted line-clamp-1">
           File{" "}
           <span className="capitalize">
             {new Intl.NumberFormat(undefined, {

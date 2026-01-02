@@ -18,7 +18,7 @@ export const DictionariesWorkspace: React.FC = () => {
       <FeatureEmptyState
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
               Demo
             </span>
             <span>
@@ -50,7 +50,7 @@ export const DictionariesWorkspace: React.FC = () => {
       <ConnectFeatureBanner
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
+            <span className="rounded-full bg-warn/10 px-2 py-0.5 text-[11px] font-medium text-warn">
               {translateMessage(
                 t,
                 "option:dictionariesEmpty.notConnected",
@@ -90,14 +90,14 @@ export const DictionariesWorkspace: React.FC = () => {
   return (
     <PageShell className="space-y-4">
       <div className="space-y-1">
-        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
+        <h1 className="text-lg font-semibold text-text">
           {translateMessage(
             t,
             "option:header.modeDictionaries",
             "Chat dictionaries"
           )}
         </h1>
-        <p className="text-xs text-gray-600 dark:text-gray-300">
+        <p className="text-xs text-text-muted">
           {translateMessage(
             t,
             "option:dictionariesEmpty.headerDescription",

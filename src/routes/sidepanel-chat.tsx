@@ -27,7 +27,7 @@ import { SidePanelBody } from "~/components/Sidepanel/Chat/body"
 import { SidepanelForm } from "~/components/Sidepanel/Chat/form"
 import { SidepanelHeaderSimple } from "~/components/Sidepanel/Chat/SidepanelHeaderSimple"
 import { ConnectionBanner } from "~/components/Sidepanel/Chat/ConnectionBanner"
-import { SidepanelChatTabs } from "~/components/Sidepanel/Chat/Tabs"
+import { SidepanelChatSidebar } from "~/components/Sidepanel/Chat/Sidebar"
 import NoteQuickSaveModal from "~/components/Sidepanel/Notes/NoteQuickSaveModal"
 import { useMessage } from "~/hooks/useMessage"
 import { useSidepanelChatTabsStore } from "@/store/sidepanel-chat-tabs"
@@ -37,10 +37,18 @@ import type {
   SidepanelChatTab
 } from "@/store/sidepanel-chat-tabs"
 import { useStoreChatModelSettings } from "@/store/model"
+import { useUiModeStore } from "@/store/ui-mode"
+import { useArtifactsStore } from "@/store/artifacts"
+import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
   import("@/components/Timeline").then((m) => ({ default: m.TimelineModal }))
+)
+const CommandPalette = lazy(() =>
+  import("@/components/Common/CommandPalette").then((m) => ({
+    default: m.CommandPalette
+  }))
 )
 import type { ChatHistory, Message as ChatMessage } from "~/store/option"
 
@@ -100,7 +108,13 @@ const MODEL_SETTINGS_KEYS = [
   "systemPrompt",
   "useMlock",
   "reasoningEffort",
-  "ocrLanguage"
+  "ocrLanguage",
+  "historyMessageLimit",
+  "historyMessageOrder",
+  "slashCommandInjectionMode",
+  "apiProvider",
+  "extraHeaders",
+  "extraBody"
 ] as const
 
 type ModelSettingsKey = (typeof MODEL_SETTINGS_KEYS)[number]
@@ -137,7 +151,7 @@ const SidepanelChat = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
-  const [searchQuery, setSearchQuery] = React.useState("")
+  const [sidebarSearchQuery, setSidebarSearchQuery] = React.useState("")
   const [composerHeight, setComposerHeight] = React.useState(0)
   const { t } = useTranslation(["playground", "sidepanel", "common"])
   // Per-tab storage (Chrome side panel) or per-window/global (Firefox sidebar).
@@ -195,6 +209,8 @@ const SidepanelChat = () => {
     defaultChatWithWebsite,
     chatMode,
     setChatMode,
+    toolChoice,
+    setToolChoice,
     setIsEmbedding,
     setIsFirstMessage,
     setIsLoading,
@@ -233,6 +249,8 @@ const SidepanelChat = () => {
   const isSwitchingTabRef = React.useRef(false)
   const { containerRef, isAutoScrollToBottom, autoScrollToBottom } =
     useSmartScroll(messages, streaming, 100)
+  const uiMode = useUiModeStore((state) => state.mode)
+  const [isNarrow, setIsNarrow] = React.useState(false)
   const { checkOnce } = useConnectionActions()
   const notification = useAntdNotification()
   const [noteModalOpen, setNoteModalOpen] = React.useState(false)
@@ -313,6 +331,7 @@ const SidepanelChat = () => {
       chatMode,
       historyId,
       webSearch,
+      toolChoice,
       selectedModel: selectedModel ?? null,
       selectedSystemPrompt,
       selectedQuickPrompt,
@@ -333,6 +352,7 @@ const SidepanelChat = () => {
     chatMode,
     historyId,
     webSearch,
+    toolChoice,
     selectedModel,
     selectedSystemPrompt,
     selectedQuickPrompt,
@@ -355,6 +375,7 @@ const SidepanelChat = () => {
       setHistoryId(snapshot.historyId ?? null)
       setChatMode(snapshot.chatMode || "normal")
       setWebSearch(snapshot.webSearch ?? false)
+      setToolChoice(snapshot.toolChoice ?? "auto")
       setSelectedModel(snapshot.selectedModel ?? null)
       setSelectedSystemPrompt(snapshot.selectedSystemPrompt ?? null)
       setSelectedQuickPrompt(snapshot.selectedQuickPrompt ?? null)
@@ -531,6 +552,7 @@ const SidepanelChat = () => {
           chatMode: legacySnapshot.chatMode || "normal",
           historyId: legacySnapshot.historyId ?? null,
           webSearch,
+          toolChoice,
           selectedModel: selectedModel ?? null,
           selectedSystemPrompt,
           selectedQuickPrompt,
@@ -583,6 +605,7 @@ const SidepanelChat = () => {
             chatMode,
             historyId: recentChat.history.id,
             webSearch,
+            toolChoice,
             selectedModel: selectedModel ?? null,
             selectedSystemPrompt,
             selectedQuickPrompt,
@@ -637,6 +660,15 @@ const SidepanelChat = () => {
   React.useEffect(() => {
     void checkOnce()
   }, [checkOnce])
+
+  React.useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return
+    const media = window.matchMedia("(max-width: 400px)")
+    const update = () => setIsNarrow(media.matches)
+    update()
+    media.addEventListener("change", update)
+    return () => media.removeEventListener("change", update)
+  }, [])
 
   React.useEffect(() => {
     // Resolve the tab id associated with this sidepanel instance.
@@ -1071,34 +1103,56 @@ const SidepanelChat = () => {
     ? `tldw:sidepanelChatDraft:${activeTabId}`
     : "tldw:sidepanelChatDraft"
 
+  const activeTabLabel = React.useMemo(() => {
+    const active = tabs.find((tab) => tab.id === activeTabId)
+    if (active?.label) return active.label
+    return t("sidepanel:tabs.newChat", "New chat")
+  }, [activeTabId, tabs, t])
+
+  const isDockedSidebar = uiMode === "pro" && !isNarrow
+  const isSidebarVisible = isDockedSidebar || sidebarOpen
+  const messagePadding = uiMode === "pro" ? "px-4" : "px-6"
+  const artifactsOpen = useArtifactsStore((state) => state.isOpen)
+  const closeArtifacts = useArtifactsStore((state) => state.closeArtifact)
+
   return (
-    <div className="flex h-full w-full" data-testid="chat-workspace">
-      <main className="relative h-dvh w-full" data-testid="chat-main">
+    <div className="flex h-dvh w-full" data-testid="chat-workspace">
+      {isSidebarVisible && (
+        <SidepanelChatSidebar
+          open={isSidebarVisible}
+          variant={isDockedSidebar ? "docked" : "overlay"}
+          tabs={tabs}
+          activeTabId={activeTabId}
+          onSelectTab={handleSelectTab}
+          onCloseTab={handleCloseTab}
+          onNewTab={handleNewTab}
+          searchQuery={sidebarSearchQuery}
+          onSearchQueryChange={setSidebarSearchQuery}
+          onClose={() => setSidebarOpen(false)}
+        />
+      )}
+      {!isDockedSidebar && sidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/30"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+      <main className="relative h-dvh flex-1 bg-bg" data-testid="chat-main">
         <div className="relative z-20 w-full">
           <SidepanelHeaderSimple
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            onNewTab={handleNewTab}
+            activeTitle={activeTabLabel}
           />
-          <div className="absolute left-0 right-0 top-12 z-10">
-            <SidepanelChatTabs
-              tabs={tabs}
-              activeTabId={activeTabId}
-              onSelect={handleSelectTab}
-              onClose={handleCloseTab}
-              onNewTab={handleNewTab}
-            />
-          </div>
-          <ConnectionBanner className="pt-24" />
+          <ConnectionBanner className="pt-12" />
         </div>
         <div
           ref={drop}
           data-testid="chat-dropzone"
-          className={`relative flex h-full flex-col items-center ${
-            dropState === "dragging" ? "bg-gray-100 dark:bg-gray-800" : ""
-          } bg-white dark:bg-[#171717]`}
+          className={`relative flex h-full flex-col items-center bg-bg ${
+            dropState === "dragging" ? "bg-surface2" : ""
+          }`}
           style={
             chatBackgroundImage
               ? {
@@ -1112,7 +1166,7 @@ const SidepanelChat = () => {
           {/* Background overlay for opacity effect */}
           {chatBackgroundImage && (
             <div
-              className="absolute inset-0 bg-white dark:bg-[#171717]"
+              className="absolute inset-0 bg-bg"
               style={{ opacity: 0.9, pointerEvents: "none" }}
             />
           )}
@@ -1151,7 +1205,7 @@ const SidepanelChat = () => {
             aria-relevant="additions"
             aria-label={t("playground:aria.chatTranscript", "Chat messages")}
             data-testid="chat-messages"
-            className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10"
+            className={`custom-scrollbar relative z-10 flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto ${messagePadding}`}
             style={{ paddingBottom: composerHeight ? composerHeight + 16 : 160 }}>
             {isRestoringChat ? (
               <div
@@ -1174,7 +1228,7 @@ const SidepanelChat = () => {
             ) : (
               <SidePanelBody
                 scrollParentRef={containerRef}
-                searchQuery={searchQuery}
+                searchQuery=""
                 inputRef={textareaRef}
               />
             )}
@@ -1203,6 +1257,19 @@ const SidepanelChat = () => {
           </div>
         </div>
       </main>
+      {artifactsOpen && (
+        <>
+          <button
+            type="button"
+            aria-label={t("common:close", "Close")}
+            onClick={closeArtifacts}
+            className="fixed inset-0 z-40 bg-black/40"
+          />
+          <div className="fixed inset-y-0 right-0 z-50 w-full max-w-[520px]">
+            <ArtifactsPanel />
+          </div>
+        </>
+      )}
       <NoteQuickSaveModal
         open={noteModalOpen}
         title={noteDraftTitle}
@@ -1224,6 +1291,25 @@ const SidepanelChat = () => {
         helperText={t("sidepanel:notes.helperText", "Review or edit the selected text, then Save or Cancel.")}
         sourceLabel={t("sidepanel:notes.sourceLabel", "Source")}
       />
+      <Suspense fallback={null}>
+        <CommandPalette
+          scope="sidepanel"
+          onNewChat={clearChat}
+          onToggleRag={toggleChatMode}
+          onToggleWebSearch={toggleWebSearchMode}
+          onIngestPage={() => {
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+            }
+          }}
+          onSwitchModel={() => {
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new CustomEvent("tldw:open-model-settings"))
+            }
+          }}
+          onToggleSidebar={toggleSidebar}
+        />
+      </Suspense>
       <Suspense fallback={null}>
         <TimelineModal />
       </Suspense>

@@ -55,7 +55,7 @@ const ImportPanel: React.FC = () => {
             defaultValue: "Paste TSV/CSV lines: Deck, Front, Back, Tags, Notes"
           })}
         </Text>
-        <pre className="mt-1 rounded bg-gray-50 p-2 text-xs text-gray-700 dark:bg-[#111] dark:text-gray-200">
+        <pre className="mt-1 rounded bg-surface2 p-2 text-xs text-text">
           Deck	Front	Back	Tags	Notes
           My deck	What is a closure?	A function with preserved outer scope.	javascript; fundamentals	Lecture 3
         </pre>

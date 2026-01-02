@@ -1,7 +1,6 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { QueryClientProvider } from "@tanstack/react-query"
 import { MemoryRouter } from "react-router-dom"
 import { SidepanelRouting } from "@/routes/firefox-route"
-const queryClient = new QueryClient()
 import { ConfigProvider, Empty, theme } from "antd"
 import { StyleProvider } from "@ant-design/cssinjs"
 import { useDarkMode } from "~/hooks/useDarkmode"
@@ -9,6 +8,9 @@ import { useSidepanelInit } from "~/hooks/useSidepanelInit"
 import "~/i18n"
 import { PageAssistProvider } from "@/components/Common/PageAssistProvider"
 import { FontSizeProvider } from "@/context/FontSizeProvider"
+import { createQueryClient } from "@/services/query-client"
+
+const queryClient = createQueryClient()
 
 function IndexSidepanel() {
   const { mode } = useDarkMode()

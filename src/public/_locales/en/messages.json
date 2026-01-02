@@ -3221,8 +3221,53 @@
   "playground_composer_compareHistorySuffix": {
     "message": "(from compare)"
   },
+  "playground_composer_compareClusterLabel": {
+    "message": "Multi-model answers"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} models"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "Selected models: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "Open each selected answer as its own chat"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "Per-model thread"
+  },
   "playground_composer_compareThreadShared": {
     "message": "You (shared)"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "You"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "Open as full chat"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "Open split chat"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "Canonical"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "Pin as canonical"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "Canonical answer"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "Filter models"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "Show all"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "Showing {{visible}} / {{total}}"
+  },
+  "playground_composer_compareTokens": {
+    "message": "Tokens: {{count}}"
   },
   "playground_composer_compareBulkSplitSuccess": {
     "message": "Created {{count}} chats"

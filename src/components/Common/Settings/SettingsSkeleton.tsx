@@ -13,7 +13,7 @@ export const SettingsSkeleton = ({ sections = 2 }: SettingsSkeletonProps) => {
           active
           title
           paragraph={{ rows: 3, width: ["80%", "95%", "90%"] }}
-          className="rounded-lg border border-gray-200 p-4 dark:border-gray-700"
+          className="rounded-lg border border-border p-4"
         />
       ))}
     </div>

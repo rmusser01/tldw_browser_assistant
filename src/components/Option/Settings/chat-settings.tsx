@@ -68,16 +68,16 @@ export const ChatSettings = () => {
   return (
     <dl className="flex flex-col space-y-6 text-sm">
       <div>
-        <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+        <h2 className="text-base font-semibold leading-7 text-text">
           {t("chatAppearance.title", "Chat Appearance")}
         </h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+        <p className="mt-1 text-sm text-text-muted">
           {t(
             "chatAppearance.description",
             "Customize colors, fonts, and text sizes for chat messages."
           )}
         </p>
-        <div className="border border-b border-gray-200 dark:border-gray-600 mt-3" />
+        <div className="border-b border-border mt-3" />
       </div>
 
       {/* Note about behavioral settings */}
@@ -92,7 +92,7 @@ export const ChatSettings = () => {
             )}{" "}
             <Link
               to="/settings"
-              className="text-blue-600 hover:text-blue-500 dark:text-blue-400 underline"
+              className="text-primary hover:text-primaryStrong underline"
             >
               {t("chatAppearance.goToGeneral", "Go to General Settings")}
             </Link>
@@ -102,7 +102,7 @@ export const ChatSettings = () => {
       />
 
       <div className="pt-4">
-        <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+        <h3 className="text-sm font-semibold leading-6 text-text">
           {t("chatAppearance.userHeading", "User messages")}
         </h3>
       </div>
@@ -110,7 +110,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <label
           htmlFor="user-text-color"
-          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+          className="inline-flex items-center gap-2 text-text"
         >
           {t("chatAppearance.userColor", "User text color")}
         </label>
@@ -126,7 +126,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <label
           htmlFor="user-text-font"
-          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+          className="inline-flex items-center gap-2 text-text"
         >
           {t("chatAppearance.userFont", "User font")}
         </label>
@@ -142,7 +142,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <label
           htmlFor="user-text-size"
-          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+          className="inline-flex items-center gap-2 text-text"
         >
           {t("chatAppearance.userSize", "User text size")}
         </label>
@@ -156,7 +156,7 @@ export const ChatSettings = () => {
       </div>
 
       <div className="pt-4">
-        <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+        <h3 className="text-sm font-semibold leading-6 text-text">
           {t("chatAppearance.assistantHeading", "Assistant messages")}
         </h3>
       </div>
@@ -164,7 +164,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <label
           htmlFor="assistant-text-color"
-          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+          className="inline-flex items-center gap-2 text-text"
         >
           {t("chatAppearance.assistantColor", "Assistant text color")}
         </label>
@@ -180,7 +180,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <label
           htmlFor="assistant-text-font"
-          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+          className="inline-flex items-center gap-2 text-text"
         >
           {t("chatAppearance.assistantFont", "Assistant font")}
         </label>
@@ -196,7 +196,7 @@ export const ChatSettings = () => {
       <div className="flex flex-row justify-between">
         <label
           htmlFor="assistant-text-size"
-          className="inline-flex items-center gap-2 text-gray-700 dark:text-neutral-50"
+          className="inline-flex items-center gap-2 text-text"
         >
           {t("chatAppearance.assistantSize", "Assistant text size")}
         </label>

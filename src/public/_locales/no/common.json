@@ -1,0 +1,938 @@
+{
+  "pageAssist": {
+    "message": "tldw-assistenten"
+  },
+  "titles_options": {
+    "message": "tldw Assistant — Options"
+  },
+  "titles_sidepanel": {
+    "message": "tldw Assistant — Sidepanel"
+  },
+  "pdf_passwordTitle": {
+    "message": "Skriv inn PDF-passordet"
+  },
+  "pdf_unlock": {
+    "message": "Lås opp"
+  },
+  "loading_title": {
+    "message": "Laster…"
+  },
+  "loading_description": {
+    "message": "Vennligst vent mens vi gjør klart."
+  },
+  "loading_content": {
+    "message": "Laster innhold…"
+  },
+  "selectAModel": {
+    "message": "Velg en modell"
+  },
+  "save": {
+    "message": "Lagre"
+  },
+  "saved": {
+    "message": "Lagret"
+  },
+  "cancel": {
+    "message": "Avbryt"
+  },
+  "retry": {
+    "message": "Prøv igjen"
+  },
+  "share_tooltip_share": {
+    "message": "Del"
+  },
+  "share_modal_title": {
+    "message": "Del lenke til chatten"
+  },
+  "share_form_defaultValue_name": {
+    "message": "Anonym"
+  },
+  "share_form_defaultValue_title": {
+    "message": "Navnløs chat"
+  },
+  "share_form_title_label": {
+    "message": "Chattittel"
+  },
+  "share_form_title_placeholder": {
+    "message": "Skriv inn chattittel"
+  },
+  "share_form_title_required": {
+    "message": "Chattittel er nødvendig"
+  },
+  "share_form_name_label": {
+    "message": "Ditt navn"
+  },
+  "share_form_name_placeholder": {
+    "message": "Skriv inn ditt navn"
+  },
+  "share_form_name_required": {
+    "message": "Ditt navn er nødvendig"
+  },
+  "share_form_btn_save": {
+    "message": "Generer en lenke"
+  },
+  "share_form_btn_saving": {
+    "message": "Genererer lenke..."
+  },
+  "share_notification_successGenerate": {
+    "message": "Lenke kopiert til utklippstavle"
+  },
+  "share_notification_failGenerate": {
+    "message": "Kunne ikke generere lenke"
+  },
+  "copyToClipboard": {
+    "message": "Kopier til utklippstavle"
+  },
+  "webSearch": {
+    "message": "Søker på internett"
+  },
+  "regenerate": {
+    "message": "Regenerer"
+  },
+  "continue": {
+    "message": "Fortsett svar"
+  },
+  "edit": {
+    "message": "Endre"
+  },
+  "delete": {
+    "message": "Slett"
+  },
+  "saveAndSubmit": {
+    "message": "Lagre & Send inn"
+  },
+  "editMessage_placeholder": {
+    "message": "Skriv en melding..."
+  },
+  "submit": {
+    "message": "Send inn"
+  },
+  "send": {
+    "message": "Send inn"
+  },
+  "connectToServer": {
+    "message": "Koble til server"
+  },
+  "noData": {
+    "message": "Ingen data"
+  },
+  "noHistory": {
+    "message": "Ingen chathistorikk"
+  },
+  "chatWithCurrentPage": {
+    "message": "Chat med nåværende side"
+  },
+  "beta": {
+    "message": "Beta-versjon"
+  },
+  "tts": {
+    "message": "Les opp"
+  },
+  "currentChatModelSettings": {
+    "message": "Nåværende chatmodellinnstillinger"
+  },
+  "modelSettings_label": {
+    "message": "Modellinnstillinger"
+  },
+  "modelSettings_description": {
+    "message": "Konfigurer modellinnstillingene for alle chatter"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "Hold i live"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "kontrollerer hvor lenge modellen vil forbli lastet i minnet etter forespørselen (standard: 5m)"
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "Skriv inn lengden på økten (f.eks. 5m, 10m, 1t)"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "Temperatur"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "Skriv inn temperaturverdi (f.eks. 0.7, 1.0)"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "Kontekstvindustørrelse (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "Skriv inn kontekstvindustørrelse-verdi (standard: 2048)"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "Maks Tokens (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "Skriv inn Maks Tokens-verdi (f.eks. 2048, 4096)"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "Seed (startverdi)"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "Skriv inn seedverdi (f.eks. 1234)"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "Reproduserbarhet av modellutdata"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "Topp K"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "Skriv inn Topp K-verdi (f.eks. 40, 100)"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "Topp P"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "Skriv inn Topp P-verdi (f.eks. 0.9, 0.95)"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "Antall GPUer"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "Skriv inn antall lag som sendes til GPU(er)"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "Midlertidig systemprompt"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "Skriv inn systemprompt"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "Dette er en rask måte å sette systemprompt i den nåværende chatten, som vil overstyre den valgte systemprompt hvis den finnes."
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "Tenkemodus"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap (minneavbildning)"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z (TFS-parameter)"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "f.eks. 1.0, 1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Antall beholdte (Num Keep)"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "f.eks. 256, 512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Antall tråder (Num Thread)"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "f.eks. 8, 16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock (låse minne)"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "Resonneringsinnsats"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "lav, middels, høy"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P (minimum P)"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "f.eks. 0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "Straff for gjentakelse"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "f.eks. 1.1, 1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "Gjenta siste N"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "f.eks. 64, 128"
+  },
+  "modelSettings_advanced": {
+    "message": "Flere modellinnstillinger"
+  },
+  "copilot_summary": {
+    "message": "Oppsummer"
+  },
+  "copilot_explain": {
+    "message": "Forklar"
+  },
+  "copilot_rephrase": {
+    "message": "Omformulér"
+  },
+  "copilot_translate": {
+    "message": "Oversett"
+  },
+  "copilot_custom": {
+    "message": "Egendefinert"
+  },
+  "citations": {
+    "message": "Sitater"
+  },
+  "downloadCode": {
+    "message": "Last ned kode"
+  },
+  "date_pinned": {
+    "message": "Festet"
+  },
+  "date_today": {
+    "message": "I dag"
+  },
+  "date_yesterday": {
+    "message": "I går"
+  },
+  "date_last7Days": {
+    "message": "Siste 7 dager"
+  },
+  "date_older": {
+    "message": "Eldre"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "Er du sikker på at du vil slette alle festede meldinger?"
+  },
+  "range_deleteConfirm_today": {
+    "message": "Er du sikker på at du vil slette alle meldinger fra i dag?"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "Er du sikker på at du vil slette alle meldinger fra i går?"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "Er du sikker på at du vil slette alle meldinger fra de siste 7 dagene?"
+  },
+  "range_deleteConfirm_older": {
+    "message": "Er du sikker på at du vil slette alle eldre meldinger?"
+  },
+  "range_tooltip_pinned": {
+    "message": "Slett alle festede meldinger"
+  },
+  "range_tooltip_today": {
+    "message": "Slett alle meldinger fra i dag"
+  },
+  "range_tooltip_yesterday": {
+    "message": "Slett alle meldinger fra i går"
+  },
+  "range_tooltip_last7Days": {
+    "message": "Slett alle meldinger fra de siste 7 dagene"
+  },
+  "range_tooltip_older": {
+    "message": "Slett alle eldre meldinger"
+  },
+  "pin": {
+    "message": "Fest"
+  },
+  "unpin": {
+    "message": "Løsne"
+  },
+  "generationInfo": {
+    "message": "Generasjonsinformasjon"
+  },
+  "sidebarChat": {
+    "message": "Sidepanel-chat"
+  },
+  "reasoning_thinking": {
+    "message": "Tenker...."
+  },
+  "reasoning_loading": {
+    "message": "Laster resonnement...."
+  },
+  "reasoning_thought": {
+    "message": "Tenkte i {{time}}"
+  },
+  "embeddingGen": {
+    "message": "Oppretter embeddings, dette kan ta litt tid"
+  },
+  "semanticSearch": {
+    "message": "Utfører semantisk søk"
+  },
+  "downloading": {
+    "message": "Laster ned"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "Er du sikker på at du vil avbryte nedlastingen? Dette vil stoppe nedlastingsprosessen. Ifølge Ollama-dokumentasjonen kan du starte på nytt fra der du slapp."
+  },
+  "table_copyCsv": {
+    "message": "Kopier som CSV"
+  },
+  "table_downloadCsv": {
+    "message": "Last ned CSV"
+  },
+  "dismiss": {
+    "message": "Avvis"
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant kan ikke lagre data"
+  },
+  "confirmTitle": {
+    "message": "Vennligst bekreft"
+  },
+  "saving": {
+    "message": "Lagrer..."
+  },
+  "close": {
+    "message": "Lukk"
+  },
+  "loadMore": {
+    "message": "Last inn mer..."
+  },
+  "startChat": {
+    "message": "Start chat"
+  },
+  "previous": {
+    "message": "Forrige"
+  },
+  "next": {
+    "message": "Neste"
+  },
+  "chatWithCharacter": {
+    "message": "Chat med karakter"
+  },
+  "ttsShort": {
+    "message": "Tale"
+  },
+  "copyShort": {
+    "message": "Kopier"
+  },
+  "branchShort": {
+    "message": "Gren"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Igjen"
+  },
+  "continueShort": {
+    "message": "Mer"
+  },
+  "fileChanges": {
+    "message": "Filendringer"
+  },
+  "deletions": {
+    "message": "Slettinger"
+  },
+  "gitOperations": {
+    "message": "Git-operasjoner"
+  },
+  "commands": {
+    "message": "Kommandoer"
+  },
+  "otherOperations": {
+    "message": "Andre operasjoner"
+  },
+  "fileAccess": {
+    "message": "Filtilgang"
+  },
+  "notebookEdits": {
+    "message": "Notatbokendringer"
+  },
+  "applyPatch": {
+    "message": "Bruk patch"
+  },
+  "recursive": {
+    "message": "(rekursiv)"
+  },
+  "complexArguments": {
+    "message": "[Komplekse argumenter]"
+  },
+  "segmented_available": {
+    "message": "Servermodeller"
+  },
+  "segmented_custom": {
+    "message": "Egendefinerte modeller"
+  },
+  "success": {
+    "message": "Vellykket"
+  },
+  "created": {
+    "message": "Opprettet"
+  },
+  "updated": {
+    "message": "Oppdatert"
+  },
+  "deleted": {
+    "message": "Slettet"
+  },
+  "create": {
+    "message": "Opprett"
+  },
+  "reset": {
+    "message": "Tilbakestill"
+  },
+  "serverOffline": {
+    "message": "Server frakoblet eller ikke konfigurert"
+  },
+  "serverChats": {
+    "message": "Serverchatter"
+  },
+  "serverChatLoadError": {
+    "message": "Kunne ikke laste server-chat. Kontroller tilkoblingen og prøv igjen."
+  },
+  "serverChatSourceLabel": {
+    "message": "Serverkilde"
+  },
+  "serverChatForkedLabel": {
+    "message": "Forgrenet chat"
+  },
+  "serverChatForkedTooltip": {
+    "message": "Forgrenet fra chat {{chatId}}"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Serverchatter blir tilgjengelige når du kobler til tldw-serveren din."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Serverchatter er utilgjengelige akkurat nå. Sjekk serverloggene eller prøv igjen."
+  },
+  "historiesDeleted": {
+    "message": "{{count}} historikker slettet"
+  },
+  "deleteHistoriesError": {
+    "message": "Feil ved sletting av historikk"
+  },
+  "mermaid": {
+    "message": "Mermaid-diagrammer"
+  },
+  "search": {
+    "message": "Søk"
+  },
+  "searchResults": {
+    "message": "Søkeresultater"
+  },
+  "newBranch": {
+    "message": "Ny gren"
+  },
+  "error_label": {
+    "message": "Feil"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Vi fikk ikke kontakt med tldw-serveren din."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "API-nøkkelen din kan være ugyldig. Åpne Innstillinger → tldw server for å sjekke URL og API-nøkkel, og prøv på nytt."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Samtalen tidsavbrøt."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Serveren sluttet å strømme svar. Prøv igjen, eller åpne Helse og diagnostikk for å sjekke serverstatus."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Noe gikk galt under kommunikasjonen med tldw-serveren din."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Prøv igjen om et øyeblikk, eller åpne Helse og diagnostikk for å undersøke serverhelse."
+  },
+  "error_showDetails": {
+    "message": "Vis tekniske detaljer"
+  },
+  "error_hideDetails": {
+    "message": "Skjul tekniske detaljer"
+  },
+  "folders": {
+    "message": "Mapper"
+  },
+  "folderView": {
+    "message": "Mappevisning"
+  },
+  "dateView": {
+    "message": "Datovisning"
+  },
+  "newFolder": {
+    "message": "Ny mappe"
+  },
+  "folderName": {
+    "message": "Mappenavn"
+  },
+  "selectFolder": {
+    "message": "Velg mappe"
+  },
+  "noFolders": {
+    "message": "Ingen mapper"
+  },
+  "expandAll": {
+    "message": "Utvid alle"
+  },
+  "collapseAll": {
+    "message": "Skjul alle"
+  },
+  "refresh": {
+    "message": "Oppdater"
+  },
+  "confirm": {
+    "message": "Bekreft"
+  },
+  "untitled": {
+    "message": "Uten tittel"
+  },
+  "moveToFolder": {
+    "message": "Flytt til mappe"
+  },
+  "noToolCalls": {
+    "message": "Ingen verktøykall ennå"
+  },
+  "status_pending": {
+    "message": "Venter"
+  },
+  "status_running": {
+    "message": "Behandler"
+  },
+  "status_complete": {
+    "message": "Ferdig"
+  },
+  "status_error": {
+    "message": "Feil"
+  },
+  "arguments": {
+    "message": "Argumenter"
+  },
+  "invalidJson": {
+    "message": "Ugyldig JSON; viser råverdi"
+  },
+  "result": {
+    "message": "Resultat"
+  },
+  "tools_fs_list": {
+    "message": "List katalog"
+  },
+  "tools_fs_read": {
+    "message": "Les fil"
+  },
+  "tools_fs_write": {
+    "message": "Skriv fil"
+  },
+  "tools_fs_apply_patch": {
+    "message": "Bruk patch"
+  },
+  "tools_fs_mkdir": {
+    "message": "Opprett katalog"
+  },
+  "tools_fs_delete": {
+    "message": "Slett"
+  },
+  "tools_search_grep": {
+    "message": "Søk i innhold"
+  },
+  "tools_search_glob": {
+    "message": "Finn filer"
+  },
+  "tools_git_status": {
+    "message": "Git-status"
+  },
+  "tools_git_diff": {
+    "message": "Git-diff"
+  },
+  "tools_git_log": {
+    "message": "Git-logg"
+  },
+  "tools_git_branch": {
+    "message": "Git-gren"
+  },
+  "tools_git_add": {
+    "message": "Stage filer"
+  },
+  "tools_git_commit": {
+    "message": "Commit"
+  },
+  "tools_exec_run": {
+    "message": "Kjør kommando"
+  },
+  "markdown_unableToRender": {
+    "message": "Kan ikke gjengi innhold"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "Meldingsinnholdet kunne ikke vises. Dette kan skyldes ugyldig formatering."
+  },
+  "markdown_showRawContent": {
+    "message": "Vis rått innhold"
+  },
+  "commandPalette_goToChat": {
+    "message": "Gå til Chat"
+  },
+  "commandPalette_goToMedia": {
+    "message": "Gå til Media"
+  },
+  "commandPalette_goToNotes": {
+    "message": "Gå til Notater"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Gå til Flashcards"
+  },
+  "commandPalette_goToSettings": {
+    "message": "Gå til Innstillinger"
+  },
+  "commandPalette_goToHealth": {
+    "message": "Gå til Helse og diagnostikk"
+  },
+  "commandPalette_newChat": {
+    "message": "Ny chat"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Slå kunnskapssøk av/på"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "Søk i kunnskapsbasen din"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Slå websøk av/på"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Søk på internett"
+  },
+  "commandPalette_ingestPage": {
+    "message": "Importer gjeldende side"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Lagre denne siden i kunnskapsbasen din"
+  },
+  "commandPalette_switchModel": {
+    "message": "Bytt modell"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Slå sidestolpen av/på"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Vis eller skjul chat-sidestolpen"
+  },
+  "commandPalette_placeholder": {
+    "message": "Skriv en kommando eller søk…"
+  },
+  "commandPalette_noResults": {
+    "message": "Ingen treff"
+  },
+  "commandPalette_title": {
+    "message": "Kommando-palett"
+  },
+  "commandPalette_navigate": {
+    "message": "naviger"
+  },
+  "commandPalette_select": {
+    "message": "velg"
+  },
+  "commandPalette_toOpen": {
+    "message": "for å åpne"
+  },
+  "commandPalette_categoryActions": {
+    "message": "Handlinger"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Navigasjon"
+  },
+  "commandPalette_categorySettings": {
+    "message": "Innstillinger"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Nylig"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Søk i kunnskapen din"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Åpne kunnskapssøk-panelet for å finne utdrag og sette dem inn i chatten."
+  },
+  "featureHints_moreTools_title": {
+    "message": "Flere verktøy tilgjengelig"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Få tilgang til synsmodus, bildeopplasting, hurtiginnhenting og hele appen."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Hurtigkommandoer"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Trykk {{shortcut}} for å søke etter kommandoer, innstillinger og mer."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Juster modellparametere"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Finjuster temperatur, kontekstlengde og andre modellinnstillinger."
+  },
+  "chatSidebar_title": {
+    "message": "Chatter"
+  },
+  "chatSidebar_newChat": {
+    "message": "Ny chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Skjul sidestolpe"
+  },
+  "chatSidebar_expand": {
+    "message": "Utvid sidestolpe"
+  },
+  "chatSidebar_search": {
+    "message": "Søk i chatter..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "Innhent side"
+  },
+  "chatSidebar_media": {
+    "message": "Media"
+  },
+  "chatSidebar_notes": {
+    "message": "Notater"
+  },
+  "chatSidebar_flashcards": {
+    "message": "Huskekort"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompter"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Flere elementer"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Snarveier"
+  },
+  "chatSidebar_settings": {
+    "message": "Innstillinger"
+  },
+  "chatSidebar_loadError": {
+    "message": "Kunne ikke laste chatter"
+  },
+  "chatSidebar_localTab": {
+    "message": "Lokalt"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Mapper"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Lokalt"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Mapper"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "Ingen serverchatter ennå"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Mapper krever en servertilkobling"
+  },
+  "extName": {
+    "message": "tldw-assistenten"
+  },
+  "extDescription": {
+    "message": "Bruk dine lokalt kjørende AI-modeller til å hjelpe deg med å surfe på nettet."
+  },
+  "openSidePanelToChat": {
+    "message": "Åpne sidepanelet for å chatte"
+  },
+  "openOptionToChat": {
+    "message": "Åpne Web UI for å chatte"
+  },
+  "contextSummarize": {
+    "message": "Oppsummer"
+  },
+  "contextExplain": {
+    "message": "Forklar"
+  },
+  "contextRephrase": {
+    "message": "Omskrive"
+  },
+  "contextTranslate": {
+    "message": "Oversett"
+  },
+  "contextCustom": {
+    "message": "Tilpasset"
+  },
+  "contextSendToTldw": {
+    "message": "Send til tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Behandle med tldw_server (ikke lagre)"
+  },
+  "contextTranscribeMedia": {
+    "message": "Transkriber video/lyd"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Transkriber + oppsummer video/lyd"
+  },
+  "contextSaveToNotes": {
+    "message": "Lagre i Notater"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Velg tekst først for å lagre i Notater."
+  },
+  "contextSidebarOpening": {
+    "message": "Åpner sidepanelet..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Åpner sidepanelet for å lagre notatet..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Kunne ikke åpne sidepanelet for å lagre denne notisen. Kontroller at tldw Assistant-sidepanelet er tillatt på dette nettstedet og prøv igjen."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] Forespørselen om å sende siden til tldw_server ble avvist."
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Klarte ikke å sende denne siden til tldw_server: $1. Sjekk Innstillinger → tldw server og prøv igjen."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Klarte ikke å sende denne siden til tldw_server. Sjekk Innstillinger → tldw server og prøv igjen."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Sendte siden til tldw_server for behandling."
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Noe gikk galt under sending av denne siden til tldw_server. Kontroller at tldw_server og utvidelsen kjører, og prøv igjen."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] En modell-pull-forespørsel pågår allerede. Vent til den er ferdig før du starter en ny."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Vil du sende en forespørsel til tldw_server om å hente modellen «$1»? Dette er uavhengig av nettsiden huggingface.co. Serveren begynner å hente modellen når du bekrefter."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Sender en forespørsel til tldw_server om å hente «$1». Sjekk utvidelsesikonet eller loggene til tldw_server for fremdrift."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Klarte ikke å sende en pull-forespørsel for «$1»: $2. Sjekk Innstillinger → tldw server og prøv igjen."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Klarte ikke å sende en pull-forespørsel for «$1». Sjekk Innstillinger → tldw server og prøv igjen."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Sendte en forespørsel til tldw_server om å hente «$1». Overvåk status via utvidelsesikonet eller tldw_server-loggene."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Noe gikk galt da vi sendte en pull-forespørsel for «$1» til tldw_server. Kontroller at tldw_server og utvidelsen kjører, og prøv igjen."
+  },
+  "stepLabel": {
+    "message": "Velkommen"
+  },
+  "path": {
+    "message": "Hvordan vil du komme i gang?"
+  },
+  "nextSteps": {
+    "message": "Du er klar til å komme i gang"
+  },
+  "restartOnboardingLabel": {
+    "message": "Start onboarding på nytt fra begynnelsen"
+  },
+  "restartOnboardingButton": {
+    "message": "Start onboarding på nytt"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "Starte onboarding på nytt?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "Dette tilbakestiller onboarding-statusen din og tar deg tilbake til oppsettflyten."
+  }
+}

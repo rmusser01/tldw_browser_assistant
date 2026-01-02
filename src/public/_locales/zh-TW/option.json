@@ -1,0 +1,1763 @@
+{
+  "newChat": {
+    "message": "新聊天"
+  },
+  "selectAPrompt": {
+    "message": "選擇一個提示詞"
+  },
+  "githubRepository": {
+    "message": "GitHub 儲存庫"
+  },
+  "settings": {
+    "message": "設定"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "將 tldw Assistant 連線到你的伺服器"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "正在搜尋你的 tldw 伺服器…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "已連線到你的 tldw 伺服器"
+  },
+  "connectionCard_headlineError": {
+    "message": "無法連線到你的 tldw 伺服器"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server 是支援聊天、知識搜尋與媒體處理的後端。連線你的 tldw 伺服器 URL 以開始使用助手。"
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "我們正在檢查 {{host}}，確認你的 tldw 伺服器是否可連線。等待回應可能需要一點時間。"
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "已連線到位於 {{host}} 的 tldw 伺服器。你可以開始聊天或使用審閱、知識等工具。"
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "查看媒體和轉錄內容"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "搜尋知識庫和筆記"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "在自己的文件上使用 RAG"
+  },
+  "connectionCard_descriptionError": {
+    "message": "無法連線到位於 {{host}} 的 tldw 伺服器。請確認伺服器正在運作、URL 正確，且瀏覽器能透過網路連線到該位址。"
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "開始聊天"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "重試連線"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "變更伺服器"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "開啟診斷"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "檢視診斷"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "開啟快速匯入"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "試試示範"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "繼續離線使用"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "停用離線模式"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "離線模式 — 僅供暫存"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "前往伺服器卡片"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "提示：離線時需要匯入協助嗎？"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "當伺服器離線時，快速匯入會作為暫存區。你可以先將 URL 和檔案排隊，重新連線後再處理。"
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "返回工作區"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "設定會在新的瀏覽器分頁中開啟，方便你設定 tldw 伺服器。"
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "伺服器離線時，快速匯入可以將 URL 和檔案排隊，等你重新連線後再處理。"
+  },
+  "header_showShortcuts": {
+    "message": "顯示快捷方式"
+  },
+  "header_hideShortcuts": {
+    "message": "隱藏快捷方式"
+  },
+  "header_groupWorkspace": {
+    "message": "工作區"
+  },
+  "header_groupKnowledge": {
+    "message": "知識"
+  },
+  "header_groupSettings": {
+    "message": "設定快捷方式"
+  },
+  "header_backToHome": {
+    "message": "返回首頁"
+  },
+  "header_openSidebar": {
+    "message": "開啟側邊欄"
+  },
+  "header_untitledChat": {
+    "message": "未命名"
+  },
+  "header_modelLabel": {
+    "message": "模型"
+  },
+  "header_contentReview": {
+    "message": "內容審查"
+  },
+  "header_promptLabel": {
+    "message": "提示詞"
+  },
+  "header_review": {
+    "message": "審閱"
+  },
+  "header_flashcards": {
+    "message": "抽認卡"
+  },
+  "header_quiz": {
+    "message": "測驗"
+  },
+  "header_media": {
+    "message": "媒體"
+  },
+  "header_libraryView": {
+    "message": "多項審閱"
+  },
+  "header_notes": {
+    "message": "筆記"
+  },
+  "header_modesLabel": {
+    "message": "模式"
+  },
+  "header_modePlayground": {
+    "message": "聊天"
+  },
+  "header_modeReview": {
+    "message": "審閱"
+  },
+  "header_modeMedia": {
+    "message": "媒體"
+  },
+  "header_modeKnowledge": {
+    "message": "知識 Q&A"
+  },
+  "header_modeNotes": {
+    "message": "筆記"
+  },
+  "header_modePrompts": {
+    "message": "提示詞"
+  },
+  "header_modePromptsPlayground": {
+    "message": "提示詞"
+  },
+  "header_modeStt": {
+    "message": "STT 遊樂場"
+  },
+  "header_modePromptStudio": {
+    "message": "Prompt Studio"
+  },
+  "header_modeFlashcards": {
+    "message": "抽認卡"
+  },
+  "header_modeWorldBooks": {
+    "message": "世界書"
+  },
+  "header_modeDictionaries": {
+    "message": "聊天字典"
+  },
+  "header_modeCharacters": {
+    "message": "角色"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} 切換"
+  },
+  "header_quickIngest": {
+    "message": "快速匯入"
+  },
+  "header_modelSettings": {
+    "message": "模型設定"
+  },
+  "header_serverSettings": {
+    "message": "伺服器設定"
+  },
+  "header_more": {
+    "message": "AI 工具"
+  },
+  "header_moreMenu_title": {
+    "message": "進階工具"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "側邊欄、儲存庫與除錯選項等進階工具"
+  },
+  "header_moreActions": {
+    "message": "更多操作"
+  },
+  "header_toolsMenu": {
+    "message": "聊天工具"
+  },
+  "header_serverBackedLabel": {
+    "message": "伺服器端聊天"
+  },
+  "header_serverBackedTooltip": {
+    "message": "此聊天中的訊息也會儲存在你的 tldw 伺服器上。"
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "搜尋頁面、聊天、媒體、筆記…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "未找到與\"{{query}}\"匹配的結果。"
+  },
+  "header_omniSearchCreateNote": {
+    "message": "建立筆記\"{{query}}\""
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "已建立筆記\"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "建立抽認卡集合\"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "已建立抽認卡集合\"{{query}}\""
+  },
+  "header_omniSearchStartChat": {
+    "message": "開始新的聊天\"{{query}}\""
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "現在可以在選項頁和側邊欄中使用聊天和工具。"
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — 已排隊 {{count}} 個項目 — 按一下以檢視並處理"
+  },
+  "header_modeSpeech": {
+    "message": "語音"
+  },
+  "sidebarTitle": {
+    "message": "聊天紀錄"
+  },
+  "error": {
+    "message": "錯誤"
+  },
+  "somethingWentWrong": {
+    "message": "出現了錯誤"
+  },
+  "validationSelectModel": {
+    "message": "請選擇模型以繼續"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "您確定要刪除這條紀錄嗎？"
+  },
+  "editHistoryTitle": {
+    "message": "輸入一個新的標題"
+  },
+  "temporaryChat": {
+    "message": "臨時聊天（不會儲存）"
+  },
+  "more_copy_group": {
+    "message": "複製"
+  },
+  "more_copy_asText": {
+    "message": "複製為文字"
+  },
+  "more_copy_asMarkdown": {
+    "message": "複製為Markdown"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "複製標準逐字稿"
+  },
+  "more_copy_success": {
+    "message": "已複製到剪貼簿！"
+  },
+  "more_download_group": {
+    "message": "下載"
+  },
+  "more_download_text": {
+    "message": "文字檔 (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Markdown 文件 (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "標準逐字稿 (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON 文件 (.json)"
+  },
+  "more_download_image": {
+    "message": "圖片 (.png)"
+  },
+  "more_share": {
+    "message": "分享"
+  },
+  "libraryView": {
+    "message": "多項審閱"
+  },
+  "notes": {
+    "message": "筆記"
+  },
+  "flashcards_review": {
+    "message": "複習"
+  },
+  "flashcards_create": {
+    "message": "建立"
+  },
+  "flashcards_manage": {
+    "message": "管理"
+  },
+  "flashcards_importExport": {
+    "message": "匯入 / 匯出"
+  },
+  "flashcards_selectDeck": {
+    "message": "選擇牌組"
+  },
+  "flashcards_nextDue": {
+    "message": "下一張到期"
+  },
+  "flashcards_front": {
+    "message": "正面"
+  },
+  "flashcards_back": {
+    "message": "背面"
+  },
+  "flashcards_extra": {
+    "message": "附加"
+  },
+  "flashcards_showAnswer": {
+    "message": "顯示答案"
+  },
+  "flashcards_hideAnswer": {
+    "message": "隱藏答案"
+  },
+  "flashcards_preview": {
+    "message": "預覽"
+  },
+  "flashcards_rate": {
+    "message": "評分"
+  },
+  "flashcards_answerMs": {
+    "message": "回答時間（毫秒，可選）"
+  },
+  "flashcards_noDue": {
+    "message": "沒有到期卡片"
+  },
+  "flashcards_deck": {
+    "message": "牌組"
+  },
+  "flashcards_newDeck": {
+    "message": "新牌組"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "請輸入牌組名稱。"
+  },
+  "flashcards_modelType": {
+    "message": "卡片類型"
+  },
+  "flashcards_reverse": {
+    "message": "反向"
+  },
+  "flashcards_isCloze": {
+    "message": "填空卡"
+  },
+  "flashcards_tags": {
+    "message": "標籤"
+  },
+  "flashcards_dueStatus": {
+    "message": "到期狀態"
+  },
+  "flashcards_dueAll": {
+    "message": "全部"
+  },
+  "flashcards_dueNew": {
+    "message": "新卡"
+  },
+  "flashcards_dueLearning": {
+    "message": "學習中"
+  },
+  "flashcards_dueDue": {
+    "message": "待複習"
+  },
+  "flashcards_tag": {
+    "message": "標籤"
+  },
+  "flashcards_noCards": {
+    "message": "沒有卡片"
+  },
+  "flashcards_due": {
+    "message": "到期"
+  },
+  "flashcards_editCard": {
+    "message": "編輯卡片"
+  },
+  "flashcards_importTitle": {
+    "message": "匯入抽認卡"
+  },
+  "flashcards_exportTitle": {
+    "message": "匯出抽認卡"
+  },
+  "flashcards_importHelp": {
+    "message": "貼上 TSV/CSV 行：牌組、正面、背面、標籤、筆記"
+  },
+  "flashcards_pasteContent": {
+    "message": "在此貼上內容..."
+  },
+  "flashcards_tab": {
+    "message": "Tab"
+  },
+  "flashcards_comma": {
+    "message": "，(逗號)"
+  },
+  "flashcards_semicolon": {
+    "message": "；(分號)"
+  },
+  "flashcards_pipe": {
+    "message": "| (直線)"
+  },
+  "flashcards_hasHeader": {
+    "message": "包含表頭"
+  },
+  "flashcards_import": {
+    "message": "匯入"
+  },
+  "flashcards_imported": {
+    "message": "已匯入"
+  },
+  "flashcards_importLimits": {
+    "message": "匯入限制"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV"
+  },
+  "flashcards_apkg": {
+    "message": "Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "包含反向卡片"
+  },
+  "flashcards_includeHeader": {
+    "message": "包含標題列"
+  },
+  "flashcards_extendedHeader": {
+    "message": "延伸標題列"
+  },
+  "flashcards_download": {
+    "message": "下載"
+  },
+  "flashcards_duplicate": {
+    "message": "重複"
+  },
+  "flashcards_move": {
+    "message": "移動"
+  },
+  "flashcards_reviewFailed": {
+    "message": "複習失敗"
+  },
+  "flashcards_updateFailed": {
+    "message": "更新失敗"
+  },
+  "flashcards_deleteFailed": {
+    "message": "刪除失敗"
+  },
+  "flashcards_missingVersion": {
+    "message": "缺少版本資訊；請重新載入後再試"
+  },
+  "flashcards_bulkMove": {
+    "message": "批次移動"
+  },
+  "flashcards_bulkDelete": {
+    "message": "批次刪除"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} 個已刪除 · {{failed}} 個失敗"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "此操作僅套用於前 {{limit}} 個項目。"
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "匯出所選項目（CSV/TSV）"
+  },
+  "flashcards_selectedCount": {
+    "message": "已選取"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "選取此頁全部"
+  },
+  "flashcards_clearSelection": {
+    "message": "清除選取"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "連線以使用抽認卡"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "若要複習或產生抽認卡，請先連線至你的 tldw 伺服器。"
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "前往「設定」→「tldw server」，新增你的伺服器 URL。"
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "完成連線後，你可以複習到期的卡片，或從筆記與媒體建立新的卡片組。"
+  },
+  "flashcards_demoTitle": {
+    "message": "在示範模式中探索抽認卡"
+  },
+  "flashcards_demoDescription": {
+    "message": "此示範會說明抽認卡如何把你的內容轉成間隔複習卡片。之後你可以連線自己的伺服器，從個人的筆記與媒體產生並複習卡片。"
+  },
+  "flashcards_demoExample1": {
+    "message": "看看在「複習」與「管理」分頁中，卡片組、卡片與標籤是如何組織的。"
+  },
+  "flashcards_demoExample2": {
+    "message": "連線後，你就能從課程、會議或筆記中產生卡片，並依排程進行複習。"
+  },
+  "flashcards_demoExample3": {
+    "message": "將抽認卡搭配筆記與媒體一起使用，讓重要的想法保持新鮮記憶。"
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "範例卡片組（僅供預覽）"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "示範卡片組：核心概念"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 張卡片 · 適合用來測試間隔與評分。"
+  },
+  "flashcards_demoSample2Title": {
+    "message": "示範卡片組：產品術語"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 張卡片 · 包含名稱、縮寫與重要定義。"
+  },
+  "flashcards_demoSample3Title": {
+    "message": "示範卡片組：會議後續事項"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 張卡片 · 範例待辦事項，可用來複習。"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "選取所有符合結果的卡片"
+  },
+  "flashcards_ratingAgain": {
+    "message": "再看一次"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "我完全不記得這張卡片。"
+  },
+  "flashcards_ratingHard": {
+    "message": "困難"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "勉強想起來，感覺相當吃力。"
+  },
+  "flashcards_ratingGood": {
+    "message": "良好"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "稍微費點力才想起來。"
+  },
+  "flashcards_ratingEasy": {
+    "message": "容易"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "我很快、很有把握地回想起來。"
+  },
+  "flashcards_showTiming": {
+    "message": "追蹤作答時間"
+  },
+  "flashcards_hideTiming": {
+    "message": "隱藏作答時間"
+  },
+  "flashcards_noDueTitle": {
+    "message": "目前沒有到期要複習的卡片"
+  },
+  "flashcards_noDueDescription": {
+    "message": "你已經全部追上進度。建立新卡片或匯入既有牌組來開始複習。"
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "建立新卡片"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "匯入牌組"
+  },
+  "flashcards_createTitle": {
+    "message": "從筆記建立抽認卡"
+  },
+  "flashcards_createDescription": {
+    "message": "將題目放在正面、答案放在背面。你可以把卡片分組到不同牌組，並加上標籤以加快搜尋。"
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "「基本」會在正面顯示問題、背面顯示答案。「反向」也會建立一張相反方向的卡片。「完形填空」會使用 {{...}} 隱藏部分文字。"
+  },
+  "flashcards_reverseHelp": {
+    "message": "同時建立一張將背面內容當作問題的卡片。"
+  },
+  "flashcards_isClozeHelp": {
+    "message": "適合填空題型。請在正面用 {{...}} 包住要隱藏的文字。"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "支援 Markdown 和 LaTeX。"
+  },
+  "flashcards_extraHint": {
+    "message": "可選提示/說明（支援 Markdown + LaTeX）。"
+  },
+  "flashcards_notesHint": {
+    "message": "內部備註（支援 Markdown + LaTeX）。"
+  },
+  "flashcards_bulkActions": {
+    "message": "批次操作"
+  },
+  "flashcards_selectionHelp": {
+    "message": "「選取所有符合結果的卡片」會將操作套用到所有符合篩選條件的卡片，而不只這一頁。"
+  },
+  "flashcards_noCardsTitle": {
+    "message": "尚未有任何抽認卡"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "從筆記與媒體建立卡片，或匯入現有牌組。"
+  },
+  "flashcards_clearFilters": {
+    "message": "清除篩選條件"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "建立你的第一張卡片"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "匯入抽認卡"
+  },
+  "flashcards_mapping": {
+    "message": "欄位對應"
+  },
+  "flashcards_mappingPreview": {
+    "message": "預覽前幾列對應後的資料："
+  },
+  "flashcards_exportHelp": {
+    "message": "可先依牌組、標籤或搜尋條件篩選，再匯出為 CSV/TSV 供試算表使用，或匯出為 Anki (.apkg) 供 Anki 用戶端使用。"
+  },
+  "contentReview_title": {
+    "message": "內容審查"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} 個已就緒"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} 個已提交"
+  },
+  "contentReview_totalCount": {
+    "message": "共 {{count}} 個"
+  },
+  "contentReview_commitAll": {
+    "message": "全部提交"
+  },
+  "contentReview_clearDrafts": {
+    "message": "清除草稿"
+  },
+  "contentReview_emptyDescription": {
+    "message": "目前尚無草稿。使用 Quick Ingest 並啟用「儲存前審查」即可建立草稿。"
+  },
+  "contentReview_openQuickIngest": {
+    "message": "開啟 Quick Ingest"
+  },
+  "contentReview_batchLabel": {
+    "message": "批次"
+  },
+  "contentReview_batchName": {
+    "message": "批次 {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "草稿"
+  },
+  "contentReview_selectDraft": {
+    "message": "選取一個草稿開始審查。"
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "草稿標題"
+  },
+  "contentReview_lastSaved": {
+    "message": "已於 {{time}} 儲存"
+  },
+  "contentReview_resetTitle": {
+    "message": "要重設草稿嗎？"
+  },
+  "contentReview_resetBody": {
+    "message": "這會還原此草稿的原始內容。"
+  },
+  "contentReview_resetConfirm": {
+    "message": "重設"
+  },
+  "contentReview_resetCancel": {
+    "message": "取消"
+  },
+  "contentReview_resetContent": {
+    "message": "重設"
+  },
+  "contentReview_diffView": {
+    "message": "差異檢視"
+  },
+  "contentReview_saveDraft": {
+    "message": "儲存草稿"
+  },
+  "contentReview_editorLabel": {
+    "message": "內容"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} 個字"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} 個字元"
+  },
+  "contentReview_aiFix": {
+    "message": "使用 AI 修正"
+  },
+  "contentReview_aiHint": {
+    "message": "會將草稿內容傳送至伺服器，由 AI 進行處理。"
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "伺服器預設值"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "將草稿傳送到伺服器？"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "這會將草稿內容傳送到你的 tldw 伺服器進行 AI 處理。在你提交之前，草稿都只會保留在本機。"
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "繼續"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "取消"
+  },
+  "contentReview_aiApplied": {
+    "message": "已套用 AI 修正。"
+  },
+  "contentReview_aiNoChange": {
+    "message": "沒有收到任何變更。"
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI 未回傳任何內容。"
+  },
+  "contentReview_aiUnavailable": {
+    "message": "聊天補全功能目前無法使用。"
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "選擇範本"
+  },
+  "contentReview_applyTemplate": {
+    "message": "套用範本"
+  },
+  "contentReview_templateApplied": {
+    "message": "已套用範本。"
+  },
+  "contentReview_templateMissing": {
+    "message": "請先選擇一個範本。"
+  },
+  "contentReview_detectSections": {
+    "message": "偵測段落"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "要重新偵測段落嗎？"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "這會取代既有段落並重設你的選取項目。"
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "重新偵測"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "取消"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "沒有偵測到任何段落。"
+  },
+  "contentReview_sectionsLabel": {
+    "message": "段落篩選器"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "清理逐字稿"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "在保留行結構的前提下，統一標點符號與大小寫。"
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "說話輪次"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "確保每位說話者的輪次各自位於一行，並帶有清楚的標籤。"
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章節標題"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "插入 Markdown 標題來分組主題，而不移除任何內容。"
+  },
+  "contentReview_metadataLabel": {
+    "message": "中繼資料"
+  },
+  "contentReview_mediaType": {
+    "message": "媒體類型"
+  },
+  "contentReview_keywords": {
+    "message": "關鍵字"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "新增關鍵字"
+  },
+  "contentReview_reviewNotes": {
+    "message": "審查筆記"
+  },
+  "contentReview_missingSource": {
+    "message": "找不到來源檔案"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "請附加原始檔案後再提交此草稿。"
+  },
+  "contentReview_attachSource": {
+    "message": "附加檔案"
+  },
+  "contentReview_actionsLabel": {
+    "message": "操作"
+  },
+  "contentReview_commit": {
+    "message": "提交"
+  },
+  "contentReview_commitDisabled": {
+    "message": "提交前請先附加原始的音訊／視訊檔案。"
+  },
+  "contentReview_markReviewed": {
+    "message": "標記為已審查"
+  },
+  "contentReview_skipNext": {
+    "message": "略過"
+  },
+  "contentReview_discard": {
+    "message": "捨棄"
+  },
+  "contentReview_discardTitle": {
+    "message": "要捨棄草稿嗎？"
+  },
+  "contentReview_discardBody": {
+    "message": "此草稿會被標記為已捨棄，並從審查清單中移除。"
+  },
+  "contentReview_discardConfirm": {
+    "message": "捨棄"
+  },
+  "contentReview_discardCancel": {
+    "message": "取消"
+  },
+  "contentReview_commitSuccess": {
+    "message": "草稿已提交。"
+  },
+  "contentReview_commitAllTitle": {
+    "message": "提交所有已審查的草稿？"
+  },
+  "contentReview_commitAllBody": {
+    "message": "只有標記為已審查的草稿會被提交。"
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "全部提交"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "取消"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} 個已提交 · {{failed}} 個失敗"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "此檔案超過本機草稿上限 ({{cap}})。"
+  },
+  "contentReview_clearTitle": {
+    "message": "清除所有草稿？"
+  },
+  "contentReview_clearBody": {
+    "message": "這會移除所有本機內容審查草稿與相關資源。"
+  },
+  "contentReview_clearConfirm": {
+    "message": "清除草稿"
+  },
+  "contentReview_clearCancel": {
+    "message": "取消"
+  },
+  "contentReview_clearSuccess": {
+    "message": "草稿已清除。"
+  },
+  "contentReview_originalLabel": {
+    "message": "原始版本"
+  },
+  "contentReview_editedLabel": {
+    "message": "已編輯"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "審核後儲存"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "儲存前審核"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "先處理，然後在提交到伺服器前於本機編輯草稿。"
+  },
+  "contentReview_reviewEnabled": {
+    "message": "審核模式"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "本機草稿上限為 {{cap}}。"
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "要將草稿儲存在本機嗎？"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。"
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "審核模式會在提交到伺服器前把內容保留在用戶端。"
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "啟用審核"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "取消"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "審核"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "草稿已準備好審核。"
+  },
+  "contentReview_openContentReview": {
+    "message": "開啟內容審核"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "檔案太大"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "檔案大小必須小於 10MB"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "上傳失敗"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "無法上傳檔案，請再試一次。"
+  },
+  "promptStudio_title": {
+    "message": "Prompt Studio 實驗室"
+  },
+  "promptStudio_subtitle": {
+    "message": "管理 Prompt Studio 的專案、提示詞、執行、測試案例與評估。"
+  },
+  "promptStudio_capabilityError": {
+    "message": "無法連線到 Prompt Studio"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "請檢查伺服器連線，或在 Prompt Studio API 可用前停用此區塊。"
+  },
+  "promptStudio_offline": {
+    "message": "連線伺服器以使用 Prompt Studio"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "專案與提示詞"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "建立或開啟專案以編輯提示詞。"
+  },
+  "promptStudio_projectsError": {
+    "message": "無法載入專案"
+  },
+  "promptStudio_promptVersion": {
+    "message": "版本"
+  },
+  "promptStudio_changeDescription": {
+    "message": "變更說明"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "系統提示詞"
+  },
+  "promptStudio_userPrompt": {
+    "message": "使用者提示詞"
+  },
+  "promptStudio_fewShot": {
+    "message": "Few-shot 範例（JSON）"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "模組設定（JSON）"
+  },
+  "promptStudio_history": {
+    "message": "歷史記錄"
+  },
+  "promptStudio_executeCard": {
+    "message": "臨時執行"
+  },
+  "promptStudio_executeHint": {
+    "message": "提供者、模型、溫度、輸入。"
+  },
+  "promptStudio_provider": {
+    "message": "提供者"
+  },
+  "promptStudio_model": {
+    "message": "模型"
+  },
+  "promptStudio_runPrompt": {
+    "message": "執行提示詞"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "執行表單即將推出。可使用此面板透過 /prompt-studio/prompts/execute 以單次輸入執行提示詞。"
+  },
+  "promptStudio_testsCard": {
+    "message": "測試案例與評估"
+  },
+  "promptStudio_testsHint": {
+    "message": "列出/建立測試案例，執行評估並輪詢狀態。"
+  },
+  "promptStudio_testCases": {
+    "message": "測試案例"
+  },
+  "promptStudio_evaluations": {
+    "message": "評估"
+  },
+  "promptStudio_inputsJson": {
+    "message": "輸入（JSON）"
+  },
+  "promptStudio_expectedJson": {
+    "message": "預期輸出（JSON）"
+  },
+  "promptStudio_golden": {
+    "message": "是否為基準？"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "批次新增"
+  },
+  "promptStudio_bulkJson": {
+    "message": "測試案例的 JSON 陣列"
+  },
+  "promptStudio_runAsync": {
+    "message": "非同步執行"
+  },
+  "promptStudio_temperature": {
+    "message": "溫度"
+  },
+  "promptStudio_maxTokens": {
+    "message": "最大 token 數"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "執行評估"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "佔位說明：在此區塊接入測試案例的建立/列表/詳情與評估執行，以及非同步輪詢。"
+  },
+  "promptStudio_unavailable": {
+    "message": "此伺服器未啟用 Prompt Studio。"
+  },
+  "promptStudio_unavailableBody": {
+    "message": "啟用後，你將在此看到專案、提示詞歷史、執行流程與評估。"
+  },
+  "promptSearch_title": {
+    "message": "標題"
+  },
+  "promptSearch_content": {
+    "message": "內容"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "系統提示詞"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "同時儲存到伺服器"
+  },
+  "promptSearch_cancel": {
+    "message": "取消"
+  },
+  "promptSearch_insert": {
+    "message": "插入"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "另存為新"
+  },
+  "promptSearch_saveLocal": {
+    "message": "儲存變更（本機）"
+  },
+  "promptSearch_saveServer": {
+    "message": "儲存變更（伺服器）"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "儲存本機副本"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "另存為新（僅伺服器）"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "提示詞已在本機更新"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "提示詞已在伺服器更新"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "本機提示詞更新失敗"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "伺服器提示詞更新失敗"
+  },
+  "promptSearch_manageLink": {
+    "message": "檢視 / 管理提示詞"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "覆寫本機提示詞（選填）"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "選擇要覆寫的本機提示詞"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "提示詞已儲存"
+  },
+  "promptSearch_saveFailed": {
+    "message": "儲存提示詞失敗"
+  },
+  "quickIngest_title": {
+    "message": "快速匯入媒體"
+  },
+  "quickIngest_subtitle": {
+    "message": "輸入一或多個 URL。必要時可為每行指定類型。"
+  },
+  "quickIngest_offlineTitle": {
+    "message": "伺服器離線 — 僅限測試環境"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "您可以在此排程 URL 與檔案並檢視欄位，但在 tldw 伺服器恢復線上前不會進行匯入，請重新連線以處理待辦項目。"
+  },
+  "quickIngest_sourceHeading": {
+    "message": "來源 URL 或檔案"
+  },
+  "quickIngest_storeRemote": {
+    "message": "儲存到遠端資料庫"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "將匯入結果儲存到你的 tldw 伺服器"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "僅在本機處理匯入結果"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "上傳到你的 tldw 伺服器以便索引。"
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "只處理並在本機保留結果（下載 JSON）。"
+  },
+  "quickIngest_storageHeading": {
+    "message": "匯入結果的儲存位置"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "儲存在你的 tldw 伺服器上（建議用於 RAG 和共用工作區）。"
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "僅保存在此瀏覽器中；不會寫入伺服器。"
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "審核後儲存"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "儲存前審核"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "先處理，然後在提交到伺服器前於本機編輯草稿。"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "審核模式"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "本機草稿上限為 {{cap}}。"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "要將草稿儲存在本機嗎？"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "草稿會儲存在此瀏覽器中，可能包含敏感資料。你可隨時在「內容審核」頁面清除草稿。"
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "審核模式會在提交到伺服器前把內容保留在用戶端。"
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "啟用審核"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "取消"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "審核"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "草稿已準備好審核。"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "無法建立審閱草稿。"
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "建立審閱草稿失敗。"
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "重新嘗試建立草稿"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "不經審閱儲存"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "無法開啟內容審閱。請再試一次。"
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "重新嘗試開啟內容審閱"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} 個檔案超過本機草稿上限（{{cap}}）。請在提交音訊/影片前附加來源。"
+  },
+  "quickIngest_openContentReview": {
+    "message": "開啟內容審核"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "深入了解匯入與儲存"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "貼上 URL（每行一個）"
+  },
+  "quickIngest_or": {
+    "message": "或"
+  },
+  "quickIngest_remove": {
+    "message": "移除"
+  },
+  "quickIngest_add": {
+    "message": "新增 URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "匯入選項"
+  },
+  "quickIngest_audioOptions": {
+    "message": "音訊選項"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "語言（例如 en）"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "啟用以在轉錄中區分說話者。"
+  },
+  "quickIngest_documentOptions": {
+    "message": "文件選項"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR 可協助從掃描的 PDF 或圖片中擷取文字。"
+  },
+  "quickIngest_videoOptions": {
+    "message": "影片選項"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "可用時包含時間戳記/字幕。"
+  },
+  "quickIngest_cancel": {
+    "message": "取消"
+  },
+  "quickIngest_ingest": {
+    "message": "匯入"
+  },
+  "quickIngest_process": {
+    "message": "處理"
+  },
+  "quickIngest_results": {
+    "message": "結果"
+  },
+  "quickIngest_downloadJson": {
+    "message": "下載 JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "已載入 {{count}} 個進階欄位"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "未偵測到進階選項 — 請嘗試重新載入規格。"
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} 項已修改"
+  },
+  "quickIngest_progress": {
+    "message": "正在處理 {{done}} / {{total}} 項目…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "目前無法處理這些匯入項目。"
+  },
+  "quickIngest_errorHint": {
+    "message": "請先檢查你的 tldw 伺服器，然後再試一次。Health & diagnostics 可以協助排除匯入相關的問題。"
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "在 Health & diagnostics 中檢查伺服器健康狀態"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "最近的執行失敗——請從頂端開啟 Health & diagnostics 以查看詳細資訊。"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "進階規格已從伺服器重新載入"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "進階規格已從伺服器重新載入（新增欄位：{{added}}，移除欄位：{{removed}}）"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "使用內建 media.add 綱要備用版本（v{{version}}）；若欄位似乎過時，請對照您的 tldw_server /openapi.json 進行驗證。"
+  },
+  "notesSearch_placeholder": {
+    "message": "搜尋標題與內容"
+  },
+  "notesSearch_clear": {
+    "message": "清除搜尋與篩選"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "依關鍵字篩選"
+  },
+  "notesSearch_new": {
+    "message": "新增筆記"
+  },
+  "notesSearch_newTooltip": {
+    "message": "建立新筆記"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} 則筆記"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "將符合條件的筆記匯出為 Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "將符合條件的筆記匯出為 CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "將符合條件的筆記匯出為 JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "已匯出（{{size}}）"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "已匯出 {{count}} 篇筆記（{{size}}）"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "已將 {{count}} 篇筆記匯出為 CSV（{{size}}）"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "已將 {{count}} 篇筆記匯出為 JSON（{{size}}）"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "將筆記匯出為 Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "儲存筆記"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "複製筆記內容"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "刪除筆記"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "匯出"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "結果"
+  },
+  "notesSearch_showingRange": {
+    "message": "顯示 {{start}}-{{end}} / {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "展開側邊欄"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "收合側邊欄"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "標題"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "關鍵字（標籤）"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "關鍵字能幫助你透過左側的關鍵字篩選器找到這則筆記。"
+  },
+  "tts_playground": {
+    "message": "TTS 遊樂場"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "連線以使用筆記"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "若要使用「筆記」，請先連線到你的 tldw 伺服器。"
+  },
+  "notesEmpty_demoExample3": {
+    "message": "將「筆記」搭配「媒體」與「複閱」一起使用，幫助你整理並追蹤重要的發現。"
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "範例筆記（僅供預覽）"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "示範筆記：每週會議摘要"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "最近團隊同步中的決策、阻礙與後續追蹤事項。"
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "今天 · 上午 9:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "示範筆記：研究重點"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "從長篇文章或論文中整理出的關鍵洞見。"
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "昨天 · 下午 4:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "示範筆記：通話摘要"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "客戶通話的重點整理，以及下一步行動與負責人。"
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "本週"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "開啟「設定」→「tldw server」，新增你的伺服器 URL。"
+  },
+  "notesEmpty_connectExample2": {
+    "message": "若伺服器正在執行但無法連線，請使用「診斷」。"
+  },
+  "notesEmpty_demoTitle": {
+    "message": "在示範模式中探索筆記"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "此示範會說明「筆記」如何整理你的洞見。之後你可以連線自己的伺服器，建立並儲存真正的筆記。"
+  },
+  "notesEmpty_demoExample1": {
+    "message": "看看在清單中，筆記標題、預覽與時間戳記是如何顯示的。"
+  },
+  "notesEmpty_demoExample2": {
+    "message": "完成連線後，你可以從會議、複閱結果等內容建立筆記。"
+  },
+  "notesEmpty_title": {
+    "message": "尚未有任何筆記"
+  },
+  "notesEmpty_description": {
+    "message": "建立並整理與 tldw 洞見相關的自由格式筆記。"
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "為最近的一場會議或逐字稿建立一則新的筆記。"
+  },
+  "notesEmpty_exampleLink": {
+    "message": "將複閱產出儲存到「筆記」，方便日後回顧。"
+  },
+  "notesEmpty_primaryCta": {
+    "message": "建立筆記"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "在示範模式中探索世界書"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "此示範展示世界書如何整理你的世界觀、設定或產品的結構化知識。"
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "查看範例書籍，例如奇幻設定、產品術語表或活動筆記。"
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "連線後，你可以建立在聊天中由 tldw 使用的世界書。"
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "連線以使用世界書"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "要使用世界書，請先連線你的 tldw 伺服器以儲存並檢索世界知識。"
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "開啟「設定」→「tldw 伺服器」新增你的伺服器 URL。"
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "若伺服器在運作但無法連線，請使用診斷。"
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "建立並管理角色與聊天可引用的結構化知識庫。"
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "世界書離線"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "請在主設定頁連線 tldw 伺服器以檢視並編輯世界書。"
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "在示範模式中探索聊天字典"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "此示範展示聊天字典如何在內容送達模型前標準化名稱、縮寫與術語。"
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "查看範例字典，例如產品名稱、專案代號或公司術語。"
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "連線後，你可以在所有聊天中啟用字典。"
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "連線以使用聊天字典"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "要使用聊天字典，請先連線你的 tldw 伺服器以儲存替換項。"
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "開啟「設定」→「tldw 伺服器」新增你的伺服器 URL。"
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "若伺服器在運作但無法連線，請使用診斷。"
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "定義可重複使用的替換項，讓 tldw 了解你的組織名稱、縮寫與術語。"
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "聊天字典離線"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "請在主設定頁連線 tldw 伺服器以檢視並編輯聊天字典。"
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "在示範模式中探索角色"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "此示範展示角色如何封裝人設與系統提示詞供你聊天。"
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "查看範例角色，例如寫作教練、設定專家或程式助理。"
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "連線後，你可以建立出現在聊天標題列與選單中的角色。"
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "連線以使用角色"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "要使用角色，請先連線你的 tldw 伺服器以儲存角色定義。"
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "開啟「設定」→「tldw 伺服器」新增你的伺服器 URL。"
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "若伺服器在運作但無法連線，請使用診斷。"
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "建立可重複使用的角色，可在聊天標題列選取並跨對話重複使用。"
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "建立角色以在多個聊天中重複使用其人物設定。使用「新增角色」開始。"
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "此伺服器未提供角色 API"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "此伺服器未公告 /api/v1/characters。"
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "開啟診斷以確認伺服器版本與角色可用 API。"
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "若升級伺服器，請重新載入擴充功能並返回角色頁。"
+  },
+  "characters_selectCharacter": {
+    "message": "選擇角色"
+  },
+  "characters_chattingAs": {
+    "message": "你現在以 {{name}} 的身分聊天。"
+  },
+  "characters_clearCharacter": {
+    "message": "清除角色"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "無法載入角色"
+  },
+  "characters_fetchErrorBody": {
+    "message": "請檢查您的連線或伺服器狀態，然後再試一次。"
+  },
+  "characters_none": {
+    "message": "無（未選擇角色）"
+  },
+  "characters_searchPlaceholder": {
+    "message": "依名稱搜尋角色"
+  },
+  "characters_noMatches": {
+    "message": "目前沒有符合你搜尋條件的角色。"
+  },
+  "characters_refresh": {
+    "message": "重新整理角色列表"
+  },
+  "characters_refreshing": {
+    "message": "正在重新整理角色列表…"
+  },
+  "promptInsert_useInChat": {
+    "message": "在聊天中使用"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "開啟聊天並將此提示詞插入輸入框。"
+  },
+  "promptInsert_confirmTitle": {
+    "message": "在聊天中使用提示詞？"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "你的訊息已有文字。要用此提示詞覆寫，還是要附加在其下方？"
+  },
+  "promptInsert_overwrite": {
+    "message": "覆寫訊息"
+  },
+  "promptInsert_append": {
+    "message": "附加"
+  },
+  "omniSearch_filterScreen": {
+    "message": "界面"
+  },
+  "omniSearch_filterChat": {
+    "message": "聊天"
+  },
+  "omniSearch_filterMedia": {
+    "message": "媒體"
+  },
+  "omniSearch_filterNote": {
+    "message": "筆記"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "抽認卡集合"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "提示詞"
+  },
+  "omniSearch_filteringBy": {
+    "message": "篩選條件："
+  },
+  "quickChatHelper_tooltip": {
+    "message": "快速聊天小幫手"
+  },
+  "quickChatHelper_title": {
+    "message": "快速聊天小幫手"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "快速提問..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "送出"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "開始一個快速側邊聊天，讓主要對話保持乾淨整潔。"
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "在獨立視窗中開啟"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "請先在主要聊天中選擇模型。"
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "你的訊息"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "助理的訊息"
+  },
+  "quiz_itemsPerPage": {
+    "message": "項目/頁"
+  },
+  "quiz_editQuizTitle": {
+    "message": "編輯測驗"
+  },
+  "quiz_updateSuccess": {
+    "message": "測驗更新成功。"
+  },
+  "quiz_updateError": {
+    "message": "測驗更新失敗。"
+  },
+  "quiz_questionTextRequired": {
+    "message": "題目文字為必填。"
+  },
+  "quiz_optionsRequired": {
+    "message": "請至少提供兩個選項。"
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "題目建立成功。"
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "題目更新成功。"
+  },
+  "quiz_questionSaveError": {
+    "message": "題目儲存失敗。"
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "題目刪除成功。"
+  },
+  "quiz_questionDeleteError": {
+    "message": "題目刪除失敗。"
+  },
+  "quiz_editQuestion": {
+    "message": "編輯題目"
+  },
+  "quiz_points": {
+    "message": "分數"
+  },
+  "quiz_orderIndex": {
+    "message": "順序"
+  },
+  "quiz_startError": {
+    "message": "測驗開始失敗。"
+  },
+  "quiz_answerAll": {
+    "message": "提交前請回答所有題目。"
+  },
+  "quiz_submitError": {
+    "message": "測驗提交失敗。"
+  },
+  "quiz_scoreSummary": {
+    "message": "得分：{{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "正確"
+  },
+  "quiz_incorrect": {
+    "message": "錯誤"
+  },
+  "quiz_yourAnswer": {
+    "message": "你的答案"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "正確答案"
+  },
+  "quiz_backToList": {
+    "message": "返回清單"
+  },
+  "quiz_retake": {
+    "message": "重新測驗"
+  },
+  "searchPrompts": {
+    "message": "搜尋提示詞…"
+  },
+  "noMatchingPrompts": {
+    "message": "沒有符合的提示詞"
+  },
+  "promptSelect_favorites": {
+    "message": "收藏"
+  },
+  "promptSelect_system": {
+    "message": "系統提示詞"
+  },
+  "promptSelect_quick": {
+    "message": "快速提示詞"
+  }
+}

@@ -74,6 +74,8 @@ export const useMessageOption = () => {
     setChatMode,
     webSearch,
     setWebSearch,
+    toolChoice,
+    setToolChoice,
     isSearchingInternet,
     setIsSearchingInternet,
     selectedQuickPrompt,
@@ -117,6 +119,8 @@ export const useMessageOption = () => {
     setServerChatId,
     serverChatState,
     setServerChatState,
+    serverChatVersion,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -140,7 +144,9 @@ export const useMessageOption = () => {
     compareCanonicalByCluster,
     setCompareCanonicalForCluster,
     compareSplitChats,
-    setCompareSplitChat
+    setCompareSplitChat,
+    replyTarget,
+    clearReplyTarget
   } = useStoreMessageOption()
 
   const currentChatModelSettings = useStoreChatModelSettings()
@@ -191,6 +197,7 @@ export const useMessageOption = () => {
             (chat as any)?.conversation_state ??
             "in-progress"
         )
+        setServerChatVersion((chat as any)?.version ?? null)
         setServerChatTopic((chat as any)?.topic_label ?? null)
         setServerChatClusterId((chat as any)?.cluster_id ?? null)
         setServerChatSource((chat as any)?.source ?? null)
@@ -206,7 +213,8 @@ export const useMessageOption = () => {
     setServerChatExternalRef,
     setServerChatSource,
     setServerChatState,
-    setServerChatTopic
+    setServerChatTopic,
+    setServerChatVersion
   ])
 
   // Persist prompt selections across views/contexts
@@ -449,6 +457,7 @@ export const useMessageOption = () => {
     setHistory([])
     setHistoryId(null)
     setServerChatId(null)
+    setServerChatVersion(null)
     setIsFirstMessage(true)
     setIsLoading(false)
     setIsProcessing(false)
@@ -474,6 +483,7 @@ export const useMessageOption = () => {
     setRagSources([])
     storeClearQueuedMessages()
     setServerChatId(null)
+    setServerChatVersion(null)
     setCompareMode(false)
     setCompareSelectedModels([])
     useStoreMessageOption.setState({
@@ -482,6 +492,7 @@ export const useMessageOption = () => {
       compareSplitChats: {},
       compareActiveModelsByCluster: {}
     })
+    clearReplyTarget()
   }
 
   const baseSaveMessageOnSuccess = createSaveMessageOnSuccess(
@@ -547,6 +558,7 @@ export const useMessageOption = () => {
       useOCR,
       selectedSystemPrompt,
       selectedKnowledge,
+      toolChoice,
       currentChatModelSettings,
       setMessages,
       setIsSearchingInternet,
@@ -775,6 +787,26 @@ export const useMessageOption = () => {
     const chatModeParams = await buildChatModeParams()
     const baseMessages = chatHistory || messages
     const baseHistory = memory || history
+    const replyActive =
+      Boolean(replyTarget) &&
+      !compareModeActive &&
+      !isRegenerate &&
+      !isContinue
+    const replyOverrides = replyActive
+      ? (() => {
+          const userMessageId = generateID()
+          const assistantMessageId = generateID()
+          return {
+            userMessageId,
+            assistantMessageId,
+            userParentMessageId: replyTarget?.id ?? null,
+            assistantParentMessageId: userMessageId
+          }
+        })()
+      : {}
+    const chatModeParamsWithReply = replyActive
+      ? { ...chatModeParams, ...replyOverrides }
+      : chatModeParams
 
     try {
       if (isContinue) {
@@ -796,7 +828,7 @@ export const useMessageOption = () => {
           memory || history,
           signal,
           contextFiles,
-          chatModeParams
+          chatModeParamsWithReply
         )
         // setFileRetrievalEnabled(false)
         return
@@ -818,7 +850,7 @@ export const useMessageOption = () => {
           chatHistory || messages,
           memory || history,
           signal,
-          chatModeParams
+          chatModeParamsWithReply
         )
         return
       }
@@ -831,12 +863,12 @@ export const useMessageOption = () => {
           chatHistory || messages,
           memory || history,
           signal,
-          chatModeParams
+          chatModeParamsWithReply
         )
       } else {
         // Include uploaded files info even in normal mode
         const enhancedChatModeParams = {
-          ...chatModeParams,
+          ...chatModeParamsWithReply,
           uploadedFiles: uploadedFiles
         }
         const baseMessages = chatHistory || messages
@@ -1008,6 +1040,10 @@ export const useMessageOption = () => {
       })
       setIsProcessing(false)
       setStreaming(false)
+    } finally {
+      if (replyActive) {
+        clearReplyTarget()
+      }
     }
   }
 
@@ -1036,21 +1072,6 @@ export const useMessageOption = () => {
       return
     }
 
-    if (
-      contextFiles.length > 0 ||
-      (documentContext && documentContext.length > 0) ||
-      selectedKnowledge
-    ) {
-      notification.error({
-        message: t("error"),
-        description: t(
-          "playground:composer.comparePerModelUnsupported",
-          "Per-model replies are not yet supported when documents or knowledge mode are active."
-        )
-      })
-      return
-    }
-
     setStreaming(true)
     const newController = new AbortController()
     setAbortController(newController)
@@ -1073,6 +1094,68 @@ export const useMessageOption = () => {
         uploadedFiles: uploadedFiles
       }
       const historyForModel = buildHistoryForModel(baseMessages, modelId)
+      const perModelOverrides = {
+        selectedModel: modelId,
+        clusterId,
+        userMessageType: "compare:perModelUser",
+        assistantMessageType: "compare:reply",
+        modelIdOverride: modelId,
+        userMessageId,
+        assistantMessageId,
+        userParentMessageId,
+        assistantParentMessageId: userMessageId,
+        historyForModel
+      }
+
+      if (contextFiles.length > 0) {
+        await documentChatMode(
+          trimmed,
+          "",
+          false,
+          baseMessages,
+          baseHistory,
+          signal,
+          contextFiles,
+          {
+            ...chatModeParams,
+            ...perModelOverrides
+          }
+        )
+        return
+      }
+
+      if (documentContext && documentContext.length > 0) {
+        await tabChatMode(
+          trimmed,
+          "",
+          documentContext,
+          false,
+          baseMessages,
+          baseHistory,
+          signal,
+          {
+            ...chatModeParams,
+            ...perModelOverrides
+          }
+        )
+        return
+      }
+
+      if (selectedKnowledge) {
+        await ragMode(
+          trimmed,
+          "",
+          false,
+          baseMessages,
+          baseHistory,
+          signal,
+          {
+            ...chatModeParams,
+            ...perModelOverrides
+          }
+        )
+        return
+      }
 
       await normalChatMode(
         trimmed,
@@ -1083,16 +1166,7 @@ export const useMessageOption = () => {
         signal,
         {
           ...enhancedChatModeParams,
-          selectedModel: modelId,
-          clusterId,
-          userMessageType: "compare:perModelUser",
-          assistantMessageType: "compare:reply",
-          modelIdOverride: modelId,
-          userMessageId,
-          assistantMessageId,
-          userParentMessageId,
-          assistantParentMessageId: userMessageId,
-          historyForModel
+          ...perModelOverrides
         }
       )
     } catch (e: any) {
@@ -1143,6 +1217,7 @@ export const useMessageOption = () => {
     setServerChatId,
     serverChatState,
     setServerChatState,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -1243,6 +1318,8 @@ export const useMessageOption = () => {
     regenerateLastMessage,
     webSearch,
     setWebSearch,
+    toolChoice,
+    setToolChoice,
     isSearchingInternet,
     setIsSearchingInternet,
     selectedQuickPrompt,
@@ -1277,6 +1354,8 @@ export const useMessageOption = () => {
     setServerChatId,
     serverChatState,
     setServerChatState,
+    serverChatVersion,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -1317,6 +1396,8 @@ export const useMessageOption = () => {
     compareSplitChats,
     setCompareSplitChat,
     compareMaxModels,
-    setCompareMaxModels
+    setCompareMaxModels,
+    replyTarget,
+    clearReplyTarget
   }
 }

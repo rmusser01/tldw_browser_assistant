@@ -562,7 +562,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           })}
       </div>
       {status === "error" && (
-        <div className="rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-400/40 dark:bg-red-500/10">
+        <div className="rounded-lg border border-danger/30 bg-danger/10 p-4">
           <Alert
             type="error"
             message={t("settings:manageCharacters.loadError.title", {
@@ -570,7 +570,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
             })}
             description={
               <div className="flex items-center justify-between gap-2">
-                <span className="text-sm text-red-700 dark:text-red-200">
+                <span className="text-sm text-danger">
                   {(error as any)?.message ||
                     t("settings:manageCharacters.loadError.description", {
                       defaultValue: "Check your connection and try again."
@@ -612,7 +612,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
         Array.isArray(data) &&
         data.length === 0 &&
         hasFilters && (
-          <div className="rounded-lg border border-dashed border-gray-300 bg-white p-4 text-sm text-gray-700 dark:border-gray-700 dark:bg-[#0f1115] dark:text-gray-200">
+          <div className="rounded-lg border border-dashed border-border bg-surface p-4 text-sm text-text">
             <div className="flex flex-col gap-2">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span>
@@ -633,9 +633,9 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                   })}
                 </Button>
               </div>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle">
                 {searchTerm.trim() && (
-                  <span className="inline-flex items-center gap-1 rounded bg-gray-100 px-2 py-0.5 dark:bg-gray-800">
+                  <span className="inline-flex items-center gap-1 rounded bg-surface2 px-2 py-0.5">
                     {t("settings:manageCharacters.filter.activeSearch", {
                       defaultValue: "Search: \"{{term}}\"",
                       term: searchTerm.trim()
@@ -643,13 +643,13 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                   </span>
                 )}
                 {filterTags.length > 0 && (
-                  <span className="inline-flex items-center gap-1 rounded bg-gray-100 px-2 py-0.5 dark:bg-gray-800">
+                  <span className="inline-flex items-center gap-1 rounded bg-surface2 px-2 py-0.5">
                     {t("settings:manageCharacters.filter.activeTags", {
                       defaultValue: "Tags: {{tags}}",
                       tags: filterTags.join(", ")
                     })}
                     {matchAllTags && (
-                      <span className="text-gray-400 dark:text-gray-500">
+                      <span className="text-text-subtle">
                         ({t("settings:manageCharacters.filter.matchAllLabel", { defaultValue: "all" })})
                       </span>
                     )}
@@ -716,11 +716,11 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
               dataIndex: "description",
               key: "description",
               render: (v: string) => (
-                <span className="line-clamp-1" title={v || undefined}>
-                  {v ? (
-                    truncateText(v, MAX_DESCRIPTION_LENGTH)
-                  ) : (
-                    <span className="text-gray-400 dark:text-gray-500">
+                    <span className="line-clamp-1" title={v || undefined}>
+                      {v ? (
+                        truncateText(v, MAX_DESCRIPTION_LENGTH)
+                      ) : (
+                    <span className="text-text-subtle">
                       {t("settings:manageCharacters.table.noDescription", {
                         defaultValue: "—"
                       })}
@@ -764,7 +764,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                           </div>
                         }
                       >
-                        <span className="text-xs text-gray-500 dark:text-gray-400 cursor-help">
+                        <span className="text-xs text-text-subtle cursor-help">
                           +{hiddenCount}
                         </span>
                       </Tooltip>
@@ -807,7 +807,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                       title={chatLabel}>
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-blue-600 transition hover:border-blue-100 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 dark:text-blue-400 dark:hover:border-blue-300/40 dark:hover:bg-blue-500/10 dark:focus:ring-offset-gray-900"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-primary transition hover:border-primary/30 hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-1 focus:ring-offset-bg"
                         aria-label={t("settings:manageCharacters.aria.chatWith", {
                           defaultValue: "Chat as {{name}}",
                           name
@@ -849,7 +849,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                       })}>
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-gray-600 transition hover:border-gray-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f] dark:focus:ring-offset-gray-900"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-text-muted transition hover:border-border hover:bg-surface2 focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-1 focus:ring-offset-bg"
                         aria-label={t("settings:manageCharacters.aria.viewConversations", {
                           defaultValue: "View conversations for {{name}}",
                           name
@@ -872,7 +872,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                       title={editLabel}>
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-gray-600 transition hover:border-gray-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f] dark:focus:ring-offset-gray-900"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-text-muted transition hover:border-border hover:bg-surface2 focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-1 focus:ring-offset-bg"
                         aria-label={t("settings:manageCharacters.aria.edit", {
                           defaultValue: "Edit character {{name}}",
                           name
@@ -925,7 +925,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                       title={duplicateLabel}>
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-gray-600 transition hover:border-gray-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-1 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f] dark:focus:ring-offset-gray-900"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-text-muted transition hover:border-border hover:bg-surface2 focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-1 focus:ring-offset-bg"
                         aria-label={t("settings:manageCharacters.aria.duplicate", {
                           defaultValue: "Duplicate character {{name}}",
                           name
@@ -976,7 +976,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                       title={deleteLabel}>
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-red-600 transition hover:border-red-100 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60 dark:text-red-400 dark:hover:border-red-300/40 dark:hover:bg-red-500/10 dark:focus:ring-offset-gray-900"
+                        className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-danger transition hover:border-danger/30 hover:bg-danger/10 focus:outline-none focus:ring-2 focus:ring-danger focus:ring-offset-1 focus:ring-offset-bg disabled:cursor-not-allowed disabled:opacity-60"
                         aria-label={t("settings:manageCharacters.aria.delete", {
                           defaultValue: "Delete character {{name}}",
                           name
@@ -1044,7 +1044,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
         footer={null}
         destroyOnHidden>
         <div className="space-y-3">
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          <p className="text-sm text-text-muted">
             {t("settings:manageCharacters.conversations.subtitle", {
               defaultValue:
                 "Select a conversation to continue as this character."
@@ -1099,7 +1099,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           {!loadingChats && !chatsError && (
             <>
               {characterChats.length === 0 ? (
-                <div className="rounded-md border border-dashed border-gray-200 bg-gray-50 p-3 text-sm text-gray-600 dark:border-gray-800 dark:bg-[#0f1115] dark:text-gray-300">
+                <div className="rounded-md border border-dashed border-border bg-surface2 p-3 text-sm text-text-muted">
                   {t("settings:manageCharacters.conversations.empty", {
                     defaultValue: "No conversations found for this character yet."
                   })}
@@ -1111,30 +1111,30 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                       key={chat.id}
                       className={`flex items-start justify-between gap-3 rounded-md border p-3 shadow-sm ${
                         index === 0
-                          ? "border-blue-200 bg-blue-50/50 dark:border-blue-700 dark:bg-blue-900/20"
-                          : "border-gray-200 bg-white dark:border-gray-700 dark:bg-[#0f1115]"
+                          ? "border-primary/30 bg-primary/10"
+                          : "border-border bg-surface"
                       }`}>
                       <div className="min-w-0 space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                          <span className="font-medium text-text truncate">
                             {chat.title ||
                               t("settings:manageCharacters.conversations.untitled", {
                                 defaultValue: "Untitled"
                               })}
                           </span>
                           {index === 0 && (
-                            <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                            <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                               {t("settings:manageCharacters.conversations.mostRecent", {
                                 defaultValue: "Most recent"
                               })}
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-text-subtle">
                           {formatUpdatedLabel(chat.updated_at || chat.created_at)}
                         </div>
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                          <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 lowercase text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                        <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle">
+                          <span className="inline-flex items-center rounded-full bg-surface2 px-2 py-0.5 lowercase text-text-muted">
                             {(chat.state as string) || "in-progress"}
                           </span>
                           {chat.topic_label && (
@@ -1306,7 +1306,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           }
         }}
         footer={null}>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+        <p className="text-sm text-text-muted mb-4">
           {t("settings:manageCharacters.modal.description", {
             defaultValue: "Define a reusable character you can chat with in the sidebar."
           })}
@@ -1328,7 +1328,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                 {t("settings:manageCharacters.form.name.label", {
                   defaultValue: "Name"
                 })}
-                <span className="text-red-500 ml-0.5">*</span>
+                <span className="text-danger ml-0.5">*</span>
               </span>
             }
             rules={[
@@ -1418,7 +1418,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                   "settings:manageCharacters.form.systemPrompt.label",
                   { defaultValue: "Behavior / instructions" }
                 )}
-                <span className="text-red-500 ml-0.5" aria-hidden="true">*</span>
+                <span className="text-danger ml-0.5" aria-hidden="true">*</span>
                 <span className="sr-only"> ({t("common:required", { defaultValue: "required" })})</span>
               </span>
             }
@@ -1476,7 +1476,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           </Form.Item>
           <button
             type="button"
-            className="mb-2 text-xs font-medium text-blue-600 underline-offset-2 hover:underline dark:text-blue-400"
+            className="mb-2 text-xs font-medium text-primary underline-offset-2 hover:underline"
             onClick={() => setShowCreateAdvanced((v) => !v)}>
             {showCreateAdvanced
               ? t("settings:manageCharacters.advanced.hide", {
@@ -1487,7 +1487,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                 })}
           </button>
           {showCreateAdvanced && (
-            <div className="space-y-3 rounded-md border border-dashed border-gray-300 p-3 dark:border-gray-700">
+            <div className="space-y-3 rounded-md border border-dashed border-border p-3">
               <Form.Item
                 name="personality"
                 label={t("settings:manageCharacters.form.personality.label", {
@@ -1598,7 +1598,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           {/* Preview toggle */}
           <button
             type="button"
-            className="mt-4 mb-2 flex items-center gap-1 text-xs font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+            className="mt-4 mb-2 flex items-center gap-1 text-xs font-medium text-text-muted hover:text-text"
             onClick={() => setShowCreatePreview((v) => !v)}>
             {showCreatePreview ? (
               <ChevronUp className="w-4 h-4" />
@@ -1689,7 +1689,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           }
         }}
         footer={null}>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+        <p className="text-sm text-text-muted mb-4">
           {t("settings:manageCharacters.modal.editDescription", {
             defaultValue: "Update the character's name, behavior, and other settings."
           })}
@@ -1710,7 +1710,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                 {t("settings:manageCharacters.form.name.label", {
                   defaultValue: "Name"
                 })}
-                <span className="text-red-500 ml-0.5">*</span>
+                <span className="text-danger ml-0.5">*</span>
               </span>
             }
             rules={[
@@ -1800,7 +1800,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                   "settings:manageCharacters.form.systemPrompt.label",
                   { defaultValue: "Behavior / instructions" }
                 )}
-                <span className="text-red-500 ml-0.5" aria-hidden="true">*</span>
+                <span className="text-danger ml-0.5" aria-hidden="true">*</span>
                 <span className="sr-only"> ({t("common:required", { defaultValue: "required" })})</span>
               </span>
             }
@@ -1858,7 +1858,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           </Form.Item>
           <button
             type="button"
-            className="mb-2 text-xs font-medium text-blue-600 underline-offset-2 hover:underline dark:text-blue-400"
+            className="mb-2 text-xs font-medium text-primary underline-offset-2 hover:underline"
             onClick={() => setShowEditAdvanced((v) => !v)}>
             {showEditAdvanced
               ? t("settings:manageCharacters.advanced.hide", {
@@ -1869,7 +1869,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                 })}
           </button>
           {showEditAdvanced && (
-            <div className="space-y-3 rounded-md border border-dashed border-gray-300 p-3 dark:border-gray-700">
+            <div className="space-y-3 rounded-md border border-dashed border-border p-3">
               <Form.Item
                 name="personality"
                 label={t("settings:manageCharacters.form.personality.label", {
@@ -1983,7 +1983,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
           {/* Preview toggle */}
           <button
             type="button"
-            className="mt-4 mb-2 flex items-center gap-1 text-xs font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+            className="mt-4 mb-2 flex items-center gap-1 text-xs font-medium text-text-muted hover:text-text"
             onClick={() => setShowEditPreview((v) => !v)}>
             {showEditPreview ? (
               <ChevronUp className="w-4 h-4" />

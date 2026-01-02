@@ -315,7 +315,7 @@
     "message": "Experimentieren Sie hier mit verschiedenen Modellen, Prompts und Wissensquellen."
   },
   "empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "Sie befinden sich im Demo-Modus — stellen Sie eine Frage, um zu sehen, wie der Assistent antwortet. Sie können später Ihren eigenen tldw-Server verbinden."
   },
   "empty_example1": {
     "message": "Stellen Sie eine Frage und ziehen Sie dann Dokumente oder Webseiten hinein, die Sie besprechen möchten."
@@ -372,7 +372,7 @@
     "message": "Uploads & Import"
   },
   "fileRetrievalEnabled": {
-    "message": "Enable RAG for Documents"
+    "message": "RAG für Dokumente aktivieren"
   },
   "stt_title": {
     "message": "STT-Playground"
@@ -510,10 +510,10 @@
     "message": "+Werkzeuge"
   },
   "composer_queuedBanner_title": {
-    "message": "Queued while offline"
+    "message": "In Warteschlange gestellt (offline)"
   },
   "composer_queuedBanner_body": {
-    "message": "We’ll hold these messages and send them once your tldw server is connected."
+    "message": "Wir speichern diese Nachrichten und senden sie, sobald Ihr tldw‑Server verbunden ist."
   },
   "composer_queuedBanner_sendNow": {
     "message": "Wartende Nachrichten senden"
@@ -606,10 +606,10 @@
     "message": "Wissenssuche schließen"
   },
   "composer_persistence_ephemeral": {
-    "message": "Not saved in history; clears when you close this tab."
+    "message": "Nicht in der Historie gespeichert; wird beim Schließen dieses Tabs gelöscht."
   },
   "composer_persistence_local": {
-    "message": "Saved in this browser only."
+    "message": "Nur in diesem Browser gespeichert."
   },
   "composer_persistence_server": {
     "message": "Lokal+Server gespeichert"
@@ -999,7 +999,7 @@
     "message": "Zuhören"
   },
   "speech_modeHint": {
-    "message": "Dein letzter Modus wird auf diesem Gerät gespeichert."
+    "message": "Ihr letzter Modus wird auf diesem Gerät gespeichert."
   },
   "speech_recordingWaveform": {
     "message": "Live-Aufnahme-Wellenform"
@@ -1041,7 +1041,7 @@
     "message": "Transkripte durchsuchen"
   },
   "speech_historyRetentionHint": {
-    "message": "Behält die neuesten {{count}} Einträge. Verwende \"Alles löschen\", um alles zu entfernen."
+    "message": "Behält die neuesten {{count}} Einträge. Verwenden Sie \"Alles löschen\", um alles zu entfernen."
   },
   "speech_useInTts": {
     "message": "In TTS verwenden"
@@ -1062,7 +1062,7 @@
     "message": "Stimme"
   },
   "speech_emptyHistory": {
-    "message": "Starte eine Aufnahme oder generiere Audio, um hier Verlauf zu sehen."
+    "message": "Starten Sie eine Aufnahme oder generieren Sie Audio, um hier den Verlauf zu sehen."
   },
   "speech_downloadDisabledBrowser": {
     "message": "Browser-TTS erstellt kein herunterladbares Audio."
@@ -1084,5 +1084,146 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "Aufnahme läuft; das Transkript ist gesperrt."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "Vergleichsmodus aktivieren"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "Experimentelle Mehrmodell‑Vergleichsfunktionen freischalten."
+  },
+  "composer_compareDisabled": {
+    "message": "Der Vergleichsmodus ist in den Einstellungen deaktiviert."
+  },
+  "composer_compareChosenHint": {
+    "message": "Mit der ausgewählten Antwort fortfahren oder erneut vergleichen."
+  },
+  "composer_compareChosenLabel": {
+    "message": "Ausgewählt"
+  },
+  "composer_compareLatency": {
+    "message": "Latenz"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "Vergleich: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(aus Vergleich)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "Antworten mehrerer Modelle"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} Modelle"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "Ausgewählte Modelle: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "Jede ausgewählte Antwort als eigenen Chat öffnen"
+  },
+  "composer_compareThreadLabel": {
+    "message": "Thread pro Modell"
+  },
+  "composer_compareThreadYou": {
+    "message": "Du"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "Als vollständigen Chat öffnen"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "Abgespaltenen Chat öffnen"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "Kanonisch"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "Als kanonisch markieren"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "Kanonische Antwort"
+  },
+  "composer_compareFilterLabel": {
+    "message": "Modelle filtern"
+  },
+  "composer_compareFilterClear": {
+    "message": "Alle anzeigen"
+  },
+  "composer_compareFilterCount": {
+    "message": "Anzeige: {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
   }
 }

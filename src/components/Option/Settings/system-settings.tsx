@@ -94,6 +94,7 @@ export const SystemSettings = () => {
     })
   }
 
+
   const [webuiBtnSidePanel, setWebuiBtnSidePanel] = useStorage(
     "webuiBtnSidePanel",
     false
@@ -196,7 +197,7 @@ export const SystemSettings = () => {
                 duration: 4
               })
             }}
-            className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+            className="text-primary hover:underline text-sm font-medium"
           >
             {t("common:cancel", "Cancel")}
           </button>
@@ -329,14 +330,14 @@ export const SystemSettings = () => {
   return (
     <div>
       <div className="mb-5">
-        <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+        <h2 className="text-base font-semibold leading-7 text-text">
           {t("generalSettings.systemBasics.heading", { defaultValue: t("generalSettings.system.heading", { defaultValue: "System" }) as string })}
         </h2>
-        <div className="border border-b border-gray-200 dark:border-gray-600 mt-3"></div>
+        <div className="border-b border-border mt-3"></div>
       </div>
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           {t("generalSettings.systemBasics.uiMode.label", { defaultValue: "Default UI Mode" })}
         </span>
         <Select
@@ -355,29 +356,31 @@ export const SystemSettings = () => {
         />
       </div>
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-black dark:text-white font-medium">
+        <span className="text-text font-medium">
           <BetaTag />
           {t("generalSettings.systemBasics.fontSize.label", { defaultValue: t("generalSettings.system.fontSize.label", { defaultValue: "Font Size" }) as string })}
         </span>
         <div className="flex flex-row items-center gap-3 justify-center sm:justify-end">
           <button
             onClick={decrease}
-            className="bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black px-3 py-1.5 rounded-lg transition-colors duration-200 font-medium text-sm">
+            className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-primaryStrong"
+          >
             A-
           </button>
-          <span className="min-w-[2rem] text-center font-medium text-black dark:text-white">
+          <span className="min-w-[2rem] text-center font-medium text-text">
             {scale.toFixed(1)}x
           </span>
           <button
             onClick={increase}
-            className="bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black px-3 py-1.5 rounded-lg transition-colors duration-200 font-medium text-sm">
+            className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-primaryStrong"
+          >
             A+
           </button>{" "}
         </div>
       </div>
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           {t("generalSettings.systemBasics.codeTheme.label", {
             defaultValue: "Code block theme"
           })}
@@ -397,15 +400,15 @@ export const SystemSettings = () => {
                 onClick={() => setCodeTheme(opt.value)}
                 className={`rounded-md border px-2 py-2 text-left transition-colors ${
                   codeTheme === opt.value
-                    ? "border-gray-400 dark:border-gray-500 bg-gray-50 dark:bg-[#232222]"
-                    : "border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-gray-400 dark:hover:border-gray-500"
+                    ? "border-border-strong bg-surface2"
+                    : "border-border bg-surface hover:border-border-strong"
                 }`}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-gray-800 dark:text-gray-100">
+                  <span className="text-xs text-text">
                     {opt.label}
                   </span>
                   {codeTheme === opt.value && (
-                    <span className="rounded-full bg-gray-200 dark:bg-gray-700 px-2 py-0.5 text-[10px] text-gray-700 dark:text-gray-100">
+                    <span className="rounded-full bg-surface2 px-2 py-0.5 text-[10px] text-text-subtle">
                       {t("generalSettings.systemBasics.codeTheme.current", {
                         defaultValue: "Current"
                       })}
@@ -445,7 +448,7 @@ export const SystemSettings = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           <BetaTag />
           {t("generalSettings.systemBasics.actionIcon.label", { defaultValue: t("generalSettings.system.actionIcon.label", { defaultValue: "Browser Action Button" }) as string })}
         </span>
@@ -468,7 +471,7 @@ export const SystemSettings = () => {
         />
       </div>
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           <BetaTag />
           {t("generalSettings.systemBasics.contextMenu.label", { defaultValue: t("generalSettings.system.contextMenu.label", { defaultValue: "Context Menu Action" }) as string })}
         </span>
@@ -492,7 +495,7 @@ export const SystemSettings = () => {
       </div>
       {isFireFox && !isFireFoxPrivateMode && (
         <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-          <span className="text-gray-700 dark:text-neutral-50">
+          <span className="text-text">
             <BetaTag />
             {t("generalSettings.systemData.firefoxPrivateModeSync.label", {
               defaultValue:
@@ -516,7 +519,7 @@ export const SystemSettings = () => {
               })
             }}
             disabled={syncFirefoxData.isPending}
-            className="bg-gray-800 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-md cursor-pointer w-full sm:w-auto">
+            className="cursor-pointer rounded-md bg-primary px-4 py-2 text-white transition-colors hover:bg-primaryStrong w-full sm:w-auto">
             {syncFirefoxData.isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
@@ -528,7 +531,7 @@ export const SystemSettings = () => {
         </div>
       )}
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           {t("generalSettings.systemBasics.webuiBtnSidePanel.label", { defaultValue: t("generalSettings.system.webuiBtnSidePanel.label", { defaultValue: "Show Web UI button in Sidebar" }) as string })}
         </span>
          <div>
@@ -542,7 +545,7 @@ export const SystemSettings = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           <BetaTag />
           {t("generalSettings.systemBasics.chatBackgroundImage.label", { defaultValue: t("generalSettings.system.chatBackgroundImage.label", { defaultValue: "Chat Background Image" }) as string })}
         </span>
@@ -552,13 +555,13 @@ export const SystemSettings = () => {
               onClick={() => {
                 setChatBackgroundImage(null)
               }}
-              className="text-gray-800 dark:text-white">
+              className="text-text">
               <RotateCcw className="size-4" />
             </button>
           ) : null}
           <label
             htmlFor="background-image-upload"
-            className="bg-gray-800 inline-flex gap-2 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-md cursor-pointer">
+            className="inline-flex cursor-pointer gap-2 rounded-md bg-primary px-4 py-2 text-white transition-colors hover:bg-primaryStrong">
             <Upload className="size-4" />
             {t("knowledge:form.uploadFile.label")}
           </label>
@@ -573,22 +576,22 @@ export const SystemSettings = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           {t("generalSettings.systemData.export.label", { defaultValue: t("generalSettings.system.export.label", { defaultValue: "Export Chat History, Knowledge Base, and Prompts" }) as string })}
         </span>
         <button
           onClick={exportPageAssistData}
-          className="bg-gray-800 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-md cursor-pointer w-full sm:w-auto">
+          className="cursor-pointer rounded-md bg-primary px-4 py-2 text-white transition-colors hover:bg-primaryStrong w-full sm:w-auto">
           {t("generalSettings.systemData.export.button", { defaultValue: t("generalSettings.system.export.button", { defaultValue: "Export Data" }) as string })}
         </button>
       </div>
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           {t("generalSettings.systemData.import.label", { defaultValue: t("generalSettings.system.import.label", { defaultValue: "Import Chat History, Knowledge Base, and Prompts" }) as string })}
         </span>
         <label
           htmlFor="import"
-          className="bg-gray-800 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-md cursor-pointer flex items-center justify-center w-full sm:w-auto">
+          className="flex w-full cursor-pointer items-center justify-center rounded-md bg-primary px-4 py-2 text-white transition-colors hover:bg-primaryStrong sm:w-auto">
           {importDataMutation.isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -612,13 +615,13 @@ export const SystemSettings = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row mb-3 gap-3 sm:gap-0 sm:justify-between sm:items-center">
-        <span className="text-gray-700 dark:text-neutral-50">
+        <span className="text-text">
           {t("generalSettings.systemData.deleteChatHistory.label", { defaultValue: t("generalSettings.system.deleteChatHistory.label", { defaultValue: "System Reset" }) as string })}
         </span>
 
         <button
           onClick={() => setResetModalOpen(true)}
-          className="bg-red-500 dark:bg-red-600 text-white dark:text-gray-200 px-4 py-2 rounded-md w-full sm:w-auto">
+          className="w-full rounded-md bg-danger px-4 py-2 text-white transition-colors hover:bg-danger sm:w-auto">
           {t("generalSettings.systemData.deleteChatHistory.button", { defaultValue: t("generalSettings.system.deleteChatHistory.button", { defaultValue: "Reset All" }) as string })}
         </button>
       </div>
@@ -642,19 +645,19 @@ export const SystemSettings = () => {
         centered
       >
         <div className="space-y-4">
-          <p className="text-gray-700 dark:text-gray-300">
+          <p className="text-text-muted">
             {t("generalSettings.systemData.deleteChatHistory.modalWarning", {
               defaultValue: "This will permanently delete ALL data including:"
             })}
           </p>
-          <ul className="list-disc pl-5 text-gray-600 dark:text-gray-400 text-sm space-y-1">
+          <ul className="list-disc pl-5 text-text-muted text-sm space-y-1">
             <li>{t("generalSettings.systemData.deleteChatHistory.dataChat", { defaultValue: "Chat history and conversations" })}</li>
             <li>{t("generalSettings.systemData.deleteChatHistory.dataKnowledge", { defaultValue: "Knowledge base and documents" })}</li>
             <li>{t("generalSettings.systemData.deleteChatHistory.dataPrompts", { defaultValue: "Custom prompts and models" })}</li>
             <li>{t("generalSettings.systemData.deleteChatHistory.dataSettings", { defaultValue: "All settings and preferences" })}</li>
           </ul>
           <div className="pt-2">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <p className="mb-2 text-sm font-medium text-text">
               {t("generalSettings.systemData.deleteChatHistory.typeToConfirm", {
                 defaultValue: "Type RESET to confirm:"
               })}
@@ -667,7 +670,7 @@ export const SystemSettings = () => {
               autoFocus
               aria-describedby="reset-hint"
             />
-            <p id="reset-hint" className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <p id="reset-hint" className="text-xs text-text-subtle mt-1">
               {t("generalSettings.systemData.deleteChatHistory.caseInsensitiveHint", "Case-insensitive: 'reset', 'RESET', or 'Reset' all work")}
             </p>
           </div>

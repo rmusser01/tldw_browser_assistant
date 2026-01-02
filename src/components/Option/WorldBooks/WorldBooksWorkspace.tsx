@@ -21,7 +21,7 @@ export const WorldBooksWorkspace: React.FC = () => {
       <FeatureEmptyState
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
               Demo
             </span>
             <span>
@@ -50,7 +50,7 @@ export const WorldBooksWorkspace: React.FC = () => {
       <ConnectFeatureBanner
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
+            <span className="rounded-full bg-warn/10 px-2 py-0.5 text-[11px] font-medium text-warn">
               Not connected
             </span>
             <span>
@@ -86,7 +86,7 @@ export const WorldBooksWorkspace: React.FC = () => {
       <FeatureEmptyState
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
+            <span className="rounded-full bg-warn/10 px-2 py-0.5 text-[11px] font-medium text-warn">
               Feature unavailable
             </span>
             <span>
@@ -121,10 +121,10 @@ export const WorldBooksWorkspace: React.FC = () => {
   return (
     <PageShell className="space-y-4">
       <div className="space-y-1">
-        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
+        <h1 className="text-lg font-semibold text-text">
           {t("option:header.modeWorldBooks", "World Books")}
         </h1>
-        <p className="text-xs text-gray-600 dark:text-gray-300">
+        <p className="text-xs text-text-muted">
           {t("option:worldBooksEmpty.headerDescription", {
             defaultValue:
               "Create and manage structured knowledge bases that characters and chats can reference."

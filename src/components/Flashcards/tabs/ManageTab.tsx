@@ -886,7 +886,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                 title={
                   <div className="flex items-center gap-2">
                     <Text strong>{item.front.slice(0, 80)}</Text>
-                    <span className="text-gray-400">-</span>
+                    <span className="text-text-subtle">-</span>
                     <Text type="secondary">{item.back.slice(0, 80)}</Text>
                   </div>
                 }
@@ -918,7 +918,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               />
               {previewOpen.has(item.uuid) && (
                 <div className="mt-2">
-                  <div className="border rounded p-2 bg-white dark:bg-[#111] text-xs sm:text-sm">
+                  <div className="border rounded p-2 bg-surface text-xs sm:text-sm">
                     <MarkdownWithBoundary
                       content={item.back}
                       size="xs"
@@ -1124,7 +1124,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               {markdownSupportHint}
             </Text>
             {editFrontPreview && (
-              <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+              <div className="mt-2 border rounded p-2 text-xs bg-surface">
                 <Text type="secondary" className="block text-[11px] mb-1">
                   {previewLabel}
                 </Text>
@@ -1142,7 +1142,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               {markdownSupportHint}
             </Text>
             {editBackPreview && (
-              <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+              <div className="mt-2 border rounded p-2 text-xs bg-surface">
                 <Text type="secondary" className="block text-[11px] mb-1">
                   {previewLabel}
                 </Text>
@@ -1159,7 +1159,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               {extraHint}
             </Text>
             {editExtraPreview && (
-              <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+              <div className="mt-2 border rounded p-2 text-xs bg-surface">
                 <Text type="secondary" className="block text-[11px] mb-1">
                   {previewLabel}
                 </Text>
@@ -1176,7 +1176,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               {notesHint}
             </Text>
             {editNotesPreview && (
-              <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+              <div className="mt-2 border rounded p-2 text-xs bg-surface">
                 <Text type="secondary" className="block text-[11px] mb-1">
                   {previewLabel}
                 </Text>
@@ -1253,7 +1253,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               defaultValue: "You are about to delete a large number of cards."
             })}
           />
-          <p className="text-gray-700 dark:text-gray-300">
+          <p className="text-text-muted">
             {t("option:flashcards.bulkDeleteLargeContent", {
               defaultValue:
                 "This will permanently delete {{count}} cards. This action cannot be undone.",
@@ -1261,7 +1261,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
             })}
           </p>
           <div className="pt-2">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <p className="text-sm font-medium text-text-muted mb-2">
               {t("option:flashcards.typeDeleteToConfirm", {
                 defaultValue: "Type DELETE to confirm:"
               })}

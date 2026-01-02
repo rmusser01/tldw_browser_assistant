@@ -1,0 +1,938 @@
+{
+  "pageAssist": {
+    "message": "tldw 助手"
+  },
+  "titles_options": {
+    "message": "tldw Assistant — Options"
+  },
+  "titles_sidepanel": {
+    "message": "tldw Assistant — Sidepanel"
+  },
+  "pdf_passwordTitle": {
+    "message": "输入 PDF 密码"
+  },
+  "pdf_unlock": {
+    "message": "解锁"
+  },
+  "loading_title": {
+    "message": "正在加载…"
+  },
+  "loading_description": {
+    "message": "请稍候，我们正在为您准备。"
+  },
+  "loading_content": {
+    "message": "正在加载内容…"
+  },
+  "selectAModel": {
+    "message": "选择一个模型"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "saved": {
+    "message": "已保存"
+  },
+  "cancel": {
+    "message": "取消"
+  },
+  "retry": {
+    "message": "重试"
+  },
+  "share_tooltip_share": {
+    "message": "分享"
+  },
+  "share_modal_title": {
+    "message": "为聊天创建分享链接"
+  },
+  "share_form_defaultValue_name": {
+    "message": "匿名"
+  },
+  "share_form_defaultValue_title": {
+    "message": "未命名聊天"
+  },
+  "share_form_title_label": {
+    "message": "聊天标题"
+  },
+  "share_form_title_placeholder": {
+    "message": "输入聊天标题"
+  },
+  "share_form_title_required": {
+    "message": "聊天标题是必填的"
+  },
+  "share_form_name_label": {
+    "message": "您的名字"
+  },
+  "share_form_name_placeholder": {
+    "message": "输入您的名字"
+  },
+  "share_form_name_required": {
+    "message": "您的名字是必填的"
+  },
+  "share_form_btn_save": {
+    "message": "生成链接"
+  },
+  "share_form_btn_saving": {
+    "message": "正在生成链接..."
+  },
+  "share_notification_successGenerate": {
+    "message": "链接已复制到剪贴板"
+  },
+  "share_notification_failGenerate": {
+    "message": "生成链接失败"
+  },
+  "copyToClipboard": {
+    "message": "复制到剪贴板"
+  },
+  "webSearch": {
+    "message": "搜索网络"
+  },
+  "regenerate": {
+    "message": "重新生成"
+  },
+  "continue": {
+    "message": "继续回答"
+  },
+  "edit": {
+    "message": "编辑"
+  },
+  "delete": {
+    "message": "删除"
+  },
+  "saveAndSubmit": {
+    "message": "保存 & 提交"
+  },
+  "editMessage_placeholder": {
+    "message": "输入一条消息..."
+  },
+  "submit": {
+    "message": "提交"
+  },
+  "send": {
+    "message": "提交"
+  },
+  "connectToServer": {
+    "message": "连接到服务器"
+  },
+  "noData": {
+    "message": "无数据"
+  },
+  "noHistory": {
+    "message": "无聊天记录"
+  },
+  "chatWithCurrentPage": {
+    "message": "与当前页面聊天"
+  },
+  "beta": {
+    "message": "测试版"
+  },
+  "tts": {
+    "message": "朗读"
+  },
+  "currentChatModelSettings": {
+    "message": "当前聊天模型设置"
+  },
+  "modelSettings_label": {
+    "message": "模型设置"
+  },
+  "modelSettings_description": {
+    "message": "全局设置所有聊天的模型选项"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "保留时间"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "控制请求后模型在内存中保持的时间（默认：5分钟）"
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "输入保留时间（例如：5分、10分、1小时）"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "温度"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "输入温度值（例如：0.7、1.0）"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "上下文窗口大小 (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "输入上下文窗口大小（默认：2048）"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "最大令牌数 (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "输入最大令牌数（例如：2048、4096）"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "随机种子"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "输入随机种子值（例如：1234）"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "模型输出的可重复性"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "Top K（前 K 个）"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "输入 Top K 值（例如：40、100）"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "Top P（累计概率）"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "输入 Top P 值（例如：0.9、0.95）"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap（内存映射）"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z（TFS 参数）"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "例如：1.0、1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Num Keep（保留数量）"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "例如：256、512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Num Thread（线程数）"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "例如：8、16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock（锁定内存）"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P（最小 P）"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "例如：0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "重复惩罚"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "例如：1.1、1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "重复最近 N"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "例如：64、128"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "Num GPU（GPU 数量）"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "输入要发送到 GPU 的层数"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "临时系统提示"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "输入系统提示"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "这是一种在当前聊天中快速设置系统提示的方法，如果存在已选择的系统提示，它将覆盖该提示。"
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "思考模式"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "推理强度"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "低、中、高"
+  },
+  "modelSettings_advanced": {
+    "message": "更多模型设置"
+  },
+  "copilot_summary": {
+    "message": "总结"
+  },
+  "copilot_explain": {
+    "message": "解释"
+  },
+  "copilot_rephrase": {
+    "message": "重述"
+  },
+  "copilot_translate": {
+    "message": "翻译"
+  },
+  "copilot_custom": {
+    "message": "自定义"
+  },
+  "citations": {
+    "message": "引用"
+  },
+  "segmented_available": {
+    "message": "服务器模型"
+  },
+  "segmented_custom": {
+    "message": "自定义模型"
+  },
+  "downloadCode": {
+    "message": "下载代码"
+  },
+  "date_pinned": {
+    "message": "已置顶"
+  },
+  "date_today": {
+    "message": "今天"
+  },
+  "date_yesterday": {
+    "message": "昨天"
+  },
+  "date_last7Days": {
+    "message": "最近7天"
+  },
+  "date_older": {
+    "message": "更早"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "确定要删除所有置顶的消息吗？"
+  },
+  "range_deleteConfirm_today": {
+    "message": "确定要删除今天的所有消息吗？"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "确定要删除昨天的所有消息吗？"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "确定要删除最近7天的所有消息吗？"
+  },
+  "range_deleteConfirm_older": {
+    "message": "确定要删除所有更早的消息吗？"
+  },
+  "range_tooltip_pinned": {
+    "message": "删除所有置顶消息"
+  },
+  "range_tooltip_today": {
+    "message": "删除今天的所有消息"
+  },
+  "range_tooltip_yesterday": {
+    "message": "删除昨天的所有消息"
+  },
+  "range_tooltip_last7Days": {
+    "message": "删除最近7天的所有消息"
+  },
+  "range_tooltip_older": {
+    "message": "删除所有更早的消息"
+  },
+  "pin": {
+    "message": "置顶"
+  },
+  "unpin": {
+    "message": "取消置顶"
+  },
+  "generationInfo": {
+    "message": "生成信息"
+  },
+  "sidebarChat": {
+    "message": "侧边栏聊天"
+  },
+  "reasoning_thinking": {
+    "message": "思考中...."
+  },
+  "reasoning_loading": {
+    "message": "正在加载推理...."
+  },
+  "reasoning_thought": {
+    "message": "思考了 {{time}}"
+  },
+  "mermaid": {
+    "message": "Mermaid 图表"
+  },
+  "embeddingGen": {
+    "message": "正在创建嵌入向量，这可能需要一些时间"
+  },
+  "semanticSearch": {
+    "message": "正在执行语义搜索"
+  },
+  "downloading": {
+    "message": "正在下载"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "确定要取消下载吗？这将停止下载过程。根据 Ollama 文档，您可以从中断处重新开始下载。"
+  },
+  "table_copyCsv": {
+    "message": "复制为 CSV"
+  },
+  "table_downloadCsv": {
+    "message": "下载 CSV"
+  },
+  "dismiss": {
+    "message": "关闭"
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant 无法保存数据"
+  },
+  "confirmTitle": {
+    "message": "请确认"
+  },
+  "saving": {
+    "message": "正在保存..."
+  },
+  "close": {
+    "message": "关闭"
+  },
+  "loadMore": {
+    "message": "加载更多..."
+  },
+  "startChat": {
+    "message": "开始聊天"
+  },
+  "previous": {
+    "message": "上一页"
+  },
+  "next": {
+    "message": "下一页"
+  },
+  "chatWithCharacter": {
+    "message": "与角色聊天"
+  },
+  "ttsShort": {
+    "message": "语音"
+  },
+  "copyShort": {
+    "message": "复制"
+  },
+  "branchShort": {
+    "message": "分支"
+  },
+  "infoShort": {
+    "message": "信息"
+  },
+  "regenShort": {
+    "message": "重试"
+  },
+  "continueShort": {
+    "message": "更多"
+  },
+  "fileChanges": {
+    "message": "文件更改"
+  },
+  "deletions": {
+    "message": "删除操作"
+  },
+  "gitOperations": {
+    "message": "Git 操作"
+  },
+  "commands": {
+    "message": "命令"
+  },
+  "otherOperations": {
+    "message": "其他操作"
+  },
+  "fileAccess": {
+    "message": "文件访问"
+  },
+  "notebookEdits": {
+    "message": "笔记本编辑"
+  },
+  "applyPatch": {
+    "message": "应用补丁"
+  },
+  "recursive": {
+    "message": "(递归)"
+  },
+  "complexArguments": {
+    "message": "[复杂参数]"
+  },
+  "success": {
+    "message": "成功"
+  },
+  "created": {
+    "message": "已创建"
+  },
+  "updated": {
+    "message": "已更新"
+  },
+  "deleted": {
+    "message": "已删除"
+  },
+  "create": {
+    "message": "创建"
+  },
+  "reset": {
+    "message": "重置"
+  },
+  "serverOffline": {
+    "message": "服务器离线或未配置"
+  },
+  "serverChats": {
+    "message": "服务器聊天"
+  },
+  "serverChatLoadError": {
+    "message": "无法加载服务器聊天。请检查连接后重试。"
+  },
+  "serverChatSourceLabel": {
+    "message": "服务器来源"
+  },
+  "serverChatForkedLabel": {
+    "message": "分叉聊天"
+  },
+  "serverChatForkedTooltip": {
+    "message": "从聊天 {{chatId}} 分叉"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "连接到 tldw 服务器后即可使用服务器聊天。"
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "当前无法使用服务器聊天。请检查服务器日志或稍后再试。"
+  },
+  "historiesDeleted": {
+    "message": "{{count}} 条历史记录已删除"
+  },
+  "deleteHistoriesError": {
+    "message": "删除历史记录时出错"
+  },
+  "search": {
+    "message": "搜索"
+  },
+  "searchResults": {
+    "message": "搜索结果"
+  },
+  "newBranch": {
+    "message": "新分支"
+  },
+  "error_label": {
+    "message": "错误"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "无法连接到您的 tldw 服务器。"
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "您的 API 密钥可能无效。打开“设置”→“tldw 服务器”检查 URL 和 API 密钥，然后重试。"
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "聊天超时。"
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "服务器停止推送响应。请重试，或打开“健康状况与诊断”检查服务器状态。"
+  },
+  "error_friendlyGenericSummary": {
+    "message": "与您的 tldw 服务器通信时发生错误。"
+  },
+  "error_friendlyGenericHint": {
+    "message": "请稍后重试，或打开“健康状况与诊断”检查服务器健康状况。"
+  },
+  "error_showDetails": {
+    "message": "显示技术详情"
+  },
+  "error_hideDetails": {
+    "message": "隐藏技术详情"
+  },
+  "folders": {
+    "message": "文件夹"
+  },
+  "folderView": {
+    "message": "文件夹视图"
+  },
+  "dateView": {
+    "message": "日期视图"
+  },
+  "newFolder": {
+    "message": "新建文件夹"
+  },
+  "folderName": {
+    "message": "文件夹名称"
+  },
+  "selectFolder": {
+    "message": "选择文件夹"
+  },
+  "noFolders": {
+    "message": "没有文件夹"
+  },
+  "expandAll": {
+    "message": "全部展开"
+  },
+  "collapseAll": {
+    "message": "全部折叠"
+  },
+  "refresh": {
+    "message": "刷新"
+  },
+  "confirm": {
+    "message": "确认"
+  },
+  "untitled": {
+    "message": "未命名"
+  },
+  "moveToFolder": {
+    "message": "移动到文件夹"
+  },
+  "noToolCalls": {
+    "message": "尚无工具调用"
+  },
+  "status_pending": {
+    "message": "待定"
+  },
+  "status_running": {
+    "message": "处理中"
+  },
+  "status_complete": {
+    "message": "已完成"
+  },
+  "status_error": {
+    "message": "错误"
+  },
+  "arguments": {
+    "message": "参数"
+  },
+  "invalidJson": {
+    "message": "JSON 无效；显示原始值"
+  },
+  "result": {
+    "message": "结果"
+  },
+  "tools_fs_list": {
+    "message": "列出目录"
+  },
+  "tools_fs_read": {
+    "message": "读取文件"
+  },
+  "tools_fs_write": {
+    "message": "写入文件"
+  },
+  "tools_fs_apply_patch": {
+    "message": "应用补丁"
+  },
+  "tools_fs_mkdir": {
+    "message": "创建目录"
+  },
+  "tools_fs_delete": {
+    "message": "删除"
+  },
+  "tools_search_grep": {
+    "message": "搜索内容"
+  },
+  "tools_search_glob": {
+    "message": "查找文件"
+  },
+  "tools_git_status": {
+    "message": "Git 状态"
+  },
+  "tools_git_diff": {
+    "message": "Git 差异"
+  },
+  "tools_git_log": {
+    "message": "Git 日志"
+  },
+  "tools_git_branch": {
+    "message": "Git 分支"
+  },
+  "tools_git_add": {
+    "message": "暂存文件"
+  },
+  "tools_git_commit": {
+    "message": "提交"
+  },
+  "tools_exec_run": {
+    "message": "运行命令"
+  },
+  "markdown_unableToRender": {
+    "message": "无法渲染内容"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "无法显示消息内容。这可能是由于格式无效所致。"
+  },
+  "markdown_showRawContent": {
+    "message": "显示原始内容"
+  },
+  "commandPalette_goToChat": {
+    "message": "前往聊天"
+  },
+  "commandPalette_goToMedia": {
+    "message": "前往媒体"
+  },
+  "commandPalette_goToNotes": {
+    "message": "前往笔记"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "前往抽认卡"
+  },
+  "commandPalette_goToSettings": {
+    "message": "前往设置"
+  },
+  "commandPalette_goToHealth": {
+    "message": "前往健康状况与诊断"
+  },
+  "commandPalette_newChat": {
+    "message": "新建聊天"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "切换知识搜索"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "在你的知识库中搜索"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "切换网页搜索"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "在互联网上搜索"
+  },
+  "commandPalette_ingestPage": {
+    "message": "导入当前页面"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "将此页面保存到你的知识库"
+  },
+  "commandPalette_switchModel": {
+    "message": "切换模型"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "切换侧边栏"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "显示或隐藏聊天侧边栏"
+  },
+  "commandPalette_placeholder": {
+    "message": "输入命令或搜索…"
+  },
+  "commandPalette_noResults": {
+    "message": "未找到结果"
+  },
+  "commandPalette_title": {
+    "message": "命令面板"
+  },
+  "commandPalette_navigate": {
+    "message": "导航"
+  },
+  "commandPalette_select": {
+    "message": "选择"
+  },
+  "commandPalette_toOpen": {
+    "message": "以打开"
+  },
+  "commandPalette_categoryActions": {
+    "message": "操作"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "导航"
+  },
+  "commandPalette_categorySettings": {
+    "message": "设置"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "最近使用"
+  },
+  "featureHints_knowledge_title": {
+    "message": "搜索你的知识库"
+  },
+  "featureHints_knowledge_description": {
+    "message": "打开知识搜索面板，查找片段并插入到聊天中。"
+  },
+  "featureHints_moreTools_title": {
+    "message": "更多工具可用"
+  },
+  "featureHints_moreTools_description": {
+    "message": "访问视觉模式、图片上传、快速导入以及完整应用。"
+  },
+  "featureHints_commandPalette_title": {
+    "message": "快捷命令"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "按 {{shortcut}} 搜索命令、设置等更多内容。"
+  },
+  "featureHints_modelSettings_title": {
+    "message": "调整模型参数"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "微调温度、上下文长度以及其他模型设置。"
+  },
+  "chatSidebar_title": {
+    "message": "聊天"
+  },
+  "chatSidebar_newChat": {
+    "message": "新建聊天"
+  },
+  "chatSidebar_collapse": {
+    "message": "收起侧边栏"
+  },
+  "chatSidebar_expand": {
+    "message": "展开侧边栏"
+  },
+  "chatSidebar_search": {
+    "message": "搜索聊天..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "导入页面"
+  },
+  "chatSidebar_media": {
+    "message": "媒体"
+  },
+  "chatSidebar_notes": {
+    "message": "笔记"
+  },
+  "chatSidebar_flashcards": {
+    "message": "闪卡"
+  },
+  "chatSidebar_prompts": {
+    "message": "提示词"
+  },
+  "chatSidebar_multiItem": {
+    "message": "多项目"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "快捷方式"
+  },
+  "chatSidebar_settings": {
+    "message": "设置"
+  },
+  "chatSidebar_loadError": {
+    "message": "加载聊天失败"
+  },
+  "chatSidebar_localTab": {
+    "message": "本地"
+  },
+  "chatSidebar_serverTab": {
+    "message": "服务器"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "文件夹"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "本地"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "服务器"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "文件夹"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "暂无服务器聊天"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "文件夹需要服务器连接"
+  },
+  "extName": {
+    "message": "tldw 助手"
+  },
+  "extDescription": {
+    "message": "tldw_server 的浏览器扩展——你的统一 AI 助手，支持 RAG、媒体处理等。"
+  },
+  "openSidePanelToChat": {
+    "message": "打开侧边栏开始聊天"
+  },
+  "openOptionToChat": {
+    "message": "打开 Web UI 开始聊天"
+  },
+  "contextSummarize": {
+    "message": "总结"
+  },
+  "contextExplain": {
+    "message": "解释"
+  },
+  "contextRephrase": {
+    "message": "改写"
+  },
+  "contextTranslate": {
+    "message": "翻译"
+  },
+  "contextCustom": {
+    "message": "自定义"
+  },
+  "contextSendToTldw": {
+    "message": "发送到 tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "使用 tldw_server 处理（不存储）"
+  },
+  "contextTranscribeMedia": {
+    "message": "转录视频/音频"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "转录并总结视频/音频"
+  },
+  "contextSaveToNotes": {
+    "message": "保存到笔记"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "请先选择文本再保存到笔记。"
+  },
+  "contextSidebarOpening": {
+    "message": "正在打开侧边栏..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "正在打开侧边栏以保存笔记..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "无法打开侧边栏保存此笔记。请检查此站点是否允许 tldw Assistant 侧边栏，然后重试。"
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] 页面发送请求被 tldw_server 拒绝"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] 向 tldw_server 发送此页面失败：$1。请检查 设置 → tldw server 并重试。"
+  },
+  "hfSendPageError": {
+    "message": "[tldw] 向 tldw_server 发送此页面失败。请检查 设置 → tldw server 并重试。"
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] 页面已发送至 tldw_server 进行处理"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] 发送此页面到 tldw_server 时出错。请检查 tldw_server 和扩展是否正在运行，然后重试。"
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] 已有模型拉取请求正在进行。请等待完成后再开始新的请求。"
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] 是否要向 tldw_server 发送请求以拉取 \"$1\" 模型？这与 huggingface.co 网站无关。确认后服务器将开始拉取模型。"
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] 正在向 tldw_server 发送拉取 \"$1\" 的请求。请查看扩展图标或 tldw_server 日志以了解进度。"
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] 发送 \"$1\" 的拉取请求失败：$2。请检查 设置 → tldw server 并重试。"
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] 发送 \"$1\" 的拉取请求失败。请检查 设置 → tldw server 并重试。"
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] 已向 tldw_server 发送拉取 \"$1\" 的请求。请通过扩展图标或 tldw_server 日志查看状态。"
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] 向 tldw_server 发送 \"$1\" 的拉取请求时出错。请检查 tldw_server 和扩展是否正在运行，然后重试。"
+  },
+  "stepLabel": {
+    "message": "欢迎"
+  },
+  "path": {
+    "message": "你想如何开始？"
+  },
+  "nextSteps": {
+    "message": "你已准备好开始了"
+  },
+  "restartOnboardingLabel": {
+    "message": "从头重新开始引导设置"
+  },
+  "restartOnboardingButton": {
+    "message": "重新开始引导"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "重新开始引导？"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "这将重置您的引导状态，并带您返回设置流程的起始步骤。"
+  }
+}

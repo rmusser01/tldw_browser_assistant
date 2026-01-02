@@ -1,0 +1,1796 @@
+{
+  "newChat": {
+    "message": "新しいチャット"
+  },
+  "selectAPrompt": {
+    "message": "プロンプトを選択"
+  },
+  "githubRepository": {
+    "message": "GitHubリポジトリ"
+  },
+  "settings": {
+    "message": "設定"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "tldw Assistant をサーバーに接続"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "tldw サーバーを検索中…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "tldw サーバーに接続しました"
+  },
+  "connectionCard_headlineError": {
+    "message": "tldw サーバーに接続できません"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server はチャット、ナレッジ検索、メディア処理を支えるバックエンドです。自分の tldw サーバー URL を接続してアシスタントを使い始めてください。"
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "{{host}} に tldw サーバーが到達可能か確認しています。応答待ちのため少し時間がかかる場合があります。"
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "{{host}} の tldw サーバーに接続しました。チャットを開始したり、レビュー、ナレッジ、その他のツールを利用できます。"
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "メディアと文字起こしを確認"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "ナレッジとメモを検索"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "自分のドキュメントで RAG を使用"
+  },
+  "connectionCard_descriptionError": {
+    "message": "{{host}} の tldw サーバーに接続できませんでした。サーバーが稼働していること、URL が正しいこと、ブラウザがネットワーク経由で到達できることを確認してください。"
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "チャットを開始"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "接続を再試行"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "サーバーを変更"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "診断を開く"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "診断を表示"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "クイックインジェストを開く"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "デモを試す"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "オフラインのまま続行"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "オフラインモードを無効化"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "オフラインモード — 準備のみ"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "サーバーカードに移動"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "ヒント: オフライン時のインジェストにお困りですか？"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "サーバーがオフラインのときは、Quick Ingestがステージとして機能します。今URLやファイルをキューに入れておけば、再接続後に処理できます。"
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "ワークスペースに戻る"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "設定は新しいブラウザタブで開き、tldwサーバーを設定できます。"
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "サーバーがオフラインの間にQuick IngestでURLやファイルをキューに入れておけば、再接続後に処理できます。"
+  },
+  "header_showShortcuts": {
+    "message": "ショートカットを表示"
+  },
+  "header_hideShortcuts": {
+    "message": "ショートカットを非表示"
+  },
+  "header_groupWorkspace": {
+    "message": "ワークスペース"
+  },
+  "header_groupKnowledge": {
+    "message": "ナレッジ"
+  },
+  "header_groupSettings": {
+    "message": "設定ショートカット"
+  },
+  "header_backToHome": {
+    "message": "ホームに戻る"
+  },
+  "header_openSidebar": {
+    "message": "サイドバーを開く"
+  },
+  "header_untitledChat": {
+    "message": "タイトルなし"
+  },
+  "header_modelLabel": {
+    "message": "モデル"
+  },
+  "header_contentReview": {
+    "message": "コンテンツレビュー"
+  },
+  "header_promptLabel": {
+    "message": "プロンプト"
+  },
+  "header_review": {
+    "message": "レビュー"
+  },
+  "header_flashcards": {
+    "message": "フラッシュカード"
+  },
+  "header_quiz": {
+    "message": "クイズ"
+  },
+  "header_media": {
+    "message": "メディア"
+  },
+  "header_libraryView": {
+    "message": "マルチアイテムレビュー"
+  },
+  "header_notes": {
+    "message": "ノート"
+  },
+  "header_modesLabel": {
+    "message": "モード"
+  },
+  "header_modePlayground": {
+    "message": "チャット"
+  },
+  "header_modeReview": {
+    "message": "レビュー"
+  },
+  "header_modeMedia": {
+    "message": "メディア"
+  },
+  "header_modeKnowledge": {
+    "message": "ナレッジ QA"
+  },
+  "header_modeNotes": {
+    "message": "ノート"
+  },
+  "header_modePrompts": {
+    "message": "プロンプト"
+  },
+  "header_modePromptsPlayground": {
+    "message": "プロンプト"
+  },
+  "header_modeStt": {
+    "message": "STT プレイグラウンド"
+  },
+  "header_modePromptStudio": {
+    "message": "プロンプトスタジオ"
+  },
+  "header_modeFlashcards": {
+    "message": "フラッシュカード"
+  },
+  "header_modeWorldBooks": {
+    "message": "ワールドブック"
+  },
+  "header_modeDictionaries": {
+    "message": "チャット辞書"
+  },
+  "header_modeCharacters": {
+    "message": "キャラクター"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} で切り替え"
+  },
+  "header_quickIngest": {
+    "message": "クイックインジェスト"
+  },
+  "header_modelSettings": {
+    "message": "モデル設定"
+  },
+  "header_serverSettings": {
+    "message": "サーバー設定"
+  },
+  "header_more": {
+    "message": "AI ツール"
+  },
+  "header_moreMenu_title": {
+    "message": "高度なツール"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "サイドバー、リポジトリ、デバッグオプションなどの高度なツール"
+  },
+  "header_moreActions": {
+    "message": "その他の操作"
+  },
+  "header_toolsMenu": {
+    "message": "チャットツール"
+  },
+  "header_serverBackedLabel": {
+    "message": "サーバー連携チャット"
+  },
+  "header_serverBackedTooltip": {
+    "message": "このチャットのメッセージは tldw サーバーにも保存されます。"
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "画面、チャット、メディア、メモを検索…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "「{{query}}」に一致する結果は見つかりませんでした。"
+  },
+  "header_omniSearchCreateNote": {
+    "message": "メモ「{{query}}」を作成"
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "メモ「{{query}}」を作成しました"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "フラッシュカードコレクション「{{query}}」を作成"
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "フラッシュカードコレクション「{{query}}」を作成しました"
+  },
+  "header_omniSearchStartChat": {
+    "message": "新しいチャット「{{query}}」を開始"
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "オプション画面とサイドパネルでチャットとツールが利用できるようになりました。"
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} 件がキューにあります — クリックして確認および処理します"
+  },
+  "header_modeSpeech": {
+    "message": "音声"
+  },
+  "sidebarTitle": {
+    "message": "チャット履歴"
+  },
+  "error": {
+    "message": "エラー"
+  },
+  "somethingWentWrong": {
+    "message": "何かが間違っています"
+  },
+  "validationSelectModel": {
+    "message": "続行するにはモデルを選択してください"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "この履歴を削除しますか?"
+  },
+  "editHistoryTitle": {
+    "message": "新しいタイトルを入力"
+  },
+  "temporaryChat": {
+    "message": "一時的なチャット（保存されません）"
+  },
+  "more_copy_group": {
+    "message": "コピー"
+  },
+  "more_copy_asText": {
+    "message": "テキストとしてコピー"
+  },
+  "more_copy_asMarkdown": {
+    "message": "Markdownとしてコピー"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "正準トランスクリプトをコピー"
+  },
+  "more_copy_success": {
+    "message": "クリップボードにコピーしました！"
+  },
+  "more_download_group": {
+    "message": "ダウンロード"
+  },
+  "more_download_text": {
+    "message": "テキストファイル (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Markdownファイル (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "正準トランスクリプト (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSONファイル (.json)"
+  },
+  "more_download_image": {
+    "message": "画像 (.png)"
+  },
+  "more_share": {
+    "message": "共有"
+  },
+  "libraryView": {
+    "message": "ライブラリビュー"
+  },
+  "notes": {
+    "message": "ノート"
+  },
+  "flashcards_review": {
+    "message": "レビュー"
+  },
+  "flashcards_create": {
+    "message": "作成"
+  },
+  "flashcards_manage": {
+    "message": "管理"
+  },
+  "flashcards_importExport": {
+    "message": "インポート / エクスポート"
+  },
+  "flashcards_selectDeck": {
+    "message": "デッキを選択"
+  },
+  "flashcards_nextDue": {
+    "message": "次の期限"
+  },
+  "flashcards_front": {
+    "message": "表"
+  },
+  "flashcards_back": {
+    "message": "裏"
+  },
+  "flashcards_extra": {
+    "message": "補足"
+  },
+  "flashcards_showAnswer": {
+    "message": "解答を表示"
+  },
+  "flashcards_rate": {
+    "message": "評価"
+  },
+  "flashcards_answerMs": {
+    "message": "回答時間（秒、任意）"
+  },
+  "flashcards_noDue": {
+    "message": "期限のカードはありません"
+  },
+  "flashcards_deck": {
+    "message": "デッキ"
+  },
+  "flashcards_newDeck": {
+    "message": "新しいデッキ"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "デッキ名を入力してください。"
+  },
+  "flashcards_modelType": {
+    "message": "カードテンプレート"
+  },
+  "flashcards_reverse": {
+    "message": "逆向きカードも作成"
+  },
+  "flashcards_isCloze": {
+    "message": "穴埋め（Cloze）"
+  },
+  "flashcards_tags": {
+    "message": "タグ"
+  },
+  "flashcards_dueStatus": {
+    "message": "期限の状態"
+  },
+  "flashcards_dueAll": {
+    "message": "すべて"
+  },
+  "flashcards_dueNew": {
+    "message": "新規"
+  },
+  "flashcards_dueLearning": {
+    "message": "学習中"
+  },
+  "flashcards_dueDue": {
+    "message": "期限"
+  },
+  "flashcards_tag": {
+    "message": "タグ"
+  },
+  "flashcards_noCards": {
+    "message": "カードがありません"
+  },
+  "flashcards_due": {
+    "message": "期限"
+  },
+  "flashcards_editCard": {
+    "message": "カードを編集"
+  },
+  "flashcards_importTitle": {
+    "message": "フラッシュカードをインポート"
+  },
+  "flashcards_exportTitle": {
+    "message": "フラッシュカードをエクスポート"
+  },
+  "flashcards_importHelp": {
+    "message": "TSV/CSV を貼り付け: デッキ、表、裏、タグ、メモ"
+  },
+  "flashcards_pasteContent": {
+    "message": "ここに内容を貼り付け..."
+  },
+  "flashcards_tab": {
+    "message": "タブ"
+  },
+  "flashcards_comma": {
+    "message": ",（カンマ）"
+  },
+  "flashcards_semicolon": {
+    "message": ";（セミコロン）"
+  },
+  "flashcards_pipe": {
+    "message": "|（パイプ）"
+  },
+  "flashcards_hasHeader": {
+    "message": "ヘッダーあり"
+  },
+  "flashcards_import": {
+    "message": "インポート"
+  },
+  "flashcards_imported": {
+    "message": "インポート済み"
+  },
+  "flashcards_importLimits": {
+    "message": "インポート制限"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV"
+  },
+  "flashcards_apkg": {
+    "message": "Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "逆カードを含める"
+  },
+  "flashcards_includeHeader": {
+    "message": "ヘッダー行を含める"
+  },
+  "flashcards_extendedHeader": {
+    "message": "拡張ヘッダー（技術メタデータ）"
+  },
+  "flashcards_download": {
+    "message": "ダウンロード"
+  },
+  "flashcards_duplicate": {
+    "message": "複製"
+  },
+  "flashcards_move": {
+    "message": "移動"
+  },
+  "flashcards_reviewFailed": {
+    "message": "レビューに失敗しました"
+  },
+  "flashcards_updateFailed": {
+    "message": "更新に失敗しました"
+  },
+  "flashcards_deleteFailed": {
+    "message": "削除に失敗しました"
+  },
+  "flashcards_missingVersion": {
+    "message": "バージョン情報がありません。再読み込みして再試行してください"
+  },
+  "flashcards_bulkMove": {
+    "message": "一括移動"
+  },
+  "flashcards_bulkDelete": {
+    "message": "一括削除"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} 件削除 · {{failed}} 件失敗"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "操作は最初の {{limit}} 件に限定されます。"
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "選択分をエクスポート（CSV/TSV）"
+  },
+  "flashcards_selectedCount": {
+    "message": "選択中"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "このページをすべて選択"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "検索結果全体を選択"
+  },
+  "flashcards_clearSelection": {
+    "message": "選択を解除"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "フラッシュカードを使うには接続してください"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "フラッシュカードを復習したり生成するには、まず tldw サーバーに接続してください。"
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "［設定］→［tldw server］でサーバー URL を追加してください。"
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "接続したら、期限のカードを復習するか、ノートやメディアから新しいデッキを作成できます。"
+  },
+  "flashcards_demoTitle": {
+    "message": "デモモードでフラッシュカードを試す"
+  },
+  "flashcards_demoDescription": {
+    "message": "このデモは、フラッシュカードがコンテンツを間隔反復カードに変換する様子を示します。後で自分のサーバーに接続して、ノートやメディアからカードを生成・復習できます。"
+  },
+  "flashcards_demoExample1": {
+    "message": "レビューと管理タブで、デッキ・カード・タグの整理方法を確認できます。"
+  },
+  "flashcards_demoExample2": {
+    "message": "接続すると、講義や会議、ノートからカードを生成し、スケジュールに沿って復習できます。"
+  },
+  "flashcards_demoExample3": {
+    "message": "Notes や Media と組み合わせて、重要な情報を忘れにくくします。"
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "サンプルデッキ（プレビューのみ）"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "デモデッキ: 基本概念"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 枚 · 間隔と評価のテストに最適。"
+  },
+  "flashcards_demoSample2Title": {
+    "message": "デモデッキ: 製品用語"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 枚 · 名称、略語、主要な定義。"
+  },
+  "flashcards_demoSample3Title": {
+    "message": "デモデッキ: 会議のフォローアップ"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 枚 · レビュー用のアクション項目例。"
+  },
+  "flashcards_hideAnswer": {
+    "message": "解答を隠す"
+  },
+  "flashcards_preview": {
+    "message": "プレビュー"
+  },
+  "flashcards_ratingAgain": {
+    "message": "もう一度"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "このカードを覚えていませんでした。"
+  },
+  "flashcards_ratingHard": {
+    "message": "難しい"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "かろうじて思い出せました。難しく感じました。"
+  },
+  "flashcards_ratingGood": {
+    "message": "良い"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "少し努力して思い出せました。"
+  },
+  "flashcards_ratingEasy": {
+    "message": "簡単"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "すぐに自信を持って思い出せました。"
+  },
+  "flashcards_showTiming": {
+    "message": "回答時間を記録"
+  },
+  "flashcards_hideTiming": {
+    "message": "回答時間を非表示"
+  },
+  "flashcards_noDueTitle": {
+    "message": "レビュー対象のカードはありません"
+  },
+  "flashcards_noDueDescription": {
+    "message": "すべて完了しました。新しいカードを作成するか、既存のデッキをインポートして復習を開始してください。"
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "新しいカードを作成"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "デッキをインポート"
+  },
+  "flashcards_createTitle": {
+    "message": "ノートからフラッシュカードを作成"
+  },
+  "flashcards_createDescription": {
+    "message": "表に質問、裏に答えを入力します。カードをデッキにまとめ、タグを追加して検索しやすくできます。"
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Basic は表に質問、裏に答えを表示します。Reverse は反対向きのカードも作成します。Cloze は {{...}} でテキストの一部を隠します。"
+  },
+  "flashcards_reverseHelp": {
+    "message": "裏面を質問として使うカードも作成します。"
+  },
+  "flashcards_isClozeHelp": {
+    "message": "穴埋めカード用。表の隠したい部分を {{...}} で囲みます。"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Markdown と LaTeX に対応しています。"
+  },
+  "flashcards_extraHint": {
+    "message": "任意のヒント/解説（Markdown + LaTeX 対応）。"
+  },
+  "flashcards_notesHint": {
+    "message": "内部メモ（Markdown + LaTeX 対応）。"
+  },
+  "flashcards_bulkActions": {
+    "message": "一括操作"
+  },
+  "flashcards_selectionHelp": {
+    "message": "「検索結果全体を選択」は、このページだけでなくフィルターに一致するすべてのカードに操作を適用します。"
+  },
+  "flashcards_noCardsTitle": {
+    "message": "フラッシュカードはまだありません"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "ノートやメディアからカードを作成するか、既存のデッキをインポートしてください。"
+  },
+  "flashcards_clearFilters": {
+    "message": "フィルターをクリア"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "最初のカードを作成"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "フラッシュカードをインポート"
+  },
+  "flashcards_mapping": {
+    "message": "列のマッピング"
+  },
+  "flashcards_mappingPreview": {
+    "message": "最初の数行のプレビュー:"
+  },
+  "flashcards_exportHelp": {
+    "message": "デッキ、タグ、検索で絞り込んでから CSV/TSV（表計算）または Anki (.apkg) としてエクスポートします。"
+  },
+  "contentReview_title": {
+    "message": "コンテンツレビュー"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} 件の下書きが準備完了"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} 件を確定済み"
+  },
+  "contentReview_totalCount": {
+    "message": "合計 {{count}} 件"
+  },
+  "contentReview_commitAll": {
+    "message": "すべて確定"
+  },
+  "contentReview_clearDrafts": {
+    "message": "下書きをクリア"
+  },
+  "contentReview_emptyDescription": {
+    "message": "まだ下書きはありません。[保存前にレビュー] をオンにした Quick Ingest を使って下書きを作成できます。"
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest を開く"
+  },
+  "contentReview_batchLabel": {
+    "message": "バッチ"
+  },
+  "contentReview_batchName": {
+    "message": "バッチ {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "下書き"
+  },
+  "contentReview_selectDraft": {
+    "message": "レビューを始める下書きを選択してください。"
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "下書きのタイトル"
+  },
+  "contentReview_lastSaved": {
+    "message": "{{time}} に保存"
+  },
+  "contentReview_resetTitle": {
+    "message": "下書きをリセットしますか？"
+  },
+  "contentReview_resetBody": {
+    "message": "この下書きの内容を元の状態に戻します。"
+  },
+  "contentReview_resetConfirm": {
+    "message": "リセット"
+  },
+  "contentReview_resetCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview_resetContent": {
+    "message": "リセット"
+  },
+  "contentReview_diffView": {
+    "message": "差分ビュー"
+  },
+  "contentReview_saveDraft": {
+    "message": "下書きを保存"
+  },
+  "contentReview_editorLabel": {
+    "message": "コンテンツ"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} 語"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} 文字"
+  },
+  "contentReview_aiFix": {
+    "message": "AI で修正"
+  },
+  "contentReview_aiHint": {
+    "message": "下書きの内容をサーバーに送信し、AI で処理します。"
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "サーバー既定"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "下書きをサーバーに送信しますか？"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "下書きの内容が tldw サーバーに送信され、AI で処理されます。確定するまでは下書きはローカルにのみ保存されます。"
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "続行"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI の修正を適用しました。"
+  },
+  "contentReview_aiNoChange": {
+    "message": "変更は返されませんでした。"
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI からコンテンツが返されませんでした。"
+  },
+  "contentReview_aiUnavailable": {
+    "message": "チャット補完を利用できません。"
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "テンプレートを選択"
+  },
+  "contentReview_applyTemplate": {
+    "message": "テンプレートを適用"
+  },
+  "contentReview_templateApplied": {
+    "message": "テンプレートを適用しました。"
+  },
+  "contentReview_templateMissing": {
+    "message": "先にテンプレートを選択してください。"
+  },
+  "contentReview_detectSections": {
+    "message": "セクションを検出"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "セクションを再検出しますか？"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "既存のセクションを置き換え、選択内容をリセットします。"
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "再検出"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "セクションが検出されませんでした。"
+  },
+  "contentReview_sectionsLabel": {
+    "message": "セクションフィルター"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "トランスクリプトを整形"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "行構造を保ったまま、句読点と大文字・小文字を正規化します。"
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "話者ごとのターン"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "各話者のターンが、わかりやすいラベル付きで 1 行ずつになるようにします。"
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章見出し"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "コンテンツを削除せずにトピックをまとめる Markdown 見出しを挿入します。"
+  },
+  "contentReview_metadataLabel": {
+    "message": "メタデータ"
+  },
+  "contentReview_mediaType": {
+    "message": "メディア種別"
+  },
+  "contentReview_keywords": {
+    "message": "キーワード"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "キーワードを追加"
+  },
+  "contentReview_reviewNotes": {
+    "message": "レビュー用メモ"
+  },
+  "contentReview_missingSource": {
+    "message": "元のファイルが見つかりません"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "この下書きを確定するには元のファイルを添付してください。"
+  },
+  "contentReview_attachSource": {
+    "message": "ファイルを添付"
+  },
+  "contentReview_actionsLabel": {
+    "message": "アクション"
+  },
+  "contentReview_commit": {
+    "message": "確定"
+  },
+  "contentReview_commitDisabled": {
+    "message": "確定する前に元の音声/動画ファイルを添付してください。"
+  },
+  "contentReview_markReviewed": {
+    "message": "レビュー済みにする"
+  },
+  "contentReview_skipNext": {
+    "message": "スキップ"
+  },
+  "contentReview_discard": {
+    "message": "破棄"
+  },
+  "contentReview_discardTitle": {
+    "message": "下書きを破棄しますか？"
+  },
+  "contentReview_discardBody": {
+    "message": "この下書きは破棄済みとしてマークされ、レビュー一覧から削除されます。"
+  },
+  "contentReview_discardConfirm": {
+    "message": "破棄"
+  },
+  "contentReview_discardCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview_commitSuccess": {
+    "message": "下書きを確定しました。"
+  },
+  "contentReview_commitAllTitle": {
+    "message": "レビュー済みの下書きをすべて確定しますか？"
+  },
+  "contentReview_commitAllBody": {
+    "message": "レビュー済みとマークされた下書きのみが確定されます。"
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "すべて確定"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} 件を確定 · {{failed}} 件に失敗"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "このファイルはローカルの下書き上限 ({{cap}}) を超えています。"
+  },
+  "contentReview_clearTitle": {
+    "message": "すべての下書きをクリアしますか？"
+  },
+  "contentReview_clearBody": {
+    "message": "ローカルのコンテンツレビュー用下書きと関連ファイルをすべて削除します。"
+  },
+  "contentReview_clearConfirm": {
+    "message": "下書きをクリア"
+  },
+  "contentReview_clearCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview_clearSuccess": {
+    "message": "下書きを削除しました。"
+  },
+  "contentReview_originalLabel": {
+    "message": "元の内容"
+  },
+  "contentReview_editedLabel": {
+    "message": "編集済み"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "レビュー後に保存"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "保存前にレビュー"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "今すぐ処理し、サーバーに保存する前にローカルで下書きを編集します。"
+  },
+  "contentReview_reviewEnabled": {
+    "message": "レビューモード"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "ローカル下書きは {{cap}} 件までです。"
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "下書きをローカルに保存しますか？"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "下書きはこのブラウザに保存され、機密データを含む可能性があります。コンテンツレビューのページからいつでも下書きを消去できます。"
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "レビューモードでは、サーバーに保存するまで内容をクライアント側に保持します。"
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "レビューを有効にする"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "キャンセル"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "レビュー"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "レビュー用下書きの準備ができました。"
+  },
+  "contentReview_openContentReview": {
+    "message": "コンテンツレビューを開く"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "ファイルサイズが大きすぎます"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "ファイルサイズは 10MB 未満にしてください"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "アップロードに失敗しました"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "ファイルをアップロードできませんでした。もう一度お試しください。"
+  },
+  "promptStudio_title": {
+    "message": "プロンプトスタジオ・プレイグラウンド"
+  },
+  "promptStudio_subtitle": {
+    "message": "Prompt Studio のプロジェクト、プロンプト、実行、テストケース、評価を管理します。"
+  },
+  "promptStudio_capabilityError": {
+    "message": "Prompt Studio に接続できません"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "サーバー接続を確認するか、Prompt Studio API が利用可能になるまでこのセクションを無効にしてください。"
+  },
+  "promptStudio_offline": {
+    "message": "Prompt Studio を使うにはサーバーに接続してください"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "プロジェクトとプロンプト"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "プロジェクトを作成または開いてプロンプトを編集します。"
+  },
+  "promptStudio_projectsError": {
+    "message": "プロジェクトを読み込めませんでした"
+  },
+  "promptStudio_promptVersion": {
+    "message": "バージョン"
+  },
+  "promptStudio_changeDescription": {
+    "message": "変更内容"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "システムプロンプト"
+  },
+  "promptStudio_userPrompt": {
+    "message": "ユーザープロンプト"
+  },
+  "promptStudio_fewShot": {
+    "message": "Few-shot 例（JSON）"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "モジュール設定（JSON）"
+  },
+  "promptStudio_history": {
+    "message": "履歴"
+  },
+  "promptStudio_executeCard": {
+    "message": "単発実行"
+  },
+  "promptStudio_executeHint": {
+    "message": "プロバイダー、モデル、温度、入力。"
+  },
+  "promptStudio_provider": {
+    "message": "プロバイダー"
+  },
+  "promptStudio_model": {
+    "message": "モデル"
+  },
+  "promptStudio_runPrompt": {
+    "message": "プロンプトを実行"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "実行フォームは近日追加予定です。このペインを使って /prompt-studio/prompts/execute で単一入力を実行します。"
+  },
+  "promptStudio_testsCard": {
+    "message": "テストケースと評価"
+  },
+  "promptStudio_testsHint": {
+    "message": "テストケースの一覧/作成、評価の実行、ステータスのポーリング。"
+  },
+  "promptStudio_testCases": {
+    "message": "テストケース"
+  },
+  "promptStudio_evaluations": {
+    "message": "評価"
+  },
+  "promptStudio_inputsJson": {
+    "message": "入力（JSON）"
+  },
+  "promptStudio_expectedJson": {
+    "message": "期待される出力（JSON）"
+  },
+  "promptStudio_golden": {
+    "message": "ゴールデン？"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "一括追加"
+  },
+  "promptStudio_bulkJson": {
+    "message": "テストケースの JSON 配列"
+  },
+  "promptStudio_runAsync": {
+    "message": "非同期で実行"
+  },
+  "promptStudio_temperature": {
+    "message": "温度"
+  },
+  "promptStudio_maxTokens": {
+    "message": "最大トークン"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "評価を実行"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "仮のプレースホルダー: このセクションにテストケースの CRUD、評価の作成/一覧/詳細、非同期ポーリングを接続してください。"
+  },
+  "promptStudio_unavailable": {
+    "message": "このサーバーでは Prompt Studio が有効ではありません。"
+  },
+  "promptStudio_unavailableBody": {
+    "message": "利用可能になると、ここにプロジェクト、プロンプト履歴、実行フロー、評価が表示されます。"
+  },
+  "promptSearch_title": {
+    "message": "タイトル"
+  },
+  "promptSearch_content": {
+    "message": "内容"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "システムプロンプト"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "サーバーにも保存"
+  },
+  "promptSearch_cancel": {
+    "message": "キャンセル"
+  },
+  "promptSearch_insert": {
+    "message": "挿入"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "新規として保存"
+  },
+  "promptSearch_saveLocal": {
+    "message": "変更を保存（ローカル）"
+  },
+  "promptSearch_saveServer": {
+    "message": "変更を保存（サーバー）"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "ローカルコピーを保存"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "新規として保存（サーバーのみ）"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "ローカルのプロンプトを更新しました"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "サーバーのプロンプトを更新しました"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "ローカルのプロンプト更新に失敗しました"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "サーバーのプロンプト更新に失敗しました"
+  },
+  "promptSearch_manageLink": {
+    "message": "プロンプトの表示 / 管理"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "ローカルプロンプトを上書き（任意）"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "上書きするローカルプロンプトを選択"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "プロンプトを保存しました"
+  },
+  "promptSearch_saveFailed": {
+    "message": "プロンプトの保存に失敗しました"
+  },
+  "quickIngest_title": {
+    "message": "クイックインジェスト（メディア）"
+  },
+  "quickIngest_subtitle": {
+    "message": "URL を 1 件以上入力してください。必要なら行ごとにタイプを指定できます。"
+  },
+  "quickIngest_offlineTitle": {
+    "message": "サーバーがオフライン — ステージングのみ"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "ここでURLやファイルをキューに入れ、フィールドを確認できますが、tldwサーバーがオンラインになるまで取り込みは実行されません。保留中の項目を処理するには再接続してください。"
+  },
+  "quickIngest_sourceHeading": {
+    "message": "ソース URL またはファイル"
+  },
+  "quickIngest_storeRemote": {
+    "message": "リモート DB に保存"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "インジェスト結果を tldw サーバーに保存する"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "インジェスト結果をローカルのみで処理する"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "インデックス作成のために tldw サーバーへアップロードします。"
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "処理のみ行い、結果はローカルに保持します（JSON をダウンロード）。"
+  },
+  "quickIngest_storageHeading": {
+    "message": "インジェスト結果の保存先"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "tldw サーバーに保存（RAG や共有ワークスペースに推奨）。"
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "このブラウザーのみに保存され、サーバーには書き込みません。"
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "レビュー後に保存"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "保存前にレビュー"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "今すぐ処理し、サーバーに保存する前にローカルで下書きを編集します。"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "レビューモード"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "ローカル下書きは {{cap}} 件までです。"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "下書きをローカルに保存しますか？"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "下書きはこのブラウザに保存され、機密データを含む可能性があります。コンテンツレビューのページからいつでも下書きを消去できます。"
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "レビューモードでは、サーバーに保存するまで内容をクライアント側に保持します。"
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "レビューを有効にする"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "キャンセル"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "レビュー"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "レビュー用下書きの準備ができました。"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} 件のファイルがローカル下書き上限 ({{cap}}) を超えています。音声/動画を保存する前にソースを添付してください。"
+  },
+  "quickIngest_openContentReview": {
+    "message": "コンテンツレビューを開く"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "インジェストと保存について詳しく見る"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "URL を貼り付け（1 行 1 件）"
+  },
+  "quickIngest_or": {
+    "message": "または"
+  },
+  "quickIngest_remove": {
+    "message": "削除"
+  },
+  "quickIngest_add": {
+    "message": "URL を追加"
+  },
+  "quickIngest_commonOptions": {
+    "message": "取り込みオプション"
+  },
+  "quickIngest_audioOptions": {
+    "message": "音声オプション"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "言語（例: en）"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "有効にすると文字起こしで話者を分離します。"
+  },
+  "quickIngest_documentOptions": {
+    "message": "ドキュメントオプション"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCRはスキャンしたPDFや画像からテキストを抽出するのに役立ちます。"
+  },
+  "quickIngest_videoOptions": {
+    "message": "動画オプション"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "利用可能な場合はタイムスタンプ/字幕を含めます。"
+  },
+  "quickIngest_cancel": {
+    "message": "キャンセル"
+  },
+  "quickIngest_ingest": {
+    "message": "取り込み"
+  },
+  "quickIngest_process": {
+    "message": "処理"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "キューのみ — サーバーがオフラインです"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "オフライン — アイテムを後で処理するためにキューに追加"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "オフラインモード：サーバーが復帰するまでアイテムはここにキューされます。"
+  },
+  "quickIngest_offlineFooter": {
+    "message": "オフラインモード：アイテムはここに一時保存され、サーバーが再接続すると処理されます。"
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "キュー処理"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "キューに溜まったクイックインジェスト項目を処理"
+  },
+  "quickIngest_runAria": {
+    "message": "クイックインジェストを実行"
+  },
+  "quickIngest_runLabel": {
+    "message": "クイックインジェスト実行"
+  },
+  "quickIngest_results": {
+    "message": "結果"
+  },
+  "quickIngest_downloadJson": {
+    "message": "JSON をダウンロード"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} 件の高度なフィールドを読み込みました"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "高度なオプションが検出されません — 仕様を再読み込みしてください。"
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} 件変更"
+  },
+  "quickIngest_progress": {
+    "message": "処理中 {{done}} / {{total}} 件…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "保留中 — 接続時に実行されます"
+  },
+  "quickIngest_readyToast": {
+    "message": "サーバーが復帰しました — {{count}} 件のキューを処理できます。"
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "キュー処理"
+  },
+  "quickIngest_errorSummary": {
+    "message": "現在、取り込みアイテムを処理できませんでした。"
+  },
+  "quickIngest_errorHint": {
+    "message": "tldw サーバーを確認してから再試行してください。問題の切り分けには「ヘルスと診断」をご利用ください。"
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "「ヘルスと診断」でサーバーの状態を確認する"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "最近の実行に失敗しています — 詳細はヘッダーの「ヘルスと診断」を開いて確認してください。"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "サーバーから高度な仕様を再読み込みしました"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "サーバーから高度な仕様を再読み込みしました（追加: {{added}}、削除: {{removed}}）"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "同梱の media.add スキーマ（v{{version}}）をフォールバックとして使用しています。フィールドが古そうな場合は tldw_server の /openapi.json と照合して確認してください。"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "レビュー用下書きを作成できませんでした。"
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "レビュー用下書きの作成に失敗しました。"
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "下書き作成を再試行"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "レビューせずに保存"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "コンテンツレビューを開けませんでした。もう一度お試しください。"
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "コンテンツレビューを再度開く"
+  },
+  "notesSearch_placeholder": {
+    "message": "タイトルと内容を検索"
+  },
+  "notesSearch_clear": {
+    "message": "検索とフィルターをクリア"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "キーワードで絞り込み"
+  },
+  "notesSearch_new": {
+    "message": "新規ノート"
+  },
+  "notesSearch_newTooltip": {
+    "message": "新しいノートを作成"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} 件のノート"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "一致するノートを Markdown (.md) でエクスポート"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "一致するノートを CSV でエクスポート"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "一致するノートを JSON でエクスポート"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "エクスポートしました（{{size}}）"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "{{count}} 件のノートをエクスポートしました（{{size}}）"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "{{count}} 件のノートをCSVとしてエクスポートしました（{{size}}）"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "{{count}} 件のノートをJSONとしてエクスポートしました（{{size}}）"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "ノートを Markdown (.md) でエクスポート"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "ノートを保存"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "ノート内容をコピー"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "ノートを削除"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "エクスポート"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "結果"
+  },
+  "notesSearch_showingRange": {
+    "message": "{{start}}–{{end}} / {{total}} 件"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "サイドバーを展開"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "サイドバーを折りたたむ"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "タイトル"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "キーワード（タグ）"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "左側のキーワードフィルターでこのノートを見つけるのに役立ちます。"
+  },
+  "tts_playground": {
+    "message": "TTS プレイグラウンド"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "Notes を使うには接続してください"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "Notes を利用するには、まず tldw サーバーに接続してください。"
+  },
+  "notesEmpty_demoExample3": {
+    "message": "Notes を Media や Review と一緒に使うことで、見つけた情報を整理しておけます。"
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "サンプルのメモ（プレビューのみ）"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "デモメモ: 週次ミーティングの振り返り"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "最近のチーム同期での決定事項、ブロッカー、フォローアップ。"
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "今日 · 9:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "デモメモ: リサーチのハイライト"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "長い記事や論文から抜き出した主要なインサイト。"
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "昨日 · 16:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "デモメモ: 通話サマリー"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "顧客との通話内容の要約と、次のステップや担当者。"
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "今週"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "［設定］→［tldw server］を開き、サーバー URL を追加してください。"
+  },
+  "notesEmpty_connectExample2": {
+    "message": "サーバーが動作しているのに到達できない場合は、［診断］を使用してください。"
+  },
+  "notesEmpty_demoTitle": {
+    "message": "デモモードで Notes を試す"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "このデモでは、Notes がインサイトをどのように整理できるかを紹介します。あとから自分のサーバーに接続して、本物のメモを作成・保存できます。"
+  },
+  "notesEmpty_demoExample1": {
+    "message": "リストでメモのタイトル、プレビュー、タイムスタンプがどのように表示されるかを確認できます。"
+  },
+  "notesEmpty_demoExample2": {
+    "message": "接続すると、会議やレビューなどからメモを作成できるようになります。"
+  },
+  "notesEmpty_title": {
+    "message": "まだメモがありません"
+  },
+  "notesEmpty_description": {
+    "message": "tldw のインサイトに関連する自由形式のメモを保存・整理できます。"
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "最近のミーティングや書き起こしについて、新しいメモを作成してみてください。"
+  },
+  "notesEmpty_exampleLink": {
+    "message": "レビュー結果を Notes に保存して、あとから見返せるようにしましょう。"
+  },
+  "notesEmpty_primaryCta": {
+    "message": "メモを作成"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "デモモードで World Books を試す"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "このデモでは、World Books が世界観や設定、製品に関する構造化知識を整理する様子を紹介します。"
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "ファンタジー設定、製品用語集、キャンペーンノートなどの例を確認できます。"
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "接続すると、チャット中に tldw が使える World Books を作成できます。"
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "World Books を使うには接続してください"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "World Books を利用するには、まず tldw サーバーに接続して世界知識を保存・取得できるようにします。"
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "［設定］→［tldw server］を開き、サーバー URL を追加してください。"
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "サーバーが動作しているのに到達できない場合は、［診断］を使用してください。"
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "キャラクターやチャットが参照できる構造化知識ベースを作成・管理します。"
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "World Books はオフラインです"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "World Books を表示・編集するには、メイン設定ページから tldw サーバーに接続してください。"
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "デモモードでチャット辞書を試す"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "このデモでは、チャット辞書がモデルに届く前に名前・略語・用語を正規化する様子を紹介します。"
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "製品名、プロジェクトのコードネーム、社内用語の辞書例を確認できます。"
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "接続すると、すべてのチャットで辞書を有効にできます。"
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "チャット辞書を使うには接続してください"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "チャット辞書を利用するには、まず tldw サーバーに接続して置換ルールを保存できるようにします。"
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "［設定］→［tldw server］を開き、サーバー URL を追加してください。"
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "サーバーが動作しているのに到達できない場合は、［診断］を使用してください。"
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "組織名、略語、用語を tldw が理解できるよう、再利用可能な置換ルールを定義します。"
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "チャット辞書はオフラインです"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "チャット辞書を表示・編集するには、メイン設定ページから tldw サーバーに接続してください。"
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "デモモードで Characters を試す"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "このデモでは、Characters がチャット可能な人格とシステムプロンプトをまとめたものであることを紹介します。"
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "文章コーチ、設定の専門家、コーディングアシスタントなどの例を確認できます。"
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "接続すると、チャットのヘッダーや選択に表示されるキャラクターを作成できます。"
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "Characters を使うには接続してください"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "Characters を利用するには、まず tldw サーバーに接続してキャラクター定義を保存できるようにします。"
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "［設定］→［tldw server］を開き、サーバー URL を追加してください。"
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "サーバーが動作しているのに到達できない場合は、［診断］を使用してください。"
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "チャットヘッダーから選択でき、会話間で再利用できるキャラクターを作成します。"
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "キャラクターを作成すると、その人格を複数のチャットで再利用できます。開始するには「新しいキャラクター」を使ってください。"
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "このサーバーでは Characters API を利用できません"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "このサーバーは /api/v1/characters エンドポイントを公開していません。"
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "診断を開き、Characters 用の API が利用可能かとサーバーバージョンを確認してください。"
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "サーバーを更新したら拡張機能を再読み込みし、Characters に戻ってください。"
+  },
+  "characters_selectCharacter": {
+    "message": "キャラクターを選択"
+  },
+  "characters_chattingAs": {
+    "message": "現在のチャット表示名：{{name}}"
+  },
+  "characters_clearCharacter": {
+    "message": "キャラクターをクリア"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "キャラクターを読み込めません"
+  },
+  "characters_fetchErrorBody": {
+    "message": "接続状況またはサーバーの状態を確認してから、もう一度お試しください。"
+  },
+  "characters_none": {
+    "message": "なし（キャラクターなし）"
+  },
+  "characters_searchPlaceholder": {
+    "message": "名前でキャラクターを検索"
+  },
+  "characters_noMatches": {
+    "message": "検索条件に一致するキャラクターはまだありません。"
+  },
+  "characters_refresh": {
+    "message": "キャラクターを更新"
+  },
+  "characters_refreshing": {
+    "message": "キャラクターを更新しています…"
+  },
+  "promptInsert_useInChat": {
+    "message": "チャットで使用"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "チャットを開き、このプロンプトを入力欄に挿入します。"
+  },
+  "promptInsert_confirmTitle": {
+    "message": "チャットでプロンプトを使用しますか？"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "メッセージにすでにテキストがあります。このプロンプトで上書きするか、下に追加しますか？"
+  },
+  "promptInsert_overwrite": {
+    "message": "メッセージを上書き"
+  },
+  "promptInsert_append": {
+    "message": "末尾に追加"
+  },
+  "omniSearch_filterScreen": {
+    "message": "画面"
+  },
+  "omniSearch_filterChat": {
+    "message": "チャット"
+  },
+  "omniSearch_filterMedia": {
+    "message": "メディア"
+  },
+  "omniSearch_filterNote": {
+    "message": "メモ"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "フラッシュカードコレクション"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "プロンプト"
+  },
+  "omniSearch_filteringBy": {
+    "message": "絞り込み条件："
+  },
+  "quickChatHelper_tooltip": {
+    "message": "クイックチャットヘルパー"
+  },
+  "quickChatHelper_title": {
+    "message": "クイックチャットヘルパー"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "素早く質問を入力..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "送信"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "メインのスレッドをすっきり保つために、クイックなサイドチャットを開始しましょう。"
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "別ウィンドウで開く"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "まずメインチャットでモデルを選択してください。"
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "あなたのメッセージ"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "アシスタントのメッセージ"
+  },
+  "quiz_itemsPerPage": {
+    "message": "件/ページ"
+  },
+  "quiz_editQuizTitle": {
+    "message": "クイズを編集"
+  },
+  "quiz_updateSuccess": {
+    "message": "クイズを更新しました"
+  },
+  "quiz_updateError": {
+    "message": "クイズの更新に失敗しました"
+  },
+  "quiz_questionTextRequired": {
+    "message": "問題文は必須です。"
+  },
+  "quiz_optionsRequired": {
+    "message": "選択肢を少なくとも2つ入力してください。"
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "問題を作成しました。"
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "問題を更新しました。"
+  },
+  "quiz_questionSaveError": {
+    "message": "問題の保存に失敗しました。"
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "問題を削除しました。"
+  },
+  "quiz_questionDeleteError": {
+    "message": "問題の削除に失敗しました。"
+  },
+  "quiz_editQuestion": {
+    "message": "問題を編集"
+  },
+  "quiz_points": {
+    "message": "ポイント"
+  },
+  "quiz_orderIndex": {
+    "message": "順序"
+  },
+  "quiz_startError": {
+    "message": "クイズの開始に失敗しました"
+  },
+  "quiz_answerAll": {
+    "message": "送信する前にすべての問題に回答してください。"
+  },
+  "quiz_submitError": {
+    "message": "クイズの送信に失敗しました"
+  },
+  "quiz_scoreSummary": {
+    "message": "スコア: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "正解"
+  },
+  "quiz_incorrect": {
+    "message": "不正解"
+  },
+  "quiz_yourAnswer": {
+    "message": "あなたの回答"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "正解"
+  },
+  "quiz_backToList": {
+    "message": "一覧に戻る"
+  },
+  "quiz_retake": {
+    "message": "再挑戦"
+  },
+  "searchPrompts": {
+    "message": "プロンプトを検索..."
+  },
+  "noMatchingPrompts": {
+    "message": "一致するプロンプトがありません"
+  },
+  "promptSelect_favorites": {
+    "message": "お気に入り"
+  },
+  "promptSelect_system": {
+    "message": "システムプロンプト"
+  },
+  "promptSelect_quick": {
+    "message": "クイックプロンプト"
+  }
+}

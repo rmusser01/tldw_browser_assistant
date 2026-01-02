@@ -1,0 +1,2357 @@
+{
+  "newChat": {
+    "message": "New Chat"
+  },
+  "selectAPrompt": {
+    "message": "Select a Prompt"
+  },
+  "githubRepository": {
+    "message": "GitHub Repository"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "Connect tldw Assistant to your server"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "Searching for your tldw server…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "Connected to your tldw server"
+  },
+  "connectionCard_headlineError": {
+    "message": "Can’t reach your tldw server"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw server is an optional backend that runs on your own machine or server. It powers chat history, Knowledge search, and media processing. You can explore the extension first, then connect your own server when you’re ready."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "We’re checking {{host}} to see if your tldw server is reachable. This can take a few seconds the first time or after the server restarts."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "Connected to your tldw server at {{host}}. You can start chatting, search knowledge, review media, and use other tools from the header."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Review media & transcripts"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Search knowledge and notes"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Use RAG with your own documents"
+  },
+  "connectionCard_descriptionError": {
+    "message": "We couldn’t reach your tldw server at {{host}}. Check that the server is running, the URL matches your tldw_server, and your browser is allowed to reach it. Use Diagnostics for detailed errors and next steps."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "Start chatting"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "Retry connection"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "Change server"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "Open diagnostics"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "View diagnostics"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "Open Quick Ingest"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "Try a demo"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "Continue offline"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "Disable offline mode"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "Offline mode — staging only"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "Go to server card"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "Tip: Need ingest help while you’re offline?"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "When your server is offline, Quick Ingest works as a staging area. You can queue URLs and files now and process them once you reconnect."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "Back to workspace"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "Settings open in a new browser tab so you can configure your tldw server."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect."
+  },
+  "buttonRetry": {
+    "message": "Retry connection"
+  },
+  "header_backToHome": {
+    "message": "Back to home"
+  },
+  "header_openSidebar": {
+    "message": "Open Sidebar"
+  },
+  "header_untitledChat": {
+    "message": "Untitled"
+  },
+  "header_modelLabel": {
+    "message": "Model"
+  },
+  "header_promptLabel": {
+    "message": "Prompt"
+  },
+  "header_review": {
+    "message": "Review"
+  },
+  "header_contentReview": {
+    "message": "Content Review"
+  },
+  "header_flashcards": {
+    "message": "Flashcards"
+  },
+  "header_quiz": {
+    "message": "Quiz"
+  },
+  "header_media": {
+    "message": "Media"
+  },
+  "header_libraryView": {
+    "message": "Multi-Item Review"
+  },
+  "header_notes": {
+    "message": "Notes"
+  },
+  "header_showShortcuts": {
+    "message": "Show shortcuts"
+  },
+  "header_hideShortcuts": {
+    "message": "Hide shortcuts"
+  },
+  "header_groupWorkspace": {
+    "message": "Workspace"
+  },
+  "header_groupKnowledge": {
+    "message": "Knowledge"
+  },
+  "header_groupAdministration": {
+    "message": "Administration"
+  },
+  "header_groupSettings": {
+    "message": "Settings shortcuts"
+  },
+  "header_modesLabel": {
+    "message": "Modes"
+  },
+  "header_modePlayground": {
+    "message": "Chat"
+  },
+  "header_modeReview": {
+    "message": "Review"
+  },
+  "header_modeMedia": {
+    "message": "Media"
+  },
+  "header_modeKnowledge": {
+    "message": "Knowledge QA"
+  },
+  "header_modeNotes": {
+    "message": "Notes"
+  },
+  "header_modePrompts": {
+    "message": "Prompts"
+  },
+  "header_modePromptsPlayground": {
+    "message": "Prompts"
+  },
+  "header_modeStt": {
+    "message": "STT Playground"
+  },
+  "header_modeSpeech": {
+    "message": "Speech"
+  },
+  "header_modePromptStudio": {
+    "message": "Prompt Studio"
+  },
+  "header_modeFlashcards": {
+    "message": "Flashcards"
+  },
+  "header_modeWorldBooks": {
+    "message": "World Books"
+  },
+  "header_modeDictionaries": {
+    "message": "Chat dictionaries"
+  },
+  "header_modeCharacters": {
+    "message": "Characters"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} to switch"
+  },
+  "header_quickIngest": {
+    "message": "Quick ingest"
+  },
+  "header_modelSettings": {
+    "message": "Model settings"
+  },
+  "header_serverSettings": {
+    "message": "Settings"
+  },
+  "header_more": {
+    "message": "AI tools"
+  },
+  "header_moreMenu_title": {
+    "message": "Advanced tools"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "Advanced tools like sidebar, repository, and debug options"
+  },
+  "header_moreActions": {
+    "message": "More actions"
+  },
+  "header_adminServer": {
+    "message": "Server Admin"
+  },
+  "header_adminLlamacpp": {
+    "message": "Llama.cpp Admin"
+  },
+  "header_adminMlx": {
+    "message": "MLX LM Admin"
+  },
+  "header_toolsMenu": {
+    "message": "Chat tools"
+  },
+  "header_serverBackedLabel": {
+    "message": "Server-backed chat"
+  },
+  "header_serverBackedTooltip": {
+    "message": "Messages in this chat are also saved on your tldw server."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "Search screens, chats, media, notes…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "No matches for \"{{query}}\"."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "Create note \"{{query}}\""
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "Note \"{{query}}\" created"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "Create flashcard collection \"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "Flashcard collection \"{{query}}\" created"
+  },
+  "header_omniSearchStartChat": {
+    "message": "Start new chat \"{{query}}\""
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "Chat and tools are now available in Options and the sidepanel."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} items queued — click to review and process"
+  },
+  "promptStudio_title": {
+    "message": "Prompt Studio Playground"
+  },
+  "promptStudio_subtitle": {
+    "message": "Manage Prompt Studio projects, prompts, executions, test cases, and evaluations."
+  },
+  "promptStudio_capabilityError": {
+    "message": "Unable to reach Prompt Studio"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "Check server connectivity or disable this section until the Prompt Studio APIs are available."
+  },
+  "promptStudio_offline": {
+    "message": "Connect to your server to use Prompt Studio"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "Projects & prompts"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "Create or open a project to edit prompts."
+  },
+  "promptStudio_projectsError": {
+    "message": "Could not load projects"
+  },
+  "promptStudio_promptVersion": {
+    "message": "Version"
+  },
+  "promptStudio_changeDescription": {
+    "message": "Change description"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "System prompt"
+  },
+  "promptStudio_userPrompt": {
+    "message": "User prompt"
+  },
+  "promptStudio_fewShot": {
+    "message": "Few-shot examples (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "Modules config (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "History"
+  },
+  "promptStudio_executeCard": {
+    "message": "Ad-hoc execute"
+  },
+  "promptStudio_executeHint": {
+    "message": "Provider, model, temperature, inputs."
+  },
+  "promptStudio_provider": {
+    "message": "Provider"
+  },
+  "promptStudio_model": {
+    "message": "Model"
+  },
+  "promptStudio_runPrompt": {
+    "message": "Run prompt"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "Execution form coming soon. Use this pane to run single inputs against a prompt via /prompt-studio/prompts/execute."
+  },
+  "promptStudio_testsCard": {
+    "message": "Test cases & evaluations"
+  },
+  "promptStudio_testsHint": {
+    "message": "List/create test cases, run evaluations, poll status."
+  },
+  "promptStudio_testCases": {
+    "message": "Test cases"
+  },
+  "promptStudio_evaluations": {
+    "message": "Evaluations"
+  },
+  "promptStudio_inputsJson": {
+    "message": "Inputs (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "Expected outputs (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "Is golden?"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "Bulk add"
+  },
+  "promptStudio_bulkJson": {
+    "message": "JSON array of test cases"
+  },
+  "promptStudio_runAsync": {
+    "message": "Run async"
+  },
+  "promptStudio_temperature": {
+    "message": "Temperature"
+  },
+  "promptStudio_maxTokens": {
+    "message": "Max tokens"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "Run evaluation"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "Scaffolding placeholder: hook up test case CRUD, evaluation create/list/detail, and async polling in this section."
+  },
+  "promptStudio_unavailable": {
+    "message": "Prompt Studio is not enabled on this server."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "When available, you will see projects, prompt history, execute flows, and evaluations here."
+  },
+  "sidebarTitle": {
+    "message": "Chat History"
+  },
+  "error": {
+    "message": "Error"
+  },
+  "somethingWentWrong": {
+    "message": "Something went wrong"
+  },
+  "validationSelectModel": {
+    "message": "Please select a model to continue"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "Are you sure you want to delete this history?"
+  },
+  "editHistoryTitle": {
+    "message": "Enter a new title"
+  },
+  "temporaryChat": {
+    "message": "Temporary chat (not saved)"
+  },
+  "more_copy_group": {
+    "message": "Copy"
+  },
+  "more_copy_asText": {
+    "message": "Copy as Text"
+  },
+  "more_copy_asMarkdown": {
+    "message": "Copy as Markdown"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "Copy canonical transcript"
+  },
+  "more_copy_success": {
+    "message": "Copied to clipboard!"
+  },
+  "more_download_group": {
+    "message": "Download"
+  },
+  "more_download_text": {
+    "message": "Text File (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Markdown (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "Canonical transcript (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON File (.json)"
+  },
+  "more_download_image": {
+    "message": "Image (.png)"
+  },
+  "more_share": {
+    "message": "Share"
+  },
+  "promptSearch_title": {
+    "message": "Title"
+  },
+  "promptSearch_content": {
+    "message": "Content"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "System prompt"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "Also save to server"
+  },
+  "promptSearch_cancel": {
+    "message": "Cancel"
+  },
+  "promptSearch_insert": {
+    "message": "Insert"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "Save as new"
+  },
+  "promptSearch_saveLocal": {
+    "message": "Save changes (local)"
+  },
+  "promptSearch_saveServer": {
+    "message": "Save changes (server)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "Save local copy"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "Save as new (server only)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "Prompt updated locally"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "Prompt updated on server"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "Failed to update local prompt"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "Failed to update server prompt"
+  },
+  "promptSearch_manageLink": {
+    "message": "View / Manage Prompts"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "Overwrite local prompt (optional)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "Select a local prompt to overwrite"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "Prompt saved"
+  },
+  "promptSearch_saveFailed": {
+    "message": "Failed to save prompt"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Media"
+  },
+  "quickIngest_subtitle": {
+    "message": "Enter one or more URLs. Force type per row if needed."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline — staging only"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+  },
+  "quickIngest_unconfiguredTitle": {
+    "message": "Server not configured — queue only"
+  },
+  "quickIngest_unconfiguredDescription": {
+    "message": "You can queue URLs and files now; ingestion will run after you configure a server URL and API key under Settings → tldw server."
+  },
+  "quickIngest_offlineBypassTitle": {
+    "message": "Offline mode enabled — queue only"
+  },
+  "quickIngest_offlineBypassDescription": {
+    "message": "Items are staged here and will process once you disable offline mode or re-enable live server checks."
+  },
+  "quickIngest_checkingTitle": {
+    "message": "Checking server connection…"
+  },
+  "quickIngest_checkingDescription": {
+    "message": "We’re checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Source URLs or files"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Store to remote DB"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Store ingest results on your tldw server"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Process ingest results locally only"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Uploads to your tldw server for indexing."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Process only and keep results local (download JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Where ingest results are stored"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Stored on your tldw server (recommended for RAG and shared workspaces)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Kept in this browser only; no data written to your server."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Store after review"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Review before saving"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Process now, then edit drafts locally before committing to your server."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Review mode"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Local drafts are capped at {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Store drafts locally?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Drafts are saved in this browser and may include sensitive data. You can clear drafts from the Content Review page at any time."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Review mode keeps content client-side until you commit it to your server."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Enable review"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Review"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Drafts ready for review."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Review drafts couldn't be created."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Failed to create review drafts."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Retry draft creation"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Store without review"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Couldn't open Content Review. Please try again."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Retry opening Content Review"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} file exceeds the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} files exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Open Content Review"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Learn more about ingest & storage"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Paste URLs (one per line)"
+  },
+  "quickIngest_or": {
+    "message": "or"
+  },
+  "quickIngest_remove": {
+    "message": "Remove"
+  },
+  "quickIngest_add": {
+    "message": "Add URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion options"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio options"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Language (e.g., en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Turn on to separate speakers in transcripts."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Document options"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video options"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Include timestamps/captions when available."
+  },
+  "quickIngest_cancel": {
+    "message": "Cancel"
+  },
+  "quickIngest_ingest": {
+    "message": "Ingest"
+  },
+  "quickIngest_process": {
+    "message": "Process"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Queue only — server offline"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Offline — queue items to process later"
+  },
+  "quickIngest_queueOnlyUnconfigured": {
+    "message": "Queue only — server not configured"
+  },
+  "quickIngest_queueOnlyUnconfiguredAria": {
+    "message": "Server not configured — queue items to process after you configure a server."
+  },
+  "quickIngest_queueOnlyOfflineBypass": {
+    "message": "Queue only — offline mode enabled"
+  },
+  "quickIngest_queueOnlyOfflineBypassAria": {
+    "message": "Offline mode enabled — queue items to process after you disable offline mode."
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Offline mode: items are queued here until your server is back online."
+  },
+  "quickIngest_unconfiguredQueueToast": {
+    "message": "Server not configured: items are staged here and will not run until you configure a server under Settings → tldw server."
+  },
+  "quickIngest_offlineBypassQueueToast": {
+    "message": "Offline mode enabled: items are staged here and will process once you disable offline mode."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Can’t reach your server. Items are staged here and will process once your server reconnects."
+  },
+  "quickIngest_unconfiguredFooter": {
+    "message": "Can’t reach your server. Items are staged here and will process after you configure a server URL and API key under Settings → tldw server."
+  },
+  "quickIngest_offlineBypassFooter": {
+    "message": "Can’t reach your server. Items are staged here and will process once you disable offline mode."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Process queued items"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Process queued Quick Ingest items"
+  },
+  "quickIngest_runAria": {
+    "message": "Run quick ingest"
+  },
+  "quickIngest_runLabel": {
+    "message": "Run quick ingest"
+  },
+  "quickIngest_results": {
+    "message": "Results"
+  },
+  "quickIngest_resultsFilterAria": {
+    "message": "Filter results by status"
+  },
+  "quickIngest_resultsFilterAll": {
+    "message": "All"
+  },
+  "quickIngest_resultsFilterFailed": {
+    "message": "Failed only"
+  },
+  "quickIngest_resultsFilterSucceeded": {
+    "message": "Succeeded only"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Download JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} advanced fields loaded"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "No advanced options detected — try reloading the spec."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} modified"
+  },
+  "quickIngest_progress": {
+    "message": "Running quick ingest — processing {{done}} / {{total}} items…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "Pending — will run when connected"
+  },
+  "quickIngest_pendingUnconfigured": {
+    "message": "Pending — will run after you configure a server."
+  },
+  "quickIngest_pendingOfflineBypass": {
+    "message": "Pending — will run when offline mode is disabled."
+  },
+  "quickIngest_readyToast": {
+    "message": "Server back online — ready to process {{count}} queued items."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Process queued items"
+  },
+  "quickIngest_errorSummary": {
+    "message": "We couldn’t process ingest items right now."
+  },
+  "quickIngest_errorHint": {
+    "message": "Try again after checking your tldw server. Health & diagnostics can help troubleshoot ingest issues."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Check server health in Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Recent runs failed — open Health & diagnostics from the header for more details."
+  },
+  "quickIngest_specSourceLive": {
+    "message": "Live server spec"
+  },
+  "quickIngest_specSourceCached": {
+    "message": "Cached server spec"
+  },
+  "quickIngest_specSourceBundled": {
+    "message": "Bundled spec"
+  },
+  "quickIngest_specSourceFallback": {
+    "message": "Fallback spec"
+  },
+  "quickIngest_noFailedUrlToRetry": {
+    "message": "No failed URL items to retry."
+  },
+  "quickIngest_queuedFailedUrls": {
+    "message": "Queued {{count}} failed URL(s) to retry."
+  },
+  "quickIngest_openInspectorIntro": {
+    "message": "Open Inspector intro"
+  },
+  "quickIngest_ragEmbeddingHintInline": {
+    "message": "Uses {{label}} for RAG search."
+  },
+  "quickIngest_recommendedGroup": {
+    "message": "Recommended fields"
+  },
+  "quickIngest_tipsTitle": {
+    "message": "Tips"
+  },
+  "quickIngest_tipsHybrid": {
+    "message": "Hybrid input: drop files or paste URLs (comma/newline separated) to build the queue."
+  },
+  "quickIngest_tipsPerType": {
+    "message": "Per-type settings (Audio/PDF/Video) apply to all items of that type."
+  },
+  "quickIngest_tipsInspector": {
+    "message": "Use the Inspector to see status, type, and quick checks before ingesting."
+  },
+  "quickIngest_supportedFormats": {
+    "message": "Supported: docs, PDFs, audio, video, and web URLs."
+  },
+  "quickIngest_itemsReady": {
+    "message": "{{count}} item(s) ready"
+  },
+  "quickIngest_itemsReadySr": {
+    "message": "{{count}} item(s) ready"
+  },
+  "quickIngest_dragAndDrop": {
+    "message": "Drag and drop files"
+  },
+  "quickIngest_dragAndDropHint": {
+    "message": "Docs, PDFs, audio, and video are all welcome."
+  },
+  "quickIngest_pasteFromClipboard": {
+    "message": "Paste URLs from clipboard"
+  },
+  "quickIngest_pasteUrlsTitle": {
+    "message": "Paste URLs"
+  },
+  "quickIngest_pasteUrlsHint": {
+    "message": "Separate with commas or new lines"
+  },
+  "quickIngest_urlsLabel": {
+    "message": "URLs to ingest"
+  },
+  "quickIngest_urlsPlaceholder": {
+    "message": "https://example.com, https://..."
+  },
+  "quickIngest_urlsInputAria": {
+    "message": "Paste URLs input"
+  },
+  "quickIngest_addUrlsAria": {
+    "message": "Add URLs to queue"
+  },
+  "quickIngest_addUrls": {
+    "message": "Add URLs"
+  },
+  "quickIngest_authRequiredHint": {
+    "message": "Authentication-required pages may need cookies set in Advanced."
+  },
+  "quickIngest_queueTitle": {
+    "message": "Queue"
+  },
+  "quickIngest_clearAllAria": {
+    "message": "Clear all queued items"
+  },
+  "quickIngest_clearAll": {
+    "message": "Clear all"
+  },
+  "quickIngest_addBlankRowAria": {
+    "message": "Add blank URL row"
+  },
+  "quickIngest_addBlankRow": {
+    "message": "Add blank row"
+  },
+  "quickIngest_openInspector": {
+    "message": "Open Inspector"
+  },
+  "quickIngest_queueDescription": {
+    "message": "Staged items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention."
+  },
+  "quickIngest_statusDone": {
+    "message": "Done"
+  },
+  "quickIngest_statusFailed": {
+    "message": "Failed"
+  },
+  "quickIngest_statusRunning": {
+    "message": "Running"
+  },
+  "quickIngest_untitledUrl": {
+    "message": "Untitled URL"
+  },
+  "quickIngest_defaultsApplied": {
+    "message": "Defaults will be applied."
+  },
+  "quickIngest_urlPlaceholder": {
+    "message": "https://..."
+  },
+  "quickIngest_sourceUrlAria": {
+    "message": "Source URL"
+  },
+  "quickIngest_forceMediaType": {
+    "message": "Force media type"
+  },
+  "quickIngest_typeAuto": {
+    "message": "Auto"
+  },
+  "quickIngest_typeHtml": {
+    "message": "HTML"
+  },
+  "quickIngest_typePdf": {
+    "message": "PDF"
+  },
+  "quickIngest_typeDocument": {
+    "message": "Document"
+  },
+  "quickIngest_typeAudio": {
+    "message": "Audio"
+  },
+  "quickIngest_typeVideo": {
+    "message": "Video"
+  },
+  "quickIngest_emptyQueue": {
+    "message": "No items queued yet. Drop files or add URLs to start."
+  },
+  "quickIngest_analysisLabel": {
+    "message": "Analysis"
+  },
+  "quickIngest_chunkingLabel": {
+    "message": "Chunking"
+  },
+  "quickIngest_overwriteLabel": {
+    "message": "Overwrite existing"
+  },
+  "quickIngest_audioDiarizationOff": {
+    "message": "Diarization: Off"
+  },
+  "quickIngest_audioDiarizationOn": {
+    "message": "Diarization: On"
+  },
+  "quickIngest_audioSettingsTitle": {
+    "message": "These audio settings apply to every audio item in this run."
+  },
+  "quickIngest_audioSettingsHint": {
+    "message": "These settings apply to every audio item in this run."
+  },
+  "quickIngest_ocrOff": {
+    "message": "OCR: Off"
+  },
+  "quickIngest_ocrOn": {
+    "message": "OCR: On"
+  },
+  "quickIngest_documentSettingsTitle": {
+    "message": "These document settings apply to every document/PDF in this run."
+  },
+  "quickIngest_documentSettingsHint": {
+    "message": "Applies to all document/PDF items in this batch."
+  },
+  "quickIngest_captionsOff": {
+    "message": "Captions: Off"
+  },
+  "quickIngest_captionsOn": {
+    "message": "Captions: On"
+  },
+  "quickIngest_videoSettingsTitle": {
+    "message": "These video settings apply to every video in this run."
+  },
+  "quickIngest_videoSettingsHint": {
+    "message": "Applies to all video items in this batch."
+  },
+  "quickIngest_ingestProgressTitle": {
+    "message": "Current ingest progress"
+  },
+  "quickIngest_itemsReadyTitle": {
+    "message": "Items ready to ingest"
+  },
+  "quickIngest_closeQuickIngest": {
+    "message": "Close quick ingest"
+  },
+  "quickIngest_processedCount": {
+    "message": "{{done}}/{{total}} processed"
+  },
+  "quickIngest_elapsedLabel": {
+    "message": "Elapsed {{time}}"
+  },
+  "quickIngest_inspectorTitle": {
+    "message": "Inspector"
+  },
+  "quickIngest_inspectorIntroTitle": {
+    "message": "How to use the Inspector"
+  },
+  "quickIngest_inspectorIntroItem1": {
+    "message": "Click a queued item to see its detected type, status, and warnings."
+  },
+  "quickIngest_inspectorIntroItem2": {
+    "message": "Use per-type controls on the main panel to set defaults; any per-row override marks it Custom."
+  },
+  "quickIngest_inspectorIntroItem3": {
+    "message": "For auth-required URLs, add cookies/headers in Advanced before ingesting."
+  },
+  "quickIngest_inspectorIntroDismiss": {
+    "message": "Dismiss Inspector intro and close"
+  },
+  "quickIngest_inspectorIntroDismissed": {
+    "message": "Intro dismissed. Reset anytime with “Reset Inspector Intro.”"
+  },
+  "quickIngest_gotIt": {
+    "message": "Got it"
+  },
+  "quickIngest_inspectorRowEditHint": {
+    "message": "Editing the URL or forcing a type marks this item as Custom."
+  },
+  "quickIngest_inspectorFileHint": {
+    "message": "File settings follow the per-type controls on the main panel."
+  },
+  "quickIngest_inspectorAdvancedHint": {
+    "message": "Use Advanced options to set cookies/auth if required. Errors or warnings appear on each row."
+  },
+  "quickIngest_inspectorEmpty": {
+    "message": "Select a queued item to view details."
+  },
+  "quickIngest_advancedOptionsTitle": {
+    "message": "Advanced options"
+  },
+  "quickIngest_specTooltipLive": {
+    "message": "Using live server OpenAPI spec"
+  },
+  "quickIngest_specTooltipCached": {
+    "message": "Using cached server OpenAPI spec"
+  },
+  "quickIngest_specTooltipBundled": {
+    "message": "Using bundled spec from extension"
+  },
+  "quickIngest_specTooltipFallback": {
+    "message": "No spec detected; using fallback fields"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Advanced spec reloaded from server"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Advanced spec reloaded from server (fields added: {{added}}, removed: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Using bundled media.add schema fallback (v{{version}}); please verify against your tldw_server /openapi.json if fields look outdated."
+  },
+  "quickIngest_resetInspectorIntro": {
+    "message": "Reset Inspector intro helper"
+  },
+  "quickIngest_preferServerLabel": {
+    "message": "Prefer server"
+  },
+  "quickIngest_preferServerAria": {
+    "message": "Advanced options – prefer server OpenAPI spec"
+  },
+  "quickIngest_preferServerTitle": {
+    "message": "Prefer server OpenAPI spec"
+  },
+  "quickIngest_reloadSpecAria": {
+    "message": "Reload advanced spec from server"
+  },
+  "quickIngest_reloadFromServer": {
+    "message": "Reload from server"
+  },
+  "quickIngest_resetAdvancedAria": {
+    "message": "Reset advanced options and UI state"
+  },
+  "quickIngest_confirmResetTitle": {
+    "message": "Please confirm"
+  },
+  "quickIngest_confirmResetContent": {
+    "message": "Reset all advanced options and UI state?"
+  },
+  "quickIngest_reset": {
+    "message": "Reset"
+  },
+  "quickIngest_advancedReset": {
+    "message": "Advanced options reset"
+  },
+  "quickIngest_resetAdvanced": {
+    "message": "Reset Advanced"
+  },
+  "quickIngest_searchAdvanced": {
+    "message": "Search advanced fields..."
+  },
+  "quickIngest_hideDetails": {
+    "message": "Hide details"
+  },
+  "quickIngest_showDetails": {
+    "message": "Show details"
+  },
+  "quickIngest_unset": {
+    "message": "Unset"
+  },
+  "quickIngest_unsetLabel": {
+    "message": "Currently unset (server defaults)"
+  },
+  "quickIngest_onLabel": {
+    "message": "On"
+  },
+  "quickIngest_offLabel": {
+    "message": "Off"
+  },
+  "quickIngest_resultsCount": {
+    "message": "{{count}} item(s)"
+  },
+  "quickIngest_processingComplete": {
+    "message": "Processing complete. Use \"Download JSON\" below to save results locally."
+  },
+  "quickIngest_retryFailedUrls": {
+    "message": "Retry failed URLs"
+  },
+  "quickIngest_summaryAllSucceeded": {
+    "message": "Quick ingest completed successfully."
+  },
+  "quickIngest_summarySomeFailed": {
+    "message": "Quick ingest completed with some errors."
+  },
+  "quickIngest_summaryCounts": {
+    "message": "{{success}} succeeded · {{failed}} failed"
+  },
+  "libraryView": {
+    "message": "Library View"
+  },
+  "notes": {
+    "message": "Notes"
+  },
+  "notesSearch_placeholder": {
+    "message": "Search titles and contents"
+  },
+  "notesSearch_clear": {
+    "message": "Clear search & filters"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "Filter by keyword"
+  },
+  "notesSearch_new": {
+    "message": "New note"
+  },
+  "notesSearch_newTooltip": {
+    "message": "Create a new note"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} notes"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "Export matching notes as Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "Export matching notes as CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "Export matching notes as JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exported ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exported {{count}} notes ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exported {{count}} notes as CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exported {{count}} notes as JSON ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "Export note as Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "Save note"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "Copy note content"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "Delete note"
+  },
+  "notesSearch_toolbarSave": {
+    "message": "Save"
+  },
+  "notesSearch_linkedConversation": {
+    "message": "Linked to conversation"
+  },
+  "notesSearch_openConversation": {
+    "message": "Open conversation"
+  },
+  "notesSearch_openConversationTooltip": {
+    "message": "Open linked conversation"
+  },
+  "notesSearch_openConversationError": {
+    "message": "Failed to open linked conversation."
+  },
+  "notesSearch_noLinkedConversation": {
+    "message": "No linked conversation to open."
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "Export"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "Results"
+  },
+  "notesSearch_showingRange": {
+    "message": "Showing {{start}}-{{end}} of {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "Expand sidebar"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "Collapse sidebar"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "Title"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "Keywords (tags)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "Keywords help you find this note using the keyword filter on the left."
+  },
+  "tts_playground": {
+    "message": "TTS Playground"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "Connect to use Notes"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "To use Notes, first connect to your tldw server."
+  },
+  "notesEmpty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "Explore Notes in demo mode"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "This demo shows how Notes can organize your insights. Connect your own server later to create and save real notes."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "See how note titles, previews, and timestamps appear in the list."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "When you connect, you’ll be able to create notes from meetings, reviews, and more."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "Use Notes alongside Media and Review to keep track of your findings."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Example notes (preview only)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "Demo note: Weekly meeting recap"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "Decisions, blockers, and follow-ups from a recent team sync."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "Today · 9:32 AM"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "Demo note: Research highlights"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "Key insights pulled from a long article or paper."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "Yesterday · 4:10 PM"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "Demo note: Call summary"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "Summary of a customer call with next steps and owners."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "This week"
+  },
+  "notesEmpty_title": {
+    "message": "No notes yet"
+  },
+  "notesEmpty_description": {
+    "message": "Capture and organize free-form notes connected to your tldw insights."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "Create a new note for a recent meeting or transcript."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "Save review outputs into Notes so you can revisit them later."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "Create note"
+  },
+  "omniSearch_filterScreen": {
+    "message": "Screens"
+  },
+  "omniSearch_filterChat": {
+    "message": "Chats"
+  },
+  "omniSearch_filterMedia": {
+    "message": "Media"
+  },
+  "omniSearch_filterNote": {
+    "message": "Notes"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Flashcard Collections"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Prompts"
+  },
+  "omniSearch_filteringBy": {
+    "message": "Filtering by:"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "Explore World Books in demo mode"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "This demo shows how World Books can organize structured knowledge about your worlds, settings, or products."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "See example books like a fantasy setting, product glossary, or campaign notes."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "When you connect, you’ll be able to create world books that tldw can use while chatting."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "Connect to use World Books"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "To use World Books, first connect to your tldw server so world knowledge can be saved and retrieved."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "Create and manage structured knowledge bases that characters and chats can reference."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "World Books are offline"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "Connect to your tldw server from the main settings page to view and edit World Books."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "Explore Chat dictionaries in demo mode"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "This demo shows how Chat dictionaries can normalize names, acronyms, and terms before they reach the model."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "See example dictionaries for product names, project codenames, or company jargon."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "When you connect, you’ll be able to activate dictionaries across all chats."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "Connect to use Chat dictionaries"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "To use Chat dictionaries, first connect to your tldw server so substitutions can be stored."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "Define reusable substitutions so tldw understands your organization’s names, acronyms, and terminology."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "Chat dictionaries are offline"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "Connect to your tldw server from the main settings page to view and edit Chat dictionaries."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "Explore Characters in demo mode"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "This demo shows how Characters encapsulate a persona and system prompt that you can chat with."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "See example characters like a writing coach, lore expert, or coding assistant."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "When you connect, you’ll be able to create characters that appear in the chat header and selection."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "Connect to use Characters"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "To use Characters, first connect to your tldw server so character definitions can be stored."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "Create reusable characters you can pick from the chat header and reuse across conversations."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "Create a character to reuse their persona across chats. Use “New character” to get started."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "Characters API not available on this server"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "This server does not advertise /api/v1/characters."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "Open Diagnostics to confirm your server version and available APIs for Characters."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "If you upgrade your server, reload the extension and return to Characters."
+  },
+  "characters_selectCharacter": {
+    "message": "Select character"
+  },
+  "characters_chattingAs": {
+    "message": "You're now chatting as {{name}}."
+  },
+  "characters_clearCharacter": {
+    "message": "Clear character"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "Unable to load characters"
+  },
+  "characters_fetchErrorBody": {
+    "message": "Check your connection or server health, then try again."
+  },
+  "characters_none": {
+    "message": "None (no character)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "Search characters by name"
+  },
+  "characters_noMatches": {
+    "message": "No characters match your search yet."
+  },
+  "characters_refresh": {
+    "message": "Refresh characters"
+  },
+  "characters_refreshing": {
+    "message": "Refreshing characters…"
+  },
+  "promptInsert_useInChat": {
+    "message": "Use in chat"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "Open chat and insert this prompt into the composer."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "Use prompt in chat?"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "Your message already has text. Do you want to overwrite it with this prompt or append the prompt below it?"
+  },
+  "promptInsert_overwrite": {
+    "message": "Overwrite message"
+  },
+  "promptInsert_append": {
+    "message": "Append"
+  },
+  "flashcards_review": {
+    "message": "Review"
+  },
+  "flashcards_create": {
+    "message": "Create"
+  },
+  "flashcards_manage": {
+    "message": "Manage"
+  },
+  "flashcards_importExport": {
+    "message": "Import / Export"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "Connect to use Flashcards"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "To review or generate flashcards, first connect to your tldw server."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "Go to Settings → tldw server to add your server URL."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "Once connected, review due cards or create new decks from your notes and media."
+  },
+  "flashcards_demoTitle": {
+    "message": "Explore Flashcards in demo mode"
+  },
+  "flashcards_demoDescription": {
+    "message": "This demo shows how Flashcards can turn your content into spaced‑repetition cards. Connect your own server later to generate and review cards from your own notes and media."
+  },
+  "flashcards_demoExample1": {
+    "message": "See how decks, cards, and tags are organized across Review and Manage tabs."
+  },
+  "flashcards_demoExample2": {
+    "message": "When you connect, you’ll be able to generate cards from lectures, meetings, or notes and review them on a schedule."
+  },
+  "flashcards_demoExample3": {
+    "message": "Use Flashcards together with Notes and Media to keep important ideas fresh."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "Example decks (preview only)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "Demo deck: Core concepts"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 cards · Great for testing spacing and ratings."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "Demo deck: Product terms"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 cards · Names, acronyms, and key definitions."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "Demo deck: Meeting follow-ups"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 cards · Example action items to review."
+  },
+  "flashcards_offlineTitle": {
+    "message": "Flashcards API not available on this server"
+  },
+  "flashcards_offlineDescription": {
+    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+  },
+  "flashcards_offlineExample1": {
+    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+  },
+  "flashcards_offlineExample2": {
+    "message": "After upgrading, reload the extension and return to Flashcards."
+  },
+  "flashcards_selectDeck": {
+    "message": "Select deck"
+  },
+  "flashcards_nextDue": {
+    "message": "Next due"
+  },
+  "flashcards_front": {
+    "message": "Front"
+  },
+  "flashcards_back": {
+    "message": "Back"
+  },
+  "flashcards_extra": {
+    "message": "Extra"
+  },
+  "flashcards_showAnswer": {
+    "message": "Show Answer"
+  },
+  "flashcards_hideAnswer": {
+    "message": "Hide Answer"
+  },
+  "flashcards_preview": {
+    "message": "Preview"
+  },
+  "flashcards_rate": {
+    "message": "Rate"
+  },
+  "flashcards_answerMs": {
+    "message": "Time to answer (seconds, optional)"
+  },
+  "flashcards_noDue": {
+    "message": "No due cards"
+  },
+  "flashcards_deck": {
+    "message": "Deck"
+  },
+  "flashcards_newDeck": {
+    "message": "New Deck"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Enter a deck name."
+  },
+  "flashcards_modelType": {
+    "message": "Card template"
+  },
+  "flashcards_templateBasic": {
+    "message": "Basic (Question - Answer)"
+  },
+  "flashcards_templateReverse": {
+    "message": "Basic + Reverse (Both directions)"
+  },
+  "flashcards_templateCloze": {
+    "message": "Cloze (Fill in the blank)"
+  },
+  "flashcards_reverse": {
+    "message": "Also create reverse card"
+  },
+  "flashcards_isCloze": {
+    "message": "Cloze deletion"
+  },
+  "flashcards_tags": {
+    "message": "Tags"
+  },
+  "flashcards_dueStatus": {
+    "message": "Due status"
+  },
+  "flashcards_dueAll": {
+    "message": "All"
+  },
+  "flashcards_dueNew": {
+    "message": "New"
+  },
+  "flashcards_dueLearning": {
+    "message": "Learning"
+  },
+  "flashcards_dueDue": {
+    "message": "Due"
+  },
+  "flashcards_tag": {
+    "message": "Tag"
+  },
+  "flashcards_noCards": {
+    "message": "No cards"
+  },
+  "flashcards_due": {
+    "message": "Due"
+  },
+  "flashcards_editCard": {
+    "message": "Edit Card"
+  },
+  "flashcards_importTitle": {
+    "message": "Import Flashcards"
+  },
+  "flashcards_exportTitle": {
+    "message": "Export Flashcards"
+  },
+  "flashcards_importHelp": {
+    "message": "Paste TSV/CSV lines: Deck, Front, Back, Tags, Notes"
+  },
+  "flashcards_pasteContent": {
+    "message": "Paste content here..."
+  },
+  "flashcards_tab": {
+    "message": "Tab"
+  },
+  "flashcards_comma": {
+    "message": ", (Comma)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (Semicolon)"
+  },
+  "flashcards_pipe": {
+    "message": "| (Pipe)"
+  },
+  "flashcards_hasHeader": {
+    "message": "Has header"
+  },
+  "flashcards_import": {
+    "message": "Import"
+  },
+  "flashcards_imported": {
+    "message": "Imported"
+  },
+  "flashcards_importLimits": {
+    "message": "Import Limits"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV"
+  },
+  "flashcards_apkg": {
+    "message": "Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "Include reverse"
+  },
+  "flashcards_includeHeader": {
+    "message": "Include header row"
+  },
+  "flashcards_extendedHeader": {
+    "message": "Extended header (technical metadata)"
+  },
+  "flashcards_download": {
+    "message": "Download"
+  },
+  "flashcards_duplicate": {
+    "message": "Duplicate"
+  },
+  "flashcards_move": {
+    "message": "Move"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Review failed"
+  },
+  "flashcards_updateFailed": {
+    "message": "Update failed"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Delete failed"
+  },
+  "flashcards_missingVersion": {
+    "message": "Missing version; reload and try again"
+  },
+  "flashcards_loadCardFailed": {
+    "message": "Failed to load card"
+  },
+  "flashcards_duplicateFailed": {
+    "message": "Duplicate failed"
+  },
+  "flashcards_moveFailed": {
+    "message": "Move failed"
+  },
+  "flashcards_bulkMove": {
+    "message": "Bulk Move"
+  },
+  "flashcards_bulkMoveSelectDeck": {
+    "message": "Select a target deck before moving cards."
+  },
+  "flashcards_bulkDelete": {
+    "message": "Bulk Delete"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} deleted · {{failed}} failed"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Operation limited to first {{limit}} items."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "Export selected (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "Selected"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "Select all on page"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "Select all across results"
+  },
+  "flashcards_clearSelection": {
+    "message": "Clear selection"
+  },
+  "flashcards_ratingAgain": {
+    "message": "Again"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "I didn’t remember this card."
+  },
+  "flashcards_ratingHard": {
+    "message": "Hard"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "I barely remembered; it felt difficult."
+  },
+  "flashcards_ratingGood": {
+    "message": "Good"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "I remembered with a bit of effort."
+  },
+  "flashcards_ratingEasy": {
+    "message": "Easy"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "I recalled it quickly and confidently."
+  },
+  "flashcards_showTiming": {
+    "message": "Track answer time"
+  },
+  "flashcards_hideTiming": {
+    "message": "Hide timing"
+  },
+  "flashcards_noDueTitle": {
+    "message": "No cards due for review"
+  },
+  "flashcards_noDueDescription": {
+    "message": "You’re all caught up. Create new cards or import an existing deck to start reviewing."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "Create a new card"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "Import a deck"
+  },
+  "flashcards_createTitle": {
+    "message": "Create flashcards from your notes"
+  },
+  "flashcards_createDescription": {
+    "message": "Use the front for the question and the back for the answer. You can group cards into decks and add tags for faster search."
+  },
+  "flashcards_createDescriptionSimple": {
+    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+  },
+  "flashcards_showPreview": {
+    "message": "Show preview"
+  },
+  "flashcards_hidePreview": {
+    "message": "Hide preview"
+  },
+  "flashcards_markdownHint": {
+    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+  },
+  "flashcards_advancedOptions": {
+    "message": "Advanced options (tags, extra, notes)"
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Basic shows a question on the front and answer on the back. Reverse also creates the opposite card. Cloze hides parts of the text using {{...}}."
+  },
+  "flashcards_reverseHelp": {
+    "message": "Also create a card where the back becomes the question."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "Use for fill‑in‑the‑blank cards. Wrap hidden text in {{...}} on the front."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Supports Markdown and LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Optional hints/explanations (Markdown + LaTeX supported)."
+  },
+  "flashcards_notesHint": {
+    "message": "Internal notes (Markdown + LaTeX supported)."
+  },
+  "flashcards_bulkActions": {
+    "message": "Bulk actions"
+  },
+  "flashcards_selectionHelp": {
+    "message": "“Select all across results” applies actions to every card that matches your filters, not just this page."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "No flashcards yet"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "Create cards from your notes and media, or import an existing deck."
+  },
+  "flashcards_clearFilters": {
+    "message": "Clear filters"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "Create your first card"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "Import flashcards"
+  },
+  "flashcards_mapping": {
+    "message": "Column mapping"
+  },
+  "flashcards_mappingPreview": {
+    "message": "Preview of the first few mapped rows:"
+  },
+  "flashcards_exportHelp": {
+    "message": "Filter by deck, tag, or search, then export as CSV/TSV for spreadsheets or Anki (.apkg) for Anki clients."
+  },
+  "contentReview_title": {
+    "message": "Content Review"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} ready"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} committed"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} total"
+  },
+  "contentReview_commitAll": {
+    "message": "Commit All"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Clear drafts"
+  },
+  "contentReview_emptyDescription": {
+    "message": "No drafts yet. Use Quick Ingest with Review before saving to create drafts."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Open Quick Ingest"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Store after review"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Review before saving"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Process now, then edit drafts locally before committing to your server."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Review mode"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Local drafts are capped at {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Store drafts locally?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Drafts are saved in this browser and may include sensitive data. You can clear drafts from the Content Review page at any time."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Review mode keeps content client-side until you commit it to your server."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Enable review"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Review"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Drafts ready for review."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} file exceeds the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} files exceed the local draft cap ({{cap}}). Attach sources before committing audio/video."
+  },
+  "contentReview_openContentReview": {
+    "message": "Open Content Review"
+  },
+  "contentReview_batchLabel": {
+    "message": "Batch"
+  },
+  "contentReview_batchName": {
+    "message": "Batch {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Drafts"
+  },
+  "contentReview_selectDraft": {
+    "message": "Select a draft to begin reviewing."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Draft title"
+  },
+  "contentReview_lastSaved": {
+    "message": "Saved {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Reset draft?"
+  },
+  "contentReview_resetBody": {
+    "message": "This will restore the original content for this draft."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Reset"
+  },
+  "contentReview_resetCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_resetContent": {
+    "message": "Reset"
+  },
+  "contentReview_diffView": {
+    "message": "Diff view"
+  },
+  "contentReview_saveDraft": {
+    "message": "Save draft"
+  },
+  "contentReview_editorLabel": {
+    "message": "Content"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} words"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} chars"
+  },
+  "contentReview_aiFix": {
+    "message": "AI fix"
+  },
+  "contentReview_aiHint": {
+    "message": "Sends draft content to your server for AI processing."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Server default"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Send draft to server?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "This will send the draft content to your tldw server for AI processing. Drafts stay local until you commit."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Continue"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI corrections applied."
+  },
+  "contentReview_aiNoChange": {
+    "message": "No changes returned."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI returned no content."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Chat completions unavailable."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Choose template"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Apply template"
+  },
+  "contentReview_templateApplied": {
+    "message": "Template applied."
+  },
+  "contentReview_templateMissing": {
+    "message": "Select a template first."
+  },
+  "contentReview_detectSections": {
+    "message": "Detect sections"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Re-detect sections?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "This will replace existing sections and reset your selections."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Re-detect"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "No sections detected."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Section filter"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Clean transcript"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalize punctuation and casing while preserving line structure."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Speaker turns"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Ensure each speaker turn is on its own line with clear labels."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Chapter headings"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Insert Markdown headings to group topics without removing content."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Metadata"
+  },
+  "contentReview_mediaType": {
+    "message": "Media type"
+  },
+  "contentReview_keywords": {
+    "message": "Keywords"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Add keywords"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Review notes"
+  },
+  "contentReview_missingSource": {
+    "message": "Source file missing"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Attach the original file to commit this draft."
+  },
+  "contentReview_attachSource": {
+    "message": "Attach file"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Actions"
+  },
+  "contentReview_commit": {
+    "message": "Commit"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Attach the original audio/video file before committing."
+  },
+  "contentReview_markReviewed": {
+    "message": "Mark reviewed"
+  },
+  "contentReview_skipNext": {
+    "message": "Skip"
+  },
+  "contentReview_discard": {
+    "message": "Discard"
+  },
+  "contentReview_discardTitle": {
+    "message": "Discard draft?"
+  },
+  "contentReview_discardBody": {
+    "message": "This draft will be marked as discarded and removed from review."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Discard"
+  },
+  "contentReview_discardCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Draft committed."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Commit reviewed drafts?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Only drafts marked as reviewed will be committed."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Commit all"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} committed · {{failed}} failed"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "This file exceeds the local draft cap ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Clear all drafts?"
+  },
+  "contentReview_clearBody": {
+    "message": "This removes all local content review drafts and assets."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Clear drafts"
+  },
+  "contentReview_clearCancel": {
+    "message": "Cancel"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Drafts cleared."
+  },
+  "contentReview_originalLabel": {
+    "message": "Original"
+  },
+  "contentReview_editedLabel": {
+    "message": "Edited"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "File Too Large"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "File size must be less than 10MB"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "Upload Failed"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "Failed to upload file. Please try again."
+  },
+  "quickChatHelper_tooltip": {
+    "message": "Quick Chat Helper"
+  },
+  "quickChatHelper_title": {
+    "message": "Quick Chat Helper"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "Ask a quick question..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "Send"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "Start a quick side chat to keep your main thread clean."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "Pop out"
+  },
+  "quickChatHelper_popOutDisabled": {
+    "message": "Pop-out is disabled when there are no messages. Start a conversation first."
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "Please select a model in the main chat first."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "Your message"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "Assistant message"
+  },
+  "quiz_itemsPerPage": {
+    "message": "items/page"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Edit Quiz"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz updated successfully"
+  },
+  "quiz_updateError": {
+    "message": "Failed to update quiz"
+  },
+  "quiz_questionTextRequired": {
+    "message": "Question text is required."
+  },
+  "quiz_optionsRequired": {
+    "message": "Please provide at least two options."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Question created successfully."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Question updated successfully."
+  },
+  "quiz_questionSaveError": {
+    "message": "Failed to save question."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Question deleted successfully."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Failed to delete question."
+  },
+  "quiz_editQuestion": {
+    "message": "Edit Question"
+  },
+  "quiz_points": {
+    "message": "Points"
+  },
+  "quiz_orderIndex": {
+    "message": "Order"
+  },
+  "quiz_startError": {
+    "message": "Failed to start quiz"
+  },
+  "quiz_answerAll": {
+    "message": "Please answer all questions before submitting."
+  },
+  "quiz_submitError": {
+    "message": "Failed to submit quiz"
+  },
+  "quiz_scoreSummary": {
+    "message": "Score: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Correct"
+  },
+  "quiz_incorrect": {
+    "message": "Incorrect"
+  },
+  "quiz_yourAnswer": {
+    "message": "Your answer"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Correct answer"
+  },
+  "quiz_backToList": {
+    "message": "Back to list"
+  },
+  "quiz_retake": {
+    "message": "Retake Quiz"
+  },
+  "searchPrompts": {
+    "message": "Search prompts..."
+  },
+  "noMatchingPrompts": {
+    "message": "No matching prompts"
+  },
+  "promptSelect_label": {
+    "message": "Prompt"
+  },
+  "promptSelect_favorites": {
+    "message": "Favorites"
+  },
+  "promptSelect_system": {
+    "message": "System prompts"
+  },
+  "promptSelect_quick": {
+    "message": "Quick prompts"
+  },
+  "dictionariesTools_validateTitle": {
+    "message": "Validate dictionary"
+  },
+  "dictionariesTools_validateHelp": {
+    "message": "Check schema, regex safety, and template syntax for this dictionary."
+  },
+  "dictionariesTools_validateButton": {
+    "message": "Run validation"
+  },
+  "dictionariesTools_validateEmpty": {
+    "message": "Add at least one entry to validate."
+  },
+  "dictionariesTools_validateError": {
+    "message": "Validation failed."
+  },
+  "dictionariesTools_strictLabel": {
+    "message": "Strict validation"
+  },
+  "dictionariesTools_validationOk": {
+    "message": "Valid"
+  },
+  "dictionariesTools_schemaVersion": {
+    "message": "Schema version"
+  },
+  "dictionariesTools_entryStats": {
+    "message": "Entry stats"
+  },
+  "dictionariesTools_errorsLabel": {
+    "message": "Errors"
+  },
+  "dictionariesTools_noErrors": {
+    "message": "No errors found."
+  },
+  "dictionariesTools_warningsLabel": {
+    "message": "Warnings"
+  },
+  "dictionariesTools_noWarnings": {
+    "message": "No warnings found."
+  },
+  "dictionariesTools_previewTitle": {
+    "message": "Preview transforms"
+  },
+  "dictionariesTools_previewHelp": {
+    "message": "Test how this dictionary rewrites sample text."
+  },
+  "dictionariesTools_sampleTextLabel": {
+    "message": "Sample text"
+  },
+  "dictionariesTools_sampleTextPlaceholder": {
+    "message": "Paste text to preview dictionary substitutions."
+  },
+  "dictionariesTools_tokenBudgetLabel": {
+    "message": "Token budget"
+  },
+  "dictionariesTools_maxIterationsLabel": {
+    "message": "Max iterations"
+  },
+  "dictionariesTools_previewButton": {
+    "message": "Run preview"
+  },
+  "dictionariesTools_previewEmpty": {
+    "message": "Enter sample text to preview."
+  },
+  "dictionariesTools_previewError": {
+    "message": "Preview failed."
+  },
+  "dictionariesTools_processedTextLabel": {
+    "message": "Processed text"
+  },
+  "dictionariesTools_replacementsLabel": {
+    "message": "Replacements"
+  },
+  "dictionariesTools_iterationsLabel": {
+    "message": "Iterations"
+  },
+  "dictionariesTools_entriesUsedLabel": {
+    "message": "Entries used"
+  },
+  "dictionariesTools_tokenBudgetExceeded": {
+    "message": "Token budget exceeded"
+  }
+}

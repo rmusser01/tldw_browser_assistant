@@ -1081,5 +1081,146 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "Идет запись; расшифровка заблокирована."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "Включить режим сравнения"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "Открыть экспериментальные возможности сравнения нескольких моделей."
+  },
+  "composer_compareDisabled": {
+    "message": "Режим сравнения отключен в настройках."
+  },
+  "composer_compareChosenHint": {
+    "message": "Продолжить с выбранным ответом или сравнить снова."
+  },
+  "composer_compareChosenLabel": {
+    "message": "Выбрано"
+  },
+  "composer_compareLatency": {
+    "message": "Задержка"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "Сравнение: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(из сравнения)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "Ответы нескольких моделей"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} моделей"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "Выбранные модели: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "Открыть каждый выбранный ответ в отдельном чате"
+  },
+  "composer_compareThreadLabel": {
+    "message": "Тред по модели"
+  },
+  "composer_compareThreadYou": {
+    "message": "Вы"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "Открыть как полный чат"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "Открыть отделённый чат"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "Канонический"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "Закрепить как канонический"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "Канонический ответ"
+  },
+  "composer_compareFilterLabel": {
+    "message": "Фильтровать модели"
+  },
+  "composer_compareFilterClear": {
+    "message": "Показать все"
+  },
+  "composer_compareFilterCount": {
+    "message": "Показано {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Токены: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
   }
 }

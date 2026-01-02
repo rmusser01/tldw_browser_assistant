@@ -592,7 +592,7 @@ const TtsPlaygroundPage: React.FC = () => {
                   </Tooltip>
                 </div>
                 {isTldw && ttsSettings && (
-                  <div className="text-xs text-gray-500 dark:text-gray-400 space-y-0.5">
+                  <div className="text-xs text-text-subtle space-y-0.5">
                     <div>
                       <Text strong>Model:</Text>{" "}
                       <Text code>{ttsSettings.tldwTtsModel || "kokoro"}</Text>
@@ -664,7 +664,7 @@ const TtsPlaygroundPage: React.FC = () => {
                           <span key={v.id || v.name || idx}>
                             <Text code>{v.name || v.id}</Text>
                             {v.language && (
-                              <span className="ml-0.5 text-gray-400">
+                              <span className="ml-0.5 text-text-subtle">
                                 ({v.language})
                               </span>
                             )}
@@ -678,7 +678,7 @@ const TtsPlaygroundPage: React.FC = () => {
                           ) &&
                           providersInfo.voices[activeProviderCaps.key].length >
                             activeVoices.length && (
-                            <span className="ml-1 text-gray-400">…</span>
+                            <span className="ml-1 text-text-subtle">…</span>
                           )}
                       </div>
                     )}
@@ -820,7 +820,7 @@ const TtsPlaygroundPage: React.FC = () => {
                 <Space className="flex flex-wrap" size="middle">
                   <div>
                     <label
-                      className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                      className="block text-xs mb-1 text-text"
                       htmlFor={controlIds.elevenVoice}>
                       Voice
                     </label>
@@ -840,7 +840,7 @@ const TtsPlaygroundPage: React.FC = () => {
                   </div>
                   <div>
                     <label
-                      className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                      className="block text-xs mb-1 text-text"
                       htmlFor={controlIds.elevenModel}>
                       Model
                     </label>
@@ -873,7 +873,7 @@ const TtsPlaygroundPage: React.FC = () => {
                 <Space className="flex flex-wrap" size="middle">
                   <div>
                     <label
-                      className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                      className="block text-xs mb-1 text-text"
                       htmlFor={controlIds.tldwVoice}>
                       Voice
                     </label>
@@ -895,7 +895,7 @@ const TtsPlaygroundPage: React.FC = () => {
                   </div>
                   <div>
                     <label
-                      className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                      className="block text-xs mb-1 text-text"
                       htmlFor={controlIds.tldwModel}>
                       Model
                     </label>
@@ -940,7 +940,7 @@ const TtsPlaygroundPage: React.FC = () => {
                 <Space className="flex flex-wrap" size="middle">
                   <div>
                     <label
-                      className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                      className="block text-xs mb-1 text-text"
                       htmlFor={controlIds.openAiModel}>
                       Model
                     </label>
@@ -967,7 +967,7 @@ const TtsPlaygroundPage: React.FC = () => {
                   </div>
                   <div>
                     <label
-                      className="block text-xs mb-1 text-gray-700 dark:text-gray-200"
+                      className="block text-xs mb-1 text-text"
                       htmlFor={controlIds.openAiVoice}>
                       Voice
                     </label>
@@ -1022,14 +1022,14 @@ const TtsPlaygroundPage: React.FC = () => {
                       "Browser TTS segments"
                     )}
                   </Text>
-                  <Paragraph className="!mb-1 text-xs text-gray-500 dark:text-gray-400">
+                  <Paragraph className="!mb-1 text-xs text-text-subtle">
                     {t(
                       "playground:tts.browserSegmentsHelp",
                       "Queue segments or play an individual segment using system audio."
                     )}
                   </Paragraph>
                 </div>
-                <div className="border border-gray-200 dark:border-gray-700 rounded-md p-3 space-y-3">
+                <div className="border border-border rounded-md p-3 space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <Button
                       size="small"
@@ -1082,7 +1082,7 @@ const TtsPlaygroundPage: React.FC = () => {
                     {segments.map((seg, idx) => (
                       <div
                         key={seg.id}
-                        className="rounded border border-gray-200 dark:border-gray-700 p-2 space-y-2"
+                        className="rounded border border-border p-2 space-y-2"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <Text strong>
@@ -1107,7 +1107,7 @@ const TtsPlaygroundPage: React.FC = () => {
                           )}
                         </div>
                         <Paragraph
-                          className="!mb-0 text-xs text-gray-600 dark:text-gray-300"
+                          className="!mb-0 text-xs text-text-muted"
                           ellipsis={{ rows: 2 }}
                         >
                           {seg.text}
@@ -1149,14 +1149,14 @@ const TtsPlaygroundPage: React.FC = () => {
                       "Generated audio segments"
                     )}
                   </Text>
-                  <Paragraph className="!mb-1 text-xs text-gray-500 dark:text-gray-400">
+                  <Paragraph className="!mb-1 text-xs text-text-subtle">
                     {t(
                       "playground:tts.outputHelp",
                       "Select a segment, then use the player controls to play, pause, or seek."
                     )}
                   </Paragraph>
                 </div>
-                <div className="border border-gray-200 dark:border-gray-700 rounded-md p-3 space-y-2">
+                <div className="border border-border rounded-md p-3 space-y-2">
                   <audio
                     ref={audioRef}
                     controls
@@ -1168,7 +1168,7 @@ const TtsPlaygroundPage: React.FC = () => {
                     }
                     onTimeUpdate={handleAudioTimeUpdate}
                   />
-                  <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center justify-between text-xs text-text-subtle">
                     <span>
                       {activeSegmentIndex != null
                         ? t("playground:tts.currentSegment", "Segment") +

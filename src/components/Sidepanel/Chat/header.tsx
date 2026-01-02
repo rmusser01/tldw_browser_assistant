@@ -250,20 +250,20 @@ export const SidepanelHeader = ({
 
   const connectionClassName = React.useMemo(() => {
     const base =
-      "inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
+      "inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
     if (isConnectedUx) {
-      return `${base} border-emerald-500/60 bg-emerald-50 text-emerald-700 dark:border-emerald-400/60 dark:bg-emerald-900/40 dark:text-emerald-100`
+      return `${base} border-success bg-surface2 text-success`
     }
     if (isChecking) {
-      return `${base} border-blue-400/60 bg-blue-50 text-blue-700 dark:border-blue-300/60 dark:bg-blue-900/40 dark:text-blue-100`
+      return `${base} border-primary bg-surface2 text-primaryStrong`
     }
-    return `${base} border-amber-500/60 bg-amber-50 text-amber-700 dark:border-amber-400/60 dark:bg-amber-900/40 dark:text-amber-100`
+    return `${base} border-warn bg-surface2 text-warn`
   }, [isConnectedUx, isChecking])
 
   const connectionDotClassName = React.useMemo(() => {
-    if (isConnectedUx) return "h-2 w-2 rounded-full bg-emerald-500"
-    if (isChecking) return "h-2 w-2 rounded-full bg-blue-500"
-    return "h-2 w-2 rounded-full bg-amber-500"
+    if (isConnectedUx) return "h-2 w-2 rounded-full bg-success"
+    if (isChecking) return "h-2 w-2 rounded-full bg-primary"
+    return "h-2 w-2 rounded-full bg-warn"
   }, [isConnectedUx, isChecking])
 
   const connectionLabel = React.useMemo(() => {
@@ -285,8 +285,8 @@ export const SidepanelHeader = ({
   return (
     <div
       data-istemporary-chat={temporaryChat}
-      className=" px-3 justify-between bg-white dark:bg-[#171717] border-b border-gray-300 dark:border-gray-700 py-4 items-center absolute top-0 z-10 flex h-14 w-full data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900">
-      <div className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center dark:text-white">
+      className="px-3 justify-between bg-surface border-b border-border py-4 items-center absolute top-0 z-10 flex h-14 w-full data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900">
+      <div className="flex items-center text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
         <img
           className="h-6 w-auto"
           src={logoImage}
@@ -336,51 +336,51 @@ export const SidepanelHeader = ({
                   requestAnimationFrame(() => modeBtnRef.current?.focus())
                 }
               }}>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-text-subtle">
                 {t("sidepanel:header.modesLabel", "Open modes in Web UI")}
               </div>
               <button
                 onClick={() =>
                   openOptionsPage("#/")
                 }
-                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
-                <LayoutGrid className="size-4 text-gray-500 dark:text-gray-400" />
+                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
+                <LayoutGrid className="size-4 text-text-subtle" />
                 <span>{t("sidepanel:header.modePlayground", "Chat")}</span>
               </button>
               <button
                 onClick={() => openOptionsPage("#/media-multi")}
-                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
-                <Microscope className="size-4 text-gray-500 dark:text-gray-400" />
+                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
+                <Microscope className="size-4 text-text-subtle" />
                 <span>{t("sidepanel:header.modeReview", "Multi-Item Review")}</span>
               </button>
               <button
                 onClick={() => openOptionsPage("#/media")}
-                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
-                <BookText className="size-4 text-gray-500 dark:text-gray-400" />
+                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
+                <BookText className="size-4 text-text-subtle" />
                 <span>{t("sidepanel:header.modeMedia", "Media")}</span>
               </button>
               <button
                 onClick={() => openOptionsPage("#/knowledge")}
-                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
-                <LayoutGrid className="size-4 text-gray-500 dark:text-gray-400" />
+                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
+                <LayoutGrid className="size-4 text-text-subtle" />
                 <span>{t("sidepanel:header.modeKnowledge", "Knowledge")}</span>
               </button>
               <button
                 onClick={() => openOptionsPage("#/notes")}
-                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
-                <StickyNote className="size-4 text-gray-500 dark:text-gray-400" />
+                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
+                <StickyNote className="size-4 text-text-subtle" />
                 <span>{t("sidepanel:header.modeNotes", "Notes")}</span>
               </button>
               <button
                 onClick={() => openOptionsPage("#/settings/prompt")}
-                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
-                <NotebookPen className="size-4 text-gray-500 dark:text-gray-400" />
+                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
+                <NotebookPen className="size-4 text-text-subtle" />
                 <span>{t("sidepanel:header.modePrompts", "Prompts")}</span>
               </button>
               <button
                 onClick={() => openOptionsPage("#/flashcards")}
-                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
-                <Layers className="size-4 text-gray-500 dark:text-gray-400" />
+                className="flex items-center gap-2 rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
+                <Layers className="size-4 text-text-subtle" />
                 <span>{t("sidepanel:header.modeFlashcards", "Flashcards")}</span>
               </button>
             </Space>
@@ -396,8 +396,8 @@ export const SidepanelHeader = ({
               aria-haspopup="menu"
               aria-expanded={modeOpen}
               aria-controls="sidepanel-modes-menu"
-              className="flex items-center gap-1 rounded-full px-2 py-1 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-              <LayoutGrid className="size-4 text-gray-500 dark:text-gray-400" />
+              className="flex items-center gap-1 rounded-full px-2 py-1 text-xs text-text hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+              <LayoutGrid className="size-4 text-text-subtle" />
               <span className="hidden sm:inline">
                 {t("sidepanel:header.modesShortLabel", "Modes")}
               </span>
@@ -427,12 +427,12 @@ export const SidepanelHeader = ({
               aria-expanded={ingestOpen}
               aria-controls="quick-ingest-menu"
               ref={ingestBtnRef}
-              className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 ${
+              className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-focus ${
                 !canIngestCurrentPage
-                  ? 'text-gray-400 dark:text-gray-600'
-                  : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]'
+                  ? 'text-text-subtle opacity-60'
+                  : 'text-text hover:bg-surface2'
               }`}>
-              <UploadCloud className="size-4 text-gray-500 dark:text-gray-400" />
+              <UploadCloud className="size-4 text-text-subtle" />
               <span className="hidden sm:inline">
                 {t('sidepanel:header.ingestShortLabel', 'Quick ingest')}
               </span>
@@ -444,8 +444,8 @@ export const SidepanelHeader = ({
             type="button"
             aria-label={t('settings:managePrompts.title')}
             onClick={() => openOptionsPage('#/settings/prompt')}
-            className="flex items-center gap-1 rounded-full px-2 py-1 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-            <NotebookPen className="size-4 text-gray-500 dark:text-gray-400" />
+            className="flex items-center gap-1 rounded-full px-2 py-1 text-xs text-text hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+            <NotebookPen className="size-4 text-text-subtle" />
             <span className="hidden sm:inline">
               {t('sidepanel:header.promptsShortLabel', 'Prompts')}
             </span>
@@ -456,8 +456,8 @@ export const SidepanelHeader = ({
             type="button"
             aria-label={t('sidepanel:header.openModelSettingsAria')}
             onClick={() => openOptionsPage('#/settings/model')}
-            className="flex items-center gap-1 rounded-full px-2 py-1 text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-            <Gauge className="size-4 text-gray-500 dark:text-gray-400" />
+            className="flex items-center gap-1 rounded-full px-2 py-1 text-xs text-text hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+            <Gauge className="size-4 text-text-subtle" />
             <span className="hidden sm:inline">
               {t('sidepanel:header.modelShortLabel', 'Model')}
             </span>
@@ -483,32 +483,32 @@ export const SidepanelHeader = ({
                 }
               }}
             >
-              <div className="text-xs text-gray-500">{t('sidepanel:header.timeoutLabel')}</div>
+              <div className="text-xs text-text-subtle">{t('sidepanel:header.timeoutLabel')}</div>
               <InputNumber
                 min={1}
                 size="small"
                 value={ingestTimeoutSec}
                 onChange={(v) => setIngestTimeoutSec(Number(v || 120))}
               />
-              <div className="h-px bg-gray-200 dark:bg-gray-700 my-1" />
+              <div className="my-1 h-px bg-border" />
               <button
                 onClick={() => {
                   setQuickChatOpen(true)
                   setMoreOpen(false)
                 }}
-                className="text-left text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2"
               >
                 {t("option:quickChatHelper.title", "Quick Chat Helper")}
               </button>
               <button
                 onClick={() => openOptionsPage('#/settings/world-books')}
-                className="text-left text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2"
               >
                 World Books
               </button>
               <button
                 onClick={() => openOptionsPage('#/settings/chat-dictionaries')}
-                className="text-left text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2"
               >
                 Chat Dictionaries
               </button>
@@ -525,7 +525,7 @@ export const SidepanelHeader = ({
                     browser.tabs.create({ url })
                   }
                 }}
-                className="text-left text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800">
+                className="rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
                 {t('sidepanel:header.toggleSidebar')}
               </button>
               <button
@@ -533,7 +533,7 @@ export const SidepanelHeader = ({
                   const url = browser.runtime.getURL('/options.html#/docs/shortcuts')
                   browser.tabs.create({ url })
                 }}
-                className="text-left text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800">
+                className="rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
                 {t('sidepanel:header.shortcuts')}
               </button>
               <button
@@ -542,7 +542,7 @@ export const SidepanelHeader = ({
                   setDebugOpen(next)
                   try { await browser.runtime.sendMessage({ type: 'tldw:debug', enable: next }) } catch {}
                 }}
-                className="text-left text-sm px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800">
+                className="rounded px-2 py-1 text-left text-sm text-text hover:bg-surface2">
                 {debugOpen ? t('sidepanel:header.hideDebug') : t('sidepanel:header.showDebug')}
               </button>
             </Space>
@@ -555,8 +555,8 @@ export const SidepanelHeader = ({
             hasPopup="menu"
             ariaExpanded={moreOpen}
             ariaControls="sidepanel-more-menu"
-            className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4 text-gray-500 dark:text-gray-400"><path d="M12 8a2 2 0 110-4 2 2 0 010 4zm0 7a2 2 0 110-4 2 2 0 010 4zm0 7a2 2 0 110-4 2 2 0 010 4z"/></svg>
+            className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4 text-text-subtle"><path d="M12 8a2 2 0 110-4 2 2 0 010 4zm0 7a2 2 0 110-4 2 2 0 010 4zm0 7a2 2 0 110-4 2 2 0 010 4z"/></svg>
             <span className="sr-only">{t('sidepanel:header.moreOptionsTitle')}</span>
           </IconButton>
         </Popover>
@@ -569,9 +569,9 @@ export const SidepanelHeader = ({
                 const url = browser.runtime.getURL("/options.html")
                 browser.tabs.create({ url })
               }}
-              className="flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-              <MessageSquareShareIcon className="size-4 text-gray-500 dark:text-gray-400" />
-              <span className="hidden sm:inline text-xs text-gray-700 dark:text-gray-200">
+              className="flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+              <MessageSquareShareIcon className="size-4 text-text-subtle" />
+              <span className="hidden sm:inline text-xs text-text">
                 {t('sidepanel:header.openWebuiLabel', 'Open full app')}
               </span>
             </IconButton>
@@ -579,7 +579,7 @@ export const SidepanelHeader = ({
         ) : null}
         {isEmbedding ? (
           <Tooltip title={t("tooltip.embed")}>
-            <BoxesIcon className="size-4 text-gray-500 dark:text-gray-400 animate-bounce animate-infinite" />
+            <BoxesIcon className="size-4 text-text-subtle animate-bounce animate-infinite" />
           </Tooltip>
         ) : null}
 
@@ -591,8 +591,8 @@ export const SidepanelHeader = ({
               onClick={() => {
                 clearChat()
               }}
-              className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-              <PlusSquare className="size-4 text-gray-500 dark:text-gray-400" />
+              className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+              <PlusSquare className="size-4 text-text-subtle" />
             </IconButton>
           </Tooltip>
         )}
@@ -607,8 +607,8 @@ export const SidepanelHeader = ({
               onClick={() => {
                 setHistory([])
               }}
-              className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-              <EraserIcon className="size-4 text-gray-500 dark:text-gray-400" />
+              className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+              <EraserIcon className="size-4 text-text-subtle" />
             </IconButton>
           </Tooltip>
         )}
@@ -619,26 +619,26 @@ export const SidepanelHeader = ({
             onClick={() => {
               setSidebarOpen(true)
             }}
-            className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-            <HistoryIcon className="size-4 text-gray-500 dark:text-gray-400" />
+            className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+            <HistoryIcon className="size-4 text-text-subtle" />
           </IconButton>
         </Tooltip>
         <PromptSelect
           selectedSystemPrompt={selectedSystemPrompt}
           setSelectedSystemPrompt={setSelectedSystemPrompt}
           setSelectedQuickPrompt={setSelectedQuickPrompt}
-          className="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          className="text-text-subtle hover:text-text transition-colors"
           iconClassName="size-4"
         />
-        <CharacterSelect className="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors" iconClassName="size-4" />
+        <CharacterSelect className="text-text-subtle hover:text-text transition-colors" iconClassName="size-4" />
         {/* Conversation settings button moved next to submit in input bar */}
         <Link
           to="/settings"
           aria-label={t('sidepanel:header.openSettingsAria') as string}
-          className="flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
+          className="flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
         >
-          <CogIcon className="size-4 text-gray-500 dark:text-gray-400" aria-hidden="true" />
-          <span className="hidden sm:inline text-xs text-gray-700 dark:text-gray-200">
+          <CogIcon className="size-4 text-text-subtle" aria-hidden="true" />
+          <span className="hidden sm:inline text-xs text-text">
             {t('sidepanel:header.settingsShortLabel', 'Settings')}
           </span>
         </Link>
@@ -648,11 +648,11 @@ export const SidepanelHeader = ({
       <Drawer title="Stream Debug" placement="right" onClose={() => setDebugOpen(false)} open={debugOpen} width={480}>
         <div className="text-xs font-mono whitespace-pre-wrap break-all">
           {debugLogs.length === 0 ? (
-            <div className="text-gray-500">No stream events yet.</div>
+            <div className="text-text-muted">No stream events yet.</div>
           ) : (
             debugLogs.map((l, idx) => (
               <div key={idx} className="mb-1">
-                <span className="text-gray-400 mr-2">{new Date(l.time).toLocaleTimeString()}</span>
+                <span className="mr-2 text-text-subtle">{new Date(l.time).toLocaleTimeString()}</span>
                 <span className="mr-2">{l.kind === 'event' ? `event: ${l.name}` : 'data:'}</span>
                 {l.data && <span>{l.data}</span>}
               </div>
@@ -669,7 +669,7 @@ export const SidepanelHeader = ({
             </div>
 
             <button onClick={() => setSidebarOpen(false)}>
-              <XIcon className="size-4 text-gray-500 dark:text-gray-400" />
+              <XIcon className="size-4 text-text-subtle" />
             </button>
           </div>
         }

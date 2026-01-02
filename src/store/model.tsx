@@ -77,6 +77,13 @@ type CurrentChatModelSettings = {
   thinking?: boolean
   setThinking?: (thinking: boolean) => void
 
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: string
+  extraBody?: string
+
 
   ocrLanguage?: string
   setOcrLanguage?: (ocrLanguage: string) => void 
@@ -161,7 +168,13 @@ export const useStoreChatModelSettings = create<CurrentChatModelSettings>(
         minP: undefined,
         useMlock: undefined,
         reasoningEffort: undefined,
-        ocrLanguage: undefined 
+        ocrLanguage: undefined,
+        historyMessageLimit: undefined,
+        historyMessageOrder: undefined,
+        slashCommandInjectionMode: undefined,
+        apiProvider: undefined,
+        extraHeaders: undefined,
+        extraBody: undefined
       })
   })
 )

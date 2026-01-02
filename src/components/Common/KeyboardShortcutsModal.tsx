@@ -194,7 +194,7 @@ export function KeyboardShortcutsModal() {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 z-50 bg-bg/70 backdrop-blur-sm"
         onClick={handleClose}
         aria-hidden="true"
       />
@@ -202,19 +202,19 @@ export function KeyboardShortcutsModal() {
       {/* Modal */}
       <div
         ref={modalRef}
-        className="fixed left-1/2 top-[10%] sm:top-[15%] z-50 w-[calc(100%-2rem)] sm:w-full max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 max-h-[80vh] flex flex-col"
+        className="fixed left-1/2 top-[10%] sm:top-[15%] z-50 w-[calc(100%-2rem)] sm:w-full max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-surface shadow-2xl max-h-[80vh] flex flex-col"
         role="dialog"
         aria-modal="true"
         aria-labelledby="shortcuts-modal-title"
         onKeyDown={handleKeyDownInModal}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3 dark:border-gray-700">
+        <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <div className="flex items-center gap-2">
-            <Keyboard className="size-5 text-gray-500 dark:text-gray-400" />
+            <Keyboard className="size-5 text-text-subtle" />
             <h2
               id="shortcuts-modal-title"
-              className="text-base font-semibold text-gray-900 dark:text-gray-100"
+              className="text-base font-semibold text-text"
             >
               {t("common:shortcuts.title", "Keyboard Shortcuts")}
             </h2>
@@ -222,7 +222,7 @@ export function KeyboardShortcutsModal() {
           <button
             ref={closeButtonRef}
             onClick={handleClose}
-            className="rounded-lg p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-500"
+            className="rounded-lg p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             aria-label={t("common:close", "Close")}
           >
             <X className="size-5" />
@@ -233,19 +233,19 @@ export function KeyboardShortcutsModal() {
         <div className="max-h-[60vh] overflow-y-auto p-4">
           {shortcutGroups.map((group, groupIndex) => (
             <div key={group.title} className={groupIndex > 0 ? "mt-5" : ""}>
-              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-text-subtle">
                 {group.title}
               </h3>
               <div className="space-y-1">
                 {group.shortcuts.map((shortcut) => (
                   <div
                     key={shortcut.label}
-                    className="flex items-center justify-between rounded-lg px-2 py-1.5 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                    className="flex items-center justify-between rounded-lg px-2 py-1.5 hover:bg-surface2"
                   >
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                    <span className="text-sm text-text">
                       {shortcut.label}
                     </span>
-                    <kbd className="ml-4 flex items-center gap-1 rounded border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                    <kbd className="ml-4 flex items-center gap-1 rounded border border-border bg-surface2 px-2 py-0.5 text-xs font-medium text-text-muted">
                       {shortcut.keys}
                     </kbd>
                   </div>
@@ -256,11 +256,11 @@ export function KeyboardShortcutsModal() {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between border-t border-gray-200 px-4 py-2.5 dark:border-gray-700">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex items-center justify-between border-t border-border px-4 py-2.5">
+          <p className="text-xs text-text-subtle">
             {t("common:shortcuts.customizeHint", "Shortcuts can be customized in Settings")}
           </p>
-          <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-1 text-xs text-text-subtle">
             <Command className="size-3" />
             <span>K</span>
             <span className="ml-1">{t("common:shortcuts.forCommands", "for commands")}</span>

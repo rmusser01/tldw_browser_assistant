@@ -135,7 +135,7 @@ export function AnalysisEditModal({
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopy}
-              className="px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded flex items-center gap-1.5 transition-colors"
+              className="px-3 py-1.5 text-sm text-text hover:bg-surface2 rounded flex items-center gap-1.5 transition-colors"
             >
               <Copy className="w-4 h-4" />
               {t('common:copy', 'Copy')}
@@ -143,7 +143,7 @@ export function AnalysisEditModal({
             {onSendToChat && (
               <button
                 onClick={handleSendToChat}
-                className="px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded flex items-center gap-1.5 transition-colors"
+                className="px-3 py-1.5 text-sm text-text hover:bg-surface2 rounded flex items-center gap-1.5 transition-colors"
               >
                 <Send className="w-4 h-4" />
                 {t('mediaPage.sendToChat', 'Send to Chat')}
@@ -155,7 +155,7 @@ export function AnalysisEditModal({
               <button
                 onClick={handleSaveAsNewVersion}
                 disabled={saving || isOverLimit}
-                className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded flex items-center gap-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-1.5 text-sm bg-surface2 text-text hover:bg-surface rounded flex items-center gap-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 title={isOverLimit ? t('mediaPage.charLimitExceeded', 'Character limit exceeded') : undefined}
               >
                 <Save className="w-4 h-4" />
@@ -164,7 +164,7 @@ export function AnalysisEditModal({
             )}
             <button
               onClick={onClose}
-              className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+              className="px-3 py-1.5 text-sm text-text-muted hover:bg-surface2 rounded transition-colors"
             >
               {t('common:cancel', 'Cancel')}
             </button>
@@ -172,7 +172,7 @@ export function AnalysisEditModal({
               <button
                 onClick={handleSave}
                 disabled={isOverLimit}
-                className="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-1.5 text-sm bg-primary hover:bg-primaryStrong text-white rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 title={isOverLimit ? t('mediaPage.charLimitExceeded', 'Character limit exceeded') : undefined}
               >
                 {t('common:save', 'Save')}
@@ -188,23 +188,23 @@ export function AnalysisEditModal({
           value={text}
           onChange={e => setText(e.target.value)}
           maxLength={charLimit}
-          className={`w-full min-h-[300px] p-3 text-sm font-mono rounded-lg border bg-white dark:bg-[#171717] text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 resize-y leading-relaxed ${
+          className={`w-full min-h-[300px] p-3 text-sm font-mono rounded-lg border bg-surface text-text focus:outline-none focus:ring-2 resize-y leading-relaxed ${
             isOverLimit
-              ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
+              ? 'border-danger focus:ring-danger'
               : isApproachingLimit
-                ? 'border-orange-400 dark:border-orange-500 focus:ring-orange-500'
-                : 'border-gray-200 dark:border-gray-700 focus:ring-blue-500'
+                ? 'border-warn focus:ring-warn'
+                : 'border-border focus:ring-focus'
           }`}
           placeholder={t('mediaPage.analysisPlaceholder', 'Enter analysis text...')}
         />
         <div className="flex items-center justify-between text-xs">
-          <div className={`${isOverLimit ? 'text-red-600 dark:text-red-400 font-medium' : isApproachingLimit ? 'text-orange-600 dark:text-orange-400 font-medium' : 'text-gray-500 dark:text-gray-400'}`}>
+          <div className={`${isOverLimit ? 'text-danger font-medium' : isApproachingLimit ? 'text-warn font-medium' : 'text-text-muted'}`}>
             {t('mediaPage.wordCount', '{{count}} words', { count: text.trim() ? text.trim().split(/\s+/).length : 0 })}
             {' • '}
             {t('mediaPage.charCount', '{{count}} characters', { count: charCount })}
           </div>
           {isApproachingLimit && (
-            <div className={`${isOverLimit ? 'text-red-600 dark:text-red-400' : 'text-orange-600 dark:text-orange-400'} text-xs font-medium`}>
+            <div className={`${isOverLimit ? 'text-danger' : 'text-warn'} text-xs font-medium`}>
               {isOverLimit
                 ? t('mediaPage.charLimitExceeded', 'Character limit exceeded')
                 : t('mediaPage.charLimitWarning', 'Approaching character limit (20k)')}

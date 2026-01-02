@@ -141,8 +141,8 @@ export const SettingsBody = () => {
 
   return (
     <div className="flex flex-col gap-4 p-4 max-w-2xl mx-auto lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl">
-      <div className="border border-gray-300 dark:border-gray-700 rounded p-4 bg-white dark:bg-[#171717]">
-        <h2 className="text-md font-semibold dark:text-white">
+      <div className="border border-border rounded p-4 bg-surface">
+        <h2 className="text-md font-semibold text-text">
           {t("managePrompts.title")}
         </h2>
         <div className="my-3 flex justify-end">
@@ -160,11 +160,11 @@ export const SettingsBody = () => {
 
         {selectedValue === "normal" && (
           <div>
-            <span className="text-md font-thin text-gray-500 dark:text-gray-400">
+            <span className="text-md font-thin text-text-muted">
               {t("managePrompts.systemPrompt")}
             </span>
             <textarea
-              className="w-full border border-gray-300 dark:border-gray-700 rounded p-2 dark:bg-[#171717] dark:text-white dark:placeholder-gray-400"
+              className="w-full border border-border rounded p-2 bg-surface text-text placeholder:text-text-subtle"
               value={systemPrompt}
               onChange={(e) => setSystemPrompt(e.target.value)}
             />
@@ -181,21 +181,21 @@ export const SettingsBody = () => {
         {selectedValue === "rag" && (
           <div>
             <div className="mb-3">
-              <span className="text-md font-thin text-gray-500 dark:text-gray-400">
+              <span className="text-md font-thin text-text-muted">
                 {t("managePrompts.systemPrompt")}
               </span>
               <textarea
-                className="w-full border border-gray-300 dark:border-gray-700 rounded p-2 dark:bg-[#171717] dark:text-white dark:placeholder-gray-400"
+                className="w-full border border-border rounded p-2 bg-surface text-text placeholder:text-text-subtle"
                 value={ragPrompt}
                 onChange={(e) => setRagPrompt(e.target.value)}
               />
             </div>
             <div className="mb-3">
-              <span className="text-md  font-thin text-gray-500 dark:text-gray-400">
+              <span className="text-md font-thin text-text-muted">
                 {t("managePrompts.questionPrompt")}
               </span>
               <textarea
-                className="w-full border border-gray-300 dark:border-gray-700 rounded p-2 dark:bg-[#171717] dark:text-white dark:placeholder-gray-400"
+                className="w-full border border-border rounded p-2 bg-surface text-text placeholder:text-text-subtle"
                 value={ragQuestionPrompt}
                 onChange={(e) => setRagQuestionPrompt(e.target.value)}
               />
@@ -211,15 +211,15 @@ export const SettingsBody = () => {
           </div>
         )}
       </div>
-      <div className="border border-gray-300 dark:border-gray-700 rounded p-4 bg-white dark:bg-[#171717]">
+      <div className="border border-border rounded p-4 bg-surface">
         <SidepanelRag hideBorder />
       </div>
-      <div className="border flex flex-col gap-4 border-gray-300 dark:border-gray-700 rounded p-4 bg-white dark:bg-[#171717]">
-        <h2 className="text-md font-semibold dark:text-white">
+      <div className="border flex flex-col gap-4 border-border rounded p-4 bg-surface">
+        <h2 className="text-md font-semibold text-text">
           {t("ollamaSettings.heading")}
         </h2>
         <input
-          className="w-full border border-gray-300 dark:border-gray-700 rounded p-2 dark:bg-[#171717] dark:text-white dark:placeholder-gray-400"
+          className="w-full border border-border rounded p-2 bg-surface text-text placeholder:text-text-subtle"
           value={ollamaURL}
           type="url"
           onChange={(e) => setOllamaURL(e.target.value)}
@@ -233,10 +233,10 @@ export const SettingsBody = () => {
               key: "1",
               label: (
                 <div>
-                  <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+                  <h2 className="text-base font-semibold leading-7 text-text">
                     {t("ollamaSettings.settings.advanced.label")}
                   </h2>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                  <p className="text-xs text-text-subtle mb-4">
                     <Trans
                       i18nKey="settings:ollamaSettings.settings.advanced.help"
                       components={{
@@ -244,7 +244,7 @@ export const SettingsBody = () => {
                           <a
                             href="https://github.com/n4ze3m/page-assist/blob/main/docs/connection-issue.md#solutions"
                             target="__blank"
-                            className="text-blue-600 dark:text-blue-400"></a>
+                            className="text-primary"></a>
                         )
                       }}
                     />
@@ -264,8 +264,8 @@ export const SettingsBody = () => {
           />
         </div>
       </div>
-      <div className="border border-gray-300 dark:border-gray-700 rounded p-4 bg-white dark:bg-[#171717]">
-        <h2 className="text-md mb-4 font-semibold dark:text-white">
+      <div className="border border-border rounded p-4 bg-surface">
+        <h2 className="text-md mb-4 font-semibold text-text">
           {t("rag.ragSettings.label")}
         </h2>
         <Form
@@ -356,12 +356,12 @@ export const SettingsBody = () => {
         </Form>
       </div>
 
-      <div className="border space-y-3 w-full border-gray-300 dark:border-gray-700 rounded p-4 bg-white dark:bg-[#171717]">
-        <h2 className="text-base mb-4 font-semibold leading-7 text-gray-900 dark:text-white">
+      <div className="border space-y-3 w-full border-border rounded p-4 bg-surface">
+        <h2 className="text-base mb-4 font-semibold leading-7 text-text">
           {t("generalSettings.title")}
         </h2>
         <div className="flex flex-col  space-y-4">
-          <span className="text-gray-500   dark:text-neutral-50">
+          <span className="text-text-muted">
             {t("generalSettings.settings.copilotResumeLastChat.label")}
           </span>
 
@@ -374,7 +374,7 @@ export const SettingsBody = () => {
         </div>
         <div className="flex flex-col space-y-4">
           <div className="inline-flex items-center gap-2">
-            <span className="text-gray-500   dark:text-neutral-50">
+            <span className="text-text-muted">
               {t("generalSettings.settings.hideCurrentChatModelSettings.label")}
             </span>
           </div>
@@ -386,7 +386,7 @@ export const SettingsBody = () => {
           </div>
         </div>
         <div>
-          <div className="text-xs mb-2  dark:text-white">
+          <div className="text-xs mb-2 text-text">
             {t("generalSettings.settings.speechRecognitionLang.label")}{" "}
           </div>
           <Select
@@ -410,7 +410,7 @@ export const SettingsBody = () => {
           />
         </div>
         <div>
-          <div className="text-xs mb-2  dark:text-white">
+          <div className="text-xs mb-2 text-text">
             {t("generalSettings.settings.language.label")}{" "}
           </div>
 
@@ -432,27 +432,27 @@ export const SettingsBody = () => {
           />
         </div>
       </div>
-      <div className="border border-gray-300 dark:border-gray-700 rounded p-4 bg-white dark:bg-[#171717]">
+      <div className="border border-border rounded p-4 bg-surface">
         <SSTSettings hideBorder />
       </div>
-      <div className="border border-gray-300 dark:border-gray-700 rounded p-4 bg-white dark:bg-[#171717]">
+      <div className="border border-border rounded p-4 bg-surface">
         <TTSModeSettings hideBorder />
       </div>
-      <div className="border border-gray-300 dark:border-gray-700 rounded p-4 bg-white dark:bg-[#171717]">
-        <h2 className="text-md mb-4 font-semibold dark:text-white">
+      <div className="border border-border rounded p-4 bg-surface">
+        <h2 className="text-md mb-4 font-semibold text-text">
           {t("generalSettings.settings.darkMode.label")}{" "}
         </h2>
         {mode === "dark" ? (
           <button
             onClick={toggleDarkMode}
-            className="select-none inline-flex text-center w-full rounded-lg border border-gray-900 py-3 px-6 justify-center font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:border-gray-100 dark:text-white dark:hover:opacity-75 dark:focus:ring-dark dark:active:opacity-75 dark:disabled:pointer-events-none dark:disabled:opacity-50 dark:disabled:shadow-none">
+            className="select-none inline-flex text-center w-full rounded-lg border border-border py-3 px-6 justify-center font-sans text-xs font-bold uppercase text-text transition-all hover:opacity-75 focus:ring focus:ring-focus focus:ring-offset-2 focus:ring-offset-bg active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
             <SunIcon className="h-4 w-4 mr-2" />
             {t("generalSettings.settings.darkMode.options.light")}
           </button>
         ) : (
           <button
             onClick={toggleDarkMode}
-            className="select-none inline-flex text-center w-full rounded-lg border border-gray-900 py-3 px-6 justify-center font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none dark:border-gray-100 dark:text-white dark:hover:opacity-75 dark:focus:ring-dark dark:active:opacity-75 dark:disabled:pointer-events-none dark:disabled:opacity-50 dark:disabled:shadow-none">
+            className="select-none inline-flex text-center w-full rounded-lg border border-border py-3 px-6 justify-center font-sans text-xs font-bold uppercase text-text transition-all hover:opacity-75 focus:ring focus:ring-focus focus:ring-offset-2 focus:ring-offset-bg active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
             <MoonIcon className="h-4 w-4 mr-2" />
             {t("generalSettings.settings.darkMode.options.dark")}
           </button>

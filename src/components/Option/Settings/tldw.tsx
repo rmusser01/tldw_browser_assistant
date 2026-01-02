@@ -529,14 +529,14 @@ export const TldwSettings = () => {
             onClose={() => setShowDefaultKeyWarning(false)}
           />
         )}
-        <div className="mb-4 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+        <div className="mb-4 rounded-lg bg-surface2 p-4">
           <h3 className="mb-2 font-semibold">
             {t(
               "settings:tldw.about.title",
               "About tldw server integration"
             )}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-text-muted">
             {t(
               "settings:tldw.about.description",
               "tldw server turns this extension into a full workspace for chat, knowledge search, and media."
@@ -544,10 +544,10 @@ export const TldwSettings = () => {
           </p>
           <ServerOverviewHint />
         </div>
-        <div className="mb-4 p-2 rounded border border-transparent bg-transparent flex items-center justify-between transition-colors duration-150 hover:border-gray-200 hover:bg-gray-50 dark:border-transparent dark:hover:border-gray-700 dark:hover:bg-[#1c1c1c]">
-          <div className="text-sm text-gray-800 dark:text-gray-100">
+        <div className="mb-4 p-2 rounded border border-transparent bg-transparent flex items-center justify-between transition-colors duration-150 hover:border-border hover:bg-surface2">
+          <div className="text-sm text-text">
             <span className="mr-2 font-medium">{t('settings:tldw.serverLabel', 'Server:')}</span>
-            <span className="text-gray-600 dark:text-gray-300 break-all">{serverUrl || t('settings:tldw.notConfigured', 'Not configured')}</span>
+            <span className="text-text-muted break-all">{serverUrl || t('settings:tldw.notConfigured', 'Not configured')}</span>
           </div>
           <Space>
             <Link to="/settings/health">
@@ -556,7 +556,7 @@ export const TldwSettings = () => {
             <Button type="primary" onClick={testConnection} loading={testingConnection}>{t('settings:tldw.buttons.recheck', 'Recheck')}</Button>
           </Space>
         </div>
-        <h2 className="text-base font-semibold mb-4 text-gray-900 dark:text-gray-100">{t('settings:tldw.serverConfigTitle', 'tldw Server Configuration')}</h2>
+        <h2 className="text-base font-semibold mb-4 text-text">{t('settings:tldw.serverConfigTitle', 'tldw Server Configuration')}</h2>
         
         <Form
           form={form}
@@ -714,7 +714,7 @@ export const TldwSettings = () => {
 
             <div className="flex flex-col items-start gap-1 ml-4">
               {testingConnection && (
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-text-subtle">
                   {t(
                     "settings:tldw.connection.checking",
                     "Checking connection and RAG health…"
@@ -740,11 +740,11 @@ export const TldwSettings = () => {
                 </span>
               )}
               {connectionDetail && connectionStatus !== "success" && (
-                <span className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                <span className="flex flex-wrap items-center gap-2 text-xs text-text-subtle">
                   <span>{connectionDetail}</span>
                   <button
                     type="button"
-                    className="underline text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                    className="underline text-primary hover:text-primaryStrong"
                     onClick={openHealthDiagnostics}>
                     {t(
                       "settings:healthSummary.diagnostics",
@@ -753,7 +753,7 @@ export const TldwSettings = () => {
                   </button>
                 </span>
               )}
-              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
                 <span className="font-medium">
                   {t("settings:tldw.connection.checksLabel", "Checks")}
                 </span>
@@ -801,7 +801,7 @@ export const TldwSettings = () => {
                           </Tag>
                         )}
                       </div>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-text-subtle">
                         {t('settings:tldw.timeoutPresetHint')}
                       </span>
                     </div>
@@ -835,7 +835,7 @@ export const TldwSettings = () => {
                           placeholder="10"
                           suffix="s"
                         />
-                        <div className="text-xs text-gray-500 mt-1">
+                        <div className="text-xs text-text-subtle mt-1">
                           {t('settings:tldw.hints.requestTimeout', {
                             defaultValue:
                               'Abort initial requests if no response within this time. Default: {{seconds}}s.',
@@ -872,7 +872,7 @@ export const TldwSettings = () => {
                           placeholder="15"
                           suffix="s"
                         />
-                        <div className="text-xs text-gray-500 mt-1">
+                        <div className="text-xs text-text-subtle mt-1">
                           {t('settings:tldw.hints.streamingIdle', {
                             defaultValue:
                               'Abort streaming if no updates received within this time. Default: {{seconds}}s.',

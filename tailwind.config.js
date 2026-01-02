@@ -9,6 +9,7 @@ module.exports = {
         bg: "var(--color-bg)",
         surface: "var(--color-surface)",
         surface2: "var(--color-surface-2)",
+        elevated: "var(--color-elevated)",
         primary: "var(--color-primary)",
         primaryStrong: "var(--color-primary-strong)",
         accent: "var(--color-accent)",
@@ -17,14 +18,25 @@ module.exports = {
         danger: "var(--color-danger)",
         muted: "var(--color-muted)",
         border: "var(--color-border)",
+        borderStrong: "var(--color-border-strong)",
+        "border-strong": "var(--color-border-strong)",
         text: "var(--color-text)",
         textMuted: "var(--color-text-muted)",
+        "text-muted": "var(--color-text-muted)",
+        textSubtle: "var(--color-text-subtle)",
+        "text-subtle": "var(--color-text-subtle)",
         focus: "var(--color-focus)"
       },
       fontFamily: {
         display: ["Space Grotesk", "Inter", "sans-serif"],
         body: ["Inter", "system-ui", "sans-serif"],
         arimo: ["Arimo", "sans-serif"]
+      },
+      fontSize: {
+        body: ["14px", { lineHeight: "20px" }],
+        message: ["15px", { lineHeight: "22px" }],
+        caption: ["12px", { lineHeight: "16px" }],
+        label: ["11px", { lineHeight: "14px", letterSpacing: "0.04em" }]
       },
       borderRadius: {
         card: "12px",

@@ -88,7 +88,7 @@ export const ModelsBody = () => {
               <button
                 onClick={() => void handleRefresh()}
                 disabled={refreshing}
-                className="inline-flex items-center rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                className="inline-flex items-center rounded-md border border-border bg-surface px-3 py-2 text-sm font-medium text-text shadow-sm hover:bg-surface2 focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 disabled:opacity-60">
                 {refreshing ? (
                   <>
                     <Spin size="small" className="mr-2" />
@@ -99,7 +99,7 @@ export const ModelsBody = () => {
                 )}
               </button>
               {lastRefreshedAt && (
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-text-subtle">
                   {t("settings:models.lastRefreshedAt", {
                     defaultValue: "Last checked at {{time}}",
                     time: dayjs(lastRefreshedAt).format("HH:mm")

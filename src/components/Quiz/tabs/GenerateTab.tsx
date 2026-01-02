@@ -127,7 +127,7 @@ export const GenerateTab: React.FC<GenerateTabProps> = ({ onNavigateToTake }) =>
               }
             />
             {mediaList?.pagination && (
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-text-subtle">
                 {t("option:quiz.mediaCount", {
                   defaultValue: "{{count}} media items available",
                   count: mediaList.pagination.total_items
@@ -178,7 +178,7 @@ export const GenerateTab: React.FC<GenerateTabProps> = ({ onNavigateToTake }) =>
         <Card size="small">
           <div className="text-center space-y-4">
             <Spin size="large" />
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-text-muted">
               {t("option:quiz.generating", { defaultValue: "Generating quiz..." })}
             </p>
             <Progress percent={50} status="active" showInfo={false} />

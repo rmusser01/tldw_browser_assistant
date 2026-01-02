@@ -59,6 +59,7 @@ import { useServerChatHistory } from "@/hooks/useServerChatHistory"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useStoreMessageOption } from "@/store/option"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
 
 type Props = {
   onClose: () => void
@@ -670,12 +671,12 @@ export const Sidebar = ({
               placeholder={t("common:search")}
               value={searchQuery}
               onChange={handleSearchChange}
-              prefix={<SearchIcon className="w-4 h-4 text-gray-400" />}
+              prefix={<SearchIcon className="w-4 h-4 text-text-subtle" />}
               suffix={
                 <button
                   type="button"
                   onClick={clearSearch}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                  className="text-text-subtle hover:text-text"
                   aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}
                   aria-hidden={!searchQuery}
                   tabIndex={searchQuery ? 0 : -1}
@@ -686,7 +687,7 @@ export const Sidebar = ({
                   ✕
                 </button>
               }
-              className="w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-[#232222]"
+              className="w-full rounded-md border border-border bg-surface"
             />
           </div>
           {isConnected && <FolderToolbar compact />}
@@ -728,7 +729,7 @@ export const Sidebar = ({
 
       {serverStatus === "error" && (
         <div className="flex justify-center items-center mt-2 px-2">
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-text-subtle">
             {t("common:serverChatsUnavailable", {
               defaultValue: isConnected
                 ? "Server chats unavailable right now. Check your server logs or try again."
@@ -749,7 +750,7 @@ export const Sidebar = ({
           {chatHistories.map((group, groupIndex) => (
             <div key={groupIndex}>
               <div className="flex items-center justify-between mt-2">
-                <h3 className="px-2 text-sm font-medium text-gray-500">
+                <h3 className="px-2 text-sm font-medium text-text-subtle">
                   {group.label === "searchResults"
                     ? t("common:searchResults")
                     : t(`common:date:${group.label}`)}
@@ -759,11 +760,11 @@ export const Sidebar = ({
                     title={t(`common:range:tooltip:${group.label}`)}
                     placement="top">
                     <button
-                      onClick={() => handleDeleteHistoriesByRange(group.label)}>
-                      {deleteRangeLoading && deleteGroup === group.label ? (
-                        <Loader2 className="w-4 h-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 animate-spin" />
+                  onClick={() => handleDeleteHistoriesByRange(group.label)}>
+                  {deleteRangeLoading && deleteGroup === group.label ? (
+                        <Loader2 className="w-4 h-4 text-text-muted hover:text-text animate-spin" />
                       ) : (
-                        <Trash2Icon className="w-4 h-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-200" />
+                        <Trash2Icon className="w-4 h-4 text-text-muted hover:text-text" />
                       )}
                     </button>
                   </Tooltip>
@@ -775,14 +776,14 @@ export const Sidebar = ({
                     key={chat.id}
                     className={`flex py-2 px-2 items-start gap-2 relative rounded-md hover:pr-4 group transition-opacity duration-300 ease-in-out border ${
                       historyId === chat.id
-                        ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-                        : "bg-gray-50 dark:bg-[#232222] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#2d2d2d]"
+                        ? "bg-surface2 border-borderStrong text-text"
+                        : "bg-surface text-text border-border hover:bg-surface2"
                     }`}>
                     {chat?.message_source === "copilot" && (
-                      <BotIcon className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+                      <BotIcon className="size-3 text-text-subtle mt-1 flex-shrink-0" />
                     )}
                     {chat?.message_source === "branch" && (
-                      <GitBranch className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+                      <GitBranch className="size-3 text-text-subtle mt-1 flex-shrink-0" />
                     )}
                     <button
                       className="flex-1 overflow-hidden text-start w-full min-w-0"
@@ -792,7 +793,7 @@ export const Sidebar = ({
                       <div className="flex flex-col gap-0.5">
                         <span className="truncate font-medium">{chat.title}</span>
                         {historyMetadata?.get(chat.id) && (
-                          <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                          <div className="flex items-center gap-2 text-xs text-text-subtle">
                             <span className="flex items-center gap-1">
                               <MessageSquare className="size-3" />
                               {historyMetadata.get(chat.id)?.messageCount || 0}
@@ -808,7 +809,7 @@ export const Sidebar = ({
                           </div>
                         )}
                         {historyMetadata?.get(chat.id)?.lastMessage && (
-                          <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          <span className="text-xs text-text-subtle truncate">
                             {truncateMessage(
                               historyMetadata.get(chat.id)?.lastMessage
                                 ?.content || ""
@@ -898,7 +899,7 @@ export const Sidebar = ({
                         open={openMenuFor === chat.id}
                         onOpenChange={(o) => setOpenMenuFor(o ? chat.id : null)}>
                         <IconButton
-                          className="text-gray-500 dark:text-gray-400 opacity-80 hover:opacity-100"
+                          className="text-text-subtle opacity-80 hover:opacity-100"
                           ariaLabel={`${t("option:header.moreActions", "More actions")}: ${chat.title}`}
                           hasPopup="menu"
                           ariaExpanded={openMenuFor === chat.id}
@@ -936,9 +937,9 @@ export const Sidebar = ({
       )}
 
       {serverStatus === "success" && serverChats.length > 0 && (
-        <div className="mt-4 flex flex-col gap-2 border-t border-gray-200 dark:border-gray-800 pt-3">
+        <div className="mt-4 flex flex-col gap-2 border-t border-border pt-3">
           <div className="flex items-center justify-between mt-1">
-            <h3 className="px-2 text-sm font-medium text-gray-500">
+            <h3 className="px-2 text-sm font-medium text-text-subtle">
               {t("common:serverChats", { defaultValue: "Server chats" })}
             </h3>
           </div>
@@ -948,8 +949,8 @@ export const Sidebar = ({
                 key={chat.id}
                 className={`flex py-2 px-2 items-center gap-3 relative rounded-md truncate hover:pr-4 group transition-opacity duration-300 ease-in-out border text-left ${
                   serverChatId === chat.id
-                    ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-                    : "bg-gray-50 dark:bg-[#232222] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#2d2d2d]"
+                    ? "bg-surface2 border-borderStrong text-text"
+                    : "bg-surface text-text border-border hover:bg-surface2"
                 }`}
                 onClick={async () => {
                   try {
@@ -1028,8 +1029,8 @@ export const Sidebar = ({
                 }}>
                 <div className="flex flex-col overflow-hidden flex-1">
                   <span className="truncate text-sm">{chat.title}</span>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    <span className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium lowercase text-gray-700 dark:bg-gray-700 dark:text-gray-100">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle mt-0.5">
+                    <span className="inline-flex items-center rounded-full bg-surface2 px-2 py-0.5 text-[11px] font-medium lowercase text-text">
                       {(chat.state as string) || "in-progress"}
                     </span>
                     {chat.topic_label && (
@@ -1041,7 +1042,7 @@ export const Sidebar = ({
                       </span>
                     )}
                   </div>
-                  <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                  <span className="flex items-center gap-1 text-xs text-text-subtle">
                     {chat.parent_conversation_id ? (
                       <Tooltip
                         title={t("common:serverChatForkedTooltip", {
@@ -1074,7 +1075,7 @@ export const Sidebar = ({
 
       {/* Folder Tree View - shown when viewMode is 'folders' */}
       {isConnected && viewMode === 'folders' && (
-        <div className="mt-4 border-t border-gray-200 dark:border-gray-800 pt-3">
+        <div className="mt-4 border-t border-border pt-3">
           <FolderTree
             onConversationSelect={(conversationId) => {
               void loadLocalConversation(conversationId)
@@ -1084,6 +1085,10 @@ export const Sidebar = ({
           />
         </div>
       )}
+
+      <div className="mt-4 border-t border-border pt-3">
+        <ModeToggle />
+      </div>
 
       {/* Folder Picker Modal */}
       <React.Suspense
@@ -1098,7 +1103,7 @@ export const Sidebar = ({
               footer={null}
               title={t("common:moveToFolder")}>
               <div className="flex items-center justify-center py-6">
-                <Loader2 className="h-5 w-5 animate-spin text-gray-500" />
+                <Loader2 className="h-5 w-5 animate-spin text-text-muted" />
               </div>
             </Modal>
           ) : null

@@ -36,19 +36,19 @@ export function SearchBar({
 
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-subtle" />
       <input
         type="text"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full pl-10 ${inputPaddingClass} py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent`}
+        className={`w-full pl-10 ${inputPaddingClass} py-2.5 border border-border bg-surface text-text placeholder:text-text-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-focus focus:border-transparent`}
       />
       {/* Clear search button */}
       {showClearSearch && (
         <button
           onClick={handleClearSearch}
-          className={`absolute top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 ${
+          className={`absolute top-1/2 -translate-y-1/2 text-text-subtle hover:text-text ${
             showClearAll ? 'right-10' : 'right-3'
           }`}
           aria-label={t('mediaPage.clearSearch', 'Clear search')}
@@ -62,7 +62,7 @@ export function SearchBar({
         <Tooltip title={t('mediaPage.clearAllFilters', 'Clear search and filters')}>
           <button
             onClick={handleClearAll}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-orange-500 dark:text-orange-400 hover:text-orange-600 dark:hover:text-orange-300"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-warn hover:text-warn"
             aria-label={t('mediaPage.clearAllFilters', 'Clear search and filters')}
             type="button"
           >

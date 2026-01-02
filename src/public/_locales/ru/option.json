@@ -1,0 +1,1808 @@
+{
+  "newChat": {
+    "message": "Новый чат"
+  },
+  "selectAPrompt": {
+    "message": "Выберите подсказку"
+  },
+  "githubRepository": {
+    "message": "Репозиторий GitHub"
+  },
+  "settings": {
+    "message": "Настройки"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "Подключите tldw Assistant к своему серверу"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "Ищем ваш сервер tldw…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "Подключено к вашему серверу tldw"
+  },
+  "connectionCard_headlineError": {
+    "message": "Не удаётся подключиться к вашему серверу tldw"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server — это бэкенд, который обеспечивает историю чатов, поиск по знаниям и обработку медиа. Подключите URL своего сервера tldw, чтобы начать пользоваться ассистентом."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "Проверяем {{host}}, чтобы убедиться, что ваш сервер tldw доступен. Это может занять немного времени при первом запуске или после перезапуска сервера."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "Подключено к вашему серверу tldw по адресу {{host}}. Теперь вы можете начать чат или использовать Обзор, Знания и другие инструменты."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Просматривайте медиафайлы и транскрипты"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Ищите в базе знаний и заметках"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "Используйте RAG с вашими собственными документами"
+  },
+  "connectionCard_descriptionError": {
+    "message": "Не удалось подключиться к вашему серверу tldw по адресу {{host}}. Убедитесь, что сервер запущен, URL указан верно и браузер может обратиться к нему по сети."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "Начать чат"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "Повторить подключение"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "Сменить сервер"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "Открыть диагностику"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "Просмотреть диагностику"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "Открыть быстрый импорт"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "Попробовать демо"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "Продолжить офлайн"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "Отключить офлайн‑режим"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "Офлайн‑режим — только для стейджинга"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "Перейти к карточке сервера"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "Подсказка: нужна помощь с импортом, пока вы офлайн?"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "Когда сервер недоступен, «Быстрый импорт» работает как буфер. Вы можете ставить URL‑адреса и файлы в очередь сейчас и обработать их после повторного подключения."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "Назад в рабочее пространство"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "Настройки откроются в новой вкладке браузера, чтобы вы могли настроить свой сервер tldw."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "«Быстрый импорт» может ставить URL‑адреса и файлы в очередь, пока сервер офлайн, чтобы вы обработали их позже."
+  },
+  "header_showShortcuts": {
+    "message": "Показать ярлыки"
+  },
+  "header_hideShortcuts": {
+    "message": "Скрыть ярлыки"
+  },
+  "header_groupWorkspace": {
+    "message": "Рабочее пространство"
+  },
+  "header_groupKnowledge": {
+    "message": "Знания"
+  },
+  "header_groupSettings": {
+    "message": "Ярлыки настроек"
+  },
+  "header_backToHome": {
+    "message": "Назад на главную"
+  },
+  "header_openSidebar": {
+    "message": "Открыть боковую панель"
+  },
+  "header_untitledChat": {
+    "message": "Без названия"
+  },
+  "header_modelLabel": {
+    "message": "Модель"
+  },
+  "header_contentReview": {
+    "message": "Проверка контента"
+  },
+  "header_promptLabel": {
+    "message": "Подсказка"
+  },
+  "header_review": {
+    "message": "Обзор"
+  },
+  "header_flashcards": {
+    "message": "Карточки"
+  },
+  "header_quiz": {
+    "message": "Викторина"
+  },
+  "header_media": {
+    "message": "Медиа"
+  },
+  "header_libraryView": {
+    "message": "Обзор нескольких элементов"
+  },
+  "header_notes": {
+    "message": "Заметки"
+  },
+  "header_modesLabel": {
+    "message": "Режимы"
+  },
+  "header_modePlayground": {
+    "message": "Чат"
+  },
+  "header_modeReview": {
+    "message": "Обзор"
+  },
+  "header_modeMedia": {
+    "message": "Медиа"
+  },
+  "header_modeKnowledge": {
+    "message": "QA по знаниям"
+  },
+  "header_modeNotes": {
+    "message": "Заметки"
+  },
+  "header_modePrompts": {
+    "message": "Подсказки"
+  },
+  "header_modePromptsPlayground": {
+    "message": "Подсказки"
+  },
+  "header_modeStt": {
+    "message": "Песочница STT"
+  },
+  "header_modePromptStudio": {
+    "message": "Промпт‑студия"
+  },
+  "header_modeFlashcards": {
+    "message": "Карточки"
+  },
+  "header_modeWorldBooks": {
+    "message": "Книги миров"
+  },
+  "header_modeDictionaries": {
+    "message": "Словари чата"
+  },
+  "header_modeCharacters": {
+    "message": "Персонажи"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} для переключения"
+  },
+  "header_quickIngest": {
+    "message": "Быстрый импорт"
+  },
+  "header_modelSettings": {
+    "message": "Настройки модели"
+  },
+  "header_serverSettings": {
+    "message": "Server settings"
+  },
+  "header_more": {
+    "message": "Инструменты ИИ"
+  },
+  "header_moreMenu_title": {
+    "message": "Расширенные инструменты"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "Расширенные инструменты, такие как боковая панель, репозиторий и параметры отладки"
+  },
+  "header_moreActions": {
+    "message": "Дополнительные действия"
+  },
+  "header_toolsMenu": {
+    "message": "Инструменты чата"
+  },
+  "header_serverBackedLabel": {
+    "message": "Чат с сохранением на сервере"
+  },
+  "header_serverBackedTooltip": {
+    "message": "Сообщения в этом чате также сохраняются на вашем сервере tldw."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "Поиск по экранам, чатам, медиа и заметкам…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "Нет совпадений для «{{query}}»."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "Создать заметку «{{query}}»"
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "Заметка «{{query}}» создана"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "Создать коллекцию карточек «{{query}}»"
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "Коллекция карточек «{{query}}» создана"
+  },
+  "header_omniSearchStartChat": {
+    "message": "Начать новый чат «{{query}}»"
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "Чат и инструменты теперь доступны на странице настроек и в боковой панели."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — в очереди {{count}} элементов — нажмите, чтобы просмотреть и обработать"
+  },
+  "header_modeSpeech": {
+    "message": "Речь"
+  },
+  "sidebarTitle": {
+    "message": "История чата"
+  },
+  "error": {
+    "message": "Ошибка"
+  },
+  "somethingWentWrong": {
+    "message": "Что-то пошло не так"
+  },
+  "validationSelectModel": {
+    "message": "Пожалуйста, выберите модель, чтобы продолжить"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "Вы уверены, что хотите удалить эту историю?"
+  },
+  "editHistoryTitle": {
+    "message": "Введите новое название"
+  },
+  "temporaryChat": {
+    "message": "Временный чат (не сохраняется)"
+  },
+  "more_copy_group": {
+    "message": "Копировать"
+  },
+  "more_copy_asText": {
+    "message": "Копировать как текст"
+  },
+  "more_copy_asMarkdown": {
+    "message": "Копировать как Markdown"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "Копировать каноническую транскрипцию"
+  },
+  "more_copy_success": {
+    "message": "Скопировано в буфер обмена!"
+  },
+  "more_download_group": {
+    "message": "Скачать"
+  },
+  "more_download_text": {
+    "message": "Текстовый файл (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Файл Markdown (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "Каноническая транскрипция (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON файл (.json)"
+  },
+  "more_download_image": {
+    "message": "Изображение (.png)"
+  },
+  "more_share": {
+    "message": "Поделиться"
+  },
+  "libraryView": {
+    "message": "Просмотр библиотеки"
+  },
+  "notes": {
+    "message": "Заметки"
+  },
+  "omniSearch_filterScreen": {
+    "message": "Экраны"
+  },
+  "omniSearch_filterChat": {
+    "message": "Чаты"
+  },
+  "omniSearch_filterMedia": {
+    "message": "Медиа"
+  },
+  "omniSearch_filterNote": {
+    "message": "Заметки"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Коллекции карточек"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Подсказки"
+  },
+  "omniSearch_filteringBy": {
+    "message": "Фильтрация по:"
+  },
+  "flashcards_review": {
+    "message": "Повторение"
+  },
+  "flashcards_create": {
+    "message": "Создать"
+  },
+  "flashcards_manage": {
+    "message": "Управление"
+  },
+  "flashcards_importExport": {
+    "message": "Импорт / экспорт"
+  },
+  "flashcards_selectDeck": {
+    "message": "Выберите колоду"
+  },
+  "flashcards_nextDue": {
+    "message": "Следующая к повторению"
+  },
+  "flashcards_front": {
+    "message": "Лицевая сторона"
+  },
+  "flashcards_back": {
+    "message": "Оборот"
+  },
+  "flashcards_extra": {
+    "message": "Дополнительно"
+  },
+  "flashcards_showAnswer": {
+    "message": "Показать ответ"
+  },
+  "flashcards_hideAnswer": {
+    "message": "Скрыть ответ"
+  },
+  "flashcards_preview": {
+    "message": "Предпросмотр"
+  },
+  "flashcards_rate": {
+    "message": "Оценить"
+  },
+  "flashcards_answerMs": {
+    "message": "Answer ms (opt)"
+  },
+  "flashcards_noDue": {
+    "message": "Нет карточек для повторения"
+  },
+  "flashcards_deck": {
+    "message": "Колода"
+  },
+  "flashcards_newDeck": {
+    "message": "Новая колода"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Введите название колоды."
+  },
+  "flashcards_modelType": {
+    "message": "Тип модели"
+  },
+  "flashcards_reverse": {
+    "message": "Обратная"
+  },
+  "flashcards_isCloze": {
+    "message": "Клоуз"
+  },
+  "flashcards_tags": {
+    "message": "Теги"
+  },
+  "flashcards_dueStatus": {
+    "message": "Статус повторения"
+  },
+  "flashcards_dueAll": {
+    "message": "Все"
+  },
+  "flashcards_dueNew": {
+    "message": "Новые"
+  },
+  "flashcards_dueLearning": {
+    "message": "В изучении"
+  },
+  "flashcards_dueDue": {
+    "message": "К повторению"
+  },
+  "flashcards_tag": {
+    "message": "Тег"
+  },
+  "flashcards_noCards": {
+    "message": "Нет карточек"
+  },
+  "flashcards_due": {
+    "message": "К повторению"
+  },
+  "flashcards_editCard": {
+    "message": "Редактировать карточку"
+  },
+  "flashcards_importTitle": {
+    "message": "Импорт карточек"
+  },
+  "flashcards_exportTitle": {
+    "message": "Экспорт карточек"
+  },
+  "flashcards_importHelp": {
+    "message": "Вставьте строки TSV/CSV: Колода, Лицевая, Оборот, Теги, Заметки"
+  },
+  "flashcards_pasteContent": {
+    "message": "Вставьте содержимое здесь..."
+  },
+  "flashcards_tab": {
+    "message": "Табуляция"
+  },
+  "flashcards_comma": {
+    "message": ", (запятая)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (точка с запятой)"
+  },
+  "flashcards_pipe": {
+    "message": "| (вертикальная черта)"
+  },
+  "flashcards_hasHeader": {
+    "message": "Есть заголовок"
+  },
+  "flashcards_import": {
+    "message": "Импортировать"
+  },
+  "flashcards_imported": {
+    "message": "Импортировано"
+  },
+  "flashcards_importLimits": {
+    "message": "Ограничения импорта"
+  },
+  "flashcards_csv": {
+    "message": "Файл CSV/TSV"
+  },
+  "flashcards_apkg": {
+    "message": "Файл Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "Включить обратные карточки"
+  },
+  "flashcards_includeHeader": {
+    "message": "Include header"
+  },
+  "flashcards_extendedHeader": {
+    "message": "Extended header"
+  },
+  "flashcards_download": {
+    "message": "Скачать"
+  },
+  "flashcards_duplicate": {
+    "message": "Дублировать"
+  },
+  "flashcards_move": {
+    "message": "Переместить"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Не удалось выполнить повторение"
+  },
+  "flashcards_updateFailed": {
+    "message": "Не удалось обновить"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Не удалось удалить"
+  },
+  "flashcards_missingVersion": {
+    "message": "Отсутствует версия; перезагрузите и попробуйте снова"
+  },
+  "flashcards_bulkMove": {
+    "message": "Массовое перемещение"
+  },
+  "flashcards_bulkDelete": {
+    "message": "Массовое удаление"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} удалено · {{failed}} не удалось"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Операция ограничена первыми {{limit}} элементами."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "Экспортировать выбранное (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "Выбрано"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "Выбрать всё на странице"
+  },
+  "flashcards_clearSelection": {
+    "message": "Снять выделение"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "Подключитесь, чтобы использовать карточки"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "Чтобы повторять или создавать карточки, сначала подключитесь к своему серверу tldw."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "Откройте «Настройки → tldw server», чтобы добавить URL своего сервера."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "После подключения вы сможете повторять карточки по сроку или создавать новые колоды из заметок и медиа."
+  },
+  "flashcards_demoTitle": {
+    "message": "Изучите «Карточки» в демо-режиме"
+  },
+  "flashcards_demoDescription": {
+    "message": "Эта демоверсия показывает, как «Карточки» превращают ваш контент в карточки для интервальных повторений. Позже вы сможете подключить свой сервер, чтобы создавать и повторять карточки из своих заметок и медиа."
+  },
+  "flashcards_demoExample1": {
+    "message": "Посмотрите, как колоды, карточки и теги организованы между вкладками «Повторение» и «Управление»."
+  },
+  "flashcards_demoExample2": {
+    "message": "После подключения вы сможете создавать карточки из лекций, встреч или заметок и повторять их по расписанию."
+  },
+  "flashcards_demoExample3": {
+    "message": "Используйте «Карточки» вместе с «Заметками» и «Медиа», чтобы важные идеи всегда оставались в памяти."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "Примерные колоды (только просмотр)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "Демо-колода: базовые концепции"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 карточек · Подходит для проверки интервалов и оценок."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "Демо-колода: термины продукта"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 карточек · Названия, аббревиатуры и ключевые определения."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "Демо-колода: задачи после встреч"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 карточек · Примеры последующих действий для повторения."
+  },
+  "flashcards_selectAllAcross": {
+    "message": "Выбрать всё в результатах"
+  },
+  "flashcards_ratingAgain": {
+    "message": "Снова"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "Не удалось вспомнить эту карточку."
+  },
+  "flashcards_ratingHard": {
+    "message": "Трудно"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "Вспомнил с трудом — было сложно."
+  },
+  "flashcards_ratingGood": {
+    "message": "Хорошо"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "Вспомнил с небольшим усилием."
+  },
+  "flashcards_ratingEasy": {
+    "message": "Легко"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "Вспомнил быстро и уверенно."
+  },
+  "flashcards_showTiming": {
+    "message": "Отслеживать время ответа"
+  },
+  "flashcards_hideTiming": {
+    "message": "Скрыть время"
+  },
+  "flashcards_noDueTitle": {
+    "message": "Нет карточек для повторения"
+  },
+  "flashcards_noDueDescription": {
+    "message": "Вы всё повторили. Создайте новые карточки или импортируйте существующую колоду, чтобы начать повторение."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "Создать новую карточку"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "Импортировать колоду"
+  },
+  "flashcards_createTitle": {
+    "message": "Создайте карточки из своих заметок"
+  },
+  "flashcards_createDescription": {
+    "message": "Используйте лицевую сторону для вопроса и оборот для ответа. Вы можете группировать карточки в колоды и добавлять теги для быстрого поиска."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Basic показывает вопрос на лицевой стороне и ответ на обороте. Reverse также создаёт обратную карточку. Cloze скрывает части текста с помощью {{...}}."
+  },
+  "flashcards_reverseHelp": {
+    "message": "Также создаёт карточку, где оборот становится вопросом."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "Используйте для карточек с пропусками. Оборачивайте скрытый текст в {{...}} на лицевой стороне."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Поддерживает Markdown и LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Необязательные подсказки/пояснения (поддерживаются Markdown и LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "Внутренние заметки (поддерживаются Markdown и LaTeX)."
+  },
+  "flashcards_bulkActions": {
+    "message": "Массовые действия"
+  },
+  "flashcards_selectionHelp": {
+    "message": "«Выбрать всё в результатах» применяет действия ко всем карточкам, подходящим под фильтры, а не только на этой странице."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "Карточек пока нет"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "Создайте карточки из заметок и медиа или импортируйте существующую колоду."
+  },
+  "flashcards_clearFilters": {
+    "message": "Сбросить фильтры"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "Создать первую карточку"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "Импортировать карточки"
+  },
+  "flashcards_mapping": {
+    "message": "Сопоставление столбцов"
+  },
+  "flashcards_mappingPreview": {
+    "message": "Предпросмотр первых сопоставленных строк:"
+  },
+  "flashcards_exportHelp": {
+    "message": "Фильтруйте по колоде, тегу или поиску, затем экспортируйте в CSV/TSV для таблиц или Anki (.apkg) для клиентов Anki."
+  },
+  "contentReview_title": {
+    "message": "Проверка контента"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} готово"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} зафиксировано"
+  },
+  "contentReview_totalCount": {
+    "message": "Всего {{count}}"
+  },
+  "contentReview_commitAll": {
+    "message": "Зафиксировать всё"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Очистить черновики"
+  },
+  "contentReview_emptyDescription": {
+    "message": "Черновиков пока нет. Используйте Quick Ingest с опцией «Проверить перед сохранением», чтобы создавать черновики."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Открыть Quick Ingest"
+  },
+  "contentReview_batchLabel": {
+    "message": "Пакет"
+  },
+  "contentReview_batchName": {
+    "message": "Пакет {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Черновики"
+  },
+  "contentReview_selectDraft": {
+    "message": "Выберите черновик, чтобы начать проверку."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Название черновика"
+  },
+  "contentReview_lastSaved": {
+    "message": "Сохранено {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Сбросить черновик?"
+  },
+  "contentReview_resetBody": {
+    "message": "Это действие восстановит исходное содержимое этого черновика."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Сбросить"
+  },
+  "contentReview_resetCancel": {
+    "message": "Отмена"
+  },
+  "contentReview_resetContent": {
+    "message": "Сбросить"
+  },
+  "contentReview_diffView": {
+    "message": "Просмотр diff"
+  },
+  "contentReview_saveDraft": {
+    "message": "Сохранить черновик"
+  },
+  "contentReview_editorLabel": {
+    "message": "Содержимое"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} слов"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} символов"
+  },
+  "contentReview_aiFix": {
+    "message": "Исправить с помощью ИИ"
+  },
+  "contentReview_aiHint": {
+    "message": "Отправляет содержимое черновика на ваш сервер для обработки ИИ."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Значение по умолчанию сервера"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Отправить черновик на сервер?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Содержимое черновика будет отправлено на ваш сервер tldw для обработки ИИ. Черновики остаются локальными, пока вы их не зафиксируете."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Продолжить"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Отмена"
+  },
+  "contentReview_aiApplied": {
+    "message": "Исправления ИИ применены."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Изменения не получены."
+  },
+  "contentReview_aiEmpty": {
+    "message": "ИИ не вернул содержимое."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Дополнения чата недоступны."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Выберите шаблон"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Применить шаблон"
+  },
+  "contentReview_templateApplied": {
+    "message": "Шаблон применён."
+  },
+  "contentReview_templateMissing": {
+    "message": "Сначала выберите шаблон."
+  },
+  "contentReview_detectSections": {
+    "message": "Определить разделы"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Определить разделы повторно?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Существующие разделы будут заменены, а ваш выбор сброшен."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Определить снова"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Отмена"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Разделы не обнаружены."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Фильтр по разделам"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Очистить транскрипт"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Нормализует пунктуацию и регистр, сохраняя структуру строк."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Реплики спикеров"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Гарантирует, что каждая реплика спикера находится на отдельной строке с понятными метками."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Заголовки разделов"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Вставляет заголовки Markdown для группировки тем без удаления содержимого."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Метаданные"
+  },
+  "contentReview_mediaType": {
+    "message": "Тип медиа"
+  },
+  "contentReview_keywords": {
+    "message": "Ключевые слова"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Добавить ключевые слова"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Заметки по проверке"
+  },
+  "contentReview_missingSource": {
+    "message": "Исходный файл отсутствует"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Прикрепите исходный файл, чтобы зафиксировать этот черновик."
+  },
+  "contentReview_attachSource": {
+    "message": "Прикрепить файл"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Действия"
+  },
+  "contentReview_commit": {
+    "message": "Зафиксировать"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Прикрепите исходный аудио-/видеофайл перед фиксацией."
+  },
+  "contentReview_markReviewed": {
+    "message": "Отметить как проверенный"
+  },
+  "contentReview_skipNext": {
+    "message": "Пропустить"
+  },
+  "contentReview_discard": {
+    "message": "Отклонить"
+  },
+  "contentReview_discardTitle": {
+    "message": "Отклонить черновик?"
+  },
+  "contentReview_discardBody": {
+    "message": "Этот черновик будет помечен как отклонённый и удалён из списка на проверку."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Отклонить"
+  },
+  "contentReview_discardCancel": {
+    "message": "Отмена"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Черновик зафиксирован."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Зафиксировать проверенные черновики?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Будут зафиксированы только черновики, помеченные как проверенные."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Зафиксировать всё"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Отмена"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} зафиксировано · {{failed}} с ошибкой"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Этот файл превышает локальный лимит черновиков ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Очистить все черновики?"
+  },
+  "contentReview_clearBody": {
+    "message": "Удаляет все локальные черновики и файлы, используемые для проверки контента."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Очистить черновики"
+  },
+  "contentReview_clearCancel": {
+    "message": "Отмена"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Черновики удалены."
+  },
+  "contentReview_originalLabel": {
+    "message": "Исходный"
+  },
+  "contentReview_editedLabel": {
+    "message": "Изменённый"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} файл превышает лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "contentReview_reviewStorageCapWarning_few": {
+    "message": "{{count}} файла превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "contentReview_reviewStorageCapWarning_many": {
+    "message": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Сохранить после проверки"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Проверить перед сохранением"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Обработайте сейчас, затем отредактируйте черновики локально перед сохранением на сервер."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Режим проверки"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Локальные черновики ограничены {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Сохранять черновики локально?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Черновики сохраняются в этом браузере и могут содержать конфиденциальные данные. Вы можете очистить черновики на странице «Проверка контента» в любое время."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Режим проверки хранит контент на стороне клиента, пока вы не сохраните его на сервер."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Включить проверку"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Отмена"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Проверка"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Черновики готовы к проверке."
+  },
+  "contentReview_openContentReview": {
+    "message": "Открыть проверку контента"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "Файл слишком большой"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "Размер файла должен быть меньше 10 МБ"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "Не удалось загрузить"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "Не удалось загрузить файл. Попробуйте еще раз."
+  },
+  "promptStudio_title": {
+    "message": "Песочница промпт‑студии"
+  },
+  "promptStudio_subtitle": {
+    "message": "Управляйте проектами промпт‑студии, подсказками, запусками, тестовыми случаями и оценками."
+  },
+  "promptStudio_capabilityError": {
+    "message": "Не удаётся подключиться к промпт‑студии"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "Проверьте соединение с сервером или отключите этот раздел, пока API промпт‑студии не станут доступны."
+  },
+  "promptStudio_offline": {
+    "message": "Подключитесь к серверу, чтобы использовать промпт‑студию"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "Проекты и подсказки"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "Создайте или откройте проект, чтобы редактировать подсказки."
+  },
+  "promptStudio_projectsError": {
+    "message": "Не удалось загрузить проекты"
+  },
+  "promptStudio_promptVersion": {
+    "message": "Версия"
+  },
+  "promptStudio_changeDescription": {
+    "message": "Изменить описание"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "Системная подсказка"
+  },
+  "promptStudio_userPrompt": {
+    "message": "Пользовательская подсказка"
+  },
+  "promptStudio_fewShot": {
+    "message": "Примеры few-shot (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "Конфигурация модулей (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "История"
+  },
+  "promptStudio_executeCard": {
+    "message": "Разовый запуск"
+  },
+  "promptStudio_executeHint": {
+    "message": "Провайдер, модель, температура, входные данные."
+  },
+  "promptStudio_provider": {
+    "message": "Провайдер"
+  },
+  "promptStudio_model": {
+    "message": "Модель"
+  },
+  "promptStudio_runPrompt": {
+    "message": "Запустить подсказку"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "Форма запуска скоро появится. Используйте эту панель, чтобы запускать одиночные входные данные для подсказки через /prompt-studio/prompts/execute."
+  },
+  "promptStudio_testsCard": {
+    "message": "Тестовые случаи и оценки"
+  },
+  "promptStudio_testsHint": {
+    "message": "Список/создание тестовых случаев, запуск оценок и опрос статуса."
+  },
+  "promptStudio_testCases": {
+    "message": "Тестовые случаи"
+  },
+  "promptStudio_evaluations": {
+    "message": "Оценки"
+  },
+  "promptStudio_inputsJson": {
+    "message": "Входные данные (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "Ожидаемые выходные данные (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "Эталонный?"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "Массовое добавление"
+  },
+  "promptStudio_bulkJson": {
+    "message": "JSON‑массив тестовых случаев"
+  },
+  "promptStudio_runAsync": {
+    "message": "Запустить асинхронно"
+  },
+  "promptStudio_temperature": {
+    "message": "Температура"
+  },
+  "promptStudio_maxTokens": {
+    "message": "Макс. токенов"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "Запустить оценку"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "Заглушка: подключите CRUD для тестовых случаев, создание/список/детали оценок и асинхронный опрос в этом разделе."
+  },
+  "promptStudio_unavailable": {
+    "message": "Промпт‑студия не включена на этом сервере."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "Когда будет доступно, здесь появятся проекты, история подсказок, сценарии запуска и оценки."
+  },
+  "promptSearch_title": {
+    "message": "Название"
+  },
+  "promptSearch_content": {
+    "message": "Содержимое"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "Системная подсказка"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "Также сохранить на сервере"
+  },
+  "promptSearch_cancel": {
+    "message": "Отмена"
+  },
+  "promptSearch_insert": {
+    "message": "Вставить"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "Сохранить как новую"
+  },
+  "promptSearch_saveLocal": {
+    "message": "Сохранить изменения (локально)"
+  },
+  "promptSearch_saveServer": {
+    "message": "Сохранить изменения (на сервере)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "Сохранить локальную копию"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "Сохранить как новую (только сервер)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "Подсказка обновлена локально"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "Подсказка обновлена на сервере"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "Не удалось обновить локальную подсказку"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "Не удалось обновить подсказку на сервере"
+  },
+  "promptSearch_manageLink": {
+    "message": "Просмотреть / управлять подсказками"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "Перезаписать локальную подсказку (необязательно)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "Выберите локальную подсказку для перезаписи"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "Подсказка сохранена"
+  },
+  "promptSearch_saveFailed": {
+    "message": "Не удалось сохранить подсказку"
+  },
+  "quickIngest_title": {
+    "message": "Быстрый импорт медиа"
+  },
+  "quickIngest_subtitle": {
+    "message": "Введите один или несколько URL. При необходимости задайте тип для каждой строки."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Сервер недоступен — только буфер"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Здесь вы можете поставить в очередь URL‑адреса и файлы и просмотреть поля, но обработка не запустится, пока ваш сервер tldw не будет онлайн. Подключитесь снова, чтобы обработать отложенные элементы."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Исходные URL или файлы"
+  },
+  "quickIngest_storeRemote": {
+    "message": "Сохранить в удалённой БД"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Сохранить результаты загрузки на ваш сервер tldw"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Обрабатывать результаты загрузки только локально"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Загружает на ваш сервер tldw для индексирования."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Только обрабатывает и хранит результаты локально (скачать JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Где хранятся результаты загрузки"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Хранятся на вашем сервере tldw (рекомендуется для RAG и общих рабочих пространств)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Хранятся только в этом браузере; данные на сервер не записываются."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Сохранить после проверки"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Проверить перед сохранением"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Обработайте сейчас, затем отредактируйте черновики локально перед сохранением на сервер."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Режим проверки"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Локальные черновики ограничены {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Сохранять черновики локально?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Черновики сохраняются в этом браузере и могут содержать конфиденциальные данные. Вы можете очистить черновики на странице «Проверка контента» в любое время."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Режим проверки хранит контент на стороне клиента, пока вы не сохраните его на сервер."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Включить проверку"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Отмена"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Проверка"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Черновики готовы к проверке."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Не удалось создать черновики для проверки."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Сбой при создании черновиков для проверки."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Повторить создание черновиков"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Сохранить без проверки"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Не удалось открыть Проверку контента. Попробуйте еще раз."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Повторить открытие Проверки контента"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} файл превышает лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "quickIngest_reviewStorageCapWarning_few": {
+    "message": "{{count}} файла превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "quickIngest_reviewStorageCapWarning_many": {
+    "message": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} файлов превышают лимит локальных черновиков ({{cap}}). Приложите источники перед сохранением аудио/видео."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Открыть проверку контента"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Подробнее об импорте и хранении"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "Вставьте URL (по одному в строке)"
+  },
+  "quickIngest_or": {
+    "message": "или"
+  },
+  "quickIngest_remove": {
+    "message": "Удалить"
+  },
+  "quickIngest_add": {
+    "message": "Добавить URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Параметры импорта"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Параметры аудио"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Язык (например, en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Включите, чтобы разделять говорящих в расшифровке."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Параметры документов"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR помогает извлекать текст из отсканированных PDF и изображений."
+  },
+  "quickIngest_videoOptions": {
+    "message": "Параметры видео"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Включать временные метки/субтитры, если доступны."
+  },
+  "quickIngest_cancel": {
+    "message": "Отмена"
+  },
+  "quickIngest_ingest": {
+    "message": "Импортировать"
+  },
+  "quickIngest_process": {
+    "message": "Обработать"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Только очередь — сервер офлайн"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Офлайн — поставить элементы в очередь для последующей обработки"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Офлайн‑режим: элементы ставятся в очередь здесь, пока ваш сервер не вернётся онлайн."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Офлайн‑режим: элементы подготавливаются здесь и будут обработаны после повторного подключения сервера."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Обработать элементы в очереди"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Обработать элементы в очереди для «Быстрого импорта»"
+  },
+  "quickIngest_runAria": {
+    "message": "Запустить быстрый импорт"
+  },
+  "quickIngest_runLabel": {
+    "message": "Запустить быстрый импорт"
+  },
+  "quickIngest_results": {
+    "message": "Результаты"
+  },
+  "quickIngest_downloadJson": {
+    "message": "Скачать JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "Загружено {{count}} расширенных полей"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Расширенные параметры не обнаружены — попробуйте заново загрузить спецификацию."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "Изменено: {{count}}"
+  },
+  "quickIngest_progress": {
+    "message": "Обработка {{done}} / {{total}} элементов…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "В ожидании — будет выполнено при подключении"
+  },
+  "quickIngest_readyToast": {
+    "message": "Сервер снова онлайн — можно обработать {{count}} элементов в очереди."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Обработать элементы в очереди"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Сейчас не удалось обработать элементы импорта."
+  },
+  "quickIngest_errorHint": {
+    "message": "Повторите попытку после проверки сервера tldw. Раздел «Health & diagnostics» поможет разобраться с проблемами импорта."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Проверить состояние сервера в «Health & diagnostics»"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Недавние запуски завершились с ошибкой — откройте «Health & diagnostics» в заголовке для подробностей."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Расширенная спецификация перезагружена с сервера"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Расширенная спецификация перезагружена с сервера (добавлено полей: {{added}}, удалено: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Используется встроенный резервный вариант схемы media.add (v{{version}}); проверьте tldw_server /openapi.json, если поля выглядят устаревшими."
+  },
+  "notesSearch_placeholder": {
+    "message": "Поиск по заголовкам и содержимому"
+  },
+  "notesSearch_clear": {
+    "message": "Очистить поиск и фильтры"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "Фильтр по ключевому слову"
+  },
+  "notesSearch_new": {
+    "message": "Новая заметка"
+  },
+  "notesSearch_newTooltip": {
+    "message": "Создать новую заметку"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} заметок"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "Экспортировать подходящие заметки в Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "Экспортировать подходящие заметки в CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "Экспортировать подходящие заметки в JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Экспортировано ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Экспортировано {{count}} заметок ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Экспортировано {{count}} заметок в CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Экспортировано {{count}} заметок в JSON ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "Экспортировать заметку в Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "Сохранить заметку"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "Копировать содержимое заметки"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "Удалить заметку"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "Экспорт"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "Результаты"
+  },
+  "notesSearch_showingRange": {
+    "message": "Показано {{start}}–{{end}} из {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "Развернуть боковую панель"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "Свернуть боковую панель"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "Название"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "Ключевые слова (теги)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "Ключевые слова помогают находить эту заметку через фильтр слева."
+  },
+  "tts_playground": {
+    "message": "Песочница TTS"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "Подключитесь, чтобы использовать «Заметки»"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "Чтобы использовать «Заметки», сначала подключите сервер tldw."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "Используйте «Заметки» вместе с разделами «Медиа» и «Обзор», чтобы не потерять важные находки."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Примерные заметки (только просмотр)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "Демо-заметка: итоги еженедельной встречи"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "Решения, блокеры и последующие шаги с недавней синхронизации команды."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "Сегодня · 09:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "Демо-заметка: основные результаты исследования"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "Ключевые выводы из длинной статьи или научной работы."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "Вчера · 16:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "Демо-заметка: краткое содержание звонка"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "Краткое резюме звонка с последующими шагами и ответственными."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "На этой неделе"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "Откройте «Настройки → tldw server» и добавьте URL вашего сервера."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "Если сервер запущен, но недоступен, используйте раздел «Диагностика»."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "Изучите «Заметки» в демо-режиме"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "Эта демоверсия показывает, как «Заметки» помогают организовать ваши идеи и выводы. Позже вы сможете подключить свой сервер, чтобы создавать и сохранять реальные заметки."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "Посмотрите, как заголовки, превью и метки времени заметок отображаются в списке."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "После подключения вы сможете создавать заметки по встречам, обзорам и другим событиям."
+  },
+  "notesEmpty_title": {
+    "message": "Заметок пока нет"
+  },
+  "notesEmpty_description": {
+    "message": "Фиксируйте и организуйте произвольные заметки, связанные с вашими инсайтами tldw."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "Создайте новую заметку для недавней встречи или расшифровки."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "Сохраняйте результаты обзоров в «Заметках», чтобы позже к ним вернуться."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "Создать заметку"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "Изучите World Books в демо-режиме"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "Эта демоверсия показывает, как World Books помогают организовывать структурированные знания о ваших мирах, сеттингах или продуктах."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "Посмотрите примерные книги: фэнтезийный мир, глоссарий продукта или заметки кампании."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "После подключения вы сможете создавать книги миров, которые tldw будет использовать во время чата."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "Подключитесь, чтобы использовать World Books"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "Чтобы использовать World Books, сначала подключите сервер tldw, чтобы знания о мирах можно было сохранять и получать."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "Откройте «Настройки → tldw server», чтобы добавить URL своего сервера."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "Используйте Diagnostics, если сервер запущен, но недоступен."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "Создавайте и управляйте структурированными базами знаний, на которые могут ссылаться персонажи и чаты."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "World Books недоступны"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "Подключитесь к своему серверу tldw на основной странице настроек, чтобы просматривать и редактировать World Books."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "Изучите словари для чата в демо-режиме"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "Эта демоверсия показывает, как словари для чата нормализуют имена, аббревиатуры и термины до того, как они попадут в модель."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "Посмотрите примерные словари для названий продуктов, кодовых имён проектов или корпоративного жаргона."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "После подключения вы сможете включать словари для всех чатов."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "Подключитесь, чтобы использовать словари для чата"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "Чтобы использовать словари для чата, сначала подключите сервер tldw, чтобы можно было сохранять подстановки."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "Откройте «Настройки → tldw server», чтобы добавить URL своего сервера."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "Используйте Diagnostics, если сервер запущен, но недоступен."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "Определяйте переиспользуемые подстановки, чтобы tldw правильно понимал имена, аббревиатуры и терминологию вашей организации."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "Словари для чата недоступны"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "Подключитесь к своему серверу tldw на основной странице настроек, чтобы просматривать и редактировать словари."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "Изучите персонажей в демо-режиме"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "Эта демоверсия показывает, как персонажи объединяют персону и системную подсказку для общения."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "Посмотрите примерных персонажей: тренер по письму, эксперт по лору или помощник разработчика."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "После подключения вы сможете создавать персонажей, которые будут доступны в заголовке чата и в меню выбора."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "Подключитесь, чтобы использовать персонажей"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "Чтобы использовать персонажей, сначала подключите сервер tldw, чтобы можно было сохранять определения персонажей."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "Откройте «Настройки → tldw server», чтобы добавить URL своего сервера."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "Используйте Diagnostics, если сервер запущен, но недоступен."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "Создавайте переиспользуемых персонажей, которых можно выбирать в заголовке чата и использовать в разных беседах."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "Создайте персонажа, чтобы повторно использовать его образ в разных чатах. Нажмите «Новый персонаж», чтобы начать."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "API персонажей недоступен на этом сервере"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "Этот сервер не объявляет маршрут /api/v1/characters."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "Откройте Diagnostics, чтобы проверить версию сервера и доступные API для персонажей."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "Если обновите сервер, перезапустите расширение и вернитесь к разделу «Персонажи»."
+  },
+  "characters_selectCharacter": {
+    "message": "Выберите персонажа"
+  },
+  "characters_chattingAs": {
+    "message": "Теперь вы общаетесь как {{name}}."
+  },
+  "characters_clearCharacter": {
+    "message": "Очистить выбор персонажа"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "Не удалось загрузить персонажей"
+  },
+  "characters_fetchErrorBody": {
+    "message": "Проверьте подключение или состояние сервера и попробуйте снова."
+  },
+  "characters_none": {
+    "message": "Нет (без персонажа)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "Искать персонажей по имени"
+  },
+  "characters_noMatches": {
+    "message": "Пока нет персонажей, подходящих под ваш поиск."
+  },
+  "characters_refresh": {
+    "message": "Обновить список персонажей"
+  },
+  "characters_refreshing": {
+    "message": "Обновляем список персонажей…"
+  },
+  "promptInsert_useInChat": {
+    "message": "Использовать в чате"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "Откройте чат и вставьте эту подсказку в поле ввода."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "Использовать подсказку в чате?"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "В вашем сообщении уже есть текст. Хотите заменить его этой подсказкой или добавить подсказку ниже?"
+  },
+  "promptInsert_overwrite": {
+    "message": "Заменить сообщение"
+  },
+  "promptInsert_append": {
+    "message": "Добавить"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "Помощник быстрого чата"
+  },
+  "quickChatHelper_title": {
+    "message": "Помощник быстрого чата"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "Задайте быстрый вопрос..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "Отправить"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "Начните быстрый боковой чат, чтобы основной диалог оставался аккуратным."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "Открыть в отдельном окне"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "Сначала выберите модель в основном чате."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "Ваше сообщение"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "Сообщение ассистента"
+  },
+  "quiz_itemsPerPage": {
+    "message": "элементов/страница"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Редактировать викторину"
+  },
+  "quiz_updateSuccess": {
+    "message": "Викторина успешно обновлена"
+  },
+  "quiz_updateError": {
+    "message": "Не удалось обновить викторину"
+  },
+  "quiz_questionTextRequired": {
+    "message": "Текст вопроса обязателен."
+  },
+  "quiz_optionsRequired": {
+    "message": "Укажите как минимум два варианта ответа."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Вопрос успешно создан."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Вопрос успешно обновлён."
+  },
+  "quiz_questionSaveError": {
+    "message": "Не удалось сохранить вопрос."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Вопрос удалён."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Не удалось удалить вопрос."
+  },
+  "quiz_editQuestion": {
+    "message": "Редактировать вопрос"
+  },
+  "quiz_points": {
+    "message": "Баллы"
+  },
+  "quiz_orderIndex": {
+    "message": "Порядок"
+  },
+  "quiz_startError": {
+    "message": "Не удалось начать викторину"
+  },
+  "quiz_answerAll": {
+    "message": "Пожалуйста, ответьте на все вопросы перед отправкой."
+  },
+  "quiz_submitError": {
+    "message": "Не удалось отправить викторину"
+  },
+  "quiz_scoreSummary": {
+    "message": "Результат: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Верно"
+  },
+  "quiz_incorrect": {
+    "message": "Неверно"
+  },
+  "quiz_yourAnswer": {
+    "message": "Ваш ответ"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Правильный ответ"
+  },
+  "quiz_backToList": {
+    "message": "Вернуться к списку"
+  },
+  "quiz_retake": {
+    "message": "Пройти снова"
+  },
+  "searchPrompts": {
+    "message": "Поиск подсказок..."
+  },
+  "noMatchingPrompts": {
+    "message": "Нет подходящих подсказок"
+  },
+  "promptSelect_favorites": {
+    "message": "Избранное"
+  },
+  "promptSelect_system": {
+    "message": "Системные подсказки"
+  },
+  "promptSelect_quick": {
+    "message": "Быстрые подсказки"
+  }
+}
