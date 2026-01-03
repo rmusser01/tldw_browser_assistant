@@ -1,6 +1,6 @@
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
-import { CogIcon, Gauge, UserCircle2 } from "lucide-react"
+import { CogIcon, Gauge, UserCircle2, Menu, Search, SquarePen } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"
 import { ModelSelect } from "../Common/ModelSelect"
@@ -39,11 +39,15 @@ const classNames = (...classes: (string | false | null | undefined)[]) =>
 type Props = {
   setOpenModelSettings: (open: boolean) => void
   showSelectors?: boolean
+  onToggleSidebar?: () => void
+  sidebarCollapsed?: boolean
 }
 
 export const Header: React.FC<Props> = ({
   setOpenModelSettings,
-  showSelectors = true
+  showSelectors = true,
+  onToggleSidebar,
+  sidebarCollapsed = false
 }) => {
   const { t, i18n } = useTranslation([
     "option",
@@ -275,6 +279,115 @@ export const Header: React.FC<Props> = ({
   }
 
   const isChatRoute = currentCoreMode === "playground"
+  const showSidebarToggle = Boolean(onToggleSidebar)
+  const sidebarLabel = sidebarCollapsed
+    ? t("common:chatSidebar.expand", "Expand sidebar")
+    : t("common:chatSidebar.collapse", "Collapse sidebar")
+
+  const openCommandPalette = React.useCallback(() => {
+    if (typeof window === "undefined") return
+    window.dispatchEvent(new CustomEvent("tldw:open-command-palette"))
+  }, [])
+
+  if (isChatRoute) {
+    return (
+      <header
+        data-istemporary-chat={temporaryChat}
+        data-ischat-route={isChatRoute}
+        className="z-30 flex w-full items-center border-b border-border bg-surface/95 px-4 py-2 backdrop-blur data-[istemporary-chat='true']:bg-purple-900 data-[ischat-route='true']:bg-surface/95"
+      >
+        <div className="flex w-full items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-2">
+            {showSidebarToggle && (
+              <Tooltip title={sidebarLabel} placement="bottom">
+                <button
+                  type="button"
+                  onClick={onToggleSidebar}
+                  aria-label={sidebarLabel as string}
+                  className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                >
+                  <Menu className="size-4" aria-hidden="true" />
+                </button>
+              </Tooltip>
+            )}
+            <ConnectionStatus showLabel={false} className="px-2 py-1" />
+            <div className="flex items-center gap-2 text-text">
+              <img
+                src={logoImage}
+                alt={t("common:pageAssist", "tldw Assistant")}
+                className="h-5 w-auto"
+              />
+              <span className="text-sm font-medium">
+                {t("common:pageAssist", "tldw Assistant")}
+              </span>
+            </div>
+            {!temporaryChat && historyId && historyId !== "temp" && (
+              <div className="hidden min-w-[140px] max-w-[220px] sm:block">
+                {isEditingTitle ? (
+                  <Input
+                    size="small"
+                    autoFocus
+                    value={chatTitle}
+                    onChange={(e) => setChatTitle(e.target.value)}
+                    onPressEnter={async () => {
+                      setIsEditingTitle(false)
+                      await saveTitle(chatTitle)
+                    }}
+                    onBlur={async () => {
+                      setIsEditingTitle(false)
+                      await saveTitle(chatTitle)
+                    }}
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setIsEditingTitle(true)}
+                    className="truncate text-left text-xs text-text-muted hover:text-text"
+                    title={chatTitle || "Untitled"}
+                  >
+                    {chatTitle || t("option:header.untitledChat", "Untitled")}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={openCommandPalette}
+              className="hidden items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text-muted transition hover:bg-surface2 hover:text-text sm:inline-flex"
+            >
+              <Search className="size-4" aria-hidden="true" />
+              <span>{t("common:search", "Search")}</span>
+              <span className="rounded border border-border px-1.5 py-0.5 text-[10px] text-text-subtle">
+                ⌘K
+              </span>
+            </button>
+            <Tooltip title={t("common:newChat", "New chat")}>
+              <button
+                type="button"
+                onClick={clearChat}
+                aria-label={t("common:newChat", "New chat") as string}
+                className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+              >
+                <SquarePen className="size-4" aria-hidden="true" />
+              </button>
+            </Tooltip>
+            <Tooltip title={t("sidepanel:header.settingsShortLabel", "Settings")}>
+              <button
+                type="button"
+                onClick={() => navigate("/settings/tldw")}
+                aria-label={t("sidepanel:header.openSettingsAria", "Open settings") as string}
+                className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+              >
+                <CogIcon className="size-4" aria-hidden="true" />
+              </button>
+            </Tooltip>
+          </div>
+        </div>
+      </header>
+    )
+  }
 
   return (
     <header

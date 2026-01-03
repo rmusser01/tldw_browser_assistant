@@ -23,27 +23,71 @@ export async function injectSyntheticMessages(
 
   return page.evaluate<SyntheticMessageInjectionResult, number>((cnt) => {
     try {
-      const store = (window as any).__tldw_useQuickChatStore?.getState?.()
-      if (!store?.addMessage) {
-        return {
-          ok: false,
-          reason:
-            "Synthetic injection unavailable: window.__tldw_useQuickChatStore.getState().addMessage is not exposed"
-        }
-      }
-
-      for (let i = 0; i < cnt; i++) {
-        const role = i % 2 === 0 ? "user" : "assistant"
-        const content =
-          role === "user"
-            ? `Test message ${i}: synthetic-user-content-${i}`
-            : `Response ${i}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. ` +
+      const pageAssist = (window as any).__tldw_pageAssist
+      if (pageAssist?.setMessages) {
+        const messages = []
+        for (let i = 0; i < cnt; i++) {
+          const isBot = i % 2 !== 0
+          const message = isBot
+            ? `Response ${i}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. ` +
               `Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ` +
               `Message number ${i} with some additional content to make it realistic.`
-        store.addMessage(role, content)
+            : `Test message ${i}: synthetic-user-content-${i}`
+          messages.push({
+            id: `synthetic-${i}`,
+            isBot,
+            name: isBot ? "Assistant" : "User",
+            message,
+            sources: []
+          })
+        }
+        pageAssist.setMessages(messages)
+        return { ok: true }
       }
 
-      return { ok: true }
+      const quickStore = (window as any).__tldw_useQuickChatStore?.getState?.()
+      if (quickStore?.addMessage) {
+        for (let i = 0; i < cnt; i++) {
+          const role = i % 2 === 0 ? "user" : "assistant"
+          const content =
+            role === "user"
+              ? `Test message ${i}: synthetic-user-content-${i}`
+              : `Response ${i}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. ` +
+                `Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ` +
+                `Message number ${i} with some additional content to make it realistic.`
+          quickStore.addMessage(role, content)
+        }
+        return { ok: true }
+      }
+
+      const optionStore = (window as any).__tldw_useStoreMessageOption?.getState?.()
+      if (optionStore?.setMessages) {
+        const messages = []
+        for (let i = 0; i < cnt; i++) {
+          const isBot = i % 2 !== 0
+          const message = isBot
+            ? `Response ${i}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. ` +
+              `Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ` +
+              `Message number ${i} with some additional content to make it realistic.`
+            : `Test message ${i}: synthetic-user-content-${i}`
+          messages.push({
+            id: `synthetic-${i}`,
+            isBot,
+            name: isBot ? "Assistant" : "User",
+            message,
+            sources: []
+          })
+        }
+        optionStore.setMessages(messages)
+        optionStore.setIsFirstMessage?.(false)
+        return { ok: true }
+      }
+
+      return {
+        ok: false,
+        reason:
+          "Synthetic injection unavailable: no exposed chat store with addMessage/setMessages"
+      }
     } catch (e) {
       return { ok: false, reason: `Synthetic injection failed: ${String(e)}` }
     }

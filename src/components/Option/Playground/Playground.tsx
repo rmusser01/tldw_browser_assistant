@@ -282,8 +282,10 @@ export const Playground = () => {
             aria-live="polite"
             aria-relevant="additions"
             aria-label={t("playground:aria.chatTranscript", "Chat messages")}
-            className="custom-scrollbar flex-1 min-h-0 w-full overflow-x-hidden overflow-y-auto px-5">
-            <PlaygroundChat />
+            className="custom-scrollbar flex-1 min-h-0 w-full overflow-x-hidden overflow-y-auto px-4">
+            <div className="mx-auto w-full max-w-[52rem] pb-6">
+              <PlaygroundChat />
+            </div>
           </div>
           <div className="relative w-full">
             {!isAutoScrollToBottom && (

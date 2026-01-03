@@ -36,13 +36,13 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
   return (
     <div
       className={
-        "mx-auto max-w-xl rounded-lg border border-border bg-surface p-6 text-sm text-text shadow-sm " +
+        "mx-auto max-w-xl rounded-3xl border border-border/80 bg-surface/90 p-7 text-sm text-text shadow-card backdrop-blur " +
         (className || "")
       }>
       <div className="space-y-3">
         {Icon && (
           <div className="flex justify-center">
-            <div className="p-3 rounded-full bg-surface2">
+            <div className="rounded-full bg-surface2/80 p-3">
               <Icon
                 className={iconClassName || "h-8 w-8 text-text-subtle"}
                 aria-hidden="true"
@@ -50,11 +50,11 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
             </div>
           </div>
         )}
-        <h2 className={`text-base font-semibold text-text ${Icon ? "text-center" : ""}`}>
+        <h2 className={`text-lg font-semibold text-text ${Icon ? "text-center" : ""}`}>
           {title}
         </h2>
         {description && (
-          <p className="text-xs text-text-muted">
+          <p className="text-sm text-text-muted">
             {description}
           </p>
         )}
@@ -68,13 +68,13 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
           </div>
         )}
         {(primaryActionLabel || secondaryActionLabel) && (
-          <div className="mt-2 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {primaryActionLabel && (
               <Button
                 type="primary"
                 size="small"
                 onClick={onPrimaryAction}
-                className="mr-1"
+                className="mr-1 rounded-full px-4 text-[11px] font-semibold uppercase tracking-[0.08em]"
                 disabled={primaryDisabled}>
                 {primaryActionLabel}
               </Button>
@@ -83,6 +83,7 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
               <Button
                 size="small"
                 onClick={onSecondaryAction}
+                className="rounded-full px-4 text-[11px] font-semibold uppercase tracking-[0.08em]"
                 disabled={secondaryDisabled}>
                 {secondaryActionLabel}
               </Button>

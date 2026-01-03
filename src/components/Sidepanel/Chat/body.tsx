@@ -34,7 +34,7 @@ export const SidePanelBody = ({
   const [openReasoning] = useStorage("openReasoning", false)
   const uiMode = useUiModeStore((state) => state.mode)
   const scrollAnchorRef = React.useRef<number | null>(null)
-  const topPaddingClass = uiMode === "pro" ? "pt-12" : "pt-16"
+  const topPaddingClass = "pt-12"
 
   const getPreviousUserMessage = (index: number) => {
     for (let i = index - 1; i >= 0; i--) {

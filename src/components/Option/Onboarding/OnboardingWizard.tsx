@@ -537,7 +537,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   }, [activeStep])
 
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-xl border border-border bg-surface px-6 py-6 text-text shadow-sm">
+    <div className="mx-auto w-full max-w-2xl rounded-3xl border border-border/70 bg-surface/95 px-8 py-8 text-text shadow-lg shadow-black/5 backdrop-blur">
       {/* Screen reader announcement for step changes */}
       {stepAnnouncement && (
         <div
@@ -549,7 +549,9 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           {stepAnnouncement}
         </div>
       )}
-      <h2 className="mb-3 text-lg font-semibold text-text">{t('settings:onboarding.title')}</h2>
+      <h2 className="mb-3 text-2xl font-semibold text-text tracking-tight">
+        {t('settings:onboarding.title')}
+      </h2>
 
       <div className="mb-4 space-y-2">
         <div className="text-xs font-medium text-text-muted">
@@ -561,7 +563,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
         <Radio.Group
           value={pathChoice}
           onChange={(e) => setPathChoice(e.target.value as PathChoice)}
-          className="grid gap-3 md:grid-cols-3 w-full onboarding-path-radio"
+          className="grid w-full gap-3 md:grid-cols-3 onboarding-path-radio"
         >
           {[
             {
@@ -601,10 +603,10 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             <Radio
               key={option.value}
               value={option.value}
-              className={`!flex h-full w-full flex-col items-start rounded-md border px-3 py-2 text-left text-xs transition-colors m-0 ${
+              className={`!m-0 !flex h-full w-full flex-col items-start rounded-2xl border px-4 py-3 text-left text-xs transition-colors ${
                 pathChoice === option.value
-                  ? 'border-primary bg-primary/10'
-                  : 'border-border bg-surface hover:border-primary hover:bg-surface2'
+                  ? 'border-primary/40 bg-primary/10'
+                  : 'border-border/70 bg-surface hover:border-primary/40 hover:bg-surface2'
               }`}
             >
               <span className="text-[11px] font-semibold text-text">
@@ -618,7 +620,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
         </Radio.Group>
         {pathChoice === 'no-server' && (
           <Alert
-            className="mt-2 text-xs"
+            className="mt-2 rounded-2xl border border-border/70 bg-surface2/70 text-xs"
             type="info"
             showIcon
             message={t(
@@ -657,6 +659,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   <Button
                     size="small"
                     onClick={openServerDocs}
+                    className="rounded-full"
                   >
                     {t(
                       'settings:onboarding.path.openSetupGuide',
@@ -666,6 +669,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   <Button
                     size="small"
                     onClick={handleUseDemoMode}
+                    className="rounded-full"
                   >
                     {t(
                       'settings:onboarding.path.useDemoFromNoServer',
@@ -689,7 +693,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
         )}
         {pathChoice === 'demo' && (
           <Alert
-            className="mt-2 text-xs"
+            className="mt-2 rounded-2xl border border-border/70 bg-surface2/70 text-xs"
             type="info"
             showIcon
             message={t(
@@ -709,6 +713,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                     size="small"
                     type="primary"
                     onClick={handleUseDemoMode}
+                    className="rounded-full"
                   >
                     {t(
                       'settings:onboarding.path.demoCta',
@@ -742,7 +747,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                 className="flex flex-col items-center"
               >
                 <div
-                  className={`flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors ${
+                  className={`flex h-8 w-8 items-center justify-center rounded-2xl border-2 text-sm font-semibold transition-colors ${
                     step.index < displayStep
                       ? "border-primary bg-primary text-white"
                       : step.index === displayStep
@@ -759,7 +764,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   )}
                 </div>
                 <span
-                  className={`mt-1.5 text-[11px] text-center max-w-[100px] ${
+                  className={`mt-1.5 max-w-[100px] text-center text-[11px] ${
                     step.index === displayStep
                       ? "font-semibold text-primary"
                       : step.index < displayStep
@@ -789,7 +794,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           <Collapse
             ghost
             size="small"
-            className="rounded-md border border-dashed border-border-strong bg-surface2"
+            className="rounded-2xl border border-dashed border-border/70 bg-surface2/70"
             expandIcon={({ isActive }) => (
               <ChevronDown
                 className={`h-4 w-4 text-text-subtle transition-transform ${
@@ -813,7 +818,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                     {startCommands.map((cmd) => (
                       <div
                         key={cmd.key}
-                        className="rounded border border-border bg-surface px-2 py-2"
+                        className="rounded-2xl border border-border/70 bg-surface px-3 py-3"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <span className="text-[11px] font-medium">
@@ -849,6 +854,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                                 )
                               }
                             }}
+                            className="rounded-full"
                           >
                             {t(
                               'settings:onboarding.startServer.copy',
@@ -856,7 +862,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                             )}
                           </Button>
                         </div>
-                        <pre className="mt-1 overflow-x-auto rounded bg-surface2 px-2 py-1 text-[11px] text-text">
+                        <pre className="mt-2 overflow-x-auto rounded-xl bg-surface2 px-2 py-2 text-[11px] text-text">
                           <code>{cmd.command}</code>
                         </pre>
                       </div>
@@ -885,6 +891,8 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             }}
             onBlur={() => setServerTouched(true)}
             status={serverHint.tone === 'error' && serverTouched ? 'error' : ''}
+            size="large"
+            className="rounded-2xl"
           />
           <div
             role="status"
@@ -920,6 +928,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               type="primary"
               disabled={!urlState.valid || loading}
               onClick={handleNextFromUrl}
+              className="rounded-full"
             >
               {t('settings:onboarding.buttons.next')}
             </Button>
@@ -968,7 +977,13 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           {authMode === 'single-user' ? (
             <div>
               <label className="block text-sm font-medium text-text">{t('settings:onboarding.apiKey.label')}</label>
-              <Input.Password placeholder={t('settings:onboarding.apiKey.placeholder')} value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
+              <Input.Password
+                placeholder={t('settings:onboarding.apiKey.placeholder')}
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                size="large"
+                className="rounded-2xl"
+              />
               <p className="mt-1 text-xs text-text-muted">
                 {t(
                   'settings:onboarding.apiKeyHelp',
@@ -980,11 +995,23 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label className="block text-sm font-medium text-text">{t('settings:onboarding.username.label')}</label>
-                <Input placeholder={t('settings:onboarding.username.placeholder')} value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Input
+                  placeholder={t('settings:onboarding.username.placeholder')}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  size="large"
+                  className="rounded-2xl"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-text">{t('settings:onboarding.password.label')}</label>
-              <Input.Password placeholder={t('settings:onboarding.password.placeholder')} value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input.Password
+                placeholder={t('settings:onboarding.password.placeholder')}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                size="large"
+                className="rounded-2xl"
+              />
               </div>
             </div>
           )}
@@ -1000,11 +1027,14 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             />
           )}
           <div className="flex justify-between">
-            <Button onClick={handleBackToUrl}>{t('settings:onboarding.buttons.back')}</Button>
+            <Button onClick={handleBackToUrl} className="rounded-full">
+              {t('settings:onboarding.buttons.back')}
+            </Button>
             <Button
               type="primary"
               onClick={handleContinueFromAuth}
               loading={loading || connectionState.isChecking}
+              className="rounded-full"
             >
               {t('settings:onboarding.buttons.continue')}
             </Button>
@@ -1034,6 +1064,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               size="small"
               onClick={handleRecheck}
               loading={connectionState.isChecking}
+              className="rounded-full"
             >
               {t('settings:onboarding.buttons.recheck')}
             </Button>
@@ -1062,7 +1093,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               )}
             </p>
           </div>
-          <div className="mt-3 grid gap-3 rounded-md border border-border bg-surface2 p-3 text-xs text-text">
+          <div className="mt-3 grid gap-3 rounded-2xl border border-border/70 bg-surface2/70 p-4 text-xs text-text">
             <div>
               <div className="text-sm font-semibold">
                 {t(
@@ -1078,7 +1109,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               </p>
             </div>
             <div className="grid gap-2 md:grid-cols-3">
-	              <div className="rounded border border-border bg-surface p-2">
+	              <div className="rounded-2xl border border-border/70 bg-surface p-3">
 	                <div className="text-xs font-semibold">
 	                  {t(
 	                    'settings:onboarding.nextSteps.chatTitle',
@@ -1093,7 +1124,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
 	                </p>
                 <Button
                   size="small"
-                  className="mt-2"
+                  className="mt-2 rounded-full"
                   onClick={async () => {
                     try {
                       await openSidepanelForActiveTab()
@@ -1117,7 +1148,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   )}
                 </Button>
               </div>
-              <div className="rounded border border-border bg-surface p-2">
+              <div className="rounded-2xl border border-border/70 bg-surface p-3">
                 <div className="text-xs font-semibold">
                   {t(
                     'settings:onboarding.nextSteps.ingestTitle',
@@ -1131,7 +1162,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   )}
                 </p>
               </div>
-              <div className="rounded border border-border bg-surface p-2">
+              <div className="rounded-2xl border border-border/70 bg-surface p-3">
                 <div className="text-xs font-semibold">
                   {t(
                     'settings:onboarding.nextSteps.mediaTitle',
@@ -1152,6 +1183,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               type="error"
               showIcon
               message={t('settings:onboarding.connectionFailed')}
+              className="rounded-2xl border border-danger/30 bg-danger/10"
               description={
                 <span className="inline-flex flex-col gap-1 text-xs">
                   <span>{connectionErrorDescription}</span>
@@ -1167,12 +1199,15 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           )}
           <div className="flex justify-end">
             <Space>
-              <Button onClick={finish}>{t('settings:onboarding.buttons.skip')}</Button>
+              <Button onClick={finish} className="rounded-full">
+                {t('settings:onboarding.buttons.skip')}
+              </Button>
               <Button
                 type="primary"
                 danger={uxState === 'error_auth' || uxState === 'error_unreachable'}
                 onClick={finish}
                 disabled={connectionState.isChecking}
+                className="rounded-full"
                 title={
                   uxState === 'error_auth' || uxState === 'error_unreachable'
                     ? t(

@@ -1,15 +1,16 @@
-import { Dropdown, Tooltip, ConfigProvider, Modal } from "antd"
+import { Tooltip, ConfigProvider } from "antd"
 import {
   CopyCheckIcon,
   CopyIcon,
   DownloadIcon,
   TableIcon,
-  ExpandIcon,
-  XIcon
+  ExpandIcon
 } from "lucide-react"
-import { FC, useState, useMemo, useRef } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton } from "./IconButton"
+import { useArtifactsStore, type ArtifactTableData } from "@/store/artifacts"
+import { useUiModeStore } from "@/store/ui-mode"
 
 interface TableProps {
   children: React.ReactNode
@@ -22,9 +23,26 @@ interface TableData {
 
 export const TableBlock: FC<TableProps> = ({ children }) => {
   const [copyStatus, setCopyStatus] = useState<string>("")
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const { t } = useTranslation("common")
   const ref = useRef<HTMLDivElement>(null)
+  const { openArtifact, isPinned } = useArtifactsStore()
+  const uiMode = useUiModeStore((state) => state.mode)
+  const isProMode = uiMode === "pro"
+
+  const autoOpenMapRef = useRef<Map<string, boolean> | null>(null)
+  if (!autoOpenMapRef.current) {
+    if (typeof window !== "undefined") {
+      const win = window as any
+      if (!win.__tableArtifactAutoOpenState) {
+        win.__tableArtifactAutoOpenState = new Map<string, boolean>()
+      }
+      autoOpenMapRef.current =
+        win.__tableArtifactAutoOpenState as Map<string, boolean>
+    } else {
+      autoOpenMapRef.current = new Map()
+    }
+  }
+  const autoOpenStateMap = autoOpenMapRef.current!
 
   const parseData = () => {
     // get table from ref
@@ -52,9 +70,9 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
     return { headers, rows }
   }
 
-  const convertToCSV = () => {
-    const tableData = parseData()
-    if (!tableData) return
+  const convertToCSV = (tableData?: TableData) => {
+    const data = tableData ?? parseData()
+    if (!data) return
 
     const escapeCSV = (value: string): string => {
       if (value.includes(",") || value.includes('"') || value.includes("\n")) {
@@ -66,12 +84,12 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
     const csvRows = []
 
     // Add headers
-    if (tableData.headers.length > 0) {
-      csvRows.push(tableData.headers.map(escapeCSV).join(","))
+    if (data.headers.length > 0) {
+      csvRows.push(data.headers.map(escapeCSV).join(","))
     }
 
     // Add data rows
-    tableData.rows.forEach((row) => {
+    data.rows.forEach((row) => {
       csvRows.push(row.map(escapeCSV).join(","))
     })
 
@@ -90,13 +108,56 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
     downloadFile(csvContent, `table-${Date.now()}.csv`, "text/csv")
   }
 
-  const handleExpandTable = () => {
-    setIsModalOpen(true)
+  const buildArtifactId = (tableData: ArtifactTableData) => {
+    const previewRow = tableData.rows[0]?.join("|") || ""
+    const base = `${tableData.headers.join("|")}::${tableData.rows.length}::${previewRow}`
+    let hash = 0
+    for (let i = 0; i < base.length; i++) {
+      hash = (hash * 31 + base.charCodeAt(i)) >>> 0
+    }
+    return `table-${hash.toString(36)}`
   }
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
+  const handleOpenArtifact = () => {
+    const tableData = parseData()
+    if (!tableData) return
+    const csvContent = convertToCSV(tableData) || ""
+    openArtifact({
+      id: buildArtifactId(tableData),
+      title: tableData.headers[0] || t("artifactsTitle", "Artifact"),
+      content: csvContent,
+      language: "csv",
+      kind: "table",
+      table: tableData
+    })
   }
+
+  useEffect(() => {
+    if (!isProMode || isPinned) {
+      return
+    }
+    const tableData = parseData()
+    if (!tableData) {
+      return
+    }
+    const artifactId = buildArtifactId(tableData)
+    if (autoOpenStateMap.get(artifactId)) {
+      return
+    }
+    const csvContent = convertToCSV(tableData) || ""
+    openArtifact(
+      {
+        id: artifactId,
+        title: tableData.headers[0] || t("artifactsTitle", "Artifact"),
+        content: csvContent,
+        language: "csv",
+        kind: "table",
+        table: tableData
+      },
+      { auto: true }
+    )
+    autoOpenStateMap.set(artifactId, true)
+  }, [autoOpenStateMap, isPinned, isProMode, openArtifact, t])
 
   const downloadFile = (
     content: string,
@@ -126,6 +187,16 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
           </div>
 
           <div className="flex items-center gap-1">
+            <Tooltip title={t("view", "View")}>
+              <button
+                type="button"
+                onClick={handleOpenArtifact}
+                className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-1 text-[11px] font-medium text-text-muted hover:text-text"
+                aria-label={t("view", "View")}>
+                <ExpandIcon className="size-3" />
+                <span>{t("view", "View")}</span>
+              </button>
+            </Tooltip>
             <Tooltip title={t('table.copyCsv', 'Copy as CSV')}>
               <IconButton
                 ariaLabel={t('table.copyCsv', 'Copy as CSV') as string}

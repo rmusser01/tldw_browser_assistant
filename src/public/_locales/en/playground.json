@@ -42,7 +42,7 @@
     "message": "Please set an embedding model on the Settings > Knowledge page"
   },
   "form_textarea_placeholder": {
-    "message": "Type a message..."
+    "message": "Ask anything..."
   },
   "form_webSearch_on": {
     "message": "On"

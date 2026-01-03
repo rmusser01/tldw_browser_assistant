@@ -46,7 +46,7 @@ export function KeyboardShortcutsModal() {
     }
   }, [open])
 
-  // Listen for ? key to open the modal
+  // Listen for platform modifier + Shift + ? to open the modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Don't trigger if user is typing in an input
@@ -56,7 +56,8 @@ export function KeyboardShortcutsModal() {
         target.tagName === "TEXTAREA" ||
         target.isContentEditable
 
-      if (e.key === "?" && !isInputField) {
+      const modPressed = isMac ? e.metaKey : e.ctrlKey
+      if (e.key === "?" && e.shiftKey && modPressed && !isInputField) {
         e.preventDefault()
         setOpen(true)
       }
@@ -71,6 +72,7 @@ export function KeyboardShortcutsModal() {
   }, [])
 
   const modKey = isMac ? "⌘" : "Ctrl"
+  const showShortcutsKeys = `${modKey} + Shift + ?`
 
   const shortcutGroups: ShortcutGroup[] = useMemo(
     () => [
@@ -83,7 +85,7 @@ export function KeyboardShortcutsModal() {
           },
           {
             label: t("common:shortcuts.showKeyboardShortcuts", "Show keyboard shortcuts"),
-            keys: "?"
+            keys: showShortcutsKeys
           },
           {
             label: t("common:shortcuts.focusTextarea", "Focus message input"),

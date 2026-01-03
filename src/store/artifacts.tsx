@@ -2,6 +2,11 @@ import { create } from "zustand"
 
 export type ArtifactKind = "code" | "table" | "diagram"
 
+export type ArtifactTableData = {
+  headers: string[]
+  rows: string[][]
+}
+
 export type ArtifactItem = {
   id: string
   title: string
@@ -9,6 +14,7 @@ export type ArtifactItem = {
   language?: string
   kind: ArtifactKind
   lineCount?: number
+  table?: ArtifactTableData
 }
 
 type ArtifactState = {

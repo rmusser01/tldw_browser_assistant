@@ -273,7 +273,7 @@ export function HeaderShortcuts({
   // Register "?" keyboard shortcut to toggle shortcuts
   useShortcut({
     key: "?",
-    modifiers: [],
+    modifiers: ["shift"],
     action: handleToggle,
     description: "Toggle keyboard shortcuts",
     allowInInput: false,

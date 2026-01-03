@@ -20,10 +20,40 @@ const isAnyMatch = (id: string, matches: string[]) => {
   return matches.some((m) => id.includes(m))
 }
 
+const manualChunks = (id: string) => {
+  if (!id.includes("node_modules")) return undefined
+  return "vendor"
+}
+
+const chunkSplitPlugin = (): Plugin => ({
+  name: "wxt-manual-chunks",
+  config(config) {
+    if (config.build?.lib) return
+    const rollupOptions = config.build?.rollupOptions ?? {}
+    const output = rollupOptions.output
+    const applyManualChunks = (out: any) => {
+      if (out?.inlineDynamicImports) return out
+      return { ...out, manualChunks }
+    }
+    const nextOutput = Array.isArray(output)
+      ? output.map((out) => applyManualChunks(out))
+      : applyManualChunks(output ?? {})
+
+    config.build = {
+      ...config.build,
+      rollupOptions: {
+        ...rollupOptions,
+        output: nextOutput
+      }
+    }
+  }
+})
+
 const safeInnerHTMLPlugin = (): Plugin => ({
   name: "sanitize-innerhtml",
   enforce: "post",
-  transform(code) {
+  transform(code, id) {
+    if (!id || id.includes("node_modules")) return null
     if (!code.includes("innerHTML")) return null
 
     const ast = parse(code, { ecmaVersion: "latest", sourceType: "module" }) as any
@@ -182,6 +212,7 @@ export default defineConfig({
       plugins: [
         react(),
         safeInnerHTMLPlugin(),
+        chunkSplitPlugin(),
         topLevelAwait({
           promiseExportName: "__tla",
           promiseImportName: (i) => `__tla_${i}`

@@ -38,6 +38,7 @@ import React, { useState, useEffect } from "react"
 import { FolderTree, FolderToolbar } from "@/components/Folders"
 import { useFolderStore, useFolderViewMode, useFolderActions } from "@/store/folder"
 import { PageAssistDatabase } from "@/db/dexie/chat"
+import { useStorage } from "@plasmohq/storage/hook"
 import {
   deleteByHistoryId,
   deleteHistoriesByDateRange,
@@ -55,7 +56,7 @@ import { updatePageTitle } from "@/utils/update-page-title"
 import { promptInput } from "@/components/Common/prompt-input"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { IconButton } from "../Common/IconButton"
-import { useServerChatHistory } from "@/hooks/useServerChatHistory"
+import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useStoreMessageOption } from "@/store/option"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
@@ -106,6 +107,10 @@ export const Sidebar = ({
   const [deleteGroup, setDeleteGroup] = useState<string | null>(null)
   const [dexiePrivateWindowError, setDexiePrivateWindowError] = useState(false)
   const [openMenuFor, setOpenMenuFor] = useState<string | null>(null)
+  const [pinnedServerChatIds, setPinnedServerChatIds] = useStorage<string[]>(
+    "tldw:server-chat-pins",
+    []
+  )
   const confirmDanger = useConfirmDanger()
   const { isConnected } = useConnectionState()
 
@@ -146,6 +151,16 @@ export const Sidebar = ({
     isLoading: isServerLoading
   } = useServerChatHistory(debouncedSearchQuery)
   const serverChats = serverChatData || []
+  const pinnedServerChatSet = React.useMemo(
+    () => new Set(pinnedServerChatIds || []),
+    [pinnedServerChatIds]
+  )
+  const pinnedServerChats = serverChats.filter((chat) =>
+    pinnedServerChatSet.has(chat.id)
+  )
+  const unpinnedServerChats = serverChats.filter(
+    (chat) => !pinnedServerChatSet.has(chat.id)
+  )
 
   // Using infinite query for pagination
   const {
@@ -391,6 +406,16 @@ export const Sidebar = ({
 
   const clearSearch = () => {
     setSearchQuery("")
+  }
+
+  const toggleServerChatPinned = (chatId: string) => {
+    setPinnedServerChatIds((prev) => {
+      const current = prev || []
+      if (current.includes(chatId)) {
+        return current.filter((id) => id !== chatId)
+      }
+      return [...current, chatId]
+    })
   }
 
   const handleLoadMore = () => {
@@ -660,6 +685,152 @@ export const Sidebar = ({
     loadedConversationTitleById,
     missingFolderConversationTitles
   ])
+
+  const renderServerChatRow = (chat: ServerChatHistoryItem) => {
+    const isPinned = pinnedServerChatSet.has(chat.id)
+    return (
+      <div
+        key={chat.id}
+        className={`flex py-2 px-2 items-center gap-3 relative rounded-md truncate group transition-opacity duration-300 ease-in-out border ${
+          serverChatId === chat.id
+            ? "bg-surface2 border-borderStrong text-text"
+            : "bg-surface text-text border-border hover:bg-surface2"
+        }`}
+      >
+        <button
+          className="flex flex-col overflow-hidden flex-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 rounded"
+          onClick={async () => {
+            try {
+              // Clear local selection; this chat is backed by the server
+              setHistoryId(null)
+              setServerChatId(chat.id)
+              setServerChatState(
+                (chat as any)?.state ??
+                  (chat as any)?.conversation_state ??
+                  "in-progress"
+              )
+              setServerChatTopic((chat as any)?.topic_label ?? null)
+              setServerChatClusterId((chat as any)?.cluster_id ?? null)
+              setServerChatSource((chat as any)?.source ?? null)
+              setServerChatExternalRef(
+                (chat as any)?.external_ref ?? null
+              )
+              // Try to resolve a friendly assistant name from the character, if any.
+              let assistantName = "Assistant"
+              if (chat.character_id != null) {
+                try {
+                  const character = await tldwClient.getCharacter(
+                    chat.character_id
+                  )
+                  if (character) {
+                    assistantName =
+                      character.name || character.title || assistantName
+                  }
+                } catch {
+                  // Fallback to generic label if character lookup fails.
+                }
+              }
+
+              const messages = await tldwClient.listChatMessages(chat.id, {
+                include_deleted: "false"
+              } as any)
+              const history = messages.map((m) => ({
+                role: m.role,
+                content: m.content
+              }))
+              const mappedMessages = messages.map((m) => ({
+                isBot: m.role === "assistant",
+                name:
+                  m.role === "assistant"
+                    ? assistantName
+                    : m.role === "system"
+                      ? "System"
+                      : "You",
+                message: m.content,
+                sources: [],
+                images: [],
+                serverMessageId: m.id,
+                serverMessageVersion: m.version
+              }))
+              setHistory(history)
+              setMessages(mappedMessages)
+              updatePageTitle(chat.title)
+              navigate("/")
+              onClose()
+            } catch (e) {
+              console.error("Failed to load server chat", e)
+              message.error(
+                t("common:serverChatLoadError", {
+                  defaultValue:
+                    "Failed to load server chat. Check your connection and try again."
+                })
+              )
+            }
+          }}
+        >
+          <div className="flex flex-col overflow-hidden flex-1">
+            <span className="truncate text-sm">{chat.title}</span>
+            <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle mt-0.5">
+              <span className="inline-flex items-center rounded-full bg-surface2 px-2 py-0.5 text-[11px] font-medium lowercase text-text">
+                {(chat.state as string) || "in-progress"}
+              </span>
+              {chat.topic_label && (
+                <span
+                  className="truncate max-w-[12rem]"
+                  title={String(chat.topic_label)}
+                >
+                  {String(chat.topic_label)}
+                </span>
+              )}
+            </div>
+            <span className="flex items-center gap-1 text-xs text-text-subtle">
+              {chat.parent_conversation_id ? (
+                <Tooltip
+                  title={t("common:serverChatForkedTooltip", {
+                    chatId: String(chat.parent_conversation_id).slice(0, 8),
+                    defaultValue: "Forked from chat {{chatId}}"
+                  })}
+                >
+                  <span className="inline-flex items-center gap-1">
+                    <GitBranch className="size-3" />
+                    <span>
+                      {t("common:serverChatForkedLabel", {
+                        defaultValue: "Forked chat"
+                      })}
+                    </span>
+                  </span>
+                </Tooltip>
+              ) : (
+                <span>
+                  {t("common:serverChatSourceLabel", {
+                    defaultValue: "Server"
+                  })}
+                </span>
+              )}
+            </span>
+          </div>
+        </button>
+        <Tooltip title={isPinned ? t("common:unpin") : t("common:pin")}>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation()
+              toggleServerChatPinned(chat.id)
+            }}
+            className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)]"
+            aria-label={isPinned ? t("common:unpin") : t("common:pin")}
+            aria-pressed={isPinned}
+          >
+            {isPinned ? (
+              <PinOffIcon className="w-4 h-4" />
+            ) : (
+              <PinIcon className="w-4 h-4" />
+            )}
+          </button>
+        </Tooltip>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -943,133 +1114,25 @@ export const Sidebar = ({
               {t("common:serverChats", { defaultValue: "Server chats" })}
             </h3>
           </div>
-          <div className="flex flex-col gap-2 mt-1">
-            {serverChats.map((chat) => (
-              <button
-                key={chat.id}
-                className={`flex py-2 px-2 items-center gap-3 relative rounded-md truncate hover:pr-4 group transition-opacity duration-300 ease-in-out border text-left ${
-                  serverChatId === chat.id
-                    ? "bg-surface2 border-borderStrong text-text"
-                    : "bg-surface text-text border-border hover:bg-surface2"
-                }`}
-                onClick={async () => {
-                  try {
-                    // Clear local selection; this chat is backed by the server
-                    setHistoryId(null)
-                    setServerChatId(chat.id)
-                    setServerChatState(
-                      (chat as any)?.state ??
-                        (chat as any)?.conversation_state ??
-                        "in-progress"
-                    )
-                    setServerChatTopic((chat as any)?.topic_label ?? null)
-                    setServerChatClusterId(
-                      (chat as any)?.cluster_id ?? null
-                    )
-                    setServerChatSource((chat as any)?.source ?? null)
-                    setServerChatExternalRef(
-                      (chat as any)?.external_ref ?? null
-                    )
-                    // Try to resolve a friendly assistant name from the character, if any.
-                    let assistantName = "Assistant"
-                    if (chat.character_id != null) {
-                      try {
-                        const character = await tldwClient.getCharacter(
-                          chat.character_id
-                        )
-                        if (character) {
-                          assistantName =
-                            character.name ||
-                            character.title ||
-                            assistantName
-                        }
-                      } catch {
-                        // Fallback to generic label if character lookup fails.
-                      }
-                    }
-
-                    const messages = await tldwClient.listChatMessages(
-                      chat.id,
-                      {
-                        include_deleted: "false"
-                      } as any
-                    )
-                    const history = messages.map((m) => ({
-                      role: m.role,
-                      content: m.content
-                    }))
-                    const mappedMessages = messages.map((m) => ({
-                      isBot: m.role === "assistant",
-                      name:
-                        m.role === "assistant"
-                          ? assistantName
-                          : m.role === "system"
-                            ? "System"
-                            : "You",
-                      message: m.content,
-                      sources: [],
-                      images: [],
-                      serverMessageId: m.id,
-                      serverMessageVersion: m.version
-                    }))
-                    setHistory(history)
-                    setMessages(mappedMessages)
-                    updatePageTitle(chat.title)
-                    navigate("/")
-                    onClose()
-                  } catch (e) {
-                    console.error("Failed to load server chat", e)
-                    message.error(
-                      t("common:serverChatLoadError", {
-                        defaultValue:
-                          "Failed to load server chat. Check your connection and try again."
-                      })
-                    )
-                  }
-                }}>
-                <div className="flex flex-col overflow-hidden flex-1">
-                  <span className="truncate text-sm">{chat.title}</span>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle mt-0.5">
-                    <span className="inline-flex items-center rounded-full bg-surface2 px-2 py-0.5 text-[11px] font-medium lowercase text-text">
-                      {(chat.state as string) || "in-progress"}
-                    </span>
-                    {chat.topic_label && (
-                      <span
-                        className="truncate max-w-[12rem]"
-                        title={String(chat.topic_label)}
-                      >
-                        {String(chat.topic_label)}
-                      </span>
-                    )}
-                  </div>
-                  <span className="flex items-center gap-1 text-xs text-text-subtle">
-                    {chat.parent_conversation_id ? (
-                      <Tooltip
-                        title={t("common:serverChatForkedTooltip", {
-                          chatId: String(chat.parent_conversation_id).slice(0, 8),
-                          defaultValue: "Forked from chat {{chatId}}"
-                        })}>
-                        <span className="inline-flex items-center gap-1">
-                          <GitBranch className="size-3" />
-                          <span>
-                            {t("common:serverChatForkedLabel", {
-                              defaultValue: "Forked chat"
-                            })}
-                          </span>
-                        </span>
-                      </Tooltip>
-                    ) : (
-                      <span>
-                        {t("common:serverChatSourceLabel", {
-                          defaultValue: "Server"
-                        })}
-                      </span>
-                    )}
-                  </span>
-                </div>
-              </button>
-            ))}
-          </div>
+          {pinnedServerChats.length > 0 && (
+            <div className="flex flex-col gap-2 mt-1">
+              <div className="px-2 text-[11px] font-medium text-text-subtle uppercase tracking-wide">
+                {t("common:pinned", { defaultValue: "Pinned" })}
+              </div>
+              {pinnedServerChats.map(renderServerChatRow)}
+            </div>
+          )}
+          {unpinnedServerChats.length > 0 && (
+            <div
+              className={
+                pinnedServerChats.length > 0
+                  ? "mt-3 flex flex-col gap-2"
+                  : "mt-1 flex flex-col gap-2"
+              }
+            >
+              {unpinnedServerChats.map(renderServerChatRow)}
+            </div>
+          )}
         </div>
       )}
 

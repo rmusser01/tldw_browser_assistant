@@ -63,6 +63,37 @@ const ensureModelSelectedViaUi = async (page: Page) => {
   await menuItem.click()
 }
 
+const openArtifactsViaStore = async (
+  page: Page,
+  payload: { id: string; title: string; content: string; language?: string }
+) => {
+  const storeReady = await (async () => {
+    for (let attempt = 0; attempt < 10; attempt += 1) {
+      const ready = await page
+        .evaluate(
+          () => typeof (window as any).__tldw_useArtifactsStore !== "undefined"
+        )
+        .catch(() => false)
+      if (ready) return true
+      await page.waitForTimeout(250)
+    }
+    return false
+  })()
+  if (!storeReady) {
+    return false
+  }
+  return page
+    .evaluate((artifact) => {
+      const store = (window as any).__tldw_useArtifactsStore
+      store?.getState?.().openArtifact?.({
+        ...artifact,
+        kind: "code"
+      })
+    }, payload)
+    .then(() => true)
+    .catch(() => false)
+}
+
 const setUseMarkdownForUserMessage = async (page: Page) => {
   await page.evaluate(async () => {
     const w: any = window as any
@@ -379,24 +410,106 @@ test.describe("UX progress smoke", () => {
       await setUseMarkdownForUserMessage(sidepanelPage)
 
       logStep("open sidepanel artifacts")
-      await sidepanelPage.evaluate(() => {
-        const store = (window as any).__tldw_useArtifactsStore
-        store?.getState?.().openArtifact?.({
-          id: `e2e-side-${Date.now()}`,
-          title: "javascript",
-          content: "console.log('sidepanel')",
-          language: "javascript",
-          kind: "code",
-          lineCount: 1
-        })
-      })
-
-      logStep("assert sidepanel artifacts")
       const sideArtifacts = sidepanelPage.locator(
         '[data-testid="artifacts-panel"]'
       )
-      await expect(sideArtifacts.first()).toBeVisible({ timeout: 20000 })
+      await sideArtifacts
+        .first()
+        .waitFor({ state: "hidden", timeout: 5000 })
+        .catch(() => {})
+      const didOpenSideArtifacts = await openArtifactsViaStore(sidepanelPage, {
+        id: `e2e-side-${Date.now()}`,
+        title: "javascript",
+        content: "console.log('sidepanel')",
+        language: "javascript"
+      })
+
+      if (!didOpenSideArtifacts) {
+        logStep("sidepanel artifacts skipped: store unavailable")
+      } else {
+        logStep("assert sidepanel artifacts")
+        const sideVisible = await sideArtifacts
+          .first()
+          .waitFor({ state: "visible", timeout: 10000 })
+          .then(() => true)
+          .catch(() => false)
+        if (!sideVisible) {
+          logStep("sidepanel artifacts not visible")
+        }
+      }
       logStep("smoke test done")
+    } finally {
+      if (context) {
+        await context.close()
+      }
+    }
+  })
+
+  test("opens artifacts panel in sidepanel", async () => {
+    test.setTimeout(60000)
+    const { serverUrl, apiKey } = requireRealServerConfig(test)
+    const normalizedServerUrl = normalizeServerUrl(serverUrl)
+    const fallbackModelId =
+      process.env.TLDW_E2E_MODEL_ID || "tldw-smoke-model"
+    const modelId = await fetchModelId(
+      normalizedServerUrl,
+      apiKey,
+      fallbackModelId
+    )
+    const selectedModelId = modelId.startsWith("tldw:")
+      ? modelId
+      : `tldw:${modelId}`
+
+    let context: BrowserContext | null = null
+    try {
+      const launchResult = await launchWithExtension("", {
+        seedConfig: {
+          __tldw_first_run_complete: true,
+          __tldw_allow_offline: true,
+          tldwConfig: {
+            serverUrl: normalizedServerUrl,
+            authMode: "single-user",
+            apiKey
+          }
+        }
+      })
+      context = launchResult.context
+      const { extensionId, openSidepanel } = launchResult
+      const origin = new URL(normalizedServerUrl).origin + "/*"
+
+      const granted = await grantHostPermission(context, extensionId, origin)
+      if (!granted) {
+        test.skip(
+          true,
+          "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
+        )
+      }
+
+      const sidepanelPage = await openSidepanel()
+      await sidepanelPage.bringToFront()
+      await setUiMode(sidepanelPage, "pro")
+      await sidepanelPage.reload({ waitUntil: "domcontentloaded" })
+      await ensureProMode(sidepanelPage)
+      await ensureConnected(
+        sidepanelPage,
+        "progress:sidepanel-only-connect",
+        normalizedServerUrl
+      )
+      await setSelectedModel(sidepanelPage, selectedModelId)
+      await forceSelectedModel(sidepanelPage, selectedModelId)
+      await setUseMarkdownForUserMessage(sidepanelPage)
+
+      const didOpen = await openArtifactsViaStore(sidepanelPage, {
+        id: `e2e-side-${Date.now()}`,
+        title: "javascript",
+        content: "console.log('sidepanel-only')",
+        language: "javascript"
+      })
+      expect(didOpen).toBe(true)
+      const sideArtifacts = sidepanelPage
+        .locator('[data-testid="artifacts-panel"]')
+        .first()
+      await expect(sideArtifacts).toBeVisible({ timeout: 20000 })
     } finally {
       if (context) {
         await context.close()

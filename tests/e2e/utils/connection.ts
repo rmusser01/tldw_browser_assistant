@@ -5,12 +5,12 @@ import type { Page } from '@playwright/test'
 // debug logging for flaky connection‑dependent specs.
 
 export async function waitForConnectionStore(page: Page, label = 'init') {
-  const waitForStore = async (timeoutMs: number) => {
+  const waitForAppReady = async (timeoutMs: number) => {
     await page.waitForFunction(
       () => {
-        const w: any = window as any
-        const store = w.__tldw_useConnectionStore
-        return !!store && typeof store.getState === 'function'
+        const root = document.querySelector('#root')
+        if (!root) return false
+        return document.readyState !== 'loading'
       },
       null,
       { timeout: timeoutMs }
@@ -26,7 +26,7 @@ export async function waitForConnectionStore(page: Page, label = 'init') {
   }
 
   try {
-    await waitForStore(15_000)
+    await waitForAppReady(15_000)
   } catch {
     // One retry after a hard reload in case the extension page failed to boot.
     await page.reload({ waitUntil: 'domcontentloaded' })
@@ -35,16 +35,26 @@ export async function waitForConnectionStore(page: Page, label = 'init') {
     } catch {
       // ignore; waitForStore will still time out if app never mounts
     }
-    await waitForStore(20_000)
+    await waitForAppReady(20_000)
   }
   await logConnectionSnapshot(page, label)
 }
 
 export async function logConnectionSnapshot(page: Page, label: string) {
   await page.evaluate((tag) => {
+    const root = document.querySelector('#root')
     const w: any = window as any
     const store = w.__tldw_useConnectionStore
-    if (!store?.getState) return
+    if (!store?.getState) {
+      // eslint-disable-next-line no-console
+      console.log('CONNECTION_DEBUG', tag, JSON.stringify({
+        storeReady: false,
+        rootReady: !!root,
+        rootChildren: root ? root.children.length : 0,
+        readyState: document.readyState
+      }))
+      return
+    }
     try {
       const state = store.getState().state
       // eslint-disable-next-line no-console
@@ -74,7 +84,11 @@ export async function forceConnectionState(
     ({ patchInner, tag }) => {
       const w: any = window as any
       const store = w.__tldw_useConnectionStore
-      if (!store?.getState || !store?.setState) return
+      if (!store?.getState || !store?.setState) {
+        // eslint-disable-next-line no-console
+        console.log('CONNECTION_DEBUG_APPLY', tag, JSON.stringify({ storeReady: false }))
+        return
+      }
       const prev = store.getState().state
       const next = {
         ...prev,

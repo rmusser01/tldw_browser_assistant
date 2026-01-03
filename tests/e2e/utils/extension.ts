@@ -86,6 +86,7 @@ export async function launchWithExtension(
   const context = await chromium.launchPersistentContext(userDataDir, {
     headless: !!process.env.CI,
     acceptDownloads: true,
+    ignoreDefaultArgs: ['--disable-extensions'],
     env: {
       ...process.env,
       HOME: homeDir
@@ -93,6 +94,7 @@ export async function launchWithExtension(
     args: [
       `--disable-extensions-except=${extPath}`,
       `--load-extension=${extPath}`,
+      '--no-crashpad',
       '--disable-crash-reporter',
       '--crash-dumps-dir=/tmp'
     ]
@@ -156,6 +158,12 @@ export async function launchWithExtension(
   async function openSidepanel() {
     const p = await context.newPage()
     await p.goto(sidepanelUrl, { waitUntil: 'domcontentloaded' })
+    // Ensure the sidepanel tab is visible; some UI only renders when visible.
+    try {
+      await p.bringToFront()
+    } catch {
+      // ignore bringToFront failures in headless contexts
+    }
     // Ensure the sidepanel app has a root to mount into before returning.
     const root = p.locator('#root')
     try {

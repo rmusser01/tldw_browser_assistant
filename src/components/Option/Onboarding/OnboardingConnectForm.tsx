@@ -526,12 +526,12 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   // Success screen
   if (showSuccess) {
     return (
-      <div className="mx-auto w-full max-w-lg rounded-xl border border-border bg-surface p-6 shadow-sm">
-        <div className="text-center mb-6">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-success/10">
-            <Check className="size-8 text-success" />
+      <div className="mx-auto w-full max-w-2xl rounded-3xl border border-border/70 bg-surface/95 p-8 shadow-lg shadow-black/5 backdrop-blur">
+        <div className="mb-8 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-success/10">
+            <Check className="size-7 text-success" />
           </div>
-          <h2 className="text-xl font-semibold text-text">
+          <h2 className="text-2xl font-semibold text-text tracking-tight">
             {t("settings:onboarding.success.title", "You're connected!")}
           </h2>
           <p className="mt-2 text-sm text-text-muted">
@@ -542,7 +542,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
           </p>
         </div>
 
-        <div className="grid gap-3">
+        <div className="grid gap-4">
           <button
             onClick={async () => {
               try {
@@ -561,9 +561,9 @@ export function OnboardingConnectForm({ onFinish }: Props) {
               }
               handleFinish()
             }}
-            className="flex items-center gap-3 rounded-lg border border-border p-4 text-left transition-colors hover:bg-surface2"
+            className="flex items-center gap-3 rounded-2xl border border-border/70 bg-surface p-4 text-left transition-colors hover:bg-surface2"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10">
               <Sparkles className="size-5 text-accent" />
             </div>
             <div className="flex-1">
@@ -582,9 +582,9 @@ export function OnboardingConnectForm({ onFinish }: Props) {
 
           <button
             onClick={handleFinish}
-            className="flex items-center gap-3 rounded-lg border border-border p-4 text-left transition-colors hover:bg-surface2"
+            className="flex items-center gap-3 rounded-2xl border border-border/70 bg-surface p-4 text-left transition-colors hover:bg-surface2"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
               <Server className="size-5 text-primary" />
             </div>
             <div className="flex-1">
@@ -602,7 +602,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
           </button>
         </div>
 
-        <div className="mt-4 text-center">
+        <div className="mt-6 text-center">
           <button
             onClick={handleFinish}
             className="text-sm text-text-subtle hover:text-text"
@@ -615,13 +615,13 @@ export function OnboardingConnectForm({ onFinish }: Props) {
   }
 
   return (
-    <div className="mx-auto w-full max-w-lg rounded-xl border border-border bg-surface p-6 shadow-sm">
+    <div className="mx-auto w-full max-w-2xl rounded-3xl border border-border/70 bg-surface/95 p-8 shadow-lg shadow-black/5 backdrop-blur">
       {/* Header */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-text">
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold text-text tracking-tight">
           {t("settings:onboarding.title", "Welcome to tldw Assistant")}
         </h2>
-        <p className="mt-1 text-sm text-text-muted">
+        <p className="mt-2 text-sm text-text-muted">
           {t(
             "settings:onboarding.valueProp",
             "Chat with AI, save web content, and build your personal knowledge base."
@@ -630,10 +630,10 @@ export function OnboardingConnectForm({ onFinish }: Props) {
       </div>
 
       {/* Demo Mode - Prominent placement for users without a server */}
-      <div className="mb-6 p-4 rounded-lg border-2 border-dashed border-purple-300 dark:border-purple-700 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center shrink-0">
-            <Sparkles className="size-5 text-white" />
+      <div className="mb-6 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-accent/10 to-surface p-5">
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-white shadow-sm shadow-primary/20">
+            <Sparkles className="size-5" />
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="font-medium text-text">
@@ -649,7 +649,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
           <Button
             type="primary"
             onClick={handleDemoMode}
-            className="shrink-0 bg-gradient-to-r from-purple-500 to-pink-500 border-0 hover:from-purple-600 hover:to-pink-600"
+            className="shrink-0 rounded-full border-0 bg-primary px-4 font-medium text-white hover:bg-primaryStrong"
           >
             {t("settings:onboarding.demo.buttonTry", "Try Demo")}
           </Button>
@@ -689,6 +689,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
               }
               disabled={isConnecting}
               size="large"
+              className="rounded-2xl"
               suffix={
                 <span
                   className="inline-flex h-4 w-4 items-center justify-center"
@@ -742,10 +743,10 @@ export function OnboardingConnectForm({ onFinish }: Props) {
               onClick={() => setAuthMode("single-user")}
               disabled={isConnecting}
               className={cn(
-                "flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border text-sm transition-colors",
+                "flex-1 flex items-center justify-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
                 authMode === "single-user"
-                  ? "border-primary bg-primary/10 text-primary"
-                  : "border-border text-text-muted hover:bg-surface2"
+                  ? "border-primary/40 bg-primary/10 text-primary"
+                  : "border-border/70 text-text-muted hover:bg-surface2"
               )}
             >
               <Key className="size-4" />
@@ -756,10 +757,10 @@ export function OnboardingConnectForm({ onFinish }: Props) {
               onClick={() => setAuthMode("multi-user")}
               disabled={isConnecting}
               className={cn(
-                "flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border text-sm transition-colors",
+                "flex-1 flex items-center justify-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
                 authMode === "multi-user"
-                  ? "border-primary bg-primary/10 text-primary"
-                  : "border-border text-text-muted hover:bg-surface2"
+                  ? "border-primary/40 bg-primary/10 text-primary"
+                  : "border-border/70 text-text-muted hover:bg-surface2"
               )}
             >
               <User className="size-4" />
@@ -783,6 +784,8 @@ export function OnboardingConnectForm({ onFinish }: Props) {
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               disabled={isConnecting}
+              size="large"
+              className="rounded-2xl"
               status={
                 showAuthErrors && authValidation.missingApiKey ? "error" : undefined
               }
@@ -827,6 +830,8 @@ export function OnboardingConnectForm({ onFinish }: Props) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={isConnecting}
+                size="large"
+                className="rounded-2xl"
                 status={
                   showAuthErrors && authValidation.missingUsername ? "error" : undefined
                 }
@@ -862,6 +867,8 @@ export function OnboardingConnectForm({ onFinish }: Props) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isConnecting}
+                size="large"
+                className="rounded-2xl"
                 status={
                   showAuthErrors && authValidation.missingPassword ? "error" : undefined
                 }
@@ -890,7 +897,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         {/* Connection Progress */}
         {(progress.serverReachable !== "idle" || isConnecting) && (
           <div
-            className="space-y-2 rounded-lg border border-primary/20 bg-primary/10 p-3"
+            className="space-y-2 rounded-2xl border border-primary/20 bg-primary/5 p-4"
             role="status"
             aria-live="polite"
             aria-busy={isConnecting}
@@ -916,7 +923,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
 
         {/* Error display */}
         {errorKind && (
-          <div className="rounded-lg border border-danger/30 bg-danger/10 p-3">
+          <div className="rounded-2xl border border-danger/30 bg-danger/10 p-4">
             <div className="flex items-start gap-2">
               <AlertCircle className="mt-0.5 size-4 shrink-0 text-danger" />
               <div>
@@ -947,6 +954,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
           disabled={!urlValidation.valid || isConnecting}
           loading={isConnecting}
           icon={isConnecting ? undefined : <ArrowRight className="size-4" />}
+          className="!h-12 rounded-full font-medium"
         >
           {isConnecting
             ? t("settings:onboarding.buttons.connecting", "Connecting...")
@@ -960,6 +968,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
             block
             onClick={handleConnect}
             icon={<RefreshCw className="size-4" />}
+            className="!h-11 rounded-full"
           >
             {t("common:retry", "Retry")}
           </Button>
@@ -971,7 +980,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         <button
           type="button"
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className="flex items-center gap-2 text-sm text-text-subtle hover:text-text"
+          className="flex items-center gap-2 rounded-full px-2 py-1 text-sm text-text-subtle transition-colors hover:bg-surface2 hover:text-text"
         >
           {showAdvanced ? (
             <ChevronDown className="size-4" />
@@ -985,7 +994,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         </button>
 
         {showAdvanced && (
-          <div className="mt-3 space-y-2 text-xs">
+          <div className="mt-3 space-y-3 text-xs">
             {[
               {
                 label: t(
@@ -1006,22 +1015,20 @@ export function OnboardingConnectForm({ onFinish }: Props) {
             ].map((cmd) => (
               <div
                 key={cmd.command}
-                className="rounded border border-border bg-surface p-2"
+                className="rounded-2xl border border-border/70 bg-surface p-3"
               >
-                <div className="flex items-center justify-between gap-2 mb-1">
-                  <span className="font-medium text-text">
-                    {cmd.label}
-                  </span>
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <span className="font-medium text-text">{cmd.label}</span>
                   <Tooltip title={t("common:copy", "Copy")}>
                     <button
                       onClick={() => handleCopyCommand(cmd.command)}
-                      className="rounded p-1 hover:bg-surface2"
+                      className="rounded-full p-1 hover:bg-surface2"
                     >
                       <Copy className="size-3 text-text-subtle" />
                     </button>
                   </Tooltip>
                 </div>
-                <pre className="overflow-x-auto rounded bg-surface2 px-2 py-1 text-text">
+                <pre className="overflow-x-auto rounded-xl bg-surface2 px-2 py-2 text-text">
                   <code>{cmd.command}</code>
                 </pre>
               </div>

@@ -49,6 +49,14 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
   const isProMode = uiMode === "pro"
   const { openArtifact, isPinned } = useArtifactsStore()
   const { t } = useTranslation("common")
+
+  const isDiagramLanguage = ["mermaid", "diagram", "graphviz", "dot"].includes(
+    normalizedLanguage
+  )
+  const artifactKind = isDiagramLanguage ? "diagram" : "code"
+  const viewLabel = isDiagramLanguage
+    ? t("view", "View")
+    : t("artifactsView", "View code")
   
   const computeKey = () => {
     const base =
@@ -246,7 +254,7 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
     if (!isProMode) {
       return
     }
-    if (totalLines <= artifactAutoThreshold) {
+    if (!isDiagramLanguage && totalLines <= artifactAutoThreshold) {
       return
     }
     if (autoOpenStateMap.get(artifactId)) {
@@ -264,7 +272,7 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
             : t("artifactsDefaultTitle", "Code"),
         content: value,
         language: normalizedLanguage,
-        kind: "code",
+        kind: artifactKind,
         lineCount: totalLines
       },
       { auto: true }
@@ -274,6 +282,7 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
     artifactId,
     artifactAutoThreshold,
     autoOpenStateMap,
+    isDiagramLanguage,
     isPinned,
     isProMode,
     normalizedLanguage,
@@ -292,7 +301,7 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
           : t("artifactsDefaultTitle", "Code"),
       content: value,
       language: normalizedLanguage,
-      kind: "code",
+      kind: artifactKind,
       lineCount: totalLines
     })
     autoOpenStateMap.set(artifactId, true)
@@ -343,7 +352,7 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
                 onClick={handleOpenArtifact}
                 className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-1 text-[11px] font-medium text-text-muted hover:text-text">
                 <CodeIcon className="size-3" />
-                <span>{t("artifactsView", "View code")}</span>
+                <span>{viewLabel}</span>
               </button>
               {isLong && (
                 <button

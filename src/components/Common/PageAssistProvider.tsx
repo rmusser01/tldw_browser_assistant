@@ -14,6 +14,14 @@ export const PageAssistProvider = ({
   const [embeddingController, setEmbeddingController] =
     React.useState<AbortController | null>(null)
 
+  if (typeof window !== "undefined") {
+    const w = window as any
+    w.__tldw_pageAssist = {
+      setMessages,
+      getMessages: () => messages
+    }
+  }
+
   return (
     <PageAssistContext.Provider
       value={{

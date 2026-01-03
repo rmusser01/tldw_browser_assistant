@@ -13,7 +13,13 @@ export const AboutApp = () => {
   const { data, status } = useQuery({
     queryKey: ["fetchOllamaURL"],
     queryFn: async () => {
-      const chromeVersion = browser.runtime.getManifest().version
+      const runtime =
+        typeof browser !== "undefined" && browser?.runtime?.getManifest
+          ? browser.runtime
+          : typeof chrome !== "undefined" && chrome?.runtime?.getManifest
+            ? chrome.runtime
+            : null
+      const chromeVersion = runtime?.getManifest()?.version ?? "unknown"
       try {
         const url = await getOllamaURL()
         const req = await fetcher(`${cleanUrl(url)}/api/version`)

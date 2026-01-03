@@ -21,7 +21,7 @@
   },
   "form": {
     "textarea": {
-      "placeholder": "Type a message..."
+      "placeholder": "Ask anything..."
     },
     "webSearch": {
       "on": "On",

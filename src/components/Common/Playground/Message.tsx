@@ -457,15 +457,24 @@ export const PlaygroundMessage = (props: Props) => {
   const MARKDOWN_BASE_CLASSES =
     "prose break-words text-message dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
   const messageCardClass = props.isBot
-    ? "flex flex-col gap-3 rounded-2xl border border-border bg-surface/70 p-4 shadow-sm"
-    : "flex flex-col gap-3 rounded-2xl border border-border bg-surface2/70 p-4 shadow-sm"
+    ? `flex flex-col rounded-2xl border border-border bg-surface/70 shadow-sm ${
+        isProMode ? "gap-3 p-4" : "gap-2 p-3"
+      }`
+    : `flex flex-col rounded-2xl border border-border bg-surface2/70 shadow-sm ${
+        isProMode ? "gap-3 p-4" : "gap-2 p-3"
+      }`
+  const actionButtonClass = isProMode
+    ? ACTION_BUTTON_CLASS
+    : "flex items-center justify-center h-8 w-8 rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus"
 
   return (
     <div
       data-testid="chat-message"
       data-role={props.isBot ? "assistant" : "user"}
       data-index={props.currentMessageIndex}
-      className={`group relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 text-text ${checkWideMode ? "max-w-none" : ""}`}>
+      className={`group relative flex w-full max-w-3xl flex-col items-end justify-center text-text ${
+        isProMode ? "pb-2 md:px-4" : "pb-1 md:px-3"
+      } ${checkWideMode ? "max-w-none" : ""}`}>
       {/* Inline stop button while streaming on the latest assistant message */}
       {props.isBot && (props.isStreaming || props.isProcessing) && isLastMessage && props.onStopStreaming && (
         <div className="absolute right-2 top-0 z-10">
@@ -482,7 +491,10 @@ export const PlaygroundMessage = (props: Props) => {
         </div>
       )}
       {/* <div className="text-base md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex lg:px-0 m-auto w-full"> */}
-      <div className="flex flex-row gap-4 md:gap-6 my-2 m-auto w-full">
+      <div
+        className={`flex flex-row m-auto w-full ${
+          isProMode ? "gap-4 md:gap-6 my-2" : "gap-3 md:gap-4 my-1.5"
+        }`}>
         <div className="w-8 flex flex-col relative items-end">
           {props.isBot ? (
             !props.modelImage ? (
@@ -804,7 +816,7 @@ export const PlaygroundMessage = (props: Props) => {
                         })
                       }
                     }}
-                    className={`${ACTION_BUTTON_CLASS} disabled:cursor-not-allowed disabled:opacity-50`}
+                    className={`${actionButtonClass} disabled:cursor-not-allowed disabled:opacity-50`}
                     disabled={ttsActionDisabled}>
                     <ActionButtonWithLabel
                       icon={
@@ -843,7 +855,7 @@ export const PlaygroundMessage = (props: Props) => {
                         setIsBtnPressed(false)
                       }, 2000)
                     }}
-                    className={ACTION_BUTTON_CLASS}>
+                    className={actionButtonClass}>
                     <ActionButtonWithLabel
                       icon={
                         !isBtnPressed ? (
@@ -873,7 +885,7 @@ export const PlaygroundMessage = (props: Props) => {
                         isBot: props.isBot
                       })
                     }}
-                    className={ACTION_BUTTON_CLASS}>
+                    className={actionButtonClass}>
                     <ActionButtonWithLabel
                       icon={
                         <CornerUpLeft className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -892,7 +904,7 @@ export const PlaygroundMessage = (props: Props) => {
                         ariaLabel={t("saveToNotes", "Save to Notes") as string}
                         onClick={() => handleSaveKnowledge(false)}
                         disabled={savingKnowledge !== null}
-                        className={ACTION_BUTTON_CLASS}>
+                        className={actionButtonClass}>
                         <ActionButtonWithLabel
                           icon={
                             <StickyNote className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -912,7 +924,7 @@ export const PlaygroundMessage = (props: Props) => {
                         }
                         onClick={() => handleSaveKnowledge(true)}
                         disabled={savingKnowledge !== null}
-                        className={ACTION_BUTTON_CLASS}>
+                        className={actionButtonClass}>
                         <ActionButtonWithLabel
                           icon={
                             <Layers className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -945,7 +957,7 @@ export const PlaygroundMessage = (props: Props) => {
                             })
                           )
                         }}
-                        className={ACTION_BUTTON_CLASS}>
+                        className={actionButtonClass}>
                         <ActionButtonWithLabel
                           icon={
                             <FileText className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -964,7 +976,7 @@ export const PlaygroundMessage = (props: Props) => {
                       title={t("generationInfo")}>
                       <IconButton
                         ariaLabel={t("generationInfo") as string}
-                        className={ACTION_BUTTON_CLASS}>
+                        className={actionButtonClass}>
                         <ActionButtonWithLabel
                           icon={
                             <InfoIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -981,7 +993,7 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("regenerate") as string}
                         onClick={props.onRegenerate}
-                        className={ACTION_BUTTON_CLASS}>
+                        className={actionButtonClass}>
                         <ActionButtonWithLabel
                           icon={
                             <RotateCcw className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -998,7 +1010,7 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("newBranch") as string}
                         onClick={props?.onNewBranch}
-                        className={ACTION_BUTTON_CLASS}>
+                        className={actionButtonClass}>
                         <ActionButtonWithLabel
                           icon={
                             <GitBranchIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -1015,7 +1027,7 @@ export const PlaygroundMessage = (props: Props) => {
                       <IconButton
                         ariaLabel={t("continue") as string}
                         onClick={props?.onContinue}
-                        className={ACTION_BUTTON_CLASS}>
+                        className={actionButtonClass}>
                         <ActionButtonWithLabel
                           icon={
                             <PlayCircle className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -1033,7 +1045,7 @@ export const PlaygroundMessage = (props: Props) => {
                   <IconButton
                     onClick={() => setEditMode(true)}
                     ariaLabel={t("edit") as string}
-                    className={ACTION_BUTTON_CLASS}>
+                    className={actionButtonClass}>
                     <ActionButtonWithLabel
                       icon={
                         <Pen className="w-3 h-3 text-text-subtle group-hover:text-text" />
@@ -1048,7 +1060,7 @@ export const PlaygroundMessage = (props: Props) => {
           ) : (
             // add invisible div to prevent layout shift
             <div className="invisible">
-              <div className={ACTION_BUTTON_CLASS}></div>
+              <div className={actionButtonClass}></div>
             </div>
           )}
             {!editMode && props.isBot && (

@@ -26,17 +26,20 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
   }
 
   return (
-    <div className={`flex flex-wrap items-center gap-2 ${className}`} aria-label={ariaLabel}>
+    <div
+      className={`flex flex-wrap items-center gap-2 ${className}`}
+      aria-label={ariaLabel}
+    >
       {items.map((item) => (
         <div
           key={item.id}
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface2 px-2 py-1 text-xs text-text"
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface2 px-2.5 py-0.5 text-[11px] text-text"
         >
           {item.previewSrc ? (
             <img
               src={item.previewSrc}
               alt=""
-              className="h-4 w-4 rounded object-cover"
+              className="h-3.5 w-3.5 rounded object-cover"
             />
           ) : (
             item.icon

@@ -663,23 +663,23 @@ No chat-only implicit endpoint exists today; add one if we need implicit signals
 
 ### Phase 5: Advanced Features + Polish
 - [x] Artifacts panel (split view for code blocks)
-- [ ] Chat pinning functionality
-- [ ] Animation/transition pass (150ms ease-out)
-- [ ] Keyboard shortcuts audit
-- [ ] Accessibility audit (focus rings, ARIA)
-- [ ] Performance testing (virtual scroll, bundle size)
+- [x] Chat pinning functionality
+- [x] Animation/transition pass (150ms ease-out)
+- [x] Keyboard shortcuts audit
+- [x] Accessibility audit (focus rings, ARIA)
+- [x] Performance testing (virtual scroll, bundle size)
 
 ---
 
 ## Current Implementation Status
 
 - **Phase 0 (Chat Feedback):** Complete. Feedback components, API client, hooks/store, i18n, and E2E coverage are implemented.
-- **Phase 1 (Sidebar + Navigation):** Mostly complete. Main chat sidebar (search/pins/groups), docked vs overlay behavior, minimal header, and mode toggle are live. Mode toggle is now in the left nav footer for Main Chat and Sidepanel. Remaining: remove legacy Tabs component file (unused) and run main chat + sidepanel regression passes.
-- **Phase 2 (Visual Foundation):** In progress. Tokens/typography and shared component styles now cover Main Chat (Options/Playground), Sidepanel, and Settings surfaces: chat/option sidebars + local/server lists, message/attachment UI, compact messages, edit forms, feedback/status elements, the web UI playground shell (drop overlays + scroll-to-latest + new chat), Media/Review + Notes/Knowledge, onboarding flows (wizard + connect form), core settings pages (general/system/search/SST/TTS/chat/health/tldw/rag/model/evaluations), models list/refresh, flashcards + quiz workspaces, agent UI surfaces (diff viewer, approvals, session history, workspace selector, tool call log, error boundaries), and common settings/prompt/search/share/command palette + button/empty/setting-group/omni-search/connection/quick-chat/keyboard-shortcuts components. Added coverage for Quick Ingest modal, dictionaries/world books/characters workspaces, processed view, the PromptStudio/Evaluations/TTS/Speech playground shells, terminal/codeblock surfaces (CodeBlock, TerminalOutput, eval code previews), and the 4px spacing pass across header/sidebar/messages/composer. Remaining: run a final visual QA pass on edge cases.
+- **Phase 1 (Sidebar + Navigation):** Mostly complete. Main chat sidebar (search/pins/groups), docked vs overlay behavior, minimal header, and mode toggle are live. Mode toggle is now in the left nav footer for Main Chat and Sidepanel. Remaining: run main chat + sidepanel regression passes (Playwright spec added).
+- **Phase 2 (Visual Foundation):** In progress. Tokens/typography and shared component styles now cover Main Chat (Options/Playground), Sidepanel, and Settings surfaces: chat/option sidebars + local/server lists, message/attachment UI, compact messages, edit forms, feedback/status elements, the web UI playground shell (drop overlays + scroll-to-latest + new chat), Media/Review + Notes/Knowledge, onboarding flows (wizard + connect form), core settings pages (general/system/search/SST/TTS/chat/health/tldw/rag/model/evaluations), models list/refresh, flashcards + quiz workspaces, agent UI surfaces (diff viewer, approvals, session history, workspace selector, tool call log, error boundaries), and common settings/prompt/search/share/command palette + button/empty/setting-group/omni-search/connection/quick-chat/keyboard-shortcuts components. Added coverage for Quick Ingest modal, dictionaries/world books/characters workspaces, processed view, the PromptStudio/Evaluations/TTS/Speech playground shells, terminal/codeblock surfaces (CodeBlock, TerminalOutput, eval code previews), and the 4px spacing pass across header/sidebar/messages/composer. Remaining: run a final visual QA pass on edge cases (Playwright spec added).
 - **Phase 3 (Composer Redesign):** Complete with surface parity. Context chips, the Casual vs Pro composer split, slash commands, tools menu/tool_choice, Cmd+K palette, and selector styling updates are in place in both Main Chat and Sidepanel. Tool choice is wired through normal/RAG/vision chat paths; model params panel is reachable from composer actions.
 - **Phase 3b (Server Parity):** Complete. Requests now honor `save_to_db` + `conversation_id`, history message limit/order, slash command injection mode, provider/BYOK overrides (extra headers/body), and MCP tool discovery with health gating.
 - **Phase 4 (Message Display):** Complete. Collapsible reasoning sections, inline sources, action bar redesign, message styling, and Pro mode threading are implemented.
-- **Phase 5 (Advanced Features + Polish):** In progress. Artifacts panel split view is implemented for code blocks with auto-open, pin/dismiss, and manual view controls.
+- **Phase 5 (Advanced Features + Polish):** Complete. Artifacts panel split view is implemented for code blocks with auto-open, pin/dismiss, and manual view controls (tables and diagrams now open in the artifacts panel); server chat pinning is now supported in main chat sidebars (including legacy fallback); core UI transitions have been normalized to 150ms ease-out on shared buttons and panels with reduced-motion handling; keyboard shortcuts are documented in `docs/shortcuts.md`, and the accessibility audit is tracked in `docs/a11y-audit.md` (draft); bundle-size reporting is available alongside existing perf suites, and vendor chunking has been added to reduce mega-chunks. QA: `tests/e2e/artifacts-split-view.spec.ts`, `tests/e2e/performance-smoke-lite.spec.ts`.
 
 ## Files to Modify
 

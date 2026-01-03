@@ -48,7 +48,7 @@ export const SidepanelHeaderSimple = ({
     <div
       data-istemporary-chat={temporaryChat}
       data-testid="chat-header"
-      className="absolute top-0 z-10 flex h-12 w-full items-center justify-between border-b border-border bg-surface px-4 py-2 text-body text-text data-[istemporary-chat='true']:bg-purple-50 data-[istemporary-chat='true']:dark:bg-purple-900/30"
+      className="absolute top-0 z-10 flex h-11 w-full items-center justify-between border-b border-border bg-surface/95 px-3 py-2 text-body text-text backdrop-blur data-[istemporary-chat='true']:bg-purple-50 data-[istemporary-chat='true']:dark:bg-purple-900/30"
     >
       {/* Left: Sidebar toggle + Status dot + Logo + Title */}
       <div className="flex items-center gap-2">
@@ -62,7 +62,7 @@ export const SidepanelHeaderSimple = ({
             type="button"
             aria-label={t("common:chatSidebar.expand", "Open sidebar")}
             onClick={handleSidebarToggle}
-            className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text">
+            className="rounded-md p-1.5 text-text-muted hover:bg-surface2 hover:text-text">
             <Menu className="size-4" />
           </button>
         </Tooltip>
@@ -73,7 +73,7 @@ export const SidepanelHeaderSimple = ({
             src={logoImage}
             alt={t("common:pageAssist")}
           />
-          <span className="ml-2 text-body font-medium">
+          <span className="ml-2 text-sm font-medium">
             {t("common:pageAssist")}
           </span>
         </div>

@@ -593,17 +593,25 @@ export const ServerConnectionCard: React.FC<Props> = ({
       id="server-connection-card"
       tabIndex={-1}
       className={`mx-auto w-full ${
-        isCompact ? "mt-4 max-w-md px-3" : "mt-12 max-w-xl px-4"
+        isCompact ? "mt-4 max-w-md px-3" : "mt-10 max-w-2xl px-4"
       }`}>
       <div
-        className={`flex flex-col items-center rounded-xl border border-border bg-surface text-center shadow-sm text-text ${
-          isCompact ? "gap-3 px-4 py-4" : "gap-4 px-6 py-8"
+        className={`flex flex-col items-center rounded-3xl border border-border/70 bg-surface/95 text-center shadow-lg shadow-black/5 text-text backdrop-blur ${
+          isCompact ? "gap-3 px-4 py-4" : "gap-5 px-8 py-8"
         }`}>
         <div
           className={`flex items-center gap-2 font-semibold ${
             isCompact ? "text-base" : "text-lg"
           }`}>
-          <Server className="h-5 w-5 text-blue-500" />
+          <span
+            className={`flex items-center justify-center rounded-2xl bg-primary/10 ${
+              isCompact ? "h-9 w-9" : "h-10 w-10"
+            }`}
+          >
+            <Server
+              className={`${isCompact ? "h-4 w-4" : "h-5 w-5"} text-primary`}
+            />
+          </span>
           <span>{headline}</span>
         </div>
 
@@ -653,37 +661,37 @@ export const ServerConnectionCard: React.FC<Props> = ({
           aria-atomic="true"
         >
           {isSearching && (
-            <Tag color="blue" className="px-4 py-1 text-sm">
+            <Tag color="blue" className="rounded-full px-4 py-1 text-sm">
               {t("tldwState.searching")}
               {elapsed > 0 ? ` · ${elapsed}s` : ""}
             </Tag>
           )}
           {statusVariant === "ok" && mode === "demo" ? (
-            <Tag color="blue" className="px-4 py-1 text-sm">
+            <Tag color="blue" className="rounded-full px-4 py-1 text-sm">
               {t(
                 "option:connectionCard.demoModeBadge",
                 "Demo mode"
               )}
             </Tag>
           ) : statusVariant === "ok" && uxState === "connected_degraded" ? (
-            <Tag color="gold" className="px-4 py-1 text-sm">
+            <Tag color="gold" className="rounded-full px-4 py-1 text-sm">
               {t(
                 "option:connectionCard.degradedBadge",
                 "Connected · Knowledge limited"
               )}
             </Tag>
           ) : statusVariant === "ok" ? (
-            <Tag color="green" className="px-4 py-1 text-sm">
+            <Tag color="green" className="rounded-full px-4 py-1 text-sm">
               {t("tldwState.running")}
             </Tag>
           ) : null}
           {statusVariant === "missing" && (
-            <Tag color="orange" className="px-4 py-1 text-sm">
+            <Tag color="orange" className="rounded-full px-4 py-1 text-sm">
               {t("tldwState.missing", "Server URL not configured")}
             </Tag>
           )}
           {statusVariant === "error" && (
-            <Tag color="red" className="px-4 py-1 text-sm">
+            <Tag color="red" className="rounded-full px-4 py-1 text-sm">
               {(() => {
                 const code = Number(lastStatusCode)
                 const hasCode = Number.isFinite(code) && code > 0
@@ -702,7 +710,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
             </Tag>
           )}
           {offlineBypass && (
-            <Tag color="gold" className="px-4 py-1 text-xs">
+            <Tag color="gold" className="rounded-full px-4 py-1 text-xs">
               {t(
                 "option:connectionCard.offlineModeBadge",
                 "Offline mode — staging only"
@@ -745,7 +753,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                 : t("tldwState.showDetails", "Show details")}
             </button>
             {showErrorDetails && (
-              <div className="mt-1 w-full max-w-md rounded-md bg-danger/10 px-3 py-2 text-left text-[11px] text-danger">
+              <div className="mt-1 w-full max-w-md rounded-2xl bg-danger/10 px-3 py-3 text-left text-[11px] text-danger">
                 <div className="font-medium">
                   {t(
                     "tldwState.errorDetailsLabel",
@@ -784,21 +792,24 @@ export const ServerConnectionCard: React.FC<Props> = ({
             onClick={handlePrimary}
             loading={isSearching}
             disabled={statusVariant === "loading"}
-            block>
+            block
+            className="rounded-full !h-11">
             {primaryLabel}
           </Button>
           {(statusVariant === "missing" || statusVariant === "loading") && (
             <Button
               icon={<ExternalLink className="h-4 w-4" />}
               onClick={handleOpenDiagnostics}
-              block>
+              block
+              className="rounded-full !h-11">
               {diagnosticsLabel}
             </Button>
           )}
           {returnTo && (
             <Button
               onClick={handleReturn}
-              block>
+              block
+              className="rounded-full !h-11">
               {t("option:connectionCard.backToWorkspace", {
                 defaultValue: "Back to workspace"
               })}
@@ -818,7 +829,8 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   // ignore connection store failures
                 }
               }}
-              block>
+              block
+              className="rounded-full !h-11">
               {t("option:connectionCard.buttonTryDemo", "Try a demo")}
             </Button>
           )}
@@ -826,7 +838,8 @@ export const ServerConnectionCard: React.FC<Props> = ({
             type="link"
             icon={<Settings className="h-4 w-4" />}
             onClick={handleOpenSettings}
-            block>
+            block
+            className="rounded-full">
             {t("option:connectionCard.buttonChangeServer", "Change server")}
           </Button>
         </div>
@@ -848,7 +861,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
               type="button"
               data-testid="toggle-advanced-troubleshooting"
               onClick={() => setShowAdvanced((prev) => !prev)}
-              className="mt-1 text-xs text-primary hover:text-primaryStrong">
+              className="mt-1 rounded-full px-2 py-1 text-xs text-primary hover:bg-surface2 hover:text-primaryStrong">
               {showAdvanced
                 ? t(
                     "option:connectionCard.hideAdvanced",
@@ -860,7 +873,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   )}
             </button>
             {showAdvanced && (
-              <div className="flex w-full flex-col gap-2 text-xs text-text-muted">
+              <div className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-surface2/70 p-3 text-xs text-text-muted">
                 <div className="flex flex-wrap items-center gap-2">
                   <Button
                     size="small"
@@ -868,7 +881,8 @@ export const ServerConnectionCard: React.FC<Props> = ({
                       offlineBypass
                         ? handleDisableOfflineBypass
                         : handleOfflineBypass
-                    }>
+                    }
+                    className="rounded-full">
                     {offlineBypass
                       ? t(
                           "option:connectionCard.buttonDisableOffline",
@@ -879,7 +893,11 @@ export const ServerConnectionCard: React.FC<Props> = ({
                           "Continue offline"
                         )}
                   </Button>
-                  <Button size="small" onClick={handleOpenQuickIngestIntro}>
+                  <Button
+                    size="small"
+                    onClick={handleOpenQuickIngestIntro}
+                    className="rounded-full"
+                  >
                     {t(
                       "option:connectionCard.buttonOpenQuickIngestIntro",
                       "Open Quick Ingest intro"
@@ -888,7 +906,8 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   <Button
                     size="small"
                     data-testid="open-quick-ingest"
-                    onClick={handleOpenQuickIngest}>
+                    onClick={handleOpenQuickIngest}
+                    className="rounded-full">
                     {t(
                       "option:connectionCard.buttonOpenQuickIngest",
                       "Open Quick Ingest"
@@ -897,7 +916,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   <Button
                     size="small"
                     onClick={handleOpenHelpDocs}
-                    className="border-border text-text">
+                    className="rounded-full border-border text-text">
                     {t(
                       "option:connectionCard.buttonHelpDocs",
                       "Help docs"
@@ -906,7 +925,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   <Button
                     size="small"
                     onClick={handleOpenDiagnostics}
-                    className="border-border text-text">
+                    className="rounded-full border-border text-text">
                     {t(
                       "settings:healthSummary.diagnostics",
                       "Health & diagnostics"
@@ -952,7 +971,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
           <button
             type="button"
             onClick={handleOpenDiagnostics}
-            className="inline-flex items-center gap-1 text-xs text-primary hover:text-primaryStrong">
+            className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-primary hover:bg-surface2 hover:text-primaryStrong">
             <ExternalLink className="h-3 w-3" />
             {diagnosticsLabel}
           </button>

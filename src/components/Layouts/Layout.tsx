@@ -152,6 +152,8 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
               <Header
                 setOpenModelSettings={setOpenModelSettings}
                 showSelectors={showHeaderSelectors}
+                onToggleSidebar={toggleSidebar}
+                sidebarCollapsed={chatSidebarCollapsed}
               />
             </div>
             {children}

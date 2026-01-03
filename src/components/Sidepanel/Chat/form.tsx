@@ -100,11 +100,11 @@ export const SidepanelForm = ({
   const uiMode = useUiModeStore((state) => state.mode)
   const isProMode = uiMode === "pro"
   const { replyTarget, clearReplyTarget } = useStoreMessageOption()
-  const composerPadding = isProMode ? "px-3" : "px-4"
-  const composerGap = isProMode ? "gap-2" : "gap-3"
-  const cardPadding = isProMode ? "p-3" : "p-4"
-  const textareaMaxHeight = isProMode ? 160 : 48
-  const textareaMinHeight = isProMode ? 60 : 48
+  const composerPadding = "px-3"
+  const composerGap = isProMode ? "gap-2" : "gap-2.5"
+  const cardPadding = "p-3"
+  const textareaMaxHeight = isProMode ? 160 : 120
+  const textareaMinHeight = isProMode ? 60 : 44
   const storageKey = draftKey || "tldw:sidepanelChatDraft"
   const form = useForm({
     initialValues: {
@@ -1354,7 +1354,7 @@ export const SidepanelForm = ({
         <div className="relative flex w-full flex-row justify-center gap-2">
           <div
             aria-disabled={!isConnectionReady}
-            className={`relative w-full max-w-[48rem] rounded-xl border border-border bg-surface shadow-card backdrop-blur-lg duration-100 ${cardPadding}`}>
+            className={`relative w-full max-w-[48rem] rounded-3xl border border-border/80 bg-surface/95 shadow-card backdrop-blur-lg duration-100 ${cardPadding}`}>
             <div>
               <div className="flex">
                 <form
@@ -1569,62 +1569,69 @@ export const SidepanelForm = ({
                       </div>
                     )}
                     {contextChips.length > 0 && (
-                      <ContextChips
-                        items={contextChips}
-                        ariaLabel={t("playground:composer.contextLabel", "Context:")}
-                        className="px-2 pb-2"
-                      />
+                      <div className="px-2 pb-2">
+                        <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-text-subtle">
+                          {t("playground:composer.contextLabel", "Context")}
+                        </div>
+                        <ContextChips
+                          items={contextChips}
+                          ariaLabel={t("playground:composer.contextLabel", "Context:")}
+                          className="flex flex-wrap items-center gap-2"
+                        />
+                      </div>
                     )}
                     <div className="relative">
-                      <SlashCommandMenu
-                        open={showSlashMenu}
-                        commands={filteredSlashCommands}
-                        activeIndex={slashActiveIndex}
-                        onActiveIndexChange={setSlashActiveIndex}
-                        onSelect={handleSlashCommandSelect}
-                        emptyLabel={t(
-                          "common:commandPalette.noResults",
-                          "No results found"
-                        )}
-                        className="absolute bottom-full left-2 right-2 mb-2"
-                      />
-                      <textarea
-                        onKeyDown={(e) => handleKeyDown(e)}
-                        ref={textareaRef}
-                        data-testid="chat-input"
-                        className={`w-full resize-none border-0 bg-transparent px-3 py-2 text-body text-text placeholder:text-text-muted focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 ${
-                          !isConnectionReady
-                            ? "cursor-not-allowed text-text-muted placeholder:text-text-subtle"
-                            : ""
-                        }`}
-                        readOnly={!isConnectionReady}
-                        aria-readonly={!isConnectionReady}
-                        aria-disabled={!isConnectionReady}
-                        aria-label={
-                          !isConnectionReady
-                            ? t(
-                                "sidepanel:composer.disconnectedAriaLabel",
-                                "Message input (read-only: not connected to server)"
-                              )
-                            : t("sidepanel:composer.messageAriaLabel", "Message input")
-                        }
-                        onPaste={handlePaste}
-                        rows={1}
-                        style={{ minHeight: `${textareaMinHeight}px` }}
-                        tabIndex={0}
-                        onCompositionStart={() => {
-                          if (import.meta.env.BROWSER !== "firefox") {
-                            setTyping(true)
+                      <div className="relative rounded-2xl border border-border/70 bg-surface/80 px-1 py-1.5 transition focus-within:border-focus/60 focus-within:ring-2 focus-within:ring-focus/30">
+                        <SlashCommandMenu
+                          open={showSlashMenu}
+                          commands={filteredSlashCommands}
+                          activeIndex={slashActiveIndex}
+                          onActiveIndexChange={setSlashActiveIndex}
+                          onSelect={handleSlashCommandSelect}
+                          emptyLabel={t(
+                            "common:commandPalette.noResults",
+                            "No results found"
+                          )}
+                          className="absolute bottom-full left-3 right-3 mb-2"
+                        />
+                        <textarea
+                          onKeyDown={(e) => handleKeyDown(e)}
+                          ref={textareaRef}
+                          data-testid="chat-input"
+                          className={`w-full resize-none border-0 bg-transparent px-3 py-2 text-body text-text placeholder:text-text-muted/80 focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 ${
+                            !isConnectionReady
+                              ? "cursor-not-allowed text-text-muted placeholder:text-text-subtle"
+                              : ""
+                          }`}
+                          readOnly={!isConnectionReady}
+                          aria-readonly={!isConnectionReady}
+                          aria-disabled={!isConnectionReady}
+                          aria-label={
+                            !isConnectionReady
+                              ? t(
+                                  "sidepanel:composer.disconnectedAriaLabel",
+                                  "Message input (read-only: not connected to server)"
+                                )
+                              : t("sidepanel:composer.messageAriaLabel", "Message input")
                           }
-                        }}
-                        onCompositionEnd={() => {
-                          if (import.meta.env.BROWSER !== "firefox") {
-                            setTyping(false)
-                          }
-                        }}
-                        placeholder={debouncedPlaceholder || t("form.textarea.placeholder")}
-                        {...form.getInputProps("message")}
-                      />
+                          onPaste={handlePaste}
+                          rows={1}
+                          style={{ minHeight: `${textareaMinHeight}px` }}
+                          tabIndex={0}
+                          onCompositionStart={() => {
+                            if (import.meta.env.BROWSER !== "firefox") {
+                              setTyping(true)
+                            }
+                          }}
+                          onCompositionEnd={() => {
+                            if (import.meta.env.BROWSER !== "firefox") {
+                              setTyping(false)
+                            }
+                          }}
+                          placeholder={debouncedPlaceholder || t("form.textarea.placeholder")}
+                          {...form.getInputProps("message")}
+                        />
+                      </div>
                       {/* Draft saved indicator */}
                       {draftSaved && (
                         <span
@@ -1661,7 +1668,7 @@ export const SidepanelForm = ({
                       </div>
                     )}
                     {/* Proactive validation hints - show why send might be disabled */}
-                    {!form.errors.message && isConnectionReady && !streaming && (
+                    {!form.errors.message && isConnectionReady && !streaming && isProMode && (
                       <div className="px-2 py-1 text-label text-text-subtle">
                         {!selectedModel ? (
                           <span className="flex items-center gap-1">
@@ -1679,7 +1686,7 @@ export const SidepanelForm = ({
                         ) : null}
                       </div>
                     )}
-                    <div className="mt-2 flex w-full flex-row items-center justify-between gap-2">
+                    <div className="mt-2 flex w-full flex-row items-center justify-between gap-1.5">
                       {isProMode ? (
                         <>
                           {/* Control Row - contains Prompt, Model, RAG, Save, and More tools */}
@@ -1939,7 +1946,7 @@ export const SidepanelForm = ({
                               <button
                                 type="button"
                                 onClick={openUploadDialog}
-                                className="rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+                                className="h-9 w-9 rounded-full border border-border p-0 text-text-muted hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
                                 aria-label={t(
                                   "playground:actions.upload",
                                   "Attach image"
@@ -1971,7 +1978,7 @@ export const SidepanelForm = ({
                                   type="button"
                                   onClick={speechUsesServer ? handleServerDictationToggle : handleSpeechToggle}
                                   disabled={!speechAvailable}
-                                  className={`rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-not-allowed disabled:opacity-50 ${
+                                  className={`h-9 w-9 rounded-full border border-border p-0 text-text-muted hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-not-allowed disabled:opacity-50 ${
                                     speechAvailable &&
                                     ((speechUsesServer && isServerDictating) ||
                                       (!speechUsesServer && isListening))
@@ -2003,13 +2010,14 @@ export const SidepanelForm = ({
                               <Button
                                 type="submit"
                                 variant="primary"
-                                size="md"
+                                size="sm"
                                 disabled={isSending || !isConnectionReady}
                                 ariaLabel={t(
                                   "playground:composer.submitAria",
                                   "Send message"
                                 )}
                                 title={sendButtonTitle}
+                                className="rounded-full px-4 text-[11px] font-semibold uppercase tracking-[0.12em]"
                               >
                                 {t("common:send", "Send")}
                               </Button>
@@ -2019,13 +2027,13 @@ export const SidepanelForm = ({
                                   type="button"
                                   onClick={stopStreamingRequest}
                                   data-testid="chat-stop-streaming"
-                                  className="rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                                  className="h-9 w-9 rounded-full border border-border p-0 text-text-muted hover:bg-surface2 hover:text-text"
                                   aria-label={t(
                                     "playground:composer.stopStreaming",
                                     "Stop streaming response"
                                   )}
                                 >
-                                  <StopCircleIcon className="h-5 w-5" />
+                                  <StopCircleIcon className="h-4 w-4" />
                                 </button>
                               </Tooltip>
                             )}

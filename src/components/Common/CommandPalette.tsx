@@ -97,6 +97,14 @@ export function CommandPalette({
     allowInInput: true,
   })
 
+  useEffect(() => {
+    const handleOpen = () => setOpen(true)
+    window.addEventListener("tldw:open-command-palette", handleOpen)
+    return () => {
+      window.removeEventListener("tldw:open-command-palette", handleOpen)
+    }
+  }, [])
+
   // Build default commands
   const defaultCommands: CommandItem[] = useMemo(() => {
     const commands: CommandItem[] = [

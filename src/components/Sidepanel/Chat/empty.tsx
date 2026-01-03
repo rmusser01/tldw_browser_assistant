@@ -209,12 +209,15 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
       : "text-blue-500 dark:text-blue-400"
 
     return (
-      <div className="mt-4 flex w-full flex-col items-stretch gap-3 px-3" data-testid="chat-empty-connection">
+      <div
+        className="mt-5 flex w-full flex-col items-stretch gap-3 px-4"
+        data-testid="chat-empty-connection"
+      >
         {/* Main card with icon */}
-        <div className="rounded-lg border border-border bg-surface overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-border/70 bg-surface/95 shadow-sm">
           {/* Header with icon */}
-          <div className="flex items-center gap-3 border-b border-border px-4 py-3">
-            <div className={`flex-shrink-0 p-2 rounded-full ${
+          <div className="flex items-center gap-3 border-b border-border/70 px-4 py-4">
+            <div className={`flex-shrink-0 rounded-2xl p-2 ${
               uxState === "error_auth" || uxState === "error_unreachable"
                 ? "bg-amber-100 dark:bg-amber-900/30"
                 : "bg-blue-100 dark:bg-blue-900/30"
@@ -222,14 +225,14 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
               <StatusIcon className={`size-5 ${iconColorClass}`} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-text">
+              <p className="text-sm font-semibold text-text">
                 {bannerHeading}
               </p>
             </div>
           </div>
 
           {/* Body */}
-          <div className="px-4 py-3 space-y-3">
+          <div className="space-y-3 px-4 py-4">
             <p className="text-xs text-text-muted leading-relaxed">
               {bannerBody}
             </p>
@@ -240,7 +243,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
               onClick={openOnboarding}
               ref={primaryButtonRef}
               data-testid="chat-connection-cta"
-              className={`w-full flex items-center justify-center gap-2 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
+              className={`flex w-full items-center justify-center gap-2 rounded-full px-4 py-2.5 text-xs font-medium transition-colors ${
                 uxState === "error_auth" || uxState === "error_unreachable"
                   ? "bg-amber-500 hover:bg-amber-600 text-white"
                   : "bg-blue-500 hover:bg-blue-600 text-white"
@@ -257,7 +260,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
           {/* Step indicator for first-run */}
           {stepSummary && (
-            <div className="border-t border-border bg-surface2 px-4 py-2">
+            <div className="border-t border-border/70 bg-surface2/70 px-4 py-2">
               <p className="text-label text-text-subtle">
                 {stepSummary}
               </p>
@@ -267,7 +270,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
         {/* Quick tips for first-time users */}
         {!hasCompletedFirstRun && (
-          <div className="text-label text-text-muted text-center">
+          <div className="text-center text-label text-text-muted">
             {t("sidepanel:firstRun.quickTip", "Need help? Check our docs or try demo mode.")}
           </div>
         )}
@@ -277,21 +280,24 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
   // Connected state: show welcoming empty chat guidance
   return (
-    <div className="mt-4 w-full px-4 flex flex-col items-center justify-center" data-testid="chat-empty-connected">
+    <div
+      className="mt-4 flex w-full flex-col items-center justify-center px-4"
+      data-testid="chat-empty-connected"
+    >
       {/* Animated icon */}
-      <div className="mb-3 relative">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 flex items-center justify-center">
+      <div className="relative mb-3">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30">
           <MessageSquare className="size-6 text-green-600 dark:text-green-400" />
         </div>
-        <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-green-500 border-2 border-white dark:border-[#1a1a1a]" />
+        <div className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-white bg-green-500 dark:border-[#1a1a1a]" />
       </div>
 
       {/* Status and heading */}
-      <div className="mb-1 text-success text-xs font-medium flex items-center gap-1">
+      <div className="mb-1 flex items-center gap-1 text-xs font-medium text-success">
         <Wifi className="size-3" />
         {t("sidepanel:emptyChat.connected", "Connected")}
       </div>
-      <p className="text-sm font-medium text-text mb-4">
+      <p className="mb-4 text-sm font-medium text-text">
         {mode === "demo"
           ? t("sidepanel:emptyChat.demoHint", "Demo mode — try sending a message")
           : t("sidepanel:emptyChat.hint", "Start a conversation below")}
@@ -299,13 +305,13 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
       {/* Suggestion cards */}
       <div className="w-full space-y-2 text-left">
-        <p className="text-label uppercase tracking-wide text-text-muted font-medium px-1">
+        <p className="px-1 text-label font-medium uppercase tracking-wide text-text-muted">
           {t("sidepanel:emptyChat.suggestions", "Try asking")}
         </p>
         <button
           type="button"
           data-testid="chat-suggestion-1"
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-lg border border-border bg-surface hover:border-primary hover:bg-surface2 transition-colors text-left group"
+          className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
           onClick={() =>
             insertPrompt(
               t(
@@ -323,7 +329,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         <button
           type="button"
           data-testid="chat-suggestion-2"
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-lg border border-border bg-surface hover:border-primary hover:bg-surface2 transition-colors text-left group"
+          className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
           onClick={() =>
             insertPrompt(
               t(
@@ -341,7 +347,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
         <button
           type="button"
           data-testid="chat-suggestion-3"
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-lg border border-border bg-surface hover:border-primary hover:bg-surface2 transition-colors text-left group"
+          className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
           onClick={() =>
             insertPrompt(
               t(
@@ -360,7 +366,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
       {/* Demo mode indicator with limitations */}
       {mode === "demo" && (
-        <div className="mt-4 px-3 py-2 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
+        <div className="mt-4 rounded-2xl border border-purple-200/70 bg-purple-50/70 px-3 py-2 dark:border-purple-800 dark:bg-purple-900/20">
           <div className="flex items-center gap-2 text-xs font-medium text-purple-700 dark:text-purple-300">
             <Sparkles className="size-3.5" />
             {t("sidepanel:emptyChat.demoIndicator", "Running in demo mode")}
