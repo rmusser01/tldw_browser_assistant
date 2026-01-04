@@ -26,12 +26,26 @@ import { BsIncognito } from "react-icons/bs"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
 import { useStorage } from "@plasmohq/storage/hook"
+import { useSttSettings } from "@/hooks/useSttSettings"
+import { useServerDictation } from "@/hooks/useServerDictation"
+import { useComposerEvents } from "@/hooks/useComposerEvents"
+import { useTemporaryChatToggle } from "@/hooks/useTemporaryChatToggle"
+import {
+  COMPOSER_CONSTANTS,
+  SPACING,
+  STORAGE_KEYS,
+  getComposerGap
+} from "@/config/ui-constants"
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useFocusShortcuts } from "@/hooks/keyboard"
+import { useDraftPersistence } from "@/hooks/useDraftPersistence"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
+import { QueuedMessagesBanner } from "@/components/Sidepanel/Chat/QueuedMessagesBanner"
+import { ConnectionStatusIndicator } from "@/components/Sidepanel/Chat/ConnectionStatusIndicator"
 import { ControlRow } from "@/components/Sidepanel/Chat/ControlRow"
 import { ContextChips } from "@/components/Sidepanel/Chat/ContextChips"
 import { SlashCommandMenu, type SlashCommandItem } from "@/components/Sidepanel/Chat/SlashCommandMenu"
+import { ModelParamsPanel } from "@/components/Sidepanel/Chat/ModelParamsPanel"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
 import { ActorPopout } from "@/components/Common/Settings/ActorPopout"
 import { DocumentGeneratorDrawer } from "@/components/Common/Playground/DocumentGeneratorDrawer"
@@ -76,36 +90,23 @@ export const SidepanelForm = ({
     "chatWithWebsiteEmbedding",
     false
   )
-  const [sttModel] = useStorage("sttModel", "whisper-1")
-  const [sttUseSegmentation] = useStorage("sttUseSegmentation", false)
-  const [sttTimestampGranularities] = useStorage(
-    "sttTimestampGranularities",
-    "segment"
-  )
-  const [sttPrompt] = useStorage("sttPrompt", "")
-  const [sttTask] = useStorage("sttTask", "transcribe")
-  const [sttResponseFormat] = useStorage("sttResponseFormat", "json")
-  const [sttTemperature] = useStorage("sttTemperature", 0)
-  const [sttSegK] = useStorage("sttSegK", 6)
-  const [sttSegMinSegmentSize] = useStorage("sttSegMinSegmentSize", 5)
-  const [sttSegLambdaBalance] = useStorage("sttSegLambdaBalance", 0.01)
-  const [sttSegUtteranceExpansionWidth] = useStorage(
-    "sttSegUtteranceExpansionWidth",
-    2
-  )
-  const [sttSegEmbeddingsProvider] = useStorage("sttSegEmbeddingsProvider", "")
-  const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
+  // STT settings consolidated into a single hook
+  const sttSettings = useSttSettings()
   const queuedQuickIngestCount = useQuickIngestStore((s) => s.queuedCount)
   const quickIngestHadFailure = useQuickIngestStore((s) => s.hadRecentFailure)
   const uiMode = useUiModeStore((state) => state.mode)
   const isProMode = uiMode === "pro"
   const { replyTarget, clearReplyTarget } = useStoreMessageOption()
-  const composerPadding = "px-3"
-  const composerGap = isProMode ? "gap-2" : "gap-2.5"
-  const cardPadding = "p-3"
-  const textareaMaxHeight = isProMode ? 160 : 120
-  const textareaMinHeight = isProMode ? 60 : 44
-  const storageKey = draftKey || "tldw:sidepanelChatDraft"
+  const composerPadding = SPACING.COMPOSER_PADDING
+  const composerGap = getComposerGap(isProMode)
+  const cardPadding = SPACING.CARD_PADDING
+  const textareaMaxHeight = isProMode
+    ? COMPOSER_CONSTANTS.TEXTAREA_MAX_HEIGHT_PRO
+    : COMPOSER_CONSTANTS.TEXTAREA_MAX_HEIGHT_CASUAL
+  const textareaMinHeight = isProMode
+    ? COMPOSER_CONSTANTS.TEXTAREA_MIN_HEIGHT_PRO
+    : COMPOSER_CONSTANTS.TEXTAREA_MIN_HEIGHT_CASUAL
+  const storageKey = draftKey || STORAGE_KEYS.SIDEPANEL_CHAT_DRAFT
   const form = useForm({
     initialValues: {
       message: "",
@@ -127,19 +128,12 @@ export const SidepanelForm = ({
     }
   }
 
-  // Restore unsent draft on mount
-  React.useEffect(() => {
-    try {
-      if (typeof window === "undefined") return
-      const draft = window.localStorage.getItem(storageKey)
-      if (draft && draft.length > 0) {
-        form.setFieldValue("message", draft)
-      }
-    } catch {
-      // ignore draft restore errors
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storageKey])
+  // Draft persistence - saves/restores message draft to localStorage
+  const { draftSaved } = useDraftPersistence({
+    storageKey,
+    getValue: () => form.values.message,
+    setValue: (value) => form.setFieldValue("message", value)
+  })
 
   // Warn Firefox private mode users on mount that data won't persist
   React.useEffect(() => {
@@ -157,43 +151,6 @@ export const SidepanelForm = ({
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // Persist draft whenever the message changes
-  const [draftSaved, setDraftSaved] = React.useState(false)
-  const draftSavedTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  React.useEffect(() => {
-    try {
-      if (typeof window === "undefined") return
-      const value = form.values.message
-      if (typeof value !== "string") return
-      if (value.trim().length === 0) {
-        window.localStorage.removeItem(storageKey)
-        setDraftSaved(false)
-      } else {
-        window.localStorage.setItem(storageKey, value)
-        // Show "Draft saved" briefly
-        setDraftSaved(true)
-        if (draftSavedTimeoutRef.current) {
-          clearTimeout(draftSavedTimeoutRef.current)
-        }
-        draftSavedTimeoutRef.current = setTimeout(() => {
-          setDraftSaved(false)
-        }, 4000)
-      }
-    } catch {
-      // ignore persistence errors
-    }
-  }, [form.values.message, storageKey])
-
-  // Cleanup timeout on unmount
-  React.useEffect(() => {
-    return () => {
-      if (draftSavedTimeoutRef.current) {
-        clearTimeout(draftSavedTimeoutRef.current)
-      }
-    }
   }, [])
 
   React.useEffect(() => {
@@ -218,19 +175,6 @@ export const SidepanelForm = ({
     }
   }, [onHeightChange])
 
-  const serverRecorderRef = React.useRef<MediaRecorder | null>(null)
-  const serverChunksRef = React.useRef<BlobPart[]>([])
-  const [isServerDictating, setIsServerDictating] = React.useState(false)
-
-  const stopServerDictation = React.useCallback(() => {
-    const rec = serverRecorderRef.current
-    if (rec && rec.state !== "inactive") {
-      try {
-        rec.stop()
-      } catch {}
-    }
-  }, [])
-
   // tldw WS STT
   const {
     connect: sttConnect,
@@ -253,14 +197,6 @@ export const SidepanelForm = ({
   const [autoProcessQueuedIngest, setAutoProcessQueuedIngest] =
     React.useState(false)
   const quickIngestBtnRef = React.useRef<HTMLButtonElement>(null)
-  const [openActorSettings, setOpenActorSettings] = React.useState(false)
-  const [documentGeneratorOpen, setDocumentGeneratorOpen] =
-    React.useState(false)
-  const [documentGeneratorSeed, setDocumentGeneratorSeed] = React.useState<{
-    conversationId?: string | null
-    message?: string | null
-    messageId?: string | null
-  }>({})
   const { phase, isConnected, serverUrl } = useConnectionState()
   const { uxState } = useConnectionUxState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
@@ -272,8 +208,8 @@ export const SidepanelForm = ({
   const speechAvailable =
     browserSupportsSpeechRecognition || canUseServerAudio
   const speechUsesServer = canUseServerAudio
+
   const [isFlushingQueue, setIsFlushingQueue] = React.useState(false)
-  const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const [debouncedPlaceholder, setDebouncedPlaceholder] = React.useState<string>(
     t("form.textarea.placeholder")
   )
@@ -374,43 +310,14 @@ export const SidepanelForm = ({
       })
     }
   }
-  const textAreaFocus = () => {
+  const textAreaFocus = React.useCallback(() => {
     if (textareaRef.current) {
       textareaRef.current.focus()
-    }
-  }
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") return
-    const handler = () => setOpenActorSettings(true)
-    window.addEventListener("tldw:open-actor-settings", handler)
-    return () => {
-      window.removeEventListener("tldw:open-actor-settings", handler)
-    }
-  }, [])
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") return
-    const handler = () => setOpenModelSettings(true)
-    window.addEventListener("tldw:open-model-settings", handler)
-    return () => {
-      window.removeEventListener("tldw:open-model-settings", handler)
     }
   }, [])
 
   // When sidepanel connection transitions to CONNECTED, focus the composer
   useFocusComposerOnConnect(phase)
-
-  // Allow other components (e.g., connection card) to request focus
-  React.useEffect(() => {
-    const handler = () => {
-      if (document.visibilityState === "visible") {
-        textAreaFocus()
-      }
-    }
-    window.addEventListener("tldw:focus-composer", handler)
-    return () => window.removeEventListener("tldw:focus-composer", handler)
-  }, [])
 
   const {
     onSubmit,
@@ -442,22 +349,56 @@ export const SidepanelForm = ({
     serverChatId
   } = useMessage()
 
-  React.useEffect(() => {
-    if (typeof window === "undefined") return
-    const handler = (event: Event) => {
-      const detail = (event as CustomEvent)?.detail || {}
-      setDocumentGeneratorSeed({
-        conversationId: detail?.conversationId ?? serverChatId ?? null,
-        message: detail?.message ?? null,
-        messageId: detail?.messageId ?? null
-      })
-      setDocumentGeneratorOpen(true)
-    }
-    window.addEventListener("tldw:open-document-generator", handler)
-    return () => {
-      window.removeEventListener("tldw:open-document-generator", handler)
-    }
-  }, [serverChatId])
+  // Server-side dictation hook
+  const {
+    isServerDictating,
+    startServerDictation,
+    stopServerDictation
+  } = useServerDictation({
+    canUseServerAudio,
+    speechToTextLanguage,
+    sttSettings,
+    onTranscript: (text) => form.setFieldValue("message", text)
+  })
+
+  // Composer window events hook
+  const handleOpenQuickIngest = React.useCallback(() => {
+    setAutoProcessQueuedIngest(false)
+    setIngestOpen(true)
+    requestAnimationFrame(() => {
+      quickIngestBtnRef.current?.focus()
+    })
+  }, [])
+
+  const {
+    openActorSettings,
+    setOpenActorSettings,
+    openModelSettings,
+    setOpenModelSettings,
+    documentGeneratorOpen,
+    setDocumentGeneratorOpen,
+    documentGeneratorSeed,
+    setDocumentGeneratorSeed
+  } = useComposerEvents({
+    serverChatId,
+    onFocusComposer: textAreaFocus,
+    onOpenQuickIngest: handleOpenQuickIngest
+  })
+
+  // Temporary chat toggle hook
+  const {
+    handleToggleTemporaryChat,
+    currentModeLabel,
+    currentModeChipLabel
+  } = useTemporaryChatToggle({
+    temporaryChat,
+    setTemporaryChat,
+    messagesLength: messages.length,
+    clearChat
+  })
+
+  // Character selection state
+  const [selectedCharacterId, setSelectedCharacterId] = React.useState<string | null>(null)
 
   const slashCommands = React.useMemo<SlashCommandItem[]>(
     () => [
@@ -756,130 +697,6 @@ export const SidepanelForm = ({
     window.open("/options.html#/settings/health", "_blank")
   }, [])
 
-  const getPersistenceModeLabel = React.useCallback(
-    (isTemporary: boolean) =>
-      isTemporary
-        ? t(
-            "playground:composer.persistence.ephemeral",
-            "Temporary chat: not saved in history and cleared when you close this window."
-          )
-        : t(
-            "playground:composer.persistence.local",
-            "Saved in this browser only."
-          ),
-    [t]
-  )
-
-  const getPersistenceModeChipLabel = React.useCallback(
-    (isTemporary: boolean) =>
-      isTemporary
-        ? t(
-            "playground:composer.persistence.ephemeralShort",
-            "Temporary (not saved)"
-          )
-        : t("playground:composer.persistence.localShort", "Saved locally"),
-    [t]
-  )
-
-  const handleToggleTemporaryChat = React.useCallback(
-    (next: boolean) => {
-      if (isFireFoxPrivateMode) {
-        notification.error({
-          message: t(
-            "sidepanel:errors.privateModeTitle",
-            "tldw Assistant can't save data"
-          ),
-          description: t(
-            "sidepanel:errors.privateModeDescription",
-            "Firefox Private Mode does not support saving chat history. Temporary chat is enabled by default. More fixes coming soon."
-          )
-        })
-        return
-      }
-
-      const hadMessages = messages.length > 0
-
-      // Show confirmation when enabling temporary mode with existing messages
-      if (next && hadMessages) {
-        Modal.confirm({
-          title: t(
-            "sidepanel:composer.tempChatConfirmTitle",
-            "Enable temporary mode?"
-          ),
-          content: t(
-            "sidepanel:composer.tempChatConfirmContent",
-            "This will clear your current conversation. Messages won't be saved."
-          ),
-          okText: t("common:confirm", "Confirm"),
-          cancelText: t("common:cancel", "Cancel"),
-          onOk: () => {
-            setTemporaryChat(next)
-            clearChat()
-            notification.info({
-              message: t(
-                "sidepanel:composer.tempChatClearedMessages",
-                "Temporary chat enabled. Previous messages cleared."
-              ),
-              placement: "bottomRight",
-              duration: 2.5
-            })
-          }
-        })
-        return
-      }
-
-      // Show confirmation when disabling temporary mode with existing messages
-      if (!next && hadMessages) {
-        Modal.confirm({
-          title: t(
-            "sidepanel:composer.tempChatDisableConfirmTitle",
-            "Disable temporary mode?"
-          ),
-          content: t(
-            "sidepanel:composer.tempChatDisableConfirmContent",
-            "This will clear your current conversation. Messages will start saving again."
-          ),
-          okText: t("common:confirm", "Confirm"),
-          cancelText: t("common:cancel", "Cancel"),
-          onOk: () => {
-            setTemporaryChat(next)
-            clearChat()
-            notification.info({
-              message: t(
-                "sidepanel:composer.tempChatDisabledClearedMessages",
-                "Temporary chat disabled. Previous messages cleared."
-              ),
-              placement: "bottomRight",
-              duration: 2.5
-            })
-          }
-        })
-        return
-      }
-
-      // No confirmation needed when toggling with no messages
-      setTemporaryChat(next)
-      if (hadMessages) {
-        clearChat()
-      }
-
-      const modeLabel = getPersistenceModeLabel(next)
-      notification.info({
-        message: modeLabel,
-        placement: "bottomRight",
-        duration: 2.5
-      })
-    },
-    [
-      clearChat,
-      getPersistenceModeLabel,
-      messages.length,
-      notification,
-      setTemporaryChat,
-      t
-    ]
-  )
-
   const handleWebSearchToggle = React.useCallback(() => {
     setWebSearch(!webSearch)
   }, [setWebSearch, webSearch])
@@ -900,198 +717,6 @@ export const SidepanelForm = ({
     speechToTextLanguage,
     startListening,
     stopListening
-  ])
-
-  const handleServerDictationToggle = React.useCallback(async () => {
-    if (isServerDictating) {
-      stopServerDictation()
-      return
-    }
-    if (!canUseServerAudio) {
-      notification.error({
-        message: t(
-          "playground:actions.speechUnavailableTitle",
-          "Dictation unavailable"
-        ),
-        description: t(
-          "playground:actions.speechUnavailableBody",
-          "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
-        )
-      })
-      return
-    }
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const recorder = new MediaRecorder(stream)
-      serverChunksRef.current = []
-      recorder.ondataavailable = (ev: BlobEvent) => {
-        if (ev.data && ev.data.size > 0) {
-          serverChunksRef.current.push(ev.data)
-        }
-      }
-      recorder.onerror = (event: Event) => {
-        console.error("MediaRecorder error", event)
-        notification.error({
-          message: t("playground:actions.speechErrorTitle", "Dictation failed"),
-          description: t(
-            "playground:actions.speechErrorBody",
-            "Microphone recording error. Check your permissions and try again."
-          )
-        })
-        setIsServerDictating(false)
-      }
-      recorder.onstop = async () => {
-        try {
-          const blob = new Blob(serverChunksRef.current, {
-            type: recorder.mimeType || "audio/webm"
-          })
-          if (blob.size === 0) {
-            return
-          }
-          const sttOptions: Record<string, any> = {
-            language: speechToTextLanguage
-          }
-          if (sttModel && sttModel.trim().length > 0) {
-            sttOptions.model = sttModel.trim()
-          }
-          if (sttTimestampGranularities) {
-            sttOptions.timestamp_granularities = sttTimestampGranularities
-          }
-          if (sttPrompt && sttPrompt.trim().length > 0) {
-            sttOptions.prompt = sttPrompt.trim()
-          }
-          if (sttTask) {
-            sttOptions.task = sttTask
-          }
-          if (sttResponseFormat) {
-            sttOptions.response_format = sttResponseFormat
-          }
-          if (typeof sttTemperature === "number") {
-            sttOptions.temperature = sttTemperature
-          }
-          if (sttUseSegmentation) {
-            sttOptions.segment = true
-            if (typeof sttSegK === "number") {
-              sttOptions.seg_K = sttSegK
-            }
-            if (typeof sttSegMinSegmentSize === "number") {
-              sttOptions.seg_min_segment_size = sttSegMinSegmentSize
-            }
-            if (typeof sttSegLambdaBalance === "number") {
-              sttOptions.seg_lambda_balance = sttSegLambdaBalance
-            }
-            if (typeof sttSegUtteranceExpansionWidth === "number") {
-              sttOptions.seg_utterance_expansion_width =
-                sttSegUtteranceExpansionWidth
-            }
-            if (sttSegEmbeddingsProvider?.trim()) {
-              sttOptions.seg_embeddings_provider =
-                sttSegEmbeddingsProvider.trim()
-            }
-            if (sttSegEmbeddingsModel?.trim()) {
-              sttOptions.seg_embeddings_model = sttSegEmbeddingsModel.trim()
-            }
-          }
-          const res = await tldwClient.transcribeAudio(blob, sttOptions)
-          let text = ""
-          if (res) {
-            if (typeof res === "string") {
-              text = res
-            } else if (typeof (res as any).text === "string") {
-              text = (res as any).text
-            } else if (typeof (res as any).transcript === "string") {
-              text = (res as any).transcript
-            } else if (Array.isArray((res as any).segments)) {
-              text = (res as any).segments
-                .map((s: any) => s?.text || "")
-                .join(" ")
-                .trim()
-            }
-          }
-          if (text) {
-            form.setFieldValue("message", text)
-          } else {
-            notification.error({
-              message: t(
-                "playground:actions.speechErrorTitle",
-                "Dictation failed"
-              ),
-              description: t(
-                "playground:actions.speechNoText",
-                "The transcription did not return any text."
-              )
-            })
-          }
-        } catch (e: any) {
-          notification.error({
-            message: t(
-              "playground:actions.speechErrorTitle",
-              "Dictation failed"
-            ),
-            description:
-              e?.message ||
-              t(
-                "playground:actions.speechErrorBody",
-                "Transcription request failed. Check tldw server health."
-              )
-          })
-        } finally {
-          try {
-            stream.getTracks().forEach((trk) => trk.stop())
-          } catch {}
-          serverRecorderRef.current = null
-          setIsServerDictating(false)
-        }
-      }
-      serverRecorderRef.current = recorder
-      recorder.start()
-      setIsServerDictating(true)
-    } catch (e: any) {
-      // L19: Add permissions guidance for microphone errors
-      const isChromeOrEdge = typeof chrome !== 'undefined' && chrome.permissions
-      notification.error({
-        message: t("playground:actions.speechErrorTitle", "Dictation failed"),
-        description: (
-          <div>
-            <p className="mb-2">
-              {t(
-                "playground:actions.speechMicError",
-                "Unable to access your microphone. Check browser permissions and try again."
-              )}
-            </p>
-            {isChromeOrEdge && (
-              <span className="text-xs text-blue-600 dark:text-blue-400">
-                {t(
-                  "playground:actions.micPermissionsHint",
-                  "Check Site Settings > Microphone in your browser"
-                )}
-              </span>
-            )}
-          </div>
-        )
-      })
-    }
-  }, [
-    canUseServerAudio,
-    isServerDictating,
-    speechToTextLanguage,
-    sttModel,
-    sttTimestampGranularities,
-    sttPrompt,
-    sttTask,
-    sttResponseFormat,
-    sttTemperature,
-    sttUseSegmentation,
-    sttSegK,
-    sttSegMinSegmentSize,
-    sttSegLambdaBalance,
-    sttSegUtteranceExpansionWidth,
-    sttSegEmbeddingsProvider,
-    sttSegEmbeddingsModel,
-    stopServerDictation,
-    t,
-    form,
-    notification
   ])
 
   const handleLiveCaptionsToggle = React.useCallback(async () => {
@@ -1165,20 +790,6 @@ export const SidepanelForm = ({
   }, [isConnectionReady, queuedQuickIngestCount])
 
   React.useEffect(() => {
-    const handler = () => {
-      setAutoProcessQueuedIngest(false)
-      setIngestOpen(true)
-      requestAnimationFrame(() => {
-        quickIngestBtnRef.current?.focus()
-      })
-    }
-    window.addEventListener("tldw:open-quick-ingest", handler)
-    return () => {
-      window.removeEventListener("tldw:open-quick-ingest", handler)
-    }
-  }, [isConnectionReady])
-
-  React.useEffect(() => {
     if (!sttError) return
     notification.error({
       message: t(
@@ -1195,15 +806,6 @@ export const SidepanelForm = ({
     } catch {}
     setWsSttActive(false)
   }, [micStop, setWsSttActive, sttClose, sttError, t])
-
-  const persistenceModeLabel = React.useMemo(
-    () => getPersistenceModeLabel(temporaryChat),
-    [getPersistenceModeLabel, temporaryChat]
-  )
-  const persistenceModeChipLabel = React.useMemo(
-    () => getPersistenceModeChipLabel(temporaryChat),
-    [getPersistenceModeChipLabel, temporaryChat]
-  )
 
   React.useEffect(() => {
     if (dropedFile) {
@@ -1258,6 +860,46 @@ export const SidepanelForm = ({
       message
     })
   }
+
+  const handleFlushQueue = React.useCallback(async () => {
+    if (!isConnectionReady || isFlushingQueue) return
+    setIsFlushingQueue(true)
+    try {
+      const hasEmbedding = await ensureEmbeddingModelAvailable()
+      if (!hasEmbedding) {
+        return
+      }
+      const successfullySentIndices = new Set<number>()
+      for (const [index, item] of queuedMessages.entries()) {
+        try {
+          await submitQueuedInSidepanel(item.message, item.image)
+          successfullySentIndices.add(index)
+        } catch (error) {
+          console.error("Failed to send queued sidepanel message", error)
+        }
+      }
+
+      if (successfullySentIndices.size > 0) {
+        const remainingQueued = queuedMessages.filter(
+          (_, index) => !successfullySentIndices.has(index)
+        )
+        clearQueuedMessages()
+        for (const item of remainingQueued) {
+          addQueuedMessage(item)
+        }
+      }
+    } finally {
+      setIsFlushingQueue(false)
+    }
+  }, [
+    isConnectionReady,
+    isFlushingQueue,
+    queuedMessages,
+    ensureEmbeddingModelAvailable,
+    submitQueuedInSidepanel,
+    clearQueuedMessages,
+    addQueuedMessage
+  ])
 
   React.useEffect(() => {
     const handleDrop = (e: DragEvent) => {
@@ -1356,6 +998,10 @@ export const SidepanelForm = ({
             aria-disabled={!isConnectionReady}
             className={`relative w-full max-w-[48rem] rounded-3xl border border-border/80 bg-surface/95 shadow-card backdrop-blur-lg duration-100 ${cardPadding}`}>
             <div>
+              {/* Inline Model Parameters Panel (Pro mode only) */}
+              <ModelParamsPanel
+                onOpenFullSettings={() => setOpenModelSettings(true)}
+              />
               <div className="flex">
                 <form
                   onSubmit={form.onSubmit(async (value) => {
@@ -1381,36 +1027,11 @@ export const SidepanelForm = ({
                         : ""
                     }`}>
                     {/* Connection status indicator when disconnected */}
-                    {!isConnectionReady && (
-                      <div className={`flex items-center gap-2 px-2 py-2 text-xs ${
-                        uxState === "testing"
-                          ? "text-amber-700 dark:text-amber-300"
-                          : "text-red-700 dark:text-red-300"
-                      }`}>
-                        <span className="relative flex h-2 w-2">
-                          <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${
-                            uxState === "testing" ? "bg-amber-400" : "bg-red-400"
-                          }`}></span>
-                          <span className={`relative inline-flex h-2 w-2 rounded-full ${
-                            uxState === "testing" ? "bg-amber-500" : "bg-red-500"
-                          }`}></span>
-                        </span>
-                        <span>
-                          {uxState === "testing"
-                            ? t("sidepanel:composer.connectingStatus", "Connecting to server...")
-                            : t("sidepanel:composer.disconnectedStatus", "Not connected")}
-                        </span>
-                        {uxState !== "testing" && (
-                          <button
-                            type="button"
-                            onClick={openSettings}
-                            className="ml-auto text-[11px] font-medium text-red-700 underline hover:text-red-800 dark:text-red-300 dark:hover:text-red-200"
-                          >
-                            {t("sidepanel:composer.openSettings", "Open Settings")}
-                          </button>
-                        )}
-                      </div>
-                    )}
+                    <ConnectionStatusIndicator
+                      isConnectionReady={isConnectionReady}
+                      uxState={uxState}
+                      onOpenSettings={openSettings}
+                    />
                     {/* RAG Search Bar: search KB, insert snippets, ask directly */}
                     {isProMode && (
                       <RagSearchBar
@@ -1439,135 +1060,14 @@ export const SidepanelForm = ({
                       />
                     )}
                     {/* Queued messages banner - shown above input area */}
-                    {queuedMessages.length > 0 && (
-                      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-success bg-success/10 px-3 py-2 text-xs text-success">
-                        <p className="max-w-xs text-left">
-                          <span className="block font-medium">
-                            {t(
-                              "playground:composer.queuedBanner.title",
-                              "Queued from existing drafts"
-                            )}
-                          </span>
-                          {t(
-                            "playground:composer.queuedBanner.body",
-                            "These drafts were created while offline. We'll send them once your tldw server is connected."
-                          )}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <Tooltip
-                            title={
-                              !isConnectionReady || isFlushingQueue
-                                ? !isConnectionReady
-                                  ? t(
-                                      "playground:composer.queuedBanner.waitForConnection",
-                                      "Wait for server connection to send queued messages"
-                                    )
-                                  : t(
-                                      "playground:composer.queuedBanner.sending",
-                                      "Sending..."
-                                    )
-                                : undefined
-                            }>
-                            <span className="inline-block">
-                              <button
-                                type="button"
-                                onClick={async () => {
-                                  if (!isConnectionReady || isFlushingQueue) return
-                                  setIsFlushingQueue(true)
-                                  try {
-                                    const hasEmbedding =
-                                      await ensureEmbeddingModelAvailable()
-                                    if (!hasEmbedding) {
-                                      return
-                                    }
-                                    const successfullySentIndices = new Set<number>()
-                                    for (const [index, item] of queuedMessages.entries()) {
-                                      try {
-                                        await submitQueuedInSidepanel(
-                                          item.message,
-                                          item.image
-                                        )
-                                        successfullySentIndices.add(index)
-                                      } catch (error) {
-                                        console.error(
-                                          "Failed to send queued sidepanel message",
-                                          error
-                                        )
-                                      }
-                                    }
-
-                                    if (successfullySentIndices.size > 0) {
-                                      const remainingQueued = queuedMessages.filter(
-                                        (_, index) => !successfullySentIndices.has(index)
-                                      )
-                                      clearQueuedMessages()
-                                      for (const item of remainingQueued) {
-                                        addQueuedMessage(item)
-                                      }
-                                    }
-                                  } finally {
-                                    setIsFlushingQueue(false)
-                                  }
-                                }}
-                                disabled={!isConnectionReady || isFlushingQueue}
-                                className={`rounded-md border border-success bg-surface px-2 py-1 text-xs font-medium text-success hover:bg-surface2 ${
-                                  !isConnectionReady || isFlushingQueue
-                                    ? "cursor-not-allowed opacity-60"
-                                    : ""
-                                }`}>
-                                {t(
-                                  "playground:composer.queuedBanner.sendNow",
-                                  "Send queued messages"
-                                )}
-                              </button>
-                            </span>
-                          </Tooltip>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const count = queuedMessages.length
-                              Modal.confirm({
-                                title: t(
-                                  "sidepanel:composer.clearQueueConfirmTitle",
-                                  "Clear message queue?"
-                                ),
-                                content: t(
-                                  "sidepanel:composer.clearQueueConfirmContent",
-                                  "This will delete {{count}} queued message(s) that haven't been sent yet.",
-                                  { count }
-                                ),
-                                okText: t("common:confirm", "Confirm"),
-                                cancelText: t("common:cancel", "Cancel"),
-                                onOk: () => {
-                                  clearQueuedMessages()
-                                  message.success(
-                                    t(
-                                      "playground:composer.queuedBanner.cleared",
-                                      "Queue cleared ({{count}} messages)",
-                                      { count }
-                                    )
-                                  )
-                                }
-                              })
-                            }}
-                            className="text-xs font-medium text-success underline hover:text-success">
-                            {t(
-                              "playground:composer.queuedBanner.clear",
-                              "Clear queue"
-                            )}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={openDiagnostics}
-                            className="text-xs font-medium text-success underline hover:text-success">
-                            {t(
-                              "settings:healthSummary.diagnostics",
-                              "Health & diagnostics"
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                    <QueuedMessagesBanner
+                      queuedMessages={queuedMessages}
+                      isConnectionReady={isConnectionReady}
+                      isFlushingQueue={isFlushingQueue}
+                      onFlushQueue={handleFlushQueue}
+                      onClearQueue={clearQueuedMessages}
+                      onOpenDiagnostics={openDiagnostics}
+                    />
                     {contextChips.length > 0 && (
                       <div className="px-2 pb-2">
                         <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-text-subtle">
@@ -1694,6 +1194,8 @@ export const SidepanelForm = ({
                             selectedSystemPrompt={selectedSystemPrompt}
                             setSelectedSystemPrompt={setSelectedSystemPrompt}
                             setSelectedQuickPrompt={setSelectedQuickPrompt}
+                            selectedCharacterId={selectedCharacterId}
+                            setSelectedCharacterId={setSelectedCharacterId}
                             temporaryChat={temporaryChat}
                             serverChatId={serverChatId}
                             setTemporaryChat={handleToggleTemporaryChat}
@@ -1739,7 +1241,7 @@ export const SidepanelForm = ({
                                     >
                                       <button
                                         type="button"
-                                        onClick={speechUsesServer ? handleServerDictationToggle : handleSpeechToggle}
+                                        onClick={speechUsesServer ? startServerDictation : handleSpeechToggle}
                                         disabled={!speechAvailable}
                                         className={`rounded-md border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text disabled:cursor-not-allowed disabled:opacity-50 ${
                                           speechAvailable &&
@@ -1976,7 +1478,7 @@ export const SidepanelForm = ({
                               >
                                 <button
                                   type="button"
-                                  onClick={speechUsesServer ? handleServerDictationToggle : handleSpeechToggle}
+                                  onClick={speechUsesServer ? startServerDictation : handleSpeechToggle}
                                   disabled={!speechAvailable}
                                   className={`h-9 w-9 rounded-full border border-border p-0 text-text-muted hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-not-allowed disabled:opacity-50 ${
                                     speechAvailable &&

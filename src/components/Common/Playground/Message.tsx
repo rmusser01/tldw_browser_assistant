@@ -39,6 +39,7 @@ import { highlightText } from "@/utils/text-highlight"
 import { FeedbackButtons } from "@/components/Sidepanel/Chat/FeedbackButtons"
 import { FeedbackModal } from "@/components/Sidepanel/Chat/FeedbackModal"
 import { SourceFeedback } from "@/components/Sidepanel/Chat/SourceFeedback"
+import { ToolCallBlock, type ToolCall, type ToolCallResult } from "@/components/Sidepanel/Chat/ToolCallBlock"
 import { useFeedback } from "@/hooks/useFeedback"
 import { useImplicitFeedback } from "@/hooks/useImplicitFeedback"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
@@ -143,6 +144,10 @@ type Props = {
   onToggleCompareSelect?: () => void
   compareError?: boolean
   compareChosen?: boolean
+  // Tool/function calls (optional)
+  toolCalls?: ToolCall[]
+  toolResults?: ToolCallResult[]
+  historyId?: string
 }
 
 const ACTION_BUTTON_CLASS =
@@ -193,12 +198,12 @@ export const PlaygroundMessage = (props: Props) => {
   const messageKey = React.useMemo(() => {
     if (props.serverMessageId) return `srv:${props.serverMessageId}`
     if (props.messageId) return `local:${props.messageId}`
-    if (props.serverChatId) {
-      return `chat:${props.serverChatId}:${props.currentMessageIndex}`
-    }
-    return `idx:${props.currentMessageIndex}`
+    // Always include conversation context to prevent key collisions across chats
+    const conversationScope = props.serverChatId || props.historyId || "unknown"
+    return `${conversationScope}:${props.currentMessageIndex}`
   }, [
     props.currentMessageIndex,
+    props.historyId,
     props.messageId,
     props.serverChatId,
     props.serverMessageId
@@ -605,18 +610,22 @@ export const PlaygroundMessage = (props: Props) => {
                   <>
                     {parseReasoning(props.message).map((e, i) => {
                       if (e.type === "reasoning") {
+                        // Auto-expand during streaming to show reasoning as it comes in
+                        const isReasoningStreaming = props.isStreaming && e?.reasoning_running
+                        const shouldExpand = props?.openReasoning || isReasoningStreaming
                         return (
                           <Collapse
                             key={i}
                             className="border-none text-text-muted !mb-3 "
                             defaultActiveKey={
-                              props?.openReasoning ? "reasoning" : undefined
+                              shouldExpand ? "reasoning" : undefined
                             }
+                            activeKey={isReasoningStreaming ? "reasoning" : undefined}
                             items={[
                               {
                                 key: "reasoning",
                                 label:
-                                  props.isStreaming && e?.reasoning_running ? (
+                                  isReasoningStreaming ? (
                                     <div className="flex items-center gap-2">
                                       <span className="italic shimmer-text">
                                         {t("reasoning.thinking", "Thinking…")}
@@ -627,7 +636,7 @@ export const PlaygroundMessage = (props: Props) => {
                                       <span>
                                         {t(
                                           "reasoning.thought",
-                                          "Model’s reasoning (optional)"
+                                          "Model's reasoning (optional)"
                                         )}
                                       </span>
                                       {props.reasoningTimeTaken != null && (
@@ -647,11 +656,17 @@ export const PlaygroundMessage = (props: Props) => {
                                         {t("reasoning.loading")}
                                       </p>
                                     }>
-                                    <Markdown
-                                      message={e.content}
-                                      className={`${MARKDOWN_BASE_CLASSES} ${assistantTextClass}`}
-                                      searchQuery={props.searchQuery}
-                                    />
+                                    <div>
+                                      <Markdown
+                                        message={e.content}
+                                        className={`${MARKDOWN_BASE_CLASSES} ${assistantTextClass}`}
+                                        searchQuery={props.searchQuery}
+                                      />
+                                      {/* Typing indicator during streaming */}
+                                      {isReasoningStreaming && (
+                                        <span className="inline-block w-2 h-4 ml-1 bg-text-muted animate-pulse rounded-sm" />
+                                      )}
+                                    </div>
                                   </React.Suspense>
                                 )
                               }
@@ -746,6 +761,14 @@ export const PlaygroundMessage = (props: Props) => {
               </div>
             </div>
           )} */}
+
+          {/* Tool calls (for assistant messages with function calls) */}
+          {props.isBot && props.toolCalls && props.toolCalls.length > 0 && (
+            <ToolCallBlock
+              toolCalls={props.toolCalls}
+              results={props.toolResults}
+            />
+          )}
 
           {props.isBot && props?.sources && props?.sources.length > 0 && (
             <Collapse
@@ -1063,6 +1086,17 @@ export const PlaygroundMessage = (props: Props) => {
               <div className={actionButtonClass}></div>
             </div>
           )}
+            {/* Inline token usage display - Pro mode only */}
+            {isProMode && props.isBot && props.generationInfo?.usage && (
+              <div className="text-xs text-text-muted mt-1 tabular-nums">
+                {props.generationInfo.usage.prompt_tokens ?? 0}{" "}
+                {t("playground:tokens.prompt", "prompt")} +{" "}
+                {props.generationInfo.usage.completion_tokens ?? 0}{" "}
+                {t("playground:tokens.completion", "completion")} ={" "}
+                {props.generationInfo.usage.total_tokens ?? 0}{" "}
+                {t("playground:tokens.total", "tokens")}
+              </div>
+            )}
             {!editMode && props.isBot && (
               <FeedbackButtons
                 selected={thumb}

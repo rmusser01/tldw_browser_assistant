@@ -10,6 +10,14 @@ import { createRequire } from "module"
 const require = createRequire(import.meta.url)
 const pkg = require("./package.json")
 
+// Force a single React instance during dev to avoid hook dispatcher mismatches.
+const reactAliases = [
+  { find: /^react$/, replacement: require.resolve("react") },
+  { find: /^react-dom$/, replacement: require.resolve("react-dom") },
+  { find: /^react\/jsx-runtime$/, replacement: require.resolve("react/jsx-runtime") },
+  { find: /^react\/jsx-dev-runtime$/, replacement: require.resolve("react/jsx-dev-runtime") }
+]
+
 const isFirefox = process.env.TARGET === "firefox"
 
 // Enable bundle analysis for ANALYZE values like: "1", "true", "yes", "on" (case-insensitive)
@@ -221,13 +229,16 @@ export default defineConfig({
       ],
       // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
       resolve: {
-        dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"]
+        dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+        alias: reactAliases
       },
       // Disable Hot Module Replacement so streaming connections aren't killed by dev reloads
       server: {
         hmr: false
       },
       optimizeDeps: {
+        // Ensure pre-bundling runs before first load to avoid mixed module graphs.
+        force: true,
         include: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
         entries: [
           "src/entries/options/index.html",

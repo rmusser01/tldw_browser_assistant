@@ -23,6 +23,7 @@ import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
 import { useChatSidebar } from "@/hooks/useFeatureFlags"
 import { ChatSidebar } from "@/components/Common/ChatSidebar"
+import { QuickIngestButton } from "./QuickIngestButton"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
@@ -251,8 +252,8 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
           />
         )}
 
-        {/* Quick Chat Helper floating button */}
-        {!hideHeader && <QuickChatHelperButton />}
+        {/* Quick Chat Helper floating button (legacy layout only) */}
+        {!hideHeader && !showChatSidebar && <QuickChatHelperButton />}
 
         {/* Timeline Modal - lazy-loaded */}
         {!hideHeader && (
@@ -285,6 +286,9 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
             <KeyboardShortcutsModal />
           </Suspense>
         )}
+
+        {/* Ensure Quick Ingest modal is available even when the header is hidden */}
+        {hideHeader && <QuickIngestButton className="hidden" />}
       </main>
     </div>
   )

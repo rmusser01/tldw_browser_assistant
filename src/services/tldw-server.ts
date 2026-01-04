@@ -79,6 +79,7 @@ export const getAllModels = async ({ returnEmpty = false }: { returnEmpty?: bool
       model: `tldw:${model.id}`,
       provider: String(model.provider || 'unknown').toLowerCase(),
       nickname: model.name || model.id,
+      context_length: model.contextLength,
       avatar: undefined,
       modified_at: new Date().toISOString(),
       size: 0,

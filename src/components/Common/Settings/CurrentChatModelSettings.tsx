@@ -1,22 +1,15 @@
 import { getPromptById } from "@/db/dexie/helpers"
 import { useMessageOption } from "@/hooks/useMessageOption"
-import { FileIcon, X } from "lucide-react"
 import { getAllModelSettings } from "@/services/model-settings"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useActorStore } from "@/store/actor"
 import { useQuery } from "@tanstack/react-query"
 import {
-  Collapse,
-  Divider,
   Drawer,
   Form,
-  Input,
-  InputNumber,
   Modal,
-  notification,
-  Select,
   Skeleton,
-  Switch
+  Tabs
 } from "antd"
 import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -25,7 +18,6 @@ import { getOCRLanguage } from "@/services/ocr"
 import { ocrLanguages } from "@/data/ocr-language"
 import { fetchChatModels } from "@/services/tldw-server"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ActorSettings, ActorTarget } from "@/types/actor"
 import { createDefaultActorSettings } from "@/types/actor"
 import {
@@ -37,9 +29,14 @@ import {
   buildActorSettingsFromForm,
   estimateActorTokens
 } from "@/utils/actor"
-import { ActorEditor } from "@/components/Common/Settings/ActorEditor"
 import type { Character } from "@/types/character"
 import { useStorage } from "@plasmohq/storage/hook"
+import {
+  ModelBasicsTab,
+  ConversationTab,
+  AdvancedParamsTab,
+  ActorTab
+} from "./tabs"
 
 type Props = {
   open: boolean
@@ -104,37 +101,14 @@ export const CurrentChatModelSettings = ({
     tokenCount: actorTokenCount,
     setPreviewAndTokens
   } = useActorStore()
-  const [resolvedSystemPrompt, setResolvedSystemPrompt] = React.useState("")
   const [newAspectTarget, setNewAspectTarget] =
     React.useState<ActorTarget>("user")
   const [newAspectName, setNewAspectName] = React.useState<string>("")
   const actorPositionValue = Form.useWatch("actorChatPosition", form)
 
-  const conversationStateOptions: { value: string; label: string }[] = useMemo(
-    () => [
-      {
-        value: "in-progress",
-        label: t("playground:composer.state.inProgress", "in-progress") as string
-      },
-      {
-        value: "resolved",
-        label: t("playground:composer.state.resolved", "resolved") as string
-      },
-      {
-        value: "backlog",
-        label: t("playground:composer.state.backlog", "backlog") as string
-      },
-      {
-        value: "non-viable",
-        label: t("playground:composer.state.nonViable", "non-viable") as string
-      }
-    ],
-    [t]
-  )
-
   const savePrompt = useCallback(
     (value: string) => {
-      cUserSettings.setX("systemPrompt", value)
+      cUserSettings.updateSetting("systemPrompt", value)
     },
     [cUserSettings]
   )
@@ -189,7 +163,7 @@ export const CurrentChatModelSettings = ({
           key !== "actorChatRole" &&
           !key.startsWith("actor_")
         ) {
-          cUserSettings.setX(key, value)
+          cUserSettings.updateSetting(key as keyof import("@/store/model").ChatModelSettings, value as any)
         }
       })
 
@@ -232,12 +206,13 @@ export const CurrentChatModelSettings = ({
       slashCommandInjectionMode: cUserSettings.slashCommandInjectionMode,
       apiProvider: cUserSettings.apiProvider,
       extraHeaders: cUserSettings.extraHeaders,
-      extraBody: cUserSettings.extraBody
+      extraBody: cUserSettings.extraBody,
+      jsonMode: cUserSettings.jsonMode
     }),
     [cUserSettings]
   )
 
-  const { data: modelConfig, isPending: isLoading } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["fetchModelConfig2", open],
     queryFn: async () => {
       const data = await getAllModelSettings()
@@ -249,12 +224,10 @@ export const CurrentChatModelSettings = ({
       }
       let tempSystemPrompt = ""
 
-      // i hate this method but i need this feature so badly that i need to do this
       if (selectedSystemPrompt) {
         const prompt = await getPromptById(selectedSystemPrompt)
         tempSystemPrompt = prompt?.content ?? ""
       }
-      setResolvedSystemPrompt(tempSystemPrompt)
 
       const baseValues = buildBaseValues(data, tempSystemPrompt)
 
@@ -332,7 +305,6 @@ export const CurrentChatModelSettings = ({
   }, [])
 
   const modelOptions = useMemo(() => {
-
     type GroupOption = {
       label: React.ReactNode
       options: Array<{
@@ -346,18 +318,10 @@ export const CurrentChatModelSettings = ({
       if (selectedModel) {
         const displayText = `Custom - ${selectedModel}`
         const fallbackGroup: GroupOption = {
-          label: (
-            <span className="truncate">
-              Custom
-            </span>
-          ),
+          label: <span className="truncate">Custom</span>,
           options: [
             {
-              label: (
-                <span className="truncate">
-                  {displayText}
-                </span>
-              ),
+              label: <span className="truncate">{displayText}</span>,
               value: selectedModel,
               searchLabel: displayText.toLowerCase()
             }
@@ -441,18 +405,10 @@ export const CurrentChatModelSettings = ({
       if (!hasSelected) {
         const displayText = `Custom - ${selectedModel}`
         groupedOptions.push({
-          label: (
-            <span className="truncate">
-              Custom
-            </span>
-          ),
+          label: <span className="truncate">Custom</span>,
           options: [
             {
-              label: (
-                <span className="truncate">
-                  {displayText}
-                </span>
-              ),
+              label: <span className="truncate">{displayText}</span>,
               value: selectedModel,
               searchLabel: displayText.toLowerCase()
             }
@@ -481,76 +437,109 @@ export const CurrentChatModelSettings = ({
     }))
   }, [composerModels, providerDisplayName])
 
-  const historyOrderOptions = useMemo(
+  const tabItems = useMemo(
     () => [
       {
-        value: "desc",
-        label: t(
-          "modelSettings.form.historyMessageOrder.options.desc",
-          "Newest first"
-        ) as string
-      },
-      {
-        value: "asc",
-        label: t(
-          "modelSettings.form.historyMessageOrder.options.asc",
-          "Oldest first"
-        ) as string
-      }
-    ],
-    [t]
-  )
-
-  const slashInjectionOptions = useMemo(
-    () => [
-      {
-        value: "system",
-        label: t(
-          "modelSettings.form.slashCommandInjectionMode.options.system",
-          "System message"
-        ) as string
-      },
-      {
-        value: "preface",
-        label: t(
-          "modelSettings.form.slashCommandInjectionMode.options.preface",
-          "Preface user message"
-        ) as string
-      },
-      {
-        value: "replace",
-        label: t(
-          "modelSettings.form.slashCommandInjectionMode.options.replace",
-          "Replace user message"
-        ) as string
-      }
-    ],
-    [t]
-  )
-
-  const validateJsonObject = useCallback(
-    (_: unknown, value?: string) => {
-      if (!value || value.trim().length === 0) {
-        return Promise.resolve()
-      }
-      try {
-        const parsed = JSON.parse(value)
-        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
-          return Promise.resolve()
-        }
-      } catch {
-        // fall through
-      }
-      return Promise.reject(
-        new Error(
-          t(
-            "modelSettings.form.guardrails.invalidJson",
-            "Enter a valid JSON object."
-          ) as string
+        key: "model",
+        label: t("modelSettings.tabs.model", "Model"),
+        children: (
+          <ModelBasicsTab
+            form={form}
+            selectedModel={selectedModel}
+            onModelChange={setSelectedModel}
+            modelOptions={modelOptions}
+            modelsLoading={modelsLoading}
+            isOCREnabled={isOCREnabled}
+            ocrLanguage={cUserSettings.ocrLanguage}
+            ocrLanguages={ocrLanguages}
+            onOcrLanguageChange={(value) => cUserSettings.setOcrLanguage(value)}
+          />
         )
-      )
-    },
-    [t]
+      },
+      {
+        key: "conversation",
+        label: t("modelSettings.tabs.conversation", "Conversation"),
+        children: (
+          <ConversationTab
+            form={form}
+            useDrawer={useDrawer}
+            selectedSystemPrompt={selectedSystemPrompt}
+            onSystemPromptChange={savePrompt}
+            uploadedFiles={uploadedFiles}
+            onRemoveFile={removeUploadedFile}
+            fileRetrievalEnabled={fileRetrievalEnabled}
+            onFileRetrievalChange={setFileRetrievalEnabled}
+            serverChatId={serverChatId}
+            serverChatState={serverChatState}
+            onStateChange={(state) => setServerChatState(state as any)}
+            serverChatTopic={serverChatTopic}
+            onTopicChange={setServerChatTopic}
+            onVersionChange={setServerChatVersion}
+          />
+        )
+      },
+      {
+        key: "advanced",
+        label: t("modelSettings.tabs.advanced", "Advanced"),
+        children: (
+          <AdvancedParamsTab
+            form={form}
+            providerOptions={providerOptions}
+          />
+        )
+      },
+      {
+        key: "actor",
+        label: t("modelSettings.tabs.actor", "Scene Director"),
+        children: (
+          <ActorTab
+            form={form}
+            actorSettings={actorSettings}
+            setActorSettings={setActorSettings}
+            actorPreview={actorPreview}
+            actorTokenCount={actorTokenCount}
+            onRecompute={recomputeActorPreview}
+            newAspectTarget={newAspectTarget}
+            setNewAspectTarget={setNewAspectTarget}
+            newAspectName={newAspectName}
+            setNewAspectName={setNewAspectName}
+            actorPositionValue={actorPositionValue}
+          />
+        )
+      }
+    ],
+    [
+      t,
+      form,
+      selectedModel,
+      setSelectedModel,
+      modelOptions,
+      modelsLoading,
+      isOCREnabled,
+      cUserSettings,
+      useDrawer,
+      selectedSystemPrompt,
+      savePrompt,
+      uploadedFiles,
+      removeUploadedFile,
+      fileRetrievalEnabled,
+      setFileRetrievalEnabled,
+      serverChatId,
+      serverChatState,
+      setServerChatState,
+      serverChatTopic,
+      setServerChatTopic,
+      setServerChatVersion,
+      providerOptions,
+      actorSettings,
+      setActorSettings,
+      actorPreview,
+      actorTokenCount,
+      recomputeActorPreview,
+      newAspectTarget,
+      newAspectName,
+      actorPositionValue
+    ]
   )
 
   const renderBody = () => {
@@ -580,526 +569,18 @@ export const CurrentChatModelSettings = ({
                 debouncedRecomputeActorPreview()
               }
             }}>
-            {useDrawer && (
-              <>
-                <Form.Item
-                  name="systemPrompt"
-                  help={t("modelSettings.form.systemPrompt.help")}
-                  label={t("modelSettings.form.systemPrompt.label")}>
-                  <div className="space-y-1">
-                    <Input.TextArea
-                      rows={4}
-                      placeholder={t(
-                        "modelSettings.form.systemPrompt.placeholder"
-                      )}
-                      onChange={(e) => savePrompt(e.target.value)}
-                    />
-                    {selectedSystemPrompt && (
-                      <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[11px] text-primary">
-                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-                        <span>
-                          {t(
-                            "playground:composer.sceneTemplateActive",
-                            "Scene template active: Actor respects template interaction settings."
-                          )}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </Form.Item>
-                <Divider />
-              </>
-            )}
-
-            {isOCREnabled && (
-              <div className="flex flex-col space-y-2 mb-3">
-                <span className="text-text">
-                  OCR Language
-                </span>
-
-                <Select
-                  showSearch
-                  style={{ width: "100%" }}
-                  options={ocrLanguages}
-                  value={cUserSettings.ocrLanguage}
-                  filterOption={(input, option) =>
-                    option!.label.toLowerCase().indexOf(input.toLowerCase()) >=
-                      0 ||
-                    option!.value.toLowerCase().indexOf(input.toLowerCase()) >=
-                      0
-                  }
-                  onChange={(value) => {
-                    cUserSettings.setOcrLanguage(value)
-                  }}
-                />
-                <Divider />
-
-              </div>
-            )}
-
-            <Form.Item
-              label={t("modelSettings.form.model.label", { defaultValue: "API / model" })}
-              help={t("modelSettings.form.model.help", { defaultValue: "Choose the API/model used for this chat." })}>
-              <Select
-                showSearch
-                value={selectedModel || undefined}
-                onChange={(value) => setSelectedModel(value)}
-                placeholder={t("playground:composer.modelPlaceholder", "API / model")}
-                options={modelOptions as any}
-                loading={modelsLoading}
-                allowClear
-                optionLabelProp="label"
-                popupMatchSelectWidth={false}
-                styles={{
-                  popup: {
-                    root: {
-                      maxHeight: "calc(100vh - 220px)",
-                      overflowY: "auto"
-                    }
-                  }
-                }}
-                listHeight={560}
-                filterOption={(input, option) => {
-                  const normalizedInput = input.toLowerCase()
-                  const rawSearchLabel =
-                    (option as any)?.searchLabel ??
-                    (typeof option?.label === "string" ? option.label : "")
-                  const normalizedLabel = String(rawSearchLabel).toLowerCase()
-                  return normalizedLabel.includes(normalizedInput)
-                }}
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="keepAlive"
-              help={t("modelSettings.form.keepAlive.help")}
-              label={t("modelSettings.form.keepAlive.label")}>
-              <Input
-                placeholder={t("modelSettings.form.keepAlive.placeholder")}
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="temperature"
-              label={t("modelSettings.form.temperature.label")}>
-              <InputNumber
-                style={{ width: "100%" }}
-                placeholder={t("modelSettings.form.temperature.placeholder")}
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="seed"
-              help={t("modelSettings.form.seed.help")}
-              label={t("modelSettings.form.seed.label")}>
-              <InputNumber
-                style={{ width: "100%" }}
-                placeholder={t("modelSettings.form.seed.placeholder")}
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="numCtx"
-              label={t("modelSettings.form.numCtx.label")}>
-              <InputNumber
-                style={{ width: "100%" }}
-                placeholder={t("modelSettings.form.numCtx.placeholder")}
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="numPredict"
-              label={t("modelSettings.form.numPredict.label")}>
-              <InputNumber
-                style={{ width: "100%" }}
-                placeholder={t("modelSettings.form.numPredict.placeholder")}
-              />
-            </Form.Item>
-
-            {uploadedFiles.length > 0 && (
-              <>
-                <Divider />
-                <div className="mb-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-medium text-text">
-                      Uploaded Files ({uploadedFiles.length})
-                    </h4>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-text-muted">
-                        File Retrieval
-                      </span>
-                      <Switch
-                        size="small"
-                        checked={fileRetrievalEnabled}
-                        onChange={setFileRetrievalEnabled}
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2 max-h-32 overflow-y-auto">
-                    {uploadedFiles.map((file) => (
-                      <div
-                        key={file.id}
-                        className="flex items-center justify-between p-2 bg-surface2 rounded-md">
-                        <div className="flex items-center gap-2 flex-1 min-w-0">
-                          <FileIcon className="h-4 w-4 flex-shrink-0 text-text-subtle" />
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-text truncate">
-                              {file.filename}
-                            </p>
-                            <div className="flex items-center gap-2 text-xs text-text-subtle">
-                              <span>{(file.size / 1024).toFixed(1)} KB</span>
-                              {fileRetrievalEnabled && (
-                                <span className="flex items-center gap-1">
-                                  <span
-                                    className={`inline-block w-2 h-2 rounded-full ${
-                                      file.processed
-                                        ? "bg-success"
-                                        : "bg-warn"
-                                    }`}
-                                  />
-                                  {file.processed
-                                    ? "Processed"
-                                    : "Processing..."}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                        <button
-                          onClick={() => removeUploadedFile(file.id)}
-                          className="rounded p-1 text-danger hover:bg-danger/10 hover:text-danger">
-                          <X className="h-4 w-4" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
-
-            <Divider />
-
-            <Collapse
-              ghost
-              className="border-none bg-transparent"
-              items={[
-                {
-                  key: "1",
-                  label: t("modelSettings.advanced"),
-                  children: (
-                    <React.Fragment>
-                      <Form.Item
-                        name="topK"
-                        label={t("modelSettings.form.topK.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t("modelSettings.form.topK.placeholder")}
-                        />
-                      </Form.Item>
-
-                      <Form.Item
-                        name="topP"
-                        label={t("modelSettings.form.topP.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t("modelSettings.form.topP.placeholder")}
-                        />
-                      </Form.Item>
-
-                      <Form.Item
-                        name="numGpu"
-                        label={t("modelSettings.form.numGpu.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t(
-                            "modelSettings.form.numGpu.placeholder"
-                          )}
-                        />
-                      </Form.Item>
-
-                      <Form.Item
-                        name="minP"
-                        label={t("modelSettings.form.minP.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t("modelSettings.form.minP.placeholder")}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        name="repeatPenalty"
-                        label={t("modelSettings.form.repeatPenalty.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t(
-                            "modelSettings.form.repeatPenalty.placeholder"
-                          )}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        name="repeatLastN"
-                        label={t("modelSettings.form.repeatLastN.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t(
-                            "modelSettings.form.repeatLastN.placeholder"
-                          )}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        name="tfsZ"
-                        label={t("modelSettings.form.tfsZ.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t("modelSettings.form.tfsZ.placeholder")}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        name="numKeep"
-                        label={t("modelSettings.form.numKeep.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t(
-                            "modelSettings.form.numKeep.placeholder"
-                          )}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        name="numThread"
-                        label={t("modelSettings.form.numThread.label")}>
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          placeholder={t(
-                            "modelSettings.form.numThread.placeholder"
-                          )}
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        name="useMMap"
-                        label={t("modelSettings.form.useMMap.label")}>
-                        <Switch />
-                      </Form.Item>
-                      <Form.Item
-                        name="useMlock"
-                        label={t("modelSettings.form.useMlock.label")}>
-                        <Switch />
-                      </Form.Item>
-                      <Form.Item
-                        name="reasoningEffort"
-                        label={t("modelSettings.form.reasoningEffort.label")}>
-                        <Input
-                          style={{ width: "100%" }}
-                          placeholder={t(
-                            "modelSettings.form.reasoningEffort.placeholder"
-                          )}
-                        />
-                      </Form.Item>
-                    </React.Fragment>
-                  )
-                },
-                {
-                  key: "2",
-                  label: t("modelSettings.requestOverrides", "Request overrides"),
-                  children: (
-                    <React.Fragment>
-                      <Form.Item
-                        name="historyMessageLimit"
-                        label={t("modelSettings.form.historyMessageLimit.label")}
-                        help={t("modelSettings.form.historyMessageLimit.help")}>
-                        <InputNumber
-                          min={1}
-                          style={{ width: "100%" }}
-                          placeholder={t(
-                            "modelSettings.form.historyMessageLimit.placeholder"
-                          )}
-                        />
-                      </Form.Item>
-
-                      <Form.Item
-                        name="historyMessageOrder"
-                        label={t("modelSettings.form.historyMessageOrder.label")}
-                        help={t("modelSettings.form.historyMessageOrder.help")}>
-                        <Select
-                          allowClear
-                          placeholder={t(
-                            "modelSettings.form.historyMessageOrder.placeholder"
-                          )}
-                          options={historyOrderOptions}
-                        />
-                      </Form.Item>
-
-                      <Form.Item
-                        name="slashCommandInjectionMode"
-                        label={t(
-                          "modelSettings.form.slashCommandInjectionMode.label"
-                        )}
-                        help={t(
-                          "modelSettings.form.slashCommandInjectionMode.help"
-                        )}>
-                        <Select
-                          allowClear
-                          placeholder={t(
-                            "modelSettings.form.slashCommandInjectionMode.placeholder"
-                          )}
-                          options={slashInjectionOptions}
-                        />
-                      </Form.Item>
-
-                      <Form.Item
-                        name="apiProvider"
-                        label={t("modelSettings.form.apiProvider.label")}
-                        help={t("modelSettings.form.apiProvider.help")}>
-                        <Select
-                          allowClear
-                          showSearch
-                          placeholder={t(
-                            "modelSettings.form.apiProvider.placeholder"
-                          )}
-                          options={providerOptions}
-                          optionFilterProp="label"
-                        />
-                      </Form.Item>
-
-                      <Form.Item
-                        name="extraHeaders"
-                        label={t("modelSettings.form.extraHeaders.label")}
-                        help={t("modelSettings.form.extraHeaders.help")}
-                        rules={[{ validator: validateJsonObject }]}>
-                        <Input.TextArea
-                          rows={4}
-                          placeholder={t(
-                            "modelSettings.form.extraHeaders.placeholder"
-                          )}
-                        />
-                      </Form.Item>
-
-                      <Form.Item
-                        name="extraBody"
-                        label={t("modelSettings.form.extraBody.label")}
-                        help={t("modelSettings.form.extraBody.help")}
-                        rules={[{ validator: validateJsonObject }]}>
-                        <Input.TextArea
-                          rows={4}
-                          placeholder={t("modelSettings.form.extraBody.placeholder")}
-                        />
-                      </Form.Item>
-                    </React.Fragment>
-                  )
-                }
-              ]}
+            <Tabs
+              defaultActiveKey="model"
+              destroyInactiveTabPane={false}
+              items={tabItems}
+              className="settings-tabs"
             />
-            <Form.Item
-              label={t("playground:composer.conversationTags", "Conversation state")}
-              help={t(
-                "playground:composer.stateHelp",
-                "Default state is “in-progress.” Update it as the conversation progresses."
-              )}>
-              <Select
-                value={serverChatState || "in-progress"}
-                options={conversationStateOptions}
-                onChange={async (val) => {
-                  const next = val || "in-progress"
-                  setServerChatState(next as any)
-                  if (!serverChatId) return
-                  try {
-                    const updated = await tldwClient.updateChat(serverChatId, {
-                      state: next
-                    })
-                    setServerChatVersion((updated as any)?.version ?? null)
-                  } catch (error: any) {
-                    notification.error({
-                      message: t("error", { defaultValue: "Error" }),
-                      description:
-                        error?.message ||
-                        t("somethingWentWrong", {
-                          defaultValue: "Something went wrong"
-                        })
-                    })
-                  }
-                }}
+            <div className="mt-4 border-t border-border pt-4">
+              <SaveButton
+                className="w-full text-center inline-flex items-center justify-center"
+                btnType="submit"
               />
-            </Form.Item>
-
-            <Form.Item
-              label={t("playground:composer.topicPlaceholder", "Conversation tag")}
-              help={t(
-                "playground:composer.persistence.topicHelp",
-                "Optional label for this chat; saved to the server when available."
-              )}>
-              <Input
-                value={serverChatTopic || ""}
-                onChange={(e) => setServerChatTopic(e.target.value || null)}
-                onBlur={async (e) => {
-                  const normalized = e.target.value.trim()
-                  const topicValue = normalized.length > 0 ? normalized : null
-                  setServerChatTopic(topicValue)
-                  if (!serverChatId) return
-                  try {
-                    const updated = await tldwClient.updateChat(serverChatId, {
-                      topic_label: topicValue || undefined
-                    })
-                    setServerChatVersion((updated as any)?.version ?? null)
-                  } catch (error: any) {
-                    notification.error({
-                      message: t("error", { defaultValue: "Error" }),
-                      description:
-                        error?.message ||
-                        t("somethingWentWrong", {
-                          defaultValue: "Something went wrong"
-                        })
-                    })
-                  }
-                }}
-                placeholder={t(
-                  "playground:composer.topicPlaceholder",
-                  "Conversation tag (optional)"
-                )}
-              />
-            </Form.Item>
-
-            <Divider />
-
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-              <div className="flex flex-col">
-                <span className="font-medium text-text">
-                  {t(
-                    "playground:composer.actorTitle",
-                    "Scene Director (Actor)"
-                  )}
-                </span>
-                <span className="text-xs text-text-subtle">
-                  {t(
-                    "playground:composer.actorHelp",
-                    "Configure per-chat scene context: roles, mood, world, goals, and notes."
-                  )}
-                </span>
-              </div>
-              <Form.Item name="actorEnabled" valuePropName="checked" className="mb-0">
-                <Switch />
-              </Form.Item>
             </div>
-
-              {actorSettings && (
-                <ActorEditor
-                  form={form}
-                  settings={actorSettings}
-                  setSettings={(next) => setActorSettings(next)}
-                  actorPreview={actorPreview}
-                  actorTokenCount={actorTokenCount}
-                  onRecompute={recomputeActorPreview}
-                  newAspectTarget={newAspectTarget}
-                  setNewAspectTarget={setNewAspectTarget}
-                  newAspectName={newAspectName}
-                  setNewAspectName={setNewAspectName}
-                  actorPositionValue={actorPositionValue}
-                />
-              )}
-            </div>
-
-            <SaveButton
-              className="w-full text-center inline-flex items-center justify-center"
-              btnType="submit"
-            />
           </Form>
         ) : (
           <Skeleton active />

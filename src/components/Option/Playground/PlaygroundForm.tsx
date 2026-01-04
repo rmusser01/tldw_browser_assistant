@@ -24,6 +24,7 @@ import {
   GitBranch,
   ImageIcon,
   MicIcon,
+  Hash,
   SlidersHorizontal,
   StopCircleIcon,
   X,
@@ -42,6 +43,7 @@ import { getIsSimpleInternetSearch } from "@/services/search"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTabMentions } from "~/hooks/useTabMentions"
 import { useFocusShortcuts } from "~/hooks/keyboard"
+import { useDraftPersistence } from "@/hooks/useDraftPersistence"
 import { MentionsDropdown } from "./MentionsDropdown"
 import { DocumentChip } from "./DocumentChip"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
@@ -57,6 +59,7 @@ import { fetchChatModels } from "@/services/tldw-server"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useTldwAudioStatus } from "@/hooks/useTldwAudioStatus"
 import { useMcpTools } from "@/hooks/useMcpTools"
+import { tldwChat, tldwModels, type ChatMessage } from "@/services/tldw"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { CharacterSelect } from "@/components/Common/CharacterSelect"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
@@ -69,6 +72,7 @@ import {
 } from "@/components/Sidepanel/Chat/SlashCommandMenu"
 import { DocumentGeneratorDrawer } from "@/components/Common/Playground/DocumentGeneratorDrawer"
 import { useUiModeStore } from "@/store/ui-mode"
+import { useStoreChatModelSettings } from "@/store/model"
 
 const getPersistenceModeLabel = (
   t: (...args: any[]) => any,
@@ -107,6 +111,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const [checkWideMode] = useStorage("checkWideMode", false)
   const {
     onSubmit,
+    messages,
     selectedModel,
     chatMode,
     setChatMode,
@@ -162,6 +167,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const [openActorSettings, setOpenActorSettings] = React.useState(false)
   const [compareSettingsOpen, setCompareSettingsOpen] = React.useState(false)
+  const apiProvider = useStoreChatModelSettings((state) => state.apiProvider)
+  const numCtx = useStoreChatModelSettings((state) => state.numCtx)
+  const systemPrompt = useStoreChatModelSettings((state) => state.systemPrompt)
 
   const { phase, isConnected } = useConnectionState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
@@ -323,6 +331,55 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     )
   }, [composerModels, selectedModel, t])
 
+  const selectedModelMeta = React.useMemo(() => {
+    if (!selectedModel) return null
+    const models = (composerModels as any[]) || []
+    return models.find((model) => model.model === selectedModel) || null
+  }, [composerModels, selectedModel])
+
+  const modelContextLength = React.useMemo(() => {
+    const value =
+      selectedModelMeta?.context_length ??
+      selectedModelMeta?.contextLength ??
+      selectedModelMeta?.details?.context_length
+    return typeof value === "number" && Number.isFinite(value) ? value : null
+  }, [selectedModelMeta])
+
+  const resolvedMaxContext = React.useMemo(() => {
+    if (typeof numCtx === "number" && Number.isFinite(numCtx) && numCtx > 0) {
+      return numCtx
+    }
+    if (typeof modelContextLength === "number" && modelContextLength > 0) {
+      return modelContextLength
+    }
+    return null
+  }, [modelContextLength, numCtx])
+
+  const resolvedProviderKey = React.useMemo(() => {
+    const fromOverride = typeof apiProvider === "string" ? apiProvider.trim() : ""
+    if (fromOverride) return fromOverride.toLowerCase()
+    const provider =
+      typeof selectedModelMeta?.provider === "string"
+        ? selectedModelMeta.provider
+        : "custom"
+    return provider.toLowerCase()
+  }, [apiProvider, selectedModelMeta])
+
+  const providerLabel = React.useMemo(
+    () => tldwModels.getProviderDisplayName(resolvedProviderKey || "custom"),
+    [resolvedProviderKey]
+  )
+
+  const apiModelLabel = React.useMemo(() => {
+    if (!selectedModel) {
+      return t(
+        "playground:composer.modelPlaceholder",
+        "API / model"
+      )
+    }
+    return `${providerLabel} / ${modelSummaryLabel}`
+  }, [modelSummaryLabel, providerLabel, selectedModel, t])
+
   const compareSummaryLabel = React.useMemo(() => {
     if (!compareModeActive) {
       return null
@@ -483,6 +540,131 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       image: ""
     }
   })
+
+  // Draft persistence - saves/restores message draft to localStorage
+  const { draftSaved } = useDraftPersistence({
+    storageKey: "tldw:playgroundChatDraft",
+    getValue: () => form.values.message,
+    setValue: (value) => form.setFieldValue("message", value)
+  })
+
+  const numberFormatter = React.useMemo(() => new Intl.NumberFormat(), [])
+  const formatNumber = React.useCallback(
+    (value: number | null) => {
+      if (typeof value !== "number" || !Number.isFinite(value)) return "—"
+      return numberFormatter.format(Math.round(value))
+    },
+    [numberFormatter]
+  )
+
+  const estimateTokensForText = React.useCallback((text: string) => {
+    const trimmed = text.trim()
+    if (!trimmed) return 0
+    return tldwChat.estimateTokens([
+      { role: "user", content: trimmed }
+    ])
+  }, [])
+
+  const draftTokenCount = React.useMemo(
+    () => estimateTokensForText(form.values.message || ""),
+    [estimateTokensForText, form.values.message]
+  )
+
+  const conversationTokenCount = React.useMemo(() => {
+    const convoMessages: ChatMessage[] = []
+    const trimmedSystem = systemPrompt?.trim()
+    if (trimmedSystem) {
+      convoMessages.push({ role: "system", content: trimmedSystem })
+    }
+    messages.forEach((message) => {
+      const content = typeof message.message === "string" ? message.message.trim() : ""
+      if (!content) return
+      convoMessages.push({
+        role: message.isBot ? "assistant" : "user",
+        content
+      })
+    })
+    if (convoMessages.length === 0) return 0
+    return tldwChat.estimateTokens(convoMessages)
+  }, [messages, systemPrompt])
+
+  const promptTokenLabel = React.useMemo(
+    () =>
+      `${t("playground:tokens.prompt", "prompt")} ${formatNumber(draftTokenCount)}`,
+    [draftTokenCount, formatNumber, t]
+  )
+  const convoTokenLabel = React.useMemo(
+    () =>
+      `${t("playground:tokens.total", "tokens")} ${formatNumber(conversationTokenCount)}`,
+    [conversationTokenCount, formatNumber, t]
+  )
+  const contextTokenLabel = React.useMemo(
+    () => `${formatNumber(resolvedMaxContext)} ctx`,
+    [formatNumber, resolvedMaxContext]
+  )
+  const tokenUsageLabel = React.useMemo(
+    () => `${promptTokenLabel} · ${convoTokenLabel} / ${contextTokenLabel}`,
+    [contextTokenLabel, convoTokenLabel, promptTokenLabel]
+  )
+  const tokenUsageCompactLabel = React.useMemo(() => {
+    const prompt = formatNumber(draftTokenCount)
+    const convo = formatNumber(conversationTokenCount)
+    const ctx = formatNumber(resolvedMaxContext)
+    return `${prompt} · ${convo}/${ctx} ctx`
+  }, [conversationTokenCount, draftTokenCount, formatNumber, resolvedMaxContext])
+  const tokenUsageDisplay = isProMode
+    ? tokenUsageLabel
+    : tokenUsageCompactLabel
+  const contextLabel = React.useMemo(
+    () =>
+      t(
+        "common:modelSettings.form.numCtx.label",
+        "Context Window Size (num_ctx)"
+      ),
+    [t]
+  )
+  const tokenUsageTooltip = React.useMemo(
+    () =>
+      `${apiModelLabel} · ${promptTokenLabel} · ${convoTokenLabel} · ${contextLabel} ${formatNumber(resolvedMaxContext)}`,
+    [
+      apiModelLabel,
+      contextLabel,
+      convoTokenLabel,
+      formatNumber,
+      promptTokenLabel,
+      resolvedMaxContext
+    ]
+  )
+
+  const modelUsageBadge = (
+    <Tooltip title={tokenUsageTooltip} placement="top">
+      <div
+        aria-label={`${apiModelLabel} · ${tokenUsageLabel}`}
+        className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2 ${
+          isProMode ? "py-1 text-[11px]" : "h-9 text-[10px]"
+        }`}
+      >
+        <span className="inline-flex min-w-0 items-center gap-1">
+          <ProviderIcons
+            provider={resolvedProviderKey}
+            className="h-3 w-3 text-text-subtle"
+          />
+          <span
+            className={`truncate ${
+              isProMode ? "max-w-[180px]" : "max-w-[120px]"
+            }`}
+          >
+            {apiModelLabel}
+          </span>
+        </span>
+        <span className="text-text-subtle">·</span>
+        <span className="inline-flex items-center gap-1 whitespace-nowrap">
+          <Hash className="h-3 w-3 text-text-subtle" aria-hidden="true" />
+          {tokenUsageDisplay}
+        </span>
+      </div>
+    </Tooltip>
+  )
 
   // Allow other components (e.g., connection card) to request focus
   React.useEffect(() => {
@@ -662,7 +844,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }
 
-  useDynamicTextareaSize(textareaRef, form.values.message, 300)
+  // Match sidepanel textarea sizing: Pro mode gets more space
+  const textareaMaxHeight = isProMode ? 160 : 120
+  useDynamicTextareaSize(textareaRef, form.values.message, textareaMaxHeight)
 
   const {
     transcript,
@@ -2641,7 +2825,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           } ${isProMode ? "px-3 py-2.5" : "px-3 py-2"}`}
                           onPaste={handlePaste}
                           rows={1}
-                          style={{ minHeight: isProMode ? "44px" : "40px" }}
+                          style={{ minHeight: isProMode ? "60px" : "44px" }}
                           tabIndex={0}
                           placeholder={
                             isConnectionReady
@@ -2687,8 +2871,61 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           }}
                           onMentionsOpen={handleMentionsOpen}
                         />
+                        {/* Draft saved indicator */}
+                        {draftSaved && (
+                          <span
+                            className="absolute bottom-1 right-2 text-label text-text-subtle animate-pulse pointer-events-none"
+                            role="status"
+                            aria-live="polite"
+                          >
+                            {t("sidepanel:composer.draftSaved", "Draft saved")}
+                          </span>
+                        )}
                       </div>
                     </div>
+                    {/* Inline error message with shake animation */}
+                    {form.errors.message && (
+                      <div
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                        className="flex items-center justify-between gap-2 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
+                      >
+                        <div className="flex items-center gap-2">
+                          <svg className="h-3.5 w-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          <span>{form.errors.message}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => form.clearFieldError("message")}
+                          className="flex-shrink-0 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                          aria-label={t("common:dismiss", "Dismiss") as string}
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    )}
+                    {/* Proactive validation hints - show why send might be disabled */}
+                    {!form.errors.message && isConnectionReady && !isSending && isProMode && (
+                      <div className="px-2 py-1 text-label text-text-subtle">
+                        {!selectedModel ? (
+                          <span className="flex items-center gap-1">
+                            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {t("sidepanel:composer.hints.selectModel", "Select a model above to start chatting")}
+                          </span>
+                        ) : form.values.message.trim().length === 0 && form.values.image.length === 0 ? (
+                          <span>
+                            {sendWhenEnter
+                              ? t("sidepanel:composer.hints.typeAndEnter", "Type a message and press Enter to send")
+                              : t("sidepanel:composer.hints.typeAndClick", "Type a message and click Send")}
+                          </span>
+                        ) : null}
+                      </div>
+                    )}
                     {isProMode ? (
                       <div className="mt-2 flex flex-col gap-1">
                         <div className="mt-1 flex flex-col gap-2">
@@ -2938,6 +3175,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   </Tooltip>
                                 </>
                               )}
+                              {modelUsageBadge}
                               <Tooltip
                                 title={
                                   t(
@@ -2975,7 +3213,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                       </div>
                     ) : (
                       <div className="mt-2 flex items-center justify-end gap-1.5">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-nowrap">
                           {(browserSupportsSpeechRecognition || hasServerAudio) && (
                             <Tooltip
                               title={
@@ -3023,6 +3261,31 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               </button>
                             </Tooltip>
                           )}
+                          {modelUsageBadge}
+                          <Tooltip
+                            title={
+                              t(
+                                "common:currentChatModelSettings"
+                              ) as string
+                            }>
+                            <button
+                              type="button"
+                              onClick={() => setOpenModelSettings(true)}
+                              aria-label={
+                                t(
+                                  "common:currentChatModelSettings"
+                                ) as string
+                              }
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-text-muted transition hover:bg-surface2">
+                              <Gauge className="h-4 w-4" aria-hidden="true" />
+                              <span className="sr-only">
+                                {t(
+                                  "playground:composer.chatSettings",
+                                  "Chat Settings"
+                                )}
+                              </span>
+                            </button>
+                          </Tooltip>
                           {toolsButton}
                           {sendControl}
                         </div>
@@ -3129,11 +3392,6 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                   </div>
                 </form>
               </div>
-              {form.errors.message && (
-                <div className="text-red-600 dark:text-red-400 text-center text-sm mt-2 px-3 py-2 bg-red-50 dark:bg-red-900/20 rounded-md border border-red-200 dark:border-red-800 transition-opacity">
-                  {form.errors.message}
-                </div>
-              )}
             </div>
           </div>
         </div>

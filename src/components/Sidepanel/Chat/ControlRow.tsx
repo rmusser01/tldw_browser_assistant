@@ -15,6 +15,7 @@ import { ModelSelect } from "@/components/Common/ModelSelect"
 import { PromptSelect } from "@/components/Common/PromptSelect"
 import { FeatureHint, useFeatureHintSeen } from "@/components/Common/FeatureHint"
 import { SaveStatusIcon } from "./SaveStatusIcon"
+import { CharacterSelect } from "./CharacterSelect"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useMcpTools } from "@/hooks/useMcpTools"
 import { browser } from "wxt/browser"
@@ -25,6 +26,9 @@ interface ControlRowProps {
   selectedSystemPrompt: string | undefined
   setSelectedSystemPrompt: (promptId: string | undefined) => void
   setSelectedQuickPrompt: (prompt: string | undefined) => void
+  // Character selection
+  selectedCharacterId: string | null
+  setSelectedCharacterId: (id: string | null) => void
   // Save state
   temporaryChat: boolean
   serverChatId?: string | null
@@ -48,6 +52,8 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   selectedSystemPrompt,
   setSelectedSystemPrompt,
   setSelectedQuickPrompt,
+  selectedCharacterId,
+  setSelectedCharacterId,
   temporaryChat,
   serverChatId,
   setTemporaryChat,
@@ -331,7 +337,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
           </Tooltip>
         )}
 
-        {/* Prompt & Model selectors */}
+        {/* Prompt, Model & Character selectors */}
         <PromptSelect
           selectedSystemPrompt={selectedSystemPrompt}
           setSelectedSystemPrompt={setSelectedSystemPrompt}
@@ -340,6 +346,12 @@ export const ControlRow: React.FC<ControlRowProps> = ({
           className="px-2 text-text-muted hover:text-text"
         />
         <ModelSelect iconClassName="size-4" showSelectedName />
+        <CharacterSelect
+          selectedCharacterId={selectedCharacterId}
+          setSelectedCharacterId={setSelectedCharacterId}
+          iconClassName="size-4"
+          className="px-2 text-text-muted hover:text-text"
+        />
 
         {/* Divider */}
         <div className="h-4 w-px bg-border mx-1" />

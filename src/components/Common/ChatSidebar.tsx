@@ -22,7 +22,6 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { Storage } from "@plasmohq/storage"
 
 import type { HistoryInfo } from "@/db/dexie/types"
-import { useConnectionState } from "@/hooks/useConnectionState"
 import { useDebounce } from "@/hooks/useDebounce"
 import { useServerChatHistory } from "@/hooks/useServerChatHistory"
 import { useMessageOption } from "@/hooks/useMessageOption"
@@ -31,6 +30,7 @@ import { cn } from "@/libs/utils"
 import { LocalChatList } from "./ChatSidebar/LocalChatList"
 import { ServerChatList } from "./ChatSidebar/ServerChatList"
 import { FolderChatList } from "./ChatSidebar/FolderChatList"
+import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
 import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
 
 const storage = new Storage({ area: "local" })
@@ -70,7 +70,6 @@ export function ChatSidebar({
 }: ChatSidebarProps) {
   const { t } = useTranslation(["common", "sidepanel", "option"])
   const navigate = useNavigate()
-  const { isConnected } = useConnectionState()
   const [searchQuery, setSearchQuery] = useState("")
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
   const queryClient = useQueryClient()
@@ -191,17 +190,16 @@ export function ChatSidebar({
         </Tooltip>
 
         <Tooltip
-          title={t("common:chatSidebar.ingest", "Ingest Page")}
+          title={t("common:chatSidebar.ingest", "Quick Ingest")}
           placement="right"
         >
           <button
             onClick={handleIngest}
-            disabled={!isConnected}
             className="p-2 rounded-lg text-text-muted hover:bg-surface hover:text-primary disabled:opacity-50"
           >
             <UploadCloud className="size-4" />
             <span className="sr-only">
-              {t("common:chatSidebar.ingest", "Ingest Page")}
+              {t("common:chatSidebar.ingest", "Quick Ingest")}
             </span>
           </button>
         </Tooltip>
@@ -269,6 +267,13 @@ export function ChatSidebar({
         </Tooltip>
 
         <div className="flex-1" />
+
+        <QuickChatHelperButton
+          variant="inline"
+          showToggle={false}
+          appearance="ghost"
+          tooltipPlacement="right"
+        />
 
         <Tooltip
           title={t("common:chatSidebar.settings", "Settings")}
@@ -374,11 +379,10 @@ export function ChatSidebar({
         <div id="chat-sidebar-shortcuts" className="px-3 pb-2 space-y-1">
           <button
             onClick={handleIngest}
-            disabled={!isConnected}
             className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text disabled:opacity-50"
           >
             <UploadCloud className="size-4" />
-            <span>{t("common:chatSidebar.ingest", "Ingest Page")}</span>
+            <span>{t("common:chatSidebar.ingest", "Quick Ingest")}</span>
           </button>
           <button
             onClick={() => navigate("/media")}
@@ -470,7 +474,17 @@ export function ChatSidebar({
           <span>{t("common:chatSidebar.settings", "Settings")}</span>
         </button>
         <div className="mt-2 border-t border-border pt-2">
-          <ModeToggle />
+          <div className="flex items-center gap-2">
+            <div className="flex-1">
+              <ModeToggle />
+            </div>
+            <QuickChatHelperButton
+              variant="inline"
+              showToggle={false}
+              appearance="ghost"
+              className="shrink-0"
+            />
+          </div>
         </div>
       </div>
     </div>

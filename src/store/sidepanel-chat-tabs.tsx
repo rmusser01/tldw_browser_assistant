@@ -67,6 +67,13 @@ export type SidepanelChatSnapshot = {
   modelSettings: ChatModelSettingsSnapshot
 }
 
+export type ConversationStatus =
+  | "in_progress"
+  | "resolved"
+  | "backlog"
+  | "non_viable"
+  | null
+
 export type SidepanelChatTab = {
   id: string
   label: string
@@ -75,6 +82,7 @@ export type SidepanelChatTab = {
   serverChatTopic: string | null
   updatedAt: number
   pinned?: boolean
+  status?: ConversationStatus
 }
 
 type State = {
@@ -93,6 +101,8 @@ type State = {
   setSnapshot: (tabId: string, snapshot: SidepanelChatSnapshot) => void
   getSnapshot: (tabId: string) => SidepanelChatSnapshot | undefined
   togglePinned: (id: string) => void
+  renameTab: (id: string, label: string) => void
+  setStatus: (id: string, status: ConversationStatus) => void
   clear: () => void
 }
 
@@ -139,6 +149,18 @@ export const useSidepanelChatTabsStore = create<State>((set, get) => ({
     set((state) => ({
       tabs: state.tabs.map((tab) =>
         tab.id === id ? { ...tab, pinned: !tab.pinned } : tab
+      )
+    })),
+  renameTab: (id, label) =>
+    set((state) => ({
+      tabs: state.tabs.map((tab) =>
+        tab.id === id ? { ...tab, label, updatedAt: Date.now() } : tab
+      )
+    })),
+  setStatus: (id, status) =>
+    set((state) => ({
+      tabs: state.tabs.map((tab) =>
+        tab.id === id ? { ...tab, status } : tab
       )
     })),
   clear: () => set({ tabs: [], activeTabId: null, snapshotsById: {} })

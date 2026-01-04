@@ -7,13 +7,14 @@ import {
   Modal,
   Input,
   Form,
-  Switch,
   Segmented,
   Tag,
   Select,
   Alert
 } from "antd"
-import { Trash2, Pen, Computer, Zap, Star, CopyIcon, UploadCloud, Download, MessageCircle } from "lucide-react"
+import { Computer, Zap, Star, UploadCloud, Download, Trash2, Pen } from "lucide-react"
+import { PromptActionsMenu } from "./PromptActionsMenu"
+import { PromptDrawer } from "./PromptDrawer"
 import React, { useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -39,11 +40,10 @@ import { useMessageOption } from "@/hooks/useMessageOption"
 
 export const PromptBody = () => {
   const queryClient = useQueryClient()
-  const [open, setOpen] = useState(false)
-  const [openEdit, setOpenEdit] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [drawerMode, setDrawerMode] = useState<"create" | "edit">("create")
   const [editId, setEditId] = useState("")
-  const [createForm] = Form.useForm()
-  const [editForm] = Form.useForm()
+  const [drawerInitialValues, setDrawerInitialValues] = useState<any>(null)
   const { t } = useTranslation(["settings", "common", "option"])
   const navigate = useNavigate()
   const isOnline = useServerOnline()
@@ -124,10 +124,6 @@ export const PromptBody = () => {
     }
   }, [isOnline, selectedSegment])
 
-  React.useEffect(() => {
-    setSelectedRowKeys([])
-  }, [searchText, typeFilter, tagFilter])
-
   const getPromptKeywords = React.useCallback(
     (prompt: any) => prompt?.keywords ?? prompt?.tags ?? [],
     []
@@ -156,9 +152,10 @@ export const PromptBody = () => {
   const normalizePromptPayload = React.useCallback((values: any) => {
     const keywords = values?.keywords ?? values?.tags ?? []
     const promptName = values?.name || values?.title
+    const hasSystemPrompt = !!(values?.system_prompt?.trim())
     const resolvedContent =
       values?.content ??
-      (values?.is_system ? values?.system_prompt : values?.user_prompt) ??
+      (hasSystemPrompt ? values?.system_prompt : values?.user_prompt) ??
       values?.system_prompt ??
       values?.user_prompt
 
@@ -173,7 +170,7 @@ export const PromptBody = () => {
       user_prompt: values?.user_prompt,
       author: values?.author,
       details: values?.details,
-      is_system: !!values?.is_system
+      is_system: hasSystemPrompt
     }
   }, [])
 
@@ -227,8 +224,8 @@ export const PromptBody = () => {
         queryClient.invalidateQueries({
           queryKey: ["fetchAllPrompts"]
         })
-        setOpen(false)
-        createForm.resetFields()
+        setDrawerOpen(false)
+        setDrawerInitialValues(null)
         notification.success({
           message: t("managePrompts.notification.addSuccess"),
           description: t("managePrompts.notification.addSuccessDesc")
@@ -271,8 +268,8 @@ export const PromptBody = () => {
         queryClient.invalidateQueries({
           queryKey: ["fetchAllPrompts"]
         })
-        setOpenEdit(false)
-        editForm.resetFields()
+        setDrawerOpen(false)
+        setDrawerInitialValues(null)
         notification.success({
           message: t("managePrompts.notification.updatedSuccess"),
           description: t("managePrompts.notification.updatedSuccessDesc")
@@ -368,6 +365,26 @@ export const PromptBody = () => {
     )
     return items
   }, [data, typeFilter, tagFilter, searchText, getPromptKeywords, getPromptType])
+
+  React.useEffect(() => {
+    // Only clear selection for items that are no longer visible
+    const visibleIds = new Set(filteredData.map((p: any) => p.id))
+    setSelectedRowKeys((prev) => {
+      const stillVisible = prev.filter((key) => visibleIds.has(key as string))
+      if (stillVisible.length !== prev.length) {
+        if (stillVisible.length < prev.length && prev.length > 0) {
+          notification.info({
+            message: t("managePrompts.selectionFiltered", {
+              defaultValue: "Some selected items were filtered out"
+            }),
+            duration: 2
+          })
+        }
+        return stillVisible
+      }
+      return prev
+    })
+  }, [filteredData, t])
 
   const triggerExport = async () => {
     try {
@@ -466,6 +483,39 @@ export const PromptBody = () => {
     }
   }
 
+  const openCreateDrawer = () => {
+    if (guardPrivateMode()) return
+    setDrawerMode("create")
+    setEditId("")
+    setDrawerInitialValues(null)
+    setDrawerOpen(true)
+  }
+
+  const openEditDrawer = (record: any) => {
+    if (guardPrivateMode()) return
+    setEditId(record.id)
+    setDrawerMode("edit")
+    const { systemText, userText } = getPromptTexts(record)
+    setDrawerInitialValues({
+      name: record?.name || record?.title,
+      author: record?.author,
+      details: record?.details,
+      system_prompt: systemText,
+      user_prompt: userText,
+      keywords: getPromptKeywords(record)
+    })
+    setDrawerOpen(true)
+  }
+
+  const handleDrawerSubmit = (values: any) => {
+    const payload = normalizePromptPayload(values)
+    if (drawerMode === "create") {
+      savePromptMutation(payload)
+    } else {
+      updatePromptMutation(payload)
+    }
+  }
+
   function customPrompts() {
     return (
       <div data-testid="prompts-custom">
@@ -517,10 +567,7 @@ export const PromptBody = () => {
             {/* Left: Action buttons */}
             <div className="flex flex-wrap items-center gap-2">
               <button
-                onClick={() => {
-                  if (guardPrivateMode()) return
-                  setOpen(true)
-                }}
+                onClick={openCreateDrawer}
                 data-testid="prompts-add"
                 className="inline-flex items-center rounded-md border border-transparent bg-primary px-2 py-2 text-md font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 disabled:opacity-50">
                 {t("managePrompts.addBtn")}
@@ -571,7 +618,7 @@ export const PromptBody = () => {
             {/* Right: Filters */}
             <div className="flex flex-wrap items-center gap-2">
               <Tooltip title={t("managePrompts.filterHelp", {
-                defaultValue: "Search matches name, author, details, and prompt text."
+                defaultValue: "Search matches name, author, details, prompt text, and keywords."
               })}>
                 <Input
                   allowClear
@@ -582,12 +629,13 @@ export const PromptBody = () => {
                   style={{ width: 220 }}
                 />
               </Tooltip>
-              <Segmented
+              <Select
                 value={typeFilter}
                 onChange={(v) => setTypeFilter(v as any)}
                 data-testid="prompts-type-filter"
+                style={{ width: 130 }}
                 options={[
-                  { label: t("managePrompts.filter.all", { defaultValue: "All" }), value: "all" },
+                  { label: t("managePrompts.filter.all", { defaultValue: "All types" }), value: "all" },
                   { label: t("managePrompts.filter.system", { defaultValue: "System" }), value: "system" },
                   { label: t("managePrompts.filter.quick", { defaultValue: "Quick" }), value: "quick" }
                 ]}
@@ -630,7 +678,7 @@ export const PromptBody = () => {
             primaryActionLabel={t("settings:managePrompts.emptyPrimaryCta", {
               defaultValue: "Create prompt"
             })}
-            onPrimaryAction={() => setOpen(true)}
+            onPrimaryAction={openCreateDrawer}
           />
         )}
 
@@ -739,157 +787,86 @@ export const PromptBody = () => {
               {
                 title: t("managePrompts.columns.type"),
                 key: "type",
+                width: 80,
                 render: (_: any, record: any) => {
                   const promptType = getPromptType(record)
-                  if (promptType === "mixed") {
-                    return (
-                      <span className="flex items-center gap-2 text-xs w-32">
-                        <Computer className="size-4" />
-                        <Zap className="size-4" />
-                        {`${systemPromptLabel} + ${quickPromptLabel}`}
-                      </span>
-                    )
-                  }
+                  const hasSystem = promptType === "system" || promptType === "mixed"
+                  const hasQuick = promptType === "quick" || promptType === "mixed"
                   return (
-                    <span className="flex items-center gap-2 text-xs w-32">
-                      {promptType === "system" ? (
-                        <>
-                          <Computer className="size-4" /> {systemPromptLabel}
-                        </>
-                      ) : (
-                        <>
-                          <Zap className="size-4" /> {quickPromptLabel}
-                        </>
-                      )}
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <Tooltip title={systemPromptLabel}>
+                        <Computer
+                          className={`size-4 ${hasSystem ? "text-orange-500" : "opacity-20"}`}
+                        />
+                      </Tooltip>
+                      <Tooltip title={quickPromptLabel}>
+                        <Zap
+                          className={`size-4 ${hasQuick ? "text-blue-500" : "opacity-20"}`}
+                        />
+                      </Tooltip>
+                    </div>
                   )
                 }
               },
               {
                 title: t("managePrompts.columns.actions"),
+                width: 120,
                 render: (_, record) => (
-                  <div className="flex flex-wrap items-center gap-3 text-xs">
-                    {/* Edit - Primary action */}
-                    <Tooltip title={t("managePrompts.tooltip.edit")}>
-                      <button
-                        type="button"
-                        aria-label={t("managePrompts.tooltip.edit")}
-                        data-testid={`prompt-edit-${record.id}`}
-                        onClick={() => {
-                          setEditId(record.id)
-                          const { systemText, userText } = getPromptTexts(record)
-                          editForm.setFieldsValue({
-                            name: record?.name || record?.title,
-                            author: record?.author,
-                            details: record?.details,
-                            system_prompt: systemText,
-                            user_prompt: userText,
-                            keywords: getPromptKeywords(record),
-                            is_system: !!record?.is_system
-                          })
-                          setOpenEdit(true)
-                        }}
-                        disabled={isFireFoxPrivateMode}
-                        className="inline-flex items-center gap-1 text-text-muted disabled:opacity-50">
-                        <Pen className="size-4" />
-                        <span>{t("common:edit", { defaultValue: "Edit" })}</span>
-                      </button>
-                    </Tooltip>
-                    {/* Duplicate */}
-                    <Tooltip title={t("managePrompts.tooltip.duplicate", { defaultValue: "Duplicate Prompt" })}>
-                      <button
-                        type="button"
-                        aria-label={t("managePrompts.tooltip.duplicate", {
-                          defaultValue: "Duplicate Prompt"
-                        })}
-                        data-testid={`prompt-duplicate-${record.id}`}
-                        onClick={() => {
-                          savePromptMutation({
-                            title: `${record.title || record.name} (Copy)`,
-                            name: `${record.name || record.title} (Copy)`,
-                            content: record.content,
-                            is_system: record.is_system,
-                            keywords: getPromptKeywords(record),
-                            tags: getPromptKeywords(record),
-                            favorite: !!record?.favorite,
-                            author: record?.author,
-                            details: record?.details,
-                            system_prompt: record?.system_prompt,
-                            user_prompt: record?.user_prompt
-                          })
-                        }}
-                        disabled={isFireFoxPrivateMode}
-                        className="inline-flex items-center gap-1 text-text-muted disabled:opacity-50">
-                        <CopyIcon className="size-4" />
-                        <span>{t("managePrompts.tooltip.duplicate", { defaultValue: "Duplicate Prompt" })}</span>
-                      </button>
-                    </Tooltip>
-                    {/* Use in Chat */}
-                    <Tooltip
-                      title={t("option:promptInsert.useInChatTooltip", {
-                        defaultValue:
-                          "Open chat and insert this prompt into the composer."
-                      })}>
-                      <button
-                        type="button"
-                        aria-label={t("option:promptInsert.useInChat", {
-                          defaultValue: "Use in chat"
-                        })}
-                        data-testid={`prompt-use-${record.id}`}
-                        onClick={() => {
-                          const { systemText, userText } = getPromptTexts(record)
-                          const hasSystem =
-                            typeof systemText === "string" &&
-                            systemText.trim().length > 0
-                          const hasUser =
-                            typeof userText === "string" &&
-                            userText.trim().length > 0
+                  <PromptActionsMenu
+                    promptId={record.id}
+                    disabled={isFireFoxPrivateMode}
+                    onEdit={() => openEditDrawer(record)}
+                    onDuplicate={() => {
+                      savePromptMutation({
+                        title: `${record.title || record.name} (Copy)`,
+                        name: `${record.name || record.title} (Copy)`,
+                        content: record.content,
+                        is_system: record.is_system,
+                        keywords: getPromptKeywords(record),
+                        tags: getPromptKeywords(record),
+                        favorite: !!record?.favorite,
+                        author: record?.author,
+                        details: record?.details,
+                        system_prompt: record?.system_prompt,
+                        user_prompt: record?.user_prompt
+                      })
+                    }}
+                    onUseInChat={() => {
+                      const { systemText, userText } = getPromptTexts(record)
+                      const hasSystem =
+                        typeof systemText === "string" &&
+                        systemText.trim().length > 0
+                      const hasUser =
+                        typeof userText === "string" &&
+                        userText.trim().length > 0
 
-                          if (hasSystem) {
-                            setInsertPrompt({
-                              id: record.id,
-                              systemText,
-                              userText: hasUser ? userText : undefined
-                            })
-                            return
-                          }
+                      if (hasSystem) {
+                        setInsertPrompt({
+                          id: record.id,
+                          systemText,
+                          userText: hasUser ? userText : undefined
+                        })
+                        return
+                      }
 
-                          const quickContent = userText ?? record?.content
-                          if (quickContent) {
-                            setSelectedQuickPrompt(quickContent)
-                            setSelectedSystemPrompt(undefined)
-                            navigate("/")
-                          }
-                        }}
-                        disabled={isFireFoxPrivateMode}
-                        className="inline-flex items-center gap-1 text-text-muted disabled:opacity-50">
-                        <MessageCircle className="size-4" />
-                        <span>{t("option:promptInsert.useInChat", { defaultValue: "Use in chat" })}</span>
-                      </button>
-                    </Tooltip>
-                    {/* Delete - Destructive action at end */}
-                    <Tooltip title={t("managePrompts.tooltip.delete")}>
-                      <button
-                        type="button"
-                        aria-label={t("managePrompts.tooltip.delete")}
-                        data-testid={`prompt-delete-${record.id}`}
-                        onClick={async () => {
-                          const ok = await confirmDanger({
-                            title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
-                            content: t("managePrompts.confirm.delete"),
-                            okText: t("common:delete", { defaultValue: "Delete" }),
-                            cancelText: t("common:cancel", { defaultValue: "Cancel" })
-                          })
-                          if (!ok) return
-                          deletePrompt(record.id)
-                        }}
-                        disabled={isFireFoxPrivateMode}
-                        className="inline-flex items-center gap-1 text-danger disabled:opacity-50">
-                        <Trash2 className="size-4" />
-                        <span>{t("common:delete", { defaultValue: "Delete" })}</span>
-                      </button>
-                    </Tooltip>
-                  </div>
+                      const quickContent = userText ?? record?.content
+                      if (quickContent) {
+                        setSelectedQuickPrompt(quickContent)
+                        setSelectedSystemPrompt(undefined)
+                        navigate("/")
+                      }
+                    }}
+                    onDelete={async () => {
+                      const ok = await confirmDanger({
+                        title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
+                        content: t("managePrompts.confirm.delete"),
+                        okText: t("common:delete", { defaultValue: "Delete" }),
+                        cancelText: t("common:cancel", { defaultValue: "Cancel" })
+                      })
+                      if (!ok) return
+                      deletePrompt(record.id)
+                    }}
+                  />
                 )
               }
             ]}
@@ -1083,205 +1060,18 @@ export const PromptBody = () => {
       {selectedSegment === "custom" && customPrompts()}
       {selectedSegment === "copilot" && copilotPrompts()}
 
-      <Modal
-        title={t("managePrompts.modal.addTitle")}
-        open={open}
-        onCancel={() => setOpen(false)}
-        footer={null}>
-        <Form
-          onFinish={(values) => savePromptMutation(normalizePromptPayload(values))}
-          layout="vertical"
-          form={createForm}
-          initialValues={{ is_system: false, keywords: [] }}>
-          <Form.Item
-            name="name"
-            label={t("managePrompts.form.title.label")}
-            rules={[
-              {
-                required: true,
-                message: t("managePrompts.form.title.required")
-              }
-            ]}>
-            <Input
-              placeholder={t("managePrompts.form.title.placeholder")}
-              data-testid="prompt-create-title"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="author"
-            label={t("managePrompts.form.author.label", { defaultValue: "Author" })}>
-            <Input
-              placeholder={t("managePrompts.form.author.placeholder", { defaultValue: "Optional author" })}
-              data-testid="prompt-create-author"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="details"
-            label={t("managePrompts.form.details.label", { defaultValue: "Details / notes" })}>
-            <Input.TextArea
-              placeholder={t("managePrompts.form.details.placeholder", { defaultValue: "Add context or usage notes" })}
-              autoSize={{ minRows: 2, maxRows: 6 }}
-              data-testid="prompt-create-details"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="system_prompt"
-            label={t("managePrompts.form.systemPrompt.label", { defaultValue: "System prompt" })}
-            help={t("managePrompts.form.prompt.help")}
-          >
-            <Input.TextArea
-              placeholder={t("managePrompts.form.systemPrompt.placeholder", { defaultValue: "Optional system prompt sent as the system message" })}
-              autoSize={{ minRows: 3, maxRows: 10 }}
-              data-testid="prompt-create-system"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="user_prompt"
-            label={t("managePrompts.form.userPrompt.label", { defaultValue: "User prompt" })}
-            help={t("managePrompts.form.userPrompt.help", { defaultValue: "Template inserted as the user message when using this prompt." })}>
-            <Input.TextArea
-              placeholder={t("managePrompts.form.userPrompt.placeholder", { defaultValue: "Optional user prompt template" })}
-              autoSize={{ minRows: 3, maxRows: 10 }}
-              data-testid="prompt-create-user"
-            />
-          </Form.Item>
-
-          <Form.Item name="keywords" label={t("managePrompts.tags.label", { defaultValue: "Keywords" })}>
-            <Select
-              mode="tags"
-              allowClear
-              placeholder={t("managePrompts.tags.placeholder", { defaultValue: "Add keywords" })}
-              options={allTags.map((t) => ({ label: t, value: t }))}
-              data-testid="prompt-create-keywords"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="is_system"
-            label={t("managePrompts.form.isSystem.label")}
-            help={t("managePrompts.form.isSystem.help", {
-              defaultValue: "System prompts set AI behavior and appear in the system message. Quick prompts are inserted as user message templates."
-            })}
-            valuePropName="checked">
-            <Switch data-testid="prompt-create-is-system" />
-          </Form.Item>
-
-          <Form.Item>
-            <button
-              disabled={savePromptLoading}
-              data-testid="prompt-create-save"
-              className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-primary px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 disabled:opacity-50">
-              {savePromptLoading
-                ? t("managePrompts.form.btnSave.saving")
-                : t("managePrompts.form.btnSave.save")}
-            </button>
-          </Form.Item>
-        </Form>
-      </Modal>
-
-      <Modal
-        title={t("managePrompts.modal.editTitle")}
-        open={openEdit}
-        onCancel={() => setOpenEdit(false)}
-        footer={null}>
-        <Form
-          onFinish={(values) => updatePromptMutation(normalizePromptPayload(values))}
-          layout="vertical"
-          form={editForm}
-          initialValues={{ is_system: false, keywords: [] }}>
-          <Form.Item
-            name="name"
-            label={t("managePrompts.form.title.label")}
-            rules={[
-              {
-                required: true,
-                message: t("managePrompts.form.title.required")
-              }
-            ]}>
-            <Input
-              placeholder={t("managePrompts.form.title.placeholder")}
-              data-testid="prompt-edit-title"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="author"
-            label={t("managePrompts.form.author.label", { defaultValue: "Author" })}>
-            <Input
-              placeholder={t("managePrompts.form.author.placeholder", { defaultValue: "Optional author" })}
-              data-testid="prompt-edit-author"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="details"
-            label={t("managePrompts.form.details.label", { defaultValue: "Details / notes" })}>
-            <Input.TextArea
-              placeholder={t("managePrompts.form.details.placeholder", { defaultValue: "Add context or usage notes" })}
-              autoSize={{ minRows: 2, maxRows: 6 }}
-              data-testid="prompt-edit-details"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="system_prompt"
-            label={t("managePrompts.form.systemPrompt.label", { defaultValue: "System prompt" })}
-            help={t("managePrompts.form.prompt.help")}
-          >
-            <Input.TextArea
-              placeholder={t("managePrompts.form.systemPrompt.placeholder", { defaultValue: "Optional system prompt sent as the system message" })}
-              autoSize={{ minRows: 3, maxRows: 10 }}
-              data-testid="prompt-edit-system"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="user_prompt"
-            label={t("managePrompts.form.userPrompt.label", { defaultValue: "User prompt" })}
-            help={t("managePrompts.form.userPrompt.help", { defaultValue: "Template inserted as the user message when using this prompt." })}>
-            <Input.TextArea
-              placeholder={t("managePrompts.form.userPrompt.placeholder", { defaultValue: "Optional user prompt template" })}
-              autoSize={{ minRows: 3, maxRows: 10 }}
-              data-testid="prompt-edit-user"
-            />
-          </Form.Item>
-
-          <Form.Item name="keywords" label={t("managePrompts.tags.label", { defaultValue: "Keywords" })}>
-            <Select
-              mode="tags"
-              allowClear
-              placeholder={t("managePrompts.tags.placeholder", { defaultValue: "Add keywords" })}
-              options={allTags.map((t) => ({ label: t, value: t }))}
-              data-testid="prompt-edit-keywords"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="is_system"
-            label={t("managePrompts.form.isSystem.label")}
-            help={t("managePrompts.form.isSystem.help", {
-              defaultValue: "System prompts set AI behavior and appear in the system message. Quick prompts are inserted as user message templates."
-            })}
-            valuePropName="checked">
-            <Switch data-testid="prompt-edit-is-system" />
-          </Form.Item>
-
-          <Form.Item>
-            <button
-              disabled={isUpdatingPrompt}
-              data-testid="prompt-edit-save"
-              className="inline-flex justify-center w-full text-center mt-4 items-center rounded-md border border-transparent bg-primary px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primaryStrong focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 disabled:opacity-50">
-              {isUpdatingPrompt
-                ? t("managePrompts.form.btnEdit.saving")
-                : t("managePrompts.form.btnEdit.save")}
-            </button>
-          </Form.Item>
-        </Form>
-      </Modal>
+      <PromptDrawer
+        open={drawerOpen}
+        onClose={() => {
+          setDrawerOpen(false)
+          setDrawerInitialValues(null)
+        }}
+        mode={drawerMode}
+        initialValues={drawerInitialValues}
+        onSubmit={handleDrawerSubmit}
+        isLoading={drawerMode === "create" ? savePromptLoading : isUpdatingPrompt}
+        allTags={allTags}
+      />
 
       <Modal
         title={t("managePrompts.modal.editTitle")}
@@ -1342,30 +1132,60 @@ export const PromptBody = () => {
         })}
         open={!!insertPrompt}
         onCancel={() => setInsertPrompt(null)}
-        footer={null}>
-        <p className="text-sm text-text-muted ">
-          {t("managePrompts.form.isSystem.help", {
-            defaultValue:
-              "System prompts set AI behavior and appear in the system message. Quick prompts are inserted as user message templates."
-          })}
-        </p>
-        <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:justify-end">
-          <button
-            type="button"
-            onClick={() => handleInsertChoice("system")}
-            data-testid="prompt-insert-system"
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-medium text-text hover:bg-surface2">
-            <Computer className="size-4" />
-            {systemPromptLabel}
-          </button>
-          <button
-            type="button"
-            onClick={() => handleInsertChoice("quick")}
-            data-testid="prompt-insert-quick"
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-medium text-text hover:bg-surface2">
-            <Zap className="size-4" />
-            {quickPromptLabel}
-          </button>
+        footer={null}
+        width={520}>
+        <div className="space-y-3">
+          {/* System option */}
+          {insertPrompt?.systemText && (
+            <button
+              type="button"
+              onClick={() => handleInsertChoice("system")}
+              data-testid="prompt-insert-system"
+              className="w-full text-left p-4 rounded-lg border border-border hover:border-primary hover:bg-primary/5 transition-colors">
+              <div className="flex items-center gap-2 mb-2">
+                <Computer className="size-5 text-orange-500" />
+                <span className="font-medium">
+                  {t("option:promptInsert.useAsSystem", {
+                    defaultValue: "Use as System Instruction"
+                  })}
+                </span>
+              </div>
+              <p className="text-xs text-text-muted mb-2">
+                {t("option:promptInsert.systemDescription", {
+                  defaultValue: "Sets the AI's behavior and persona for the conversation."
+                })}
+              </p>
+              <div className="bg-surface2 rounded p-2 text-xs line-clamp-3 font-mono text-text-muted">
+                {insertPrompt.systemText}
+              </div>
+            </button>
+          )}
+
+          {/* Quick/User option */}
+          {insertPrompt?.userText && (
+            <button
+              type="button"
+              onClick={() => handleInsertChoice("quick")}
+              data-testid="prompt-insert-quick"
+              className="w-full text-left p-4 rounded-lg border border-border hover:border-primary hover:bg-primary/5 transition-colors">
+              <div className="flex items-center gap-2 mb-2">
+                <Zap className="size-5 text-blue-500" />
+                <span className="font-medium">
+                  {t("option:promptInsert.useAsTemplate", {
+                    defaultValue: "Insert as Message Template"
+                  })}
+                </span>
+              </div>
+              <p className="text-xs text-text-muted mb-2">
+                {t("option:promptInsert.templateDescription", {
+                  defaultValue: "Adds this text to your message composer."
+                })}
+              </p>
+              <div className="bg-surface2 rounded p-2 text-xs line-clamp-3 font-mono text-text-muted">
+                {insertPrompt.userText}
+              </div>
+            </button>
+          )}
         </div>
       </Modal>
     </div>

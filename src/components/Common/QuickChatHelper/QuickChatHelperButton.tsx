@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useCallback, useEffect, useState } from "react"
-import { Tooltip, Switch } from "antd"
+import { Tooltip, Switch, type TooltipProps } from "antd"
 import { MessageCircle } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -11,7 +11,21 @@ const QuickChatHelperModal = lazy(() =>
   import("./QuickChatHelperModal").then((m) => ({ default: m.QuickChatHelperModal }))
 )
 
-export const QuickChatHelperButton: React.FC = () => {
+type QuickChatHelperButtonProps = {
+  variant?: "floating" | "inline"
+  showToggle?: boolean
+  className?: string
+  tooltipPlacement?: TooltipProps["placement"]
+  appearance?: "primary" | "ghost"
+}
+
+export const QuickChatHelperButton: React.FC<QuickChatHelperButtonProps> = ({
+  variant = "floating",
+  showToggle,
+  className,
+  tooltipPlacement,
+  appearance = "primary"
+}) => {
   const { t } = useTranslation("option")
   const [hideQuickChatHelper, setHideQuickChatHelper] = useStorage(
     "hideQuickChatHelper",
@@ -55,42 +69,86 @@ export const QuickChatHelperButton: React.FC = () => {
     window.location?.pathname?.includes("sidepanel")
   const isDocked = isSidepanel && isCompactViewport
 
+  const shouldShowToggle = showToggle ?? variant === "floating"
+  const showButton = !hideQuickChatHelper
+  const showControls = showButton || shouldShowToggle
+  const placement =
+    tooltipPlacement ?? (variant === "floating" ? "left" : "top")
+  const buttonClassName =
+    variant === "floating"
+      ? classNames(
+          "flex items-center justify-center",
+          "w-12 h-12 rounded-full",
+          "bg-[color:var(--color-primary)] hover:bg-[color:var(--color-primary-strong)]",
+          "text-white shadow-lg",
+          "transition-all duration-200",
+          "hover:scale-105 active:scale-95",
+          "focus:outline-none focus:ring-2 focus:ring-[color:var(--color-focus)] focus:ring-offset-2",
+          "focus:ring-offset-[color:var(--color-surface)]"
+        )
+      : appearance === "ghost"
+        ? classNames(
+            "flex items-center justify-center",
+            "p-2 rounded-lg",
+            "text-text-muted hover:text-text",
+            "hover:bg-surface",
+            "focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+          )
+        : classNames(
+            "flex items-center justify-center",
+            "w-9 h-9 rounded-full",
+            "bg-[color:var(--color-primary)] hover:bg-[color:var(--color-primary-strong)]",
+            "text-white shadow-sm",
+            "transition-colors duration-150",
+            "focus:outline-none focus:ring-2 focus:ring-[color:var(--color-focus)] focus:ring-offset-2",
+            "focus:ring-offset-[color:var(--color-surface)]"
+          )
+  const iconClassName =
+    variant === "floating"
+      ? "h-6 w-6"
+      : appearance === "ghost"
+        ? "size-4"
+        : "size-5"
+
+  const controls = showControls ? (
+    <div
+      className={classNames(
+        variant === "floating"
+          ? "fixed bottom-6 right-6 z-[60] flex flex-col items-center gap-3"
+          : "flex items-center gap-2",
+        className
+      )}
+    >
+      {showButton && (
+        <Tooltip title={tooltip} placement={placement}>
+          <button
+            onClick={handleOpen}
+            className={buttonClassName}
+            aria-label={tooltip}
+            aria-haspopup="dialog"
+            aria-expanded={isOpen}
+            type="button">
+            <MessageCircle className={iconClassName} />
+          </button>
+        </Tooltip>
+      )}
+
+      {shouldShowToggle && (
+        <Tooltip title={toggleLabel} placement={placement}>
+          <Switch
+            checked={!hideQuickChatHelper}
+            onChange={(checked) => setHideQuickChatHelper(!checked)}
+            aria-label={toggleLabel}
+            size={variant === "floating" ? "default" : "small"}
+          />
+        </Tooltip>
+      )}
+    </div>
+  ) : null
+
   return (
     <>
-      {!isDocked && (
-        <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-center gap-3">
-          {!hideQuickChatHelper && (
-            <Tooltip title={tooltip} placement="left">
-              <button
-                onClick={handleOpen}
-                className={classNames(
-                  "flex items-center justify-center",
-                  "w-12 h-12 rounded-full",
-                  "bg-[color:var(--color-primary)] hover:bg-[color:var(--color-primary-strong)]",
-                  "text-white shadow-lg",
-                  "transition-all duration-200",
-                  "hover:scale-105 active:scale-95",
-                  "focus:outline-none focus:ring-2 focus:ring-[color:var(--color-focus)] focus:ring-offset-2",
-                  "focus:ring-offset-[color:var(--color-surface)]"
-                )}
-                aria-label={tooltip}
-                aria-haspopup="dialog"
-                aria-expanded={isOpen}
-                type="button">
-                <MessageCircle className="h-6 w-6" />
-              </button>
-            </Tooltip>
-          )}
-
-          <Tooltip title={toggleLabel} placement="left">
-            <Switch
-              checked={!hideQuickChatHelper}
-              onChange={(checked) => setHideQuickChatHelper(!checked)}
-              aria-label={toggleLabel}
-            />
-          </Tooltip>
-        </div>
-      )}
+      {variant === "floating" ? (!isDocked && controls) : controls}
 
       {/* Modal - lazy loaded */}
       <Suspense fallback={null}>

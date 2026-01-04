@@ -1,19 +1,28 @@
 import React from "react"
-import { Tooltip } from "antd"
+import { message, Tooltip } from "antd"
 import {
   ChevronLeft,
+  Circle,
+  CheckCircle2,
+  Clock,
+  XCircle,
   Pin,
   PinOff,
   Plus,
   Search,
-  X
+  X,
+  Folder
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { classNames } from "@/libs/class-name"
-import type { SidepanelChatTab } from "@/store/sidepanel-chat-tabs"
+import type { SidepanelChatTab, ConversationStatus } from "@/store/sidepanel-chat-tabs"
 import { useSidepanelChatTabsStore } from "@/store/sidepanel-chat-tabs"
 import { useUiModeStore } from "@/store/ui-mode"
+import { useFolderStore } from "@/store/folder"
 import { ModeToggle } from "./ModeToggle"
+import { ConversationContextMenu } from "./ConversationContextMenu"
+import { FolderPickerModal } from "./FolderPickerModal"
+import { exportTabToJSON, exportTabToMarkdown } from "@/utils/conversation-export"
 
 type SidebarGroup = {
   label: string
@@ -31,6 +40,71 @@ type SidepanelChatSidebarProps = {
   searchQuery: string
   onSearchQueryChange: (value: string) => void
   onClose?: () => void
+}
+
+/**
+ * Status indicator component
+ */
+const StatusIndicator: React.FC<{ status: ConversationStatus }> = ({
+  status
+}) => {
+  if (!status) return null
+
+  const icons: Record<string, React.ReactNode> = {
+    in_progress: <Circle className="size-2 fill-blue-500 text-blue-500" />,
+    resolved: <CheckCircle2 className="size-2.5 text-green-500" />,
+    backlog: <Clock className="size-2.5 text-gray-400" />,
+    non_viable: <XCircle className="size-2.5 text-red-400" />
+  }
+
+  return (
+    <span className="flex-shrink-0" aria-label={status}>
+      {icons[status]}
+    </span>
+  )
+}
+
+/**
+ * Folder labels component - shows folder assignments as small chips
+ */
+const FolderLabels: React.FC<{ conversationId: string | null }> = ({
+  conversationId
+}) => {
+  const getFoldersForConversation = useFolderStore(
+    (state) => state.getFoldersForConversation
+  )
+  const uiPrefs = useFolderStore((state) => state.uiPrefs)
+
+  if (!conversationId) return null
+
+  const folders = getFoldersForConversation(conversationId)
+  if (folders.length === 0) return null
+
+  return (
+    <div className="flex flex-wrap gap-1 mt-0.5">
+      {folders.slice(0, 3).map((folder) => {
+        const color = uiPrefs[folder.id]?.color || "#6b7280"
+        return (
+          <span
+            key={folder.id}
+            className="inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[10px] font-medium"
+            style={{
+              backgroundColor: `${color}20`,
+              color: color
+            }}
+          >
+            <Folder className="size-2" />
+            <span className="truncate max-w-[60px]">{folder.name}</span>
+          </span>
+        )
+      })}
+      {folders.length > 3 && (
+        <span className="text-[10px] text-text-muted">
+          +{folders.length - 3}
+        </span>
+      )}
+    </div>
+  )
 }
 
 const buildGroups = (tabs: SidepanelChatTab[], t: (key: string, fallback: string) => string): SidebarGroup[] => {
@@ -92,8 +166,70 @@ export const SidepanelChatSidebar = ({
   const togglePinned = useSidepanelChatTabsStore(
     (state) => state.togglePinned
   )
+  const renameTab = useSidepanelChatTabsStore((state) => state.renameTab)
+  const setStatus = useSidepanelChatTabsStore((state) => state.setStatus)
   const uiMode = useUiModeStore((state) => state.mode)
-  const setUiMode = useUiModeStore((state) => state.setMode)
+
+  // Context menu handlers
+  const handleRename = React.useCallback(
+    (tabId: string, newLabel: string) => {
+      renameTab(tabId, newLabel)
+    },
+    [renameTab]
+  )
+
+  const handleSetStatus = React.useCallback(
+    (tabId: string, status: ConversationStatus) => {
+      setStatus(tabId, status)
+    },
+    [setStatus]
+  )
+
+  // Folder picker modal state
+  const [folderPickerOpen, setFolderPickerOpen] = React.useState(false)
+  const [folderPickerTabId, setFolderPickerTabId] = React.useState<string | null>(null)
+
+  const handleAddToFolder = React.useCallback((tabId: string) => {
+    const tab = tabs.find((t) => t.id === tabId)
+    if (tab) {
+      setFolderPickerTabId(tab.serverChatId || tab.historyId)
+      setFolderPickerOpen(true)
+    }
+  }, [tabs])
+
+  const handleExportJSON = React.useCallback(
+    async (tabId: string) => {
+      const tab = tabs.find((t) => t.id === tabId)
+      if (!tab?.historyId) {
+        message.error(t("sidepanel:contextMenu.exportError", "Cannot export: conversation not saved locally"))
+        return
+      }
+      const success = await exportTabToJSON(tab.historyId)
+      if (success) {
+        message.success(t("sidepanel:contextMenu.exportSuccess", "Exported successfully"))
+      } else {
+        message.error(t("sidepanel:contextMenu.exportError", "Export failed"))
+      }
+    },
+    [tabs, t]
+  )
+
+  const handleExportMarkdown = React.useCallback(
+    async (tabId: string) => {
+      const tab = tabs.find((t) => t.id === tabId)
+      if (!tab?.historyId) {
+        message.error(t("sidepanel:contextMenu.exportError", "Cannot export: conversation not saved locally"))
+        return
+      }
+      const success = await exportTabToMarkdown(tab.historyId)
+      if (success) {
+        message.success(t("sidepanel:contextMenu.exportSuccess", "Exported successfully"))
+      } else {
+        message.error(t("sidepanel:contextMenu.exportError", "Export failed"))
+      }
+    },
+    [tabs, t]
+  )
   const isPro = uiMode === "pro"
   const itemClass = isPro ? "px-2 py-1 text-caption" : "px-3 py-2 text-body"
   const groupGap = isPro ? "gap-1" : "gap-2"
@@ -164,13 +300,7 @@ export const SidepanelChatSidebar = ({
               <button
                 type="button"
                 aria-label={t("common:chatSidebar.collapse", "Collapse sidebar")}
-                onClick={() => {
-                  if (isPro) {
-                    setUiMode("casual")
-                    return
-                  }
-                  onClose?.()
-                }}
+                onClick={() => onClose?.()}
                 className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text">
                 <ChevronLeft className="size-4" />
               </button>
@@ -201,47 +331,69 @@ export const SidepanelChatSidebar = ({
             </div>
             <div className={classNames("flex flex-col", groupGap)}>
               {pinnedTabs.map((tab) => (
-                <div
+                <ConversationContextMenu
                   key={tab.id}
-                  className={classNames(
-                    "flex items-center justify-between rounded-md",
-                    itemClass,
-                    tab.id === activeTabId
-                      ? "bg-surface2 text-text"
-                      : "text-text-muted hover:bg-surface2 hover:text-text"
-                  )}
+                  tab={tab}
+                  onRename={handleRename}
+                  onTogglePin={togglePinned}
+                  onSetStatus={handleSetStatus}
+                  onAddToFolder={handleAddToFolder}
+                  onExportJSON={handleExportJSON}
+                  onExportMarkdown={handleExportMarkdown}
+                  onDelete={onCloseTab}
+                  currentStatus={tab.status}
                 >
-                  <button
-                    type="button"
-                    onClick={() => onSelectTab(tab.id)}
-                    className="flex-1 truncate text-left"
-                    title={tab.label}
+                  <div
+                    className={classNames(
+                      "flex items-center justify-between rounded-md",
+                      itemClass,
+                      tab.id === activeTabId
+                        ? "bg-surface2 text-text"
+                        : "text-text-muted hover:bg-surface2 hover:text-text"
+                    )}
                   >
-                    {tab.label}
-                  </button>
-                  <div className="flex items-center gap-1">
-                    <Tooltip title={t("common:unpin", "Unpin")}>
-                      <button
-                        type="button"
-                        onClick={() => togglePinned(tab.id)}
-                        className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
-                        aria-label={t("common:unpin", "Unpin")}
-                      >
-                        <PinOff className="size-3" />
-                      </button>
-                    </Tooltip>
-                    <Tooltip title={t("common:close", "Close")}>
-                      <button
-                        type="button"
-                        onClick={() => onCloseTab(tab.id)}
-                        className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
-                        aria-label={t("common:close", "Close")}
-                      >
-                        <X className="size-3" />
-                      </button>
-                    </Tooltip>
+                    <button
+                      type="button"
+                      onClick={() => onSelectTab(tab.id)}
+                      className="flex-1 min-w-0 text-left"
+                      title={tab.label}
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <StatusIndicator status={tab.status} />
+                        <span className="truncate">{tab.label}</span>
+                      </div>
+                      <FolderLabels conversationId={tab.serverChatId || tab.historyId} />
+                    </button>
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <Tooltip title={t("common:unpin", "Unpin")}>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            togglePinned(tab.id)
+                          }}
+                          className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
+                          aria-label={t("common:unpin", "Unpin")}
+                        >
+                          <PinOff className="size-3" />
+                        </button>
+                      </Tooltip>
+                      <Tooltip title={t("common:close", "Close")}>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onCloseTab(tab.id)
+                          }}
+                          className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
+                          aria-label={t("common:close", "Close")}
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </Tooltip>
+                    </div>
                   </div>
-                </div>
+                </ConversationContextMenu>
               ))}
             </div>
           </div>
@@ -254,47 +406,69 @@ export const SidepanelChatSidebar = ({
             </div>
             <div className={classNames("flex flex-col", groupGap)}>
               {group.items.map((tab) => (
-                <div
+                <ConversationContextMenu
                   key={tab.id}
-                  className={classNames(
-                    "flex items-center justify-between rounded-md",
-                    itemClass,
-                    tab.id === activeTabId
-                      ? "bg-surface2 text-text"
-                      : "text-text-muted hover:bg-surface2 hover:text-text"
-                  )}
+                  tab={tab}
+                  onRename={handleRename}
+                  onTogglePin={togglePinned}
+                  onSetStatus={handleSetStatus}
+                  onAddToFolder={handleAddToFolder}
+                  onExportJSON={handleExportJSON}
+                  onExportMarkdown={handleExportMarkdown}
+                  onDelete={onCloseTab}
+                  currentStatus={tab.status}
                 >
-                  <button
-                    type="button"
-                    onClick={() => onSelectTab(tab.id)}
-                    className="flex-1 truncate text-left"
-                    title={tab.label}
+                  <div
+                    className={classNames(
+                      "flex items-center justify-between rounded-md",
+                      itemClass,
+                      tab.id === activeTabId
+                        ? "bg-surface2 text-text"
+                        : "text-text-muted hover:bg-surface2 hover:text-text"
+                    )}
                   >
-                    {tab.label}
-                  </button>
-                  <div className="flex items-center gap-1">
-                    <Tooltip title={t("common:pin", "Pin")}>
-                      <button
-                        type="button"
-                        onClick={() => togglePinned(tab.id)}
-                        className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
-                        aria-label={t("common:pin", "Pin")}
-                      >
-                        <Pin className="size-3" />
-                      </button>
-                    </Tooltip>
-                    <Tooltip title={t("common:close", "Close")}>
-                      <button
-                        type="button"
-                        onClick={() => onCloseTab(tab.id)}
-                        className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
-                        aria-label={t("common:close", "Close")}
-                      >
-                        <X className="size-3" />
-                      </button>
-                    </Tooltip>
+                    <button
+                      type="button"
+                      onClick={() => onSelectTab(tab.id)}
+                      className="flex-1 min-w-0 text-left"
+                      title={tab.label}
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <StatusIndicator status={tab.status} />
+                        <span className="truncate">{tab.label}</span>
+                      </div>
+                      <FolderLabels conversationId={tab.serverChatId || tab.historyId} />
+                    </button>
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <Tooltip title={t("common:pin", "Pin")}>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            togglePinned(tab.id)
+                          }}
+                          className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
+                          aria-label={t("common:pin", "Pin")}
+                        >
+                          <Pin className="size-3" />
+                        </button>
+                      </Tooltip>
+                      <Tooltip title={t("common:close", "Close")}>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onCloseTab(tab.id)
+                          }}
+                          className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
+                          aria-label={t("common:close", "Close")}
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </Tooltip>
+                    </div>
                   </div>
-                </div>
+                </ConversationContextMenu>
               ))}
             </div>
           </div>
@@ -305,6 +479,11 @@ export const SidepanelChatSidebar = ({
         <ModeToggle />
       </div>
 
+      <FolderPickerModal
+        open={folderPickerOpen}
+        onClose={() => setFolderPickerOpen(false)}
+        conversationId={folderPickerTabId}
+      />
     </aside>
   )
 }

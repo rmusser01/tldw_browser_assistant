@@ -74,6 +74,7 @@ export const useFeedback = ({
 
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [showThanks, setShowThanks] = React.useState(false)
+  const [sourceInFlight, setSourceInFlight] = React.useState<Record<string, boolean>>({})
   const thanksTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null
   )
@@ -288,8 +289,19 @@ export const useFeedback = ({
   const submitSourceThumb = React.useCallback(
     async ({ sourceKey, source, thumb }: SourceFeedbackInput) => {
       if (!thumb || !canSubmit) return false
+
+      // Prevent concurrent submissions for the same source
+      if (sourceInFlight[sourceKey]) {
+        return false
+      }
+
+      // Mark this source as in-flight
+      setSourceInFlight((prev) => ({ ...prev, [sourceKey]: true }))
+
+      // Optimistic update
       setSourceThumb(messageKey, sourceKey, thumb)
       setSourceSubmittedAt(messageKey, sourceKey, Date.now())
+
       try {
         const { documentIds, chunkIds, corpus } =
           extractSourceFeedbackIds(source)
@@ -303,6 +315,10 @@ export const useFeedback = ({
         })
         return true
       } catch (e: any) {
+        // Rollback optimistic update on error
+        setSourceThumb(messageKey, sourceKey, null)
+        setSourceSubmittedAt(messageKey, sourceKey, 0)
+
         notification.error({
           message: t("playground:feedback.errorTitle", "Feedback failed"),
           description:
@@ -312,8 +328,15 @@ export const useFeedback = ({
               "Unable to submit source feedback."
             )
         })
+        return false
+      } finally {
+        // Always clean up in-flight tracking
+        setSourceInFlight((prev) => {
+          const next = { ...prev }
+          delete next[sourceKey]
+          return next
+        })
       }
-      return false
     },
     [
       buildBasePayload,
@@ -322,6 +345,7 @@ export const useFeedback = ({
       notification,
       setSourceSubmittedAt,
       setSourceThumb,
+      sourceInFlight,
       t
     ]
   )

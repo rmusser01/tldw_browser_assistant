@@ -188,6 +188,7 @@ export class TldwModelsService {
       provider: provider,
       type: type,
       capabilities: caps.length ? Array.from(new Set(caps)) : undefined,
+      contextLength: tldwModel.context_length,
       description: tldwModel.description
     }
   }

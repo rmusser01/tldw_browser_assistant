@@ -251,7 +251,13 @@
       }
     },
     "advanced": "More Model Settings",
-    "requestOverrides": "Request overrides"
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "Summarize",
@@ -462,7 +468,7 @@
     "modeLabel": "Mode",
     "modeCasual": "Casual",
     "modePro": "Pro",
-    "ingest": "Ingest Page",
+    "ingest": "Quick Ingest",
     "media": "Media",
     "notes": "Notes",
     "flashcards": "Flashcards",

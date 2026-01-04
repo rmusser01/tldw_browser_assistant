@@ -142,7 +142,7 @@ const applyChatModelSettingsSnapshot = (
   MODEL_SETTINGS_KEYS.forEach((key) => {
     const value = snapshot[key]
     if (value !== undefined) {
-      store.setX(key, value)
+      store.updateSetting(key, value as any)
     }
   })
 }
@@ -154,6 +154,7 @@ const SidepanelChat = () => {
   const [sidebarSearchQuery, setSidebarSearchQuery] = React.useState("")
   const [composerHeight, setComposerHeight] = React.useState(0)
   const { t } = useTranslation(["playground", "sidepanel", "common"])
+  const notification = useAntdNotification()
   // Per-tab storage (Chrome side panel) or per-window/global (Firefox sidebar).
   // tabId: undefined = not resolved yet, null = resolved but unavailable.
   const [tabId, setTabId] = React.useState<number | null | undefined>(undefined)
@@ -252,7 +253,6 @@ const SidepanelChat = () => {
   const uiMode = useUiModeStore((state) => state.mode)
   const [isNarrow, setIsNarrow] = React.useState(false)
   const { checkOnce } = useConnectionActions()
-  const notification = useAntdNotification()
   const [noteModalOpen, setNoteModalOpen] = React.useState(false)
   const [noteDraftContent, setNoteDraftContent] = React.useState("")
   const [noteDraftTitle, setNoteDraftTitle] = React.useState("")
@@ -276,11 +276,11 @@ const SidepanelChat = () => {
     const content = noteDraftContent.trim()
     const title = (noteDraftTitle || noteSuggestedTitle).trim()
     if (!content) {
-      setNoteError("Nothing to save")
+      setNoteError(t("sidepanel:notes.emptyContent", "Nothing to save"))
       return
     }
     if (!title) {
-      setNoteError("Add a title to save this note")
+      setNoteError(t("sidepanel:notes.titleRequired", "Add a title to save this note"))
       return
     }
     setNoteError(null)
@@ -1228,7 +1228,7 @@ const SidepanelChat = () => {
             ) : (
               <SidePanelBody
                 scrollParentRef={containerRef}
-                searchQuery=""
+                searchQuery={sidebarSearchQuery}
                 inputRef={textareaRef}
               />
             )}

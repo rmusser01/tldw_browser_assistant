@@ -20,6 +20,7 @@ export interface TldwChatOptions {
   apiProvider?: string
   extraHeaders?: Record<string, unknown>
   extraBody?: Record<string, unknown>
+  jsonMode?: boolean
 }
 
 export interface ChatStreamChunk {
@@ -69,7 +70,8 @@ export class TldwChatService {
         slash_command_injection_mode: options.slashCommandInjectionMode,
         api_provider: options.apiProvider,
         extra_headers: options.extraHeaders,
-        extra_body: options.extraBody
+        extra_body: options.extraBody,
+        response_format: options.jsonMode ? { type: "json_object" } : undefined
       }
 
       // Add system prompt if provided
@@ -129,7 +131,8 @@ export class TldwChatService {
         slash_command_injection_mode: options.slashCommandInjectionMode,
         api_provider: options.apiProvider,
         extra_headers: options.extraHeaders,
-        extra_body: options.extraBody
+        extra_body: options.extraBody,
+        response_format: options.jsonMode ? { type: "json_object" } : undefined
       }
 
       // Add system prompt if provided

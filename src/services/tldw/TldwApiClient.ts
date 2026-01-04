@@ -65,6 +65,7 @@ export interface ChatCompletionRequest {
   api_provider?: string
   extra_headers?: Record<string, unknown>
   extra_body?: Record<string, unknown>
+  response_format?: { type: "json_object" | "text" }
 }
 
 export interface ServerChatSummary {
