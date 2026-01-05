@@ -62,7 +62,8 @@ export const normalChatMode = async (
     assistantMessageId,
     userParentMessageId,
     assistantParentMessageId,
-    historyForModel
+    historyForModel,
+    regenerateFromMessage
   }: {
     selectedModel: string
     useOCR: boolean
@@ -304,7 +305,9 @@ export const normalChatMode = async (
         generationInfo: undefined,
         prompt_content: undefined,
         prompt_id: undefined,
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        saveToDb: false,
+        conversationId: undefined
       })
 
       setIsProcessing(false)
@@ -549,7 +552,9 @@ export const normalChatMode = async (
         generationInfo,
         prompt_content: promptContent,
         prompt_id: promptId,
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        saveToDb: Boolean(ollama.saveToDb),
+        conversationId: ollama.conversationId
       })
 
     setIsProcessing(false)

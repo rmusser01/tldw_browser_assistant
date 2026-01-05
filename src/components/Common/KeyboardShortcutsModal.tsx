@@ -71,6 +71,15 @@ export function KeyboardShortcutsModal() {
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [])
 
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const handleOpen = () => setOpen(true)
+    window.addEventListener("tldw:open-shortcuts-modal", handleOpen)
+    return () => {
+      window.removeEventListener("tldw:open-shortcuts-modal", handleOpen)
+    }
+  }, [])
+
   const modKey = isMac ? "⌘" : "Ctrl"
   const showShortcutsKeys = `${modKey} + Shift + ?`
 

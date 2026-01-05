@@ -445,7 +445,9 @@ export const ragMode = async (
       userParentMessageId: userParentMessageId ?? null,
       assistantParentMessageId: resolvedAssistantParentMessageId ?? null,
       generationInfo,
-      reasoning_time_taken: timetaken
+      reasoning_time_taken: timetaken,
+      saveToDb: Boolean(ollama.saveToDb),
+      conversationId: ollama.conversationId
     })
 
     setIsProcessing(false)

@@ -1,6 +1,15 @@
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
-import { CogIcon, Gauge, UserCircle2, Menu, Search, SquarePen } from "lucide-react"
+import {
+  CogIcon,
+  Gauge,
+  UserCircle2,
+  Menu,
+  Search,
+  SquarePen,
+  Keyboard,
+  Signpost
+} from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"
 import { ModelSelect } from "../Common/ModelSelect"
@@ -58,6 +67,10 @@ export const Header: React.FC<Props> = ({
   const isRTL = i18n?.dir() === "rtl"
 
   const [shareModeEnabled] = useStorage("shareMode", false)
+  const [headerShortcutsExpanded, setHeaderShortcutsExpanded] = useStorage(
+    "headerShortcutsExpanded",
+    false
+  )
   const [selectedCharacter] = useStorage<Character | null>(
     "selectedCharacter",
     null
@@ -289,14 +302,27 @@ export const Header: React.FC<Props> = ({
     window.dispatchEvent(new CustomEvent("tldw:open-command-palette"))
   }, [])
 
+  const openShortcutsModal = React.useCallback(() => {
+    if (typeof window === "undefined") return
+    window.dispatchEvent(new CustomEvent("tldw:open-shortcuts-modal"))
+  }, [])
+
+  const shortcutsToggleLabel = headerShortcutsExpanded
+    ? t("option:header.hideShortcuts", "Hide shortcuts")
+    : t("option:header.showShortcuts", "Show shortcuts")
+
+  const toggleHeaderShortcuts = React.useCallback(() => {
+    setHeaderShortcutsExpanded(!headerShortcutsExpanded)
+  }, [headerShortcutsExpanded, setHeaderShortcutsExpanded])
+
   if (isChatRoute) {
     return (
       <header
         data-istemporary-chat={temporaryChat}
         data-ischat-route={isChatRoute}
-        className="z-30 flex w-full items-center border-b border-border bg-surface/95 px-4 py-2 backdrop-blur data-[istemporary-chat='true']:bg-purple-900 data-[ischat-route='true']:bg-surface/95"
+        className="z-30 flex w-full flex-col border-b border-border bg-surface/95 backdrop-blur data-[istemporary-chat='true']:bg-purple-900 data-[ischat-route='true']:bg-surface/95"
       >
-        <div className="flex w-full items-center justify-between gap-3">
+        <div className="flex w-full items-center justify-between gap-3 px-4 py-2">
           <div className="flex min-w-0 items-center gap-2">
             {showSidebarToggle && (
               <Tooltip title={sidebarLabel} placement="bottom">
@@ -321,6 +347,17 @@ export const Header: React.FC<Props> = ({
               <span className="text-sm font-medium">
                 {t("common:pageAssist", "tldw Assistant")}
               </span>
+              <Tooltip title={shortcutsToggleLabel} placement="bottom">
+                <button
+                  type="button"
+                  onClick={toggleHeaderShortcuts}
+                  aria-label={shortcutsToggleLabel as string}
+                  className="inline-flex items-center justify-center rounded-md p-1.5 text-text-muted hover:bg-surface2 hover:text-text"
+                  title={shortcutsToggleLabel}
+                >
+                  <Signpost className="size-4" aria-hidden="true" />
+                </button>
+              </Tooltip>
             </div>
             {!temporaryChat && historyId && historyId !== "temp" && (
               <div className="hidden min-w-[140px] max-w-[220px] sm:block">
@@ -365,6 +402,30 @@ export const Header: React.FC<Props> = ({
                 ⌘K
               </span>
             </button>
+            <Tooltip
+              title={t(
+                "common:shortcuts.showKeyboardShortcuts",
+                "Show keyboard shortcuts"
+              )}
+            >
+              <button
+                type="button"
+                onClick={openShortcutsModal}
+                aria-label={
+                  t(
+                    "common:shortcuts.showKeyboardShortcuts",
+                    "Show keyboard shortcuts"
+                  ) as string
+                }
+                className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                title={t(
+                  "common:shortcuts.showKeyboardShortcuts",
+                  "Show keyboard shortcuts"
+                )}
+              >
+                <Keyboard className="size-4" aria-hidden="true" />
+              </button>
+            </Tooltip>
             <Tooltip title={t("common:newChat", "New chat")}>
               <button
                 type="button"
@@ -389,6 +450,7 @@ export const Header: React.FC<Props> = ({
             </Tooltip>
           </div>
         </div>
+        <HeaderShortcuts className="px-4 pb-2 pt-1" showToggle={false} />
       </header>
     )
   }

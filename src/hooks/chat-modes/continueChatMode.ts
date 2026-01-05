@@ -12,6 +12,7 @@ import { systemPromptFormatter } from "@/utils/system-message"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import { buildAssistantErrorContent } from "@/utils/chat-error-message"
+import { updateActiveVariant } from "@/utils/message-variants"
 
 export const continueChatMode = async (
   messages: Message[],
@@ -61,8 +62,9 @@ export const continueChatMode = async (
   let generateMessageId = lastMessage.id
   newMessage = [...messages]
   newMessage[newMessage.length - 1] = {
-    ...lastMessage,
-    message: lastMessage.message + "▋"
+    ...updateActiveVariant(lastMessage, {
+      message: lastMessage.message + "▋"
+    })
   }
   setMessages(newMessage)
   let fullText = lastMessage.message
@@ -184,11 +186,10 @@ export const continueChatMode = async (
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText + "▋",
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -199,12 +200,11 @@ export const continueChatMode = async (
     setMessages((prev) => {
       return prev.map((message) => {
         if (message.id === generateMessageId) {
-          return {
-            ...message,
+          return updateActiveVariant(message, {
             message: fullText,
             generationInfo,
             reasoning_time_taken: timetaken
-          }
+          })
         }
         return message
       })
@@ -230,7 +230,9 @@ export const continueChatMode = async (
       prompt_content: promptContent,
       prompt_id: promptId,
       reasoning_time_taken: timetaken,
-      isContinue: true
+      isContinue: true,
+      saveToDb: Boolean(ollama.saveToDb),
+      conversationId: ollama.conversationId
     })
 
     setIsProcessing(false)
@@ -239,7 +241,9 @@ export const continueChatMode = async (
     const assistantContent = buildAssistantErrorContent(fullText, e)
     setMessages((prev) =>
       prev.map((msg) =>
-        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+        msg.id === generateMessageId
+          ? updateActiveVariant(msg, { message: assistantContent })
+          : msg
       )
     )
     const errorSave = await saveMessageOnError({

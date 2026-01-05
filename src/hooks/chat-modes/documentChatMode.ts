@@ -214,6 +214,27 @@ export const documentChatMode = async (
       }
     ]
   })
+  if (regenerateVariants.length > 0) {
+    setMessages((prev) => {
+      const next = [...prev]
+      const lastIndex = next.findLastIndex(
+        (msg) => msg.id === resolvedAssistantMessageId
+      )
+      if (lastIndex >= 0) {
+        const stub = next[lastIndex]
+        const variants = [
+          ...regenerateVariants,
+          buildMessageVariant(stub)
+        ]
+        next[lastIndex] = {
+          ...stub,
+          variants,
+          activeVariantIndex: variants.length - 1
+        }
+      }
+      return next
+    })
+  }
   let fullText = ""
   let contentToSave = ""
 
@@ -435,11 +456,10 @@ export const documentChatMode = async (
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText + "▋",
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -450,13 +470,12 @@ export const documentChatMode = async (
     setMessages((prev) => {
       return prev.map((message) => {
         if (message.id === generateMessageId) {
-          return {
-            ...message,
+          return updateActiveVariant(message, {
             message: fullText,
             sources: source,
             generationInfo,
             reasoning_time_taken: timetaken
-          }
+          })
         }
         return message
       })
@@ -492,9 +511,11 @@ export const documentChatMode = async (
       userMessageId: resolvedUserMessageId,
       assistantMessageId: resolvedAssistantMessageId,
       userParentMessageId: userParentMessageId ?? null,
-      assistantParentMessageId: assistantParentMessageId ?? null,
+      assistantParentMessageId: resolvedAssistantParentMessageId ?? null,
       generationInfo,
       reasoning_time_taken: timetaken,
+      saveToDb: Boolean(ollama.saveToDb),
+      conversationId: ollama.conversationId,
       documents: uploadedFiles.map((f) => ({
         type: "file",
         filename: f.filename,
@@ -516,7 +537,9 @@ export const documentChatMode = async (
     const assistantContent = buildAssistantErrorContent(fullText, e)
     setMessages((prev) =>
       prev.map((msg) =>
-        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+        msg.id === generateMessageId
+          ? updateActiveVariant(msg, { message: assistantContent })
+          : msg
       )
     )
     const errorSave = await saveMessageOnError({
@@ -538,7 +561,7 @@ export const documentChatMode = async (
       userMessageId: resolvedUserMessageId,
       assistantMessageId: resolvedAssistantMessageId,
       userParentMessageId: userParentMessageId ?? null,
-      assistantParentMessageId: assistantParentMessageId ?? null
+      assistantParentMessageId: resolvedAssistantParentMessageId ?? null
     })
 
     if (!errorSave) {

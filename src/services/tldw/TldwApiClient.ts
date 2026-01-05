@@ -1174,13 +1174,15 @@ export class TldwApiClient {
 
   async listChatMessages(
     chat_id: string | number,
-    params?: Record<string, any>
+    params?: Record<string, any>,
+    options?: { signal?: AbortSignal }
   ): Promise<ServerChatMessage[]> {
     const cid = String(chat_id)
     const query = this.buildQuery(params)
     const data = await bgRequest<any>({
       path: `/api/v1/chats/${cid}/messages${query}`,
-      method: "GET"
+      method: "GET",
+      abortSignal: options?.signal
     })
 
     let list: any[] = []

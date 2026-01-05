@@ -3,6 +3,8 @@ import {
   deleteChatForEdit,
   formatToChatHistory,
   formatToMessage,
+  saveHistory,
+  saveMessage,
   updateMessageByIndex
 } from "@/db/dexie/helpers"
 import { generateBranchMessage } from "@/db/dexie/branch"
@@ -16,8 +18,6 @@ export const createRegenerateLastMessage = ({
   messages,
   setHistory,
   setMessages,
-  historyId,
-  removeMessageUsingHistoryIdFn,
   onSubmit
 }: {
   validateBeforeSubmitFn: () => boolean
@@ -25,8 +25,6 @@ export const createRegenerateLastMessage = ({
   messages: Message[]
   setHistory: (history: ChatHistory) => void
   setMessages: (messages: Message[]) => void
-  historyId: string | null
-  removeMessageUsingHistoryIdFn: (id: string | null) => Promise<void>
   onSubmit: (params: any) => Promise<void>
 }) => {
   return async () => {
@@ -37,11 +35,14 @@ export const createRegenerateLastMessage = ({
     }
     if (history.length > 0) {
       const lastMessage = history[history.length - 2]
+      const lastAssistant = messages[messages.length - 1]
+      if (!lastAssistant || !lastAssistant.isBot) {
+        return
+      }
       let newHistory = history.slice(0, -2)
       const mewMessages = messages.slice(0, -1)
       setHistory(newHistory)
       setMessages(mewMessages)
-      await removeMessageUsingHistoryIdFn(historyId)
       if (lastMessage.role === "user") {
         const newController = new AbortController()
         await onSubmit({
@@ -49,7 +50,8 @@ export const createRegenerateLastMessage = ({
           image: lastMessage.image || "",
           isRegenerate: true,
           memory: newHistory,
-          controller: newController
+          controller: newController,
+          regenerateFromMessage: lastAssistant
         })
       }
     }
@@ -138,13 +140,16 @@ export const createBranchMessage = ({
   setServerChatClusterId,
   setServerChatSource,
   setServerChatExternalRef,
+  characterId,
+  chatTitle,
   serverChatState,
   serverChatTopic,
   serverChatClusterId,
   serverChatSource,
   serverChatExternalRef,
   messages,
-  history
+  history,
+  onServerChatMutated
 }: {
   setMessages: (messages: Message[]) => void
   setHistory: (history: ChatHistory) => void
@@ -161,6 +166,8 @@ export const createBranchMessage = ({
   setServerChatClusterId?: (clusterId: string | null) => void
   setServerChatSource?: (source: string | null) => void
   setServerChatExternalRef?: (ref: string | null) => void
+  characterId?: string | number | null
+  chatTitle?: string | null
   serverChatState?: ConversationState | null
   serverChatTopic?: string | null
   serverChatClusterId?: string | null
@@ -168,7 +175,107 @@ export const createBranchMessage = ({
   serverChatExternalRef?: string | null
   messages?: Message[]
   history?: ChatHistory
+  onServerChatMutated?: () => void
 }) => {
+  const createLocalBranch = async (index: number): Promise<string | null> => {
+    if (!historyId) {
+      // No persisted history; nothing to branch from.
+      return null
+    }
+
+    try {
+      const newBranch = await generateBranchMessage(historyId, index)
+      setHistory(formatToChatHistory(newBranch.messages))
+      setMessages(formatToMessage(newBranch.messages))
+      setHistoryId(newBranch.history.id)
+      const systemFiles = await getSessionFiles(newBranch.history.id)
+      if (setContext) {
+        setContext(systemFiles)
+      }
+
+      const lastUsedPrompt = newBranch?.history?.last_used_prompt
+      if (lastUsedPrompt) {
+        if (lastUsedPrompt.prompt_id) {
+          const prompt = await getPromptById(lastUsedPrompt.prompt_id)
+          if (prompt && setSelectedSystemPrompt) {
+            setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
+          }
+        }
+        if (setSystemPrompt) {
+          setSystemPrompt(lastUsedPrompt.prompt_content)
+        }
+      }
+      return newBranch.history.id
+    } catch (e) {
+      console.log("[branch] local branch failed", e)
+      return null
+    }
+  }
+
+  const createLocalBranchFromSnapshot = async (
+    index: number,
+    branchTitle: string
+  ): Promise<string | null> => {
+    if (!messages || messages.length === 0) {
+      return null
+    }
+
+    const snapshot = messages.slice(0, index + 1)
+    if (snapshot.length === 0) {
+      return null
+    }
+
+    try {
+      const newHistory = await saveHistory(branchTitle, false, "branch")
+      const savedMessages: any[] = []
+
+      for (let i = 0; i < snapshot.length; i++) {
+        const msg = snapshot[i]
+        const role =
+          msg.name === "System"
+            ? "system"
+            : msg.isBot
+              ? "assistant"
+              : "user"
+        const name =
+          msg.name ||
+          (role === "assistant"
+            ? "Assistant"
+            : role === "system"
+              ? "System"
+              : "You")
+        const saved = await saveMessage({
+          history_id: newHistory.id,
+          name,
+          role,
+          content: String(msg.message ?? ""),
+          images: msg.images || [],
+          source: msg.sources || [],
+          time: i,
+          message_type: msg.messageType,
+          clusterId: msg.clusterId,
+          modelId: msg.modelId,
+          modelImage: msg.modelImage,
+          modelName: msg.modelName,
+          parent_message_id: msg.parentMessageId ?? null,
+          documents: msg.documents
+        })
+        savedMessages.push(saved)
+      }
+
+      setHistory(formatToChatHistory(savedMessages))
+      setMessages(formatToMessage(savedMessages))
+      setHistoryId(newHistory.id)
+      if (setContext) {
+        setContext([])
+      }
+      return newHistory.id
+    } catch (e) {
+      console.log("[branch] local snapshot branch failed", e)
+      return null
+    }
+  }
+
   return async (index: number): Promise<string | null> => {
     // When a server-backed character chat is active, create a new server chat
     // branched from the current context and mirror the prefix messages.
@@ -176,8 +283,23 @@ export const createBranchMessage = ({
       try {
         await tldwClient.initialize().catch(() => null)
 
-        const chat = await tldwClient.getChat(serverChatId)
-        const originalTitle = (chat?.title || "").trim() || "Extension chat"
+        let resolvedTitle = (chatTitle || "").trim()
+        let resolvedCharacterId = characterId ?? null
+        if (resolvedCharacterId == null) {
+          try {
+            const chat = await tldwClient.getChat(serverChatId)
+            if (!resolvedTitle) {
+              resolvedTitle = (chat?.title || "").trim()
+            }
+            resolvedCharacterId =
+              (chat as any)?.character_id ?? (chat as any)?.characterId ?? null
+          } catch (e) {
+            console.log("[branch] server metadata fetch failed", e)
+          }
+        }
+
+        const originalTitle =
+          resolvedTitle || (serverChatTopic || "").trim() || "Extension chat"
         const shortId = String(serverChatId).slice(0, 8)
         const base =
           originalTitle.length > 60
@@ -185,33 +307,27 @@ export const createBranchMessage = ({
             : originalTitle
         const branchTitle = `${base} [${shortId}] · msg #${index + 1}`
 
-        const characterId =
-          (chat as any)?.character_id ?? (chat as any)?.characterId ?? null
-        if (characterId == null) {
-          notification.error({
-            message: "Branch failed",
-            description:
-              "Unable to determine character for this server chat. Branching is only supported for character-backed chats."
-          })
-          return null
-        }
-
-        const created = await tldwClient.createChat({
+        const payload: Record<string, any> = {
           title: branchTitle,
-          character_id: characterId,
           parent_conversation_id: serverChatId,
           state: serverChatState || "in-progress",
           topic_label: serverChatTopic || undefined,
           cluster_id: serverChatClusterId || undefined,
           source: serverChatSource || undefined,
           external_ref: serverChatExternalRef || undefined
-        })
+        }
+        if (resolvedCharacterId != null) {
+          payload.character_id = resolvedCharacterId
+        }
+
+        const created = await tldwClient.createChat(payload)
         const rawId =
           (created as any)?.id ?? (created as any)?.chat_id ?? created
         const newChatId = rawId != null ? String(rawId) : ""
         if (!newChatId) {
           throw new Error("Failed to create server branch chat")
         }
+        onServerChatMutated?.()
 
         const snapshot: ChatHistory =
           (history && Array.isArray(history) ? history : []).slice(
@@ -271,48 +387,34 @@ export const createBranchMessage = ({
         return newChatId
       } catch (e) {
         console.log("[branch] server branch failed", e)
+        const fallbackTitle = `${String(serverChatId).slice(0, 8)} · msg #${
+          index + 1
+        }`
+        const fallbackId =
+          (await createLocalBranch(index)) ??
+          (await createLocalBranchFromSnapshot(index, fallbackTitle))
+        if (fallbackId) {
+          notification.warning({
+            message: "Branch fallback",
+            description:
+              "Server branch failed. Created a local branch instead."
+          })
+          return fallbackId
+        }
         notification.error({
           message: "Branch failed",
           description:
             "Unable to create a branched server chat. Check your server connection and try again."
-          })
+        })
+        return null
       }
-      return null
     }
 
     // Local Dexie-backed branch (existing behavior)
-    if (!historyId) {
-      // No persisted history; nothing to branch from.
-      return null
-    }
-
-    try {
-      const newBranch = await generateBranchMessage(historyId, index)
-      setHistory(formatToChatHistory(newBranch.messages))
-      setMessages(formatToMessage(newBranch.messages))
-      setHistoryId(newBranch.history.id)
-      const systemFiles = await getSessionFiles(newBranch.history.id)
-      if (setContext) {
-        setContext(systemFiles)
-      }
-
-      const lastUsedPrompt = newBranch?.history?.last_used_prompt
-      if (lastUsedPrompt) {
-        if (lastUsedPrompt.prompt_id) {
-          const prompt = await getPromptById(lastUsedPrompt.prompt_id)
-          if (prompt && setSelectedSystemPrompt) {
-            setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
-          }
-        }
-        if (setSystemPrompt) {
-          setSystemPrompt(lastUsedPrompt.prompt_content)
-        }
-      }
-      return newBranch.history.id
-    } catch (e) {
-      console.log("[branch] local branch failed", e)
-      return null
-    }
+    return (
+      (await createLocalBranch(index)) ??
+      (await createLocalBranchFromSnapshot(index, `Branch · msg #${index + 1}`))
+    )
   }
 }
 

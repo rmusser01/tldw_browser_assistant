@@ -358,6 +358,8 @@ export const tabChatMode = async (
       generationInfo,
       reasoning_time_taken: timetaken,
       documents,
+      saveToDb: Boolean(ollama.saveToDb),
+      conversationId: ollama.conversationId
     })
 
     setIsProcessing(false)

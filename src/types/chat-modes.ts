@@ -16,6 +16,8 @@ export interface SaveMessageBase {
   userParentMessageId?: string | null
   assistantParentMessageId?: string | null
   documents?: ChatDocuments
+  saveToDb?: boolean
+  conversationId?: string
 }
 
 export interface SaveMessageData extends SaveMessageBase {

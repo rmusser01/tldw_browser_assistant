@@ -1,5 +1,6 @@
 import { FileIcon, X } from "lucide-react"
 import { Form, Input, notification, Select, Switch } from "antd"
+import { useQueryClient } from "@tanstack/react-query"
 import type { FormInstance } from "antd"
 import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
@@ -44,6 +45,7 @@ export function ConversationTab({
   onVersionChange
 }: ConversationTabProps) {
   const { t } = useTranslation(["common", "playground"])
+  const queryClient = useQueryClient()
 
   const conversationStateOptions = [
     {
@@ -73,6 +75,7 @@ export function ConversationTab({
         state: next
       })
       onVersionChange((updated as any)?.version ?? null)
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
     } catch (error: any) {
       notification.error({
         message: t("common:error", { defaultValue: "Error" }),
@@ -95,6 +98,7 @@ export function ConversationTab({
         topic_label: topicValue || undefined
       })
       onVersionChange((updated as any)?.version ?? null)
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
     } catch (error: any) {
       notification.error({
         message: t("common:error", { defaultValue: "Error" }),

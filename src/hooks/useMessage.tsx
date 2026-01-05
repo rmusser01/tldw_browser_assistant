@@ -1,4 +1,5 @@
 import React from "react"
+import { useQueryClient } from "@tanstack/react-query"
 import { promptForRag, systemPromptForNonRag } from "~/services/tldw-server"
 import { useStoreMessageOption, type Message } from "~/store/option"
 import { useStoreMessage } from "~/store"
@@ -9,7 +10,6 @@ import {
   deleteChatForEdit,
   generateID,
   getPromptById,
-  removeMessageUsingHistoryId,
   updateMessageByIndex
 } from "@/db/dexie/helpers"
 import { useTranslation } from "react-i18next"
@@ -41,6 +41,12 @@ import {
   createSaveMessageOnSuccess,
   validateBeforeSubmit
 } from "./utils/messageHelpers"
+import {
+  buildMessageVariant,
+  getLastUserMessageId,
+  normalizeMessageVariants,
+  updateActiveVariant
+} from "@/utils/message-variants"
 import { normalChatMode } from "./chat-modes/normalChatMode"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
@@ -78,6 +84,10 @@ export const useMessage = () => {
   const setMessages = useStoreMessageOption((state) => state.setMessages)
 
   const { t } = useTranslation("option")
+  const queryClient = useQueryClient()
+  const invalidateServerChatHistory = React.useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+  }, [queryClient])
   const [selectedModel, setSelectedModel] = useStorage("selectedModel")
   const currentChatModelSettings = useStoreChatModelSettings()
   const {
@@ -248,7 +258,8 @@ export const useMessage = () => {
     messages: Message[],
     history: ChatHistory,
     signal: AbortSignal,
-    embeddingSignal: AbortSignal
+    embeddingSignal: AbortSignal,
+    regenerateFromMessage?: Message
   ) => {
     if (!selectedModel || selectedModel.trim().length === 0) {
       notification.error({
@@ -267,9 +278,19 @@ export const useMessage = () => {
     })
 
     let newMessage: Message[] = []
-    let generateMessageId = generateID()
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
     const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
+    const fallbackParentMessageId = getLastUserMessageId(messages)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
 
     if (!isRegenerate) {
       newMessage = [
@@ -280,7 +301,9 @@ export const useMessage = () => {
           message,
           sources: [],
           images: [],
-          createdAt
+          createdAt,
+          id: resolvedUserMessageId,
+          parentMessageId: null
         },
         {
           isBot: true,
@@ -290,7 +313,8 @@ export const useMessage = () => {
           createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     } else {
@@ -304,12 +328,34 @@ export const useMessage = () => {
           createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     }
 
     setMessages(newMessage)
+    if (regenerateVariants.length > 0) {
+      setMessages((prev) => {
+        const next = [...prev]
+        const lastIndex = next.findLastIndex(
+          (msg) => msg.id === resolvedAssistantMessageId
+        )
+        if (lastIndex >= 0) {
+          const stub = next[lastIndex]
+          const variants = [
+            ...regenerateVariants,
+            buildMessageVariant(stub)
+          ]
+          next[lastIndex] = {
+            ...stub,
+            variants,
+            activeVariantIndex: variants.length - 1
+          }
+        }
+        return next
+      })
+    }
     let fullText = ""
     let contentToSave = ""
     let embedURL: string, embedHTML: string, embedType: string
@@ -495,11 +541,10 @@ export const useMessage = () => {
         setMessages((prev) => {
           return prev.map((message) => {
             if (message.id === generateMessageId) {
-              return {
-                ...message,
+              return updateActiveVariant(message, {
                 message: fullText + "▋",
                 reasoning_time_taken: timetaken
-              }
+              })
             }
             return message
           })
@@ -510,13 +555,12 @@ export const useMessage = () => {
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText,
               sources: source,
               generationInfo,
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -546,7 +590,10 @@ export const useMessage = () => {
         source,
         message_source: "copilot",
         generationInfo,
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       setIsProcessing(false)
@@ -556,7 +603,9 @@ export const useMessage = () => {
       const assistantContent = buildAssistantErrorContent(fullText, e)
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+          msg.id === generateMessageId
+            ? updateActiveVariant(msg, { message: assistantContent })
+            : msg
         )
       )
       const errorSave = await saveMessageOnError({
@@ -570,7 +619,10 @@ export const useMessage = () => {
         setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
-        message_source: "copilot"
+        message_source: "copilot",
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       if (!errorSave) {
@@ -594,7 +646,8 @@ export const useMessage = () => {
     isRegenerate: boolean,
     messages: Message[],
     history: ChatHistory,
-    signal: AbortSignal
+    signal: AbortSignal,
+    regenerateFromMessage?: Message
   ) => {
     if (!selectedModel || selectedModel.trim().length === 0) {
       notification.error({
@@ -609,9 +662,19 @@ export const useMessage = () => {
     const ollama = await pageAssistModel({ model })
 
     let newMessage: Message[] = []
-    let generateMessageId = generateID()
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
     const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
+    const fallbackParentMessageId = getLastUserMessageId(messages)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
 
     if (!isRegenerate) {
       newMessage = [
@@ -622,7 +685,9 @@ export const useMessage = () => {
           message,
           sources: [],
           images: [],
-          createdAt
+          createdAt,
+          id: resolvedUserMessageId,
+          parentMessageId: null
         },
         {
           isBot: true,
@@ -632,7 +697,8 @@ export const useMessage = () => {
           createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     } else {
@@ -646,11 +712,33 @@ export const useMessage = () => {
           createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     }
     setMessages(newMessage)
+    if (regenerateVariants.length > 0) {
+      setMessages((prev) => {
+        const next = [...prev]
+        const lastIndex = next.findLastIndex(
+          (msg) => msg.id === resolvedAssistantMessageId
+        )
+        if (lastIndex >= 0) {
+          const stub = next[lastIndex]
+          const variants = [
+            ...regenerateVariants,
+            buildMessageVariant(stub)
+          ]
+          next[lastIndex] = {
+            ...stub,
+            variants,
+            activeVariantIndex: variants.length - 1
+          }
+        }
+        return next
+      })
+    }
     let fullText = ""
     let contentToSave = ""
 
@@ -761,11 +849,10 @@ export const useMessage = () => {
         setMessages((prev) => {
           return prev.map((message) => {
             if (message.id === generateMessageId) {
-              return {
-                ...message,
+              return updateActiveVariant(message, {
                 message: fullText + "▋",
                 reasoning_time_taken: timetaken
-              }
+              })
             }
             return message
           })
@@ -775,12 +862,11 @@ export const useMessage = () => {
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText,
               generationInfo,
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -809,7 +895,10 @@ export const useMessage = () => {
         source: [],
         message_source: "copilot",
         generationInfo,
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       setIsProcessing(false)
@@ -818,7 +907,9 @@ export const useMessage = () => {
       const assistantContent = buildAssistantErrorContent(fullText, e)
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+          msg.id === generateMessageId
+            ? updateActiveVariant(msg, { message: assistantContent })
+            : msg
         )
       )
       const errorSave = await saveMessageOnError({
@@ -832,7 +923,10 @@ export const useMessage = () => {
         setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
-        message_source: "copilot"
+        message_source: "copilot",
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       if (!errorSave) {
@@ -857,12 +951,23 @@ export const useMessage = () => {
     messages: Message[],
     history: ChatHistory,
     signal: AbortSignal,
-    model: string
+    model: string,
+    regenerateFromMessage?: Message
   ) => {
     setStreaming(true)
     let fullText = ""
     let contentToSave = ""
-    let generateMessageId: string | null = null
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
+    const fallbackParentMessageId = getLastUserMessageId(messages)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
 
     if (!selectedCharacter?.id) {
       throw new Error("No character selected")
@@ -873,18 +978,43 @@ export const useMessage = () => {
 
       // Visual placeholder
       const modelInfo = await getModelNicknameByID(model)
-      generateMessageId = generateID()
       const createdAt = Date.now()
+      const assistantStub: Message = {
+        isBot: true,
+        name: model,
+        message: "▋",
+        sources: [],
+        createdAt,
+        id: generateMessageId,
+        modelImage: modelInfo?.model_avatar,
+        modelName: modelInfo?.model_name || model,
+        parentMessageId: resolvedAssistantParentMessageId ?? null
+      }
+      if (regenerateVariants.length > 0) {
+        const variants = [
+          ...regenerateVariants,
+          buildMessageVariant(assistantStub)
+        ]
+        assistantStub.variants = variants
+        assistantStub.activeVariantIndex = variants.length - 1
+      }
+
       const newMessageList: Message[] = !isRegenerate
         ? [
             ...messages,
-            { isBot: false, name: 'You', message, sources: [], images: [], createdAt },
-            { isBot: true, name: model, message: '▋', sources: [], createdAt, id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
+            {
+              isBot: false,
+              name: "You",
+              message,
+              sources: [],
+              images: [],
+              createdAt,
+              id: resolvedUserMessageId,
+              parentMessageId: null
+            },
+            assistantStub
           ]
-        : [
-            ...messages,
-            { isBot: true, name: model, message: '▋', sources: [], createdAt, id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
-          ]
+        : [...messages, assistantStub]
       setMessages(newMessageList)
 
       // Ensure server chat session exists
@@ -958,6 +1088,7 @@ export const useMessage = () => {
         }
         chatId = normalizedId
         setServerChatId(normalizedId)
+        invalidateServerChatHistory()
       }
 
       // Add user message to server (only if not regenerate)
@@ -1035,7 +1166,10 @@ export const useMessage = () => {
           setMessages((prev) =>
             prev.map((m) =>
               m.id === generateMessageId
-                ? { ...m, message: fullText + "▋", reasoning_time_taken: timetaken }
+                ? updateActiveVariant(m, {
+                    message: fullText + "▋",
+                    reasoning_time_taken: timetaken
+                  })
                 : m
             )
           )
@@ -1068,7 +1202,10 @@ export const useMessage = () => {
       setMessages((prev) =>
         prev.map((m) =>
           m.id === generateMessageId
-            ? { ...m, message: fullText, reasoning_time_taken: timetaken }
+            ? updateActiveVariant(m, {
+                message: fullText,
+                reasoning_time_taken: timetaken
+              })
             : m
         )
       )
@@ -1084,11 +1221,10 @@ export const useMessage = () => {
             if (m.id !== generateMessageId) return m
             const serverMessageId =
               createdAsst?.id != null ? String(createdAsst.id) : undefined
-            return {
-              ...m,
+            return updateActiveVariant(m, {
               serverMessageId,
               serverMessageVersion: createdAsst?.version
-            }
+            })
           }) as Message[])
         )
       } catch (e) {
@@ -1107,12 +1243,16 @@ export const useMessage = () => {
         setHistoryId,
         isRegenerate,
         selectedModel: model,
+        modelId: model,
         message,
         image,
         fullText,
         source: [],
         message_source: "copilot",
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       setIsProcessing(false)
@@ -1123,7 +1263,7 @@ export const useMessage = () => {
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === generateMessageId
-              ? { ...msg, message: assistantContent }
+              ? updateActiveVariant(msg, { message: assistantContent })
               : msg
           )
         )
@@ -1135,11 +1275,15 @@ export const useMessage = () => {
         historyId,
         image,
         selectedModel: model,
+        modelId: model,
         setHistory,
         setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
-        message_source: "copilot"
+        message_source: "copilot",
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       if (!errorSave) {
@@ -1164,7 +1308,8 @@ export const useMessage = () => {
     messages: Message[],
     history: ChatHistory,
     signal: AbortSignal,
-    messageType: string
+    messageType: string,
+    regenerateFromMessage?: Message
   ) => {
     if (!selectedModel || selectedModel.trim().length === 0) {
       notification.error({
@@ -1189,9 +1334,19 @@ export const useMessage = () => {
     const ollama = await pageAssistModel({ model })
 
     let newMessage: Message[] = []
-    let generateMessageId = generateID()
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
     const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
+    const fallbackParentMessageId = getLastUserMessageId(messages)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
 
     if (!isRegenerate) {
       newMessage = [
@@ -1203,7 +1358,9 @@ export const useMessage = () => {
           sources: [],
           images: [image],
           createdAt,
-          messageType: messageType
+          id: resolvedUserMessageId,
+          messageType: messageType,
+          parentMessageId: null
         },
         {
           isBot: true,
@@ -1213,7 +1370,8 @@ export const useMessage = () => {
           createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     } else {
@@ -1227,11 +1385,33 @@ export const useMessage = () => {
           createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     }
     setMessages(newMessage)
+    if (regenerateVariants.length > 0) {
+      setMessages((prev) => {
+        const next = [...prev]
+        const lastIndex = next.findLastIndex(
+          (msg) => msg.id === resolvedAssistantMessageId
+        )
+        if (lastIndex >= 0) {
+          const stub = next[lastIndex]
+          const variants = [
+            ...regenerateVariants,
+            buildMessageVariant(stub)
+          ]
+          next[lastIndex] = {
+            ...stub,
+            variants,
+            activeVariantIndex: variants.length - 1
+          }
+        }
+        return next
+      })
+    }
     let fullText = ""
     let contentToSave = ""
 
@@ -1313,11 +1493,10 @@ export const useMessage = () => {
         setMessages((prev) => {
           return prev.map((message) => {
             if (message.id === generateMessageId) {
-              return {
-                ...message,
+              return updateActiveVariant(message, {
                 message: fullText + "▋",
                 reasoning_time_taken: timetaken
-              }
+              })
             }
             return message
           })
@@ -1328,12 +1507,11 @@ export const useMessage = () => {
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText,
               generationInfo,
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -1365,7 +1543,10 @@ export const useMessage = () => {
         message_source: "copilot",
         message_type: messageType,
         generationInfo,
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       setIsProcessing(false)
@@ -1374,7 +1555,9 @@ export const useMessage = () => {
       const assistantContent = buildAssistantErrorContent(fullText, e)
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+          msg.id === generateMessageId
+            ? updateActiveVariant(msg, { message: assistantContent })
+            : msg
         )
       )
       const errorSave = await saveMessageOnError({
@@ -1389,7 +1572,10 @@ export const useMessage = () => {
         userMessage: message,
         isRegenerating: isRegenerate,
         message_source: "copilot",
-        message_type: messageType
+        message_type: messageType,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       if (!errorSave) {
@@ -1412,7 +1598,8 @@ export const useMessage = () => {
     controller,
     memory,
     messages: chatHistory,
-    messageType
+    messageType,
+    regenerateFromMessage
   }: {
     message: string
     image: string
@@ -1421,6 +1608,7 @@ export const useMessage = () => {
     memory?: ChatHistory
     controller?: AbortController
     messageType?: string
+    regenerateFromMessage?: Message
   }) => {
     if (!validateBeforeSubmit(selectedModel || "", t, notification)) {
       return
@@ -1465,7 +1653,8 @@ export const useMessage = () => {
           chatHistory || messages,
           memory || history,
           signal,
-          messageType
+          messageType,
+          regenerateFromMessage
         )
       } else {
         if (chatMode === "normal") {
@@ -1477,7 +1666,8 @@ export const useMessage = () => {
               chatHistory || messages,
               memory || history,
               signal,
-              model
+              model,
+              regenerateFromMessage
             )
           } else {
             await normalChatMode(
@@ -1503,6 +1693,7 @@ export const useMessage = () => {
                 setHistoryId: setHistoryId as (id: string) => void,
                 webSearch,
                 setIsSearchingInternet,
+                regenerateFromMessage,
                 ...replyOverrides
               }
             )
@@ -1514,7 +1705,8 @@ export const useMessage = () => {
             isRegenerate,
             chatHistory || messages,
             memory || history,
-            signal
+            signal,
+            regenerateFromMessage
           )
         } else {
           const newEmbeddingController = new AbortController()
@@ -1527,7 +1719,8 @@ export const useMessage = () => {
             chatHistory || messages,
             memory || history,
             signal,
-            embeddingSignal
+            embeddingSignal,
+            regenerateFromMessage
           )
         }
       }
@@ -1629,24 +1822,13 @@ export const useMessage = () => {
       const lastMessage = history[history.length - 2]
       let newHistory = history.slice(0, -2)
       const currentMessages = messages as ServerBackedMessage[]
-      // If server-backed and last assistant has server message id, delete it on server
-      if (selectedCharacter?.id && serverChatId) {
-        const lastAssistant = ([...currentMessages].reverse().find((m) => m.isBot) as ServerBackedMessage | undefined)
-        if (lastAssistant?.serverMessageId) {
-          try {
-            let version = lastAssistant.serverMessageVersion
-            if (version == null) {
-              const srv = await tldwClient.getMessage(lastAssistant.serverMessageId)
-              version = srv?.version
-            }
-            if (version != null) await tldwClient.deleteMessage(lastAssistant.serverMessageId, Number(version))
-          } catch {}
-        }
+      const lastAssistant = currentMessages[currentMessages.length - 1]
+      if (!lastAssistant || !lastAssistant.isBot) {
+        return
       }
       const mewMessages = currentMessages.slice(0, -1)
       setHistory(newHistory)
       setMessages(mewMessages)
-      await removeMessageUsingHistoryId(historyId)
       if (lastMessage.role === "user") {
         const newController = new AbortController()
         await onSubmit({
@@ -1655,7 +1837,8 @@ export const useMessage = () => {
           isRegenerate: true,
           memory: newHistory,
           controller: newController,
-          messageType: lastMessage.messageType
+          messageType: lastMessage.messageType,
+          regenerateFromMessage: lastAssistant
         })
       }
     }
@@ -1680,6 +1863,8 @@ export const useMessage = () => {
     setServerChatSource,
     serverChatExternalRef,
     setServerChatExternalRef,
+    onServerChatMutated: invalidateServerChatHistory,
+    characterId: selectedCharacter?.id ?? null,
     messages,
     history
   })

@@ -4,6 +4,8 @@ import { IconButton } from "../IconButton"
 import { LoadingStatus } from "./ActionInfo"
 import {
   CheckIcon,
+  ChevronLeft,
+  ChevronRight,
   CopyIcon,
   GitBranchIcon,
   InfoIcon,
@@ -48,6 +50,7 @@ import { getSourceFeedbackKey } from "@/utils/feedback"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
+import type { MessageVariant } from "@/store/option"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
 
@@ -140,6 +143,10 @@ type Props = {
   searchQuery?: string
   isEmbedding?: boolean
   createdAt?: number | string
+  variants?: MessageVariant[]
+  activeVariantIndex?: number
+  onSwipePrev?: () => void
+  onSwipeNext?: () => void
   // Compare/multi-model metadata (optional)
   compareSelectable?: boolean
   compareSelected?: boolean
@@ -216,6 +223,24 @@ export const PlaygroundMessage = (props: Props) => {
       minute: "2-digit"
     })
   }, [props.createdAt, props.generationInfo])
+  const variantCount = props.variants?.length ?? 0
+  const resolvedVariantIndex = (() => {
+    const fallback =
+      typeof props.activeVariantIndex === "number"
+        ? props.activeVariantIndex
+        : variantCount > 0
+          ? variantCount - 1
+          : 0
+    if (variantCount <= 0) return 0
+    return Math.max(0, Math.min(fallback, variantCount - 1))
+  })()
+  const showVariantPager = props.isBot && variantCount > 1
+  const canSwipePrev =
+    showVariantPager && Boolean(props.onSwipePrev) && resolvedVariantIndex > 0
+  const canSwipeNext =
+    showVariantPager &&
+    Boolean(props.onSwipeNext) &&
+    resolvedVariantIndex < variantCount - 1
 
   const messageKey = React.useMemo(() => {
     if (props.serverMessageId) return `srv:${props.serverMessageId}`
@@ -782,6 +807,59 @@ export const PlaygroundMessage = (props: Props) => {
           {showInlineActions && (
             <div className="flex w-full justify-end">
               <div className="flex items-center gap-1">
+                {showVariantPager && (
+                  <div className="inline-flex items-center gap-1 rounded-full border border-border bg-surface2 px-1.5 py-0.5 text-[11px] text-text-muted">
+                    <button
+                      type="button"
+                      aria-label={t(
+                        "playground:actions.previousVariant",
+                        "Previous response"
+                      ) as string}
+                      title={t(
+                        "playground:actions.previousVariant",
+                        "Previous response"
+                      ) as string}
+                      onClick={() => {
+                        if (canSwipePrev) {
+                          props.onSwipePrev?.()
+                        }
+                      }}
+                      disabled={!canSwipePrev}
+                      className={`flex h-4 w-4 items-center justify-center rounded-full transition-colors ${
+                        canSwipePrev
+                          ? "text-text-subtle hover:text-text"
+                          : "text-text-muted/50"
+                      }`}>
+                      <ChevronLeft className="h-3 w-3" />
+                    </button>
+                    <span className="tabular-nums text-[10px]">
+                      {resolvedVariantIndex + 1}/{variantCount}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label={t(
+                        "playground:actions.nextVariant",
+                        "Next response"
+                      ) as string}
+                      title={t(
+                        "playground:actions.nextVariant",
+                        "Next response"
+                      ) as string}
+                      onClick={() => {
+                        if (canSwipeNext) {
+                          props.onSwipeNext?.()
+                        }
+                      }}
+                      disabled={!canSwipeNext}
+                      className={`flex h-4 w-4 items-center justify-center rounded-full transition-colors ${
+                        canSwipeNext
+                          ? "text-text-subtle hover:text-text"
+                          : "text-text-muted/50"
+                      }`}>
+                      <ChevronRight className="h-3 w-3" />
+                    </button>
+                  </div>
+                )}
                 <button
                   type="button"
                   aria-label={t("common:moreActions", "More actions") as string}

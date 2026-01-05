@@ -1,6 +1,7 @@
 import {
   type ChatHistory as ChatHistoryType,
-  type Message as MessageType
+  type Message as MessageType,
+  type MessageVariant
 } from "~/store/option"
 import { ChatDocuments } from "@/models/ChatTypes"
 import {
@@ -157,11 +158,55 @@ export const deleteCompareState = async (history_id: string) => {
   await db.deleteCompareState(history_id)
 }
 
+const shouldGroupVariants = (message: Message): boolean => {
+  if (message.role !== "assistant") return false
+  if (!message.parent_message_id) return false
+  const messageType = message.messageType || ""
+  if (messageType.startsWith("compare:")) return false
+  if (message.clusterId) return false
+  return true
+}
+
+const buildVariantFromHistory = (message: Message): MessageVariant => ({
+  id: message.id,
+  message: message.content,
+  sources: message.sources ?? [],
+  images: message.images ?? [],
+  generationInfo: message.generationInfo,
+  reasoning_time_taken: message.reasoning_time_taken,
+  createdAt: message.createdAt,
+  serverMessageId: (message as any).serverMessageId,
+  serverMessageVersion: (message as any).serverMessageVersion
+})
+
+const collapseVariantMessages = (messages: MessageHistory) => {
+  const sorted = [...messages].sort((a, b) => a.createdAt - b.createdAt)
+  const variantsByParent = new Map<string, Message[]>()
+  const lastIdByParent = new Map<string, string>()
+
+  for (const message of sorted) {
+    if (!shouldGroupVariants(message)) continue
+    const parentId = message.parent_message_id || ""
+    const existing = variantsByParent.get(parentId) || []
+    existing.push(message)
+    variantsByParent.set(parentId, existing)
+    lastIdByParent.set(parentId, message.id)
+  }
+
+  const collapsed = sorted.filter((message) => {
+    if (!shouldGroupVariants(message)) return true
+    const parentId = message.parent_message_id || ""
+    return lastIdByParent.get(parentId) === message.id
+  })
+
+  return { collapsed, variantsByParent }
+}
+
 export const formatToChatHistory = (
   messages: MessageHistory
 ): ChatHistoryType => {
-  messages.sort((a, b) => a.createdAt - b.createdAt)
-  return messages.map((message) => {
+  const { collapsed } = collapseVariantMessages(messages)
+  return collapsed.map((message) => {
     return {
       content: message.content,
       role: message.role as "user" | "assistant" | "system",
@@ -171,9 +216,9 @@ export const formatToChatHistory = (
 }
 
 export const formatToMessage = (messages: MessageHistory): MessageType[] => {
-  messages.sort((a, b) => a.createdAt - b.createdAt)
-  return messages.map((message) => {
-    return {
+  const { collapsed, variantsByParent } = collapseVariantMessages(messages)
+  return collapsed.map((message) => {
+    const mapped: MessageType = {
       isBot: message.role === "assistant",
       message: message.content,
       name: message.name,
@@ -191,6 +236,16 @@ export const formatToMessage = (messages: MessageHistory): MessageType[] => {
       id: message.id,
       documents: message?.documents
     }
+    if (shouldGroupVariants(message)) {
+      const parentId = message.parent_message_id || ""
+      const grouped = variantsByParent.get(parentId) || []
+      if (grouped.length > 1) {
+        const variants = grouped.map(buildVariantFromHistory)
+        mapped.variants = variants
+        mapped.activeVariantIndex = variants.length - 1
+      }
+    }
+    return mapped
   })
 }
 

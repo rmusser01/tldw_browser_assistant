@@ -1,9 +1,9 @@
 import React from "react"
+import { useQueryClient } from "@tanstack/react-query"
 import { type ChatHistory, type Message } from "~/store/option"
 import { useStoreMessageOption } from "~/store/option"
 import { usePlaygroundSessionStore } from "@/store/playground-session"
 import {
-  removeMessageUsingHistoryId,
   generateID,
   getCompareState,
   saveCompareState,
@@ -44,6 +44,7 @@ import { UploadedFile } from "@/db/dexie/types"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { getServerCapabilities } from "@/services/tldw/server-capabilities"
 import { getActorSettingsForChat } from "@/services/actor-settings"
 import { generateTitle } from "@/services/title"
 import { FEATURE_FLAGS, useFeatureFlag } from "@/hooks/useFeatureFlags"
@@ -173,6 +174,10 @@ export const useMessageOption = () => {
   const { ttsEnabled } = useWebUI()
 
   const { t } = useTranslation("option")
+  const queryClient = useQueryClient()
+  const invalidateServerChatHistory = React.useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+  }, [queryClient])
   const notification = useAntdNotification()
 
   const navigate = useNavigate()
@@ -520,9 +525,31 @@ export const useMessageOption = () => {
       compareNewHistoryIdsRef.current.add(historyKey)
     }
 
+    let skipServerWrite = false
+    const payloadConversationId =
+      typeof payload?.conversationId === "string"
+        ? payload.conversationId
+        : payload?.conversationId != null
+          ? String(payload.conversationId)
+          : null
+    const isServerConversation =
+      payloadConversationId && serverChatId
+        ? payloadConversationId === String(serverChatId)
+        : false
+
+    if (isServerConversation && payload?.saveToDb) {
+      try {
+        const caps = await getServerCapabilities()
+        skipServerWrite = Boolean(caps?.hasChatSaveToDb)
+      } catch {
+        skipServerWrite = false
+      }
+    }
+
     // When resuming a server-backed chat, mirror new turns to /api/v1/chats.
     if (
       serverChatId &&
+      !skipServerWrite &&
       !payload?.isRegenerate &&
       !payload?.isContinue &&
       typeof payload?.message === "string" &&
@@ -769,7 +796,8 @@ export const useMessageOption = () => {
     memory,
     controller,
     isContinue,
-    docs
+    docs,
+    regenerateFromMessage
   }: {
     message: string
     image: string
@@ -779,6 +807,7 @@ export const useMessageOption = () => {
     memory?: ChatHistory
     controller?: AbortController
     docs?: ChatDocuments
+    regenerateFromMessage?: Message
   }) => {
     setStreaming(true)
     let signal: AbortSignal
@@ -814,6 +843,10 @@ export const useMessageOption = () => {
     const chatModeParamsWithReply = replyActive
       ? { ...chatModeParams, ...replyOverrides }
       : chatModeParams
+    const chatModeParamsWithRegen = {
+      ...chatModeParamsWithReply,
+      regenerateFromMessage: isRegenerate ? regenerateFromMessage : undefined
+    }
 
     try {
       if (isContinue) {
@@ -835,7 +868,7 @@ export const useMessageOption = () => {
           memory || history,
           signal,
           contextFiles,
-          chatModeParamsWithReply
+          chatModeParamsWithRegen
         )
         // setFileRetrievalEnabled(false)
         return
@@ -857,7 +890,7 @@ export const useMessageOption = () => {
           chatHistory || messages,
           memory || history,
           signal,
-          chatModeParamsWithReply
+          chatModeParamsWithRegen
         )
         return
       }
@@ -870,12 +903,12 @@ export const useMessageOption = () => {
           chatHistory || messages,
           memory || history,
           signal,
-          chatModeParamsWithReply
+          chatModeParamsWithRegen
         )
       } else {
         // Include uploaded files info even in normal mode
         const enhancedChatModeParams = {
-          ...chatModeParamsWithReply,
+          ...chatModeParamsWithRegen,
           uploadedFiles: uploadedFiles
         }
         const baseMessages = chatHistory || messages
@@ -1193,8 +1226,6 @@ export const useMessageOption = () => {
     messages,
     setHistory,
     setMessages,
-    historyId,
-    removeMessageUsingHistoryIdFn: removeMessageUsingHistoryId,
     onSubmit
   })
 
@@ -1234,6 +1265,7 @@ export const useMessageOption = () => {
     setServerChatSource,
     serverChatExternalRef,
     setServerChatExternalRef,
+    onServerChatMutated: invalidateServerChatHistory,
     messages,
     history
   })

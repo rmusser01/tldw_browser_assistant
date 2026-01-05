@@ -6,6 +6,7 @@ import { useWebUI } from "@/store/webui"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useStorage } from "@plasmohq/storage/hook"
+import { applyVariantToMessage } from "@/utils/message-variants"
 
 type Props = {
   scrollParentRef?: React.RefObject<HTMLDivElement>
@@ -19,6 +20,7 @@ export const SidePanelBody = ({
 }: Props & { inputRef?: React.RefObject<HTMLTextAreaElement> }) => {
   const {
     messages,
+    setMessages,
     streaming,
     isProcessing,
     regenerateLastMessage,
@@ -35,6 +37,28 @@ export const SidePanelBody = ({
   const uiMode = useUiModeStore((state) => state.mode)
   const scrollAnchorRef = React.useRef<number | null>(null)
   const topPaddingClass = "pt-12"
+
+  const handleVariantSwipe = React.useCallback(
+    (messageId: string | undefined, direction: "prev" | "next") => {
+      if (!messageId) return
+      setMessages((prev) =>
+        prev.map((msg) => {
+          if (msg.id !== messageId) return msg
+          const variants = msg.variants ?? []
+          if (variants.length < 2) return msg
+          const currentIndex =
+            typeof msg.activeVariantIndex === "number"
+              ? msg.activeVariantIndex
+              : variants.length - 1
+          const nextIndex =
+            direction === "prev" ? currentIndex - 1 : currentIndex + 1
+          if (nextIndex < 0 || nextIndex >= variants.length) return msg
+          return applyVariantToMessage(msg, variants[nextIndex], nextIndex)
+        })
+      )
+    },
+    [setMessages]
+  )
 
   const getPreviousUserMessage = (index: number) => {
     for (let i = index - 1; i >= 0; i--) {
@@ -127,6 +151,10 @@ export const SidePanelBody = ({
                   feedbackQuery={previousUserMessage?.message ?? null}
                   searchQuery={searchQuery}
                   isEmbedding={isEmbedding}
+                  variants={message.variants}
+                  activeVariantIndex={message.activeVariantIndex}
+                  onSwipePrev={() => handleVariantSwipe(message.id, "prev")}
+                  onSwipeNext={() => handleVariantSwipe(message.id, "next")}
                 />
               </div>
             )

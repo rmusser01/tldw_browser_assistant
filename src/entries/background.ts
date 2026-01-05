@@ -400,6 +400,94 @@ export default defineBackground({
       return null
     }
 
+    const CHAT_QUEUE_CONCURRENCY = 2
+    const CHAT_BACKOFF_BASE_MS = 1000
+    const CHAT_BACKOFF_MAX_MS = 30_000
+    let chatBackoffUntil = 0
+    let chatBackoffMs = CHAT_BACKOFF_BASE_MS
+    let chatQueueTimer: ReturnType<typeof setTimeout> | null = null
+    let chatActiveCount = 0
+    const chatQueue: Array<{
+      run: () => Promise<any>
+      resolve: (value: any) => void
+      reject: (reason?: any) => void
+    }> = []
+
+    const isChatEndpoint = (path: string): boolean => {
+      const raw = String(path || "")
+      let pathname = raw
+      if (/^https?:/i.test(raw)) {
+        try {
+          pathname = new URL(raw).pathname
+        } catch {
+          pathname = raw
+        }
+      }
+      const normalized = pathname.toLowerCase()
+      return (
+        normalized.startsWith("/api/v1/chat/") ||
+        normalized.startsWith("/api/v1/chats/")
+      )
+    }
+
+    const updateChatBackoff = (resp: any) => {
+      if (!resp || typeof resp.status !== "number") return
+      if (resp.status === 429) {
+        const retryDelay =
+          typeof resp.retryAfterMs === "number" && resp.retryAfterMs > 0
+            ? resp.retryAfterMs
+            : chatBackoffMs
+        chatBackoffUntil = Math.max(chatBackoffUntil, Date.now() + retryDelay)
+        chatBackoffMs = Math.min(chatBackoffMs * 2, CHAT_BACKOFF_MAX_MS)
+        return
+      }
+      if (resp.ok) {
+        chatBackoffUntil = 0
+        chatBackoffMs = CHAT_BACKOFF_BASE_MS
+      }
+    }
+
+    const scheduleChatDrain = () => {
+      if (chatQueueTimer) return
+      const delay = Math.max(0, chatBackoffUntil - Date.now())
+      chatQueueTimer = setTimeout(() => {
+        chatQueueTimer = null
+        drainChatQueue()
+      }, delay)
+    }
+
+    const drainChatQueue = () => {
+      if (chatActiveCount >= CHAT_QUEUE_CONCURRENCY) return
+      if (chatQueue.length === 0) return
+      const now = Date.now()
+      if (chatBackoffUntil > now) {
+        scheduleChatDrain()
+        return
+      }
+      const task = chatQueue.shift()
+      if (!task) return
+      chatActiveCount += 1
+      task
+        .run()
+        .then((resp) => {
+          chatActiveCount -= 1
+          updateChatBackoff(resp)
+          task.resolve(resp)
+          drainChatQueue()
+        })
+        .catch((err) => {
+          chatActiveCount -= 1
+          task.reject(err)
+          drainChatQueue()
+        })
+    }
+
+    const enqueueChatRequest = <T,>(run: () => Promise<T>): Promise<T> =>
+      new Promise((resolve, reject) => {
+        chatQueue.push({ run, resolve, reject })
+        drainChatQueue()
+      })
+
     const normalizeFileData = (input: any): Uint8Array | null => {
       if (!input) return null
       if (input instanceof ArrayBuffer) return new Uint8Array(input)
@@ -502,7 +590,7 @@ export default defineBackground({
       }
     }
 
-    const handleTldwRequest = async (payload: any) => {
+    const runTldwRequest = async (payload: any) => {
       const {
         path,
         method = 'GET',
@@ -615,6 +703,14 @@ export default defineBackground({
           error: formatErrorMessage(e, "Network error")
         }
       }
+    }
+
+    const handleTldwRequest = async (payload: any) => {
+      const path = payload?.path
+      if (isChatEndpoint(String(path || ""))) {
+        return enqueueChatRequest(() => runTldwRequest(payload))
+      }
+      return runTldwRequest(payload)
     }
 
     browser.runtime.onMessage.addListener(async (message, sender) => {

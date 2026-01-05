@@ -19,6 +19,7 @@ import {
   ChevronDown,
   Scissors,
   Gauge,
+  Signpost,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -42,6 +43,8 @@ interface HeaderShortcutsProps {
   defaultExpanded?: boolean
   /** Additional CSS classes */
   className?: string
+  /** Whether to render the toggle button */
+  showToggle?: boolean
 }
 
 /**
@@ -52,6 +55,7 @@ interface HeaderShortcutsProps {
 export function HeaderShortcuts({
   defaultExpanded = false,
   className,
+  showToggle = true,
 }: HeaderShortcutsProps) {
   const { t } = useTranslation(["option", "common", "settings"])
 
@@ -286,35 +290,42 @@ export function HeaderShortcuts({
     allowInInput: false,
   })
 
+  if (!showToggle && !shortcutsExpanded) {
+    return null
+  }
+
   return (
     <div className={`flex flex-col gap-2 ${className || ""}`}>
-      <button
-        type="button"
-        onClick={handleToggle}
-        aria-expanded={shortcutsExpanded}
-        aria-controls={shortcutsSectionId}
-        ref={shortcutsToggleRef}
-        title={t(
-          "option:header.shortcutsKeyHint",
-          "Press ? to toggle shortcuts"
-        )}
-        className="inline-flex items-center self-start rounded-md border border-transparent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-text-muted transition hover:border-border hover:bg-surface"
-      >
-        <ChevronDown
-          className={classNames(
-            "mr-1 h-4 w-4 transition-transform",
-            shortcutsExpanded ? "rotate-180" : ""
+      {showToggle && (
+        <button
+          type="button"
+          onClick={handleToggle}
+          aria-expanded={shortcutsExpanded}
+          aria-controls={shortcutsSectionId}
+          ref={shortcutsToggleRef}
+          title={t(
+            "option:header.shortcutsKeyHint",
+            "Press ? to toggle shortcuts"
           )}
-        />
-        {shortcutsExpanded
-          ? t("option:header.hideShortcuts", "Hide shortcuts")
-          : t("option:header.showShortcuts", "Show shortcuts")}
-        {!shortcutsExpanded && (
-          <span className="ml-1.5 text-[10px] font-normal normal-case tracking-normal text-text-subtle">
-            {t("option:header.shortcutsKeyHintInline", "(Press ?)")}
-          </span>
-        )}
-      </button>
+          className="inline-flex items-center self-start rounded-md border border-transparent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-text-muted transition hover:border-border hover:bg-surface"
+        >
+          <ChevronDown
+            className={classNames(
+              "mr-1 h-4 w-4 transition-transform",
+              shortcutsExpanded ? "rotate-180" : ""
+            )}
+          />
+          <Signpost className="mr-1 h-4 w-4" aria-hidden="true" />
+          {shortcutsExpanded
+            ? t("option:header.hideShortcuts", "Hide shortcuts")
+            : t("option:header.showShortcuts", "Show shortcuts")}
+          {!shortcutsExpanded && (
+            <span className="ml-1.5 text-[10px] font-normal normal-case tracking-normal text-text-subtle">
+              {t("option:header.shortcutsKeyHintInline", "(Press ?)")}
+            </span>
+          )}
+        </button>
+      )}
 
       {shortcutsExpanded && (
         <div
@@ -324,6 +335,7 @@ export function HeaderShortcuts({
             if (e.key === "Escape") {
               e.preventDefault()
               setShortcutsExpanded(false)
+              debouncedSetShortcutsPreference(false)
               requestAnimationFrame(() => {
                 shortcutsToggleRef.current?.focus()
               })

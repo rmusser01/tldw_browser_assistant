@@ -1007,6 +1007,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }, [selectedQuickPrompt])
 
   const queryClient = useQueryClient()
+  const invalidateServerChatHistory = React.useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+  }, [queryClient])
 
   const { mutateAsync: sendMessage } = useMutation({
     mutationFn: onSubmit,
@@ -1324,6 +1327,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       )
       setServerChatSource((created as any)?.source ?? serverChatSource ?? null)
       setServerChatVersion((created as any)?.version ?? null)
+      invalidateServerChatHistory()
 
       for (const msg of snapshot) {
         const content = (msg.content || "").trim()
@@ -1368,6 +1372,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }, [
     history,
+    invalidateServerChatHistory,
     isConnectionReady,
     temporaryChat,
     serverChatId,
@@ -1610,6 +1615,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         )
         setServerChatSource((updated as any)?.source ?? null)
         setServerChatVersion((updated as any)?.version ?? null)
+        invalidateServerChatHistory()
       } catch (e: any) {
         notification.error({
           message: t("error", { defaultValue: "Error" }),
@@ -1620,6 +1626,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       }
     },
     [
+      invalidateServerChatHistory,
       serverChatId,
       setServerChatSource,
       setServerChatState,

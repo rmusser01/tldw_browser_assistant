@@ -13,6 +13,7 @@ import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
 import { trackCompareMetric } from "@/utils/compare-metrics"
 import { fetchChatModels } from "@/services/tldw-server"
 import { tldwModels } from "@/services/tldw"
+import { applyVariantToMessage } from "@/utils/message-variants"
 
 type TimelineBlock =
   | { kind: "single"; index: number }
@@ -106,6 +107,7 @@ export const PlaygroundChat = () => {
   const { t } = useTranslation(["playground", "common"])
   const {
     messages,
+    setMessages,
     streaming,
     isProcessing,
     regenerateLastMessage,
@@ -209,6 +211,28 @@ export const PlaygroundChat = () => {
     return Math.round(resolvedTotal)
   }, [])
 
+  const handleVariantSwipe = React.useCallback(
+    (messageId: string | undefined, direction: "prev" | "next") => {
+      if (!messageId) return
+      setMessages((prev) =>
+        prev.map((msg) => {
+          if (msg.id !== messageId) return msg
+          const variants = msg.variants ?? []
+          if (variants.length < 2) return msg
+          const currentIndex =
+            typeof msg.activeVariantIndex === "number"
+              ? msg.activeVariantIndex
+              : variants.length - 1
+          const nextIndex =
+            direction === "prev" ? currentIndex - 1 : currentIndex + 1
+          if (nextIndex < 0 || nextIndex >= variants.length) return msg
+          return applyVariantToMessage(msg, variants[nextIndex], nextIndex)
+        })
+      )
+    },
+    [setMessages]
+  )
+
   return (
     <>
       <div className="relative flex w-full flex-col items-center pt-16 pb-4">
@@ -265,6 +289,10 @@ export const PlaygroundChat = () => {
                 feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
                 message_type={message.messageType}
+                variants={message.variants}
+                activeVariantIndex={message.activeVariantIndex}
+                onSwipePrev={() => handleVariantSwipe(message.id, "prev")}
+                onSwipeNext={() => handleVariantSwipe(message.id, "next")}
               />
             )
           }
@@ -479,6 +507,10 @@ export const PlaygroundChat = () => {
                 feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
                 message_type={userMessage.messageType}
+                variants={userMessage.variants}
+                activeVariantIndex={userMessage.activeVariantIndex}
+                onSwipePrev={() => handleVariantSwipe(userMessage.id, "prev")}
+                onSwipeNext={() => handleVariantSwipe(userMessage.id, "next")}
               />
               <div className="ml-10 space-y-2 border-l border-dashed border-border pl-4">
                 <div className="mb-1 flex items-center justify-between text-[11px] text-text-muted">
@@ -799,6 +831,10 @@ export const PlaygroundChat = () => {
                         onToggleCompareSelect={handleToggle}
                         compareError={hasError}
                         compareChosen={isChosenCard}
+                        variants={message.variants}
+                        activeVariantIndex={message.activeVariantIndex}
+                        onSwipePrev={() => handleVariantSwipe(message.id, "prev")}
+                        onSwipeNext={() => handleVariantSwipe(message.id, "next")}
                       />
 
                       {threadPreviewItems.length > 1 && (

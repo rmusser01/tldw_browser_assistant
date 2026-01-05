@@ -123,6 +123,8 @@ export const Sidebar = ({
   const [folderPickerOpen, setFolderPickerOpen] = useState(false)
   const [folderPickerChatId, setFolderPickerChatId] = useState<string | null>(null)
   const folderRefreshInFlightRef = React.useRef<Promise<void> | null>(null)
+  const serverChatLoadIdRef = React.useRef(0)
+  const serverChatAbortRef = React.useRef<AbortController | null>(null)
 
   // Load folders when the sidebar is open and folder view is active.
   useEffect(() => {
@@ -136,6 +138,14 @@ export const Sidebar = ({
       folderRefreshInFlightRef.current = refreshPromise
     }
   }, [isConnected, isOpen, viewMode, refreshFromServer])
+
+  useEffect(() => {
+    return () => {
+      if (serverChatAbortRef.current) {
+        serverChatAbortRef.current.abort()
+      }
+    }
+  }, [])
   const {
     serverChatId,
     setServerChatId,
@@ -143,7 +153,13 @@ export const Sidebar = ({
     setServerChatTopic,
     setServerChatClusterId,
     setServerChatSource,
-    setServerChatExternalRef
+    setServerChatExternalRef,
+    setIsProcessing,
+    setStreaming,
+    setIsLoading,
+    setIsEmbedding,
+    setIsSearchingInternet,
+    clearReplyTarget
   } = useStoreMessageOption()
   const {
     data: serverChatData,
@@ -700,7 +716,17 @@ export const Sidebar = ({
         <button
           className="flex flex-col overflow-hidden flex-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 rounded"
           onClick={async () => {
+            let loadId = 0
+            let controller: AbortController | null = null
             try {
+              loadId = ++serverChatLoadIdRef.current
+              if (serverChatAbortRef.current) {
+                serverChatAbortRef.current.abort()
+              }
+              controller = new AbortController()
+              serverChatAbortRef.current = controller
+
+              setIsLoading(true)
               // Clear local selection; this chat is backed by the server
               setHistoryId(null)
               setServerChatId(chat.id)
@@ -715,6 +741,11 @@ export const Sidebar = ({
               setServerChatExternalRef(
                 (chat as any)?.external_ref ?? null
               )
+              setIsProcessing(false)
+              setStreaming(false)
+              setIsEmbedding(false)
+              setIsSearchingInternet(false)
+              clearReplyTarget()
               // Try to resolve a friendly assistant name from the character, if any.
               let assistantName = "Assistant"
               if (chat.character_id != null) {
@@ -731,9 +762,21 @@ export const Sidebar = ({
                 }
               }
 
-              const messages = await tldwClient.listChatMessages(chat.id, {
-                include_deleted: "false"
-              } as any)
+              if (loadId !== serverChatLoadIdRef.current || controller.signal.aborted) {
+                return
+              }
+
+              const messages = await tldwClient.listChatMessages(
+                chat.id,
+                {
+                  include_deleted: "false"
+                } as any,
+                { signal: controller.signal }
+              )
+
+              if (loadId !== serverChatLoadIdRef.current || controller.signal.aborted) {
+                return
+              }
               const history = messages.map((m) => ({
                 role: m.role,
                 content: m.content
@@ -752,23 +795,54 @@ export const Sidebar = ({
                   message: m.content,
                   sources: [],
                   images: [],
+                  id: String(m.id),
                   serverMessageId: m.id,
-                  serverMessageVersion: m.version
+                  serverMessageVersion: m.version,
+                  parentMessageId:
+                    (m as any)?.parent_message_id ??
+                    (m as any)?.parentMessageId ??
+                    null,
+                  messageType:
+                    (m as any)?.message_type ?? (m as any)?.messageType,
+                  clusterId: (m as any)?.cluster_id ?? (m as any)?.clusterId,
+                  modelId: (m as any)?.model_id ?? (m as any)?.modelId,
+                  modelName:
+                    (m as any)?.model_name ??
+                    (m as any)?.modelName ??
+                    assistantName,
+                  modelImage: (m as any)?.model_image ?? (m as any)?.modelImage
                 }
               })
+              if (loadId !== serverChatLoadIdRef.current || controller.signal.aborted) {
+                return
+              }
+
               setHistory(history)
               setMessages(mappedMessages)
               updatePageTitle(chat.title)
               navigate("/")
               onClose()
             } catch (e) {
-              console.error("Failed to load server chat", e)
-              message.error(
-                t("common:serverChatLoadError", {
-                  defaultValue:
-                    "Failed to load server chat. Check your connection and try again."
-                })
-              )
+              const errMessage = String((e as any)?.message || "")
+              const isAbort =
+                (e as any)?.name === "AbortError" ||
+                errMessage.toLowerCase().includes("abort")
+              if (!isAbort) {
+                console.error("Failed to load server chat", e)
+                message.error(
+                  t("common:serverChatLoadError", {
+                    defaultValue:
+                      "Failed to load server chat. Check your connection and try again."
+                  })
+                )
+              }
+            } finally {
+              if (loadId && loadId === serverChatLoadIdRef.current) {
+                setIsLoading(false)
+              }
+              if (controller && serverChatAbortRef.current === controller) {
+                serverChatAbortRef.current = null
+              }
             }
           }}
         >
