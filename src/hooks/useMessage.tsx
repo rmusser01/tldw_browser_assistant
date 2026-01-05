@@ -64,14 +64,18 @@ const normalizeConversationState = (
 }
 
 export const useMessage = () => {
+  // Controllers come from Context (for aborting streaming requests)
   const {
     controller: abortController,
     setController: setAbortController,
-    messages,
-    setMessages,
     embeddingController,
     setEmbeddingController
   } = usePageAssist()
+
+  // Messages now come from Zustand store (single source of truth)
+  const messages = useStoreMessageOption((state) => state.messages)
+  const setMessages = useStoreMessageOption((state) => state.setMessages)
+
   const { t } = useTranslation("option")
   const [selectedModel, setSelectedModel] = useStorage("selectedModel")
   const currentChatModelSettings = useStoreChatModelSettings()

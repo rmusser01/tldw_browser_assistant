@@ -37,6 +37,7 @@ export type Message = {
   reasoning_time_taken?: number
   id?: string
   messageType?: string
+  generationInfo?: any
   modelName?: string
   modelImage?: string
   documents?: ChatDocuments
@@ -57,7 +58,10 @@ export type ChatHistory = {
 
 type State = {
   messages: Message[]
-  setMessages: (messages: Message[]) => void
+  // Accepts either direct Message[] or functional update (like React setState)
+  setMessages: (
+    messagesOrUpdater: Message[] | ((prev: Message[]) => Message[])
+  ) => void
   history: ChatHistory
   setHistory: (history: ChatHistory) => void
   streaming: boolean
@@ -189,9 +193,15 @@ type State = {
   clearReplyTarget: () => void
 }
 
-export const useStoreMessageOption = create<State>((set) => ({
+export const useStoreMessageOption = create<State>((set, get) => ({
   messages: [],
-  setMessages: (messages) => set({ messages }),
+  setMessages: (messagesOrUpdater) =>
+    set({
+      messages:
+        typeof messagesOrUpdater === "function"
+          ? messagesOrUpdater(get().messages)
+          : messagesOrUpdater
+    }),
   history: [],
   setHistory: (history) => set({ history }),
   streaming: false,

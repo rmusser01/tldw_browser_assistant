@@ -274,8 +274,8 @@
     "contextTabsHint": "Review or remove referenced tabs, or add more from your open browser tabs.",
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",
-    "contextKnowledge": "Context & Knowledge",
-    "contextKnowledgeClose": "Close Context & Knowledge",
+  "contextKnowledge": "Ctx + Media",
+  "contextKnowledgeClose": "Close Ctx + Media",
     "knowledgeSearch": "Knowledge search",
     "knowledgeSearchClose": "Close Knowledge search",
     "persistence": {

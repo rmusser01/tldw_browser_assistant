@@ -1759,5 +1759,8 @@
   },
   "promptSelect_quick": {
     "message": "快速提示詞"
+  },
+  "header_moreTools": {
+    "message": "更多"
   }
 }

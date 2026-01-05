@@ -1792,5 +1792,8 @@
   },
   "promptSelect_quick": {
     "message": "빠른 프롬프트"
+  },
+  "header_moreTools": {
+    "message": "더보기"
   }
 }

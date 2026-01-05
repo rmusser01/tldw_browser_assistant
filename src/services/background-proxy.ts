@@ -1,6 +1,7 @@
 import { browser } from "wxt/browser"
 import { Storage } from "@plasmohq/storage"
 import { createSafeStorage } from "@/utils/safe-storage"
+import { formatErrorMessage } from "@/utils/format-error-message"
 import type {
   AllowedMethodFor,
   AllowedPath,
@@ -104,7 +105,10 @@ export async function bgRequest<
       if (!abortSignal) {
         const resp = await browser.runtime.sendMessage(payload) as { ok: boolean; error?: string; status?: number; data: T } | undefined
         if (!resp?.ok) {
-          const msg = resp?.error || `Request failed: ${resp?.status}`
+          const msg = formatErrorMessage(
+            resp?.error,
+            `Request failed: ${resp?.status}`
+          )
           if (!isAbortErrorMessage(msg)) {
             console.warn("[tldw:request]", method, path, resp?.status, msg)
             await recordRequestError({
@@ -147,7 +151,10 @@ export async function bgRequest<
       })
 
       if (!resp?.ok) {
-        const msg = resp?.error || `Request failed: ${resp?.status}`
+        const msg = formatErrorMessage(
+          resp?.error,
+          `Request failed: ${resp?.status}`
+        )
         if (!isAbortErrorMessage(msg)) {
           console.warn("[tldw:request]", method, path, resp?.status, msg)
           await recordRequestError({
@@ -349,7 +356,10 @@ export async function bgUpload<T = any, P extends AllowedPath = AllowedPath, M e
     payload: { path, method, fields, file }
   }) as { ok: boolean; error?: string; status?: number; data: T } | undefined
   if (!resp?.ok) {
-    const msg = resp?.error || `Upload failed: ${resp?.status}`
+    const msg = formatErrorMessage(
+      resp?.error,
+      `Upload failed: ${resp?.status}`
+    )
     throw new Error(msg)
   }
   return resp.data as T

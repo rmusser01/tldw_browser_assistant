@@ -132,7 +132,7 @@
     "message": "Tarjetas"
   },
   "header_quiz": {
-    "message": "Cuestionario"
+    "message": "Cuestionarios"
   },
   "header_media": {
     "message": "Medios"
@@ -1792,5 +1792,8 @@
   },
   "promptSelect_quick": {
     "message": "Prompts rápidos"
+  },
+  "header_moreTools": {
+    "message": "Más"
   }
 }

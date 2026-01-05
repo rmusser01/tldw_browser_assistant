@@ -88,7 +88,8 @@
     "omniSearchStartChat": "开始新聊天 \"{{query}}\"",
     "connectionCard.connectedCaption": "现在可以在选项和侧边栏使用聊天和工具。",
     "quickIngestQueuedAria": "{{label}} — 已排队 {{count}} 个项目 — 单击以查看并处理",
-    "modeSpeech": "语音"
+    "modeSpeech": "语音",
+    "moreTools": "更多"
   },
   "sidebarTitle": "聊天历史",
   "error": "错误",

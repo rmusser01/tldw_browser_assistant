@@ -135,7 +135,7 @@
     "message": "Flashcards (kort)"
   },
   "header_quiz": {
-    "message": "Quiz"
+    "message": "Quizzer"
   },
   "header_media": {
     "message": "Medier"
@@ -1789,5 +1789,8 @@
   },
   "promptSelect_quick": {
     "message": "Hurtige prompts"
+  },
+  "header_moreTools": {
+    "message": "Mere"
   }
 }

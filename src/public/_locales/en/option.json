@@ -120,7 +120,7 @@
     "message": "Flashcards"
   },
   "header_quiz": {
-    "message": "Quiz"
+    "message": "Quizzes"
   },
   "header_media": {
     "message": "Media"
@@ -151,6 +151,9 @@
   },
   "header_modesLabel": {
     "message": "Modes"
+  },
+  "header_moreTools": {
+    "message": "More"
   },
   "header_modePlayground": {
     "message": "Chat"

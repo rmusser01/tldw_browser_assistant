@@ -2,6 +2,7 @@ import React from "react"
 import { PlaygroundForm } from "./PlaygroundForm"
 import { PlaygroundChat } from "./PlaygroundChat"
 import { useMessageOption } from "@/hooks/useMessageOption"
+import { usePlaygroundSessionPersistence } from "@/hooks/usePlaygroundSessionPersistence"
 import { webUIResumeLastChat } from "@/services/app"
 import {
   formatToChatHistory,
@@ -163,11 +164,20 @@ export const Playground = () => {
     }
   }, [])
 
-  const setRecentMessagesOnLoad = async () => {
-    const isEnabled = await webUIResumeLastChat()
-    if (!isEnabled) {
-      return
+  // Session persistence for draft restoration
+  const { restoreSession, hasPersistedSession } = usePlaygroundSessionPersistence()
+
+  const initializePlayground = async () => {
+    // 1. Try session persistence first (restores exact state from nav-away)
+    if (hasPersistedSession && messages.length === 0) {
+      const restored = await restoreSession()
+      if (restored) return
     }
+
+    // 2. Fall back to existing webUIResumeLastChat behavior
+    const isEnabled = await webUIResumeLastChat()
+    if (!isEnabled) return
+
     if (messages.length === 0) {
       const recentChat = await getRecentChatFromWebUI()
       if (recentChat) {
@@ -191,7 +201,7 @@ export const Playground = () => {
   }
 
   React.useEffect(() => {
-    setRecentMessagesOnLoad()
+    initializePlayground()
   }, [])
 
   const compareParentByHistory = useStoreMessageOption(

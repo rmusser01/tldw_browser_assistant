@@ -135,7 +135,7 @@
     "message": "بطاقات تعليمية"
   },
   "header_quiz": {
-    "message": "اختبار"
+    "message": "اختبارات"
   },
   "header_media": {
     "message": "وسائط"
@@ -1771,5 +1771,8 @@
   },
   "promptSelect_quick": {
     "message": "مطالبات سريعة"
+  },
+  "header_moreTools": {
+    "message": "المزيد"
   }
 }

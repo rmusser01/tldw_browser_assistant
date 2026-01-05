@@ -135,7 +135,7 @@
     "message": "Flashkort"
   },
   "header_quiz": {
-    "message": "Kunnskapsquiz"
+    "message": "Kunnskapsquizzer"
   },
   "header_media": {
     "message": "Medier"
@@ -1759,5 +1759,8 @@
   },
   "promptSelect_quick": {
     "message": "Hurtigprompter"
+  },
+  "header_moreTools": {
+    "message": "Mer"
   }
 }

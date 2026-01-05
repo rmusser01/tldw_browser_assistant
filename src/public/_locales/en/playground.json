@@ -471,10 +471,10 @@
     "message": "Context Management"
   },
   "composer_contextKnowledge": {
-    "message": "Context & Knowledge"
+    "message": "Ctx + Media"
   },
   "composer_contextKnowledgeClose": {
-    "message": "Close Context & Knowledge"
+    "message": "Close Ctx + Media"
   },
   "composer_knowledgeSearch": {
     "message": "Knowledge search"

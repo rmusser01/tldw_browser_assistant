@@ -1,5 +1,6 @@
 import { browser } from "wxt/browser"
 import { createSafeStorage } from "@/utils/safe-storage"
+import { formatErrorMessage } from "@/utils/format-error-message"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { getInitialConfig } from "@/services/action"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
@@ -594,12 +595,25 @@ export default defineBackground({
           data = await resp.text().catch(() => null)
         }
         if (!resp.ok) {
-          const detail = typeof data === 'object' && data && (data.detail || data.error || data.message)
-          return { ok: false, status: resp.status, error: detail || resp.statusText || `HTTP ${resp.status}`, data, headers: headersOut, retryAfterMs }
+          const detail =
+            typeof data === "object" &&
+            data &&
+            (data.detail || data.error || data.message)
+          const errorMessage = formatErrorMessage(
+            typeof detail !== "undefined" && detail !== null
+              ? detail
+              : resp.statusText || `HTTP ${resp.status}`,
+            `HTTP ${resp.status}`
+          )
+          return { ok: false, status: resp.status, error: errorMessage, data, headers: headersOut, retryAfterMs }
         }
         return { ok: true, status: resp.status, data, headers: headersOut, retryAfterMs }
       } catch (e: any) {
-        return { ok: false, status: 0, error: e?.message || 'Network error' }
+        return {
+          ok: false,
+          status: 0,
+          error: formatErrorMessage(e, "Network error")
+        }
       }
     }
 
@@ -1278,7 +1292,10 @@ export default defineBackground({
                 const t = await resp.text().catch(() => null)
                 if (t) errMsg = t
               }
-              safePost({ event: 'error', message: String(errMsg || `HTTP ${resp.status}`) })
+              safePost({
+                event: "error",
+                message: formatErrorMessage(errMsg, `HTTP ${resp.status}`)
+              })
               return
             }
             if (!resp.body) throw new Error('No response body')
@@ -1330,7 +1347,10 @@ export default defineBackground({
             safePost({ event: 'done' })
           } catch (e: any) {
             if (idleTimer) clearTimeout(idleTimer)
-            safePost({ event: 'error', message: e?.message || 'Stream error' })
+            safePost({
+              event: "error",
+              message: formatErrorMessage(e, "Stream error")
+            })
           }
         }
         port.onMessage.addListener(onMsg)

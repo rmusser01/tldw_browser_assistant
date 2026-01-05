@@ -1792,5 +1792,8 @@
   },
   "promptSelect_quick": {
     "message": "クイックプロンプト"
+  },
+  "header_moreTools": {
+    "message": "その他"
   }
 }

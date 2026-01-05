@@ -132,7 +132,7 @@
     "message": "فلش‌کارت‌ها"
   },
   "header_quiz": {
-    "message": "آزمون"
+    "message": "آزمون‌ها"
   },
   "header_media": {
     "message": "رسانه"
@@ -1462,5 +1462,8 @@
   },
   "promptSelect_quick": {
     "message": "پرامپت‌های سریع"
+  },
+  "header_moreTools": {
+    "message": "بیشتر"
   }
 }

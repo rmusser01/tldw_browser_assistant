@@ -132,7 +132,7 @@
     "message": "Flashcard"
   },
   "header_quiz": {
-    "message": "Questionario"
+    "message": "Questionari"
   },
   "header_media": {
     "message": "Contenuti multimediali"
@@ -1759,5 +1759,8 @@
   },
   "promptSelect_quick": {
     "message": "Prompt rapidi"
+  },
+  "header_moreTools": {
+    "message": "Altro"
   }
 }

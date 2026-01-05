@@ -132,7 +132,7 @@
     "message": "Флеш-картки"
   },
   "header_quiz": {
-    "message": "Вікторина"
+    "message": "Вікторини"
   },
   "header_media": {
     "message": "Медіа"
@@ -1771,5 +1771,8 @@
   },
   "promptSelect_quick": {
     "message": "Швидкі промпти"
+  },
+  "header_moreTools": {
+    "message": "Ще"
   }
 }

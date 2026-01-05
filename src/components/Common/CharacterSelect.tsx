@@ -11,6 +11,7 @@ import { useAntdNotification } from "@/hooks/useAntdNotification"
 type Props = {
   className?: string
   iconClassName?: string
+  showLabel?: boolean
 }
 
 type CharacterSummary = {
@@ -70,7 +71,8 @@ const normalizeCharacter = (character: CharacterSummary): CharacterSelection => 
 
 export const CharacterSelect: React.FC<Props> = ({
   className = "text-text-muted",
-  iconClassName = "size-5"
+  iconClassName = "size-5",
+  showLabel = true
 }) => {
   const { t } = useTranslation(["option", "common", "settings", "playground"])
   const notification = useAntdNotification()
@@ -519,7 +521,7 @@ export const CharacterSelect: React.FC<Props> = ({
         </Tooltip>
       </Dropdown>
 
-      {selectedCharacter?.name && (
+      {showLabel && selectedCharacter?.name && (
         <div className="hidden items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-text shadow-sm sm:inline-flex">
           {selectedCharacter?.avatar_url ? (
             <img

@@ -3,6 +3,7 @@ import {
   getAllDefaultModelSettings,
   getModelSettings
 } from "@/services/model-settings"
+import { tldwModels } from "@/services/tldw"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useStoreMessageOption, type ToolChoice } from "@/store/option"
 import { useMcpToolsStore } from "@/store/mcp-tools"
@@ -67,16 +68,26 @@ export const pageAssistModel = async ({
   } = useMcpToolsStore.getState()
   const resolvedToolChoice = toolChoice ?? storedToolChoice
   const resolvedTools = tools ?? storedTools
+  const normalizedModelId = String(model || "").replace(/^tldw:/, "")
+  let modelSupportsTools = false
+  try {
+    const modelInfo = await tldwModels.getModel(normalizedModelId)
+    modelSupportsTools = Boolean(modelInfo?.capabilities?.includes("tools"))
+  } catch {
+    modelSupportsTools = false
+  }
   const toolsEnabled =
-    mcpHealthState !== "unavailable" && mcpHealthState !== "unhealthy"
-  const effectiveToolChoice = toolsEnabled ? resolvedToolChoice : "none"
+    modelSupportsTools &&
+    mcpHealthState !== "unavailable" &&
+    mcpHealthState !== "unhealthy"
   const effectiveTools =
     toolsEnabled &&
-    effectiveToolChoice !== "none" &&
+    resolvedToolChoice !== "none" &&
     Array.isArray(resolvedTools) &&
     resolvedTools.length > 0
       ? resolvedTools
       : undefined
+  const effectiveToolChoice = effectiveTools ? resolvedToolChoice : "none"
   const resolvedConversationId =
     conversationId && conversationId.trim().length > 0
       ? conversationId.trim()

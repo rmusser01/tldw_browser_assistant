@@ -62,29 +62,24 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
       shortcut: shortcutConfig.modePlayground,
     },
     {
-      key: "media",
-      label: t("option:header.modeMedia", "Media"),
-      shortcut: shortcutConfig.modeMedia,
-    },
-    {
-      key: "mediaMulti",
-      label: t("option:header.libraryView", "Multi-Item Review"),
-      shortcut: undefined,
-    },
-    {
-      key: "knowledge",
-      label: t("option:header.modeKnowledge", "Knowledge QA"),
-      shortcut: shortcutConfig.modeKnowledge,
-    },
-    {
       key: "notes",
       label: t("option:header.modeNotes", "Notes"),
       shortcut: shortcutConfig.modeNotes,
     },
     {
+      key: "media",
+      label: t("option:header.modeMedia", "Media"),
+      shortcut: shortcutConfig.modeMedia,
+    },
+    {
       key: "flashcards",
       label: t("option:header.modeFlashcards", "Flashcards"),
       shortcut: shortcutConfig.modeFlashcards,
+    },
+    {
+      key: "quiz",
+      label: t("option:header.quiz", "Quizzes"),
+      shortcut: undefined,
     },
     {
       key: "prompts",
@@ -104,8 +99,13 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
     shortcut?: KeyboardShortcut
   }> = [
     {
-      key: "quiz",
-      label: t("option:header.quiz", "Quiz"),
+      key: "knowledge",
+      label: t("option:header.modeKnowledge", "Knowledge QA"),
+      shortcut: shortcutConfig.modeKnowledge,
+    },
+    {
+      key: "mediaMulti",
+      label: t("option:header.libraryView", "Multi-Item Review"),
       shortcut: undefined,
     },
     {
@@ -208,7 +208,7 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
               "bg-surface2 text-text-muted hover:bg-surface"
             )}
           >
-            {t("option:header.moreTools", "More...")}
+            {t("option:header.moreTools", "More")}
           </button>
         </Dropdown>
       </div>

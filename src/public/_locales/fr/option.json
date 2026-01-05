@@ -132,7 +132,7 @@
     "message": "Cartes mémoire"
   },
   "header_quiz": {
-    "message": "Questionnaire"
+    "message": "Questionnaires"
   },
   "header_media": {
     "message": "Médias"
@@ -1804,5 +1804,8 @@
   },
   "promptSelect_quick": {
     "message": "Prompts rapides"
+  },
+  "header_moreTools": {
+    "message": "Plus"
   }
 }

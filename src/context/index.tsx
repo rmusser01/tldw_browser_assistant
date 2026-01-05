@@ -1,10 +1,8 @@
-import { Message } from "@/types/message"
 import React, { Dispatch, SetStateAction, createContext } from "react"
 
+// Note: messages state has been moved to useStoreMessageOption (Zustand store)
+// This context now only handles abort controllers for streaming requests
 interface PageAssistContext {
-  messages: Message[]
-  setMessages: Dispatch<SetStateAction<Message[]>>
-
   controller: AbortController | null
   setController: Dispatch<SetStateAction<AbortController>>
 
@@ -13,9 +11,6 @@ interface PageAssistContext {
 }
 
 export const PageAssistContext = createContext<PageAssistContext>({
-  messages: [],
-  setMessages: () => {},
-
   controller: null,
   setController: () => {},
 

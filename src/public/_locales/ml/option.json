@@ -1714,5 +1714,8 @@
   },
   "promptSelect_quick": {
     "message": "ദ്രുത പ്രോംപ്റ്റുകൾ"
+  },
+  "header_moreTools": {
+    "message": "കൂടുതൽ"
   }
 }

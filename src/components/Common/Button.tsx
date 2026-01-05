@@ -1,12 +1,21 @@
 import React from "react"
 import { Loader2 } from "lucide-react"
 
-type ButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "text"
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "danger"
+  | "ghost"
+  | "text"
+  | "outline"
 type ButtonSize = "sm" | "md" | "lg"
+type ButtonShape = "rounded" | "pill"
 
 type ButtonProps = {
   variant?: ButtonVariant
   size?: ButtonSize
+  shape?: ButtonShape
+  iconOnly?: boolean
   children: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   disabled?: boolean
@@ -26,13 +35,26 @@ const variantStyles: Record<ButtonVariant, string> = {
     "bg-danger text-white hover:bg-danger active:bg-danger",
   ghost:
     "bg-transparent text-text-muted hover:bg-surface2 hover:text-text active:bg-surface2",
-  text: "bg-transparent text-primary hover:text-primaryStrong hover:underline"
+  text: "bg-transparent text-primary hover:text-primaryStrong hover:underline",
+  outline:
+    "border border-border bg-transparent text-text hover:bg-surface2 active:bg-surface2"
 }
 
 const sizeStyles: Record<ButtonSize, string> = {
   sm: "px-2.5 py-1 text-xs min-h-[28px]",
   md: "px-3.5 py-1.5 text-sm min-h-[36px]",
   lg: "px-5 py-2 text-base min-h-[44px]"
+}
+
+const iconOnlyStyles: Record<ButtonSize, string> = {
+  sm: "p-1.5 min-h-[28px] min-w-[28px]",
+  md: "p-2 min-h-[36px] min-w-[36px]",
+  lg: "p-2.5 min-h-[44px] min-w-[44px]"
+}
+
+const shapeStyles: Record<ButtonShape, string> = {
+  rounded: "rounded-md",
+  pill: "rounded-full"
 }
 
 const baseStyles =
@@ -43,6 +65,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       variant = "secondary",
       size = "md",
+      shape,
+      iconOnly,
       children,
       onClick,
       disabled,
@@ -63,7 +87,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={[
           baseStyles,
           variantStyles[variant],
-          sizeStyles[size],
+          iconOnly ? iconOnlyStyles[size] : sizeStyles[size],
+          shape ? shapeStyles[shape] : null,
           className
         ]
           .filter(Boolean)

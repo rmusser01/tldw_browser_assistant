@@ -48,7 +48,7 @@
     "promptLabel": "پرامپت",
     "review": "بازبینی",
     "flashcards": "فلش‌کارت‌ها",
-    "quiz": "آزمون",
+    "quiz": "آزمون‌ها",
     "media": "رسانه",
     "libraryView": "بازبینی چندموردی",
     "notes": "یادداشت‌ها",
@@ -88,7 +88,8 @@
     "omniSearchStartChat": "شروع گفتگوی جدید «{{query}}»",
     "connectionCard.connectedCaption": "گفتگو و ابزارها اکنون در گزینه‌ها و نوار کناری در دسترس‌اند.",
     "quickIngestQueuedAria": "{{label}} — {{count}} مورد در صف — برای بررسی و پردازش کلیک کنید",
-    "modeSpeech": "گفتار"
+    "modeSpeech": "گفتار",
+    "moreTools": "بیشتر"
   },
   "sidebarTitle": "تاریخچه گپ",
   "error": "خطا",

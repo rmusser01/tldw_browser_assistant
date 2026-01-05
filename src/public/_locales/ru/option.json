@@ -132,7 +132,7 @@
     "message": "Карточки"
   },
   "header_quiz": {
-    "message": "Викторина"
+    "message": "Викторины"
   },
   "header_media": {
     "message": "Медиа"
@@ -1804,5 +1804,8 @@
   },
   "promptSelect_quick": {
     "message": "Быстрые подсказки"
+  },
+  "header_moreTools": {
+    "message": "Еще"
   }
 }

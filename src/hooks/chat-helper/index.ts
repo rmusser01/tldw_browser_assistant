@@ -12,6 +12,7 @@ import { generateTitle } from "@/services/title"
 import { ChatHistory } from "@/store/option"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { buildFriendlyErrorMessage } from "@/utils/chat-error-message"
+import { formatErrorMessage } from "@/utils/format-error-message"
 
 export const saveMessageOnError = async ({
   e,
@@ -74,7 +75,7 @@ export const saveMessageOnError = async ({
   )
 
   // Compose assistant message content: prefer partial botMessage, else show error detail
-  const errText = String(e?.message || e?.error || e?.detail || 'Request failed')
+  const errText = formatErrorMessage(e, "Request failed")
   const assistantContent =
     botMessage && String(botMessage).trim().length > 0
       ? String(botMessage)

@@ -1759,5 +1759,8 @@
   },
   "promptSelect_quick": {
     "message": "Snabbfrågor"
+  },
+  "header_moreTools": {
+    "message": "Mer"
   }
 }

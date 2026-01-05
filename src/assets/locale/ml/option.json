@@ -88,7 +88,8 @@
     "omniSearchStartChat": "\"{{query}}\" പുതിയ ചാറ്റ് ആരംഭിക്കുക",
     "connectionCard.connectedCaption": "ഓപ്ഷൻസിലും സൈഡ്പാനലിലും ചാറ്റും ടൂളുകളും ഇപ്പോൾ ലഭ്യമാണ്.",
     "quickIngestQueuedAria": "{{label}} — {{count}} ഇനം ക്യൂ ചെയ്തിരിക്കുന്നു — പരിശോധിച്ച് പ്രോസസ്സ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
-    "modeSpeech": "സ്പീച്ച്"
+    "modeSpeech": "സ്പീച്ച്",
+    "moreTools": "കൂടുതൽ"
   },
   "sidebarTitle": "ചാറ്റ് ചരിത്രം",
   "error": "പിശക്",

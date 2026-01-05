@@ -132,7 +132,7 @@
     "message": "Cartões de estudo"
   },
   "header_quiz": {
-    "message": "Questionário"
+    "message": "Questionários"
   },
   "header_media": {
     "message": "Mídia"
@@ -1792,5 +1792,8 @@
   },
   "promptSelect_quick": {
     "message": "Prompts rápidos"
+  },
+  "header_moreTools": {
+    "message": "Mais"
   }
 }

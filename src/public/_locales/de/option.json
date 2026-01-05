@@ -132,7 +132,7 @@
     "message": "Karteikarten"
   },
   "header_quiz": {
-    "message": "Wissensquiz"
+    "message": "Wissensquizze"
   },
   "header_media": {
     "message": "Medien"
@@ -1792,5 +1792,8 @@
   },
   "promptSelect_quick": {
     "message": "Schnell-Prompts"
+  },
+  "header_moreTools": {
+    "message": "Mehr"
   }
 }

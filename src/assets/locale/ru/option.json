@@ -48,7 +48,7 @@
     "promptLabel": "Подсказка",
     "review": "Обзор",
     "flashcards": "Карточки",
-    "quiz": "Викторина",
+    "quiz": "Викторины",
     "media": "Медиа",
     "libraryView": "Обзор нескольких элементов",
     "notes": "Заметки",
@@ -88,7 +88,8 @@
     "omniSearchStartChat": "Начать новый чат «{{query}}»",
     "connectionCard.connectedCaption": "Чат и инструменты теперь доступны на странице настроек и в боковой панели.",
     "quickIngestQueuedAria": "{{label}} — в очереди {{count}} элементов — нажмите, чтобы просмотреть и обработать",
-    "modeSpeech": "Речь"
+    "modeSpeech": "Речь",
+    "moreTools": "Еще"
   },
   "sidebarTitle": "История чата",
   "error": "Ошибка",

@@ -8,40 +8,47 @@ Working guide for consistent UI across the extension (sidebar, options, dialogs)
 - Tone variants: neutral by default; reassuring when blocking (offline/Light-mode limits); crisp in confirmations.
 
 ## Color System
-Define CSS variables (light/dark). Keep palette tight and high-contrast.
+CSS variables defined in `src/assets/tailwind.css`. Light theme is default.
 
 ```css
 :root {
-  --color-bg: #0f1117;
-  --color-surface: #161925;
-  --color-surface-2: #1d2130;
-  --color-primary: #7c5dff;
-  --color-primary-strong: #5a3df0;
-  --color-accent: #5ef5d8;
-  --color-success: #3dd598;
-  --color-warn: #ffb547;
-  --color-danger: #ff5c8d;
-  --color-muted: #94a3b8;
-  --color-border: #2a3042;
-  --color-text: #e6e8ef;
-  --color-text-muted: #b6bed1;
-  --color-focus: #5ef5d8;
-}
-.light {
-  --color-bg: #f7f8fb;
+  /* Light theme (default) */
+  --color-bg: #f4f2ee;
   --color-surface: #ffffff;
-  --color-surface-2: #f0f2f9;
-  --color-primary: #5a3df0;
-  --color-primary-strong: #442ac7;
-  --color-accent: #15d1b1;
-  --color-success: #1f9c73;
-  --color-warn: #d98c1f;
-  --color-danger: #d63964;
-  --color-muted: #60708f;
-  --color-border: #d9deea;
-  --color-text: #0f1117;
-  --color-text-muted: #475168;
-  --color-focus: #15d1b1;
+  --color-surface-2: #f0ede7;
+  --color-elevated: #fbfaf7;
+  --color-primary: #2f6fed;
+  --color-primary-strong: #2456c7;
+  --color-accent: #1fb59f;
+  --color-success: #22a07b;
+  --color-warn: #d97706;
+  --color-danger: #e0586d;
+  --color-muted: #667085;
+  --color-border: #e2ddd3;
+  --color-border-strong: #cfc8ba;
+  --color-text: #1f2328;
+  --color-text-muted: #5b6472;
+  --color-text-subtle: #8a94a3;
+  --color-focus: #1fb59f;
+}
+.dark {
+  --color-bg: #0f1113;
+  --color-surface: #171a1f;
+  --color-surface-2: #1d2128;
+  --color-elevated: #232832;
+  --color-primary: #5c8dff;
+  --color-primary-strong: #3e6ae0;
+  --color-accent: #4fd1b0;
+  --color-success: #3bd696;
+  --color-warn: #f7b955;
+  --color-danger: #ff6b8b;
+  --color-muted: #9aa3b2;
+  --color-border: #2b313b;
+  --color-border-strong: #3b4350;
+  --color-text: #e7e9ee;
+  --color-text-muted: #b3bac6;
+  --color-text-subtle: #9098a6;
+  --color-focus: #4fd1b0;
 }
 ```
 

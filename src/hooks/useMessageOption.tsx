@@ -1,6 +1,7 @@
 import React from "react"
 import { type ChatHistory, type Message } from "~/store/option"
 import { useStoreMessageOption } from "~/store/option"
+import { usePlaygroundSessionStore } from "@/store/playground-session"
 import {
   removeMessageUsingHistoryId,
   generateID,
@@ -52,12 +53,16 @@ import { trackCompareMetric } from "@/utils/compare-metrics"
 export const MAX_COMPARE_MODELS = 3
 
 export const useMessageOption = () => {
+  // Controllers come from Context (for aborting streaming requests)
   const {
     controller: abortController,
-    setController: setAbortController,
-    messages,
-    setMessages
+    setController: setAbortController
   } = usePageAssist()
+
+  // Messages now come from Zustand store (single source of truth)
+  const messages = useStoreMessageOption((state) => state.messages)
+  const setMessages = useStoreMessageOption((state) => state.setMessages)
+
   const {
     history,
     setHistory,
@@ -493,6 +498,8 @@ export const useMessageOption = () => {
       compareActiveModelsByCluster: {}
     })
     clearReplyTarget()
+    // Clear persisted session when starting new chat
+    usePlaygroundSessionStore.getState().clearSession()
   }
 
   const baseSaveMessageOnSuccess = createSaveMessageOnSuccess(

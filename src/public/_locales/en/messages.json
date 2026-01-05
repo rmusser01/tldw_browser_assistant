@@ -2994,10 +2994,10 @@
     "message": "Context Management"
   },
   "playground_composer_contextKnowledge": {
-    "message": "Context & Knowledge"
+    "message": "Ctx + Media"
   },
   "playground_composer_contextKnowledgeClose": {
-    "message": "Close Context & Knowledge"
+    "message": "Close Ctx + Media"
   },
   "playground_composer_knowledgeSearch": {
     "message": "Knowledge search"

@@ -73,27 +73,33 @@ import {
 import { DocumentGeneratorDrawer } from "@/components/Common/Playground/DocumentGeneratorDrawer"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreChatModelSettings } from "@/store/model"
+import { TokenProgressBar } from "./TokenProgressBar"
+import { AttachmentsSummary } from "./AttachmentsSummary"
+import { CompareToggle } from "./CompareToggle"
+import { useMobile } from "@/hooks/useMediaQuery"
+import { Button as TldwButton } from "@/components/Common/Button"
 
 const getPersistenceModeLabel = (
   t: (...args: any[]) => any,
   temporaryChat: boolean,
+  isConnectionReady: boolean,
   serverChatId: string | null
 ) => {
   if (temporaryChat) {
     return t(
       "playground:composer.persistence.ephemeral",
-      "Temporary chat: not saved in history and cleared when you close this window."
+      "Not saved: cleared when you close this window."
     )
   }
-  if (serverChatId) {
+  if (serverChatId || isConnectionReady) {
     return t(
       "playground:composer.persistence.server",
-      "Saved Locally+Server"
+      "Saved to your tldw server (and locally)."
     )
   }
   return t(
     "playground:composer.persistence.local",
-    "Saved in this browser only."
+    "Saved locally until your tldw server is connected."
   )
 }
 
@@ -113,6 +119,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     onSubmit,
     messages,
     selectedModel,
+    setSelectedModel,
     chatMode,
     setChatMode,
     compareMode,
@@ -164,6 +171,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   } = useMessageOption()
 
   const [autoSubmitVoiceMessage] = useStorage("autoSubmitVoiceMessage", false)
+  const isMobileViewport = useMobile()
   const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const [openActorSettings, setOpenActorSettings] = React.useState(false)
   const [compareSettingsOpen, setCompareSettingsOpen] = React.useState(false)
@@ -224,6 +232,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
   const [showServerPersistenceHint, setShowServerPersistenceHint] =
     React.useState(false)
+  const serverSaveInFlightRef = React.useRef(false)
   const uiMode = useUiModeStore((state) => state.mode)
   const isProMode = uiMode === "pro"
   const [contextToolsOpen, setContextToolsOpen] = useStorage(
@@ -452,6 +461,51 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }))
   }, [composerModels])
 
+  // Grouped menu items for quick model selection dropdown
+  const modelDropdownItems = React.useMemo(() => {
+    const models = (composerModels as any[]) || []
+    const groups = new Map<string, any[]>()
+    const providerDisplayName = (provider?: string) => {
+      const key = String(provider || "unknown").toLowerCase()
+      if (key === "openai") return "OpenAI"
+      if (key === "anthropic") return "Anthropic"
+      if (key === "google") return "Google"
+      if (key === "mistral") return "Mistral"
+      if (key === "groq") return "Groq"
+      if (key === "openrouter") return "OpenRouter"
+      if (key === "ollama") return "Ollama"
+      if (key === "deepseek") return "DeepSeek"
+      return provider || "API"
+    }
+
+    for (const model of models) {
+      const groupKey = model.provider?.toLowerCase() || "other"
+      if (!groups.has(groupKey)) groups.set(groupKey, [])
+      groups.get(groupKey)!.push({
+        key: model.model,
+        label: (
+          <div className="flex items-center gap-2 text-sm">
+            <ProviderIcons provider={model.provider} className="h-3 w-3 text-text-subtle" />
+            <span className="truncate">{model.nickname || model.model}</span>
+          </div>
+        ),
+        onClick: () => setSelectedModel(model.model)
+      })
+    }
+
+    return Array.from(groups).map(([key, children]) => ({
+      type: "group" as const,
+      key: `group-${key}`,
+      label: (
+        <div className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-text-subtle">
+          <ProviderIcons provider={key} className="h-3 w-3" />
+          <span>{providerDisplayName(key)}</span>
+        </div>
+      ),
+      children
+    }))
+  }, [composerModels, setSelectedModel])
+
   const handleCompareModelChange = (values: string[]) => {
     if (!compareFeatureEnabled) {
       return
@@ -636,34 +690,44 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     ]
   )
 
+  const showModelLabel = !isProMode
   const modelUsageBadge = (
-    <Tooltip title={tokenUsageTooltip} placement="top">
-      <div
-        aria-label={`${apiModelLabel} · ${tokenUsageLabel}`}
-        className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2 ${
-          isProMode ? "py-1 text-[11px]" : "h-9 text-[10px]"
-        }`}
-      >
-        <span className="inline-flex min-w-0 items-center gap-1">
-          <ProviderIcons
-            provider={resolvedProviderKey}
-            className="h-3 w-3 text-text-subtle"
-          />
-          <span
-            className={`truncate ${
-              isProMode ? "max-w-[180px]" : "max-w-[120px]"
-            }`}
-          >
-            {apiModelLabel}
-          </span>
-        </span>
-        <span className="text-text-subtle">·</span>
-        <span className="inline-flex items-center gap-1 whitespace-nowrap">
-          <Hash className="h-3 w-3 text-text-subtle" aria-hidden="true" />
-          {tokenUsageDisplay}
-        </span>
-      </div>
-    </Tooltip>
+    <div className="inline-flex items-center gap-2">
+      {showModelLabel && (
+        <Dropdown
+          menu={{
+            items: modelDropdownItems,
+            style: { maxHeight: 400, overflowY: "auto" },
+            className: "no-scrollbar",
+            activeKey: selectedModel ?? undefined
+          }}
+          trigger={["click"]}
+          placement="topLeft"
+        >
+          <Tooltip title={apiModelLabel} placement="top">
+            <button
+              type="button"
+              className="inline-flex min-w-0 items-center gap-1 rounded-full border border-border bg-surface px-2 h-9 text-[10px] cursor-pointer hover:bg-surface-hover transition-colors"
+            >
+              <ProviderIcons
+                provider={resolvedProviderKey}
+                className="h-3 w-3 text-text-subtle"
+              />
+              <span className="truncate max-w-[120px]">
+                {apiModelLabel}
+              </span>
+            </button>
+          </Tooltip>
+        </Dropdown>
+      )}
+      <TokenProgressBar
+        conversationTokens={conversationTokenCount}
+        draftTokens={draftTokenCount}
+        maxTokens={resolvedMaxContext}
+        modelLabel={isProMode ? apiModelLabel : undefined}
+        compact={!isProMode}
+      />
+    </div>
   )
 
   // Allow other components (e.g., connection card) to request focus
@@ -1117,7 +1181,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           onOk: () => {
             setTemporaryChat(next)
             clearChat()
-            const modeLabel = getPersistenceModeLabel(t, next, serverChatId)
+            const modeLabel = getPersistenceModeLabel(
+              t,
+              next,
+              isConnectionReady,
+              serverChatId
+            )
             notification.info({
               message: modeLabel,
               placement: "bottomRight",
@@ -1134,7 +1203,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         clearChat()
       }
 
-      const modeLabel = getPersistenceModeLabel(t, next, serverChatId)
+      const modeLabel = getPersistenceModeLabel(
+        t,
+        next,
+        isConnectionReady,
+        serverChatId
+      )
 
       notification.info({
         message: modeLabel,
@@ -1142,11 +1216,16 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         duration: 2.5
       })
     },
-    [clearChat, history.length, serverChatId, setTemporaryChat, t]
+    [clearChat, history.length, isConnectionReady, serverChatId, setTemporaryChat, t]
   )
 
   const handleSaveChatToServer = React.useCallback(async () => {
-    if (!isConnectionReady || temporaryChat || serverChatId) {
+    if (
+      !isConnectionReady ||
+      temporaryChat ||
+      serverChatId ||
+      history.length === 0
+    ) {
       return
     }
     try {
@@ -1229,6 +1308,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       if (!cid) {
         throw new Error("Failed to create server chat")
       }
+      setServerChatId(cid)
       setServerChatState(
         (created as any)?.state ??
           (created as any)?.conversation_state ??
@@ -1253,24 +1333,23 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         })
       }
 
-      setServerChatId(cid)
-      notification.success({
-        message: t(
-          "playground:composer.persistence.serverSavedTitle",
-          "Chat now saved on server"
-        ),
-        description:
-          t(
-            "playground:composer.persistence.serverSaved",
-            "Future messages in this chat will sync to your tldw server."
-          ) +
-          " " +
-          t(
-            "playground:composer.persistence.serverBenefits",
-            "This keeps a durable record in server history so you can reopen the conversation later, access it from other browsers, and run server-side analytics over your chats."
-          )
-      })
       if (!serverPersistenceHintSeen) {
+        notification.success({
+          message: t(
+            "playground:composer.persistence.serverSavedTitle",
+            "Chat now saved on server"
+          ),
+          description:
+            t(
+              "playground:composer.persistence.serverSaved",
+              "Future messages in this chat will sync to your tldw server."
+            ) +
+            " " +
+            t(
+              "playground:composer.persistence.serverBenefits",
+              "This keeps a durable record in server history so you can reopen the conversation later, access it from other browsers, and run server-side analytics over your chats."
+            )
+        })
         setServerPersistenceHintSeen(true)
         setShowServerPersistenceHint(true)
       }
@@ -1290,6 +1369,30 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     serverPersistenceHintSeen,
     setServerPersistenceHintSeen,
     t
+  ])
+
+  React.useEffect(() => {
+    if (
+      !isConnectionReady ||
+      temporaryChat ||
+      serverChatId ||
+      history.length === 0
+    ) {
+      return
+    }
+    if (serverSaveInFlightRef.current) {
+      return
+    }
+    serverSaveInFlightRef.current = true
+    Promise.resolve(handleSaveChatToServer()).finally(() => {
+      serverSaveInFlightRef.current = false
+    })
+  }, [
+    handleSaveChatToServer,
+    history.length,
+    isConnectionReady,
+    serverChatId,
+    temporaryChat
   ])
 
   const handleClearContext = React.useCallback(() => {
@@ -1697,11 +1800,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             {contextToolsOpen
               ? t(
                   "playground:composer.contextKnowledgeClose",
-                  "Close Context & Knowledge"
+                  "Close Ctx + Media"
                 )
               : t(
                   "playground:composer.contextKnowledge",
-                  "Context & Knowledge"
+                  "Ctx + Media"
                 )}
           </span>
           <Search className="h-4 w-4" />
@@ -1957,28 +2060,44 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }
 
   const persistenceModeLabel = React.useMemo(
-    () => getPersistenceModeLabel(t, temporaryChat, serverChatId),
-    [serverChatId, temporaryChat, t]
+    () =>
+      getPersistenceModeLabel(
+        t,
+        temporaryChat,
+        isConnectionReady,
+        serverChatId
+      ),
+    [isConnectionReady, serverChatId, temporaryChat, t]
   )
 
   const persistencePillLabel = React.useMemo(() => {
     if (temporaryChat) {
       return t(
         "playground:composer.persistence.ephemeralPill",
-        "Temporary"
+        "Not saved"
       )
     }
-    if (serverChatId) {
+    if (serverChatId || isConnectionReady) {
       return t(
         "playground:composer.persistence.serverPill",
-        "Locally + Server"
+        "Server"
       )
     }
     return t(
       "playground:composer.persistence.localPill",
-      "Local only"
+      "Local"
     )
-  }, [serverChatId, temporaryChat, t])
+  }, [isConnectionReady, serverChatId, temporaryChat, t])
+
+  const persistenceTooltip = React.useMemo(
+    () => (
+      <div className="flex flex-col gap-0.5 text-xs">
+        <span className="font-medium">{persistencePillLabel}</span>
+        <span className="text-text-subtle">{persistenceModeLabel}</span>
+      </div>
+    ),
+    [persistenceModeLabel, persistencePillLabel]
+  )
 
   const focusConnectionCard = React.useCallback(() => {
     try {
@@ -2012,15 +2131,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       placement="topRight"
       content={moreToolsContent}
       overlayClassName="playground-more-tools">
-      <button
-        type="button"
-        aria-label={t("playground:composer.moreTools", "More tools") as string}
-        title={t("playground:composer.moreTools", "More tools") as string}
-        className={`inline-flex items-center gap-2 border border-border text-text transition hover:bg-surface2 ${
-          isProMode
-            ? "rounded-md px-3 py-1.5 text-sm"
-            : "h-9 w-9 justify-center rounded-full p-0 text-[11px] font-semibold uppercase tracking-[0.08em]"
-        }`}>
+      <TldwButton
+        variant="outline"
+        size="sm"
+        shape={isProMode ? "rounded" : "pill"}
+        iconOnly={!isProMode}
+        ariaLabel={t("playground:composer.moreTools", "More tools") as string}
+        title={t("playground:composer.moreTools", "More tools") as string}>
         {isProMode ? (
           <span>{t("playground:composer.toolsButton", "+Tools")}</span>
         ) : (
@@ -2031,7 +2148,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             </span>
           </>
         )}
-      </button>
+      </TldwButton>
     </Popover>
   )
 
@@ -2131,14 +2248,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       title={
         t("tooltip.stopStreaming") as string
       }>
-      <button
-        type="button"
+      <TldwButton
+        variant="outline"
+        size={isMobileViewport ? "lg" : "md"}
+        iconOnly
         onClick={stopStreamingRequest}
-        className={`rounded-md border border-border p-1 text-text hover:bg-surface2 ${
-          isProMode ? "" : "h-9 w-9"
-        }`}>
-        <StopCircleIcon className={isProMode ? "size-5" : "size-4"} />
-      </button>
+        ariaLabel={t("tooltip.stopStreaming") as string}>
+        <StopCircleIcon className="size-5 sm:size-4" />
+      </TldwButton>
     </Tooltip>
   )
 
@@ -2151,164 +2268,49 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         <div className="relative flex w-full flex-row justify-center">
           <div
             data-istemporary-chat={temporaryChat}
-            className={`relative w-full rounded-3xl border border-border/80 bg-surface/95 p-3 text-text shadow-card backdrop-blur-lg duration-100 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 ${
+            className={`relative w-full rounded-3xl border border-border/80 bg-surface/95 p-3 text-text shadow-card backdrop-blur-lg transition-all duration-200 data-[istemporary-chat='true']:border-t-4 data-[istemporary-chat='true']:border-t-purple-500 data-[istemporary-chat='true']:border-dashed data-[istemporary-chat='true']:opacity-90 ${
               !isConnectionReady ? "opacity-80" : ""
             }`}>
-            {hasContext && (
-              <div className="px-3 pt-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-text-subtle">
-                {t("playground:composer.contextLabel", "Context")}
-              </div>
-            )}
-            <div
-              className={`relative border-b border-border ${
-                form.values.image.length === 0 ? "hidden" : "block"
-              }`}>
-              <button
-                type="button"
-                onClick={() => {
-                  form.setFieldValue("image", "")
-                }}
-                className="absolute top-1 left-1 z-10 flex items-center justify-center rounded-full border border-border bg-surface p-0.5 text-text hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
-                <X className="h-4 w-4" />
-              </button>{" "}
-              <Image
-                src={form.values.image}
-                alt="Uploaded Image"
-                preview={false}
-                className="rounded-md max-h-32"
-              />
-            </div>
-            {selectedDocuments.length > 0 && (
-              <div
-                className="border-b border-border/70 px-3 py-2"
-                data-playground-tabs="true"
-                tabIndex={-1}
-              >
-                <div className="mb-2 flex items-center justify-between text-[11px] text-text-muted">
-                  <span>
-                    {t("playground:composer.contextTabsTitle", "Tabs in context")}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={clearSelectedDocuments}
-                    className="text-[11px] font-medium text-text-subtle hover:text-text"
-                  >
-                    {t("playground:composer.clearTabs", "Remove all tabs")}
-                  </button>
-                </div>
-                <div className="max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
-                  <div className="flex flex-wrap gap-2">
-                    {selectedDocuments.map((document) => (
-                      <DocumentChip
-                        key={document.id}
-                        document={document}
-                        onRemove={removeDocument}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-            {uploadedFiles.length > 0 && (
-              <div
-                className="border-b border-border/70 px-3 py-2"
-                data-playground-uploads="true"
-                tabIndex={-1}
-              >
-                <div className="mb-2 flex items-center justify-between text-[11px] text-text-muted">
-                  <span>
-                    {t("playground:composer.contextFilesTitle", "Files in context")}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Tooltip title={t("fileRetrievalEnabled")}>
-                      <div className="inline-flex items-center gap-2">
-                        <FileText className="h-4 w-4 text-text-subtle" />
-                        <Switch
-                          size="small"
-                          checked={fileRetrievalEnabled}
-                          onChange={setFileRetrievalEnabled}
-                          aria-label={
-                            t(
-                              "fileRetrievalEnabled",
-                              "Enable RAG for Documents"
-                            ) as string
-                          }
-                        />
-                      </div>
-                    </Tooltip>
-                    <button
-                      type="button"
-                      onClick={clearUploadedFiles}
-                      className="text-[11px] font-medium text-text-subtle hover:text-text"
-                    >
-                      {t("playground:composer.clearFiles", "Remove all files")}
-                    </button>
-                  </div>
-                </div>
-                <div className="max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
-                  <div className="flex flex-wrap gap-2">
-                    {uploadedFiles.map((file) => (
-                      <button
-                        key={file.id}
-                        className="relative group flex min-w-[220px] flex-1 items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-left text-xs text-text hover:bg-surface2"
-                        type="button">
-                        <div className="rounded-full bg-surface2 p-2 text-text">
-                          <FileIcon className="size-4 text-text" />
-                        </div>
-                        <div className="flex min-w-0 flex-1 flex-col justify-center">
-                          <div className="line-clamp-1 text-xs font-medium text-text">
-                            {file.filename}
-                          </div>
-                          <div className="text-[10px] text-text-muted line-clamp-1">
-                            <span className="capitalize">
-                              {new Intl.NumberFormat(undefined, {
-                                style: "unit",
-                                unit: "megabyte",
-                                maximumFractionDigits: 2
-                              }).format(file.size / (1024 * 1024))}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="absolute -top-1 -right-1">
-                          <button
-                            onClick={() => removeUploadedFile(file.id)}
-                            className="invisible rounded-full border border-border bg-surface text-text shadow-sm transition group-hover:visible hover:bg-surface2"
-                            type="button">
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-            {compareModeActive && compareSelectedModels.length > 1 && (
+            {/* Attachments summary (collapsed context management) */}
+            <AttachmentsSummary
+              image={form.values.image}
+              documents={selectedDocuments}
+              files={uploadedFiles}
+              fileRetrievalEnabled={fileRetrievalEnabled}
+              onFileRetrievalChange={setFileRetrievalEnabled}
+              onRemoveImage={() => form.setFieldValue("image", "")}
+              onRemoveDocument={removeDocument}
+              onClearDocuments={clearSelectedDocuments}
+              onRemoveFile={removeUploadedFile}
+              onClearFiles={clearUploadedFiles}
+            />
+            {/* Compare Toggle - surfaced in main toolbar for better discoverability */}
+            {compareFeatureEnabled && (
               <div className="px-3 pb-2">
-                <div className="flex flex-wrap items-center gap-2 rounded-md border border-primary bg-surface2 px-3 py-2 text-[11px] text-primaryStrong">
-                  <span className="text-[10px] font-semibold uppercase tracking-wide">
-                    {t("playground:composer.compareActiveModelsLabel", "Active models")}
-                  </span>
-                  <div className="flex flex-wrap gap-1">
-                    {compareSelectedModels.map((modelId) => (
-                      <button
-                        key={`active-${modelId}`}
-                        type="button"
-                        onClick={() => removeCompareModel(modelId)}
-                        className="flex items-center gap-1 rounded-full bg-surface px-2 py-0.5 text-[10px] font-medium text-primaryStrong shadow-sm hover:bg-surface2">
-                        <span>
-                          {compareModelLabelById.get(modelId) || modelId}
-                        </span>
-                        <X className="h-3 w-3" />
-                      </button>
-                    ))}
-                  </div>
-                  <span className="text-[10px] text-primary">
-                    {t(
-                      "playground:composer.compareActiveModelsHint",
-                      "Your next message will be sent to each active model."
-                    )}
-                  </span>
+                <div className="flex flex-wrap items-center gap-3">
+                  <CompareToggle
+                    featureEnabled={compareFeatureEnabled}
+                    active={compareModeActive}
+                    onToggle={() => setCompareMode(!compareMode)}
+                    selectedModels={compareSelectedModels}
+                    availableModels={(composerModels as any[]) || []}
+                    maxModels={compareMaxModels || 4}
+                    onAddModel={(modelId) => {
+                      if (!compareSelectedModels.includes(modelId)) {
+                        setCompareSelectedModels([...compareSelectedModels, modelId])
+                      }
+                    }}
+                    onRemoveModel={removeCompareModel}
+                    onOpenSettings={() => setCompareSettingsOpen(true)}
+                  />
+                  {compareModeActive && compareSelectedModels.length > 1 && (
+                    <span className="text-[10px] text-text-muted">
+                      {t(
+                        "playground:composer.compareActiveModelsHint",
+                        "Your next message will be sent to each active model."
+                      )}
+                    </span>
+                  )}
                 </div>
               </div>
             )}
@@ -2931,53 +2933,39 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         <div className="mt-1 flex flex-col gap-2">
                           <div className="flex flex-wrap items-start gap-3">
                             <div className="flex flex-col gap-0.5 text-xs text-text">
-                              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                                <Switch
-                                  size="small"
-                                  checked={temporaryChat}
-                                  onChange={handleToggleTemporaryChat}
-                                  title={persistenceModeLabel as string}
-                                  aria-label={
-                                    temporaryChat
-                                      ? (t(
+                              <Tooltip title={persistenceTooltip}>
+                                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                                  <Switch
+                                    size="small"
+                                    checked={!temporaryChat}
+                                    onChange={(checked) =>
+                                      handleToggleTemporaryChat(!checked)
+                                    }
+                                    aria-label={
+                                      temporaryChat
+                                        ? (t(
+                                            "playground:actions.temporaryOn",
+                                            "Don't save chat"
+                                          ) as string)
+                                        : (t(
+                                            "playground:actions.temporaryOff",
+                                            "Save chat to history"
+                                          ) as string)
+                                    }
+                                  />
+                                  <span>
+                                    {temporaryChat
+                                      ? t(
                                           "playground:actions.temporaryOn",
-                                          "Temporary chat (not saved)"
-                                        ) as string)
-                                      : (t(
+                                          "Don't save chat"
+                                        )
+                                      : t(
                                           "playground:actions.temporaryOff",
                                           "Save chat to history"
-                                        ) as string)
-                                  }
-                                />
-                                <span>
-                                  {temporaryChat
-                                    ? t(
-                                        "playground:actions.temporaryOn",
-                                        "Temporary chat (not saved)"
-                                      )
-                                    : t(
-                                        "playground:actions.temporaryOff",
-                                        "Save chat to history"
-                                      )}
-                                </span>
-                                <span className="inline-flex items-center rounded-full border border-border bg-surface px-2 py-0.5 text-[11px] font-medium text-text shadow-sm">
-                                  {persistencePillLabel}
-                                </span>
-                                <span className="text-[11px] font-semibold text-text-muted">
-                                  {persistenceModeLabel}
-                                </span>
-                              </div>
-                              {!temporaryChat && isConnectionReady && !serverChatId && (
-                                <button
-                                  type="button"
-                                  onClick={handleSaveChatToServer}
-                                  className="mt-1 inline-flex w-fit items-center gap-1 rounded-full border border-primary bg-surface2 px-2 py-0.5 text-[11px] font-medium text-primaryStrong hover:bg-surface">
-                                  {t(
-                                    "playground:composer.persistence.saveToServer",
-                                    "Also save this chat to server"
-                                  )}
-                                </button>
-                              )}
+                                        )}
+                                  </span>
+                                </div>
+                              </Tooltip>
                               {!temporaryChat && !isConnectionReady && (
                                 <button
                                   type="button"
@@ -2985,7 +2973,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   className="mt-1 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-primary hover:text-primaryStrong">
                                   {t(
                                     "playground:composer.persistence.connectToSave",
-                                    "Connect your server to save chats there."
+                                    "Connect your server to sync chats."
                                   )}
                                 </button>
                               )}
@@ -3022,11 +3010,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   contextToolsOpen
                                     ? (t(
                                         "playground:composer.contextKnowledgeClose",
-                                        "Close Context & Knowledge"
+                                        "Close Ctx + Media"
                                       ) as string)
                                     : (t(
                                         "playground:composer.contextKnowledge",
-                                        "Context & Knowledge"
+                                        "Ctx + Media"
                                       ) as string)
                                 }
                                 aria-pressed={contextToolsOpen}
@@ -3042,11 +3030,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   {contextToolsOpen
                                     ? t(
                                         "playground:composer.contextKnowledgeClose",
-                                        "Close Context & Knowledge"
+                                        "Close Ctx + Media"
                                       )
                                     : t(
                                         "playground:composer.contextKnowledge",
-                                        "Context & Knowledge"
+                                        "Ctx + Media"
                                       )}
                                 </span>
                               </button>
@@ -3110,7 +3098,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               )}
                             </div>
                             <div className="flex items-center justify-end gap-3 flex-wrap">
-                              <CharacterSelect className="text-text-muted hover:text-text" iconClassName="size-5" />
+                              <CharacterSelect
+                                className="min-w-0 min-h-0 rounded-full border border-border px-2 py-1 text-text-muted hover:bg-surface2 hover:text-text"
+                                iconClassName="h-4 w-4"
+                              />
                               {(browserSupportsSpeechRecognition || hasServerAudio) && (
                                 <>
                                   <Tooltip
@@ -3212,8 +3203,83 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         </div>
                       </div>
                     ) : (
-                      <div className="mt-2 flex items-center justify-end gap-1.5">
+                      <div className="mt-2 flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2 flex-nowrap">
+                          <Tooltip title={persistenceTooltip}>
+                            <div className="flex items-center gap-1">
+                              <Switch
+                                size="small"
+                                checked={!temporaryChat}
+                                onChange={(checked) =>
+                                  handleToggleTemporaryChat(!checked)
+                                }
+                                aria-label={
+                                  temporaryChat
+                                    ? (t(
+                                        "playground:actions.temporaryOn",
+                                        "Don't save chat"
+                                      ) as string)
+                                    : (t(
+                                        "playground:actions.temporaryOff",
+                                        "Save chat to history"
+                                      ) as string)
+                                }
+                              />
+                              <span className="text-xs text-text whitespace-nowrap">
+                                {temporaryChat
+                                  ? t(
+                                      "playground:actions.temporaryOn",
+                                      "Don't save chat"
+                                    )
+                                  : t(
+                                      "playground:actions.temporaryOff",
+                                      "Save chat to history"
+                                    )}
+                              </span>
+                            </div>
+                          </Tooltip>
+                          <button
+                            type="button"
+                            onClick={handleToggleContextTools}
+                            title={
+                              contextToolsOpen
+                                ? (t(
+                                    "playground:composer.contextKnowledgeClose",
+                                    "Close Ctx + Media"
+                                  ) as string)
+                                : (t(
+                                    "playground:composer.contextKnowledge",
+                                    "Ctx + Media"
+                                  ) as string)
+                            }
+                            aria-pressed={contextToolsOpen}
+                            aria-expanded={contextToolsOpen}
+                            className={`inline-flex min-w-0 max-w-[140px] items-center gap-1 rounded-full border px-2 py-1 text-[11px] font-medium transition ${
+                              contextToolsOpen
+                                ? "border-accent bg-surface2 text-accent hover:bg-surface"
+                                : "border-border text-text-muted hover:bg-surface2 hover:text-text"
+                            }`}
+                          >
+                            <Search className="h-3 w-3" />
+                            <span className="truncate">
+                              {contextToolsOpen
+                                ? t(
+                                    "playground:composer.contextKnowledgeClose",
+                                    "Close Ctx + Media"
+                                  )
+                                : t(
+                                    "playground:composer.contextKnowledge",
+                                    "Ctx + Media"
+                                  )}
+                            </span>
+                          </button>
+                        </div>
+                        <div className="flex items-center gap-2 flex-nowrap">
+                          <CharacterSelect
+                            showLabel={false}
+                            className="min-w-0 min-h-0 h-9 w-9 rounded-full border border-border text-text-muted hover:bg-surface2 hover:text-text"
+                            iconClassName="h-4 w-4"
+                          />
                           {(browserSupportsSpeechRecognition || hasServerAudio) && (
                             <Tooltip
                               title={
@@ -3268,15 +3334,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 "common:currentChatModelSettings"
                               ) as string
                             }>
-                            <button
-                              type="button"
+                            <TldwButton
+                              variant="outline"
+                              shape="pill"
+                              iconOnly
                               onClick={() => setOpenModelSettings(true)}
-                              aria-label={
+                              ariaLabel={
                                 t(
                                   "common:currentChatModelSettings"
                                 ) as string
                               }
-                              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-text-muted transition hover:bg-surface2">
+                              className="text-text-muted">
                               <Gauge className="h-4 w-4" aria-hidden="true" />
                               <span className="sr-only">
                                 {t(
@@ -3284,7 +3352,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   "Chat Settings"
                                 )}
                               </span>
-                            </button>
+                            </TldwButton>
                           </Tooltip>
                           {toolsButton}
                           {sendControl}

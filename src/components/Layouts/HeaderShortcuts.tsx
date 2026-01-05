@@ -15,6 +15,7 @@ import {
   NotebookPen,
   BookMarked,
   BookOpen,
+  ClipboardList,
   ChevronDown,
   Scissors,
   Gauge,
@@ -168,6 +169,12 @@ export function HeaderShortcuts({
       {
         title: t("option:header.groupWorkspace", "Workspace"),
         items: [
+          {
+            type: "link" as const,
+            to: "/quiz",
+            icon: ClipboardList,
+            label: t("option:header.quiz", "Quizzes"),
+          },
           {
             type: "link" as const,
             to: "/evaluations",
