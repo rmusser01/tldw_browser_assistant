@@ -14,6 +14,12 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getSearchSettings } from "@/services/search"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 import { buildAssistantErrorContent } from "@/utils/chat-error-message"
+import {
+  buildMessageVariant,
+  getLastUserMessageId,
+  normalizeMessageVariants,
+  updateActiveVariant
+} from "@/utils/message-variants"
 
 interface WebSearchPayload {
   query: string
@@ -86,6 +92,7 @@ export const normalChatMode = async (
     userParentMessageId?: string | null
     assistantParentMessageId?: string | null
     historyForModel?: ChatHistory
+    regenerateFromMessage?: Message
   }
 ) => {
   console.log("Using normalChatMode")
@@ -105,6 +112,15 @@ export const normalChatMode = async (
   const isSharedCompareUser = userMessageType === "compare:user"
   const resolvedModelId = modelIdOverride || selectedModel
   const userModelId = isSharedCompareUser ? undefined : resolvedModelId
+  const fallbackParentMessageId = getLastUserMessageId(messages)
+  const resolvedAssistantParentMessageId =
+    assistantParentMessageId ??
+    (isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null)
+  const regenerateVariants = isRegenerate && regenerateFromMessage
+    ? normalizeMessageVariants(regenerateFromMessage)
+    : []
 
   setMessages((prev) => {
     const base = prev
@@ -144,7 +160,15 @@ export const normalChatMode = async (
         messageType: assistantMessageType,
         clusterId,
         modelId: resolvedModelId,
-        parentMessageId: assistantParentMessageId ?? null
+        parentMessageId: resolvedAssistantParentMessageId ?? null
+      }
+      if (regenerateVariants.length > 0) {
+        const variants = [
+          ...regenerateVariants,
+          buildMessageVariant(assistantStub)
+        ]
+        assistantStub.variants = variants
+        assistantStub.activeVariantIndex = variants.length - 1
       }
       return [...base, userMessage, assistantStub]
     }
@@ -161,7 +185,15 @@ export const normalChatMode = async (
       messageType: assistantMessageType,
       clusterId,
       modelId: resolvedModelId,
-      parentMessageId: assistantParentMessageId ?? null
+      parentMessageId: resolvedAssistantParentMessageId ?? null
+    }
+    if (regenerateVariants.length > 0) {
+      const variants = [
+        ...regenerateVariants,
+        buildMessageVariant(assistantStub)
+      ]
+      assistantStub.variants = variants
+      assistantStub.activeVariantIndex = variants.length - 1
     }
     return [...base, assistantStub]
   })
@@ -230,10 +262,9 @@ export const normalChatMode = async (
       setMessages((prev) => {
         return prev.map((msg) => {
           if (msg.id === generateMessageId) {
-            return {
-              ...msg,
+            return updateActiveVariant(msg, {
               message: fullText
-            }
+            })
           }
           return msg
         })
@@ -457,30 +488,28 @@ export const normalChatMode = async (
       if (count === 0) {
         setIsProcessing(true)
       }
-      setMessages((prev) => {
-        return prev.map((message) => {
-          if (message.id === generateMessageId) {
-            return {
-              ...message,
-              message: fullText + "▋",
-              reasoning_time_taken: timetaken
-            }
-          }
-          return message
-        })
+    setMessages((prev) => {
+      return prev.map((message) => {
+        if (message.id === generateMessageId) {
+          return updateActiveVariant(message, {
+            message: fullText + "▋",
+            reasoning_time_taken: timetaken
+          })
+        }
+        return message
       })
+    })
       count++
     }
 
     setMessages((prev) => {
       return prev.map((message) => {
         if (message.id === generateMessageId) {
-          return {
-            ...message,
+          return updateActiveVariant(message, {
             message: fullText,
             generationInfo,
             reasoning_time_taken: timetaken
-          }
+          })
         }
         return message
       })
@@ -499,29 +528,29 @@ export const normalChatMode = async (
       }
     ])
 
-    await saveMessageOnSuccess({
-      historyId,
-      setHistoryId,
-      isRegenerate,
-      selectedModel: selectedModel,
-      message,
-      image,
-      fullText,
-      source: [],
-      userMessageType,
-      assistantMessageType,
-      clusterId,
-      modelId: resolvedModelId,
-      userModelId,
-      userMessageId: resolvedUserMessageId,
-      assistantMessageId: resolvedAssistantMessageId,
-      userParentMessageId: userParentMessageId ?? null,
-      assistantParentMessageId: assistantParentMessageId ?? null,
-      generationInfo,
-      prompt_content: promptContent,
-      prompt_id: promptId,
-      reasoning_time_taken: timetaken
-    })
+      await saveMessageOnSuccess({
+        historyId,
+        setHistoryId,
+        isRegenerate,
+        selectedModel: selectedModel,
+        message,
+        image,
+        fullText,
+        source: [],
+        userMessageType,
+        assistantMessageType,
+        clusterId,
+        modelId: resolvedModelId,
+        userModelId,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        userParentMessageId: userParentMessageId ?? null,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null,
+        generationInfo,
+        prompt_content: promptContent,
+        prompt_id: promptId,
+        reasoning_time_taken: timetaken
+      })
 
     setIsProcessing(false)
     setStreaming(false)
@@ -530,7 +559,9 @@ export const normalChatMode = async (
     const assistantContent = buildAssistantErrorContent(fullText, e)
     setMessages((prev) =>
       prev.map((msg) =>
-        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+        msg.id === generateMessageId
+          ? updateActiveVariant(msg, { message: assistantContent })
+          : msg
       )
     )
 
@@ -553,7 +584,7 @@ export const normalChatMode = async (
       userMessageId: resolvedUserMessageId,
       assistantMessageId: resolvedAssistantMessageId,
       userParentMessageId: userParentMessageId ?? null,
-      assistantParentMessageId: assistantParentMessageId ?? null,
+      assistantParentMessageId: resolvedAssistantParentMessageId ?? null,
       prompt_content: promptContent,
       prompt_id: promptId
     })

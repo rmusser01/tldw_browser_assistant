@@ -17,6 +17,12 @@ import { maybeInjectActorMessage } from "@/utils/actor"
 import { getTabContents } from "@/libs/get-tab-contents"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 import { buildAssistantErrorContent } from "@/utils/chat-error-message"
+import {
+  buildMessageVariant,
+  getLastUserMessageId,
+  normalizeMessageVariants,
+  updateActiveVariant
+} from "@/utils/message-variants"
 
 export const tabChatMode = async (
   message: string,
@@ -49,7 +55,8 @@ export const tabChatMode = async (
     assistantMessageId,
     userParentMessageId,
     assistantParentMessageId,
-    historyForModel
+    historyForModel,
+    regenerateFromMessage
   }: {
     selectedModel: string
     useOCR: boolean
@@ -74,6 +81,7 @@ export const tabChatMode = async (
     userParentMessageId?: string | null
     assistantParentMessageId?: string | null
     historyForModel?: ChatHistory
+    regenerateFromMessage?: Message
   }
 ) => {
   console.log("Using tabChatMode")
@@ -89,6 +97,16 @@ export const tabChatMode = async (
   const isSharedCompareUser = userMessageType === "compare:user"
   const resolvedModelId = modelIdOverride || selectedModel
   const userModelId = isSharedCompareUser ? undefined : resolvedModelId
+  const fallbackParentMessageId = getLastUserMessageId(messages)
+  const resolvedAssistantParentMessageId =
+    assistantParentMessageId ??
+    (isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null)
+  const regenerateVariants =
+    isRegenerate && regenerateFromMessage
+      ? normalizeMessageVariants(regenerateFromMessage)
+      : []
 
   setMessages((prev) => {
     if (!isRegenerate) {
@@ -120,7 +138,7 @@ export const tabChatMode = async (
           messageType: assistantMessageType,
           clusterId,
           modelId: resolvedModelId,
-          parentMessageId: assistantParentMessageId ?? null
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     }
@@ -139,10 +157,31 @@ export const tabChatMode = async (
         messageType: assistantMessageType,
         clusterId,
         modelId: resolvedModelId,
-        parentMessageId: assistantParentMessageId ?? null
+        parentMessageId: resolvedAssistantParentMessageId ?? null
       }
     ]
   })
+  if (regenerateVariants.length > 0) {
+    setMessages((prev) => {
+      const next = [...prev]
+      const lastIndex = next.findLastIndex(
+        (msg) => msg.id === resolvedAssistantMessageId
+      )
+      if (lastIndex >= 0) {
+        const stub = next[lastIndex]
+        const variants = [
+          ...regenerateVariants,
+          buildMessageVariant(stub)
+        ]
+        next[lastIndex] = {
+          ...stub,
+          variants,
+          activeVariantIndex: variants.length - 1
+        }
+      }
+      return next
+    })
+  }
   let fullText = ""
   let contentToSave = ""
 
@@ -260,11 +299,10 @@ export const tabChatMode = async (
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText + "▋",
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -275,13 +313,12 @@ export const tabChatMode = async (
     setMessages((prev) => {
       return prev.map((message) => {
         if (message.id === generateMessageId) {
-          return {
-            ...message,
+          return updateActiveVariant(message, {
             message: fullText,
             sources: source,
             generationInfo,
             reasoning_time_taken: timetaken
-          }
+          })
         }
         return message
       })
@@ -317,7 +354,7 @@ export const tabChatMode = async (
       userMessageId: resolvedUserMessageId,
       assistantMessageId: resolvedAssistantMessageId,
       userParentMessageId: userParentMessageId ?? null,
-      assistantParentMessageId: assistantParentMessageId ?? null,
+      assistantParentMessageId: resolvedAssistantParentMessageId ?? null,
       generationInfo,
       reasoning_time_taken: timetaken,
       documents,
@@ -330,7 +367,9 @@ export const tabChatMode = async (
     const assistantContent = buildAssistantErrorContent(fullText, e)
     setMessages((prev) =>
       prev.map((msg) =>
-        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+        msg.id === generateMessageId
+          ? updateActiveVariant(msg, { message: assistantContent })
+          : msg
       )
     )
     const errorSave = await saveMessageOnError({
@@ -352,7 +391,7 @@ export const tabChatMode = async (
       userMessageId: resolvedUserMessageId,
       assistantMessageId: resolvedAssistantMessageId,
       userParentMessageId: userParentMessageId ?? null,
-      assistantParentMessageId: assistantParentMessageId ?? null,
+      assistantParentMessageId: resolvedAssistantParentMessageId ?? null,
       documents,
     })
 

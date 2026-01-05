@@ -27,6 +27,17 @@ export type ReplyTarget = {
   name?: string
   isBot?: boolean
 }
+export type MessageVariant = {
+  id?: string
+  message: string
+  sources?: any[]
+  images?: string[]
+  generationInfo?: any
+  reasoning_time_taken?: number
+  createdAt?: number
+  serverMessageId?: string
+  serverMessageVersion?: number
+}
 export type Message = {
   isBot: boolean
   name: string
@@ -44,6 +55,8 @@ export type Message = {
   documents?: ChatDocuments
   serverMessageId?: string
   serverMessageVersion?: number
+  variants?: MessageVariant[]
+  activeVariantIndex?: number
   // Compare/multi-model metadata (in-memory only)
   clusterId?: string
   modelId?: string

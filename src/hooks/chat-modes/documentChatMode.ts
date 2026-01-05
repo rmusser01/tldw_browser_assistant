@@ -26,6 +26,12 @@ import { extractTokenFromChunk } from "@/utils/extract-token-from-chunk"
 import { extractGenerationInfo } from "@/utils/llm-helpers"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 import { buildAssistantErrorContent } from "@/utils/chat-error-message"
+import {
+  buildMessageVariant,
+  getLastUserMessageId,
+  normalizeMessageVariants,
+  updateActiveVariant
+} from "@/utils/message-variants"
 
 interface RagDocumentMetadata {
   filename?: string
@@ -81,7 +87,8 @@ export const documentChatMode = async (
     assistantMessageId,
     userParentMessageId,
     assistantParentMessageId,
-    historyForModel
+    historyForModel,
+    regenerateFromMessage
   }: {
     selectedModel: string
     useOCR: boolean
@@ -110,6 +117,7 @@ export const documentChatMode = async (
     userParentMessageId?: string | null
     assistantParentMessageId?: string | null
     historyForModel?: ChatHistory
+    regenerateFromMessage?: Message
   }
 ) => {
   const userDefaultModelSettings = await getAllDefaultModelSettings()
@@ -138,6 +146,16 @@ export const documentChatMode = async (
   const isSharedCompareUser = userMessageType === "compare:user"
   const resolvedModelId = modelIdOverride || selectedModel
   const userModelId = isSharedCompareUser ? undefined : resolvedModelId
+  const fallbackParentMessageId = getLastUserMessageId(messages)
+  const resolvedAssistantParentMessageId =
+    assistantParentMessageId ??
+    (isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null)
+  const regenerateVariants =
+    isRegenerate && regenerateFromMessage
+      ? normalizeMessageVariants(regenerateFromMessage)
+      : []
 
   setMessages((prev) => {
     if (!isRegenerate) {
@@ -173,7 +191,7 @@ export const documentChatMode = async (
           messageType: assistantMessageType,
           clusterId,
           modelId: resolvedModelId,
-          parentMessageId: assistantParentMessageId ?? null
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     }
@@ -192,7 +210,7 @@ export const documentChatMode = async (
         messageType: assistantMessageType,
         clusterId,
         modelId: resolvedModelId,
-        parentMessageId: assistantParentMessageId ?? null
+        parentMessageId: resolvedAssistantParentMessageId ?? null
       }
     ]
   })
