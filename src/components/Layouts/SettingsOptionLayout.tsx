@@ -7,6 +7,7 @@ import { Storage } from "@plasmohq/storage"
 import { browser } from "wxt/browser"
 import { SETTINGS_NAV_GROUPS, type SettingsNavItem } from "./settings-nav"
 import { createSafeStorage } from "@/utils/safe-storage"
+import { isChromeTarget, isFirefoxTarget } from "@/config/platform"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
@@ -14,14 +15,14 @@ function classNames(...classes: string[]) {
 
 const shouldHideForBrowser = (item: SettingsNavItem) =>
   // Hide Chrome-specific settings on non-Chrome targets
-  import.meta.env.BROWSER !== "chrome" && item.to === "/settings/chrome"
+  !isChromeTarget && item.to === "/settings/chrome"
 
 export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const { t } = useTranslation(["settings", "common"])
   const sidepanelSupported =
-    import.meta.env.BROWSER === "firefox"
+    isFirefoxTarget
       ? !!(browser as any)?.sidebarAction?.open
       : // @ts-ignore
         typeof chrome !== "undefined" && !!(chrome as any).sidePanel
@@ -57,7 +58,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                       await storage.set("actionIconClick", "sidePanel")
                       await storage.set("contextMenuClick", "sidePanel")
                       try {
-                        if (import.meta.env.BROWSER === "firefox") {
+                        if (isFirefoxTarget) {
                           if ((browser as any)?.sidebarAction?.open) {
                             await (browser as any).sidebarAction.open()
                           }

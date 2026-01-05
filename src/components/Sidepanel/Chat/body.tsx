@@ -7,6 +7,7 @@ import { useUiModeStore } from "@/store/ui-mode"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useStorage } from "@plasmohq/storage/hook"
 import { applyVariantToMessage } from "@/utils/message-variants"
+import { generateID } from "@/db/dexie/helpers"
 
 type Props = {
   scrollParentRef?: React.RefObject<HTMLDivElement>
@@ -25,8 +26,10 @@ export const SidePanelBody = ({
     isProcessing,
     regenerateLastMessage,
     editMessage,
+    deleteMessage,
     isSearchingInternet,
     createChatBranch,
+    historyId,
     temporaryChat,
     stopStreamingRequest,
     serverChatId,
@@ -37,6 +40,24 @@ export const SidePanelBody = ({
   const uiMode = useUiModeStore((state) => state.mode)
   const scrollAnchorRef = React.useRef<number | null>(null)
   const topPaddingClass = "pt-12"
+  const stableHistoryId =
+    temporaryChat || historyId === "temp" ? null : historyId
+  const [conversationInstanceId, setConversationInstanceId] = React.useState(
+    () => generateID()
+  )
+  const previousMessageCount = React.useRef(messages.length)
+
+  React.useEffect(() => {
+    const hasStableId = Boolean(serverChatId || stableHistoryId)
+    if (
+      !hasStableId &&
+      messages.length === 0 &&
+      previousMessageCount.current > 0
+    ) {
+      setConversationInstanceId(generateID())
+    }
+    previousMessageCount.current = messages.length
+  }, [messages.length, serverChatId, stableHistoryId])
 
   const handleVariantSwipe = React.useCallback(
     (messageId: string | undefined, direction: "prev" | "next") => {
@@ -134,6 +155,7 @@ export const SidePanelBody = ({
                   isSearchingInternet={isSearchingInternet}
                   sources={message.sources}
                   onEditFormSubmit={(value) => { editMessage(index, value, !message.isBot) }}
+                  onDeleteMessage={() => { deleteMessage(index) }}
                   onNewBranch={() => { createChatBranch(index) }}
                   isTTSEnabled={ttsEnabled}
                   generationInfo={message?.generationInfo}
@@ -148,6 +170,8 @@ export const SidePanelBody = ({
                   serverChatId={serverChatId}
                   serverMessageId={message.serverMessageId}
                   messageId={message.id}
+                  historyId={stableHistoryId ?? undefined}
+                  conversationInstanceId={conversationInstanceId}
                   feedbackQuery={previousUserMessage?.message ?? null}
                   searchQuery={searchQuery}
                   isEmbedding={isEmbedding}

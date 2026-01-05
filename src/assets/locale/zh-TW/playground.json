@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "深度 {{depth}} · 角色：{{role}}。",
     "summaryTokensEmpty": "尚未定義權杖；請設定要素值。",
     "summaryTokensCount": "{{tokens}} 個權杖 · 提示約 {{estimate}} 個權杖。",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "場景模板啟用中：Actor 會遵循模板互動設定。"
   },
   "speech": {

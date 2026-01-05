@@ -6,10 +6,8 @@ import { useQuickChat } from "@/hooks/useQuickChat"
 import { QuickChatMessage } from "@/components/Common/QuickChatHelper/QuickChatMessage"
 import { QuickChatInput } from "@/components/Common/QuickChatHelper/QuickChatInput"
 import { AlertCircle } from "lucide-react"
-import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
 
 const QuickChatPopout: React.FC = () => {
-  useAutoButtonTitles()
   const { t } = useTranslation(["option", "common"])
   const [searchParams] = useSearchParams()
   const messagesEndRef = useRef<HTMLDivElement>(null)

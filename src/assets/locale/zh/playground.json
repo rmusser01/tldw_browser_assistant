@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "深度 {{depth}} · 角色：{{role}}。",
     "summaryTokensEmpty": "尚未定义令牌；请设置要素值。",
     "summaryTokensCount": "{{tokens}} 个令牌 · 提示中约 {{estimate}} 个令牌。",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "场景模板已激活：Actor 遵循模板交互设置。"
   },
   "speech": {

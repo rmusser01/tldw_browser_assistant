@@ -382,5 +382,8 @@
   },
   "controlRow_mcpToolsEmpty": {
     "message": "No MCP tools available"
+  },
+  "contextMenu_status": {
+    "message": "Status"
   }
 }

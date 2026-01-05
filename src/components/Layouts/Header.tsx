@@ -1,22 +1,15 @@
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
-import {
-  CogIcon,
-  Gauge,
-  UserCircle2,
-  Menu,
-  Search,
-  SquarePen,
-  Keyboard,
-  Signpost
-} from "lucide-react"
+import { CogIcon, Gauge, UserCircle2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { ModelSelect } from "../Common/ModelSelect"
 import { PromptSelect } from "../Common/PromptSelect"
 import PromptSearch from "../Common/PromptSearch"
 import { useQuery } from "@tanstack/react-query"
 import { useServerOnline } from "@/hooks/useServerOnline"
+import { isMac } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { fetchChatModels } from "@/services/tldw-server"
 import { getTitleById, updateHistory } from "@/db"
 import { useStoreChatModelSettings } from "@/store/model"
@@ -35,15 +28,16 @@ import type { Character } from "@/types/character"
 import OmniSearchBar from "../Common/OmniSearchBar"
 import { useOmniSearchDeps } from "@/hooks/useOmniSearchDeps"
 import { useTimelineStore } from "@/store/timeline"
+import { isFirefoxTarget } from "@/config/platform"
 
 // Extracted components for better maintainability
 import { ModeSelector, type CoreMode } from "./ModeSelector"
 import { ConnectionStatus } from "./ConnectionStatus"
 import { QuickIngestButton } from "./QuickIngestButton"
 import { HeaderShortcuts } from "./HeaderShortcuts"
+import { ChatHeader } from "./ChatHeader"
 
-const classNames = (...classes: (string | false | null | undefined)[]) =>
-  classes.filter(Boolean).join(" ")
+const headerStorage = createSafeStorage({ area: "local" })
 
 type Props = {
   setOpenModelSettings: (open: boolean) => void
@@ -65,10 +59,11 @@ export const Header: React.FC<Props> = ({
     "playground"
   ])
   const isRTL = i18n?.dir() === "rtl"
+  const cmdKey = isMac ? "⌘" : "Ctrl+"
 
   const [shareModeEnabled] = useStorage("shareMode", false)
   const [headerShortcutsExpanded, setHeaderShortcutsExpanded] = useStorage(
-    "headerShortcutsExpanded",
+    { key: "headerShortcutsExpanded", instance: headerStorage },
     false
   )
   const [selectedCharacter] = useStorage<Character | null>(
@@ -176,7 +171,7 @@ export const Header: React.FC<Props> = ({
 
   const openSidebar = React.useCallback(async () => {
     try {
-      if (import.meta.env.BROWSER === "firefox") {
+      if (isFirefoxTarget) {
         await browser.sidebarAction.open()
       } else {
         // Chromium sidePanel API
@@ -292,11 +287,6 @@ export const Header: React.FC<Props> = ({
   }
 
   const isChatRoute = currentCoreMode === "playground"
-  const showSidebarToggle = Boolean(onToggleSidebar)
-  const sidebarLabel = sidebarCollapsed
-    ? t("common:chatSidebar.expand", "Expand sidebar")
-    : t("common:chatSidebar.collapse", "Collapse sidebar")
-
   const openCommandPalette = React.useCallback(() => {
     if (typeof window === "undefined") return
     window.dispatchEvent(new CustomEvent("tldw:open-command-palette"))
@@ -307,151 +297,45 @@ export const Header: React.FC<Props> = ({
     window.dispatchEvent(new CustomEvent("tldw:open-shortcuts-modal"))
   }, [])
 
-  const shortcutsToggleLabel = headerShortcutsExpanded
-    ? t("option:header.hideShortcuts", "Hide shortcuts")
-    : t("option:header.showShortcuts", "Show shortcuts")
-
   const toggleHeaderShortcuts = React.useCallback(() => {
-    setHeaderShortcutsExpanded(!headerShortcutsExpanded)
+    void setHeaderShortcutsExpanded(!headerShortcutsExpanded).catch(() => {
+      // ignore storage write failures
+    })
   }, [headerShortcutsExpanded, setHeaderShortcutsExpanded])
+
+  const handleTitleEditStart = React.useCallback(() => {
+    setIsEditingTitle(true)
+  }, [])
+
+  const handleTitleCommit = React.useCallback(
+    async (value: string) => {
+      setIsEditingTitle(false)
+      await saveTitle(value)
+    },
+    [saveTitle]
+  )
 
   if (isChatRoute) {
     return (
-      <header
-        data-istemporary-chat={temporaryChat}
-        data-ischat-route={isChatRoute}
-        className="z-30 flex w-full flex-col border-b border-border bg-surface/95 backdrop-blur data-[istemporary-chat='true']:bg-purple-900 data-[ischat-route='true']:bg-surface/95"
-      >
-        <div className="flex w-full items-center justify-between gap-3 px-4 py-2">
-          <div className="flex min-w-0 items-center gap-2">
-            {showSidebarToggle && (
-              <Tooltip title={sidebarLabel} placement="bottom">
-                <button
-                  type="button"
-                  onClick={onToggleSidebar}
-                  aria-label={sidebarLabel as string}
-                  className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
-                  title={sidebarLabel as string}
-                >
-                  <Menu className="size-4" aria-hidden="true" />
-                </button>
-              </Tooltip>
-            )}
-            <ConnectionStatus showLabel={false} className="px-2 py-1" />
-            <div className="flex items-center gap-2 text-text">
-              <img
-                src={logoImage}
-                alt={t("common:pageAssist", "tldw Assistant")}
-                className="h-5 w-auto"
-              />
-              <span className="text-sm font-medium">
-                {t("common:pageAssist", "tldw Assistant")}
-              </span>
-              <Tooltip title={shortcutsToggleLabel} placement="bottom">
-                <button
-                  type="button"
-                  onClick={toggleHeaderShortcuts}
-                  aria-label={shortcutsToggleLabel as string}
-                  className="inline-flex items-center justify-center rounded-md p-1.5 text-text-muted hover:bg-surface2 hover:text-text"
-                  title={shortcutsToggleLabel}
-                >
-                  <Signpost className="size-4" aria-hidden="true" />
-                </button>
-              </Tooltip>
-            </div>
-            {!temporaryChat && historyId && historyId !== "temp" && (
-              <div className="hidden min-w-[140px] max-w-[220px] sm:block">
-                {isEditingTitle ? (
-                  <Input
-                    size="small"
-                    autoFocus
-                    value={chatTitle}
-                    onChange={(e) => setChatTitle(e.target.value)}
-                    onPressEnter={async () => {
-                      setIsEditingTitle(false)
-                      await saveTitle(chatTitle)
-                    }}
-                    onBlur={async () => {
-                      setIsEditingTitle(false)
-                      await saveTitle(chatTitle)
-                    }}
-                  />
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setIsEditingTitle(true)}
-                    className="truncate text-left text-xs text-text-muted hover:text-text"
-                    title={chatTitle || "Untitled"}
-                  >
-                    {chatTitle || t("option:header.untitledChat", "Untitled")}
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={openCommandPalette}
-              className="hidden items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text-muted transition hover:bg-surface2 hover:text-text sm:inline-flex"
-              title={t("common:search", "Search")}
-            >
-              <Search className="size-4" aria-hidden="true" />
-              <span>{t("common:search", "Search")}</span>
-              <span className="rounded border border-border px-1.5 py-0.5 text-[10px] text-text-subtle">
-                ⌘K
-              </span>
-            </button>
-            <Tooltip
-              title={t(
-                "common:shortcuts.showKeyboardShortcuts",
-                "Show keyboard shortcuts"
-              )}
-            >
-              <button
-                type="button"
-                onClick={openShortcutsModal}
-                aria-label={
-                  t(
-                    "common:shortcuts.showKeyboardShortcuts",
-                    "Show keyboard shortcuts"
-                  ) as string
-                }
-                className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
-                title={t(
-                  "common:shortcuts.showKeyboardShortcuts",
-                  "Show keyboard shortcuts"
-                )}
-              >
-                <Keyboard className="size-4" aria-hidden="true" />
-              </button>
-            </Tooltip>
-            <Tooltip title={t("common:newChat", "New chat")}>
-              <button
-                type="button"
-                onClick={clearChat}
-                aria-label={t("common:newChat", "New chat") as string}
-                className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
-                title={t("common:newChat", "New chat")}
-              >
-                <SquarePen className="size-4" aria-hidden="true" />
-              </button>
-            </Tooltip>
-            <Tooltip title={t("sidepanel:header.settingsShortLabel", "Settings")}>
-              <button
-                type="button"
-                onClick={() => navigate("/settings/tldw")}
-                aria-label={t("sidepanel:header.openSettingsAria", "Open settings") as string}
-                className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
-                title={t("sidepanel:header.settingsShortLabel", "Settings")}
-              >
-                <CogIcon className="size-4" aria-hidden="true" />
-              </button>
-            </Tooltip>
-          </div>
-        </div>
-        <HeaderShortcuts className="px-4 pb-2 pt-1" showToggle={false} />
-      </header>
+      <ChatHeader
+        t={t}
+        temporaryChat={temporaryChat}
+        historyId={historyId}
+        chatTitle={chatTitle}
+        isEditingTitle={isEditingTitle}
+        onTitleChange={setChatTitle}
+        onTitleEditStart={handleTitleEditStart}
+        onTitleCommit={handleTitleCommit}
+        onToggleSidebar={onToggleSidebar}
+        sidebarCollapsed={sidebarCollapsed}
+        onOpenCommandPalette={openCommandPalette}
+        onOpenShortcutsModal={openShortcutsModal}
+        onOpenSettings={() => navigate("/settings/tldw")}
+        onClearChat={clearChat}
+        shortcutsExpanded={headerShortcutsExpanded}
+        onToggleShortcuts={toggleHeaderShortcuts}
+        commandKeyLabel={cmdKey}
+      />
     )
   }
 

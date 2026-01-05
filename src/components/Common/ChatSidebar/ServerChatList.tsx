@@ -1,16 +1,35 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
-import { Tooltip, Empty, Skeleton, message } from "antd"
-import { PinIcon, PinOffIcon, GitBranch } from "lucide-react"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { Tooltip, Empty, Skeleton, Dropdown, Input, Modal, message } from "antd"
+import {
+  Pin,
+  PinOff,
+  GitBranch,
+  MoreHorizontal,
+  Pencil,
+  Settings2,
+  Trash2,
+  Circle,
+  CheckCircle2,
+  Clock,
+  XCircle,
+  Tag
+} from "lucide-react"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useMessageOption } from "@/hooks/useMessageOption"
+import { useStoreMessageOption } from "@/store/option"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { formatRelativeTime } from "@/utils/dateFormatters"
 import { cn } from "@/libs/utils"
+import { normalizeConversationState } from "@/utils/conversation-state"
+import { ChatStateBadge } from "./ChatStateBadge"
 
 interface ServerChatListProps {
   searchQuery: string
@@ -18,20 +37,15 @@ interface ServerChatListProps {
 }
 
 export function ServerChatList({ searchQuery, className }: ServerChatListProps) {
-  const { t } = useTranslation(["common", "sidepanel"])
+  const { t } = useTranslation(["common", "sidepanel", "option", "playground"])
   const navigate = useNavigate()
   const { isConnected } = useConnectionState()
-  const mountedRef = React.useRef(true)
+  const queryClient = useQueryClient()
+  const confirmDanger = useConfirmDanger()
   const [pinnedChatIds, setPinnedChatIds] = useStorage<string[]>(
     "tldw:server-chat-pins",
     []
   )
-
-  React.useEffect(() => {
-    return () => {
-      mountedRef.current = false
-    }
-  }, [])
 
   const {
     setMessages,
@@ -39,12 +53,51 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     setHistoryId,
     serverChatId,
     setServerChatId,
+    setServerChatTitle,
+    setServerChatCharacterId,
     setServerChatState,
+    setServerChatVersion,
     setServerChatTopic,
     setServerChatClusterId,
     setServerChatSource,
-    setServerChatExternalRef
+    setServerChatExternalRef,
+    setServerChatMetaLoaded,
+    setStreaming,
+    setIsLoading,
+    setIsSearchingInternet,
+    clearReplyTarget,
+    clearChat
   } = useMessageOption()
+  const setIsProcessing = useStoreMessageOption(
+    (state) => state.setIsProcessing
+  )
+  const setIsEmbedding = useStoreMessageOption(
+    (state) => state.setIsEmbedding
+  )
+  const [openMenuFor, setOpenMenuFor] = React.useState<string | null>(null)
+  const [renamingChat, setRenamingChat] =
+    React.useState<ServerChatHistoryItem | null>(null)
+  const [renameValue, setRenameValue] = React.useState("")
+  const [renameError, setRenameError] = React.useState<string | null>(null)
+  const [editingTopicChat, setEditingTopicChat] =
+    React.useState<ServerChatHistoryItem | null>(null)
+  const [topicValue, setTopicValue] = React.useState("")
+
+  const { mutate: updateChatMetadata, isPending: updateChatLoading } =
+    useMutation({
+      mutationFn: async (payload: {
+        chatId: string
+        data: Record<string, unknown>
+        expectedVersion?: number | null
+      }) =>
+        tldwClient.updateChat(
+          payload.chatId,
+          payload.data,
+          payload.expectedVersion != null
+            ? { expectedVersion: payload.expectedVersion }
+            : undefined
+        )
+    })
 
   const {
     data: serverChatData,
@@ -74,79 +127,176 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     [setPinnedChatIds]
   )
 
-  const loadServerChat = async (chat: ServerChatHistoryItem) => {
-    try {
-      setHistoryId(null)
-      setServerChatId(chat.id)
-      const rawState = chat.state
-      const normalizedState: ConversationState =
-        rawState === "in-progress" ||
-        rawState === "resolved" ||
-        rawState === "backlog" ||
-        rawState === "non-viable"
-          ? rawState
-          : "in-progress"
-      setServerChatState(normalizedState)
-      setServerChatTopic(chat.topic_label ?? null)
-      setServerChatClusterId(chat.cluster_id ?? null)
-      setServerChatSource(chat.source ?? null)
-      setServerChatExternalRef(chat.external_ref ?? null)
+  const loadServerChat = (chat: ServerChatHistoryItem) => {
+    setIsLoading(true)
+    setHistoryId(null)
+    setHistory([])
+    setMessages([])
+    setServerChatId(chat.id)
+    setServerChatTitle(chat.title || "")
+    setServerChatCharacterId(chat.character_id ?? null)
+    setIsProcessing(false)
+    setStreaming(false)
+    setIsEmbedding(false)
+    setIsSearchingInternet(false)
+    clearReplyTarget()
+    setServerChatVersion(chat.version ?? null)
+    setServerChatState(normalizeConversationState(chat.state))
+    setServerChatTopic(chat.topic_label ?? null)
+    setServerChatClusterId(chat.cluster_id ?? null)
+    setServerChatSource(chat.source ?? null)
+    setServerChatExternalRef(chat.external_ref ?? null)
+    setServerChatMetaLoaded(true)
+    updatePageTitle(chat.title)
+    navigate("/")
+  }
 
-      let assistantName = "Assistant"
-      if (chat.character_id !== null && chat.character_id !== undefined) {
-        try {
-          const character = await tldwClient.getCharacter(chat.character_id)
-          if (character) {
-            assistantName = character.name || character.title || assistantName
+  const handleRenameSubmit = () => {
+    if (!renamingChat) return
+
+    const newTitle = renameValue.trim()
+    if (!newTitle) {
+      setRenameError(
+        t("common:renameChatEmptyError", {
+          defaultValue: "Title cannot be empty."
+        })
+      )
+      return
+    }
+
+    setRenameError(null)
+    updateChatMetadata(
+      {
+        chatId: renamingChat.id,
+        data: { title: newTitle },
+        expectedVersion: renamingChat.version ?? null
+      },
+      {
+        onSuccess: (updated) => {
+          const resolvedTitle = updated?.title || newTitle
+          if (serverChatId === renamingChat.id) {
+            setServerChatTitle(resolvedTitle)
+            setServerChatVersion(updated?.version ?? null)
+            updatePageTitle(resolvedTitle)
           }
-        } catch {
-          // ignore character lookup failure
+          queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+          setRenamingChat(null)
+          setRenameValue("")
+        },
+        onError: () => {
+          message.error(
+            t("common:renameChatError", {
+              defaultValue: "Failed to rename chat."
+            })
+          )
         }
       }
+    )
+  }
 
-      if (!mountedRef.current) return
+  const handleTopicSubmit = () => {
+    if (!editingTopicChat) return
 
-      const messages = await tldwClient.listChatMessages(chat.id, {
-        include_deleted: false
-      })
-      if (!mountedRef.current) return
-      const history = messages.map((m) => ({
-        role: m.role,
-        content: m.content
-      }))
-      const mappedMessages = messages.map((m) => {
-        const createdAt = Date.parse(m.created_at)
-        return {
-          createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
-          isBot: m.role === "assistant",
-          name:
-            m.role === "assistant"
-              ? assistantName
-              : m.role === "system"
-                ? "System"
-                : "You",
-          message: m.content,
-          sources: [],
-          images: [],
-          serverMessageId: m.id,
-          serverMessageVersion: m.version
+    const nextTopic = topicValue.trim()
+    updateChatMetadata(
+      {
+        chatId: editingTopicChat.id,
+        data: { topic_label: nextTopic || null },
+        expectedVersion: editingTopicChat.version ?? null
+      },
+      {
+        onSuccess: (updated) => {
+          const resolvedTopic =
+            (updated as ServerChatHistoryItem | undefined)?.topic_label ??
+            (nextTopic || null)
+          if (serverChatId === editingTopicChat.id) {
+            setServerChatTopic(resolvedTopic)
+            setServerChatVersion(updated?.version ?? null)
+          }
+          queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+          setEditingTopicChat(null)
+          setTopicValue("")
+        },
+        onError: () => {
+          message.error(
+            t("option:somethingWentWrong", {
+              defaultValue: "Something went wrong"
+            })
+          )
         }
-      })
-      if (!mountedRef.current) return
-      setHistory(history)
-      setMessages(mappedMessages)
-      updatePageTitle(chat.title)
-      navigate("/")
-    } catch (e) {
-      if (!mountedRef.current) return
-      console.error("Failed to load server chat", e)
+      }
+    )
+  }
+
+  const handleUpdateState = (
+    chat: ServerChatHistoryItem,
+    nextState: ConversationState
+  ) => {
+    updateChatMetadata(
+      {
+        chatId: chat.id,
+        data: { state: nextState },
+        expectedVersion: chat.version ?? null
+      },
+      {
+        onSuccess: (updated) => {
+          const resolvedState = normalizeConversationState(
+            (updated as ServerChatHistoryItem | undefined)?.state ?? nextState
+          )
+          if (serverChatId === chat.id) {
+            setServerChatState(resolvedState)
+            setServerChatVersion(updated?.version ?? null)
+          }
+          queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+        },
+        onError: () => {
+          message.error(
+            t("option:somethingWentWrong", {
+              defaultValue: "Something went wrong"
+            })
+          )
+        }
+      }
+    )
+  }
+
+  const handleDeleteChat = async (chat: ServerChatHistoryItem) => {
+    const ok = await confirmDanger({
+      title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
+      content: t("common:deleteHistoryConfirmation", {
+        defaultValue: "Are you sure you want to delete this chat?"
+      }),
+      okText: t("common:delete", { defaultValue: "Delete" }),
+      cancelText: t("common:cancel", { defaultValue: "Cancel" })
+    })
+    if (!ok) return
+
+    try {
+      await tldwClient.deleteChat(chat.id)
+      setPinnedChatIds((prev) =>
+        (prev || []).filter((id) => id !== chat.id)
+      )
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+      if (serverChatId === chat.id) {
+        clearChat()
+      }
+    } catch {
       message.error(
-        t("common:serverChatLoadError", {
-          defaultValue:
-            "Failed to load server chat. Check your connection and try again."
+        t("common:deleteChatError", {
+          defaultValue: "Failed to delete chat."
         })
       )
     }
+  }
+
+  const handleOpenSettings = (chat: ServerChatHistoryItem) => {
+    if (serverChatId !== chat.id) {
+      loadServerChat(chat)
+    }
+    if (typeof window === "undefined") return
+    window.setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("tldw:open-model-settings"))
+    }, 0)
   }
 
   // Not connected state
@@ -199,8 +349,135 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     )
   }
 
+  const renderSourceInfo = (chat: ServerChatHistoryItem) => {
+    if (chat.parent_conversation_id) {
+      return (
+        <Tooltip
+          title={t("common:serverChatForkedTooltip", {
+            chatId: String(chat.parent_conversation_id).slice(0, 8),
+            defaultValue: "Forked from chat {{chatId}}"
+          })}
+        >
+          <span className="inline-flex items-center gap-1">
+            <GitBranch className="size-3" />
+            <span>
+              {t("common:serverChatForkedLabel", {
+                defaultValue: "Forked chat"
+              })}
+            </span>
+          </span>
+        </Tooltip>
+      )
+    }
+    return (
+      <span>
+        {t("common:serverChatSourceLabel", {
+          defaultValue: "Server"
+        })}
+      </span>
+    )
+  }
+
   const renderChatRow = (chat: ServerChatHistoryItem) => {
     const isPinned = pinnedChatSet.has(chat.id)
+    const updatedAtMs = chat.updated_at ? Date.parse(chat.updated_at) : NaN
+    const createdAtMs = chat.created_at ? Date.parse(chat.created_at) : NaN
+    const lastModifiedMs = !Number.isNaN(updatedAtMs)
+      ? updatedAtMs
+      : createdAtMs
+    const lastModifiedLabel = Number.isNaN(lastModifiedMs)
+      ? null
+      : formatRelativeTime(new Date(lastModifiedMs).toISOString(), t)
+    const lastModifiedTitle = Number.isNaN(lastModifiedMs)
+      ? undefined
+      : new Date(lastModifiedMs).toLocaleString()
+    const menuItems = [
+      {
+        key: "settings",
+        icon: <Settings2 className="size-3" />,
+        label: t("playground:composer.openModelSettings", {
+          defaultValue: "Open current chat settings"
+        }),
+        onClick: () => {
+          setOpenMenuFor(null)
+          handleOpenSettings(chat)
+        }
+      },
+      {
+        key: "rename",
+        icon: <Pencil className="size-3" />,
+        label: t("common:rename", { defaultValue: "Rename" }),
+        onClick: () => {
+          setRenamingChat(chat)
+          setRenameValue(chat.title || "")
+          setRenameError(null)
+          setOpenMenuFor(null)
+        }
+      },
+      {
+        key: "state",
+        label: t("sidepanel:contextMenu.status", "Status"),
+        children: [
+          {
+            key: "state-in-progress",
+            icon: <Circle className="size-3 text-blue-500" />,
+            label: t("playground:composer.state.inProgress", "in-progress"),
+            onClick: () => {
+              setOpenMenuFor(null)
+              handleUpdateState(chat, "in-progress")
+            }
+          },
+          {
+            key: "state-resolved",
+            icon: <CheckCircle2 className="size-3 text-green-500" />,
+            label: t("playground:composer.state.resolved", "resolved"),
+            onClick: () => {
+              setOpenMenuFor(null)
+              handleUpdateState(chat, "resolved")
+            }
+          },
+          {
+            key: "state-backlog",
+            icon: <Clock className="size-3 text-gray-400" />,
+            label: t("playground:composer.state.backlog", "backlog"),
+            onClick: () => {
+              setOpenMenuFor(null)
+              handleUpdateState(chat, "backlog")
+            }
+          },
+          {
+            key: "state-non-viable",
+            icon: <XCircle className="size-3 text-red-400" />,
+            label: t("playground:composer.state.nonViable", "non-viable"),
+            onClick: () => {
+              setOpenMenuFor(null)
+              handleUpdateState(chat, "non-viable")
+            }
+          }
+        ]
+      },
+      {
+        key: "topic",
+        icon: <Tag className="size-3" />,
+        label: t("playground:composer.topicPlaceholder", "Topic label (optional)"),
+        onClick: () => {
+          setEditingTopicChat(chat)
+          setTopicValue(chat.topic_label || "")
+          setOpenMenuFor(null)
+        }
+      },
+      { type: "divider" as const },
+      {
+        key: "delete",
+        icon: <Trash2 className="size-3" />,
+        label: t("common:delete", { defaultValue: "Delete" }),
+        danger: true,
+        onClick: () => {
+          setOpenMenuFor(null)
+          void handleDeleteChat(chat)
+        }
+      }
+    ]
     return (
       <div
         key={chat.id}
@@ -219,9 +496,16 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
             {chat.title}
           </span>
           <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle mt-1">
-            <span className="inline-flex items-center rounded-full bg-surface2 px-2 py-1 text-[11px] font-medium lowercase text-text">
-              {(chat.state as string) || "in-progress"}
-            </span>
+            <ChatStateBadge state={chat.state as string} />
+            {lastModifiedLabel && (
+              <span
+                className="text-[11px] text-text-subtle"
+                title={lastModifiedTitle}
+              >
+                {t("common:updated", { defaultValue: "Updated" })}{" "}
+                {lastModifiedLabel}
+              </span>
+            )}
             {chat.topic_label && (
               <span
                 className="truncate max-w-[12rem]"
@@ -232,55 +516,104 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
             )}
           </div>
           <span className="flex items-center gap-1 text-xs text-text-subtle">
-            {chat.parent_conversation_id ? (
-              <Tooltip
-                title={t("common:serverChatForkedTooltip", {
-                  chatId: String(chat.parent_conversation_id).slice(0, 8),
-                  defaultValue: "Forked from chat {{chatId}}"
-                })}
-              >
-                <span className="inline-flex items-center gap-1">
-                  <GitBranch className="size-3" />
-                  <span>
-                    {t("common:serverChatForkedLabel", {
-                      defaultValue: "Forked chat"
-                    })}
-                  </span>
-                </span>
-              </Tooltip>
-            ) : (
-              <span>
-                {t("common:serverChatSourceLabel", {
-                  defaultValue: "Server"
-                })}
-              </span>
-            )}
+            {renderSourceInfo(chat)}
           </span>
         </button>
-        <Tooltip title={isPinned ? t("common:unpin") : t("common:pin")}>
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              togglePinned(chat.id)
-            }}
-            className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)]"
-            aria-label={isPinned ? t("common:unpin") : t("common:pin")}
-            aria-pressed={isPinned}
+        <div className="flex flex-col items-center gap-1">
+          <Tooltip title={isPinned ? t("common:unpin") : t("common:pin")}>
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation()
+                togglePinned(chat.id)
+              }}
+              className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)] h-7 w-7 sm:min-w-0 sm:min-h-0"
+              aria-label={isPinned ? t("common:unpin") : t("common:pin")}
+              aria-pressed={isPinned}
+            >
+              {isPinned ? (
+                <PinOff className="size-3" />
+              ) : (
+                <Pin className="size-3" />
+              )}
+            </button>
+          </Tooltip>
+          <Dropdown
+            menu={{ items: menuItems }}
+            trigger={["click"]}
+            placement="bottomRight"
+            open={openMenuFor === chat.id}
+            onOpenChange={(open) => setOpenMenuFor(open ? chat.id : null)}
           >
-            {isPinned ? (
-              <PinOffIcon className="size-3" />
-            ) : (
-              <PinIcon className="size-3" />
-            )}
-          </button>
-        </Tooltip>
+            <button
+              type="button"
+              onClick={(event) => event.stopPropagation()}
+              className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)] h-7 w-7 sm:min-w-0 sm:min-h-0"
+              aria-label={`${t("option:header.moreActions", {
+                defaultValue: "More actions"
+              })}: ${chat.title}`}
+              aria-haspopup="menu"
+              aria-expanded={openMenuFor === chat.id}
+              aria-controls={`server-chat-actions-${chat.id}`}
+            >
+              <MoreHorizontal className="size-3.5" />
+            </button>
+          </Dropdown>
+        </div>
       </div>
     )
   }
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
+      <Modal
+        title={t("common:renameChat", { defaultValue: "Rename chat" })}
+        open={!!renamingChat}
+        onCancel={() => {
+          setRenamingChat(null)
+          setRenameValue("")
+          setRenameError(null)
+        }}
+        onOk={handleRenameSubmit}
+        confirmLoading={updateChatLoading}
+        okButtonProps={{
+          disabled: !renameValue.trim()
+        }}
+      >
+        <Input
+          autoFocus
+          value={renameValue}
+          onChange={(e) => {
+            setRenameValue(e.target.value)
+            if (renameError) {
+              setRenameError(null)
+            }
+          }}
+          onPressEnter={handleRenameSubmit}
+          status={renameError ? "error" : undefined}
+        />
+        {renameError && (
+          <div className="mt-1 text-xs text-red-500">{renameError}</div>
+        )}
+      </Modal>
+      <Modal
+        title={t("playground:composer.topicPlaceholder", "Topic label (optional)")}
+        open={!!editingTopicChat}
+        onCancel={() => {
+          setEditingTopicChat(null)
+          setTopicValue("")
+        }}
+        onOk={handleTopicSubmit}
+        confirmLoading={updateChatLoading}
+      >
+        <Input
+          autoFocus
+          value={topicValue}
+          onChange={(e) => setTopicValue(e.target.value)}
+          onPressEnter={handleTopicSubmit}
+          placeholder={t("playground:composer.topicPlaceholder", "Topic label (optional)")}
+        />
+      </Modal>
       {pinnedChats.length > 0 && (
         <div className="flex flex-col gap-2">
           <div className="px-2 text-[11px] font-medium text-text-subtle uppercase tracking-wide">
@@ -290,7 +623,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
         </div>
       )}
       {unpinnedChats.length > 0 && (
-        <div className={pinnedChats.length > 0 ? "mt-3 flex flex-col gap-2" : "flex flex-col gap-2"}>
+        <div className={cn("flex flex-col gap-2", pinnedChats.length > 0 && "mt-3")}>
           {unpinnedChats.map(renderChatRow)}
         </div>
       )}

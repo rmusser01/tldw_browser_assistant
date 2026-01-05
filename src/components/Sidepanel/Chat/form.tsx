@@ -38,6 +38,7 @@ import {
 } from "@/config/ui-constants"
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useFocusShortcuts } from "@/hooks/keyboard"
+import { isFirefoxTarget } from "@/config/platform"
 import { useDraftPersistence } from "@/hooks/useDraftPersistence"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
 import { QueuedMessagesBanner } from "@/components/Sidepanel/Chat/QueuedMessagesBanner"
@@ -1119,12 +1120,12 @@ export const SidepanelForm = ({
                           style={{ minHeight: `${textareaMinHeight}px` }}
                           tabIndex={0}
                           onCompositionStart={() => {
-                            if (import.meta.env.BROWSER !== "firefox") {
+                          if (!isFirefoxTarget) {
                               setTyping(true)
                             }
                           }}
                           onCompositionEnd={() => {
-                            if (import.meta.env.BROWSER !== "firefox") {
+                          if (!isFirefoxTarget) {
                               setTyping(false)
                             }
                           }}

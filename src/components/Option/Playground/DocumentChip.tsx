@@ -46,7 +46,7 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({
       <IconButton
         ariaLabel={t("quickIngest.remove", { defaultValue: "Remove" }) as string}
         onClick={() => onRemove(document.id)}
-        className="flex-shrink-0 text-text-subtle hover:text-text transition-colors"
+        className="flex-shrink-0 text-text-subtle hover:text-text transition-colors h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0"
         type="button">
         <X className="h-3 w-3" />
       </IconButton>

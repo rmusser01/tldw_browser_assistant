@@ -413,6 +413,10 @@
     "summaryPlacementDepth": "Tiefe {{depth}} · Rolle: {{role}}.",
     "summaryTokensEmpty": "Noch keine Tokens definiert; Aspektwerte festlegen.",
     "summaryTokensCount": "{{tokens}} Token · ~{{estimate}} Token im Prompt.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "Szenenvorlage aktiv: Actor respektiert die Einstellungen zur Vorlageninteraktion."
   },
   "speech": {

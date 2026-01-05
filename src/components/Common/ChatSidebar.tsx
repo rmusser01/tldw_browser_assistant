@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
-import { useQueryClient, type InfiniteData } from "@tanstack/react-query"
 import { Input, Tooltip, Segmented } from "antd"
 import {
   Plus,
@@ -21,13 +20,11 @@ import {
 import { useStorage } from "@plasmohq/storage/hook"
 import { Storage } from "@plasmohq/storage"
 
-import type { HistoryInfo } from "@/db/dexie/types"
 import { useDebounce } from "@/hooks/useDebounce"
 import { useServerChatHistory } from "@/hooks/useServerChatHistory"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import { useFolderStore } from "@/store/folder"
 import { cn } from "@/libs/utils"
-import { LocalChatList } from "./ChatSidebar/LocalChatList"
 import { ServerChatList } from "./ChatSidebar/ServerChatList"
 import { FolderChatList } from "./ChatSidebar/FolderChatList"
 import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
@@ -52,17 +49,11 @@ interface ChatSidebarProps {
   className?: string
 }
 
-type ChatGroup = {
-  label: string
-  items: HistoryInfo[]
-}
-
 type SidebarTab = "local" | "server" | "folders"
 
 export function ChatSidebar({
   collapsed = false,
   onToggleCollapse,
-  selectedChatId,
   onSelectChat,
   onNewChat,
   onIngest,
@@ -72,14 +63,16 @@ export function ChatSidebar({
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState("")
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
-  const queryClient = useQueryClient()
 
   // Tab state persisted in localStorage
   const [activeTab, setActiveTab] = useStorage<SidebarTab>({
     key: "tldw:sidebar:activeTab",
     instance: storage
   })
-  const currentTab = activeTab || "local"
+  const allowedTabs: SidebarTab[] = ["server", "folders"]
+  const defaultTab: SidebarTab = "server"
+  const currentTab =
+    activeTab && allowedTabs.includes(activeTab) ? activeTab : defaultTab
   const [shortcutsCollapsed, setShortcutsCollapsed] = useStorage<boolean>({
     key: "tldw:sidebar:shortcutsCollapsed",
     instance: storage
@@ -87,7 +80,7 @@ export function ChatSidebar({
   const showShortcuts = shortcutsCollapsed !== true
 
   // Chat state
-  const { historyId, clearChat, temporaryChat } = useMessageOption()
+  const { clearChat, temporaryChat } = useMessageOption()
 
   // Folder conversation count for tab badge
   const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
@@ -100,24 +93,14 @@ export function ChatSidebar({
   const { data: serverChatData } = useServerChatHistory(debouncedSearchQuery)
   const serverChats = serverChatData || []
 
-  // Local chat count for tab badge, derived from existing query cache
-  const localChatCount = useMemo(() => {
-    const data = queryClient.getQueryData<
-      InfiniteData<{ groups: ChatGroup[] }>
-    >(["fetchChatHistory", debouncedSearchQuery])
-
-    return (
-      data?.pages.reduce((total, page) => {
-        return total + page.groups.reduce((sum, group) => sum + group.items.length, 0)
-      }, 0) || 0
-    )
-  }, [debouncedSearchQuery, queryClient])
+  React.useEffect(() => {
+    if (activeTab && allowedTabs.includes(activeTab)) return
+    void setActiveTab(defaultTab)
+  }, [activeTab, allowedTabs, defaultTab, setActiveTab])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
   }
-
-  const effectiveSelectedChatId = selectedChatId ?? historyId ?? null
 
   const handleNewChat = () => {
     if (onNewChat) {
@@ -137,10 +120,6 @@ export function ChatSidebar({
 
   // Build tab options with counts
   const tabOptions = [
-    {
-      value: "local" as SidebarTab,
-      label: `${t("common:chatSidebar.tabs.local", "Local")}${localChatCount > 0 ? ` (${localChatCount})` : ""}`
-    },
     {
       value: "server" as SidebarTab,
       label: `${t("common:chatSidebar.tabs.server", "Server")}${serverChats.length > 0 ? ` (${serverChats.length})` : ""}`
@@ -355,26 +334,24 @@ export function ChatSidebar({
       </div>
 
       {/* Quick Actions */}
-      <div className="px-3 py-2 flex items-center justify-between">
+      <button
+        type="button"
+        aria-expanded={showShortcuts}
+        aria-controls="chat-sidebar-shortcuts"
+        onClick={() => setShortcutsCollapsed(showShortcuts)}
+        className="group flex w-full items-center justify-between px-3 py-2 text-left hover:bg-surface"
+        title={t("common:chatSidebar.shortcuts", "Shortcuts")}
+      >
         <span className="text-xs font-semibold uppercase tracking-wide text-text-subtle">
           {t("common:chatSidebar.shortcuts", "Shortcuts")}
         </span>
-        <button
-          type="button"
-          aria-expanded={showShortcuts}
-          aria-controls="chat-sidebar-shortcuts"
-          onClick={() => setShortcutsCollapsed(showShortcuts)}
-          className="p-1 rounded text-text-muted hover:bg-surface hover:text-text"
-          title={t("common:chatSidebar.shortcuts", "Shortcuts")}
-        >
-          <ChevronDown
-            className={cn(
-              "size-4 transition-transform",
-              showShortcuts ? "rotate-0" : "-rotate-90"
-            )}
-          />
-        </button>
-      </div>
+        <ChevronDown
+          className={cn(
+            "size-4 text-text-muted transition-transform group-hover:text-text",
+            showShortcuts ? "rotate-0" : "-rotate-90"
+          )}
+        />
+      </button>
       {showShortcuts && (
         <div id="chat-sidebar-shortcuts" className="px-3 pb-2 space-y-1">
           <button
@@ -443,14 +420,6 @@ export function ChatSidebar({
           temporaryChat ? "pointer-events-none opacity-50" : ""
         )}
       >
-        {currentTab === "local" && (
-          <LocalChatList
-            searchQuery={debouncedSearchQuery}
-            selectedChatId={effectiveSelectedChatId}
-            onSelectChat={onSelectChat}
-          />
-        )}
-
         {currentTab === "server" && (
           <ServerChatList
             searchQuery={debouncedSearchQuery}

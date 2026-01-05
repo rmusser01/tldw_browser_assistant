@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { NavLink } from "react-router-dom"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useShortcut } from "@/hooks/useKeyboardShortcuts"
+import { createSafeStorage } from "@/utils/safe-storage"
 import {
   CogIcon,
   Mic,
@@ -24,6 +25,8 @@ import {
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(" ")
+
+const shortcutsStorage = createSafeStorage({ area: "local" })
 
 type NavigationItem =
   | {
@@ -60,7 +63,7 @@ export function HeaderShortcuts({
   const { t } = useTranslation(["option", "common", "settings"])
 
   const [shortcutsPreference, setShortcutsPreference] = useStorage<boolean>(
-    "headerShortcutsExpanded",
+    { key: "headerShortcutsExpanded", instance: shortcutsStorage },
     defaultExpanded
   )
 
@@ -78,11 +81,9 @@ export function HeaderShortcuts({
         }
         timeoutId = window.setTimeout(() => {
           timeoutId = undefined
-          try {
-            setShortcutsPreference(value)
-          } catch {
+          void setShortcutsPreference(value).catch(() => {
             // ignore storage write failures
-          }
+          })
         }, 500)
       }) as DebouncedShortcutsSetter
 

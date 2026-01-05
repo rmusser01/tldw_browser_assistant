@@ -8,6 +8,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { useTranslation } from "react-i18next"
 import { notification } from "antd"
 import { Clock, Hash } from "lucide-react"
+import { generateID } from "@/db/dexie/helpers"
 import { decodeChatErrorPayload } from "@/utils/chat-error-message"
 import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
 import { trackCompareMetric } from "@/utils/compare-metrics"
@@ -113,6 +114,7 @@ export const PlaygroundChat = () => {
     regenerateLastMessage,
     isSearchingInternet,
     editMessage,
+    deleteMessage,
     ttsEnabled,
     onSubmit,
     actionInfo,
@@ -153,6 +155,24 @@ export const PlaygroundChat = () => {
     Record<string, string[]>
   >({})
   const compareModeActive = compareFeatureEnabled && compareMode
+  const stableHistoryId =
+    temporaryChat || historyId === "temp" ? null : historyId
+  const [conversationInstanceId, setConversationInstanceId] = React.useState(
+    () => generateID()
+  )
+  const previousMessageCount = React.useRef(messages.length)
+
+  React.useEffect(() => {
+    const hasStableId = Boolean(serverChatId || stableHistoryId)
+    if (
+      !hasStableId &&
+      messages.length === 0 &&
+      previousMessageCount.current > 0
+    ) {
+      setConversationInstanceId(generateID())
+    }
+    previousMessageCount.current = messages.length
+  }, [messages.length, serverChatId, stableHistoryId])
   const blocks = React.useMemo(() => buildBlocks(messages), [messages])
   const getPreviousUserMessage = React.useCallback(
     (index: number) => {
@@ -261,6 +281,9 @@ export const PlaygroundChat = () => {
                 onEditFormSubmit={(value, isSend) => {
                   editMessage(block.index, value, !message.isBot, isSend)
                 }}
+                onDeleteMessage={() => {
+                  deleteMessage(block.index)
+                }}
                 onNewBranch={() => {
                   createChatBranch(block.index)
                 }}
@@ -286,6 +309,8 @@ export const PlaygroundChat = () => {
                 serverChatId={serverChatId}
                 serverMessageId={message.serverMessageId}
                 messageId={message.id}
+                historyId={stableHistoryId ?? undefined}
+                conversationInstanceId={conversationInstanceId}
                 feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
                 message_type={message.messageType}
@@ -479,6 +504,9 @@ export const PlaygroundChat = () => {
                     isSend
                   )
                 }}
+                onDeleteMessage={() => {
+                  deleteMessage(block.userIndex)
+                }}
                 onNewBranch={() => {
                   createChatBranch(block.userIndex)
                 }}
@@ -504,6 +532,8 @@ export const PlaygroundChat = () => {
                 serverChatId={serverChatId}
                 serverMessageId={userMessage.serverMessageId}
                 messageId={userMessage.id}
+                historyId={stableHistoryId ?? undefined}
+                conversationInstanceId={conversationInstanceId}
                 feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
                 message_type={userMessage.messageType}
@@ -798,6 +828,9 @@ export const PlaygroundChat = () => {
                         onEditFormSubmit={(value, isSend) => {
                           editMessage(index, value, !message.isBot, isSend)
                         }}
+                        onDeleteMessage={() => {
+                          deleteMessage(index)
+                        }}
                         onNewBranch={() => {
                           createChatBranch(index)
                         }}
@@ -823,6 +856,8 @@ export const PlaygroundChat = () => {
                         serverChatId={serverChatId}
                         serverMessageId={message.serverMessageId}
                         messageId={message.id}
+                        historyId={stableHistoryId ?? undefined}
+                        conversationInstanceId={conversationInstanceId}
                         feedbackQuery={previousUserMessage?.message ?? null}
                         isEmbedding={isEmbedding}
                         message_type={message.messageType}

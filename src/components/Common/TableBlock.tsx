@@ -201,7 +201,7 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
               <IconButton
                 ariaLabel={t('table.copyCsv', 'Copy as CSV') as string}
                 onClick={handleCopyCSV}
-                className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none transition-colors">
+                className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none transition-colors h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0">
                 {copyStatus === "csv" ? (
                   <CopyCheckIcon className="size-4 text-success" />
                 ) : (
@@ -227,7 +227,7 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
                 <IconButton
                   ariaLabel={t('table.downloadCsv', 'Download CSV') as string}
                   onClick={handleDownloadCSV}
-                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none transition-colors">
+                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none transition-colors h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0">
                   <DownloadIcon className="size-4" />
                 </IconButton>
               </Tooltip>

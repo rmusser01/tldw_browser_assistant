@@ -10,9 +10,8 @@ interface DocumentFileProps {
 
 export const DocumentFile: React.FC<DocumentFileProps> = ({ document }) => {
   return (
-    <button
-      className="relative group w-80 flex items-center gap-1 rounded-2xl border border-border bg-surface p-2 text-left text-text hover:bg-surface2"
-      type="button"
+    <div
+      className="relative group max-w-80 w-full flex items-center gap-1 rounded-2xl border border-border bg-surface p-2 text-left text-text hover:bg-surface2"
       title={document.filename}>
       <div className="rounded-xl bg-surface2 p-3 text-text">
         <FileIcon className="size-5 text-text" />
@@ -32,6 +31,6 @@ export const DocumentFile: React.FC<DocumentFileProps> = ({ document }) => {
           </span>
         </div>
       </div>
-    </button>
+    </div>
   )
 }

@@ -157,7 +157,7 @@ export function KeyboardShortcutsModal() {
         ]
       }
     ],
-    [modKey, t]
+    [modKey, showShortcutsKeys, t]
   )
 
   const handleClose = useCallback(() => {

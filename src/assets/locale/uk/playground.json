@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "Глибина {{depth}} · Роль: {{role}}.",
     "summaryTokensEmpty": "Ще не визначено токенів; задайте значення аспектів.",
     "summaryTokensCount": "{{tokens}} токенів · ~{{estimate}} токенів у промпті.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "Шаблон сцени активний: Actor дотримується налаштувань взаємодії з шаблонами."
   },
   "speech": {

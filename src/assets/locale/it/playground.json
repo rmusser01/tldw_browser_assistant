@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "Profondità {{depth}} · Ruolo: {{role}}.",
     "summaryTokensEmpty": "Nessun token definito; imposta i valori degli aspetti.",
     "summaryTokensCount": "{{tokens}} token · ~{{estimate}} token nel prompt.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "Template di scena attivo: Actor rispetta le impostazioni di interazione con i template."
   },
   "speech": {

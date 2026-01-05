@@ -10,6 +10,7 @@ import {
   saveHistory,
   saveMessage,
   updateHistory,
+  removeMessageByIndex,
   formatToChatHistory,
   formatToMessage,
   getSessionFiles,
@@ -49,6 +50,8 @@ import { getActorSettingsForChat } from "@/services/actor-settings"
 import { generateTitle } from "@/services/title"
 import { FEATURE_FLAGS, useFeatureFlag } from "@/hooks/useFeatureFlags"
 import { trackCompareMetric } from "@/utils/compare-metrics"
+import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
+import { normalizeConversationState } from "@/utils/conversation-state"
 
 // Default max models per compare turn (Phase 3 polish)
 export const MAX_COMPARE_MODELS = 3
@@ -60,15 +63,14 @@ export const useMessageOption = () => {
     setController: setAbortController
   } = usePageAssist()
 
-  // Messages now come from Zustand store (single source of truth)
-  const messages = useStoreMessageOption((state) => state.messages)
-  const setMessages = useStoreMessageOption((state) => state.setMessages)
-
   const {
+    messages,
+    setMessages,
     history,
     setHistory,
-    setStreaming,
     streaming,
+    setStreaming,
+    isFirstMessage,
     setIsFirstMessage,
     historyId,
     setHistoryId,
@@ -78,25 +80,30 @@ export const useMessageOption = () => {
     setIsProcessing,
     chatMode,
     setChatMode,
+    isEmbedding,
+    setIsEmbedding,
+    selectedQuickPrompt,
+    setSelectedQuickPrompt,
+    selectedSystemPrompt,
+    setSelectedSystemPrompt,
+    useOCR,
+    setUseOCR
+  } = useChatBaseState(useStoreMessageOption)
+
+  const {
     webSearch,
     setWebSearch,
     toolChoice,
     setToolChoice,
     isSearchingInternet,
     setIsSearchingInternet,
-    selectedQuickPrompt,
-    setSelectedQuickPrompt,
     queuedMessages: storeQueuedMessages,
     addQueuedMessage: storeAddQueuedMessage,
     clearQueuedMessages: storeClearQueuedMessages,
-    selectedSystemPrompt,
-    setSelectedSystemPrompt,
     selectedKnowledge,
     setSelectedKnowledge,
     temporaryChat,
     setTemporaryChat,
-    useOCR,
-    setUseOCR,
     documentContext,
     setDocumentContext,
     uploadedFiles,
@@ -123,6 +130,12 @@ export const useMessageOption = () => {
     setRagAdvancedOptions,
     serverChatId,
     setServerChatId,
+    serverChatTitle,
+    setServerChatTitle,
+    serverChatCharacterId,
+    setServerChatCharacterId,
+    serverChatMetaLoaded,
+    setServerChatMetaLoaded,
     serverChatState,
     setServerChatState,
     serverChatVersion,
@@ -135,8 +148,6 @@ export const useMessageOption = () => {
     setServerChatSource,
     serverChatExternalRef,
     setServerChatExternalRef,
-    isEmbedding,
-    setIsEmbedding,
     compareMode,
     setCompareMode,
     compareSelectedModels,
@@ -196,35 +207,214 @@ export const useMessageOption = () => {
     messagesRef.current = messages
   }, [messages])
 
+  const serverChatLoadRef = React.useRef<{
+    chatId: string | null
+    controller: AbortController | null
+    inFlight: boolean
+  }>({ chatId: null, controller: null, inFlight: false })
+  const serverChatDebounceRef = React.useRef<{
+    chatId: string | null
+    timer: ReturnType<typeof setTimeout> | null
+  }>({ chatId: null, timer: null })
+
   React.useEffect(() => {
-    if (!serverChatId) return
-    const loadChatMeta = async () => {
-      try {
-        await tldwClient.initialize().catch(() => null)
-        const chat = await tldwClient.getChat(serverChatId)
-        setServerChatState(
-          (chat as any)?.state ??
-            (chat as any)?.conversation_state ??
-            "in-progress"
-        )
-        setServerChatVersion((chat as any)?.version ?? null)
-        setServerChatTopic((chat as any)?.topic_label ?? null)
-        setServerChatClusterId((chat as any)?.cluster_id ?? null)
-        setServerChatSource((chat as any)?.source ?? null)
-        setServerChatExternalRef((chat as any)?.external_ref ?? null)
-      } catch {
-        // ignore metadata hydration failures
+    return () => {
+      if (serverChatDebounceRef.current.timer) {
+        clearTimeout(serverChatDebounceRef.current.timer)
+      }
+      if (serverChatLoadRef.current.controller) {
+        serverChatLoadRef.current.controller.abort()
       }
     }
-    void loadChatMeta()
+  }, [])
+
+  React.useEffect(() => {
+    if (!serverChatId || historyId) return
+    if (
+      serverChatLoadRef.current.chatId === serverChatId &&
+      messages.length > 0
+    ) {
+      return
+    }
+    if (serverChatLoadRef.current.inFlight) {
+      if (serverChatLoadRef.current.chatId === serverChatId) {
+        return
+      }
+      if (serverChatLoadRef.current.controller) {
+        serverChatLoadRef.current.controller.abort()
+      }
+      serverChatLoadRef.current.inFlight = false
+    }
+
+    if (serverChatDebounceRef.current.timer) {
+      clearTimeout(serverChatDebounceRef.current.timer)
+    }
+
+    serverChatDebounceRef.current.chatId = serverChatId
+    serverChatDebounceRef.current.timer = setTimeout(() => {
+      const controller = new AbortController()
+      serverChatLoadRef.current = {
+        chatId: serverChatId,
+        controller,
+        inFlight: true
+      }
+
+      const loadServerChat = async () => {
+        try {
+          setIsLoading(true)
+          await tldwClient.initialize().catch(() => null)
+
+          let assistantName = "Assistant"
+          let chatTitle = serverChatTitle || ""
+          let characterId = serverChatCharacterId ?? null
+
+          if (!serverChatMetaLoaded) {
+            try {
+              const chat = await tldwClient.getChat(serverChatId)
+              chatTitle = String((chat as any)?.title || chatTitle || "")
+              const resolvedCharacterId =
+                (chat as any)?.character_id ??
+                (chat as any)?.characterId ??
+                null
+              if (resolvedCharacterId != null) {
+                characterId = resolvedCharacterId
+              }
+              setServerChatTitle(chatTitle || "")
+              setServerChatCharacterId(resolvedCharacterId ?? null)
+              setServerChatState(
+                normalizeConversationState(
+                  (chat as any)?.state ?? (chat as any)?.conversation_state
+                )
+              )
+              setServerChatVersion((chat as any)?.version ?? null)
+              setServerChatTopic((chat as any)?.topic_label ?? null)
+              setServerChatClusterId((chat as any)?.cluster_id ?? null)
+              setServerChatSource((chat as any)?.source ?? null)
+              setServerChatExternalRef((chat as any)?.external_ref ?? null)
+              setServerChatMetaLoaded(true)
+            } catch {
+              // ignore metadata failures; still try to load messages
+            }
+          }
+
+          if (characterId != null) {
+            try {
+              const character = await tldwClient.getCharacter(characterId)
+              if (character) {
+                assistantName = character.name || character.title || assistantName
+              }
+            } catch {
+              // ignore character lookup failures
+            }
+          }
+
+          const list = await tldwClient.listChatMessages(
+            serverChatId,
+            { include_deleted: "false" } as any,
+            { signal: controller.signal }
+          )
+
+          const history = list.map((m) => ({
+            role: (m as any).role,
+            content: m.content
+          }))
+
+          const mappedMessages = list.map((m) => {
+            const createdAt = Date.parse(m.created_at)
+            return {
+              createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
+              isBot: m.role === "assistant",
+              name:
+                m.role === "assistant"
+                  ? assistantName
+                  : m.role === "system"
+                    ? "System"
+                    : "You",
+              message: m.content,
+              sources: [],
+              images: [],
+              id: String(m.id),
+              serverMessageId: String(m.id),
+              serverMessageVersion: m.version,
+              parentMessageId:
+                (m as any)?.parent_message_id ??
+                (m as any)?.parentMessageId ??
+                null,
+              messageType:
+                (m as any)?.message_type ?? (m as any)?.messageType,
+              clusterId: (m as any)?.cluster_id ?? (m as any)?.clusterId,
+              modelId: (m as any)?.model_id ?? (m as any)?.modelId,
+              modelName:
+                (m as any)?.model_name ??
+                (m as any)?.modelName ??
+                assistantName,
+              modelImage: (m as any)?.model_image ?? (m as any)?.modelImage
+            }
+          })
+
+          setHistory(history)
+          setMessages(mappedMessages)
+          if (chatTitle) {
+            updatePageTitle(chatTitle)
+          }
+        } catch (e: any) {
+          const errMessage = String(e?.message || "")
+          const isAbort =
+            e?.name === "AbortError" ||
+            errMessage.toLowerCase().includes("abort")
+          if (!isAbort) {
+            notification.error({
+              message: t("error", { defaultValue: "Error" }),
+              description:
+                errMessage ||
+                t("common:serverChatLoadError", {
+                  defaultValue:
+                    "Failed to load server chat. Check your connection and try again."
+                })
+            })
+          }
+        } finally {
+          if (serverChatLoadRef.current.controller === controller) {
+            serverChatLoadRef.current = {
+              chatId: serverChatId,
+              controller: null,
+              inFlight: false
+            }
+          }
+          setIsLoading(false)
+        }
+      }
+
+      void loadServerChat()
+    }, 200)
+
+    return () => {
+      if (serverChatDebounceRef.current.timer) {
+        clearTimeout(serverChatDebounceRef.current.timer)
+        serverChatDebounceRef.current.timer = null
+      }
+    }
   }, [
+    historyId,
+    messages.length,
+    notification,
     serverChatId,
+    serverChatCharacterId,
+    serverChatMetaLoaded,
+    serverChatTitle,
+    setHistory,
+    setIsLoading,
+    setMessages,
+    setServerChatCharacterId,
     setServerChatClusterId,
     setServerChatExternalRef,
+    setServerChatMetaLoaded,
     setServerChatSource,
     setServerChatState,
+    setServerChatTitle,
     setServerChatTopic,
-    setServerChatVersion
+    setServerChatVersion,
+    t
   ])
 
   // Persist prompt selections across views/contexts
@@ -1244,6 +1434,54 @@ export const useMessageOption = () => {
     onSubmit
   })
 
+  const deleteMessage = React.useCallback(
+    async (index: number) => {
+      const target = messages[index]
+      if (!target) return
+
+      const targetId = target.serverMessageId ?? target.id
+      if (replyTarget?.id && targetId && replyTarget.id === targetId) {
+        clearReplyTarget()
+      }
+
+      if (target.serverMessageId) {
+        await tldwClient.initialize().catch(() => null)
+        let expectedVersion = target.serverMessageVersion
+        if (expectedVersion == null) {
+          const serverMessage = await tldwClient.getMessage(target.serverMessageId)
+          expectedVersion = serverMessage?.version
+        }
+        if (expectedVersion == null) {
+          throw new Error("Missing server message version")
+        }
+        await tldwClient.deleteMessage(
+          target.serverMessageId,
+          Number(expectedVersion),
+          serverChatId ?? undefined
+        )
+        invalidateServerChatHistory()
+      }
+
+      if (historyId) {
+        await removeMessageByIndex(historyId, index)
+      }
+
+      setMessages(messages.filter((_, idx) => idx !== index))
+      setHistory(history.filter((_, idx) => idx !== index))
+    },
+    [
+      clearReplyTarget,
+      history,
+      historyId,
+      invalidateServerChatHistory,
+      messages,
+      replyTarget?.id,
+      serverChatId,
+      setHistory,
+      setMessages
+    ]
+  )
+
   const createChatBranch = createBranchMessage({
     historyId,
     setHistory,
@@ -1254,6 +1492,9 @@ export const useMessageOption = () => {
     setSystemPrompt: currentChatModelSettings.setSystemPrompt,
     serverChatId,
     setServerChatId,
+    setServerChatTitle,
+    setServerChatCharacterId,
+    setServerChatMetaLoaded,
     serverChatState,
     setServerChatState,
     setServerChatVersion,
@@ -1266,6 +1507,8 @@ export const useMessageOption = () => {
     serverChatExternalRef,
     setServerChatExternalRef,
     onServerChatMutated: invalidateServerChatHistory,
+    characterId: serverChatCharacterId ?? null,
+    chatTitle: serverChatTitle ?? null,
     messages,
     history
   })
@@ -1334,6 +1577,7 @@ export const useMessageOption = () => {
 
   return {
     editMessage,
+    deleteMessage,
     messages,
     setMessages,
     onSubmit,
@@ -1346,6 +1590,7 @@ export const useMessageOption = () => {
     isLoading,
     setIsLoading,
     isProcessing,
+    setIsProcessing,
     stopStreamingRequest,
     clearChat,
     selectedModel,
@@ -1353,6 +1598,7 @@ export const useMessageOption = () => {
     chatMode,
     setChatMode,
     isEmbedding,
+    setIsEmbedding,
     speechToTextLanguage,
     setSpeechToTextLanguage,
     regenerateLastMessage,
@@ -1392,6 +1638,12 @@ export const useMessageOption = () => {
     clearQueuedMessages: storeClearQueuedMessages,
     serverChatId,
     setServerChatId,
+    serverChatTitle,
+    setServerChatTitle,
+    serverChatCharacterId,
+    setServerChatCharacterId,
+    serverChatMetaLoaded,
+    setServerChatMetaLoaded,
     serverChatState,
     setServerChatState,
     serverChatVersion,

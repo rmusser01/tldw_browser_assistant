@@ -23,8 +23,7 @@ import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
 import { useChatSidebar } from "@/hooks/useFeatureFlags"
 import { ChatSidebar } from "@/components/Common/ChatSidebar"
-import { QuickIngestButton } from "./QuickIngestButton"
-import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
+import { EventOnlyHosts } from "@/components/Common/EventHosts"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
@@ -57,7 +56,6 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   hideHeader = false,
   showHeaderSelectors = false
 }) => {
-  useAutoButtonTitles()
   const confirmDanger = useConfirmDanger()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [chatSidebarCollapsed, setChatSidebarCollapsed] = useState(false)
@@ -93,6 +91,21 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
       return
     }
     setSidebarOpen((prev) => !prev)
+  }
+
+  const handleIngestPage = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+    }
+  }
+
+  const commandPaletteProps = {
+    onNewChat: clearChat,
+    onToggleRag: () => setChatMode(chatMode === "rag" ? "normal" : "rag"),
+    onToggleWebSearch: () => setWebSearch(!webSearch),
+    onIngestPage: handleIngestPage,
+    onSwitchModel: () => setOpenModelSettings(true),
+    onToggleSidebar: toggleSidebar
   }
 
   // Quick Chat Helper toggle
@@ -172,7 +185,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
                     onClick={() => setSidebarOpen(false)}
                     ariaLabel={t('common:close', { defaultValue: 'Close' }) as string}
                     title={t('common:close', { defaultValue: 'Close' }) as string}
-                    className="-ml-1">
+                    className="-ml-1 h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0">
                     <XIcon className="h-5 w-5 text-text-muted " />
                   </IconButton>
                   <span>{t("sidebarTitle")}</span>
@@ -216,7 +229,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
                         })
                         clearChat()
                       }}
-                      className="text-text-muted hover:text-text">
+                      className="text-text-muted hover:text-text h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0">
                       <EraserIcon className="size-5" />
                     </IconButton>
                   </Tooltip>
@@ -268,16 +281,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
         {!hideHeader && (
           <Suspense fallback={null}>
             <CommandPalette
-              onNewChat={clearChat}
-              onToggleRag={() => setChatMode(chatMode === "rag" ? "normal" : "rag")}
-              onToggleWebSearch={() => setWebSearch(!webSearch)}
-              onIngestPage={() => {
-                if (typeof window !== "undefined") {
-                  window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
-                }
-              }}
-              onSwitchModel={() => setOpenModelSettings(true)}
-              onToggleSidebar={toggleSidebar}
+              {...commandPaletteProps}
             />
           </Suspense>
         )}
@@ -289,8 +293,8 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
           </Suspense>
         )}
 
-        {/* Ensure Quick Ingest modal is available even when the header is hidden */}
-        {hideHeader && <QuickIngestButton className="hidden" />}
+        {/* Ensure event-driven modals are available even when the header is hidden */}
+        {hideHeader && <EventOnlyHosts commandPaletteProps={commandPaletteProps} />}
       </main>
     </div>
   )

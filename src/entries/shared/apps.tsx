@@ -1,0 +1,70 @@
+import React, { useEffect, useState } from "react"
+import { HashRouter, MemoryRouter } from "react-router-dom"
+import { useTranslation } from "react-i18next"
+import { useSidepanelInit } from "~/hooks/useSidepanelInit"
+import "~/i18n"
+import { AppShell } from "./AppShell"
+import { RouteShell } from "@/routes/app-route"
+import { platformConfig } from "@/config/platform"
+import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
+import { KeyboardShortcutsModal } from "@/components/Common/KeyboardShortcutsModal"
+
+const resolveRouter = (mode: "hash" | "memory") =>
+  mode === "hash" ? HashRouter : MemoryRouter
+
+export const SidepanelApp: React.FC = () => {
+  const { direction, t } = useSidepanelInit({
+    titleDefaultValue: "tldw Assistant — Sidebar"
+  })
+  const Router = resolveRouter(platformConfig.routers.sidepanel)
+  const extras = (
+    <>
+      {platformConfig.features.showQuickChatHelper && <QuickChatHelperButton />}
+      {platformConfig.features.showKeyboardShortcutsModal && <KeyboardShortcutsModal />}
+    </>
+  )
+
+  return (
+    <AppShell
+      router={Router}
+      direction={direction}
+      emptyDescription={t("common:noData")}
+      suspendWhenHidden={platformConfig.features.suspendSidepanelWhenHidden}
+      includeAntdApp={platformConfig.features.includeAntdApp}
+      extras={extras}
+    >
+      <RouteShell kind="sidepanel" />
+    </AppShell>
+  )
+}
+
+export const OptionsApp: React.FC = () => {
+  const { t, i18n } = useTranslation()
+  const [direction, setDirection] = useState<"ltr" | "rtl">("ltr")
+  const Router = resolveRouter(platformConfig.routers.options)
+
+  useEffect(() => {
+    if (i18n.resolvedLanguage) {
+      document.documentElement.lang = i18n.resolvedLanguage
+      document.documentElement.dir = i18n.dir(i18n.resolvedLanguage)
+      setDirection(i18n.dir(i18n.resolvedLanguage))
+    }
+  }, [i18n, i18n.resolvedLanguage])
+
+  useEffect(() => {
+    document.title = t("common:titles.options", {
+      defaultValue: "tldw Assistant — Options"
+    })
+  }, [t])
+
+  return (
+    <AppShell
+      router={Router}
+      direction={direction}
+      emptyDescription={t("common:noData")}
+      includeAntdApp={platformConfig.features.includeAntdApp}
+    >
+      <RouteShell kind="options" />
+    </AppShell>
+  )
+}

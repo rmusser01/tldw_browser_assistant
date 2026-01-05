@@ -461,7 +461,6 @@ export const CurrentChatModelSettings = ({
         label: t("modelSettings.tabs.conversation", "Conversation"),
         children: (
           <ConversationTab
-            form={form}
             useDrawer={useDrawer}
             selectedSystemPrompt={selectedSystemPrompt}
             onSystemPromptChange={savePrompt}

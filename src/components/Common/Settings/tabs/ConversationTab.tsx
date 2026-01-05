@@ -1,7 +1,6 @@
 import { FileIcon, X } from "lucide-react"
 import { Form, Input, notification, Select, Switch } from "antd"
 import { useQueryClient } from "@tanstack/react-query"
-import type { FormInstance } from "antd"
 import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 
@@ -13,7 +12,6 @@ interface UploadedFile {
 }
 
 interface ConversationTabProps {
-  form: FormInstance
   useDrawer?: boolean
   selectedSystemPrompt: string | null
   onSystemPromptChange: (value: string) => void
@@ -27,6 +25,31 @@ interface ConversationTabProps {
   serverChatTopic: string | null
   onTopicChange: (topic: string | null) => void
   onVersionChange: (version: number | null) => void
+}
+
+interface UpdateChatResponse {
+  version?: number | null
+}
+
+function isErrorWithMessage(error: unknown): error is { message: string } {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof (error as { message?: unknown }).message === "string"
+  )
+}
+
+function isUpdateChatResponse(value: unknown): value is UpdateChatResponse {
+  if (!value || typeof value !== "object") return false
+  if (!("version" in value)) return true
+  const version = (value as { version?: unknown }).version
+  return version == null || typeof version === "number"
+}
+
+function getUpdateChatVersion(value: unknown): number | null {
+  if (!isUpdateChatResponse(value)) return null
+  return value.version ?? null
 }
 
 export function ConversationTab({
@@ -74,16 +97,17 @@ export function ConversationTab({
       const updated = await tldwClient.updateChat(serverChatId, {
         state: next
       })
-      onVersionChange((updated as any)?.version ?? null)
+      onVersionChange(getUpdateChatVersion(updated))
       queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
-    } catch (error: any) {
+    } catch (error: unknown) {
       notification.error({
         message: t("common:error", { defaultValue: "Error" }),
         description:
-          error?.message ||
-          t("common:somethingWentWrong", {
-            defaultValue: "Something went wrong"
-          })
+          (isErrorWithMessage(error)
+            ? error.message
+            : t("common:somethingWentWrong", {
+                defaultValue: "Something went wrong"
+              }))
       })
     }
   }
@@ -97,16 +121,17 @@ export function ConversationTab({
       const updated = await tldwClient.updateChat(serverChatId, {
         topic_label: topicValue || undefined
       })
-      onVersionChange((updated as any)?.version ?? null)
+      onVersionChange(getUpdateChatVersion(updated))
       queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
-    } catch (error: any) {
+    } catch (error: unknown) {
       notification.error({
         message: t("common:error", { defaultValue: "Error" }),
         description:
-          error?.message ||
-          t("common:somethingWentWrong", {
-            defaultValue: "Something went wrong"
-          })
+          (isErrorWithMessage(error)
+            ? error.message
+            : t("common:somethingWentWrong", {
+                defaultValue: "Something went wrong"
+              }))
       })
     }
   }
@@ -143,10 +168,17 @@ export function ConversationTab({
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
             <h4 className="font-medium text-text">
-              Uploaded Files ({uploadedFiles.length})
+              {t("playground:composer.uploadedFiles", {
+                count: uploadedFiles.length,
+                defaultValue: "Uploaded Files ({{count}})"
+              })}
             </h4>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-text-muted">File Retrieval</span>
+              <span className="text-sm text-text-muted">
+                {t("playground:composer.fileRetrieval", {
+                  defaultValue: "File Retrieval"
+                })}
+              </span>
               <Switch
                 size="small"
                 checked={fileRetrievalEnabled}
@@ -174,7 +206,13 @@ export function ConversationTab({
                               file.processed ? "bg-success" : "bg-warn"
                             }`}
                           />
-                          {file.processed ? "Processed" : "Processing..."}
+                          {file.processed
+                            ? t("playground:composer.fileStatusProcessed", {
+                                defaultValue: "Processed"
+                              })
+                            : t("playground:composer.fileStatusProcessing", {
+                                defaultValue: "Processing..."
+                              })}
                         </span>
                       )}
                     </div>

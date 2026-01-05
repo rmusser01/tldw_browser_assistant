@@ -2,6 +2,7 @@ import { useForm } from "@mantine/form"
 import React from "react"
 import { useTranslation } from "react-i18next"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
+import { isFirefoxTarget } from "@/config/platform"
 
 type Props = {
   value: string
@@ -45,12 +46,12 @@ export const EditMessageForm = (props: Props) => {
         {...form.getInputProps("message")}
         onKeyDown={handleKeyDown}
         onCompositionStart={() => {
-          if (import.meta.env.BROWSER !== "firefox") {
+          if (!isFirefoxTarget) {
             setIsComposing(true)
           }
         }}
         onCompositionEnd={() => {
-          if (import.meta.env.BROWSER !== "firefox") {
+          if (!isFirefoxTarget) {
             setIsComposing(false)
           }
         }}

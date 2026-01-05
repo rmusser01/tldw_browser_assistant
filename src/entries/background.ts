@@ -16,6 +16,7 @@ import {
 } from "@/services/background-helpers"
 import { ModelDb } from "@/db/models"
 import { generateID } from "@/db"
+import { isFirefoxTarget } from "@/config/platform"
 
 const warmModels = async (
   force = false,
@@ -998,7 +999,7 @@ export default defineBackground({
       }
       if (message.type === "sidepanel") {
         try {
-          if (import.meta.env.BROWSER === "firefox") {
+          if (isFirefoxTarget) {
             await browser.sidebarAction.open()
           } else {
             const tabId = sender?.tab?.id ?? undefined

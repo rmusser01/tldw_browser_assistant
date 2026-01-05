@@ -10,6 +10,7 @@ import {
   deleteChatForEdit,
   generateID,
   getPromptById,
+  removeMessageByIndex,
   updateMessageByIndex
 } from "@/db/dexie/helpers"
 import { useTranslation } from "react-i18next"
@@ -50,24 +51,12 @@ import {
 import { normalChatMode } from "./chat-modes/normalChatMode"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
+import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
+import { normalizeConversationState } from "@/utils/conversation-state"
 
 type ServerBackedMessage = Message & {
   serverMessageId?: string
   serverMessageVersion?: number
-}
-
-const normalizeConversationState = (
-  raw: string | null | undefined
-): ConversationState => {
-  if (
-    raw === "in-progress" ||
-    raw === "resolved" ||
-    raw === "backlog" ||
-    raw === "non-viable"
-  ) {
-    return raw
-  }
-  return "in-progress"
 }
 
 export const useMessage = () => {
@@ -123,8 +112,9 @@ export const useMessage = () => {
   const {
     history,
     setHistory,
-    setStreaming,
     streaming,
+    setStreaming,
+    isFirstMessage,
     setIsFirstMessage,
     historyId,
     setHistoryId,
@@ -134,20 +124,25 @@ export const useMessage = () => {
     setIsProcessing,
     chatMode,
     setChatMode,
-    setIsEmbedding,
     isEmbedding,
-    currentURL,
-    setCurrentURL,
+    setIsEmbedding,
     selectedQuickPrompt,
     setSelectedQuickPrompt,
     selectedSystemPrompt,
     setSelectedSystemPrompt,
     useOCR,
     setUseOCR
-  } = useStoreMessage()
+  } = useChatBaseState(useStoreMessage)
+  const { currentURL, setCurrentURL } = useStoreMessage()
   const {
     serverChatId,
     setServerChatId,
+    serverChatTitle,
+    setServerChatTitle,
+    serverChatCharacterId,
+    setServerChatCharacterId,
+    serverChatMetaLoaded,
+    setServerChatMetaLoaded,
     serverChatState,
     setServerChatState,
     setServerChatVersion,
@@ -170,6 +165,9 @@ export const useMessage = () => {
   const resetServerChatState = () => {
     setServerChatState("in-progress")
     setServerChatVersion(null)
+    setServerChatTitle(null)
+    setServerChatCharacterId(null)
+    setServerChatMetaLoaded(false)
     setServerChatTopic(null)
     setServerChatClusterId(null)
     setServerChatSource(null)
@@ -177,11 +175,15 @@ export const useMessage = () => {
   }
 
   React.useEffect(() => {
-    if (!serverChatId) return
+    if (!serverChatId || serverChatMetaLoaded) return
     const loadChatMeta = async () => {
       try {
         await tldwClient.initialize().catch(() => null)
         const chat = await tldwClient.getChat(serverChatId)
+        setServerChatTitle(String((chat as any)?.title || ""))
+        setServerChatCharacterId(
+          (chat as any)?.character_id ?? (chat as any)?.characterId ?? null
+        )
         setServerChatState(
           (chat as any)?.state ??
             (chat as any)?.conversation_state ??
@@ -192,6 +194,7 @@ export const useMessage = () => {
         setServerChatClusterId((chat as any)?.cluster_id ?? null)
         setServerChatSource((chat as any)?.source ?? null)
         setServerChatExternalRef((chat as any)?.external_ref ?? null)
+        setServerChatMetaLoaded(true)
       } catch {
         // ignore metadata hydration failures
       }
@@ -199,10 +202,14 @@ export const useMessage = () => {
     void loadChatMeta()
   }, [
     serverChatId,
+    serverChatMetaLoaded,
+    setServerChatCharacterId,
     setServerChatClusterId,
     setServerChatExternalRef,
+    setServerChatMetaLoaded,
     setServerChatSource,
     setServerChatState,
+    setServerChatTitle,
     setServerChatTopic,
     setServerChatVersion
   ])
@@ -1088,6 +1095,11 @@ export const useMessage = () => {
         }
         chatId = normalizedId
         setServerChatId(normalizedId)
+        setServerChatTitle(String((created as any)?.title || ""))
+        setServerChatCharacterId(
+          (created as any)?.character_id ?? selectedCharacter?.id ?? null
+        )
+        setServerChatMetaLoaded(true)
         invalidateServerChatHistory()
       }
 
@@ -1768,7 +1780,14 @@ export const useMessage = () => {
           try {
             const srv = await tldwClient.getMessage(currentHumanMessage.serverMessageId)
             const ver = srv?.version
-            if (ver != null) await tldwClient.editMessage(currentHumanMessage.serverMessageId, message, Number(ver))
+            if (ver != null) {
+              await tldwClient.editMessage(
+                currentHumanMessage.serverMessageId,
+                message,
+                Number(ver),
+                serverChatId ?? undefined
+              )
+            }
           } catch {}
         }
         try {
@@ -1780,7 +1799,13 @@ export const useMessage = () => {
           if (startIdx >= 0) {
             for (let i = startIdx + 1; i < list.length; i++) {
               const m = list[i]
-              try { await tldwClient.deleteMessage(m.id, Number(m.version)) } catch {}
+              try {
+                await tldwClient.deleteMessage(
+                  m.id,
+                  Number(m.version),
+                  serverChatId ?? undefined
+                )
+              } catch {}
             }
           }
         } catch {}
@@ -1811,11 +1836,66 @@ export const useMessage = () => {
         try {
           const srv = await tldwClient.getMessage(currentAssistant.serverMessageId)
           const ver = srv?.version
-          if (ver != null) await tldwClient.editMessage(currentAssistant.serverMessageId, message, Number(ver))
+          if (ver != null) {
+            await tldwClient.editMessage(
+              currentAssistant.serverMessageId,
+              message,
+              Number(ver),
+              serverChatId ?? undefined
+            )
+          }
         } catch {}
       }
     }
   }
+
+  const deleteMessage = React.useCallback(
+    async (index: number) => {
+      const target = messages[index]
+      if (!target) return
+
+      const targetId = target.serverMessageId ?? target.id
+      if (replyTarget?.id && targetId && replyTarget.id === targetId) {
+        clearReplyTarget()
+      }
+
+      if (target.serverMessageId) {
+        await tldwClient.initialize().catch(() => null)
+        let expectedVersion = target.serverMessageVersion
+        if (expectedVersion == null) {
+          const serverMessage = await tldwClient.getMessage(target.serverMessageId)
+          expectedVersion = serverMessage?.version
+        }
+        if (expectedVersion == null) {
+          throw new Error("Missing server message version")
+        }
+        await tldwClient.deleteMessage(
+          target.serverMessageId,
+          Number(expectedVersion),
+          serverChatId ?? undefined
+        )
+        invalidateServerChatHistory()
+      }
+
+      if (historyId) {
+        await removeMessageByIndex(historyId, index)
+      }
+
+      setMessages(messages.filter((_, idx) => idx !== index))
+      setHistory(history.filter((_, idx) => idx !== index))
+    },
+    [
+      clearReplyTarget,
+      history,
+      historyId,
+      invalidateServerChatHistory,
+      messages,
+      replyTarget?.id,
+      serverChatId,
+      setHistory,
+      setMessages
+    ]
+  )
 
   const regenerateLastMessage = async () => {
     if (history.length > 0) {
@@ -1852,6 +1932,9 @@ export const useMessage = () => {
     setSystemPrompt: currentChatModelSettings.setSystemPrompt,
     serverChatId,
     setServerChatId,
+    setServerChatTitle,
+    setServerChatCharacterId,
+    setServerChatMetaLoaded,
     serverChatState,
     setServerChatState,
     setServerChatVersion,
@@ -1865,6 +1948,7 @@ export const useMessage = () => {
     setServerChatExternalRef,
     onServerChatMutated: invalidateServerChatHistory,
     characterId: selectedCharacter?.id ?? null,
+    chatTitle: serverChatTitle ?? null,
     messages,
     history
   })
@@ -1872,6 +1956,7 @@ export const useMessage = () => {
     messages,
     setMessages,
     editMessage,
+    deleteMessage,
     onSubmit,
     setStreaming,
     streaming,

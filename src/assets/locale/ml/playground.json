@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "ആഴം {{depth}} · റോൾ: {{role}}.",
     "summaryTokensEmpty": "ഇതുവരെ ടോകൺസ് നിർവചിച്ചിട്ടില്ല; ഘടക മൂല്യങ്ങൾ സജ്ജമാക്കുക.",
     "summaryTokensCount": "{{tokens}} ടോകൺസ് · പ്രോംപ്റ്റിൽ ഏകദേശം {{estimate}} ടോകൺസ്.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "സീൻ ടെംപ്ലേറ്റ് സജീവമാണ്: Actor ടെംപ്ലേറ്റ് ഇടപെടൽ ക്രമീകരണങ്ങളെ മാനിക്കുന്നു."
   },
   "speech": {

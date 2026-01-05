@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "Dybde {{depth}} · Rolle: {{role}}.",
     "summaryTokensEmpty": "Ingen tokens defineret endnu; angiv aspektværdier.",
     "summaryTokensCount": "{{tokens}} tokens · ~{{estimate}} tokens i prompten.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "Aktiv sceneskabelon: Actor respekterer indstillingerne for skabeloninteraktion."
   },
   "speech": {

@@ -136,6 +136,9 @@ export const createBranchMessage = ({
   setServerChatId,
   setServerChatState,
   setServerChatVersion,
+  setServerChatTitle,
+  setServerChatCharacterId,
+  setServerChatMetaLoaded,
   setServerChatTopic,
   setServerChatClusterId,
   setServerChatSource,
@@ -162,6 +165,9 @@ export const createBranchMessage = ({
   setServerChatId?: (id: string | null) => void
   setServerChatState?: (state: ConversationState | null) => void
   setServerChatVersion?: (version: number | null) => void
+  setServerChatTitle?: (title: string | null) => void
+  setServerChatCharacterId?: (id: string | number | null) => void
+  setServerChatMetaLoaded?: (loaded: boolean) => void
   setServerChatTopic?: (topic: string | null) => void
   setServerChatClusterId?: (clusterId: string | null) => void
   setServerChatSource?: (source: string | null) => void
@@ -374,6 +380,19 @@ export const createBranchMessage = ({
         }
         if (setServerChatExternalRef) {
           setServerChatExternalRef((created as any)?.external_ref ?? null)
+        }
+        if (setServerChatTitle) {
+          setServerChatTitle(
+            String((created as any)?.title ?? chatTitle ?? "")
+          )
+        }
+        if (setServerChatCharacterId) {
+          setServerChatCharacterId(
+            (created as any)?.character_id ?? characterId ?? null
+          )
+        }
+        if (setServerChatMetaLoaded) {
+          setServerChatMetaLoaded(true)
         }
 
         if (messages && messages.length > 0) {

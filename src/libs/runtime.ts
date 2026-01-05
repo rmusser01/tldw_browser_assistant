@@ -9,6 +9,7 @@
  * @returns - A Promise that resolves when the URL rewriting is complete.
  */
 import { getAdvancedCORSSettings } from "@/services/app"
+import { isChromiumTarget, isFirefoxTarget } from "@/config/platform"
 
 export const urlRewriteRuntime = async function (domain: string) {
   if (browser.runtime && browser.runtime.id) {
@@ -16,10 +17,7 @@ export const urlRewriteRuntime = async function (domain: string) {
       await getAdvancedCORSSettings()
 
     if (!autoCORSFix) {
-      if (
-        import.meta.env.BROWSER === "chrome" ||
-        import.meta.env.BROWSER === "edge"
-      ) {
+      if (isChromiumTarget) {
         try {
           await browser.declarativeNetRequest.updateDynamicRules({
             removeRuleIds: [1],
@@ -28,7 +26,7 @@ export const urlRewriteRuntime = async function (domain: string) {
         } catch (e) {}
       }
 
-      if (import.meta.env.BROWSER === "firefox") {
+      if (isFirefoxTarget) {
         try {
           browser.webRequest.onBeforeSendHeaders.removeListener(() => {})
         } catch (e) {}
@@ -37,10 +35,7 @@ export const urlRewriteRuntime = async function (domain: string) {
       return
     }
 
-    if (
-      import.meta.env.BROWSER === "chrome" ||
-      import.meta.env.BROWSER === "edge"
-    ) {
+    if (isChromiumTarget) {
       const url = new URL(domain)
       const domains = [url.hostname]
       let origin = `${url.protocol}//${url.hostname}`
@@ -73,7 +68,7 @@ export const urlRewriteRuntime = async function (domain: string) {
       })
     }
 
-    if (import.meta.env.BROWSER === "firefox") {
+    if (isFirefoxTarget) {
       const url = new URL(domain)
       const domains = [`*://${url.hostname}/*`]
       browser.webRequest.onBeforeSendHeaders.addListener(

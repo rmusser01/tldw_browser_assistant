@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "عمق {{depth}} · نقش: {{role}}.",
     "summaryTokensEmpty": "هنوز توکنی تعریف نشده است؛ مقادیر جنبه را تنظیم کنید.",
     "summaryTokensCount": "{{tokens}} توکن · حدود {{estimate}} توکن در پرامپت.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "الگوی صحنه فعال است: اکتور به تنظیمات تعامل با الگوها پایبند است."
   },
   "speech": {

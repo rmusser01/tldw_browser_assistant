@@ -635,7 +635,7 @@ export function LocalChatList({
                     onOpenChange={(open) => setOpenMenuFor(open ? chat.id : null)}
                   >
                     <IconButton
-                      className="text-text-subtle opacity-80 hover:opacity-100"
+                      className="text-text-subtle opacity-80 hover:opacity-100 h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0"
                       ariaLabel={`${t("option:header.moreActions", "More actions")}: ${chat.title}`}
                       hasPopup="menu"
                       ariaExpanded={openMenuFor === chat.id}

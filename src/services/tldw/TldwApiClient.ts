@@ -4,6 +4,8 @@ import { bgRequest, bgStream, bgUpload } from "@/services/background-proxy"
 import { isPlaceholderApiKey } from "@/utils/api-key"
 
 const DEFAULT_SERVER_URL = "http://127.0.0.1:8000"
+const CHARACTER_CACHE_TTL_MS = 5 * 60 * 1000
+const CHAT_MESSAGES_CACHE_TTL_MS = 60 * 1000
 
 export interface TldwConfig {
   serverUrl: string
@@ -262,6 +264,13 @@ export class TldwApiClient {
   private config: TldwConfig | null = null
   private baseUrl: string = ''
   private headers: HeadersInit = {}
+  private characterCache = new Map<string, { value: any; expiresAt: number }>()
+  private characterInFlight = new Map<string, Promise<any>>()
+  private chatMessagesCache = new Map<
+    string,
+    { value: ServerChatMessage[]; expiresAt: number }
+  >()
+  private chatMessagesInFlight = new Map<string, Promise<ServerChatMessage[]>>()
 
   constructor() {
     this.storage = new Storage({
@@ -294,6 +303,33 @@ export class TldwApiClient {
 
   private getMissingApiKeyMessage(): string {
     return "tldw server API key is missing. Open Settings → tldw server and configure an API key before continuing."
+  }
+
+  private getStatusFromError(error: unknown): number | null {
+    const maybeStatus = (error as any)?.status
+    if (typeof maybeStatus === "number") return maybeStatus
+    const msg = String((error as any)?.message || error || "")
+    const match = msg.match(/(?:http|request failed:)\s*(\d{3})/i)
+    if (match) return Number(match[1])
+    const fallback = msg.match(/\b(\d{3})\b/)
+    return fallback ? Number(fallback[1]) : null
+  }
+
+  private getChatMessagesCacheKey(chatId: string, query: string): string {
+    return `${chatId}${query || ""}`
+  }
+
+  invalidateChatMessagesCache(chatId?: string | number): void {
+    const cid = chatId != null ? String(chatId) : null
+    if (!cid) {
+      this.chatMessagesCache.clear()
+      return
+    }
+    for (const key of this.chatMessagesCache.keys()) {
+      if (key.startsWith(cid)) {
+        this.chatMessagesCache.delete(key)
+      }
+    }
   }
 
   private getPlaceholderApiKeyMessage(): string {
@@ -940,11 +976,43 @@ export class TldwApiClient {
 
   async getCharacter(id: string | number): Promise<any> {
     const cid = String(id)
-    try {
-      return await bgRequest<any>({ path: `/api/v1/characters/${cid}`, method: 'GET' })
-    } catch {
-      return await bgRequest<any>({ path: `/api/v1/characters/${cid}/`, method: 'GET' })
+    const cached = this.characterCache.get(cid)
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.value
     }
+    const inFlight = this.characterInFlight.get(cid)
+    if (inFlight) return inFlight
+
+    const request = (async () => {
+      try {
+        const value = await bgRequest<any>({
+          path: `/api/v1/characters/${cid}`,
+          method: 'GET'
+        })
+        this.characterCache.set(cid, {
+          value,
+          expiresAt: Date.now() + CHARACTER_CACHE_TTL_MS
+        })
+        return value
+      } catch (error) {
+        const status = this.getStatusFromError(error)
+        if (status !== 404) throw error
+        const value = await bgRequest<any>({
+          path: `/api/v1/characters/${cid}/`,
+          method: 'GET'
+        })
+        this.characterCache.set(cid, {
+          value,
+          expiresAt: Date.now() + CHARACTER_CACHE_TTL_MS
+        })
+        return value
+      } finally {
+        this.characterInFlight.delete(cid)
+      }
+    })()
+
+    this.characterInFlight.set(cid, request)
+    return request
   }
 
   async createCharacter(payload: Record<string, any>): Promise<any> {
@@ -958,12 +1026,15 @@ export class TldwApiClient {
   async updateCharacter(id: string | number, payload: Record<string, any>, expectedVersion?: number): Promise<any> {
     const cid = String(id)
     const qp = expectedVersion != null ? `?expected_version=${encodeURIComponent(String(expectedVersion))}` : ''
-    return await bgRequest<any>({ path: `/api/v1/characters/${cid}${qp}`, method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: payload })
+    const res = await bgRequest<any>({ path: `/api/v1/characters/${cid}${qp}`, method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: payload })
+    this.characterCache.delete(cid)
+    return res
   }
 
   async deleteCharacter(id: string | number): Promise<void> {
     const cid = String(id)
     await bgRequest<void>({ path: `/api/v1/characters/${cid}`, method: 'DELETE' })
+    this.characterCache.delete(cid)
   }
 
   // Character chat sessions
@@ -1179,44 +1250,80 @@ export class TldwApiClient {
   ): Promise<ServerChatMessage[]> {
     const cid = String(chat_id)
     const query = this.buildQuery(params)
-    const data = await bgRequest<any>({
-      path: `/api/v1/chats/${cid}/messages${query}`,
-      method: "GET",
-      abortSignal: options?.signal
-    })
-
-    let list: any[] = []
-
-    if (Array.isArray(data)) {
-      list = data
-    } else if (data && typeof data === "object") {
-      const obj: any = data
-      if (Array.isArray(obj.messages)) {
-        list = obj.messages
-      } else if (Array.isArray(obj.items)) {
-        list = obj.items
-      } else if (Array.isArray(obj.results)) {
-        list = obj.results
-      } else if (Array.isArray(obj.data)) {
-        list = obj.data
-      }
+    const cacheKey = this.getChatMessagesCacheKey(cid, query)
+    const cached = this.chatMessagesCache.get(cacheKey)
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.value
+    }
+    if (cached) {
+      this.chatMessagesCache.delete(cacheKey)
     }
 
-    return list.map((m) => {
-      const created_at = String(m.created_at || m.createdAt || "")
-      return {
-        id: String(m.id),
-        role: m.role,
-        content: String(m.content ?? ""),
-        created_at,
-        version:
-          typeof m.version === "number"
-            ? m.version
-            : typeof m.expected_version === "number"
-              ? m.expected_version
-              : undefined
-      } as ServerChatMessage
-    })
+    const inFlight = this.chatMessagesInFlight.get(cacheKey)
+    if (inFlight) {
+      return inFlight
+    }
+
+    const request = (async () => {
+      const data = await bgRequest<any>({
+        path: `/api/v1/chats/${cid}/messages${query}`,
+        method: "GET",
+        abortSignal: options?.signal
+      })
+
+      let list: any[] = []
+
+      if (Array.isArray(data)) {
+        list = data
+      } else if (data && typeof data === "object") {
+        const obj: any = data
+        if (Array.isArray(obj.messages)) {
+          list = obj.messages
+        } else if (Array.isArray(obj.items)) {
+          list = obj.items
+        } else if (Array.isArray(obj.results)) {
+          list = obj.results
+        } else if (Array.isArray(obj.data)) {
+          list = obj.data
+        }
+      }
+
+      const normalized = list.map((m) => {
+        const role =
+          typeof m.role === "string"
+            ? m.role
+            : typeof m.sender === "string"
+              ? m.sender
+              : "user"
+        const created_at = String(
+          m.created_at || m.createdAt || m.timestamp || ""
+        )
+        return {
+          id: String(m.id),
+          role,
+          content: String(m.content ?? ""),
+          created_at,
+          version:
+            typeof m.version === "number"
+              ? m.version
+              : typeof m.expected_version === "number"
+                ? m.expected_version
+                : undefined
+        } as ServerChatMessage
+      })
+      this.chatMessagesCache.set(cacheKey, {
+        value: normalized,
+        expiresAt: Date.now() + CHAT_MESSAGES_CACHE_TTL_MS
+      })
+      return normalized
+    })()
+
+    this.chatMessagesInFlight.set(cacheKey, request)
+    try {
+      return await request
+    } finally {
+      this.chatMessagesInFlight.delete(cacheKey)
+    }
   }
 
   async addChatMessage(
@@ -1224,12 +1331,14 @@ export class TldwApiClient {
     payload: Record<string, any>
   ): Promise<ServerChatMessage> {
     const cid = String(chat_id)
-    return await bgRequest<ServerChatMessage>({
+    const res = await bgRequest<ServerChatMessage>({
       path: `/api/v1/chats/${cid}/messages`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: payload
     })
+    this.invalidateChatMessagesCache(cid)
+    return res
   }
 
   async prepareCharacterCompletion(
@@ -1250,12 +1359,14 @@ export class TldwApiClient {
     payload: Record<string, any>
   ): Promise<any> {
     const cid = String(chat_id)
-    return await bgRequest<any>({
+    const res = await bgRequest<any>({
       path: `/api/v1/chats/${cid}/completions/persist`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: payload
     })
+    this.invalidateChatMessagesCache(cid)
+    return res
   }
 
   async *streamCharacterChatCompletion(
@@ -1307,16 +1418,40 @@ export class TldwApiClient {
     return await bgRequest<any>({ path: `/api/v1/messages/${mid}`, method: 'GET' })
   }
 
-  async editMessage(message_id: string | number, content: string, expectedVersion: number): Promise<any> {
+  async editMessage(
+    message_id: string | number,
+    content: string,
+    expectedVersion: number,
+    chatId?: string | number
+  ): Promise<any> {
     const mid = String(message_id)
     const qp = `?expected_version=${encodeURIComponent(String(expectedVersion))}`
-    return await bgRequest<any>({ path: `/api/v1/messages/${mid}${qp}`, method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: { content } })
+    const res = await bgRequest<any>({
+      path: `/api/v1/messages/${mid}${qp}`,
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: { content }
+    })
+    if (chatId != null) {
+      this.invalidateChatMessagesCache(chatId)
+    }
+    return res
   }
 
-  async deleteMessage(message_id: string | number, expectedVersion: number): Promise<void> {
+  async deleteMessage(
+    message_id: string | number,
+    expectedVersion: number,
+    chatId?: string | number
+  ): Promise<void> {
     const mid = String(message_id)
     const qp = `?expected_version=${encodeURIComponent(String(expectedVersion))}`
-    await bgRequest<void>({ path: `/api/v1/messages/${mid}${qp}`, method: 'DELETE' })
+    await bgRequest<void>({
+      path: `/api/v1/messages/${mid}${qp}`,
+      method: 'DELETE'
+    })
+    if (chatId != null) {
+      this.invalidateChatMessagesCache(chatId)
+    }
   }
 
   async saveChatKnowledge(payload: {

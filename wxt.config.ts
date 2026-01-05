@@ -19,6 +19,7 @@ const reactAliases = [
 ]
 
 const isFirefox = process.env.TARGET === "firefox"
+const isDevelopment = process.env.NODE_ENV === "development"
 
 // Enable bundle analysis for ANALYZE values like: "1", "true", "yes", "on" (case-insensitive)
 const analyzeEnv = (process.env.ANALYZE || "").trim()
@@ -179,6 +180,17 @@ const firefoxMV2Permissions = [
   "file://*/*"
 ]
 
+const chromeExtensionPagesCsp = isDevelopment
+  ? "script-src 'self' 'wasm-unsafe-eval' http://localhost:3000 http://localhost:3001; object-src 'self';"
+  : "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+
+const firefoxExtensionPagesCsp =
+  "script-src 'self' 'wasm-unsafe-eval' blob:; object-src 'self'; worker-src 'self' blob:;"
+
+const extensionPagesCsp = isFirefox
+  ? firefoxExtensionPagesCsp
+  : chromeExtensionPagesCsp
+
 // Bundle analysis plugin (enabled via ANALYZE env flag)
 const bundleAnalyzerPlugin = async (): Promise<Plugin | null> => {
   if (!analyzeBundle) return null
@@ -294,14 +306,9 @@ export default defineConfig({
         }
       }
     },
-    content_security_policy:
-      process.env.TARGET !== "firefox" ?
-        {
-          extension_pages:
-            process.env.NODE_ENV === 'development' 
-              ? "script-src 'self' 'wasm-unsafe-eval' http://localhost:3000 http://localhost:3001; object-src 'self';"
-              : "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
-        } :  "script-src 'self' 'wasm-unsafe-eval' blob:; object-src 'self'; worker-src 'self' blob:;",
+    content_security_policy: {
+      extension_pages: extensionPagesCsp
+    },
     permissions:
       process.env.TARGET === "firefox"
         ? firefoxMV2Permissions

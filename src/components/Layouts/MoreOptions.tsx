@@ -371,7 +371,7 @@ export const MoreOptions = ({
         open={open}
         onOpenChange={setOpen}>
         <IconButton
-          className="!text-text-muted hover:text-text transition-colors"
+          className="!text-text-muted hover:text-text transition-colors h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0"
           ariaLabel={t("option:header.moreActions", "More actions")}
           hasPopup="menu"
           ariaExpanded={open}>

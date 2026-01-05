@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "深さ {{depth}} · 役割: {{role}}。",
     "summaryTokensEmpty": "トークンはまだ定義されていません。要素の値を設定してください。",
     "summaryTokensCount": "{{tokens}} トークン · プロンプト内 ~{{estimate}} トークン。",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "シーンテンプレートが有効です。Actor はテンプレート連携設定を尊重します。"
   },
   "speech": {

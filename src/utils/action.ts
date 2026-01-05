@@ -1,7 +1,8 @@
 import { browser } from "wxt/browser"
+import { isChromiumTarget } from "@/config/platform"
 
 export const setTitle = ({ title }: { title: string }) => {
-  if (import.meta.env.BROWSER === "chrome" || import.meta.env.BROWSER === "edge") {
+  if (isChromiumTarget) {
     chrome.action.setTitle({ title })
   } else {
     browser.browserAction.setTitle({ title })
@@ -9,7 +10,7 @@ export const setTitle = ({ title }: { title: string }) => {
 }
 
 export const setBadgeBackgroundColor = ({ color }: { color: string }) => {
-  if (import.meta.env.BROWSER === "chrome" || import.meta.env.BROWSER === "edge") {
+  if (isChromiumTarget) {
     chrome.action.setBadgeBackgroundColor({ color })
   } else {
     browser.browserAction.setBadgeBackgroundColor({ color })
@@ -17,7 +18,7 @@ export const setBadgeBackgroundColor = ({ color }: { color: string }) => {
 }
 
 export const setBadgeText = ({ text }: { text: string }) => {
-  if (import.meta.env.BROWSER === "chrome" || import.meta.env.BROWSER === "edge") {
+  if (isChromiumTarget) {
     chrome.action.setBadgeText({ text })
   } else {
     browser.browserAction.setBadgeText({ text })

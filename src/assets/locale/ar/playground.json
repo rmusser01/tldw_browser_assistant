@@ -447,6 +447,10 @@
     "summaryPlacementDepth": "عمق {{depth}} · الدور: {{role}}.",
     "summaryTokensEmpty": "لا توجد رموز معرفة بعد؛ عيّن قيم الجوانب.",
     "summaryTokensCount": "{{tokens}} رموز · ~{{estimate}} رموز في الموجه.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "قالب مشهد نشط: Actor يحترم إعدادات التفاعل مع القوالب."
   },
   "speech": {

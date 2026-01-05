@@ -38,7 +38,6 @@ import type {
 } from "@/store/sidepanel-chat-tabs"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useUiModeStore } from "@/store/ui-mode"
-import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
 import { useArtifactsStore } from "@/store/artifacts"
 import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 
@@ -149,7 +148,6 @@ const applyChatModelSettingsSnapshot = (
 }
 
 const SidepanelChat = () => {
-  useAutoButtonTitles()
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
   const [sidebarOpen, setSidebarOpen] = React.useState(false)

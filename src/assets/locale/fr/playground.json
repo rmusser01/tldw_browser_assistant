@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "Profondeur {{depth}} · Rôle : {{role}}.",
     "summaryTokensEmpty": "Aucun jeton défini pour l'instant ; définissez des valeurs d'aspect.",
     "summaryTokensCount": "{{tokens}} jetons · ~{{estimate}} jetons dans l'invite.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "Template de scène actif : Actor respecte les paramètres d'interaction avec les templates."
   },
   "speech": {

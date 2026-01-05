@@ -89,7 +89,11 @@ export const ModelSelectOption: React.FC<Props> = ({ iconClassName = "size-5" })
           placement={"topLeft"}
           trigger={["click"]}>
           <Tooltip title={t("selectAModel")}>
-            <IconButton ariaLabel={t("selectAModel") as string} hasPopup="menu" className="text-text-muted">
+            <IconButton
+              ariaLabel={t("selectAModel") as string}
+              hasPopup="menu"
+              className="text-text-muted h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0"
+            >
               <LucideBrain className={iconClassName} />
             </IconButton>
           </Tooltip>

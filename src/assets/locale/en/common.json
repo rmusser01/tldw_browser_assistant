@@ -70,6 +70,8 @@
   "generate": "Generate",
   "view": "View",
   "delete": "Delete",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
   "continue": "Continue Response",
   "saveAndSubmit": "Save & Send",
   "editMessage": {

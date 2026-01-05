@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { UploadCloud } from "lucide-react"
 import { useQuickIngestStore } from "@/store/quick-ingest"
 import QuickIngestModal from "../Common/QuickIngestModal"
+import { createEventHost } from "@/utils/create-event-host"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(" ")
@@ -12,66 +13,48 @@ interface QuickIngestButtonProps {
   className?: string
 }
 
-/**
- * Quick ingest button with badge for queued items and modal.
- * Extracted from Header.tsx for better maintainability.
- */
-export function QuickIngestButton({ className }: QuickIngestButtonProps) {
-  const { t } = useTranslation(["option", "playground", "quickIngest"])
+type QuickIngestOpenOptions = {
+  autoProcessQueued?: boolean
+  focusTrigger?: boolean
+}
+
+type QuickIngestEventsOptions = {
+  focusTriggerRef?: React.RefObject<HTMLElement>
+}
+
+export const useQuickIngestEvents = (options?: QuickIngestEventsOptions) => {
+  const focusTriggerRef = options?.focusTriggerRef
   const [quickIngestOpen, setQuickIngestOpen] = useState(false)
   const [quickIngestAutoProcessQueued, setQuickIngestAutoProcessQueued] =
     useState(false)
   const quickIngestReadyRef = useRef(false)
   const pendingQuickIngestIntroRef = useRef(false)
-  const quickIngestBtnRef = useRef<HTMLButtonElement>(null)
-
-  const { queuedQuickIngestCount, quickIngestHadFailure } = useQuickIngestStore(
-    (s) => ({
-      queuedQuickIngestCount: s.queuedCount,
-      quickIngestHadFailure: s.hadRecentFailure,
-    })
-  )
-
-  const hasQueuedQuickIngest = queuedQuickIngestCount > 0
-
-  const quickIngestAriaLabel = React.useMemo(() => {
-    const base = t("option:header.quickIngest", "Quick ingest")
-    if (!hasQueuedQuickIngest) {
-      return base
-    }
-
-    const queuedText = t(
-      "option:header.quickIngestQueuedAria",
-      "{{label}} - {{count}} items queued - click to review and process",
-      {
-        label: base,
-        count: queuedQuickIngestCount,
-      }
-    )
-
-    if (quickIngestHadFailure) {
-      const failureHint = t(
-        "quickIngest:healthAriaHint",
-        "Recent runs failed - open Health & diagnostics from the header for more details."
-      )
-      return `${queuedText} ${failureHint}`
-    }
-
-    return queuedText
-  }, [hasQueuedQuickIngest, queuedQuickIngestCount, quickIngestHadFailure, t])
 
   const openQuickIngest = useCallback(
-    (options?: { autoProcessQueued?: boolean; focusTrigger?: boolean }) => {
+    (options?: QuickIngestOpenOptions) => {
       const { autoProcessQueued = false, focusTrigger = true } = options || {}
       setQuickIngestAutoProcessQueued(autoProcessQueued)
       setQuickIngestOpen(true)
-      if (focusTrigger) {
+      if (focusTrigger && focusTriggerRef?.current) {
         requestAnimationFrame(() => {
-          quickIngestBtnRef.current?.focus()
+          focusTriggerRef.current?.focus()
         })
       }
     },
-    []
+    [focusTriggerRef]
+  )
+
+  const closeQuickIngest = useCallback(
+    (options?: { focusTrigger?: boolean }) => {
+      setQuickIngestOpen(false)
+      setQuickIngestAutoProcessQueued(false)
+      if ((options?.focusTrigger ?? true) && focusTriggerRef?.current) {
+        requestAnimationFrame(() => {
+          focusTriggerRef.current?.focus()
+        })
+      }
+    },
+    [focusTriggerRef]
   )
 
   // Global event listeners for opening quick ingest
@@ -117,11 +100,62 @@ export function QuickIngestButton({ className }: QuickIngestButtonProps) {
     }
   }, [openQuickIngest])
 
-  const handleClose = () => {
-    setQuickIngestOpen(false)
-    setQuickIngestAutoProcessQueued(false)
-    requestAnimationFrame(() => quickIngestBtnRef.current?.focus())
+  return {
+    quickIngestOpen,
+    quickIngestAutoProcessQueued,
+    openQuickIngest,
+    closeQuickIngest
   }
+}
+
+/**
+ * Quick ingest button with badge for queued items and modal.
+ * Extracted from Header.tsx for better maintainability.
+ */
+export function QuickIngestButton({ className }: QuickIngestButtonProps) {
+  const { t } = useTranslation(["option", "playground", "quickIngest"])
+  const quickIngestBtnRef = useRef<HTMLButtonElement>(null)
+  const {
+    quickIngestOpen,
+    quickIngestAutoProcessQueued,
+    openQuickIngest,
+    closeQuickIngest
+  } = useQuickIngestEvents({ focusTriggerRef: quickIngestBtnRef })
+
+  const { queuedQuickIngestCount, quickIngestHadFailure } = useQuickIngestStore(
+    (s) => ({
+      queuedQuickIngestCount: s.queuedCount,
+      quickIngestHadFailure: s.hadRecentFailure,
+    })
+  )
+
+  const hasQueuedQuickIngest = queuedQuickIngestCount > 0
+
+  const quickIngestAriaLabel = React.useMemo(() => {
+    const base = t("option:header.quickIngest", "Quick ingest")
+    if (!hasQueuedQuickIngest) {
+      return base
+    }
+
+    const queuedText = t(
+      "option:header.quickIngestQueuedAria",
+      "{{label}} - {{count}} items queued - click to review and process",
+      {
+        label: base,
+        count: queuedQuickIngestCount,
+      }
+    )
+
+    if (quickIngestHadFailure) {
+      const failureHint = t(
+        "quickIngest:healthAriaHint",
+        "Recent runs failed - open Health & diagnostics from the header for more details."
+      )
+      return `${queuedText} ${failureHint}`
+    }
+
+    return queuedText
+  }, [hasQueuedQuickIngest, queuedQuickIngestCount, quickIngestHadFailure, t])
 
   return (
     <>
@@ -184,10 +218,22 @@ export function QuickIngestButton({ className }: QuickIngestButtonProps) {
       <QuickIngestModal
         open={quickIngestOpen}
         autoProcessQueued={quickIngestAutoProcessQueued}
-        onClose={handleClose}
+        onClose={closeQuickIngest}
       />
     </>
   )
 }
+
+export const QuickIngestModalHost = createEventHost({
+  useEvents: useQuickIngestEvents,
+  isActive: ({ quickIngestOpen }) => quickIngestOpen,
+  render: ({ quickIngestOpen, quickIngestAutoProcessQueued, closeQuickIngest }) => (
+    <QuickIngestModal
+      open={quickIngestOpen}
+      autoProcessQueued={quickIngestAutoProcessQueued}
+      onClose={() => closeQuickIngest({ focusTrigger: false })}
+    />
+  )
+})
 
 export default QuickIngestButton

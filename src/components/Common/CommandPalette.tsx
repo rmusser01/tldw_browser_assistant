@@ -47,7 +47,7 @@ export interface CommandItem {
   keywords?: string[]
 }
 
-interface CommandPaletteProps {
+export interface CommandPaletteProps {
   /** Custom commands to add to the palette */
   additionalCommands?: CommandItem[]
   /** Callbacks for actions */

@@ -1,6 +1,7 @@
 import { SaveButton } from "@/components/Common/SaveButton"
 import { getModels, getVoices } from "@/services/elevenlabs"
 import { getTTSSettings, setTTSSettings } from "@/services/tts"
+import { TTS_PROVIDER_OPTIONS } from "@/services/tts-provider"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { fetchTldwVoices, type TldwVoice } from "@/services/tldw/audio-voices"
 import {
@@ -265,21 +266,10 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               aria-label={t("generalSettings.tts.ttsProvider.label") as string}
               placeholder={t("generalSettings.tts.ttsProvider.placeholder")}
               className="w-full mt-4 sm:mt-0 sm:w-[200px] focus-ring"
-              options={[
-                { label: "Browser TTS", value: "browser" },
-                {
-                  label: "ElevenLabs",
-                  value: "elevenlabs"
-                },
-                {
-                  label: "OpenAI TTS",
-                  value: "openai"
-                },
-                {
-                  label: "tldw server (audio/speech)",
-                  value: "tldw"
-                }
-              ]}
+              options={TTS_PROVIDER_OPTIONS.map(({ label, value }) => ({
+                label,
+                value
+              }))}
               {...form.getInputProps("ttsProvider")}
             />
           </div>

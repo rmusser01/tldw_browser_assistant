@@ -1,47 +1,28 @@
 import React, { useEffect } from "react"
-import { Tag, Image, Tooltip, Collapse, Popover, Avatar, message } from "antd"
-import { IconButton } from "../IconButton"
+import { Tag, Image, Tooltip, Collapse, Avatar, Modal, message } from "antd"
 import { LoadingStatus } from "./ActionInfo"
-import {
-  CheckIcon,
-  ChevronLeft,
-  ChevronRight,
-  CopyIcon,
-  GitBranchIcon,
-  InfoIcon,
-  Layers,
-  Pen,
-  PlayCircle,
-  RotateCcw,
-  Square,
-  StickyNote,
-  FileText,
-  Volume2Icon,
-  CornerUpLeft
-} from "lucide-react"
 import { StopCircle as StopCircleIcon } from "lucide-react"
 import { EditMessageForm } from "./EditMessageForm"
 import { useTranslation } from "react-i18next"
 import { useTTS } from "@/hooks/useTTS"
 import { tagColors } from "@/utils/color"
 import { removeModelSuffix } from "@/db/dexie/models"
-import { GenerationInfo } from "./GenerationInfo"
 import { parseReasoning } from "@/libs/reasoning"
 import {
   decodeChatErrorPayload,
   type ChatErrorPayload
 } from "@/utils/chat-error-message"
-import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
 import { useStorage } from "@plasmohq/storage/hook"
 import { PlaygroundUserMessageBubble } from "./PlaygroundUserMessage"
 import { copyToClipboard } from "@/utils/clipboard"
 import { ChatDocuments } from "@/models/ChatTypes"
 import { buildChatTextClass } from "@/utils/chat-style"
 import { highlightText } from "@/utils/text-highlight"
-import { FeedbackButtons } from "@/components/Sidepanel/Chat/FeedbackButtons"
 import { FeedbackModal } from "@/components/Sidepanel/Chat/FeedbackModal"
 import { SourceFeedback } from "@/components/Sidepanel/Chat/SourceFeedback"
 import { ToolCallBlock, type ToolCall, type ToolCallResult } from "@/components/Sidepanel/Chat/ToolCallBlock"
+import { MessageActionsBar } from "./MessageActionsBar"
+import { ReasoningBlock } from "./ReasoningBlock"
 import { useFeedback } from "@/hooks/useFeedback"
 import { useImplicitFeedback } from "@/hooks/useImplicitFeedback"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
@@ -88,20 +69,6 @@ const ErrorBubble: React.FC<{
     </div>
   )
 }
-
-const ActionButtonWithLabel: React.FC<{
-  icon: React.ReactNode
-  label: string
-  showLabel?: boolean
-  className?: string
-}> = ({ icon, label, showLabel = false, className = "" }) => (
-  <span className={`inline-flex items-center gap-1 ${className}`}>
-    {icon}
-    {showLabel && (
-      <span className="text-label text-text-subtle">{label}</span>
-    )}
-  </span>
-)
 
 type Props = {
   message: string
@@ -157,10 +124,9 @@ type Props = {
   toolCalls?: ToolCall[]
   toolResults?: ToolCallResult[]
   historyId?: string
+  conversationInstanceId: string
+  onDeleteMessage?: () => void
 }
-
-const ACTION_BUTTON_CLASS =
-  "flex items-center justify-center rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus min-w-0 min-h-0"
 
 export const PlaygroundMessage = (props: Props) => {
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
@@ -246,9 +212,11 @@ export const PlaygroundMessage = (props: Props) => {
     if (props.serverMessageId) return `srv:${props.serverMessageId}`
     if (props.messageId) return `local:${props.messageId}`
     // Always include conversation context to prevent key collisions across chats
-    const conversationScope = props.serverChatId || props.historyId || "unknown"
+    const conversationScope =
+      props.serverChatId || props.historyId || props.conversationInstanceId
     return `${conversationScope}:${props.currentMessageIndex}`
   }, [
+    props.conversationInstanceId,
     props.currentMessageIndex,
     props.historyId,
     props.messageId,
@@ -321,6 +289,49 @@ export const PlaygroundMessage = (props: Props) => {
       enabled: feedbackImplicitAvailable
     })
 
+  const handleReply = React.useCallback(() => {
+    if (!replyId) return
+    setReplyTarget({
+      id: replyId,
+      preview: buildReplyPreview(errorFriendlyText || props.message),
+      name: props.name,
+      isBot: props.isBot
+    })
+  }, [
+    replyId,
+    setReplyTarget,
+    buildReplyPreview,
+    errorFriendlyText,
+    props.message,
+    props.name,
+    props.isBot
+  ])
+
+  const handleCopy = React.useCallback(async () => {
+    await copyToClipboard({
+      text: errorFriendlyText || props.message,
+      formatted: copyAsFormattedText
+    })
+    trackCopy()
+    setIsBtnPressed(true)
+    setTimeout(() => {
+      setIsBtnPressed(false)
+    }, 2000)
+  }, [copyAsFormattedText, errorFriendlyText, props.message, trackCopy])
+
+  const handleGenerateDocument = React.useCallback(() => {
+    if (!props.serverChatId || typeof window === "undefined") return
+    window.dispatchEvent(
+      new CustomEvent("tldw:open-document-generator", {
+        detail: {
+          conversationId: props.serverChatId,
+          message: errorFriendlyText || props.message,
+          messageId: props.serverMessageId
+        }
+      })
+    )
+  }, [errorFriendlyText, props.message, props.serverChatId, props.serverMessageId])
+
   const handleSaveKnowledge = async (makeFlashcard: boolean) => {
     if (!props.serverChatId || !props.serverMessageId) return
     const snippet = (errorFriendlyText || props.message || "").trim()
@@ -342,8 +353,10 @@ export const PlaygroundMessage = (props: Props) => {
           ? t("savedToFlashcards", "Saved to Flashcards")
           : t("savedToNotes", "Saved to Notes")
       )
-    } catch (err: any) {
-      message.error(err?.message || t("somethingWentWrong"))
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : t("somethingWentWrong")
+      message.error(errorMessage)
     } finally {
       setSavingKnowledge(null)
     }
@@ -453,6 +466,46 @@ export const PlaygroundMessage = (props: Props) => {
         )
       : null
 
+  const handleToggleTts = React.useCallback(() => {
+    if (ttsActionDisabled) return
+    if (isSpeaking) {
+      cancel()
+      return
+    }
+    speak({
+      utterance: errorFriendlyText || props.message
+    })
+  }, [
+    ttsActionDisabled,
+    isSpeaking,
+    cancel,
+    speak,
+    errorFriendlyText,
+    props.message
+  ])
+
+  const handleDelete = React.useCallback(() => {
+    if (!props.onDeleteMessage) return
+
+    Modal.confirm({
+      title: t("common:confirmTitle", "Please confirm"),
+      content: t("common:deleteMessageConfirm", "Delete this message?"),
+      okText: t("common:delete", "Delete"),
+      cancelText: t("common:cancel", "Cancel"),
+      okButtonProps: { danger: true },
+      onOk: async () => {
+        try {
+          await props.onDeleteMessage?.()
+          message.success(t("common:deleted", "Deleted"))
+        } catch (err) {
+          const fallback = t("common:deleteFailed", "Delete failed")
+          const errorMessage = err instanceof Error ? err.message : ""
+          message.error(errorMessage || fallback)
+        }
+      }
+    })
+  }, [props.onDeleteMessage, t])
+
   const actionRowVisibility = isProMode
     ? "flex"
     : "hidden group-hover:flex group-focus-within:flex"
@@ -507,7 +560,12 @@ export const PlaygroundMessage = (props: Props) => {
   const compareLabel = t("playground:composer.compareTag", "Compare")
 
   if (isUserChatBubble && !props.isBot) {
-    return <PlaygroundUserMessageBubble {...props} />
+    return (
+      <PlaygroundUserMessageBubble
+        {...props}
+        onDelete={props.onDeleteMessage ? handleDelete : undefined}
+      />
+    )
   }
 
   const MARKDOWN_BASE_CLASSES =
@@ -519,10 +577,6 @@ export const PlaygroundMessage = (props: Props) => {
   const messageCardClass = props.isBot
     ? `flex flex-col rounded-2xl border border-border bg-surface/70 shadow-sm ${messageSpacing}`
     : `flex flex-col rounded-2xl border border-border bg-surface2/70 shadow-sm ${messageSpacing}`
-  const actionButtonClass = `${ACTION_BUTTON_CLASS} ${
-    isProMode ? "h-8 w-8" : "h-7 w-7"
-  }`
-
   return (
     <div
       data-testid="chat-message"
@@ -680,74 +734,25 @@ export const PlaygroundMessage = (props: Props) => {
                   <>
                     {parseReasoning(props.message).map((e, i) => {
                       if (e.type === "reasoning") {
-                        // Auto-expand during streaming to show reasoning as it comes in
-                        const isReasoningStreaming = props.isStreaming && e?.reasoning_running
-                        const shouldExpand = props?.openReasoning || isReasoningStreaming
                         return (
-                          <Collapse
-                            key={i}
-                            className="border-none text-text-muted !mb-3 "
-                            defaultActiveKey={
-                              shouldExpand ? "reasoning" : undefined
-                            }
-                            activeKey={isReasoningStreaming ? "reasoning" : undefined}
-                            items={[
-                              {
-                                key: "reasoning",
-                                label:
-                                  isReasoningStreaming ? (
-                                    <div className="flex items-center gap-2">
-                                      <span className="italic shimmer-text">
-                                        {t("reasoning.thinking", "Thinking…")}
-                                      </span>
-                                    </div>
-                                  ) : (
-                                    <span className="flex items-center gap-2">
-                                      <span>
-                                        {t(
-                                          "reasoning.thought",
-                                          "Model's reasoning (optional)"
-                                        )}
-                                      </span>
-                                      {props.reasoningTimeTaken != null && (
-                                        <span className="text-label text-text-subtle">
-                                          {humanizeMilliseconds(
-                                            props.reasoningTimeTaken
-                                          )}
-                                        </span>
-                                      )}
-                                    </span>
-                                  ),
-                                children: (
-                                  <React.Suspense
-                                    fallback={
-                                      <p
-                                        className={`text-body text-text-muted ${assistantTextClass}`}>
-                                        {t("reasoning.loading")}
-                                      </p>
-                                    }>
-                                    <div>
-                                      <Markdown
-                                        message={e.content}
-                                        className={`${MARKDOWN_BASE_CLASSES} ${assistantTextClass}`}
-                                        searchQuery={props.searchQuery}
-                                      />
-                                      {/* Typing indicator during streaming */}
-                                      {isReasoningStreaming && (
-                                        <span className="inline-block w-2 h-4 ml-1 bg-text-muted animate-pulse rounded-sm" />
-                                      )}
-                                    </div>
-                                  </React.Suspense>
-                                )
-                              }
-                            ]}
+                          <ReasoningBlock
+                            key={`reasoning-${i}`}
+                            content={e.content}
+                            isStreaming={props.isStreaming}
+                            reasoningRunning={e.reasoning_running}
+                            openReasoning={props.openReasoning}
+                            reasoningTimeTaken={props.reasoningTimeTaken}
+                            assistantTextClass={assistantTextClass}
+                            markdownBaseClasses={MARKDOWN_BASE_CLASSES}
+                            searchQuery={props.searchQuery}
+                            t={t}
                           />
                         )
                       }
 
                       return (
                         <React.Suspense
-                          key={i}
+                          key={`message-${i}`}
                           fallback={
                             <p
                               className={`text-body text-text-muted ${assistantTextClass}`}>
@@ -805,342 +810,55 @@ export const PlaygroundMessage = (props: Props) => {
             )}
 
           {showInlineActions && (
-            <div className="flex w-full justify-end">
-              <div className="flex items-center gap-1">
-                {showVariantPager && (
-                  <div className="inline-flex items-center gap-1 rounded-full border border-border bg-surface2 px-1.5 py-0.5 text-[11px] text-text-muted">
-                    <button
-                      type="button"
-                      aria-label={t(
-                        "playground:actions.previousVariant",
-                        "Previous response"
-                      ) as string}
-                      title={t(
-                        "playground:actions.previousVariant",
-                        "Previous response"
-                      ) as string}
-                      onClick={() => {
-                        if (canSwipePrev) {
-                          props.onSwipePrev?.()
-                        }
-                      }}
-                      disabled={!canSwipePrev}
-                      className={`flex h-4 w-4 items-center justify-center rounded-full transition-colors ${
-                        canSwipePrev
-                          ? "text-text-subtle hover:text-text"
-                          : "text-text-muted/50"
-                      }`}>
-                      <ChevronLeft className="h-3 w-3" />
-                    </button>
-                    <span className="tabular-nums text-[10px]">
-                      {resolvedVariantIndex + 1}/{variantCount}
-                    </span>
-                    <button
-                      type="button"
-                      aria-label={t(
-                        "playground:actions.nextVariant",
-                        "Next response"
-                      ) as string}
-                      title={t(
-                        "playground:actions.nextVariant",
-                        "Next response"
-                      ) as string}
-                      onClick={() => {
-                        if (canSwipeNext) {
-                          props.onSwipeNext?.()
-                        }
-                      }}
-                      disabled={!canSwipeNext}
-                      className={`flex h-4 w-4 items-center justify-center rounded-full transition-colors ${
-                        canSwipeNext
-                          ? "text-text-subtle hover:text-text"
-                          : "text-text-muted/50"
-                      }`}>
-                      <ChevronRight className="h-3 w-3" />
-                    </button>
-                  </div>
-                )}
-                <button
-                  type="button"
-                  aria-label={t("common:moreActions", "More actions") as string}
-                  title={t("common:moreActions", "More actions") as string}
-                  className={`${overflowChipVisibility} rounded-full border border-border bg-surface2 px-2 py-0.5 text-[11px] text-text-muted transition-colors hover:text-text`}>
-                  •••
-                </button>
-                <div
-                  className={`${actionRowVisibility} flex-wrap items-center gap-2`}>
-                  <div className="flex flex-wrap items-center gap-1">
-                    {props.isTTSEnabled && (
-                      <Tooltip title={ttsDisabledReason || t("tts")}>
-                        <IconButton
-                          ariaLabel={t("tts") as string}
-                          onClick={() => {
-                            if (ttsActionDisabled) return
-                            if (isSpeaking) {
-                              cancel()
-                            } else {
-                              speak({
-                                utterance: errorFriendlyText || props.message
-                              })
-                            }
-                          }}
-                          className={`${actionButtonClass} disabled:cursor-not-allowed disabled:opacity-50`}
-                          disabled={ttsActionDisabled}>
-                          <ActionButtonWithLabel
-                            icon={
-                              !isSpeaking ? (
-                                <Volume2Icon
-                                  className={`w-3 h-3 ${
-                                    ttsActionDisabled
-                                      ? "text-text-muted"
-                                      : "text-text-subtle group-hover:text-text"
-                                  }`}
-                                />
-                              ) : (
-                                <Square className="w-3 h-3 text-danger group-hover:text-danger" />
-                              )
-                            }
-                            label={t("ttsShort", "TTS")}
-                            showLabel={isProMode}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                    {!props.hideCopy && (
-                      <Tooltip title={t("copyToClipboard")}>
-                        <IconButton
-                          ariaLabel={t("copyToClipboard") as string}
-                          onClick={async () => {
-                            await copyToClipboard({
-                              text: errorFriendlyText || props.message,
-                              formatted: copyAsFormattedText
-                            })
-                            trackCopy()
-
-                            // navigator.clipboard.writeText(props.message)
-                            setIsBtnPressed(true)
-                            setTimeout(() => {
-                              setIsBtnPressed(false)
-                            }, 2000)
-                          }}
-                          className={actionButtonClass}>
-                          <ActionButtonWithLabel
-                            icon={
-                              !isBtnPressed ? (
-                                <CopyIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                              ) : (
-                                <CheckIcon className="w-3 h-3 text-success group-hover:text-success" />
-                              )
-                            }
-                            label={t("copyShort", "Copy")}
-                            showLabel={isProMode}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                    {canReply && (
-                      <Tooltip title={t("common:reply", "Reply")}>
-                        <IconButton
-                          ariaLabel={t("common:reply", "Reply") as string}
-                          onClick={() => {
-                            if (!replyId) return
-                            setReplyTarget({
-                              id: replyId,
-                              preview: buildReplyPreview(
-                                errorFriendlyText || props.message
-                              ),
-                              name: props.name,
-                              isBot: props.isBot
-                            })
-                          }}
-                          className={actionButtonClass}>
-                          <ActionButtonWithLabel
-                            icon={
-                              <CornerUpLeft className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                            }
-                            label={t("common:replyShort", "Reply")}
-                            showLabel={isProMode}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                    {props.isBot && (
-                      <>
-                        {canSaveToNotes && (
-                          <Tooltip title={t("saveToNotes", "Save to Notes")}>
-                            <IconButton
-                              ariaLabel={t("saveToNotes", "Save to Notes") as string}
-                              onClick={() => handleSaveKnowledge(false)}
-                              disabled={savingKnowledge !== null}
-                              className={actionButtonClass}>
-                              <ActionButtonWithLabel
-                                icon={
-                                  <StickyNote className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                                }
-                                label={t("saveNoteShort", "Note")}
-                                showLabel={isProMode}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                        {canSaveToFlashcards && (
-                          <Tooltip
-                            title={t("saveToFlashcards", "Save to Flashcards")}>
-                            <IconButton
-                              ariaLabel={
-                                t("saveToFlashcards", "Save to Flashcards") as string
-                              }
-                              onClick={() => handleSaveKnowledge(true)}
-                              disabled={savingKnowledge !== null}
-                              className={actionButtonClass}>
-                              <ActionButtonWithLabel
-                                icon={
-                                  <Layers className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                                }
-                                label={t("saveFlashcardShort", "Card")}
-                                showLabel={isProMode}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                        {canGenerateDocument && (
-                          <Tooltip
-                            title={t("generateDocument", "Generate document")}>
-                            <IconButton
-                              ariaLabel={
-                                t(
-                                  "generateDocument",
-                                  "Generate document"
-                                ) as string
-                              }
-                              onClick={() => {
-                                if (typeof window === "undefined") return
-                                window.dispatchEvent(
-                                  new CustomEvent("tldw:open-document-generator", {
-                                    detail: {
-                                      conversationId: props.serverChatId,
-                                      message: errorFriendlyText || props.message,
-                                      messageId: props.serverMessageId
-                                    }
-                                  })
-                                )
-                              }}
-                              className={actionButtonClass}>
-                              <ActionButtonWithLabel
-                                icon={
-                                  <FileText className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                                }
-                                label={t("documentShort", "Doc")}
-                                showLabel={isProMode}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                        {props.generationInfo && (
-                          <Popover
-                            content={
-                              <GenerationInfo generationInfo={props.generationInfo} />
-                            }
-                            title={t("generationInfo")}>
-                            <IconButton
-                              ariaLabel={t("generationInfo") as string}
-                              className={actionButtonClass}>
-                              <ActionButtonWithLabel
-                                icon={
-                                  <InfoIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                                }
-                                label={t("infoShort", "Info")}
-                                showLabel={isProMode}
-                              />
-                            </IconButton>
-                          </Popover>
-                        )}
-
-                        {!props.hideEditAndRegenerate && isLastMessage && (
-                          <Tooltip title={t("regenerate")}>
-                            <IconButton
-                              ariaLabel={t("regenerate") as string}
-                              onClick={props.onRegenerate}
-                              className={actionButtonClass}>
-                              <ActionButtonWithLabel
-                                icon={
-                                  <RotateCcw className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                                }
-                                label={t("regenShort", "Redo")}
-                                showLabel={isProMode}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-
-                        {props?.onNewBranch && !props?.temporaryChat && (
-                          <Tooltip title={t("newBranch")}>
-                            <IconButton
-                              ariaLabel={t("newBranch") as string}
-                              onClick={props?.onNewBranch}
-                              className={actionButtonClass}>
-                              <ActionButtonWithLabel
-                                icon={
-                                  <GitBranchIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                                }
-                                label={t("branchShort", "Branch")}
-                                showLabel={isProMode}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-
-                        {!props.hideContinue && isLastMessage && (
-                          <Tooltip title={t("continue")}>
-                            <IconButton
-                              ariaLabel={t("continue") as string}
-                              onClick={props?.onContinue}
-                              className={actionButtonClass}>
-                              <ActionButtonWithLabel
-                                icon={
-                                  <PlayCircle className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                                }
-                                label={t("continueShort", "More")}
-                                showLabel={isProMode}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                      </>
-                    )}
-                    {!props.hideEditAndRegenerate && (
-                      <Tooltip title={t("edit")}>
-                        <IconButton
-                          onClick={() => setEditMode(true)}
-                          ariaLabel={t("edit") as string}
-                          className={actionButtonClass}>
-                          <ActionButtonWithLabel
-                            icon={
-                              <Pen className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                            }
-                            label={t("edit", "Edit")}
-                            showLabel={isProMode}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                  </div>
-                  {!editMode && props.isBot && (
-                    <FeedbackButtons
-                      compact
-                      selected={thumb}
-                      disabled={feedbackDisabled}
-                      disabledReason={feedbackDisabledReason}
-                      isSubmitting={isFeedbackSubmitting}
-                      onThumbUp={handleThumbUp}
-                      onThumbDown={handleThumbDown}
-                      onOpenDetails={handleOpenDetails}
-                      showThanks={showThanks}
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
+            <MessageActionsBar
+              t={t}
+              isProMode={isProMode}
+              isBot={props.isBot}
+              showVariantPager={showVariantPager}
+              resolvedVariantIndex={resolvedVariantIndex}
+              variantCount={variantCount}
+              canSwipePrev={canSwipePrev}
+              canSwipeNext={canSwipeNext}
+              onSwipePrev={props.onSwipePrev}
+              onSwipeNext={props.onSwipeNext}
+              overflowChipVisibility={overflowChipVisibility}
+              actionRowVisibility={actionRowVisibility}
+              isTtsEnabled={props.isTTSEnabled}
+              ttsDisabledReason={ttsDisabledReason}
+              ttsActionDisabled={ttsActionDisabled}
+              isSpeaking={isSpeaking}
+              onToggleTts={handleToggleTts}
+              hideCopy={props.hideCopy}
+              copyPressed={isBtnPressed}
+              onCopy={handleCopy}
+              canReply={canReply}
+              onReply={handleReply}
+              canSaveToNotes={canSaveToNotes}
+              canSaveToFlashcards={canSaveToFlashcards}
+              canGenerateDocument={canGenerateDocument}
+              onGenerateDocument={handleGenerateDocument}
+              onSaveKnowledge={handleSaveKnowledge}
+              savingKnowledge={savingKnowledge}
+              generationInfo={props.generationInfo}
+              isLastMessage={isLastMessage}
+              hideEditAndRegenerate={props.hideEditAndRegenerate}
+              onRegenerate={props.onRegenerate}
+              onNewBranch={props.onNewBranch}
+              temporaryChat={props.temporaryChat}
+              hideContinue={props.hideContinue}
+              onContinue={props.onContinue}
+              onEdit={() => setEditMode(true)}
+              editMode={editMode}
+              feedbackSelected={thumb}
+              feedbackDisabled={feedbackDisabled}
+              feedbackDisabledReason={feedbackDisabledReason}
+              isFeedbackSubmitting={isFeedbackSubmitting}
+              showThanks={showThanks}
+              onThumbUp={handleThumbUp}
+              onThumbDown={handleThumbDown}
+              onOpenDetails={handleOpenDetails}
+              onDelete={props.onDeleteMessage ? handleDelete : undefined}
+            />
           )}
 
           {/* uploaded documents if available */}

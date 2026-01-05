@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
 import { fetchChatModels } from "@/services/tldw-server"
 import { useMessage } from "@/hooks/useMessage"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { ProviderIcons } from "./ProviderIcon"
 import { IconButton } from "./IconButton"
 
@@ -27,35 +28,12 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
   })
 
   const groupedItems = React.useMemo(() => {
-    const providerDisplayName = (provider?: string) => {
-      const key = String(provider || "unknown").toLowerCase()
-      if (key === "openai") return "OpenAI"
-      if (key === "anthropic") return "Anthropic"
-      if (key === "google") return "Google"
-      if (key === "mistral") return "Mistral"
-      if (key === "cohere") return "Cohere"
-      if (key === "groq") return "Groq"
-      if (key === "huggingface") return "HuggingFace"
-      if (key === "openrouter") return "OpenRouter"
-      if (key === "ollama") return "Ollama"
-      if (key === "llama") return "Llama.cpp"
-      if (key === "kobold") return "Kobold.cpp"
-      if (key === "ooba") return "Oobabooga"
-      if (key === "tabby") return "TabbyAPI"
-      if (key === "vllm") return "vLLM"
-      if (key === "aphrodite") return "Aphrodite"
-      if (key === "zai") return "Z.AI"
-      if (key === "custom_openai_api") return "Custom OpenAI API"
-      if (key === "chrome") return "Chrome"
-      return provider || "API"
-    }
-
     const groups = new Map<string, any[]>()
     const localProviders = new Set(["lmstudio", "llamafile", "ollama", "ollama2", "llamacpp", "vllm", "custom"]) // group as "custom"
     for (const d of data || []) {
       const providerRaw = (d.provider || "other").toLowerCase()
       const groupKey = providerRaw === 'chrome' ? 'default' : (localProviders.has(providerRaw) ? 'custom' : providerRaw)
-      const providerLabel = providerDisplayName(d.provider)
+      const providerLabel = getProviderDisplayName(d.provider)
       const modelLabel = d.nickname || d.model
       const details: any = d.details || {}
       const caps: string[] = Array.isArray(details.capabilities)

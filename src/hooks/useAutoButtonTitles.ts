@@ -31,6 +31,11 @@ const applyTitlesInTree = (root: ParentNode) => {
   })
 }
 
+/**
+ * Auto-populates button `title` attributes from aria-label or text content
+ * for accessibility. Intended to be called once at the app root to avoid
+ * multiple MutationObservers on the same document.
+ */
 export const useAutoButtonTitles = () => {
   useEffect(() => {
     if (typeof document === "undefined") return

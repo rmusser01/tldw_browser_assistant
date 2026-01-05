@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react"
-import { Tooltip, Collapse, Avatar, message as antdMessage } from "antd"
+import { Tooltip, Collapse, Avatar, Modal, message as antdMessage } from "antd"
 import {
   Check,
   Copy,
@@ -15,6 +15,7 @@ import {
   Loader2,
   AlertCircle,
   CheckCheck,
+  Trash2,
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useTTS } from "@/hooks/useTTS"
@@ -59,6 +60,7 @@ interface CompactMessageProps {
   sendStatus?: "sending" | "sent" | "delivered" | "error"
   /** Timestamp of the message */
   timestamp?: number
+  onDelete?: () => void
 }
 
 /**
@@ -93,6 +95,7 @@ export function CompactMessage({
   searchQuery,
   sendStatus,
   timestamp,
+  onDelete,
 }: CompactMessageProps) {
   const { t, i18n } = useTranslation(["common", "playground"])
   const [copied, setCopied] = useState(false)
@@ -148,6 +151,27 @@ export function CompactMessage({
       speak({ utterance: message })
     }
   }
+
+  const handleDelete = React.useCallback(() => {
+    if (!onDelete) return
+    Modal.confirm({
+      title: t("common:confirmTitle", "Please confirm"),
+      content: t("common:deleteMessageConfirm", "Delete this message?"),
+      okText: t("common:delete", "Delete"),
+      cancelText: t("common:cancel", "Cancel"),
+      okButtonProps: { danger: true },
+      onOk: async () => {
+        try {
+          await onDelete()
+          antdMessage.success(t("common:deleted", "Deleted"))
+        } catch (err) {
+          const fallback = t("common:deleteFailed", "Delete failed")
+          const errorMessage = err instanceof Error ? err.message : ""
+          antdMessage.error(errorMessage || fallback)
+        }
+      }
+    })
+  }, [onDelete, t])
 
   // Error state
   if (errorPayload) {
@@ -506,6 +530,19 @@ export function CompactMessage({
                   className="rounded p-1 text-danger hover:bg-surface2"
                 >
                   <Square className="size-3.5" />
+                </button>
+              </Tooltip>
+            )}
+
+            {/* Delete */}
+            {onDelete && (
+              <Tooltip title={t("common:delete", "Delete")}>
+                <button
+                  onClick={handleDelete}
+                  aria-label={t("common:delete", "Delete")}
+                  className="rounded p-1 text-danger hover:bg-surface2"
+                >
+                  <Trash2 className="size-3.5" />
                 </button>
               </Tooltip>
             )}

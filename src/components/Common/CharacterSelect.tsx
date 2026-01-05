@@ -492,7 +492,7 @@ export const CharacterSelect: React.FC<Props> = ({
                   : selectLabel) as string
               }
               hasPopup="menu"
-              className={className}>
+              className={`h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0 ${className}`}>
               {selectedCharacter?.avatar_url ? (
                 <img
                   src={selectedCharacter.avatar_url}

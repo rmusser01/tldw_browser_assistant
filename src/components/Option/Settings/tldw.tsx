@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom"
 import React, { useEffect, useState } from "react"
 import { browser } from "wxt/browser"
 import { useTranslation } from "react-i18next"
+import { isFirefoxTarget } from "@/config/platform"
 import { tldwClient, TldwConfig } from "@/services/tldw/TldwApiClient"
 import { tldwAuth } from "@/services/tldw/TldwAuth"
 import { SettingsSkeleton } from "@/components/Common/Settings/SettingsSkeleton"
@@ -705,7 +706,7 @@ export const TldwSettings = () => {
                 {t('settings:tldw.buttons.testConnection', 'Test Connection')}
               </Button>
 
-              {import.meta.env.BROWSER !== 'firefox' && (
+              {!isFirefoxTarget && (
                 <Button onClick={grantSiteAccess}>
                   {t('settings:tldw.buttons.grantSiteAccess', 'Grant Site Access')}
                 </Button>

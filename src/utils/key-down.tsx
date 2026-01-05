@@ -1,3 +1,5 @@
+import { isFirefoxTarget } from "@/config/platform"
+
 export const handleChatInputKeyDown = ({
     e,
     sendWhenEnter,
@@ -9,7 +11,7 @@ export const handleChatInputKeyDown = ({
     sendWhenEnter: boolean
     isSending: boolean
 }) => {
-    return import.meta.env.BROWSER === "firefox"
+    return isFirefoxTarget
         ? e.key === "Enter" &&
         !e.shiftKey &&
         !e.nativeEvent.isComposing &&

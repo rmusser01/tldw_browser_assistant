@@ -55,6 +55,12 @@ type GeneratedDocument = {
   token_count?: number
 }
 
+type ChatModel = {
+  model: string
+  nickname?: string
+  provider?: string
+}
+
 const DOCUMENT_TYPES = [
   "summary",
   "timeline",
@@ -62,13 +68,37 @@ const DOCUMENT_TYPES = [
   "study_guide",
   "q_and_a",
   "meeting_notes"
-]
+] as const
+
+type DocumentType = (typeof DOCUMENT_TYPES)[number]
+
+type GeneratorFormState = {
+  documentType: DocumentType
+  selectedModel: string
+  manualModel: string
+  manualProvider: string
+  customPrompt: string
+  useSpecificMessage: boolean
+  specificMessage: string
+  asyncGeneration: boolean
+}
+
+type GeneratorFormAction =
+  | Partial<GeneratorFormState>
+  | ((prev: GeneratorFormState) => Partial<GeneratorFormState>)
 
 const formatTimestamp = (value?: string) => {
   if (!value) return ""
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
   return date.toLocaleString()
+}
+
+const extractDocumentList = (res: unknown): GeneratedDocument[] => {
+  if (!res || typeof res !== "object") return []
+  const data = res as Record<string, unknown>
+  const list = data.documents || data.items || data.results
+  return Array.isArray(list) ? (list as GeneratedDocument[]) : []
 }
 
 export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = ({
@@ -83,14 +113,22 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
   const { capabilities } = useServerCapabilities()
   const uiMode = useUiModeStore((state) => state.mode)
   const [promptForm] = Form.useForm()
-  const [documentType, setDocumentType] = React.useState<string>("summary")
-  const [selectedModel, setSelectedModel] = React.useState<string>("")
-  const [manualModel, setManualModel] = React.useState("")
-  const [manualProvider, setManualProvider] = React.useState("")
-  const [customPrompt, setCustomPrompt] = React.useState("")
-  const [useSpecificMessage, setUseSpecificMessage] = React.useState(false)
-  const [specificMessage, setSpecificMessage] = React.useState("")
-  const [asyncGeneration, setAsyncGeneration] = React.useState(true)
+  const [formState, setFormState] = React.useReducer(
+    (prev: GeneratorFormState, action: GeneratorFormAction) => ({
+      ...prev,
+      ...(typeof action === "function" ? action(prev) : action)
+    }),
+    {
+      documentType: "summary",
+      selectedModel: "",
+      manualModel: "",
+      manualProvider: "",
+      customPrompt: "",
+      useSpecificMessage: false,
+      specificMessage: "",
+      asyncGeneration: true
+    }
+  )
   const [isGenerating, setIsGenerating] = React.useState(false)
   const [documents, setDocuments] = React.useState<GeneratedDocument[]>([])
   const [jobs, setJobs] = React.useState<DocumentJob[]>([])
@@ -99,15 +137,25 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
   const [activeDoc, setActiveDoc] = React.useState<GeneratedDocument | null>(null)
   const initializedRef = React.useRef(false)
 
-  const { data: composerModels = [] } = useQuery({
+  const {
+    documentType,
+    selectedModel,
+    manualModel,
+    manualProvider,
+    customPrompt,
+    useSpecificMessage,
+    specificMessage,
+    asyncGeneration
+  } = formState
+
+  const { data: composerModels = [] } = useQuery<ChatModel[]>({
     queryKey: ["document-generator:models"],
     queryFn: () => fetchChatModels({ returnEmpty: true }),
     enabled: open
   })
 
   const modelOptions = React.useMemo(() => {
-    const models = (composerModels as any[]) || []
-    return models
+    return composerModels
       .filter((model) => model?.model)
       .map((model) => ({
         value: model.model,
@@ -155,22 +203,23 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
       modelOptions[0]?.value ||
       ""
     if (modelOptions.length > 0) {
-      setSelectedModel(fallbackModel)
-      setManualModel("")
-      setManualProvider("")
+      setFormState({
+        selectedModel: fallbackModel,
+        manualModel: "",
+        manualProvider: ""
+      })
     } else {
-      setSelectedModel("")
-      setManualModel(defaultModel || "")
-      setManualProvider("")
+      setFormState({
+        selectedModel: "",
+        manualModel: defaultModel || "",
+        manualProvider: ""
+      })
     }
-    setCustomPrompt("")
-    if (seedMessage) {
-      setUseSpecificMessage(true)
-      setSpecificMessage(seedMessage)
-    } else {
-      setUseSpecificMessage(false)
-      setSpecificMessage("")
-    }
+    setFormState({
+      customPrompt: "",
+      useSpecificMessage: Boolean(seedMessage),
+      specificMessage: seedMessage || ""
+    })
   }, [defaultModel, modelMeta, modelOptions, seedMessage])
 
   React.useEffect(() => {
@@ -191,7 +240,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
         modelOptions[0]?.value ||
         ""
       if (fallback) {
-        setSelectedModel(fallback)
+        setFormState({ selectedModel: fallback })
       }
     }
   }, [defaultModel, modelMeta, modelOptions, open, selectedModel])
@@ -199,59 +248,81 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
   React.useEffect(() => {
     if (!open) return
     if (seedMessage && seedMessage !== specificMessage) {
-      setUseSpecificMessage(true)
-      setSpecificMessage(seedMessage)
+      setFormState({
+        useSpecificMessage: true,
+        specificMessage: seedMessage
+      })
     }
   }, [open, seedMessage, specificMessage])
 
-  React.useEffect(() => {
-    if (!open || !conversationId) return
-    void refreshDocuments()
-  }, [open, conversationId])
+  const ensureTldwClient = React.useCallback(
+    async (context: string, options: { notify?: boolean } = {}) => {
+      try {
+        await tldwClient.initialize()
+        return true
+      } catch (err) {
+        console.error(`tldwClient.initialize failed (${context})`, err)
+        if (options.notify) {
+          message.error(
+            t("common:somethingWentWrong", { defaultValue: "Something went wrong" })
+          )
+        }
+        return false
+      }
+    },
+    [t]
+  )
 
-  React.useEffect(() => {
-    if (!open || uiMode !== "pro") return
-    void loadPromptConfig()
-  }, [open, uiMode, documentType])
-
-  React.useEffect(() => {
-    if (!open) return
-    const hasActiveJob = jobs.some((job) =>
-      ["pending", "in_progress"].includes(String(job.status))
-    )
-    if (!hasActiveJob) return
-    const id = window.setInterval(() => {
-      void refreshJobs()
-    }, 5000)
-    return () => window.clearInterval(id)
-  }, [jobs, open])
-
-  const refreshDocuments = async () => {
+  const refreshDocuments = React.useCallback(async () => {
     if (!conversationId) return
     setDocsLoading(true)
     try {
-      await tldwClient.initialize().catch(() => null)
+      if (!(await ensureTldwClient("refreshDocuments"))) return
       const res = await tldwClient.listChatDocuments({
         conversation_id: conversationId,
         limit: 50
       })
-      const list =
-        (res as any)?.documents ||
-        (res as any)?.items ||
-        (res as any)?.results ||
-        []
+      const list = extractDocumentList(res)
       setDocuments(list)
     } catch (err: any) {
       message.error(err?.message || t("common:somethingWentWrong"))
     } finally {
       setDocsLoading(false)
     }
-  }
+  }, [conversationId, ensureTldwClient, t])
 
-  const refreshJobs = async () => {
+  React.useEffect(() => {
+    if (!open || !conversationId) return
+    void refreshDocuments()
+  }, [open, conversationId, refreshDocuments])
+
+  const loadPromptConfig = React.useCallback(async (options: { notify?: boolean } = {}) => {
+    setPromptLoading(true)
+    try {
+      if (!(await ensureTldwClient("loadPromptConfig", options))) return
+      const res = await tldwClient.getChatDocumentPrompt(documentType)
+      promptForm.setFieldsValue({
+        system_prompt: res?.system_prompt ?? "",
+        user_prompt: res?.user_prompt ?? "",
+        temperature: res?.temperature ?? 0.7,
+        max_tokens: res?.max_tokens ?? 2000
+      })
+    } catch (err: any) {
+      message.error(err?.message || t("common:somethingWentWrong"))
+    } finally {
+      setPromptLoading(false)
+    }
+  }, [documentType, ensureTldwClient, promptForm, t])
+
+  React.useEffect(() => {
+    if (!open || uiMode !== "pro") return
+    void loadPromptConfig()
+  }, [open, uiMode, documentType, loadPromptConfig])
+
+  const refreshJobs = React.useCallback(async () => {
     if (jobs.length === 0) return
     try {
-      await tldwClient.initialize().catch(() => null)
+      if (!(await ensureTldwClient("refreshJobs"))) return
       const updates = await Promise.all(
         jobs.map(async (job) => {
           try {
@@ -273,8 +344,22 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
       ) {
         void refreshDocuments()
       }
-    } catch {}
-  }
+    } catch (err) {
+      console.error("refreshJobs polling error", err)
+    }
+  }, [ensureTldwClient, jobs, refreshDocuments])
+
+  React.useEffect(() => {
+    if (!open) return
+    const hasActiveJob = jobs.some((job) =>
+      ["pending", "in_progress"].includes(String(job.status))
+    )
+    if (!hasActiveJob) return
+    const id = window.setInterval(() => {
+      void refreshJobs()
+    }, 5000)
+    return () => window.clearInterval(id)
+  }, [jobs, open, refreshJobs])
 
   const handleGenerate = async () => {
     if (!conversationId) return
@@ -289,7 +374,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
     }
     setIsGenerating(true)
     try {
-      await tldwClient.initialize().catch(() => null)
+      if (!(await ensureTldwClient("handleGenerate", { notify: true }))) return
       const payload = {
         conversation_id: conversationId,
         document_type: documentType,
@@ -356,7 +441,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
       cancelText: t("common:cancel", "Cancel"),
       onOk: async () => {
         try {
-          await tldwClient.initialize().catch(() => null)
+          if (!(await ensureTldwClient("handleDeleteDocument", { notify: true }))) return
           await tldwClient.deleteChatDocument(documentId)
           setDocuments((prev) => prev.filter((doc) => doc.id !== documentId))
           message.success(t("common:deleted", "Deleted"))
@@ -369,7 +454,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
 
   const handleCancelJob = async (jobId: string) => {
     try {
-      await tldwClient.initialize().catch(() => null)
+      if (!(await ensureTldwClient("handleCancelJob", { notify: true }))) return
       await tldwClient.cancelChatDocumentJob(jobId)
       setJobs((prev) =>
         prev.map((job) =>
@@ -387,28 +472,10 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
     }
   }
 
-  const loadPromptConfig = async () => {
-    setPromptLoading(true)
-    try {
-      await tldwClient.initialize().catch(() => null)
-      const res = await tldwClient.getChatDocumentPrompt(documentType)
-      promptForm.setFieldsValue({
-        system_prompt: res?.system_prompt ?? "",
-        user_prompt: res?.user_prompt ?? "",
-        temperature: res?.temperature ?? 0.7,
-        max_tokens: res?.max_tokens ?? 2000
-      })
-    } catch (err: any) {
-      message.error(err?.message || t("common:somethingWentWrong"))
-    } finally {
-      setPromptLoading(false)
-    }
-  }
-
   const savePromptConfig = async () => {
     try {
       const values = await promptForm.validateFields()
-      await tldwClient.initialize().catch(() => null)
+      if (!(await ensureTldwClient("savePromptConfig", { notify: true }))) return
       await tldwClient.saveChatDocumentPrompt({
         document_type: documentType,
         system_prompt: values.system_prompt,
@@ -429,11 +496,14 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
   }
 
   const hasChatDocuments = Boolean(capabilities?.hasChatDocuments)
-  const canGenerate =
-    Boolean(conversationId) &&
-    Boolean(activeModel) &&
-    Boolean(activeProvider) &&
-    hasChatDocuments
+  const canGenerate = React.useMemo(
+    () =>
+      Boolean(conversationId) &&
+      Boolean(activeModel) &&
+      Boolean(activeProvider) &&
+      hasChatDocuments,
+    [conversationId, activeModel, activeProvider, hasChatDocuments]
+  )
 
   return (
     <Drawer
@@ -499,9 +569,9 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
             <div className="text-xs font-medium text-text">
               {t("playground:documentGenerator.documentType", "Document type")}
             </div>
-            <Select
+            <Select<DocumentType>
               value={documentType}
-              onChange={setDocumentType}
+              onChange={(value) => setFormState({ documentType: value })}
               options={docTypeOptions}
               className="w-full"
             />
@@ -514,7 +584,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
             {modelOptions.length > 0 ? (
               <Select
                 value={selectedModel}
-                onChange={setSelectedModel}
+                onChange={(value) => setFormState({ selectedModel: value })}
                 options={modelOptions}
                 className="w-full"
                 showSearch
@@ -524,7 +594,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
               <div className="grid grid-cols-1 gap-2">
                 <Input
                   value={manualModel}
-                  onChange={(e) => setManualModel(e.target.value)}
+                  onChange={(e) => setFormState({ manualModel: e.target.value })}
                   placeholder={t(
                     "playground:documentGenerator.modelPlaceholder",
                     "Model ID"
@@ -532,7 +602,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
                 />
                 <Input
                   value={manualProvider}
-                  onChange={(e) => setManualProvider(e.target.value)}
+                  onChange={(e) => setFormState({ manualProvider: e.target.value })}
                   placeholder={t(
                     "playground:documentGenerator.providerPlaceholder",
                     "Provider name"
@@ -561,12 +631,14 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
               </div>
               <Switch
                 checked={useSpecificMessage}
-                onChange={setUseSpecificMessage}
+                onChange={(value) => setFormState({ useSpecificMessage: value })}
               />
             </div>
             <Input.TextArea
               value={specificMessage}
-              onChange={(e) => setSpecificMessage(e.target.value)}
+              onChange={(e) =>
+                setFormState({ specificMessage: e.target.value })
+              }
               rows={3}
               disabled={!useSpecificMessage}
               placeholder={t(
@@ -583,7 +655,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
             </div>
             <Input.TextArea
               value={customPrompt}
-              onChange={(e) => setCustomPrompt(e.target.value)}
+              onChange={(e) => setFormState({ customPrompt: e.target.value })}
               rows={3}
               placeholder={t(
                 "playground:documentGenerator.customPromptPlaceholder",
@@ -601,7 +673,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
             </div>
             <Switch
               checked={asyncGeneration}
-              onChange={setAsyncGeneration}
+              onChange={(value) => setFormState({ asyncGeneration: value })}
             />
           </div>
         </div>
@@ -631,8 +703,12 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
               >
                 <Button
                   size="small"
-                  onClick={loadPromptConfig}
+                  onClick={() => void loadPromptConfig({ notify: true })}
                   loading={promptLoading}
+                  aria-label={t(
+                    "playground:documentGenerator.promptReload",
+                    "Reload from server"
+                  ) as string}
                   title={t(
                     "playground:documentGenerator.promptReload",
                     "Reload from server"
@@ -771,6 +847,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
                         size="small"
                         danger
                         onClick={() => handleDeleteDocument(doc.id)}
+                        aria-label={t("common:delete", "Delete") as string}
                         title={t("common:delete", "Delete") as string}
                       >
                         <Trash2 className="h-3 w-3" />

@@ -32,7 +32,6 @@ import {
   parseDiff
 } from "@/components/Agent"
 import { useSessionPersistence } from "@/hooks/useSessionPersistence"
-import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
 import type { SessionSaveInput } from "@/services/agent/storage"
 import { sessionToRestoreOutput, generateSessionId } from "@/services/agent/storage"
 import type {
@@ -55,7 +54,6 @@ const { TextArea } = Input
 type TabKey = "chat" | "diff" | "terminal"
 
 const SidepanelAgent: FC = () => {
-  useAutoButtonTitles()
   const { t } = useTranslation(["common", "sidepanel"])
 
   // Workspace state

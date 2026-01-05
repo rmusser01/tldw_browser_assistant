@@ -53,13 +53,14 @@ import {
 import { UploadedFile } from "@/db/dexie/types"
 import { isDatabaseClosedError } from "@/utils/ff-error"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { normalizeConversationState } from "@/utils/conversation-state"
 import { promptInput } from "@/components/Common/prompt-input"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { IconButton } from "../Common/IconButton"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useConnectionState } from "@/hooks/useConnectionState"
+import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
 import { useStoreMessageOption } from "@/store/option"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
 
 type Props = {
@@ -107,6 +108,7 @@ export const Sidebar = ({
   const [deleteGroup, setDeleteGroup] = useState<string | null>(null)
   const [dexiePrivateWindowError, setDexiePrivateWindowError] = useState(false)
   const [openMenuFor, setOpenMenuFor] = useState<string | null>(null)
+  const showLocalChats = false
   const [pinnedServerChatIds, setPinnedServerChatIds] = useStorage<string[]>(
     "tldw:server-chat-pins",
     []
@@ -123,9 +125,6 @@ export const Sidebar = ({
   const [folderPickerOpen, setFolderPickerOpen] = useState(false)
   const [folderPickerChatId, setFolderPickerChatId] = useState<string | null>(null)
   const folderRefreshInFlightRef = React.useRef<Promise<void> | null>(null)
-  const serverChatLoadIdRef = React.useRef(0)
-  const serverChatAbortRef = React.useRef<AbortController | null>(null)
-
   // Load folders when the sidebar is open and folder view is active.
   useEffect(() => {
     if (isConnected && isOpen && viewMode === "folders") {
@@ -139,21 +138,18 @@ export const Sidebar = ({
     }
   }, [isConnected, isOpen, viewMode, refreshFromServer])
 
-  useEffect(() => {
-    return () => {
-      if (serverChatAbortRef.current) {
-        serverChatAbortRef.current.abort()
-      }
-    }
-  }, [])
   const {
     serverChatId,
     setServerChatId,
+    setServerChatTitle,
+    setServerChatCharacterId,
     setServerChatState,
+    setServerChatVersion,
     setServerChatTopic,
     setServerChatClusterId,
     setServerChatSource,
     setServerChatExternalRef,
+    setServerChatMetaLoaded,
     setIsProcessing,
     setStreaming,
     setIsLoading,
@@ -176,6 +172,10 @@ export const Sidebar = ({
   )
   const unpinnedServerChats = serverChats.filter(
     (chat) => !pinnedServerChatSet.has(chat.id)
+  )
+  const serverChatById = React.useMemo(
+    () => new Map(serverChats.map((chat) => [chat.id, chat])),
+    [serverChats]
   )
 
   // Using infinite query for pagination
@@ -440,6 +440,85 @@ export const Sidebar = ({
     }
   }
 
+  const loadServerChat = React.useCallback(
+    (chat: ServerChatSummary) => {
+      setIsLoading(true)
+      // Clear local selection; this chat is backed by the server
+      setHistoryId(null)
+      setHistory([])
+      setMessages([])
+      setServerChatId(chat.id)
+      setServerChatTitle(chat.title || "")
+      setServerChatCharacterId(chat.character_id ?? null)
+      setServerChatState(normalizeConversationState(chat.state))
+      setServerChatVersion(chat.version ?? null)
+      setServerChatTopic(chat.topic_label ?? null)
+      setServerChatClusterId(chat.cluster_id ?? null)
+      setServerChatSource(chat.source ?? null)
+      setServerChatExternalRef(chat.external_ref ?? null)
+      setServerChatMetaLoaded(true)
+      setIsProcessing(false)
+      setStreaming(false)
+      setIsEmbedding(false)
+      setIsSearchingInternet(false)
+      clearReplyTarget()
+      updatePageTitle(chat.title)
+      navigate("/")
+      onClose()
+    },
+    [
+      clearReplyTarget,
+      navigate,
+      onClose,
+      setHistory,
+      setHistoryId,
+      setIsEmbedding,
+      setIsLoading,
+      setIsProcessing,
+      setIsSearchingInternet,
+      setMessages,
+      setServerChatCharacterId,
+      setServerChatClusterId,
+      setServerChatExternalRef,
+      setServerChatId,
+      setServerChatMetaLoaded,
+      setServerChatSource,
+      setServerChatState,
+      setServerChatTitle,
+      setServerChatTopic,
+      setServerChatVersion,
+      setStreaming
+    ]
+  )
+
+  const loadServerChatById = React.useCallback(
+    async (conversationId: string) => {
+      const cachedChat = serverChatById.get(conversationId)
+      if (cachedChat) {
+        loadServerChat(cachedChat)
+        return
+      }
+
+      try {
+        await tldwClient.initialize().catch(() => null)
+        const chat = await tldwClient.getChat(conversationId)
+        loadServerChat(chat)
+      } catch (error) {
+        console.error(
+          "Failed to load server chat for folder conversation:",
+          conversationId,
+          error
+        )
+        message.error(
+          t("common:error.friendlyGenericSummary", {
+            defaultValue: "Something went wrong while talking to your tldw server."
+          })
+        )
+      }
+    },
+    [loadServerChat, serverChatById, t]
+  )
+
   const loadLocalConversation = React.useCallback(
     async (conversationId: string) => {
       try {
@@ -631,15 +710,11 @@ export const Sidebar = ({
 
   const loadedConversationTitleById = React.useMemo(() => {
     const titleById = new Map<string, string>()
-    chatHistories.forEach((group) => {
-      group.items.forEach((item) => {
-        if (item?.id) {
-          titleById.set(String(item.id), String(item.title ?? ""))
-        }
-      })
+    serverChats.forEach((chat) => {
+      titleById.set(chat.id, chat.title ?? "")
     })
     return titleById
-  }, [chatHistories])
+  }, [serverChats])
 
   const missingFolderConversationIds = React.useMemo(() => {
     return folderConversationIds.filter(
@@ -654,18 +729,18 @@ export const Sidebar = ({
   const { data: missingFolderConversationTitles = [] } = useQuery({
     queryKey: ["folderConversationTitles", stableMissingFolderConversationIds],
     queryFn: async () => {
-      const db = new PageAssistDatabase()
+      await tldwClient.initialize().catch(() => null)
       const results = await Promise.all(
         stableMissingFolderConversationIds.map(async (conversationId) => {
           try {
-            const historyInfo = await db.getHistoryInfo(conversationId)
+            const chat = await tldwClient.getChat(conversationId)
             return {
               id: conversationId,
-              title: historyInfo?.title || ""
+              title: chat?.title || ""
             }
           } catch (error) {
             console.error(
-              "Failed to load local history info for folder conversation:",
+              "Failed to load server chat info for folder conversation:",
               conversationId,
               error
             )
@@ -715,135 +790,8 @@ export const Sidebar = ({
       >
         <button
           className="flex flex-col overflow-hidden flex-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 rounded"
-          onClick={async () => {
-            let loadId = 0
-            let controller: AbortController | null = null
-            try {
-              loadId = ++serverChatLoadIdRef.current
-              if (serverChatAbortRef.current) {
-                serverChatAbortRef.current.abort()
-              }
-              controller = new AbortController()
-              serverChatAbortRef.current = controller
-
-              setIsLoading(true)
-              // Clear local selection; this chat is backed by the server
-              setHistoryId(null)
-              setServerChatId(chat.id)
-              setServerChatState(
-                (chat as any)?.state ??
-                  (chat as any)?.conversation_state ??
-                  "in-progress"
-              )
-              setServerChatTopic((chat as any)?.topic_label ?? null)
-              setServerChatClusterId((chat as any)?.cluster_id ?? null)
-              setServerChatSource((chat as any)?.source ?? null)
-              setServerChatExternalRef(
-                (chat as any)?.external_ref ?? null
-              )
-              setIsProcessing(false)
-              setStreaming(false)
-              setIsEmbedding(false)
-              setIsSearchingInternet(false)
-              clearReplyTarget()
-              // Try to resolve a friendly assistant name from the character, if any.
-              let assistantName = "Assistant"
-              if (chat.character_id != null) {
-                try {
-                  const character = await tldwClient.getCharacter(
-                    chat.character_id
-                  )
-                  if (character) {
-                    assistantName =
-                      character.name || character.title || assistantName
-                  }
-                } catch {
-                  // Fallback to generic label if character lookup fails.
-                }
-              }
-
-              if (loadId !== serverChatLoadIdRef.current || controller.signal.aborted) {
-                return
-              }
-
-              const messages = await tldwClient.listChatMessages(
-                chat.id,
-                {
-                  include_deleted: "false"
-                } as any,
-                { signal: controller.signal }
-              )
-
-              if (loadId !== serverChatLoadIdRef.current || controller.signal.aborted) {
-                return
-              }
-              const history = messages.map((m) => ({
-                role: m.role,
-                content: m.content
-              }))
-              const mappedMessages = messages.map((m) => {
-                const createdAt = Date.parse(m.created_at)
-                return {
-                  createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
-                  isBot: m.role === "assistant",
-                  name:
-                    m.role === "assistant"
-                      ? assistantName
-                      : m.role === "system"
-                        ? "System"
-                        : "You",
-                  message: m.content,
-                  sources: [],
-                  images: [],
-                  id: String(m.id),
-                  serverMessageId: m.id,
-                  serverMessageVersion: m.version,
-                  parentMessageId:
-                    (m as any)?.parent_message_id ??
-                    (m as any)?.parentMessageId ??
-                    null,
-                  messageType:
-                    (m as any)?.message_type ?? (m as any)?.messageType,
-                  clusterId: (m as any)?.cluster_id ?? (m as any)?.clusterId,
-                  modelId: (m as any)?.model_id ?? (m as any)?.modelId,
-                  modelName:
-                    (m as any)?.model_name ??
-                    (m as any)?.modelName ??
-                    assistantName,
-                  modelImage: (m as any)?.model_image ?? (m as any)?.modelImage
-                }
-              })
-              if (loadId !== serverChatLoadIdRef.current || controller.signal.aborted) {
-                return
-              }
-
-              setHistory(history)
-              setMessages(mappedMessages)
-              updatePageTitle(chat.title)
-              navigate("/")
-              onClose()
-            } catch (e) {
-              const errMessage = String((e as any)?.message || "")
-              const isAbort =
-                (e as any)?.name === "AbortError" ||
-                errMessage.toLowerCase().includes("abort")
-              if (!isAbort) {
-                console.error("Failed to load server chat", e)
-                message.error(
-                  t("common:serverChatLoadError", {
-                    defaultValue:
-                      "Failed to load server chat. Check your connection and try again."
-                  })
-                )
-              }
-            } finally {
-              if (loadId && loadId === serverChatLoadIdRef.current) {
-                setIsLoading(false)
-              }
-              if (controller && serverChatAbortRef.current === controller) {
-                serverChatAbortRef.current = null
-              }
-            }
+          onClick={() => {
+            loadServerChat(chat)
           }}
         >
           <div className="flex flex-col overflow-hidden flex-1">
@@ -943,17 +891,16 @@ export const Sidebar = ({
         </div>
       </div>
 
-      {status === "success" &&
-        chatHistories.length === 0 &&
-        serverStatus === "success" &&
+      {serverStatus === "success" &&
         serverChats.length === 0 &&
-        !dexiePrivateWindowError && (
+        (!showLocalChats || !dexiePrivateWindowError) &&
+        (!showLocalChats || (status === "success" && chatHistories.length === 0)) && (
           <div className="flex justify-center items-center mt-20 overflow-hidden">
             <Empty description={t("common:noHistory")} />
           </div>
         )}
 
-      {dexiePrivateWindowError && (
+      {showLocalChats && dexiePrivateWindowError && (
         <div className="flex justify-center items-center mt-20 overflow-hidden">
           <Empty
             description={t("common:privateWindow", {
@@ -964,7 +911,7 @@ export const Sidebar = ({
         </div>
       )}
 
-      {(status === "pending" || isLoading) && (
+      {showLocalChats && (status === "pending" || isLoading) && (
         <div className="flex justify-center items-center mt-5">
           <Skeleton active paragraph={{ rows: 8 }} />
         </div>
@@ -988,13 +935,13 @@ export const Sidebar = ({
         </div>
       )}
 
-      {status === "error" && (
+      {showLocalChats && status === "error" && (
         <div className="flex justify-center items-center">
           <span className="text-red-500">Error loading history</span>
         </div>
       )}
 
-      {status === "success" && chatHistories.length > 0 && (
+      {showLocalChats && status === "success" && chatHistories.length > 0 && (
         <div className="flex flex-col gap-2">
           {chatHistories.map((group, groupIndex) => (
             <div key={groupIndex}>
@@ -1148,7 +1095,7 @@ export const Sidebar = ({
                         open={openMenuFor === chat.id}
                         onOpenChange={(o) => setOpenMenuFor(o ? chat.id : null)}>
                         <IconButton
-                          className="text-text-subtle opacity-80 hover:opacity-100"
+                          className="text-text-subtle opacity-80 hover:opacity-100 h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0"
                           ariaLabel={`${t("option:header.moreActions", "More actions")}: ${chat.title}`}
                           hasPopup="menu"
                           ariaExpanded={openMenuFor === chat.id}
@@ -1219,7 +1166,7 @@ export const Sidebar = ({
         <div className="mt-4 border-t border-border pt-3">
           <FolderTree
             onConversationSelect={(conversationId) => {
-              void loadLocalConversation(conversationId)
+              void loadServerChatById(conversationId)
             }}
             conversations={folderTreeConversations}
             showConversations

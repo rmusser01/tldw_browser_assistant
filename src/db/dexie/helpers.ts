@@ -331,6 +331,23 @@ export const updateMessageByIndex = async (
   }
 }
 
+export const removeMessageByIndex = async (
+  history_id: string,
+  index: number
+) => {
+  try {
+    const db = new PageAssistDatabase()
+    const chatHistory = await db.getChatHistory(history_id)
+    const sortedHistory = chatHistory.sort((a, b) => a.createdAt - b.createdAt)
+    const target = sortedHistory[index]
+    if (target) {
+      await db.removeMessage(history_id, target.id)
+    }
+  } catch {
+    // temp chat will break
+  }
+}
+
 export const deleteChatForEdit = async (history_id: string, index: number) => {
   const db = new PageAssistDatabase()
   const chatHistory = await db.getChatHistory(history_id)

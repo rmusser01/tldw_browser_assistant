@@ -1,3 +1,5 @@
+import { isChromiumTarget } from "@/config/platform"
+
 export const isGoogleDocs = (url: string) => {
   const GOOGLE_DOCS_REGEX = /docs\.google\.com\/document/g
   return GOOGLE_DOCS_REGEX.test(url)
@@ -95,7 +97,7 @@ const getGoogleDocs = () => {
 
 export const parseGoogleDocs = async () => {
   const result = new Promise((resolve) => {
-    if (import.meta.env.BROWSER === "chrome" || import.meta.env.BROWSER === "edge") {
+    if (isChromiumTarget) {
       chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         const tab = tabs[0]
 

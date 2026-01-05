@@ -38,6 +38,7 @@ import {
 import { getVariable } from "@/utils/select-variable"
 import { useTranslation } from "react-i18next"
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition"
+import { isFirefoxTarget } from "@/config/platform"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -2011,7 +2012,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (import.meta.env.BROWSER !== "firefox") {
+    if (!isFirefoxTarget) {
       if (e.key === "Process" || e.key === "229") return
     }
 
@@ -2863,12 +2864,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         <textarea
                           id="textarea-message"
                           onCompositionStart={() => {
-                            if (import.meta.env.BROWSER !== "firefox") {
+                            if (!isFirefoxTarget) {
                               setTyping(true)
                             }
                           }}
                           onCompositionEnd={() => {
-                            if (import.meta.env.BROWSER !== "firefox") {
+                            if (!isFirefoxTarget) {
                               setTyping(false)
                             }
                           }}

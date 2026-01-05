@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "깊이 {{depth}} · 역할: {{role}}.",
     "summaryTokensEmpty": "아직 정의된 토큰이 없습니다; 요소 값을 설정하세요.",
     "summaryTokensCount": "{{tokens}} 토큰 · 프롬프트에 ~{{estimate}} 토큰.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "장면 템플릿 활성: Actor가 템플릿 상호작용 설정을 존중합니다."
   },
   "speech": {

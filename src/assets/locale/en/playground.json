@@ -457,6 +457,10 @@
     "summaryPlacementDepth": "Depth {{depth}} · Role: {{role}}.",
     "summaryTokensEmpty": "No tokens defined yet; set aspect values.",
     "summaryTokensCount": "{{tokens}} tokens · ~{{estimate}} tokens in prompt.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "Scene template active: Actor respects template interaction settings."
   },
   "tts": {

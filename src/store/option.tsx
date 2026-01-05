@@ -162,6 +162,12 @@ type State = {
   // Server-backed character chat id
   serverChatId: string | null
   setServerChatId: (id: string | null) => void
+  serverChatTitle: string | null
+  setServerChatTitle: (title: string | null) => void
+  serverChatCharacterId: string | number | null
+  setServerChatCharacterId: (id: string | number | null) => void
+  serverChatMetaLoaded: boolean
+  setServerChatMetaLoaded: (loaded: boolean) => void
   serverChatState: ConversationState | null
   setServerChatState: (state: ConversationState | null) => void
   serverChatVersion: number | null
@@ -230,6 +236,9 @@ export const useStoreMessageOption = create<State>((set, get) => ({
       serverChatId: historyId ? null : state.serverChatId,
       serverChatState: historyId ? "in-progress" : state.serverChatState,
       serverChatVersion: historyId ? null : state.serverChatVersion,
+      serverChatTitle: historyId ? null : state.serverChatTitle,
+      serverChatCharacterId: historyId ? null : state.serverChatCharacterId,
+      serverChatMetaLoaded: historyId ? false : state.serverChatMetaLoaded,
       serverChatTopic: historyId ? null : state.serverChatTopic,
       serverChatClusterId: historyId ? null : state.serverChatClusterId,
       serverChatSource: historyId ? null : state.serverChatSource,
@@ -317,11 +326,26 @@ export const useStoreMessageOption = create<State>((set, get) => ({
       serverChatId: id,
       serverChatState: id ? "in-progress" : "in-progress",
       serverChatVersion: null,
+      serverChatTitle: null,
+      serverChatCharacterId: null,
+      serverChatMetaLoaded: false,
       serverChatTopic: id ? null : null,
       serverChatClusterId: id ? null : null,
       serverChatSource: id ? null : null,
       serverChatExternalRef: id ? null : null
     })),
+  serverChatTitle: null,
+  setServerChatTitle: (serverChatTitle) =>
+    set({ serverChatTitle: serverChatTitle != null ? serverChatTitle : null }),
+  serverChatCharacterId: null,
+  setServerChatCharacterId: (serverChatCharacterId) =>
+    set({
+      serverChatCharacterId:
+        serverChatCharacterId != null ? serverChatCharacterId : null
+    }),
+  serverChatMetaLoaded: false,
+  setServerChatMetaLoaded: (serverChatMetaLoaded) =>
+    set({ serverChatMetaLoaded }),
   serverChatState: "in-progress",
   setServerChatState: (state) =>
     set({ serverChatState: state ?? "in-progress" }),

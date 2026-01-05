@@ -412,6 +412,10 @@
     "summaryPlacementDepth": "Djup {{depth}} · Roll: {{role}}.",
     "summaryTokensEmpty": "Inga tokens definierade än; ange aspektvärden.",
     "summaryTokensCount": "{{tokens}} tokens · ~{{estimate}} tokens i prompten.",
+    "uploadedFiles": "Uploaded Files ({{count}})",
+    "fileRetrieval": "File Retrieval",
+    "fileStatusProcessed": "Processed",
+    "fileStatusProcessing": "Processing...",
     "sceneTemplateActive": "Scenmall aktiv: Actor respekterar inställningar för mallinteraktion."
   },
   "speech": {

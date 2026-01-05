@@ -1,23 +1,27 @@
 import { Storage } from "@plasmohq/storage"
 import { createSafeStorage } from "@/utils/safe-storage"
+import { isChromiumTarget } from "@/config/platform"
+import {
+  TTS_PROVIDER_VALUES,
+  type TtsProviderValue
+} from "@/services/tts-providers"
 
 const storage = createSafeStorage()
 const storage2 = createSafeStorage({
   area: "local"
 })
 
-const DEFAULT_TTS_PROVIDER = "browser"
+const DEFAULT_TTS_PROVIDER: TtsProviderValue = "browser"
 
-const AVAILABLE_TTS_PROVIDERS = ["browser", "elevenlabs", "openai", "tldw"] as const
-
-export const getTTSProvider = async (): Promise<
-  (typeof AVAILABLE_TTS_PROVIDERS)[number]
-> => {
+export const getTTSProvider = async (): Promise<TtsProviderValue> => {
   const ttsProvider = await storage.get("ttsProvider")
   if (!ttsProvider || ttsProvider.length === 0) {
     return DEFAULT_TTS_PROVIDER
   }
-  return ttsProvider as (typeof AVAILABLE_TTS_PROVIDERS)[number]
+  if (TTS_PROVIDER_VALUES.includes(ttsProvider as TtsProviderValue)) {
+    return ttsProvider as TtsProviderValue
+  }
+  return DEFAULT_TTS_PROVIDER
 }
 
 export const setTTSProvider = async (ttsProvider: string) => {
@@ -25,7 +29,7 @@ export const setTTSProvider = async (ttsProvider: string) => {
 }
 
 export const getBrowserTTSVoices = async () => {
-  if (import.meta.env.BROWSER === "chrome" || import.meta.env.BROWSER === "edge") {
+  if (isChromiumTarget) {
     const tts = await chrome.tts.getVoices()
     return tts
   } else {
