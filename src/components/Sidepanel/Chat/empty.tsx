@@ -248,6 +248,16 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
                   ? "bg-amber-500 hover:bg-amber-600 text-white"
                   : "bg-blue-500 hover:bg-blue-600 text-white"
               }`}
+              title={
+                !hasCompletedFirstRun
+                  ? t("sidepanel:firstRun.finishSetup", "Finish setup")
+                  : uxState === "error_auth" || uxState === "error_unreachable"
+                    ? t("sidepanel:firstRun.reviewSettings", "Review settings")
+                    : t(
+                        "sidepanel:firstRun.openOptionsPrimary",
+                        "Open tldw Settings"
+                      )
+              }
             >
               <Settings className="size-3.5" />
               {!hasCompletedFirstRun
@@ -312,6 +322,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
           type="button"
           data-testid="chat-suggestion-1"
           className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
+          title={t("sidepanel:emptyChat.examplePrompt1", "\"Summarize this page\"")}
           onClick={() =>
             insertPrompt(
               t(
@@ -330,6 +341,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
           type="button"
           data-testid="chat-suggestion-2"
           className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
+          title={t("sidepanel:emptyChat.examplePrompt2", "\"What are the key points?\"")}
           onClick={() =>
             insertPrompt(
               t(
@@ -348,6 +360,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
           type="button"
           data-testid="chat-suggestion-3"
           className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
+          title={t("sidepanel:emptyChat.examplePrompt3", "\"Explain this in simple terms\"")}
           onClick={() =>
             insertPrompt(
               t(

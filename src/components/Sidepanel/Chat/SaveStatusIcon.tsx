@@ -101,6 +101,7 @@ export const SaveStatusIcon = ({
         data-testid="chat-save-status"
         className="rounded p-2 hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
         aria-label={tooltip}
+        title={tooltip}
       >
         <Save className={iconClassName} />
       </button>

@@ -281,7 +281,9 @@ export const SidepanelChatSidebar = ({
               type="button"
               data-testid="sidepanel-sidebar-new-chat"
               onClick={onNewTab}
-              className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text">
+              className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
+              title={t("common:chatSidebar.newChat", "New Chat")}
+            >
               <Plus className="size-4" />
             </button>
           </Tooltip>
@@ -291,7 +293,9 @@ export const SidepanelChatSidebar = ({
                 type="button"
                 aria-label={t("common:close", "Close")}
                 onClick={() => onClose?.()}
-                className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text">
+                className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                title={t("common:close", "Close")}
+              >
                 <X className="size-4" />
               </button>
             </Tooltip>
@@ -301,7 +305,9 @@ export const SidepanelChatSidebar = ({
                 type="button"
                 aria-label={t("common:chatSidebar.collapse", "Collapse sidebar")}
                 onClick={() => onClose?.()}
-                className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text">
+                className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                title={t("common:chatSidebar.collapse", "Collapse sidebar")}
+              >
                 <ChevronLeft className="size-4" />
               </button>
             </Tooltip>
@@ -374,6 +380,7 @@ export const SidepanelChatSidebar = ({
                           }}
                           className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
                           aria-label={t("common:unpin", "Unpin")}
+                          title={t("common:unpin", "Unpin")}
                         >
                           <PinOff className="size-3" />
                         </button>
@@ -387,6 +394,7 @@ export const SidepanelChatSidebar = ({
                           }}
                           className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
                           aria-label={t("common:close", "Close")}
+                          title={t("common:close", "Close")}
                         >
                           <X className="size-3" />
                         </button>
@@ -449,6 +457,7 @@ export const SidepanelChatSidebar = ({
                           }}
                           className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
                           aria-label={t("common:pin", "Pin")}
+                          title={t("common:pin", "Pin")}
                         >
                           <Pin className="size-3" />
                         </button>
@@ -462,6 +471,7 @@ export const SidepanelChatSidebar = ({
                           }}
                           className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
                           aria-label={t("common:close", "Close")}
+                          title={t("common:close", "Close")}
                         >
                           <X className="size-3" />
                         </button>

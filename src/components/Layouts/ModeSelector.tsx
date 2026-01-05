@@ -162,7 +162,7 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
             ? (t("option:header.modeShortcutHint", "{{shortcut}} to switch", {
                 shortcut: formatShortcut(mode.shortcut),
               }) as string) || undefined
-            : undefined
+            : mode.label
         }
         className={classNames(
           "core-mode-button rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
@@ -207,6 +207,7 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
               "core-mode-button rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
               "bg-surface2 text-text-muted hover:bg-surface"
             )}
+            title={t("option:header.moreTools", "More")}
           >
             {t("option:header.moreTools", "More")}
           </button>

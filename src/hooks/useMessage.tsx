@@ -15,6 +15,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { usePageAssist } from "@/context"
 import { formatDocs } from "@/utils/format-docs"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useStoreChatModelSettings } from "@/store/model"
 import { getAllDefaultModelSettings } from "@/services/model-settings"
@@ -267,6 +268,7 @@ export const useMessage = () => {
 
     let newMessage: Message[] = []
     let generateMessageId = generateID()
+    const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
 
     if (!isRegenerate) {
@@ -277,13 +279,15 @@ export const useMessage = () => {
           name: "You",
           message,
           sources: [],
-          images: []
+          images: [],
+          createdAt
         },
         {
           isBot: true,
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || model
@@ -297,6 +301,7 @@ export const useMessage = () => {
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || model
@@ -548,9 +553,15 @@ export const useMessage = () => {
       setStreaming(false)
     } catch (e) {
       console.error(e)
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+        )
+      )
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
@@ -599,6 +610,7 @@ export const useMessage = () => {
 
     let newMessage: Message[] = []
     let generateMessageId = generateID()
+    const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
 
     if (!isRegenerate) {
@@ -609,13 +621,15 @@ export const useMessage = () => {
           name: "You",
           message,
           sources: [],
-          images: []
+          images: [],
+          createdAt
         },
         {
           isBot: true,
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || model
@@ -629,6 +643,7 @@ export const useMessage = () => {
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || model
@@ -800,9 +815,15 @@ export const useMessage = () => {
       setIsProcessing(false)
       setStreaming(false)
     } catch (e) {
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+        )
+      )
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
@@ -841,6 +862,7 @@ export const useMessage = () => {
     setStreaming(true)
     let fullText = ""
     let contentToSave = ""
+    let generateMessageId: string | null = null
 
     if (!selectedCharacter?.id) {
       throw new Error("No character selected")
@@ -851,16 +873,17 @@ export const useMessage = () => {
 
       // Visual placeholder
       const modelInfo = await getModelNicknameByID(model)
-      const generateMessageId = generateID()
+      generateMessageId = generateID()
+      const createdAt = Date.now()
       const newMessageList: Message[] = !isRegenerate
         ? [
             ...messages,
-            { isBot: false, name: 'You', message, sources: [], images: [] },
-            { isBot: true, name: model, message: '▋', sources: [], id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
+            { isBot: false, name: 'You', message, sources: [], images: [], createdAt },
+            { isBot: true, name: model, message: '▋', sources: [], createdAt, id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
           ]
         : [
             ...messages,
-            { isBot: true, name: model, message: '▋', sources: [], id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
+            { isBot: true, name: model, message: '▋', sources: [], createdAt, id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
           ]
       setMessages(newMessageList)
 
@@ -1095,9 +1118,19 @@ export const useMessage = () => {
       setIsProcessing(false)
       setStreaming(false)
     } catch (e) {
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      if (generateMessageId) {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === generateMessageId
+              ? { ...msg, message: assistantContent }
+              : msg
+          )
+        )
+      }
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
@@ -1157,6 +1190,7 @@ export const useMessage = () => {
 
     let newMessage: Message[] = []
     let generateMessageId = generateID()
+    const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
 
     if (!isRegenerate) {
@@ -1168,6 +1202,7 @@ export const useMessage = () => {
           message,
           sources: [],
           images: [image],
+          createdAt,
           messageType: messageType
         },
         {
@@ -1175,6 +1210,7 @@ export const useMessage = () => {
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || model
@@ -1188,6 +1224,7 @@ export const useMessage = () => {
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || model
@@ -1334,9 +1371,15 @@ export const useMessage = () => {
       setIsProcessing(false)
       setStreaming(false)
     } catch (e) {
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+        )
+      )
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
@@ -1513,13 +1556,14 @@ export const useMessage = () => {
     message: string,
     isHuman: boolean
   ) => {
-    let newMessages = messages as ServerBackedMessage[]
-    let newHistory = history
+    const newHistory = history
 
     if (isHuman) {
-      const currentHumanMessage = newMessages[index] as ServerBackedMessage | undefined
-      newMessages[index].message = message
-      const previousMessages = newMessages.slice(0, index + 1)
+      const currentHumanMessage = (messages as ServerBackedMessage[])[index]
+      const updatedMessages = messages.map((msg, idx) =>
+        idx === index ? { ...msg, message } : msg
+      )
+      const previousMessages = updatedMessages.slice(0, index + 1)
       setMessages(previousMessages)
       const previousHistory = newHistory.slice(0, index)
       setHistory(previousHistory)
@@ -1559,11 +1603,15 @@ export const useMessage = () => {
       })
     } else {
       // Assistant message edited
-      const currentAssistant = newMessages[index] as ServerBackedMessage | undefined
-      newMessages[index].message = message
-      setMessages(newMessages)
-      newHistory[index].content = message
-      setHistory(newHistory)
+      const currentAssistant = (messages as ServerBackedMessage[])[index]
+      const updatedMessages = messages.map((msg, idx) =>
+        idx === index ? { ...msg, message } : msg
+      )
+      setMessages(updatedMessages)
+      const updatedHistory = newHistory.map((item, idx) =>
+        idx === index ? { ...item, content: message } : item
+      )
+      setHistory(updatedHistory)
       await updateMessageByIndex(historyId, index, message)
       // Server-backed: update assistant server message too
       if (selectedCharacter?.id && currentAssistant?.serverMessageId) {
@@ -1580,10 +1628,10 @@ export const useMessage = () => {
     if (history.length > 0) {
       const lastMessage = history[history.length - 2]
       let newHistory = history.slice(0, -2)
-      let mewMessages = messages as ServerBackedMessage[]
+      const currentMessages = messages as ServerBackedMessage[]
       // If server-backed and last assistant has server message id, delete it on server
       if (selectedCharacter?.id && serverChatId) {
-        const lastAssistant = ([...mewMessages].reverse().find((m) => m.isBot) as ServerBackedMessage | undefined)
+        const lastAssistant = ([...currentMessages].reverse().find((m) => m.isBot) as ServerBackedMessage | undefined)
         if (lastAssistant?.serverMessageId) {
           try {
             let version = lastAssistant.serverMessageVersion
@@ -1595,7 +1643,7 @@ export const useMessage = () => {
           } catch {}
         }
       }
-      mewMessages.pop()
+      const mewMessages = currentMessages.slice(0, -1)
       setHistory(newHistory)
       setMessages(mewMessages)
       await removeMessageUsingHistoryId(historyId)

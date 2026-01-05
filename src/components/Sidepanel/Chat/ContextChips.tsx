@@ -51,6 +51,7 @@ export const ContextChips: React.FC<ContextChipsProps> = ({
               onClick={item.onRemove}
               className="rounded p-1 text-text-subtle hover:bg-surface hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
               aria-label={item.removeLabel || item.label}
+              title={item.removeLabel || item.label}
             >
               <X className="h-3 w-3" aria-hidden="true" />
             </button>

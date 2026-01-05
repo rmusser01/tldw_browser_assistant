@@ -168,6 +168,10 @@ export function QuickIngestButton({ className }: QuickIngestButtonProps) {
               })
             }
             className="inline-flex items-center rounded-full border border-transparent px-2 py-1 text-xs text-primary hover:text-primaryStrong"
+            title={t(
+              "quickIngest:processQueuedItemsShort",
+              "Process queued items"
+            )}
           >
             {t(
               "quickIngest:processQueuedItemsShort",

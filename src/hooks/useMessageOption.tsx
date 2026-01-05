@@ -936,6 +936,7 @@ export const useMessageOption = () => {
             message,
             sources: [],
             images: resolvedImage ? [resolvedImage] : [],
+            createdAt: Date.now(),
             id: compareUserMessageId,
             messageType: "compare:user",
             clusterId,

@@ -113,6 +113,7 @@ export function ContentEditModal({
             <button
               onClick={handleCopy}
               className="px-3 py-1.5 text-sm text-text hover:bg-surface2 rounded flex items-center gap-1.5 transition-colors"
+              title={t('common:copy', 'Copy')}
             >
               <Copy className="w-4 h-4" />
               {t('common:copy', 'Copy')}
@@ -122,6 +123,7 @@ export function ContentEditModal({
             <button
               onClick={onClose}
               className="px-3 py-1.5 text-sm text-text-muted hover:bg-surface2 rounded transition-colors"
+              title={t('common:cancel', 'Cancel')}
             >
               {t('common:cancel', 'Cancel')}
             </button>
@@ -130,6 +132,7 @@ export function ContentEditModal({
                 onClick={handleSaveAsNewVersion}
                 disabled={saving}
                 className="px-3 py-1.5 text-sm bg-primary hover:bg-primaryStrong text-white rounded flex items-center gap-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                title={t('mediaPage.saveAsVersion', 'Save as New Version')}
               >
                 <Save className="w-4 h-4" />
                 {t('mediaPage.saveAsVersion', 'Save as New Version')}

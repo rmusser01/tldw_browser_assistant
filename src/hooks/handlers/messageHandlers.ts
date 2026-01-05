@@ -38,8 +38,7 @@ export const createRegenerateLastMessage = ({
     if (history.length > 0) {
       const lastMessage = history[history.length - 2]
       let newHistory = history.slice(0, -2)
-      let mewMessages = messages
-      mewMessages.pop()
+      const mewMessages = messages.slice(0, -1)
       setHistory(newHistory)
       setMessages(mewMessages)
       await removeMessageUsingHistoryIdFn(historyId)
@@ -80,8 +79,7 @@ export const createEditMessage = ({
     isHuman: boolean,
     isSend: boolean
   ) => {
-    let newMessages = messages
-    let newHistory = history
+    const newHistory = history
 
     // if human message and send then only trigger the submit
     if (isHuman && isSend) {
@@ -91,9 +89,11 @@ export const createEditMessage = ({
         return
       }
 
-      const currentHumanMessage = newMessages[index]
-      newMessages[index].message = message
-      const previousMessages = newMessages.slice(0, index + 1)
+      const currentHumanMessage = messages[index]
+      const updatedMessages = messages.map((msg, idx) =>
+        idx === index ? { ...msg, message } : msg
+      )
+      const previousMessages = updatedMessages.slice(0, index + 1)
       setMessages(previousMessages)
       const previousHistory = newHistory.slice(0, index)
       setHistory(previousHistory)
@@ -110,10 +110,14 @@ export const createEditMessage = ({
       })
       return
     }
-    newMessages[index].message = message
-    setMessages(newMessages)
-    newHistory[index].content = message
-    setHistory(newHistory)
+    const updatedMessages = messages.map((msg, idx) =>
+      idx === index ? { ...msg, message } : msg
+    )
+    setMessages(updatedMessages)
+    const updatedHistory = newHistory.map((item, idx) =>
+      idx === index ? { ...item, content: message } : item
+    )
+    setHistory(updatedHistory)
     await updateMessageByIndex(historyId, index, message)
   }
 }

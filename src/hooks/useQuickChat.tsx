@@ -40,10 +40,11 @@ export const useQuickChat = () => {
         const currentMessages = useQuickChatStore.getState().messages
         const chatHistory: ChatMessage[] = currentMessages
           .slice(0, -1) // Exclude the empty assistant placeholder
-          .map((msg: QuickChatMessage) => ({
-            role: msg.role,
-            content: msg.content
-          }))
+          .map((msg: QuickChatMessage) =>
+            msg.role === "user"
+              ? { role: "user", content: msg.content }
+              : { role: "assistant", content: msg.content }
+          )
 
         const options: TldwChatOptions = {
           model: selectedModel,

@@ -305,6 +305,7 @@ export const Header: React.FC<Props> = ({
                   onClick={onToggleSidebar}
                   aria-label={sidebarLabel as string}
                   className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                  title={sidebarLabel as string}
                 >
                   <Menu className="size-4" aria-hidden="true" />
                 </button>
@@ -356,6 +357,7 @@ export const Header: React.FC<Props> = ({
               type="button"
               onClick={openCommandPalette}
               className="hidden items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text-muted transition hover:bg-surface2 hover:text-text sm:inline-flex"
+              title={t("common:search", "Search")}
             >
               <Search className="size-4" aria-hidden="true" />
               <span>{t("common:search", "Search")}</span>
@@ -369,6 +371,7 @@ export const Header: React.FC<Props> = ({
                 onClick={clearChat}
                 aria-label={t("common:newChat", "New chat") as string}
                 className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                title={t("common:newChat", "New chat")}
               >
                 <SquarePen className="size-4" aria-hidden="true" />
               </button>
@@ -379,6 +382,7 @@ export const Header: React.FC<Props> = ({
                 onClick={() => navigate("/settings/tldw")}
                 aria-label={t("sidepanel:header.openSettingsAria", "Open settings") as string}
                 className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                title={t("sidepanel:header.settingsShortLabel", "Settings")}
               >
                 <CogIcon className="size-4" aria-hidden="true" />
               </button>
@@ -410,7 +414,9 @@ export const Header: React.FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => setOpenModelSettings(true)}
-                    className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">
+                    className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
+                    title={t("option:header.modelSettings", "Model settings")}
+                  >
                     <Gauge className="h-4 w-4" aria-hidden="true" />
                     <span className="hidden sm:inline">
                       {t("option:header.modelSettings", "Model settings")}
@@ -495,7 +501,9 @@ export const Header: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={() => navigate("/settings/tldw")}
-                className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus   ">
+                className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus   "
+                title={t("option:header.serverSettings", "Settings")}
+              >
                 <CogIcon className="h-4 w-4" aria-hidden="true" />
                 <span className="hidden sm:inline">
                   {t("option:header.serverSettings", "Settings")}
@@ -525,7 +533,9 @@ export const Header: React.FC<Props> = ({
                 className="inline-flex items-center justify-center rounded-md border border-transparent p-1 text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus   "
                 aria-label={
                   t("option:githubRepository", "GitHub Repository") as string
-                }>
+                }
+                title={t("option:githubRepository", "GitHub Repository")}
+              >
                 <Github className="h-4 w-4" aria-hidden="true" />
               </button>
               {selectedModel && (
@@ -688,7 +698,9 @@ export const Header: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={() => setOpenModelSettings(true)}
-                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto">
+                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto"
+                  title={t("option:header.modelSettings", "Model settings")}
+                >
                   <Gauge className="h-4 w-4" aria-hidden="true" />
                   <span>
                     {t("option:header.modelSettings", "Model settings")}
@@ -713,7 +725,9 @@ export const Header: React.FC<Props> = ({
                   onClick={() => {
                     void openSidebar()
                   }}
-                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto">
+                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto"
+                  title={t("option:header.openSidebar", "Open sidebar")}
+                >
                   <LayoutGrid className="h-4 w-4" aria-hidden="true" />
                   <span>{t("option:header.openSidebar", "Open sidebar")}</span>
                 </button>
@@ -741,6 +755,7 @@ export const Header: React.FC<Props> = ({
                       type="button"
                       onClick={handleOpenTimeline}
                       className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus   "
+                      title={t("option:header.timeline", "Timeline")}
                     >
                       <GitBranch className="h-4 w-4" aria-hidden="true" />
                     </button>
@@ -752,7 +767,9 @@ export const Header: React.FC<Props> = ({
                   onClick={() => {
                     void openSidebar()
                   }}
-                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto">
+                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto"
+                  title={t("option:header.openSidebar", "Open sidebar")}
+                >
                   <LayoutGrid className="h-4 w-4" aria-hidden="true" />
                   <span>{t("option:header.openSidebar", "Open sidebar")}</span>
                 </button>

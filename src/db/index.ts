@@ -589,6 +589,7 @@ export const formatToMessage = (messages: MessageHistory): MessageType[] => {
       reasoning_time_taken: message?.reasoning_time_taken,
       modelName: message?.modelName,
       modelImage: message?.modelImage,
+      createdAt: message?.createdAt,
       id: message.id,
       documents: message?.documents
     }

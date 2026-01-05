@@ -207,6 +207,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       icon={<Check className="size-3" />}
                       onClick={handleSaveApiKey}
                       loading={isSaving}
+                      title={t("common:save", "Save")}
                     >
                       {t("common:save", "Save")}
                     </Button>
@@ -218,6 +219,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       setApiKeyInput("")
                     }}
                     className="text-xs text-text-subtle hover:text-text underline"
+                    title={t("common:cancel", "Cancel")}
                   >
                     {t("common:cancel", "Cancel")}
                   </button>
@@ -231,6 +233,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       type="primary"
                       icon={<KeyRound className="size-3" />}
                       onClick={() => setShowApiKeyForm(true)}
+                      title={t("sidepanel:connectionBanner.enterApiKey", "Enter API Key")}
                     >
                       {t("sidepanel:connectionBanner.enterApiKey", "Enter API Key")}
                     </Button>
@@ -241,6 +244,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       icon={<RefreshCw className="size-3" />}
                       onClick={handleRetry}
                       loading={isChecking}
+                      title={t("common:retry", "Retry")}
                     >
                       {t("common:retry", "Retry")}
                     </Button>
@@ -251,6 +255,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       type={uxState === "error_auth" ? "default" : "primary"}
                       icon={<Settings className="size-3" />}
                       onClick={openSettings}
+                      title={t("sidepanel:connectionBanner.openSettings", "Open Settings")}
                     >
                       {t("sidepanel:connectionBanner.openSettings", "Open Settings")}
                     </Button>

@@ -81,6 +81,7 @@ export function DeveloperToolsSection({
         aria-controls="developer-tools-panel"
         onClick={() => setExpanded(v => !v)}
         className="w-full flex items-center justify-between px-3 py-2 bg-surface2 hover:bg-surface transition-colors"
+        title={label || t('mediaPage.developerTools', 'Developer Tools')}
       >
         <div className="flex items-center gap-2">
           <Code className="w-4 h-4 text-text-subtle" />

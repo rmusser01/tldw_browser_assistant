@@ -233,6 +233,7 @@ export const ToolCallBlock: React.FC<ToolCallBlockProps> = ({
               onClick={() => toggleExpand(call.id)}
               className="w-full flex items-center gap-2 px-2 py-1.5 text-left hover:bg-surface2 rounded-md transition-colors"
               aria-expanded={isExpanded}
+              title={getToolDisplayName(call.function.name)}
             >
               {isExpanded ? (
                 <ChevronDown className="size-3 text-text-subtle flex-shrink-0" />

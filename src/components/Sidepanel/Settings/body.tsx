@@ -445,14 +445,18 @@ export const SettingsBody = () => {
         {mode === "dark" ? (
           <button
             onClick={toggleDarkMode}
-            className="select-none inline-flex text-center w-full rounded-lg border border-border py-3 px-6 justify-center font-sans text-xs font-bold uppercase text-text transition-all hover:opacity-75 focus:ring focus:ring-focus focus:ring-offset-2 focus:ring-offset-bg active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+            className="select-none inline-flex text-center w-full rounded-lg border border-border py-3 px-6 justify-center font-sans text-xs font-bold uppercase text-text transition-all hover:opacity-75 focus:ring focus:ring-focus focus:ring-offset-2 focus:ring-offset-bg active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            title={t("generalSettings.settings.darkMode.options.light")}
+          >
             <SunIcon className="h-4 w-4 mr-2" />
             {t("generalSettings.settings.darkMode.options.light")}
           </button>
         ) : (
           <button
             onClick={toggleDarkMode}
-            className="select-none inline-flex text-center w-full rounded-lg border border-border py-3 px-6 justify-center font-sans text-xs font-bold uppercase text-text transition-all hover:opacity-75 focus:ring focus:ring-focus focus:ring-offset-2 focus:ring-offset-bg active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+            className="select-none inline-flex text-center w-full rounded-lg border border-border py-3 px-6 justify-center font-sans text-xs font-bold uppercase text-text transition-all hover:opacity-75 focus:ring focus:ring-focus focus:ring-offset-2 focus:ring-offset-bg active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            title={t("generalSettings.settings.darkMode.options.dark")}
+          >
             <MoonIcon className="h-4 w-4 mr-2" />
             {t("generalSettings.settings.darkMode.options.dark")}
           </button>

@@ -74,6 +74,11 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
                 type="primary"
                 size="small"
                 onClick={onPrimaryAction}
+                title={
+                  typeof primaryActionLabel === "string"
+                    ? primaryActionLabel
+                    : undefined
+                }
                 className="mr-1 rounded-full px-4 text-[11px] font-semibold uppercase tracking-[0.08em]"
                 disabled={primaryDisabled}>
                 {primaryActionLabel}
@@ -83,6 +88,11 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
               <Button
                 size="small"
                 onClick={onSecondaryAction}
+                title={
+                  typeof secondaryActionLabel === "string"
+                    ? secondaryActionLabel
+                    : undefined
+                }
                 className="rounded-full px-4 text-[11px] font-semibold uppercase tracking-[0.08em]"
                 disabled={secondaryDisabled}>
                 {secondaryActionLabel}

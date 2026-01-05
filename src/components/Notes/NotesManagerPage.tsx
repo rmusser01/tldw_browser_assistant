@@ -368,20 +368,24 @@ const NotesManagerPage: React.FC = () => {
         role: m.role,
         content: m.content
       }))
-      const mappedMessages = messages.map((m) => ({
-        isBot: m.role === "assistant",
-        name:
-          m.role === "assistant"
-            ? assistantName
-            : m.role === "system"
-              ? "System"
-              : "You",
-        message: m.content,
-        sources: [],
-        images: [],
-        serverMessageId: m.id,
-        serverMessageVersion: m.version
-      }))
+      const mappedMessages = messages.map((m) => {
+        const createdAt = Date.parse(m.created_at)
+        return {
+          createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
+          isBot: m.role === "assistant",
+          name:
+            m.role === "assistant"
+              ? assistantName
+              : m.role === "system"
+                ? "System"
+                : "You",
+          message: m.content,
+          sources: [],
+          images: [],
+          serverMessageId: m.id,
+          serverMessageVersion: m.version
+        }
+      })
       setHistory(historyArr)
       setMessages(mappedMessages)
       updatePageTitle((chat as any)?.title || "")

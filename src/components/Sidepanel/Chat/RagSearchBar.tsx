@@ -157,6 +157,11 @@ export const RagSearchBar: React.FC<Props> = ({
             aria-controls="rag-search-panel"
             className="text-caption text-text-muted underline md:hidden"
             onClick={() => setOpenState(!isOpen)}
+            title={
+              isOpen
+                ? t("sidepanel:rag.hide", "Hide RAG search")
+                : t("sidepanel:rag.show", "Show RAG search")
+            }
           >
             {isOpen
               ? t("sidepanel:rag.hide", "Hide RAG search")
@@ -187,6 +192,7 @@ export const RagSearchBar: React.FC<Props> = ({
                 onClick={() => setRagHintSeen(true)}
                 className="rounded p-1 text-text-subtle hover:bg-surface"
                 aria-label={t('sidepanel:rag.hint.dismiss', 'Dismiss')}
+                title={t('sidepanel:rag.hint.dismiss', 'Dismiss')}
               >
                 <X className="h-3.5 w-3.5" />
               </button>
@@ -200,7 +206,9 @@ export const RagSearchBar: React.FC<Props> = ({
               onChange={(e) => setQ(e.target.value)}
               onPressEnter={runSearch}
             />
-            <Button onClick={runSearch} type="default">{t('sidepanel:rag.search')}</Button>
+            <Button onClick={runSearch} type="default" title={t('sidepanel:rag.search')}>
+              {t('sidepanel:rag.search')}
+            </Button>
           </div>
           <div className="flex flex-wrap gap-2 mb-2">
             <Select
@@ -226,7 +234,9 @@ export const RagSearchBar: React.FC<Props> = ({
                 onPressEnter={addTag}
                 style={{ width: 120 }}
               />
-              <Button size="small" onClick={addTag}>{t('sidepanel:rag.add')}</Button>
+              <Button size="small" onClick={addTag} title={t('sidepanel:rag.add')}>
+                {t('sidepanel:rag.add')}
+              </Button>
             </Space>
             <Space size="small" align="center">
               <span className="text-xs text-text-subtle">
@@ -247,9 +257,29 @@ export const RagSearchBar: React.FC<Props> = ({
               <div className="text-xs text-text-muted">
                 {t('sidepanel:rag.timeout.message', 'Request timed out.')}
                 <div className="mt-1 flex items-center gap-2">
-                  <Button size="small" type="primary" onClick={runSearch}>{t('sidepanel:rag.timeout.retry', 'Retry')}</Button>
-                  <Button size="small" onClick={() => { setTimeoutSec((v) => Number(v||10) + 5); runSearch() }}>{t('sidepanel:rag.timeout.increase', 'Increase timeout')}</Button>
-                  <Button size="small" type="link" onClick={() => { try { const url = browser.runtime.getURL('/options.html#/settings/health'); browser.tabs.create({ url }) } catch { window.open('#/settings/health', '_blank') } }}>{t('sidepanel:rag.timeout.checkHealth', 'Check server health')}</Button>
+                  <Button
+                    size="small"
+                    type="primary"
+                    onClick={runSearch}
+                    title={t('sidepanel:rag.timeout.retry', 'Retry')}
+                  >
+                    {t('sidepanel:rag.timeout.retry', 'Retry')}
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={() => { setTimeoutSec((v) => Number(v||10) + 5); runSearch() }}
+                    title={t('sidepanel:rag.timeout.increase', 'Increase timeout')}
+                  >
+                    {t('sidepanel:rag.timeout.increase', 'Increase timeout')}
+                  </Button>
+                  <Button
+                    size="small"
+                    type="link"
+                    onClick={() => { try { const url = browser.runtime.getURL('/options.html#/settings/health'); browser.tabs.create({ url }) } catch { window.open('#/settings/health', '_blank') } }}
+                    title={t('sidepanel:rag.timeout.checkHealth', 'Check server health')}
+                  >
+                    {t('sidepanel:rag.timeout.checkHealth', 'Check server health')}
+                  </Button>
                 </div>
               </div>
             ) : results.length === 0 ? (
@@ -273,6 +303,7 @@ export const RagSearchBar: React.FC<Props> = ({
                           type="button"
                           onClick={() => onInsert(insertText)}
                           className="text-primary hover:text-primaryStrong"
+                          title={t("sidepanel:rag.actions.insert")}
                         >
                           {t("sidepanel:rag.actions.insert")}
                         </button>,
@@ -281,6 +312,7 @@ export const RagSearchBar: React.FC<Props> = ({
                           type="button"
                           onClick={() => onAsk(insertText)}
                           className="text-primary hover:text-primaryStrong"
+                          title={t("sidepanel:rag.actions.ask")}
                         >
                           {t("sidepanel:rag.actions.ask")}
                         </button>,
@@ -290,6 +322,7 @@ export const RagSearchBar: React.FC<Props> = ({
                             type="button"
                             onClick={() => window.open(String(url), "_blank")}
                             className="text-primary hover:text-primaryStrong"
+                            title={t("sidepanel:rag.actions.open")}
                           >
                             {t("sidepanel:rag.actions.open")}
                           </button>
@@ -299,6 +332,7 @@ export const RagSearchBar: React.FC<Props> = ({
                           type="button"
                           onClick={() => navigator.clipboard.writeText(insertText)}
                           className="text-primary hover:text-primaryStrong"
+                          title={t("sidepanel:rag.actions.copy")}
                         >
                           {t("sidepanel:rag.actions.copy")}
                         </button>

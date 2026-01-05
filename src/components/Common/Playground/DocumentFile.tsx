@@ -12,7 +12,8 @@ export const DocumentFile: React.FC<DocumentFileProps> = ({ document }) => {
   return (
     <button
       className="relative group w-80 flex items-center gap-1 rounded-2xl border border-border bg-surface p-2 text-left text-text hover:bg-surface2"
-      type="button">
+      type="button"
+      title={document.filename}>
       <div className="rounded-xl bg-surface2 p-3 text-text">
         <FileIcon className="size-5 text-text" />
       </div>

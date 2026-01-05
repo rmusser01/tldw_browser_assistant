@@ -11,6 +11,7 @@ import {
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 
 export const continueChatMode = async (
   messages: Message[],
@@ -235,9 +236,15 @@ export const continueChatMode = async (
     setIsProcessing(false)
     setStreaming(false)
   } catch (e) {
+    const assistantContent = buildAssistantErrorContent(fullText, e)
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+      )
+    )
     const errorSave = await saveMessageOnError({
       e,
-      botMessage: fullText,
+      botMessage: assistantContent,
       history,
       historyId,
       image: "",

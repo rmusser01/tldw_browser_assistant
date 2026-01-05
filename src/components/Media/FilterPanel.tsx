@@ -91,6 +91,7 @@ export function FilterPanel({
             onShowFavoritesOnlyChange?.(false)
           }}
           className="text-sm text-primary hover:text-primaryStrong"
+          title={t('review:mediaPage.clearAll', { defaultValue: 'Clear all' })}
         >
           {t('review:mediaPage.clearAll', { defaultValue: 'Clear all' })}
         </button>
@@ -123,6 +124,9 @@ export function FilterPanel({
           type="button"
           onClick={() => toggleSection('mediaTypes')}
           className="flex items-center justify-between w-full text-sm text-text hover:text-text"
+          title={t('review:reviewPage.mediaTypes', {
+            defaultValue: 'Media types'
+          })}
         >
           <span>
             {t('review:reviewPage.mediaTypes', {

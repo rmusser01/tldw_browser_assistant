@@ -164,6 +164,7 @@ export function Pagination({
           disabled={currentPage === 1}
           className="px-1.5 py-0.5 rounded hover:bg-surface2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           aria-label={t('mediaPage.previousPage', 'Previous page')}
+          title={t('mediaPage.previousPage', 'Previous page')}
         >
           <ChevronLeft className="w-3.5 h-3.5 text-text-muted" />
         </button>
@@ -192,6 +193,7 @@ export function Pagination({
               onClick={() => handlePageClick(pageNum)}
               aria-label={t('mediaPage.goToPage', 'Go to page {{num}}', { num: pageNum })}
               aria-current={isActive ? 'page' : undefined}
+              title={t('mediaPage.goToPage', 'Go to page {{num}}', { num: pageNum })}
               className={`px-2 py-0.5 rounded text-xs transition-colors focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 ${
                 isActive
                   ? 'bg-primary text-white font-medium'
@@ -209,6 +211,7 @@ export function Pagination({
           disabled={currentPage === totalPages}
           className="px-1.5 py-0.5 rounded hover:bg-surface2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           aria-label={t('mediaPage.nextPage', 'Next page')}
+          title={t('mediaPage.nextPage', 'Next page')}
         >
           <ChevronRight className="w-3.5 h-3.5 text-text-muted" />
         </button>
@@ -251,6 +254,7 @@ export function Pagination({
           <button
             onClick={handleJumpToPage}
             className="px-2 py-0.5 text-xs bg-surface2 hover:bg-surface text-text rounded transition-colors"
+            title={t('mediaPage.go', 'Go')}
           >
             {t('mediaPage.go', 'Go')}
           </button>

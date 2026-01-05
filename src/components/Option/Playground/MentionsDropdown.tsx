@@ -1,6 +1,7 @@
 import React from "react"
 import { TabInfo, MentionPosition } from "~/hooks/useTabMentions"
 import { Globe, X, RefreshCw } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 interface MentionsDropdownProps {
   show: boolean
@@ -23,6 +24,7 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
   refetchTabs,
   onMentionsOpen
 }) => {
+  const { t } = useTranslation(["common"])
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [isRefreshing, setIsRefreshing] = React.useState(false)
   const dropdownRef = React.useRef<HTMLDivElement>(null)
@@ -116,12 +118,15 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
             disabled={isRefreshing}
             type="button"
             className="text-text-subtle hover:text-text disabled:opacity-50 disabled:cursor-not-allowed"
-            title="Refresh tabs">
+            title="Refresh tabs"
+            aria-label="Refresh tabs">
             <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
           </button>
           <button
             onClick={onClose}
-            className="text-text-subtle hover:text-text">
+            className="text-text-subtle hover:text-text"
+            aria-label={t("common:close", "Close") as string}
+            title={t("common:close", "Close") as string}>
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -132,6 +137,7 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
           <button
             key={tab.id}
             onClick={() => onSelectTab(tab)}
+            title={tab.title}
             className={`w-full text-left p-3 hover:bg-surface2 flex items-center gap-3 transition-colors ${
               index === selectedIndex
                 ? "bg-surface2 border-r-2 border-primary"
@@ -170,6 +176,7 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
           <button
             onClick={handleRefreshTabs}
             disabled={isRefreshing}
+            title={isRefreshing ? "Refreshing..." : "Refresh tabs"}
             className="mt-2 text-primary hover:text-primaryStrong disabled:opacity-50">
             {isRefreshing ? "Refreshing..." : "Refresh tabs"}
           </button>

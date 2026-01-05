@@ -76,3 +76,13 @@ export const buildFriendlyErrorMessage = (rawError: unknown): string => {
     detail
   })
 }
+
+export const buildAssistantErrorContent = (
+  botMessage: string | undefined,
+  rawError: unknown
+): string => {
+  if (botMessage && String(botMessage).trim().length > 0) {
+    return String(botMessage)
+  }
+  return buildFriendlyErrorMessage(rawError)
+}

@@ -23,7 +23,7 @@ import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
 
 const ACTION_BUTTON_CLASS =
-  "flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus"
+  "flex items-center justify-center rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus min-w-0 min-h-0"
 
 type Props = {
   message: string
@@ -54,6 +54,7 @@ type Props = {
   documents?: ChatDocuments
   messageId?: string
   serverMessageId?: string | null
+  createdAt?: number | string
 }
 
 export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
@@ -68,9 +69,13 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
   const uiMode = useUiModeStore((state) => state.mode)
   const isProMode = uiMode === "pro"
   const setReplyTarget = useStoreMessageOption((state) => state.setReplyTarget)
-  const actionBarVisibility = isProMode
-    ? "opacity-100"
-    : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
+  const actionRowVisibility = isProMode
+    ? "flex"
+    : "hidden group-hover:flex group-focus-within:flex"
+  const overflowChipVisibility = isProMode
+    ? "hidden"
+    : "inline-flex group-hover:hidden"
+  const showInlineActions = !props.isProcessing && !editMode
   const replyId = props.messageId ?? props.serverMessageId ?? null
   const canReply =
     isProMode && Boolean(replyId) && !props.message_type?.startsWith("compare")
@@ -88,6 +93,20 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
     [t]
   )
 
+  const messageTimestamp = React.useMemo(() => {
+    const raw = props.createdAt
+    if (!raw) return null
+    const date =
+      typeof raw === "number"
+        ? new Date(raw)
+        : new Date(Date.parse(String(raw)))
+    if (Number.isNaN(date.getTime())) return null
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit"
+    })
+  }, [props.createdAt])
+
   const userTextClass = React.useMemo(
     () => buildChatTextClass(userTextColor, userTextFont, userTextSize),
     [userTextColor, userTextFont, userTextSize]
@@ -99,11 +118,23 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
       data-role="user"
       data-index={props.currentMessageIndex}
       className={`group gap-2 relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 text-text ${checkWideMode ? "max-w-none" : ""}`}>
-      {!editMode && props?.message_type ? (
-        <Tag color={tagColors[props?.message_type] || "default"}>
-          {t(`copilot.${props?.message_type}`)}
-        </Tag>
-      ) : null}
+      <div className="flex w-full flex-wrap items-center justify-end gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-caption font-semibold text-text">You</span>
+          {messageTimestamp && (
+            <span className="text-[11px] text-text-muted">
+              • {messageTimestamp}
+            </span>
+          )}
+          {!editMode && props?.message_type && (
+            <Tag
+              className="!m-0"
+              color={tagColors[props?.message_type] || "default"}>
+              {t(`copilot.${props?.message_type}`)}
+            </Tag>
+          )}
+        </div>
+      </div>
 
       {props?.documents &&
         props?.documents.length > 0 &&
@@ -187,86 +218,94 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
           </div>
         )}
 
-      {!props.isProcessing && !editMode ? (
-        <div className={`flex items-center gap-2 transition-opacity ${actionBarVisibility}`}>
-          {props.isTTSEnabled && (
-            <Tooltip title={t("tts")}>
-              <IconButton
-                ariaLabel={t("tts") as string}
-                onClick={() => {
-                  if (isSpeaking) {
-                    cancel()
-                  } else {
-                    speak({
-                      utterance: props.message
-                    })
-                  }
-                }}
-                className={ACTION_BUTTON_CLASS}>
-                {!isSpeaking ? (
-                  <PlayIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                ) : (
-                  <Square className="w-3 h-3 text-danger group-hover:text-danger" />
-                )}
-              </IconButton>
-            </Tooltip>
-          )}
-          {!props.hideCopy && (
-            <Tooltip title={t("copyToClipboard")}>
-              <IconButton
-                ariaLabel={t("copyToClipboard") as string}
-                onClick={() => {
-                  navigator.clipboard.writeText(props.message)
-                  setIsBtnPressed(true)
-                  setTimeout(() => {
-                    setIsBtnPressed(false)
-                  }, 2000)
-                }}
-                className={ACTION_BUTTON_CLASS}>
-                {!isBtnPressed ? (
-                  <CopyIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                ) : (
-                  <CheckIcon className="w-3 h-3 text-success group-hover:text-success" />
-                )}
-              </IconButton>
-            </Tooltip>
-          )}
-          {canReply && (
-            <Tooltip title={t("reply", "Reply")}>
-              <IconButton
-                ariaLabel={t("reply", "Reply") as string}
-                onClick={() => {
-                  if (!replyId) return
-                  setReplyTarget({
-                    id: replyId,
-                    preview: buildReplyPreview(props.message),
-                    name: props.name,
-                    isBot: props.isBot
-                  })
-                }}
-                className={ACTION_BUTTON_CLASS}>
-                <CornerUpLeft className="w-3 h-3 text-text-subtle group-hover:text-text" />
-              </IconButton>
-            </Tooltip>
-          )}
+      {showInlineActions && (
+        <div className="flex w-full justify-end">
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              aria-label={t("moreActions", "More actions") as string}
+              title={t("moreActions", "More actions") as string}
+              className={`${overflowChipVisibility} rounded-full border border-border bg-surface2 px-2 py-0.5 text-[11px] text-text-muted transition-colors hover:text-text`}>
+              •••
+            </button>
+            <div
+              className={`${actionRowVisibility} flex-wrap items-center gap-1`}>
+              {props.isTTSEnabled && (
+                <Tooltip title={t("tts")}>
+                  <IconButton
+                    ariaLabel={t("tts") as string}
+                    onClick={() => {
+                      if (isSpeaking) {
+                        cancel()
+                      } else {
+                        speak({
+                          utterance: props.message
+                        })
+                      }
+                    }}
+                    className={`${ACTION_BUTTON_CLASS} h-7 w-7`}>
+                    {!isSpeaking ? (
+                      <PlayIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                    ) : (
+                      <Square className="w-3 h-3 text-danger group-hover:text-danger" />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              )}
+              {!props.hideCopy && (
+                <Tooltip title={t("copyToClipboard")}>
+                  <IconButton
+                    ariaLabel={t("copyToClipboard") as string}
+                    onClick={() => {
+                      navigator.clipboard.writeText(props.message)
+                      setIsBtnPressed(true)
+                      setTimeout(() => {
+                        setIsBtnPressed(false)
+                      }, 2000)
+                    }}
+                    className={`${ACTION_BUTTON_CLASS} h-7 w-7`}>
+                    {!isBtnPressed ? (
+                      <CopyIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                    ) : (
+                      <CheckIcon className="w-3 h-3 text-success group-hover:text-success" />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              )}
+              {canReply && (
+                <Tooltip title={t("reply", "Reply")}>
+                  <IconButton
+                    ariaLabel={t("reply", "Reply") as string}
+                    onClick={() => {
+                      if (!replyId) return
+                      setReplyTarget({
+                        id: replyId,
+                        preview: buildReplyPreview(props.message),
+                        name: props.name,
+                        isBot: props.isBot
+                      })
+                    }}
+                    className={`${ACTION_BUTTON_CLASS} h-7 w-7`}>
+                    <CornerUpLeft className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                  </IconButton>
+                </Tooltip>
+              )}
 
-          {!props.hideEditAndRegenerate && (
-            <Tooltip title={t("edit")}>
-              <IconButton
-                onClick={() => setEditMode(true)}
-                ariaLabel={t("edit") as string}
-                className={ACTION_BUTTON_CLASS}>
-                <Pen className="w-3 h-3 text-text-subtle group-hover:text-text" />
-              </IconButton>
-            </Tooltip>
-          )}
-        </div>
-      ) : (
-        // add invisible div to prevent layout shift
-        <div className="invisible">
-          <div className={ACTION_BUTTON_CLASS}></div>
+              {!props.hideEditAndRegenerate && (
+                <Tooltip title={t("edit")}>
+                  <IconButton
+                    onClick={() => setEditMode(true)}
+                    ariaLabel={t("edit") as string}
+                    className={`${ACTION_BUTTON_CLASS} h-7 w-7`}>
+                    <Pen className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </div>
+          </div>
         </div>
       )}
+
     </div>
   )
 }

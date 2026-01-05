@@ -25,6 +25,7 @@ import type { ChatModelSettings } from "@/store/model"
 import { extractTokenFromChunk } from "@/utils/extract-token-from-chunk"
 import { extractGenerationInfo } from "@/utils/llm-helpers"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 
 interface RagDocumentMetadata {
   filename?: string
@@ -130,6 +131,7 @@ export const documentChatMode = async (
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
   const resolvedUserMessageId =
     !isRegenerate ? userMessageId ?? generateID() : undefined
+  const createdAt = Date.now()
   let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
 
@@ -147,6 +149,7 @@ export const documentChatMode = async (
           message,
           sources: [],
           images: image ? [image] : [],
+          createdAt,
           documents: newFiles.map((f) => ({
             type: "file",
             filename: f.filename,
@@ -163,6 +166,7 @@ export const documentChatMode = async (
           name: selectedModel,
           message: "▋",
           sources: [],
+          createdAt,
           id: resolvedAssistantMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || selectedModel,
@@ -181,6 +185,7 @@ export const documentChatMode = async (
         name: selectedModel,
         message: "▋",
         sources: [],
+        createdAt,
         id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
@@ -490,9 +495,15 @@ export const documentChatMode = async (
     setStreaming(false)
   } catch (e) {
     console.error(e)
+    const assistantContent = buildAssistantErrorContent(fullText, e)
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+      )
+    )
     const errorSave = await saveMessageOnError({
       e,
-      botMessage: fullText,
+      botMessage: assistantContent,
       history,
       historyId,
       image,

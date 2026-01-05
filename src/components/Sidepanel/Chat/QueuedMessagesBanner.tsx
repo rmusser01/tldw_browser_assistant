@@ -96,6 +96,10 @@ export const QueuedMessagesBanner: React.FC<QueuedMessagesBannerProps> = ({
                   ? "cursor-not-allowed opacity-60"
                   : ""
               }`}>
+              title={t(
+                "playground:composer.queuedBanner.sendNow",
+                "Send queued messages"
+              )}
               {t(
                 "playground:composer.queuedBanner.sendNow",
                 "Send queued messages"
@@ -106,13 +110,17 @@ export const QueuedMessagesBanner: React.FC<QueuedMessagesBannerProps> = ({
         <button
           type="button"
           onClick={handleClearClick}
-          className="text-xs font-medium text-success underline hover:text-success">
+          className="text-xs font-medium text-success underline hover:text-success"
+          title={t("playground:composer.queuedBanner.clear", "Clear queue")}
+        >
           {t("playground:composer.queuedBanner.clear", "Clear queue")}
         </button>
         <button
           type="button"
           onClick={onOpenDiagnostics}
-          className="text-xs font-medium text-success underline hover:text-success">
+          className="text-xs font-medium text-success underline hover:text-success"
+          title={t("settings:healthSummary.diagnostics", "Health & diagnostics")}
+        >
           {t("settings:healthSummary.diagnostics", "Health & diagnostics")}
         </button>
       </div>

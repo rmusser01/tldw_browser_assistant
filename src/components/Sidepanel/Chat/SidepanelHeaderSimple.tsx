@@ -62,7 +62,13 @@ export const SidepanelHeaderSimple = ({
             type="button"
             aria-label={t("common:chatSidebar.expand", "Open sidebar")}
             onClick={handleSidebarToggle}
-            className="rounded-md p-1.5 text-text-muted hover:bg-surface2 hover:text-text">
+            className="rounded-md p-1.5 text-text-muted hover:bg-surface2 hover:text-text"
+            title={
+              sidebarOpen
+                ? t("common:chatSidebar.collapse", "Collapse sidebar")
+                : t("common:chatSidebar.expand", "Expand sidebar")
+            }
+          >
             <Menu className="size-4" />
           </button>
         </Tooltip>
@@ -91,6 +97,7 @@ export const SidepanelHeaderSimple = ({
             to="/settings"
             aria-label={t("sidepanel:header.openSettingsAria") as string}
             className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
+            title={t("sidepanel:header.settingsShortLabel", "Settings")}
           >
             <CogIcon
               className="size-4"

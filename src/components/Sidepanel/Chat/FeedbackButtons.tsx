@@ -13,10 +13,12 @@ type Props = {
   onOpenDetails?: () => void
   showThanks?: boolean
   disabledReason?: string
+  compact?: boolean
+  className?: string
 }
 
 const baseButton =
-  "inline-flex h-6 w-6 items-center justify-center rounded-full border transition-colors"
+  "inline-flex items-center justify-center rounded-full border transition-colors"
 
 const getThumbClass = (active: boolean, kind: "up" | "down") => {
   if (active) {
@@ -35,7 +37,9 @@ export const FeedbackButtons = ({
   onThumbDown,
   onOpenDetails,
   showThanks = false,
-  disabledReason
+  disabledReason,
+  compact = false,
+  className
 }: Props) => {
   const { t } = useTranslation("playground")
   const label = t("feedback.prompt", "Was this helpful?")
@@ -47,9 +51,13 @@ export const FeedbackButtons = ({
       )
 
   const isDisabled = disabled || isSubmitting
+  const buttonSizeClass = compact ? "h-5 w-5" : "h-6 w-6"
+  const containerClass = compact
+    ? "flex flex-wrap items-center gap-2 text-[11px] text-text-muted"
+    : "mt-2 flex flex-wrap items-center gap-2 text-caption text-text-muted"
 
   return (
-    <div className="mt-2 flex flex-wrap items-center gap-2 text-caption text-text-muted">
+    <div className={[containerClass, className].filter(Boolean).join(" ")}>
       <span>{label}</span>
       <div className="flex items-center gap-1">
         <Tooltip
@@ -64,7 +72,12 @@ export const FeedbackButtons = ({
             aria-pressed={selected === "up"}
             disabled={isDisabled}
             onClick={onThumbUp}
-            className={`${baseButton} ${getThumbClass(
+            title={
+              isDisabled
+                ? disabledHint
+                : t("feedback.thumbsUp", "Helpful")
+            }
+            className={`${baseButton} ${buttonSizeClass} ${getThumbClass(
               selected === "up",
               "up"
             )} ${isDisabled ? "cursor-not-allowed opacity-50" : ""}`}>
@@ -83,7 +96,12 @@ export const FeedbackButtons = ({
             aria-pressed={selected === "down"}
             disabled={isDisabled}
             onClick={onThumbDown}
-            className={`${baseButton} ${getThumbClass(
+            title={
+              isDisabled
+                ? disabledHint
+                : t("feedback.thumbsDown", "Not helpful")
+            }
+            className={`${baseButton} ${buttonSizeClass} ${getThumbClass(
               selected === "down",
               "down"
             )} ${isDisabled ? "cursor-not-allowed opacity-50" : ""}`}>
@@ -99,7 +117,10 @@ export const FeedbackButtons = ({
             aria-label={t("feedback.more", "More feedback")}
             disabled={isDisabled}
             onClick={onOpenDetails}
-            className={`${baseButton} border-border text-text-muted hover:bg-surface2 ${
+            title={
+              isDisabled ? disabledHint : t("feedback.more", "More feedback")
+            }
+            className={`${baseButton} ${buttonSizeClass} border-border text-text-muted hover:bg-surface2 ${
               isDisabled ? "cursor-not-allowed opacity-50" : ""
             }`}>
             <MoreHorizontal className="h-3 w-3" />

@@ -313,6 +313,7 @@ export function VersionHistoryPanel({
       <button
         onClick={() => setExpanded(v => !v)}
         className="w-full flex items-center justify-between px-3 py-2 bg-surface2 hover:bg-surface transition-colors text-text"
+        title={t('mediaPage.versionHistory', 'Version History')}
       >
         <div className="flex items-center gap-2">
           <History className="w-4 h-4 text-text-subtle" />
@@ -435,6 +436,7 @@ export function VersionHistoryPanel({
                             <button
                               onClick={e => e.stopPropagation()}
                               className="p-1 text-text-subtle hover:text-text"
+                              title={t('mediaPage.actionsLabel', 'Actions')}
                             >
                               <MoreHorizontal className="w-3.5 h-3.5" />
                             </button>
@@ -463,6 +465,7 @@ export function VersionHistoryPanel({
                       onClick={() => setPage(p => Math.max(1, p - 1))}
                       disabled={page <= 1}
                       className="p-1 text-text-muted hover:bg-surface2 rounded disabled:opacity-40 disabled:cursor-not-allowed"
+                      title={t('mediaPage.previousPage', 'Previous page')}
                     >
                       <ChevronLeft className="w-4 h-4" />
                     </button>
@@ -470,6 +473,7 @@ export function VersionHistoryPanel({
                       onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                       disabled={page >= totalPages}
                       className="p-1 text-text-muted hover:bg-surface2 rounded disabled:opacity-40 disabled:cursor-not-allowed"
+                      title={t('mediaPage.nextPage', 'Next page')}
                     >
                       <ChevronRight className="w-4 h-4" />
                     </button>

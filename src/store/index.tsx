@@ -10,6 +10,7 @@ export type Message = {
   modelImage?: string
   serverMessageId?: string
   serverMessageVersion?: number
+  createdAt?: number
 }
 
 export type ChatHistory = {

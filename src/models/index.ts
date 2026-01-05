@@ -70,11 +70,16 @@ export const pageAssistModel = async ({
   const resolvedTools = tools ?? storedTools
   const normalizedModelId = String(model || "").replace(/^tldw:/, "")
   let modelSupportsTools = false
+  let modelSupportsMultimodal = false
   try {
     const modelInfo = await tldwModels.getModel(normalizedModelId)
     modelSupportsTools = Boolean(modelInfo?.capabilities?.includes("tools"))
+    modelSupportsMultimodal = Boolean(
+      modelInfo?.capabilities?.includes("vision")
+    )
   } catch {
     modelSupportsTools = false
+    modelSupportsMultimodal = false
   }
   const toolsEnabled =
     modelSupportsTools &&
@@ -226,6 +231,7 @@ export const pageAssistModel = async ({
         : undefined,
     toolChoice: effectiveToolChoice,
     tools: effectiveTools,
+    supportsMultimodal: modelSupportsMultimodal,
     saveToDb: resolvedSaveToDb,
     conversationId: finalConversationId,
     historyMessageLimit: normalizedHistoryMessageLimit,

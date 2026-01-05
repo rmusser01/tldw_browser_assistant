@@ -173,6 +173,7 @@ export function CompactMessage({
             {onRegenerate && (
               <button
                 onClick={onRegenerate}
+                title={t("common:retry", "Retry") as string}
                 className="mt-2 flex items-center gap-2 text-xs text-danger hover:underline"
               >
                 <RotateCcw className="size-3" />
@@ -294,12 +295,14 @@ export function CompactMessage({
                       antdMessage.error(errorMessage)
                     }
                   }}
+                  title={t("common:save", "Save") as string}
                   className="rounded bg-primary px-3 py-1 text-xs text-surface hover:bg-primaryStrong"
                 >
                   {t("common:save", "Save")}
                 </button>
                 <button
                   onClick={() => setEditMode(false)}
+                  title={t("common:cancel", "Cancel") as string}
                   className="rounded px-3 py-1 text-xs text-text-muted hover:bg-surface2 hover:text-text"
                 >
                   {t("common:cancel", "Cancel")}
@@ -358,6 +361,15 @@ export function CompactMessage({
             <div className="mt-2">
               <button
                 onClick={() => setShowSources(!showSources)}
+                title={String(
+                  t("playground:sources.count", {
+                    defaultValue:
+                      sources.length === 1
+                        ? "{{count}} source"
+                        : "{{count}} sources",
+                    count: sources.length
+                  })
+                )}
                 className="flex items-center gap-2 text-xs text-text-muted hover:text-text"
               >
                 {showSources ? <ChevronDown className="size-3" /> : <ChevronRight className="size-3" />}
@@ -376,29 +388,34 @@ export function CompactMessage({
               </button>
               {showSources && (
                 <div className="mt-2 space-y-2 border-l-2 border-border pl-4">
-                  {sources.slice(0, MAX_PREVIEW_SOURCES).map((source, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => onSourceClick?.(source)}
-                      className="block w-full rounded bg-surface2 p-2 text-left text-xs hover:bg-surface"
-                    >
-                      <div className="truncate font-medium text-text">
-                        {source.title ||
-                          source.name ||
-                          translateMessage(
-                            t,
-                            "playground:sources.fallbackTitle",
-                            "Source {{index}}",
-                            { index: idx + 1 }
-                          )}
-                      </div>
-                      {source.snippet && (
-                        <div className="mt-1 truncate text-text-muted">
-                          {source.snippet}
+                  {sources.slice(0, MAX_PREVIEW_SOURCES).map((source, idx) => {
+                    const label =
+                      source.title ||
+                      source.name ||
+                      translateMessage(
+                        t,
+                        "playground:sources.fallbackTitle",
+                        "Source {{index}}",
+                        { index: idx + 1 }
+                      )
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => onSourceClick?.(source)}
+                        title={label}
+                        className="block w-full rounded bg-surface2 p-2 text-left text-xs hover:bg-surface"
+                      >
+                        <div className="truncate font-medium text-text">
+                          {label}
                         </div>
-                      )}
-                    </button>
-                  ))}
+                        {source.snippet && (
+                          <div className="mt-1 truncate text-text-muted">
+                            {source.snippet}
+                          </div>
+                        )}
+                      </button>
+                    )
+                  })}
                   {sources.length > MAX_PREVIEW_SOURCES && (
                     <div className="pl-2 text-xs italic text-text-subtle">
                       {t("playground:sources.more", {

@@ -95,6 +95,7 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
         className="flex w-full items-center justify-between px-3 py-2 text-left transition-colors hover:bg-surface2/50"
         aria-expanded={expanded}
         aria-controls="attachments-panel"
+        title={`${t("playground:attachments.title", "Attachments")} (${totalCount})`}
       >
         <div className="flex items-center gap-3">
           <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-text-subtle">
@@ -131,6 +132,7 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
               }}
               className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
               aria-label={t("playground:attachments.clearAll", "Clear all") as string}
+              title={t("playground:attachments.clearAll", "Clear all") as string}
             >
               <Trash2 className="h-3.5 w-3.5" />
             </button>
@@ -160,6 +162,8 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
                   type="button"
                   onClick={onRemoveImage}
                   className="text-text-subtle hover:text-text"
+                  aria-label={t("common:remove", "Remove") as string}
+                  title={t("common:remove", "Remove") as string}
                 >
                   {t("common:remove", "Remove")}
                 </button>
@@ -169,6 +173,8 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
                   type="button"
                   onClick={onRemoveImage}
                   className="absolute -top-1 -left-1 z-10 flex items-center justify-center rounded-full border border-border bg-surface p-0.5 text-text hover:bg-surface2"
+                  aria-label={t("common:remove", "Remove") as string}
+                  title={t("common:remove", "Remove") as string}
                 >
                   <X className="h-3 w-3" />
                 </button>
@@ -193,6 +199,7 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
                   type="button"
                   onClick={onClearDocuments}
                   className="text-text-subtle hover:text-text"
+                  title={t("playground:composer.clearTabs", "Remove all") as string}
                 >
                   {t("playground:composer.clearTabs", "Remove all")}
                 </button>
@@ -235,6 +242,7 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
                   type="button"
                   onClick={onClearFiles}
                   className="text-text-subtle hover:text-text"
+                  title={t("playground:composer.clearFiles", "Remove all") as string}
                 >
                   {t("playground:composer.clearFiles", "Remove all")}
                 </button>
@@ -258,6 +266,8 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
                       type="button"
                       onClick={() => onRemoveFile(file.id)}
                       className="absolute -top-1 -right-1 invisible rounded-full border border-border bg-surface p-0.5 text-text shadow-sm group-hover:visible hover:bg-surface2"
+                      aria-label={t("common:remove", "Remove") as string}
+                      title={t("common:remove", "Remove") as string}
                     >
                       <X className="h-3 w-3" />
                     </button>

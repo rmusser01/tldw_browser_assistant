@@ -32,6 +32,7 @@ import {
   parseDiff
 } from "@/components/Agent"
 import { useSessionPersistence } from "@/hooks/useSessionPersistence"
+import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
 import type { SessionSaveInput } from "@/services/agent/storage"
 import { sessionToRestoreOutput, generateSessionId } from "@/services/agent/storage"
 import type {
@@ -54,6 +55,7 @@ const { TextArea } = Input
 type TabKey = "chat" | "diff" | "terminal"
 
 const SidepanelAgent: FC = () => {
+  useAutoButtonTitles()
   const { t } = useTranslation(["common", "sidepanel"])
 
   // Workspace state
@@ -615,6 +617,7 @@ const SidepanelAgent: FC = () => {
               onClick={() => setShowHistory(false)}
               className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
               aria-label={t("close", "Close")}
+              title={t("close", "Close")}
             >
               <X className="size-4" />
             </button>

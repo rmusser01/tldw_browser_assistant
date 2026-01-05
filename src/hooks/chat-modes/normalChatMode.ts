@@ -13,6 +13,7 @@ import { maybeInjectActorMessage } from "@/utils/actor"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getSearchSettings } from "@/services/search"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 
 interface WebSearchPayload {
   query: string
@@ -98,6 +99,7 @@ export const normalChatMode = async (
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
   const resolvedUserMessageId =
     !isRegenerate ? userMessageId ?? generateID() : undefined
+  const createdAt = Date.now()
   let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
   const isSharedCompareUser = userMessageType === "compare:user"
@@ -114,6 +116,7 @@ export const normalChatMode = async (
         message,
         sources: [],
         images: image ? [image] : [],
+        createdAt,
         id: resolvedUserMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
@@ -134,6 +137,7 @@ export const normalChatMode = async (
         name: selectedModel,
         message: "▋",
         sources: [],
+        createdAt,
         id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
@@ -150,6 +154,7 @@ export const normalChatMode = async (
       name: selectedModel,
       message: "▋",
       sources: [],
+      createdAt,
       id: resolvedAssistantMessageId,
       modelImage: modelInfo?.model_avatar,
       modelName: modelInfo?.model_name || selectedModel,
@@ -275,9 +280,15 @@ export const normalChatMode = async (
       setStreaming(false)
     } catch (e) {
       console.error(e)
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+        )
+      )
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
@@ -516,10 +527,16 @@ export const normalChatMode = async (
     setStreaming(false)
   } catch (e) {
     console.error(e)
+    const assistantContent = buildAssistantErrorContent(fullText, e)
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+      )
+    )
 
     const errorSave = await saveMessageOnError({
       e,
-      botMessage: fullText,
+      botMessage: assistantContent,
       history,
       historyId,
       image,

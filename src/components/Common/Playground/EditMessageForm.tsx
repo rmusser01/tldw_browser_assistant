@@ -75,13 +75,15 @@ export const EditMessageForm = (props: Props) => {
                 props.onClose()
               }}
               aria-label={t("save")}
+              title={t("save")}
               className="rounded-lg border border-border bg-surface px-2 py-2 text-sm text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus hover:bg-surface2">
               {t("save")}
             </button>
           )}
           <div className="flex space-x-2">
             <button
-              aria-label={t("save")}
+              aria-label={props.isBot ? t("save") : t("saveAndSubmit")}
+              title={props.isBot ? t("save") : t("saveAndSubmit")}
               className="rounded-lg bg-primary px-2 py-2 text-sm text-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus hover:bg-primaryStrong">
               {props.isBot ? t("save") : t("saveAndSubmit")}
             </button>
@@ -89,6 +91,7 @@ export const EditMessageForm = (props: Props) => {
             <button
               onClick={props.onClose}
               aria-label={t("cancel")}
+              title={t("cancel")}
               className="rounded-lg border border-border bg-surface px-2 py-2 text-sm text-text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-focus hover:bg-surface2 hover:text-text">
               {t("cancel")}
             </button>

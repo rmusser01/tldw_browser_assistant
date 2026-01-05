@@ -269,6 +269,10 @@ export const Playground = () => {
               <button
                 type="button"
                 className="inline-flex items-center gap-2 rounded-full border border-primary bg-surface2 px-3 py-1 text-[11px] font-medium text-primaryStrong hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+                title={t(
+                  "playground:composer.compareBreadcrumb",
+                  "Back to comparison chat"
+                )}
                 onClick={() => {
                   window.dispatchEvent(
                     new CustomEvent("tldw:open-history", {
@@ -321,6 +325,7 @@ export const Playground = () => {
               <button
                 type="button"
                 aria-label={t("common:close", "Close")}
+                title={t("common:close", "Close") as string}
                 onClick={closeArtifacts}
                 className="fixed inset-0 z-40 bg-black/40"
               />

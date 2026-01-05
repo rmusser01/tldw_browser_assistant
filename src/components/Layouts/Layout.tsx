@@ -24,6 +24,7 @@ import { useMigration } from "../../hooks/useMigration"
 import { useChatSidebar } from "@/hooks/useFeatureFlags"
 import { ChatSidebar } from "@/components/Common/ChatSidebar"
 import { QuickIngestButton } from "./QuickIngestButton"
+import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
@@ -56,6 +57,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   hideHeader = false,
   showHeaderSelectors = false
 }) => {
+  useAutoButtonTitles()
   const confirmDanger = useConfirmDanger()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [chatSidebarCollapsed, setChatSidebarCollapsed] = useState(false)

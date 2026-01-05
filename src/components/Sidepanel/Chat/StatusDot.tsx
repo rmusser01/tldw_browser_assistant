@@ -87,6 +87,7 @@ export const StatusDot = () => {
         disabled={isChecking}
         className="rounded-full p-1 hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-default"
         aria-label={tooltip}
+        title={tooltip}
       >
         {renderStatusIcon()}
       </button>

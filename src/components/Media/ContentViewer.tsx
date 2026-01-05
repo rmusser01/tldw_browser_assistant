@@ -469,6 +469,7 @@ export function ContentViewer({
                 disabled={!hasPrevious}
                 className="p-1.5 text-text-muted hover:bg-surface2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.prevItem', { defaultValue: 'Previous' })}
+                title={t('review:reviewPage.prevItem', { defaultValue: 'Previous' })}
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -484,6 +485,7 @@ export function ContentViewer({
                 disabled={!hasNext}
                 className="p-1.5 text-text-muted hover:bg-surface2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={t('review:reviewPage.nextItem', { defaultValue: 'Next' })}
+                title={t('review:reviewPage.nextItem', { defaultValue: 'Next' })}
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -505,6 +507,7 @@ export function ContentViewer({
                   onClick={onChatWithMedia}
                   className="p-1.5 text-text-muted hover:bg-surface2 rounded"
                   aria-label={t('review:reviewPage.chatWithMedia', { defaultValue: 'Chat with this media' })}
+                  title={t('review:reviewPage.chatWithMedia', { defaultValue: 'Chat with this media' })}
                 >
                   <MessageSquare className="w-4 h-4" />
                 </button>
@@ -518,6 +521,9 @@ export function ContentViewer({
               <button
                 className="p-1.5 text-text-muted hover:bg-surface2 rounded"
                 aria-label={t('review:mediaPage.actionsLabel', {
+                  defaultValue: 'Actions'
+                })}
+                title={t('review:mediaPage.actionsLabel', {
                   defaultValue: 'Actions'
                 })}
               >
@@ -611,6 +617,7 @@ export function ContentViewer({
               <button
                 onClick={() => toggleSection('content')}
                 className="flex items-center gap-2 hover:bg-surface -ml-1 px-1 rounded transition-colors"
+                title={t('review:mediaPage.content', { defaultValue: 'Content' })}
               >
                 <span className="text-sm font-medium text-text">
                   {t('review:mediaPage.content', { defaultValue: 'Content' })}
@@ -690,6 +697,13 @@ export function ContentViewer({
                   <button
                     onClick={() => setContentExpanded(v => !v)}
                     className="mt-2 text-xs text-primary hover:underline"
+                    title={
+                      contentExpanded
+                        ? t('review:mediaPage.showLess', { defaultValue: 'Show less' })
+                        : t('review:mediaPage.showMore', {
+                            defaultValue: `Show more (${Math.round(content.length / 1000)}k chars)`
+                          })
+                    }
                   >
                     {contentExpanded
                       ? t('review:mediaPage.showLess', { defaultValue: 'Show less' })
@@ -709,6 +723,7 @@ export function ContentViewer({
               <button
                 onClick={() => toggleSection('analysis')}
                 className="flex items-center gap-2 hover:bg-surface -ml-1 px-1 rounded transition-colors"
+                title={t('review:reviewPage.analysisTitle', { defaultValue: 'Analysis' })}
               >
                 <span className="text-sm font-medium text-text">
                   {t('review:reviewPage.analysisTitle', { defaultValue: 'Analysis' })}
@@ -795,6 +810,9 @@ export function ContentViewer({
                               aria-label={t('review:mediaPage.copyAnalysis', {
                                 defaultValue: 'Copy analysis to clipboard'
                               })}
+                              title={t('review:mediaPage.copyAnalysis', {
+                                defaultValue: 'Copy analysis to clipboard'
+                              })}
                             >
                               <Copy className="w-3 h-3" />
                             </button>
@@ -825,6 +843,7 @@ export function ContentViewer({
             <button
               onClick={() => toggleSection('statistics')}
               className="w-full flex items-center justify-between px-3 py-2 bg-surface2 hover:bg-surface transition-colors"
+              title={t('review:mediaPage.statistics', { defaultValue: 'Statistics' })}
             >
               <span className="text-sm font-medium text-text">
                 {t('review:mediaPage.statistics', { defaultValue: 'Statistics' })}
@@ -872,6 +891,7 @@ export function ContentViewer({
             <button
               onClick={() => toggleSection('metadata')}
               className="w-full flex items-center justify-between px-3 py-2 bg-surface2 hover:bg-surface transition-colors"
+              title={t('review:mediaPage.metadata', { defaultValue: 'Metadata' })}
             >
               <span className="text-sm font-medium text-text">
                 {t('review:mediaPage.metadata', { defaultValue: 'Metadata' })}

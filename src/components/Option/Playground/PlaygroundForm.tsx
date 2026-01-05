@@ -633,10 +633,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     messages.forEach((message) => {
       const content = typeof message.message === "string" ? message.message.trim() : ""
       if (!content) return
-      convoMessages.push({
-        role: message.isBot ? "assistant" : "user",
-        content
-      })
+      if (message.isBot) {
+        convoMessages.push({ role: "assistant", content })
+      } else {
+        convoMessages.push({ role: "user", content })
+      }
     })
     if (convoMessages.length === 0) return 0
     return tldwChat.estimateTokens(convoMessages)
@@ -707,6 +708,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           <Tooltip title={apiModelLabel} placement="top">
             <button
               type="button"
+              title={apiModelLabel}
+              aria-label={apiModelLabel}
               className="inline-flex min-w-0 items-center gap-1 rounded-full border border-border bg-surface px-2 h-9 text-[10px] cursor-pointer hover:bg-surface-hover transition-colors"
             >
               <ProviderIcons
@@ -1280,6 +1283,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             <Button
               type="primary"
               size="small"
+              title={t(
+                "playground:composer.persistence.serverCharacterCta",
+                "Open Characters workspace"
+              ) as string}
               onClick={() => {
                 navigate("/characters?from=server-chat-persistence-error")
               }}>
@@ -1790,6 +1797,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           type="button"
           onClick={handleToggleContextTools}
           aria-pressed={contextToolsOpen}
+          title={
+            contextToolsOpen
+              ? (t(
+                  "playground:composer.contextKnowledgeClose",
+                  "Close Ctx + Media"
+                ) as string)
+              : (t(
+                  "playground:composer.contextKnowledge",
+                  "Ctx + Media"
+                ) as string)
+          }
           className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-sm transition ${
             contextToolsOpen
               ? "bg-surface2 text-accent"
@@ -1926,6 +1944,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         <button
           type="button"
           onClick={() => setCompareSettingsOpen(true)}
+          title={compareButtonLabel}
           className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
         >
           <span>{compareButtonLabel}</span>
@@ -1935,6 +1954,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           type="button"
           onClick={handleImageUpload}
           disabled={chatMode === "rag"}
+          title={t("playground:actions.upload", "Attach image") as string}
           className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-40 disabled:text-text-muted"
         >
           <span>{t("playground:actions.upload", "Attach image")}</span>
@@ -1943,6 +1963,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         <button
           type="button"
           onClick={handleDocumentUpload}
+          title={t("tooltip.uploadDocuments") as string}
           className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
         >
           <span>{t("tooltip.uploadDocuments")}</span>
@@ -1952,6 +1973,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           type="button"
           onClick={handleClearContext}
           disabled={history.length === 0}
+          title={t("tooltip.clearContext") as string}
           className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-40 disabled:text-text-muted"
         >
           <span>{t("tooltip.clearContext")}</span>
@@ -2606,6 +2628,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   <button
                                     type="button"
                                     onClick={() => reloadTabs()}
+                                    title={t("common:refresh", "Refresh") as string}
                                     className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                     {t("common:refresh", "Refresh")}
                                   </button>
@@ -2613,6 +2636,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     <button
                                       type="button"
                                       onClick={clearSelectedDocuments}
+                                      title={
+                                        t(
+                                          "playground:composer.clearTabs",
+                                          "Remove all tabs"
+                                        ) as string
+                                      }
                                       className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                       {t(
                                         "playground:composer.clearTabs",
@@ -2640,6 +2669,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                         <button
                                           type="button"
                                           onClick={() => removeDocument(doc.id)}
+                                          aria-label={t("common:remove", "Remove") as string}
+                                          title={t("common:remove", "Remove") as string}
                                           className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
                                           <X className="h-4 w-4" />
                                         </button>
@@ -2678,6 +2709,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                           <button
                                             type="button"
                                             onClick={() => addDocument(tab)}
+                                            title={t("common:add", "Add") as string}
                                             className="rounded-md border border-border px-2 py-1 text-xs font-medium text-text hover:bg-surface2">
                                             {t("common:add", "Add")}
                                           </button>
@@ -2715,6 +2747,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     onClick={() => {
                                       fileInputRef.current?.click()
                                     }}
+                                    title={
+                                      t(
+                                        "playground:composer.addFile",
+                                        "Add file"
+                                      ) as string
+                                    }
                                     className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                     {t("playground:composer.addFile", "Add file")}
                                   </button>
@@ -2722,6 +2760,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     <button
                                       type="button"
                                       onClick={clearUploadedFiles}
+                                      title={
+                                        t(
+                                          "playground:composer.clearFiles",
+                                          "Remove all files"
+                                        ) as string
+                                      }
                                       className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                       {t(
                                         "playground:composer.clearFiles",
@@ -2749,6 +2793,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                         <button
                                           type="button"
                                           onClick={() => removeUploadedFile(file.id)}
+                                          aria-label={t("common:remove", "Remove") as string}
+                                          title={t("common:remove", "Remove") as string}
                                           className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
                                           <X className="h-4 w-4" />
                                         </button>
@@ -2785,6 +2831,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               "common:clearReply",
                               "Clear reply target"
                             )}
+                            title={t(
+                              "common:clearReply",
+                              "Clear reply target"
+                            ) as string}
                             className="rounded p-1 text-text-subtle hover:bg-surface hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
                             <X className="h-3.5 w-3.5" aria-hidden="true" />
                           </button>
@@ -2904,6 +2954,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           onClick={() => form.clearFieldError("message")}
                           className="flex-shrink-0 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
                           aria-label={t("common:dismiss", "Dismiss") as string}
+                          title={t("common:dismiss", "Dismiss") as string}
                         >
                           <X className="h-3 w-3" />
                         </button>
@@ -2970,6 +3021,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 <button
                                   type="button"
                                   onClick={focusConnectionCard}
+                                  title={
+                                    t(
+                                      "playground:composer.persistence.connectToSave",
+                                      "Connect your server to sync chats."
+                                    ) as string
+                                  }
                                   className="mt-1 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-primary hover:text-primaryStrong">
                                   {t(
                                     "playground:composer.persistence.connectToSave",
@@ -2993,6 +3050,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   <button
                                     type="button"
                                     onClick={() => setShowServerPersistenceHint(false)}
+                                    title={t("common:dismiss", "Dismiss") as string}
                                     className="ml-1 text-[11px] font-medium text-primary hover:text-primaryStrong"
                                   >
                                     {t("common:dismiss", "Dismiss")}
@@ -3388,6 +3446,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             onClick={() => setShowConnectBanner(false)}
                             className="inline-flex items-center rounded-full p-1 text-amber-700 hover:bg-amber-100 dark:text-amber-200 dark:hover:bg-[#3a2b10]"
                             aria-label={t("common:close", "Dismiss")}
+                            title={t("common:close", "Dismiss") as string}
                           >
                             <X className="h-3 w-3" />
                           </button>
@@ -3414,6 +3473,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             className={`rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419] ${
                               !isConnectionReady ? "cursor-not-allowed opacity-60" : ""
                             }`}
+                            title={t(
+                              "playground:composer.queuedBanner.sendNow",
+                              "Send queued messages"
+                            ) as string}
                             disabled={!isConnectionReady}
                             onClick={async () => {
                               if (!isConnectionReady) return
@@ -3430,6 +3493,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           <button
                             type="button"
                             className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300"
+                            title={t(
+                              "playground:composer.queuedBanner.clear",
+                              "Clear queue"
+                            ) as string}
                             onClick={() => {
                               clearQueuedMessages()
                             }}>
@@ -3451,7 +3518,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             type="button"
                             onClick={() => setShowQueuedBanner(false)}
                             className="inline-flex items-center rounded-full p-1 text-green-700 hover:bg-green-100 dark:text-green-200 dark:hover:bg-[#163816]"
-                            aria-label={t("common:close", "Dismiss")}>
+                            aria-label={t("common:close", "Dismiss")}
+                            title={t("common:close", "Dismiss") as string}>
                             <X className="h-3 w-3" />
                           </button>
                         </div>

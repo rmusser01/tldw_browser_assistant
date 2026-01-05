@@ -56,6 +56,7 @@ const PerModelMiniComposer: React.FC<{
         <button
           type="submit"
           disabled={disabled || value.trim().length === 0}
+          title={t("common:send", "Send") as string}
           className="rounded bg-primary px-2 py-1 text-[11px] font-medium text-surface disabled:cursor-not-allowed disabled:opacity-60 hover:bg-primaryStrong">
           {t("common:send", "Send")}
         </button>
@@ -246,6 +247,7 @@ export const PlaygroundChat = () => {
                 openReasoning={openReasoning}
                 modelImage={message?.modelImage}
                 modelName={message?.modelName}
+                createdAt={message?.createdAt}
                 temporaryChat={temporaryChat}
                 onStopStreaming={stopStreamingRequest}
                 onContinue={() => {
@@ -459,6 +461,7 @@ export const PlaygroundChat = () => {
                 openReasoning={openReasoning}
                 modelImage={userMessage?.modelImage}
                 modelName={userMessage?.modelName}
+                createdAt={userMessage?.createdAt}
                 temporaryChat={temporaryChat}
                 onStopStreaming={stopStreamingRequest}
                 onContinue={() => {
@@ -498,6 +501,17 @@ export const PlaygroundChat = () => {
                     <button
                       type="button"
                       onClick={() => setClusterCollapsed(!isCollapsed)}
+                      title={
+                        isCollapsed
+                          ? (t(
+                              "common:timeline.expandAllAlternatives",
+                              "Expand all alternatives"
+                            ) as string)
+                          : (t(
+                              "common:timeline.collapseAllAlternatives",
+                              "Collapse all alternatives"
+                            ) as string)
+                      }
                       className="text-[10px] font-medium text-primary hover:underline">
                       {isCollapsed
                         ? t(
@@ -529,6 +543,7 @@ export const PlaygroundChat = () => {
                             key={`filter-${block.clusterId}-${modelKey}`}
                             type="button"
                             onClick={() => toggleModelFilter(modelKey)}
+                            title={getModelLabel(modelKey)}
                             className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium transition ${
                               isHidden
                                 ? "border-border bg-surface text-text-subtle"
@@ -550,6 +565,10 @@ export const PlaygroundChat = () => {
                       <button
                         type="button"
                         onClick={clearModelFilter}
+                        title={t(
+                          "playground:composer.compareFilterClear",
+                          "Show all"
+                        ) as string}
                         className="text-[10px] font-medium text-primary hover:underline"
                       >
                         {t(
@@ -583,6 +602,10 @@ export const PlaygroundChat = () => {
                       type="button"
                       onClick={handleBulkSplit}
                       disabled={!compareFeatureEnabled}
+                      title={t(
+                        "playground:composer.compareBulkSplit",
+                        "Open each selected answer as its own chat"
+                      ) as string}
                       className={`rounded border border-border bg-surface px-2 py-0.5 text-[10px] font-medium text-text hover:bg-surface2 ${
                         !compareFeatureEnabled
                           ? "cursor-not-allowed opacity-50"
@@ -753,6 +776,7 @@ export const PlaygroundChat = () => {
                         openReasoning={openReasoning}
                         modelImage={message?.modelImage}
                         modelName={message?.modelName}
+                        createdAt={message?.createdAt}
                         temporaryChat={temporaryChat}
                         onStopStreaming={stopStreamingRequest}
                         onContinue={() => {
@@ -824,6 +848,10 @@ export const PlaygroundChat = () => {
                             type="button"
                             onClick={handleOpenFullChat}
                             disabled={!compareFeatureEnabled}
+                            title={t(
+                              "playground:composer.compareOpenFullChat",
+                              "Open as full chat"
+                            ) as string}
                             className={`text-primary hover:underline ${
                               !compareFeatureEnabled
                                 ? "cursor-not-allowed opacity-50 no-underline"
@@ -878,6 +906,10 @@ export const PlaygroundChat = () => {
                                   })
                                 )
                               }}
+                              title={t(
+                                "playground:composer.compareSpawnedChat",
+                                "Open split chat"
+                              ) as string}
                               className="text-[10px] text-text-muted hover:text-text underline">
                               {t(
                                 "playground:composer.compareSpawnedChat",
@@ -895,6 +927,17 @@ export const PlaygroundChat = () => {
                                   currentCanonical === message.id ? null : message.id
                                 setCompareCanonicalForCluster(block.clusterId, next)
                               }}
+                              title={
+                                compareCanonicalByCluster[block.clusterId] === message.id
+                                  ? (t(
+                                      "playground:composer.compareCanonicalOn",
+                                      "Canonical"
+                                    ) as string)
+                                  : (t(
+                                      "playground:composer.compareCanonicalOff",
+                                      "Pin as canonical"
+                                    ) as string)
+                              }
                               className={`rounded px-2 py-0.5 text-[10px] font-medium border transition ${
                                 compareCanonicalByCluster[block.clusterId] ===
                                 message.id
@@ -957,6 +1000,10 @@ export const PlaygroundChat = () => {
                             onClick={() =>
                               handleContinueWithModel(clusterActiveModels[0])
                             }
+                            title={t(
+                              "playground:composer.compareContinue",
+                              "Continue with this model"
+                            ) as string}
                             className="rounded border border-primary bg-primary px-2 py-0.5 text-[10px] font-medium text-white hover:bg-primaryStrong">
                             {t(
                               "playground:composer.compareContinue",
@@ -968,6 +1015,10 @@ export const PlaygroundChat = () => {
                             type="button"
                             onClick={handleCompareAgain}
                             disabled={!compareFeatureEnabled}
+                            title={t(
+                              "playground:composer.compareButton",
+                              "Compare models"
+                            ) as string}
                             className={`rounded border border-primary px-2 py-0.5 text-[10px] font-medium ${
                               compareFeatureEnabled
                                 ? "border-primary bg-surface text-primary hover:bg-surface2"

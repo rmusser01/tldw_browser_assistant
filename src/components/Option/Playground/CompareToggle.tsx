@@ -96,6 +96,7 @@ export const CompareToggle: React.FC<CompareToggleProps> = ({
               onClick={() => onRemoveModel(modelId)}
               className="flex-shrink-0 rounded p-0.5 text-text-subtle hover:bg-surface2 hover:text-text"
               aria-label={t("common:remove", "Remove") as string}
+              title={t("common:remove", "Remove") as string}
             >
               <X className="h-3.5 w-3.5" />
             </button>
@@ -139,6 +140,7 @@ export const CompareToggle: React.FC<CompareToggleProps> = ({
             onOpenSettings()
           }}
           className="flex w-full items-center justify-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs text-text-muted hover:bg-surface2 hover:text-text"
+          title={t("playground:compare.moreSettings", "More settings") as string}
         >
           <Settings2 className="h-3.5 w-3.5" />
           {t("playground:compare.moreSettings", "More settings")}
@@ -189,6 +191,7 @@ export const CompareToggle: React.FC<CompareToggleProps> = ({
           <button
             type="button"
             className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-1 text-[10px] text-text-muted hover:bg-surface2"
+            title={t("playground:compare.selectedModels", "Selected models") as string}
           >
             {selectedModels.slice(0, 2).map((modelId) => (
               <span
@@ -226,6 +229,7 @@ export const CompareToggle: React.FC<CompareToggleProps> = ({
           <button
             type="button"
             className="inline-flex items-center gap-1 rounded-full border border-dashed border-primary/50 px-2 py-1 text-[10px] text-primary hover:bg-primary/5"
+            title={t("playground:compare.addModels", "Add models") as string}
           >
             <Plus className="h-3 w-3" />
             {t("playground:compare.addModels", "Add models")}

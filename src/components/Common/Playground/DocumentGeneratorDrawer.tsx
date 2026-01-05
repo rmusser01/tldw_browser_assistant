@@ -633,6 +633,10 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
                   size="small"
                   onClick={loadPromptConfig}
                   loading={promptLoading}
+                  title={t(
+                    "playground:documentGenerator.promptReload",
+                    "Reload from server"
+                  ) as string}
                 >
                   <RefreshCw className="h-3 w-3" />
                 </Button>
@@ -681,7 +685,11 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
                   </Form.Item>
                 </div>
                 <div className="flex justify-end">
-                  <Button onClick={savePromptConfig} type="primary">
+                  <Button
+                    onClick={savePromptConfig}
+                    type="primary"
+                    title={t("common:save", "Save") as string}
+                  >
                     {t("common:save", "Save")}
                   </Button>
                 </div>
@@ -696,10 +704,15 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
             onClick={handleGenerate}
             loading={isGenerating}
             disabled={!canGenerate}
+            title={t("common:generate", "Generate") as string}
           >
             {t("common:generate", "Generate")}
           </Button>
-          <Button onClick={refreshDocuments} disabled={!conversationId}>
+          <Button
+            onClick={refreshDocuments}
+            disabled={!conversationId}
+            title={t("common:refresh", "Refresh") as string}
+          >
             {t("common:refresh", "Refresh")}
           </Button>
         </div>
@@ -750,6 +763,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
                       <Button
                         size="small"
                         onClick={() => setActiveDoc(doc)}
+                        title={t("common:view", "View") as string}
                       >
                         {t("common:view", "View")}
                       </Button>
@@ -757,6 +771,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
                         size="small"
                         danger
                         onClick={() => handleDeleteDocument(doc.id)}
+                        title={t("common:delete", "Delete") as string}
                       >
                         <Trash2 className="h-3 w-3" />
                       </Button>
@@ -809,7 +824,11 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
                       )}
                     </div>
                     <div className="flex items-center gap-1">
-                      <Button size="small" onClick={refreshJobs}>
+                      <Button
+                        size="small"
+                        onClick={refreshJobs}
+                        title={t("common:refresh", "Refresh") as string}
+                      >
                         {t("common:refresh", "Refresh")}
                       </Button>
                       {!["completed", "failed", "cancelled"].includes(
@@ -819,6 +838,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
                           size="small"
                           danger
                           onClick={() => handleCancelJob(job.job_id)}
+                          title={t("common:cancel", "Cancel") as string}
                         >
                           {t("common:cancel", "Cancel")}
                         </Button>
@@ -864,3 +884,5 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
     </Drawer>
   )
 }
+
+export default DocumentGeneratorDrawer

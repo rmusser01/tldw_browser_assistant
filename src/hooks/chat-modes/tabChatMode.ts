@@ -16,6 +16,7 @@ import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import { getTabContents } from "@/libs/get-tab-contents"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 
 export const tabChatMode = async (
   message: string,
@@ -81,6 +82,7 @@ export const tabChatMode = async (
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
   const resolvedUserMessageId =
     !isRegenerate ? userMessageId ?? generateID() : undefined
+  const createdAt = Date.now()
   let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
 
@@ -98,6 +100,7 @@ export const tabChatMode = async (
           message,
           sources: [],
           images: image ? [image] : [],
+          createdAt,
           documents,
           id: resolvedUserMessageId,
           messageType: userMessageType,
@@ -110,6 +113,7 @@ export const tabChatMode = async (
           name: selectedModel,
           message: "▋",
           sources: [],
+          createdAt,
           id: resolvedAssistantMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || selectedModel,
@@ -128,6 +132,7 @@ export const tabChatMode = async (
         name: selectedModel,
         message: "▋",
         sources: [],
+        createdAt,
         id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
@@ -322,9 +327,15 @@ export const tabChatMode = async (
     setStreaming(false)
   } catch (e) {
     console.error("tabChatMode error:", e)
+    const assistantContent = buildAssistantErrorContent(fullText, e)
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+      )
+    )
     const errorSave = await saveMessageOnError({
       e,
-      botMessage: fullText,
+      botMessage: assistantContent,
       history,
       historyId,
       image,

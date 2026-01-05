@@ -17,6 +17,7 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 
 type RagModeParams = {
   selectedModel: string
@@ -100,6 +101,7 @@ export const ragMode = async (
   const resolvedAssistantMessageId = assistantMessageId ?? generateID()
   const resolvedUserMessageId =
     !isRegenerate ? userMessageId ?? generateID() : undefined
+  const createdAt = Date.now()
   let generateMessageId = resolvedAssistantMessageId
   const modelInfo = await getModelNicknameByID(selectedModel)
 
@@ -117,6 +119,7 @@ export const ragMode = async (
           message,
           sources: [],
           images: [],
+          createdAt,
           id: resolvedUserMessageId,
           messageType: userMessageType,
           clusterId,
@@ -128,6 +131,7 @@ export const ragMode = async (
           name: selectedModel,
           message: "▋",
           sources: [],
+          createdAt,
           id: resolvedAssistantMessageId,
           modelImage: modelInfo?.model_avatar,
           modelName: modelInfo?.model_name || selectedModel,
@@ -146,6 +150,7 @@ export const ragMode = async (
         name: selectedModel,
         message: "▋",
         sources: [],
+        createdAt,
         id: resolvedAssistantMessageId,
         modelImage: modelInfo?.model_avatar,
         modelName: modelInfo?.model_name || selectedModel,
@@ -410,9 +415,15 @@ export const ragMode = async (
     setStreaming(false)
   } catch (e) {
     console.log(e)
+    const assistantContent = buildAssistantErrorContent(fullText, e)
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === generateMessageId ? { ...msg, message: assistantContent } : msg
+      )
+    )
     const errorSave = await saveMessageOnError({
       e,
-      botMessage: fullText,
+      botMessage: assistantContent,
       history,
       historyId,
       image,

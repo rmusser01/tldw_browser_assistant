@@ -1162,6 +1162,7 @@ export const SidepanelForm = ({
                           onClick={() => form.clearFieldError("message")}
                           className="flex-shrink-0 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
                           aria-label={t("common:dismiss", "Dismiss")}
+                          title={t("common:dismiss", "Dismiss")}
                         >
                           <X className="h-3 w-3" />
                         </button>
@@ -1251,6 +1252,20 @@ export const SidepanelForm = ({
                                             : ""
                                         }`}
                                         aria-label={
+                                          !speechAvailable
+                                            ? (t(
+                                                "playground:actions.speechUnavailableTitle",
+                                                "Dictation unavailable"
+                                              ) as string)
+                                            : speechUsesServer
+                                              ? (isServerDictating
+                                                  ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                                  : (t("playground:actions.speechStart", "Start dictation") as string))
+                                            : (isListening
+                                                ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                                : (t("playground:actions.speechStart", "Start dictation") as string))
+                                        }
+                                        title={
                                           !speechAvailable
                                             ? (t(
                                                 "playground:actions.speechUnavailableTitle",
@@ -1388,7 +1403,12 @@ export const SidepanelForm = ({
                                     <button
                                       type="button"
                                       onClick={() => setOpenModelSettings(true)}
-                                      className="rounded-md p-1 text-text-muted hover:bg-surface2 hover:text-text">
+                                      className="rounded-md p-1 text-text-muted hover:bg-surface2 hover:text-text"
+                                      title={t(
+                                        "playground:composer.openModelSettings",
+                                        "Open current chat settings"
+                                      )}
+                                    >
                                       <Gauge className="h-5 w-5" />
                                       <span className="sr-only">
                                         {t(
@@ -1406,7 +1426,12 @@ export const SidepanelForm = ({
                                       type="button"
                                       onClick={stopStreamingRequest}
                                       data-testid="chat-stop-streaming"
-                                      className="rounded-md border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
+                                      className="rounded-md border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text"
+                                      title={t(
+                                        "playground:composer.stopStreaming",
+                                        "Stop streaming response"
+                                      )}
+                                    >
                                       <StopCircleIcon className="h-5 w-5" />
                                       <span className="sr-only">
                                         {t(
@@ -1424,7 +1449,12 @@ export const SidepanelForm = ({
                                     <button
                                       type="button"
                                       onClick={() => setOpenModelSettings(true)}
-                                      className="rounded-md border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
+                                      className="rounded-md border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text"
+                                      title={t(
+                                        "playground:composer.openModelSettings",
+                                        "Open current chat settings"
+                                      )}
+                                    >
                                       <Gauge className="h-5 w-5" />
                                       <span className="sr-only">
                                         {t(
@@ -1450,6 +1480,10 @@ export const SidepanelForm = ({
                                 onClick={openUploadDialog}
                                 className="h-9 w-9 rounded-full border border-border p-0 text-text-muted hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
                                 aria-label={t(
+                                  "playground:actions.upload",
+                                  "Attach image"
+                                )}
+                                title={t(
                                   "playground:actions.upload",
                                   "Attach image"
                                 )}
@@ -1497,6 +1531,20 @@ export const SidepanelForm = ({
                                         ? (isServerDictating
                                             ? (t("playground:actions.speechStop", "Stop dictation") as string)
                                             : (t("playground:actions.speechStart", "Start dictation") as string))
+                                      : (isListening
+                                          ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                          : (t("playground:actions.speechStart", "Start dictation") as string))
+                                  }
+                                  title={
+                                    !speechAvailable
+                                      ? (t(
+                                          "playground:actions.speechUnavailableTitle",
+                                          "Dictation unavailable"
+                                        ) as string)
+                                      : speechUsesServer
+                                        ? (isServerDictating
+                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                            : (t("playground:actions.speechStart", "Start dictation") as string))
                                         : (isListening
                                             ? (t("playground:actions.speechStop", "Stop dictation") as string)
                                             : (t("playground:actions.speechStart", "Start dictation") as string))
@@ -1531,6 +1579,10 @@ export const SidepanelForm = ({
                                   data-testid="chat-stop-streaming"
                                   className="h-9 w-9 rounded-full border border-border p-0 text-text-muted hover:bg-surface2 hover:text-text"
                                   aria-label={t(
+                                    "playground:composer.stopStreaming",
+                                    "Stop streaming response"
+                                  )}
+                                  title={t(
                                     "playground:composer.stopStreaming",
                                     "Stop streaming response"
                                   )}

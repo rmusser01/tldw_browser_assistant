@@ -227,5 +227,115 @@ module.exports = {
 - [ ] Wire mode badges and offline banners to actual state (Light/Heavy, connectivity).
 - [ ] Run accessibility checks: focus traps for modals, badges/alerts announced to screen readers, hit areas ≥40px, reduced-motion respected.
 
+## Component Library
+
+The design system provides reusable UI components in `src/components/ui/`. Import from `@/components/ui`.
+
+### Alert
+Inline alerts and banners for feedback messages.
+```tsx
+import { Alert } from "@/components/ui"
+
+<Alert variant="warning" title="Connection issue">
+  Unable to reach server. Retrying...
+</Alert>
+
+<Alert
+  variant="error"
+  action={{ label: "Retry", onClick: handleRetry }}
+  dismissible
+  onDismiss={() => setDismissed(true)}
+>
+  Failed to save changes.
+</Alert>
+```
+Variants: `info`, `success`, `warning`, `error`
+
+### Badge
+Status indicators, labels, and counts.
+```tsx
+import { Badge } from "@/components/ui"
+
+<Badge variant="success">Complete</Badge>
+<Badge variant="warning" dot>Pending</Badge>
+<Badge variant="danger" outline>Error</Badge>
+```
+Variants: `primary`, `secondary`, `success`, `warning`, `danger`, `info`, `demo`
+
+### EmptyState
+Display when there's no content.
+```tsx
+import { EmptyState } from "@/components/ui"
+
+<EmptyState
+  icon={FileText}
+  title="No documents"
+  description="Upload a document to get started"
+  primaryAction={{ label: "Upload", onClick: handleUpload }}
+/>
+```
+Variants: `card` (default), `inline`, `fullPage`
+
+### LoadingState
+Unified loading indicators.
+```tsx
+import { LoadingState } from "@/components/ui"
+
+<LoadingState mode="spinner" label="Loading..." />
+<LoadingState mode="skeleton" rows={4} />
+<LoadingState
+  sources={[
+    { key: "local", loading: isLocalLoading, label: "Local" },
+    { key: "server", loading: isServerLoading, label: "Server" },
+  ]}
+  showLabels
+>
+  <Content />
+</LoadingState>
+```
+Modes: `spinner`, `skeleton`, `dots`, `inline`
+
+### ModalFooter
+Standardized modal action buttons.
+```tsx
+import { ModalFooter } from "@/components/ui"
+
+<Modal footer={null}>
+  {/* content */}
+  <ModalFooter
+    primaryAction={{ label: "Save", onClick: handleSave, loading: isSaving }}
+    onCancel={handleClose}
+  />
+</Modal>
+```
+
+## Design Tokens
+
+Import from `@/styles/tokens` for consistent styling:
+```tsx
+import { spacing, fontSize, statusColors, duration } from "@/styles/tokens"
+```
+
+Available token categories:
+- `spacing`, `padding`, `margin` - Layout spacing
+- `fontSize`, `fontFamily`, `fontWeight` - Typography
+- `statusColors`, `bgColor`, `textColor` - Colors
+- `duration`, `easing`, `transition` - Motion
+- `zIndex`, `container`, `touchTarget` - Layout
+- `borderRadius`, `borderWidth` - Borders
+- `shadow` - Elevation
+- `focusRing` - Accessibility
+
+## Ant Design vs Custom Components
+
+| Use Ant Design | Use Custom (`@/components/ui`) |
+|----------------|-------------------------------|
+| Modal, Table, Form, Select | Alert, Badge, EmptyState |
+| DatePicker, Tabs, Tooltip | LoadingState, ModalFooter |
+| Dropdown, ConfigProvider | Button, IconButton (in Common/) |
+
+**Rationale**: Use Ant Design for complex accessibility (focus trap, virtual scroll). Use custom for simple components matching our design tokens.
+
 ## Changelog
+- v0.2: Added Component Library section, synced colors with tailwind.css, added design tokens reference
 - v0.1 (draft): Foundations, tokens, component and pattern guidance for Light/Heavy flows.

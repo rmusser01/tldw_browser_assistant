@@ -11,8 +11,7 @@ import { ChatDocuments } from "@/models/ChatTypes"
 import { generateTitle } from "@/services/title"
 import { ChatHistory } from "@/store/option"
 import { updatePageTitle } from "@/utils/update-page-title"
-import { buildFriendlyErrorMessage } from "@/utils/chat-error-message"
-import { formatErrorMessage } from "@/utils/format-error-message"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 
 export const saveMessageOnError = async ({
   e,
@@ -74,12 +73,7 @@ export const saveMessageOnError = async ({
     e?.message?.includes?.("AbortError")
   )
 
-  // Compose assistant message content: prefer partial botMessage, else show error detail
-  const errText = formatErrorMessage(e, "Request failed")
-  const assistantContent =
-    botMessage && String(botMessage).trim().length > 0
-      ? String(botMessage)
-      : buildFriendlyErrorMessage(errText)
+  const assistantContent = buildAssistantErrorContent(botMessage, e)
 
   if (isAbort) {
     setHistory([

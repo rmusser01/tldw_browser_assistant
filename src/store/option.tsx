@@ -35,6 +35,7 @@ export type Message = {
   images?: string[]
   search?: WebSearch
   reasoning_time_taken?: number
+  createdAt?: number
   id?: string
   messageType?: string
   generationInfo?: any

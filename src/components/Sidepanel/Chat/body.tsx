@@ -118,6 +118,7 @@ export const SidePanelBody = ({
                   openReasoning={openReasoning}
                   modelImage={message?.modelImage}
                   modelName={message?.modelName}
+                  createdAt={message?.createdAt}
                   temporaryChat={temporaryChat}
                   onStopStreaming={stopStreamingRequest}
                   serverChatId={serverChatId}

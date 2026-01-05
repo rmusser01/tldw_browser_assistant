@@ -25,25 +25,67 @@ export interface TldwModel {
   json_output?: boolean
 }
 
-type TextContent = string
-type ImageUrlPart = {
-  type: "image_url"
-  image_url: {
-    url: string
-    detail?: string
-  }
-}
-type TextPart = {
+export type ChatCompletionContentPartText = {
   type: "text"
   text: string
 }
-type ContentPart = string | TextPart | ImageUrlPart
-export type MessageContent = string | ContentPart[]
 
-export interface ChatMessage {
-  role: 'system' | 'user' | 'assistant'
-  content: MessageContent
+export type ChatCompletionContentPartImage = {
+  type: "image_url"
+  image_url: {
+    url: string
+    detail?: "auto" | "low" | "high" | null
+  }
 }
+
+export type ChatCompletionContentPart =
+  | ChatCompletionContentPartText
+  | ChatCompletionContentPartImage
+
+export type ChatCompletionUserContent = string | ChatCompletionContentPart[]
+
+export type ChatCompletionAssistantContent = string | null
+
+export type ChatCompletionToolCall = {
+  id: string
+  type: "function"
+  function: {
+    name: string
+    arguments?: string | null
+    parameters?: Record<string, unknown> | null
+    description?: string | null
+  }
+}
+
+export type FunctionCall = {
+  name: string
+  arguments: string
+}
+
+export type ChatMessage =
+  | {
+      role: "system"
+      content: string
+      name?: string | null
+    }
+  | {
+      role: "user"
+      content: ChatCompletionUserContent
+      name?: string | null
+    }
+  | {
+      role: "assistant"
+      content: ChatCompletionAssistantContent
+      name?: string | null
+      tool_calls?: ChatCompletionToolCall[] | null
+      function_call?: FunctionCall | null
+    }
+  | {
+      role: "tool"
+      content: string
+      tool_call_id: string
+      name?: string | null
+    }
 
 export interface ChatCompletionRequest {
   messages: ChatMessage[]

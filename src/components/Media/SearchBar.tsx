@@ -52,6 +52,7 @@ export function SearchBar({
             showClearAll ? 'right-10' : 'right-3'
           }`}
           aria-label={t('mediaPage.clearSearch', 'Clear search')}
+          title={t('mediaPage.clearSearch', 'Clear search')}
           type="button"
         >
           <X className="w-5 h-5" />
@@ -64,6 +65,7 @@ export function SearchBar({
             onClick={handleClearAll}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-warn hover:text-warn"
             aria-label={t('mediaPage.clearAllFilters', 'Clear search and filters')}
+            title={t('mediaPage.clearAllFilters', 'Clear search and filters')}
             type="button"
           >
             <FilterX className="w-5 h-5" />

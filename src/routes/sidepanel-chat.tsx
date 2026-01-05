@@ -38,6 +38,7 @@ import type {
 } from "@/store/sidepanel-chat-tabs"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useUiModeStore } from "@/store/ui-mode"
+import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
 import { useArtifactsStore } from "@/store/artifacts"
 import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 
@@ -148,6 +149,7 @@ const applyChatModelSettingsSnapshot = (
 }
 
 const SidepanelChat = () => {
+  useAutoButtonTitles()
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
@@ -1264,6 +1266,7 @@ const SidepanelChat = () => {
             aria-label={t("common:close", "Close")}
             onClick={closeArtifacts}
             className="fixed inset-0 z-40 bg-black/40"
+            title={t("common:close", "Close")}
           />
           <div className="fixed inset-y-0 right-0 z-50 w-full max-w-[520px]">
             <ArtifactsPanel />

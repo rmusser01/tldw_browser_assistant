@@ -120,7 +120,13 @@ export const ArtifactsPanel = () => {
             <button
               type="button"
               onClick={() => setPinned(!isPinned)}
-              className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+              className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+              title={
+                isPinned
+                  ? t("artifactsUnpin", "Unpin")
+                  : t("artifactsPin", "Pin")
+              }
+            >
               {isPinned ? (
                 <PinOff className="h-4 w-4" />
               ) : (
@@ -132,7 +138,9 @@ export const ArtifactsPanel = () => {
             <button
               type="button"
               onClick={closeArtifact}
-              className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+              className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+              title={t("artifactsClose", "Close")}
+            >
               <X className="h-4 w-4" />
             </button>
           </Tooltip>
@@ -222,7 +230,9 @@ export const ArtifactsPanel = () => {
           <button
             type="button"
             onClick={handleCopy}
-            className="inline-flex items-center gap-1 rounded-full border border-border bg-surface2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-text hover:bg-surface">
+            className="inline-flex items-center gap-1 rounded-full border border-border bg-surface2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-text hover:bg-surface"
+            title={t("artifactsCopy", "Copy")}
+          >
             <CopyIcon className="h-3 w-3" />
             <span>{t("artifactsCopy", "Copy")}</span>
           </button>
@@ -231,7 +241,9 @@ export const ArtifactsPanel = () => {
           <button
             type="button"
             onClick={handleDownload}
-            className="inline-flex items-center gap-1 rounded-full border border-border bg-surface2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-text hover:bg-surface">
+            className="inline-flex items-center gap-1 rounded-full border border-border bg-surface2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-text hover:bg-surface"
+            title={t("artifactsDownload", "Download")}
+          >
             <DownloadIcon className="h-3 w-3" />
             <span>{t("artifactsDownload", "Download")}</span>
           </button>
@@ -239,7 +251,9 @@ export const ArtifactsPanel = () => {
         <button
           type="button"
           disabled
-          className="inline-flex items-center gap-1 rounded-full border border-border bg-surface2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-text-muted opacity-70">
+          className="inline-flex items-center gap-1 rounded-full border border-border bg-surface2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-text-muted opacity-70"
+          title={t("artifactsRun", "Run (N/A)")}
+        >
           <PlayCircle className="h-3 w-3" />
           <span>{t("artifactsRun", "Run (N/A)")}</span>
         </button>

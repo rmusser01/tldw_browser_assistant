@@ -31,6 +31,7 @@ export const ModeToggle = () => {
               type="button"
               onClick={() => setMode(button.id)}
               aria-pressed={isActive}
+              title={button.label}
               className={classNames(
                 "rounded-full px-3 py-1 text-caption font-medium transition",
                 isActive

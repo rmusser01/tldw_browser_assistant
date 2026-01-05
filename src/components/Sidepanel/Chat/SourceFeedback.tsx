@@ -63,6 +63,7 @@ export const SourceFeedback = ({
             aria-pressed={selected === "up"}
             disabled={isDisabled}
             onClick={() => onRate?.(sourceKey, source, "up")}
+            title={t("feedback.sourceHelpful", "Helpful source")}
             className={`${buttonBase} ${
               selected === "up"
                 ? "border-emerald-200 bg-emerald-50 text-emerald-600 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
@@ -78,6 +79,7 @@ export const SourceFeedback = ({
             aria-pressed={selected === "down"}
             disabled={isDisabled}
             onClick={() => onRate?.(sourceKey, source, "down")}
+            title={t("feedback.sourceUnhelpful", "Unhelpful source")}
             className={`${buttonBase} ${
               selected === "down"
                 ? "border-rose-200 bg-rose-50 text-rose-600 dark:border-rose-700 dark:bg-rose-900/30 dark:text-rose-300"

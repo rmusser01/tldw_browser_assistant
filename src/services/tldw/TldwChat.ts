@@ -11,48 +11,64 @@ type OpenAiTool = {
   function: ToolFunction
 }
 
+const TOOL_NAME_PATTERN = /^[a-zA-Z0-9_-]{1,64}$/
+
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value)
+
+const sanitizeToolName = (name: string): string | null => {
+  const trimmed = name.trim()
+  if (!trimmed) return null
+  if (TOOL_NAME_PATTERN.test(trimmed)) return trimmed
+
+  let sanitized = trimmed.replace(/[^a-zA-Z0-9_-]+/g, "_")
+  sanitized = sanitized.replace(/^_+|_+$/g, "")
+  if (!sanitized) return null
+  if (sanitized.length > 64) sanitized = sanitized.slice(0, 64)
+  return TOOL_NAME_PATTERN.test(sanitized) ? sanitized : null
+}
 
 const normalizeChatTools = (
   tools?: Record<string, unknown>[]
 ): Record<string, unknown>[] | undefined => {
   if (!Array.isArray(tools) || tools.length === 0) return undefined
 
+  const seen = new Set<string>()
   const normalized = tools
     .map((tool) => {
       if (!isRecord(tool)) return null
 
-      if (
-        typeof tool.type === "string" &&
-        isRecord(tool.function) &&
-        typeof tool.function.name === "string"
-      ) {
-        return tool as OpenAiTool
-      }
-
-      const name =
-        (typeof tool.name === "string" && tool.name.trim()) ||
-        (isRecord(tool.function) &&
-        typeof tool.function.name === "string" &&
-        tool.function.name.trim()
-          ? tool.function.name.trim()
+      const functionRecord = isRecord(tool.function) ? tool.function : undefined
+      const rawName =
+        (typeof tool.name === "string" && tool.name) ||
+        (functionRecord &&
+        typeof functionRecord.name === "string" &&
+        functionRecord.name
+          ? functionRecord.name
           : "")
-      if (!name) return null
+      const name = rawName ? sanitizeToolName(rawName) : null
+      if (!name || seen.has(name)) return null
+
+      if (rawName !== name) {
+        console.warn(
+          `[tldw] Tool name "${rawName}" normalized to "${name}" to satisfy server schema.`
+        )
+      }
+      seen.add(name)
 
       const description =
         typeof tool.description === "string"
           ? tool.description
-          : isRecord(tool.function) &&
-              typeof tool.function.description === "string"
-            ? tool.function.description
+          : functionRecord &&
+              typeof functionRecord.description === "string"
+            ? functionRecord.description
             : undefined
 
       const schemaCandidates: Array<unknown> = [
+        functionRecord?.parameters,
         tool.parameters,
         tool.input_schema,
-        tool.json_schema,
-        isRecord(tool.function) ? tool.function.parameters : undefined
+        tool.json_schema
       ]
       const parameters =
         (schemaCandidates.find((candidate) =>

@@ -20,6 +20,7 @@ export type Message = {
   clusterId?: string
   modelId?: string
   parentMessageId?: string | null
+  createdAt?: number
   id?: string
   generationInfo?: any
   reasoning_time_taken?: number

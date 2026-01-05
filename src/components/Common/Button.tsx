@@ -97,7 +97,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={onClick}
         aria-label={ariaLabel}
         aria-busy={loading}
-        title={title}
+        title={title ?? ariaLabel}
       >
         {loading && <Loader2 className="h-4 w-4 animate-spin" />}
         {children}

@@ -136,6 +136,7 @@ export function AnalysisEditModal({
             <button
               onClick={handleCopy}
               className="px-3 py-1.5 text-sm text-text hover:bg-surface2 rounded flex items-center gap-1.5 transition-colors"
+              title={t('common:copy', 'Copy')}
             >
               <Copy className="w-4 h-4" />
               {t('common:copy', 'Copy')}
@@ -144,6 +145,7 @@ export function AnalysisEditModal({
               <button
                 onClick={handleSendToChat}
                 className="px-3 py-1.5 text-sm text-text hover:bg-surface2 rounded flex items-center gap-1.5 transition-colors"
+                title={t('mediaPage.sendToChat', 'Send to Chat')}
               >
                 <Send className="w-4 h-4" />
                 {t('mediaPage.sendToChat', 'Send to Chat')}
@@ -156,7 +158,11 @@ export function AnalysisEditModal({
                 onClick={handleSaveAsNewVersion}
                 disabled={saving || isOverLimit}
                 className="px-3 py-1.5 text-sm bg-surface2 text-text hover:bg-surface rounded flex items-center gap-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                title={isOverLimit ? t('mediaPage.charLimitExceeded', 'Character limit exceeded') : undefined}
+                title={
+                  isOverLimit
+                    ? t('mediaPage.charLimitExceeded', 'Character limit exceeded')
+                    : t('mediaPage.saveAsVersion', 'Save as New Version')
+                }
               >
                 <Save className="w-4 h-4" />
                 {t('mediaPage.saveAsVersion', 'Save as New Version')}
@@ -165,6 +171,7 @@ export function AnalysisEditModal({
             <button
               onClick={onClose}
               className="px-3 py-1.5 text-sm text-text-muted hover:bg-surface2 rounded transition-colors"
+              title={t('common:cancel', 'Cancel')}
             >
               {t('common:cancel', 'Cancel')}
             </button>
@@ -173,7 +180,11 @@ export function AnalysisEditModal({
                 onClick={handleSave}
                 disabled={isOverLimit}
                 className="px-3 py-1.5 text-sm bg-primary hover:bg-primaryStrong text-white rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                title={isOverLimit ? t('mediaPage.charLimitExceeded', 'Character limit exceeded') : undefined}
+                title={
+                  isOverLimit
+                    ? t('mediaPage.charLimitExceeded', 'Character limit exceeded')
+                    : t('common:save', 'Save')
+                }
               >
                 {t('common:save', 'Save')}
               </button>

@@ -290,7 +290,9 @@ export const ControlRow: React.FC<ControlRowProps> = ({
       >
         <button
           data-testid="chat-upload-image"
-          className="w-full text-left text-sm px-3 py-2 rounded flex items-center gap-2 hover:bg-surface2">
+          className="w-full text-left text-sm px-3 py-2 rounded flex items-center gap-2 hover:bg-surface2"
+          title={t("sidepanel:controlRow.uploadImage", "Upload Image")}
+        >
           <ImageIcon className="size-4 text-text-subtle" />
           {t("sidepanel:controlRow.uploadImage", "Upload Image")}
         </button>
@@ -306,6 +308,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         onClick={openQuickIngest}
         data-testid="chat-quick-ingest"
         className="w-full text-left text-sm px-3 py-2 rounded flex items-center gap-2 hover:bg-surface2"
+        title={t("sidepanel:controlRow.quickIngest", "Quick ingest")}
       >
         <UploadCloud className="size-4 text-text-subtle" />
         {t("sidepanel:controlRow.quickIngest", "Quick ingest")}
@@ -315,6 +318,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         onClick={openFullApp}
         data-testid="chat-open-full-app"
         className="w-full text-left text-sm px-3 py-2 rounded flex items-center gap-2 hover:bg-surface2"
+        title={t("sidepanel:controlRow.openInFullUI", "Open full app")}
       >
         <ExternalLink className="size-4 text-text-subtle" />
         {t("sidepanel:controlRow.openInFullUI", "Open full app")}
@@ -364,6 +368,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
             onClick={onToggleRag}
             className="flex items-center gap-2 px-3 py-2 sm:px-2 sm:py-1 rounded text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-focus transition-colors min-h-[44px] sm:min-h-0 text-text-muted hover:bg-surface2 hover:text-text"
             aria-label={t("sidepanel:controlRow.knowledgeSearch", "Open knowledge search")}
+            title={t("sidepanel:controlRow.knowledgeSearch", "Open knowledge search")}
           >
             <Search className="size-3.5" />
             <span className="hidden sm:inline">{t("sidepanel:controlRow.knowledge", "Knowledge search")}</span>
@@ -391,6 +396,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
             }`}
             aria-label={t("sidepanel:controlRow.webSearch", "Web Search")}
             aria-pressed={webSearch}
+            title={t("sidepanel:controlRow.webSearch", "Web Search")}
           >
             <Globe className="size-3.5" />
             <span className="hidden sm:inline">{t("sidepanel:controlRow.web", "Web")}</span>
@@ -426,6 +432,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
               aria-label={t("sidepanel:controlRow.moreTools", "More tools")}
               aria-haspopup="menu"
               aria-expanded={moreOpen}
+              title={t("sidepanel:controlRow.moreTools", "More tools")}
             >
               <MoreHorizontal className="size-4 text-text-subtle" />
             </button>

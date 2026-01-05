@@ -48,7 +48,9 @@ export const ConnectionStatusIndicator: React.FC<
         <button
           type="button"
           onClick={onOpenSettings}
-          className="ml-auto text-[11px] font-medium text-red-700 underline hover:text-red-800 dark:text-red-300 dark:hover:text-red-200">
+          className="ml-auto text-[11px] font-medium text-red-700 underline hover:text-red-800 dark:text-red-300 dark:hover:text-red-200"
+          title={t("sidepanel:composer.openSettings", "Open Settings")}
+        >
           {t("sidepanel:composer.openSettings", "Open Settings")}
         </button>
       )}

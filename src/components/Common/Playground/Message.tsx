@@ -72,6 +72,7 @@ const ErrorBubble: React.FC<{
         <button
           type="button"
           onClick={() => setShowDetails((prev) => !prev)}
+          title={showDetails ? toggleLabels.hide : toggleLabels.show}
           className="mt-2 text-xs font-medium text-red-800 underline hover:text-red-700 dark:text-red-200 dark:hover:text-red-100">
           {showDetails ? toggleLabels.hide : toggleLabels.show}
         </button>
@@ -138,6 +139,7 @@ type Props = {
   feedbackQuery?: string | null
   searchQuery?: string
   isEmbedding?: boolean
+  createdAt?: number | string
   // Compare/multi-model metadata (optional)
   compareSelectable?: boolean
   compareSelected?: boolean
@@ -151,7 +153,7 @@ type Props = {
 }
 
 const ACTION_BUTTON_CLASS =
-  "flex items-center justify-center w-10 h-10 sm:w-6 sm:h-6 rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus"
+  "flex items-center justify-center rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus min-w-0 min-h-0"
 
 export const PlaygroundMessage = (props: Props) => {
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
@@ -194,6 +196,26 @@ export const PlaygroundMessage = (props: Props) => {
     .filter(Boolean)
     .join("\n")
   }, [errorPayload])
+  const messageTimestamp = React.useMemo(() => {
+    const info = props.generationInfo as
+      | { created_at?: string | number; createdAt?: string | number; timestamp?: string | number }
+      | undefined
+    const raw =
+      props.createdAt ??
+      info?.created_at ??
+      info?.createdAt ??
+      info?.timestamp
+    if (!raw) return null
+    const date =
+      typeof raw === "number"
+        ? new Date(raw)
+        : new Date(Date.parse(String(raw)))
+    if (Number.isNaN(date.getTime())) return null
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit"
+    })
+  }, [props.createdAt, props.generationInfo])
 
   const messageKey = React.useMemo(() => {
     if (props.serverMessageId) return `srv:${props.serverMessageId}`
@@ -406,9 +428,13 @@ export const PlaygroundMessage = (props: Props) => {
         )
       : null
 
-  const actionBarVisibility = isProMode
-    ? "opacity-100"
-    : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
+  const actionRowVisibility = isProMode
+    ? "flex"
+    : "hidden group-hover:flex group-focus-within:flex"
+  const overflowChipVisibility = isProMode
+    ? "hidden"
+    : "inline-flex group-hover:hidden"
+  const showInlineActions = !props.isProcessing && !editMode
 
   const handleThumbUp = React.useCallback(() => {
     void submitThumb("up")
@@ -461,16 +487,16 @@ export const PlaygroundMessage = (props: Props) => {
 
   const MARKDOWN_BASE_CLASSES =
     "prose break-words text-message dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
+  const hasSources = props.isBot && Boolean(props?.sources?.length)
+  const messageSpacing = isProMode
+    ? `gap-2 px-4 pt-3 ${hasSources ? "pb-4" : "pb-2.5"}`
+    : `gap-1.5 px-3 pt-2 ${hasSources ? "pb-3" : "pb-2"}`
   const messageCardClass = props.isBot
-    ? `flex flex-col rounded-2xl border border-border bg-surface/70 shadow-sm ${
-        isProMode ? "gap-3 p-4" : "gap-2 p-3"
-      }`
-    : `flex flex-col rounded-2xl border border-border bg-surface2/70 shadow-sm ${
-        isProMode ? "gap-3 p-4" : "gap-2 p-3"
-      }`
-  const actionButtonClass = isProMode
-    ? ACTION_BUTTON_CLASS
-    : "flex items-center justify-center h-8 w-8 rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus"
+    ? `flex flex-col rounded-2xl border border-border bg-surface/70 shadow-sm ${messageSpacing}`
+    : `flex flex-col rounded-2xl border border-border bg-surface2/70 shadow-sm ${messageSpacing}`
+  const actionButtonClass = `${ACTION_BUTTON_CLASS} ${
+    isProMode ? "h-8 w-8" : "h-7 w-7"
+  }`
 
   return (
     <div
@@ -488,6 +514,7 @@ export const PlaygroundMessage = (props: Props) => {
               type="button"
               onClick={props.onStopStreaming}
               data-testid="chat-message-stop-streaming"
+              title={t("playground:composer.stopStreaming") as string}
               className="rounded-md border border-border bg-surface/70 p-1 text-text backdrop-blur hover:bg-surface">
               <StopCircleIcon className="w-5 h-5" />
               <span className="sr-only">{t("playground:composer.stopStreaming")}</span>
@@ -523,53 +550,68 @@ export const PlaygroundMessage = (props: Props) => {
         </div>
         <div className="flex w-[calc(100%-50px)] flex-col gap-2 lg:w-[calc(100%-115px)]">
           <div className={messageCardClass}>
-            <div className="flex items-center gap-2">
-              <span className="text-caption font-semibold text-text">
-                {props.isBot
-                  ? removeModelSuffix(
-                      `${props?.modelName || props?.name}`?.replaceAll(
-                        /accounts\/[^\/]+\/models\//g,
-                        ""
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-caption font-semibold text-text">
+                  {props.isBot
+                    ? removeModelSuffix(
+                        `${props?.modelName || props?.name}`?.replaceAll(
+                          /accounts\/[^\/]+\/models\//g,
+                          ""
+                        )
                       )
-                    )
-                  : "You"}
-              </span>
-              {props.isBot && props.message_type === "compare:reply" && (
-                <div className="flex items-center gap-2">
-                  {props.compareSelectable && props.onToggleCompareSelect ? (
-                    <button
-                      type="button"
-                      onClick={props.onToggleCompareSelect}
-                      aria-label={compareLabel}
-                      aria-pressed={props.compareSelected}
-                      className={`rounded-full px-2 py-1 text-[10px] font-medium border transition ${
-                        props.compareSelected
-                          ? "bg-blue-600 text-white border-blue-600"
-                          : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
-                      }`}
-                    >
-                      {compareLabel}
-                    </button>
-                  ) : (
-                    <span className="rounded-full bg-blue-50 px-2 py-1 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
-                      {compareLabel}
-                    </span>
-                  )}
-                  {props.compareError && (
-                    <span className="rounded-full bg-red-50 px-2 py-1 text-[10px] font-medium text-red-700 dark:bg-red-900/40 dark:text-red-200">
-                      {t("error.label", "Error")}
-                    </span>
-                  )}
-                  {props.compareChosen && (
-                    <span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
-                      {t(
-                        "playground:composer.compareChosenLabel",
-                        "Chosen"
-                      )}
-                    </span>
-                  )}
-                </div>
-              )}
+                    : "You"}
+                </span>
+                {messageTimestamp && (
+                  <span className="text-[11px] text-text-muted">
+                    • {messageTimestamp}
+                  </span>
+                )}
+                {props?.message_type && (
+                  <Tag
+                    className="!m-0"
+                    color={tagColors[props?.message_type] || "default"}>
+                    {t(`copilot.${props?.message_type}`)}
+                  </Tag>
+                )}
+                {props.isBot && props.message_type === "compare:reply" && (
+                  <div className="flex items-center gap-2">
+                    {props.compareSelectable && props.onToggleCompareSelect ? (
+                      <button
+                        type="button"
+                        onClick={props.onToggleCompareSelect}
+                        aria-label={compareLabel}
+                        aria-pressed={props.compareSelected}
+                        title={compareLabel}
+                        className={`rounded-full px-2 py-1 text-[10px] font-medium border transition ${
+                          props.compareSelected
+                            ? "bg-blue-600 text-white border-blue-600"
+                            : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
+                        }`}
+                      >
+                        {compareLabel}
+                      </button>
+                    ) : (
+                      <span className="rounded-full bg-blue-50 px-2 py-1 text-[10px] font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                        {compareLabel}
+                      </span>
+                    )}
+                    {props.compareError && (
+                      <span className="rounded-full bg-red-50 px-2 py-1 text-[10px] font-medium text-red-700 dark:bg-red-900/40 dark:text-red-200">
+                        {t("error.label", "Error")}
+                      </span>
+                    )}
+                    {props.compareChosen && (
+                      <span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
+                        {t(
+                          "playground:composer.compareChosenLabel",
+                          "Chosen"
+                        )}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
           {/* Unified loading status indicator */}
@@ -582,13 +624,16 @@ export const PlaygroundMessage = (props: Props) => {
               actionInfo={props.actionInfo}
             />
           )}
-          <div>
-            {props?.message_type && (
-              <Tag color={tagColors[props?.message_type] || "default"}>
-                {t(`copilot.${props?.message_type}`)}
-              </Tag>
-            )}
-          </div>
+          {isProMode && props.isBot && props.generationInfo?.usage && (
+            <div className="text-[11px] text-text-muted tabular-nums">
+              {props.generationInfo.usage.prompt_tokens ?? 0}{" "}
+              {t("playground:tokens.prompt", "prompt")} +{" "}
+              {props.generationInfo.usage.completion_tokens ?? 0}{" "}
+              {t("playground:tokens.completion", "completion")} ={" "}
+              {props.generationInfo.usage.total_tokens ?? 0}{" "}
+              {t("playground:tokens.total", "tokens")}
+            </div>
+          )}
           <div className="flex flex-grow flex-col">
             {!editMode ? (
               props.isBot ? (
@@ -734,6 +779,292 @@ export const PlaygroundMessage = (props: Props) => {
               </div>
             )}
 
+          {showInlineActions && (
+            <div className="flex w-full justify-end">
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  aria-label={t("common:moreActions", "More actions") as string}
+                  title={t("common:moreActions", "More actions") as string}
+                  className={`${overflowChipVisibility} rounded-full border border-border bg-surface2 px-2 py-0.5 text-[11px] text-text-muted transition-colors hover:text-text`}>
+                  •••
+                </button>
+                <div
+                  className={`${actionRowVisibility} flex-wrap items-center gap-2`}>
+                  <div className="flex flex-wrap items-center gap-1">
+                    {props.isTTSEnabled && (
+                      <Tooltip title={ttsDisabledReason || t("tts")}>
+                        <IconButton
+                          ariaLabel={t("tts") as string}
+                          onClick={() => {
+                            if (ttsActionDisabled) return
+                            if (isSpeaking) {
+                              cancel()
+                            } else {
+                              speak({
+                                utterance: errorFriendlyText || props.message
+                              })
+                            }
+                          }}
+                          className={`${actionButtonClass} disabled:cursor-not-allowed disabled:opacity-50`}
+                          disabled={ttsActionDisabled}>
+                          <ActionButtonWithLabel
+                            icon={
+                              !isSpeaking ? (
+                                <Volume2Icon
+                                  className={`w-3 h-3 ${
+                                    ttsActionDisabled
+                                      ? "text-text-muted"
+                                      : "text-text-subtle group-hover:text-text"
+                                  }`}
+                                />
+                              ) : (
+                                <Square className="w-3 h-3 text-danger group-hover:text-danger" />
+                              )
+                            }
+                            label={t("ttsShort", "TTS")}
+                            showLabel={isProMode}
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                    {!props.hideCopy && (
+                      <Tooltip title={t("copyToClipboard")}>
+                        <IconButton
+                          ariaLabel={t("copyToClipboard") as string}
+                          onClick={async () => {
+                            await copyToClipboard({
+                              text: errorFriendlyText || props.message,
+                              formatted: copyAsFormattedText
+                            })
+                            trackCopy()
+
+                            // navigator.clipboard.writeText(props.message)
+                            setIsBtnPressed(true)
+                            setTimeout(() => {
+                              setIsBtnPressed(false)
+                            }, 2000)
+                          }}
+                          className={actionButtonClass}>
+                          <ActionButtonWithLabel
+                            icon={
+                              !isBtnPressed ? (
+                                <CopyIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                              ) : (
+                                <CheckIcon className="w-3 h-3 text-success group-hover:text-success" />
+                              )
+                            }
+                            label={t("copyShort", "Copy")}
+                            showLabel={isProMode}
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                    {canReply && (
+                      <Tooltip title={t("common:reply", "Reply")}>
+                        <IconButton
+                          ariaLabel={t("common:reply", "Reply") as string}
+                          onClick={() => {
+                            if (!replyId) return
+                            setReplyTarget({
+                              id: replyId,
+                              preview: buildReplyPreview(
+                                errorFriendlyText || props.message
+                              ),
+                              name: props.name,
+                              isBot: props.isBot
+                            })
+                          }}
+                          className={actionButtonClass}>
+                          <ActionButtonWithLabel
+                            icon={
+                              <CornerUpLeft className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                            }
+                            label={t("common:replyShort", "Reply")}
+                            showLabel={isProMode}
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                    {props.isBot && (
+                      <>
+                        {canSaveToNotes && (
+                          <Tooltip title={t("saveToNotes", "Save to Notes")}>
+                            <IconButton
+                              ariaLabel={t("saveToNotes", "Save to Notes") as string}
+                              onClick={() => handleSaveKnowledge(false)}
+                              disabled={savingKnowledge !== null}
+                              className={actionButtonClass}>
+                              <ActionButtonWithLabel
+                                icon={
+                                  <StickyNote className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                                }
+                                label={t("saveNoteShort", "Note")}
+                                showLabel={isProMode}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                        {canSaveToFlashcards && (
+                          <Tooltip
+                            title={t("saveToFlashcards", "Save to Flashcards")}>
+                            <IconButton
+                              ariaLabel={
+                                t("saveToFlashcards", "Save to Flashcards") as string
+                              }
+                              onClick={() => handleSaveKnowledge(true)}
+                              disabled={savingKnowledge !== null}
+                              className={actionButtonClass}>
+                              <ActionButtonWithLabel
+                                icon={
+                                  <Layers className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                                }
+                                label={t("saveFlashcardShort", "Card")}
+                                showLabel={isProMode}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                        {canGenerateDocument && (
+                          <Tooltip
+                            title={t("generateDocument", "Generate document")}>
+                            <IconButton
+                              ariaLabel={
+                                t(
+                                  "generateDocument",
+                                  "Generate document"
+                                ) as string
+                              }
+                              onClick={() => {
+                                if (typeof window === "undefined") return
+                                window.dispatchEvent(
+                                  new CustomEvent("tldw:open-document-generator", {
+                                    detail: {
+                                      conversationId: props.serverChatId,
+                                      message: errorFriendlyText || props.message,
+                                      messageId: props.serverMessageId
+                                    }
+                                  })
+                                )
+                              }}
+                              className={actionButtonClass}>
+                              <ActionButtonWithLabel
+                                icon={
+                                  <FileText className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                                }
+                                label={t("documentShort", "Doc")}
+                                showLabel={isProMode}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                        {props.generationInfo && (
+                          <Popover
+                            content={
+                              <GenerationInfo generationInfo={props.generationInfo} />
+                            }
+                            title={t("generationInfo")}>
+                            <IconButton
+                              ariaLabel={t("generationInfo") as string}
+                              className={actionButtonClass}>
+                              <ActionButtonWithLabel
+                                icon={
+                                  <InfoIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                                }
+                                label={t("infoShort", "Info")}
+                                showLabel={isProMode}
+                              />
+                            </IconButton>
+                          </Popover>
+                        )}
+
+                        {!props.hideEditAndRegenerate && isLastMessage && (
+                          <Tooltip title={t("regenerate")}>
+                            <IconButton
+                              ariaLabel={t("regenerate") as string}
+                              onClick={props.onRegenerate}
+                              className={actionButtonClass}>
+                              <ActionButtonWithLabel
+                                icon={
+                                  <RotateCcw className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                                }
+                                label={t("regenShort", "Redo")}
+                                showLabel={isProMode}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+
+                        {props?.onNewBranch && !props?.temporaryChat && (
+                          <Tooltip title={t("newBranch")}>
+                            <IconButton
+                              ariaLabel={t("newBranch") as string}
+                              onClick={props?.onNewBranch}
+                              className={actionButtonClass}>
+                              <ActionButtonWithLabel
+                                icon={
+                                  <GitBranchIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                                }
+                                label={t("branchShort", "Branch")}
+                                showLabel={isProMode}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+
+                        {!props.hideContinue && isLastMessage && (
+                          <Tooltip title={t("continue")}>
+                            <IconButton
+                              ariaLabel={t("continue") as string}
+                              onClick={props?.onContinue}
+                              className={actionButtonClass}>
+                              <ActionButtonWithLabel
+                                icon={
+                                  <PlayCircle className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                                }
+                                label={t("continueShort", "More")}
+                                showLabel={isProMode}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                      </>
+                    )}
+                    {!props.hideEditAndRegenerate && (
+                      <Tooltip title={t("edit")}>
+                        <IconButton
+                          onClick={() => setEditMode(true)}
+                          ariaLabel={t("edit") as string}
+                          className={actionButtonClass}>
+                          <ActionButtonWithLabel
+                            icon={
+                              <Pen className="w-3 h-3 text-text-subtle group-hover:text-text" />
+                            }
+                            label={t("edit", "Edit")}
+                            showLabel={isProMode}
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </div>
+                  {!editMode && props.isBot && (
+                    <FeedbackButtons
+                      compact
+                      selected={thumb}
+                      disabled={feedbackDisabled}
+                      disabledReason={feedbackDisabledReason}
+                      isSubmitting={isFeedbackSubmitting}
+                      onThumbUp={handleThumbUp}
+                      onThumbDown={handleThumbDown}
+                      onOpenDetails={handleOpenDetails}
+                      showThanks={showThanks}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* uploaded documents if available */}
           {/* {props.documents && props.documents.length > 0 && (
             <div className="mt-3">
@@ -822,293 +1153,6 @@ export const PlaygroundMessage = (props: Props) => {
               ]}
             />
           )}
-          {!props.isProcessing && !editMode ? (
-            <div
-              className={`flex flex-wrap items-center gap-2 transition-opacity ${actionBarVisibility}`}>
-              {props.isTTSEnabled && (
-                <Tooltip title={ttsDisabledReason || t("tts")}>
-                  <IconButton
-                    ariaLabel={t("tts") as string}
-                    onClick={() => {
-                      if (ttsActionDisabled) return
-                      if (isSpeaking) {
-                        cancel()
-                      } else {
-                        speak({
-                          utterance: errorFriendlyText || props.message
-                        })
-                      }
-                    }}
-                    className={`${actionButtonClass} disabled:cursor-not-allowed disabled:opacity-50`}
-                    disabled={ttsActionDisabled}>
-                    <ActionButtonWithLabel
-                      icon={
-                        !isSpeaking ? (
-                          <Volume2Icon
-                            className={`w-3 h-3 ${
-                              ttsActionDisabled
-                                ? "text-text-muted"
-                                : "text-text-subtle group-hover:text-text"
-                            }`}
-                          />
-                        ) : (
-                          <Square className="w-3 h-3 text-danger group-hover:text-danger" />
-                        )
-                      }
-                      label={t("ttsShort", "TTS")}
-                      showLabel={isProMode}
-                    />
-                  </IconButton>
-                </Tooltip>
-              )}
-              {!props.hideCopy && (
-                <Tooltip title={t("copyToClipboard")}>
-                  <IconButton
-                    ariaLabel={t("copyToClipboard") as string}
-                    onClick={async () => {
-                      await copyToClipboard({
-                        text: errorFriendlyText || props.message,
-                        formatted: copyAsFormattedText
-                      })
-                      trackCopy()
-
-                      // navigator.clipboard.writeText(props.message)
-                      setIsBtnPressed(true)
-                      setTimeout(() => {
-                        setIsBtnPressed(false)
-                      }, 2000)
-                    }}
-                    className={actionButtonClass}>
-                    <ActionButtonWithLabel
-                      icon={
-                        !isBtnPressed ? (
-                          <CopyIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                        ) : (
-                          <CheckIcon className="w-3 h-3 text-success group-hover:text-success" />
-                        )
-                      }
-                      label={t("copyShort", "Copy")}
-                      showLabel={isProMode}
-                    />
-                  </IconButton>
-                </Tooltip>
-              )}
-              {canReply && (
-                <Tooltip title={t("common:reply", "Reply")}>
-                  <IconButton
-                    ariaLabel={t("common:reply", "Reply") as string}
-                    onClick={() => {
-                      if (!replyId) return
-                      setReplyTarget({
-                        id: replyId,
-                        preview: buildReplyPreview(
-                          errorFriendlyText || props.message
-                        ),
-                        name: props.name,
-                        isBot: props.isBot
-                      })
-                    }}
-                    className={actionButtonClass}>
-                    <ActionButtonWithLabel
-                      icon={
-                        <CornerUpLeft className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                      }
-                      label={t("common:replyShort", "Reply")}
-                      showLabel={isProMode}
-                    />
-                  </IconButton>
-                </Tooltip>
-              )}
-              {props.isBot && (
-                <>
-                  {canSaveToNotes && (
-                    <Tooltip title={t("saveToNotes", "Save to Notes")}>
-                      <IconButton
-                        ariaLabel={t("saveToNotes", "Save to Notes") as string}
-                        onClick={() => handleSaveKnowledge(false)}
-                        disabled={savingKnowledge !== null}
-                        className={actionButtonClass}>
-                        <ActionButtonWithLabel
-                          icon={
-                            <StickyNote className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                          }
-                          label={t("saveNoteShort", "Note")}
-                          showLabel={isProMode}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                  {canSaveToFlashcards && (
-                    <Tooltip
-                      title={t("saveToFlashcards", "Save to Flashcards")}>
-                      <IconButton
-                        ariaLabel={
-                          t("saveToFlashcards", "Save to Flashcards") as string
-                        }
-                        onClick={() => handleSaveKnowledge(true)}
-                        disabled={savingKnowledge !== null}
-                        className={actionButtonClass}>
-                        <ActionButtonWithLabel
-                          icon={
-                            <Layers className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                          }
-                          label={t("saveFlashcardShort", "Card")}
-                          showLabel={isProMode}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                  {canGenerateDocument && (
-                    <Tooltip
-                      title={t("generateDocument", "Generate document")}>
-                      <IconButton
-                        ariaLabel={
-                          t(
-                            "generateDocument",
-                            "Generate document"
-                          ) as string
-                        }
-                        onClick={() => {
-                          if (typeof window === "undefined") return
-                          window.dispatchEvent(
-                            new CustomEvent("tldw:open-document-generator", {
-                              detail: {
-                                conversationId: props.serverChatId,
-                                message: errorFriendlyText || props.message,
-                                messageId: props.serverMessageId
-                              }
-                            })
-                          )
-                        }}
-                        className={actionButtonClass}>
-                        <ActionButtonWithLabel
-                          icon={
-                            <FileText className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                          }
-                          label={t("documentShort", "Doc")}
-                          showLabel={isProMode}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                  {props.generationInfo && (
-                    <Popover
-                      content={
-                        <GenerationInfo generationInfo={props.generationInfo} />
-                      }
-                      title={t("generationInfo")}>
-                      <IconButton
-                        ariaLabel={t("generationInfo") as string}
-                        className={actionButtonClass}>
-                        <ActionButtonWithLabel
-                          icon={
-                            <InfoIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                          }
-                          label={t("infoShort", "Info")}
-                          showLabel={isProMode}
-                        />
-                      </IconButton>
-                    </Popover>
-                  )}
-
-                  {!props.hideEditAndRegenerate && isLastMessage && (
-                    <Tooltip title={t("regenerate")}>
-                      <IconButton
-                        ariaLabel={t("regenerate") as string}
-                        onClick={props.onRegenerate}
-                        className={actionButtonClass}>
-                        <ActionButtonWithLabel
-                          icon={
-                            <RotateCcw className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                          }
-                          label={t("regenShort", "Redo")}
-                          showLabel={isProMode}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-
-                  {props?.onNewBranch && !props?.temporaryChat && (
-                    <Tooltip title={t("newBranch")}>
-                      <IconButton
-                        ariaLabel={t("newBranch") as string}
-                        onClick={props?.onNewBranch}
-                        className={actionButtonClass}>
-                        <ActionButtonWithLabel
-                          icon={
-                            <GitBranchIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                          }
-                          label={t("branchShort", "Branch")}
-                          showLabel={isProMode}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-
-                  {!props.hideContinue && isLastMessage && (
-                    <Tooltip title={t("continue")}>
-                      <IconButton
-                        ariaLabel={t("continue") as string}
-                        onClick={props?.onContinue}
-                        className={actionButtonClass}>
-                        <ActionButtonWithLabel
-                          icon={
-                            <PlayCircle className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                          }
-                          label={t("continueShort", "More")}
-                          showLabel={isProMode}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                </>
-              )}
-              {!props.hideEditAndRegenerate && (
-                <Tooltip title={t("edit")}>
-                  <IconButton
-                    onClick={() => setEditMode(true)}
-                    ariaLabel={t("edit") as string}
-                    className={actionButtonClass}>
-                    <ActionButtonWithLabel
-                      icon={
-                        <Pen className="w-3 h-3 text-text-subtle group-hover:text-text" />
-                      }
-                      label={t("edit", "Edit")}
-                      showLabel={isProMode}
-                    />
-                  </IconButton>
-                </Tooltip>
-              )}
-            </div>
-          ) : (
-            // add invisible div to prevent layout shift
-            <div className="invisible">
-              <div className={actionButtonClass}></div>
-            </div>
-          )}
-            {/* Inline token usage display - Pro mode only */}
-            {isProMode && props.isBot && props.generationInfo?.usage && (
-              <div className="text-xs text-text-muted mt-1 tabular-nums">
-                {props.generationInfo.usage.prompt_tokens ?? 0}{" "}
-                {t("playground:tokens.prompt", "prompt")} +{" "}
-                {props.generationInfo.usage.completion_tokens ?? 0}{" "}
-                {t("playground:tokens.completion", "completion")} ={" "}
-                {props.generationInfo.usage.total_tokens ?? 0}{" "}
-                {t("playground:tokens.total", "tokens")}
-              </div>
-            )}
-            {!editMode && props.isBot && (
-              <FeedbackButtons
-                selected={thumb}
-                disabled={feedbackDisabled}
-                disabledReason={feedbackDisabledReason}
-                isSubmitting={isFeedbackSubmitting}
-                onThumbUp={handleThumbUp}
-                onThumbDown={handleThumbDown}
-                onOpenDetails={handleOpenDetails}
-                showThanks={showThanks}
-              />
-            )}
           </div>
         </div>
       </div>

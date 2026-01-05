@@ -47,6 +47,11 @@ export const SlashCommandMenu: React.FC<SlashCommandMenuProps> = ({
               aria-selected={index === activeIndex}
               onMouseEnter={() => onActiveIndexChange(index)}
               onClick={() => onSelect(command)}
+              title={
+                command.description
+                  ? `${command.label} - ${command.description}`
+                  : command.label
+              }
               className={cn(
                 "flex w-full items-start gap-2 px-3 py-2 text-left text-sm transition-colors",
                 index === activeIndex ? "bg-surface2 text-text" : "text-text"

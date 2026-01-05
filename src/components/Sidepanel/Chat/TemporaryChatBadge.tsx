@@ -66,6 +66,10 @@ export const TemporaryChatBadge: React.FC<TemporaryChatBadgeProps> = ({
           "sidepanel:temporaryBadge.ariaLabel",
           "Temporary chat mode is active. Click to toggle."
         )}
+        title={t(
+          "sidepanel:temporaryBadge.ariaLabel",
+          "Temporary chat mode is active. Click to toggle."
+        )}
       >
         <BsIncognito className="size-3" aria-hidden="true" />
         <span>{t("sidepanel:temporaryBadge.label", "Temp")}</span>

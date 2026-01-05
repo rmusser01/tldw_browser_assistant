@@ -43,7 +43,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         aria-expanded={ariaExpanded}
         aria-controls={ariaControls}
         data-testid={dataTestId}
-        title={title}
+        title={title ?? ariaLabel}
         disabled={disabled}
         onClick={onClick}>
         {children}

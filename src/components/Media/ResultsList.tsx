@@ -132,6 +132,7 @@ export function ResultsList({
                         }}
                         className="p-0.5 hover:bg-surface2 rounded transition-colors"
                         aria-label={favorites?.has(String(result.id)) ? t('mediaPage.unfavorite', 'Remove from favorites') : t('mediaPage.favorite', 'Add to favorites')}
+                        title={favorites?.has(String(result.id)) ? t('mediaPage.unfavorite', 'Remove from favorites') : t('mediaPage.favorite', 'Add to favorites')}
                       >
                         <Star className={`w-3.5 h-3.5 ${
                           favorites?.has(String(result.id))

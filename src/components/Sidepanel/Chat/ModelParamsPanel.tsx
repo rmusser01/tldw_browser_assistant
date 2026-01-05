@@ -115,6 +115,7 @@ export const ModelParamsPanel: React.FC<ModelParamsPanelProps> = ({
         className="w-full flex items-center justify-between px-3 py-2 text-sm text-text-muted hover:text-text hover:bg-surface2 transition-colors"
         aria-expanded={!providerCollapsed}
         aria-controls="provider-content"
+        title={t("sidepanel:modelParams.providerTitle", "Provider & API")}
       >
         <span className="flex items-center gap-2">
           <Server className="size-3.5" />
@@ -242,6 +243,7 @@ export const ModelParamsPanel: React.FC<ModelParamsPanelProps> = ({
         className="w-full flex items-center justify-between px-3 py-2 text-sm text-text-muted hover:text-text hover:bg-surface2 transition-colors border-t border-border"
         aria-expanded={!paramsCollapsed}
         aria-controls="model-params-content"
+        title={t("sidepanel:modelParams.title", "Model Parameters")}
       >
         <span className="flex items-center gap-2">
           <Settings2 className="size-3.5" />
@@ -476,6 +478,7 @@ export const ModelParamsPanel: React.FC<ModelParamsPanelProps> = ({
               type="button"
               onClick={onOpenFullSettings}
               className="text-xs text-primary hover:text-primary-hover underline"
+              title={t("sidepanel:modelParams.moreSettings", "More settings...")}
             >
               {t("sidepanel:modelParams.moreSettings", "More settings...")}
             </button>
