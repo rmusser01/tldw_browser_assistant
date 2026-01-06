@@ -41,6 +41,7 @@ import { useSpeechRecognition } from "@/hooks/useSpeechRecognition"
 import { isFirefoxTarget } from "@/config/platform"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTabMentions } from "~/hooks/useTabMentions"
 import { useFocusShortcuts } from "~/hooks/keyboard"
@@ -466,18 +467,6 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const modelDropdownItems = React.useMemo(() => {
     const models = (composerModels as any[]) || []
     const groups = new Map<string, any[]>()
-    const providerDisplayName = (provider?: string) => {
-      const key = String(provider || "unknown").toLowerCase()
-      if (key === "openai") return "OpenAI"
-      if (key === "anthropic") return "Anthropic"
-      if (key === "google") return "Google"
-      if (key === "mistral") return "Mistral"
-      if (key === "groq") return "Groq"
-      if (key === "openrouter") return "OpenRouter"
-      if (key === "ollama") return "Ollama"
-      if (key === "deepseek") return "DeepSeek"
-      return provider || "API"
-    }
 
     for (const model of models) {
       const groupKey = model.provider?.toLowerCase() || "other"
@@ -500,7 +489,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       label: (
         <div className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-text-subtle">
           <ProviderIcons provider={key} className="h-3 w-3" />
-          <span>{providerDisplayName(key)}</span>
+          <span>{getProviderDisplayName(key)}</span>
         </div>
       ),
       children

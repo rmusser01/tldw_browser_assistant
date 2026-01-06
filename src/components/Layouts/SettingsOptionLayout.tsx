@@ -4,10 +4,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { BetaTag } from "../Common/Beta"
 import { XIcon } from "lucide-react"
 import { Storage } from "@plasmohq/storage"
-import { browser } from "wxt/browser"
 import { SETTINGS_NAV_GROUPS, type SettingsNavItem } from "./settings-nav"
 import { createSafeStorage } from "@/utils/safe-storage"
-import { isChromeTarget, isFirefoxTarget } from "@/config/platform"
+import { isChromeTarget } from "@/config/platform"
+import { isSidepanelSupported, openSidepanel } from "@/utils/sidepanel"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
@@ -21,11 +21,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const { t } = useTranslation(["settings", "common"])
-  const sidepanelSupported =
-    isFirefoxTarget
-      ? !!(browser as any)?.sidebarAction?.open
-      : // @ts-ignore
-        typeof chrome !== "undefined" && !!(chrome as any).sidePanel
+  const sidepanelSupported = isSidepanelSupported()
   const currentNavItem = React.useMemo(() => {
     for (const group of SETTINGS_NAV_GROUPS) {
       for (const item of group.items) {
@@ -58,22 +54,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                       await storage.set("actionIconClick", "sidePanel")
                       await storage.set("contextMenuClick", "sidePanel")
                       try {
-                        if (isFirefoxTarget) {
-                          if ((browser as any)?.sidebarAction?.open) {
-                            await (browser as any).sidebarAction.open()
-                          }
-                        } else {
-                          // Chromium sidePanel API
-                          // @ts-ignore
-                          const tabs = await chrome.tabs.query({
-                            active: true,
-                            currentWindow: true
-                          })
-                          if (tabs?.[0]?.id) {
-                            // @ts-ignore
-                            await chrome.sidePanel.open({ tabId: tabs[0].id })
-                          }
-                        }
+                        await openSidepanel()
                       } catch {}
                     }}
                     title={t("settings:switchToSidebar", "Switch to Sidebar")}>

@@ -1,6 +1,7 @@
 import { Storage } from "@plasmohq/storage"
 import { tldwClient, TldwModel } from "./TldwApiClient"
 import { createSafeStorage } from "@/utils/safe-storage"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 
 export interface ModelInfo {
   id: string
@@ -203,41 +204,10 @@ export class TldwModelsService {
   }
 
   /**
-   * Get provider icon/logo
-   */
-  getProviderIcon(provider: string): string {
-    const icons: Record<string, string> = {
-      'openai': '🤖',
-      'anthropic': '🔷',
-      'google': '🔍',
-      'meta': '📘',
-      'mistral': '🌊',
-      'ollama': '🦙',
-      'groq': '⚡',
-      'together': '🤝',
-      'unknown': '❓'
-    }
-    
-    return icons[provider.toLowerCase()] || icons['unknown']
-  }
-
-  /**
    * Get provider display name
    */
   getProviderDisplayName(provider: string): string {
-    const names: Record<string, string> = {
-      'openai': 'OpenAI',
-      'anthropic': 'Anthropic',
-      'google': 'Google',
-      'meta': 'Meta',
-      'mistral': 'Mistral',
-      'ollama': 'Ollama',
-      'groq': 'Groq',
-      'together': 'Together AI',
-      'unknown': 'Unknown'
-    }
-    
-    return names[provider.toLowerCase()] || provider
+    return getProviderDisplayName(provider)
   }
 
   /**

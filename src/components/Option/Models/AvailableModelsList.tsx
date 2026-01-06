@@ -4,6 +4,7 @@ import { Alert, Button, Card, Skeleton, Tag } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { ProviderIcons } from '@/components/Common/ProviderIcon'
+import { getProviderDisplayName } from '@/utils/provider-registry'
 
 type ProviderMap = Record<string, Array<{ id: string, context_length?: number, capabilities?: string[] }>>
 
@@ -76,7 +77,7 @@ export const AvailableModelsList: React.FC = () => {
           title={
             <div className="flex items-center gap-2">
               <ProviderIcons provider={provider} className="h-4 w-4" />
-              <span className="capitalize">{provider}</span>
+              <span>{getProviderDisplayName(provider)}</span>
               <Tag>{(models as any[]).length}</Tag>
             </div>
           }

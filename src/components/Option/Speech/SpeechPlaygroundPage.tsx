@@ -23,10 +23,8 @@ import { PageShell } from "@/components/Common/PageShell"
 import WaveformCanvas from "@/components/Common/WaveformCanvas"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useServerOnline } from "@/hooks/useServerOnline"
-import {
-  getTtsProviderLabel,
-  inferTldwProviderFromModel
-} from "@/services/tts-provider"
+import { inferTldwProviderFromModel } from "@/services/tts-provider"
+import { getTtsProviderLabel } from "@/services/tts-providers"
 import {
   fetchTtsProviders,
   type TldwTtsProviderCapabilities,

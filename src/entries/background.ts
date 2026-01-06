@@ -16,7 +16,6 @@ import {
 } from "@/services/background-helpers"
 import { ModelDb } from "@/db/models"
 import { generateID } from "@/db"
-import { isFirefoxTarget } from "@/config/platform"
 
 const warmModels = async (
   force = false,
@@ -999,12 +998,8 @@ export default defineBackground({
       }
       if (message.type === "sidepanel") {
         try {
-          if (isFirefoxTarget) {
-            await browser.sidebarAction.open()
-          } else {
-            const tabId = sender?.tab?.id ?? undefined
-            ensureSidepanelOpen(tabId)
-          }
+          const tabId = sender?.tab?.id ?? undefined
+          ensureSidepanelOpen(tabId)
         } catch {
           // no-op: opening the sidepanel is best-effort
         }
@@ -1108,9 +1103,7 @@ export default defineBackground({
       if (actionIconClick === "webui") {
         chrome.tabs.create({ url: chrome.runtime.getURL("/options.html") })
       } else {
-        chrome.sidePanel.open({
-          tabId: tab.id!
-        })
+        ensureSidepanelOpen(tab?.id)
       }
     })
 
@@ -1121,9 +1114,7 @@ export default defineBackground({
 
     browser.contextMenus.onClicked.addListener(async (info, tab) => {
       if (info.menuItemId === "open-side-panel-pa") {
-        chrome.sidePanel.open({
-          tabId: tab.id!
-        })
+        ensureSidepanelOpen(tab?.id)
       } else if (info.menuItemId === "open-web-ui-pa") {
         browser.tabs.create({
           url: browser.runtime.getURL("/options.html")
@@ -1203,9 +1194,7 @@ export default defineBackground({
           console.error('Failed to process locally:', e)
         }
       } else if (info.menuItemId === "summarize-pa") {
-        chrome.sidePanel.open({
-          tabId: tab.id!
-        })
+        ensureSidepanelOpen(tab?.id)
         // this is a bad method hope somone can fix it :)
         setTimeout(
           async () => {
@@ -1218,9 +1207,7 @@ export default defineBackground({
           isCopilotRunning ? 0 : 5000
         )
       } else if (info.menuItemId === "rephrase-pa") {
-        chrome.sidePanel.open({
-          tabId: tab.id!
-        })
+        ensureSidepanelOpen(tab?.id)
         setTimeout(
           async () => {
             await browser.runtime.sendMessage({
@@ -1232,9 +1219,7 @@ export default defineBackground({
           isCopilotRunning ? 0 : 5000
         )
       } else if (info.menuItemId === "translate-pg") {
-        chrome.sidePanel.open({
-          tabId: tab.id!
-        })
+        ensureSidepanelOpen(tab?.id)
 
         setTimeout(
           async () => {
@@ -1247,9 +1232,7 @@ export default defineBackground({
           isCopilotRunning ? 0 : 5000
         )
       } else if (info.menuItemId === "explain-pa") {
-        chrome.sidePanel.open({
-          tabId: tab.id!
-        })
+        ensureSidepanelOpen(tab?.id)
 
         setTimeout(
           async () => {
@@ -1262,9 +1245,7 @@ export default defineBackground({
           isCopilotRunning ? 0 : 5000
         )
       } else if (info.menuItemId === "custom-pg") {
-        chrome.sidePanel.open({
-          tabId: tab.id!
-        })
+        ensureSidepanelOpen(tab?.id)
 
         setTimeout(
           async () => {
@@ -1286,9 +1267,7 @@ export default defineBackground({
             { active: true, currentWindow: true },
             async (tabs) => {
               const tab = tabs[0]
-              chrome.sidePanel.open({
-                tabId: tab.id!
-              })
+              ensureSidepanelOpen(tab?.id)
             }
           )
           break

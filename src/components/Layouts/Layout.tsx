@@ -71,6 +71,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
     setHistoryId,
     historyId,
     clearChat,
+    selectServerChat,
     setSelectedModel,
     temporaryChat,
     setSelectedSystemPrompt,
@@ -249,6 +250,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
             setSelectedModel={setSelectedModel}
             setSelectedSystemPrompt={setSelectedSystemPrompt}
             clearChat={clearChat}
+            selectServerChat={selectServerChat}
             historyId={historyId}
             setSystemPrompt={setSystemPrompt}
             temporaryChat={temporaryChat}

@@ -3,6 +3,10 @@ import { Form, Input, notification, Select, Switch } from "antd"
 import { useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import {
+  CONVERSATION_STATE_OPTIONS,
+  normalizeConversationState
+} from "@/utils/conversation-state"
 
 interface UploadedFile {
   id: string
@@ -70,27 +74,13 @@ export function ConversationTab({
   const { t } = useTranslation(["common", "playground"])
   const queryClient = useQueryClient()
 
-  const conversationStateOptions = [
-    {
-      value: "in-progress",
-      label: t("playground:composer.state.inProgress", "in-progress")
-    },
-    {
-      value: "resolved",
-      label: t("playground:composer.state.resolved", "resolved")
-    },
-    {
-      value: "backlog",
-      label: t("playground:composer.state.backlog", "backlog")
-    },
-    {
-      value: "non-viable",
-      label: t("playground:composer.state.nonViable", "non-viable")
-    }
-  ]
+  const conversationStateOptions = CONVERSATION_STATE_OPTIONS.map((option) => ({
+    value: option.value,
+    label: t(option.labelToken, option.defaultLabel)
+  }))
 
   const handleStateChange = async (val: string) => {
-    const next = val || "in-progress"
+    const next = normalizeConversationState(val)
     onStateChange(next)
     if (!serverChatId) return
     try {

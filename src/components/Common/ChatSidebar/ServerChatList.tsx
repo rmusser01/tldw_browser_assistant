@@ -23,17 +23,26 @@ import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useMessageOption } from "@/hooks/useMessageOption"
-import { useStoreMessageOption } from "@/store/option"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { formatRelativeTime } from "@/utils/dateFormatters"
 import { cn } from "@/libs/utils"
-import { normalizeConversationState } from "@/utils/conversation-state"
+import {
+  CONVERSATION_STATE_OPTIONS,
+  normalizeConversationState
+} from "@/utils/conversation-state"
 import { ChatStateBadge } from "./ChatStateBadge"
 
 interface ServerChatListProps {
   searchQuery: string
   className?: string
+}
+
+const STATE_ICON_BY_VALUE: Record<ConversationState, React.ReactElement> = {
+  "in-progress": <Circle className="size-3 text-blue-500" />,
+  resolved: <CheckCircle2 className="size-3 text-green-500" />,
+  backlog: <Clock className="size-3 text-gray-400" />,
+  "non-viable": <XCircle className="size-3 text-red-400" />
 }
 
 export function ServerChatList({ searchQuery, className }: ServerChatListProps) {
@@ -48,32 +57,14 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
   )
 
   const {
-    setMessages,
-    setHistory,
-    setHistoryId,
     serverChatId,
-    setServerChatId,
     setServerChatTitle,
-    setServerChatCharacterId,
     setServerChatState,
     setServerChatVersion,
     setServerChatTopic,
-    setServerChatClusterId,
-    setServerChatSource,
-    setServerChatExternalRef,
-    setServerChatMetaLoaded,
-    setStreaming,
-    setIsLoading,
-    setIsSearchingInternet,
-    clearReplyTarget,
+    selectServerChat,
     clearChat
   } = useMessageOption()
-  const setIsProcessing = useStoreMessageOption(
-    (state) => state.setIsProcessing
-  )
-  const setIsEmbedding = useStoreMessageOption(
-    (state) => state.setIsEmbedding
-  )
   const [openMenuFor, setOpenMenuFor] = React.useState<string | null>(null)
   const [renamingChat, setRenamingChat] =
     React.useState<ServerChatHistoryItem | null>(null)
@@ -126,30 +117,6 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     },
     [setPinnedChatIds]
   )
-
-  const loadServerChat = (chat: ServerChatHistoryItem) => {
-    setIsLoading(true)
-    setHistoryId(null)
-    setHistory([])
-    setMessages([])
-    setServerChatId(chat.id)
-    setServerChatTitle(chat.title || "")
-    setServerChatCharacterId(chat.character_id ?? null)
-    setIsProcessing(false)
-    setStreaming(false)
-    setIsEmbedding(false)
-    setIsSearchingInternet(false)
-    clearReplyTarget()
-    setServerChatVersion(chat.version ?? null)
-    setServerChatState(normalizeConversationState(chat.state))
-    setServerChatTopic(chat.topic_label ?? null)
-    setServerChatClusterId(chat.cluster_id ?? null)
-    setServerChatSource(chat.source ?? null)
-    setServerChatExternalRef(chat.external_ref ?? null)
-    setServerChatMetaLoaded(true)
-    updatePageTitle(chat.title)
-    navigate("/")
-  }
 
   const handleRenameSubmit = () => {
     if (!renamingChat) return
@@ -291,7 +258,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
 
   const handleOpenSettings = (chat: ServerChatHistoryItem) => {
     if (serverChatId !== chat.id) {
-      loadServerChat(chat)
+      selectServerChat(chat)
     }
     if (typeof window === "undefined") return
     window.setTimeout(() => {
@@ -391,6 +358,15 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     const lastModifiedTitle = Number.isNaN(lastModifiedMs)
       ? undefined
       : new Date(lastModifiedMs).toLocaleString()
+    const stateMenuItems = CONVERSATION_STATE_OPTIONS.map((option) => ({
+      key: `state-${option.value}`,
+      icon: STATE_ICON_BY_VALUE[option.value],
+      label: t(option.labelToken, option.defaultLabel),
+      onClick: () => {
+        setOpenMenuFor(null)
+        handleUpdateState(chat, option.value)
+      }
+    }))
     const menuItems = [
       {
         key: "settings",
@@ -417,44 +393,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
       {
         key: "state",
         label: t("sidepanel:contextMenu.status", "Status"),
-        children: [
-          {
-            key: "state-in-progress",
-            icon: <Circle className="size-3 text-blue-500" />,
-            label: t("playground:composer.state.inProgress", "in-progress"),
-            onClick: () => {
-              setOpenMenuFor(null)
-              handleUpdateState(chat, "in-progress")
-            }
-          },
-          {
-            key: "state-resolved",
-            icon: <CheckCircle2 className="size-3 text-green-500" />,
-            label: t("playground:composer.state.resolved", "resolved"),
-            onClick: () => {
-              setOpenMenuFor(null)
-              handleUpdateState(chat, "resolved")
-            }
-          },
-          {
-            key: "state-backlog",
-            icon: <Clock className="size-3 text-gray-400" />,
-            label: t("playground:composer.state.backlog", "backlog"),
-            onClick: () => {
-              setOpenMenuFor(null)
-              handleUpdateState(chat, "backlog")
-            }
-          },
-          {
-            key: "state-non-viable",
-            icon: <XCircle className="size-3 text-red-400" />,
-            label: t("playground:composer.state.nonViable", "non-viable"),
-            onClick: () => {
-              setOpenMenuFor(null)
-              handleUpdateState(chat, "non-viable")
-            }
-          }
-        ]
+        children: stateMenuItems
       },
       {
         key: "topic",
@@ -490,7 +429,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
       >
         <button
           className="flex flex-col overflow-hidden flex-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 rounded"
-          onClick={() => void loadServerChat(chat)}
+          onClick={() => void selectServerChat(chat)}
         >
           <span className="truncate text-sm" title={chat.title}>
             {chat.title}

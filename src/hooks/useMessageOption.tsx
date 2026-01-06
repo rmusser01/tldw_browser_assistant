@@ -44,7 +44,7 @@ import { generateBranchFromMessageIds } from "@/db/dexie/branch"
 import { UploadedFile } from "@/db/dexie/types"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
 import { getServerCapabilities } from "@/services/tldw/server-capabilities"
 import { getActorSettingsForChat } from "@/services/actor-settings"
 import { generateTitle } from "@/services/title"
@@ -202,6 +202,54 @@ export const useMessageOption = () => {
   const compareModeActive = compareFeatureEnabled && compareMode
   const compareModeActiveRef = React.useRef(compareModeActive)
   const compareFeatureEnabledRef = React.useRef(compareFeatureEnabled)
+
+  const selectServerChat = React.useCallback(
+    (chat: ServerChatSummary) => {
+      setIsLoading(true)
+      setHistoryId(null)
+      setHistory([])
+      setMessages([])
+      setServerChatId(chat.id)
+      setServerChatTitle(chat.title || "")
+      setServerChatCharacterId(chat.character_id ?? null)
+      setIsProcessing(false)
+      setStreaming(false)
+      setIsEmbedding(false)
+      setIsSearchingInternet(false)
+      clearReplyTarget()
+      setServerChatVersion(chat.version ?? null)
+      setServerChatState(normalizeConversationState(chat.state))
+      setServerChatTopic(chat.topic_label ?? null)
+      setServerChatClusterId(chat.cluster_id ?? null)
+      setServerChatSource(chat.source ?? null)
+      setServerChatExternalRef(chat.external_ref ?? null)
+      setServerChatMetaLoaded(true)
+      updatePageTitle(chat.title)
+      navigate("/")
+    },
+    [
+      clearReplyTarget,
+      navigate,
+      setHistory,
+      setHistoryId,
+      setIsEmbedding,
+      setIsLoading,
+      setIsProcessing,
+      setIsSearchingInternet,
+      setMessages,
+      setServerChatCharacterId,
+      setServerChatClusterId,
+      setServerChatExternalRef,
+      setServerChatId,
+      setServerChatMetaLoaded,
+      setServerChatSource,
+      setServerChatState,
+      setServerChatTitle,
+      setServerChatTopic,
+      setServerChatVersion,
+      setStreaming
+    ]
+  )
 
   React.useEffect(() => {
     messagesRef.current = messages
@@ -1586,6 +1634,7 @@ export const useMessageOption = () => {
     setHistory,
     historyId,
     setHistoryId,
+    selectServerChat,
     setIsFirstMessage,
     isLoading,
     setIsLoading,

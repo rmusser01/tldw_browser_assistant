@@ -18,6 +18,7 @@ import { getOCRLanguage } from "@/services/ocr"
 import { ocrLanguages } from "@/data/ocr-language"
 import { fetchChatModels } from "@/services/tldw-server"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import type { ActorSettings, ActorTarget } from "@/types/actor"
 import { createDefaultActorSettings } from "@/types/actor"
 import {
@@ -282,28 +283,6 @@ export const CurrentChatModelSettings = ({
     retry: 2
   })
 
-  const providerDisplayName = React.useCallback((provider?: string) => {
-    const key = String(provider || "unknown").toLowerCase()
-    if (key === "openai") return "OpenAI"
-    if (key === "anthropic") return "Anthropic"
-    if (key === "google") return "Google"
-    if (key === "mistral") return "Mistral"
-    if (key === "cohere") return "Cohere"
-    if (key === "groq") return "Groq"
-    if (key === "huggingface") return "HuggingFace"
-    if (key === "openrouter") return "OpenRouter"
-    if (key === "ollama") return "Ollama"
-    if (key === "llama") return "Llama.cpp"
-    if (key === "kobold") return "Kobold.cpp"
-    if (key === "ooba") return "Oobabooga"
-    if (key === "tabby") return "TabbyAPI"
-    if (key === "vllm") return "vLLM"
-    if (key === "aphrodite") return "Aphrodite"
-    if (key === "zai") return "Z.AI"
-    if (key === "custom_openai_api") return "Custom OpenAI API"
-    return provider || "API"
-  }, [])
-
   const modelOptions = useMemo(() => {
     type GroupOption = {
       label: React.ReactNode
@@ -337,7 +316,7 @@ export const CurrentChatModelSettings = ({
     for (const m of models as any[]) {
       const rawProvider = (m.details && m.details.provider) || m.provider
       const providerKey = String(rawProvider || "other").toLowerCase()
-      const providerLabel = providerDisplayName(rawProvider)
+      const providerLabel = getProviderDisplayName(rawProvider)
       const modelLabel = m.nickname || m.model
       const details: any = m.details || {}
       const caps: string[] = Array.isArray(details.capabilities)
@@ -418,7 +397,7 @@ export const CurrentChatModelSettings = ({
     }
 
     return groupedOptions
-  }, [composerModels, providerDisplayName, selectedModel])
+  }, [composerModels, selectedModel])
 
   const providerOptions = useMemo(() => {
     const models = (composerModels as any[]) || []
@@ -428,14 +407,14 @@ export const CurrentChatModelSettings = ({
       if (!rawProvider) continue
       const key = String(rawProvider)
       if (!providers.has(key)) {
-        providers.set(key, providerDisplayName(rawProvider))
+        providers.set(key, getProviderDisplayName(rawProvider))
       }
     }
     return Array.from(providers.entries()).map(([value, label]) => ({
       value,
       label
     }))
-  }, [composerModels, providerDisplayName])
+  }, [composerModels])
 
   const tabItems = useMemo(
     () => [

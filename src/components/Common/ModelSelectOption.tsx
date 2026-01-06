@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
 import { fetchChatModels } from "@/services/tldw-server"
 import { useMessageOption } from "~/hooks/useMessageOption"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { ProviderIcons } from "./ProviderIcon"
 import { IconButton } from "./IconButton"
 
@@ -59,8 +60,13 @@ export const ModelSelectOption: React.FC<Props> = ({ iconClassName = "size-5" })
     }
     const items: any[] = []
     for (const [groupKey, children] of groups) {
-      const labelText = groupKey === 'default' ? 'Default' : (groupKey === 'custom' ? 'Custom' : groupKey)
-      const iconKey = groupKey === 'default' ? 'chrome' : groupKey
+      const labelText =
+        groupKey === "default"
+          ? "Default"
+          : groupKey === "custom"
+            ? "Custom"
+            : getProviderDisplayName(groupKey)
+      const iconKey = groupKey === "default" ? "chrome" : groupKey
       items.push({
         type: 'group',
         key: `group-${groupKey}`,

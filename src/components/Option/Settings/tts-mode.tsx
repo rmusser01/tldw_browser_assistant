@@ -1,7 +1,7 @@
 import { SaveButton } from "@/components/Common/SaveButton"
 import { getModels, getVoices } from "@/services/elevenlabs"
 import { getTTSSettings, setTTSSettings } from "@/services/tts"
-import { TTS_PROVIDER_OPTIONS } from "@/services/tts-provider"
+import { TTS_PROVIDER_OPTIONS } from "@/services/tts-providers"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { fetchTldwVoices, type TldwVoice } from "@/services/tldw/audio-voices"
 import {

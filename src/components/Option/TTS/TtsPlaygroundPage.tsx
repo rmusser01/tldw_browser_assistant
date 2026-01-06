@@ -12,10 +12,8 @@ import {
 import { useTranslation } from "react-i18next"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getTTSProvider, getTTSSettings, setTTSSettings } from "@/services/tts"
-import {
-  getTtsProviderLabel,
-  inferTldwProviderFromModel
-} from "@/services/tts-provider"
+import { inferTldwProviderFromModel } from "@/services/tts-provider"
+import { getTtsProviderLabel } from "@/services/tts-providers"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useServerOnline } from "@/hooks/useServerOnline"
 import {

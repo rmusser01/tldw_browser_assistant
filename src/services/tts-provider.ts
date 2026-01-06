@@ -20,9 +20,7 @@ import { generateSpeech } from "@/services/elevenlabs"
 import { generateOpenAITTS } from "@/services/openai-tts"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import {
-  TTS_PROVIDER_OPTIONS,
   TTS_PROVIDER_VALUES,
-  getTtsProviderLabel,
   type TtsProviderValue
 } from "@/services/tts-providers"
 
@@ -91,7 +89,6 @@ const normalizeUtterance = async (text: string): Promise<string> => {
   return markdownToText(utterance)
 }
 
-export { TTS_PROVIDER_OPTIONS, getTtsProviderLabel }
 
 export const inferTldwProviderFromModel = (
   model?: string | null

@@ -23,6 +23,7 @@ import { XAIIcon } from "../Icons/XAI"
 import { HuggingFaceIcon } from "../Icons/HuggingFaceIcon"
 import { VercelIcon } from "../Icons/VercelIcon"
 import { ChutesIcon } from "../Icons/ChutesIcon"
+import { getProviderIconKey } from "@/utils/provider-registry"
 
 export const ProviderIcons = ({
   provider,
@@ -31,13 +32,15 @@ export const ProviderIcons = ({
   provider: string
   className?: string
 }) => {
-  switch (provider) {
+  switch (getProviderIconKey(provider)) {
     case "tldw":
       return <CpuIcon className={className} />
     case "chrome":
       return <ChromeIcon className={className} />
     case "custom":
       return <CpuIcon className={className} />
+    case "ollama":
+      return <OllamaIcon className={className} />
     case "fireworks":
       return <FireworksMonoIcon className={className} />
     case "groq":

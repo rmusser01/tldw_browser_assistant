@@ -26,6 +26,7 @@ import {
   wrapDraftForPrompt
 } from "@/utils/content-review-ai"
 import { getTextStats } from "@/utils/text-stats"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { bgRequest, bgUpload } from "@/services/background-proxy"
 import { getServerCapabilities } from "@/services/tldw/server-capabilities"
 import { fetchChatModels } from "@/services/tldw-server"
@@ -264,28 +265,6 @@ const cloneDraft = (draft: ContentDraft): ContentDraft => {
   }
 }
 
-const providerDisplayName = (provider?: string) => {
-  const key = String(provider || "unknown").toLowerCase()
-  if (key === "openai") return "OpenAI"
-  if (key === "anthropic") return "Anthropic"
-  if (key === "google") return "Google"
-  if (key === "mistral") return "Mistral"
-  if (key === "cohere") return "Cohere"
-  if (key === "groq") return "Groq"
-  if (key === "huggingface") return "HuggingFace"
-  if (key === "openrouter") return "OpenRouter"
-  if (key === "ollama") return "Ollama"
-  if (key === "llama") return "Llama.cpp"
-  if (key === "kobold") return "Kobold.cpp"
-  if (key === "ooba") return "Oobabooga"
-  if (key === "tabby") return "TabbyAPI"
-  if (key === "vllm") return "vLLM"
-  if (key === "aphrodite") return "Aphrodite"
-  if (key === "zai") return "Z.AI"
-  if (key === "custom_openai_api") return "Custom OpenAI API"
-  if (key === "chrome") return "Chrome"
-  return provider || "API"
-}
 
 export const ContentReviewPage: React.FC = () => {
   const { t } = useTranslation(["option"])
@@ -368,7 +347,7 @@ export const ContentReviewPage: React.FC = () => {
       .then((models) => {
         if (!mounted) return
         const options = (models || []).map((model) => {
-          const provider = providerDisplayName(model.provider)
+          const provider = getProviderDisplayName(model.provider)
           const modelLabel = model.nickname || model.model
           return {
             value: model.model,

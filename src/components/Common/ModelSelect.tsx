@@ -95,8 +95,13 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
     // Build grouped menu items
     const items: any[] = []
     for (const [groupKey, children] of groups) {
-      const labelText = groupKey === 'default' ? 'Default' : (groupKey === 'custom' ? 'Custom' : groupKey)
-      const iconKey = groupKey === 'default' ? 'chrome' : groupKey
+      const labelText =
+        groupKey === "default"
+          ? "Default"
+          : groupKey === "custom"
+            ? "Custom"
+            : getProviderDisplayName(groupKey)
+      const iconKey = groupKey === "default" ? "chrome" : groupKey
       items.push({
         type: 'group',
         key: `group-${groupKey}`,

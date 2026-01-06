@@ -822,7 +822,7 @@ export default defineBackground({
         return { ok: true, results: out }
       }
       if (message.type === "sidepanel") {
-        await browser.sidebarAction.open()
+        await ensureSidepanelOpen()
       } else if (message.type === 'tldw:upload') {
         return handleUpload(message.payload || {})
       } else if (message.type === 'tldw:request') {

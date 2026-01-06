@@ -9,7 +9,7 @@ import logoImage from "~/assets/icon.png"
 
 export const SidepanelSettingsHeader = () => {
   const { t , i18n} = useTranslation("common")
-  const isRTL = i18n?.dir() === "rtl"
+  const isRTL = i18n?.dir?.() === "rtl"
  
   const [uiMode, setUiMode] = useStorage({ key: 'uiMode', instance: createSafeStorage({ area: 'local' }) }, 'sidePanel')
 

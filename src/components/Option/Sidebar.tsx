@@ -53,7 +53,6 @@ import {
 import { UploadedFile } from "@/db/dexie/types"
 import { isDatabaseClosedError } from "@/utils/ff-error"
 import { updatePageTitle } from "@/utils/update-page-title"
-import { normalizeConversationState } from "@/utils/conversation-state"
 import { promptInput } from "@/components/Common/prompt-input"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { IconButton } from "../Common/IconButton"
@@ -73,6 +72,7 @@ type Props = {
   setSystemPrompt: (prompt: string) => void
   setContext?: (context: UploadedFile[]) => void
   clearChat: () => void
+  selectServerChat: (chat: ServerChatSummary) => void
   temporaryChat: boolean
   historyId: string
   history: any
@@ -87,6 +87,7 @@ export const Sidebar = ({
   setSelectedModel,
   setSelectedSystemPrompt,
   clearChat,
+  selectServerChat,
   historyId,
   setSystemPrompt,
   temporaryChat,
@@ -138,25 +139,7 @@ export const Sidebar = ({
     }
   }, [isConnected, isOpen, viewMode, refreshFromServer])
 
-  const {
-    serverChatId,
-    setServerChatId,
-    setServerChatTitle,
-    setServerChatCharacterId,
-    setServerChatState,
-    setServerChatVersion,
-    setServerChatTopic,
-    setServerChatClusterId,
-    setServerChatSource,
-    setServerChatExternalRef,
-    setServerChatMetaLoaded,
-    setIsProcessing,
-    setStreaming,
-    setIsLoading,
-    setIsEmbedding,
-    setIsSearchingInternet,
-    clearReplyTarget
-  } = useStoreMessageOption()
+  const { serverChatId, setServerChatId } = useStoreMessageOption()
   const {
     data: serverChatData,
     status: serverStatus,
@@ -442,53 +425,10 @@ export const Sidebar = ({
 
   const loadServerChat = React.useCallback(
     (chat: ServerChatSummary) => {
-      setIsLoading(true)
-      // Clear local selection; this chat is backed by the server
-      setHistoryId(null)
-      setHistory([])
-      setMessages([])
-      setServerChatId(chat.id)
-      setServerChatTitle(chat.title || "")
-      setServerChatCharacterId(chat.character_id ?? null)
-      setServerChatState(normalizeConversationState(chat.state))
-      setServerChatVersion(chat.version ?? null)
-      setServerChatTopic(chat.topic_label ?? null)
-      setServerChatClusterId(chat.cluster_id ?? null)
-      setServerChatSource(chat.source ?? null)
-      setServerChatExternalRef(chat.external_ref ?? null)
-      setServerChatMetaLoaded(true)
-      setIsProcessing(false)
-      setStreaming(false)
-      setIsEmbedding(false)
-      setIsSearchingInternet(false)
-      clearReplyTarget()
-      updatePageTitle(chat.title)
-      navigate("/")
+      selectServerChat(chat)
       onClose()
     },
-    [
-      clearReplyTarget,
-      navigate,
-      onClose,
-      setHistory,
-      setHistoryId,
-      setIsEmbedding,
-      setIsLoading,
-      setIsProcessing,
-      setIsSearchingInternet,
-      setMessages,
-      setServerChatCharacterId,
-      setServerChatClusterId,
-      setServerChatExternalRef,
-      setServerChatId,
-      setServerChatMetaLoaded,
-      setServerChatSource,
-      setServerChatState,
-      setServerChatTitle,
-      setServerChatTopic,
-      setServerChatVersion,
-      setStreaming
-    ]
+    [onClose, selectServerChat]
   )
 
   const loadServerChatById = React.useCallback(

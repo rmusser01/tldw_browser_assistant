@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useMemo, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { Empty, Skeleton, message, Modal, Input } from "antd"
 import { useQuery } from "@tanstack/react-query"
@@ -14,9 +13,7 @@ import {
 } from "@/store/folder"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
-import { updatePageTitle } from "@/utils/update-page-title"
 import { cn } from "@/libs/utils"
-import { normalizeConversationState } from "@/utils/conversation-state"
 
 interface FolderChatListProps {
   onSelectChat?: (chatId: string) => void
@@ -25,7 +22,6 @@ interface FolderChatListProps {
 
 export function FolderChatList({ onSelectChat, className }: FolderChatListProps) {
   const { t } = useTranslation(["common"])
-  const navigate = useNavigate()
   const { isConnected } = useConnectionState()
   const { refreshFromServer, createFolder } = useFolderActions()
   const folderRefreshInFlightRef = useRef<Promise<void> | null>(null)
@@ -33,27 +29,7 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
   const [newFolderName, setNewFolderName] = useState("")
   const [isCreating, setIsCreating] = useState(false)
 
-  const {
-    setMessages,
-    setHistory,
-    setHistoryId,
-    setServerChatId,
-    setServerChatTitle,
-    setServerChatCharacterId,
-    setServerChatState,
-    setServerChatVersion,
-    setServerChatTopic,
-    setServerChatClusterId,
-    setServerChatSource,
-    setServerChatExternalRef,
-    setServerChatMetaLoaded,
-    setStreaming,
-    setIsLoading,
-    setIsSearchingInternet,
-    setIsEmbedding,
-    setIsProcessing,
-    clearReplyTarget
-  } = useMessageOption()
+  const { selectServerChat } = useMessageOption()
 
   // Folder data
   const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
@@ -155,50 +131,9 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
 
   const loadServerChat = React.useCallback(
     (chat: ServerChatSummary) => {
-      setIsLoading(true)
-      setHistoryId(null)
-      setHistory([])
-      setMessages([])
-      setServerChatId(chat.id)
-      setServerChatTitle(chat.title || "")
-      setServerChatCharacterId(chat.character_id ?? null)
-      setIsProcessing(false)
-      setStreaming(false)
-      setIsEmbedding(false)
-      setIsSearchingInternet(false)
-      clearReplyTarget()
-      setServerChatVersion(chat.version ?? null)
-      setServerChatState(normalizeConversationState(chat.state))
-      setServerChatTopic(chat.topic_label ?? null)
-      setServerChatClusterId(chat.cluster_id ?? null)
-      setServerChatSource(chat.source ?? null)
-      setServerChatExternalRef(chat.external_ref ?? null)
-      setServerChatMetaLoaded(true)
-      updatePageTitle(chat.title)
-      navigate("/")
+      selectServerChat(chat)
     },
-    [
-      clearReplyTarget,
-      navigate,
-      setHistory,
-      setHistoryId,
-      setIsEmbedding,
-      setIsLoading,
-      setIsProcessing,
-      setIsSearchingInternet,
-      setMessages,
-      setServerChatCharacterId,
-      setServerChatClusterId,
-      setServerChatExternalRef,
-      setServerChatId,
-      setServerChatMetaLoaded,
-      setServerChatSource,
-      setServerChatState,
-      setServerChatTitle,
-      setServerChatTopic,
-      setServerChatVersion,
-      setStreaming
-    ]
+    [selectServerChat]
   )
 
   const loadServerChatById = React.useCallback(

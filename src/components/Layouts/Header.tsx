@@ -21,14 +21,12 @@ import { ProviderIcons } from "../Common/ProviderIcon"
 import logoImage from "~/assets/icon.png"
 import { NewChat } from "./NewChat"
 import { MoreOptions } from "./MoreOptions"
-import { browser } from "wxt/browser"
 import { CharacterSelect } from "../Common/CharacterSelect"
 import { PrimaryToolbar } from "./PrimaryToolbar"
 import type { Character } from "@/types/character"
 import OmniSearchBar from "../Common/OmniSearchBar"
 import { useOmniSearchDeps } from "@/hooks/useOmniSearchDeps"
 import { useTimelineStore } from "@/store/timeline"
-import { isFirefoxTarget } from "@/config/platform"
 
 // Extracted components for better maintainability
 import { ModeSelector, type CoreMode } from "./ModeSelector"
@@ -36,6 +34,7 @@ import { ConnectionStatus } from "./ConnectionStatus"
 import { QuickIngestButton } from "./QuickIngestButton"
 import { HeaderShortcuts } from "./HeaderShortcuts"
 import { ChatHeader } from "./ChatHeader"
+import { openSidepanel } from "@/utils/sidepanel"
 
 const headerStorage = createSafeStorage({ area: "local" })
 
@@ -58,7 +57,7 @@ export const Header: React.FC<Props> = ({
     "settings",
     "playground"
   ])
-  const isRTL = i18n?.dir() === "rtl"
+  const isRTL = i18n?.dir?.() === "rtl"
   const cmdKey = isMac ? "⌘" : "Ctrl+"
 
   const [shareModeEnabled] = useStorage("shareMode", false)
@@ -171,26 +170,7 @@ export const Header: React.FC<Props> = ({
 
   const openSidebar = React.useCallback(async () => {
     try {
-      if (isFirefoxTarget) {
-        await browser.sidebarAction.open()
-      } else {
-        // Chromium sidePanel API
-        if (
-          typeof chrome === "undefined" ||
-          !chrome?.tabs?.query ||
-          !chrome?.sidePanel?.open
-        ) {
-          return
-        }
-        const tabs = await chrome.tabs.query({
-          active: true,
-          currentWindow: true
-        })
-        const tabId = tabs?.[0]?.id
-        if (tabId) {
-          await chrome.sidePanel.open({ tabId })
-        }
-      }
+      await openSidepanel()
     } catch {}
   }, [])
 
