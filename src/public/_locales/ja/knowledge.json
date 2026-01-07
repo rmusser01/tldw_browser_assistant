@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "新しい知識を追加"
+  },
+  "columns_title": {
+    "message": "タイトル"
+  },
+  "columns_status": {
+    "message": "ステータス"
+  },
+  "columns_embeddings": {
+    "message": "埋め込みモデル"
+  },
+  "columns_createdAt": {
+    "message": "作成日"
+  },
+  "columns_action": {
+    "message": "アクション"
+  },
+  "expandedColumns_name": {
+    "message": "名前"
+  },
+  "confirm_delete": {
+    "message": "この知識を削除してもよろしいですか?"
+  },
+  "deleteSuccess": {
+    "message": "知識が正常に削除されました"
+  },
+  "status_pending": {
+    "message": "保留中"
+  },
+  "status_finished": {
+    "message": "完了"
+  },
+  "status_processing": {
+    "message": "処理中"
+  },
+  "status_failed": {
+    "message": "失敗"
+  },
+  "addKnowledge": {
+    "message": "知識を追加"
+  },
+  "updateKnowledge": {
+    "message": "ソースを追加"
+  },
+  "form_title_label": {
+    "message": "知識タイトル"
+  },
+  "form_title_placeholder": {
+    "message": "知識のタイトルを入力してください"
+  },
+  "form_title_required": {
+    "message": "知識のタイトルは必須です"
+  },
+  "form_uploadFile_label": {
+    "message": "ファイルをアップロード"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "ファイルをここにドラッグアンドドロップするか、クリックしてアップロード"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "サポートされているファイルタイプ: .pdf、.csv、.txt、.md、.docx"
+  },
+  "form_uploadFile_required": {
+    "message": "ファイルは必須です"
+  },
+  "form_submit": {
+    "message": "送信"
+  },
+  "form_success": {
+    "message": "知識が正常に追加されました"
+  },
+  "noEmbeddingModel": {
+    "message": "最初にRAGの設定ページから埋め込みモデルを追加してください"
+  },
+  "privateModeDescription": {
+    "message": "Firefox のプライベートモードは IndexedDB への保存をサポートしません。通常ウィンドウでナレッジベースを追加してください。"
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "検索拡張生成（RAG）により、アシスタントはあなたのメディアやノートなどのインデックス化されたナレッジを根拠に回答できます。"
+  },
+  "rag_searchFailed": {
+    "message": "RAG 検索に失敗しました。もう一度お試しください、または診断画面を確認してください。"
+  },
+  "empty_demoTitle": {
+    "message": "デモモードで Knowledge QA を試す"
+  },
+  "empty_demoDescription": {
+    "message": "このデモでは、Knowledge QA がサンプルコンテンツに対して RAG 検索を実行する方法を確認できます。後で自分のサーバーを接続して、自分の書き起こしやドキュメントを検索できます。"
+  },
+  "empty_demoExample1": {
+    "message": "RAG のクイック検索を試して、結果と出典を確認してみてください。"
+  },
+  "empty_demoExample2": {
+    "message": "自分のサーバーを接続して、実際のメディアやノートに対して Knowledge QA を有効にしましょう。"
+  },
+  "empty_connectTitle": {
+    "message": "Knowledge QA を使うには接続してください"
+  },
+  "empty_connectDescription": {
+    "message": "Knowledge QA と RAG 検索を使うには、まず tldw サーバーに接続する必要があります。"
+  },
+  "empty_connectExample1": {
+    "message": "設定 → tldw server を開き、サーバー URL を追加してください。"
+  },
+  "empty_connectExample2": {
+    "message": "サーバーが起動しているのに接続できない場合は、Diagnostics を確認してください。"
+  }
+}

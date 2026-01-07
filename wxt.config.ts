@@ -254,9 +254,7 @@ export default defineConfig({
         include: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
         entries: [
           "src/entries/options/index.html",
-          "src/entries/sidepanel/index.html",
-          "src/entries-firefox/options/index.html",
-          "src/entries-firefox/sidepanel/index.html"
+          "src/entries/sidepanel/index.html"
         ]
       },
       build: {
@@ -266,8 +264,7 @@ export default defineConfig({
       }
     }
   },
-  entrypointsDir:
-    isFirefox ? "entries-firefox" : "entries",
+  entrypointsDir: "entries",
   srcDir: "src",
   outDir: "build",
 

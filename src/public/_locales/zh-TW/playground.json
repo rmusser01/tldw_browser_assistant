@@ -1222,5 +1222,17 @@
   },
   "speech_transcriptRecordingHint": {
     "message": "錄音進行中；轉寫已鎖定。"
+  },
+  "actor_uploadedFiles": {
+    "message": "Uploaded Files ({{count}})"
+  },
+  "actor_fileRetrieval": {
+    "message": "File Retrieval"
+  },
+  "actor_fileStatusProcessed": {
+    "message": "Processed"
+  },
+  "actor_fileStatusProcessing": {
+    "message": "Processing..."
   }
 }

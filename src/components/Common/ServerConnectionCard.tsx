@@ -14,6 +14,7 @@ import { ConnectionPhase } from "@/types/connection"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { focusComposer } from "@/hooks/useComposerFocus"
 import { getReturnTo, clearReturnTo } from "@/utils/return-to"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { useNavigate } from "react-router-dom"
 import { ServerOverviewHint } from "@/components/Common/ServerOverviewHint"
 import { useDemoMode } from "@/context/demo-mode"
@@ -154,16 +155,16 @@ export const ServerConnectionCard: React.FC<Props> = ({
 
   React.useEffect(() => {
     let cancelled = false
-    try {
-      if (typeof chrome !== "undefined" && chrome?.storage?.local) {
-        chrome.storage.local.get("tldwConfig", (res) => {
-          const url = res?.tldwConfig?.serverUrl
-          if (url && !cancelled) setKnownServerUrl(url)
-        })
-      }
-    } catch {
-      // ignore storage read issues
-    }
+    const storage = createSafeStorage()
+    storage
+      .get<any>("tldwConfig")
+      .then((cfg) => {
+        const url = cfg?.serverUrl
+        if (url && !cancelled) setKnownServerUrl(url)
+      })
+      .catch(() => {
+        // ignore storage read issues
+      })
     return () => {
       cancelled = true
     }

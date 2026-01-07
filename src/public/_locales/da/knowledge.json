@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "Tilføj Ny Viden"
+  },
+  "columns_title": {
+    "message": "Titel"
+  },
+  "columns_status": {
+    "message": "Tilstand"
+  },
+  "columns_embeddings": {
+    "message": "Embedding-model"
+  },
+  "columns_createdAt": {
+    "message": "Oprettet At"
+  },
+  "columns_action": {
+    "message": "Handlinger"
+  },
+  "expandedColumns_name": {
+    "message": "Navn"
+  },
+  "confirm_delete": {
+    "message": "Er du sikker på du vil slette denne viden?"
+  },
+  "deleteSuccess": {
+    "message": "Viden slettet med success"
+  },
+  "status_pending": {
+    "message": "Venter"
+  },
+  "status_finished": {
+    "message": "Færdig"
+  },
+  "status_processing": {
+    "message": "Processerer"
+  },
+  "status_failed": {
+    "message": "Fejlet"
+  },
+  "addKnowledge": {
+    "message": "Tilføj Viden"
+  },
+  "updateKnowledge": {
+    "message": "Tilføj Kilde"
+  },
+  "form_title_label": {
+    "message": "Viden Titel"
+  },
+  "form_title_placeholder": {
+    "message": "Indtast viden titel"
+  },
+  "form_title_required": {
+    "message": "Viden titel er nødvendig"
+  },
+  "form_uploadFile_label": {
+    "message": "Upload Filer"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Træk og slip denne fil here og klik upload"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Understøttet filtyper: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "En fil er nødvendig"
+  },
+  "form_submit": {
+    "message": "Indsend"
+  },
+  "form_success": {
+    "message": "Viden tilføjet med success"
+  },
+  "noEmbeddingModel": {
+    "message": "Tilføj venligst en embedding model fra RAG indstillingerne først"
+  },
+  "privateModeDescription": {
+    "message": "Firefox privat tilstand understøtter ikke lagring i IndexedDB. Tilføj en vidensbase fra et normalt vindue."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "Retrieval-augmented generation (RAG) lader assistenten forankre svar i dine medier, noter og andre indekserede videnskilder."
+  },
+  "rag_searchFailed": {
+    "message": "RAG-søgning mislykkedes. Prøv igen eller tjek Diagnostik."
+  },
+  "empty_demoTitle": {
+    "message": "Udforsk Knowledge QA i demotilstand"
+  },
+  "empty_demoDescription": {
+    "message": "Denne demo viser, hvordan Knowledge QA kan køre RAG-søgninger på eksempelindhold. Tilslut din egen server senere for at søge i dine egne udskrifter og dokumenter."
+  },
+  "empty_demoExample1": {
+    "message": "Prøv hurtige RAG-søgninger og gennemgå resultater og kildehenvisninger."
+  },
+  "empty_demoExample2": {
+    "message": "Tilslut din egen server for at aktivere Knowledge QA på dit rigtige medieindhold og noter."
+  },
+  "empty_connectTitle": {
+    "message": "Tilslut for at bruge Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "For at bruge Knowledge QA og RAG-søgning skal du først tilslutte din tldw-server."
+  },
+  "empty_connectExample1": {
+    "message": "Åbn Indstillinger → tldw server for at tilføje din server-URL."
+  },
+  "empty_connectExample2": {
+    "message": "Brug Diagnostik, hvis din server kører men ikke kan nås."
+  }
+}

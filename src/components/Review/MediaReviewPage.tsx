@@ -10,6 +10,12 @@ import { useVirtualizer, type VirtualItem } from "@tanstack/react-virtual"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { useStorage } from "@plasmohq/storage/hook"
+import { useSetting } from "@/hooks/useSetting"
+import {
+  LAST_MEDIA_ID_SETTING,
+  MEDIA_REVIEW_ORIENTATION_SETTING
+} from "@/services/settings/ui-settings"
+import { clearSetting, getSetting } from "@/services/settings/registry"
 
 type MediaItem = {
   id: string | number
@@ -63,11 +69,9 @@ export const MediaReviewPage: React.FC = () => {
   const [page, setPage] = React.useState(1)
   const [pageSize, setPageSize] = React.useState(20)
   const [total, setTotal] = React.useState(0)
-  const orientationStorageKey = "media-review-orientation"
-  const [orientation, setOrientation] = React.useState<"vertical" | "horizontal">(() => {
-    const stored = typeof window !== "undefined" ? localStorage.getItem(orientationStorageKey) : null
-    return stored === "horizontal" ? "horizontal" : "vertical"
-  })
+  const [orientation, setOrientation] = useSetting(
+    MEDIA_REVIEW_ORIENTATION_SETTING
+  )
   const [selectedIds, setSelectedIds] = React.useState<Array<string | number>>([])
   const [details, setDetails] = React.useState<Record<string | number, MediaDetail>>({})
   const [availableTypes, setAvailableTypes] = React.useState<string[]>([])
@@ -84,24 +88,21 @@ export const MediaReviewPage: React.FC = () => {
   const [viewMode, setViewMode] = React.useState<"spread" | "list" | "all">("spread")
   const [focusedId, setFocusedId] = React.useState<string | number | null>(null)
   const [collapseOthers, setCollapseOthers] = React.useState<boolean>(false)
-  const [pendingInitialMediaId, setPendingInitialMediaId] = React.useState<string | null>(() => {
-    try {
-      if (typeof window === "undefined") return null
-      const raw = localStorage.getItem("tldw:lastMediaId")
-      return raw || null
-    } catch {
-      return null
-    }
-  })
+  const [pendingInitialMediaId, setPendingInitialMediaId] = React.useState<string | null>(null)
   const isOnline = useServerOnline()
 
   React.useEffect(() => {
-    try {
-      localStorage.setItem(orientationStorageKey, orientation)
-    } catch {
-      // ignore persistence errors
+    let cancelled = false
+    void (async () => {
+      const lastMediaId = await getSetting(LAST_MEDIA_ID_SETTING)
+      if (!cancelled && lastMediaId) {
+        setPendingInitialMediaId(lastMediaId)
+      }
+    })()
+    return () => {
+      cancelled = true
     }
-  }, [orientation])
+  }, [])
 
   const fetchList = async (): Promise<MediaItem[]> => {
     const hasQuery = query.trim().length > 0
@@ -371,11 +372,7 @@ export const MediaReviewPage: React.FC = () => {
     void ensureDetail(match.id)
     scrollToCard(match.id)
     setPendingInitialMediaId(null)
-    try {
-      localStorage.removeItem("tldw:lastMediaId")
-    } catch {
-      // ignore storage errors
-    }
+    void clearSetting(LAST_MEDIA_ID_SETTING)
   }, [pendingInitialMediaId, allResults, ensureDetail, scrollToCard])
 
   const goRelative = React.useCallback(
@@ -850,7 +847,9 @@ export const MediaReviewPage: React.FC = () => {
                 <Radio.Group
                   size="small"
                   value={orientation}
-                  onChange={(e) => setOrientation(e.target.value)}
+                  onChange={(e) => {
+                    void setOrientation(e.target.value)
+                  }}
                   options={[
                     { label: t('mediaPage.vertical', 'Vertical'), value: 'vertical' },
                     { label: t('mediaPage.horizontal', 'Horizontal'), value: 'horizontal' }

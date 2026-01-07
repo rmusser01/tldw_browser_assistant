@@ -1,11 +1,13 @@
-import { Storage } from "@plasmohq/storage"
 import { createSafeStorage } from "@/utils/safe-storage"
+import {
+  coerceBoolean,
+  defineSetting,
+  getSetting,
+  setSetting,
+  type SettingDef
+} from "@/services/settings/registry"
 
-const storage = createSafeStorage({
-  area: "local"
-})
-
-const storage2 = createSafeStorage()
+const storage = createSafeStorage()
 
 type ModelSettings = {
   f16KV?: boolean
@@ -41,7 +43,7 @@ type ModelSettings = {
   reasoningEffort?: any
 }
 
-const keys = [
+const MODEL_SETTING_KEYS = [
   "f16KV",
   "frequencyPenalty",
   "keepAlive",
@@ -73,22 +75,39 @@ const keys = [
   "minP",
   "useMlock",
   "reasoningEffort"
-]
+] as const satisfies readonly (keyof ModelSettings)[]
 
-export const getAllModelSettings = async () => {
+type ModelSettingKey = (typeof MODEL_SETTING_KEYS)[number]
+
+const RESTORE_LAST_CHAT_MODEL_SETTING = defineSetting(
+  "restoreLastChatModel",
+  false,
+  (value) => coerceBoolean(value, false)
+)
+
+const MODEL_SETTING_DEFS = MODEL_SETTING_KEYS.reduce(
+  (acc, key) => {
+    acc[key] = defineSetting(key, undefined as ModelSettings[ModelSettingKey])
+    return acc
+  },
+  {} as Record<ModelSettingKey, SettingDef<ModelSettings[ModelSettingKey]>>
+)
+
+const isModelSettingKey = (key: string): key is ModelSettingKey =>
+  key in MODEL_SETTING_DEFS
+
+export const getAllModelSettings = async (): Promise<ModelSettings> => {
   try {
-    const settings: ModelSettings = {}
-    for (const key of keys) {
-      const value = await storage.get(key)
-      settings[key] = value
-      // if (!value && key === "keepAlive") {
-      //   settings[key] = "5m"
-      // }
-    }
-    return settings
+    const entries = await Promise.all(
+      MODEL_SETTING_KEYS.map(async (key) => {
+        const value = await getSetting(MODEL_SETTING_DEFS[key])
+        return [key, value] as const
+      })
+    )
+    return Object.fromEntries(entries) as ModelSettings
   } catch (error) {
     console.error(error)
-    return {}
+    return {} as ModelSettings
   }
 }
 
@@ -96,32 +115,25 @@ export const setModelSetting = async (
   key: string,
   value: string | number | boolean
 ) => {
-  await storage.set(key, value)
+  if (!isModelSettingKey(key)) {
+    console.warn(`[tldw] Unknown model setting key: ${key}`)
+    return
+  }
+  await setSetting(MODEL_SETTING_DEFS[key], value as ModelSettings[ModelSettingKey])
 }
 
 export const getAllDefaultModelSettings = async (): Promise<ModelSettings> => {
-  const settings: ModelSettings = {}
-  for (const key of keys) {
-    const value = await storage.get(key)
-    settings[key] = value
-    // if (!value && key === "keepAlive") {
-    //   settings[key] = "5m"
-    // }
-  }
-  return settings
+  return await getAllModelSettings()
 }
 
 export const lastUsedChatModelEnabled = async (): Promise<boolean> => {
-  const isLastUsedChatModelEnabled = await storage2.get<boolean | undefined>(
-    "restoreLastChatModel"
-  )
-  return isLastUsedChatModelEnabled ?? false
+  return await getSetting(RESTORE_LAST_CHAT_MODEL_SETTING)
 }
 
 export const setLastUsedChatModelEnabled = async (
   enabled: boolean
 ): Promise<void> => {
-  await storage.set("restoreLastChatModel", enabled)
+  await setSetting(RESTORE_LAST_CHAT_MODEL_SETTING, enabled)
 }
 
 export const getLastUsedChatModel = async (

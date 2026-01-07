@@ -1,5 +1,3 @@
-import { Storage } from "@plasmohq/storage"
-import { safeStorageSerde } from "@/utils/safe-storage"
 import { tldwClient } from "./TldwApiClient"
 import { bgRequest } from "@/services/background-proxy"
 
@@ -24,14 +22,9 @@ export interface UserInfo {
 }
 
 export class TldwAuthService {
-  private storage: Storage
   private refreshTimer: NodeJS.Timeout | null = null
 
   constructor() {
-    this.storage = new Storage({
-      area: "local",
-      serde: safeStorageSerde
-    } as any)
   }
 
   /**

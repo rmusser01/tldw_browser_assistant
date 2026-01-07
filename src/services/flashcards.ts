@@ -1,7 +1,18 @@
 import { bgRequest } from "@/services/background-proxy"
-import { Storage } from "@plasmohq/storage"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { createSafeStorage } from "@/utils/safe-storage"
+import {
+  buildQuery,
+  createResourceClient
+} from "@/services/resource-client"
+
+const decksClient = createResourceClient({
+  basePath: "/api/v1/flashcards/decks" as AllowedPath
+})
+
+const flashcardsClient = createResourceClient({
+  basePath: "/api/v1/flashcards" as AllowedPath
+})
 
 // Minimal client types based on openapi.json
 export type Deck = {
@@ -107,19 +118,11 @@ export type FlashcardsExportParams = {
 
 // Decks
 export async function listDecks(): Promise<Deck[]> {
-  return await bgRequest<Deck[], AllowedPath, "GET">({
-    path: "/api/v1/flashcards/decks",
-    method: "GET"
-  })
+  return await decksClient.list<Deck[]>()
 }
 
 export async function createDeck(input: { name: string; description?: string | null }): Promise<Deck> {
-  return await bgRequest<Deck, AllowedPath, "POST">({
-    path: "/api/v1/flashcards/decks",
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: input
-  })
+  return await decksClient.create<Deck>(input)
 }
 
 // Flashcards CRUD
@@ -132,48 +135,32 @@ export async function listFlashcards(params: {
   offset?: number
   order_by?: "due_at" | "created_at" | null
 }): Promise<FlashcardListResponse> {
-  const search = new URLSearchParams()
-  if (params.deck_id !== undefined && params.deck_id !== null) search.set("deck_id", String(params.deck_id))
-  if (params.tag) search.set("tag", params.tag)
-  if (params.due_status) search.set("due_status", params.due_status)
-  if (params.q) search.set("q", params.q)
-  if (typeof params.limit === "number") search.set("limit", String(params.limit))
-  if (typeof params.offset === "number") search.set("offset", String(params.offset))
-  if (params.order_by) search.set("order_by", params.order_by)
-  const qs = search.toString()
-  const path = `/api/v1/flashcards${qs ? `?${qs}` : ""}` as AllowedPath
-  return await bgRequest<FlashcardListResponse, AllowedPath, "GET">({ path, method: "GET" })
+  return await flashcardsClient.list<FlashcardListResponse>({
+    deck_id: params.deck_id,
+    tag: params.tag,
+    due_status: params.due_status,
+    q: params.q,
+    limit: params.limit,
+    offset: params.offset,
+    order_by: params.order_by
+  })
 }
 
 export async function createFlashcard(input: FlashcardCreate): Promise<Flashcard> {
-  return await bgRequest<Flashcard, AllowedPath, "POST">({
-    path: "/api/v1/flashcards",
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: input
-  })
+  return await flashcardsClient.create<Flashcard>(input)
 }
 
 export async function getFlashcard(card_uuid: string): Promise<Flashcard> {
-  return await bgRequest<Flashcard, AllowedPath, "GET">({
-    path: `/api/v1/flashcards/${encodeURIComponent(card_uuid)}` as AllowedPath,
-    method: "GET"
-  })
+  return await flashcardsClient.get<Flashcard>(card_uuid)
 }
 
 export async function updateFlashcard(card_uuid: string, input: FlashcardUpdate): Promise<void> {
-  await bgRequest<void, AllowedPath, "PATCH">({
-    path: `/api/v1/flashcards/${encodeURIComponent(card_uuid)}` as AllowedPath,
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: input
-  })
+  await flashcardsClient.update<void>(card_uuid, input)
 }
 
 export async function deleteFlashcard(card_uuid: string, expected_version: number): Promise<void> {
-  await bgRequest<void, AllowedPath, "DELETE">({
-    path: `/api/v1/flashcards/${encodeURIComponent(card_uuid)}?expected_version=${expected_version}` as AllowedPath,
-    method: "DELETE"
+  await flashcardsClient.remove<void>(card_uuid, {
+    expected_version
   })
 }
 
@@ -200,12 +187,12 @@ export async function importFlashcards(payload: FlashcardsImportRequest, overrid
   max_line_length?: number | null
   max_field_length?: number | null
 }): Promise<any> {
-  const search = new URLSearchParams()
-  if (overrides?.max_lines != null) search.set("max_lines", String(overrides.max_lines))
-  if (overrides?.max_line_length != null) search.set("max_line_length", String(overrides.max_line_length))
-  if (overrides?.max_field_length != null) search.set("max_field_length", String(overrides.max_field_length))
-  const qs = search.toString()
-  const path = `/api/v1/flashcards/import${qs ? `?${qs}` : ""}` as AllowedPath
+  const query = buildQuery({
+    max_lines: overrides?.max_lines,
+    max_line_length: overrides?.max_line_length,
+    max_field_length: overrides?.max_field_length
+  })
+  const path = `/api/v1/flashcards/import${query}` as AllowedPath
   return await bgRequest<any, AllowedPath, "POST">({
     path,
     method: "POST",
@@ -216,17 +203,17 @@ export async function importFlashcards(payload: FlashcardsImportRequest, overrid
 
 // Export (returns text/csv or file-like payload)
 export async function exportFlashcards(params: FlashcardsExportParams = {}): Promise<string> {
-  const search = new URLSearchParams()
-  if (params.deck_id != null) search.set("deck_id", String(params.deck_id))
-  if (params.tag) search.set("tag", params.tag)
-  if (params.q) search.set("q", params.q)
-  if (params.format) search.set("format", params.format)
-  if (params.include_reverse != null) search.set("include_reverse", String(params.include_reverse))
-  if (params.delimiter) search.set("delimiter", params.delimiter)
-  if (params.include_header != null) search.set("include_header", String(params.include_header))
-  if (params.extended_header != null) search.set("extended_header", String(params.extended_header))
-  const qs = search.toString()
-  const path = `/api/v1/flashcards/export${qs ? `?${qs}` : ""}` as AllowedPath
+  const query = buildQuery({
+    deck_id: params.deck_id,
+    tag: params.tag,
+    q: params.q,
+    format: params.format,
+    include_reverse: params.include_reverse,
+    delimiter: params.delimiter,
+    include_header: params.include_header,
+    extended_header: params.extended_header
+  })
+  const path = `/api/v1/flashcards/export${query}` as AllowedPath
   // Force accept text so bgRequest returns text
   return await bgRequest<string, AllowedPath, "GET">({
     path,
@@ -237,21 +224,22 @@ export async function exportFlashcards(params: FlashcardsExportParams = {}): Pro
 
 // Export binary (APKG). Uses direct fetch to preserve binary payload.
 export async function exportFlashcardsFile(params: FlashcardsExportParams & { format: 'apkg' }): Promise<Blob> {
-  const storage = createSafeStorage({ area: 'local' })
+  const storage = createSafeStorage()
   const cfg = await storage.get<any>('tldwConfig').catch(() => null)
   const base = (cfg?.serverUrl || '').replace(/\/$/, '')
   if (!base) throw new Error('Server not configured')
-  const search = new URLSearchParams()
-  if (params.deck_id != null) search.set("deck_id", String(params.deck_id))
-  if (params.tag) search.set("tag", params.tag)
-  if (params.q) search.set("q", params.q)
-  search.set("format", "apkg")
-  if (params.include_reverse != null) search.set("include_reverse", String(params.include_reverse))
-  // CSV specific options ignored for apkg on server side, but safe to pass
-  if (params.delimiter) search.set("delimiter", params.delimiter)
-  if (params.include_header != null) search.set("include_header", String(params.include_header))
-  if (params.extended_header != null) search.set("extended_header", String(params.extended_header))
-  const url = `${base}/api/v1/flashcards/export?${search.toString()}`
+  const query = buildQuery({
+    deck_id: params.deck_id,
+    tag: params.tag,
+    q: params.q,
+    format: "apkg",
+    include_reverse: params.include_reverse,
+    // CSV specific options ignored for apkg on server side, but safe to pass
+    delimiter: params.delimiter,
+    include_header: params.include_header,
+    extended_header: params.extended_header
+  })
+  const url = `${base}/api/v1/flashcards/export${query}`
 
   const headers: Record<string, string> = { Accept: 'application/octet-stream' }
   // Auth

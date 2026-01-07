@@ -38,8 +38,7 @@ If you're coming from Python, here are the key differences:
 
 ```
 src/
-├── entries/              # Chrome MV3 entry points (background script, options page, sidepanel)
-├── entries-firefox/      # Firefox MV2 entry points (slightly different manifest)
+├── entries/              # Browser entry points (background script, options page, sidepanel)
 ├── components/           # React components (PascalCase: ModelSelect.tsx)
 ├── hooks/                # React hooks (useXxx.tsx pattern)
 ├── routes/               # Page components for routing (option-*.tsx, sidepanel-*.tsx)
@@ -199,11 +198,11 @@ Key test files:
 
 ## Internationalization (i18n)
 
-**Translation files:**
-- `src/assets/locale/{lang}/*.json` - Component translations
-- `src/public/_locales/{lang}/messages.json` - Chrome i18n messages
+**Translation files (source of truth):**
+- `src/assets/locale/{lang}/*.json` - Component translations (source of truth)
+- `src/public/_locales/{lang}/messages.json` - Chrome i18n messages (generated)
 
-When adding new UI text, update relevant locale files.
+When adding new UI text, update `src/assets/locale/*` and run `bun run locales:sync` to regenerate `_locales`.
 
 ## Security Notes
 

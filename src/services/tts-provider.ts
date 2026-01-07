@@ -19,6 +19,7 @@ import { markdownToText } from "@/utils/markdown-to-text"
 import { generateSpeech } from "@/services/elevenlabs"
 import { generateOpenAITTS } from "@/services/openai-tts"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { inferProviderFromModel } from "@/utils/provider-registry"
 import {
   TTS_PROVIDER_VALUES,
   type TtsProviderValue
@@ -92,20 +93,7 @@ const normalizeUtterance = async (text: string): Promise<string> => {
 
 export const inferTldwProviderFromModel = (
   model?: string | null
-): string | null => {
-  if (!model) return null
-  const m = String(model).trim().toLowerCase()
-  if (m === "tts-1" || m === "tts-1-hd" || m.startsWith("gpt-")) return "openai"
-  if (m.startsWith("kokoro")) return "kokoro"
-  if (m.startsWith("higgs")) return "higgs"
-  if (m.startsWith("dia")) return "dia"
-  if (m.startsWith("chatterbox")) return "chatterbox"
-  if (m.startsWith("vibevoice")) return "vibevoice"
-  if (m.startsWith("neutts")) return "neutts"
-  if (m.startsWith("eleven")) return "elevenlabs"
-  if (m.startsWith("index_tts") || m.startsWith("indextts")) return "index_tts"
-  return null
-}
+): string | null => inferProviderFromModel(model, "tts")
 
 export const resolveTtsProviderContext = async (
   text: string,

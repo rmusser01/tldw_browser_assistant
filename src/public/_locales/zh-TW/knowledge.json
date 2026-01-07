@@ -1,0 +1,116 @@
+{
+  "addBtn": {
+    "message": "新增知識"
+  },
+  "columns_title": {
+    "message": "標題"
+  },
+  "columns_status": {
+    "message": "狀態"
+  },
+  "columns_embeddings": {
+    "message": "嵌入模型"
+  },
+  "columns_createdAt": {
+    "message": "創建於"
+  },
+  "columns_action": {
+    "message": "操作"
+  },
+  "expandedColumns_name": {
+    "message": "名稱"
+  },
+  "confirm_delete": {
+    "message": "您確定要刪除此知識嗎？"
+  },
+  "confirm_deleteSource": {
+    "message": "您確定要刪除此來源嗎？"
+  },
+  "deleteSuccess": {
+    "message": "知識刪除成功"
+  },
+  "status_pending": {
+    "message": "待處理"
+  },
+  "status_finished": {
+    "message": "已完成"
+  },
+  "status_processing": {
+    "message": "處理中"
+  },
+  "status_failed": {
+    "message": "失敗"
+  },
+  "addKnowledge": {
+    "message": "新增知識"
+  },
+  "updateKnowledge": {
+    "message": "新增來源"
+  },
+  "form_title_label": {
+    "message": "知識標題"
+  },
+  "form_title_placeholder": {
+    "message": "輸入知識標題"
+  },
+  "form_title_required": {
+    "message": "輸入知識標題是必需的"
+  },
+  "form_uploadFile_label": {
+    "message": "上傳文件"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "將文件拖放到此處或點擊上傳"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "支援的檔案類型: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "文件是必需的"
+  },
+  "form_uploadFile_uploadError": {
+    "message": "不支援的檔案類型"
+  },
+  "form_submit": {
+    "message": "新增"
+  },
+  "form_success": {
+    "message": "知識新增成功"
+  },
+  "noEmbeddingModel": {
+    "message": "請先從 RAG 設定頁面新增一個嵌入模型"
+  },
+  "privateModeDescription": {
+    "message": "Firefox 隱私模式不支援將資料儲存到 IndexedDB。請在一般視窗中新增知識庫。"
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "檢索增強生成（RAG）可讓助理根據你的媒體、筆記及其他已索引的知識來源給出回覆。"
+  },
+  "rag_searchFailed": {
+    "message": "RAG 搜尋失敗。請再試一次或查看 Diagnostics。"
+  },
+  "empty_demoTitle": {
+    "message": "在展示模式中體驗 Knowledge QA"
+  },
+  "empty_demoDescription": {
+    "message": "此展示說明 Knowledge QA 如何在範例內容上執行 RAG 搜尋。之後你可以連線自己的伺服器，搜尋自己的逐字稿與文件。"
+  },
+  "empty_demoExample1": {
+    "message": "嘗試快速的 RAG 搜尋並檢視結果與引用。"
+  },
+  "empty_demoExample2": {
+    "message": "連線自己的伺服器，讓 Knowledge QA 能用在你的實際媒體與筆記上。"
+  },
+  "empty_connectTitle": {
+    "message": "連線以使用 Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "若要使用 Knowledge QA 與 RAG 搜尋，請先連線到你的 tldw 伺服器。"
+  },
+  "empty_connectExample1": {
+    "message": "開啟「設定 → tldw server」來新增伺服器 URL。"
+  },
+  "empty_connectExample2": {
+    "message": "若伺服器正在執行但無法連線，請查看 Diagnostics。"
+  }
+}

@@ -29,6 +29,7 @@ import { getTextStats } from "@/utils/text-stats"
 import { getProviderDisplayName } from "@/utils/provider-registry"
 import { bgRequest, bgUpload } from "@/services/background-proxy"
 import { getServerCapabilities } from "@/services/tldw/server-capabilities"
+import { normalizeMediaTypeForUpload } from "@/services/tldw/media-routing"
 import { fetchChatModels } from "@/services/tldw-server"
 import {
   DRAFT_STORAGE_CAP_BYTES,
@@ -55,15 +56,6 @@ const statusColor = (status?: ContentDraft["status"]) => {
     default:
       return "default"
   }
-}
-
-const normalizeMediaType = (type?: string) => {
-  const t = String(type || "").toLowerCase()
-  if (t === "html") return "document"
-  if (t === "pdf") return "pdf"
-  if (t === "audio") return "audio"
-  if (t === "video") return "video"
-  return "document"
 }
 
 const extractMediaId = (
@@ -99,7 +91,7 @@ const extractMediaId = (
 
 const buildFields = (draft: ContentDraft) => {
   const fields: Record<string, any> = {
-    media_type: normalizeMediaType(draft.mediaType),
+    media_type: normalizeMediaTypeForUpload(draft.mediaType),
     perform_analysis: Boolean(draft.processingOptions?.perform_analysis),
     perform_chunking: Boolean(draft.processingOptions?.perform_chunking),
     overwrite_existing: Boolean(draft.processingOptions?.overwrite_existing)

@@ -23,22 +23,26 @@ const NAV_GROUPS: Array<{ key: NavGroupKey; titleToken: string }> = [
 
 type NavItemWithOrder = SettingsNavItem & { order: number }
 
-const navItemsByGroup = optionRoutes.reduce((acc, route) => {
-  if (!route.nav) return acc
-  const { group, labelToken, icon, beta, order } = route.nav
-  const items = acc.get(group) ?? []
-  items.push({ to: route.path, icon, labelToken, beta, order })
-  acc.set(group, items)
-  return acc
-}, new Map<NavGroupKey, NavItemWithOrder[]>())
+const buildNavItemsByGroup = () =>
+  optionRoutes.reduce((acc, route) => {
+    if (!route.nav) return acc
+    const { group, labelToken, icon, beta, order } = route.nav
+    const items = acc.get(group) ?? []
+    items.push({ to: route.path, icon, labelToken, beta, order })
+    acc.set(group, items)
+    return acc
+  }, new Map<NavGroupKey, NavItemWithOrder[]>())
 
-export const SETTINGS_NAV_GROUPS: SettingsNavGroup[] = NAV_GROUPS.map((group) => {
-  const items = (navItemsByGroup.get(group.key) ?? [])
-    .sort((a, b) => a.order - b.order)
-    .map(({ order, ...item }) => item)
-  return {
-    key: group.key,
-    titleToken: group.titleToken,
-    items
-  }
-}).filter((group) => group.items.length > 0)
+export const getSettingsNavGroups = (): SettingsNavGroup[] => {
+  const navItemsByGroup = buildNavItemsByGroup()
+  return NAV_GROUPS.map((group) => {
+    const items = (navItemsByGroup.get(group.key) ?? [])
+      .sort((a, b) => a.order - b.order)
+      .map(({ order, ...item }) => item)
+    return {
+      key: group.key,
+      titleToken: group.titleToken,
+      items
+    }
+  }).filter((group) => group.items.length > 0)
+}

@@ -1,8 +1,8 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { X, Lightbulb } from "lucide-react"
-import { useStorage } from "@plasmohq/storage/hook"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { useSetting } from "@/hooks/useSetting"
+import { SEEN_HINTS_SETTING } from "@/services/settings/ui-settings"
 
 type FeatureHintProps = {
   /** Unique key to track if this hint has been seen */
@@ -21,13 +21,10 @@ type FeatureHintProps = {
   onDismiss?: () => void
 }
 
-const STORAGE_KEY = "tldw:seenHints"
-const hintStorage = createSafeStorage({ area: "local" })
-
 /**
  * First-time feature hint component.
  * Shows a tooltip-style callout that can be dismissed permanently.
- * Tracks seen hints in localStorage to only show once.
+ * Tracks seen hints in extension storage to only show once.
  */
 export const FeatureHint: React.FC<FeatureHintProps> = ({
   featureKey,
@@ -39,10 +36,7 @@ export const FeatureHint: React.FC<FeatureHintProps> = ({
   onDismiss
 }) => {
   const { t } = useTranslation(["common"])
-  const [seenHints, setSeenHints] = useStorage<Record<string, boolean>>({
-    key: STORAGE_KEY,
-    instance: hintStorage
-  })
+  const [seenHints, setSeenHints] = useSetting(SEEN_HINTS_SETTING)
   const [isVisible, setIsVisible] = React.useState(true)
 
   // Check if this hint has been seen
@@ -121,10 +115,7 @@ export const FeatureHint: React.FC<FeatureHintProps> = ({
  * Hook to check if a feature hint has been seen
  */
 export const useFeatureHintSeen = (featureKey: string) => {
-  const [seenHints] = useStorage<Record<string, boolean>>({
-    key: STORAGE_KEY,
-    instance: hintStorage
-  })
+  const [seenHints] = useSetting(SEEN_HINTS_SETTING)
 
   return seenHints?.[featureKey] === true
 }
@@ -133,10 +124,7 @@ export const useFeatureHintSeen = (featureKey: string) => {
  * Hook to mark a feature hint as seen programmatically
  */
 export const useMarkFeatureHintSeen = () => {
-  const [, setSeenHints] = useStorage<Record<string, boolean>>({
-    key: STORAGE_KEY,
-    instance: hintStorage
-  })
+  const [, setSeenHints] = useSetting(SEEN_HINTS_SETTING)
 
   return React.useCallback(
     async (featureKey: string) => {
@@ -153,10 +141,7 @@ export const useMarkFeatureHintSeen = () => {
  * Hook to reset all feature hints (for testing/debugging)
  */
 export const useResetFeatureHints = () => {
-  const [, setSeenHints] = useStorage<Record<string, boolean>>({
-    key: STORAGE_KEY,
-    instance: hintStorage
-  })
+  const [, setSeenHints] = useSetting(SEEN_HINTS_SETTING)
 
   return React.useCallback(async () => {
     await setSeenHints({})

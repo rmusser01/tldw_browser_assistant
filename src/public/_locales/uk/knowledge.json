@@ -1,0 +1,131 @@
+{
+  "addBtn": {
+    "message": "Додати нове знання"
+  },
+  "columns_title": {
+    "message": "Назва"
+  },
+  "columns_status": {
+    "message": "Статус"
+  },
+  "columns_embeddings": {
+    "message": "Модель вкладень"
+  },
+  "columns_createdAt": {
+    "message": "Створено в"
+  },
+  "columns_action": {
+    "message": "Дії"
+  },
+  "expandedColumns_name": {
+    "message": "Імʼя"
+  },
+  "confirm_delete": {
+    "message": "Ви впевнені, що хочете видалити це знання?"
+  },
+  "deleteSuccess": {
+    "message": "Знання успішно видалено"
+  },
+  "status_pending": {
+    "message": "Очікування"
+  },
+  "status_finished": {
+    "message": "Завершено"
+  },
+  "status_processing": {
+    "message": "Обробка"
+  },
+  "status_failed": {
+    "message": "Не вдалося"
+  },
+  "addKnowledge": {
+    "message": "Додати знання"
+  },
+  "updateKnowledge": {
+    "message": "Оновити знання"
+  },
+  "form_title_label": {
+    "message": "Назва знань"
+  },
+  "form_title_placeholder": {
+    "message": "Введіть назву знань"
+  },
+  "form_title_required": {
+    "message": "Назва знань обовʼязкова"
+  },
+  "form_uploadFile_label": {
+    "message": "Завантажити файл"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Перетягніть файл сюди або натисніть для завантаження"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Підтримуються типи файлів: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "Файл обовʼязковий"
+  },
+  "form_submit": {
+    "message": "Надіслати"
+  },
+  "form_success": {
+    "message": "Знання успішно додано"
+  },
+  "noEmbeddingModel": {
+    "message": "Будь ласка, додайте модель вкладень з сторінки налаштувань RAG спочатку"
+  },
+  "privateModeDescription": {
+    "message": "Приватний режим Firefox не підтримує збереження в IndexedDB. Додайте базу знань у звичайному вікні."
+  },
+  "ragWorkspace_title": {
+    "message": "Пошук знань і чат"
+  },
+  "ragWorkspace_description": {
+    "message": "Налаштуйте параметри пошуку знань (RAG), запускайте швидкі пошуки та користуйтеся чатом з опертям на дані."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "Генерація з розширенням пошуком (RAG) дає змогу асистенту базувати відповіді на ваших медіа, нотатках та інших проіндексованих джерелах знань."
+  },
+  "ragWorkspace_autoRagLabel": {
+    "message": "Використовувати RAG для кожної відповіді"
+  },
+  "ragWorkspace_autoRagHelp": {
+    "message": "Якщо увімкнено, робоча область чату виконуватиме пошук знань (RAG) перед формуванням кожної відповіді."
+  },
+  "ragWorkspace_autoRagScopeHelp": {
+    "message": "Це налаштування застосовується до відповідей у головному Чаті та бічній панелі."
+  },
+  "ragWorkspace_docsPerReply_label": {
+    "message": "Документів на відповідь (top-k)"
+  },
+  "ragWorkspace_docsPerReply_current": {
+    "message": "{{count}} док. на відповідь"
+  },
+  "rag_searchFailed": {
+    "message": "Пошук RAG не вдався. Спробуйте ще раз або перевірте розділ Diagnostics."
+  },
+  "empty_demoTitle": {
+    "message": "Дослідіть Knowledge QA у демо-режимі"
+  },
+  "empty_demoDescription": {
+    "message": "Ця демо-версія показує, як Knowledge QA може виконувати RAG-пошук по прикладному вмісту. Пізніше ви зможете підключити власний сервер, щоб шукати у своїх транскриптах і документах."
+  },
+  "empty_demoExample1": {
+    "message": "Спробуйте швидкі RAG-пошуки та перегляньте результати й посилання."
+  },
+  "empty_demoExample2": {
+    "message": "Підключіть власний сервер, щоб увімкнути Knowledge QA для ваших реальних медіа та нотаток."
+  },
+  "empty_connectTitle": {
+    "message": "Підключіться, щоб використовувати Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "Щоб користуватися Knowledge QA та RAG-пошуком, спочатку підключіться до свого tldw-сервера."
+  },
+  "empty_connectExample1": {
+    "message": "Відкрийте Налаштування → tldw server, щоб додати URL свого сервера."
+  },
+  "empty_connectExample2": {
+    "message": "Скористайтеся Diagnostics, якщо сервер запущений, але недоступний."
+  }
+}

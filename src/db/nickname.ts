@@ -8,7 +8,7 @@ export class ModelNickname {
 
     constructor() {
         this.db = createSafeStorage({
-            area: "local"
+            area: "sync"
         })
     }
 
@@ -80,4 +80,3 @@ export const saveModelNickname = async (
     const modelNickname = new ModelNickname()
     return await modelNickname.saveModelNickname(model_id, model_name, model_avatar)
 }
-

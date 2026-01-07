@@ -29,6 +29,7 @@ export interface SaveMessageData extends SaveMessageBase {
   reasoning_time_taken: number
   prompt_content?: string
   prompt_id?: string
+  isContinue?: boolean
 }
 
 export interface SaveMessageErrorData extends SaveMessageBase {
@@ -40,4 +41,5 @@ export interface SaveMessageErrorData extends SaveMessageBase {
   isRegenerating: boolean
   prompt_content?: string
   prompt_id?: string
+  isContinue?: boolean
 }

@@ -47,7 +47,6 @@ import { useTabMentions } from "~/hooks/useTabMentions"
 import { useFocusShortcuts } from "~/hooks/keyboard"
 import { useDraftPersistence } from "@/hooks/useDraftPersistence"
 import { MentionsDropdown } from "./MentionsDropdown"
-import { DocumentChip } from "./DocumentChip"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { PASTED_TEXT_CHAR_LIMIT } from "@/utils/constant"
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
@@ -79,6 +78,8 @@ import { TokenProgressBar } from "./TokenProgressBar"
 import { AttachmentsSummary } from "./AttachmentsSummary"
 import { CompareToggle } from "./CompareToggle"
 import { useMobile } from "@/hooks/useMediaQuery"
+import { clearSetting, getSetting } from "@/services/settings/registry"
+import { DISCUSS_MEDIA_PROMPT_SETTING } from "@/services/settings/ui-settings"
 import { Button as TldwButton } from "@/components/Common/Button"
 
 const getPersistenceModeLabel = (
@@ -495,6 +496,38 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       children
     }))
   }, [composerModels, setSelectedModel])
+  const modelDropdownMenuItems = React.useMemo(() => {
+    if (modelDropdownItems.length > 0) {
+      return modelDropdownItems
+    }
+
+    return [
+      {
+        key: "no-models",
+        disabled: true,
+        label: (
+          <div className="px-1 py-1 text-xs text-text-muted">
+            {t(
+              "playground:composer.noModelsAvailable",
+              "No models available. Connect your server in Settings."
+            )}
+          </div>
+        )
+      },
+      {
+        type: "divider" as const,
+        key: "no-models-divider"
+      },
+      {
+        key: "open-model-settings",
+        label: t(
+          "playground:composer.openModelSettings",
+          "Open model settings"
+        ),
+        onClick: () => navigate("/settings/tldw")
+      }
+    ]
+  }, [modelDropdownItems, navigate, t])
 
   const handleCompareModelChange = (values: string[]) => {
     if (!compareFeatureEnabled) {
@@ -585,7 +618,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   })
 
-  // Draft persistence - saves/restores message draft to localStorage
+  // Draft persistence - saves/restores message draft to local-only storage
   const { draftSaved } = useDraftPersistence({
     storageKey: "tldw:playgroundChatDraft",
     getValue: () => form.values.message,
@@ -614,7 +647,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     [estimateTokensForText, form.values.message]
   )
 
+  const conversationTokenCountRef = React.useRef(0)
   const conversationTokenCount = React.useMemo(() => {
+    if (isSending) {
+      return conversationTokenCountRef.current
+    }
     const convoMessages: ChatMessage[] = []
     const trimmedSystem = systemPrompt?.trim()
     if (trimmedSystem) {
@@ -630,8 +667,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       }
     })
     if (convoMessages.length === 0) return 0
-    return tldwChat.estimateTokens(convoMessages)
-  }, [messages, systemPrompt])
+    const count = tldwChat.estimateTokens(convoMessages)
+    conversationTokenCountRef.current = count
+    return count
+  }, [isSending, messages, systemPrompt])
 
   const promptTokenLabel = React.useMemo(
     () =>
@@ -687,7 +726,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       {showModelLabel && (
         <Dropdown
           menu={{
-            items: modelDropdownItems,
+            items: modelDropdownMenuItems,
             style: { maxHeight: 400, overflowY: "auto" },
             className: "no-scrollbar",
             activeKey: selectedModel ?? undefined
@@ -757,23 +796,18 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   // Seed composer when a media item requests discussion (e.g., from Quick ingest or Review page)
   React.useEffect(() => {
-    try {
-      if (typeof window === "undefined") return
-      const raw = localStorage.getItem("tldw:discussMediaPrompt")
-      if (!raw) return
-      localStorage.removeItem("tldw:discussMediaPrompt")
-      const payload = JSON.parse(raw) as {
-        mediaId?: string
-        url?: string
-        title?: string
-        content?: string
-      }
+    let cancelled = false
+    void (async () => {
+      const payload = await getSetting(DISCUSS_MEDIA_PROMPT_SETTING)
+      if (cancelled || !payload) return
+      void clearSetting(DISCUSS_MEDIA_PROMPT_SETTING)
       const hint = buildDiscussMediaHint(payload)
       if (!hint) return
       form.setFieldValue("message", hint)
       textAreaFocus()
-    } catch {
-      // ignore storage/parse errors
+    })()
+    return () => {
+      cancelled = true
     }
   }, [form, textAreaFocus])
 
@@ -2923,7 +2957,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         {/* Draft saved indicator */}
                         {draftSaved && (
                           <span
-                            className="absolute bottom-1 right-2 text-label text-text-subtle animate-pulse pointer-events-none"
+                            className="absolute bottom-1 right-2 text-label text-text-subtle transition-opacity pointer-events-none"
                             role="status"
                             aria-live="polite"
                           >

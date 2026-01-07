@@ -3,7 +3,6 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { CogIcon, Gauge, UserCircle2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"
-import { createSafeStorage } from "@/utils/safe-storage"
 import { ModelSelect } from "../Common/ModelSelect"
 import { PromptSelect } from "../Common/PromptSelect"
 import PromptSearch from "../Common/PromptSearch"
@@ -35,8 +34,8 @@ import { QuickIngestButton } from "./QuickIngestButton"
 import { HeaderShortcuts } from "./HeaderShortcuts"
 import { ChatHeader } from "./ChatHeader"
 import { openSidepanel } from "@/utils/sidepanel"
-
-const headerStorage = createSafeStorage({ area: "local" })
+import { useSetting } from "@/hooks/useSetting"
+import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
 
 type Props = {
   setOpenModelSettings: (open: boolean) => void
@@ -61,9 +60,8 @@ export const Header: React.FC<Props> = ({
   const cmdKey = isMac ? "⌘" : "Ctrl+"
 
   const [shareModeEnabled] = useStorage("shareMode", false)
-  const [headerShortcutsExpanded, setHeaderShortcutsExpanded] = useStorage(
-    { key: "headerShortcutsExpanded", instance: headerStorage },
-    false
+  const [headerShortcutsExpanded, setHeaderShortcutsExpanded] = useSetting(
+    HEADER_SHORTCUTS_EXPANDED_SETTING
   )
   const [selectedCharacter] = useStorage<Character | null>(
     "selectedCharacter",
@@ -501,7 +499,6 @@ export const Header: React.FC<Props> = ({
                   value={selectedModel}
                   onChange={(value) => {
                     setSelectedModel(value)
-                    localStorage.setItem("selectedModel", value)
                   }}
                   filterOption={(input, option) => {
                     const rawLabel = option?.label

@@ -2,10 +2,10 @@
 
 ## Project Structure & Module Organization
 - `src/`: Extension source (TypeScript/React).
-  - `entries-firefox/`: background, content, sidepanel, options entries.
+  - `entries/`: background, content, sidepanel, options entries.
   - `components/`, `hooks/`, `routes/`, `services/`, `utils/`: feature code.
   - `assets/`: icons, styles (`tailwind.css`), fonts, locales.
-- `src/public/_locales/`: Chrome i18n message files.
+- `src/public/_locales/`: Chrome i18n message files (generated from `src/assets/locale` via `bun run locales:sync`).
 - `docs/`: VitePress documentation.
 - `wxt.config.ts`: WXT build config; `tailwind.config.js`: Tailwind setup.
 
@@ -35,7 +35,7 @@ Tip: WXT outputs to `.output/<browser>-mv3/` for loading as an unpacked extensio
 ## Commit & Pull Request Guidelines
 - Commits: conventional prefixes (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`). Use imperative mood and keep concise.
 - PRs must include: clear description, linked issues, screenshots/GIFs for UI changes, steps to test, and doc updates under `docs/` if applicable.
-- Internationalization: when adding text, update relevant files in `src/assets/locale/*` and `_locales/*` as needed.
+- Internationalization: edit `src/assets/locale/*` as the source of truth, then run `bun run locales:sync` to regenerate `src/public/_locales/*` (avoid hand-editing `_locales`).
 
 ## Security & Configuration Tips
 - Do not hard-code API keys/tokens; configure providers via Options pages and extension storage. Avoid committing secrets.

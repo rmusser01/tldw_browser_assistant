@@ -1,5 +1,25 @@
 import { bgRequest } from "@/services/background-proxy"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
+import { createResourceClient } from "@/services/resource-client"
+
+const quizzesClient = createResourceClient({
+  basePath: "/api/v1/quizzes" as AllowedPath
+})
+
+const quizAttemptsClient = createResourceClient({
+  basePath: "/api/v1/quizzes/attempts" as AllowedPath,
+  updateMethod: "PUT"
+})
+
+const getQuestionsClient = (quizId: number) =>
+  createResourceClient({
+    basePath: `/api/v1/quizzes/${quizId}/questions` as AllowedPath
+  })
+
+const getQuizAttemptsClient = (quizId: number) =>
+  createResourceClient({
+    basePath: `/api/v1/quizzes/${quizId}/attempts` as AllowedPath
+  })
 
 // Question types
 export type QuestionType = "multiple_choice" | "true_false" | "fill_blank"
@@ -167,45 +187,29 @@ export type QuizGenerateResponse = {
 // --- Quizzes CRUD ---
 
 export async function listQuizzes(params: QuizListParams = {}): Promise<QuizListResponse> {
-  const search = new URLSearchParams()
-  if (params.media_id != null) search.set("media_id", String(params.media_id))
-  if (params.q) search.set("q", params.q)
-  if (typeof params.limit === "number") search.set("limit", String(params.limit))
-  if (typeof params.offset === "number") search.set("offset", String(params.offset))
-  const qs = search.toString()
-  const path = `/api/v1/quizzes${qs ? `?${qs}` : ""}` as AllowedPath
-  return await bgRequest<QuizListResponse, AllowedPath, "GET">({ path, method: "GET" })
+  return await quizzesClient.list<QuizListResponse>({
+    media_id: params.media_id,
+    q: params.q,
+    limit: params.limit,
+    offset: params.offset
+  })
 }
 
 export async function createQuiz(input: QuizCreate): Promise<Quiz> {
-  return await bgRequest<Quiz, AllowedPath, "POST">({
-    path: "/api/v1/quizzes",
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: input
-  })
+  return await quizzesClient.create<Quiz>(input)
 }
 
 export async function getQuiz(quizId: number): Promise<Quiz> {
-  return await bgRequest<Quiz, AllowedPath, "GET">({
-    path: `/api/v1/quizzes/${quizId}` as AllowedPath,
-    method: "GET"
-  })
+  return await quizzesClient.get<Quiz>(quizId)
 }
 
 export async function updateQuiz(quizId: number, input: QuizUpdate): Promise<void> {
-  await bgRequest<void, AllowedPath, "PATCH">({
-    path: `/api/v1/quizzes/${quizId}` as AllowedPath,
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: input
-  })
+  await quizzesClient.update<void>(quizId, input)
 }
 
 export async function deleteQuiz(quizId: number, expectedVersion: number): Promise<void> {
-  await bgRequest<void, AllowedPath, "DELETE">({
-    path: `/api/v1/quizzes/${quizId}?expected_version=${expectedVersion}` as AllowedPath,
-    method: "DELETE"
+  await quizzesClient.remove<void>(quizId, {
+    expected_version: expectedVersion
   })
 }
 
@@ -215,26 +219,16 @@ export async function listQuestions(
   quizId: number,
   params: QuestionListParams = {}
 ): Promise<QuestionListResponse> {
-  const search = new URLSearchParams()
-  if (params.include_answers) search.set("include_answers", "true")
-  if (params.q) search.set("q", params.q)
-  if (typeof params.limit === "number") search.set("limit", String(params.limit))
-  if (typeof params.offset === "number") search.set("offset", String(params.offset))
-  const qs = search.toString()
-  const path = `/api/v1/quizzes/${quizId}/questions${qs ? `?${qs}` : ""}` as AllowedPath
-  return await bgRequest<QuestionListResponse, AllowedPath, "GET">({
-    path,
-    method: "GET"
+  return await getQuestionsClient(quizId).list<QuestionListResponse>({
+    include_answers: params.include_answers ? true : undefined,
+    q: params.q,
+    limit: params.limit,
+    offset: params.offset
   })
 }
 
 export async function createQuestion(quizId: number, input: QuestionCreate): Promise<Question> {
-  return await bgRequest<Question, AllowedPath, "POST">({
-    path: `/api/v1/quizzes/${quizId}/questions` as AllowedPath,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: input
-  })
+  return await getQuestionsClient(quizId).create<Question>(input)
 }
 
 export async function updateQuestion(
@@ -242,12 +236,7 @@ export async function updateQuestion(
   questionId: number,
   input: QuestionUpdate
 ): Promise<void> {
-  await bgRequest<void, AllowedPath, "PATCH">({
-    path: `/api/v1/quizzes/${quizId}/questions/${questionId}` as AllowedPath,
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: input
-  })
+  await getQuestionsClient(quizId).update<void>(questionId, input)
 }
 
 export async function deleteQuestion(
@@ -255,50 +244,34 @@ export async function deleteQuestion(
   questionId: number,
   expectedVersion: number
 ): Promise<void> {
-  await bgRequest<void, AllowedPath, "DELETE">({
-    path: `/api/v1/quizzes/${quizId}/questions/${questionId}?expected_version=${expectedVersion}` as AllowedPath,
-    method: "DELETE"
+  await getQuestionsClient(quizId).remove<void>(questionId, {
+    expected_version: expectedVersion
   })
 }
 
 // --- Quiz Attempts ---
 
 export async function startAttempt(quizId: number): Promise<QuizAttempt> {
-  return await bgRequest<QuizAttempt, AllowedPath, "POST">({
-    path: `/api/v1/quizzes/${quizId}/attempts` as AllowedPath,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: {}
-  })
+  return await getQuizAttemptsClient(quizId).create<QuizAttempt>({})
 }
 
 export async function submitAttempt(
   attemptId: number,
   answers: Omit<QuizAnswer, "is_correct">[]
 ): Promise<QuizAttempt> {
-  return await bgRequest<QuizAttempt, AllowedPath, "PUT">({
-    path: `/api/v1/quizzes/attempts/${attemptId}` as AllowedPath,
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: { answers }
-  })
+  return await quizAttemptsClient.update<QuizAttempt>(attemptId, { answers })
 }
 
 export async function listAttempts(params: AttemptListParams = {}): Promise<AttemptListResponse> {
-  const search = new URLSearchParams()
-  if (params.quiz_id != null) search.set("quiz_id", String(params.quiz_id))
-  if (typeof params.limit === "number") search.set("limit", String(params.limit))
-  if (typeof params.offset === "number") search.set("offset", String(params.offset))
-  const qs = search.toString()
-  const path = `/api/v1/quizzes/attempts${qs ? `?${qs}` : ""}` as AllowedPath
-  return await bgRequest<AttemptListResponse, AllowedPath, "GET">({ path, method: "GET" })
+  return await quizAttemptsClient.list<AttemptListResponse>({
+    quiz_id: params.quiz_id,
+    limit: params.limit,
+    offset: params.offset
+  })
 }
 
 export async function getAttempt(attemptId: number): Promise<QuizAttempt> {
-  return await bgRequest<QuizAttempt, AllowedPath, "GET">({
-    path: `/api/v1/quizzes/attempts/${attemptId}` as AllowedPath,
-    method: "GET"
-  })
+  return await quizAttemptsClient.get<QuizAttempt>(attemptId)
 }
 
 // --- AI Generation ---

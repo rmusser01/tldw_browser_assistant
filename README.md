@@ -77,7 +77,7 @@ The extension requests optional host permission (Chromium) for your configured o
 - RAG: Simple/search modes; insert citations into context
 - Media: Add URLs, ingest web content; progress via notifications
 - STT/TTS: Transcribe uploads and play synthesized speech (where available)
-- Multi‑language UI: Locales under `src/assets/locale/*` and `_locales/*`
+- Multi-language UI: edit `src/assets/locale/*` and run `bun run locales:sync` to regenerate `src/public/_locales/*`
 
 Want something else? Please open an issue.
 
@@ -133,7 +133,7 @@ Models are surfaced from your tldw_server configuration (OpenAI‑compatible pro
 
 ## Development Notes
 
-- Source lives in `src/` with WXT entries under `entries/` and `entries-firefox/`.
+- Source lives in `src/` with WXT entries under `entries/`.
 - TailwindCSS for UI (`src/assets/tailwind.css`, `tailwind.config.js`).
 - Prettier + import sorting: `bunx prettier --write .`
 - Type‑check before PRs: `bun run compile`

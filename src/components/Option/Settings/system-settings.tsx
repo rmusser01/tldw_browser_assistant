@@ -6,8 +6,10 @@ import {
   exportPageAssistData,
   importPageAssistData
 } from "@/libs/export-import"
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
+import {
+  CHAT_BACKGROUND_IMAGE_SETTING,
+  UI_MODE_SETTING
+} from "@/services/settings/ui-settings"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Input, Modal, Select, Switch } from "antd"
@@ -19,6 +21,11 @@ import { isFireFox, isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { firefoxSyncDataForPrivateMode } from "@/db/dexie/firefox-sync"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { Highlight, themes } from "prism-react-renderer"
+import { useSetting } from "@/hooks/useSetting"
+import {
+  ACTION_ICON_CLICK_SETTING,
+  CONTEXT_MENU_CLICK_SETTING
+} from "@/services/action"
 
 export const SystemSettings = () => {
   const { t } = useTranslation(["settings", "knowledge", "common"])
@@ -101,39 +108,18 @@ export const SystemSettings = () => {
   )
 
   // Default UI mode: fullscreen (webui) or sidebar (sidePanel)
-  const [uiMode, setUiMode] = useStorage(
-    {
-      key: "uiMode",
-      instance: createSafeStorage({ area: "local" })
-    },
-    "sidePanel"
+  const [uiMode, setUiMode] = useSetting(UI_MODE_SETTING)
+
+  const [actionIconClick, setActionIconClick] = useSetting(
+    ACTION_ICON_CLICK_SETTING
   )
 
-  const [actionIconClick, setActionIconClick] = useStorage(
-    {
-      key: "actionIconClick",
-      instance: createSafeStorage({
-        area: "local"
-      })
-    },
-    "webui"
+  const [contextMenuClick, setContextMenuClick] = useSetting(
+    CONTEXT_MENU_CLICK_SETTING
   )
-
-  const [contextMenuClick, setContextMenuClick] = useStorage(
-    {
-      key: "contextMenuClick",
-      instance: createSafeStorage({
-        area: "local"
-      })
-    },
-    "sidePanel"
+  const [chatBackgroundImage, setChatBackgroundImage] = useSetting(
+    CHAT_BACKGROUND_IMAGE_SETTING
   )
-  const [chatBackgroundImage, setChatBackgroundImage] = useStorage({
-    key: "chatBackgroundImage",
-    instance: createSafeStorage({
-      area: "local"
-    })
-  })
 
   // Track reload timeout for cancellation
   const reloadTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -348,10 +334,10 @@ export const SystemSettings = () => {
           value={uiMode}
           className="w-full sm:w-[220px]"
           onChange={async (value) => {
-            setUiMode(value)
+            await setUiMode(value)
             // Keep action/context menu behavior consistent with default mode
-            setActionIconClick(value)
-            setContextMenuClick(value === 'webui' ? 'sidePanel' : 'sidePanel')
+            await setActionIconClick(value)
+            await setContextMenuClick("sidePanel")
           }}
         />
       </div>
@@ -466,7 +452,7 @@ export const SystemSettings = () => {
           value={actionIconClick}
           className="w-full sm:w-[200px]"
           onChange={(value) => {
-            setActionIconClick(value)
+            void setActionIconClick(value)
           }}
         />
       </div>
@@ -489,7 +475,7 @@ export const SystemSettings = () => {
           value={contextMenuClick}
           className="w-full sm:w-[200px]"
           onChange={(value) => {
-            setContextMenuClick(value)
+            void setContextMenuClick(value)
           }}
         />
       </div>
@@ -553,7 +539,7 @@ export const SystemSettings = () => {
           {chatBackgroundImage ? (
             <button
               onClick={() => {
-                setChatBackgroundImage(null)
+                void setChatBackgroundImage(undefined)
               }}
               className="text-text">
               <RotateCcw className="size-4" />

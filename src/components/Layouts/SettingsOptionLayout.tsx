@@ -3,11 +3,15 @@ import { useTranslation } from "react-i18next"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { BetaTag } from "../Common/Beta"
 import { XIcon } from "lucide-react"
-import { Storage } from "@plasmohq/storage"
-import { SETTINGS_NAV_GROUPS, type SettingsNavItem } from "./settings-nav"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { getSettingsNavGroups, type SettingsNavItem } from "./settings-nav"
 import { isChromeTarget } from "@/config/platform"
 import { isSidepanelSupported, openSidepanel } from "@/utils/sidepanel"
+import { setSetting } from "@/services/settings/registry"
+import { UI_MODE_SETTING } from "@/services/settings/ui-settings"
+import {
+  ACTION_ICON_CLICK_SETTING,
+  CONTEXT_MENU_CLICK_SETTING
+} from "@/services/action"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
@@ -22,8 +26,9 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
   const { t } = useTranslation(["settings", "common"])
   const sidepanelSupported = isSidepanelSupported()
+  const settingsNavGroups = React.useMemo(() => getSettingsNavGroups(), [])
   const currentNavItem = React.useMemo(() => {
-    for (const group of SETTINGS_NAV_GROUPS) {
+    for (const group of settingsNavGroups) {
       for (const item of group.items) {
         if (item.to === location.pathname) {
           return item
@@ -31,7 +36,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       }
     }
     return null
-  }, [location.pathname])
+  }, [location.pathname, settingsNavGroups])
 
   const currentBreadcrumbLabel = currentNavItem
     ? t(currentNavItem.labelToken)
@@ -49,10 +54,9 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                     className="text-xs border rounded px-2 py-1 text-text  disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!sidepanelSupported}
                     onClick={async () => {
-                      const storage = createSafeStorage({ area: "local" })
-                      await storage.set("uiMode", "sidePanel")
-                      await storage.set("actionIconClick", "sidePanel")
-                      await storage.set("contextMenuClick", "sidePanel")
+                      await setSetting(UI_MODE_SETTING, "sidePanel")
+                      await setSetting(ACTION_ICON_CLICK_SETTING, "sidePanel")
+                      await setSetting(CONTEXT_MENU_CLICK_SETTING, "sidePanel")
                       try {
                         await openSidepanel()
                       } catch {}
@@ -62,7 +66,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                   </button>
                 </div>
                 <div className="flex flex-col gap-6">
-                  {SETTINGS_NAV_GROUPS.map((group) => {
+                  {settingsNavGroups.map((group) => {
                     const items = group.items.filter(
                       (item) => !shouldHideForBrowser(item)
                     )

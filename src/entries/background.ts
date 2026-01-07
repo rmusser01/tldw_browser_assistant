@@ -1,12 +1,18 @@
 import { browser } from "wxt/browser"
 import { createSafeStorage } from "@/utils/safe-storage"
 import { formatErrorMessage } from "@/utils/format-error-message"
-import type { AllowedPath } from "@/services/tldw/openapi-guard"
-import { getInitialConfig } from "@/services/action"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { tldwAuth } from "@/services/tldw/TldwAuth"
 import { tldwModels } from "@/services/tldw"
 import { apiSend } from "@/services/api-send"
+import { tldwRequest } from "@/services/tldw/request-core"
+import {
+  getProcessPathForType,
+  getProcessPathForUrl,
+  inferMediaTypeFromUrl,
+  inferUploadMediaTypeFromFile,
+  normalizeMediaType
+} from "@/services/tldw/media-routing"
 import {
   ensureSidepanelOpen,
   pickFirstString,
@@ -16,6 +22,7 @@ import {
 } from "@/services/background-helpers"
 import { ModelDb } from "@/db/models"
 import { generateID } from "@/db"
+import { initBackground } from "@/entries/shared/background-init"
 
 const warmModels = async (
   force = false,
@@ -69,9 +76,7 @@ const warmModels = async (
 
 export default defineBackground({
   main() {
-    const storage = createSafeStorage({
-      area: "local"
-    })
+    const storage = createSafeStorage()
     let isCopilotRunning: boolean = false
     let actionIconClick: string = "webui"
     let contextMenuClick: string = "sidePanel"
@@ -85,6 +90,16 @@ export default defineBackground({
     }
     const saveToNotesMenuId = "save-to-notes-pa"
     let modelWarmTimer: ReturnType<typeof setInterval> | null = null
+    const getActionApi = () => {
+      const anyBrowser = browser as any
+      const anyChrome = (globalThis as any).chrome
+      return (
+        anyBrowser?.action ||
+        anyBrowser?.browserAction ||
+        anyChrome?.action ||
+        anyChrome?.browserAction
+      )
+    }
 
     // Clear the periodic model warm timer when the background worker is
     // terminated. For service-worker style backgrounds the `unload` handler
@@ -97,169 +112,27 @@ export default defineBackground({
 
     const initialize = async () => {
       try {
-        // Clear any existing menu items to avoid duplicate-id errors
-        try {
-          await browser.contextMenus.removeAll()
-        } catch (e) {
-          console.debug("[tldw] contextMenus.removeAll failed:", (e as any)?.message || e)
-        }
-
-        storage.watch({
-          actionIconClick: (value) => {
-            const oldValue = value?.oldValue || "webui"
-            const newValue = value?.newValue || "webui"
-            if (oldValue !== newValue) {
-              actionIconClick = newValue
-            }
+        const { modelWarmTimer: warmTimer } = await initBackground({
+          storage,
+          contextMenuId,
+          saveToNotesMenuId,
+          transcribeMenuId,
+          warmModels,
+          capabilities: {
+            sendToTldw: true,
+            processLocal: true,
+            transcribe: true,
+            openApiCheck: true
           },
-          contextMenuClick: (value) => {
-            const oldValue = value?.oldValue || "sidePanel"
-            const newValue = value?.newValue || "sidePanel"
-            if (oldValue !== newValue) {
-              contextMenuClick = newValue
-              browser.contextMenus.remove(contextMenuId[oldValue])
-              browser.contextMenus.create({
-                id: contextMenuId[newValue],
-                title: contextMenuTitle[newValue],
-                contexts: ["page", "selection"]
-              })
-            }
+          onActionIconClickChange: (value) => {
+            actionIconClick = value
+          },
+          onContextMenuClickChange: (value) => {
+            contextMenuClick = value
           }
         })
-        const data = await getInitialConfig()
-        contextMenuClick = data.contextMenuClick
-        actionIconClick = data.actionIconClick
-
-        browser.contextMenus.create({
-          id: contextMenuId[contextMenuClick],
-          title: contextMenuTitle[contextMenuClick],
-          contexts: ["page", "selection"]
-        })
-        browser.contextMenus.create({
-          id: "summarize-pa",
-          title: browser.i18n.getMessage("contextSummarize"),
-          contexts: ["selection"]
-        })
-
-        browser.contextMenus.create({
-          id: "explain-pa",
-          title: browser.i18n.getMessage("contextExplain"),
-          contexts: ["selection"]
-        })
-
-        browser.contextMenus.create({
-          id: "rephrase-pa",
-          title: browser.i18n.getMessage("contextRephrase"),
-          contexts: ["selection"]
-        })
-
-        browser.contextMenus.create({
-          id: "translate-pg",
-          title: browser.i18n.getMessage("contextTranslate"),
-          contexts: ["selection"]
-        })
-
-        browser.contextMenus.create({
-          id: "custom-pg",
-          title: browser.i18n.getMessage("contextCustom"),
-          contexts: ["selection"]
-        })
-
-        browser.contextMenus.create({
-          id: saveToNotesMenuId,
-          title: browser.i18n.getMessage("contextSaveToNotes"),
-          contexts: ["selection"]
-        })
-
-        browser.contextMenus.create({
-          id: "send-to-tldw",
-          title: browser.i18n.getMessage("contextSendToTldw"),
-          contexts: ["page", "link"]
-        })
-
-        browser.contextMenus.create({
-          id: "process-local-tldw",
-          title: browser.i18n.getMessage("contextProcessLocalTldw"),
-          contexts: ["page", "link"]
-        })
-
-        browser.contextMenus.create({
-          id: transcribeMenuId.transcribe,
-          title: browser.i18n.getMessage("contextTranscribeMedia"),
-          contexts: ["page", "link"]
-        })
-
-        browser.contextMenus.create({
-          id: transcribeMenuId.transcribeAndSummarize,
-          title: browser.i18n.getMessage("contextTranscribeAndSummarizeMedia"),
-          contexts: ["page", "link"]
-        })
-
-        // One-time OpenAPI drift check (advisory): warn on missing critical paths
-        try {
-          const cfg = await storage.get<any>('tldwConfig')
-          const base = String(cfg?.serverUrl || '').replace(/\/$/, '')
-          if (base) {
-            const controller = new AbortController()
-            const timeout = setTimeout(() => controller.abort(), 10000)
-            const headers: Record<string, string> = {}
-            if (cfg?.authMode === 'single-user') {
-              const key = String(cfg?.apiKey || '').trim()
-              if (key) headers['X-API-KEY'] = key
-            } else if (cfg?.authMode === 'multi-user') {
-              const token = String(cfg?.accessToken || '').trim()
-              if (token) headers['Authorization'] = `Bearer ${token}`
-            }
-            const res = await fetch(`${base}/openapi.json`, { headers, signal: controller.signal })
-            clearTimeout(timeout)
-            if (res.ok) {
-              const spec = await res.json().catch(() => null)
-              const paths = (spec && spec.paths) ? spec.paths : {}
-              const required = [
-                '/api/v1/chat/completions',
-                '/api/v1/rag/search',
-                '/api/v1/rag/search/stream',
-                '/api/v1/media/add',
-                '/api/v1/media/process-videos',
-                '/api/v1/media/process-audios',
-                '/api/v1/media/process-pdfs',
-                '/api/v1/media/process-ebooks',
-                '/api/v1/media/process-documents',
-                '/api/v1/media/process-web-scraping',
-                '/api/v1/reading/save',
-                '/api/v1/reading/items',
-                '/api/v1/audio/transcriptions',
-                '/api/v1/audio/speech',
-                '/api/v1/llm/models',
-                '/api/v1/llm/models/metadata',
-                '/api/v1/llm/providers',
-                // Workspace features
-                '/api/v1/notes/',
-                '/api/v1/notes/search/',
-                '/api/v1/flashcards',
-                '/api/v1/flashcards/decks',
-                '/api/v1/characters/world-books',
-                '/api/v1/chat/dictionaries'
-              ]
-              const missing = required.filter((p) => !(p in paths))
-              if (missing.length > 0) {
-                console.warn('[tldw] OpenAPI drift detected — missing endpoints:', missing)
-                try {
-                  await browser.runtime.sendMessage({ type: 'tldw:openapi-warn', payload: { missing } })
-                } catch {}
-              }
-            }
-          }
-        } catch (e) {
-          // Best-effort warning; no-op on failure
-          console.debug('[tldw] OpenAPI check skipped:', (e as any)?.message || e)
-        }
-
-        await warmModels(true)
         if (modelWarmTimer) clearInterval(modelWarmTimer)
-        modelWarmTimer = setInterval(() => {
-          void warmModels(true)
-        }, 15 * 60 * 1000)
+        modelWarmTimer = warmTimer
       } catch (error) {
         console.error("Error in initLogic:", error)
       }
@@ -268,17 +141,6 @@ export default defineBackground({
 
     let refreshInFlight: Promise<any> | null = null
     let streamDebugEnabled = false
-
-    const getProcessPathForUrl = (url: string): AllowedPath => {
-      const u = (url || '').toLowerCase()
-      const endsWith = (exts: string[]) => exts.some((e) => u.endsWith(e))
-      if (endsWith(['.mp3', '.wav', '.m4a', '.flac', '.aac', '.ogg'])) return '/api/v1/media/process-audios'
-      if (endsWith(['.mp4', '.webm', '.mkv', '.mov', '.avi'])) return '/api/v1/media/process-videos'
-      if (endsWith(['.pdf'])) return '/api/v1/media/process-pdfs'
-      if (endsWith(['.epub', '.mobi'])) return '/api/v1/media/process-ebooks'
-      if (endsWith(['.doc', '.docx', '.rtf', '.odt', '.txt', '.md'])) return '/api/v1/media/process-documents'
-      return '/api/v1/media/process-web-scraping'
-    }
 
     const handleTranscribeClick = async (
       info: any,
@@ -360,21 +222,6 @@ export default defineBackground({
       }
     }
 
-    const deriveRequestTimeout = (cfg: any, path: string, override?: number) => {
-      if (override && override > 0) return override
-      const p = String(path || '')
-      if (p.includes('/api/v1/chat/completions')) {
-        return Number(cfg?.chatRequestTimeoutMs) > 0 ? Number(cfg.chatRequestTimeoutMs) : (Number(cfg?.requestTimeoutMs) > 0 ? Number(cfg.requestTimeoutMs) : 10000)
-      }
-      if (p.includes('/api/v1/rag/')) {
-        return Number(cfg?.ragRequestTimeoutMs) > 0 ? Number(cfg.ragRequestTimeoutMs) : (Number(cfg?.requestTimeoutMs) > 0 ? Number(cfg.requestTimeoutMs) : 10000)
-      }
-      if (p.includes('/api/v1/media/')) {
-        return Number(cfg?.mediaRequestTimeoutMs) > 0 ? Number(cfg.mediaRequestTimeoutMs) : (Number(cfg?.requestTimeoutMs) > 0 ? Number(cfg.requestTimeoutMs) : 10000)
-      }
-      return Number(cfg?.requestTimeoutMs) > 0 ? Number(cfg.requestTimeoutMs) : 10000
-    }
-
     const deriveStreamIdleTimeout = (cfg: any, path: string, override?: number) => {
       if (override && override > 0) return override
       const p = String(path || '')
@@ -385,19 +232,6 @@ export default defineBackground({
           : (Number(cfg?.streamIdleTimeoutMs) > 0 ? Number(cfg.streamIdleTimeoutMs) : defaultIdle)
       }
       return Number(cfg?.streamIdleTimeoutMs) > 0 ? Number(cfg.streamIdleTimeoutMs) : defaultIdle
-    }
-
-    const parseRetryAfter = (headerValue?: string | null): number | null => {
-      if (!headerValue) return null
-      const asNumber = Number(headerValue)
-      if (!Number.isNaN(asNumber)) {
-        return Math.max(0, asNumber * 1000)
-      }
-      const asDate = Date.parse(headerValue)
-      if (!Number.isNaN(asDate)) {
-        return Math.max(0, asDate - Date.now())
-      }
-      return null
     }
 
     const CHAT_QUEUE_CONCURRENCY = 2
@@ -590,120 +424,22 @@ export default defineBackground({
       }
     }
 
-    const runTldwRequest = async (payload: any) => {
-      const {
-        path,
-        method = 'GET',
-        headers = {},
-        body,
-        noAuth = false,
-        timeoutMs: overrideTimeoutMs
-      } = payload || {}
-      const cfg = await storage.get<any>('tldwConfig')
-      const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
-      if (!cfg?.serverUrl && !isAbsolute) {
-        return { ok: false, status: 400, error: 'tldw server not configured' }
-      }
-      if (!path) {
-        return { ok: false, status: 400, error: 'Request path is required' }
-      }
-      const baseUrl = cfg?.serverUrl ? String(cfg.serverUrl).replace(/\/$/, '') : ''
-      const url = isAbsolute ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`
-      const h: Record<string, string> = { ...(headers || {}) }
-      if (!noAuth) {
-        for (const k of Object.keys(h)) {
-          const kl = k.toLowerCase()
-          if (kl === 'x-api-key' || kl === 'authorization') delete h[k]
-        }
-        if (cfg?.authMode === 'single-user') {
-          const key = (cfg?.apiKey || '').trim()
-          if (!key) {
-            return {
-              ok: false,
-              status: 401,
-              error:
-                'Add or update your API key in Settings → tldw server, then try again.'
-            }
-          }
-          h['X-API-KEY'] = key
-        } else if (cfg?.authMode === 'multi-user') {
-          const token = (cfg?.accessToken || '').trim()
-          if (token) h['Authorization'] = `Bearer ${token}`
-          else return { ok: false, status: 401, error: 'Not authenticated. Please login under Settings > tldw.' }
-        }
-      }
-      try {
-        const controller = new AbortController()
-        const timeoutMs = deriveRequestTimeout(cfg, path, Number(overrideTimeoutMs))
-        const timeout = setTimeout(() => controller.abort(), timeoutMs)
-        let resp = await fetch(url, {
-          method,
-          headers: h,
-          body: body ? (typeof body === 'string' ? body : JSON.stringify(body)) : undefined,
-          signal: controller.signal
-        })
-        clearTimeout(timeout)
-        // Handle 401 with single-flight refresh (multi-user)
-        if (resp.status === 401 && cfg.authMode === 'multi-user' && cfg.refreshToken) {
+    const runTldwRequest = async (payload: any) =>
+      tldwRequest(payload, {
+        getConfig: () => storage.get<any>('tldwConfig'),
+        refreshAuth: async () => {
           if (!refreshInFlight) {
             refreshInFlight = (async () => {
-              try { await tldwAuth.refreshToken() } finally { refreshInFlight = null }
+              try {
+                await tldwAuth.refreshToken()
+              } finally {
+                refreshInFlight = null
+              }
             })()
           }
           try { await refreshInFlight } catch {}
-          const updated = await storage.get<any>('tldwConfig')
-          const retryHeaders = { ...h }
-          for (const k of Object.keys(retryHeaders)) {
-            const kl = k.toLowerCase()
-            if (kl === 'authorization' || kl === 'x-api-key') delete retryHeaders[k]
-          }
-          if (updated?.accessToken) retryHeaders['Authorization'] = `Bearer ${updated.accessToken}`
-          const retryController = new AbortController()
-          const retryTimeout = setTimeout(() => retryController.abort(), timeoutMs)
-          resp = await fetch(url, {
-            method,
-            headers: retryHeaders,
-            body: body ? (typeof body === 'string' ? body : JSON.stringify(body)) : undefined,
-            signal: retryController.signal
-          })
-          clearTimeout(retryTimeout)
         }
-        const headersOut: Record<string, string> = {}
-        try {
-          resp.headers.forEach((v, k) => {
-            headersOut[k] = v
-          })
-        } catch {}
-        const retryAfterMs = parseRetryAfter(resp.headers?.get?.('retry-after'))
-        const contentType = resp.headers.get('content-type') || ''
-        let data: any = null
-        if (contentType.includes('application/json')) {
-          data = await resp.json().catch(() => null)
-        } else {
-          data = await resp.text().catch(() => null)
-        }
-        if (!resp.ok) {
-          const detail =
-            typeof data === "object" &&
-            data &&
-            (data.detail || data.error || data.message)
-          const errorMessage = formatErrorMessage(
-            typeof detail !== "undefined" && detail !== null
-              ? detail
-              : resp.statusText || `HTTP ${resp.status}`,
-            `HTTP ${resp.status}`
-          )
-          return { ok: false, status: resp.status, error: errorMessage, data, headers: headersOut, retryAfterMs }
-        }
-        return { ok: true, status: resp.status, data, headers: headersOut, retryAfterMs }
-      } catch (e: any) {
-        return {
-          ok: false,
-          status: 0,
-          error: formatErrorMessage(e, "Network error")
-        }
-      }
-    }
+      })
 
     const handleTldwRequest = async (payload: any) => {
       const path = payload?.path
@@ -747,49 +483,12 @@ export default defineBackground({
         const totalCount = entries.length + files.length
         let processedCount = 0
 
-        const detectTypeFromUrl = (raw: string): string => {
-          try {
-            const u = new URL(raw)
-            const p = (u.pathname || '').toLowerCase()
-            if (p.match(/\.(mp3|wav|flac|m4a|aac)$/)) return 'audio'
-            if (p.match(/\.(mp4|mov|mkv|webm)$/)) return 'video'
-            if (p.match(/\.(pdf)$/)) return 'pdf'
-            if (p.match(/\.(doc|docx|txt|rtf|md)$/)) return 'document'
-            return 'html'
-          } catch {
-            return 'auto'
-          }
-        }
-
         const assignPath = (obj: any, path: string[], val: any) => {
           let cur = obj
           for (let i = 0; i < path.length; i++) {
             const seg = path[i]
             if (i === path.length - 1) cur[seg] = val
             else cur = (cur[seg] = cur[seg] || {})
-          }
-        }
-
-        const normalizeMediaType = (rawType: string): string => {
-          if (!rawType) return rawType
-          const t = rawType.toLowerCase()
-          if (t === 'html') return 'document'
-          return t
-        }
-
-        const processPathForType = (rawType: string): string => {
-          const t = normalizeMediaType(rawType)
-          switch (t) {
-            case 'audio':
-              return '/api/v1/media/process-audios'
-            case 'video':
-              return '/api/v1/media/process-videos'
-            case 'pdf':
-              return '/api/v1/media/process-pdfs'
-            case 'ebook':
-              return '/api/v1/media/process-ebooks'
-            default:
-              return '/api/v1/media/process-documents'
           }
         }
 
@@ -888,7 +587,7 @@ export default defineBackground({
           const url = String(r?.url || '').trim()
           if (!url) continue
           const explicitType = r?.type && typeof r.type === 'string' ? r.type : 'auto'
-          const t = explicitType === 'auto' ? detectTypeFromUrl(url) : explicitType
+          const t = explicitType === 'auto' ? inferMediaTypeFromUrl(url) : explicitType
           try {
             let data: any
             if (shouldStoreRemote) {
@@ -909,7 +608,7 @@ export default defineBackground({
                 const fields = buildFields(t, r)
                 fields.urls = [url]
                 const resp = await handleUpload({
-                  path: processPathForType(t),
+                  path: getProcessPathForType(t),
                   method: 'POST',
                   fields
                 })
@@ -940,15 +639,7 @@ export default defineBackground({
         for (const f of files) {
           const id = f?.id || crypto.randomUUID()
           const name = f?.name || 'upload'
-          const fileType = String(f?.type || '').toLowerCase()
-          const mediaType: 'audio' | 'video' | 'pdf' | 'document' =
-            fileType.startsWith('audio/')
-              ? 'audio'
-              : fileType.startsWith('video/')
-                ? 'video'
-                : fileType.includes('pdf')
-                  ? 'pdf'
-                  : 'document'
+          const mediaType = inferUploadMediaTypeFromFile(name, f?.type)
           try {
             let data: any
             if (shouldStoreRemote) {
@@ -967,7 +658,7 @@ export default defineBackground({
             } else {
               const fields: Record<string, any> = buildFields(mediaType)
               const resp = await handleUpload({
-                path: processPathForType(mediaType),
+                path: getProcessPathForType(mediaType),
                 method: 'POST',
                 fields,
                 file: { name, type: f?.type || 'application/octet-stream', data: f?.data }
@@ -1009,7 +700,8 @@ export default defineBackground({
         return handleTldwRequest(message.payload || {})
       } else if (message.type === 'tldw:ingest') {
         try {
-          const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+          const tabs = await browser.tabs.query({ active: true, currentWindow: true })
+          const tab = tabs[0]
           const pageUrl = tab?.url || ''
           if (!pageUrl) return { ok: false, status: 400, error: 'No active tab URL' }
           const path = message.mode === 'process' ? getProcessPathForUrl(pageUrl) : '/api/v1/media/add'
@@ -1099,18 +791,14 @@ export default defineBackground({
       }
     })
 
-    chrome.action.onClicked.addListener((tab) => {
+    const actionApi = getActionApi()
+    actionApi?.onClicked?.addListener((tab: any) => {
       if (actionIconClick === "webui") {
-        chrome.tabs.create({ url: chrome.runtime.getURL("/options.html") })
+        browser.tabs.create({ url: browser.runtime.getURL("/options.html") })
       } else {
         ensureSidepanelOpen(tab?.id)
       }
     })
-
-    const contextMenuTitle = {
-      webui: browser.i18n.getMessage("openOptionToChat"),
-      sidePanel: browser.i18n.getMessage("openSidePanelToChat")
-    }
 
     browser.contextMenus.onClicked.addListener(async (info, tab) => {
       if (info.menuItemId === "open-side-panel-pa") {
@@ -1166,12 +854,7 @@ export default defineBackground({
             type: 'tldw:request',
             payload: { path: '/api/v1/media/add', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { url: targetUrl } }
           })
-          chrome.notifications?.create?.({
-            type: 'basic',
-            iconUrl: '/icon.png',
-            title: 'tldw_server',
-            message: 'Sent to tldw_server for processing'
-          })
+          notify('tldw_server', 'Sent to tldw_server for processing')
         } catch (e) {
           console.error('Failed to send to tldw_server:', e)
         }
@@ -1184,12 +867,7 @@ export default defineBackground({
             type: 'tldw:request',
             payload: { path: getProcessPathForUrl(targetUrl), method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { url: targetUrl } }
           })
-          chrome.notifications?.create?.({
-            type: 'basic',
-            iconUrl: '/icon.png',
-            title: 'tldw_server',
-            message: 'Processed page (not saved to server)'
-          })
+          notify('tldw_server', 'Processed page (not saved to server)')
         } catch (e) {
           console.error('Failed to process locally:', e)
         }
@@ -1263,13 +941,15 @@ export default defineBackground({
     browser.commands.onCommand.addListener((command) => {
       switch (command) {
         case "execute_side_panel":
-          chrome.tabs.query(
-            { active: true, currentWindow: true },
-            async (tabs) => {
+          browser.tabs
+            .query({ active: true, currentWindow: true })
+            .then((tabs) => {
               const tab = tabs[0]
               ensureSidepanelOpen(tab?.id)
-            }
-          )
+            })
+            .catch(() => {
+              ensureSidepanelOpen()
+            })
           break
         default:
           break

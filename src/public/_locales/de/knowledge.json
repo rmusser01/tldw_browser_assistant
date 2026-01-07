@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "Neues Wissen hinzufügen"
+  },
+  "columns_title": {
+    "message": "Titel"
+  },
+  "columns_status": {
+    "message": "Status (Fortschritt)"
+  },
+  "columns_embeddings": {
+    "message": "Einbettungsmodell"
+  },
+  "columns_createdAt": {
+    "message": "Erstellt am"
+  },
+  "columns_action": {
+    "message": "Aktionen"
+  },
+  "expandedColumns_name": {
+    "message": "Name (Quelle)"
+  },
+  "confirm_delete": {
+    "message": "Sind Sie sicher, dass Sie dieses Wissen löschen möchten?"
+  },
+  "deleteSuccess": {
+    "message": "Wissen erfolgreich gelöscht"
+  },
+  "status_pending": {
+    "message": "Ausstehend"
+  },
+  "status_finished": {
+    "message": "Abgeschlossen"
+  },
+  "status_processing": {
+    "message": "In Bearbeitung"
+  },
+  "status_failed": {
+    "message": "Fehlgeschlagen"
+  },
+  "addKnowledge": {
+    "message": "Wissen hinzufügen"
+  },
+  "updateKnowledge": {
+    "message": "Quelle hinzufügen"
+  },
+  "form_title_label": {
+    "message": "Wissenstitel"
+  },
+  "form_title_placeholder": {
+    "message": "Wissenstitel eingeben"
+  },
+  "form_title_required": {
+    "message": "Wissenstitel ist erforderlich"
+  },
+  "form_uploadFile_label": {
+    "message": "Datei hochladen"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Ziehen Sie eine Datei hierher oder klicken Sie zum Hochladen"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Unterstützte Dateitypen: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "Datei ist erforderlich"
+  },
+  "form_submit": {
+    "message": "Absenden"
+  },
+  "form_success": {
+    "message": "Wissen erfolgreich hinzugefügt"
+  },
+  "noEmbeddingModel": {
+    "message": "Bitte fügen Sie zuerst ein Einbettungsmodell von der RAG-Einstellungsseite hinzu"
+  },
+  "privateModeDescription": {
+    "message": "Der Firefox-Privatmodus unterstützt kein Speichern in IndexedDB. Bitte fügen Sie eine Wissensbasis in einem normalen Fenster hinzu."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "Retrieval-augmented Generation (RAG) ermöglicht dem Assistenten, Antworten auf Basis deiner Medien, Notizen und anderen indizierten Wissensquellen zu verankern."
+  },
+  "rag_searchFailed": {
+    "message": "RAG-Suche fehlgeschlagen. Versuchen Sie es erneut oder prüfen Sie die Diagnosen."
+  },
+  "empty_demoTitle": {
+    "message": "Knowledge QA im Demomodus erkunden"
+  },
+  "empty_demoDescription": {
+    "message": "Diese Demo zeigt, wie Knowledge QA RAG-Suchen über Beispielinhalte ausführen kann. Verbinden Sie später Ihren eigenen Server, um Ihre eigenen Transkripte und Dokumente zu durchsuchen."
+  },
+  "empty_demoExample1": {
+    "message": "Probieren Sie schnelle RAG-Suchen aus und prüfen Sie Ergebnisse und Quellenangaben."
+  },
+  "empty_demoExample2": {
+    "message": "Verbinden Sie Ihren eigenen Server, um Knowledge QA für Ihre echten Medien und Notizen zu aktivieren."
+  },
+  "empty_connectTitle": {
+    "message": "Verbinden, um Knowledge QA zu nutzen"
+  },
+  "empty_connectDescription": {
+    "message": "Um Knowledge QA und RAG-Suche zu verwenden, verbinden Sie sich zuerst mit Ihrem tldw-Server."
+  },
+  "empty_connectExample1": {
+    "message": "Öffnen Sie Einstellungen → tldw server, um Ihre Server-URL hinzuzufügen."
+  },
+  "empty_connectExample2": {
+    "message": "Verwenden Sie Diagnosen, wenn Ihr Server läuft, aber nicht erreichbar ist."
+  }
+}

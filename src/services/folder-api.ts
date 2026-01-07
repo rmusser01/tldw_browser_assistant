@@ -9,8 +9,26 @@
  */
 
 import { bgRequestClient } from "@/services/background-proxy"
-import type { ClientPathOrUrlWithQuery } from "@/services/tldw/openapi-guard"
+import type {
+  AllowedPath,
+  ClientPathOrUrlWithQuery
+} from "@/services/tldw/openapi-guard"
 import type { Folder, Keyword, FolderKeywordLink, ConversationKeywordLink } from "@/db/dexie/types"
+import {
+  buildQuery,
+  createResourceClient,
+  type RequestFn
+} from "@/services/resource-client"
+
+const foldersClient = createResourceClient({
+  basePath: "/api/v1/notes/collections" as AllowedPath,
+  request: bgRequestClient as unknown as RequestFn
+})
+
+const keywordsClient = createResourceClient({
+  basePath: "/api/v1/notes/keywords" as AllowedPath,
+  request: bgRequestClient as unknown as RequestFn
+})
 
 type ArrayOrWrapped<T, K extends string> = T[] | { [key in K]: T[] } | null | undefined
 
@@ -170,12 +188,10 @@ export const fetchFolders = async (
   const path = '/api/v1/notes/collections' as ClientPathOrUrlWithQuery
   const key = buildRequestKey('GET', path)
   return singleFlight<Folder[]>(key, async () => {
-    const response = await bgRequestClient<ArrayOrWrapped<Folder, "collections">>({
-      path,
-      method: 'GET',
-      abortSignal: options?.abortSignal,
-      timeoutMs: options?.timeoutMs
-    })
+    const response = await foldersClient.list<ArrayOrWrapped<Folder, "collections">>(
+      undefined,
+      options
+    )
     return normalizeArrayResponse(response, "collections")
   })
 }
@@ -192,13 +208,7 @@ export const createFolder = async (
   const body = { name, parent_id: parentId ?? null }
   const key = buildRequestKey('POST', path, body)
   return singleFlight<Folder>(key, async () => {
-    return bgRequestClient<Folder>({
-      path,
-      method: 'POST',
-      body,
-      abortSignal: options?.abortSignal,
-      timeoutMs: options?.timeoutMs
-    })
+    return foldersClient.create<Folder>(body, options)
   })
 }
 
@@ -213,13 +223,7 @@ export const updateFolder = async (
   const path = `/api/v1/notes/collections/${id}` as ClientPathOrUrlWithQuery
   const key = buildRequestKey('PATCH', path, data)
   return singleFlight<Folder>(key, async () => {
-    return bgRequestClient<Folder>({
-      path,
-      method: 'PATCH',
-      body: data,
-      abortSignal: options?.abortSignal,
-      timeoutMs: options?.timeoutMs
-    })
+    return foldersClient.update<Folder>(id, data, options)
   })
 }
 
@@ -233,12 +237,7 @@ export const deleteFolder = async (
   const path = `/api/v1/notes/collections/${id}` as ClientPathOrUrlWithQuery
   const key = buildRequestKey('DELETE', path)
   return singleFlight<void>(key, async () => {
-    await bgRequestClient({
-      path,
-      method: 'DELETE',
-      abortSignal: options?.abortSignal,
-      timeoutMs: options?.timeoutMs
-    })
+    await foldersClient.remove<void>(id, undefined, options)
   })
 }
 
@@ -255,12 +254,10 @@ export const fetchKeywords = async (
   const path = '/api/v1/notes/keywords' as ClientPathOrUrlWithQuery
   const key = buildRequestKey('GET', path)
   return singleFlight<Keyword[]>(key, async () => {
-    const response = await bgRequestClient<ArrayOrWrapped<Keyword, "keywords">>({
-      path,
-      method: 'GET',
-      abortSignal: options?.abortSignal,
-      timeoutMs: options?.timeoutMs
-    })
+    const response = await keywordsClient.list<ArrayOrWrapped<Keyword, "keywords">>(
+      undefined,
+      options
+    )
     return normalizeArrayResponse(response, "keywords")
   })
 }
@@ -276,13 +273,7 @@ export const createKeyword = async (
   const body = { keyword }
   const key = buildRequestKey('POST', path, body)
   return singleFlight<Keyword>(key, async () => {
-    return bgRequestClient<Keyword>({
-      path,
-      method: 'POST',
-      body,
-      abortSignal: options?.abortSignal,
-      timeoutMs: options?.timeoutMs
-    })
+    return keywordsClient.create<Keyword>(body, options)
   })
 }
 
@@ -296,12 +287,7 @@ export const deleteKeyword = async (
   const path = `/api/v1/notes/keywords/${id}` as ClientPathOrUrlWithQuery
   const key = buildRequestKey('DELETE', path)
   return singleFlight<void>(key, async () => {
-    await bgRequestClient({
-      path,
-      method: 'DELETE',
-      abortSignal: options?.abortSignal,
-      timeoutMs: options?.timeoutMs
-    })
+    await keywordsClient.remove<void>(id, undefined, options)
   })
 }
 
@@ -466,13 +452,10 @@ export const fetchConversationKeywordLinks = async (
   conversationIds?: string[],
   options?: { abortSignal?: AbortSignal; timeoutMs?: number }
 ): Promise<ApiResult<ConversationKeywordLink[]>> => {
-  const path = (conversationIds?.length
-    ? (() => {
-        const params = new URLSearchParams()
-        params.set('ids', conversationIds.join(','))
-        return `/api/v1/notes/conversations/keyword-links?${params.toString()}` as `/api/v1/notes/conversations/keyword-links?${string}`
-      })()
-    : '/api/v1/notes/conversations/keyword-links') as ClientPathOrUrlWithQuery
+  const query = conversationIds?.length
+    ? buildQuery({ ids: conversationIds }, { arrayFormat: "comma" })
+    : ""
+  const path = `/api/v1/notes/conversations/keyword-links${query}` as ClientPathOrUrlWithQuery
 
   const key = buildRequestKey('GET', path)
   return singleFlight<ConversationKeywordLink[]>(key, async () => {

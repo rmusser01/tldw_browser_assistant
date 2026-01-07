@@ -25,6 +25,7 @@ import {
 import { ALL_TARGETS, type PlatformTarget } from "@/config/platform"
 import OptionLayout from "~/components/Layouts/Layout"
 import { OnboardingWizard } from "@/components/Option/Onboarding/OnboardingWizard"
+import { createSettingsRoute } from "./settings-route"
 
 export type RouteKind = "options" | "sidepanel"
 
@@ -47,29 +48,63 @@ export type RouteDefinition = {
 }
 
 const OptionIndex = lazy(() => import("./option-index"))
-const OptionSettings = lazy(() => import("./option-settings"))
-const OptionModal = lazy(() => import("./option-settings-model"))
-const OptionPrompt = lazy(() => import("./option-settings-prompt"))
-const OptionShare = lazy(() => import("./option-settings-share"))
+const OptionSettings = createSettingsRoute(
+  () => import("~/components/Option/Settings/general-settings"),
+  "GeneralSettings"
+)
+const OptionModal = createSettingsRoute(
+  () => import("~/components/Option/Models"),
+  "ModelsBody"
+)
+const OptionPrompt = createSettingsRoute(
+  () => import("~/components/Option/Settings/WorkspaceLinks"),
+  "PromptWorkspaceSettings"
+)
+const OptionShare = createSettingsRoute(
+  () => import("~/components/Option/Share"),
+  "OptionShareBody"
+)
 const OptionProcessed = lazy(() => import("./option-settings-processed"))
 const OptionHealth = lazy(() => import("./option-settings-health"))
-const OptionKnowledgeBase = lazy(() => import("./option-settings-knowledge"))
-const OptionAbout = lazy(() => import("./option-settings-about"))
-const OptionChatbooks = lazy(() => import("./option-settings-chatbooks"))
+const OptionKnowledgeBase = createSettingsRoute(
+  () => import("~/components/Option/Knowledge"),
+  "KnowledgeSettings"
+)
+const OptionAbout = createSettingsRoute(
+  () => import("~/components/Option/Settings/about"),
+  "AboutApp"
+)
+const OptionChatbooks = createSettingsRoute(
+  () => import("~/components/Option/Settings/chatbooks"),
+  "ChatbooksSettings"
+)
 const SidepanelChat = lazy(() => import("./sidepanel-chat"))
 const SidepanelSettings = lazy(() => import("./sidepanel-settings"))
 const SidepanelAgent = lazy(() => import("./sidepanel-agent"))
 const SidepanelErrorBoundaryTest = lazy(() => import("./sidepanel-error-boundary-test"))
-const OptionRagSettings = lazy(() => import("./option-rag"))
-const OptionTldwSettings = lazy(() =>
-  import("./option-settings-tldw").then((m) => ({ default: m.OptionTldwSettings }))
+const OptionRagSettings = createSettingsRoute(
+  () => import("~/components/Option/Settings/rag"),
+  "RagSettings"
+)
+const OptionTldwSettings = createSettingsRoute(
+  () => import("~/components/Option/Settings/tldw"),
+  "TldwSettings"
 )
 const OptionMedia = lazy(() => import("./option-media"))
 const OptionMediaMulti = lazy(() => import("./option-media-multi"))
 const OptionNotes = lazy(() => import("./option-notes"))
-const OptionWorldBooks = lazy(() => import("./option-settings-world-books"))
-const OptionDictionaries = lazy(() => import("./option-settings-dictionaries"))
-const OptionCharacters = lazy(() => import("./option-settings-characters"))
+const OptionWorldBooks = createSettingsRoute(
+  () => import("~/components/Option/Settings/WorkspaceLinks"),
+  "WorldBooksWorkspaceSettings"
+)
+const OptionDictionaries = createSettingsRoute(
+  () => import("~/components/Option/Settings/WorkspaceLinks"),
+  "DictionariesWorkspaceSettings"
+)
+const OptionCharacters = createSettingsRoute(
+  () => import("~/components/Option/Settings/WorkspaceLinks"),
+  "CharactersWorkspaceSettings"
+)
 const OptionWorldBooksWorkspace = lazy(() => import("./option-world-books"))
 const OptionDictionariesWorkspace = lazy(() => import("./option-dictionaries"))
 const OptionCharactersWorkspace = lazy(() => import("./option-characters"))
@@ -80,13 +115,22 @@ const OptionTts = lazy(() => import("./option-tts"))
 const OptionEvaluations = lazy(() => import("./option-evaluations"))
 const OptionStt = lazy(() => import("./option-stt"))
 const OptionSpeech = lazy(() => import("./option-speech"))
-const OptionSettingsEvaluations = lazy(() => import("./option-settings-evaluations"))
+const OptionSettingsEvaluations = createSettingsRoute(
+  () => import("~/components/Option/Settings/evaluations"),
+  "EvaluationsSettings"
+)
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
-const OptionSettingsPromptStudio = lazy(() => import("./option-settings-prompt-studio"))
+const OptionSettingsPromptStudio = createSettingsRoute(
+  () => import("~/components/Option/Settings/prompt-studio"),
+  "PromptStudioSettings"
+)
 const OptionAdminServer = lazy(() => import("./option-admin-server"))
 const OptionAdminLlamacpp = lazy(() => import("./option-admin-llamacpp"))
 const OptionAdminMlx = lazy(() => import("./option-admin-mlx"))
-const OptionChatSettings = lazy(() => import("./option-settings-chat"))
+const OptionChatSettings = createSettingsRoute(
+  () => import("~/components/Option/Settings/chat-settings"),
+  "ChatSettings"
+)
 const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))
 const OptionContentReview = lazy(() => import("./option-content-review"))
 const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground"))

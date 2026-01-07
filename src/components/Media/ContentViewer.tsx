@@ -29,8 +29,9 @@ import { DeveloperToolsSection } from './DeveloperToolsSection'
 import { DiffViewModal } from './DiffViewModal'
 import { bgRequest } from '@/services/background-proxy'
 import type { MediaResultItem } from './types'
-import { createSafeStorage } from '@/utils/safe-storage'
 import { getTextStats } from '@/utils/text-stats'
+import { useSetting } from '@/hooks/useSetting'
+import { MEDIA_COLLAPSED_SECTIONS_SETTING } from '@/services/settings/ui-settings'
 
 // Lazy load Markdown component
 const Markdown = React.lazy(() => import('@/components/Common/Markdown'))
@@ -61,48 +62,6 @@ interface ContentViewerProps {
   contentRef?: (node: HTMLDivElement | null) => void
 }
 
-const STORAGE_KEY_COLLAPSED_SECTIONS = 'tldw:media:collapsedSections'
-
-const uiStorage = createSafeStorage({ area: 'local' })
-
-const DEFAULT_COLLAPSED_SECTIONS: Record<string, boolean> = {
-  statistics: false,
-  content: false,
-  metadata: true,
-  analysis: false
-}
-
-// Load collapse states from extension storage with defaults
-const loadCollapsedStates = async (): Promise<Record<string, boolean>> => {
-  try {
-    const stored = (await uiStorage.get(
-      STORAGE_KEY_COLLAPSED_SECTIONS
-    )) as unknown
-
-    if (
-      stored &&
-      typeof stored === 'object' &&
-      !Array.isArray(stored)
-    ) {
-      const entries = Object.entries(stored as Record<string, unknown>)
-      if (entries.every(([, value]) => typeof value === 'boolean')) {
-        return stored as Record<string, boolean>
-      }
-    }
-  } catch (err) {
-    console.warn('Failed to load collapse states:', err)
-  }
-  return DEFAULT_COLLAPSED_SECTIONS
-}
-
-// Save collapse states to extension storage
-const saveCollapsedStates = (states: Record<string, boolean>) => {
-  uiStorage
-    .set(STORAGE_KEY_COLLAPSED_SECTIONS, states)
-    .catch((err) => {
-      console.warn('Failed to save collapse states:', err)
-    })
-}
 
 export function ContentViewer({
   selectedMedia,
@@ -125,9 +84,9 @@ export function ContentViewer({
   contentRef
 }: ContentViewerProps) {
   const { t } = useTranslation(['review'])
-  const [collapsedSections, setCollapsedSections] = useState<
-    Record<string, boolean>
-  >(DEFAULT_COLLAPSED_SECTIONS)
+  const [collapsedSections, setCollapsedSections] = useSetting(
+    MEDIA_COLLAPSED_SECTIONS_SETTING
+  )
   const [analysisModalOpen, setAnalysisModalOpen] = useState(false)
   const [editingKeywords, setEditingKeywords] = useState<string[]>([])
   const [savingKeywords, setSavingKeywords] = useState(false)
@@ -148,24 +107,6 @@ export function ContentViewer({
   // Content length threshold for collapse (2500 chars)
   const CONTENT_COLLAPSE_THRESHOLD = 2500
   const shouldShowExpandToggle = content && content.length > CONTENT_COLLAPSE_THRESHOLD
-
-  // Load initial collapsed section state from storage
-  useEffect(() => {
-    let cancelled = false
-
-    const initCollapsedState = async () => {
-      const initial = await loadCollapsedStates()
-      if (!cancelled) {
-        setCollapsedSections(initial)
-      }
-    }
-
-    void initCollapsedState()
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
 
   // Sync editing keywords with selected media
   useEffect(() => {
@@ -279,14 +220,10 @@ export function ContentViewer({
   }, [mediaDetail])
 
   const toggleSection = (section: string) => {
-    setCollapsedSections((prev) => {
-      const newState = {
-        ...prev,
-        [section]: !prev[section]
-      }
-      saveCollapsedStates(newState)
-      return newState
-    })
+    void setCollapsedSections((prev) => ({
+      ...prev,
+      [section]: !prev[section]
+    }))
   }
 
   const copyTextWithToasts = async (

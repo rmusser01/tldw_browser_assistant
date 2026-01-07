@@ -1,21 +1,30 @@
 import { getDefaultOcrLanguage } from "@/data/ocr-language"
 import { useStoreChatModelSettings } from "@/store/model"
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
+import {
+    coerceBoolean,
+    coerceString,
+    defineSetting,
+    getSetting
+} from "@/services/settings/registry"
 
-const storage = createSafeStorage()
+const OCR_ENABLED_SETTING = defineSetting(
+    "enableOcrAssets",
+    false,
+    (value) => coerceBoolean(value, false)
+)
+
+const OCR_LANGUAGE_SETTING = defineSetting(
+    "defaultOCRLanguage",
+    getDefaultOcrLanguage(),
+    (value) => coerceString(value, getDefaultOcrLanguage())
+)
 
 export const isOcrEnabled = async (): Promise<boolean> => {
-  const value = await storage.get<boolean | undefined>("enableOcrAssets")
-  return Boolean(value)
+  return await getSetting(OCR_ENABLED_SETTING)
 }
 
 export const getOCRLanguage = async () => {
-    const data = await storage.get<string | undefined | null>("defaultOCRLanguage")
-    if (!data || data.length === 0) {
-        return getDefaultOcrLanguage()
-    }
-    return data
+    return await getSetting(OCR_LANGUAGE_SETTING)
 }
 
 export const getOCRLanguageToUse = async () => {

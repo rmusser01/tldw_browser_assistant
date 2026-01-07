@@ -1,4 +1,5 @@
 import { apiSend } from "@/services/api-send"
+import { appendPathQuery, toAllowedPath } from "@/services/tldw/path-utils"
 
 // Prompt Studio client – aligns with tldw_server prompt_studio endpoints.
 
@@ -253,7 +254,7 @@ export async function listProjects(params?: {
     search: params?.search
   })
   return await apiSend<ListResponse<Project>>({
-    path: `/api/v1/prompt-studio/projects${query}` as any,
+    path: appendPathQuery("/api/v1/prompt-studio/projects", query),
     method: "GET"
   })
 }
@@ -263,7 +264,7 @@ export async function createProject(
   idempotencyKey?: string | null
 ) {
   return await apiSend<StandardResponse<Project>>({
-    path: "/api/v1/prompt-studio/projects/" as any,
+    path: "/api/v1/prompt-studio/projects/",
     method: "POST",
     body: payload,
     headers: withIdempotency(idempotencyKey)
@@ -272,14 +273,18 @@ export async function createProject(
 
 export async function getProject(projectId: number) {
   return await apiSend<StandardResponse<Project>>({
-    path: `/api/v1/prompt-studio/projects/${encodeURIComponent(projectId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/projects/${encodeURIComponent(projectId)}`
+    ),
     method: "GET"
   })
 }
 
 export async function updateProject(projectId: number, payload: ProjectUpdatePayload) {
   return await apiSend<StandardResponse<Project>>({
-    path: `/api/v1/prompt-studio/projects/${encodeURIComponent(projectId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/projects/${encodeURIComponent(projectId)}`
+    ),
     method: "PUT",
     body: payload
   })
@@ -293,7 +298,12 @@ export async function listPrompts(projectId: number, params?: { page?: number; p
     include_deleted: params?.include_deleted
   })
   return await apiSend<ListResponse<Prompt>>({
-    path: `/api/v1/prompt-studio/prompts/list/${encodeURIComponent(projectId)}${query}` as any,
+    path: appendPathQuery(
+      toAllowedPath(
+        `/api/v1/prompt-studio/prompts/list/${encodeURIComponent(projectId)}`
+      ),
+      query
+    ),
     method: "GET"
   })
 }
@@ -303,7 +313,7 @@ export async function createPrompt(
   idempotencyKey?: string | null
 ) {
   return await apiSend<StandardResponse<Prompt>>({
-    path: "/api/v1/prompt-studio/prompts/create" as any,
+    path: "/api/v1/prompt-studio/prompts/create",
     method: "POST",
     body: payload,
     headers: withIdempotency(idempotencyKey)
@@ -312,14 +322,18 @@ export async function createPrompt(
 
 export async function getPrompt(promptId: number) {
   return await apiSend<StandardResponse<Prompt>>({
-    path: `/api/v1/prompt-studio/prompts/get/${encodeURIComponent(promptId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/prompts/get/${encodeURIComponent(promptId)}`
+    ),
     method: "GET"
   })
 }
 
 export async function updatePrompt(promptId: number, payload: PromptUpdatePayload) {
   return await apiSend<StandardResponse<Prompt>>({
-    path: `/api/v1/prompt-studio/prompts/update/${encodeURIComponent(promptId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/prompts/update/${encodeURIComponent(promptId)}`
+    ),
     method: "PUT",
     body: payload
   })
@@ -327,21 +341,27 @@ export async function updatePrompt(promptId: number, payload: PromptUpdatePayloa
 
 export async function getPromptHistory(promptId: number) {
   return await apiSend<StandardResponse<PromptVersion[]>>({
-    path: `/api/v1/prompt-studio/prompts/history/${encodeURIComponent(promptId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/prompts/history/${encodeURIComponent(promptId)}`
+    ),
     method: "GET"
   })
 }
 
 export async function revertPrompt(promptId: number, version: number) {
   return await apiSend<StandardResponse<Prompt>>({
-    path: `/api/v1/prompt-studio/prompts/revert/${encodeURIComponent(promptId)}/${encodeURIComponent(version)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/prompts/revert/${encodeURIComponent(
+        promptId
+      )}/${encodeURIComponent(version)}`
+    ),
     method: "POST"
   })
 }
 
 export async function executePrompt(payload: ExecutePromptPayload) {
   return await apiSend<ExecutePromptResult>({
-    path: "/api/v1/prompt-studio/prompts/execute" as any,
+    path: "/api/v1/prompt-studio/prompts/execute",
     method: "POST",
     body: payload
   })
@@ -368,14 +388,19 @@ export async function listTestCases(
     signature_id: params?.signature_id
   })
   return await apiSend<ListResponse<TestCase>>({
-    path: `/api/v1/prompt-studio/test-cases/list/${encodeURIComponent(projectId)}${query}` as any,
+    path: appendPathQuery(
+      toAllowedPath(
+        `/api/v1/prompt-studio/test-cases/list/${encodeURIComponent(projectId)}`
+      ),
+      query
+    ),
     method: "GET"
   })
 }
 
 export async function createTestCase(payload: TestCaseCreatePayload) {
   return await apiSend<StandardResponse<TestCase>>({
-    path: "/api/v1/prompt-studio/test-cases/create" as any,
+    path: "/api/v1/prompt-studio/test-cases/create",
     method: "POST",
     body: payload
   })
@@ -383,7 +408,7 @@ export async function createTestCase(payload: TestCaseCreatePayload) {
 
 export async function createBulkTestCases(payload: TestCaseBulkCreatePayload) {
   return await apiSend<StandardResponse<TestCase[]>>({
-    path: "/api/v1/prompt-studio/test-cases/bulk" as any,
+    path: "/api/v1/prompt-studio/test-cases/bulk",
     method: "POST",
     body: payload
   })
@@ -391,14 +416,18 @@ export async function createBulkTestCases(payload: TestCaseBulkCreatePayload) {
 
 export async function getTestCase(testCaseId: number) {
   return await apiSend<StandardResponse<TestCase>>({
-    path: `/api/v1/prompt-studio/test-cases/get/${encodeURIComponent(testCaseId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/test-cases/get/${encodeURIComponent(testCaseId)}`
+    ),
     method: "GET"
   })
 }
 
 export async function updateTestCase(testCaseId: number, payload: TestCaseUpdatePayload) {
   return await apiSend<StandardResponse<TestCase>>({
-    path: `/api/v1/prompt-studio/test-cases/update/${encodeURIComponent(testCaseId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/test-cases/update/${encodeURIComponent(testCaseId)}`
+    ),
     method: "PUT",
     body: payload
   })
@@ -407,7 +436,7 @@ export async function updateTestCase(testCaseId: number, payload: TestCaseUpdate
 // Evaluations
 export async function createEvaluation(payload: EvaluationCreatePayload) {
   return await apiSend<PromptStudioEvaluation>({
-    path: "/api/v1/prompt-studio/evaluations" as any,
+    path: "/api/v1/prompt-studio/evaluations",
     method: "POST",
     body: payload
   })
@@ -426,21 +455,25 @@ export async function listEvaluations(params: {
     offset: params.offset ?? 0
   })
   return await apiSend<EvaluationListResponse>({
-    path: `/api/v1/prompt-studio/evaluations${query}` as any,
+    path: appendPathQuery("/api/v1/prompt-studio/evaluations", query),
     method: "GET"
   })
 }
 
 export async function getEvaluation(evaluationId: number) {
   return await apiSend<PromptStudioEvaluation>({
-    path: `/api/v1/prompt-studio/evaluations/${encodeURIComponent(evaluationId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/evaluations/${encodeURIComponent(evaluationId)}`
+    ),
     method: "GET"
   })
 }
 
 export async function deleteEvaluation(evaluationId: number) {
   return await apiSend<{ message: string }>({
-    path: `/api/v1/prompt-studio/evaluations/${encodeURIComponent(evaluationId)}` as any,
+    path: toAllowedPath(
+      `/api/v1/prompt-studio/evaluations/${encodeURIComponent(evaluationId)}`
+    ),
     method: "DELETE"
   })
 }
@@ -449,7 +482,7 @@ export async function deleteEvaluation(evaluationId: number) {
 export async function getPromptStudioStatus(params?: { warn_seconds?: number }) {
   const query = buildQuery({ warn_seconds: params?.warn_seconds })
   return await apiSend<StandardResponse<PromptStudioStatus>>({
-    path: `/api/v1/prompt-studio/status${query}` as any,
+    path: appendPathQuery("/api/v1/prompt-studio/status", query),
     method: "GET"
   })
 }

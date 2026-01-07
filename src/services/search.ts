@@ -1,146 +1,196 @@
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
-
-const storage = createSafeStorage()
-const storage2 = createSafeStorage({
-  area: "local"
-})
+import {
+  coerceBoolean,
+  coerceNumber,
+  coerceString,
+  defineSetting,
+  getSetting,
+  setSetting
+} from "@/services/settings/registry"
 
 const TOTAL_SEARCH_RESULTS = 2
 const DEFAULT_PROVIDER = "duckduckgo"
 
 const AVAILABLE_PROVIDERS = ["google", "duckduckgo"] as const
 
-export const getIsSimpleInternetSearch = async () => {
- try {
-  const isSimpleInternetSearch = await storage.get("isSimpleInternetSearch")
-  if (!isSimpleInternetSearch || isSimpleInternetSearch.length === 0) {
-    return true
+type SearchProvider = (typeof AVAILABLE_PROVIDERS)[number]
+
+const SIMPLE_SEARCH_SETTING = defineSetting(
+  "isSimpleInternetSearch",
+  true,
+  (value) => coerceBoolean(value, true)
+)
+
+const VISIT_SPECIFIC_SITE_SETTING = defineSetting(
+  "isVisitSpecificWebsite",
+  true,
+  (value) => coerceBoolean(value, true)
+)
+
+const SEARCH_PROVIDER_SETTING = defineSetting(
+  "searchProvider",
+  DEFAULT_PROVIDER as SearchProvider,
+  (value) => {
+    const normalized = String(value || "").toLowerCase()
+    return AVAILABLE_PROVIDERS.includes(normalized as SearchProvider)
+      ? (normalized as SearchProvider)
+      : (DEFAULT_PROVIDER as SearchProvider)
   }
-  return isSimpleInternetSearch === "true"
- } catch(e) {
-  return true
- }
+)
+
+const TOTAL_SEARCH_RESULTS_SETTING = defineSetting(
+  "totalSearchResults",
+  TOTAL_SEARCH_RESULTS,
+  (value) => {
+    const coerced = coerceNumber(value, TOTAL_SEARCH_RESULTS)
+    return coerced > 0 ? coerced : TOTAL_SEARCH_RESULTS
+  }
+)
+
+const SEARXNG_URL_SETTING = defineSetting(
+  "searxngURL",
+  "",
+  (value) => coerceString(value, "")
+)
+
+const SEARXNG_JSON_MODE_SETTING = defineSetting(
+  "searxngJSONMode",
+  false,
+  (value) => coerceBoolean(value, false)
+)
+
+const BRAVE_API_KEY_SETTING = defineSetting(
+  "braveApiKey",
+  "",
+  (value) => coerceString(value, "")
+)
+
+const TAVILY_API_KEY_SETTING = defineSetting(
+  "tavilyApiKey",
+  "",
+  (value) => coerceString(value, "")
+)
+
+const FIRECRAWL_API_KEY_SETTING = defineSetting(
+  "firecrawlAPIKey",
+  "",
+  (value) => coerceString(value, "")
+)
+
+const EXA_API_KEY_SETTING = defineSetting(
+  "exaAPIKey",
+  "",
+  (value) => coerceString(value, "")
+)
+
+const GOOGLE_DOMAIN_SETTING = defineSetting(
+  "searchGoogleDomain",
+  "google.com",
+  (value) => coerceString(value, "google.com")
+)
+
+const DEFAULT_INTERNET_SEARCH_ON_SETTING = defineSetting(
+  "defaultInternetSearchOn",
+  false,
+  (value) => coerceBoolean(value, false)
+)
+
+export const getIsSimpleInternetSearch = async () => {
+  return await getSetting(SIMPLE_SEARCH_SETTING)
 }
 
 export const getIsVisitSpecificWebsite = async () => {
-  const isVisitSpecificWebsite = await storage.get("isVisitSpecificWebsite")
-  if (!isVisitSpecificWebsite || isVisitSpecificWebsite.length === 0) {
-    return true
-  }
-  return isVisitSpecificWebsite === "true"
+  return await getSetting(VISIT_SPECIFIC_SITE_SETTING)
 }
 
 export const setIsVisitSpecificWebsite = async (
   isVisitSpecificWebsite: boolean
 ) => {
-  await storage.set("isVisitSpecificWebsite", isVisitSpecificWebsite.toString())
+  await setSetting(VISIT_SPECIFIC_SITE_SETTING, isVisitSpecificWebsite)
 }
 
 export const setIsSimpleInternetSearch = async (
   isSimpleInternetSearch: boolean
 ) => {
-  await storage.set("isSimpleInternetSearch", isSimpleInternetSearch.toString())
+  await setSetting(SIMPLE_SEARCH_SETTING, isSimpleInternetSearch)
 }
 
-export const getSearchProvider = async (): Promise<
-  (typeof AVAILABLE_PROVIDERS)[number]
-> => {
-  const searchProvider = await storage.get("searchProvider")
-  if (!searchProvider || searchProvider.length === 0) {
-    return DEFAULT_PROVIDER
-  }
-  return searchProvider as (typeof AVAILABLE_PROVIDERS)[number]
-}
+export const getSearchProvider = async (): Promise<SearchProvider> =>
+  await getSetting(SEARCH_PROVIDER_SETTING)
 
 export const setSearchProvider = async (searchProvider: string) => {
-  await storage.set("searchProvider", searchProvider)
+  await setSetting(SEARCH_PROVIDER_SETTING, searchProvider as SearchProvider)
 }
 
 export const totalSearchResults = async () => {
-  const totalSearchResults = await storage.get("totalSearchResults")
-  if (!totalSearchResults || totalSearchResults.length === 0) {
-    return TOTAL_SEARCH_RESULTS
-  }
-  return parseInt(totalSearchResults)
+  return await getSetting(TOTAL_SEARCH_RESULTS_SETTING)
 }
 
 export const setTotalSearchResults = async (totalSearchResults: number) => {
-  await storage.set("totalSearchResults", totalSearchResults.toString())
+  await setSetting(TOTAL_SEARCH_RESULTS_SETTING, totalSearchResults)
 }
 
 export const getSearxngURL = async () => {
-  const searxngURL = await storage.get("searxngURL")
-  return searxngURL || ""
+  return await getSetting(SEARXNG_URL_SETTING)
 }
 
 export const isSearxngJSONMode = async () => {
-  const searxngJSONMode = await storage.get<boolean>("searxngJSONMode")
-  return searxngJSONMode ?? false
+  return await getSetting(SEARXNG_JSON_MODE_SETTING)
 }
 
 export const setSearxngJSONMode = async (searxngJSONMode: boolean) => {
-  await storage.set("searxngJSONMode", searxngJSONMode)
+  await setSetting(SEARXNG_JSON_MODE_SETTING, searxngJSONMode)
 }
 
 export const setSearxngURL = async (searxngURL: string) => {
-  await storage.set("searxngURL", searxngURL)
+  await setSetting(SEARXNG_URL_SETTING, searxngURL)
 }
 
 export const getBraveApiKey = async () => {
-  const braveApiKey = await storage2.get("braveApiKey")
-  return braveApiKey || ""
+  return await getSetting(BRAVE_API_KEY_SETTING)
 }
 
 export const getTavilyApiKey = async () => {
-  const tavilyApiKey = await storage2.get("tavilyApiKey")
-  return tavilyApiKey || ""
+  return await getSetting(TAVILY_API_KEY_SETTING)
 }
 
 export const getFirecrawlAPIKey = async () => {
-  const firecrawlAPIKey = await storage2.get("firecrawlAPIKey")
-  return firecrawlAPIKey || ""
+  return await getSetting(FIRECRAWL_API_KEY_SETTING)
 }
 
 export const setBraveApiKey = async (braveApiKey: string) => {
-  await storage2.set("braveApiKey", braveApiKey)
+  await setSetting(BRAVE_API_KEY_SETTING, braveApiKey)
 }
 
 export const setFirecrawlAPIKey = async (firecrawlAPIKey: string) => {
-  await storage2.set("firecrawlAPIKey", firecrawlAPIKey)
+  await setSetting(FIRECRAWL_API_KEY_SETTING, firecrawlAPIKey)
 }
 
 export const getExaAPIKey = async () => {
-  const exaAPIKey = await storage2.get("exaAPIKey")
-  return exaAPIKey || ""
+  return await getSetting(EXA_API_KEY_SETTING)
 }
 
 export const setExaAPIKey = async (exaAPIKey: string) => {
-  await storage2.set("exaAPIKey", exaAPIKey)
+  await setSetting(EXA_API_KEY_SETTING, exaAPIKey)
 }
 
 export const setTavilyApiKey = async (tavilyApiKey: string) => {
-  await storage2.set("tavilyApiKey", tavilyApiKey)
+  await setSetting(TAVILY_API_KEY_SETTING, tavilyApiKey)
 }
 
 export const getGoogleDomain = async () => {
-  const domain = await storage2.get("searchGoogleDomain")
-  return domain || "google.com"
+  return await getSetting(GOOGLE_DOMAIN_SETTING)
 }
 
 export const setGoogleDomain = async (domain: string) => {
-  await storage2.set("searchGoogleDomain", domain)
+  await setSetting(GOOGLE_DOMAIN_SETTING, domain)
 }
 
 export const getInternetSearchOn = async () => {
-  const defaultInternetSearchOn = await storage.get<boolean | undefined>(
-    "defaultInternetSearchOn"
-  )
-  return defaultInternetSearchOn ?? false
+  return await getSetting(DEFAULT_INTERNET_SEARCH_ON_SETTING)
 }
 
 export const setInternetSearchOn = async (defaultInternetSearchOn: boolean) => {
-  await storage.set("defaultInternetSearchOn", defaultInternetSearchOn)
+  await setSetting(DEFAULT_INTERNET_SEARCH_ON_SETTING, defaultInternetSearchOn)
 }
 
 export const getSearchSettings = async () => {

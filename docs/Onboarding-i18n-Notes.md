@@ -6,7 +6,7 @@ This document is for translators and contributors who update the onboarding copy
 
 - Core onboarding strings live in:
   - `src/assets/locale/<lang>/settings.json` under the `"onboarding"` object.
-- Chrome `_locales` message keys under `src/public/_locales/*/messages.json` may reuse similar text, but **keys must only use ASCII `[a-zA-Z0-9_]`** to satisfy Chrome’s i18n rules.
+- Chrome `_locales` message keys under `src/public/_locales/*/messages.json` are generated from `src/assets/locale` via `bun run locales:sync`. Keys must only use ASCII `[a-zA-Z0-9_]` to satisfy Chrome's i18n rules.
 
 ## 2. Test-Sensitive Keys
 
@@ -81,4 +81,3 @@ The following keys (and their general meaning) are referenced by Playwright test
   - Uses regular expressions over visible text to detect friendly placeholders, explanations for “tldw server”, URL validation feedback, and API key guidance.
 
 If you change copy and aren’t sure whether it’s safe, search in `tests/e2e` for the corresponding phrase or key and update the test expectations along with the translation.
-

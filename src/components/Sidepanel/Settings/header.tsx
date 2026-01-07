@@ -1,17 +1,21 @@
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
-import { useStorage } from "@plasmohq/storage/hook"
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
 import { Select } from "antd"
 import logoImage from "~/assets/icon.png"
+import { useSetting } from "@/hooks/useSetting"
+import { setSetting } from "@/services/settings/registry"
+import { UI_MODE_SETTING } from "@/services/settings/ui-settings"
+import {
+  ACTION_ICON_CLICK_SETTING,
+  CONTEXT_MENU_CLICK_SETTING
+} from "@/services/action"
 
 export const SidepanelSettingsHeader = () => {
   const { t , i18n} = useTranslation("common")
   const isRTL = i18n?.dir?.() === "rtl"
  
-  const [uiMode, setUiMode] = useStorage({ key: 'uiMode', instance: createSafeStorage({ area: 'local' }) }, 'sidePanel')
+  const [uiMode, setUiMode] = useSetting(UI_MODE_SETTING)
 
   return (
     <div className="flex px-3 justify-between gap-3 bg-surface border-b border-border py-4 items-center">
@@ -38,11 +42,10 @@ export const SidepanelSettingsHeader = () => {
             { label: t('settings:generalSettings.systemBasics.uiMode.options.webui', { defaultValue: 'Full Screen (Web UI)' }), value: 'webui' }
           ]}
           onChange={async (value) => {
-            setUiMode(value)
-            const storage = createSafeStorage({ area: 'local' })
-            await storage.set('actionIconClick', value)
+            await setUiMode(value)
+            await setSetting(ACTION_ICON_CLICK_SETTING, value)
             // Keep context menu to sidePanel for consistency
-            await storage.set('contextMenuClick', 'sidePanel')
+            await setSetting(CONTEXT_MENU_CLICK_SETTING, "sidePanel")
             if (value === 'webui') {
               const url = browser.runtime.getURL('/options.html')
               browser.tabs.create({ url })

@@ -1,37 +1,25 @@
-import { cleanUrl } from "~/libs/clean-url"
 import { promptForRag } from "~/services/tldw-server"
 import { type ChatHistory, type Message, type ToolChoice } from "~/store/option"
-import { addFileToSession, generateID, getSessionFiles } from "@/db/dexie/helpers"
+import { addFileToSession, getSessionFiles } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
 import { humanMessageFormatter } from "@/utils/human-message"
-import {
-  isReasoningEnded,
-  isReasoningStarted,
-  mergeReasoningContent,
-  removeReasoning
-} from "@/libs/reasoning"
-import { getModelNicknameByID } from "@/db/dexie/nickname"
+import { removeReasoning } from "@/libs/reasoning"
 import { formatDocs } from "@/utils/format-docs"
 import { getAllDefaultModelSettings } from "@/services/model-settings"
 import { getNoOfRetrievedDocs } from "@/services/app"
 import { UploadedFile } from "@/db/dexie/types"
-// Server-backed RAG replaces local vectorstore
 import { getMaxContextSize } from "@/services/kb"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
 import type { ChatModelSettings } from "@/store/model"
-import { extractTokenFromChunk } from "@/utils/extract-token-from-chunk"
 import { extractGenerationInfo } from "@/utils/llm-helpers"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
-import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 import {
-  buildMessageVariant,
-  getLastUserMessageId,
-  normalizeMessageVariants,
-  updateActiveVariant
-} from "@/utils/message-variants"
+  runChatPipeline,
+  type ChatModeDefinition
+} from "./chatModePipeline"
 
 interface RagDocumentMetadata {
   filename?: string
@@ -54,211 +42,93 @@ interface RagResponse {
   docs?: RagDocument[]
 }
 
-export const documentChatMode = async (
-  message: string,
-  image: string,
-  isRegenerate: boolean,
-  messages: Message[],
-  history: ChatHistory,
-  signal: AbortSignal,
-  uploadedFiles: UploadedFile[],
-  {
-    selectedModel,
-    useOCR,
-    currentChatModelSettings,
-    toolChoice,
-    setMessages,
-    saveMessageOnSuccess,
-    saveMessageOnError,
-    setHistory,
-    setIsProcessing,
-    setStreaming,
-    setAbortController,
-    historyId,
-    setHistoryId,
-    fileRetrievalEnabled,
-    setActionInfo,
-    actorSettings,
-    clusterId,
-    userMessageType,
-    assistantMessageType,
-    modelIdOverride,
-    userMessageId,
-    assistantMessageId,
-    userParentMessageId,
-    assistantParentMessageId,
-    historyForModel,
-    regenerateFromMessage
-  }: {
-    selectedModel: string
-    useOCR: boolean
-    currentChatModelSettings: ChatModelSettings | null
-    toolChoice?: ToolChoice
-    setMessages: (
-      messages: Message[] | ((prev: Message[]) => Message[])
-    ) => void
-    saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
-    saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
-    setHistory: (history: ChatHistory) => void
-    setIsProcessing: (value: boolean) => void
-    setStreaming: (value: boolean) => void
-    setAbortController: (controller: AbortController | null) => void
-    historyId: string | null
-    setHistoryId: (id: string) => void
-    fileRetrievalEnabled: boolean
-    setActionInfo: (actionInfo: string | null) => void
-    actorSettings?: ActorSettings
-    clusterId?: string
-    userMessageType?: string
-    assistantMessageType?: string
-    modelIdOverride?: string
-    userMessageId?: string
-    assistantMessageId?: string
-    userParentMessageId?: string | null
-    assistantParentMessageId?: string | null
-    historyForModel?: ChatHistory
-    regenerateFromMessage?: Message
-  }
-) => {
-  const userDefaultModelSettings = await getAllDefaultModelSettings()
+type DocumentChatModeParams = {
+  selectedModel: string
+  useOCR: boolean
+  currentChatModelSettings: ChatModelSettings | null
+  toolChoice?: ToolChoice
+  setMessages: (
+    messages: Message[] | ((prev: Message[]) => Message[])
+  ) => void
+  saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
+  saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
+  setHistory: (history: ChatHistory) => void
+  setIsProcessing: (value: boolean) => void
+  setStreaming: (value: boolean) => void
+  setAbortController: (controller: AbortController | null) => void
+  historyId: string | null
+  setHistoryId: (id: string) => void
+  fileRetrievalEnabled: boolean
+  setActionInfo: (actionInfo: string | null) => void
+  actorSettings?: ActorSettings
+  clusterId?: string
+  userMessageType?: string
+  assistantMessageType?: string
+  modelIdOverride?: string
+  userMessageId?: string
+  assistantMessageId?: string
+  userParentMessageId?: string | null
+  assistantParentMessageId?: string | null
+  historyForModel?: ChatHistory
+  regenerateFromMessage?: Message
+  uploadedFiles: UploadedFile[]
+  newFiles: UploadedFile[]
+  allFiles: UploadedFile[]
+  documents?: any[]
+}
 
-  let sessionFiles: UploadedFile[] = []
-  const currentFiles: UploadedFile[] = uploadedFiles
-
-  if (historyId) {
-    sessionFiles = await getSessionFiles(historyId)
-  }
-
-  const newFiles = currentFiles.filter(
-    (f) => !sessionFiles.some((sf) => sf.id === f.id)
-  )
-
-  const allFiles = [...sessionFiles, ...newFiles]
-  const ollama = await pageAssistModel({ model: selectedModel, toolChoice })
-
-  const resolvedAssistantMessageId = assistantMessageId ?? generateID()
-  const resolvedUserMessageId =
-    !isRegenerate ? userMessageId ?? generateID() : undefined
-  const createdAt = Date.now()
-  let generateMessageId = resolvedAssistantMessageId
-  const modelInfo = await getModelNicknameByID(selectedModel)
-
-  const isSharedCompareUser = userMessageType === "compare:user"
-  const resolvedModelId = modelIdOverride || selectedModel
-  const userModelId = isSharedCompareUser ? undefined : resolvedModelId
-  const fallbackParentMessageId = getLastUserMessageId(messages)
-  const resolvedAssistantParentMessageId =
-    assistantParentMessageId ??
-    (isRegenerate
-      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
-      : resolvedUserMessageId ?? null)
-  const regenerateVariants =
-    isRegenerate && regenerateFromMessage
-      ? normalizeMessageVariants(regenerateFromMessage)
-      : []
-
-  setMessages((prev) => {
-    if (!isRegenerate) {
-      return [
-        ...prev,
-        {
-          isBot: false,
-          name: "You",
-          message,
-          sources: [],
-          images: image ? [image] : [],
-          createdAt,
-          documents: newFiles.map((f) => ({
-            type: "file",
-            filename: f.filename,
-            fileSize: f.size
-          })),
-          id: resolvedUserMessageId,
-          messageType: userMessageType,
-          clusterId,
-          modelId: userModelId,
-          parentMessageId: userParentMessageId ?? null
-        },
-        {
-          isBot: true,
-          name: selectedModel,
-          message: "▋",
-          sources: [],
-          createdAt,
-          id: resolvedAssistantMessageId,
-          modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || selectedModel,
-          messageType: assistantMessageType,
-          clusterId,
-          modelId: resolvedModelId,
-          parentMessageId: resolvedAssistantParentMessageId ?? null
-        }
-      ]
-    }
-
-    return [
-      ...prev,
-      {
-        isBot: true,
-        name: selectedModel,
-        message: "▋",
-        sources: [],
-        createdAt,
-        id: resolvedAssistantMessageId,
-        modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || selectedModel,
-        messageType: assistantMessageType,
-        clusterId,
-        modelId: resolvedModelId,
-        parentMessageId: resolvedAssistantParentMessageId ?? null
-      }
-    ]
-  })
-  if (regenerateVariants.length > 0) {
-    setMessages((prev) => {
-      const next = [...prev]
-      const lastIndex = next.findLastIndex(
-        (msg) => msg.id === resolvedAssistantMessageId
-      )
-      if (lastIndex >= 0) {
-        const stub = next[lastIndex]
-        const variants = [
-          ...regenerateVariants,
-          buildMessageVariant(stub)
-        ]
-        next[lastIndex] = {
-          ...stub,
-          variants,
-          activeVariantIndex: variants.length - 1
-        }
-      }
-      return next
-    })
-  }
-  let fullText = ""
-  let contentToSave = ""
-
-  // No local embedding model; will fall back to inline context for files
-
-  let timetaken = 0
-  try {
-    let query = message
+const documentChatModeDefinition: ChatModeDefinition<DocumentChatModeParams> = {
+  id: "document",
+  buildUserMessage: (ctx) => ({
+    isBot: false,
+    name: "You",
+    message: ctx.message,
+    sources: [],
+    images: ctx.image ? [ctx.image] : [],
+    createdAt: ctx.createdAt,
+    documents: ctx.newFiles.map((file) => ({
+      type: "file",
+      filename: file.filename,
+      fileSize: file.size
+    })),
+    id: ctx.resolvedUserMessageId,
+    messageType: ctx.userMessageType,
+    clusterId: ctx.clusterId,
+    modelId: ctx.userModelId,
+    parentMessageId: ctx.userParentMessageId ?? null
+  }),
+  buildAssistantMessage: (ctx) => ({
+    isBot: true,
+    name: ctx.selectedModel,
+    message: "▋",
+    sources: [],
+    createdAt: ctx.createdAt,
+    id: ctx.resolvedAssistantMessageId,
+    modelImage: ctx.modelInfo?.model_avatar,
+    modelName: ctx.modelInfo?.model_name || ctx.selectedModel,
+    messageType: ctx.assistantMessageType,
+    clusterId: ctx.clusterId,
+    modelId: ctx.resolvedModelId,
+    parentMessageId: ctx.resolvedAssistantParentMessageId ?? null
+  }),
+  preparePrompt: async (ctx) => {
+    let query = ctx.message
     const { ragPrompt: systemPrompt, ragQuestionPrompt: questionPrompt } =
       await promptForRag()
-    const contextMessages = isRegenerate
-      ? messages
+    const contextMessages = ctx.isRegenerate
+      ? ctx.messages
       : [
-          ...messages,
+          ...ctx.messages,
           {
             isBot: false,
             name: "You",
-            message,
+            message: ctx.message,
             sources: [],
-            images: image ? [image] : []
+            images: ctx.image ? [ctx.image] : []
           }
         ]
 
-    let context: string = ""
+    let context = ""
     let source: any[] = []
     const docSize = await getNoOfRetrievedDocs()
 
@@ -272,7 +142,7 @@ export const documentChatMode = async (
         .join("\n")
       const promptForQuestion = questionPrompt
         .replaceAll("{chat_history}", chat_history)
-        .replaceAll("{question}", message)
+        .replaceAll("{question}", ctx.message)
       const questionMessage = await humanMessageFormatter({
         content: [
           {
@@ -280,18 +150,22 @@ export const documentChatMode = async (
             type: "text"
           }
         ],
-        model: selectedModel,
-        useOCR
+        model: ctx.selectedModel,
+        useOCR: ctx.useOCR
       })
-      const response = await ollama.invoke([questionMessage])
+      const questionOllama = await pageAssistModel({
+        model: ctx.selectedModel,
+        toolChoice: ctx.toolChoice
+      })
+      const response = await questionOllama.invoke([questionMessage])
       query = response.content.toString()
       query = removeReasoning(query)
     }
-    // Try server-backed RAG over media_db first
+
     try {
-      const keyword_filter = uploadedFiles.map((f) => f.filename).slice(0, 10)
-      if (uploadedFiles.length > 10) {
-        setActionInfo("Only the first 10 uploaded files are used for filtering")
+      const keyword_filter = ctx.uploadedFiles.map((f) => f.filename).slice(0, 10)
+      if (ctx.uploadedFiles.length > 10) {
+        ctx.setActionInfo("Only the first 10 uploaded files are used for filtering")
       }
       const ragPayload = {
         query,
@@ -317,20 +191,20 @@ export const documentChatMode = async (
         ragRes?.results || ragRes?.documents || ragRes?.docs || []
       if (docs.length > 0) {
         context += formatDocs(
-          docs.map((d) => ({
-            pageContent: d.content || d.text || d.chunk || "",
-            metadata: d.metadata || {}
+          docs.map((doc) => ({
+            pageContent: doc.content || doc.text || doc.chunk || "",
+            metadata: doc.metadata || {}
           }))
         )
         source = [
           ...source,
-          ...docs.map((d) => ({
-            name: d.metadata?.filename || d.metadata?.title || "media",
-            type: d.metadata?.type || "media",
+          ...docs.map((doc) => ({
+            name: doc.metadata?.filename || doc.metadata?.title || "media",
+            type: doc.metadata?.type || "media",
             mode: "rag",
-            url: d.metadata?.url || "",
-            pageContent: d.content || d.text || d.chunk || "",
-            metadata: d.metadata || {}
+            url: doc.metadata?.url || "",
+            pageContent: doc.content || doc.text || doc.chunk || "",
+            metadata: doc.metadata || {}
           }))
         ]
       }
@@ -338,16 +212,15 @@ export const documentChatMode = async (
       console.error("media_db RAG failed; will fallback to inline context", e)
     }
 
-    // Fallback inline if no RAG context
-    if (uploadedFiles.length > 0 && context.length === 0) {
+    if (ctx.uploadedFiles.length > 0 && context.length === 0) {
       const maxContextSize = await getMaxContextSize()
-      context += allFiles
-        .map((f) => `File: ${f.filename}\nContent: ${f.content}\n---\n`)
+      context += ctx.allFiles
+        .map((file) => `File: ${file.filename}\nContent: ${file.content}\n---\n`)
         .join("")
         .substring(0, maxContextSize)
       source = [
         ...source,
-        ...allFiles.map((file) => ({
+        ...ctx.allFiles.map((file) => ({
           pageContent: file.content.substring(0, 200) + "...",
           metadata: {
             source: file.filename,
@@ -362,214 +235,102 @@ export const documentChatMode = async (
       ]
     }
 
-    if (uploadedFiles.length === 0 && context.length === 0) {
+    if (ctx.uploadedFiles.length === 0 && context.length === 0) {
       context += "No documents uploaded for this conversation."
     }
 
-    let humanMessage = await humanMessageFormatter({
+    const humanMessage = await humanMessageFormatter({
       content: [
         {
           text: systemPrompt
             .replace("{context}", context)
-            .replace("{question}", message),
+            .replace("{question}", ctx.message),
           type: "text"
         }
       ],
-      model: selectedModel,
-      useOCR: useOCR
+      model: ctx.selectedModel,
+      useOCR: ctx.useOCR
     })
 
     let applicationChatHistory = generateHistory(
-      historyForModel ?? history,
-      selectedModel
+      ctx.historyForModel ?? ctx.history,
+      ctx.selectedModel
     )
 
     const templatesActive = false
     applicationChatHistory = await maybeInjectActorMessage(
       applicationChatHistory,
-      actorSettings || null,
+      ctx.actorSettings || null,
       templatesActive
     )
 
-    let generationInfo: Record<string, unknown> | undefined = undefined
-
-    const chunks = await ollama.stream(
-      [...applicationChatHistory, humanMessage],
-      {
-        signal: signal,
-        callbacks: [
-          {
-            handleLLMEnd(output: unknown): void {
-              const info = extractGenerationInfo(output)
-              if (info) {
-                generationInfo = info
-              }
-            }
-          }
-        ]
-      }
-    )
-    let count = 0
-    let reasoningStartTime: Date | undefined = undefined
-    let reasoningEndTime: Date | undefined = undefined
-    let apiReasoning = false
-
-    for await (const chunk of chunks) {
-      const token = extractTokenFromChunk(chunk)
-      if ((chunk as any)?.additional_kwargs?.reasoning_content) {
-        const reasoningContent = mergeReasoningContent(
-          fullText,
-          (chunk as any)?.additional_kwargs?.reasoning_content || ""
-        )
-        contentToSave = reasoningContent
-        fullText = reasoningContent
-        apiReasoning = true
-      } else {
-        if (apiReasoning) {
-          fullText += "</think>"
-          contentToSave += "</think>"
-          apiReasoning = false
-        }
-      }
-
-      if (token) {
-        contentToSave += token
-        fullText += token
-      }
-      if (count === 0) {
-        setIsProcessing(true)
-      }
-      if (isReasoningStarted(fullText) && !reasoningStartTime) {
-        reasoningStartTime = new Date()
-      }
-
-      if (
-        reasoningStartTime &&
-        !reasoningEndTime &&
-        isReasoningEnded(fullText)
-      ) {
-        reasoningEndTime = new Date()
-        const reasoningTime =
-          reasoningEndTime.getTime() - reasoningStartTime.getTime()
-        timetaken = reasoningTime
-      }
-      setMessages((prev) => {
-        return prev.map((message) => {
-          if (message.id === generateMessageId) {
-            return updateActiveVariant(message, {
-              message: fullText + "▋",
-              reasoning_time_taken: timetaken
-            })
-          }
-          return message
-        })
-      })
-      count++
+    return {
+      chatHistory: applicationChatHistory,
+      humanMessage,
+      sources: source
     }
-    // update the message with the full text
-    setMessages((prev) => {
-      return prev.map((message) => {
-        if (message.id === generateMessageId) {
-          return updateActiveVariant(message, {
-            message: fullText,
-            sources: source,
-            generationInfo,
-            reasoning_time_taken: timetaken
-          })
-        }
-        return message
-      })
-    })
+  },
+  extractGenerationInfo: (output) => extractGenerationInfo(output)
+}
 
-    setHistory([
-      ...history,
-      {
-        role: "user",
-        content: message,
-        image
-      },
-      {
-        role: "assistant",
-        content: fullText
-      }
-    ])
+export const documentChatMode = async (
+  message: string,
+  image: string,
+  isRegenerate: boolean,
+  messages: Message[],
+  history: ChatHistory,
+  signal: AbortSignal,
+  uploadedFiles: UploadedFile[],
+  params: Omit<DocumentChatModeParams, "uploadedFiles" | "newFiles" | "allFiles">
+) => {
+  await getAllDefaultModelSettings()
 
-    const chatHistoryId = await saveMessageOnSuccess({
-      historyId,
-      setHistoryId,
-      isRegenerate,
-      selectedModel: selectedModel,
-      message,
-      image,
-      fullText,
-      source,
-      userMessageType,
-      assistantMessageType,
-      clusterId,
-      modelId: resolvedModelId,
-      userModelId,
-      userMessageId: resolvedUserMessageId,
-      assistantMessageId: resolvedAssistantMessageId,
-      userParentMessageId: userParentMessageId ?? null,
-      assistantParentMessageId: resolvedAssistantParentMessageId ?? null,
-      generationInfo,
-      reasoning_time_taken: timetaken,
-      saveToDb: Boolean(ollama.saveToDb),
-      conversationId: ollama.conversationId,
-      documents: uploadedFiles.map((f) => ({
-        type: "file",
-        filename: f.filename,
-        fileSize: f.size,
-        processed: f.processed
-      }))
-    })
+  let sessionFiles: UploadedFile[] = []
+  const currentFiles: UploadedFile[] = uploadedFiles
 
+  if (params.historyId) {
+    sessionFiles = await getSessionFiles(params.historyId)
+  }
+
+  const newFiles = currentFiles.filter(
+    (file) => !sessionFiles.some((sf) => sf.id === file.id)
+  )
+
+  const allFiles = [...sessionFiles, ...newFiles]
+  const documentsForSave: any[] = uploadedFiles.map((file) => ({
+    type: "file",
+    filename: file.filename,
+    fileSize: file.size,
+    processed: file.processed
+  }))
+
+  const saveMessageOnSuccess = async (data: SaveMessageData) => {
+    const chatHistoryId = await params.saveMessageOnSuccess(data)
     if (chatHistoryId) {
       for (const file of newFiles) {
         await addFileToSession(chatHistoryId, file)
       }
     }
-
-    setIsProcessing(false)
-    setStreaming(false)
-  } catch (e) {
-    console.error(e)
-    const assistantContent = buildAssistantErrorContent(fullText, e)
-    setMessages((prev) =>
-      prev.map((msg) =>
-        msg.id === generateMessageId
-          ? updateActiveVariant(msg, { message: assistantContent })
-          : msg
-      )
-    )
-    const errorSave = await saveMessageOnError({
-      e,
-      botMessage: assistantContent,
-      history,
-      historyId,
-      image,
-      selectedModel,
-      setHistory,
-      setHistoryId,
-      userMessage: message,
-      isRegenerating: isRegenerate,
-      userMessageType,
-      assistantMessageType,
-      clusterId,
-      modelId: resolvedModelId,
-      userModelId,
-      userMessageId: resolvedUserMessageId,
-      assistantMessageId: resolvedAssistantMessageId,
-      userParentMessageId: userParentMessageId ?? null,
-      assistantParentMessageId: resolvedAssistantParentMessageId ?? null
-    })
-
-    if (!errorSave) {
-      throw e // Re-throw to be handled by the calling function
-    }
-    setIsProcessing(false)
-    setStreaming(false)
-  } finally {
-    setAbortController(null)
+    return chatHistoryId
   }
+
+  const modeParams: DocumentChatModeParams = {
+    ...params,
+    saveMessageOnSuccess,
+    documents: documentsForSave,
+    uploadedFiles,
+    newFiles,
+    allFiles
+  }
+
+  await runChatPipeline(
+    documentChatModeDefinition,
+    message,
+    image,
+    isRegenerate,
+    messages,
+    history,
+    signal,
+    modeParams
+  )
 }

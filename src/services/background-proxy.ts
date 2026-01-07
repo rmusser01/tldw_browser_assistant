@@ -2,6 +2,7 @@ import { browser } from "wxt/browser"
 import { Storage } from "@plasmohq/storage"
 import { createSafeStorage } from "@/utils/safe-storage"
 import { formatErrorMessage } from "@/utils/format-error-message"
+import { tldwRequest } from "@/services/tldw/request-core"
 import type {
   AllowedMethodFor,
   AllowedPath,
@@ -10,7 +11,6 @@ import type {
   PathOrUrl,
   UpperLower
 } from "@/services/tldw/openapi-guard"
-import { isPlaceholderApiKey } from "@/utils/api-key"
 
 const ERROR_LOG_THROTTLE_MS = 15_000
 const RATE_LIMIT_LOG_THROTTLE_MS = 60_000
@@ -174,90 +174,29 @@ export async function bgRequest<
   }
 
   // Fallback: direct fetch (web/dev context)
-  const storage = createSafeStorage({ area: 'local' })
-  const cfg = await storage.get('tldwConfig').catch(() => null) as any
-  const base = (cfg?.serverUrl || '').replace(/\/$/, '')
-  const isAbs = /^https?:/i.test(path)
-  const url = isAbs ? path : `${base}${path.startsWith('/') ? '' : '/'}${path}`
-
-  if (!url) throw new Error('Server not configured')
-
-  // Mirror background auth behavior for direct fetches so that
-  // single-user and multi-user modes include the correct headers.
-  const h: Record<string, string> = { ...(headers || {}) }
-  if (!noAuth) {
-    for (const k of Object.keys(h)) {
-      const kl = k.toLowerCase()
-      if (kl === 'x-api-key' || kl === 'authorization') delete h[k]
-    }
-    if (cfg?.authMode === 'single-user') {
-      const key = String(cfg?.apiKey || '').trim()
-      if (!key) {
-        throw new Error('Add or update your API key in Settings → tldw server, then try again.')
-      }
-      if (isPlaceholderApiKey(key)) {
-        throw new Error('tldw server API key is still set to the default demo value. Replace it with your real API key in Settings → tldw server before continuing.')
-      }
-      h['X-API-KEY'] = key
-    } else if (cfg?.authMode === 'multi-user') {
-      const token = String(cfg?.accessToken || '').trim()
-      if (token) {
-        h['Authorization'] = `Bearer ${token}`
-      } else {
-        throw new Error('Not authenticated. Please login under Settings > tldw.')
-      }
-    }
-  }
-
-  const controller = new AbortController()
-  const onAbort = () => {
-    try {
-      controller.abort()
-    } catch {}
-  }
-  if (abortSignal) {
-    if (abortSignal.aborted) {
-      controller.abort()
-    } else {
-      abortSignal.addEventListener('abort', onAbort, { once: true })
-    }
-  }
-  const id = timeoutMs ? setTimeout(() => controller.abort(), timeoutMs) : null
-  try {
-    const res = await fetch(url, {
-      method,
-      headers: h,
-      body: body ? (typeof body === 'string' ? body : JSON.stringify(body)) : undefined,
-      // Use 'omit' to play nicely with mock/test servers using wildcard CORS
-      // (no cookies are needed for API key / bearer flows).
-      credentials: 'omit',
-      signal: controller.signal
-    })
-    if (!res.ok) {
-      const msg = `Request failed: ${res.status}`
-      console.warn("[tldw:request]", method, path, res.status, msg)
+  const storage = createSafeStorage()
+  const resp = await tldwRequest(
+    { path, method, headers, body, noAuth, timeoutMs, abortSignal },
+    { getConfig: () => storage.get("tldwConfig").catch(() => null) }
+  )
+  if (!resp?.ok) {
+    const msg = formatErrorMessage(
+      resp?.error,
+      `Request failed: ${resp?.status}`
+    )
+    if (!isAbortErrorMessage(msg)) {
+      console.warn("[tldw:request]", method, path, resp?.status, msg)
       await recordRequestError({
         method: String(method),
         path: String(path),
-        status: res.status,
+        status: resp?.status,
         error: msg,
         source: "direct"
       })
-      throw new Error(`${msg} (${method} ${path})`)
     }
-    const contentType = res.headers.get('content-type') || ''
-    if (contentType.includes('application/json')) {
-      return (await res.json()) as T
-    }
-    return (await res.text()) as any as T
-  } finally {
-    if (id) clearTimeout(id)
-    if (abortSignal) {
-      try {
-        abortSignal.removeEventListener('abort', onAbort)
-      } catch {}
-    }
+    throw new Error(`${msg} (${method} ${path})`)
   }
+  return resp.data as T
 }
 
 export interface BgStreamInit<

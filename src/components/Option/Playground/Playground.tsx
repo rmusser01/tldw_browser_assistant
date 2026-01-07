@@ -13,24 +13,18 @@ import {
 import { useStoreChatModelSettings } from "@/store/model"
 import { useSmartScroll } from "@/hooks/useSmartScroll"
 import { ChevronDown } from "lucide-react"
-import { useStorage } from "@plasmohq/storage/hook"
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { CHAT_BACKGROUND_IMAGE_SETTING } from "@/services/settings/ui-settings"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { useTranslation } from "react-i18next"
 import { useStoreMessageOption } from "@/store/option"
 import { useArtifactsStore } from "@/store/artifacts"
 import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
+import { useSetting } from "@/hooks/useSetting"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
   const { t } = useTranslation(["playground", "common"])
-  const [chatBackgroundImage] = useStorage({
-    key: "chatBackgroundImage",
-    instance: createSafeStorage({
-      area: "local"
-    })
-  })
+  const [chatBackgroundImage] = useSetting(CHAT_BACKGROUND_IMAGE_SETTING)
 
   const {
     messages,

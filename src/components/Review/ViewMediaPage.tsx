@@ -20,6 +20,11 @@ import { ContentViewer } from '@/components/Media/ContentViewer'
 import { Pagination } from '@/components/Media/Pagination'
 import { JumpToNavigator } from '@/components/Media/JumpToNavigator'
 import type { MediaResultItem } from '@/components/Media/types'
+import { setSetting } from '@/services/settings/registry'
+import {
+  DISCUSS_MEDIA_PROMPT_SETTING,
+  LAST_MEDIA_ID_SETTING
+} from '@/services/settings/ui-settings'
 
 const ViewMediaPage: React.FC = () => {
   const { t } = useTranslation(['review', 'common', 'settings'])
@@ -998,20 +1003,15 @@ const MediaPageContent: React.FC = () => {
         title,
         content
       }
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(
-          'tldw:discussMediaPrompt',
-          JSON.stringify(payload)
+      void setSetting(DISCUSS_MEDIA_PROMPT_SETTING, payload)
+      try {
+        window.dispatchEvent(
+          new CustomEvent('tldw:discuss-media', {
+            detail: payload
+          })
         )
-        try {
-          window.dispatchEvent(
-            new CustomEvent('tldw:discuss-media', {
-              detail: payload
-            })
-          )
-        } catch {
-          // ignore event errors
-        }
+      } catch {
+        // ignore event errors
       }
     } catch {
       // ignore storage errors
@@ -1082,11 +1082,7 @@ const MediaPageContent: React.FC = () => {
 
   const handleOpenInMultiReview = useCallback(() => {
     if (!selected) return
-    try {
-      localStorage.setItem('tldw:lastMediaId', String(selected.id))
-    } catch {
-      // ignore storage errors
-    }
+    void setSetting(LAST_MEDIA_ID_SETTING, String(selected.id))
     navigate('/media-multi')
   }, [selected, navigate])
 
@@ -1101,10 +1097,8 @@ const MediaPageContent: React.FC = () => {
         title: selected?.title || 'Analysis',
         content: `Please review this analysis and continue the discussion:\n\n${text}`
       }
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem('tldw:discussMediaPrompt', JSON.stringify(payload))
-        window.dispatchEvent(new CustomEvent('tldw:discuss-media', { detail: payload }))
-      }
+      void setSetting(DISCUSS_MEDIA_PROMPT_SETTING, payload)
+      window.dispatchEvent(new CustomEvent('tldw:discuss-media', { detail: payload }))
     } catch {
       // ignore storage errors
     }

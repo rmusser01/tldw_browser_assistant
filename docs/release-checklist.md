@@ -8,10 +8,11 @@ Use this checklist before cutting a new extension release.
 
 ### 2. Internationalization
 
+- `bun run locales:sync` — Regenerate `src/public/_locales` from `src/assets/locale`.
 - `npm run check:i18n:dupes` — Ensure there are no duplicate i18n keys.
 - `npm run check:i18n:coverage` — Verify required i18n keys exist in:
   - `src/assets/locale/*/common.json` (React UI).
-  - `src/public/_locales/*/messages.json` (Chrome/Firefox locales).
+  - `src/public/_locales/*/messages.json` (Chrome/Firefox locales, generated).
 
 ### 3. Build Artifacts
 
@@ -36,4 +37,3 @@ Use this checklist before cutting a new extension release.
 
 - Update any relevant docs under `docs/` (features, settings, known issues).
 - Verify extension metadata (name, description, icons) is correct for the target stores.
-

@@ -129,7 +129,7 @@ export const SidepanelForm = ({
     }
   }
 
-  // Draft persistence - saves/restores message draft to localStorage
+  // Draft persistence - saves/restores message draft to local-only storage
   const { draftSaved } = useDraftPersistence({
     storageKey,
     getValue: () => form.values.message,
@@ -1136,7 +1136,7 @@ export const SidepanelForm = ({
                       {/* Draft saved indicator */}
                       {draftSaved && (
                         <span
-                          className="absolute bottom-1 right-2 text-label text-text-subtle animate-pulse pointer-events-none"
+                          className="absolute bottom-1 right-2 text-label text-text-subtle transition-opacity pointer-events-none"
                           role="status"
                           aria-live="polite"
                         >

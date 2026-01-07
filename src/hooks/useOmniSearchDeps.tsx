@@ -19,6 +19,12 @@ import { bgRequest } from "@/services/background-proxy"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { listDecks, type Deck, createDeck } from "@/services/flashcards"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { setSetting } from "@/services/settings/registry"
+import {
+  LAST_DECK_ID_SETTING,
+  LAST_MEDIA_ID_SETTING,
+  LAST_NOTE_ID_SETTING
+} from "@/services/settings/ui-settings"
 import type {
   ChatSummary,
   FlashcardCollectionSummary,
@@ -517,13 +523,7 @@ export const useOmniSearchDeps = (): OmniSearchDependencies => {
 
   const openMediaItem = React.useCallback(
     (mediaId: string) => {
-      try {
-        if (typeof window !== "undefined") {
-          window.localStorage.setItem("tldw:lastMediaId", String(mediaId))
-        }
-      } catch {
-        // ignore storage errors
-      }
+      void setSetting(LAST_MEDIA_ID_SETTING, String(mediaId))
       navigate("/media-multi")
     },
     [navigate]
@@ -531,13 +531,7 @@ export const useOmniSearchDeps = (): OmniSearchDependencies => {
 
   const openNote = React.useCallback(
     (noteId: string) => {
-      try {
-        if (typeof window !== "undefined") {
-          window.localStorage.setItem("tldw:lastNoteId", String(noteId))
-        }
-      } catch {
-        // ignore storage errors
-      }
+      void setSetting(LAST_NOTE_ID_SETTING, String(noteId))
       navigate("/notes")
     },
     [navigate]
@@ -545,13 +539,7 @@ export const useOmniSearchDeps = (): OmniSearchDependencies => {
 
   const openFlashcardCollection = React.useCallback(
     (collectionId: string) => {
-      try {
-        if (typeof window !== "undefined") {
-          window.localStorage.setItem("tldw:lastDeckId", String(collectionId))
-        }
-      } catch {
-        // ignore storage errors
-      }
+      void setSetting(LAST_DECK_ID_SETTING, String(collectionId))
       navigate("/flashcards")
     },
     [navigate]

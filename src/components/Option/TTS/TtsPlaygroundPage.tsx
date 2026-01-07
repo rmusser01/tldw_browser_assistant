@@ -14,54 +14,25 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getTTSProvider, getTTSSettings, setTTSSettings } from "@/services/tts"
 import { inferTldwProviderFromModel } from "@/services/tts-provider"
 import { getTtsProviderLabel } from "@/services/tts-providers"
-import { useServerCapabilities } from "@/hooks/useServerCapabilities"
-import { useServerOnline } from "@/hooks/useServerOnline"
 import {
-  fetchTldwTtsModels,
-  type TldwTtsModel
-} from "@/services/tldw/audio-models"
-import { fetchTldwVoiceCatalog } from "@/services/tldw/audio-voices"
-import {
-  fetchTtsProviders,
   type TldwTtsProviderCapabilities,
-  type TldwTtsVoiceInfo,
-  type TldwTtsProvidersInfo
+  type TldwTtsVoiceInfo
 } from "@/services/tldw/audio-providers"
 import {
   useTtsPlayground,
   type TtsPlaygroundSegment
 } from "@/hooks/useTtsPlayground"
+import {
+  OPENAI_TTS_MODELS,
+  OPENAI_TTS_VOICES,
+  useTtsProviderData
+} from "@/hooks/useTtsProviderData"
 import { PageShell } from "@/components/Common/PageShell"
-import { getModels, getVoices } from "@/services/elevenlabs"
 import { TtsProviderPanel } from "@/components/Option/TTS/TtsProviderPanel"
 
 const { Text, Title, Paragraph } = Typography
 const SAMPLE_TEXT =
   "Sample: Hi there, this is the TTS playground reading a short passage so you can preview voice and speed."
-
-const OPENAI_TTS_MODELS = [
-  { label: "tts-1", value: "tts-1" },
-  { label: "tts-1-hd", value: "tts-1-hd" }
-]
-
-const OPENAI_TTS_VOICES: Record<string, { label: string; value: string }[]> = {
-  "tts-1": [
-    { label: "alloy", value: "alloy" },
-    { label: "echo", value: "echo" },
-    { label: "fable", value: "fable" },
-    { label: "onyx", value: "onyx" },
-    { label: "nova", value: "nova" },
-    { label: "shimmer", value: "shimmer" }
-  ],
-  "tts-1-hd": [
-    { label: "alloy", value: "alloy" },
-    { label: "echo", value: "echo" },
-    { label: "fable", value: "fable" },
-    { label: "onyx", value: "onyx" },
-    { label: "nova", value: "nova" },
-    { label: "shimmer", value: "shimmer" }
-  ]
-}
 
 const TtsPlaygroundPage: React.FC = () => {
   const { t } = useTranslation(["playground", "settings"])
@@ -71,46 +42,41 @@ const TtsPlaygroundPage: React.FC = () => {
     queryFn: getTTSSettings
   })
   const queryClient = useQueryClient()
-  const { capabilities, loading: capsLoading } = useServerCapabilities()
-  const isOnline = useServerOnline()
-  const hasAudio = isOnline && !capsLoading && capabilities?.hasAudio
-
-  const { data: providersInfo } = useQuery<TldwTtsProvidersInfo | null>({
-    queryKey: ["tldw-tts-providers"],
-    queryFn: fetchTtsProviders,
-    enabled: hasAudio
-  })
-
-  const { data: tldwTtsModels } = useQuery<TldwTtsModel[]>({
-    queryKey: ["tldw-tts-models"],
-    queryFn: fetchTldwTtsModels,
-    enabled: hasAudio
-  })
-
-  const { data: elevenLabsData, isLoading: elevenLabsLoading } = useQuery({
-    queryKey: [
-      "tts-playground-elevenlabs",
-      ttsSettings?.ttsProvider,
-      ttsSettings?.elevenLabsApiKey
-    ],
-    queryFn: async () => {
-      if (ttsSettings?.ttsProvider !== "elevenlabs" || !ttsSettings.elevenLabsApiKey) {
-        return null
-      }
-      try {
-        const [voices, models] = await Promise.all([
-          getVoices(ttsSettings.elevenLabsApiKey),
-          getModels(ttsSettings.elevenLabsApiKey)
-        ])
-        return { voices, models }
-      } catch (e) {
-        console.error(e)
-        return null
-      }
-    },
-    enabled:
-      ttsSettings?.ttsProvider === "elevenlabs" &&
-      !!ttsSettings?.elevenLabsApiKey
+  const [elevenVoiceId, setElevenVoiceId] = React.useState<string | undefined>(
+    undefined
+  )
+  const [elevenModelId, setElevenModelId] = React.useState<string | undefined>(
+    undefined
+  )
+  const [tldwModel, setTldwModel] = React.useState<string | undefined>(
+    undefined
+  )
+  const [tldwVoice, setTldwVoice] = React.useState<string | undefined>(
+    undefined
+  )
+  const [openAiModel, setOpenAiModel] = React.useState<string | undefined>(
+    undefined
+  )
+  const [openAiVoice, setOpenAiVoice] = React.useState<string | undefined>(
+    undefined
+  )
+  const provider = ttsSettings?.ttsProvider || "browser"
+  const isTldw = provider === "tldw"
+  const inferredProviderKey = React.useMemo(() => {
+    if (!isTldw) return null
+    return inferTldwProviderFromModel(tldwModel || ttsSettings?.tldwTtsModel)
+  }, [isTldw, tldwModel, ttsSettings?.tldwTtsModel])
+  const {
+    hasAudio,
+    providersInfo,
+    tldwTtsModels,
+    tldwVoiceCatalog,
+    elevenLabsData,
+    elevenLabsLoading
+  } = useTtsProviderData({
+    provider,
+    elevenLabsApiKey: ttsSettings?.elevenLabsApiKey,
+    inferredProviderKey
   })
 
   const {
@@ -134,27 +100,6 @@ const TtsPlaygroundPage: React.FC = () => {
   const browserSegmentsRef = React.useRef<TtsPlaygroundSegment[]>([])
   const browserUtteranceRef = React.useRef<SpeechSynthesisUtterance | null>(
     null
-  )
-
-  const provider = ttsSettings?.ttsProvider || "browser"
-
-  const [elevenVoiceId, setElevenVoiceId] = React.useState<string | undefined>(
-    undefined
-  )
-  const [elevenModelId, setElevenModelId] = React.useState<string | undefined>(
-    undefined
-  )
-  const [tldwModel, setTldwModel] = React.useState<string | undefined>(
-    undefined
-  )
-  const [tldwVoice, setTldwVoice] = React.useState<string | undefined>(
-    undefined
-  )
-  const [openAiModel, setOpenAiModel] = React.useState<string | undefined>(
-    undefined
-  )
-  const [openAiVoice, setOpenAiVoice] = React.useState<string | undefined>(
-    undefined
   )
   const controlIds = {
     textInput: "tts-playground-input",
@@ -366,30 +311,6 @@ const TtsPlaygroundPage: React.FC = () => {
   }
 
   const providerLabel = getTtsProviderLabel(ttsSettings?.ttsProvider)
-
-  const isTldw = ttsSettings?.ttsProvider === "tldw"
-
-  const inferredProviderKey = React.useMemo(() => {
-    if (!isTldw) return null
-    return inferTldwProviderFromModel(tldwModel || ttsSettings?.tldwTtsModel)
-  }, [isTldw, tldwModel, ttsSettings?.tldwTtsModel])
-
-  const { data: tldwVoiceCatalog } = useQuery<TldwTtsVoiceInfo[]>({
-    queryKey: ["tldw-voice-catalog", inferredProviderKey],
-    queryFn: async () => {
-      if (!inferredProviderKey) return []
-      const voices = await fetchTldwVoiceCatalog(inferredProviderKey)
-      return voices.map((v) => ({
-        id: v.voice_id || v.id || v.name,
-        name: v.name || v.voice_id || v.id,
-        language: (v as any)?.language,
-        gender: (v as any)?.gender,
-        description: v.description,
-        preview_url: (v as any)?.preview_url
-      })) as TldwTtsVoiceInfo[]
-    },
-    enabled: hasAudio && isTldw && Boolean(inferredProviderKey)
-  })
 
   const activeProviderCaps = React.useMemo(
     (): { key: string; caps: TldwTtsProviderCapabilities } | null => {

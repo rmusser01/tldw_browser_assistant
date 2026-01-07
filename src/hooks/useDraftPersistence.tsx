@@ -1,5 +1,34 @@
 import React from "react"
 import { COMPOSER_CONSTANTS } from "@/config/ui-constants"
+import { createLocalRegistryBucket } from "@/services/settings/local-bucket"
+
+const DRAFT_BUCKET_PREFIX = "registry:draft:"
+const DRAFT_TTL_MS = 30 * 24 * 60 * 60 * 1000
+
+const draftBucket = createLocalRegistryBucket<string>({
+  prefix: DRAFT_BUCKET_PREFIX,
+  ttlMs: DRAFT_TTL_MS
+})
+
+const readLegacyDraft = (storageKey: string): string | null => {
+  if (typeof window === "undefined") return null
+  try {
+    const draft = window.localStorage.getItem(storageKey)
+    if (!draft || draft.length === 0) return null
+    return draft
+  } catch {
+    return null
+  }
+}
+
+const clearLegacyDraft = (storageKey: string) => {
+  if (typeof window === "undefined") return
+  try {
+    window.localStorage.removeItem(storageKey)
+  } catch {
+    // ignore legacy storage errors
+  }
+}
 
 interface DraftPersistenceOptions {
   storageKey: string
@@ -14,7 +43,7 @@ interface DraftPersistenceResult {
 }
 
 /**
- * Hook for persisting draft messages to localStorage.
+ * Hook for persisting draft messages to a local-only registry bucket.
  *
  * - Restores draft on mount
  * - Persists draft whenever value changes
@@ -29,22 +58,47 @@ export const useDraftPersistence = ({
 }: DraftPersistenceOptions): DraftPersistenceResult => {
   const [draftSaved, setDraftSaved] = React.useState(false)
   const draftSavedTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const persistTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const setValueRef = React.useRef(setValue)
+
+  React.useEffect(() => {
+    setValueRef.current = setValue
+  }, [setValue])
 
   // Restore unsent draft on mount
   React.useEffect(() => {
     if (!enabled) return
-    try {
-      if (typeof window === "undefined") return
-      const draft = window.localStorage.getItem(storageKey)
-      if (draft && draft.length > 0) {
-        setValue(draft)
+    let cancelled = false
+    const restoreDraft = async () => {
+      const record = await draftBucket.get(storageKey)
+      let draftValue = record?.value ?? null
+
+      if (!draftValue) {
+        const legacyDraft = readLegacyDraft(storageKey)
+        if (legacyDraft) {
+          await draftBucket.set(storageKey, legacyDraft)
+          clearLegacyDraft(storageKey)
+          draftValue = legacyDraft
+        }
+      } else {
+        clearLegacyDraft(storageKey)
       }
-    } catch {
-      // Ignore draft restore errors (e.g., quota exceeded, private mode)
+
+      if (!cancelled && draftValue) {
+        setValueRef.current(draftValue)
+      }
     }
-    // Only run on mount and when storageKey changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    void restoreDraft()
+    return () => {
+      cancelled = true
+    }
   }, [storageKey, enabled])
+
+  React.useEffect(() => {
+    if (!enabled) return
+    void draftBucket.cleanup()
+  }, [enabled])
 
   // Get current value for effect dependency
   const currentValue = getValue()
@@ -52,27 +106,47 @@ export const useDraftPersistence = ({
   // Persist draft whenever the message changes
   React.useEffect(() => {
     if (!enabled) return
-    try {
-      if (typeof window === "undefined") return
-      const value = currentValue
-      if (typeof value !== "string") return
+    let cancelled = false
+    const value = currentValue
+    if (persistTimeoutRef.current) {
+      clearTimeout(persistTimeoutRef.current)
+      persistTimeoutRef.current = null
+    }
+    if (draftSavedTimeoutRef.current) {
+      clearTimeout(draftSavedTimeoutRef.current)
+      draftSavedTimeoutRef.current = null
+    }
+    if (typeof value !== "string") return
 
-      if (value.trim().length === 0) {
-        window.localStorage.removeItem(storageKey)
+    if (value.trim().length === 0) {
+      void draftBucket.remove(storageKey)
+      clearLegacyDraft(storageKey)
+      if (!cancelled) {
         setDraftSaved(false)
-      } else {
-        window.localStorage.setItem(storageKey, value)
-        // Show "Draft saved" briefly
+      }
+      return
+    }
+
+    setDraftSaved(false)
+    persistTimeoutRef.current = setTimeout(() => {
+      void (async () => {
+        await draftBucket.set(storageKey, value)
+        clearLegacyDraft(storageKey)
+        if (cancelled) return
+
         setDraftSaved(true)
-        if (draftSavedTimeoutRef.current) {
-          clearTimeout(draftSavedTimeoutRef.current)
-        }
         draftSavedTimeoutRef.current = setTimeout(() => {
           setDraftSaved(false)
         }, COMPOSER_CONSTANTS.DRAFT_SAVED_DISPLAY_MS)
+      })()
+    }, COMPOSER_CONSTANTS.DRAFT_SAVE_DEBOUNCE_MS)
+
+    return () => {
+      cancelled = true
+      if (persistTimeoutRef.current) {
+        clearTimeout(persistTimeoutRef.current)
+        persistTimeoutRef.current = null
       }
-    } catch {
-      // Ignore persistence errors (e.g., quota exceeded, private mode)
     }
   }, [currentValue, storageKey, enabled])
 
@@ -82,17 +156,16 @@ export const useDraftPersistence = ({
       if (draftSavedTimeoutRef.current) {
         clearTimeout(draftSavedTimeoutRef.current)
       }
+      if (persistTimeoutRef.current) {
+        clearTimeout(persistTimeoutRef.current)
+      }
     }
   }, [])
 
   const clearDraft = React.useCallback(() => {
-    try {
-      if (typeof window === "undefined") return
-      window.localStorage.removeItem(storageKey)
-      setDraftSaved(false)
-    } catch {
-      // Ignore errors
-    }
+    void draftBucket.remove(storageKey)
+    clearLegacyDraft(storageKey)
+    setDraftSaved(false)
   }, [storageKey])
 
   return {

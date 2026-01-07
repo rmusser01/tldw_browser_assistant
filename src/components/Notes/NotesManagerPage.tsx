@@ -23,6 +23,8 @@ import NotesListPanel from "@/components/Notes/NotesListPanel"
 import type { NoteListItem } from "@/components/Notes/types"
 import { translateMessage } from "@/i18n/translateMessage"
 import { formatFileSize } from "@/utils/format"
+import { clearSetting, getSetting } from "@/services/settings/registry"
+import { LAST_NOTE_ID_SETTING } from "@/services/settings/ui-settings"
 
 type NoteWithKeywords = {
   metadata?: { keywords?: any[] }
@@ -668,15 +670,20 @@ const NotesManagerPage: React.FC = () => {
 
   // Deep-link support: if tldw:lastNoteId is set (e.g., from omni-search),
   // automatically load that note once when the list is available.
-  const [pendingNoteId, setPendingNoteId] = React.useState<string | null>(() => {
-    try {
-      if (typeof window === "undefined") return null
-      const raw = window.localStorage.getItem("tldw:lastNoteId")
-      return raw || null
-    } catch {
-      return null
+  const [pendingNoteId, setPendingNoteId] = React.useState<string | null>(null)
+
+  React.useEffect(() => {
+    let cancelled = false
+    void (async () => {
+      const lastNoteId = await getSetting(LAST_NOTE_ID_SETTING)
+      if (!cancelled && lastNoteId) {
+        setPendingNoteId(lastNoteId)
+      }
+    })()
+    return () => {
+      cancelled = true
     }
-  })
+  }, [])
 
   React.useEffect(() => {
     if (!isOnline) return
@@ -687,11 +694,7 @@ const NotesManagerPage: React.FC = () => {
     ;(async () => {
       await handleSelectNote(pendingNoteId)
       setPendingNoteId(null)
-      try {
-        window.localStorage.removeItem("tldw:lastNoteId")
-      } catch {
-        // ignore storage errors
-      }
+      void clearSetting(LAST_NOTE_ID_SETTING)
     })()
   }, [data, handleSelectNote, isOnline, pendingNoteId, selectedId])
 

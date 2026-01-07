@@ -17,8 +17,11 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react"
-import { useStorage } from "@plasmohq/storage/hook"
-import { Storage } from "@plasmohq/storage"
+import {
+  SIDEBAR_ACTIVE_TAB_SETTING,
+  SIDEBAR_SHORTCUTS_COLLAPSED_SETTING
+} from "@/services/settings/ui-settings"
+import { useSetting } from "@/hooks/useSetting"
 
 import { useDebounce } from "@/hooks/useDebounce"
 import { useServerChatHistory } from "@/hooks/useServerChatHistory"
@@ -29,8 +32,6 @@ import { ServerChatList } from "./ChatSidebar/ServerChatList"
 import { FolderChatList } from "./ChatSidebar/FolderChatList"
 import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
 import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
-
-const storage = new Storage({ area: "local" })
 
 interface ChatSidebarProps {
   /** Whether sidebar is collapsed */
@@ -49,7 +50,7 @@ interface ChatSidebarProps {
   className?: string
 }
 
-type SidebarTab = "local" | "server" | "folders"
+type SidebarTab = "server" | "folders"
 
 export function ChatSidebar({
   collapsed = false,
@@ -64,19 +65,15 @@ export function ChatSidebar({
   const [searchQuery, setSearchQuery] = useState("")
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
 
-  // Tab state persisted in localStorage
-  const [activeTab, setActiveTab] = useStorage<SidebarTab>({
-    key: "tldw:sidebar:activeTab",
-    instance: storage
-  })
+  // Tab state persisted in UI settings
+  const [activeTab, setActiveTab] = useSetting(SIDEBAR_ACTIVE_TAB_SETTING)
   const allowedTabs: SidebarTab[] = ["server", "folders"]
   const defaultTab: SidebarTab = "server"
   const currentTab =
     activeTab && allowedTabs.includes(activeTab) ? activeTab : defaultTab
-  const [shortcutsCollapsed, setShortcutsCollapsed] = useStorage<boolean>({
-    key: "tldw:sidebar:shortcutsCollapsed",
-    instance: storage
-  })
+  const [shortcutsCollapsed, setShortcutsCollapsed] = useSetting(
+    SIDEBAR_SHORTCUTS_COLLAPSED_SETTING
+  )
   const showShortcuts = shortcutsCollapsed !== true
 
   // Chat state
@@ -325,7 +322,9 @@ export function ChatSidebar({
       <div className="px-3 py-2 border-b border-border">
         <Segmented
           value={currentTab}
-          onChange={(value) => setActiveTab(value as SidebarTab)}
+          onChange={(value) => {
+            void setActiveTab(value as SidebarTab)
+          }}
           options={tabOptions}
           block
           size="small"
@@ -338,7 +337,9 @@ export function ChatSidebar({
         type="button"
         aria-expanded={showShortcuts}
         aria-controls="chat-sidebar-shortcuts"
-        onClick={() => setShortcutsCollapsed(showShortcuts)}
+        onClick={() => {
+          void setShortcutsCollapsed(showShortcuts)
+        }}
         className="group flex w-full items-center justify-between px-3 py-2 text-left hover:bg-surface"
         title={t("common:chatSidebar.shortcuts", "Shortcuts")}
       >

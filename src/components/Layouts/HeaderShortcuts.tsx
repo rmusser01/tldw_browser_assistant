@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink } from "react-router-dom"
-import { useStorage } from "@plasmohq/storage/hook"
 import { useShortcut } from "@/hooks/useKeyboardShortcuts"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { useSetting } from "@/hooks/useSetting"
+import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
 import {
   CogIcon,
   Mic,
@@ -25,8 +25,6 @@ import {
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(" ")
-
-const shortcutsStorage = createSafeStorage({ area: "local" })
 
 type NavigationItem =
   | {
@@ -62,9 +60,8 @@ export function HeaderShortcuts({
 }: HeaderShortcutsProps) {
   const { t } = useTranslation(["option", "common", "settings"])
 
-  const [shortcutsPreference, setShortcutsPreference] = useStorage<boolean>(
-    { key: "headerShortcutsExpanded", instance: shortcutsStorage },
-    defaultExpanded
+  const [shortcutsPreference, setShortcutsPreference] = useSetting(
+    HEADER_SHORTCUTS_EXPANDED_SETTING
   )
 
   type DebouncedShortcutsSetter = ((value: boolean) => void) & {
@@ -98,7 +95,7 @@ export function HeaderShortcuts({
     }, [setShortcutsPreference])
 
   const [shortcutsExpanded, setShortcutsExpanded] = useState(() =>
-    Boolean(shortcutsPreference)
+    Boolean(shortcutsPreference ?? defaultExpanded)
   )
   const shortcutsToggleRef = useRef<HTMLButtonElement>(null)
   const shortcutsContainerRef = useRef<HTMLDivElement>(null)

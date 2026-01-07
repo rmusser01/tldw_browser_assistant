@@ -1,7 +1,10 @@
 import { Storage } from "@plasmohq/storage"
 import { tldwClient, TldwModel } from "./TldwApiClient"
 import { createSafeStorage } from "@/utils/safe-storage"
-import { getProviderDisplayName } from "@/utils/provider-registry"
+import {
+  getProviderDisplayName,
+  inferProviderFromModel
+} from "@/utils/provider-registry"
 
 export interface ModelInfo {
   id: string
@@ -156,16 +159,10 @@ export class TldwModelsService {
     }
 
     // Extract provider from model ID or name if not provided
-    let provider = tldwModel.provider || 'unknown'
-    if (!tldwModel.provider) {
-      // Try to guess provider from model ID
-      const idLower = tldwModel.id.toLowerCase()
-      if (idLower.includes('gpt')) provider = 'openai'
-      else if (idLower.includes('claude')) provider = 'anthropic'
-      else if (idLower.includes('llama')) provider = 'meta'
-      else if (idLower.includes('gemini')) provider = 'google'
-      else if (idLower.includes('mistral')) provider = 'mistral'
-    }
+    const inferred =
+      inferProviderFromModel(tldwModel.id, "llm") ||
+      inferProviderFromModel(tldwModel.name, "llm")
+    const provider = tldwModel.provider || inferred || "unknown"
 
     const caps: string[] = []
     if (Array.isArray(tldwModel.capabilities)) {

@@ -10,7 +10,7 @@ import {
   Trash2
 } from "lucide-react"
 import { Image, Switch, Tooltip } from "antd"
-import { DocumentChip } from "./DocumentChip"
+import { DocumentChip } from "@/components/Common/Playground/DocumentChip"
 
 interface Document {
   id: number
@@ -60,7 +60,7 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
   onRemoveFile,
   onClearFiles
 }) => {
-  const { t } = useTranslation(["playground", "common"])
+  const { t } = useTranslation(["playground", "common", "option"])
   const [expanded, setExpanded] = React.useState(false)
 
   const imageCount = image ? 1 : 0
@@ -209,7 +209,9 @@ export const AttachmentsSummary: React.FC<AttachmentsSummaryProps> = ({
                   <DocumentChip
                     key={doc.id}
                     document={doc}
+                    variant="compact"
                     onRemove={onRemoveDocument}
+                    removeLabel={t("option:remove", "Remove") as string}
                   />
                 ))}
               </div>

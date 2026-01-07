@@ -19,6 +19,7 @@ import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { copilotResumeLastChat } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { createSafeStorage } from "@/utils/safe-storage"
+import { CHAT_BACKGROUND_IMAGE_SETTING } from "@/services/settings/ui-settings"
 import { useStorage } from "@plasmohq/storage/hook"
 import { ChevronDown } from "lucide-react"
 import React, { lazy, Suspense } from "react"
@@ -451,10 +452,8 @@ const SidepanelChat = () => {
   useWebSearchShortcuts(toggleWebSearchMode, true)
 
   const [chatBackgroundImage] = useStorage({
-    key: "chatBackgroundImage",
-    instance: createSafeStorage({
-      area: "local"
-    })
+    key: CHAT_BACKGROUND_IMAGE_SETTING.key,
+    instance: createSafeStorage()
   })
   const bgMsg = useBackgroundMessage()
   const lastBgMsgRef = React.useRef<typeof bgMsg | null>(null)

@@ -10,6 +10,11 @@ import { useStorage } from '@plasmohq/storage/hook'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
 import { defaultEmbeddingModelForRag } from '@/services/tldw-server'
 import { tldwModels } from '@/services/tldw'
+import {
+  coerceDraftMediaType,
+  inferIngestTypeFromFilename,
+  inferIngestTypeFromUrl
+} from "@/services/tldw/media-routing"
 import { useConnectionActions, useConnectionState } from '@/hooks/useConnectionState'
 import { useQuickIngestStore } from "@/store/quick-ingest"
 import { ConnectionPhase } from "@/types/connection"
@@ -22,6 +27,11 @@ import {
   upsertDraftBatch
 } from "@/db/dexie/drafts"
 import type { ContentDraft, DraftBatch } from "@/db/dexie/types"
+import { setSetting } from "@/services/settings/registry"
+import {
+  DISCUSS_MEDIA_PROMPT_SETTING,
+  LAST_MEDIA_ID_SETTING
+} from "@/services/settings/ui-settings"
 
 type Entry = {
   id: string
@@ -106,14 +116,6 @@ const RESULT_FILTERS = {
 
 type ResultsFilter = (typeof RESULT_FILTERS)[keyof typeof RESULT_FILTERS]
 
-const MEDIA_TYPE_MAP: Record<string, ContentDraft["mediaType"]> = {
-  html: "html",
-  pdf: "pdf",
-  document: "document",
-  audio: "audio",
-  video: "video"
-}
-
 const isLikelyUrl = (raw: string) => {
   const val = (raw || '').trim()
   if (!val) return false
@@ -123,20 +125,6 @@ const isLikelyUrl = (raw: string) => {
     return true
   } catch {
     return false
-  }
-}
-
-function detectTypeFromUrl(url: string): Entry['type'] {
-  try {
-    const u = new URL(url)
-    const p = (u.pathname || '').toLowerCase()
-    if (p.match(/\.(mp3|wav|flac|m4a|aac)$/)) return 'audio'
-    if (p.match(/\.(mp4|mov|mkv|webm)$/)) return 'video'
-    if (p.match(/\.(pdf)$/)) return 'pdf'
-    if (p.match(/\.(doc|docx|txt|rtf|md)$/)) return 'document'
-    return 'html'
-  } catch {
-    return 'auto'
   }
 }
 
@@ -662,7 +650,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         processed?.media_type || item.type || sourceRow?.type || "document"
       ).toLowerCase()
       const mediaType: ContentDraft["mediaType"] =
-        MEDIA_TYPE_MAP[mediaTypeRaw] ?? "document"
+        coerceDraftMediaType(mediaTypeRaw)
 
       const sourceLabel =
         sourceRow?.url ||
@@ -895,14 +883,10 @@ export const QuickIngestModal: React.FC<Props> = ({
     [formatBytes, messageApi, qi, tryOpenContentReview]
   )
 
-  const fileTypeFromName = React.useCallback((f: File): Entry['type'] => {
-    const name = (f.name || '').toLowerCase()
-    if (name.match(/\.(mp3|wav|flac|m4a|aac)$/)) return 'audio'
-    if (name.match(/\.(mp4|mov|mkv|webm)$/)) return 'video'
-    if (name.match(/\.(pdf)$/)) return 'pdf'
-    if (name.match(/\.(doc|docx|txt|rtf|md|epub)$/)) return 'document'
-    return 'auto'
-  }, [])
+  const fileTypeFromName = React.useCallback(
+    (f: File): Entry['type'] => inferIngestTypeFromFilename(f.name || ''),
+    []
+  )
 
   const typeIcon = React.useCallback((type: Entry['type']) => {
     const cls = 'w-4 h-4 text-text-subtle'
@@ -955,7 +939,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       const entries = parts.map((u) => ({
         id: crypto.randomUUID(),
         url: u,
-        type: detectTypeFromUrl(u)
+        type: inferIngestTypeFromUrl(u)
       }))
       setRows((prev) => [...prev, ...entries])
       setPendingUrlInput('')
@@ -1010,7 +994,11 @@ export const QuickIngestModal: React.FC<Props> = ({
   React.useEffect(() => {
     let changed = false
     const next = rows.map((r) => {
-      const isDocType = r.type === 'document' || r.type === 'pdf' || (r.type === 'auto' && ['document', 'pdf'].includes(detectTypeFromUrl(r.url)))
+      const isDocType =
+        r.type === 'document' ||
+        r.type === 'pdf' ||
+        (r.type === 'auto' &&
+          ['document', 'pdf'].includes(inferIngestTypeFromUrl(r.url)))
       if (isDocType && r.document?.ocr === undefined) {
         changed = true
         return { ...r, document: { ...(r.document || {}), ocr: true } }
@@ -1906,11 +1894,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         return
       }
       const idStr = String(id)
-      try {
-        localStorage.setItem("tldw:lastMediaId", idStr)
-      } catch {
-        // ignore storage failures
-      }
+      void setSetting(LAST_MEDIA_ID_SETTING, idStr)
       openOptionsRoute("#/media-multi")
     } catch {
       // best-effort — do not crash modal
@@ -1937,14 +1921,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         mediaId: String(id),
         url: item.url || sourceUrl
       }
-      try {
-        localStorage.setItem(
-          "tldw:discussMediaPrompt",
-          JSON.stringify(payload)
-        )
-      } catch {
-        // ignore localStorage failures
-      }
+      void setSetting(DISCUSS_MEDIA_PROMPT_SETTING, payload)
       try {
         window.dispatchEvent(
           new CustomEvent("tldw:discuss-media", { detail: payload })
@@ -1963,7 +1940,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       rows.find(
         (r) =>
           r.type === "audio" ||
-          (r.type === "auto" && detectTypeFromUrl(r.url) === "audio")
+          (r.type === "auto" && inferIngestTypeFromUrl(r.url) === "audio")
       ),
     [rows]
   )
@@ -1975,7 +1952,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           r.type === "document" ||
           r.type === "pdf" ||
           (r.type === "auto" &&
-            ["document", "pdf"].includes(detectTypeFromUrl(r.url)))
+            ["document", "pdf"].includes(inferIngestTypeFromUrl(r.url)))
       ),
     [rows]
   )
@@ -1985,7 +1962,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       rows.find(
         (r) =>
           r.type === "video" ||
-          (r.type === "auto" && detectTypeFromUrl(r.url) === "video")
+          (r.type === "auto" && inferIngestTypeFromUrl(r.url) === "video")
       ),
     [rows]
   )
@@ -2670,7 +2647,7 @@ export const QuickIngestModal: React.FC<Props> = ({
               {rows.map((row) => {
                 const status = statusForUrlRow(row)
                 const isSelected = selectedRowId === row.id
-                const detected = row.type === 'auto' ? detectTypeFromUrl(row.url) : row.type
+                const detected = row.type === 'auto' ? inferIngestTypeFromUrl(row.url) : row.type
                 const res = resultById.get(row.id)
                 let runTag: React.ReactNode = null
                 if (res?.status === 'ok') runTag = <Tag color="green">{qi('statusDone', 'Done')}</Tag>
@@ -2942,7 +2919,7 @@ export const QuickIngestModal: React.FC<Props> = ({
               </div>
             )}
 
-            {rows.some((r) => (r.type === 'audio' || (r.type === 'auto' && detectTypeFromUrl(r.url) === 'audio'))) && (
+            {rows.some((r) => (r.type === 'audio' || (r.type === 'auto' && inferIngestTypeFromUrl(r.url) === 'audio'))) && (
               <div className="space-y-1">
                 <Typography.Title level={5} className="!mb-1">{t('quickIngest.audioOptions') || 'Audio options'}</Typography.Title>
                 <Space className="w-full">
@@ -2950,7 +2927,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     placeholder={t('quickIngest.audioLanguage') || 'Language (e.g., en)'}
                     value={firstAudioRow?.audio?.language || ''}
                     onChange={(e) => setRows((rs) => rs.map((x) => {
-                      const isAudio = x.type === 'audio' || (x.type === 'auto' && detectTypeFromUrl(x.url) === 'audio')
+                      const isAudio = x.type === 'audio' || (x.type === 'auto' && inferIngestTypeFromUrl(x.url) === 'audio')
                       if (!isAudio) return x
                       return { ...x, audio: { ...(x.audio || {}), language: e.target.value } }
                     }))}
@@ -2962,7 +2939,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       className="min-w-40"
                     value={firstAudioRow?.audio?.diarize ?? false}
                     onChange={(v) => setRows((rs) => rs.map((x) => {
-                      const isAudio = x.type === 'audio' || (x.type === 'auto' && detectTypeFromUrl(x.url) === 'audio')
+                      const isAudio = x.type === 'audio' || (x.type === 'auto' && inferIngestTypeFromUrl(x.url) === 'audio')
                       if (!isAudio) return x
                       return { ...x, audio: { ...(x.audio || {}), diarize: Boolean(v) } }
                     }))}
@@ -2986,14 +2963,14 @@ export const QuickIngestModal: React.FC<Props> = ({
               </div>
             )}
 
-            {rows.some((r) => (r.type === 'document' || r.type === 'pdf' || (r.type === 'auto' && ['document', 'pdf'].includes(detectTypeFromUrl(r.url))))) && (
+            {rows.some((r) => (r.type === 'document' || r.type === 'pdf' || (r.type === 'auto' && ['document', 'pdf'].includes(inferIngestTypeFromUrl(r.url))))) && (
               <div className="space-y-1">
                 <Typography.Title level={5} className="!mb-1">{t('quickIngest.documentOptions') || 'Document options'}</Typography.Title>
                   <Select
                     className="min-w-40"
                     value={firstDocumentRow?.document?.ocr ?? true}
                     onChange={(v) => setRows((rs) => rs.map((x) => {
-                      const isDoc = x.type === 'document' || x.type === 'pdf' || (x.type === 'auto' && ['document', 'pdf'].includes(detectTypeFromUrl(x.url)))
+                      const isDoc = x.type === 'document' || x.type === 'pdf' || (x.type === 'auto' && ['document', 'pdf'].includes(inferIngestTypeFromUrl(x.url)))
                       if (!isDoc) return x
                       return { ...x, document: { ...(x.document || {}), ocr: Boolean(v) } }
                     }))}
@@ -3016,14 +2993,14 @@ export const QuickIngestModal: React.FC<Props> = ({
               </div>
             )}
 
-            {rows.some((r) => (r.type === 'video' || (r.type === 'auto' && detectTypeFromUrl(r.url) === 'video'))) && (
+            {rows.some((r) => (r.type === 'video' || (r.type === 'auto' && inferIngestTypeFromUrl(r.url) === 'video'))) && (
               <div className="space-y-1">
                 <Typography.Title level={5} className="!mb-1">{t('quickIngest.videoOptions') || 'Video options'}</Typography.Title>
                 <Select
                   className="min-w-40"
                   value={firstVideoRow?.video?.captions ?? false}
                   onChange={(v) => setRows((rs) => rs.map((x) => {
-                    const isVideo = x.type === 'video' || (x.type === 'auto' && detectTypeFromUrl(x.url) === 'video')
+                    const isVideo = x.type === 'video' || (x.type === 'auto' && inferIngestTypeFromUrl(x.url) === 'video')
                     if (!isVideo) return x
                     return { ...x, video: { ...(x.video || {}), captions: Boolean(v) } }
                   }))}
@@ -3466,7 +3443,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             {selectedRow || selectedFile ? (
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  {typeIcon(selectedRow ? (selectedRow.type === 'auto' ? detectTypeFromUrl(selectedRow.url) : selectedRow.type) : fileTypeFromName(selectedFile!))}
+                  {typeIcon(selectedRow ? (selectedRow.type === 'auto' ? inferIngestTypeFromUrl(selectedRow.url) : selectedRow.type) : fileTypeFromName(selectedFile!))}
                   <Typography.Text strong>
                     {selectedRow ? (selectedRow.url || qi('untitledUrl', 'Untitled URL')) : selectedFile?.name}
                   </Typography.Text>
@@ -3476,7 +3453,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     <>
                       <Tag color={statusForUrlRow(selectedRow).color === 'default' ? undefined : statusForUrlRow(selectedRow).color}>{statusForUrlRow(selectedRow).label}</Tag>
                       <Tag color="geekblue">
-                        {(selectedRow.type === 'auto' ? detectTypeFromUrl(selectedRow.url) : selectedRow.type).toUpperCase()}
+                        {(selectedRow.type === 'auto' ? inferIngestTypeFromUrl(selectedRow.url) : selectedRow.type).toUpperCase()}
                       </Tag>
                       {statusForUrlRow(selectedRow).reason ? <span className="text-orange-600">{statusForUrlRow(selectedRow).reason}</span> : (
                         <span>{qi('defaultsApplied', 'Defaults will be applied.')}</span>

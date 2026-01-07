@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "Legg Til Ny Kunnskap"
+  },
+  "columns_title": {
+    "message": "Tittel"
+  },
+  "columns_status": {
+    "message": "Status (fremdrift)"
+  },
+  "columns_embeddings": {
+    "message": "Embedding Modell"
+  },
+  "columns_createdAt": {
+    "message": "Opprettet På"
+  },
+  "columns_action": {
+    "message": "Handlinger"
+  },
+  "expandedColumns_name": {
+    "message": "Navn"
+  },
+  "confirm_delete": {
+    "message": "Er du sikker på at du vil slette denne kunnskapen?"
+  },
+  "deleteSuccess": {
+    "message": "Kunnskap slettet med suksess"
+  },
+  "status_pending": {
+    "message": "Venter"
+  },
+  "status_finished": {
+    "message": "Ferdig"
+  },
+  "status_processing": {
+    "message": "Behandler"
+  },
+  "status_failed": {
+    "message": "Mislyktes"
+  },
+  "addKnowledge": {
+    "message": "Legg Til Kunnskap"
+  },
+  "updateKnowledge": {
+    "message": "Legg Til Kilde"
+  },
+  "form_title_label": {
+    "message": "Kunnskapstittel"
+  },
+  "form_title_placeholder": {
+    "message": "Skriv inn kunnskapstittel"
+  },
+  "form_title_required": {
+    "message": "Kunnskapstittel er nødvendig"
+  },
+  "form_uploadFile_label": {
+    "message": "Last Opp Filer"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Dra og slipp filen her og klikk for å laste opp"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Støttede filtyper: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "En fil er nødvendig"
+  },
+  "form_submit": {
+    "message": "Send Inn"
+  },
+  "form_success": {
+    "message": "Kunnskap lagt til med suksess"
+  },
+  "noEmbeddingModel": {
+    "message": "Vennligst legg til en embedding-modell fra RAG-innstillingene først"
+  },
+  "privateModeDescription": {
+    "message": "Firefox privatmodus støtter ikke lagring i IndexedDB. Legg til en kunnskapsbase fra et vanlig vindu."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "Retrieval-augmented generation (RAG) lar assistenten forankre svar i dine medier, notater og andre indekserte kunnskapskilder."
+  },
+  "rag_searchFailed": {
+    "message": "RAG-søk mislyktes. Prøv igjen eller sjekk Diagnostikk."
+  },
+  "empty_demoTitle": {
+    "message": "Utforsk Knowledge QA i demomodus"
+  },
+  "empty_demoDescription": {
+    "message": "Denne demoen viser hvordan Knowledge QA kan kjøre RAG-søk på eksempelinnhold. Senere kan du koble til din egen server for å søke i dine egne transkripsjoner og dokumenter."
+  },
+  "empty_demoExample1": {
+    "message": "Prøv raske RAG-søk og se gjennom resultater og referanser."
+  },
+  "empty_demoExample2": {
+    "message": "Koble til din egen server for å aktivere Knowledge QA på faktisk medieinnhold og notater."
+  },
+  "empty_connectTitle": {
+    "message": "Koble til for å bruke Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "For å bruke Knowledge QA og RAG-søk må du først koble til tldw-serveren din."
+  },
+  "empty_connectExample1": {
+    "message": "Åpne Innstillinger → tldw server for å legge til server-URL-en din."
+  },
+  "empty_connectExample2": {
+    "message": "Bruk Diagnostikk hvis serveren kjører men ikke er tilgjengelig."
+  }
+}

@@ -57,6 +57,8 @@ import ConnectionProblemBanner from "@/components/Common/ConnectionProblemBanner
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import { processInChunks } from "@/utils/chunk-processing"
 import { getDemoFlashcardDecks } from "@/utils/demo-content"
+import { clearSetting, getSetting } from "@/services/settings/registry"
+import { LAST_DECK_ID_SETTING } from "@/services/settings/ui-settings"
 
 dayjs.extend(relativeTime)
 
@@ -740,17 +742,23 @@ export const FlashcardsPage: React.FC = () => {
 
   // Deep-link support: if tldw:lastDeckId is set (e.g., from omni-search),
   // select that deck in both Review and Manage views once decks are loaded.
-  const [pendingDeckId, setPendingDeckId] = React.useState<number | null>(() => {
-    try {
-      if (typeof window === "undefined") return null
-      const raw = window.localStorage.getItem("tldw:lastDeckId")
-      if (!raw) return null
-      const num = Number(raw)
-      return Number.isFinite(num) ? num : null
-    } catch {
-      return null
+  const [pendingDeckId, setPendingDeckId] = React.useState<number | null>(null)
+
+  React.useEffect(() => {
+    let cancelled = false
+    void (async () => {
+      const lastDeckId = await getSetting(LAST_DECK_ID_SETTING)
+      if (!cancelled && lastDeckId) {
+        const num = Number(lastDeckId)
+        if (Number.isFinite(num)) {
+          setPendingDeckId(num)
+        }
+      }
+    })()
+    return () => {
+      cancelled = true
     }
-  })
+  }, [])
 
   React.useEffect(() => {
     if (!isOnline) return
@@ -761,22 +769,14 @@ export const FlashcardsPage: React.FC = () => {
     if (!match) {
       // Deck no longer exists; clear marker.
       setPendingDeckId(null)
-      try {
-        window.localStorage.removeItem("tldw:lastDeckId")
-      } catch {
-        // ignore storage errors
-      }
+      void clearSetting(LAST_DECK_ID_SETTING)
       return
     }
     setReviewDeckId(pendingDeckId)
     setMDeckId(pendingDeckId)
     setActiveTab("review")
     setPendingDeckId(null)
-    try {
-      window.localStorage.removeItem("tldw:lastDeckId")
-    } catch {
-      // ignore storage errors
-    }
+    void clearSetting(LAST_DECK_ID_SETTING)
   }, [decksQuery.data, isOnline, pendingDeckId])
 
   if (!isOnline) {

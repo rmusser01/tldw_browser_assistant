@@ -1,4 +1,5 @@
 import { bgRequest } from "@/services/background-proxy"
+import { buildQuery } from "@/services/resource-client"
 
 const KEYWORDS_CACHE_TTL_MS = 5 * 60 * 1000
 
@@ -42,7 +43,7 @@ export const getNoteKeywords = async (limit = 200): Promise<string[]> => {
 
   const request = (async () => {
     const abs = await bgRequest<any>({
-      path: `/api/v1/notes/keywords/?limit=${limit}` as any,
+      path: `/api/v1/notes/keywords${buildQuery({ limit })}` as any,
       method: "GET" as any
     })
     const arr = Array.isArray(abs)
@@ -73,7 +74,7 @@ export const searchNoteKeywords = async (
   const q = String(query || "").trim()
   if (!q) return []
   const abs = await bgRequest<any>({
-    path: `/api/v1/notes/keywords/search/?query=${encodeURIComponent(q)}&limit=${limit}` as any,
+    path: `/api/v1/notes/keywords/search${buildQuery({ query: q, limit })}` as any,
     method: "GET" as any
   })
   const arr = Array.isArray(abs)

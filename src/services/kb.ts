@@ -1,21 +1,33 @@
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
+import {
+  coerceBoolean,
+  coerceNumber,
+  defineSetting,
+  getSetting
+} from "@/services/settings/registry"
 
-const storage = createSafeStorage()
+const CHAT_WITH_WEBSITE_SETTING = defineSetting(
+  "chatWithWebsiteEmbedding",
+  false,
+  (value) => coerceBoolean(value, false)
+)
+
+const MAX_WEBSITE_CONTEXT_SETTING = defineSetting(
+  "maxWebsiteContext",
+  7028,
+  (value) => coerceNumber(value, 7028)
+)
 
 /**
  * Whether to use local embeddings for website chat.
  * When false, just uses raw text truncation.
  */
 export const isChatWithWebsiteEnabled = async (): Promise<boolean> => {
-  const enabled = await storage.get<boolean | undefined>("chatWithWebsiteEmbedding")
-  return enabled ?? false
+  return await getSetting(CHAT_WITH_WEBSITE_SETTING)
 }
 
 /**
  * Maximum context size for inline document content.
  */
 export const getMaxContextSize = async (): Promise<number> => {
-  const maxContext = await storage.get<number | undefined>("maxWebsiteContext")
-  return maxContext ?? 7028
+  return await getSetting(MAX_WEBSITE_CONTEXT_SETTING)
 }

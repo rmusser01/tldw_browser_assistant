@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "Agregar Nuevo Conocimiento"
+  },
+  "columns_title": {
+    "message": "Título"
+  },
+  "columns_status": {
+    "message": "Estado"
+  },
+  "columns_embeddings": {
+    "message": "Modelo de Embedding"
+  },
+  "columns_createdAt": {
+    "message": "Creado"
+  },
+  "columns_action": {
+    "message": "Acciones"
+  },
+  "expandedColumns_name": {
+    "message": "Nombre"
+  },
+  "confirm_delete": {
+    "message": "¿Esta seguro que desea borrar este conocimiento?"
+  },
+  "deleteSuccess": {
+    "message": "Conocimiento borrado"
+  },
+  "status_pending": {
+    "message": "Pendiente"
+  },
+  "status_finished": {
+    "message": "Finalizado"
+  },
+  "status_processing": {
+    "message": "Procesando"
+  },
+  "status_failed": {
+    "message": "Fallido"
+  },
+  "addKnowledge": {
+    "message": "Agregar Conocimiento"
+  },
+  "updateKnowledge": {
+    "message": "Actualizar Conocimiento"
+  },
+  "form_title_label": {
+    "message": "Título del Conocimiento"
+  },
+  "form_title_placeholder": {
+    "message": "Ingresar un título de conocimiento"
+  },
+  "form_title_required": {
+    "message": "El Título de conocimiento es obligatorio"
+  },
+  "form_uploadFile_label": {
+    "message": "Subir un Archivo"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Arraste y suelte un archivo aquí o haga click para subirlo"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Tipos de archivo soportados: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "El archivo es obligatorio"
+  },
+  "form_submit": {
+    "message": "Enviar"
+  },
+  "form_success": {
+    "message": "Conocimiento agregado exitosamente"
+  },
+  "noEmbeddingModel": {
+    "message": "Por favor, agregue un modelo de embedding de la página de configuraciones de RAG primero"
+  },
+  "privateModeDescription": {
+    "message": "El modo privado de Firefox no admite guardar datos en IndexedDB. Añade una base de conocimiento desde una ventana normal."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "La generación aumentada por recuperación (RAG) permite que el asistente base las respuestas en tus medios, notas y otras fuentes de conocimiento indexadas."
+  },
+  "rag_searchFailed": {
+    "message": "La búsqueda RAG ha fallado. Intenta de nuevo o revisa Diagnóstico."
+  },
+  "empty_demoTitle": {
+    "message": "Explora Knowledge QA en modo demo"
+  },
+  "empty_demoDescription": {
+    "message": "Esta demo muestra cómo Knowledge QA puede ejecutar búsquedas RAG sobre contenido de ejemplo. Luego puedes conectar tu propio servidor para buscar en tus transcripciones y documentos."
+  },
+  "empty_demoExample1": {
+    "message": "Prueba búsquedas RAG rápidas e inspecciona resultados y citas."
+  },
+  "empty_demoExample2": {
+    "message": "Conecta tu propio servidor para habilitar Knowledge QA sobre tus medios y notas reales."
+  },
+  "empty_connectTitle": {
+    "message": "Conéctate para usar Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "Para usar Knowledge QA y la búsqueda RAG, primero conéctate a tu servidor tldw."
+  },
+  "empty_connectExample1": {
+    "message": "Abre Configuración → tldw server para agregar la URL de tu servidor."
+  },
+  "empty_connectExample2": {
+    "message": "Usa Diagnóstico si tu servidor está en ejecución pero no es accesible."
+  }
+}
