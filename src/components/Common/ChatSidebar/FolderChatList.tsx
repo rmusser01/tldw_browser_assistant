@@ -74,16 +74,13 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
     )
   }, [folderConversationIds, serverChatById])
 
-  const stableMissingFolderConversationIds = useMemo(() => {
-    return [...missingFolderConversationIds].sort()
-  }, [missingFolderConversationIds])
-
   const { data: missingFolderChats = [], isLoading: isMissingChatsLoading } = useQuery({
-    queryKey: ["folderConversationMissingChats", stableMissingFolderConversationIds],
+    queryKey: ["folderConversationMissingChats", missingFolderConversationIds],
     queryFn: async () => {
       await tldwClient.initialize().catch(() => null)
+      // No batch chat lookup endpoint yet; fetch missing chats in parallel and cache.
       const results = await Promise.all(
-        stableMissingFolderConversationIds.map(async (conversationId) => {
+        missingFolderConversationIds.map(async (conversationId) => {
           try {
             return await tldwClient.getChat(conversationId)
           } catch (error) {
@@ -98,7 +95,7 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
       )
       return results.filter(Boolean) as ServerChatSummary[]
     },
-    enabled: isConnected && stableMissingFolderConversationIds.length > 0,
+    enabled: isConnected && missingFolderConversationIds.length > 0,
     staleTime: 60_000
   })
 
@@ -129,27 +126,20 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
     [folders]
   )
 
-  const loadServerChat = React.useCallback(
-    (chat: ServerChatSummary) => {
-      selectServerChat(chat)
-    },
-    [selectServerChat]
-  )
-
   const loadServerChatById = React.useCallback(
     async (conversationId: string) => {
       const cachedChat =
         serverChatById.get(conversationId) ||
         missingFolderChatById.get(conversationId)
       if (cachedChat) {
-        loadServerChat(cachedChat)
+        selectServerChat(cachedChat)
         return
       }
 
       try {
         await tldwClient.initialize().catch(() => null)
         const chat = await tldwClient.getChat(conversationId)
-        loadServerChat(chat)
+        selectServerChat(chat)
       } catch (error) {
         console.error(
           "Failed to load server chat for folder conversation:",
@@ -163,7 +153,7 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
         )
       }
     },
-    [loadServerChat, missingFolderChatById, serverChatById, t]
+    [missingFolderChatById, selectServerChat, serverChatById, t]
   )
 
   const handleCreateFolder = async () => {
@@ -175,6 +165,11 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
       await createFolder(trimmedName)
       setNewFolderName("")
       setNewFolderModalOpen(false)
+      message.success(
+        t("common:success.folderCreated", {
+          defaultValue: "Folder created successfully"
+        })
+      )
     } catch (error) {
       console.error("Failed to create folder:", error)
       message.error(

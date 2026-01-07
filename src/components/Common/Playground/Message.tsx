@@ -498,6 +498,7 @@ export const PlaygroundMessage = (props: Props) => {
           await props.onDeleteMessage?.()
           message.success(t("common:deleted", "Deleted"))
         } catch (err) {
+          console.error("Failed to delete message:", err)
           const fallback = t("common:deleteFailed", "Delete failed")
           const errorMessage = err instanceof Error ? err.message : ""
           message.error(errorMessage || fallback)

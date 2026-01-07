@@ -2,7 +2,7 @@ import { FileIcon, X } from "lucide-react"
 import { Form, Input, notification, Select, Switch } from "antd"
 import { useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import {
   CONVERSATION_STATE_OPTIONS,
   normalizeConversationState
@@ -24,8 +24,8 @@ interface ConversationTabProps {
   fileRetrievalEnabled: boolean
   onFileRetrievalChange: (enabled: boolean) => void
   serverChatId: string | null
-  serverChatState: string | null
-  onStateChange: (state: string) => void
+  serverChatState: ConversationState | null
+  onStateChange: (state: ConversationState) => void
   serverChatTopic: string | null
   onTopicChange: (topic: string | null) => void
   onVersionChange: (version: number | null) => void
@@ -48,7 +48,7 @@ function isUpdateChatResponse(value: unknown): value is UpdateChatResponse {
   if (!value || typeof value !== "object") return false
   if (!("version" in value)) return true
   const version = (value as { version?: unknown }).version
-  return version == null || typeof version === "number"
+  return version === null || version === undefined || typeof version === "number"
 }
 
 function getUpdateChatVersion(value: unknown): number | null {

@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "Afvis",
+  "confirmTitle": "Bekræft venligst",
   "pdf": {
     "passwordTitle": "Indtast PDF-adgangskode",
     "unlock": "Lås op"
@@ -14,10 +16,17 @@
     "content": "Indlæser indhold…"
   },
   "selectAModel": "Vælg en Model",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "Gem",
   "saved": "Gemt",
   "cancel": "Fortryd",
+  "saving": "Gemmer…",
   "retry": "Prøv igen",
+  "close": "Luk",
+  "loadMore": "Indlæs flere…",
   "share": {
     "tooltip": {
       "share": "Del"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "Kopier til udklipsholder",
+  "table": {
+    "copyCsv": "Kopiér som CSV",
+    "downloadCsv": "Download CSV-fil"
+  },
   "webSearch": "Søger på internettet",
   "regenerate": "Regenerer",
-  "continue": "Fortsæt svar",
   "edit": "Ændre",
+  "generate": "Generate",
+  "view": "View",
   "delete": "Slet",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "Fortsæt svar",
   "saveAndSubmit": "Gem & Indsend",
   "editMessage": {
     "placeholder": "Skriv en besked..."
   },
   "submit": "Indsend",
   "send": "Indsend",
+  "startChat": "Start chat",
   "connectToServer": "Opret forbindelse til server",
+  "previous": "Forrige",
+  "next": "Næste",
   "noData": "Ingen data",
   "noHistory": "Ingen chat-historik",
   "chatWithCurrentPage": "Chat med nuværende side",
+  "chatWithCharacter": "Chat med figur",
   "beta": "Beta-version",
   "tts": "Læs op",
+  "ttsShort": "Tale",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "Kopiér",
+  "branchShort": "Gren",
+  "infoShort": "Info",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "Gentag",
+  "continueShort": "Mere",
+  "fileChanges": "Filændringer",
+  "deletions": "Sletninger",
+  "gitOperations": "Git-handlinger",
+  "commands": "Kommandoer",
+  "otherOperations": "Andre handlinger",
+  "fileAccess": "Filadgang",
+  "notebookEdits": "Redigeringer i notatbog",
+  "applyPatch": "Anvend patch",
+  "recursive": "(rekursiv)",
+  "complexArguments": "[Komplekse argumenter]",
   "currentChatModelSettings": "Nuværende chat model indstillinger",
   "modelSettings": {
     "label": "Modelindstillinger",
@@ -90,6 +150,9 @@
         "label": "Maks tokens (num_predict)",
         "placeholder": "f.eks. 2048, 4096"
       },
+      "thinking": {
+        "label": "Tænke-tilstand"
+      },
       "seed": {
         "label": "Seed (frø)",
         "placeholder": "f.eks. 1234",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Top P (øverste P)",
         "placeholder": "f.eks. 0.9, 0.95"
-      },
-      "numGpu": {
-        "label": "Antal GPU'er",
-        "placeholder": "Angiv antal lag, der skal sendes til GPU"
-      },
-      "systemPrompt": {
-        "label": "Midlertidig systemprompt",
-        "placeholder": "Indtast systemprompt",
-        "help": "En hurtig måde at sætte systemprompten i den aktuelle chat, som tilsidesætter den valgte systemprompt, hvis den findes."
-      },
-      "thinking": {
-        "label": "Tænke-tilstand"
       },
       "useMMap": {
         "label": "Brug mmap"
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "Gentag sidste N",
         "placeholder": "f.eks. 64, 128"
+      },
+      "numGpu": {
+        "label": "Antal GPU'er",
+        "placeholder": "Angiv antal lag, der skal sendes til GPU"
+      },
+      "systemPrompt": {
+        "label": "Midlertidig systemprompt",
+        "placeholder": "Indtast systemprompt",
+        "help": "En hurtig måde at sætte systemprompten i den aktuelle chat, som tilsidesætter den valgte systemprompt, hvis den findes."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "Flere modelindstillinger"
+    "advanced": "Flere modelindstillinger",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "Opsummer",
@@ -160,7 +269,25 @@
     "custom": "Brugerdefineret"
   },
   "citations": "Citater",
+  "segmented": {
+    "available": "Servermodeller",
+    "custom": "Brugertilpassede modeller"
+  },
   "downloadCode": "Download kode",
+  "success": "Succes",
+  "created": "Oprettet",
+  "updated": "Opdateret",
+  "deleted": "Slettet",
+  "create": "Opret",
+  "reset": "Nulstil",
+  "serverOffline": "Server offline eller ikke konfigureret",
+  "serverChats": "Serverchats",
+  "serverChatLoadError": "Kunne ikke indlæse serverchat. Kontroller din forbindelse og prøv igen.",
+  "serverChatSourceLabel": "Serverkilde",
+  "serverChatForkedLabel": "Forgrenet chat",
+  "serverChatForkedTooltip": "Forgrenet fra chat {{chatId}}",
+  "serverChatsUnavailableNotConnected": "Serverchats er tilgængelige, når du opretter forbindelse til din tldw-server.",
+  "serverChatsUnavailableServerError": "Serverchats er ikke tilgængelige lige nu. Tjek serverloggene, eller prøv igen.",
   "date": {
     "pinned": "Fastgjort",
     "today": "I dag",
@@ -184,6 +311,8 @@
       "older": "Slet alle ældre beskeder"
     }
   },
+  "historiesDeleted": "{{count}} historikker slettet",
+  "deleteHistoriesError": "Fejl ved sletning af historik",
   "pin": "Fastgør",
   "unpin": "Frigør",
   "generationInfo": "Genereringsinfo",
@@ -193,66 +322,17 @@
     "loading": "Indlæser ræsonnement…",
     "thought": "Modellens ræsonnement (valgfrit)"
   },
+  "mermaid": "Mermaid-diagrammer",
+  "search": "Søg",
+  "searchResults": "Søgeresultater",
   "embeddingGen": "Opretter embeddings; dette kan tage lidt tid",
   "semanticSearch": "Udfører semantisk søgning",
+  "newBranch": "Ny gren",
   "downloading": "Downloader",
   "cancelPullingModel": {
     "confirm": "Er du sikker på, at du vil annullere downloadet? Dette stopper downloadprocessen. Ifølge Ollama-dokumentationen kan du genoptage, hvor du slap."
   },
-  "table": {
-    "copyCsv": "Kopiér som CSV",
-    "downloadCsv": "Download CSV-fil"
-  },
-  "dismiss": "Afvis",
   "privateModeSaveErrorTitle": "tldw Assistant kan ikke gemme data",
-  "confirmTitle": "Bekræft venligst",
-  "saving": "Gemmer…",
-  "close": "Luk",
-  "loadMore": "Indlæs flere…",
-  "startChat": "Start chat",
-  "previous": "Forrige",
-  "next": "Næste",
-  "chatWithCharacter": "Chat med figur",
-  "ttsShort": "Tale",
-  "copyShort": "Kopiér",
-  "branchShort": "Gren",
-  "infoShort": "Info",
-  "regenShort": "Gentag",
-  "continueShort": "Mere",
-  "fileChanges": "Filændringer",
-  "deletions": "Sletninger",
-  "gitOperations": "Git-handlinger",
-  "commands": "Kommandoer",
-  "otherOperations": "Andre handlinger",
-  "fileAccess": "Filadgang",
-  "notebookEdits": "Redigeringer i notatbog",
-  "applyPatch": "Anvend patch",
-  "recursive": "(rekursiv)",
-  "complexArguments": "[Komplekse argumenter]",
-  "segmented": {
-    "available": "Servermodeller",
-    "custom": "Brugertilpassede modeller"
-  },
-  "success": "Succes",
-  "created": "Oprettet",
-  "updated": "Opdateret",
-  "deleted": "Slettet",
-  "create": "Opret",
-  "reset": "Nulstil",
-  "serverOffline": "Server offline eller ikke konfigureret",
-  "serverChats": "Serverchats",
-  "serverChatLoadError": "Kunne ikke indlæse serverchat. Kontroller din forbindelse og prøv igen.",
-  "serverChatSourceLabel": "Serverkilde",
-  "serverChatForkedLabel": "Forgrenet chat",
-  "serverChatForkedTooltip": "Forgrenet fra chat {{chatId}}",
-  "serverChatsUnavailableNotConnected": "Serverchats er tilgængelige, når du opretter forbindelse til din tldw-server.",
-  "serverChatsUnavailableServerError": "Serverchats er ikke tilgængelige lige nu. Tjek serverloggene, eller prøv igen.",
-  "historiesDeleted": "{{count}} historikker slettet",
-  "deleteHistoriesError": "Fejl ved sletning af historik",
-  "mermaid": "Mermaid-diagrammer",
-  "search": "Søg",
-  "searchResults": "Søgeresultater",
-  "newBranch": "Ny gren",
   "error": {
     "label": "Fejl",
     "friendlyApiKeySummary": "Vi kunne ikke nå din tldw-server.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "Noget gik galt under kommunikationen med din tldw-server.",
     "friendlyGenericHint": "Prøv igen om lidt, eller åbn Sundhed og diagnostik for at kontrollere serverens status.",
     "showDetails": "Vis tekniske detaljer",
-    "hideDetails": "Skjul tekniske detaljer"
+    "hideDetails": "Skjul tekniske detaljer",
+    "createFolder": "Failed to create folder"
   },
   "folders": "Mapper",
   "folderView": "Mappevisning",
@@ -277,7 +358,32 @@
   "confirm": "Bekræft",
   "untitled": "Unavngivet",
   "moveToFolder": "Flyt til mappe",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "Ingen værktøjskald endnu",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "Venter",
     "running": "Processerer",

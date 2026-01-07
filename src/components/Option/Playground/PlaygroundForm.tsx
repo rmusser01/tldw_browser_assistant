@@ -1177,6 +1177,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     })()
   }
 
+  const privateChatLocked = temporaryChat && history.length > 0
+
   const handleToggleTemporaryChat = React.useCallback(
     (next: boolean) => {
       if (isFireFoxPrivateMode) {
@@ -1194,6 +1196,20 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       }
 
       const hasExistingHistory = history.length > 0
+
+      if (!next && temporaryChat && hasExistingHistory) {
+        notification.warning({
+          message: t(
+            "playground:composer.privateChatLockedTitle",
+            "Private chat is locked"
+          ),
+          description: t(
+            "playground:composer.privateChatLockedBody",
+            "Start a new chat to switch back to saved conversations."
+          )
+        })
+        return
+      }
 
       // Show confirmation when enabling temporary mode with existing messages
       if (next && hasExistingHistory) {
@@ -1246,7 +1262,15 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         duration: 2.5
       })
     },
-    [clearChat, history.length, isConnectionReady, serverChatId, setTemporaryChat, t]
+    [
+      clearChat,
+      history.length,
+      isConnectionReady,
+      serverChatId,
+      setTemporaryChat,
+      t,
+      temporaryChat
+    ]
   )
 
   const handleSaveChatToServer = React.useCallback(async () => {
@@ -3017,12 +3041,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <div className="flex flex-col gap-0.5 text-xs text-text">
                               <Tooltip title={persistenceTooltip}>
                                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                                  <Switch
-                                    size="small"
-                                    checked={!temporaryChat}
-                                    onChange={(checked) =>
-                                      handleToggleTemporaryChat(!checked)
-                                    }
+                                    <Switch
+                                      size="small"
+                                      checked={!temporaryChat}
+                                      disabled={privateChatLocked || isFireFoxPrivateMode}
+                                      onChange={(checked) =>
+                                        handleToggleTemporaryChat(!checked)
+                                      }
                                     aria-label={
                                       temporaryChat
                                         ? (t(
@@ -3296,12 +3321,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         <div className="flex items-center gap-2 flex-nowrap">
                           <Tooltip title={persistenceTooltip}>
                             <div className="flex items-center gap-1">
-                              <Switch
-                                size="small"
-                                checked={!temporaryChat}
-                                onChange={(checked) =>
-                                  handleToggleTemporaryChat(!checked)
-                                }
+                                <Switch
+                                  size="small"
+                                  checked={!temporaryChat}
+                                  disabled={privateChatLocked || isFireFoxPrivateMode}
+                                  onChange={(checked) =>
+                                    handleToggleTemporaryChat(!checked)
+                                  }
                                 aria-label={
                                   temporaryChat
                                     ? (t(

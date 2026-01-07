@@ -177,6 +177,15 @@ export class PageAssistDatabase {
     return db.chatHistories.get(id);
   }
 
+  async getHistoryByServerChatId(serverChatId: string): Promise<HistoryInfo | null> {
+    if (!serverChatId) return null;
+    const history = await db.chatHistories
+      .where('server_chat_id')
+      .equals(serverChatId)
+      .first();
+    return history || null;
+  }
+
   async getHistoryMetadata(historyId: string): Promise<{
     messageCount: number;
     lastMessage?: { content: string; role: string; createdAt: number };
@@ -259,6 +268,10 @@ export class PageAssistDatabase {
 
   async updateChatHistoryCreatedAt(id: string, createdAt: number) {
     await db.chatHistories.update(id, { createdAt });
+  }
+
+  async setHistoryServerChatId(historyId: string, serverChatId: string) {
+    await db.chatHistories.update(historyId, { server_chat_id: serverChatId });
   }
 
   async addMessage(message: Message) {

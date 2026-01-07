@@ -249,13 +249,19 @@ export const useMessage = () => {
 
   const saveMessageOnSuccess = createSaveMessageOnSuccess(
     temporaryChat,
-    setHistoryId as (id: string) => void
+    setHistoryId as (
+      id: string,
+      options?: { preserveServerChatId?: boolean }
+    ) => void
   )
   const saveMessageOnError = createSaveMessageOnError(
     temporaryChat,
     history,
     setHistory,
-    setHistoryId as (id: string) => void
+    setHistoryId as (
+      id: string,
+      options?: { preserveServerChatId?: boolean }
+    ) => void
   )
 
   const chatWithWebsiteMode = async (
@@ -1702,7 +1708,10 @@ export const useMessage = () => {
                 setStreaming,
                 setAbortController,
                 historyId,
-                setHistoryId: setHistoryId as (id: string) => void,
+                setHistoryId: setHistoryId as (
+                  id: string,
+                  options?: { preserveServerChatId?: boolean }
+                ) => void,
                 webSearch,
                 setIsSearchingInternet,
                 regenerateFromMessage,

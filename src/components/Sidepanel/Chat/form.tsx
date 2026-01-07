@@ -397,6 +397,7 @@ export const SidepanelForm = ({
     messagesLength: messages.length,
     clearChat
   })
+  const temporaryChatLocked = temporaryChat && messages.length > 0
 
   // Character selection state
   const [selectedCharacterId, setSelectedCharacterId] = React.useState<string | null>(null)
@@ -1199,6 +1200,7 @@ export const SidepanelForm = ({
                             selectedCharacterId={selectedCharacterId}
                             setSelectedCharacterId={setSelectedCharacterId}
                             temporaryChat={temporaryChat}
+                            temporaryChatLocked={temporaryChatLocked}
                             serverChatId={serverChatId}
                             setTemporaryChat={handleToggleTemporaryChat}
                             webSearch={webSearch}

@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "Avvis",
+  "confirmTitle": "Vennligst bekreft",
   "pdf": {
     "passwordTitle": "Skriv inn PDF-passordet",
     "unlock": "Lås opp"
@@ -14,10 +16,17 @@
     "content": "Laster innhold…"
   },
   "selectAModel": "Velg en modell",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "Lagre",
   "saved": "Lagret",
   "cancel": "Avbryt",
+  "saving": "Lagrer...",
   "retry": "Prøv igjen",
+  "close": "Lukk",
+  "loadMore": "Last inn mer...",
   "share": {
     "tooltip": {
       "share": "Del"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "Kopier til utklippstavle",
+  "table": {
+    "copyCsv": "Kopier som CSV",
+    "downloadCsv": "Last ned CSV"
+  },
   "webSearch": "Søker på internett",
   "regenerate": "Regenerer",
-  "continue": "Fortsett svar",
   "edit": "Endre",
+  "generate": "Generate",
+  "view": "View",
   "delete": "Slett",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "Fortsett svar",
   "saveAndSubmit": "Lagre & Send inn",
   "editMessage": {
     "placeholder": "Skriv en melding..."
   },
   "submit": "Send inn",
   "send": "Send inn",
+  "startChat": "Start chat",
   "connectToServer": "Koble til server",
+  "previous": "Forrige",
+  "next": "Neste",
   "noData": "Ingen data",
   "noHistory": "Ingen chathistorikk",
   "chatWithCurrentPage": "Chat med nåværende side",
+  "chatWithCharacter": "Chat med karakter",
   "beta": "Beta-versjon",
   "tts": "Les opp",
+  "ttsShort": "Tale",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "Kopier",
+  "branchShort": "Gren",
+  "infoShort": "Info",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "Igjen",
+  "continueShort": "Mer",
+  "fileChanges": "Filendringer",
+  "deletions": "Slettinger",
+  "gitOperations": "Git-operasjoner",
+  "commands": "Kommandoer",
+  "otherOperations": "Andre operasjoner",
+  "fileAccess": "Filtilgang",
+  "notebookEdits": "Notatbokendringer",
+  "applyPatch": "Bruk patch",
+  "recursive": "(rekursiv)",
+  "complexArguments": "[Komplekse argumenter]",
   "currentChatModelSettings": "Nåværende chatmodellinnstillinger",
   "modelSettings": {
     "label": "Modellinnstillinger",
@@ -90,6 +150,9 @@
         "label": "Maks Tokens (num_predict)",
         "placeholder": "Skriv inn Maks Tokens-verdi (f.eks. 2048, 4096)"
       },
+      "thinking": {
+        "label": "Tenkemodus"
+      },
       "seed": {
         "label": "Seed (startverdi)",
         "placeholder": "Skriv inn seedverdi (f.eks. 1234)",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Topp P",
         "placeholder": "Skriv inn Topp P-verdi (f.eks. 0.9, 0.95)"
-      },
-      "numGpu": {
-        "label": "Antall GPUer",
-        "placeholder": "Skriv inn antall lag som sendes til GPU(er)"
-      },
-      "systemPrompt": {
-        "label": "Midlertidig systemprompt",
-        "placeholder": "Skriv inn systemprompt",
-        "help": "Dette er en rask måte å sette systemprompt i den nåværende chatten, som vil overstyre den valgte systemprompt hvis den finnes."
-      },
-      "thinking": {
-        "label": "Tenkemodus"
       },
       "useMMap": {
         "label": "useMmap (minneavbildning)"
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "Gjenta siste N",
         "placeholder": "f.eks. 64, 128"
+      },
+      "numGpu": {
+        "label": "Antall GPUer",
+        "placeholder": "Skriv inn antall lag som sendes til GPU(er)"
+      },
+      "systemPrompt": {
+        "label": "Midlertidig systemprompt",
+        "placeholder": "Skriv inn systemprompt",
+        "help": "Dette er en rask måte å sette systemprompt i den nåværende chatten, som vil overstyre den valgte systemprompt hvis den finnes."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "Flere modellinnstillinger"
+    "advanced": "Flere modellinnstillinger",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "Oppsummer",
@@ -160,7 +269,25 @@
     "custom": "Egendefinert"
   },
   "citations": "Sitater",
+  "segmented": {
+    "available": "Servermodeller",
+    "custom": "Egendefinerte modeller"
+  },
   "downloadCode": "Last ned kode",
+  "success": "Vellykket",
+  "created": "Opprettet",
+  "updated": "Oppdatert",
+  "deleted": "Slettet",
+  "create": "Opprett",
+  "reset": "Tilbakestill",
+  "serverOffline": "Server frakoblet eller ikke konfigurert",
+  "serverChats": "Serverchatter",
+  "serverChatLoadError": "Kunne ikke laste server-chat. Kontroller tilkoblingen og prøv igjen.",
+  "serverChatSourceLabel": "Serverkilde",
+  "serverChatForkedLabel": "Forgrenet chat",
+  "serverChatForkedTooltip": "Forgrenet fra chat {{chatId}}",
+  "serverChatsUnavailableNotConnected": "Serverchatter blir tilgjengelige når du kobler til tldw-serveren din.",
+  "serverChatsUnavailableServerError": "Serverchatter er utilgjengelige akkurat nå. Sjekk serverloggene eller prøv igjen.",
   "date": {
     "pinned": "Festet",
     "today": "I dag",
@@ -184,6 +311,8 @@
       "older": "Slett alle eldre meldinger"
     }
   },
+  "historiesDeleted": "{{count}} historikker slettet",
+  "deleteHistoriesError": "Feil ved sletting av historikk",
   "pin": "Fest",
   "unpin": "Løsne",
   "generationInfo": "Generasjonsinformasjon",
@@ -193,66 +322,17 @@
     "loading": "Laster resonnement....",
     "thought": "Tenkte i {{time}}"
   },
+  "mermaid": "Mermaid-diagrammer",
+  "search": "Søk",
+  "searchResults": "Søkeresultater",
   "embeddingGen": "Oppretter embeddings, dette kan ta litt tid",
   "semanticSearch": "Utfører semantisk søk",
+  "newBranch": "Ny gren",
   "downloading": "Laster ned",
   "cancelPullingModel": {
     "confirm": "Er du sikker på at du vil avbryte nedlastingen? Dette vil stoppe nedlastingsprosessen. Ifølge Ollama-dokumentasjonen kan du starte på nytt fra der du slapp."
   },
-  "table": {
-    "copyCsv": "Kopier som CSV",
-    "downloadCsv": "Last ned CSV"
-  },
-  "dismiss": "Avvis",
   "privateModeSaveErrorTitle": "tldw Assistant kan ikke lagre data",
-  "confirmTitle": "Vennligst bekreft",
-  "saving": "Lagrer...",
-  "close": "Lukk",
-  "loadMore": "Last inn mer...",
-  "startChat": "Start chat",
-  "previous": "Forrige",
-  "next": "Neste",
-  "chatWithCharacter": "Chat med karakter",
-  "ttsShort": "Tale",
-  "copyShort": "Kopier",
-  "branchShort": "Gren",
-  "infoShort": "Info",
-  "regenShort": "Igjen",
-  "continueShort": "Mer",
-  "fileChanges": "Filendringer",
-  "deletions": "Slettinger",
-  "gitOperations": "Git-operasjoner",
-  "commands": "Kommandoer",
-  "otherOperations": "Andre operasjoner",
-  "fileAccess": "Filtilgang",
-  "notebookEdits": "Notatbokendringer",
-  "applyPatch": "Bruk patch",
-  "recursive": "(rekursiv)",
-  "complexArguments": "[Komplekse argumenter]",
-  "segmented": {
-    "available": "Servermodeller",
-    "custom": "Egendefinerte modeller"
-  },
-  "success": "Vellykket",
-  "created": "Opprettet",
-  "updated": "Oppdatert",
-  "deleted": "Slettet",
-  "create": "Opprett",
-  "reset": "Tilbakestill",
-  "serverOffline": "Server frakoblet eller ikke konfigurert",
-  "serverChats": "Serverchatter",
-  "serverChatLoadError": "Kunne ikke laste server-chat. Kontroller tilkoblingen og prøv igjen.",
-  "serverChatSourceLabel": "Serverkilde",
-  "serverChatForkedLabel": "Forgrenet chat",
-  "serverChatForkedTooltip": "Forgrenet fra chat {{chatId}}",
-  "serverChatsUnavailableNotConnected": "Serverchatter blir tilgjengelige når du kobler til tldw-serveren din.",
-  "serverChatsUnavailableServerError": "Serverchatter er utilgjengelige akkurat nå. Sjekk serverloggene eller prøv igjen.",
-  "historiesDeleted": "{{count}} historikker slettet",
-  "deleteHistoriesError": "Feil ved sletting av historikk",
-  "mermaid": "Mermaid-diagrammer",
-  "search": "Søk",
-  "searchResults": "Søkeresultater",
-  "newBranch": "Ny gren",
   "error": {
     "label": "Feil",
     "friendlyApiKeySummary": "Vi fikk ikke kontakt med tldw-serveren din.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "Noe gikk galt under kommunikasjonen med tldw-serveren din.",
     "friendlyGenericHint": "Prøv igjen om et øyeblikk, eller åpne Helse og diagnostikk for å undersøke serverhelse.",
     "showDetails": "Vis tekniske detaljer",
-    "hideDetails": "Skjul tekniske detaljer"
+    "hideDetails": "Skjul tekniske detaljer",
+    "createFolder": "Failed to create folder"
   },
   "folders": "Mapper",
   "folderView": "Mappevisning",
@@ -277,7 +358,32 @@
   "confirm": "Bekreft",
   "untitled": "Uten tittel",
   "moveToFolder": "Flytt til mappe",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "Ingen verktøykall ennå",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "Venter",
     "running": "Behandler",

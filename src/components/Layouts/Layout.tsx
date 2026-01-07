@@ -142,7 +142,6 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
         <ChatSidebar
           collapsed={chatSidebarCollapsed}
           onToggleCollapse={() => setChatSidebarCollapsed((prev) => !prev)}
-          selectedChatId={historyId}
           onSelectChat={(chatId) => setHistoryId(chatId)}
           onNewChat={clearChat}
           onIngest={() => {

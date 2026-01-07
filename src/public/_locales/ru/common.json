@@ -934,5 +934,239 @@
   },
   "restartOnboardingConfirmMessage": {
     "message": "Это сбросит состояние мастера настройки и вернёт вас к началу процесса."
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "generate": {
+    "message": "Generate"
+  },
+  "view": {
+    "message": "View"
+  },
+  "deleteMessageConfirm": {
+    "message": "Delete this message?"
+  },
+  "deleteFailed": {
+    "message": "Delete failed"
+  },
+  "reply": {
+    "message": "Reply"
+  },
+  "replyShort": {
+    "message": "Reply"
+  },
+  "replyingTo": {
+    "message": "Replying to"
+  },
+  "clearReply": {
+    "message": "Clear reply target"
+  },
+  "replyTargetFallback": {
+    "message": "Message"
+  },
+  "artifactsTitle": {
+    "message": "Artifact"
+  },
+  "artifactsDefaultTitle": {
+    "message": "Code"
+  },
+  "artifactsView": {
+    "message": "View code"
+  },
+  "artifactsPin": {
+    "message": "Pin"
+  },
+  "artifactsUnpin": {
+    "message": "Unpin"
+  },
+  "artifactsClose": {
+    "message": "Close"
+  },
+  "artifactsCopy": {
+    "message": "Copy"
+  },
+  "artifactsDownload": {
+    "message": "Download"
+  },
+  "artifactsRun": {
+    "message": "Run"
+  },
+  "saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "saveToFlashcards": {
+    "message": "Save to Flashcards"
+  },
+  "generateDocument": {
+    "message": "Generate document"
+  },
+  "documentShort": {
+    "message": "Doc"
+  },
+  "saveNoteShort": {
+    "message": "Note"
+  },
+  "saveFlashcardShort": {
+    "message": "Card"
+  },
+  "savedToNotes": {
+    "message": "Saved to Notes"
+  },
+  "savedToFlashcards": {
+    "message": "Saved to Flashcards"
+  },
+  "saveToNotesEmpty": {
+    "message": "Nothing to save yet."
+  },
+  "timeline_title": {
+    "message": "Conversation Timeline"
+  },
+  "timeline_searchPlaceholder": {
+    "message": "Search messages... (space = AND)"
+  },
+  "timeline_searchMatches": {
+    "message": "matches"
+  },
+  "timeline_searchNoMatches": {
+    "message": "no matches"
+  },
+  "timeline_searchMode_fragments": {
+    "message": "Fragments"
+  },
+  "timeline_searchMode_substring": {
+    "message": "Substring"
+  },
+  "timeline_searchMode_regex": {
+    "message": "Regex"
+  },
+  "timeline_layout_horizontal": {
+    "message": "horizontal"
+  },
+  "timeline_layout_vertical": {
+    "message": "vertical"
+  },
+  "timeline_refreshGraph": {
+    "message": "Refresh graph"
+  },
+  "timeline_switchLayout": {
+    "message": "Switch to {{layout}} layout"
+  },
+  "timeline_expandAllAlternatives": {
+    "message": "Expand all alternatives"
+  },
+  "timeline_collapseAllAlternatives": {
+    "message": "Collapse all alternatives"
+  },
+  "timeline_hideLegend": {
+    "message": "Hide legend"
+  },
+  "timeline_showLegend": {
+    "message": "Show legend"
+  },
+  "timeline_zoomIn": {
+    "message": "Zoom in"
+  },
+  "timeline_zoomOut": {
+    "message": "Zoom out"
+  },
+  "sourceLabel": {
+    "message": "Source"
+  },
+  "sourceOpen": {
+    "message": "Open source"
+  },
+  "modelSettings_form_historyMessageLimit_label": {
+    "message": "History message limit"
+  },
+  "modelSettings_form_historyMessageLimit_placeholder": {
+    "message": "e.g. 10"
+  },
+  "modelSettings_form_historyMessageLimit_help": {
+    "message": "Limit how many previous messages are sent with each request."
+  },
+  "modelSettings_form_historyMessageOrder_label": {
+    "message": "History message order"
+  },
+  "modelSettings_form_historyMessageOrder_placeholder": {
+    "message": "Select order"
+  },
+  "modelSettings_form_historyMessageOrder_help": {
+    "message": "Choose whether the newest or oldest messages are sent first."
+  },
+  "modelSettings_form_historyMessageOrder_options_desc": {
+    "message": "Newest first"
+  },
+  "modelSettings_form_historyMessageOrder_options_asc": {
+    "message": "Oldest first"
+  },
+  "modelSettings_form_slashCommandInjectionMode_label": {
+    "message": "Slash command injection"
+  },
+  "modelSettings_form_slashCommandInjectionMode_placeholder": {
+    "message": "Select injection mode"
+  },
+  "modelSettings_form_slashCommandInjectionMode_help": {
+    "message": "Choose how slash commands are inserted into the request."
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_system": {
+    "message": "System message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_preface": {
+    "message": "Preface user message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_replace": {
+    "message": "Replace user message"
+  },
+  "modelSettings_form_apiProvider_label": {
+    "message": "API provider override"
+  },
+  "modelSettings_form_apiProvider_placeholder": {
+    "message": "Select provider (optional)"
+  },
+  "modelSettings_form_apiProvider_help": {
+    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+  },
+  "modelSettings_form_extraHeaders_label": {
+    "message": "Extra headers (JSON)"
+  },
+  "modelSettings_form_extraHeaders_placeholder": {
+    "message": "{ \"X-API-Key\": \"...\" }"
+  },
+  "modelSettings_form_extraHeaders_help": {
+    "message": "JSON object merged into request headers."
+  },
+  "modelSettings_form_extraBody_label": {
+    "message": "Extra body (JSON)"
+  },
+  "modelSettings_form_extraBody_placeholder": {
+    "message": "{ \"user\": \"...\" }"
+  },
+  "modelSettings_form_extraBody_help": {
+    "message": "JSON object merged into request body."
+  },
+  "modelSettings_form_guardrails_invalidJson": {
+    "message": "Enter a valid JSON object."
+  },
+  "modelSettings_requestOverrides": {
+    "message": "Request overrides"
+  },
+  "modelSettings_tabs_model": {
+    "message": "Model"
+  },
+  "modelSettings_tabs_conversation": {
+    "message": "Conversation"
+  },
+  "modelSettings_tabs_advanced": {
+    "message": "Advanced"
+  },
+  "modelSettings_tabs_actor": {
+    "message": "Scene Director"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
   }
 }

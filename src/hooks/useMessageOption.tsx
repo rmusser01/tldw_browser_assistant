@@ -14,7 +14,10 @@ import {
   formatToChatHistory,
   formatToMessage,
   getSessionFiles,
-  getPromptById
+  getPromptById,
+  getHistoryByServerChatId,
+  setHistoryServerChatId,
+  getHistoriesWithMetadata
 } from "@/db/dexie/helpers"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
@@ -194,6 +197,10 @@ export const useMessageOption = () => {
   const navigate = useNavigate()
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
   const messagesRef = React.useRef(messages)
+  const serverChatHistoryIdRef = React.useRef<{
+    chatId: string | null
+    historyId: string | null
+  }>({ chatId: null, historyId: null })
   const compareHydratingRef = React.useRef(false)
   const compareSaveTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null
@@ -252,6 +259,79 @@ export const useMessageOption = () => {
   )
 
   React.useEffect(() => {
+    if (serverChatHistoryIdRef.current.chatId !== serverChatId) {
+      serverChatHistoryIdRef.current = {
+        chatId: serverChatId ?? null,
+        historyId: null
+      }
+    }
+  }, [serverChatId])
+
+  const ensureServerChatHistoryId = React.useCallback(
+    async (chatId: string, title?: string) => {
+      if (!chatId || temporaryChat) return null
+      if (
+        serverChatHistoryIdRef.current.chatId === chatId &&
+        serverChatHistoryIdRef.current.historyId
+      ) {
+        const existingId = serverChatHistoryIdRef.current.historyId
+        if (historyId !== existingId) {
+          setHistoryId(existingId, { preserveServerChatId: true })
+        }
+        return existingId
+      }
+
+      const existing = await getHistoryByServerChatId(chatId)
+      const trimmedTitle = (title || existing?.title || "").trim()
+      const resolvedTitle =
+        trimmedTitle ||
+        t("common:untitled", { defaultValue: "Untitled" })
+
+      if (existing) {
+        if (resolvedTitle && resolvedTitle !== existing.title) {
+          await updateHistory(existing.id, resolvedTitle)
+        }
+        serverChatHistoryIdRef.current = {
+          chatId,
+          historyId: existing.id
+        }
+        if (historyId !== existing.id) {
+          setHistoryId(existing.id, { preserveServerChatId: true })
+        }
+        return existing.id
+      }
+
+      if (historyId && historyId !== "temp") {
+        await setHistoryServerChatId(historyId, chatId)
+        if (resolvedTitle) {
+          await updateHistory(historyId, resolvedTitle)
+        }
+        serverChatHistoryIdRef.current = {
+          chatId,
+          historyId
+        }
+        setHistoryId(historyId, { preserveServerChatId: true })
+        return historyId
+      }
+
+      const newHistory = await saveHistory(
+        resolvedTitle,
+        false,
+        "server",
+        undefined,
+        chatId
+      )
+      serverChatHistoryIdRef.current = {
+        chatId,
+        historyId: newHistory.id
+      }
+      setHistoryId(newHistory.id, { preserveServerChatId: true })
+      return newHistory.id
+    },
+    [historyId, setHistoryId, t, temporaryChat]
+  )
+
+  React.useEffect(() => {
     messagesRef.current = messages
   }, [messages])
 
@@ -277,7 +357,7 @@ export const useMessageOption = () => {
   }, [])
 
   React.useEffect(() => {
-    if (!serverChatId || historyId) return
+    if (!serverChatId) return
     if (
       serverChatLoadRef.current.chatId === serverChatId &&
       messages.length > 0
@@ -402,6 +482,69 @@ export const useMessageOption = () => {
 
           setHistory(history)
           setMessages(mappedMessages)
+          if (!temporaryChat) {
+            try {
+              const localHistoryId = await ensureServerChatHistoryId(
+                serverChatId,
+                chatTitle || undefined
+              )
+              if (localHistoryId) {
+                const metadataMap = await getHistoriesWithMetadata([
+                  localHistoryId
+                ])
+                const existingMeta = metadataMap.get(localHistoryId)
+                if (!existingMeta || existingMeta.messageCount === 0) {
+                  const now = Date.now()
+                  await Promise.all(
+                    list.map((m, index) => {
+                      const parsedCreatedAt = Date.parse(m.created_at)
+                      const resolvedCreatedAt = Number.isNaN(parsedCreatedAt)
+                        ? now + index
+                        : parsedCreatedAt
+                      const role =
+                        m.role === "assistant" ||
+                        m.role === "system" ||
+                        m.role === "user"
+                          ? m.role
+                          : "user"
+                      const name =
+                        role === "assistant"
+                          ? assistantName
+                          : role === "system"
+                            ? "System"
+                            : "You"
+                      return saveMessage({
+                        id: String(m.id),
+                        history_id: localHistoryId,
+                        name,
+                        role,
+                        content: m.content,
+                        images: [],
+                        source: [],
+                        time: index,
+                        message_type:
+                          (m as any)?.message_type ?? (m as any)?.messageType,
+                        clusterId: (m as any)?.cluster_id ?? (m as any)?.clusterId,
+                        modelId: (m as any)?.model_id ?? (m as any)?.modelId,
+                        modelName:
+                          (m as any)?.model_name ??
+                          (m as any)?.modelName ??
+                          assistantName,
+                        modelImage: (m as any)?.model_image ?? (m as any)?.modelImage,
+                        parent_message_id:
+                          (m as any)?.parent_message_id ??
+                          (m as any)?.parentMessageId ??
+                          null,
+                        createdAt: resolvedCreatedAt
+                      })
+                    })
+                  )
+                }
+              }
+            } catch {
+              // Local mirror is best-effort for server chats.
+            }
+          }
           if (chatTitle) {
             updatePageTitle(chatTitle)
           }
@@ -443,13 +586,14 @@ export const useMessageOption = () => {
       }
     }
   }, [
-    historyId,
     messages.length,
     notification,
+    ensureServerChatHistoryId,
     serverChatId,
     serverChatCharacterId,
     serverChatMetaLoaded,
     serverChatTitle,
+    temporaryChat,
     setHistory,
     setIsLoading,
     setMessages,
@@ -464,6 +608,11 @@ export const useMessageOption = () => {
     setServerChatVersion,
     t
   ])
+
+  React.useEffect(() => {
+    if (!serverChatId || temporaryChat) return
+    void ensureServerChatHistoryId(serverChatId, serverChatTitle || undefined)
+  }, [ensureServerChatHistoryId, serverChatId, serverChatTitle, temporaryChat])
 
   // Persist prompt selections across views/contexts
   const [storedSystemPrompt, setStoredSystemPrompt] = useStorage<string | null>(
@@ -747,13 +896,19 @@ export const useMessageOption = () => {
 
   const baseSaveMessageOnSuccess = createSaveMessageOnSuccess(
     temporaryChat,
-    setHistoryId as (id: string) => void
+    setHistoryId as (
+      id: string,
+      options?: { preserveServerChatId?: boolean }
+    ) => void
   )
   const saveMessageOnError = createSaveMessageOnError(
     temporaryChat,
     history,
     setHistory,
-    setHistoryId as (id: string) => void
+    setHistoryId as (
+      id: string,
+      options?: { preserveServerChatId?: boolean }
+    ) => void
   )
 
   const saveMessageOnSuccess = async (payload: any): Promise<string | null> => {
@@ -761,6 +916,10 @@ export const useMessageOption = () => {
 
     if (!payload?.historyId && historyKey) {
       compareNewHistoryIdsRef.current.add(historyKey)
+    }
+
+    if (temporaryChat) {
+      return historyKey
     }
 
     let skipServerWrite = false
@@ -774,6 +933,9 @@ export const useMessageOption = () => {
       payloadConversationId && serverChatId
         ? payloadConversationId === String(serverChatId)
         : false
+    const serverConversationMatches = payloadConversationId
+      ? payloadConversationId === String(serverChatId)
+      : true
 
     if (isServerConversation && payload?.saveToDb) {
       try {
@@ -787,6 +949,7 @@ export const useMessageOption = () => {
     // When resuming a server-backed chat, mirror new turns to /api/v1/chats.
     if (
       serverChatId &&
+      serverConversationMatches &&
       !skipServerWrite &&
       !payload?.isRegenerate &&
       !payload?.isContinue &&
@@ -820,9 +983,23 @@ export const useMessageOption = () => {
   }
 
   const buildChatModeParams = async (overrides: Record<string, any> = {}) => {
+    const hasHistoryOverride = Object.prototype.hasOwnProperty.call(
+      overrides,
+      "historyId"
+    )
+    const resolvedServerChatId = overrides.serverChatId ?? serverChatId
+    const resolvedHistoryId = hasHistoryOverride
+      ? overrides.historyId
+      : resolvedServerChatId && !temporaryChat
+        ? await ensureServerChatHistoryId(
+            resolvedServerChatId,
+            serverChatTitle || undefined
+          )
+        : historyId
+
     const actorSettings = await getActorSettingsForChat({
-      historyId: overrides.historyId ?? historyId,
-      serverChatId: overrides.serverChatId ?? serverChatId
+      historyId: resolvedHistoryId ?? historyId,
+      serverChatId: resolvedServerChatId
     })
 
     return {
@@ -840,7 +1017,7 @@ export const useMessageOption = () => {
       setIsProcessing,
       setStreaming,
       setAbortController,
-      historyId,
+      historyId: resolvedHistoryId ?? historyId,
       setHistoryId,
       fileRetrievalEnabled,
       ragMediaIds,

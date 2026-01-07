@@ -6,12 +6,13 @@ export type HistoryInfo = {
   id: string;
   title: string;
   is_rag: boolean;
-  message_source?: 'copilot' | 'web-ui' | 'branch';
+  message_source?: 'copilot' | 'web-ui' | 'branch' | 'server';
   is_pinned?: boolean;
   createdAt: number;
   doc_id?: string;
   last_used_prompt?: LastUsedModelType;
   model_id?: string;
+  server_chat_id?: string;
   // Timeline/branching fields (server-compatible with ChaChaDB)
   root_id?: string;                    // All forks share same root_id
   parent_conversation_id?: string;     // Parent in fork tree

@@ -60,7 +60,7 @@ interface CompactMessageProps {
   sendStatus?: "sending" | "sent" | "delivered" | "error"
   /** Timestamp of the message */
   timestamp?: number
-  onDelete?: () => void
+  onDelete?: () => void | Promise<void>
 }
 
 /**

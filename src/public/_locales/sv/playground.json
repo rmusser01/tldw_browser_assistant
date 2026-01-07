@@ -1152,87 +1152,216 @@
     "message": "Tokens: {{count}}"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "Var detta hjälpsamt?"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "Hjälpsamt"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "Inte hjälpsamt"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "Mer feedback"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "Tack för återkopplingen"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "Feedback är tillgänglig när svaret är klart."
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "Feedback är inte tillgänglig för detta meddelande."
   },
   "feedback_modalTitle": {
     "message": "Feedback"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "Hur skulle du bedöma det här svaret?"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "Vad var problemet? (välj alla som gäller)"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "Ytterligare kommentarer (valfritt)"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "Skicka feedback"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "Feedback misslyckades"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "Det gick inte att skicka feedback."
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "Det gick inte att skicka feedback om källan."
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "Felaktig information"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "Inte relevant för min fråga"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "Viktiga detaljer saknas"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "Källorna var inte hjälpsamma"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "För utförligt"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "För kort"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "Annat"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "Hjälpsam källa"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "Inte hjälpsam källa"
   },
   "actor_uploadedFiles": {
-    "message": "Uploaded Files ({{count}})"
+    "message": "Uppladdade filer ({{count}})"
   },
   "actor_fileRetrieval": {
-    "message": "File Retrieval"
+    "message": "Filhämtning"
   },
   "actor_fileStatusProcessed": {
-    "message": "Processed"
+    "message": "Bearbetad"
   },
   "actor_fileStatusProcessing": {
-    "message": "Processing..."
+    "message": "Bearbetas..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
   }
 }

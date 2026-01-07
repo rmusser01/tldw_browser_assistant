@@ -83,7 +83,10 @@ type State = {
   isFirstMessage: boolean
   setIsFirstMessage: (isFirstMessage: boolean) => void
   historyId: string | null
-  setHistoryId: (history_id: string | null) => void
+  setHistoryId: (
+    history_id: string | null,
+    options?: { preserveServerChatId?: boolean }
+  ) => void
   isLoading: boolean
   setIsLoading: (isLoading: boolean) => void
   isProcessing: boolean
@@ -229,21 +232,26 @@ export const useStoreMessageOption = create<State>((set, get) => ({
   isFirstMessage: true,
   setIsFirstMessage: (isFirstMessage) => set({ isFirstMessage }),
   historyId: null,
-  setHistoryId: (historyId) =>
-    set((state) => ({
-      historyId,
-      // When switching to a local Dexie-backed chat, clear any active server-backed session id.
-      serverChatId: historyId ? null : state.serverChatId,
-      serverChatState: historyId ? "in-progress" : state.serverChatState,
-      serverChatVersion: historyId ? null : state.serverChatVersion,
-      serverChatTitle: historyId ? null : state.serverChatTitle,
-      serverChatCharacterId: historyId ? null : state.serverChatCharacterId,
-      serverChatMetaLoaded: historyId ? false : state.serverChatMetaLoaded,
-      serverChatTopic: historyId ? null : state.serverChatTopic,
-      serverChatClusterId: historyId ? null : state.serverChatClusterId,
-      serverChatSource: historyId ? null : state.serverChatSource,
-      serverChatExternalRef: historyId ? null : state.serverChatExternalRef
-    })),
+  setHistoryId: (historyId, options) =>
+    set((state) => {
+      if (options?.preserveServerChatId) {
+        return { historyId }
+      }
+      return {
+        historyId,
+        // When switching to a local Dexie-backed chat, clear any active server-backed session id.
+        serverChatId: historyId ? null : state.serverChatId,
+        serverChatState: historyId ? "in-progress" : state.serverChatState,
+        serverChatVersion: historyId ? null : state.serverChatVersion,
+        serverChatTitle: historyId ? null : state.serverChatTitle,
+        serverChatCharacterId: historyId ? null : state.serverChatCharacterId,
+        serverChatMetaLoaded: historyId ? false : state.serverChatMetaLoaded,
+        serverChatTopic: historyId ? null : state.serverChatTopic,
+        serverChatClusterId: historyId ? null : state.serverChatClusterId,
+        serverChatSource: historyId ? null : state.serverChatSource,
+        serverChatExternalRef: historyId ? null : state.serverChatExternalRef
+      }
+    }),
   isLoading: false,
   setIsLoading: (isLoading) => set({ isLoading }),
   isProcessing: false,

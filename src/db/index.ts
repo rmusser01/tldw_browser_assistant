@@ -8,10 +8,11 @@ type HistoryInfo = {
   id: string
   title: string
   is_rag: boolean
-  message_source?: "copilot" | "web-ui"
+  message_source?: "copilot" | "web-ui" | "server" | "branch"
   is_pinned?: boolean
   createdAt: number
   doc_id?: string
+  server_chat_id?: string
 }
 
 type WebSearch = {
@@ -488,12 +489,21 @@ export const generateID = () => {
 export const saveHistory = async (
   title: string,
   is_rag?: boolean,
-  message_source?: "copilot" | "web-ui",
-  doc_id?: string
+  message_source?: "copilot" | "web-ui" | "server" | "branch",
+  doc_id?: string,
+  server_chat_id?: string
 ) => {
   const id = generateID()
   const createdAt = Date.now()
-  const history = { id, title, createdAt, is_rag, message_source, doc_id }
+  const history = {
+    id,
+    title,
+    createdAt,
+    is_rag,
+    message_source,
+    doc_id,
+    server_chat_id
+  }
   const db = new PageAssitDatabase()
   await db.addChatHistory(history)
   return history
@@ -521,7 +531,8 @@ export const saveMessage = async ({
   modelName,
   reasoning_time_taken,
   time,
-  documents
+  documents,
+  createdAt: createdAtOverride
 }: {
   history_id: string
   name: string
@@ -536,10 +547,14 @@ export const saveMessage = async ({
   modelName?: string
   modelImage?: string
   documents?: ChatDocuments
+  createdAt?: number
 }) => {
   const id = generateID()
-  let createdAt = Date.now()
-  if (time) {
+  let createdAt =
+    typeof createdAtOverride === "number"
+      ? createdAtOverride
+      : Date.now()
+  if (typeof createdAtOverride !== "number" && time) {
     createdAt += time
   }
   const message = {

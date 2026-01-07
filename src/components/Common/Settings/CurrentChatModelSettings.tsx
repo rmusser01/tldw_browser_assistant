@@ -1,7 +1,7 @@
 import { getPromptById } from "@/db/dexie/helpers"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import { getAllModelSettings } from "@/services/model-settings"
-import { useStoreChatModelSettings } from "@/store/model"
+import { useStoreChatModelSettings, type ChatModelSettings } from "@/store/model"
 import { useActorStore } from "@/store/actor"
 import { useQuery } from "@tanstack/react-query"
 import {
@@ -64,6 +64,64 @@ type ModelConfigData = {
   numThread?: number
 }
 
+type ModelDetails = {
+  provider?: string
+  capabilities?: string[]
+}
+
+type ChatModel = {
+  model: string
+  nickname?: string
+  provider?: string
+  details?: ModelDetails
+}
+
+type ActorFormValues = {
+  actorEnabled?: boolean
+  actorNotes?: ActorSettings["notes"]
+  actorNotesGmOnly?: ActorSettings["notesGmOnly"]
+  actorChatPosition?: ActorSettings["chatPosition"]
+  actorChatDepth?: ActorSettings["chatDepth"]
+  actorChatRole?: ActorSettings["chatRole"]
+  actorTemplateMode?: ActorSettings["templateMode"]
+  [key: `actor_${string}`]: string | undefined
+  [key: `actor_key_${string}`]: string | undefined
+}
+
+type CurrentChatModelFormValues = Partial<ChatModelSettings> & ActorFormValues
+
+const CHAT_MODEL_SETTING_KEYS: ReadonlySet<keyof ChatModelSettings> = new Set([
+  "temperature",
+  "topK",
+  "topP",
+  "keepAlive",
+  "numCtx",
+  "seed",
+  "numGpu",
+  "numPredict",
+  "useMMap",
+  "minP",
+  "repeatLastN",
+  "repeatPenalty",
+  "useMlock",
+  "tfsZ",
+  "numKeep",
+  "numThread",
+  "reasoningEffort",
+  "historyMessageLimit",
+  "historyMessageOrder",
+  "slashCommandInjectionMode",
+  "apiProvider",
+  "extraHeaders",
+  "extraBody",
+  "jsonMode"
+])
+
+const isChatModelSettingKey = (
+  key: string
+): key is keyof ChatModelSettings =>
+  CHAT_MODEL_SETTING_KEYS.has(key as keyof ChatModelSettings)
+
 export const CurrentChatModelSettings = ({
   open,
   setOpen,
@@ -71,7 +129,7 @@ export const CurrentChatModelSettings = ({
   isOCREnabled
 }: Props) => {
   const { t } = useTranslation("common")
-  const [form] = Form.useForm()
+  const [form] = Form.useForm<CurrentChatModelFormValues>()
   const cUserSettings = useStoreChatModelSettings()
   const {
     historyId,
@@ -151,21 +209,10 @@ export const CurrentChatModelSettings = ({
   }, [actorSettings, open, recomputeActorPreview])
 
   const saveSettings = useCallback(
-    (values: any) => {
-      Object.entries(values).forEach(([key, value]) => {
-        if (
-          key !== "systemPrompt" &&
-          key !== "ocrLanguage" &&
-          key !== "actorEnabled" &&
-          key !== "actorNotes" &&
-          key !== "actorNotesGmOnly" &&
-          key !== "actorChatPosition" &&
-          key !== "actorChatDepth" &&
-          key !== "actorChatRole" &&
-          !key.startsWith("actor_")
-        ) {
-          cUserSettings.updateSetting(key as keyof import("@/store/model").ChatModelSettings, value as any)
-        }
+    (values: CurrentChatModelFormValues) => {
+      Object.keys(values).forEach((key) => {
+        if (!isChatModelSettingKey(key)) return
+        cUserSettings.updateSetting(key, values[key])
       })
 
       const base = actorSettings ?? createDefaultActorSettings()
@@ -269,7 +316,9 @@ export const CurrentChatModelSettings = ({
     refetchOnWindowFocus: false
   })
 
-  const { data: composerModels, isLoading: modelsLoading } = useQuery({
+  const { data: composerModels = [], isLoading: modelsLoading } = useQuery<
+    ChatModel[]
+  >({
     queryKey: ["playground:chatModels", open],
     queryFn: async () => {
       try {
@@ -292,7 +341,7 @@ export const CurrentChatModelSettings = ({
         searchLabel: string
       }>
     }
-    const models = (composerModels as any[]) || []
+    const models = composerModels
     if (!models.length) {
       if (selectedModel) {
         const displayText = `Custom - ${selectedModel}`
@@ -313,23 +362,24 @@ export const CurrentChatModelSettings = ({
 
     const groups = new Map<string, GroupOption>()
 
-    for (const m of models as any[]) {
-      const rawProvider = (m.details && m.details.provider) || m.provider
+    for (const m of models) {
+      const rawProvider = m.details?.provider ?? m.provider
       const providerKey = String(rawProvider || "other").toLowerCase()
       const providerLabel = getProviderDisplayName(rawProvider)
       const modelLabel = m.nickname || m.model
-      const details: any = m.details || {}
-      const caps: string[] = Array.isArray(details.capabilities)
-        ? details.capabilities
+      const details = m.details
+      const caps = Array.isArray(details?.capabilities)
+        ? (details.capabilities ?? [])
         : []
       const hasVision = caps.includes("vision")
       const hasTools = caps.includes("tools")
       const hasFast = caps.includes("fast")
+      const providerIconKey = rawProvider ?? "default"
 
       const optionDisplay = `${providerLabel} - ${modelLabel}`
       const optionLabel = (
         <div className="flex items-center gap-2" data-title={`${providerLabel} - ${modelLabel}`}>
-          <ProviderIcons provider={rawProvider} className="h-4 w-4" />
+          <ProviderIcons provider={providerIconKey} className="h-4 w-4" />
           <div className="flex flex-col min-w-0">
             <span className="truncate">{optionDisplay}</span>
             {(hasVision || hasTools || hasFast) && (
@@ -359,7 +409,7 @@ export const CurrentChatModelSettings = ({
         groups.set(providerKey, {
           label: (
             <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-text-subtle">
-              <ProviderIcons provider={rawProvider} className="h-3 w-3" />
+              <ProviderIcons provider={providerIconKey} className="h-3 w-3" />
               <span>{providerLabel}</span>
             </div>
           ),
@@ -400,10 +450,10 @@ export const CurrentChatModelSettings = ({
   }, [composerModels, selectedModel])
 
   const providerOptions = useMemo(() => {
-    const models = (composerModels as any[]) || []
+    const models = composerModels
     const providers = new Map<string, string>()
     for (const model of models) {
-      const rawProvider = (model.details && model.details.provider) || model.provider
+      const rawProvider = model.details?.provider ?? model.provider
       if (!rawProvider) continue
       const key = String(rawProvider)
       if (!providers.has(key)) {
@@ -449,7 +499,7 @@ export const CurrentChatModelSettings = ({
             onFileRetrievalChange={setFileRetrievalEnabled}
             serverChatId={serverChatId}
             serverChatState={serverChatState}
-            onStateChange={(state) => setServerChatState(state as any)}
+            onStateChange={(state) => setServerChatState(state)}
             serverChatTopic={serverChatTopic}
             onTopicChange={setServerChatTopic}
             onVersionChange={setServerChatVersion}

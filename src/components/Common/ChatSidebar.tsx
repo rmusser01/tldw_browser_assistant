@@ -38,8 +38,6 @@ interface ChatSidebarProps {
   collapsed?: boolean
   /** Toggle collapsed state */
   onToggleCollapse?: () => void
-  /** Optional override for selected chat ID */
-  selectedChatId?: string | null
   /** Optional callback when chat is selected */
   onSelectChat?: (chatId: string) => void
   /** Optional callback for new chat action */
@@ -66,11 +64,7 @@ export function ChatSidebar({
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
 
   // Tab state persisted in UI settings
-  const [activeTab, setActiveTab] = useSetting(SIDEBAR_ACTIVE_TAB_SETTING)
-  const allowedTabs: SidebarTab[] = ["server", "folders"]
-  const defaultTab: SidebarTab = "server"
-  const currentTab =
-    activeTab && allowedTabs.includes(activeTab) ? activeTab : defaultTab
+  const [currentTab, setCurrentTab] = useSetting(SIDEBAR_ACTIVE_TAB_SETTING)
   const [shortcutsCollapsed, setShortcutsCollapsed] = useSetting(
     SIDEBAR_SHORTCUTS_COLLAPSED_SETTING
   )
@@ -89,11 +83,6 @@ export function ChatSidebar({
   // Server chat count for tab badge
   const { data: serverChatData } = useServerChatHistory(debouncedSearchQuery)
   const serverChats = serverChatData || []
-
-  React.useEffect(() => {
-    if (activeTab && allowedTabs.includes(activeTab)) return
-    void setActiveTab(defaultTab)
-  }, [activeTab, allowedTabs, defaultTab, setActiveTab])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
@@ -116,13 +105,13 @@ export function ChatSidebar({
   }
 
   // Build tab options with counts
-  const tabOptions = [
+  const tabOptions: Array<{ value: SidebarTab; label: string }> = [
     {
-      value: "server" as SidebarTab,
+      value: "server",
       label: `${t("common:chatSidebar.tabs.server", "Server")}${serverChats.length > 0 ? ` (${serverChats.length})` : ""}`
     },
     {
-      value: "folders" as SidebarTab,
+      value: "folders",
       label: `${t("common:chatSidebar.tabs.folders", "Folders")}${folderConversationCount > 0 ? ` (${folderConversationCount})` : ""}`
     }
   ]
@@ -270,11 +259,11 @@ export function ChatSidebar({
   return (
     <div
       data-testid="chat-sidebar"
-        className={cn(
-          "flex flex-col h-screen w-64 border-r border-border bg-surface2",
-          className
-        )}
-      >
+      className={cn(
+        "flex flex-col h-screen w-64 border-r border-border bg-surface2",
+        className
+      )}
+    >
       {/* Header */}
       <div className="flex items-center justify-between px-3 py-3 border-b border-border">
         <h2 className="font-semibold text-text">
@@ -320,10 +309,10 @@ export function ChatSidebar({
 
       {/* Tabs */}
       <div className="px-3 py-2 border-b border-border">
-        <Segmented
+        <Segmented<SidebarTab>
           value={currentTab}
           onChange={(value) => {
-            void setActiveTab(value as SidebarTab)
+            void setCurrentTab(value)
           }}
           options={tabOptions}
           block

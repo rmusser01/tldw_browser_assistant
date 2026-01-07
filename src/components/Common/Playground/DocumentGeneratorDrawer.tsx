@@ -87,6 +87,17 @@ type GeneratorFormAction =
   | Partial<GeneratorFormState>
   | ((prev: GeneratorFormState) => Partial<GeneratorFormState>)
 
+const INITIAL_FORM_STATE: GeneratorFormState = {
+  documentType: "summary",
+  selectedModel: "",
+  manualModel: "",
+  manualProvider: "",
+  customPrompt: "",
+  useSpecificMessage: false,
+  specificMessage: "",
+  asyncGeneration: true
+}
+
 const formatTimestamp = (value?: string) => {
   if (!value) return ""
   const date = new Date(value)
@@ -118,16 +129,7 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
       ...prev,
       ...(typeof action === "function" ? action(prev) : action)
     }),
-    {
-      documentType: "summary",
-      selectedModel: "",
-      manualModel: "",
-      manualProvider: "",
-      customPrompt: "",
-      useSpecificMessage: false,
-      specificMessage: "",
-      asyncGeneration: true
-    }
+    INITIAL_FORM_STATE
   )
   const [isGenerating, setIsGenerating] = React.useState(false)
   const [documents, setDocuments] = React.useState<GeneratedDocument[]>([])
@@ -205,20 +207,20 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
     if (modelOptions.length > 0) {
       setFormState({
         selectedModel: fallbackModel,
-        manualModel: "",
-        manualProvider: ""
+        manualModel: INITIAL_FORM_STATE.manualModel,
+        manualProvider: INITIAL_FORM_STATE.manualProvider
       })
     } else {
       setFormState({
-        selectedModel: "",
-        manualModel: defaultModel || "",
-        manualProvider: ""
+        selectedModel: INITIAL_FORM_STATE.selectedModel,
+        manualModel: defaultModel || INITIAL_FORM_STATE.manualModel,
+        manualProvider: INITIAL_FORM_STATE.manualProvider
       })
     }
     setFormState({
-      customPrompt: "",
+      customPrompt: INITIAL_FORM_STATE.customPrompt,
       useSpecificMessage: Boolean(seedMessage),
-      specificMessage: seedMessage || ""
+      specificMessage: seedMessage || INITIAL_FORM_STATE.specificMessage
     })
   }, [defaultModel, modelMeta, modelOptions, seedMessage])
 
@@ -331,7 +333,8 @@ export const DocumentGeneratorDrawer: React.FC<DocumentGeneratorDrawerProps> = (
               ...job,
               ...(res || {})
             }
-          } catch {
+          } catch (err) {
+            console.debug(`Failed to refresh job ${job.job_id}:`, err)
             return job
           }
         })

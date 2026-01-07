@@ -42,8 +42,9 @@ export const generateID = () => {
 export const saveHistory = async (
   title: string,
   is_rag?: boolean,
-  message_source?: "copilot" | "web-ui" | "branch",
-  doc_id?: string
+  message_source?: "copilot" | "web-ui" | "branch" | "server",
+  doc_id?: string,
+  server_chat_id?: string
 ) => {
   const id = generateID()
   const createdAt = Date.now()
@@ -53,16 +54,30 @@ export const saveHistory = async (
     createdAt,
     is_rag: is_rag || false,
     message_source,
-    doc_id
+    doc_id,
+    server_chat_id
   }
   const db = new PageAssistDatabase()
   await db.addChatHistory(history)
   return history
 }
+
+export const getHistoryByServerChatId = async (serverChatId: string) => {
+  const db = new PageAssistDatabase()
+  return await db.getHistoryByServerChatId(serverChatId)
+}
 export const updateChatHistoryCreatedAt = async (history_id: string) => {
   const createdAt = Date.now()
   const db = new PageAssistDatabase()
   await db.updateChatHistoryCreatedAt(history_id, createdAt)
+}
+
+export const setHistoryServerChatId = async (
+  historyId: string,
+  serverChatId: string
+) => {
+  const db = new PageAssistDatabase()
+  await db.setHistoryServerChatId(historyId, serverChatId)
 }
 
 export const updateMessage = async (
@@ -91,7 +106,8 @@ export const saveMessage = async ({
   parent_message_id,
   reasoning_time_taken,
   time,
-  documents
+  documents,
+  createdAt: createdAtOverride
 }: {
   id?: string
   history_id: string
@@ -110,10 +126,14 @@ export const saveMessage = async ({
   modelImage?: string
   parent_message_id?: string | null
   documents?: ChatDocuments
+  createdAt?: number
 }) => {
   const messageId = id ?? generateID()
-  let createdAt = Date.now()
-  if (time) {
+  let createdAt =
+    typeof createdAtOverride === "number"
+      ? createdAtOverride
+      : Date.now()
+  if (typeof createdAtOverride !== "number" && time) {
     createdAt += time
   }
   const message: Message = {

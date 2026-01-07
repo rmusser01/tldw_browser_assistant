@@ -1152,76 +1152,76 @@
     "message": "ടോക്കൺ: {{count}}"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "ഇത് സഹായകരമായിരുന്നോ?"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "സഹായകരം"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "സഹായകരമല്ല"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "കൂടുതൽ പ്രതികരണം"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "പ്രതികരണത്തിന് നന്ദി"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "മറുപടി പൂർത്തിയായ ശേഷം മാത്രമേ പ്രതികരണം ലഭ്യമാകൂ."
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "ഈ സന്ദേശത്തിന് പ്രതികരണം ലഭ്യമല്ല."
   },
   "feedback_modalTitle": {
-    "message": "Feedback"
+    "message": "പ്രതികരണം"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "ഈ മറുപടിയെ നിങ്ങൾ എങ്ങനെ വിലയിരുത്തും?"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "എന്താണ് പ്രശ്നം? (പ്രയോഗിക്കുന്ന എല്ലാം തിരഞ്ഞെടുക്കുക)"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "കൂടുതൽ അഭിപ്രായങ്ങൾ (ഐച്ഛികം)"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "പ്രതികരണം സമർപ്പിക്കുക"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "പ്രതികരണം പരാജയപ്പെട്ടു"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "പ്രതികരണം സമർപ്പിക്കാൻ കഴിഞ്ഞില്ല."
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "സ്രോതസ് പ്രതികരണം സമർപ്പിക്കാൻ കഴിഞ്ഞില്ല."
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "തെറ്റായ വിവരം"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "എന്റെ ചോദ്യവുമായി ബന്ധപ്പെട്ടിട്ടില്ല"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "പ്രധാന വിവരങ്ങൾ കാണാതിരിക്കുന്നു"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "സ്രോതസുകൾ സഹായകരമായിരുന്നില്ല"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "വളരെ നീളമുള്ളത്"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "വളരെ ചുരുങ്ങിയത്"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "മറ്റുള്ളവ"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "സഹായകരമായ സ്രോതസ്"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "സഹായകരമല്ലാത്ത സ്രോതസ്"
   },
   "actor_uploadedFiles": {
     "message": "Uploaded Files ({{count}})"
@@ -1234,5 +1234,134 @@
   },
   "actor_fileStatusProcessing": {
     "message": "Processing..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
   }
 }

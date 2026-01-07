@@ -282,9 +282,9 @@ export function useDueCountsQuery(deckId?: number | null, options?: UseFlashcard
     queryKey: ["flashcards:due-counts", deckId],
     queryFn: async () => {
       const [due, newCards, learning] = await Promise.all([
-        listFlashcards({ deck_id: deckId ?? undefined, due_status: "due", limit: 1, offset: 0 }),
-        listFlashcards({ deck_id: deckId ?? undefined, due_status: "new", limit: 1, offset: 0 }),
-        listFlashcards({ deck_id: deckId ?? undefined, due_status: "learning", limit: 1, offset: 0 })
+        listFlashcards({ deck_id: deckId ?? undefined, due_status: "due", limit: 0, offset: 0 }),
+        listFlashcards({ deck_id: deckId ?? undefined, due_status: "new", limit: 0, offset: 0 }),
+        listFlashcards({ deck_id: deckId ?? undefined, due_status: "learning", limit: 0, offset: 0 })
       ])
       return {
         due: due.count,
@@ -306,7 +306,7 @@ export function useHasCardsQuery(options?: UseFlashcardQueriesOptions) {
   return useQuery({
     queryKey: ["flashcards:has-cards"],
     queryFn: async () => {
-      const res = await listFlashcards({ limit: 1, offset: 0 })
+      const res = await listFlashcards({ limit: 0, offset: 0 })
       return res.count > 0
     },
     enabled: options?.enabled ?? flashcardsEnabled

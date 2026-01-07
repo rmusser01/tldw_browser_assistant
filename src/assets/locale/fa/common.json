@@ -4,6 +4,8 @@
     "options": "تنظیمات دستیار tldw",
     "sidepanel": "پنل کناری دستیار tldw"
   },
+  "dismiss": "بستن",
+  "confirmTitle": "لطفاً تأیید کنید",
   "pdf": {
     "passwordTitle": "رمز عبور PDF را وارد کنید",
     "unlock": "باز کردن"
@@ -14,10 +16,17 @@
     "content": "در حال بارگذاری محتوا…"
   },
   "selectAModel": "یک مدل انتخاب کنید",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "ذخیره",
   "saved": "ذخیره شد",
   "cancel": "لغو",
+  "saving": "در حال ذخیره...",
   "retry": "تلاش مجدد",
+  "close": "بستن",
+  "loadMore": "نمایش موارد بیشتر...",
   "share": {
     "tooltip": {
       "share": "اشتراک گذاری"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "کپی به کلیپ بورد",
+  "table": {
+    "copyCsv": "کپی به‌صورت CSV",
+    "downloadCsv": "دانلود CSV"
+  },
   "webSearch": "جستجوی وب",
   "regenerate": "ایجاد مجدد",
-  "continue": "ادامه پاسخ",
   "edit": "ویرایش",
+  "generate": "Generate",
+  "view": "View",
   "delete": "حذف",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "ادامه پاسخ",
   "saveAndSubmit": "ذخیره و ارسال",
   "editMessage": {
     "placeholder": "یک پیام وارد کنید..."
   },
   "submit": "ارسال",
   "send": "ارسال",
+  "startChat": "شروع گپ",
   "connectToServer": "اتصال به سرور",
+  "previous": "قبلی",
+  "next": "بعدی",
   "noData": "اطلاعاتی وجود ندارد",
   "noHistory": "تاریخچه گپ وجود ندارد",
   "chatWithCurrentPage": "گپ زدن با این صفحه",
+  "chatWithCharacter": "گپ با شخصیت",
   "beta": "بتا",
   "tts": "بلند بخوان",
+  "ttsShort": "صدا",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "کپی",
+  "branchShort": "شاخه",
+  "infoShort": "اطلاعات",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "تکرار",
+  "continueShort": "بیشتر",
+  "fileChanges": "تغییرات فایل",
+  "deletions": "حذف‌ها",
+  "gitOperations": "عملیات Git",
+  "commands": "دستورها",
+  "otherOperations": "سایر عملیات",
+  "fileAccess": "دسترسی به فایل‌ها",
+  "notebookEdits": "ویرایش‌های دفترچه یادداشت",
+  "applyPatch": "اعمال وصله",
+  "recursive": "(بازگشتی)",
+  "complexArguments": "[آرگومان‌های پیچیده]",
   "currentChatModelSettings": "تنظیمات مدل گپ فعلی",
   "modelSettings": {
     "label": "تنظیمات مدل",
@@ -90,6 +150,9 @@
         "label": "حداکثر توکن‌ها (num_predict)",
         "placeholder": "مقدار حداکثر توکن‌ها را وارد کنید (مثلا 2048، 4096)"
       },
+      "thinking": {
+        "label": "حالت فکر کردن"
+      },
       "seed": {
         "label": "Seed (بذر تصادفی)",
         "placeholder": "مقدار Seed را وارد کنید (مثلاً 1234)",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Top P (بالاترین P)",
         "placeholder": "مقدار Top P را وارد کنید (مثلاً 0.9, 0.95)"
-      },
-      "numGpu": {
-        "label": "Num GPU (تعداد GPU)",
-        "placeholder": "تعداد لایه‌هایی که به GPU(ها) ارسال می‌شود را وارد کنید"
-      },
-      "systemPrompt": {
-        "label": "پرامپت سیستم موقت",
-        "placeholder": "پرامپت سیستم را وارد کنید",
-        "help": "این یک روش سریع برای تنظیم پرامپت سیستم در گفتگوی فعلی است که در صورت وجود، پرامپت سیستم انتخاب شده را لغو خواهد کرد."
-      },
-      "thinking": {
-        "label": "حالت فکر کردن"
       },
       "useMMap": {
         "label": "useMmap (نگاشت در حافظه)"
@@ -148,12 +199,95 @@
       "repeatLastN": {
         "label": "تکرار آخرین N",
         "placeholder": "مثلاً 64، 128"
+      },
+      "numGpu": {
+        "label": "Num GPU (تعداد GPU)",
+        "placeholder": "تعداد لایه‌هایی که به GPU(ها) ارسال می‌شود را وارد کنید"
+      },
+      "systemPrompt": {
+        "label": "پرامپت سیستم موقت",
+        "placeholder": "پرامپت سیستم را وارد کنید",
+        "help": "این یک روش سریع برای تنظیم پرامپت سیستم در گفتگوی فعلی است که در صورت وجود، پرامپت سیستم انتخاب شده را لغو خواهد کرد."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "تنظیمات بیشتر مدل"
+    "advanced": "تنظیمات بیشتر مدل",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
+  },
+  "copilot": {
+    "summary": "خلاصه کردن",
+    "explain": "توضیح دادن",
+    "rephrase": "بازنویسی",
+    "translate": "ترجمه",
+    "custom": "سفارشی"
   },
   "citations": "ارجاعات",
+  "segmented": {
+    "available": "مدل‌های سرور",
+    "custom": "مدل‌های سفارشی"
+  },
   "downloadCode": "دانلود کد",
+  "success": "موفقیت‌آمیز",
+  "created": "ایجاد شد",
+  "updated": "به‌روزرسانی شد",
+  "deleted": "حذف شد",
+  "create": "ایجاد",
+  "reset": "بازنشانی",
+  "serverOffline": "سرور آفلاین است یا پیکربندی نشده است",
+  "serverChats": "گپ‌های سرور",
+  "serverChatLoadError": "بارگذاری گپ سرور ناموفق بود. اتصال خود را بررسی کرده و دوباره تلاش کنید.",
+  "serverChatSourceLabel": "سرور",
+  "serverChatForkedLabel": "گفتگوی منشعب",
+  "serverChatForkedTooltip": "منشعب از گفتگوی {{chatId}}",
+  "serverChatsUnavailableNotConnected": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود.",
+  "serverChatsUnavailableServerError": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید.",
   "date": {
     "pinned": "پین شده",
     "today": "امروز",
@@ -177,6 +311,8 @@
       "older": "حذف تمام پیام‌های قدیمی‌تر"
     }
   },
+  "historiesDeleted": "{{count}} تاریخچه حذف شد",
+  "deleteHistoriesError": "خطا در حذف تاریخچه‌ها",
   "pin": "پین کردن",
   "unpin": "حذف پین",
   "generationInfo": "اطلاعات تولید",
@@ -186,73 +322,17 @@
     "loading": "در حال بارگذاری استدلال....",
     "thought": "فکر کردن برای {{time}}"
   },
+  "mermaid": "نمودارهای Mermaid",
+  "search": "جستجو",
+  "searchResults": "نتایج جستجو",
   "embeddingGen": "در حال ایجاد تمثیلات، این ممکن است چند لحظه طول بکشد",
   "semanticSearch": "در حال جستجوی معنایی",
+  "newBranch": "شاخه جدید",
   "downloading": "در حال دانلود",
   "cancelPullingModel": {
     "confirm": "آیا مطمئن هستید که می‌خواهید دانلود را لغو کنید؟ این کار فرآیند دانلود را متوقف می‌کند. طبق مستندات Ollama، می‌توانید دانلود را از همان جایی که متوقف شده ادامه دهید."
   },
-  "table": {
-    "copyCsv": "کپی به‌صورت CSV",
-    "downloadCsv": "دانلود CSV"
-  },
-  "dismiss": "بستن",
   "privateModeSaveErrorTitle": "tldw Assistant نمی‌تواند داده‌ها را ذخیره کند",
-  "confirmTitle": "لطفاً تأیید کنید",
-  "saving": "در حال ذخیره...",
-  "close": "بستن",
-  "loadMore": "نمایش موارد بیشتر...",
-  "startChat": "شروع گپ",
-  "previous": "قبلی",
-  "next": "بعدی",
-  "chatWithCharacter": "گپ با شخصیت",
-  "ttsShort": "صدا",
-  "copyShort": "کپی",
-  "branchShort": "شاخه",
-  "infoShort": "اطلاعات",
-  "regenShort": "تکرار",
-  "continueShort": "بیشتر",
-  "fileChanges": "تغییرات فایل",
-  "deletions": "حذف‌ها",
-  "gitOperations": "عملیات Git",
-  "commands": "دستورها",
-  "otherOperations": "سایر عملیات",
-  "fileAccess": "دسترسی به فایل‌ها",
-  "notebookEdits": "ویرایش‌های دفترچه یادداشت",
-  "applyPatch": "اعمال وصله",
-  "recursive": "(بازگشتی)",
-  "complexArguments": "[آرگومان‌های پیچیده]",
-  "copilot": {
-    "summary": "خلاصه کردن",
-    "explain": "توضیح دادن",
-    "rephrase": "بازنویسی",
-    "translate": "ترجمه",
-    "custom": "سفارشی"
-  },
-  "segmented": {
-    "available": "مدل‌های سرور",
-    "custom": "مدل‌های سفارشی"
-  },
-  "success": "موفقیت‌آمیز",
-  "created": "ایجاد شد",
-  "updated": "به‌روزرسانی شد",
-  "deleted": "حذف شد",
-  "create": "ایجاد",
-  "reset": "بازنشانی",
-  "serverOffline": "سرور آفلاین است یا پیکربندی نشده است",
-  "serverChats": "گپ‌های سرور",
-  "serverChatLoadError": "بارگذاری گپ سرور ناموفق بود. اتصال خود را بررسی کرده و دوباره تلاش کنید.",
-  "serverChatSourceLabel": "سرور",
-  "serverChatForkedLabel": "گفتگوی منشعب",
-  "serverChatForkedTooltip": "منشعب از گفتگوی {{chatId}}",
-  "serverChatsUnavailableNotConnected": "پس از اتصال به سرور tldw خود، گپ‌های سرور در دسترس خواهند بود.",
-  "serverChatsUnavailableServerError": "گپ‌های سرور در حال حاضر در دسترس نیستند. لاگ‌های سرور را بررسی کنید یا دوباره تلاش کنید.",
-  "historiesDeleted": "{{count}} تاریخچه حذف شد",
-  "deleteHistoriesError": "خطا در حذف تاریخچه‌ها",
-  "mermaid": "نمودارهای Mermaid",
-  "search": "جستجو",
-  "searchResults": "نتایج جستجو",
-  "newBranch": "شاخه جدید",
   "error": {
     "label": "خطا",
     "friendlyApiKeySummary": "نتوانستیم به سرور tldw شما متصل شویم.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "در برقراری ارتباط با سرور tldw شما مشکلی پیش آمد.",
     "friendlyGenericHint": "بعداً دوباره تلاش کنید یا سلامت و عیب‌یابی را برای بررسی وضعیت سرور باز کنید.",
     "showDetails": "نمایش جزئیات فنی",
-    "hideDetails": "پنهان کردن جزئیات فنی"
+    "hideDetails": "پنهان کردن جزئیات فنی",
+    "createFolder": "Failed to create folder"
   },
   "folders": "پوشه‌ها",
   "folderView": "نمای پوشه",
@@ -277,7 +358,32 @@
   "confirm": "تأیید",
   "untitled": "بدون عنوان",
   "moveToFolder": "انتقال به پوشه",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "هنوز هیچ فراخوانی ابزاری انجام نشده است",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "انتظار",
     "running": "در حال پردازش",

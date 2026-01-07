@@ -31,9 +31,13 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
     const groups = new Map<string, any[]>()
     const localProviders = new Set(["lmstudio", "llamafile", "ollama", "ollama2", "llamacpp", "vllm", "custom"]) // group as "custom"
     for (const d of data || []) {
-      const providerRaw = (d.provider || "other").toLowerCase()
+      const normalizedProvider =
+        typeof d.provider === "string" && d.provider.trim()
+          ? d.provider
+          : "other"
+      const providerRaw = normalizedProvider.toLowerCase()
       const groupKey = providerRaw === 'chrome' ? 'default' : (localProviders.has(providerRaw) ? 'custom' : providerRaw)
-      const providerLabel = getProviderDisplayName(d.provider)
+      const providerLabel = getProviderDisplayName(normalizedProvider)
       const modelLabel = d.nickname || d.model
       const details: any = d.details || {}
       const caps: string[] = Array.isArray(details.capabilities)
@@ -49,7 +53,7 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
             {d.avatar ? (
               <Avatar src={d.avatar} alt={d.name} size="small" />
             ) : (
-              <ProviderIcons provider={d?.provider} className="h-4 w-4 text-text-subtle" />
+              <ProviderIcons provider={normalizedProvider} className="h-4 w-4 text-text-subtle" />
             )}
           </div>
           <div className="flex flex-col min-w-0">

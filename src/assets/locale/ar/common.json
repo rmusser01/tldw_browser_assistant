@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "تجاهل",
+  "confirmTitle": "يرجى التأكيد",
   "pdf": {
     "passwordTitle": "أدخل كلمة مرور ملف PDF",
     "unlock": "فتح القفل"
@@ -14,10 +16,17 @@
     "content": "جاري تحميل المحتوى…"
   },
   "selectAModel": "اختر نموذجًا",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "حفظ",
   "saved": "تم الحفظ",
   "cancel": "إلغاء",
+  "saving": "جاري الحفظ...",
   "retry": "إعادة المحاولة",
+  "close": "إغلاق",
+  "loadMore": "تحميل المزيد...",
   "share": {
     "tooltip": {
       "share": "مشاركة"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "نسخ إلى الحافظة",
+  "table": {
+    "copyCsv": "نسخ كملف CSV",
+    "downloadCsv": "تنزيل CSV"
+  },
   "webSearch": "البحث في الويب",
   "regenerate": "إعادة التوليد",
-  "continue": "متابعة الرد",
   "edit": "تعديل",
+  "generate": "Generate",
+  "view": "View",
   "delete": "حذف",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "متابعة الرد",
   "saveAndSubmit": "حفظ وإرسال",
   "editMessage": {
     "placeholder": "اكتب رسالة..."
   },
   "submit": "إرسال",
   "send": "إرسال",
+  "startChat": "بدء المحادثة",
   "connectToServer": "الاتصال بالخادم",
+  "previous": "السابق",
+  "next": "التالي",
   "noData": "لا توجد بيانات",
   "noHistory": "لا يوجد سجل محادثات",
   "chatWithCurrentPage": "الدردشة مع الصفحة الحالية",
+  "chatWithCharacter": "الدردشة مع شخصية",
   "beta": "تجريبي",
   "tts": "قراءة بصوت عالٍ",
+  "ttsShort": "صوت",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "نسخ",
+  "branchShort": "فرع",
+  "infoShort": "معلومات",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "إعادة",
+  "continueShort": "المزيد",
+  "fileChanges": "تغييرات الملفات",
+  "deletions": "عمليات الحذف",
+  "gitOperations": "عمليات Git",
+  "commands": "الأوامر",
+  "otherOperations": "عمليات أخرى",
+  "fileAccess": "الوصول إلى الملفات",
+  "notebookEdits": "تعديلات دفتر الملاحظات",
+  "applyPatch": "تطبيق التصحيح",
+  "recursive": "(تكراري)",
+  "complexArguments": "[معاملات معقدة]",
   "currentChatModelSettings": "إعدادات نموذج المحادثة الحالي",
   "modelSettings": {
     "label": "إعدادات النموذج",
@@ -90,6 +150,9 @@
         "label": "الحد الأقصى للرموز",
         "placeholder": "أدخل قيمة الحد الأقصى للرموز (مثال: 2048، 4096)"
       },
+      "thinking": {
+        "label": "وضع التفكير"
+      },
       "seed": {
         "label": "البذرة",
         "placeholder": "أدخل قيمة البذرة (مثال: 1234)",
@@ -105,18 +168,6 @@
       },
       "useMMap": {
         "label": "استخدام MMap"
-      },
-      "numGpu": {
-        "label": "عدد وحدات معالجة الرسومات",
-        "placeholder": "أدخل عدد الطبقات لإرسالها إلى وحدة/وحدات معالجة الرسومات"
-      },
-      "systemPrompt": {
-        "label": "موجه النظام المؤقت",
-        "placeholder": "أدخل موجه النظام",
-        "help": "هذه طريقة سريعة لتعيين موجه النظام في المحادثة الحالية، والذي سيتجاوز موجه النظام المحدد إذا كان موجوداً."
-      },
-      "thinking": {
-        "label": "وضع التفكير"
       },
       "tfsZ": {
         "label": "TFS-Z (معامل TFS)",
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "تكرار آخر N",
         "placeholder": "مثال: 64، 128"
+      },
+      "numGpu": {
+        "label": "عدد وحدات معالجة الرسومات",
+        "placeholder": "أدخل عدد الطبقات لإرسالها إلى وحدة/وحدات معالجة الرسومات"
+      },
+      "systemPrompt": {
+        "label": "موجه النظام المؤقت",
+        "placeholder": "أدخل موجه النظام",
+        "help": "هذه طريقة سريعة لتعيين موجه النظام في المحادثة الحالية، والذي سيتجاوز موجه النظام المحدد إذا كان موجوداً."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "المزيد من إعدادات النموذج"
+    "advanced": "المزيد من إعدادات النموذج",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "تلخيص",
@@ -165,6 +274,20 @@
     "custom": "نماذج مخصصة"
   },
   "downloadCode": "تنزيل الكود",
+  "success": "تم بنجاح",
+  "created": "تم الإنشاء",
+  "updated": "تم التحديث",
+  "deleted": "تم الحذف",
+  "create": "إنشاء",
+  "reset": "إعادة تعيين",
+  "serverOffline": "الخادم غير متصل أو غير مُعد",
+  "serverChats": "محادثات الخادم",
+  "serverChatLoadError": "فشل تحميل محادثة الخادم. تحقق من الاتصال وحاول مرة أخرى.",
+  "serverChatSourceLabel": "الخادم",
+  "serverChatForkedLabel": "محادثة متفرعة",
+  "serverChatForkedTooltip": "متفرعة من المحادثة {{chatId}}",
+  "serverChatsUnavailableNotConnected": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك.",
+  "serverChatsUnavailableServerError": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى.",
   "date": {
     "pinned": "مثبت",
     "today": "اليوم",
@@ -188,6 +311,8 @@
       "older": "حذف جميع الرسائل القديمة"
     }
   },
+  "historiesDeleted": "تم حذف {{count}} من السجلات",
+  "deleteHistoriesError": "حدث خطأ أثناء حذف السجلات",
   "pin": "تثبيت",
   "unpin": "إلغاء التثبيت",
   "generationInfo": "معلومات التوليد",
@@ -197,62 +322,17 @@
     "loading": "جاري تحميل الاستدلال....",
     "thought": "فكر لمدة {{time}}"
   },
+  "mermaid": "Mermaid (مخططات)",
+  "search": "بحث",
+  "searchResults": "نتائج البحث",
   "embeddingGen": "إنشاء تمثيلات، قد يستغرق هذا وقتًا",
   "semanticSearch": "جاري البحث الدلالي",
+  "newBranch": "فرع جديد",
   "downloading": "جاري التنزيل",
   "cancelPullingModel": {
     "confirm": "هل أنت متأكد أنك تريد إلغاء التنزيل؟ سيؤدي ذلك إلى إيقاف عملية التنزيل. وفقًا لتوثيق Ollama، يمكنك المتابعة من حيث توقفت."
   },
-  "table": {
-    "copyCsv": "نسخ كملف CSV",
-    "downloadCsv": "تنزيل CSV"
-  },
-  "dismiss": "تجاهل",
   "privateModeSaveErrorTitle": "يتعذر على tldw Assistant حفظ البيانات",
-  "confirmTitle": "يرجى التأكيد",
-  "saving": "جاري الحفظ...",
-  "close": "إغلاق",
-  "loadMore": "تحميل المزيد...",
-  "startChat": "بدء المحادثة",
-  "previous": "السابق",
-  "next": "التالي",
-  "chatWithCharacter": "الدردشة مع شخصية",
-  "ttsShort": "صوت",
-  "copyShort": "نسخ",
-  "branchShort": "فرع",
-  "infoShort": "معلومات",
-  "regenShort": "إعادة",
-  "continueShort": "المزيد",
-  "fileChanges": "تغييرات الملفات",
-  "deletions": "عمليات الحذف",
-  "gitOperations": "عمليات Git",
-  "commands": "الأوامر",
-  "otherOperations": "عمليات أخرى",
-  "fileAccess": "الوصول إلى الملفات",
-  "notebookEdits": "تعديلات دفتر الملاحظات",
-  "applyPatch": "تطبيق التصحيح",
-  "recursive": "(تكراري)",
-  "complexArguments": "[معاملات معقدة]",
-  "success": "تم بنجاح",
-  "created": "تم الإنشاء",
-  "updated": "تم التحديث",
-  "deleted": "تم الحذف",
-  "create": "إنشاء",
-  "reset": "إعادة تعيين",
-  "serverOffline": "الخادم غير متصل أو غير مُعد",
-  "serverChats": "محادثات الخادم",
-  "serverChatLoadError": "فشل تحميل محادثة الخادم. تحقق من الاتصال وحاول مرة أخرى.",
-  "serverChatSourceLabel": "الخادم",
-  "serverChatForkedLabel": "محادثة متفرعة",
-  "serverChatForkedTooltip": "متفرعة من المحادثة {{chatId}}",
-  "serverChatsUnavailableNotConnected": "تتوفّر محادثات الخادم عند الاتصال بخادم tldw الخاص بك.",
-  "serverChatsUnavailableServerError": "محادثات الخادم غير متاحة حالياً. تحقّق من سجلات الخادم أو حاول مرة أخرى.",
-  "historiesDeleted": "تم حذف {{count}} من السجلات",
-  "deleteHistoriesError": "حدث خطأ أثناء حذف السجلات",
-  "mermaid": "Mermaid (مخططات)",
-  "search": "بحث",
-  "searchResults": "نتائج البحث",
-  "newBranch": "فرع جديد",
   "error": {
     "label": "خطأ",
     "friendlyApiKeySummary": "تعذّر الوصول إلى خادم tldw الخاص بك.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "حدث خطأ أثناء التواصل مع خادم tldw الخاص بك.",
     "friendlyGenericHint": "حاول مرة أخرى بعد قليل أو افتح الصحة والتشخيص لعرض حالة الخادم.",
     "showDetails": "إظهار التفاصيل التقنية",
-    "hideDetails": "إخفاء التفاصيل التقنية"
+    "hideDetails": "إخفاء التفاصيل التقنية",
+    "createFolder": "Failed to create folder"
   },
   "folders": "المجلدات",
   "folderView": "عرض المجلدات",
@@ -277,7 +358,32 @@
   "confirm": "تأكيد",
   "untitled": "بدون عنوان",
   "moveToFolder": "نقل إلى المجلد",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "لا توجد استدعاءات أدوات بعد",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "قيد الانتظار",
     "running": "قيد المعالجة",

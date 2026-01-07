@@ -1,10 +1,12 @@
-import React from "react"
+import React, { useState } from "react"
 import { Globe, X } from "lucide-react"
+import { useTranslation } from "react-i18next"
+import { translateMessage } from "@/i18n/translateMessage"
 import { IconButton } from "@/components/Common/IconButton"
 
 export type DocumentChipVariant = "link" | "compact"
 
-export type DocumentChipDocument = {
+export interface DocumentChipDocument {
   id?: number
   title: string
   url?: string
@@ -24,14 +26,18 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({
   document,
   variant = "link",
   onRemove,
-  removeLabel = "Remove",
+  removeLabel,
   showUrl = true,
   className
 }) => {
+  const { t } = useTranslation("option")
+  const [imgError, setImgError] = useState(false)
   const isCompact = variant === "compact"
   const canRemove =
     typeof onRemove === "function" && typeof document.id === "number"
   const showLink = !isCompact && !canRemove && Boolean(document.url)
+  const resolvedRemoveLabel =
+    removeLabel ?? translateMessage(t, "option:remove", "Remove")
   const Container: React.ElementType = showLink ? "a" : "div"
   const containerClasses = [
     isCompact
@@ -55,23 +61,16 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({
       className={containerClasses}>
       <div className="flex items-center gap-2 flex-1 min-w-0">
         <div className="flex-shrink-0">
-          {document.favIconUrl ? (
+          {document.favIconUrl && !imgError ? (
             <img
               src={document.favIconUrl}
               alt=""
               className={`${iconSizeClass} rounded`}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement
-                target.style.display = "none"
-                target.nextElementSibling?.classList.remove("hidden")
-              }}
+              onError={() => setImgError(true)}
             />
-          ) : null}
-          <Globe
-            className={`${iconSizeClass} ${iconColorClass} ${
-              document.favIconUrl ? "hidden" : ""
-            }`}
-          />
+          ) : (
+            <Globe className={`${iconSizeClass} ${iconColorClass}`} />
+          )}
         </div>
         <div className={isCompact ? "max-w-56 truncate" : "flex flex-col max-w-60 truncate"}>
           <span className={titleClass}>{document.title}</span>
@@ -83,7 +82,7 @@ export const DocumentChip: React.FC<DocumentChipProps> = ({
 
       {canRemove && (
         <IconButton
-          ariaLabel={removeLabel}
+          ariaLabel={resolvedRemoveLabel}
           onClick={() => onRemove(document.id as number)}
           className="flex-shrink-0 text-text-subtle hover:text-text transition-colors h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0"
           type="button">

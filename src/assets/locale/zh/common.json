@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "关闭",
+  "confirmTitle": "请确认",
   "pdf": {
     "passwordTitle": "输入 PDF 密码",
     "unlock": "解锁"
@@ -14,10 +16,17 @@
     "content": "正在加载内容…"
   },
   "selectAModel": "选择一个模型",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "保存",
   "saved": "已保存",
   "cancel": "取消",
+  "saving": "正在保存...",
   "retry": "重试",
+  "close": "关闭",
+  "loadMore": "加载更多...",
   "share": {
     "tooltip": {
       "share": "分享"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "复制到剪贴板",
+  "table": {
+    "copyCsv": "复制为 CSV",
+    "downloadCsv": "下载 CSV"
+  },
   "webSearch": "搜索网络",
   "regenerate": "重新生成",
-  "continue": "继续回答",
   "edit": "编辑",
+  "generate": "Generate",
+  "view": "View",
   "delete": "删除",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "继续回答",
   "saveAndSubmit": "保存 & 提交",
   "editMessage": {
     "placeholder": "输入一条消息..."
   },
   "submit": "提交",
   "send": "提交",
+  "startChat": "开始聊天",
   "connectToServer": "连接到服务器",
+  "previous": "上一页",
+  "next": "下一页",
   "noData": "无数据",
   "noHistory": "无聊天记录",
   "chatWithCurrentPage": "与当前页面聊天",
+  "chatWithCharacter": "与角色聊天",
   "beta": "测试版",
   "tts": "朗读",
+  "ttsShort": "语音",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "复制",
+  "branchShort": "分支",
+  "infoShort": "信息",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "重试",
+  "continueShort": "更多",
+  "fileChanges": "文件更改",
+  "deletions": "删除操作",
+  "gitOperations": "Git 操作",
+  "commands": "命令",
+  "otherOperations": "其他操作",
+  "fileAccess": "文件访问",
+  "notebookEdits": "笔记本编辑",
+  "applyPatch": "应用补丁",
+  "recursive": "(递归)",
+  "complexArguments": "[复杂参数]",
   "currentChatModelSettings": "当前聊天模型设置",
   "modelSettings": {
     "label": "模型设置",
@@ -89,6 +149,9 @@
       "numPredict": {
         "label": "最大令牌数 (num_predict)",
         "placeholder": "输入最大令牌数（例如：2048、4096）"
+      },
+      "thinking": {
+        "label": "思考模式"
       },
       "seed": {
         "label": "随机种子",
@@ -121,6 +184,10 @@
       "useMlock": {
         "label": "useMlock（锁定内存）"
       },
+      "reasoningEffort": {
+        "label": "推理强度",
+        "placeholder": "低、中、高"
+      },
       "minP": {
         "label": "Min P（最小 P）",
         "placeholder": "例如：0.05"
@@ -142,15 +209,57 @@
         "placeholder": "输入系统提示",
         "help": "这是一种在当前聊天中快速设置系统提示的方法，如果存在已选择的系统提示，它将覆盖该提示。"
       },
-      "thinking": {
-        "label": "思考模式"
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
       },
-      "reasoningEffort": {
-        "label": "推理强度",
-        "placeholder": "低、中、高"
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "更多模型设置"
+    "advanced": "更多模型设置",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "总结",
@@ -165,6 +274,20 @@
     "custom": "自定义模型"
   },
   "downloadCode": "下载代码",
+  "success": "成功",
+  "created": "已创建",
+  "updated": "已更新",
+  "deleted": "已删除",
+  "create": "创建",
+  "reset": "重置",
+  "serverOffline": "服务器离线或未配置",
+  "serverChats": "服务器聊天",
+  "serverChatLoadError": "无法加载服务器聊天。请检查连接后重试。",
+  "serverChatSourceLabel": "服务器来源",
+  "serverChatForkedLabel": "分叉聊天",
+  "serverChatForkedTooltip": "从聊天 {{chatId}} 分叉",
+  "serverChatsUnavailableNotConnected": "连接到 tldw 服务器后即可使用服务器聊天。",
+  "serverChatsUnavailableServerError": "当前无法使用服务器聊天。请检查服务器日志或稍后再试。",
   "date": {
     "pinned": "已置顶",
     "today": "今天",
@@ -188,6 +311,8 @@
       "older": "删除所有更早的消息"
     }
   },
+  "historiesDeleted": "{{count}} 条历史记录已删除",
+  "deleteHistoriesError": "删除历史记录时出错",
   "pin": "置顶",
   "unpin": "取消置顶",
   "generationInfo": "生成信息",
@@ -198,61 +323,16 @@
     "thought": "思考了 {{time}}"
   },
   "mermaid": "Mermaid 图表",
+  "search": "搜索",
+  "searchResults": "搜索结果",
   "embeddingGen": "正在创建嵌入向量，这可能需要一些时间",
   "semanticSearch": "正在执行语义搜索",
+  "newBranch": "新分支",
   "downloading": "正在下载",
   "cancelPullingModel": {
     "confirm": "确定要取消下载吗？这将停止下载过程。根据 Ollama 文档，您可以从中断处重新开始下载。"
   },
-  "table": {
-    "copyCsv": "复制为 CSV",
-    "downloadCsv": "下载 CSV"
-  },
-  "dismiss": "关闭",
   "privateModeSaveErrorTitle": "tldw Assistant 无法保存数据",
-  "confirmTitle": "请确认",
-  "saving": "正在保存...",
-  "close": "关闭",
-  "loadMore": "加载更多...",
-  "startChat": "开始聊天",
-  "previous": "上一页",
-  "next": "下一页",
-  "chatWithCharacter": "与角色聊天",
-  "ttsShort": "语音",
-  "copyShort": "复制",
-  "branchShort": "分支",
-  "infoShort": "信息",
-  "regenShort": "重试",
-  "continueShort": "更多",
-  "fileChanges": "文件更改",
-  "deletions": "删除操作",
-  "gitOperations": "Git 操作",
-  "commands": "命令",
-  "otherOperations": "其他操作",
-  "fileAccess": "文件访问",
-  "notebookEdits": "笔记本编辑",
-  "applyPatch": "应用补丁",
-  "recursive": "(递归)",
-  "complexArguments": "[复杂参数]",
-  "success": "成功",
-  "created": "已创建",
-  "updated": "已更新",
-  "deleted": "已删除",
-  "create": "创建",
-  "reset": "重置",
-  "serverOffline": "服务器离线或未配置",
-  "serverChats": "服务器聊天",
-  "serverChatLoadError": "无法加载服务器聊天。请检查连接后重试。",
-  "serverChatSourceLabel": "服务器来源",
-  "serverChatForkedLabel": "分叉聊天",
-  "serverChatForkedTooltip": "从聊天 {{chatId}} 分叉",
-  "serverChatsUnavailableNotConnected": "连接到 tldw 服务器后即可使用服务器聊天。",
-  "serverChatsUnavailableServerError": "当前无法使用服务器聊天。请检查服务器日志或稍后再试。",
-  "historiesDeleted": "{{count}} 条历史记录已删除",
-  "deleteHistoriesError": "删除历史记录时出错",
-  "search": "搜索",
-  "searchResults": "搜索结果",
-  "newBranch": "新分支",
   "error": {
     "label": "错误",
     "friendlyApiKeySummary": "无法连接到您的 tldw 服务器。",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "与您的 tldw 服务器通信时发生错误。",
     "friendlyGenericHint": "请稍后重试，或打开“健康状况与诊断”检查服务器健康状况。",
     "showDetails": "显示技术详情",
-    "hideDetails": "隐藏技术详情"
+    "hideDetails": "隐藏技术详情",
+    "createFolder": "Failed to create folder"
   },
   "folders": "文件夹",
   "folderView": "文件夹视图",
@@ -277,7 +358,32 @@
   "confirm": "确认",
   "untitled": "未命名",
   "moveToFolder": "移动到文件夹",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "尚无工具调用",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "待定",
     "running": "处理中",

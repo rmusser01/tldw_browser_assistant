@@ -18,6 +18,7 @@ import { createSafeStorage } from "@/utils/safe-storage"
 import { useNavigate } from "react-router-dom"
 import { ServerOverviewHint } from "@/components/Common/ServerOverviewHint"
 import { useDemoMode } from "@/context/demo-mode"
+import type { TldwConfig } from "@/services/tldw/TldwApiClient"
 
 type Props = {
   onOpenSettings?: () => void
@@ -32,6 +33,16 @@ type ConnectionToastContentProps = {
   body: string
   onDismiss: () => void
   shouldAutoFocus?: () => boolean
+}
+
+type StoredTldwConfig = Partial<TldwConfig>
+
+const getStoredServerUrl = (value: unknown): string | null => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null
+  const { serverUrl } = value as StoredTldwConfig
+  if (typeof serverUrl !== "string") return null
+  const trimmed = serverUrl.trim()
+  return trimmed ? trimmed : null
 }
 
 const ConnectionToastContent: React.FC<ConnectionToastContentProps> = ({
@@ -157,9 +168,9 @@ export const ServerConnectionCard: React.FC<Props> = ({
     let cancelled = false
     const storage = createSafeStorage()
     storage
-      .get<any>("tldwConfig")
+      .get<unknown>("tldwConfig")
       .then((cfg) => {
-        const url = cfg?.serverUrl
+        const url = getStoredServerUrl(cfg)
         if (url && !cancelled) setKnownServerUrl(url)
       })
       .catch(() => {
@@ -794,7 +805,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
             loading={isSearching}
             disabled={statusVariant === "loading"}
             block
-            className="rounded-full !h-11">
+            className="rounded-full h-11">
             {primaryLabel}
           </Button>
           {(statusVariant === "missing" || statusVariant === "loading") && (
@@ -802,7 +813,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
               icon={<ExternalLink className="h-4 w-4" />}
               onClick={handleOpenDiagnostics}
               block
-              className="rounded-full !h-11">
+              className="rounded-full h-11">
               {diagnosticsLabel}
             </Button>
           )}
@@ -810,7 +821,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
             <Button
               onClick={handleReturn}
               block
-              className="rounded-full !h-11">
+              className="rounded-full h-11">
               {t("option:connectionCard.backToWorkspace", {
                 defaultValue: "Back to workspace"
               })}
@@ -831,7 +842,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                 }
               }}
               block
-              className="rounded-full !h-11">
+              className="rounded-full h-11">
               {t("option:connectionCard.buttonTryDemo", "Try a demo")}
             </Button>
           )}

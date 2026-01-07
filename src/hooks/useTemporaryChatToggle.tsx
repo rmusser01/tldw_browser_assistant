@@ -73,6 +73,20 @@ export const useTemporaryChatToggle = (
 
       const hadMessages = messagesLength > 0
 
+      if (!next && temporaryChat && hadMessages) {
+        notification.warning({
+          message: t(
+            "sidepanel:composer.privateChatLockedTitle",
+            "Private chat is locked"
+          ),
+          description: t(
+            "sidepanel:composer.privateChatLockedBody",
+            "Start a new chat to switch back to saved conversations."
+          )
+        })
+        return
+      }
+
       // Show confirmation when enabling temporary mode with existing messages
       if (next && hadMessages) {
         Modal.confirm({
@@ -150,6 +164,7 @@ export const useTemporaryChatToggle = (
       messagesLength,
       notification,
       setTemporaryChat,
+      temporaryChat,
       t
     ]
   )

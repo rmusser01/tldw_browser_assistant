@@ -48,9 +48,12 @@ export const saveMessageOnError = async ({
   botMessage: string
   historyId: string | null
   selectedModel: string
-  setHistoryId: (historyId: string) => void
+  setHistoryId: (
+    historyId: string,
+    options?: { preserveServerChatId?: boolean }
+  ) => void
   isRegenerating: boolean
-  message_source?: "copilot" | "web-ui"
+  message_source?: "copilot" | "web-ui" | "server" | "branch"
   message_type?: string
   userMessageType?: string
   assistantMessageType?: string
@@ -304,14 +307,17 @@ export const saveMessageOnSuccess = async ({
   documents = []
 }: {
   historyId: string | null
-  setHistoryId: (historyId: string) => void
+  setHistoryId: (
+    historyId: string,
+    options?: { preserveServerChatId?: boolean }
+  ) => void
   isRegenerate: boolean
   selectedModel: string | null
   message: string
   image: string
   fullText: string
   source: any[]
-  message_source?: "copilot" | "web-ui"
+  message_source?: "copilot" | "web-ui" | "server" | "branch"
   message_type?: string
   userMessageType?: string
   assistantMessageType?: string

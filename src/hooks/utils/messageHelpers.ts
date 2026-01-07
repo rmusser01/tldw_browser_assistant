@@ -36,7 +36,10 @@ export const validateBeforeSubmit = (
   return true
 }
 
-export const createSaveMessageOnSuccess = (temporaryChat: boolean, setHistoryId: (id: string) => void) => {
+export const createSaveMessageOnSuccess = (
+  temporaryChat: boolean,
+  setHistoryId: (id: string, options?: { preserveServerChatId?: boolean }) => void
+) => {
   return async (e: any): Promise<string | null> => {
     if (!temporaryChat) {
       return await saveSuccess(e)
@@ -51,7 +54,7 @@ export const createSaveMessageOnError = (
   temporaryChat: boolean,
   history: any,
   setHistory: (history: any) => void,
-  setHistoryId: (id: string) => void
+  setHistoryId: (id: string, options?: { preserveServerChatId?: boolean }) => void
 ) => {
   return async (e: any): Promise<string | null> => {
     if (!temporaryChat) {

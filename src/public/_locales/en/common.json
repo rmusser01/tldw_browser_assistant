@@ -1155,7 +1155,7 @@
     "message": "Download"
   },
   "artifactsRun": {
-    "message": "Run (N/A)"
+    "message": "Run"
   },
   "modelSettings_tabs_model": {
     "message": "Model"

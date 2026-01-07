@@ -1237,5 +1237,134 @@
   },
   "actor_fileStatusProcessing": {
     "message": "Processing..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
   }
 }

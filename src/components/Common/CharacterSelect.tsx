@@ -276,7 +276,7 @@ export const CharacterSelect: React.FC<Props> = ({
           label: (
             <button
               type="button"
-              className="w-full text-left text-xs font-medium text-text hover:text-text"
+              className="w-full text-left text-xs font-medium text-text hover:text-text-muted"
             >
               {t(
                 "option:characters.clearCharacter",
@@ -319,7 +319,7 @@ export const CharacterSelect: React.FC<Props> = ({
     label: (
       <button
         type="button"
-        className="w-full text-left text-xs font-medium text-text hover:text-text"
+        className="w-full text-left text-xs font-medium text-text hover:text-text-muted"
       >
         {t("option:characters.none", "None (no character)") as string}
       </button>
@@ -379,7 +379,7 @@ export const CharacterSelect: React.FC<Props> = ({
     label: (
       <button
         type="button"
-        className="w-full text-left text-xs font-medium text-text hover:text-text"
+        className="w-full text-left text-xs font-medium text-text hover:text-text-muted"
       >
         {t(
           "playground:composer.actorTitle",

@@ -24,7 +24,7 @@ import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
 
 const ACTION_BUTTON_CLASS =
-  "flex items-center justify-center rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0"
+  "flex items-center justify-center rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus min-w-[44px] min-h-[44px]"
 
 type Props = {
   message: string
@@ -65,6 +65,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
   const [userTextFont] = useStorage("chatUserTextFont", "default")
   const [userTextSize] = useStorage("chatUserTextSize", "md")
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
+  const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const [editMode, setEditMode] = React.useState(false)
   const { t } = useTranslation("common")
   const { cancel, isSpeaking, speak } = useTTS()
@@ -94,6 +95,15 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
     },
     [t]
   )
+
+  React.useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current)
+        timerRef.current = null
+      }
+    }
+  }, [])
 
   const messageTimestamp = React.useMemo(() => {
     const raw = props.createdAt
@@ -245,7 +255,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                         })
                       }
                     }}
-                    className={`${ACTION_BUTTON_CLASS} h-11 w-11 sm:h-7 sm:w-7`}>
+                    className={`${ACTION_BUTTON_CLASS} h-11 w-11`}>
                     {!isSpeaking ? (
                       <PlayIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
                     ) : (
@@ -261,11 +271,14 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                     onClick={() => {
                       navigator.clipboard.writeText(props.message)
                       setIsBtnPressed(true)
-                      setTimeout(() => {
+                      if (timerRef.current) {
+                        clearTimeout(timerRef.current)
+                      }
+                      timerRef.current = setTimeout(() => {
                         setIsBtnPressed(false)
                       }, 2000)
                     }}
-                    className={`${ACTION_BUTTON_CLASS} h-11 w-11 sm:h-7 sm:w-7`}>
+                    className={`${ACTION_BUTTON_CLASS} h-11 w-11`}>
                     {!isBtnPressed ? (
                       <CopyIcon className="w-3 h-3 text-text-subtle group-hover:text-text" />
                     ) : (
@@ -287,7 +300,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                         isBot: props.isBot
                       })
                     }}
-                    className={`${ACTION_BUTTON_CLASS} h-11 w-11 sm:h-7 sm:w-7`}>
+                    className={`${ACTION_BUTTON_CLASS} h-11 w-11`}>
                     <CornerUpLeft className="w-3 h-3 text-text-subtle group-hover:text-text" />
                   </IconButton>
                 </Tooltip>
@@ -298,7 +311,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                   <IconButton
                     onClick={() => setEditMode(true)}
                     ariaLabel={t("edit") as string}
-                    className={`${ACTION_BUTTON_CLASS} h-11 w-11 sm:h-7 sm:w-7`}>
+                    className={`${ACTION_BUTTON_CLASS} h-11 w-11`}>
                     <Pen className="w-3 h-3 text-text-subtle group-hover:text-text" />
                   </IconButton>
                 </Tooltip>
@@ -308,7 +321,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                   <IconButton
                     onClick={props.onDelete}
                     ariaLabel={t("delete", "Delete") as string}
-                    className={`${ACTION_BUTTON_CLASS} h-11 w-11 sm:h-7 sm:w-7`}>
+                    className={`${ACTION_BUTTON_CLASS} h-11 w-11`}>
                     <Trash2 className="w-3 h-3 text-danger group-hover:text-danger" />
                   </IconButton>
                 </Tooltip>

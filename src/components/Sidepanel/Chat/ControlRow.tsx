@@ -31,6 +31,7 @@ interface ControlRowProps {
   setSelectedCharacterId: (id: string | null) => void
   // Save state
   temporaryChat: boolean
+  temporaryChatLocked?: boolean
   serverChatId?: string | null
   setTemporaryChat: (value: boolean) => void
   // Toggles
@@ -55,6 +56,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   selectedCharacterId,
   setSelectedCharacterId,
   temporaryChat,
+  temporaryChatLocked = false,
   serverChatId,
   setTemporaryChat,
   webSearch,
@@ -130,6 +132,7 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         <Switch
           size="small"
           checked={temporaryChat}
+          disabled={temporaryChatLocked}
           onChange={(checked) => setTemporaryChat(checked)}
         />
       </div>
