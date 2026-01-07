@@ -131,5 +131,15 @@
     "newChat": "Новий чат",
     "newTabAria": "Нова вкладка чату",
     "closeTabAria": "Закрити вкладку чату"
+  },
+  "characterSelect": {
+    "label": "Character",
+    "tooltip": "Select a character",
+    "search": "Search characters...",
+    "noMatches": "No matching characters",
+    "noCharacters": "No characters available",
+    "none": "No character",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   }
 }

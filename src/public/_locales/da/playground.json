@@ -1152,88 +1152,88 @@
     "message": "Tokens: {{count}}"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "Var dette hjælpsomt?"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "Hjælpsomt"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "Ikke hjælpsomt"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "Mere feedback"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "Tak for feedbacken"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "Feedback er tilgængelig, når svaret er færdigt."
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "Feedback er ikke tilgængelig for denne besked."
   },
   "feedback_modalTitle": {
     "message": "Feedback"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "Hvordan vil du vurdere dette svar?"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "Hvad var problemet? (vælg alle relevante)"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "Yderligere kommentarer (valgfrit)"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "Indsend feedback"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "Feedback mislykkedes"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "Kunne ikke indsende feedback."
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "Kunne ikke indsende feedback om kilden."
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "Forkert information"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "Ikke relevant for mit spørgsmål"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "Vigtige detaljer mangler"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "Kilderne var ikke hjælpsomme"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "For omstændeligt"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "For kort"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "Andet"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "Hjælpsom kilde"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "Ikke hjælpsom kilde"
   },
   "actor_uploadedFiles": {
-    "message": "Uploaded Files ({{count}})"
+    "message": "Uploadede filer ({{count}})"
   },
   "actor_fileRetrieval": {
-    "message": "File Retrieval"
+    "message": "Filhentning"
   },
   "actor_fileStatusProcessed": {
-    "message": "Processed"
+    "message": "Behandlet"
   },
   "actor_fileStatusProcessing": {
-    "message": "Processing..."
+    "message": "Behandler..."
   },
   "documentGenerator_title": {
     "message": "Document generator"

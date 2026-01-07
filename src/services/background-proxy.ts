@@ -119,7 +119,11 @@ export async function bgRequest<
               source: "background"
             })
           }
-          throw new Error(`${msg} (${method} ${path})`)
+          const error = new Error(`${msg} (${method} ${path})`) as Error & {
+            status?: number
+          }
+          error.status = resp?.status
+          throw error
         }
         return resp.data as T
       }
@@ -165,7 +169,11 @@ export async function bgRequest<
             source: "background"
           })
         }
-        throw new Error(`${msg} (${method} ${path})`)
+        const error = new Error(`${msg} (${method} ${path})`) as Error & {
+          status?: number
+        }
+        error.status = resp?.status
+        throw error
       }
       return resp.data as T
     }
@@ -194,7 +202,11 @@ export async function bgRequest<
         source: "direct"
       })
     }
-    throw new Error(`${msg} (${method} ${path})`)
+    const error = new Error(`${msg} (${method} ${path})`) as Error & {
+      status?: number
+    }
+    error.status = resp?.status
+    throw error
   }
   return resp.data as T
 }

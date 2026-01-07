@@ -1795,5 +1795,11 @@
   },
   "header_moreTools": {
     "message": "Mehr"
+  },
+  "characters_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characters_importCharacter": {
+    "message": "Import Character"
   }
 }

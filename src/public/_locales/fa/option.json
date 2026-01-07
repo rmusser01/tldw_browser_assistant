@@ -1465,5 +1465,11 @@
   },
   "header_moreTools": {
     "message": "بیشتر"
+  },
+  "characters_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characters_importCharacter": {
+    "message": "Import Character"
   }
 }

@@ -591,7 +591,9 @@
     "searchPlaceholder": "按名称搜索角色",
     "noMatches": "目前还没有符合你搜索条件的角色。",
     "refresh": "刷新角色列表",
-    "refreshing": "正在刷新角色列表…"
+    "refreshing": "正在刷新角色列表…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "在聊天中使用",

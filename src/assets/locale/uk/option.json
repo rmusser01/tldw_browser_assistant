@@ -361,7 +361,9 @@
     "searchPlaceholder": "Пошук за ім'ям персонажа",
     "noMatches": "Поки що немає персонажів, що відповідають цьому пошуку.",
     "refresh": "Оновити персонажів",
-    "refreshing": "Оновлюємо персонажів…"
+    "refreshing": "Оновлюємо персонажів…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Використати в чаті",

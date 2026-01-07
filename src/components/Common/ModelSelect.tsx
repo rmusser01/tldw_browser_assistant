@@ -33,7 +33,7 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
     for (const d of data || []) {
       const normalizedProvider =
         typeof d.provider === "string" && d.provider.trim()
-          ? d.provider
+          ? d.provider.trim()
           : "other"
       const providerRaw = normalizedProvider.toLowerCase()
       const groupKey = providerRaw === 'chrome' ? 'default' : (localProviders.has(providerRaw) ? 'custom' : providerRaw)

@@ -359,7 +359,9 @@
     "searchPlaceholder": "جستجو بر اساس نام شخصیت",
     "noMatches": "هنوز شخصیتی با این جستجو مطابقت ندارد.",
     "refresh": "بارگذاری مجدد شخصیت‌ها",
-    "refreshing": "در حال بارگذاری مجدد شخصیت‌ها…"
+    "refreshing": "در حال بارگذاری مجدد شخصیت‌ها…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "استفاده در گفتگو",

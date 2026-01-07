@@ -369,7 +369,9 @@
     "fetchErrorBody": "Tjek din forbindelse eller serverens status, og prøv igen.",
     "none": "Ingen (ingen karakter)",
     "refresh": "Opdater karakterer",
-    "refreshing": "Opdaterer karakterer…"
+    "refreshing": "Opdaterer karakterer…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Brug i chat",

@@ -359,7 +359,9 @@
     "searchPlaceholder": "പേരുപയോഗിച്ച് കഥാപാത്രങ്ങളെ തിരയുക",
     "noMatches": "നിങ്ങളുടെ തിരച്ചിലിന് യോജിക്കുന്ന കഥാപാത്രങ്ങൾ ഇതുവരെ ഒന്നും ഇല്ല.",
     "refresh": "കഥാപാത്രങ്ങൾ പുതുക്കുക",
-    "refreshing": "കഥാപാത്രങ്ങൾ പുതുക്കുന്നു…"
+    "refreshing": "കഥാപാത്രങ്ങൾ പുതുക്കുന്നു…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "ചാറ്റിൽ ഉപയോഗിക്കുക",

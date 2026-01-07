@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { IconButton } from "./IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { parseCharacterCardFile } from "@/utils/character-card-import"
 
 type Props = {
   className?: string
@@ -85,6 +86,8 @@ export const CharacterSelect: React.FC<Props> = ({
   const previousCharacterId = React.useRef<string | null>(null)
   const initialized = React.useRef(false)
   const lastErrorRef = React.useRef<unknown | null>(null)
+  const importInputRef = React.useRef<HTMLInputElement | null>(null)
+  const [isImporting, setIsImporting] = React.useState(false)
 
   const { data, refetch, isFetching, error } = useQuery<CharacterSummary[]>({
     queryKey: ["tldw:listCharacters"],
@@ -120,6 +123,12 @@ export const CharacterSelect: React.FC<Props> = ({
   }) as string
   const emptyCreateLabel = t("settings:manageCharacters.emptyPrimaryCta", {
     defaultValue: "Create character"
+  }) as string
+  const createNewLabel = t("option:characters.createNewCharacter", {
+    defaultValue: "Create a New Character+"
+  }) as string
+  const importLabel = t("option:characters.importCharacter", {
+    defaultValue: "Import Character"
   }) as string
   const searchPlaceholder = t("option:characters.searchPlaceholder", {
     defaultValue: "Search characters by name"
@@ -206,6 +215,59 @@ export const CharacterSelect: React.FC<Props> = ({
       // ignore navigation errors
     }
   }, [])
+
+  const handleImportClick = React.useCallback(() => {
+    if (isImporting) return
+    if (!importInputRef.current) return
+    importInputRef.current.value = ""
+    importInputRef.current.click()
+  }, [isImporting])
+
+  const handleImportFile = React.useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      if (!file) return
+
+      try {
+        setIsImporting(true)
+        const { payload, imageBase64 } = await parseCharacterCardFile(file)
+        if (!payload.image_base64 && !payload.avatar_url && imageBase64) {
+          payload.image_base64 = imageBase64
+        }
+        await tldwClient.initialize().catch(() => null)
+        const created = await tldwClient.createCharacter(payload)
+        notification.success({
+          message: t("settings:manageCharacters.notification.addSuccess", {
+            defaultValue: "Character created"
+          })
+        })
+        refetch({ cancelRefetch: true })
+        try {
+          const normalized = normalizeCharacter(created || payload)
+          setSelectedCharacter(normalized)
+        } catch {
+          // ignore normalization failures; list will refresh
+        }
+      } catch (error) {
+        const messageText =
+          error instanceof Error ? error.message : String(error)
+        notification.error({
+          message: t("settings:manageCharacters.notification.error", {
+            defaultValue: "Error"
+          }),
+          description:
+            messageText ||
+            t("settings:manageCharacters.notification.someError", {
+              defaultValue: "Something went wrong. Please try again later"
+            })
+        })
+      } finally {
+        setIsImporting(false)
+        event.target.value = ""
+      }
+    },
+    [notification, refetch, setSelectedCharacter, t]
+  )
 
   const filteredCharacters = React.useMemo(() => {
     const list = Array.isArray(data) ? data : []
@@ -329,7 +391,33 @@ export const CharacterSelect: React.FC<Props> = ({
     }
   }
 
-  menuItems.push(noneItem)
+  const createItem: MenuProps["items"][number] = {
+    key: "__create_character__",
+    label: (
+      <button
+        type="button"
+        className="w-full text-left text-xs font-medium text-primary hover:text-primaryStrong"
+      >
+        {createNewLabel}
+      </button>
+    ),
+    onClick: handleOpenCharacters
+  }
+
+  const importItem: MenuProps["items"][number] = {
+    key: "__import_character__",
+    label: (
+      <button
+        type="button"
+        className="w-full text-left text-xs font-medium text-primary hover:text-primaryStrong"
+      >
+        {importLabel}
+      </button>
+    ),
+    onClick: handleImportClick
+  }
+
+  menuItems.push(noneItem, createItem, importItem)
 
   if (characterItems && characterItems.length > 0) {
     menuItems.push(dividerItem("__divider_items__"), ...characterItems)
@@ -438,6 +526,13 @@ export const CharacterSelect: React.FC<Props> = ({
 
   return (
     <div className="flex items-center gap-2">
+      <input
+        ref={importInputRef}
+        type="file"
+        accept=".json,.png"
+        className="hidden"
+        onChange={handleImportFile}
+      />
       <Dropdown
         onOpenChange={(open) => {
           if (!open) {

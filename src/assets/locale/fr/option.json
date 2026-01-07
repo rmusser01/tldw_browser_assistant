@@ -597,7 +597,9 @@
     "searchPlaceholder": "Rechercher les personnages par nom",
     "noMatches": "Aucun personnage ne correspond à votre recherche pour l'instant.",
     "refresh": "Actualiser les personnages",
-    "refreshing": "Actualisation des personnages…"
+    "refreshing": "Actualisation des personnages…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Utiliser dans le chat",

@@ -370,7 +370,9 @@
     "searchPlaceholder": "Buscar personagens por nome",
     "noMatches": "Ainda não há personagens que correspondam à sua pesquisa.",
     "refresh": "Atualizar personagens",
-    "refreshing": "Atualizando personagens…"
+    "refreshing": "Atualizando personagens…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Usar no chat",

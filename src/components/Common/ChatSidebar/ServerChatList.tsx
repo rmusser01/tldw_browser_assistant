@@ -341,57 +341,66 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
-      <Modal
-        title={t("common:renameChat", { defaultValue: "Rename chat" })}
-        open={!!renamingChat}
-        onCancel={() => {
-          setRenamingChat(null)
-          setRenameValue("")
-          setRenameError(null)
-        }}
-        onOk={handleRenameSubmit}
-        confirmLoading={renameLoading}
-        okButtonProps={{
-          disabled: renameLoading || !renameValue.trim()
-        }}
-      >
-        <Input
-          autoFocus
-          value={renameValue}
-          onChange={(e) => {
-            setRenameValue(e.target.value)
-            if (renameError) {
-              setRenameError(null)
-            }
+      {renamingChat && (
+        <Modal
+          title={t("common:renameChat", { defaultValue: "Rename chat" })}
+          open
+          destroyOnClose
+          onCancel={() => {
+            setRenamingChat(null)
+            setRenameValue("")
+            setRenameError(null)
           }}
-          onPressEnter={handleRenameSubmit}
-          status={renameError ? "error" : undefined}
-          disabled={renameLoading}
-        />
-        {renameError && (
-          <div className="mt-1 text-xs text-red-500">{renameError}</div>
-        )}
-      </Modal>
-      <Modal
-        title={t("playground:composer.topicPlaceholder", "Topic label (optional)")}
-        open={!!editingTopicChat}
-        onCancel={() => {
-          setEditingTopicChat(null)
-          setTopicValue("")
-        }}
-        onOk={handleTopicSubmit}
-        confirmLoading={topicLoading}
-        okButtonProps={{ disabled: topicLoading }}
-      >
-        <Input
-          autoFocus
-          value={topicValue}
-          onChange={(e) => setTopicValue(e.target.value)}
-          onPressEnter={handleTopicSubmit}
-          placeholder={t("playground:composer.topicPlaceholder", "Topic label (optional)")}
-          disabled={topicLoading}
-        />
-      </Modal>
+          onOk={handleRenameSubmit}
+          confirmLoading={renameLoading}
+          okButtonProps={{
+            disabled: renameLoading || !renameValue.trim()
+          }}
+        >
+          <Input
+            autoFocus
+            value={renameValue}
+            onChange={(e) => {
+              setRenameValue(e.target.value)
+              if (renameError) {
+                setRenameError(null)
+              }
+            }}
+            onPressEnter={handleRenameSubmit}
+            status={renameError ? "error" : undefined}
+            disabled={renameLoading}
+          />
+          {renameError && (
+            <div className="mt-1 text-xs text-red-500">{renameError}</div>
+          )}
+        </Modal>
+      )}
+      {editingTopicChat && (
+        <Modal
+          title={t("playground:composer.topicPlaceholder", "Topic label (optional)")}
+          open
+          destroyOnClose
+          onCancel={() => {
+            setEditingTopicChat(null)
+            setTopicValue("")
+          }}
+          onOk={handleTopicSubmit}
+          confirmLoading={topicLoading}
+          okButtonProps={{ disabled: topicLoading }}
+        >
+          <Input
+            autoFocus
+            value={topicValue}
+            onChange={(e) => setTopicValue(e.target.value)}
+            onPressEnter={handleTopicSubmit}
+            placeholder={t(
+              "playground:composer.topicPlaceholder",
+              "Topic label (optional)"
+            )}
+            disabled={topicLoading}
+          />
+        </Modal>
+      )}
       {pinnedChats.length > 0 && (
         <div className="flex flex-col gap-2">
           <div className="px-2 text-[11px] font-medium text-text-subtle uppercase tracking-wide">

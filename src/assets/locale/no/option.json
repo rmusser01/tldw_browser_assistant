@@ -359,7 +359,9 @@
     "searchPlaceholder": "Søk etter karakterer etter navn",
     "noMatches": "Det finnes foreløpig ingen karakterer som samsvarer med søket ditt.",
     "refresh": "Oppdater karakterer",
-    "refreshing": "Oppdaterer karakterer…"
+    "refreshing": "Oppdaterer karakterer…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Bruk i chat",

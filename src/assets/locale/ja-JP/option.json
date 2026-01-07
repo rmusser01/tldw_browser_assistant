@@ -593,7 +593,9 @@
     "searchPlaceholder": "名前でキャラクターを検索",
     "noMatches": "検索条件に一致するキャラクターはまだありません。",
     "refresh": "キャラクターを更新",
-    "refreshing": "キャラクターを更新しています…"
+    "refreshing": "キャラクターを更新しています…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "チャットで使用",

@@ -1152,76 +1152,76 @@
     "message": "Token：{{count}}"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "有帮助吗？"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "有帮助"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "没帮助"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "更多反馈"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "感谢你的反馈"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "回复完成后可反馈。"
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "此消息不可反馈。"
   },
   "feedback_modalTitle": {
-    "message": "Feedback"
+    "message": "反馈"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "你会如何评价这条回复？"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "问题是什么？（可多选）"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "补充说明（可选）"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "提交反馈"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "反馈失败"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "无法提交反馈。"
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "无法提交来源反馈。"
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "信息不正确"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "与我的问题无关"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "缺少重要细节"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "来源无帮助"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "太啰嗦"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "太简略"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "其他"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "有帮助的来源"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "无帮助的来源"
   },
   "actor_uploadedFiles": {
     "message": "已上传文件（{{count}}）"

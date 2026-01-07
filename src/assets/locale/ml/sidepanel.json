@@ -131,5 +131,15 @@
     "newChat": "പുതിയ ചാറ്റ്",
     "newTabAria": "പുതിയ ചാറ്റ് ടാബ്",
     "closeTabAria": "ചാറ്റ് ടാബ് അടയ്ക്കുക"
+  },
+  "characterSelect": {
+    "label": "Character",
+    "tooltip": "Select a character",
+    "search": "Search characters...",
+    "noMatches": "No matching characters",
+    "noCharacters": "No characters available",
+    "none": "No character",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   }
 }

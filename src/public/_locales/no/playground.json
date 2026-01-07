@@ -1152,88 +1152,88 @@
     "message": "Tokens: {{count}}"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "Var dette nyttig?"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "Nyttig"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "Ikke nyttig"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "Mer tilbakemelding"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "Takk for tilbakemeldingen"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "Tilbakemelding er tilgjengelig etter at svaret er ferdig."
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "Tilbakemelding er ikke tilgjengelig for denne meldingen."
   },
   "feedback_modalTitle": {
-    "message": "Feedback"
+    "message": "Tilbakemelding"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "Hvordan vil du vurdere dette svaret?"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "Hva var problemet? (velg alle som gjelder)"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "Ytterligere kommentarer (valgfritt)"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "Send tilbakemelding"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "Tilbakemelding mislyktes"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "Kunne ikke sende tilbakemelding."
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "Kunne ikke sende kildetilbakemelding."
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "Feil informasjon"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "Ikke relevant for spørsmålet mitt"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "Mangler viktige detaljer"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "Kildene var lite hjelpsomme"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "For detaljert"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "For kort"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "Annet"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "Hjelpsom kilde"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "Ikke hjelpsom kilde"
   },
   "actor_uploadedFiles": {
-    "message": "Uploaded Files ({{count}})"
+    "message": "Opplastede filer ({{count}})"
   },
   "actor_fileRetrieval": {
-    "message": "File Retrieval"
+    "message": "Filhenting"
   },
   "actor_fileStatusProcessed": {
-    "message": "Processed"
+    "message": "Behandlet"
   },
   "actor_fileStatusProcessing": {
-    "message": "Processing..."
+    "message": "Behandler..."
   },
   "documentGenerator_title": {
     "message": "Document generator"

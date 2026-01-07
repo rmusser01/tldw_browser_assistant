@@ -368,7 +368,9 @@
     "searchPlaceholder": "Sök karaktärer efter namn",
     "noMatches": "Inga karaktärer matchar din sökning ännu.",
     "refresh": "Uppdatera karaktärer",
-    "refreshing": "Uppdaterar karaktärer…"
+    "refreshing": "Uppdaterar karaktärer…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Använd i chatten",

@@ -1224,16 +1224,16 @@
     "message": "സഹായകരമല്ലാത്ത സ്രോതസ്"
   },
   "actor_uploadedFiles": {
-    "message": "Uploaded Files ({{count}})"
+    "message": "അപ്‌ലോഡ് ചെയ്ത ഫയലുകൾ ({{count}})"
   },
   "actor_fileRetrieval": {
-    "message": "File Retrieval"
+    "message": "ഫയൽ വീണ്ടെടുക്കൽ"
   },
   "actor_fileStatusProcessed": {
-    "message": "Processed"
+    "message": "പ്രോസസ് ചെയ്തത്"
   },
   "actor_fileStatusProcessing": {
-    "message": "Processing..."
+    "message": "പ്രോസസ്സിൽ..."
   },
   "documentGenerator_title": {
     "message": "Document generator"

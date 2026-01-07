@@ -316,11 +316,24 @@ export const useFolderStore = create<FolderState>()(
             fetchConversationKeywordLinks(undefined, { abortSignal: controller.signal, timeoutMs })
           ])
 
-          const anyError =
-            !foldersRes.ok ||
-            !keywordsRes.ok ||
-            !folderKeywordLinksRes.ok ||
-            !conversationKeywordLinksRes.ok
+          const responses = [
+            foldersRes,
+            keywordsRes,
+            folderKeywordLinksRes,
+            conversationKeywordLinksRes
+          ]
+          const anyError = responses.some((res) => !res.ok)
+          const hasNotFound = responses.some((res) => res.status === 404)
+
+          if (hasNotFound) {
+            console.debug('[folder-store] Folder API not available (404) - disabling folder sync')
+            set({
+              isLoading: false,
+              folderApiAvailable: false
+            })
+            clearTimeout(timeoutId)
+            return
+          }
 
           if (anyError) {
             const firstError =
@@ -370,20 +383,21 @@ export const useFolderStore = create<FolderState>()(
             folderApiAvailable: true // Mark API as available
           })
         } catch (error) {
-          // Check if this is a 404 error (folder API not available on server)
           const errorMsg = error instanceof Error ? error.message : String(error)
-          const is404 = errorMsg.includes('404')
+          const errorStatus =
+            typeof (error as { status?: number | string })?.status !== "undefined"
+              ? Number((error as { status?: number | string }).status)
+              : undefined
+          const is404 = errorStatus === 404 || errorMsg.includes('404')
 
           if (is404) {
-            // Mark API as unavailable and silently skip - don't update error state
-            // to avoid triggering re-renders and retry loops
             console.debug('[folder-store] Folder API not available (404) - disabling folder sync')
             set({
               isLoading: false,
-              folderApiAvailable: false // Cache this so we don't retry
+              folderApiAvailable: false
             })
             clearTimeout(timeoutId)
-            return // Exit early without triggering error handling
+            return
           }
 
           console.error('Failed to refresh folders from server:', error)

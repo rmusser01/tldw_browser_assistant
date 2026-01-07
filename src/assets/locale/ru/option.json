@@ -606,7 +606,9 @@
     "searchPlaceholder": "Искать персонажей по имени",
     "noMatches": "Пока нет персонажей, подходящих под ваш поиск.",
     "refresh": "Обновить список персонажей",
-    "refreshing": "Обновляем список персонажей…"
+    "refreshing": "Обновляем список персонажей…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Использовать в чате",

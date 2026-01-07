@@ -544,7 +544,9 @@
     "searchPlaceholder": "Search characters by name",
     "noMatches": "No characters match your search yet.",
     "refresh": "Refresh characters",
-    "refreshing": "Refreshing characters…"
+    "refreshing": "Refreshing characters…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Use in chat",

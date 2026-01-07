@@ -131,5 +131,15 @@
     "newChat": "Nova conversa",
     "newTabAria": "Nova aba de conversa",
     "closeTabAria": "Fechar aba de conversa"
+  },
+  "characterSelect": {
+    "label": "Character",
+    "tooltip": "Select a character",
+    "search": "Search characters...",
+    "noMatches": "No matching characters",
+    "noCharacters": "No characters available",
+    "none": "No character",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   }
 }

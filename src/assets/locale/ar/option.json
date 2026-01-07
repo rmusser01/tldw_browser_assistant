@@ -586,7 +586,9 @@
     "searchPlaceholder": "ابحث عن الشخصيات بالاسم",
     "noMatches": "لا توجد شخصيات مطابقة لبحثك حتى الآن.",
     "refresh": "تحديث الشخصيات",
-    "refreshing": "جارٍ تحديث الشخصيات…"
+    "refreshing": "جارٍ تحديث الشخصيات…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "استخدام في الدردشة",
