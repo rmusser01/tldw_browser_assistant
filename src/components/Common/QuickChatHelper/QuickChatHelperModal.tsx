@@ -33,6 +33,11 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
   const isConnected = useIsConnected()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
 
+  const getModalContainer = useCallback(() => {
+    if (typeof document === "undefined") return null
+    return document.getElementById("tldw-portal-root") || document.body
+  }, [])
+
   // Scroll to bottom when messages change or streaming completes
   useEffect(() => {
     if (!messagesEndRef.current || messages.length === 0) {
@@ -111,6 +116,7 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
       footer={null}
       width={480}
       className="quick-chat-helper-modal"
+      getContainer={getModalContainer}
       destroyOnHidden={false}
       maskClosable={true}
       keyboard={true}

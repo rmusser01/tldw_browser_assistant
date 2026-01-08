@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { App as AntdApp, ConfigProvider, Empty, theme } from "antd"
 import { StyleProvider } from "@ant-design/cssinjs"
 import { QueryClientProvider } from "@tanstack/react-query"
@@ -31,6 +31,11 @@ export const AppShell: React.FC<AppShellProps> = ({
   includeAntdApp = true
 }) => {
   const { mode } = useDarkMode()
+  const portalRootRef = useRef<HTMLDivElement | null>(null)
+  const getPopupContainer = React.useCallback(() => {
+    if (typeof document === "undefined") return undefined
+    return portalRootRef.current ?? document.body
+  }, [])
   const [isVisible, setIsVisible] = useState(
     typeof document !== "undefined"
       ? document.visibilityState === "visible"
@@ -72,6 +77,7 @@ export const AppShell: React.FC<AppShellProps> = ({
             fontFamily: "Arimo"
           }
         }}
+        getPopupContainer={getPopupContainer}
         renderEmpty={() => (
           <Empty
             styles={{ image: { height: 60 } }}
@@ -81,6 +87,7 @@ export const AppShell: React.FC<AppShellProps> = ({
         direction={direction}
       >
         {includeAntdApp ? <AntdApp>{content}</AntdApp> : content}
+        <div id="tldw-portal-root" ref={portalRootRef} />
       </ConfigProvider>
     </Router>
   )

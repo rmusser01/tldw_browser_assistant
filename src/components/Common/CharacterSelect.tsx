@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { IconButton } from "./IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
-import { parseCharacterCardFile } from "@/utils/character-card-import"
 
 type Props = {
   className?: string
@@ -230,20 +229,28 @@ export const CharacterSelect: React.FC<Props> = ({
 
       try {
         setIsImporting(true)
-        const { payload, imageBase64 } = await parseCharacterCardFile(file)
-        if (!payload.image_base64 && !payload.avatar_url && imageBase64) {
-          payload.image_base64 = imageBase64
-        }
         await tldwClient.initialize().catch(() => null)
-        const created = await tldwClient.createCharacter(payload)
+        let selectedPayload: Record<string, any> | null = null
+        let successDetail: string | undefined
+        const imported = await tldwClient.importCharacterFile(file)
+        const importedCharacter =
+          imported?.character ??
+          (imported?.id && imported?.name
+            ? { id: imported.id, name: imported.name }
+            : imported)
+        selectedPayload = importedCharacter
+        if (typeof imported?.message === "string" && imported.message.trim()) {
+          successDetail = imported.message
+        }
         notification.success({
           message: t("settings:manageCharacters.notification.addSuccess", {
             defaultValue: "Character created"
-          })
+          }),
+          description: successDetail
         })
         refetch({ cancelRefetch: true })
         try {
-          const normalized = normalizeCharacter(created || payload)
+          const normalized = normalizeCharacter(selectedPayload || {})
           setSelectedCharacter(normalized)
         } catch {
           // ignore normalization failures; list will refresh
@@ -529,7 +536,7 @@ export const CharacterSelect: React.FC<Props> = ({
       <input
         ref={importInputRef}
         type="file"
-        accept=".json,.png"
+        accept=".json,.yaml,.yml,.txt,.md,.png,.webp,.jpg,.jpeg"
         className="hidden"
         onChange={handleImportFile}
       />

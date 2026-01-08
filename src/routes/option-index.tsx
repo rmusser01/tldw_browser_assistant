@@ -1,5 +1,4 @@
 import React from "react"
-import { useTranslation } from "react-i18next"
 
 import {
   useConnectionActions,
@@ -13,8 +12,6 @@ import OptionLayout from "~/components/Layouts/Layout"
 import { Playground } from "~/components/Option/Playground/Playground"
 
 const OptionIndex = () => {
-  const { t } = useTranslation(["settings", "playground"])
-
   const { phase } = useConnectionState()
   const { uxState, hasCompletedFirstRun } = useConnectionUxState()
   const { checkOnce, beginOnboarding, markFirstRunComplete } = useConnectionActions()

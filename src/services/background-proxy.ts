@@ -297,14 +297,16 @@ export interface BgUploadInit<P extends AllowedPath = AllowedPath, M extends All
   fields?: Record<string, any>
   // File payload as raw bytes with metadata (ArrayBuffer is structured-cloneable)
   file?: { name?: string; type?: string; data: ArrayBuffer }
+  // Optional override for the multipart file field name
+  fileFieldName?: string
 }
 
 export async function bgUpload<T = any, P extends AllowedPath = AllowedPath, M extends AllowedMethodFor<P> = AllowedMethodFor<P>>(
-  { path, method = 'POST' as UpperLower<M>, fields = {}, file }: BgUploadInit<P, M>
+  { path, method = 'POST' as UpperLower<M>, fields = {}, file, fileFieldName }: BgUploadInit<P, M>
 ): Promise<T> {
   const resp = await browser.runtime.sendMessage({
     type: 'tldw:upload',
-    payload: { path, method, fields, file }
+    payload: { path, method, fields, file, fileFieldName }
   }) as { ok: boolean; error?: string; status?: number; data: T } | undefined
   if (!resp?.ok) {
     const msg = formatErrorMessage(

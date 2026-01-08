@@ -8,7 +8,11 @@ import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useMessageOption } from "@/hooks/useMessageOption"
-import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
+import {
+  tldwClient,
+  type ConversationState,
+  type ServerChatSummary
+} from "@/services/tldw/TldwApiClient"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { cn } from "@/libs/utils"
 import { normalizeConversationState } from "@/utils/conversation-state"
@@ -17,6 +21,12 @@ import { ServerChatRow } from "./ServerChatRow"
 interface ServerChatListProps {
   searchQuery: string
   className?: string
+}
+
+type UpdateChatRequestPayload = {
+  chatId: string
+  data: Record<string, unknown>
+  expectedVersion?: number | null
 }
 
 export function ServerChatList({ searchQuery, className }: ServerChatListProps) {
@@ -48,11 +58,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
   const [topicValue, setTopicValue] = React.useState("")
 
   const updateChatRequest = React.useCallback(
-    async (payload: {
-      chatId: string
-      data: Record<string, unknown>
-      expectedVersion?: number | null
-    }) =>
+    async (payload: UpdateChatRequestPayload): Promise<ServerChatSummary> =>
       tldwClient.updateChat(
         payload.chatId,
         payload.data,
@@ -63,18 +69,30 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     []
   )
 
-  const { mutate: updateChatMetadata } = useMutation({
+  const { mutate: updateChatMetadata } = useMutation<
+    ServerChatSummary,
+    Error,
+    UpdateChatRequestPayload
+  >({
     mutationFn: updateChatRequest,
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
     }
   })
 
-  const { mutate: renameChat, isPending: renameLoading } = useMutation({
+  const { mutate: renameChat, isPending: renameLoading } = useMutation<
+    ServerChatSummary,
+    Error,
+    UpdateChatRequestPayload
+  >({
     mutationFn: updateChatRequest
   })
 
-  const { mutate: updateChatTopic, isPending: topicLoading } = useMutation({
+  const { mutate: updateChatTopic, isPending: topicLoading } = useMutation<
+    ServerChatSummary,
+    Error,
+    UpdateChatRequestPayload
+  >({
     mutationFn: updateChatRequest
   })
 
@@ -165,9 +183,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
       },
       {
         onSuccess: (updated) => {
-          const resolvedTopic =
-            (updated as ServerChatHistoryItem | undefined)?.topic_label ??
-            (nextTopic || null)
+          const resolvedTopic = updated?.topic_label ?? (nextTopic || null)
           if (serverChatId === editingTopicChat.id) {
             setServerChatTopic(resolvedTopic)
             setServerChatVersion(updated?.version ?? null)
@@ -198,7 +214,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
         {
           onSuccess: (updated) => {
             const resolvedState = normalizeConversationState(
-              (updated as ServerChatHistoryItem | undefined)?.state ?? nextState
+              updated?.state ?? nextState
             )
             if (serverChatId === chat.id) {
               setServerChatState(resolvedState)

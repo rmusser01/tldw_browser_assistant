@@ -29,6 +29,7 @@ export const Playground = () => {
   const {
     messages,
     historyId,
+    serverChatId,
     setHistoryId,
     setHistory,
     setMessages,
@@ -162,6 +163,9 @@ export const Playground = () => {
   const { restoreSession, hasPersistedSession } = usePlaygroundSessionPersistence()
 
   const initializePlayground = async () => {
+    if (serverChatId) {
+      return
+    }
     // 1. Try session persistence first (restores exact state from nav-away)
     if (hasPersistedSession && messages.length === 0) {
       const restored = await restoreSession()

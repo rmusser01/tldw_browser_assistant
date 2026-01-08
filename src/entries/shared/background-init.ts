@@ -21,10 +21,35 @@ export type BackgroundInitOptions = {
 }
 
 export type BackgroundInitResult = {
-  modelWarmTimer: ReturnType<typeof setInterval> | null
+  modelWarmAlarmName: string
 }
 
-const MODEL_WARM_INTERVAL_MS = 15 * 60 * 1000
+export const MODEL_WARM_ALARM_NAME = "tldw:model-warm"
+const MODEL_WARM_INTERVAL_MINUTES = 60
+
+const getServerUrl = (cfg: any): string => {
+  if (!cfg || typeof cfg !== "object") return ""
+  return String(cfg.serverUrl || "").trim()
+}
+
+const scheduleModelWarmAlarm = async (enabled: boolean) => {
+  try {
+    if (!browser?.alarms) return
+    if (!enabled) {
+      await browser.alarms.clear(MODEL_WARM_ALARM_NAME)
+      return
+    }
+    await browser.alarms.clear(MODEL_WARM_ALARM_NAME)
+    await browser.alarms.create(MODEL_WARM_ALARM_NAME, {
+      periodInMinutes: MODEL_WARM_INTERVAL_MINUTES
+    })
+  } catch (error) {
+    console.debug(
+      "[tldw] model warm alarm setup failed:",
+      (error as any)?.message || error
+    )
+  }
+}
 
 const checkOpenApiDrift = async (storage: Storage) => {
   try {
@@ -146,6 +171,15 @@ export const initBackground = async (
           contexts: ["page", "selection"]
         })
       }
+    },
+    tldwConfig: (value) => {
+      const nextUrl = getServerUrl(value?.newValue)
+      const prevUrl = getServerUrl(value?.oldValue)
+      const hasServer = nextUrl.length > 0
+      void scheduleModelWarmAlarm(hasServer)
+      if (hasServer && nextUrl !== prevUrl) {
+        void warmModels(true)
+      }
     }
   })
 
@@ -222,10 +256,18 @@ export const initBackground = async (
     await checkOpenApiDrift(storage)
   }
 
-  await warmModels(true)
-  const modelWarmTimer = setInterval(() => {
-    void warmModels(true)
-  }, MODEL_WARM_INTERVAL_MS)
+  let hasServer = false
+  try {
+    const cfg = await storage.get<any>("tldwConfig")
+    hasServer = getServerUrl(cfg).length > 0
+  } catch {
+    hasServer = false
+  }
 
-  return { modelWarmTimer }
+  if (hasServer) {
+    await warmModels(true)
+  }
+  await scheduleModelWarmAlarm(hasServer)
+
+  return { modelWarmAlarmName: MODEL_WARM_ALARM_NAME }
 }

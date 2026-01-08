@@ -7,6 +7,7 @@ import { tldwModels } from "@/services/tldw"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useStoreMessageOption, type ToolChoice } from "@/store/option"
 import { useMcpToolsStore } from "@/store/mcp-tools"
+import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
 
 const isValidReasoningEffort = (
   value: unknown
@@ -71,8 +72,11 @@ export const pageAssistModel = async ({
   const normalizedModelId = String(model || "").replace(/^tldw:/, "")
   let modelSupportsTools = false
   let modelSupportsMultimodal = false
+  let modelProviderHint: string | null = null
   try {
     const modelInfo = await tldwModels.getModel(normalizedModelId)
+    modelProviderHint =
+      typeof modelInfo?.provider === "string" ? modelInfo.provider : null
     modelSupportsTools = Boolean(modelInfo?.capabilities?.includes("tools"))
     modelSupportsMultimodal = Boolean(
       modelInfo?.capabilities?.includes("vision")
@@ -126,11 +130,11 @@ export const pageAssistModel = async ({
     resolvedSlashInjectionMode && resolvedSlashInjectionMode.trim().length > 0
       ? resolvedSlashInjectionMode.trim()
       : undefined
-  const resolvedApiProvider = apiProvider ?? currentChatModelSettings.apiProvider
-  const normalizedApiProvider =
-    resolvedApiProvider && resolvedApiProvider.trim().length > 0
-      ? resolvedApiProvider.trim()
-      : undefined
+  const normalizedApiProvider = await resolveApiProviderForModel({
+    modelId: model,
+    explicitProvider: apiProvider ?? currentChatModelSettings.apiProvider,
+    providerHint: modelProviderHint
+  })
   const resolvedExtraHeaders = parseJsonObject(
     extraHeaders ?? currentChatModelSettings.extraHeaders
   )

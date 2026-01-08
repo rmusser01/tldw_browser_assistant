@@ -1107,6 +1107,22 @@ export class TldwApiClient {
     })
   }
 
+  async importCharacterFile(file: File): Promise<any> {
+    const data = await file.arrayBuffer()
+    const name = file.name || "character-card"
+    const type = file.type || "application/octet-stream"
+    const path = await this.resolveApiPath("characters.import", [
+      "/api/v1/characters/import",
+      "/api/v1/characters/import/"
+    ])
+    return await this.upload<any>({
+      path,
+      method: "POST",
+      fileFieldName: "character_file",
+      file: { name, type, data }
+    })
+  }
+
   async updateCharacter(id: string | number, payload: Record<string, any>, expectedVersion?: number): Promise<any> {
     const cid = String(id)
     const qp = expectedVersion != null ? `?expected_version=${encodeURIComponent(String(expectedVersion))}` : ''

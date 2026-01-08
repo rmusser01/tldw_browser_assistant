@@ -53,6 +53,7 @@ import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
 import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
 import { normalizeConversationState } from "@/utils/conversation-state"
+import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
 
 type ServerBackedMessage = Message & {
   serverMessageId?: string
@@ -1156,17 +1157,19 @@ export const useMessage = () => {
       let timetaken = 0
       let apiReasoning = false
 
-      const resolvedApiProvider =
-        currentChatModelSettings.apiProvider &&
-        currentChatModelSettings.apiProvider.trim().length > 0
-          ? currentChatModelSettings.apiProvider.trim()
-          : undefined
+      const resolvedApiProvider = await resolveApiProviderForModel({
+        modelId: model,
+        explicitProvider: currentChatModelSettings.apiProvider
+      })
+
+      const normalizedModel = model.replace(/^tldw:/, "").trim()
+      const resolvedModel = normalizedModel.length > 0 ? normalizedModel : model
 
       for await (const chunk of tldwClient.streamCharacterChatCompletion(
         chatId,
         {
           include_character_context: true,
-          model,
+          model: resolvedModel,
           provider: resolvedApiProvider,
           save_to_db: false
         },

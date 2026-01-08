@@ -22,12 +22,52 @@ import {
 } from "@/services/background-helpers"
 import { ModelDb } from "@/db/models"
 import { generateID } from "@/db"
-import { initBackground } from "@/entries/shared/background-init"
+import {
+  initBackground,
+  MODEL_WARM_ALARM_NAME
+} from "@/entries/shared/background-init"
+
+type BackgroundDiagnostics = {
+  startedAt: number
+  modelWarmCount: number
+  lastModelWarmAt: number | null
+  lastModelWarmError: string | null
+  alarmFires: number
+  lastAlarmAt: number | null
+  ports: {
+    stream: number
+    stt: number
+    copilot: number
+  }
+  lastStreamAt: number | null
+  lastSttAt: number | null
+  lastCopilotAt: number | null
+}
+
+const backgroundDiagnostics: BackgroundDiagnostics = {
+  startedAt: Date.now(),
+  modelWarmCount: 0,
+  lastModelWarmAt: null,
+  lastModelWarmError: null,
+  alarmFires: 0,
+  lastAlarmAt: null,
+  ports: {
+    stream: 0,
+    stt: 0,
+    copilot: 0
+  },
+  lastStreamAt: null,
+  lastSttAt: null,
+  lastCopilotAt: null
+}
 
 const warmModels = async (
   force = false,
   throwOnError = false
 ): Promise<any[] | null> => {
+  backgroundDiagnostics.modelWarmCount += 1
+  backgroundDiagnostics.lastModelWarmAt = Date.now()
+  backgroundDiagnostics.lastModelWarmError = null
   try {
     const models = await tldwModels.warmCache(Boolean(force))
 
@@ -67,6 +107,8 @@ const warmModels = async (
     return models
   } catch (e) {
     console.debug("[tldw] model warmup failed", e)
+    backgroundDiagnostics.lastModelWarmError =
+      (e as any)?.message || "model warmup failed"
     if (throwOnError) {
       throw e
     }
@@ -89,7 +131,6 @@ export default defineBackground({
       transcribeAndSummarize: "transcribe-and-summarize-media-pa"
     }
     const saveToNotesMenuId = "save-to-notes-pa"
-    let modelWarmTimer: ReturnType<typeof setInterval> | null = null
     const getActionApi = () => {
       const anyBrowser = browser as any
       const anyChrome = (globalThis as any).chrome
@@ -101,18 +142,9 @@ export default defineBackground({
       )
     }
 
-    // Clear the periodic model warm timer when the background worker is
-    // terminated. For service-worker style backgrounds the `unload` handler
-    // must be registered during initial evaluation, not inside async logic.
-    if (typeof self !== "undefined" && "addEventListener" in self) {
-      self.addEventListener("unload", () => {
-        if (modelWarmTimer) clearInterval(modelWarmTimer)
-      })
-    }
-
     const initialize = async () => {
       try {
-        const { modelWarmTimer: warmTimer } = await initBackground({
+        await initBackground({
           storage,
           contextMenuId,
           saveToNotesMenuId,
@@ -131,10 +163,27 @@ export default defineBackground({
             contextMenuClick = value
           }
         })
-        if (modelWarmTimer) clearInterval(modelWarmTimer)
-        modelWarmTimer = warmTimer
       } catch (error) {
         console.error("Error in initLogic:", error)
+      }
+    }
+
+    const buildBackgroundDiagnostics = () => {
+      const memory = (globalThis as any)?.performance?.memory
+      return {
+        ...backgroundDiagnostics,
+        chatQueueDepth: chatQueue.length,
+        chatActiveCount,
+        chatBackoffMs,
+        chatBackoffUntil,
+        memory:
+          memory && typeof memory.usedJSHeapSize === "number"
+            ? {
+                usedJSHeapSize: memory.usedJSHeapSize,
+                totalJSHeapSize: memory.totalJSHeapSize,
+                jsHeapSizeLimit: memory.jsHeapSizeLimit
+              }
+            : null
       }
     }
 
@@ -350,8 +399,9 @@ export default defineBackground({
       method?: string
       fields?: Record<string, any>
       file?: { name?: string; type?: string; data?: ArrayBuffer | Uint8Array | { data?: number[] } | number[] | string }
+      fileFieldName?: string
     }) => {
-      const { path, method = 'POST', fields = {}, file } = payload || {}
+      const { path, method = 'POST', fields = {}, file, fileFieldName } = payload || {}
       const cfg = await storage.get<any>('tldwConfig')
       const isAbsolute = typeof path === 'string' && /^https?:/i.test(path)
       if (!cfg?.serverUrl && !isAbsolute) {
@@ -378,14 +428,20 @@ export default defineBackground({
             type: file.type || 'application/octet-stream'
           })
           const filename = file.name || 'file'
-          // @ts-ignore File may not exist in some workers; Blob is accepted by FormData
-          try {
-            form.append('files', new File([blob], filename, { type: blob.type }))
-          } catch {
-            form.append('files', blob, filename)
+          const trimmedFieldName =
+            typeof fileFieldName === 'string' ? fileFieldName.trim() : ''
+          if (trimmedFieldName) {
+            form.append(trimmedFieldName, blob, filename)
+          } else {
+            // @ts-ignore File may not exist in some workers; Blob is accepted by FormData
+            try {
+              form.append('files', new File([blob], filename, { type: blob.type }))
+            } catch {
+              form.append('files', blob, filename)
+            }
+            // Backward-compat: also include singular key some servers accept
+            form.append('file', blob, filename)
           }
-          // Backward-compat: also include singular key some servers accept
-          form.append('file', blob, filename)
         }
         const headers: Record<string, string> = {}
         if (cfg?.authMode === 'single-user') {
@@ -450,6 +506,9 @@ export default defineBackground({
     }
 
     browser.runtime.onMessage.addListener(async (message, sender) => {
+      if (message.type === "tldw:diagnostics") {
+        return { ok: true, data: buildBackgroundDiagnostics() }
+      }
       if (message.type === 'tldw:debug') {
         streamDebugEnabled = Boolean(message?.enable)
         return { ok: true }
@@ -716,10 +775,18 @@ export default defineBackground({
     browser.runtime.onConnect.addListener((port) => {
       if (port.name === "pgCopilot") {
         isCopilotRunning = true
+        backgroundDiagnostics.ports.copilot += 1
+        backgroundDiagnostics.lastCopilotAt = Date.now()
         port.onDisconnect.addListener(() => {
           isCopilotRunning = false
+          backgroundDiagnostics.ports.copilot = Math.max(
+            0,
+            backgroundDiagnostics.ports.copilot - 1
+          )
         })
       } else if (port.name === 'tldw:stt') {
+        backgroundDiagnostics.ports.stt += 1
+        backgroundDiagnostics.lastSttAt = Date.now()
         let ws: WebSocket | null = null
         let disconnected = false
         let connectTimer: ReturnType<typeof setTimeout> | null = null
@@ -781,6 +848,10 @@ export default defineBackground({
         port.onMessage.addListener(onMsg)
         port.onDisconnect.addListener(() => {
           disconnected = true
+          backgroundDiagnostics.ports.stt = Math.max(
+            0,
+            backgroundDiagnostics.ports.stt - 1
+          )
           try { port.onMessage.removeListener(onMsg) } catch {}
           if (connectTimer) {
             clearTimeout(connectTimer)
@@ -959,6 +1030,8 @@ export default defineBackground({
     // Stream handler via Port API
     browser.runtime.onConnect.addListener((port) => {
       if (port.name === 'tldw:stream') {
+        backgroundDiagnostics.ports.stream += 1
+        backgroundDiagnostics.lastStreamAt = Date.now()
         let abort: AbortController | null = null
         let idleTimer: any = null
         let closed = false
@@ -1112,13 +1185,26 @@ export default defineBackground({
         port.onMessage.addListener(onMsg)
         port.onDisconnect.addListener(() => {
           disconnected = true
+          backgroundDiagnostics.ports.stream = Math.max(
+            0,
+            backgroundDiagnostics.ports.stream - 1
+          )
           try { port.onMessage.removeListener(onMsg) } catch {}
           try { abort?.abort() } catch {}
         })
       }
     })
 
+    if (browser?.alarms) {
+      browser.alarms.onAlarm.addListener((alarm) => {
+        if (alarm.name !== MODEL_WARM_ALARM_NAME) return
+        backgroundDiagnostics.alarmFires += 1
+        backgroundDiagnostics.lastAlarmAt = Date.now()
+        void warmModels(true)
+      })
+    }
+
     initialize()
   },
-  persistent: true
+  persistent: false
 })

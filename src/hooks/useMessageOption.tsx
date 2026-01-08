@@ -55,6 +55,8 @@ import { FEATURE_FLAGS, useFeatureFlag } from "@/hooks/useFeatureFlags"
 import { trackCompareMetric } from "@/utils/compare-metrics"
 import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
 import { normalizeConversationState } from "@/utils/conversation-state"
+import { cleanupAntOverlays } from "@/utils/cleanup-ant-overlays"
+import { Modal } from "antd"
 
 // Default max models per compare turn (Phase 3 polish)
 export const MAX_COMPARE_MODELS = 3
@@ -212,6 +214,10 @@ export const useMessageOption = () => {
 
   const selectServerChat = React.useCallback(
     (chat: ServerChatSummary) => {
+      if (typeof window !== "undefined") {
+        Modal.destroyAll()
+        cleanupAntOverlays()
+      }
       setIsLoading(true)
       setHistoryId(null)
       setHistory([])
@@ -310,7 +316,6 @@ export const useMessageOption = () => {
           chatId,
           historyId
         }
-        setHistoryId(historyId, { preserveServerChatId: true })
         return historyId
       }
 
@@ -339,7 +344,8 @@ export const useMessageOption = () => {
     chatId: string | null
     controller: AbortController | null
     inFlight: boolean
-  }>({ chatId: null, controller: null, inFlight: false })
+    loaded: boolean
+  }>({ chatId: null, controller: null, inFlight: false, loaded: false })
   const serverChatDebounceRef = React.useRef<{
     chatId: string | null
     timer: ReturnType<typeof setTimeout> | null
@@ -360,7 +366,7 @@ export const useMessageOption = () => {
     if (!serverChatId) return
     if (
       serverChatLoadRef.current.chatId === serverChatId &&
-      messages.length > 0
+      serverChatLoadRef.current.loaded
     ) {
       return
     }
@@ -384,7 +390,8 @@ export const useMessageOption = () => {
       serverChatLoadRef.current = {
         chatId: serverChatId,
         controller,
-        inFlight: true
+        inFlight: true,
+        loaded: false
       }
 
       const loadServerChat = async () => {
@@ -569,7 +576,8 @@ export const useMessageOption = () => {
             serverChatLoadRef.current = {
               chatId: serverChatId,
               controller: null,
-              inFlight: false
+              inFlight: false,
+              loaded: true
             }
           }
           setIsLoading(false)
@@ -849,6 +857,10 @@ export const useMessageOption = () => {
   }
 
   const clearChat = () => {
+    if (typeof window !== "undefined") {
+      Modal.destroyAll()
+      cleanupAntOverlays()
+    }
     navigate("/")
     setMessages([])
     setHistory([])

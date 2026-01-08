@@ -78,6 +78,7 @@ export type ClientPath =
   | "/api/v1/chats/{chat_id}/completions/persist"
   | "/api/v1/chats/{chat_id}/complete-v2"
   | "/api/v1/characters"
+  | "/api/v1/characters/import"
   | "/api/v1/characters/world-books"
   | "/api/v1/characters/world-books/import"
   | "/api/v1/audio/providers"

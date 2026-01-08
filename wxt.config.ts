@@ -10,24 +10,25 @@ import { createRequire } from "module"
 const require = createRequire(import.meta.url)
 const pkg = require("./package.json")
 
+const isEnvEnabled = (value?: string) =>
+  /^(1|true|yes|y|on)$/i.test((value ?? "").trim())
+
 // Force a single React instance during dev to avoid hook dispatcher mismatches.
 const reactAliases = [
   { find: /^react$/, replacement: require.resolve("react") },
   { find: /^react-dom$/, replacement: require.resolve("react-dom") },
+  { find: /^react-dom\/client$/, replacement: require.resolve("react-dom/client") },
   { find: /^react\/jsx-runtime$/, replacement: require.resolve("react/jsx-runtime") },
   { find: /^react\/jsx-dev-runtime$/, replacement: require.resolve("react/jsx-dev-runtime") }
 ]
 
 const isFirefox = process.env.TARGET === "firefox"
 const isDevelopment = process.env.NODE_ENV === "development"
+const isHmrDisabled = isEnvEnabled(process.env.WXT_DISABLE_HMR)
+const isRunnerDisabled = isEnvEnabled(process.env.WXT_DISABLE_RUNNER)
 
 // Enable bundle analysis for ANALYZE values like: "1", "true", "yes", "on" (case-insensitive)
-const analyzeEnv = (process.env.ANALYZE || "").trim()
-const analyzeBundle = /^(1|true|yes|y|on)$/i.test(analyzeEnv)
-
-const isAnyMatch = (id: string, matches: string[]) => {
-  return matches.some((m) => id.includes(m))
-}
+const analyzeBundle = isEnvEnabled(process.env.ANALYZE)
 
 const manualChunks = (id: string) => {
   if (!id.includes("node_modules")) return undefined
@@ -165,7 +166,8 @@ const chromeMV3Permissions = [
   "unlimitedStorage",
   "contextMenus",
   "tts",
-  "notifications"
+  "notifications",
+  "alarms"
 ]
 
 const firefoxMV2Permissions = [
@@ -174,6 +176,7 @@ const firefoxMV2Permissions = [
   "scripting",
   "unlimitedStorage",
   "contextMenus",
+  "alarms",
   "notifications",
   "http://*/*",
   "https://*/*",
@@ -241,20 +244,43 @@ export default defineConfig({
       ],
       // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
       resolve: {
-        dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+        dedupe: [
+          "react",
+          "react-dom",
+          "react-dom/client",
+          "react/jsx-runtime",
+          "react/jsx-dev-runtime"
+        ],
         alias: reactAliases
       },
-      // Disable Hot Module Replacement so streaming connections aren't killed by dev reloads
+      // Keep HMR enabled so dep optimization can trigger a full reload.
       server: {
-        hmr: false
+        hmr: isHmrDisabled ? false : { overlay: false },
+        warmup: {
+          clientFiles: [
+            "src/entries/options/main.tsx",
+            "src/entries/sidepanel/main.tsx"
+          ]
+        }
       },
       optimizeDeps: {
-        // Ensure pre-bundling runs before first load to avoid mixed module graphs.
+        // Prebundle React + crawl lazy-loaded UI to avoid mixed module graphs on cold start.
         force: true,
-        include: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+        holdUntilCrawlEnd: true,
+        include: [
+          "react",
+          "react-dom",
+          "react-dom/client",
+          "react/jsx-runtime",
+          "react/jsx-dev-runtime"
+        ],
         entries: [
           "src/entries/options/index.html",
-          "src/entries/sidepanel/index.html"
+          "src/entries/sidepanel/index.html",
+          "src/entries/options/main.tsx",
+          "src/entries/sidepanel/main.tsx",
+          "src/components/**/*.{ts,tsx}",
+          "src/routes/**/*.{ts,tsx}"
         ]
       },
       build: {
@@ -263,6 +289,9 @@ export default defineConfig({
         modulePreload: isFirefox ? false : undefined
       }
     }
+  },
+  runner: {
+    disabled: isRunnerDisabled
   },
   entrypointsDir: "entries",
   srcDir: "src",

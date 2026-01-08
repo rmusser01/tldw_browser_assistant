@@ -151,9 +151,11 @@ export const QuickChatHelperButton: React.FC<QuickChatHelperButtonProps> = ({
       {variant === "floating" ? (!isDocked && controls) : controls}
 
       {/* Modal - lazy loaded */}
-      <Suspense fallback={null}>
-        <QuickChatHelperModal open={isOpen} onClose={handleClose} />
-      </Suspense>
+      {isOpen && (
+        <Suspense fallback={null}>
+          <QuickChatHelperModal open={isOpen} onClose={handleClose} />
+        </Suspense>
+      )}
     </>
   )
 }
