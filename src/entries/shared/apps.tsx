@@ -12,11 +12,36 @@ import { KeyboardShortcutsModal } from "@/components/Common/KeyboardShortcutsMod
 const resolveRouter = (mode: "hash" | "memory") =>
   mode === "hash" ? HashRouter : MemoryRouter
 
+const resolveMemoryInitialEntry = () => {
+  if (typeof window === "undefined") {
+    return "/"
+  }
+  const rawHash = window.location.hash || ""
+  const trimmed = rawHash.startsWith("#") ? rawHash.slice(1) : rawHash
+  if (!trimmed || trimmed === "/") {
+    return "/"
+  }
+  return trimmed.startsWith("/") ? trimmed : `/${trimmed}`
+}
+
+const SidepanelMemoryRouter: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => {
+  const initialEntries = React.useMemo(
+    () => [resolveMemoryInitialEntry()],
+    []
+  )
+  return <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+}
+
 export const SidepanelApp: React.FC = () => {
   const { direction, t } = useSidepanelInit({
     titleDefaultValue: "tldw Assistant — Sidebar"
   })
-  const Router = resolveRouter(platformConfig.routers.sidepanel)
+  const Router =
+    platformConfig.routers.sidepanel === "hash"
+      ? HashRouter
+      : SidepanelMemoryRouter
   const extras = (
     <>
       {platformConfig.features.showQuickChatHelper && <QuickChatHelperButton />}

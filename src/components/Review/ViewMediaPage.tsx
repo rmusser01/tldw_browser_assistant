@@ -647,7 +647,7 @@ const MediaPageContent: React.FC = () => {
   useEffect(() => {
     setPage(1)
     refetch()
-  }, [mediaTypes, keywordTokens]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [mediaTypes, keywordTokens, refetch])
 
   // Initial load: populate media types and auto-browse first page
   useEffect(() => {

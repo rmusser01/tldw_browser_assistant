@@ -13,7 +13,6 @@ import {
 } from "antd"
 import { Link, useNavigate } from "react-router-dom"
 import React, { useEffect, useState } from "react"
-import { browser } from "wxt/browser"
 import { useTranslation } from "react-i18next"
 import { isFirefoxTarget } from "@/config/platform"
 import { tldwClient, TldwConfig } from "@/services/tldw/TldwApiClient"
@@ -262,10 +261,20 @@ export const TldwSettings = () => {
       // Request optional host permission for the configured origin on Chromium-based browsers
       try {
         const origin = new URL(values.serverUrl).origin
-        // @ts-ignore chrome may be undefined on Firefox builds
-        if (typeof chrome !== 'undefined' && chrome.permissions && chrome.permissions.request) {
-          // @ts-ignore callback style API
-          chrome.permissions.request({ origins: [origin + '/*'] }, (granted: boolean) => {
+        const chromePermissions = (
+          globalThis as {
+            chrome?: {
+              permissions?: {
+                request?: (
+                  options: { origins: string[] },
+                  callback: (granted: boolean) => void
+                ) => void
+              }
+            }
+          }
+        ).chrome?.permissions
+        if (chromePermissions?.request) {
+          chromePermissions.request({ origins: [origin + '/*'] }, (granted) => {
             if (!granted) {
               console.warn('Permission not granted for origin:', origin)
             }
@@ -425,13 +434,23 @@ export const TldwSettings = () => {
         return
       }
       const origin = new URL(urlStr).origin
-      // @ts-ignore chrome may be undefined on Firefox builds
-      if (typeof chrome === 'undefined' || !chrome?.permissions?.request) {
+      const chromePermissions = (
+        globalThis as {
+          chrome?: {
+            permissions?: {
+              request?: (
+                options: { origins: string[] },
+                callback: (granted: boolean) => void
+              ) => void
+            }
+          }
+        }
+      ).chrome?.permissions
+      if (!chromePermissions?.request) {
         message.info(t('settings:siteAccessChromiumOnly', 'Site access is only needed on Chrome/Edge'))
         return
       }
-      // @ts-ignore callback style API
-      chrome.permissions.request({ origins: [origin + '/*'] }, (granted: boolean) => {
+      chromePermissions.request({ origins: [origin + '/*'] }, (granted) => {
         if (granted) message.success(t('settings:siteAccessGranted', 'Host permission granted for {{origin}}', { origin }))
         else message.warning(t('settings:siteAccessDenied', 'Permission not granted for {{origin}}', { origin }))
       })

@@ -63,6 +63,7 @@ import { useFocusComposerOnConnect } from "@/hooks/useComposerFocus"
 import { useQuickIngestStore } from "@/store/quick-ingest"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
+import { shallow } from "zustand/shallow"
 import { Button } from "@/components/Common/Button"
 import { useSimpleForm } from "@/hooks/useSimpleForm"
 
@@ -97,7 +98,13 @@ export const SidepanelForm = ({
   const quickIngestHadFailure = useQuickIngestStore((s) => s.hadRecentFailure)
   const uiMode = useUiModeStore((state) => state.mode)
   const isProMode = uiMode === "pro"
-  const { replyTarget, clearReplyTarget } = useStoreMessageOption()
+  const { replyTarget, clearReplyTarget } = useStoreMessageOption(
+    (state) => ({
+      replyTarget: state.replyTarget,
+      clearReplyTarget: state.clearReplyTarget
+    }),
+    shallow
+  )
   const composerPadding = SPACING.COMPOSER_PADDING
   const composerGap = getComposerGap(isProMode)
   const cardPadding = SPACING.CARD_PADDING

@@ -2,7 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { toBase64 } from "~/libs/to-base64"
-import { useMessageOption, MAX_COMPARE_MODELS } from "~/hooks/useMessageOption"
+import { useMessageOption } from "~/hooks/useMessageOption"
+import { MAX_COMPARE_MODELS } from "@/hooks/chat/compare-constants"
 import {
   Checkbox,
   Dropdown,

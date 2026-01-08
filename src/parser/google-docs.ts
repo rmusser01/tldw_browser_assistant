@@ -7,9 +7,17 @@ export const isGoogleDocs = (url: string) => {
 
 const getGoogleDocs = () => {
   try {
+    const isElementLike = (
+      value: unknown
+    ): value is { nodeType: number; nodeName: string } => {
+      if (!value || typeof value !== "object") return false
+      const candidate = value as { nodeType?: number; nodeName?: string }
+      return candidate.nodeType === 1 && typeof candidate.nodeName === "string"
+    }
+
     function traverse(
-      obj: { [x: string]: any },
-      predicate: { (_: any, value: any): boolean; (arg0: any, arg1: any): any },
+      obj: Record<string, unknown>,
+      predicate: (name: string, value: unknown) => boolean,
       maxDepth: number,
       propNames = Object.getOwnPropertyNames(obj)
     ) {
@@ -20,7 +28,7 @@ const getGoogleDocs = () => {
       const traverseObj = (
         name: string,
         value: unknown,
-        path: any[],
+        path: Array<string | number>,
         depth = 0
       ) => {
         iterations++
@@ -44,19 +52,20 @@ const getGoogleDocs = () => {
                 traverseObj(index.toString(), val, currentPath, depth + 1)
               } catch (error) {}
             })
-          } else if (value instanceof Object) {
+          } else if (typeof value === "object") {
             const propNamesForValue =
-              value &&
-              // @ts-ignore
-              value.nodeType === 1 &&
-              // @ts-ignore
-              typeof value.nodeName === "string"
+              isElementLike(value)
                 ? Object.getOwnPropertyNames(obj)
                 : Object.getOwnPropertyNames(value)
 
             propNamesForValue.forEach((prop) => {
               try {
-                traverseObj(prop, value[prop], currentPath, depth + 1)
+                traverseObj(
+                  prop,
+                  (value as Record<string, unknown>)[prop],
+                  currentPath,
+                  depth + 1
+                )
               } catch (error) {}
             })
           }
@@ -72,11 +81,21 @@ const getGoogleDocs = () => {
       return { results, iterations }
     }
 
+    const root = (window as { KX_kixApp?: unknown }).KX_kixApp
+    if (!root || typeof root !== "object") {
+      return { content: null }
+    }
+
     const result = traverse(
-      // @ts-ignore
-      window.KX_kixApp,
-      (_: any, value: { toString: () => string }) =>
-        value && "\x03" === value.toString().charAt(0),
+      root as Record<string, unknown>,
+      (_name, value) => {
+        if (!value) return false
+        try {
+          return String(value).charAt(0) === "\x03"
+        } catch {
+          return false
+        }
+      },
       5
     )
     if (result.results?.[0]?.value) {

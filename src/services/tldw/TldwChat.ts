@@ -1,4 +1,5 @@
 import { tldwClient, ChatMessage, ChatCompletionRequest } from "./TldwApiClient"
+import { extractTokenFromChunk } from "@/utils/extract-token-from-chunk"
 
 type ToolFunctionSchema = Record<string, unknown>
 type ToolFunction = {
@@ -252,16 +253,9 @@ export class TldwChatService {
           onChunk(chunk)
         }
 
-        // Extract and yield the content
-        if (chunk?.choices && chunk.choices[0]?.delta?.content) {
-          yield chunk.choices[0].delta.content
-        } else if (typeof (chunk as any)?.content === 'string') {
-          yield (chunk as any).content
-        } else if (typeof (chunk as any)?.message?.content === 'string') {
-          yield (chunk as any).message.content
-        } else if (typeof chunk === 'string') {
-          // Some servers stream plain strings
-          yield chunk
+        const token = extractTokenFromChunk(chunk)
+        if (token) {
+          yield token
         }
       }
     } catch (error) {

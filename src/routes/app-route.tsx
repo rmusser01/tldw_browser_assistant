@@ -1,6 +1,6 @@
 import React from "react"
 import type { ErrorInfo, ReactNode } from "react"
-import { Route, Routes, useLocation } from "react-router-dom"
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import { useDarkMode } from "~/hooks/useDarkmode"
 import { PageAssistLoader } from "@/components/Common/PageAssistLoader"
 import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
@@ -36,28 +36,28 @@ const ROUTE_FALLBACKS: Record<
   }
 }
 
-type OptionsErrorBoundaryProps = {
+type RouteErrorBoundaryProps = {
   children: ReactNode
   onReset?: () => void
 }
 
-type OptionsErrorBoundaryState = {
+type RouteErrorBoundaryState = {
   hasError: boolean
   error: Error | null
   errorInfo: ErrorInfo | null
 }
 
 class OptionsErrorBoundary extends React.Component<
-  OptionsErrorBoundaryProps,
-  OptionsErrorBoundaryState
+  RouteErrorBoundaryProps,
+  RouteErrorBoundaryState
 > {
-  state: OptionsErrorBoundaryState = {
+  state: RouteErrorBoundaryState = {
     hasError: false,
     error: null,
     errorInfo: null
   }
 
-  static getDerivedStateFromError(error: Error): Partial<OptionsErrorBoundaryState> {
+  static getDerivedStateFromError(error: Error): Partial<RouteErrorBoundaryState> {
     return { hasError: true, error }
   }
 
@@ -109,10 +109,88 @@ class OptionsErrorBoundary extends React.Component<
   }
 }
 
+class SidepanelErrorBoundary extends React.Component<
+  RouteErrorBoundaryProps,
+  RouteErrorBoundaryState
+> {
+  state: RouteErrorBoundaryState = {
+    hasError: false,
+    error: null,
+    errorInfo: null
+  }
+
+  static getDerivedStateFromError(error: Error): Partial<RouteErrorBoundaryState> {
+    return { hasError: true, error }
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    this.setState({ errorInfo })
+    console.error("[SidepanelErrorBoundary] Caught error:", error, errorInfo)
+  }
+
+  handleReset = (): void => {
+    this.setState({ hasError: false, error: null, errorInfo: null })
+    this.props.onReset?.()
+  }
+
+  render(): ReactNode {
+    if (this.state.hasError) {
+      return (
+        <div className="flex min-h-screen items-center justify-center bg-surface p-8">
+          <div className="max-w-lg text-center">
+            <h2 className="text-lg font-semibold text-text">
+              Something went wrong
+            </h2>
+            <p className="mt-2 text-sm text-text-muted">
+              The sidepanel hit an unexpected error. You can try reloading the panel.
+            </p>
+            <button
+              type="button"
+              onClick={this.handleReset}
+              className="mt-4 inline-flex items-center justify-center rounded-md bg-[color:var(--color-primary)] px-4 py-2 text-sm font-medium text-white hover:bg-[color:var(--color-primary-strong)]"
+            >
+              Reload Sidepanel
+            </button>
+            {this.state.error && (
+              <details className="mt-4 text-left text-xs text-text-subtle">
+                <summary className="cursor-pointer">View error details</summary>
+                <pre className="mt-2 whitespace-pre-wrap rounded-md bg-surface2 p-3 text-[11px] text-danger">
+                  {this.state.error.message}
+                  {this.state.errorInfo?.componentStack
+                    ? `\n${this.state.errorInfo.componentStack}`
+                    : ""}
+                </pre>
+              </details>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    return this.props.children
+  }
+}
+
 export const RouteShell = ({ kind }: { kind: RouteKind }) => {
   const { mode } = useDarkMode()
+  const navigate = useNavigate()
   useAutoButtonTitles()
   const location = useLocation()
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    const targetWindow = window as Window & {
+      __tldwNavigate?: (path: string) => void
+    }
+    const navigateFn = (path: string) => {
+      navigate(path)
+    }
+    targetWindow.__tldwNavigate = navigateFn
+    return () => {
+      if (targetWindow.__tldwNavigate === navigateFn) {
+        delete targetWindow.__tldwNavigate
+      }
+    }
+  }, [navigate])
   React.useEffect(() => {
     registerUiDiagnostics(kind === "options" ? "options" : "sidepanel")
   }, [kind])
@@ -141,6 +219,11 @@ export const RouteShell = ({ kind }: { kind: RouteKind }) => {
       window.location.reload()
     }
   }
+  const handleSidepanelReset = () => {
+    if (typeof window !== "undefined") {
+      window.location.reload()
+    }
+  }
   const routesContent = (
     <Routes>
       {visibleRoutes.map((route) => (
@@ -159,7 +242,9 @@ export const RouteShell = ({ kind }: { kind: RouteKind }) => {
             {routesContent}
           </OptionsErrorBoundary>
         ) : (
-          routesContent
+          <SidepanelErrorBoundary onReset={handleSidepanelReset}>
+            {routesContent}
+          </SidepanelErrorBoundary>
         )}
       </React.Suspense>
     </div>

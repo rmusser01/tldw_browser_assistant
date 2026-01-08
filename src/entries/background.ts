@@ -61,6 +61,10 @@ const backgroundDiagnostics: BackgroundDiagnostics = {
   lastCopilotAt: null
 }
 
+const logBackgroundError = (label: string, error: unknown) => {
+  console.debug(`[tldw] background ${label} failed`, error)
+}
+
 const warmModels = async (
   force = false,
   throwOnError = false
@@ -248,7 +252,8 @@ export default defineBackground({
               mode
             }
           })
-        } catch {
+        } catch (error) {
+          logBackgroundError("send transcription result", error)
           setTimeout(() => {
             try {
               browser.runtime.sendMessage({
@@ -262,7 +267,9 @@ export default defineBackground({
                   mode
                 }
               })
-            } catch {}
+            } catch (fallbackError) {
+              logBackgroundError("send transcription result (retry)", fallbackError)
+            }
           }, 500)
         }
         notify('tldw_server', `${label} sent to sidebar. You can also review it under Media in the Web UI.`)
@@ -302,7 +309,8 @@ export default defineBackground({
       if (/^https?:/i.test(raw)) {
         try {
           pathname = new URL(raw).pathname
-        } catch {
+        } catch (error) {
+          logBackgroundError("parse chat endpoint url", error)
           pathname = raw
         }
       }
@@ -387,7 +395,8 @@ export default defineBackground({
           const out = new Uint8Array(binary.length)
           for (let i = 0; i < binary.length; i += 1) out[i] = binary.charCodeAt(i)
           return out
-        } catch {
+        } catch (error) {
+          logBackgroundError("decode file data url", error)
           return null
         }
       }
@@ -433,10 +442,16 @@ export default defineBackground({
           if (trimmedFieldName) {
             form.append(trimmedFieldName, blob, filename)
           } else {
-            // @ts-ignore File may not exist in some workers; Blob is accepted by FormData
             try {
-              form.append('files', new File([blob], filename, { type: blob.type }))
-            } catch {
+              const fileCtor =
+                typeof File === "function" ? File : null
+              if (fileCtor) {
+                form.append('files', new fileCtor([blob], filename, { type: blob.type }))
+              } else {
+                form.append('files', blob, filename)
+              }
+            } catch (error) {
+              logBackgroundError("append upload file", error)
               form.append('files', blob, filename)
             }
             // Backward-compat: also include singular key some servers accept
@@ -493,7 +508,11 @@ export default defineBackground({
               }
             })()
           }
-          try { await refreshInFlight } catch {}
+          try {
+            await refreshInFlight
+          } catch (error) {
+            logBackgroundError("refresh auth", error)
+          }
         }
       })
 
@@ -616,15 +635,29 @@ export default defineBackground({
                 : result?.status === 'error'
                   ? 'Failed'
                   : 'Processed'
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            chrome?.notifications?.create?.({
+            const chromeNotifications = (
+              globalThis as {
+                chrome?: {
+                  notifications?: {
+                    create?: (options: {
+                      type: string
+                      iconUrl: string
+                      title: string
+                      message: string
+                    }) => void
+                  }
+                }
+              }
+            ).chrome?.notifications
+            chromeNotifications?.create?.({
               type: 'basic',
               iconUrl: '/icon.png',
               title: 'Quick Ingest',
               message: `${processedCount}/${totalCount}: ${label} – ${statusLabel}`
             })
-          } catch {}
+          } catch (error) {
+            logBackgroundError("quick ingest notification", error)
+          }
 
           // In-app progress event for any open UI
           try {
@@ -637,8 +670,12 @@ export default defineBackground({
                   totalCount
                 }
               })
-              .catch(() => {})
-          } catch {}
+              .catch((error) => {
+                logBackgroundError("quick ingest progress message", error)
+              })
+          } catch (error) {
+            logBackgroundError("quick ingest progress message", error)
+          }
         }
 
         // Process URL entries
@@ -750,8 +787,8 @@ export default defineBackground({
         try {
           const tabId = sender?.tab?.id ?? undefined
           ensureSidepanelOpen(tabId)
-        } catch {
-          // no-op: opening the sidepanel is best-effort
+        } catch (error) {
+          logBackgroundError("ensure sidepanel open", error)
         }
       } else if (message.type === 'tldw:upload') {
         return handleUpload(message.payload || {})
@@ -792,7 +829,11 @@ export default defineBackground({
         let connectTimer: ReturnType<typeof setTimeout> | null = null
         const safePost = (msg: any) => {
           if (disconnected) return
-          try { port.postMessage(msg) } catch {}
+          try {
+            port.postMessage(msg)
+          } catch (error) {
+            logBackgroundError("stt port postMessage", error)
+          }
         }
         const onMsg = async (msg: any) => {
           try {
@@ -811,7 +852,11 @@ export default defineBackground({
               connectTimer = setTimeout(() => {
                 if (!ws || ws.readyState !== WebSocket.OPEN) {
                   safePost({ event: 'error', message: 'STT connection timeout. Check tldw server health.' })
-                  try { ws?.close() } catch {}
+                  try {
+                    ws?.close()
+                  } catch (error) {
+                    logBackgroundError("stt websocket close (timeout)", error)
+                  }
                   ws = null
                 }
               }, 10000)
@@ -838,7 +883,11 @@ export default defineBackground({
                 ws.send(msg.data.buffer)
               }
             } else if (msg?.action === 'close') {
-              try { ws?.close() } catch {}
+              try {
+                ws?.close()
+              } catch (error) {
+                logBackgroundError("stt websocket close", error)
+              }
               ws = null
             }
           } catch (e: any) {
@@ -852,12 +901,20 @@ export default defineBackground({
             0,
             backgroundDiagnostics.ports.stt - 1
           )
-          try { port.onMessage.removeListener(onMsg) } catch {}
+          try {
+            port.onMessage.removeListener(onMsg)
+          } catch (error) {
+            logBackgroundError("stt port removeListener", error)
+          }
           if (connectTimer) {
             clearTimeout(connectTimer)
             connectTimer = null
           }
-          try { ws?.close() } catch {}
+          try {
+            ws?.close()
+          } catch (error) {
+            logBackgroundError("stt websocket close (disconnect)", error)
+          }
         })
       }
     })
@@ -1038,7 +1095,11 @@ export default defineBackground({
         let disconnected = false
         const safePost = (msg: any) => {
           if (disconnected) return
-          try { port.postMessage(msg) } catch {}
+          try {
+            port.postMessage(msg)
+          } catch (error) {
+            logBackgroundError("stream port postMessage", error)
+          }
         }
         const onMsg = async (msg: any) => {
           try {
@@ -1077,7 +1138,11 @@ export default defineBackground({
               if (idleTimer) clearTimeout(idleTimer)
               idleTimer = setTimeout(() => {
                 if (!closed) {
-                  try { abort?.abort() } catch {}
+                  try {
+                    abort?.abort()
+                  } catch (error) {
+                    logBackgroundError("stream abort", error)
+                  }
                   safePost({ event: 'error', message: 'Stream timeout: no updates received' })
                 }
               }, idleMs)
@@ -1096,10 +1161,18 @@ export default defineBackground({
             if (resp.status === 401 && cfg.authMode === 'multi-user' && cfg.refreshToken) {
               if (!refreshInFlight) {
                 refreshInFlight = (async () => {
-                  try { await tldwAuth.refreshToken() } finally { refreshInFlight = null }
+                  try {
+                    await tldwAuth.refreshToken()
+                  } finally {
+                    refreshInFlight = null
+                  }
                 })()
               }
-              try { await refreshInFlight } catch {}
+              try {
+                await refreshInFlight
+              } catch (error) {
+                logBackgroundError("refresh auth (stream)", error)
+              }
               const updated = await storage.get<any>('tldwConfig')
               if (updated?.accessToken) headers['Authorization'] = `Bearer ${updated.accessToken}`
               const retryController = new AbortController()
@@ -1147,12 +1220,26 @@ export default defineBackground({
                 if (trimmed.startsWith('event:')) {
                   const name = trimmed.slice(6).trim()
                   if (streamDebugEnabled) {
-                    try { await browser.runtime.sendMessage({ type: 'tldw:stream-debug', payload: { kind: 'event', name, time: Date.now() } }) } catch {}
+                    try {
+                      await browser.runtime.sendMessage({
+                        type: 'tldw:stream-debug',
+                        payload: { kind: 'event', name, time: Date.now() }
+                      })
+                    } catch (error) {
+                      logBackgroundError("stream debug event", error)
+                    }
                   }
                 } else if (trimmed.startsWith('data:')) {
                   const data = trimmed.slice(5).trim()
                   if (streamDebugEnabled) {
-                    try { await browser.runtime.sendMessage({ type: 'tldw:stream-debug', payload: { kind: 'data', data, time: Date.now() } }) } catch {}
+                    try {
+                      await browser.runtime.sendMessage({
+                        type: 'tldw:stream-debug',
+                        payload: { kind: 'data', data, time: Date.now() }
+                      })
+                    } catch (error) {
+                      logBackgroundError("stream debug data", error)
+                    }
                   }
                   if (data === '[DONE]') {
                     closed = true
@@ -1165,7 +1252,14 @@ export default defineBackground({
                   // Some servers may omit the 'data:' prefix; treat JSON lines as data
                   const data = trimmed
                   if (streamDebugEnabled) {
-                    try { await browser.runtime.sendMessage({ type: 'tldw:stream-debug', payload: { kind: 'data', data, time: Date.now() } }) } catch {}
+                    try {
+                      await browser.runtime.sendMessage({
+                        type: 'tldw:stream-debug',
+                        payload: { kind: 'data', data, time: Date.now() }
+                      })
+                    } catch (error) {
+                      logBackgroundError("stream debug json", error)
+                    }
                   }
                   safePost({ event: 'data', data })
                 }
@@ -1189,8 +1283,16 @@ export default defineBackground({
             0,
             backgroundDiagnostics.ports.stream - 1
           )
-          try { port.onMessage.removeListener(onMsg) } catch {}
-          try { abort?.abort() } catch {}
+          try {
+            port.onMessage.removeListener(onMsg)
+          } catch (error) {
+            logBackgroundError("stream port removeListener", error)
+          }
+          try {
+            abort?.abort()
+          } catch (error) {
+            logBackgroundError("stream abort (disconnect)", error)
+          }
         })
       }
     })

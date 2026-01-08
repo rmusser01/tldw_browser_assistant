@@ -50,7 +50,6 @@ import {
   getPromptById,
   getHistoriesWithMetadata
 } from "@/db/dexie/helpers"
-import { UploadedFile } from "@/db/dexie/types"
 import { isDatabaseClosedError } from "@/utils/ff-error"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { promptInput } from "@/components/Common/prompt-input"
@@ -59,41 +58,20 @@ import { IconButton } from "../Common/IconButton"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
+import { shallow } from "zustand/shallow"
+import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useSelectServerChat } from "@/hooks/chat/useSelectServerChat"
+import { useStoreChatModelSettings } from "@/store/model"
 import { useStoreMessageOption } from "@/store/option"
 import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
 
 type Props = {
   onClose: () => void
-  setMessages: (messages: any) => void
-  setHistory: (history: any) => void
-  setHistoryId: (historyId: string) => void
-  setSelectedModel: (model: string) => void
-  setSelectedSystemPrompt: (prompt: string) => void
-  setSystemPrompt: (prompt: string) => void
-  setContext?: (context: UploadedFile[]) => void
-  clearChat: () => void
-  selectServerChat: (chat: ServerChatSummary) => void
-  temporaryChat: boolean
-  historyId: string
-  history: any
   isOpen: boolean
 }
 
-export const Sidebar = ({
-  onClose,
-  setMessages,
-  setHistory,
-  setHistoryId,
-  setSelectedModel,
-  setSelectedSystemPrompt,
-  clearChat,
-  selectServerChat,
-  historyId,
-  setSystemPrompt,
-  temporaryChat,
-  isOpen,
-  setContext
-}: Props) => {
+export const Sidebar = ({ onClose, isOpen }: Props) => {
   const FolderPicker = React.useMemo(
     () =>
       React.lazy(
@@ -139,7 +117,30 @@ export const Sidebar = ({
     }
   }, [isConnected, isOpen, viewMode, refreshFromServer])
 
-  const { serverChatId, setServerChatId } = useStoreMessageOption()
+  const clearChat = useClearChat()
+  const selectServerChat = useSelectServerChat()
+  const { setSystemPrompt } = useStoreChatModelSettings()
+  const { historyId, setHistory, setHistoryId, setMessages } = useChatBaseState(
+    useStoreMessageOption
+  )
+  const {
+    serverChatId,
+    setServerChatId,
+    setSelectedModel,
+    setSelectedSystemPrompt,
+    setContextFiles,
+    temporaryChat
+  } = useStoreMessageOption(
+    (state) => ({
+      serverChatId: state.serverChatId,
+      setServerChatId: state.setServerChatId,
+      setSelectedModel: state.setSelectedModel,
+      setSelectedSystemPrompt: state.setSelectedSystemPrompt,
+      setContextFiles: state.setContextFiles,
+      temporaryChat: state.temporaryChat
+    }),
+    shallow
+  )
   const {
     data: serverChatData,
     status: serverStatus,
@@ -494,10 +495,8 @@ export const Sidebar = ({
           setSystemPrompt(promptContent)
         }
 
-        if (setContext) {
-          const session = await getSessionFiles(conversationId)
-          setContext(session)
-        }
+        const session = await getSessionFiles(conversationId)
+        setContextFiles(session)
 
         updatePageTitle(
           historyDetails?.title || t("common:untitled", { defaultValue: "Untitled" })
@@ -519,13 +518,13 @@ export const Sidebar = ({
     [
       navigate,
       onClose,
-      setContext,
       setHistory,
       setHistoryId,
       setMessages,
       setSelectedModel,
       setSelectedSystemPrompt,
       setServerChatId,
+      setContextFiles,
       setSystemPrompt,
       t
     ]

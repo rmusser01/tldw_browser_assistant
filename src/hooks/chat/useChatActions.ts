@@ -1,0 +1,1137 @@
+import React from "react"
+import type { NotificationInstance } from "antd/es/notification/interface"
+import type { TFunction } from "i18next"
+import { type ChatHistory, type Message } from "~/store/option"
+import {
+  generateID,
+  saveHistory,
+  saveMessage,
+  updateHistory,
+  removeMessageByIndex,
+  formatToChatHistory,
+  formatToMessage,
+  getSessionFiles,
+  getPromptById
+} from "@/db/dexie/helpers"
+import type { ChatDocuments } from "@/models/ChatTypes"
+import { normalChatMode } from "@/hooks/chat-modes/normalChatMode"
+import { continueChatMode } from "@/hooks/chat-modes/continueChatMode"
+import { ragMode } from "@/hooks/chat-modes/ragMode"
+import { tabChatMode } from "@/hooks/chat-modes/tabChatMode"
+import { documentChatMode } from "@/hooks/chat-modes/documentChatMode"
+import {
+  validateBeforeSubmit,
+  createSaveMessageOnSuccess,
+  createSaveMessageOnError
+} from "@/hooks/utils/messageHelpers"
+import {
+  createRegenerateLastMessage,
+  createEditMessage,
+  createStopStreamingRequest,
+  createBranchMessage
+} from "@/hooks/handlers/messageHandlers"
+import { generateBranchFromMessageIds } from "@/db/dexie/branch"
+import { type UploadedFile } from "@/db/dexie/types"
+import { updatePageTitle } from "@/utils/update-page-title"
+import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
+import { getServerCapabilities } from "@/services/tldw/server-capabilities"
+import { getActorSettingsForChat } from "@/services/actor-settings"
+import { generateTitle } from "@/services/title"
+import { trackCompareMetric } from "@/utils/compare-metrics"
+import { MAX_COMPARE_MODELS } from "@/hooks/chat/compare-constants"
+import type {
+  Knowledge,
+  ReplyTarget,
+  ToolChoice
+} from "@/store/option"
+import type { ChatModelSettings } from "@/store/model"
+
+type ChatModelSettingsStore = ChatModelSettings & {
+  setSystemPrompt?: (prompt: string) => void
+}
+
+type ChatModeOverrides = {
+  historyId?: string | null
+  serverChatId?: string | null
+} & Record<string, unknown>
+
+type SaveMessagePayload = {
+  historyId?: string | null
+  conversationId?: string | number | null
+  saveToDb?: boolean
+  isRegenerate?: boolean
+  isContinue?: boolean
+  message?: string
+  fullText?: string
+}
+
+type UseChatActionsOptions = {
+  t: TFunction
+  notification: NotificationInstance
+  abortController: AbortController | null
+  setAbortController: (controller: AbortController | null) => void
+  messages: Message[]
+  setMessages: (
+    messagesOrUpdater: Message[] | ((prev: Message[]) => Message[])
+  ) => void
+  history: ChatHistory
+  setHistory: (history: ChatHistory) => void
+  historyId: string | null
+  setHistoryId: (
+    historyId: string | null,
+    options?: { preserveServerChatId?: boolean }
+  ) => void
+  temporaryChat: boolean
+  selectedModel: string | null
+  useOCR: boolean
+  selectedSystemPrompt: string | null
+  selectedKnowledge: Knowledge | null
+  toolChoice: ToolChoice
+  webSearch: boolean
+  currentChatModelSettings: ChatModelSettingsStore
+  setIsSearchingInternet: (isSearchingInternet: boolean) => void
+  setIsProcessing: (isProcessing: boolean) => void
+  setStreaming: (streaming: boolean) => void
+  setActionInfo: (actionInfo: string) => void
+  fileRetrievalEnabled: boolean
+  ragMediaIds: number[] | null
+  ragSearchMode: "hybrid" | "vector" | "fts"
+  ragTopK: number | null
+  ragEnableGeneration: boolean
+  ragEnableCitations: boolean
+  ragSources: string[]
+  ragAdvancedOptions: Record<string, unknown>
+  serverChatId: string | null
+  serverChatTitle: string | null
+  serverChatCharacterId: string | number | null
+  serverChatState: ConversationState | null
+  serverChatTopic: string | null
+  serverChatClusterId: string | null
+  serverChatSource: string | null
+  serverChatExternalRef: string | null
+  setServerChatId: (id: string | null) => void
+  setServerChatTitle: (title: string | null) => void
+  setServerChatCharacterId: (id: string | number | null) => void
+  setServerChatMetaLoaded: (loaded: boolean) => void
+  setServerChatState: (state: ConversationState | null) => void
+  setServerChatVersion: (version: number | null) => void
+  setServerChatTopic: (topic: string | null) => void
+  setServerChatClusterId: (clusterId: string | null) => void
+  setServerChatSource: (source: string | null) => void
+  setServerChatExternalRef: (ref: string | null) => void
+  ensureServerChatHistoryId: (
+    chatId: string,
+    title?: string
+  ) => Promise<string | null>
+  contextFiles: UploadedFile[]
+  setContextFiles: (files: UploadedFile[]) => void
+  documentContext: ChatDocuments | null
+  setDocumentContext: (docs: ChatDocuments) => void
+  uploadedFiles: UploadedFile[]
+  compareModeActive: boolean
+  compareSelectedModels: string[]
+  compareMaxModels: number
+  compareFeatureEnabled: boolean
+  markCompareHistoryCreated: (historyId: string) => void
+  replyTarget: ReplyTarget | null
+  clearReplyTarget: () => void
+  setSelectedSystemPrompt: (prompt: string) => void
+  invalidateServerChatHistory: () => void
+}
+
+export const useChatActions = ({
+  t,
+  notification,
+  abortController,
+  setAbortController,
+  messages,
+  setMessages,
+  history,
+  setHistory,
+  historyId,
+  setHistoryId,
+  temporaryChat,
+  selectedModel,
+  useOCR,
+  selectedSystemPrompt,
+  selectedKnowledge,
+  toolChoice,
+  webSearch,
+  currentChatModelSettings,
+  setIsSearchingInternet,
+  setIsProcessing,
+  setStreaming,
+  setActionInfo,
+  fileRetrievalEnabled,
+  ragMediaIds,
+  ragSearchMode,
+  ragTopK,
+  ragEnableGeneration,
+  ragEnableCitations,
+  ragSources,
+  ragAdvancedOptions,
+  serverChatId,
+  serverChatTitle,
+  serverChatCharacterId,
+  serverChatState,
+  serverChatTopic,
+  serverChatClusterId,
+  serverChatSource,
+  serverChatExternalRef,
+  setServerChatId,
+  setServerChatTitle,
+  setServerChatCharacterId,
+  setServerChatMetaLoaded,
+  setServerChatState,
+  setServerChatVersion,
+  setServerChatTopic,
+  setServerChatClusterId,
+  setServerChatSource,
+  setServerChatExternalRef,
+  ensureServerChatHistoryId,
+  contextFiles,
+  setContextFiles,
+  documentContext,
+  setDocumentContext,
+  uploadedFiles,
+  compareModeActive,
+  compareSelectedModels,
+  compareMaxModels,
+  compareFeatureEnabled,
+  markCompareHistoryCreated,
+  replyTarget,
+  clearReplyTarget,
+  setSelectedSystemPrompt,
+  invalidateServerChatHistory
+}: UseChatActionsOptions) => {
+  const messagesRef = React.useRef(messages)
+
+  React.useEffect(() => {
+    messagesRef.current = messages
+  }, [messages])
+
+  const baseSaveMessageOnSuccess = createSaveMessageOnSuccess(
+    temporaryChat,
+    setHistoryId as (
+      id: string,
+      options?: { preserveServerChatId?: boolean }
+    ) => void
+  )
+  const saveMessageOnError = createSaveMessageOnError(
+    temporaryChat,
+    history,
+    setHistory,
+    setHistoryId as (
+      id: string,
+      options?: { preserveServerChatId?: boolean }
+    ) => void
+  )
+
+  const saveMessageOnSuccess = async (
+    payload?: SaveMessagePayload
+  ): Promise<string | null> => {
+    const historyKey = await baseSaveMessageOnSuccess(payload)
+
+    if (!payload?.historyId && historyKey) {
+      markCompareHistoryCreated(historyKey)
+    }
+
+    if (temporaryChat) {
+      return historyKey
+    }
+
+    let skipServerWrite = false
+    const payloadConversationId =
+      typeof payload?.conversationId === "string"
+        ? payload.conversationId
+        : payload?.conversationId != null
+          ? String(payload.conversationId)
+          : null
+    const isServerConversation =
+      payloadConversationId && serverChatId
+        ? payloadConversationId === String(serverChatId)
+        : false
+    const serverConversationMatches = payloadConversationId
+      ? payloadConversationId === String(serverChatId)
+      : true
+
+    if (isServerConversation && payload?.saveToDb) {
+      try {
+        const caps = await getServerCapabilities()
+        skipServerWrite = Boolean(caps?.hasChatSaveToDb)
+      } catch {
+        skipServerWrite = false
+      }
+    }
+
+    // When resuming a server-backed chat, mirror new turns to /api/v1/chats.
+    if (
+      serverChatId &&
+      serverConversationMatches &&
+      !skipServerWrite &&
+      !payload?.isRegenerate &&
+      !payload?.isContinue &&
+      typeof payload?.message === "string" &&
+      typeof payload?.fullText === "string"
+    ) {
+      try {
+        const cid = serverChatId
+        const userContent = payload.message.trim()
+        const assistantContent = payload.fullText.trim()
+
+        if (userContent.length > 0) {
+          await tldwClient.addChatMessage(cid, {
+            role: "user",
+            content: userContent
+          })
+        }
+
+        if (assistantContent.length > 0) {
+          await tldwClient.addChatMessage(cid, {
+            role: "assistant",
+            content: assistantContent
+          })
+        }
+      } catch {
+        // Ignore sync errors; local history is still saved.
+      }
+    }
+
+    return historyKey
+  }
+
+  const buildChatModeParams = async (overrides: ChatModeOverrides = {}) => {
+    const hasHistoryOverride = Object.prototype.hasOwnProperty.call(
+      overrides,
+      "historyId"
+    )
+    const resolvedServerChatId =
+      overrides.serverChatId === undefined ? serverChatId : overrides.serverChatId
+    const resolvedHistoryId = hasHistoryOverride
+      ? overrides.historyId
+      : resolvedServerChatId && !temporaryChat
+        ? await ensureServerChatHistoryId(
+            resolvedServerChatId,
+            serverChatTitle || undefined
+          )
+        : historyId
+
+    const actorSettings = await getActorSettingsForChat({
+      historyId: resolvedHistoryId ?? historyId,
+      serverChatId: resolvedServerChatId
+    })
+
+    return {
+      selectedModel,
+      useOCR,
+      selectedSystemPrompt,
+      selectedKnowledge,
+      toolChoice,
+      currentChatModelSettings,
+      setMessages,
+      setIsSearchingInternet,
+      saveMessageOnSuccess,
+      saveMessageOnError,
+      setHistory,
+      setIsProcessing,
+      setStreaming,
+      setAbortController,
+      historyId: resolvedHistoryId ?? historyId,
+      setHistoryId,
+      fileRetrievalEnabled,
+      ragMediaIds,
+      ragSearchMode,
+      ragTopK,
+      ragEnableGeneration,
+      ragEnableCitations,
+      ragSources,
+      ragAdvancedOptions,
+      setActionInfo,
+      webSearch,
+      actorSettings,
+      ...overrides
+    }
+  }
+
+  const buildCompareHistoryTitle = React.useCallback(
+    (title: string) => {
+      const trimmed =
+        title?.trim() ||
+        t("common:untitled", { defaultValue: "Untitled" })
+      return t(
+        "playground:composer.compareHistoryPrefix",
+        "Compare: {{title}}",
+        { title: trimmed }
+      )
+    },
+    [t]
+  )
+
+  const buildCompareSplitTitle = React.useCallback(
+    (title: string) => {
+      const trimmed =
+        title?.trim() ||
+        t("common:untitled", { defaultValue: "Untitled" })
+      const suffix = t(
+        "playground:composer.compareHistorySuffix",
+        "(from compare)"
+      )
+      if (trimmed.includes(suffix)) {
+        return trimmed
+      }
+      return `${trimmed} ${suffix}`.trim()
+    },
+    [t]
+  )
+
+  const getMessageModelKey = (message: Message) =>
+    message.modelId || message.modelName || message.name
+
+  const shouldIncludeMessageForModel = (
+    message: Message,
+    modelId: string
+  ) => {
+    if (!message.isBot) {
+      if (message.messageType === "compare:perModelUser") {
+        return message.modelId === modelId
+      }
+      return true
+    }
+    const messageModel = getMessageModelKey(message)
+    if (!messageModel) {
+      return false
+    }
+    return messageModel === modelId
+  }
+
+  const buildHistoryFromMessages = (items: Message[]): ChatHistory =>
+    items.map((message) => ({
+      role: message.isBot ? "assistant" : "user",
+      content: message.message,
+      image: message.images?.[0],
+      messageType: message.messageType
+    }))
+
+  const buildHistoryForModel = (
+    items: Message[],
+    modelId: string
+  ): ChatHistory =>
+    buildHistoryFromMessages(
+      items.filter((message) => shouldIncludeMessageForModel(message, modelId))
+    )
+
+  const getCompareUserMessageId = (items: Message[], clusterId: string) =>
+    items.find(
+      (message) =>
+        message.messageType === "compare:user" &&
+        message.clusterId === clusterId
+    )?.id || null
+
+  const getLastThreadMessageId = (
+    items: Message[],
+    clusterId: string,
+    modelId: string
+  ) => {
+    const threadMessages = items.filter(
+      (message) =>
+        message.clusterId === clusterId &&
+        getMessageModelKey(message) === modelId
+    )
+    const lastThreadMessage = threadMessages[threadMessages.length - 1]
+    return lastThreadMessage?.id || getCompareUserMessageId(items, clusterId)
+  }
+
+  const refreshHistoryFromMessages = () => {
+    const next = buildHistoryFromMessages(messagesRef.current)
+    setHistory(next)
+  }
+
+  const getCompareBranchMessageIds = (
+    items: Message[],
+    clusterId: string,
+    modelId: string
+  ) => {
+    const userIndex = items.findIndex(
+      (message) =>
+        message.messageType === "compare:user" &&
+        message.clusterId === clusterId
+    )
+    if (userIndex === -1) {
+      return []
+    }
+
+    const messageIds = new Set<string>()
+    items.forEach((message, index) => {
+      if (!message.id) {
+        return
+      }
+      if (index < userIndex) {
+        if (shouldIncludeMessageForModel(message, modelId)) {
+          messageIds.add(message.id)
+        }
+        return
+      }
+      if (message.clusterId !== clusterId) {
+        return
+      }
+      if (message.messageType === "compare:user") {
+        messageIds.add(message.id)
+        return
+      }
+      if (shouldIncludeMessageForModel(message, modelId)) {
+        messageIds.add(message.id)
+      }
+    })
+
+    return Array.from(messageIds)
+  }
+
+  const validateBeforeSubmitFn = () => {
+    if (compareModeActive) {
+      const maxModels =
+        typeof compareMaxModels === "number" && compareMaxModels > 0
+          ? compareMaxModels
+          : MAX_COMPARE_MODELS
+
+      if (!compareSelectedModels || compareSelectedModels.length === 0) {
+        notification.error({
+          message: t("error"),
+          description: t(
+            "playground:composer.validationCompareSelectModels",
+            "Select at least one model to use in Compare mode."
+          )
+        })
+        return false
+      }
+      if (compareSelectedModels.length > maxModels) {
+        notification.error({
+          message: t("error"),
+          description: t(
+            "playground:composer.compareMaxModels",
+            "You can compare up to {{limit}} models per turn.",
+            { limit: maxModels }
+          )
+        })
+        return false
+      }
+      return true
+    }
+    return validateBeforeSubmit(selectedModel, t, notification)
+  }
+
+  const onSubmit = async ({
+    message,
+    image,
+    isRegenerate = false,
+    messages: chatHistory,
+    memory,
+    controller,
+    isContinue,
+    docs,
+    regenerateFromMessage
+  }: {
+    message: string
+    image: string
+    isRegenerate?: boolean
+    isContinue?: boolean
+    messages?: Message[]
+    memory?: ChatHistory
+    controller?: AbortController
+    docs?: ChatDocuments
+    regenerateFromMessage?: Message
+  }) => {
+    setStreaming(true)
+    let signal: AbortSignal
+    if (!controller) {
+      const newController = new AbortController()
+      signal = newController.signal
+      setAbortController(newController)
+    } else {
+      setAbortController(controller)
+      signal = controller.signal
+    }
+
+    const chatModeParams = await buildChatModeParams()
+    const baseMessages = chatHistory || messages
+    const baseHistory = memory || history
+    const replyActive =
+      Boolean(replyTarget) &&
+      !compareModeActive &&
+      !isRegenerate &&
+      !isContinue
+    const replyOverrides = replyActive
+      ? (() => {
+          const userMessageId = generateID()
+          const assistantMessageId = generateID()
+          return {
+            userMessageId,
+            assistantMessageId,
+            userParentMessageId: replyTarget?.id ?? null,
+            assistantParentMessageId: userMessageId
+          }
+        })()
+      : {}
+    const chatModeParamsWithReply = replyActive
+      ? { ...chatModeParams, ...replyOverrides }
+      : chatModeParams
+    const chatModeParamsWithRegen = {
+      ...chatModeParamsWithReply,
+      regenerateFromMessage: isRegenerate ? regenerateFromMessage : undefined
+    }
+
+    try {
+      if (isContinue) {
+        await continueChatMode(
+          chatHistory || messages,
+          memory || history,
+          signal,
+          chatModeParams
+        )
+        return
+      }
+      // console.log("contextFiles", contextFiles)
+      if (contextFiles.length > 0) {
+        await documentChatMode(
+          message,
+          image,
+          isRegenerate,
+          chatHistory || messages,
+          memory || history,
+          signal,
+          contextFiles,
+          chatModeParamsWithRegen
+        )
+        // setFileRetrievalEnabled(false)
+        return
+      }
+
+      if (docs?.length > 0 || documentContext?.length > 0) {
+        const processingTabs = docs || documentContext || []
+
+        if (docs?.length > 0) {
+          setDocumentContext(
+            Array.from(new Set([...(documentContext || []), ...docs]))
+          )
+        }
+        await tabChatMode(
+          message,
+          image,
+          processingTabs,
+          isRegenerate,
+          chatHistory || messages,
+          memory || history,
+          signal,
+          chatModeParamsWithRegen
+        )
+        return
+      }
+
+      if (selectedKnowledge) {
+        await ragMode(
+          message,
+          image,
+          isRegenerate,
+          chatHistory || messages,
+          memory || history,
+          signal,
+          chatModeParamsWithRegen
+        )
+      } else {
+        // Include uploaded files info even in normal mode
+        const enhancedChatModeParams = {
+          ...chatModeParamsWithRegen,
+          uploadedFiles: uploadedFiles
+        }
+        const baseMessages = chatHistory || messages
+        const baseHistory = memory || history
+
+        if (!compareModeActive) {
+          await normalChatMode(
+            message,
+            image,
+            isRegenerate,
+            baseMessages,
+            baseHistory,
+            signal,
+            enhancedChatModeParams
+          )
+        } else {
+          const maxModels =
+            typeof compareMaxModels === "number" && compareMaxModels > 0
+              ? compareMaxModels
+              : MAX_COMPARE_MODELS
+
+          const modelsRaw =
+            compareSelectedModels && compareSelectedModels.length > 0
+              ? compareSelectedModels
+              : selectedModel
+                ? [selectedModel]
+                : []
+          if (modelsRaw.length === 0) {
+            throw new Error("No models selected for Compare mode")
+          }
+          const uniqueModels = Array.from(new Set(modelsRaw))
+          const models =
+            uniqueModels.length > maxModels
+              ? uniqueModels.slice(0, maxModels)
+              : uniqueModels
+
+          if (uniqueModels.length > maxModels) {
+            notification.warning({
+              message: t("error"),
+              description: t(
+                "playground:composer.compareMaxModelsTrimmed",
+                "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models.",
+                { count: maxModels, limit: maxModels }
+              )
+            })
+          }
+          const clusterId = generateID()
+          const compareUserMessageId = generateID()
+          const lastMessage = baseMessages[baseMessages.length - 1]
+          const compareUserParentMessageId = lastMessage?.id || null
+          const resolvedImage =
+            image.length > 0
+              ? `data:image/jpeg;base64,${image.split(",")[1]}`
+              : ""
+          const compareUserMessage: Message = {
+            isBot: false,
+            name: "You",
+            message,
+            sources: [],
+            images: resolvedImage ? [resolvedImage] : [],
+            createdAt: Date.now(),
+            id: compareUserMessageId,
+            messageType: "compare:user",
+            clusterId,
+            parentMessageId: compareUserParentMessageId,
+            documents:
+              uploadedFiles?.map((file) => ({
+                type: "file",
+                filename: file.filename,
+                fileSize: file.size,
+                processed: file.processed
+              })) || []
+          }
+
+          setMessages((prev) => [...prev, compareUserMessage])
+
+          let activeHistoryId = historyId
+          if (temporaryChat) {
+            if (historyId !== "temp") {
+              setHistoryId("temp")
+            }
+            activeHistoryId = "temp"
+          } else if (!activeHistoryId) {
+            const title = await generateTitle(
+              uniqueModels[0] || selectedModel || "",
+              message,
+              message
+            )
+            const compareTitle = buildCompareHistoryTitle(title)
+            const newHistory = await saveHistory(compareTitle, false, "web-ui")
+            updatePageTitle(compareTitle)
+            activeHistoryId = newHistory.id
+            setHistoryId(newHistory.id)
+            markCompareHistoryCreated(newHistory.id)
+          }
+
+          if (!temporaryChat && activeHistoryId) {
+            await saveMessage({
+              id: compareUserMessageId,
+              history_id: activeHistoryId,
+              name: selectedModel || uniqueModels[0] || "You",
+              role: "user",
+              content: message,
+              images: resolvedImage ? [resolvedImage] : [],
+              time: 1,
+              message_type: "compare:user",
+              clusterId,
+              parent_message_id: compareUserParentMessageId,
+              documents:
+                uploadedFiles?.map((file) => ({
+                  type: "file",
+                  filename: file.filename,
+                  fileSize: file.size,
+                  processed: file.processed
+                })) || []
+            })
+          }
+
+          setIsProcessing(true)
+
+          const compareChatModeParams = await buildChatModeParams({
+            historyId: activeHistoryId,
+            setHistory: () => {},
+            setStreaming: () => {},
+            setIsProcessing: () => {},
+            setAbortController: () => {}
+          })
+          const compareEnhancedParams = {
+            ...compareChatModeParams,
+            uploadedFiles: uploadedFiles
+          }
+
+          const comparePromises = models.map((modelId) => {
+            const historyForModel = buildHistoryForModel(baseMessages, modelId)
+            return normalChatMode(
+              message,
+              image,
+              true,
+              baseMessages,
+              baseHistory,
+              signal,
+              {
+                ...compareEnhancedParams,
+                selectedModel: modelId,
+                clusterId,
+                assistantMessageType: "compare:reply",
+                modelIdOverride: modelId,
+                assistantParentMessageId: compareUserMessageId,
+                historyForModel
+              }
+            ).catch((e) => {
+              const errorMessage =
+                e instanceof Error
+                  ? e.message
+                  : t("somethingWentWrong")
+              notification.error({
+                message: t("error"),
+                description: errorMessage
+              })
+            })
+          })
+
+          await Promise.allSettled(comparePromises)
+          refreshHistoryFromMessages()
+          setIsProcessing(false)
+          setStreaming(false)
+          setAbortController(null)
+        }
+      }
+    } catch (e) {
+      const errorMessage =
+        e instanceof Error ? e.message : t("somethingWentWrong")
+      notification.error({
+        message: t("error"),
+        description: errorMessage
+      })
+      setIsProcessing(false)
+      setStreaming(false)
+    } finally {
+      if (replyActive) {
+        clearReplyTarget()
+      }
+    }
+  }
+
+  const sendPerModelReply = async ({
+    clusterId,
+    modelId,
+    message
+  }: {
+    clusterId: string
+    modelId: string
+    message: string
+  }) => {
+    const trimmed = message.trim()
+    if (!trimmed) {
+      return
+    }
+
+    if (!compareFeatureEnabled) {
+      notification.error({
+        message: t("error"),
+        description: t(
+          "playground:composer.compareDisabled",
+          "Compare mode is disabled in settings."
+        )
+      })
+      return
+    }
+
+    setStreaming(true)
+    const newController = new AbortController()
+    setAbortController(newController)
+    const signal = newController.signal
+
+    const baseMessages = messages
+    const baseHistory = history
+    const userMessageId = generateID()
+    const assistantMessageId = generateID()
+    const userParentMessageId = getLastThreadMessageId(
+      baseMessages,
+      clusterId,
+      modelId
+    )
+
+    try {
+      const chatModeParams = await buildChatModeParams()
+      const enhancedChatModeParams = {
+        ...chatModeParams,
+        uploadedFiles: uploadedFiles
+      }
+      const historyForModel = buildHistoryForModel(baseMessages, modelId)
+      const perModelOverrides = {
+        selectedModel: modelId,
+        clusterId,
+        userMessageType: "compare:perModelUser",
+        assistantMessageType: "compare:reply",
+        modelIdOverride: modelId,
+        userMessageId,
+        assistantMessageId,
+        userParentMessageId,
+        assistantParentMessageId: userMessageId,
+        historyForModel
+      }
+
+      if (contextFiles.length > 0) {
+        await documentChatMode(
+          trimmed,
+          "",
+          false,
+          baseMessages,
+          baseHistory,
+          signal,
+          contextFiles,
+          {
+            ...chatModeParams,
+            ...perModelOverrides
+          }
+        )
+        return
+      }
+
+      if (documentContext && documentContext.length > 0) {
+        await tabChatMode(
+          trimmed,
+          "",
+          documentContext,
+          false,
+          baseMessages,
+          baseHistory,
+          signal,
+          {
+            ...chatModeParams,
+            ...perModelOverrides
+          }
+        )
+        return
+      }
+
+      if (selectedKnowledge) {
+        await ragMode(
+          trimmed,
+          "",
+          false,
+          baseMessages,
+          baseHistory,
+          signal,
+          {
+            ...chatModeParams,
+            ...perModelOverrides
+          }
+        )
+        return
+      }
+
+      await normalChatMode(
+        trimmed,
+        "",
+        false,
+        baseMessages,
+        baseHistory,
+        signal,
+        {
+          ...enhancedChatModeParams,
+          ...perModelOverrides
+        }
+      )
+    } catch (e) {
+      const errorMessage =
+        e instanceof Error ? e.message : t("somethingWentWrong")
+      notification.error({
+        message: t("error"),
+        description: errorMessage
+      })
+      setIsProcessing(false)
+      setStreaming(false)
+    }
+  }
+
+  const regenerateLastMessage = createRegenerateLastMessage({
+    validateBeforeSubmitFn,
+    history,
+    messages,
+    setHistory,
+    setMessages,
+    onSubmit
+  })
+
+  const stopStreamingRequest = createStopStreamingRequest(
+    abortController,
+    setAbortController
+  )
+
+  const editMessage = createEditMessage({
+    messages,
+    history,
+    setMessages,
+    setHistory,
+    historyId,
+    validateBeforeSubmitFn,
+    onSubmit
+  })
+
+  const deleteMessage = React.useCallback(
+    async (index: number) => {
+      const target = messages[index]
+      if (!target) return
+
+      const targetId = target.serverMessageId ?? target.id
+      if (replyTarget?.id && targetId && replyTarget.id === targetId) {
+        clearReplyTarget()
+      }
+
+      if (target.serverMessageId) {
+        await tldwClient.initialize().catch(() => null)
+        let expectedVersion = target.serverMessageVersion
+        if (expectedVersion == null) {
+          const serverMessage = await tldwClient.getMessage(target.serverMessageId)
+          expectedVersion = serverMessage?.version
+        }
+        if (expectedVersion == null) {
+          throw new Error("Missing server message version")
+        }
+        await tldwClient.deleteMessage(
+          target.serverMessageId,
+          Number(expectedVersion),
+          serverChatId ?? undefined
+        )
+        invalidateServerChatHistory()
+      }
+
+      if (historyId) {
+        await removeMessageByIndex(historyId, index)
+      }
+
+      setMessages(messages.filter((_, idx) => idx !== index))
+      setHistory(history.filter((_, idx) => idx !== index))
+    },
+    [
+      clearReplyTarget,
+      history,
+      historyId,
+      invalidateServerChatHistory,
+      messages,
+      replyTarget?.id,
+      serverChatId,
+      setHistory,
+      setMessages
+    ]
+  )
+
+  const createChatBranch = createBranchMessage({
+    historyId,
+    setHistory,
+    setHistoryId: setHistoryId as (id: string | null) => void,
+    setMessages,
+    setContext: setContextFiles,
+    setSelectedSystemPrompt,
+    setSystemPrompt: currentChatModelSettings.setSystemPrompt,
+    serverChatId,
+    setServerChatId,
+    setServerChatTitle,
+    setServerChatCharacterId,
+    setServerChatMetaLoaded,
+    serverChatState,
+    setServerChatState,
+    setServerChatVersion,
+    serverChatTopic,
+    setServerChatTopic,
+    serverChatClusterId,
+    setServerChatClusterId,
+    serverChatSource,
+    setServerChatSource,
+    serverChatExternalRef,
+    setServerChatExternalRef,
+    onServerChatMutated: invalidateServerChatHistory,
+    characterId: serverChatCharacterId ?? null,
+    chatTitle: serverChatTitle ?? null,
+    messages,
+    history
+  })
+
+  const createCompareBranch = async ({
+    clusterId,
+    modelId,
+    open = true
+  }: {
+    clusterId: string
+    modelId: string
+    open?: boolean
+  }): Promise<string | null> => {
+    if (!historyId || historyId === "temp") {
+      return null
+    }
+
+    const messageIds = getCompareBranchMessageIds(messages, clusterId, modelId)
+    if (messageIds.length === 0) {
+      return null
+    }
+
+    try {
+      const newBranch = await generateBranchFromMessageIds(
+        historyId,
+        messageIds
+      )
+      if (!newBranch) {
+        return null
+      }
+
+      const splitTitle = buildCompareSplitTitle(newBranch.history.title || "")
+      await updateHistory(newBranch.history.id, splitTitle)
+
+      void trackCompareMetric({ type: "split_single" })
+
+      if (open) {
+        setHistory(formatToChatHistory(newBranch.messages))
+        setMessages(formatToMessage(newBranch.messages))
+        setHistoryId(newBranch.history.id)
+        const systemFiles = await getSessionFiles(newBranch.history.id)
+        setContextFiles(systemFiles)
+
+        const lastUsedPrompt = newBranch?.history?.last_used_prompt
+        if (lastUsedPrompt) {
+          if (lastUsedPrompt.prompt_id) {
+            const prompt = await getPromptById(lastUsedPrompt.prompt_id)
+            if (prompt) {
+              setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
+            }
+          }
+          if (currentChatModelSettings?.setSystemPrompt) {
+            currentChatModelSettings.setSystemPrompt(
+              lastUsedPrompt.prompt_content
+            )
+          }
+        }
+      }
+
+      return newBranch.history.id
+    } catch (e) {
+      console.log("[compare-branch] failed", e)
+      return null
+    }
+  }
+
+  return {
+    onSubmit,
+    sendPerModelReply,
+    regenerateLastMessage,
+    stopStreamingRequest,
+    editMessage,
+    deleteMessage,
+    createChatBranch,
+    createCompareBranch
+  }
+}

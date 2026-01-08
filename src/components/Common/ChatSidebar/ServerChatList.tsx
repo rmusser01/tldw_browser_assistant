@@ -7,7 +7,10 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
-import { useMessageOption } from "@/hooks/useMessageOption"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useSelectServerChat } from "@/hooks/chat/useSelectServerChat"
+import { useStoreMessageOption } from "@/store/option"
+import { shallow } from "zustand/shallow"
 import {
   tldwClient,
   type ConversationState,
@@ -44,10 +47,19 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     setServerChatTitle,
     setServerChatState,
     setServerChatVersion,
-    setServerChatTopic,
-    selectServerChat,
-    clearChat
-  } = useMessageOption()
+    setServerChatTopic
+  } = useStoreMessageOption(
+    (state) => ({
+      serverChatId: state.serverChatId,
+      setServerChatTitle: state.setServerChatTitle,
+      setServerChatState: state.setServerChatState,
+      setServerChatVersion: state.setServerChatVersion,
+      setServerChatTopic: state.setServerChatTopic
+    }),
+    shallow
+  )
+  const selectServerChat = useSelectServerChat()
+  const clearChat = useClearChat()
   const [openMenuFor, setOpenMenuFor] = React.useState<string | null>(null)
   const [renamingChat, setRenamingChat] =
     React.useState<ServerChatHistoryItem | null>(null)

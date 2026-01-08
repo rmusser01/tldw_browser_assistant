@@ -16,7 +16,6 @@ import {
 } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { useQuickChatStore } from "@/store/quick-chat"
 import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
-import { useStoreChatModelSettings } from "@/store/model"
 import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSettings"
 import { Sidebar } from "../Option/Sidebar"
 import { Header } from "./Header"
@@ -64,26 +63,9 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   const { isLoading: migrationLoading } = useMigration()
   const { demoEnabled } = useDemoMode()
   const [showChatSidebar] = useChatSidebar()
-  const {
-    setMessages,
-    history,
-    setHistory,
-    setHistoryId,
-    historyId,
-    clearChat,
-    selectServerChat,
-    setSelectedModel,
-    temporaryChat,
-    setSelectedSystemPrompt,
-    setContextFiles,
-    useOCR,
-    chatMode,
-    setChatMode,
-    webSearch,
-    setWebSearch
-  } = useMessageOption()
+  const { clearChat, useOCR, chatMode, setChatMode, webSearch, setWebSearch } =
+    useMessageOption()
   const queryClient = useQueryClient()
-  const { setSystemPrompt } = useStoreChatModelSettings()
 
   // Create toggle function for sidebar
   const toggleSidebar = () => {
@@ -142,13 +124,6 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
         <ChatSidebar
           collapsed={chatSidebarCollapsed}
           onToggleCollapse={() => setChatSidebarCollapsed((prev) => !prev)}
-          onSelectChat={(chatId) => setHistoryId(chatId)}
-          onNewChat={clearChat}
-          onIngest={() => {
-            if (typeof window !== "undefined") {
-              window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
-            }
-          }}
           className="sticky top-0 shrink-0 border-r border-border border-border"
         />
       )}
@@ -243,18 +218,6 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
           <Sidebar
             isOpen={sidebarOpen}
             onClose={() => setSidebarOpen(false)}
-            setMessages={setMessages}
-            setHistory={setHistory}
-            setHistoryId={setHistoryId}
-            setSelectedModel={setSelectedModel}
-            setSelectedSystemPrompt={setSelectedSystemPrompt}
-            clearChat={clearChat}
-            selectServerChat={selectServerChat}
-            historyId={historyId}
-            setSystemPrompt={setSystemPrompt}
-            temporaryChat={temporaryChat}
-            history={history}
-            setContext={setContextFiles}
           />
         </Drawer>
         )}

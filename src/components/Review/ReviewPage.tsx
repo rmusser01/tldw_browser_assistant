@@ -104,6 +104,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const [keywordTokens, setKeywordTokens] = React.useState<string[]>([])
   const [keywordOptions, setKeywordOptions] = React.useState<string[]>([])
   const [preloadedKeywords, setPreloadedKeywords] = React.useState<string[]>([])
+  const initialLoadRef = React.useRef(false)
   const [autoReviewOnSelect, setAutoReviewOnSelect] =
     React.useState<boolean>(false)
   const [selectedContent, setSelectedContent] = React.useState<string>("")
@@ -550,11 +551,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     if (isOnline && (!hasQuery || hasFilters)) {
       refetch()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, pageSize, isOnline])
+  }, [isOnline, keywordTokens, mediaTypes, page, pageSize, query, refetch])
 
   // Initial load: populate media types (cached) and auto-browse first page
   React.useEffect(() => {
+    if (initialLoadRef.current) return
+    initialLoadRef.current = true
     ;(async () => {
       try {
         const storage = createSafeStorage()
@@ -628,9 +630,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         }
       } catch {}
     })()
-    // Intentionally run once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [initialLoadRef, isOnline, keywordTokens.length, mediaTypes.length, query, refetch])
 
   // Load custom prompts from storage
   React.useEffect(() => {

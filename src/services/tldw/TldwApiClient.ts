@@ -472,8 +472,12 @@ export class TldwApiClient {
   async healthCheck(): Promise<boolean> {
     try {
       // Prefer background proxy (extension messaging)
-      // @ts-ignore
-      if (typeof browser !== 'undefined' && browser?.runtime?.sendMessage) {
+      const runtime = (
+        globalThis as {
+          browser?: { runtime?: { sendMessage?: (...args: unknown[]) => unknown } }
+        }
+      ).browser?.runtime
+      if (runtime?.sendMessage) {
         // Use authenticated health check so deployments that protect
         // /api/v1/health still work. Auth headers are injected by the
         // background proxy from tldwConfig (API key / access token).
@@ -874,8 +878,12 @@ export class TldwApiClient {
   // RAG Methods
   async ragHealth(): Promise<any> {
     try {
-      // @ts-ignore
-      if (typeof browser !== 'undefined' && browser?.runtime?.sendMessage) {
+      const runtime = (
+        globalThis as {
+          browser?: { runtime?: { sendMessage?: (...args: unknown[]) => unknown } }
+        }
+      ).browser?.runtime
+      if (runtime?.sendMessage) {
         return await bgRequest<any>({ path: '/api/v1/rag/health', method: 'GET' })
       }
     } catch {}

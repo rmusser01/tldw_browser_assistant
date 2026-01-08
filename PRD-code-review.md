@@ -71,13 +71,17 @@ src/
 
 ---
 
+### 2.4 Status Updates (2026-01-07)
+- ✅ `setServerChatId` state clearing fixed in `src/store/option/slices/server-chat-slice.ts` and local history resets in `src/store/option/slices/core-slice.ts`.
+- ✅ Sidepanel routes are wrapped with `SidepanelErrorBoundary` in `src/routes/app-route.tsx`.
+
 ## 3. Priority 1: Critical Bug Fixes
 
 ### 3.1 Logic Bug in `setServerChatId()`
 
-**File:** `src/store/option.tsx:332-344`
+**File:** `src/store/option/slices/server-chat-slice.ts` (and `src/store/option/slices/core-slice.ts`)
 
-**Current Code (Buggy):**
+**Previous Code (Buggy):**
 ```typescript
 setServerChatId: (id) =>
   set(() => ({
@@ -100,14 +104,14 @@ setServerChatId: (id) =>
 
 **Expected Behavior:**
 - When `id` is set: State should be `"in-progress"` and metadata should be cleared
-- When `id` is cleared (`null`): State should be `"idle"` and metadata should remain `null`
+- When `id` is cleared (`null`): State should clear to `null` (idle), metadata should remain `null`
 
-**Proposed Fix:**
+**Fix Applied:**
 ```typescript
 setServerChatId: (id) =>
   set(() => ({
     serverChatId: id,
-    serverChatState: id ? "in-progress" : "idle",
+    serverChatState: id ? "in-progress" : null,
     serverChatVersion: null,
     serverChatTitle: null,
     serverChatCharacterId: null,
@@ -119,10 +123,12 @@ setServerChatId: (id) =>
   })),
 ```
 
-**Impact:** State machine for server chat synchronization is currently broken. May cause UI inconsistencies.
+**Status:** ✅ Fixed (state clears to `null` when chat ID is removed, and local history resets no longer force `"in-progress"`).
+
+**Impact:** Fix prevents stale server chat state from leaking into local history views.
 
 **Acceptance Criteria:**
-- [ ] Ternary logic corrected or simplified
+- [x] Ternary logic corrected or simplified
 - [ ] State transitions verified with unit test
 - [ ] Manual testing confirms chat sync works correctly
 
@@ -304,23 +310,6 @@ return (
           {routesContent}
         </OptionsErrorBoundary>
       ) : (
-        routesContent  // No error boundary!
-      )}
-    </React.Suspense>
-  </div>
-)
-```
-
-**Proposed Fix:**
-```typescript
-return (
-  <div className={...}>
-    <React.Suspense fallback={...}>
-      {kind === "options" ? (
-        <OptionsErrorBoundary onReset={handleOptionsReset}>
-          {routesContent}
-        </OptionsErrorBoundary>
-      ) : (
         <SidepanelErrorBoundary onReset={handleSidepanelReset}>
           {routesContent}
         </SidepanelErrorBoundary>
@@ -330,7 +319,7 @@ return (
 )
 ```
 
-**Note:** Can reuse or extend `AgentErrorBoundary` from `src/components/Agent/AgentErrorBoundary.tsx`.
+**Status:** ✅ Implemented (Sidepanel routes are wrapped in `SidepanelErrorBoundary`).
 
 **Estimated Effort:** Low (2-4 hours)
 

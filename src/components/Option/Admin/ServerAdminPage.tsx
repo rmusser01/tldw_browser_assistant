@@ -48,6 +48,7 @@ export const ServerAdminPage: React.FC = () => {
   const [creatingRole, setCreatingRole] = React.useState(false)
   const [deletingRoleId, setDeletingRoleId] = React.useState<number | null>(null)
   const [roleForm] = Form.useForm()
+  const initialLoadRef = React.useRef(false)
 
   const markAdminGuardFromError = (err: any) => {
     const msg = String(err?.message || "")
@@ -57,46 +58,6 @@ export const ServerAdminPage: React.FC = () => {
       setAdminGuard("notFound")
     }
   }
-
-  React.useEffect(() => {
-    let cancelled = false
-    const load = async () => {
-      try {
-        const cfg = await tldwClient.getConfig()
-        if (!cancelled) {
-          setConfig(cfg)
-        }
-      } catch {
-        // ignore; health checks will surface errors
-      }
-      try {
-        setLoading(true)
-        const data = await tldwClient.getSystemStats()
-        if (!cancelled) {
-          setStats(data)
-          setError(null)
-        }
-      } catch (e: any) {
-        if (!cancelled) {
-          setError(e?.message || "Failed to load system statistics.")
-          markAdminGuardFromError(e)
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false)
-        }
-      }
-
-      // Initial users + roles
-      void loadUsers(1, usersPageSize, userRoleFilter, userActiveFilter)
-      void loadRoles()
-    }
-    load()
-    return () => {
-      cancelled = true
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const loadUsers = React.useCallback(
     async (
@@ -140,6 +101,47 @@ export const ServerAdminPage: React.FC = () => {
       setRolesLoading(false)
     }
   }, [])
+
+  React.useEffect(() => {
+    if (initialLoadRef.current) return
+    initialLoadRef.current = true
+    let cancelled = false
+    const load = async () => {
+      try {
+        const cfg = await tldwClient.getConfig()
+        if (!cancelled) {
+          setConfig(cfg)
+        }
+      } catch {
+        // ignore; health checks will surface errors
+      }
+      try {
+        setLoading(true)
+        const data = await tldwClient.getSystemStats()
+        if (!cancelled) {
+          setStats(data)
+          setError(null)
+        }
+      } catch (e: any) {
+        if (!cancelled) {
+          setError(e?.message || "Failed to load system statistics.")
+          markAdminGuardFromError(e)
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+
+      // Initial users + roles
+      void loadUsers(1, usersPageSize, userRoleFilter, userActiveFilter)
+      void loadRoles()
+    }
+    load()
+    return () => {
+      cancelled = true
+    }
+  }, [loadRoles, loadUsers, userActiveFilter, userRoleFilter, usersPageSize])
 
   const handleRefresh = async () => {
     try {

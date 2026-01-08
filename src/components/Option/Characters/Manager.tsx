@@ -27,6 +27,7 @@ import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { focusComposer } from "@/hooks/useComposerFocus"
 import { useStoreMessageOption } from "@/store/option"
+import { shallow } from "zustand/shallow"
 import { updatePageTitle } from "@/utils/update-page-title"
 
 const MAX_NAME_LENGTH = 75
@@ -225,7 +226,20 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
     setServerChatClusterId,
     setServerChatSource,
     setServerChatExternalRef
-  } = useStoreMessageOption()
+  } = useStoreMessageOption(
+    (state) => ({
+      setHistory: state.setHistory,
+      setMessages: state.setMessages,
+      setHistoryId: state.setHistoryId,
+      setServerChatId: state.setServerChatId,
+      setServerChatState: state.setServerChatState,
+      setServerChatTopic: state.setServerChatTopic,
+      setServerChatClusterId: state.setServerChatClusterId,
+      setServerChatSource: state.setServerChatSource,
+      setServerChatExternalRef: state.setServerChatExternalRef
+    }),
+    shallow
+  )
 
   const characterIdentifier = (record: any): string =>
     String(record?.id ?? record?.slug ?? record?.name ?? "")

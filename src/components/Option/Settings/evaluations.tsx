@@ -33,6 +33,7 @@ export const EvaluationsSettings = () => {
 
   const [form] = Form.useForm()
   const [specType, setSpecType] = React.useState<string>("response_quality")
+  const defaultsAppliedRef = React.useRef(false)
   const [testResult, setTestResult] = React.useState<
     | null
     | { ok: boolean; message: string; details?: string; rate?: string }
@@ -44,20 +45,21 @@ export const EvaluationsSettings = () => {
   })
 
   React.useEffect(() => {
-    if (!defaultsResp) return
+    if (!defaultsResp || defaultsAppliedRef.current) return
+    defaultsAppliedRef.current = true
+    const nextSpecType = defaultsResp.defaultEvalType || "response_quality"
     form.setFieldsValue({
       defaultEvalType: defaultsResp.defaultEvalType,
       defaultTargetModel: defaultsResp.defaultTargetModel,
       defaultRunConfig: defaultsResp.defaultRunConfig,
       defaultDatasetId: defaultsResp.defaultDatasetId || undefined,
       specJson:
-        defaultsResp.defaultSpecByType?.[specType] ||
+        defaultsResp.defaultSpecByType?.[nextSpecType] ||
         defaultsResp.defaultSpecByType?.[defaultsResp.defaultEvalType || ""] ||
         ""
     })
-    setSpecType(defaultsResp.defaultEvalType || "response_quality")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultsResp])
+    setSpecType(nextSpecType)
+  }, [defaultsResp, form])
 
   const { mutateAsync: saveDefaults, isPending: saving } = useMutation({
     mutationFn: async (values: any) => {

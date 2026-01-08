@@ -1800,16 +1800,15 @@ export const QuickIngestModal: React.FC<Props> = ({
     specPrefsCacheRef.current = JSON.stringify(specPrefs || {})
   }, [specPrefs])
 
+  const preferServerSpec =
+    typeof specPrefs?.preferServer === 'boolean' ? specPrefs.preferServer : true
+
   React.useEffect(() => {
     if (!open) return
-    ;(async () => {
-      // Prefer server spec; fall back to extracted schema if unavailable
-      const prefer =
-        typeof specPrefs?.preferServer === 'boolean' ? specPrefs.preferServer : true
-      await loadSpec(prefer)
+    void (async () => {
+      await loadSpec(preferServerSpec)
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+  }, [loadSpec, open, preferServerSpec])
 
   React.useEffect(() => {
     lastSavedAdvValuesRef.current = JSON.stringify(savedAdvValues || {})
@@ -1857,11 +1856,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
       try {
         const url = browser.runtime.getURL(`/options.html${hash}`)
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (browser.tabs?.create) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+        if (browser?.tabs?.create) {
           browser.tabs.create({ url })
         } else {
           window.open(url, "_blank")
@@ -2199,14 +2194,16 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
 
     try {
-      // @ts-ignore
-      browser?.runtime?.onMessage?.addListener(handler)
+      if (browser?.runtime?.onMessage?.addListener) {
+        browser.runtime.onMessage.addListener(handler)
+      }
     } catch {}
 
     return () => {
       try {
-        // @ts-ignore
-        browser?.runtime?.onMessage?.removeListener(handler)
+        if (browser?.runtime?.onMessage?.removeListener) {
+          browser.runtime.onMessage.removeListener(handler)
+        }
       } catch {}
     }
   }, [])

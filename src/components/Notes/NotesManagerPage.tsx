@@ -15,6 +15,7 @@ import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { useAntdMessage } from '@/hooks/useAntdMessage'
 import { getNoteKeywords, searchNoteKeywords } from "@/services/note-keywords"
 import { useStoreMessageOption } from "@/store/option"
+import { shallow } from "zustand/shallow"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
 import { MarkdownPreview } from "@/components/Common/MarkdownPreview"
@@ -116,7 +117,20 @@ const NotesManagerPage: React.FC = () => {
     setServerChatClusterId,
     setServerChatSource,
     setServerChatExternalRef
-  } = useStoreMessageOption()
+  } = useStoreMessageOption(
+    (state) => ({
+      setHistory: state.setHistory,
+      setMessages: state.setMessages,
+      setHistoryId: state.setHistoryId,
+      setServerChatId: state.setServerChatId,
+      setServerChatState: state.setServerChatState,
+      setServerChatTopic: state.setServerChatTopic,
+      setServerChatClusterId: state.setServerChatClusterId,
+      setServerChatSource: state.setServerChatSource,
+      setServerChatExternalRef: state.setServerChatExternalRef
+    }),
+    shallow
+  )
 
   const editorDisabled = !isOnline || (!capsLoading && capabilities && !capabilities.hasNotes)
 

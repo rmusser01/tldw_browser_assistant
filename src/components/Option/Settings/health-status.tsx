@@ -124,6 +124,7 @@ export default function HealthStatus() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [queueError, setQueueError] = useState<string | null>(null)
   const isRunningRef = useRef(false)
+  const initialLoadRef = useRef(false)
   const navigate = useNavigate()
   const MIN_INTERVAL_SEC = 5
   const SAFE_FLOOR_SEC = 15
@@ -284,7 +285,9 @@ export default function HealthStatus() {
   }
 
   useEffect(() => {
-    (async () => {
+    if (initialLoadRef.current) return
+    initialLoadRef.current = true
+    ;(async () => {
       try {
         const cfg = await tldwClient.getConfig()
         setServerUrl(cfg?.serverUrl || '')
@@ -292,11 +295,7 @@ export default function HealthStatus() {
       await testCoreConnection()
       await runChecks()
     })()
-    // We intentionally run the initial health checks only once on mount.
-    // This avoids duplicate calls when dependencies such as `checks`
-    // or `results` change over time.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [runChecks, testCoreConnection])
 
   useEffect(() => {
     if (!autoRefresh) return

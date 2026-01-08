@@ -11,16 +11,15 @@ import {
   useFolderStore,
   useFolderActions
 } from "@/store/folder"
-import { useMessageOption } from "@/hooks/useMessageOption"
+import { useSelectServerChat } from "@/hooks/chat/useSelectServerChat"
 import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
 import { cn } from "@/libs/utils"
 
 interface FolderChatListProps {
-  onSelectChat?: (chatId: string) => void
   className?: string
 }
 
-export function FolderChatList({ onSelectChat, className }: FolderChatListProps) {
+export function FolderChatList({ className }: FolderChatListProps) {
   const { t } = useTranslation(["common"])
   const { isConnected } = useConnectionState()
   const { refreshFromServer, createFolder } = useFolderActions()
@@ -29,7 +28,7 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
   const [newFolderName, setNewFolderName] = useState("")
   const [isCreating, setIsCreating] = useState(false)
 
-  const { selectServerChat } = useMessageOption()
+  const selectServerChat = useSelectServerChat()
 
   // Folder data
   const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
@@ -222,7 +221,6 @@ export function FolderChatList({ onSelectChat, className }: FolderChatListProps)
         <FolderTree
           onConversationSelect={(conversationId) => {
             void loadServerChatById(conversationId)
-            onSelectChat?.(conversationId)
           }}
           conversations={folderTreeConversations}
           showConversations

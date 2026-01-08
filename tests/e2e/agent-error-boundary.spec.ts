@@ -2,20 +2,28 @@ import { test, expect } from "@playwright/test"
 import path from "path"
 import { launchWithExtension } from "./utils/extension"
 
+const openErrorBoundaryTestPage = async () => {
+  const extPath = path.resolve("build/chrome-mv3")
+  const { context, openSidepanel } = await launchWithExtension(extPath)
+  const page = await openSidepanel()
+
+  await page.waitForFunction(
+    () => typeof (window as { __tldwNavigate?: (path: string) => void })
+      .__tldwNavigate === "function"
+  )
+  await page.evaluate(() => {
+    ;(window as Window & { __tldwNavigate?: (path: string) => void })
+      .__tldwNavigate?.("/error-boundary-test")
+  })
+  await expect(page.getByTestId("error-boundary-test-title")).toBeVisible()
+  await expect(page.getByTestId("reset-count")).toHaveText("0")
+
+  return { context, page }
+}
+
 test.describe("AgentErrorBoundary", () => {
   test("catches errors and displays fallback UI", async () => {
-    const extPath = path.resolve("build/chrome-mv3")
-    const { context, sidepanelUrl } = await launchWithExtension(extPath)
-    const page = await context.newPage()
-
-    // Navigate to the error boundary test route
-    await page.goto(`${sidepanelUrl}#/error-boundary-test`, {
-      waitUntil: "domcontentloaded"
-    })
-
-    // Verify the test page loaded correctly
-    await expect(page.getByTestId("error-boundary-test-title")).toBeVisible()
-    await expect(page.getByTestId("reset-count")).toHaveText("0")
+    const { context, page } = await openErrorBoundaryTestPage()
 
     // Verify the trigger button is visible
     const triggerButton = page.getByTestId("trigger-error-button")
@@ -62,13 +70,7 @@ test.describe("AgentErrorBoundary", () => {
   })
 
   test("displays custom fallback message", async () => {
-    const extPath = path.resolve("build/chrome-mv3")
-    const { context, sidepanelUrl } = await launchWithExtension(extPath)
-    const page = await context.newPage()
-
-    await page.goto(`${sidepanelUrl}#/error-boundary-test`, {
-      waitUntil: "domcontentloaded"
-    })
+    const { context, page } = await openErrorBoundaryTestPage()
 
     // Trigger the error
     await page.getByTestId("trigger-error-button").click()
@@ -80,13 +82,7 @@ test.describe("AgentErrorBoundary", () => {
   })
 
   test("shows component stack in error details", async () => {
-    const extPath = path.resolve("build/chrome-mv3")
-    const { context, sidepanelUrl } = await launchWithExtension(extPath)
-    const page = await context.newPage()
-
-    await page.goto(`${sidepanelUrl}#/error-boundary-test`, {
-      waitUntil: "domcontentloaded"
-    })
+    const { context, page } = await openErrorBoundaryTestPage()
 
     // Trigger the error
     await page.getByTestId("trigger-error-button").click()
@@ -109,13 +105,7 @@ test.describe("AgentErrorBoundary", () => {
   })
 
   test("can recover multiple times", async () => {
-    const extPath = path.resolve("build/chrome-mv3")
-    const { context, sidepanelUrl } = await launchWithExtension(extPath)
-    const page = await context.newPage()
-
-    await page.goto(`${sidepanelUrl}#/error-boundary-test`, {
-      waitUntil: "domcontentloaded"
-    })
+    const { context, page } = await openErrorBoundaryTestPage()
 
     // First error cycle
     await page.getByTestId("trigger-error-button").click()

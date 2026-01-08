@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from "react"
 import { usePlaygroundSessionStore } from "@/store/playground-session"
 import { useStoreMessageOption } from "@/store/option"
+import { shallow } from "zustand/shallow"
 import {
   formatToChatHistory,
   formatToMessage,
@@ -56,7 +57,37 @@ export function usePlaygroundSessionPersistence() {
     setHistory,
     setMessages,
     setSelectedSystemPrompt
-  } = useStoreMessageOption()
+  } = useStoreMessageOption(
+    (state) => ({
+      historyId: state.historyId,
+      serverChatId: state.serverChatId,
+      chatMode: state.chatMode,
+      webSearch: state.webSearch,
+      compareMode: state.compareMode,
+      compareSelectedModels: state.compareSelectedModels,
+      ragMediaIds: state.ragMediaIds,
+      ragSearchMode: state.ragSearchMode,
+      ragTopK: state.ragTopK,
+      ragEnableGeneration: state.ragEnableGeneration,
+      ragEnableCitations: state.ragEnableCitations,
+      temporaryChat: state.temporaryChat,
+      setHistoryId: state.setHistoryId,
+      setServerChatId: state.setServerChatId,
+      setChatMode: state.setChatMode,
+      setWebSearch: state.setWebSearch,
+      setCompareMode: state.setCompareMode,
+      setCompareSelectedModels: state.setCompareSelectedModels,
+      setRagMediaIds: state.setRagMediaIds,
+      setRagSearchMode: state.setRagSearchMode,
+      setRagTopK: state.setRagTopK,
+      setRagEnableGeneration: state.setRagEnableGeneration,
+      setRagEnableCitations: state.setRagEnableCitations,
+      setHistory: state.setHistory,
+      setMessages: state.setMessages,
+      setSelectedSystemPrompt: state.setSelectedSystemPrompt
+    }),
+    shallow
+  )
 
   const { setSystemPrompt } = useStoreChatModelSettings()
 

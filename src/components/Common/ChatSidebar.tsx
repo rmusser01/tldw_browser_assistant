@@ -25,7 +25,8 @@ import { useSetting } from "@/hooks/useSetting"
 
 import { useDebounce } from "@/hooks/useDebounce"
 import { useServerChatHistory } from "@/hooks/useServerChatHistory"
-import { useMessageOption } from "@/hooks/useMessageOption"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useStoreMessageOption } from "@/store/option"
 import { useFolderStore } from "@/store/folder"
 import { cn } from "@/libs/utils"
 import { ServerChatList } from "./ChatSidebar/ServerChatList"
@@ -38,12 +39,6 @@ interface ChatSidebarProps {
   collapsed?: boolean
   /** Toggle collapsed state */
   onToggleCollapse?: () => void
-  /** Optional callback when chat is selected */
-  onSelectChat?: (chatId: string) => void
-  /** Optional callback for new chat action */
-  onNewChat?: () => void
-  /** Optional callback for ingest action */
-  onIngest?: () => void
   /** Additional class names */
   className?: string
 }
@@ -53,9 +48,6 @@ type SidebarTab = "server" | "folders"
 export function ChatSidebar({
   collapsed = false,
   onToggleCollapse,
-  onSelectChat,
-  onNewChat,
-  onIngest,
   className
 }: ChatSidebarProps) {
   const { t } = useTranslation(["common", "sidepanel", "option"])
@@ -70,8 +62,8 @@ export function ChatSidebar({
   )
   const showShortcuts = shortcutsCollapsed !== true
 
-  // Chat state
-  const { clearChat, temporaryChat } = useMessageOption()
+  const clearChat = useClearChat()
+  const temporaryChat = useStoreMessageOption((state) => state.temporaryChat)
 
   // Folder conversation count for tab badge
   const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
@@ -89,17 +81,11 @@ export function ChatSidebar({
   }
 
   const handleNewChat = () => {
-    if (onNewChat) {
-      onNewChat()
-    } else {
-      clearChat()
-    }
+    clearChat()
   }
 
   const handleIngest = () => {
-    if (onIngest) {
-      onIngest()
-    } else if (typeof window !== "undefined") {
+    if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
     }
   }
@@ -417,9 +403,7 @@ export function ChatSidebar({
         )}
 
         {currentTab === "folders" && (
-          <FolderChatList
-            onSelectChat={onSelectChat}
-          />
+          <FolderChatList />
         )}
       </div>
 
