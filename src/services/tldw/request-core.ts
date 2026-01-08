@@ -129,15 +129,18 @@ export const tldwRequest = async (
     }
   }
 
+  const controller = new AbortController()
+  const timeoutMs = deriveRequestTimeout(cfg, path, Number(overrideTimeoutMs))
+  const onAbort = () => {
+    try {
+      controller.abort()
+    } catch {}
+  }
+  let timeoutId: ReturnType<typeof setTimeout> | null = null
+  let retryTimeoutId: ReturnType<typeof setTimeout> | null = null
+
   try {
-    const controller = new AbortController()
-    const timeoutMs = deriveRequestTimeout(cfg, path, Number(overrideTimeoutMs))
-    const timeout = setTimeout(() => controller.abort(), timeoutMs)
-    const onAbort = () => {
-      try {
-        controller.abort()
-      } catch {}
-    }
+    timeoutId = setTimeout(() => controller.abort(), timeoutMs)
     if (abortSignal) {
       if (abortSignal.aborted) {
         controller.abort()
@@ -152,12 +155,9 @@ export const tldwRequest = async (
       body: body ? (typeof body === "string" ? body : JSON.stringify(body)) : undefined,
       signal: controller.signal
     })
-    clearTimeout(timeout)
-
-    if (abortSignal) {
-      try {
-        abortSignal.removeEventListener("abort", onAbort)
-      } catch {}
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+      timeoutId = null
     }
 
     if (resp.status === 401 && cfg?.authMode === "multi-user" && cfg?.refreshToken && runtime.refreshAuth) {
@@ -172,14 +172,17 @@ export const tldwRequest = async (
       }
       if (updated?.accessToken) retryHeaders["Authorization"] = `Bearer ${updated.accessToken}`
       const retryController = new AbortController()
-      const retryTimeout = setTimeout(() => retryController.abort(), timeoutMs)
+      retryTimeoutId = setTimeout(() => retryController.abort(), timeoutMs)
       resp = await fetchFn(url, {
         method,
         headers: retryHeaders,
         body: body ? (typeof body === "string" ? body : JSON.stringify(body)) : undefined,
         signal: retryController.signal
       })
-      clearTimeout(retryTimeout)
+      if (retryTimeoutId) {
+        clearTimeout(retryTimeoutId)
+        retryTimeoutId = null
+      }
     }
 
     const headersOut: Record<string, string> = {}
@@ -225,6 +228,18 @@ export const tldwRequest = async (
       ok: false,
       status: 0,
       error: formatErrorMessage(e, "Network error")
+    }
+  } finally {
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+    if (retryTimeoutId) {
+      clearTimeout(retryTimeoutId)
+    }
+    if (abortSignal) {
+      try {
+        abortSignal.removeEventListener("abort", onAbort)
+      } catch {}
     }
   }
 }

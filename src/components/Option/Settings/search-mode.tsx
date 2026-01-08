@@ -2,15 +2,15 @@ import { SaveButton } from "@/components/Common/SaveButton"
 import { getSearchSettings, setSearchSettings } from "@/services/search"
 import { ALL_GOOGLE_DOMAINS } from "@/utils/google-domains"
 import { SUPPORTED_SERACH_PROVIDERS } from "@/utils/search-provider"
-import { useForm } from "@mantine/form"
 import { useQuery } from "@tanstack/react-query"
 import { Select, Skeleton, Switch, InputNumber, Input } from "antd"
 import { useTranslation } from "react-i18next"
+import { useSimpleForm } from "@/hooks/useSimpleForm"
 
 export const SearchModeSettings = () => {
   const { t } = useTranslation("settings")
 
-  const form = useForm({
+  const form = useSimpleForm({
     initialValues: {
       isSimpleInternetSearch: false,
       searchProvider: "",

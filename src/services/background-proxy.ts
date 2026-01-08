@@ -95,7 +95,6 @@ export async function bgRequest<
 
   // If extension messaging is available, use it (extension context)
   try {
-    // @ts-ignore
     if (browser?.runtime?.sendMessage) {
       const payload = {
         type: 'tldw:request',

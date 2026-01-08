@@ -3,80 +3,94 @@ import { createSafeStorage } from "@/utils/safe-storage"
 import { ModelNicknames } from "./dexie/types"
 
 export class ModelNickname {
-    db: Storage
-    private KEY = "modelNickname"
+  db: Storage
+  private KEY = "modelNickname"
 
-    constructor() {
-        this.db = createSafeStorage({
-            area: "sync"
-        })
+  constructor() {
+    this.db = createSafeStorage({
+      area: "sync"
+    })
+  }
+
+  async saveModelNickname(
+    model_id: string,
+    model_name: string,
+    model_avatar?: string
+  ): Promise<void> {
+    const modelNames = ((await this.db.get(this.KEY)) as Record<
+      string,
+      { model_name?: string; model_avatar?: string }
+    >) || {}
+
+    modelNames[model_id] = {
+      model_name,
+      ...(model_avatar && { model_avatar })
     }
 
-    async saveModelNickname(
-        model_id: string,
-        model_name: string,
-        model_avatar?: string
-    ): Promise<void> {
-        const modelNames = (await this.db.get(this.KEY)) || {}
+    await this.db.set(this.KEY, modelNames)
+  }
 
-        modelNames[model_id] = {
-            model_name,
-            ...(model_avatar && { model_avatar })
-        }
-
-        await this.db.set(this.KEY, modelNames)
+  async getModelNicknameByID(
+    model_id: string
+  ): Promise<{ model_name: string; model_avatar?: string } | null> {
+    const data = ((await this.db.get(this.KEY)) as Record<
+      string,
+      { model_name?: string; model_avatar?: string }
+    >) || {}
+    const entry = data[model_id]
+    if (!entry || typeof entry.model_name !== "string") return null
+    return {
+      model_name: entry.model_name,
+      model_avatar: entry.model_avatar
     }
+  }
 
-    async getModelNicknameByID(model_id: string) {
-        const data = (await this.db.get(this.KEY)) || {}
-        return data[model_id]
-    }
-
-    async getAllModelNicknames() {
-        const data = (await this.db.get(this.KEY)) || {}
-        return data
-    }
+  async getAllModelNicknames() {
+    const data = ((await this.db.get(this.KEY)) as Record<
+      string,
+      { model_name?: string; model_avatar?: string }
+    >) || {}
+    return data
+  }
 }
 
 export const getAllModelNicknames = async () => {
-    const modelNickname = new ModelNickname()
-    return await modelNickname.getAllModelNicknames()
+  const modelNickname = new ModelNickname()
+  return await modelNickname.getAllModelNicknames()
 }
 export const getAllModelNicknamesMig = async () => {
-    const modelNickname = new ModelNickname()
-    const data = await modelNickname.getAllModelNicknames()
-    const result = []
-    for (const [model_id, value] of Object.entries(data)) {
-        result.push({
-            model_id,
-            //@ts-ignore
-            model_avatar: value?.model_avatar,
-            //@ts-ignore
-            model_name: value?.model_name
-        })
-    }
-    return result as ModelNicknames
+  const modelNickname = new ModelNickname()
+  const data = await modelNickname.getAllModelNicknames()
+  const result: Array<{ model_id: string; model_name?: string; model_avatar?: string }> = []
+  for (const [model_id, value] of Object.entries(data)) {
+    result.push({
+      model_id,
+      model_avatar: value?.model_avatar,
+      model_name: value?.model_name
+    })
+  }
+  return result as ModelNicknames
 }
 export const getModelNicknameByID = async (
-    model_id: string
+  model_id: string
 ): Promise<{ model_name: string; model_avatar?: string } | null> => {
-    const modelNickname = new ModelNickname()
-    return await modelNickname.getModelNicknameByID(model_id)
+  const modelNickname = new ModelNickname()
+  return await modelNickname.getModelNicknameByID(model_id)
 }
 
 
 export const saveModelNickname = async (
-    {
-        model_id,
-        model_name,
-        model_avatar
-    }: {
-        model_id: string,
-        model_name: string,
-        model_avatar?: string
-    }
+  {
+    model_id,
+    model_name,
+    model_avatar
+  }: {
+    model_id: string
+    model_name: string
+    model_avatar?: string
+  }
 ) => {
 
-    const modelNickname = new ModelNickname()
-    return await modelNickname.saveModelNickname(model_id, model_name, model_avatar)
+  const modelNickname = new ModelNickname()
+  return await modelNickname.saveModelNickname(model_id, model_name, model_avatar)
 }

@@ -1,9 +1,11 @@
 import React from "react"
 import type { ErrorInfo, ReactNode } from "react"
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import { useDarkMode } from "~/hooks/useDarkmode"
 import { PageAssistLoader } from "@/components/Common/PageAssistLoader"
 import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
+import { ensureI18nNamespaces } from "@/i18n"
+import { registerUiDiagnostics } from "@/utils/ui-diagnostics"
 import {
   platformConfig,
   type PlatformTarget
@@ -110,6 +112,27 @@ class OptionsErrorBoundary extends React.Component<
 export const RouteShell = ({ kind }: { kind: RouteKind }) => {
   const { mode } = useDarkMode()
   useAutoButtonTitles()
+  const location = useLocation()
+  React.useEffect(() => {
+    registerUiDiagnostics(kind === "options" ? "options" : "sidepanel")
+  }, [kind])
+  React.useEffect(() => {
+    if (kind === "options") {
+      void ensureI18nNamespaces(["option"])
+      const path = location.pathname
+      const needsReview =
+        path === "/review" ||
+        path === "/media" ||
+        path === "/media-multi"
+      if (needsReview) {
+        void ensureI18nNamespaces(["review"])
+      }
+    } else {
+      void ensureI18nNamespaces(["sidepanel", "common", "settings", "playground"])
+      // Sidepanel uses some "option" strings; keep loaded for now to avoid missing labels.
+      void ensureI18nNamespaces(["option"])
+    }
+  }, [kind, location.pathname])
   const { label, description } = ROUTE_FALLBACKS[kind]
   const routes = kind === "options" ? optionRoutes : sidepanelRoutes
   const visibleRoutes = getRoutesForTarget(routes, platformConfig.target)

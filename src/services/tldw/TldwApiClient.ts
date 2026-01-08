@@ -2,6 +2,7 @@ import { Storage } from "@plasmohq/storage"
 import { createSafeStorage, safeStorageSerde } from "@/utils/safe-storage"
 import { bgRequest, bgStream, bgUpload } from "@/services/background-proxy"
 import { isPlaceholderApiKey } from "@/utils/api-key"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { appendPathQuery } from "@/services/tldw/path-utils"
 
@@ -1402,12 +1403,27 @@ export class TldwApiClient {
       }
 
       const normalized = list.map((m) => {
-        const role =
+        const roleCandidate =
           typeof m.role === "string"
             ? m.role
             : typeof m.sender === "string"
               ? m.sender
+              : typeof m.author === "string"
+                ? m.author
+                : typeof (m as any)?.message?.role === "string"
+                  ? (m as any).message.role
+                  : typeof (m as any)?.message?.sender === "string"
+                    ? (m as any).message.sender
+                    : typeof (m as any)?.message?.author === "string"
+                      ? (m as any).message.author
+                      : undefined
+        const role =
+          typeof (m as any)?.is_bot === "boolean" ||
+          typeof (m as any)?.isBot === "boolean"
+            ? (m as any).is_bot || (m as any).isBot
+              ? "assistant"
               : "user"
+            : normalizeChatRole(roleCandidate)
         const created_at = String(
           m.created_at || m.createdAt || m.timestamp || ""
         )

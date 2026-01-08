@@ -81,8 +81,7 @@ export const KnowledgeSettings = () => {
     } catch {
       // ignore, defaults are optional
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [capabilities])
+  }, [capabilities, enableCache, enableReranking, strategy])
 
   const handleRagSearch = async () => {
     const q = ragQuery.trim()

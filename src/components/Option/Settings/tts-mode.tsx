@@ -9,11 +9,11 @@ import {
   type TldwTtsModel
 } from "@/services/tldw/audio-models"
 import { useWebUI } from "@/store/webui"
-import { useForm } from "@mantine/form"
 import { Alert, Button, Input, InputNumber, Select, Skeleton, Switch, Space } from "antd"
 import { useTranslation } from "react-i18next"
 import React, { useState } from "react"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useSimpleForm } from "@/hooks/useSimpleForm"
 
 export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
   const { t } = useTranslation("settings")
@@ -44,7 +44,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     openAiVoice: "openai-voice-select"
   }
 
-  const form = useForm({
+  const form = useSimpleForm({
     initialValues: {
       ttsEnabled: false,
       ttsProvider: "",
@@ -82,6 +82,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     queryFn: async () => {
       const data = await getTTSSettings()
       form.setValues(data)
+      form.resetDirty(data)
       return data
     }
   })

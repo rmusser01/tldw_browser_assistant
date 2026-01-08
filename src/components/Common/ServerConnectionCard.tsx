@@ -2,6 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Tag } from "antd"
 import { Clock, ExternalLink, Send, Server, Settings } from "lucide-react"
+import { browser } from "wxt/browser"
 
 import { cleanUrl } from "@/libs/clean-url"
 import {
@@ -399,13 +400,9 @@ export const ServerConnectionCard: React.FC<Props> = ({
   const openOnboarding = () => {
     // Open the options page on the onboarding (home) route.
     try {
-      // @ts-ignore
-      if (typeof browser !== "undefined" && browser.runtime?.getURL) {
-        // @ts-ignore
+      if (browser?.runtime?.getURL) {
         const url = browser.runtime.getURL("/options.html#/")
-        // @ts-ignore
         if (browser.tabs?.create) {
-          // @ts-ignore
           browser.tabs.create({ url })
         } else {
           window.open(url, "_blank")
@@ -417,16 +414,12 @@ export const ServerConnectionCard: React.FC<Props> = ({
     }
 
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.getURL) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.getURL) {
         const url = chrome.runtime.getURL("/options.html#/")
         window.open(url, "_blank")
         return
       }
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.openOptionsPage) {
         chrome.runtime.openOptionsPage()
         return
       }
@@ -486,13 +479,9 @@ export const ServerConnectionCard: React.FC<Props> = ({
     // Prefer opening the extension's options.html directly so users land on
     // the tldw settings page instead of the generic extensions manager.
     try {
-      // @ts-ignore
-      if (typeof browser !== "undefined" && browser.runtime?.getURL) {
-        // @ts-ignore
+      if (browser?.runtime?.getURL) {
         const url = browser.runtime.getURL("/options.html#/settings/tldw")
-        // @ts-ignore
         if (browser.tabs?.create) {
-          // @ts-ignore
           browser.tabs.create({ url })
         } else {
           window.open(url, "_blank")
@@ -504,16 +493,12 @@ export const ServerConnectionCard: React.FC<Props> = ({
     }
 
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.getURL) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.getURL) {
         const url = chrome.runtime.getURL("/options.html#/settings/tldw")
         window.open(url, "_blank")
         return
       }
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.openOptionsPage) {
         chrome.runtime.openOptionsPage()
         return
       }

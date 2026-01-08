@@ -4,6 +4,7 @@ import {
 } from "~/store/option"
 import { getAllModelNicknames } from "./nickname"
 import { ChatDocuments } from "@/models/ChatTypes"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 type HistoryInfo = {
   id: string
   title: string
@@ -585,7 +586,7 @@ export const formatToChatHistory = (
   return messages.map((message) => {
     return {
       content: message.content,
-      role: message.role as "user" | "assistant" | "system",
+      role: normalizeChatRole(message.role),
       images: message.images
     }
   })
@@ -594,8 +595,9 @@ export const formatToChatHistory = (
 export const formatToMessage = (messages: MessageHistory): MessageType[] => {
   messages.sort((a, b) => a.createdAt - b.createdAt)
   return messages.map((message) => {
+    const normalizedRole = normalizeChatRole(message.role)
     return {
-      isBot: message.role === "assistant",
+      isBot: normalizedRole === "assistant",
       message: message.content,
       name: message.name,
       sources: message?.sources || [],
@@ -850,9 +852,9 @@ export const getLastChatHistory = async (history_id: string) => {
   const messages = await db.getChatHistory(history_id)
   messages.sort((a, b) => a.createdAt - b.createdAt)
   const lastMessage = messages[messages.length - 1]
-  return lastMessage?.role === "assistant"
+  return normalizeChatRole(lastMessage?.role) === "assistant"
     ? lastMessage
-    : messages.findLast((m) => m.role === "assistant")
+    : messages.findLast((m) => normalizeChatRole(m.role) === "assistant")
 }
 
 export const deleteHistoriesByDateRange = async (

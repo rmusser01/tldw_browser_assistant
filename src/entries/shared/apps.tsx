@@ -62,6 +62,7 @@ export const OptionsApp: React.FC = () => {
       router={Router}
       direction={direction}
       emptyDescription={t("common:noData")}
+      suspendWhenHidden={platformConfig.features.suspendOptionsWhenHidden}
       includeAntdApp={platformConfig.features.includeAntdApp}
     >
       <RouteShell kind="options" />

@@ -1,4 +1,3 @@
-import { useForm } from "@mantine/form"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
@@ -81,6 +80,7 @@ import { useMobile } from "@/hooks/useMediaQuery"
 import { clearSetting, getSetting } from "@/services/settings/registry"
 import { DISCUSS_MEDIA_PROMPT_SETTING } from "@/services/settings/ui-settings"
 import { Button as TldwButton } from "@/components/Common/Button"
+import { useSimpleForm } from "@/hooks/useSimpleForm"
 
 const getPersistenceModeLabel = (
   t: (...args: any[]) => any,
@@ -611,7 +611,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }, [])
 
-  const form = useForm({
+  const form = useSimpleForm({
     initialValues: {
       message: "",
       image: ""

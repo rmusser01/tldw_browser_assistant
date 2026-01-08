@@ -1,4 +1,3 @@
-import { useForm } from "@mantine/form"
 import { useMutation } from "@tanstack/react-query"
 import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
@@ -65,6 +64,7 @@ import { useQuickIngestStore } from "@/store/quick-ingest"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
 import { Button } from "@/components/Common/Button"
+import { useSimpleForm } from "@/hooks/useSimpleForm"
 
 type Props = {
   dropedFile: File | undefined
@@ -108,7 +108,7 @@ export const SidepanelForm = ({
     ? COMPOSER_CONSTANTS.TEXTAREA_MIN_HEIGHT_PRO
     : COMPOSER_CONSTANTS.TEXTAREA_MIN_HEIGHT_CASUAL
   const storageKey = draftKey || STORAGE_KEYS.SIDEPANEL_CHAT_DRAFT
-  const form = useForm({
+  const form = useSimpleForm({
     initialValues: {
       message: "",
       image: ""
@@ -135,24 +135,24 @@ export const SidepanelForm = ({
     getValue: () => form.values.message,
     setValue: (value) => form.setFieldValue("message", value)
   })
+  const hasWarnedPrivateMode = React.useRef(false)
 
   // Warn Firefox private mode users on mount that data won't persist
   React.useEffect(() => {
-    if (isFireFoxPrivateMode) {
-      notification.warning({
-        message: t(
-          "sidepanel:errors.privateModeTitle",
-          "tldw Assistant can't save data"
-        ),
-        description: t(
-          "sidepanel:errors.privateModeDescription",
-          "Firefox Private Mode does not support saving chat history. Your conversations won't be saved."
-        ),
-        duration: 6
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if (!isFireFoxPrivateMode || hasWarnedPrivateMode.current) return
+    hasWarnedPrivateMode.current = true
+    notification.warning({
+      message: t(
+        "sidepanel:errors.privateModeTitle",
+        "tldw Assistant can't save data"
+      ),
+      description: t(
+        "sidepanel:errors.privateModeDescription",
+        "Firefox Private Mode does not support saving chat history. Your conversations won't be saved."
+      ),
+      duration: 6
+    })
+  }, [isFireFoxPrivateMode, notification, t])
 
   React.useEffect(() => {
     if (!onHeightChange) return
@@ -685,9 +685,7 @@ export const SidepanelForm = ({
 
   const openSettings = React.useCallback(() => {
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.openOptionsPage) {
         chrome.runtime.openOptionsPage()
         return
       }

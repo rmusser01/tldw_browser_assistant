@@ -1937,7 +1937,6 @@ const ImportPanel: React.FC = () => {
       notes: cols.length > 4 ? 4 : undefined
     }
     setMapping((m) => (m && mappingDirty ? m : defaultMapping))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, delimiter, mappingDirty])
 
   const buildMappedTSV = React.useCallback(() => {

@@ -10,7 +10,7 @@ const isRateLimitError = (error: unknown): boolean => {
   return RATE_LIMIT_PATTERN.test(msg)
 }
 
-export const createQueryClient = (): QueryClient =>
+const buildQueryClient = (): QueryClient =>
   new QueryClient({
     defaultOptions: {
       queries: {
@@ -23,3 +23,14 @@ export const createQueryClient = (): QueryClient =>
       }
     }
   })
+
+let singleton: QueryClient | null = null
+
+export const getQueryClient = (): QueryClient => {
+  if (!singleton) {
+    singleton = buildQueryClient()
+  }
+  return singleton
+}
+
+export const createQueryClient = (): QueryClient => buildQueryClient()

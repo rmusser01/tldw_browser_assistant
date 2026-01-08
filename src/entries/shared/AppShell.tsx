@@ -5,7 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query"
 import { useDarkMode } from "~/hooks/useDarkmode"
 import { PageAssistProvider } from "@/components/Common/PageAssistProvider"
 import { FontSizeProvider } from "@/context/FontSizeProvider"
-import { createQueryClient } from "@/services/query-client"
+import { getQueryClient } from "@/services/query-client"
 
 type RouterComponent = React.ComponentType<{ children: React.ReactNode }>
 
@@ -19,7 +19,7 @@ type AppShellProps = {
   includeAntdApp?: boolean
 }
 
-const queryClient = createQueryClient()
+const queryClient = getQueryClient()
 
 export const AppShell: React.FC<AppShellProps> = ({
   router: Router,

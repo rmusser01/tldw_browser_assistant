@@ -4,6 +4,7 @@ import {
   type MessageVariant
 } from "~/store/option"
 import { ChatDocuments } from "@/models/ChatTypes"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 import {
   type HistoryInfo,
   type CompareState,
@@ -179,7 +180,7 @@ export const deleteCompareState = async (history_id: string) => {
 }
 
 const shouldGroupVariants = (message: Message): boolean => {
-  if (message.role !== "assistant") return false
+  if (normalizeChatRole(message.role) !== "assistant") return false
   if (!message.parent_message_id) return false
   const messageType = message.messageType || ""
   if (messageType.startsWith("compare:")) return false
@@ -229,7 +230,7 @@ export const formatToChatHistory = (
   return collapsed.map((message) => {
     return {
       content: message.content,
-      role: message.role as "user" | "assistant" | "system",
+      role: normalizeChatRole(message.role),
       images: message.images
     }
   })
@@ -238,8 +239,9 @@ export const formatToChatHistory = (
 export const formatToMessage = (messages: MessageHistory): MessageType[] => {
   const { collapsed, variantsByParent } = collapseVariantMessages(messages)
   return collapsed.map((message) => {
+    const normalizedRole = normalizeChatRole(message.role)
     const mapped: MessageType = {
-      isBot: message.role === "assistant",
+      isBot: normalizedRole === "assistant",
       message: message.content,
       name: message.name,
       sources: message?.sources || [],
@@ -703,9 +705,9 @@ export const getLastChatHistory = async (history_id: string) => {
   const messages = await db.getChatHistory(history_id)
   messages.sort((a, b) => a.createdAt - b.createdAt)
   const lastMessage = messages[messages.length - 1]
-  return lastMessage?.role === "assistant"
+  return normalizeChatRole(lastMessage?.role) === "assistant"
     ? lastMessage
-    : messages.findLast((m) => m.role === "assistant")
+    : messages.findLast((m) => normalizeChatRole(m.role) === "assistant")
 }
 
 export const deleteHistoriesByDateRange = async (

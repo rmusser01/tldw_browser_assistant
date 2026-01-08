@@ -12,6 +12,7 @@ type PlatformConfig = {
     showQuickChatHelper: boolean
     showKeyboardShortcutsModal: boolean
     suspendSidepanelWhenHidden: boolean
+    suspendOptionsWhenHidden: boolean
   }
 }
 
@@ -41,6 +42,7 @@ export const platformConfig: PlatformConfig = {
     includeAntdApp: true,
     showQuickChatHelper: true,
     showKeyboardShortcutsModal: true,
-    suspendSidepanelWhenHidden: true
+    suspendSidepanelWhenHidden: true,
+    suspendOptionsWhenHidden: true
   }
 }

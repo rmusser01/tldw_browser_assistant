@@ -1,6 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Tooltip } from "antd"
+import { browser } from "wxt/browser"
 import {
   useConnectionState,
   useConnectionUxState
@@ -32,18 +33,16 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
     isConnected && phase === ConnectionPhase.CONNECTED
   const primaryButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
-  const openExtensionUrl = (path: string) => {
+  const openExtensionUrl = (
+    path: `/options.html${string}` | `/sidepanel.html${string}`
+  ) => {
     try {
       // Prefer opening the extension's options.html directly so users land
       // on the tldw settings page instead of the generic extensions manager.
       // `browser` is provided by the WebExtension polyfill in WXT.
-      // @ts-ignore
-      if (typeof browser !== "undefined" && browser.runtime?.getURL) {
-        // @ts-ignore
+      if (browser?.runtime?.getURL) {
         const url = browser.runtime.getURL(path)
-        // @ts-ignore
         if (browser.tabs?.create) {
-          // @ts-ignore
           browser.tabs.create({ url })
         } else {
           window.open(url, "_blank")
@@ -56,16 +55,16 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
     }
 
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.getURL) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.getURL) {
         const url = chrome.runtime.getURL(path)
         window.open(url, "_blank")
         return
       }
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage && path.includes("/options.html")) {
-        // @ts-ignore
+      if (
+        typeof chrome !== "undefined" &&
+        chrome.runtime?.openOptionsPage &&
+        path.includes("/options.html")
+      ) {
         chrome.runtime.openOptionsPage()
         return
       }

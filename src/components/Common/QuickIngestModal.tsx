@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Button, Input, Select, Space, Switch, Typography, List, Tag, message, Collapse, InputNumber, Tooltip as AntTooltip, Spin, Progress, Drawer } from 'antd'
+import { Modal, Button, Input, Select, Space, Switch, Typography, List, Tag, message, Collapse, InputNumber, Tooltip as AntTooltip, Spin, Progress } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from "react-router-dom"
 import { browser } from "wxt/browser"
@@ -8,6 +8,7 @@ import { MEDIA_ADD_SCHEMA_FALLBACK, MEDIA_ADD_SCHEMA_FALLBACK_VERSION } from '@/
 import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
+import { QuickIngestInspectorDrawer } from "@/components/Common/QuickIngestInspectorDrawer"
 import { defaultEmbeddingModelForRag } from '@/services/tldw-server'
 import { tldwModels } from '@/services/tldw'
 import {
@@ -374,6 +375,22 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [inspectorIntroDismissed, setInspectorIntroDismissed] = useStorage<boolean>('quickIngestInspectorIntroDismissed', false)
   const confirmDanger = useConfirmDanger()
   const introToast = React.useRef(false)
+  const handleDismissInspectorIntro = React.useCallback(() => {
+    setShowInspectorIntro(false)
+    try {
+      setInspectorIntroDismissed(true)
+    } catch {}
+    setInspectorOpen(false)
+    if (!introToast.current) {
+      messageApi.success(
+        qi(
+          "inspectorIntroDismissed",
+          "Intro dismissed — reset anytime in Settings > Quick Ingest (Reset Intro)."
+        )
+      )
+      introToast.current = true
+    }
+  }, [messageApi, qi, setInspectorIntroDismissed])
   const { phase, isConnected, offlineBypass, serverUrl, errorKind } =
     useConnectionState()
   const { checkOnce, disableOfflineBypass } = useConnectionActions?.() || {}
@@ -3383,122 +3400,21 @@ export const QuickIngestModal: React.FC<Props> = ({
           <div className="absolute right-0 top-0 h-full w-40 bg-gradient-to-l from-primary/30 via-primary/10 to-transparent blur-md" />
         </div>
 
-        <Drawer
-          title={qi('inspectorTitle', 'Inspector')}
-          placement="right"
-          onClose={() => setInspectorOpen(false)}
+        <QuickIngestInspectorDrawer
           open={inspectorOpen && (!!selectedRow || !!selectedFile)}
-          destroyOnHidden
-          width={380}
-        >
-          <div className="space-y-3">
-            {showInspectorIntro && (
-              <div className="rounded-md border border-primary/20 bg-primary/10 p-3 text-sm text-text">
-                <Typography.Text strong className="block mb-1">
-                  {qi('inspectorIntroTitle', 'How to use the Inspector')}
-                </Typography.Text>
-                <ul className="list-disc list-inside space-y-1 text-xs">
-                  <li>
-                    {qi(
-                      'inspectorIntroItem1',
-                      'Click a queued item to see its detected type, status, and warnings.'
-                    )}
-                  </li>
-                  <li>
-                    {qi(
-                      'inspectorIntroItem2',
-                      'Use per-type controls on the main panel to set defaults; any per-row override marks it Custom.'
-                    )}
-                  </li>
-                  <li>
-                    {qi(
-                      'inspectorIntroItem3',
-                      'For auth-required URLs, add cookies/headers in Advanced before ingesting.'
-                    )}
-                  </li>
-                </ul>
-                <Button
-                  size="small"
-                  className="mt-2"
-                  aria-label={qi('inspectorIntroDismiss', 'Dismiss Inspector intro and close')}
-                  title={qi('inspectorIntroDismiss', 'Dismiss Inspector intro and close')}
-                  onClick={() => {
-                    setShowInspectorIntro(false)
-                    try { setInspectorIntroDismissed(true) } catch {}
-                    setInspectorOpen(false)
-                    if (!introToast.current) {
-                      messageApi.success(
-                        qi(
-                          'inspectorIntroDismissed',
-                          'Intro dismissed — reset anytime in Settings > Quick Ingest (Reset Intro).'
-                        )
-                      )
-                      introToast.current = true
-                    }
-                  }}>
-                  {qi('gotIt', 'Got it')}
-                </Button>
-              </div>
-            )}
-            {selectedRow || selectedFile ? (
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  {typeIcon(selectedRow ? (selectedRow.type === 'auto' ? inferIngestTypeFromUrl(selectedRow.url) : selectedRow.type) : fileTypeFromName(selectedFile!))}
-                  <Typography.Text strong>
-                    {selectedRow ? (selectedRow.url || qi('untitledUrl', 'Untitled URL')) : selectedFile?.name}
-                  </Typography.Text>
-                </div>
-                <div className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
-                  {selectedRow ? (
-                    <>
-                      <Tag color={statusForUrlRow(selectedRow).color === 'default' ? undefined : statusForUrlRow(selectedRow).color}>{statusForUrlRow(selectedRow).label}</Tag>
-                      <Tag color="geekblue">
-                        {(selectedRow.type === 'auto' ? inferIngestTypeFromUrl(selectedRow.url) : selectedRow.type).toUpperCase()}
-                      </Tag>
-                      {statusForUrlRow(selectedRow).reason ? <span className="text-orange-600">{statusForUrlRow(selectedRow).reason}</span> : (
-                        <span>{qi('defaultsApplied', 'Defaults will be applied.')}</span>
-                      )}
-                    </>
-                  ) : null}
-                  {selectedFile ? (
-                    <>
-                      <Tag color={statusForFile(selectedFile).color === 'default' ? undefined : statusForFile(selectedFile).color}>{statusForFile(selectedFile).label}</Tag>
-                      <Tag color="geekblue">{fileTypeFromName(selectedFile).toUpperCase()}</Tag>
-                      <span>{formatBytes((selectedFile as any)?.size)} {selectedFile.type ? `· ${selectedFile.type}` : ''}</span>
-                      {statusForFile(selectedFile).reason ? <span className="text-orange-600">{statusForFile(selectedFile).reason}</span> : null}
-                    </>
-                  ) : null}
-                </div>
-                {selectedRow ? (
-                  <div className="text-xs text-text-muted">
-                    {qi(
-                      'inspectorRowEditHint',
-                      'Editing the URL or forcing a type marks this item as Custom.'
-                    )}
-                  </div>
-                ) : null}
-                {selectedFile ? (
-                  <div className="text-xs text-text-muted">
-                    {qi(
-                      'inspectorFileHint',
-                      'File settings follow the per-type controls on the main panel.'
-                    )}
-                  </div>
-                ) : null}
-                <div className="text-xs text-text-subtle">
-                  {qi(
-                    'inspectorAdvancedHint',
-                    'Use Advanced options to set cookies/auth if required. Errors or warnings appear on each row.'
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="text-sm text-text-muted">
-                {qi('inspectorEmpty', 'Select a queued item to view details.')}
-              </div>
-            )}
-          </div>
-        </Drawer>
+          onClose={() => setInspectorOpen(false)}
+          showIntro={showInspectorIntro}
+          onDismissIntro={handleDismissInspectorIntro}
+          qi={qi}
+          selectedRow={selectedRow}
+          selectedFile={selectedFile}
+          typeIcon={typeIcon}
+          inferIngestTypeFromUrl={inferIngestTypeFromUrl}
+          fileTypeFromName={fileTypeFromName}
+          statusForUrlRow={statusForUrlRow}
+          statusForFile={statusForFile}
+          formatBytes={formatBytes}
+        />
 
         <Collapse
           className="mt-3"

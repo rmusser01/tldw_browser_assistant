@@ -47,9 +47,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
 
   const openSettings = () => {
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.openOptionsPage) {
         chrome.runtime.openOptionsPage()
         return
       }

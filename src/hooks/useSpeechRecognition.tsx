@@ -6,14 +6,14 @@ type SpeechRecognitionEvent = {
 }
 
 declare global {
-  interface SpeechRecognitionErrorEvent extends Event {
-    //@ts-ignore
-    error: any
-  }
   interface Window {
     SpeechRecognition: any
     webkitSpeechRecognition: any
   }
+}
+
+type SpeechRecognitionErrorEventLike = Event & {
+  error?: string
 }
 
 type SpeechRecognition = {
@@ -142,7 +142,7 @@ export const useSpeechRecognition = (
   }
 
   const handleError = (event: Event) => {
-    if ((event as SpeechRecognitionErrorEvent).error === "not-allowed") {
+    if ((event as SpeechRecognitionErrorEventLike).error === "not-allowed") {
       if (recognition.current) {
         recognition.current.onend = null
       }

@@ -199,6 +199,7 @@ export const useMessageOption = () => {
   const navigate = useNavigate()
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
   const messagesRef = React.useRef(messages)
+  const historyIdRef = React.useRef(historyId)
   const serverChatHistoryIdRef = React.useRef<{
     chatId: string | null
     historyId: string | null
@@ -276,12 +277,13 @@ export const useMessageOption = () => {
   const ensureServerChatHistoryId = React.useCallback(
     async (chatId: string, title?: string) => {
       if (!chatId || temporaryChat) return null
+      const currentHistoryId = historyIdRef.current
       if (
         serverChatHistoryIdRef.current.chatId === chatId &&
         serverChatHistoryIdRef.current.historyId
       ) {
         const existingId = serverChatHistoryIdRef.current.historyId
-        if (historyId !== existingId) {
+        if (currentHistoryId !== existingId) {
           setHistoryId(existingId, { preserveServerChatId: true })
         }
         return existingId
@@ -301,22 +303,22 @@ export const useMessageOption = () => {
           chatId,
           historyId: existing.id
         }
-        if (historyId !== existing.id) {
+        if (currentHistoryId !== existing.id) {
           setHistoryId(existing.id, { preserveServerChatId: true })
         }
         return existing.id
       }
 
-      if (historyId && historyId !== "temp") {
-        await setHistoryServerChatId(historyId, chatId)
+      if (currentHistoryId && currentHistoryId !== "temp") {
+        await setHistoryServerChatId(currentHistoryId, chatId)
         if (resolvedTitle) {
-          await updateHistory(historyId, resolvedTitle)
+          await updateHistory(currentHistoryId, resolvedTitle)
         }
         serverChatHistoryIdRef.current = {
           chatId,
-          historyId
+          historyId: currentHistoryId
         }
-        return historyId
+        return currentHistoryId
       }
 
       const newHistory = await saveHistory(
@@ -333,12 +335,15 @@ export const useMessageOption = () => {
       setHistoryId(newHistory.id, { preserveServerChatId: true })
       return newHistory.id
     },
-    [historyId, setHistoryId, t, temporaryChat]
+    [setHistoryId, t, temporaryChat]
   )
 
   React.useEffect(() => {
     messagesRef.current = messages
   }, [messages])
+  React.useEffect(() => {
+    historyIdRef.current = historyId
+  }, [historyId])
 
   const serverChatLoadRef = React.useRef<{
     chatId: string | null
@@ -631,27 +636,39 @@ export const useMessageOption = () => {
     "selectedQuickPrompt",
     null
   )
+  const storedSystemPromptRef = React.useRef<string | null>(storedSystemPrompt)
+  const storedQuickPromptRef = React.useRef<string | null>(storedQuickPrompt)
 
   React.useEffect(() => {
     if (storedSystemPrompt && storedSystemPrompt !== selectedSystemPrompt) {
+      storedSystemPromptRef.current = storedSystemPrompt
       setSelectedSystemPrompt(storedSystemPrompt)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storedSystemPrompt])
+  }, [selectedSystemPrompt, setSelectedSystemPrompt, storedSystemPrompt])
 
   React.useEffect(() => {
     if (storedQuickPrompt && storedQuickPrompt !== selectedQuickPrompt) {
+      storedQuickPromptRef.current = storedQuickPrompt
       setSelectedQuickPrompt(storedQuickPrompt)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storedQuickPrompt])
+  }, [selectedQuickPrompt, setSelectedQuickPrompt, storedQuickPrompt])
 
   React.useEffect(() => {
-    setStoredSystemPrompt(selectedSystemPrompt ?? null)
+    const nextValue = selectedSystemPrompt ?? null
+    if (nextValue === storedSystemPromptRef.current) {
+      return
+    }
+    storedSystemPromptRef.current = nextValue
+    setStoredSystemPrompt(nextValue)
   }, [selectedSystemPrompt, setStoredSystemPrompt])
 
   React.useEffect(() => {
-    setStoredQuickPrompt(selectedQuickPrompt ?? null)
+    const nextValue = selectedQuickPrompt ?? null
+    if (nextValue === storedQuickPromptRef.current) {
+      return
+    }
+    storedQuickPromptRef.current = nextValue
+    setStoredQuickPrompt(nextValue)
   }, [selectedQuickPrompt, setStoredQuickPrompt])
 
   const compareParentForHistory = historyId
@@ -789,8 +806,6 @@ export const useMessageOption = () => {
     compareParentForHistory
   ])
 
-  const handleFocusTextArea = () => focusTextArea(textareaRef)
-
   const handleFileUpload = async (file: File) => {
     try {
       const isImage = file.type.startsWith("image/")
@@ -856,7 +871,7 @@ export const useMessageOption = () => {
     setFileRetrievalEnabled(enabled)
   }
 
-  const clearChat = () => {
+  const clearChat = React.useCallback(() => {
     if (typeof window !== "undefined") {
       Modal.destroyAll()
       cleanupAntOverlays()
@@ -878,7 +893,7 @@ export const useMessageOption = () => {
     if (defaultInternetSearchOn) {
       setWebSearch(true)
     }
-    handleFocusTextArea()
+    focusTextArea(textareaRef)
     setDocumentContext(null)
     // Clear uploaded files
     setUploadedFiles([])
@@ -904,7 +919,36 @@ export const useMessageOption = () => {
     clearReplyTarget()
     // Clear persisted session when starting new chat
     usePlaygroundSessionStore.getState().clearSession()
-  }
+  }, [
+    clearReplyTarget,
+    currentChatModelSettings,
+    defaultInternetSearchOn,
+    navigate,
+    setActionInfo,
+    setCompareMode,
+    setCompareSelectedModels,
+    setContextFiles,
+    setDocumentContext,
+    setFileRetrievalEnabled,
+    setHistory,
+    setHistoryId,
+    setIsFirstMessage,
+    setIsLoading,
+    setIsProcessing,
+    setMessages,
+    setRagEnableCitations,
+    setRagEnableGeneration,
+    setRagMediaIds,
+    setRagSearchMode,
+    setRagSources,
+    setRagTopK,
+    setServerChatId,
+    setServerChatVersion,
+    setStreaming,
+    setUploadedFiles,
+    setWebSearch,
+    storeClearQueuedMessages
+  ])
 
   const baseSaveMessageOnSuccess = createSaveMessageOnSuccess(
     temporaryChat,

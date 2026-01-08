@@ -1,8 +1,8 @@
-import { useForm } from "@mantine/form"
 import React from "react"
 import { useTranslation } from "react-i18next"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { isFirefoxTarget } from "@/config/platform"
+import { useSimpleForm } from "@/hooks/useSimpleForm"
 
 type Props = {
   value: string
@@ -16,7 +16,7 @@ export const EditMessageForm = (props: Props) => {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
   const { t } = useTranslation("common")
 
-  const form = useForm({
+  const form = useSimpleForm({
     initialValues: {
       message: props.value
     }

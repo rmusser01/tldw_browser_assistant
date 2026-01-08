@@ -34,7 +34,6 @@ import {
 import { ChevronDown, CopyIcon, SendIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { createSafeStorage } from "@/utils/safe-storage"
-import { getAllPrompts } from "@/db/dexie/helpers"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import ConnectionProblemBanner from "@/components/Common/ConnectionProblemBanner"
@@ -44,6 +43,8 @@ import { useDemoMode } from "@/context/demo-mode"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
 import { MarkdownErrorBoundary } from "@/components/Common/MarkdownErrorBoundary"
+import { PromptDropdown } from "@/components/Review/PromptDropdown"
+import { usePromptSearch } from "@/components/Review/usePromptSearch"
 import { getDemoMediaItems } from "@/utils/demo-content"
 import { setSetting } from "@/services/settings/registry"
 import {
@@ -139,25 +140,74 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     "Summarize the following content into key points and a brief abstract."
   )
   const [summaryUserPrefix, setSummaryUserPrefix] = React.useState<string>("")
+  const reviewPresets = React.useMemo(
+    () => [
+      {
+        label: t("review:reviewPage.presetsCritical", "Critical"),
+        value:
+          "You are an expert reviewer. Provide a concise, structured review with strengths, weaknesses, and actionable recommendations."
+      },
+      {
+        label: t("review:reviewPage.presetsQaAudit", "QA Audit"),
+        value:
+          "Act as a QA auditor. Identify issues, ambiguities, and missing information. Provide numbered findings and suggested fixes."
+      },
+      {
+        label: t("review:reviewPage.presetsBulletReview", "Bullet Review"),
+        value:
+          "Provide a bullet-point review focusing on clarity, completeness, and relevance. Include a brief overall assessment at the end."
+      }
+    ],
+    [t]
+  )
+  const summaryPresets = React.useMemo(
+    () => [
+      {
+        label: t("review:reviewPage.presetsExecutive", "Executive"),
+        value:
+          "Summarize into key points and an executive abstract. Keep it concise and actionable."
+      },
+      {
+        label: t("review:reviewPage.presetsDetailed", "Detailed"),
+        value:
+          "Write a detailed summary with sections: Overview, Key Points, and Takeaways. Keep neutral tone."
+      },
+      {
+        label: t("review:reviewPage.presetsBullets", "Bullets"),
+        value:
+          "Create a short bullet-point summary capturing the core ideas and any decisions."
+      }
+    ],
+    [t]
+  )
   React.useEffect(() => {
     setContentCollapsed(false)
     setAnalysisCollapsed(false)
   }, [selected])
-  // Quick prompt search states (dropdown editors)
-  const [revQ, setRevQ] = React.useState("")
-  const [revResults, setRevResults] = React.useState<
-    Array<{ id?: string; title: string; content: string }>
-  >([])
-  const [revLoading, setRevLoading] = React.useState(false)
-  const [sumQ, setSumQ] = React.useState("")
-  const [sumResults, setSumResults] = React.useState<
-    Array<{ id?: string; title: string; content: string }>
-  >([])
-  const [sumLoading, setSumLoading] = React.useState(false)
-  const [revIncludeLocal, setRevIncludeLocal] = React.useState(true)
-  const [revIncludeServer, setRevIncludeServer] = React.useState(true)
-  const [sumIncludeLocal, setSumIncludeLocal] = React.useState(true)
-  const [sumIncludeServer, setSumIncludeServer] = React.useState(true)
+  const {
+    query: reviewPromptQuery,
+    setQuery: setReviewPromptQuery,
+    results: reviewPromptResults,
+    loading: reviewPromptLoading,
+    includeLocal: reviewIncludeLocal,
+    setIncludeLocal: setReviewIncludeLocal,
+    includeServer: reviewIncludeServer,
+    setIncludeServer: setReviewIncludeServer,
+    search: searchReviewPrompts,
+    clearResults: clearReviewResults
+  } = usePromptSearch()
+  const {
+    query: summaryPromptQuery,
+    setQuery: setSummaryPromptQuery,
+    results: summaryPromptResults,
+    loading: summaryPromptLoading,
+    includeLocal: summaryIncludeLocal,
+    setIncludeLocal: setSummaryIncludeLocal,
+    includeServer: summaryIncludeServer,
+    setIncludeServer: setSummaryIncludeServer,
+    search: searchSummaryPrompts,
+    clearResults: clearSummaryResults
+  } = usePromptSearch()
   const [page, setPage] = React.useState<number>(1)
   const [pageSize, setPageSize] = React.useState<number>(20)
   const [mediaTotal, setMediaTotal] = React.useState<number>(0)
@@ -216,6 +266,28 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     },
     [storageScope]
   )
+  const handleSavePromptDefaults = React.useCallback(async () => {
+    try {
+      const storage = createSafeStorage()
+      await storage.set(scopedKey("review:prompts"), {
+        reviewSystemPrompt,
+        reviewUserPrefix,
+        summarySystemPrompt,
+        summaryUserPrefix
+      })
+      message.success(
+        t("review:reviewPage.saveAsDefault", "Saved as default")
+      )
+    } catch {}
+  }, [
+    message,
+    reviewSystemPrompt,
+    reviewUserPrefix,
+    scopedKey,
+    summarySystemPrompt,
+    summaryUserPrefix,
+    t
+  ])
 
   // Simple markdown-normalize (straight quotes, dashes, NBSP)
   const toMarkdown = React.useCallback((text: string) => {
@@ -2701,456 +2773,106 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     </button>
                   </>
                 )}
-                {/* Quick dropdown editors for prompts */}
-                <Dropdown
-                  trigger={["click"]}
-                  placement="bottomLeft"
-                  popupRender={() => (
-                    <div className="p-2 w-[420px] bg-surface border border-border rounded shadow">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="text-xs text-text-muted">
-                          {t(
-                            "review:reviewPage.searchPrompts",
-                            "Search prompts"
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 text-xs">
-                          <label className="inline-flex items-center gap-1">
-                            <input
-                              type="checkbox"
-                              checked={revIncludeLocal}
-                              onChange={(e) =>
-                                setRevIncludeLocal(e.target.checked)
-                              }
-                            />{" "}
-                            {t("review:reviewPage.includeLocal", "Local")}
-                          </label>
-                          <label className="inline-flex items-center gap-1">
-                            <input
-                              type="checkbox"
-                              checked={revIncludeServer}
-                              onChange={(e) =>
-                                setRevIncludeServer(e.target.checked)
-                              }
-                            />{" "}
-                            {t("review:reviewPage.includeServer", "Server")}
-                          </label>
-                        </div>
-                      </div>
-                      <Input.Search
-                        value={revQ}
-                        onChange={(e) => setRevQ(e.target.value)}
-                        onSearch={async (q) => {
-                          if (!q.trim()) {
-                            setRevResults([])
-                            return
-                          }
-                          setRevLoading(true)
-                          try {
-                            let merged: Array<{
-                              id?: string
-                              title: string
-                              content: string
-                            }> = []
-                            if (revIncludeLocal) {
-                              const locals = await getAllPrompts()
-                              const fl = (locals || [])
-                                .filter(
-                                  (p) =>
-                                    p.title
-                                      ?.toLowerCase()
-                                      .includes(q.toLowerCase()) ||
-                                    p.content
-                                      ?.toLowerCase()
-                                      .includes(q.toLowerCase())
-                                )
-                                .map((p) => ({
-                                  id: p.id,
-                                  title: p.title,
-                                  content: p.content
-                                }))
-                              merged = merged.concat(fl)
-                            }
-                            if (revIncludeServer) {
-                              await tldwClient.initialize().catch(() => null)
-                              const res = await tldwClient
-                                .searchPrompts(q)
-                                .catch(() => [])
-                              const list: any[] = Array.isArray(res)
-                                ? res
-                                : res?.results || res?.prompts || []
-                              merged = merged.concat(
-                                list.map((x) => ({
-                                  id: x.id,
-                                  title: String(
-                                    x.title || x.name || "Untitled"
-                                  ),
-                                  content: String(x.content || x.prompt || "")
-                                }))
-                              )
-                            }
-                            // dedupe by title+first64
-                            const seen = new Set<string>()
-                            const unique = merged.filter((p) => {
-                              const k = `${p.title}:${p.content.slice(0, 64)}`
-                              if (seen.has(k)) return false
-                              seen.add(k)
-                              return true
-                            })
-                            setRevResults(unique.slice(0, 50))
-                          } finally {
-                            setRevLoading(false)
-                          }
-                        }}
-                        loading={revLoading}
-                        placeholder={
-                          t(
-                            "review:reviewPage.searchPrompts",
-                            "Search prompts"
-                          ) as string
-                        }
-                        allowClear
-                      />
-                      {revResults.length > 0 && (
-                        <div className="mt-2 max-h-40 overflow-auto rounded border border-border">
-                          <List
-                            size="small"
-                            dataSource={revResults}
-                            renderItem={(it) => (
-                              <List.Item
-                                className="!px-2 !py-1 hover:bg-surface2 cursor-pointer"
-                                onMouseDown={(e) => e.preventDefault()}
-                                onClick={() => {
-                                  setReviewSystemPrompt(it.content)
-                                  setRevResults([])
-                                }}>
-                                <div className="truncate text-sm">
-                                  {it.title}
-                                </div>
-                              </List.Item>
-                            )}
-                          />
-                        </div>
-                      )}
-                      <div className="mt-2">
-                        <div className="text-xs text-text-muted mb-1">
-                          {t("review:reviewPage.presets", "Presets")}
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setReviewSystemPrompt(
-                                "You are an expert reviewer. Provide a concise, structured review with strengths, weaknesses, and actionable recommendations."
-                              )
-                            }>
-                            {t("review:reviewPage.presetsCritical", "Critical")}
-                          </Button>
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setReviewSystemPrompt(
-                                "Act as a QA auditor. Identify issues, ambiguities, and missing information. Provide numbered findings and suggested fixes."
-                              )
-                            }>
-                            {t("review:reviewPage.presetsQaAudit", "QA Audit")}
-                          </Button>
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setReviewSystemPrompt(
-                                "Provide a bullet-point review focusing on clarity, completeness, and relevance. Include a brief overall assessment at the end."
-                              )
-                            }>
-                            {t(
-                              "review:reviewPage.presetsBulletReview",
-                              "Bullet Review"
-                            )}
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="text-xs text-text-muted mb-1">
-                        {t(
-                          "review:reviewPage.reviewSystemPrompt",
-                          "Review: System prompt"
-                        )}
-                      </div>
-                      <textarea
-                        className="w-full text-sm p-2 rounded border border-border mt-1"
-                        rows={4}
-                        value={reviewSystemPrompt}
-                        onChange={(e) => setReviewSystemPrompt(e.target.value)}
-                      />
-                      <div className="text-xs text-text-muted mt-2 mb-1">
-                        {t(
-                          "review:reviewPage.reviewUserPrefix",
-                          "Review: User prompt prefix"
-                        )}
-                      </div>
-                      <textarea
-                        className="w-full text-sm p-2 rounded border border-border "
-                        rows={3}
-                        value={reviewUserPrefix}
-                        onChange={(e) => setReviewUserPrefix(e.target.value)}
-                      />
-                      <div className="mt-2 flex justify-end">
-                        <Button
-                          size="small"
-                          onClick={async () => {
-                            try {
-                              const storage = createSafeStorage()
-                              await storage.set(scopedKey("review:prompts"), {
-                                reviewSystemPrompt,
-                                reviewUserPrefix,
-                                summarySystemPrompt,
-                                summaryUserPrefix
-                              })
-                              message.success(
-                                t(
-                                  "review:reviewPage.saveAsDefault",
-                                  "Saved as default"
-                                )
-                              )
-                            } catch {}
-                          }}>
-                          {t(
-                            "review:reviewPage.saveAsDefault",
-                            "Save as default"
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                  )}>
-                  <button
-                    className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-text hover:bg-surface2 "
-                    aria-haspopup="true">
-                    {t("review:reviewPage.reviewPrompt", "Review prompt")}
-                  </button>
-                </Dropdown>
-                <Dropdown
-                  trigger={["click"]}
-                  placement="bottomLeft"
-                  popupRender={() => (
-                    <div className="p-2 w-[420px] bg-surface border border-border rounded shadow">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="text-xs text-text-muted">
-                          {t(
-                            "review:reviewPage.searchPrompts",
-                            "Search prompts"
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 text-xs">
-                          <label className="inline-flex items-center gap-1">
-                            <input
-                              type="checkbox"
-                              checked={sumIncludeLocal}
-                              onChange={(e) =>
-                                setSumIncludeLocal(e.target.checked)
-                              }
-                            />{" "}
-                            {t("review:reviewPage.includeLocal", "Local")}
-                          </label>
-                          <label className="inline-flex items-center gap-1">
-                            <input
-                              type="checkbox"
-                              checked={sumIncludeServer}
-                              onChange={(e) =>
-                                setSumIncludeServer(e.target.checked)
-                              }
-                            />{" "}
-                            {t("review:reviewPage.includeServer", "Server")}
-                          </label>
-                        </div>
-                      </div>
-                      <Input.Search
-                        value={sumQ}
-                        onChange={(e) => setSumQ(e.target.value)}
-                        onSearch={async (q) => {
-                          if (!q.trim()) {
-                            setSumResults([])
-                            return
-                          }
-                          setSumLoading(true)
-                          try {
-                            let merged: Array<{
-                              id?: string
-                              title: string
-                              content: string
-                            }> = []
-                            if (sumIncludeLocal) {
-                              const locals = await getAllPrompts()
-                              const fl = (locals || [])
-                                .filter(
-                                  (p) =>
-                                    p.title
-                                      ?.toLowerCase()
-                                      .includes(q.toLowerCase()) ||
-                                    p.content
-                                      ?.toLowerCase()
-                                      .includes(q.toLowerCase())
-                                )
-                                .map((p) => ({
-                                  id: p.id,
-                                  title: p.title,
-                                  content: p.content
-                                }))
-                              merged = merged.concat(fl)
-                            }
-                            if (sumIncludeServer) {
-                              await tldwClient.initialize().catch(() => null)
-                              const res = await tldwClient
-                                .searchPrompts(q)
-                                .catch(() => [])
-                              const list: any[] = Array.isArray(res)
-                                ? res
-                                : res?.results || res?.prompts || []
-                              merged = merged.concat(
-                                list.map((x) => ({
-                                  id: x.id,
-                                  title: String(
-                                    x.title || x.name || "Untitled"
-                                  ),
-                                  content: String(x.content || x.prompt || "")
-                                }))
-                              )
-                            }
-                            const seen = new Set<string>()
-                            const unique = merged.filter((p) => {
-                              const k = `${p.title}:${p.content.slice(0, 64)}`
-                              if (seen.has(k)) return false
-                              seen.add(k)
-                              return true
-                            })
-                            setSumResults(unique.slice(0, 50))
-                          } finally {
-                            setSumLoading(false)
-                          }
-                        }}
-                        loading={sumLoading}
-                        placeholder={
-                          t(
-                            "review:reviewPage.searchPrompts",
-                            "Search prompts"
-                          ) as string
-                        }
-                        allowClear
-                      />
-                      {sumResults.length > 0 && (
-                        <div className="mt-2 max-h-40 overflow-auto rounded border border-border">
-                          <List
-                            size="small"
-                            dataSource={sumResults}
-                            renderItem={(it) => (
-                              <List.Item
-                                className="!px-2 !py-1 hover:bg-surface2 cursor-pointer"
-                                onMouseDown={(e) => e.preventDefault()}
-                                onClick={() => {
-                                  setSummarySystemPrompt(it.content)
-                                  setSumResults([])
-                                }}>
-                                <div className="truncate text-sm">
-                                  {it.title}
-                                </div>
-                              </List.Item>
-                            )}
-                          />
-                        </div>
-                      )}
-                      <div className="mt-2">
-                        <div className="text-xs text-text-muted mb-1">
-                          {t("review:reviewPage.presets", "Presets")}
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setSummarySystemPrompt(
-                                "Summarize into key points and an executive abstract. Keep it concise and actionable."
-                              )
-                            }>
-                            {t(
-                              "review:reviewPage.presetsExecutive",
-                              "Executive"
-                            )}
-                          </Button>
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setSummarySystemPrompt(
-                                "Write a detailed summary with sections: Overview, Key Points, and Takeaways. Keep neutral tone."
-                              )
-                            }>
-                            {t("review:reviewPage.presetsDetailed", "Detailed")}
-                          </Button>
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setSummarySystemPrompt(
-                                "Create a short bullet-point summary capturing the core ideas and any decisions."
-                              )
-                            }>
-                            {t("review:reviewPage.presetsBullets", "Bullets")}
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="text-xs text-text-muted mb-1">
-                        {t(
-                          "review:reviewPage.summarySystemPrompt",
-                          "Summary: System prompt"
-                        )}
-                      </div>
-                      <textarea
-                        className="w-full text-sm p-2 rounded border border-border mt-1"
-                        rows={4}
-                        value={summarySystemPrompt}
-                        onChange={(e) => setSummarySystemPrompt(e.target.value)}
-                      />
-                      <div className="text-xs text-text-muted mt-2 mb-1">
-                        {t(
-                          "review:reviewPage.summaryUserPrefix",
-                          "Summary: User prompt prefix"
-                        )}
-                      </div>
-                      <textarea
-                        className="w-full text-sm p-2 rounded border border-border "
-                        rows={3}
-                        value={summaryUserPrefix}
-                        onChange={(e) => setSummaryUserPrefix(e.target.value)}
-                      />
-                      <div className="mt-2 flex justify-end">
-                        <Button
-                          size="small"
-                          onClick={async () => {
-                            try {
-                              const storage = createSafeStorage()
-                              await storage.set(scopedKey("review:prompts"), {
-                                reviewSystemPrompt,
-                                reviewUserPrefix,
-                                summarySystemPrompt,
-                                summaryUserPrefix
-                              })
-                              message.success(
-                                t(
-                                  "review:reviewPage.saveAsDefault",
-                                  "Saved as default"
-                                )
-                              )
-                            } catch {}
-                          }}>
-                          {t(
-                            "review:reviewPage.saveAsDefault",
-                            "Save as default"
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                  )}>
-                  <button
-                    className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-text hover:bg-surface2 "
-                    aria-haspopup="true">
-                    {t("review:reviewPage.summaryPrompt", "Summary prompt")}
-                  </button>
-                </Dropdown>
+                <PromptDropdown
+                  triggerLabel={t(
+                    "review:reviewPage.reviewPrompt",
+                    "Review prompt"
+                  )}
+                  searchLabel={t(
+                    "review:reviewPage.searchPrompts",
+                    "Search prompts"
+                  ) as string}
+                  includeLocalLabel={t(
+                    "review:reviewPage.includeLocal",
+                    "Local"
+                  )}
+                  includeServerLabel={t(
+                    "review:reviewPage.includeServer",
+                    "Server"
+                  )}
+                  presetsLabel={t("review:reviewPage.presets", "Presets")}
+                  systemPromptLabel={t(
+                    "review:reviewPage.reviewSystemPrompt",
+                    "Review: System prompt"
+                  )}
+                  userPrefixLabel={t(
+                    "review:reviewPage.reviewUserPrefix",
+                    "Review: User prompt prefix"
+                  )}
+                  saveDefaultsLabel={t(
+                    "review:reviewPage.saveAsDefault",
+                    "Save as default"
+                  )}
+                  query={reviewPromptQuery}
+                  onQueryChange={setReviewPromptQuery}
+                  onSearch={searchReviewPrompts}
+                  loading={reviewPromptLoading}
+                  results={reviewPromptResults}
+                  onSelectResult={(item) => {
+                    setReviewSystemPrompt(item.content)
+                    clearReviewResults()
+                  }}
+                  includeLocal={reviewIncludeLocal}
+                  onIncludeLocalChange={setReviewIncludeLocal}
+                  includeServer={reviewIncludeServer}
+                  onIncludeServerChange={setReviewIncludeServer}
+                  presets={reviewPresets}
+                  systemPrompt={reviewSystemPrompt}
+                  onSystemPromptChange={setReviewSystemPrompt}
+                  userPrefix={reviewUserPrefix}
+                  onUserPrefixChange={setReviewUserPrefix}
+                  onSaveDefaults={handleSavePromptDefaults}
+                />
+                <PromptDropdown
+                  triggerLabel={t(
+                    "review:reviewPage.summaryPrompt",
+                    "Summary prompt"
+                  )}
+                  searchLabel={t(
+                    "review:reviewPage.searchPrompts",
+                    "Search prompts"
+                  ) as string}
+                  includeLocalLabel={t(
+                    "review:reviewPage.includeLocal",
+                    "Local"
+                  )}
+                  includeServerLabel={t(
+                    "review:reviewPage.includeServer",
+                    "Server"
+                  )}
+                  presetsLabel={t("review:reviewPage.presets", "Presets")}
+                  systemPromptLabel={t(
+                    "review:reviewPage.summarySystemPrompt",
+                    "Summary: System prompt"
+                  )}
+                  userPrefixLabel={t(
+                    "review:reviewPage.summaryUserPrefix",
+                    "Summary: User prompt prefix"
+                  )}
+                  saveDefaultsLabel={t(
+                    "review:reviewPage.saveAsDefault",
+                    "Save as default"
+                  )}
+                  query={summaryPromptQuery}
+                  onQueryChange={setSummaryPromptQuery}
+                  onSearch={searchSummaryPrompts}
+                  loading={summaryPromptLoading}
+                  results={summaryPromptResults}
+                  onSelectResult={(item) => {
+                    setSummarySystemPrompt(item.content)
+                    clearSummaryResults()
+                  }}
+                  includeLocal={summaryIncludeLocal}
+                  onIncludeLocalChange={setSummaryIncludeLocal}
+                  includeServer={summaryIncludeServer}
+                  onIncludeServerChange={setSummaryIncludeServer}
+                  presets={summaryPresets}
+                  systemPrompt={summarySystemPrompt}
+                  onSystemPromptChange={setSummarySystemPrompt}
+                  userPrefix={summaryUserPrefix}
+                  onUserPrefixChange={setSummaryUserPrefix}
+                  onSaveDefaults={handleSavePromptDefaults}
+                />
                 <button
                   className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-text hover:bg-surface2 "
                   onClick={() => setDebugOpen((v) => !v)}
