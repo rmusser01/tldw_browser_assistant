@@ -585,22 +585,26 @@ export const useFolderStore = create<FolderState>()(
         )
         if (result.ok) {
           const linkKey = `${conversationId}::${keywordId}`
+          const removeLinkFromState = () => {
+            set((state) => ({
+              conversationKeywordLinks: state.conversationKeywordLinks.filter(
+                (l) => `${l.conversation_id}::${l.keyword_id}` !== linkKey
+              )
+            }))
+          }
           try {
             await db.conversationKeywordLinks
               .where('[conversation_id+keyword_id]')
               .equals([conversationId, keywordId])
               .delete()
+            removeLinkFromState()
           } catch (error) {
             console.error(
               'Failed to delete conversation-keyword link from cache:',
               error
             )
+            removeLinkFromState()
           }
-          set((state) => ({
-            conversationKeywordLinks: state.conversationKeywordLinks.filter(
-              (l) => `${l.conversation_id}::${l.keyword_id}` !== linkKey
-            )
-          }))
           return true
         }
         return false

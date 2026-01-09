@@ -218,7 +218,7 @@ export class TldwChatService {
       throw new Error('Invalid response format from tldw server')
     } catch (error) {
       console.error('Chat completion failed:', error)
-      throw error
+      throw new Error('Chat completion failed', { cause: error })
     }
   }
 
@@ -296,7 +296,7 @@ export class TldwChatService {
       }
     } catch (error) {
       console.error('Stream completion failed:', error)
-      throw error
+      throw new Error('Stream completion failed', { cause: error })
     } finally {
       this.currentController = null
     }

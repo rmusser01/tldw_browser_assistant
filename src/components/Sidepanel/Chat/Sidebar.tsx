@@ -18,11 +18,13 @@ import {
   CheckSquare
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { shallow } from "zustand/shallow"
 import { classNames } from "@/libs/class-name"
 import type { SidepanelChatTab, ConversationStatus } from "@/store/sidepanel-chat-tabs"
 import { useSidepanelChatTabsStore } from "@/store/sidepanel-chat-tabs"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useFolderStore } from "@/store/folder"
+import { useBulkChatOperations } from "@/hooks/useBulkChatOperations"
 import { ModeToggle } from "./ModeToggle"
 import { ConversationContextMenu } from "./ConversationContextMenu"
 import { FolderPickerModal } from "./FolderPickerModal"
@@ -206,11 +208,14 @@ export const SidepanelChatSidebar = ({
     folderApiAvailable,
     ensureKeyword,
     addKeywordToConversation
-  } = useFolderStore((state) => ({
-    folderApiAvailable: state.folderApiAvailable,
-    ensureKeyword: state.ensureKeyword,
-    addKeywordToConversation: state.addKeywordToConversation
-  }))
+  } = useFolderStore(
+    (state) => ({
+      folderApiAvailable: state.folderApiAvailable,
+      ensureKeyword: state.ensureKeyword,
+      addKeywordToConversation: state.addKeywordToConversation
+    }),
+    shallow
+  )
 
   const handleAddToFolder = React.useCallback((tabId: string) => {
     const tab = tabs.find((t) => t.id === tabId)
@@ -219,6 +224,10 @@ export const SidepanelChatSidebar = ({
       setFolderPickerOpen(true)
     }
   }, [tabs])
+
+  const handleFolderPickerClose = React.useCallback(() => {
+    setFolderPickerOpen(false)
+  }, [])
 
   const handleExportJSON = React.useCallback(
     async (tabId: string) => {
@@ -258,106 +267,137 @@ export const SidepanelChatSidebar = ({
   const groupGap = isPro ? "gap-1" : "gap-2"
   const groupSpacing = isPro ? "mb-3" : "mb-4"
 
-  const handleRowClick = (tabId: string) => {
-    if (selectionMode) {
-      toggleTabSelected(tabId)
-      return
-    }
-    onSelectTab(tabId)
-  }
+  const toggleSelectionMode = React.useCallback(() => {
+    setSelectionMode((prev) => !prev)
+  }, [])
 
-  const renderTabRow = (tab: SidepanelChatTab) => {
-    const isSelected = selectedTabIds.includes(tab.id)
-    const row = (
-      <div
-        key={tab.id}
-        className={classNames(
-          "flex items-center justify-between rounded-md",
-          itemClass,
-          tab.id === activeTabId
-            ? "bg-surface2 text-text"
-            : "text-text-muted hover:bg-surface2 hover:text-text",
-          selectionMode && isSelected ? "border border-primary/40" : "border border-transparent"
-        )}
-      >
-        {selectionMode && (
-          <input
-            type="checkbox"
-            checked={isSelected}
-            onChange={() => toggleTabSelected(tab.id)}
-            onClick={(e) => e.stopPropagation()}
-            className="mr-2 size-3 rounded border-border text-primary accent-primary"
-            aria-label={t("sidepanel:multiSelect.toggle", "Toggle selection")}
-          />
-        )}
-        <button
-          type="button"
-          onClick={() => handleRowClick(tab.id)}
-          className="flex-1 min-w-0 text-left"
-          title={tab.label}
+  const toggleTabSelected = React.useCallback((tabId: string) => {
+    setSelectedTabIds((prev) =>
+      prev.includes(tabId) ? prev.filter((id) => id !== tabId) : [...prev, tabId]
+    )
+  }, [])
+
+  const handleRowClick = React.useCallback(
+    (tabId: string) => {
+      if (selectionMode) {
+        toggleTabSelected(tabId)
+        return
+      }
+      onSelectTab(tabId)
+    },
+    [selectionMode, toggleTabSelected, onSelectTab]
+  )
+
+  const renderTabRow = React.useCallback(
+    (tab: SidepanelChatTab) => {
+      const isSelected = selectedTabIds.includes(tab.id)
+      const row = (
+        <div
+          key={tab.id}
+          className={classNames(
+            "flex items-center justify-between rounded-md",
+            itemClass,
+            tab.id === activeTabId
+              ? "bg-surface2 text-text"
+              : "text-text-muted hover:bg-surface2 hover:text-text",
+            selectionMode && isSelected ? "border border-primary/40" : "border border-transparent"
+          )}
         >
-          <div className="flex items-center gap-1.5">
-            <StatusIndicator status={tab.status} />
-            <span className="truncate">{tab.label}</span>
-          </div>
-          <FolderLabels conversationId={tab.serverChatId || tab.historyId} />
-        </button>
-        {!selectionMode && (
-          <div className="flex items-center gap-1 flex-shrink-0">
-            <Tooltip title={tab.pinned ? t("common:unpin", "Unpin") : t("common:pin", "Pin")}>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  togglePinned(tab.id)
-                }}
-                className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
-                aria-label={tab.pinned ? t("common:unpin", "Unpin") : t("common:pin", "Pin")}
-                title={tab.pinned ? t("common:unpin", "Unpin") : t("common:pin", "Pin")}
-              >
-                {tab.pinned ? <PinOff className="size-3" /> : <Pin className="size-3" />}
-              </button>
-            </Tooltip>
-            <Tooltip title={t("common:close", "Close")}>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onCloseTab(tab.id)
-                }}
-                className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
-                aria-label={t("common:close", "Close")}
-                title={t("common:close", "Close")}
-              >
-                <X className="size-3" />
-              </button>
-            </Tooltip>
-          </div>
-        )}
-      </div>
-    )
+          {selectionMode && (
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onChange={() => toggleTabSelected(tab.id)}
+              onClick={(e) => e.stopPropagation()}
+              className="mr-2 size-3 rounded border-border text-primary accent-primary"
+              aria-label={t("sidepanel:multiSelect.toggle", "Toggle selection")}
+            />
+          )}
+          <button
+            type="button"
+            onClick={() => handleRowClick(tab.id)}
+            className="flex-1 min-w-0 text-left"
+            title={tab.label}
+          >
+            <div className="flex items-center gap-1.5">
+              <StatusIndicator status={tab.status} />
+              <span className="truncate">{tab.label}</span>
+            </div>
+            <FolderLabels conversationId={tab.serverChatId || tab.historyId} />
+          </button>
+          {!selectionMode && (
+            <div className="flex items-center gap-1 flex-shrink-0">
+              <Tooltip title={tab.pinned ? t("common:unpin", "Unpin") : t("common:pin", "Pin")}>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    togglePinned(tab.id)
+                  }}
+                  className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
+                  aria-label={tab.pinned ? t("common:unpin", "Unpin") : t("common:pin", "Pin")}
+                  title={tab.pinned ? t("common:unpin", "Unpin") : t("common:pin", "Pin")}
+                >
+                  {tab.pinned ? <PinOff className="size-3" /> : <Pin className="size-3" />}
+                </button>
+              </Tooltip>
+              <Tooltip title={t("common:close", "Close")}>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onCloseTab(tab.id)
+                  }}
+                  className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
+                  aria-label={t("common:close", "Close")}
+                  title={t("common:close", "Close")}
+                >
+                  <X className="size-3" />
+                </button>
+              </Tooltip>
+            </div>
+          )}
+        </div>
+      )
 
-    if (selectionMode) {
-      return row
-    }
+      if (selectionMode) {
+        return row
+      }
 
-    return (
-      <ConversationContextMenu
-        key={tab.id}
-        tab={tab}
-        onRename={handleRename}
-        onTogglePin={togglePinned}
-        onSetStatus={handleSetStatus}
-        onAddToFolder={handleAddToFolder}
-        onExportJSON={handleExportJSON}
-        onExportMarkdown={handleExportMarkdown}
-        onDelete={onCloseTab}
-        currentStatus={tab.status}
-      >
-        {row}
-      </ConversationContextMenu>
-    )
-  }
+      return (
+        <ConversationContextMenu
+          key={tab.id}
+          tab={tab}
+          onRename={handleRename}
+          onTogglePin={togglePinned}
+          onSetStatus={handleSetStatus}
+          onAddToFolder={handleAddToFolder}
+          onExportJSON={handleExportJSON}
+          onExportMarkdown={handleExportMarkdown}
+          onDelete={onCloseTab}
+          currentStatus={tab.status}
+        >
+          {row}
+        </ConversationContextMenu>
+      )
+    },
+    [
+      activeTabId,
+      itemClass,
+      selectionMode,
+      selectedTabIds,
+      t,
+      togglePinned,
+      toggleTabSelected,
+      handleRowClick,
+      onCloseTab,
+      handleRename,
+      handleSetStatus,
+      handleAddToFolder,
+      handleExportJSON,
+      handleExportMarkdown
+    ]
+  )
 
   const normalizedQuery = searchQuery.trim().toLowerCase()
   const sortedTabs = React.useMemo(
@@ -416,6 +456,16 @@ export const SidepanelChatSidebar = ({
     () => selectedTabs.filter((tab) => !tab.serverChatId).length,
     [selectedTabs]
   )
+  const { openBulkFolderPicker, openBulkTagPicker, applyBulkTrash } =
+    useBulkChatOperations({
+      selectedConversationIds,
+      folderApiAvailable,
+      ensureKeyword,
+      addKeywordToConversation,
+      t,
+      setBulkFolderPickerOpen,
+      setBulkTagPickerOpen
+    })
 
   React.useEffect(() => {
     if (!selectionMode) {
@@ -425,111 +475,38 @@ export const SidepanelChatSidebar = ({
     setSelectedTabIds((prev) => prev.filter((id) => visibleTabIds.includes(id)))
   }, [selectionMode, visibleTabIds])
 
-  const toggleSelectionMode = () => {
-    setSelectionMode((prev) => !prev)
-  }
-
-  const toggleTabSelected = (tabId: string) => {
-    setSelectedTabIds((prev) =>
-      prev.includes(tabId) ? prev.filter((id) => id !== tabId) : [...prev, tabId]
-    )
-  }
-
-  const handleSelectAllVisible = () => {
+  const handleSelectAllVisible = React.useCallback(() => {
     setSelectedTabIds(visibleTabIds)
-  }
+  }, [visibleTabIds])
 
-  const clearSelection = () => {
+  const clearSelection = React.useCallback(() => {
     setSelectedTabIds([])
-  }
+  }, [])
 
-  const openBulkFolderPicker = () => {
-    if (folderApiAvailable === false) {
-      message.error(
-        t(
-          "sidepanel:folderPicker.notAvailable",
-          "Folder organization is not available on this server"
-        )
-      )
-      return
-    }
-    if (selectedConversationIds.length === 0) {
-      message.warning(
-        t(
-          "sidepanel:multiSelect.serverOnlyWarning",
-          "Select chats saved on the server to apply this action."
-        )
-      )
-      return
-    }
-    setBulkFolderPickerOpen(true)
-  }
+  const openBulkDeleteConfirm = React.useCallback(() => {
+    setBulkDeleteConfirmOpen(true)
+  }, [])
 
-  const openBulkTagPicker = () => {
-    if (folderApiAvailable === false) {
-      message.error(
-        t(
-          "sidepanel:multiSelect.tagsUnavailable",
-          "Tags are not available on this server"
-        )
-      )
-      return
-    }
-    if (selectedConversationIds.length === 0) {
-      message.warning(
-        t(
-          "sidepanel:multiSelect.serverOnlyWarning",
-          "Select chats saved on the server to apply this action."
-        )
-      )
-      return
-    }
-    setBulkTagPickerOpen(true)
-  }
+  const handleBulkFolderPickerClose = React.useCallback(() => {
+    setBulkFolderPickerOpen(false)
+  }, [])
+
+  const handleBulkTagPickerClose = React.useCallback(() => {
+    setBulkTagPickerOpen(false)
+  }, [])
+
+  const handleBulkDeleteConfirmClose = React.useCallback(() => {
+    setBulkDeleteConfirmOpen(false)
+  }, [])
 
   const handleBulkDelete = async () => {
     if (selectedTabs.length === 0) return
 
-    const serverConversationIds = selectedConversationIds
     const failedConversationIds = new Set<string>()
-    if (serverConversationIds.length > 0) {
-      const trashKeyword = await ensureKeyword("Trash")
-      if (!trashKeyword) {
-        message.error(
-          t(
-            "sidepanel:multiSelect.deleteFailed",
-            "Unable to move chats to trash."
-          )
-        )
-        return
-      }
-      const results = await Promise.allSettled(
-        serverConversationIds.map((conversationId) =>
-          addKeywordToConversation(conversationId, trashKeyword.id)
-        )
-      )
-      let failures = 0
-      results.forEach((result, index) => {
-        if (result.status === "rejected" || !result.value) {
-          failures += 1
-          failedConversationIds.add(serverConversationIds[index])
-        }
-      })
-      if (failures > 0) {
-        message.error(
-          t(
-            "sidepanel:multiSelect.deletePartial",
-            "Some chats could not be moved to trash."
-          )
-        )
-      } else {
-        message.success(
-          t(
-            "sidepanel:multiSelect.deleteSuccess",
-            "Chats moved to trash."
-          )
-        )
-      }
+    if (selectedConversationIds.length > 0) {
+      const result = await applyBulkTrash()
+      if (!result) return
+      result.failedConversationIds.forEach((id) => failedConversationIds.add(id))
     }
 
     const remainingSelection: string[] = []
@@ -703,7 +680,7 @@ export const SidepanelChatSidebar = ({
             </button>
             <button
               type="button"
-              onClick={() => setBulkDeleteConfirmOpen(true)}
+              onClick={openBulkDeleteConfirm}
               className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-red-600 hover:bg-surface2"
               disabled={selectedTabIds.length === 0}
             >
@@ -744,27 +721,27 @@ export const SidepanelChatSidebar = ({
 
       <FolderPickerModal
         open={folderPickerOpen}
-        onClose={() => setFolderPickerOpen(false)}
+        onClose={handleFolderPickerClose}
         conversationId={folderPickerTabId}
       />
 
       <BulkFolderPickerModal
         open={bulkFolderPickerOpen}
         conversationIds={selectedConversationIds}
-        onClose={() => setBulkFolderPickerOpen(false)}
-        onSuccess={() => clearSelection()}
+        onClose={handleBulkFolderPickerClose}
+        onSuccess={clearSelection}
       />
 
       <BulkTagPickerModal
         open={bulkTagPickerOpen}
         conversationIds={selectedConversationIds}
-        onClose={() => setBulkTagPickerOpen(false)}
-        onSuccess={() => clearSelection()}
+        onClose={handleBulkTagPickerClose}
+        onSuccess={clearSelection}
       />
 
       <Modal
         open={bulkDeleteConfirmOpen}
-        onCancel={() => setBulkDeleteConfirmOpen(false)}
+        onCancel={handleBulkDeleteConfirmClose}
         onOk={handleBulkDelete}
         okText={t("sidepanel:multiSelect.deleteConfirmOk", "Move to trash")}
         cancelText={t("common:cancel", "Cancel")}

@@ -1,5 +1,17 @@
 PRD — Mindmap Playground (Options Mode)
 
+  Mindmap
+
+  - Notes storage constraints (server):
+      - Title max 255 chars.
+      - Content max 5 MB.
+      - Notes have no dedicated metadata field; only title/content plus optional backlinks (conversation_id, message_id) and keywords. Any structured mindmap metadata must be embedded in content or requires a server schema change.
+  - Keywords tokenization:
+      - Accepts list or comma-separated string; trims whitespace and drops empty entries.
+      - Deduped case-insensitively; max length 100 chars; case-insensitive uniqueness in storage.
+  - Sync scope:
+      - Sync runs only while the Mindmap UI is open (no background sync in v1).
+
   1. Purpose & Scope
 
   - Add a full-screen mindmap playground to the Options UI for creating, editing, and viewing mindmaps.
@@ -68,11 +80,11 @@ PRD — Mindmap Playground (Options Mode)
   7. Notes Sync (Always-On with Manual Pause)
 
   - Always-on sync; per-map “Pause sync” toggle in toolbar.
+  - Sync runs only while the Mindmap UI is open (no background sync in v1).
   - Tagged note keyword: `_*_mindmaps_*_` (used for search and discovery).
   - Note payload:
-      - content: Markdown outline.
-      - metadata: `keywords`, `mindmap_id`, `mindmap_version`, `layout`, `node_count`, `hash`.
-      - metadata also stores JSON when size allows (see limits below).
+      - content: Markdown outline; may include an embedded Mindmap JSON block for full-fidelity round-trips.
+      - embedded JSON fields: `mindmap_id`, `mindmap_version`, `layout`, `node_count`, `hash`, plus full document when size allows (see limits below).
   - Search/pull strategy:
       - Use Notes search endpoints with keyword tokens to find tagged notes.
       - Merge into local store; update existing maps by `mindmap_id`.
@@ -82,9 +94,9 @@ PRD — Mindmap Playground (Options Mode)
       - If note updated after last sync and local map changed, prompt:
           - Keep local, Keep remote, or Duplicate (creates new map + note).
 
-  7.1 Notes Metadata Size Strategy
+  7.1 Embedded JSON Size Strategy (in note content)
 
-  - Target max uncompressed JSON in metadata: 512 KB.
+  - Target max uncompressed JSON in embedded block: 512 KB.
   - If JSON exceeds 512 KB:
       - Store compressed payload in `mindmap_json_compressed` and record
         `mindmap_json_encoding` plus `mindmap_json_bytes`.
@@ -92,6 +104,7 @@ PRD — Mindmap Playground (Options Mode)
       - Omit JSON payload; store summary metadata only.
       - Rebuild structure from Markdown outline on load; layout reflows.
   - Ensure `hash` is computed from canonical JSON for conflict detection.
+  - Ensure total note content stays under server limit (5 MB).
 
   7.2 Tagged Notes Open Behavior
 
@@ -101,6 +114,30 @@ PRD — Mindmap Playground (Options Mode)
       - Note has `mindmap_id` but local map missing: import and recreate map.
       - Note lacks `mindmap_id` but has tag: import as new map, stamp id on next sync.
   - Provide “Open as copy” action to duplicate without overwriting.
+
+  7.3 Embedded Mindmap JSON Block Format (v1)
+
+  - Purpose: preserve full-fidelity map data inside note content.
+  - Placement: preferred at top of note content; parser should accept any position and use the first valid block.
+  - Delimiters:
+      - Start: `<!-- tldw:mindmap:v1 -->`
+      - End: `<!-- /tldw:mindmap -->`
+      - JSON lives inside a fenced code block with language `json`.
+  - JSON fields:
+      - `schema_version`: `1`
+      - `mindmap_id`, `mindmap_version`, `layout`, `node_count`, `hash`
+      - `mindmap_json`: full MindmapDocument (uncompressed, see section 6).
+      - `mindmap_json_compressed`, `mindmap_json_encoding`, `mindmap_json_bytes` when compressed.
+  - If both `mindmap_json` and `mindmap_json_compressed` are present, prefer `mindmap_json`.
+  - If no JSON payload is present, use the Markdown outline as the source of truth.
+  - Example:
+      ```text
+      <!-- tldw:mindmap:v1 -->
+      ~~~json
+      {"schema_version":1,"mindmap_id":"mm_123","mindmap_version":1,"layout":"horizontal","node_count":3,"hash":"...","mindmap_json":{...}}
+      ~~~
+      <!-- /tldw:mindmap -->
+      ```
 
   8. Import/Export
 
@@ -112,6 +149,9 @@ PRD — Mindmap Playground (Options Mode)
       - Markdown and OPML with optional node notes/tags.
       - Mermaid text export (auto-generated from map structure).
       - PNG and SVG with theme and size presets.
+  - Round-trip fidelity:
+      - Preserve labels, hierarchy, notes, tags, and links for Markdown/OPML.
+      - Mermaid is structure-first; tags are optional label suffixes; layout/positions/colors/collapsed are best-effort and may reflow.
   - Quick actions:
       - “Copy as Markdown”, “Copy as OPML”, and “Copy as Mermaid”.
 
@@ -148,6 +188,50 @@ PRD — Mindmap Playground (Options Mode)
   - Unsupported features:
       - Edge labels, icons, emojis, and HTML are ignored or stripped.
       - Styling directives (classDef/class) are ignored in v1.
+
+  8.3 Markdown Outline Format (v1)
+
+  - Outline uses unordered list items with `-` (export always uses `-`; import may accept `*` or `1.` but normalizes to `-`).
+  - Indentation: 2 spaces per depth level.
+  - Root handling:
+      - First top-level item is the root.
+      - If multiple top-level items exist, wrap them under a synthetic root labeled `Mindmap` (preserve order).
+  - Node line syntax:
+      - `- Label {id=mm_n1; tags=tag1,tag2; link=https://example.com; color=#ff8800; collapsed=0; sort=10}`
+  - Metadata suffix:
+      - Optional final ` { ... }` block at end of the line.
+      - Key/value pairs separated by `;`. Unknown keys are ignored for forward compatibility.
+      - Values may be quoted with double quotes to include spaces or commas.
+      - Escaping: use `\\{` or `\\}` in labels to avoid metadata parsing; use `\\\\` for literal backslash.
+  - Notes:
+      - Immediately following blockquote lines belong to the node.
+      - Blockquote lines are indented to the node level + 2 spaces and start with `> `.
+      - A single `>` line represents a blank line in the note.
+  - Example:
+      ```markdown
+      - Root {id=mm_root; tags=project,plan}
+        > Root note line 1
+        > Root note line 2
+        - Child A {id=mm_a; link=https://example.com}
+          > Child note
+        - Child B {id=mm_b; collapsed=1; color=#2b6cb0}
+      ```
+
+  8.4 OPML Attribute Mapping (v1)
+
+  - Label:
+      - Export: `text` attribute.
+      - Import: `text` attribute is required; if missing, skip node.
+  - Tags:
+      - Export: `tldw_tags` as comma-separated list (trimmed, no empty tokens).
+      - Import: `tldw_tags` preferred; fallback to `tags` if present.
+  - Notes:
+      - Export: `tldw_note` with newlines encoded as `\n` and backslashes encoded as `\\`.
+      - Import: `tldw_note` preferred; fallback to `_note` or `note`; decode `\\` then `\n`.
+  - Links:
+      - Export: `tldw_link`.
+      - Import: `tldw_link` preferred; fallback to `url` then `htmlUrl`.
+  - Unknown attributes are ignored.
 
   9. Integrations
 
@@ -197,3 +281,7 @@ PRD — Mindmap Playground (Options Mode)
 
   - Compression method choice (e.g., LZ-string vs alternative) and storage field naming.
   - Maximum PNG/SVG export dimensions for performance limits.
+
+  14. Future (v2)
+
+  - Background sync worker (extension background) to sync mindmaps while the UI is closed, with retry/backoff and offline queueing.

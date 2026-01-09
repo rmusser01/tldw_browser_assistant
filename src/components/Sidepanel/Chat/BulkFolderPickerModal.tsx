@@ -3,6 +3,7 @@ import { Modal, Tree, Empty, Spin, Input, Button, message } from "antd"
 import type { TreeProps } from "antd"
 import { Folder, Plus } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { shallow } from "zustand/shallow"
 import { useFolderStore } from "@/store/folder"
 
 type BulkFolderPickerModalProps = {
@@ -32,7 +33,18 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
     addConversationToFolder,
     createFolder,
     refreshFromServer
-  } = useFolderStore()
+  } = useFolderStore(
+    (state) => ({
+      folders: state.folders,
+      isLoading: state.isLoading,
+      folderApiAvailable: state.folderApiAvailable,
+      getFolderTree: state.getFolderTree,
+      addConversationToFolder: state.addConversationToFolder,
+      createFolder: state.createFolder,
+      refreshFromServer: state.refreshFromServer
+    }),
+    shallow
+  )
 
   React.useEffect(() => {
     if (open && folderApiAvailable !== false) {
@@ -68,7 +80,7 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
       }))
     }
     return buildTreeData(folderTree)
-  }, [folderTree, getFolderTree])
+  }, [folderTree])
 
   const handleCheck: TreeProps["onCheck"] = (checked) => {
     if (Array.isArray(checked)) {

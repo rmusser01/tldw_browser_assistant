@@ -161,13 +161,13 @@ export const ServerChatRow = React.memo(
       )
     }
 
-    const handleRowClick = () => {
+    const handleRowClick = React.useCallback(() => {
       if (selectionMode) {
         onToggleSelected?.(chat.id)
         return
       }
       onSelectChat(chat)
-    }
+    }, [selectionMode, onToggleSelected, chat, onSelectChat])
 
     return (
       <div
@@ -176,7 +176,7 @@ export const ServerChatRow = React.memo(
           isActive
             ? "bg-surface2 border-borderStrong text-text"
             : "bg-surface text-text border-border hover:bg-surface2",
-          selectionMode && isSelected ? "border-primary/40" : ""
+          selectionMode && isSelected && "border-primary/40"
         )}
       >
         {selectionMode && (

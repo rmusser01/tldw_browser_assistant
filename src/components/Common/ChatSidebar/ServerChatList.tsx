@@ -10,6 +10,7 @@ import { useConnectionState } from "@/hooks/useConnectionState"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useClearChat } from "@/hooks/chat/useClearChat"
 import { useSelectServerChat } from "@/hooks/chat/useSelectServerChat"
+import { useBulkChatOperations } from "@/hooks/useBulkChatOperations"
 import { useStoreMessageOption } from "@/store/option"
 import { useFolderStore } from "@/store/folder"
 import { shallow } from "zustand/shallow"
@@ -22,8 +23,13 @@ import { updatePageTitle } from "@/utils/update-page-title"
 import { cn } from "@/libs/utils"
 import { normalizeConversationState } from "@/utils/conversation-state"
 import { ServerChatRow } from "./ServerChatRow"
-import { BulkFolderPickerModal } from "@/components/Sidepanel/Chat/BulkFolderPickerModal"
-import { BulkTagPickerModal } from "@/components/Sidepanel/Chat/BulkTagPickerModal"
+
+const BulkFolderPickerModal = React.lazy(
+  () => import("@/components/Sidepanel/Chat/BulkFolderPickerModal")
+)
+const BulkTagPickerModal = React.lazy(
+  () => import("@/components/Sidepanel/Chat/BulkTagPickerModal")
+)
 
 interface ServerChatListProps {
   searchQuery: string
@@ -87,11 +93,14 @@ export function ServerChatList({
     folderApiAvailable,
     ensureKeyword,
     addKeywordToConversation
-  } = useFolderStore((state) => ({
-    folderApiAvailable: state.folderApiAvailable,
-    ensureKeyword: state.ensureKeyword,
-    addKeywordToConversation: state.addKeywordToConversation
-  }))
+  } = useFolderStore(
+    (state) => ({
+      folderApiAvailable: state.folderApiAvailable,
+      ensureKeyword: state.ensureKeyword,
+      addKeywordToConversation: state.addKeywordToConversation
+    }),
+    shallow
+  )
 
   const updateChatRequest = React.useCallback(
     async (payload: UpdateChatRequestPayload): Promise<ServerChatSummary> =>
@@ -171,6 +180,16 @@ export function ServerChatList({
     () => selectedChats.map((chat) => chat.id),
     [selectedChats]
   )
+  const { openBulkFolderPicker, openBulkTagPicker, applyBulkTrash } =
+    useBulkChatOperations({
+      selectedConversationIds,
+      folderApiAvailable,
+      ensureKeyword,
+      addKeywordToConversation,
+      t,
+      setBulkFolderPickerOpen,
+      setBulkTagPickerOpen
+    })
 
   const togglePinned = React.useCallback(
     (chatId: string) => {
@@ -207,13 +226,13 @@ export function ServerChatList({
     )
   }, [])
 
-  const handleSelectAllVisible = () => {
+  const handleSelectAllVisible = React.useCallback(() => {
     setSelectedChatIds(visibleChatIds)
-  }
+  }, [visibleChatIds])
 
-  const clearSelection = () => {
+  const clearSelection = React.useCallback(() => {
     setSelectedChatIds([])
-  }
+  }, [])
 
   const handleRenameSubmit = () => {
     if (renameLoading) return
@@ -403,93 +422,26 @@ export function ServerChatList({
     [selectionMode, selectServerChat, toggleChatSelected]
   )
 
-  const openBulkFolderPicker = () => {
-    if (folderApiAvailable === false) {
-      message.error(
-        t(
-          "sidepanel:folderPicker.notAvailable",
-          "Folder organization is not available on this server"
-        )
-      )
-      return
-    }
-    if (selectedConversationIds.length === 0) {
-      message.warning(
-        t(
-          "sidepanel:multiSelect.serverOnlyWarning",
-          "Select chats saved on the server to apply this action."
-        )
-      )
-      return
-    }
-    setBulkFolderPickerOpen(true)
-  }
+  const openBulkDeleteConfirm = React.useCallback(() => {
+    setBulkDeleteConfirmOpen(true)
+  }, [])
 
-  const openBulkTagPicker = () => {
-    if (folderApiAvailable === false) {
-      message.error(
-        t(
-          "sidepanel:multiSelect.tagsUnavailable",
-          "Tags are not available on this server"
-        )
-      )
-      return
-    }
-    if (selectedConversationIds.length === 0) {
-      message.warning(
-        t(
-          "sidepanel:multiSelect.serverOnlyWarning",
-          "Select chats saved on the server to apply this action."
-        )
-      )
-      return
-    }
-    setBulkTagPickerOpen(true)
-  }
+  const handleBulkFolderPickerClose = React.useCallback(() => {
+    setBulkFolderPickerOpen(false)
+  }, [])
+
+  const handleBulkTagPickerClose = React.useCallback(() => {
+    setBulkTagPickerOpen(false)
+  }, [])
+
+  const handleBulkDeleteConfirmClose = React.useCallback(() => {
+    setBulkDeleteConfirmOpen(false)
+  }, [])
 
   const handleBulkDelete = async () => {
-    if (selectedConversationIds.length === 0) return
-
-    const failedConversationIds = new Set<string>()
-    const trashKeyword = await ensureKeyword("Trash")
-    if (!trashKeyword) {
-      message.error(
-        t(
-          "sidepanel:multiSelect.deleteFailed",
-          "Unable to move chats to trash."
-        )
-      )
-      return
-    }
-
-    const results = await Promise.allSettled(
-      selectedConversationIds.map((conversationId) =>
-        addKeywordToConversation(conversationId, trashKeyword.id)
-      )
-    )
-    let failures = 0
-    results.forEach((result, index) => {
-      if (result.status === "rejected" || !result.value) {
-        failures += 1
-        failedConversationIds.add(selectedConversationIds[index])
-      }
-    })
-
-    if (failures > 0) {
-      message.error(
-        t(
-          "sidepanel:multiSelect.deletePartial",
-          "Some chats could not be moved to trash."
-        )
-      )
-    } else {
-      message.success(
-        t(
-          "sidepanel:multiSelect.deleteSuccess",
-          "Chats moved to trash."
-        )
-      )
-    }
+    const result = await applyBulkTrash()
+    if (!result) return
+    const { failedConversationIds } = result
 
     setPinnedChatIds((prev) =>
       (prev || []).filter(
@@ -649,7 +601,7 @@ export function ServerChatList({
             <button
               type="button"
               onClick={openBulkFolderPicker}
-              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text hover:bg-surface"
+              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text hover:bg-surface2"
               disabled={selectedChatIds.length === 0}
             >
               <FolderPlus className="size-3.5" />
@@ -658,7 +610,7 @@ export function ServerChatList({
             <button
               type="button"
               onClick={openBulkTagPicker}
-              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text hover:bg-surface"
+              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text hover:bg-surface2"
               disabled={selectedChatIds.length === 0}
             >
               <Tag className="size-3.5" />
@@ -666,8 +618,8 @@ export function ServerChatList({
             </button>
             <button
               type="button"
-              onClick={() => setBulkDeleteConfirmOpen(true)}
-              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-red-600 hover:bg-surface"
+              onClick={openBulkDeleteConfirm}
+              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-red-600 hover:bg-surface2"
               disabled={selectedChatIds.length === 0}
             >
               <Trash2 className="size-3.5" />
@@ -729,21 +681,27 @@ export function ServerChatList({
           ))}
         </div>
       )}
-      <BulkFolderPickerModal
-        open={bulkFolderPickerOpen}
-        conversationIds={selectedConversationIds}
-        onClose={() => setBulkFolderPickerOpen(false)}
-        onSuccess={() => clearSelection()}
-      />
-      <BulkTagPickerModal
-        open={bulkTagPickerOpen}
-        conversationIds={selectedConversationIds}
-        onClose={() => setBulkTagPickerOpen(false)}
-        onSuccess={() => clearSelection()}
-      />
+      <React.Suspense fallback={null}>
+        {bulkFolderPickerOpen && (
+          <BulkFolderPickerModal
+            open={bulkFolderPickerOpen}
+            conversationIds={selectedConversationIds}
+            onClose={handleBulkFolderPickerClose}
+            onSuccess={clearSelection}
+          />
+        )}
+        {bulkTagPickerOpen && (
+          <BulkTagPickerModal
+            open={bulkTagPickerOpen}
+            conversationIds={selectedConversationIds}
+            onClose={handleBulkTagPickerClose}
+            onSuccess={clearSelection}
+          />
+        )}
+      </React.Suspense>
       <Modal
         open={bulkDeleteConfirmOpen}
-        onCancel={() => setBulkDeleteConfirmOpen(false)}
+        onCancel={handleBulkDeleteConfirmClose}
         onOk={handleBulkDelete}
         okText={t("sidepanel:multiSelect.deleteConfirmOk", "Move to trash")}
         cancelText={t("common:cancel", "Cancel")}
