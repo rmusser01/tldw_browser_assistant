@@ -34,6 +34,8 @@ type ServerChatRowProps = {
   chat: ServerChatHistoryItem
   isPinned: boolean
   isActive: boolean
+  selectionMode?: boolean
+  isSelected?: boolean
   openMenuFor: string | null
   setOpenMenuFor: (value: string | null) => void
   onSelectChat: (chat: ServerChatHistoryItem) => void
@@ -43,6 +45,7 @@ type ServerChatRowProps = {
   onEditTopic: (chat: ServerChatHistoryItem) => void
   onDeleteChat: (chat: ServerChatHistoryItem) => void | Promise<void>
   onUpdateState: (chat: ServerChatHistoryItem, state: ConversationState) => void
+  onToggleSelected?: (chatId: string) => void
   t: TFunction
 }
 
@@ -51,6 +54,8 @@ export const ServerChatRow = React.memo(
     chat,
     isPinned,
     isActive,
+    selectionMode = false,
+    isSelected = false,
     openMenuFor,
     setOpenMenuFor,
     onSelectChat,
@@ -60,6 +65,7 @@ export const ServerChatRow = React.memo(
     onEditTopic,
     onDeleteChat,
     onUpdateState,
+    onToggleSelected,
     t
   }: ServerChatRowProps) => {
     const lastModifiedMs = chat.updatedAtMs ?? chat.createdAtMs
@@ -155,18 +161,37 @@ export const ServerChatRow = React.memo(
       )
     }
 
+    const handleRowClick = () => {
+      if (selectionMode) {
+        onToggleSelected?.(chat.id)
+        return
+      }
+      onSelectChat(chat)
+    }
+
     return (
       <div
         className={cn(
           "flex py-2 px-2 items-center gap-3 relative rounded-md truncate group transition-opacity duration-300 ease-in-out border",
           isActive
             ? "bg-surface2 border-borderStrong text-text"
-            : "bg-surface text-text border-border hover:bg-surface2"
+            : "bg-surface text-text border-border hover:bg-surface2",
+          selectionMode && isSelected ? "border-primary/40" : ""
         )}
       >
+        {selectionMode && (
+          <input
+            type="checkbox"
+            checked={isSelected}
+            onChange={() => onToggleSelected?.(chat.id)}
+            onClick={(event) => event.stopPropagation()}
+            className="size-3 rounded border-border text-primary accent-primary"
+            aria-label={t("sidepanel:multiSelect.toggle", "Toggle selection")}
+          />
+        )}
         <button
           className="flex flex-col overflow-hidden flex-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 rounded"
-          onClick={() => void onSelectChat(chat)}
+          onClick={handleRowClick}
         >
           <span className="truncate text-sm" title={chat.title}>
             {chat.title}
@@ -195,47 +220,49 @@ export const ServerChatRow = React.memo(
             {renderSourceInfo()}
           </span>
         </button>
-        <div className="flex flex-col items-center gap-1">
-          <Tooltip title={isPinned ? t("common:unpin") : t("common:pin")}>
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation()
-                onTogglePinned(chat.id)
-              }}
-              className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)] h-7 w-7 sm:min-w-0 sm:min-h-0"
-              aria-label={isPinned ? t("common:unpin") : t("common:pin")}
-              aria-pressed={isPinned}
+        {!selectionMode && (
+          <div className="flex flex-col items-center gap-1">
+            <Tooltip title={isPinned ? t("common:unpin") : t("common:pin")}>
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  onTogglePinned(chat.id)
+                }}
+                className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)] h-7 w-7 sm:min-w-0 sm:min-h-0"
+                aria-label={isPinned ? t("common:unpin") : t("common:pin")}
+                aria-pressed={isPinned}
+              >
+                {isPinned ? (
+                  <PinOff className="size-3" />
+                ) : (
+                  <Pin className="size-3" />
+                )}
+              </button>
+            </Tooltip>
+            <Dropdown
+              menu={{ items: menuItems, id: `server-chat-actions-${chat.id}` }}
+              trigger={["click"]}
+              placement="bottomRight"
+              open={openMenuFor === chat.id}
+              onOpenChange={(open) => setOpenMenuFor(open ? chat.id : null)}
             >
-              {isPinned ? (
-                <PinOff className="size-3" />
-              ) : (
-                <Pin className="size-3" />
-              )}
-            </button>
-          </Tooltip>
-          <Dropdown
-            menu={{ items: menuItems, id: `server-chat-actions-${chat.id}` }}
-            trigger={["click"]}
-            placement="bottomRight"
-            open={openMenuFor === chat.id}
-            onOpenChange={(open) => setOpenMenuFor(open ? chat.id : null)}
-          >
-            <button
-              type="button"
-              onClick={(event) => event.stopPropagation()}
-              className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)] h-7 w-7 sm:min-w-0 sm:min-h-0"
-              aria-label={`${t("option:header.moreActions", {
-                defaultValue: "More actions"
-              })}: ${chat.title}`}
-              aria-haspopup="menu"
-              aria-expanded={openMenuFor === chat.id}
-              aria-controls={`server-chat-actions-${chat.id}`}
-            >
-              <MoreHorizontal className="size-3.5" />
-            </button>
-          </Dropdown>
-        </div>
+              <button
+                type="button"
+                onClick={(event) => event.stopPropagation()}
+                className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)] h-7 w-7 sm:min-w-0 sm:min-h-0"
+                aria-label={`${t("option:header.moreActions", {
+                  defaultValue: "More actions"
+                })}: ${chat.title}`}
+                aria-haspopup="menu"
+                aria-expanded={openMenuFor === chat.id}
+                aria-controls={`server-chat-actions-${chat.id}`}
+              >
+                <MoreHorizontal className="size-3.5" />
+              </button>
+            </Dropdown>
+          </div>
+        )}
       </div>
     )
   }

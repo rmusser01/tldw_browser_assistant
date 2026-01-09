@@ -44,6 +44,21 @@ export interface FolderTreeNode {
   itemCount: number
 }
 
+const normalizeKeywordValue = (value: string): string =>
+  value.trim().toLowerCase()
+
+const findKeywordByName = (keywords: Keyword[], value: string): Keyword | null => {
+  const normalized = normalizeKeywordValue(value)
+  if (!normalized) return null
+  return (
+    keywords.find(
+      (keyword) =>
+        !keyword.deleted &&
+        normalizeKeywordValue(keyword.keyword) === normalized
+    ) || null
+  )
+}
+
 interface FolderState {
   // Server data (cached)
   folders: Folder[]
@@ -84,6 +99,9 @@ interface FolderState {
   updateFolder: (id: number, data: { name?: string; parent_id?: number | null }) => Promise<boolean>
   deleteFolder: (id: number) => Promise<boolean>
   createKeyword: (keyword: string) => Promise<Keyword | null>
+  ensureKeyword: (keyword: string) => Promise<Keyword | null>
+  addKeywordToConversation: (conversationId: string, keywordId: number) => Promise<boolean>
+  removeKeywordFromConversation: (conversationId: string, keywordId: number) => Promise<boolean>
   addKeywordToFolder: (folderId: number, keywordId: number) => Promise<boolean>
   addConversationToFolder: (conversationId: string, folderId: number) => Promise<boolean>
   removeConversationFromFolder: (conversationId: string, folderId: number) => Promise<boolean>
@@ -91,6 +109,7 @@ interface FolderState {
   // Computed helpers
   getFolderTree: () => FolderTreeNode[]
   getKeywordsForFolder: (folderId: number) => Keyword[]
+  getKeywordsForConversation: (conversationId: string) => Keyword[]
   getFoldersForConversation: (conversationId: string) => Folder[]
   getConversationsForFolder: (folderId: number) => string[]
 }
@@ -525,6 +544,68 @@ export const useFolderStore = create<FolderState>()(
         return null
       },
 
+      ensureKeyword: async (keyword) => {
+        const trimmed = keyword.trim()
+        if (!trimmed) return null
+        const existing = findKeywordByName(get().keywords, trimmed)
+        if (existing) return existing
+        return await get().createKeyword(trimmed)
+      },
+
+      addKeywordToConversation: async (conversationId, keywordId) => {
+        const result = await apiLinkKeywordToConversation(
+          conversationId,
+          keywordId
+        )
+        if (result.ok) {
+          const link: ConversationKeywordLink = {
+            conversation_id: conversationId,
+            keyword_id: keywordId
+          }
+          set((state) => {
+            const exists = state.conversationKeywordLinks.some(
+              (l) =>
+                l.conversation_id === link.conversation_id &&
+                l.keyword_id === link.keyword_id
+            )
+            return exists
+              ? state
+              : { conversationKeywordLinks: [...state.conversationKeywordLinks, link] }
+          })
+          await db.conversationKeywordLinks.put(link)
+          return true
+        }
+        return false
+      },
+
+      removeKeywordFromConversation: async (conversationId, keywordId) => {
+        const result = await apiUnlinkKeywordFromConversation(
+          conversationId,
+          keywordId
+        )
+        if (result.ok) {
+          const linkKey = `${conversationId}::${keywordId}`
+          try {
+            await db.conversationKeywordLinks
+              .where('[conversation_id+keyword_id]')
+              .equals([conversationId, keywordId])
+              .delete()
+          } catch (error) {
+            console.error(
+              'Failed to delete conversation-keyword link from cache:',
+              error
+            )
+          }
+          set((state) => ({
+            conversationKeywordLinks: state.conversationKeywordLinks.filter(
+              (l) => `${l.conversation_id}::${l.keyword_id}` !== linkKey
+            )
+          }))
+          return true
+        }
+        return false
+      },
+
       addKeywordToFolder: async (folderId, keywordId) => {
         const result = await apiLinkKeywordToFolder(folderId, keywordId)
         if (result.ok) {
@@ -703,6 +784,16 @@ export const useFolderStore = create<FolderState>()(
         return state.keywords.filter(k => keywordIds.includes(k.id) && !k.deleted)
       },
 
+      getKeywordsForConversation: (conversationId) => {
+        const state = get()
+        const keywordIds = state.conversationKeywordLinks
+          .filter((l) => l.conversation_id === conversationId)
+          .map((l) => l.keyword_id)
+        return state.keywords.filter(
+          (k) => keywordIds.includes(k.id) && !k.deleted
+        )
+      },
+
       getFoldersForConversation: (conversationId) => {
         const state = get()
         // Get keyword IDs for this conversation
@@ -773,6 +864,9 @@ export const useFolderActions = () =>
       createFolder: s.createFolder,
       updateFolder: s.updateFolder,
       deleteFolder: s.deleteFolder,
+      ensureKeyword: s.ensureKeyword,
+      addKeywordToConversation: s.addKeywordToConversation,
+      removeKeywordFromConversation: s.removeKeywordFromConversation,
       addConversationToFolder: s.addConversationToFolder,
       removeConversationFromFolder: s.removeConversationFromFolder
     }))

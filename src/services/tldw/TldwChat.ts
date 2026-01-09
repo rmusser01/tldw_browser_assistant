@@ -14,6 +14,34 @@ type OpenAiTool = {
 
 const TOOL_NAME_PATTERN = /^[a-zA-Z0-9_-]{1,64}$/
 
+const normalizeProvider = (value?: string): string =>
+  String(value || "").trim().toLowerCase()
+
+const shouldUseTextParts = (provider?: string, model?: string): boolean => {
+  const normalized = normalizeProvider(provider)
+  if (normalized) return normalized === "google" || normalized === "gemini"
+  const normalizedModel = String(model || "").toLowerCase()
+  return normalizedModel.includes("gemini")
+}
+
+const normalizeMessagesForProvider = (
+  messages: ChatMessage[],
+  provider?: string,
+  model?: string
+): ChatMessage[] => {
+  if (!shouldUseTextParts(provider, model)) return messages
+  return messages.map((msg) => {
+    if (msg.role !== "user") return msg
+    if (typeof msg.content === "string") {
+      return {
+        ...msg,
+        content: [{ type: "text", text: msg.content }]
+      }
+    }
+    return msg
+  })
+}
+
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value)
 
@@ -147,7 +175,11 @@ export class TldwChatService {
       const toolChoice = normalizedTools ? options.toolChoice : undefined
 
       const request: ChatCompletionRequest = {
-        messages,
+        messages: normalizeMessagesForProvider(
+          messages,
+          options.apiProvider,
+          options.model
+        ),
         model: options.model,
         stream: false,
         temperature: options.temperature,
@@ -210,7 +242,11 @@ export class TldwChatService {
       this.currentController = new AbortController()
 
       const request: ChatCompletionRequest = {
-        messages,
+        messages: normalizeMessagesForProvider(
+          messages,
+          options.apiProvider,
+          options.model
+        ),
         model: options.model,
         stream: true,
         temperature: options.temperature,

@@ -157,6 +157,31 @@
     "newTabAria": "New chat tab",
     "closeTabAria": "Close chat tab"
   },
+  "multiSelect": {
+    "enter": "Select chats",
+    "exit": "Exit selection",
+    "toggle": "Toggle selection",
+    "count": "{{count}} selected",
+    "selectAll": "Select all",
+    "clear": "Clear",
+    "addToFolder": "Add to folders",
+    "addTags": "Add tags",
+    "folderApplySuccess": "Folders applied to selected chats.",
+    "folderApplyError": "Some chats could not be added to folders.",
+    "tagsApplySuccess": "Tags applied to selected chats.",
+    "tagsApplyError": "Some chats could not be tagged.",
+    "tagsUnavailable": "Tags are not available on this server",
+    "tagsHint": "Add tags to the selected chats.",
+    "tagsPlaceholder": "Add tags...",
+    "serverOnlyWarning": "Select chats saved on the server to apply this action.",
+    "deleteConfirmTitle": "Move chats to trash?",
+    "deleteConfirmBody": "This will hide the selected chats by tagging them as Trash.",
+    "deleteConfirmOk": "Move to trash",
+    "deleteFailed": "Unable to move chats to trash.",
+    "deletePartial": "Some chats could not be moved to trash.",
+    "deleteSuccess": "Chats moved to trash.",
+    "localOnlyClosed": "{{count}} local chat(s) were closed."
+  },
   "contextMenu": {
     "status": "Status"
   },
