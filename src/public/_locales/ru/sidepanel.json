@@ -307,5 +307,29 @@
   },
   "tabs_closeTabAria": {
     "message": "Закрыть вкладку чата"
+  },
+  "characterSelect_label": {
+    "message": "Character"
+  },
+  "characterSelect_tooltip": {
+    "message": "Select a character"
+  },
+  "characterSelect_search": {
+    "message": "Search characters..."
+  },
+  "characterSelect_noMatches": {
+    "message": "No matching characters"
+  },
+  "characterSelect_noCharacters": {
+    "message": "No characters available"
+  },
+  "characterSelect_none": {
+    "message": "No character"
+  },
+  "characterSelect_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characterSelect_importCharacter": {
+    "message": "Import Character"
   }
 }

@@ -1,4 +1,97 @@
 import { tldwClient, ChatMessage, ChatCompletionRequest } from "./TldwApiClient"
+import { extractTokenFromChunk } from "@/utils/extract-token-from-chunk"
+
+type ToolFunctionSchema = Record<string, unknown>
+type ToolFunction = {
+  name: string
+  description?: string
+  parameters?: ToolFunctionSchema
+}
+type OpenAiTool = {
+  type: "function"
+  function: ToolFunction
+}
+
+const TOOL_NAME_PATTERN = /^[a-zA-Z0-9_-]{1,64}$/
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null && !Array.isArray(value)
+
+const sanitizeToolName = (name: string): string | null => {
+  const trimmed = name.trim()
+  if (!trimmed) return null
+  if (TOOL_NAME_PATTERN.test(trimmed)) return trimmed
+
+  let sanitized = trimmed.replace(/[^a-zA-Z0-9_-]+/g, "_")
+  sanitized = sanitized.replace(/^_+|_+$/g, "")
+  if (!sanitized) return null
+  if (sanitized.length > 64) sanitized = sanitized.slice(0, 64)
+  return TOOL_NAME_PATTERN.test(sanitized) ? sanitized : null
+}
+
+const normalizeChatTools = (
+  tools?: Record<string, unknown>[]
+): Record<string, unknown>[] | undefined => {
+  if (!Array.isArray(tools) || tools.length === 0) return undefined
+
+  const seen = new Set<string>()
+  const normalized = tools
+    .map((tool) => {
+      if (!isRecord(tool)) return null
+
+      const functionRecord = isRecord(tool.function) ? tool.function : undefined
+      const rawName =
+        (typeof tool.name === "string" && tool.name) ||
+        (functionRecord &&
+        typeof functionRecord.name === "string" &&
+        functionRecord.name
+          ? functionRecord.name
+          : "")
+      const name = rawName ? sanitizeToolName(rawName) : null
+      if (!name || seen.has(name)) return null
+
+      if (rawName !== name) {
+        console.warn(
+          `[tldw] Tool name "${rawName}" normalized to "${name}" to satisfy server schema.`
+        )
+      }
+      seen.add(name)
+
+      const description =
+        typeof tool.description === "string"
+          ? tool.description
+          : functionRecord &&
+              typeof functionRecord.description === "string"
+            ? functionRecord.description
+            : undefined
+
+      const schemaCandidates: Array<unknown> = [
+        functionRecord?.parameters,
+        tool.parameters,
+        tool.input_schema,
+        tool.json_schema
+      ]
+      const parameters =
+        (schemaCandidates.find((candidate) =>
+          isRecord(candidate)
+        ) as ToolFunctionSchema | undefined) || {
+          type: "object",
+          properties: {}
+        }
+
+      return {
+        type: "function",
+        function: {
+          name,
+          description,
+          parameters
+        }
+      } as OpenAiTool
+    })
+    .filter(Boolean) as Record<string, unknown>[]
+
+  return normalized.length > 0 ? normalized : undefined
+}
 
 export interface TldwChatOptions {
   model: string
@@ -10,6 +103,17 @@ export interface TldwChatOptions {
   stream?: boolean
   systemPrompt?: string
   reasoningEffort?: "low" | "medium" | "high"
+  toolChoice?: "auto" | "none" | "required"
+  tools?: Record<string, unknown>[]
+  saveToDb?: boolean
+  conversationId?: string
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: Record<string, unknown>
+  extraBody?: Record<string, unknown>
+  jsonMode?: boolean
 }
 
 export interface ChatStreamChunk {
@@ -39,6 +143,8 @@ export class TldwChatService {
   ): Promise<string> {
     try {
       await tldwClient.initialize()
+      const normalizedTools = normalizeChatTools(options.tools)
+      const toolChoice = normalizedTools ? options.toolChoice : undefined
 
       const request: ChatCompletionRequest = {
         messages,
@@ -49,7 +155,18 @@ export class TldwChatService {
         top_p: options.topP,
         frequency_penalty: options.frequencyPenalty,
         presence_penalty: options.presencePenalty,
-        reasoning_effort: options.reasoningEffort
+        reasoning_effort: options.reasoningEffort,
+        tool_choice: toolChoice,
+        tools: normalizedTools,
+        save_to_db: options.saveToDb,
+        conversation_id: options.conversationId,
+        history_message_limit: options.historyMessageLimit,
+        history_message_order: options.historyMessageOrder,
+        slash_command_injection_mode: options.slashCommandInjectionMode,
+        api_provider: options.apiProvider,
+        extra_headers: options.extraHeaders,
+        extra_body: options.extraBody,
+        response_format: options.jsonMode ? { type: "json_object" } : undefined
       }
 
       // Add system prompt if provided
@@ -83,6 +200,8 @@ export class TldwChatService {
   ): AsyncGenerator<string, void, unknown> {
     try {
       await tldwClient.initialize()
+      const normalizedTools = normalizeChatTools(options.tools)
+      const toolChoice = normalizedTools ? options.toolChoice : undefined
 
       // Cancel any existing stream
       this.cancelStream()
@@ -99,7 +218,18 @@ export class TldwChatService {
         top_p: options.topP,
         frequency_penalty: options.frequencyPenalty,
         presence_penalty: options.presencePenalty,
-        reasoning_effort: options.reasoningEffort
+        reasoning_effort: options.reasoningEffort,
+        tool_choice: toolChoice,
+        tools: normalizedTools,
+        save_to_db: options.saveToDb,
+        conversation_id: options.conversationId,
+        history_message_limit: options.historyMessageLimit,
+        history_message_order: options.historyMessageOrder,
+        slash_command_injection_mode: options.slashCommandInjectionMode,
+        api_provider: options.apiProvider,
+        extra_headers: options.extraHeaders,
+        extra_body: options.extraBody,
+        response_format: options.jsonMode ? { type: "json_object" } : undefined
       }
 
       // Add system prompt if provided
@@ -123,16 +253,9 @@ export class TldwChatService {
           onChunk(chunk)
         }
 
-        // Extract and yield the content
-        if (chunk?.choices && chunk.choices[0]?.delta?.content) {
-          yield chunk.choices[0].delta.content
-        } else if (typeof (chunk as any)?.content === 'string') {
-          yield (chunk as any).content
-        } else if (typeof (chunk as any)?.message?.content === 'string') {
-          yield (chunk as any).message.content
-        } else if (typeof chunk === 'string') {
-          // Some servers stream plain strings
-          yield chunk
+        const token = extractTokenFromChunk(chunk)
+        if (token) {
+          yield token
         }
       }
     } catch (error) {

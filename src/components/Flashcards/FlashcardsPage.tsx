@@ -57,6 +57,8 @@ import ConnectionProblemBanner from "@/components/Common/ConnectionProblemBanner
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import { processInChunks } from "@/utils/chunk-processing"
 import { getDemoFlashcardDecks } from "@/utils/demo-content"
+import { clearSetting, getSetting } from "@/services/settings/registry"
+import { LAST_DECK_ID_SETTING } from "@/services/settings/ui-settings"
 
 dayjs.extend(relativeTime)
 
@@ -740,17 +742,23 @@ export const FlashcardsPage: React.FC = () => {
 
   // Deep-link support: if tldw:lastDeckId is set (e.g., from omni-search),
   // select that deck in both Review and Manage views once decks are loaded.
-  const [pendingDeckId, setPendingDeckId] = React.useState<number | null>(() => {
-    try {
-      if (typeof window === "undefined") return null
-      const raw = window.localStorage.getItem("tldw:lastDeckId")
-      if (!raw) return null
-      const num = Number(raw)
-      return Number.isFinite(num) ? num : null
-    } catch {
-      return null
+  const [pendingDeckId, setPendingDeckId] = React.useState<number | null>(null)
+
+  React.useEffect(() => {
+    let cancelled = false
+    void (async () => {
+      const lastDeckId = await getSetting(LAST_DECK_ID_SETTING)
+      if (!cancelled && lastDeckId) {
+        const num = Number(lastDeckId)
+        if (Number.isFinite(num)) {
+          setPendingDeckId(num)
+        }
+      }
+    })()
+    return () => {
+      cancelled = true
     }
-  })
+  }, [])
 
   React.useEffect(() => {
     if (!isOnline) return
@@ -761,22 +769,14 @@ export const FlashcardsPage: React.FC = () => {
     if (!match) {
       // Deck no longer exists; clear marker.
       setPendingDeckId(null)
-      try {
-        window.localStorage.removeItem("tldw:lastDeckId")
-      } catch {
-        // ignore storage errors
-      }
+      void clearSetting(LAST_DECK_ID_SETTING)
       return
     }
     setReviewDeckId(pendingDeckId)
     setMDeckId(pendingDeckId)
     setActiveTab("review")
     setPendingDeckId(null)
-    try {
-      window.localStorage.removeItem("tldw:lastDeckId")
-    } catch {
-      // ignore storage errors
-    }
+    void clearSetting(LAST_DECK_ID_SETTING)
   }, [decksQuery.data, isOnline, pendingDeckId])
 
   if (!isOnline) {
@@ -816,19 +816,19 @@ export const FlashcardsPage: React.FC = () => {
           })}
           onPrimaryAction={scrollToServerCard}
         />
-        <div className="rounded-lg border border-dashed border-gray-300 bg-white p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#111] dark:text-gray-200">
+        <div className="rounded-lg border border-dashed border-border-strong bg-surface p-3 text-xs text-text-muted">
           <div className="mb-2 font-semibold">
             {t("option:flashcards.demoPreviewHeading", {
               defaultValue: "Example decks (preview only)"
             })}
           </div>
-          <div className="divide-y divide-gray-200 dark:divide-gray-800">
+          <div className="divide-y divide-border">
             {demoDecks.map((deck) => (
               <div key={deck.id} className="py-2">
-                <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                <div className="text-sm font-medium text-text">
                   {deck.name}
                 </div>
-                <div className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+                <div className="mt-1 text-[11px] text-text-muted">
                   {deck.summary}
                 </div>
               </div>
@@ -936,7 +936,7 @@ export const FlashcardsPage: React.FC = () => {
                         <Title level={5} className="!mb-2">
                           {t("option:flashcards.front", { defaultValue: "Front" })}
                         </Title>
-                        <div className="border rounded p-3 bg-white dark:bg-[#111] text-sm">
+                        <div className="border rounded p-3 bg-surface  text-sm">
                           <MarkdownWithBoundary
                             content={reviewQuery.data.front}
                             size="sm"
@@ -948,7 +948,7 @@ export const FlashcardsPage: React.FC = () => {
                           <Title level={5} className="!mb-2">
                             {t("option:flashcards.back", { defaultValue: "Back" })}
                           </Title>
-                          <div className="border rounded p-3 bg-white dark:bg-[#111] text-sm">
+                          <div className="border rounded p-3 bg-surface  text-sm">
                             <MarkdownWithBoundary
                               content={reviewQuery.data.back}
                               size="sm"
@@ -992,7 +992,7 @@ export const FlashcardsPage: React.FC = () => {
                             </div>
                             <button
                               type="button"
-                              className="self-start text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                              className="self-start text-xs text-text-subtle hover:text-text"
                               onClick={() => setShowAdvancedTiming((v) => !v)}
                             >
                               {showAdvancedTiming
@@ -1193,7 +1193,7 @@ export const FlashcardsPage: React.FC = () => {
                       <code>$$\\int_0^1 x^2 dx$$</code>).
                     </Text>
                     {createFrontPreview && (
-                      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                      <div className="mt-2 border rounded p-2 text-xs bg-surface ">
                         <Text type="secondary" className="block text-[11px] mb-1">
                           Preview
                         </Text>
@@ -1213,7 +1213,7 @@ export const FlashcardsPage: React.FC = () => {
                       Supports Markdown and LaTeX for formulas, lists, and code.
                     </Text>
                     {createBackPreview && (
-                      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                      <div className="mt-2 border rounded p-2 text-xs bg-surface ">
                         <Text type="secondary" className="block text-[11px] mb-1">
                           Preview
                         </Text>
@@ -1232,7 +1232,7 @@ export const FlashcardsPage: React.FC = () => {
                       Optional hints or explanations (Markdown + LaTeX supported).
                     </Text>
                     {createExtraPreview && (
-                      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                      <div className="mt-2 border rounded p-2 text-xs bg-surface ">
                         <Text type="secondary" className="block text-[11px] mb-1">
                           Preview
                         </Text>
@@ -1251,7 +1251,7 @@ export const FlashcardsPage: React.FC = () => {
                       Internal notes (Markdown + LaTeX supported).
                     </Text>
                     {createNotesPreview && (
-                      <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                      <div className="mt-2 border rounded p-2 text-xs bg-surface ">
                         <Text type="secondary" className="block text-[11px] mb-1">
                           Preview
                         </Text>
@@ -1492,7 +1492,7 @@ export const FlashcardsPage: React.FC = () => {
                         title={
                           <div className="flex items-center gap-2">
                             <Text strong>{item.front.slice(0, 80)}</Text>
-                            <span className="text-gray-400">→</span>
+                            <span className="text-text-subtle">→</span>
                             <Text type="secondary">{item.back.slice(0, 80)}</Text>
                           </div>
                         }
@@ -1520,7 +1520,7 @@ export const FlashcardsPage: React.FC = () => {
                       />
                       {previewOpen.has(item.uuid) && (
                         <div className="mt-2">
-                          <div className="border rounded p-2 bg-white dark:bg-[#111] text-xs sm:text-sm">
+                          <div className="border rounded p-2 bg-surface  text-xs sm:text-sm">
                             <MarkdownWithBoundary
                               content={item.back}
                               size="xs"
@@ -1711,7 +1711,7 @@ export const FlashcardsPage: React.FC = () => {
                         Supports Markdown and LaTeX.
                       </Text>
                       {editFrontPreview && (
-                        <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                        <div className="mt-2 border rounded p-2 text-xs bg-surface ">
                       <Text type="secondary" className="block text-[11px] mb-1">
                         Preview
                       </Text>
@@ -1731,7 +1731,7 @@ export const FlashcardsPage: React.FC = () => {
                         Supports Markdown and LaTeX.
                       </Text>
                       {editBackPreview && (
-                        <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                        <div className="mt-2 border rounded p-2 text-xs bg-surface ">
                       <Text type="secondary" className="block text-[11px] mb-1">
                         Preview
                       </Text>
@@ -1750,7 +1750,7 @@ export const FlashcardsPage: React.FC = () => {
                         Optional hints/explanations (Markdown + LaTeX supported).
                       </Text>
                       {editExtraPreview && (
-                        <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                        <div className="mt-2 border rounded p-2 text-xs bg-surface ">
                       <Text type="secondary" className="block text-[11px] mb-1">
                         Preview
                       </Text>
@@ -1769,7 +1769,7 @@ export const FlashcardsPage: React.FC = () => {
                         Internal notes (Markdown + LaTeX supported).
                       </Text>
                       {editNotesPreview && (
-                        <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+                        <div className="mt-2 border rounded p-2 text-xs bg-surface ">
                       <Text type="secondary" className="block text-[11px] mb-1">
                         Preview
                       </Text>
@@ -1864,14 +1864,14 @@ export const FlashcardsPage: React.FC = () => {
               defaultValue: "You are about to delete a large number of cards."
             })}
           />
-          <p className="text-gray-700 dark:text-gray-300">
+          <p className="text-text-muted">
             {t("option:flashcards.bulkDeleteLargeContent", {
               defaultValue: "This will permanently delete {{count}} cards. This action cannot be undone.",
               count: bulkDeleteCount
             })}
           </p>
           <div className="pt-2">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <p className="text-sm font-medium text-text-muted mb-2">
               {t("option:flashcards.typeDeleteToConfirm", {
                 defaultValue: "Type DELETE to confirm:"
               })}
@@ -1937,7 +1937,6 @@ const ImportPanel: React.FC = () => {
       notes: cols.length > 4 ? 4 : undefined
     }
     setMapping((m) => (m && mappingDirty ? m : defaultMapping))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, delimiter, mappingDirty])
 
   const buildMappedTSV = React.useCallback(() => {
@@ -2034,7 +2033,7 @@ const ImportPanel: React.FC = () => {
             defaultValue: "Paste TSV/CSV lines: Deck, Front, Back, Tags, Notes"
           })}
         </Text>
-        <pre className="mt-1 rounded bg-gray-50 p-2 text-xs text-gray-700 dark:bg-[#111] dark:text-gray-200">
+        <pre className="mt-1 rounded bg-surface2 p-2 text-xs text-text">
 Deck	Front	Back	Tags	Notes
 My deck	What is a closure?	A function with preserved outer scope.	javascript; fundamentals	Lecture 3
         </pre>
@@ -2108,7 +2107,7 @@ My deck	What is a closure?	A function with preserved outer scope.	javascript; fu
           </Tooltip>
         )}
       </div>
-      <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-md">
+      <div className="flex items-center gap-2 p-2 bg-surface2  rounded-md">
         <Text type="secondary" className="text-xs font-medium">
           {t("option:flashcards.advancedLabel", { defaultValue: "Advanced:" })}
         </Text>
@@ -2241,7 +2240,7 @@ My deck	What is a closure?	A function with preserved outer scope.	javascript; fu
               defaultValue: "Preview of the first few mapped rows:"
             })}
           </Text>
-          <pre className="mt-1 rounded bg-gray-50 p-2 text-xs text-gray-700 dark:bg-[#111] dark:text-gray-200 whitespace-pre-wrap">
+          <pre className="mt-1 rounded bg-surface2 p-2 text-xs text-text whitespace-pre-wrap">
             {previewMapped}
           </pre>
         </div>

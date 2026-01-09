@@ -100,7 +100,7 @@ export const MediaSelector: React.FC<MediaSelectorProps> = ({ onSelect }) => {
       label: (
         <div className="flex items-center justify-between">
           <span className="truncate">{item.title || `Media #${item.id}`}</span>
-          <span className="text-xs text-gray-400 ml-2">{item.type}</span>
+          <span className="text-xs text-text-subtle ml-2">{item.type}</span>
         </div>
       ),
       searchText: item.title || `Media ${item.id}`
@@ -148,7 +148,7 @@ export const MediaSelector: React.FC<MediaSelectorProps> = ({ onSelect }) => {
       />
 
       {isLoadingContent && (
-        <div className="flex items-center gap-2 text-gray-500">
+        <div className="flex items-center gap-2 text-text-muted">
           <Spin size="small" />
           <Text type="secondary">
             {t(

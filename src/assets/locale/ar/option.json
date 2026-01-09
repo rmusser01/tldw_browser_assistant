@@ -49,7 +49,7 @@
     "promptLabel": "الموجّه",
     "review": "مراجعة",
     "flashcards": "بطاقات تعليمية",
-    "quiz": "اختبار",
+    "quiz": "اختبارات",
     "media": "وسائط",
     "libraryView": "مراجعة متعددة العناصر",
     "notes": "ملاحظات",
@@ -92,7 +92,8 @@
     "omniSearchStartChat": "بدء محادثة جديدة \"{{query}}\"",
     "connectionCard.connectedCaption": "أصبحت الدردشة والأدوات متاحة الآن في صفحة الخيارات وفي اللوحة الجانبية.",
     "quickIngestQueuedAria": "{{label}} — {{count}} عناصر في الطابور — انقر للمراجعة والمعالجة",
-    "modeSpeech": "الصوت"
+    "modeSpeech": "الصوت",
+    "moreTools": "المزيد"
   },
   "sidebarTitle": "سجل المحادثات",
   "error": "خطأ",
@@ -585,7 +586,9 @@
     "searchPlaceholder": "ابحث عن الشخصيات بالاسم",
     "noMatches": "لا توجد شخصيات مطابقة لبحثك حتى الآن.",
     "refresh": "تحديث الشخصيات",
-    "refreshing": "جارٍ تحديث الشخصيات…"
+    "refreshing": "جارٍ تحديث الشخصيات…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "استخدام في الدردشة",

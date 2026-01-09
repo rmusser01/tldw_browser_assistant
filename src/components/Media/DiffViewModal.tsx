@@ -113,13 +113,13 @@ export function DiffViewModal({
   const getLineClass = (type: string) => {
     switch (type) {
       case 'add':
-        return 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200'
+        return 'bg-success/10 text-success'
       case 'del':
-        return 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200'
+        return 'bg-danger/10 text-danger'
       case 'empty':
-        return 'bg-gray-50 dark:bg-gray-800/50'
+        return 'bg-surface2'
       default:
-        return 'text-gray-700 dark:text-gray-300'
+        return 'text-text'
     }
   }
 
@@ -146,10 +146,10 @@ export function DiffViewModal({
     >
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-500 dark:text-gray-400">
-            <span className="font-medium text-red-600 dark:text-red-400">{leftLabel}</span>
+          <span className="text-sm text-text-muted">
+            <span className="font-medium text-danger">{leftLabel}</span>
             {' → '}
-            <span className="font-medium text-green-600 dark:text-green-400">{rightLabel}</span>
+            <span className="font-medium text-success">{rightLabel}</span>
           </span>
         </div>
         <Radio.Group
@@ -165,7 +165,7 @@ export function DiffViewModal({
       <div
         ref={contentRef}
         tabIndex={0}
-        className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden max-h-[60vh] overflow-y-auto focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="border border-border rounded-lg overflow-hidden max-h-[60vh] overflow-y-auto focus:outline-none focus:ring-2 focus:ring-focus"
         onKeyDown={(e) => {
           // Keyboard navigation for diff scrolling
           const scrollAmount = 100
@@ -196,7 +196,7 @@ export function DiffViewModal({
         {viewMode === 'unified' ? (
           <div className="font-mono text-xs">
             {diffLines.length === 0 ? (
-              <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+              <div className="p-4 text-center text-text-muted">
                 {t('mediaPage.noDifferences', 'No differences found')}
               </div>
             ) : (
@@ -205,7 +205,7 @@ export function DiffViewModal({
                   key={idx}
                   className={`px-3 py-0.5 ${getLineClass(line.type)}`}
                 >
-                  <span className="select-none text-gray-400 dark:text-gray-500 mr-2">
+                  <span className="select-none text-text-subtle mr-2">
                     {getLinePrefix(line.type)}
                   </span>
                   <span className="whitespace-pre-wrap break-all">{line.text || ' '}</span>
@@ -216,8 +216,8 @@ export function DiffViewModal({
         ) : (
           <div className="flex font-mono text-xs">
             {/* Left side */}
-            <div className="flex-1 border-r border-gray-200 dark:border-gray-700">
-              <div className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 font-medium border-b border-gray-200 dark:border-gray-700">
+            <div className="flex-1 border-r border-border">
+              <div className="px-3 py-1 bg-surface2 text-text-muted font-medium border-b border-border">
                 {leftLabel}
               </div>
               {sideBySideData.left.map((line, idx) => (
@@ -225,7 +225,7 @@ export function DiffViewModal({
                   key={idx}
                   className={`px-3 py-0.5 flex ${getLineClass(line.type)}`}
                 >
-                  <span className="w-8 text-right text-gray-400 dark:text-gray-500 mr-2 select-none flex-shrink-0">
+                  <span className="w-8 text-right text-text-subtle mr-2 select-none flex-shrink-0">
                     {line.num > 0 ? line.num : ''}
                   </span>
                   <span className="whitespace-pre-wrap break-all flex-1">{line.text || ' '}</span>
@@ -234,7 +234,7 @@ export function DiffViewModal({
             </div>
             {/* Right side */}
             <div className="flex-1">
-              <div className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 font-medium border-b border-gray-200 dark:border-gray-700">
+              <div className="px-3 py-1 bg-surface2 text-text-muted font-medium border-b border-border">
                 {rightLabel}
               </div>
               {sideBySideData.right.map((line, idx) => (
@@ -242,7 +242,7 @@ export function DiffViewModal({
                   key={idx}
                   className={`px-3 py-0.5 flex ${getLineClass(line.type)}`}
                 >
-                  <span className="w-8 text-right text-gray-400 dark:text-gray-500 mr-2 select-none flex-shrink-0">
+                  <span className="w-8 text-right text-text-subtle mr-2 select-none flex-shrink-0">
                     {line.num > 0 ? line.num : ''}
                   </span>
                   <span className="whitespace-pre-wrap break-all flex-1">{line.text || ' '}</span>
@@ -254,14 +254,14 @@ export function DiffViewModal({
       </div>
 
       {/* Legend & keyboard hints */}
-      <div className="mt-3 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+      <div className="mt-3 flex items-center justify-between text-xs text-text-muted">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1">
-            <span className="w-3 h-3 rounded bg-red-100 dark:bg-red-900/30"></span>
+            <span className="w-3 h-3 rounded bg-danger/20"></span>
             {t('mediaPage.removed', 'Removed')}
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-3 h-3 rounded bg-green-100 dark:bg-green-900/30"></span>
+            <span className="w-3 h-3 rounded bg-success/20"></span>
             {t('mediaPage.added', 'Added')}
           </span>
         </div>

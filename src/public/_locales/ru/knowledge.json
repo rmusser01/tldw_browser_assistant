@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "Добавить новое знание"
+  },
+  "columns_title": {
+    "message": "Название"
+  },
+  "columns_status": {
+    "message": "Статус"
+  },
+  "columns_embeddings": {
+    "message": "Модель вложения"
+  },
+  "columns_createdAt": {
+    "message": "Создано"
+  },
+  "columns_action": {
+    "message": "Действия"
+  },
+  "expandedColumns_name": {
+    "message": "Имя"
+  },
+  "confirm_delete": {
+    "message": "Вы уверены, что хотите удалить это знание?"
+  },
+  "deleteSuccess": {
+    "message": "Знание успешно удалено"
+  },
+  "status_pending": {
+    "message": "Ожидание"
+  },
+  "status_finished": {
+    "message": "Завершено"
+  },
+  "status_processing": {
+    "message": "Обработка"
+  },
+  "status_failed": {
+    "message": "Не удалось"
+  },
+  "addKnowledge": {
+    "message": "Добавить знание"
+  },
+  "updateKnowledge": {
+    "message": "Добавить источник"
+  },
+  "form_title_label": {
+    "message": "Название знания"
+  },
+  "form_title_placeholder": {
+    "message": "Введите название знания"
+  },
+  "form_title_required": {
+    "message": "Название знания обязательно"
+  },
+  "form_uploadFile_label": {
+    "message": "Загрузить файл"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Перетащите файл сюда или нажмите, чтобы загрузить"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Поддерживаемые типы файлов: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "Файл обязателен"
+  },
+  "form_submit": {
+    "message": "Отправить"
+  },
+  "form_success": {
+    "message": "Знание успешно добавлено"
+  },
+  "noEmbeddingModel": {
+    "message": "Пожалуйста, сначала добавьте модель вложения на странице настроек RAG"
+  },
+  "privateModeDescription": {
+    "message": "Режим приватного просмотра Firefox не поддерживает сохранение в IndexedDB. Добавьте базу знаний в обычном окне."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "Генерация с дополнением поиском (RAG) позволяет ассистенту опираться на ваши медиа, заметки и другие индексированные источники знаний при формировании ответов."
+  },
+  "rag_searchFailed": {
+    "message": "Поиск RAG не удался. Попробуйте ещё раз или проверьте раздел Diagnostics."
+  },
+  "empty_demoTitle": {
+    "message": "Изучите Knowledge QA в демо-режиме"
+  },
+  "empty_demoDescription": {
+    "message": "Эта демоверсия показывает, как Knowledge QA выполняет RAG-поиск по примерному содержимому. Позже вы сможете подключить свой сервер, чтобы искать по собственным транскриптам и документам."
+  },
+  "empty_demoExample1": {
+    "message": "Попробуйте быстрые RAG-запросы и изучите результаты и ссылки."
+  },
+  "empty_demoExample2": {
+    "message": "Подключите свой сервер, чтобы включить Knowledge QA для ваших реальных медиа и заметок."
+  },
+  "empty_connectTitle": {
+    "message": "Подключитесь, чтобы использовать Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "Чтобы использовать Knowledge QA и поиск RAG, сначала подключитесь к своему tldw-серверу."
+  },
+  "empty_connectExample1": {
+    "message": "Откройте Настройки → tldw server, чтобы добавить URL своего сервера."
+  },
+  "empty_connectExample2": {
+    "message": "Используйте Diagnostics, если сервер запущен, но недоступен."
+  }
+}

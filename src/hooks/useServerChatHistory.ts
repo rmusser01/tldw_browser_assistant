@@ -45,7 +45,9 @@ export const useServerChatHistory = (searchQuery: string) => {
         throw e
       }
     },
-    staleTime: 30_000,
+    staleTime: 60_000,
+    gcTime: 5 * 60_000,
+    refetchOnMount: false,
     retry: 1
   })
 

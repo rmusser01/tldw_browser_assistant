@@ -1,15 +1,20 @@
 import React from "react"
+import { useQuery } from "@tanstack/react-query"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import { PlaygroundEmpty } from "./PlaygroundEmpty"
 import { PlaygroundMessage } from "@/components/Common/Playground/Message"
-import { MessageSourcePopup } from "@/components/Common/Playground/MessageSourcePopup"
+import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTranslation } from "react-i18next"
 import { notification } from "antd"
-import { Clock } from "lucide-react"
+import { Clock, Hash } from "lucide-react"
+import { generateID } from "@/db/dexie/helpers"
 import { decodeChatErrorPayload } from "@/utils/chat-error-message"
 import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
 import { trackCompareMetric } from "@/utils/compare-metrics"
+import { fetchChatModels } from "@/services/tldw-server"
+import { tldwModels } from "@/services/tldw"
+import { applyVariantToMessage } from "@/utils/message-variants"
 
 type TimelineBlock =
   | { kind: "single"; index: number }
@@ -43,7 +48,7 @@ const PerModelMiniComposer: React.FC<{
     <div className="mt-2 space-y-1 text-[11px]">
       <form onSubmit={handleSubmit} className="flex items-center gap-2">
         <input
-          className="flex-1 rounded border border-gray-200 bg-white px-2 py-1 text-[11px] text-gray-800 placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-500"
+          className="flex-1 rounded border border-border bg-surface px-2 py-1 text-[11px] text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -53,12 +58,13 @@ const PerModelMiniComposer: React.FC<{
         <button
           type="submit"
           disabled={disabled || value.trim().length === 0}
-          className="rounded bg-blue-600 px-2 py-1 text-[11px] font-medium text-white disabled:cursor-not-allowed disabled:opacity-60">
+          title={t("common:send", "Send") as string}
+          className="rounded bg-primary px-2 py-1 text-[11px] font-medium text-surface disabled:cursor-not-allowed disabled:opacity-60 hover:bg-primaryStrong">
           {t("common:send", "Send")}
         </button>
       </form>
       {helperText && (
-        <div className="text-[10px] text-gray-400 dark:text-gray-500">
+        <div className="text-[10px] text-text-subtle">
           {helperText}
         </div>
       )}
@@ -102,11 +108,13 @@ export const PlaygroundChat = () => {
   const { t } = useTranslation(["playground", "common"])
   const {
     messages,
+    setMessages,
     streaming,
     isProcessing,
     regenerateLastMessage,
     isSearchingInternet,
     editMessage,
+    deleteMessage,
     ttsEnabled,
     onSubmit,
     actionInfo,
@@ -132,19 +140,118 @@ export const PlaygroundChat = () => {
     setCompareParentForHistory,
     compareSplitChats,
     setCompareSplitChat,
-    compareMaxModels,
-    contextFiles,
-    documentContext,
-    selectedKnowledge
+    compareMaxModels
   } = useMessageOption()
-  const [isSourceOpen, setIsSourceOpen] = React.useState(false)
-  const [source, setSource] = React.useState<any>(null)
   const [openReasoning] = useStorage("openReasoning", false)
+  const { data: chatModels = [] } = useQuery({
+    queryKey: ["playground:chatModels"],
+    queryFn: () => fetchChatModels({ returnEmpty: true }),
+    enabled: true
+  })
   const [collapsedClusters, setCollapsedClusters] = React.useState<
     Record<string, boolean>
   >({})
+  const [hiddenModelsByCluster, setHiddenModelsByCluster] = React.useState<
+    Record<string, string[]>
+  >({})
   const compareModeActive = compareFeatureEnabled && compareMode
+  const stableHistoryId =
+    temporaryChat || historyId === "temp" ? null : historyId
+  const [conversationInstanceId, setConversationInstanceId] = React.useState(
+    () => generateID()
+  )
+  const previousMessageCount = React.useRef(messages.length)
+
+  React.useEffect(() => {
+    const hasStableId = Boolean(serverChatId || stableHistoryId)
+    if (
+      !hasStableId &&
+      messages.length === 0 &&
+      previousMessageCount.current > 0
+    ) {
+      setConversationInstanceId(generateID())
+    }
+    previousMessageCount.current = messages.length
+  }, [messages.length, serverChatId, stableHistoryId])
   const blocks = React.useMemo(() => buildBlocks(messages), [messages])
+  const getPreviousUserMessage = React.useCallback(
+    (index: number) => {
+      for (let i = index - 1; i >= 0; i--) {
+        const candidate = messages[i]
+        if (!candidate?.isBot) {
+          return candidate
+        }
+      }
+      return null
+    },
+    [messages]
+  )
+  const modelMetaById = React.useMemo(() => {
+    const map = new Map<string, { label: string; provider: string }>()
+    const models = (chatModels as any[]) || []
+    models.forEach((model) => {
+      if (!model?.model) {
+        return
+      }
+      map.set(model.model, {
+        label: model.nickname || model.model,
+        provider: String(model.provider || "custom").toLowerCase()
+      })
+    })
+    return map
+  }, [chatModels])
+  const getTokenCount = React.useCallback((generationInfo?: any) => {
+    if (!generationInfo || typeof generationInfo !== "object") {
+      return null
+    }
+    const toNumber = (value: unknown) =>
+      typeof value === "number" && Number.isFinite(value) ? value : null
+    const usage = (generationInfo as any)?.usage
+    const prompt =
+      toNumber(generationInfo.prompt_eval_count) ??
+      toNumber(generationInfo.prompt_tokens) ??
+      toNumber(generationInfo.input_tokens) ??
+      toNumber(usage?.prompt_tokens) ??
+      toNumber(usage?.input_tokens)
+    const completion =
+      toNumber(generationInfo.eval_count) ??
+      toNumber(generationInfo.completion_tokens) ??
+      toNumber(generationInfo.output_tokens) ??
+      toNumber(usage?.completion_tokens) ??
+      toNumber(usage?.output_tokens)
+    const total =
+      toNumber(generationInfo.total_tokens) ??
+      toNumber(generationInfo.total_token_count) ??
+      toNumber(usage?.total_tokens)
+    const resolvedTotal =
+      total ?? (prompt != null && completion != null ? prompt + completion : null)
+    if (resolvedTotal == null) {
+      return null
+    }
+    return Math.round(resolvedTotal)
+  }, [])
+
+  const handleVariantSwipe = React.useCallback(
+    (messageId: string | undefined, direction: "prev" | "next") => {
+      if (!messageId) return
+      setMessages((prev) =>
+        prev.map((msg) => {
+          if (msg.id !== messageId) return msg
+          const variants = msg.variants ?? []
+          if (variants.length < 2) return msg
+          const currentIndex =
+            typeof msg.activeVariantIndex === "number"
+              ? msg.activeVariantIndex
+              : variants.length - 1
+          const nextIndex =
+            direction === "prev" ? currentIndex - 1 : currentIndex + 1
+          if (nextIndex < 0 || nextIndex >= variants.length) return msg
+          return applyVariantToMessage(msg, variants[nextIndex], nextIndex)
+        })
+      )
+    },
+    [setMessages]
+  )
 
   return (
     <>
@@ -157,6 +264,7 @@ export const PlaygroundChat = () => {
         {blocks.map((block, blockIndex) => {
           if (block.kind === "single") {
             const message = messages[block.index]
+            const previousUserMessage = getPreviousUserMessage(block.index)
             return (
               <PlaygroundMessage
                 key={`m-${blockIndex}`}
@@ -173,9 +281,8 @@ export const PlaygroundChat = () => {
                 onEditFormSubmit={(value, isSend) => {
                   editMessage(block.index, value, !message.isBot, isSend)
                 }}
-                onSourceClick={(data) => {
-                  setSource(data)
-                  setIsSourceOpen(true)
+                onDeleteMessage={() => {
+                  deleteMessage(block.index)
                 }}
                 onNewBranch={() => {
                   createChatBranch(block.index)
@@ -187,6 +294,7 @@ export const PlaygroundChat = () => {
                 openReasoning={openReasoning}
                 modelImage={message?.modelImage}
                 modelName={message?.modelName}
+                createdAt={message?.createdAt}
                 temporaryChat={temporaryChat}
                 onStopStreaming={stopStreamingRequest}
                 onContinue={() => {
@@ -200,13 +308,22 @@ export const PlaygroundChat = () => {
                 actionInfo={actionInfo}
                 serverChatId={serverChatId}
                 serverMessageId={message.serverMessageId}
+                messageId={message.id}
+                historyId={stableHistoryId ?? undefined}
+                conversationInstanceId={conversationInstanceId}
+                feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
                 message_type={message.messageType}
+                variants={message.variants}
+                activeVariantIndex={message.activeVariantIndex}
+                onSwipePrev={() => handleVariantSwipe(message.id, "prev")}
+                onSwipeNext={() => handleVariantSwipe(message.id, "next")}
               />
             )
           }
 
           const userMessage = messages[block.userIndex]
+          const previousUserMessage = getPreviousUserMessage(block.userIndex)
           const replyItems = block.assistantIndices.map((i) => {
             const message = messages[i]
             const modelKey =
@@ -231,32 +348,66 @@ export const PlaygroundChat = () => {
             }
           })
           const getModelLabel = (modelKey: string) =>
-            modelLabels.get(modelKey) || modelKey
+            modelMetaById.get(modelKey)?.label ||
+            modelLabels.get(modelKey) ||
+            modelKey
+          const getModelProvider = (modelKey: string) =>
+            modelMetaById.get(modelKey)?.provider || "custom"
           const clusterModelKeys = Array.from(
             new Set(replyItems.map((item) => item.modelKey))
           )
           const selectedModelKey =
             clusterSelection.length === 1 ? clusterSelection[0] : null
           const isChosenState = !compareModeActive && !!selectedModelKey
+          const hiddenModels = hiddenModelsByCluster[block.clusterId] || []
+          const filteredReplyItems =
+            hiddenModels.length > 0
+              ? replyItems.filter((item) => !hiddenModels.includes(item.modelKey))
+              : replyItems
+          const chosenItem = selectedModelKey
+            ? replyItems.find((item) => item.modelKey === selectedModelKey) || null
+            : null
           const isCollapsed = isChosenState
             ? collapsedClusters[block.clusterId] ?? true
             : false
-          const visibleReplyItems =
+          let visibleReplyItems =
             isCollapsed && isChosenState && selectedModelKey
-              ? replyItems.filter((item) => item.modelKey === selectedModelKey)
-              : replyItems
+              ? filteredReplyItems.filter(
+                  (item) => item.modelKey === selectedModelKey
+                )
+              : filteredReplyItems
+          if (visibleReplyItems.length === 0 && chosenItem) {
+            visibleReplyItems = [chosenItem]
+          }
           const alternativeCount = selectedModelKey
             ? Math.max(replyItems.length - 1, 0)
             : 0
-          const perModelReplyBlocked =
-            (contextFiles?.length ?? 0) > 0 ||
-            (documentContext?.length ?? 0) > 0 ||
-            Boolean(selectedKnowledge)
           const setClusterCollapsed = (next: boolean) => {
             setCollapsedClusters((prev) => ({
               ...prev,
               [block.clusterId]: next
             }))
+          }
+          const toggleModelFilter = (modelKey: string) => {
+            setHiddenModelsByCluster((prev) => {
+              const hidden = new Set(prev[block.clusterId] || [])
+              if (hidden.has(modelKey)) {
+                hidden.delete(modelKey)
+              } else {
+                hidden.add(modelKey)
+              }
+              return {
+                ...prev,
+                [block.clusterId]: Array.from(hidden)
+              }
+            })
+          }
+          const clearModelFilter = () => {
+            setHiddenModelsByCluster((prev) => {
+              const next = { ...prev }
+              delete next[block.clusterId]
+              return next
+            })
           }
           const handleContinueWithModel = (modelKey: string) => {
             setCompareMode(false)
@@ -353,9 +504,8 @@ export const PlaygroundChat = () => {
                     isSend
                   )
                 }}
-                onSourceClick={(data) => {
-                  setSource(data)
-                  setIsSourceOpen(true)
+                onDeleteMessage={() => {
+                  deleteMessage(block.userIndex)
                 }}
                 onNewBranch={() => {
                   createChatBranch(block.userIndex)
@@ -367,6 +517,7 @@ export const PlaygroundChat = () => {
                 openReasoning={openReasoning}
                 modelImage={userMessage?.modelImage}
                 modelName={userMessage?.modelName}
+                createdAt={userMessage?.createdAt}
                 temporaryChat={temporaryChat}
                 onStopStreaming={stopStreamingRequest}
                 onContinue={() => {
@@ -380,19 +531,27 @@ export const PlaygroundChat = () => {
                 actionInfo={actionInfo}
                 serverChatId={serverChatId}
                 serverMessageId={userMessage.serverMessageId}
+                messageId={userMessage.id}
+                historyId={stableHistoryId ?? undefined}
+                conversationInstanceId={conversationInstanceId}
+                feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
                 message_type={userMessage.messageType}
+                variants={userMessage.variants}
+                activeVariantIndex={userMessage.activeVariantIndex}
+                onSwipePrev={() => handleVariantSwipe(userMessage.id, "prev")}
+                onSwipeNext={() => handleVariantSwipe(userMessage.id, "next")}
               />
-              <div className="ml-10 space-y-2 border-l border-dashed border-gray-200 pl-4 dark:border-gray-700">
-                <div className="mb-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
+              <div className="ml-10 space-y-2 border-l border-dashed border-border pl-4">
+                <div className="mb-1 flex items-center justify-between text-[11px] text-text-muted">
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+                    <span className="inline-flex items-center rounded-full bg-surface2 px-2 py-0.5 text-[10px] font-medium text-text">
                       {t(
                         "playground:composer.compareClusterLabel",
                         "Multi-model answers"
                       )}
                     </span>
-                    <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                    <span className="text-[10px] text-text-subtle">
                       {t(
                         "playground:composer.compareClusterCount",
                         "{{count}} models",
@@ -404,7 +563,18 @@ export const PlaygroundChat = () => {
                     <button
                       type="button"
                       onClick={() => setClusterCollapsed(!isCollapsed)}
-                      className="text-[10px] font-medium text-blue-600 hover:underline dark:text-blue-400">
+                      title={
+                        isCollapsed
+                          ? (t(
+                              "common:timeline.expandAllAlternatives",
+                              "Expand all alternatives"
+                            ) as string)
+                          : (t(
+                              "common:timeline.collapseAllAlternatives",
+                              "Collapse all alternatives"
+                            ) as string)
+                      }
+                      className="text-[10px] font-medium text-primary hover:underline">
                       {isCollapsed
                         ? t(
                             "common:timeline.expandAllAlternatives",
@@ -413,13 +583,76 @@ export const PlaygroundChat = () => {
                         : t(
                             "common:timeline.collapseAllAlternatives",
                             "Collapse all alternatives"
-                          )}{" "}
+                        )}{" "}
                       ({alternativeCount})
                     </button>
                   )}
                 </div>
+                {clusterModelKeys.length > 1 && (
+                  <div className="mb-2 flex flex-wrap items-center gap-2 text-[10px] text-text-muted">
+                    <span className="text-[10px] font-semibold uppercase tracking-wide">
+                      {t(
+                        "playground:composer.compareFilterLabel",
+                        "Filter models"
+                      )}
+                    </span>
+                    <div className="flex flex-wrap gap-1">
+                      {clusterModelKeys.map((modelKey) => {
+                        const isHidden = hiddenModels.includes(modelKey)
+                        const providerKey = getModelProvider(modelKey)
+                        return (
+                          <button
+                            key={`filter-${block.clusterId}-${modelKey}`}
+                            type="button"
+                            onClick={() => toggleModelFilter(modelKey)}
+                            title={getModelLabel(modelKey)}
+                            className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium transition ${
+                              isHidden
+                                ? "border-border bg-surface text-text-subtle"
+                                : "border-primary bg-surface2 text-primaryStrong"
+                            }`}
+                          >
+                            <ProviderIcons
+                              provider={providerKey}
+                              className="h-3 w-3"
+                            />
+                            <span className="max-w-[120px] truncate">
+                              {getModelLabel(modelKey)}
+                            </span>
+                          </button>
+                        )
+                      })}
+                    </div>
+                    {hiddenModels.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={clearModelFilter}
+                        title={t(
+                          "playground:composer.compareFilterClear",
+                          "Show all"
+                        ) as string}
+                        className="text-[10px] font-medium text-primary hover:underline"
+                      >
+                        {t(
+                          "playground:composer.compareFilterClear",
+                          "Show all"
+                        )}
+                      </button>
+                    )}
+                    <span className="text-[10px] text-text-subtle">
+                      {t(
+                        "playground:composer.compareFilterCount",
+                        "Showing {{visible}} / {{total}}",
+                        {
+                          visible: filteredReplyItems.length,
+                          total: replyItems.length
+                        }
+                      )}
+                    </span>
+                  </div>
+                )}
                 {compareFeatureEnabled && clusterSelection.length > 1 && (
-                  <div className="mb-2 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
+                  <div className="mb-2 flex items-center justify-between text-[11px] text-text-muted">
                     <span>
                       {t(
                         "playground:composer.compareBulkSplitHint",
@@ -431,9 +664,13 @@ export const PlaygroundChat = () => {
                       type="button"
                       onClick={handleBulkSplit}
                       disabled={!compareFeatureEnabled}
-                      className={`rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800 ${
+                      title={t(
+                        "playground:composer.compareBulkSplit",
+                        "Open each selected answer as its own chat"
+                      ) as string}
+                      className={`rounded border border-border bg-surface px-2 py-0.5 text-[10px] font-medium text-text hover:bg-surface2 ${
                         !compareFeatureEnabled
-                          ? "cursor-not-allowed opacity-50 hover:bg-white dark:hover:bg-gray-900"
+                          ? "cursor-not-allowed opacity-50"
                           : ""
                       }`}>
                       {t(
@@ -454,6 +691,19 @@ export const PlaygroundChat = () => {
                     typeof message?.reasoning_time_taken === "number" &&
                     message.reasoning_time_taken > 0
                       ? humanizeMilliseconds(message.reasoning_time_taken)
+                      : null
+                  const providerKey = getModelProvider(modelKey)
+                  const providerLabel = tldwModels.getProviderDisplayName(
+                    providerKey
+                  )
+                  const tokenCount = getTokenCount(message?.generationInfo)
+                  const tokenLabel =
+                    tokenCount !== null
+                      ? t(
+                          "playground:composer.compareTokens",
+                          "Tokens: {{count}}",
+                          { count: tokenCount }
+                        )
                       : null
                   const splitMap = compareSplitChats[block.clusterId] || {}
                   const spawnedHistoryId = splitMap[modelKey]
@@ -543,12 +793,7 @@ export const PlaygroundChat = () => {
                         "playground:composer.compareDisabled",
                         "Compare mode is disabled in settings."
                       )
-                    : perModelReplyBlocked
-                      ? t(
-                          "playground:composer.comparePerModelUnsupported",
-                          "Per-model replies are not yet supported when documents or knowledge mode are active."
-                        )
-                      : null
+                    : null
                   const perModelDisabled =
                     isProcessing || streaming || Boolean(perModelDisabledReason)
 
@@ -559,13 +804,14 @@ export const PlaygroundChat = () => {
                       message: text
                     })
                   }
+                  const previousUserMessage = getPreviousUserMessage(index)
 
                   return (
                     <div
                       key={`c-${blockIndex}-${index}`}
-                      className={`rounded-md bg-white/60 p-2 shadow-sm dark:bg-gray-900/40 ${
+                      className={`rounded-md border border-border bg-surface p-2 shadow-sm ${
                         isChosenCard
-                          ? "ring-1 ring-emerald-300 dark:ring-emerald-600"
+                          ? "ring-1 ring-success"
                           : ""
                       }`}>
                       <PlaygroundMessage
@@ -582,9 +828,8 @@ export const PlaygroundChat = () => {
                         onEditFormSubmit={(value, isSend) => {
                           editMessage(index, value, !message.isBot, isSend)
                         }}
-                        onSourceClick={(data) => {
-                          setSource(data)
-                          setIsSourceOpen(true)
+                        onDeleteMessage={() => {
+                          deleteMessage(index)
                         }}
                         onNewBranch={() => {
                           createChatBranch(index)
@@ -596,6 +841,7 @@ export const PlaygroundChat = () => {
                         openReasoning={openReasoning}
                         modelImage={message?.modelImage}
                         modelName={message?.modelName}
+                        createdAt={message?.createdAt}
                         temporaryChat={temporaryChat}
                         onStopStreaming={stopStreamingRequest}
                         onContinue={() => {
@@ -609,6 +855,10 @@ export const PlaygroundChat = () => {
                         actionInfo={actionInfo}
                         serverChatId={serverChatId}
                         serverMessageId={message.serverMessageId}
+                        messageId={message.id}
+                        historyId={stableHistoryId ?? undefined}
+                        conversationInstanceId={conversationInstanceId}
+                        feedbackQuery={previousUserMessage?.message ?? null}
                         isEmbedding={isEmbedding}
                         message_type={message.messageType}
                         compareSelectable={isSelectable}
@@ -616,11 +866,15 @@ export const PlaygroundChat = () => {
                         onToggleCompareSelect={handleToggle}
                         compareError={hasError}
                         compareChosen={isChosenCard}
+                        variants={message.variants}
+                        activeVariantIndex={message.activeVariantIndex}
+                        onSwipePrev={() => handleVariantSwipe(message.id, "prev")}
+                        onSwipeNext={() => handleVariantSwipe(message.id, "next")}
                       />
 
                       {threadPreviewItems.length > 1 && (
-                        <div className="mt-2 space-y-1 rounded-md bg-gray-50 p-2 text-[11px] text-gray-700 dark:bg-gray-900/60 dark:text-gray-200">
-                          <div className="mb-0.5 text-[10px] font-medium uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                        <div className="mt-2 space-y-1 rounded-md bg-surface2 p-2 text-[11px] text-text">
+                          <div className="mb-0.5 text-[10px] font-medium uppercase tracking-wide text-text-subtle">
                             {t(
                               "playground:composer.compareThreadLabel",
                               "Per-model thread"
@@ -659,13 +913,17 @@ export const PlaygroundChat = () => {
                         onSend={handlePerModelSend}
                       />
 
-                      <div className="mt-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
+                      <div className="mt-1 flex items-center justify-between text-[11px] text-text-muted">
                         <div className="flex items-center gap-2">
                           <button
                             type="button"
                             onClick={handleOpenFullChat}
                             disabled={!compareFeatureEnabled}
-                            className={`text-blue-600 hover:underline dark:text-blue-400 ${
+                            title={t(
+                              "playground:composer.compareOpenFullChat",
+                              "Open as full chat"
+                            ) as string}
+                            className={`text-primary hover:underline ${
                               !compareFeatureEnabled
                                 ? "cursor-not-allowed opacity-50 no-underline"
                                 : ""
@@ -675,9 +933,30 @@ export const PlaygroundChat = () => {
                               "Open as full chat"
                             )}
                           </button>
+                          {providerLabel && (
+                            <span
+                              className="inline-flex items-center gap-1 text-[10px] text-text-subtle"
+                              aria-label={providerLabel}
+                            >
+                              <ProviderIcons
+                                provider={providerKey}
+                                className="h-3 w-3"
+                              />
+                              {providerLabel}
+                            </span>
+                          )}
+                          {tokenLabel && (
+                            <span
+                              className="inline-flex items-center gap-1 text-[10px] text-text-subtle"
+                              aria-label={tokenLabel}
+                            >
+                              <Hash className="h-3 w-3" aria-hidden="true" />
+                              {tokenLabel}
+                            </span>
+                          )}
                           {latencyLabel && (
                             <span
-                              className="inline-flex items-center gap-1 text-[10px] text-gray-400 dark:text-gray-500"
+                              className="inline-flex items-center gap-1 text-[10px] text-text-subtle"
                               aria-label={t(
                                 "playground:composer.compareLatency",
                                 "Latency"
@@ -698,7 +977,11 @@ export const PlaygroundChat = () => {
                                   })
                                 )
                               }}
-                              className="text-[10px] text-gray-500 hover:text-gray-700 underline dark:text-gray-300 dark:hover:text-gray-100">
+                              title={t(
+                                "playground:composer.compareSpawnedChat",
+                                "Open split chat"
+                              ) as string}
+                              className="text-[10px] text-text-muted hover:text-text underline">
                               {t(
                                 "playground:composer.compareSpawnedChat",
                                 "Open split chat"
@@ -715,11 +998,22 @@ export const PlaygroundChat = () => {
                                   currentCanonical === message.id ? null : message.id
                                 setCompareCanonicalForCluster(block.clusterId, next)
                               }}
+                              title={
+                                compareCanonicalByCluster[block.clusterId] === message.id
+                                  ? (t(
+                                      "playground:composer.compareCanonicalOn",
+                                      "Canonical"
+                                    ) as string)
+                                  : (t(
+                                      "playground:composer.compareCanonicalOff",
+                                      "Pin as canonical"
+                                    ) as string)
+                              }
                               className={`rounded px-2 py-0.5 text-[10px] font-medium border transition ${
                                 compareCanonicalByCluster[block.clusterId] ===
                                 message.id
-                                  ? "bg-emerald-600 text-white border-emerald-600"
-                                  : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-700"
+                                  ? "border-success bg-success text-white"
+                                  : "border-success/40 bg-success/10 text-success"
                               }`}>
                               {compareCanonicalByCluster[block.clusterId] ===
                               message.id
@@ -740,7 +1034,7 @@ export const PlaygroundChat = () => {
                 })}
 
                 {clusterSelection.length > 0 && (
-                  <div className="mt-2 rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-[11px] text-gray-600 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-300">
+                  <div className="mt-2 rounded-md border border-border bg-surface2 px-3 py-2 text-[11px] text-text-muted">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="font-medium">
                         {t(
@@ -752,7 +1046,7 @@ export const PlaygroundChat = () => {
                         {clusterSelection.map((modelKey) => (
                           <span
                             key={`selected-${block.clusterId}-${modelKey}`}
-                            className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
+                            className="rounded-full bg-surface px-2 py-0.5 text-[10px] font-medium text-text shadow-sm">
                             {getModelLabel(modelKey)}
                           </span>
                         ))}
@@ -760,7 +1054,7 @@ export const PlaygroundChat = () => {
                     </div>
                     {clusterActiveModels.length === 1 ? (
                       <div className="mt-2 flex items-center justify-between gap-2">
-                        <span className="text-[10px] text-gray-500 dark:text-gray-400">
+                        <span className="text-[10px] text-text-muted">
                           {compareModeActive
                             ? t(
                                 "playground:composer.compareContinueHint",
@@ -777,7 +1071,11 @@ export const PlaygroundChat = () => {
                             onClick={() =>
                               handleContinueWithModel(clusterActiveModels[0])
                             }
-                            className="rounded border border-blue-500 bg-blue-600 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-blue-500">
+                            title={t(
+                              "playground:composer.compareContinue",
+                              "Continue with this model"
+                            ) as string}
+                            className="rounded border border-primary bg-primary px-2 py-0.5 text-[10px] font-medium text-white hover:bg-primaryStrong">
                             {t(
                               "playground:composer.compareContinue",
                               "Continue with this model"
@@ -788,10 +1086,14 @@ export const PlaygroundChat = () => {
                             type="button"
                             onClick={handleCompareAgain}
                             disabled={!compareFeatureEnabled}
-                            className={`rounded border border-blue-500 px-2 py-0.5 text-[10px] font-medium ${
+                            title={t(
+                              "playground:composer.compareButton",
+                              "Compare models"
+                            ) as string}
+                            className={`rounded border border-primary px-2 py-0.5 text-[10px] font-medium ${
                               compareFeatureEnabled
-                                ? "bg-white text-blue-600 hover:bg-blue-50"
-                                : "cursor-not-allowed bg-white/60 text-blue-300"
+                                ? "border-primary bg-surface text-primary hover:bg-surface2"
+                                : "border-primary/40 bg-surface text-text-subtle cursor-not-allowed opacity-60"
                             }`}>
                             {t(
                               "playground:composer.compareButton",
@@ -801,7 +1103,7 @@ export const PlaygroundChat = () => {
                         )}
                       </div>
                     ) : (
-                      <div className="mt-2 text-[10px] text-gray-500 dark:text-gray-400">
+                      <div className="mt-2 text-[10px] text-text-muted">
                         {t(
                           "playground:composer.compareActiveModelsHint",
                           "Your next message will be sent to each active model."
@@ -824,7 +1126,7 @@ export const PlaygroundChat = () => {
                     return null
                   }
                   return (
-                    <div className="mt-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-[13px] text-emerald-900 dark:border-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-100">
+                    <div className="mt-3 rounded-md border border-success bg-success/10 px-3 py-2 text-[13px] text-success">
                       <div className="mb-1 flex items-center gap-2 text-[11px] font-medium">
                         <span className="uppercase tracking-wide">
                           {t(
@@ -832,7 +1134,7 @@ export const PlaygroundChat = () => {
                             "Canonical answer"
                           )}
                         </span>
-                        <span className="text-emerald-700/80 dark:text-emerald-300/80">
+                        <span className="text-success/80">
                           {canonical.modelName || canonical.name}
                         </span>
                       </div>
@@ -847,11 +1149,6 @@ export const PlaygroundChat = () => {
           )
         })}
       </div>
-      <MessageSourcePopup
-        open={isSourceOpen}
-        setOpen={setIsSourceOpen}
-        source={source}
-      />
     </>
   )
 }

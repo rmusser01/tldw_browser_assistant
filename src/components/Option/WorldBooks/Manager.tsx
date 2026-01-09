@@ -76,22 +76,22 @@ export const WorldBooksManager: React.FC = () => {
     { title: 'Actions', key: 'actions', render: (_: any, record: any) => (
       <div className="flex gap-3">
         <Tooltip title="Edit">
-          <button className="text-gray-500" onClick={() => { setEditId(record.id); editForm.setFieldsValue(record); setOpenEdit(true) }}>
+          <button className="text-text-muted" onClick={() => { setEditId(record.id); editForm.setFieldsValue(record); setOpenEdit(true) }}>
             <Pen className="w-4 h-4" />
           </button>
         </Tooltip>
         <Tooltip title="Manage Entries">
-          <button className="text-gray-500" onClick={() => setOpenEntries(record.id)}>
+          <button className="text-text-muted" onClick={() => setOpenEntries(record.id)}>
             Entries
           </button>
         </Tooltip>
         <Tooltip title="Attach to Character">
-          <button className="text-gray-500" onClick={() => setOpenAttach(record.id)}>
+          <button className="text-text-muted" onClick={() => setOpenAttach(record.id)}>
             Attach
           </button>
         </Tooltip>
         <Tooltip title="Export JSON">
-          <button className="text-gray-500" onClick={async () => {
+          <button className="text-text-muted" onClick={async () => {
             try {
               const exp = await tldwClient.exportWorldBook(record.id)
               const blob = new Blob([JSON.stringify(exp, null, 2)], { type: 'application/json' })
@@ -107,12 +107,12 @@ export const WorldBooksManager: React.FC = () => {
           }}>Export</button>
         </Tooltip>
         <Tooltip title="Statistics">
-          <button className="text-gray-500" onClick={async () => {
+          <button className="text-text-muted" onClick={async () => {
             try { const s = await tldwClient.worldBookStatistics(record.id); setStatsFor(s) } catch (e: any) { notification.error({ message: 'Stats failed', description: e?.message }) }
           }}>Stats</button>
         </Tooltip>
         <Tooltip title="Delete">
-          <button className="text-red-500" disabled={deleting} onClick={async () => { const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete this world book?', okText: 'Delete', cancelText: 'Cancel' }); if (ok) deleteWB(record.id) }}>
+          <button className="text-danger" disabled={deleting} onClick={async () => { const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete this world book?', okText: 'Delete', cancelText: 'Cancel' }); if (ok) deleteWB(record.id) }}>
             <Trash2 className="w-4 h-4" />
           </button>
         </Tooltip>
@@ -256,7 +256,7 @@ const EntryManager: React.FC<{ worldBookId: number; form: any }> = ({ worldBookI
             { title: 'Enabled', dataIndex: 'enabled', key: 'enabled', render: (v: boolean) => v ? 'Yes' : 'No' },
             { title: 'Actions', key: 'actions', render: (_: any, r: any) => (
               <div className="flex gap-2">
-                <Tooltip title="Delete"><button className="text-red-500" onClick={async () => { const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete entry?', okText: 'Delete', cancelText: 'Cancel' }); if (ok) deleteEntry(r.entry_id) }}><Trash2 className="w-4 h-4" /></button></Tooltip>
+                <Tooltip title="Delete"><button className="text-danger" onClick={async () => { const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete entry?', okText: 'Delete', cancelText: 'Cancel' }); if (ok) deleteEntry(r.entry_id) }}><Trash2 className="w-4 h-4" /></button></Tooltip>
               </div>
             ) }
           ] as any}

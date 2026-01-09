@@ -1081,5 +1081,287 @@
   },
   "actor_sceneTemplateActive": {
     "message": "Aktiv sceneskabelon: Actor respekterer indstillingerne for skabeloninteraktion."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "Aktivér sammenligningstilstand"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "Lås eksperimentelle sammenligningsfunktioner til flere modeller op."
+  },
+  "composer_compareDisabled": {
+    "message": "Sammenligningstilstand er deaktiveret i indstillingerne."
+  },
+  "composer_compareChosenHint": {
+    "message": "Fortsæt med det valgte svar eller sammenlign igen."
+  },
+  "composer_compareChosenLabel": {
+    "message": "Valgt"
+  },
+  "composer_compareLatency": {
+    "message": "Latens"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "Sammenlign: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(fra sammenligning)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "Svar fra flere modeller"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} modeller"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "Valgte modeller: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "Åbn hvert valgte svar som sin egen chat"
+  },
+  "composer_compareThreadLabel": {
+    "message": "Tråd pr. model"
+  },
+  "composer_compareThreadYou": {
+    "message": "Du"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "Åbn som fuld chat"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "Åbn opdelt chat"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "Kanonisk"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "Fastgør som kanonisk"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "Kanonisk svar"
+  },
+  "composer_compareFilterLabel": {
+    "message": "Filtrér modeller"
+  },
+  "composer_compareFilterClear": {
+    "message": "Vis alle"
+  },
+  "composer_compareFilterCount": {
+    "message": "Viser {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Var dette hjælpsomt?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Hjælpsomt"
+  },
+  "feedback_thumbsDown": {
+    "message": "Ikke hjælpsomt"
+  },
+  "feedback_more": {
+    "message": "Mere feedback"
+  },
+  "feedback_thanks": {
+    "message": "Tak for feedbacken"
+  },
+  "feedback_disabled": {
+    "message": "Feedback er tilgængelig, når svaret er færdigt."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback er ikke tilgængelig for denne besked."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "Hvordan vil du vurdere dette svar?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "Hvad var problemet? (vælg alle relevante)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Yderligere kommentarer (valgfrit)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Indsend feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback mislykkedes"
+  },
+  "feedback_errorBody": {
+    "message": "Kunne ikke indsende feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Kunne ikke indsende feedback om kilden."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Forkert information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Ikke relevant for mit spørgsmål"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Vigtige detaljer mangler"
+  },
+  "feedback_issues_badSources": {
+    "message": "Kilderne var ikke hjælpsomme"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "For omstændeligt"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "For kort"
+  },
+  "feedback_issues_other": {
+    "message": "Andet"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Hjælpsom kilde"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Ikke hjælpsom kilde"
+  },
+  "actor_uploadedFiles": {
+    "message": "Uploadede filer ({{count}})"
+  },
+  "actor_fileRetrieval": {
+    "message": "Filhentning"
+  },
+  "actor_fileStatusProcessed": {
+    "message": "Behandlet"
+  },
+  "actor_fileStatusProcessing": {
+    "message": "Behandler..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
   }
 }

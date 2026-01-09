@@ -272,5 +272,46 @@ export function useFlashcardsEnabled() {
   }
 }
 
+/**
+ * Hook for fetching due counts across statuses
+ */
+export function useDueCountsQuery(deckId?: number | null, options?: UseFlashcardQueriesOptions) {
+  const { flashcardsEnabled } = useFlashcardsEnabled()
+
+  return useQuery({
+    queryKey: ["flashcards:due-counts", deckId],
+    queryFn: async () => {
+      const [due, newCards, learning] = await Promise.all([
+        listFlashcards({ deck_id: deckId ?? undefined, due_status: "due", limit: 0, offset: 0 }),
+        listFlashcards({ deck_id: deckId ?? undefined, due_status: "new", limit: 0, offset: 0 }),
+        listFlashcards({ deck_id: deckId ?? undefined, due_status: "learning", limit: 0, offset: 0 })
+      ])
+      return {
+        due: due.count,
+        new: newCards.count,
+        learning: learning.count,
+        total: due.count + newCards.count + learning.count
+      }
+    },
+    enabled: options?.enabled ?? flashcardsEnabled
+  })
+}
+
+/**
+ * Hook to check if user has any flashcards
+ */
+export function useHasCardsQuery(options?: UseFlashcardQueriesOptions) {
+  const { flashcardsEnabled } = useFlashcardsEnabled()
+
+  return useQuery({
+    queryKey: ["flashcards:has-cards"],
+    queryFn: async () => {
+      const res = await listFlashcards({ limit: 0, offset: 0 })
+      return res.count > 0
+    },
+    enabled: options?.enabled ?? flashcardsEnabled
+  })
+}
+
 // Re-export service functions that are used directly
 export { getFlashcard, exportFlashcards, exportFlashcardsFile }

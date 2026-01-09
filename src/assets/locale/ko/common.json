@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "닫기",
+  "confirmTitle": "확인해 주세요",
   "pdf": {
     "passwordTitle": "PDF 비밀번호를 입력하세요",
     "unlock": "잠금 해제"
@@ -14,10 +16,17 @@
     "content": "콘텐츠를 불러오는 중…"
   },
   "selectAModel": "모델 선택",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "저장",
   "saved": "저장됨",
   "cancel": "취소",
+  "saving": "저장 중...",
   "retry": "재시도",
+  "close": "닫기",
+  "loadMore": "더 불러오기...",
   "share": {
     "tooltip": {
       "share": "공유"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "클립보드에 복사",
+  "table": {
+    "copyCsv": "CSV로 복사",
+    "downloadCsv": "CSV 다운로드"
+  },
   "webSearch": "웹 검색 중",
   "regenerate": "재생성",
-  "continue": "응답 계속하기",
   "edit": "편집",
+  "generate": "Generate",
+  "view": "View",
   "delete": "삭제",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "응답 계속하기",
   "saveAndSubmit": "저장하고 제출",
   "editMessage": {
     "placeholder": "메시지를 입력하세요..."
   },
   "submit": "제출",
   "send": "제출",
+  "startChat": "채팅 시작",
   "connectToServer": "서버에 연결",
+  "previous": "이전",
+  "next": "다음",
   "noData": "데이터가 없습니다",
   "noHistory": "채팅 기록이 없습니다",
   "chatWithCurrentPage": "현재 페이지에서 채팅",
+  "chatWithCharacter": "캐릭터와 채팅",
   "beta": "베타",
   "tts": "TTS",
+  "ttsShort": "음성",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "복사",
+  "branchShort": "브랜치",
+  "infoShort": "정보",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "다시",
+  "continueShort": "더 보기",
+  "fileChanges": "파일 변경",
+  "deletions": "삭제 작업",
+  "gitOperations": "Git 작업",
+  "commands": "명령",
+  "otherOperations": "기타 작업",
+  "fileAccess": "파일 접근",
+  "notebookEdits": "노트북 편집",
+  "applyPatch": "패치 적용",
+  "recursive": "(재귀)",
+  "complexArguments": "[복잡한 인수]",
   "currentChatModelSettings": "현재 채팅 모델 설정",
   "modelSettings": {
     "label": "모델 설정",
@@ -90,6 +150,9 @@
         "label": "최대 토큰 수 (num_predict)",
         "placeholder": "최대 토큰 수를 입력하세요 (예: 2048, 4096)"
       },
+      "thinking": {
+        "label": "생각 모드"
+      },
       "seed": {
         "label": "시드",
         "placeholder": "시드 값을 입력하세요 (예: 1234)",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Top P (상위 P)",
         "placeholder": "Top P 값을 입력하세요 (예: 0.9, 0.95)"
-      },
-      "numGpu": {
-        "label": "GPU 수",
-        "placeholder": "GPU에 할당할 레이어 수를 입력하세요"
-      },
-      "systemPrompt": {
-        "label": "임시 시스템 프롬프트",
-        "placeholder": "시스템 프롬프트를 입력하세요",
-        "help": "현재 채팅에서 시스템 프롬프트를 빠르게 설정하는 방법이며, 선택된 시스템 프롬프트가 있을 경우 이를 덮어씁니다."
-      },
-      "thinking": {
-        "label": "생각 모드"
       },
       "useMMap": {
         "label": "useMmap (메모리 매핑)"
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "마지막 N 토큰 반복",
         "placeholder": "예: 64, 128"
+      },
+      "numGpu": {
+        "label": "GPU 수",
+        "placeholder": "GPU에 할당할 레이어 수를 입력하세요"
+      },
+      "systemPrompt": {
+        "label": "임시 시스템 프롬프트",
+        "placeholder": "시스템 프롬프트를 입력하세요",
+        "help": "현재 채팅에서 시스템 프롬프트를 빠르게 설정하는 방법이며, 선택된 시스템 프롬프트가 있을 경우 이를 덮어씁니다."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "기타 모델 설정"
+    "advanced": "기타 모델 설정",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "요약",
@@ -160,7 +269,25 @@
     "custom": "사용자 정의"
   },
   "citations": "인용",
+  "segmented": {
+    "available": "서버 모델",
+    "custom": "사용자 정의 모델"
+  },
   "downloadCode": "코드 다운로드",
+  "success": "성공",
+  "created": "생성됨",
+  "updated": "업데이트됨",
+  "deleted": "삭제됨",
+  "create": "생성",
+  "reset": "초기화",
+  "serverOffline": "서버가 오프라인이거나 구성되지 않았습니다",
+  "serverChats": "서버 채팅",
+  "serverChatLoadError": "서버 채팅을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.",
+  "serverChatSourceLabel": "서버",
+  "serverChatForkedLabel": "포크된 채팅",
+  "serverChatForkedTooltip": "채팅 {{chatId}}에서 포크됨",
+  "serverChatsUnavailableNotConnected": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다.",
+  "serverChatsUnavailableServerError": "현재 서버 채팅을 사용할 수 없습니다. 서버 로그를 확인하거나 다시 시도하세요.",
   "date": {
     "pinned": "고정됨",
     "today": "오늘",
@@ -184,6 +311,8 @@
       "older": "이전의 모든 메시지 삭제"
     }
   },
+  "historiesDeleted": "{{count}}개의 기록이 삭제되었습니다",
+  "deleteHistoriesError": "기록 삭제 중 오류가 발생했습니다",
   "pin": "고정",
   "unpin": "고정 해제",
   "generationInfo": "생성 정보",
@@ -193,66 +322,17 @@
     "loading": "추론을 불러오는 중....",
     "thought": "{{time}} 동안 생각함"
   },
+  "mermaid": "Mermaid 다이어그램",
+  "search": "검색",
+  "searchResults": "검색 결과",
   "embeddingGen": "임베딩을 생성하는 중입니다. 시간이 걸릴 수 있습니다",
   "semanticSearch": "의미론적 검색을 수행하는 중",
+  "newBranch": "새 브랜치",
   "downloading": "다운로드 중",
   "cancelPullingModel": {
     "confirm": "다운로드를 취소하시겠습니까? 이 작업은 다운로드 과정을 중단합니다. Ollama 문서에 따르면, 중단된 위치에서 다시 시작할 수 있습니다."
   },
-  "table": {
-    "copyCsv": "CSV로 복사",
-    "downloadCsv": "CSV 다운로드"
-  },
-  "dismiss": "닫기",
   "privateModeSaveErrorTitle": "tldw Assistant에서 데이터를 저장할 수 없습니다",
-  "confirmTitle": "확인해 주세요",
-  "saving": "저장 중...",
-  "close": "닫기",
-  "loadMore": "더 불러오기...",
-  "startChat": "채팅 시작",
-  "previous": "이전",
-  "next": "다음",
-  "chatWithCharacter": "캐릭터와 채팅",
-  "ttsShort": "음성",
-  "copyShort": "복사",
-  "branchShort": "브랜치",
-  "infoShort": "정보",
-  "regenShort": "다시",
-  "continueShort": "더 보기",
-  "fileChanges": "파일 변경",
-  "deletions": "삭제 작업",
-  "gitOperations": "Git 작업",
-  "commands": "명령",
-  "otherOperations": "기타 작업",
-  "fileAccess": "파일 접근",
-  "notebookEdits": "노트북 편집",
-  "applyPatch": "패치 적용",
-  "recursive": "(재귀)",
-  "complexArguments": "[복잡한 인수]",
-  "segmented": {
-    "available": "서버 모델",
-    "custom": "사용자 정의 모델"
-  },
-  "success": "성공",
-  "created": "생성됨",
-  "updated": "업데이트됨",
-  "deleted": "삭제됨",
-  "create": "생성",
-  "reset": "초기화",
-  "serverOffline": "서버가 오프라인이거나 구성되지 않았습니다",
-  "serverChats": "서버 채팅",
-  "serverChatLoadError": "서버 채팅을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.",
-  "serverChatSourceLabel": "서버",
-  "serverChatForkedLabel": "포크된 채팅",
-  "serverChatForkedTooltip": "채팅 {{chatId}}에서 포크됨",
-  "serverChatsUnavailableNotConnected": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다.",
-  "serverChatsUnavailableServerError": "현재 서버 채팅을 사용할 수 없습니다. 서버 로그를 확인하거나 다시 시도하세요.",
-  "historiesDeleted": "{{count}}개의 기록이 삭제되었습니다",
-  "deleteHistoriesError": "기록 삭제 중 오류가 발생했습니다",
-  "mermaid": "Mermaid 다이어그램",
-  "search": "검색",
-  "searchResults": "검색 결과",
-  "newBranch": "새 브랜치",
   "error": {
     "label": "오류",
     "friendlyApiKeySummary": "tldw 서버에 연결할 수 없습니다.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "tldw 서버와 통신하는 중 문제가 발생했습니다.",
     "friendlyGenericHint": "잠시 후 다시 시도하거나 상태 및 진단을 열어 서버 상태를 확인하세요.",
     "showDetails": "기술 세부정보 표시",
-    "hideDetails": "기술 세부정보 숨기기"
+    "hideDetails": "기술 세부정보 숨기기",
+    "createFolder": "Failed to create folder"
   },
   "folders": "폴더",
   "folderView": "폴더 보기",
@@ -277,7 +358,32 @@
   "confirm": "확인",
   "untitled": "제목 없음",
   "moveToFolder": "폴더로 이동",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "아직 도구 호출이 없습니다",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "대기 중",
     "running": "처리 중",
@@ -361,6 +467,9 @@
     "collapse": "사이드바 접기",
     "expand": "사이드바 펼치기",
     "search": "채팅 검색...",
+    "modeLabel": "Mode",
+    "modeCasual": "Casual",
+    "modePro": "Pro",
     "ingest": "페이지 가져오기",
     "media": "미디어",
     "notes": "노트",

@@ -88,7 +88,8 @@
     "omniSearchStartChat": "Starta ny chatt \"{{query}}\"",
     "connectionCard.connectedCaption": "Chatt och verktyg är nu tillgängliga i Inställningar och sidopanelen.",
     "quickIngestQueuedAria": "{{label}} — {{count}} objekt i kö — klicka för att granska och bearbeta",
-    "modeSpeech": "Tal"
+    "modeSpeech": "Tal",
+    "moreTools": "Mer"
   },
   "sidebarTitle": "Chatthistorik",
   "error": "Fel",
@@ -367,7 +368,9 @@
     "searchPlaceholder": "Sök karaktärer efter namn",
     "noMatches": "Inga karaktärer matchar din sökning ännu.",
     "refresh": "Uppdatera karaktärer",
-    "refreshing": "Uppdaterar karaktärer…"
+    "refreshing": "Uppdaterar karaktärer…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Använd i chatten",

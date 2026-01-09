@@ -1,45 +1,112 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
-import { Tooltip, Empty, Skeleton, message } from "antd"
-import { GitBranch } from "lucide-react"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { Empty, Skeleton, Input, Modal, message } from "antd"
+import { useStorage } from "@plasmohq/storage/hook"
 
+import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
-import { useMessageOption } from "@/hooks/useMessageOption"
-import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useSelectServerChat } from "@/hooks/chat/useSelectServerChat"
+import { useStoreMessageOption } from "@/store/option"
+import { shallow } from "zustand/shallow"
+import {
+  tldwClient,
+  type ConversationState,
+  type ServerChatSummary
+} from "@/services/tldw/TldwApiClient"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { cn } from "@/libs/utils"
+import { normalizeConversationState } from "@/utils/conversation-state"
+import { ServerChatRow } from "./ServerChatRow"
 
 interface ServerChatListProps {
   searchQuery: string
   className?: string
 }
 
-export function ServerChatList({ searchQuery, className }: ServerChatListProps) {
-  const { t } = useTranslation(["common", "sidepanel"])
-  const navigate = useNavigate()
-  const { isConnected } = useConnectionState()
-  const mountedRef = React.useRef(true)
+type UpdateChatRequestPayload = {
+  chatId: string
+  data: Record<string, unknown>
+  expectedVersion?: number | null
+}
 
-  React.useEffect(() => {
-    return () => {
-      mountedRef.current = false
-    }
-  }, [])
+export function ServerChatList({ searchQuery, className }: ServerChatListProps) {
+  const { t } = useTranslation(["common", "sidepanel", "option", "playground"])
+  const { isConnected } = useConnectionState()
+  const queryClient = useQueryClient()
+  const confirmDanger = useConfirmDanger()
+  const [pinnedChatIds, setPinnedChatIds] = useStorage<string[]>(
+    "tldw:server-chat-pins",
+    []
+  )
 
   const {
-    setMessages,
-    setHistory,
-    setHistoryId,
     serverChatId,
-    setServerChatId,
+    setServerChatTitle,
     setServerChatState,
-    setServerChatTopic,
-    setServerChatClusterId,
-    setServerChatSource,
-    setServerChatExternalRef
-  } = useMessageOption()
+    setServerChatVersion,
+    setServerChatTopic
+  } = useStoreMessageOption(
+    (state) => ({
+      serverChatId: state.serverChatId,
+      setServerChatTitle: state.setServerChatTitle,
+      setServerChatState: state.setServerChatState,
+      setServerChatVersion: state.setServerChatVersion,
+      setServerChatTopic: state.setServerChatTopic
+    }),
+    shallow
+  )
+  const selectServerChat = useSelectServerChat()
+  const clearChat = useClearChat()
+  const [openMenuFor, setOpenMenuFor] = React.useState<string | null>(null)
+  const [renamingChat, setRenamingChat] =
+    React.useState<ServerChatHistoryItem | null>(null)
+  const [renameValue, setRenameValue] = React.useState("")
+  const [renameError, setRenameError] = React.useState<string | null>(null)
+  const [editingTopicChat, setEditingTopicChat] =
+    React.useState<ServerChatHistoryItem | null>(null)
+  const [topicValue, setTopicValue] = React.useState("")
+
+  const updateChatRequest = React.useCallback(
+    async (payload: UpdateChatRequestPayload): Promise<ServerChatSummary> =>
+      tldwClient.updateChat(
+        payload.chatId,
+        payload.data,
+        payload.expectedVersion != null
+          ? { expectedVersion: payload.expectedVersion }
+          : undefined
+      ),
+    []
+  )
+
+  const { mutate: updateChatMetadata } = useMutation<
+    ServerChatSummary,
+    Error,
+    UpdateChatRequestPayload
+  >({
+    mutationFn: updateChatRequest,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+    }
+  })
+
+  const { mutate: renameChat, isPending: renameLoading } = useMutation<
+    ServerChatSummary,
+    Error,
+    UpdateChatRequestPayload
+  >({
+    mutationFn: updateChatRequest
+  })
+
+  const { mutate: updateChatTopic, isPending: topicLoading } = useMutation<
+    ServerChatSummary,
+    Error,
+    UpdateChatRequestPayload
+  >({
+    mutationFn: updateChatRequest
+  })
 
   const {
     data: serverChatData,
@@ -47,77 +114,208 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     isLoading
   } = useServerChatHistory(searchQuery)
   const serverChats = serverChatData || []
+  const pinnedChatSet = React.useMemo(
+    () => new Set(pinnedChatIds || []),
+    [pinnedChatIds]
+  )
+  const pinnedChats = serverChats.filter((chat) => pinnedChatSet.has(chat.id))
+  const unpinnedChats = serverChats.filter(
+    (chat) => !pinnedChatSet.has(chat.id)
+  )
 
-  const loadServerChat = async (chat: ServerChatHistoryItem) => {
-    try {
-      setHistoryId(null)
-      setServerChatId(chat.id)
-      const rawState = chat.state
-      const normalizedState: ConversationState =
-        rawState === "in-progress" ||
-        rawState === "resolved" ||
-        rawState === "backlog" ||
-        rawState === "non-viable"
-          ? rawState
-          : "in-progress"
-      setServerChatState(normalizedState)
-      setServerChatTopic(chat.topic_label ?? null)
-      setServerChatClusterId(chat.cluster_id ?? null)
-      setServerChatSource(chat.source ?? null)
-      setServerChatExternalRef(chat.external_ref ?? null)
-
-      let assistantName = "Assistant"
-      if (chat.character_id !== null && chat.character_id !== undefined) {
-        try {
-          const character = await tldwClient.getCharacter(chat.character_id)
-          if (character) {
-            assistantName = character.name || character.title || assistantName
-          }
-        } catch {
-          // ignore character lookup failure
+  const togglePinned = React.useCallback(
+    (chatId: string) => {
+      setPinnedChatIds((prev) => {
+        const current = prev || []
+        if (current.includes(chatId)) {
+          return current.filter((id) => id !== chatId)
         }
-      }
-
-      if (!mountedRef.current) return
-
-      const messages = await tldwClient.listChatMessages(chat.id, {
-        include_deleted: false
+        return [...current, chatId]
       })
-      if (!mountedRef.current) return
-      const history = messages.map((m) => ({
-        role: m.role,
-        content: m.content
-      }))
-      const mappedMessages = messages.map((m) => ({
-        isBot: m.role === "assistant",
-        name:
-          m.role === "assistant"
-            ? assistantName
-            : m.role === "system"
-              ? "System"
-              : "You",
-        message: m.content,
-        sources: [],
-        images: [],
-        serverMessageId: m.id,
-        serverMessageVersion: m.version
-      }))
-      if (!mountedRef.current) return
-      setHistory(history)
-      setMessages(mappedMessages)
-      updatePageTitle(chat.title)
-      navigate("/")
-    } catch (e) {
-      if (!mountedRef.current) return
-      console.error("Failed to load server chat", e)
-      message.error(
-        t("common:serverChatLoadError", {
-          defaultValue:
-            "Failed to load server chat. Check your connection and try again."
+    },
+    [setPinnedChatIds]
+  )
+
+  const handleRenameSubmit = () => {
+    if (renameLoading) return
+    if (!renamingChat) return
+
+    const newTitle = renameValue.trim()
+    if (!newTitle) {
+      setRenameError(
+        t("common:renameChatEmptyError", {
+          defaultValue: "Title cannot be empty."
         })
       )
+      return
     }
+
+    setRenameError(null)
+    if (renameLoading) return
+    renameChat(
+      {
+        chatId: renamingChat.id,
+        data: { title: newTitle },
+        expectedVersion: renamingChat.version ?? null
+      },
+      {
+        onSuccess: (updated) => {
+          const resolvedTitle = updated?.title || newTitle
+          if (serverChatId === renamingChat.id) {
+            setServerChatTitle(resolvedTitle)
+            setServerChatVersion(updated?.version ?? null)
+            updatePageTitle(resolvedTitle)
+          }
+          queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+          setRenamingChat(null)
+          setRenameValue("")
+        },
+        onError: () => {
+          message.error(
+            t("common:renameChatError", {
+              defaultValue: "Failed to rename chat."
+            })
+          )
+        }
+      }
+    )
   }
+
+  const handleTopicSubmit = () => {
+    if (topicLoading) return
+    if (!editingTopicChat) return
+
+    const nextTopic = topicValue.trim()
+    if (topicLoading) return
+    updateChatTopic(
+      {
+        chatId: editingTopicChat.id,
+        data: { topic_label: nextTopic || null },
+        expectedVersion: editingTopicChat.version ?? null
+      },
+      {
+        onSuccess: (updated) => {
+          const resolvedTopic = updated?.topic_label ?? (nextTopic || null)
+          if (serverChatId === editingTopicChat.id) {
+            setServerChatTopic(resolvedTopic)
+            setServerChatVersion(updated?.version ?? null)
+          }
+          queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+          setEditingTopicChat(null)
+          setTopicValue("")
+        },
+        onError: () => {
+          message.error(
+            t("option:somethingWentWrong", {
+              defaultValue: "Something went wrong"
+            })
+          )
+        }
+      }
+    )
+  }
+
+  const handleUpdateState = React.useCallback(
+    (chat: ServerChatHistoryItem, nextState: ConversationState) => {
+      updateChatMetadata(
+        {
+          chatId: chat.id,
+          data: { state: nextState },
+          expectedVersion: chat.version ?? null
+        },
+        {
+          onSuccess: (updated) => {
+            const resolvedState = normalizeConversationState(
+              updated?.state ?? nextState
+            )
+            if (serverChatId === chat.id) {
+              setServerChatState(resolvedState)
+              setServerChatVersion(updated?.version ?? null)
+            }
+            queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+          },
+          onError: () => {
+            message.error(
+              t("option:somethingWentWrong", {
+                defaultValue: "Something went wrong"
+              })
+            )
+          }
+        }
+      )
+    },
+    [
+      queryClient,
+      serverChatId,
+      setServerChatState,
+      setServerChatVersion,
+      t,
+      updateChatMetadata
+    ]
+  )
+
+  const handleDeleteChat = React.useCallback(
+    async (chat: ServerChatHistoryItem) => {
+      const ok = await confirmDanger({
+        title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
+        content: t("common:deleteHistoryConfirmation", {
+          defaultValue: "Are you sure you want to delete this chat?"
+        }),
+        okText: t("common:delete", { defaultValue: "Delete" }),
+        cancelText: t("common:cancel", { defaultValue: "Cancel" })
+      })
+      if (!ok) return
+
+      try {
+        await tldwClient.deleteChat(chat.id)
+        setPinnedChatIds((prev) =>
+          (prev || []).filter((id) => id !== chat.id)
+        )
+        queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+        if (serverChatId === chat.id) {
+          clearChat()
+        }
+      } catch (err) {
+        console.error("[ServerChatList] Failed to delete chat:", err)
+        message.error(
+          t("common:deleteChatError", {
+            defaultValue: "Failed to delete chat."
+          })
+        )
+      }
+    },
+    [clearChat, confirmDanger, queryClient, serverChatId, setPinnedChatIds, t]
+  )
+
+  const handleOpenSettings = React.useCallback(
+    (chat: ServerChatHistoryItem) => {
+      if (serverChatId !== chat.id) {
+        selectServerChat(chat)
+      }
+      if (typeof window === "undefined") return
+      window.setTimeout(() => {
+        window.dispatchEvent(new CustomEvent("tldw:open-model-settings"))
+      }, 0)
+    },
+    [selectServerChat, serverChatId]
+  )
+
+  const handleRenameChat = React.useCallback(
+    (chat: ServerChatHistoryItem) => {
+      setRenamingChat(chat)
+      setRenameValue(chat.title || "")
+      setRenameError(null)
+    },
+    [setRenameError, setRenameValue, setRenamingChat]
+  )
+
+  const handleEditTopic = React.useCallback(
+    (chat: ServerChatHistoryItem) => {
+      setEditingTopicChat(chat)
+      setTopicValue(chat.topic_label || "")
+    },
+    [setEditingTopicChat, setTopicValue]
+  )
 
   // Not connected state
   if (!isConnected) {
@@ -146,7 +344,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
   if (status === "error") {
     return (
       <div className={cn("flex justify-center items-center py-8 px-2", className)}>
-        <span className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        <span className="text-xs text-text-subtle text-center">
           {t("common:serverChatsUnavailableServerError", {
             defaultValue:
               "Server chats unavailable right now. Check your server logs or try again."
@@ -171,62 +369,113 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
-      {serverChats.map((chat: ServerChatHistoryItem) => (
-        <button
-          key={chat.id}
-          className={cn(
-            "flex py-2 px-2 items-center gap-3 relative rounded-md truncate group transition-opacity duration-300 ease-in-out border text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1",
-            serverChatId === chat.id
-              ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-              : "bg-gray-50 dark:bg-[#2d2d2d] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#3d3d3d]"
-          )}
-          onClick={() => void loadServerChat(chat)}
+      {renamingChat && (
+        <Modal
+          title={t("common:renameChat", { defaultValue: "Rename chat" })}
+          open
+          destroyOnClose
+          onCancel={() => {
+            setRenamingChat(null)
+            setRenameValue("")
+            setRenameError(null)
+          }}
+          onOk={handleRenameSubmit}
+          confirmLoading={renameLoading}
+          okButtonProps={{
+            disabled: renameLoading || !renameValue.trim()
+          }}
         >
-          <div className="flex flex-col overflow-hidden flex-1">
-            <span className="truncate text-sm" title={chat.title}>
-              {chat.title}
-            </span>
-            <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              <span className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium lowercase text-gray-700 dark:bg-gray-700 dark:text-gray-100">
-                {(chat.state as string) || "in-progress"}
-              </span>
-              {chat.topic_label && (
-                <span
-                  className="truncate max-w-[12rem]"
-                  title={String(chat.topic_label)}
-                >
-                  {String(chat.topic_label)}
-                </span>
-              )}
-            </div>
-            <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-              {chat.parent_conversation_id ? (
-                <Tooltip
-                  title={t("common:serverChatForkedTooltip", {
-                    chatId: String(chat.parent_conversation_id).slice(0, 8),
-                    defaultValue: "Forked from chat {{chatId}}"
-                  })}
-                >
-                  <span className="inline-flex items-center gap-1">
-                    <GitBranch className="size-3" />
-                    <span>
-                      {t("common:serverChatForkedLabel", {
-                        defaultValue: "Forked chat"
-                      })}
-                    </span>
-                  </span>
-                </Tooltip>
-              ) : (
-                <span>
-                  {t("common:serverChatSourceLabel", {
-                    defaultValue: "Server"
-                  })}
-                </span>
-              )}
-            </span>
+          <Input
+            autoFocus
+            value={renameValue}
+            onChange={(e) => {
+              setRenameValue(e.target.value)
+              if (renameError) {
+                setRenameError(null)
+              }
+            }}
+            onPressEnter={handleRenameSubmit}
+            status={renameError ? "error" : undefined}
+            disabled={renameLoading}
+          />
+          {renameError && (
+            <div className="mt-1 text-xs text-red-500">{renameError}</div>
+          )}
+        </Modal>
+      )}
+      {editingTopicChat && (
+        <Modal
+          title={t("playground:composer.topicPlaceholder", "Topic label (optional)")}
+          open
+          destroyOnClose
+          onCancel={() => {
+            setEditingTopicChat(null)
+            setTopicValue("")
+          }}
+          onOk={handleTopicSubmit}
+          confirmLoading={topicLoading}
+          okButtonProps={{ disabled: topicLoading }}
+        >
+          <Input
+            autoFocus
+            value={topicValue}
+            onChange={(e) => setTopicValue(e.target.value)}
+            onPressEnter={handleTopicSubmit}
+            placeholder={t(
+              "playground:composer.topicPlaceholder",
+              "Topic label (optional)"
+            )}
+            disabled={topicLoading}
+          />
+        </Modal>
+      )}
+      {pinnedChats.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <div className="px-2 text-[11px] font-medium text-text-subtle uppercase tracking-wide">
+            {t("common:pinned", { defaultValue: "Pinned" })}
           </div>
-        </button>
-      ))}
+          {pinnedChats.map((chat) => (
+            <ServerChatRow
+              key={chat.id}
+              chat={chat}
+              isPinned={pinnedChatSet.has(chat.id)}
+              isActive={serverChatId === chat.id}
+              openMenuFor={openMenuFor}
+              setOpenMenuFor={setOpenMenuFor}
+              onSelectChat={selectServerChat}
+              onTogglePinned={togglePinned}
+              onOpenSettings={handleOpenSettings}
+              onRenameChat={handleRenameChat}
+              onEditTopic={handleEditTopic}
+              onDeleteChat={handleDeleteChat}
+              onUpdateState={handleUpdateState}
+              t={t}
+            />
+          ))}
+        </div>
+      )}
+      {unpinnedChats.length > 0 && (
+        <div className={cn("flex flex-col gap-2", pinnedChats.length > 0 && "mt-3")}>
+          {unpinnedChats.map((chat) => (
+            <ServerChatRow
+              key={chat.id}
+              chat={chat}
+              isPinned={pinnedChatSet.has(chat.id)}
+              isActive={serverChatId === chat.id}
+              openMenuFor={openMenuFor}
+              setOpenMenuFor={setOpenMenuFor}
+              onSelectChat={selectServerChat}
+              onTogglePinned={togglePinned}
+              onOpenSettings={handleOpenSettings}
+              onRenameChat={handleRenameChat}
+              onEditTopic={handleEditTopic}
+              onDeleteChat={handleDeleteChat}
+              onUpdateState={handleUpdateState}
+              t={t}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

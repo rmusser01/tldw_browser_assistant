@@ -65,16 +65,16 @@ export const StatusDot = () => {
   const renderStatusIcon = () => {
     if (isChecking) {
       return (
-        <Loader2 className="h-3.5 w-3.5 text-yellow-500 animate-spin" />
+        <Loader2 className="h-3.5 w-3.5 animate-spin text-warn" />
       )
     }
     if (isConnectedUx) {
       return (
-        <Check className="h-3.5 w-3.5 text-emerald-500" />
+        <Check className="h-3.5 w-3.5 text-success" />
       )
     }
     return (
-      <AlertCircle className="h-3.5 w-3.5 text-red-500" />
+      <AlertCircle className="h-3.5 w-3.5 text-danger" />
     )
   }
 
@@ -85,8 +85,9 @@ export const StatusDot = () => {
         data-testid="status-dot"
         onClick={handleClick}
         disabled={isChecking}
-        className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 disabled:cursor-default"
+        className="rounded-full p-1 hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-default"
         aria-label={tooltip}
+        title={tooltip}
       >
         {renderStatusIcon()}
       </button>

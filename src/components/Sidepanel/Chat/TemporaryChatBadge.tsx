@@ -33,14 +33,14 @@ export const TemporaryChatBadge: React.FC<TemporaryChatBadgeProps> = ({
           <p className="font-medium">
             {t("sidepanel:temporaryBadge.title", "Temporary Chat")}
           </p>
-          <p className="text-xs text-gray-300 mt-0.5">
+          <p className="mt-1 text-xs text-text-muted">
             {t(
               "sidepanel:temporaryBadge.description",
               "This chat won't be saved. Messages will be cleared when you close or start a new chat."
             )}
           </p>
           {onClick && (
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="mt-1 text-xs text-text-subtle">
               {t("sidepanel:temporaryBadge.clickHint", "Click to disable")}
             </p>
           )}
@@ -53,16 +53,20 @@ export const TemporaryChatBadge: React.FC<TemporaryChatBadgeProps> = ({
         onClick={onClick}
         disabled={!onClick}
         className={`
-          inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium
+          inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium
           bg-purple-100 text-purple-700 border border-purple-200
           dark:bg-purple-900/40 dark:text-purple-300 dark:border-purple-700
           hover:bg-purple-200 dark:hover:bg-purple-900/60
-          focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-1
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1
           disabled:cursor-default disabled:hover:bg-purple-100 dark:disabled:hover:bg-purple-900/40
           transition-colors
           ${className || ""}
         `}
         aria-label={t(
+          "sidepanel:temporaryBadge.ariaLabel",
+          "Temporary chat mode is active. Click to toggle."
+        )}
+        title={t(
           "sidepanel:temporaryBadge.ariaLabel",
           "Temporary chat mode is active. Click to toggle."
         )}
@@ -97,7 +101,7 @@ export const TemporaryChatIndicator: React.FC<{
     >
       <div
         className={`
-          inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs
+          inline-flex items-center gap-1 px-2 py-1 rounded text-xs
           bg-purple-100 text-purple-600
           dark:bg-purple-900/30 dark:text-purple-400
           ${className || ""}

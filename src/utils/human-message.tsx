@@ -1,11 +1,31 @@
 import { isCustomModel } from "@/db/dexie/models"
-import { HumanMessage, type MessageContent } from "@/types/messages"
+import {
+  HumanMessage,
+  type MessageContent,
+  type MessageContentPart
+} from "@/types/messages"
 
 type HumanMessageType = {
   content: MessageContent
   model: string
   useOCR: boolean
 }
+
+const getTextPart = (part?: MessageContentPart): string | null => {
+  if (!part || part.type !== "text") return null
+  return typeof part.text === "string" ? part.text : null
+}
+
+const getImageUrl = (part?: MessageContentPart): string | null => {
+  if (!part || part.type !== "image_url") return null
+  if (typeof part.image_url === "string") return part.image_url
+  return part.image_url?.url ?? null
+}
+
+const buildImageContent = (text: string, imageUrl: string): MessageContent => [
+  { type: "text", text },
+  { type: "image_url", image_url: { url: imageUrl } }
+]
 
 export const humanMessageFormatter = async ({
   content,
@@ -15,62 +35,49 @@ export const humanMessageFormatter = async ({
   const isCustom = isCustomModel(model)
 
   if (isCustom) {
-    if (typeof content !== "string") {
-      if (content.length > 1) {
-        if (useOCR) {
-          //@ts-ignore
-          const imageUrl = content[1].image_url
-          const ocrText = await processImageForOCR(imageUrl)
-          //@ts-ignore
-          const ocrPROMPT = `${content[0].text}
-          
+    if (Array.isArray(content)) {
+      const text = getTextPart(content[0])
+      const imageUrl = getImageUrl(content[1])
+
+      if (useOCR && text && imageUrl) {
+        const ocrText = await processImageForOCR(imageUrl)
+        const ocrPrompt = `${text}
+
 [IMAGE OCR TEXT]
 ${ocrText}`
-          return new HumanMessage({
-            content: ocrPROMPT
-          })
-        }
-
-        // this means that we need to reformat the image_url
-        const newContent: MessageContent = [
-          {
-            type: "text",
-            //@ts-ignore
-            text: content[0].text
-          },
-          {
-            type: "image_url",
-            image_url: {
-              //@ts-ignore
-              url: content[1].image_url
-            }
-          }
-        ]
-
         return new HumanMessage({
-          content: newContent
+          content: ocrPrompt
         })
-      } else {
+      }
+
+      if (text && imageUrl) {
         return new HumanMessage({
-          //@ts-ignore
-          content: content[0].text
+          content: buildImageContent(text, imageUrl)
+        })
+      }
+
+      if (text) {
+        return new HumanMessage({
+          content: text
         })
       }
     }
   }
 
   if (useOCR) {
-    if (typeof content !== "string" && content.length > 1) {
-      //@ts-ignore
-      const ocrText = await processImageForOCR(content[1].image_url)
-      //@ts-ignore
-      const ocrPROMPT = `${content[0].text}
+    if (Array.isArray(content)) {
+      const text = getTextPart(content[0])
+      const imageUrl = getImageUrl(content[1])
+      if (text && imageUrl) {
+        const ocrText = await processImageForOCR(imageUrl)
+        const ocrPrompt = `${text}
 
 [IMAGE OCR TEXT]
 ${ocrText}`
-      return new HumanMessage({
-        content: ocrPROMPT
-      })
+        return new HumanMessage({
+          content: ocrPrompt
+        })
+      }
     }
   }
 

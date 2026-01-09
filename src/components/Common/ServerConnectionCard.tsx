@@ -2,6 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Tag } from "antd"
 import { Clock, ExternalLink, Send, Server, Settings } from "lucide-react"
+import { browser } from "wxt/browser"
 
 import { cleanUrl } from "@/libs/clean-url"
 import {
@@ -14,9 +15,11 @@ import { ConnectionPhase } from "@/types/connection"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { focusComposer } from "@/hooks/useComposerFocus"
 import { getReturnTo, clearReturnTo } from "@/utils/return-to"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { useNavigate } from "react-router-dom"
 import { ServerOverviewHint } from "@/components/Common/ServerOverviewHint"
 import { useDemoMode } from "@/context/demo-mode"
+import type { TldwConfig } from "@/services/tldw/TldwApiClient"
 
 type Props = {
   onOpenSettings?: () => void
@@ -31,6 +34,16 @@ type ConnectionToastContentProps = {
   body: string
   onDismiss: () => void
   shouldAutoFocus?: () => boolean
+}
+
+type StoredTldwConfig = Partial<TldwConfig>
+
+const getStoredServerUrl = (value: unknown): string | null => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null
+  const { serverUrl } = value as StoredTldwConfig
+  if (typeof serverUrl !== "string") return null
+  const trimmed = serverUrl.trim()
+  return trimmed ? trimmed : null
 }
 
 const ConnectionToastContent: React.FC<ConnectionToastContentProps> = ({
@@ -71,7 +84,7 @@ const ConnectionToastContent: React.FC<ConnectionToastContentProps> = ({
       <button
         type="button"
         onClick={onDismiss}
-        className="mt-2 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
+        className="mt-2 text-xs text-primary hover:text-primaryStrong">
         {t("dismiss", { defaultValue: "Dismiss" })}
       </button>
     </div>
@@ -154,16 +167,16 @@ export const ServerConnectionCard: React.FC<Props> = ({
 
   React.useEffect(() => {
     let cancelled = false
-    try {
-      if (typeof chrome !== "undefined" && chrome?.storage?.local) {
-        chrome.storage.local.get("tldwConfig", (res) => {
-          const url = res?.tldwConfig?.serverUrl
-          if (url && !cancelled) setKnownServerUrl(url)
-        })
-      }
-    } catch {
-      // ignore storage read issues
-    }
+    const storage = createSafeStorage()
+    storage
+      .get<unknown>("tldwConfig")
+      .then((cfg) => {
+        const url = getStoredServerUrl(cfg)
+        if (url && !cancelled) setKnownServerUrl(url)
+      })
+      .catch(() => {
+        // ignore storage read issues
+      })
     return () => {
       cancelled = true
     }
@@ -387,13 +400,9 @@ export const ServerConnectionCard: React.FC<Props> = ({
   const openOnboarding = () => {
     // Open the options page on the onboarding (home) route.
     try {
-      // @ts-ignore
-      if (typeof browser !== "undefined" && browser.runtime?.getURL) {
-        // @ts-ignore
+      if (browser?.runtime?.getURL) {
         const url = browser.runtime.getURL("/options.html#/")
-        // @ts-ignore
         if (browser.tabs?.create) {
-          // @ts-ignore
           browser.tabs.create({ url })
         } else {
           window.open(url, "_blank")
@@ -405,16 +414,12 @@ export const ServerConnectionCard: React.FC<Props> = ({
     }
 
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.getURL) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.getURL) {
         const url = chrome.runtime.getURL("/options.html#/")
         window.open(url, "_blank")
         return
       }
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.openOptionsPage) {
         chrome.runtime.openOptionsPage()
         return
       }
@@ -474,13 +479,9 @@ export const ServerConnectionCard: React.FC<Props> = ({
     // Prefer opening the extension's options.html directly so users land on
     // the tldw settings page instead of the generic extensions manager.
     try {
-      // @ts-ignore
-      if (typeof browser !== "undefined" && browser.runtime?.getURL) {
-        // @ts-ignore
+      if (browser?.runtime?.getURL) {
         const url = browser.runtime.getURL("/options.html#/settings/tldw")
-        // @ts-ignore
         if (browser.tabs?.create) {
-          // @ts-ignore
           browser.tabs.create({ url })
         } else {
           window.open(url, "_blank")
@@ -492,16 +493,12 @@ export const ServerConnectionCard: React.FC<Props> = ({
     }
 
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.getURL) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.getURL) {
         const url = chrome.runtime.getURL("/options.html#/settings/tldw")
         window.open(url, "_blank")
         return
       }
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.openOptionsPage) {
         chrome.runtime.openOptionsPage()
         return
       }
@@ -593,21 +590,29 @@ export const ServerConnectionCard: React.FC<Props> = ({
       id="server-connection-card"
       tabIndex={-1}
       className={`mx-auto w-full ${
-        isCompact ? "mt-4 max-w-md px-3" : "mt-12 max-w-xl px-4"
+        isCompact ? "mt-4 max-w-md px-3" : "mt-10 max-w-2xl px-4"
       }`}>
       <div
-        className={`flex flex-col items-center rounded-xl border border-gray-200 bg-white text-center shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-100 ${
-          isCompact ? "gap-3 px-4 py-4" : "gap-4 px-6 py-8"
+        className={`flex flex-col items-center rounded-3xl border border-border/70 bg-surface/95 text-center shadow-lg shadow-black/5 text-text backdrop-blur ${
+          isCompact ? "gap-3 px-4 py-4" : "gap-5 px-8 py-8"
         }`}>
         <div
           className={`flex items-center gap-2 font-semibold ${
             isCompact ? "text-base" : "text-lg"
           }`}>
-          <Server className="h-5 w-5 text-blue-500" />
+          <span
+            className={`flex items-center justify-center rounded-2xl bg-primary/10 ${
+              isCompact ? "h-9 w-9" : "h-10 w-10"
+            }`}
+          >
+            <Server
+              className={`${isCompact ? "h-4 w-4" : "h-5 w-5"} text-primary`}
+            />
+          </span>
           <span>{headline}</span>
         </div>
 
-        <p className="text-sm text-gray-600 dark:text-gray-300 text-center">
+        <p className="text-sm text-text-muted text-center">
           {descriptionCopy}
         </p>
 
@@ -617,7 +622,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
 
         {!isCompact && statusVariant === "ok" && (
           <>
-            <ul className="mt-1 max-w-sm list-disc text-left text-xs text-gray-600 dark:text-gray-300">
+            <ul className="mt-1 max-w-sm list-disc text-left text-xs text-text-muted">
               <li>
                 {t(
                   "option:connectionCard.descriptionConnectedList.reviewMedia",
@@ -637,7 +642,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                 )}
               </li>
             </ul>
-            <p className="mt-1 max-w-sm text-xs text-gray-600 dark:text-gray-300">
+            <p className="mt-1 max-w-sm text-xs text-text-muted">
               {t(
                 "option:connectionCard.connectedCaption",
                 "Chat and tools are now available in Options and the sidepanel."
@@ -653,37 +658,37 @@ export const ServerConnectionCard: React.FC<Props> = ({
           aria-atomic="true"
         >
           {isSearching && (
-            <Tag color="blue" className="px-4 py-1 text-sm">
+            <Tag color="blue" className="rounded-full px-4 py-1 text-sm">
               {t("tldwState.searching")}
               {elapsed > 0 ? ` · ${elapsed}s` : ""}
             </Tag>
           )}
           {statusVariant === "ok" && mode === "demo" ? (
-            <Tag color="blue" className="px-4 py-1 text-sm">
+            <Tag color="blue" className="rounded-full px-4 py-1 text-sm">
               {t(
                 "option:connectionCard.demoModeBadge",
                 "Demo mode"
               )}
             </Tag>
           ) : statusVariant === "ok" && uxState === "connected_degraded" ? (
-            <Tag color="gold" className="px-4 py-1 text-sm">
+            <Tag color="gold" className="rounded-full px-4 py-1 text-sm">
               {t(
                 "option:connectionCard.degradedBadge",
                 "Connected · Knowledge limited"
               )}
             </Tag>
           ) : statusVariant === "ok" ? (
-            <Tag color="green" className="px-4 py-1 text-sm">
+            <Tag color="green" className="rounded-full px-4 py-1 text-sm">
               {t("tldwState.running")}
             </Tag>
           ) : null}
           {statusVariant === "missing" && (
-            <Tag color="orange" className="px-4 py-1 text-sm">
+            <Tag color="orange" className="rounded-full px-4 py-1 text-sm">
               {t("tldwState.missing", "Server URL not configured")}
             </Tag>
           )}
           {statusVariant === "error" && (
-            <Tag color="red" className="px-4 py-1 text-sm">
+            <Tag color="red" className="rounded-full px-4 py-1 text-sm">
               {(() => {
                 const code = Number(lastStatusCode)
                 const hasCode = Number.isFinite(code) && code > 0
@@ -702,7 +707,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
             </Tag>
           )}
           {offlineBypass && (
-            <Tag color="gold" className="px-4 py-1 text-xs">
+            <Tag color="gold" className="rounded-full px-4 py-1 text-xs">
               {t(
                 "option:connectionCard.offlineModeBadge",
                 "Offline mode — staging only"
@@ -711,7 +716,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
           )}
         </div>
 
-        <div className="flex flex-col items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col items-center gap-2 text-xs text-text-subtle">
           {isSearching && (
             <span className="inline-flex items-center gap-1">
               <Clock className="h-3 w-3" />
@@ -726,7 +731,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
           )}
           {secondsSinceLastCheck != null &&
             !(phase === ConnectionPhase.SEARCHING && isChecking) && (
-            <span className="inline-flex items-center gap-1 text-sm text-gray-600 dark:text-gray-300">
+            <span className="inline-flex items-center gap-1 text-sm text-text-muted">
               <Clock className="h-3.5 w-3.5" />
               {t("tldwState.lastChecked", "Checked {{seconds}}s ago", { seconds: secondsSinceLastCheck })}
             </span>
@@ -734,18 +739,18 @@ export const ServerConnectionCard: React.FC<Props> = ({
         </div>
 
         {statusVariant === "error" && lastError && (
-          <div className="flex flex-col items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex flex-col items-center gap-1 text-xs text-text-subtle">
             <button
               type="button"
               onClick={() => setShowErrorDetails((prev) => !prev)}
-              className="text-[11px] text-blue-600 hover:text-blue-500 dark:text-blue-400"
+              className="text-[11px] text-primary hover:text-primaryStrong"
             >
               {showErrorDetails
                 ? t("tldwState.hideDetails", "Hide details")
                 : t("tldwState.showDetails", "Show details")}
             </button>
             {showErrorDetails && (
-              <div className="mt-1 w-full max-w-md rounded-md bg-red-50 px-3 py-2 text-left text-[11px] text-red-700 dark:bg-red-900/30 dark:text-red-200">
+              <div className="mt-1 w-full max-w-md rounded-2xl bg-danger/10 px-3 py-3 text-left text-[11px] text-danger">
                 <div className="font-medium">
                   {t(
                     "tldwState.errorDetailsLabel",
@@ -784,21 +789,24 @@ export const ServerConnectionCard: React.FC<Props> = ({
             onClick={handlePrimary}
             loading={isSearching}
             disabled={statusVariant === "loading"}
-            block>
+            block
+            className="rounded-full h-11">
             {primaryLabel}
           </Button>
           {(statusVariant === "missing" || statusVariant === "loading") && (
             <Button
               icon={<ExternalLink className="h-4 w-4" />}
               onClick={handleOpenDiagnostics}
-              block>
+              block
+              className="rounded-full h-11">
               {diagnosticsLabel}
             </Button>
           )}
           {returnTo && (
             <Button
               onClick={handleReturn}
-              block>
+              block
+              className="rounded-full h-11">
               {t("option:connectionCard.backToWorkspace", {
                 defaultValue: "Back to workspace"
               })}
@@ -818,7 +826,8 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   // ignore connection store failures
                 }
               }}
-              block>
+              block
+              className="rounded-full h-11">
               {t("option:connectionCard.buttonTryDemo", "Try a demo")}
             </Button>
           )}
@@ -826,13 +835,14 @@ export const ServerConnectionCard: React.FC<Props> = ({
             type="link"
             icon={<Settings className="h-4 w-4" />}
             onClick={handleOpenSettings}
-            block>
+            block
+            className="rounded-full">
             {t("option:connectionCard.buttonChangeServer", "Change server")}
           </Button>
         </div>
 
         {isCompact && (statusVariant === "missing" || statusVariant === "error") && (
-          <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-[11px] text-text-subtle">
             {t(
               "option:connectionCard.sidepanelOpenSettingsHint",
               "Settings open in a new browser tab so you can configure your tldw server."
@@ -848,7 +858,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
               type="button"
               data-testid="toggle-advanced-troubleshooting"
               onClick={() => setShowAdvanced((prev) => !prev)}
-              className="mt-1 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400">
+              className="mt-1 rounded-full px-2 py-1 text-xs text-primary hover:bg-surface2 hover:text-primaryStrong">
               {showAdvanced
                 ? t(
                     "option:connectionCard.hideAdvanced",
@@ -860,7 +870,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   )}
             </button>
             {showAdvanced && (
-              <div className="flex w-full flex-col gap-2 text-xs text-gray-600 dark:text-gray-300">
+              <div className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-surface2/70 p-3 text-xs text-text-muted">
                 <div className="flex flex-wrap items-center gap-2">
                   <Button
                     size="small"
@@ -868,7 +878,8 @@ export const ServerConnectionCard: React.FC<Props> = ({
                       offlineBypass
                         ? handleDisableOfflineBypass
                         : handleOfflineBypass
-                    }>
+                    }
+                    className="rounded-full">
                     {offlineBypass
                       ? t(
                           "option:connectionCard.buttonDisableOffline",
@@ -879,7 +890,11 @@ export const ServerConnectionCard: React.FC<Props> = ({
                           "Continue offline"
                         )}
                   </Button>
-                  <Button size="small" onClick={handleOpenQuickIngestIntro}>
+                  <Button
+                    size="small"
+                    onClick={handleOpenQuickIngestIntro}
+                    className="rounded-full"
+                  >
                     {t(
                       "option:connectionCard.buttonOpenQuickIngestIntro",
                       "Open Quick Ingest intro"
@@ -888,7 +903,8 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   <Button
                     size="small"
                     data-testid="open-quick-ingest"
-                    onClick={handleOpenQuickIngest}>
+                    onClick={handleOpenQuickIngest}
+                    className="rounded-full">
                     {t(
                       "option:connectionCard.buttonOpenQuickIngest",
                       "Open Quick Ingest"
@@ -897,7 +913,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   <Button
                     size="small"
                     onClick={handleOpenHelpDocs}
-                    className="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200">
+                    className="rounded-full border-border text-text">
                     {t(
                       "option:connectionCard.buttonHelpDocs",
                       "Help docs"
@@ -906,21 +922,21 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   <Button
                     size="small"
                     onClick={handleOpenDiagnostics}
-                    className="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200">
+                    className="rounded-full border-border text-text">
                     {t(
                       "settings:healthSummary.diagnostics",
                       "Health & diagnostics"
                     )}
                   </Button>
                 </div>
-                <div className="text-[11px] text-gray-500 dark:text-gray-400">
+                <div className="text-[11px] text-text-subtle">
                   {t(
                     "option:connectionCard.quickIngestHelpInline",
                     "Tip: The ? icon reopens the Quick Ingest intro. You can stage items offline; they will process after you reconnect."
                   )}
                 </div>
                 {isSearching && serverHost ? (
-                  <div className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <div className="text-[11px] text-text-subtle">
                     {t(
                       "option:connectionCard.checkingWithConfig",
                       "Checking {{host}} with your saved API key…",
@@ -929,14 +945,14 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   </div>
                 ) : null}
                 {offlineHintVisible || offlineBypass ? (
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <span className="text-[11px] text-text-subtle">
                     {t(
                       "option:connectionCard.quickIngestHint",
                       "When your server is offline, Quick Ingest works as a staging area. You can queue URLs and files now and process them once you reconnect."
                     )}
                   </span>
                 ) : (
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <span className="text-[11px] text-text-subtle">
                     {t(
                       "option:connectionCard.quickIngestInlineHint",
                       "Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect."
@@ -952,7 +968,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
           <button
             type="button"
             onClick={handleOpenDiagnostics}
-            className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-500 dark:text-blue-400">
+            className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-primary hover:bg-surface2 hover:text-primaryStrong">
             <ExternalLink className="h-3 w-3" />
             {diagnosticsLabel}
           </button>

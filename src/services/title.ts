@@ -1,10 +1,13 @@
 import { pageAssistModel } from "@/models"
-import { Storage } from "@plasmohq/storage"
 import { HumanMessage } from "@/types/messages"
 import { removeReasoning } from "@/libs/reasoning"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { coerceBoolean, defineSetting, getSetting, setSetting } from "@/services/settings/registry"
 
-const storage = createSafeStorage()
+const TITLE_GEN_ENABLED_SETTING = defineSetting(
+    "titleGenEnabled",
+    false,
+    (value) => coerceBoolean(value, false)
+)
 
 // this prompt is copied from the OpenWebUI codebase
 export const DEFAULT_TITLE_GEN_PROMPT = `Here is the query:
@@ -32,12 +35,11 @@ Response:`
 
 
 export const isTitleGenEnabled = async () => {
-    const enabled = await storage.get<boolean | undefined>("titleGenEnabled")
-    return enabled ?? false
+    return await getSetting(TITLE_GEN_ENABLED_SETTING)
 }
 
 export const setTitleGenEnabled = async (enabled: boolean) => {
-    await storage.set("titleGenEnabled", enabled)
+    await setSetting(TITLE_GEN_ENABLED_SETTING, enabled)
 }
 
 
@@ -51,7 +53,9 @@ export const generateTitle = async (model: string, query: string, fallBackTitle:
 
     try {
         const titleModel = await pageAssistModel({
-            model
+            model,
+            toolChoice: "none",
+            saveToDb: false
         })
 
         const prompt = DEFAULT_TITLE_GEN_PROMPT.replace("{{query}}", query)

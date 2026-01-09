@@ -62,29 +62,24 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
       shortcut: shortcutConfig.modePlayground,
     },
     {
-      key: "media",
-      label: t("option:header.modeMedia", "Media"),
-      shortcut: shortcutConfig.modeMedia,
-    },
-    {
-      key: "mediaMulti",
-      label: t("option:header.libraryView", "Multi-Item Review"),
-      shortcut: undefined,
-    },
-    {
-      key: "knowledge",
-      label: t("option:header.modeKnowledge", "Knowledge QA"),
-      shortcut: shortcutConfig.modeKnowledge,
-    },
-    {
       key: "notes",
       label: t("option:header.modeNotes", "Notes"),
       shortcut: shortcutConfig.modeNotes,
     },
     {
+      key: "media",
+      label: t("option:header.modeMedia", "Media"),
+      shortcut: shortcutConfig.modeMedia,
+    },
+    {
       key: "flashcards",
       label: t("option:header.modeFlashcards", "Flashcards"),
       shortcut: shortcutConfig.modeFlashcards,
+    },
+    {
+      key: "quiz",
+      label: t("option:header.quiz", "Quizzes"),
+      shortcut: undefined,
     },
     {
       key: "prompts",
@@ -104,8 +99,13 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
     shortcut?: KeyboardShortcut
   }> = [
     {
-      key: "quiz",
-      label: t("option:header.quiz", "Quiz"),
+      key: "knowledge",
+      label: t("option:header.modeKnowledge", "Knowledge QA"),
+      shortcut: shortcutConfig.modeKnowledge,
+    },
+    {
+      key: "mediaMulti",
+      label: t("option:header.libraryView", "Multi-Item Review"),
       shortcut: undefined,
     },
     {
@@ -162,13 +162,13 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
             ? (t("option:header.modeShortcutHint", "{{shortcut}} to switch", {
                 shortcut: formatShortcut(mode.shortcut),
               }) as string) || undefined
-            : undefined
+            : mode.label
         }
         className={classNames(
-          "core-mode-button rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
+          "core-mode-button rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
           isSelected
-            ? "core-mode-button--active active bg-amber-500 text-gray-900 shadow-sm dark:bg-amber-400 dark:text-gray-900"
-            : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-[#262626] dark:text-gray-200 dark:hover:bg-[#333333]",
+            ? "core-mode-button--active active bg-primary text-white shadow-sm"
+            : "bg-surface2 text-text-muted hover:bg-surface",
           promptStudioUnavailable ? "opacity-60 cursor-not-allowed" : ""
         )}
         data-active={isSelected ? "true" : undefined}
@@ -180,7 +180,7 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
 
   return (
     <div className="flex flex-wrap items-center gap-2 text-xs">
-      <span className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+      <span className="font-semibold uppercase tracking-wide text-text-muted">
         {t("option:header.modesLabel", "Modes")}
       </span>
       <div
@@ -204,11 +204,12 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
           <button
             type="button"
             className={classNames(
-              "core-mode-button rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
-              "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-[#262626] dark:text-gray-200 dark:hover:bg-[#333333]"
+              "core-mode-button rounded-full px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+              "bg-surface2 text-text-muted hover:bg-surface"
             )}
+            title={t("option:header.moreTools", "More")}
           >
-            {t("option:header.moreTools", "More...")}
+            {t("option:header.moreTools", "More")}
           </button>
         </Dropdown>
       </div>

@@ -46,9 +46,9 @@ export class MarkdownErrorBoundary extends React.Component<
       return (
         <div
           role="alert"
-          className="flex items-start gap-2 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-200"
+          className="flex items-start gap-2 rounded-md border border-warn/30 bg-warn/10 p-3 text-sm text-text"
         >
-          <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true" />
+          <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-warn" aria-hidden="true" />
           <div className="min-w-0 flex-1">
             <p className="font-medium">
               {translateMessage(
@@ -57,7 +57,7 @@ export class MarkdownErrorBoundary extends React.Component<
                 "Unable to render content"
               )}
             </p>
-            <p className="mt-1 text-xs text-amber-700 dark:text-amber-300">
+            <p className="mt-1 text-xs text-text-muted">
               {translateMessage(
                 i18n.t,
                 "common:markdown.couldNotDisplay",
@@ -66,14 +66,14 @@ export class MarkdownErrorBoundary extends React.Component<
             </p>
             {this.props.fallbackText && (
               <details className="mt-2">
-                <summary className="cursor-pointer text-xs font-medium text-amber-700 hover:text-amber-800 dark:text-amber-300 dark:hover:text-amber-200">
+                <summary className="cursor-pointer text-xs font-medium text-warn hover:text-warn">
                   {translateMessage(
                     i18n.t,
                     "common:markdown.showRawContent",
                     "Show raw content"
                   )}
                 </summary>
-                <pre className="mt-1 max-h-32 overflow-auto whitespace-pre-wrap rounded bg-amber-100/50 p-2 text-xs dark:bg-amber-900/20">
+                <pre className="mt-1 max-h-32 overflow-auto whitespace-pre-wrap rounded bg-warn/10 p-2 text-xs text-text">
                   {this.props.fallbackText}
                 </pre>
               </details>

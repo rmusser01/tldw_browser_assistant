@@ -178,16 +178,16 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   // If host not installed, show setup prompt
   if (isHostInstalled === false) {
     return (
-      <div className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 ${className}`}>
-        <AlertCircle className="size-4 text-yellow-600 dark:text-yellow-400" />
-        <span className="text-sm text-yellow-700 dark:text-yellow-300">
+      <div className={`flex items-center gap-2 rounded-lg border border-warn/30 bg-warn/10 px-3 py-2 ${className}`}>
+        <AlertCircle className="size-4 text-warn" />
+        <span className="text-sm text-warn">
           {t("agentNotInstalled", "tldw-agent not installed")}
         </span>
         <a
           href="https://github.com/rmusser01/tldw_browser_assistant/blob/HEAD/docs/agent/user-guide.md#installation"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-blue-600 dark:text-blue-400 hover:underline ml-auto"
+          className="ml-auto text-sm text-primary hover:underline"
         >
           {t("setup", "Setup")}
         </a>
@@ -198,13 +198,13 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   // Loading state
   if (isHostInstalled === null) {
     return (
-      <div className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 ${className}`}>
+      <div className={`flex items-center gap-2 rounded-lg bg-surface2 px-3 py-2 ${className}`}>
         <div
-          className="size-4 border-2 border-gray-300 dark:border-gray-600 border-t-transparent rounded-full animate-spin"
+          className="size-4 rounded-full border-2 border-border-strong border-t-transparent animate-spin"
           role="status"
           aria-label={t("checkingAgent", "Checking agent...")}
         />
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-text-subtle">
           {t("checkingAgent", "Checking agent...")}
         </span>
       </div>
@@ -236,7 +236,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
       key: "recent-header",
       type: "group" as const,
       label: (
-        <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <div className="flex items-center gap-1.5 text-xs text-text-subtle uppercase tracking-wider">
           <Clock className="size-3" />
           {t("recent", "Recent")}
         </div>
@@ -250,12 +250,12 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
             <div className="flex items-center justify-between gap-3 py-1">
               <div className="flex flex-col min-w-0">
                 <span className="font-medium truncate">{ws.name}</span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-text-subtle">
                   {formatRelativeTime(recent.lastUsedAt)}
                 </span>
               </div>
               {ws.id === selectedId && (
-                <Check className="size-4 text-green-500 flex-shrink-0" />
+                <Check className="size-4 flex-shrink-0 text-success" />
               )}
             </div>
           ),
@@ -272,7 +272,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
     key: "all-header",
     type: "group" as const,
     label: (
-      <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+      <span className="text-xs text-text-subtle uppercase tracking-wider">
         {t("allWorkspaces", "All Workspaces")}
       </span>
     ),
@@ -282,20 +282,20 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
         <div className="flex items-center justify-between gap-3 py-1">
           <div className="flex flex-col min-w-0">
             <span className="font-medium truncate">{ws.name}</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+            <span className="text-xs text-text-subtle truncate">
               {ws.path}
             </span>
           </div>
           <div className="flex items-center gap-1">
             {ws.id === selectedId && (
-              <Check className="size-4 text-green-500" />
+              <Check className="size-4 text-success" />
             )}
             <button
               onClick={(e) => handleRemove(ws.id, e)}
-              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+              className="rounded p-1 hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
               aria-label={t("removeWorkspace", "Remove workspace")}
             >
-              <Trash2 className="size-3 text-gray-400 hover:text-red-500" />
+              <Trash2 className="size-3 text-text-subtle hover:text-danger" />
             </button>
           </div>
         </div>
@@ -310,7 +310,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
   menuItems.push({
     key: "add",
     label: (
-      <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+      <div className="flex items-center gap-2 text-primary">
         <Plus className="size-4" />
         <span>{t("addWorkspace", "Add Workspace")}</span>
       </div>
@@ -326,7 +326,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
         placement="bottomLeft"
       >
         <button
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 ${className} ${isSelecting ? "opacity-70 cursor-wait" : ""}`}
+          className={`flex items-center gap-2 rounded-lg bg-surface2 px-3 py-2 transition-colors hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 ${className} ${isSelecting ? "opacity-70 cursor-wait" : ""}`}
           aria-label={selectedWorkspace?.name || t("selectWorkspace", "Select Workspace")}
           aria-haspopup="listbox"
           aria-busy={isSelecting}
@@ -334,19 +334,19 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
         >
           {isSelecting ? (
             <div
-              className="size-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"
+              className="size-4 rounded-full border-2 border-border-strong border-t-transparent animate-spin"
               role="status"
               aria-label={t("selectingWorkspace", "Selecting workspace...")}
             />
           ) : (
-            <FolderOpen className="size-4 text-gray-500 dark:text-gray-400" />
+            <FolderOpen className="size-4 text-text-subtle" />
           )}
           <span className="text-sm font-medium truncate max-w-[200px]">
             {isSelecting
               ? t("selectingWorkspace", "Selecting...")
               : selectedWorkspace?.name || t("selectWorkspace", "Select Workspace")}
           </span>
-          <ChevronDown className="size-4 text-gray-400" />
+          <ChevronDown className="size-4 text-text-subtle" />
         </button>
       </Dropdown>
 
@@ -374,7 +374,7 @@ export const WorkspaceSelector: FC<WorkspaceSelectorProps> = ({
               onChange={(e) => setNewPath(e.target.value)}
               onPressEnter={handleAddWorkspace}
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="mt-1 text-xs text-text-subtle">
               {t("workspacePathHelp", "Enter the full path to your project directory")}
             </p>
           </div>

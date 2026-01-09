@@ -1,0 +1,290 @@
+{
+  "addBtn": {
+    "message": "Add New Knowledge"
+  },
+  "columns_title": {
+    "message": "Title"
+  },
+  "columns_status": {
+    "message": "Status"
+  },
+  "columns_embeddings": {
+    "message": "Embedding Model"
+  },
+  "columns_createdAt": {
+    "message": "Created At"
+  },
+  "columns_action": {
+    "message": "Actions"
+  },
+  "expandedColumns_name": {
+    "message": "Name"
+  },
+  "confirm_delete": {
+    "message": "Are you sure you want to delete this knowledge?"
+  },
+  "deleteSuccess": {
+    "message": "Knowledge deleted successfully"
+  },
+  "status_pending": {
+    "message": "Pending"
+  },
+  "status_finished": {
+    "message": "Finished"
+  },
+  "status_processing": {
+    "message": "Processing"
+  },
+  "status_failed": {
+    "message": "Failed"
+  },
+  "addKnowledge": {
+    "message": "Add Knowledge"
+  },
+  "updateKnowledge": {
+    "message": "Update Knowledge"
+  },
+  "form_title_label": {
+    "message": "Knowledge Title"
+  },
+  "form_title_placeholder": {
+    "message": "Enter knowledge title"
+  },
+  "form_title_required": {
+    "message": "Knowledge title is required"
+  },
+  "form_uploadFile_label": {
+    "message": "Upload File"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Drag and drop a file here or click to upload"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Supported file types: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "File is required"
+  },
+  "form_submit": {
+    "message": "Submit"
+  },
+  "form_success": {
+    "message": "Knowledge added successfully"
+  },
+  "noEmbeddingModel": {
+    "message": "Please add an embedding model from the RAG settings page first"
+  },
+  "privateModeDescription": {
+    "message": "Firefox Private Mode does not support saving data to IndexedDB. Please add knowledge base from a normal window."
+  },
+  "ragWorkspace_title": {
+    "message": "Knowledge search & chat"
+  },
+  "ragWorkspace_description": {
+    "message": "Configure knowledge search (RAG) options, run quick searches, and use Chat with grounded answers."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "Retrieval-augmented generation (RAG) lets the assistant ground answers in your media, notes, and other indexed knowledge sources."
+  },
+  "ragWorkspace_autoRagLabel": {
+    "message": "Use RAG for every reply"
+  },
+  "ragWorkspace_autoRagHelp": {
+    "message": "When enabled, the Chat workspace will run a knowledge (RAG) search before answering each message."
+  },
+  "ragWorkspace_autoRagScopeHelp": {
+    "message": "This setting applies to replies in the main Chat view and sidepanel."
+  },
+  "ragWorkspace_docsPerReply_label": {
+    "message": "Documents per reply (top-k)"
+  },
+  "ragWorkspace_docsPerReply_current": {
+    "message": "{{count}} docs per answer"
+  },
+  "ragWorkspace_scopeMediaOnly": {
+    "message": "RAG scope: This media only"
+  },
+  "ragWorkspace_scopeDefault": {
+    "message": "RAG scope: Default server configuration"
+  },
+  "ragWorkspace_openChatCta": {
+    "message": "Open Chat with RAG"
+  },
+  "ragWorkspace_openRagSettings": {
+    "message": "RAG settings"
+  },
+  "ragWorkspace_ragUnsupportedTitle": {
+    "message": "RAG search is not available on this server"
+  },
+  "ragWorkspace_ragUnsupportedDescription": {
+    "message": "This tldw server does not advertise the RAG endpoints. Open Diagnostics to see which APIs are available, then upgrade or reconfigure your server to enable RAG search."
+  },
+  "ragWorkspace_searchTitle": {
+    "message": "Quick knowledge search"
+  },
+  "ragWorkspace_searchPlaceholder": {
+    "message": "Search across configured RAG sources"
+  },
+  "ragWorkspace_searchButton": {
+    "message": "Search"
+  },
+  "ragWorkspace_searchInactiveHelp": {
+    "message": "Connect to your tldw server before running a search."
+  },
+  "ragWorkspace_searchActiveHelp": {
+    "message": "Search runs against your configured RAG sources. Use Chat for multi-source knowledge search across media, notes, and more."
+  },
+  "ragWorkspace_searchErrorTitle": {
+    "message": "RAG search failed"
+  },
+  "ragWorkspace_noResults": {
+    "message": "No RAG results yet. Enter a query to search your corpus."
+  },
+  "ragWorkspace_answerTitle": {
+    "message": "RAG answer"
+  },
+  "ragWorkspace_citationsTitle": {
+    "message": "Citations"
+  },
+  "ragWorkspace_untitled": {
+    "message": "Untitled snippet"
+  },
+  "ragWorkspace_copySnippet": {
+    "message": "Copy snippet"
+  },
+  "ragWorkspace_openSource": {
+    "message": "Open source"
+  },
+  "ragWorkspace_optionsLabel": {
+    "message": "RAG options"
+  },
+  "ragWorkspace_searchModeLabel": {
+    "message": "Search mode"
+  },
+  "ragWorkspace_searchModeHybrid": {
+    "message": "Hybrid"
+  },
+  "ragWorkspace_searchModeVector": {
+    "message": "Vector"
+  },
+  "ragWorkspace_searchModeFts": {
+    "message": "Full-text"
+  },
+  "ragWorkspace_topKLabel": {
+    "message": "Top-k"
+  },
+  "ragWorkspace_enableGeneration": {
+    "message": "Enable answer generation"
+  },
+  "ragWorkspace_enableCitations": {
+    "message": "Enable citations"
+  },
+  "ragWorkspace_sourcesLabel": {
+    "message": "Sources"
+  },
+  "ragWorkspace_sourceMedia": {
+    "message": "Media"
+  },
+  "ragWorkspace_sourceNotes": {
+    "message": "Notes"
+  },
+  "ragWorkspace_sourceCharacters": {
+    "message": "Characters"
+  },
+  "ragWorkspace_sourceChats": {
+    "message": "Chats"
+  },
+  "ragWorkspace_resetOptions": {
+    "message": "Reset to defaults"
+  },
+  "ragWorkspace_advancedLabel": {
+    "message": "Advanced RAG options (JSON)"
+  },
+  "ragWorkspace_advancedHelp": {
+    "message": "Optional: paste a JSON object with any UnifiedRAGRequest fields (e.g., strategy, enable_reranking). Leave blank to use defaults."
+  },
+  "ragWorkspace_advancedPlaceholder": {
+    "message": "{ \"strategy\": \"agentic\", \"enable_reranking\": true }"
+  },
+  "ragWorkspace_advancedApplied": {
+    "message": "Advanced RAG options applied."
+  },
+  "ragWorkspace_advancedCleared": {
+    "message": "Advanced RAG options cleared."
+  },
+  "ragWorkspace_advancedInvalid": {
+    "message": "Invalid JSON for advanced RAG options."
+  },
+  "ragWorkspace_advancedApply": {
+    "message": "Apply overrides"
+  },
+  "ragWorkspace_advancedReset": {
+    "message": "Clear"
+  },
+  "ragWorkspace_advancedFlagsLabel": {
+    "message": "Advanced options"
+  },
+  "ragWorkspace_advancedFlagsHelp": {
+    "message": "Tweak common UnifiedRAGRequest flags without editing JSON."
+  },
+  "ragWorkspace_strategyLabel": {
+    "message": "Strategy"
+  },
+  "ragWorkspace_strategyPlaceholder": {
+    "message": "Server default"
+  },
+  "ragWorkspace_strategyStandard": {
+    "message": "Standard"
+  },
+  "ragWorkspace_strategyAgentic": {
+    "message": "Agentic"
+  },
+  "ragWorkspace_enableReranking": {
+    "message": "Enable reranking"
+  },
+  "ragWorkspace_enableCache": {
+    "message": "Enable cache"
+  },
+  "ragWorkspace_chatTitle": {
+    "message": "Knowledge QA chat"
+  },
+  "ragWorkspace_chatModeRagOn": {
+    "message": "Chat is using knowledge search (RAG) for replies."
+  },
+  "ragWorkspace_chatModeRagOff": {
+    "message": "Toggle “Use RAG for every reply” to ground answers in your indexed content."
+  },
+  "ragWorkspace_chatHint": {
+    "message": "Open the main Chat tab to see full conversation history with these knowledge (RAG) settings applied."
+  },
+  "ragWorkspace_chatOpenPlayground": {
+    "message": "Open Chat with these knowledge search settings"
+  },
+  "rag_searchFailed": {
+    "message": "RAG search failed. Try again or check Diagnostics."
+  },
+  "empty_demoTitle": {
+    "message": "Explore Knowledge QA in demo mode"
+  },
+  "empty_demoDescription": {
+    "message": "This demo shows how Knowledge QA can run RAG searches over sample content. Connect your own server later to search your own transcripts and documents."
+  },
+  "empty_demoExample1": {
+    "message": "Try quick RAG searches and inspect results and citations."
+  },
+  "empty_demoExample2": {
+    "message": "Connect your own server to enable Knowledge QA over your real media and notes."
+  },
+  "empty_connectTitle": {
+    "message": "Connect to use Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "To use Knowledge QA and RAG search, first connect to your tldw server."
+  },
+  "empty_connectExample1": {
+    "message": "Open Settings → tldw server to add your server URL."
+  },
+  "empty_connectExample2": {
+    "message": "Use Diagnostics if your server is running but not reachable."
+  }
+}

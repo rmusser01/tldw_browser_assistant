@@ -3,8 +3,11 @@ import { PlaygroundMessage } from "~/components/Common/Playground/Message"
 import { useMessage } from "~/hooks/useMessage"
 import { EmptySidePanel } from "../Chat/empty"
 import { useWebUI } from "@/store/webui"
-import { MessageSourcePopup } from "@/components/Common/Playground/MessageSourcePopup"
+import { useUiModeStore } from "@/store/ui-mode"
 import { useVirtualizer } from "@tanstack/react-virtual"
+import { useStorage } from "@plasmohq/storage/hook"
+import { applyVariantToMessage } from "@/utils/message-variants"
+import { generateID } from "@/db/dexie/helpers"
 
 type Props = {
   scrollParentRef?: React.RefObject<HTMLDivElement>
@@ -18,21 +21,75 @@ export const SidePanelBody = ({
 }: Props & { inputRef?: React.RefObject<HTMLTextAreaElement> }) => {
   const {
     messages,
+    setMessages,
     streaming,
     isProcessing,
     regenerateLastMessage,
     editMessage,
+    deleteMessage,
     isSearchingInternet,
     createChatBranch,
+    historyId,
     temporaryChat,
     stopStreamingRequest,
     serverChatId,
     isEmbedding
   } = useMessage()
-  const [isSourceOpen, setIsSourceOpen] = React.useState(false)
-  const [source, setSource] = React.useState<any>(null)
   const { ttsEnabled } = useWebUI()
+  const [openReasoning] = useStorage("openReasoning", false)
+  const uiMode = useUiModeStore((state) => state.mode)
   const scrollAnchorRef = React.useRef<number | null>(null)
+  const topPaddingClass = "pt-12"
+  const stableHistoryId =
+    temporaryChat || historyId === "temp" ? null : historyId
+  const [conversationInstanceId, setConversationInstanceId] = React.useState(
+    () => generateID()
+  )
+  const previousMessageCount = React.useRef(messages.length)
+
+  React.useEffect(() => {
+    const hasStableId = Boolean(serverChatId || stableHistoryId)
+    if (
+      !hasStableId &&
+      messages.length === 0 &&
+      previousMessageCount.current > 0
+    ) {
+      setConversationInstanceId(generateID())
+    }
+    previousMessageCount.current = messages.length
+  }, [messages.length, serverChatId, stableHistoryId])
+
+  const handleVariantSwipe = React.useCallback(
+    (messageId: string | undefined, direction: "prev" | "next") => {
+      if (!messageId) return
+      setMessages((prev) =>
+        prev.map((msg) => {
+          if (msg.id !== messageId) return msg
+          const variants = msg.variants ?? []
+          if (variants.length < 2) return msg
+          const currentIndex =
+            typeof msg.activeVariantIndex === "number"
+              ? msg.activeVariantIndex
+              : variants.length - 1
+          const nextIndex =
+            direction === "prev" ? currentIndex - 1 : currentIndex + 1
+          if (nextIndex < 0 || nextIndex >= variants.length) return msg
+          return applyVariantToMessage(msg, variants[nextIndex], nextIndex)
+        })
+      )
+    },
+    [setMessages]
+  )
+
+  const getPreviousUserMessage = (index: number) => {
+    for (let i = index - 1; i >= 0; i--) {
+      const candidate = messages[i]
+      if (!candidate?.isBot) {
+        return candidate
+      }
+    }
+    return null
+  }
 
   const parentEl = scrollParentRef?.current || null
   const rowVirtualizer = useVirtualizer({
@@ -74,12 +131,15 @@ export const SidePanelBody = ({
 
   return (
     <>
-      <div className="relative flex w-full flex-col items-center pt-24 pb-4">
+      <div
+        className={`relative flex w-full flex-col items-center ${topPaddingClass} pb-4`}
+      >
         {messages.length === 0 && <EmptySidePanel inputRef={inputRef} />}
         <div style={{ height: rowVirtualizer.getTotalSize(), width: '100%', position: 'relative' }}>
           {rowVirtualizer.getVirtualItems().map((vr) => {
             const index = vr.index
             const message = messages[index]
+            const previousUserMessage = getPreviousUserMessage(index)
             return (
               <div key={vr.key} ref={rowVirtualizer.measureElement} data-index={index} style={{ position: 'absolute', top: 0, left: 0, transform: `translateY(${vr.start}px)`, width: '100%' }}>
                 <PlaygroundMessage
@@ -95,20 +155,30 @@ export const SidePanelBody = ({
                   isSearchingInternet={isSearchingInternet}
                   sources={message.sources}
                   onEditFormSubmit={(value) => { editMessage(index, value, !message.isBot) }}
+                  onDeleteMessage={() => { deleteMessage(index) }}
                   onNewBranch={() => { createChatBranch(index) }}
-                  onSourceClick={(data) => { setSource(data); setIsSourceOpen(true) }}
                   isTTSEnabled={ttsEnabled}
                   generationInfo={message?.generationInfo}
                   isStreaming={streaming}
                   reasoningTimeTaken={message?.reasoning_time_taken}
+                  openReasoning={openReasoning}
                   modelImage={message?.modelImage}
                   modelName={message?.modelName}
+                  createdAt={message?.createdAt}
                   temporaryChat={temporaryChat}
                   onStopStreaming={stopStreamingRequest}
                   serverChatId={serverChatId}
                   serverMessageId={message.serverMessageId}
+                  messageId={message.id}
+                  historyId={stableHistoryId ?? undefined}
+                  conversationInstanceId={conversationInstanceId}
+                  feedbackQuery={previousUserMessage?.message ?? null}
                   searchQuery={searchQuery}
                   isEmbedding={isEmbedding}
+                  variants={message.variants}
+                  activeVariantIndex={message.activeVariantIndex}
+                  onSwipePrev={() => handleVariantSwipe(message.id, "prev")}
+                  onSwipeNext={() => handleVariantSwipe(message.id, "next")}
                 />
               </div>
             )
@@ -116,11 +186,6 @@ export const SidePanelBody = ({
         </div>
       </div>
 
-      <MessageSourcePopup
-        open={isSourceOpen}
-        setOpen={setIsSourceOpen}
-        source={source}
-      />
     </>
   )
 }

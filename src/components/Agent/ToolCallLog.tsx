@@ -78,15 +78,15 @@ const TOOL_LABEL_FALLBACKS: Record<string, string> = {
 
 // Status info with colors and accessible labels
 const STATUS_INFO: Record<ToolCallEntry["status"], { color: string; label: string }> = {
-  pending: { color: "text-gray-400", label: "Pending" },
-  running: { color: "text-blue-500", label: "Running" },
-  complete: { color: "text-green-500", label: "Complete" },
-  error: { color: "text-red-500", label: "Error" }
+  pending: { color: "text-text-subtle", label: "Pending" },
+  running: { color: "text-primary", label: "Running" },
+  complete: { color: "text-success", label: "Complete" },
+  error: { color: "text-danger", label: "Error" }
 }
 
 // Get status color
 const getStatusColor = (status: ToolCallEntry["status"]): string => {
-  return STATUS_INFO[status]?.color ?? "text-gray-400"
+  return STATUS_INFO[status]?.color ?? "text-text-subtle"
 }
 
 // Get accessible status label
@@ -116,13 +116,13 @@ const StatusIcon: FC<{ status: ToolCallEntry["status"]; className?: string }> = 
 }) => {
   switch (status) {
     case "pending":
-      return <div className={`${className} rounded-full border-2 border-gray-300 dark:border-gray-600`} />
+      return <div className={`${className} rounded-full border-2 border-border-strong`} />
     case "running":
-      return <Loader2 className={`${className} animate-spin text-blue-500`} />
+      return <Loader2 className={`${className} animate-spin text-primary`} />
     case "complete":
-      return <Check className={`${className} text-green-500`} />
+      return <Check className={`${className} text-success`} />
     case "error":
-      return <X className={`${className} text-red-500`} />
+      return <X className={`${className} text-danger`} />
     default:
       return null
   }
@@ -324,7 +324,7 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
 
   if (entries.length === 0) {
     return (
-      <div className={`flex items-center justify-center h-32 text-gray-400 dark:text-gray-500 ${className}`}>
+      <div className={`flex h-32 items-center justify-center text-text-subtle ${className}`}>
         <span className="text-sm">{t("noToolCalls", "No tool calls yet")}</span>
       </div>
     )
@@ -344,20 +344,20 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
         return (
           <div
             key={entry.id}
-            className="rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
+            className="rounded-lg border border-border bg-surface2"
           >
             <button
               onClick={() => onToggleExpand?.(entry.id)}
               aria-expanded={onToggleExpand ? isExpanded : undefined}
               aria-label={`${getToolDisplayName(entry.toolCall.function.name)} - ${getStatusLabel(entry.status, t)}`}
               disabled={!onToggleExpand}
-              className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              className="w-full rounded-lg px-3 py-2 text-left transition-colors hover:bg-surface"
             >
               {/* Expand/collapse toggle */}
               {onToggleExpand && (
                 isExpanded
-                  ? <ChevronDown className="size-4 text-gray-400" />
-                  : <ChevronRight className="size-4 text-gray-400" />
+                  ? <ChevronDown className="size-4 text-text-subtle" />
+                  : <ChevronRight className="size-4 text-text-subtle" />
               )}
 
               {/* Status indicator with accessible label */}
@@ -378,21 +378,21 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
 
               {/* Arguments preview */}
               {argsPreview && (
-                <span className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[150px] md:max-w-[200px] lg:max-w-[300px]">
+                <span className="max-w-[150px] truncate text-xs text-text-subtle md:max-w-[200px] lg:max-w-[300px]">
                   {argsPreview}
                 </span>
               )}
 
               {/* Result preview */}
               {entry.status === "complete" && resultPreview && (
-                <span className="ml-auto text-xs text-gray-500 dark:text-gray-400">
+                <span className="ml-auto text-xs text-text-subtle">
                   {resultPreview}
                 </span>
               )}
 
               {/* Error indicator */}
               {entry.status === "error" && entry.error && (
-                <span className="ml-auto text-xs text-red-500 truncate max-w-[150px] md:max-w-[200px] lg:max-w-[300px]">
+                <span className="ml-auto max-w-[150px] truncate text-xs text-danger md:max-w-[200px] lg:max-w-[300px]">
                   {entry.error}
                 </span>
               )}
@@ -400,13 +400,13 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
 
             {/* Expanded details */}
             {isExpanded && (
-              <div className="px-3 pb-3 pt-1 border-t border-gray-200 dark:border-gray-700">
+              <div className="border-t border-border px-3 pb-3 pt-1">
                 {/* Arguments */}
                 <div className="mb-2">
-                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                  <span className="text-xs font-medium text-text-subtle">
                     {t("arguments", "Arguments")}:
                   </span>
-                  <pre className="mt-1 p-2 text-xs bg-gray-100 dark:bg-gray-900 rounded overflow-x-auto">
+                  <pre className="mt-1 overflow-x-auto rounded bg-surface p-2 text-xs text-text">
                     {formatFullArgs(
                       entry.toolCall.function.arguments,
                       t("invalidJson", "Invalid JSON; showing raw value")
@@ -417,10 +417,10 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
                 {/* Result */}
                 {entry.result && (
                   <div>
-                    <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                    <span className="text-xs font-medium text-text-subtle">
                       {t("result", "Result")}:
                     </span>
-                    <pre className="mt-1 p-2 text-xs bg-gray-100 dark:bg-gray-900 rounded overflow-x-auto max-h-48">
+                    <pre className="mt-1 max-h-48 overflow-x-auto rounded bg-surface p-2 text-xs text-text">
                       {formatFullResult(entry.result)}
                     </pre>
                   </div>
@@ -429,10 +429,10 @@ export const ToolCallLog: FC<ToolCallLogProps> = ({
                 {/* Error details */}
                 {entry.error && (
                   <div>
-                    <span className="text-xs font-medium text-red-500">
+                    <span className="text-xs font-medium text-danger">
                       {t("error.label", "Error")}:
                     </span>
-                    <pre className="mt-1 p-2 text-xs bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded">
+                    <pre className="mt-1 rounded bg-danger/10 p-2 text-xs text-danger">
                       {entry.error}
                     </pre>
                   </div>

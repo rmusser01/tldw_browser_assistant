@@ -1,0 +1,1784 @@
+{
+  "newChat": {
+    "message": "محادثة جديدة"
+  },
+  "selectAPrompt": {
+    "message": "اختر موجهاً"
+  },
+  "githubRepository": {
+    "message": "مستودع GitHub"
+  },
+  "settings": {
+    "message": "الإعدادات"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "قم بتوصيل مساعد tldw بخادمك"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "جارٍ البحث عن خادم tldw الخاص بك…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "تم الاتصال بخادم tldw الخاص بك"
+  },
+  "connectionCard_headlineError": {
+    "message": "يتعذر الوصول إلى خادم tldw الخاص بك"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "‏tldw_server هو الخلفية التي تدعم الدردشة، والبحث في المعرفة، ومعالجة الوسائط. قم بتوصيل عنوان URL لخادم tldw الخاص بك لبدء استخدام المساعد."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "نقوم بفحص {{host}} لمعرفة ما إذا كان خادم tldw الخاص بك قابلاً للوصول. قد يستغرق هذا لحظة بينما ننتظر الاستجابة."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "تم الاتصال بخادم tldw الخاص بك على {{host}}. يمكنك بدء الدردشة أو استخدام المراجعة، والمعرفة، وغيرها من الأدوات."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "مراجعة الوسائط والنصوص"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "البحث في قاعدة المعرفة والملاحظات"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "استخدام RAG مع مستنداتك الخاصة"
+  },
+  "connectionCard_descriptionError": {
+    "message": "تعذّر الوصول إلى خادم tldw الخاص بك على {{host}}. تأكد من تشغيل الخادم، وصحة عنوان URL، وأن متصفحك يمكنه الوصول إليه عبر الشبكة."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "بدء الدردشة"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "إعادة محاولة الاتصال"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "تغيير الخادم"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "فتح صفحة التشخيص"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "عرض التشخيص"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "افتح الاستيعاب السريع"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "تجربة العرض التوضيحي"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "المتابعة دون اتصال"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "تعطيل وضع عدم الاتصال"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "وضع عدم الاتصال — للتجهيز فقط"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "الانتقال إلى بطاقة الخادم"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "نصيحة: هل تحتاج إلى مساعدة في الاستيعاب أثناء عدم الاتصال؟"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "عندما يكون الخادم غير متصل، يعمل الاستيعاب السريع كمنطقة تجهيز. يمكنك وضع عناوين URL والملفات في الطابور الآن ومعالجتها بعد إعادة الاتصال."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "العودة إلى مساحة العمل"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "تُفتح الإعدادات في علامة تبويب جديدة بالمتصفح لتكوين خادم tldw الخاص بك."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "يمكن للاستيعاب السريع وضع عناوين URL والملفات في الطابور أثناء عدم اتصال الخادم حتى تعالجها عند إعادة الاتصال."
+  },
+  "header_showShortcuts": {
+    "message": "إظهار الاختصارات"
+  },
+  "header_hideShortcuts": {
+    "message": "إخفاء الاختصارات"
+  },
+  "header_groupWorkspace": {
+    "message": "مساحة العمل"
+  },
+  "header_groupKnowledge": {
+    "message": "المعرفة"
+  },
+  "header_groupAdministration": {
+    "message": "الإدارة"
+  },
+  "header_groupSettings": {
+    "message": "اختصارات الإعدادات"
+  },
+  "header_backToHome": {
+    "message": "العودة إلى الصفحة الرئيسية"
+  },
+  "header_openSidebar": {
+    "message": "فتح الشريط الجانبي"
+  },
+  "header_untitledChat": {
+    "message": "محادثة بدون عنوان"
+  },
+  "header_modelLabel": {
+    "message": "النموذج"
+  },
+  "header_contentReview": {
+    "message": "مراجعة المحتوى"
+  },
+  "header_promptLabel": {
+    "message": "الموجّه"
+  },
+  "header_review": {
+    "message": "مراجعة"
+  },
+  "header_flashcards": {
+    "message": "بطاقات تعليمية"
+  },
+  "header_quiz": {
+    "message": "اختبارات"
+  },
+  "header_media": {
+    "message": "وسائط"
+  },
+  "header_libraryView": {
+    "message": "مراجعة متعددة العناصر"
+  },
+  "header_notes": {
+    "message": "ملاحظات"
+  },
+  "header_modesLabel": {
+    "message": "الأوضاع"
+  },
+  "header_modePlayground": {
+    "message": "دردشة"
+  },
+  "header_modeReview": {
+    "message": "مراجعة"
+  },
+  "header_modeMedia": {
+    "message": "وسائط"
+  },
+  "header_modeKnowledge": {
+    "message": "أسئلة وأجوبة المعرفة"
+  },
+  "header_modeNotes": {
+    "message": "ملاحظات"
+  },
+  "header_modePrompts": {
+    "message": "موجّهات"
+  },
+  "header_modePromptsPlayground": {
+    "message": "موجّهات"
+  },
+  "header_modeStt": {
+    "message": "ساحة لعب STT"
+  },
+  "header_modePromptStudio": {
+    "message": "استوديو الموجّهات"
+  },
+  "header_modeFlashcards": {
+    "message": "بطاقات تعليمية"
+  },
+  "header_modeWorldBooks": {
+    "message": "كتب العوالم"
+  },
+  "header_modeDictionaries": {
+    "message": "قواميس الدردشة"
+  },
+  "header_modeCharacters": {
+    "message": "الشخصيات"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} للتبديل"
+  },
+  "header_quickIngest": {
+    "message": "إدخال سريع"
+  },
+  "header_modelSettings": {
+    "message": "إعدادات النموذج"
+  },
+  "header_serverSettings": {
+    "message": "إعدادات الخادم"
+  },
+  "header_more": {
+    "message": "أدوات الذكاء الاصطناعي"
+  },
+  "header_moreMenu_title": {
+    "message": "أدوات متقدمة"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "أدوات متقدمة مثل الشريط الجانبي، والمستودع، وخيارات التصحيح"
+  },
+  "header_moreActions": {
+    "message": "إجراءات أخرى"
+  },
+  "header_adminServer": {
+    "message": "إدارة الخادم"
+  },
+  "header_adminLlamacpp": {
+    "message": "إدارة Llama.cpp"
+  },
+  "header_adminMlx": {
+    "message": "إدارة MLX LM"
+  },
+  "header_toolsMenu": {
+    "message": "أدوات الدردشة"
+  },
+  "header_serverBackedLabel": {
+    "message": "دردشة مدعومة بالخادم"
+  },
+  "header_serverBackedTooltip": {
+    "message": "يتم حفظ الرسائل في هذه الدردشة أيضاً على خادم tldw الخاص بك."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "ابحث في الشاشات والدردشات والوسائط والملاحظات…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "لا توجد أي نتائج لـ \"{{query}}\"."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "إنشاء ملاحظة \"{{query}}\""
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "تم إنشاء الملاحظة \"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "إنشاء مجموعة بطاقات \"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "تم إنشاء مجموعة البطاقات \"{{query}}\""
+  },
+  "header_omniSearchStartChat": {
+    "message": "بدء محادثة جديدة \"{{query}}\""
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "أصبحت الدردشة والأدوات متاحة الآن في صفحة الخيارات وفي اللوحة الجانبية."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} عناصر في الطابور — انقر للمراجعة والمعالجة"
+  },
+  "header_modeSpeech": {
+    "message": "الصوت"
+  },
+  "sidebarTitle": {
+    "message": "سجل المحادثات"
+  },
+  "error": {
+    "message": "خطأ"
+  },
+  "somethingWentWrong": {
+    "message": "حدث خطأ ما"
+  },
+  "validationSelectModel": {
+    "message": "الرجاء اختيار نموذج للمتابعة"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "هل أنت متأكد أنك تريد حذف هذا السجل؟"
+  },
+  "editHistoryTitle": {
+    "message": "أدخل عنواناً جديداً"
+  },
+  "temporaryChat": {
+    "message": "محادثة مؤقتة (غير محفوظة)"
+  },
+  "more_copy_group": {
+    "message": "نسخ"
+  },
+  "more_copy_asText": {
+    "message": "نسخ كنص"
+  },
+  "more_copy_asMarkdown": {
+    "message": "نسخ كماركداون"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "نسخ النص المعتمد"
+  },
+  "more_copy_success": {
+    "message": "تم النسخ إلى الحافظة!"
+  },
+  "more_download_group": {
+    "message": "تنزيل"
+  },
+  "more_download_text": {
+    "message": "ملف نصي (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "ماركداون (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "النص المعتمد (Markdown)"
+  },
+  "more_download_json": {
+    "message": "ملف JSON (.json)"
+  },
+  "more_download_image": {
+    "message": "صورة (.png)"
+  },
+  "more_share": {
+    "message": "مشاركة"
+  },
+  "libraryView": {
+    "message": "عرض المكتبة"
+  },
+  "notes": {
+    "message": "ملاحظات"
+  },
+  "flashcards_review": {
+    "message": "مراجعة"
+  },
+  "flashcards_create": {
+    "message": "إنشاء"
+  },
+  "flashcards_manage": {
+    "message": "إدارة"
+  },
+  "flashcards_importExport": {
+    "message": "استيراد / تصدير"
+  },
+  "flashcards_selectDeck": {
+    "message": "اختر مجموعة"
+  },
+  "flashcards_nextDue": {
+    "message": "الموعد التالي للمراجعة"
+  },
+  "flashcards_front": {
+    "message": "الوجه الأمامي"
+  },
+  "flashcards_back": {
+    "message": "الوجه الخلفي"
+  },
+  "flashcards_extra": {
+    "message": "ملاحظات إضافية"
+  },
+  "flashcards_showAnswer": {
+    "message": "إظهار الإجابة"
+  },
+  "flashcards_hideAnswer": {
+    "message": "إخفاء الإجابة"
+  },
+  "flashcards_preview": {
+    "message": "معاينة"
+  },
+  "flashcards_rate": {
+    "message": "تقييم"
+  },
+  "flashcards_answerMs": {
+    "message": "زمن الإجابة (بالثواني، اختياري)"
+  },
+  "flashcards_noDue": {
+    "message": "لا توجد بطاقات مستحقة"
+  },
+  "flashcards_deck": {
+    "message": "مجموعة"
+  },
+  "flashcards_newDeck": {
+    "message": "مجموعة جديدة"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "أدخل اسم المجموعة."
+  },
+  "flashcards_modelType": {
+    "message": "قالب البطاقة"
+  },
+  "flashcards_reverse": {
+    "message": "إنشاء بطاقة عكسية أيضاً"
+  },
+  "flashcards_isCloze": {
+    "message": "بطاقة إخفاء (Cloze)"
+  },
+  "flashcards_tags": {
+    "message": "وسوم"
+  },
+  "flashcards_dueStatus": {
+    "message": "حالة الاستحقاق"
+  },
+  "flashcards_dueAll": {
+    "message": "الكل"
+  },
+  "flashcards_dueNew": {
+    "message": "جديدة"
+  },
+  "flashcards_dueLearning": {
+    "message": "قيد التعلّم"
+  },
+  "flashcards_dueDue": {
+    "message": "مستحقة"
+  },
+  "flashcards_tag": {
+    "message": "وسم"
+  },
+  "flashcards_noCards": {
+    "message": "لا توجد بطاقات"
+  },
+  "flashcards_due": {
+    "message": "مستحقة"
+  },
+  "flashcards_editCard": {
+    "message": "تحرير البطاقة"
+  },
+  "flashcards_importTitle": {
+    "message": "استيراد البطاقات التعليمية"
+  },
+  "flashcards_exportTitle": {
+    "message": "تصدير البطاقات التعليمية"
+  },
+  "flashcards_importHelp": {
+    "message": "الصق أسطر TSV/CSV: المجموعة، الوجه الأمامي، الوجه الخلفي، الوسوم، الملاحظات"
+  },
+  "flashcards_pasteContent": {
+    "message": "الصق المحتوى هنا..."
+  },
+  "flashcards_tab": {
+    "message": "Tab (علامة الجدولة)"
+  },
+  "flashcards_comma": {
+    "message": ", (فاصلة)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (فاصلة منقوطة)"
+  },
+  "flashcards_pipe": {
+    "message": "| (خط عمودي)"
+  },
+  "flashcards_hasHeader": {
+    "message": "يتضمن صف عنوان"
+  },
+  "flashcards_import": {
+    "message": "استيراد"
+  },
+  "flashcards_imported": {
+    "message": "تم الاستيراد"
+  },
+  "flashcards_importLimits": {
+    "message": "حدود الاستيراد"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV (ملفات مفصولة بفواصل أو تبويبات)"
+  },
+  "flashcards_apkg": {
+    "message": "ملف Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "تضمين البطاقة العكسية"
+  },
+  "flashcards_includeHeader": {
+    "message": "تضمين صف العنوان"
+  },
+  "flashcards_extendedHeader": {
+    "message": "عنوان موسَّع (بيانات تقنية)"
+  },
+  "flashcards_download": {
+    "message": "تنزيل"
+  },
+  "flashcards_duplicate": {
+    "message": "تكرار"
+  },
+  "flashcards_move": {
+    "message": "نقل"
+  },
+  "flashcards_reviewFailed": {
+    "message": "فشلت المراجعة"
+  },
+  "flashcards_updateFailed": {
+    "message": "فشل التحديث"
+  },
+  "flashcards_deleteFailed": {
+    "message": "فشل الحذف"
+  },
+  "flashcards_missingVersion": {
+    "message": "الإصدار مفقود؛ أعد التحميل وحاول مرة أخرى"
+  },
+  "flashcards_bulkMove": {
+    "message": "نقل جماعي"
+  },
+  "flashcards_bulkDelete": {
+    "message": "حذف جماعي"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} تم حذفها · {{failed}} فشلت"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "تقتصر العملية على أول {{limit}} عنصر."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "تصدير المحدد (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "محدد"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "تحديد الكل في هذه الصفحة"
+  },
+  "flashcards_clearSelection": {
+    "message": "مسح التحديد"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "اتصل لاستخدام البطاقات التعليمية"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "لمراجعة البطاقات التعليمية أو إنشائها، اتصل أولاً بخادم tldw الخاص بك."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "انتقل إلى الإعدادات → خادم tldw لإضافة عنوان URL لخادمك."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "بعد الاتصال، يمكنك مراجعة البطاقات المستحقة أو إنشاء مجموعات جديدة من ملاحظاتك ووسائطك."
+  },
+  "flashcards_demoTitle": {
+    "message": "استكشف البطاقات التعليمية في وضع العرض التوضيحي"
+  },
+  "flashcards_demoDescription": {
+    "message": "يوضح هذا العرض كيف يمكن للبطاقات التعليمية تحويل محتواك إلى بطاقات مراجعة متكررة. يمكنك لاحقاً توصيل خادمك لإنشاء البطاقات ومراجعتها من ملاحظاتك ووسائطك الخاصة."
+  },
+  "flashcards_demoExample1": {
+    "message": "اطّلع على كيفية تنظيم المجموعات والبطاقات والوسوم عبر علامتي التبويب \"مراجعة\" و\"إدارة\"."
+  },
+  "flashcards_demoExample2": {
+    "message": "عند الاتصال، ستتمكن من توليد بطاقات من المحاضرات أو الاجتماعات أو الملاحظات ومراجعتها وفق جدول زمني."
+  },
+  "flashcards_demoExample3": {
+    "message": "استخدم البطاقات التعليمية مع الملاحظات والوسائط للحفاظ على الأفكار المهمة حاضرة."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "مجموعات مثال (للمعاينة فقط)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "مجموعة تجريبية: المفاهيم الأساسية"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 بطاقات · مناسبة لاختبار التباعد والتقييمات."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "مجموعة تجريبية: مصطلحات المنتج"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 بطاقات · أسماء، اختصارات، وتعريفات أساسية."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "مجموعة تجريبية: متابعات الاجتماعات"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 بطاقات · عناصر إجراءات نموذجية للمراجعة."
+  },
+  "flashcards_selectAllAcross": {
+    "message": "تحديد الكل عبر النتائج"
+  },
+  "flashcards_ratingAgain": {
+    "message": "مرة أخرى"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "لم أتذكر هذه البطاقة."
+  },
+  "flashcards_ratingHard": {
+    "message": "صعب"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "تذكرتها بصعوبة؛ كانت الإجابة صعبة."
+  },
+  "flashcards_ratingGood": {
+    "message": "جيد"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "تذكرتها مع بعض الجهد."
+  },
+  "flashcards_ratingEasy": {
+    "message": "سهل"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "تذكرتها بسرعة وبثقة."
+  },
+  "flashcards_showTiming": {
+    "message": "تتبع زمن الإجابة"
+  },
+  "flashcards_hideTiming": {
+    "message": "إخفاء زمن الإجابة"
+  },
+  "flashcards_noDueTitle": {
+    "message": "لا توجد بطاقات مستحقة للمراجعة"
+  },
+  "flashcards_noDueDescription": {
+    "message": "لقد أنجزت كل شيء. أنشئ بطاقات جديدة أو استورد مجموعة لبدء المراجعة."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "أنشئ بطاقة جديدة"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "استيراد مجموعة"
+  },
+  "flashcards_createTitle": {
+    "message": "أنشئ بطاقات تعليمية من ملاحظاتك"
+  },
+  "flashcards_createDescription": {
+    "message": "استخدم الوجه الأمامي للسؤال والوجه الخلفي للإجابة. يمكنك تجميع البطاقات في مجموعات وإضافة وسوم لتسريع البحث."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "يعرض النمط الأساسي سؤالاً على الوجه الأمامي وإجابة على الوجه الخلفي. النمط العكسي ينشئ أيضاً بطاقة معكوسة. يخفي نمط Cloze أجزاء من النص باستخدام {{...}}."
+  },
+  "flashcards_reverseHelp": {
+    "message": "أنشئ أيضاً بطاقة يكون فيها الوجه الخلفي هو السؤال."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "استخدمه لبطاقات \"املأ الفراغ\". ضع النص المخفي بين {{...}} في الوجه الأمامي."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "يدعم Markdown و LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "تلميحات/توضيحات اختيارية (يدعم Markdown و LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "ملاحظات داخلية (يدعم Markdown و LaTeX)."
+  },
+  "flashcards_bulkActions": {
+    "message": "إجراءات جماعية"
+  },
+  "flashcards_selectionHelp": {
+    "message": "‏\"تحديد الكل عبر النتائج\" يطبّق الإجراءات على كل بطاقة تطابق عوامل التصفية، وليس هذه الصفحة فقط."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "لا توجد بطاقات تعليمية بعد"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "أنشئ بطاقات من ملاحظاتك ووسائطك، أو استورد مجموعة جاهزة."
+  },
+  "flashcards_clearFilters": {
+    "message": "مسح عوامل التصفية"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "أنشئ أول بطاقة لك"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "استيراد بطاقات تعليمية"
+  },
+  "flashcards_mapping": {
+    "message": "تعيين الأعمدة"
+  },
+  "flashcards_mappingPreview": {
+    "message": "معاينة لأول بضعة صفوف بعد التعيين:"
+  },
+  "flashcards_exportHelp": {
+    "message": "رشِّح حسب المجموعة أو الوسم أو البحث، ثم صدّر كـ CSV/TSV لجداول البيانات أو Anki (.apkg) لبرامج Anki."
+  },
+  "contentReview_title": {
+    "message": "مراجعة المحتوى"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} جاهزة"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} تم اعتمادها"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} إجمالي"
+  },
+  "contentReview_commitAll": {
+    "message": "اعتماد الكل"
+  },
+  "contentReview_clearDrafts": {
+    "message": "مسح المسودات"
+  },
+  "contentReview_emptyDescription": {
+    "message": "لا توجد مسودات بعد. استخدم Quick Ingest مع خيار المراجعة قبل الحفظ لإنشاء مسودات."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "فتح Quick Ingest"
+  },
+  "contentReview_batchLabel": {
+    "message": "دفعة"
+  },
+  "contentReview_batchName": {
+    "message": "دفعة {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "المسودات"
+  },
+  "contentReview_selectDraft": {
+    "message": "اختر مسودة لبدء المراجعة."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "عنوان المسودة"
+  },
+  "contentReview_lastSaved": {
+    "message": "تم الحفظ {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "إعادة تعيين المسودة؟"
+  },
+  "contentReview_resetBody": {
+    "message": "سيؤدي هذا إلى استعادة المحتوى الأصلي لهذه المسودة."
+  },
+  "contentReview_resetConfirm": {
+    "message": "إعادة تعيين"
+  },
+  "contentReview_resetCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_resetContent": {
+    "message": "إعادة تعيين"
+  },
+  "contentReview_diffView": {
+    "message": "عرض الفروقات"
+  },
+  "contentReview_saveDraft": {
+    "message": "حفظ المسودة"
+  },
+  "contentReview_editorLabel": {
+    "message": "المحتوى"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} كلمة"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} حرفاً"
+  },
+  "contentReview_aiFix": {
+    "message": "تصحيح بالذكاء الاصطناعي"
+  },
+  "contentReview_aiHint": {
+    "message": "يرسل محتوى المسودة إلى الخادم لديك لمعالجته بالذكاء الاصطناعي."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "الإعداد الافتراضي للخادم"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "إرسال المسودة إلى الخادم؟"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "سيتم إرسال محتوى المسودة إلى خادم tldw لديك لمعالجته بالذكاء الاصطناعي. تظل المسودات محلية حتى تقوم باعتمادها."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "متابعة"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_aiApplied": {
+    "message": "تم تطبيق تصحيحات الذكاء الاصطناعي."
+  },
+  "contentReview_aiNoChange": {
+    "message": "لم يتم إرجاع أي تغييرات."
+  },
+  "contentReview_aiEmpty": {
+    "message": "لم يُرجع الذكاء الاصطناعي أي محتوى."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "إكمالات الدردشة غير متاحة."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "اختر قالباً"
+  },
+  "contentReview_applyTemplate": {
+    "message": "تطبيق القالب"
+  },
+  "contentReview_templateApplied": {
+    "message": "تم تطبيق القالب."
+  },
+  "contentReview_templateMissing": {
+    "message": "يرجى اختيار قالب أولاً."
+  },
+  "contentReview_detectSections": {
+    "message": "اكتشاف الأقسام"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "إعادة اكتشاف الأقسام؟"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "سيؤدي هذا إلى استبدال الأقسام الحالية وإعادة تعيين اختياراتك."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "إعادة الاكتشاف"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "لم يتم اكتشاف أي أقسام."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "فلتر الأقسام"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "تنظيف النص المفرغ"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "توحيد علامات الترقيم وحالة الأحرف مع الحفاظ على بنية الأسطر."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "أدوار المتحدثين"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "يضمن أن يكون كل دور للمتحدث في سطر منفصل مع تسميات واضحة."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "عناوين الفصول"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "يُدرج عناوين Markdown لتجميع المواضيع دون إزالة المحتوى."
+  },
+  "contentReview_metadataLabel": {
+    "message": "البيانات الوصفية"
+  },
+  "contentReview_mediaType": {
+    "message": "نوع الوسائط"
+  },
+  "contentReview_keywords": {
+    "message": "الكلمات المفتاحية"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "إضافة كلمات مفتاحية"
+  },
+  "contentReview_reviewNotes": {
+    "message": "ملاحظات المراجعة"
+  },
+  "contentReview_missingSource": {
+    "message": "ملف المصدر مفقود"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "أرفق الملف الأصلي لاعتماد هذه المسودة."
+  },
+  "contentReview_attachSource": {
+    "message": "إرفاق ملف"
+  },
+  "contentReview_actionsLabel": {
+    "message": "الإجراءات"
+  },
+  "contentReview_commit": {
+    "message": "اعتماد"
+  },
+  "contentReview_commitDisabled": {
+    "message": "أرفق ملف الصوت/الفيديو الأصلي قبل الاعتماد."
+  },
+  "contentReview_markReviewed": {
+    "message": "وضع علامة تمت مراجعتها"
+  },
+  "contentReview_skipNext": {
+    "message": "تخطي"
+  },
+  "contentReview_discard": {
+    "message": "تجاهل"
+  },
+  "contentReview_discardTitle": {
+    "message": "تجاهل المسودة؟"
+  },
+  "contentReview_discardBody": {
+    "message": "سيتم وضع علامة على هذه المسودة كتجاهَل وإزالتها من المراجعة."
+  },
+  "contentReview_discardConfirm": {
+    "message": "تجاهل"
+  },
+  "contentReview_discardCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_commitSuccess": {
+    "message": "تم اعتماد المسودة."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "اعتماد المسودات التي تمت مراجعتها؟"
+  },
+  "contentReview_commitAllBody": {
+    "message": "سيتم اعتماد المسودات المعلّمة كمراجَعة فقط."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "اعتماد الكل"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} تم اعتمادها · {{failed}} فشلت"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "يتجاوز هذا الملف حد المسودات المحلي ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "مسح جميع المسودات؟"
+  },
+  "contentReview_clearBody": {
+    "message": "يؤدي هذا إلى إزالة جميع مسودات مراجعة المحتوى والملفات المحلية."
+  },
+  "contentReview_clearConfirm": {
+    "message": "مسح المسودات"
+  },
+  "contentReview_clearCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_clearSuccess": {
+    "message": "تم مسح المسودات."
+  },
+  "contentReview_originalLabel": {
+    "message": "الأصلي"
+  },
+  "contentReview_editedLabel": {
+    "message": "بعد التعديل"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "الحفظ بعد المراجعة"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "المراجعة قبل الحفظ"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "وضع المراجعة"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "حفظ المسودات محليًا؟"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "تفعيل المراجعة"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "إلغاء"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "مراجعة"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "المسودات جاهزة للمراجعة."
+  },
+  "contentReview_openContentReview": {
+    "message": "فتح مراجعة المحتوى"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "الملف كبير جدًا"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "يجب أن يكون حجم الملف أقل من 10 ميجابايت"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "فشل الرفع"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "تعذّر رفع الملف. حاول مرة أخرى."
+  },
+  "promptStudio_title": {
+    "message": "ساحة لعب استوديو الموجّهات"
+  },
+  "promptStudio_subtitle": {
+    "message": "إدارة مشاريع استوديو الموجّهات، والموجّهات، والتنفيذات، وحالات الاختبار، والتقييمات."
+  },
+  "promptStudio_capabilityError": {
+    "message": "يتعذر الوصول إلى استوديو الموجّهات"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "تحقق من اتصال الخادم أو عطّل هذا القسم حتى تصبح واجهات استوديو الموجّهات متاحة."
+  },
+  "promptStudio_offline": {
+    "message": "اتصل بخادمك لاستخدام استوديو الموجّهات"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "المشاريع والموجّهات"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "أنشئ مشروعاً أو افتح مشروعاً لتحرير الموجّهات."
+  },
+  "promptStudio_projectsError": {
+    "message": "تعذّر تحميل المشاريع"
+  },
+  "promptStudio_promptVersion": {
+    "message": "الإصدار"
+  },
+  "promptStudio_changeDescription": {
+    "message": "وصف التغيير"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "موجّه النظام"
+  },
+  "promptStudio_userPrompt": {
+    "message": "موجّه المستخدم"
+  },
+  "promptStudio_fewShot": {
+    "message": "أمثلة قليلة اللقطات (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "تهيئة الوحدات (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "السجل"
+  },
+  "promptStudio_executeCard": {
+    "message": "تنفيذ مخصّص"
+  },
+  "promptStudio_executeHint": {
+    "message": "الموفر، النموذج، درجة العشوائية، المدخلات."
+  },
+  "promptStudio_provider": {
+    "message": "الموفر"
+  },
+  "promptStudio_model": {
+    "message": "النموذج"
+  },
+  "promptStudio_runPrompt": {
+    "message": "تشغيل الموجّه"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "نموذج التنفيذ قادم قريباً. استخدم هذا الجزء لتشغيل مدخلات فردية على موجّه عبر ‎/prompt-studio/prompts/execute‎."
+  },
+  "promptStudio_testsCard": {
+    "message": "حالات الاختبار والتقييمات"
+  },
+  "promptStudio_testsHint": {
+    "message": "عرض/إنشاء حالات اختبار، تشغيل التقييمات، ومتابعة الحالة."
+  },
+  "promptStudio_testCases": {
+    "message": "حالات الاختبار"
+  },
+  "promptStudio_evaluations": {
+    "message": "التقييمات"
+  },
+  "promptStudio_inputsJson": {
+    "message": "المدخلات (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "المخرجات المتوقعة (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "هل هو مرجعي (golden)؟"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "إضافة جماعية"
+  },
+  "promptStudio_bulkJson": {
+    "message": "مصفوفة JSON من حالات الاختبار"
+  },
+  "promptStudio_runAsync": {
+    "message": "تشغيل غير متزامن"
+  },
+  "promptStudio_temperature": {
+    "message": "درجة العشوائية"
+  },
+  "promptStudio_maxTokens": {
+    "message": "الحد الأقصى للتوكنات"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "تشغيل التقييم"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "مكان مبدئي: اربط عمليات إنشاء/قراءة/تحديث/حذف لحالات الاختبار، وإنشاء/عرض تفاصيل التقييم، والانتظار غير المتزامن في هذا القسم."
+  },
+  "promptStudio_unavailable": {
+    "message": "استوديو الموجّهات غير مفعّل على هذا الخادم."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "عند توفره، سترى هنا المشاريع وسجل الموجّهات وتدفقات التنفيذ والتقييمات."
+  },
+  "promptSearch_title": {
+    "message": "العنوان"
+  },
+  "promptSearch_content": {
+    "message": "المحتوى"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "موجّه النظام"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "الحفظ أيضاً على الخادم"
+  },
+  "promptSearch_cancel": {
+    "message": "إلغاء"
+  },
+  "promptSearch_insert": {
+    "message": "إدراج"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "حفظ كعنصر جديد"
+  },
+  "promptSearch_saveLocal": {
+    "message": "حفظ التغييرات (محلياً)"
+  },
+  "promptSearch_saveServer": {
+    "message": "حفظ التغييرات (على الخادم)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "حفظ نسخة محلية"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "حفظ كعنصر جديد (على الخادم فقط)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "تم تحديث الموجّه محلياً"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "تم تحديث الموجّه على الخادم"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "فشل في تحديث الموجّه المحلي"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "فشل في تحديث الموجّه على الخادم"
+  },
+  "promptSearch_manageLink": {
+    "message": "عرض / إدارة الموجّهات"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "استبدال موجّه محلي (اختياري)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "اختر موجهاً محلياً لاستبداله"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "تم حفظ الموجّه"
+  },
+  "promptSearch_saveFailed": {
+    "message": "فشل في حفظ الموجّه"
+  },
+  "quickIngest_title": {
+    "message": "استيعاب سريع للوسائط"
+  },
+  "quickIngest_subtitle": {
+    "message": "أدخل عنوان URL واحداً أو أكثر. يمكنك فرض النوع لكل سطر إذا لزم الأمر."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "الخادم غير متصل — للاختبار فقط"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "يمكنك وضع روابط وملفات في قائمة الانتظار هنا وتفقد الحقول، لكن لن يتم الاستيعاب حتى يعود خادم tldw إلى العمل. أعد الاتصال لمعالجة العناصر المعلقة."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "عناوين URL أو ملفات المصدر"
+  },
+  "quickIngest_storeRemote": {
+    "message": "التخزين في قاعدة بيانات بعيدة"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "خزن نتائج الاستيعاب على خادم tldw الخاص بك"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "عالج نتائج الاستيعاب محليًا فقط"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "يحمّل إلى خادم tldw الخاص بك للفهرسة."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "يعالج فقط ويحفظ النتائج محليًا (تنزيل JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "مكان تخزين نتائج الاستيعاب"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "مخزَّنة على خادم tldw الخاص بك (موصى به لـ RAG ومساحات العمل المشتركة)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "محفوظة في هذا المتصفح فقط؛ لا تُكتب بيانات على الخادم."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "الحفظ بعد المراجعة"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "المراجعة قبل الحفظ"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "قم بالمعالجة الآن ثم حرّر المسودات محليًا قبل اعتمادها على الخادم."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "وضع المراجعة"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "الحد الأقصى للمسودات المحلية هو {{cap}}."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "حفظ المسودات محليًا؟"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "تُحفظ المسودات في هذا المتصفح وقد تتضمن بيانات حساسة. يمكنك مسح المسودات من صفحة مراجعة المحتوى في أي وقت."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "يحفظ وضع المراجعة المحتوى على جانب العميل حتى تعتمدَه على الخادم."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "تفعيل المراجعة"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "إلغاء"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "مراجعة"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "المسودات جاهزة للمراجعة."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "تعذر إنشاء مسودات المراجعة."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "فشل إنشاء مسودات المراجعة."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "أعد محاولة إنشاء المسودات"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "احفظ دون مراجعة"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "تعذر فتح مراجعة المحتوى. يرجى المحاولة مرة أخرى."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "أعد محاولة فتح مراجعة المحتوى"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} ملف يتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} ملفات تتجاوز حد المسودات المحلية ({{cap}}). أرفق المصادر قبل اعتماد الصوت/الفيديو."
+  },
+  "quickIngest_openContentReview": {
+    "message": "فتح مراجعة المحتوى"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "معرفة المزيد عن الاستيعاب والتخزين"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "الصق عناوين URL (واحد في كل سطر)"
+  },
+  "quickIngest_or": {
+    "message": "أو"
+  },
+  "quickIngest_remove": {
+    "message": "إزالة"
+  },
+  "quickIngest_add": {
+    "message": "إضافة عنوان URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "خيارات الاستيعاب"
+  },
+  "quickIngest_audioOptions": {
+    "message": "خيارات الصوت"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "اللغة (مثال: en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "فعّل هذا الخيار لفصل المتحدّثين في النصوص."
+  },
+  "quickIngest_documentOptions": {
+    "message": "خيارات المستند"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "تساعد OCR في استخراج النص من ملفات PDF الممسوحة ضوئياً أو الصور."
+  },
+  "quickIngest_videoOptions": {
+    "message": "خيارات الفيديو"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "تضمين الطوابع الزمنية/الترجمات عند توفرها."
+  },
+  "quickIngest_cancel": {
+    "message": "إلغاء"
+  },
+  "quickIngest_ingest": {
+    "message": "استيعاب"
+  },
+  "quickIngest_process": {
+    "message": "معالجة"
+  },
+  "quickIngest_results": {
+    "message": "النتائج"
+  },
+  "quickIngest_downloadJson": {
+    "message": "تنزيل JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} من الحقول المتقدمة تم تحميلها"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "لم يتم اكتشاف خيارات متقدمة — جرّب إعادة تحميل المواصفات."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} تم تعديلها"
+  },
+  "quickIngest_progress": {
+    "message": "جارٍ معالجة {{done}} من {{total}} عنصراً…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "تعذر علينا معالجة عناصر الاستيعاب الآن."
+  },
+  "quickIngest_errorHint": {
+    "message": "جرّب مرة أخرى بعد التحقق من خادم tldw الخاص بك. يمكن أن تساعد صفحة Health & diagnostics في استكشاف مشكلات الاستيعاب وإصلاحها."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "تحقق من حالة الخادم في Health & diagnostics"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "فشلت عمليات الاستيعاب الأخيرة — افتح Health & diagnostics من الشريط العلوي لمزيد من التفاصيل."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "تمت إعادة تحميل المواصفات المتقدمة من الخادم (الحقول المضافة: {{added}}، المحذوفة: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "يتم استخدام مخطط media.add المضمّن كخيار احتياطي (v{{version}})؛ يُرجى التحقق من tldw_server /openapi.json إذا بدت الحقول قديمة."
+  },
+  "notesSearch_placeholder": {
+    "message": "ابحث في العناوين والمحتوى"
+  },
+  "notesSearch_clear": {
+    "message": "مسح البحث وعوامل التصفية"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "التصفية حسب الكلمات المفتاحية"
+  },
+  "notesSearch_new": {
+    "message": "ملاحظة جديدة"
+  },
+  "notesSearch_newTooltip": {
+    "message": "إنشاء ملاحظة جديدة"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} ملاحظات"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "تصدير الملاحظات المطابقة كملف Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "تصدير الملاحظات المطابقة كملف CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "تصدير الملاحظات المطابقة كملف JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "تم التصدير ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "تم تصدير {{count}} ملاحظة ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "تم تصدير {{count}} ملاحظة كملف CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "تم تصدير {{count}} ملاحظة كملف JSON ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "تصدير الملاحظة كملف Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "حفظ الملاحظة"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "نسخ محتوى الملاحظة"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "حذف الملاحظة"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "تصدير"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "النتائج"
+  },
+  "notesSearch_showingRange": {
+    "message": "عرض {{start}}-{{end}} من أصل {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "توسيع الشريط الجانبي"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "طيّ الشريط الجانبي"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "العنوان"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "الكلمات المفتاحية (الوسوم)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "تساعدك الكلمات المفتاحية على العثور على هذه الملاحظة باستخدام عامل التصفية في الجهة اليسرى."
+  },
+  "tts_playground": {
+    "message": "ساحة لعب تحويل النص إلى كلام"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "اتصل لاستخدام الملاحظات"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "لاستخدام الملاحظات، اتصل أولاً بخادم tldw الخاص بك."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "استخدم «الملاحظات» إلى جانب «الوسائط» و«المراجعات» للاحتفاظ بنتائجك منظمة."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "ملاحظات نموذجية (للمعاينة فقط)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "ملاحظة تجريبية: ملخّص الاجتماع الأسبوعي"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "القرارات والعوائق وعناصر المتابعة من اجتماع فريق حديث."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "اليوم · 9:32 ص"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "ملاحظة تجريبية: أبرز نتائج البحث"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "أهم الأفكار المستخلصة من مقال أو ورقة طويلة."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "أمس · 4:10 م"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "ملاحظة تجريبية: ملخّص المكالمة"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "ملخّص لمكالمة مع عميل مع الخطوات التالية والمسؤولين عنها."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "هذا الأسبوع"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL لخادمك."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "استخدم صفحة التشخيص إذا كان خادمك يعمل ولكنه غير قابل للوصول."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "استكشف الملاحظات في وضع العرض التوضيحي"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "يوضح هذا العرض كيف يمكن للملاحظات تنظيم رؤاك وأفكارك. يمكنك لاحقاً توصيل خادمك لإنشاء ملاحظات حقيقية وحفظها."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "اطّلع على كيفية ظهور عناوين الملاحظات، والمعاينات، والطوابع الزمنية في القائمة."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "عند الاتصال، ستتمكن من إنشاء ملاحظات من الاجتماعات أو المراجعات وغير ذلك."
+  },
+  "notesEmpty_title": {
+    "message": "لا توجد ملاحظات بعد"
+  },
+  "notesEmpty_description": {
+    "message": "التقط الملاحظات الحرة ونظّمها وربطها برؤى tldw الخاصة بك."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "أنشئ ملاحظة جديدة لاجتماع أو نص حديث."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "احفظ مخرجات المراجعة في الملاحظات لتعود إليها لاحقاً."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "إنشاء ملاحظة"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "استكشف كتب العوالم في وضع العرض التوضيحي"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "يوضح هذا العرض كيف يمكن لكتب العوالم تنظيم المعرفة المنظَّمة حول عوالمك أو إعداداتك أو منتجاتك."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "اطّلع على كتب مثال مثل إعداد خيالي، أو مسرد منتجات، أو ملاحظات حملة."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "عند الاتصال، ستتمكن من إنشاء كتب عوالم يمكن لـ tldw استخدامها أثناء الدردشة."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "اتصل لاستخدام كتب العوالم"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "لاستخدام كتب العوالم، اتصل أولاً بخادم tldw الخاص بك حتى يمكن حفظ معرفة العوالم واسترجاعها."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL لخادمك."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "استخدم صفحة التشخيص إذا كان خادمك يعمل ولكنه غير قابل للوصول."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "أنشئ وأدِر قواعد معرفة منظَّمة يمكن للشخصيات والمحادثات الرجوع إليها."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "كتب العوالم غير متصلة"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات الرئيسية لعرض كتب العوالم وتحريرها."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "استكشف قواميس الدردشة في وضع العرض التوضيحي"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "يوضح هذا العرض كيف يمكن لقواميس الدردشة توحيد الأسماء والاختصارات والمصطلحات قبل أن تصل إلى النموذج."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "اطّلع على أمثلة لقواميس لأسماء المنتجات، أو الأسماء الرمزية للمشاريع، أو مصطلحات الشركة."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "عند الاتصال، ستتمكن من تفعيل القواميس عبر جميع المحادثات."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "اتصل لاستخدام قواميس الدردشة"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "لاستخدام قواميس الدردشة، اتصل أولاً بخادم tldw الخاص بك حتى يمكن تخزين عمليات الاستبدال."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL لخادمك."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "استخدم صفحة التشخيص إذا كان خادمك يعمل ولكنه غير قابل للوصول."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "عرّف عمليات استبدال قابلة لإعادة الاستخدام حتى يفهم tldw أسماء منظمتك واختصاراتها ومصطلحاتها."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "قواميس الدردشة غير متصلة"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "اتصل بخادم tldw الخاص بك من صفحة الإعدادات الرئيسية لعرض قواميس الدردشة وتحريرها."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "استكشف الشخصيات في وضع العرض التوضيحي"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "يوضح هذا العرض كيف تجمع الشخصيات بين شخصية محددة وموجّه نظام يمكنك الدردشة معه."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "اطّلع على شخصيات مثال مثل مدرّب كتابة، أو خبير قصص، أو مساعد برمجة."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "عند الاتصال، ستتمكن من إنشاء شخصيات تظهر في ترويسة الدردشة وفي قائمة الاختيار."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "اتصل لاستخدام الشخصيات"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "لاستخدام الشخصيات، اتصل أولاً بخادم tldw الخاص بك حتى يمكن تخزين تعريفات الشخصيات."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "افتح الإعدادات → خادم tldw لإضافة عنوان URL لخادمك."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "استخدم صفحة التشخيص إذا كان خادمك يعمل ولكنه غير قابل للوصول."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "أنشئ شخصيات قابلة لإعادة الاستخدام يمكنك اختيارها من ترويسة الدردشة وإعادة استخدامها عبر المحادثات."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "أنشئ شخصية لإعادة استخدام هويتها عبر الدردشات. استخدم \"شخصية جديدة\" للبدء."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "واجهة برمجة تطبيقات الشخصيات غير متوفرة على هذا الخادم"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "هذا الخادم لا يعلن عن ‎/api/v1/characters‎."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "افتح صفحة التشخيص لتأكيد إصدار الخادم وواجهات برمجة التطبيقات المتاحة للشخصيات."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "إذا قمت بترقية خادمك، أعد تحميل الإضافة ثم عد إلى قسم الشخصيات."
+  },
+  "characters_selectCharacter": {
+    "message": "اختر شخصية"
+  },
+  "characters_chattingAs": {
+    "message": "أنت الآن تتحدث كشخصية {{name}}."
+  },
+  "characters_clearCharacter": {
+    "message": "مسح الشخصية"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "تعذّر تحميل الشخصيات"
+  },
+  "characters_fetchErrorBody": {
+    "message": "تحقق من الاتصال أو من حالة الخادم ثم حاول مرة أخرى."
+  },
+  "characters_none": {
+    "message": "لا شيء (بدون شخصية)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "ابحث عن الشخصيات بالاسم"
+  },
+  "characters_noMatches": {
+    "message": "لا توجد شخصيات مطابقة لبحثك حتى الآن."
+  },
+  "characters_refresh": {
+    "message": "تحديث الشخصيات"
+  },
+  "characters_refreshing": {
+    "message": "جارٍ تحديث الشخصيات…"
+  },
+  "promptInsert_useInChat": {
+    "message": "استخدام في الدردشة"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "افتح الدردشة وأدرج هذا الموجّه في خانة التحرير."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "استخدام الموجّه في الدردشة؟"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "رسالتك تحتوي بالفعل على نص. هل تريد استبداله بهذا الموجّه أم إلحاق الموجّه أسفل النص الحالي؟"
+  },
+  "promptInsert_overwrite": {
+    "message": "استبدال الرسالة"
+  },
+  "promptInsert_append": {
+    "message": "إلحاق"
+  },
+  "omniSearch_filterScreen": {
+    "message": "الشاشات"
+  },
+  "omniSearch_filterChat": {
+    "message": "الدردشات"
+  },
+  "omniSearch_filterMedia": {
+    "message": "الوسائط"
+  },
+  "omniSearch_filterNote": {
+    "message": "الملاحظات"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "مجموعات البطاقات"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "المطالبات"
+  },
+  "omniSearch_filteringBy": {
+    "message": "التصفية حسب:"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "مساعد الدردشة السريعة"
+  },
+  "quickChatHelper_title": {
+    "message": "مساعد الدردشة السريعة"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "اطرح سؤالاً سريعاً..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "إرسال"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "ابدأ محادثة جانبية سريعة للحفاظ على نظافة المحادثة الرئيسية."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "فتح في نافذة منفصلة"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "يرجى اختيار نموذج في المحادثة الرئيسية أولاً."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "رسالتك"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "رسالة المساعد"
+  },
+  "quiz_itemsPerPage": {
+    "message": "عناصر/صفحة"
+  },
+  "quiz_editQuizTitle": {
+    "message": "تحرير الاختبار"
+  },
+  "quiz_updateSuccess": {
+    "message": "تم تحديث الاختبار بنجاح."
+  },
+  "quiz_updateError": {
+    "message": "فشل تحديث الاختبار."
+  },
+  "quiz_questionTextRequired": {
+    "message": "نص السؤال مطلوب."
+  },
+  "quiz_optionsRequired": {
+    "message": "يرجى تقديم خيارين على الأقل."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "تم إنشاء السؤال بنجاح."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "تم تحديث السؤال بنجاح."
+  },
+  "quiz_questionSaveError": {
+    "message": "فشل حفظ السؤال."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "تم حذف السؤال بنجاح."
+  },
+  "quiz_questionDeleteError": {
+    "message": "فشل حذف السؤال."
+  },
+  "quiz_editQuestion": {
+    "message": "تحرير السؤال"
+  },
+  "quiz_points": {
+    "message": "النقاط"
+  },
+  "quiz_orderIndex": {
+    "message": "الترتيب"
+  },
+  "quiz_startError": {
+    "message": "فشل بدء الاختبار."
+  },
+  "quiz_answerAll": {
+    "message": "يرجى الإجابة عن جميع الأسئلة قبل الإرسال."
+  },
+  "quiz_submitError": {
+    "message": "فشل إرسال الاختبار."
+  },
+  "quiz_scoreSummary": {
+    "message": "النتيجة: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "صحيح"
+  },
+  "quiz_incorrect": {
+    "message": "غير صحيح"
+  },
+  "quiz_yourAnswer": {
+    "message": "إجابتك"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "الإجابة الصحيحة"
+  },
+  "quiz_backToList": {
+    "message": "العودة إلى القائمة"
+  },
+  "quiz_retake": {
+    "message": "إعادة الاختبار"
+  },
+  "searchPrompts": {
+    "message": "ابحث في المطالبات..."
+  },
+  "noMatchingPrompts": {
+    "message": "لا توجد مطالبات مطابقة"
+  },
+  "promptSelect_favorites": {
+    "message": "المفضلة"
+  },
+  "promptSelect_system": {
+    "message": "مطالبات النظام"
+  },
+  "promptSelect_quick": {
+    "message": "مطالبات سريعة"
+  },
+  "header_moreTools": {
+    "message": "المزيد"
+  },
+  "characters_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characters_importCharacter": {
+    "message": "Import Character"
+  }
+}

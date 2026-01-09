@@ -1,0 +1,1172 @@
+{
+  "pageAssist": {
+    "message": "tldw 어시스턴트"
+  },
+  "titles_options": {
+    "message": "tldw Assistant — Options"
+  },
+  "titles_sidepanel": {
+    "message": "tldw Assistant — Sidepanel"
+  },
+  "pdf_passwordTitle": {
+    "message": "PDF 비밀번호를 입력하세요"
+  },
+  "pdf_unlock": {
+    "message": "잠금 해제"
+  },
+  "loading_title": {
+    "message": "로딩 중…"
+  },
+  "loading_description": {
+    "message": "준비가 완료될 때까지 잠시만 기다려 주세요."
+  },
+  "loading_content": {
+    "message": "콘텐츠를 불러오는 중…"
+  },
+  "selectAModel": {
+    "message": "모델 선택"
+  },
+  "save": {
+    "message": "저장"
+  },
+  "saved": {
+    "message": "저장됨"
+  },
+  "cancel": {
+    "message": "취소"
+  },
+  "retry": {
+    "message": "재시도"
+  },
+  "share_tooltip_share": {
+    "message": "공유"
+  },
+  "share_modal_title": {
+    "message": "채팅 링크 공유"
+  },
+  "share_form_defaultValue_name": {
+    "message": "익명"
+  },
+  "share_form_defaultValue_title": {
+    "message": "제목 없는 채팅"
+  },
+  "share_form_title_label": {
+    "message": "채팅 제목"
+  },
+  "share_form_title_placeholder": {
+    "message": "채팅 제목을 입력하세요"
+  },
+  "share_form_title_required": {
+    "message": "채팅 제목은 필수 항목입니다"
+  },
+  "share_form_name_label": {
+    "message": "이름"
+  },
+  "share_form_name_placeholder": {
+    "message": "이름을 입력하세요"
+  },
+  "share_form_name_required": {
+    "message": "이름은 필수 항목입니다"
+  },
+  "share_form_btn_save": {
+    "message": "링크 생성"
+  },
+  "share_form_btn_saving": {
+    "message": "링크 생성 중..."
+  },
+  "share_notification_successGenerate": {
+    "message": "링크가 클립보드에 복사되었습니다"
+  },
+  "share_notification_failGenerate": {
+    "message": "링크 생성에 실패했습니다"
+  },
+  "copyToClipboard": {
+    "message": "클립보드에 복사"
+  },
+  "webSearch": {
+    "message": "웹 검색 중"
+  },
+  "regenerate": {
+    "message": "재생성"
+  },
+  "continue": {
+    "message": "응답 계속하기"
+  },
+  "edit": {
+    "message": "편집"
+  },
+  "delete": {
+    "message": "삭제"
+  },
+  "saveAndSubmit": {
+    "message": "저장하고 제출"
+  },
+  "editMessage_placeholder": {
+    "message": "메시지를 입력하세요..."
+  },
+  "submit": {
+    "message": "제출"
+  },
+  "send": {
+    "message": "제출"
+  },
+  "connectToServer": {
+    "message": "서버에 연결"
+  },
+  "noData": {
+    "message": "데이터가 없습니다"
+  },
+  "noHistory": {
+    "message": "채팅 기록이 없습니다"
+  },
+  "chatWithCurrentPage": {
+    "message": "현재 페이지에서 채팅"
+  },
+  "beta": {
+    "message": "베타"
+  },
+  "tts": {
+    "message": "TTS"
+  },
+  "currentChatModelSettings": {
+    "message": "현재 채팅 모델 설정"
+  },
+  "modelSettings_label": {
+    "message": "모델 설정"
+  },
+  "modelSettings_description": {
+    "message": "모든 채팅에 대해 글로벌 모델 옵션을 설정합니다"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "Keep Alive (유지 시간)"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "요청 후 모델이 메모리에 얼마나 오래 유지될지 설정합니다 (기본값: 5분)."
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "Keep Alive 기간을 입력하세요 (예: 5m, 10m, 1h)"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "온도"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "온도 값을 입력하세요 (예: 0.7, 1.0)"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "컨텍스트 윈도우 크기 (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "컨텍스트 윈도우 크기를 입력하세요 (기본값: 2048)"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "최대 토큰 수 (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "최대 토큰 수를 입력하세요 (예: 2048, 4096)"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "시드"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "시드 값을 입력하세요 (예: 1234)"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "모델 출력의 재현성"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "Top K (상위 K)"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "Top K 값을 입력하세요 (예: 40, 100)"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "Top P (상위 P)"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "Top P 값을 입력하세요 (예: 0.9, 0.95)"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "GPU 수"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "GPU에 할당할 레이어 수를 입력하세요"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "임시 시스템 프롬프트"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "시스템 프롬프트를 입력하세요"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "현재 채팅에서 시스템 프롬프트를 빠르게 설정하는 방법이며, 선택된 시스템 프롬프트가 있을 경우 이를 덮어씁니다."
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "생각 모드"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap (메모리 매핑)"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z (TFS 매개변수)"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "예: 1.0, 1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Num Keep (유지할 수)"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "예: 256, 512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Num Thread (스레드 수)"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "예: 8, 16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock (메모리 잠금)"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "추론 강도"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "low(낮음), medium(중간), high(높음)"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P (최소 P)"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "예: 0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "반복 패널티"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "예: 1.1, 1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "마지막 N 토큰 반복"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "예: 64, 128"
+  },
+  "modelSettings_advanced": {
+    "message": "기타 모델 설정"
+  },
+  "copilot_summary": {
+    "message": "요약"
+  },
+  "copilot_explain": {
+    "message": "설명"
+  },
+  "copilot_rephrase": {
+    "message": "다르게 표현"
+  },
+  "copilot_translate": {
+    "message": "번역"
+  },
+  "copilot_custom": {
+    "message": "사용자 정의"
+  },
+  "citations": {
+    "message": "인용"
+  },
+  "downloadCode": {
+    "message": "코드 다운로드"
+  },
+  "date_pinned": {
+    "message": "고정됨"
+  },
+  "date_today": {
+    "message": "오늘"
+  },
+  "date_yesterday": {
+    "message": "어제"
+  },
+  "date_last7Days": {
+    "message": "지난 7일"
+  },
+  "date_older": {
+    "message": "그 이전"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "고정된 모든 메시지를 삭제하시겠습니까?"
+  },
+  "range_deleteConfirm_today": {
+    "message": "오늘의 모든 메시지를 삭제하시겠습니까?"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "어제의 모든 메시지를 삭제하시겠습니까?"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "지난 7일간의 모든 메시지를 삭제하시겠습니까?"
+  },
+  "range_deleteConfirm_older": {
+    "message": "이전의 모든 메시지를 삭제하시겠습니까?"
+  },
+  "range_tooltip_pinned": {
+    "message": "고정된 모든 메시지 삭제"
+  },
+  "range_tooltip_today": {
+    "message": "오늘의 모든 메시지 삭제"
+  },
+  "range_tooltip_yesterday": {
+    "message": "어제의 모든 메시지 삭제"
+  },
+  "range_tooltip_last7Days": {
+    "message": "지난 7일간의 모든 메시지 삭제"
+  },
+  "range_tooltip_older": {
+    "message": "이전의 모든 메시지 삭제"
+  },
+  "pin": {
+    "message": "고정"
+  },
+  "unpin": {
+    "message": "고정 해제"
+  },
+  "generationInfo": {
+    "message": "생성 정보"
+  },
+  "sidebarChat": {
+    "message": "사이드바 채팅"
+  },
+  "reasoning_thinking": {
+    "message": "생각 중...."
+  },
+  "reasoning_loading": {
+    "message": "추론을 불러오는 중...."
+  },
+  "reasoning_thought": {
+    "message": "{{time}} 동안 생각함"
+  },
+  "embeddingGen": {
+    "message": "임베딩을 생성하는 중입니다. 시간이 걸릴 수 있습니다"
+  },
+  "semanticSearch": {
+    "message": "의미론적 검색을 수행하는 중"
+  },
+  "downloading": {
+    "message": "다운로드 중"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "다운로드를 취소하시겠습니까? 이 작업은 다운로드 과정을 중단합니다. Ollama 문서에 따르면, 중단된 위치에서 다시 시작할 수 있습니다."
+  },
+  "table_copyCsv": {
+    "message": "CSV로 복사"
+  },
+  "table_downloadCsv": {
+    "message": "CSV 다운로드"
+  },
+  "dismiss": {
+    "message": "닫기"
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant에서 데이터를 저장할 수 없습니다"
+  },
+  "confirmTitle": {
+    "message": "확인해 주세요"
+  },
+  "saving": {
+    "message": "저장 중..."
+  },
+  "close": {
+    "message": "닫기"
+  },
+  "loadMore": {
+    "message": "더 불러오기..."
+  },
+  "startChat": {
+    "message": "채팅 시작"
+  },
+  "previous": {
+    "message": "이전"
+  },
+  "next": {
+    "message": "다음"
+  },
+  "chatWithCharacter": {
+    "message": "캐릭터와 채팅"
+  },
+  "ttsShort": {
+    "message": "음성"
+  },
+  "copyShort": {
+    "message": "복사"
+  },
+  "branchShort": {
+    "message": "브랜치"
+  },
+  "infoShort": {
+    "message": "정보"
+  },
+  "regenShort": {
+    "message": "다시"
+  },
+  "continueShort": {
+    "message": "더 보기"
+  },
+  "fileChanges": {
+    "message": "파일 변경"
+  },
+  "deletions": {
+    "message": "삭제 작업"
+  },
+  "gitOperations": {
+    "message": "Git 작업"
+  },
+  "commands": {
+    "message": "명령"
+  },
+  "otherOperations": {
+    "message": "기타 작업"
+  },
+  "fileAccess": {
+    "message": "파일 접근"
+  },
+  "notebookEdits": {
+    "message": "노트북 편집"
+  },
+  "applyPatch": {
+    "message": "패치 적용"
+  },
+  "recursive": {
+    "message": "(재귀)"
+  },
+  "complexArguments": {
+    "message": "[복잡한 인수]"
+  },
+  "segmented_available": {
+    "message": "서버 모델"
+  },
+  "segmented_custom": {
+    "message": "사용자 정의 모델"
+  },
+  "success": {
+    "message": "성공"
+  },
+  "created": {
+    "message": "생성됨"
+  },
+  "updated": {
+    "message": "업데이트됨"
+  },
+  "deleted": {
+    "message": "삭제됨"
+  },
+  "create": {
+    "message": "생성"
+  },
+  "reset": {
+    "message": "초기화"
+  },
+  "serverOffline": {
+    "message": "서버가 오프라인이거나 구성되지 않았습니다"
+  },
+  "serverChats": {
+    "message": "서버 채팅"
+  },
+  "serverChatLoadError": {
+    "message": "서버 채팅을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요."
+  },
+  "serverChatSourceLabel": {
+    "message": "서버"
+  },
+  "serverChatForkedLabel": {
+    "message": "포크된 채팅"
+  },
+  "serverChatForkedTooltip": {
+    "message": "채팅 {{chatId}}에서 포크됨"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "tldw 서버에 연결하면 서버 채팅을 사용할 수 있습니다."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "현재 서버 채팅을 사용할 수 없습니다. 서버 로그를 확인하거나 다시 시도하세요."
+  },
+  "historiesDeleted": {
+    "message": "{{count}}개의 기록이 삭제되었습니다"
+  },
+  "deleteHistoriesError": {
+    "message": "기록 삭제 중 오류가 발생했습니다"
+  },
+  "mermaid": {
+    "message": "Mermaid 다이어그램"
+  },
+  "search": {
+    "message": "검색"
+  },
+  "searchResults": {
+    "message": "검색 결과"
+  },
+  "newBranch": {
+    "message": "새 브랜치"
+  },
+  "error_label": {
+    "message": "오류"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "tldw 서버에 연결할 수 없습니다."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "API 키가 잘못되었을 수 있습니다. 설정 → tldw 서버에서 URL과 API 키를 확인한 뒤 다시 시도하세요."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "채팅이 시간 초과되었습니다."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "서버가 응답 전송을 중단했습니다. 다시 시도하거나 상태 및 진단을 열어 서버 상태를 확인하세요."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "tldw 서버와 통신하는 중 문제가 발생했습니다."
+  },
+  "error_friendlyGenericHint": {
+    "message": "잠시 후 다시 시도하거나 상태 및 진단을 열어 서버 상태를 확인하세요."
+  },
+  "error_showDetails": {
+    "message": "기술 세부정보 표시"
+  },
+  "error_hideDetails": {
+    "message": "기술 세부정보 숨기기"
+  },
+  "folders": {
+    "message": "폴더"
+  },
+  "folderView": {
+    "message": "폴더 보기"
+  },
+  "dateView": {
+    "message": "날짜 보기"
+  },
+  "newFolder": {
+    "message": "새 폴더"
+  },
+  "folderName": {
+    "message": "폴더 이름"
+  },
+  "selectFolder": {
+    "message": "폴더 선택"
+  },
+  "noFolders": {
+    "message": "폴더가 없습니다"
+  },
+  "expandAll": {
+    "message": "모두 펼치기"
+  },
+  "collapseAll": {
+    "message": "모두 접기"
+  },
+  "refresh": {
+    "message": "새로고침"
+  },
+  "confirm": {
+    "message": "확인"
+  },
+  "untitled": {
+    "message": "제목 없음"
+  },
+  "moveToFolder": {
+    "message": "폴더로 이동"
+  },
+  "noToolCalls": {
+    "message": "아직 도구 호출이 없습니다"
+  },
+  "status_pending": {
+    "message": "대기 중"
+  },
+  "status_running": {
+    "message": "처리 중"
+  },
+  "status_complete": {
+    "message": "완료"
+  },
+  "status_error": {
+    "message": "오류"
+  },
+  "arguments": {
+    "message": "인수"
+  },
+  "invalidJson": {
+    "message": "잘못된 JSON입니다. 원시 값을 표시합니다"
+  },
+  "result": {
+    "message": "결과"
+  },
+  "tools_fs_list": {
+    "message": "디렉터리 목록"
+  },
+  "tools_fs_read": {
+    "message": "파일 읽기"
+  },
+  "tools_fs_write": {
+    "message": "파일 쓰기"
+  },
+  "tools_fs_apply_patch": {
+    "message": "패치 적용"
+  },
+  "tools_fs_mkdir": {
+    "message": "디렉터리 생성"
+  },
+  "tools_fs_delete": {
+    "message": "삭제"
+  },
+  "tools_search_grep": {
+    "message": "콘텐츠 검색"
+  },
+  "tools_search_glob": {
+    "message": "파일 찾기"
+  },
+  "tools_git_status": {
+    "message": "Git 상태"
+  },
+  "tools_git_diff": {
+    "message": "Git 차이"
+  },
+  "tools_git_log": {
+    "message": "Git 로그"
+  },
+  "tools_git_branch": {
+    "message": "Git 브랜치"
+  },
+  "tools_git_add": {
+    "message": "파일 스테이징"
+  },
+  "tools_git_commit": {
+    "message": "커밋"
+  },
+  "tools_exec_run": {
+    "message": "명령 실행"
+  },
+  "markdown_unableToRender": {
+    "message": "콘텐츠를 렌더링할 수 없습니다"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "메시지 내용을 표시할 수 없습니다. 잘못된 형식일 수 있습니다."
+  },
+  "markdown_showRawContent": {
+    "message": "원본 콘텐츠 표시"
+  },
+  "commandPalette_goToChat": {
+    "message": "채팅으로 이동"
+  },
+  "commandPalette_goToMedia": {
+    "message": "미디어로 이동"
+  },
+  "commandPalette_goToNotes": {
+    "message": "노트로 이동"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "플래시카드로 이동"
+  },
+  "commandPalette_goToSettings": {
+    "message": "설정으로 이동"
+  },
+  "commandPalette_goToHealth": {
+    "message": "건강 및 진단 열기"
+  },
+  "commandPalette_newChat": {
+    "message": "새 채팅"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "지식 검색 전환"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "지식 베이스에서 검색합니다"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "웹 검색 전환"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "인터넷을 검색합니다"
+  },
+  "commandPalette_ingestPage": {
+    "message": "현재 페이지 가져오기"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "이 페이지를 지식 베이스에 저장합니다"
+  },
+  "commandPalette_switchModel": {
+    "message": "모델 전환"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "사이드바 전환"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "채팅 사이드바 표시/숨기기"
+  },
+  "commandPalette_placeholder": {
+    "message": "명령을 입력하거나 검색하세요…"
+  },
+  "commandPalette_noResults": {
+    "message": "결과가 없습니다"
+  },
+  "commandPalette_title": {
+    "message": "명령 팔레트"
+  },
+  "commandPalette_navigate": {
+    "message": "이동"
+  },
+  "commandPalette_select": {
+    "message": "선택"
+  },
+  "commandPalette_toOpen": {
+    "message": "열기"
+  },
+  "commandPalette_categoryActions": {
+    "message": "작업"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "탐색"
+  },
+  "commandPalette_categorySettings": {
+    "message": "설정"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "최근 항목"
+  },
+  "featureHints_knowledge_title": {
+    "message": "내 지식 검색"
+  },
+  "featureHints_knowledge_description": {
+    "message": "지식 검색 패널을 열어 스니펫을 찾고 채팅에 삽입합니다."
+  },
+  "featureHints_moreTools_title": {
+    "message": "더 많은 도구"
+  },
+  "featureHints_moreTools_description": {
+    "message": "비전 모드, 이미지 업로드, 빠른 가져오기 및 전체 앱에 액세스합니다."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "빠른 명령"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "{{shortcut}} 를 눌러 명령, 설정 등을 검색합니다."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "모델 매개변수 조정"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "온도, 컨텍스트 길이 등 모델 설정을 세부 조정합니다."
+  },
+  "chatSidebar_title": {
+    "message": "채팅"
+  },
+  "chatSidebar_newChat": {
+    "message": "새 채팅"
+  },
+  "chatSidebar_collapse": {
+    "message": "사이드바 접기"
+  },
+  "chatSidebar_expand": {
+    "message": "사이드바 펼치기"
+  },
+  "chatSidebar_search": {
+    "message": "채팅 검색..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "페이지 가져오기"
+  },
+  "chatSidebar_media": {
+    "message": "미디어"
+  },
+  "chatSidebar_notes": {
+    "message": "노트"
+  },
+  "chatSidebar_flashcards": {
+    "message": "플래시카드"
+  },
+  "chatSidebar_prompts": {
+    "message": "프롬프트"
+  },
+  "chatSidebar_multiItem": {
+    "message": "다중 항목"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "바로가기"
+  },
+  "chatSidebar_settings": {
+    "message": "설정"
+  },
+  "chatSidebar_loadError": {
+    "message": "채팅을 불러오지 못했습니다"
+  },
+  "chatSidebar_localTab": {
+    "message": "로컬"
+  },
+  "chatSidebar_serverTab": {
+    "message": "서버"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "폴더"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "로컬"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "서버"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "폴더"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "서버 채팅이 아직 없습니다"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "폴더를 사용하려면 서버 연결이 필요합니다"
+  },
+  "extName": {
+    "message": "tldw 어시스턴트"
+  },
+  "extDescription": {
+    "message": "tldw_server용 브라우저 확장 프로그램 — RAG, 미디어 처리 등 다양한 기능을 갖춘 통합 AI 어시스턴트입니다."
+  },
+  "openSidePanelToChat": {
+    "message": "채팅을 위해 사이드바 열기"
+  },
+  "openOptionToChat": {
+    "message": "채팅을 위해 웹 UI 열기"
+  },
+  "contextSummarize": {
+    "message": "요약"
+  },
+  "contextExplain": {
+    "message": "설명"
+  },
+  "contextRephrase": {
+    "message": "다르게 표현"
+  },
+  "contextTranslate": {
+    "message": "번역"
+  },
+  "contextCustom": {
+    "message": "사용자 정의"
+  },
+  "contextSendToTldw": {
+    "message": "tldw_server로 보내기"
+  },
+  "contextProcessLocalTldw": {
+    "message": "tldw_server로 처리 (저장하지 않음)"
+  },
+  "contextTranscribeMedia": {
+    "message": "동영상/오디오 전사"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "동영상/오디오 전사 + 요약"
+  },
+  "contextSaveToNotes": {
+    "message": "노트에 저장"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "노트에 저장하려면 먼저 텍스트를 선택하세요."
+  },
+  "contextSidebarOpening": {
+    "message": "사이드바를 여는 중..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "노트를 저장하려고 사이드바를 여는 중..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "이 노트를 저장하려고 사이드바를 열 수 없습니다. 이 사이트에서 tldw Assistant 사이드바가 허용되어 있는지 확인하고 다시 시도하세요."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] 페이지 전송 요청이 tldw_server에서 거부되었습니다"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내지 못했습니다: $1. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내지 못했습니다. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] 페이지를 처리하려고 tldw_server로 보냈습니다"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] 이 페이지를 tldw_server로 보내는 동안 문제가 발생했습니다. tldw_server와 확장 프로그램이 실행 중인지 확인한 뒤 다시 시도하세요."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] 모델 가져오기 요청이 이미 진행 중입니다. 다른 요청을 시작하기 전에 완료될 때까지 기다려 주세요."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보낼까요? 이 작업은 huggingface.co 웹사이트와는 별개입니다. 확인하면 서버가 모델을 가져오기 시작합니다."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보내는 중입니다. 진행 상황은 확장 프로그램 아이콘 또는 tldw_server 로그에서 확인하세요."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] \"$1\" 모델 가져오기 요청을 보내지 못했습니다: $2. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] \"$1\" 모델 가져오기 요청을 보내지 못했습니다. 설정 → tldw server를 확인한 후 다시 시도하세요."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델을 가져오도록 요청을 보냈습니다. 상태는 확장 프로그램 아이콘 또는 tldw_server 로그에서 확인하세요."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] tldw_server에 \"$1\" 모델 가져오기 요청을 보내는 동안 문제가 발생했습니다. tldw_server와 확장 프로그램이 실행 중인지 확인한 뒤 다시 시도하세요."
+  },
+  "stepLabel": {
+    "message": "환영합니다"
+  },
+  "path": {
+    "message": "어떻게 시작하시겠어요?"
+  },
+  "nextSteps": {
+    "message": "준비가 완료되었습니다"
+  },
+  "restartOnboardingLabel": {
+    "message": "온보딩을 처음부터 다시 시작"
+  },
+  "restartOnboardingButton": {
+    "message": "온보딩 다시 시작"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "온보딩을 다시 시작할까요?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "온보딩 상태가 초기화되고 설정 흐름의 처음으로 돌아갑니다."
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "generate": {
+    "message": "Generate"
+  },
+  "view": {
+    "message": "View"
+  },
+  "deleteMessageConfirm": {
+    "message": "Delete this message?"
+  },
+  "deleteFailed": {
+    "message": "Delete failed"
+  },
+  "reply": {
+    "message": "Reply"
+  },
+  "replyShort": {
+    "message": "Reply"
+  },
+  "replyingTo": {
+    "message": "Replying to"
+  },
+  "clearReply": {
+    "message": "Clear reply target"
+  },
+  "replyTargetFallback": {
+    "message": "Message"
+  },
+  "artifactsTitle": {
+    "message": "Artifact"
+  },
+  "artifactsDefaultTitle": {
+    "message": "Code"
+  },
+  "artifactsView": {
+    "message": "View code"
+  },
+  "artifactsPin": {
+    "message": "Pin"
+  },
+  "artifactsUnpin": {
+    "message": "Unpin"
+  },
+  "artifactsClose": {
+    "message": "Close"
+  },
+  "artifactsCopy": {
+    "message": "Copy"
+  },
+  "artifactsDownload": {
+    "message": "Download"
+  },
+  "artifactsRun": {
+    "message": "Run"
+  },
+  "saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "saveToFlashcards": {
+    "message": "Save to Flashcards"
+  },
+  "generateDocument": {
+    "message": "Generate document"
+  },
+  "documentShort": {
+    "message": "Doc"
+  },
+  "saveNoteShort": {
+    "message": "Note"
+  },
+  "saveFlashcardShort": {
+    "message": "Card"
+  },
+  "savedToNotes": {
+    "message": "Saved to Notes"
+  },
+  "savedToFlashcards": {
+    "message": "Saved to Flashcards"
+  },
+  "saveToNotesEmpty": {
+    "message": "Nothing to save yet."
+  },
+  "timeline_title": {
+    "message": "Conversation Timeline"
+  },
+  "timeline_searchPlaceholder": {
+    "message": "Search messages... (space = AND)"
+  },
+  "timeline_searchMatches": {
+    "message": "matches"
+  },
+  "timeline_searchNoMatches": {
+    "message": "no matches"
+  },
+  "timeline_searchMode_fragments": {
+    "message": "Fragments"
+  },
+  "timeline_searchMode_substring": {
+    "message": "Substring"
+  },
+  "timeline_searchMode_regex": {
+    "message": "Regex"
+  },
+  "timeline_layout_horizontal": {
+    "message": "horizontal"
+  },
+  "timeline_layout_vertical": {
+    "message": "vertical"
+  },
+  "timeline_refreshGraph": {
+    "message": "Refresh graph"
+  },
+  "timeline_switchLayout": {
+    "message": "Switch to {{layout}} layout"
+  },
+  "timeline_expandAllAlternatives": {
+    "message": "Expand all alternatives"
+  },
+  "timeline_collapseAllAlternatives": {
+    "message": "Collapse all alternatives"
+  },
+  "timeline_hideLegend": {
+    "message": "Hide legend"
+  },
+  "timeline_showLegend": {
+    "message": "Show legend"
+  },
+  "timeline_zoomIn": {
+    "message": "Zoom in"
+  },
+  "timeline_zoomOut": {
+    "message": "Zoom out"
+  },
+  "sourceLabel": {
+    "message": "Source"
+  },
+  "sourceOpen": {
+    "message": "Open source"
+  },
+  "modelSettings_form_historyMessageLimit_label": {
+    "message": "History message limit"
+  },
+  "modelSettings_form_historyMessageLimit_placeholder": {
+    "message": "e.g. 10"
+  },
+  "modelSettings_form_historyMessageLimit_help": {
+    "message": "Limit how many previous messages are sent with each request."
+  },
+  "modelSettings_form_historyMessageOrder_label": {
+    "message": "History message order"
+  },
+  "modelSettings_form_historyMessageOrder_placeholder": {
+    "message": "Select order"
+  },
+  "modelSettings_form_historyMessageOrder_help": {
+    "message": "Choose whether the newest or oldest messages are sent first."
+  },
+  "modelSettings_form_historyMessageOrder_options_desc": {
+    "message": "Newest first"
+  },
+  "modelSettings_form_historyMessageOrder_options_asc": {
+    "message": "Oldest first"
+  },
+  "modelSettings_form_slashCommandInjectionMode_label": {
+    "message": "Slash command injection"
+  },
+  "modelSettings_form_slashCommandInjectionMode_placeholder": {
+    "message": "Select injection mode"
+  },
+  "modelSettings_form_slashCommandInjectionMode_help": {
+    "message": "Choose how slash commands are inserted into the request."
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_system": {
+    "message": "System message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_preface": {
+    "message": "Preface user message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_replace": {
+    "message": "Replace user message"
+  },
+  "modelSettings_form_apiProvider_label": {
+    "message": "API provider override"
+  },
+  "modelSettings_form_apiProvider_placeholder": {
+    "message": "Select provider (optional)"
+  },
+  "modelSettings_form_apiProvider_help": {
+    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+  },
+  "modelSettings_form_extraHeaders_label": {
+    "message": "Extra headers (JSON)"
+  },
+  "modelSettings_form_extraHeaders_placeholder": {
+    "message": "{ \"X-API-Key\": \"...\" }"
+  },
+  "modelSettings_form_extraHeaders_help": {
+    "message": "JSON object merged into request headers."
+  },
+  "modelSettings_form_extraBody_label": {
+    "message": "Extra body (JSON)"
+  },
+  "modelSettings_form_extraBody_placeholder": {
+    "message": "{ \"user\": \"...\" }"
+  },
+  "modelSettings_form_extraBody_help": {
+    "message": "JSON object merged into request body."
+  },
+  "modelSettings_form_guardrails_invalidJson": {
+    "message": "Enter a valid JSON object."
+  },
+  "modelSettings_requestOverrides": {
+    "message": "Request overrides"
+  },
+  "modelSettings_tabs_model": {
+    "message": "Model"
+  },
+  "modelSettings_tabs_conversation": {
+    "message": "Conversation"
+  },
+  "modelSettings_tabs_advanced": {
+    "message": "Advanced"
+  },
+  "modelSettings_tabs_actor": {
+    "message": "Scene Director"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  }
+}

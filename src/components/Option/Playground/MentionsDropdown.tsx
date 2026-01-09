@@ -1,6 +1,7 @@
 import React from "react"
 import { TabInfo, MentionPosition } from "~/hooks/useTabMentions"
 import { Globe, X, RefreshCw } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 interface MentionsDropdownProps {
   show: boolean
@@ -23,6 +24,7 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
   refetchTabs,
   onMentionsOpen
 }) => {
+  const { t } = useTranslation(["common"])
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [isRefreshing, setIsRefreshing] = React.useState(false)
   const dropdownRef = React.useRef<HTMLDivElement>(null)
@@ -100,14 +102,14 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
   return (
     <div
       ref={dropdownRef}
-      className="absolute z-50 bg-neutral-50 dark:bg-[#2D2D2D] border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-80 overflow-y-auto w-80"
+      className="absolute z-50 bg-surface border border-border rounded-lg shadow-lg max-h-80 overflow-y-auto w-80"
       style={{
         top: position.top,
         left: position.left,
       }}
     >
-      <div className="p-2 border-b border-gray-200 dark:border-gray-600 flex items-center justify-between">
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-100">
+      <div className="p-2 border-b border-border flex items-center justify-between">
+        <span className="text-sm font-medium text-text">
           Select Tab
         </span>
         <div className="flex items-center gap-2">
@@ -115,13 +117,16 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
             onClick={handleRefreshTabs}
             disabled={isRefreshing}
             type="button"
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-            title="Refresh tabs">
+            className="text-text-subtle hover:text-text disabled:opacity-50 disabled:cursor-not-allowed"
+            title="Refresh tabs"
+            aria-label="Refresh tabs">
             <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
           </button>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-100">
+            className="text-text-subtle hover:text-text"
+            aria-label={t("common:close", "Close") as string}
+            title={t("common:close", "Close") as string}>
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -132,9 +137,10 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
           <button
             key={tab.id}
             onClick={() => onSelectTab(tab)}
-            className={`w-full text-left p-3 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center gap-3 transition-colors ${
+            title={tab.title}
+            className={`w-full text-left p-3 hover:bg-surface2 flex items-center gap-3 transition-colors ${
               index === selectedIndex
-                ? "bg-gray-100 dark:bg-gray-600 border-r-2 border-blue-500"
+                ? "bg-surface2 border-r-2 border-primary"
                 : ""
             }`}>
             <div className="flex-shrink-0">
@@ -151,12 +157,12 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
                 />
               ) : null}
               <Globe
-                className={`w-4 h-4 text-gray-400 ${tab.favIconUrl ? "hidden" : ""}`}
+                className={`w-4 h-4 text-text-subtle ${tab.favIconUrl ? "hidden" : ""}`}
               />
             </div>
 
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+              <div className="text-sm font-medium text-text truncate">
                 {tab.title}
               </div>
             </div>
@@ -165,12 +171,13 @@ export const MentionsDropdown: React.FC<MentionsDropdownProps> = ({
       </div>
 
       {tabs.length === 0 && mentionPosition?.query && (
-        <div className="p-4 text-center text-gray-500 dark:text-gray-400 text-sm">
+        <div className="p-4 text-center text-text-subtle text-sm">
           <p>No tabs found matching "{mentionPosition.query}"</p>
           <button
             onClick={handleRefreshTabs}
             disabled={isRefreshing}
-            className="mt-2 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 disabled:opacity-50">
+            title={isRefreshing ? "Refreshing..." : "Refresh tabs"}
+            className="mt-2 text-primary hover:text-primaryStrong disabled:opacity-50">
             {isRefreshing ? "Refreshing..." : "Refresh tabs"}
           </button>
         </div>

@@ -15,7 +15,7 @@ export const RagDocsPerReplyHint: React.FC = () => {
   const value = typeof data === "number" ? data : 4
 
   return (
-    <span className="text-[11px] text-gray-700 dark:text-gray-200">
+    <span className="text-[11px] text-text-muted">
       {t("ragWorkspace.docsPerReply.current", {
         defaultValue: "{{count}} docs per answer",
         count: value
@@ -25,4 +25,3 @@ export const RagDocsPerReplyHint: React.FC = () => {
 }
 
 export default RagDocsPerReplyHint
-

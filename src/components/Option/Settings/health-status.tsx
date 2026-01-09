@@ -15,6 +15,7 @@ import {
   useConnectionUxState
 } from "@/hooks/useConnectionState"
 import { cleanUrl } from "@/libs/clean-url"
+import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 
 type Check = {
   key: string
@@ -118,7 +119,12 @@ export default function HealthStatus() {
   const [recentHealthy, setRecentHealthy] = useState<Set<string>>(new Set())
   const [lastUpdatedAt, setLastUpdatedAt] = useState<number | null>(null)
   const [secondsSinceUpdate, setSecondsSinceUpdate] = useState<number | null>(null)
+  const [queueStatus, setQueueStatus] = useState<any | null>(null)
+  const [queueActivity, setQueueActivity] = useState<any | null>(null)
+  const [queueLoading, setQueueLoading] = useState(false)
+  const [queueError, setQueueError] = useState<string | null>(null)
   const isRunningRef = useRef(false)
+  const initialLoadRef = useRef(false)
   const navigate = useNavigate()
   const MIN_INTERVAL_SEC = 5
   const SAFE_FLOOR_SEC = 15
@@ -128,6 +134,7 @@ export default function HealthStatus() {
     lastError
   } = useConnectionState()
   const { uxState, errorKind } = useConnectionUxState()
+  const { capabilities } = useServerCapabilities()
   const storeHost = storeServerUrl ? cleanUrl(storeServerUrl) : null
 
   const runSingle = async (c: Check): Promise<boolean> => {
@@ -258,8 +265,29 @@ export default function HealthStatus() {
     }
   }
 
+  const loadQueueDiagnostics = async () => {
+    if (!capabilities?.hasChatQueue) return
+    setQueueLoading(true)
+    setQueueError(null)
+    try {
+      await tldwClient.initialize().catch(() => null)
+      const [status, activity] = await Promise.all([
+        tldwClient.chatQueueStatus(),
+        tldwClient.chatQueueActivity(25)
+      ])
+      setQueueStatus(status)
+      setQueueActivity(activity)
+    } catch (e: any) {
+      setQueueError(e?.message || "Unable to load queue diagnostics.")
+    } finally {
+      setQueueLoading(false)
+    }
+  }
+
   useEffect(() => {
-    (async () => {
+    if (initialLoadRef.current) return
+    initialLoadRef.current = true
+    ;(async () => {
       try {
         const cfg = await tldwClient.getConfig()
         setServerUrl(cfg?.serverUrl || '')
@@ -267,11 +295,7 @@ export default function HealthStatus() {
       await testCoreConnection()
       await runChecks()
     })()
-    // We intentionally run the initial health checks only once on mount.
-    // This avoids duplicate calls when dependencies such as `checks`
-    // or `results` change over time.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [runChecks, testCoreConnection])
 
   useEffect(() => {
     if (!autoRefresh) return
@@ -294,6 +318,12 @@ export default function HealthStatus() {
     const id = setInterval(update, 1000)
     return () => clearInterval(id)
   }, [lastUpdatedAt])
+
+  useEffect(() => {
+    if (capabilities?.hasChatQueue) {
+      void loadQueueDiagnostics()
+    }
+  }, [capabilities?.hasChatQueue])
 
   const intervalSecClamped = Math.max(MIN_INTERVAL_SEC, intervalSec)
   const secondsUntilNext =
@@ -472,7 +502,7 @@ export default function HealthStatus() {
               </div>
               {(typeof lastStatusCode === "number" && lastStatusCode > 0) ||
               lastError ? (
-                <div className="text-[11px] text-gray-600 dark:text-gray-400">
+                <div className="text-[11px] text-text-muted">
                   {t(
                     "healthPage.lastErrorSummary",
                     "Most recent connection error: {{code}} {{message}}",
@@ -601,14 +631,14 @@ export default function HealthStatus() {
           />
         </label>
         {secondsSinceUpdate != null && (
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-text-subtle">
             {secondsSinceUpdate <= 5
               ? t('healthPage.updatedJustNow', 'Updated just now')
               : t('healthPage.updatedSecondsAgo', 'Updated {{seconds}}s ago', { seconds: secondsSinceUpdate })}
           </span>
         )}
         {autoRefresh && secondsUntilNext != null && (
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-text-subtle">
             {t('healthPage.nextRefreshIn', 'Next auto-refresh in {{seconds}}s', {
               seconds: secondsUntilNext
             })}
@@ -637,7 +667,7 @@ export default function HealthStatus() {
             )}
           </Typography.Paragraph>
           {storeHost && (
-            <Typography.Text className="text-[11px] text-gray-500 dark:text-gray-400">
+            <Typography.Text className="text-[11px] text-text-subtle">
               {t(
                 "healthPage.technicalSummaryHost",
                 "Current server: {{host}}",
@@ -678,7 +708,7 @@ export default function HealthStatus() {
                   isCheckRunning ? (
                     <Space size="small">
                       <Spin size="small" />
-                      <span className="text-gray-500">{t('healthPage.checking', 'Checking…')}</span>
+                      <span className="text-text-subtle">{t('healthPage.checking', 'Checking…')}</span>
                     </Space>
                   ) : (
                     <a onClick={() => recheckOne(c)}>{t('healthPage.recheck', 'Recheck')}</a>
@@ -794,7 +824,7 @@ export default function HealthStatus() {
                         { path: c.path }
                       )}
                     </Typography.Text>
-                    <pre className="mt-1 p-2 bg-gray-50 dark:bg-[#262626] rounded text-xs overflow-auto max-h-40">
+                    <pre className="mt-1 p-2 bg-surface2 rounded text-xs overflow-auto max-h-40">
                       {displayedDetail}
                     </pre>
                   </>
@@ -803,6 +833,131 @@ export default function HealthStatus() {
             )
           })}
         </div>
+
+        {capabilities?.hasChatQueue && (
+          <div className="mt-6 space-y-3">
+            <div className="flex items-center justify-between">
+              <Typography.Title level={5} className="!mb-0 text-sm md:text-base">
+                {t(
+                  "healthPage.queueTitle",
+                  "Chat queue diagnostics"
+                )}
+              </Typography.Title>
+              <Button size="small" onClick={loadQueueDiagnostics} loading={queueLoading}>
+                {t("common:refresh", "Refresh")}
+              </Button>
+            </div>
+            {queueError && (
+              <Alert
+                type="warning"
+                showIcon
+                message={t(
+                  "healthPage.queueError",
+                  "Queue diagnostics unavailable"
+                )}
+                description={queueError}
+              />
+            )}
+            {queueStatus && (
+              <Card
+                title={t("healthPage.queueStatusTitle", "Queue status")}
+              >
+                <Space size="middle" className="flex flex-wrap">
+                  <Tag color={queueStatus.enabled ? "green" : "default"}>
+                    {queueStatus.enabled
+                      ? t("healthPage.queueEnabled", "Enabled")
+                      : t("healthPage.queueDisabled", "Disabled")}
+                  </Tag>
+                  {typeof queueStatus.queue_size !== "undefined" && (
+                    <Tag>
+                      {t("healthPage.queueDepth", "Queued")}:
+                      {" "}
+                      {queueStatus.queue_size}
+                    </Tag>
+                  )}
+                  {typeof queueStatus.processing_count !== "undefined" && (
+                    <Tag>
+                      {t("healthPage.queueProcessing", "Processing")}:
+                      {" "}
+                      {queueStatus.processing_count}
+                    </Tag>
+                  )}
+                  {typeof queueStatus.max_queue_size !== "undefined" && (
+                    <Tag>
+                      {t("healthPage.queueMax", "Max queue")}:
+                      {" "}
+                      {queueStatus.max_queue_size}
+                    </Tag>
+                  )}
+                  {typeof queueStatus.max_concurrent !== "undefined" && (
+                    <Tag>
+                      {t("healthPage.queueMaxConcurrent", "Max concurrent")}:
+                      {" "}
+                      {queueStatus.max_concurrent}
+                    </Tag>
+                  )}
+                  {typeof queueStatus.total_processed !== "undefined" && (
+                    <Tag>
+                      {t("healthPage.queueTotalProcessed", "Processed")}:
+                      {" "}
+                      {queueStatus.total_processed}
+                    </Tag>
+                  )}
+                  {typeof queueStatus.total_rejected !== "undefined" && (
+                    <Tag>
+                      {t("healthPage.queueTotalRejected", "Rejected")}:
+                      {" "}
+                      {queueStatus.total_rejected}
+                    </Tag>
+                  )}
+                </Space>
+                {queueStatus.message && (
+                  <Typography.Paragraph type="secondary" className="!mt-2 !mb-0 text-xs">
+                    {queueStatus.message}
+                  </Typography.Paragraph>
+                )}
+              </Card>
+            )}
+            {queueActivity && Array.isArray(queueActivity.activity) && (
+              <Card title={t("healthPage.queueActivityTitle", "Recent activity")}>
+                {queueActivity.activity.length === 0 ? (
+                  <Typography.Paragraph type="secondary" className="!mb-0 text-xs">
+                    {t("healthPage.queueActivityEmpty", "No recent activity.")}
+                  </Typography.Paragraph>
+                ) : (
+                  <div className="space-y-2">
+                    {queueActivity.activity.slice(0, 10).map((item: any, idx: number) => (
+                      <div
+                        key={`${item.request_id || idx}`}
+                        className="rounded-md border border-border bg-surface2 p-2 text-xs"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-medium text-text">
+                            {item.request_id || t("healthPage.queueItem", "Request")}
+                          </span>
+                          <Tag>{item.result || item.status || "ok"}</Tag>
+                        </div>
+                        <div className="text-text-subtle">
+                          {t(
+                            "healthPage.queueItemMeta",
+                            "Priority {{priority}} · {{duration}}s",
+                            {
+                              priority: item.priority ?? "n/a",
+                              duration:
+                                typeof item.duration === "number"
+                                  ? item.duration.toFixed(2)
+                                  : "n/a"
+                            }
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </Card>
+            )}
+          </div>
+        )}
       </div>
     </Space>
   )

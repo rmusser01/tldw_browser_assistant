@@ -1,0 +1,1475 @@
+{
+  "newChat": {
+    "message": "گپ جدید"
+  },
+  "selectAPrompt": {
+    "message": "یک پرامپت را انتخاب کنید"
+  },
+  "githubRepository": {
+    "message": "مخزن GitHub"
+  },
+  "settings": {
+    "message": "تنظیمات"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "دستیار tldw را به سرور خود متصل کنید"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "در حال جستجوی سرور tldw شما…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "به سرور tldw شما متصل شد"
+  },
+  "connectionCard_headlineError": {
+    "message": "نمی‌توان به سرور tldw شما دسترسی پیدا کرد"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server is the backend that powers chat, knowledge search, and media processing. Connect your own tldw server URL to start using the assistant."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "We’re checking {{host}} to see if your tldw server is reachable. This may take a moment while we wait for a response."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "Connected to your tldw server at {{host}}. You can start chatting or use Review, Knowledge, and other tools."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "بازبینی رسانه و رونوشت‌ها"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "جستجوی دانش و یادداشت‌ها"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "استفاده از RAG با اسناد خودتان"
+  },
+  "connectionCard_descriptionError": {
+    "message": "We couldn’t reach your tldw server at {{host}}. Make sure the server is running, the URL is correct, and your browser can reach it over the network."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "شروع گفتگو"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "تلاش دوباره برای اتصال"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "تغییر سرور"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "باز کردن عیب‌یابی"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "مشاهده عیب‌یابی"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "باز کردن درون‌ریزی سریع"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "امتحان نسخه آزمایشی"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "ادامه به صورت آفلاین"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "غیرفعال کردن حالت آفلاین"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "حالت آفلاین — فقط برای staging"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "رفتن به کارت سرور"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "نکته: در حالت آفلاین برای درون‌ریزی کمک می‌خواهید؟"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "وقتی سرور شما آفلاین است، درون‌ریزی سریع مانند یک ناحیه staging عمل می‌کند. می‌توانید آدرس‌های URL و فایل‌ها را اکنون در صف قرار دهید و پس از اتصال دوباره پردازش کنید."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "بازگشت به فضای کاری"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "تنظیمات در یک برگه جدید مرورگر باز می‌شود تا بتوانید سرور tldw خود را پیکربندی کنید."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "وقتی سرور شما آفلاین است، درون‌ریزی سریع می‌تواند آدرس‌های URL و فایل‌ها را در صف قرار دهد تا پس از اتصال مجدد پردازششان کنید."
+  },
+  "header_showShortcuts": {
+    "message": "نمایش میانبرها"
+  },
+  "header_hideShortcuts": {
+    "message": "پنهان کردن میانبرها"
+  },
+  "header_groupWorkspace": {
+    "message": "محیط کار"
+  },
+  "header_groupKnowledge": {
+    "message": "دانش"
+  },
+  "header_groupSettings": {
+    "message": "میانبرهای تنظیمات"
+  },
+  "header_backToHome": {
+    "message": "بازگشت به خانه"
+  },
+  "header_openSidebar": {
+    "message": "باز کردن نوار کناری"
+  },
+  "header_untitledChat": {
+    "message": "بدون عنوان"
+  },
+  "header_modelLabel": {
+    "message": "مدل"
+  },
+  "header_contentReview": {
+    "message": "بازبینی محتوا"
+  },
+  "header_promptLabel": {
+    "message": "پرامپت"
+  },
+  "header_review": {
+    "message": "بازبینی"
+  },
+  "header_flashcards": {
+    "message": "فلش‌کارت‌ها"
+  },
+  "header_quiz": {
+    "message": "آزمون‌ها"
+  },
+  "header_media": {
+    "message": "رسانه"
+  },
+  "header_libraryView": {
+    "message": "بازبینی چندموردی"
+  },
+  "header_notes": {
+    "message": "یادداشت‌ها"
+  },
+  "header_modesLabel": {
+    "message": "حالت‌ها"
+  },
+  "header_modePlayground": {
+    "message": "گپ"
+  },
+  "header_modeReview": {
+    "message": "بازبینی"
+  },
+  "header_modeMedia": {
+    "message": "رسانه"
+  },
+  "header_modeKnowledge": {
+    "message": "پرسش‌وپاسخ دانشی"
+  },
+  "header_modeNotes": {
+    "message": "یادداشت‌ها"
+  },
+  "header_modePrompts": {
+    "message": "پرامپت‌ها"
+  },
+  "header_modePromptsPlayground": {
+    "message": "پرامپت‌ها"
+  },
+  "header_modeStt": {
+    "message": "پلی‌گراند STT"
+  },
+  "header_modePromptStudio": {
+    "message": "استودیو پرامپت"
+  },
+  "header_modeFlashcards": {
+    "message": "فلش‌کارت‌ها"
+  },
+  "header_modeWorldBooks": {
+    "message": "کتاب‌های جهان"
+  },
+  "header_modeDictionaries": {
+    "message": "واژه‌نامه‌های چت"
+  },
+  "header_modeCharacters": {
+    "message": "شخصیت‌ها"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} برای جابه‌جایی"
+  },
+  "header_quickIngest": {
+    "message": "درون‌ریزی سریع"
+  },
+  "header_modelSettings": {
+    "message": "تنظیمات مدل"
+  },
+  "header_serverSettings": {
+    "message": "تنظیمات سرور"
+  },
+  "header_more": {
+    "message": "ابزارهای هوش مصنوعی"
+  },
+  "header_moreMenu_title": {
+    "message": "ابزارهای پیشرفته"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "ابزارهای پیشرفته مثل نوار کناری، مخزن و گزینه‌های اشکال‌زدایی"
+  },
+  "header_moreActions": {
+    "message": "اقدامات بیشتر"
+  },
+  "header_toolsMenu": {
+    "message": "ابزارهای گفتگو"
+  },
+  "header_serverBackedLabel": {
+    "message": "گفتگوی متکی به سرور"
+  },
+  "header_serverBackedTooltip": {
+    "message": "پیام‌های این گفتگو همچنین روی سرور tldw شما ذخیره می‌شوند."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "جستجوی صفحه‌ها، گفتگوها، رسانه‌ها، یادداشت‌ها…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "هیچ نتیجه‌ای برای «{{query}}» یافت نشد."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "ایجاد یادداشت «{{query}}»"
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "یادداشت «{{query}}» ایجاد شد"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "ایجاد مجموعه فلش‌کارت «{{query}}»"
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "مجموعه فلش‌کارت «{{query}}» ایجاد شد"
+  },
+  "header_omniSearchStartChat": {
+    "message": "شروع گفتگوی جدید «{{query}}»"
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "گفتگو و ابزارها اکنون در گزینه‌ها و نوار کناری در دسترس‌اند."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} مورد در صف — برای بررسی و پردازش کلیک کنید"
+  },
+  "header_modeSpeech": {
+    "message": "گفتار"
+  },
+  "sidebarTitle": {
+    "message": "تاریخچه گپ"
+  },
+  "error": {
+    "message": "خطا"
+  },
+  "somethingWentWrong": {
+    "message": "مشکلی پیش آمد"
+  },
+  "validationSelectModel": {
+    "message": "لطفا یک مدل را برای ادامه انتخاب کنید"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "آیا مطمئن هستید که می خواهید این تاریخچه را حذف کنید؟"
+  },
+  "editHistoryTitle": {
+    "message": "یک عنوان جدید وارد کنید"
+  },
+  "temporaryChat": {
+    "message": "گپ موقت (ذخیره نمی‌شود)"
+  },
+  "more_copy_group": {
+    "message": "کپی"
+  },
+  "more_copy_asText": {
+    "message": "کپی به صورت متن"
+  },
+  "more_copy_asMarkdown": {
+    "message": "کپی به صورت مارک‌داون"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "کپی رونوشت مرجع"
+  },
+  "more_copy_success": {
+    "message": "در کلیپ‌بورد کپی شد!"
+  },
+  "more_download_group": {
+    "message": "دانلود"
+  },
+  "more_download_text": {
+    "message": "فایل متنی (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "مارک‌داون (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "رونوشت مرجع (Markdown)"
+  },
+  "more_download_json": {
+    "message": "فایل JSON (.json)"
+  },
+  "more_download_image": {
+    "message": "تصویر (.png)"
+  },
+  "more_share": {
+    "message": "اشتراک‌گذاری"
+  },
+  "libraryView": {
+    "message": "نمای کتابخانه"
+  },
+  "notes": {
+    "message": "یادداشت‌ها"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "فایل خیلی بزرگ است"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "حجم فایل باید کمتر از ۱۰ مگابایت باشد"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "آپلود ناموفق بود"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "آپلود فایل انجام نشد. دوباره امتحان کنید."
+  },
+  "promptStudio_title": {
+    "message": "پلی‌گراند استودیو پرامپت"
+  },
+  "promptStudio_subtitle": {
+    "message": "پروژه‌ها، پرامپت‌ها، اجراها، کیس‌های آزمون و ارزیابی‌های استودیو پرامپت را مدیریت کنید."
+  },
+  "promptStudio_capabilityError": {
+    "message": "امکان دسترسی به استودیو پرامپت وجود ندارد"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "اتصال سرور را بررسی کنید یا این بخش را تا زمانی که APIهای استودیو پرامپت در دسترس باشند غیرفعال کنید."
+  },
+  "promptStudio_offline": {
+    "message": "برای استفاده از استودیو پرامپت به سرور خود متصل شوید"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "پروژه‌ها و پرامپت‌ها"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "برای ویرایش پرامپت، یک پروژه بسازید یا باز کنید."
+  },
+  "promptStudio_projectsError": {
+    "message": "بارگذاری پروژه‌ها ممکن نبود"
+  },
+  "promptStudio_promptVersion": {
+    "message": "نسخه"
+  },
+  "promptStudio_changeDescription": {
+    "message": "توضیح تغییرات"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "پرامپت سیستم"
+  },
+  "promptStudio_userPrompt": {
+    "message": "پرامپت کاربر"
+  },
+  "promptStudio_fewShot": {
+    "message": "نمونه‌های Few-shot (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "پیکربندی ماژول‌ها (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "تاریخچه"
+  },
+  "promptStudio_executeCard": {
+    "message": "اجرای موردی"
+  },
+  "promptStudio_executeHint": {
+    "message": "ارائه‌دهنده، مدل، دما، ورودی‌ها."
+  },
+  "promptStudio_provider": {
+    "message": "ارائه‌دهنده"
+  },
+  "promptStudio_model": {
+    "message": "مدل"
+  },
+  "promptStudio_runPrompt": {
+    "message": "اجرای پرامپت"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "فرم اجرا به‌زودی می‌آید. از این پنل برای اجرای ورودی‌های تکی روی یک پرامپت با /prompt-studio/prompts/execute استفاده کنید."
+  },
+  "promptStudio_testsCard": {
+    "message": "کیس‌های آزمون و ارزیابی‌ها"
+  },
+  "promptStudio_testsHint": {
+    "message": "فهرست/ایجاد کیس‌های آزمون، اجرای ارزیابی‌ها، بررسی وضعیت."
+  },
+  "promptStudio_testCases": {
+    "message": "کیس‌های آزمون"
+  },
+  "promptStudio_evaluations": {
+    "message": "ارزیابی‌ها"
+  },
+  "promptStudio_inputsJson": {
+    "message": "ورودی‌ها (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "خروجی‌های مورد انتظار (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "طلایی است؟"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "افزودن گروهی"
+  },
+  "promptStudio_bulkJson": {
+    "message": "آرایه JSON از کیس‌های آزمون"
+  },
+  "promptStudio_runAsync": {
+    "message": "اجرای غیرهمزمان"
+  },
+  "promptStudio_temperature": {
+    "message": "دما"
+  },
+  "promptStudio_maxTokens": {
+    "message": "حداکثر توکن"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "اجرای ارزیابی"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "محل موقت: CRUD کیس‌های آزمون، ایجاد/فهرست/جزئیات ارزیابی و پایش غیرهمزمان را در این بخش وصل کنید."
+  },
+  "promptStudio_unavailable": {
+    "message": "استودیو پرامپت روی این سرور فعال نیست."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "در صورت در دسترس بودن، پروژه‌ها، تاریخچه پرامپت، جریان‌های اجرا و ارزیابی‌ها را اینجا خواهید دید."
+  },
+  "promptSearch_title": {
+    "message": "عنوان"
+  },
+  "promptSearch_content": {
+    "message": "محتوا"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "پرامپت سیستم"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "همچنین در سرور ذخیره شود"
+  },
+  "promptSearch_cancel": {
+    "message": "لغو"
+  },
+  "promptSearch_insert": {
+    "message": "درج"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "ذخیره به عنوان جدید"
+  },
+  "promptSearch_saveLocal": {
+    "message": "ذخیره تغییرات (محلی)"
+  },
+  "promptSearch_saveServer": {
+    "message": "ذخیره تغییرات (سرور)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "ذخیره نسخه محلی"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "ذخیره به عنوان جدید (فقط سرور)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "پرامپت به‌صورت محلی به‌روزرسانی شد"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "پرامپت در سرور به‌روزرسانی شد"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "به‌روزرسانی پرامپت محلی ناموفق بود"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "به‌روزرسانی پرامپت سرور ناموفق بود"
+  },
+  "promptSearch_manageLink": {
+    "message": "مشاهده / مدیریت پرامپت‌ها"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "بازنویسی پرامپت محلی (اختیاری)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "یک پرامپت محلی برای بازنویسی انتخاب کنید"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "پرامپت ذخیره شد"
+  },
+  "promptSearch_saveFailed": {
+    "message": "ذخیره پرامپت ناموفق بود"
+  },
+  "quickIngest_title": {
+    "message": "درون‌ریزی سریع رسانه"
+  },
+  "quickIngest_subtitle": {
+    "message": "یک یا چند URL وارد کنید. در صورت نیاز، نوع را برای هر ردیف تعیین کنید."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "سرور آفلاین — فقط در staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "می‌توانید URLها و فایل‌ها را اینجا صف کنید و فیلدها را بررسی کنید، اما واردسازی اجرا نخواهد شد تا وقتی سرور tldw شما آنلاین شود. برای پردازش موارد معلق دوباره متصل شوید."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "URLها یا فایل‌های منبع"
+  },
+  "quickIngest_storeRemote": {
+    "message": "ذخیره در پایگاه دادهٔ راه‌دور"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "نتایج درون‌ریزی را روی سرور tldw خود ذخیره کنید"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "نتایج درون‌ریزی را فقط به‌صورت محلی پردازش کنید"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "برای نمایه‌سازی به سرور tldw شما بارگذاری می‌شود."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "فقط پردازش کرده و نتایج را محلی نگه دارید (دانلود JSON)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "محل ذخیره نتایج درون‌ریزی"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "روی سرور tldw شما ذخیره می‌شود (پیشنهادی برای RAG و محیط‌های کاری مشترک)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "فقط در این مرورگر نگه داشته می‌شود؛ هیچ داده‌ای روی سرورتان نوشته نمی‌شود."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "ذخیره پس از بازبینی"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "بازبینی پیش از ذخیره"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "اکنون پردازش کنید و سپس پیش‌نویس‌ها را به‌صورت محلی ویرایش کنید قبل از اینکه در سرور ثبت شوند."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "حالت بازبینی"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "سقف پیش‌نویس‌های محلی {{cap}} است."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "پیش‌نویس‌ها به‌صورت محلی ذخیره شوند؟"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "پیش‌نویس‌ها در این مرورگر ذخیره می‌شوند و ممکن است داده‌های حساس داشته باشند. می‌توانید هر زمان از صفحه «بازبینی محتوا» پیش‌نویس‌ها را پاک کنید."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "حالت بازبینی محتوا را تا زمان ثبت در سرور در سمت کاربر نگه می‌دارد."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "فعال‌کردن بازبینی"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "لغو"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "بازبینی"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "پیش‌نویس‌ها برای بازبینی آماده‌اند."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "پیش‌نویس‌های بازبینی ایجاد نشدند."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "ایجاد پیش‌نویس‌های بازبینی ناموفق بود."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "تلاش دوباره برای ایجاد پیش‌نویس"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "ذخیره بدون بازبینی"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "باز کردن بازبینی محتوا ممکن نبود. دوباره تلاش کنید."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "تلاش دوباره برای باز کردن بازبینی محتوا"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} فایل از سقف پیش‌نویس محلی ({{cap}}) عبور می‌کنند. قبل از ثبت صوت/ویدئو، منابع را پیوست کنید."
+  },
+  "quickIngest_openContentReview": {
+    "message": "باز کردن بازبینی محتوا"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "درباره درون‌ریزی و ذخیره‌سازی بیشتر بدانید"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "چسباندن URLها (هر خط یک مورد)"
+  },
+  "quickIngest_or": {
+    "message": "یا"
+  },
+  "quickIngest_remove": {
+    "message": "حذف"
+  },
+  "quickIngest_add": {
+    "message": "افزودن URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "گزینه‌های درون‌ریزی"
+  },
+  "quickIngest_audioOptions": {
+    "message": "گزینه‌های صوتی"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "زبان (مثلاً en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "فعال کنید تا گویندگان در رونوشت‌ها جدا شوند."
+  },
+  "quickIngest_documentOptions": {
+    "message": "گزینه‌های اسناد"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR به استخراج متن از PDF‌های اسکن‌شده یا تصاویر کمک می‌کند."
+  },
+  "quickIngest_videoOptions": {
+    "message": "گزینه‌های ویدئو"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "در صورت وجود، زمان‌برچسب/زیرنویس را شامل کنید."
+  },
+  "quickIngest_cancel": {
+    "message": "لغو"
+  },
+  "quickIngest_ingest": {
+    "message": "درون‌ریزی"
+  },
+  "quickIngest_process": {
+    "message": "پردازش"
+  },
+  "quickIngest_results": {
+    "message": "نتایج"
+  },
+  "quickIngest_downloadJson": {
+    "message": "دانلود JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} فیلد پیشرفته بارگذاری شد"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "گزینه پیشرفته‌ای یافت نشد — مشخصات را دوباره بارگذاری کنید."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} مورد تغییر کرد"
+  },
+  "quickIngest_progress": {
+    "message": "در حال پردازش {{done}} / {{total}} مورد…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "در حال حاضر نتوانستیم موارد اینجست را پردازش کنیم."
+  },
+  "quickIngest_errorHint": {
+    "message": "پس از بررسی سرور tldw خود دوباره تلاش کنید. بخش Health & diagnostics می‌تواند در برطرف کردن مشکلات اینجست کمک کند."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "سلامت سرور را در Health & diagnostics بررسی کنید"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "اجرای اخیر ناموفق بود — برای جزئیات بیشتر از سربرگ Health & diagnostics را باز کنید."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "مشخصات پیشرفته از سرور دوباره بارگذاری شد (فیلدهای اضافه‌شده: {{added}}, حذف‌شده: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "در حال استفاده از طرحوارهٔ جایگزینِ بسته‌بندی‌شدهٔ media.add (v{{version}}); اگر فیلدها قدیمی به نظر می‌رسند، لطفاً با tldw_server /openapi.json بررسی کنید."
+  },
+  "notesSearch_placeholder": {
+    "message": "جستجوی عنوان‌ها و محتوا"
+  },
+  "notesSearch_clear": {
+    "message": "پاک کردن جستجو و فیلترها"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "فیلتر بر اساس کلیدواژه"
+  },
+  "notesSearch_new": {
+    "message": "یادداشت جدید"
+  },
+  "notesSearch_newTooltip": {
+    "message": "ایجاد یادداشت جدید"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} یادداشت"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "صدور یادداشت‌های مطابق به Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "صدور یادداشت‌های مطابق به CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "صدور یادداشت‌های مطابق به JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "خروجی گرفته شد ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "از {{count}} یادداشت خروجی گرفته شد ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "از {{count}} یادداشت خروجی به صورت CSV گرفته شد ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "از {{count}} یادداشت خروجی به صورت JSON گرفته شد ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "صدور یادداشت به Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "ذخیره یادداشت"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "کپی محتوای یادداشت"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "حذف یادداشت"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "صدور"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "نتایج"
+  },
+  "notesSearch_showingRange": {
+    "message": "نمایش {{start}}-{{end}} از {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "گسترش نوار کناری"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "بستن نوار کناری"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "عنوان"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "کلیدواژه‌ها (تگ‌ها)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "کلیدواژه‌ها کمک می‌کنند این یادداشت را با فیلتر کلیدواژه سمت چپ پیدا کنید."
+  },
+  "tts_playground": {
+    "message": "پلی‌گراند TTS"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "برای استفاده از یادداشت‌ها وصل شوید"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "برای استفاده از یادداشت‌ها، ابتدا به سرور tldw خود متصل شوید."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "از یادداشت‌ها همراه با Media و Review استفاده کنید تا یافته‌های خود را پیگیری کنید."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "یادداشت‌های نمونه (فقط پیش‌نمایش)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "یادداشت دمو: جمع‌بندی جلسه هفتگی"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "تصمیم‌ها، موانع و پیگیری‌ها از هماهنگی اخیر تیم."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "امروز · ۹:۳۲ صبح"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "یادداشت دمو: نکات برجسته تحقیق"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "نکات کلیدی استخراج‌شده از یک مقاله یا نوشته طولانی."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "دیروز · ۴:۱۰ عصر"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "یادداشت دمو: خلاصه تماس"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "خلاصه‌ی یک تماس با مشتری به‌همراه گام‌های بعدی و مسئولان."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "این هفته"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "اگر سرور شما در حال اجرا است اما در دسترس نیست، از بخش Diagnostics استفاده کنید."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "کاوش یادداشت‌ها در حالت دمو"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "این دمو نشان می‌دهد چگونه یادداشت‌ها می‌توانند بینش‌های شما را سازمان‌دهی کنند. بعداً می‌توانید سرور خود را متصل کنید تا یادداشت‌های واقعی بسازید و ذخیره کنید."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "ببینید عنوان‌ها، پیش‌نمایش‌ها و زمان‌های یادداشت‌ها چطور در فهرست نمایش داده می‌شوند."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "وقتی متصل شوید، می‌توانید از روی جلسات، بازبینی‌ها و موارد دیگر یادداشت بسازید."
+  },
+  "notesEmpty_title": {
+    "message": "هنوز یادداشتی وجود ندارد"
+  },
+  "notesEmpty_description": {
+    "message": "یادداشت‌های آزاد مرتبط با بینش‌های tldw خود را ثبت و سازمان‌دهی کنید."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "برای یک جلسه یا رونوشت اخیر، یک یادداشت جدید بسازید."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "خروجی‌های Review را در یادداشت‌ها ذخیره کنید تا بعداً بتوانید دوباره به آن‌ها سر بزنید."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "ایجاد یادداشت"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "کاوش کتاب‌های جهان در حالت دمو"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "این دمو نشان می‌دهد چگونه کتاب‌های جهان می‌توانند دانش ساختاریافته درباره جهان‌ها، تنظیمات یا محصولات شما را سازمان‌دهی کنند."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "نمونه‌هایی مانند تنظیمات فانتزی، واژه‌نامه محصول یا یادداشت‌های کمپین را ببینید."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "وقتی متصل شوید، می‌توانید کتاب‌های جهانی بسازید که tldw هنگام گفتگو از آنها استفاده کند."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "برای استفاده از کتاب‌های جهان وصل شوید"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "برای استفاده از کتاب‌های جهان، ابتدا به سرور tldw خود متصل شوید تا دانش جهان ذخیره و بازیابی شود."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "اگر سرور شما در حال اجرا است اما در دسترس نیست، از بخش Diagnostics استفاده کنید."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "پایگاه‌های دانش ساختاریافته‌ای بسازید و مدیریت کنید که شخصیت‌ها و گفتگوها بتوانند به آن ارجاع دهند."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "کتاب‌های جهان آفلاین هستند"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "برای مشاهده و ویرایش کتاب‌های جهان، از صفحه تنظیمات اصلی به سرور tldw خود متصل شوید."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "کاوش واژه‌نامه‌های چت در حالت دمو"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "این دمو نشان می‌دهد چگونه واژه‌نامه‌های چت نام‌ها، مخفف‌ها و اصطلاحات را پیش از رسیدن به مدل نرمال‌سازی می‌کنند."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "نمونه واژه‌نامه‌ها برای نام محصول، کدنیم پروژه یا اصطلاحات سازمانی را ببینید."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "پس از اتصال، می‌توانید واژه‌نامه‌ها را در همه گفتگوها فعال کنید."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "برای استفاده از واژه‌نامه‌های چت وصل شوید"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "برای استفاده از واژه‌نامه‌های چت، ابتدا به سرور tldw خود متصل شوید تا جایگزینی‌ها ذخیره شوند."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "اگر سرور شما در حال اجرا است اما در دسترس نیست، از بخش Diagnostics استفاده کنید."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "جایگزینی‌های قابل استفاده مجدد تعریف کنید تا tldw نام‌ها، مخفف‌ها و اصطلاحات سازمان شما را درک کند."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "واژه‌نامه‌های چت آفلاین هستند"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "برای مشاهده و ویرایش واژه‌نامه‌های چت، از صفحه تنظیمات اصلی به سرور tldw خود متصل شوید."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "کاوش شخصیت‌ها در حالت دمو"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "این دمو نشان می‌دهد چگونه شخصیت‌ها یک پرسونا و پرامپت سیستم را در بر می‌گیرند که می‌توانید با آن گفتگو کنید."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "نمونه‌هایی مانند مربی نویسندگی، متخصص lore یا دستیار کدنویسی را ببینید."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "پس از اتصال، می‌توانید شخصیت‌هایی بسازید که در سربرگ و انتخابگر چت ظاهر شوند."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "برای استفاده از شخصیت‌ها وصل شوید"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "برای استفاده از شخصیت‌ها، ابتدا به سرور tldw خود متصل شوید تا تعریف شخصیت‌ها ذخیره شود."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "اگر سرور شما در حال اجرا است اما در دسترس نیست، از بخش Diagnostics استفاده کنید."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "شخصیت‌های قابل استفاده مجدد بسازید که از سربرگ چت انتخاب شوند و در گفتگوها تکرار شوند."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "یک شخصیت بسازید تا شخصیت او را در چت‌های مختلف دوباره استفاده کنید. برای شروع از «کاراکتر جدید» استفاده کنید."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "API شخصیت‌ها روی این سرور در دسترس نیست"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "این سرور /api/v1/characters را اعلام نمی‌کند."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "برای تأیید نسخه سرور و APIهای در دسترس برای شخصیت‌ها، Diagnostics را باز کنید."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "اگر سرور را ارتقا دادید، افزونه را دوباره بارگذاری کنید و به شخصیت‌ها بازگردید."
+  },
+  "characters_selectCharacter": {
+    "message": "انتخاب شخصیت"
+  },
+  "characters_chattingAs": {
+    "message": "چت به‌عنوان {{name}}"
+  },
+  "characters_clearCharacter": {
+    "message": "پاک‌کردن شخصیت"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "بارگذاری شخصیت‌ها ممکن نیست"
+  },
+  "characters_fetchErrorBody": {
+    "message": "اتصال خود یا وضعیت سرور را بررسی کرده و دوباره تلاش کنید."
+  },
+  "characters_none": {
+    "message": "هیچ‌کدام (بدون شخصیت)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "جستجو بر اساس نام شخصیت"
+  },
+  "characters_noMatches": {
+    "message": "هنوز شخصیتی با این جستجو مطابقت ندارد."
+  },
+  "characters_refresh": {
+    "message": "بارگذاری مجدد شخصیت‌ها"
+  },
+  "characters_refreshing": {
+    "message": "در حال بارگذاری مجدد شخصیت‌ها…"
+  },
+  "promptInsert_useInChat": {
+    "message": "استفاده در گفتگو"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "گفتگو را باز کنید و این پرامپت را در کادر نوشتن وارد کنید."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "از پرامپت در گفتگو استفاده شود؟"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "پیام شما از قبل متن دارد. آیا می‌خواهید آن را با این پرامپت جایگزین کنید یا پرامپت را زیر آن اضافه کنید؟"
+  },
+  "promptInsert_overwrite": {
+    "message": "جایگزینی پیام"
+  },
+  "promptInsert_append": {
+    "message": "افزودن در انتها"
+  },
+  "flashcards_review": {
+    "message": "بازبینی"
+  },
+  "flashcards_create": {
+    "message": "ایجاد"
+  },
+  "flashcards_manage": {
+    "message": "مدیریت"
+  },
+  "flashcards_importExport": {
+    "message": "درون‌ریزی / برون‌ریزی"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "برای استفاده از فلش‌کارت‌ها وصل شوید"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "برای بازبینی یا تولید فلش‌کارت‌ها، ابتدا به سرور tldw خود متصل شوید."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «Settings → tldw server» را باز کنید."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "پس از اتصال، کارت‌های سررسید را بازبینی کنید یا از یادداشت‌ها و رسانه‌ها دِک‌های جدید بسازید."
+  },
+  "flashcards_demoTitle": {
+    "message": "کاوش فلش‌کارت‌ها در حالت دمو"
+  },
+  "flashcards_demoDescription": {
+    "message": "این دمو نشان می‌دهد فلش‌کارت‌ها چگونه محتوای شما را به کارت‌های تکرار با فاصله تبدیل می‌کنند. بعداً سرور خود را متصل کنید تا از یادداشت‌ها و رسانه‌های خود کارت بسازید و بازبینی کنید."
+  },
+  "flashcards_demoExample1": {
+    "message": "ببینید دِک‌ها، کارت‌ها و برچسب‌ها در تب‌های بازبینی و مدیریت چگونه سازمان‌دهی می‌شوند."
+  },
+  "flashcards_demoExample2": {
+    "message": "پس از اتصال، می‌توانید از سخنرانی‌ها، جلسات یا یادداشت‌ها کارت بسازید و طبق برنامه بازبینی کنید."
+  },
+  "flashcards_demoExample3": {
+    "message": "از فلش‌کارت‌ها همراه با Notes و Media استفاده کنید تا ایده‌های مهم تازه بمانند."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "نمونه دِک‌ها (فقط پیش‌نمایش)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "دِک دمو: مفاهیم اصلی"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "۱۰ کارت · عالی برای آزمایش فاصله‌گذاری و امتیازدهی."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "دِک دمو: اصطلاحات محصول"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "۸ کارت · نام‌ها، مخفف‌ها و تعاریف کلیدی."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "دِک دمو: پیگیری‌های جلسه"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "۶ کارت · نمونه اقدامات برای بازبینی."
+  },
+  "flashcards_selectDeck": {
+    "message": "انتخاب دِک"
+  },
+  "flashcards_nextDue": {
+    "message": "نوبت بعدی"
+  },
+  "flashcards_front": {
+    "message": "روی کارت"
+  },
+  "flashcards_back": {
+    "message": "پشت کارت"
+  },
+  "flashcards_extra": {
+    "message": "اضافی"
+  },
+  "flashcards_showAnswer": {
+    "message": "نمایش پاسخ"
+  },
+  "flashcards_hideAnswer": {
+    "message": "پنهان کردن پاسخ"
+  },
+  "flashcards_preview": {
+    "message": "پیش‌نمایش"
+  },
+  "flashcards_rate": {
+    "message": "امتیاز"
+  },
+  "flashcards_answerMs": {
+    "message": "زمان پاسخ (ثانیه، اختیاری)"
+  },
+  "flashcards_noDue": {
+    "message": "کارت سررسید وجود ندارد"
+  },
+  "flashcards_deck": {
+    "message": "دِک"
+  },
+  "flashcards_newDeck": {
+    "message": "دِک جدید"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "نام دِک را وارد کنید."
+  },
+  "flashcards_modelType": {
+    "message": "قالب کارت"
+  },
+  "flashcards_reverse": {
+    "message": "همچنین کارت معکوس ایجاد شود"
+  },
+  "flashcards_isCloze": {
+    "message": "حذف کلوز"
+  },
+  "flashcards_tags": {
+    "message": "برچسب‌ها"
+  },
+  "flashcards_dueStatus": {
+    "message": "وضعیت سررسید"
+  },
+  "flashcards_dueAll": {
+    "message": "همه"
+  },
+  "flashcards_dueNew": {
+    "message": "جدید"
+  },
+  "flashcards_dueLearning": {
+    "message": "در حال یادگیری"
+  },
+  "flashcards_dueDue": {
+    "message": "سررسید"
+  },
+  "flashcards_tag": {
+    "message": "برچسب"
+  },
+  "flashcards_noCards": {
+    "message": "هیچ کارتی وجود ندارد"
+  },
+  "flashcards_due": {
+    "message": "سررسید"
+  },
+  "flashcards_editCard": {
+    "message": "ویرایش کارت"
+  },
+  "flashcards_importTitle": {
+    "message": "درون‌ریزی فلش‌کارت‌ها"
+  },
+  "flashcards_exportTitle": {
+    "message": "برون‌ریزی فلش‌کارت‌ها"
+  },
+  "flashcards_importHelp": {
+    "message": "خطوط TSV/CSV را بچسبانید: دِک، روی کارت، پشت کارت، برچسب‌ها، یادداشت‌ها"
+  },
+  "flashcards_pasteContent": {
+    "message": "محتوا را اینجا بچسبانید..."
+  },
+  "flashcards_tab": {
+    "message": "تب"
+  },
+  "flashcards_comma": {
+    "message": "، (کاما)"
+  },
+  "flashcards_semicolon": {
+    "message": "؛ (نقطه‌ویرگول)"
+  },
+  "flashcards_pipe": {
+    "message": "| (پایپ)"
+  },
+  "flashcards_hasHeader": {
+    "message": "دارای سربرگ"
+  },
+  "flashcards_import": {
+    "message": "درون‌ریزی"
+  },
+  "flashcards_imported": {
+    "message": "درون‌ریزی شد"
+  },
+  "flashcards_importLimits": {
+    "message": "محدودیت‌های درون‌ریزی"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV (فایل)"
+  },
+  "flashcards_apkg": {
+    "message": "انکی (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "شامل کارت معکوس"
+  },
+  "flashcards_includeHeader": {
+    "message": "شامل سطر سربرگ"
+  },
+  "flashcards_extendedHeader": {
+    "message": "سربرگ توسعه‌یافته (فراداده فنی)"
+  },
+  "flashcards_download": {
+    "message": "دانلود"
+  },
+  "flashcards_duplicate": {
+    "message": "تکثیر"
+  },
+  "flashcards_move": {
+    "message": "انتقال"
+  },
+  "flashcards_reviewFailed": {
+    "message": "بازبینی ناموفق بود"
+  },
+  "flashcards_updateFailed": {
+    "message": "به‌روزرسانی ناموفق بود"
+  },
+  "flashcards_deleteFailed": {
+    "message": "حذف ناموفق بود"
+  },
+  "flashcards_missingVersion": {
+    "message": "نسخه موجود نیست؛ دوباره بارگذاری و تلاش کنید"
+  },
+  "flashcards_bulkMove": {
+    "message": "انتقال گروهی"
+  },
+  "flashcards_bulkDelete": {
+    "message": "حذف گروهی"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} حذف شد · {{failed}} ناموفق"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "عملیات محدود به {{limit}} مورد اول است."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "برون‌ریزی انتخاب‌شده‌ها (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "انتخاب‌شده"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "انتخاب همه در این صفحه"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "انتخاب همه در نتایج"
+  },
+  "flashcards_clearSelection": {
+    "message": "پاک کردن انتخاب"
+  },
+  "flashcards_ratingAgain": {
+    "message": "دوباره"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "این کارت را به خاطر نیاوردم."
+  },
+  "flashcards_ratingHard": {
+    "message": "سخت"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "به سختی یادم آمد؛ دشوار بود."
+  },
+  "flashcards_ratingGood": {
+    "message": "خوب"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "با کمی تلاش یادم آمد."
+  },
+  "flashcards_ratingEasy": {
+    "message": "آسان"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "به سرعت و با اطمینان یادم آمد."
+  },
+  "flashcards_showTiming": {
+    "message": "زمان پاسخ را ثبت کن"
+  },
+  "flashcards_hideTiming": {
+    "message": "پنهان کردن زمان"
+  },
+  "flashcards_noDueTitle": {
+    "message": "هیچ کارت سررسیدی برای بازبینی وجود ندارد"
+  },
+  "flashcards_noDueDescription": {
+    "message": "همه را مرور کرده‌اید. برای شروع بازبینی، کارت جدید بسازید یا دِک موجود را درون‌ریزی کنید."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "ایجاد کارت جدید"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "درون‌ریزی دِک"
+  },
+  "flashcards_createTitle": {
+    "message": "از یادداشت‌هایتان فلش‌کارت بسازید"
+  },
+  "flashcards_createDescription": {
+    "message": "روی کارت سؤال و پشت کارت پاسخ را بنویسید. می‌توانید کارت‌ها را در دِک‌ها گروه‌بندی و برای جستجوی سریع‌تر برچسب‌گذاری کنید."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Basic سؤال را روی کارت و پاسخ را پشت کارت نشان می‌دهد. Reverse کارت معکوس هم می‌سازد. Cloze بخش‌هایی از متن را با {{...}} مخفی می‌کند."
+  },
+  "flashcards_reverseHelp": {
+    "message": "همچنین کارتی بسازید که پشت کارت سؤال باشد."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "برای کارت‌های جای‌خالی. متن پنهان را در {{...}} روی روی کارت قرار دهید."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "از Markdown و LaTeX پشتیبانی می‌کند."
+  },
+  "flashcards_extraHint": {
+    "message": "راهنماها/توضیحات اختیاری (پشتیبانی از Markdown و LaTeX)."
+  },
+  "flashcards_notesHint": {
+    "message": "یادداشت‌های داخلی (پشتیبانی از Markdown و LaTeX)."
+  },
+  "flashcards_bulkActions": {
+    "message": "اقدامات گروهی"
+  },
+  "flashcards_selectionHelp": {
+    "message": "«انتخاب همه در نتایج» اقدامات را روی همه کارت‌های مطابق فیلترها اعمال می‌کند، نه فقط این صفحه."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "هنوز فلش‌کارتی وجود ندارد"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "از یادداشت‌ها و رسانه‌ها کارت بسازید یا دِک موجود را درون‌ریزی کنید."
+  },
+  "flashcards_clearFilters": {
+    "message": "پاک کردن فیلترها"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "اولین کارت خود را بسازید"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "درون‌ریزی فلش‌کارت‌ها"
+  },
+  "flashcards_mapping": {
+    "message": "نگاشت ستون‌ها"
+  },
+  "flashcards_mappingPreview": {
+    "message": "پیش‌نمایش چند ردیف اول نگاشت‌شده:"
+  },
+  "flashcards_exportHelp": {
+    "message": "بر اساس دِک، برچسب یا جستجو فیلتر کنید، سپس به CSV/TSV برای صفحات گسترده یا Anki (.apkg) برای کلاینت‌های Anki برون‌ریزی کنید."
+  },
+  "omniSearch_filterScreen": {
+    "message": "صفحه‌ها"
+  },
+  "omniSearch_filterChat": {
+    "message": "گفتگوها"
+  },
+  "omniSearch_filterMedia": {
+    "message": "رسانه‌ها"
+  },
+  "omniSearch_filterNote": {
+    "message": "یادداشت‌ها"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "مجموعه‌های فلش‌کارت"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "پرامپت‌ها"
+  },
+  "omniSearch_filteringBy": {
+    "message": "فیلتر بر اساس:"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "دستیار گفتگوی سریع"
+  },
+  "quickChatHelper_title": {
+    "message": "دستیار گفتگوی سریع"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "یک سؤال کوتاه بپرسید..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "ارسال"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "یک گفتگوی جانبی سریع شروع کنید تا رشتهٔ اصلی تمیز بماند."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "باز کردن در پنجرهٔ جداگانه"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "لطفاً ابتدا یک مدل را در گفتگوی اصلی انتخاب کنید."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "پیام شما"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "پیام دستیار"
+  },
+  "quiz_itemsPerPage": {
+    "message": "آیتم/صفحه"
+  },
+  "quiz_editQuizTitle": {
+    "message": "ویرایش آزمون"
+  },
+  "quiz_updateSuccess": {
+    "message": "آزمون با موفقیت به‌روزرسانی شد."
+  },
+  "quiz_updateError": {
+    "message": "به‌روزرسانی آزمون ناموفق بود."
+  },
+  "quiz_questionTextRequired": {
+    "message": "متن سؤال الزامی است."
+  },
+  "quiz_optionsRequired": {
+    "message": "لطفا دست‌کم دو گزینه ارائه کنید."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "سؤال با موفقیت ایجاد شد."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "سؤال با موفقیت به‌روزرسانی شد."
+  },
+  "quiz_questionSaveError": {
+    "message": "ذخیره سؤال ناموفق بود."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "سؤال حذف شد."
+  },
+  "quiz_questionDeleteError": {
+    "message": "حذف سؤال ناموفق بود."
+  },
+  "quiz_editQuestion": {
+    "message": "ویرایش سؤال"
+  },
+  "quiz_points": {
+    "message": "امتیاز"
+  },
+  "quiz_orderIndex": {
+    "message": "ترتیب"
+  },
+  "quiz_startError": {
+    "message": "شروع آزمون ناموفق بود."
+  },
+  "quiz_answerAll": {
+    "message": "لطفا پیش از ارسال، به همه سؤالات پاسخ دهید."
+  },
+  "quiz_submitError": {
+    "message": "ارسال آزمون ناموفق بود."
+  },
+  "quiz_scoreSummary": {
+    "message": "امتیاز: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "درست"
+  },
+  "quiz_incorrect": {
+    "message": "نادرست"
+  },
+  "quiz_yourAnswer": {
+    "message": "پاسخ شما"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "پاسخ درست"
+  },
+  "quiz_backToList": {
+    "message": "بازگشت به فهرست"
+  },
+  "quiz_retake": {
+    "message": "تکرار آزمون"
+  },
+  "searchPrompts": {
+    "message": "جستجوی پرامپت‌ها..."
+  },
+  "noMatchingPrompts": {
+    "message": "هیچ پرامپتی مطابقت ندارد"
+  },
+  "promptSelect_favorites": {
+    "message": "موارد مورد علاقه"
+  },
+  "promptSelect_system": {
+    "message": "پرامپت‌های سیستم"
+  },
+  "promptSelect_quick": {
+    "message": "پرامپت‌های سریع"
+  },
+  "header_moreTools": {
+    "message": "بیشتر"
+  },
+  "characters_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characters_importCharacter": {
+    "message": "Import Character"
+  }
+}

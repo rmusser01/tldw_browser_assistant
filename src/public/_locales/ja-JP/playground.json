@@ -1,0 +1,1367 @@
+{
+  "formError_noModel": {
+    "message": "モデルを選択してください"
+  },
+  "formError_noEmbeddingModel": {
+    "message": "設定 > RAGページでembeddingモデルを設定してください"
+  },
+  "form_textarea_placeholder": {
+    "message": "メッセージを入力..."
+  },
+  "form_webSearch_on": {
+    "message": "オン"
+  },
+  "form_webSearch_off": {
+    "message": "オフ"
+  },
+  "tooltip_searchInternet": {
+    "message": "インターネットを検索"
+  },
+  "tooltip_speechToText": {
+    "message": "音声入力"
+  },
+  "tooltip_uploadImage": {
+    "message": "画像をアップロード"
+  },
+  "tooltip_stopStreaming": {
+    "message": "ストリーミングを停止"
+  },
+  "tooltip_knowledge": {
+    "message": "知識"
+  },
+  "tooltip_clearContext": {
+    "message": "コンテキストをクリア"
+  },
+  "tooltip_speechToTextServer": {
+    "message": "Dictation via your tldw server"
+  },
+  "tooltip_speechToTextBrowser": {
+    "message": "Dictation via browser speech recognition"
+  },
+  "tooltip_speechToTextDetails": {
+    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+  },
+  "tooltip_vision": {
+    "message": "[Experimental] Vision Chat"
+  },
+  "tooltip_uploadDocuments": {
+    "message": "Upload Documents (beta)"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
+  },
+  "sendWhenEnter": {
+    "message": "Enterキーを押すと送信"
+  },
+  "welcome": {
+    "message": "こんにちは！本日はどのようなお手伝いができますか？"
+  },
+  "useOCR": {
+    "message": "画像からテキストを抽出（OCR）"
+  },
+  "tips_title": {
+    "message": "Tips"
+  },
+  "tips_quickIngest": {
+    "message": "Use Quick ingest to add documents and web pages."
+  },
+  "tips_pickModelPrompt": {
+    "message": "Pick a Model and a Prompt from the header."
+  },
+  "tips_startChatFocus": {
+    "message": "When connected, “Start chatting” focuses the composer."
+  },
+  "tldwState_searching": {
+    "message": "tldw server を検索中"
+  },
+  "tldwState_running": {
+    "message": "tldw が実行中"
+  },
+  "tldwState_notRunning": {
+    "message": "tldw server に接続できません"
+  },
+  "tldwState_connectionError": {
+    "message": "接続エラーが発生しているようです。トラブルシューティングについては<anchor>ドキュメント</anchor>をご覧ください。"
+  },
+  "tldwState_openTldwSettings": {
+    "message": "Open tldw Settings"
+  },
+  "tldwState_cancelSearch": {
+    "message": "Cancel search"
+  },
+  "tldwState_connectionFailedWithCode": {
+    "message": "Connection failed (HTTP {{code}})"
+  },
+  "tldwState_connectionFailed": {
+    "message": "Connection failed"
+  },
+  "tldwState_errorDetailsLabel": {
+    "message": "Details:"
+  },
+  "tldwState_title": {
+    "message": "Waiting for your tldw server"
+  },
+  "tldwState_subtitle": {
+    "message": "We’re pinging {{host}} to verify the connection."
+  },
+  "tldwState_missing": {
+    "message": "Server URL not configured"
+  },
+  "tldwState_noServer": {
+    "message": "Add your tldw server to start chatting."
+  },
+  "tldwState_connectedSubtitle": {
+    "message": "Connected to {{host}}. Start chatting when you’re ready."
+  },
+  "tldwState_errorSubtitle": {
+    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+  },
+  "tldwState_openSettings": {
+    "message": "Open settings"
+  },
+  "tldwState_changeServer": {
+    "message": "Change server"
+  },
+  "tldwState_elapsed": {
+    "message": "Checking… {{seconds}}s"
+  },
+  "tldwState_connectedHint": {
+    "message": "Connected to {{host}}."
+  },
+  "tldwState_lastChecked": {
+    "message": "Checked {{seconds}}s ago"
+  },
+  "tldwState_recheck": {
+    "message": "Check again"
+  },
+  "tldwState_errorToast": {
+    "message": "We couldn’t reach {{host}}"
+  },
+  "tldwState_missingHelp": {
+    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+  },
+  "tldwState_troubleshoot": {
+    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox のプライベートモードではチャットの保存はできません。デフォルトで一時チャットが有効です。今後改善予定です。"
+  },
+  "tts_playErrorTitle": {
+    "message": "エラー"
+  },
+  "tts_playErrorDescription": {
+    "message": "音声の再生中にエラーが発生しました"
+  },
+  "tts_browserInfoTitle": {
+    "message": "ブラウザーTTSはシステム音声を使用します"
+  },
+  "tts_browserInfoDescription": {
+    "message": "ブラウザーTTSはシステムの音声合成で再生され、ダウンロード可能な音声ファイルは提供されません。下のセグメント操作を使うか、トラック一覧とプレーヤーを使うにはプロバイダーを切り替えてください。"
+  },
+  "tts_unsupportedProviderTitle": {
+    "message": "未対応のTTSプロバイダー"
+  },
+  "tts_unsupportedProviderDescription": {
+    "message": "プロバイダー \"{{provider}}\" はまだプレイグラウンドのプレーヤーでサポートされていません。"
+  },
+  "tts_unsupportedFormatTitle": {
+    "message": "未対応の音声形式"
+  },
+  "tts_unsupportedFormatDescription": {
+    "message": "応答形式「{{format}}」はサポートされていません。MP3にフォールバックします。"
+  },
+  "tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs には API キーが必要です"
+  },
+  "tts_elevenLabsMissingBody": {
+    "message": "設定で ElevenLabs の API キーを追加して、ボイスとモデルを読み込んでください。"
+  },
+  "tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs のボイスが利用できません"
+  },
+  "tts_elevenLabsUnavailableBody": {
+    "message": "ボイスまたはモデルを読み込めませんでした。API キーを確認して再試行してください。"
+  },
+  "tts_elevenLabsMissingCta": {
+    "message": "設定で API キーを設定"
+  },
+  "tts_generateErrorTitle": {
+    "message": "音声生成エラー"
+  },
+  "tts_generateErrorDescription": {
+    "message": "TTS音声の生成中に問題が発生しました。"
+  },
+  "tts_sampleText": {
+    "message": "サンプルテキストを挿入"
+  },
+  "tts_playHelper": {
+    "message": "再生は選択したプロバイダー、ボイス、速度を使用します。"
+  },
+  "tts_playDisabledNoText": {
+    "message": "テキストを入力すると再生が有効になります。"
+  },
+  "tts_playDisabledTtsOff": {
+    "message": "音声を再生するには上でテキスト読み上げを有効にしてください。"
+  },
+  "tts_playDisabledElevenLabs": {
+    "message": "再生を有効にするには ElevenLabs の API キー、ボイス、モデルを追加してください。"
+  },
+  "tts_stopDisabled": {
+    "message": "停止は音声再生が始まってから有効になります。"
+  },
+  "tts_providerChangeHelper": {
+    "message": "下のプロバイダー選択から Browser、tldw、OpenAI、Supersonic を切り替えられます。"
+  },
+  "tts_changeProvider": {
+    "message": "プロバイダーを変更"
+  },
+  "tts_title": {
+    "message": "TTS プレイグラウンド"
+  },
+  "tts_subtitle": {
+    "message": "テキスト読み上げを試して、プロバイダー、モデル、ボイスを調整できます。"
+  },
+  "tts_currentProvider": {
+    "message": "現在のプロバイダー"
+  },
+  "tts_settingsIntro": {
+    "message": "TTS のプロバイダー、モデル、ボイスを調整します。これらの設定はチャットやメディアから音声を再生するときに再利用されます。"
+  },
+  "tts_providerCapabilities": {
+    "message": "プロバイダーの対応機能"
+  },
+  "tts_voicesPreview": {
+    "message": "サーバーのボイス"
+  },
+  "tts_providerDetails": {
+    "message": "プロバイダー設定の詳細を表示"
+  },
+  "tts_providerDetailsTitle": {
+    "message": "プロバイダーの詳細"
+  },
+  "tts_inputLabel": {
+    "message": "読み上げたいテキストを入力してください。"
+  },
+  "tts_inputPlaceholder": {
+    "message": "ここにテキストを入力または貼り付けて、再生で確認します。"
+  },
+  "tts_play": {
+    "message": "再生"
+  },
+  "tts_playing": {
+    "message": "再生中…"
+  },
+  "tts_stop": {
+    "message": "停止"
+  },
+  "tts_browserSegmentsTitle": {
+    "message": "ブラウザー TTS セグメント"
+  },
+  "tts_browserSegmentsHelp": {
+    "message": "セグメントをキューに入れるか、システム音声で個別に再生できます。"
+  },
+  "tts_browserQueueAll": {
+    "message": "すべてキューに追加"
+  },
+  "tts_browserQueueFromHere": {
+    "message": "ここからキューに追加"
+  },
+  "tts_browserSegmentPlay": {
+    "message": "セグメントを再生"
+  },
+  "tts_browserStatusSpeaking": {
+    "message": "セグメント {{current}}/{{total}} を再生中"
+  },
+  "tts_browserStatusPaused": {
+    "message": "一時停止中"
+  },
+  "tts_browserPause": {
+    "message": "一時停止"
+  },
+  "tts_browserResume": {
+    "message": "再開"
+  },
+  "tts_tldwStatusOnline": {
+    "message": "tldw サーバーの音声 API を検出しました（audio/speech）"
+  },
+  "tts_tldwStatusOffline": {
+    "message": "音声 API が検出されません。tldw サーバーのバージョンを確認してください。"
+  },
+  "tts_tldwWarningTitle": {
+    "message": "tldw の audio/speech API が検出されません"
+  },
+  "tts_tldwWarningBody": {
+    "message": "tldw_server のバージョンに /api/v1/audio/speech が含まれていることと、拡張機能が有効な API キーで接続されていることを確認してください。"
+  },
+  "tts_speechErrorTitle": {
+    "message": "音声入力に失敗しました"
+  },
+  "tts_speechErrorBody": {
+    "message": "文字起こしのリクエストに失敗しました。tldw サーバーの状態を確認してください。"
+  },
+  "tts_speechNoText": {
+    "message": "文字起こし結果にテキストがありませんでした。"
+  },
+  "tts_speechMicError": {
+    "message": "マイクにアクセスできません。ブラウザーの権限を確認して再試行してください。"
+  },
+  "tts_savedToNotes": {
+    "message": "文字起こしをメモとして保存しました。"
+  },
+  "empty_title": {
+    "message": "Start a new chat"
+  },
+  "empty_description": {
+    "message": "Experiment with different models, prompts, and knowledge sources here."
+  },
+  "empty_demoDescription": {
+    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+  },
+  "empty_example1": {
+    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+  },
+  "empty_example2": {
+    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+  },
+  "empty_example3": {
+    "message": "Try different prompts or models from the header to compare answers."
+  },
+  "empty_primaryCta": {
+    "message": "Start chatting"
+  },
+  "empty_secondaryCta": {
+    "message": "Open server settings"
+  },
+  "drop_hint": {
+    "message": "Drop files to attach them to your message"
+  },
+  "drop_readySingle": {
+    "message": "{{name}} ready to send"
+  },
+  "drop_readyMultiple": {
+    "message": "{{count}} files ready to send"
+  },
+  "drop_unsupported": {
+    "message": "That file type isn’t supported. Try images or text-based files."
+  },
+  "drop_defaultFileName": {
+    "message": "File"
+  },
+  "drop_imageOnly": {
+    "message": "Only images can be dropped here right now."
+  },
+  "drop_imageHint": {
+    "message": "Drop an image to include it in your message"
+  },
+  "drop_overlayInstruction": {
+    "message": "Drop the image to attach it to your next reply"
+  },
+  "aria_chatTranscript": {
+    "message": "Chat messages"
+  },
+  "more_history": {
+    "message": "Chat saving"
+  },
+  "more_searchKnowledge": {
+    "message": "Search & RAG"
+  },
+  "more_voice": {
+    "message": "More voice options"
+  },
+  "more_uploads": {
+    "message": "Uploads & ingest"
+  },
+  "fileRetrievalEnabled": {
+    "message": "Enable RAG for Documents"
+  },
+  "stt_title": {
+    "message": "STT Playground"
+  },
+  "stt_subtitle": {
+    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+  },
+  "stt_currentModelLabel": {
+    "message": "Current transcription model"
+  },
+  "stt_defaultModel": {
+    "message": "Default from Settings"
+  },
+  "stt_settingsNotice": {
+    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+  },
+  "stt_sessionMode": {
+    "message": "Session mode"
+  },
+  "stt_modeLong": {
+    "message": "Long-running (chunked recording)"
+  },
+  "stt_modeShort": {
+    "message": "Short dictation (single clip)"
+  },
+  "stt_languageTag": {
+    "message": "Language"
+  },
+  "stt_taskTag": {
+    "message": "Task"
+  },
+  "stt_formatTag": {
+    "message": "Format"
+  },
+  "stt_segmentationEnabled": {
+    "message": "Segmentation enabled"
+  },
+  "stt_recordButton": {
+    "message": "Record"
+  },
+  "stt_stopButton": {
+    "message": "Stop"
+  },
+  "stt_startTooltip": {
+    "message": "Start recording audio for transcription"
+  },
+  "stt_stopTooltip": {
+    "message": "Stop and send to server"
+  },
+  "stt_transcribingButton": {
+    "message": "文字起こし中…"
+  },
+  "stt_transcribingTooltip": {
+    "message": "音声を文字起こししています…"
+  },
+  "stt_transcribingPlaceholder": {
+    "message": "音声を文字起こし中…"
+  },
+  "stt_historyTitle": {
+    "message": "Transcription history"
+  },
+  "stt_clearAll": {
+    "message": "Clear all"
+  },
+  "stt_emptyHistory": {
+    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+  },
+  "stt_saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "stt_delete": {
+    "message": "Delete"
+  },
+  "stt_durationTag": {
+    "message": "Duration"
+  },
+  "stt_modelTag": {
+    "message": "Model"
+  },
+  "stt_currentTranscriptTitle": {
+    "message": "Current session transcript"
+  },
+  "stt_currentTranscriptPlaceholder": {
+    "message": "Live transcript will appear here while recording."
+  },
+  "actions_temporaryOn": {
+    "message": "Temporary chat (not saved)"
+  },
+  "actions_temporaryOff": {
+    "message": "Save chat to history"
+  },
+  "actions_webSearchOn": {
+    "message": "Web search on"
+  },
+  "actions_webSearchOff": {
+    "message": "Web search off"
+  },
+  "actions_speechStart": {
+    "message": "Start dictation"
+  },
+  "actions_speechStop": {
+    "message": "Stop dictation"
+  },
+  "actions_streamStart": {
+    "message": "Live captions"
+  },
+  "actions_streamStop": {
+    "message": "Stop captions"
+  },
+  "actions_visionOn": {
+    "message": "Vision on"
+  },
+  "actions_visionOff": {
+    "message": "Vision off"
+  },
+  "actions_upload": {
+    "message": "Attach image"
+  },
+  "actions_ingest": {
+    "message": "Quick ingest"
+  },
+  "actions_ingestDisabled": {
+    "message": "Connect to your tldw server to ingest."
+  },
+  "actions_ingestHint": {
+    "message": "Upload URLs or files with advanced options."
+  },
+  "actions_ingestSub": {
+    "message": "Use URLs/files; download or store."
+  },
+  "actions_streamErrorTitle": {
+    "message": "Live captions unavailable"
+  },
+  "composer_toolsButton": {
+    "message": "+Tools"
+  },
+  "composer_queuedBanner_title": {
+    "message": "Queued while offline"
+  },
+  "composer_queuedBanner_body": {
+    "message": "We’ll hold these messages and send them once your tldw server is connected."
+  },
+  "composer_queuedBanner_sendNow": {
+    "message": "Send queued messages"
+  },
+  "composer_queuedBanner_clear": {
+    "message": "Clear queue"
+  },
+  "composer_coreTools": {
+    "message": "Conversation options"
+  },
+  "composer_captureTools": {
+    "message": "Capture and assist tools"
+  },
+  "composer_actions": {
+    "message": "Send options"
+  },
+  "composer_moreTools": {
+    "message": "More tools"
+  },
+  "composer_scrollToLatest": {
+    "message": "Scroll to latest messages"
+  },
+  "composer_submitAria": {
+    "message": "Send message"
+  },
+  "composer_openModelSettings": {
+    "message": "Open current chat settings"
+  },
+  "composer_stopStreaming": {
+    "message": "Stop streaming response"
+  },
+  "composer_connectionPlaceholder": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "composer_connectNotice": {
+    "message": "Connect to your tldw server in Settings to send messages and view media."
+  },
+  "composer_connectionChipDisconnected": {
+    "message": "Server: Not connected"
+  },
+  "composer_contextLabel": {
+    "message": "Context:"
+  },
+  "composer_contextKnowledgeEmpty": {
+    "message": "No knowledge selected"
+  },
+  "composer_contextTabs": {
+    "message": "{{count}} tabs"
+  },
+  "composer_contextFiles": {
+    "message": "{{count}} files"
+  },
+  "composer_contextMedia": {
+    "message": "Media & Notes"
+  },
+  "composer_contextMediaHint": {
+    "message": "Attach Media & Notes that should steer the response."
+  },
+  "composer_contextMediaSelected": {
+    "message": "Media or note"
+  },
+  "composer_contextMediaEmpty": {
+    "message": "No Media & Notes selected yet."
+  },
+  "composer_addKnowledge": {
+    "message": "Add Media & Notes"
+  },
+  "composer_contextTabsTitle": {
+    "message": "Tabs in context"
+  },
+  "composer_contextTabsHint": {
+    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+  },
+  "composer_contextManager": {
+    "message": "Context Management"
+  },
+  "composer_contextManagerTitle": {
+    "message": "Context Management"
+  },
+  "composer_contextKnowledge": {
+    "message": "コンテキストとナレッジ"
+  },
+  "composer_contextKnowledgeClose": {
+    "message": "コンテキストとナレッジを閉じる"
+  },
+  "composer_knowledgeSearch": {
+    "message": "ナレッジ検索"
+  },
+  "composer_knowledgeSearchClose": {
+    "message": "ナレッジ検索を閉じる"
+  },
+  "composer_persistence_ephemeral": {
+    "message": "Not saved in history; clears when you close this tab."
+  },
+  "composer_persistence_local": {
+    "message": "Saved in this browser only."
+  },
+  "composer_persistence_server": {
+    "message": "Saved Locally+Server"
+  },
+  "composer_persistence_ephemeralPill": {
+    "message": "Temporary"
+  },
+  "composer_persistence_localPill": {
+    "message": "Local only"
+  },
+  "composer_persistence_serverPill": {
+    "message": "Locally + Server"
+  },
+  "composer_persistence_saveToServer": {
+    "message": "Also save this chat to server"
+  },
+  "composer_persistence_connectToSave": {
+    "message": "Connect your server to save chats there."
+  },
+  "composer_persistence_serverDefaultTitle": {
+    "message": "Extension chat"
+  },
+  "composer_persistence_serverSavedTitle": {
+    "message": "Chat now saved on server"
+  },
+  "composer_persistence_serverSaved": {
+    "message": "Future messages in this chat will sync to your tldw server."
+  },
+  "composer_persistence_serverCharacterRequired": {
+    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+  },
+  "composer_connectToSend": {
+    "message": "設定でtldwサーバーに接続してメッセージを送信したりメディアを表示したりします。"
+  },
+  "composer_compareTag": {
+    "message": "Compare"
+  },
+  "composer_compareLabel": {
+    "message": "比較モード"
+  },
+  "composer_compareButton": {
+    "message": "モデルを比較"
+  },
+  "composer_compareButtonActive": {
+    "message": "比較: {{count}} 件のモデル"
+  },
+  "composer_compareButtonOn": {
+    "message": "比較が有効"
+  },
+  "composer_compareSettingsTitle": {
+    "message": "比較設定"
+  },
+  "composer_compareSettingsToggle": {
+    "message": "比較モードを有効にする"
+  },
+  "composer_compareSettingsToggleHint": {
+    "message": "次のメッセージを複数のモデルに送信します。"
+  },
+  "composer_compareNoneSelected": {
+    "message": "比較するモデルが選択されていません"
+  },
+  "composer_compareSingle": {
+    "message": "1件のモデルを比較中"
+  },
+  "composer_compareMany": {
+    "message": "{{count}} 件のモデルを比較中"
+  },
+  "composer_compareActiveSummary": {
+    "message": "次のターンで有効なモデル: {{label}}"
+  },
+  "composer_compareModelPickerLabel": {
+    "message": "モデルを選択"
+  },
+  "composer_compareModelPickerPlaceholder": {
+    "message": "比較するモデルを選んでください"
+  },
+  "composer_compareActiveModelsLabel": {
+    "message": "有効なモデル"
+  },
+  "composer_compareActiveModelsHint": {
+    "message": "次のメッセージは各有効モデルに送信されます。"
+  },
+  "composer_compareSendToModels": {
+    "message": "{{count}} 件のモデルに送信"
+  },
+  "composer_compareMaxModelsTitle": {
+    "message": "比較制限に達しました"
+  },
+  "composer_compareMaxModels": {
+    "message": "ターンあたり最大{{limit}}個のモデルを比較できます。"
+  },
+  "composer_compareMaxModelsTrimmed": {
+    "message": "比較はターンあたり{{limit}}個のモデルに制限されています。選択した最初の{{limit}}個のモデルを使用します。"
+  },
+  "composer_compareMaxLabel": {
+    "message": "ターンあたりの最大モデル数"
+  },
+  "composer_compareMaxHelper": {
+    "message": "選択済み: {{current}} / {{limit}}"
+  },
+  "composer_compareSelectedLabel": {
+    "message": "選択済みの回答:"
+  },
+  "composer_compareContinueHint": {
+    "message": "選択したモデルでこのチャットを続ける。"
+  },
+  "composer_compareContinue": {
+    "message": "このモデルで続行"
+  },
+  "composer_compareThreadShared": {
+    "message": "あなた（共有）"
+  },
+  "composer_compareBulkSplitSuccess": {
+    "message": "チャットを{{count}}件作成しました"
+  },
+  "composer_compareBulkSplitPartialFail": {
+    "message": "チャットを{{count}}件作成できませんでした"
+  },
+  "composer_validationCompareSelectModelsInline": {
+    "message": "Compareモードでは少なくとも1つのモデルを選択してください。"
+  },
+  "composer_compareFeatureToggle": {
+    "message": "比較モードを有効にする"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "実験的な複数モデル比較機能を有効にします。"
+  },
+  "composer_compareDisabled": {
+    "message": "比較モードは設定で無効になっています。"
+  },
+  "composer_compareChosenHint": {
+    "message": "選択した回答で続行するか、再度比較します。"
+  },
+  "composer_compareChosenLabel": {
+    "message": "選択済み"
+  },
+  "composer_compareLatency": {
+    "message": "レイテンシ"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "比較: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(比較から)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "複数モデルの回答"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} モデル"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "選択したモデル: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "選択した回答をそれぞれ独立したチャットで開く"
+  },
+  "composer_compareThreadLabel": {
+    "message": "モデル別スレッド"
+  },
+  "composer_compareThreadYou": {
+    "message": "あなた"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "完全なチャットとして開く"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "分岐チャットを開く"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "カノニカル"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "カノニカルとして固定"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "カノニカル回答"
+  },
+  "composer_compareFilterLabel": {
+    "message": "モデルを絞り込む"
+  },
+  "composer_compareFilterClear": {
+    "message": "すべて表示"
+  },
+  "composer_compareFilterCount": {
+    "message": "{{visible}} / {{total}} を表示"
+  },
+  "composer_compareTokens": {
+    "message": "トークン: {{count}}"
+  },
+  "actor_title": {
+    "message": "シーンディレクター (Actor)"
+  },
+  "actor_help": {
+    "message": "チャットごとのシーンコンテキスト（役割、ムード、世界、目標、ノート）を設定します。"
+  },
+  "actor_addLabel": {
+    "message": "シーンに集中できるよう、要素を追加または削除します。"
+  },
+  "actor_user": {
+    "message": "ユーザー"
+  },
+  "actor_char": {
+    "message": "キャラクター"
+  },
+  "actor_world": {
+    "message": "世界"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "要素名（例: ムード、役割、場所）"
+  },
+  "actor_addButton": {
+    "message": "要素を追加"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "簡単に説明（任意）"
+  },
+  "actor_notes": {
+    "message": "シーンノート"
+  },
+  "actor_notesHelp": {
+    "message": "モデルに送信される任意のノート。Markdown と LaTeX に対応。"
+  },
+  "actor_position": {
+    "message": "Actor プロンプトの位置"
+  },
+  "actor_before": {
+    "message": "メインプロンプト/ストーリーの前"
+  },
+  "actor_after": {
+    "message": "メインプロンプト/ストーリーの後"
+  },
+  "actor_depth": {
+    "message": "チャット内の深さ"
+  },
+  "actor_depthLabel": {
+    "message": "深さ（システム以外のメッセージ）"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = チャットの先頭"
+  },
+  "actor_depthHelp": {
+    "message": "位置が「チャット内の深さ」の場合のみ使用します。チャットの先頭からシステム以外のメッセージを数えます。"
+  },
+  "actor_roleLabel": {
+    "message": "Actor メッセージの役割"
+  },
+  "actor_roleSystem": {
+    "message": "システム"
+  },
+  "actor_roleUser": {
+    "message": "ユーザー"
+  },
+  "actor_roleAssistant": {
+    "message": "アシスタント"
+  },
+  "actor_positionHelp": {
+    "message": "深さは位置が「チャット内の深さ」の場合のみ使用します。役割で Actor がシステム/ユーザー/アシスタントとして表示されます。"
+  },
+  "actor_preview": {
+    "message": "Actor プロンプトのプレビュー"
+  },
+  "actor_tokens": {
+    "message": "トークン: {{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "まだ送信するものがありません。"
+  },
+  "actor_offlineHintTitle": {
+    "message": "Actor で World Books を利用できません"
+  },
+  "actor_offlineHintBody": {
+    "message": "設定から tldw サーバーに接続して Actor の要素に World Books を使用するか、自由入力の値を使い続けてください。"
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "以前の World Book 連携が見つかりませんでした。代わりに自由入力を使用します。"
+  },
+  "actor_loreEntryMissing": {
+    "message": "以前の World Book エントリが見つかりませんでした。代わりに自由入力を使用します。"
+  },
+  "actor_sourceFree": {
+    "message": "自由入力"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "エントリ"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "オプションを選択（任意）"
+  },
+  "actor_tokenLabel": {
+    "message": "トークン"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor 辞書トークン"
+  },
+  "actor_tokensHelp": {
+    "message": "これらのトークンをプロンプトやシステムメッセージで使用します。"
+  },
+  "actor_keyChangeTitle": {
+    "message": "Actor のトークンキーを変更しますか？"
+  },
+  "actor_keyChangeBody": {
+    "message": "トークンを {{old}} から {{next}} に変更します。古いトークンを使っているプロンプトは自動更新されません。"
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor キーは既に使用されています"
+  },
+  "actor_keyCollisionBody": {
+    "message": "別の要素がこのキーを使用しています。キーはチャットごとに一意である必要があります。"
+  },
+  "actor_copy": {
+    "message": "コピー"
+  },
+  "actor_copied": {
+    "message": "コピーしました"
+  },
+  "actor_copySuccess": {
+    "message": "トークンをクリップボードにコピーしました"
+  },
+  "actor_copyError": {
+    "message": "トークンのコピーに失敗しました"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "シーンノートのプレビュー"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "Markdown + LaTeX のプレビューを表示"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "このチャットで多くの要素が設定されています"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "{{count}} 個の要素があります（ソフト上限 {{limit}}）。シーンを絞り、トークンを節約するために削減を検討してください。"
+  },
+  "actor_tokenWarning": {
+    "message": "Actor プロンプトが長いです（{{count}} トークン、ソフト上限 {{limit}}）。要素やノートを削減してコンテキストを節約してください。"
+  },
+  "actor_depthRangeHelp": {
+    "message": "深さは 0〜999 の範囲です。履歴長を超える値は切り詰められます。"
+  },
+  "actor_presetLabel": {
+    "message": "プリセット"
+  },
+  "actor_presetPlaceholder": {
+    "message": "プリセットを選択"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "日常系"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "ダンジョン探索"
+  },
+  "actor_preset.romance": {
+    "message": "ロマンス"
+  },
+  "actor_preset.workSession": {
+    "message": "作業セッション"
+  },
+  "actor_applyPreset": {
+    "message": "適用"
+  },
+  "actor_resetChat": {
+    "message": "このチャットをリセット"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "{{name}} のデフォルトとして保存"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "{{name}} のデフォルトを適用"
+  },
+  "actor_notesGmOnly": {
+    "message": "GMのみ: ノートをモデルに送信しない"
+  },
+  "actor_templateModeLabel": {
+    "message": "シーンテンプレートの連携"
+  },
+  "actor_templateModeHelp": {
+    "message": "Actor がアクティブなシーンテンプレートとどう連携するかを制御します。マージは両方を維持、上書きは Actor が重複フィールドを置き換え、無視はテンプレートが有効なとき Actor をスキップします。"
+  },
+  "actor_templateMode.merge": {
+    "message": "テンプレートとマージ"
+  },
+  "actor_templateMode.override": {
+    "message": "テンプレートを上書き"
+  },
+  "actor_templateMode.ignore": {
+    "message": "テンプレートが有効なとき無視"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "要素"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "シーンノート"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "配置とテンプレート"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "トークンとプレビュー"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "要素はまだ設定されていません。"
+  },
+  "actor_summaryAspectsCount": {
+    "message": "{{count}} 個の要素が設定されています。"
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "シーンノートはまだありません。"
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} 文字{{gmSuffix}}。"
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · GMのみ"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "メインプロンプト/ストーリーの前。"
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "メインプロンプト/ストーリーの後。"
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "深さ {{depth}} · 役割: {{role}}。"
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "トークンはまだ定義されていません。要素の値を設定してください。"
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} トークン · プロンプト内 ~{{estimate}} トークン。"
+  },
+  "actor_sceneTemplateActive": {
+    "message": "シーンテンプレートが有効です。Actor はテンプレート連携設定を尊重します。"
+  },
+  "speech_title": {
+    "message": "音声プレイグラウンド"
+  },
+  "speech_subtitle": {
+    "message": "音声を録音し、文字起こしを編集して、音声を合成できます。"
+  },
+  "speech_modeLabel": {
+    "message": "モード"
+  },
+  "speech_modeRoundTrip": {
+    "message": "往復"
+  },
+  "speech_modeSpeak": {
+    "message": "話す"
+  },
+  "speech_modeListen": {
+    "message": "聴く"
+  },
+  "speech_modeHint": {
+    "message": "最後に使ったモードがこの端末に保存されます。"
+  },
+  "speech_recordingWaveform": {
+    "message": "ライブ録音の波形"
+  },
+  "speech_playbackWaveform": {
+    "message": "再生波形"
+  },
+  "speech_sendToTts": {
+    "message": "TTSに送る"
+  },
+  "speech_sendHint": {
+    "message": "最新の文字起こしをTTSの下書きとして使用します。"
+  },
+  "speech_download": {
+    "message": "ダウンロード"
+  },
+  "speech_downloadCurrent": {
+    "message": "現在のセグメントをダウンロード"
+  },
+  "speech_downloadAll": {
+    "message": "すべてのセグメントをダウンロード"
+  },
+  "speech_segmentFormat": {
+    "message": "形式"
+  },
+  "speech_historyTitle": {
+    "message": "音声履歴"
+  },
+  "speech_historyAll": {
+    "message": "すべて"
+  },
+  "speech_historyStt": {
+    "message": "STT"
+  },
+  "speech_historyTts": {
+    "message": "TTS"
+  },
+  "speech_historySearch": {
+    "message": "文字起こしを検索"
+  },
+  "speech_historyRetentionHint": {
+    "message": "最新の{{count}}件を保持します。すべて削除で全件を消去します。"
+  },
+  "speech_useInTts": {
+    "message": "TTSで使用"
+  },
+  "speech_copy": {
+    "message": "コピー"
+  },
+  "speech_copySuccess": {
+    "message": "クリップボードにコピーしました"
+  },
+  "speech_copyError": {
+    "message": "文字起こしのコピーに失敗しました。"
+  },
+  "speech_providerTag": {
+    "message": "プロバイダー"
+  },
+  "speech_voiceTag": {
+    "message": "ボイス"
+  },
+  "speech_emptyHistory": {
+    "message": "録音を開始するか音声を生成すると、ここに履歴が表示されます。"
+  },
+  "speech_downloadDisabledBrowser": {
+    "message": "ブラウザTTSではダウンロード可能な音声を作成できません。"
+  },
+  "speech_downloadDisabledEmpty": {
+    "message": "ダウンロードを有効にするには音声を生成してください。"
+  },
+  "speech_transcriptLock": {
+    "message": "ロック"
+  },
+  "speech_transcriptUnlock": {
+    "message": "ロック解除"
+  },
+  "speech_transcriptEditHint": {
+    "message": "この文字起こしは編集可能です。"
+  },
+  "speech_transcriptLockedHint": {
+    "message": "ライブ文字起こしの更新にロックされています。"
+  },
+  "speech_transcriptRecordingHint": {
+    "message": "録音中のため、文字起こしはロックされています。"
+  },
+  "actor_uploadedFiles": {
+    "message": "Uploaded Files ({{count}})"
+  },
+  "actor_fileRetrieval": {
+    "message": "File Retrieval"
+  },
+  "actor_fileStatusProcessed": {
+    "message": "Processed"
+  },
+  "actor_fileStatusProcessing": {
+    "message": "Processing..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
+  }
+}

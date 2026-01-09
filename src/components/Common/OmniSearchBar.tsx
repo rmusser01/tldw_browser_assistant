@@ -254,7 +254,7 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
     <div className="relative w-full max-w-xl" aria-label="Omni-search">
       <div className="relative">
         <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
-          <SearchIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
+          <SearchIcon className="h-4 w-4 text-text-subtle" aria-hidden="true" />
         </span>
         <input
           ref={inputRef}
@@ -276,14 +276,14 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
             "option:header.omniSearchPlaceholder",
             "Search screens, chats, media, notes…"
           )}
-          className="w-full rounded-md border border-gray-300 bg-white py-1.5 pl-9 pr-12 text-sm text-gray-900 shadow-sm outline-none ring-0 placeholder:text-gray-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 dark:border-gray-600 dark:bg-[#111111] dark:text-gray-100 dark:placeholder:text-gray-500"
+          className="w-full rounded-md border border-border bg-surface py-1.5 pl-9 pr-12 text-sm text-text shadow-sm outline-none ring-0 placeholder:text-text-subtle focus:border-focus focus:outline-none focus:ring-2 focus:ring-focus"
         />
         {/* Keyboard shortcut hint or loading indicator */}
         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
           {loading ? (
-            <span className="h-3 w-3 animate-spin rounded-full border border-gray-400 border-t-transparent" />
+            <span className="h-3 w-3 animate-spin rounded-full border border-border border-t-transparent" />
           ) : !query ? (
-            <kbd className="hidden sm:flex items-center gap-0.5 rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500">
+            <kbd className="hidden sm:flex items-center gap-0.5 rounded border border-border bg-surface2 px-1.5 py-0.5 text-[10px] text-text-subtle">
               <Command className="size-2.5" />
               <span>K</span>
             </kbd>
@@ -295,10 +295,10 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
         <div
           id={listboxId}
           role="listbox"
-          className="absolute z-40 mt-1 max-h-80 w-full overflow-auto rounded-md border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-[#111111]"
+          className="absolute z-40 mt-1 max-h-80 w-full overflow-auto rounded-md border border-border bg-surface shadow-lg"
         >
           {activeFilterLabel && (
-            <div className="px-3 py-1 text-xs text-gray-500 dark:text-gray-400">
+            <div className="px-3 py-1 text-xs text-text-subtle">
               {t("option:omniSearch.filteringBy", "Filtering by:")}{" "}
               {activeFilterLabel}
             </div>
@@ -306,8 +306,8 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
           {hasResults ? (
             response.sections.map((section, sectionIndex) =>
               section.results.length ? (
-                <div key={section.label} className="border-b border-gray-100 last:border-b-0 dark:border-gray-800">
-                  <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                <div key={section.label} className="border-b border-border last:border-b-0">
+                  <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-text-subtle">
                     {section.label}
                   </div>
                   <ul className="py-1">
@@ -324,8 +324,8 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
                           aria-selected={isActive}
                           className={`cursor-pointer px-3 py-1.5 text-sm ${
                             isActive
-                              ? "bg-amber-50 text-gray-900 dark:bg-amber-500/20 dark:text-gray-50"
-                              : "text-gray-800 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-[#1a1a1a]"
+                              ? "bg-primary/10 text-text"
+                              : "text-text hover:bg-surface2"
                           }`}
                           onMouseDown={(event) => {
                             event.preventDefault()
@@ -340,12 +340,12 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
                             <div className="flex flex-col">
                               <span className="truncate">{result.label}</span>
                               {result.subtitle && (
-                                <span className="truncate text-xs text-gray-500 dark:text-gray-400">
+                                <span className="truncate text-xs text-text-subtle">
                                   {result.subtitle}
                                 </span>
                               )}
                             </div>
-                            <span className="ml-2 shrink-0 text-[10px] uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                            <span className="ml-2 shrink-0 text-[10px] uppercase tracking-wide text-text-subtle">
                               {section.label}
                             </span>
                           </div>
@@ -357,7 +357,7 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
               ) : null
             )
           ) : (
-            <div className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="px-3 py-2 text-sm text-text-subtle">
               <div>
                 {t("option:header.omniSearchNoResults", {
                   defaultValue: 'No matches for "{{query}}".',
@@ -369,7 +369,7 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
                   {response?.query.filterType === "note" && (
                     <button
                       type="button"
-                      className="w-full rounded-md border border-dashed border-gray-300 px-3 py-1.5 text-left text-sm text-gray-700 hover:border-amber-400 hover:bg-amber-50 dark:border-gray-700 dark:text-gray-200 dark:hover:border-amber-500 dark:hover:bg-amber-500/10"
+                      className="w-full rounded-md border border-dashed border-border px-3 py-1.5 text-left text-sm text-text hover:border-primary hover:bg-primary/10"
                       onClick={() => {
                         deps.createNoteFromOmni?.(displayQuery)
                         setOpen(false)
@@ -384,7 +384,7 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
                   {response?.query.filterType === "flashcards" && (
                     <button
                       type="button"
-                      className="w-full rounded-md border border-dashed border-gray-300 px-3 py-1.5 text-left text-sm text-gray-700 hover:border-amber-400 hover:bg-amber-50 dark:border-gray-700 dark:text-gray-200 dark:hover:border-amber-500 dark:hover:bg-amber-500/10"
+                      className="w-full rounded-md border border-dashed border-border px-3 py-1.5 text-left text-sm text-text hover:border-primary hover:bg-primary/10"
                       onClick={() => {
                         deps.createFlashcardCollectionFromOmni?.(displayQuery)
                         setOpen(false)
@@ -399,7 +399,7 @@ export const OmniSearchBar: React.FC<Props> = ({ deps }) => {
                   {!response?.query.filterType && (
                     <button
                       type="button"
-                      className="w-full rounded-md border border-dashed border-gray-300 px-3 py-1.5 text-left text-sm text-gray-700 hover:border-amber-400 hover:bg-amber-50 dark:border-gray-700 dark:text-gray-200 dark:hover:border-amber-500 dark:hover:bg-amber-500/10"
+                      className="w-full rounded-md border border-dashed border-border px-3 py-1.5 text-left text-sm text-text hover:border-primary hover:bg-primary/10"
                       onClick={() => {
                         deps.startNewChatFromOmni?.(displayQuery)
                         setOpen(false)

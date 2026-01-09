@@ -1,0 +1,2747 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "Servidor y Auth"
+  },
+  "navigation_knowledgeTools": {
+    "message": "Herramientas de conocimiento"
+  },
+  "navigation_workspace": {
+    "message": "Área de trabajo"
+  },
+  "navigation_about": {
+    "message": "Acerca de"
+  },
+  "healthNav": {
+    "message": "Estado"
+  },
+  "worldBooksNav": {
+    "message": "Libros del mundo"
+  },
+  "chatDictionariesNav": {
+    "message": "Diccionarios de chat"
+  },
+  "charactersNav": {
+    "message": "Personajes"
+  },
+  "mediaNav": {
+    "message": "Multimedia"
+  },
+  "chatAppearance_title": {
+    "message": "Apariencia del chat"
+  },
+  "chatAppearance_description": {
+    "message": "Personaliza los colores, las fuentes y los tamaños de texto de los mensajes del chat."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "¿Buscas opciones de comportamiento del chat (modo ancho, razonamiento, opciones de copiado)?"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "Ir a Configuraciones Generales"
+  },
+  "chatAppearance_userHeading": {
+    "message": "Mensajes del usuario"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "Mensajes del asistente"
+  },
+  "chatAppearance_userColor": {
+    "message": "Color de texto del usuario"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "Color de texto del asistente"
+  },
+  "chatAppearance_userFont": {
+    "message": "Fuente de los mensajes del usuario"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "Fuente de los mensajes del asistente"
+  },
+  "chatAppearance_userSize": {
+    "message": "Tamaño de texto del usuario"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "Tamaño de texto del asistente"
+  },
+  "chatAppearance_color_default": {
+    "message": "Predeterminado"
+  },
+  "chatAppearance_color_blue": {
+    "message": "Azul"
+  },
+  "chatAppearance_color_green": {
+    "message": "Verde"
+  },
+  "chatAppearance_color_purple": {
+    "message": "Morado"
+  },
+  "chatAppearance_color_orange": {
+    "message": "Naranja"
+  },
+  "chatAppearance_color_red": {
+    "message": "Rojo"
+  },
+  "chatAppearance_font_default": {
+    "message": "Predeterminada"
+  },
+  "chatAppearance_font_sans": {
+    "message": "Palo seco"
+  },
+  "chatAppearance_font_serif": {
+    "message": "Con serif"
+  },
+  "chatAppearance_font_mono": {
+    "message": "Monoespaciada"
+  },
+  "chatAppearance_size_sm": {
+    "message": "Pequeño"
+  },
+  "chatAppearance_size_md": {
+    "message": "Mediano"
+  },
+  "chatAppearance_size_lg": {
+    "message": "Grande"
+  },
+  "generalSettings_title": {
+    "message": "Configuraciones Generales"
+  },
+  "generalSettings_settings_heading": {
+    "message": "Configuraciones de la Interfaz Web"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "Idioma de Reconocimiento de Voz"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "Selecione un idioma"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "Idioma"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "Selecione un idioma"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "Cambiar Tema"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "Claro"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "Oscuro"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "Retomar el último chat al abrir el Panel Lateral (Copilot)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "Habilitar Chat con Sitio Web por defecto (Copilot)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "Retomar el último chat al abrir la Interfaz Web"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "Ocultar Configuraciones del Modelo de Chat Actual"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "Restaurar el último modelo utilizado para chats anteriores"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "Enviar notificación después de terminar el procesamiento de la base de conocimientos"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "Generar título usando IA"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "Habilitar o deshabilitar la verificación del estado de conexión del servidor"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "Habilitar modo pantalla ancha"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "Abrir el Razonamiento Colapsado por defecto"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "Usar Burbuja de Chat para Mensajes del Usuario"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "Copiar automáticamente la respuesta al portapapeles"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "Habilitar formato Markdown para mensajes del usuario"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "Copiar como Texto Formateado"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "Habilitar Menciones de Pestañas (@tab)"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "Pegar Texto Largo como Archivo"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "Habilitar Chat Temporal en el Panel Lateral por defecto"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "Habilitar OCR (descarga ~5 MB la primera vez)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "Al activar OCR se descargarán ~5 MB de datos de idioma la primera vez que se use."
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "Los recursos de OCR están habilitados y listos"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "Idioma predeterminado de OCR"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "Selecciona un idioma de OCR"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "Eliminar la etiqueta de razonamiento del texto copiado"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "Incluir prompts del servidor en la búsqueda de prompts"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "Reiniciar la incorporación desde el principio"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "Reiniciar incorporación"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "¿Reiniciar la incorporación?"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "Esto restablecerá tu estado de incorporación y te llevará de nuevo al flujo de configuración."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "La incorporación se ha restablecido"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "Te llevaremos de nuevo al paso de bienvenida para que puedas revisar la URL de tu servidor y la clave de API."
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "Configuración de Recuperación"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "Habilitar Incrustación y Recuperación"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "Tamaño Máximo de Contenido para Modo de Contexto Completo"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "Tamaño del contenido (predeterminado 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "Manejo de la busqueda Web"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "Realizar busquedas Simples en Internet"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "Motor de Busqueda"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "Selecione un motor de busqueda"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "Resultados totales de la busqueda"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "Ingresar el total de Resultados de la busqueda"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "Visita el sitio web mencionado en el mensaje"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "URL de SearXNG"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "Clave API de Brave"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "Ingrese su clave API de Brave"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "Búsqueda en Internet activada por defecto"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "Clave API de Tavily"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "Introduce tu clave API de Tavily"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "Clave API de Exa"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "Introduce tu clave API de Exa"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "Dominio de Google"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "Clave API de Firecrawl"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "Introduce tu clave API de Firecrawl"
+  },
+  "generalSettings_system_heading": {
+    "message": "Configuraciones del Sistema"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "Modo de Interfaz Predeterminado"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "Pantalla Completa (Web UI)"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "Barra Lateral"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "Reinicio del Sistema"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "Reiniciar Todo"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "¿Está seguro de que desea realizar un reinicio del sistema? Esto borrará todos los datos y no se puede deshacer."
+  },
+  "generalSettings_system_export_label": {
+    "message": "Exportar Histórico del Chat, Base de Conocimiento y Prompts"
+  },
+  "generalSettings_system_export_button": {
+    "message": "Exportar Datos"
+  },
+  "generalSettings_system_export_success": {
+    "message": "Exportación exitosa"
+  },
+  "generalSettings_system_import_label": {
+    "message": "Importar Histórico del Chat, Base de Conocimiento y Prompts"
+  },
+  "generalSettings_system_import_button": {
+    "message": "Importar Datos"
+  },
+  "generalSettings_system_import_success": {
+    "message": "Importación existosa"
+  },
+  "generalSettings_system_import_error": {
+    "message": "Error de importación"
+  },
+  "generalSettings_tts_heading": {
+    "message": "Configuraciones de Text-to-speech"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "Habilitar Texto-a-Voz"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "Reproducir automáticamente la respuesta de voz después de completar"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "Proveedor de Text-to-speech"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "Selecione un proveedor"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "Voz de Text-to-speech"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "Selecione una voz"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "Habilitar SSML (Speech Synthesis Markup Language)"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "Eliminar Etiqueta de Razonamiento del TTS"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "Dividir respuesta"
+  },
+  "generalSettings_stt_heading": {
+    "message": "Configuraciones de Voz-a-Texto"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "Tiempo de Auto-Detención (ms)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "Ingrese el tiempo de auto-detención en milisegundos"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "Auto-Enviar Mensaje de Voz"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "Estos valores predeterminados de voz a texto se usan en el botón de dictado del chat en el Playground y en la barra lateral."
+  },
+  "generalSettings_stt_model_label": {
+    "message": "Modelo de transcripción (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "Ejecutar segmentación para transcripciones (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "Granularidad de marcas de tiempo"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "Por segmento"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "Por palabra"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "Segmento + palabra"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "Tarea de transcripción"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "Transcribir (mismo idioma)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "Traducir al inglés"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "Formato de respuesta"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON (texto + segmentos)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "JSON detallado"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "Texto sin formato"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "Subtítulos SRT"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "Subtítulos VTT"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "Temperatura de muestreo"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "Prompt de transcripción predeterminado"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "Texto opcional para guiar el estilo"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "Máximo de segmentos (TreeSeg K)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "Elementos mínimos por segmento"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "Penalización de equilibrio (TreeSeg λ)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "Ancho de expansión de enunciados"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "Proveedor de embeddings para segmentación"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "Modelo de embeddings para segmentación"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "Sistema"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "Modo de interfaz predeterminado"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "Pantalla completa (Web UI)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "Barra lateral"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "Botón de acción del navegador"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "Acción del menú contextual"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "Mostrar botón de Web UI en la barra lateral"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "Imagen de fondo del chat"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "Tamaño de fuente"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "Datos"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "Sincronización en modo privado de Firefox"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "Sincronizar datos"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "Restablecimiento del sistema"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "Restablecer todo"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "¿Está seguro de que desea realizar un restablecimiento del sistema? Esto borrará todos los datos y no se puede deshacer."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "Exportar historial de chat, base de conocimiento y prompts"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "Exportar datos"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "Exportación exitosa"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "Importar historial de chat, base de conocimiento y prompts"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "Importar datos"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "Importación exitosa"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "Error de importación"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "Conectar tldw Assistant con su servidor"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "Algunas configuraciones solo surten efecto cuando el servidor de tldw está disponible. Conecte su servidor para obtener la experiencia completa."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "Abra Configuración → servidor tldw para añadir la URL del servidor y la clave de API."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "Use Diagnósticos para confirmar que su servidor está en buen estado antes de probar herramientas avanzadas."
+  },
+  "generalSettings_empty_title": {
+    "message": "Ajuste cómo se comporta tldw Assistant"
+  },
+  "generalSettings_empty_description": {
+    "message": "Ajuste los valores predeterminados para la Web UI, la barra lateral, el habla, la búsqueda y el manejo de datos desde un solo lugar."
+  },
+  "generalSettings_empty_example1": {
+    "message": "Elija el idioma, tema y el comportamiento de reanudación de chat predeterminados."
+  },
+  "generalSettings_empty_example2": {
+    "message": "Controle si los chats son temporales, cómo se manejan los pegados grandes y cómo se muestra el razonamiento."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "Configurar servidor y autenticación"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "Descartar"
+  },
+  "manageModels_title": {
+    "message": "Administar de Modelos"
+  },
+  "manageModels_addBtn": {
+    "message": "Agregar Nuevo Modelo"
+  },
+  "manageModels_columns_name": {
+    "message": "Nombre"
+  },
+  "manageModels_columns_digest": {
+    "message": "Resumen"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "Modificado"
+  },
+  "manageModels_columns_size": {
+    "message": "Tamaño"
+  },
+  "manageModels_columns_actions": {
+    "message": "Acciones"
+  },
+  "manageModels_columns_nickname": {
+    "message": "Alias"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "Modelo Padre"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "Formato"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "Familia"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "Tamaño de Parametros"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "Nível de Quantización"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "Borrar Modelo"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "Traer nuevamente el Modelo"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "Editar alias"
+  },
+  "manageModels_confirm_delete": {
+    "message": "¿Esta seguro que desea borrar este modelos?"
+  },
+  "manageModels_confirm_repull": {
+    "message": "¿Esta seguro que desea traer nuevamente este modelo?"
+  },
+  "manageModels_modal_title": {
+    "message": "Traer Nuevo Modelo"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "Ingresar el nombre del modelo"
+  },
+  "manageModels_modal_pull": {
+    "message": "Traer Modelo"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "Trayendo Modelo"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "Trayendo modelo {{modelName}}. Para más detalles, verifique el ícono de la extensión."
+  },
+  "manageModels_notification_success": {
+    "message": "Exito"
+  },
+  "manageModels_notification_error": {
+    "message": "Fallo"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "Modelo traido exitosamente"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "Modelo borrado exitosamente"
+  },
+  "manageModels_notification_someError": {
+    "message": "Hubo un error. Intente nuevamente más tarde"
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "Cancelando descarga"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "Se está cancelando la descarga del modelo..."
+  },
+  "managePrompts_title": {
+    "message": "Administrar de Prompts"
+  },
+  "managePrompts_addBtn": {
+    "message": "Agregar Nuevo Prompt"
+  },
+  "managePrompts_option1": {
+    "message": "Estándar"
+  },
+  "managePrompts_option2": {
+    "message": "RAG"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "Prompt de Pregunta"
+  },
+  "managePrompts_columns_title": {
+    "message": "Título"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "Texto del prompt"
+  },
+  "managePrompts_columns_type": {
+    "message": "Tipo de Prompt"
+  },
+  "managePrompts_columns_actions": {
+    "message": "Acciones"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "Invitaciones personalizadas"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "Invitaciones Copilot"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "Cree y gestione prompts reutilizables que puede insertar en el chat."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "Vea y ajuste los prompts predefinidos de Copilot proporcionados por su servidor."
+  },
+  "managePrompts_systemPrompt": {
+    "message": "Prompt del Sistema"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "Prompt Rápido"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "Borrar Prompt"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "Editar Prompt"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "Duplicar prompt"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "¿Esta seguro que desea borrar este prompt? Esta acción no tiene vuelta a atrás."
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "Agregar Nuevo Prompt"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "Editar Prompt"
+  },
+  "managePrompts_form_title_label": {
+    "message": "Título"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "Mi Prompt genial"
+  },
+  "managePrompts_form_title_required": {
+    "message": "Por favor, ingrese un título"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "Texto del prompt"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "Ingrese un prompt"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "Por favor, ingrese un prompt"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "Puede usar {key} como variable en su prompt."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "Falta la variable {text} en el mensaje. Por favor, añádela."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "Es un Prompt del Sistema"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "Agregando un Prompt..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "Agregar Prompt"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "Actualizando Prompt..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "Actualizar Prompt"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "Prompt Agregado"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "Prompt agregado exitosamente"
+  },
+  "managePrompts_notification_error": {
+    "message": "Fallo"
+  },
+  "managePrompts_notification_someError": {
+    "message": "Hubo un error. Intente nuevamente más tarde"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "Prompt Actualizado"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "Prompt actualizado exitosamente"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "Prompt Borrado"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "Prompt borrado exitosamente"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "Espacio de trabajo de prompts"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "Los prompts reutilizables se gestionan desde el espacio de trabajo de Prompts. Use el botón de abajo para abrirlo."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "Abrir espacio de trabajo de Prompts"
+  },
+  "managePrompts_search": {
+    "message": "Buscar títulos y contenidos"
+  },
+  "managePrompts_filter_all": {
+    "message": "Todos"
+  },
+  "managePrompts_filter_system": {
+    "message": "Sistema"
+  },
+  "managePrompts_filter_quick": {
+    "message": "Rápido"
+  },
+  "managePrompts_tags_label": {
+    "message": "Etiquetas"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "Agregar etiquetas"
+  },
+  "managePrompts_import": {
+    "message": "Importar"
+  },
+  "managePrompts_export": {
+    "message": "Exportar"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Fusionar"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Reemplazar"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Reemplazar sobrescribirá todos los prompts actuales con el archivo importado. ¿Continuar?"
+  },
+  "managePrompts_favorite": {
+    "message": "Favorito"
+  },
+  "managePrompts_unfavorite": {
+    "message": "Quitar de favoritos"
+  },
+  "managePrompts_partialLoad": {
+    "message": "Parte de los datos de los prompts no está disponible"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "Revise la conexión con su servidor y recargue para intentarlo de nuevo."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "Conéctese para usar Prompts"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "Para gestionar prompts reutilizables, primero conecte su servidor tldw."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "Abra Configuración → servidor tldw para añadir la URL de su servidor."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "Una vez conectado, cree prompts personalizados que pueda reutilizar en los chats."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "Aún no hay prompts personalizados"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "Cree prompts reutilizables para tareas recurrentes, flujos de trabajo y convenciones del equipo."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "Guarde su prompt del sistema favorito para resúmenes, explicaciones o traducciones."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "Cree prompts rápidos para acciones comunes como redactar correos o pulir notas."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "Crear prompt"
+  },
+  "managePrompts_filterHelp": {
+    "message": "La búsqueda coincide con el título y el contenido del prompt. Use el tipo y las etiquetas para acotar la lista."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "No hay prompts de Copilot disponibles"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "Los prompts de Copilot son plantillas predefinidas proporcionadas por su servidor tldw."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "Revise la versión o configuración de su servidor si espera que haya prompts de Copilot."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "Después de actualizar su servidor, recargue la extensión y vuelva a esta pestaña."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "Abrir Diagnósticos"
+  },
+  "manageShare_title": {
+    "message": "Administrar los recursos compartidos"
+  },
+  "manageShare_heading": {
+    "message": "Configurar URL de Página Compartida"
+  },
+  "manageShare_form_url_label": {
+    "message": "URL de Página compartida"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "Ingresar URL de Página compartida"
+  },
+  "manageShare_form_url_required": {
+    "message": "Por favor, ingrese URL de Página compartida"
+  },
+  "manageShare_form_url_help": {
+    "message": "Por motivos de privacidad, podes hacer self-host de la página compartida y proveer una URL aqui. <anchor>Aprende más</anchor>."
+  },
+  "manageShare_webshare_heading": {
+    "message": "Compartir una Web"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "Título"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "Dirección URL"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "Acciones"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "Borrar lo compartido"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "¿Esta seguro de desear borrar esta web compartida? Esta acción no tiene vuelta a atrás."
+  },
+  "manageShare_webshare_label": {
+    "message": "Administrar páginas compartidas"
+  },
+  "manageShare_webshare_description": {
+    "message": "Habilitar o deshabilitar el recurso de páginas compartidas"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "URL compartida actualizada exitosamente"
+  },
+  "manageShare_notification_someError": {
+    "message": "Hubo un error. Intente nuevamente más tarde"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "Web compartida borrada exitosamente com sucesso"
+  },
+  "ollamaSettings_title": {
+    "message": "Configuración del servidor"
+  },
+  "ollamaSettings_heading": {
+    "message": "Configurar servidor"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "URL del servidor"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "Ingrese la URL del servidor"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "Habilitar o deshabilitar la integración del servidor globalmente"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "Al deshabilitar la integración del servidor globalmente, tldw Assistant no obtendrá modelos del servidor. Aún puede agregar proveedores desde la sección <anchor>API compatible con OpenAI</anchor>."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "Configuración avanzada de URL del servidor"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "Habilitar o deshabilitar URL de origen personalizada"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "URL Personalizada"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "Ingresar URL Personalizada"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "Habilitar o deshabilitar corrección automática de CORS"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "Encabezados Personalizados"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "Agregar Encabezado"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "Clave del Encabezado"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "Autorización"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "Valor del Encabezado"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "Token Bearer"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "Si tiene problemas de conexión con el servidor, puede configurar una URL de origen personalizada. Para saber más sobre la configuración, <anchor>haga clic aquí</anchor>."
+  },
+  "manageSearch_title": {
+    "message": "Administrar Busqueda Web"
+  },
+  "manageSearch_heading": {
+    "message": "Configurar Busqueda Web"
+  },
+  "about_title": {
+    "message": "Sobre"
+  },
+  "about_heading": {
+    "message": "Sobre"
+  },
+  "about_chromeVersion": {
+    "message": "Versión de tldw Assistant"
+  },
+  "about_ollamaVersion": {
+    "message": "Versión del servidor"
+  },
+  "about_support": {
+    "message": "Podes apoyar el proyecto tldw Assistant haciendo donaciones o patrocinarnos a través de las seguientes plataformas:"
+  },
+  "about_koFi": {
+    "message": "Apoyar en Ko-fi"
+  },
+  "about_githubSponsor": {
+    "message": "Patrocinarnos en GitHub"
+  },
+  "about_githubRepo": {
+    "message": "Repositorio de GitHub"
+  },
+  "switchToSidebar": {
+    "message": "Cambiar a la barra lateral"
+  },
+  "healthPage_title": {
+    "message": "Estado de salud"
+  },
+  "healthPage_subtitle": {
+    "message": "Resumen rápido de los endpoints de estado de los subsistemas expuestos por el servidor."
+  },
+  "healthPage_backToChat": {
+    "message": "Volver al chat"
+  },
+  "healthPage_openSettings": {
+    "message": "Abrir configuración de tldw"
+  },
+  "healthPage_recheckAll": {
+    "message": "Revisar todo"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "Copiar diagnósticos"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "El servidor no está configurado."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "No se pudo acceder al endpoint de salud del núcleo del servidor."
+  },
+  "healthPage_triedGet": {
+    "message": "Se intentó GET {{url}}"
+  },
+  "healthPage_configureHint": {
+    "message": "Configure una URL de servidor en los ajustes de tldw."
+  },
+  "healthPage_configureCta": {
+    "message": "Configurar"
+  },
+  "healthPage_connectedTo": {
+    "message": "Conectado a {{host}}"
+  },
+  "healthPage_autoRefresh": {
+    "message": "Actualización automática"
+  },
+  "healthPage_intervalLabel": {
+    "message": "Intervalo (s):"
+  },
+  "healthPage_checking": {
+    "message": "Comprobando…"
+  },
+  "healthPage_recheck": {
+    "message": "Volver a comprobar"
+  },
+  "healthPage_healthy": {
+    "message": "Saludable"
+  },
+  "healthPage_unhealthy": {
+    "message": "No saludable"
+  },
+  "healthPage_unknown": {
+    "message": "Desconocido"
+  },
+  "healthPage_checks_core": {
+    "message": "API principal"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG"
+  },
+  "healthPage_checks_audio": {
+    "message": "Sonido"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "Vectores"
+  },
+  "healthPage_checks_metrics": {
+    "message": "Salud de métricas"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "Métricas del chat"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "Copia los diagnósticos JSON al portapapeles"
+  },
+  "healthPage_statusHealthy": {
+    "message": "Saludable"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "No saludable"
+  },
+  "healthPage_statusUnknown": {
+    "message": "Desconocido"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "Actualizado justo ahora"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "Actualizado hace {{seconds}} s"
+  },
+  "savedSuccessfully": {
+    "message": "Configuración guardada"
+  },
+  "saveFailed": {
+    "message": "No se pudo guardar la configuración"
+  },
+  "siteAccessGranted": {
+    "message": "Permiso de host concedido para {{origin}}"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "Tiempos de espera avanzados"
+  },
+  "tldw_requestTimeout": {
+    "message": "Tiempo de espera de solicitud (segundos)"
+  },
+  "tldw_streamingIdle": {
+    "message": "Tiempo de espera de inactividad de streaming (segundos)"
+  },
+  "tldw_chatRequest": {
+    "message": "Tiempo de espera de solicitud de chat"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "Inactividad de la transmisión de chat"
+  },
+  "tldw_ragRequest": {
+    "message": "Tiempo de espera de solicitud RAG"
+  },
+  "tldw_mediaRequest": {
+    "message": "Tiempo de espera de solicitud de medios"
+  },
+  "tldw_uploadRequest": {
+    "message": "Tiempo de espera de solicitud de carga"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "Perfil de tiempo de espera"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "Equilibrado"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "Extendido"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "Personalizado"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "Equilibrado funciona bien para la mayoría de configuraciones. Extendido añade margen extra para redes lentas o trabajos de larga duración."
+  },
+  "tldw_reset": {
+    "message": "Restablecer a recomendado"
+  },
+  "tldw_resetDone": {
+    "message": "Restablecido a los valores recomendados"
+  },
+  "tldw_serverNav": {
+    "message": "Servidor tldw"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "Configuración del servidor tldw"
+  },
+  "tldw_serverLabel": {
+    "message": "Servidor:"
+  },
+  "tldw_notConfigured": {
+    "message": "No configurado"
+  },
+  "tldw_buttons_health": {
+    "message": "Estado"
+  },
+  "tldw_buttons_recheck": {
+    "message": "Revisar de nuevo"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "Probar conexión"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "Conceder acceso al sitio"
+  },
+  "tldw_buttons_login": {
+    "message": "Iniciar sesión"
+  },
+  "tldw_buttons_logout": {
+    "message": "Cerrar sesión"
+  },
+  "tldw_loginRequired_title": {
+    "message": "Se requiere inicio de sesión"
+  },
+  "tldw_loginRequired_description": {
+    "message": "Inicia sesión con tus credenciales de tldw_server"
+  },
+  "tldw_loggedIn_title": {
+    "message": "Sesión iniciada"
+  },
+  "tldw_loggedIn_description": {
+    "message": "Actualmente has iniciado sesión en tldw_server"
+  },
+  "tldw_connection_success": {
+    "message": "¡Conexión exitosa!"
+  },
+  "tldw_connection_failed": {
+    "message": "La conexión falló. Revisa la configuración."
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "La conexión falló. Verifica la URL del servidor y la clave API."
+  },
+  "tldw_authMode_label": {
+    "message": "Modo de autenticación"
+  },
+  "tldw_authMode_single": {
+    "message": "Usuario único (clave API)"
+  },
+  "tldw_authMode_multi": {
+    "message": "Multiusuario (inicio de sesión)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "Cancelar solicitudes iniciales si no hay respuesta en este tiempo. Predeterminado: {{seconds}}s."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "Cancelar la transmisión si no se reciben actualizaciones en este tiempo. Predeterminado: {{seconds}}s."
+  },
+  "tldw_login_success": {
+    "message": "Inicio de sesión exitoso"
+  },
+  "tldw_login_failed": {
+    "message": "El inicio de sesión falló"
+  },
+  "tldw_logout_success": {
+    "message": "Cierre de sesión exitoso"
+  },
+  "tldw_logout_failed": {
+    "message": "El cierre de sesión falló"
+  },
+  "tldw_setupLink": {
+    "message": "Configurar servidor"
+  },
+  "tldw_loadError": {
+    "message": "No se pudieron cargar los ajustes del servidor tldw. Verifica tu conexión y vuelve a intentarlo."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "Clave API"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "Introduce tu clave API"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "Por favor introduce tu clave API"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "Tu clave API de tldw_server para autenticación"
+  },
+  "tldw_fields_username_label": {
+    "message": "Nombre de usuario"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "Introduce el nombre de usuario"
+  },
+  "tldw_fields_username_required": {
+    "message": "Introduce tu nombre de usuario"
+  },
+  "tldw_fields_password_label": {
+    "message": "Contraseña"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "Introduce la contraseña"
+  },
+  "tldw_fields_password_required": {
+    "message": "Introduce tu contraseña"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "URL del servidor"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "Introduce la URL del servidor"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "Introduce una URL válida"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "La URL de tu instancia tldw_server (p. ej., http://localhost:8000)"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "Clave API no válida"
+  },
+  "tldw_errors_forbidden": {
+    "message": "Prohibido (revisa los permisos)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "Error al validar la clave API"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "Servidor inaccesible"
+  },
+  "tldw_about_title": {
+    "message": "Acerca de la integración con tldw_server"
+  },
+  "tldw_about_description": {
+    "message": "Esta extensión se conecta a tu instancia de tldw_server y permite acceder a:"
+  },
+  "tldw_about_points_providers": {
+    "message": "Varios proveedores de LLM mediante una API unificada"
+  },
+  "tldw_about_points_rag": {
+    "message": "Búsqueda RAG (generación aumentada con recuperación)"
+  },
+  "tldw_about_points_media": {
+    "message": "Ingesta y procesamiento de medios"
+  },
+  "tldw_about_points_notes": {
+    "message": "Gestión de notas y prompts"
+  },
+  "tldw_about_points_stt": {
+    "message": "Transcripción de voz a texto"
+  },
+  "manageKnowledge_title": {
+    "message": "QA de conocimiento"
+  },
+  "manageKnowledge_heading": {
+    "message": "QA de conocimiento"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "Espacio de trabajo de Libros del mundo"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "Los Libros del mundo se gestionan desde el espacio de trabajo de Libros del mundo. Use el botón de abajo para abrirlo."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "Abrir espacio de trabajo de Libros del mundo"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "Espacio de trabajo de diccionarios de chat"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "Los diccionarios de chat se gestionan desde el espacio de trabajo de diccionarios de chat. Use el botón de abajo para abrirlo."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "Abrir espacio de trabajo de diccionarios de chat"
+  },
+  "rag_title": {
+    "message": "Configuraciones de RAG"
+  },
+  "rag_ragSettings_label": {
+    "message": "Configuraciones de RAG"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "Modelo de embeddings"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "Por favor, selecione un modelo"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "Es recomendable usar modelos de embeddings como `nomic-embed-text`."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "Selecione un modelo"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "Recomendado: {{model}} (desde la configuración del servidor)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "El modelo de embedding guardado anteriormente ya no está disponible en el servidor. Elija otro modelo."
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "Tamaño del Chunk"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "Ingresar el tamaño del chunk"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "Por favor, ingrese el tamaño del chunk"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "Solapamiento del Chunk"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "Ingrese el solapamiento del chunk"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "Por favor, ingresar el solapamiento del chunk"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "Límite predeterminado de carga de archivos para la Base de Conocimientos"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "Ingrese el límite predeterminado de carga de archivos (ej., 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "Por favor, ingrese el límite predeterminado de carga de archivos"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "Número de Documentos Recuperados"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "Ingrese el Número de Documentos Recuperados"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "Por favor, ingrese el número de documentos recuperados"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "Separador"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "Ingrese el separador (ej., \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "Por favor, ingrese un separador"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "Divisor de Texto"
+  },
+  "rag_prompt_label": {
+    "message": "Configurar el Prompt del RAG"
+  },
+  "rag_prompt_option1": {
+    "message": "Estándar"
+  },
+  "rag_prompt_option2": {
+    "message": "Internet"
+  },
+  "rag_prompt_alert": {
+    "message": "Es obsoleto configurar aquí el prompt del sistema. Por favor, use la sección de Administrar Prompts para agregar o editar prompts. Esta sección se quitará en una versión futura"
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "Prompt del Sistema"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "Ingresar el prompt del sistema"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "Prompt de la busqueda Web"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "No borre `{search_results}` del prompt."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "Por favor, ingresar un prompt de busqueda web"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "Ingrese un prompt de busqueda web"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "Prompt de Seguimiento de busqueda Web"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "No borre `{chat_history}` y `{question}` del prompt."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "Por favor, ingrese el prompt de seguimiento de la busqueda web"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "Su prompt de seguimiento de busqueda web"
+  },
+  "onboarding_title": {
+    "message": "Bienvenido: vamos a conectarte"
+  },
+  "onboarding_description": {
+    "message": "Configura tu servidor y la autenticación. Verificaremos en línea la conexión y el estado de RAG."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "Aprende cómo funciona el servidor tldw"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "Ejemplo: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "Introduce una URL completa como http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "Usa URLs http o https, por ejemplo http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_label": {
+    "message": "URL del servidor"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "Introduce la URL de tu servidor tldw para habilitar Siguiente."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "Habilitaremos Siguiente cuando podamos alcanzar esta dirección."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "Comprobando accesibilidad…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "El servidor respondió correctamente. Puedes continuar."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "Todavía no pudimos alcanzar esta dirección. Revisa la URL o inténtalo de nuevo."
+  },
+  "onboarding_buttons_next": {
+    "message": "Siguiente"
+  },
+  "onboarding_buttons_back": {
+    "message": "Atrás"
+  },
+  "onboarding_buttons_continue": {
+    "message": "Continuar"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "Volver a comprobar"
+  },
+  "onboarding_buttons_finish": {
+    "message": "Finalizar"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "Finalizar sin conectarse"
+  },
+  "onboarding_buttons_skip": {
+    "message": "Omitir por ahora"
+  },
+  "onboarding_authMode_label": {
+    "message": "Modo de autenticación"
+  },
+  "onboarding_authMode_single": {
+    "message": "Usuario único (clave API)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "Varios usuarios (inicio de sesión)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "Clave API"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "Introduce tu clave API (o usa la clave de demostración THIS-IS-A-SECURE-KEY-123-REPLACE-ME para configuraciones locales de un solo usuario)"
+  },
+  "onboarding_username_label": {
+    "message": "Nombre de usuario"
+  },
+  "onboarding_username_placeholder": {
+    "message": "Nombre de usuario"
+  },
+  "onboarding_password_label": {
+    "message": "Contraseña"
+  },
+  "onboarding_password_placeholder": {
+    "message": "Contraseña"
+  },
+  "onboarding_connection_label": {
+    "message": "Conexión:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "Desconocido"
+  },
+  "onboarding_connection_connected": {
+    "message": "Conectado"
+  },
+  "onboarding_connection_failed": {
+    "message": "Error"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "Puedes continuar y completar la configuración ahora. Más adelante podrás verificar la conexión desde Ajustes."
+  },
+  "onboarding_rag_label": {
+    "message": "Búsqueda y recuperación (Knowledge):"
+  },
+  "onboarding_rag_healthy": {
+    "message": "Correcto"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "Con problemas"
+  },
+  "onboarding_rag_unknown": {
+    "message": "Desconocido"
+  },
+  "onboarding_rag_help": {
+    "message": "Comprueba si tu servidor puede buscar en tus notas, contenido multimedia y otras fuentes de conocimiento conectadas."
+  },
+  "onboarding_connectionFailed": {
+    "message": "La conexión ha fallado"
+  },
+  "onboarding_footerHelp": {
+    "message": "Una vez conectado, puedes volver a estos ajustes en cualquier momento desde el menú de la extensión."
+  },
+  "onboarding_progressAria": {
+    "message": "Progreso de incorporación"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "Bienvenido"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "Conecta tu servidor tldw"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "Elige cómo iniciar sesión"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "Confirma la conexión y Conocimiento"
+  },
+  "onboarding_startServer_title": {
+    "message": "Antes de empezar — inicia tu servidor tldw"
+  },
+  "onboarding_startServer_body": {
+    "message": "Si aún no has iniciado tu servidor, ejecuta uno de estos comandos en el repositorio tldw_server y luego regresa aquí."
+  },
+  "onboarding_startServer_copy": {
+    "message": "Copiar comando"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "Ejecutar localmente con Python"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "Ejecuta el comando dentro del virtualenv de tldw_server desde la raíz del repositorio del servidor."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "Ejecutar con Docker Compose (usuario único)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "Ejecuta el comando desde la raíz del repositorio tldw_server para iniciar la API y la base de datos."
+  },
+  "onboarding_path_heading": {
+    "message": "¿Cómo quieres empezar?"
+  },
+  "onboarding_path_hasServer": {
+    "message": "Ya ejecuto tldw_server"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "Genial — conecta tu servidor para comenzar."
+  },
+  "onboarding_path_noServer": {
+    "message": "Todavía no tengo un servidor"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "No pasa nada — puedes configurar un servidor más tarde o usar la demo."
+  },
+  "onboarding_path_demo": {
+    "message": "Solo explorar con una demo local"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "Prueba la demo para explorar las funciones sin configurar un servidor."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "¿Aún sin servidor? Igual puedes explorar."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server es una aplicación independiente y autoalojada. Puedes seguir ahora la guía de configuración o volver más tarde y continuar en modo demo."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "Ejecutar localmente con Docker o Python en tu propio equipo."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "Desplegar tldw_server en un VPS remoto o un hosting gestionado."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "Usar una implementación comercial gestionada de tldw_server cuando esté disponible."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "Abrir guía de configuración"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "Usar modo demo local"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "Recordármelo más tarde"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "Explorar la extensión en modo demo"
+  },
+  "onboarding_path_demoBody": {
+    "message": "El modo demo te permite probar chat, notas y contenido multimedia con datos de ejemplo. Las funciones que dependen del servidor, como la búsqueda en Knowledge, seguirán limitadas hasta que conectes tu propio tldw_server."
+  },
+  "onboarding_path_demoCta": {
+    "message": "Usar modo demo local"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Se recomienda Single User (API Key) para servidores personales o de equipos pequeños. Multi User (Login) está pensado para despliegues compartidos donde las personas inician sesión con nombres de usuario o SSO. Elige el modo que coincida con la configuración de tu tldw_server."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "Busca tu clave de API en tldw_server → Settings → API Keys. Genera allí una clave y pégala aquí."
+  },
+  "onboarding_authStepAria": {
+    "message": "Paso 2 de 3 — configuración de autenticación"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "Paso 3 de 3 — resumen de conexión y próximos pasos"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "Ya está todo listo"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "Desde aquí puedes abrir la barra lateral, ingerir una página o explorar contenido multimedia y notas."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "Empieza a chatear"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "Abre la barra lateral y haz tu primera pregunta."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "Abrir barra lateral"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "Ingresa tu primera página"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "Usa la opción de ingesta rápida en el encabezado para guardar la pestaña actual en tu servidor."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "Explora contenido multimedia y notas"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "Visita «Media» y «Notes» en Opciones para ver qué se ha guardado y es posible buscar."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "Mostrar accesos rápidos en el encabezado"
+  },
+  "manageCharacters_title": {
+    "message": "Gestionar personajes"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Nuevo personaje"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Nombre"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Descripción"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Acciones"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Imagen de perfil"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chatear"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Editar"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Eliminar"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "Ver conversaciones"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplicar"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Etiquetas"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Añadir etiquetas"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Usa etiquetas para agrupar personajes por caso de uso (p. ej., \"escritura\", \"docencia\")."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Editar personaje"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Eliminar personaje"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chatear como {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Editar personaje {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Eliminar personaje {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "Ver conversaciones de {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} personajes encontrados"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Duplicar personaje {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "¿Seguro que quieres eliminar este personaje? Esta acción no se puede deshacer."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Nombre"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "Ej.: entrenador de escritura"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Introduce un nombre"
+  },
+  "manageCharacters_form_description": {
+    "message": "Define un personaje reutilizable con el que puedas chatear en la barra lateral."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Comportamiento / instrucciones"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "Ej.: Eres un profesor de matemáticas paciente que explica paso a paso y verifica con ejemplos cortos."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Explica el rol, el tono y las restricciones del personaje. Por ejemplo: \"Eres un tutor paciente que explica los conceptos paso a paso.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Añade una breve descripción para que el personaje sepa cómo responder."
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Añada instrucciones para guiar las respuestas."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "El prompt del sistema debe tener 2000 caracteres o menos."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "URL del avatar (opcional)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "ej.: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Mensaje de bienvenida (opcional)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "¡Hola! Soy tu entrenador de escritura. Pega tu borrador y te ayudaré a pulirlo."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Mensaje inicial opcional que enviará el personaje al iniciar el chat."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Creando personaje..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Crear personaje"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Guardando cambios..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Guardar cambios"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Personaje creado"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Fallo"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Algo salió mal. Inténtalo de nuevo más tarde"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Personaje actualizado"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Personaje eliminado"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "No se pudieron cargar los personajes"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Revisa tu conexión e inténtalo de nuevo."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Aún no hay personajes"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Crea un personaje reutilizable con nombre, descripción y prompt del sistema para chatear."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Define un entrenador de escritura, experto en historia o asistente de código reutilizable."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Dale a cada personaje una descripción y comportamiento claros para mantener respuestas coherentes."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Crear personaje"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar de {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Avatar de usuario"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Conversaciones de {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Conversaciones del personaje"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Selecciona una conversación para continuar como este personaje."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "Aún no se encontraron conversaciones para este personaje."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "No se pudieron cargar las conversaciones de este personaje."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Actualizado {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Desconocido"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Continuar chat"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Sin título"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Más reciente"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Cargar el historial del chat y continuar esta conversación"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Vista previa"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Mostrar vista previa"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Ocultar vista previa"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Personaje sin título"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Saludo"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Comportamiento"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Completa el formulario para ver una vista previa"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Mostrar campos avanzados"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Ocultar campos avanzados"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Sin descripción"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Coincidir con todas las etiquetas"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Imagen de perfil (opcional)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "Dirección URL"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Subir"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Seleccione un archivo de imagen"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Solo se admiten imágenes PNG, JPEG y GIF"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Archivo de imagen no válido"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "No se pudo procesar la imagen"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Haga clic o arrastre una imagen para subirla"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG o GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Vista previa"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "Datos importados correctamente"
+  },
+  "systemNotifications_importError": {
+    "message": "Error al importar"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Datos de Firefox sincronizados, no necesitas hacerlo de nuevo"
+  },
+  "systemNotifications_syncError": {
+    "message": "Error al sincronizar datos de Firefox"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "Selecciona un archivo de imagen válido"
+  },
+  "prompts_enterPrompt": {
+    "message": "Ingresa un prompt."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "Ingresa un prompt."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "Ingresa un prompt de seguimiento."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "Ingresa un prompt de seguimiento."
+  },
+  "prompts_privateModeDescription": {
+    "message": "El modo privado de Firefox no admite guardar datos en IndexedDB. Añade los prompts desde una ventana normal."
+  },
+  "models_privateModeDescription": {
+    "message": "El modo privado de Firefox no admite guardar datos en IndexedDB. Añade un modelo personalizado desde una ventana normal."
+  },
+  "evaluationsSettingsNav": {
+    "message": "Evaluaciones"
+  },
+  "promptStudioNav": {
+    "message": "Estudio de prompts"
+  },
+  "promptStudio_nav": {
+    "message": "Estudio de prompts"
+  },
+  "promptStudio_title": {
+    "message": "Estudio de prompts"
+  },
+  "promptStudio_subtitle": {
+    "message": "Configure los valores predeterminados y supervise la salud del Estudio de prompts. La conexión y la autenticación reutilizan la configuración principal del servidor."
+  },
+  "promptStudio_probeError": {
+    "message": "No se pudo acceder al Estudio de prompts"
+  },
+  "promptStudio_statusCard": {
+    "message": "Estado"
+  },
+  "promptStudio_statusHint": {
+    "message": "El botón llama a /prompt-studio/status con warn_seconds."
+  },
+  "promptStudio_statusError": {
+    "message": "Endpoint de estado no disponible"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "Segundos de advertencia"
+  },
+  "promptStudio_testButton": {
+    "message": "Probar Estudio de prompts"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "Valores predeterminados"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "Guarde el proyecto predeterminado, las configuraciones de modelo y el tamaño de página de la lista."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "Persistir valores predeterminados usando el almacenamiento de ajustes existente (pendiente) para la selección inicial del proyecto, los preajustes de modelos de ejecución/evaluación y la paginación."
+  },
+  "promptStudio_defaultProject": {
+    "message": "ID de proyecto predeterminado"
+  },
+  "promptStudio_pageSize": {
+    "message": "Tamaño de página"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "Valores predeterminados de ejecución"
+  },
+  "promptStudio_executeProvider": {
+    "message": "Proveedor"
+  },
+  "promptStudio_executeModel": {
+    "message": "Modelo"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "Temperatura"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "Máx. de tokens"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "Valores predeterminados de evaluación"
+  },
+  "promptStudio_evalModel": {
+    "message": "Modelo"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "Temperatura"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "Máx. de tokens"
+  },
+  "promptStudio_unavailable": {
+    "message": "El Estudio de prompts aún no está disponible en el servidor."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "Cuando se habilite, podrá supervisar la salud de la cola y establecer valores predeterminados aquí."
+  },
+  "charactersSettingsTitle": {
+    "message": "Espacio de trabajo de personajes"
+  },
+  "charactersSettingsDescription": {
+    "message": "Los personajes se gestionan desde el espacio de trabajo de Personajes. Use el botón de abajo para abrirlo."
+  },
+  "charactersOpenWorkspace": {
+    "message": "Abrir espacio de trabajo de Personajes"
+  },
+  "mermaid": {
+    "message": "Diagramas Mermaid"
+  },
+  "healthSummary_diagnostics": {
+    "message": "Diagnósticos"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "Abrir diagnósticos detallados para solucionar problemas o inspeccionar las comprobaciones de salud."
+  },
+  "healthSummary_core": {
+    "message": "Servidor"
+  },
+  "healthSummary_rag": {
+    "message": "Conocimiento"
+  },
+  "healthSummary_coreAria": {
+    "message": "Servidor: salud del servidor/API"
+  },
+  "healthSummary_ragAria": {
+    "message": "Conocimiento: salud del índice de conocimiento"
+  },
+  "healthSummary_coreOnline": {
+    "message": "Servidor: En línea"
+  },
+  "healthSummary_coreOffline": {
+    "message": "Servidor: Fuera de línea"
+  },
+  "healthSummary_coreChecking": {
+    "message": "Servidor: Comprobando…"
+  },
+  "healthSummary_ragReady": {
+    "message": "Conocimiento: Listo"
+  },
+  "healthSummary_ragOffline": {
+    "message": "Conocimiento: Fuera de línea"
+  },
+  "healthSummary_ragChecking": {
+    "message": "Conocimiento: Comprobando…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "Estas comprobaciones resumen el último ping correcto a su servidor tldw y al índice de conocimiento."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "Demasiadas escrituras de configuración en un período corto; espere unos segundos y vuelva a intentarlo."
+  },
+  "storage_quotaTitle": {
+    "message": "Límite de almacenamiento alcanzado"
+  },
+  "storage_writeError": {
+    "message": "No se pudieron guardar los ajustes"
+  },
+  "storage_writeErrorDescription": {
+    "message": "No pudimos guardar sus ajustes. Inténtelo de nuevo en breve."
+  },
+  "evaluations_title": {
+    "message": "Playground de evaluaciones"
+  },
+  "evaluations_subtitle": {
+    "message": "Defina evaluaciones contra su servidor tldw e inspeccione ejecuciones recientes."
+  },
+  "evaluations_listTitle": {
+    "message": "Evaluaciones recientes"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "Nueva evaluación"
+  },
+  "evaluations_startRunCta": {
+    "message": "Iniciar ejecución"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "No se pudieron cargar las evaluaciones"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "Compruebe la conexión a su servidor tldw y las credenciales de API, luego inténtelo de nuevo."
+  },
+  "evaluations_emptyList": {
+    "message": "Aún no hay evaluaciones. Cuando cree una, aparecerá aquí."
+  },
+  "evaluations_selectedTag": {
+    "message": "Seleccionada"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "Límites de evaluación"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "No se pudieron obtener los límites de tasa"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "No pudimos recuperar las cuotas de evaluación del servidor."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "La información de límites de tasa no está disponible para este servidor."
+  },
+  "evaluations_tierLabel": {
+    "message": "Nivel"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "Evaluaciones diarias"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "Tokens hoy"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "Límite por minuto"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "Se restablece a las"
+  },
+  "evaluations_runsTitle": {
+    "message": "Ejecuciones"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "Seleccione una evaluación para ver sus ejecuciones recientes."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "No se pudieron cargar las ejecuciones"
+  },
+  "evaluations_runsEmpty": {
+    "message": "Aún no hay ejecuciones para esta evaluación."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "Detalles de la ejecución"
+  },
+  "evaluations_noRunSelected": {
+    "message": "Seleccione una ejecución para ver los detalles."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "No se pudieron cargar los detalles de la ejecución"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "Estado"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "Modelo objetivo"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "Evaluación"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "Fallo"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "Resultados (fragmento)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "Progreso"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "Uso"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "Conjuntos de datos"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "Nuevo conjunto de datos"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "No se pudieron cargar los conjuntos de datos"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "Aún no hay conjuntos de datos. Cree uno para adjuntarlo a las evaluaciones."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} muestras"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "Nombre"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "mi_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "Descripción"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "Metadatos (JSON, opcional)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "Entrada de muestra"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "Salida esperada (opcional)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "JSON de muestras (opcional, reemplaza campos)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "Conjunto de datos (opcional)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "Seleccionar conjunto de datos"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "Conjunto de datos creado"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "Su conjunto de datos está listo para usar en evaluaciones."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "No se pudo crear el conjunto de datos"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "El servidor rechazó este conjunto de datos. Revise los campos e inténtelo de nuevo."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "Conjunto de datos eliminado"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "No se pudo eliminar el conjunto de datos"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "No se pudo cargar el conjunto de datos"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "Detalles del conjunto de datos"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "JSON de muestras no válido"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "Nueva evaluación"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "Editar evaluación"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "Nombre"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "mi_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "Use solo letras, números, guiones y guiones bajos."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "Tipo de evaluación"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "Especificación de evaluación (JSON)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "La especificación de evaluación debe ser JSON válido."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "Metadatos (JSON, opcional)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "Adjuntar conjunto de datos en línea en lugar de referenciar dataset_id"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "Conjunto de datos en línea no válido"
+  },
+  "evaluations_runModelLabel": {
+    "message": "Modelo de ejecución (usado para ejecuciones rápidas)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "Evaluación creada"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "No se pudo crear la evaluación"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "El servidor rechazó esta evaluación. Asegúrese de que el nombre, el tipo y la especificación sean válidos."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "Evaluación actualizada"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "No se pudo actualizar la evaluación"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "No se pudo eliminar la evaluación"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "¿Eliminar esta evaluación?"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "Esto eliminará la definición de la evaluación. Las ejecuciones ya creadas permanecerán en el historial."
+  },
+  "evaluations_detailTitle": {
+    "message": "Detalles de la evaluación"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "No se pudieron cargar los detalles de la evaluación"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "Descripción"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "Seleccione una evaluación para inspeccionar su especificación."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "Ejecución iniciada"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "La ejecución de su evaluación ha comenzado. Puede monitorearla desde la interfaz del servidor."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "No se pudo iniciar la ejecución"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "El servidor rechazó esta solicitud de ejecución. Revise el modelo e inténtelo de nuevo."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "Configuración (JSON)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "Anulación de conjunto de datos (arreglo JSON de muestras)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "Configuración JSON no válida"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "Se solicitó la cancelación de la ejecución"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "No se pudo cancelar la ejecución"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "Cancelar ejecución"
+  },
+  "evaluations_historyTitle": {
+    "message": "Historial"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "Tipo"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "ID de usuario"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "Fecha de inicio (ISO)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "Fecha de fin (ISO)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "Consultar historial"
+  },
+  "evaluations_historyEmpty": {
+    "message": "Ejecute una consulta para ver la actividad reciente."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "No se pudo obtener el historial"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "Gestión de webhooks"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "URL del webhook"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "Eventos"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "Registrar webhook"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "Webhook registrado"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "No se pudo registrar el webhook"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "No se pudo eliminar el webhook"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "No se pudieron cargar los webhooks"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "Aún no hay webhooks registrados."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "Secreto"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "Clave de idempotencia"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "Conéctese para usar Evaluaciones"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "Para crear y ejecutar evaluaciones, primero conecte su servidor tldw."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "Abra Configuración → servidor tldw para añadir la URL de su servidor y la clave de API."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "Una vez conectado, puede definir evaluaciones e inspeccionar métricas aquí."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "Muestras"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "No se devolvieron muestras para esta página."
+  },
+  "evaluations_metricsLabel": {
+    "message": "Métricas"
+  },
+  "evaluationsSettings_title": {
+    "message": "Evaluaciones"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "Configure los valores predeterminados usados por el playground de Evaluaciones."
+  },
+  "evaluationsSettings_offline": {
+    "message": "Conéctese a su servidor tldw para probar Evaluaciones."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "Tipo de evaluación predeterminado"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "Modelo objetivo predeterminado"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "Configuración de ejecución predeterminada (JSON)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "ID de conjunto de datos predeterminado (opcional)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "Plantilla de especificación para el tipo seleccionado"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "Probar la API de Evaluaciones"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "La API de Evaluaciones está disponible"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "No se pudo acceder a la API de Evaluaciones"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Laboratorio de chunking"
+  },
+  "chunkingPlayground_title": {
+    "message": "Laboratorio de chunking"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experimenta con distintas configuraciones de chunking para ver cómo se divide el texto en piezas más pequeñas para su procesamiento."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Texto para fragmentar"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Pega el texto aquí o selecciona un ejemplo..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Subir archivo"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Fragmentar texto"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Método de chunking"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Tamaño máximo del chunk"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Solapamiento"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Idioma"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Detectar automáticamente"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "Inglés"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Español"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "Francés"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "Alemán"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italiano"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portugués"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Chino"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japonés"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Coreano"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Tarjetas"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "En línea"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} fragmentos, prom. {{avgSize}} caracteres"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Texto cargado"
+  },
+  "chunkingPlayground_characters": {
+    "message": "caracteres"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Individual"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Comparar"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Fragmento {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Fragmento {{index}}: {{words}} palabras"
+  },
+  "chunkingPlayground_position": {
+    "message": "Posición: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} más"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} caracteres"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} palabras"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Proporciona texto para fragmentar"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Texto de entrada compartido"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Comparar ambos"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Comparación"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "La configuración A produce {{diff}} fragmentos menos"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "La configuración A produce {{diff}} fragmentos más"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Ambas configuraciones producen el mismo número de fragmentos"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Haz clic en 'Comparar' para ver los resultados"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Región de solapamiento"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Haz clic en una sección resaltada para enfocar ese fragmento"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "No se encontró contenido de texto para este elemento multimedia"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "No se pudo cargar el contenido multimedia"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "No se pudo cargar la biblioteca multimedia"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Selecciona un elemento multimedia..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Cargando contenido..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "No se encontraron elementos multimedia"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} elementos multimedia disponibles"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Pegar texto"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Subir archivo"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Texto de ejemplo"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "Desde la biblioteca multimedia"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "Artículo de noticias"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Artículo de varios párrafos con encabezados"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Código fuente"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Código Python con clases y funciones"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transcripción"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Transcripción de podcast con marcas de tiempo"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Artículo académico"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Redacción técnica con citas"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Comparar ajustes"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Configuración A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Configuración B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Individual"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Comparar"
+  }
+}

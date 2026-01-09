@@ -1,0 +1,2759 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "伺服器與驗證"
+  },
+  "navigation_knowledgeTools": {
+    "message": "知識工具"
+  },
+  "navigation_workspace": {
+    "message": "工作區"
+  },
+  "navigation_about": {
+    "message": "關於"
+  },
+  "healthNav": {
+    "message": "健康"
+  },
+  "worldBooksNav": {
+    "message": "世界書"
+  },
+  "chatDictionariesNav": {
+    "message": "聊天字典"
+  },
+  "charactersNav": {
+    "message": "角色"
+  },
+  "mediaNav": {
+    "message": "媒體"
+  },
+  "chatAppearance_title": {
+    "message": "聊天外觀"
+  },
+  "chatAppearance_description": {
+    "message": "自訂聊天訊息的顏色、字體與文字大小。"
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "在找聊天行為設定嗎（寬螢幕模式、推理、複製選項等）？"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "前往一般設定"
+  },
+  "chatAppearance_userHeading": {
+    "message": "使用者訊息"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "助理訊息"
+  },
+  "chatAppearance_userColor": {
+    "message": "使用者文字顏色"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "助理文字顏色"
+  },
+  "chatAppearance_userFont": {
+    "message": "使用者字體"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "助理字體"
+  },
+  "chatAppearance_userSize": {
+    "message": "使用者文字大小"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "助理文字大小"
+  },
+  "chatAppearance_color_default": {
+    "message": "預設"
+  },
+  "chatAppearance_color_blue": {
+    "message": "藍色"
+  },
+  "chatAppearance_color_green": {
+    "message": "綠色"
+  },
+  "chatAppearance_color_purple": {
+    "message": "紫色"
+  },
+  "chatAppearance_color_orange": {
+    "message": "橘色"
+  },
+  "chatAppearance_color_red": {
+    "message": "紅色"
+  },
+  "chatAppearance_font_default": {
+    "message": "預設"
+  },
+  "chatAppearance_font_sans": {
+    "message": "無襯線"
+  },
+  "chatAppearance_font_serif": {
+    "message": "有襯線"
+  },
+  "chatAppearance_font_mono": {
+    "message": "等寬字"
+  },
+  "chatAppearance_size_sm": {
+    "message": "小"
+  },
+  "chatAppearance_size_md": {
+    "message": "中"
+  },
+  "chatAppearance_size_lg": {
+    "message": "大"
+  },
+  "generalSettings_title": {
+    "message": "一般設定"
+  },
+  "generalSettings_settings_heading": {
+    "message": "Web UI 設定"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "語音辨識語言"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "選擇語言"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "語言"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "選擇語言"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "更改主題"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "亮色"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "暗色"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "打開側邊面板 (Copilot) 時恢復上次聊天"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "預設啟用與網站聊天 (Copilot)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "開啟 Web UI 時恢復上次聊天"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "隱藏目前聊天模型設定"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "恢復之前聊天中最後使用的模型"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "完成知識庫處理後發送通知"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "使用 AI 生成標題"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "啟用或停用伺服器連線狀態檢查"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "啟用寬螢幕模式"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "預設展開推理過程"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "使用對話泡泡顯示使用者訊息"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "自動複製回應至剪貼簿"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "啟用使用者訊息的 Markdown 格式"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "複製為格式化文字"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "啟用分頁提及 (@tab)"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "將大量文字貼上為檔案"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "預設 OCR 語言"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "選擇 OCR 語言"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "預設為側邊面板啟用臨時聊天"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "啟用 OCR（首次使用時下載約 5MB）"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "啟用 OCR 後，首次使用時將下載約 5MB 的語言資料。"
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "OCR 資源已啟用並可使用"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "從複製的文字中刪除推理標籤"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "在提示詞搜尋中包含伺服器提示詞"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "從頭重新開始引導設定"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "重新開始引導"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "要重新開始引導嗎？"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "這會重設你的引導狀態，並將你帶回設定流程的起始步驟。"
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "引導已重設"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "我們會帶你回到歡迎步驟，好讓你再次檢查伺服器 URL 和 API 金鑰。"
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "檢索設定"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "啟用嵌入和檢索"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "完整上下文模式的最大內容大小"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "內容大小 (預設 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "網頁搜尋設定"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "執行簡單的網路搜尋"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "搜尋引擎"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "選擇搜尋引擎"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "總搜尋結果數"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "輸入總搜尋結果數"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "訪問訊息中提到的網站"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "SearXNG 網址"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "Brave API 金鑰"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "輸入您的 Brave API 金鑰"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "Tavily API 金鑰"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "輸入您的 Tavily API 金鑰"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "Exa API 金鑰"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "輸入您的 Exa API 金鑰"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "Google 網域"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "預設開啟網路搜尋"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "Firecrawl API 金鑰"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "輸入您的 Firecrawl API 金鑰"
+  },
+  "generalSettings_system_heading": {
+    "message": "系統設定"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "預設介面模式"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "全螢幕（Web UI）"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "側邊欄"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "系統重置"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "全部重置"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "您確定要執行系統重置嗎？這將清除所有資料並且無法撤銷。"
+  },
+  "generalSettings_system_export_label": {
+    "message": "匯出聊天記錄、知識庫和提示詞"
+  },
+  "generalSettings_system_export_button": {
+    "message": "匯出資料"
+  },
+  "generalSettings_system_export_success": {
+    "message": "匯出成功"
+  },
+  "generalSettings_system_import_label": {
+    "message": "匯入聊天記錄、知識庫和提示詞"
+  },
+  "generalSettings_system_import_button": {
+    "message": "匯入資料"
+  },
+  "generalSettings_system_import_success": {
+    "message": "匯入成功"
+  },
+  "generalSettings_system_import_error": {
+    "message": "匯入錯誤"
+  },
+  "generalSettings_system_actionIcon_label": {
+    "message": "設定擴充功能圖示點擊的預設動作"
+  },
+  "generalSettings_system_contextMenu_label": {
+    "message": "設定右鍵選單點擊的預設動作"
+  },
+  "generalSettings_system_fontSize_label": {
+    "message": "字型大小"
+  },
+  "generalSettings_system_webuiBtnSidePanel_label": {
+    "message": "在側邊面板顯示網頁介面按鈕"
+  },
+  "generalSettings_system_chatBackgroundImage_label": {
+    "message": "聊天背景圖片"
+  },
+  "generalSettings_tts_heading": {
+    "message": "文字轉語音設定"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "啟用文字轉語音"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "完成後自動播放語音回應"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "文字轉語音提供商"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "選擇提供商"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "文字轉語音的聲音"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "選擇聲音"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "啟用 SSML（Speech Synthesis Markup Language）"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "回應拆分"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "從 TTS 中刪除推理標籤"
+  },
+  "generalSettings_stt_heading": {
+    "message": "語音轉文字設定"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "自動停止逾時（毫秒）"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "輸入自動停止逾時的毫秒數"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "自動送出語音訊息"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "這些語音轉文字的預設值會用在 Playground 與側邊欄的語音輸入按鈕。"
+  },
+  "generalSettings_stt_model_label": {
+    "message": "轉錄模型（tldw_server）"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "對轉錄進行分段（TreeSeg）"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "時間戳精度"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "每段"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "每詞"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "段落 + 詞"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "轉錄任務"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "轉錄（相同語言）"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "翻譯成英文"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "回應格式"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON（文字 + 分段）"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "詳細 JSON"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "純文字"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "SRT 字幕"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "VTT 字幕"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "取樣溫度"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "預設轉錄提示詞"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "可選擇的風格引導文字"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "最大分段數（TreeSeg K）"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "每段最少項目"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "平衡懲罰（TreeSeg λ）"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "語句擴展寬度"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "分段嵌入提供者"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "分段嵌入模型"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "系統"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "預設 UI 模式"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "全螢幕（Web UI）"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "側邊欄"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "瀏覽器動作按鈕"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "右鍵選單操作"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "在側邊欄顯示 Web UI 按鈕"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "聊天背景圖片"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "字體大小"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "資料"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "Firefox 私密模式同步"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "同步資料"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "系統重置"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "全部重置"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "確定要進行系統重置嗎？這會清除所有資料且無法復原。"
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "匯出聊天紀錄、知識庫與提示詞"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "匯出資料"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "匯出成功"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "匯入聊天紀錄、知識庫與提示詞"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "匯入資料"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "匯入成功"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "匯入錯誤"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "將 tldw Assistant 連接到你的伺服器"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "部分設定只有在 tldw 伺服器可連線時才會生效。連線伺服器以取得完整體驗。"
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "前往「設定 → tldw 伺服器」新增伺服器 URL 與 API 金鑰。"
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "在使用進階工具前，先用診斷確認伺服器健康狀態。"
+  },
+  "generalSettings_empty_title": {
+    "message": "調整 tldw Assistant 的行為"
+  },
+  "generalSettings_empty_description": {
+    "message": "在此集中調整 Web UI、側邊欄、語音、搜尋與資料處理的預設值。"
+  },
+  "generalSettings_empty_example1": {
+    "message": "選擇預設語言、主題與聊天續接行為。"
+  },
+  "generalSettings_empty_example2": {
+    "message": "控制聊天是否為暫時、如何處理大量貼上內容，以及推理顯示方式。"
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "設定伺服器與驗證"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "關閉"
+  },
+  "manageModels_title": {
+    "message": "模型管理"
+  },
+  "manageModels_addBtn": {
+    "message": "新增模型"
+  },
+  "manageModels_columns_name": {
+    "message": "名稱"
+  },
+  "manageModels_columns_digest": {
+    "message": "雜湊值"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "修改時間"
+  },
+  "manageModels_columns_size": {
+    "message": "大小"
+  },
+  "manageModels_columns_actions": {
+    "message": "操作"
+  },
+  "manageModels_columns_nickname": {
+    "message": "暱稱"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "父模型"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "格式"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "家族"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "參數大小"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "量化級別"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "刪除模型"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "重新下載模型"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "編輯暱稱"
+  },
+  "manageModels_confirm_delete": {
+    "message": "您確定要刪除該模型嗎？"
+  },
+  "manageModels_confirm_repull": {
+    "message": "您確定要重新下載該模型嗎？"
+  },
+  "manageModels_modal_title": {
+    "message": "新增模型"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "輸入模型名稱"
+  },
+  "manageModels_modal_pull": {
+    "message": "下載模型"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "正在下載模型"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "模型 {{modelName}} 下載中，欲了解更多詳細資訊，請查看擴充圖標。"
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "取消下載"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "正在取消模型下載..."
+  },
+  "manageModels_notification_success": {
+    "message": "成功"
+  },
+  "manageModels_notification_error": {
+    "message": "錯誤"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "成功下載模型"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "成功刪除模型"
+  },
+  "manageModels_notification_someError": {
+    "message": "出了點問題，請稍後重試"
+  },
+  "managePrompts_title": {
+    "message": "提示詞管理"
+  },
+  "managePrompts_addBtn": {
+    "message": "新增提示詞"
+  },
+  "managePrompts_option1": {
+    "message": "一般"
+  },
+  "managePrompts_option2": {
+    "message": "RAG（檢索）"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "問題提示詞"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "自訂提示詞"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "Copilot 提示詞"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "建立並管理可插入聊天的可重用提示詞。"
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "查看並調整伺服器提供的 Copilot 預設提示詞。"
+  },
+  "managePrompts_columns_title": {
+    "message": "標題"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "提示詞"
+  },
+  "managePrompts_columns_type": {
+    "message": "提示詞類型"
+  },
+  "managePrompts_columns_actions": {
+    "message": "操作"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "系統提示詞"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "快速提示詞"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "刪除提示詞"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "編輯提示詞"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "複製提示詞"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "您確實要刪除這個提示詞嗎？此操作無法撤銷。"
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "新增提示詞"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "編輯提示詞"
+  },
+  "managePrompts_form_title_label": {
+    "message": "標題"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "我的最佳提示詞"
+  },
+  "managePrompts_form_title_required": {
+    "message": "請輸入標題"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "提示詞"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "輸入提示詞"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "請輸入提示詞"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "您可以在提示詞中使用 {key} 作為變數。"
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "提示詞中缺少 {text} 變數，請新增。"
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "是系統提示詞"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "正在新增提示詞..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "新增提示詞"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "正在更新提示詞..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "更新提示詞"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "提示詞已新增"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "提示詞已新增成功"
+  },
+  "managePrompts_notification_error": {
+    "message": "錯誤"
+  },
+  "managePrompts_notification_someError": {
+    "message": "出了點問題，請稍後重試"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "提示詞已更新"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "提示詞已更新成功"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "提示詞已刪除"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "提示詞已刪除成功"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "提示詞工作區"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "可重用提示詞在提示詞工作區中管理。使用下方按鈕開啟。"
+  },
+  "managePrompts_openWorkspace": {
+    "message": "開啟提示詞工作區"
+  },
+  "managePrompts_search": {
+    "message": "搜尋標題與內容"
+  },
+  "managePrompts_filter_all": {
+    "message": "全部"
+  },
+  "managePrompts_filter_system": {
+    "message": "系統"
+  },
+  "managePrompts_filter_quick": {
+    "message": "快速"
+  },
+  "managePrompts_tags_label": {
+    "message": "標籤"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "新增標籤"
+  },
+  "managePrompts_import": {
+    "message": "匯入"
+  },
+  "managePrompts_export": {
+    "message": "匯出"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "合併"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "取代"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "取代會用匯入檔案覆寫目前所有提示詞。要繼續嗎？"
+  },
+  "managePrompts_favorite": {
+    "message": "加入最愛"
+  },
+  "managePrompts_unfavorite": {
+    "message": "移除最愛"
+  },
+  "managePrompts_partialLoad": {
+    "message": "部分提示詞資料無法使用"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "請檢查伺服器連線並重新整理後再試。"
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "連線後才能使用提示詞"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "要管理可重用提示詞，請先連線到 tldw 伺服器。"
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "前往「設定 → tldw 伺服器」新增伺服器 URL。"
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "連線後可建立在聊天中重複使用的自訂提示詞。"
+  },
+  "managePrompts_emptyTitle": {
+    "message": "尚無自訂提示詞"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "建立可重用提示詞，用於重複任務、工作流程與團隊規範。"
+  },
+  "managePrompts_emptyExample1": {
+    "message": "保存最愛的系統提示詞，用於摘要、解釋或翻譯。"
+  },
+  "managePrompts_emptyExample2": {
+    "message": "建立快速提示詞，用於撰寫郵件或整理筆記等常見動作。"
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "建立提示詞"
+  },
+  "managePrompts_filterHelp": {
+    "message": "搜尋會比對標題與提示詞內容。可用類型與標籤縮小範圍。"
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "沒有 Copilot 提示詞"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "Copilot 提示詞是由 tldw 伺服器提供的預設模板。"
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "若預期有 Copilot 提示詞，請檢查伺服器版本或設定。"
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "更新伺服器後，請重新載入擴充功能並回到此分頁。"
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "開啟診斷"
+  },
+  "manageShare_title": {
+    "message": "分享管理"
+  },
+  "manageShare_heading": {
+    "message": "設定頁面分享 URL"
+  },
+  "manageShare_form_url_label": {
+    "message": "頁面分享 URL"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "輸入頁面分享 URL"
+  },
+  "manageShare_form_url_required": {
+    "message": "請輸入頁面分享 URL！"
+  },
+  "manageShare_form_url_help": {
+    "message": "出於隱私的考量，您可以自行託管頁面分享服務並在此處提供 URL。<anchor>了解更多</anchor>。"
+  },
+  "manageShare_webshare_heading": {
+    "message": "網頁分享"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "標題"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "URL 位址"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "操作"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "刪除分享"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "您確實要刪除分享嗎？此操作無法撤銷。"
+  },
+  "manageShare_webshare_label": {
+    "message": "頁面分享管理"
+  },
+  "manageShare_webshare_description": {
+    "message": "啟用或停用頁面分享功能"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "頁面分享網址更新成功"
+  },
+  "manageShare_notification_someError": {
+    "message": "出現錯誤，請稍後重試"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "網頁分享已成功刪除"
+  },
+  "ollamaSettings_title": {
+    "message": "伺服器整合"
+  },
+  "ollamaSettings_heading": {
+    "message": "設定伺服器整合"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "伺服器 URL"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "輸入伺服器 URL"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "全域啟用或停用伺服器整合"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "停用伺服器整合後，tldw Browser_Assistant 將不會從伺服器取得模型。您仍可在 <anchor>OpenAI 相容 API</anchor> 區段新增提供者。"
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "進階伺服器 URL 設定"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "啟用或停用自訂來源 URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "自訂來源 URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "輸入自訂來源 URL"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "啟用或停用自動 CORS 修復"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "自訂標頭"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "新增標頭"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "標頭鍵"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "授權"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "標頭值"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "Bearer 權杖"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "如果您遇到伺服器連線問題，您可以設定自訂來源 URL。要了解更多資訊，請<anchor>點擊此處</anchor>。"
+  },
+  "manageSearch_title": {
+    "message": "網路搜尋管理"
+  },
+  "manageSearch_heading": {
+    "message": "網路搜尋設定"
+  },
+  "about_title": {
+    "message": "關於"
+  },
+  "about_heading": {
+    "message": "關於"
+  },
+  "about_chromeVersion": {
+    "message": "tldw Browser_Assistant 版本"
+  },
+  "about_ollamaVersion": {
+    "message": "伺服器版本"
+  },
+  "about_support": {
+    "message": "您可以透過以下平台捐款或贊助來支持 tldw Browser_Assistant 計畫："
+  },
+  "about_koFi": {
+    "message": "在 Ko-fi 上支持"
+  },
+  "about_githubSponsor": {
+    "message": "在 GitHub 上支持"
+  },
+  "about_githubRepo": {
+    "message": "GitHub 儲存庫"
+  },
+  "switchToSidebar": {
+    "message": "切換到側邊欄"
+  },
+  "healthPage_title": {
+    "message": "健康狀態"
+  },
+  "healthPage_subtitle": {
+    "message": "快速查看伺服器提供的子系統健康端點。"
+  },
+  "healthPage_backToChat": {
+    "message": "返回聊天"
+  },
+  "healthPage_openSettings": {
+    "message": "開啟 tldw 設定"
+  },
+  "healthPage_recheckAll": {
+    "message": "全部重新檢查"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "複製診斷"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "伺服器尚未設定。"
+  },
+  "healthPage_unableToReachCore": {
+    "message": "無法連線到伺服器核心健康端點。"
+  },
+  "healthPage_triedGet": {
+    "message": "嘗試 GET {{url}}"
+  },
+  "healthPage_configureHint": {
+    "message": "請在 tldw 設定中設定伺服器 URL。"
+  },
+  "healthPage_configureCta": {
+    "message": "設定"
+  },
+  "healthPage_connectedTo": {
+    "message": "已連線到 {{host}}"
+  },
+  "healthPage_autoRefresh": {
+    "message": "自動重新整理"
+  },
+  "healthPage_intervalLabel": {
+    "message": "間隔（秒）:"
+  },
+  "healthPage_checking": {
+    "message": "檢查中…"
+  },
+  "healthPage_recheck": {
+    "message": "重新檢查"
+  },
+  "healthPage_healthy": {
+    "message": "正常"
+  },
+  "healthPage_unhealthy": {
+    "message": "異常"
+  },
+  "healthPage_unknown": {
+    "message": "未知"
+  },
+  "healthPage_checks_core": {
+    "message": "核心 API"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG（檢索）"
+  },
+  "healthPage_checks_audio": {
+    "message": "音訊"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "嵌入"
+  },
+  "healthPage_checks_metrics": {
+    "message": "指標健康度"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "聊天指標"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP（模型上下文協定）"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "將 JSON 診斷資訊複製到剪貼簿"
+  },
+  "healthPage_statusHealthy": {
+    "message": "正常"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "異常"
+  },
+  "healthPage_statusUnknown": {
+    "message": "未知"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "剛剛更新"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "{{seconds}} 秒前更新"
+  },
+  "savedSuccessfully": {
+    "message": "設定已儲存"
+  },
+  "saveFailed": {
+    "message": "設定儲存失敗"
+  },
+  "siteAccessGranted": {
+    "message": "已允許 {{origin}} 的主機權限"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "進階逾時設定"
+  },
+  "tldw_requestTimeout": {
+    "message": "請求逾時（秒）"
+  },
+  "tldw_streamingIdle": {
+    "message": "串流閒置逾時（秒）"
+  },
+  "tldw_chatRequest": {
+    "message": "聊天請求逾時"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "聊天串流閒置"
+  },
+  "tldw_ragRequest": {
+    "message": "RAG 請求逾時"
+  },
+  "tldw_mediaRequest": {
+    "message": "媒體請求逾時"
+  },
+  "tldw_uploadRequest": {
+    "message": "上傳請求逾時"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "逾時設定檔"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "平衡"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "延長"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "自訂"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "平衡適用於大多數設定。延長為較慢的網路或長時間任務提供更多餘裕。"
+  },
+  "tldw_reset": {
+    "message": "重設為建議值"
+  },
+  "tldw_resetDone": {
+    "message": "已重設為建議的預設值"
+  },
+  "tldw_serverNav": {
+    "message": "tldw 伺服器"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "tldw 伺服器設定"
+  },
+  "tldw_serverLabel": {
+    "message": "伺服器："
+  },
+  "tldw_notConfigured": {
+    "message": "未設定"
+  },
+  "tldw_buttons_health": {
+    "message": "狀態"
+  },
+  "tldw_buttons_recheck": {
+    "message": "重新檢查"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "測試連線"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "授予站台存取權"
+  },
+  "tldw_buttons_login": {
+    "message": "登入"
+  },
+  "tldw_buttons_logout": {
+    "message": "登出"
+  },
+  "tldw_loginRequired_title": {
+    "message": "需要登入"
+  },
+  "tldw_loginRequired_description": {
+    "message": "請使用 tldw_server 憑證登入"
+  },
+  "tldw_loggedIn_title": {
+    "message": "已登入"
+  },
+  "tldw_loggedIn_description": {
+    "message": "您目前已登入 tldw_server"
+  },
+  "tldw_connection_success": {
+    "message": "連線成功！"
+  },
+  "tldw_connection_failed": {
+    "message": "連線失敗。請檢查設定。"
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "連線失敗。請檢查伺服器 URL 與 API 金鑰。"
+  },
+  "tldw_authMode_label": {
+    "message": "驗證模式"
+  },
+  "tldw_authMode_single": {
+    "message": "單一使用者（API 金鑰）"
+  },
+  "tldw_authMode_multi": {
+    "message": "多使用者（登入）"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "在此時間內無回應時中止初始請求。預設：{{seconds}}s。"
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "在此時間內無更新時停止串流。預設：{{seconds}}s。"
+  },
+  "tldw_login_success": {
+    "message": "登入成功！"
+  },
+  "tldw_login_failed": {
+    "message": "登入失敗"
+  },
+  "tldw_logout_success": {
+    "message": "成功登出"
+  },
+  "tldw_logout_failed": {
+    "message": "登出失敗"
+  },
+  "tldw_setupLink": {
+    "message": "設定伺服器"
+  },
+  "tldw_loadError": {
+    "message": "無法載入 tldw 伺服器設定。請檢查連線並再試一次。"
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "API 金鑰"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "輸入您的 API 金鑰"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "請輸入您的 API 金鑰"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "用於驗證的 tldw_server API 金鑰"
+  },
+  "tldw_fields_username_label": {
+    "message": "使用者名稱"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "輸入使用者名稱"
+  },
+  "tldw_fields_username_required": {
+    "message": "請輸入您的使用者名稱"
+  },
+  "tldw_fields_password_label": {
+    "message": "密碼"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "輸入密碼"
+  },
+  "tldw_fields_password_required": {
+    "message": "請輸入您的密碼"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "伺服器 URL"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "請輸入伺服器 URL"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "請輸入有效的 URL"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "您的 tldw_server 執行個體 URL（例如 http://localhost:8000）"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "無效的 API 金鑰"
+  },
+  "tldw_errors_forbidden": {
+    "message": "已禁止（請檢查權限）"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "API 金鑰驗證失敗"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "無法連線到伺服器"
+  },
+  "tldw_about_title": {
+    "message": "關於 tldw_server 整合"
+  },
+  "tldw_about_description": {
+    "message": "此擴充功能會連線到您的 tldw_server 執行個體，提供存取："
+  },
+  "tldw_about_points_providers": {
+    "message": "透過統一的 API 使用多個 LLM 提供者"
+  },
+  "tldw_about_points_rag": {
+    "message": "RAG（檢索增強生成）搜尋"
+  },
+  "tldw_about_points_media": {
+    "message": "媒體匯入與處理"
+  },
+  "tldw_about_points_notes": {
+    "message": "筆記與提示管理"
+  },
+  "tldw_about_points_stt": {
+    "message": "語音轉文字"
+  },
+  "manageKnowledge_title": {
+    "message": "知識問答"
+  },
+  "manageKnowledge_heading": {
+    "message": "知識問答"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "世界書工作區"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "世界書在世界書工作區中管理。使用下方按鈕開啟。"
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "開啟世界書工作區"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "聊天字典工作區"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "聊天字典在聊天字典工作區中管理。使用下方按鈕開啟。"
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "開啟聊天字典工作區"
+  },
+  "rag_title": {
+    "message": "RAG 設定"
+  },
+  "rag_ragSettings_label": {
+    "message": "RAG 設定"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "嵌入模型"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "請選擇模型"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "強烈建議使用像`nomic-embed-text`這樣的嵌入模型。"
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "選擇模型"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "建議：{{model}}（來自伺服器設定）"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "先前儲存的嵌入模型已不在伺服器上。請選擇其他模型。"
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "區塊大小"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "輸入區塊大小"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "請輸入區塊大小"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "區塊重疊"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "輸入區塊重疊"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "請輸入區塊重疊"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "知識庫預設的檔案上傳限制"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "輸入預設的檔案上傳限制（例如：10）"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "請輸入預設檔案上傳限制"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "檢索到的文件數"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "輸入檢索到的文件數"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "請輸入檢索到的文件數"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "分隔符"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "輸入分隔符號（例如：\\n\\n）"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "請輸入分隔符"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "文字分割器"
+  },
+  "rag_prompt_label": {
+    "message": "設定 RAG 提示詞"
+  },
+  "rag_prompt_option1": {
+    "message": "正常"
+  },
+  "rag_prompt_option2": {
+    "message": "網頁"
+  },
+  "rag_prompt_alert": {
+    "message": "在此設定系統提示詞已被棄用，請使用「提示詞管理」的部分來新增或編輯提示詞，此部分將在未來的版本中移除。"
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "系統提示詞"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "輸入系統提示詞"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "網路搜尋提示詞"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "請勿從提示詞中刪除 `{search_results}`。"
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "請輸入網路搜尋提示詞"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "請輸入網路搜尋提示詞"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "網路搜尋後續提示詞"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "請勿從提示詞中移除`{chat_history}`和{question}`。"
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "請輸入網路搜尋後續提示詞"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "請輸入網路搜尋後續提示詞"
+  },
+  "onboarding_title": {
+    "message": "歡迎 — 讓我們完成連線"
+  },
+  "onboarding_description": {
+    "message": "設定你的伺服器與驗證，我們會即時檢查連線與 RAG 健康狀態。"
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "了解 tldw 伺服器的運作方式"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "例如 http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "範例：http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "請輸入完整的 URL，例如 http://127.0.0.1:8000。"
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "請使用 http 或 https 的網址，例如 http://127.0.0.1:8000。"
+  },
+  "onboarding_serverUrl_label": {
+    "message": "伺服器 URL"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "輸入 tldw 伺服器 URL 以啟用下一步。"
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "當我們能連線到此位址時，將啟用下一步。"
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "正在檢查可達性…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "伺服器回應成功，你可以繼續。"
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "尚未能連線到此位址，請確認 URL 或稍後再試。"
+  },
+  "onboarding_buttons_next": {
+    "message": "下一步"
+  },
+  "onboarding_buttons_back": {
+    "message": "返回"
+  },
+  "onboarding_buttons_continue": {
+    "message": "繼續"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "重新檢查"
+  },
+  "onboarding_buttons_finish": {
+    "message": "完成"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "不連線也完成"
+  },
+  "onboarding_buttons_skip": {
+    "message": "先跳過"
+  },
+  "onboarding_authMode_label": {
+    "message": "驗證模式"
+  },
+  "onboarding_authMode_single": {
+    "message": "單一使用者（API 金鑰）"
+  },
+  "onboarding_authMode_multi": {
+    "message": "多使用者（登入）"
+  },
+  "onboarding_apiKey_label": {
+    "message": "API 金鑰"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "輸入 API 金鑰（或使用預設示範金鑰 THIS-IS-A-SECURE-KEY-123-REPLACE-ME 供本機單使用者模式）"
+  },
+  "onboarding_username_label": {
+    "message": "使用者名稱"
+  },
+  "onboarding_username_placeholder": {
+    "message": "使用者名稱"
+  },
+  "onboarding_password_label": {
+    "message": "密碼"
+  },
+  "onboarding_password_placeholder": {
+    "message": "密碼"
+  },
+  "onboarding_connection_label": {
+    "message": "連線:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "未知"
+  },
+  "onboarding_connection_connected": {
+    "message": "已連線"
+  },
+  "onboarding_connection_failed": {
+    "message": "失敗"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+  },
+  "onboarding_rag_label": {
+    "message": "RAG:"
+  },
+  "onboarding_rag_healthy": {
+    "message": "正常"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "異常"
+  },
+  "onboarding_rag_unknown": {
+    "message": "未知"
+  },
+  "onboarding_connectionFailed": {
+    "message": "連線失敗"
+  },
+  "onboarding_footerHelp": {
+    "message": "連線完成後，你可以隨時從擴充功能選單回到這些設定。"
+  },
+  "onboarding_progressAria": {
+    "message": "導覽設定進度"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "歡迎"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "連線到你的 tldw 伺服器"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "選擇你要如何登入"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "確認連線與 Knowledge 狀態"
+  },
+  "onboarding_startServer_title": {
+    "message": "開始之前 — 先啟動你的 tldw 伺服器"
+  },
+  "onboarding_startServer_body": {
+    "message": "如果你還沒有啟動伺服器，請在 tldw_server 儲存庫中執行以下其中一個指令，然後回到這裡。"
+  },
+  "onboarding_startServer_copy": {
+    "message": "複製指令"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "使用 Python 在本機執行"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "在 tldw_server 的 virtualenv 中，從伺服器儲存庫的根目錄執行。"
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "使用 Docker Compose 執行（單一使用者）"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "從 tldw_server 儲存庫根目錄執行，以啟動 API 和資料庫."
+  },
+  "onboarding_path_heading": {
+    "message": "你想要如何開始？"
+  },
+  "onboarding_path_hasServer": {
+    "message": "我已經在執行 tldw_server"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "太好了 — 連線到你已經在執行的 tldw_server 即可開始。"
+  },
+  "onboarding_path_noServer": {
+    "message": "我還沒有伺服器"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "沒關係 — 可以先依照安裝指南設定 tldw_server，或先使用示範模式。"
+  },
+  "onboarding_path_demo": {
+    "message": "先用本機示範模式試用看看"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "先用範例資料體驗工作區，之後再連線自己的伺服器。"
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "還沒有伺服器？一樣可以先體驗。"
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server 是獨立的自我託管應用程式。你可以現在依照安裝指南進行設定，或之後再回來，以示範模式繼續。"
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "在自己的電腦上使用 Docker 或 Python 本機執行。"
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "將 tldw_server 部署到遠端 VPS 或代管主機服務。"
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "在可用時使用受代管的商用 tldw_server 部署。"
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "開啟安裝指南"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "使用本機示範模式"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "稍後再提醒我"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "以示範模式體驗擴充功能"
+  },
+  "onboarding_path_demoBody": {
+    "message": "示範模式讓你用範例資料試用聊天、筆記與媒體等功能。依賴伺服器的功能（例如 Knowledge 搜尋）在你連線自己的 tldw_server 之前會維持受限。"
+  },
+  "onboarding_path_demoCta": {
+    "message": "使用本機示範模式"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Single User（API Key）適合個人或小型團隊的伺服器。Multi User（Login）適用於多人共用的部署，使用者以帳號或 SSO 登入。請選擇符合你 tldw_server 設定方式的模式。"
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "在 tldw_server → Settings → API Keys 中可以找到你的 API 金鑰。在那裡產生金鑰後，將其貼到這裡。"
+  },
+  "onboarding_authStepAria": {
+    "message": "步驟 2 / 3 — 驗證設定"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "步驟 3 / 3 — 連線摘要與後續步驟"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "你已準備好了"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "接下來你可以開啟側邊面板、匯入頁面，或探索媒體和筆記。"
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "開始聊天"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "開啟側邊面板並提出你的第一個問題。"
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "開啟側邊面板"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "匯入你的第一個頁面"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "使用標頭中的快速匯入將目前分頁儲存到你的伺服器。"
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "探索媒體與筆記"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "造訪選項中的媒體與筆記，查看已儲存和可搜尋的內容。"
+  },
+  "onboarding_headerShortcuts": {
+    "message": "在標頭顯示快速捷徑"
+  },
+  "manageCharacters_title": {
+    "message": "管理角色"
+  },
+  "manageCharacters_addBtn": {
+    "message": "新增角色"
+  },
+  "manageCharacters_columns_name": {
+    "message": "名稱"
+  },
+  "manageCharacters_columns_description": {
+    "message": "描述"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "操作"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "頭像"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "聊天"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "編輯"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "刪除"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "查看對話"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "複製"
+  },
+  "manageCharacters_tags_label": {
+    "message": "標籤"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "新增標籤"
+  },
+  "manageCharacters_tags_help": {
+    "message": "使用標籤依用途分類角色（例如「寫作」、「教學」）。"
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "編輯角色"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "刪除角色"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "以 {{name}} 身分聊天"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "編輯角色 {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "刪除角色 {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "查看 {{name}} 的對話"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "找到 {{count}} 個角色"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "複製角色 {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "確定要刪除這個角色嗎？此動作無法復原。"
+  },
+  "manageCharacters_form_name_label": {
+    "message": "名稱"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "例如：寫作教練"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "請輸入名稱"
+  },
+  "manageCharacters_form_description": {
+    "message": "定義可重複使用的角色，可在側邊欄與其聊天。"
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "行為／指示"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "例如：你是一位有耐心的數學老師，循序解說並用短例子確認理解。"
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "說明角色的定位、語氣與限制。例如：「你是一位有耐心的數學家教，會一步步解釋概念。」"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "添加簡短描述，讓角色知道如何回應。"
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "請新增指示以引導回應。"
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "系統提示詞必須少於或等於 2000 個字元。"
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "頭像網址（可選）"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "例如 https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "歡迎訊息（可選）"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "嗨！我是你的寫作教練。貼上草稿，我會幫你潤飾。"
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "開始聊天時角色會傳送的第一則訊息（可選）。"
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "正在建立角色..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "建立角色"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "正在儲存變更..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "儲存變更"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "角色已建立"
+  },
+  "manageCharacters_notification_error": {
+    "message": "錯誤"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "發生錯誤，請稍後再試"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "角色已更新"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "角色已刪除"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "無法載入角色"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "請檢查連線後再試。"
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "尚無角色"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "建立具備名稱、描述與系統提示的可重複使用角色，方便聊天。"
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "定義可重複使用的寫作教練、背景專家或程式助理。"
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "為每個角色提供清楚的描述與行為，使回應保持一致。"
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "建立角色"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}} 的頭像"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "使用者頭像"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}} 的對話"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "角色對話"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "選擇一個對話以此角色繼續。"
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "尚無此角色的對話。"
+  },
+  "manageCharacters_conversations_error": {
+    "message": "無法載入此角色的對話。"
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "已更新 {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "未知"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "繼續聊天"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "未命名"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "最近"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "載入聊天紀錄並繼續此對話"
+  },
+  "manageCharacters_preview_title": {
+    "message": "預覽"
+  },
+  "manageCharacters_preview_show": {
+    "message": "顯示預覽"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "隱藏預覽"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "未命名角色"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "問候語"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "行為"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "填寫表單以查看預覽"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "顯示進階欄位"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "隱藏進階欄位"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "無描述"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "符合所有標籤"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "頭像（選用）"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL 位址"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "上傳"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "請選擇圖片檔案"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "僅支援 PNG、JPEG 和 GIF 圖片"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "無效的圖片檔案"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "處理圖片失敗"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "點擊或拖曳圖片以進行上傳"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG、JPEG 或 GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "預覽"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "資料匯入成功"
+  },
+  "systemNotifications_importError": {
+    "message": "匯入錯誤"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Firefox 資料已同步，無需再次執行"
+  },
+  "systemNotifications_syncError": {
+    "message": "Firefox 資料同步失敗"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "請選擇有效的圖片檔"
+  },
+  "prompts_enterPrompt": {
+    "message": "請輸入提示。"
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "請輸入提示。"
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "請輸入後續提示。"
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "請輸入後續提示。"
+  },
+  "prompts_privateModeDescription": {
+    "message": "Firefox 隱私模式不支援將資料儲存到 IndexedDB。請在一般視窗中新增提示。"
+  },
+  "models_privateModeDescription": {
+    "message": "Firefox 隱私模式不支援將資料儲存到 IndexedDB。請在一般視窗中新增自訂模型。"
+  },
+  "evaluationsSettingsNav": {
+    "message": "評測"
+  },
+  "promptStudioNav": {
+    "message": "提示工作室"
+  },
+  "promptStudio_nav": {
+    "message": "提示工作室"
+  },
+  "promptStudio_title": {
+    "message": "提示工作室"
+  },
+  "promptStudio_subtitle": {
+    "message": "設定預設值並監控 Prompt Studio 狀態。連線與驗證會沿用主伺服器設定。"
+  },
+  "promptStudio_probeError": {
+    "message": "無法連線到 Prompt Studio"
+  },
+  "promptStudio_statusCard": {
+    "message": "狀態"
+  },
+  "promptStudio_statusHint": {
+    "message": "按鈕會以 warn_seconds 呼叫 /prompt-studio/status。"
+  },
+  "promptStudio_statusError": {
+    "message": "狀態端點不可用"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "警告秒數"
+  },
+  "promptStudio_testButton": {
+    "message": "測試 Prompt Studio"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "預設值"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "儲存預設專案、模型設定與列表頁大小。"
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "使用現有設定儲存 (TBD) 來保存預設值，供初始專案選擇、執行/評估模型預設與分頁使用。"
+  },
+  "promptStudio_defaultProject": {
+    "message": "預設專案 ID"
+  },
+  "promptStudio_pageSize": {
+    "message": "頁面大小"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "執行預設值"
+  },
+  "promptStudio_executeProvider": {
+    "message": "提供者"
+  },
+  "promptStudio_executeModel": {
+    "message": "模型"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "溫度"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "最大 token"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "評估預設值"
+  },
+  "promptStudio_evalModel": {
+    "message": "模型"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "溫度"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "最大 token"
+  },
+  "promptStudio_unavailable": {
+    "message": "伺服器尚未提供 Prompt Studio。"
+  },
+  "promptStudio_unavailableBody": {
+    "message": "啟用後即可在此監控佇列狀態並設定預設值。"
+  },
+  "charactersSettingsTitle": {
+    "message": "角色工作區"
+  },
+  "charactersSettingsDescription": {
+    "message": "角色管理於角色工作區中。使用下方按鈕開啟。"
+  },
+  "charactersOpenWorkspace": {
+    "message": "開啟角色工作區"
+  },
+  "mermaid": {
+    "message": "Mermaid 圖表"
+  },
+  "healthSummary_diagnostics": {
+    "message": "Diagnostics"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "開啟詳細診斷以排除問題或檢查健康狀態。"
+  },
+  "healthSummary_core": {
+    "message": "伺服器"
+  },
+  "healthSummary_rag": {
+    "message": "知識"
+  },
+  "healthSummary_coreAria": {
+    "message": "伺服器：伺服器/API 健康度"
+  },
+  "healthSummary_ragAria": {
+    "message": "知識：知識索引健康度"
+  },
+  "healthSummary_coreOnline": {
+    "message": "伺服器：線上"
+  },
+  "healthSummary_coreOffline": {
+    "message": "伺服器：離線"
+  },
+  "healthSummary_coreChecking": {
+    "message": "伺服器：檢查中…"
+  },
+  "healthSummary_ragReady": {
+    "message": "知識：就緒"
+  },
+  "healthSummary_ragOffline": {
+    "message": "知識：離線"
+  },
+  "healthSummary_ragChecking": {
+    "message": "知識：檢查中…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "這些檢查總結了最近一次成功 ping 到 tldw 伺服器與知識索引的結果。"
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "短時間內寫入設定過多，請稍等幾秒再試。"
+  },
+  "storage_quotaTitle": {
+    "message": "已達儲存上限"
+  },
+  "storage_writeError": {
+    "message": "無法儲存設定"
+  },
+  "storage_writeErrorDescription": {
+    "message": "無法儲存你的設定，請稍後再試。"
+  },
+  "evaluations_title": {
+    "message": "評測遊樂場"
+  },
+  "evaluations_subtitle": {
+    "message": "在你的 tldw 伺服器上定義評測並檢視最近的執行。"
+  },
+  "evaluations_listTitle": {
+    "message": "最近的評測"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "新增評測"
+  },
+  "evaluations_startRunCta": {
+    "message": "開始執行"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "無法載入評測"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "請檢查 tldw 伺服器連線與 API 憑證後再試。"
+  },
+  "evaluations_emptyList": {
+    "message": "尚無評測。建立後會顯示在此。"
+  },
+  "evaluations_selectedTag": {
+    "message": "已選取"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "評測限制"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "無法取得速率限制"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "無法從伺服器取得評測配額。"
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "此伺服器沒有速率限制資訊。"
+  },
+  "evaluations_tierLabel": {
+    "message": "方案等級"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "每日評測"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "今日 tokens"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "每分鐘限制"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "重置時間"
+  },
+  "evaluations_runsTitle": {
+    "message": "執行"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "選取一個評測以檢視最近的執行。"
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "無法載入執行紀錄"
+  },
+  "evaluations_runsEmpty": {
+    "message": "此評測尚無執行紀錄。"
+  },
+  "evaluations_runDetailTitle": {
+    "message": "執行詳細資訊"
+  },
+  "evaluations_noRunSelected": {
+    "message": "選取一個執行以檢視詳細資訊。"
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "無法載入執行詳細資訊"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "狀態"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "目標模型"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "評測"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "錯誤"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "結果（片段）"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "進度"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "用量"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "資料集"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "新增資料集"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "無法載入資料集"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "尚無資料集。建立後可附加至評測。"
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} 筆樣本"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "名稱"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "例如 my_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "說明"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "中繼資料（JSON，可選）"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "樣本輸入"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "預期輸出（可選）"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "樣本 JSON（可選，會覆寫欄位）"
+  },
+  "evaluations_datasetLabel": {
+    "message": "資料集（可選）"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "選擇資料集"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "資料集已建立"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "資料集已可用於評測。"
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "建立資料集失敗"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "伺服器拒絕此資料集。請檢查欄位後再試。"
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "資料集已刪除"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "刪除資料集失敗"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "載入資料集失敗"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "資料集詳細資訊"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "無效的樣本 JSON"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "新增評測"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "編輯評測"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "名稱"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "例如 my_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "只能使用字母、數字、連字號與底線。"
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "評測類型"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "評測規格（JSON）"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "評測規格必須是有效的 JSON。"
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "中繼資料（JSON，可選）"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "附加內嵌資料集而非引用 dataset_id"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "無效的內嵌資料集"
+  },
+  "evaluations_runModelLabel": {
+    "message": "執行模型（快速執行用）"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "評測已建立"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "建立評測失敗"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "伺服器拒絕此評測。請確認名稱、類型與規格是否正確。"
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "評測已更新"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "更新評測失敗"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "刪除評測失敗"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "要刪除此評測嗎？"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "此操作將移除評測定義，已建立的執行紀錄仍會保留。"
+  },
+  "evaluations_detailTitle": {
+    "message": "評測詳細資訊"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "無法載入評測詳細資訊"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "說明"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "請選取評測以檢視規格。"
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "已開始執行"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "評測執行已開始，可在伺服器 UI 監控。"
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "啟動執行失敗"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "伺服器拒絕此執行請求。請檢查模型後再試。"
+  },
+  "evaluations_runConfigLabel": {
+    "message": "設定（JSON）"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "資料集覆寫（JSON 樣本陣列）"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "無效的設定 JSON"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "已提出取消執行"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "取消執行失敗"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "取消執行"
+  },
+  "evaluations_historyTitle": {
+    "message": "歷史紀錄"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "類型"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "使用者 ID"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "開始日期（ISO）"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "結束日期（ISO）"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "取得歷史紀錄"
+  },
+  "evaluations_historyEmpty": {
+    "message": "執行查詢即可查看最近活動。"
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "取得歷史紀錄失敗"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "Webhook"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "URL 位址"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "事件"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "註冊 Webhook"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "Webhook 已註冊"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "註冊 Webhook 失敗"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "刪除 Webhook 失敗"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "無法載入 Webhook"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "尚未註冊 Webhook。"
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "密鑰"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "冪等鍵"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "連線後才能使用評測"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "要建立與執行評測，請先連線到 tldw 伺服器。"
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "前往「設定 → tldw 伺服器」新增伺服器 URL 與 API 金鑰。"
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "連線後即可在此定義評測並查看指標。"
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "樣本"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "此頁面沒有樣本。"
+  },
+  "evaluations_metricsLabel": {
+    "message": "指標"
+  },
+  "evaluationsSettings_title": {
+    "message": "評測"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "設定評測遊樂場使用的預設值。"
+  },
+  "evaluationsSettings_offline": {
+    "message": "連線到 tldw 伺服器以測試評測。"
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "預設評測類型"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "預設目標模型"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "預設執行設定（JSON）"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "預設資料集 ID（可選）"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "選取類型的規格預設"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "測試評測 API"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "評測 API 可連線"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "無法連線到評測 API"
+  },
+  "chunkingPlayground_nav": {
+    "message": "分塊實驗場"
+  },
+  "chunkingPlayground_title": {
+    "message": "分塊實驗場"
+  },
+  "chunkingPlayground_description": {
+    "message": "試用不同的分塊設定，看看文字如何被切分成較小的片段以便處理。"
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "要分塊的文字"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "在此貼上文字或選擇範例..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "上傳檔案"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "分塊文字"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "分塊方式"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "最大分塊大小"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "重疊量"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "語言"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "自動偵測"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "英文"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "西班牙文"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "法文"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "德文"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "義大利文"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "葡萄牙文"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "中文"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "日文"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "韓文"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "卡片"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "行內"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} 個分塊，平均 {{avgSize}} 字元"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "文字已載入"
+  },
+  "chunkingPlayground_characters": {
+    "message": "字元"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "單一"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "比較"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "分塊 {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "分塊 {{index}}：{{words}} 個詞"
+  },
+  "chunkingPlayground_position": {
+    "message": "位置：{{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} 個"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} 字元"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} 個詞"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "請提供要分塊的文字"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "共用輸入文字"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "比較兩者"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "比較"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "設定 A 產生的分塊少 {{diff}} 個"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "設定 A 產生的分塊多 {{diff}} 個"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "兩個設定產生的分塊數量相同"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "點擊「比較」以查看結果"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "重疊區域"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "點擊高亮的區段以聚焦該分塊"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "此媒體項目找不到文字內容"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "載入媒體內容失敗"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "載入媒體資料庫失敗"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "選擇媒體項目..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "正在載入內容..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "找不到媒體"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "可用的媒體項目 {{count}} 個"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "貼上文字"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "上傳檔案"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "範例文字"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "來自媒體資料庫"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "新聞文章"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "含標題的多段落文章"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "原始碼"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "包含類別與函式的 Python 程式碼"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "逐字稿"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "含時間戳的 Podcast 逐字稿"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "學術論文"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "含引用的技術寫作"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "比較設定"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "設定 A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "設定 B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "單一"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "比較"
+  }
+}

@@ -8,6 +8,7 @@ import { PromptSelect } from "../Common/PromptSelect"
 import PromptSearch from "../Common/PromptSearch"
 import { useQuery } from "@tanstack/react-query"
 import { useServerOnline } from "@/hooks/useServerOnline"
+import { isMac } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { fetchChatModels } from "@/services/tldw-server"
 import { getTitleById, updateHistory } from "@/db"
 import { useStoreChatModelSettings } from "@/store/model"
@@ -19,7 +20,6 @@ import { ProviderIcons } from "../Common/ProviderIcon"
 import logoImage from "~/assets/icon.png"
 import { NewChat } from "./NewChat"
 import { MoreOptions } from "./MoreOptions"
-import { browser } from "wxt/browser"
 import { CharacterSelect } from "../Common/CharacterSelect"
 import { PrimaryToolbar } from "./PrimaryToolbar"
 import type { Character } from "@/types/character"
@@ -32,18 +32,23 @@ import { ModeSelector, type CoreMode } from "./ModeSelector"
 import { ConnectionStatus } from "./ConnectionStatus"
 import { QuickIngestButton } from "./QuickIngestButton"
 import { HeaderShortcuts } from "./HeaderShortcuts"
-
-const classNames = (...classes: (string | false | null | undefined)[]) =>
-  classes.filter(Boolean).join(" ")
+import { ChatHeader } from "./ChatHeader"
+import { openSidepanel } from "@/utils/sidepanel"
+import { useSetting } from "@/hooks/useSetting"
+import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
 
 type Props = {
   setOpenModelSettings: (open: boolean) => void
   showSelectors?: boolean
+  onToggleSidebar?: () => void
+  sidebarCollapsed?: boolean
 }
 
 export const Header: React.FC<Props> = ({
   setOpenModelSettings,
-  showSelectors = true
+  showSelectors = true,
+  onToggleSidebar,
+  sidebarCollapsed = false
 }) => {
   const { t, i18n } = useTranslation([
     "option",
@@ -51,9 +56,13 @@ export const Header: React.FC<Props> = ({
     "settings",
     "playground"
   ])
-  const isRTL = i18n?.dir() === "rtl"
+  const isRTL = i18n?.dir?.() === "rtl"
+  const cmdKey = isMac ? "⌘" : "Ctrl+"
 
   const [shareModeEnabled] = useStorage("shareMode", false)
+  const [headerShortcutsExpanded, setHeaderShortcutsExpanded] = useSetting(
+    HEADER_SHORTCUTS_EXPANDED_SETTING
+  )
   const [selectedCharacter] = useStorage<Character | null>(
     "selectedCharacter",
     null
@@ -159,26 +168,7 @@ export const Header: React.FC<Props> = ({
 
   const openSidebar = React.useCallback(async () => {
     try {
-      if (import.meta.env.BROWSER === "firefox") {
-        await browser.sidebarAction.open()
-      } else {
-        // Chromium sidePanel API
-        if (
-          typeof chrome === "undefined" ||
-          !chrome?.tabs?.query ||
-          !chrome?.sidePanel?.open
-        ) {
-          return
-        }
-        const tabs = await chrome.tabs.query({
-          active: true,
-          currentWindow: true
-        })
-        const tabId = tabs?.[0]?.id
-        if (tabId) {
-          await chrome.sidePanel.open({ tabId })
-        }
-      }
+      await openSidepanel()
     } catch {}
   }, [])
 
@@ -275,12 +265,63 @@ export const Header: React.FC<Props> = ({
   }
 
   const isChatRoute = currentCoreMode === "playground"
+  const openCommandPalette = React.useCallback(() => {
+    if (typeof window === "undefined") return
+    window.dispatchEvent(new CustomEvent("tldw:open-command-palette"))
+  }, [])
+
+  const openShortcutsModal = React.useCallback(() => {
+    if (typeof window === "undefined") return
+    window.dispatchEvent(new CustomEvent("tldw:open-shortcuts-modal"))
+  }, [])
+
+  const toggleHeaderShortcuts = React.useCallback(() => {
+    void setHeaderShortcutsExpanded(!headerShortcutsExpanded).catch(() => {
+      // ignore storage write failures
+    })
+  }, [headerShortcutsExpanded, setHeaderShortcutsExpanded])
+
+  const handleTitleEditStart = React.useCallback(() => {
+    setIsEditingTitle(true)
+  }, [])
+
+  const handleTitleCommit = React.useCallback(
+    async (value: string) => {
+      setIsEditingTitle(false)
+      await saveTitle(value)
+    },
+    [saveTitle]
+  )
+
+  if (isChatRoute) {
+    return (
+      <ChatHeader
+        t={t}
+        temporaryChat={temporaryChat}
+        historyId={historyId}
+        chatTitle={chatTitle}
+        isEditingTitle={isEditingTitle}
+        onTitleChange={setChatTitle}
+        onTitleEditStart={handleTitleEditStart}
+        onTitleCommit={handleTitleCommit}
+        onToggleSidebar={onToggleSidebar}
+        sidebarCollapsed={sidebarCollapsed}
+        onOpenCommandPalette={openCommandPalette}
+        onOpenShortcutsModal={openShortcutsModal}
+        onOpenSettings={() => navigate("/settings/tldw")}
+        onClearChat={clearChat}
+        shortcutsExpanded={headerShortcutsExpanded}
+        onToggleShortcuts={toggleHeaderShortcuts}
+        commandKeyLabel={cmdKey}
+      />
+    )
+  }
 
   return (
     <header
       data-istemporary-chat={temporaryChat}
       data-ischat-route={isChatRoute}
-      className="z-30 flex w-full flex-col gap-3 border-b bg-gray-50/95 p-3 backdrop-blur dark:border-gray-600 dark:bg-[#171717]/95 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 data-[ischat-route='true']:bg-white/95 data-[ischat-route='true']:dark:bg-[#111111]/95">
+      className="z-30 flex w-full flex-col gap-3 border-b bg-bg/95 p-3 backdrop-blur border-border data-[istemporary-chat='true']:bg-purple-900 data-[ischat-route='true']:bg-surface/95">
       {/*
         Top band: place the details bar directly below the PrimaryToolbar (New Chat)
         on all breakpoints to keep the most-used actions grouped together.
@@ -297,7 +338,9 @@ export const Header: React.FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => setOpenModelSettings(true)}
-                    className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]">
+                    className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus"
+                    title={t("option:header.modelSettings", "Model settings")}
+                  >
                     <Gauge className="h-4 w-4" aria-hidden="true" />
                     <span className="hidden sm:inline">
                       {t("option:header.modelSettings", "Model settings")}
@@ -327,7 +370,7 @@ export const Header: React.FC<Props> = ({
                     <button
                       type="button"
                       onClick={() => setIsEditingTitle(true)}
-                      className="truncate text-left text-sm text-gray-700 hover:underline dark:text-gray-200"
+                      className="truncate text-left text-sm text-text hover:underline"
                       title={chatTitle || "Untitled"}>
                       {chatTitle || t("option:header.untitledChat", "Untitled")}
                     </button>
@@ -336,19 +379,19 @@ export const Header: React.FC<Props> = ({
               )}
               {!temporaryChat && serverChatId && (
                 <span
-                  className="hidden md:inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700 shadow-sm dark:border-emerald-500/50 dark:bg-emerald-500/10 dark:text-emerald-100"
+                  className="hidden md:inline-flex items-center gap-1 rounded-full border border-success/30 bg-success/10 px-2 py-0.5 text-xs text-success shadow-sm"
                   title={t(
                     "option:header.serverBackedTooltip",
                     "Messages in this chat are also saved on your tldw server."
                   )}>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-300" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-success" />
                   {t("option:header.serverBackedLabel", "Server-backed chat")}
                 </span>
               )}
               {/* Status chips for current selections */}
               <div className="hidden md:flex items-center gap-2">
                 {selectedCharacter?.name && (
-                  <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-2 py-0.5 text-xs text-blue-700 shadow-sm dark:border-blue-400/40 dark:bg-blue-500/10 dark:text-blue-100">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-xs text-primary shadow-sm">
                     {selectedCharacter?.avatar_url ? (
                       <img
                         src={selectedCharacter.avatar_url}
@@ -363,7 +406,7 @@ export const Header: React.FC<Props> = ({
                   </span>
                 )}
                 {(selectedSystemPrompt || selectedQuickPrompt) && (
-                  <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-xs text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-300">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-0.5 text-xs text-text shadow-sm">
                     {t("option:header.promptLabel", "Prompt")}:
                     <span className="max-w-[140px] truncate">
                       {selectedSystemPrompt
@@ -382,7 +425,9 @@ export const Header: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={() => navigate("/settings/tldw")}
-                className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]">
+                className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus   "
+                title={t("option:header.serverSettings", "Settings")}
+              >
                 <CogIcon className="h-4 w-4" aria-hidden="true" />
                 <span className="hidden sm:inline">
                   {t("option:header.serverSettings", "Settings")}
@@ -394,7 +439,7 @@ export const Header: React.FC<Props> = ({
                   alt={t("common:pageAssist", "tldw Assistant")}
                   className="h-6 w-auto"
                 />
-                <span className="text-sm font-medium text-gray-800 dark:text-gray-100">
+                <span className="text-sm font-medium text-text ">
                   {t("common:pageAssist", "tldw Assistant")}
                 </span>
               </div>
@@ -409,14 +454,16 @@ export const Header: React.FC<Props> = ({
                     )
                   } catch {}
                 }}
-                className="inline-flex items-center justify-center rounded-md border border-transparent p-1 text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                className="inline-flex items-center justify-center rounded-md border border-transparent p-1 text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus   "
                 aria-label={
                   t("option:githubRepository", "GitHub Repository") as string
-                }>
+                }
+                title={t("option:githubRepository", "GitHub Repository")}
+              >
                 <Github className="h-4 w-4" aria-hidden="true" />
               </button>
               {selectedModel && (
-                <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-xs text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-300">
+                <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-0.5 text-xs text-text shadow-sm border-border ">
                   {t("option:header.modelLabel", "Model")}:
                   <span className="max-w-[140px] truncate">
                     {(() => {
@@ -438,7 +485,7 @@ export const Header: React.FC<Props> = ({
                 return (
                   <span
                     id={id}
-                    className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    className="text-xs font-medium uppercase tracking-wide text-text-muted ">
                     {t("option:header.modelLabel", "Model")}
                   </span>
                 )
@@ -452,7 +499,6 @@ export const Header: React.FC<Props> = ({
                   value={selectedModel}
                   onChange={(value) => {
                     setSelectedModel(value)
-                    localStorage.setItem("selectedModel", value)
                   }}
                   filterOption={(input, option) => {
                     const rawLabel = option?.label
@@ -519,7 +565,7 @@ export const Header: React.FC<Props> = ({
                 return (
                   <span
                     id={id}
-                    className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    className="text-xs font-medium uppercase tracking-wide text-text-muted ">
                     {t("option:header.promptLabel", "Prompt")}
                   </span>
                 )
@@ -552,7 +598,7 @@ export const Header: React.FC<Props> = ({
               />
             </div>
 
-            <CharacterSelect className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100" />
+            <CharacterSelect className="text-text-muted hover:text-text " />
           </div>
         )}
       </div>
@@ -560,7 +606,7 @@ export const Header: React.FC<Props> = ({
       {showSelectors && <Divider className="hidden lg:block" plain />}
 
       <div className="flex flex-col gap-3">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 text-xs text-gray-600 dark:text-gray-300">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 text-xs text-text-muted ">
           <div />
 
           <div className="flex justify-center">
@@ -575,7 +621,9 @@ export const Header: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={() => setOpenModelSettings(true)}
-                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f] sm:w-auto">
+                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto"
+                  title={t("option:header.modelSettings", "Model settings")}
+                >
                   <Gauge className="h-4 w-4" aria-hidden="true" />
                   <span>
                     {t("option:header.modelSettings", "Model settings")}
@@ -600,7 +648,9 @@ export const Header: React.FC<Props> = ({
                   onClick={() => {
                     void openSidebar()
                   }}
-                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f] sm:w-auto">
+                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto"
+                  title={t("option:header.openSidebar", "Open sidebar")}
+                >
                   <LayoutGrid className="h-4 w-4" aria-hidden="true" />
                   <span>{t("option:header.openSidebar", "Open sidebar")}</span>
                 </button>
@@ -627,7 +677,8 @@ export const Header: React.FC<Props> = ({
                     <button
                       type="button"
                       onClick={handleOpenTimeline}
-                      className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                      className="inline-flex items-center gap-1 rounded-md border border-transparent px-2 py-1 text-xs text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus   "
+                      title={t("option:header.timeline", "Timeline")}
                     >
                       <GitBranch className="h-4 w-4" aria-hidden="true" />
                     </button>
@@ -639,7 +690,9 @@ export const Header: React.FC<Props> = ({
                   onClick={() => {
                     void openSidebar()
                   }}
-                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-gray-600 transition hover:border-gray-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f] sm:w-auto">
+                  className="flex w-full items-center gap-2 rounded-md border border-transparent px-3 py-2 text-sm text-text-muted transition hover:border-border hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus    sm:w-auto"
+                  title={t("option:header.openSidebar", "Open sidebar")}
+                >
                   <LayoutGrid className="h-4 w-4" aria-hidden="true" />
                   <span>{t("option:header.openSidebar", "Open sidebar")}</span>
                 </button>

@@ -88,7 +88,8 @@
     "omniSearchStartChat": "開始新的聊天\"{{query}}\"",
     "connectionCard.connectedCaption": "現在可以在選項頁和側邊欄中使用聊天和工具。",
     "quickIngestQueuedAria": "{{label}} — 已排隊 {{count}} 個項目 — 按一下以檢視並處理",
-    "modeSpeech": "語音"
+    "modeSpeech": "語音",
+    "moreTools": "更多"
   },
   "sidebarTitle": "聊天紀錄",
   "error": "錯誤",
@@ -581,7 +582,9 @@
     "searchPlaceholder": "依名稱搜尋角色",
     "noMatches": "目前沒有符合你搜尋條件的角色。",
     "refresh": "重新整理角色列表",
-    "refreshing": "正在重新整理角色列表…"
+    "refreshing": "正在重新整理角色列表…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "在聊天中使用",

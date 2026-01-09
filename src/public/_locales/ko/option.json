@@ -1,0 +1,1805 @@
+{
+  "newChat": {
+    "message": "새 채팅"
+  },
+  "selectAPrompt": {
+    "message": "프롬프트 선택"
+  },
+  "githubRepository": {
+    "message": "GitHub 리포지토리"
+  },
+  "settings": {
+    "message": "설정"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "tldw 어시스턴트를 서버에 연결하세요"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "tldw 서버를 찾는 중…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "tldw 서버에 연결됨"
+  },
+  "connectionCard_headlineError": {
+    "message": "tldw 서버에 연결할 수 없음"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server is the backend that powers chat, knowledge search, and media processing. Connect your own tldw server URL to start using the assistant."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "We’re checking {{host}} to see if your tldw server is reachable. This may take a moment while we wait for a response."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "Connected to your tldw server at {{host}}. You can start chatting or use Review, Knowledge, and other tools."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "미디어와 녹취를 검토"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "지식과 노트 검색"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "내 문서와 함께 RAG 사용"
+  },
+  "connectionCard_descriptionError": {
+    "message": "We couldn’t reach your tldw server at {{host}}. Make sure the server is running, the URL is correct, and your browser can reach it over the network."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "채팅 시작"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "연결 다시 시도"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "서버 변경"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "진단 열기"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "진단 보기"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "퀵 인제스트 열기"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "데모 사용해 보기"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "오프라인으로 계속하기"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "오프라인 모드 끄기"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "오프라인 모드 — 스테이징 전용"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "서버 카드로 이동"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "팁: 오프라인일 때 인제스트가 필요하신가요?"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "서버가 오프라인일 때 Quick Ingest는 스테이징 영역으로 동작합니다. URL과 파일을 지금 큐에 넣어 재연결 시 처리할 수 있습니다."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "작업공간으로 돌아가기"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "설정은 새 브라우저 탭에서 열리며 tldw 서버를 구성할 수 있습니다."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "Quick Ingest는 서버가 오프라인일 때 URL과 파일을 큐에 넣어 재연결 시 처리할 수 있게 합니다."
+  },
+  "header_showShortcuts": {
+    "message": "바로가기 표시"
+  },
+  "header_hideShortcuts": {
+    "message": "바로가기 숨기기"
+  },
+  "header_groupWorkspace": {
+    "message": "작업 공간"
+  },
+  "header_groupKnowledge": {
+    "message": "지식"
+  },
+  "header_groupSettings": {
+    "message": "설정 바로가기"
+  },
+  "header_backToHome": {
+    "message": "홈으로 돌아가기"
+  },
+  "header_openSidebar": {
+    "message": "사이드바 열기"
+  },
+  "header_untitledChat": {
+    "message": "제목 없음"
+  },
+  "header_modelLabel": {
+    "message": "모델"
+  },
+  "header_contentReview": {
+    "message": "콘텐츠 검토"
+  },
+  "header_promptLabel": {
+    "message": "프롬프트"
+  },
+  "header_review": {
+    "message": "검토"
+  },
+  "header_flashcards": {
+    "message": "플래시카드"
+  },
+  "header_quiz": {
+    "message": "퀴즈"
+  },
+  "header_media": {
+    "message": "미디어"
+  },
+  "header_libraryView": {
+    "message": "여러 항목 검토"
+  },
+  "header_notes": {
+    "message": "노트"
+  },
+  "header_modesLabel": {
+    "message": "모드"
+  },
+  "header_modePlayground": {
+    "message": "채팅"
+  },
+  "header_modeReview": {
+    "message": "검토"
+  },
+  "header_modeMedia": {
+    "message": "미디어"
+  },
+  "header_modeKnowledge": {
+    "message": "지식 Q&A"
+  },
+  "header_modeNotes": {
+    "message": "노트"
+  },
+  "header_modePrompts": {
+    "message": "프롬프트"
+  },
+  "header_modePromptsPlayground": {
+    "message": "프롬프트"
+  },
+  "header_modeStt": {
+    "message": "STT 플레이그라운드"
+  },
+  "header_modePromptStudio": {
+    "message": "프롬프트 스튜디오"
+  },
+  "header_modeFlashcards": {
+    "message": "플래시카드"
+  },
+  "header_modeWorldBooks": {
+    "message": "월드 북"
+  },
+  "header_modeDictionaries": {
+    "message": "채팅 사전"
+  },
+  "header_modeCharacters": {
+    "message": "캐릭터"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}}로 전환"
+  },
+  "header_quickIngest": {
+    "message": "퀵 인제스트"
+  },
+  "header_modelSettings": {
+    "message": "모델 설정"
+  },
+  "header_serverSettings": {
+    "message": "Server settings"
+  },
+  "header_more": {
+    "message": "AI 도구"
+  },
+  "header_moreMenu_title": {
+    "message": "고급 도구"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "사이드바, 리포지토리, 디버그 옵션 같은 고급 도구"
+  },
+  "header_moreActions": {
+    "message": "추가 작업"
+  },
+  "header_toolsMenu": {
+    "message": "채팅 도구"
+  },
+  "header_serverBackedLabel": {
+    "message": "서버 기반 채팅"
+  },
+  "header_serverBackedTooltip": {
+    "message": "이 채팅의 메시지는 tldw 서버에도 저장됩니다."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "화면, 채팅, 미디어, 노트를 검색…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "\"{{query}}\"에 대한 결과가 없습니다."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "노트 \"{{query}}\" 만들기"
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "노트 \"{{query}}\"를 만들었습니다."
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "플래시카드 모음 \"{{query}}\" 만들기"
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "플래시카드 모음 \"{{query}}\"을(를) 만들었습니다."
+  },
+  "header_omniSearchStartChat": {
+    "message": "새 채팅 \"{{query}}\" 시작"
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "이제 옵션과 사이드패널에서 채팅과 도구를 사용할 수 있습니다."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}}개 항목이 대기 중 — 검토 및 처리하려면 클릭하세요"
+  },
+  "header_modeSpeech": {
+    "message": "음성"
+  },
+  "sidebarTitle": {
+    "message": "채팅 기록"
+  },
+  "error": {
+    "message": "오류"
+  },
+  "somethingWentWrong": {
+    "message": "문제가 발생했습니다"
+  },
+  "validationSelectModel": {
+    "message": "계속하려면 모델을 선택하세요"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "이 기록을 삭제하시겠습니까?"
+  },
+  "editHistoryTitle": {
+    "message": "새 제목 입력"
+  },
+  "temporaryChat": {
+    "message": "임시 채팅 (저장되지 않음)"
+  },
+  "more_copy_group": {
+    "message": "복사"
+  },
+  "more_copy_asText": {
+    "message": "텍스트로 복사"
+  },
+  "more_copy_asMarkdown": {
+    "message": "마크다운으로 복사"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "정식 대화 기록 복사"
+  },
+  "more_copy_success": {
+    "message": "클립보드에 복사되었습니다!"
+  },
+  "more_download_group": {
+    "message": "다운로드"
+  },
+  "more_download_text": {
+    "message": "텍스트 파일 (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "마크다운 (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "정식 대화 기록 (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON 파일 (.json)"
+  },
+  "more_download_image": {
+    "message": "이미지 (.png)"
+  },
+  "more_share": {
+    "message": "공유"
+  },
+  "libraryView": {
+    "message": "라이브러리 보기"
+  },
+  "notes": {
+    "message": "노트"
+  },
+  "flashcards_review": {
+    "message": "복습"
+  },
+  "flashcards_create": {
+    "message": "생성"
+  },
+  "flashcards_manage": {
+    "message": "관리"
+  },
+  "flashcards_importExport": {
+    "message": "가져오기 / 내보내기"
+  },
+  "flashcards_selectDeck": {
+    "message": "덱 선택"
+  },
+  "flashcards_nextDue": {
+    "message": "다음 복습"
+  },
+  "flashcards_front": {
+    "message": "앞면"
+  },
+  "flashcards_back": {
+    "message": "뒷면"
+  },
+  "flashcards_extra": {
+    "message": "추가"
+  },
+  "flashcards_showAnswer": {
+    "message": "정답 표시"
+  },
+  "flashcards_hideAnswer": {
+    "message": "정답 숨기기"
+  },
+  "flashcards_preview": {
+    "message": "미리보기"
+  },
+  "flashcards_rate": {
+    "message": "평가"
+  },
+  "flashcards_answerMs": {
+    "message": "응답 시간(ms, 선택)"
+  },
+  "flashcards_noDue": {
+    "message": "복습할 카드 없음"
+  },
+  "flashcards_deck": {
+    "message": "덱"
+  },
+  "flashcards_newDeck": {
+    "message": "새 덱"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "덱 이름을 입력하세요."
+  },
+  "flashcards_modelType": {
+    "message": "Model Type"
+  },
+  "flashcards_reverse": {
+    "message": "Reverse"
+  },
+  "flashcards_isCloze": {
+    "message": "Is Cloze"
+  },
+  "flashcards_tags": {
+    "message": "태그"
+  },
+  "flashcards_dueStatus": {
+    "message": "복습 상태"
+  },
+  "flashcards_dueAll": {
+    "message": "전체"
+  },
+  "flashcards_dueNew": {
+    "message": "새 카드"
+  },
+  "flashcards_dueLearning": {
+    "message": "학습 중"
+  },
+  "flashcards_dueDue": {
+    "message": "복습 예정"
+  },
+  "flashcards_tag": {
+    "message": "태그"
+  },
+  "flashcards_noCards": {
+    "message": "카드 없음"
+  },
+  "flashcards_due": {
+    "message": "복습"
+  },
+  "flashcards_editCard": {
+    "message": "카드 편집"
+  },
+  "flashcards_importTitle": {
+    "message": "플래시카드 가져오기"
+  },
+  "flashcards_exportTitle": {
+    "message": "플래시카드 내보내기"
+  },
+  "flashcards_importHelp": {
+    "message": "TSV/CSV 줄 붙여넣기: 덱, 앞면, 뒷면, 태그, 메모"
+  },
+  "flashcards_pasteContent": {
+    "message": "여기에 내용을 붙여넣으세요..."
+  },
+  "flashcards_tab": {
+    "message": "탭"
+  },
+  "flashcards_comma": {
+    "message": ", (쉼표)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (세미콜론)"
+  },
+  "flashcards_pipe": {
+    "message": "| (파이프)"
+  },
+  "flashcards_hasHeader": {
+    "message": "헤더 있음"
+  },
+  "flashcards_import": {
+    "message": "가져오기"
+  },
+  "flashcards_imported": {
+    "message": "가져옴"
+  },
+  "flashcards_importLimits": {
+    "message": "가져오기 제한"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV 파일"
+  },
+  "flashcards_apkg": {
+    "message": "Anki (.apkg) 파일"
+  },
+  "flashcards_includeReverse": {
+    "message": "역카드 포함"
+  },
+  "flashcards_includeHeader": {
+    "message": "Include header"
+  },
+  "flashcards_extendedHeader": {
+    "message": "Extended header"
+  },
+  "flashcards_download": {
+    "message": "다운로드"
+  },
+  "flashcards_duplicate": {
+    "message": "복제"
+  },
+  "flashcards_move": {
+    "message": "이동"
+  },
+  "flashcards_reviewFailed": {
+    "message": "복습 실패"
+  },
+  "flashcards_updateFailed": {
+    "message": "업데이트 실패"
+  },
+  "flashcards_deleteFailed": {
+    "message": "삭제 실패"
+  },
+  "flashcards_missingVersion": {
+    "message": "버전이 없습니다. 새로고침 후 다시 시도하세요."
+  },
+  "flashcards_bulkMove": {
+    "message": "일괄 이동"
+  },
+  "flashcards_bulkDelete": {
+    "message": "일괄 삭제"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}}개 삭제 · {{failed}}개 실패"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "작업은 처음 {{limit}}개 항목으로 제한됩니다."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "선택 항목 내보내기 (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "선택됨"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "현재 페이지 모두 선택"
+  },
+  "flashcards_clearSelection": {
+    "message": "선택 해제"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "플래시카드를 사용하려면 연결하세요"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "플래시카드를 복습하거나 생성하려면 먼저 tldw 서버에 연결하세요."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "설정 → tldw 서버에서 서버 URL을 추가하세요."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "연결되면 복습 예정 카드를 확인하거나 노트와 미디어에서 새 덱을 만들 수 있습니다."
+  },
+  "flashcards_demoTitle": {
+    "message": "데모 모드에서 플래시카드 살펴보기"
+  },
+  "flashcards_demoDescription": {
+    "message": "이 데모는 플래시카드가 콘텐츠를 간격 반복 카드로 바꾸는 방법을 보여줍니다. 나중에 서버를 연결하면 자신의 노트와 미디어로 카드를 생성하고 복습할 수 있습니다."
+  },
+  "flashcards_demoExample1": {
+    "message": "복습과 관리 탭에서 덱, 카드, 태그가 어떻게 구성되는지 확인하세요."
+  },
+  "flashcards_demoExample2": {
+    "message": "연결하면 강의, 회의, 노트에서 카드를 생성하고 일정에 맞춰 복습할 수 있습니다."
+  },
+  "flashcards_demoExample3": {
+    "message": "플래시카드를 노트와 미디어와 함께 사용해 중요한 아이디어를 유지하세요."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "예시 덱 (미리보기 전용)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "데모 덱: 핵심 개념"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "카드 10장 · 간격과 평가 테스트에 적합."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "데모 덱: 제품 용어"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "카드 8장 · 이름, 약어, 핵심 정의."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "데모 덱: 회의 후속 조치"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "카드 6장 · 복습할 작업 항목 예시."
+  },
+  "flashcards_selectAllAcross": {
+    "message": "결과 전체 선택"
+  },
+  "flashcards_ratingAgain": {
+    "message": "다시"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "이 카드를 기억하지 못했어요."
+  },
+  "flashcards_ratingHard": {
+    "message": "어려움"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "거의 기억나지 않았고 어렵게 느껴졌어요."
+  },
+  "flashcards_ratingGood": {
+    "message": "보통"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "약간의 노력으로 기억했어요."
+  },
+  "flashcards_ratingEasy": {
+    "message": "쉬움"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "빠르고 자신 있게 기억했어요."
+  },
+  "flashcards_showTiming": {
+    "message": "응답 시간 측정"
+  },
+  "flashcards_hideTiming": {
+    "message": "시간 측정 숨기기"
+  },
+  "flashcards_noDueTitle": {
+    "message": "복습할 카드가 없습니다"
+  },
+  "flashcards_noDueDescription": {
+    "message": "모두 확인했습니다. 새 카드를 만들거나 기존 덱을 가져와 복습을 시작하세요."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "새 카드 만들기"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "덱 가져오기"
+  },
+  "flashcards_createTitle": {
+    "message": "노트에서 플래시카드 만들기"
+  },
+  "flashcards_createDescription": {
+    "message": "앞면에는 질문, 뒷면에는 답을 입력하세요. 카드를 덱으로 묶고 태그를 추가하면 더 빠르게 찾을 수 있습니다."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "기본은 앞면에 질문, 뒷면에 답을 표시합니다. 역카드는 반대 방향 카드도 만듭니다. Cloze는 {{...}}로 텍스트 일부를 숨깁니다."
+  },
+  "flashcards_reverseHelp": {
+    "message": "뒷면이 질문이 되는 카드도 생성합니다."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "빈칸 채우기 카드용입니다. 앞면에서 숨길 텍스트를 {{...}}로 감싸세요."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Markdown 및 LaTeX를 지원합니다."
+  },
+  "flashcards_extraHint": {
+    "message": "선택적 힌트/설명 (Markdown + LaTeX 지원)."
+  },
+  "flashcards_notesHint": {
+    "message": "내부 메모 (Markdown + LaTeX 지원)."
+  },
+  "flashcards_bulkActions": {
+    "message": "일괄 작업"
+  },
+  "flashcards_selectionHelp": {
+    "message": "“결과 전체 선택”은 이 페이지뿐 아니라 필터와 일치하는 모든 카드에 작업을 적용합니다."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "아직 플래시카드가 없습니다"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "노트와 미디어에서 카드를 만들거나 기존 덱을 가져오세요."
+  },
+  "flashcards_clearFilters": {
+    "message": "필터 지우기"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "첫 카드 만들기"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "플래시카드 가져오기"
+  },
+  "flashcards_mapping": {
+    "message": "열 매핑"
+  },
+  "flashcards_mappingPreview": {
+    "message": "처음 몇 행의 매핑 미리보기:"
+  },
+  "flashcards_exportHelp": {
+    "message": "덱, 태그 또는 검색으로 필터링한 다음 CSV/TSV 또는 Anki (.apkg)로 내보내세요."
+  },
+  "contentReview_title": {
+    "message": "콘텐츠 검토"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}}개 준비됨"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}}개 커밋됨"
+  },
+  "contentReview_totalCount": {
+    "message": "총 {{count}}개"
+  },
+  "contentReview_commitAll": {
+    "message": "모두 커밋"
+  },
+  "contentReview_clearDrafts": {
+    "message": "임시 저장본 지우기"
+  },
+  "contentReview_emptyDescription": {
+    "message": "아직 임시 저장본이 없습니다. 저장 전에 검토 옵션과 함께 Quick Ingest를 사용해 임시 저장본을 만들 수 있습니다."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest 열기"
+  },
+  "contentReview_batchLabel": {
+    "message": "배치"
+  },
+  "contentReview_batchName": {
+    "message": "배치 {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "임시 저장본"
+  },
+  "contentReview_selectDraft": {
+    "message": "검토를 시작할 임시 저장본을 선택하세요."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "임시 저장본 제목"
+  },
+  "contentReview_lastSaved": {
+    "message": "{{time}}에 저장됨"
+  },
+  "contentReview_resetTitle": {
+    "message": "임시 저장본을 초기화할까요?"
+  },
+  "contentReview_resetBody": {
+    "message": "이 임시 저장본의 내용을 원래 상태로 되돌립니다."
+  },
+  "contentReview_resetConfirm": {
+    "message": "초기화"
+  },
+  "contentReview_resetCancel": {
+    "message": "취소"
+  },
+  "contentReview_resetContent": {
+    "message": "초기화"
+  },
+  "contentReview_diffView": {
+    "message": "변경 사항 보기"
+  },
+  "contentReview_saveDraft": {
+    "message": "임시 저장본 저장"
+  },
+  "contentReview_editorLabel": {
+    "message": "콘텐츠"
+  },
+  "contentReview_wordCount": {
+    "message": "단어 {{words}}개"
+  },
+  "contentReview_charCount": {
+    "message": "문자 {{chars}}개"
+  },
+  "contentReview_aiFix": {
+    "message": "AI로 수정"
+  },
+  "contentReview_aiHint": {
+    "message": "임시 저장본 내용을 서버로 보내 AI로 처리합니다."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "서버 기본값"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "임시 저장본을 서버로 보낼까요?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "임시 저장본 내용이 tldw 서버로 전송되어 AI로 처리됩니다. 커밋하기 전까지 임시 저장본은 로컬에만 유지됩니다."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "계속"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "취소"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI 수정 사항이 적용되었습니다."
+  },
+  "contentReview_aiNoChange": {
+    "message": "반환된 변경 사항이 없습니다."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI가 아무 콘텐츠도 반환하지 않았습니다."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "채팅 완성이 사용 불가능합니다."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "템플릿 선택"
+  },
+  "contentReview_applyTemplate": {
+    "message": "템플릿 적용"
+  },
+  "contentReview_templateApplied": {
+    "message": "템플릿을 적용했습니다."
+  },
+  "contentReview_templateMissing": {
+    "message": "먼저 템플릿을 선택하세요."
+  },
+  "contentReview_detectSections": {
+    "message": "섹션 감지"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "섹션을 다시 감지할까요?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "기존 섹션이 대체되고 선택 항목이 초기화됩니다."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "다시 감지"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "취소"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "감지된 섹션이 없습니다."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "섹션 필터"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "전사 정리"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "줄 구조를 유지하면서 구두점과 대/소문자를 정규화합니다."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "화자 턴"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "각 화자의 턴이 명확한 레이블과 함께 한 줄씩 나타나도록 보장합니다."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "챕터 제목"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "콘텐츠를 삭제하지 않고 주제를 묶기 위해 Markdown 제목을 삽입합니다."
+  },
+  "contentReview_metadataLabel": {
+    "message": "메타데이터"
+  },
+  "contentReview_mediaType": {
+    "message": "미디어 유형"
+  },
+  "contentReview_keywords": {
+    "message": "키워드"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "키워드 추가"
+  },
+  "contentReview_reviewNotes": {
+    "message": "검토 메모"
+  },
+  "contentReview_missingSource": {
+    "message": "원본 파일이 없습니다"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "이 임시 저장본을 커밋하려면 원본 파일을 첨부하세요."
+  },
+  "contentReview_attachSource": {
+    "message": "파일 첨부"
+  },
+  "contentReview_actionsLabel": {
+    "message": "작업"
+  },
+  "contentReview_commit": {
+    "message": "커밋"
+  },
+  "contentReview_commitDisabled": {
+    "message": "커밋하기 전에 원본 오디오/비디오 파일을 첨부하세요."
+  },
+  "contentReview_markReviewed": {
+    "message": "검토 완료로 표시"
+  },
+  "contentReview_skipNext": {
+    "message": "건너뛰기"
+  },
+  "contentReview_discard": {
+    "message": "폐기"
+  },
+  "contentReview_discardTitle": {
+    "message": "임시 저장본을 폐기할까요?"
+  },
+  "contentReview_discardBody": {
+    "message": "이 임시 저장본은 폐기된 것으로 표시되고 검토 목록에서 제거됩니다."
+  },
+  "contentReview_discardConfirm": {
+    "message": "폐기"
+  },
+  "contentReview_discardCancel": {
+    "message": "취소"
+  },
+  "contentReview_commitSuccess": {
+    "message": "임시 저장본을 커밋했습니다."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "검토 완료된 임시 저장본을 모두 커밋할까요?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "검토 완료로 표시된 임시 저장본만 커밋됩니다."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "모두 커밋"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "취소"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}}개 커밋됨 · {{failed}}개 실패"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "이 파일은 로컬 임시 저장본 한도({{cap}})를 초과합니다."
+  },
+  "contentReview_clearTitle": {
+    "message": "모든 임시 저장본을 삭제할까요?"
+  },
+  "contentReview_clearBody": {
+    "message": "로컬 콘텐츠 검토 임시 저장본과 연결된 리소스를 모두 삭제합니다."
+  },
+  "contentReview_clearConfirm": {
+    "message": "임시 저장본 삭제"
+  },
+  "contentReview_clearCancel": {
+    "message": "취소"
+  },
+  "contentReview_clearSuccess": {
+    "message": "임시 저장본을 삭제했습니다."
+  },
+  "contentReview_originalLabel": {
+    "message": "원본"
+  },
+  "contentReview_editedLabel": {
+    "message": "편집됨"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "contentReview_storeAfterReview": {
+    "message": "검토 후 저장"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "저장 전에 검토"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "검토 모드"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "로컬 초안은 {{cap}}개로 제한됩니다."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "초안을 로컬에 저장할까요?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "검토 사용"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "취소"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "검토"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "검토할 초안이 준비되었습니다."
+  },
+  "contentReview_openContentReview": {
+    "message": "콘텐츠 검토 열기"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "파일이 너무 큽니다"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "파일 크기는 10MB 미만이어야 합니다"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "업로드 실패"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "파일을 업로드하지 못했습니다. 다시 시도해주세요."
+  },
+  "promptStudio_title": {
+    "message": "프롬프트 스튜디오 플레이그라운드"
+  },
+  "promptStudio_subtitle": {
+    "message": "프롬프트 스튜디오 프로젝트, 프롬프트, 실행, 테스트 케이스, 평가를 관리합니다."
+  },
+  "promptStudio_capabilityError": {
+    "message": "프롬프트 스튜디오에 연결할 수 없습니다"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "서버 연결을 확인하거나 프롬프트 스튜디오 API가 사용 가능해질 때까지 이 섹션을 비활성화하세요."
+  },
+  "promptStudio_offline": {
+    "message": "프롬프트 스튜디오를 사용하려면 서버에 연결하세요"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "프로젝트 및 프롬프트"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "프로젝트를 만들거나 열어 프롬프트를 편집하세요."
+  },
+  "promptStudio_projectsError": {
+    "message": "프로젝트를 불러올 수 없습니다"
+  },
+  "promptStudio_promptVersion": {
+    "message": "버전"
+  },
+  "promptStudio_changeDescription": {
+    "message": "설명 변경"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "시스템 프롬프트"
+  },
+  "promptStudio_userPrompt": {
+    "message": "사용자 프롬프트"
+  },
+  "promptStudio_fewShot": {
+    "message": "Few-shot 예시 (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "모듈 구성 (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "이력"
+  },
+  "promptStudio_executeCard": {
+    "message": "즉시 실행"
+  },
+  "promptStudio_executeHint": {
+    "message": "프로바이더, 모델, 온도, 입력."
+  },
+  "promptStudio_provider": {
+    "message": "프로바이더"
+  },
+  "promptStudio_model": {
+    "message": "모델"
+  },
+  "promptStudio_runPrompt": {
+    "message": "프롬프트 실행"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "실행 폼이 곧 제공됩니다. 이 패널에서 /prompt-studio/prompts/execute로 단일 입력을 실행하세요."
+  },
+  "promptStudio_testsCard": {
+    "message": "테스트 케이스 및 평가"
+  },
+  "promptStudio_testsHint": {
+    "message": "테스트 케이스 목록/생성, 평가 실행, 상태 폴링."
+  },
+  "promptStudio_testCases": {
+    "message": "테스트 케이스"
+  },
+  "promptStudio_evaluations": {
+    "message": "평가"
+  },
+  "promptStudio_inputsJson": {
+    "message": "입력 (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "기대 출력 (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "골든 여부?"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "일괄 추가"
+  },
+  "promptStudio_bulkJson": {
+    "message": "테스트 케이스 JSON 배열"
+  },
+  "promptStudio_runAsync": {
+    "message": "비동기 실행"
+  },
+  "promptStudio_temperature": {
+    "message": "온도"
+  },
+  "promptStudio_maxTokens": {
+    "message": "최대 토큰"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "평가 실행"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "플레이스홀더: 이 섹션에 테스트 케이스 CRUD, 평가 생성/목록/상세, 비동기 폴링을 연결하세요."
+  },
+  "promptStudio_unavailable": {
+    "message": "이 서버에서 프롬프트 스튜디오가 활성화되어 있지 않습니다."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "사용 가능해지면 여기에서 프로젝트, 프롬프트 기록, 실행 흐름, 평가를 볼 수 있습니다."
+  },
+  "promptSearch_title": {
+    "message": "제목"
+  },
+  "promptSearch_content": {
+    "message": "내용"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "시스템 프롬프트"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "서버에도 저장"
+  },
+  "promptSearch_cancel": {
+    "message": "취소"
+  },
+  "promptSearch_insert": {
+    "message": "삽입"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "새로 저장"
+  },
+  "promptSearch_saveLocal": {
+    "message": "변경 사항 저장(로컬)"
+  },
+  "promptSearch_saveServer": {
+    "message": "변경 사항 저장(서버)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "로컬 사본 저장"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "새로 저장(서버 전용)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "로컬 프롬프트가 업데이트되었습니다"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "서버 프롬프트가 업데이트되었습니다"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "로컬 프롬프트 업데이트 실패"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "서버 프롬프트 업데이트 실패"
+  },
+  "promptSearch_manageLink": {
+    "message": "프롬프트 보기 / 관리"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "로컬 프롬프트 덮어쓰기(선택)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "덮어쓸 로컬 프롬프트 선택"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "프롬프트가 저장되었습니다"
+  },
+  "promptSearch_saveFailed": {
+    "message": "프롬프트 저장 실패"
+  },
+  "quickIngest_title": {
+    "message": "퀵 인제스트 미디어"
+  },
+  "quickIngest_subtitle": {
+    "message": "하나 이상의 URL을 입력하세요. 필요한 경우 행마다 유형을 강제로 지정하세요."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "서버 오프라인 — 스테이징 전용"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "여기에서 URL과 파일을 대기열에 추가하고 필드를 검사할 수 있지만, tldw 서버가 온라인이 될 때까지 수집은 실행되지 않습니다. 대기 중인 항목을 처리하려면 서버에 다시 연결하세요."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "원본 URL 또는 파일"
+  },
+  "quickIngest_storeRemote": {
+    "message": "원격 DB에 저장"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "인제스트 결과를 tldw 서버에 저장"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "인제스트 결과를 로컬에서만 처리"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "색인을 위해 tldw 서버로 업로드합니다."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "처리만 하고 결과를 로컬에 유지합니다(JSON 다운로드)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "인제스트 결과 저장 위치"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "tldw 서버에 저장됩니다( RAG 및 공유 워크스페이스에 권장)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "이 브라우저에만 보관되며 서버에는 데이터가 기록되지 않습니다."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "검토 후 저장"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "저장 전에 검토"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "지금 처리한 뒤 서버에 저장하기 전에 로컬에서 초안을 편집하세요."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "검토 모드"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "로컬 초안은 {{cap}}개로 제한됩니다."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "초안을 로컬에 저장할까요?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "초안은 이 브라우저에 저장되며 민감한 데이터가 포함될 수 있습니다. 언제든지 콘텐츠 검토 페이지에서 초안을 삭제할 수 있습니다."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "검토 모드는 서버에 저장할 때까지 콘텐츠를 클라이언트 측에 유지합니다."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "검토 사용"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "취소"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "검토"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "검토할 초안이 준비되었습니다."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "리뷰 초안을 만들 수 없습니다."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "리뷰 초안 생성에 실패했습니다."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "초안 생성 재시도"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "리뷰 없이 저장"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "콘텐츠 리뷰를 열 수 없습니다. 다시 시도하세요."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "콘텐츠 리뷰 다시 열기"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}}개 파일이 로컬 초안 한도({{cap}})를 초과했습니다. 오디오/비디오를 저장하기 전에 소스를 첨부하세요."
+  },
+  "quickIngest_openContentReview": {
+    "message": "콘텐츠 검토 열기"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "인제스트와 저장소에 대해 자세히 알아보기"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "URL을 붙여넣기 (줄당 하나)"
+  },
+  "quickIngest_or": {
+    "message": "또는"
+  },
+  "quickIngest_remove": {
+    "message": "제거"
+  },
+  "quickIngest_add": {
+    "message": "URL 추가"
+  },
+  "quickIngest_commonOptions": {
+    "message": "인제스트 옵션"
+  },
+  "quickIngest_audioOptions": {
+    "message": "오디오 옵션"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "언어 (예: en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "녹취록에서 화자를 분리하려면 켜세요."
+  },
+  "quickIngest_documentOptions": {
+    "message": "문서 옵션"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR은 스캔한 PDF나 이미지에서 텍스트 추출을 돕습니다."
+  },
+  "quickIngest_videoOptions": {
+    "message": "비디오 옵션"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "가능하면 타임스탬프/캡션을 포함합니다."
+  },
+  "quickIngest_cancel": {
+    "message": "취소"
+  },
+  "quickIngest_ingest": {
+    "message": "인제스트"
+  },
+  "quickIngest_process": {
+    "message": "처리"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "큐에만 추가 — 서버 오프라인"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "오프라인 — 나중에 처리하도록 큐에 추가"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "오프라인 모드: 서버가 다시 온라인이 될 때까지 항목이 여기에서 대기합니다."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "오프라인 모드: 항목이 여기에서 스테이징되며 서버가 다시 연결되면 처리됩니다."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "대기 항목 처리"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "대기 중인 퀵 인제스트 항목 처리"
+  },
+  "quickIngest_runAria": {
+    "message": "퀵 인제스트 실행"
+  },
+  "quickIngest_runLabel": {
+    "message": "퀵 인제스트 실행"
+  },
+  "quickIngest_results": {
+    "message": "결과"
+  },
+  "quickIngest_downloadJson": {
+    "message": "JSON 다운로드"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}}개의 고급 필드가 로드되었습니다"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "고급 옵션이 감지되지 않았습니다 — 사양을 다시 로드해 보세요."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}}개 수정됨"
+  },
+  "quickIngest_progress": {
+    "message": "{{done}} / {{total}}개 항목 처리 중…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "대기 중 — 연결되면 실행됩니다"
+  },
+  "quickIngest_readyToast": {
+    "message": "서버가 다시 온라인 상태입니다 — 대기 중인 {{count}}개 항목을 처리할 준비가 되었습니다."
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "대기 항목 처리"
+  },
+  "quickIngest_errorSummary": {
+    "message": "지금은 인제스트 항목을 처리할 수 없습니다."
+  },
+  "quickIngest_errorHint": {
+    "message": "tldw 서버를 확인한 후 다시 시도하세요. 상태 및 진단에서 인제스트 문제를 해결할 수 있습니다."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "상태 및 진단에서 서버 상태 확인"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "최근 실행이 실패했습니다 — 자세한 내용은 헤더의 상태 및 진단을 열어 확인하세요."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "서버에서 고급 스펙을 다시 로드했습니다"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "서버에서 고급 스펙을 다시 로드했습니다 (추가된 필드: {{added}}, 제거된 필드: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "번들에 포함된 media.add 스키마 폴백(v{{version}})을 사용 중입니다. 필드가 오래되어 보이면 tldw_server /openapi.json과 비교해 확인하세요."
+  },
+  "notesSearch_placeholder": {
+    "message": "제목과 내용을 검색"
+  },
+  "notesSearch_clear": {
+    "message": "검색 및 필터 지우기"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "키워드로 필터"
+  },
+  "notesSearch_new": {
+    "message": "새 노트"
+  },
+  "notesSearch_newTooltip": {
+    "message": "새 노트 만들기"
+  },
+  "notesSearch_listCount": {
+    "message": "노트 {{count}}개"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "일치하는 노트를 Markdown (.md)으로 내보내기"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "일치하는 노트를 CSV로 내보내기"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "일치하는 노트를 JSON으로 내보내기"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "내보냈습니다 ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "{{count}}개의 노트를 내보냈습니다 ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "{{count}}개의 노트를 CSV로 내보냈습니다 ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "{{count}}개의 노트를 JSON으로 내보냈습니다 ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "노트를 Markdown (.md)으로 내보내기"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "노트 저장"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "노트 내용 복사"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "노트 삭제"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "내보내기"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "결과"
+  },
+  "notesSearch_showingRange": {
+    "message": "{{start}}-{{end}} / {{total}} 표시"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "사이드바 확장"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "사이드바 접기"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "제목"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "키워드(태그)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "키워드는 왼쪽의 키워드 필터로 이 노트를 찾는 데 도움이 됩니다."
+  },
+  "tts_playground": {
+    "message": "TTS 플레이그라운드"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "노트를 사용하려면 연결하세요"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "노트를 사용하려면 먼저 tldw 서버에 연결하세요."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "미디어와 검토와 함께 노트를 사용해 결과를 추적하세요."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "예시 노트 (미리보기 전용)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "데모 노트: 주간 회의 요약"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "최근 팀 싱크에서의 결정 사항, 장애 요인, 후속 조치."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "오늘 · 오전 9:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "데모 노트: 리서치 하이라이트"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "긴 기사나 논문에서 추출한 핵심 인사이트."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "어제 · 오후 4:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "데모 노트: 통화 요약"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "고객 통화 요약과 다음 단계 및 담당자."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "이번 주"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "설정 → tldw 서버에서 서버 URL을 추가하세요."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "서버가 실행 중인데도 연결되지 않으면 진단을 사용하세요."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "데모 모드에서 노트 살펴보기"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "이 데모는 노트가 인사이트를 정리하는 방법을 보여줍니다. 나중에 서버를 연결하면 실제 노트를 만들고 저장할 수 있습니다."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "노트 제목, 미리보기, 타임스탬프가 목록에 어떻게 표시되는지 확인하세요."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "연결하면 회의, 리뷰 등의 내용에서 노트를 만들 수 있습니다."
+  },
+  "notesEmpty_title": {
+    "message": "아직 노트가 없습니다"
+  },
+  "notesEmpty_description": {
+    "message": "tldw 인사이트와 연결된 자유 형식 노트를 캡처하고 정리하세요."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "최근 회의나 전사본을 위한 새 노트를 만드세요."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "검토 결과를 노트에 저장해 나중에 다시 볼 수 있습니다."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "노트 만들기"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "데모 모드에서 월드 북 살펴보기"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "이 데모는 월드 북이 세계관, 설정, 제품에 대한 구조화된 지식을 어떻게 정리하는지 보여줍니다."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "판타지 설정, 제품 용어집, 캠페인 노트 같은 예시 책을 확인하세요."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "연결하면 tldw가 채팅 중에 사용할 수 있는 월드 북을 만들 수 있습니다."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "월드 북을 사용하려면 연결하세요"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "월드 북을 사용하려면 먼저 tldw 서버에 연결해 세계 지식을 저장하고 조회할 수 있어야 합니다."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "설정 → tldw 서버에서 서버 URL을 추가하세요."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "서버가 실행 중인데도 연결되지 않으면 진단을 사용하세요."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "캐릭터와 채팅이 참조할 수 있는 구조화된 지식 베이스를 만들고 관리하세요."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "월드 북이 오프라인입니다"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "기본 설정 페이지에서 tldw 서버에 연결하여 월드 북을 보고 편집하세요."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "데모 모드에서 채팅 사전 살펴보기"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "이 데모는 채팅 사전이 모델에 전달되기 전에 이름, 약어, 용어를 정규화하는 방법을 보여줍니다."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "제품명, 프로젝트 코드명, 회사 용어를 위한 예시 사전을 확인하세요."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "연결하면 모든 채팅에서 사전을 활성화할 수 있습니다."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "채팅 사전을 사용하려면 연결하세요"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "채팅 사전을 사용하려면 먼저 tldw 서버에 연결해 치환 항목을 저장해야 합니다."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "설정 → tldw 서버에서 서버 URL을 추가하세요."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "서버가 실행 중인데도 연결되지 않으면 진단을 사용하세요."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "tldw가 조직의 이름, 약어, 용어를 이해할 수 있도록 재사용 가능한 치환 규칙을 정의하세요."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "채팅 사전이 오프라인입니다"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "기본 설정 페이지에서 tldw 서버에 연결하여 채팅 사전을 보고 편집하세요."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "데모 모드에서 캐릭터 살펴보기"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "이 데모는 캐릭터가 대화할 수 있는 페르소나와 시스템 프롬프트를 어떻게 묶는지 보여줍니다."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "글쓰기 코치, 세계관 전문가, 코딩 어시스턴트 같은 예시 캐릭터를 확인하세요."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "연결하면 채팅 헤더와 선택 목록에 표시되는 캐릭터를 만들 수 있습니다."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "캐릭터를 사용하려면 연결하세요"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "캐릭터를 사용하려면 먼저 tldw 서버에 연결해 캐릭터 정의를 저장해야 합니다."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "설정 → tldw 서버에서 서버 URL을 추가하세요."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "서버가 실행 중인데도 연결되지 않으면 진단을 사용하세요."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "채팅 헤더에서 선택하고 대화에 재사용할 수 있는 캐릭터를 만드세요."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "캐릭터를 만들어 여러 채팅에서 같은 페르소나를 재사용하세요. 시작하려면 “새 캐릭터”를 선택하세요."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "이 서버에서 Characters API를 사용할 수 없습니다"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "이 서버는 /api/v1/characters를 제공하지 않습니다."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "진단에서 서버 버전과 캐릭터용 API 사용 가능 여부를 확인하세요."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "서버를 업그레이드한 뒤 확장 프로그램을 새로고침하고 캐릭터로 돌아오세요."
+  },
+  "characters_selectCharacter": {
+    "message": "캐릭터 선택"
+  },
+  "characters_chattingAs": {
+    "message": "지금 {{name}} 캐릭터로 대화 중입니다."
+  },
+  "characters_clearCharacter": {
+    "message": "캐릭터 제거"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "캐릭터를 불러올 수 없습니다"
+  },
+  "characters_fetchErrorBody": {
+    "message": "연결 상태나 서버 상태를 확인한 후 다시 시도하세요."
+  },
+  "characters_none": {
+    "message": "없음 (캐릭터 없음)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "이름으로 캐릭터 검색"
+  },
+  "characters_noMatches": {
+    "message": "검색과 일치하는 캐릭터가 아직 없습니다."
+  },
+  "characters_refresh": {
+    "message": "캐릭터 새로고침"
+  },
+  "characters_refreshing": {
+    "message": "캐릭터를 새로고치는 중…"
+  },
+  "promptInsert_useInChat": {
+    "message": "채팅에서 사용"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "채팅을 열고 이 프롬프트를 작성창에 삽입합니다."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "채팅에서 프롬프트를 사용할까요?"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "메시지에 이미 텍스트가 있습니다. 이 프롬프트로 덮어쓰거나 아래에 추가할까요?"
+  },
+  "promptInsert_overwrite": {
+    "message": "메시지 덮어쓰기"
+  },
+  "promptInsert_append": {
+    "message": "뒤에 추가"
+  },
+  "omniSearch_filterScreen": {
+    "message": "화면"
+  },
+  "omniSearch_filterChat": {
+    "message": "채팅"
+  },
+  "omniSearch_filterMedia": {
+    "message": "미디어"
+  },
+  "omniSearch_filterNote": {
+    "message": "노트"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "플래시카드 모음"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "프롬프트"
+  },
+  "omniSearch_filteringBy": {
+    "message": "다음 기준으로 필터링:"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "빠른 채팅 도우미"
+  },
+  "quickChatHelper_title": {
+    "message": "빠른 채팅 도우미"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "빠르게 질문을 입력하세요..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "보내기"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "빠른 보조 채팅을 시작하여 기본 대화를 깔끔하게 유지하세요."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "별도 창으로 열기"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "먼저 기본 채팅에서 모델을 선택하세요."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "내 메시지"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "어시스턴트 메시지"
+  },
+  "quiz_itemsPerPage": {
+    "message": "항목/페이지"
+  },
+  "quiz_editQuizTitle": {
+    "message": "퀴즈 편집"
+  },
+  "quiz_updateSuccess": {
+    "message": "퀴즈가 업데이트되었습니다."
+  },
+  "quiz_updateError": {
+    "message": "퀴즈 업데이트에 실패했습니다."
+  },
+  "quiz_questionTextRequired": {
+    "message": "질문 텍스트는 필수입니다."
+  },
+  "quiz_optionsRequired": {
+    "message": "선택지를 최소 두 개 입력하세요."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "질문이 생성되었습니다."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "질문이 업데이트되었습니다."
+  },
+  "quiz_questionSaveError": {
+    "message": "질문 저장에 실패했습니다."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "질문이 삭제되었습니다."
+  },
+  "quiz_questionDeleteError": {
+    "message": "질문 삭제에 실패했습니다."
+  },
+  "quiz_editQuestion": {
+    "message": "질문 편집"
+  },
+  "quiz_points": {
+    "message": "점수"
+  },
+  "quiz_orderIndex": {
+    "message": "순서"
+  },
+  "quiz_startError": {
+    "message": "퀴즈 시작에 실패했습니다."
+  },
+  "quiz_answerAll": {
+    "message": "제출하기 전에 모든 질문에 답변하세요."
+  },
+  "quiz_submitError": {
+    "message": "퀴즈 제출에 실패했습니다."
+  },
+  "quiz_scoreSummary": {
+    "message": "점수: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "정답"
+  },
+  "quiz_incorrect": {
+    "message": "오답"
+  },
+  "quiz_yourAnswer": {
+    "message": "내 답변"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "정답"
+  },
+  "quiz_backToList": {
+    "message": "목록으로 돌아가기"
+  },
+  "quiz_retake": {
+    "message": "퀴즈 다시 풀기"
+  },
+  "searchPrompts": {
+    "message": "프롬프트 검색..."
+  },
+  "noMatchingPrompts": {
+    "message": "일치하는 프롬프트 없음"
+  },
+  "promptSelect_favorites": {
+    "message": "즐겨찾기"
+  },
+  "promptSelect_system": {
+    "message": "시스템 프롬프트"
+  },
+  "promptSelect_quick": {
+    "message": "빠른 프롬프트"
+  },
+  "header_moreTools": {
+    "message": "더보기"
+  },
+  "characters_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characters_importCharacter": {
+    "message": "Import Character"
+  }
+}

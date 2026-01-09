@@ -1231,5 +1231,158 @@
   "contentReview_openContentReview": {
     "message": "開啟內容審核",
     "description": "Content review UI string."
+  },
+  "playground_composer_compareTag": {
+    "message": "Compare"
+  },
+  "playground_composer_compareLabel": {
+    "message": "Compare mode"
+  },
+  "playground_composer_compareButton": {
+    "message": "Compare models"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "Compare: {{count}} models"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "Compare enabled"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "Compare settings"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "Enable Compare mode"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "Send your next message to multiple models."
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "啟用對比模式"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "解鎖實驗性的多模型對比功能。"
+  },
+  "playground_composer_compareDisabled": {
+    "message": "對比模式在設定中已停用。"
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "No models selected for compare"
+  },
+  "playground_composer_compareSingle": {
+    "message": "Comparing 1 model"
+  },
+  "playground_composer_compareMany": {
+    "message": "Comparing {{count}} models"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "Active models next turn: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "Select models"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "Choose models to compare"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "Active models"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "Your next message will be sent to each active model."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "Send to {{count}} models"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "Compare limit reached"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "You can compare up to {{limit}} models per turn."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "Max models per turn"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "Selected {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "Selected as answer:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "Continue this chat with the selected model."
+  },
+  "playground_composer_compareContinue": {
+    "message": "Continue with this model"
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "使用選定的答案繼續或再次對比。"
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "已選"
+  },
+  "playground_composer_compareLatency": {
+    "message": "延遲"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "對比：{{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "（來自對比）"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "多模型回答"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} 個模型"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "已選模型：{{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "將每個已選答案各自開成聊天"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "模型別對話"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "你（共用）"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "你"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "以完整聊天開啟"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "開啟分拆聊天"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "標準"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "標記為標準答案"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "標準答案"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "篩選模型"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "顯示全部"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "顯示 {{visible}} / {{total}}"
+  },
+  "playground_composer_compareTokens": {
+    "message": "Token：{{count}}"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "Created {{count}} chats"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "Failed to create {{count}} chats"
   }
 }

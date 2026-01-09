@@ -1,3 +1,4 @@
+import { isEdgeTarget } from "@/config/platform"
 
 // OCR language list for Tesseract 4.00
 const baseOcrLanguages = [
@@ -106,7 +107,7 @@ const baseOcrLanguages = [
 ];
 
 export const ocrLanguages = (
-    import.meta.env.BROWSER === 'edge'
+    isEdgeTarget
         ? baseOcrLanguages
         : [
             ...baseOcrLanguages,
@@ -116,5 +117,5 @@ export const ocrLanguages = (
 
 
 export const getDefaultOcrLanguage = () => {
-    return import.meta.env.BROWSER === 'edge' ? 'eng' : 'eng-fast';
+    return isEdgeTarget ? 'eng' : 'eng-fast';
 };

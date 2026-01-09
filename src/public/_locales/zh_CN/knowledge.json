@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "添加新知识"
+  },
+  "columns_title": {
+    "message": "标题"
+  },
+  "columns_status": {
+    "message": "状态"
+  },
+  "columns_embeddings": {
+    "message": "嵌入模型"
+  },
+  "columns_createdAt": {
+    "message": "创建于"
+  },
+  "columns_action": {
+    "message": "操作"
+  },
+  "expandedColumns_name": {
+    "message": "名称"
+  },
+  "confirm_delete": {
+    "message": "您确定要删除此知识吗?"
+  },
+  "deleteSuccess": {
+    "message": "知识删除成功"
+  },
+  "status_pending": {
+    "message": "待定"
+  },
+  "status_finished": {
+    "message": "已完成"
+  },
+  "status_processing": {
+    "message": "处理中"
+  },
+  "status_failed": {
+    "message": "失败"
+  },
+  "addKnowledge": {
+    "message": "添加知识"
+  },
+  "updateKnowledge": {
+    "message": "更新知识"
+  },
+  "form_title_label": {
+    "message": "知识标题"
+  },
+  "form_title_placeholder": {
+    "message": "输入知识标题"
+  },
+  "form_title_required": {
+    "message": "知识标题是必需的"
+  },
+  "form_uploadFile_label": {
+    "message": "上传文件"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "将文件拖放到此处或点击上传"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "支持的文件类型: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "文件是必需的"
+  },
+  "form_submit": {
+    "message": "提交"
+  },
+  "form_success": {
+    "message": "知识添加成功"
+  },
+  "noEmbeddingModel": {
+    "message": "请先从RAG设置页面添加一个嵌入模型"
+  },
+  "privateModeDescription": {
+    "message": "Firefox 隐私模式不支持将数据保存到 IndexedDB。请在普通窗口添加知识库。"
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "检索增强生成（RAG）使助理能够基于你的媒体、笔记和其他已索引的知识来源给出回答。"
+  },
+  "rag_searchFailed": {
+    "message": "RAG 搜索失败。请重试或查看诊断页面。"
+  },
+  "empty_demoTitle": {
+    "message": "在演示模式中体验 Knowledge QA"
+  },
+  "empty_demoDescription": {
+    "message": "此演示展示了 Knowledge QA 如何在示例内容上执行 RAG 搜索。稍后你可以连接自己的服务器，在自己的转录和文档中进行搜索。"
+  },
+  "empty_demoExample1": {
+    "message": "尝试快速 RAG 搜索，并查看结果和引用。"
+  },
+  "empty_demoExample2": {
+    "message": "连接你自己的服务器，在真实媒体和笔记上启用 Knowledge QA。"
+  },
+  "empty_connectTitle": {
+    "message": "连接以使用 Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "要使用 Knowledge QA 和 RAG 搜索，请先连接你的 tldw 服务器。"
+  },
+  "empty_connectExample1": {
+    "message": "打开“设置 → tldw server”以添加你的服务器 URL。"
+  },
+  "empty_connectExample2": {
+    "message": "如果服务器正在运行但无法访问，请使用 Diagnostics 进行检查."
+  }
+}

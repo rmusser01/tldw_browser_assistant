@@ -14,16 +14,16 @@ export const CancelPullingModel = ({
   const { t } = useTranslation("common")
   const confirmDanger = useConfirmDanger()
   return (
-    <div className="mb-4 p-3  bg-neutral-50  dark:bg-[#2D2D2D] border border-neutral-200 dark:border-neutral-700 rounded-lg">
+    <div className="mb-4 rounded-lg border border-border bg-surface2 p-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Loader2 className="w-5 h-5 animate-spin text-gray-700 dark:text-gray-300" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <Loader2 className="h-5 w-5 animate-spin text-text-muted" />
+          <span className="text-sm font-medium text-text">
             {`${t("downloading")} ${modelName}...`}
           </span>
         </div>
         <button
-          className="bg-red-600 text-white rounded-md px-3 py-1.5 text-sm font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          className="rounded-md bg-danger px-3 py-1.5 text-sm font-medium text-white hover:bg-danger focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2"
           onClick={async () => {
             const ok = await confirmDanger({
               title: t("common:confirmTitle", { defaultValue: "Please confirm" }),

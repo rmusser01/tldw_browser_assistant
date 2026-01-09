@@ -49,9 +49,9 @@ export function SettingRow({
     <div
       className={cn(
         "group flex items-start justify-between gap-4 py-3 px-1",
-        "border-b border-gray-100 last:border-0 dark:border-gray-800",
+        "border-b border-border last:border-0",
         disabled && "opacity-50 pointer-events-none",
-        modified && "bg-amber-50/50 dark:bg-amber-900/10 -mx-2 px-3 rounded-lg",
+        modified && "bg-warn/10 -mx-2 px-3 rounded-lg",
         className
       )}
     >
@@ -59,30 +59,30 @@ export function SettingRow({
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           {icon && (
-            <span className="text-gray-400 dark:text-gray-500">{icon}</span>
+            <span className="text-text-subtle">{icon}</span>
           )}
           <label
             htmlFor={id}
             className={cn(
-              "font-medium text-gray-900 dark:text-gray-100",
-              disabled && "text-gray-500"
+              "font-medium text-text",
+              disabled && "text-text-subtle"
             )}
           >
             {label}
           </label>
           {modified && (
-            <span className="text-[10px] font-medium text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 px-1.5 py-0.5 rounded">
+            <span className="rounded bg-warn/10 px-1.5 py-0.5 text-[10px] font-medium text-warn">
               Modified
             </span>
           )}
           {info && (
             <Tooltip title={info}>
-              <Info className="size-3.5 text-gray-400 cursor-help" />
+              <Info className="size-3.5 text-text-subtle cursor-help" />
             </Tooltip>
           )}
         </div>
         {description && (
-          <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-0.5 text-sm text-text-subtle">
             {description}
           </p>
         )}
@@ -91,7 +91,7 @@ export function SettingRow({
       {/* Right side: shortcut, reset, and control */}
       <div className="flex items-center gap-3 shrink-0">
         {shortcut && (
-          <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:border-gray-600 dark:bg-gray-800">
+          <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-surface2 px-1.5 py-0.5 text-xs text-text-subtle">
             {shortcut}
           </kbd>
         )}
@@ -99,7 +99,7 @@ export function SettingRow({
           <Tooltip title="Reset to default">
             <button
               onClick={onReset}
-              className="p-1 rounded text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-300 dark:hover:bg-gray-800 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="rounded p-1 text-text-subtle opacity-0 transition-opacity hover:bg-surface2 hover:text-text group-hover:opacity-100"
               aria-label="Reset to default"
             >
               <RotateCcw className="size-3.5" />

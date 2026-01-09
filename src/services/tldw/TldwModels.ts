@@ -1,6 +1,10 @@
 import { Storage } from "@plasmohq/storage"
 import { tldwClient, TldwModel } from "./TldwApiClient"
 import { createSafeStorage } from "@/utils/safe-storage"
+import {
+  getProviderDisplayName,
+  inferProviderFromModel
+} from "@/utils/provider-registry"
 
 export interface ModelInfo {
   id: string
@@ -155,16 +159,10 @@ export class TldwModelsService {
     }
 
     // Extract provider from model ID or name if not provided
-    let provider = tldwModel.provider || 'unknown'
-    if (!tldwModel.provider) {
-      // Try to guess provider from model ID
-      const idLower = tldwModel.id.toLowerCase()
-      if (idLower.includes('gpt')) provider = 'openai'
-      else if (idLower.includes('claude')) provider = 'anthropic'
-      else if (idLower.includes('llama')) provider = 'meta'
-      else if (idLower.includes('gemini')) provider = 'google'
-      else if (idLower.includes('mistral')) provider = 'mistral'
-    }
+    const inferred =
+      inferProviderFromModel(tldwModel.id, "llm") ||
+      inferProviderFromModel(tldwModel.name, "llm")
+    const provider = tldwModel.provider || inferred || "unknown"
 
     const caps: string[] = []
     if (Array.isArray(tldwModel.capabilities)) {
@@ -188,6 +186,7 @@ export class TldwModelsService {
       provider: provider,
       type: type,
       capabilities: caps.length ? Array.from(new Set(caps)) : undefined,
+      contextLength: tldwModel.context_length,
       description: tldwModel.description
     }
   }
@@ -202,41 +201,10 @@ export class TldwModelsService {
   }
 
   /**
-   * Get provider icon/logo
-   */
-  getProviderIcon(provider: string): string {
-    const icons: Record<string, string> = {
-      'openai': '🤖',
-      'anthropic': '🔷',
-      'google': '🔍',
-      'meta': '📘',
-      'mistral': '🌊',
-      'ollama': '🦙',
-      'groq': '⚡',
-      'together': '🤝',
-      'unknown': '❓'
-    }
-    
-    return icons[provider.toLowerCase()] || icons['unknown']
-  }
-
-  /**
    * Get provider display name
    */
   getProviderDisplayName(provider: string): string {
-    const names: Record<string, string> = {
-      'openai': 'OpenAI',
-      'anthropic': 'Anthropic',
-      'google': 'Google',
-      'meta': 'Meta',
-      'mistral': 'Mistral',
-      'ollama': 'Ollama',
-      'groq': 'Groq',
-      'together': 'Together AI',
-      'unknown': 'Unknown'
-    }
-    
-    return names[provider.toLowerCase()] || provider
+    return getProviderDisplayName(provider)
   }
 
   /**

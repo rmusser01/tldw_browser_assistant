@@ -1231,5 +1231,158 @@
   "contentReview_openContentReview": {
     "message": "コンテンツレビューを開く",
     "description": "Content review UI string."
+  },
+  "playground_composer_compareTag": {
+    "message": "Compare"
+  },
+  "playground_composer_compareLabel": {
+    "message": "Compare mode"
+  },
+  "playground_composer_compareButton": {
+    "message": "Compare models"
+  },
+  "playground_composer_compareButtonActive": {
+    "message": "Compare: {{count}} models"
+  },
+  "playground_composer_compareButtonOn": {
+    "message": "Compare enabled"
+  },
+  "playground_composer_compareSettingsTitle": {
+    "message": "Compare settings"
+  },
+  "playground_composer_compareSettingsToggle": {
+    "message": "Enable Compare mode"
+  },
+  "playground_composer_compareSettingsToggleHint": {
+    "message": "Send your next message to multiple models."
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "比較モードを有効にする"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "実験的な複数モデル比較機能を有効にします。"
+  },
+  "playground_composer_compareDisabled": {
+    "message": "比較モードは設定で無効になっています。"
+  },
+  "playground_composer_compareNoneSelected": {
+    "message": "No models selected for compare"
+  },
+  "playground_composer_compareSingle": {
+    "message": "Comparing 1 model"
+  },
+  "playground_composer_compareMany": {
+    "message": "Comparing {{count}} models"
+  },
+  "playground_composer_compareActiveSummary": {
+    "message": "Active models next turn: {{label}}"
+  },
+  "playground_composer_compareModelPickerLabel": {
+    "message": "Select models"
+  },
+  "playground_composer_compareModelPickerPlaceholder": {
+    "message": "Choose models to compare"
+  },
+  "playground_composer_compareActiveModelsLabel": {
+    "message": "Active models"
+  },
+  "playground_composer_compareActiveModelsHint": {
+    "message": "Your next message will be sent to each active model."
+  },
+  "playground_composer_compareSendToModels": {
+    "message": "Send to {{count}} models"
+  },
+  "playground_composer_compareMaxModelsTitle": {
+    "message": "Compare limit reached"
+  },
+  "playground_composer_compareMaxModels": {
+    "message": "You can compare up to {{limit}} models per turn."
+  },
+  "playground_composer_compareMaxModelsTrimmed": {
+    "message": "Compare is limited to {{limit}} models per turn. Using the first {{limit}} selected models."
+  },
+  "playground_composer_compareMaxLabel": {
+    "message": "Max models per turn"
+  },
+  "playground_composer_compareMaxHelper": {
+    "message": "Selected {{current}} / {{limit}}"
+  },
+  "playground_composer_compareSelectedLabel": {
+    "message": "Selected as answer:"
+  },
+  "playground_composer_compareContinueHint": {
+    "message": "Continue this chat with the selected model."
+  },
+  "playground_composer_compareContinue": {
+    "message": "Continue with this model"
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "選択した回答で続行するか、再度比較します。"
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "選択済み"
+  },
+  "playground_composer_compareLatency": {
+    "message": "レイテンシ"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "比較: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(比較から)"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "複数モデルの回答"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} モデル"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "選択したモデル: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "選択した回答をそれぞれ独立したチャットで開く"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "モデル別スレッド"
+  },
+  "playground_composer_compareThreadShared": {
+    "message": "あなた（共有）"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "あなた"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "完全なチャットとして開く"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "分岐チャットを開く"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "カノニカル"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "カノニカルとして固定"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "カノニカル回答"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "モデルを絞り込む"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "すべて表示"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "{{visible}} / {{total}} を表示"
+  },
+  "playground_composer_compareTokens": {
+    "message": "トークン: {{count}}"
+  },
+  "playground_composer_compareBulkSplitSuccess": {
+    "message": "Created {{count}} chats"
+  },
+  "playground_composer_compareBulkSplitPartialFail": {
+    "message": "Failed to create {{count}} chats"
   }
 }

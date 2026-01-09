@@ -7,6 +7,7 @@
 
 import { bgRequest } from '@/services/background-proxy'
 import type { ServerChatSummary, ServerChatMessage } from '@/services/tldw/TldwApiClient'
+import { normalizeChatRole } from '@/utils/normalize-chat-role'
 
 // ============================================================================
 // Types
@@ -335,11 +336,15 @@ export class TimelineApiService {
 
   private normalizeMessage(input: unknown, conversationId: string): MessageWithParent {
     const obj = isRecord(input) ? input : {}
-    const roleCandidate = obj.role ?? obj.sender
-    const role =
-      roleCandidate === 'system' || roleCandidate === 'user' || roleCandidate === 'assistant'
-        ? roleCandidate
-        : 'user'
+    const nested = isRecord(obj.message) ? obj.message : null
+    const roleCandidate =
+      obj.role ??
+      obj.sender ??
+      obj.author ??
+      nested?.role ??
+      nested?.sender ??
+      nested?.author
+    const role = normalizeChatRole(roleCandidate)
 
     return {
       id: toStringOrEmpty(obj.id),

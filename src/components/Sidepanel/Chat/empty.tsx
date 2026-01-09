@@ -1,6 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Tooltip } from "antd"
+import { browser } from "wxt/browser"
 import {
   useConnectionState,
   useConnectionUxState
@@ -32,18 +33,16 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
     isConnected && phase === ConnectionPhase.CONNECTED
   const primaryButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
-  const openExtensionUrl = (path: string) => {
+  const openExtensionUrl = (
+    path: `/options.html${string}` | `/sidepanel.html${string}`
+  ) => {
     try {
       // Prefer opening the extension's options.html directly so users land
       // on the tldw settings page instead of the generic extensions manager.
       // `browser` is provided by the WebExtension polyfill in WXT.
-      // @ts-ignore
-      if (typeof browser !== "undefined" && browser.runtime?.getURL) {
-        // @ts-ignore
+      if (browser?.runtime?.getURL) {
         const url = browser.runtime.getURL(path)
-        // @ts-ignore
         if (browser.tabs?.create) {
-          // @ts-ignore
           browser.tabs.create({ url })
         } else {
           window.open(url, "_blank")
@@ -56,16 +55,16 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
     }
 
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.getURL) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.getURL) {
         const url = chrome.runtime.getURL(path)
         window.open(url, "_blank")
         return
       }
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage && path.includes("/options.html")) {
-        // @ts-ignore
+      if (
+        typeof chrome !== "undefined" &&
+        chrome.runtime?.openOptionsPage &&
+        path.includes("/options.html")
+      ) {
         chrome.runtime.openOptionsPage()
         return
       }
@@ -209,12 +208,15 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
       : "text-blue-500 dark:text-blue-400"
 
     return (
-      <div className="mt-4 flex w-full flex-col items-stretch gap-3 px-3" data-testid="chat-empty-connection">
+      <div
+        className="mt-5 flex w-full flex-col items-stretch gap-3 px-4"
+        data-testid="chat-empty-connection"
+      >
         {/* Main card with icon */}
-        <div className="rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#1a1a1a] overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-border/70 bg-surface/95 shadow-sm">
           {/* Header with icon */}
-          <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-gray-800">
-            <div className={`flex-shrink-0 p-2 rounded-full ${
+          <div className="flex items-center gap-3 border-b border-border/70 px-4 py-4">
+            <div className={`flex-shrink-0 rounded-2xl p-2 ${
               uxState === "error_auth" || uxState === "error_unreachable"
                 ? "bg-amber-100 dark:bg-amber-900/30"
                 : "bg-blue-100 dark:bg-blue-900/30"
@@ -222,15 +224,15 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
               <StatusIcon className={`size-5 ${iconColorClass}`} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              <p className="text-sm font-semibold text-text">
                 {bannerHeading}
               </p>
             </div>
           </div>
 
           {/* Body */}
-          <div className="px-4 py-3 space-y-3">
-            <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+          <div className="space-y-3 px-4 py-4">
+            <p className="text-xs text-text-muted leading-relaxed">
               {bannerBody}
             </p>
 
@@ -240,11 +242,21 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
               onClick={openOnboarding}
               ref={primaryButtonRef}
               data-testid="chat-connection-cta"
-              className={`w-full flex items-center justify-center gap-2 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
+              className={`flex w-full items-center justify-center gap-2 rounded-full px-4 py-2.5 text-xs font-medium transition-colors ${
                 uxState === "error_auth" || uxState === "error_unreachable"
                   ? "bg-amber-500 hover:bg-amber-600 text-white"
                   : "bg-blue-500 hover:bg-blue-600 text-white"
               }`}
+              title={
+                !hasCompletedFirstRun
+                  ? t("sidepanel:firstRun.finishSetup", "Finish setup")
+                  : uxState === "error_auth" || uxState === "error_unreachable"
+                    ? t("sidepanel:firstRun.reviewSettings", "Review settings")
+                    : t(
+                        "sidepanel:firstRun.openOptionsPrimary",
+                        "Open tldw Settings"
+                      )
+              }
             >
               <Settings className="size-3.5" />
               {!hasCompletedFirstRun
@@ -257,8 +269,8 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
           {/* Step indicator for first-run */}
           {stepSummary && (
-            <div className="px-4 py-2 bg-gray-50 dark:bg-[#111] border-t border-gray-100 dark:border-gray-800">
-              <p className="text-[10px] text-gray-500 dark:text-gray-400">
+            <div className="border-t border-border/70 bg-surface2/70 px-4 py-2">
+              <p className="text-label text-text-subtle">
                 {stepSummary}
               </p>
             </div>
@@ -267,7 +279,7 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
         {/* Quick tips for first-time users */}
         {!hasCompletedFirstRun && (
-          <div className="text-[10px] text-gray-500 dark:text-gray-400 text-center">
+          <div className="text-center text-label text-text-muted">
             {t("sidepanel:firstRun.quickTip", "Need help? Check our docs or try demo mode.")}
           </div>
         )}
@@ -277,21 +289,24 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
   // Connected state: show welcoming empty chat guidance
   return (
-    <div className="mt-4 w-full px-4 flex flex-col items-center justify-center" data-testid="chat-empty-connected">
+    <div
+      className="mt-4 flex w-full flex-col items-center justify-center px-4"
+      data-testid="chat-empty-connected"
+    >
       {/* Animated icon */}
-      <div className="mb-3 relative">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 flex items-center justify-center">
+      <div className="relative mb-3">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30">
           <MessageSquare className="size-6 text-green-600 dark:text-green-400" />
         </div>
-        <div className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-500 border-2 border-white dark:border-[#1a1a1a]" />
+        <div className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-white bg-green-500 dark:border-[#1a1a1a]" />
       </div>
 
       {/* Status and heading */}
-      <div className="mb-1 text-green-600 dark:text-green-400 text-xs font-medium flex items-center gap-1">
+      <div className="mb-1 flex items-center gap-1 text-xs font-medium text-success">
         <Wifi className="size-3" />
         {t("sidepanel:emptyChat.connected", "Connected")}
       </div>
-      <p className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-4">
+      <p className="mb-4 text-sm font-medium text-text">
         {mode === "demo"
           ? t("sidepanel:emptyChat.demoHint", "Demo mode — try sending a message")
           : t("sidepanel:emptyChat.hint", "Start a conversation below")}
@@ -299,13 +314,14 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
       {/* Suggestion cards */}
       <div className="w-full space-y-2 text-left">
-        <p className="text-[10px] uppercase tracking-wide text-gray-500 dark:text-gray-400 font-medium px-1">
+        <p className="px-1 text-label font-medium uppercase tracking-wide text-text-muted">
           {t("sidepanel:emptyChat.suggestions", "Try asking")}
         </p>
         <button
           type="button"
           data-testid="chat-suggestion-1"
-          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
+          className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
+          title={t("sidepanel:emptyChat.examplePrompt1", "\"Summarize this page\"")}
           onClick={() =>
             insertPrompt(
               t(
@@ -315,15 +331,16 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
             )
           }
         >
-          <FileText className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
-          <span className="text-xs text-gray-600 dark:text-gray-300">
+          <FileText className="size-4 text-text-subtle group-hover:text-primary flex-shrink-0" />
+          <span className="text-xs text-text-muted">
             {t("sidepanel:emptyChat.examplePrompt1", "\"Summarize this page\"")}
           </span>
         </button>
         <button
           type="button"
           data-testid="chat-suggestion-2"
-          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
+          className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
+          title={t("sidepanel:emptyChat.examplePrompt2", "\"What are the key points?\"")}
           onClick={() =>
             insertPrompt(
               t(
@@ -333,15 +350,16 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
             )
           }
         >
-          <Search className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
-          <span className="text-xs text-gray-600 dark:text-gray-300">
+          <Search className="size-4 text-text-subtle group-hover:text-primary flex-shrink-0" />
+          <span className="text-xs text-text-muted">
             {t("sidepanel:emptyChat.examplePrompt2", "\"What are the key points?\"")}
           </span>
         </button>
         <button
           type="button"
           data-testid="chat-suggestion-3"
-          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors text-left group"
+          className="group flex w-full items-center gap-3 rounded-2xl border border-border/70 bg-surface px-3 py-2 text-left transition-colors hover:border-primary/40 hover:bg-surface2"
+          title={t("sidepanel:emptyChat.examplePrompt3", "\"Explain this in simple terms\"")}
           onClick={() =>
             insertPrompt(
               t(
@@ -351,8 +369,8 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
             )
           }
         >
-          <BookOpen className="size-4 text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 flex-shrink-0" />
-          <span className="text-xs text-gray-600 dark:text-gray-300">
+          <BookOpen className="size-4 text-text-subtle group-hover:text-primary flex-shrink-0" />
+          <span className="text-xs text-text-muted">
             {t("sidepanel:emptyChat.examplePrompt3", "\"Explain this in simple terms\"")}
           </span>
         </button>
@@ -360,8 +378,8 @@ export const EmptySidePanel = ({ inputRef }: EmptySidePanelProps) => {
 
       {/* Demo mode indicator with limitations */}
       {mode === "demo" && (
-        <div className="mt-4 px-3 py-2 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-purple-700 dark:text-purple-300">
+        <div className="mt-4 rounded-2xl border border-purple-200/70 bg-purple-50/70 px-3 py-2 dark:border-purple-800 dark:bg-purple-900/20">
+          <div className="flex items-center gap-2 text-xs font-medium text-purple-700 dark:text-purple-300">
             <Sparkles className="size-3.5" />
             {t("sidepanel:emptyChat.demoIndicator", "Running in demo mode")}
           </div>

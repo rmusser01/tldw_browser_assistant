@@ -3217,5 +3217,74 @@
   },
   "mediaPage_presetQAAnalysis": {
     "message": "Аналіз запитань і відповідей"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "Увімкнути режим порівняння"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "Відкрити експериментальні можливості порівняння кількох моделей."
+  },
+  "playground_composer_compareDisabled": {
+    "message": "Режим порівняння вимкнено в налаштуваннях."
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "Продовжити з вибраною відповіддю або порівняти знову."
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "Вибрано"
+  },
+  "playground_composer_compareLatency": {
+    "message": "Затримка"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "Порівняння: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(з порівняння)"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "Відповіді кількох моделей"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} моделей"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "Вибрані моделі: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "Відкрити кожну вибрану відповідь в окремому чаті"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "Гілка для моделі"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "Ви"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "Відкрити як повний чат"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "Відкрити розгалужений чат"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "Канонічна"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "Закріпити як канонічну"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "Канонічна відповідь"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "Фільтрувати моделі"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "Показати всі"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "Показано {{visible}} / {{total}}"
+  },
+  "playground_composer_compareTokens": {
+    "message": "Токени: {{count}}"
   }
 }

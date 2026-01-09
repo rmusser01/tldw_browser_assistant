@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
 import { fetchChatModels } from "@/services/tldw-server"
 import { useMessage } from "@/hooks/useMessage"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { ProviderIcons } from "./ProviderIcon"
 import { IconButton } from "./IconButton"
 
@@ -27,35 +28,16 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
   })
 
   const groupedItems = React.useMemo(() => {
-    const providerDisplayName = (provider?: string) => {
-      const key = String(provider || "unknown").toLowerCase()
-      if (key === "openai") return "OpenAI"
-      if (key === "anthropic") return "Anthropic"
-      if (key === "google") return "Google"
-      if (key === "mistral") return "Mistral"
-      if (key === "cohere") return "Cohere"
-      if (key === "groq") return "Groq"
-      if (key === "huggingface") return "HuggingFace"
-      if (key === "openrouter") return "OpenRouter"
-      if (key === "ollama") return "Ollama"
-      if (key === "llama") return "Llama.cpp"
-      if (key === "kobold") return "Kobold.cpp"
-      if (key === "ooba") return "Oobabooga"
-      if (key === "tabby") return "TabbyAPI"
-      if (key === "vllm") return "vLLM"
-      if (key === "aphrodite") return "Aphrodite"
-      if (key === "zai") return "Z.AI"
-      if (key === "custom_openai_api") return "Custom OpenAI API"
-      if (key === "chrome") return "Chrome"
-      return provider || "API"
-    }
-
     const groups = new Map<string, any[]>()
     const localProviders = new Set(["lmstudio", "llamafile", "ollama", "ollama2", "llamacpp", "vllm", "custom"]) // group as "custom"
     for (const d of data || []) {
-      const providerRaw = (d.provider || "other").toLowerCase()
+      const normalizedProvider =
+        typeof d.provider === "string" && d.provider.trim()
+          ? d.provider.trim()
+          : "other"
+      const providerRaw = normalizedProvider.toLowerCase()
       const groupKey = providerRaw === 'chrome' ? 'default' : (localProviders.has(providerRaw) ? 'custom' : providerRaw)
-      const providerLabel = providerDisplayName(d.provider)
+      const providerLabel = getProviderDisplayName(normalizedProvider)
       const modelLabel = d.nickname || d.model
       const details: any = d.details || {}
       const caps: string[] = Array.isArray(details.capabilities)
@@ -66,12 +48,12 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
       const hasFast = caps.includes("fast")
 
       const labelNode = (
-        <div className="w-52 gap-2 text-sm truncate inline-flex items-center leading-5 dark:border-gray-700">
+        <div className="w-52 gap-2 text-sm truncate inline-flex items-center leading-5">
           <div>
             {d.avatar ? (
               <Avatar src={d.avatar} alt={d.name} size="small" />
             ) : (
-              <ProviderIcons provider={d?.provider} className="h-4 w-4 text-gray-400" />
+              <ProviderIcons provider={normalizedProvider} className="h-4 w-4 text-text-subtle" />
             )}
           </div>
           <div className="flex flex-col min-w-0">
@@ -81,17 +63,17 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
             {(hasVision || hasTools || hasFast) && (
               <div className="mt-0.5 flex flex-wrap gap-1 text-[10px]">
                 {hasVision && (
-                  <span className="rounded-full bg-blue-50 px-1.5 py-0.5 text-blue-700 dark:bg-blue-900/30 dark:text-blue-100">
+                  <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-primary">
                     Vision
                   </span>
                 )}
                 {hasTools && (
-                  <span className="rounded-full bg-purple-50 px-1.5 py-0.5 text-purple-700 dark:bg-purple-900/30 dark:text-purple-100">
+                  <span className="rounded-full bg-accent/10 px-1.5 py-0.5 text-accent">
                     Tools
                   </span>
                 )}
                 {hasFast && (
-                  <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-100">
+                  <span className="rounded-full bg-success/10 px-1.5 py-0.5 text-success">
                     Fast
                   </span>
                 )}
@@ -117,13 +99,18 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
     // Build grouped menu items
     const items: any[] = []
     for (const [groupKey, children] of groups) {
-      const labelText = groupKey === 'default' ? 'Default' : (groupKey === 'custom' ? 'Custom' : groupKey)
-      const iconKey = groupKey === 'default' ? 'chrome' : groupKey
+      const labelText =
+        groupKey === "default"
+          ? "Default"
+          : groupKey === "custom"
+            ? "Custom"
+            : getProviderDisplayName(groupKey)
+      const iconKey = groupKey === "default" ? "chrome" : groupKey
       items.push({
         type: 'group',
         key: `group-${groupKey}`,
         label: (
-          <div className="flex items-center gap-1.5 text-xs leading-4 font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-1.5 text-xs leading-4 font-medium uppercase tracking-wider text-text-subtle">
             <ProviderIcons provider={iconKey} className="h-3 w-3" />
             <span>{labelText}</span>
           </div>
@@ -170,10 +157,10 @@ export const ModelSelect: React.FC<Props> = ({iconClassName = "size-5", showSele
               ariaLabel={t("selectAModel") as string}
               hasPopup="menu"
               dataTestId="chat-model-select"
-              className="dark:text-gray-300 px-2">
+              className="px-2 text-text-muted">
               <LucideBrain className={iconClassName} />
               {showSelectedName && selectedModelDisplay ? (
-                <span className="ml-1.5 max-w-[120px] truncate text-xs font-medium text-gray-700 dark:text-gray-200">
+                <span className="ml-1.5 max-w-[120px] truncate text-xs font-medium text-text">
                   {selectedModelDisplay}
                 </span>
               ) : (

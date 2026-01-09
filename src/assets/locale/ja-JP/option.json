@@ -88,7 +88,8 @@
     "omniSearchStartChat": "新しいチャット「{{query}}」を開始",
     "connectionCard.connectedCaption": "オプション画面とサイドパネルでチャットとツールが利用できるようになりました。",
     "quickIngestQueuedAria": "{{label}} — {{count}} 件がキューにあります — クリックして確認および処理します",
-    "modeSpeech": "音声"
+    "modeSpeech": "音声",
+    "moreTools": "その他"
   },
   "sidebarTitle": "チャット履歴",
   "error": "エラー",
@@ -592,7 +593,9 @@
     "searchPlaceholder": "名前でキャラクターを検索",
     "noMatches": "検索条件に一致するキャラクターはまだありません。",
     "refresh": "キャラクターを更新",
-    "refreshing": "キャラクターを更新しています…"
+    "refreshing": "キャラクターを更新しています…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "チャットで使用",

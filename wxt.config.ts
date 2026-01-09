@@ -10,20 +10,60 @@ import { createRequire } from "module"
 const require = createRequire(import.meta.url)
 const pkg = require("./package.json")
 
+const isEnvEnabled = (value?: string) =>
+  /^(1|true|yes|y|on)$/i.test((value ?? "").trim())
+
+// Force a single React instance during dev to avoid hook dispatcher mismatches.
+const reactAliases = [
+  { find: /^react$/, replacement: require.resolve("react") },
+  { find: /^react-dom$/, replacement: require.resolve("react-dom") },
+  { find: /^react-dom\/client$/, replacement: require.resolve("react-dom/client") },
+  { find: /^react\/jsx-runtime$/, replacement: require.resolve("react/jsx-runtime") },
+  { find: /^react\/jsx-dev-runtime$/, replacement: require.resolve("react/jsx-dev-runtime") }
+]
+
 const isFirefox = process.env.TARGET === "firefox"
+const isDevelopment = process.env.NODE_ENV === "development"
+const isHmrDisabled = isEnvEnabled(process.env.WXT_DISABLE_HMR)
+const isRunnerDisabled = isEnvEnabled(process.env.WXT_DISABLE_RUNNER)
 
 // Enable bundle analysis for ANALYZE values like: "1", "true", "yes", "on" (case-insensitive)
-const analyzeEnv = (process.env.ANALYZE || "").trim()
-const analyzeBundle = /^(1|true|yes|y|on)$/i.test(analyzeEnv)
+const analyzeBundle = isEnvEnabled(process.env.ANALYZE)
 
-const isAnyMatch = (id: string, matches: string[]) => {
-  return matches.some((m) => id.includes(m))
+const manualChunks = (id: string) => {
+  if (!id.includes("node_modules")) return undefined
+  return "vendor"
 }
+
+const chunkSplitPlugin = (): Plugin => ({
+  name: "wxt-manual-chunks",
+  config(config) {
+    if (config.build?.lib) return
+    const rollupOptions = config.build?.rollupOptions ?? {}
+    const output = rollupOptions.output
+    const applyManualChunks = (out: any) => {
+      if (out?.inlineDynamicImports) return out
+      return { ...out, manualChunks }
+    }
+    const nextOutput = Array.isArray(output)
+      ? output.map((out) => applyManualChunks(out))
+      : applyManualChunks(output ?? {})
+
+    config.build = {
+      ...config.build,
+      rollupOptions: {
+        ...rollupOptions,
+        output: nextOutput
+      }
+    }
+  }
+})
 
 const safeInnerHTMLPlugin = (): Plugin => ({
   name: "sanitize-innerhtml",
   enforce: "post",
-  transform(code) {
+  transform(code, id) {
+    if (!id || id.includes("node_modules")) return null
     if (!code.includes("innerHTML")) return null
 
     const ast = parse(code, { ecmaVersion: "latest", sourceType: "module" }) as any
@@ -126,7 +166,8 @@ const chromeMV3Permissions = [
   "unlimitedStorage",
   "contextMenus",
   "tts",
-  "notifications"
+  "notifications",
+  "alarms"
 ]
 
 const firefoxMV2Permissions = [
@@ -135,11 +176,23 @@ const firefoxMV2Permissions = [
   "scripting",
   "unlimitedStorage",
   "contextMenus",
+  "alarms",
   "notifications",
   "http://*/*",
   "https://*/*",
   "file://*/*"
 ]
+
+const chromeExtensionPagesCsp = isDevelopment
+  ? "script-src 'self' 'wasm-unsafe-eval' http://localhost:3000 http://localhost:3001; object-src 'self';"
+  : "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+
+const firefoxExtensionPagesCsp =
+  "script-src 'self' 'wasm-unsafe-eval' blob:; object-src 'self'; worker-src 'self' blob:;"
+
+const extensionPagesCsp = isFirefox
+  ? firefoxExtensionPagesCsp
+  : chromeExtensionPagesCsp
 
 // Bundle analysis plugin (enabled via ANALYZE env flag)
 const bundleAnalyzerPlugin = async (): Promise<Plugin | null> => {
@@ -182,6 +235,7 @@ export default defineConfig({
       plugins: [
         react(),
         safeInnerHTMLPlugin(),
+        chunkSplitPlugin(),
         topLevelAwait({
           promiseExportName: "__tla",
           promiseImportName: (i) => `__tla_${i}`
@@ -190,19 +244,43 @@ export default defineConfig({
       ],
       // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
       resolve: {
-        dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"]
+        dedupe: [
+          "react",
+          "react-dom",
+          "react-dom/client",
+          "react/jsx-runtime",
+          "react/jsx-dev-runtime"
+        ],
+        alias: reactAliases
       },
-      // Disable Hot Module Replacement so streaming connections aren't killed by dev reloads
+      // Keep HMR enabled so dep optimization can trigger a full reload.
       server: {
-        hmr: false
+        hmr: isHmrDisabled ? false : { overlay: false },
+        warmup: {
+          clientFiles: [
+            "src/entries/options/main.tsx",
+            "src/entries/sidepanel/main.tsx"
+          ]
+        }
       },
       optimizeDeps: {
-        include: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+        // Prebundle React + crawl lazy-loaded UI to avoid mixed module graphs on cold start.
+        force: true,
+        holdUntilCrawlEnd: true,
+        include: [
+          "react",
+          "react-dom",
+          "react-dom/client",
+          "react/jsx-runtime",
+          "react/jsx-dev-runtime"
+        ],
         entries: [
           "src/entries/options/index.html",
           "src/entries/sidepanel/index.html",
-          "src/entries-firefox/options/index.html",
-          "src/entries-firefox/sidepanel/index.html"
+          "src/entries/options/main.tsx",
+          "src/entries/sidepanel/main.tsx",
+          "src/components/**/*.{ts,tsx}",
+          "src/routes/**/*.{ts,tsx}"
         ]
       },
       build: {
@@ -212,8 +290,10 @@ export default defineConfig({
       }
     }
   },
-  entrypointsDir:
-    isFirefox ? "entries-firefox" : "entries",
+  runner: {
+    disabled: isRunnerDisabled
+  },
+  entrypointsDir: "entries",
   srcDir: "src",
   outDir: "build",
 
@@ -252,14 +332,9 @@ export default defineConfig({
         }
       }
     },
-    content_security_policy:
-      process.env.TARGET !== "firefox" ?
-        {
-          extension_pages:
-            process.env.NODE_ENV === 'development' 
-              ? "script-src 'self' 'wasm-unsafe-eval' http://localhost:3000 http://localhost:3001; object-src 'self';"
-              : "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
-        } :  "script-src 'self' 'wasm-unsafe-eval' blob:; object-src 'self'; worker-src 'self' blob:;",
+    content_security_policy: {
+      extension_pages: extensionPagesCsp
+    },
     permissions:
       process.env.TARGET === "firefox"
         ? firefoxMV2Permissions

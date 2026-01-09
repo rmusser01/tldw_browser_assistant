@@ -11,6 +11,7 @@ import { useAntdNotification } from "@/hooks/useAntdNotification"
 type Props = {
   className?: string
   iconClassName?: string
+  showLabel?: boolean
 }
 
 type CharacterSummary = {
@@ -69,8 +70,9 @@ const normalizeCharacter = (character: CharacterSummary): CharacterSelection => 
 }
 
 export const CharacterSelect: React.FC<Props> = ({
-  className = "dark:text-gray-300",
-  iconClassName = "size-5"
+  className = "text-text-muted",
+  iconClassName = "size-5",
+  showLabel = true
 }) => {
   const { t } = useTranslation(["option", "common", "settings", "playground"])
   const notification = useAntdNotification()
@@ -83,6 +85,8 @@ export const CharacterSelect: React.FC<Props> = ({
   const previousCharacterId = React.useRef<string | null>(null)
   const initialized = React.useRef(false)
   const lastErrorRef = React.useRef<unknown | null>(null)
+  const importInputRef = React.useRef<HTMLInputElement | null>(null)
+  const [isImporting, setIsImporting] = React.useState(false)
 
   const { data, refetch, isFetching, error } = useQuery<CharacterSummary[]>({
     queryKey: ["tldw:listCharacters"],
@@ -118,6 +122,12 @@ export const CharacterSelect: React.FC<Props> = ({
   }) as string
   const emptyCreateLabel = t("settings:manageCharacters.emptyPrimaryCta", {
     defaultValue: "Create character"
+  }) as string
+  const createNewLabel = t("option:characters.createNewCharacter", {
+    defaultValue: "Create a New Character+"
+  }) as string
+  const importLabel = t("option:characters.importCharacter", {
+    defaultValue: "Import Character"
   }) as string
   const searchPlaceholder = t("option:characters.searchPlaceholder", {
     defaultValue: "Search characters by name"
@@ -205,6 +215,67 @@ export const CharacterSelect: React.FC<Props> = ({
     }
   }, [])
 
+  const handleImportClick = React.useCallback(() => {
+    if (isImporting) return
+    if (!importInputRef.current) return
+    importInputRef.current.value = ""
+    importInputRef.current.click()
+  }, [isImporting])
+
+  const handleImportFile = React.useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      if (!file) return
+
+      try {
+        setIsImporting(true)
+        await tldwClient.initialize().catch(() => null)
+        let selectedPayload: Record<string, any> | null = null
+        let successDetail: string | undefined
+        const imported = await tldwClient.importCharacterFile(file)
+        const importedCharacter =
+          imported?.character ??
+          (imported?.id && imported?.name
+            ? { id: imported.id, name: imported.name }
+            : imported)
+        selectedPayload = importedCharacter
+        if (typeof imported?.message === "string" && imported.message.trim()) {
+          successDetail = imported.message
+        }
+        notification.success({
+          message: t("settings:manageCharacters.notification.addSuccess", {
+            defaultValue: "Character created"
+          }),
+          description: successDetail
+        })
+        refetch({ cancelRefetch: true })
+        try {
+          const normalized = normalizeCharacter(selectedPayload || {})
+          setSelectedCharacter(normalized)
+        } catch {
+          // ignore normalization failures; list will refresh
+        }
+      } catch (error) {
+        const messageText =
+          error instanceof Error ? error.message : String(error)
+        notification.error({
+          message: t("settings:manageCharacters.notification.error", {
+            defaultValue: "Error"
+          }),
+          description:
+            messageText ||
+            t("settings:manageCharacters.notification.someError", {
+              defaultValue: "Something went wrong. Please try again later"
+            })
+        })
+      } finally {
+        setIsImporting(false)
+        event.target.value = ""
+      }
+    },
+    [notification, refetch, setSelectedCharacter, t]
+  )
+
   const filteredCharacters = React.useMemo(() => {
     const list = Array.isArray(data) ? data : []
     const q = searchQuery.trim().toLowerCase()
@@ -236,7 +307,7 @@ export const CharacterSelect: React.FC<Props> = ({
         items.push({
           key: String(menuKey),
           label: (
-            <div className="w-56 gap-2 text-sm truncate inline-flex items-center leading-5 dark:border-gray-700">
+            <div className="w-56 gap-2 text-sm truncate inline-flex items-center leading-5">
               {normalized.avatar_url ? (
                 <img
                   src={normalized.avatar_url}
@@ -274,7 +345,7 @@ export const CharacterSelect: React.FC<Props> = ({
           label: (
             <button
               type="button"
-              className="w-full text-left text-xs font-medium text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-50"
+              className="w-full text-left text-xs font-medium text-text hover:text-text-muted"
             >
               {t(
                 "option:characters.clearCharacter",
@@ -293,7 +364,7 @@ export const CharacterSelect: React.FC<Props> = ({
     label: (
       <button
         type="button"
-        className="w-full text-left text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+        className="w-full text-left text-xs font-medium text-primary hover:text-primaryStrong"
       >
         {isFetching
           ? t("option:characters.refreshing", "Refreshing characters…")
@@ -317,7 +388,7 @@ export const CharacterSelect: React.FC<Props> = ({
     label: (
       <button
         type="button"
-        className="w-full text-left text-xs font-medium text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-50"
+        className="w-full text-left text-xs font-medium text-text hover:text-text-muted"
       >
         {t("option:characters.none", "None (no character)") as string}
       </button>
@@ -327,7 +398,33 @@ export const CharacterSelect: React.FC<Props> = ({
     }
   }
 
-  menuItems.push(noneItem)
+  const createItem: MenuProps["items"][number] = {
+    key: "__create_character__",
+    label: (
+      <button
+        type="button"
+        className="w-full text-left text-xs font-medium text-primary hover:text-primaryStrong"
+      >
+        {createNewLabel}
+      </button>
+    ),
+    onClick: handleOpenCharacters
+  }
+
+  const importItem: MenuProps["items"][number] = {
+    key: "__import_character__",
+    label: (
+      <button
+        type="button"
+        className="w-full text-left text-xs font-medium text-primary hover:text-primaryStrong"
+      >
+        {importLabel}
+      </button>
+    ),
+    onClick: handleImportClick
+  }
+
+  menuItems.push(noneItem, createItem, importItem)
 
   if (characterItems && characterItems.length > 0) {
     menuItems.push(dividerItem("__divider_items__"), ...characterItems)
@@ -337,16 +434,16 @@ export const CharacterSelect: React.FC<Props> = ({
       {
         key: "empty",
         label: (
-          <div className="w-56 px-2 py-2 text-xs text-gray-600 dark:text-gray-300">
-            <div className="font-medium text-gray-800 dark:text-gray-100">
+          <div className="w-56 px-2 py-2 text-xs text-text-muted">
+            <div className="font-medium text-text">
               {emptyTitle}
             </div>
-            <div className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+            <div className="mt-1 text-[11px] text-text-muted">
               {emptyDescription}
             </div>
             <button
               type="button"
-              className="mt-2 inline-flex items-center rounded border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-blue-600 hover:border-blue-500 hover:text-blue-700 dark:border-gray-600 dark:bg-[#0f1115] dark:text-blue-400 dark:hover:border-blue-400 dark:hover:text-blue-300">
+              className="mt-2 inline-flex items-center rounded border border-border bg-surface px-2 py-1 text-xs font-medium text-primary hover:border-primary hover:text-primaryStrong">
               {emptyCreateLabel}
             </button>
           </div>
@@ -358,10 +455,10 @@ export const CharacterSelect: React.FC<Props> = ({
     menuItems.push({
       key: "__no_matches__",
       label: (
-        <div className="w-56 px-2 py-2 text-xs text-gray-600 dark:text-gray-300">
-          {t(
-            "option:characters.noMatches",
-            "No characters match your search yet."
+      <div className="w-56 px-2 py-2 text-xs text-text-muted">
+        {t(
+          "option:characters.noMatches",
+          "No characters match your search yet."
           ) as string}
         </div>
       )
@@ -377,7 +474,7 @@ export const CharacterSelect: React.FC<Props> = ({
     label: (
       <button
         type="button"
-        className="w-full text-left text-xs font-medium text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-50"
+        className="w-full text-left text-xs font-medium text-text hover:text-text-muted"
       >
         {t(
           "playground:composer.actorTitle",
@@ -436,6 +533,13 @@ export const CharacterSelect: React.FC<Props> = ({
 
   return (
     <div className="flex items-center gap-2">
+      <input
+        ref={importInputRef}
+        type="file"
+        accept=".json,.yaml,.yml,.txt,.md,.png,.webp,.jpg,.jpeg"
+        className="hidden"
+        onChange={handleImportFile}
+      />
       <Dropdown
         onOpenChange={(open) => {
           if (!open) {
@@ -444,7 +548,7 @@ export const CharacterSelect: React.FC<Props> = ({
         }}
         popupRender={(menu) => (
           <div className="w-64" ref={menuContainerRef}>
-            <div className="px-2 py-2 border-b border-gray-100 dark:border-gray-700">
+            <div className="px-2 py-2 border-b border-border">
               <Input
                 size="small"
                 placeholder={searchPlaceholder}
@@ -490,7 +594,7 @@ export const CharacterSelect: React.FC<Props> = ({
                   : selectLabel) as string
               }
               hasPopup="menu"
-              className={className}>
+              className={`h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0 ${className}`}>
               {selectedCharacter?.avatar_url ? (
                 <img
                   src={selectedCharacter.avatar_url}
@@ -509,7 +613,7 @@ export const CharacterSelect: React.FC<Props> = ({
                   event.stopPropagation()
                   setSelectedCharacter(null)
                 }}
-                className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-900 text-[10px] font-semibold text-white shadow-sm hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900"
+                className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-text text-[10px] font-semibold text-bg shadow-sm hover:bg-text-muted"
                 aria-label={clearLabel}
                 title={clearLabel}>
                 ×
@@ -519,8 +623,8 @@ export const CharacterSelect: React.FC<Props> = ({
         </Tooltip>
       </Dropdown>
 
-      {selectedCharacter?.name && (
-        <div className="hidden items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1a1a1a] dark:text-gray-200 sm:inline-flex">
+      {showLabel && selectedCharacter?.name && (
+        <div className="hidden items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-text shadow-sm sm:inline-flex">
           {selectedCharacter?.avatar_url ? (
             <img
               src={selectedCharacter.avatar_url}

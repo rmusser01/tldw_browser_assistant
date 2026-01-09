@@ -47,37 +47,37 @@ const StatusBadge: FC<{
   > = {
     idle: {
       icon: Clock,
-      color: "text-gray-500 bg-gray-100 dark:bg-gray-800",
+      color: "text-text-subtle bg-surface2",
       labelKey: "statusIdle",
       labelDefault: "Idle"
     },
     running: {
       icon: Loader2,
-      color: "text-blue-500 bg-blue-100 dark:bg-blue-900/40",
+      color: "text-primary bg-primary/10",
       labelKey: "statusRunning",
       labelDefault: "Running"
     },
     waiting_approval: {
       icon: Pause,
-      color: "text-yellow-500 bg-yellow-100 dark:bg-yellow-900/40",
+      color: "text-warn bg-warn/10",
       labelKey: "statusPaused",
       labelDefault: "Paused"
     },
     complete: {
       icon: CheckCircle,
-      color: "text-green-500 bg-green-100 dark:bg-green-900/40",
+      color: "text-success bg-success/10",
       labelKey: "statusComplete",
       labelDefault: "Complete"
     },
     error: {
       icon: XCircle,
-      color: "text-red-500 bg-red-100 dark:bg-red-900/40",
+      color: "text-danger bg-danger/10",
       labelKey: "statusError",
       labelDefault: "Error"
     },
     cancelled: {
       icon: AlertCircle,
-      color: "text-orange-500 bg-orange-100 dark:bg-orange-900/40",
+      color: "text-warn bg-warn/10",
       labelKey: "statusCancelled",
       labelDefault: "Cancelled"
     }
@@ -136,7 +136,7 @@ export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
     <div className={`space-y-2 ${className}`}>
       {/* Header with clear all */}
       <div className="flex items-center justify-between px-1 mb-3">
-        <span className="text-sm text-gray-500 dark:text-gray-400">
+        <span className="text-sm text-text-subtle">
           {sessions.length} {sessions.length === 1 ? t("session", "session") : t("sessions", "sessions")}
         </span>
         <Popconfirm
@@ -162,16 +162,16 @@ export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
           return (
             <div
               key={session.id}
-              className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800"
+              className="overflow-hidden rounded-lg border border-border bg-surface"
             >
               {/* Session header - clickable to expand */}
               <button
                 type="button"
                 onClick={() => setExpandedId(isExpanded ? null : session.id)}
-                className="w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors hover:bg-surface2"
               >
                 <ChevronRight
-                  className={`size-4 text-gray-400 transition-transform flex-shrink-0 ${
+                  className={`size-4 flex-shrink-0 text-text-subtle transition-transform ${
                     isExpanded ? "rotate-90" : ""
                   }`}
                 />
@@ -184,7 +184,7 @@ export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
                     <StatusBadge status={session.status} t={translateStatus} />
                   </div>
 
-                  <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-3 text-xs text-text-subtle">
                     <span className="flex items-center gap-1">
                       <Clock className="size-3" />
                       {formatRelativeTime(session.updatedAt, t)}
@@ -203,13 +203,13 @@ export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
 
               {/* Expanded content */}
               {isExpanded && (
-                <div className="border-t border-gray-200 dark:border-gray-700 px-3 py-3 bg-gray-50 dark:bg-gray-900/50">
+                <div className="border-t border-border bg-surface2 px-3 py-3">
                   {/* Full task */}
                   <div className="mb-3">
-                    <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+                    <div className="mb-1 text-xs font-medium text-text-subtle">
                       {t("task", "Task")}
                     </div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-words">
+                    <p className="text-sm text-text whitespace-pre-wrap break-words">
                       {session.task}
                     </p>
                   </div>
@@ -217,14 +217,14 @@ export const SessionHistoryPanel: FC<SessionHistoryPanelProps> = ({
                   {/* Metadata */}
                   <div className="grid grid-cols-2 gap-2 mb-3 text-xs">
                     <div>
-                      <span className="text-gray-500 dark:text-gray-400">{t("created", "Created")}:</span>{" "}
-                      <span className="text-gray-700 dark:text-gray-300">
+                      <span className="text-text-subtle">{t("created", "Created")}:</span>{" "}
+                      <span className="text-text">
                         {new Date(session.createdAt).toLocaleString()}
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-500 dark:text-gray-400">{t("step", "Step")}:</span>{" "}
-                      <span className="text-gray-700 dark:text-gray-300">{session.currentStep}</span>
+                      <span className="text-text-subtle">{t("step", "Step")}:</span>{" "}
+                      <span className="text-text">{session.currentStep}</span>
                     </div>
                   </div>
 

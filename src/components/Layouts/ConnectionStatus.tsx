@@ -63,24 +63,24 @@ export function ConnectionStatus({
 
   const statusBgClass =
     coreStatus === "ok"
-      ? "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20"
+      ? "border-success/30 bg-success/10"
       : coreStatus === "fail"
-        ? "border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20"
-        : "border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50"
+        ? "border-danger/30 bg-danger/10"
+        : "border-border bg-surface2"
 
   const statusTextClass =
     coreStatus === "ok"
-      ? "text-green-700 dark:text-green-300"
+      ? "text-success"
       : coreStatus === "fail"
-        ? "text-red-700 dark:text-red-300"
-        : "text-gray-600 dark:text-gray-300"
+        ? "text-danger"
+        : "text-text-muted"
 
   return (
     <button
       type="button"
       data-testid="connection-status"
       onClick={handleClick}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 ${statusBgClass} ${className || ""}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${statusBgClass} ${className || ""}`}
       title={
         t(
           "settings:healthSummary.coreAria",
@@ -125,10 +125,10 @@ export function StatusDot({ status }: { status: StatusKind }) {
       aria-hidden
       className={`inline-block h-2 w-2 rounded-full ${
         status === "ok"
-          ? "bg-green-500"
+          ? "bg-success"
           : status === "fail"
-            ? "bg-red-500"
-            : "bg-gray-400 animate-pulse"
+            ? "bg-danger"
+            : "bg-text-subtle animate-pulse"
       }`}
     />
   )

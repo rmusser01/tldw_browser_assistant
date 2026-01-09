@@ -1,6 +1,10 @@
 import { create } from "zustand"
 
-type CurrentChatModelSettings = {
+/**
+ * Chat model settings - state values only (no actions)
+ */
+export type ChatModelSettings = {
+  // Inference parameters
   f16KV?: boolean
   frequencyPenalty?: number
   keepAlive?: string
@@ -28,146 +32,190 @@ type CurrentChatModelSettings = {
   typicalP?: number
   useMLock?: boolean
   useMMap?: boolean
+  useMlock?: boolean
   vocabOnly?: boolean
   seed?: number
   minP?: number
 
-  setF16KV?: (f16KV: boolean) => void
-  setFrequencyPenalty?: (frequencyPenalty: number) => void
-  setKeepAlive?: (keepAlive: string) => void
-  setLogitsAll?: (logitsAll: boolean) => void
-  setMirostat?: (mirostat: number) => void
-  setMirostatEta?: (mirostatEta: number) => void
-  setMirostatTau?: (mirostatTau: number) => void
-  setNumBatch?: (numBatch: number) => void
-  setNumCtx?: (numCtx: number) => void
-  setNumGpu?: (numGpu: number) => void
-  setNumGqa?: (numGqa: number) => void
-  setNumKeep?: (numKeep: number) => void
-  setNumPredict?: (numPredict: number) => void
-  setNumThread?: (numThread: number) => void
-  setPenalizeNewline?: (penalizeNewline: boolean) => void
-  setPresencePenalty?: (presencePenalty: number) => void
-  setRepeatLastN?: (repeatLastN: number) => void
-  setRepeatPenalty?: (repeatPenalty: number) => void
-  setRopeFrequencyBase?: (ropeFrequencyBase: number) => void
-  setRopeFrequencyScale?: (ropeFrequencyScale: number) => void
-  setTemperature?: (temperature: number) => void
-  setTfsZ?: (tfsZ: number) => void
-  setTopK?: (topK: number) => void
-  setTopP?: (topP: number) => void
-  setTypicalP?: (typicalP: number) => void
-  setUseMLock?: (useMLock: boolean) => void
-  setUseMMap?: (useMMap: boolean) => void
-  setVocabOnly?: (vocabOnly: boolean) => void
-  seetSeed?: (seed: number) => void
-
-  setX: (key: string, value: any) => void
-  reset: () => void
+  // System configuration
   systemPrompt?: string
-  setSystemPrompt: (systemPrompt: string) => void
-  useMlock?: boolean
-  setUseMlock: (useMlock: boolean) => void
-
-  setMinP: (minP: number) => void
-
   reasoningEffort?: string
-  setReasoningEffort?: (reasoningEffort: string) => void
-
   thinking?: boolean
-  setThinking?: (thinking: boolean) => void
-
-
   ocrLanguage?: string
-  setOcrLanguage?: (ocrLanguage: string) => void 
+
+  // History & injection settings
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+
+  // API configuration
+  apiProvider?: string
+  extraHeaders?: string
+  extraBody?: string
+
+  // Response format
+  jsonMode?: boolean
 }
 
-export type ChatModelSettings = CurrentChatModelSettings
+/**
+ * Store type combining settings with actions
+ */
+type ChatModelSettingsStore = ChatModelSettings & {
+  // Generic typed update method (replaces setX)
+  updateSetting: <K extends keyof ChatModelSettings>(
+    key: K,
+    value: ChatModelSettings[K]
+  ) => void
+  updateSettings: (updates: Partial<ChatModelSettings>) => void
+  reset: () => void
 
-export const useStoreChatModelSettings = create<CurrentChatModelSettings>(
+  // Individual setters (for backwards compatibility)
+  setF16KV: (value: boolean) => void
+  setFrequencyPenalty: (value: number) => void
+  setKeepAlive: (value: string) => void
+  setLogitsAll: (value: boolean) => void
+  setMirostat: (value: number) => void
+  setMirostatEta: (value: number) => void
+  setMirostatTau: (value: number) => void
+  setNumBatch: (value: number) => void
+  setNumCtx: (value: number) => void
+  setNumGpu: (value: number) => void
+  setNumGqa: (value: number) => void
+  setNumKeep: (value: number) => void
+  setNumPredict: (value: number | undefined) => void
+  setNumThread: (value: number) => void
+  setPenalizeNewline: (value: boolean) => void
+  setPresencePenalty: (value: number) => void
+  setRepeatLastN: (value: number) => void
+  setRepeatPenalty: (value: number) => void
+  setRopeFrequencyBase: (value: number) => void
+  setRopeFrequencyScale: (value: number) => void
+  setTemperature: (value: number) => void
+  setTfsZ: (value: number) => void
+  setTopK: (value: number) => void
+  setTopP: (value: number) => void
+  setTypicalP: (value: number) => void
+  setUseMLock: (value: boolean) => void
+  setUseMMap: (value: boolean) => void
+  setUseMlock: (value: boolean) => void
+  setVocabOnly: (value: boolean) => void
+  setSeed: (value: number | undefined) => void
+  setMinP: (value: number) => void
+  setSystemPrompt: (value: string) => void
+  setReasoningEffort: (value: string) => void
+  setThinking: (value: boolean) => void
+  setOcrLanguage: (value: string) => void
+  setHistoryMessageLimit: (value: number) => void
+  setHistoryMessageOrder: (value: string) => void
+  setSlashCommandInjectionMode: (value: string) => void
+  setApiProvider: (value: string) => void
+  setExtraHeaders: (value: string) => void
+  setExtraBody: (value: string) => void
+  setJsonMode: (value: boolean | undefined) => void
+}
+
+const INITIAL_STATE: ChatModelSettings = {
+  f16KV: undefined,
+  frequencyPenalty: undefined,
+  keepAlive: undefined,
+  logitsAll: undefined,
+  mirostat: undefined,
+  mirostatEta: undefined,
+  mirostatTau: undefined,
+  numBatch: undefined,
+  numCtx: undefined,
+  numGpu: undefined,
+  numGqa: undefined,
+  numKeep: undefined,
+  numPredict: undefined,
+  numThread: undefined,
+  penalizeNewline: undefined,
+  presencePenalty: undefined,
+  repeatLastN: undefined,
+  repeatPenalty: undefined,
+  ropeFrequencyBase: undefined,
+  ropeFrequencyScale: undefined,
+  temperature: undefined,
+  tfsZ: undefined,
+  topK: undefined,
+  topP: undefined,
+  typicalP: undefined,
+  useMLock: undefined,
+  useMMap: undefined,
+  useMlock: undefined,
+  vocabOnly: undefined,
+  seed: undefined,
+  minP: undefined,
+  systemPrompt: undefined,
+  reasoningEffort: undefined,
+  thinking: undefined,
+  ocrLanguage: undefined,
+  historyMessageLimit: undefined,
+  historyMessageOrder: undefined,
+  slashCommandInjectionMode: undefined,
+  apiProvider: undefined,
+  extraHeaders: undefined,
+  extraBody: undefined,
+  jsonMode: undefined
+}
+
+export const useStoreChatModelSettings = create<ChatModelSettingsStore>(
   (set) => ({
-    setF16KV: (f16KV: boolean) => set({ f16KV }),
-    setFrequencyPenalty: (frequencyPenalty: number) =>
-      set({ frequencyPenalty }),
-    setKeepAlive: (keepAlive: string) => set({ keepAlive }),
-    setLogitsAll: (logitsAll: boolean) => set({ logitsAll }),
-    setMirostat: (mirostat: number) => set({ mirostat }),
-    setMirostatEta: (mirostatEta: number) => set({ mirostatEta }),
-    setMirostatTau: (mirostatTau: number) => set({ mirostatTau }),
-    setNumBatch: (numBatch: number) => set({ numBatch }),
-    setNumCtx: (numCtx: number) => set({ numCtx }),
-    setNumGpu: (numGpu: number) => set({ numGpu }),
-    setNumGqa: (numGqa: number) => set({ numGqa }),
-    setNumKeep: (numKeep: number) => set({ numKeep }),
-    setNumPredict: (numPredict: number) => set({ numPredict }),
-    setNumThread: (numThread: number) => set({ numThread }),
-    setPenalizeNewline: (penalizeNewline: boolean) => set({ penalizeNewline }),
-    setPresencePenalty: (presencePenalty: number) => set({ presencePenalty }),
-    setRepeatLastN: (repeatLastN: number) => set({ repeatLastN }),
-    setRepeatPenalty: (repeatPenalty: number) => set({ repeatPenalty }),
-    setRopeFrequencyBase: (ropeFrequencyBase: number) =>
-      set({ ropeFrequencyBase }),
-    setRopeFrequencyScale: (ropeFrequencyScale: number) =>
-      set({ ropeFrequencyScale }),
-    setTemperature: (temperature: number) => set({ temperature }),
-    setTfsZ: (tfsZ: number) => set({ tfsZ }),
-    setTopK: (topK: number) => set({ topK }),
-    setTopP: (topP: number) => set({ topP }),
-    setTypicalP: (typicalP: number) => set({ typicalP }),
-    setUseMLock: (useMLock: boolean) => set({ useMLock }),
-    setUseMMap: (useMMap: boolean) => set({ useMMap }),
-    setVocabOnly: (vocabOnly: boolean) => set({ vocabOnly }),
-    seetSeed: (seed: number) => set({ seed }),
-    setX: (key: string, value: any) => set({ [key]: value }),
-    systemPrompt: undefined,
-    setMinP: (minP: number) => set({ minP }),
-    setSystemPrompt: (systemPrompt: string) => set({ systemPrompt }),
-    setUseMlock: (useMlock: boolean) => set({ useMlock }),
-    setReasoningEffort: (reasoningEffort: string) => set({ reasoningEffort }),
-    ocrLanguage: undefined, 
-    setOcrLanguage: (ocrLanguage: string) => set({ ocrLanguage }), 
-    reset: () =>
-      set({
-        f16KV: undefined,
-        frequencyPenalty: undefined,
-        keepAlive: undefined,
-        logitsAll: undefined,
-        mirostat: undefined,
-        mirostatEta: undefined,
-        mirostatTau: undefined,
-        numBatch: undefined,
-        numCtx: undefined,
-        numGpu: undefined,
-        numGqa: undefined,
-        numKeep: undefined,
-        numPredict: undefined,
-        numThread: undefined,
-        penalizeNewline: undefined,
-        presencePenalty: undefined,
-        repeatLastN: undefined,
-        repeatPenalty: undefined,
-        ropeFrequencyBase: undefined,
-        ropeFrequencyScale: undefined,
-        temperature: undefined,
-        tfsZ: undefined,
-        topK: undefined,
-        topP: undefined,
-        typicalP: undefined,
-        useMLock: undefined,
-        useMMap: undefined,
-        vocabOnly: undefined,
-        seed: undefined,
-        systemPrompt: undefined,
-        minP: undefined,
-        useMlock: undefined,
-        reasoningEffort: undefined,
-        ocrLanguage: undefined 
-      })
+    ...INITIAL_STATE,
+
+    // Generic typed update methods
+    updateSetting: (key, value) => set({ [key]: value }),
+    updateSettings: (updates) => set(updates),
+    reset: () => set(INITIAL_STATE),
+
+    // Individual setters
+    setF16KV: (value) => set({ f16KV: value }),
+    setFrequencyPenalty: (value) => set({ frequencyPenalty: value }),
+    setKeepAlive: (value) => set({ keepAlive: value }),
+    setLogitsAll: (value) => set({ logitsAll: value }),
+    setMirostat: (value) => set({ mirostat: value }),
+    setMirostatEta: (value) => set({ mirostatEta: value }),
+    setMirostatTau: (value) => set({ mirostatTau: value }),
+    setNumBatch: (value) => set({ numBatch: value }),
+    setNumCtx: (value) => set({ numCtx: value }),
+    setNumGpu: (value) => set({ numGpu: value }),
+    setNumGqa: (value) => set({ numGqa: value }),
+    setNumKeep: (value) => set({ numKeep: value }),
+    setNumPredict: (value) => set({ numPredict: value }),
+    setNumThread: (value) => set({ numThread: value }),
+    setPenalizeNewline: (value) => set({ penalizeNewline: value }),
+    setPresencePenalty: (value) => set({ presencePenalty: value }),
+    setRepeatLastN: (value) => set({ repeatLastN: value }),
+    setRepeatPenalty: (value) => set({ repeatPenalty: value }),
+    setRopeFrequencyBase: (value) => set({ ropeFrequencyBase: value }),
+    setRopeFrequencyScale: (value) => set({ ropeFrequencyScale: value }),
+    setTemperature: (value) => set({ temperature: value }),
+    setTfsZ: (value) => set({ tfsZ: value }),
+    setTopK: (value) => set({ topK: value }),
+    setTopP: (value) => set({ topP: value }),
+    setTypicalP: (value) => set({ typicalP: value }),
+    setUseMLock: (value) => set({ useMLock: value }),
+    setUseMMap: (value) => set({ useMMap: value }),
+    setUseMlock: (value) => set({ useMlock: value }),
+    setVocabOnly: (value) => set({ vocabOnly: value }),
+    setSeed: (value) => set({ seed: value }),
+    setMinP: (value) => set({ minP: value }),
+    setSystemPrompt: (value) => set({ systemPrompt: value }),
+    setReasoningEffort: (value) => set({ reasoningEffort: value }),
+    setThinking: (value) => set({ thinking: value }),
+    setOcrLanguage: (value) => set({ ocrLanguage: value }),
+    setHistoryMessageLimit: (value) => set({ historyMessageLimit: value }),
+    setHistoryMessageOrder: (value) => set({ historyMessageOrder: value }),
+    setSlashCommandInjectionMode: (value) =>
+      set({ slashCommandInjectionMode: value }),
+    setApiProvider: (value) => set({ apiProvider: value }),
+    setExtraHeaders: (value) => set({ extraHeaders: value }),
+    setExtraBody: (value) => set({ extraBody: value }),
+    setJsonMode: (value) => set({ jsonMode: value })
   })
 )
 
-if (typeof window !== "undefined") {
-  // Expose for Playwright tests and debugging only.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+// Expose for Playwright tests and debugging (development only)
+if (typeof window !== "undefined" && import.meta.env.DEV) {
   ;(window as any).__tldw_useStoreChatModelSettings = useStoreChatModelSettings
 }

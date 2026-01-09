@@ -131,5 +131,15 @@
     "newChat": "چت جدید",
     "newTabAria": "زبانه چت جدید",
     "closeTabAria": "بستن زبانه چت"
+  },
+  "characterSelect": {
+    "label": "Character",
+    "tooltip": "Select a character",
+    "search": "Search characters...",
+    "noMatches": "No matching characters",
+    "noCharacters": "No characters available",
+    "none": "No character",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   }
 }

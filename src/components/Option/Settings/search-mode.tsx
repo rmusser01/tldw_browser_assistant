@@ -2,15 +2,15 @@ import { SaveButton } from "@/components/Common/SaveButton"
 import { getSearchSettings, setSearchSettings } from "@/services/search"
 import { ALL_GOOGLE_DOMAINS } from "@/utils/google-domains"
 import { SUPPORTED_SERACH_PROVIDERS } from "@/utils/search-provider"
-import { useForm } from "@mantine/form"
 import { useQuery } from "@tanstack/react-query"
 import { Select, Skeleton, Switch, InputNumber, Input } from "antd"
 import { useTranslation } from "react-i18next"
+import { useSimpleForm } from "@/hooks/useSimpleForm"
 
 export const SearchModeSettings = () => {
   const { t } = useTranslation("settings")
 
-  const form = useForm({
+  const form = useSimpleForm({
     initialValues: {
       isSimpleInternetSearch: false,
       searchProvider: "",
@@ -45,16 +45,16 @@ export const SearchModeSettings = () => {
     <div>
       <div className="mb-5">
         <div className="flex items-center gap-2">
-          <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+          <h2 className="text-base font-semibold leading-7 text-text">
             {t("generalSettings.webSearch.heading")}
           </h2>
           {form.isDirty() && (
-            <span className="text-xs px-2 py-0.5 rounded bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200">
+            <span className="text-xs px-2 py-0.5 rounded bg-warn/10 text-warn">
               {t("generalSettings.webSearch.unsavedChanges", "Unsaved changes")}
             </span>
           )}
         </div>
-        <div className="border border-b border-gray-200 dark:border-gray-600 mt-3"></div>
+        <div className="border-b border-border mt-3"></div>
       </div>
       <form
         onSubmit={form.onSubmit(async (values) => {
@@ -63,7 +63,7 @@ export const SearchModeSettings = () => {
         })}
         className="space-y-4">
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-          <span className="text-gray-700 dark:text-neutral-50 ">
+          <span className="text-text ">
             {t("generalSettings.webSearch.provider.label")}
           </span>
           <div>
@@ -83,8 +83,8 @@ export const SearchModeSettings = () => {
         {form.values.searchProvider === "searxng" && (
           <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.searxng.url.label")} <span className="text-red-500">*</span>
+              <span className="text-text">
+                {t("generalSettings.webSearch.searxng.url.label")} <span className="text-danger">*</span>
               </span>
               <div>
                 <Input
@@ -100,7 +100,7 @@ export const SearchModeSettings = () => {
         {form.values.searchProvider === "google" && (
           <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.webSearch.googleDomain.label")}
               </span>
               <div>
@@ -126,8 +126,8 @@ export const SearchModeSettings = () => {
         {form.values.searchProvider === "brave-api" && (
           <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.braveApi.label")} <span className="text-red-500">*</span>
+              <span className="text-text">
+                {t("generalSettings.webSearch.braveApi.label")} <span className="text-danger">*</span>
               </span>
               <div>
                 <Input.Password
@@ -145,8 +145,8 @@ export const SearchModeSettings = () => {
         {form.values.searchProvider === "tavily-api" && (
           <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.tavilyApi.label")} <span className="text-red-500">*</span>
+              <span className="text-text">
+                {t("generalSettings.webSearch.tavilyApi.label")} <span className="text-danger">*</span>
               </span>
               <div>
                 <Input.Password
@@ -165,8 +165,8 @@ export const SearchModeSettings = () => {
         {form.values.searchProvider === "exa" && (
           <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.exa.label")} <span className="text-red-500">*</span>
+              <span className="text-text">
+                {t("generalSettings.webSearch.exa.label")} <span className="text-danger">*</span>
               </span>
               <div>
                 <Input.Password
@@ -183,8 +183,8 @@ export const SearchModeSettings = () => {
         {form.values.searchProvider === "firecrawl" && (
           <div className="transition-all duration-200">
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
-                {t("generalSettings.webSearch.firecrawlAPIKey.label")} <span className="text-red-500">*</span>
+              <span className="text-text">
+                {t("generalSettings.webSearch.firecrawlAPIKey.label")} <span className="text-danger">*</span>
               </span>
               <div>
                 <Input.Password
@@ -201,7 +201,7 @@ export const SearchModeSettings = () => {
         )}
 
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-          <span className="text-gray-700 dark:text-neutral-50 ">
+          <span className="text-text ">
             {t("generalSettings.webSearch.searchMode.label")}
           </span>
           <div>
@@ -215,7 +215,7 @@ export const SearchModeSettings = () => {
           </div>
         </div>
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-          <span className="text-gray-700 dark:text-neutral-50 ">
+          <span className="text-text ">
             {t("generalSettings.webSearch.totalSearchResults.label")}
           </span>
           <div>
@@ -230,7 +230,7 @@ export const SearchModeSettings = () => {
         </div>
 
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-          <span className="text-gray-700 dark:text-neutral-50 ">
+          <span className="text-text ">
             {t("generalSettings.webSearch.visitSpecificWebsite.label")}
           </span>
           <div>
@@ -245,7 +245,7 @@ export const SearchModeSettings = () => {
         </div>
 
         <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
-          <span className="text-gray-700 dark:text-neutral-50 ">
+          <span className="text-text ">
             {t("generalSettings.webSearch.searchOnByDefault.label")}
           </span>
           <div>

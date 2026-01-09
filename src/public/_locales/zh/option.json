@@ -1,0 +1,1772 @@
+{
+  "newChat": {
+    "message": "新聊天"
+  },
+  "selectAPrompt": {
+    "message": "选择一个提示词"
+  },
+  "githubRepository": {
+    "message": "GitHub 仓库"
+  },
+  "settings": {
+    "message": "设置"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "将 tldw Assistant 连接到你的服务器"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "正在查找你的 tldw 服务器…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "已连接到你的 tldw 服务器"
+  },
+  "connectionCard_headlineError": {
+    "message": "无法连接到你的 tldw 服务器"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server 是支持聊天、知识搜索和媒体处理的后端。连接你自己的 tldw 服务器地址即可开始使用助手。"
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "正在检查 {{host}} 以确认你的 tldw 服务器是否可访问。等待响应可能需要片刻。"
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "已连接到位于 {{host}} 的 tldw 服务器。你可以开始聊天，或使用审阅、知识等工具。"
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "查看媒体与转录"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "搜索知识与笔记"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "在自己的文档上使用 RAG"
+  },
+  "connectionCard_descriptionError": {
+    "message": "无法连接到位于 {{host}} 的 tldw 服务器。请确认服务器正在运行、URL 正确，并且浏览器能够通过网络访问。"
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "开始聊天"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "重试连接"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "更改服务器"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "打开诊断"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "查看诊断"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "打开快速导入"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "试用演示"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "继续离线使用"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "关闭离线模式"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "离线模式 — 仅用于暂存"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "前往服务器卡片"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "提示：离线时需要导入帮助吗？"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "当服务器离线时，快速导入充当暂存区。你可以先把 URL 和文件排队，重新连接后再处理。"
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "返回工作区"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "设置会在新的浏览器标签页中打开，方便你配置 tldw 服务器。"
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "服务器离线时，快速导入可以排队 URL 和文件，等你重新连接后再处理。"
+  },
+  "header_showShortcuts": {
+    "message": "显示快捷方式"
+  },
+  "header_hideShortcuts": {
+    "message": "隐藏快捷方式"
+  },
+  "header_groupWorkspace": {
+    "message": "工作区"
+  },
+  "header_groupKnowledge": {
+    "message": "知识"
+  },
+  "header_groupSettings": {
+    "message": "设置快捷方式"
+  },
+  "header_backToHome": {
+    "message": "返回主页"
+  },
+  "header_openSidebar": {
+    "message": "打开侧边栏"
+  },
+  "header_untitledChat": {
+    "message": "未命名对话"
+  },
+  "header_modelLabel": {
+    "message": "模型"
+  },
+  "header_contentReview": {
+    "message": "内容审阅"
+  },
+  "header_promptLabel": {
+    "message": "提示词"
+  },
+  "header_review": {
+    "message": "审阅"
+  },
+  "header_flashcards": {
+    "message": "抽认卡"
+  },
+  "header_quiz": {
+    "message": "测验"
+  },
+  "header_media": {
+    "message": "媒体"
+  },
+  "header_libraryView": {
+    "message": "多项审阅"
+  },
+  "header_notes": {
+    "message": "笔记"
+  },
+  "header_modesLabel": {
+    "message": "模式"
+  },
+  "header_modePlayground": {
+    "message": "聊天"
+  },
+  "header_modeReview": {
+    "message": "审阅"
+  },
+  "header_modeMedia": {
+    "message": "媒体"
+  },
+  "header_modeKnowledge": {
+    "message": "知识问答"
+  },
+  "header_modeNotes": {
+    "message": "笔记"
+  },
+  "header_modePrompts": {
+    "message": "提示词"
+  },
+  "header_modePromptsPlayground": {
+    "message": "提示词"
+  },
+  "header_modeStt": {
+    "message": "STT 实验室"
+  },
+  "header_modePromptStudio": {
+    "message": "提示词工作室"
+  },
+  "header_modeFlashcards": {
+    "message": "抽认卡"
+  },
+  "header_modeWorldBooks": {
+    "message": "世界书"
+  },
+  "header_modeDictionaries": {
+    "message": "聊天词典"
+  },
+  "header_modeCharacters": {
+    "message": "角色"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} 切换"
+  },
+  "header_quickIngest": {
+    "message": "快速导入"
+  },
+  "header_modelSettings": {
+    "message": "模型设置"
+  },
+  "header_serverSettings": {
+    "message": "服务器设置"
+  },
+  "header_more": {
+    "message": "AI 工具"
+  },
+  "header_moreMenu_title": {
+    "message": "高级工具"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "侧边栏、仓库和调试选项等高级工具"
+  },
+  "header_moreActions": {
+    "message": "更多操作"
+  },
+  "header_toolsMenu": {
+    "message": "聊天工具"
+  },
+  "header_serverBackedLabel": {
+    "message": "服务器端聊天"
+  },
+  "header_serverBackedTooltip": {
+    "message": "此聊天中的消息也会保存到你的 tldw 服务器。"
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "在标题栏搜索屏幕、聊天、媒体、笔记…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "未找到与 \"{{query}}\" 匹配的内容。"
+  },
+  "header_omniSearchCreateNote": {
+    "message": "创建笔记 \"{{query}}\""
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "已创建笔记 \"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "创建抽认卡集合 \"{{query}}\""
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "已创建抽认卡集合 \"{{query}}\""
+  },
+  "header_omniSearchStartChat": {
+    "message": "开始新聊天 \"{{query}}\""
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "现在可以在选项和侧边栏使用聊天和工具。"
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — 已排队 {{count}} 个项目 — 单击以查看并处理"
+  },
+  "header_modeSpeech": {
+    "message": "语音"
+  },
+  "sidebarTitle": {
+    "message": "聊天历史"
+  },
+  "error": {
+    "message": "错误"
+  },
+  "somethingWentWrong": {
+    "message": "出现了错误"
+  },
+  "validationSelectModel": {
+    "message": "请选择一个模型以继续"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "你确定要删除这个历史记录吗？"
+  },
+  "editHistoryTitle": {
+    "message": "输入一个新的标题"
+  },
+  "temporaryChat": {
+    "message": "临时聊天（不保存）"
+  },
+  "more_copy_group": {
+    "message": "复制"
+  },
+  "more_copy_asText": {
+    "message": "复制为文本"
+  },
+  "more_copy_asMarkdown": {
+    "message": "复制为 Markdown"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "复制规范转录"
+  },
+  "more_copy_success": {
+    "message": "已复制到剪贴板！"
+  },
+  "more_download_group": {
+    "message": "下载"
+  },
+  "more_download_text": {
+    "message": "文本文件 (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Markdown 文件 (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "规范转录 (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON 文件 (.json)"
+  },
+  "more_download_image": {
+    "message": "图片 (.png)"
+  },
+  "more_share": {
+    "message": "分享"
+  },
+  "libraryView": {
+    "message": "多项审阅"
+  },
+  "notes": {
+    "message": "笔记"
+  },
+  "omniSearch_filterScreen": {
+    "message": "屏幕"
+  },
+  "omniSearch_filterChat": {
+    "message": "聊天"
+  },
+  "omniSearch_filterMedia": {
+    "message": "媒体"
+  },
+  "omniSearch_filterNote": {
+    "message": "笔记"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "抽认卡集合"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "提示"
+  },
+  "omniSearch_filteringBy": {
+    "message": "筛选条件："
+  },
+  "flashcards_review": {
+    "message": "复习"
+  },
+  "flashcards_create": {
+    "message": "创建"
+  },
+  "flashcards_manage": {
+    "message": "管理"
+  },
+  "flashcards_importExport": {
+    "message": "导入 / 导出"
+  },
+  "flashcards_selectDeck": {
+    "message": "选择卡组"
+  },
+  "flashcards_nextDue": {
+    "message": "下次到期"
+  },
+  "flashcards_front": {
+    "message": "正面"
+  },
+  "flashcards_back": {
+    "message": "背面"
+  },
+  "flashcards_extra": {
+    "message": "附加"
+  },
+  "flashcards_showAnswer": {
+    "message": "显示答案"
+  },
+  "flashcards_rate": {
+    "message": "评分"
+  },
+  "flashcards_answerMs": {
+    "message": "回答时长（毫秒，可选）"
+  },
+  "flashcards_noDue": {
+    "message": "没有到期卡片"
+  },
+  "flashcards_deck": {
+    "message": "卡组"
+  },
+  "flashcards_newDeck": {
+    "message": "新建卡组"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "请输入卡组名称。"
+  },
+  "flashcards_modelType": {
+    "message": "卡片类型"
+  },
+  "flashcards_reverse": {
+    "message": "反向"
+  },
+  "flashcards_isCloze": {
+    "message": "填空卡"
+  },
+  "flashcards_tags": {
+    "message": "标签"
+  },
+  "flashcards_dueStatus": {
+    "message": "到期状态"
+  },
+  "flashcards_dueAll": {
+    "message": "全部"
+  },
+  "flashcards_dueNew": {
+    "message": "新卡"
+  },
+  "flashcards_dueLearning": {
+    "message": "学习中"
+  },
+  "flashcards_dueDue": {
+    "message": "到期"
+  },
+  "flashcards_tag": {
+    "message": "标签"
+  },
+  "flashcards_noCards": {
+    "message": "无卡片"
+  },
+  "flashcards_due": {
+    "message": "到期"
+  },
+  "flashcards_editCard": {
+    "message": "编辑卡片"
+  },
+  "flashcards_importTitle": {
+    "message": "导入抽认卡"
+  },
+  "flashcards_exportTitle": {
+    "message": "导出抽认卡"
+  },
+  "flashcards_importHelp": {
+    "message": "粘贴 TSV/CSV 行：卡组、正面、背面、标签、备注"
+  },
+  "flashcards_pasteContent": {
+    "message": "在此粘贴内容..."
+  },
+  "flashcards_tab": {
+    "message": "制表符"
+  },
+  "flashcards_comma": {
+    "message": "，(逗号)"
+  },
+  "flashcards_semicolon": {
+    "message": "；(分号)"
+  },
+  "flashcards_pipe": {
+    "message": "| (竖线)"
+  },
+  "flashcards_hasHeader": {
+    "message": "包含表头"
+  },
+  "flashcards_import": {
+    "message": "导入"
+  },
+  "flashcards_imported": {
+    "message": "已导入"
+  },
+  "flashcards_importLimits": {
+    "message": "导入限制"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV"
+  },
+  "flashcards_apkg": {
+    "message": "Anki (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "包含反向"
+  },
+  "flashcards_includeHeader": {
+    "message": "包含表头行"
+  },
+  "flashcards_extendedHeader": {
+    "message": "扩展表头"
+  },
+  "flashcards_download": {
+    "message": "下载"
+  },
+  "flashcards_duplicate": {
+    "message": "复制"
+  },
+  "flashcards_move": {
+    "message": "移动"
+  },
+  "flashcards_reviewFailed": {
+    "message": "复习失败"
+  },
+  "flashcards_updateFailed": {
+    "message": "更新失败"
+  },
+  "flashcards_deleteFailed": {
+    "message": "删除失败"
+  },
+  "flashcards_missingVersion": {
+    "message": "缺少版本信息；请重新加载后再试"
+  },
+  "flashcards_bulkMove": {
+    "message": "批量移动"
+  },
+  "flashcards_bulkDelete": {
+    "message": "批量删除"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} 个已删除 · {{failed}} 个失败"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "操作仅限前 {{limit}} 个项目。"
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "导出所选（CSV/TSV）"
+  },
+  "flashcards_selectedCount": {
+    "message": "已选择"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "选择本页全部"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "选择所有结果"
+  },
+  "flashcards_clearSelection": {
+    "message": "清除选择"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "连接以使用抽认卡"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "要复习或生成抽认卡，请先连接你的 tldw 服务器。"
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "前往 设置 → tldw 服务器 添加服务器 URL。"
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "连接后，可以复习到期卡片或从笔记和媒体创建新卡组。"
+  },
+  "flashcards_demoTitle": {
+    "message": "在演示模式中探索抽认卡"
+  },
+  "flashcards_demoDescription": {
+    "message": "此演示展示抽认卡如何将内容转化为间隔重复卡片。稍后连接自己的服务器，从你的笔记和媒体生成并复习卡片。"
+  },
+  "flashcards_demoExample1": {
+    "message": "查看在“复习”和“管理”标签中卡组、卡片与标签的组织方式。"
+  },
+  "flashcards_demoExample2": {
+    "message": "连接后，你可以从课程、会议或笔记生成卡片并按计划复习。"
+  },
+  "flashcards_demoExample3": {
+    "message": "将抽认卡与笔记和媒体配合使用，保持重要想法的新鲜度。"
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "示例卡组（仅预览）"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "演示卡组：核心概念"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 张卡片 · 适合测试间隔与评分。"
+  },
+  "flashcards_demoSample2Title": {
+    "message": "演示卡组：产品术语"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 张卡片 · 名称、缩写和关键定义。"
+  },
+  "flashcards_demoSample3Title": {
+    "message": "演示卡组：会议跟进"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 张卡片 · 可复习的示例行动项。"
+  },
+  "flashcards_hideAnswer": {
+    "message": "隐藏答案"
+  },
+  "flashcards_preview": {
+    "message": "预览"
+  },
+  "flashcards_ratingAgain": {
+    "message": "重来"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "我没有记住这张卡片。"
+  },
+  "flashcards_ratingHard": {
+    "message": "困难"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "勉强想起，感觉困难。"
+  },
+  "flashcards_ratingGood": {
+    "message": "良好"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "需要一些努力才能记住。"
+  },
+  "flashcards_ratingEasy": {
+    "message": "简单"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "很快且自信地想起。"
+  },
+  "flashcards_showTiming": {
+    "message": "记录答题时间"
+  },
+  "flashcards_hideTiming": {
+    "message": "隐藏计时"
+  },
+  "flashcards_noDueTitle": {
+    "message": "没有到期的复习卡片"
+  },
+  "flashcards_noDueDescription": {
+    "message": "你已全部复习完毕。创建新卡片或导入卡组开始复习。"
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "创建新卡片"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "导入卡组"
+  },
+  "flashcards_createTitle": {
+    "message": "从笔记创建抽认卡"
+  },
+  "flashcards_createDescription": {
+    "message": "正面用于问题，背面用于答案。你可以将卡片分组为卡组，并添加标签以便搜索。"
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "基础卡在正面显示问题、背面显示答案。反向会额外创建一张背面为问题的卡片。填空卡用 {{...}} 隐藏文本。"
+  },
+  "flashcards_reverseHelp": {
+    "message": "同时创建一张背面作为问题的卡片。"
+  },
+  "flashcards_isClozeHelp": {
+    "message": "用于填空卡。在正面用 {{...}} 包裹要隐藏的文本。"
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "支持 Markdown 和 LaTeX。"
+  },
+  "flashcards_extraHint": {
+    "message": "可选提示/说明（支持 Markdown + LaTeX）。"
+  },
+  "flashcards_notesHint": {
+    "message": "内部备注（支持 Markdown + LaTeX）。"
+  },
+  "flashcards_bulkActions": {
+    "message": "批量操作"
+  },
+  "flashcards_selectionHelp": {
+    "message": "“选择所有结果”会对符合筛选条件的所有卡片执行操作，而不仅是本页。"
+  },
+  "flashcards_noCardsTitle": {
+    "message": "还没有抽认卡"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "从笔记和媒体创建卡片，或导入现有卡组。"
+  },
+  "flashcards_clearFilters": {
+    "message": "清除筛选"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "创建第一张卡片"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "导入抽认卡"
+  },
+  "flashcards_mapping": {
+    "message": "列映射"
+  },
+  "flashcards_mappingPreview": {
+    "message": "前几行映射预览："
+  },
+  "flashcards_exportHelp": {
+    "message": "按卡组、标签或搜索筛选，然后导出为 CSV/TSV 供表格使用，或导出为 Anki (.apkg) 供 Anki 客户端使用。"
+  },
+  "contentReview_title": {
+    "message": "内容审阅"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} 个已就绪"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} 个已提交"
+  },
+  "contentReview_totalCount": {
+    "message": "共 {{count}} 个"
+  },
+  "contentReview_commitAll": {
+    "message": "全部提交"
+  },
+  "contentReview_clearDrafts": {
+    "message": "清除草稿"
+  },
+  "contentReview_emptyDescription": {
+    "message": "当前还没有草稿。使用 Quick Ingest 并启用“保存前审阅”即可创建草稿。"
+  },
+  "contentReview_openQuickIngest": {
+    "message": "打开 Quick Ingest"
+  },
+  "contentReview_batchLabel": {
+    "message": "批次"
+  },
+  "contentReview_batchName": {
+    "message": "批次 {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "草稿"
+  },
+  "contentReview_selectDraft": {
+    "message": "选择一个草稿开始审阅。"
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "草稿标题"
+  },
+  "contentReview_lastSaved": {
+    "message": "已保存于 {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "重置草稿？"
+  },
+  "contentReview_resetBody": {
+    "message": "这将恢复该草稿的原始内容。"
+  },
+  "contentReview_resetConfirm": {
+    "message": "重置"
+  },
+  "contentReview_resetCancel": {
+    "message": "取消"
+  },
+  "contentReview_resetContent": {
+    "message": "重置"
+  },
+  "contentReview_diffView": {
+    "message": "差异视图"
+  },
+  "contentReview_saveDraft": {
+    "message": "保存草稿"
+  },
+  "contentReview_editorLabel": {
+    "message": "内容"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} 个词"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} 个字符"
+  },
+  "contentReview_aiFix": {
+    "message": "使用 AI 修正"
+  },
+  "contentReview_aiHint": {
+    "message": "将草稿内容发送到服务器，由 AI 进行处理。"
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "服务器默认"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "将草稿发送到服务器？"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "这会将草稿内容发送到你的 tldw 服务器进行 AI 处理。草稿会一直保留在本地，直到你提交。"
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "继续"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "取消"
+  },
+  "contentReview_aiApplied": {
+    "message": "已应用 AI 修正。"
+  },
+  "contentReview_aiNoChange": {
+    "message": "未返回任何更改。"
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI 未返回任何内容。"
+  },
+  "contentReview_aiUnavailable": {
+    "message": "聊天补全不可用。"
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "选择模板"
+  },
+  "contentReview_applyTemplate": {
+    "message": "应用模板"
+  },
+  "contentReview_templateApplied": {
+    "message": "模板已应用。"
+  },
+  "contentReview_templateMissing": {
+    "message": "请先选择一个模板。"
+  },
+  "contentReview_detectSections": {
+    "message": "检测章节"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "重新检测章节？"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "这将替换现有章节并重置你的选择。"
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "重新检测"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "取消"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "未检测到任何章节。"
+  },
+  "contentReview_sectionsLabel": {
+    "message": "章节筛选"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "清理转录文本"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "在保留行结构的前提下，规范标点和大小写。"
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "说话轮次"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "确保每个说话人轮次都在独立的一行，并带有清晰的标签。"
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "章节标题"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "插入 Markdown 标题，以分组主题而不删除内容。"
+  },
+  "contentReview_metadataLabel": {
+    "message": "元数据"
+  },
+  "contentReview_mediaType": {
+    "message": "媒体类型"
+  },
+  "contentReview_keywords": {
+    "message": "关键词"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "添加关键词"
+  },
+  "contentReview_reviewNotes": {
+    "message": "审阅备注"
+  },
+  "contentReview_missingSource": {
+    "message": "缺少源文件"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "请附加原始文件以提交此草稿。"
+  },
+  "contentReview_attachSource": {
+    "message": "附加文件"
+  },
+  "contentReview_actionsLabel": {
+    "message": "操作"
+  },
+  "contentReview_commit": {
+    "message": "提交"
+  },
+  "contentReview_commitDisabled": {
+    "message": "在提交之前，请先附加原始音频/视频文件。"
+  },
+  "contentReview_markReviewed": {
+    "message": "标记为已审阅"
+  },
+  "contentReview_skipNext": {
+    "message": "跳过"
+  },
+  "contentReview_discard": {
+    "message": "丢弃"
+  },
+  "contentReview_discardTitle": {
+    "message": "丢弃草稿？"
+  },
+  "contentReview_discardBody": {
+    "message": "此草稿将被标记为已丢弃，并从审阅列表中移除。"
+  },
+  "contentReview_discardConfirm": {
+    "message": "丢弃"
+  },
+  "contentReview_discardCancel": {
+    "message": "取消"
+  },
+  "contentReview_commitSuccess": {
+    "message": "草稿已提交。"
+  },
+  "contentReview_commitAllTitle": {
+    "message": "提交已审阅的草稿？"
+  },
+  "contentReview_commitAllBody": {
+    "message": "只有标记为已审阅的草稿才会被提交。"
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "全部提交"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "取消"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} 个已提交 · {{failed}} 个失败"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "此文件超过本地草稿上限 ({{cap}})。"
+  },
+  "contentReview_clearTitle": {
+    "message": "清除所有草稿？"
+  },
+  "contentReview_clearBody": {
+    "message": "这将删除所有本地内容审阅草稿及其关联资源."
+  },
+  "contentReview_clearConfirm": {
+    "message": "清除草稿"
+  },
+  "contentReview_clearCancel": {
+    "message": "取消"
+  },
+  "contentReview_clearSuccess": {
+    "message": "草稿已清除。"
+  },
+  "contentReview_originalLabel": {
+    "message": "原始"
+  },
+  "contentReview_editedLabel": {
+    "message": "已编辑"
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "审阅后保存"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "保存前审阅"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "先处理，然后在提交到服务器前在本地编辑草稿。"
+  },
+  "contentReview_reviewEnabled": {
+    "message": "审阅模式"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "本地草稿上限为 {{cap}}。"
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "将草稿保存在本地？"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "草稿保存在此浏览器中，可能包含敏感数据。你可以随时在“内容审阅”页面清除草稿。"
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "审阅模式会在提交到服务器前将内容保留在客户端。"
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "启用审阅"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "取消"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "审阅"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "草稿已准备好审阅。"
+  },
+  "contentReview_openContentReview": {
+    "message": "打开内容审阅"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "文件过大"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "文件大小必须小于 10MB"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "上传失败"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "无法上传文件，请重试。"
+  },
+  "promptStudio_title": {
+    "message": "Prompt Studio 实验室"
+  },
+  "promptStudio_subtitle": {
+    "message": "管理 Prompt Studio 的项目、提示词、执行、测试用例和评估。"
+  },
+  "promptStudio_capabilityError": {
+    "message": "无法连接到 Prompt Studio"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "检查服务器连接，或在 Prompt Studio API 可用前禁用此部分。"
+  },
+  "promptStudio_offline": {
+    "message": "连接服务器以使用 Prompt Studio"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "项目与提示词"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "创建或打开项目以编辑提示词。"
+  },
+  "promptStudio_projectsError": {
+    "message": "无法加载项目"
+  },
+  "promptStudio_promptVersion": {
+    "message": "版本"
+  },
+  "promptStudio_changeDescription": {
+    "message": "变更说明"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "系统提示词"
+  },
+  "promptStudio_userPrompt": {
+    "message": "用户提示词"
+  },
+  "promptStudio_fewShot": {
+    "message": "Few-shot 示例（JSON）"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "模块配置（JSON）"
+  },
+  "promptStudio_history": {
+    "message": "历史记录"
+  },
+  "promptStudio_executeCard": {
+    "message": "临时执行"
+  },
+  "promptStudio_executeHint": {
+    "message": "提供方、模型、temperature、输入。"
+  },
+  "promptStudio_provider": {
+    "message": "提供方"
+  },
+  "promptStudio_model": {
+    "message": "模型"
+  },
+  "promptStudio_runPrompt": {
+    "message": "运行提示词"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "执行表单即将推出。可使用此面板通过 /prompt-studio/prompts/execute 对提示词进行单次输入运行。"
+  },
+  "promptStudio_testsCard": {
+    "message": "测试用例与评估"
+  },
+  "promptStudio_testsHint": {
+    "message": "列出/创建测试用例，运行评估，轮询状态。"
+  },
+  "promptStudio_testCases": {
+    "message": "测试用例"
+  },
+  "promptStudio_evaluations": {
+    "message": "评估"
+  },
+  "promptStudio_inputsJson": {
+    "message": "输入（JSON）"
+  },
+  "promptStudio_expectedJson": {
+    "message": "期望输出（JSON）"
+  },
+  "promptStudio_golden": {
+    "message": "是否为基准？"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "批量添加"
+  },
+  "promptStudio_bulkJson": {
+    "message": "测试用例的 JSON 数组"
+  },
+  "promptStudio_runAsync": {
+    "message": "异步运行"
+  },
+  "promptStudio_temperature": {
+    "message": "温度"
+  },
+  "promptStudio_maxTokens": {
+    "message": "最大 token 数"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "运行评估"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "占位说明：在此区域接入测试用例的增删改查、评估创建/列表/详情，以及异步轮询。"
+  },
+  "promptStudio_unavailable": {
+    "message": "此服务器未启用 Prompt Studio。"
+  },
+  "promptStudio_unavailableBody": {
+    "message": "启用后，你将在此看到项目、提示词历史、执行流程和评估。"
+  },
+  "promptSearch_title": {
+    "message": "标题"
+  },
+  "promptSearch_content": {
+    "message": "内容"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "系统提示词"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "同时保存到服务器"
+  },
+  "promptSearch_cancel": {
+    "message": "取消"
+  },
+  "promptSearch_insert": {
+    "message": "插入"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "另存为新"
+  },
+  "promptSearch_saveLocal": {
+    "message": "保存更改（本地）"
+  },
+  "promptSearch_saveServer": {
+    "message": "保存更改（服务器）"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "保存本地副本"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "另存为新（仅服务器）"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "已在本地更新提示词"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "已在服务器更新提示词"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "本地提示词更新失败"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "服务器提示词更新失败"
+  },
+  "promptSearch_manageLink": {
+    "message": "查看 / 管理提示词"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "覆盖本地提示词（可选）"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "选择要覆盖的本地提示词"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "提示词已保存"
+  },
+  "promptSearch_saveFailed": {
+    "message": "保存提示词失败"
+  },
+  "quickIngest_title": {
+    "message": "快速导入媒体"
+  },
+  "quickIngest_subtitle": {
+    "message": "输入一个或多个 URL。必要时可为每行指定类型。"
+  },
+  "quickIngest_offlineTitle": {
+    "message": "服务器离线 — 仅限暂存环境"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "您可以在此处排队 URL 和文件并查看字段，但在您的 tldw 服务器上线之前不会进行摄取。请重新连接以处理待处理项。"
+  },
+  "quickIngest_sourceHeading": {
+    "message": "来源 URL 或文件"
+  },
+  "quickIngest_storeRemote": {
+    "message": "保存到远程数据库"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "将摄取结果存储到你的 tldw 服务器"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "仅在本地处理摄取结果"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "上传到你的 tldw 服务器以便索引。"
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "只处理并保留本地结果（下载 JSON）。"
+  },
+  "quickIngest_storageHeading": {
+    "message": "摄取结果的存储位置"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "存储在你的 tldw 服务器上（推荐用于 RAG 和共享工作区）。"
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "仅保存在此浏览器中；不会向服务器写入数据。"
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "审阅后保存"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "保存前审阅"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "先处理，然后在提交到服务器前在本地编辑草稿。"
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "审阅模式"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "本地草稿上限为 {{cap}}。"
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "将草稿保存在本地？"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "草稿保存在此浏览器中，可能包含敏感数据。你可以随时在“内容审阅”页面清除草稿。"
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "审阅模式会在提交到服务器前将内容保留在客户端。"
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "启用审阅"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "取消"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "审阅"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "草稿已准备好审阅。"
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "无法创建审阅草稿。"
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "创建审阅草稿失败。"
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "重试创建草稿"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "不经审阅保存"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "无法打开内容审阅。请重试。"
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "重试打开内容审阅"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} 个文件超过本地草稿上限（{{cap}}）。请在提交音频/视频前附加来源。"
+  },
+  "quickIngest_openContentReview": {
+    "message": "打开内容审阅"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "了解更多摄取与存储信息"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "粘贴 URL（每行一个）"
+  },
+  "quickIngest_or": {
+    "message": "或"
+  },
+  "quickIngest_remove": {
+    "message": "移除"
+  },
+  "quickIngest_add": {
+    "message": "添加 URL"
+  },
+  "quickIngest_commonOptions": {
+    "message": "摄取选项"
+  },
+  "quickIngest_audioOptions": {
+    "message": "音频选项"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "语言（例如 en）"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "启用以在转录中区分说话人。"
+  },
+  "quickIngest_documentOptions": {
+    "message": "文档选项"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR 可帮助从扫描的 PDF 或图片中提取文本。"
+  },
+  "quickIngest_videoOptions": {
+    "message": "视频选项"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "可用时包含时间戳/字幕。"
+  },
+  "quickIngest_cancel": {
+    "message": "取消"
+  },
+  "quickIngest_ingest": {
+    "message": "摄取"
+  },
+  "quickIngest_process": {
+    "message": "处理"
+  },
+  "quickIngest_results": {
+    "message": "结果"
+  },
+  "quickIngest_downloadJson": {
+    "message": "下载 JSON"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "已加载 {{count}} 个高级字段"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "未检测到高级选项——请尝试重新加载规范。"
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} 处已修改"
+  },
+  "quickIngest_progress": {
+    "message": "正在处理 {{done}} / {{total}} 个项目…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "当前无法处理这些摄取任务。"
+  },
+  "quickIngest_errorHint": {
+    "message": "检查你的 tldw 服务器后再试一次。Health & diagnostics 可以帮助排查摄取相关的问题。"
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "在 Health & diagnostics 中检查服务器健康状态"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "最近的运行失败了——请从顶部打开 Health & diagnostics 查看详细信息。"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "高级规范已从服务器重新加载"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "高级规范已从服务器重新加载（添加的字段：{{added}}，移除的字段：{{removed}}）"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "使用捆绑的 media.add 架构备选方案（v{{version}}）；如果字段看起来已过期，请根据你的 tldw_server /openapi.json 进行验证。"
+  },
+  "notesSearch_placeholder": {
+    "message": "搜索标题和内容"
+  },
+  "notesSearch_clear": {
+    "message": "清除搜索与筛选"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "按关键词筛选"
+  },
+  "notesSearch_new": {
+    "message": "新建笔记"
+  },
+  "notesSearch_newTooltip": {
+    "message": "创建新笔记"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} 条笔记"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "将符合条件的笔记导出为 Markdown (.md)"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "将符合条件的笔记导出为 CSV"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "将符合条件的笔记导出为 JSON"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "已导出 ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "已导出 {{count}} 条笔记 ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "已将 {{count}} 条笔记导出为 CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "已将 {{count}} 条笔记导出为 JSON ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "将笔记导出为 Markdown (.md)"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "保存笔记"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "复制笔记内容"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "删除笔记"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "导出"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "结果"
+  },
+  "notesSearch_showingRange": {
+    "message": "显示 {{start}}-{{end}} / {{total}}"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "展开侧边栏"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "收起侧边栏"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "标题"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "关键词（标签）"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "关键词帮助你使用左侧的关键词筛选找到此笔记。"
+  },
+  "tts_playground": {
+    "message": "TTS 实验室"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "连接以使用笔记"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "要使用笔记，请先连接你的 tldw 服务器。"
+  },
+  "notesEmpty_demoExample3": {
+    "message": "将笔记与媒体和审阅结合使用，持续跟踪你的发现。"
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "示例笔记（仅预览）"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "演示笔记：每周会议回顾"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "近期团队同步中的决策、阻碍和后续事项。"
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "今天 · 上午 9:32"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "演示笔记：研究要点"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "从长文或论文中提炼的关键见解。"
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "昨天 · 下午 4:10"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "演示笔记：通话摘要"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "客户通话摘要，包含后续步骤和负责人。"
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "本周"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "打开 设置 → tldw 服务器 添加服务器 URL。"
+  },
+  "notesEmpty_connectExample2": {
+    "message": "如果服务器在运行但无法访问，请使用诊断。"
+  },
+  "notesEmpty_demoTitle": {
+    "message": "在演示模式中探索笔记"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "此演示展示笔记如何整理你的洞见。稍后连接自己的服务器以创建并保存真实笔记。"
+  },
+  "notesEmpty_demoExample1": {
+    "message": "查看笔记标题、预览和时间戳在列表中的显示方式。"
+  },
+  "notesEmpty_demoExample2": {
+    "message": "连接后，你可以从会议、审阅等内容创建笔记。"
+  },
+  "notesEmpty_title": {
+    "message": "暂无笔记"
+  },
+  "notesEmpty_description": {
+    "message": "记录并整理与你的 tldw 洞见相关的自由形式笔记。"
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "为最近的会议或转录创建新笔记。"
+  },
+  "notesEmpty_exampleLink": {
+    "message": "将审阅结果保存到笔记，方便日后回顾。"
+  },
+  "notesEmpty_primaryCta": {
+    "message": "创建笔记"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "在演示模式中探索世界书"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "此演示展示世界书如何整理你的世界观、设定或产品的结构化知识。"
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "查看示例书籍，如奇幻设定、产品术语表或活动笔记。"
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "连接后，你可以创建在聊天中由 tldw 使用的世界书。"
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "连接以使用世界书"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "要使用世界书，请先连接你的 tldw 服务器以保存并检索世界知识。"
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "打开 设置 → tldw 服务器 添加服务器 URL。"
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "如果服务器在运行但无法访问，请使用诊断。"
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "创建并管理角色和聊天可引用的结构化知识库。"
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "世界书离线"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "在主设置页连接 tldw 服务器以查看和编辑世界书。"
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "在演示模式中探索聊天词典"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "此演示展示聊天词典如何在内容到达模型前规范名称、缩写和术语。"
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "查看示例词典，如产品名称、项目代号或公司术语。"
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "连接后，你可以在所有聊天中启用词典。"
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "连接以使用聊天词典"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "要使用聊天词典，请先连接你的 tldw 服务器以保存替换项。"
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "打开 设置 → tldw 服务器 添加服务器 URL。"
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "如果服务器在运行但无法访问，请使用诊断。"
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "定义可复用的替换项，让 tldw 理解你组织的名称、缩写和术语。"
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "聊天词典离线"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "在主设置页连接 tldw 服务器以查看和编辑聊天词典。"
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "在演示模式中探索角色"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "此演示展示角色如何封装人设与系统提示词供你聊天。"
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "查看示例角色，如写作教练、设定专家或编码助手。"
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "连接后，你可以创建出现在聊天头部和选择器中的角色。"
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "连接以使用角色"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "要使用角色，请先连接你的 tldw 服务器以保存角色定义。"
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "打开 设置 → tldw 服务器 添加服务器 URL。"
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "如果服务器在运行但无法访问，请使用诊断。"
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "创建可复用角色，可在聊天头部选择并跨对话复用。"
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "创建一个角色，在多个聊天中重复使用其人设。点击“新建角色”开始。"
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "此服务器不支持角色 API"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "此服务器未提供 /api/v1/characters。"
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "打开诊断以确认服务器版本和角色可用 API。"
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "若升级服务器，请重新加载扩展并返回角色页面。"
+  },
+  "characters_selectCharacter": {
+    "message": "选择角色"
+  },
+  "characters_chattingAs": {
+    "message": "你现在以 {{name}} 的身份聊天。"
+  },
+  "characters_clearCharacter": {
+    "message": "清除角色"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "无法加载角色"
+  },
+  "characters_fetchErrorBody": {
+    "message": "请检查你的网络连接或服务器状态，然后重试。"
+  },
+  "characters_none": {
+    "message": "无（无角色）"
+  },
+  "characters_searchPlaceholder": {
+    "message": "按名称搜索角色"
+  },
+  "characters_noMatches": {
+    "message": "目前还没有符合你搜索条件的角色。"
+  },
+  "characters_refresh": {
+    "message": "刷新角色列表"
+  },
+  "characters_refreshing": {
+    "message": "正在刷新角色列表…"
+  },
+  "promptInsert_useInChat": {
+    "message": "在聊天中使用"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "打开聊天并将此提示词插入输入框。"
+  },
+  "promptInsert_confirmTitle": {
+    "message": "在聊天中使用提示词？"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "你的消息已有文本。要用此提示词覆盖，还是追加在其下方？"
+  },
+  "promptInsert_overwrite": {
+    "message": "覆盖消息"
+  },
+  "promptInsert_append": {
+    "message": "追加"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "快捷聊天助手"
+  },
+  "quickChatHelper_title": {
+    "message": "快捷聊天助手"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "快速提问..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "发送"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "开始一个快速侧边聊天，保持主对话干净整洁。"
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "在单独窗口中打开"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "请先在主聊天中选择一个模型。"
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "你的消息"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "助手的消息"
+  },
+  "quiz_itemsPerPage": {
+    "message": "项/页"
+  },
+  "quiz_editQuizTitle": {
+    "message": "编辑测验"
+  },
+  "quiz_updateSuccess": {
+    "message": "测验更新成功。"
+  },
+  "quiz_updateError": {
+    "message": "测验更新失败。"
+  },
+  "quiz_questionTextRequired": {
+    "message": "题目内容为必填。"
+  },
+  "quiz_optionsRequired": {
+    "message": "请至少提供两个选项。"
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "题目创建成功。"
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "题目更新成功。"
+  },
+  "quiz_questionSaveError": {
+    "message": "题目保存失败。"
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "题目删除成功。"
+  },
+  "quiz_questionDeleteError": {
+    "message": "题目删除失败。"
+  },
+  "quiz_editQuestion": {
+    "message": "编辑题目"
+  },
+  "quiz_points": {
+    "message": "分数"
+  },
+  "quiz_orderIndex": {
+    "message": "顺序"
+  },
+  "quiz_startError": {
+    "message": "测验启动失败。"
+  },
+  "quiz_answerAll": {
+    "message": "提交前请回答所有题目。"
+  },
+  "quiz_submitError": {
+    "message": "测验提交失败。"
+  },
+  "quiz_scoreSummary": {
+    "message": "得分：{{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "正确"
+  },
+  "quiz_incorrect": {
+    "message": "错误"
+  },
+  "quiz_yourAnswer": {
+    "message": "你的答案"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "正确答案"
+  },
+  "quiz_backToList": {
+    "message": "返回列表"
+  },
+  "quiz_retake": {
+    "message": "重新测验"
+  },
+  "searchPrompts": {
+    "message": "搜索提示词..."
+  },
+  "noMatchingPrompts": {
+    "message": "没有匹配的提示词"
+  },
+  "promptSelect_favorites": {
+    "message": "收藏"
+  },
+  "promptSelect_system": {
+    "message": "系统提示词"
+  },
+  "promptSelect_quick": {
+    "message": "快捷提示词"
+  },
+  "header_moreTools": {
+    "message": "更多"
+  },
+  "characters_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characters_importCharacter": {
+    "message": "Import Character"
+  }
+}

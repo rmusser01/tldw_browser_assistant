@@ -8,6 +8,7 @@ import {
 import { isGoogleDocs, parseGoogleDocs } from "@/parser/google-docs"
 import { cleanUnwantedUnicode } from "@/utils/clean"
 import { isYoutubeLink } from "@/utils/is-youtube"
+import { isChromiumTarget, isFirefoxTarget } from "@/config/platform"
 const getTranscript = async (url: string) => {
   try {
     const mod = await import(/* @vite-ignore */ 'yt-transcript')
@@ -40,7 +41,7 @@ type TabSnapshot = {
 
 export const getDataFromCurrentTab = async () => {
   const result = new Promise<TabSnapshot>((resolve) => {
-    if (import.meta.env.BROWSER === "chrome" || import.meta.env.BROWSER === "edge") {
+    if (isChromiumTarget) {
       chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         const tab = tabs[0]
 
@@ -70,7 +71,7 @@ export const getDataFromCurrentTab = async () => {
           } catch (e) {
             console.error("error", e)
             // this is a weird method but it works
-            if (import.meta.env.BROWSER === "firefox") {
+            if (isFirefoxTarget) {
               // all I need is to get the pdf url but somehow 
               // firefox won't allow extensions to run content scripts on pdf https://bugzilla.mozilla.org/show_bug.cgi?id=1454760
               // so I set up a weird method to fix this issue by asking tab to give the url 

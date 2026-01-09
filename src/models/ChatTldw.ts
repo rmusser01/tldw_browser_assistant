@@ -2,9 +2,14 @@ import {
   BaseMessage,
   AIMessage,
   HumanMessage,
-  SystemMessage
+  SystemMessage,
+  ToolMessage
 } from "@/types/messages"
-import { tldwChat, ChatMessage } from "@/services/tldw"
+import {
+  tldwChat,
+  ChatMessage,
+  type ChatCompletionContentPart
+} from "@/services/tldw"
 
 export interface ChatTldwOptions {
   model: string
@@ -16,6 +21,17 @@ export interface ChatTldwOptions {
   systemPrompt?: string
   streaming?: boolean
   reasoningEffort?: "low" | "medium" | "high"
+  toolChoice?: "auto" | "none" | "required"
+  tools?: Record<string, unknown>[]
+  supportsMultimodal?: boolean
+  saveToDb?: boolean
+  conversationId?: string
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: Record<string, unknown>
+  extraBody?: Record<string, unknown>
 }
 
 export class ChatTldw {
@@ -28,6 +44,17 @@ export class ChatTldw {
   systemPrompt?: string
   streaming: boolean
   reasoningEffort?: "low" | "medium" | "high"
+  toolChoice?: "auto" | "none" | "required"
+  tools?: Record<string, unknown>[]
+  supportsMultimodal: boolean
+  saveToDb?: boolean
+  conversationId?: string
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: Record<string, unknown>
+  extraBody?: Record<string, unknown>
 
   constructor(options: ChatTldwOptions) {
     // Normalize model id: drop internal prefix like "tldw:" so server receives provider/model
@@ -40,6 +67,17 @@ export class ChatTldw {
     this.systemPrompt = options.systemPrompt
     this.streaming = options.streaming ?? false
     this.reasoningEffort = options.reasoningEffort
+    this.toolChoice = options.toolChoice
+    this.tools = options.tools
+    this.supportsMultimodal = Boolean(options.supportsMultimodal)
+    this.saveToDb = options.saveToDb
+    this.conversationId = options.conversationId
+    this.historyMessageLimit = options.historyMessageLimit
+    this.historyMessageOrder = options.historyMessageOrder
+    this.slashCommandInjectionMode = options.slashCommandInjectionMode
+    this.apiProvider = options.apiProvider
+    this.extraHeaders = options.extraHeaders
+    this.extraBody = options.extraBody
   }
 
   /**
@@ -61,17 +99,27 @@ export class ChatTldw {
     const { signal, callbacks } = options || {}
 
     const tldwMessages = this.convertToTldwMessages(messages)
-    const stream = tldwChat.streamMessage(tldwMessages, {
-      model: this.model,
-      temperature: this.temperature,
-      maxTokens: this.maxTokens,
-      topP: this.topP,
-      frequencyPenalty: this.frequencyPenalty,
-      presencePenalty: this.presencePenalty,
-      systemPrompt: this.systemPrompt,
-      stream: true,
-      reasoningEffort: this.reasoningEffort
-    })
+      const stream = tldwChat.streamMessage(tldwMessages, {
+        model: this.model,
+        temperature: this.temperature,
+        maxTokens: this.maxTokens,
+        topP: this.topP,
+        frequencyPenalty: this.frequencyPenalty,
+        presencePenalty: this.presencePenalty,
+        systemPrompt: this.systemPrompt,
+        stream: true,
+        reasoningEffort: this.reasoningEffort,
+        toolChoice: this.toolChoice,
+        tools: this.tools,
+        saveToDb: this.saveToDb,
+        conversationId: this.conversationId,
+        historyMessageLimit: this.historyMessageLimit,
+        historyMessageOrder: this.historyMessageOrder,
+        slashCommandInjectionMode: this.slashCommandInjectionMode,
+        apiProvider: this.apiProvider,
+        extraHeaders: this.extraHeaders,
+        extraBody: this.extraBody
+      })
 
     async function* generator() {
       let fullText = ""
@@ -123,7 +171,17 @@ export class ChatTldw {
       presencePenalty: this.presencePenalty,
       systemPrompt: this.systemPrompt,
       stream: false,
-      reasoningEffort: this.reasoningEffort
+      reasoningEffort: this.reasoningEffort,
+      toolChoice: this.toolChoice,
+      tools: this.tools,
+      saveToDb: this.saveToDb,
+      conversationId: this.conversationId,
+      historyMessageLimit: this.historyMessageLimit,
+      historyMessageOrder: this.historyMessageOrder,
+      slashCommandInjectionMode: this.slashCommandInjectionMode,
+      apiProvider: this.apiProvider,
+      extraHeaders: this.extraHeaders,
+      extraBody: this.extraBody
     })
 
     return {
@@ -145,45 +203,128 @@ export class ChatTldw {
     return { content: text }
   }
 
-  private convertToTldwMessages(messages: BaseMessage[]): ChatMessage[] {
-    return messages.map(msg => {
-      let role: 'system' | 'user' | 'assistant' = 'user'
-      
-      if (msg instanceof SystemMessage) {
-        role = 'system'
-      } else if (msg instanceof AIMessage) {
-        role = 'assistant'
-      } else if (msg instanceof HumanMessage) {
-        role = 'user'
+  private normalizeImageUrl(
+    value: unknown
+  ): { url: string; detail?: "auto" | "low" | "high" | null } | null {
+    if (typeof value === "string") {
+      return { url: value }
+    }
+    if (value && typeof value === "object") {
+      const candidate = value as { url?: unknown; detail?: unknown }
+      if (typeof candidate.url === "string") {
+        let detail: "auto" | "low" | "high" | null | undefined
+        if (
+          candidate.detail === "auto" ||
+          candidate.detail === "low" ||
+          candidate.detail === "high" ||
+          candidate.detail === null
+        ) {
+          detail = candidate.detail as "auto" | "low" | "high" | null
+        }
+        return detail === undefined
+          ? { url: candidate.url }
+          : { url: candidate.url, detail }
       }
+    }
+    return null
+  }
 
-      // Handle different content types. We preserve structured content where
-      // possible so tldw_server can support multimodal inputs.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let content: any
-      if (typeof msg.content === 'string') {
-        content = msg.content
-      } else if (Array.isArray(msg.content)) {
-        content = msg.content.map((item: any) => {
-          if (typeof item === 'string') {
-            return item
+  private normalizeContentPart(
+    part: unknown
+  ): ChatCompletionContentPart | null {
+    if (typeof part === "string") {
+      return { type: "text", text: part }
+    }
+    if (!part || typeof part !== "object") {
+      return null
+    }
+    const candidate = part as { type?: unknown; text?: unknown; image_url?: unknown }
+    if (candidate.type === "text" && typeof candidate.text === "string") {
+      return { type: "text", text: candidate.text }
+    }
+    if (candidate.type === "image_url") {
+      const imageUrl = this.normalizeImageUrl(candidate.image_url)
+      if (!imageUrl) return null
+      return { type: "image_url", image_url: imageUrl }
+    }
+    return null
+  }
+
+  private coerceTextContent(content: unknown): string {
+    if (typeof content === "string") {
+      return content
+    }
+    if (!Array.isArray(content)) {
+      return ""
+    }
+    return content
+      .map((item) => {
+        if (typeof item === "string") return item
+        if (item && typeof item === "object") {
+          const candidate = item as { type?: unknown; text?: unknown }
+          if (candidate.type === "text" && typeof candidate.text === "string") {
+            return candidate.text
           }
-          if (item?.type === 'text' && typeof item.text === 'string') {
-            return { type: 'text', text: item.text }
-          }
-          if (item?.type === 'image_url' && item.image_url) {
-            return { type: 'image_url', image_url: item.image_url }
-          }
-          // Preserve any other structured parts as-is
-          return item
-        })
-      } else {
-        content = msg.content
+        }
+        return ""
+      })
+      .filter(Boolean)
+      .join(" ")
+  }
+
+  private normalizeUserContent(content: unknown): string | ChatCompletionContentPart[] {
+    if (typeof content === "string") {
+      return content
+    }
+    if (!Array.isArray(content)) {
+      return ""
+    }
+    const parts = content
+      .map((item) => this.normalizeContentPart(item))
+      .filter(Boolean) as ChatCompletionContentPart[]
+    if (parts.length === 0) {
+      return ""
+    }
+    const hasImage = parts.some((part) => part.type === "image_url")
+    if (!hasImage) {
+      return this.coerceTextContent(content)
+    }
+    return parts
+  }
+
+  private convertToTldwMessages(messages: BaseMessage[]): ChatMessage[] {
+    return messages.map((msg) => {
+      if (msg instanceof SystemMessage) {
+        return {
+          role: "system",
+          content: this.coerceTextContent(msg.content)
+        }
+      }
+      if (msg instanceof ToolMessage) {
+        return {
+          role: "tool",
+          content: this.coerceTextContent(msg.content),
+          tool_call_id: msg.tool_call_id
+        }
+      }
+      if (msg instanceof AIMessage) {
+        return {
+          role: "assistant",
+          content: this.coerceTextContent(msg.content)
+        }
+      }
+      if (msg instanceof HumanMessage) {
+        return {
+          role: "user",
+          content: this.supportsMultimodal
+            ? this.normalizeUserContent(msg.content)
+            : this.coerceTextContent(msg.content)
+        }
       }
 
       return {
-        role,
-        content
+        role: "user",
+        content: this.coerceTextContent(msg.content)
       }
     })
   }

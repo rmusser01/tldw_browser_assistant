@@ -2,11 +2,11 @@ import React from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import {
   Alert,
+  Badge,
   Button,
   Checkbox,
   Dropdown,
   Empty,
-  Form,
   Input,
   List,
   Modal,
@@ -15,28 +15,26 @@ import {
   Select,
   Space,
   Spin,
-  Switch,
   Tag,
   Tooltip,
   Typography
 } from "antd"
+import { Filter, ChevronDown } from "lucide-react"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import { useTranslation } from "react-i18next"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { processInChunks } from "@/utils/chunk-processing"
-import { normalizeFlashcardTemplateFields } from "../utils/template-helpers"
 import {
   useDecksQuery,
   useManageQuery,
   useReviewFlashcardMutation,
   useUpdateFlashcardMutation,
   useDeleteFlashcardMutation,
-  useDebouncedFormField,
   type DueStatus
 } from "../hooks"
-import { MarkdownWithBoundary } from "../components"
+import { MarkdownWithBoundary, FlashcardActionsMenu, FlashcardEditDrawer } from "../components"
 import type { Flashcard, FlashcardUpdate } from "@/services/flashcards"
 
 dayjs.extend(relativeTime)
@@ -63,16 +61,6 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   const qc = useQueryClient()
   const message = useAntdMessage()
   const confirmDanger = useConfirmDanger()
-  const previewLabel = t("option:flashcards.preview", { defaultValue: "Preview" })
-  const markdownSupportHint = t("option:flashcards.markdownSupportHint", {
-    defaultValue: "Supports Markdown and LaTeX."
-  })
-  const extraHint = t("option:flashcards.extraHint", {
-    defaultValue: "Optional hints/explanations (Markdown + LaTeX supported)."
-  })
-  const notesHint = t("option:flashcards.notesHint", {
-    defaultValue: "Internal notes (Markdown + LaTeX supported)."
-  })
 
   // Shared: decks
   const decksQuery = useDecksQuery()
@@ -88,6 +76,20 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   const [mDue, setMDue] = React.useState<DueStatus>("all")
   const [page, setPage] = React.useState(1)
   const [pageSize, setPageSize] = React.useState(20)
+  const [filtersExpanded, setFiltersExpanded] = React.useState(false)
+
+  // Check if any filters are active
+  const hasActiveFilters = !!(mQuery || mTag || mDeckId != null || mDue !== "all")
+
+  // Clear all filters
+  const clearAllFilters = () => {
+    setMQuery("")
+    setMQueryInput("")
+    setMTag(undefined)
+    setMDeckId(undefined)
+    setMDue("all")
+    setPage(1)
+  }
 
   // Selection state
   const [selectedIds, setSelectedIds] = React.useState<Set<string>>(new Set())
@@ -379,30 +381,9 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     }
   }
 
-  // Edit modal
+  // Edit drawer
   const [editOpen, setEditOpen] = React.useState(false)
   const [editing, setEditing] = React.useState<Flashcard | null>(null)
-  const [editForm] = Form.useForm<FlashcardUpdate & { tags_text?: string[] }>()
-  const editFrontPreview = useDebouncedFormField(editForm, "front")
-  const editBackPreview = useDebouncedFormField(editForm, "back")
-  const editExtraPreview = useDebouncedFormField(editForm, "extra")
-  const editNotesPreview = useDebouncedFormField(editForm, "notes")
-
-  const syncEditTemplateFields = React.useCallback(
-    (
-      partial: Partial<
-        Pick<FlashcardUpdate, "model_type" | "reverse" | "is_cloze">
-      >
-    ) => {
-      const normalized = normalizeFlashcardTemplateFields(partial)
-      editForm.setFieldsValue({
-        model_type: normalized.model_type,
-        reverse: normalized.reverse,
-        is_cloze: normalized.is_cloze
-      })
-    },
-    [editForm]
-  )
 
   // Quick actions: review
   const [quickReviewOpen, setQuickReviewOpen] = React.useState(false)
@@ -515,34 +496,15 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     }
   }
 
-  const openEdit = async (card: Flashcard) => {
-    try {
-      setEditing(card)
-      editForm.setFieldsValue({
-        deck_id: card.deck_id ?? undefined,
-        front: card.front,
-        back: card.back,
-        notes: card.notes || undefined,
-        extra: card.extra || undefined,
-        is_cloze: card.is_cloze,
-        tags: card.tags || undefined,
-        model_type: card.model_type,
-        reverse: card.reverse,
-        expected_version: card.version
-      })
-      setEditOpen(true)
-    } catch (e: any) {
-      message.error(e?.message || "Failed to load card")
-    }
+  const openEdit = (card: Flashcard) => {
+    setEditing(card)
+    setEditOpen(true)
   }
 
-  const doUpdate = async () => {
+  const doUpdate = async (values: FlashcardUpdate) => {
     const { updateFlashcard } = await import("@/services/flashcards")
     try {
       if (!editing) return
-      const values = normalizeFlashcardTemplateFields(
-        (await editForm.validateFields()) as FlashcardUpdate
-      )
       await updateFlashcard(editing.uuid, values)
       message.success(t("common:updated", { defaultValue: "Updated" }))
       setEditOpen(false)
@@ -558,14 +520,11 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     const { deleteFlashcard } = await import("@/services/flashcards")
     try {
       if (!editing) return
-      const expected = editForm.getFieldValue("expected_version") as
-        | number
-        | undefined
-      if (typeof expected !== "number") {
+      if (typeof editing.version !== "number") {
         message.error("Missing version; reload and try again")
         return
       }
-      await deleteFlashcard(editing.uuid, expected)
+      await deleteFlashcard(editing.uuid, editing.version)
       message.success(t("common:deleted", { defaultValue: "Deleted" }))
       setEditOpen(false)
       setEditing(null)
@@ -612,154 +571,171 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   return (
     <>
       <div>
-        <Space wrap className="mb-3">
-          <Input.Search
-            placeholder={t("common:search", { defaultValue: "Search" })}
-            allowClear
-            onSearch={() => {
-              setMQuery(mQueryInput)
-              setPage(1)
-            }}
-            value={mQueryInput}
-            onChange={(e) => setMQueryInput(e.target.value)}
-            className="min-w-64"
-            data-testid="flashcards-manage-search"
-          />
-          <Select
-            placeholder={t("option:flashcards.deck", { defaultValue: "Deck" })}
-            allowClear
-            loading={decksQuery.isLoading}
-            value={mDeckId as any}
-            onChange={(v) => setMDeckId(v)}
-            className="min-w-56"
-            data-testid="flashcards-manage-deck-select"
-            options={(decksQuery.data || []).map((d) => ({
-              label: d.name,
-              value: d.id
-            }))}
-          />
-          <Select
-            placeholder={t("option:flashcards.dueStatus", {
-              defaultValue: "Due status"
-            })}
-            value={mDue}
-            onChange={(v: DueStatus) => setMDue(v)}
-            data-testid="flashcards-manage-due-status"
-            options={[
-              {
-                label: t("option:flashcards.dueAll", { defaultValue: "All" }),
-                value: "all"
-              },
-              {
-                label: t("option:flashcards.dueNew", { defaultValue: "New" }),
-                value: "new"
-              },
-              {
-                label: t("option:flashcards.dueLearning", {
-                  defaultValue: "Learning"
-                }),
-                value: "learning"
-              },
-              {
-                label: t("option:flashcards.dueDue", { defaultValue: "Due" }),
-                value: "due"
-              }
-            ]}
-          />
-          <Input
-            placeholder={t("option:flashcards.tag", { defaultValue: "Tag" })}
-            value={mTag}
-            onChange={(e) => setMTag(e.target.value || undefined)}
-            className="min-w-44"
-            data-testid="flashcards-manage-tag"
-          />
-        </Space>
+        {/* Search and Filters */}
+        <div className="mb-3">
+          <div className="flex items-center gap-2 mb-2">
+            <Input.Search
+              placeholder={t("common:search", { defaultValue: "Search" })}
+              allowClear
+              onSearch={() => {
+                setMQuery(mQueryInput)
+                setPage(1)
+              }}
+              value={mQueryInput}
+              onChange={(e) => setMQueryInput(e.target.value)}
+              className="max-w-64"
+              data-testid="flashcards-manage-search"
+            />
+            <Badge dot={hasActiveFilters} offset={[-4, 4]}>
+              <Button
+                icon={<Filter className="size-4" />}
+                onClick={() => setFiltersExpanded(!filtersExpanded)}
+              >
+                {t("option:flashcards.filters", { defaultValue: "Filters" })}
+              </Button>
+            </Badge>
+            {hasActiveFilters && (
+              <Button size="small" type="link" onClick={clearAllFilters}>
+                {t("option:flashcards.clearFilters", {
+                  defaultValue: "Clear filters"
+                })}
+              </Button>
+            )}
+          </div>
 
-        <div className="mb-2 flex flex-wrap items-center gap-2">
-          <Text type="secondary">
-            {t("option:flashcards.selectedCount", { defaultValue: "Selected" })}
-            : {selectedCount}
-            {selectAllAcross ? ` / ${totalCount}` : ""}
-          </Text>
-          <Tooltip
-            title={t("option:flashcards.selectAllOnPageTooltip", {
-              defaultValue: "Select only the cards visible on this page"
-            })}
-          >
-            <Button size="small" onClick={selectAllOnPage}>
-              {t("option:flashcards.selectAllOnPage", {
-                defaultValue: "Select all on page"
-              })}
-            </Button>
-          </Tooltip>
-          <Tooltip
-            title={t("option:flashcards.selectAllAcrossTooltip", {
-              defaultValue:
-                "Select all cards matching current filters (across all pages)"
-            })}
-          >
-            <Button size="small" onClick={selectAllAcrossResults}>
-              {t("option:flashcards.selectAllAcross", {
-                defaultValue: "Select all across results"
-              })}
-            </Button>
-          </Tooltip>
-          <Tooltip
-            title={t("option:flashcards.clearSelectionTooltip", {
-              defaultValue: "Deselect all cards"
-            })}
-          >
-            <Button size="small" onClick={clearSelection}>
-              {t("option:flashcards.clearSelection", {
-                defaultValue: "Clear selection"
-              })}
-            </Button>
-          </Tooltip>
-          <Dropdown
-            disabled={!anySelection}
-            menu={{
-              onClick: (info) => {
-                if (info.key === "bulk-move") openBulkMove()
-                if (info.key === "bulk-delete") handleBulkDelete()
-                if (info.key === "bulk-export") handleExportSelected()
-              },
-              items: [
-                {
-                  key: "bulk-move",
-                  label: t("option:flashcards.bulkMove", {
-                    defaultValue: "Bulk Move"
-                  })
-                },
-                {
-                  key: "bulk-delete",
-                  label: t("option:flashcards.bulkDelete", {
-                    defaultValue: "Bulk Delete"
-                  })
-                },
-                { type: "divider" },
-                {
-                  key: "bulk-export",
-                  label: t("option:flashcards.exportSelectedCsv", {
-                    defaultValue: "Export selected (CSV/TSV)"
-                  })
-                }
-              ]
-            }}
-          >
-            <Button size="small">
-              {t("option:flashcards.bulkActions", {
-                defaultValue: "Bulk actions"
-              })}
-            </Button>
-          </Dropdown>
+          {filtersExpanded && (
+            <div className="flex flex-wrap gap-2 p-3 rounded-lg bg-surface2 border border-border">
+              <Select
+                placeholder={t("option:flashcards.deck", { defaultValue: "Deck" })}
+                allowClear
+                loading={decksQuery.isLoading}
+                value={mDeckId as any}
+                onChange={(v) => setMDeckId(v)}
+                className="min-w-56"
+                data-testid="flashcards-manage-deck-select"
+                options={(decksQuery.data || []).map((d) => ({
+                  label: d.name,
+                  value: d.id
+                }))}
+              />
+              <Select
+                placeholder={t("option:flashcards.dueStatus", {
+                  defaultValue: "Due status"
+                })}
+                value={mDue}
+                onChange={(v: DueStatus) => setMDue(v)}
+                data-testid="flashcards-manage-due-status"
+                options={[
+                  {
+                    label: t("option:flashcards.dueAll", { defaultValue: "All" }),
+                    value: "all"
+                  },
+                  {
+                    label: t("option:flashcards.dueNew", { defaultValue: "New" }),
+                    value: "new"
+                  },
+                  {
+                    label: t("option:flashcards.dueLearning", {
+                      defaultValue: "Learning"
+                    }),
+                    value: "learning"
+                  },
+                  {
+                    label: t("option:flashcards.dueDue", { defaultValue: "Due" }),
+                    value: "due"
+                  }
+                ]}
+              />
+              <Input
+                placeholder={t("option:flashcards.tag", { defaultValue: "Tag" })}
+                value={mTag}
+                onChange={(e) => setMTag(e.target.value || undefined)}
+                className="min-w-44"
+                data-testid="flashcards-manage-tag"
+              />
+            </div>
+          )}
         </div>
 
-        <Text type="secondary" className="mb-2 block text-xs">
-          {t("option:flashcards.selectionHelp", {
-            defaultValue:
-              '"Select all across results" applies actions to every card that matches your filters, not just this page.'
-          })}
-        </Text>
+        {/* Smart Selection Bar */}
+        <div className="mb-2 flex items-center gap-3">
+          <Checkbox
+            indeterminate={selectedCount > 0 && selectedCount < totalCount}
+            checked={selectedCount === totalCount && totalCount > 0}
+            onChange={(e) => {
+              if (e.target.checked) selectAllAcrossResults()
+              else clearSelection()
+            }}
+          />
+          <Text>
+            {selectedCount === 0 ? (
+              <span className="text-text-muted">
+                {totalCount} {t("option:flashcards.cards", { defaultValue: "cards" })}
+              </span>
+            ) : (
+              <>
+                <span className="font-medium">{selectedCount}</span>
+                <span className="text-text-muted"> {t("option:flashcards.selected", { defaultValue: "selected" })}</span>
+                {!selectAllAcross && selectedCount < totalCount && (
+                  <button
+                    className="ml-2 text-primary hover:underline text-sm"
+                    onClick={selectAllAcrossResults}
+                  >
+                    {t("option:flashcards.selectAllCount", {
+                      defaultValue: "Select all {{count}}",
+                      count: totalCount
+                    })}
+                  </button>
+                )}
+                <button
+                  className="ml-2 text-text-muted hover:text-text text-sm"
+                  onClick={clearSelection}
+                >
+                  {t("option:flashcards.clear", { defaultValue: "Clear" })}
+                </button>
+              </>
+            )}
+          </Text>
+          {selectedCount > 0 && (
+            <Dropdown
+              menu={{
+                onClick: (info) => {
+                  if (info.key === "bulk-move") openBulkMove()
+                  if (info.key === "bulk-delete") handleBulkDelete()
+                  if (info.key === "bulk-export") handleExportSelected()
+                },
+                items: [
+                  {
+                    key: "bulk-move",
+                    label: t("option:flashcards.bulkMove", {
+                      defaultValue: "Move"
+                    })
+                  },
+                  {
+                    key: "bulk-delete",
+                    label: t("option:flashcards.bulkDelete", {
+                      defaultValue: "Delete"
+                    })
+                  },
+                  { type: "divider" },
+                  {
+                    key: "bulk-export",
+                    label: t("option:flashcards.exportSelectedCsv", {
+                      defaultValue: "Export (CSV/TSV)"
+                    })
+                  }
+                ]
+              }}
+            >
+              <Button size="small">
+                {t("option:flashcards.bulkActions", {
+                  defaultValue: "Bulk actions"
+                })}
+                <ChevronDown className="size-3 ml-1" />
+              </Button>
+            </Dropdown>
+          )}
+        </div>
 
         <List
           loading={manageQuery.isFetching}
@@ -820,6 +796,8 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           renderItem={(item) => (
             <List.Item
               data-testid={`flashcard-item-${item.uuid}`}
+              className="cursor-pointer hover:bg-surface2/50"
+              onClick={() => togglePreview(item.uuid)}
               actions={[
                 <Checkbox
                   key="sel"
@@ -828,65 +806,29 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                       ? !deselectedIds.has(item.uuid)
                       : selectedIds.has(item.uuid)
                   }
-                  onChange={(e) => toggleSelect(item.uuid, e.target.checked)}
+                  onChange={(e) => {
+                    e.stopPropagation()
+                    toggleSelect(item.uuid, e.target.checked)
+                  }}
+                  onClick={(e) => e.stopPropagation()}
                   aria-label={`Select card: ${item.front.slice(0, 80)}`}
                   data-testid={`flashcard-item-${item.uuid}-select`}
                 />,
-                <Button
-                  key="preview"
-                  size="small"
-                  onClick={() => togglePreview(item.uuid)}
-                  data-testid={`flashcard-item-${item.uuid}-toggle-answer`}
-                >
-                  {previewOpen.has(item.uuid)
-                    ? t("option:flashcards.hideAnswer", {
-                        defaultValue: "Hide Answer"
-                      })
-                    : t("option:flashcards.showAnswer", {
-                        defaultValue: "Show Answer"
-                      })}
-                </Button>,
-                <Button
-                  key="review"
-                  size="small"
-                  onClick={() => openQuickReview(item)}
-                  data-testid={`flashcard-item-${item.uuid}-review`}
-                >
-                  {t("option:flashcards.review", { defaultValue: "Review" })}
-                </Button>,
-                <Button
-                  key="duplicate"
-                  size="small"
-                  onClick={() => duplicateCard(item)}
-                  data-testid={`flashcard-item-${item.uuid}-duplicate`}
-                >
-                  {t("option:flashcards.duplicate", {
-                    defaultValue: "Duplicate"
-                  })}
-                </Button>,
-                <Button
-                  key="move"
-                  size="small"
-                  onClick={() => openMove(item)}
-                  data-testid={`flashcard-item-${item.uuid}-move`}
-                >
-                  {t("option:flashcards.move", { defaultValue: "Move" })}
-                </Button>,
-                <Button
-                  key="edit"
-                  size="small"
-                  onClick={() => openEdit(item)}
-                  data-testid={`flashcard-item-${item.uuid}-edit`}
-                >
-                  {t("common:edit", { defaultValue: "Edit" })}
-                </Button>
+                <FlashcardActionsMenu
+                  key="actions"
+                  card={item}
+                  onEdit={() => openEdit(item)}
+                  onReview={() => openQuickReview(item)}
+                  onDuplicate={() => duplicateCard(item)}
+                  onMove={() => openMove(item)}
+                />
               ]}
             >
               <List.Item.Meta
                 title={
                   <div className="flex items-center gap-2">
                     <Text strong>{item.front.slice(0, 80)}</Text>
-                    <span className="text-gray-400">-</span>
+                    <span className="text-text-subtle">-</span>
                     <Text type="secondary">{item.back.slice(0, 80)}</Text>
                   </div>
                 }
@@ -918,7 +860,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               />
               {previewOpen.has(item.uuid) && (
                 <div className="mt-2">
-                  <div className="border rounded p-2 bg-white dark:bg-[#111] text-xs sm:text-sm">
+                  <div className="border rounded p-2 bg-surface text-xs sm:text-sm">
                     <MarkdownWithBoundary
                       content={item.back}
                       size="xs"
@@ -1017,178 +959,20 @@ export const ManageTab: React.FC<ManageTabProps> = ({
         />
       </Modal>
 
-      {/* Edit Modal */}
-      <Modal
-        title={t("option:flashcards.editCard", { defaultValue: "Edit Card" })}
+      {/* Edit Drawer */}
+      <FlashcardEditDrawer
         open={editOpen}
-        onCancel={() => {
+        onClose={() => {
           setEditOpen(false)
           setEditing(null)
         }}
-        onOk={doUpdate}
-        okText={t("common:save", { defaultValue: "Save" })}
-        okButtonProps={{ loading: false }}
-        footer={(_, { OkBtn, CancelBtn }) => (
-          <div className="flex w-full justify-between">
-            <Button danger onClick={doDelete}>
-              {t("common:delete", { defaultValue: "Delete" })}
-            </Button>
-            <Space>
-              <CancelBtn />
-              <OkBtn />
-            </Space>
-          </div>
-        )}
-      >
-        <Form form={editForm} layout="vertical">
-          <Form.Item
-            name="deck_id"
-            label={t("option:flashcards.deck", { defaultValue: "Deck" })}
-          >
-            <Select
-              allowClear
-              loading={decksQuery.isLoading}
-              options={(decksQuery.data || []).map((d) => ({
-                label: d.name,
-                value: d.id
-              }))}
-            />
-          </Form.Item>
-          <Form.Item
-            name="model_type"
-            label={t("option:flashcards.modelType", {
-              defaultValue: "Card template"
-            })}
-          >
-            <Select
-              options={[
-                {
-                  label: t("option:flashcards.templateBasic", {
-                    defaultValue: "Basic (Question - Answer)"
-                  }),
-                  value: "basic"
-                },
-                {
-                  label: t("option:flashcards.templateReverse", {
-                    defaultValue: "Basic + Reverse (Both directions)"
-                  }),
-                  value: "basic_reverse"
-                },
-                {
-                  label: t("option:flashcards.templateCloze", {
-                    defaultValue: "Cloze (Fill in the blank)"
-                  }),
-                  value: "cloze"
-                }
-              ]}
-              onChange={(value: FlashcardModelType) => {
-                syncEditTemplateFields({ model_type: value })
-              }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="reverse"
-            label={t("option:flashcards.reverse", { defaultValue: "Reverse" })}
-            valuePropName="checked"
-          >
-            <Switch
-              onChange={(checked) => {
-                syncEditTemplateFields({ reverse: checked })
-              }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="is_cloze"
-            label={t("option:flashcards.isCloze", { defaultValue: "Is Cloze" })}
-            valuePropName="checked"
-          >
-            <Switch
-              onChange={(checked) => {
-                syncEditTemplateFields({ is_cloze: checked })
-              }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="tags"
-            label={t("option:flashcards.tags", { defaultValue: "Tags" })}
-          >
-            <Select mode="tags" open={false} allowClear />
-          </Form.Item>
-          <Form.Item
-            name="front"
-            label={t("option:flashcards.front", { defaultValue: "Front" })}
-            rules={[{ required: true }]}
-          >
-            <Input.TextArea rows={3} />
-            <Text type="secondary" className="block text-[11px] mt-1">
-              {markdownSupportHint}
-            </Text>
-            {editFrontPreview && (
-              <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
-                <Text type="secondary" className="block text-[11px] mb-1">
-                  {previewLabel}
-                </Text>
-                <MarkdownWithBoundary content={editFrontPreview || ""} size="xs" />
-              </div>
-            )}
-          </Form.Item>
-          <Form.Item
-            name="back"
-            label={t("option:flashcards.back", { defaultValue: "Back" })}
-            rules={[{ required: true }]}
-          >
-            <Input.TextArea rows={6} />
-            <Text type="secondary" className="block text-[11px] mt-1">
-              {markdownSupportHint}
-            </Text>
-            {editBackPreview && (
-              <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
-                <Text type="secondary" className="block text-[11px] mb-1">
-                  {previewLabel}
-                </Text>
-                <MarkdownWithBoundary content={editBackPreview || ""} size="xs" />
-              </div>
-            )}
-          </Form.Item>
-          <Form.Item
-            name="extra"
-            label={t("option:flashcards.extra", { defaultValue: "Extra" })}
-          >
-            <Input.TextArea rows={3} />
-            <Text type="secondary" className="block text-[11px] mt-1">
-              {extraHint}
-            </Text>
-            {editExtraPreview && (
-              <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
-                <Text type="secondary" className="block text-[11px] mb-1">
-                  {previewLabel}
-                </Text>
-                <MarkdownWithBoundary content={editExtraPreview || ""} size="xs" />
-              </div>
-            )}
-          </Form.Item>
-          <Form.Item
-            name="notes"
-            label={t("option:flashcards.notes", { defaultValue: "Notes" })}
-          >
-            <Input.TextArea rows={2} />
-            <Text type="secondary" className="block text-[11px] mt-1">
-              {notesHint}
-            </Text>
-            {editNotesPreview && (
-              <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
-                <Text type="secondary" className="block text-[11px] mb-1">
-                  {previewLabel}
-                </Text>
-                <MarkdownWithBoundary content={editNotesPreview || ""} size="xs" />
-              </div>
-            )}
-          </Form.Item>
-          <Form.Item name="expected_version" hidden>
-            <Input type="number" />
-          </Form.Item>
-        </Form>
-      </Modal>
+        card={editing}
+        onSave={doUpdate}
+        onDelete={doDelete}
+        isLoading={updateMutation.isPending}
+        decks={decksQuery.data || []}
+        decksLoading={decksQuery.isLoading}
+      />
 
       {/* Bulk operation progress modal */}
       <Modal
@@ -1253,7 +1037,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               defaultValue: "You are about to delete a large number of cards."
             })}
           />
-          <p className="text-gray-700 dark:text-gray-300">
+          <p className="text-text-muted">
             {t("option:flashcards.bulkDeleteLargeContent", {
               defaultValue:
                 "This will permanently delete {{count}} cards. This action cannot be undone.",
@@ -1261,7 +1045,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
             })}
           </p>
           <div className="pt-2">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <p className="text-sm font-medium text-text-muted mb-2">
               {t("option:flashcards.typeDeleteToConfirm", {
                 defaultValue: "Type DELETE to confirm:"
               })}

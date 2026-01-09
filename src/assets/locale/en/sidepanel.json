@@ -44,6 +44,15 @@
     "vision": "Vision",
     "visionDisabledKnowledge": "Disable Knowledge Search to use Vision",
     "visionTooltip": "Enable Vision to analyze images",
+    "toolChoiceLabel": "Tool choice",
+    "toolChoiceAuto": "Auto",
+    "toolChoiceRequired": "Required",
+    "toolChoiceNone": "None",
+    "mcpToolsLabel": "MCP tools",
+    "mcpToolsLoading": "Loading tools...",
+    "mcpToolsUnavailable": "MCP tools unavailable",
+    "mcpToolsUnhealthy": "MCP tools are offline",
+    "mcpToolsEmpty": "No MCP tools available",
     "uploadImage": "Upload Image",
     "quickActions": "Quick actions",
     "quickIngest": "Quick ingest",
@@ -147,5 +156,18 @@
     "newChat": "New chat",
     "newTabAria": "New chat tab",
     "closeTabAria": "Close chat tab"
+  },
+  "contextMenu": {
+    "status": "Status"
+  },
+  "characterSelect": {
+    "label": "Character",
+    "tooltip": "Select a character",
+    "search": "Search characters...",
+    "noMatches": "No matching characters",
+    "noCharacters": "No characters available",
+    "none": "No character",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   }
 }

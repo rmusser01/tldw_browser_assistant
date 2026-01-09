@@ -1,4 +1,5 @@
 import i18n from "i18next"
+import { formatErrorMessage } from "@/utils/format-error-message"
 
 export const TLDW_ERROR_BUBBLE_PREFIX = "__tldw_error__:"
 
@@ -33,8 +34,8 @@ export const decodeChatErrorPayload = (
   }
 }
 
-export const buildFriendlyErrorMessage = (rawError: string): string => {
-  const detail = String(rawError || "Request failed")
+export const buildFriendlyErrorMessage = (rawError: unknown): string => {
+  const detail = formatErrorMessage(rawError, "Request failed")
   const lower = detail.toLowerCase()
 
   let summary: string
@@ -74,4 +75,14 @@ export const buildFriendlyErrorMessage = (rawError: string): string => {
     hint,
     detail
   })
+}
+
+export const buildAssistantErrorContent = (
+  botMessage: string | undefined,
+  rawError: unknown
+): string => {
+  if (botMessage && String(botMessage).trim().length > 0) {
+    return String(botMessage)
+  }
+  return buildFriendlyErrorMessage(rawError)
 }

@@ -48,7 +48,7 @@
     "promptLabel": "Invite",
     "review": "Revue",
     "flashcards": "Cartes mémoire",
-    "quiz": "Questionnaire",
+    "quiz": "Questionnaires",
     "media": "Médias",
     "libraryView": "Revue multi‑éléments",
     "notes": "Bloc-notes",
@@ -88,7 +88,8 @@
     "omniSearchStartChat": "Démarrer un nouveau chat « {{query}} »",
     "connectionCard.connectedCaption": "Le chat et les outils sont maintenant disponibles dans les Paramètres et la barre latérale.",
     "quickIngestQueuedAria": "{{label}} — {{count}} éléments en file d’attente — cliquez pour revoir et traiter",
-    "modeSpeech": "Vocal"
+    "modeSpeech": "Vocal",
+    "moreTools": "Plus"
   },
   "sidebarTitle": "Historique de chat",
   "error": "Erreur",
@@ -596,7 +597,9 @@
     "searchPlaceholder": "Rechercher les personnages par nom",
     "noMatches": "Aucun personnage ne correspond à votre recherche pour l'instant.",
     "refresh": "Actualiser les personnages",
-    "refreshing": "Actualisation des personnages…"
+    "refreshing": "Actualisation des personnages…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Utiliser dans le chat",

@@ -21,7 +21,7 @@ export const MessageSourcePopup: React.FC<Props> = ({
       footer={null}
       onOk={() => setOpen(false)}>
       <div className="flex flex-col gap-2 mt-6">
-        <h4 className="bg-gray-100 text-md dark:bg-gray-800 inline-flex gap-2 items-center text-gray-800 dark:text-gray-100 font-semibold p-2">
+        <h4 className="inline-flex items-center gap-2 rounded-md border border-border bg-surface2 px-2 py-1 text-body font-semibold text-text">
           {source?.type && (
             <KnowledgeIcon type={source?.type} className="h-4 w-5" />
           )}
@@ -29,21 +29,21 @@ export const MessageSourcePopup: React.FC<Props> = ({
         </h4>
         {source?.type === "pdf" ? (
           <>
-            <p className="text-gray-500 text-sm">{source?.pageContent}</p>
+            <p className="text-body text-text-muted">{source?.pageContent}</p>
 
             <div className="flex flex-wrap gap-3">
-              <span className="border border-gray-300 dark:border-gray-700 rounded-md p-1 text-gray-500 text-xs">
+              <span className="rounded-md border border-border bg-surface px-2 py-1 text-caption text-text-muted">
                 {`Page ${source?.metadata?.page}`}
               </span>
 
-              <span className="border border-gray-300 dark:border-gray-700 rounded-md p-1 text-xs text-gray-500">
+              <span className="rounded-md border border-border bg-surface px-2 py-1 text-caption text-text-muted">
                 {`Line ${source?.metadata?.loc?.lines?.from} - ${source?.metadata?.loc?.lines?.to}`}
               </span>
             </div>
           </>
         ) : (
           <>
-            <p className="text-gray-500 text-sm">{source?.pageContent}</p>
+            <p className="text-body text-text-muted">{source?.pageContent}</p>
           </>
         )}
       </div>

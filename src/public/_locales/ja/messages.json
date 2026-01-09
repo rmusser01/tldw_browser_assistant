@@ -3265,5 +3265,74 @@
   },
   "flashcards_bulkLimitWarning": {
     "message": "操作は最初の {{limit}} 件に限定されます。"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "比較モードを有効にする"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "実験的な複数モデル比較機能を有効にします。"
+  },
+  "playground_composer_compareDisabled": {
+    "message": "比較モードは設定で無効になっています。"
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "選択した回答で続行するか、再度比較します。"
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "選択済み"
+  },
+  "playground_composer_compareLatency": {
+    "message": "レイテンシ"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "比較: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(比較から)"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "複数モデルの回答"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} モデル"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "選択したモデル: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "選択した回答をそれぞれ独立したチャットで開く"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "モデル別スレッド"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "あなた"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "完全なチャットとして開く"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "分岐チャットを開く"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "カノニカル"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "カノニカルとして固定"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "カノニカル回答"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "モデルを絞り込む"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "すべて表示"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "{{visible}} / {{total}} を表示"
+  },
+  "playground_composer_compareTokens": {
+    "message": "トークン: {{count}}"
   }
 }

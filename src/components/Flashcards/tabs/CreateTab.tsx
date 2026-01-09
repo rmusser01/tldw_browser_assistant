@@ -1,5 +1,6 @@
 import React from "react"
-import { Button, Collapse, Form, Input, Modal, Select, Space, Typography } from "antd"
+import { Button, Collapse, Divider, Form, Input, Modal, Select, Space, Typography } from "antd"
+import { Plus } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import {
@@ -23,7 +24,7 @@ const Preview: React.FC<PreviewProps> = ({ content, showPreview }) => {
   const { t } = useTranslation(["option"])
   if (!showPreview || !content) return null
   return (
-    <div className="mt-2 border rounded p-2 text-xs bg-white dark:bg-[#111]">
+    <div className="mt-2 rounded border border-border bg-surface p-2 text-xs">
       <Text type="secondary" className="block text-[11px] mb-1">
         {t("flashcards.preview", { defaultValue: "Preview" })}
       </Text>
@@ -50,7 +51,11 @@ export const CreateTab: React.FC = () => {
   const createExtraPreview = useDebouncedFormField(createForm, "extra")
   const createNotesPreview = useDebouncedFormField(createForm, "notes")
 
-  // New deck modal state
+  // Inline deck creation state
+  const [showInlineCreate, setShowInlineCreate] = React.useState(false)
+  const [inlineDeckName, setInlineDeckName] = React.useState("")
+
+  // New deck modal state (for adding description)
   const [newDeckModalOpen, setNewDeckModalOpen] = React.useState(false)
   const [newDeckName, setNewDeckName] = React.useState("")
   const [newDeckDesc, setNewDeckDesc] = React.useState("")
@@ -60,7 +65,32 @@ export const CreateTab: React.FC = () => {
   const createMutation = useCreateFlashcardMutation()
   const createDeckMutation = useCreateDeckMutation()
 
-  // Create new deck
+  // Create new deck (inline)
+  const handleInlineCreateDeck = async () => {
+    try {
+      if (!inlineDeckName.trim()) {
+        message.error(
+          t("option:flashcards.newDeckNameRequired", {
+            defaultValue: "Enter a deck name."
+          })
+        )
+        return
+      }
+      const deck = await createDeckMutation.mutateAsync({
+        name: inlineDeckName.trim()
+      })
+      message.success(t("common:created", { defaultValue: "Created" }))
+      setShowInlineCreate(false)
+      setInlineDeckName("")
+      createForm.setFieldsValue({ deck_id: deck.id })
+    } catch (e: unknown) {
+      const errorMessage =
+        e instanceof Error ? e.message : "Failed to create deck"
+      message.error(errorMessage)
+    }
+  }
+
+  // Create new deck (modal with description)
   const handleCreateDeck = async () => {
     try {
       if (!newDeckName.trim()) {
@@ -126,34 +156,93 @@ export const CreateTab: React.FC = () => {
           reverse: false
         }}
       >
-        {/* Deck selector */}
-        <Space align="end" className="mb-2">
-          <Form.Item
-            name="deck_id"
-            label={t("option:flashcards.deck", { defaultValue: "Deck" })}
-            className="!mb-0"
-          >
-            <Select
-              placeholder={t("option:flashcards.selectDeck", {
-                defaultValue: "Select deck"
-              })}
-              allowClear
-              loading={decksQuery.isLoading}
-              className="min-w-64"
-              data-testid="flashcards-create-deck-select"
-              options={(decksQuery.data || []).map((d) => ({
-                label: d.name,
-                value: d.id
-              }))}
-            />
-          </Form.Item>
+        {/* Deck selector with inline creation */}
+        <div className="flex items-end gap-2 mb-2">
+          {!showInlineCreate ? (
+            <Form.Item
+              name="deck_id"
+              label={t("option:flashcards.deck", { defaultValue: "Deck" })}
+              className="!mb-0"
+            >
+              <Select
+                placeholder={t("option:flashcards.selectDeck", {
+                  defaultValue: "Select deck"
+                })}
+                allowClear
+                loading={decksQuery.isLoading}
+                className="min-w-64"
+                data-testid="flashcards-create-deck-select"
+                options={(decksQuery.data || []).map((d) => ({
+                  label: d.name,
+                  value: d.id
+                }))}
+                dropdownRender={(menu) => (
+                  <>
+                    {menu}
+                    <Divider className="!my-2" />
+                    <button
+                      className="w-full text-left px-3 py-2 text-primary hover:bg-primary/5 flex items-center gap-2"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setShowInlineCreate(true)
+                      }}
+                    >
+                      <Plus className="size-4" />
+                      {t("option:flashcards.createNewDeck", {
+                        defaultValue: "Create new deck"
+                      })}
+                    </button>
+                  </>
+                )}
+              />
+            </Form.Item>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Input
+                placeholder={t("option:flashcards.newDeckNamePlaceholder", {
+                  defaultValue: "New deck name"
+                })}
+                value={inlineDeckName}
+                onChange={(e) => setInlineDeckName(e.target.value)}
+                className="w-64"
+                autoFocus
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleInlineCreateDeck()
+                  if (e.key === "Escape") {
+                    setShowInlineCreate(false)
+                    setInlineDeckName("")
+                  }
+                }}
+              />
+              <Button
+                type="primary"
+                size="small"
+                onClick={handleInlineCreateDeck}
+                loading={createDeckMutation.isPending}
+              >
+                {t("common:create", { defaultValue: "Create" })}
+              </Button>
+              <Button
+                size="small"
+                onClick={() => {
+                  setShowInlineCreate(false)
+                  setInlineDeckName("")
+                }}
+              >
+                {t("common:cancel", { defaultValue: "Cancel" })}
+              </Button>
+            </div>
+          )}
           <Button
             onClick={() => setNewDeckModalOpen(true)}
             data-testid="flashcards-create-new-deck"
+            title={t("option:flashcards.newDeckWithDescription", {
+              defaultValue: "Create deck with description"
+            })}
           >
             {t("option:flashcards.newDeck", { defaultValue: "New Deck" })}
           </Button>
-        </Space>
+        </div>
 
         {/* Card template - model_type handles reverse and cloze */}
         <Form.Item
@@ -230,7 +319,7 @@ export const CreateTab: React.FC = () => {
         <div className="flex items-center gap-4 mb-4">
           <button
             type="button"
-            className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            className="text-xs text-primary hover:text-primaryStrong"
             onClick={() => setShowPreview((v) => !v)}
           >
             {showPreview

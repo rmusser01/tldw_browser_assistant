@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "Сховати",
+  "confirmTitle": "Будь ласка, підтвердіть",
   "pdf": {
     "passwordTitle": "Введіть пароль PDF",
     "unlock": "Розблокувати"
@@ -14,10 +16,17 @@
     "content": "Завантаження вмісту…"
   },
   "selectAModel": "Виберіть модель",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "Зберегти",
   "saved": "Збережено",
   "cancel": "Скасувати",
+  "saving": "Збереження...",
   "retry": "Спробувати знову",
+  "close": "Закрити",
+  "loadMore": "Завантажити ще...",
   "share": {
     "tooltip": {
       "share": "Поділитися"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "Копіювати в буфер обміну",
+  "table": {
+    "copyCsv": "Копіювати як CSV",
+    "downloadCsv": "Завантажити CSV"
+  },
   "webSearch": "Пошук у мережі",
   "regenerate": "Перегенерувати",
-  "continue": "Продовжити відповідь",
   "edit": "Редагувати",
+  "generate": "Generate",
+  "view": "View",
   "delete": "Видалити",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "Продовжити відповідь",
   "saveAndSubmit": "Зберегти та надіслати",
   "editMessage": {
     "placeholder": "Введіть повідомлення..."
   },
   "submit": "Надіслати",
   "send": "Надіслати",
+  "startChat": "Почати чат",
   "connectToServer": "Підключитися до сервера",
+  "previous": "Назад",
+  "next": "Далі",
   "noData": "Немає даних",
   "noHistory": "Немає історії чату",
   "chatWithCurrentPage": "Чат з поточної сторінки",
+  "chatWithCharacter": "Чат із персонажем",
   "beta": "Бета-версія",
   "tts": "Читання вголос",
+  "ttsShort": "Голос",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "Копіювати",
+  "branchShort": "Гілка",
+  "infoShort": "Інфо",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "Ще раз",
+  "continueShort": "Ще",
+  "fileChanges": "Зміни файлів",
+  "deletions": "Видалення",
+  "gitOperations": "Операції Git",
+  "commands": "Команди",
+  "otherOperations": "Інші операції",
+  "fileAccess": "Доступ до файлів",
+  "notebookEdits": "Редагування нотатника",
+  "applyPatch": "Застосувати патч",
+  "recursive": "(рекурсивно)",
+  "complexArguments": "[Складні аргументи]",
   "currentChatModelSettings": "Налаштування поточної моделі чату",
   "modelSettings": {
     "label": "Налаштування моделі",
@@ -90,6 +150,9 @@
         "label": "Максимальна кількість токенів",
         "placeholder": "Введіть максимальну кількість токенів (наприклад, 2048, 4096)"
       },
+      "thinking": {
+        "label": "Режим мислення"
+      },
       "seed": {
         "label": "Зерно",
         "placeholder": "Введіть значення зерна (наприклад, 1234)",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Top P (верхнє P)",
         "placeholder": "Введіть значення для Верхнього P (наприклад, 0.9, 0.95)"
-      },
-      "numGpu": {
-        "label": "Кількість GPU",
-        "placeholder": "Введіть кількість шарів для відправки на GPU"
-      },
-      "systemPrompt": {
-        "label": "Тимчасовий системний запит",
-        "placeholder": "Введіть системний запит",
-        "help": "Швидкий спосіб встановити системний запит для поточного чату, який замінить вибраний системний запит, якщо він існує."
-      },
-      "thinking": {
-        "label": "Режим мислення"
       },
       "useMMap": {
         "label": "useMmap (відображення памʼяті)"
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "Повторювати останні N",
         "placeholder": "напр., 64, 128"
+      },
+      "numGpu": {
+        "label": "Кількість GPU",
+        "placeholder": "Введіть кількість шарів для відправки на GPU"
+      },
+      "systemPrompt": {
+        "label": "Тимчасовий системний запит",
+        "placeholder": "Введіть системний запит",
+        "help": "Швидкий спосіб встановити системний запит для поточного чату, який замінить вибраний системний запит, якщо він існує."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "Додаткові налаштування моделі"
+    "advanced": "Додаткові налаштування моделі",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "Підсумувати",
@@ -165,6 +274,20 @@
     "custom": "Власні моделі"
   },
   "downloadCode": "Завантажити код",
+  "success": "Успішно",
+  "created": "Створено",
+  "updated": "Оновлено",
+  "deleted": "Видалено",
+  "create": "Створити",
+  "reset": "Скинути",
+  "serverOffline": "Сервер вимкнений або не налаштований",
+  "serverChats": "Серверні чати",
+  "serverChatLoadError": "Не вдалося завантажити серверний чат. Перевірте підключення та спробуйте ще раз.",
+  "serverChatSourceLabel": "Джерело сервера",
+  "serverChatForkedLabel": "Розгалужений чат",
+  "serverChatForkedTooltip": "Розгалужено від чату {{chatId}}",
+  "serverChatsUnavailableNotConnected": "Серверні чати будуть доступні після підключення до вашого сервера tldw.",
+  "serverChatsUnavailableServerError": "Серверні чати зараз недоступні. Перевірте журнали сервера або спробуйте ще раз.",
   "date": {
     "pinned": "Прикріплено",
     "today": "Сьогодні",
@@ -188,6 +311,8 @@
       "older": "Видалити всі старіші повідомлення"
     }
   },
+  "historiesDeleted": "{{count}} історій чату видалено",
+  "deleteHistoriesError": "Помилка під час видалення історій",
   "pin": "Прикріпити",
   "unpin": "Відкріпити",
   "generationInfo": "Інформація про генерацію",
@@ -197,62 +322,17 @@
     "loading": "Завантажую міркування....",
     "thought": "Думав протягом {{time}}"
   },
+  "mermaid": "Діаграми Mermaid",
+  "search": "Пошук",
+  "searchResults": "Результати пошуку",
   "embeddingGen": "Створюю вставки, це може зайняти деякий час",
   "semanticSearch": "Виконую семантичний пошук",
+  "newBranch": "Нова гілка",
   "downloading": "Завантаження",
   "cancelPullingModel": {
     "confirm": "Ви впевнені, що хочете скасувати завантаження? Це зупинить процес завантаження. Згідно з документацією Ollama, ви можете відновити завантаження з того місця, де зупинилися."
   },
-  "table": {
-    "copyCsv": "Копіювати як CSV",
-    "downloadCsv": "Завантажити CSV"
-  },
-  "dismiss": "Сховати",
   "privateModeSaveErrorTitle": "tldw Assistant не може зберегти дані",
-  "confirmTitle": "Будь ласка, підтвердіть",
-  "saving": "Збереження...",
-  "close": "Закрити",
-  "loadMore": "Завантажити ще...",
-  "startChat": "Почати чат",
-  "previous": "Назад",
-  "next": "Далі",
-  "chatWithCharacter": "Чат із персонажем",
-  "ttsShort": "Голос",
-  "copyShort": "Копіювати",
-  "branchShort": "Гілка",
-  "infoShort": "Інфо",
-  "regenShort": "Ще раз",
-  "continueShort": "Ще",
-  "fileChanges": "Зміни файлів",
-  "deletions": "Видалення",
-  "gitOperations": "Операції Git",
-  "commands": "Команди",
-  "otherOperations": "Інші операції",
-  "fileAccess": "Доступ до файлів",
-  "notebookEdits": "Редагування нотатника",
-  "applyPatch": "Застосувати патч",
-  "recursive": "(рекурсивно)",
-  "complexArguments": "[Складні аргументи]",
-  "success": "Успішно",
-  "created": "Створено",
-  "updated": "Оновлено",
-  "deleted": "Видалено",
-  "create": "Створити",
-  "reset": "Скинути",
-  "serverOffline": "Сервер вимкнений або не налаштований",
-  "serverChats": "Серверні чати",
-  "serverChatLoadError": "Не вдалося завантажити серверний чат. Перевірте підключення та спробуйте ще раз.",
-  "serverChatSourceLabel": "Джерело сервера",
-  "serverChatForkedLabel": "Розгалужений чат",
-  "serverChatForkedTooltip": "Розгалужено від чату {{chatId}}",
-  "serverChatsUnavailableNotConnected": "Серверні чати будуть доступні після підключення до вашого сервера tldw.",
-  "serverChatsUnavailableServerError": "Серверні чати зараз недоступні. Перевірте журнали сервера або спробуйте ще раз.",
-  "historiesDeleted": "{{count}} історій чату видалено",
-  "deleteHistoriesError": "Помилка під час видалення історій",
-  "mermaid": "Діаграми Mermaid",
-  "search": "Пошук",
-  "searchResults": "Результати пошуку",
-  "newBranch": "Нова гілка",
   "error": {
     "label": "Помилка",
     "friendlyApiKeySummary": "Не вдалося підключитися до вашого сервера tldw.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "Під час зв'язку з вашим сервером tldw сталася помилка.",
     "friendlyGenericHint": "Спробуйте ще раз за мить або відкрийте \"Стан і діагностика\", щоб перевірити стан сервера.",
     "showDetails": "Показати технічні деталі",
-    "hideDetails": "Приховати технічні деталі"
+    "hideDetails": "Приховати технічні деталі",
+    "createFolder": "Failed to create folder"
   },
   "folders": "Папки",
   "folderView": "Перегляд папок",
@@ -277,7 +358,32 @@
   "confirm": "Підтвердити",
   "untitled": "Без назви",
   "moveToFolder": "Перемістити в папку",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "Ще немає викликів інструментів",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "Очікування",
     "running": "Обробка",
@@ -361,6 +467,9 @@
     "collapse": "Згорнути бічну панель",
     "expand": "Розгорнути бічну панель",
     "search": "Пошук чатів...",
+    "modeLabel": "Mode",
+    "modeCasual": "Casual",
+    "modePro": "Pro",
     "ingest": "Імпортувати сторінку",
     "media": "Медіа",
     "notes": "Нотатки",

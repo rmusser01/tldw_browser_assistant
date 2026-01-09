@@ -1,0 +1,1805 @@
+{
+  "newChat": {
+    "message": "Neuer Chat"
+  },
+  "selectAPrompt": {
+    "message": "Wähle eine Eingabeaufforderung"
+  },
+  "githubRepository": {
+    "message": "GitHub-Repository"
+  },
+  "settings": {
+    "message": "Einstellungen"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "Verbinde den tldw Assistant mit deinem Server"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "Suche nach deinem tldw-Server…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "Mit deinem tldw-Server verbunden"
+  },
+  "connectionCard_headlineError": {
+    "message": "Dein tldw-Server ist nicht erreichbar"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server is the backend that powers chat, knowledge search, and media processing. Connect your own tldw server URL to start using the assistant."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "We’re checking {{host}} to see if your tldw server is reachable. This may take a moment while we wait for a response."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "Connected to your tldw server at {{host}}. You can start chatting or use Review, Knowledge, and other tools."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "Medien und Transkripte prüfen"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "Wissen und Notizen durchsuchen"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "RAG mit deinen eigenen Dokumenten verwenden"
+  },
+  "connectionCard_descriptionError": {
+    "message": "We couldn’t reach your tldw server at {{host}}. Make sure the server is running, the URL is correct, and your browser can reach it over the network."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "Chat starten"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "Verbindung erneut versuchen"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "Server ändern"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "Diagnose öffnen"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "Diagnose anzeigen"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "Quick Ingest öffnen"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "Demo ausprobieren"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "Offline fortfahren"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "Offline-Modus deaktivieren"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "Offline-Modus — nur Staging"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "Zur Serverkarte"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "Tipp: Brauchen Sie Hilfe beim Ingest, während Sie offline sind?"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "Wenn Ihr Server offline ist, dient Quick Ingest als Staging-Bereich. Sie können jetzt URLs und Dateien anstellen und sie verarbeiten, sobald Sie wieder verbunden sind."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "Zurück zum Arbeitsbereich"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "Einstellungen öffnen sich in einem neuen Browser-Tab, damit Sie Ihren tldw-Server konfigurieren können."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "Quick Ingest kann URLs und Dateien anstellen, während Ihr Server offline ist, damit Sie sie verarbeiten können, sobald Sie wieder verbunden sind."
+  },
+  "header_showShortcuts": {
+    "message": "Kurzbefehle anzeigen"
+  },
+  "header_hideShortcuts": {
+    "message": "Kurzbefehle ausblenden"
+  },
+  "header_groupWorkspace": {
+    "message": "Arbeitsbereich"
+  },
+  "header_groupKnowledge": {
+    "message": "Wissen"
+  },
+  "header_groupSettings": {
+    "message": "Einstellungen‑Shortcuts"
+  },
+  "header_backToHome": {
+    "message": "Zurück zur Startseite"
+  },
+  "header_openSidebar": {
+    "message": "Seitenleiste öffnen"
+  },
+  "header_untitledChat": {
+    "message": "Ohne Titel"
+  },
+  "header_modelLabel": {
+    "message": "Modell"
+  },
+  "header_contentReview": {
+    "message": "Inhaltsprüfung"
+  },
+  "header_promptLabel": {
+    "message": "Eingabeaufforderung"
+  },
+  "header_review": {
+    "message": "Überprüfung"
+  },
+  "header_flashcards": {
+    "message": "Karteikarten"
+  },
+  "header_quiz": {
+    "message": "Wissensquizze"
+  },
+  "header_media": {
+    "message": "Medien"
+  },
+  "header_libraryView": {
+    "message": "Review mehrerer Elemente"
+  },
+  "header_notes": {
+    "message": "Notizen"
+  },
+  "header_modesLabel": {
+    "message": "Modi"
+  },
+  "header_modePlayground": {
+    "message": "Chatten"
+  },
+  "header_modeReview": {
+    "message": "Überprüfung"
+  },
+  "header_modeMedia": {
+    "message": "Medien"
+  },
+  "header_modeKnowledge": {
+    "message": "Wissens-QA"
+  },
+  "header_modeNotes": {
+    "message": "Notizen"
+  },
+  "header_modePrompts": {
+    "message": "Eingabeaufforderungen"
+  },
+  "header_modePromptsPlayground": {
+    "message": "Eingabeaufforderungen"
+  },
+  "header_modeStt": {
+    "message": "STT-Spielwiese"
+  },
+  "header_modePromptStudio": {
+    "message": "Prompt-Studio"
+  },
+  "header_modeFlashcards": {
+    "message": "Karteikarten"
+  },
+  "header_modeWorldBooks": {
+    "message": "Weltbücher"
+  },
+  "header_modeDictionaries": {
+    "message": "Chat-Wörterbücher"
+  },
+  "header_modeCharacters": {
+    "message": "Charaktere"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} zum Wechseln"
+  },
+  "header_quickIngest": {
+    "message": "Quick-Ingest"
+  },
+  "header_modelSettings": {
+    "message": "Modelleinstellungen"
+  },
+  "header_serverSettings": {
+    "message": "Server settings"
+  },
+  "header_more": {
+    "message": "KI-Tools"
+  },
+  "header_moreMenu_title": {
+    "message": "Erweiterte Tools"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "Erweiterte Tools wie Seitenleiste, Repository und Debug-Optionen"
+  },
+  "header_moreActions": {
+    "message": "Weitere Aktionen"
+  },
+  "header_toolsMenu": {
+    "message": "Chat-Tools"
+  },
+  "header_serverBackedLabel": {
+    "message": "Servergestützter Chat"
+  },
+  "header_serverBackedTooltip": {
+    "message": "Nachrichten in diesem Chat werden auch auf deinem tldw-Server gespeichert."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "Suche in Bildschirmen, Chats, Medien und Notizen…"
+  },
+  "header_omniSearchNoResults": {
+    "message": "Keine Treffer für \"{{query}}\"."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "Notiz \"{{query}}\" erstellen"
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "Notiz \"{{query}}\" erstellt"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "Karteikartensammlung \"{{query}}\" erstellen"
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "Karteikartensammlung \"{{query}}\" erstellt"
+  },
+  "header_omniSearchStartChat": {
+    "message": "Neuen Chat \"{{query}}\" starten"
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "Chat und Tools sind jetzt in den Einstellungen und in der Seitenleiste verfügbar."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} Elemente in der Warteschlange — klicken, um zu prüfen und zu verarbeiten"
+  },
+  "header_modeSpeech": {
+    "message": "Sprache"
+  },
+  "sidebarTitle": {
+    "message": "Chat-Verlauf"
+  },
+  "error": {
+    "message": "Fehler"
+  },
+  "somethingWentWrong": {
+    "message": "Etwas ist schiefgelaufen"
+  },
+  "validationSelectModel": {
+    "message": "Bitte wähle ein Modell aus, um fortzufahren"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "Bist du sicher, dass du diesen Verlauf löschen möchtest?"
+  },
+  "editHistoryTitle": {
+    "message": "Gib einen neuen Titel ein"
+  },
+  "temporaryChat": {
+    "message": "Temporärer Chat (nicht gespeichert)"
+  },
+  "more_copy_group": {
+    "message": "Kopieren"
+  },
+  "more_copy_asText": {
+    "message": "Als Text kopieren"
+  },
+  "more_copy_asMarkdown": {
+    "message": "Als Markdown kopieren"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "Kanonische Mitschrift kopieren"
+  },
+  "more_copy_success": {
+    "message": "In die Zwischenablage kopiert!"
+  },
+  "more_download_group": {
+    "message": "Herunterladen"
+  },
+  "more_download_text": {
+    "message": "Textdatei (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "Markdown-Datei (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "Kanonische Mitschrift (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON-Datei (.json)"
+  },
+  "more_download_image": {
+    "message": "Bild (.png)"
+  },
+  "more_share": {
+    "message": "Teilen"
+  },
+  "libraryView": {
+    "message": "Bibliotheksansicht"
+  },
+  "notes": {
+    "message": "Notizen"
+  },
+  "flashcards_review": {
+    "message": "Wiederholen"
+  },
+  "flashcards_create": {
+    "message": "Erstellen"
+  },
+  "flashcards_manage": {
+    "message": "Verwalten"
+  },
+  "flashcards_importExport": {
+    "message": "Import/Export"
+  },
+  "flashcards_selectDeck": {
+    "message": "Kartenstapel auswählen"
+  },
+  "flashcards_nextDue": {
+    "message": "Als Nächstes fällig"
+  },
+  "flashcards_front": {
+    "message": "Vorderseite"
+  },
+  "flashcards_back": {
+    "message": "Rückseite"
+  },
+  "flashcards_extra": {
+    "message": "Zusatz"
+  },
+  "flashcards_showAnswer": {
+    "message": "Antwort anzeigen"
+  },
+  "flashcards_rate": {
+    "message": "Bewerten"
+  },
+  "flashcards_answerMs": {
+    "message": "Antwort ms (optional)"
+  },
+  "flashcards_noDue": {
+    "message": "Keine fälligen Karten"
+  },
+  "flashcards_deck": {
+    "message": "Kartenstapel"
+  },
+  "flashcards_newDeck": {
+    "message": "Neuer Kartenstapel"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "Gib einen Stapelnamen ein."
+  },
+  "flashcards_modelType": {
+    "message": "Modelltyp"
+  },
+  "flashcards_reverse": {
+    "message": "Umkehren"
+  },
+  "flashcards_isCloze": {
+    "message": "Ist Cloze"
+  },
+  "flashcards_tags": {
+    "message": "Schlagwörter"
+  },
+  "flashcards_dueStatus": {
+    "message": "Fälligkeitsstatus"
+  },
+  "flashcards_dueAll": {
+    "message": "Alle"
+  },
+  "flashcards_dueNew": {
+    "message": "Neu"
+  },
+  "flashcards_dueLearning": {
+    "message": "Lernen"
+  },
+  "flashcards_dueDue": {
+    "message": "Fällig"
+  },
+  "flashcards_tag": {
+    "message": "Schlagwort"
+  },
+  "flashcards_noCards": {
+    "message": "Keine Karten"
+  },
+  "flashcards_due": {
+    "message": "Fällig"
+  },
+  "flashcards_editCard": {
+    "message": "Karte bearbeiten"
+  },
+  "flashcards_importTitle": {
+    "message": "Karteikarten importieren"
+  },
+  "flashcards_exportTitle": {
+    "message": "Karteikarten exportieren"
+  },
+  "flashcards_importHelp": {
+    "message": "TSV/CSV-Zeilen einfügen: Kartenstapel, Vorderseite, Rückseite, Schlagwörter, Notizen"
+  },
+  "flashcards_pasteContent": {
+    "message": "Inhalt hier einfügen..."
+  },
+  "flashcards_tab": {
+    "message": "Tabulator"
+  },
+  "flashcards_comma": {
+    "message": ", (Komma)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (Semikolon)"
+  },
+  "flashcards_pipe": {
+    "message": "| (Pipe-Zeichen)"
+  },
+  "flashcards_hasHeader": {
+    "message": "Hat Kopfzeile"
+  },
+  "flashcards_import": {
+    "message": "Importieren"
+  },
+  "flashcards_imported": {
+    "message": "Importiert"
+  },
+  "flashcards_importLimits": {
+    "message": "Import-Limits"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV-Datei"
+  },
+  "flashcards_apkg": {
+    "message": "Anki-Datei (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "Reverse einschließen"
+  },
+  "flashcards_includeHeader": {
+    "message": "Kopfzeile einbeziehen"
+  },
+  "flashcards_extendedHeader": {
+    "message": "Erweiterte Kopfzeile"
+  },
+  "flashcards_download": {
+    "message": "Herunterladen"
+  },
+  "flashcards_duplicate": {
+    "message": "Duplizieren"
+  },
+  "flashcards_move": {
+    "message": "Verschieben"
+  },
+  "flashcards_reviewFailed": {
+    "message": "Überprüfung fehlgeschlagen"
+  },
+  "flashcards_updateFailed": {
+    "message": "Aktualisierung fehlgeschlagen"
+  },
+  "flashcards_deleteFailed": {
+    "message": "Löschen fehlgeschlagen"
+  },
+  "flashcards_missingVersion": {
+    "message": "Version fehlt; bitte neu laden und erneut versuchen"
+  },
+  "flashcards_bulkMove": {
+    "message": "Massenverschiebung"
+  },
+  "flashcards_bulkDelete": {
+    "message": "Massenlöschung"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} gelöscht · {{failed}} fehlgeschlagen"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "Operation begrenzt auf die ersten {{limit}} Elemente."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "Auswahl exportieren (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "Ausgewählt"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "Alle auf der Seite auswählen"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "Alle über Ergebnisse auswählen"
+  },
+  "flashcards_clearSelection": {
+    "message": "Auswahl aufheben"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "Verbinde dich, um Karteikarten zu verwenden"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "Um Karteikarten zu wiederholen oder zu erstellen, verbinde dich zuerst mit deinem tldw-Server."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "Gehe zu Einstellungen → tldw-Server, um deine Server-URL hinzuzufügen."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "Nach dem Verbinden kannst du fällige Karten wiederholen oder neue Kartenstapel aus deinen Notizen und Medien erstellen."
+  },
+  "flashcards_demoTitle": {
+    "message": "Karteikarten im Demo-Modus erkunden"
+  },
+  "flashcards_demoDescription": {
+    "message": "Diese Demo zeigt, wie Flashcards deine Inhalte in Karten für verteiltes Wiederholen verwandeln können. Verbinde später deinen eigenen Server, um Karten aus deinen eigenen Notizen und Medien zu erstellen und zu wiederholen."
+  },
+  "flashcards_demoExample1": {
+    "message": "Sieh dir an, wie Kartenstapel, Karten und Schlagwörter in den Tabs „Wiederholen“ und „Verwalten“ organisiert sind."
+  },
+  "flashcards_demoExample2": {
+    "message": "Nach dem Verbinden kannst du Karten aus Vorlesungen, Meetings oder Notizen erstellen und sie nach einem Zeitplan wiederholen."
+  },
+  "flashcards_demoExample3": {
+    "message": "Nutze Flashcards zusammen mit Notizen und Medien, um wichtige Ideen frisch zu halten."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "Beispiel-Kartenstapel (nur Vorschau)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "Demo-Stapel: Kernkonzepte"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 Karten · Ideal zum Testen von Abständen und Bewertungen."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "Demo-Stapel: Produktbegriffe"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 Karten · Namen, Akronyme und wichtige Definitionen."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "Demo-Stapel: Meeting-Follow-ups"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 Karten · Beispiel-Aktionselemente zum Durchsehen."
+  },
+  "flashcards_hideAnswer": {
+    "message": "Antwort ausblenden"
+  },
+  "flashcards_preview": {
+    "message": "Vorschau"
+  },
+  "flashcards_ratingAgain": {
+    "message": "Nochmal"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "Ich habe mich an diese Karte nicht erinnert."
+  },
+  "flashcards_ratingHard": {
+    "message": "Schwer"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "Ich habe mich kaum erinnert; es war schwierig."
+  },
+  "flashcards_ratingGood": {
+    "message": "Gut"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "Ich habe mich mit etwas Mühe erinnert."
+  },
+  "flashcards_ratingEasy": {
+    "message": "Einfach"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "Ich habe sie schnell und sicher erinnert."
+  },
+  "flashcards_showTiming": {
+    "message": "Antwortzeit verfolgen"
+  },
+  "flashcards_hideTiming": {
+    "message": "Zeitmessung ausblenden"
+  },
+  "flashcards_noDueTitle": {
+    "message": "Keine Karten fällig"
+  },
+  "flashcards_noDueDescription": {
+    "message": "Du bist auf dem neuesten Stand. Erstelle neue Karten oder importiere einen vorhandenen Stapel, um mit dem Wiederholen zu starten."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "Neue Karte erstellen"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "Stapel importieren"
+  },
+  "flashcards_createTitle": {
+    "message": "Karteikarten aus deinen Notizen erstellen"
+  },
+  "flashcards_createDescription": {
+    "message": "Nutze die Vorderseite für die Frage und die Rückseite für die Antwort. Du kannst Karten in Stapeln gruppieren und Schlagwörter für schnelleres Finden hinzufügen."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "Basic zeigt eine Frage vorn und die Antwort hinten. Reverse erstellt auch die umgekehrte Karte. Cloze blendet Teile des Textes mit {{...}} aus."
+  },
+  "flashcards_reverseHelp": {
+    "message": "Erstellt zusätzlich eine Karte, bei der die Rückseite zur Frage wird."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "Für Lückentext-Karten. Versteckten Text vorn mit {{...}} markieren."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Unterstützt Markdown und LaTeX."
+  },
+  "flashcards_extraHint": {
+    "message": "Optionale Hinweise/Erklärungen (Markdown + LaTeX unterstützt)."
+  },
+  "flashcards_notesHint": {
+    "message": "Interne Notizen (Markdown + LaTeX unterstützt)."
+  },
+  "flashcards_bulkActions": {
+    "message": "Massenaktionen"
+  },
+  "flashcards_selectionHelp": {
+    "message": "„Alle über Ergebnisse auswählen“ wendet Aktionen auf jede Karte an, die deinen Filtern entspricht, nicht nur auf diese Seite."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "Noch keine Karteikarten"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "Erstelle Karten aus deinen Notizen und Medien oder importiere einen vorhandenen Stapel."
+  },
+  "flashcards_clearFilters": {
+    "message": "Filter zurücksetzen"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "Erste Karte erstellen"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "Karteikarten importieren"
+  },
+  "flashcards_mapping": {
+    "message": "Spaltenzuordnung"
+  },
+  "flashcards_mappingPreview": {
+    "message": "Vorschau der ersten zugeordneten Zeilen:"
+  },
+  "flashcards_exportHelp": {
+    "message": "Nach Stapel, Schlagwort oder Suche filtern und dann als CSV/TSV für Tabellen oder Anki (.apkg) für Anki-Clients exportieren."
+  },
+  "contentReview_title": {
+    "message": "Inhaltsprüfung"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} bereit"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} übernommen"
+  },
+  "contentReview_totalCount": {
+    "message": "{{count}} gesamt"
+  },
+  "contentReview_commitAll": {
+    "message": "Alle übernehmen"
+  },
+  "contentReview_clearDrafts": {
+    "message": "Entwürfe löschen"
+  },
+  "contentReview_emptyDescription": {
+    "message": "Noch keine Entwürfe. Verwende Quick Ingest mit Review vor dem Speichern, um Entwürfe zu erstellen."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest öffnen"
+  },
+  "contentReview_storeAfterReview": {
+    "message": "Nach Überprüfung speichern"
+  },
+  "contentReview_reviewBeforeStorage": {
+    "message": "Vor dem Speichern überprüfen"
+  },
+  "contentReview_reviewBeforeStorageHint": {
+    "message": "Jetzt verarbeiten und Entwürfe lokal bearbeiten, bevor du sie auf deinen Server überträgst."
+  },
+  "contentReview_reviewEnabled": {
+    "message": "Überprüfungsmodus"
+  },
+  "contentReview_reviewStorageCap": {
+    "message": "Lokale Entwürfe sind auf {{cap}} begrenzt."
+  },
+  "contentReview_reviewWarningTitle": {
+    "message": "Entwürfe lokal speichern?"
+  },
+  "contentReview_reviewWarningBody": {
+    "message": "Entwürfe werden in diesem Browser gespeichert und können sensible Daten enthalten. Du kannst Entwürfe jederzeit auf der Seite „Inhaltsprüfung“ löschen."
+  },
+  "contentReview_reviewWarningBodySecondary": {
+    "message": "Der Überprüfungsmodus hält Inhalte clientseitig, bis du sie auf deinen Server überträgst."
+  },
+  "contentReview_reviewWarningConfirm": {
+    "message": "Überprüfung aktivieren"
+  },
+  "contentReview_reviewWarningCancel": {
+    "message": "Abbrechen"
+  },
+  "contentReview_reviewRunLabel": {
+    "message": "Überprüfen"
+  },
+  "contentReview_reviewDraftsCreated": {
+    "message": "Entwürfe bereit zur Überprüfung."
+  },
+  "contentReview_reviewStorageCapWarning_one": {
+    "message": "{{count}} Datei überschreitet das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
+  },
+  "contentReview_reviewStorageCapWarning_other": {
+    "message": "{{count}} Dateien überschreiten das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
+  },
+  "contentReview_openContentReview": {
+    "message": "Inhaltsprüfung öffnen"
+  },
+  "contentReview_batchLabel": {
+    "message": "Stapel"
+  },
+  "contentReview_batchName": {
+    "message": "Stapel {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "Entwürfe"
+  },
+  "contentReview_selectDraft": {
+    "message": "Wähle einen Entwurf aus, um mit der Prüfung zu beginnen."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "Entwurfstitel"
+  },
+  "contentReview_lastSaved": {
+    "message": "Gespeichert {{time}}"
+  },
+  "contentReview_resetTitle": {
+    "message": "Entwurf zurücksetzen?"
+  },
+  "contentReview_resetBody": {
+    "message": "Dadurch wird der ursprüngliche Inhalt für diesen Entwurf wiederhergestellt."
+  },
+  "contentReview_resetConfirm": {
+    "message": "Zurücksetzen"
+  },
+  "contentReview_resetCancel": {
+    "message": "Abbrechen"
+  },
+  "contentReview_resetContent": {
+    "message": "Zurücksetzen"
+  },
+  "contentReview_diffView": {
+    "message": "Diff-Ansicht"
+  },
+  "contentReview_saveDraft": {
+    "message": "Entwurf speichern"
+  },
+  "contentReview_editorLabel": {
+    "message": "Inhalt"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} Wörter"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} Zeichen"
+  },
+  "contentReview_aiFix": {
+    "message": "KI-Korrektur"
+  },
+  "contentReview_aiHint": {
+    "message": "Sendet den Entwurfsinhalt an deinen Server zur KI-Verarbeitung."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "Serverstandard"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "Entwurf an Server senden?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "Dadurch wird der Entwurfsinhalt an deinen tldw-Server zur KI-Verarbeitung gesendet. Entwürfe bleiben lokal, bis du sie übernimmst."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "Weiter"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "Abbrechen"
+  },
+  "contentReview_aiApplied": {
+    "message": "KI-Korrekturen übernommen."
+  },
+  "contentReview_aiNoChange": {
+    "message": "Keine Änderungen zurückgegeben."
+  },
+  "contentReview_aiEmpty": {
+    "message": "KI hat keinen Inhalt zurückgegeben."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "Chat-Vervollständigungen nicht verfügbar."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "Vorlage auswählen"
+  },
+  "contentReview_applyTemplate": {
+    "message": "Vorlage anwenden"
+  },
+  "contentReview_templateApplied": {
+    "message": "Vorlage angewendet."
+  },
+  "contentReview_templateMissing": {
+    "message": "Wähle zuerst eine Vorlage aus."
+  },
+  "contentReview_detectSections": {
+    "message": "Abschnitte erkennen"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "Abschnitte erneut erkennen?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "Dies ersetzt vorhandene Abschnitte und setzt deine Auswahl zurück."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "Erneut erkennen"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "Abbrechen"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "Keine Abschnitte erkannt."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "Abschnittsfilter"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "Transkript bereinigen"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "Normalisiert Zeichensetzung und Groß-/Kleinschreibung bei Beibehaltung der Zeilenstruktur."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "Sprecherwechsel"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "Stellt sicher, dass jede Sprecherrolle in einer eigenen Zeile mit klaren Bezeichnungen steht."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "Kapitelüberschriften"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "Fügt Markdown-Überschriften ein, um Themen zu gruppieren, ohne Inhalt zu entfernen."
+  },
+  "contentReview_metadataLabel": {
+    "message": "Metadaten"
+  },
+  "contentReview_mediaType": {
+    "message": "Medientyp"
+  },
+  "contentReview_keywords": {
+    "message": "Schlagwörter"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "Schlagwörter hinzufügen"
+  },
+  "contentReview_reviewNotes": {
+    "message": "Review-Notizen"
+  },
+  "contentReview_missingSource": {
+    "message": "Quelldatei fehlt"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "Hänge die Originaldatei an, um diesen Entwurf zu übernehmen."
+  },
+  "contentReview_attachSource": {
+    "message": "Datei anhängen"
+  },
+  "contentReview_actionsLabel": {
+    "message": "Aktionen"
+  },
+  "contentReview_commit": {
+    "message": "Übernehmen"
+  },
+  "contentReview_commitDisabled": {
+    "message": "Hänge die ursprüngliche Audio-/Videodatei an, bevor du übernimmst."
+  },
+  "contentReview_markReviewed": {
+    "message": "Als geprüft markieren"
+  },
+  "contentReview_skipNext": {
+    "message": "Überspringen"
+  },
+  "contentReview_discard": {
+    "message": "Verwerfen"
+  },
+  "contentReview_discardTitle": {
+    "message": "Entwurf verwerfen?"
+  },
+  "contentReview_discardBody": {
+    "message": "Dieser Entwurf wird als verworfen gekennzeichnet und aus der Prüfung entfernt."
+  },
+  "contentReview_discardConfirm": {
+    "message": "Verwerfen"
+  },
+  "contentReview_discardCancel": {
+    "message": "Abbrechen"
+  },
+  "contentReview_commitSuccess": {
+    "message": "Entwurf übernommen."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "Geprüfte Entwürfe übernehmen?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "Nur als geprüft markierte Entwürfe werden übernommen."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "Alle übernehmen"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "Abbrechen"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} übernommen · {{failed}} fehlgeschlagen"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "Diese Datei überschreitet das lokale Entwurfs-Limit ({{cap}})."
+  },
+  "contentReview_clearTitle": {
+    "message": "Alle Entwürfe löschen?"
+  },
+  "contentReview_clearBody": {
+    "message": "Dadurch werden alle lokalen Entwürfe und Dateien für die Inhaltsprüfung entfernt."
+  },
+  "contentReview_clearConfirm": {
+    "message": "Entwürfe löschen"
+  },
+  "contentReview_clearCancel": {
+    "message": "Abbrechen"
+  },
+  "contentReview_clearSuccess": {
+    "message": "Entwürfe gelöscht."
+  },
+  "contentReview_originalLabel": {
+    "message": "Originaltext"
+  },
+  "contentReview_editedLabel": {
+    "message": "Bearbeitet"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "Datei ist zu groß"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "Die Datei muss kleiner als 10 MB sein"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "Upload fehlgeschlagen"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "Datei konnte nicht hochgeladen werden. Bitte erneut versuchen."
+  },
+  "promptStudio_title": {
+    "message": "Prompt-Studio-Spielwiese"
+  },
+  "promptStudio_subtitle": {
+    "message": "Verwalte Prompt-Studio-Projekte, Prompts, Ausführungen, Testfälle und Bewertungen."
+  },
+  "promptStudio_capabilityError": {
+    "message": "Prompt Studio nicht erreichbar"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "Prüfe die Serververbindung oder deaktiviere diesen Bereich, bis die Prompt-Studio-APIs verfügbar sind."
+  },
+  "promptStudio_offline": {
+    "message": "Verbinde dich mit deinem Server, um Prompt Studio zu verwenden"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "Projekte & Prompts"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "Erstelle oder öffne ein Projekt, um Prompts zu bearbeiten."
+  },
+  "promptStudio_projectsError": {
+    "message": "Projekte konnten nicht geladen werden"
+  },
+  "promptStudio_promptVersion": {
+    "message": "Prompt-Version"
+  },
+  "promptStudio_changeDescription": {
+    "message": "Beschreibung ändern"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "System-Prompt"
+  },
+  "promptStudio_userPrompt": {
+    "message": "Benutzer-Prompt"
+  },
+  "promptStudio_fewShot": {
+    "message": "Few-shot-Beispiele (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "Modulkonfiguration (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "Verlauf"
+  },
+  "promptStudio_executeCard": {
+    "message": "Ad-hoc-Ausführung"
+  },
+  "promptStudio_executeHint": {
+    "message": "Provider, Modell, Temperatur, Eingaben."
+  },
+  "promptStudio_provider": {
+    "message": "Anbieter"
+  },
+  "promptStudio_model": {
+    "message": "Modell"
+  },
+  "promptStudio_runPrompt": {
+    "message": "Prompt ausführen"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "Ausführungsformular folgt. Verwende dieses Feld, um einzelne Eingaben über /prompt-studio/prompts/execute gegen einen Prompt auszuführen."
+  },
+  "promptStudio_testsCard": {
+    "message": "Testfälle & Bewertungen"
+  },
+  "promptStudio_testsHint": {
+    "message": "Testfälle auflisten/erstellen, Bewertungen ausführen, Status abfragen."
+  },
+  "promptStudio_testCases": {
+    "message": "Testfälle"
+  },
+  "promptStudio_evaluations": {
+    "message": "Bewertungen"
+  },
+  "promptStudio_inputsJson": {
+    "message": "Eingaben (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "Erwartete Ausgaben (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "Goldstandard?"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "Bulk hinzufügen"
+  },
+  "promptStudio_bulkJson": {
+    "message": "JSON-Array von Testfällen"
+  },
+  "promptStudio_runAsync": {
+    "message": "Asynchron ausführen"
+  },
+  "promptStudio_temperature": {
+    "message": "Temperatur"
+  },
+  "promptStudio_maxTokens": {
+    "message": "Max. Tokens"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "Bewertung ausführen"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "Platzhalter: Testfall-CRUD, Bewertung erstellen/auflisten/details und asynchrones Polling in diesem Bereich anbinden."
+  },
+  "promptStudio_unavailable": {
+    "message": "Prompt Studio ist auf diesem Server nicht aktiviert."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "Sobald verfügbar, siehst du hier Projekte, Prompt-Verlauf, Ausführungsabläufe und Bewertungen."
+  },
+  "promptSearch_title": {
+    "message": "Titel"
+  },
+  "promptSearch_content": {
+    "message": "Inhalt"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "System-Prompt"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "Auch auf dem Server speichern"
+  },
+  "promptSearch_cancel": {
+    "message": "Abbrechen"
+  },
+  "promptSearch_insert": {
+    "message": "Einfügen"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "Als neu speichern"
+  },
+  "promptSearch_saveLocal": {
+    "message": "Änderungen speichern (lokal)"
+  },
+  "promptSearch_saveServer": {
+    "message": "Änderungen speichern (Server)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "Lokale Kopie speichern"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "Als neu speichern (nur Server)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "Prompt lokal aktualisiert"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "Prompt auf dem Server aktualisiert"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "Lokales Prompt konnte nicht aktualisiert werden"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "Prompt auf dem Server konnte nicht aktualisiert werden"
+  },
+  "promptSearch_manageLink": {
+    "message": "Prompts ansehen / verwalten"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "Lokales Prompt überschreiben (optional)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "Wähle ein lokales Prompt zum Überschreiben"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "Prompt gespeichert"
+  },
+  "promptSearch_saveFailed": {
+    "message": "Prompt konnte nicht gespeichert werden"
+  },
+  "quickIngest_title": {
+    "message": "Quick Ingest Medien"
+  },
+  "quickIngest_subtitle": {
+    "message": "Gib eine oder mehrere URLs ein. Erzwinge bei Bedarf den Typ pro Zeile."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "Server offline – nur Staging"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "Sie können hier URLs und Dateien in die Warteschlange stellen und Felder prüfen, aber die Ingestion startet erst, wenn Ihr tldw-Server online ist. Stellen Sie die Verbindung wieder her, um ausstehende Elemente zu verarbeiten."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "Quell-URLs oder Dateien"
+  },
+  "quickIngest_storeRemote": {
+    "message": "In der entfernten DB speichern"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "Ingestion-Ergebnisse auf Ihrem tldw-Server speichern"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "Ingestion-Ergebnisse nur lokal verarbeiten"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "Lädt zur Indizierung auf Ihren tldw-Server hoch."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "Nur verarbeiten und Ergebnisse lokal behalten (JSON herunterladen)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "Wo Ingestion-Ergebnisse gespeichert werden"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "Auf Ihrem tldw-Server gespeichert (empfohlen für RAG und gemeinsame Arbeitsbereiche)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "Nur in diesem Browser gespeichert; keine Daten werden auf Ihren Server geschrieben."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "Nach Überprüfung speichern"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "Vor dem Speichern überprüfen"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "Jetzt verarbeiten und Entwürfe lokal bearbeiten, bevor du sie auf deinen Server überträgst."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "Überprüfungsmodus"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "Lokale Entwürfe sind auf {{cap}} begrenzt."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "Entwürfe lokal speichern?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "Entwürfe werden in diesem Browser gespeichert und können sensible Daten enthalten. Du kannst Entwürfe jederzeit auf der Seite „Inhaltsprüfung“ löschen."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "Der Überprüfungsmodus hält Inhalte clientseitig, bis du sie auf deinen Server überträgst."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "Überprüfung aktivieren"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "Abbrechen"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "Überprüfen"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "Entwürfe bereit zur Überprüfung."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "Review-Entwürfe konnten nicht erstellt werden."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "Erstellung der Review-Entwürfe fehlgeschlagen."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "Entwurfserstellung erneut versuchen"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "Ohne Review speichern"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "Content Review konnte nicht geöffnet werden. Bitte versuche es erneut."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "Content Review erneut öffnen"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} Datei überschreitet das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} Dateien überschreiten das lokale Entwurfslimit ({{cap}}). Bitte Quellen vor dem Speichern von Audio/Video anhängen."
+  },
+  "quickIngest_openContentReview": {
+    "message": "Inhaltsprüfung öffnen"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "Erfahren Sie mehr über Ingestion und Speicherung"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "URLs einfügen (eine pro Zeile)"
+  },
+  "quickIngest_or": {
+    "message": "oder"
+  },
+  "quickIngest_remove": {
+    "message": "Entfernen"
+  },
+  "quickIngest_add": {
+    "message": "URL hinzufügen"
+  },
+  "quickIngest_commonOptions": {
+    "message": "Ingestion-Optionen"
+  },
+  "quickIngest_audioOptions": {
+    "message": "Audio-Optionen"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "Sprache (z. B. en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "Aktivieren, um Sprecher in Transkripten zu trennen."
+  },
+  "quickIngest_documentOptions": {
+    "message": "Dokument-Optionen"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR hilft beim Extrahieren von Text aus gescannten PDFs oder Bildern."
+  },
+  "quickIngest_videoOptions": {
+    "message": "Video-Optionen"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "Zeitstempel/Untertitel einbeziehen, wenn verfügbar."
+  },
+  "quickIngest_cancel": {
+    "message": "Abbrechen"
+  },
+  "quickIngest_ingest": {
+    "message": "Einspeisen"
+  },
+  "quickIngest_process": {
+    "message": "Verarbeiten"
+  },
+  "quickIngest_queueOnlyOffline": {
+    "message": "Nur Warteschlange — Server offline"
+  },
+  "quickIngest_queueOnlyOfflineAria": {
+    "message": "Offline — Elemente zur späteren Verarbeitung in die Warteschlange"
+  },
+  "quickIngest_offlineQueueToast": {
+    "message": "Offline-Modus: Elemente werden hier zwischengespeichert, bis Ihr Server wieder online ist."
+  },
+  "quickIngest_offlineFooter": {
+    "message": "Offline-Modus: Elemente sind hier abgelegt und werden verarbeitet, sobald Ihr Server die Verbindung wiederherstellt."
+  },
+  "quickIngest_processQueuedItems": {
+    "message": "Warteschlangen-Elemente verarbeiten"
+  },
+  "quickIngest_processQueuedItemsAria": {
+    "message": "Verarbeite zwischengespeicherte Quick‑Ingest‑Elemente"
+  },
+  "quickIngest_runAria": {
+    "message": "Quick Ingest ausführen"
+  },
+  "quickIngest_runLabel": {
+    "message": "Quick Ingest ausführen"
+  },
+  "quickIngest_results": {
+    "message": "Ergebnisse"
+  },
+  "quickIngest_downloadJson": {
+    "message": "JSON herunterladen"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} erweiterte Felder geladen"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "Keine erweiterten Optionen erkannt — versuche, die Spezifikation neu zu laden."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} geändert"
+  },
+  "quickIngest_progress": {
+    "message": "Verarbeite {{done}} von {{total}} Elementen…"
+  },
+  "quickIngest_pendingLabel": {
+    "message": "Ausstehend"
+  },
+  "quickIngest_readyToast": {
+    "message": "Bereit zur Verarbeitung"
+  },
+  "quickIngest_processQueuedItemsShort": {
+    "message": "Warteschlange verarbeiten"
+  },
+  "quickIngest_errorSummary": {
+    "message": "Verarbeitungsfehler"
+  },
+  "quickIngest_errorHint": {
+    "message": "Überprüfen Sie die Details oder versuchen Sie es später erneut."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Systemstatus prüfen"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "Öffnet die Systemstatusseite"
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "Erweiterte Spezifikation vom Server neu geladen"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "Erweiterte Spezifikation vom Server neu geladen (Felder hinzugefügt: {{added}}, entfernt: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "Verwende gebündelte media.add Schema-Fallback (v{{version}}); bitte überprüfe die /openapi.json deines tldw_server, falls Felder veraltet erscheinen."
+  },
+  "notesSearch_placeholder": {
+    "message": "Titel und Inhalte durchsuchen"
+  },
+  "notesSearch_clear": {
+    "message": "Suche & Filter zurücksetzen"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "Nach Stichwort filtern"
+  },
+  "notesSearch_new": {
+    "message": "Neue Notiz"
+  },
+  "notesSearch_newTooltip": {
+    "message": "Neue Notiz erstellen"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} Notizen"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "Passende Notizen als Markdown (.md) exportieren"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "Passende Notizen als CSV exportieren"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "Passende Notizen als JSON exportieren"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "Exportiert ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "Exportiert {{count}} Notizen ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "Exportiert {{count}} Notizen als CSV ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "Exportiert {{count}} Notizen als JSON ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "Notiz als Markdown (.md) exportieren"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "Notiz speichern"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "Notizinhalt kopieren"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "Notiz löschen"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "Exportieren"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "Ergebnisse"
+  },
+  "notesSearch_showingRange": {
+    "message": "{{start}}–{{end}} von {{total}} angezeigt"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "Seitenleiste ausklappen"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "Seitenleiste einklappen"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "Titel"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "Stichwörter (Tags)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "Stichwörter helfen dir, diese Notiz mit dem Stichwortfilter links zu finden."
+  },
+  "tts_playground": {
+    "message": "TTS-Spielwiese"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "Verbinde dich, um Notizen zu verwenden"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "Um Notizen zu verwenden, verbinde dich zuerst mit deinem tldw server."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "Nutze Notizen zusammen mit Media und Review, um deine Erkenntnisse im Blick zu behalten."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "Beispielnotizen (nur Vorschau)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "Demo-Notiz: Wöchentliche Meeting-Zusammenfassung"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "Entscheidungen, Blocker und Follow-ups aus einem aktuellen Teammeeting."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "Heute · 9:32 AM"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "Demo-Notiz: Forschungshighlights"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "Wichtige Erkenntnisse aus einem langen Artikel oder Paper."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "Gestern · 4:10 PM"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "Demo-Notiz: Anrufzusammenfassung"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "Zusammenfassung eines Kundengesprächs mit nächsten Schritten und Verantwortlichen."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "Diese Woche"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "Öffne Settings → tldw server, um deine Server-URL hinzuzufügen."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "Verwende Diagnostics, wenn dein Server läuft, aber nicht erreichbar ist."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "Erkunde Notizen im Demo-Modus"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "Diese Demo zeigt, wie Notizen deine Erkenntnisse organisieren können. Du kannst später deinen eigenen Server verbinden, um echte Notizen zu erstellen und zu speichern."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "Sieh dir an, wie Notentitel, Vorschaun und Zeitstempel in der Liste erscheinen."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "Wenn du verbunden bist, kannst du Notizen aus Meetings, Reviews und mehr erstellen."
+  },
+  "notesEmpty_title": {
+    "message": "Noch keine Notizen"
+  },
+  "notesEmpty_description": {
+    "message": "Erfasse und organisiere Freitextnotizen, die mit deinen tldw-Insights verknüpft sind."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "Erstelle eine neue Notiz zu einem kürzlichen Meeting oder Transkript."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "Speichere Review-Ergebnisse in Notizen, damit du später darauf zurückkommen kannst."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "Notiz erstellen"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "World Books im Demo-Modus erkunden"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "Diese Demo zeigt, wie World Books strukturiertes Wissen über deine Welten, Settings oder Produkte organisieren."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "Sieh dir Beispielbücher an, z. B. ein Fantasy-Setting, ein Produktglossar oder Kampagnennotizen."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "Nach dem Verbinden kannst du World Books erstellen, die tldw beim Chatten verwenden kann."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "Verbinde dich, um World Books zu verwenden"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "Um World Books zu verwenden, verbinde dich zuerst mit deinem tldw-Server, damit Weltwissen gespeichert und abgerufen werden kann."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "Öffne Einstellungen → tldw-Server, um deine Server-URL hinzuzufügen."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "Nutze Diagnose, wenn dein Server läuft, aber nicht erreichbar ist."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "Erstelle und verwalte strukturierte Wissensbasen, auf die Charaktere und Chats zugreifen können."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "World Books sind offline"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "Verbinde dich auf der Haupteinstellungsseite mit deinem tldw-Server, um World Books anzusehen und zu bearbeiten."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "Chat-Wörterbücher im Demo-Modus erkunden"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "Diese Demo zeigt, wie Chat-Wörterbücher Namen, Akronyme und Begriffe normalisieren, bevor sie das Modell erreichen."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "Sieh dir Beispielwörterbücher für Produktnamen, Projekt-Codenamen oder Firmenjargon an."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "Nach dem Verbinden kannst du Wörterbücher in allen Chats aktivieren."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "Verbinde dich, um Chat-Wörterbücher zu verwenden"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "Um Chat-Wörterbücher zu verwenden, verbinde dich zuerst mit deinem tldw-Server, damit Ersetzungen gespeichert werden können."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "Öffne Einstellungen → tldw-Server, um deine Server-URL hinzuzufügen."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "Nutze Diagnose, wenn dein Server läuft, aber nicht erreichbar ist."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "Definiere wiederverwendbare Ersetzungen, damit tldw die Namen, Akronyme und Terminologie deiner Organisation versteht."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "Chat-Wörterbücher sind offline"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "Verbinde dich auf der Haupteinstellungsseite mit deinem tldw-Server, um Chat-Wörterbücher anzusehen und zu bearbeiten."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "Charaktere im Demo-Modus erkunden"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "Diese Demo zeigt, wie Charaktere eine Persona und einen System-Prompt kapseln, mit dem du chatten kannst."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "Sieh dir Beispielcharaktere an, z. B. Schreibcoach, Lore-Experte oder Coding-Assistent."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "Nach dem Verbinden kannst du Charaktere erstellen, die im Chat-Header und in der Auswahl erscheinen."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "Verbinde dich, um Charaktere zu verwenden"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "Um Charaktere zu verwenden, verbinde dich zuerst mit deinem tldw-Server, damit Charakterdefinitionen gespeichert werden können."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "Öffne Einstellungen → tldw-Server, um deine Server-URL hinzuzufügen."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "Nutze Diagnose, wenn dein Server läuft, aber nicht erreichbar ist."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "Erstelle wiederverwendbare Charaktere, die du im Chat-Header auswählen und in Unterhaltungen wiederverwenden kannst."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "Erstellen Sie eine Figur, um ihre Persona in mehreren Chats wiederzuverwenden. Nutzen Sie „Neuer Charakter“, um zu starten."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "Characters-API auf diesem Server nicht verfügbar"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "Dieser Server stellt /api/v1/characters nicht bereit."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "Öffne Diagnose, um deine Serverversion und die verfügbaren APIs für Charaktere zu prüfen."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "Wenn du deinen Server aktualisierst, lade die Erweiterung neu und kehre zu den Charakteren zurück."
+  },
+  "characters_selectCharacter": {
+    "message": "Charakter auswählen"
+  },
+  "characters_chattingAs": {
+    "message": "Du chattest jetzt als {{name}}."
+  },
+  "characters_clearCharacter": {
+    "message": "Charakter löschen"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "Charaktere können nicht geladen werden"
+  },
+  "characters_fetchErrorBody": {
+    "message": "Überprüfe deine Verbindung oder den Serverstatus und versuche es erneut."
+  },
+  "characters_none": {
+    "message": "Keiner (kein Charakter)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "Charaktere nach Namen durchsuchen"
+  },
+  "characters_noMatches": {
+    "message": "Noch keine Charaktere passen zu deiner Suche."
+  },
+  "characters_refresh": {
+    "message": "Charaktere aktualisieren"
+  },
+  "characters_refreshing": {
+    "message": "Charaktere werden aktualisiert…"
+  },
+  "promptInsert_useInChat": {
+    "message": "Im Chat verwenden"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "Chat öffnen und diesen Prompt in den Composer einfügen."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "Prompt im Chat verwenden?"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "Deine Nachricht enthält bereits Text. Möchtest du ihn mit diesem Prompt überschreiben oder den Prompt darunter anhängen?"
+  },
+  "promptInsert_overwrite": {
+    "message": "Nachricht überschreiben"
+  },
+  "promptInsert_append": {
+    "message": "Anhängen"
+  },
+  "omniSearch_filterScreen": {
+    "message": "Bildschirme"
+  },
+  "omniSearch_filterChat": {
+    "message": "Unterhaltungen"
+  },
+  "omniSearch_filterMedia": {
+    "message": "Medien"
+  },
+  "omniSearch_filterNote": {
+    "message": "Notizen"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "Karteikartensammlungen"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "Eingabeaufforderungen"
+  },
+  "omniSearch_filteringBy": {
+    "message": "Gefiltert nach:"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "Schnellchat-Hilfe"
+  },
+  "quickChatHelper_title": {
+    "message": "Schnellchat-Hilfe"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "Stell eine schnelle Frage..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "Senden"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "Starte einen schnellen Nebenchat, um deinen Hauptverlauf übersichtlich zu halten."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "In separatem Fenster öffnen"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "Bitte wähle zuerst ein Modell im Hauptchat aus."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "Deine Nachricht"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "Nachricht des Assistenten"
+  },
+  "quiz_itemsPerPage": {
+    "message": "Elemente/Seite"
+  },
+  "quiz_editQuizTitle": {
+    "message": "Quiz bearbeiten"
+  },
+  "quiz_updateSuccess": {
+    "message": "Quiz erfolgreich aktualisiert."
+  },
+  "quiz_updateError": {
+    "message": "Quiz konnte nicht aktualisiert werden."
+  },
+  "quiz_questionTextRequired": {
+    "message": "Der Fragetext ist erforderlich."
+  },
+  "quiz_optionsRequired": {
+    "message": "Bitte gib mindestens zwei Optionen an."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "Frage erfolgreich erstellt."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "Frage erfolgreich aktualisiert."
+  },
+  "quiz_questionSaveError": {
+    "message": "Frage konnte nicht gespeichert werden."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "Frage erfolgreich gelöscht."
+  },
+  "quiz_questionDeleteError": {
+    "message": "Frage konnte nicht gelöscht werden."
+  },
+  "quiz_editQuestion": {
+    "message": "Frage bearbeiten"
+  },
+  "quiz_points": {
+    "message": "Punkte"
+  },
+  "quiz_orderIndex": {
+    "message": "Reihenfolge"
+  },
+  "quiz_startError": {
+    "message": "Quiz konnte nicht gestartet werden."
+  },
+  "quiz_answerAll": {
+    "message": "Bitte beantworte alle Fragen, bevor du sendest."
+  },
+  "quiz_submitError": {
+    "message": "Quiz konnte nicht gesendet werden."
+  },
+  "quiz_scoreSummary": {
+    "message": "Punktzahl: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "Richtig"
+  },
+  "quiz_incorrect": {
+    "message": "Falsch"
+  },
+  "quiz_yourAnswer": {
+    "message": "Deine Antwort"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "Richtige Antwort"
+  },
+  "quiz_backToList": {
+    "message": "Zurück zur Liste"
+  },
+  "quiz_retake": {
+    "message": "Quiz erneut starten"
+  },
+  "searchPrompts": {
+    "message": "Prompts durchsuchen..."
+  },
+  "noMatchingPrompts": {
+    "message": "Keine passenden Prompts"
+  },
+  "promptSelect_favorites": {
+    "message": "Favoriten"
+  },
+  "promptSelect_system": {
+    "message": "System-Prompts"
+  },
+  "promptSelect_quick": {
+    "message": "Schnell-Prompts"
+  },
+  "header_moreTools": {
+    "message": "Mehr"
+  },
+  "characters_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characters_importCharacter": {
+    "message": "Import Character"
+  }
+}

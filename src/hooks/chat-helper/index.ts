@@ -11,7 +11,7 @@ import { ChatDocuments } from "@/models/ChatTypes"
 import { generateTitle } from "@/services/title"
 import { ChatHistory } from "@/store/option"
 import { updatePageTitle } from "@/utils/update-page-title"
-import { buildFriendlyErrorMessage } from "@/utils/chat-error-message"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 
 export const saveMessageOnError = async ({
   e,
@@ -48,9 +48,12 @@ export const saveMessageOnError = async ({
   botMessage: string
   historyId: string | null
   selectedModel: string
-  setHistoryId: (historyId: string) => void
+  setHistoryId: (
+    historyId: string,
+    options?: { preserveServerChatId?: boolean }
+  ) => void
   isRegenerating: boolean
-  message_source?: "copilot" | "web-ui"
+  message_source?: "copilot" | "web-ui" | "server" | "branch"
   message_type?: string
   userMessageType?: string
   assistantMessageType?: string
@@ -73,12 +76,7 @@ export const saveMessageOnError = async ({
     e?.message?.includes?.("AbortError")
   )
 
-  // Compose assistant message content: prefer partial botMessage, else show error detail
-  const errText = String(e?.message || e?.error || e?.detail || 'Request failed')
-  const assistantContent =
-    botMessage && String(botMessage).trim().length > 0
-      ? String(botMessage)
-      : buildFriendlyErrorMessage(errText)
+  const assistantContent = buildAssistantErrorContent(botMessage, e)
 
   if (isAbort) {
     setHistory([
@@ -309,14 +307,17 @@ export const saveMessageOnSuccess = async ({
   documents = []
 }: {
   historyId: string | null
-  setHistoryId: (historyId: string) => void
+  setHistoryId: (
+    historyId: string,
+    options?: { preserveServerChatId?: boolean }
+  ) => void
   isRegenerate: boolean
   selectedModel: string | null
   message: string
   image: string
   fullText: string
   source: any[]
-  message_source?: "copilot" | "web-ui"
+  message_source?: "copilot" | "web-ui" | "server" | "branch"
   message_type?: string
   userMessageType?: string
   assistantMessageType?: string

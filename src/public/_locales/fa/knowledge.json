@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "افزودن دانش جدید"
+  },
+  "columns_title": {
+    "message": "عنوان"
+  },
+  "columns_status": {
+    "message": "وضعیت"
+  },
+  "columns_embeddings": {
+    "message": "مدل جاسازی"
+  },
+  "columns_createdAt": {
+    "message": "ایجاد شده در"
+  },
+  "columns_action": {
+    "message": "اقدامات"
+  },
+  "expandedColumns_name": {
+    "message": "نام"
+  },
+  "confirm_delete": {
+    "message": "آیا مطمئن هستید که می خواهید این دانش را حذف کنید؟"
+  },
+  "deleteSuccess": {
+    "message": "دانش با موفقیت حذف شد"
+  },
+  "status_pending": {
+    "message": "انتظار"
+  },
+  "status_finished": {
+    "message": "تمام"
+  },
+  "status_processing": {
+    "message": "در حال پردازش"
+  },
+  "status_failed": {
+    "message": "ناموفق"
+  },
+  "addKnowledge": {
+    "message": "دانش را اضافه کنید"
+  },
+  "updateKnowledge": {
+    "message": "به روز رسانی دانش"
+  },
+  "form_title_label": {
+    "message": "عنوان دانش"
+  },
+  "form_title_placeholder": {
+    "message": "عنوان دانش را وارد کنید"
+  },
+  "form_title_required": {
+    "message": "وارد کردن عنوان دانش الزامی است"
+  },
+  "form_uploadFile_label": {
+    "message": "آپلود فایل"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "یک فایل را در اینجا بکشید و رها کنید یا برای آپلود کلیک کنید"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "انواع فایل های پشتیبانی شده: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "وارد کردن فایل مورد نیاز است"
+  },
+  "form_submit": {
+    "message": "ارسال"
+  },
+  "form_success": {
+    "message": "دانش با موفقیت اضافه شد"
+  },
+  "noEmbeddingModel": {
+    "message": "لطفا ابتدا یک مدل جاسازی را از صفحه تنظیمات RAG اضافه کنید"
+  },
+  "privateModeDescription": {
+    "message": "حالت خصوصی فایرفاکس ذخیره در IndexedDB را پشتیبانی نمی‌کند. لطفاً پایگاه دانش را از یک پنجره عادی اضافه کنید."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "تولید تکمیلی مبتنی بر بازیابی (RAG) به دستیار امکان می‌دهد پاسخ‌ها را بر اساس رسانه‌ها، یادداشت‌ها و سایر منابع دانش فهرست‌شده شما پایه‌گذاری کند."
+  },
+  "rag_searchFailed": {
+    "message": "جستجوی RAG ناموفق بود. دوباره تلاش کنید یا صفحه Diagnostics را بررسی کنید."
+  },
+  "empty_demoTitle": {
+    "message": "کاوش Knowledge QA در حالت دمو"
+  },
+  "empty_demoDescription": {
+    "message": "این دمو نشان می‌دهد چگونه Knowledge QA می‌تواند روی محتوای نمونه، جستجوهای RAG انجام دهد. بعداً می‌توانید سرور خود را متصل کنید تا روی رونوشت‌ها و اسناد خود جستجو کنید."
+  },
+  "empty_demoExample1": {
+    "message": "جستجوهای سریع RAG را امتحان کنید و نتایج و ارجاعات را بررسی کنید."
+  },
+  "empty_demoExample2": {
+    "message": "سرور خود را متصل کنید تا Knowledge QA را روی رسانه‌ها و یادداشت‌های واقعی خود فعال کنید."
+  },
+  "empty_connectTitle": {
+    "message": "برای استفاده از Knowledge QA وصل شوید"
+  },
+  "empty_connectDescription": {
+    "message": "برای استفاده از Knowledge QA و جستجوی RAG، ابتدا به سرور tldw خود متصل شوید."
+  },
+  "empty_connectExample1": {
+    "message": "تنظیمات → tldw server را باز کنید و آدرس سرور خود را اضافه کنید."
+  },
+  "empty_connectExample2": {
+    "message": "اگر سرور شما در حال اجرا است اما در دسترس نیست، از بخش Diagnostics استفاده کنید."
+  }
+}

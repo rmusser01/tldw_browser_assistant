@@ -55,7 +55,7 @@ export const QuickChatInput: React.FC<Props> = ({
     t("quickChatHelper.inputPlaceholder", "Ask a quick question...")
 
   return (
-    <div className="flex gap-2 items-end border-t border-gray-200 dark:border-gray-700 pt-3">
+    <div className="flex gap-2 items-end border-t border-border pt-3">
       <TextArea
         ref={textareaRef as any}
         value={value}

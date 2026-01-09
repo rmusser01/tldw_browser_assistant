@@ -134,13 +134,13 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         <h2
           className={`${
             !hideBorder ? "text-base font-semibold leading-7" : "text-md"
-          } text-gray-900 dark:text-white`}>
+          } text-text`}>
           {t("generalSettings.stt.heading")}
         </h2>
         {!hideBorder && (
-          <div className="border border-b border-gray-200 dark:border-gray-600 mt-3"></div>
+          <div className="border-b border-border mt-3"></div>
         )}
-        <p className="mt-2 text-xs text-gray-600 dark:text-gray-300">
+        <p className="mt-2 text-xs text-text-muted">
           {t(
             "generalSettings.stt.usedByChat",
             "These Speech-to-Text defaults are used by the chat dictation button in the Playground and Sidebar."
@@ -155,7 +155,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
         >
           <div className="space-y-4">
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.settings.speechRecognitionLang.label")}
               </span>
               <Select
@@ -178,7 +178,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.model.label")}
               </span>
               <div
@@ -214,7 +214,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                   dropdownMatchSelectWidth
                 />
                 {serverModels.length > 0 && (
-                  <span className="mt-1 text-[11px] text-gray-500 dark:text-gray-400 self-start">
+                  <span className="mt-1 text-[11px] text-text-subtle self-start">
                     {t(
                       "generalSettings.stt.model.helpFromServer",
                       "Models provided by your tldw server ({{count}} total).",
@@ -265,7 +265,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.task.label")}
               </span>
               <Select
@@ -292,7 +292,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.autoSubmitVoiceMessage.label")}
               </span>
               <Switch
@@ -304,7 +304,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.autoStopTimeout.label")}
               </span>
               <InputNumber
@@ -326,12 +326,12 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
           key="advanced"
           className="!border-0"
         >
-          <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+          <p className="text-xs text-text-subtle mb-4">
             {t("generalSettings.stt.advancedSettingsHelp", "These settings are for advanced users. Most users can leave these at their default values.")}
           </p>
           <div className="space-y-4">
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.useSegmentation.label")}
               </span>
               <Switch
@@ -341,7 +341,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.timestampGranularities.label")}
               </span>
               <Select
@@ -369,7 +369,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.responseFormat.label")}
               </span>
               <Select
@@ -411,7 +411,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.temperature.label")}
               </span>
               <InputNumber
@@ -427,7 +427,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.prompt.label")}
               </span>
               <Input
@@ -442,7 +442,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.segK.label")}
               </span>
               <InputNumber
@@ -456,7 +456,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.segMinSegmentSize.label")}
               </span>
               <InputNumber
@@ -472,7 +472,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.segLambdaBalance.label")}
               </span>
               <InputNumber
@@ -489,7 +489,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.segUtteranceExpansionWidth.label")}
               </span>
               <InputNumber
@@ -505,7 +505,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.segEmbeddingsProvider.label")}
               </span>
               <Input
@@ -516,7 +516,7 @@ export const SSTSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
             </div>
 
             <div className="flex flex-row justify-between">
-              <span className="text-gray-700 dark:text-neutral-50">
+              <span className="text-text">
                 {t("generalSettings.stt.segEmbeddingsModel.label")}
               </span>
               <Input

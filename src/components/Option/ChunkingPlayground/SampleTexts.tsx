@@ -227,7 +227,7 @@ export const SampleTexts: React.FC<SampleTextsProps> = ({ onSelect }) => {
           onClick={() => onSelect(sample.text)}
           className="cursor-pointer transition-all hover:shadow-md">
           <div className="flex items-start gap-3">
-            <div className="text-2xl text-blue-500">{sample.icon}</div>
+            <div className="text-2xl text-primary">{sample.icon}</div>
             <div>
               <div className="font-medium">
                 {t(`settings:chunkingPlayground.samples.${sample.labelKey}`, key)}
@@ -238,7 +238,7 @@ export const SampleTexts: React.FC<SampleTextsProps> = ({ onSelect }) => {
                   `Sample ${key} text`
                 )}
               </Text>
-              <div className="text-xs text-gray-400 mt-1">
+              <div className="text-xs text-text-subtle mt-1">
                 {sample.text.length} chars
               </div>
             </div>

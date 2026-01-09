@@ -1,6 +1,8 @@
+import { isChromiumTarget } from "@/config/platform"
+
 const captureVisibleTab = () => {
   const result = new Promise<string>((resolve) => {
-    if (import.meta.env.BROWSER === "chrome" || import.meta.env.BROWSER === "edge") {
+    if (isChromiumTarget) {
       chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         const tab = tabs[0]
         chrome.tabs.captureVisibleTab(null, { format: "png" }, (dataUrl) => {

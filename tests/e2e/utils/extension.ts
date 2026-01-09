@@ -46,18 +46,38 @@ export async function launchWithExtension(
     seedConfig
   }: { seedConfig?: Record<string, any> } = {}
 ): Promise<LaunchWithExtensionResult> {
+  const isDevBuild = (dir: string) => {
+    const optionsPath = path.join(dir, 'options.html')
+    if (!fs.existsSync(optionsPath)) return false
+    const html = fs.readFileSync(optionsPath, 'utf8')
+    return (
+      html.includes('http://localhost:') ||
+      html.includes('/@vite/client') ||
+      html.includes('virtual:wxt-html-plugins')
+    )
+  }
+
   // Pick the first existing extension build so tests work whether dev output or prod build is present.
   const candidates = [
     extensionPath,
     path.resolve('.output/chrome-mv3'),
     path.resolve('build/chrome-mv3')
-  ]
-  const extPath = candidates.find((p) => fs.existsSync(p))
+  ].filter((p) => p && fs.existsSync(p))
+  const allowDev = ['1', 'true', 'yes'].includes(
+    String(process.env.TLDW_E2E_ALLOW_DEV || '').toLowerCase()
+  )
+  const prodCandidates = candidates.filter((p) => !isDevBuild(p))
+  const devCandidates = candidates.filter((p) => isDevBuild(p))
+  const extPath =
+    prodCandidates[0] || (allowDev ? devCandidates[0] : undefined)
   if (!extPath) {
+    const devHint = devCandidates.length
+      ? 'Found only dev-server builds. Run "bun run build:chrome" or start the dev server and set TLDW_E2E_ALLOW_DEV=1.'
+      : 'Run "bun run build:chrome" first.'
     throw new Error(
-      `No extension build found. Tried: ${candidates.join(
+      `No production extension build found. Tried: ${candidates.join(
         ', '
-      )}. Run "bun run build:chrome" first.`
+      )}. ${devHint}`
     )
   }
 
@@ -66,6 +86,7 @@ export async function launchWithExtension(
   const context = await chromium.launchPersistentContext(userDataDir, {
     headless: !!process.env.CI,
     acceptDownloads: true,
+    ignoreDefaultArgs: ['--disable-extensions'],
     env: {
       ...process.env,
       HOME: homeDir
@@ -73,6 +94,7 @@ export async function launchWithExtension(
     args: [
       `--disable-extensions-except=${extPath}`,
       `--load-extension=${extPath}`,
+      '--no-crashpad',
       '--disable-crash-reporter',
       '--crash-dumps-dir=/tmp'
     ]
@@ -136,6 +158,12 @@ export async function launchWithExtension(
   async function openSidepanel() {
     const p = await context.newPage()
     await p.goto(sidepanelUrl, { waitUntil: 'domcontentloaded' })
+    // Ensure the sidepanel tab is visible; some UI only renders when visible.
+    try {
+      await p.bringToFront()
+    } catch {
+      // ignore bringToFront failures in headless contexts
+    }
     // Ensure the sidepanel app has a root to mount into before returning.
     const root = p.locator('#root')
     try {

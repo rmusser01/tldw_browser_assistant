@@ -1,4 +1,5 @@
 import { mergeReasoningContent } from "@/libs/reasoning"
+import { extractTokenFromChunk } from "@/utils/extract-token-from-chunk"
 
 export type StreamingChunk =
   | string
@@ -30,10 +31,7 @@ export const consumeStreamingChunk = (
   chunk: StreamingChunk
 ): StreamingChunkResult => {
   let { fullText, contentToSave, apiReasoning } = state
-  const token =
-    typeof chunk === "string"
-      ? chunk
-      : chunk?.content ?? chunk?.choices?.[0]?.delta?.content ?? ""
+  const token = extractTokenFromChunk(chunk)
   const reasoningDelta =
     typeof chunk === "string"
       ? undefined

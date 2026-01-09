@@ -1,4 +1,5 @@
 import React from "react"
+import { useQueryClient } from "@tanstack/react-query"
 import { promptForRag, systemPromptForNonRag } from "~/services/tldw-server"
 import { useStoreMessageOption, type Message } from "~/store/option"
 import { useStoreMessage } from "~/store"
@@ -9,12 +10,13 @@ import {
   deleteChatForEdit,
   generateID,
   getPromptById,
-  removeMessageUsingHistoryId,
+  removeMessageByIndex,
   updateMessageByIndex
 } from "@/db/dexie/helpers"
 import { useTranslation } from "react-i18next"
 import { usePageAssist } from "@/context"
 import { formatDocs } from "@/utils/format-docs"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useStoreChatModelSettings } from "@/store/model"
 import { getAllDefaultModelSettings } from "@/services/model-settings"
@@ -40,52 +42,59 @@ import {
   createSaveMessageOnSuccess,
   validateBeforeSubmit
 } from "./utils/messageHelpers"
+import {
+  buildMessageVariant,
+  getLastUserMessageId,
+  normalizeMessageVariants,
+  updateActiveVariant
+} from "@/utils/message-variants"
 import { normalChatMode } from "./chat-modes/normalChatMode"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
+import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
+import { normalizeConversationState } from "@/utils/conversation-state"
+import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
 
 type ServerBackedMessage = Message & {
   serverMessageId?: string
   serverMessageVersion?: number
 }
 
-const normalizeConversationState = (
-  raw: string | null | undefined
-): ConversationState => {
-  if (
-    raw === "in-progress" ||
-    raw === "resolved" ||
-    raw === "backlog" ||
-    raw === "non-viable"
-  ) {
-    return raw
-  }
-  return "in-progress"
-}
-
 export const useMessage = () => {
+  // Controllers come from Context (for aborting streaming requests)
   const {
     controller: abortController,
     setController: setAbortController,
-    messages,
-    setMessages,
     embeddingController,
     setEmbeddingController
   } = usePageAssist()
+
+  // Messages now come from Zustand store (single source of truth)
+  const messages = useStoreMessageOption((state) => state.messages)
+  const setMessages = useStoreMessageOption((state) => state.setMessages)
+
   const { t } = useTranslation("option")
+  const queryClient = useQueryClient()
+  const invalidateServerChatHistory = React.useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+  }, [queryClient])
   const [selectedModel, setSelectedModel] = useStorage("selectedModel")
   const currentChatModelSettings = useStoreChatModelSettings()
   const {
     setIsSearchingInternet,
     webSearch,
     setWebSearch,
+    toolChoice,
+    setToolChoice,
     isSearchingInternet,
     temporaryChat,
     setTemporaryChat,
     queuedMessages,
     addQueuedMessage,
     setQueuedMessages,
-    clearQueuedMessages
+    clearQueuedMessages,
+    replyTarget,
+    clearReplyTarget
   } = useStoreMessageOption()
   const [defaultInternetSearchOn] = useStorage("defaultInternetSearchOn", false)
 
@@ -104,8 +113,9 @@ export const useMessage = () => {
   const {
     history,
     setHistory,
-    setStreaming,
     streaming,
+    setStreaming,
+    isFirstMessage,
     setIsFirstMessage,
     historyId,
     setHistoryId,
@@ -115,22 +125,28 @@ export const useMessage = () => {
     setIsProcessing,
     chatMode,
     setChatMode,
-    setIsEmbedding,
     isEmbedding,
-    currentURL,
-    setCurrentURL,
+    setIsEmbedding,
     selectedQuickPrompt,
     setSelectedQuickPrompt,
     selectedSystemPrompt,
     setSelectedSystemPrompt,
     useOCR,
     setUseOCR
-  } = useStoreMessage()
+  } = useChatBaseState(useStoreMessage)
+  const { currentURL, setCurrentURL } = useStoreMessage()
   const {
     serverChatId,
     setServerChatId,
+    serverChatTitle,
+    setServerChatTitle,
+    serverChatCharacterId,
+    setServerChatCharacterId,
+    serverChatMetaLoaded,
+    setServerChatMetaLoaded,
     serverChatState,
     setServerChatState,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -149,6 +165,10 @@ export const useMessage = () => {
 
   const resetServerChatState = () => {
     setServerChatState("in-progress")
+    setServerChatVersion(null)
+    setServerChatTitle(null)
+    setServerChatCharacterId(null)
+    setServerChatMetaLoaded(false)
     setServerChatTopic(null)
     setServerChatClusterId(null)
     setServerChatSource(null)
@@ -156,20 +176,26 @@ export const useMessage = () => {
   }
 
   React.useEffect(() => {
-    if (!serverChatId) return
+    if (!serverChatId || serverChatMetaLoaded) return
     const loadChatMeta = async () => {
       try {
         await tldwClient.initialize().catch(() => null)
         const chat = await tldwClient.getChat(serverChatId)
+        setServerChatTitle(String((chat as any)?.title || ""))
+        setServerChatCharacterId(
+          (chat as any)?.character_id ?? (chat as any)?.characterId ?? null
+        )
         setServerChatState(
           (chat as any)?.state ??
             (chat as any)?.conversation_state ??
             "in-progress"
         )
+        setServerChatVersion((chat as any)?.version ?? null)
         setServerChatTopic((chat as any)?.topic_label ?? null)
         setServerChatClusterId((chat as any)?.cluster_id ?? null)
         setServerChatSource((chat as any)?.source ?? null)
         setServerChatExternalRef((chat as any)?.external_ref ?? null)
+        setServerChatMetaLoaded(true)
       } catch {
         // ignore metadata hydration failures
       }
@@ -177,11 +203,16 @@ export const useMessage = () => {
     void loadChatMeta()
   }, [
     serverChatId,
+    serverChatMetaLoaded,
+    setServerChatCharacterId,
     setServerChatClusterId,
     setServerChatExternalRef,
+    setServerChatMetaLoaded,
     setServerChatSource,
     setServerChatState,
-    setServerChatTopic
+    setServerChatTitle,
+    setServerChatTopic,
+    setServerChatVersion
   ])
 
   React.useEffect(() => {
@@ -214,17 +245,24 @@ export const useMessage = () => {
     if (sidepanelTemporaryChat) {
       setTemporaryChat(true)
     }
+    clearReplyTarget()
   }
 
   const saveMessageOnSuccess = createSaveMessageOnSuccess(
     temporaryChat,
-    setHistoryId as (id: string) => void
+    setHistoryId as (
+      id: string,
+      options?: { preserveServerChatId?: boolean }
+    ) => void
   )
   const saveMessageOnError = createSaveMessageOnError(
     temporaryChat,
     history,
     setHistory,
-    setHistoryId as (id: string) => void
+    setHistoryId as (
+      id: string,
+      options?: { preserveServerChatId?: boolean }
+    ) => void
   )
 
   const chatWithWebsiteMode = async (
@@ -234,7 +272,8 @@ export const useMessage = () => {
     messages: Message[],
     history: ChatHistory,
     signal: AbortSignal,
-    embeddingSignal: AbortSignal
+    embeddingSignal: AbortSignal,
+    regenerateFromMessage?: Message
   ) => {
     if (!selectedModel || selectedModel.trim().length === 0) {
       notification.error({
@@ -253,8 +292,19 @@ export const useMessage = () => {
     })
 
     let newMessage: Message[] = []
-    let generateMessageId = generateID()
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
+    const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
+    const fallbackParentMessageId = getLastUserMessageId(messages)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
 
     if (!isRegenerate) {
       newMessage = [
@@ -264,16 +314,21 @@ export const useMessage = () => {
           name: "You",
           message,
           sources: [],
-          images: []
+          images: [],
+          createdAt,
+          id: resolvedUserMessageId,
+          parentMessageId: null
         },
         {
           isBot: true,
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     } else {
@@ -284,14 +339,37 @@ export const useMessage = () => {
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     }
 
     setMessages(newMessage)
+    if (regenerateVariants.length > 0) {
+      setMessages((prev) => {
+        const next = [...prev]
+        const lastIndex = next.findLastIndex(
+          (msg) => msg.id === resolvedAssistantMessageId
+        )
+        if (lastIndex >= 0) {
+          const stub = next[lastIndex]
+          const variants = [
+            ...regenerateVariants,
+            buildMessageVariant(stub)
+          ]
+          next[lastIndex] = {
+            ...stub,
+            variants,
+            activeVariantIndex: variants.length - 1
+          }
+        }
+        return next
+      })
+    }
     let fullText = ""
     let contentToSave = ""
     let embedURL: string, embedHTML: string, embedType: string
@@ -331,7 +409,11 @@ export const useMessage = () => {
         const promptForQuestion = questionPrompt
           .replaceAll("{chat_history}", chat_history)
           .replaceAll("{question}", message)
-        const questionOllama = await pageAssistModel({ model })
+        const questionOllama = await pageAssistModel({
+          model,
+          toolChoice: "none",
+          saveToDb: false
+        })
         const questionMessage = await humanMessageFormatter({
           content: [
             {
@@ -473,11 +555,10 @@ export const useMessage = () => {
         setMessages((prev) => {
           return prev.map((message) => {
             if (message.id === generateMessageId) {
-              return {
-                ...message,
+              return updateActiveVariant(message, {
                 message: fullText + "▋",
                 reasoning_time_taken: timetaken
-              }
+              })
             }
             return message
           })
@@ -488,13 +569,12 @@ export const useMessage = () => {
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText,
               sources: source,
               generationInfo,
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -524,16 +604,27 @@ export const useMessage = () => {
         source,
         message_source: "copilot",
         generationInfo,
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       setIsProcessing(false)
       setStreaming(false)
     } catch (e) {
       console.error(e)
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === generateMessageId
+            ? updateActiveVariant(msg, { message: assistantContent })
+            : msg
+        )
+      )
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
@@ -542,7 +633,10 @@ export const useMessage = () => {
         setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
-        message_source: "copilot"
+        message_source: "copilot",
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       if (!errorSave) {
@@ -566,7 +660,8 @@ export const useMessage = () => {
     isRegenerate: boolean,
     messages: Message[],
     history: ChatHistory,
-    signal: AbortSignal
+    signal: AbortSignal,
+    regenerateFromMessage?: Message
   ) => {
     if (!selectedModel || selectedModel.trim().length === 0) {
       notification.error({
@@ -581,8 +676,19 @@ export const useMessage = () => {
     const ollama = await pageAssistModel({ model })
 
     let newMessage: Message[] = []
-    let generateMessageId = generateID()
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
+    const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
+    const fallbackParentMessageId = getLastUserMessageId(messages)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
 
     if (!isRegenerate) {
       newMessage = [
@@ -592,16 +698,21 @@ export const useMessage = () => {
           name: "You",
           message,
           sources: [],
-          images: []
+          images: [],
+          createdAt,
+          id: resolvedUserMessageId,
+          parentMessageId: null
         },
         {
           isBot: true,
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     } else {
@@ -612,13 +723,36 @@ export const useMessage = () => {
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     }
     setMessages(newMessage)
+    if (regenerateVariants.length > 0) {
+      setMessages((prev) => {
+        const next = [...prev]
+        const lastIndex = next.findLastIndex(
+          (msg) => msg.id === resolvedAssistantMessageId
+        )
+        if (lastIndex >= 0) {
+          const stub = next[lastIndex]
+          const variants = [
+            ...regenerateVariants,
+            buildMessageVariant(stub)
+          ]
+          next[lastIndex] = {
+            ...stub,
+            variants,
+            activeVariantIndex: variants.length - 1
+          }
+        }
+        return next
+      })
+    }
     let fullText = ""
     let contentToSave = ""
 
@@ -729,11 +863,10 @@ export const useMessage = () => {
         setMessages((prev) => {
           return prev.map((message) => {
             if (message.id === generateMessageId) {
-              return {
-                ...message,
+              return updateActiveVariant(message, {
                 message: fullText + "▋",
                 reasoning_time_taken: timetaken
-              }
+              })
             }
             return message
           })
@@ -743,12 +876,11 @@ export const useMessage = () => {
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText,
               generationInfo,
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -777,15 +909,26 @@ export const useMessage = () => {
         source: [],
         message_source: "copilot",
         generationInfo,
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       setIsProcessing(false)
       setStreaming(false)
     } catch (e) {
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === generateMessageId
+            ? updateActiveVariant(msg, { message: assistantContent })
+            : msg
+        )
+      )
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
@@ -794,7 +937,10 @@ export const useMessage = () => {
         setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
-        message_source: "copilot"
+        message_source: "copilot",
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       if (!errorSave) {
@@ -819,11 +965,23 @@ export const useMessage = () => {
     messages: Message[],
     history: ChatHistory,
     signal: AbortSignal,
-    model: string
+    model: string,
+    regenerateFromMessage?: Message
   ) => {
     setStreaming(true)
     let fullText = ""
     let contentToSave = ""
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
+    const fallbackParentMessageId = getLastUserMessageId(messages)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
 
     if (!selectedCharacter?.id) {
       throw new Error("No character selected")
@@ -834,17 +992,43 @@ export const useMessage = () => {
 
       // Visual placeholder
       const modelInfo = await getModelNicknameByID(model)
-      const generateMessageId = generateID()
+      const createdAt = Date.now()
+      const assistantStub: Message = {
+        isBot: true,
+        name: model,
+        message: "▋",
+        sources: [],
+        createdAt,
+        id: generateMessageId,
+        modelImage: modelInfo?.model_avatar,
+        modelName: modelInfo?.model_name || model,
+        parentMessageId: resolvedAssistantParentMessageId ?? null
+      }
+      if (regenerateVariants.length > 0) {
+        const variants = [
+          ...regenerateVariants,
+          buildMessageVariant(assistantStub)
+        ]
+        assistantStub.variants = variants
+        assistantStub.activeVariantIndex = variants.length - 1
+      }
+
       const newMessageList: Message[] = !isRegenerate
         ? [
             ...messages,
-            { isBot: false, name: 'You', message, sources: [], images: [] },
-            { isBot: true, name: model, message: '▋', sources: [], id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
+            {
+              isBot: false,
+              name: "You",
+              message,
+              sources: [],
+              images: [],
+              createdAt,
+              id: resolvedUserMessageId,
+              parentMessageId: null
+            },
+            assistantStub
           ]
-        : [
-            ...messages,
-            { isBot: true, name: model, message: '▋', sources: [], id: generateMessageId, modelImage: modelInfo?.model_avatar, modelName: modelInfo?.model_name || model }
-          ]
+        : [...messages, assistantStub]
       setMessages(newMessageList)
 
       // Ensure server chat session exists
@@ -880,6 +1064,7 @@ export const useMessage = () => {
           const {
             id,
             chat_id,
+            version,
             state,
             conversation_state,
             topic_label,
@@ -889,6 +1074,7 @@ export const useMessage = () => {
           } = created as {
             id?: string | number
             chat_id?: string | number
+            version?: number
             state?: string | null
             conversation_state?: string | null
             topic_label?: string | null
@@ -901,6 +1087,7 @@ export const useMessage = () => {
             state ?? conversation_state ?? null
           )
           setServerChatState(normalizedState)
+          setServerChatVersion(typeof version === "number" ? version : null)
           setServerChatTopic(topic_label ?? null)
           setServerChatClusterId(cluster_id ?? null)
           setServerChatSource(source ?? null)
@@ -915,6 +1102,12 @@ export const useMessage = () => {
         }
         chatId = normalizedId
         setServerChatId(normalizedId)
+        setServerChatTitle(String((created as any)?.title || ""))
+        setServerChatCharacterId(
+          (created as any)?.character_id ?? selectedCharacter?.id ?? null
+        )
+        setServerChatMetaLoaded(true)
+        invalidateServerChatHistory()
       }
 
       // Add user message to server (only if not regenerate)
@@ -957,31 +1150,31 @@ export const useMessage = () => {
         })
       }
 
-      // Get messages formatted for completions with character context
-      type TldwListMessagesResponse =
-        | {
-            messages?: any[]
-          }
-        | any[]
-        | null
-        | undefined
-
-      const formatted = (await tldwClient.listChatMessages(chatId, {
-        include_character_context: true,
-        format_for_completions: true
-      })) as TldwListMessagesResponse
-      const msgs = Array.isArray(formatted)
-        ? formatted
-        : formatted?.messages || []
-
-      // Stream completion from server /chat/completions
+      // Stream completion from server /chats/{id}/complete-v2
       let count = 0
       let reasoningStartTime: Date | null = null
       let reasoningEndTime: Date | null = null
       let timetaken = 0
       let apiReasoning = false
 
-      for await (const chunk of tldwClient.streamChatCompletion({ messages: msgs, model, stream: true }, { signal })) {
+      const resolvedApiProvider = await resolveApiProviderForModel({
+        modelId: model,
+        explicitProvider: currentChatModelSettings.apiProvider
+      })
+
+      const normalizedModel = model.replace(/^tldw:/, "").trim()
+      const resolvedModel = normalizedModel.length > 0 ? normalizedModel : model
+
+      for await (const chunk of tldwClient.streamCharacterChatCompletion(
+        chatId,
+        {
+          include_character_context: true,
+          model: resolvedModel,
+          provider: resolvedApiProvider,
+          save_to_db: false
+        },
+        { signal }
+      )) {
         const chunkState = consumeStreamingChunk(
           { fullText, contentToSave, apiReasoning },
           chunk
@@ -994,7 +1187,10 @@ export const useMessage = () => {
           setMessages((prev) =>
             prev.map((m) =>
               m.id === generateMessageId
-                ? { ...m, message: fullText + "▋", reasoning_time_taken: timetaken }
+                ? updateActiveVariant(m, {
+                    message: fullText + "▋",
+                    reasoning_time_taken: timetaken
+                  })
                 : m
             )
           )
@@ -1027,7 +1223,10 @@ export const useMessage = () => {
       setMessages((prev) =>
         prev.map((m) =>
           m.id === generateMessageId
-            ? { ...m, message: fullText, reasoning_time_taken: timetaken }
+            ? updateActiveVariant(m, {
+                message: fullText,
+                reasoning_time_taken: timetaken
+              })
             : m
         )
       )
@@ -1043,11 +1242,10 @@ export const useMessage = () => {
             if (m.id !== generateMessageId) return m
             const serverMessageId =
               createdAsst?.id != null ? String(createdAsst.id) : undefined
-            return {
-              ...m,
+            return updateActiveVariant(m, {
               serverMessageId,
               serverMessageVersion: createdAsst?.version
-            }
+            })
           }) as Message[])
         )
       } catch (e) {
@@ -1066,29 +1264,47 @@ export const useMessage = () => {
         setHistoryId,
         isRegenerate,
         selectedModel: model,
+        modelId: model,
         message,
         image,
         fullText,
         source: [],
         message_source: "copilot",
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       setIsProcessing(false)
       setStreaming(false)
     } catch (e) {
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      if (generateMessageId) {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === generateMessageId
+              ? updateActiveVariant(msg, { message: assistantContent })
+              : msg
+          )
+        )
+      }
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
         selectedModel: model,
+        modelId: model,
         setHistory,
         setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
-        message_source: "copilot"
+        message_source: "copilot",
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       if (!errorSave) {
@@ -1113,7 +1329,8 @@ export const useMessage = () => {
     messages: Message[],
     history: ChatHistory,
     signal: AbortSignal,
-    messageType: string
+    messageType: string,
+    regenerateFromMessage?: Message
   ) => {
     if (!selectedModel || selectedModel.trim().length === 0) {
       notification.error({
@@ -1138,8 +1355,19 @@ export const useMessage = () => {
     const ollama = await pageAssistModel({ model })
 
     let newMessage: Message[] = []
-    let generateMessageId = generateID()
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
+    const createdAt = Date.now()
     const modelInfo = await getModelNicknameByID(model)
+    const fallbackParentMessageId = getLastUserMessageId(messages)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
 
     if (!isRegenerate) {
       newMessage = [
@@ -1150,16 +1378,21 @@ export const useMessage = () => {
           message,
           sources: [],
           images: [image],
-          messageType: messageType
+          createdAt,
+          id: resolvedUserMessageId,
+          messageType: messageType,
+          parentMessageId: null
         },
         {
           isBot: true,
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     } else {
@@ -1170,13 +1403,36 @@ export const useMessage = () => {
           name: model,
           message: "▋",
           sources: [],
+          createdAt,
           id: generateMessageId,
           modelImage: modelInfo?.model_avatar,
-          modelName: modelInfo?.model_name || model
+          modelName: modelInfo?.model_name || model,
+          parentMessageId: resolvedAssistantParentMessageId ?? null
         }
       ]
     }
     setMessages(newMessage)
+    if (regenerateVariants.length > 0) {
+      setMessages((prev) => {
+        const next = [...prev]
+        const lastIndex = next.findLastIndex(
+          (msg) => msg.id === resolvedAssistantMessageId
+        )
+        if (lastIndex >= 0) {
+          const stub = next[lastIndex]
+          const variants = [
+            ...regenerateVariants,
+            buildMessageVariant(stub)
+          ]
+          next[lastIndex] = {
+            ...stub,
+            variants,
+            activeVariantIndex: variants.length - 1
+          }
+        }
+        return next
+      })
+    }
     let fullText = ""
     let contentToSave = ""
 
@@ -1258,11 +1514,10 @@ export const useMessage = () => {
         setMessages((prev) => {
           return prev.map((message) => {
             if (message.id === generateMessageId) {
-              return {
-                ...message,
+              return updateActiveVariant(message, {
                 message: fullText + "▋",
                 reasoning_time_taken: timetaken
-              }
+              })
             }
             return message
           })
@@ -1273,12 +1528,11 @@ export const useMessage = () => {
       setMessages((prev) => {
         return prev.map((message) => {
           if (message.id === generateMessageId) {
-            return {
-              ...message,
+            return updateActiveVariant(message, {
               message: fullText,
               generationInfo,
               reasoning_time_taken: timetaken
-            }
+            })
           }
           return message
         })
@@ -1310,15 +1564,26 @@ export const useMessage = () => {
         message_source: "copilot",
         message_type: messageType,
         generationInfo,
-        reasoning_time_taken: timetaken
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       setIsProcessing(false)
       setStreaming(false)
     } catch (e) {
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === generateMessageId
+            ? updateActiveVariant(msg, { message: assistantContent })
+            : msg
+        )
+      )
       const errorSave = await saveMessageOnError({
         e,
-        botMessage: fullText,
+        botMessage: assistantContent,
         history,
         historyId,
         image,
@@ -1328,7 +1593,10 @@ export const useMessage = () => {
         userMessage: message,
         isRegenerating: isRegenerate,
         message_source: "copilot",
-        message_type: messageType
+        message_type: messageType,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
       })
 
       if (!errorSave) {
@@ -1351,7 +1619,8 @@ export const useMessage = () => {
     controller,
     memory,
     messages: chatHistory,
-    messageType
+    messageType,
+    regenerateFromMessage
   }: {
     message: string
     image: string
@@ -1360,6 +1629,7 @@ export const useMessage = () => {
     memory?: ChatHistory
     controller?: AbortController
     messageType?: string
+    regenerateFromMessage?: Message
   }) => {
     if (!validateBeforeSubmit(selectedModel || "", t, notification)) {
       return
@@ -1375,79 +1645,112 @@ export const useMessage = () => {
       setAbortController(controller)
       signal = controller.signal
     }
+    const replyActive =
+      Boolean(replyTarget) &&
+      !isRegenerate &&
+      !messageType &&
+      chatMode === "normal" &&
+      !selectedCharacter?.id
+    const replyOverrides = replyActive
+      ? (() => {
+          const userMessageId = generateID()
+          const assistantMessageId = generateID()
+          return {
+            userMessageId,
+            assistantMessageId,
+            userParentMessageId: replyTarget?.id ?? null,
+            assistantParentMessageId: userMessageId
+          }
+        })()
+      : {}
 
-    // this means that the user is trying to send something from a selected text on the web
-    if (messageType) {
-      await presetChatMode(
-        message,
-        image,
-        isRegenerate,
-        chatHistory || messages,
-        memory || history,
-        signal,
-        messageType
-      )
-    } else {
-      if (chatMode === "normal") {
-        if (selectedCharacter?.id) {
-          await characterChatMode(
-            message,
-            image,
-            isRegenerate,
-            chatHistory || messages,
-            memory || history,
-            signal,
-            model
-          )
-        } else {
-          await normalChatMode(
-            message,
-            image,
-            isRegenerate,
-            chatHistory || messages,
-            memory || history,
-            signal,
-            {
-              selectedModel: model,
-              useOCR,
-              selectedSystemPrompt: selectedSystemPrompt ?? "",
-              currentChatModelSettings,
-              setMessages,
-              saveMessageOnSuccess,
-              saveMessageOnError,
-              setHistory,
-              setIsProcessing,
-              setStreaming,
-              setAbortController,
-              historyId,
-              setHistoryId: setHistoryId as (id: string) => void,
-              webSearch,
-              setIsSearchingInternet
-            }
-          )
-        }
-      } else if (chatMode === "vision") {
-        await visionChatMode(
-          message,
-          image,
-          isRegenerate,
-          chatHistory || messages,
-          memory || history,
-          signal
-        )
-      } else {
-        const newEmbeddingController = new AbortController()
-        let embeddingSignal = newEmbeddingController.signal
-        setEmbeddingController(newEmbeddingController)
-        await chatWithWebsiteMode(
+    try {
+      // this means that the user is trying to send something from a selected text on the web
+      if (messageType) {
+        await presetChatMode(
           message,
           image,
           isRegenerate,
           chatHistory || messages,
           memory || history,
           signal,
-          embeddingSignal
+          messageType,
+          regenerateFromMessage
         )
+      } else {
+        if (chatMode === "normal") {
+          if (selectedCharacter?.id) {
+            await characterChatMode(
+              message,
+              image,
+              isRegenerate,
+              chatHistory || messages,
+              memory || history,
+              signal,
+              model,
+              regenerateFromMessage
+            )
+          } else {
+            await normalChatMode(
+              message,
+              image,
+              isRegenerate,
+              chatHistory || messages,
+              memory || history,
+              signal,
+              {
+                selectedModel: model,
+                useOCR,
+                selectedSystemPrompt: selectedSystemPrompt ?? "",
+                currentChatModelSettings,
+                setMessages,
+                saveMessageOnSuccess,
+                saveMessageOnError,
+                setHistory,
+                setIsProcessing,
+                setStreaming,
+                setAbortController,
+                historyId,
+                setHistoryId: setHistoryId as (
+                  id: string,
+                  options?: { preserveServerChatId?: boolean }
+                ) => void,
+                webSearch,
+                setIsSearchingInternet,
+                regenerateFromMessage,
+                ...replyOverrides
+              }
+            )
+          }
+        } else if (chatMode === "vision") {
+          await visionChatMode(
+            message,
+            image,
+            isRegenerate,
+            chatHistory || messages,
+            memory || history,
+            signal,
+            regenerateFromMessage
+          )
+        } else {
+          const newEmbeddingController = new AbortController()
+          let embeddingSignal = newEmbeddingController.signal
+          setEmbeddingController(newEmbeddingController)
+          await chatWithWebsiteMode(
+            message,
+            image,
+            isRegenerate,
+            chatHistory || messages,
+            memory || history,
+            signal,
+            embeddingSignal,
+            regenerateFromMessage
+          )
+        }
+      }
+    } finally {
+      if (replyActive) {
+        clearReplyTarget()
       }
     }
   }
@@ -1470,13 +1773,14 @@ export const useMessage = () => {
     message: string,
     isHuman: boolean
   ) => {
-    let newMessages = messages as ServerBackedMessage[]
-    let newHistory = history
+    const newHistory = history
 
     if (isHuman) {
-      const currentHumanMessage = newMessages[index] as ServerBackedMessage | undefined
-      newMessages[index].message = message
-      const previousMessages = newMessages.slice(0, index + 1)
+      const currentHumanMessage = (messages as ServerBackedMessage[])[index]
+      const updatedMessages = messages.map((msg, idx) =>
+        idx === index ? { ...msg, message } : msg
+      )
+      const previousMessages = updatedMessages.slice(0, index + 1)
       setMessages(previousMessages)
       const previousHistory = newHistory.slice(0, index)
       setHistory(previousHistory)
@@ -1488,7 +1792,14 @@ export const useMessage = () => {
           try {
             const srv = await tldwClient.getMessage(currentHumanMessage.serverMessageId)
             const ver = srv?.version
-            if (ver != null) await tldwClient.editMessage(currentHumanMessage.serverMessageId, message, Number(ver))
+            if (ver != null) {
+              await tldwClient.editMessage(
+                currentHumanMessage.serverMessageId,
+                message,
+                Number(ver),
+                serverChatId ?? undefined
+              )
+            }
           } catch {}
         }
         try {
@@ -1500,7 +1811,13 @@ export const useMessage = () => {
           if (startIdx >= 0) {
             for (let i = startIdx + 1; i < list.length; i++) {
               const m = list[i]
-              try { await tldwClient.deleteMessage(m.id, Number(m.version)) } catch {}
+              try {
+                await tldwClient.deleteMessage(
+                  m.id,
+                  Number(m.version),
+                  serverChatId ?? undefined
+                )
+              } catch {}
             }
           }
         } catch {}
@@ -1516,46 +1833,94 @@ export const useMessage = () => {
       })
     } else {
       // Assistant message edited
-      const currentAssistant = newMessages[index] as ServerBackedMessage | undefined
-      newMessages[index].message = message
-      setMessages(newMessages)
-      newHistory[index].content = message
-      setHistory(newHistory)
+      const currentAssistant = (messages as ServerBackedMessage[])[index]
+      const updatedMessages = messages.map((msg, idx) =>
+        idx === index ? { ...msg, message } : msg
+      )
+      setMessages(updatedMessages)
+      const updatedHistory = newHistory.map((item, idx) =>
+        idx === index ? { ...item, content: message } : item
+      )
+      setHistory(updatedHistory)
       await updateMessageByIndex(historyId, index, message)
       // Server-backed: update assistant server message too
       if (selectedCharacter?.id && currentAssistant?.serverMessageId) {
         try {
           const srv = await tldwClient.getMessage(currentAssistant.serverMessageId)
           const ver = srv?.version
-          if (ver != null) await tldwClient.editMessage(currentAssistant.serverMessageId, message, Number(ver))
+          if (ver != null) {
+            await tldwClient.editMessage(
+              currentAssistant.serverMessageId,
+              message,
+              Number(ver),
+              serverChatId ?? undefined
+            )
+          }
         } catch {}
       }
     }
   }
 
+  const deleteMessage = React.useCallback(
+    async (index: number) => {
+      const target = messages[index]
+      if (!target) return
+
+      const targetId = target.serverMessageId ?? target.id
+      if (replyTarget?.id && targetId && replyTarget.id === targetId) {
+        clearReplyTarget()
+      }
+
+      if (target.serverMessageId) {
+        await tldwClient.initialize().catch(() => null)
+        let expectedVersion = target.serverMessageVersion
+        if (expectedVersion == null) {
+          const serverMessage = await tldwClient.getMessage(target.serverMessageId)
+          expectedVersion = serverMessage?.version
+        }
+        if (expectedVersion == null) {
+          throw new Error("Missing server message version")
+        }
+        await tldwClient.deleteMessage(
+          target.serverMessageId,
+          Number(expectedVersion),
+          serverChatId ?? undefined
+        )
+        invalidateServerChatHistory()
+      }
+
+      if (historyId) {
+        await removeMessageByIndex(historyId, index)
+      }
+
+      setMessages(messages.filter((_, idx) => idx !== index))
+      setHistory(history.filter((_, idx) => idx !== index))
+    },
+    [
+      clearReplyTarget,
+      history,
+      historyId,
+      invalidateServerChatHistory,
+      messages,
+      replyTarget?.id,
+      serverChatId,
+      setHistory,
+      setMessages
+    ]
+  )
+
   const regenerateLastMessage = async () => {
     if (history.length > 0) {
       const lastMessage = history[history.length - 2]
       let newHistory = history.slice(0, -2)
-      let mewMessages = messages as ServerBackedMessage[]
-      // If server-backed and last assistant has server message id, delete it on server
-      if (selectedCharacter?.id && serverChatId) {
-        const lastAssistant = ([...mewMessages].reverse().find((m) => m.isBot) as ServerBackedMessage | undefined)
-        if (lastAssistant?.serverMessageId) {
-          try {
-            let version = lastAssistant.serverMessageVersion
-            if (version == null) {
-              const srv = await tldwClient.getMessage(lastAssistant.serverMessageId)
-              version = srv?.version
-            }
-            if (version != null) await tldwClient.deleteMessage(lastAssistant.serverMessageId, Number(version))
-          } catch {}
-        }
+      const currentMessages = messages as ServerBackedMessage[]
+      const lastAssistant = currentMessages[currentMessages.length - 1]
+      if (!lastAssistant || !lastAssistant.isBot) {
+        return
       }
-      mewMessages.pop()
+      const mewMessages = currentMessages.slice(0, -1)
       setHistory(newHistory)
       setMessages(mewMessages)
-      await removeMessageUsingHistoryId(historyId)
       if (lastMessage.role === "user") {
         const newController = new AbortController()
         await onSubmit({
@@ -1564,7 +1929,8 @@ export const useMessage = () => {
           isRegenerate: true,
           memory: newHistory,
           controller: newController,
-          messageType: lastMessage.messageType
+          messageType: lastMessage.messageType,
+          regenerateFromMessage: lastAssistant
         })
       }
     }
@@ -1578,8 +1944,12 @@ export const useMessage = () => {
     setSystemPrompt: currentChatModelSettings.setSystemPrompt,
     serverChatId,
     setServerChatId,
+    setServerChatTitle,
+    setServerChatCharacterId,
+    setServerChatMetaLoaded,
     serverChatState,
     setServerChatState,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -1588,6 +1958,9 @@ export const useMessage = () => {
     setServerChatSource,
     serverChatExternalRef,
     setServerChatExternalRef,
+    onServerChatMutated: invalidateServerChatHistory,
+    characterId: selectedCharacter?.id ?? null,
+    chatTitle: serverChatTitle ?? null,
     messages,
     history
   })
@@ -1595,6 +1968,7 @@ export const useMessage = () => {
     messages,
     setMessages,
     editMessage,
+    deleteMessage,
     onSubmit,
     setStreaming,
     streaming,
@@ -1633,6 +2007,7 @@ export const useMessage = () => {
     setServerChatId,
     serverChatState,
     setServerChatState,
+    setServerChatVersion,
     serverChatTopic,
     setServerChatTopic,
     serverChatClusterId,
@@ -1645,6 +2020,8 @@ export const useMessage = () => {
     createChatBranch,
     temporaryChat,
     setTemporaryChat,
+    toolChoice,
+    setToolChoice,
     sidepanelTemporaryChat,
     queuedMessages,
     addQueuedMessage,

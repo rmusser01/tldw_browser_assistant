@@ -537,7 +537,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
   }, [activeStep])
 
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-xl border border-gray-200 bg-white px-6 py-6 text-gray-900 shadow-sm dark:border-gray-700 dark:bg-[#171717] dark:text-gray-100">
+    <div className="mx-auto w-full max-w-2xl rounded-3xl border border-border/70 bg-surface/95 px-8 py-8 text-text shadow-lg shadow-black/5 backdrop-blur">
       {/* Screen reader announcement for step changes */}
       {stepAnnouncement && (
         <div
@@ -549,10 +549,12 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           {stepAnnouncement}
         </div>
       )}
-      <h2 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">{t('settings:onboarding.title')}</h2>
+      <h2 className="mb-3 text-2xl font-semibold text-text tracking-tight">
+        {t('settings:onboarding.title')}
+      </h2>
 
       <div className="mb-4 space-y-2">
-        <div className="text-xs font-medium text-gray-700 dark:text-gray-300">
+        <div className="text-xs font-medium text-text-muted">
           {t(
             'settings:onboarding.path.heading',
             'How would you like to get started?'
@@ -561,7 +563,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
         <Radio.Group
           value={pathChoice}
           onChange={(e) => setPathChoice(e.target.value as PathChoice)}
-          className="grid gap-3 md:grid-cols-3 w-full onboarding-path-radio"
+          className="grid w-full gap-3 md:grid-cols-3 onboarding-path-radio"
         >
           {[
             {
@@ -601,16 +603,16 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             <Radio
               key={option.value}
               value={option.value}
-              className={`!flex h-full w-full flex-col items-start rounded-md border px-3 py-2 text-left text-xs transition-colors m-0 ${
+              className={`!m-0 !flex h-full w-full flex-col items-start rounded-2xl border px-4 py-3 text-left text-xs transition-colors ${
                 pathChoice === option.value
-                  ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900/20'
-                  : 'border-gray-200 bg-white hover:border-blue-400 hover:bg-blue-50/40 dark:border-gray-700 dark:bg-[#111111] dark:hover:border-blue-400 dark:hover:bg-blue-900/10'
+                  ? 'border-primary/40 bg-primary/10'
+                  : 'border-border/70 bg-surface hover:border-primary/40 hover:bg-surface2'
               }`}
             >
-              <span className="text-[11px] font-semibold text-gray-900 dark:text-gray-100">
+              <span className="text-[11px] font-semibold text-text">
                 {option.label}
               </span>
-              <span className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+              <span className="mt-1 text-[11px] text-text-muted">
                 {option.description}
               </span>
             </Radio>
@@ -618,7 +620,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
         </Radio.Group>
         {pathChoice === 'no-server' && (
           <Alert
-            className="mt-2 text-xs"
+            className="mt-2 rounded-2xl border border-border/70 bg-surface2/70 text-xs"
             type="info"
             showIcon
             message={t(
@@ -657,6 +659,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   <Button
                     size="small"
                     onClick={openServerDocs}
+                    className="rounded-full"
                   >
                     {t(
                       'settings:onboarding.path.openSetupGuide',
@@ -666,6 +669,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   <Button
                     size="small"
                     onClick={handleUseDemoMode}
+                    className="rounded-full"
                   >
                     {t(
                       'settings:onboarding.path.useDemoFromNoServer',
@@ -689,7 +693,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
         )}
         {pathChoice === 'demo' && (
           <Alert
-            className="mt-2 text-xs"
+            className="mt-2 rounded-2xl border border-border/70 bg-surface2/70 text-xs"
             type="info"
             showIcon
             message={t(
@@ -709,6 +713,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                     size="small"
                     type="primary"
                     onClick={handleUseDemoMode}
+                    className="rounded-full"
                   >
                     {t(
                       'settings:onboarding.path.demoCta',
@@ -742,12 +747,12 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                 className="flex flex-col items-center"
               >
                 <div
-                  className={`flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors ${
+                  className={`flex h-8 w-8 items-center justify-center rounded-2xl border-2 text-sm font-semibold transition-colors ${
                     step.index < displayStep
-                      ? "border-blue-500 bg-blue-500 text-white"
+                      ? "border-primary bg-primary text-white"
                       : step.index === displayStep
-                        ? "border-blue-500 bg-white text-blue-600 dark:bg-[#171717] dark:text-blue-400"
-                        : "border-gray-300 bg-white text-gray-400 dark:border-gray-600 dark:bg-[#171717] dark:text-gray-500"
+                        ? "border-primary bg-surface text-primary"
+                        : "border-border-strong bg-surface text-text-subtle"
                   }`}
                 >
                   {step.index < displayStep ? (
@@ -759,12 +764,12 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   )}
                 </div>
                 <span
-                  className={`mt-1.5 text-[11px] text-center max-w-[100px] ${
+                  className={`mt-1.5 max-w-[100px] text-center text-[11px] ${
                     step.index === displayStep
-                      ? "font-semibold text-blue-600 dark:text-blue-400"
+                      ? "font-semibold text-primary"
                       : step.index < displayStep
-                        ? "text-gray-600 dark:text-gray-300"
-                        : "text-gray-500 dark:text-gray-400"
+                        ? "text-text-muted"
+                        : "text-text-subtle"
                   }`}
                 >
                   {step.label}
@@ -774,8 +779,8 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                 <div
                   className={`flex-1 h-0.5 mx-2 mt-[-20px] ${
                     step.index < displayStep
-                      ? "bg-blue-500"
-                      : "bg-gray-200 dark:bg-gray-700"
+                      ? "bg-primary"
+                      : "bg-border"
                   }`}
                 />
               )}
@@ -789,10 +794,10 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           <Collapse
             ghost
             size="small"
-            className="bg-gray-50 dark:bg-[#1d1d1d] rounded-md border border-dashed border-gray-300 dark:border-gray-600"
+            className="rounded-2xl border border-dashed border-border/70 bg-surface2/70"
             expandIcon={({ isActive }) => (
               <ChevronDown
-                className={`h-4 w-4 text-gray-500 transition-transform ${
+                className={`h-4 w-4 text-text-subtle transition-transform ${
                   isActive ? 'rotate-180' : ''
                 }`}
               />
@@ -801,7 +806,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               {
                 key: 'server-commands',
                 label: (
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
+                  <span className="text-xs font-medium text-text">
                     {t(
                       'settings:onboarding.startServer.title',
                       'Need to start your server? View commands'
@@ -809,11 +814,11 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   </span>
                 ),
                 children: (
-                  <div className="space-y-2 text-xs text-gray-700 dark:text-gray-200">
+                  <div className="space-y-2 text-xs text-text">
                     {startCommands.map((cmd) => (
                       <div
                         key={cmd.key}
-                        className="rounded border border-gray-200 bg-white px-2 py-2 dark:border-gray-700 dark:bg-[#121212]"
+                        className="rounded-2xl border border-border/70 bg-surface px-3 py-3"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <span className="text-[11px] font-medium">
@@ -849,6 +854,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                                 )
                               }
                             }}
+                            className="rounded-full"
                           >
                             {t(
                               'settings:onboarding.startServer.copy',
@@ -856,7 +862,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                             )}
                           </Button>
                         </div>
-                        <pre className="mt-1 rounded bg-gray-900 px-2 py-1 text-[11px] text-gray-100 overflow-x-auto">
+                        <pre className="mt-2 overflow-x-auto rounded-xl bg-surface2 px-2 py-2 text-[11px] text-text">
                           <code>{cmd.command}</code>
                         </pre>
                       </div>
@@ -868,7 +874,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           />
           <label
             htmlFor="onboarding-server-url"
-            className="block text-sm font-medium text-gray-800 dark:text-gray-100"
+            className="block text-sm font-medium text-text"
           >
             {t('settings:onboarding.serverUrl.label')}
           </label>
@@ -885,6 +891,8 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             }}
             onBlur={() => setServerTouched(true)}
             status={serverHint.tone === 'error' && serverTouched ? 'error' : ''}
+            size="large"
+            className="rounded-2xl"
           />
           <div
             role="status"
@@ -893,21 +901,21 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             className={
               'text-xs ' +
               (serverHint.tone === 'error'
-                ? 'text-red-500'
+                ? 'text-danger'
                 : serverHint.tone === 'success'
-                ? 'text-emerald-600'
-                : 'text-gray-500')
+                ? 'text-success'
+                : 'text-text-subtle')
             }
           >
             <span className="inline-flex items-center gap-2">
               {serverHint.message}
             </span>
           </div>
-          <div className="text-xs text-gray-500">{t('settings:onboarding.serverUrl.help')}</div>
-          <div className="mt-1 text-xs text-gray-600 dark:text-gray-400">
+          <div className="text-xs text-text-subtle">{t('settings:onboarding.serverUrl.help')}</div>
+          <div className="mt-1 text-xs text-text-muted">
             <button
               type="button"
-              className="underline text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="underline text-primary hover:text-primaryStrong"
               onClick={openServerDocs}>
               {t(
                 'settings:onboarding.serverDocsCta',
@@ -920,6 +928,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               type="primary"
               disabled={!urlState.valid || loading}
               onClick={handleNextFromUrl}
+              className="rounded-full"
             >
               {t('settings:onboarding.buttons.next')}
             </Button>
@@ -939,7 +948,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           )}
         >
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">{t('settings:onboarding.authMode.label')}</label>
+            <label className="mb-1 block text-sm font-medium text-text">{t('settings:onboarding.authMode.label')}</label>
             <Segmented
               options={[
                 {
@@ -958,7 +967,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                 }
               }}
             />
-            <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-xs text-text-muted">
               {t(
                 'settings:onboarding.authModeHelp',
                 'Single User (API Key) is recommended for personal or small-team servers. Multi User (Login) is for shared deployments where people sign in with usernames or SSO. Choose the mode that matches how your tldw_server is set up.'
@@ -967,9 +976,15 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           </div>
           {authMode === 'single-user' ? (
             <div>
-              <label className="block text-sm font-medium text-gray-800 dark:text-gray-100">{t('settings:onboarding.apiKey.label')}</label>
-              <Input.Password placeholder={t('settings:onboarding.apiKey.placeholder')} value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
-              <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
+              <label className="block text-sm font-medium text-text">{t('settings:onboarding.apiKey.label')}</label>
+              <Input.Password
+                placeholder={t('settings:onboarding.apiKey.placeholder')}
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                size="large"
+                className="rounded-2xl"
+              />
+              <p className="mt-1 text-xs text-text-muted">
                 {t(
                   'settings:onboarding.apiKeyHelp',
                   'Find your API key in tldw_server → Settings → API Keys. Generate a key there and paste it here.'
@@ -979,12 +994,24 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-medium text-gray-800 dark:text-gray-100">{t('settings:onboarding.username.label')}</label>
-                <Input placeholder={t('settings:onboarding.username.placeholder')} value={username} onChange={(e) => setUsername(e.target.value)} />
+                <label className="block text-sm font-medium text-text">{t('settings:onboarding.username.label')}</label>
+                <Input
+                  placeholder={t('settings:onboarding.username.placeholder')}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  size="large"
+                  className="rounded-2xl"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-800 dark:text-gray-100">{t('settings:onboarding.password.label')}</label>
-              <Input.Password placeholder={t('settings:onboarding.password.placeholder')} value={password} onChange={(e) => setPassword(e.target.value)} />
+                <label className="block text-sm font-medium text-text">{t('settings:onboarding.password.label')}</label>
+              <Input.Password
+                placeholder={t('settings:onboarding.password.placeholder')}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                size="large"
+                className="rounded-2xl"
+              />
               </div>
             </div>
           )}
@@ -1000,11 +1027,14 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
             />
           )}
           <div className="flex justify-between">
-            <Button onClick={handleBackToUrl}>{t('settings:onboarding.buttons.back')}</Button>
+            <Button onClick={handleBackToUrl} className="rounded-full">
+              {t('settings:onboarding.buttons.back')}
+            </Button>
             <Button
               type="primary"
               onClick={handleContinueFromAuth}
               loading={loading || connectionState.isChecking}
+              className="rounded-full"
             >
               {t('settings:onboarding.buttons.continue')}
             </Button>
@@ -1034,6 +1064,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               size="small"
               onClick={handleRecheck}
               loading={connectionState.isChecking}
+              className="rounded-full"
             >
               {t('settings:onboarding.buttons.recheck')}
             </Button>
@@ -1055,14 +1086,14 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                 <Tag>{t('settings:onboarding.rag.unknown')}</Tag>
               )}
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-text-subtle">
               {t(
                 'settings:onboarding.rag.help',
                 'Checks whether your server can search your notes, media, and other connected knowledge sources.'
               )}
             </p>
           </div>
-          <div className="mt-3 grid gap-3 rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#1b1b1b] dark:text-gray-200">
+          <div className="mt-3 grid gap-3 rounded-2xl border border-border/70 bg-surface2/70 p-4 text-xs text-text">
             <div>
               <div className="text-sm font-semibold">
                 {t(
@@ -1078,7 +1109,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               </p>
             </div>
             <div className="grid gap-2 md:grid-cols-3">
-	              <div className="rounded border border-gray-200 bg-white p-2 dark:border-gray-600 dark:bg-[#121212]">
+	              <div className="rounded-2xl border border-border/70 bg-surface p-3">
 	                <div className="text-xs font-semibold">
 	                  {t(
 	                    'settings:onboarding.nextSteps.chatTitle',
@@ -1093,7 +1124,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
 	                </p>
                 <Button
                   size="small"
-                  className="mt-2"
+                  className="mt-2 rounded-full"
                   onClick={async () => {
                     try {
                       await openSidepanelForActiveTab()
@@ -1117,7 +1148,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   )}
                 </Button>
               </div>
-              <div className="rounded border border-gray-200 bg-white p-2 dark:border-gray-600 dark:bg-[#121212]">
+              <div className="rounded-2xl border border-border/70 bg-surface p-3">
                 <div className="text-xs font-semibold">
                   {t(
                     'settings:onboarding.nextSteps.ingestTitle',
@@ -1131,7 +1162,7 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
                   )}
                 </p>
               </div>
-              <div className="rounded border border-gray-200 bg-white p-2 dark:border-gray-600 dark:bg-[#121212]">
+              <div className="rounded-2xl border border-border/70 bg-surface p-3">
                 <div className="text-xs font-semibold">
                   {t(
                     'settings:onboarding.nextSteps.mediaTitle',
@@ -1152,10 +1183,11 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
               type="error"
               showIcon
               message={t('settings:onboarding.connectionFailed')}
+              className="rounded-2xl border border-danger/30 bg-danger/10"
               description={
                 <span className="inline-flex flex-col gap-1 text-xs">
                   <span>{connectionErrorDescription}</span>
-                  <span className="text-gray-600 dark:text-gray-400">
+                  <span className="text-text-muted">
                     {t(
                       'settings:onboarding.connection.continueAnyway',
                       'You can finish setup now and explore the UI without a server. Chat, media ingest, and Knowledge search will remain limited until you connect a tldw server from Settings → tldw Server.'
@@ -1167,12 +1199,15 @@ const LegacyOnboardingWizard: React.FC<Props> = ({ onFinish }) => {
           )}
           <div className="flex justify-end">
             <Space>
-              <Button onClick={finish}>{t('settings:onboarding.buttons.skip')}</Button>
+              <Button onClick={finish} className="rounded-full">
+                {t('settings:onboarding.buttons.skip')}
+              </Button>
               <Button
                 type="primary"
                 danger={uxState === 'error_auth' || uxState === 'error_unreachable'}
                 onClick={finish}
                 disabled={connectionState.isChecking}
+                className="rounded-full"
                 title={
                   uxState === 'error_auth' || uxState === 'error_unreachable'
                     ? t(

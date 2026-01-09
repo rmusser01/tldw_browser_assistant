@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink } from "react-router-dom"
-import { useStorage } from "@plasmohq/storage/hook"
 import { useShortcut } from "@/hooks/useKeyboardShortcuts"
+import { useSetting } from "@/hooks/useSetting"
+import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
 import {
   CogIcon,
   Mic,
@@ -15,9 +16,11 @@ import {
   NotebookPen,
   BookMarked,
   BookOpen,
+  ClipboardList,
   ChevronDown,
   Scissors,
   Gauge,
+  Signpost,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -41,6 +44,8 @@ interface HeaderShortcutsProps {
   defaultExpanded?: boolean
   /** Additional CSS classes */
   className?: string
+  /** Whether to render the toggle button */
+  showToggle?: boolean
 }
 
 /**
@@ -51,12 +56,12 @@ interface HeaderShortcutsProps {
 export function HeaderShortcuts({
   defaultExpanded = false,
   className,
+  showToggle = true,
 }: HeaderShortcutsProps) {
   const { t } = useTranslation(["option", "common", "settings"])
 
-  const [shortcutsPreference, setShortcutsPreference] = useStorage<boolean>(
-    "headerShortcutsExpanded",
-    defaultExpanded
+  const [shortcutsPreference, setShortcutsPreference] = useSetting(
+    HEADER_SHORTCUTS_EXPANDED_SETTING
   )
 
   type DebouncedShortcutsSetter = ((value: boolean) => void) & {
@@ -73,11 +78,9 @@ export function HeaderShortcuts({
         }
         timeoutId = window.setTimeout(() => {
           timeoutId = undefined
-          try {
-            setShortcutsPreference(value)
-          } catch {
+          void setShortcutsPreference(value).catch(() => {
             // ignore storage write failures
-          }
+          })
         }, 500)
       }) as DebouncedShortcutsSetter
 
@@ -92,7 +95,7 @@ export function HeaderShortcuts({
     }, [setShortcutsPreference])
 
   const [shortcutsExpanded, setShortcutsExpanded] = useState(() =>
-    Boolean(shortcutsPreference)
+    Boolean(shortcutsPreference ?? defaultExpanded)
   )
   const shortcutsToggleRef = useRef<HTMLButtonElement>(null)
   const shortcutsContainerRef = useRef<HTMLDivElement>(null)
@@ -168,6 +171,12 @@ export function HeaderShortcuts({
       {
         title: t("option:header.groupWorkspace", "Workspace"),
         items: [
+          {
+            type: "link" as const,
+            to: "/quiz",
+            icon: ClipboardList,
+            label: t("option:header.quiz", "Quizzes"),
+          },
           {
             type: "link" as const,
             to: "/evaluations",
@@ -273,41 +282,48 @@ export function HeaderShortcuts({
   // Register "?" keyboard shortcut to toggle shortcuts
   useShortcut({
     key: "?",
-    modifiers: [],
+    modifiers: ["shift"],
     action: handleToggle,
     description: "Toggle keyboard shortcuts",
     allowInInput: false,
   })
 
+  if (!showToggle && !shortcutsExpanded) {
+    return null
+  }
+
   return (
     <div className={`flex flex-col gap-2 ${className || ""}`}>
-      <button
-        type="button"
-        onClick={handleToggle}
-        aria-expanded={shortcutsExpanded}
-        aria-controls={shortcutsSectionId}
-        ref={shortcutsToggleRef}
-        title={t(
-          "option:header.shortcutsKeyHint",
-          "Press ? to toggle shortcuts"
-        )}
-        className="inline-flex items-center self-start rounded-md border border-transparent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-gray-500 transition hover:border-gray-300 hover:bg-white dark:text-gray-300 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
-      >
-        <ChevronDown
-          className={classNames(
-            "mr-1 h-4 w-4 transition-transform",
-            shortcutsExpanded ? "rotate-180" : ""
+      {showToggle && (
+        <button
+          type="button"
+          onClick={handleToggle}
+          aria-expanded={shortcutsExpanded}
+          aria-controls={shortcutsSectionId}
+          ref={shortcutsToggleRef}
+          title={t(
+            "option:header.shortcutsKeyHint",
+            "Press ? to toggle shortcuts"
           )}
-        />
-        {shortcutsExpanded
-          ? t("option:header.hideShortcuts", "Hide shortcuts")
-          : t("option:header.showShortcuts", "Show shortcuts")}
-        {!shortcutsExpanded && (
-          <span className="ml-1.5 text-[10px] font-normal normal-case tracking-normal text-gray-400">
-            {t("option:header.shortcutsKeyHintInline", "(Press ?)")}
-          </span>
-        )}
-      </button>
+          className="inline-flex items-center self-start rounded-md border border-transparent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-text-muted transition hover:border-border hover:bg-surface"
+        >
+          <ChevronDown
+            className={classNames(
+              "mr-1 h-4 w-4 transition-transform",
+              shortcutsExpanded ? "rotate-180" : ""
+            )}
+          />
+          <Signpost className="mr-1 h-4 w-4" aria-hidden="true" />
+          {shortcutsExpanded
+            ? t("option:header.hideShortcuts", "Hide shortcuts")
+            : t("option:header.showShortcuts", "Show shortcuts")}
+          {!shortcutsExpanded && (
+            <span className="ml-1.5 text-[10px] font-normal normal-case tracking-normal text-text-subtle">
+              {t("option:header.shortcutsKeyHintInline", "(Press ?)")}
+            </span>
+          )}
+        </button>
+      )}
 
       {shortcutsExpanded && (
         <div
@@ -317,6 +333,7 @@ export function HeaderShortcuts({
             if (e.key === "Escape") {
               e.preventDefault()
               setShortcutsExpanded(false)
+              debouncedSetShortcutsPreference(false)
               requestAnimationFrame(() => {
                 shortcutsToggleRef.current?.focus()
               })
@@ -337,7 +354,7 @@ export function HeaderShortcuts({
                 >
                   <h3
                     id={groupId}
-                    className="text-xs font-semibold uppercase tracking-wide text-gray-400"
+                    className="text-xs font-semibold uppercase tracking-wide text-text-subtle"
                   >
                     {group.title}
                   </h3>
@@ -357,10 +374,10 @@ export function HeaderShortcuts({
                           to={item.to}
                           className={({ isActive }) =>
                             classNames(
-                              "flex w-full items-center gap-2 rounded-md border px-3 py-2 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 sm:w-auto",
+                              "flex w-full items-center gap-2 rounded-md border px-3 py-2 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus sm:w-auto",
                               isActive
-                                ? "border-gray-300 bg-white text-gray-900 dark:border-gray-500 dark:bg-[#1f1f1f] dark:text-white"
-                                : "border-transparent text-gray-600 hover:border-gray-300 hover:bg-white dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#1f1f1f]"
+                                ? "border-border bg-surface text-text"
+                                : "border-transparent text-text-muted hover:border-border hover:bg-surface"
                             )
                           }
                         >

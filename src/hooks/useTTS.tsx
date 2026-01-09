@@ -1,39 +1,10 @@
 import { useEffect, useState } from "react"
-import {
-  getElevenLabsApiKey,
-  getElevenLabsModel,
-  getElevenLabsVoiceId,
-  getRemoveReasoningTagTTS,
-  getTTSProvider,
-  getVoice,
-  isSSMLEnabled,
-  getSpeechPlaybackSpeed,
-  getTldwTTSModel,
-  getTldwTTSVoice,
-  getTldwTTSResponseFormat,
-  getTldwTTSSpeed
-} from "@/services/tts"
-import { markdownToSSML } from "@/utils/markdown-to-ssml"
-import { generateSpeech } from "@/services/elevenlabs"
+import { getVoice } from "@/services/tts"
 import { splitMessageContent } from "@/utils/tts"
-import { removeReasoning } from "@/libs/reasoning"
-import { markdownToText } from "@/utils/markdown-to-text"
-import { generateOpenAITTS } from "@/services/openai-tts"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { resolveTtsProviderContext } from "@/services/tts-provider"
 import { useAntdNotification } from "./useAntdNotification"
 import { useTranslation } from "react-i18next"
-
-const formatToMimeType = (format: string): string => {
-  switch (format) {
-    case "wav":
-      return "audio/wav"
-    case "ogg":
-      return "audio/ogg"
-    case "mp3":
-    default:
-      return "audio/mpeg"
-  }
-}
+import { isChromiumTarget } from "@/config/platform"
 
 export interface VoiceOptions {
   utterance: string
@@ -49,26 +20,23 @@ export const useTTS = () => {
 
   const speak = async ({ utterance }: VoiceOptions) => {
     try {
-      const voice = await getVoice()
-      const provider = await getTTSProvider()
-      const isRemoveReasoning = await getRemoveReasoningTagTTS()
-      const playbackSpeed = await getSpeechPlaybackSpeed()
+      const context = await resolveTtsProviderContext(utterance)
+      const {
+        provider,
+        utterance: processedUtterance,
+        playbackSpeed,
+        synthesize,
+        supported
+      } = context
 
-      if (isRemoveReasoning) {
-        utterance = removeReasoning(utterance)
+      if (!supported) {
+        throw new Error(`Unsupported TTS provider: ${provider}`)
       }
-      const isSSML = await isSSMLEnabled()
-      if (isSSML) {
-        utterance = markdownToSSML(utterance)
-      } else {
-        utterance = markdownToText(utterance)
-      }
+
       if (provider === "browser") {
-        if (
-          import.meta.env.BROWSER === "chrome" ||
-          import.meta.env.BROWSER === "edge"
-        ) {
-          chrome.tts.speak(utterance, {
+        const voice = await getVoice()
+        if (isChromiumTarget) {
+          chrome.tts.speak(processedUtterance, {
             voiceName: voice,
             rate: playbackSpeed,
             onEvent(event) {
@@ -80,7 +48,7 @@ export const useTTS = () => {
             }
           })
         } else {
-          const synthesisUtterance = new SpeechSynthesisUtterance(utterance)
+          const synthesisUtterance = new SpeechSynthesisUtterance(processedUtterance)
           synthesisUtterance.rate = playbackSpeed
           synthesisUtterance.onstart = () => {
             setIsSpeaking(true)
@@ -103,163 +71,59 @@ export const useTTS = () => {
           }
           window.speechSynthesis.speak(synthesisUtterance)
         }
-      } else if (provider === "elevenlabs") {
-        const apiKey = await getElevenLabsApiKey()
-        const modelId = await getElevenLabsModel()
-        const voiceId = await getElevenLabsVoiceId()
-        const sentences = splitMessageContent(utterance)
-        
-        if (!apiKey || !modelId || !voiceId) {
-          throw new Error("Missing ElevenLabs configuration")
-        }
-
-        let nextAudioData: ArrayBuffer | null = null
-        let nextAudioPromise: Promise<ArrayBuffer> | null = null
-
-        for (let i = 0; i < sentences.length; i++) {
-          setIsSpeaking(true)
-
-          let currentAudioData: ArrayBuffer
-          if (nextAudioData) {
-            currentAudioData = nextAudioData
-            nextAudioData = null
-          } else {
-            currentAudioData = await generateSpeech(apiKey, sentences[i], voiceId, modelId)
-          }
-
-          if (i < sentences.length - 1) {
-            nextAudioPromise = generateSpeech(apiKey, sentences[i + 1], voiceId, modelId)
-          }
-
-          const blob = new Blob([currentAudioData], { type: "audio/mpeg" })
-          const url = URL.createObjectURL(blob)
-          const audio = new Audio(url)
-          audio.playbackRate = playbackSpeed
-          setAudioElement(audio)
-
-          await Promise.all([
-            new Promise((resolve) => {
-              audio.onended = resolve
-              audio.play()
-            }),
-            nextAudioPromise?.then((data) => {
-              nextAudioData = data
-            }).catch(console.error) || Promise.resolve()
-          ])
-
-          URL.revokeObjectURL(url)
-        }
-
-        setIsSpeaking(false)
-        setAudioElement(null)
-      } else if (provider === "openai") {
-        const sentences = splitMessageContent(utterance)
-
-        let nextAudioData: ArrayBuffer | null = null
-        let nextAudioPromise: Promise<ArrayBuffer> | null = null
-
-        for (let i = 0; i < sentences.length; i++) {
-          setIsSpeaking(true)
-
-          let currentAudioData: ArrayBuffer
-          if (nextAudioData) {
-            currentAudioData = nextAudioData
-            nextAudioData = null
-          } else {
-            currentAudioData = await generateOpenAITTS({
-              text: sentences[i]
-            })
-          }
-
-          // Start fetching next audio in parallel (if there's a next sentence)
-          if (i < sentences.length - 1) {
-            nextAudioPromise = generateOpenAITTS({
-              text: sentences[i + 1]
-            })
-          }
-
-          // Play current audio
-          const blob = new Blob([currentAudioData], { type: "audio/mpeg" })
-          const url = URL.createObjectURL(blob)
-          const audio = new Audio(url)
-          audio.playbackRate = playbackSpeed
-          setAudioElement(audio)
-
-          await Promise.all([
-            new Promise((resolve) => {
-              audio.onended = resolve
-              audio.play()
-            }),
-            nextAudioPromise?.then((data) => {
-              nextAudioData = data
-            }).catch(console.error) || Promise.resolve()
-          ])
-
-          URL.revokeObjectURL(url)
-        }
-
-        setIsSpeaking(false)
-        setAudioElement(null)
-      } else if (provider === "tldw") {
-        const tldwModel = await getTldwTTSModel()
-        const tldwVoice = await getTldwTTSVoice()
-        const tldwResponseFormat = await getTldwTTSResponseFormat()
-        const tldwMimeType = formatToMimeType(tldwResponseFormat)
-        const tldwSpeed = await getTldwTTSSpeed()
-        const sentences = splitMessageContent(utterance)
-
-        let nextAudioData: ArrayBuffer | null = null
-        let nextAudioPromise: Promise<ArrayBuffer> | null = null
-
-        for (let i = 0; i < sentences.length; i++) {
-          setIsSpeaking(true)
-
-          let currentAudioData: ArrayBuffer
-          if (nextAudioData) {
-            currentAudioData = nextAudioData
-            nextAudioData = null
-          } else {
-            currentAudioData = await tldwClient.synthesizeSpeech(sentences[i], {
-              model: tldwModel,
-              voice: tldwVoice,
-              responseFormat: tldwResponseFormat,
-              speed: tldwSpeed
-            })
-          }
-
-          if (i < sentences.length - 1) {
-            nextAudioPromise = tldwClient.synthesizeSpeech(sentences[i + 1], {
-              model: tldwModel,
-              voice: tldwVoice,
-              responseFormat: tldwResponseFormat,
-              speed: tldwSpeed
-            })
-          }
-
-          const blob = new Blob([currentAudioData], { type: tldwMimeType })
-          const url = URL.createObjectURL(blob)
-          const audio = new Audio(url)
-          audio.playbackRate = playbackSpeed
-          setAudioElement(audio)
-
-          await Promise.all([
-            new Promise((resolve) => {
-              audio.onended = resolve
-              audio.play()
-            }),
-            nextAudioPromise
-              ?.then((data) => {
-                nextAudioData = data
-              })
-              .catch(console.error) || Promise.resolve()
-          ])
-
-          URL.revokeObjectURL(url)
-        }
-
-        setIsSpeaking(false)
-        setAudioElement(null)
+        return
       }
+
+      if (!synthesize) {
+        throw new Error(`Unsupported TTS provider: ${provider}`)
+      }
+
+      const synthesizeSegment = synthesize
+      type AudioResult = Awaited<ReturnType<typeof synthesizeSegment>>
+      const sentences = splitMessageContent(processedUtterance)
+      let nextAudioData: AudioResult | null = null
+      let nextAudioPromise: Promise<AudioResult> | null = null
+
+      for (let i = 0; i < sentences.length; i++) {
+        setIsSpeaking(true)
+
+        let currentAudioData: AudioResult
+        if (nextAudioData) {
+          currentAudioData = nextAudioData
+          nextAudioData = null
+        } else {
+          currentAudioData = await synthesizeSegment(sentences[i])
+        }
+
+        if (i < sentences.length - 1) {
+          nextAudioPromise = synthesizeSegment(sentences[i + 1])
+        }
+
+        const blob = new Blob([currentAudioData.buffer], {
+          type: currentAudioData.mimeType
+        })
+        const url = URL.createObjectURL(blob)
+        const audio = new Audio(url)
+        audio.playbackRate = playbackSpeed
+        setAudioElement(audio)
+
+        await Promise.all([
+          new Promise((resolve) => {
+            audio.onended = resolve
+            audio.play()
+          }),
+          nextAudioPromise
+            ?.then((data) => {
+              nextAudioData = data
+            })
+            .catch(console.error) || Promise.resolve()
+        ])
+
+        URL.revokeObjectURL(url)
+      }
+
+      setIsSpeaking(false)
+      setAudioElement(null)
     } catch (error) {
       setIsSpeaking(false)
       setAudioElement(null)
@@ -283,8 +147,7 @@ export const useTTS = () => {
     }
 
     if (
-      import.meta.env.BROWSER === "chrome" ||
-      import.meta.env.BROWSER === "edge"
+      isChromiumTarget
     ) {
       chrome.tts.stop()
     } else {

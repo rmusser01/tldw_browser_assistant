@@ -206,21 +206,21 @@ function getFilePath(diff: FileDiff): string {
 const FileStatusBadge: FC<{ diff: FileDiff }> = ({ diff }) => {
   if (diff.isNew) {
     return (
-      <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+      <span className="rounded bg-success/10 px-1.5 py-0.5 text-xs font-medium text-success">
         NEW
       </span>
     )
   }
   if (diff.isDeleted) {
     return (
-      <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
+      <span className="rounded bg-danger/10 px-1.5 py-0.5 text-xs font-medium text-danger">
         DEL
       </span>
     )
   }
   if (diff.isRenamed) {
     return (
-      <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+      <span className="rounded bg-primary/10 px-1.5 py-0.5 text-xs font-medium text-primary">
         RENAME
       </span>
     )
@@ -232,7 +232,7 @@ const FileStatusBadge: FC<{ diff: FileDiff }> = ({ diff }) => {
  * Line number component
  */
 const LineNumber: FC<{ num?: number; className?: string }> = ({ num, className = "" }) => (
-  <span className={`select-none text-gray-400 dark:text-gray-600 min-w-10 text-right pr-2 ${className}`}>
+  <span className={`select-none text-text-subtle min-w-10 text-right pr-2 ${className}`}>
     {num ?? ""}
   </span>
 )
@@ -359,7 +359,7 @@ export const DiffViewer: FC<DiffViewerProps> = ({
 
   if (diffs.length === 0) {
     return (
-      <div className={`flex items-center justify-center h-32 text-gray-400 dark:text-gray-500 ${className}`}>
+      <div className={`flex h-32 items-center justify-center text-text-subtle ${className}`}>
         <span className="text-sm">{t("noDiffs", "No changes to display")}</span>
       </div>
     )
@@ -368,7 +368,7 @@ export const DiffViewer: FC<DiffViewerProps> = ({
   return (
     <div className={`space-y-2 ${className}`}>
       {/* Summary header */}
-      <div className="flex items-center justify-between px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+      <div className="flex items-center justify-between rounded-lg bg-surface2 px-3 py-2">
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium">
             {diffs.length}{" "}
@@ -376,11 +376,11 @@ export const DiffViewer: FC<DiffViewerProps> = ({
               ? t("fileChanged", "file changed")
               : t("filesChanged", "files changed")}
           </span>
-          <span className="flex items-center gap-1 text-sm text-green-600 dark:text-green-400">
+          <span className="flex items-center gap-1 text-sm text-success">
             <Plus className="size-3" />
             {stats.additions}
           </span>
-          <span className="flex items-center gap-1 text-sm text-red-600 dark:text-red-400">
+          <span className="flex items-center gap-1 text-sm text-danger">
             <Minus className="size-3" />
             {stats.deletions}
           </span>
@@ -388,14 +388,14 @@ export const DiffViewer: FC<DiffViewerProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={selectAllHunks}
-            className="text-xs px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+            className="rounded px-2 py-1 text-xs hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
             aria-label={t("selectAllHunks", "Select all diff hunks")}
           >
             {t("selectAll", "Select All")}
           </button>
           <button
             onClick={deselectAllHunks}
-            className="text-xs px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+            className="rounded px-2 py-1 text-xs hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
             aria-label={t("deselectAllHunks", "Deselect all diff hunks")}
           >
             {t("deselectAll", "Deselect All")}
@@ -412,25 +412,25 @@ export const DiffViewer: FC<DiffViewerProps> = ({
         return (
           <div
             key={diff.id}
-            className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+            className="overflow-hidden rounded-lg border border-border"
           >
             {/* File header */}
             <button
               onClick={() => collapsible && toggleFile(diff.id)}
               disabled={!collapsible}
-              className={`w-full flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 transition-colors text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-pink-500 ${
-                collapsible ? "hover:bg-gray-100 dark:hover:bg-gray-800" : "cursor-default"
+              className={`w-full flex items-center gap-2 bg-surface2 px-3 py-2 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus ${
+                collapsible ? "hover:bg-surface" : "cursor-default"
               }`}
               aria-expanded={collapsible ? isExpanded : undefined}
               aria-label={`${getFilePath(diff)} - ${isExpanded ? t("collapse", "Collapse") : t("expand", "Expand")}`}
             >
               {collapsible && (
                 isExpanded
-                  ? <ChevronDown className="size-4 text-gray-400" />
-                  : <ChevronRight className="size-4 text-gray-400" />
+                  ? <ChevronDown className="size-4 text-text-subtle" />
+                  : <ChevronRight className="size-4 text-text-subtle" />
               )}
 
-              <FileText className="size-4 text-gray-500" />
+              <FileText className="size-4 text-text-subtle" />
 
               <span className="font-mono text-sm flex-1 truncate">
                 {getFilePath(diff)}
@@ -439,50 +439,50 @@ export const DiffViewer: FC<DiffViewerProps> = ({
               <FileStatusBadge diff={diff} />
 
               {/* File selection indicator */}
-              <div className={`size-4 rounded border flex items-center justify-center ${
+              <div className={`flex size-4 items-center justify-center rounded border ${
                 fileSelected
-                  ? "bg-blue-500 border-blue-500"
+                  ? "border-primary bg-primary"
                   : filePartial
-                    ? "bg-blue-200 border-blue-500"
-                    : "border-gray-300 dark:border-gray-600"
+                    ? "border-primary bg-primary/30"
+                    : "border-border-strong"
               }`}>
                 {fileSelected && <Check className="size-3 text-white" />}
-                {filePartial && <Minus className="size-3 text-blue-500" />}
+                {filePartial && <Minus className="size-3 text-primary" />}
               </div>
             </button>
 
             {/* Hunks */}
             {isExpanded && (
-              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              <div className="divide-y divide-border">
                 {diff.hunks.map((hunk) => {
                   const isSelected = selected.has(hunk.id)
 
                   return (
                     <div key={hunk.id} className="relative">
                       {/* Hunk header */}
-                      <div className="flex items-center justify-between px-3 py-1 bg-blue-50 dark:bg-blue-900/20 border-b border-gray-200 dark:border-gray-700">
-                        <span className="font-mono text-xs text-blue-700 dark:text-blue-300">
+                      <div className="flex items-center justify-between border-b border-border bg-primary/10 px-3 py-1">
+                        <span className="font-mono text-xs text-primary">
                           @@ -{hunk.oldStart},{hunk.oldCount} +{hunk.newStart},{hunk.newCount} @@
                         </span>
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => copyHunk(hunk)}
-                            className="p-1 rounded hover:bg-blue-100 dark:hover:bg-blue-900/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+                            className="rounded p-1 hover:bg-primary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
                             title={t("copyHunk", "Copy hunk")}
                             aria-label={t("copyHunk", "Copy hunk")}
                           >
                             {copiedHunk === hunk.id ? (
-                              <CheckCheck className="size-3.5 text-green-500" />
+                              <CheckCheck className="size-3.5 text-success" />
                             ) : (
-                              <Copy className="size-3.5 text-gray-400" />
+                              <Copy className="size-3.5 text-text-subtle" />
                             )}
                           </button>
                           <button
                             onClick={() => toggleHunk(hunk.id)}
-                            className={`size-5 rounded border flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 ${
+                            className={`flex size-5 items-center justify-center rounded border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus ${
                               isSelected
-                                ? "bg-blue-500 border-blue-500"
-                                : "border-gray-300 dark:border-gray-600 hover:border-blue-400"
+                                ? "border-primary bg-primary"
+                                : "border-border-strong hover:border-primary"
                             }`}
                             title={isSelected ? t("deselectHunk", "Deselect hunk") : t("selectHunk", "Select hunk")}
                             aria-label={isSelected ? t("deselectHunk", "Deselect hunk") : t("selectHunk", "Select hunk")}
@@ -494,30 +494,30 @@ export const DiffViewer: FC<DiffViewerProps> = ({
                       </div>
 
                       {/* Diff lines */}
-                      <div className={`font-mono text-sm overflow-x-auto ${!isSelected ? "opacity-50" : ""}`}>
+                      <div className={`overflow-x-auto font-mono text-sm ${!isSelected ? "opacity-50" : ""}`}>
                         {hunk.lines.filter(l => l.type !== "header").map((line, idx) => (
                           <div
                             key={idx}
                           className={`flex ${
                               line.type === "add"
-                                ? "bg-green-50 dark:bg-green-900/20"
+                                ? "bg-success/10"
                                 : line.type === "remove"
-                                  ? "bg-red-50 dark:bg-red-900/20"
+                                  ? "bg-danger/10"
                                   : ""
                             }`}
                           >
                             {showLineNumbers && (
                               <>
-                                <LineNumber num={line.oldLineNum} className="border-r border-gray-200 dark:border-gray-700" />
-                                <LineNumber num={line.newLineNum} className="border-r border-gray-200 dark:border-gray-700" />
+                                <LineNumber num={line.oldLineNum} className="border-r border-border" />
+                                <LineNumber num={line.newLineNum} className="border-r border-border" />
                               </>
                             )}
-                            <span className={`w-5 flex-shrink-0 text-center select-none ${
+                            <span className={`w-5 flex-shrink-0 select-none text-center ${
                               line.type === "add"
-                                ? "text-green-600 dark:text-green-400"
+                                ? "text-success"
                                 : line.type === "remove"
-                                  ? "text-red-600 dark:text-red-400"
-                                  : "text-gray-400"
+                                  ? "text-danger"
+                                  : "text-text-subtle"
                             }`}>
                               {line.type === "add" ? "+" : line.type === "remove" ? "-" : " "}
                             </span>

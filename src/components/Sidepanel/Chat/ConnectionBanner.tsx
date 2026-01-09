@@ -47,9 +47,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
 
   const openSettings = () => {
     try {
-      // @ts-ignore
-      if (chrome?.runtime?.openOptionsPage) {
-        // @ts-ignore
+      if (typeof chrome !== "undefined" && chrome.runtime?.openOptionsPage) {
         chrome.runtime.openOptionsPage()
         return
       }
@@ -180,7 +178,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
         description={
           config.description && (
             <div className="mt-1">
-              <p className="text-xs text-gray-600 dark:text-gray-300">
+              <p className="text-xs text-text-muted">
                 {config.description}
               </p>
 
@@ -207,6 +205,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       icon={<Check className="size-3" />}
                       onClick={handleSaveApiKey}
                       loading={isSaving}
+                      title={t("common:save", "Save")}
                     >
                       {t("common:save", "Save")}
                     </Button>
@@ -217,7 +216,8 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       setShowApiKeyForm(false)
                       setApiKeyInput("")
                     }}
-                    className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 underline"
+                    className="text-xs text-text-subtle hover:text-text underline"
+                    title={t("common:cancel", "Cancel")}
                   >
                     {t("common:cancel", "Cancel")}
                   </button>
@@ -231,6 +231,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       type="primary"
                       icon={<KeyRound className="size-3" />}
                       onClick={() => setShowApiKeyForm(true)}
+                      title={t("sidepanel:connectionBanner.enterApiKey", "Enter API Key")}
                     >
                       {t("sidepanel:connectionBanner.enterApiKey", "Enter API Key")}
                     </Button>
@@ -241,6 +242,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       icon={<RefreshCw className="size-3" />}
                       onClick={handleRetry}
                       loading={isChecking}
+                      title={t("common:retry", "Retry")}
                     >
                       {t("common:retry", "Retry")}
                     </Button>
@@ -251,6 +253,7 @@ export const ConnectionBanner: React.FC<ConnectionBannerProps> = ({
                       type={uxState === "error_auth" ? "default" : "primary"}
                       icon={<Settings className="size-3" />}
                       onClick={openSettings}
+                      title={t("sidepanel:connectionBanner.openSettings", "Open Settings")}
                     >
                       {t("sidepanel:connectionBanner.openSettings", "Open Settings")}
                     </Button>

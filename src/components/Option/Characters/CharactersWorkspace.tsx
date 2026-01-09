@@ -44,7 +44,7 @@ export const CharactersWorkspace: React.FC = () => {
       <FeatureEmptyState
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
               Demo
             </span>
             <span>
@@ -73,7 +73,7 @@ export const CharactersWorkspace: React.FC = () => {
       <ConnectFeatureBanner
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
+            <span className="rounded-full bg-warn/10 px-2 py-0.5 text-[11px] font-medium text-warn">
               Not connected
             </span>
             <span>
@@ -106,7 +106,7 @@ export const CharactersWorkspace: React.FC = () => {
       <FeatureEmptyState
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
+            <span className="rounded-full bg-warn/10 px-2 py-0.5 text-[11px] font-medium text-warn">
               Feature unavailable
             </span>
             <span>
@@ -141,17 +141,17 @@ export const CharactersWorkspace: React.FC = () => {
   return (
     <PageShell className="space-y-4">
       <div className="space-y-1">
-        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
+        <h1 className="text-lg font-semibold text-text">
           {t("option:header.modeCharacters", "Characters")}
         </h1>
-        <p className="text-xs text-gray-600 dark:text-gray-300">
+        <p className="text-xs text-text-muted">
           {t("option:charactersEmpty.headerDescription", {
             defaultValue:
               "Create reusable characters you can pick from the chat header and reuse across conversations."
           })}
         </p>
         {fromHeaderSelect && (
-          <p className="mt-1 max-w-xl text-[11px] text-blue-700 dark:text-blue-300">
+          <p className="mt-1 max-w-xl text-[11px] text-primary">
             {t("option:charactersEmpty.headerSelectHint", {
               defaultValue:
                 "Create a character to reuse their persona across chats. Use “New character” to get started."
@@ -159,7 +159,7 @@ export const CharactersWorkspace: React.FC = () => {
           </p>
         )}
         {fromPersistenceError && (
-          <p className="mt-1 max-w-xl text-[11px] text-blue-700 dark:text-blue-300">
+          <p className="mt-1 max-w-xl text-[11px] text-primary">
             <span className="font-semibold">
               {t(
                 "playground:composer.persistence.serverCharacterHintTitle",
@@ -175,7 +175,7 @@ export const CharactersWorkspace: React.FC = () => {
         )}
       </div>
       {capsLoading && (
-        <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-[#0f1115]">
+        <div className="rounded-lg border border-border bg-surface p-6 shadow-sm">
           <Skeleton active title paragraph={{ rows: 5 }} />
         </div>
       )}

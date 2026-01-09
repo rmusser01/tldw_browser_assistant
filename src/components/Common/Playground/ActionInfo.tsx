@@ -39,7 +39,7 @@ export const ActionInfo = ({ action }: Props) => {
 
   return (
     <div
-      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800"
+      className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800"
       role="status"
       aria-live="polite"
     >

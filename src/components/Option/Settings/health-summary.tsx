@@ -79,10 +79,10 @@ export default function HealthSummary() {
       aria-hidden
       className={`inline-block w-2 h-2 rounded-full ${
         status === "ok"
-          ? "bg-green-500"
+          ? "bg-success"
           : status === "fail"
-            ? "bg-red-500"
-            : "bg-gray-400"
+            ? "bg-danger"
+            : "bg-border-strong"
       }`}
     />
   )
@@ -111,8 +111,8 @@ export default function HealthSummary() {
   }
 
   return (
-    <div className="mb-3 p-2 rounded border border-transparent bg-transparent flex items-center justify-between transition-colors duration-150 hover:border-gray-200 hover:bg-gray-50 dark:border-transparent dark:hover:border-gray-700 dark:hover:bg-[#1c1c1c]">
-      <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+    <div className="mb-3 flex items-center justify-between rounded border border-transparent bg-transparent p-2 transition-colors duration-150 hover:border-border hover:bg-surface2">
+      <div className="flex items-center gap-4 text-sm text-text-muted">
         <span
           className="flex items-center gap-2"
           title={t(
@@ -150,7 +150,7 @@ export default function HealthSummary() {
         <Button
           size="small"
           type="link"
-          className="text-blue-600 dark:text-blue-400"
+          className="text-primary"
           onClick={() => setOpen(true)}
           aria-expanded={open}
           aria-controls={diagnosticsPanelId}
@@ -169,7 +169,7 @@ export default function HealthSummary() {
             <span className="flex items-center gap-2">
               <Dot status={core} /> {t("healthSummary.core", "Server")}
             </span>
-            <span className="text-gray-500">
+            <span className="text-text-subtle">
               {coreCheckedAt ? new Date(coreCheckedAt).toLocaleString() : ""}
             </span>
           </div>
@@ -177,12 +177,12 @@ export default function HealthSummary() {
             <span className="flex items-center gap-2">
               <Dot status={rag} /> {t("healthSummary.rag", "Knowledge")}
             </span>
-            <span className="text-gray-500">
+            <span className="text-text-subtle">
               {ragCheckedAt ? new Date(ragCheckedAt).toLocaleString() : ""}
             </span>
           </div>
           {issueLabel && issueBody && (
-            <div className="pt-2 text-xs text-gray-600 dark:text-gray-300">
+            <div className="pt-2 text-xs text-text-muted">
               <div className="font-medium">
                 {t(
                   "healthSummary.currentIssueLabel",
@@ -196,7 +196,7 @@ export default function HealthSummary() {
               </div>
             </div>
           )}
-          <div className="pt-3 text-xs text-gray-500">
+          <div className="pt-3 text-xs text-text-subtle">
             {t(
               "healthSummary.footerInfo",
               "These checks summarize the last successful ping to your tldw server and knowledge index."

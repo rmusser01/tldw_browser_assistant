@@ -13,7 +13,9 @@ import { useDemoMode } from '@/context/demo-mode'
 import { useServerCapabilities } from '@/hooks/useServerCapabilities'
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { useAntdMessage } from '@/hooks/useAntdMessage'
+import { getNoteKeywords, searchNoteKeywords } from "@/services/note-keywords"
 import { useStoreMessageOption } from "@/store/option"
+import { shallow } from "zustand/shallow"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
 import { MarkdownPreview } from "@/components/Common/MarkdownPreview"
@@ -22,6 +24,8 @@ import NotesListPanel from "@/components/Notes/NotesListPanel"
 import type { NoteListItem } from "@/components/Notes/types"
 import { translateMessage } from "@/i18n/translateMessage"
 import { formatFileSize } from "@/utils/format"
+import { clearSetting, getSetting } from "@/services/settings/registry"
+import { LAST_NOTE_ID_SETTING } from "@/services/settings/ui-settings"
 
 type NoteWithKeywords = {
   metadata?: { keywords?: any[] }
@@ -113,7 +117,20 @@ const NotesManagerPage: React.FC = () => {
     setServerChatClusterId,
     setServerChatSource,
     setServerChatExternalRef
-  } = useStoreMessageOption()
+  } = useStoreMessageOption(
+    (state) => ({
+      setHistory: state.setHistory,
+      setMessages: state.setMessages,
+      setHistoryId: state.setHistoryId,
+      setServerChatId: state.setServerChatId,
+      setServerChatState: state.setServerChatState,
+      setServerChatTopic: state.setServerChatTopic,
+      setServerChatClusterId: state.setServerChatClusterId,
+      setServerChatSource: state.setServerChatSource,
+      setServerChatExternalRef: state.setServerChatExternalRef
+    }),
+    shallow
+  )
 
   const editorDisabled = !isOnline || (!capsLoading && capabilities && !capabilities.hasNotes)
 
@@ -367,20 +384,24 @@ const NotesManagerPage: React.FC = () => {
         role: m.role,
         content: m.content
       }))
-      const mappedMessages = messages.map((m) => ({
-        isBot: m.role === "assistant",
-        name:
-          m.role === "assistant"
-            ? assistantName
-            : m.role === "system"
-              ? "System"
-              : "You",
-        message: m.content,
-        sources: [],
-        images: [],
-        serverMessageId: m.id,
-        serverMessageVersion: m.version
-      }))
+      const mappedMessages = messages.map((m) => {
+        const createdAt = Date.parse(m.created_at)
+        return {
+          createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
+          isBot: m.role === "assistant",
+          name:
+            m.role === "assistant"
+              ? assistantName
+              : m.role === "system"
+                ? "System"
+                : "You",
+          message: m.content,
+          sources: [],
+          images: [],
+          serverMessageId: m.id,
+          serverMessageVersion: m.version
+        }
+      })
       setHistory(historyArr)
       setMessages(mappedMessages)
       updatePageTitle((chat as any)?.title || "")
@@ -610,30 +631,10 @@ const NotesManagerPage: React.FC = () => {
   const loadKeywordSuggestions = React.useCallback(async (text?: string) => {
     try {
       if (text && text.trim().length > 0) {
-        const abs = await bgRequest<any>({
-          path: `/api/v1/notes/keywords/search/?query=${encodeURIComponent(text)}&limit=10` as any,
-          method: 'GET' as any
-        })
-        const arr = Array.isArray(abs)
-          ? abs
-              .map((x: any) =>
-                String(x?.keyword || x?.keyword_text || x?.text || '')
-              )
-              .filter(Boolean)
-          : []
+        const arr = await searchNoteKeywords(text, 10)
         setKeywordOptions(arr)
       } else {
-        const abs = await bgRequest<any>({
-          path: `/api/v1/notes/keywords/?limit=200` as any,
-          method: 'GET' as any
-        })
-        const arr = Array.isArray(abs)
-          ? abs
-              .map((x: any) =>
-                String(x?.keyword || x?.keyword_text || x?.text || '')
-              )
-              .filter(Boolean)
-          : []
+        const arr = await getNoteKeywords(200)
         setKeywordOptions(arr)
       }
     } catch {
@@ -683,15 +684,20 @@ const NotesManagerPage: React.FC = () => {
 
   // Deep-link support: if tldw:lastNoteId is set (e.g., from omni-search),
   // automatically load that note once when the list is available.
-  const [pendingNoteId, setPendingNoteId] = React.useState<string | null>(() => {
-    try {
-      if (typeof window === "undefined") return null
-      const raw = window.localStorage.getItem("tldw:lastNoteId")
-      return raw || null
-    } catch {
-      return null
+  const [pendingNoteId, setPendingNoteId] = React.useState<string | null>(null)
+
+  React.useEffect(() => {
+    let cancelled = false
+    void (async () => {
+      const lastNoteId = await getSetting(LAST_NOTE_ID_SETTING)
+      if (!cancelled && lastNoteId) {
+        setPendingNoteId(lastNoteId)
+      }
+    })()
+    return () => {
+      cancelled = true
     }
-  })
+  }, [])
 
   React.useEffect(() => {
     if (!isOnline) return
@@ -702,11 +708,7 @@ const NotesManagerPage: React.FC = () => {
     ;(async () => {
       await handleSelectNote(pendingNoteId)
       setPendingNoteId(null)
-      try {
-        window.localStorage.removeItem("tldw:lastNoteId")
-      } catch {
-        // ignore storage errors
-      }
+      void clearSetting(LAST_NOTE_ID_SETTING)
     })()
   }, [data, handleSelectNote, isOnline, pendingNoteId, selectedId])
 
@@ -726,7 +728,7 @@ const NotesManagerPage: React.FC = () => {
   }, [])
 
   return (
-    <div className="flex h-full w-full bg-gray-50 dark:bg-[#101010] p-4 mt-16">
+    <div className="flex h-full w-full bg-bg p-4 mt-16">
       {/* Collapsible Sidebar */}
       <div
         className={`flex-shrink-0 transition-all duration-300 ease-in-out ${
@@ -734,13 +736,13 @@ const NotesManagerPage: React.FC = () => {
         }`}
         style={{ minHeight: `${MIN_SIDEBAR_HEIGHT}px`, height: `${sidebarHeight}px` }}
       >
-        <div className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
+        <div className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface">
           {/* Toolbar Section */}
-          <div className="flex-shrink-0 border-b border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-[#171717]">
+          <div className="flex-shrink-0 border-b border-border p-4 bg-surface">
             <div className="flex items-center justify-between mb-3">
-              <div className="text-xs uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">
+              <div className="text-xs uppercase tracking-[0.16em] text-text-muted">
                 {t('option:notesSearch.headerLabel', { defaultValue: 'Notes' })}
-                <span className="ml-2 text-gray-400 dark:text-gray-500">
+                <span className="ml-2 text-text-subtle">
                   {hasActiveFilters && filteredCount > 0 && total > 0
                     ? t('option:notesSearch.headerCount', {
                         defaultValue: '{{visible}} of {{total}}',
@@ -776,7 +778,7 @@ const NotesManagerPage: React.FC = () => {
                 placeholder={t('option:notesSearch.placeholder', {
                   defaultValue: 'Search notes...'
                 })}
-                prefix={(<SearchIcon className="w-4 h-4 text-gray-400" />) as any}
+                prefix={(<SearchIcon className="w-4 h-4 text-text-subtle" />) as any}
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value)
@@ -861,7 +863,7 @@ const NotesManagerPage: React.FC = () => {
       {/* Collapse Button - Simple style like Media page */}
       <button
         onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-        className="relative w-6 bg-white dark:bg-[#171717] border-y border-r border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-[#262626] flex items-center justify-center group transition-colors rounded-r-lg"
+        className="relative w-6 bg-surface border-y border-r border-border hover:bg-surface2 flex items-center justify-center group transition-colors rounded-r-lg"
         style={{ minHeight: `${MIN_SIDEBAR_HEIGHT}px`, height: `${sidebarHeight}px` }}
         aria-label={
           sidebarCollapsed
@@ -875,16 +877,16 @@ const NotesManagerPage: React.FC = () => {
       >
         <div className="flex items-center justify-center w-full h-full">
           {sidebarCollapsed ? (
-            <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+            <ChevronRight className="w-4 h-4 text-text-subtle group-hover:text-text" />
           ) : (
-            <ChevronLeft className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+            <ChevronLeft className="w-4 h-4 text-text-subtle group-hover:text-text" />
           )}
         </div>
       </button>
 
       {/* Editor Panel */}
       <div
-        className="flex-1 flex flex-col overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717] ml-4"
+        className="flex-1 flex flex-col overflow-hidden rounded-lg border border-border bg-surface ml-4"
         aria-disabled={editorDisabled}
       >
         <NotesEditorHeader
@@ -936,12 +938,12 @@ const NotesManagerPage: React.FC = () => {
             }}
             disabled={editorDisabled}
             ref={titleInputRef}
-            className="bg-transparent hover:bg-gray-50 focus:bg-gray-50 dark:bg-transparent dark:hover:bg-[#262626] dark:focus:bg-[#262626] transition-colors"
+            className="bg-transparent hover:bg-surface2 focus:bg-surface2 transition-colors"
           />
           <div className="mt-3">
-              <Select
-                mode="tags"
-                allowClear
+            <Select
+              mode="tags"
+              allowClear
               placeholder={t('option:notesSearch.keywordsEditorPlaceholder', {
                 defaultValue: 'Keywords (tags)'
               })}
@@ -959,7 +961,7 @@ const NotesManagerPage: React.FC = () => {
             />
             <Typography.Text
               type="secondary"
-              className="block text-[11px] mt-1 text-gray-500 dark:text-gray-400"
+              className="block text-[11px] mt-1 text-text-muted"
             >
               {t('option:notesSearch.tagsHelp', {
                 defaultValue:
@@ -973,20 +975,20 @@ const NotesManagerPage: React.FC = () => {
                 <div className="h-full flex flex-col">
                   <Typography.Text
                     type="secondary"
-                    className="block text-[11px] mb-2 text-gray-500 dark:text-gray-400"
+                    className="block text-[11px] mb-2 text-text-muted"
                   >
                     {t('option:notesSearch.previewTitle', {
                       defaultValue: 'Preview (Markdown + LaTeX)'
                     })}
                   </Typography.Text>
-                  <div className="w-full flex-1 text-sm p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#0c0c0c] overflow-auto">
+                  <div className="w-full flex-1 text-sm p-4 rounded-lg border border-border bg-surface2 overflow-auto">
                     <MarkdownPreview content={content} size="sm" />
                   </div>
                 </div>
               ) : (
                 <Typography.Text
                   type="secondary"
-                  className="block text-[11px] mt-1 text-gray-500 dark:text-gray-400"
+                  className="block text-[11px] mt-1 text-text-muted"
                 >
                   {t('option:notesSearch.emptyPreview', {
                     defaultValue:
@@ -996,7 +998,7 @@ const NotesManagerPage: React.FC = () => {
               )
             ) : (
               <textarea
-                className="w-full h-full min-h-0 text-sm p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#0c0c0c] text-gray-900 dark:text-gray-100 resize-none leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"
+                className="w-full h-full min-h-0 text-sm p-4 rounded-lg border border-border bg-surface2 text-text resize-none leading-relaxed focus:outline-none focus:ring-2 focus:ring-focus"
                 value={content}
                 onChange={(e) => {
                   setContent(e.target.value)

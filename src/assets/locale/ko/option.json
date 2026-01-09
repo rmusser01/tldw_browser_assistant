@@ -88,7 +88,8 @@
     "omniSearchStartChat": "새 채팅 \"{{query}}\" 시작",
     "connectionCard.connectedCaption": "이제 옵션과 사이드패널에서 채팅과 도구를 사용할 수 있습니다.",
     "quickIngestQueuedAria": "{{label}} — {{count}}개 항목이 대기 중 — 검토 및 처리하려면 클릭하세요",
-    "modeSpeech": "음성"
+    "modeSpeech": "음성",
+    "moreTools": "더보기"
   },
   "sidebarTitle": "채팅 기록",
   "error": "오류",
@@ -592,7 +593,9 @@
     "searchPlaceholder": "이름으로 캐릭터 검색",
     "noMatches": "검색과 일치하는 캐릭터가 아직 없습니다.",
     "refresh": "캐릭터 새로고침",
-    "refreshing": "캐릭터를 새로고치는 중…"
+    "refreshing": "캐릭터를 새로고치는 중…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "채팅에서 사용",

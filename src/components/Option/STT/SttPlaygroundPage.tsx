@@ -434,7 +434,7 @@ export const SttPlaygroundPage: React.FC = () => {
                     </Tag>
                   )}
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-text-muted ">
                   {t(
                     "playground:stt.settingsNotice",
                     "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
@@ -454,7 +454,7 @@ export const SttPlaygroundPage: React.FC = () => {
                     onChange={setUseLongRunning}
                     size="small"
                   />
-                  <span className="text-xs text-gray-600 dark:text-gray-300">
+                  <span className="text-xs text-text-muted ">
                     {useLongRunning
                       ? t(
                           "playground:stt.modeLong",
@@ -547,7 +547,7 @@ export const SttPlaygroundPage: React.FC = () => {
                 </Tooltip>
               </div>
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">
+            <div className="text-xs text-text-muted ">
               {t(
                 "playground:tooltip.speechToTextDetails",
                 "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text.",

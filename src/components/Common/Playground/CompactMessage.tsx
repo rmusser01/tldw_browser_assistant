@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react"
-import { Tooltip, Collapse, Avatar, message as antdMessage } from "antd"
+import { Tooltip, Collapse, Avatar, Modal, message as antdMessage } from "antd"
 import {
   Check,
   Copy,
@@ -15,9 +15,11 @@ import {
   Loader2,
   AlertCircle,
   CheckCheck,
+  Trash2,
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useTTS } from "@/hooks/useTTS"
+import { useUiModeStore } from "@/store/ui-mode"
 import { copyToClipboard } from "@/utils/clipboard"
 import { removeModelSuffix } from "@/db/dexie/models"
 import { parseReasoning } from "@/libs/reasoning"
@@ -58,6 +60,7 @@ interface CompactMessageProps {
   sendStatus?: "sending" | "sent" | "delivered" | "error"
   /** Timestamp of the message */
   timestamp?: number
+  onDelete?: () => void | Promise<void>
 }
 
 /**
@@ -92,6 +95,7 @@ export function CompactMessage({
   searchQuery,
   sendStatus,
   timestamp,
+  onDelete,
 }: CompactMessageProps) {
   const { t, i18n } = useTranslation(["common", "playground"])
   const [copied, setCopied] = useState(false)
@@ -100,6 +104,11 @@ export function CompactMessage({
   const [saveError, setSaveError] = useState<string | null>(null)
   const [showSources, setShowSources] = useState(false)
   const { cancel, isSpeaking, speak } = useTTS()
+  const uiMode = useUiModeStore((state) => state.mode)
+  const isProMode = uiMode === "pro"
+  const actionBarVisibility = isProMode
+    ? "opacity-100"
+    : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
 
   // Keep edited text in sync with message prop when not actively editing
   React.useEffect(() => {
@@ -143,22 +152,43 @@ export function CompactMessage({
     }
   }
 
+  const handleDelete = React.useCallback(() => {
+    if (!onDelete) return
+    Modal.confirm({
+      title: t("common:confirmTitle", "Please confirm"),
+      content: t("common:deleteMessageConfirm", "Delete this message?"),
+      okText: t("common:delete", "Delete"),
+      cancelText: t("common:cancel", "Cancel"),
+      okButtonProps: { danger: true },
+      onOk: async () => {
+        try {
+          await onDelete()
+          antdMessage.success(t("common:deleted", "Deleted"))
+        } catch (err) {
+          const fallback = t("common:deleteFailed", "Delete failed")
+          const errorMessage = err instanceof Error ? err.message : ""
+          antdMessage.error(errorMessage || fallback)
+        }
+      }
+    })
+  }, [onDelete, t])
+
   // Error state
   if (errorPayload) {
     return (
-      <div className="group px-3 py-2 border-b border-gray-100 dark:border-gray-800 hover:bg-red-50/50 dark:hover:bg-red-900/10">
+      <div className="group border-b border-border bg-surface2 px-3 py-2">
         <div className="flex items-start gap-3">
-          <div className="w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center shrink-0">
-            <AlertCircle className="size-3.5 text-red-600 dark:text-red-400" />
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-danger text-danger">
+            <AlertCircle className="size-3.5 text-danger" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-1">
-              <span className="font-medium text-red-600 dark:text-red-400">
+            <div className="mb-1 flex items-center gap-2 text-xs text-text-subtle">
+              <span className="font-medium text-danger">
                 {t("common:error", "Error")}
               </span>
               {formattedTime && <span>{formattedTime}</span>}
             </div>
-            <div className="text-sm text-red-700 dark:text-red-300">
+            <div className="text-sm text-danger">
               <p className="font-medium">{errorPayload.summary}</p>
               {errorPayload.hint && (
                 <p className="mt-1 text-xs opacity-80">{errorPayload.hint}</p>
@@ -167,7 +197,8 @@ export function CompactMessage({
             {onRegenerate && (
               <button
                 onClick={onRegenerate}
-                className="mt-2 flex items-center gap-1.5 text-xs text-red-600 dark:text-red-400 hover:underline"
+                title={t("common:retry", "Retry") as string}
+                className="mt-2 flex items-center gap-2 text-xs text-danger hover:underline"
               >
                 <RotateCcw className="size-3" />
                 {t("common:retry", "Retry")}
@@ -182,9 +213,9 @@ export function CompactMessage({
   return (
     <div
       className={cn(
-        "group px-3 py-2 border-b border-gray-100 dark:border-gray-800 transition-colors",
-        "hover:bg-gray-50 dark:hover:bg-gray-800/50",
-        isStreaming && "bg-blue-50/30 dark:bg-blue-900/10"
+        "group border-b border-border px-3 py-2 transition-colors",
+        "hover:bg-surface2",
+        isStreaming && "border-l-2 border-primary bg-surface2"
       )}
     >
       <div className="flex items-start gap-3">
@@ -206,25 +237,25 @@ export function CompactMessage({
           {/* Header row: name + timestamp */}
           <div className="flex items-center justify-between gap-2 mb-1">
             <div className="flex items-center gap-2 text-xs">
-              <span className="font-medium text-gray-900 dark:text-gray-100">
+              <span className="font-medium text-text">
                 {displayName}
               </span>
               {isBot && reasoningTimeTaken != null && (
-                <span className="text-gray-400 flex items-center gap-1">
+                <span className="flex items-center gap-1 text-text-subtle">
                   <Clock className="size-2.5" />
                   {humanizeMilliseconds(reasoningTimeTaken)}
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2 text-[10px] text-gray-400">
+            <div className="flex items-center gap-2 text-[10px] text-text-subtle">
               {formattedTime && <span>{formattedTime}</span>}
               {/* Send status for user messages */}
               {!isBot && sendStatus && (
-                <span className="flex items-center gap-0.5">
+                <span className="flex items-center gap-1">
                   {sendStatus === "sending" && <Loader2 className="size-2.5 animate-spin" />}
                   {sendStatus === "sent" && <Check className="size-2.5" />}
                   {sendStatus === "delivered" && <CheckCheck className="size-2.5" />}
-                  {sendStatus === "error" && <AlertCircle className="size-2.5 text-red-500" />}
+                  {sendStatus === "error" && <AlertCircle className="size-2.5 text-danger" />}
                 </span>
               )}
             </div>
@@ -245,7 +276,7 @@ export function CompactMessage({
                       { number: idx + 1 }
                     )
                   }
-                  className="max-h-32 rounded border border-gray-200 dark:border-gray-700"
+                  className="max-h-32 rounded border border-border"
                 />
               ))}
             </div>
@@ -262,7 +293,7 @@ export function CompactMessage({
                     setSaveError(null)
                   }
                 }}
-                className="w-full p-2 text-sm border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full rounded border border-border bg-surface p-2 text-sm text-text focus:outline-none focus:ring-2 focus:ring-focus"
                 rows={3}
                 autoFocus
               />
@@ -288,36 +319,38 @@ export function CompactMessage({
                       antdMessage.error(errorMessage)
                     }
                   }}
-                  className="px-3 py-1 text-xs bg-pink-600 text-white rounded hover:bg-pink-700"
+                  title={t("common:save", "Save") as string}
+                  className="rounded bg-primary px-3 py-1 text-xs text-surface hover:bg-primaryStrong"
                 >
                   {t("common:save", "Save")}
                 </button>
                 <button
                   onClick={() => setEditMode(false)}
-                  className="px-3 py-1 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                  title={t("common:cancel", "Cancel") as string}
+                  className="rounded px-3 py-1 text-xs text-text-muted hover:bg-surface2 hover:text-text"
                 >
                   {t("common:cancel", "Cancel")}
                 </button>
               </div>
               {saveError && (
-                <div className="mt-1 text-xs text-red-500">
+                <div className="mt-1 text-xs text-danger">
                   {saveError}
                 </div>
               )}
             </div>
           ) : (
-            <div className="text-sm text-gray-800 dark:text-gray-200">
+            <div className="text-sm text-text">
               {isBot ? (
-                <React.Suspense fallback={<div className="animate-pulse h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />}>
+                <React.Suspense fallback={<div className="h-4 w-3/4 animate-pulse rounded bg-surface2" />}>
                   {parsedContent.map((block, idx) => {
                     if (block.type === "reasoning") {
                       return (
                         <details
                           key={idx}
                           open={openReasoning}
-                          className="mb-2 text-xs text-gray-500 dark:text-gray-400 border-l-2 border-gray-200 dark:border-gray-700 pl-2"
+                          className="mb-2 border-l-2 border-border pl-2 text-xs text-text-muted"
                         >
-                          <summary className="cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+                          <summary className="cursor-pointer hover:text-text">
                             {isStreaming && block.reasoning_running ? (
                               <span className="italic animate-pulse">
                                 {t("common:reasoning.thinking", "Thinking...")}
@@ -352,7 +385,16 @@ export function CompactMessage({
             <div className="mt-2">
               <button
                 onClick={() => setShowSources(!showSources)}
-                className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                title={String(
+                  t("playground:sources.count", {
+                    defaultValue:
+                      sources.length === 1
+                        ? "{{count}} source"
+                        : "{{count}} sources",
+                    count: sources.length
+                  })
+                )}
+                className="flex items-center gap-2 text-xs text-text-muted hover:text-text"
               >
                 {showSources ? <ChevronDown className="size-3" /> : <ChevronRight className="size-3" />}
                 <FileText className="size-3" />
@@ -369,32 +411,37 @@ export function CompactMessage({
                 </span>
               </button>
               {showSources && (
-                <div className="mt-2 space-y-1.5 pl-4 border-l-2 border-gray-200 dark:border-gray-700">
-                  {sources.slice(0, MAX_PREVIEW_SOURCES).map((source, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => onSourceClick?.(source)}
-                      className="block w-full text-left text-xs p-2 rounded bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <div className="font-medium text-gray-700 dark:text-gray-300 truncate">
-                        {source.title ||
-                          source.name ||
-                          translateMessage(
-                            t,
-                            "playground:sources.fallbackTitle",
-                            "Source {{index}}",
-                            { index: idx + 1 }
-                          )}
-                      </div>
-                      {source.snippet && (
-                        <div className="text-gray-500 dark:text-gray-400 truncate mt-0.5">
-                          {source.snippet}
+                <div className="mt-2 space-y-2 border-l-2 border-border pl-4">
+                  {sources.slice(0, MAX_PREVIEW_SOURCES).map((source, idx) => {
+                    const label =
+                      source.title ||
+                      source.name ||
+                      translateMessage(
+                        t,
+                        "playground:sources.fallbackTitle",
+                        "Source {{index}}",
+                        { index: idx + 1 }
+                      )
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => onSourceClick?.(source)}
+                        title={label}
+                        className="block w-full rounded bg-surface2 p-2 text-left text-xs hover:bg-surface"
+                      >
+                        <div className="truncate font-medium text-text">
+                          {label}
                         </div>
-                      )}
-                    </button>
-                  ))}
+                        {source.snippet && (
+                          <div className="mt-1 truncate text-text-muted">
+                            {source.snippet}
+                          </div>
+                        )}
+                      </button>
+                    )
+                  })}
                   {sources.length > MAX_PREVIEW_SOURCES && (
-                    <div className="text-xs text-gray-400 italic pl-2">
+                    <div className="pl-2 text-xs italic text-text-subtle">
                       {t("playground:sources.more", {
                         defaultValue: "+{{count}} more",
                         count: sources.length - MAX_PREVIEW_SOURCES
@@ -406,16 +453,16 @@ export function CompactMessage({
             </div>
           )}
 
-          {/* Action buttons (hover reveal) */}
-          <div className="flex items-center gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          {/* Action buttons (hover reveal in Casual, always visible in Pro) */}
+          <div className={`mt-2 flex items-center gap-1 transition-opacity ${actionBarVisibility}`}>
             {/* Copy */}
             <Tooltip title={copied ? t("common:copied", "Copied!") : t("common:copy", "Copy")}>
               <button
                 onClick={handleCopy}
                 aria-label={copied ? t("common:copied", "Copied!") : t("common:copy", "Copy")}
-                className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
               >
-                {copied ? <Check className="size-3.5 text-green-500" /> : <Copy className="size-3.5" />}
+                {copied ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5" />}
               </button>
             </Tooltip>
 
@@ -428,7 +475,7 @@ export function CompactMessage({
                     setEditMode(true)
                   }}
                   aria-label={t("common:edit", "Edit")}
-                  className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
                 >
                   <Edit3 className="size-3.5" />
                 </button>
@@ -441,7 +488,7 @@ export function CompactMessage({
                 <button
                   onClick={onRegenerate}
                   aria-label={t("common:regenerate", "Regenerate")}
-                  className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
                 >
                   <RotateCcw className="size-3.5" />
                 </button>
@@ -454,7 +501,7 @@ export function CompactMessage({
                 <button
                   onClick={handleSpeak}
                   aria-label={isSpeaking ? t("common:stop", "Stop") : t("common:speak", "Speak")}
-                  className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
                 >
                   {isSpeaking ? <Square className="size-3.5" /> : <Volume2 className="size-3.5" />}
                 </button>
@@ -467,7 +514,7 @@ export function CompactMessage({
                 <button
                   onClick={onNewBranch}
                   aria-label={t("common:branch", "Create branch")}
-                  className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text"
                 >
                   <GitBranch className="size-3.5" />
                 </button>
@@ -480,9 +527,22 @@ export function CompactMessage({
                 <button
                   onClick={onStopStreaming}
                   aria-label={t("common:stop", "Stop")}
-                  className="p-1 rounded text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  className="rounded p-1 text-danger hover:bg-surface2"
                 >
                   <Square className="size-3.5" />
+                </button>
+              </Tooltip>
+            )}
+
+            {/* Delete */}
+            {onDelete && (
+              <Tooltip title={t("common:delete", "Delete")}>
+                <button
+                  onClick={handleDelete}
+                  aria-label={t("common:delete", "Delete")}
+                  className="rounded p-1 text-danger hover:bg-surface2"
+                >
+                  <Trash2 className="size-3.5" />
                 </button>
               </Tooltip>
             )}

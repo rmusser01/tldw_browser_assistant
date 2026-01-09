@@ -1,25 +1,5 @@
 import type { LucideIcon } from "lucide-react"
-import {
-  ActivityIcon,
-  BookIcon,
-  BookMarked,
-  BookOpen,
-  BookText,
-  BrainCircuitIcon,
-  CombineIcon,
-  CpuIcon,
-  Gauge,
-  InfoIcon,
-  OrbitIcon,
-  ServerIcon,
-  ShareIcon,
-  Layers,
-  StickyNote,
-  Microscope,
-  FlaskConical,
-  MessageSquare,
-  ClipboardList
-} from "lucide-react"
+import { optionRoutes, type NavGroupKey } from "@/routes/route-registry"
 
 export type SettingsNavItem = {
   to: string
@@ -34,53 +14,35 @@ export type SettingsNavGroup = {
   items: SettingsNavItem[]
 }
 
-export const SETTINGS_NAV_GROUPS: SettingsNavGroup[] = [
-  {
-    key: "server",
-    titleToken: "settings:navigation.serverAndAuth",
-    items: [
-      { to: "/settings/tldw", icon: ServerIcon, labelToken: "settings:tldw.serverNav" },
-      { to: "/settings", icon: OrbitIcon, labelToken: "settings:generalSettings.title" },
-      { to: "/settings/chat", icon: MessageSquare, labelToken: "settings:chatSettingsNav" },
-      { to: "/settings/rag", icon: CombineIcon, labelToken: "settings:rag.title" },
-      // Chrome AI and OpenAI/custom provider settings removed; extension is tldw_server-only
-      { to: "/settings/model", icon: BrainCircuitIcon, labelToken: "settings:manageModels.title" },
-      { to: "/admin/llamacpp", icon: CpuIcon, labelToken: "option:header.adminLlamacpp" },
-      { to: "/admin/mlx", icon: Gauge, labelToken: "option:header.adminMlx" },
-      { to: "/settings/evaluations", icon: FlaskConical, labelToken: "settings:evaluationsSettings.title", beta: true },
-      { to: "/settings/prompt-studio", icon: Microscope, labelToken: "settings:promptStudio.nav", beta: true },
-      { to: "/settings/health", icon: ActivityIcon, labelToken: "settings:healthNav" }
-    ]
-  },
-  {
-    key: "knowledge",
-    titleToken: "settings:navigation.knowledgeTools",
-    items: [
-      { to: "/settings/knowledge", icon: BookText, labelToken: "settings:manageKnowledge.title" },
-      { to: "/settings/world-books", icon: BookOpen, labelToken: "settings:worldBooksNav" },
-      { to: "/settings/chat-dictionaries", icon: BookMarked, labelToken: "settings:chatDictionariesNav" },
-      { to: "/settings/characters", icon: BookIcon, labelToken: "settings:charactersNav" },
-      { to: "/media", icon: BookText, labelToken: "settings:mediaNav" }
-    ]
-  },
-  {
-    key: "workspace",
-    titleToken: "settings:navigation.workspace",
-    items: [
-      { to: "/media-multi", icon: Microscope, labelToken: "option:header.review" },
-      { to: "/content-review", icon: BookText, labelToken: "option:header.contentReview" },
-      { to: "/notes", icon: StickyNote, labelToken: "option:header.notes" },
-      { to: "/flashcards", icon: Layers, labelToken: "option:header.flashcards" },
-      { to: "/quiz", icon: ClipboardList, labelToken: "option:header.quiz", beta: true },
-      { to: "/settings/prompt", icon: BookIcon, labelToken: "settings:managePrompts.title" },
-      { to: "/settings/share", icon: ShareIcon, labelToken: "settings:manageShare.title" }
-    ]
-  },
-  {
-    key: "about",
-    titleToken: "settings:navigation.about",
-    items: [
-      { to: "/settings/about", icon: InfoIcon, labelToken: "settings:about.title" }
-    ]
-  }
+const NAV_GROUPS: Array<{ key: NavGroupKey; titleToken: string }> = [
+  { key: "server", titleToken: "settings:navigation.serverAndAuth" },
+  { key: "knowledge", titleToken: "settings:navigation.knowledgeTools" },
+  { key: "workspace", titleToken: "settings:navigation.workspace" },
+  { key: "about", titleToken: "settings:navigation.about" }
 ]
+
+type NavItemWithOrder = SettingsNavItem & { order: number }
+
+const buildNavItemsByGroup = () =>
+  optionRoutes.reduce((acc, route) => {
+    if (!route.nav) return acc
+    const { group, labelToken, icon, beta, order } = route.nav
+    const items = acc.get(group) ?? []
+    items.push({ to: route.path, icon, labelToken, beta, order })
+    acc.set(group, items)
+    return acc
+  }, new Map<NavGroupKey, NavItemWithOrder[]>())
+
+export const getSettingsNavGroups = (): SettingsNavGroup[] => {
+  const navItemsByGroup = buildNavItemsByGroup()
+  return NAV_GROUPS.map((group) => {
+    const items = (navItemsByGroup.get(group.key) ?? [])
+      .sort((a, b) => a.order - b.order)
+      .map(({ order, ...item }) => item)
+    return {
+      key: group.key,
+      titleToken: group.titleToken,
+      items
+    }
+  }).filter((group) => group.items.length > 0)
+}

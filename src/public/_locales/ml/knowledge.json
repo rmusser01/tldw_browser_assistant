@@ -1,0 +1,290 @@
+{
+  "addBtn": {
+    "message": "പുതിയ വിജ്ഞാനം ചേര്‍ക്കുക"
+  },
+  "columns_title": {
+    "message": "തലക്കെട്ട്"
+  },
+  "columns_status": {
+    "message": "സ്ഥിതി"
+  },
+  "columns_embeddings": {
+    "message": "എംബെഡിംഗ് മോഡല്‍"
+  },
+  "columns_createdAt": {
+    "message": "സൃഷ്ടിച്ചത്"
+  },
+  "columns_action": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "expandedColumns_name": {
+    "message": "നാമം"
+  },
+  "confirm_delete": {
+    "message": "നിങ്ങൾക്ക് ഈ വിജ്ഞാനം ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ?"
+  },
+  "deleteSuccess": {
+    "message": "വിജ്ഞാനം വിജയകരമായി ഇല്ലാതാക്കി"
+  },
+  "status_pending": {
+    "message": "തീരുമാനിക്കാനുണ്ട്"
+  },
+  "status_finished": {
+    "message": "പൂർത്തീകരിച്ചു"
+  },
+  "status_processing": {
+    "message": "പ്രോസസ്സിംഗ്"
+  },
+  "status_failed": {
+    "message": "പരാജയപ്പെട്ടു"
+  },
+  "addKnowledge": {
+    "message": "വിജ്ഞാനം ചേര്‍ക്കുക"
+  },
+  "updateKnowledge": {
+    "message": "ഉറവിടം ചേർക്കുക"
+  },
+  "form_title_label": {
+    "message": "വിജ്ഞാനത്തിന്റെ തലക്കെട്ട്"
+  },
+  "form_title_placeholder": {
+    "message": "വിജ്ഞാനത്തിന്റെ തലക്കെട്ട് നല്‍കുക"
+  },
+  "form_title_required": {
+    "message": "വിജ്ഞാനത്തിന്റെ തലക്കെട്ട് ആവശ്യമാണ്"
+  },
+  "form_uploadFile_label": {
+    "message": "ഫയല്‍ അപ്‌ലോഡ് ചെയ്യുക"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "ഇവിടെ ഒരു ഫയല്‍ എടുത്തിടുക അല്ലെങ്കില്‍ അപ്‌ലോഡ് ചെയ്യാന്‍ ക്ലിക്ക് ചെയ്യുക"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "പിന്തുണയുള്ള ഫയല്‍ തരങ്ങള്‍: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "ഫയല്‍ ആവശ്യമാണ്"
+  },
+  "form_submit": {
+    "message": "സമര്‍പ്പിക്കുക"
+  },
+  "form_success": {
+    "message": "വിജ്ഞാനം വിജയകരമായി ചേര്‍ത്തു"
+  },
+  "noEmbeddingModel": {
+    "message": "ദയവായി ആദ്യം RAG ക്രമീകരണ പേജില്‍ നിന്ന് ഒരു എംബെഡിംഗ് മോഡല്‍ ചേര്‍ക്കുക"
+  },
+  "privateModeDescription": {
+    "message": "Firefox സ്വകാര്യ മോഡ് IndexedDB-ൽ സംരക്ഷണം പിന്തുണയ്ക്കുന്നില്ല. സാധാരണ വിൻഡോയിലൂടെ നോളജ് ബേസ് ചേർക്കുക."
+  },
+  "ragWorkspace_title": {
+    "message": "വിജ്ഞാന തിരച്ചിലും ചാറ്റും"
+  },
+  "ragWorkspace_description": {
+    "message": "വിജ്ഞാന തിരച്ചിൽ (RAG) ഓപ്ഷനുകൾ ക്രമീകരിക്കുകയും വേഗത്തിലുള്ള തിരച്ചിലുകൾ നടത്തുകയും തെളിവുകളുള്ള ഉത്തരങ്ങളോടെ ചാറ്റ് ഉപയോഗിക്കുകയും ചെയ്യുക."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "റിറ്റ്രീവൽ‑ഓഗ്മെന്റഡ് ജനറേഷൻ (RAG) അസിസ്റ്റന്റിന് നിങ്ങളുടെ മീഡിയ, കുറിപ്പുകൾ, മറ്റ് സൂചികപ്പെടുത്തിയ വിജ്ഞാന സ്രോതസ്സുകൾ എന്നിവയെ ആശ്രയിച്ച് ഉത്തരങ്ങൾ നൽകാൻ സഹായിക്കുന്നു."
+  },
+  "ragWorkspace_autoRagLabel": {
+    "message": "ഓരോ മറുപടിക്കും RAG ഉപയോഗിക്കുക"
+  },
+  "ragWorkspace_autoRagHelp": {
+    "message": "ഈ ഓപ്ഷൻ സജീവമാക്കിയാൽ, ചാറ്റ് വർക്ക്‌സ്പേസ് ഓരോ സന്ദേശത്തിനും മറുപടി നൽകുന്നതിന് മുമ്പ് വിജ്ഞാന (RAG) തിരച്ചിൽ നടത്തും."
+  },
+  "ragWorkspace_autoRagScopeHelp": {
+    "message": "ഈ ക്രമീകരണം പ്രധാന ചാറ്റ് കാഴ്ചയിലും സൈഡ്‌പാനൽ മറുപടികളിലും ബാധകം."
+  },
+  "ragWorkspace_docsPerReply_label": {
+    "message": "മറുപടി ഒന്നിന് ഡോക്യുമെന്റുകൾ (top-k)"
+  },
+  "ragWorkspace_docsPerReply_current": {
+    "message": "ഓരോ മറുപടിക്കും {{count}} ഡോക്യുമെന്റുകൾ"
+  },
+  "ragWorkspace_scopeMediaOnly": {
+    "message": "RAG പരിധി: ഈ മീഡിയ മാത്രം"
+  },
+  "ragWorkspace_scopeDefault": {
+    "message": "RAG പരിധി: സർവറിന്റെ സ്ഥിരസ്ഥിതി ക്രമീകരണം"
+  },
+  "ragWorkspace_openChatCta": {
+    "message": "RAG സഹിതം ചാറ്റ് തുറക്കുക"
+  },
+  "ragWorkspace_openRagSettings": {
+    "message": "RAG ക്രമീകരണങ്ങൾ"
+  },
+  "ragWorkspace_ragUnsupportedTitle": {
+    "message": "ഈ സർവറിൽ RAG തിരച്ചിൽ ലഭ്യമല്ല"
+  },
+  "ragWorkspace_ragUnsupportedDescription": {
+    "message": "ഈ tldw സർവർ RAG എൻഡ്പോയിന്റുകൾ പരസ്യപ്പെടുത്തുന്നില്ല. ലഭ്യമായ APIകൾ Diagnostics-ൽ പരിശോധിച്ച്, RAG തിരച്ചിൽ സജീവമാക്കാൻ സർവർ അപ്ഗ്രേഡ് ചെയ്യുകയോ പുനഃക്രമീകരിക്കുകയോ ചെയ്യുക."
+  },
+  "ragWorkspace_searchTitle": {
+    "message": "വേഗത്തിലുള്ള വിജ്ഞാന തിരച്ചിൽ"
+  },
+  "ragWorkspace_searchPlaceholder": {
+    "message": "ക്രമീകരിച്ച RAG സ്രോതസ്സുകളിൽ തിരയുക"
+  },
+  "ragWorkspace_searchButton": {
+    "message": "തിരയുക"
+  },
+  "ragWorkspace_searchInactiveHelp": {
+    "message": "തിരയുന്നതിന് മുമ്പ് നിങ്ങളുടെ tldw സർവറിലേക്ക് കണക്റ്റ് ചെയ്യുക."
+  },
+  "ragWorkspace_searchActiveHelp": {
+    "message": "തിരയൽ നിങ്ങളുടെ RAG സ്രോതസ്സുകളിൽ പ്രവർത്തിക്കുന്നു. മീഡിയ, കുറിപ്പുകൾ തുടങ്ങിയവയിൽ മൾട്ടി സോഴ്‌സ് വിജ്ഞാന തിരച്ചിലിന് ചാറ്റ് ഉപയോഗിക്കുക."
+  },
+  "ragWorkspace_searchErrorTitle": {
+    "message": "RAG തിരച്ചിൽ പരാജയപ്പെട്ടു"
+  },
+  "ragWorkspace_noResults": {
+    "message": "RAG ഫലങ്ങളൊന്നുമില്ല. തിരയാൻ ഒരു ക്വറി നൽകുക."
+  },
+  "ragWorkspace_answerTitle": {
+    "message": "RAG മറുപടി"
+  },
+  "ragWorkspace_citationsTitle": {
+    "message": "ഉദ്ധരണികൾ"
+  },
+  "ragWorkspace_untitled": {
+    "message": "ശീർഷകമില്ലാത്ത സ്നിപ്പെറ്റ്"
+  },
+  "ragWorkspace_copySnippet": {
+    "message": "സ്നിപ്പെറ്റ് പകർത്തുക"
+  },
+  "ragWorkspace_openSource": {
+    "message": "സ്രോതസ് തുറക്കുക"
+  },
+  "ragWorkspace_optionsLabel": {
+    "message": "RAG ഓപ്ഷനുകൾ"
+  },
+  "ragWorkspace_searchModeLabel": {
+    "message": "തിരച്ചിൽ മോഡ്"
+  },
+  "ragWorkspace_searchModeHybrid": {
+    "message": "ഹൈബ്രിഡ്"
+  },
+  "ragWorkspace_searchModeVector": {
+    "message": "വെക്റ്റർ"
+  },
+  "ragWorkspace_searchModeFts": {
+    "message": "ഫുൾ‑ടെക്സ്റ്റ്"
+  },
+  "ragWorkspace_topKLabel": {
+    "message": "ടോപ്പ്-k"
+  },
+  "ragWorkspace_enableGeneration": {
+    "message": "മറുപടി സൃഷ്ടിക്കൽ സജീവപ്പെടുത്തുക"
+  },
+  "ragWorkspace_enableCitations": {
+    "message": "ഉദ്ധരണികൾ സജീവപ്പെടുത്തുക"
+  },
+  "ragWorkspace_sourcesLabel": {
+    "message": "സ്രോതസ്സുകൾ"
+  },
+  "ragWorkspace_sourceMedia": {
+    "message": "മീഡിയ"
+  },
+  "ragWorkspace_sourceNotes": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "ragWorkspace_sourceCharacters": {
+    "message": "ക്യാരക്റ്ററുകൾ"
+  },
+  "ragWorkspace_sourceChats": {
+    "message": "ചാറ്റുകൾ"
+  },
+  "ragWorkspace_resetOptions": {
+    "message": "സ്ഥിരസ്ഥിതിയിലേക്ക് പുനഃസജ്ജമാക്കുക"
+  },
+  "ragWorkspace_advancedLabel": {
+    "message": "ഉയർന്ന നിലവാരമുള്ള RAG ഓപ്ഷനുകൾ (JSON)"
+  },
+  "ragWorkspace_advancedHelp": {
+    "message": "ഐച്ഛികം: UnifiedRAGRequest ഫീൽഡുകളുള്ള (ഉദാ, strategy, enable_reranking) JSON ഒബ്ജക്റ്റ് ഇവിടെ പേസ്റ്റ് ചെയ്യുക. ശൂന്യമായി വച്ചാൽ സ്ഥിരമായ മൂല്യങ്ങൾ ഉപയോഗിക്കും."
+  },
+  "ragWorkspace_advancedPlaceholder": {
+    "message": "{ \"strategy\": \"agentic\", \"enable_reranking\": true }"
+  },
+  "ragWorkspace_advancedApplied": {
+    "message": "ഉയർന്ന നിലവാരത്തിലുള്ള RAG ഓപ്ഷനുകൾ പ്രയോഗിച്ചു."
+  },
+  "ragWorkspace_advancedCleared": {
+    "message": "ഉയർന്ന നിലവാരത്തിലുള്ള RAG ഓപ്ഷനുകൾ നീക്കപ്പെട്ടു."
+  },
+  "ragWorkspace_advancedInvalid": {
+    "message": "ഉയർന്ന നിലവാരത്തിലുള്ള RAG ഓപ്ഷനുകൾക്കായി നൽകിയ JSON അസാധുവാണ്."
+  },
+  "ragWorkspace_advancedApply": {
+    "message": "ഓവർറൈഡുകൾ പ്രയോഗിക്കുക"
+  },
+  "ragWorkspace_advancedReset": {
+    "message": "നീക്കം"
+  },
+  "ragWorkspace_advancedFlagsLabel": {
+    "message": "അഡ്വാൻസ്ഡ് ഓപ്ഷനുകൾ"
+  },
+  "ragWorkspace_advancedFlagsHelp": {
+    "message": "JSON എഡിറ്റ് ചെയ്യാതെ പൊതുവായ UnifiedRAGRequest ഫ്ലാഗുകൾ ക്രമീകരിക്കുക."
+  },
+  "ragWorkspace_strategyLabel": {
+    "message": "സ്ട്രാറ്റജി"
+  },
+  "ragWorkspace_strategyPlaceholder": {
+    "message": "സർവർ സ്ഥിരസ്ഥിതി"
+  },
+  "ragWorkspace_strategyStandard": {
+    "message": "സ്റ്റാൻഡേർഡ്"
+  },
+  "ragWorkspace_strategyAgentic": {
+    "message": "ഏജന്റിക്"
+  },
+  "ragWorkspace_enableReranking": {
+    "message": "റീരാങ്കിംഗ് സജീവപ്പെടുത്തുക"
+  },
+  "ragWorkspace_enableCache": {
+    "message": "കാഷെ സജീവപ്പെടുത്തുക"
+  },
+  "ragWorkspace_chatTitle": {
+    "message": "വിജ്ഞാന QA ചാറ്റ്"
+  },
+  "ragWorkspace_chatModeRagOn": {
+    "message": "ചാറ്റ് മറുപടികൾക്കായി വിജ്ഞാന തിരച്ചിൽ (RAG) ഉപയോഗിക്കുന്നു."
+  },
+  "ragWorkspace_chatModeRagOff": {
+    "message": "സൂചികപ്പെടുത്തിയ ഉള്ളടക്കത്തെ അടിസ്ഥാനപ്പെടുത്തി മറുപടികൾക്കായി “ഓരോ മറുപടിക്കും RAG ഉപയോഗിക്കുക” എന്നത് ടോഗിൾ ചെയ്യുക."
+  },
+  "ragWorkspace_chatHint": {
+    "message": "ഈ വിജ്ഞാന (RAG) ക്രമീകരണങ്ങളോടെ പൂർണ്ണ സംഭാഷണ ചരിത്രം കാണാൻ പ്രധാന ചാറ്റ് ടാബ് തുറക്കുക."
+  },
+  "ragWorkspace_chatOpenPlayground": {
+    "message": "ഈ വിജ്ഞാന തിരച്ചിൽ ക്രമീകരണങ്ങളോടൊപ്പം ചാറ്റ് തുറക്കുക"
+  },
+  "rag_searchFailed": {
+    "message": "RAG തിരച്ചിൽ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുകയോ Diagnostics പരിശോധിക്കുകയോ ചെയ്യുക."
+  },
+  "empty_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ Knowledge QA പരിശോധിക്കുക"
+  },
+  "empty_demoDescription": {
+    "message": "ഈ ഡെമോ Knowledge QA എങ്ങനെ ഉദാഹരണ ഉള്ളടക്കത്തിൽ RAG തിരച്ചിലുകൾ നടത്തുന്നു എന്ന് കാണിക്കുന്നു. പിന്നീട്, താങ്കളുടെ സ്വന്തം സർവർ കണക്റ്റ് ചെയ്ത് താങ്കളുടെ ട്രാൻസ്‌ക്രിപ്റ്റുകളും ഡോക്യൂമെന്റുകളും തിരയാം."
+  },
+  "empty_demoExample1": {
+    "message": "വേഗത്തിലുള്ള RAG തിരച്ചിലുകൾ പരീക്ഷിച്ച് ഫലങ്ങളും റഫറൻസും പരിശോധിക്കുക."
+  },
+  "empty_demoExample2": {
+    "message": "താങ്കളുടെ യഥാർത്ഥ മീഡിയയിലും കുറിപ്പുകളിലും Knowledge QA ഉപയോഗിക്കാൻ താങ്കളുടെ സ്വന്തം സർവർ കണക്റ്റ് ചെയ്യുക."
+  },
+  "empty_connectTitle": {
+    "message": "Knowledge QA ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "empty_connectDescription": {
+    "message": "Knowledge QAയും RAG തിരച്ചിലും ഉപയോഗിക്കാൻ ആദ്യം താങ്കളുടെ tldw സർവറിലേക്ക് കണക്റ്റ് ചെയ്യണം."
+  },
+  "empty_connectExample1": {
+    "message": "സെറ്റിംഗ്സ് → tldw server തുറന്ന് താങ്കളുടെ സർവർ URL ചേർക്കുക."
+  },
+  "empty_connectExample2": {
+    "message": "സർവർ പ്രവർത്തിക്കുന്നുണ്ടെങ്കിലും എത്തിച്ചേരാനാവുന്നില്ലെങ്കിൽ Diagnostics ഉപയോഗിക്കുക."
+  }
+}

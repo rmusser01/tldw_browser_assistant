@@ -88,13 +88,13 @@ export function UnifiedLoadingState({
   return (
     <div className={cn("flex flex-col items-center py-4 px-2", className)}>
       {showLabels && loadingSources.length > 0 && (
-        <div className="flex flex-wrap gap-1 mb-3 text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex flex-wrap gap-1 mb-3 text-xs text-text-subtle">
           {loadingSources.map((source) => (
             <span
               key={source.key}
-              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800"
+              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface2"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               {getSourceLabel(source)}
             </span>
           ))}

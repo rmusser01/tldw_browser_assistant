@@ -3332,5 +3332,74 @@
   },
   "mediaPage_presetQAAnalysis": {
     "message": "Q&A 분석"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "비교 모드 사용"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "실험적인 다중 모델 비교 기능을 사용합니다."
+  },
+  "playground_composer_compareDisabled": {
+    "message": "비교 모드는 설정에서 비활성화되어 있습니다."
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "선택한 답변으로 계속하거나 다시 비교하세요."
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "선택됨"
+  },
+  "playground_composer_compareLatency": {
+    "message": "지연 시간"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "비교: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(비교에서)"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "다중 모델 답변"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}}개 모델"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "선택한 모델: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "각 선택 답변을 별도 채팅으로 열기"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "모델별 스레드"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "나"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "전체 채팅으로 열기"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "분리된 채팅 열기"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "표준"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "표준으로 고정"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "표준 답변"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "모델 필터"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "모두 표시"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "{{visible}} / {{total}} 표시"
+  },
+  "playground_composer_compareTokens": {
+    "message": "토큰: {{count}}"
   }
 }

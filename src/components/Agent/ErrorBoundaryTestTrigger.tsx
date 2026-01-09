@@ -27,14 +27,14 @@ export const ErrorBoundaryTestTrigger: FC<ErrorBoundaryTestTriggerProps> = ({
 
   return (
     <div className={`p-4 ${className}`}>
-      <div className="mb-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
-        <div className="flex items-center gap-2 mb-2">
-          <AlertTriangle className="size-5 text-yellow-600" />
-          <h3 className="font-medium text-yellow-800 dark:text-yellow-200">
+      <div className="mb-4 rounded-lg border border-warn/30 bg-warn/10 p-4">
+        <div className="mb-2 flex items-center gap-2">
+          <AlertTriangle className="size-5 text-warn" />
+          <h3 className="font-medium text-warn">
             Error Boundary Test Page
           </h3>
         </div>
-        <p className="text-sm text-yellow-700 dark:text-yellow-300">
+        <p className="text-sm text-warn">
           This page is used to test the AgentErrorBoundary component.
           Click the button below to trigger an error and verify the error boundary catches it.
         </p>

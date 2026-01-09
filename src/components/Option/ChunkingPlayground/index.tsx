@@ -382,7 +382,7 @@ export const ChunkingPlayground: React.FC<ChunkingPlaygroundProps> = ({
 
       {/* Empty state */}
       {!isLoading && chunks.length === 0 && !error && (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-8 text-text-muted ">
           <ScissorOutlined className="text-4xl mb-2" />
           <p>
             {t(

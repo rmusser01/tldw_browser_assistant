@@ -97,10 +97,10 @@ export const ResultsTab: React.FC = () => {
       <Empty
         description={
           <div className="space-y-2">
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-text-muted">
               {t("option:quiz.noAttempts", { defaultValue: "No quiz attempts yet" })}
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-text-subtle">
               {t("option:quiz.noAttemptsHint", {
                 defaultValue: "Complete a quiz to see your results here"
               })}
@@ -126,7 +126,14 @@ export const ResultsTab: React.FC = () => {
               title={t("option:quiz.avgScore", { defaultValue: "Average Score" })}
               value={stats.avgScore}
               suffix="%"
-              valueStyle={{ color: stats.avgScore >= 70 ? "#52c41a" : stats.avgScore >= 50 ? "#faad14" : "#ff4d4f" }}
+              valueStyle={{
+                color:
+                  stats.avgScore >= 70
+                    ? "var(--color-success)"
+                    : stats.avgScore >= 50
+                      ? "var(--color-warn)"
+                      : "var(--color-danger)"
+              }}
             />
             <Statistic
               title={t("option:quiz.avgTime", { defaultValue: "Average Time" })}
@@ -178,7 +185,7 @@ export const ResultsTab: React.FC = () => {
                   <div className="flex justify-between items-start mb-2">
                     <div>
                       <Text strong>{quizName}</Text>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-text-subtle">
                         {attempt.completed_at
                           ? formatDate(attempt.completed_at)
                           : t("option:quiz.inProgress", { defaultValue: "In progress" })}
@@ -205,7 +212,13 @@ export const ResultsTab: React.FC = () => {
                       <Progress
                         percent={percentage}
                         size="small"
-                        strokeColor={isPassing ? "#52c41a" : percentage >= 50 ? "#faad14" : "#ff4d4f"}
+                        strokeColor={
+                          isPassing
+                            ? "var(--color-success)"
+                            : percentage >= 50
+                              ? "var(--color-warn)"
+                              : "var(--color-danger)"
+                        }
                         className="flex-1"
                       />
                       {attempt.time_spent_seconds && (

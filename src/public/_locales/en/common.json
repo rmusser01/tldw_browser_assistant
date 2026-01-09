@@ -1,0 +1,1172 @@
+{
+  "pageAssist": {
+    "message": "tldw Assistant"
+  },
+  "titles_options": {
+    "message": "tldw Assistant"
+  },
+  "titles_sidepanel": {
+    "message": "tldw Assistant"
+  },
+  "dismiss": {
+    "message": "Dismiss"
+  },
+  "confirmTitle": {
+    "message": "Please confirm"
+  },
+  "pdf_passwordTitle": {
+    "message": "Enter the PDF password"
+  },
+  "pdf_unlock": {
+    "message": "Unlock"
+  },
+  "loading_title": {
+    "message": "Loading…"
+  },
+  "loading_description": {
+    "message": "Please wait while we get things ready."
+  },
+  "loading_content": {
+    "message": "Loading content…"
+  },
+  "selectAModel": {
+    "message": "Select a Model"
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "saved": {
+    "message": "Saved"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "saving": {
+    "message": "Saving..."
+  },
+  "retry": {
+    "message": "Retry"
+  },
+  "close": {
+    "message": "Close"
+  },
+  "loadMore": {
+    "message": "Load More..."
+  },
+  "share_tooltip_share": {
+    "message": "Share"
+  },
+  "share_modal_title": {
+    "message": "Share link to Chat"
+  },
+  "share_form_defaultValue_name": {
+    "message": "Anonymous"
+  },
+  "share_form_defaultValue_title": {
+    "message": "Untitled chat"
+  },
+  "share_form_title_label": {
+    "message": "Chat title"
+  },
+  "share_form_title_placeholder": {
+    "message": "Enter Chat title"
+  },
+  "share_form_title_required": {
+    "message": "Chat title is required"
+  },
+  "share_form_name_label": {
+    "message": "Your name"
+  },
+  "share_form_name_placeholder": {
+    "message": "Enter your name"
+  },
+  "share_form_name_required": {
+    "message": "Your name is required"
+  },
+  "share_form_btn_save": {
+    "message": "Generate Link"
+  },
+  "share_form_btn_saving": {
+    "message": "Generating Link..."
+  },
+  "share_notification_successGenerate": {
+    "message": "Link copied to clipboard"
+  },
+  "share_notification_failGenerate": {
+    "message": "Failed to generate link"
+  },
+  "copyToClipboard": {
+    "message": "Copy to clipboard"
+  },
+  "table_copyCsv": {
+    "message": "Copy as CSV"
+  },
+  "table_downloadCsv": {
+    "message": "Download CSV"
+  },
+  "webSearch": {
+    "message": "Searching the web"
+  },
+  "regenerate": {
+    "message": "Regenerate"
+  },
+  "edit": {
+    "message": "Edit"
+  },
+  "delete": {
+    "message": "Delete"
+  },
+  "deleteMessageConfirm": {
+    "message": "Delete this message?"
+  },
+  "deleteFailed": {
+    "message": "Delete failed"
+  },
+  "continue": {
+    "message": "Continue Response"
+  },
+  "saveAndSubmit": {
+    "message": "Save & Send"
+  },
+  "editMessage_placeholder": {
+    "message": "Type a message..."
+  },
+  "submit": {
+    "message": "Submit"
+  },
+  "send": {
+    "message": "Send"
+  },
+  "startChat": {
+    "message": "Start chatting"
+  },
+  "connectToServer": {
+    "message": "Connect to server"
+  },
+  "previous": {
+    "message": "Previous"
+  },
+  "next": {
+    "message": "Next"
+  },
+  "noData": {
+    "message": "No data"
+  },
+  "noHistory": {
+    "message": "No chat history"
+  },
+  "chatWithCurrentPage": {
+    "message": "Chat with current page"
+  },
+  "chatWithCharacter": {
+    "message": "Chat with character"
+  },
+  "beta": {
+    "message": "Beta"
+  },
+  "tts": {
+    "message": "Read aloud"
+  },
+  "ttsShort": {
+    "message": "TTS"
+  },
+  "copyShort": {
+    "message": "Copy"
+  },
+  "branchShort": {
+    "message": "Branch"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Redo"
+  },
+  "continueShort": {
+    "message": "More"
+  },
+  "fileChanges": {
+    "message": "File changes"
+  },
+  "deletions": {
+    "message": "Deletions"
+  },
+  "gitOperations": {
+    "message": "Git operations"
+  },
+  "commands": {
+    "message": "Commands"
+  },
+  "otherOperations": {
+    "message": "Other operations"
+  },
+  "fileAccess": {
+    "message": "File access"
+  },
+  "notebookEdits": {
+    "message": "Notebook edits"
+  },
+  "applyPatch": {
+    "message": "Apply patch"
+  },
+  "recursive": {
+    "message": "(recursive)"
+  },
+  "complexArguments": {
+    "message": "[Complex arguments]"
+  },
+  "currentChatModelSettings": {
+    "message": "Current Chat Model Settings"
+  },
+  "modelSettings_label": {
+    "message": "Model Settings"
+  },
+  "modelSettings_description": {
+    "message": "Set the model options globally for all chats"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "Keep Alive"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "controls how long the model will stay loaded into memory following the request (default: 5m)"
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "e.g. 5m, 10m, 1h"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "Temperature"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "e.g. 0.7, 1.0"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "Context Window Size (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "Enter Context Window Size value (default: 2048)"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "Max Tokens (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "e.g. 2048, 4096"
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "Thinking Mode"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "Seed"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "e.g. 1234"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "Reproducibility of the model output"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "Top K"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "e.g. 40, 100"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "Top P"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "e.g. 0.9, 0.95"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "e.g. 1.0, 1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Num Keep"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "e.g. 256, 512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Num Thread"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "e.g. 8, 16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "Reasoning Effort"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "low, medium, high"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "e.g. 0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "Repeat Penalty"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "e.g. 1.1, 1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "Repeat Last N"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "e.g. 64, 128"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "Num GPU"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "Enter number of layers to send to GPU(s)"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "Temporary System Prompt"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "Enter System Prompt"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "This is a quick way to set the system prompt in the current chat, which will override the selected system prompt if it exists."
+  },
+  "modelSettings_form_historyMessageLimit_label": {
+    "message": "History message limit"
+  },
+  "modelSettings_form_historyMessageLimit_placeholder": {
+    "message": "e.g. 10"
+  },
+  "modelSettings_form_historyMessageLimit_help": {
+    "message": "Limit how many previous messages are sent with each request."
+  },
+  "modelSettings_form_historyMessageOrder_label": {
+    "message": "History message order"
+  },
+  "modelSettings_form_historyMessageOrder_placeholder": {
+    "message": "Select order"
+  },
+  "modelSettings_form_historyMessageOrder_help": {
+    "message": "Choose whether the newest or oldest messages are sent first."
+  },
+  "modelSettings_form_historyMessageOrder_options_desc": {
+    "message": "Newest first"
+  },
+  "modelSettings_form_historyMessageOrder_options_asc": {
+    "message": "Oldest first"
+  },
+  "modelSettings_form_slashCommandInjectionMode_label": {
+    "message": "Slash command injection"
+  },
+  "modelSettings_form_slashCommandInjectionMode_placeholder": {
+    "message": "Select injection mode"
+  },
+  "modelSettings_form_slashCommandInjectionMode_help": {
+    "message": "Choose how slash commands are inserted into the request."
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_system": {
+    "message": "System message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_preface": {
+    "message": "Preface user message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_replace": {
+    "message": "Replace user message"
+  },
+  "modelSettings_form_apiProvider_label": {
+    "message": "API provider override"
+  },
+  "modelSettings_form_apiProvider_placeholder": {
+    "message": "Select provider (optional)"
+  },
+  "modelSettings_form_apiProvider_help": {
+    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+  },
+  "modelSettings_form_extraHeaders_label": {
+    "message": "Extra headers (JSON)"
+  },
+  "modelSettings_form_extraHeaders_placeholder": {
+    "message": "{ \"X-API-Key\": \"...\" }"
+  },
+  "modelSettings_form_extraHeaders_help": {
+    "message": "JSON object merged into request headers."
+  },
+  "modelSettings_form_extraBody_label": {
+    "message": "Extra body (JSON)"
+  },
+  "modelSettings_form_extraBody_placeholder": {
+    "message": "{ \"user\": \"...\" }"
+  },
+  "modelSettings_form_extraBody_help": {
+    "message": "JSON object merged into request body."
+  },
+  "modelSettings_form_guardrails_invalidJson": {
+    "message": "Enter a valid JSON object."
+  },
+  "modelSettings_advanced": {
+    "message": "More Model Settings"
+  },
+  "modelSettings_requestOverrides": {
+    "message": "Request overrides"
+  },
+  "copilot_summary": {
+    "message": "Summarize"
+  },
+  "copilot_explain": {
+    "message": "Explain"
+  },
+  "copilot_rephrase": {
+    "message": "Rephrase"
+  },
+  "copilot_translate": {
+    "message": "Translate"
+  },
+  "copilot_custom": {
+    "message": "Custom"
+  },
+  "citations": {
+    "message": "Citations"
+  },
+  "segmented_available": {
+    "message": "Server Models"
+  },
+  "segmented_custom": {
+    "message": "Custom Models"
+  },
+  "downloadCode": {
+    "message": "Download Code"
+  },
+  "success": {
+    "message": "Success"
+  },
+  "created": {
+    "message": "Created"
+  },
+  "updated": {
+    "message": "Updated"
+  },
+  "deleted": {
+    "message": "Deleted"
+  },
+  "create": {
+    "message": "Create"
+  },
+  "reset": {
+    "message": "Reset"
+  },
+  "serverOffline": {
+    "message": "Server offline or not configured"
+  },
+  "serverChats": {
+    "message": "Server chats"
+  },
+  "serverChatLoadError": {
+    "message": "Failed to load server chat. Check your connection and try again."
+  },
+  "serverChatSourceLabel": {
+    "message": "Server"
+  },
+  "serverChatForkedLabel": {
+    "message": "Forked chat"
+  },
+  "serverChatForkedTooltip": {
+    "message": "Forked from chat {{chatId}}"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Server chats are available once you connect to your tldw server."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Server chats unavailable right now. Check your server logs or try again."
+  },
+  "date_pinned": {
+    "message": "Pinned"
+  },
+  "date_today": {
+    "message": "Today"
+  },
+  "date_yesterday": {
+    "message": "Yesterday"
+  },
+  "date_last7Days": {
+    "message": "Last 7 Days"
+  },
+  "date_older": {
+    "message": "Older"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "Are you sure you want to delete all pinned messages?"
+  },
+  "range_deleteConfirm_today": {
+    "message": "Are you sure you want to delete all messages from today?"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "Are you sure you want to delete all messages from yesterday?"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "Are you sure you want to delete all messages from the last 7 days?"
+  },
+  "range_deleteConfirm_older": {
+    "message": "Are you sure you want to delete all older messages?"
+  },
+  "range_tooltip_pinned": {
+    "message": "Delete all pinned messages"
+  },
+  "range_tooltip_today": {
+    "message": "Delete all messages from today"
+  },
+  "range_tooltip_yesterday": {
+    "message": "Delete all messages from yesterday"
+  },
+  "range_tooltip_last7Days": {
+    "message": "Delete all messages from the last 7 days"
+  },
+  "range_tooltip_older": {
+    "message": "Delete all older messages"
+  },
+  "historiesDeleted": {
+    "message": "{{count}} Histories Deleted"
+  },
+  "deleteHistoriesError": {
+    "message": "Error deleting histories"
+  },
+  "pin": {
+    "message": "Pin"
+  },
+  "unpin": {
+    "message": "Unpin"
+  },
+  "generationInfo": {
+    "message": "Generation Info"
+  },
+  "sidebarChat": {
+    "message": "Sidebar Chat"
+  },
+  "reasoning_thinking": {
+    "message": "Thinking…"
+  },
+  "reasoning_loading": {
+    "message": "Loading reasoning…"
+  },
+  "reasoning_thought": {
+    "message": "Model’s reasoning (optional)"
+  },
+  "mermaid": {
+    "message": "Mermaid"
+  },
+  "search": {
+    "message": "Search"
+  },
+  "searchResults": {
+    "message": "Search Results"
+  },
+  "embeddingGen": {
+    "message": "Creating embeddings, this may take a while"
+  },
+  "semanticSearch": {
+    "message": "Performing semantic search"
+  },
+  "newBranch": {
+    "message": "New Branch"
+  },
+  "downloading": {
+    "message": "Downloading"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "Are you sure you want to cancel the download? This will stop the download process. If supported by the provider, you can resume later."
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant can't save data"
+  },
+  "error_label": {
+    "message": "Error"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "We couldn't reach your tldw server."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Your API key may be invalid. Open Settings → tldw server to check your URL and API key, then try again."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Your chat timed out."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "The server stopped streaming responses. Try again, or open Health & diagnostics to check server status."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Something went wrong while talking to your tldw server."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Try again in a moment, or open Health & diagnostics to inspect server health."
+  },
+  "error_showDetails": {
+    "message": "Show technical details"
+  },
+  "error_hideDetails": {
+    "message": "Hide technical details"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  },
+  "folders": {
+    "message": "Folders"
+  },
+  "folderView": {
+    "message": "Folder view"
+  },
+  "dateView": {
+    "message": "Date view"
+  },
+  "newFolder": {
+    "message": "New Folder"
+  },
+  "folderName": {
+    "message": "Folder name"
+  },
+  "selectFolder": {
+    "message": "Select folder"
+  },
+  "noFolders": {
+    "message": "No folders"
+  },
+  "expandAll": {
+    "message": "Expand all"
+  },
+  "collapseAll": {
+    "message": "Collapse all"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "confirm": {
+    "message": "Confirm"
+  },
+  "untitled": {
+    "message": "Untitled"
+  },
+  "moveToFolder": {
+    "message": "Move to folder"
+  },
+  "timeline_title": {
+    "message": "Conversation Timeline"
+  },
+  "timeline_searchPlaceholder": {
+    "message": "Search messages... (space = AND)"
+  },
+  "timeline_searchMatches": {
+    "message": "matches"
+  },
+  "timeline_searchNoMatches": {
+    "message": "no matches"
+  },
+  "timeline_searchMode_fragments": {
+    "message": "Fragments"
+  },
+  "timeline_searchMode_substring": {
+    "message": "Substring"
+  },
+  "timeline_searchMode_regex": {
+    "message": "Regex"
+  },
+  "timeline_layout_horizontal": {
+    "message": "horizontal"
+  },
+  "timeline_layout_vertical": {
+    "message": "vertical"
+  },
+  "timeline_refreshGraph": {
+    "message": "Refresh graph"
+  },
+  "timeline_switchLayout": {
+    "message": "Switch to {{layout}} layout"
+  },
+  "timeline_expandAllAlternatives": {
+    "message": "Expand all alternatives"
+  },
+  "timeline_collapseAllAlternatives": {
+    "message": "Collapse all alternatives"
+  },
+  "timeline_hideLegend": {
+    "message": "Hide legend"
+  },
+  "timeline_showLegend": {
+    "message": "Show legend"
+  },
+  "timeline_zoomIn": {
+    "message": "Zoom in"
+  },
+  "timeline_zoomOut": {
+    "message": "Zoom out"
+  },
+  "noToolCalls": {
+    "message": "No tool calls yet"
+  },
+  "status_pending": {
+    "message": "Pending"
+  },
+  "status_running": {
+    "message": "Running"
+  },
+  "status_complete": {
+    "message": "Complete"
+  },
+  "status_error": {
+    "message": "Error"
+  },
+  "arguments": {
+    "message": "Arguments"
+  },
+  "invalidJson": {
+    "message": "Invalid JSON; showing raw value"
+  },
+  "result": {
+    "message": "Result"
+  },
+  "tools_fs_list": {
+    "message": "List Directory"
+  },
+  "tools_fs_read": {
+    "message": "Read File"
+  },
+  "tools_fs_write": {
+    "message": "Write File"
+  },
+  "tools_fs_apply_patch": {
+    "message": "Apply Patch"
+  },
+  "tools_fs_mkdir": {
+    "message": "Create Directory"
+  },
+  "tools_fs_delete": {
+    "message": "Delete"
+  },
+  "tools_search_grep": {
+    "message": "Search Content"
+  },
+  "tools_search_glob": {
+    "message": "Find Files"
+  },
+  "tools_git_status": {
+    "message": "Git Status"
+  },
+  "tools_git_diff": {
+    "message": "Git Diff"
+  },
+  "tools_git_log": {
+    "message": "Git Log"
+  },
+  "tools_git_branch": {
+    "message": "Git Branch"
+  },
+  "tools_git_add": {
+    "message": "Stage Files"
+  },
+  "tools_git_commit": {
+    "message": "Commit"
+  },
+  "tools_exec_run": {
+    "message": "Run Command"
+  },
+  "markdown_unableToRender": {
+    "message": "Unable to render content"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "The message content could not be displayed. This may be due to invalid formatting."
+  },
+  "markdown_showRawContent": {
+    "message": "Show raw content"
+  },
+  "commandPalette_goToChat": {
+    "message": "Go to Chat"
+  },
+  "commandPalette_goToMedia": {
+    "message": "Go to Media"
+  },
+  "commandPalette_goToNotes": {
+    "message": "Go to Notes"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Go to Flashcards"
+  },
+  "commandPalette_goToSettings": {
+    "message": "Go to Settings"
+  },
+  "commandPalette_goToHealth": {
+    "message": "Health & Diagnostics"
+  },
+  "commandPalette_newChat": {
+    "message": "New Chat"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Toggle Knowledge Search"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "Search your knowledge base"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Toggle Web Search"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Search the internet"
+  },
+  "commandPalette_ingestPage": {
+    "message": "Ingest Current Page"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Save this page to your knowledge base"
+  },
+  "commandPalette_switchModel": {
+    "message": "Switch Model"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Toggle Sidebar"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Show or hide the chat sidebar"
+  },
+  "commandPalette_placeholder": {
+    "message": "Type a command or search..."
+  },
+  "commandPalette_noResults": {
+    "message": "No results found"
+  },
+  "commandPalette_title": {
+    "message": "Command Palette"
+  },
+  "commandPalette_navigate": {
+    "message": "navigate"
+  },
+  "commandPalette_select": {
+    "message": "select"
+  },
+  "commandPalette_toOpen": {
+    "message": "to open"
+  },
+  "commandPalette_categoryActions": {
+    "message": "Actions"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Navigation"
+  },
+  "commandPalette_categorySettings": {
+    "message": "Settings"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Recent"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Search your knowledge"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Open the knowledge search panel to find snippets and insert them into your chat."
+  },
+  "featureHints_moreTools_title": {
+    "message": "More tools available"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Access vision mode, image upload, quick ingest, and the full app."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Quick commands"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Press {{shortcut}} to search commands, settings, and more."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Adjust model parameters"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Fine-tune temperature, context length, and other model settings."
+  },
+  "chatSidebar_title": {
+    "message": "Chats"
+  },
+  "chatSidebar_newChat": {
+    "message": "New Chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Collapse sidebar"
+  },
+  "chatSidebar_expand": {
+    "message": "Expand sidebar"
+  },
+  "chatSidebar_search": {
+    "message": "Search chats..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "Quick Ingest"
+  },
+  "chatSidebar_media": {
+    "message": "Media"
+  },
+  "chatSidebar_notes": {
+    "message": "Notes"
+  },
+  "chatSidebar_flashcards": {
+    "message": "Flashcards"
+  },
+  "chatSidebar_prompts": {
+    "message": "Prompts"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Multi-Item"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Shortcuts"
+  },
+  "chatSidebar_settings": {
+    "message": "Settings"
+  },
+  "chatSidebar_loadError": {
+    "message": "Failed to load chats"
+  },
+  "chatSidebar_localTab": {
+    "message": "Local"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Server"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Folders"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Local"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Server"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Folders"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "No server chats yet"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Folders require a server connection"
+  },
+  "extName": {
+    "message": "tldw Assistant"
+  },
+  "extDescription": {
+    "message": "Browser extension for tldw_server - your unified AI assistant with RAG, media processing, and more."
+  },
+  "openSidePanelToChat": {
+    "message": "Open Sidebar to chat"
+  },
+  "openOptionToChat": {
+    "message": "Open Web UI to Chat"
+  },
+  "contextSummarize": {
+    "message": "Summarize"
+  },
+  "contextExplain": {
+    "message": "Explain"
+  },
+  "contextRephrase": {
+    "message": "Rephrase"
+  },
+  "contextTranslate": {
+    "message": "Translate"
+  },
+  "contextCustom": {
+    "message": "Custom"
+  },
+  "contextSendToTldw": {
+    "message": "Send to tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Process with tldw_server (don’t store)"
+  },
+  "contextTranscribeMedia": {
+    "message": "Transcribe Video/Audio"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Transcribe + Summarize Video/Audio"
+  },
+  "contextSaveToNotes": {
+    "message": "Save to Notes"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Select text first to save to Notes."
+  },
+  "contextSidebarOpening": {
+    "message": "Opening sidebar..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Opening sidebar to save note..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Could not open the sidebar to save this note. Check that the tldw Assistant sidebar is allowed on this site and try again."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] Page send request rejected by tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Failed to send this page to tldw_server: $1. Check Settings → tldw server and try again."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Failed to send this page to tldw_server. Check Settings → tldw server and try again."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Sent page to tldw_server for processing"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Something went wrong while sending this page to tldw_server. Check that your tldw_server and the extension are running, then try again."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] A model pull request is already in progress. Please wait for it to finish before starting another one."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Do you want to send a request to your tldw_server to pull the \"$1\" model? This is independent of the huggingface.co website. Your server will start pulling the model after you confirm."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Sending a request to your tldw_server to pull \"$1\". Check the extension icon or your tldw_server logs for progress."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Failed to send a pull request for \"$1\": $2. Check Settings → tldw server and try again."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Failed to send a pull request for \"$1\". Check Settings → tldw server and try again."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Request sent to your tldw_server to pull \"$1\". Monitor the extension icon or tldw_server logs for status."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Something went wrong while sending a pull request for \"$1\" to your tldw_server. Check that your tldw_server and the extension are running, then try again."
+  },
+  "stepLabel": {
+    "message": "Welcome"
+  },
+  "path": {
+    "message": "How would you like to get started?"
+  },
+  "nextSteps": {
+    "message": "You’re ready to go"
+  },
+  "restartOnboardingLabel": {
+    "message": "Restart onboarding from the beginning"
+  },
+  "restartOnboardingButton": {
+    "message": "Restart onboarding"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "Restart onboarding?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "This will reset your onboarding state and take you back to the setup flow."
+  },
+  "saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "saveToFlashcards": {
+    "message": "Save to Flashcards"
+  },
+  "saveNoteShort": {
+    "message": "Note"
+  },
+  "saveFlashcardShort": {
+    "message": "Card"
+  },
+  "savedToNotes": {
+    "message": "Saved to Notes"
+  },
+  "savedToFlashcards": {
+    "message": "Saved to Flashcards"
+  },
+  "saveToNotesEmpty": {
+    "message": "Nothing to save yet."
+  },
+  "generate": {
+    "message": "Generate"
+  },
+  "view": {
+    "message": "View"
+  },
+  "generateDocument": {
+    "message": "Generate document"
+  },
+  "documentShort": {
+    "message": "Doc"
+  },
+  "sourceLabel": {
+    "message": "Source"
+  },
+  "sourceOpen": {
+    "message": "Open source"
+  },
+  "reply": {
+    "message": "Reply"
+  },
+  "replyShort": {
+    "message": "Reply"
+  },
+  "replyingTo": {
+    "message": "Replying to"
+  },
+  "clearReply": {
+    "message": "Clear reply target"
+  },
+  "replyTargetFallback": {
+    "message": "Message"
+  },
+  "artifactsTitle": {
+    "message": "Artifact"
+  },
+  "artifactsDefaultTitle": {
+    "message": "Code"
+  },
+  "artifactsView": {
+    "message": "View code"
+  },
+  "artifactsPin": {
+    "message": "Pin"
+  },
+  "artifactsUnpin": {
+    "message": "Unpin"
+  },
+  "artifactsClose": {
+    "message": "Close"
+  },
+  "artifactsCopy": {
+    "message": "Copy"
+  },
+  "artifactsDownload": {
+    "message": "Download"
+  },
+  "artifactsRun": {
+    "message": "Run"
+  },
+  "modelSettings_tabs_model": {
+    "message": "Model"
+  },
+  "modelSettings_tabs_conversation": {
+    "message": "Conversation"
+  },
+  "modelSettings_tabs_advanced": {
+    "message": "Advanced"
+  },
+  "modelSettings_tabs_actor": {
+    "message": "Scene Director"
+  }
+}

@@ -51,7 +51,7 @@ export const ChunkCardView: React.FC<ChunkCardViewProps> = ({
         <Card
           size="small"
           className={`mb-3 transition-all ${
-            isHighlighted ? "ring-2 ring-blue-500 shadow-lg" : ""
+            isHighlighted ? "ring-2 ring-focus shadow-lg" : ""
           }`}
           style={{
             borderLeft: `4px solid ${color.replace("0.3", "0.8")}`
@@ -98,7 +98,7 @@ export const ChunkCardView: React.FC<ChunkCardViewProps> = ({
           />
 
           {/* Position info */}
-          <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+          <div className="mt-2 text-xs text-text-muted">
             {t(
               "settings:chunkingPlayground.position",
               "Position: {{start}} - {{end}}",

@@ -83,19 +83,19 @@ export const FlashcardsWorkspace: React.FC = () => {
           })}
           onPrimaryAction={scrollToServerCard}
         />
-        <div className="rounded-lg border border-dashed border-gray-300 bg-white p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#111] dark:text-gray-200">
+        <div className="rounded-lg border border-dashed border-border bg-surface p-3 text-xs text-text">
           <div className="mb-2 font-semibold">
             {t("option:flashcards.demoPreviewHeading", {
               defaultValue: "Example decks (preview only)"
             })}
           </div>
-          <div className="divide-y divide-gray-200 dark:divide-gray-800">
+          <div className="divide-y divide-border">
             {demoDecks.map((deck) => (
               <div key={deck.id} className="py-2">
-                <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                <div className="text-sm font-medium text-text">
                   {deck.name}
                 </div>
-                <div className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+                <div className="mt-1 text-[11px] text-text-muted">
                   {deck.summary}
                 </div>
               </div>

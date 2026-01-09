@@ -38,6 +38,7 @@ import React, { useState, useEffect } from "react"
 import { FolderTree, FolderToolbar } from "@/components/Folders"
 import { useFolderStore, useFolderViewMode, useFolderActions } from "@/store/folder"
 import { PageAssistDatabase } from "@/db/dexie/chat"
+import { useStorage } from "@plasmohq/storage/hook"
 import {
   deleteByHistoryId,
   deleteHistoriesByDateRange,
@@ -49,47 +50,28 @@ import {
   getPromptById,
   getHistoriesWithMetadata
 } from "@/db/dexie/helpers"
-import { UploadedFile } from "@/db/dexie/types"
 import { isDatabaseClosedError } from "@/utils/ff-error"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { promptInput } from "@/components/Common/prompt-input"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { IconButton } from "../Common/IconButton"
-import { useServerChatHistory } from "@/hooks/useServerChatHistory"
+import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useConnectionState } from "@/hooks/useConnectionState"
+import { tldwClient, type ServerChatSummary } from "@/services/tldw/TldwApiClient"
+import { shallow } from "zustand/shallow"
+import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useSelectServerChat } from "@/hooks/chat/useSelectServerChat"
+import { useStoreChatModelSettings } from "@/store/model"
 import { useStoreMessageOption } from "@/store/option"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
 
 type Props = {
   onClose: () => void
-  setMessages: (messages: any) => void
-  setHistory: (history: any) => void
-  setHistoryId: (historyId: string) => void
-  setSelectedModel: (model: string) => void
-  setSelectedSystemPrompt: (prompt: string) => void
-  setSystemPrompt: (prompt: string) => void
-  setContext?: (context: UploadedFile[]) => void
-  clearChat: () => void
-  temporaryChat: boolean
-  historyId: string
-  history: any
   isOpen: boolean
 }
 
-export const Sidebar = ({
-  onClose,
-  setMessages,
-  setHistory,
-  setHistoryId,
-  setSelectedModel,
-  setSelectedSystemPrompt,
-  clearChat,
-  historyId,
-  setSystemPrompt,
-  temporaryChat,
-  isOpen,
-  setContext
-}: Props) => {
+export const Sidebar = ({ onClose, isOpen }: Props) => {
   const FolderPicker = React.useMemo(
     () =>
       React.lazy(
@@ -105,6 +87,11 @@ export const Sidebar = ({
   const [deleteGroup, setDeleteGroup] = useState<string | null>(null)
   const [dexiePrivateWindowError, setDexiePrivateWindowError] = useState(false)
   const [openMenuFor, setOpenMenuFor] = useState<string | null>(null)
+  const showLocalChats = false
+  const [pinnedServerChatIds, setPinnedServerChatIds] = useStorage<string[]>(
+    "tldw:server-chat-pins",
+    []
+  )
   const confirmDanger = useConfirmDanger()
   const { isConnected } = useConnectionState()
 
@@ -117,7 +104,6 @@ export const Sidebar = ({
   const [folderPickerOpen, setFolderPickerOpen] = useState(false)
   const [folderPickerChatId, setFolderPickerChatId] = useState<string | null>(null)
   const folderRefreshInFlightRef = React.useRef<Promise<void> | null>(null)
-
   // Load folders when the sidebar is open and folder view is active.
   useEffect(() => {
     if (isConnected && isOpen && viewMode === "folders") {
@@ -130,21 +116,51 @@ export const Sidebar = ({
       folderRefreshInFlightRef.current = refreshPromise
     }
   }, [isConnected, isOpen, viewMode, refreshFromServer])
+
+  const clearChat = useClearChat()
+  const selectServerChat = useSelectServerChat()
+  const { setSystemPrompt } = useStoreChatModelSettings()
+  const { historyId, setHistory, setHistoryId, setMessages } = useChatBaseState(
+    useStoreMessageOption
+  )
   const {
     serverChatId,
     setServerChatId,
-    setServerChatState,
-    setServerChatTopic,
-    setServerChatClusterId,
-    setServerChatSource,
-    setServerChatExternalRef
-  } = useStoreMessageOption()
+    setSelectedModel,
+    setSelectedSystemPrompt,
+    setContextFiles,
+    temporaryChat
+  } = useStoreMessageOption(
+    (state) => ({
+      serverChatId: state.serverChatId,
+      setServerChatId: state.setServerChatId,
+      setSelectedModel: state.setSelectedModel,
+      setSelectedSystemPrompt: state.setSelectedSystemPrompt,
+      setContextFiles: state.setContextFiles,
+      temporaryChat: state.temporaryChat
+    }),
+    shallow
+  )
   const {
     data: serverChatData,
     status: serverStatus,
     isLoading: isServerLoading
   } = useServerChatHistory(debouncedSearchQuery)
   const serverChats = serverChatData || []
+  const pinnedServerChatSet = React.useMemo(
+    () => new Set(pinnedServerChatIds || []),
+    [pinnedServerChatIds]
+  )
+  const pinnedServerChats = serverChats.filter((chat) =>
+    pinnedServerChatSet.has(chat.id)
+  )
+  const unpinnedServerChats = serverChats.filter(
+    (chat) => !pinnedServerChatSet.has(chat.id)
+  )
+  const serverChatById = React.useMemo(
+    () => new Map(serverChats.map((chat) => [chat.id, chat])),
+    [serverChats]
+  )
 
   // Using infinite query for pagination
   const {
@@ -392,11 +408,57 @@ export const Sidebar = ({
     setSearchQuery("")
   }
 
+  const toggleServerChatPinned = (chatId: string) => {
+    setPinnedServerChatIds((prev) => {
+      const current = prev || []
+      if (current.includes(chatId)) {
+        return current.filter((id) => id !== chatId)
+      }
+      return [...current, chatId]
+    })
+  }
+
   const handleLoadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage()
     }
   }
+
+  const loadServerChat = React.useCallback(
+    (chat: ServerChatSummary) => {
+      selectServerChat(chat)
+      onClose()
+    },
+    [onClose, selectServerChat]
+  )
+
+  const loadServerChatById = React.useCallback(
+    async (conversationId: string) => {
+      const cachedChat = serverChatById.get(conversationId)
+      if (cachedChat) {
+        loadServerChat(cachedChat)
+        return
+      }
+
+      try {
+        await tldwClient.initialize().catch(() => null)
+        const chat = await tldwClient.getChat(conversationId)
+        loadServerChat(chat)
+      } catch (error) {
+        console.error(
+          "Failed to load server chat for folder conversation:",
+          conversationId,
+          error
+        )
+        message.error(
+          t("common:error.friendlyGenericSummary", {
+            defaultValue: "Something went wrong while talking to your tldw server."
+          })
+        )
+      }
+    },
+    [loadServerChat, serverChatById, t]
+  )
 
   const loadLocalConversation = React.useCallback(
     async (conversationId: string) => {
@@ -433,10 +495,8 @@ export const Sidebar = ({
           setSystemPrompt(promptContent)
         }
 
-        if (setContext) {
-          const session = await getSessionFiles(conversationId)
-          setContext(session)
-        }
+        const session = await getSessionFiles(conversationId)
+        setContextFiles(session)
 
         updatePageTitle(
           historyDetails?.title || t("common:untitled", { defaultValue: "Untitled" })
@@ -458,13 +518,13 @@ export const Sidebar = ({
     [
       navigate,
       onClose,
-      setContext,
       setHistory,
       setHistoryId,
       setMessages,
       setSelectedModel,
       setSelectedSystemPrompt,
       setServerChatId,
+      setContextFiles,
       setSystemPrompt,
       t
     ]
@@ -589,15 +649,11 @@ export const Sidebar = ({
 
   const loadedConversationTitleById = React.useMemo(() => {
     const titleById = new Map<string, string>()
-    chatHistories.forEach((group) => {
-      group.items.forEach((item) => {
-        if (item?.id) {
-          titleById.set(String(item.id), String(item.title ?? ""))
-        }
-      })
+    serverChats.forEach((chat) => {
+      titleById.set(chat.id, chat.title ?? "")
     })
     return titleById
-  }, [chatHistories])
+  }, [serverChats])
 
   const missingFolderConversationIds = React.useMemo(() => {
     return folderConversationIds.filter(
@@ -612,18 +668,18 @@ export const Sidebar = ({
   const { data: missingFolderConversationTitles = [] } = useQuery({
     queryKey: ["folderConversationTitles", stableMissingFolderConversationIds],
     queryFn: async () => {
-      const db = new PageAssistDatabase()
+      await tldwClient.initialize().catch(() => null)
       const results = await Promise.all(
         stableMissingFolderConversationIds.map(async (conversationId) => {
           try {
-            const historyInfo = await db.getHistoryInfo(conversationId)
+            const chat = await tldwClient.getChat(conversationId)
             return {
               id: conversationId,
-              title: historyInfo?.title || ""
+              title: chat?.title || ""
             }
           } catch (error) {
             console.error(
-              "Failed to load local history info for folder conversation:",
+              "Failed to load server chat info for folder conversation:",
               conversationId,
               error
             )
@@ -660,6 +716,87 @@ export const Sidebar = ({
     missingFolderConversationTitles
   ])
 
+  const renderServerChatRow = (chat: ServerChatHistoryItem) => {
+    const isPinned = pinnedServerChatSet.has(chat.id)
+    return (
+      <div
+        key={chat.id}
+        className={`flex py-2 px-2 items-center gap-3 relative rounded-md truncate group transition-opacity duration-300 ease-in-out border ${
+          serverChatId === chat.id
+            ? "bg-surface2 border-borderStrong text-text"
+            : "bg-surface text-text border-border hover:bg-surface2"
+        }`}
+      >
+        <button
+          className="flex flex-col overflow-hidden flex-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-1 rounded"
+          onClick={() => {
+            loadServerChat(chat)
+          }}
+        >
+          <div className="flex flex-col overflow-hidden flex-1">
+            <span className="truncate text-sm">{chat.title}</span>
+            <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle mt-0.5">
+              <span className="inline-flex items-center rounded-full bg-surface2 px-2 py-0.5 text-[11px] font-medium lowercase text-text">
+                {(chat.state as string) || "in-progress"}
+              </span>
+              {chat.topic_label && (
+                <span
+                  className="truncate max-w-[12rem]"
+                  title={String(chat.topic_label)}
+                >
+                  {String(chat.topic_label)}
+                </span>
+              )}
+            </div>
+            <span className="flex items-center gap-1 text-xs text-text-subtle">
+              {chat.parent_conversation_id ? (
+                <Tooltip
+                  title={t("common:serverChatForkedTooltip", {
+                    chatId: String(chat.parent_conversation_id).slice(0, 8),
+                    defaultValue: "Forked from chat {{chatId}}"
+                  })}
+                >
+                  <span className="inline-flex items-center gap-1">
+                    <GitBranch className="size-3" />
+                    <span>
+                      {t("common:serverChatForkedLabel", {
+                        defaultValue: "Forked chat"
+                      })}
+                    </span>
+                  </span>
+                </Tooltip>
+              ) : (
+                <span>
+                  {t("common:serverChatSourceLabel", {
+                    defaultValue: "Server"
+                  })}
+                </span>
+              )}
+            </span>
+          </div>
+        </button>
+        <Tooltip title={isPinned ? t("common:unpin") : t("common:pin")}>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation()
+              toggleServerChatPinned(chat.id)
+            }}
+            className="rounded p-1 text-text-subtle hover:bg-surface2 hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-focus)]"
+            aria-label={isPinned ? t("common:unpin") : t("common:pin")}
+            aria-pressed={isPinned}
+          >
+            {isPinned ? (
+              <PinOffIcon className="w-4 h-4" />
+            ) : (
+              <PinIcon className="w-4 h-4" />
+            )}
+          </button>
+        </Tooltip>
+      </div>
+    )
+  }
+
   return (
     <div
       className={`overflow-y-auto z-99 ${temporaryChat ? "pointer-events-none opacity-50" : ""}`}>
@@ -670,12 +807,12 @@ export const Sidebar = ({
               placeholder={t("common:search")}
               value={searchQuery}
               onChange={handleSearchChange}
-              prefix={<SearchIcon className="w-4 h-4 text-gray-400" />}
+              prefix={<SearchIcon className="w-4 h-4 text-text-subtle" />}
               suffix={
                 <button
                   type="button"
                   onClick={clearSearch}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                  className="text-text-subtle hover:text-text"
                   aria-label={t("common:clearSearch", { defaultValue: "Clear search" })}
                   aria-hidden={!searchQuery}
                   tabIndex={searchQuery ? 0 : -1}
@@ -686,24 +823,23 @@ export const Sidebar = ({
                   ✕
                 </button>
               }
-              className="w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-[#232222]"
+              className="w-full rounded-md border border-border bg-surface"
             />
           </div>
           {isConnected && <FolderToolbar compact />}
         </div>
       </div>
 
-      {status === "success" &&
-        chatHistories.length === 0 &&
-        serverStatus === "success" &&
+      {serverStatus === "success" &&
         serverChats.length === 0 &&
-        !dexiePrivateWindowError && (
+        (!showLocalChats || !dexiePrivateWindowError) &&
+        (!showLocalChats || (status === "success" && chatHistories.length === 0)) && (
           <div className="flex justify-center items-center mt-20 overflow-hidden">
             <Empty description={t("common:noHistory")} />
           </div>
         )}
 
-      {dexiePrivateWindowError && (
+      {showLocalChats && dexiePrivateWindowError && (
         <div className="flex justify-center items-center mt-20 overflow-hidden">
           <Empty
             description={t("common:privateWindow", {
@@ -714,7 +850,7 @@ export const Sidebar = ({
         </div>
       )}
 
-      {(status === "pending" || isLoading) && (
+      {showLocalChats && (status === "pending" || isLoading) && (
         <div className="flex justify-center items-center mt-5">
           <Skeleton active paragraph={{ rows: 8 }} />
         </div>
@@ -728,7 +864,7 @@ export const Sidebar = ({
 
       {serverStatus === "error" && (
         <div className="flex justify-center items-center mt-2 px-2">
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-text-subtle">
             {t("common:serverChatsUnavailable", {
               defaultValue: isConnected
                 ? "Server chats unavailable right now. Check your server logs or try again."
@@ -738,18 +874,18 @@ export const Sidebar = ({
         </div>
       )}
 
-      {status === "error" && (
+      {showLocalChats && status === "error" && (
         <div className="flex justify-center items-center">
           <span className="text-red-500">Error loading history</span>
         </div>
       )}
 
-      {status === "success" && chatHistories.length > 0 && (
+      {showLocalChats && status === "success" && chatHistories.length > 0 && (
         <div className="flex flex-col gap-2">
           {chatHistories.map((group, groupIndex) => (
             <div key={groupIndex}>
               <div className="flex items-center justify-between mt-2">
-                <h3 className="px-2 text-sm font-medium text-gray-500">
+                <h3 className="px-2 text-sm font-medium text-text-subtle">
                   {group.label === "searchResults"
                     ? t("common:searchResults")
                     : t(`common:date:${group.label}`)}
@@ -759,11 +895,11 @@ export const Sidebar = ({
                     title={t(`common:range:tooltip:${group.label}`)}
                     placement="top">
                     <button
-                      onClick={() => handleDeleteHistoriesByRange(group.label)}>
-                      {deleteRangeLoading && deleteGroup === group.label ? (
-                        <Loader2 className="w-4 h-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 animate-spin" />
+                  onClick={() => handleDeleteHistoriesByRange(group.label)}>
+                  {deleteRangeLoading && deleteGroup === group.label ? (
+                        <Loader2 className="w-4 h-4 text-text-muted hover:text-text animate-spin" />
                       ) : (
-                        <Trash2Icon className="w-4 h-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-200" />
+                        <Trash2Icon className="w-4 h-4 text-text-muted hover:text-text" />
                       )}
                     </button>
                   </Tooltip>
@@ -775,14 +911,14 @@ export const Sidebar = ({
                     key={chat.id}
                     className={`flex py-2 px-2 items-start gap-2 relative rounded-md hover:pr-4 group transition-opacity duration-300 ease-in-out border ${
                       historyId === chat.id
-                        ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-                        : "bg-gray-50 dark:bg-[#232222] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#2d2d2d]"
+                        ? "bg-surface2 border-borderStrong text-text"
+                        : "bg-surface text-text border-border hover:bg-surface2"
                     }`}>
                     {chat?.message_source === "copilot" && (
-                      <BotIcon className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+                      <BotIcon className="size-3 text-text-subtle mt-1 flex-shrink-0" />
                     )}
                     {chat?.message_source === "branch" && (
-                      <GitBranch className="size-3 text-gray-500 dark:text-gray-400 mt-1 flex-shrink-0" />
+                      <GitBranch className="size-3 text-text-subtle mt-1 flex-shrink-0" />
                     )}
                     <button
                       className="flex-1 overflow-hidden text-start w-full min-w-0"
@@ -792,7 +928,7 @@ export const Sidebar = ({
                       <div className="flex flex-col gap-0.5">
                         <span className="truncate font-medium">{chat.title}</span>
                         {historyMetadata?.get(chat.id) && (
-                          <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                          <div className="flex items-center gap-2 text-xs text-text-subtle">
                             <span className="flex items-center gap-1">
                               <MessageSquare className="size-3" />
                               {historyMetadata.get(chat.id)?.messageCount || 0}
@@ -808,7 +944,7 @@ export const Sidebar = ({
                           </div>
                         )}
                         {historyMetadata?.get(chat.id)?.lastMessage && (
-                          <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          <span className="text-xs text-text-subtle truncate">
                             {truncateMessage(
                               historyMetadata.get(chat.id)?.lastMessage
                                 ?.content || ""
@@ -898,7 +1034,7 @@ export const Sidebar = ({
                         open={openMenuFor === chat.id}
                         onOpenChange={(o) => setOpenMenuFor(o ? chat.id : null)}>
                         <IconButton
-                          className="text-gray-500 dark:text-gray-400 opacity-80 hover:opacity-100"
+                          className="text-text-subtle opacity-80 hover:opacity-100 h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0"
                           ariaLabel={`${t("option:header.moreActions", "More actions")}: ${chat.title}`}
                           hasPopup="menu"
                           ariaExpanded={openMenuFor === chat.id}
@@ -936,154 +1072,50 @@ export const Sidebar = ({
       )}
 
       {serverStatus === "success" && serverChats.length > 0 && (
-        <div className="mt-4 flex flex-col gap-2 border-t border-gray-200 dark:border-gray-800 pt-3">
+        <div className="mt-4 flex flex-col gap-2 border-t border-border pt-3">
           <div className="flex items-center justify-between mt-1">
-            <h3 className="px-2 text-sm font-medium text-gray-500">
+            <h3 className="px-2 text-sm font-medium text-text-subtle">
               {t("common:serverChats", { defaultValue: "Server chats" })}
             </h3>
           </div>
-          <div className="flex flex-col gap-2 mt-1">
-            {serverChats.map((chat) => (
-              <button
-                key={chat.id}
-                className={`flex py-2 px-2 items-center gap-3 relative rounded-md truncate hover:pr-4 group transition-opacity duration-300 ease-in-out border text-left ${
-                  serverChatId === chat.id
-                    ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-                    : "bg-gray-50 dark:bg-[#232222] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-[#2d2d2d]"
-                }`}
-                onClick={async () => {
-                  try {
-                    // Clear local selection; this chat is backed by the server
-                    setHistoryId(null)
-                    setServerChatId(chat.id)
-                    setServerChatState(
-                      (chat as any)?.state ??
-                        (chat as any)?.conversation_state ??
-                        "in-progress"
-                    )
-                    setServerChatTopic((chat as any)?.topic_label ?? null)
-                    setServerChatClusterId(
-                      (chat as any)?.cluster_id ?? null
-                    )
-                    setServerChatSource((chat as any)?.source ?? null)
-                    setServerChatExternalRef(
-                      (chat as any)?.external_ref ?? null
-                    )
-                    // Try to resolve a friendly assistant name from the character, if any.
-                    let assistantName = "Assistant"
-                    if (chat.character_id != null) {
-                      try {
-                        const character = await tldwClient.getCharacter(
-                          chat.character_id
-                        )
-                        if (character) {
-                          assistantName =
-                            character.name ||
-                            character.title ||
-                            assistantName
-                        }
-                      } catch {
-                        // Fallback to generic label if character lookup fails.
-                      }
-                    }
-
-                    const messages = await tldwClient.listChatMessages(
-                      chat.id,
-                      {
-                        include_deleted: "false"
-                      } as any
-                    )
-                    const history = messages.map((m) => ({
-                      role: m.role,
-                      content: m.content
-                    }))
-                    const mappedMessages = messages.map((m) => ({
-                      isBot: m.role === "assistant",
-                      name:
-                        m.role === "assistant"
-                          ? assistantName
-                          : m.role === "system"
-                            ? "System"
-                            : "You",
-                      message: m.content,
-                      sources: [],
-                      images: [],
-                      serverMessageId: m.id,
-                      serverMessageVersion: m.version
-                    }))
-                    setHistory(history)
-                    setMessages(mappedMessages)
-                    updatePageTitle(chat.title)
-                    navigate("/")
-                    onClose()
-                  } catch (e) {
-                    console.error("Failed to load server chat", e)
-                    message.error(
-                      t("common:serverChatLoadError", {
-                        defaultValue:
-                          "Failed to load server chat. Check your connection and try again."
-                      })
-                    )
-                  }
-                }}>
-                <div className="flex flex-col overflow-hidden flex-1">
-                  <span className="truncate text-sm">{chat.title}</span>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    <span className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium lowercase text-gray-700 dark:bg-gray-700 dark:text-gray-100">
-                      {(chat.state as string) || "in-progress"}
-                    </span>
-                    {chat.topic_label && (
-                      <span
-                        className="truncate max-w-[12rem]"
-                        title={String(chat.topic_label)}
-                      >
-                        {String(chat.topic_label)}
-                      </span>
-                    )}
-                  </div>
-                  <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                    {chat.parent_conversation_id ? (
-                      <Tooltip
-                        title={t("common:serverChatForkedTooltip", {
-                          chatId: String(chat.parent_conversation_id).slice(0, 8),
-                          defaultValue: "Forked from chat {{chatId}}"
-                        })}>
-                        <span className="inline-flex items-center gap-1">
-                          <GitBranch className="size-3" />
-                          <span>
-                            {t("common:serverChatForkedLabel", {
-                              defaultValue: "Forked chat"
-                            })}
-                          </span>
-                        </span>
-                      </Tooltip>
-                    ) : (
-                      <span>
-                        {t("common:serverChatSourceLabel", {
-                          defaultValue: "Server"
-                        })}
-                      </span>
-                    )}
-                  </span>
-                </div>
-              </button>
-            ))}
-          </div>
+          {pinnedServerChats.length > 0 && (
+            <div className="flex flex-col gap-2 mt-1">
+              <div className="px-2 text-[11px] font-medium text-text-subtle uppercase tracking-wide">
+                {t("common:pinned", { defaultValue: "Pinned" })}
+              </div>
+              {pinnedServerChats.map(renderServerChatRow)}
+            </div>
+          )}
+          {unpinnedServerChats.length > 0 && (
+            <div
+              className={
+                pinnedServerChats.length > 0
+                  ? "mt-3 flex flex-col gap-2"
+                  : "mt-1 flex flex-col gap-2"
+              }
+            >
+              {unpinnedServerChats.map(renderServerChatRow)}
+            </div>
+          )}
         </div>
       )}
 
       {/* Folder Tree View - shown when viewMode is 'folders' */}
       {isConnected && viewMode === 'folders' && (
-        <div className="mt-4 border-t border-gray-200 dark:border-gray-800 pt-3">
+        <div className="mt-4 border-t border-border pt-3">
           <FolderTree
             onConversationSelect={(conversationId) => {
-              void loadLocalConversation(conversationId)
+              void loadServerChatById(conversationId)
             }}
             conversations={folderTreeConversations}
             showConversations
           />
         </div>
       )}
+
+      <div className="mt-4 border-t border-border pt-3">
+        <ModeToggle />
+      </div>
 
       {/* Folder Picker Modal */}
       <React.Suspense
@@ -1098,7 +1130,7 @@ export const Sidebar = ({
               footer={null}
               title={t("common:moveToFolder")}>
               <div className="flex items-center justify-center py-6">
-                <Loader2 className="h-5 w-5 animate-spin text-gray-500" />
+                <Loader2 className="h-5 w-5 animate-spin text-text-muted" />
               </div>
             </Modal>
           ) : null

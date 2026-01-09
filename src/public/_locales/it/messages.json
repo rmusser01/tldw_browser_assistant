@@ -3223,5 +3223,74 @@
   },
   "mediaPage_presetQAAnalysis": {
     "message": "Analisi Q&A"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "Attiva modalità Confronto"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "Sblocca le funzioni sperimentali di confronto multi‑modello."
+  },
+  "playground_composer_compareDisabled": {
+    "message": "La modalità Confronto è disattivata nelle impostazioni."
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "Continua con la risposta scelta oppure confronta di nuovo."
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "Scelta"
+  },
+  "playground_composer_compareLatency": {
+    "message": "Latenza"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "Confronto: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(da confronto)"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "Risposte multi‑modello"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} modelli"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "Modelli selezionati: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "Apri ogni risposta selezionata come chat separata"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "Thread per modello"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "Tu"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "Apri come chat completa"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "Apri chat separata"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "Canonica"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "Fissa come canonica"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "Risposta canonica"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "Filtra modelli"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "Mostra tutti"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "Mostrati {{visible}} / {{total}}"
+  },
+  "playground_composer_compareTokens": {
+    "message": "Token: {{count}}"
   }
 }

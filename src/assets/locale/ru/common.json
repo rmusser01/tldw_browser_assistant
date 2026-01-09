@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "Скрыть",
+  "confirmTitle": "Пожалуйста, подтвердите",
   "pdf": {
     "passwordTitle": "Введите пароль PDF",
     "unlock": "Разблокировать"
@@ -14,10 +16,17 @@
     "content": "Загрузка содержимого…"
   },
   "selectAModel": "Выберите модель",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "Сохранить",
   "saved": "Сохранено",
   "cancel": "Отмена",
+  "saving": "Сохранение...",
   "retry": "Повторить",
+  "close": "Закрыть",
+  "loadMore": "Загрузить ещё...",
   "share": {
     "tooltip": {
       "share": "Поделиться"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "Копировать в буфер обмена",
+  "table": {
+    "copyCsv": "Копировать как CSV",
+    "downloadCsv": "Скачать CSV"
+  },
   "webSearch": "Поиск в интернете",
   "regenerate": "Пересоздать",
-  "continue": "Продолжить ответ",
   "edit": "Редактировать",
+  "generate": "Generate",
+  "view": "View",
   "delete": "Удалить",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "Продолжить ответ",
   "saveAndSubmit": "Сохранить и отправить",
   "editMessage": {
     "placeholder": "Введите сообщение..."
   },
   "submit": "Отправить",
   "send": "Отправить",
+  "startChat": "Начать чат",
   "connectToServer": "Подключиться к серверу",
+  "previous": "Назад",
+  "next": "Далее",
   "noData": "Нет данных",
   "noHistory": "Нет истории чата",
   "chatWithCurrentPage": "Чат с текущей страницей",
+  "chatWithCharacter": "Чат с персонажем",
   "beta": "Бета-версия",
   "tts": "Прочитать вслух",
+  "ttsShort": "Голос",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "Копировать",
+  "branchShort": "Ветка",
+  "infoShort": "Инфо",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "Снова",
+  "continueShort": "Ещё",
+  "fileChanges": "Изменения файлов",
+  "deletions": "Удаления",
+  "gitOperations": "Операции Git",
+  "commands": "Команды",
+  "otherOperations": "Другие операции",
+  "fileAccess": "Доступ к файлам",
+  "notebookEdits": "Правки блокнота",
+  "applyPatch": "Применить патч",
+  "recursive": "(рекурсивно)",
+  "complexArguments": "[Сложные аргументы]",
   "currentChatModelSettings": "Текущие настройки модели чата",
   "modelSettings": {
     "label": "Настройки модели",
@@ -90,6 +150,9 @@
         "label": "Максимальное количество токенов (num_predict)",
         "placeholder": "Введите значение максимального количества токенов (например, 2048, 4096)"
       },
+      "thinking": {
+        "label": "Режим размышления"
+      },
       "seed": {
         "label": "Сид",
         "placeholder": "Введите значение сида (например, 1234)",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Top P (верхнее P)",
         "placeholder": "Введите значение Top P (например, 0.9, 0.95)"
-      },
-      "numGpu": {
-        "label": "Количество GPU (Num GPU)",
-        "placeholder": "Введите количество слоев для отправки на GPU"
-      },
-      "systemPrompt": {
-        "label": "Временный системный запрос",
-        "placeholder": "Введите системный запрос",
-        "help": "Это быстрый способ установить системный запрос в текущем чате, который переопределит выбранный системный запрос, если он существует."
-      },
-      "thinking": {
-        "label": "Режим размышления"
       },
       "useMMap": {
         "label": "useMmap (отображение памяти)"
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "Повторять последние N",
         "placeholder": "например, 64, 128"
+      },
+      "numGpu": {
+        "label": "Количество GPU (Num GPU)",
+        "placeholder": "Введите количество слоев для отправки на GPU"
+      },
+      "systemPrompt": {
+        "label": "Временный системный запрос",
+        "placeholder": "Введите системный запрос",
+        "help": "Это быстрый способ установить системный запрос в текущем чате, который переопределит выбранный системный запрос, если он существует."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "Больше настроек модели"
+    "advanced": "Больше настроек модели",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "Обобщить",
@@ -160,7 +269,25 @@
     "custom": "Пользовательский"
   },
   "citations": "Цитаты",
+  "segmented": {
+    "available": "Серверные модели",
+    "custom": "Пользовательские модели"
+  },
   "downloadCode": "Скачать код",
+  "success": "Успешно",
+  "created": "Создано",
+  "updated": "Обновлено",
+  "deleted": "Удалено",
+  "create": "Создать",
+  "reset": "Сбросить",
+  "serverOffline": "Сервер не работает или не настроен",
+  "serverChats": "Серверные чаты",
+  "serverChatLoadError": "Не удалось загрузить серверный чат. Проверьте соединение и попробуйте снова.",
+  "serverChatSourceLabel": "Источник сервера",
+  "serverChatForkedLabel": "Разветвлённый чат",
+  "serverChatForkedTooltip": "Разветвлён от чата {{chatId}}",
+  "serverChatsUnavailableNotConnected": "Серверные чаты будут доступны после подключения к вашему серверу tldw.",
+  "serverChatsUnavailableServerError": "Серверные чаты сейчас недоступны. Проверьте журналы сервера или попробуйте снова.",
   "date": {
     "pinned": "Закреплено",
     "today": "Сегодня",
@@ -184,6 +311,8 @@
       "older": "Удалить все старые сообщения"
     }
   },
+  "historiesDeleted": "{{count}} историй чата удалено",
+  "deleteHistoriesError": "Ошибка при удалении историй",
   "pin": "Закрепить",
   "unpin": "Открепить",
   "generationInfo": "Информация о генерации",
@@ -193,66 +322,17 @@
     "loading": "Загружаю рассуждение...",
     "thought": "Размышлял {{time}}"
   },
+  "mermaid": "Диаграммы Mermaid",
+  "search": "Поиск",
+  "searchResults": "Результаты поиска",
   "embeddingGen": "Создание embeddings, это может занять некоторое время",
   "semanticSearch": "Выполнение семантического поиска",
+  "newBranch": "Новая ветка",
   "downloading": "Загрузка",
   "cancelPullingModel": {
     "confirm": "Вы уверены, что хотите отменить загрузку? Это остановит процесс загрузки. Согласно документации Ollama, вы можете возобновить загрузку с того места, на котором остановились."
   },
-  "table": {
-    "copyCsv": "Копировать как CSV",
-    "downloadCsv": "Скачать CSV"
-  },
-  "dismiss": "Скрыть",
   "privateModeSaveErrorTitle": "tldw Assistant не может сохранить данные",
-  "confirmTitle": "Пожалуйста, подтвердите",
-  "saving": "Сохранение...",
-  "close": "Закрыть",
-  "loadMore": "Загрузить ещё...",
-  "startChat": "Начать чат",
-  "previous": "Назад",
-  "next": "Далее",
-  "chatWithCharacter": "Чат с персонажем",
-  "ttsShort": "Голос",
-  "copyShort": "Копировать",
-  "branchShort": "Ветка",
-  "infoShort": "Инфо",
-  "regenShort": "Снова",
-  "continueShort": "Ещё",
-  "fileChanges": "Изменения файлов",
-  "deletions": "Удаления",
-  "gitOperations": "Операции Git",
-  "commands": "Команды",
-  "otherOperations": "Другие операции",
-  "fileAccess": "Доступ к файлам",
-  "notebookEdits": "Правки блокнота",
-  "applyPatch": "Применить патч",
-  "recursive": "(рекурсивно)",
-  "complexArguments": "[Сложные аргументы]",
-  "segmented": {
-    "available": "Серверные модели",
-    "custom": "Пользовательские модели"
-  },
-  "success": "Успешно",
-  "created": "Создано",
-  "updated": "Обновлено",
-  "deleted": "Удалено",
-  "create": "Создать",
-  "reset": "Сбросить",
-  "serverOffline": "Сервер не работает или не настроен",
-  "serverChats": "Серверные чаты",
-  "serverChatLoadError": "Не удалось загрузить серверный чат. Проверьте соединение и попробуйте снова.",
-  "serverChatSourceLabel": "Источник сервера",
-  "serverChatForkedLabel": "Разветвлённый чат",
-  "serverChatForkedTooltip": "Разветвлён от чата {{chatId}}",
-  "serverChatsUnavailableNotConnected": "Серверные чаты будут доступны после подключения к вашему серверу tldw.",
-  "serverChatsUnavailableServerError": "Серверные чаты сейчас недоступны. Проверьте журналы сервера или попробуйте снова.",
-  "historiesDeleted": "{{count}} историй чата удалено",
-  "deleteHistoriesError": "Ошибка при удалении историй",
-  "mermaid": "Диаграммы Mermaid",
-  "search": "Поиск",
-  "searchResults": "Результаты поиска",
-  "newBranch": "Новая ветка",
   "error": {
     "label": "Ошибка",
     "friendlyApiKeySummary": "Не удалось подключиться к вашему серверу tldw.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "Произошла ошибка при связи с вашим сервером tldw.",
     "friendlyGenericHint": "Попробуйте снова через некоторое время или откройте \"Состояние и диагностика\", чтобы проверить состояние сервера.",
     "showDetails": "Показать технические сведения",
-    "hideDetails": "Скрыть технические сведения"
+    "hideDetails": "Скрыть технические сведения",
+    "createFolder": "Failed to create folder"
   },
   "folders": "Папки",
   "folderView": "Просмотр папок",
@@ -277,7 +358,32 @@
   "confirm": "Подтвердить",
   "untitled": "Без названия",
   "moveToFolder": "Переместить в папку",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "Пока нет вызовов инструментов",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "Ожидание",
     "running": "Обработка",
@@ -361,6 +467,9 @@
     "collapse": "Свернуть боковую панель",
     "expand": "Развернуть боковую панель",
     "search": "Поиск чатов...",
+    "modeLabel": "Mode",
+    "modeCasual": "Casual",
+    "modePro": "Pro",
     "ingest": "Загрузить страницу",
     "media": "Медиа",
     "notes": "Заметки",

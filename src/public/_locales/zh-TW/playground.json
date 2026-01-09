@@ -1,0 +1,1367 @@
+{
+  "formError_noModel": {
+    "message": "請選擇一個模型"
+  },
+  "formError_noEmbeddingModel": {
+    "message": "請在設定 > RAG 頁面設定一個嵌入模型"
+  },
+  "form_textarea_placeholder": {
+    "message": "輸入一則訊息..."
+  },
+  "form_webSearch_on": {
+    "message": "開"
+  },
+  "form_webSearch_off": {
+    "message": "關"
+  },
+  "tooltip_searchInternet": {
+    "message": "搜尋網路"
+  },
+  "tooltip_speechToText": {
+    "message": "語音轉文字"
+  },
+  "tooltip_uploadImage": {
+    "message": "上傳圖片"
+  },
+  "tooltip_stopStreaming": {
+    "message": "停止串流"
+  },
+  "tooltip_knowledge": {
+    "message": "知識"
+  },
+  "tooltip_vision": {
+    "message": "[實驗]視覺聊天"
+  },
+  "tooltip_clearContext": {
+    "message": "清除對話上下文"
+  },
+  "tooltip_uploadDocuments": {
+    "message": "上傳文件 (測試版)"
+  },
+  "tooltip_speechToTextServer": {
+    "message": "透過你的 tldw 伺服器進行語音聽寫"
+  },
+  "tooltip_speechToTextBrowser": {
+    "message": "透過瀏覽器語音辨識進行聽寫"
+  },
+  "tooltip_speechToTextDetails": {
+    "message": "使用 {{model}} · {{task}} · {{format}}。可在「設定 → 一般 → 語音轉文字」中設定。"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
+  },
+  "sendWhenEnter": {
+    "message": "按 Enter 送出"
+  },
+  "welcome": {
+    "message": "你好！今天我能幫你什麼？"
+  },
+  "useOCR": {
+    "message": "從圖片中擷取文字（OCR）"
+  },
+  "tips_title": {
+    "message": "小提示"
+  },
+  "tips_quickIngest": {
+    "message": "使用快速匯入新增文件與網頁。"
+  },
+  "tips_pickModelPrompt": {
+    "message": "從標頭選擇模型與提示詞。"
+  },
+  "tips_startChatFocus": {
+    "message": "連線後，點選「開始聊天」會將游標移到輸入框。"
+  },
+  "tldwState_searching": {
+    "message": "正在搜尋你的 tldw 伺服器"
+  },
+  "tldwState_running": {
+    "message": "tldw 正在運行"
+  },
+  "tldwState_notRunning": {
+    "message": "無法連線到 tldw 伺服器"
+  },
+  "tldwState_connectionError": {
+    "message": "看起來您遇到了連線錯誤，請參閱此<anchor>文件</anchor>進行故障排除。"
+  },
+  "tldwState_openTldwSettings": {
+    "message": "開啟 tldw 設定"
+  },
+  "tldwState_cancelSearch": {
+    "message": "取消搜尋"
+  },
+  "tldwState_connectionFailedWithCode": {
+    "message": "連線失敗（HTTP {{code}}）"
+  },
+  "tldwState_connectionFailed": {
+    "message": "連線失敗"
+  },
+  "tldwState_errorDetailsLabel": {
+    "message": "詳細資訊："
+  },
+  "tldwState_title": {
+    "message": "正在等待你的 tldw 伺服器"
+  },
+  "tldwState_subtitle": {
+    "message": "正在 ping {{host}} 以驗證連線。"
+  },
+  "tldwState_missing": {
+    "message": "尚未設定伺服器 URL"
+  },
+  "tldwState_noServer": {
+    "message": "新增你的 tldw 伺服器以開始聊天。"
+  },
+  "tldwState_connectedSubtitle": {
+    "message": "已連線至 {{host}}。準備好後即可開始聊天。"
+  },
+  "tldwState_errorSubtitle": {
+    "message": "目前無法連線到 {{host}}。請重試或更新伺服器設定。"
+  },
+  "tldwState_openSettings": {
+    "message": "開啟設定"
+  },
+  "tldwState_changeServer": {
+    "message": "變更伺服器"
+  },
+  "tldwState_elapsed": {
+    "message": "檢查中… {{seconds}} 秒"
+  },
+  "tldwState_connectedHint": {
+    "message": "已連線至 {{host}}。"
+  },
+  "tldwState_lastChecked": {
+    "message": "{{seconds}} 秒前檢查"
+  },
+  "tldwState_recheck": {
+    "message": "再次檢查"
+  },
+  "tldwState_errorToast": {
+    "message": "無法連線到 {{host}}"
+  },
+  "tldwState_missingHelp": {
+    "message": "開啟「設定 → tldw 伺服器」以新增你的 URL，或連到選項頁面。"
+  },
+  "tldwState_troubleshoot": {
+    "message": "確認伺服器正在運作且瀏覽器允許連線，然後從選項頁面重試。"
+  },
+  "errors_privateModeDescription": {
+    "message": "Firefox 隱私模式不支援儲存聊天。暫存聊天預設為開啟。後續會改進。"
+  },
+  "tts_playErrorTitle": {
+    "message": "錯誤"
+  },
+  "tts_playErrorDescription": {
+    "message": "播放音訊時發生錯誤"
+  },
+  "tts_browserInfoTitle": {
+    "message": "瀏覽器 TTS 使用系統音訊"
+  },
+  "tts_browserInfoDescription": {
+    "message": "瀏覽器 TTS 會使用系統語音合成器播放，且不提供可下載的音訊檔。請使用下方的分段控制，或切換提供者以取得曲目清單與播放器。"
+  },
+  "tts_unsupportedProviderTitle": {
+    "message": "不支援的 TTS 提供者"
+  },
+  "tts_unsupportedProviderDescription": {
+    "message": "提供者「{{provider}}」尚未在遊樂場播放器中支援。"
+  },
+  "tts_unsupportedFormatTitle": {
+    "message": "不支援的音訊格式"
+  },
+  "tts_unsupportedFormatDescription": {
+    "message": "回應格式「{{format}}」不受支援，將回退為 MP3。"
+  },
+  "tts_elevenLabsMissingTitle": {
+    "message": "ElevenLabs 需要 API 金鑰"
+  },
+  "tts_elevenLabsMissingBody": {
+    "message": "在設定中加入你的 ElevenLabs API 金鑰以載入聲音與模型。"
+  },
+  "tts_elevenLabsUnavailableTitle": {
+    "message": "ElevenLabs 聲音無法使用"
+  },
+  "tts_elevenLabsUnavailableBody": {
+    "message": "無法載入聲音或模型。請檢查你的 API 金鑰後重試。"
+  },
+  "tts_elevenLabsMissingCta": {
+    "message": "在設定中設定 API 金鑰"
+  },
+  "tts_generateErrorTitle": {
+    "message": "產生音訊時出錯"
+  },
+  "tts_generateErrorDescription": {
+    "message": "產生 TTS 音訊時發生問題。"
+  },
+  "tts_sampleText": {
+    "message": "插入範例文字"
+  },
+  "tts_playHelper": {
+    "message": "播放會使用你選擇的提供者、聲音與速度。"
+  },
+  "tts_playDisabledNoText": {
+    "message": "輸入文字後即可啟用播放。"
+  },
+  "tts_playDisabledTtsOff": {
+    "message": "先在上方啟用文字轉語音才能播放音訊。"
+  },
+  "tts_playDisabledElevenLabs": {
+    "message": "加入 ElevenLabs API 金鑰、聲音與模型後即可啟用播放。"
+  },
+  "tts_stopDisabled": {
+    "message": "音訊開始播放後才能停止。"
+  },
+  "tts_providerChangeHelper": {
+    "message": "開啟下方的提供者選單，在瀏覽器、tldw、OpenAI 或 Supersonic 之間切換。"
+  },
+  "tts_changeProvider": {
+    "message": "更換提供者"
+  },
+  "tts_title": {
+    "message": "TTS 遊樂場"
+  },
+  "tts_subtitle": {
+    "message": "試用文字轉語音並調整提供者、模型與聲音。"
+  },
+  "tts_currentProvider": {
+    "message": "目前提供者"
+  },
+  "tts_settingsIntro": {
+    "message": "調整你的 TTS 提供者、模型與聲音。這些設定會在聊天或媒體播放時沿用。"
+  },
+  "tts_providerCapabilities": {
+    "message": "提供者功能"
+  },
+  "tts_voicesPreview": {
+    "message": "伺服器聲音"
+  },
+  "tts_providerDetails": {
+    "message": "查看原始提供者設定"
+  },
+  "tts_providerDetailsTitle": {
+    "message": "提供者詳細資訊"
+  },
+  "tts_inputLabel": {
+    "message": "輸入文字以聽取朗讀。"
+  },
+  "tts_inputPlaceholder": {
+    "message": "在此輸入或貼上文字，然後按播放聆聽。"
+  },
+  "tts_play": {
+    "message": "播放"
+  },
+  "tts_playing": {
+    "message": "播放中…"
+  },
+  "tts_stop": {
+    "message": "停止"
+  },
+  "tts_browserSegmentsTitle": {
+    "message": "瀏覽器 TTS 分段"
+  },
+  "tts_browserSegmentsHelp": {
+    "message": "使用系統音訊排隊分段或播放單一分段。"
+  },
+  "tts_browserQueueAll": {
+    "message": "全部加入佇列"
+  },
+  "tts_browserQueueFromHere": {
+    "message": "從此處加入佇列"
+  },
+  "tts_browserSegmentPlay": {
+    "message": "播放分段"
+  },
+  "tts_browserStatusSpeaking": {
+    "message": "正在播放分段 {{current}}/{{total}}"
+  },
+  "tts_browserStatusPaused": {
+    "message": "已暫停"
+  },
+  "tts_browserPause": {
+    "message": "暫停"
+  },
+  "tts_browserResume": {
+    "message": "繼續"
+  },
+  "tts_tldwStatusOnline": {
+    "message": "已偵測到 tldw 伺服器音訊 API（audio/speech）"
+  },
+  "tts_tldwStatusOffline": {
+    "message": "未偵測到音訊 API；請檢查 tldw 伺服器版本。"
+  },
+  "tts_tldwWarningTitle": {
+    "message": "未偵測到 tldw 音訊/語音 API"
+  },
+  "tts_tldwWarningBody": {
+    "message": "請確認你的 tldw_server 版本包含 /api/v1/audio/speech，且擴充功能已使用有效的 API 金鑰連線。"
+  },
+  "tts_speechErrorTitle": {
+    "message": "語音聽寫失敗"
+  },
+  "tts_speechErrorBody": {
+    "message": "轉寫請求失敗。請檢查 tldw 伺服器狀態。"
+  },
+  "tts_speechNoText": {
+    "message": "轉寫沒有回傳任何文字。"
+  },
+  "tts_speechMicError": {
+    "message": "無法存取麥克風。請檢查瀏覽器權限後重試。"
+  },
+  "tts_savedToNotes": {
+    "message": "轉寫已儲存為筆記。"
+  },
+  "empty_title": {
+    "message": "開始新對話"
+  },
+  "empty_description": {
+    "message": "在此嘗試不同的模型、提示詞與知識來源。"
+  },
+  "empty_demoDescription": {
+    "message": "你正在示範模式 — 試著提問看看助理如何回應。之後可以連線自己的 tldw 伺服器。"
+  },
+  "empty_example1": {
+    "message": "提出問題後，拖曳你想討論的文件或網頁。"
+  },
+  "empty_example2": {
+    "message": "使用快速匯入新增逐字稿或筆記，然後在聊天中引用。"
+  },
+  "empty_example3": {
+    "message": "從標頭嘗試不同的提示詞或模型以比較答案。"
+  },
+  "empty_primaryCta": {
+    "message": "開始聊天"
+  },
+  "empty_secondaryCta": {
+    "message": "開啟伺服器設定"
+  },
+  "drop_hint": {
+    "message": "拖放檔案即可附加到訊息"
+  },
+  "drop_readySingle": {
+    "message": "{{name}} 已準備好傳送"
+  },
+  "drop_readyMultiple": {
+    "message": "{{count}} 個檔案已準備好傳送"
+  },
+  "drop_unsupported": {
+    "message": "不支援此檔案類型。請嘗試圖片或文字檔。"
+  },
+  "drop_defaultFileName": {
+    "message": "檔案"
+  },
+  "drop_imageOnly": {
+    "message": "目前僅支援拖放圖片。"
+  },
+  "drop_imageHint": {
+    "message": "拖放圖片以加入訊息"
+  },
+  "drop_overlayInstruction": {
+    "message": "拖放圖片以附加到下一則回覆"
+  },
+  "aria_chatTranscript": {
+    "message": "聊天訊息記錄"
+  },
+  "more_history": {
+    "message": "聊天儲存"
+  },
+  "more_searchKnowledge": {
+    "message": "知識搜尋（RAG）"
+  },
+  "more_voice": {
+    "message": "更多語音選項"
+  },
+  "more_uploads": {
+    "message": "上傳與匯入"
+  },
+  "fileRetrievalEnabled": {
+    "message": "為文件啟用 RAG"
+  },
+  "stt_title": {
+    "message": "STT 遊樂場"
+  },
+  "stt_subtitle": {
+    "message": "試用轉寫模型、進行較長的聽寫工作階段，並將逐字稿儲存到筆記。"
+  },
+  "stt_currentModelLabel": {
+    "message": "目前轉寫模型"
+  },
+  "stt_defaultModel": {
+    "message": "設定中的預設值"
+  },
+  "stt_settingsNotice": {
+    "message": "語言、任務、回應格式、分段與提示詞會沿用設定中的語音轉文字預設值。"
+  },
+  "stt_sessionMode": {
+    "message": "工作階段模式"
+  },
+  "stt_modeLong": {
+    "message": "長時間（分段錄音）"
+  },
+  "stt_modeShort": {
+    "message": "短句聽寫（單段錄音）"
+  },
+  "stt_languageTag": {
+    "message": "語言"
+  },
+  "stt_taskTag": {
+    "message": "任務"
+  },
+  "stt_formatTag": {
+    "message": "格式"
+  },
+  "stt_segmentationEnabled": {
+    "message": "已啟用分段"
+  },
+  "stt_recordButton": {
+    "message": "錄音"
+  },
+  "stt_stopButton": {
+    "message": "停止"
+  },
+  "stt_startTooltip": {
+    "message": "開始錄音以進行轉寫"
+  },
+  "stt_stopTooltip": {
+    "message": "停止並送往伺服器"
+  },
+  "stt_transcribingButton": {
+    "message": "轉寫中..."
+  },
+  "stt_transcribingTooltip": {
+    "message": "正在轉寫音訊..."
+  },
+  "stt_transcribingPlaceholder": {
+    "message": "正在轉寫音訊..."
+  },
+  "stt_historyTitle": {
+    "message": "轉寫歷史"
+  },
+  "stt_clearAll": {
+    "message": "全部清除"
+  },
+  "stt_emptyHistory": {
+    "message": "開始錄音後會在此顯示逐字稿。你可以將任何項目儲存到筆記。"
+  },
+  "stt_saveToNotes": {
+    "message": "儲存到筆記"
+  },
+  "stt_delete": {
+    "message": "刪除"
+  },
+  "stt_durationTag": {
+    "message": "時長"
+  },
+  "stt_modelTag": {
+    "message": "模型"
+  },
+  "stt_currentTranscriptTitle": {
+    "message": "目前工作階段逐字稿"
+  },
+  "stt_currentTranscriptPlaceholder": {
+    "message": "錄音時即時逐字稿會顯示在此。"
+  },
+  "actions_temporaryOn": {
+    "message": "暫存聊天（不儲存）"
+  },
+  "actions_temporaryOff": {
+    "message": "將聊天儲存到歷史"
+  },
+  "actions_webSearchOn": {
+    "message": "網路搜尋已開啟"
+  },
+  "actions_webSearchOff": {
+    "message": "網路搜尋已關閉"
+  },
+  "actions_speechStart": {
+    "message": "開始聽寫"
+  },
+  "actions_speechStop": {
+    "message": "停止聽寫"
+  },
+  "actions_streamStart": {
+    "message": "即時字幕"
+  },
+  "actions_streamStop": {
+    "message": "停止字幕"
+  },
+  "actions_visionOn": {
+    "message": "視覺已開啟"
+  },
+  "actions_visionOff": {
+    "message": "視覺已關閉"
+  },
+  "actions_upload": {
+    "message": "附加圖片"
+  },
+  "actions_ingest": {
+    "message": "快速匯入"
+  },
+  "actions_ingestDisabled": {
+    "message": "連線到你的 tldw 伺服器以進行匯入。"
+  },
+  "actions_ingestHint": {
+    "message": "使用進階選項上傳 URL 或檔案。"
+  },
+  "actions_ingestSub": {
+    "message": "使用 URL/檔案；下載或儲存。"
+  },
+  "actions_streamErrorTitle": {
+    "message": "即時字幕無法使用"
+  },
+  "composer_toolsButton": {
+    "message": "+工具"
+  },
+  "composer_queuedBanner_title": {
+    "message": "離線時已加入佇列"
+  },
+  "composer_queuedBanner_body": {
+    "message": "我們會暫存這些訊息，待你的 tldw 伺服器連線後再送出。"
+  },
+  "composer_queuedBanner_sendNow": {
+    "message": "送出佇列中的訊息"
+  },
+  "composer_queuedBanner_clear": {
+    "message": "清除佇列"
+  },
+  "composer_coreTools": {
+    "message": "對話選項"
+  },
+  "composer_captureTools": {
+    "message": "擷取與輔助工具"
+  },
+  "composer_actions": {
+    "message": "傳送選項"
+  },
+  "composer_moreTools": {
+    "message": "更多工具"
+  },
+  "composer_scrollToLatest": {
+    "message": "捲動到最新訊息"
+  },
+  "composer_submitAria": {
+    "message": "送出訊息"
+  },
+  "composer_openModelSettings": {
+    "message": "開啟目前聊天設定"
+  },
+  "composer_stopStreaming": {
+    "message": "停止串流回應"
+  },
+  "composer_connectionPlaceholder": {
+    "message": "在設定中連線到你的 tldw 伺服器以發送訊息並查看媒體。"
+  },
+  "composer_connectNotice": {
+    "message": "在設定中連線到你的 tldw 伺服器以發送訊息並查看媒體。"
+  },
+  "composer_connectionChipDisconnected": {
+    "message": "伺服器：未連線"
+  },
+  "composer_contextLabel": {
+    "message": "上下文："
+  },
+  "composer_contextKnowledgeEmpty": {
+    "message": "尚未選擇知識"
+  },
+  "composer_contextTabs": {
+    "message": "{{count}} 個分頁"
+  },
+  "composer_contextFiles": {
+    "message": "{{count}} 個檔案"
+  },
+  "composer_contextMedia": {
+    "message": "媒體與筆記"
+  },
+  "composer_contextMediaHint": {
+    "message": "附加用來引導回應的媒體與筆記。"
+  },
+  "composer_contextMediaSelected": {
+    "message": "媒體或筆記"
+  },
+  "composer_contextMediaEmpty": {
+    "message": "尚未選擇任何媒體與筆記。"
+  },
+  "composer_addKnowledge": {
+    "message": "加入媒體與筆記"
+  },
+  "composer_contextTabsTitle": {
+    "message": "上下文中的分頁"
+  },
+  "composer_contextTabsHint": {
+    "message": "檢視或移除已引用的分頁，或從已開啟的瀏覽器分頁新增更多。"
+  },
+  "composer_contextManager": {
+    "message": "上下文管理"
+  },
+  "composer_contextManagerTitle": {
+    "message": "上下文管理"
+  },
+  "composer_contextKnowledge": {
+    "message": "上下文與知識"
+  },
+  "composer_contextKnowledgeClose": {
+    "message": "關閉上下文與知識"
+  },
+  "composer_knowledgeSearch": {
+    "message": "知識搜尋"
+  },
+  "composer_knowledgeSearchClose": {
+    "message": "關閉知識搜尋"
+  },
+  "composer_persistence_ephemeral": {
+    "message": "不會儲存到歷史；關閉此分頁後清除。"
+  },
+  "composer_persistence_local": {
+    "message": "僅儲存在此瀏覽器。"
+  },
+  "composer_persistence_server": {
+    "message": "儲存在本機 + 伺服器"
+  },
+  "composer_persistence_ephemeralPill": {
+    "message": "暫存"
+  },
+  "composer_persistence_localPill": {
+    "message": "僅本機"
+  },
+  "composer_persistence_serverPill": {
+    "message": "本機 + 伺服器"
+  },
+  "composer_persistence_saveToServer": {
+    "message": "同時將此聊天儲存到伺服器"
+  },
+  "composer_persistence_connectToSave": {
+    "message": "連線到你的伺服器以在那裡儲存聊天。"
+  },
+  "composer_persistence_serverDefaultTitle": {
+    "message": "擴充功能聊天"
+  },
+  "composer_persistence_serverSavedTitle": {
+    "message": "聊天已儲存到伺服器"
+  },
+  "composer_persistence_serverSaved": {
+    "message": "此聊天的後續訊息會同步到你的 tldw 伺服器。"
+  },
+  "composer_persistence_serverCharacterRequired": {
+    "message": "無法在伺服器上找到或建立預設助理角色。請從角色頁面再試一次。"
+  },
+  "composer_connectToSend": {
+    "message": "在「設定」中連線到你的 tldw 伺服器以發送訊息並查看媒體。"
+  },
+  "composer_compareTag": {
+    "message": "比較"
+  },
+  "composer_compareLabel": {
+    "message": "比較模式"
+  },
+  "composer_compareButton": {
+    "message": "比較模型"
+  },
+  "composer_compareButtonActive": {
+    "message": "比較：{{count}} 個模型"
+  },
+  "composer_compareButtonOn": {
+    "message": "已啟用比較"
+  },
+  "composer_compareSettingsTitle": {
+    "message": "比較設定"
+  },
+  "composer_compareSettingsToggle": {
+    "message": "啟用比較模式"
+  },
+  "composer_compareSettingsToggleHint": {
+    "message": "將你的下一則訊息傳送給多個模型。"
+  },
+  "composer_compareNoneSelected": {
+    "message": "尚未選擇要比較的模型"
+  },
+  "composer_compareSingle": {
+    "message": "正在比較 1 個模型"
+  },
+  "composer_compareMany": {
+    "message": "正在比較 {{count}} 個模型"
+  },
+  "composer_compareActiveSummary": {
+    "message": "下一回合啟用的模型：{{label}}"
+  },
+  "composer_compareModelPickerLabel": {
+    "message": "選擇模型"
+  },
+  "composer_compareModelPickerPlaceholder": {
+    "message": "選擇要比較的模型"
+  },
+  "composer_compareActiveModelsLabel": {
+    "message": "啟用中的模型"
+  },
+  "composer_compareActiveModelsHint": {
+    "message": "你的下一則訊息將傳送給每個已啟用的模型。"
+  },
+  "composer_compareSendToModels": {
+    "message": "傳送給 {{count}} 個模型"
+  },
+  "composer_compareMaxModelsTitle": {
+    "message": "已達比較上限"
+  },
+  "composer_compareMaxModels": {
+    "message": "每次最多可比較 {{limit}} 個模型。"
+  },
+  "composer_compareMaxModelsTrimmed": {
+    "message": "每次比較限制為 {{limit}} 個模型。使用前 {{limit}} 個選定的模型。"
+  },
+  "composer_compareMaxLabel": {
+    "message": "每次最大模型數"
+  },
+  "composer_compareMaxHelper": {
+    "message": "已選擇 {{current}} / {{limit}}"
+  },
+  "composer_compareSelectedLabel": {
+    "message": "選為答案："
+  },
+  "composer_compareContinueHint": {
+    "message": "使用選定的模型繼續此聊天。"
+  },
+  "composer_compareContinue": {
+    "message": "使用此模型繼續"
+  },
+  "composer_compareThreadShared": {
+    "message": "你（共享）"
+  },
+  "composer_compareBulkSplitSuccess": {
+    "message": "已建立 {{count}} 個聊天"
+  },
+  "composer_compareBulkSplitPartialFail": {
+    "message": "無法建立 {{count}} 個聊天"
+  },
+  "composer_validationCompareSelectModelsInline": {
+    "message": "請至少選擇一個模型以使用比較模式。"
+  },
+  "composer_compareFeatureToggle": {
+    "message": "啟用對比模式"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "解鎖實驗性的多模型對比功能。"
+  },
+  "composer_compareDisabled": {
+    "message": "對比模式在設定中已停用。"
+  },
+  "composer_compareChosenHint": {
+    "message": "使用選定的答案繼續或再次對比。"
+  },
+  "composer_compareChosenLabel": {
+    "message": "已選"
+  },
+  "composer_compareLatency": {
+    "message": "延遲"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "對比：{{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "（來自對比）"
+  },
+  "composer_compareClusterLabel": {
+    "message": "多模型回答"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} 個模型"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "已選模型：{{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "將每個已選答案各自開成聊天"
+  },
+  "composer_compareThreadLabel": {
+    "message": "模型別對話"
+  },
+  "composer_compareThreadYou": {
+    "message": "你"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "以完整聊天開啟"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "開啟分拆聊天"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "標準"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "標記為標準答案"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "標準答案"
+  },
+  "composer_compareFilterLabel": {
+    "message": "篩選模型"
+  },
+  "composer_compareFilterClear": {
+    "message": "顯示全部"
+  },
+  "composer_compareFilterCount": {
+    "message": "顯示 {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Token：{{count}}"
+  },
+  "actor_title": {
+    "message": "場景導演（Actor）"
+  },
+  "actor_help": {
+    "message": "為每個聊天配置場景脈絡：角色、情緒、世界、目標與備註。"
+  },
+  "actor_addLabel": {
+    "message": "新增或移除要素以聚焦場景。"
+  },
+  "actor_user": {
+    "message": "使用者"
+  },
+  "actor_char": {
+    "message": "角色"
+  },
+  "actor_world": {
+    "message": "世界"
+  },
+  "actor_newAspectPlaceholder": {
+    "message": "要素名稱（例如：情緒、角色、地點）"
+  },
+  "actor_addButton": {
+    "message": "新增要素"
+  },
+  "actor_aspectPlaceholder": {
+    "message": "簡要描述（選填）"
+  },
+  "actor_notes": {
+    "message": "場景備註"
+  },
+  "actor_notesHelp": {
+    "message": "傳送給模型的選用備註。支援 Markdown 與 LaTeX。"
+  },
+  "actor_position": {
+    "message": "Actor 提示位置"
+  },
+  "actor_before": {
+    "message": "在主要提示/故事之前"
+  },
+  "actor_after": {
+    "message": "在主要提示/故事之後"
+  },
+  "actor_depth": {
+    "message": "在聊天中按深度"
+  },
+  "actor_depthLabel": {
+    "message": "深度（非系統訊息）"
+  },
+  "actor_depthPlaceholder": {
+    "message": "0 = 聊天頂端"
+  },
+  "actor_depthHelp": {
+    "message": "僅在位置為「在聊天中按深度」時使用。從聊天頂端開始計算非系統訊息。"
+  },
+  "actor_roleLabel": {
+    "message": "Actor 訊息角色"
+  },
+  "actor_roleSystem": {
+    "message": "系統"
+  },
+  "actor_roleUser": {
+    "message": "使用者"
+  },
+  "actor_roleAssistant": {
+    "message": "助理"
+  },
+  "actor_positionHelp": {
+    "message": "深度僅在位置為「在聊天中按深度」時使用。角色決定 Actor 以系統、使用者或助理身分出現。"
+  },
+  "actor_preview": {
+    "message": "Actor 提示預覽"
+  },
+  "actor_tokens": {
+    "message": "權杖：{{count}}"
+  },
+  "actor_previewEmpty": {
+    "message": "目前沒有內容可送出。"
+  },
+  "actor_offlineHintTitle": {
+    "message": "Actor 無法使用 World Books"
+  },
+  "actor_offlineHintBody": {
+    "message": "在設定中連線 tldw 伺服器以在 Actor 要素中使用 World Books，或繼續使用自由文字值。"
+  },
+  "actor_loreWorldBookMissing": {
+    "message": "找不到先前的 World Book 綁定；改用自由文字。"
+  },
+  "actor_loreEntryMissing": {
+    "message": "找不到先前的 World Book 項目；改用自由文字。"
+  },
+  "actor_sourceFree": {
+    "message": "自由文字"
+  },
+  "actor_sourceLore": {
+    "message": "World Book"
+  },
+  "actor_worldBookPlaceholder": {
+    "message": "World Book"
+  },
+  "actor_entryPlaceholder": {
+    "message": "項目"
+  },
+  "actor_loreValuePlaceholder": {
+    "message": "選擇一個選項（選填）"
+  },
+  "actor_tokenLabel": {
+    "message": "權杖"
+  },
+  "actor_tokensTitle": {
+    "message": "Actor 字典權杖"
+  },
+  "actor_tokensHelp": {
+    "message": "在提示和系統訊息中使用這些權杖。"
+  },
+  "actor_keyChangeTitle": {
+    "message": "變更 Actor 權杖鍵？"
+  },
+  "actor_keyChangeBody": {
+    "message": "這會將權杖從 {{old}} 變更為 {{next}}。使用舊權杖的提示不會自動更新。"
+  },
+  "actor_keyCollisionTitle": {
+    "message": "Actor 鍵已被使用"
+  },
+  "actor_keyCollisionBody": {
+    "message": "另一個要素已使用此鍵。鍵必須在每個聊天中唯一。"
+  },
+  "actor_copy": {
+    "message": "複製"
+  },
+  "actor_copied": {
+    "message": "已複製"
+  },
+  "actor_copySuccess": {
+    "message": "權杖已複製到剪貼簿"
+  },
+  "actor_copyError": {
+    "message": "無法複製權杖"
+  },
+  "actor_notesPreviewTitle": {
+    "message": "場景備註預覽"
+  },
+  "actor_notesPreviewToggle": {
+    "message": "顯示 Markdown + LaTeX 預覽"
+  },
+  "actor_aspectLimitWarningTitle": {
+    "message": "此聊天設定了許多要素"
+  },
+  "actor_aspectLimitWarningBody": {
+    "message": "你有 {{count}} 個要素（軟性上限 {{limit}}）。建議精簡以聚焦場景並節省權杖。"
+  },
+  "actor_tokenWarning": {
+    "message": "Actor 提示過長（{{count}} 權杖；軟性上限 {{limit}}）。請考慮精簡要素或備註以節省脈絡。"
+  },
+  "actor_depthRangeHelp": {
+    "message": "深度必須在 0 到 999 之間；超過歷史長度的值會被限制。"
+  },
+  "actor_presetLabel": {
+    "message": "預設"
+  },
+  "actor_presetPlaceholder": {
+    "message": "選擇預設"
+  },
+  "actor_preset.sliceOfLife": {
+    "message": "日常"
+  },
+  "actor_preset.dungeonCrawl": {
+    "message": "地城探險"
+  },
+  "actor_preset.romance": {
+    "message": "浪漫"
+  },
+  "actor_preset.workSession": {
+    "message": "工作時段"
+  },
+  "actor_applyPreset": {
+    "message": "套用"
+  },
+  "actor_resetChat": {
+    "message": "重設此聊天"
+  },
+  "actor_saveAsCharacterDefault": {
+    "message": "儲存為 {{name}} 的預設"
+  },
+  "actor_applyCharacterDefault": {
+    "message": "套用 {{name}} 的預設"
+  },
+  "actor_notesGmOnly": {
+    "message": "僅 GM：不要將備註送給模型"
+  },
+  "actor_templateModeLabel": {
+    "message": "場景模板互動"
+  },
+  "actor_templateModeHelp": {
+    "message": "控制 Actor 與啟用中的場景模板如何互動。合併會保留兩者；覆蓋讓 Actor 取代重疊欄位；忽略會在模板啟用時略過 Actor。"
+  },
+  "actor_templateMode.merge": {
+    "message": "與模板合併"
+  },
+  "actor_templateMode.override": {
+    "message": "覆蓋模板"
+  },
+  "actor_templateMode.ignore": {
+    "message": "模板啟用時忽略"
+  },
+  "actor_bladeAspectsTitle": {
+    "message": "要素"
+  },
+  "actor_bladeNotesTitle": {
+    "message": "場景備註"
+  },
+  "actor_bladePlacementTitle": {
+    "message": "位置與模板"
+  },
+  "actor_bladeTokensTitle": {
+    "message": "權杖與預覽"
+  },
+  "actor_summaryAspectsEmpty": {
+    "message": "尚未設定要素。"
+  },
+  "actor_summaryAspectsCount": {
+    "message": "已設定 {{count}} 個要素。"
+  },
+  "actor_summaryNotesEmpty": {
+    "message": "尚無場景備註。"
+  },
+  "actor_summaryNotes": {
+    "message": "{{chars}} 個字元{{gmSuffix}}。"
+  },
+  "actor_summaryNotesGmOnly": {
+    "message": " · 僅 GM"
+  },
+  "actor_summaryPlacementBefore": {
+    "message": "在主要提示/故事之前。"
+  },
+  "actor_summaryPlacementAfter": {
+    "message": "在主要提示/故事之後。"
+  },
+  "actor_summaryPlacementDepth": {
+    "message": "深度 {{depth}} · 角色：{{role}}。"
+  },
+  "actor_summaryTokensEmpty": {
+    "message": "尚未定義權杖；請設定要素值。"
+  },
+  "actor_summaryTokensCount": {
+    "message": "{{tokens}} 個權杖 · 提示約 {{estimate}} 個權杖。"
+  },
+  "actor_sceneTemplateActive": {
+    "message": "場景模板啟用中：Actor 會遵循模板互動設定。"
+  },
+  "speech_title": {
+    "message": "語音遊樂場"
+  },
+  "speech_subtitle": {
+    "message": "在同一處錄音、編輯轉寫並合成語音。"
+  },
+  "speech_modeLabel": {
+    "message": "模式"
+  },
+  "speech_modeRoundTrip": {
+    "message": "往返"
+  },
+  "speech_modeSpeak": {
+    "message": "說話"
+  },
+  "speech_modeListen": {
+    "message": "聆聽"
+  },
+  "speech_modeHint": {
+    "message": "會記住此裝置上的最後模式。"
+  },
+  "speech_recordingWaveform": {
+    "message": "即時錄音波形"
+  },
+  "speech_playbackWaveform": {
+    "message": "播放波形"
+  },
+  "speech_sendToTts": {
+    "message": "送到 TTS"
+  },
+  "speech_sendHint": {
+    "message": "使用最新轉寫作為 TTS 草稿。"
+  },
+  "speech_download": {
+    "message": "下載"
+  },
+  "speech_downloadCurrent": {
+    "message": "下載目前片段"
+  },
+  "speech_downloadAll": {
+    "message": "下載所有片段"
+  },
+  "speech_segmentFormat": {
+    "message": "格式"
+  },
+  "speech_historyTitle": {
+    "message": "語音歷史"
+  },
+  "speech_historyAll": {
+    "message": "全部"
+  },
+  "speech_historyStt": {
+    "message": "STT"
+  },
+  "speech_historyTts": {
+    "message": "TTS"
+  },
+  "speech_historySearch": {
+    "message": "搜尋轉寫"
+  },
+  "speech_historyRetentionHint": {
+    "message": "保留最新{{count}}筆紀錄。使用「全部清除」刪除所有內容。"
+  },
+  "speech_useInTts": {
+    "message": "用於 TTS"
+  },
+  "speech_copy": {
+    "message": "複製"
+  },
+  "speech_copySuccess": {
+    "message": "已複製到剪貼簿"
+  },
+  "speech_copyError": {
+    "message": "複製轉寫失敗。"
+  },
+  "speech_providerTag": {
+    "message": "提供者"
+  },
+  "speech_voiceTag": {
+    "message": "聲音"
+  },
+  "speech_emptyHistory": {
+    "message": "開始錄音或產生音訊即可在此查看歷史。"
+  },
+  "speech_downloadDisabledBrowser": {
+    "message": "瀏覽器 TTS 不會產生可下載的音訊。"
+  },
+  "speech_downloadDisabledEmpty": {
+    "message": "產生音訊以啟用下載。"
+  },
+  "speech_transcriptLock": {
+    "message": "鎖定"
+  },
+  "speech_transcriptUnlock": {
+    "message": "解鎖"
+  },
+  "speech_transcriptEditHint": {
+    "message": "此轉寫已啟用編輯。"
+  },
+  "speech_transcriptLockedHint": {
+    "message": "已鎖定為即時轉寫更新。"
+  },
+  "speech_transcriptRecordingHint": {
+    "message": "錄音進行中；轉寫已鎖定。"
+  },
+  "actor_uploadedFiles": {
+    "message": "Uploaded Files ({{count}})"
+  },
+  "actor_fileRetrieval": {
+    "message": "File Retrieval"
+  },
+  "actor_fileStatusProcessed": {
+    "message": "Processed"
+  },
+  "actor_fileStatusProcessing": {
+    "message": "Processing..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
+  }
+}

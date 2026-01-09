@@ -221,16 +221,16 @@ export const TakeQuizTab: React.FC<TakeQuizTabProps> = ({
                         : t("option:quiz.incorrect", { defaultValue: "Incorrect" })}
                     </Tag>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="text-sm text-text-muted">
                     {t("option:quiz.yourAnswer", { defaultValue: "Your answer" })}:{" "}
                     <span className="font-medium">{optionFor(userAnswer)}</span>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="text-sm text-text-muted">
                     {t("option:quiz.correctAnswerLabel", { defaultValue: "Correct answer" })}:{" "}
                     <span className="font-medium">{optionFor(correctAnswer)}</span>
                   </div>
                   {answer?.explanation && (
-                    <Typography.Paragraph className="text-sm text-gray-500 dark:text-gray-400 mb-0">
+                    <Typography.Paragraph className="text-sm text-text-subtle mb-0">
                       {answer.explanation}
                     </Typography.Paragraph>
                   )}
@@ -324,10 +324,10 @@ export const TakeQuizTab: React.FC<TakeQuizTabProps> = ({
         <Empty
           description={
             <div className="space-y-2">
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-text-muted">
                 {t("option:quiz.empty.noQuizzes", { defaultValue: "No quizzes yet" })}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-500">
+              <p className="text-sm text-text-subtle">
                 {t("option:quiz.empty.createFirst", {
                   defaultValue: "Create your first quiz or generate one from media"
                 })}
@@ -351,7 +351,7 @@ export const TakeQuizTab: React.FC<TakeQuizTabProps> = ({
   return (
     <div className="space-y-4">
       {contextHolder}
-      <div className="text-sm text-gray-600 dark:text-gray-400">
+      <div className="text-sm text-text-muted">
         {t("option:quiz.selectQuiz", { defaultValue: "Select a quiz to begin" })}
       </div>
 
@@ -397,7 +397,7 @@ export const TakeQuizTab: React.FC<TakeQuizTabProps> = ({
                 description={
                   <div className="space-y-2">
                     {quiz.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                      <p className="text-sm text-text-muted line-clamp-2">
                         {quiz.description}
                       </p>
                     )}

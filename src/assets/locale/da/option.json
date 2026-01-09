@@ -49,7 +49,7 @@
     "promptLabel": "Prompt-tekst",
     "review": "Gennemgang",
     "flashcards": "Flashcards (kort)",
-    "quiz": "Quiz",
+    "quiz": "Quizzer",
     "media": "Medier",
     "libraryView": "Multi-Item-gennemgang",
     "notes": "Noter",
@@ -89,7 +89,8 @@
     "omniSearchStartChat": "Start ny chat \"{{query}}\"",
     "connectionCard.connectedCaption": "Chat og værktøjer er nu tilgængelige i Indstillinger og sidepanelet.",
     "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klik for at gennemgå og behandle",
-    "modeSpeech": "Tale"
+    "modeSpeech": "Tale",
+    "moreTools": "Mere"
   },
   "sidebarTitle": "Chathistorik",
   "error": "Fejl",
@@ -368,7 +369,9 @@
     "fetchErrorBody": "Tjek din forbindelse eller serverens status, og prøv igen.",
     "none": "Ingen (ingen karakter)",
     "refresh": "Opdater karakterer",
-    "refreshing": "Opdaterer karakterer…"
+    "refreshing": "Opdaterer karakterer…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Brug i chat",

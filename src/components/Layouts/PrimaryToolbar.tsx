@@ -20,7 +20,7 @@ export const PrimaryToolbar: React.FC<React.PropsWithChildren<Props>> = ({
         <NavLink
           to="/"
           aria-label={t("option:header.backToHome", "Back to home")}
-          className="rounded-md p-1 text-gray-500 hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-500 dark:text-gray-400 dark:hover:text-gray-200">
+          className="rounded-md p-1 text-text-muted hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">
           <span
             className={`text-sm font-medium ${isRTL ? "text-right" : ""}`}>
             {t("option:header.backToHome", "Back to home")}

@@ -572,7 +572,7 @@ const SidepanelAgent: FC = () => {
         agentRef.current = null
       }}
     >
-      <div className="relative flex flex-col h-dvh bg-white dark:bg-[#171717]">
+      <div className="relative flex flex-col h-dvh bg-white dark:bg-surface">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700">
         <WorkspaceSelector
@@ -608,13 +608,14 @@ const SidepanelAgent: FC = () => {
 
       {/* Session History Panel (slide-out) */}
       {showHistory && (
-        <div className="absolute right-0 top-0 bottom-0 w-80 bg-white dark:bg-[#171717] border-l border-gray-200 dark:border-gray-700 z-50 flex flex-col shadow-xl">
+        <div className="absolute right-0 top-0 bottom-0 w-80 bg-white dark:bg-surface border-l border-gray-200 dark:border-gray-700 z-50 flex flex-col shadow-xl">
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
             <h2 className="font-semibold">{t("sessionHistory", "Session History")}</h2>
             <button
               onClick={() => setShowHistory(false)}
               className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
               aria-label={t("close", "Close")}
+              title={t("close", "Close")}
             >
               <X className="size-4" />
             </button>

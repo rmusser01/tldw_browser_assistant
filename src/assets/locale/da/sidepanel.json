@@ -131,5 +131,15 @@
     "newChat": "Ny samtale",
     "newTabAria": "Ny samtale-fane",
     "closeTabAria": "Luk samtale-fanen"
+  },
+  "characterSelect": {
+    "label": "Character",
+    "tooltip": "Select a character",
+    "search": "Search characters...",
+    "noMatches": "No matching characters",
+    "noCharacters": "No characters available",
+    "none": "No character",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   }
 }

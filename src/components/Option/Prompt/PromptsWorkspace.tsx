@@ -9,10 +9,10 @@ export const PromptsWorkspace: React.FC = () => {
   return (
     <PageShell className="space-y-4">
       <div className="space-y-1">
-        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
+        <h1 className="text-lg font-semibold text-text">
           {t("option:header.modePromptsPlayground", "Prompts")}
         </h1>
-        <p className="text-xs text-gray-600 dark:text-gray-300">
+        <p className="text-xs text-text-muted">
           {t("settings:managePrompts.emptyDescription", {
             defaultValue:
               "Create reusable prompts for recurring tasks, workflows, and team conventions."

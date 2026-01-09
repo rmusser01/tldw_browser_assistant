@@ -26,8 +26,10 @@ import {
   wrapDraftForPrompt
 } from "@/utils/content-review-ai"
 import { getTextStats } from "@/utils/text-stats"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { bgRequest, bgUpload } from "@/services/background-proxy"
 import { getServerCapabilities } from "@/services/tldw/server-capabilities"
+import { normalizeMediaTypeForUpload } from "@/services/tldw/media-routing"
 import { fetchChatModels } from "@/services/tldw-server"
 import {
   DRAFT_STORAGE_CAP_BYTES,
@@ -54,15 +56,6 @@ const statusColor = (status?: ContentDraft["status"]) => {
     default:
       return "default"
   }
-}
-
-const normalizeMediaType = (type?: string) => {
-  const t = String(type || "").toLowerCase()
-  if (t === "html") return "document"
-  if (t === "pdf") return "pdf"
-  if (t === "audio") return "audio"
-  if (t === "video") return "video"
-  return "document"
 }
 
 const extractMediaId = (
@@ -98,7 +91,7 @@ const extractMediaId = (
 
 const buildFields = (draft: ContentDraft) => {
   const fields: Record<string, any> = {
-    media_type: normalizeMediaType(draft.mediaType),
+    media_type: normalizeMediaTypeForUpload(draft.mediaType),
     perform_analysis: Boolean(draft.processingOptions?.perform_analysis),
     perform_chunking: Boolean(draft.processingOptions?.perform_chunking),
     overwrite_existing: Boolean(draft.processingOptions?.overwrite_existing)
@@ -264,28 +257,6 @@ const cloneDraft = (draft: ContentDraft): ContentDraft => {
   }
 }
 
-const providerDisplayName = (provider?: string) => {
-  const key = String(provider || "unknown").toLowerCase()
-  if (key === "openai") return "OpenAI"
-  if (key === "anthropic") return "Anthropic"
-  if (key === "google") return "Google"
-  if (key === "mistral") return "Mistral"
-  if (key === "cohere") return "Cohere"
-  if (key === "groq") return "Groq"
-  if (key === "huggingface") return "HuggingFace"
-  if (key === "openrouter") return "OpenRouter"
-  if (key === "ollama") return "Ollama"
-  if (key === "llama") return "Llama.cpp"
-  if (key === "kobold") return "Kobold.cpp"
-  if (key === "ooba") return "Oobabooga"
-  if (key === "tabby") return "TabbyAPI"
-  if (key === "vllm") return "vLLM"
-  if (key === "aphrodite") return "Aphrodite"
-  if (key === "zai") return "Z.AI"
-  if (key === "custom_openai_api") return "Custom OpenAI API"
-  if (key === "chrome") return "Chrome"
-  return provider || "API"
-}
 
 export const ContentReviewPage: React.FC = () => {
   const { t } = useTranslation(["option"])
@@ -368,7 +339,7 @@ export const ContentReviewPage: React.FC = () => {
       .then((models) => {
         if (!mounted) return
         const options = (models || []).map((model) => {
-          const provider = providerDisplayName(model.provider)
+          const provider = getProviderDisplayName(model.provider)
           const modelLabel = model.nickname || model.model
           return {
             value: model.model,
@@ -1031,7 +1002,7 @@ export const ContentReviewPage: React.FC = () => {
           <Typography.Title level={3} className="!mb-1">
             {t("contentReview.title", "Content Review")}
           </Typography.Title>
-          <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
             <Tag color="blue">
               {t(
                 "contentReview.readyToSubmit",
@@ -1081,7 +1052,7 @@ export const ContentReviewPage: React.FC = () => {
       ) : (
         <div className="flex flex-col gap-4 lg:flex-row">
           <div className="lg:w-80 space-y-3">
-            <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-[#111111]">
+            <div className="rounded-lg border border-border bg-surface p-3 shadow-sm ">
               <Typography.Text strong>
                 {t("contentReview.batchLabel", "Batch")}
               </Typography.Text>
@@ -1102,14 +1073,14 @@ export const ContentReviewPage: React.FC = () => {
                 }))}
               />
               {activeBatchId ? (
-                <div className="mt-2 text-xs text-gray-500">
+                <div className="mt-2 text-xs text-text-muted">
                   {formatTimestamp(
                     batches.find((b) => b.id === activeBatchId)?.createdAt
                   )}
                 </div>
               ) : null}
             </div>
-            <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-[#111111]">
+            <div className="rounded-lg border border-border bg-surface shadow-sm ">
               <div className="px-3 py-2">
                 <Typography.Text strong>
                   {t("contentReview.draftsLabel", "Drafts")}
@@ -1126,20 +1097,20 @@ export const ContentReviewPage: React.FC = () => {
                     }}
                     className={`cursor-pointer px-3 py-2 ${
                       draft.id === activeDraftId
-                        ? "bg-blue-50 dark:bg-blue-900/20"
+                        ? "bg-primary/10 "
                         : ""
                     }`}
                   >
                     <div className="w-full">
                       <div className="flex items-start justify-between gap-2">
-                        <div className="text-sm font-medium text-gray-800 dark:text-gray-100">
+                        <div className="text-sm font-medium text-text text-text">
                           {draft.title || draft.source.url || draft.source.fileName}
                         </div>
                         <Tag color={statusColor(draft.status)}>
                           {draft.status.replace("_", " ")}
                         </Tag>
                       </div>
-                      <div className="mt-1 text-xs text-gray-500">
+                      <div className="mt-1 text-xs text-text-muted">
                         {draft.mediaType.toUpperCase()}
                       </div>
                     </div>
@@ -1159,7 +1130,7 @@ export const ContentReviewPage: React.FC = () => {
               />
             ) : (
               <>
-                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-[#111111]">
+                <div className="rounded-lg border border-border bg-surface p-4 shadow-sm ">
                   <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     <div className="flex-1 space-y-2">
                       <Input
@@ -1173,7 +1144,7 @@ export const ContentReviewPage: React.FC = () => {
                           "Draft title"
                         )}
                       />
-                      <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
                         <Tag color={statusColor(draftContent.status)}>
                           {draftContent.status.replace("_", " ")}
                         </Tag>
@@ -1215,13 +1186,13 @@ export const ContentReviewPage: React.FC = () => {
 
                 <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
                   <div className="space-y-4">
-                    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-[#111111]">
+                    <div className="rounded-lg border border-border bg-surface p-4 shadow-sm ">
                       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <div>
                           <Typography.Text strong>
                             {t("contentReview.editorLabel", "Content")}
                           </Typography.Text>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-text-muted">
                             {t("contentReview.wordCount", "{{words}} words", {
                               words: wordCount
                             })}{" "}
@@ -1360,7 +1331,7 @@ export const ContentReviewPage: React.FC = () => {
                                         <div className="font-medium">
                                           {section.label}
                                         </div>
-                                        <div className="text-xs text-gray-500">
+                                        <div className="text-xs text-text-muted">
                                           {section.content.slice(0, 140)}
                                           {section.content.length > 140 ? "…" : ""}
                                         </div>
@@ -1377,13 +1348,13 @@ export const ContentReviewPage: React.FC = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-[#111111]">
+                    <div className="rounded-lg border border-border bg-surface p-4 shadow-sm ">
                       <Typography.Text strong>
                         {t("contentReview.metadataLabel", "Metadata")}
                       </Typography.Text>
                       <div className="mt-2 space-y-3">
                         <div>
-                          <Typography.Text className="text-xs text-gray-500">
+                          <Typography.Text className="text-xs text-text-muted">
                             {t("contentReview.mediaType", "Media type")}
                           </Typography.Text>
                           <div className="text-sm font-medium">
@@ -1391,7 +1362,7 @@ export const ContentReviewPage: React.FC = () => {
                           </div>
                         </div>
                         <div>
-                          <Typography.Text className="text-xs text-gray-500">
+                          <Typography.Text className="text-xs text-text-muted">
                             {t("contentReview.keywords", "Keywords")}
                           </Typography.Text>
                           <Select
@@ -1409,7 +1380,7 @@ export const ContentReviewPage: React.FC = () => {
                           />
                         </div>
                         <div>
-                          <Typography.Text className="text-xs text-gray-500">
+                          <Typography.Text className="text-xs text-text-muted">
                             {t("contentReview.reviewNotes", "Review notes")}
                           </Typography.Text>
                           <Input.TextArea
@@ -1424,7 +1395,7 @@ export const ContentReviewPage: React.FC = () => {
                         </div>
                         {draftContent.source.kind === "file" &&
                         !draftContent.sourceAssetId ? (
-                          <div className="rounded-md border border-amber-200 bg-amber-50 p-3 text-xs text-amber-800">
+                          <div className="rounded-md border border-warn/40 bg-warn/10 p-3 text-xs text-warn">
                             <div className="font-medium">
                               {t(
                                 "contentReview.missingSource",
@@ -1463,7 +1434,7 @@ export const ContentReviewPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-[#111111]">
+                    <div className="rounded-lg border border-border bg-surface p-4 shadow-sm ">
                       <Typography.Text strong>
                         {t("contentReview.actionsLabel", "Actions")}
                       </Typography.Text>
@@ -1477,7 +1448,7 @@ export const ContentReviewPage: React.FC = () => {
                           {t("contentReview.commit", "Commit")}
                         </Button>
                         {missingRequiredAsset ? (
-                          <div className="text-xs text-amber-700">
+                          <div className="text-xs text-warn">
                             {t(
                               "contentReview.commitDisabled",
                               "Attach the original audio/video file before committing."

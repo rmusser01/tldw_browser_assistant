@@ -22,7 +22,7 @@ export const PromptSelect: React.FC<Props> = ({
   setSelectedQuickPrompt,
   setSelectedSystemPrompt,
   selectedSystemPrompt,
-  className = "dark:text-gray-300",
+  className = "text-text-muted",
   iconClassName = "size-5"
 }) => {
   const { t } = useTranslation("option")
@@ -64,6 +64,12 @@ export const PromptSelect: React.FC<Props> = ({
     }
   }, [data, setSelectedSystemPrompt, setSelectedQuickPrompt])
 
+  const selectedPromptLabel = useMemo(() => {
+    if (!selectedSystemPrompt || !data) return null
+    const prompt = data.find((item) => item.id === selectedSystemPrompt)
+    return prompt?.title || null
+  }, [data, selectedSystemPrompt])
+
   // Group prompts by category: Favorites, System, Quick
   const groupedMenuItems = useMemo<ItemType[]>(() => {
     if (filteredData.length === 0) {
@@ -94,12 +100,12 @@ export const PromptSelect: React.FC<Props> = ({
               <ZapIcon className="w-4 h-4 flex-shrink-0" />
             )}
             {prompt?.favorite && (
-              <span className="text-yellow-500 flex-shrink-0" title="Favorite">★</span>
+              <span className="text-warn flex-shrink-0" title="Favorite">★</span>
             )}
             <span className="truncate font-medium">{prompt.title}</span>
           </div>
           {prompt.content && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 mt-0.5 ml-6">
+            <p className="text-xs text-text-subtle line-clamp-1 mt-0.5 ml-6">
               {prompt.content}
             </p>
           )}
@@ -197,12 +203,12 @@ export const PromptSelect: React.FC<Props> = ({
             activeKey: selectedSystemPrompt
           }}
           dropdownRender={(menu) => (
-            <div className="bg-white dark:bg-[#1f1f1f] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-              <div className="p-2 border-b border-gray-200 dark:border-gray-700">
+            <div className="bg-surface rounded-lg shadow-lg border border-border">
+              <div className="p-2 border-b border-border">
                 <Input
                   ref={searchInputRef}
                   placeholder={t("searchPrompts", "Search prompts...")}
-                  prefix={<Search className="size-4 text-gray-400" />}
+                  prefix={<Search className="size-4 text-text-subtle" />}
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   allowClear
@@ -222,6 +228,10 @@ export const PromptSelect: React.FC<Props> = ({
               dataTestId="chat-prompt-select"
               className={className}>
               <BookIcon className={iconClassName} />
+              <span className="ml-1 hidden max-w-[120px] truncate text-xs font-medium text-text sm:inline">
+                {selectedPromptLabel ||
+                  t("promptSelect.label", "Prompt")}
+              </span>
             </IconButton>
           </Tooltip>
         </Dropdown>

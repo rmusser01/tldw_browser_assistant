@@ -63,12 +63,12 @@ export const SaveStatusIcon = ({
     const base = "size-4 transition-colors"
     switch (saveMode) {
       case "ephemeral":
-        return `${base} text-blue-500`
+        return `${base} text-primary`
       case "server":
-        return `${base} text-emerald-500`
+        return `${base} text-success`
       case "local":
       default:
-        return `${base} text-gray-400 dark:text-gray-500`
+        return `${base} text-text-subtle`
     }
   })()
 
@@ -99,8 +99,9 @@ export const SaveStatusIcon = ({
         type="button"
         onClick={onClick}
         data-testid="chat-save-status"
-        className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700"
+        className="rounded p-2 hover:bg-surface2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
         aria-label={tooltip}
+        title={tooltip}
       >
         <Save className={iconClassName} />
       </button>

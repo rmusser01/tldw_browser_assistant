@@ -7,15 +7,18 @@ export const PlaygroundSettings = () => {
     <div className="flex-shrink-0 flex flex-col items-center justify-center py-1 ">
       <div className="flex items-center justify-center space-x-2">
         <button
+          type="button"
           onClick={() => setOpen(true)}
-          className="flex items-center justify-center w-8 h-8 rounded-full transition-colors duration-200 focus:outline-none">
+          className="flex items-center justify-center w-8 h-8 rounded-full transition-colors duration-200 focus:outline-none"
+          aria-label="Chat settings"
+          title="Chat settings">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
+            className="w-5 h-5 text-text-subtle hover:text-text">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -21,7 +21,7 @@ const SidepanelErrorBoundaryTest: FC = () => {
         setResetCount(prev => prev + 1)
       }}
     >
-      <div className="flex flex-col h-dvh bg-white dark:bg-[#171717]">
+      <div className="flex flex-col h-dvh bg-white dark:bg-surface">
         <div className="p-4 border-b border-gray-200 dark:border-gray-700">
           <h1 className="text-lg font-semibold" data-testid="error-boundary-test-title">
             Error Boundary Test

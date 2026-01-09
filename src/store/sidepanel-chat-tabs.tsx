@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import type { ChatHistory, Message as ChatMessage } from "@/store/option"
+import type { ChatHistory, Message as ChatMessage, ToolChoice } from "@/store/option"
 import type { ConversationState } from "@/services/tldw/TldwApiClient"
 
 export type ChatModelSettingsSnapshot = {
@@ -37,6 +37,12 @@ export type ChatModelSettingsSnapshot = {
   useMlock?: boolean
   reasoningEffort?: string
   ocrLanguage?: string
+  historyMessageLimit?: number
+  historyMessageOrder?: string
+  slashCommandInjectionMode?: string
+  apiProvider?: string
+  extraHeaders?: string
+  extraBody?: string
 }
 
 export type SidepanelChatSnapshot = {
@@ -45,6 +51,7 @@ export type SidepanelChatSnapshot = {
   chatMode: "normal" | "rag" | "vision"
   historyId: string | null
   webSearch: boolean
+  toolChoice: ToolChoice
   selectedModel: string | null
   selectedSystemPrompt: string | null
   selectedQuickPrompt: string | null
@@ -60,6 +67,13 @@ export type SidepanelChatSnapshot = {
   modelSettings: ChatModelSettingsSnapshot
 }
 
+export type ConversationStatus =
+  | "in_progress"
+  | "resolved"
+  | "backlog"
+  | "non_viable"
+  | null
+
 export type SidepanelChatTab = {
   id: string
   label: string
@@ -67,6 +81,8 @@ export type SidepanelChatTab = {
   serverChatId: string | null
   serverChatTopic: string | null
   updatedAt: number
+  pinned?: boolean
+  status?: ConversationStatus
 }
 
 type State = {
@@ -84,6 +100,9 @@ type State = {
   removeTab: (id: string) => void
   setSnapshot: (tabId: string, snapshot: SidepanelChatSnapshot) => void
   getSnapshot: (tabId: string) => SidepanelChatSnapshot | undefined
+  togglePinned: (id: string) => void
+  renameTab: (id: string, label: string) => void
+  setStatus: (id: string, status: ConversationStatus) => void
   clear: () => void
 }
 
@@ -126,5 +145,23 @@ export const useSidepanelChatTabsStore = create<State>((set, get) => ({
       }
     })),
   getSnapshot: (tabId) => get().snapshotsById[tabId],
+  togglePinned: (id) =>
+    set((state) => ({
+      tabs: state.tabs.map((tab) =>
+        tab.id === id ? { ...tab, pinned: !tab.pinned } : tab
+      )
+    })),
+  renameTab: (id, label) =>
+    set((state) => ({
+      tabs: state.tabs.map((tab) =>
+        tab.id === id ? { ...tab, label, updatedAt: Date.now() } : tab
+      )
+    })),
+  setStatus: (id, status) =>
+    set((state) => ({
+      tabs: state.tabs.map((tab) =>
+        tab.id === id ? { ...tab, status } : tab
+      )
+    })),
   clear: () => set({ tabs: [], activeTabId: null, snapshotsById: {} })
 }))

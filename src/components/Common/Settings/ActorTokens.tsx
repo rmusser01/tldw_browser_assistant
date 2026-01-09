@@ -58,10 +58,10 @@ export const ActorTokens: React.FC<Props> = ({ settings }) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+        <span className="text-xs font-semibold uppercase text-text-subtle">
           {t("playground:actor.tokensTitle", "Actor dictionary tokens")}
         </span>
-        <span className="text-[11px] text-gray-500 dark:text-gray-400">
+        <span className="text-[11px] text-text-subtle">
           {t(
             "playground:actor.tokensHelp",
             "Use these tokens in prompts and system messages."
@@ -74,7 +74,7 @@ export const ActorTokens: React.FC<Props> = ({ settings }) => {
           if (!items.length) return null
           return (
             <div key={target} className="space-y-1">
-              <div className="text-[11px] font-semibold uppercase text-gray-500 dark:text-gray-400">
+              <div className="text-[11px] font-semibold uppercase text-text-subtle">
                 {labelForTarget(target)}
               </div>
               <ul className="space-y-0.5">
@@ -82,17 +82,17 @@ export const ActorTokens: React.FC<Props> = ({ settings }) => {
                   <li
                     key={item.aspectId}
                     className="flex items-center justify-between gap-2 text-[11px]">
-                    <span className="truncate text-gray-600 dark:text-gray-300">
+                    <span className="truncate text-text-muted">
                       {item.name}
                     </span>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-[11px] text-gray-800 dark:text-gray-100">
+                      <span className="font-mono text-[11px] text-text">
                         {item.token}
                       </span>
                       <button
                         type="button"
                         onClick={() => handleCopy(item.token)}
-                        className="inline-flex items-center rounded border border-gray-300 px-1.5 py-0.5 text-[10px] text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                        className="inline-flex items-center rounded border border-border-strong px-1.5 py-0.5 text-[10px] text-text-muted hover:bg-surface2">
                         {copying === item.token
                           ? t("playground:actor.copied", "Copied")
                           : t("playground:actor.copy", "Copy")}

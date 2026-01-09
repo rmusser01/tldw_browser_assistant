@@ -33,7 +33,7 @@ export function JumpToNavigator({
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-[11px] text-gray-500 dark:text-gray-400 font-medium">
+      <span className="text-[11px] text-text-muted font-medium">
         {t('mediaPage.jumpTo', 'Jump to')}
       </span>
       <div className="flex flex-wrap gap-1">
@@ -48,8 +48,8 @@ export function JumpToNavigator({
               onClick={() => onSelect(r.id)}
               className={`px-2 py-0.5 text-xs rounded transition-colors ${
                 isSelected
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  ? 'bg-primary text-white'
+                  : 'bg-surface2 text-text hover:bg-surface'
               }`}
               title={String(r.title || r.id)}
               aria-label={t('mediaPage.jumpToItem', 'Jump to: {{title}}', { title: String(r.title || r.id) })}
@@ -67,7 +67,7 @@ export function JumpToNavigator({
             placement="bottomRight"
           >
             <button
-              className="px-2 py-0.5 text-xs rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center gap-1"
+              className="px-2 py-0.5 text-xs rounded bg-surface2 text-text hover:bg-surface transition-colors flex items-center gap-1"
               title={t('mediaPage.showMore', 'Show more items')}
             >
               <MoreHorizontal className="w-3 h-3" />

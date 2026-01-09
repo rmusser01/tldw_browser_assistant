@@ -7,7 +7,7 @@ export const ImageExportWrapper = ({ messages }: { messages: Message[] }) => {
   return (
     <div
       id="export-container"
-      className="bg-white dark:bg-[#121212] p-8 max-w-3xl mx-auto">
+      className="bg-surface p-8 max-w-3xl mx-auto">
       <div className="flex flex-col gap-4">
         {messages.map((msg, index) => (
           <div key={index} className="flex flex-row gap-4 md:gap-6 my-4">
@@ -34,7 +34,7 @@ export const ImageExportWrapper = ({ messages }: { messages: Message[] }) => {
 
             {/* Message Content */}
             <div className="flex w-[calc(100%-50px)] flex-col gap-2">
-              <span className="text-xs font-bold text-gray-800 dark:text-gray-200">
+              <span className="text-xs font-bold text-text">
                 {msg.isBot
                   ? removeModelSuffix(
                       `${msg.modelName || msg.name}`.replaceAll(
@@ -55,7 +55,7 @@ export const ImageExportWrapper = ({ messages }: { messages: Message[] }) => {
                           key={index}
                           src={img}
                           alt={`Image ${index + 1}`}
-                          className="max-w-full max-h-64 rounded-lg dark:ring-1 dark:ring-gray-700"
+                          className="max-w-full max-h-64 rounded-lg dark:ring-1 dark:ring-border"
                         />
                       ))}
                     </div>

@@ -33,6 +33,7 @@ export const EvaluationsSettings = () => {
 
   const [form] = Form.useForm()
   const [specType, setSpecType] = React.useState<string>("response_quality")
+  const defaultsAppliedRef = React.useRef(false)
   const [testResult, setTestResult] = React.useState<
     | null
     | { ok: boolean; message: string; details?: string; rate?: string }
@@ -44,20 +45,21 @@ export const EvaluationsSettings = () => {
   })
 
   React.useEffect(() => {
-    if (!defaultsResp) return
+    if (!defaultsResp || defaultsAppliedRef.current) return
+    defaultsAppliedRef.current = true
+    const nextSpecType = defaultsResp.defaultEvalType || "response_quality"
     form.setFieldsValue({
       defaultEvalType: defaultsResp.defaultEvalType,
       defaultTargetModel: defaultsResp.defaultTargetModel,
       defaultRunConfig: defaultsResp.defaultRunConfig,
       defaultDatasetId: defaultsResp.defaultDatasetId || undefined,
       specJson:
-        defaultsResp.defaultSpecByType?.[specType] ||
+        defaultsResp.defaultSpecByType?.[nextSpecType] ||
         defaultsResp.defaultSpecByType?.[defaultsResp.defaultEvalType || ""] ||
         ""
     })
-    setSpecType(defaultsResp.defaultEvalType || "response_quality")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultsResp])
+    setSpecType(nextSpecType)
+  }, [defaultsResp, form])
 
   const { mutateAsync: saveDefaults, isPending: saving } = useMutation({
     mutationFn: async (values: any) => {
@@ -127,12 +129,12 @@ export const EvaluationsSettings = () => {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+        <h2 className="text-base font-semibold leading-7 text-text">
           {t("settings:evaluationsSettings.title", {
             defaultValue: "Evaluations defaults"
           })}
         </h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+        <p className="mt-1 text-sm text-text-muted">
           {t("settings:evaluationsSettings.subtitle", {
             defaultValue:
               "Configure default eval type, target model, and spec snippets used by the Evaluations playground."

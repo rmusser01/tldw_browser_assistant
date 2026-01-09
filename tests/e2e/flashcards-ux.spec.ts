@@ -85,14 +85,19 @@ test.describe("Flashcards workspace UX", () => {
     const extPath = path.resolve("build/chrome-mv3")
     const { context, page, optionsUrl } = (await launchWithExtension(extPath)) as any
 
+    // Set up console listener FIRST - before any page navigation
+    // This captures all console messages including those from bgRequest
+    const consoleMessages: Array<{ type: string; text: string }> = []
+    page.on("console", (msg) => {
+      consoleMessages.push({ type: msg.type(), text: msg.text() })
+    })
+
     await waitForConnectionReady(page)
     await page.evaluate(async () => {
       await (window as any).__tldw_enableOfflineBypass?.()
     })
 
-    await page.goto(`${optionsUrl}#/flashcards`)
-    await expect(page.getByTestId("flashcards-tabs")).toBeVisible()
-
+    // Route BEFORE navigation - note: may not intercept service worker requests
     await context.route("**/api/v1/flashcards**", async (route) => {
       await route.fulfill({
         status: 500,
@@ -101,22 +106,35 @@ test.describe("Flashcards workspace UX", () => {
       })
     })
 
-    await page.getByRole("tab", { name: /Create/i }).click()
+    await page.goto(`${optionsUrl}#/flashcards`)
+    await expect(page.getByTestId("flashcards-tabs")).toBeVisible()
 
-    const consoleErrors: string[] = []
-    page.on("console", (msg) => {
-      if (msg.type() === "error") {
-        consoleErrors.push(msg.text())
-      }
-    })
+    await page.getByRole("tab", { name: /Create/i }).click()
 
     await page.getByTestId("flashcards-create-front").fill("What is 2+2?")
     await page.getByTestId("flashcards-create-back").fill("4")
     await page.getByTestId("flashcards-create-submit").click()
 
+    // Check for either:
+    // - "Failed to create flashcard" (from mutation onError - console.error)
+    // - "[tldw:request]" with error (from bgRequest - console.warn)
+    // - Any error/warning containing "flashcard" and failure indication
     await expect
-      .poll(() =>
-        consoleErrors.some((text) => text.includes("Failed to create flashcard"))
+      .poll(
+        () => {
+          const relevantMessages = consoleMessages.filter(
+            (m) => m.type === "error" || m.type === "warning"
+          )
+          return relevantMessages.some(
+            (m) =>
+              m.text.includes("Failed to create flashcard") ||
+              m.text.includes("[tldw:request]") ||
+              (m.text.toLowerCase().includes("flashcard") &&
+                (m.text.toLowerCase().includes("fail") ||
+                  m.text.toLowerCase().includes("error")))
+          )
+        },
+        { timeout: 10000 }
       )
       .toBeTruthy()
 

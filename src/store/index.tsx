@@ -10,6 +10,7 @@ export type Message = {
   modelImage?: string
   serverMessageId?: string
   serverMessageVersion?: number
+  createdAt?: number
 }
 
 export type ChatHistory = {
@@ -34,7 +35,10 @@ type State = {
   isFirstMessage: boolean
   setIsFirstMessage: (isFirstMessage: boolean) => void
   historyId: string | null
-  setHistoryId: (history_id: string | null) => void
+  setHistoryId: (
+    history_id: string | null,
+    options?: { preserveServerChatId?: boolean }
+  ) => void
   isLoading: boolean
   setIsLoading: (isLoading: boolean) => void
   isProcessing: boolean

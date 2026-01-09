@@ -1,0 +1,2744 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "سرور و احراز هویت"
+  },
+  "navigation_knowledgeTools": {
+    "message": "ابزارهای دانش"
+  },
+  "navigation_workspace": {
+    "message": "محیط کار"
+  },
+  "navigation_about": {
+    "message": "درباره"
+  },
+  "healthNav": {
+    "message": "سلامت"
+  },
+  "worldBooksNav": {
+    "message": "کتاب‌های جهان"
+  },
+  "chatDictionariesNav": {
+    "message": "واژه‌نامه‌های چت"
+  },
+  "charactersNav": {
+    "message": "شخصیت‌ها"
+  },
+  "mediaNav": {
+    "message": "رسانه"
+  },
+  "chatAppearance_title": {
+    "message": "ظاهر چت"
+  },
+  "chatAppearance_description": {
+    "message": "رنگ‌ها، فونت‌ها و اندازهٔ متن پیام‌های چت را سفارشی کنید."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "دنبال تنظیمات رفتار چت می‌گردید (حالت عریض، استدلال، گزینه‌های کپی)؟"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "رفتن به تنظیمات عمومی"
+  },
+  "chatAppearance_userHeading": {
+    "message": "پیام‌های کاربر"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "پیام‌های دستیار"
+  },
+  "chatAppearance_userColor": {
+    "message": "رنگ متن پیام‌های کاربر"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "رنگ متن پیام‌های دستیار"
+  },
+  "chatAppearance_userFont": {
+    "message": "فونت پیام‌های کاربر"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "فونت پیام‌های دستیار"
+  },
+  "chatAppearance_userSize": {
+    "message": "اندازهٔ متن پیام‌های کاربر"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "اندازهٔ متن پیام‌های دستیار"
+  },
+  "chatAppearance_color_default": {
+    "message": "پیش‌فرض"
+  },
+  "chatAppearance_color_blue": {
+    "message": "آبی"
+  },
+  "chatAppearance_color_green": {
+    "message": "سبز"
+  },
+  "chatAppearance_color_purple": {
+    "message": "بنفش"
+  },
+  "chatAppearance_color_orange": {
+    "message": "نارنجی"
+  },
+  "chatAppearance_color_red": {
+    "message": "قرمز"
+  },
+  "chatAppearance_font_default": {
+    "message": "پیش‌فرض"
+  },
+  "chatAppearance_font_sans": {
+    "message": "بدون سریف"
+  },
+  "chatAppearance_font_serif": {
+    "message": "سریف"
+  },
+  "chatAppearance_font_mono": {
+    "message": "تک‌عرض"
+  },
+  "chatAppearance_size_sm": {
+    "message": "کوچک"
+  },
+  "chatAppearance_size_md": {
+    "message": "متوسط"
+  },
+  "chatAppearance_size_lg": {
+    "message": "بزرگ"
+  },
+  "generalSettings_title": {
+    "message": "تنظیمات عمومی"
+  },
+  "generalSettings_settings_heading": {
+    "message": "تنظیمات رابط کاربری وب"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "زبان تشخیص گفتار"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "یک زبان را انتخاب کنید"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "زبان"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "یک زبان را انتخاب کنید"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "تغییر تم"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "روشن"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "تیره"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "آخرین گفتگو را هنگام باز کردن پنل جانبی (کوپایلوت) از سر بگیر"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "فعال کردن گپ با وب سایت به صورت پیش‌فرض (کوپایلوت)"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "مخفی کردن تنظیمات مدل گپ فعلی را"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "بازیابی آخرین مدل استفاده شده برای گپ‌های قبلی"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "ارسال نوتیفیکیشن پس از اتمام پردازش پایگاه دانش"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "تولید عنوان با استفاده از هوش مصنوعی"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "فعال یا غیرفعال کردن بررسی وضعیت اتصال سرور"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "فعال کردن حالت صفحه عریض"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "باز کردن استدلال به صورت پیش فرض"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "استفاده از حباب گفتگو برای پیام‌های کاربر"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "کپی خودکار پاسخ در کلیپ بورد"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "فعال کردن قالب‌بندی مارک‌داون برای پیام‌های کاربر"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "کپی به عنوان متن قالب‌بندی شده"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "فعال‌سازی منشن تب (@تب)"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "الصاق متن طولانی به عنوان فایل"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "فعال کردن چت موقت در پنل جانبی به صورت پیش‌فرض"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "هنگام باز کردن رابط وب، آخرین گفتگو را ادامه بده"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "فعال‌سازی تشخیص نوری نویسه‌ها (دانلود حدود ۵ مگابایت در اولین استفاده)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "با فعال کردن تشخیص نوری نویسه‌ها، در اولین استفاده حدود ۵ مگابایت دادهٔ زبان دانلود می‌شود."
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "دارایی‌های تشخیص نوری نویسه‌ها فعال شده و آماده‌اند"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "زبان پیش‌فرض تشخیص نوری نویسه‌ها"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "یک زبان تشخیص نوری نویسه‌ها را انتخاب کنید"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "حذف برچسب استدلال از متن کپی‌شده"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "پرامپت‌های سرور را در جستجوی پرامپت‌ها لحاظ کن"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "شروع دوباره فرایند راه‌اندازی از ابتدا"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "شروع دوباره راه‌اندازی"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "شروع دوباره راه‌اندازی؟"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "با این کار وضعیت راه‌اندازی شما بازنشانی می‌شود و دوباره به جریان تنظیمات اولیه برمی‌گردید."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "فرایند راه‌اندازی بازنشانی شد"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "شما را به مرحله خوش‌آمدگویی برمی‌گردانیم تا بتوانید نشانی سرور و کلید رابط برنامه‌نویسی خود را بازبینی کنید."
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "تنظیمات بازیابی"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "فعال‌سازی جاسازی و بازیابی"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "حداکثر اندازه محتوا برای حالت متن کامل"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "اندازه محتوا (پیش‌فرض ۴۰۲۸)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "مدیریت جستجوی وب"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "انجام جستجوی ساده اینترنتی"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "موتور جستجو"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "یک موتور جستجو را انتخاب کنید"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "مجموع نتایج جستجو"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "کل نتایج جستجو را وارد کنید"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "مراجعه به وب سایت ذکر شده در پیام"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "آدرس سیرایکس‌اِن‌جی"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "کلید رابط برنامه‌نویسی بریو"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "کلید رابط برنامه‌نویسی بریو خود را وارد کنید"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "جستجوی اینترنتی به صورت پیش‌فرض فعال باشد"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "کلید رابط برنامه‌نویسی تاویلی"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "کلید رابط برنامه‌نویسی تاویلی خود را وارد کنید"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "کلید رابط برنامه‌نویسی اِکسا"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "کلید رابط برنامه‌نویسی اِکسا خود را وارد کنید"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "دامنه گوگل"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "کلید رابط برنامه‌نویسی فایرکراول"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "کلید رابط برنامه‌نویسی فایرکراول خود را وارد کنید"
+  },
+  "generalSettings_system_heading": {
+    "message": "تنظیمات سیستم"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "حالت پیش‌فرض رابط کاربری"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "تمام‌صفحه (رابط وب)"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "نوار کناری"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "بازنشانی سیستم"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "بازنشانی همه"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "آیا مطمئن هستید که می‌خواهید بازنشانی سیستم را انجام دهید؟ این کار تمام داده‌ها را پاک می‌کند و غیرقابل برگشت است."
+  },
+  "generalSettings_system_export_label": {
+    "message": "تاریخچه گپ، پایگاه دانش و پرامپت‌ها را اکسپورت کنید"
+  },
+  "generalSettings_system_export_button": {
+    "message": "اکسپورت داده‌ها"
+  },
+  "generalSettings_system_export_success": {
+    "message": "موفقیت در اکسپورت"
+  },
+  "generalSettings_system_import_label": {
+    "message": "تاریخچه گپ، پایگاه دانش و پرامپت‌ها را ایمپورت کنید"
+  },
+  "generalSettings_system_import_button": {
+    "message": "ایمپورت داده‌ها"
+  },
+  "generalSettings_system_import_success": {
+    "message": "موفقیت در ایمپورت"
+  },
+  "generalSettings_system_import_error": {
+    "message": "خطا در ایمپورت"
+  },
+  "generalSettings_tts_heading": {
+    "message": "تنظیمات تبدیل متن به گفتار"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "فعال کردن تبدیل متن به گفتار"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "پخش خودکار پاسخ صوتی پس از تکمیل"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "ارائه دهنده تبدیل متن به گفتار"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "یک ارائه دهنده را انتخاب کنید"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "صدای تبدیل متن به گفتار"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "صدا را انتخاب کنید"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "فعال کردن اس‌اِس‌اِم‌اِل (زبان نشانه‌گذاری تبدیل متن به گفتار)"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "حذف برچسب استدلال از تبدیل متن به گفتار"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "تقسیم پاسخ"
+  },
+  "generalSettings_stt_heading": {
+    "message": "تنظیمات تبدیل گفتار به متن"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "زمان توقف خودکار (میلی‌ثانیه)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "زمان توقف خودکار را به میلی‌ثانیه وارد کنید"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "ارسال خودکار پیام صوتی"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "این پیش‌فرض‌های گفتار به متن توسط دکمه دیکته در پلی‌گراند و نوار کناری استفاده می‌شوند."
+  },
+  "generalSettings_stt_model_label": {
+    "message": "مدل رونویسی (سرور تی‌ال‌دی‌دبلیو)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "اجرای بخش‌بندی برای رونوشت‌ها (تری‌سگ)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "دقت زمانی"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "به‌ازای هر بخش"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "به‌ازای هر واژه"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "بخش + واژه"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "وظیفه رونویسی"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "رونویسی (همان زبان)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "ترجمه به انگلیسی"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "قالب پاسخ"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "جیسون (متن + بخش‌ها)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "جیسون مفصل"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "متن ساده"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "زیرنویس اس‌آر‌تی"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "زیرنویس وی‌تی‌تی"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "دمای نمونه‌گیری"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "پرامپت پیش‌فرض رونویسی"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "متن اختیاری برای هدایت سبک"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "حداکثر بخش‌ها (تری‌سگ کِی)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "حداقل موارد در هر بخش"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "جریمه توازن (تری‌سگ لامبدا)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "پهنای گسترش گفتار"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "ارائه‌دهنده امبدینگ بخش‌بندی"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "مدل امبدینگ بخش‌بندی"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "سیستم"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "حالت پیش‌فرض رابط کاربری"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "تمام‌صفحه (رابط وب)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "نوار کناری"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "دکمه اقدام مرورگر"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "اقدام منوی زمینه"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "نمایش دکمه رابط وب در نوار کناری"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "تصویر پس‌زمینه چت"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "اندازه فونت"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "داده‌ها"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "همگام‌سازی حالت خصوصی فایرفاکس"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "همگام‌سازی داده‌ها"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "بازنشانی سیستم"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "بازنشانی همه"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "آیا مطمئن هستید می‌خواهید بازنشانی سیستم را انجام دهید؟ همه داده‌ها پاک می‌شود و قابل بازگشت نیست."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "برون‌ریزی تاریخچه گفتگو، پایگاه دانش و پرامپت‌ها"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "برون‌ریزی داده‌ها"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "برون‌ریزی موفق"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "درون‌ریزی تاریخچه گفتگو، پایگاه دانش و پرامپت‌ها"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "درون‌ریزی داده‌ها"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "درون‌ریزی موفق"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "خطای درون‌ریزی"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "دستیار تی‌ال‌دی‌دبلیو را به سرور خود متصل کنید"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "برخی تنظیمات فقط زمانی اثر می‌گذارند که سرور تی‌ال‌دی‌دبلیو شما در دسترس باشد. برای تجربه کامل سرور خود را متصل کنید."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "برای افزودن نشانی سرور و کلید رابط برنامه‌نویسی، «تنظیمات → سرور تی‌ال‌دی‌دبلیو» را باز کنید."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "پیش از استفاده از ابزارهای پیشرفته، با عیب‌یابی سلامت سرور را تأیید کنید."
+  },
+  "generalSettings_empty_title": {
+    "message": "نحوه رفتار دستیار تی‌ال‌دی‌دبلیو را تنظیم کنید"
+  },
+  "generalSettings_empty_description": {
+    "message": "پیش‌فرض‌های رابط وب، نوار کناری، گفتار، جستجو و مدیریت داده‌ها را از یکجا تنظیم کنید."
+  },
+  "generalSettings_empty_example1": {
+    "message": "زبان پیش‌فرض، تم و رفتار ادامه گفتگو را انتخاب کنید."
+  },
+  "generalSettings_empty_example2": {
+    "message": "کنترل کنید گفتگوها موقت باشند یا نه، چسباندن متن‌های بزرگ چگونه مدیریت شود و استدلال چگونه نمایش داده شود."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "پیکربندی سرور و احراز هویت"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "بستن"
+  },
+  "manageModels_title": {
+    "message": "مدیریت مدل‌ها"
+  },
+  "manageModels_addBtn": {
+    "message": "افزودن مدل جدید"
+  },
+  "manageModels_columns_name": {
+    "message": "نام"
+  },
+  "manageModels_columns_digest": {
+    "message": "هضم"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "اصلاح شده در"
+  },
+  "manageModels_columns_size": {
+    "message": "اندازه"
+  },
+  "manageModels_columns_actions": {
+    "message": "اقدامات"
+  },
+  "manageModels_columns_nickname": {
+    "message": "نام مستعار"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "مدل والد"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "فرمت"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "خانواده"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "اندازه پارامترها"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "سطح کوانتیزاسیون"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "حذف مدل"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "دریافت دوباره مدل"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "ویرایش نام مستعار"
+  },
+  "manageModels_confirm_delete": {
+    "message": "آیا مطمئن هستید که می خواهید این مدل را حذف کنید؟"
+  },
+  "manageModels_confirm_repull": {
+    "message": "آیا مطمئن هستید که می خواهید این مدل را دوباره دریافت کنید؟"
+  },
+  "manageModels_modal_title": {
+    "message": "افزودن مدل جدید"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "نام مدل را وارد کنید"
+  },
+  "manageModels_modal_pull": {
+    "message": "دریافت مدل"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "در حال دریافت مدل"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "در حال دریافت مدل {{modelName}}. برای جزئیات بیشتر، آیکون افزونه را بررسی کنید."
+  },
+  "manageModels_notification_success": {
+    "message": "موفقیت"
+  },
+  "manageModels_notification_error": {
+    "message": "خطا"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "مدل با موفقیت دریافت شد"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "مدل با موفقیت حذف شد"
+  },
+  "manageModels_notification_someError": {
+    "message": "مشکلی پیش آمد. لطفا بعدا دوباره امتحان کنید"
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "در حال لغو دانلود"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "دانلود مدل در حال لغو است..."
+  },
+  "managePrompts_title": {
+    "message": "مدیریت پرامپت‌ها"
+  },
+  "managePrompts_addBtn": {
+    "message": "اضافه کردن پرامپت جدید"
+  },
+  "managePrompts_option1": {
+    "message": "عادی"
+  },
+  "managePrompts_option2": {
+    "message": "بازیابی تقویت‌شده"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "سوال پرامپت"
+  },
+  "managePrompts_columns_title": {
+    "message": "عنولن"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "پرامپت"
+  },
+  "managePrompts_columns_type": {
+    "message": "نوع پرامپت"
+  },
+  "managePrompts_columns_actions": {
+    "message": "اقدامات"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "پرامپت‌های سفارشی"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "پرامپت‌های کوپایلوت"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "پرامپت‌های قابل استفاده مجددی بسازید و مدیریت کنید که می‌توانید در چت درج کنید."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "پرامپت‌های کوپایلوت از پیش تعریف‌شدهٔ سرورتان را ببینید و تنظیم کنید."
+  },
+  "managePrompts_systemPrompt": {
+    "message": "پرامپت سیستم "
+  },
+  "managePrompts_quickPrompt": {
+    "message": "پرامپت سریع"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "پاک کردن پرامپت"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "ویرایش پرامپت"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "تکثیر پرامپت"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "آیا مطمئن هستید که می خواهید این پرامپت را حذف کنید؟ این عمل قابل برگشت نیست."
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "اضافه کردن پرامپت جدید"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "ویرایش پرامپت"
+  },
+  "managePrompts_form_title_label": {
+    "message": "عنوان"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "پرامپت عالی من"
+  },
+  "managePrompts_form_title_required": {
+    "message": "لطفا یک عنوان وارد کنید"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "پرامپت"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "پرامپت وارد کنید"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "لطفا یک پرامپت وارد کنید"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "می توانید از {key} به عنوان متغیر در درخواست خود استفاده کنید."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "متغیر {text} در پرامپت وجود ندارد. لطفاً آن را اضافه کنید."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "یک پرامپت سیستمی باشد"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "در حال اضافه کردن پرامپت..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "اضافه کردن پرامپت"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "در حال به روزرسانی پرامپت..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "به روزرسانی پرامپت"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "پرامپت اضافه شد"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "پرامپت با موفقیت اضافه شد"
+  },
+  "managePrompts_notification_error": {
+    "message": "خطا"
+  },
+  "managePrompts_notification_someError": {
+    "message": "مشکلی پیش آمد. لطفا بعدا دوباره امتحان کنید"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "پرامپت به روز شد"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "پرامپت با موفقیت به روز شد"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "پرامپت حذف شد"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "پرامپت با موفقیت حذف شد"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "فضای کار پرامپت‌ها"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "پرامپت‌های قابل استفاده مجدد از فضای کار پرامپت‌ها مدیریت می‌شوند. از دکمه زیر برای باز کردن آن استفاده کنید."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "باز کردن فضای کار پرامپت‌ها"
+  },
+  "managePrompts_search": {
+    "message": "جستجوی عنوان‌ها و محتوا"
+  },
+  "managePrompts_filter_all": {
+    "message": "همه"
+  },
+  "managePrompts_filter_system": {
+    "message": "سیستم"
+  },
+  "managePrompts_filter_quick": {
+    "message": "سریع"
+  },
+  "managePrompts_tags_label": {
+    "message": "برچسب‌ها"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "افزودن برچسب"
+  },
+  "managePrompts_import": {
+    "message": "درون‌ریزی"
+  },
+  "managePrompts_export": {
+    "message": "برون‌ریزی"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "ادغام"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "جایگزینی"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "جایگزینی همه پرامپت‌های فعلی را با فایل واردشده بازنویسی می‌کند. ادامه می‌دهید؟"
+  },
+  "managePrompts_favorite": {
+    "message": "علاقه‌مندی"
+  },
+  "managePrompts_unfavorite": {
+    "message": "حذف از علاقه‌مندی‌ها"
+  },
+  "managePrompts_partialLoad": {
+    "message": "برخی داده‌های پرامپت در دسترس نیست"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "اتصال سرور را بررسی کنید و برای تلاش دوباره صفحه را تازه کنید."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "برای استفاده از پرامپت‌ها وصل شوید"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "برای مدیریت پرامپت‌های قابل استفاده مجدد، ابتدا به سرور تی‌ال‌دی‌دبلیو خود متصل شوید."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "برای افزودن نشانی سرور خود، «تنظیمات → سرور تی‌ال‌دی‌دبلیو» را باز کنید."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "پس از اتصال، پرامپت‌های سفارشی بسازید که بتوانید در گفتگوها دوباره استفاده کنید."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "هنوز پرامپت سفارشی وجود ندارد"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "برای کارهای تکراری، جریان‌های کاری و قراردادهای تیمی، پرامپت‌های قابل استفاده مجدد بسازید."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "پرامپت سیستم محبوب خود را برای خلاصه‌سازی، توضیح یا ترجمه ذخیره کنید."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "پرامپت‌های سریع برای کارهای رایج مانند پیش‌نویس ایمیل یا بهبود یادداشت‌ها بسازید."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "ایجاد پرامپت"
+  },
+  "managePrompts_filterHelp": {
+    "message": "جستجو عنوان و محتوای پرامپت را تطبیق می‌دهد. برای محدود کردن فهرست از نوع و برچسب‌ها استفاده کنید."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "هیچ پرامپت کوپایلوتی در دسترس نیست"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "پرامپت‌های کوپایلوت قالب‌های از پیش تعریف‌شده‌ای هستند که توسط سرور تی‌ال‌دی‌دبلیو شما ارائه می‌شوند."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "اگر انتظار دارید پرامپت‌های کوپایلوت در دسترس باشند، نسخه یا پیکربندی سرور را بررسی کنید."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "پس از به‌روزرسانی سرور، افزونه را دوباره بارگذاری کنید و به این تب بازگردید."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "باز کردن عیب‌یابی"
+  },
+  "manageShare_title": {
+    "message": "مدیریت اشتراک گذاری"
+  },
+  "manageShare_heading": {
+    "message": "پیکربندی نشانی اشتراک گذاری صفحه"
+  },
+  "manageShare_form_url_label": {
+    "message": "نشانی اشتراک گذاری صفحه"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "نشانی اشتراک گذاری صفحه را وارد کنید"
+  },
+  "manageShare_form_url_required": {
+    "message": "لطفا نشانی اشتراک گذاری صفحه خود را وارد کنید!"
+  },
+  "manageShare_form_url_help": {
+    "message": "به دلایل حفظ حریم خصوصی، می توانید اشتراک گذاری صفحه را خودتان میزبانی کنید و نشانی را در اینجا ارائه دهید. <anchor>بیشتر بدانید</anchor>."
+  },
+  "manageShare_webshare_heading": {
+    "message": "اشتراک گذاری وب"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "عنوان"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "نشانی"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "اقدامات"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "حذف اشتراک گذاری"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "آیا مطمئن هستید که می خواهید این اشتراک گذاری را حذف کنید؟ این عمل قابل برگشت نیست."
+  },
+  "manageShare_webshare_label": {
+    "message": "مدیریت اشتراک گذاری صفحه"
+  },
+  "manageShare_webshare_description": {
+    "message": "ویژگی اشتراک گذاری صفحه را فعال یا غیرفعال کنید"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "نشانی اشتراک گذاری صفحه با موفقیت به روز شد"
+  },
+  "manageShare_notification_someError": {
+    "message": "مشکلی پیش آمد. لطفا بعدا دوباره امتحان کنید"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "اشتراک گذاری وب با موفقیت حذف شد"
+  },
+  "ollamaSettings_title": {
+    "message": "یکپارچه‌سازی سرور"
+  },
+  "ollamaSettings_heading": {
+    "message": "پیکربندی یکپارچه‌سازی سرور"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "آدرس سرور"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "نشانی سرور را وارد کنید"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "فعال یا غیرفعال کردن یکپارچه‌سازی سرور به صورت سراسری"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "با غیرفعال کردن یکپارچه‌سازی سرور، دستیار مرورگر تی‌ال‌دی‌دبلیو مدل‌ها را از سرور دریافت نخواهد کرد. همچنان می‌توانید ارائه‌دهندگان را از بخش <anchor>رابط سازگار با اوپن‌ای‌آی</anchor> اضافه کنید."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "پیکربندی پیشرفته نشانی سرور"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "نشانی مبدأ سفارشی را فعال یا غیرفعال کنید"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "نشانی مبدأ سفارشی"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "نشانی مبدأ سفارشی را وارد کنید"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "فعال یا غیرفعال کردن رفع خودکار سیاست مبدأ متقاطع"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "سرآیندهای سفارشی"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "افزودن سرآیند"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "کلید سرآیند"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "اتورایزیشن"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "مقدار سرآیند"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "توکن حامل"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "اگر با اتصال به سرور مشکل دارید، می‌توانید یک نشانی مبدأ سفارشی پیکربندی کنید. برای اطلاعات بیشتر، <anchor>اینجا کلیک کنید</anchor>."
+  },
+  "manageSearch_title": {
+    "message": "مدیریت جستجوی وب"
+  },
+  "manageSearch_heading": {
+    "message": "پیکربندی جستجوی وب"
+  },
+  "about_title": {
+    "message": "درباره"
+  },
+  "about_heading": {
+    "message": "درباره"
+  },
+  "about_chromeVersion": {
+    "message": "نسخه دستیار صفحه"
+  },
+  "about_ollamaVersion": {
+    "message": "نسخه سرور"
+  },
+  "about_support": {
+    "message": "شما می‌توانید با کمک مالی یا حمایت مالی از طریق پلتفرم‌های زیر از پروژه دستیار مرورگر تی‌ال‌دی‌دبلیو حمایت کنید:"
+  },
+  "about_koFi": {
+    "message": "پشتیبانی در کو-فای"
+  },
+  "about_githubSponsor": {
+    "message": "حمایت مالی در گیت‌هاب"
+  },
+  "about_githubRepo": {
+    "message": "مخزن گیت‌هاب"
+  },
+  "switchToSidebar": {
+    "message": "رفتن به نوار کناری"
+  },
+  "healthPage_title": {
+    "message": "وضعیت سلامت"
+  },
+  "healthPage_subtitle": {
+    "message": "نمای کلی سریع از نقاط سلامتی زیرسامانه‌هایی که سرور ارائه می‌کند."
+  },
+  "healthPage_backToChat": {
+    "message": "بازگشت به چت"
+  },
+  "healthPage_openSettings": {
+    "message": "باز کردن تنظیمات تی‌ال‌دی‌دبلیو"
+  },
+  "healthPage_recheckAll": {
+    "message": "بررسی مجدد همه"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "کپی تشخیص‌ها"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "سرور پیکربندی نشده است."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "دسترسی به نقطه سلامت اصلی سرور ممکن نیست."
+  },
+  "healthPage_triedGet": {
+    "message": "تلاش شد دریافت {{url}}"
+  },
+  "healthPage_configureHint": {
+    "message": "لطفاً آدرس سرور را در تنظیمات تی‌ال‌دی‌دبلیو پیکربندی کنید."
+  },
+  "healthPage_configureCta": {
+    "message": "پیکربندی"
+  },
+  "healthPage_connectedTo": {
+    "message": "متصل به {{host}}"
+  },
+  "healthPage_autoRefresh": {
+    "message": "نوسازی خودکار"
+  },
+  "healthPage_intervalLabel": {
+    "message": "بازه (ثانیه):"
+  },
+  "healthPage_checking": {
+    "message": "در حال بررسی…"
+  },
+  "healthPage_recheck": {
+    "message": "بررسی مجدد"
+  },
+  "healthPage_healthy": {
+    "message": "سالم"
+  },
+  "healthPage_unhealthy": {
+    "message": "ناسالم"
+  },
+  "healthPage_unknown": {
+    "message": "نامشخص"
+  },
+  "healthPage_checks_core": {
+    "message": "رابط اصلی"
+  },
+  "healthPage_checks_rag": {
+    "message": "بازیابی تقویت‌شده"
+  },
+  "healthPage_checks_audio": {
+    "message": "صوت"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "جاسازی‌ها"
+  },
+  "healthPage_checks_metrics": {
+    "message": "سلامت معیارها"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "معیارهای چت"
+  },
+  "healthPage_checks_mcp": {
+    "message": "ام‌سی‌پی"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "تشخیص‌های جیسون را در کلیپ‌بورد کپی می‌کند"
+  },
+  "healthPage_statusHealthy": {
+    "message": "سالم"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "ناسالم"
+  },
+  "healthPage_statusUnknown": {
+    "message": "نامشخص"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "همین الآن به‌روزرسانی شد"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "{{seconds}} ثانیه پیش به‌روزرسانی شد"
+  },
+  "savedSuccessfully": {
+    "message": "تنظیمات ذخیره شد"
+  },
+  "saveFailed": {
+    "message": "ذخیره تنظیمات ناموفق بود"
+  },
+  "siteAccessGranted": {
+    "message": "دسترسی میزبان برای {{origin}} اعطا شد"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "مهلت‌های پیشرفته"
+  },
+  "tldw_requestTimeout": {
+    "message": "مهلت درخواست (ثانیه)"
+  },
+  "tldw_streamingIdle": {
+    "message": "مهلت بی‌کاری استریم (ثانیه)"
+  },
+  "tldw_chatRequest": {
+    "message": "مهلت درخواست چت"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "مهلت بی‌کاری استریم چت"
+  },
+  "tldw_ragRequest": {
+    "message": "مهلت درخواست بازیابی تقویت‌شده"
+  },
+  "tldw_mediaRequest": {
+    "message": "مهلت درخواست رسانه"
+  },
+  "tldw_uploadRequest": {
+    "message": "مهلت درخواست بارگذاری"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "پروفایل مهلت"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "متعادل"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "افزایش‌یافته"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "سفارشی"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "پروفایل متعادل برای بیشتر تنظیمات مناسب است. افزایش‌یافته برای شبکه‌های کند یا کارهای طولانی حاشیه بیشتری می‌دهد."
+  },
+  "tldw_reset": {
+    "message": "بازنشانی به پیشنهادشده"
+  },
+  "tldw_resetDone": {
+    "message": "به مقادیر پیشنهادی بازنشانی شد"
+  },
+  "tldw_serverNav": {
+    "message": "سرور تی‌ال‌دی‌دبلیو"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "پیکربندی سرور تی‌ال‌دی‌دبلیو"
+  },
+  "tldw_serverLabel": {
+    "message": "سرور:"
+  },
+  "tldw_notConfigured": {
+    "message": "پیکربندی نشده"
+  },
+  "tldw_buttons_health": {
+    "message": "سلامت"
+  },
+  "tldw_buttons_recheck": {
+    "message": "بررسی مجدد"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "تست اتصال"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "اعطای دسترسی به سایت"
+  },
+  "tldw_buttons_login": {
+    "message": "ورود"
+  },
+  "tldw_buttons_logout": {
+    "message": "خروج"
+  },
+  "tldw_loginRequired_title": {
+    "message": "نیاز به ورود"
+  },
+  "tldw_loginRequired_description": {
+    "message": "لطفاً با اطلاعات کاربری سرور تی‌ال‌دی‌دبلیو وارد شوید"
+  },
+  "tldw_loggedIn_title": {
+    "message": "وارد شده‌اید"
+  },
+  "tldw_loggedIn_description": {
+    "message": "در حال حاضر به سرور تی‌ال‌دی‌دبلیو وارد هستید"
+  },
+  "tldw_connection_success": {
+    "message": "اتصال با موفقیت برقرار شد!"
+  },
+  "tldw_connection_failed": {
+    "message": "اتصال ناموفق بود. لطفاً تنظیمات را بررسی کنید."
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "اتصال برقرار نشد. لطفاً نشانی سرور و کلید رابط برنامه‌نویسی را بررسی کنید."
+  },
+  "tldw_authMode_label": {
+    "message": "حالت احراز هویت"
+  },
+  "tldw_authMode_single": {
+    "message": "کاربر تکی (کلید رابط برنامه‌نویسی)"
+  },
+  "tldw_authMode_multi": {
+    "message": "چندکاربره (ورود)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "اگر در این زمان پاسخی دریافت نشد، درخواست‌های اولیه متوقف می‌شود. پیش‌فرض: {{seconds}} ثانیه."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "اگر در این مدت به‌روزرسانی دریافت نشود، استریم قطع می‌شود. پیش‌فرض: {{seconds}} ثانیه."
+  },
+  "tldw_login_success": {
+    "message": "ورود موفقیت‌آمیز بود!"
+  },
+  "tldw_login_failed": {
+    "message": "ورود ناموفق بود"
+  },
+  "tldw_logout_success": {
+    "message": "با موفقیت خارج شدید"
+  },
+  "tldw_logout_failed": {
+    "message": "خروج ناموفق بود"
+  },
+  "tldw_setupLink": {
+    "message": "راه‌اندازی سرور"
+  },
+  "tldw_loadError": {
+    "message": "بارگذاری تنظیمات سرور تی‌ال‌دی‌دبلیو ممکن نشد. اتصال خود را بررسی و دوباره تلاش کنید."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "کلید رابط برنامه‌نویسی"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "کلید رابط برنامه‌نویسی خود را وارد کنید"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "لطفاً کلید رابط برنامه‌نویسی خود را وارد کنید"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "کلید رابط برنامه‌نویسی سرور تی‌ال‌دی‌دبلیو شما برای احراز هویت"
+  },
+  "tldw_fields_username_label": {
+    "message": "نام کاربری"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "نام کاربری را وارد کنید"
+  },
+  "tldw_fields_username_required": {
+    "message": "لطفاً نام کاربری را وارد کنید"
+  },
+  "tldw_fields_password_label": {
+    "message": "رمز عبور"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "رمز عبور را وارد کنید"
+  },
+  "tldw_fields_password_required": {
+    "message": "لطفاً رمز عبور را وارد کنید"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "آدرس سرور"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "لطفاً آدرس سرور را وارد کنید"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "لطفاً یک آدرس معتبر وارد کنید"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "آدرس نمونه سرور تی‌ال‌دی‌دبلیو شما (مثلاً http://localhost:8000)"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "کلید رابط برنامه‌نویسی نامعتبر است"
+  },
+  "tldw_errors_forbidden": {
+    "message": "ممنوع (مجوزها را بررسی کنید)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "اعتبارسنجی کلید رابط برنامه‌نویسی ناموفق بود"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "سرور در دسترس نیست"
+  },
+  "tldw_about_title": {
+    "message": "درباره یکپارچه‌سازی سرور تی‌ال‌دی‌دبلیو"
+  },
+  "tldw_about_description": {
+    "message": "این افزونه به نمونه سرور تی‌ال‌دی‌دبلیو شما متصل می‌شود و دسترسی به موارد زیر را فراهم می‌کند:"
+  },
+  "tldw_about_points_providers": {
+    "message": "چندین ارائه‌دهنده مدل زبانی بزرگ از طریق یک رابط یکپارچه"
+  },
+  "tldw_about_points_rag": {
+    "message": "جستجوی بازیابی تقویت‌شده"
+  },
+  "tldw_about_points_media": {
+    "message": "دریافت و پردازش رسانه"
+  },
+  "tldw_about_points_notes": {
+    "message": "مدیریت یادداشت‌ها و پرامپت‌ها"
+  },
+  "tldw_about_points_stt": {
+    "message": "تبدیل گفتار به متن"
+  },
+  "manageKnowledge_title": {
+    "message": "پرسش‌وپاسخ دانش"
+  },
+  "manageKnowledge_heading": {
+    "message": "پرسش‌وپاسخ دانش"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "فضای کاری کتاب‌های جهان"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "کتاب‌های جهان از فضای کاری کتاب‌های جهان مدیریت می‌شوند. از دکمه زیر برای باز کردن آن استفاده کنید."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "باز کردن فضای کاری کتاب‌های جهان"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "فضای کاری واژه‌نامه‌های گفت‌وگو"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "واژه‌نامه‌های گفت‌وگو از فضای کاری واژه‌نامه‌های گفت‌وگو مدیریت می‌شوند. از دکمه زیر برای باز کردن آن استفاده کنید."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "باز کردن فضای کاری واژه‌نامه‌های گفت‌وگو"
+  },
+  "rag_title": {
+    "message": "تنظیمات بازیابی تقویت‌شده"
+  },
+  "rag_ragSettings_label": {
+    "message": "تنظیمات بازیابی تقویت‌شده"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "مدل جاسازی"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "لطفا یک مدل را انتخاب کنید"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "به شدت توصیه می شود از مدل های جاسازی مانند `nomic-embed-text` استفاده کنید."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "یک مدل را انتخاب کنید"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "پیشنهاد شده: {{model}} (از پیکربندی سرور)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "مدل جاسازی ذخیره‌شده قبلی دیگر روی سرور در دسترس نیست. لطفاً مدل دیگری انتخاب کنید."
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "اندازه تکه"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "اندازه تکه را وارد کنید"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "لطفا اندازه تکه را وارد کنید"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "همپوشانی تکه"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "داخل تکه همپوشانی شوید"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "لطفا یک همپوشانی تکه ای وارد کنید"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "محدودیت پیش‌فرض آپلود فایل پایگاه دانش"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "محدودیت پیش‌فرض آپلود فایل را وارد کنید (مثلاً 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "لطفاً محدودیت پیش‌فرض آپلود فایل را وارد کنید"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "تعداد اسناد بازیابی شده"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "تعداد اسناد بازیابی شده را وارد کنید"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "لطفاً تعداد اسناد بازیابی شده را وارد کنید"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "جداکننده"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "جداکننده را وارد کنید (مثلاً \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "لطفاً یک جداکننده وارد کنید"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "تقسیم‌کننده متن"
+  },
+  "rag_prompt_label": {
+    "message": "پیکربندی پرامپت بازیابی تقویت‌شده"
+  },
+  "rag_prompt_option1": {
+    "message": "عادی"
+  },
+  "rag_prompt_option2": {
+    "message": "وب"
+  },
+  "rag_prompt_alert": {
+    "message": "پیکربندی اعلان سیستم در اینجا منسوخ شده است. لطفا از بخش مدیریت پرامپت‌ها برای افزودن یا ویرایش درخواست‌ها استفاده کنید. این بخش در نسخه بعدی حذف خواهد شد"
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "پرامپت سیستم"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "پرامپت سیستم را وارد کنید"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "پرامپت جستجوی وب"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "«{search_results}» را از پرامپت حذف نکنید."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "لطفا یک پرامپت جستجوی وب وارد کنید"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "پرامپت جستجوی وب را وارد کنید"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "پرامپت پیگیری جستجوی وب"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "«{chat_history}» و «{question}» را از پرامپت حذف نکنید."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "لطفا پرامپت پیگیری جستجوی وب خود را وارد کنید!"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "پرامپت پیگیری جستجوی وب شما"
+  },
+  "manageCharacters_title": {
+    "message": "مدیریت شخصیت‌ها"
+  },
+  "manageCharacters_addBtn": {
+    "message": "شخصیت جدید"
+  },
+  "manageCharacters_columns_name": {
+    "message": "نام"
+  },
+  "manageCharacters_columns_description": {
+    "message": "توضیحات"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "اقدامات"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "آواتار"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "گفتگو"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "ویرایش"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "حذف"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "مشاهده گفتگوها"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "تکرار"
+  },
+  "manageCharacters_tags_label": {
+    "message": "برچسب‌ها"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "افزودن برچسب"
+  },
+  "manageCharacters_tags_help": {
+    "message": "از برچسب‌ها برای گروه‌بندی شخصیت‌ها بر اساس کاربرد استفاده کنید (مثلاً «نویسندگی»، «تدریس»)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "ویرایش شخصیت"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "حذف شخصیت"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "گفتگو به‌عنوان {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "ویرایش شخصیت {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "حذف شخصیت {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "مشاهده گفتگوهای {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} شخصیت پیدا شد"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "تکرار شخصیت {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "آیا مطمئن هستید که می‌خواهید این شخصیت را حذف کنید؟ این کار قابل بازگشت نیست."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "نام"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "مثلاً مربی نوشتن"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "لطفاً نام را وارد کنید"
+  },
+  "manageCharacters_form_description": {
+    "message": "یک شخصیت قابل‌استفاده مجدد تعریف کنید تا در نوار کناری با آن گفتگو کنید."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "رفتار / دستورالعمل‌ها"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "مثلاً: شما معلم ریاضی صبوری هستید که مفاهیم را مرحله‌به‌مرحله توضیح می‌دهید و با مثال‌های کوتاه فهم را می‌سنجید."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "نقش، لحن و محدودیت‌های شخصیت را توضیح دهید. مثال: «شما معلم صبوری هستید که مفاهیم را مرحله‌به‌مرحله توضیح می‌دهید.»"
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "یک توضیح کوتاه اضافه کنید تا شخصیت بداند چگونه پاسخ دهد."
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "لطفاً برای هدایت پاسخ‌ها دستورالعمل اضافه کنید."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "پرامپت سیستم باید حداکثر ۲۰۰۰ کاراکتر باشد."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "آدرس تصویر آواتار (اختیاری)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "مثلاً نشانی تصویر آواتار"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "پیام خوشامد (اختیاری)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "سلام! من مربی نوشتن شما هستم. پیش‌نویس‌تان را بفرستید تا به بهتر شدنش کمک کنم."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "پیام اولیه اختیاری که شخصیت هنگام شروع گفتگو می‌فرستد."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "در حال ایجاد شخصیت..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "ایجاد شخصیت"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "در حال ذخیره تغییرات..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "ذخیره تغییرات"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "شخصیت ایجاد شد"
+  },
+  "manageCharacters_notification_error": {
+    "message": "خطا"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "مشکلی پیش آمد. لطفاً بعداً دوباره تلاش کنید"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "شخصیت به‌روزرسانی شد"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "شخصیت حذف شد"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "بارگذاری شخصیت‌ها ممکن نشد"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "اتصال خود را بررسی کرده و دوباره تلاش کنید."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "هنوز شخصیتی وجود ندارد"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "یک شخصیت قابل استفاده مجدد با نام، توضیح و پرامپت سیستم بسازید تا با آن گفتگو کنید."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "یک مربی نوشتن، کارشناس داستان یا دستیار کدنویسی تعریف کنید که بتوانید در چت‌ها دوباره استفاده کنید."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "به هر شخصیت توضیح و رفتار واضحی بدهید تا پاسخ‌هایش منسجم بماند."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "ایجاد شخصیت"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "آواتار {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "آواتار کاربر"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "گفتگوهای {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "گفتگوهای شخصیت"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "برای ادامه دادن به عنوان این شخصیت، یک گفتگو را انتخاب کنید."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "هنوز گفتگویی برای این شخصیت یافت نشد."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "بارگذاری گفتگوهای این شخصیت ممکن نبود."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "به‌روزرسانی شده در {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "نامشخص"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "ادامه گفتگو"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "بدون عنوان"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "جدیدترین"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "بارگذاری تاریخچه گفتگو و ادامه این مکالمه"
+  },
+  "manageCharacters_preview_title": {
+    "message": "پیش‌نمایش"
+  },
+  "manageCharacters_preview_show": {
+    "message": "نمایش پیش‌نمایش"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "پنهان کردن پیش‌نمایش"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "شخصیت بدون عنوان"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "خوشامد"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "رفتار"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "برای دیدن پیش‌نمایش، فرم را پر کنید"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "نمایش فیلدهای پیشرفته"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "پنهان کردن فیلدهای پیشرفته"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "بدون توضیح"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "مطابقت با همه برچسب‌ها"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "آواتار (اختیاری)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "نشانی"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "آپلود"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "لطفاً یک فایل تصویر انتخاب کنید"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "فقط تصاویر PNG، JPEG و GIF پشتیبانی می‌شوند"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "فایل تصویر نامعتبر است"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "پردازش تصویر ناموفق بود"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "برای آپلود کلیک کنید یا تصویر را بکشید"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG، JPEG یا GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "پیش‌نمایش"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "داده‌ها با موفقیت وارد شدند"
+  },
+  "systemNotifications_importError": {
+    "message": "خطا در ورود داده"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "داده‌های فایرفاکس همگام شدند؛ نیازی به تکرار نیست"
+  },
+  "systemNotifications_syncError": {
+    "message": "همگام‌سازی داده‌های فایرفاکس انجام نشد"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "لطفاً یک فایل تصویر معتبر انتخاب کنید"
+  },
+  "prompts_enterPrompt": {
+    "message": "یک پرامپت وارد کنید."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "یک پرامپت وارد کنید."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "پرامپت بعدی را وارد کنید."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "پرامپت بعدی را وارد کنید."
+  },
+  "prompts_privateModeDescription": {
+    "message": "حالت خصوصی فایرفاکس ذخیره در ایندکس‌دی‌بی را پشتیبانی نمی‌کند. لطفاً پرامپت‌ها را از یک پنجره عادی اضافه کنید."
+  },
+  "models_privateModeDescription": {
+    "message": "حالت خصوصی فایرفاکس ذخیره در ایندکس‌دی‌بی را پشتیبانی نمی‌کند. لطفاً مدل سفارشی را از یک پنجره عادی اضافه کنید."
+  },
+  "evaluationsSettingsNav": {
+    "message": "ارزیابی‌ها"
+  },
+  "promptStudioNav": {
+    "message": "استودیو پرامپت"
+  },
+  "promptStudio_nav": {
+    "message": "استودیو پرامپت"
+  },
+  "promptStudio_title": {
+    "message": "استودیو پرامپت"
+  },
+  "promptStudio_subtitle": {
+    "message": "پیش‌فرض‌ها را پیکربندی کنید و سلامت استودیو پرامپت را پایش کنید. اتصال و احراز هویت از تنظیمات اصلی سرور استفاده می‌کنند."
+  },
+  "promptStudio_probeError": {
+    "message": "دسترسی به استودیو پرامپت ممکن نیست"
+  },
+  "promptStudio_statusCard": {
+    "message": "وضعیت"
+  },
+  "promptStudio_statusHint": {
+    "message": "دکمه /prompt-studio/status را با warn_seconds فراخوانی می‌کند."
+  },
+  "promptStudio_statusError": {
+    "message": "نقطه پایانی وضعیت در دسترس نیست"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "ثانیه هشدار"
+  },
+  "promptStudio_testButton": {
+    "message": "آزمایش استودیو پرامپت"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "پیش‌فرض‌ها"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "پروژه پیش‌فرض، پیکربندی مدل‌ها و اندازه صفحه فهرست را ذخیره کنید."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "پیش‌فرض‌ها را با ذخیره‌سازی فعلی تنظیمات (در دست بررسی) برای انتخاب پروژه اولیه، پیش‌تنظیم‌های مدل اجرا/ارزیابی و صفحه‌بندی ذخیره کنید."
+  },
+  "promptStudio_defaultProject": {
+    "message": "شناسه پروژه پیش‌فرض"
+  },
+  "promptStudio_pageSize": {
+    "message": "اندازه صفحه"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "پیش‌فرض‌های اجرا"
+  },
+  "promptStudio_executeProvider": {
+    "message": "ارائه‌دهنده"
+  },
+  "promptStudio_executeModel": {
+    "message": "مدل"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "دما"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "حداکثر توکن"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "پیش‌فرض‌های ارزیابی"
+  },
+  "promptStudio_evalModel": {
+    "message": "مدل"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "دما"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "حداکثر توکن"
+  },
+  "promptStudio_unavailable": {
+    "message": "استودیو پرامپت هنوز روی سرور در دسترس نیست."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "پس از فعال‌سازی، می‌توانید سلامت صف را پایش کنید و پیش‌فرض‌ها را اینجا تنظیم کنید."
+  },
+  "charactersSettingsTitle": {
+    "message": "فضای کار شخصیت‌ها"
+  },
+  "charactersSettingsDescription": {
+    "message": "شخصیت‌ها از فضای کار شخصیت‌ها مدیریت می‌شوند. از دکمه زیر برای باز کردن آن استفاده کنید."
+  },
+  "charactersOpenWorkspace": {
+    "message": "باز کردن فضای کار شخصیت‌ها"
+  },
+  "mermaid": {
+    "message": "مرمید"
+  },
+  "healthSummary_diagnostics": {
+    "message": "عیب‌یابی"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "عیب‌یابیِ تفصیلی را برای بررسی یا رفع اشکال سلامت باز کنید."
+  },
+  "healthSummary_core": {
+    "message": "سرور"
+  },
+  "healthSummary_rag": {
+    "message": "دانش"
+  },
+  "healthSummary_coreAria": {
+    "message": "سرور: سلامت سرور/رابط برنامه‌نویسی"
+  },
+  "healthSummary_ragAria": {
+    "message": "دانش: سلامت شاخص دانش"
+  },
+  "healthSummary_coreOnline": {
+    "message": "سرور: برخط"
+  },
+  "healthSummary_coreOffline": {
+    "message": "سرور: آفلاین"
+  },
+  "healthSummary_coreChecking": {
+    "message": "سرور: در حال بررسی…"
+  },
+  "healthSummary_ragReady": {
+    "message": "دانش: آماده"
+  },
+  "healthSummary_ragOffline": {
+    "message": "دانش: آفلاین"
+  },
+  "healthSummary_ragChecking": {
+    "message": "دانش: در حال بررسی…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "این بررسی‌ها خلاصه آخرین پینگ موفق به سرور تی‌ال‌دی‌دبلیو و شاخص دانش شما هستند."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "در مدت کوتاه نوشتن تنظیمات خیلی زیاد بود؛ لطفاً چند ثانیه صبر کنید و دوباره تلاش کنید."
+  },
+  "storage_quotaTitle": {
+    "message": "سقف ذخیره‌سازی رسید"
+  },
+  "storage_writeError": {
+    "message": "ذخیره تنظیمات ممکن نشد"
+  },
+  "storage_writeErrorDescription": {
+    "message": "نتوانستیم تنظیمات شما را ذخیره کنیم. لطفاً کمی بعد دوباره تلاش کنید."
+  },
+  "onboarding_title": {
+    "message": "خوش آمدید — بیایید شما را متصل کنیم"
+  },
+  "onboarding_description": {
+    "message": "سرور و احراز هویت خود را پیکربندی کنید. اتصال و سلامت بازیابی تقویت‌شده را همان‌جا بررسی می‌کنیم."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "درباره نحوه کار سرور تی‌ال‌دی‌دبلیو بیشتر بدانید"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_label": {
+    "message": "نشانی سرور"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "نمونه: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "نشانی سرور تی‌ال‌دی‌دبلیو را وارد کنید تا «بعدی» فعال شود."
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "یک نشانی کامل مثل http://127.0.0.1:8000 وارد کنید."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "از نشانی‌های http یا https استفاده کنید؛ مثلاً http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "وقتی به این نشانی دسترسی پیدا کنیم «بعدی» فعال می‌شود."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "در حال بررسی دسترس‌پذیری…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "سرور با موفقیت پاسخ داد. می‌توانید ادامه دهید."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "هنوز به این نشانی دسترسی نداریم. نشانی را دوباره بررسی کنید یا دوباره تلاش کنید."
+  },
+  "onboarding_authMode_label": {
+    "message": "روش احراز هویت"
+  },
+  "onboarding_authMode_single": {
+    "message": "کاربر تکی (کلید رابط برنامه‌نویسی)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "چندکاربره (ورود)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "کلید رابط برنامه‌نویسی"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "کلید رابط برنامه‌نویسی خود را وارد کنید (یا برای راه‌اندازی‌های محلی تک‌کاربره از کلید نمایشی پیش‌فرض THIS-IS-A-SECURE-KEY-123-REPLACE-ME استفاده کنید)"
+  },
+  "onboarding_username_label": {
+    "message": "نام کاربری"
+  },
+  "onboarding_username_placeholder": {
+    "message": "نام کاربری"
+  },
+  "onboarding_password_label": {
+    "message": "رمز عبور"
+  },
+  "onboarding_password_placeholder": {
+    "message": "رمز عبور"
+  },
+  "onboarding_buttons_next": {
+    "message": "بعدی"
+  },
+  "onboarding_buttons_back": {
+    "message": "قبلی"
+  },
+  "onboarding_buttons_continue": {
+    "message": "ادامه"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "بررسی دوباره"
+  },
+  "onboarding_buttons_finish": {
+    "message": "پایان"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "پایان بدون اتصال"
+  },
+  "onboarding_buttons_skip": {
+    "message": "فعلاً رد کن"
+  },
+  "onboarding_connection_label": {
+    "message": "اتصال:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "نامشخص"
+  },
+  "onboarding_connection_connected": {
+    "message": "متصل"
+  },
+  "onboarding_connection_failed": {
+    "message": "ناموفق"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "می‌توانید الان ادامه دهید و راه‌اندازی را کامل کنید. بعداً از تنظیمات می‌توانید اتصال را بررسی کنید."
+  },
+  "onboarding_rag_label": {
+    "message": "بازیابی تقویت‌شده:"
+  },
+  "onboarding_rag_healthy": {
+    "message": "سالم"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "ناسالم"
+  },
+  "onboarding_rag_unknown": {
+    "message": "نامشخص"
+  },
+  "onboarding_connectionFailed": {
+    "message": "اتصال ناموفق بود"
+  },
+  "onboarding_footerHelp": {
+    "message": "پس از برقراری اتصال، می‌توانید هر زمان از منوی افزونه دوباره به این تنظیمات برگردید."
+  },
+  "onboarding_progressAria": {
+    "message": "پیشرفت راه‌اندازی اولیه"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "خوش آمدید"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "اتصال به سرور تی‌ال‌دی‌دبلیو خود"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "روش ورود خود را انتخاب کنید"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "تأیید اتصال و وضعیت دانش"
+  },
+  "onboarding_startServer_title": {
+    "message": "قبل از شروع — سرور تی‌ال‌دی‌دبلیو خود را راه‌اندازی کنید"
+  },
+  "onboarding_startServer_body": {
+    "message": "اگر هنوز سرور خود را راه‌اندازی نکرده‌اید، یکی از این دستورات را در مخزن سرور تی‌ال‌دی‌دبلیو اجرا کنید و سپس به اینجا برگردید."
+  },
+  "onboarding_startServer_copy": {
+    "message": "کپی دستور"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "اجرا به‌صورت محلی با پایتون"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "آن را داخل محیط مجازی مربوط به سرور تی‌ال‌دی‌دبلیو و از ریشه مخزن سرور اجرا کنید."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "اجرا با داکر کامپوز (تک‌کاربره)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "آن را از ریشه مخزن سرور تی‌ال‌دی‌دبلیو اجرا کنید تا رابط برنامه‌نویسی و پایگاه داده راه‌اندازی شوند."
+  },
+  "onboarding_path_heading": {
+    "message": "دوست دارید چگونه شروع کنید؟"
+  },
+  "onboarding_path_hasServer": {
+    "message": "در حال حاضر سرور تی‌ال‌دی‌دبلیو را اجرا می‌کنم"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "به یک سرور تی‌ال‌دی‌دبلیو موجود که اجرا می‌کنید متصل شوید."
+  },
+  "onboarding_path_noServer": {
+    "message": "هنوز سروری ندارم"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "راهنمای راه‌اندازی سرور تی‌ال‌دی‌دبلیو را دنبال کنید یا در حالت نمایشی شروع کنید."
+  },
+  "onboarding_path_demo": {
+    "message": "فقط با نسخه‌ی نمایشی محلی کاوش کن"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "فضای کاری را با داده‌های نمونه امتحان کنید؛ بعداً سرور خودتان را متصل کنید."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "هنوز سروری ندارید؟ همچنان می‌توانید کاوش کنید."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "سرور تی‌ال‌دی‌دبلیو یک برنامه‌ی جداگانه و خودمیزبان است. می‌توانید اکنون راهنمای راه‌اندازی را دنبال کنید، یا بعداً برگردید و در حالت نمایشی ادامه دهید."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "آن را به‌صورت محلی با داکر یا پایتون روی دستگاه خود اجرا کنید."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "سرور تی‌ال‌دی‌دبلیو را روی یک سرور مجازی دوردست یا میزبانی مدیریت‌شده مستقر کنید."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "در صورت دسترس بودن، از یک استقرار تجاریِ مدیریت‌شده‌ی سرور تی‌ال‌دی‌دبلیو استفاده کنید."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "باز کردن راهنمای راه‌اندازی"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "استفاده از حالت نمایشی محلی"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "بعداً یادآوری کن"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "کاوش افزونه در حالت نمایشی"
+  },
+  "onboarding_path_demoBody": {
+    "message": "حالت نمایشی به شما اجازه می‌دهد چت، یادداشت‌ها و رسانه‌ها را با داده‌های نمونه امتحان کنید. قابلیت‌هایی که به سرور وابسته‌اند، مانند جست‌وجوی دانش، تا زمانی که سرور تی‌ال‌دی‌دبلیو خودتان را متصل نکنید محدود می‌مانند."
+  },
+  "onboarding_path_demoCta": {
+    "message": "استفاده از حالت نمایشی محلی"
+  },
+  "onboarding_authModeHelp": {
+    "message": "حالت تک‌کاربره (کلید رابط برنامه‌نویسی) برای سرورهای شخصی یا تیم‌های کوچک توصیه می‌شود. حالت چندکاربره (ورود) برای استقرارهای مشترک است که در آن کاربران با نام کاربری یا ورود یکپارچه وارد می‌شوند. حالتی را انتخاب کنید که با نحوه‌ی پیکربندی سرور تی‌ال‌دی‌دبلیو شما مطابقت دارد."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "کلید رابط برنامه‌نویسی خود را در سرور تی‌ال‌دی‌دبلیو → تنظیمات → کلیدهای رابط برنامه‌نویسی پیدا کنید. در آنجا یک کلید تولید کرده و آن را اینجا جای‌گذاری کنید."
+  },
+  "onboarding_authStepAria": {
+    "message": "گام ۲ از ۳ — پیکربندی احراز هویت"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "گام ۳ از ۳ — خلاصه اتصال و گام‌های بعدی"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "آماده‌اید"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "از اینجا می‌توانید پنل جانبی را باز کنید، یک صفحه را وارد کنید یا رسانه و یادداشت‌ها را بررسی کنید."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "شروع گفتگو"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "پنل جانبی را باز کنید و اولین پرسش خود را بپرسید."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "باز کردن پنل جانبی"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "اولین صفحه خود را وارد کنید"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "از «ورود سریع» در سربرگ استفاده کنید تا زبانه فعلی را در سرور ذخیره کنید."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "رسانه‌ها و یادداشت‌ها را کاوش کنید"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "برای دیدن موارد ذخیره‌شده و قابل جستجو به «رسانه‌ها» و «یادداشت‌ها» در گزینه‌ها بروید."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "نمایش میانبرهای سریع در سربرگ"
+  },
+  "evaluations_title": {
+    "message": "محیط آزمایشی ارزیابی‌ها"
+  },
+  "evaluations_subtitle": {
+    "message": "ارزیابی‌ها را روی سرور تی‌ال‌دی‌دبلیو تعریف کنید و اجراهای اخیر را بررسی کنید."
+  },
+  "evaluations_listTitle": {
+    "message": "ارزیابی‌های اخیر"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "ارزیابی جدید"
+  },
+  "evaluations_startRunCta": {
+    "message": "شروع اجرا"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "بارگذاری ارزیابی‌ها ممکن نشد"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "اتصال سرور تی‌ال‌دی‌دبلیو و اعتبارهای رابط برنامه‌نویسی خود را بررسی کنید و دوباره تلاش کنید."
+  },
+  "evaluations_emptyList": {
+    "message": "هنوز ارزیابی‌ای وجود ندارد. پس از ایجاد، اینجا نمایش داده می‌شود."
+  },
+  "evaluations_selectedTag": {
+    "message": "انتخاب‌شده"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "محدودیت‌های ارزیابی"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "دریافت محدودیت‌های نرخ ممکن نشد"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "نتوانستیم سهمیه‌های ارزیابی را از سرور دریافت کنیم."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "اطلاعات محدودیت نرخ برای این سرور در دسترس نیست."
+  },
+  "evaluations_tierLabel": {
+    "message": "سطح"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "ارزیابی‌های روزانه"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "توکن‌های امروز"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "سقف در دقیقه"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "بازنشانی در"
+  },
+  "evaluations_runsTitle": {
+    "message": "اجراها"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "برای دیدن اجراهای اخیر یک ارزیابی را انتخاب کنید."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "بارگذاری اجراها ممکن نشد"
+  },
+  "evaluations_runsEmpty": {
+    "message": "هنوز برای این ارزیابی اجرایی وجود ندارد."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "جزئیات اجرا"
+  },
+  "evaluations_noRunSelected": {
+    "message": "برای دیدن جزئیات یک اجرا را انتخاب کنید."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "بارگذاری جزئیات اجرا ممکن نشد"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "وضعیت"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "مدل هدف"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "ارزیابی"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "خطا"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "نتایج (خلاصه)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "پیشرفت"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "مصرف"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "مجموعه‌داده‌ها"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "مجموعه‌داده جدید"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "بارگذاری مجموعه‌داده‌ها ممکن نشد"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "هنوز مجموعه‌داده‌ای وجود ندارد. برای پیوست به ارزیابی‌ها یکی بسازید."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} نمونه"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "نام"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "مجموعه_من"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "توضیحات"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "فراداده (جیسون، اختیاری)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "ورودی نمونه"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "خروجی مورد انتظار (اختیاری)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "جیسون نمونه‌ها (اختیاری، مقادیر را بازنویسی می‌کند)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "مجموعه‌داده (اختیاری)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "انتخاب مجموعه‌داده"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "مجموعه‌داده ایجاد شد"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "مجموعه‌داده شما برای استفاده در ارزیابی‌ها آماده است."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "ایجاد مجموعه‌داده ناموفق بود"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "سرور این مجموعه‌داده را رد کرد. فیلدها را بررسی و دوباره تلاش کنید."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "مجموعه‌داده حذف شد"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "حذف مجموعه‌داده ناموفق بود"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "بارگذاری مجموعه‌داده ناموفق بود"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "جزئیات مجموعه‌داده"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "جیسون نمونه‌ها نامعتبر است"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "ارزیابی جدید"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "ویرایش ارزیابی"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "نام"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "اجرای_ارزیابی_من"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "فقط از حروف، اعداد، خط تیره و زیرخط استفاده کنید."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "نوع ارزیابی"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "مشخصات ارزیابی (جیسون)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "مشخصات ارزیابی باید جیسون معتبر باشد."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "فراداده (جیسون، اختیاری)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "به‌جای ارجاع به شناسه، مجموعه‌دادهٔ درون‌خطی را پیوست کن"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "مجموعه‌دادهٔ درون‌خطی نامعتبر است"
+  },
+  "evaluations_runModelLabel": {
+    "message": "مدل اجرا (برای اجراهای سریع)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "ارزیابی ایجاد شد"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "ایجاد ارزیابی ناموفق بود"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "سرور این ارزیابی را رد کرد. مطمئن شوید نام، نوع و مشخصات معتبر هستند."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "ارزیابی به‌روزرسانی شد"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "به‌روزرسانی ارزیابی ناموفق بود"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "حذف ارزیابی ناموفق بود"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "این ارزیابی حذف شود؟"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "این کار تعریف ارزیابی را حذف می‌کند. اجراهای ایجادشده در تاریخچه باقی می‌مانند."
+  },
+  "evaluations_detailTitle": {
+    "message": "جزئیات ارزیابی"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "بارگذاری جزئیات ارزیابی ممکن نشد"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "توضیحات"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "برای مشاهده مشخصات یک ارزیابی را انتخاب کنید."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "اجرا شروع شد"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "اجرای ارزیابی شما شروع شد. می‌توانید آن را در رابط سرور پیگیری کنید."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "شروع اجرا ناموفق بود"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "سرور این درخواست اجرا را رد کرد. مدل را بررسی و دوباره تلاش کنید."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "پیکربندی (جیسون)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "بازنویسی مجموعه‌داده (آرایهٔ جیسون نمونه‌ها)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "جیسون پیکربندی نامعتبر است"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "درخواست لغو اجرا ثبت شد"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "لغو اجرا ناموفق بود"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "لغو اجرا"
+  },
+  "evaluations_historyTitle": {
+    "message": "تاریخچه"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "نوع"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "شناسه کاربر"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "تاریخ شروع (آی‌اِس‌اُ)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "تاریخ پایان (آی‌اِس‌اُ)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "دریافت تاریخچه"
+  },
+  "evaluations_historyEmpty": {
+    "message": "برای دیدن فعالیت اخیر یک درخواست اجرا کنید."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "دریافت تاریخچه ناموفق بود"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "وبهوک‌ها"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "نشانی"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "رویدادها"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "ثبت وبهوک"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "وبهوک ثبت شد"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "ثبت وبهوک ناموفق بود"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "حذف وبهوک ناموفق بود"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "بارگذاری وبهوک‌ها ممکن نشد"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "هنوز وبهوکی ثبت نشده است."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "راز"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "کلید ایدمپوتنسی"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "برای استفاده از ارزیابی‌ها متصل شوید"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "برای ایجاد و اجرای ارزیابی‌ها ابتدا به سرور تی‌ال‌دی‌دبلیو متصل شوید."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "برای افزودن نشانی سرور و کلید رابط برنامه‌نویسی، «تنظیمات → سرور تی‌ال‌دی‌دبلیو» را باز کنید."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "پس از اتصال، می‌توانید ارزیابی‌ها را تعریف کرده و معیارها را اینجا بررسی کنید."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "نمونه‌ها"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "برای این صفحه هیچ نمونه‌ای برگردانده نشد."
+  },
+  "evaluations_metricsLabel": {
+    "message": "معیارها"
+  },
+  "evaluationsSettings_title": {
+    "message": "ارزیابی‌ها"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "پیش‌فرض‌های استفاده‌شده در محیط ارزیابی‌ها را پیکربندی کنید."
+  },
+  "evaluationsSettings_offline": {
+    "message": "برای آزمودن ارزیابی‌ها به سرور تی‌ال‌دی‌دبلیو متصل شوید."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "نوع پیش‌فرض ارزیابی"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "مدل هدف پیش‌فرض"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "پیکربندی پیش‌فرض اجرا (جیسون)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "شناسهٔ پیش‌فرض مجموعه‌داده (اختیاری)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "پیش‌تنظیم مشخصات برای نوع انتخاب‌شده"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "آزمون رابط ارزیابی‌ها"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "رابط ارزیابی‌ها در دسترس است"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "ارتباط با رابط ارزیابی‌ها ممکن نشد"
+  },
+  "chunkingPlayground_nav": {
+    "message": "پلی‌گراند بخش‌بندی"
+  },
+  "chunkingPlayground_title": {
+    "message": "پلی‌گراند بخش‌بندی"
+  },
+  "chunkingPlayground_description": {
+    "message": "با تنظیمات مختلف بخش‌بندی آزمایش کنید تا ببینید متن چگونه برای پردازش به بخش‌های کوچک‌تر تقسیم می‌شود."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "متن برای بخش‌بندی"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "متن را اینجا بچسبانید یا یک نمونه انتخاب کنید..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "آپلود فایل"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "بخش‌بندی متن"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "روش بخش‌بندی"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "حداکثر اندازه بخش"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "هم‌پوشانی"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "زبان"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "تشخیص خودکار"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "انگلیسی"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "اسپانیایی"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "فرانسوی"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "آلمانی"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "ایتالیایی"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "پرتغالی"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "چینی"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "ژاپنی"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "کره‌ای"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "کارت‌ها"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "درون‌خطی"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} بخش، میانگین {{avgSize}} نویسه"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "متن بارگذاری شد"
+  },
+  "chunkingPlayground_characters": {
+    "message": "نویسه"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "تک"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "مقایسه"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "بخش {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "بخش {{index}}: {{words}} کلمه"
+  },
+  "chunkingPlayground_position": {
+    "message": "موقعیت: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} مورد بیشتر"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} نویسه"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} کلمه"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "لطفاً متنی برای بخش‌بندی وارد کنید"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "متن ورودی مشترک"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "مقایسه هر دو"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "مقایسه"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "پیکربندی الف {{diff}} بخش کمتر تولید می‌کند"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "پیکربندی الف {{diff}} بخش بیشتر تولید می‌کند"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "هر دو پیکربندی تعداد بخش یکسانی تولید می‌کنند"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "برای دیدن نتایج روی «مقایسه» کلیک کنید"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "ناحیه هم‌پوشانی"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "روی بخش برجسته کلیک کنید تا روی آن بخش تمرکز شود"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "متنی برای این آیتم رسانه پیدا نشد"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "بارگذاری محتوای رسانه ناموفق بود"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "بارگذاری کتابخانه رسانه ناموفق بود"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "یک آیتم رسانه را انتخاب کنید..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "در حال بارگذاری محتوا..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "هیچ رسانه‌ای یافت نشد"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} آیتم رسانه موجود است"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "چسباندن متن"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "آپلود فایل"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "متن نمونه"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "از کتابخانه رسانه"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "مقاله خبری"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "مقاله چندبندی با تیترها"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "کد منبع"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "کد پایتون با کلاس‌ها و توابع"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "رونوشت"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "رونوشت پادکست با زمان‌بندی"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "مقاله علمی"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "متن فنی با ارجاعات"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "مقایسه تنظیمات"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "پیکربندی الف"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "پیکربندی ب"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "تک"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "مقایسه"
+  }
+}

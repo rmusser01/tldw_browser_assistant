@@ -74,34 +74,35 @@ export function DeveloperToolsSection({
   }
 
   return (
-    <div className="bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+    <div className="rounded-lg border border-border bg-surface overflow-hidden">
       <button
         type="button"
         aria-expanded={expanded}
         aria-controls="developer-tools-panel"
         onClick={() => setExpanded(v => !v)}
-        className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 dark:bg-[#0c0c0c] hover:bg-gray-100 dark:hover:bg-[#151515] transition-colors"
+        className="w-full flex items-center justify-between px-3 py-2 bg-surface2 hover:bg-surface transition-colors"
+        title={label || t('mediaPage.developerTools', 'Developer Tools')}
       >
         <div className="flex items-center gap-2">
-          <Code className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          <Code className="w-4 h-4 text-text-subtle" />
+          <span className="text-sm font-medium text-text">
             {label || t('mediaPage.developerTools', 'Developer Tools')}
           </span>
         </div>
         {expanded ? (
-          <ChevronUp className="w-4 h-4 text-gray-400" />
+          <ChevronUp className="w-4 h-4 text-text-subtle" />
         ) : (
-          <ChevronDown className="w-4 h-4 text-gray-400" />
+          <ChevronDown className="w-4 h-4 text-text-subtle" />
         )}
       </button>
 
       {expanded && (
         <div
           id="developer-tools-panel"
-          className="p-3 bg-white dark:bg-[#171717] animate-in fade-in slide-in-from-top-1 duration-150"
+          className="p-3 bg-surface animate-in fade-in slide-in-from-top-1 duration-150"
         >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-text-muted">
               {t('mediaPage.rawJsonData', 'Raw JSON Data')}
             </span>
             {jsonString && (
@@ -110,8 +111,8 @@ export function DeveloperToolsSection({
                 onClick={handleCopy}
                 className={`p-1 transition-all ${
                   copied
-                    ? 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20'
-                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                    ? 'text-success bg-success/10'
+                    : 'text-text-muted hover:text-text'
                 }`}
                 title={t('mediaPage.copyJson', 'Copy JSON')}
               >
@@ -125,17 +126,17 @@ export function DeveloperToolsSection({
           </div>
 
           {jsonString ? (
-            <div className="rounded border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#111] overflow-auto max-h-96">
-              <pre className="text-xs p-3 whitespace-pre-wrap break-all text-gray-700 dark:text-gray-300 font-mono">
+            <div className="rounded border border-border bg-surface2 overflow-auto max-h-96">
+              <pre className="text-xs p-3 whitespace-pre-wrap break-all text-text font-mono">
                 {jsonString}
               </pre>
             </div>
           ) : stringifyError ? (
-            <div className="text-sm text-red-500 dark:text-red-400 text-center py-4">
+            <div className="text-sm text-danger text-center py-4">
               {t('mediaPage.jsonStringifyError', 'Cannot display data: {{error}}', { error: stringifyError })}
             </div>
           ) : (
-            <div className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+            <div className="text-sm text-text-muted text-center py-4">
               {t('mediaPage.noDataLoaded', 'No data loaded')}
             </div>
           )}

@@ -132,7 +132,7 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
     if (segment.chunkIndices.length === 0) {
       // Not part of any chunk - render as plain text
       return (
-        <span key={idx} className="text-gray-400 dark:text-gray-600">
+        <span key={idx} className="text-text-subtle">
           {segment.text}
         </span>
       )
@@ -158,7 +158,7 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
         title={
           <div>
             {isOverlap && (
-              <div className="font-bold text-yellow-300 mb-1">
+              <div className="font-bold text-warn mb-1">
                 {t("settings:chunkingPlayground.overlapRegion", "Overlap Region")}
               </div>
             )}
@@ -202,7 +202,7 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
           </div>
         ))}
         {chunks.length > 8 && (
-          <span className="text-gray-500">
+          <span className="text-text-muted">
             {t("settings:chunkingPlayground.additionalChunks", "+{{count}} more", {
               count: chunks.length - 8
             })}
@@ -212,13 +212,13 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
 
       {/* Text with highlights */}
       <div
-        className="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 font-mono text-sm whitespace-pre-wrap break-words max-h-[500px] overflow-y-auto custom-scrollbar"
+        className="p-4 rounded-lg bg-surface2 font-mono text-sm whitespace-pre-wrap break-words max-h-[500px] overflow-y-auto custom-scrollbar"
         style={{ lineHeight: 1.8 }}>
         {segments.map((segment, idx) => renderSegment(segment, idx))}
       </div>
 
       {/* Click hint */}
-      <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+      <p className="text-xs text-text-muted text-center">
         {t(
           "settings:chunkingPlayground.clickHint",
           "Click on a highlighted section to focus on that chunk"

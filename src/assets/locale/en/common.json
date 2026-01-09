@@ -67,7 +67,11 @@
   "webSearch": "Searching the web",
   "regenerate": "Regenerate",
   "edit": "Edit",
+  "generate": "Generate",
+  "view": "View",
   "delete": "Delete",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
   "continue": "Continue Response",
   "saveAndSubmit": "Save & Send",
   "editMessage": {
@@ -86,9 +90,32 @@
   "beta": "Beta",
   "tts": "Read aloud",
   "ttsShort": "TTS",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
   "copyShort": "Copy",
   "branchShort": "Branch",
   "infoShort": "Info",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
   "regenShort": "Redo",
   "continueShort": "More",
   "fileChanges": "File changes",
@@ -181,9 +208,58 @@
         "label": "Temporary System Prompt",
         "placeholder": "Enter System Prompt",
         "help": "This is a quick way to set the system prompt in the current chat, which will override the selected system prompt if it exists."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "More Model Settings"
+    "advanced": "More Model Settings",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "Summarize",
@@ -306,6 +382,8 @@
     "zoomOut": "Zoom out"
   },
   "noToolCalls": "No tool calls yet",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "Pending",
     "running": "Running",
@@ -389,7 +467,10 @@
     "collapse": "Collapse sidebar",
     "expand": "Expand sidebar",
     "search": "Search chats...",
-    "ingest": "Ingest Page",
+    "modeLabel": "Mode",
+    "modeCasual": "Casual",
+    "modePro": "Pro",
+    "ingest": "Quick Ingest",
     "media": "Media",
     "notes": "Notes",
     "flashcards": "Flashcards",

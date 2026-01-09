@@ -69,13 +69,13 @@
     "message": "پس از اتصال، «شروع گفتگو» کادر نوشتن را فعال می‌کند."
   },
   "tldwState_searching": {
-    "message": "در حال جستجوی tldw server شما"
+    "message": "در حال جستجوی سرور tldw شما"
   },
   "tldwState_running": {
     "message": "tldw در حال اجرا است"
   },
   "tldwState_notRunning": {
-    "message": "امکان اتصال به tldw server وجود ندارد"
+    "message": "امکان اتصال به سرور tldw وجود ندارد"
   },
   "tldwState_connectionError": {
     "message": "به نظر می رسد که خطای اتصال دارید. لطفا برای عیب یابی به این <anchor>مستندات</anchor> مراجعه کنید."
@@ -84,7 +84,7 @@
     "message": "نتوانستیم به {{host}} دسترسی پیدا کنیم"
   },
   "tldwState_missingHelp": {
-    "message": "برای افزودن URL خود «Settings → tldw Server» را باز کنید یا به صفحه گزینه‌ها متصل شوید."
+    "message": "برای افزودن آدرس خود «تنظیمات → سرور tldw» را باز کنید یا به صفحه گزینه‌ها متصل شوید."
   },
   "tldwState_troubleshoot": {
     "message": "اطمینان حاصل کنید سرور در حال اجراست و مرورگر اجازه دسترسی دارد، سپس از صفحه گزینه‌ها دوباره تلاش کنید."
@@ -207,7 +207,7 @@
     "message": "دکمه توقف پس از شروع صدا فعال می‌شود."
   },
   "tts_providerChangeHelper": {
-    "message": "از انتخاب‌گر ارائه‌دهنده در پایین برای جابه‌جایی بین Browser، tldw، OpenAI یا Supersonic استفاده کنید."
+    "message": "از انتخاب‌گر ارائه‌دهنده در پایین برای جابه‌جایی بین مرورگر، tldw، OpenAI یا Supersonic استفاده کنید."
   },
   "tts_changeProvider": {
     "message": "تغییر ارائه‌دهنده"
@@ -420,13 +420,13 @@
     "message": "توقف و ارسال به سرور"
   },
   "stt_transcribingButton": {
-    "message": "در حال رونویسی..."
+    "message": "در حال تبدیل گفتار..."
   },
   "stt_transcribingTooltip": {
-    "message": "در حال رونویسی صدا..."
+    "message": "در حال تبدیل صوت به متن..."
   },
   "stt_transcribingPlaceholder": {
-    "message": "در حال رونویسی صدا..."
+    "message": "در حال تبدیل صوت به متن..."
   },
   "stt_historyTitle": {
     "message": "تاریخچه رونویسی"
@@ -495,10 +495,10 @@
     "message": "برای درون‌ریزی به سرور tldw خود متصل شوید."
   },
   "actions_ingestHint": {
-    "message": "URLها یا فایل‌ها را با گزینه‌های پیشرفته بارگذاری کنید."
+    "message": "آدرس‌ها یا فایل‌ها را با گزینه‌های پیشرفته بارگذاری کنید."
   },
   "actions_ingestSub": {
-    "message": "از URL/فایل استفاده کنید؛ دانلود یا ذخیره کنید."
+    "message": "از آدرس/فایل استفاده کنید؛ دانلود یا ذخیره کنید."
   },
   "actions_streamErrorTitle": {
     "message": "زیرنویس زنده در دسترس نیست"
@@ -1081,5 +1081,287 @@
   },
   "actor_sceneTemplateActive": {
     "message": "الگوی صحنه فعال است: اکتور به تنظیمات تعامل با الگوها پایبند است."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "فعال‌سازی حالت مقایسه"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "قابلیت‌های آزمایشی مقایسه چندمدلی را فعال می‌کند."
+  },
+  "composer_compareDisabled": {
+    "message": "حالت مقایسه در تنظیمات غیرفعال است."
+  },
+  "composer_compareChosenHint": {
+    "message": "با پاسخ انتخاب‌شده ادامه دهید یا دوباره مقایسه کنید."
+  },
+  "composer_compareChosenLabel": {
+    "message": "انتخاب‌شده"
+  },
+  "composer_compareLatency": {
+    "message": "تأخیر"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "مقایسه: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(از مقایسه)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "پاسخ‌های چندمدلی"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} مدل"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "مدل‌های انتخاب‌شده: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "هر پاسخ انتخاب‌شده را در یک گفت‌وگوی جدا باز کنید"
+  },
+  "composer_compareThreadLabel": {
+    "message": "رشته برای هر مدل"
+  },
+  "composer_compareThreadYou": {
+    "message": "شما"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "باز کردن به‌عنوان گفت‌وگوی کامل"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "باز کردن گفت‌وگوی جداشده"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "قانونی"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "پین کردن به‌عنوان پاسخ قانونی"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "پاسخ قانونی"
+  },
+  "composer_compareFilterLabel": {
+    "message": "فیلتر مدل‌ها"
+  },
+  "composer_compareFilterClear": {
+    "message": "نمایش همه"
+  },
+  "composer_compareFilterCount": {
+    "message": "نمایش {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "توکن‌ها: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
+  },
+  "actor_uploadedFiles": {
+    "message": "Uploaded Files ({{count}})"
+  },
+  "actor_fileRetrieval": {
+    "message": "File Retrieval"
+  },
+  "actor_fileStatusProcessed": {
+    "message": "Processed"
+  },
+  "actor_fileStatusProcessing": {
+    "message": "Processing..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
   }
 }

@@ -9,7 +9,6 @@ import {
   InputNumber,
   List,
   Modal,
-  Popconfirm,
   Radio,
   Select,
   Space,
@@ -25,7 +24,8 @@ import {
   PlusOutlined,
   PlayCircleOutlined,
   QuestionCircleOutlined,
-  SearchOutlined
+  SearchOutlined,
+  UndoOutlined
 } from "@ant-design/icons"
 import {
   useCreateQuestionMutation,
@@ -74,6 +74,31 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   const [questionPageSize, setQuestionPageSize] = React.useState(5)
   const [editForm] = Form.useForm()
 
+  // Undo deletion state
+  const UNDO_GRACE_PERIOD = 8000 // 8 seconds
+  const pendingQuizDeletion = React.useRef<{
+    quiz: Quiz
+    timeoutId: ReturnType<typeof setTimeout>
+  } | null>(null)
+  const pendingQuestionDeletion = React.useRef<{
+    question: Question
+    timeoutId: ReturnType<typeof setTimeout>
+  } | null>(null)
+  const [deletedQuizIds, setDeletedQuizIds] = React.useState<Set<number>>(new Set())
+  const [deletedQuestionIds, setDeletedQuestionIds] = React.useState<Set<number>>(new Set())
+
+  // Cleanup pending deletions on unmount
+  React.useEffect(() => {
+    return () => {
+      if (pendingQuizDeletion.current) {
+        clearTimeout(pendingQuizDeletion.current.timeoutId)
+      }
+      if (pendingQuestionDeletion.current) {
+        clearTimeout(pendingQuestionDeletion.current.timeoutId)
+      }
+    }
+  }, [])
+
   React.useEffect(() => {
     setPage(1)
   }, [searchQuery])
@@ -101,9 +126,11 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     { enabled: editModalOpen && !!editingQuiz }
   )
 
-  const quizzes = data?.items ?? []
+  const allQuizzes = data?.items ?? []
+  const quizzes = allQuizzes.filter((q) => !deletedQuizIds.has(q.id))
   const total = data?.count ?? 0
-  const questions = (questionsQuery.data?.items ?? []) as Question[]
+  const allQuestions = (questionsQuery.data?.items ?? []) as Question[]
+  const questions = allQuestions.filter((q) => !deletedQuestionIds.has(q.id))
   const questionTotal = questionsQuery.data?.count ?? 0
 
   const questionTypeLabel = (questionType: QuestionType) => {
@@ -116,18 +143,83 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     return t("option:quiz.fillBlank", { defaultValue: "Fill in the Blank" })
   }
 
-  const handleDelete = async (quiz: Quiz) => {
+  const handleUndoQuizDelete = () => {
+    if (!pendingQuizDeletion.current) return
+    clearTimeout(pendingQuizDeletion.current.timeoutId)
+    const quiz = pendingQuizDeletion.current.quiz
+    pendingQuizDeletion.current = null
+    setDeletedQuizIds((prev) => {
+      const next = new Set(prev)
+      next.delete(quiz.id)
+      return next
+    })
+    messageApi.success(
+      t("option:quiz.undoSuccess", { defaultValue: "Deletion undone" })
+    )
+  }
+
+  const executeQuizDelete = async (quiz: Quiz) => {
     try {
       await deleteMutation.mutateAsync({ quizId: quiz.id, version: quiz.version })
-      messageApi.success(
-        t("option:quiz.deleteSuccess", { defaultValue: "Quiz deleted successfully" })
-      )
+      pendingQuizDeletion.current = null
+      setDeletedQuizIds((prev) => {
+        const next = new Set(prev)
+        next.delete(quiz.id)
+        return next
+      })
       refetch()
     } catch (error) {
+      // Deletion failed, restore the quiz in UI
+      setDeletedQuizIds((prev) => {
+        const next = new Set(prev)
+        next.delete(quiz.id)
+        return next
+      })
+      pendingQuizDeletion.current = null
       messageApi.error(
         t("option:quiz.deleteError", { defaultValue: "Failed to delete quiz" })
       )
     }
+  }
+
+  const handleDelete = (quiz: Quiz) => {
+    // Cancel any existing pending deletion
+    if (pendingQuizDeletion.current) {
+      clearTimeout(pendingQuizDeletion.current.timeoutId)
+      // Execute the previous pending deletion immediately
+      executeQuizDelete(pendingQuizDeletion.current.quiz)
+    }
+
+    // Optimistically hide the quiz from UI
+    setDeletedQuizIds((prev) => new Set(prev).add(quiz.id))
+
+    // Schedule actual deletion
+    const timeoutId = setTimeout(() => {
+      executeQuizDelete(quiz)
+    }, UNDO_GRACE_PERIOD)
+
+    pendingQuizDeletion.current = { quiz, timeoutId }
+
+    // Show toast with undo button
+    messageApi.open({
+      key: `delete-quiz-${quiz.id}`,
+      type: "info",
+      content: (
+        <span>
+          {t("option:quiz.quizDeleted", { defaultValue: "Quiz deleted" })}
+          <Button
+            type="link"
+            size="small"
+            icon={<UndoOutlined />}
+            onClick={handleUndoQuizDelete}
+            className="ml-2"
+          >
+            {t("option:quiz.undo", { defaultValue: "Undo" })}
+          </Button>
+        </span>
+      ),
+      duration: UNDO_GRACE_PERIOD / 1000
+    })
   }
 
   React.useEffect(() => {
@@ -310,23 +402,89 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     }
   }
 
-  const handleDeleteQuestion = async (question: Question) => {
-    if (!editingQuiz) return
+  const handleUndoQuestionDelete = () => {
+    if (!pendingQuestionDeletion.current) return
+    clearTimeout(pendingQuestionDeletion.current.timeoutId)
+    const question = pendingQuestionDeletion.current.question
+    pendingQuestionDeletion.current = null
+    setDeletedQuestionIds((prev) => {
+      const next = new Set(prev)
+      next.delete(question.id)
+      return next
+    })
+    messageApi.success(
+      t("option:quiz.undoSuccess", { defaultValue: "Deletion undone" })
+    )
+  }
+
+  const executeQuestionDelete = async (question: Question, quizId: number) => {
     try {
       await deleteQuestionMutation.mutateAsync({
-        quizId: editingQuiz.id,
+        quizId,
         questionId: question.id,
         version: question.version
       })
-      messageApi.success(
-        t("option:quiz.questionDeleteSuccess", { defaultValue: "Question deleted successfully." })
-      )
+      pendingQuestionDeletion.current = null
+      setDeletedQuestionIds((prev) => {
+        const next = new Set(prev)
+        next.delete(question.id)
+        return next
+      })
       questionsQuery.refetch()
     } catch (error) {
+      // Deletion failed, restore the question in UI
+      setDeletedQuestionIds((prev) => {
+        const next = new Set(prev)
+        next.delete(question.id)
+        return next
+      })
+      pendingQuestionDeletion.current = null
       messageApi.error(
         t("option:quiz.questionDeleteError", { defaultValue: "Failed to delete question." })
       )
     }
+  }
+
+  const handleDeleteQuestion = (question: Question) => {
+    if (!editingQuiz) return
+
+    // Cancel any existing pending question deletion
+    if (pendingQuestionDeletion.current && editingQuiz) {
+      clearTimeout(pendingQuestionDeletion.current.timeoutId)
+      executeQuestionDelete(pendingQuestionDeletion.current.question, editingQuiz.id)
+    }
+
+    // Optimistically hide the question from UI
+    setDeletedQuestionIds((prev) => new Set(prev).add(question.id))
+
+    // Schedule actual deletion
+    const quizId = editingQuiz.id
+    const timeoutId = setTimeout(() => {
+      executeQuestionDelete(question, quizId)
+    }, UNDO_GRACE_PERIOD)
+
+    pendingQuestionDeletion.current = { question, timeoutId }
+
+    // Show toast with undo button
+    messageApi.open({
+      key: `delete-question-${question.id}`,
+      type: "info",
+      content: (
+        <span>
+          {t("option:quiz.questionDeleted", { defaultValue: "Question deleted" })}
+          <Button
+            type="link"
+            size="small"
+            icon={<UndoOutlined />}
+            onClick={handleUndoQuestionDelete}
+            className="ml-2"
+          >
+            {t("option:quiz.undo", { defaultValue: "Undo" })}
+          </Button>
+        </span>
+      ),
+      duration: UNDO_GRACE_PERIOD / 1000
+    })
   }
 
   if (isLoading) {
@@ -423,25 +581,15 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                 >
                   {t("option:quiz.edit", { defaultValue: "Edit" })}
                 </Button>,
-                <Popconfirm
+                <Button
                   key="delete"
-                  title={t("option:quiz.deleteConfirm", { defaultValue: "Delete this quiz?" })}
-                  description={t("option:quiz.deleteConfirmDesc", {
-                    defaultValue: "This action cannot be undone."
-                  })}
-                  onConfirm={() => handleDelete(quiz)}
-                  okText={t("common:yes", { defaultValue: "Yes" })}
-                  cancelText={t("common:no", { defaultValue: "No" })}
+                  type="link"
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={() => handleDelete(quiz)}
                 >
-                  <Button
-                    type="link"
-                    danger
-                    icon={<DeleteOutlined />}
-                    loading={deleteMutation.isPending}
-                  >
-                    {t("option:quiz.delete", { defaultValue: "Delete" })}
-                  </Button>
-                </Popconfirm>
+                  {t("option:quiz.delete", { defaultValue: "Delete" })}
+                </Button>
               ]}
             >
               <List.Item.Meta
@@ -453,7 +601,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                 description={
                   <div className="space-y-1">
                     {quiz.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-1">
+                      <p className="text-sm text-text-muted line-clamp-1">
                         {quiz.description}
                       </p>
                     )}
@@ -573,20 +721,14 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                   <Button key="edit" type="link" onClick={() => openQuestionModal(question)}>
                     {t("common:edit", { defaultValue: "Edit" })}
                   </Button>,
-                  <Popconfirm
+                  <Button
                     key="delete"
-                    title={t("option:quiz.deleteConfirm", { defaultValue: "Delete this quiz?" })}
-                    description={t("option:quiz.deleteConfirmDesc", {
-                      defaultValue: "This action cannot be undone."
-                    })}
-                    onConfirm={() => handleDeleteQuestion(question)}
-                    okText={t("common:yes", { defaultValue: "Yes" })}
-                    cancelText={t("common:no", { defaultValue: "No" })}
+                    type="link"
+                    danger
+                    onClick={() => handleDeleteQuestion(question)}
                   >
-                    <Button type="link" danger loading={deleteQuestionMutation.isPending}>
-                      {t("option:quiz.delete", { defaultValue: "Delete" })}
-                    </Button>
-                  </Popconfirm>
+                    {t("option:quiz.delete", { defaultValue: "Delete" })}
+                  </Button>
                 ]}
               >
                 <List.Item.Meta

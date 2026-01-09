@@ -473,18 +473,18 @@ export const ActorEditor: React.FC<Props> = ({
                         e.stopPropagation()
                         handleRemoveAspect(aspect.id)
                       }}
-                      className="ml-1 text-xs text-gray-400 hover:text-red-500">
+                      className="ml-1 text-xs text-text-subtle hover:text-danger">
                       <X className="h-3 w-3" />
                     </button>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <span className="text-[11px] text-text-subtle">
                     {t("playground:actor.tokenLabel", "Token")}
                   </span>
                   <div className="flex items-center gap-1">
-                    <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                    <span className="text-[11px] text-text-subtle">
                       [[actor_
                     </span>
                     <Form.Item
@@ -497,7 +497,7 @@ export const ActorEditor: React.FC<Props> = ({
                         onBlur={(e) => handleKeyChange(e.target.value)}
                       />
                     </Form.Item>
-                    <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                    <span className="text-[11px] text-text-subtle">
                       ]]
                     </span>
                   </div>
@@ -539,7 +539,7 @@ export const ActorEditor: React.FC<Props> = ({
               )}
 
               {warning && (
-                <div className="text-xs text-amber-600 dark:text-amber-400">
+                <div className="text-xs text-warn">
                   {warning}
                 </div>
               )}
@@ -677,20 +677,20 @@ export const ActorEditor: React.FC<Props> = ({
         onClick={() => setActiveBlade(id)}
         className={`w-full rounded-md border px-3 py-2 text-left transition-colors ${
           isActive
-            ? "border-gray-400 bg-gray-50 dark:border-gray-500 dark:bg-[#1b1b1b]"
-            : "border-gray-200 bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-[#111] dark:hover:bg-[#181818]"
+            ? "border-border-strong bg-surface2"
+            : "border-border bg-surface hover:bg-surface2"
         }`}
         aria-expanded={isActive}>
         <div className="flex items-center justify-between gap-2">
           <div className="flex flex-col">
-            <span className="text-xs font-semibold uppercase text-gray-700 dark:text-gray-200">
+            <span className="text-xs font-semibold uppercase text-text">
               {title}
             </span>
-            <span className="text-[11px] text-gray-500 dark:text-gray-400">
+            <span className="text-[11px] text-text-subtle">
               {summary}
             </span>
           </div>
-          <span className="text-xs text-gray-400 dark:text-gray-500">
+          <span className="text-xs text-text-subtle">
             {isActive ? "▾" : "▸"}
           </span>
         </div>
@@ -726,7 +726,7 @@ export const ActorEditor: React.FC<Props> = ({
       {activeBlade === "aspects" && (
         <div className="space-y-3">
           <div className="flex flex-col md:flex-row md:items-center gap-2">
-            <span className="text-xs text-gray-600 dark:text-gray-300">
+            <span className="text-xs text-text-muted">
               {t(
                 "playground:composer.actorAddLabel",
                 "Add or remove aspects to focus the scene."
@@ -766,7 +766,7 @@ export const ActorEditor: React.FC<Props> = ({
                 type="button"
                 onClick={() => handleAddAspect()}
                 disabled={!newAspectName.trim()}
-                className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-[#2a2a2a] disabled:opacity-50">
+                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
                 {t("playground:composer.actorAddButton", "Add aspect")}
               </button>
             </div>
@@ -774,7 +774,7 @@ export const ActorEditor: React.FC<Props> = ({
 
           <div className="flex flex-col md:flex-row md:items-center gap-2">
             <div className="flex items-center gap-2 flex-1">
-              <span className="text-xs text-gray-600 dark:text-gray-300">
+              <span className="text-xs text-text-muted">
                 {t("playground:actor.presetLabel", "Presets")}
               </span>
               <Select
@@ -832,7 +832,7 @@ export const ActorEditor: React.FC<Props> = ({
                   onRecompute()
                 }}
                 disabled={!selectedPreset}
-                className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-[#2a2a2a] disabled:opacity-50">
+                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
                 {t("playground:actor.applyPreset", "Apply")}
               </button>
               <button
@@ -853,7 +853,7 @@ export const ActorEditor: React.FC<Props> = ({
                   form.setFieldsValue(fieldValues)
                   onRecompute()
                 }}
-                className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-[#2a2a2a]">
+                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2">
                 {t("playground:actor.resetChat", "Reset for this chat")}
               </button>
             </div>
@@ -873,7 +873,7 @@ export const ActorEditor: React.FC<Props> = ({
                   })
                 }}
                 disabled={!selectedCharacter?.id}
-                className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-[#2a2a2a] disabled:opacity-50">
+                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
                 {t(
                   "playground:actor.saveAsCharacterDefault",
                   "Save as {{name}}’s default",
@@ -905,7 +905,7 @@ export const ActorEditor: React.FC<Props> = ({
                   onRecompute()
                 }}
                 disabled={!selectedCharacter?.id}
-                className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-xs text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-[#2a2a2a] disabled:opacity-50">
+                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
                 {t(
                   "playground:actor.applyCharacterDefault",
                   "Apply {{name}}’s default",
@@ -916,7 +916,7 @@ export const ActorEditor: React.FC<Props> = ({
           </div>
 
           {!worldBooksLoading && !worldBooks.length && (
-            <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-100">
+            <div className="rounded-md border border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
               <div className="font-medium">
                 {t(
                   "playground:composer.actorOfflineHintTitle",
@@ -933,7 +933,7 @@ export const ActorEditor: React.FC<Props> = ({
           )}
 
           {aspectCount > ACTOR_ASPECT_SOFT_LIMIT && (
-            <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-100">
+            <div className="rounded-md border border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
               <div className="font-medium">
                 {t(
                   "playground:actor.aspectLimitWarningTitle",
@@ -955,7 +955,7 @@ export const ActorEditor: React.FC<Props> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <div className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+              <div className="text-xs font-semibold uppercase text-text-subtle">
                 {t("playground:composer.actorUser", "User")}
               </div>
               {settings.aspects
@@ -964,7 +964,7 @@ export const ActorEditor: React.FC<Props> = ({
             </div>
 
             <div className="space-y-2">
-              <div className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+              <div className="text-xs font-semibold uppercase text-text-subtle">
                 {t("playground:composer.actorChar", "Character")}
               </div>
               {settings.aspects
@@ -973,7 +973,7 @@ export const ActorEditor: React.FC<Props> = ({
             </div>
 
             <div className="space-y-2">
-              <div className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+              <div className="text-xs font-semibold uppercase text-text-subtle">
                 {t("playground:composer.actorWorld", "World")}
               </div>
               {settings.aspects
@@ -1000,7 +1000,7 @@ export const ActorEditor: React.FC<Props> = ({
             name="actorNotesGmOnly"
             valuePropName="checked"
             className="!-mt-3 mb-2">
-            <label className="inline-flex items-center gap-2 text-[11px] text-gray-600 dark:text-gray-300">
+            <label className="inline-flex items-center gap-2 text-[11px] text-text-muted">
               <input type="checkbox" className="h-3 w-3" />
               <span>
                 {t(
@@ -1014,13 +1014,13 @@ export const ActorEditor: React.FC<Props> = ({
           {notesValue && (
             <div className="space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+                <span className="text-xs font-semibold uppercase text-text-subtle">
                   {t(
                     "playground:actor.notesPreviewTitle",
                     "Scene notes preview"
                   )}
                 </span>
-                <label className="inline-flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+                <label className="inline-flex items-center gap-2 text-[11px] text-text-subtle">
                   <input
                     type="checkbox"
                     className="h-3 w-3"
@@ -1036,7 +1036,7 @@ export const ActorEditor: React.FC<Props> = ({
                 </label>
               </div>
               {showNotesPreview && (
-                <div className="border rounded-md px-2 py-1 bg-gray-50 dark:bg-[#111] max-h-40 overflow-y-auto">
+                <div className="max-h-40 overflow-y-auto rounded-md border border-border px-2 py-1 bg-surface2">
                   <React.Suspense fallback={null}>
                     <Markdown message={notesValue} />
                   </React.Suspense>
@@ -1100,7 +1100,7 @@ export const ActorEditor: React.FC<Props> = ({
                       "playground:composer.actorDepthHelp",
                       'Used only when position is "In-chat at depth". Counts non-system messages from the top of the chat.'
                     )}>
-                    <span className="text-xs text-gray-400 cursor-help">
+                    <span className="text-xs text-text-subtle cursor-help">
                       ?
                     </span>
                   </Tooltip>
@@ -1198,13 +1198,13 @@ export const ActorEditor: React.FC<Props> = ({
         <div className="space-y-3">
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+              <span className="text-xs font-semibold uppercase text-text-subtle">
                 {t(
                   "playground:composer.actorPreview",
                   "Actor prompt preview"
                 )}
               </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-text-subtle">
                 {t(
                   "playground:composer.actorTokens",
                   "Tokens: {{count}}",
@@ -1215,7 +1215,7 @@ export const ActorEditor: React.FC<Props> = ({
               </span>
             </div>
             {tokensOverLimit && (
-              <div className="mt-0.5 text-[11px] text-amber-600 dark:text-amber-400">
+              <div className="mt-0.5 text-[11px] text-warn">
                 {t(
                   "playground:actor.tokenWarning",
                   "Actor prompt is long ({{count}} tokens; soft limit {{limit}}). Consider trimming aspects or notes to save context.",
@@ -1226,8 +1226,8 @@ export const ActorEditor: React.FC<Props> = ({
                 )}
               </div>
             )}
-            <div className="border rounded-md px-2 py-1 bg-gray-50 dark:bg-[#111] max-h-40 overflow-y-auto">
-              <pre className="whitespace-pre-wrap text-xs text-gray-800 dark:text-gray-100">
+            <div className="max-h-40 overflow-y-auto rounded-md border border-border px-2 py-1 bg-surface2">
+              <pre className="whitespace-pre-wrap text-xs text-text">
                 {actorPreview ||
                   t(
                     "playground:composer.actorPreviewEmpty",

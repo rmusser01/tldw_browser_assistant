@@ -16,6 +16,7 @@ import {
   useImportFlashcardsMutation,
   useImportLimitsQuery
 } from "../hooks"
+import { FileDropZone } from "../components"
 
 const { Text } = Typography
 
@@ -55,13 +56,26 @@ const ImportPanel: React.FC = () => {
             defaultValue: "Paste TSV/CSV lines: Deck, Front, Back, Tags, Notes"
           })}
         </Text>
-        <pre className="mt-1 rounded bg-gray-50 p-2 text-xs text-gray-700 dark:bg-[#111] dark:text-gray-200">
+        <pre className="mt-1 rounded bg-surface2 p-2 text-xs text-text">
           Deck	Front	Back	Tags	Notes
           My deck	What is a closure?	A function with preserved outer scope.	javascript; fundamentals	Lecture 3
         </pre>
       </div>
+
+      {/* File drop zone */}
+      <FileDropZone
+        onFileContent={setContent}
+        onError={(error) => message.error(error)}
+      />
+
+      <Text type="secondary" className="text-center text-xs">
+        {t("option:flashcards.orPasteBelow", {
+          defaultValue: "or paste content below"
+        })}
+      </Text>
+
       <Input.TextArea
-        rows={10}
+        rows={8}
         placeholder={t("option:flashcards.pasteContent", {
           defaultValue: "Paste content here..."
         })}

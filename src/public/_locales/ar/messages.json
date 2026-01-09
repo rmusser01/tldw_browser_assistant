@@ -2841,7 +2841,7 @@
     "message": "Continue with this model"
   },
   "playground_composer_compareThreadShared": {
-    "message": "You (shared)"
+    "message": "أنت (مشترك)"
   },
   "playground_composer_compareBulkSplitSuccess": {
     "message": "Created {{count}} chats"
@@ -3262,5 +3262,74 @@
   },
   "mediaPage_presetQAAnalysis": {
     "message": "تحليل أسئلة وأجوبة"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "تفعيل وضع المقارنة"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "فتح ميزات المقارنة متعددة النماذج التجريبية."
+  },
+  "playground_composer_compareDisabled": {
+    "message": "وضع المقارنة مُعطّل في الإعدادات."
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "تابع بالإجابة المختارة أو قارن مرة أخرى."
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "مُختارة"
+  },
+  "playground_composer_compareLatency": {
+    "message": "زمن الاستجابة"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "مقارنة: {{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "(من المقارنة)"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "إجابات متعددة النماذج"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} نموذجًا"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "النماذج المحددة: {{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "افتح كل إجابة محددة كمحادثة مستقلة"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "سلسلة لكل نموذج"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "أنت"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "افتح كمحادثة كاملة"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "افتح المحادثة المتفرعة"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "معياري"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "تثبيت كإجابة معيارية"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "الإجابة المعيارية"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "تصفية النماذج"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "إظهار الكل"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "عرض {{visible}} / {{total}}"
+  },
+  "playground_composer_compareTokens": {
+    "message": "الرموز: {{count}}"
   }
 }

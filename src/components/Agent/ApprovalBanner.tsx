@@ -147,7 +147,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         key: "deletes",
         label: t("deletions", "Deletions"),
         icon: Trash2,
-        color: "text-red-500",
+        color: "text-danger",
         approvals: groups.deletes
       })
     }
@@ -156,7 +156,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         key: "git",
         label: t("gitOperations", "Git operations"),
         icon: GitCommit,
-        color: "text-purple-500",
+        color: "text-primary",
         approvals: groups.git
       })
     }
@@ -165,7 +165,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         key: "exec",
         label: t("commands", "Commands"),
         icon: Terminal,
-        color: "text-orange-500",
+        color: "text-accent",
         approvals: groups.exec
       })
     }
@@ -175,7 +175,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         key: "read",
         label: t("fileAccess", "File access"),
         icon: Eye,
-        color: "text-sky-500",
+        color: "text-primary",
         approvals: groups.read
       })
     }
@@ -185,7 +185,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         key: "notebook",
         label: t("notebookEdits", "Notebook edits"),
         icon: BookText,
-        color: "text-emerald-600",
+        color: "text-success",
         approvals: groups.notebook
       })
     }
@@ -195,7 +195,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
         key: "other",
         label: t("otherOperations", "Other operations"),
         icon: FileEdit,
-        color: "text-gray-500",
+        color: "text-text-subtle",
         approvals: groups.other
       })
     }
@@ -229,9 +229,9 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
     return null
   }
 
-  return (
-    <div
-      className={`bg-yellow-50 dark:bg-yellow-900/40 border-t border-yellow-200 dark:border-yellow-700 ${className}`}
+    return (
+      <div
+      className={`border-t border-warn/30 bg-warn/10 ${className}`}
       role="region"
       aria-label={t("pendingApprovalsRegion", "Pending approvals requiring your action")}
       aria-expanded={expanded}
@@ -239,13 +239,13 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
       {/* Collapsed view */}
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
-          <div className="p-1.5 rounded-full bg-yellow-100 dark:bg-yellow-900/40">
-            <AlertTriangle className="size-4 text-yellow-600 dark:text-yellow-400" />
+          <div className="rounded-full bg-warn/10 p-1.5">
+            <AlertTriangle className="size-4 text-warn" />
           </div>
 
           <div className="flex items-center gap-2">
             <span
-              className="font-medium text-yellow-800 dark:text-yellow-200"
+              className="font-medium text-warn"
               aria-live="polite"
               aria-atomic="true"
             >
@@ -262,7 +262,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
                     : String(cat.label).toLowerCase()
                 return (
                   <Tooltip key={idx} title={`${cat.approvals.length} ${tooltipLabel}`}>
-                    <span className={`flex items-center gap-1 px-2 py-0.5 rounded-full bg-white dark:bg-gray-800 text-xs ${cat.color}`}>
+                    <span className={`flex items-center gap-1 rounded-full bg-surface px-2 py-0.5 text-xs ${cat.color}`}>
                       <Icon className="size-3" />
                       {cat.approvals.length}
                     </span>
@@ -289,7 +289,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
             type="primary"
             icon={<Check className="size-3.5" />}
             onClick={() => onApprove(allIds)}
-            className="bg-green-500 hover:bg-green-600 border-green-500"
+            className="border-success bg-success hover:bg-success"
           >
             {t("approveAll", "Approve All")}
           </Button>
@@ -313,7 +313,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
                 ? t("collapseApprovals", "Collapse approval details")
                 : t("expandApprovals", "Expand approval details")
               }
-              icon={<ChevronUp className={`size-4 text-yellow-600 transition-transform ${expanded ? "" : "rotate-180"}`} />}
+              icon={<ChevronUp className={`size-4 text-warn transition-transform ${expanded ? "" : "rotate-180"}`} />}
             />
           )}
         </div>
@@ -321,7 +321,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
 
       {/* Expanded view with individual items */}
       {expanded && (
-        <div className="border-t border-yellow-200 dark:border-yellow-800 px-4 py-2 space-y-2 max-h-48 overflow-y-auto">
+        <div className="max-h-48 space-y-2 overflow-y-auto border-t border-warn/30 px-4 py-2">
           {approvals.map((approval) => {
             const Icon = getToolIcon(approval.toolName)
             const isRisky = approval.tier === "individual"
@@ -329,20 +329,20 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
             return (
               <div
                 key={approval.toolCallId}
-                className={`flex items-center justify-between px-3 py-2 rounded-lg ${
+                className={`flex items-center justify-between rounded-lg px-3 py-2 ${
                   isRisky
-                    ? "bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
-                    : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                    ? "border border-danger/30 bg-danger/10"
+                    : "border border-border bg-surface"
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
-                  <Icon className={`size-4 flex-shrink-0 ${isRisky ? "text-red-500" : "text-gray-500"}`} />
+                  <Icon className={`size-4 flex-shrink-0 ${isRisky ? "text-danger" : "text-text-subtle"}`} />
 
                   <div className="min-w-0 flex-1">
                     <div className="font-medium text-sm truncate">
                       {approval.toolName}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    <div className="truncate text-xs text-text-subtle">
                       {formatApprovalArgs(approval, t)}
                     </div>
                   </div>
@@ -354,7 +354,7 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
                         "This operation is potentially destructive and requires individual approval for safety."
                       )}
                     >
-                      <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 cursor-help">
+                      <span className="cursor-help rounded bg-danger/10 px-1.5 py-0.5 text-xs font-medium text-danger">
                         {t("requiresApproval", "Requires approval")}
                       </span>
                     </Tooltip>
@@ -368,8 +368,8 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
                       type="text"
                       onClick={() => onApprove([approval.toolCallId])}
                       aria-label={t("approve", "Approve")}
-                      icon={<Check className="size-4 text-green-600" />}
-                      className="hover:bg-green-100 dark:hover:bg-green-900/40"
+                      icon={<Check className="size-4 text-success" />}
+                      className="hover:bg-success/10"
                     />
                   </Tooltip>
                   <Tooltip title={t("reject", "Reject")}>
@@ -378,8 +378,8 @@ export const ApprovalBanner: FC<ApprovalBannerProps> = ({
                       type="text"
                       onClick={() => onReject([approval.toolCallId])}
                       aria-label={t("reject", "Reject")}
-                      icon={<X className="size-4 text-red-600" />}
-                      className="hover:bg-red-100 dark:hover:bg-red-900/40"
+                      icon={<X className="size-4 text-danger" />}
+                      className="hover:bg-danger/10"
                     />
                   </Tooltip>
                 </div>

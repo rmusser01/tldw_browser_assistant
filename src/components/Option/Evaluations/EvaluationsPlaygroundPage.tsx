@@ -1226,7 +1226,7 @@ export const EvaluationsPlaygroundPage = () => {
                           {ev.name || ev.id}
                         </span>
                         {ev.description && (
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <span className="text-xs text-text-subtle">
                             {ev.description}
                           </span>
                         )}
@@ -1325,7 +1325,7 @@ export const EvaluationsPlaygroundPage = () => {
                     <Text type="secondary">
                       {t("common:metadata", { defaultValue: "Metadata" })}
                     </Text>
-                    <pre className="mt-1 max-h-32 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+                    <pre className="mt-1 max-h-32 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                       {JSON.stringify(evalDetail.metadata, null, 2)}
                     </pre>
                   </div>
@@ -1336,7 +1336,7 @@ export const EvaluationsPlaygroundPage = () => {
                       defaultValue: "Evaluation spec (snippet)"
                     })}
                   </Text>
-                  <pre className="mt-1 max-h-48 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+                  <pre className="mt-1 max-h-48 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                     {JSON.stringify(evalDetail.eval_spec || {}, null, 2)}
                   </pre>
                 </div>
@@ -1500,7 +1500,7 @@ export const EvaluationsPlaygroundPage = () => {
               </Button>
             </Form>
             {adhocResult && (
-              <pre className="mt-2 max-h-40 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+              <pre className="mt-2 max-h-40 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                 {JSON.stringify(adhocResult, null, 2)}
               </pre>
             )}
@@ -1655,7 +1655,7 @@ export const EvaluationsPlaygroundPage = () => {
                     {runs.map((run) => (
                       <div
                         key={run.id}
-                        className="flex cursor-pointer items-center justify-between rounded border border-gray-200 px-2 py-1 dark:border-gray-700"
+                        className="flex cursor-pointer items-center justify-between rounded border border-border px-2 py-1"
                         onClick={() => {
                           setSelectedRunId(run.id)
                           setQuotaSnapshot(null)
@@ -1663,7 +1663,7 @@ export const EvaluationsPlaygroundPage = () => {
                         <div className="flex flex-col">
                           <span className="font-medium">Run {run.id}</span>
                           {run.status && (
-                            <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                            <span className="text-[11px] text-text-subtle">
                               {run.status}
                             </span>
                           )}
@@ -1787,7 +1787,7 @@ export const EvaluationsPlaygroundPage = () => {
                       {runMetrics.map((m) => (
                         <div
                           key={m.key}
-                          className="flex items-center justify-between rounded border border-gray-200 px-2 py-1 dark:border-gray-700">
+                          className="flex items-center justify-between rounded border border-border px-2 py-1">
                           <span className="text-[11px]">{m.key}</span>
                           <span className="font-mono text-[11px]">
                             {m.value.toFixed ? m.value.toFixed(3) : m.value}
@@ -1815,7 +1815,7 @@ export const EvaluationsPlaygroundPage = () => {
                         defaultValue: "Results (snippet)"
                       })}
                     </Text>
-                    <pre className="mt-1 max-h-40 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+                    <pre className="mt-1 max-h-40 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                       {JSON.stringify(runDetail.results, null, 2)}
                     </pre>
                   </div>
@@ -1827,7 +1827,7 @@ export const EvaluationsPlaygroundPage = () => {
                         defaultValue: "Progress"
                       })}
                     </Text>
-                    <pre className="mt-1 max-h-32 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+                    <pre className="mt-1 max-h-32 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                       {JSON.stringify(runDetail.progress, null, 2)}
                     </pre>
                   </div>
@@ -1839,7 +1839,7 @@ export const EvaluationsPlaygroundPage = () => {
                         defaultValue: "Usage"
                       })}
                     </Text>
-                    <pre className="mt-1 max-h-32 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+                    <pre className="mt-1 max-h-32 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                       {JSON.stringify(runDetail.usage, null, 2)}
                     </pre>
                   </div>
@@ -1886,15 +1886,15 @@ export const EvaluationsPlaygroundPage = () => {
                 {datasets.map((ds) => (
                   <div
                     key={ds.id}
-                    className="flex items-center justify-between rounded border border-gray-200 px-2 py-1 dark:border-gray-700">
+                    className="flex items-center justify-between rounded border border-border px-2 py-1">
                     <div className="flex flex-col">
                       <span className="font-medium">{ds.name}</span>
                       {ds.description && (
-                        <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                        <span className="text-[11px] text-text-subtle">
                           {ds.description}
                         </span>
                       )}
-                      <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                      <span className="text-[11px] text-text-subtle">
                         {t("settings:evaluations.datasetSampleCount", {
                           defaultValue: "{{count}} samples",
                           count: ds.sample_count
@@ -1982,7 +1982,7 @@ export const EvaluationsPlaygroundPage = () => {
                 {historyResults.map((item) => (
                   <div
                     key={item.id}
-                    className="rounded border border-gray-200 p-2 dark:border-gray-700">
+                    className="rounded border border-border p-2">
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{item.type}</span>
                       <Text type="secondary">
@@ -2102,10 +2102,10 @@ export const EvaluationsPlaygroundPage = () => {
                 {webhooks.map((hook: any) => (
                   <div
                     key={hook.id}
-                    className="flex items-center justify-between rounded border border-gray-200 px-2 py-1 dark:border-gray-700">
+                    className="flex items-center justify-between rounded border border-border px-2 py-1">
                     <div className="flex flex-col">
                       <span className="font-medium">{hook.url}</span>
-                      <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                      <span className="text-[11px] text-text-subtle">
                         {(hook.events || []).join(", ")}
                       </span>
                     </div>
@@ -2439,7 +2439,7 @@ export const EvaluationsPlaygroundPage = () => {
                 <Text type="secondary">
                   {t("common:metadata", { defaultValue: "Metadata" })}
                 </Text>
-                <pre className="mt-1 max-h-32 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+                <pre className="mt-1 max-h-32 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                   {JSON.stringify(viewingDataset.metadata, null, 2)}
                 </pre>
               </div>
@@ -2468,20 +2468,20 @@ export const EvaluationsPlaygroundPage = () => {
                   {datasetSamples.map((samp, idx) => (
                     <div
                       key={`${idx}-${datasetSamplesPage}`}
-                      className="rounded border border-gray-200 p-2 text-xs dark:border-gray-700">
-                      <div className="text-[11px] text-gray-500 dark:text-gray-400">
+                      className="rounded border border-border p-2 text-xs">
+                      <div className="text-[11px] text-text-subtle">
                         #{(datasetSamplesPage - 1) * datasetSamplesPageSize + idx + 1}
                       </div>
                       <div className="mt-1">
                         <Text type="secondary">Input</Text>
-                        <pre className="mt-1 max-h-32 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+                        <pre className="mt-1 max-h-32 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                           {JSON.stringify(samp.input, null, 2)}
                         </pre>
                       </div>
                       {samp.expected !== undefined && (
                         <div className="mt-1">
                           <Text type="secondary">Expected</Text>
-                          <pre className="mt-1 max-h-24 overflow-auto rounded bg-gray-900 p-2 text-[11px] text-gray-100 dark:bg-black">
+                          <pre className="mt-1 max-h-24 overflow-auto rounded bg-surface2 p-2 text-[11px] text-text">
                             {JSON.stringify(samp.expected, null, 2)}
                           </pre>
                         </div>

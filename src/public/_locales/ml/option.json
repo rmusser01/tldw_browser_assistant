@@ -1,0 +1,1727 @@
+{
+  "newChat": {
+    "message": "പുതിയ ചാറ്റ്"
+  },
+  "selectAPrompt": {
+    "message": "ഒരു പ്രോംപ്റ്റ് തിരഞ്ഞെടുക്കുക"
+  },
+  "githubRepository": {
+    "message": "ഗിറ്റ്ഹബ് റെപ്പോസിറ്ററി"
+  },
+  "settings": {
+    "message": "സെറ്റിംഗുകൾ"
+  },
+  "connectionCard_headlineMissing": {
+    "message": "tldw അസിസ്റ്റന്റിനെ നിങ്ങളുടെ സെർവറുമായി ബന്ധിപ്പിക്കുക"
+  },
+  "connectionCard_headlineSearching": {
+    "message": "നിങ്ങളുടെ tldw സെർവർ തിരയുന്നു…"
+  },
+  "connectionCard_headlineConnected": {
+    "message": "നിങ്ങളുടെ tldw സെർവറുമായി ബന്ധപ്പെട്ടു"
+  },
+  "connectionCard_headlineError": {
+    "message": "നിങ്ങളുടെ tldw സെർവർ എത്തിച്ചേരാനായില്ല"
+  },
+  "connectionCard_descriptionMissing": {
+    "message": "tldw_server ചാറ്റ്, നോളജ് തിരച്ചിൽ, മീഡിയ പ്രോസസ്സിംഗ് എന്നിവ പ്രവർത്തിപ്പിക്കുന്ന ബാക്ക്‌എൻഡാണ്. അസിസ്റ്റന്റ് ഉപയോഗിക്കാൻ നിങ്ങളുടെ സ്വന്തം tldw സെർവർ URL ബന്ധിപ്പിക്കുക."
+  },
+  "connectionCard_descriptionSearching": {
+    "message": "നിങ്ങളുടെ tldw സെർവർ എത്തിച്ചേരാമോ എന്ന് പരിശോധിക്കാൻ {{host}} പരിശോധിക്കുന്നു. പ്രതികരണം കാത്തിരിക്കുന്നതിനാൽ ഇത് കുറച്ച് സമയം എടുത്തേക്കാം."
+  },
+  "connectionCard_descriptionConnected": {
+    "message": "നിങ്ങളുടെ tldw സെർവർ {{host}} ലേക്ക് ബന്ധപ്പെട്ടു. നിങ്ങൾക്ക് ചാറ്റ് തുടങ്ങുകയോ Review, Knowledge എന്നിവ പോലുള്ള ടൂളുകൾ ഉപയോഗിക്കുകയോ കഴിയും."
+  },
+  "connectionCard_descriptionConnectedList_reviewMedia": {
+    "message": "മീഡിയയും ട്രാൻസ്‌ക്രിപ്റ്റുകളും പരിശോധിക്കുക"
+  },
+  "connectionCard_descriptionConnectedList_searchKnowledge": {
+    "message": "നോളജിലും കുറിപ്പുകളിലും തിരയുക"
+  },
+  "connectionCard_descriptionConnectedList_useRag": {
+    "message": "സ്വന്തം ഡോക്യുമെന്റുകളുമായി RAG ഉപയോഗിക്കുക"
+  },
+  "connectionCard_descriptionError": {
+    "message": "നിങ്ങളുടെ tldw സെർവർ {{host}} ലേക്ക് എത്തിച്ചേരാൻ കഴിഞ്ഞില്ല. സെർവർ പ്രവർത്തിക്കുന്നുണ്ടോ, URL ശരിയാണോ, ബ്രൗസർ നെറ്റ്‌വർക്ക് വഴി എത്തിച്ചേരാമോ എന്നത് പരിശോധിക്കുക."
+  },
+  "connectionCard_buttonStartChat": {
+    "message": "ചാറ്റ് ആരംഭിക്കുക"
+  },
+  "connectionCard_buttonRetry": {
+    "message": "കണക്ഷൻ വീണ്ടും ശ്രമിക്കുക"
+  },
+  "connectionCard_buttonChangeServer": {
+    "message": "സെർവർ മാറ്റുക"
+  },
+  "connectionCard_buttonOpenDiagnostics": {
+    "message": "ഡയഗ്നോസ്റ്റിക്സ് തുറക്കുക"
+  },
+  "connectionCard_buttonViewDiagnostics": {
+    "message": "ഡയഗ്നോസ്റ്റിക്സ് കാണുക"
+  },
+  "connectionCard_buttonOpenQuickIngest": {
+    "message": "ക്വിക് ഇൻജെസ്റ്റ് തുറക്കുക"
+  },
+  "connectionCard_buttonTryDemo": {
+    "message": "ഡെമോ പരീക്ഷിക്കുക"
+  },
+  "connectionCard_buttonContinueOffline": {
+    "message": "ഓഫ്ലൈനായി തുടരുക"
+  },
+  "connectionCard_buttonDisableOffline": {
+    "message": "ഓഫ്ലൈൻ മോഡ് അപ്രാപ്തമാക്കുക"
+  },
+  "connectionCard_offlineModeBadge": {
+    "message": "ഓഫ്ലൈൻ മോഡ് — സ്റ്റേജിംഗ് മാത്രം"
+  },
+  "connectionCard_buttonGoToServerCard": {
+    "message": "സെർവർ കാർഡിലേക്ക് പോകുക"
+  },
+  "connectionCard_tipQuickIngest": {
+    "message": "ടിപ്പ്: ഓഫ്ലൈനായിരിക്കുമ്പോൾ ഇൻജസ്റ്റിൽ സഹായം വേണ്ടേ?"
+  },
+  "connectionCard_quickIngestHint": {
+    "message": "നിങ്ങളുടെ സർവർ ഓഫ്‌ലൈൻ ആയിരിക്കുമ്പോൾ, Quick Ingest ഒരു സ്റ്റേജിംഗ് മേഖല പോലെ പ്രവർത്തിക്കുന്നു. നിങ്ങൾക്ക് ഇപ്പോൾ URL കളും ഫയലുകളും നിരയിലാക്കാം, പിന്നെ വീണ്ടും കണക്റ്റ് ചെയ്താൽ അവ പ്രോസസ്സ് ചെയ്യാം."
+  },
+  "connectionCard_backToWorkspace": {
+    "message": "വർക്ക്സ്പേസിലേക്ക് മടങ്ങുക"
+  },
+  "connectionCard_sidepanelOpenSettingsHint": {
+    "message": "നിങ്ങളുടെ tldw സർവർ ക്രമീകരിക്കാൻ സജ്ജീകരണങ്ങൾ ഒരു പുതിയ ബ്രൗസർ ടാബിൽ തുറക്കും."
+  },
+  "connectionCard_quickIngestInlineHint": {
+    "message": "നിങ്ങളുടെ സർവർ ഓഫ്‌ലൈൻ ആയിരിക്കുമ്പോൾ Quick Ingest URL കളെയും ഫയലുകളെയും നിരയിലാക്കും, പിന്നെ നിങ്ങൾ വീണ്ടും കണക്റ്റ് ചെയ്താൽ അവ പ്രോസസ്സ് ചെയ്യാം."
+  },
+  "header_showShortcuts": {
+    "message": "ഷോർട്ട്കട്ടുകൾ കാണിക്കുക"
+  },
+  "header_hideShortcuts": {
+    "message": "ഷോർട്ട്കട്ടുകൾ മറയ്ക്കുക"
+  },
+  "header_groupWorkspace": {
+    "message": "വർക്ക്സ്പേസ്"
+  },
+  "header_groupKnowledge": {
+    "message": "നോളജ്"
+  },
+  "header_groupSettings": {
+    "message": "സജ്ജീകരണ ഷോർട്ട്കട്ടുകൾ"
+  },
+  "header_backToHome": {
+    "message": "ഹോം പേജിലേക്ക് മടങ്ങുക"
+  },
+  "header_openSidebar": {
+    "message": "സൈഡ്‌ബാർ തുറക്കുക"
+  },
+  "header_untitledChat": {
+    "message": "ശീർഷകമില്ലാത്തത്"
+  },
+  "header_modelLabel": {
+    "message": "മോഡൽ"
+  },
+  "header_promptLabel": {
+    "message": "പ്രോംപ്റ്റ്"
+  },
+  "header_review": {
+    "message": "റിവ്യൂ"
+  },
+  "header_contentReview": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ"
+  },
+  "header_flashcards": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകൾ"
+  },
+  "header_quiz": {
+    "message": "ക്വിസ്"
+  },
+  "header_media": {
+    "message": "മീഡിയ"
+  },
+  "header_libraryView": {
+    "message": "ബഹുഇനം റിവ്യൂ"
+  },
+  "header_notes": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "header_modesLabel": {
+    "message": "മോഡുകൾ"
+  },
+  "header_modePlayground": {
+    "message": "ചാറ്റ്"
+  },
+  "header_modeReview": {
+    "message": "റിവ്യൂ"
+  },
+  "header_modeMedia": {
+    "message": "മീഡിയ"
+  },
+  "header_modeKnowledge": {
+    "message": "അറിവ് QA"
+  },
+  "header_modeNotes": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "header_modePrompts": {
+    "message": "പ്രോംപ്റ്റുകൾ"
+  },
+  "header_modePromptsPlayground": {
+    "message": "പ്രോംപ്റ്റുകൾ"
+  },
+  "header_modeStt": {
+    "message": "STT പ്ലേഗ്രൗണ്ട്"
+  },
+  "header_modePromptStudio": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ"
+  },
+  "header_modeFlashcards": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകൾ"
+  },
+  "header_modeWorldBooks": {
+    "message": "വേൾഡ് ബുക്കുകൾ"
+  },
+  "header_modeDictionaries": {
+    "message": "ചാറ്റ് നിഘണ്ടു"
+  },
+  "header_modeCharacters": {
+    "message": "ക്യാരക്ടേഴ്സ്"
+  },
+  "header_modeShortcutHint": {
+    "message": "{{shortcut}} ഉപയോഗിച്ച് മാറുക"
+  },
+  "header_quickIngest": {
+    "message": "ക്വിക് ഇൻജെസ്റ്റ്"
+  },
+  "header_modelSettings": {
+    "message": "മോഡൽ സെറ്റിംഗുകൾ"
+  },
+  "header_serverSettings": {
+    "message": "സെർവർ സെറ്റിംഗുകൾ"
+  },
+  "header_more": {
+    "message": "എഐ ടൂളുകൾ"
+  },
+  "header_moreMenu_title": {
+    "message": "പുരോഗമന ടൂളുകൾ"
+  },
+  "header_moreMenu_tooltip": {
+    "message": "സൈഡ്ബാർ, റിപോസിറ്ററി, ഡീബഗ് ഓപ്ഷനുകൾ എന്നിവ പോലുള്ള പുരോഗമന ടൂളുകൾ"
+  },
+  "header_moreActions": {
+    "message": "കൂടുതൽ പ്രവർത്തനങ്ങൾ"
+  },
+  "header_toolsMenu": {
+    "message": "ചാറ്റ് ടൂളുകൾ"
+  },
+  "header_serverBackedLabel": {
+    "message": "സെർവർ പിന്തുണയുള്ള ചാറ്റ്"
+  },
+  "header_serverBackedTooltip": {
+    "message": "ഈ ചാറ്റിലെ സന്ദേശങ്ങൾ നിങ്ങളുടെ tldw സെർവറിലും സേവ് ചെയ്യും."
+  },
+  "header_omniSearchPlaceholder": {
+    "message": "സ്ക്രീനുകൾ, ചാറ്റുകൾ, മീഡിയ, കുറിപ്പുകൾ… തിരയുക"
+  },
+  "header_omniSearchNoResults": {
+    "message": "\"{{query}}\" ന് പൊരുത്തങ്ങൾ ഒന്നുമില്ല."
+  },
+  "header_omniSearchCreateNote": {
+    "message": "\"{{query}}\" കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "header_omniSearchCreateNoteSuccess": {
+    "message": "\"{{query}}\" കുറിപ്പ് സൃഷ്ടിച്ചു"
+  },
+  "header_omniSearchCreateFlashcards": {
+    "message": "\"{{query}}\" ഫ്ലാഷ്‌കാർഡ് ശേഖരം സൃഷ്ടിക്കുക"
+  },
+  "header_omniSearchCreateFlashcardsSuccess": {
+    "message": "\"{{query}}\" ഫ്ലാഷ്‌കാർഡ് ശേഖരം സൃഷ്ടിച്ചു"
+  },
+  "header_omniSearchStartChat": {
+    "message": "\"{{query}}\" പുതിയ ചാറ്റ് ആരംഭിക്കുക"
+  },
+  "header_connectionCard.connectedCaption": {
+    "message": "ഓപ്ഷൻസിലും സൈഡ്പാനലിലും ചാറ്റും ടൂളുകളും ഇപ്പോൾ ലഭ്യമാണ്."
+  },
+  "header_quickIngestQueuedAria": {
+    "message": "{{label}} — {{count}} ഇനം ക്യൂ ചെയ്തിരിക്കുന്നു — പരിശോധിച്ച് പ്രോസസ്സ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക"
+  },
+  "header_modeSpeech": {
+    "message": "സ്പീച്ച്"
+  },
+  "sidebarTitle": {
+    "message": "ചാറ്റ് ചരിത്രം"
+  },
+  "error": {
+    "message": "പിശക്"
+  },
+  "somethingWentWrong": {
+    "message": "എന്തോ തെറ്റായി"
+  },
+  "deleteHistoryConfirmation": {
+    "message": "നിങ്ങളുടെ ചാറ്റ് ചരിത്രം ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?"
+  },
+  "editHistoryTitle": {
+    "message": "ചാറ്റ് title എഡിറ്റുചെയ്യുക"
+  },
+  "validationSelectModel": {
+    "message": "തുടരുന്നതിന് ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക"
+  },
+  "temporaryChat": {
+    "message": "താൽക്കാലിക ചാറ്റ് (സംരക്ഷിക്കപ്പെടില്ല)"
+  },
+  "more_copy_group": {
+    "message": "പകർത്തുക"
+  },
+  "more_copy_asText": {
+    "message": "ടെക്സ്റ്റായി പകർത്തുക"
+  },
+  "more_copy_asMarkdown": {
+    "message": "മാർക്ക്ഡൗൺ ആയി പകർത്തുക"
+  },
+  "more_copy_canonicalMarkdown": {
+    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് പകർത്തുക"
+  },
+  "more_copy_success": {
+    "message": "ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി!"
+  },
+  "more_download_group": {
+    "message": "ഡൗൺലോഡ്"
+  },
+  "more_download_text": {
+    "message": "ടെക്സ്റ്റ് ഫയൽ (.txt)"
+  },
+  "more_download_markdown": {
+    "message": "മാർക്ക്ഡൗൺ (.md)"
+  },
+  "more_download_canonicalMarkdown": {
+    "message": "കാനോണിക്കൽ ട്രാൻസ്ക്രിപ്റ്റ് (Markdown)"
+  },
+  "more_download_json": {
+    "message": "JSON ഫയൽ (.json)"
+  },
+  "more_download_image": {
+    "message": "ചിത്രം (.png)"
+  },
+  "more_share": {
+    "message": "പങ്കുവയ്ക്കുക"
+  },
+  "libraryView": {
+    "message": "ലൈബ്രറി കാഴ്ച"
+  },
+  "notes": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "upload_fileTooLargeTitle": {
+    "message": "ഫയൽ വളരെ വലുതാണ്"
+  },
+  "upload_fileTooLargeDescription": {
+    "message": "ഫയൽ വലുപ്പം 10MB ൽ താഴെയായിരിക്കണം"
+  },
+  "upload_uploadFailedTitle": {
+    "message": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു"
+  },
+  "upload_uploadFailedDescription": {
+    "message": "ഫയൽ അപ്‌ലോഡ് ചെയ്യാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക."
+  },
+  "promptStudio_title": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ പ്ലേഗ്രൗണ്ട്"
+  },
+  "promptStudio_subtitle": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ പ്രോജക്ടുകൾ, പ്രോംപ്റ്റുകൾ, എക്സിക്യൂഷൻ, ടെസ്റ്റ് കേസുകൾ, മൂല്യനിർണ്ണയങ്ങൾ എന്നിവ കൈകാര്യം ചെയ്യുക."
+  },
+  "promptStudio_capabilityError": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ എത്തിച്ചേരാനായില്ല"
+  },
+  "promptStudio_capabilityErrorBody": {
+    "message": "സെർവർ കണക്ഷൻ പരിശോധിക്കുക അല്ലെങ്കിൽ പ്രോംപ്റ്റ് സ്റ്റുഡിയോ APIകൾ ലഭ്യമാകുന്നതുവരെ ഈ വിഭാഗം അപ്രാപ്തമാക്കുക."
+  },
+  "promptStudio_offline": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ ഉപയോഗിക്കാൻ നിങ്ങളുടെ സെർവറുമായി കണക്റ്റ് ചെയ്യുക"
+  },
+  "promptStudio_workspaceCard": {
+    "message": "പ്രോജക്ടുകളും പ്രോംപ്റ്റുകളും"
+  },
+  "promptStudio_workspaceHint": {
+    "message": "പ്രോംപ്റ്റുകൾ തിരുത്താൻ ഒരു പ്രോജക്റ്റ് സൃഷ്ടിക്കുകയോ തുറക്കുകയോ ചെയ്യുക."
+  },
+  "promptStudio_projectsError": {
+    "message": "പ്രോജക്റ്റുകൾ ലോഡ് ചെയ്യാനായില്ല"
+  },
+  "promptStudio_promptVersion": {
+    "message": "പതിപ്പ്"
+  },
+  "promptStudio_changeDescription": {
+    "message": "വിവരണം മാറ്റുക"
+  },
+  "promptStudio_systemPrompt": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "promptStudio_userPrompt": {
+    "message": "ഉപയോക്തൃ പ്രോംപ്റ്റ്"
+  },
+  "promptStudio_fewShot": {
+    "message": "ഫ്യൂ-ഷോട്ട് ഉദാഹരണങ്ങൾ (JSON)"
+  },
+  "promptStudio_modulesConfig": {
+    "message": "മൊഡ്യൂൾ കോൺഫിഗ് (JSON)"
+  },
+  "promptStudio_history": {
+    "message": "ചരിത്രം"
+  },
+  "promptStudio_executeCard": {
+    "message": "അഡ്-ഹോക്ക് എക്സിക്യൂട്ട്"
+  },
+  "promptStudio_executeHint": {
+    "message": "പ്രൊവൈഡർ, മോഡൽ, താപനില, ഇൻപുട്ടുകൾ."
+  },
+  "promptStudio_provider": {
+    "message": "പ്രൊവൈഡർ"
+  },
+  "promptStudio_model": {
+    "message": "മോഡൽ"
+  },
+  "promptStudio_runPrompt": {
+    "message": "പ്രോംപ്റ്റ് റൺ ചെയ്യുക"
+  },
+  "promptStudio_executePlaceholder": {
+    "message": "എക്സിക്യൂഷൻ ഫോം ഉടൻ വരും. /prompt-studio/prompts/execute വഴി ഒരു പ്രോംപ്റ്റിനോട് ഒറ്റ ഇൻപുട്ടുകൾ റൺ ചെയ്യാൻ ഈ പെയിൻ ഉപയോഗിക്കുക."
+  },
+  "promptStudio_testsCard": {
+    "message": "ടെസ്റ്റ് കേസുകളും മൂല്യനിർണ്ണയങ്ങളും"
+  },
+  "promptStudio_testsHint": {
+    "message": "ടെസ്റ്റ് കേസുകൾ ലിസ്റ്റ്/സൃഷ്ടിക്കുക, മൂല്യനിർണ്ണയങ്ങൾ റൺ ചെയ്യുക, സ്റ്റാറ്റസ് പരിശോധിക്കുക."
+  },
+  "promptStudio_testCases": {
+    "message": "ടെസ്റ്റ് കേസുകൾ"
+  },
+  "promptStudio_evaluations": {
+    "message": "മൂല്യനിർണ്ണയങ്ങൾ"
+  },
+  "promptStudio_inputsJson": {
+    "message": "ഇൻപുട്ടുകൾ (JSON)"
+  },
+  "promptStudio_expectedJson": {
+    "message": "പ്രതീക്ഷിക്കുന്ന ഔട്ട്പുട്ടുകൾ (JSON)"
+  },
+  "promptStudio_golden": {
+    "message": "ഗോൾഡൻ ആണോ?"
+  },
+  "promptStudio_bulkAdd": {
+    "message": "ബൾക്ക് ചേർക്കുക"
+  },
+  "promptStudio_bulkJson": {
+    "message": "ടെസ്റ്റ് കേസുകളുടെ JSON അറേ"
+  },
+  "promptStudio_runAsync": {
+    "message": "അസിങ്ക് റൺ"
+  },
+  "promptStudio_temperature": {
+    "message": "താപനില"
+  },
+  "promptStudio_maxTokens": {
+    "message": "പരമാവധി ടോക്കൺ"
+  },
+  "promptStudio_runEvaluation": {
+    "message": "മൂല്യനിർണ്ണയം റൺ ചെയ്യുക"
+  },
+  "promptStudio_testsPlaceholder": {
+    "message": "സ്കാഫോൾഡിംഗ് പ്ലേസ്ഹോൾഡർ: ഈ വിഭാഗത്തിൽ ടെസ്റ്റ് കേസ് CRUD, മൂല്യനിർണ്ണയം സൃഷ്ടിക്കൽ/ലിസ്റ്റ്/വിശദാംശങ്ങൾ, അസിങ്ക് പോളിംഗ് എന്നിവ ബന്ധിപ്പിക്കുക."
+  },
+  "promptStudio_unavailable": {
+    "message": "ഈ സെർവറിൽ പ്രോംപ്റ്റ് സ്റ്റുഡിയോ എനേബിൾ ചെയ്തിട്ടില്ല."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "ലഭ്യമാകുമ്പോൾ, ഇവിടെ പ്രോജക്ടുകൾ, പ്രോംപ്റ്റ് ചരിത്രം, എക്സിക്യൂട്ട് ഫ്ലോകൾ, മൂല്യനിർണ്ണയങ്ങൾ എന്നിവ കാണാം."
+  },
+  "promptSearch_title": {
+    "message": "തലക്കെട്ട്"
+  },
+  "promptSearch_content": {
+    "message": "ഉള്ളടക്കം"
+  },
+  "promptSearch_systemPrompt": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "promptSearch_alsoSaveRemote": {
+    "message": "സെർവറിലും സേവ് ചെയ്യുക"
+  },
+  "promptSearch_cancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "promptSearch_insert": {
+    "message": "ചേർക്കുക"
+  },
+  "promptSearch_saveAsNew": {
+    "message": "പുതിയായി സേവ് ചെയ്യുക"
+  },
+  "promptSearch_saveLocal": {
+    "message": "മാറ്റങ്ങൾ സേവ് ചെയ്യുക (ലോക്കൽ)"
+  },
+  "promptSearch_saveServer": {
+    "message": "മാറ്റങ്ങൾ സേവ് ചെയ്യുക (സെർവർ)"
+  },
+  "promptSearch_saveLocalCopy": {
+    "message": "ലോക്കൽ പകർപ്പ് സേവ് ചെയ്യുക"
+  },
+  "promptSearch_saveServerOnly": {
+    "message": "പുതിയായി സേവ് ചെയ്യുക (സെർവർ മാത്രം)"
+  },
+  "promptSearch_saveLocalSuccess": {
+    "message": "പ്രോംപ്റ്റ് ലോക്കലിൽ പുതുക്കി"
+  },
+  "promptSearch_saveServerSuccess": {
+    "message": "പ്രോംപ്റ്റ് സെർവറിൽ പുതുക്കി"
+  },
+  "promptSearch_saveLocalFailed": {
+    "message": "ലോക്കൽ പ്രോംപ്റ്റ് പുതുക്കാനായില്ല"
+  },
+  "promptSearch_saveServerFailed": {
+    "message": "സെർവർ പ്രോംപ്റ്റ് പുതുക്കാനായില്ല"
+  },
+  "promptSearch_manageLink": {
+    "message": "പ്രോംപ്റ്റുകൾ കാണുക / കൈകാര്യം ചെയ്യുക"
+  },
+  "promptSearch_overwriteLocalLabel": {
+    "message": "ലോക്കൽ പ്രോംപ്റ്റ് ഓവർറൈറ്റ് ചെയ്യുക (ഐച്ഛികം)"
+  },
+  "promptSearch_overwriteLocalPlaceholder": {
+    "message": "ഓവർറൈറ്റ് ചെയ്യാൻ ഒരു ലോക്കൽ പ്രോംപ്റ്റ് തിരഞ്ഞെടുക്കുക"
+  },
+  "promptSearch_saveSuccess": {
+    "message": "പ്രോംപ്റ്റ് സേവ് ചെയ്തു"
+  },
+  "promptSearch_saveFailed": {
+    "message": "പ്രോംപ്റ്റ് സേവ് ചെയ്യാനായില്ല"
+  },
+  "quickIngest_title": {
+    "message": "ക്വിക് ഇൻജെസ്റ്റ് മീഡിയ"
+  },
+  "quickIngest_subtitle": {
+    "message": "ഒരു അല്ലെങ്കിൽ ഒന്നിലധികം URLകൾ നൽകുക. ആവശ്യമെങ്കിൽ ഓരോ വരിയിലും തരം നിർബന്ധിതമാക്കുക."
+  },
+  "quickIngest_offlineTitle": {
+    "message": "സെർവർ ഓഫ്‌ലൈൻ — സ്റ്റേജിംഗ് മാത്രം"
+  },
+  "quickIngest_offlineDescription": {
+    "message": "ഇവിടെ URLകളും ഫയലുകളും ക്യൂ ചെയ്യാം, ഫീൽഡുകൾ പരിശോധിക്കാം; പക്ഷേ നിങ്ങളുടെ tldw സെർവർ ഓൺലൈൻ ആകുന്നതുവരെ ഇൻജെസ്റ്റ് നടത്തില്ല. ശേഷിക്കുന്ന ഇനങ്ങൾ പ്രോസസ്സ് ചെയ്യാൻ വീണ്ടും കണക്റ്റ് ചെയ്യുക."
+  },
+  "quickIngest_sourceHeading": {
+    "message": "സോഴ്‌സ് URLകൾ അല്ലെങ്കിൽ ഫയലുകൾ"
+  },
+  "quickIngest_storeRemote": {
+    "message": "റിമോട്ട് ഡിബിയിലേക്ക് സേവ് ചെയ്യുക"
+  },
+  "quickIngest_storeRemoteAria": {
+    "message": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ നിങ്ങളുടെ tldw സർവറിൽ സംഭരിക്കുക"
+  },
+  "quickIngest_processOnlyAria": {
+    "message": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ ലോക്കലിൽ മാത്രമായി പ്രോസസ്സ് ചെയ്യുക"
+  },
+  "quickIngest_storeRemoteHelp": {
+    "message": "ഇൻഡെക്സിംഗിനായി നിങ്ങളുടെ tldw സർവറിലേക്ക് അപ്‌ലോഡ് ചെയ്യുന്നു."
+  },
+  "quickIngest_processOnlyHelp": {
+    "message": "പ്രോസസ്സ് മാത്രമാക്കി ഫലങ്ങൾ ലോക്കലിൽ സൂക്ഷിക്കുക (JSON ഡൗൺലോഡ് ചെയ്യുക)."
+  },
+  "quickIngest_storageHeading": {
+    "message": "ഇൻജെസ്റ്റ് ഫലങ്ങൾ എവിടെ സൂക്ഷിക്കപ്പെടുന്നു"
+  },
+  "quickIngest_storageServerDescription": {
+    "message": "നിങ്ങളുടെ tldw സർവറിൽ സൂക്ഷിക്കുന്നു (RAG-നും പങ്കിട്ട വർക്ക്‌സ്പേസുകൾക്കും ശുപാർശ)."
+  },
+  "quickIngest_storageLocalDescription": {
+    "message": "ഈ ബ്രൗസറിൽ മാത്രം സൂക്ഷിക്കുന്നു; നിങ്ങളുടെ സർവറിൽ ഡാറ്റ എഴുതുന്നില്ല."
+  },
+  "quickIngest_storeAfterReview": {
+    "message": "റിവ്യൂ കഴിഞ്ഞ് സംഭരിക്കുക"
+  },
+  "quickIngest_reviewBeforeStorage": {
+    "message": "സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യുക"
+  },
+  "quickIngest_reviewBeforeStorageHint": {
+    "message": "ഇപ്പോൾ പ്രോസസ്സ് ചെയ്യുക, തുടർന്ന് നിങ്ങളുടെ സെർവറിൽ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഡ്രാഫ്റ്റുകൾ ലോക്കലായി എഡിറ്റ് ചെയ്യുക."
+  },
+  "quickIngest_reviewEnabled": {
+    "message": "റിവ്യൂ മോഡ്"
+  },
+  "quickIngest_reviewStorageCap": {
+    "message": "ലോക്കൽ ഡ്രാഫ്റ്റുകൾ {{cap}} വരെ പരിമിതമാണ്."
+  },
+  "quickIngest_reviewWarningTitle": {
+    "message": "ഡ്രാഫ്റ്റുകൾ ലോക്കലായി സംഭരിക്കണോ?"
+  },
+  "quickIngest_reviewWarningBody": {
+    "message": "ഡ്രാഫ്റ്റുകൾ ഈ ബ്രൗസറിൽ സംഭരിക്കപ്പെടുകയും സെൻസിറ്റീവ് ഡാറ്റ ഉൾക്കൊള്ളുകയും ചെയ്യാം. ഉള്ളടക്കം റിവ്യൂ പേജിൽ നിന്ന് നിങ്ങൾക്ക് ഏത് സമയത്തും ഡ്രാഫ്റ്റുകൾ മായ്ക്കാം."
+  },
+  "quickIngest_reviewWarningBodySecondary": {
+    "message": "നിങ്ങൾ സെർവിലേക്ക് കമ്മിറ്റുചെയ്യുന്നതുവരെ റിവ്യൂ മോഡ് ഉള്ളടക്കം ക്ലയന്റ്-സൈഡിൽ നിലനിർത്തും."
+  },
+  "quickIngest_reviewWarningConfirm": {
+    "message": "റിവ്യൂ സജീവമാക്കുക"
+  },
+  "quickIngest_reviewWarningCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "quickIngest_reviewRunLabel": {
+    "message": "റിവ്യൂ"
+  },
+  "quickIngest_reviewDraftsCreated": {
+    "message": "ഡ്രാഫ്റ്റുകൾ റിവ്യൂയ്ക്ക് തയ്യാറായി."
+  },
+  "quickIngest_reviewDraftsFailedTitle": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാനായില്ല."
+  },
+  "quickIngest_reviewDraftsFailedFallback": {
+    "message": "റിവ്യൂ ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു."
+  },
+  "quickIngest_reviewDraftsRetry": {
+    "message": "ഡ്രാഫ്റ്റ് സൃഷ്ടിക്കൽ വീണ്ടും ശ്രമിക്കുക"
+  },
+  "quickIngest_reviewDraftsStoreWithoutReview": {
+    "message": "റിവ്യൂ ഇല്ലാതെ സംഭരിക്കുക"
+  },
+  "quickIngest_reviewNavigationFailed": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ തുറക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക."
+  },
+  "quickIngest_reviewNavigationRetry": {
+    "message": "ഉള്ളടക്ക റിവ്യൂ വീണ്ടും തുറക്കുക"
+  },
+  "quickIngest_reviewStorageCapWarning_one": {
+    "message": "{{count}} ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "quickIngest_reviewStorageCapWarning_other": {
+    "message": "{{count}} ഫയലുകൾ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു. ഓഡിയോ/വീഡിയോ കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് സോഴ്‌സുകൾ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "quickIngest_openContentReview": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ തുറക്കുക"
+  },
+  "quickIngest_storageDocsLink": {
+    "message": "ഇൻജെസ്റ്റും സംഭരണവും കുറിച്ച് കൂടുതൽ അറിയുക"
+  },
+  "quickIngest_storageDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "quickIngest_bulkPlaceholder": {
+    "message": "URLകൾ പേസ്റ്റ് ചെയ്യുക (ഒരൊരെയായി ഓരോ വരിയിലും)"
+  },
+  "quickIngest_or": {
+    "message": "അഥവാ"
+  },
+  "quickIngest_remove": {
+    "message": "നീക്കം ചെയ്യുക"
+  },
+  "quickIngest_add": {
+    "message": "URL ചേർക്കുക"
+  },
+  "quickIngest_commonOptions": {
+    "message": "ഇൻജെസ്റ്റ്ഷൻ ഓപ്ഷനുകൾ"
+  },
+  "quickIngest_audioOptions": {
+    "message": "ഓഡിയോ ഓപ്ഷനുകൾ"
+  },
+  "quickIngest_audioLanguage": {
+    "message": "ഭാഷ (ഉദാ: en)"
+  },
+  "quickIngest_audioDiarizationHelp": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റുകളിൽ സംസാരിക്കുന്നവരെ വേർതിരിക്കാൻ ഓൺ ചെയ്യുക."
+  },
+  "quickIngest_documentOptions": {
+    "message": "ഡോക്യുമെന്റ് ഓപ്ഷനുകൾ"
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "സ്കാൻ ചെയ്ത PDFകളിൽ നിന്നോ ചിത്രങ്ങളിൽ നിന്നോ ഉള്ള വാചകം പകർത്താൻ OCR സഹായിക്കുന്നു."
+  },
+  "quickIngest_videoOptions": {
+    "message": "വീഡിയോ ഓപ്ഷനുകൾ"
+  },
+  "quickIngest_captionsHelp": {
+    "message": "ലഭ്യമെങ്കിൽ ടൈംസ്റ്റാമ്പുകളും ക്യാപ്ഷനുകളും ഉൾപ്പെടുത്തുക."
+  },
+  "quickIngest_cancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "quickIngest_ingest": {
+    "message": "ഇൻജെസ്റ്റ്"
+  },
+  "quickIngest_process": {
+    "message": "പ്രോസസ്സ് ചെയ്യുക"
+  },
+  "quickIngest_results": {
+    "message": "ഫലങ്ങൾ"
+  },
+  "quickIngest_downloadJson": {
+    "message": "JSON ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "quickIngest_advancedSummary": {
+    "message": "{{count}} ഉന്നത ഫീൽഡുകൾ ലോഡ് ചെയ്തു"
+  },
+  "quickIngest_advancedEmpty": {
+    "message": "ഉന്നത ഓപ്ഷനുകൾ കണ്ടെത്തിയില്ല — സ്പെക് റീലോഡ് ചെയ്ത് നോക്കുക."
+  },
+  "quickIngest_modifiedCount": {
+    "message": "{{count}} മാറ്റം ചെയ്തു"
+  },
+  "quickIngest_progress": {
+    "message": "പ്രോസസ്സ് ചെയ്യുന്നു {{done}} / {{total}} ഇനങ്ങൾ…"
+  },
+  "quickIngest_errorSummary": {
+    "message": "ഇപ്പോൾ ഇൻജെസ്റ്റ് ഐറ്റങ്ങൾ പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല."
+  },
+  "quickIngest_errorHint": {
+    "message": "നിങ്ങളുടെ tldw സർവർ ശരിയായി പ്രവർത്തിക്കുന്നുണ്ടോെന്ന് പരിശോധിച്ചതിന് ശേഷം വീണ്ടും ശ്രമിക്കുക. Health & diagnostics വിഭാഗം ഇൻജെസ്റ്റ് പ്രശ്നങ്ങൾ കണ്ടെത്താനും പരിഹരിക്കാനും സഹായിക്കും."
+  },
+  "quickIngest_checkHealthLink": {
+    "message": "Health & diagnostics ൽ സർവറിന്റെ ആരോഗ്യസ്ഥിതി പരിശോധിക്കുക"
+  },
+  "quickIngest_healthAriaHint": {
+    "message": "സമീപകാല റണ്ണുകൾ പരാജയപ്പെട്ടു — കൂടുതൽ വിവരങ്ങൾക്ക് മുകളിലെ ഹെഡറിൽ നിന്ന് Health & diagnostics തുറക്കുക."
+  },
+  "quickIngest_specReloadedToast": {
+    "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു"
+  },
+  "quickIngest_specReloadedToastDiff": {
+    "message": "സർവറിൽ നിന്ന് അഡ്വാൻസ്ഡ് സ്പെക് വീണ്ടും ലോഡ് ചെയ്തു (ചേർത്ത ഫീൽഡുകൾ: {{added}}, നീക്കിയ ഫീൽഡുകൾ: {{removed}})"
+  },
+  "quickIngest_specFallbackWarning": {
+    "message": "ബണ്ടിൽ ചെയ്ത media.add സ്കീമ ഫാൾബാക്ക് (v{{version}}) ഉപയോഗിക്കുന്നു; ഫീൽഡുകൾ പഴകിയതായി തോന്നിയാൽ നിങ്ങളുടെ tldw_server /openapi.json പ്രകാരം ദയവായി പരിശോധിക്കുക."
+  },
+  "notesSearch_placeholder": {
+    "message": "തലക്കെട്ടുകളും ഉള്ളടക്കവും തിരയുക"
+  },
+  "notesSearch_clear": {
+    "message": "തിരച്ചിലും ഫിൽട്ടറുകളും മായ്ക്കുക"
+  },
+  "notesSearch_keywordsPlaceholder": {
+    "message": "കീവേഡ് ഉപയോഗിച്ച് ഫിൽട്ടർ ചെയ്യുക"
+  },
+  "notesSearch_new": {
+    "message": "പുതിയ കുറിപ്പ്"
+  },
+  "notesSearch_newTooltip": {
+    "message": "പുതിയ കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "notesSearch_listCount": {
+    "message": "{{count}} കുറിപ്പുകൾ"
+  },
+  "notesSearch_exportMdTooltip": {
+    "message": "പൊരുത്തമുള്ള കുറിപ്പുകൾ Markdown (.md) ആയി എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "notesSearch_exportCsvTooltip": {
+    "message": "പൊരുത്തമുള്ള കുറിപ്പുകൾ CSV ആയി എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "notesSearch_exportJsonTooltip": {
+    "message": "പൊരുത്തമുള്ള കുറിപ്പുകൾ JSON ആയി എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "notesSearch_exportNoteSuccess": {
+    "message": "എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
+  },
+  "notesSearch_exportSuccess": {
+    "message": "{{count}} കുറിപ്പുകൾ എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
+  },
+  "notesSearch_exportCsvSuccess": {
+    "message": "{{count}} കുറിപ്പുകൾ CSV ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
+  },
+  "notesSearch_exportJsonSuccess": {
+    "message": "{{count}} കുറിപ്പുകൾ JSON ആയി എക്സ്പോർട്ട് ചെയ്തു ({{size}})"
+  },
+  "notesSearch_toolbarExportMdTooltip": {
+    "message": "Markdown (.md) ആയി കുറിപ്പ് എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "notesSearch_toolbarSaveTooltip": {
+    "message": "കുറിപ്പ് സേവ് ചെയ്യുക"
+  },
+  "notesSearch_toolbarCopyTooltip": {
+    "message": "കുറിപ്പ് ഉള്ളടക്കം പകർത്തുക"
+  },
+  "notesSearch_toolbarDeleteTooltip": {
+    "message": "കുറിപ്പ് ഇല്ലാതാക്കുക"
+  },
+  "notesSearch_exportMenuTrigger": {
+    "message": "എക്സ്പോർട്ട്"
+  },
+  "notesSearch_resultsLabel": {
+    "message": "ഫലങ്ങൾ"
+  },
+  "notesSearch_showingRange": {
+    "message": "{{total}} ൽ നിന്ന് {{start}}-{{end}} കാണിക്കുന്നു"
+  },
+  "notesSearch_expandSidebar": {
+    "message": "സൈഡ്ബാർ വിശാലമാക്കുക"
+  },
+  "notesSearch_collapseSidebar": {
+    "message": "സൈഡ്ബാർ ചുരുക്കുക"
+  },
+  "notesSearch_titlePlaceholder": {
+    "message": "തലക്കെട്ട്"
+  },
+  "notesSearch_keywordsEditorPlaceholder": {
+    "message": "കീവേഡുകൾ (ടാഗുകൾ)"
+  },
+  "notesSearch_tagsHelp": {
+    "message": "കീവേഡുകൾ ഇടത് വശത്തെ ഫിൽട്ടർ ഉപയോഗിച്ച് ഈ കുറിപ്പ് കണ്ടെത്താൻ സഹായിക്കുന്നു."
+  },
+  "tts_playground": {
+    "message": "TTS പ്ലേഗ്രൗണ്ട്"
+  },
+  "notesEmpty_connectTitle": {
+    "message": "Notes ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "notesEmpty_connectDescription": {
+    "message": "Notes ഉപയോഗിക്കാൻ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക."
+  },
+  "notesEmpty_demoExample3": {
+    "message": "മീഡിയയും റിവ്യൂവും ഒപ്പം Notes ഉപയോഗിച്ച് നിങ്ങളുടെ കണ്ടെത്തലുകൾ പിന്തുടരുക."
+  },
+  "notesEmpty_demoPreviewHeading": {
+    "message": "ഉദാഹരണ കുറിപ്പുകൾ (പ്രിവ്യൂ മാത്രം)"
+  },
+  "notesEmpty_demoSample1Title": {
+    "message": "ഡെമോ കുറിപ്പ്: വാരാന്ത്യ മീറ്റിംഗ് റീക്യാപ്"
+  },
+  "notesEmpty_demoSample1Preview": {
+    "message": "പുതിയ ടീം സിങ്കിൽ നിന്നുള്ള തീരുമാനങ്ങൾ, തടസ്സങ്ങൾ, ഫോളോ-അപ്പുകൾ."
+  },
+  "notesEmpty_demoSample1Meta": {
+    "message": "ഇന്ന് · 9:32 AM"
+  },
+  "notesEmpty_demoSample2Title": {
+    "message": "ഡെമോ കുറിപ്പ്: ഗവേഷണ ഹൈലൈറ്റുകൾ"
+  },
+  "notesEmpty_demoSample2Preview": {
+    "message": "ദീർഘമായ ലേഖനമോ പേപ്പറോയിൽ നിന്ന് എടുത്ത പ്രധാന ഇൻസൈറ്റുകൾ."
+  },
+  "notesEmpty_demoSample2Meta": {
+    "message": "ഇന്നലെ · 4:10 PM"
+  },
+  "notesEmpty_demoSample3Title": {
+    "message": "ഡെമോ കുറിപ്പ്: കോൾ സംഗ്രഹം"
+  },
+  "notesEmpty_demoSample3Preview": {
+    "message": "അടുത്ത പടികളും ഉടമസ്ഥരും ഉൾപ്പെടുന്ന കസ്റ്റമർ കോൾ സംഗ്രഹം."
+  },
+  "notesEmpty_demoSample3Meta": {
+    "message": "ഈ ആഴ്ച"
+  },
+  "notesEmpty_connectExample1": {
+    "message": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URL ചേർക്കുക."
+  },
+  "notesEmpty_connectExample2": {
+    "message": "സെർവർ പ്രവർത്തിക്കുന്നുണ്ടെങ്കിലും എത്തിച്ചേരാനാകില്ലെങ്കിൽ Diagnostics ഉപയോഗിക്കുക."
+  },
+  "notesEmpty_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ Notes അന്വേഷിക്കുക"
+  },
+  "notesEmpty_demoDescription": {
+    "message": "ഈ ഡെമോ Notes നിങ്ങളുടെ ഇൻസൈറ്റുകൾ ക്രമീകരിക്കുന്നതെങ്ങനെ എന്ന് കാണിക്കുന്നു. പിന്നീട് നിങ്ങളുടെ സ്വന്തം സെർവർ കണക്റ്റ് ചെയ്ത് യഥാർത്ഥ കുറിപ്പുകൾ സൃഷ്ടിച്ച് സേവ് ചെയ്യാം."
+  },
+  "notesEmpty_demoExample1": {
+    "message": "നോട്ട് ശീർഷകങ്ങൾ, പ്രിവ്യൂകൾ, ടൈംസ്റ്റാമ്പുകൾ പട്ടികയിൽ എങ്ങനെ കാണപ്പെടുന്നെന്ന് കാണുക."
+  },
+  "notesEmpty_demoExample2": {
+    "message": "കണക്റ്റ് ചെയ്താൽ, മീറ്റിംഗുകൾ, റിവ്യൂകൾ തുടങ്ങിയവയിൽ നിന്ന് കുറിപ്പുകൾ സൃഷ്ടിക്കാം."
+  },
+  "notesEmpty_title": {
+    "message": "ഇതുവരെ കുറിപ്പുകളില്ല"
+  },
+  "notesEmpty_description": {
+    "message": "നിങ്ങളുടെ tldw ഇൻസൈറ്റുകളുമായി ബന്ധമുള്ള സ്വതന്ത്ര കുറിപ്പുകൾ പിടിച്ചെടുക്കുകയും ക്രമീകരിക്കുകയും ചെയ്യുക."
+  },
+  "notesEmpty_exampleCreate": {
+    "message": "പുതിയ മീറ്റിംഗ് അല്ലെങ്കിൽ ട്രാൻസ്ക്രിപ്റ്റിന് ഒരു പുതിയ കുറിപ്പ് സൃഷ്ടിക്കുക."
+  },
+  "notesEmpty_exampleLink": {
+    "message": "റിവ്യൂ ഔട്ട്പുട്ടുകൾ Notes ൽ സേവ് ചെയ്യുക, പിന്നെ പിന്നീട് അവ പുനഃപരിശോധിക്കാൻ."
+  },
+  "notesEmpty_primaryCta": {
+    "message": "കുറിപ്പ് സൃഷ്ടിക്കുക"
+  },
+  "worldBooksEmpty_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ വേൾഡ് ബുക്കുകൾ അന്വേഷിക്കുക"
+  },
+  "worldBooksEmpty_demoDescription": {
+    "message": "വേൾഡ് ബുക്കുകൾ നിങ്ങളുടെ ലോകങ്ങൾ, സെറ്റിംഗുകൾ, അല്ലെങ്കിൽ ഉൽപ്പന്നങ്ങൾ സംബന്ധിച്ച ഘടിത അറിവ് ക്രമീകരിക്കുന്നതെങ്ങനെ എന്ന് ഈ ഡെമോ കാണിക്കുന്നു."
+  },
+  "worldBooksEmpty_demoExample1": {
+    "message": "ഫാന്റസി സെറ്റിംഗ്, ഉൽപ്പന്ന ഗ്ലോസറി, അല്ലെങ്കിൽ ക്യാമ്പെയ്ൻ കുറിപ്പുകൾ പോലെയുള്ള ഉദാഹരണ ബുക്കുകൾ കാണുക."
+  },
+  "worldBooksEmpty_demoExample2": {
+    "message": "കണക്റ്റ് ചെയ്താൽ, ചാറ്റ് ചെയ്യുമ്പോൾ tldw ഉപയോഗിക്കാവുന്ന വേൾഡ് ബുക്കുകൾ നിങ്ങൾക്ക് സൃഷ്ടിക്കാം."
+  },
+  "worldBooksEmpty_connectTitle": {
+    "message": "വേൾഡ് ബുക്കുകൾ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "worldBooksEmpty_connectDescription": {
+    "message": "വേൾഡ് ബുക്കുകൾ ഉപയോഗിക്കാൻ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക ώστε ലോക അറിവ് സേവ് ചെയ്യാനും തിരികെ ലഭിക്കാനും കഴിയൂ."
+  },
+  "worldBooksEmpty_connectExample1": {
+    "message": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URL ചേർക്കുക."
+  },
+  "worldBooksEmpty_connectExample2": {
+    "message": "സെർവർ പ്രവർത്തിക്കുന്നുണ്ടെങ്കിലും എത്തിച്ചേരാനാകില്ലെങ്കിൽ Diagnostics ഉപയോഗിക്കുക."
+  },
+  "worldBooksEmpty_headerDescription": {
+    "message": "ക്യാരക്ടറുകളും ചാറ്റുകളും പരാമർശിക്കാവുന്ന ഘടിത അറിവ് അടിസ്ഥാനങ്ങൾ സൃഷ്ടിക്കുകയും കൈകാര്യം ചെയ്യുകയും ചെയ്യുക."
+  },
+  "worldBooksEmpty_offlineTitle": {
+    "message": "വേൾഡ് ബുക്കുകൾ ഓഫ്ലൈനാണ്"
+  },
+  "worldBooksEmpty_offlineDescription": {
+    "message": "വേൾഡ് ബുക്കുകൾ കാണാനും തിരുത്താനും പ്രധാന സെറ്റിംഗ്സ് പേജിൽ നിന്ന് നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക."
+  },
+  "dictionariesEmpty_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ ചാറ്റ് നിഘണ്ടുകൾ അന്വേഷിക്കുക"
+  },
+  "dictionariesEmpty_demoDescription": {
+    "message": "ചാറ്റ് നിഘണ്ടുകൾ പേരുകൾ, ചുരുക്കപദങ്ങൾ, പദങ്ങൾ എന്നിവ മോഡലിൽ എത്തുന്നതിന് മുമ്പ് സാധാരണപ്പെടുത്തുന്നതെങ്ങനെ എന്ന് ഈ ഡെമോ കാണിക്കുന്നു."
+  },
+  "dictionariesEmpty_demoExample1": {
+    "message": "ഉൽപ്പന്ന പേരുകൾ, പ്രോജക്റ്റ് കോഡ്നെയിമുകൾ, അല്ലെങ്കിൽ കമ്പനി ജാർഗൺ എന്നിവക്കായുള്ള ഉദാഹരണ നിഘണ്ടുകൾ കാണുക."
+  },
+  "dictionariesEmpty_demoExample2": {
+    "message": "കണക്റ്റ് ചെയ്താൽ, എല്ലാ ചാറ്റുകളിലും നിഘണ്ടുകൾ സജീവമാക്കാം."
+  },
+  "dictionariesEmpty_connectTitle": {
+    "message": "ചാറ്റ് നിഘണ്ടുകൾ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "dictionariesEmpty_connectDescription": {
+    "message": "ചാറ്റ് നിഘണ്ടുകൾ ഉപയോഗിക്കാൻ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക ताकि പകരങ്ങൾ സേവ് ചെയ്യാൻ കഴിയും."
+  },
+  "dictionariesEmpty_connectExample1": {
+    "message": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URL ചേർക്കുക."
+  },
+  "dictionariesEmpty_connectExample2": {
+    "message": "സെർവർ പ്രവർത്തിക്കുന്നുണ്ടെങ്കിലും എത്തിച്ചേരാനാകില്ലെങ്കിൽ Diagnostics ഉപയോഗിക്കുക."
+  },
+  "dictionariesEmpty_headerDescription": {
+    "message": "നിങ്ങളുടെ സ്ഥാപനത്തിന്റെ പേരുകളും ചുരുക്കപദങ്ങളും പദാവലിയും tldw നു മനസ്സിലാക്കാൻ പുനരുപയോഗിക്കാവുന്ന പകരങ്ങൾ നിർവ്വചിക്കുക."
+  },
+  "dictionariesEmpty_offlineTitle": {
+    "message": "ചാറ്റ് നിഘണ്ടുകൾ ഓഫ്ലൈനാണ്"
+  },
+  "dictionariesEmpty_offlineDescription": {
+    "message": "ചാറ്റ് നിഘണ്ടുകൾ കാണാനും തിരുത്താനും പ്രധാന സെറ്റിംഗ്സ് പേജിൽ നിന്ന് നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക."
+  },
+  "charactersEmpty_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ ക്യാരക്ടേഴ്സ് അന്വേഷിക്കുക"
+  },
+  "charactersEmpty_demoDescription": {
+    "message": "ക്യാരക്ടേഴ്സ് നിങ്ങൾക്ക് ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന ഒരു പെർസോണയും സിസ്റ്റം പ്രോംപ്റ്റും എങ്ങനെ ഒറ്റയ്ക്കും ഉൾക്കൊള്ളുന്നു എന്ന് ഈ ഡെമോ കാണിക്കുന്നു."
+  },
+  "charactersEmpty_demoExample1": {
+    "message": "എഴുത്ത് പരിശീലകൻ, lore വിദഗ്‌ധൻ, അല്ലെങ്കിൽ കോഡിംഗ് അസിസ്റ്റന്റ് പോലെയുള്ള ഉദാഹരണ ക്യാരക്ടേഴ്സ് കാണുക."
+  },
+  "charactersEmpty_demoExample2": {
+    "message": "കണക്റ്റ് ചെയ്താൽ, ചാറ്റ് ഹെഡറിലും തിരഞ്ഞെടുപ്പിലും പ്രത്യക്ഷപ്പെടുന്ന ക്യാരക്ടേഴ്സ് സൃഷ്ടിക്കാം."
+  },
+  "charactersEmpty_connectTitle": {
+    "message": "ക്യാരക്ടേഴ്സ് ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "charactersEmpty_connectDescription": {
+    "message": "ക്യാരക്ടർ നിർവചനങ്ങൾ സേവ് ചെയ്യാൻ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക."
+  },
+  "charactersEmpty_connectExample1": {
+    "message": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URL ചേർക്കുക."
+  },
+  "charactersEmpty_connectExample2": {
+    "message": "സെർവർ പ്രവർത്തിക്കുന്നുണ്ടെങ്കിലും എത്തിച്ചേരാനാകില്ലെങ്കിൽ Diagnostics ഉപയോഗിക്കുക."
+  },
+  "charactersEmpty_headerDescription": {
+    "message": "ചാറ്റ് ഹെഡറിൽ നിന്ന് തിരഞ്ഞെടുക്കാനും വിവിധ സംഭാഷണങ്ങളിൽ പുനരുപയോഗിക്കാനും കഴിയുന്ന ക്യാരക്ടേഴ്സ് സൃഷ്ടിക്കുക."
+  },
+  "charactersEmpty_headerSelectHint": {
+    "message": "ഒരു കഥാപാത്രം സൃഷ്ടിച്ച് അവരുടെ വ്യക്തിത്വം വിവിധ ചാറ്റുകളിൽ ആവർത്തിച്ച് ഉപയോഗിക്കൂ. തുടങ്ങാൻ “പുതിയ കഥാപാത്രം” ഉപയോഗിക്കുക."
+  },
+  "charactersEmpty_offlineTitle": {
+    "message": "ഈ സെർവറിൽ ക്യാരക്ടേഴ്സ് API ലഭ്യമല്ല"
+  },
+  "charactersEmpty_offlineDescription": {
+    "message": "ഈ സെർവർ /api/v1/characters പരസ്യം ചെയ്യുകയില്ല."
+  },
+  "charactersEmpty_offlineExample1": {
+    "message": "ക്യാരക്ടേഴ്സിന് ലഭ്യമായ APIകൾ ഉണ്ടോ എന്ന് ഉറപ്പാക്കാൻ Diagnostics തുറക്കുക."
+  },
+  "charactersEmpty_offlineExample2": {
+    "message": "സെർവർ അപ്ഗ്രേഡ് ചെയ്താൽ, എക്സ്റ്റൻഷൻ റീലോഡ് ചെയ്ത് ക്യാരക്ടേഴ്സിലേക്ക് മടങ്ങുക."
+  },
+  "characters_selectCharacter": {
+    "message": "കഥാപാത്രം തിരഞ്ഞെടുക്കുക"
+  },
+  "characters_chattingAs": {
+    "message": "ഇപ്പോൾ നിങ്ങൾ {{name}} ആയി സംസാരിക്കുന്നു."
+  },
+  "characters_clearCharacter": {
+    "message": "കഥാപാത്രം നീക്കുക"
+  },
+  "characters_fetchErrorTitle": {
+    "message": "കഥാപാത്രങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "characters_fetchErrorBody": {
+    "message": "നിങ്ങളുടെ കണക്ഷൻ അല്ലെങ്കിൽ സർവർ നില പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "characters_none": {
+    "message": "ഒന്നുമില്ല (കഥാപാത്രമില്ല)"
+  },
+  "characters_searchPlaceholder": {
+    "message": "പേരുപയോഗിച്ച് കഥാപാത്രങ്ങളെ തിരയുക"
+  },
+  "characters_noMatches": {
+    "message": "നിങ്ങളുടെ തിരച്ചിലിന് യോജിക്കുന്ന കഥാപാത്രങ്ങൾ ഇതുവരെ ഒന്നും ഇല്ല."
+  },
+  "characters_refresh": {
+    "message": "കഥാപാത്രങ്ങൾ പുതുക്കുക"
+  },
+  "characters_refreshing": {
+    "message": "കഥാപാത്രങ്ങൾ പുതുക്കുന്നു…"
+  },
+  "promptInsert_useInChat": {
+    "message": "ചാറ്റിൽ ഉപയോഗിക്കുക"
+  },
+  "promptInsert_useInChatTooltip": {
+    "message": "ചാറ്റ് തുറന്ന് ഈ പ്രോംപ്റ്റ് കംപോസറിൽ ചേർക്കുക."
+  },
+  "promptInsert_confirmTitle": {
+    "message": "ചാറ്റിൽ പ്രോംപ്റ്റ് ഉപയോഗിക്കണോ?"
+  },
+  "promptInsert_confirmDescription": {
+    "message": "നിങ്ങളുടെ സന്ദേശത്തിൽ ഇതിനകം ടെക്സ്റ്റ് ഉണ്ട്. അത് ഈ പ്രോംപ്റ്റ് കൊണ്ട് ഓവർറൈറ്റ് ചെയ്യണോ, അല്ലെങ്കിൽ അതിന്റെ താഴെ പ്രോംപ്റ്റ് ചേർക്കണോ?"
+  },
+  "promptInsert_overwrite": {
+    "message": "സന്ദേശം ഓവർറൈറ്റ് ചെയ്യുക"
+  },
+  "promptInsert_append": {
+    "message": "അപ്പെൻഡ് ചെയ്യുക"
+  },
+  "flashcards_review": {
+    "message": "റിവ്യൂ"
+  },
+  "flashcards_create": {
+    "message": "സൃഷ്ടിക്കുക"
+  },
+  "flashcards_manage": {
+    "message": "കൈകാര്യം ചെയ്യുക"
+  },
+  "flashcards_importExport": {
+    "message": "ഇമ്പോർട്ട് / എക്സ്പോർട്ട്"
+  },
+  "flashcards_emptyConnectTitle": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകൾ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "flashcards_emptyConnectDescription": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകൾ റിവ്യൂ ചെയ്യാനോ സൃഷ്ടിക്കാനോ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "flashcards_emptyConnectExample1": {
+    "message": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URL ചേർക്കുക."
+  },
+  "flashcards_emptyConnectExample2": {
+    "message": "കണക്റ്റ് ചെയ്ത ശേഷം, ഡ്യൂ കാർഡുകൾ റിവ്യൂ ചെയ്യുകയോ കുറിപ്പുകളും മീഡിയയും നിന്നുള്ള പുതിയ ഡെക്കുകൾ സൃഷ്ടിക്കുകയോ ചെയ്യുക."
+  },
+  "flashcards_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ ഫ്ലാഷ്‌കാർഡുകൾ അന്വേഷിക്കുക"
+  },
+  "flashcards_demoDescription": {
+    "message": "ഈ ഡെമോ ഫ്ലാഷ്‌കാർഡുകൾ നിങ്ങളുടെ ഉള്ളടക്കം spaced-repetition കാർഡുകളാക്കി മാറ്റുന്നതെങ്ങനെ എന്ന് കാണിക്കുന്നു. പിന്നീട് നിങ്ങളുടെ സ്വന്തം സെർവർ കണക്റ്റ് ചെയ്ത് നിങ്ങളുടെ കുറിപ്പുകളും മീഡിയയും നിന്നുള്ള കാർഡുകൾ സൃഷ്ടിച്ച് റിവ്യൂ ചെയ്യാം."
+  },
+  "flashcards_demoExample1": {
+    "message": "റിവ്യൂ, മാനേജ് ടാബുകളിൽ ഡെക്കുകൾ, കാർഡുകൾ, ടാഗുകൾ എങ്ങനെ ക്രമീകരിച്ചിരിക്കുന്നുവെന്ന് കാണുക."
+  },
+  "flashcards_demoExample2": {
+    "message": "കണക്റ്റ് ചെയ്താൽ, ലക്ചറുകൾ, മീറ്റിംഗുകൾ, കുറിപ്പുകൾ മുതലായവയിൽ നിന്ന് കാർഡുകൾ സൃഷ്ടിച്ച് ഷെഡ്യൂൾ പ്രകാരം റിവ്യൂ ചെയ്യാം."
+  },
+  "flashcards_demoExample3": {
+    "message": "പ്രധാന ആശയങ്ങൾ പുതുമ നിലനിർത്താൻ കുറിപ്പുകളോടും മീഡിയയോടും കൂടി ഫ്ലാഷ്‌കാർഡുകൾ ഉപയോഗിക്കുക."
+  },
+  "flashcards_demoPreviewHeading": {
+    "message": "ഉദാഹരണ ഡെക്കുകൾ (പ്രിവ്യൂ മാത്രം)"
+  },
+  "flashcards_demoSample1Title": {
+    "message": "ഡെമോ ഡെക്ക്: അടിസ്ഥാന ആശയങ്ങൾ"
+  },
+  "flashcards_demoSample1Summary": {
+    "message": "10 കാർഡുകൾ · സ്പേസിംഗ്/റേറ്റിംഗ് പരിശോധിക്കാൻ മികച്ചത്."
+  },
+  "flashcards_demoSample2Title": {
+    "message": "ഡെമോ ഡെക്ക്: ഉൽപ്പന്ന പദങ്ങൾ"
+  },
+  "flashcards_demoSample2Summary": {
+    "message": "8 കാർഡുകൾ · പേരുകൾ, ചുരുക്കപദങ്ങൾ, പ്രധാന നിർവചനങ്ങൾ."
+  },
+  "flashcards_demoSample3Title": {
+    "message": "ഡെമോ ഡെക്ക്: മീറ്റിംഗ് ഫോളോ-അപ്പുകൾ"
+  },
+  "flashcards_demoSample3Summary": {
+    "message": "6 കാർഡുകൾ · റിവ്യൂ ചെയ്യാനുള്ള ഉദാഹരണ ആക്ഷൻ ഇനങ്ങൾ."
+  },
+  "flashcards_selectDeck": {
+    "message": "ഡെക്ക് തിരഞ്ഞെടുക്കുക"
+  },
+  "flashcards_nextDue": {
+    "message": "അടുത്ത ഡ്യൂ"
+  },
+  "flashcards_front": {
+    "message": "മുൻവശം"
+  },
+  "flashcards_back": {
+    "message": "പിന്ന്വശം"
+  },
+  "flashcards_extra": {
+    "message": "അധികം"
+  },
+  "flashcards_showAnswer": {
+    "message": "ഉത്തരം കാണിക്കുക"
+  },
+  "flashcards_hideAnswer": {
+    "message": "ഉത്തരം മറയ്ക്കുക"
+  },
+  "flashcards_preview": {
+    "message": "പ്രിവ്യൂ"
+  },
+  "flashcards_rate": {
+    "message": "റേറ്റ് ചെയ്യുക"
+  },
+  "flashcards_answerMs": {
+    "message": "ഉത്തര സമയം (സെക്കൻഡ്, ഐച്ഛികം)"
+  },
+  "flashcards_noDue": {
+    "message": "ഡ്യൂ കാർഡുകളില്ല"
+  },
+  "flashcards_deck": {
+    "message": "ഡെക്ക്"
+  },
+  "flashcards_newDeck": {
+    "message": "പുതിയ ഡെക്ക്"
+  },
+  "flashcards_newDeckNameRequired": {
+    "message": "ഡെക്കിന്റെ പേര് നൽകുക."
+  },
+  "flashcards_modelType": {
+    "message": "കാർഡ് ടെംപ്ലേറ്റ്"
+  },
+  "flashcards_reverse": {
+    "message": "റിവേഴ്സ് കാർഡും സൃഷ്ടിക്കുക"
+  },
+  "flashcards_isCloze": {
+    "message": "ക്ലോസ് ഡിലീഷൻ"
+  },
+  "flashcards_tags": {
+    "message": "ടാഗുകൾ"
+  },
+  "flashcards_dueStatus": {
+    "message": "ഡ്യൂ സ്ഥിതി"
+  },
+  "flashcards_dueAll": {
+    "message": "എല്ലാം"
+  },
+  "flashcards_dueNew": {
+    "message": "പുതിയത്"
+  },
+  "flashcards_dueLearning": {
+    "message": "പഠിക്കുന്നു"
+  },
+  "flashcards_dueDue": {
+    "message": "കാലാവധി"
+  },
+  "flashcards_tag": {
+    "message": "ടാഗ്"
+  },
+  "flashcards_noCards": {
+    "message": "കാർഡുകളില്ല"
+  },
+  "flashcards_due": {
+    "message": "ഡ്യൂ"
+  },
+  "flashcards_editCard": {
+    "message": "കാർഡ് തിരുത്തുക"
+  },
+  "flashcards_importTitle": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകൾ ഇമ്പോർട്ട് ചെയ്യുക"
+  },
+  "flashcards_exportTitle": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകൾ എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "flashcards_importHelp": {
+    "message": "TSV/CSV വരികൾ പേസ്റ്റ് ചെയ്യുക: ഡെക്ക്, മുൻവശം, പിന്ന്വശം, ടാഗുകൾ, കുറിപ്പുകൾ"
+  },
+  "flashcards_pasteContent": {
+    "message": "ഇവിടെ ഉള്ളടക്കം പേസ്റ്റ് ചെയ്യുക..."
+  },
+  "flashcards_tab": {
+    "message": "ടാബ്"
+  },
+  "flashcards_comma": {
+    "message": ", (കോമ)"
+  },
+  "flashcards_semicolon": {
+    "message": "; (സെമിക്കോലൺ)"
+  },
+  "flashcards_pipe": {
+    "message": "| (പൈപ്പ്)"
+  },
+  "flashcards_hasHeader": {
+    "message": "ഹെഡർ ഉണ്ട്"
+  },
+  "flashcards_import": {
+    "message": "ഇമ്പോർട്ട്"
+  },
+  "flashcards_imported": {
+    "message": "ഇമ്പോർട്ട് ചെയ്തു"
+  },
+  "flashcards_importLimits": {
+    "message": "ഇമ്പോർട്ട് പരിധികൾ"
+  },
+  "flashcards_csv": {
+    "message": "CSV/TSV (ഫയൽ)"
+  },
+  "flashcards_apkg": {
+    "message": "ആങ്കി (.apkg)"
+  },
+  "flashcards_includeReverse": {
+    "message": "റിവേഴ്സ് ഉൾപ്പെടുത്തുക"
+  },
+  "flashcards_includeHeader": {
+    "message": "ഹെഡർ വരി ഉൾപ്പെടുത്തുക"
+  },
+  "flashcards_extendedHeader": {
+    "message": "വിപുലീകരിച്ച ഹെഡർ (ടെക്‌നിക്കൽ മെറ്റാഡാറ്റ)"
+  },
+  "flashcards_download": {
+    "message": "ഡൗൺലോഡ്"
+  },
+  "flashcards_duplicate": {
+    "message": "പകർപ്പ്"
+  },
+  "flashcards_move": {
+    "message": "മാറ്റുക"
+  },
+  "flashcards_reviewFailed": {
+    "message": "റിവ്യൂ പരാജയപ്പെട്ടു."
+  },
+  "flashcards_updateFailed": {
+    "message": "അപ്ഡേറ്റ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "flashcards_deleteFailed": {
+    "message": "ഇല്ലാതാക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "flashcards_missingVersion": {
+    "message": "പതിപ്പ് കാണുന്നില്ല; വീണ്ടും ലോഡ് ചെയ്ത് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "flashcards_bulkMove": {
+    "message": "ബൾക്ക് മാറ്റുക"
+  },
+  "flashcards_bulkDelete": {
+    "message": "ബൾക്ക് ഇല്ലാതാക്കുക"
+  },
+  "flashcards_bulkDeleteResult": {
+    "message": "{{success}} നീക്കം ചെയ്തു · {{failed}} പരാജയപ്പെട്ടു"
+  },
+  "flashcards_bulkLimitWarning": {
+    "message": "പ്രവർത്തനം ആദ്യത്തെ {{limit}} ഇനങ്ങളിലേക്ക് മാത്രമായി പരിമിതപ്പെടുത്തിയിരിക്കുന്നു."
+  },
+  "flashcards_exportSelectedCsv": {
+    "message": "തിരഞ്ഞെടുത്തത് എക്സ്പോർട്ട് ചെയ്യുക (CSV/TSV)"
+  },
+  "flashcards_selectedCount": {
+    "message": "തിരഞ്ഞെടുത്തത്"
+  },
+  "flashcards_selectAllOnPage": {
+    "message": "ഈ പേജിലെ എല്ലാം തിരഞ്ഞെടുക്കുക"
+  },
+  "flashcards_selectAllAcross": {
+    "message": "ഫലങ്ങളിലുടനീളം എല്ലാം തിരഞ്ഞെടുക്കുക"
+  },
+  "flashcards_clearSelection": {
+    "message": "തിരഞ്ഞെടുപ്പ് മായ്ക്കുക"
+  },
+  "flashcards_ratingAgain": {
+    "message": "വീണ്ടും"
+  },
+  "flashcards_ratingAgainHelp": {
+    "message": "ഈ കാർഡ് ഓർമ്മിച്ചില്ല."
+  },
+  "flashcards_ratingHard": {
+    "message": "കഠിനം"
+  },
+  "flashcards_ratingHardHelp": {
+    "message": "വല്ലാതെ ഓർമ്മയില്ല; ബുദ്ധിമുട്ടായി തോന്നി."
+  },
+  "flashcards_ratingGood": {
+    "message": "നല്ലത്"
+  },
+  "flashcards_ratingGoodHelp": {
+    "message": "കുറച്ച് പരിശ്രമത്തോടെ ഓർമ്മയായി."
+  },
+  "flashcards_ratingEasy": {
+    "message": "എളുപ്പം"
+  },
+  "flashcards_ratingEasyHelp": {
+    "message": "വേഗത്തിൽ ആത്മവിശ്വാസത്തോടെ ഓർമ്മിച്ചു."
+  },
+  "flashcards_showTiming": {
+    "message": "ഉത്തര സമയം ട്രാക്ക് ചെയ്യുക"
+  },
+  "flashcards_hideTiming": {
+    "message": "സമയം മറയ്ക്കുക"
+  },
+  "flashcards_noDueTitle": {
+    "message": "റിവ്യൂക്ക് ഡ്യൂ കാർഡുകളില്ല"
+  },
+  "flashcards_noDueDescription": {
+    "message": "നിങ്ങൾ എല്ലാം പൂർത്തിയാക്കി. പുതിയ കാർഡുകൾ സൃഷ്ടിക്കുകയോ ഒരു നിലവിലുള്ള ഡെക്ക് ഇമ്പോർട്ട് ചെയ്യുകയോ ചെയ്ത് റിവ്യൂ തുടങ്ങുക."
+  },
+  "flashcards_noDueCreateCta": {
+    "message": "പുതിയ കാർഡ് സൃഷ്ടിക്കുക"
+  },
+  "flashcards_noDueImportCta": {
+    "message": "ഒരു ഡെക്ക് ഇമ്പോർട്ട് ചെയ്യുക"
+  },
+  "flashcards_createTitle": {
+    "message": "നിങ്ങളുടെ കുറിപ്പുകളിൽ നിന്ന് ഫ്ലാഷ്‌കാർഡുകൾ സൃഷ്ടിക്കുക"
+  },
+  "flashcards_createDescription": {
+    "message": "മുൻവശം ചോദ്യത്തിനും പിന്ന്വശം ഉത്തരത്തിനും ഉപയോഗിക്കുക. ഡെക്കുകളായി ഗ്രൂപ്പ് ചെയ്ത് ടാഗുകൾ ചേർത്താൽ വേഗത്തിൽ തിരയാം."
+  },
+  "flashcards_modelTypeHelp": {
+    "message": "ബേസിക് മുൻവശത്ത് ചോദ്യം, പിന്ന്വശത്ത് ഉത്തരം കാണിക്കുന്നു. റിവേഴ്സ് എതിര്‍ കാർഡും സൃഷ്ടിക്കുന്നു. ക്ലോസ് {{...}} ഉപയോഗിച്ച് ടെക്സ്റ്റിന്റെ ഭാഗങ്ങൾ മറയ്ക്കുന്നു."
+  },
+  "flashcards_reverseHelp": {
+    "message": "പിന്ന്വശം ചോദ്യം ആകുന്ന മറ്റൊരു കാർഡും സൃഷ്ടിക്കുക."
+  },
+  "flashcards_isClozeHelp": {
+    "message": "ഫില്ല്-ഇൻ-ദ-ബ്ലാങ്ക് കാർഡുകൾക്കായി. മറയ്ക്കേണ്ട ടെക്സ്റ്റ് മുൻവശത്ത് {{...}} എന്നതിൽ പൂട്ടുക."
+  },
+  "flashcards_markdownSupportHint": {
+    "message": "Markdownയും LaTeXയും പിന്തുണയ്ക്കുന്നു."
+  },
+  "flashcards_extraHint": {
+    "message": "ഓപ്ഷണൽ സൂചനകൾ/വിവരണങ്ങൾ (Markdown + LaTeX പിന്തുണ)."
+  },
+  "flashcards_notesHint": {
+    "message": "ആന്തരിക കുറിപ്പുകൾ (Markdown + LaTeX പിന്തുണ)."
+  },
+  "flashcards_bulkActions": {
+    "message": "ബൾക്ക് പ്രവർത്തനങ്ങൾ"
+  },
+  "flashcards_selectionHelp": {
+    "message": "“ഫലങ്ങളിലുടനീളം എല്ലാം തിരഞ്ഞെടുക്കുക” നിങ്ങളുടെ ഫിൽട്ടറുകളോട് പൊരുത്തമുള്ള എല്ലാ കാർഡുകളിലും പ്രവർത്തനം പ്രയോഗിക്കും; ഈ പേജിൽ മാത്രമല്ല."
+  },
+  "flashcards_noCardsTitle": {
+    "message": "ഇതുവരെ ഫ്ലാഷ്‌കാർഡുകൾ ഒന്നുമില്ല"
+  },
+  "flashcards_noCardsDescription": {
+    "message": "നിങ്ങളുടെ കുറിപ്പുകളും മീഡിയയും നിന്നുള്ള കാർഡുകൾ സൃഷ്ടിക്കുക അല്ലെങ്കിൽ ഒരു നിലവിലുള്ള ഡെക്ക് ഇമ്പോർട്ട് ചെയ്യുക."
+  },
+  "flashcards_clearFilters": {
+    "message": "ഫിൽട്ടറുകൾ മായ്ക്കുക"
+  },
+  "flashcards_noCardsCreateCta": {
+    "message": "നിങ്ങളുടെ ആദ്യ കാർഡ് സൃഷ്ടിക്കുക"
+  },
+  "flashcards_noCardsImportCta": {
+    "message": "ഫ്ലാഷ്‌കാർഡുകൾ ഇമ്പോർട്ട് ചെയ്യുക"
+  },
+  "flashcards_mapping": {
+    "message": "കോളം മാപ്പിംഗ്"
+  },
+  "flashcards_mappingPreview": {
+    "message": "മാപ്പ് ചെയ്ത ആദ്യ ചില വരികളുടെ പ്രിവ്യൂ:"
+  },
+  "flashcards_exportHelp": {
+    "message": "ഡെക്ക്, ടാഗ്, അല്ലെങ്കിൽ തിരച്ചിൽ പ്രകാരം ഫിൽട്ടർ ചെയ്ത് CSV/TSV ആയി എക്സ്പോർട്ട് ചെയ്യുക, അല്ലെങ്കിൽ Anki ക്ലയന്റുകൾക്കായി Anki (.apkg)."
+  },
+  "contentReview_title": {
+    "message": "ഉള്ളടക്കം റിവ്യൂ"
+  },
+  "contentReview_readyToSubmit": {
+    "message": "{{count}} തയ്യാറായി"
+  },
+  "contentReview_committedCount": {
+    "message": "{{count}} സംഭരിച്ചിരിക്കുന്നു"
+  },
+  "contentReview_totalCount": {
+    "message": "മൊത്തം {{count}}"
+  },
+  "contentReview_commitAll": {
+    "message": "എല്ലാം കമ്മിറ്റുചെയ്യുക"
+  },
+  "contentReview_clearDrafts": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ക്കുക"
+  },
+  "contentReview_emptyDescription": {
+    "message": "ഇപ്പോഴും ഒരു ഡ്രാഫ്റ്റും ഇല്ല. സംരക്ഷിക്കുന്നതിന് മുമ്പ് റിവ്യൂ ചെയ്യൽ ഓപ്ഷൻ ഉപയോഗിച്ച് Quick Ingest വഴി ഡ്രാഫ്റ്റുകൾ സൃഷ്ടിക്കാം."
+  },
+  "contentReview_openQuickIngest": {
+    "message": "Quick Ingest തുറക്കുക"
+  },
+  "contentReview_batchLabel": {
+    "message": "ബാച്ച്"
+  },
+  "contentReview_batchName": {
+    "message": "ബാച്ച് {{index}}"
+  },
+  "contentReview_draftsLabel": {
+    "message": "ഡ്രാഫ്റ്റുകൾ"
+  },
+  "contentReview_selectDraft": {
+    "message": "റിവ്യൂ തുടങ്ങാൻ ഒരു ഡ്രാഫ്റ്റ് തിരഞ്ഞെടുക്കുക."
+  },
+  "contentReview_titlePlaceholder": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ശീർഷകം"
+  },
+  "contentReview_lastSaved": {
+    "message": "{{time}} ന് സംരക്ഷിച്ചു"
+  },
+  "contentReview_resetTitle": {
+    "message": "ഡ്രാഫ്റ്റ് റീസെറ്റ് ചെയ്യണോ?"
+  },
+  "contentReview_resetBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റിന്റെ ആദ്യത്തെ ഉള്ളടക്കം തിരിച്ചെടുക്കും."
+  },
+  "contentReview_resetConfirm": {
+    "message": "റീസെറ്റ്"
+  },
+  "contentReview_resetCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_resetContent": {
+    "message": "റീസെറ്റ്"
+  },
+  "contentReview_diffView": {
+    "message": "വ്യത്യാസങ്ങൾ കാണുക"
+  },
+  "contentReview_saveDraft": {
+    "message": "ഡ്രാഫ്റ്റ് സംരക്ഷിക്കുക"
+  },
+  "contentReview_editorLabel": {
+    "message": "ഉള്ളടക്കം"
+  },
+  "contentReview_wordCount": {
+    "message": "{{words}} വാക്കുകൾ"
+  },
+  "contentReview_charCount": {
+    "message": "{{chars}} പ്രതീകങ്ങൾ"
+  },
+  "contentReview_aiFix": {
+    "message": "AI വഴി തിരുത്തുക"
+  },
+  "contentReview_aiHint": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ഉള്ളടക്കം AI പ്രോസസിംഗിന് നിങ്ങളുടെ സെർവറിലേക്ക് അയക്കും."
+  },
+  "contentReview_modelPlaceholder": {
+    "message": "സെർവർ ഡീഫോൾട്ട്"
+  },
+  "contentReview_aiConsentTitle": {
+    "message": "ഡ്രാഫ്റ്റ് സെർവറിലേക്ക് അയക്കണോ?"
+  },
+  "contentReview_aiConsentBody": {
+    "message": "ഡ്രാഫ്റ്റിന്റെ ഉള്ളടക്കം നിങ്ങളുടെ tldw സെർവറിലേക്ക് AI പ്രോസസിംഗിനായി അയക്കും. നിങ്ങൾ കമ്മിറ്റുചെയ്യുന്നതുവരെ ഡ്രാഫ്റ്റുകൾ ലോക്കലായി തന്നെ തുടരും."
+  },
+  "contentReview_aiConsentConfirm": {
+    "message": "തുടരുക"
+  },
+  "contentReview_aiConsentCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_aiApplied": {
+    "message": "AI തിരുത്തലുകൾ പ്രയോഗിച്ചു."
+  },
+  "contentReview_aiNoChange": {
+    "message": "ഒരു മാറ്റവും വന്നില്ല."
+  },
+  "contentReview_aiEmpty": {
+    "message": "AI യിൽ നിന്ന് ഉള്ളടക്കം ലഭിച്ചില്ല."
+  },
+  "contentReview_aiUnavailable": {
+    "message": "ചാറ്റ് പൂർത്തിയാക്കൽ ലഭ്യമല്ല."
+  },
+  "contentReview_templatePlaceholder": {
+    "message": "ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക"
+  },
+  "contentReview_applyTemplate": {
+    "message": "ടെംപ്ലേറ്റ് പ്രയോഗിക്കുക"
+  },
+  "contentReview_templateApplied": {
+    "message": "ടെംപ്ലേറ്റ് പ്രയോഗിച്ചു."
+  },
+  "contentReview_templateMissing": {
+    "message": "ആദ്യം ഒരു ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക."
+  },
+  "contentReview_detectSections": {
+    "message": "വിഭാഗങ്ങൾ കണ്ടെത്തുക"
+  },
+  "contentReview_detectSectionsTitle": {
+    "message": "വിഭാഗങ്ങൾ വീണ്ടും കണ്ടെത്തണോ?"
+  },
+  "contentReview_detectSectionsBody": {
+    "message": "ഇത് നിലവിലുള്ള വിഭാഗങ്ങളെ മാറ്റിസ്ഥാപിക്കുകയും നിങ്ങളുടെ തിരഞ്ഞെടുപ്പുകൾ റീസെറ്റ് ചെയ്യുകയും ചെയ്യും."
+  },
+  "contentReview_detectSectionsConfirm": {
+    "message": "വീണ്ടും കണ്ടെത്തുക"
+  },
+  "contentReview_detectSectionsCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_detectSectionsEmpty": {
+    "message": "ഒരു വിഭാഗവും കണ്ടെത്തിയില്ല."
+  },
+  "contentReview_sectionsLabel": {
+    "message": "വിഭാഗ ഫിൽറ്റർ"
+  },
+  "contentReview_templates_transcript_clean_label": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ് ശുദ്ധമാക്കുക"
+  },
+  "contentReview_templates_transcript_clean_description": {
+    "message": "ലൈൻ ഘടന നിലനിർത്തിക്കൊണ്ട് ചിന്നങ്ങളും വലിയ/ചെറിയ അക്ഷരങ്ങളും നോർമലൈസ് ചെയ്യുന്നു."
+  },
+  "contentReview_templates_speaker_turns_label": {
+    "message": "സ്പീക്കർ ടേൺസ്"
+  },
+  "contentReview_templates_speaker_turns_description": {
+    "message": "ഓരോ സംസാരിക്കുന്നവരുടെ ടേണും വ്യക്തമായ ലേബലുകളോടെ വേറിട്ട വരിയിൽ വരുമെന്ന് ഉറപ്പാക്കുന്നു."
+  },
+  "contentReview_templates_chapter_headings_label": {
+    "message": "അദ്ധ്യായ തലക്കെട്ടുകൾ"
+  },
+  "contentReview_templates_chapter_headings_description": {
+    "message": "ഉള്ളടക്കം നീക്കം ചെയ്യാതെയായി വിഷയങ്ങൾ ഗ്രൂപ്പാക്കാൻ Markdown തലക്കെട്ടുകൾ ചേർക്കുന്നു."
+  },
+  "contentReview_metadataLabel": {
+    "message": "മെറ്റാഡാറ്റ"
+  },
+  "contentReview_mediaType": {
+    "message": "മീഡിയ ടൈപ്പ്"
+  },
+  "contentReview_keywords": {
+    "message": "കീവേഡുകൾ"
+  },
+  "contentReview_keywordsPlaceholder": {
+    "message": "കീവേഡുകൾ ചേർക്കുക"
+  },
+  "contentReview_reviewNotes": {
+    "message": "റിവ്യൂ നോട്ട്‌സ്"
+  },
+  "contentReview_missingSource": {
+    "message": "സോഴ്‌സ് ഫയൽ കാണുന്നില്ല"
+  },
+  "contentReview_missingSourceBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റ് കമ്മിറ്റുചെയ്യാൻ ഒറിജിനൽ ഫയൽ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "contentReview_attachSource": {
+    "message": "ഫയൽ അറ്റാച്ച് ചെയ്യുക"
+  },
+  "contentReview_actionsLabel": {
+    "message": "ആക്ഷനുകൾ"
+  },
+  "contentReview_commit": {
+    "message": "കമ്മിറ്റുചെയ്യുക"
+  },
+  "contentReview_commitDisabled": {
+    "message": "കമ്മിറ്റുചെയ്യുന്നതിന് മുമ്പ് ഒറിജിനൽ ഓഡിയോ/വീഡിയോ ഫയൽ അറ്റാച്ച് ചെയ്യുക."
+  },
+  "contentReview_markReviewed": {
+    "message": "റിവ്യൂ ചെയ്‌തതായി മാർക്ക് ചെയ്യുക"
+  },
+  "contentReview_skipNext": {
+    "message": "സ്കിപ്പ് ചെയ്യുക"
+  },
+  "contentReview_discard": {
+    "message": "ഡിസ്‌കാർഡ്"
+  },
+  "contentReview_discardTitle": {
+    "message": "ഡ്രാഫ്റ്റ് ഡിസ്‌കാർഡ് ചെയ്യണോ?"
+  },
+  "contentReview_discardBody": {
+    "message": "ഈ ഡ്രാഫ്റ്റ് ഡിസ്‌കാർഡ് ചെയ്‌തതായി മാർക്ക് ചെയ്യപ്പെടുകയും റിവ്യൂയിൽ നിന്ന് നീക്കം ചെയ്യപ്പെടുകയും ചെയ്യും."
+  },
+  "contentReview_discardConfirm": {
+    "message": "ഡിസ്‌കാർഡ്"
+  },
+  "contentReview_discardCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_commitSuccess": {
+    "message": "ഡ്രാഫ്റ്റ് കമ്മിറ്റുചെയ്തു."
+  },
+  "contentReview_commitAllTitle": {
+    "message": "റിവ്യൂ ചെയ്‌ത ഡ്രാഫ്റ്റുകൾ എല്ലാം കമ്മിറ്റുചെയ്യണോ?"
+  },
+  "contentReview_commitAllBody": {
+    "message": "റിവ്യൂ ചെയ്‌തതായി മാർക്ക് ചെയ്‌തിരിക്കുന്ന ഡ്രാഫ്റ്റുകൾ മാത്രമേ കമ്മിറ്റു ചെയ്യൂ."
+  },
+  "contentReview_commitAllConfirm": {
+    "message": "എല്ലാം കമ്മിറ്റുചെയ്യുക"
+  },
+  "contentReview_commitAllCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_commitAllResult": {
+    "message": "{{success}} കമ്മിറ്റുചെയ്തു · {{failed}} പരാജയപ്പെട്ടു"
+  },
+  "contentReview_storageCapWarning": {
+    "message": "ഈ ഫയൽ ലോക്കൽ ഡ്രാഫ്റ്റ് പരിധി ({{cap}}) കവിയുന്നു."
+  },
+  "contentReview_clearTitle": {
+    "message": "എല്ലാ ഡ്രാഫ്റ്റുകളും മായ്ക്കണോ?"
+  },
+  "contentReview_clearBody": {
+    "message": "ഇത് ലോക്കൽ ഉള്ളടക്കം റിവ്യൂ ഡ്രാഫ്റ്റുകളും അനുബന്ധ അസറ്റുകളും എല്ലാം നീക്കം ചെയ്യും."
+  },
+  "contentReview_clearConfirm": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ക്കുക"
+  },
+  "contentReview_clearCancel": {
+    "message": "റദ്ദാക്കുക"
+  },
+  "contentReview_clearSuccess": {
+    "message": "ഡ്രാഫ്റ്റുകൾ മായ്ച്ചു."
+  },
+  "contentReview_originalLabel": {
+    "message": "ഒറിജിനൽ"
+  },
+  "contentReview_editedLabel": {
+    "message": "എഡിറ്റ് ചെയ്‌തത്"
+  },
+  "omniSearch_filterScreen": {
+    "message": "സ്ക്രീനുകൾ"
+  },
+  "omniSearch_filterChat": {
+    "message": "ചാറ്റുകൾ"
+  },
+  "omniSearch_filterMedia": {
+    "message": "മീഡിയ"
+  },
+  "omniSearch_filterNote": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "omniSearch_filterFlashcards": {
+    "message": "ഫ്ലാഷ്കാർഡ് ശേഖരങ്ങൾ"
+  },
+  "omniSearch_filterPrompt": {
+    "message": "പ്രോംപ്റ്റുകൾ"
+  },
+  "omniSearch_filteringBy": {
+    "message": "ഫിൽട്ടർ ചെയ്യുന്നത്:"
+  },
+  "quickChatHelper_tooltip": {
+    "message": "ക്വിക്ക് ചാറ്റ് സഹായകാങ്ക്"
+  },
+  "quickChatHelper_title": {
+    "message": "ക്വിക്ക് ചാറ്റ് സഹായകാംശം"
+  },
+  "quickChatHelper_inputPlaceholder": {
+    "message": "എളുപ്പത്തില്‍ ഒരു വഴി ചോദിക്കൂ..."
+  },
+  "quickChatHelper_sendButton": {
+    "message": "യൂഴിക്കുക"
+  },
+  "quickChatHelper_emptyState": {
+    "message": "പ്രധാന ചര്‍ച്ച ശുദ്ധമാക്കാന്‍ ഒരു ചുരുങ്ങിയ വശചാറ്റ് ആരംഭിക്കൂ."
+  },
+  "quickChatHelper_popOutButton": {
+    "message": "പോപ്പ് ഔട്ട് ചെയ്യുക"
+  },
+  "quickChatHelper_noModelWarning": {
+    "message": "ദയവായി ആദ്യം മുഖ്യ ചാറ്റില്‍ ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക."
+  },
+  "quickChatHelper_userMessageAria": {
+    "message": "നിങ്ങളുടെ സന്ദേശം"
+  },
+  "quickChatHelper_assistantMessageAria": {
+    "message": "അസിസ്റ്റന്റിന്റെ സന്ദേശം"
+  },
+  "quiz_itemsPerPage": {
+    "message": "ഇനങ്ങൾ/പേജ്"
+  },
+  "quiz_editQuizTitle": {
+    "message": "ക്വിസ് തിരുത്തുക"
+  },
+  "quiz_updateSuccess": {
+    "message": "ക്വിസ് വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു."
+  },
+  "quiz_updateError": {
+    "message": "ക്വിസ് അപ്ഡേറ്റ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_questionTextRequired": {
+    "message": "ചോദ്യവാചകം ആവശ്യമാണ്."
+  },
+  "quiz_optionsRequired": {
+    "message": "കുറഞ്ഞത് രണ്ട് ഓപ്ഷനുകൾ നൽകുക."
+  },
+  "quiz_questionSaveSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി സൃഷ്ടിച്ചു."
+  },
+  "quiz_questionUpdateSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു."
+  },
+  "quiz_questionSaveError": {
+    "message": "ചോദ്യം സേവ് ചെയ്യുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_questionDeleteSuccess": {
+    "message": "ചോദ്യം വിജയകരമായി ഇല്ലാതാക്കി."
+  },
+  "quiz_questionDeleteError": {
+    "message": "ചോദ്യം ഇല്ലാതാക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_editQuestion": {
+    "message": "ചോദ്യം തിരുത്തുക"
+  },
+  "quiz_points": {
+    "message": "പോയിന്റുകൾ"
+  },
+  "quiz_orderIndex": {
+    "message": "ക്രമം"
+  },
+  "quiz_startError": {
+    "message": "ക്വിസ് ആരംഭിക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_answerAll": {
+    "message": "സമർപ്പിക്കുന്നതിന് മുമ്പ് എല്ലാ ചോദ്യങ്ങൾക്കും മറുപടി നൽകുക."
+  },
+  "quiz_submitError": {
+    "message": "ക്വിസ് സമർപ്പിക്കുന്നത് പരാജയപ്പെട്ടു."
+  },
+  "quiz_scoreSummary": {
+    "message": "സ്കോർ: {{score}} / {{total}} ({{percent}}%)"
+  },
+  "quiz_correct": {
+    "message": "ശരി"
+  },
+  "quiz_incorrect": {
+    "message": "തെറ്റ്"
+  },
+  "quiz_yourAnswer": {
+    "message": "നിങ്ങളുടെ ഉത്തരം"
+  },
+  "quiz_correctAnswerLabel": {
+    "message": "ശരി ഉത്തരം"
+  },
+  "quiz_backToList": {
+    "message": "പട്ടികയിലേക്ക് മടങ്ങുക"
+  },
+  "quiz_retake": {
+    "message": "ക്വിസ് വീണ്ടും ശ്രമിക്കുക"
+  },
+  "searchPrompts": {
+    "message": "പ്രോംപ്റ്റുകൾ തിരയുക..."
+  },
+  "noMatchingPrompts": {
+    "message": "പൊരുത്തമുള്ള പ്രോംപ്റ്റുകൾ ഇല്ല"
+  },
+  "promptSelect_favorites": {
+    "message": "പ്രിയപ്പെട്ടവ"
+  },
+  "promptSelect_system": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റുകൾ"
+  },
+  "promptSelect_quick": {
+    "message": "ദ്രുത പ്രോംപ്റ്റുകൾ"
+  },
+  "header_moreTools": {
+    "message": "കൂടുതൽ"
+  },
+  "characters_createNewCharacter": {
+    "message": "Create a New Character+"
+  },
+  "characters_importCharacter": {
+    "message": "Import Character"
+  }
+}

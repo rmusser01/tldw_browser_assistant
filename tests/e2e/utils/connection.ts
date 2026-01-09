@@ -5,23 +5,56 @@ import type { Page } from '@playwright/test'
 // debug logging for flaky connection‑dependent specs.
 
 export async function waitForConnectionStore(page: Page, label = 'init') {
-  await page.waitForFunction(
-    () => {
-      const w: any = window as any
-      const store = w.__tldw_useConnectionStore
-      return !!store && typeof store.getState === 'function'
-    },
-    null,
-    { timeout: 10_000 }
-  )
+  const waitForAppReady = async (timeoutMs: number) => {
+    await page.waitForFunction(
+      () => {
+        const root = document.querySelector('#root')
+        if (!root) return false
+        return document.readyState !== 'loading'
+      },
+      null,
+      { timeout: timeoutMs }
+    )
+  }
+
+  await page.waitForLoadState('domcontentloaded')
+  const root = page.locator('#root')
+  try {
+    await root.waitFor({ state: 'attached', timeout: 15_000 })
+  } catch {
+    // ignore if root takes longer to mount; store check will retry
+  }
+
+  try {
+    await waitForAppReady(15_000)
+  } catch {
+    // One retry after a hard reload in case the extension page failed to boot.
+    await page.reload({ waitUntil: 'domcontentloaded' })
+    try {
+      await root.waitFor({ state: 'attached', timeout: 15_000 })
+    } catch {
+      // ignore; waitForStore will still time out if app never mounts
+    }
+    await waitForAppReady(20_000)
+  }
   await logConnectionSnapshot(page, label)
 }
 
 export async function logConnectionSnapshot(page: Page, label: string) {
   await page.evaluate((tag) => {
+    const root = document.querySelector('#root')
     const w: any = window as any
     const store = w.__tldw_useConnectionStore
-    if (!store?.getState) return
+    if (!store?.getState) {
+      // eslint-disable-next-line no-console
+      console.log('CONNECTION_DEBUG', tag, JSON.stringify({
+        storeReady: false,
+        rootReady: !!root,
+        rootChildren: root ? root.children.length : 0,
+        readyState: document.readyState
+      }))
+      return
+    }
     try {
       const state = store.getState().state
       // eslint-disable-next-line no-console
@@ -51,7 +84,11 @@ export async function forceConnectionState(
     ({ patchInner, tag }) => {
       const w: any = window as any
       const store = w.__tldw_useConnectionStore
-      if (!store?.getState || !store?.setState) return
+      if (!store?.getState || !store?.setState) {
+        // eslint-disable-next-line no-console
+        console.log('CONNECTION_DEBUG_APPLY', tag, JSON.stringify({ storeReady: false }))
+        return
+      }
       const prev = store.getState().state
       const next = {
         ...prev,
@@ -187,9 +224,12 @@ export async function setSelectedModel(page: Page, model: string) {
         return
       }
 
-      const setValue = (items: Record<string, unknown>) =>
+      const setValue = (
+        area: typeof chrome.storage.local | typeof chrome.storage.sync,
+        items: Record<string, unknown>
+      ) =>
         new Promise<void>((resolve, reject) => {
-          storageArea.set(items, () => {
+          area.set(items, () => {
             // @ts-ignore
             const err = w?.chrome?.runtime?.lastError
             if (err) reject(err)
@@ -197,9 +237,12 @@ export async function setSelectedModel(page: Page, model: string) {
           })
         })
 
-      const getValue = (keys: string[]) =>
+      const getValue = (
+        area: typeof chrome.storage.local | typeof chrome.storage.sync,
+        keys: string[]
+      ) =>
         new Promise<Record<string, unknown>>((resolve, reject) => {
-          storageArea.get(keys, (items: Record<string, unknown>) => {
+          area.get(keys, (items: Record<string, unknown>) => {
             // @ts-ignore
             const err = w?.chrome?.runtime?.lastError
             if (err) reject(err)
@@ -207,8 +250,23 @@ export async function setSelectedModel(page: Page, model: string) {
           })
         })
 
+      const normalizeStoredValue = (value: unknown) => {
+        if (typeof value !== "string") return value
+        try {
+          return JSON.parse(value)
+        } catch {
+          return value
+        }
+      }
+
       try {
-        await setValue({ selectedModel: modelId })
+        const serialized = JSON.stringify(modelId)
+        if (hasSync && hasLocal) {
+          await setValue(w.chrome.storage.sync, { selectedModel: serialized })
+          await setValue(w.chrome.storage.local, { selectedModel: serialized })
+        } else if (storageArea) {
+          await setValue(storageArea, { selectedModel: serialized })
+        }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.warn('MODEL_DEBUG: Failed to set selectedModel', error)
@@ -219,9 +277,9 @@ export async function setSelectedModel(page: Page, model: string) {
       let lastRead: unknown = undefined
       while (Date.now() - startedAt < timeoutMs) {
         try {
-          const data = await getValue(['selectedModel'])
-          lastRead = data?.selectedModel
-          if (data?.selectedModel === modelId) {
+          const data = await getValue(storageArea, ['selectedModel'])
+          lastRead = normalizeStoredValue(data?.selectedModel)
+          if (lastRead === modelId) {
             // eslint-disable-next-line no-console
             console.log(
               'MODEL_DEBUG: Confirmed selectedModel stored as',

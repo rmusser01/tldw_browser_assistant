@@ -294,18 +294,6 @@ class QuestionCreate(BaseModel):
     order_index: int = 0
     tags: Optional[List[str]] = None
 
-class GeneratedQuestion(BaseModel):
-    """Schema for LLM-generated questions before DB insert."""
-    question_type: QuestionType
-    question_text: str
-    options: Optional[List[str]] = None
-    correct_answer: int | str
-    explanation: Optional[str] = None
-    points: int = 1
-
-class GeneratedQuestionList(BaseModel):
-    questions: List[GeneratedQuestion]
-
 class QuestionUpdate(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question_type: Optional[QuestionType] = None
@@ -603,7 +591,8 @@ from ..schemas.quizzes import (
     AttemptSubmitRequest, AttemptResponse, QuizGenerateRequest
 )
 from ....core.DB_Management.ChaChaNotes_DB import CharactersRAGDB
-from ....dependencies import get_chacha_db
+from ....core.DB_Management.Media_DB_v2 import MediaDatabase
+from ....dependencies import get_chacha_db, get_media_db
 
 router = APIRouter(prefix="/quizzes", tags=["quizzes"])
 
@@ -755,12 +744,14 @@ async def get_attempt(
 @router.post("/generate", response_model=QuizResponse)
 async def generate_quiz(
     request: QuizGenerateRequest,
-    db: CharactersRAGDB = Depends(get_chacha_db)
+    db: CharactersRAGDB = Depends(get_chacha_db),
+    media_db: MediaDatabase = Depends(get_media_db)
 ):
     """Generate a quiz from media content using AI"""
     from ....services.quiz_generator import generate_quiz_from_media
     quiz = await generate_quiz_from_media(
         db=db,
+        media_db=media_db,
         media_id=request.media_id,
         num_questions=request.num_questions,
         question_types=request.question_types,
@@ -778,13 +769,13 @@ async def generate_quiz(
 import json
 import logging
 from typing import List, Optional, Dict
-from pydantic import ValidationError
+from pydantic import TypeAdapter, ValidationError
 from ..core.DB_Management.ChaChaNotes_DB import CharactersRAGDB
 from ..core.DB_Management.Media_DB_v2 import MediaDatabase, get_latest_transcription
 from ..core.Chat.chat_helpers import extract_response_content
 from ..core.Chat.chat_orchestrator import chat_api_call
 from ..api.v1.schemas.chat_request_schemas import DEFAULT_LLM_PROVIDER
-from ..api.v1.schemas.quizzes import GeneratedQuestionList
+from ..api.v1.schemas.quizzes import QuestionCreate
 
 logger = logging.getLogger(__name__)
 
@@ -884,13 +875,16 @@ async def generate_quiz_from_media(
         content_text = extract_response_content(response) or ""
         raw = json.loads(content_text)
         if isinstance(raw, dict) and 'questions' in raw:
-            payload = raw
+            questions_list = raw['questions']
         elif isinstance(raw, list):
-            payload = {"questions": raw}
+            questions_list = raw
         else:
             raise ValueError("LLM response must be a list or {questions: [...]} object")
-        validated = GeneratedQuestionList.model_validate(payload)
-        questions_data = [q.model_dump() for q in validated.questions]
+        questions_adapter = TypeAdapter(List[QuestionCreate])
+        questions_data = [
+            q.model_dump()
+            for q in questions_adapter.validate_python(questions_list)
+        ]
     except (json.JSONDecodeError, ValidationError, ValueError) as e:
         logger.exception("Failed to parse/validate LLM response", exc_info=e)
         raise ValueError(f"Failed to parse/validate LLM response: {e}")

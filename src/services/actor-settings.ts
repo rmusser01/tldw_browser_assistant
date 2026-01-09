@@ -7,9 +7,7 @@ import {
   createDefaultActorSettings
 } from "@/types/actor"
 
-const storage = createSafeStorage({
-  area: "local"
-})
+const storage = createSafeStorage()
 
 export const getActorStorageKey = (chatKey: string) =>
   `actorSettings:${chatKey}`

@@ -1,9 +1,14 @@
 import { Storage } from "@plasmohq/storage"
-import { safeStorageSerde } from "@/utils/safe-storage"
+import { createSafeStorage, safeStorageSerde } from "@/utils/safe-storage"
 import { bgRequest, bgStream, bgUpload } from "@/services/background-proxy"
 import { isPlaceholderApiKey } from "@/utils/api-key"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
+import type { AllowedPath } from "@/services/tldw/openapi-guard"
+import { appendPathQuery } from "@/services/tldw/path-utils"
 
 const DEFAULT_SERVER_URL = "http://127.0.0.1:8000"
+const CHARACTER_CACHE_TTL_MS = 5 * 60 * 1000
+const CHAT_MESSAGES_CACHE_TTL_MS = 60 * 1000
 
 export interface TldwConfig {
   serverUrl: string
@@ -25,25 +30,67 @@ export interface TldwModel {
   json_output?: boolean
 }
 
-type TextContent = string
-type ImageUrlPart = {
-  type: "image_url"
-  image_url: {
-    url: string
-    detail?: string
-  }
-}
-type TextPart = {
+export type ChatCompletionContentPartText = {
   type: "text"
   text: string
 }
-type ContentPart = string | TextPart | ImageUrlPart
-export type MessageContent = string | ContentPart[]
 
-export interface ChatMessage {
-  role: 'system' | 'user' | 'assistant'
-  content: MessageContent
+export type ChatCompletionContentPartImage = {
+  type: "image_url"
+  image_url: {
+    url: string
+    detail?: "auto" | "low" | "high" | null
+  }
 }
+
+export type ChatCompletionContentPart =
+  | ChatCompletionContentPartText
+  | ChatCompletionContentPartImage
+
+export type ChatCompletionUserContent = string | ChatCompletionContentPart[]
+
+export type ChatCompletionAssistantContent = string | null
+
+export type ChatCompletionToolCall = {
+  id: string
+  type: "function"
+  function: {
+    name: string
+    arguments?: string | null
+    parameters?: Record<string, unknown> | null
+    description?: string | null
+  }
+}
+
+export type FunctionCall = {
+  name: string
+  arguments: string
+}
+
+export type ChatMessage =
+  | {
+      role: "system"
+      content: string
+      name?: string | null
+    }
+  | {
+      role: "user"
+      content: ChatCompletionUserContent
+      name?: string | null
+    }
+  | {
+      role: "assistant"
+      content: ChatCompletionAssistantContent
+      name?: string | null
+      tool_calls?: ChatCompletionToolCall[] | null
+      function_call?: FunctionCall | null
+    }
+  | {
+      role: "tool"
+      content: string
+      tool_call_id: string
+      name?: string | null
+    }
 
 export interface ChatCompletionRequest {
   messages: ChatMessage[]
@@ -55,6 +102,17 @@ export interface ChatCompletionRequest {
   frequency_penalty?: number
   presence_penalty?: number
   reasoning_effort?: "low" | "medium" | "high"
+  tool_choice?: "auto" | "none" | "required"
+  tools?: Record<string, unknown>[]
+  save_to_db?: boolean
+  conversation_id?: string
+  history_message_limit?: number
+  history_message_order?: string
+  slash_command_injection_mode?: string
+  api_provider?: string
+  extra_headers?: Record<string, unknown>
+  extra_body?: Record<string, unknown>
+  response_format?: { type: "json_object" | "text" }
 }
 
 export interface ServerChatSummary {
@@ -71,6 +129,7 @@ export interface ServerChatSummary {
   character_id?: string | number | null
   parent_conversation_id?: string | null
   root_id?: string | null
+  version?: number | null
 }
 
 export type ConversationState =
@@ -208,12 +267,21 @@ export class TldwApiClient {
   private config: TldwConfig | null = null
   private baseUrl: string = ''
   private headers: HeadersInit = {}
+  private characterCache = new Map<string, { value: any; expiresAt: number }>()
+  private characterInFlight = new Map<string, Promise<any>>()
+  private chatMessagesCache = new Map<
+    string,
+    { value: ServerChatMessage[]; expiresAt: number }
+  >()
+  private chatMessagesInFlight = new Map<string, Promise<ServerChatMessage[]>>()
+  private openApiPathSet: Set<string> | null = null
+  private openApiPathSetPromise: Promise<Set<string> | null> | null = null
+  private resolvedPathCache = new Map<string, string>()
 
   constructor() {
-    this.storage = new Storage({
-      area: "local",
+    this.storage = createSafeStorage({
       serde: safeStorageSerde
-    } as any)
+    })
   }
 
   private getEnvApiKey(): string | null {
@@ -240,6 +308,23 @@ export class TldwApiClient {
 
   private getMissingApiKeyMessage(): string {
     return "tldw server API key is missing. Open Settings → tldw server and configure an API key before continuing."
+  }
+
+  private getChatMessagesCacheKey(chatId: string, query: string): string {
+    return `${chatId}${query || ""}`
+  }
+
+  invalidateChatMessagesCache(chatId?: string | number): void {
+    const cid = chatId != null ? String(chatId) : null
+    if (!cid) {
+      this.chatMessagesCache.clear()
+      return
+    }
+    for (const key of this.chatMessagesCache.keys()) {
+      if (key.startsWith(cid)) {
+        this.chatMessagesCache.delete(key)
+      }
+    }
   }
 
   private getPlaceholderApiKeyMessage(): string {
@@ -307,7 +392,22 @@ export class TldwApiClient {
   }
 
   async initialize(): Promise<void> {
-    const stored = await this.storage.get<TldwConfig>("tldwConfig")
+    let stored = await this.storage.get<TldwConfig>("tldwConfig")
+    if (!stored) {
+      try {
+        const localStore = createSafeStorage({
+          area: "local",
+          serde: safeStorageSerde
+        })
+        const localConfig = await localStore.get<TldwConfig>("tldwConfig")
+        if (localConfig) {
+          stored = localConfig
+          await this.storage.set("tldwConfig", localConfig)
+        }
+      } catch {
+        // ignore migration failures
+      }
+    }
     const envApiKey = this.getEnvApiKey()
 
     if (!stored) {
@@ -331,7 +431,13 @@ export class TldwApiClient {
     }
 
     const config = this.config
-    this.baseUrl = (config?.serverUrl || DEFAULT_SERVER_URL).replace(/\/$/, "")
+    const nextBaseUrl = (config?.serverUrl || DEFAULT_SERVER_URL).replace(/\/$/, "")
+    if (this.baseUrl && this.baseUrl !== nextBaseUrl) {
+      this.openApiPathSet = null
+      this.openApiPathSetPromise = null
+      this.resolvedPathCache.clear()
+    }
+    this.baseUrl = nextBaseUrl
 
     // Set up headers based on auth mode
     this.headers = {
@@ -366,8 +472,12 @@ export class TldwApiClient {
   async healthCheck(): Promise<boolean> {
     try {
       // Prefer background proxy (extension messaging)
-      // @ts-ignore
-      if (typeof browser !== 'undefined' && browser?.runtime?.sendMessage) {
+      const runtime = (
+        globalThis as {
+          browser?: { runtime?: { sendMessage?: (...args: unknown[]) => unknown } }
+        }
+      ).browser?.runtime
+      if (runtime?.sendMessage) {
         // Use authenticated health check so deployments that protect
         // /api/v1/health still work. Auth headers are injected by the
         // background proxy from tldwConfig (API key / access token).
@@ -427,6 +537,85 @@ export class TldwApiClient {
     } catch {
       return null
     }
+  }
+
+  private normalizePathShape(path: string): string {
+    return path.replace(/\{[^}]+\}/g, "{}")
+  }
+
+  private async getOpenApiPathSet(): Promise<Set<string> | null> {
+    if (this.openApiPathSet) return this.openApiPathSet
+    if (!this.openApiPathSetPromise) {
+      this.openApiPathSetPromise = (async () => {
+        const spec = await this.getOpenAPISpec()
+        if (!spec?.paths || typeof spec.paths !== "object") {
+          this.openApiPathSet = null
+          this.openApiPathSetPromise = null
+          return null
+        }
+        const paths = new Set(Object.keys(spec.paths))
+        this.openApiPathSet = paths
+        this.resolvedPathCache.clear()
+        return paths
+      })()
+    }
+    return this.openApiPathSetPromise
+  }
+
+  private async resolveApiPath(
+    key: string,
+    candidates: string[]
+  ): Promise<AllowedPath> {
+    const cached = this.resolvedPathCache.get(key)
+    if (cached) return cached as AllowedPath
+    const fallback = candidates[0] as AllowedPath
+    if (!fallback) {
+      throw new Error(`No path candidates provided for ${key}`)
+    }
+    const specPaths = await this.getOpenApiPathSet().catch(() => null)
+    if (!specPaths || specPaths.size === 0) {
+      this.resolvedPathCache.set(key, fallback)
+      return fallback
+    }
+
+    const specShapes = new Set(
+      Array.from(specPaths, (path) => this.normalizePathShape(String(path)))
+    )
+
+    const resolved =
+      candidates.find((candidate) => {
+        if (specPaths.has(candidate)) return true
+        return specShapes.has(this.normalizePathShape(candidate))
+      }) || fallback
+
+    this.resolvedPathCache.set(key, resolved)
+    return resolved as AllowedPath
+  }
+
+  private fillPathParams(
+    template: AllowedPath,
+    values: string | string[]
+  ): AllowedPath {
+    if (!template.includes("{")) return template
+    if (Array.isArray(values)) {
+      let index = 0
+      return template.replace(/\{[^}]+\}/g, () => {
+        const value = values[index] ?? ""
+        index += 1
+        return encodeURIComponent(value)
+      }) as AllowedPath
+    }
+    const encoded = encodeURIComponent(values)
+    return template.replace(/\{[^}]+\}/g, encoded) as AllowedPath
+  }
+
+  async postChatMetric(payload: Record<string, unknown>): Promise<any> {
+    return await this.request<any>({
+      path: "/api/v1/metrics/chat",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
   }
 
   async getModels(): Promise<TldwModel[]> {
@@ -689,8 +878,12 @@ export class TldwApiClient {
   // RAG Methods
   async ragHealth(): Promise<any> {
     try {
-      // @ts-ignore
-      if (typeof browser !== 'undefined' && browser?.runtime?.sendMessage) {
+      const runtime = (
+        globalThis as {
+          browser?: { runtime?: { sendMessage?: (...args: unknown[]) => unknown } }
+        }
+      ).browser?.runtime
+      if (runtime?.sendMessage) {
         return await bgRequest<any>({ path: '/api/v1/rag/health', method: 'GET' })
       }
     } catch {}
@@ -767,7 +960,11 @@ export class TldwApiClient {
   }
   // Prompts Methods
   async getPrompts(): Promise<any> {
-    return await bgRequest<any>({ path: '/api/v1/prompts/', method: 'GET' })
+    const path = await this.resolveApiPath("prompts.list", [
+      "/api/v1/prompts",
+      "/api/v1/prompts/"
+    ])
+    return await bgRequest<any>({ path, method: 'GET' })
   }
 
   async searchPrompts(query: string): Promise<any> {
@@ -793,16 +990,16 @@ export class TldwApiClient {
       if (typeof normalized[key] === 'undefined') delete normalized[key]
     })
 
-    try {
-      return await bgRequest<any>({ path: '/api/v1/prompts/', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: normalized })
-    } catch (e) {
-      // Some servers may use a different path without trailing slash
-      try {
-        return await bgRequest<any>({ path: '/api/v1/prompts', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: normalized })
-      } catch (err) {
-        throw err
-      }
-    }
+    const path = await this.resolveApiPath("prompts.create", [
+      "/api/v1/prompts",
+      "/api/v1/prompts/"
+    ])
+    return await bgRequest<any>({
+      path,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: normalized
+    })
   }
 
   async updatePrompt(id: string | number, payload: PromptPayload): Promise<any> {
@@ -832,26 +1029,26 @@ export class TldwApiClient {
   // Characters API
   async listCharacters(params?: Record<string, any>): Promise<any[]> {
     const query = this.buildQuery(params)
-    try {
-      return await bgRequest<any[]>({ path: `/api/v1/characters/${query}`, method: 'GET' })
-    } catch {
-      return await bgRequest<any[]>({ path: `/api/v1/characters${query}`, method: 'GET' })
-    }
+    const base = await this.resolveApiPath("characters.list", [
+      "/api/v1/characters",
+      "/api/v1/characters/"
+    ])
+    return await bgRequest<any[]>({
+      path: appendPathQuery(base, query),
+      method: 'GET'
+    })
   }
 
    async searchCharacters(query: string, params?: Record<string, any>): Promise<any[]> {
     const qp = this.buildQuery({ query, ...(params || {}) })
-    try {
-      return await bgRequest<any[]>({
-        path: `/api/v1/characters/search${qp}`,
-        method: 'GET'
-      })
-    } catch {
-      return await bgRequest<any[]>({
-        path: `/api/v1/characters/search/${qp}`,
-        method: 'GET'
-      })
-    }
+    const base = await this.resolveApiPath("characters.search", [
+      "/api/v1/characters/search",
+      "/api/v1/characters/search/"
+    ])
+    return await bgRequest<any[]>({
+      path: appendPathQuery(base, qp),
+      method: 'GET'
+    })
   }
 
   async filterCharactersByTags(
@@ -862,129 +1059,188 @@ export class TldwApiClient {
       tags,
       ...(options || {})
     })
-    try {
-      return await bgRequest<any[]>({
-        path: `/api/v1/characters/filter${qp}`,
-        method: 'GET'
-      })
-    } catch {
-      return await bgRequest<any[]>({
-        path: `/api/v1/characters/filter/${qp}`,
-        method: 'GET'
-      })
-    }
+    const base = await this.resolveApiPath("characters.filter", [
+      "/api/v1/characters/filter",
+      "/api/v1/characters/filter/"
+    ])
+    return await bgRequest<any[]>({
+      path: appendPathQuery(base, qp),
+      method: 'GET'
+    })
   }
 
   async getCharacter(id: string | number): Promise<any> {
     const cid = String(id)
-    try {
-      return await bgRequest<any>({ path: `/api/v1/characters/${cid}`, method: 'GET' })
-    } catch {
-      return await bgRequest<any>({ path: `/api/v1/characters/${cid}/`, method: 'GET' })
+    const cached = this.characterCache.get(cid)
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.value
     }
+    const inFlight = this.characterInFlight.get(cid)
+    if (inFlight) return inFlight
+
+    const request = (async () => {
+      try {
+        const template = await this.resolveApiPath("characters.get", [
+          "/api/v1/characters/{id}",
+          "/api/v1/characters/{id}/"
+        ])
+        const path = this.fillPathParams(template, cid)
+        const value = await bgRequest<any>({
+          path,
+          method: 'GET'
+        })
+        this.characterCache.set(cid, {
+          value,
+          expiresAt: Date.now() + CHARACTER_CACHE_TTL_MS
+        })
+        return value
+      } finally {
+        this.characterInFlight.delete(cid)
+      }
+    })()
+
+    this.characterInFlight.set(cid, request)
+    return request
   }
 
   async createCharacter(payload: Record<string, any>): Promise<any> {
-    try {
-      return await bgRequest<any>({ path: '/api/v1/characters/', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload })
-    } catch {
-      return await bgRequest<any>({ path: '/api/v1/characters', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload })
-    }
+    const path = await this.resolveApiPath("characters.create", [
+      "/api/v1/characters",
+      "/api/v1/characters/"
+    ])
+    return await bgRequest<any>({
+      path,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: payload
+    })
+  }
+
+  async importCharacterFile(file: File): Promise<any> {
+    const data = await file.arrayBuffer()
+    const name = file.name || "character-card"
+    const type = file.type || "application/octet-stream"
+    const path = await this.resolveApiPath("characters.import", [
+      "/api/v1/characters/import",
+      "/api/v1/characters/import/"
+    ])
+    return await this.upload<any>({
+      path,
+      method: "POST",
+      fileFieldName: "character_file",
+      file: { name, type, data }
+    })
   }
 
   async updateCharacter(id: string | number, payload: Record<string, any>, expectedVersion?: number): Promise<any> {
     const cid = String(id)
     const qp = expectedVersion != null ? `?expected_version=${encodeURIComponent(String(expectedVersion))}` : ''
-    return await bgRequest<any>({ path: `/api/v1/characters/${cid}${qp}`, method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: payload })
+    const template = await this.resolveApiPath("characters.update", [
+      "/api/v1/characters/{id}",
+      "/api/v1/characters/{id}/"
+    ])
+    const path = appendPathQuery(this.fillPathParams(template, cid), qp)
+    const res = await bgRequest<any>({
+      path,
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: payload
+    })
+    this.characterCache.delete(cid)
+    return res
   }
 
   async deleteCharacter(id: string | number): Promise<void> {
     const cid = String(id)
-    await bgRequest<void>({ path: `/api/v1/characters/${cid}`, method: 'DELETE' })
+    const template = await this.resolveApiPath("characters.delete", [
+      "/api/v1/characters/{id}",
+      "/api/v1/characters/{id}/"
+    ])
+    const path = this.fillPathParams(template, cid)
+    await bgRequest<void>({ path, method: 'DELETE' })
+    this.characterCache.delete(cid)
   }
 
   // Character chat sessions
   async listCharacterChatSessions(): Promise<any[]> {
-    // Try common variants
-    try {
-      return await bgRequest<any[]>({ path: '/api/v1/character-chat/sessions', method: 'GET' })
-    } catch {}
-    try {
-      return await bgRequest<any[]>({ path: '/api/v1/character_chat_sessions/', method: 'GET' })
-    } catch {}
-    return await bgRequest<any[]>({ path: '/api/v1/character_chat_sessions', method: 'GET' })
+    const path = await this.resolveApiPath("characterChatSessions.list", [
+      "/api/v1/character-chat/sessions",
+      "/api/v1/character_chat_sessions",
+      "/api/v1/character_chat_sessions/"
+    ])
+    return await bgRequest<any[]>({ path, method: 'GET' })
   }
 
   async createCharacterChatSession(character_id: string): Promise<any> {
     const body = { character_id }
-    try {
-      return await bgRequest<any>({ path: '/api/v1/character-chat/sessions', method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
-    } catch {}
-    try {
-      return await bgRequest<any>({ path: '/api/v1/character_chat_sessions/', method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
-    } catch {}
-    return await bgRequest<any>({ path: '/api/v1/character_chat_sessions', method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
+    const path = await this.resolveApiPath("characterChatSessions.create", [
+      "/api/v1/character-chat/sessions",
+      "/api/v1/character_chat_sessions",
+      "/api/v1/character_chat_sessions/"
+    ])
+    return await bgRequest<any>({
+      path,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body
+    })
   }
 
   async deleteCharacterChatSession(session_id: string | number): Promise<void> {
     const sid = String(session_id)
-    try {
-      await bgRequest<void>({ path: `/api/v1/character-chat/sessions/${sid}`, method: 'DELETE' })
-      return
-    } catch {}
-    try {
-      await bgRequest<void>({ path: `/api/v1/character_chat_sessions/${sid}`, method: 'DELETE' })
-      return
-    } catch {}
-    await bgRequest<void>({ path: `/api/v1/character_chat_sessions/${sid}/`, method: 'DELETE' })
+    const template = await this.resolveApiPath("characterChatSessions.delete", [
+      "/api/v1/character-chat/sessions/{session_id}",
+      "/api/v1/character_chat_sessions/{session_id}",
+      "/api/v1/character_chat_sessions/{session_id}/"
+    ])
+    const path = this.fillPathParams(template, sid)
+    await bgRequest<void>({ path, method: 'DELETE' })
   }
 
   // Character messages
   async listCharacterMessages(session_id: string | number): Promise<any[]> {
     const sid = String(session_id)
-    // Prefer nested session path if available
-    try {
-      return await bgRequest<any[]>({ path: `/api/v1/character-chat/sessions/${sid}/messages`, method: 'GET' })
-    } catch {}
-    // Fallback to flat endpoint
     const query = this.buildQuery({ session_id: sid })
-    try {
-      return await bgRequest<any[]>({ path: `/api/v1/character-messages${query}`, method: 'GET' })
-    } catch {}
-    return await bgRequest<any[]>({ path: `/api/v1/character_messages${query}`, method: 'GET' })
+    const template = await this.resolveApiPath("characterChatMessages.list", [
+      "/api/v1/character-chat/sessions/{session_id}/messages",
+      "/api/v1/character-messages",
+      "/api/v1/character_messages"
+    ])
+    const path = template.includes("{")
+      ? this.fillPathParams(template, sid)
+      : appendPathQuery(template, query)
+    return await bgRequest<any[]>({ path, method: 'GET' })
   }
 
   async sendCharacterMessage(session_id: string | number, content: string, options?: { extra?: Record<string, any> }): Promise<any> {
     const sid = String(session_id)
     const body = { content, session_id: sid, ...(options?.extra || {}) }
-    // Non-streaming create
-    try {
-      return await bgRequest<any>({ path: `/api/v1/character-chat/sessions/${sid}/messages`, method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
-    } catch {}
-    try {
-      return await bgRequest<any>({ path: '/api/v1/character_messages', method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
-    } catch {}
-    return await bgRequest<any>({ path: '/api/v1/character-messages', method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
+    const template = await this.resolveApiPath("characterChatMessages.send", [
+      "/api/v1/character-chat/sessions/{session_id}/messages",
+      "/api/v1/character_messages",
+      "/api/v1/character-messages"
+    ])
+    const path = template.includes("{")
+      ? this.fillPathParams(template, sid)
+      : template
+    return await bgRequest<any>({
+      path,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body
+    })
   }
 
   async * streamCharacterMessage(session_id: string | number, content: string, options?: { extra?: Record<string, any> }): AsyncGenerator<any> {
     const sid = String(session_id)
     const body = { content, session_id: sid, ...(options?.extra || {}) }
-    // Try nested stream path first
-    try {
-      for await (const line of bgStream({ path: `/api/v1/character-chat/sessions/${sid}/messages/stream`, method: 'POST', headers: { 'Content-Type': 'application/json' }, body })) {
-        try { yield JSON.parse(line) } catch {}
-      }
-      return
-    } catch {}
-    // Fallback to flat stream
-    try {
-      for await (const line of bgStream({ path: '/api/v1/character_messages/stream', method: 'POST', headers: { 'Content-Type': 'application/json' }, body })) {
-        try { yield JSON.parse(line) } catch {}
-      }
-      return
-    } catch {}
-    for await (const line of bgStream({ path: '/api/v1/character-messages/stream', method: 'POST', headers: { 'Content-Type': 'application/json' }, body })) {
+    const template = await this.resolveApiPath("characterChatMessages.stream", [
+      "/api/v1/character-chat/sessions/{session_id}/messages/stream",
+      "/api/v1/character_messages/stream",
+      "/api/v1/character-messages/stream"
+    ])
+    const path = this.fillPathParams(template, sid)
+    for await (const line of bgStream({ path, method: 'POST', headers: { 'Content-Type': 'application/json' }, body })) {
       try { yield JSON.parse(line) } catch {}
     }
   }
@@ -1017,7 +1273,13 @@ export class TldwApiClient {
       character_id: input?.character_id ?? input?.characterId ?? null,
       parent_conversation_id:
         input?.parent_conversation_id ?? input?.parentConversationId ?? null,
-      root_id: input?.root_id ?? input?.rootId ?? null
+      root_id: input?.root_id ?? input?.rootId ?? null,
+      version:
+        typeof input?.version === "number"
+          ? input.version
+          : typeof input?.expected_version === "number"
+            ? input.expected_version
+            : null
     }
   }
 
@@ -1070,11 +1332,27 @@ export class TldwApiClient {
 
   async updateChat(
     chat_id: string | number,
-    payload: Record<string, any>
+    payload: Record<string, any>,
+    options?: { expectedVersion?: number }
   ): Promise<ServerChatSummary> {
     const cid = String(chat_id)
+    let expectedVersion = options?.expectedVersion
+    if (expectedVersion == null) {
+      try {
+        const current = await this.getChat(cid)
+        if (typeof current?.version === "number") {
+          expectedVersion = current.version
+        }
+      } catch {
+        // ignore and fall back to unversioned update
+      }
+    }
+    const qp =
+      typeof expectedVersion === "number"
+        ? `?expected_version=${encodeURIComponent(String(expectedVersion))}`
+        : ""
     const res = await bgRequest<any>({
-      path: `/api/v1/chats/${cid}`,
+      path: `/api/v1/chats/${cid}${qp}`,
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: payload
@@ -1089,47 +1367,100 @@ export class TldwApiClient {
 
   async listChatMessages(
     chat_id: string | number,
-    params?: Record<string, any>
+    params?: Record<string, any>,
+    options?: { signal?: AbortSignal }
   ): Promise<ServerChatMessage[]> {
     const cid = String(chat_id)
     const query = this.buildQuery(params)
-    const data = await bgRequest<any>({
-      path: `/api/v1/chats/${cid}/messages${query}`,
-      method: "GET"
-    })
-
-    let list: any[] = []
-
-    if (Array.isArray(data)) {
-      list = data
-    } else if (data && typeof data === "object") {
-      const obj: any = data
-      if (Array.isArray(obj.messages)) {
-        list = obj.messages
-      } else if (Array.isArray(obj.items)) {
-        list = obj.items
-      } else if (Array.isArray(obj.results)) {
-        list = obj.results
-      } else if (Array.isArray(obj.data)) {
-        list = obj.data
-      }
+    const cacheKey = this.getChatMessagesCacheKey(cid, query)
+    const cached = this.chatMessagesCache.get(cacheKey)
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.value
+    }
+    if (cached) {
+      this.chatMessagesCache.delete(cacheKey)
     }
 
-    return list.map((m) => {
-      const created_at = String(m.created_at || m.createdAt || "")
-      return {
-        id: String(m.id),
-        role: m.role,
-        content: String(m.content ?? ""),
-        created_at,
-        version:
-          typeof m.version === "number"
-            ? m.version
-            : typeof m.expected_version === "number"
-              ? m.expected_version
-              : undefined
-      } as ServerChatMessage
-    })
+    const inFlight = this.chatMessagesInFlight.get(cacheKey)
+    if (inFlight) {
+      return inFlight
+    }
+
+    const request = (async () => {
+      const data = await bgRequest<any>({
+        path: `/api/v1/chats/${cid}/messages${query}`,
+        method: "GET",
+        abortSignal: options?.signal
+      })
+
+      let list: any[] = []
+
+      if (Array.isArray(data)) {
+        list = data
+      } else if (data && typeof data === "object") {
+        const obj: any = data
+        if (Array.isArray(obj.messages)) {
+          list = obj.messages
+        } else if (Array.isArray(obj.items)) {
+          list = obj.items
+        } else if (Array.isArray(obj.results)) {
+          list = obj.results
+        } else if (Array.isArray(obj.data)) {
+          list = obj.data
+        }
+      }
+
+      const normalized = list.map((m) => {
+        const roleCandidate =
+          typeof m.role === "string"
+            ? m.role
+            : typeof m.sender === "string"
+              ? m.sender
+              : typeof m.author === "string"
+                ? m.author
+                : typeof (m as any)?.message?.role === "string"
+                  ? (m as any).message.role
+                  : typeof (m as any)?.message?.sender === "string"
+                    ? (m as any).message.sender
+                    : typeof (m as any)?.message?.author === "string"
+                      ? (m as any).message.author
+                      : undefined
+        const role =
+          typeof (m as any)?.is_bot === "boolean" ||
+          typeof (m as any)?.isBot === "boolean"
+            ? (m as any).is_bot || (m as any).isBot
+              ? "assistant"
+              : "user"
+            : normalizeChatRole(roleCandidate)
+        const created_at = String(
+          m.created_at || m.createdAt || m.timestamp || ""
+        )
+        return {
+          id: String(m.id),
+          role,
+          content: String(m.content ?? ""),
+          created_at,
+          version:
+            typeof m.version === "number"
+              ? m.version
+              : typeof m.expected_version === "number"
+                ? m.expected_version
+                : undefined
+        } as ServerChatMessage
+      })
+      this.chatMessagesCache.set(cacheKey, {
+        value: normalized,
+        expiresAt: Date.now() + CHAT_MESSAGES_CACHE_TTL_MS
+      })
+      return normalized
+    })()
+
+    this.chatMessagesInFlight.set(cacheKey, request)
+    try {
+      return await request
+    } finally {
+      this.chatMessagesInFlight.delete(cacheKey)
+    }
   }
 
   async addChatMessage(
@@ -1137,12 +1468,67 @@ export class TldwApiClient {
     payload: Record<string, any>
   ): Promise<ServerChatMessage> {
     const cid = String(chat_id)
-    return await bgRequest<ServerChatMessage>({
+    const res = await bgRequest<ServerChatMessage>({
       path: `/api/v1/chats/${cid}/messages`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: payload
     })
+    this.invalidateChatMessagesCache(cid)
+    return res
+  }
+
+  async prepareCharacterCompletion(
+    chat_id: string | number,
+    payload?: Record<string, any>
+  ): Promise<any> {
+    const cid = String(chat_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chats/${cid}/completions`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload || {}
+    })
+  }
+
+  async persistCharacterCompletion(
+    chat_id: string | number,
+    payload: Record<string, any>
+  ): Promise<any> {
+    const cid = String(chat_id)
+    const res = await bgRequest<any>({
+      path: `/api/v1/chats/${cid}/completions/persist`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+    this.invalidateChatMessagesCache(cid)
+    return res
+  }
+
+  async *streamCharacterChatCompletion(
+    chat_id: string | number,
+    payload?: Record<string, any>,
+    options?: { signal?: AbortSignal; streamIdleTimeoutMs?: number }
+  ): AsyncGenerator<any> {
+    const cid = String(chat_id)
+    const body = { ...(payload || {}), stream: true }
+    for await (const line of bgStream({
+      path: `/api/v1/chats/${cid}/complete-v2`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      abortSignal: options?.signal,
+      streamIdleTimeoutMs: options?.streamIdleTimeoutMs
+    })) {
+      if (!line) continue
+      try {
+        const parsed = JSON.parse(line)
+        yield parsed
+      } catch {
+        yield line
+      }
+    }
   }
 
   async searchChatMessages(chat_id: string | number, query: string, limit?: number): Promise<any> {
@@ -1169,16 +1555,40 @@ export class TldwApiClient {
     return await bgRequest<any>({ path: `/api/v1/messages/${mid}`, method: 'GET' })
   }
 
-  async editMessage(message_id: string | number, content: string, expectedVersion: number): Promise<any> {
+  async editMessage(
+    message_id: string | number,
+    content: string,
+    expectedVersion: number,
+    chatId?: string | number
+  ): Promise<any> {
     const mid = String(message_id)
     const qp = `?expected_version=${encodeURIComponent(String(expectedVersion))}`
-    return await bgRequest<any>({ path: `/api/v1/messages/${mid}${qp}`, method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: { content } })
+    const res = await bgRequest<any>({
+      path: `/api/v1/messages/${mid}${qp}`,
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: { content }
+    })
+    if (chatId != null) {
+      this.invalidateChatMessagesCache(chatId)
+    }
+    return res
   }
 
-  async deleteMessage(message_id: string | number, expectedVersion: number): Promise<void> {
+  async deleteMessage(
+    message_id: string | number,
+    expectedVersion: number,
+    chatId?: string | number
+  ): Promise<void> {
     const mid = String(message_id)
     const qp = `?expected_version=${encodeURIComponent(String(expectedVersion))}`
-    await bgRequest<void>({ path: `/api/v1/messages/${mid}${qp}`, method: 'DELETE' })
+    await bgRequest<void>({
+      path: `/api/v1/messages/${mid}${qp}`,
+      method: 'DELETE'
+    })
+    if (chatId != null) {
+      this.invalidateChatMessagesCache(chatId)
+    }
   }
 
   async saveChatKnowledge(payload: {
@@ -1333,9 +1743,310 @@ export class TldwApiClient {
     return await bgRequest<any>({ path: '/api/v1/chat/dictionaries/import/json', method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { data, activate: !!activate } })
   }
 
+  async validateDictionary(payload: {
+    data: Record<string, any>
+    schema_version?: number
+    strict?: boolean
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/dictionaries/validate",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async processDictionary(payload: {
+    text: string
+    token_budget?: number
+    dictionary_id?: number | string
+    max_iterations?: number
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/dictionaries/process",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
   async dictionaryStatistics(dictionary_id: number | string): Promise<any> {
     const id = String(dictionary_id)
     return await bgRequest<any>({ path: `/api/v1/chat/dictionaries/${id}/statistics`, method: 'GET' })
+  }
+
+  // Chat Documents
+  async generateChatDocument(payload: {
+    conversation_id: string | number
+    document_type: string
+    provider: string
+    model: string
+    specific_message?: string | null
+    custom_prompt?: string | null
+    stream?: boolean
+    async_generation?: boolean
+  }): Promise<any> {
+    const body = {
+      ...payload,
+      conversation_id: String(payload.conversation_id)
+    }
+    return await bgRequest<any>({
+      path: "/api/v1/chat/documents/generate",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body
+    })
+  }
+
+  async listChatDocuments(params?: {
+    conversation_id?: string | number
+    document_type?: string
+    limit?: number
+  }): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents${query}`,
+      method: "GET"
+    })
+  }
+
+  async getChatDocument(document_id: number | string): Promise<any> {
+    const id = String(document_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/${id}`,
+      method: "GET"
+    })
+  }
+
+  async deleteChatDocument(document_id: number | string): Promise<any> {
+    const id = String(document_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async getChatDocumentJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/jobs/${id}`,
+      method: "GET"
+    })
+  }
+
+  async cancelChatDocumentJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/jobs/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async saveChatDocumentPrompt(payload: {
+    document_type: string
+    system_prompt: string
+    user_prompt: string
+    temperature?: number
+    max_tokens?: number
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/documents/prompts",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async getChatDocumentPrompt(document_type: string): Promise<any> {
+    return await bgRequest<any>({
+      path: `/api/v1/chat/documents/prompts/${encodeURIComponent(document_type)}`,
+      method: "GET"
+    })
+  }
+
+  async chatDocumentStatistics(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/documents/statistics",
+      method: "GET"
+    })
+  }
+
+  // Chatbooks
+  async exportChatbook(payload: {
+    name: string
+    description: string
+    content_selections: Record<string, string[]>
+    author?: string
+    include_media?: boolean
+    media_quality?: string
+    include_embeddings?: boolean
+    include_generated_content?: boolean
+    tags?: string[]
+    categories?: string[]
+    async_mode?: boolean
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chatbooks/export",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async previewChatbook(file: File): Promise<any> {
+    const data = await file.arrayBuffer()
+    const name = file.name || "chatbook.zip"
+    const type = file.type || "application/zip"
+    return await bgUpload<any>({
+      path: "/api/v1/chatbooks/preview",
+      method: "POST",
+      file: { name, type, data }
+    })
+  }
+
+  async importChatbook(
+    file: File,
+    options?: {
+      conflict_resolution?: string
+      prefix_imported?: boolean
+      import_media?: boolean
+      import_embeddings?: boolean
+      async_mode?: boolean
+    }
+  ): Promise<any> {
+    const data = await file.arrayBuffer()
+    const name = file.name || "chatbook.zip"
+    const type = file.type || "application/zip"
+    const normalized: Record<string, any> = {}
+    for (const [k, v] of Object.entries(options || {})) {
+      if (typeof v === "undefined" || v === null) continue
+      normalized[k] = typeof v === "boolean" ? (v ? "true" : "false") : v
+    }
+    return await bgUpload<any>({
+      path: "/api/v1/chatbooks/import",
+      method: "POST",
+      fields: normalized,
+      file: { name, type, data }
+    })
+  }
+
+  async listChatbookExportJobs(params?: { limit?: number; offset?: number }): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/export/jobs${query}`,
+      method: "GET"
+    })
+  }
+
+  async listChatbookImportJobs(params?: { limit?: number; offset?: number }): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/import/jobs${query}`,
+      method: "GET"
+    })
+  }
+
+  async getChatbookExportJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/export/jobs/${id}`,
+      method: "GET"
+    })
+  }
+
+  async getChatbookImportJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/import/jobs/${id}`,
+      method: "GET"
+    })
+  }
+
+  async cancelChatbookExportJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/export/jobs/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async cancelChatbookImportJob(job_id: string): Promise<any> {
+    const id = String(job_id)
+    return await bgRequest<any>({
+      path: `/api/v1/chatbooks/import/jobs/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async cleanupChatbooks(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chatbooks/cleanup",
+      method: "POST"
+    })
+  }
+
+  async chatbooksHealth(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chatbooks/health",
+      method: "GET"
+    })
+  }
+
+  async downloadChatbookExport(job_id: string): Promise<{ blob: Blob; filename: string }> {
+    await this.initialize()
+    const cfg = await this.ensureConfigForRequest(true)
+    const base = (this.baseUrl || cfg?.serverUrl || "").replace(/\/$/, "")
+    if (!base) throw new Error("Server not configured")
+    const headers: Record<string, string> = {}
+    if (cfg.authMode === "single-user") {
+      const key = String(cfg.apiKey || "").trim()
+      if (key) headers["X-API-KEY"] = key
+    } else if (cfg.authMode === "multi-user") {
+      const token = String(cfg.accessToken || "").trim()
+      if (token) headers["Authorization"] = `Bearer ${token}`
+    }
+    const url = `${base}/api/v1/chatbooks/download/${encodeURIComponent(job_id)}`
+    const res = await fetch(url, {
+      method: "GET",
+      headers,
+      credentials: "include"
+    })
+    if (!res.ok) {
+      throw new Error(`Download failed: ${res.status}`)
+    }
+    const blob = await res.blob()
+    const disposition = res.headers.get("content-disposition")
+    let filename = `chatbook-${job_id}.zip`
+    if (disposition) {
+      const utfMatch = disposition.match(/filename\*=UTF-8''([^;]+)/i)
+      const plainMatch = disposition.match(/filename="?([^\";]+)"?/i)
+      const raw = utfMatch?.[1] || plainMatch?.[1]
+      if (raw) {
+        try {
+          filename = decodeURIComponent(raw)
+        } catch {
+          filename = raw
+        }
+      }
+    }
+    return { blob, filename }
+  }
+
+  async chatQueueStatus(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/queue/status",
+      method: "GET"
+    })
+  }
+
+  async chatQueueActivity(limit?: number): Promise<any> {
+    const query = this.buildQuery(
+      typeof limit === "number" ? { limit } : undefined
+    )
+    return await bgRequest<any>({
+      path: `/api/v1/chat/queue/activity${query}`,
+      method: "GET"
+    })
   }
 
   // STT Methods

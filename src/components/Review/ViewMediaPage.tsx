@@ -20,6 +20,11 @@ import { ContentViewer } from '@/components/Media/ContentViewer'
 import { Pagination } from '@/components/Media/Pagination'
 import { JumpToNavigator } from '@/components/Media/JumpToNavigator'
 import type { MediaResultItem } from '@/components/Media/types'
+import { setSetting } from '@/services/settings/registry'
+import {
+  DISCUSS_MEDIA_PROMPT_SETTING,
+  LAST_MEDIA_ID_SETTING
+} from '@/services/settings/ui-settings'
 
 const ViewMediaPage: React.FC = () => {
   const { t } = useTranslation(['review', 'common', 'settings'])
@@ -642,7 +647,7 @@ const MediaPageContent: React.FC = () => {
   useEffect(() => {
     setPage(1)
     refetch()
-  }, [mediaTypes, keywordTokens]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [mediaTypes, keywordTokens, refetch])
 
   // Initial load: populate media types and auto-browse first page
   useEffect(() => {
@@ -998,20 +1003,15 @@ const MediaPageContent: React.FC = () => {
         title,
         content
       }
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(
-          'tldw:discussMediaPrompt',
-          JSON.stringify(payload)
+      void setSetting(DISCUSS_MEDIA_PROMPT_SETTING, payload)
+      try {
+        window.dispatchEvent(
+          new CustomEvent('tldw:discuss-media', {
+            detail: payload
+          })
         )
-        try {
-          window.dispatchEvent(
-            new CustomEvent('tldw:discuss-media', {
-              detail: payload
-            })
-          )
-        } catch {
-          // ignore event errors
-        }
+      } catch {
+        // ignore event errors
       }
     } catch {
       // ignore storage errors
@@ -1082,11 +1082,7 @@ const MediaPageContent: React.FC = () => {
 
   const handleOpenInMultiReview = useCallback(() => {
     if (!selected) return
-    try {
-      localStorage.setItem('tldw:lastMediaId', String(selected.id))
-    } catch {
-      // ignore storage errors
-    }
+    void setSetting(LAST_MEDIA_ID_SETTING, String(selected.id))
     navigate('/media-multi')
   }, [selected, navigate])
 
@@ -1101,10 +1097,8 @@ const MediaPageContent: React.FC = () => {
         title: selected?.title || 'Analysis',
         content: `Please review this analysis and continue the discussion:\n\n${text}`
       }
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem('tldw:discussMediaPrompt', JSON.stringify(payload))
-        window.dispatchEvent(new CustomEvent('tldw:discuss-media', { detail: payload }))
-      }
+      void setSetting(DISCUSS_MEDIA_PROMPT_SETTING, payload)
+      window.dispatchEvent(new CustomEvent('tldw:discuss-media', { detail: payload }))
     } catch {
       // ignore storage errors
     }
@@ -1116,10 +1110,10 @@ const MediaPageContent: React.FC = () => {
   }, [selected, setChatMode, setSelectedKnowledge, setRagMediaIds, navigate, message, t])
 
   return (
-    <div className="flex bg-slate-50 dark:bg-[#101010]" style={{ minHeight: '100vh' }}>
+    <div className="flex bg-bg" style={{ minHeight: '100vh' }}>
       {/* Left Sidebar */}
       <div
-        className={`bg-white dark:bg-[#171717] border-r border-gray-200 dark:border-gray-700 flex flex-col ${
+        className={`bg-surface border-r border-border flex flex-col ${
           sidebarCollapsed ? 'w-0' : 'w-full md:w-80 lg:w-96'
         }`}
         style={{
@@ -1135,12 +1129,12 @@ const MediaPageContent: React.FC = () => {
           aria-hidden={sidebarCollapsed}
         >
           {/* Header */}
-          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+          <div className="px-4 py-3 border-b border-border">
             <div className="flex items-center justify-between">
-              <h1 className="text-gray-900 dark:text-gray-100 text-base font-semibold">
+              <h1 className="text-text text-base font-semibold">
                 {t('review:mediaPage.mediaInspector', { defaultValue: 'Media Inspector' })}
               </h1>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-text-muted">
                 {displayResults.length} / {
                   kinds.media && kinds.notes
                     ? combinedTotal
@@ -1153,7 +1147,7 @@ const MediaPageContent: React.FC = () => {
           </div>
 
           {/* Search */}
-          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+          <div className="px-4 py-3 border-b border-border">
             <div onKeyDown={handleKeyPress}>
               <SearchBar
                 value={query}
@@ -1169,7 +1163,7 @@ const MediaPageContent: React.FC = () => {
             </div>
             <button
               onClick={handleSearch}
-              className="mt-2 w-full px-3 py-1.5 text-sm bg-blue-600 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors"
+              className="mt-2 w-full px-3 py-1.5 text-sm bg-primary text-white rounded-lg hover:bg-primaryStrong transition-colors"
             >
               {t('review:mediaPage.search', { defaultValue: 'Search' })}
             </button>
@@ -1190,7 +1184,7 @@ const MediaPageContent: React.FC = () => {
           </div>
 
           {/* Filters */}
-          <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+          <div className="px-4 py-2 border-b border-border">
             <FilterPanel
               mediaTypes={availableMediaTypes}
               selectedMediaTypes={mediaTypes}
@@ -1241,7 +1235,7 @@ const MediaPageContent: React.FC = () => {
           </div>
 
           {/* Pagination - Sticky at bottom */}
-          <div className="flex-shrink-0 bg-white dark:bg-[#171717] border-t border-gray-200 dark:border-gray-700">
+          <div className="flex-shrink-0 bg-surface border-t border-border">
             <Pagination
               currentPage={page}
               totalPages={totalPages}
@@ -1263,14 +1257,14 @@ const MediaPageContent: React.FC = () => {
       {/* Collapse Button */}
       <button
         onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-        className="relative w-6 bg-white dark:bg-[#171717] border-r border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-[#262626] flex items-center justify-center group transition-colors"
+        className="relative w-6 bg-surface border-r border-border hover:bg-surface2 flex items-center justify-center group transition-colors"
         aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
       >
         <div className="flex items-center justify-center w-full h-full">
           {sidebarCollapsed ? (
-            <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+            <ChevronRight className="w-4 h-4 text-text-subtle group-hover:text-text" />
           ) : (
-            <ChevronLeft className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+            <ChevronLeft className="w-4 h-4 text-text-subtle group-hover:text-text" />
           )}
         </div>
       </button>

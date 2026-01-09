@@ -402,7 +402,7 @@ class RequestSigner {
 
 ### Repository Integration Outline (page-assist)
 - Api Layer: `src/services/api/{http,auth,chat,rag,media,audio,notes,prompts}.ts` with a `TldwAdapter` facade.
-- Background Proxy: extend `src/entries-firefox/background.ts` to proxy fetch/streams, apply signing, retries.
+- Background Proxy: extend `src/entries/background.ts` to proxy fetch/streams, apply signing, retries.
 - Stores: `src/store/auth.ts`, `src/store/api.ts` for auth/session, server health, feature flags; reuse existing model/settings stores.
 - Options UI: add `src/routes/option-settings-server.tsx` for server URL, auth mode, credentials, health check.
 - Sidepanel: wire chat to adapter; add RAG search bar, status indicator; STT upload widget; later TTS controls.

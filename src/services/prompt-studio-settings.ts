@@ -1,5 +1,4 @@
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { defineSetting, getSetting, setSetting } from "@/services/settings/registry"
 
 export type PromptStudioDefaults = {
   defaultProjectId?: number | null
@@ -16,8 +15,6 @@ export type PromptStudioDefaults = {
 
 const STORAGE_KEY = "promptStudioDefaults"
 
-const storage = createSafeStorage({ area: "local" })
-
 const DEFAULTS: Required<PromptStudioDefaults> = {
   defaultProjectId: null,
   executeProvider: "openai",
@@ -31,13 +28,17 @@ const DEFAULTS: Required<PromptStudioDefaults> = {
   warnSeconds: 30
 }
 
+const PROMPT_STUDIO_DEFAULTS_SETTING = defineSetting(
+  STORAGE_KEY,
+  DEFAULTS,
+  (value) => ({
+    ...DEFAULTS,
+    ...(value && typeof value === "object" ? value : {})
+  })
+)
+
 export async function getPromptStudioDefaults(): Promise<PromptStudioDefaults> {
-  try {
-    const stored = await storage.get<PromptStudioDefaults>(STORAGE_KEY)
-    return { ...DEFAULTS, ...(stored || {}) }
-  } catch {
-    return { ...DEFAULTS }
-  }
+  return await getSetting(PROMPT_STUDIO_DEFAULTS_SETTING)
 }
 
 export async function setPromptStudioDefaults(
@@ -45,6 +46,6 @@ export async function setPromptStudioDefaults(
 ): Promise<PromptStudioDefaults> {
   const current = await getPromptStudioDefaults()
   const next = { ...current, ...updates }
-  await storage.set(STORAGE_KEY, next)
+  await setSetting(PROMPT_STUDIO_DEFAULTS_SETTING, next)
   return next
 }

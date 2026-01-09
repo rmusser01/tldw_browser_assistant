@@ -16,13 +16,13 @@ import {
 } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { useQuickChatStore } from "@/store/quick-chat"
 import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
-import { useStoreChatModelSettings } from "@/store/model"
 import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSettings"
 import { Sidebar } from "../Option/Sidebar"
 import { Header } from "./Header"
 import { useMigration } from "../../hooks/useMigration"
 import { useChatSidebar } from "@/hooks/useFeatureFlags"
 import { ChatSidebar } from "@/components/Common/ChatSidebar"
+import { EventOnlyHosts } from "@/components/Common/EventHosts"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
@@ -63,25 +63,9 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   const { isLoading: migrationLoading } = useMigration()
   const { demoEnabled } = useDemoMode()
   const [showChatSidebar] = useChatSidebar()
-  const {
-    setMessages,
-    history,
-    setHistory,
-    setHistoryId,
-    historyId,
-    clearChat,
-    setSelectedModel,
-    temporaryChat,
-    setSelectedSystemPrompt,
-    setContextFiles,
-    useOCR,
-    chatMode,
-    setChatMode,
-    webSearch,
-    setWebSearch
-  } = useMessageOption()
+  const { clearChat, useOCR, chatMode, setChatMode, webSearch, setWebSearch } =
+    useMessageOption()
   const queryClient = useQueryClient()
-  const { setSystemPrompt } = useStoreChatModelSettings()
 
   // Create toggle function for sidebar
   const toggleSidebar = () => {
@@ -90,6 +74,21 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
       return
     }
     setSidebarOpen((prev) => !prev)
+  }
+
+  const handleIngestPage = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+    }
+  }
+
+  const commandPaletteProps = {
+    onNewChat: clearChat,
+    onToggleRag: () => setChatMode(chatMode === "rag" ? "normal" : "rag"),
+    onToggleWebSearch: () => setWebSearch(!webSearch),
+    onIngestPage: handleIngestPage,
+    onSwitchModel: () => setOpenModelSettings(true),
+    onToggleSidebar: toggleSidebar
   }
 
   // Quick Chat Helper toggle
@@ -105,12 +104,12 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
 
   if (migrationLoading) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-slate-50 dark:bg-[#101010]">
+      <div className="flex h-screen w-full items-center justify-center bg-bg ">
         <div className="text-center space-y-2">
-          <div className="text-base font-medium text-gray-800 dark:text-gray-100">
+          <div className="text-base font-medium text-text ">
             Migrating your chat history…
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">
+          <div className="text-xs text-text-muted ">
             This runs once after an update and will reload the extension when finished.
           </div>
         </div>
@@ -125,21 +124,13 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
         <ChatSidebar
           collapsed={chatSidebarCollapsed}
           onToggleCollapse={() => setChatSidebarCollapsed((prev) => !prev)}
-          selectedChatId={historyId}
-          onSelectChat={(chatId) => setHistoryId(chatId)}
-          onNewChat={clearChat}
-          onIngest={() => {
-            if (typeof window !== "undefined") {
-              window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
-            }
-          }}
-          className="sticky top-0 shrink-0 border-r border-gray-200 dark:border-gray-800"
+          className="sticky top-0 shrink-0 border-r border-border border-border"
         />
       )}
       <main
         className={classNames(
           "relative flex-1 flex flex-col",
-          hideHeader ? "bg-slate-50 dark:bg-[#101010]" : ""
+          hideHeader ? "bg-bg " : ""
         )}
         data-demo-mode={demoEnabled ? "on" : "off"}>
         {hideHeader ? (
@@ -152,6 +143,8 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
               <Header
                 setOpenModelSettings={setOpenModelSettings}
                 showSelectors={showHeaderSelectors}
+                onToggleSidebar={toggleSidebar}
+                sidebarCollapsed={chatSidebarCollapsed}
               />
             </div>
             {children}
@@ -167,8 +160,8 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
                     onClick={() => setSidebarOpen(false)}
                     ariaLabel={t('common:close', { defaultValue: 'Close' }) as string}
                     title={t('common:close', { defaultValue: 'Close' }) as string}
-                    className="-ml-1">
-                    <XIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                    className="-ml-1 h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0">
+                    <XIcon className="h-5 w-5 text-text-muted " />
                   </IconButton>
                   <span>{t("sidebarTitle")}</span>
                 </div>
@@ -211,7 +204,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
                         })
                         clearChat()
                       }}
-                      className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
+                      className="text-text-muted hover:text-text h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0">
                       <EraserIcon className="size-5" />
                     </IconButton>
                   </Tooltip>
@@ -225,17 +218,6 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
           <Sidebar
             isOpen={sidebarOpen}
             onClose={() => setSidebarOpen(false)}
-            setMessages={setMessages}
-            setHistory={setHistory}
-            setHistoryId={setHistoryId}
-            setSelectedModel={setSelectedModel}
-            setSelectedSystemPrompt={setSelectedSystemPrompt}
-            clearChat={clearChat}
-            historyId={historyId}
-            setSystemPrompt={setSystemPrompt}
-            temporaryChat={temporaryChat}
-            history={history}
-            setContext={setContextFiles}
           />
         </Drawer>
         )}
@@ -249,8 +231,8 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
           />
         )}
 
-        {/* Quick Chat Helper floating button */}
-        {!hideHeader && <QuickChatHelperButton />}
+        {/* Quick Chat Helper floating button (legacy layout only) */}
+        {!hideHeader && !showChatSidebar && <QuickChatHelperButton />}
 
         {/* Timeline Modal - lazy-loaded */}
         {!hideHeader && (
@@ -263,16 +245,7 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
         {!hideHeader && (
           <Suspense fallback={null}>
             <CommandPalette
-              onNewChat={clearChat}
-              onToggleRag={() => setChatMode(chatMode === "rag" ? "normal" : "rag")}
-              onToggleWebSearch={() => setWebSearch(!webSearch)}
-              onIngestPage={() => {
-                if (typeof window !== "undefined") {
-                  window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
-                }
-              }}
-              onSwitchModel={() => setOpenModelSettings(true)}
-              onToggleSidebar={toggleSidebar}
+              {...commandPaletteProps}
             />
           </Suspense>
         )}
@@ -283,6 +256,9 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
             <KeyboardShortcutsModal />
           </Suspense>
         )}
+
+        {/* Ensure event-driven modals are available even when the header is hidden */}
+        {hideHeader && <EventOnlyHosts commandPaletteProps={commandPaletteProps} />}
       </main>
     </div>
   )

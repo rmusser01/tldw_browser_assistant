@@ -1,15 +1,16 @@
-import { Dropdown, Tooltip, ConfigProvider, Modal } from "antd"
+import { Tooltip, ConfigProvider } from "antd"
 import {
   CopyCheckIcon,
   CopyIcon,
   DownloadIcon,
   TableIcon,
-  ExpandIcon,
-  XIcon
+  ExpandIcon
 } from "lucide-react"
-import { FC, useState, useMemo, useRef } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton } from "./IconButton"
+import { useArtifactsStore, type ArtifactTableData } from "@/store/artifacts"
+import { useUiModeStore } from "@/store/ui-mode"
 
 interface TableProps {
   children: React.ReactNode
@@ -22,9 +23,26 @@ interface TableData {
 
 export const TableBlock: FC<TableProps> = ({ children }) => {
   const [copyStatus, setCopyStatus] = useState<string>("")
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const { t } = useTranslation("common")
   const ref = useRef<HTMLDivElement>(null)
+  const { openArtifact, isPinned } = useArtifactsStore()
+  const uiMode = useUiModeStore((state) => state.mode)
+  const isProMode = uiMode === "pro"
+
+  const autoOpenMapRef = useRef<Map<string, boolean> | null>(null)
+  if (!autoOpenMapRef.current) {
+    if (typeof window !== "undefined") {
+      const win = window as any
+      if (!win.__tableArtifactAutoOpenState) {
+        win.__tableArtifactAutoOpenState = new Map<string, boolean>()
+      }
+      autoOpenMapRef.current =
+        win.__tableArtifactAutoOpenState as Map<string, boolean>
+    } else {
+      autoOpenMapRef.current = new Map()
+    }
+  }
+  const autoOpenStateMap = autoOpenMapRef.current!
 
   const parseData = () => {
     // get table from ref
@@ -52,9 +70,9 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
     return { headers, rows }
   }
 
-  const convertToCSV = () => {
-    const tableData = parseData()
-    if (!tableData) return
+  const convertToCSV = (tableData?: TableData) => {
+    const data = tableData ?? parseData()
+    if (!data) return
 
     const escapeCSV = (value: string): string => {
       if (value.includes(",") || value.includes('"') || value.includes("\n")) {
@@ -66,12 +84,12 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
     const csvRows = []
 
     // Add headers
-    if (tableData.headers.length > 0) {
-      csvRows.push(tableData.headers.map(escapeCSV).join(","))
+    if (data.headers.length > 0) {
+      csvRows.push(data.headers.map(escapeCSV).join(","))
     }
 
     // Add data rows
-    tableData.rows.forEach((row) => {
+    data.rows.forEach((row) => {
       csvRows.push(row.map(escapeCSV).join(","))
     })
 
@@ -90,13 +108,56 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
     downloadFile(csvContent, `table-${Date.now()}.csv`, "text/csv")
   }
 
-  const handleExpandTable = () => {
-    setIsModalOpen(true)
+  const buildArtifactId = (tableData: ArtifactTableData) => {
+    const previewRow = tableData.rows[0]?.join("|") || ""
+    const base = `${tableData.headers.join("|")}::${tableData.rows.length}::${previewRow}`
+    let hash = 0
+    for (let i = 0; i < base.length; i++) {
+      hash = (hash * 31 + base.charCodeAt(i)) >>> 0
+    }
+    return `table-${hash.toString(36)}`
   }
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
+  const handleOpenArtifact = () => {
+    const tableData = parseData()
+    if (!tableData) return
+    const csvContent = convertToCSV(tableData) || ""
+    openArtifact({
+      id: buildArtifactId(tableData),
+      title: tableData.headers[0] || t("artifactsTitle", "Artifact"),
+      content: csvContent,
+      language: "csv",
+      kind: "table",
+      table: tableData
+    })
   }
+
+  useEffect(() => {
+    if (!isProMode || isPinned) {
+      return
+    }
+    const tableData = parseData()
+    if (!tableData) {
+      return
+    }
+    const artifactId = buildArtifactId(tableData)
+    if (autoOpenStateMap.get(artifactId)) {
+      return
+    }
+    const csvContent = convertToCSV(tableData) || ""
+    openArtifact(
+      {
+        id: artifactId,
+        title: tableData.headers[0] || t("artifactsTitle", "Artifact"),
+        content: csvContent,
+        language: "csv",
+        kind: "table",
+        table: tableData
+      },
+      { auto: true }
+    )
+    autoOpenStateMap.set(artifactId, true)
+  }, [autoOpenStateMap, isPinned, isProMode, openArtifact, t])
 
   const downloadFile = (
     content: string,
@@ -116,23 +177,33 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
 
   return (
     <div className="not-prose">
-      <div className="my-4 bg-white dark:bg-[#171717] rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div className="flex flex-row px-4 py-2 rounded-t-xl bg-gray-50 dark:bg-[#1a1a1a] border-b border-gray-200 dark:border-gray-700">
+      <div className="my-4 bg-surface rounded-xl border border-border overflow-hidden">
+        <div className="flex flex-row px-4 py-2 rounded-t-xl bg-surface2 border-b border-border">
           <div className="flex items-center gap-2 flex-1">
-            <TableIcon className="size-4 text-gray-600 dark:text-gray-300" />
-            <span className="font-mono text-xs text-gray-700 dark:text-gray-300">
+            <TableIcon className="size-4 text-text-muted" />
+            <span className="font-mono text-xs text-text-muted">
               Table
             </span>
           </div>
 
           <div className="flex items-center gap-1">
+            <Tooltip title={t("view", "View")}>
+              <button
+                type="button"
+                onClick={handleOpenArtifact}
+                className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-1 text-[11px] font-medium text-text-muted hover:text-text"
+                aria-label={t("view", "View")}>
+                <ExpandIcon className="size-3" />
+                <span>{t("view", "View")}</span>
+              </button>
+            </Tooltip>
             <Tooltip title={t('table.copyCsv', 'Copy as CSV')}>
               <IconButton
                 ariaLabel={t('table.copyCsv', 'Copy as CSV') as string}
                 onClick={handleCopyCSV}
-                className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none transition-colors">
+                className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none transition-colors h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0">
                 {copyStatus === "csv" ? (
-                  <CopyCheckIcon className="size-4 text-green-500" />
+                  <CopyCheckIcon className="size-4 text-success" />
                 ) : (
                   <CopyIcon className="size-4" />
                 )}
@@ -143,9 +214,9 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
               theme={{
                 components: {
                   Dropdown: {
-                    colorBgElevated: "#1a1a1a",
-                    colorText: "#ffffff",
-                    colorBgTextHover: "#2a2a2a",
+                    colorBgElevated: "var(--color-elevated)",
+                    colorText: "var(--color-text)",
+                    colorBgTextHover: "var(--color-surface-2)",
                     borderRadiusOuter: 8,
                     boxShadowSecondary:
                       "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)"
@@ -156,7 +227,7 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
                 <IconButton
                   ariaLabel={t('table.downloadCsv', 'Download CSV') as string}
                   onClick={handleDownloadCSV}
-                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-800 dark:hover:text-gray-100 focus:outline-none transition-colors">
+                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none transition-colors h-11 w-11 sm:h-7 sm:w-7 sm:min-w-0 sm:min-h-0">
                   <DownloadIcon className="size-4" />
                 </IconButton>
               </Tooltip>
@@ -167,7 +238,7 @@ export const TableBlock: FC<TableProps> = ({ children }) => {
         <div className="overflow-x-auto">
           <div
             ref={ref}
-            className={`prose prose-gray dark:prose-invert max-w-none [&_table]:table-fixed [&_table]:text-sm [&_table]:w-full [&_table]:border-collapse [&_thead]:bg-neutral-50 [&_thead]:dark:bg-[#2D2D2D] [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-semibold [&_th]:text-gray-900 [&_th]:dark:text-gray-100 [&_th]:text-xs [&_th]:uppercase [&_th]:tracking-wider [&_th]:whitespace-nowrap [&_th:nth-child(1)]:w-1/2 [&_th:nth-child(2)]:w-1/2 [&_th:nth-child(3)]:w-1/3 [&_th]:border-b [&_th]:border-gray-200 [&_th]:dark:border-gray-700 [&_td]:px-6 [&_td]:py-4 [&_td]:text-gray-700 [&_td]:dark:text-gray-300 [&_td]:text-sm [&_td]:text-left [&_td]:whitespace-nowrap  [&_td]:border-b [&_td]:border-gray-200 [&_td]:dark:border-gray-700 [&_tr:last-child_td]:border-b-0`}>
+            className={`prose dark:prose-invert max-w-none [&_table]:table-fixed [&_table]:text-sm [&_table]:w-full [&_table]:border-collapse [&_thead]:bg-surface2 [&_th]:px-6 [&_th]:py-4 [&_th]:text-left [&_th]:font-semibold [&_th]:text-text [&_th]:text-xs [&_th]:uppercase [&_th]:tracking-wider [&_th]:whitespace-nowrap [&_th:nth-child(1)]:w-1/2 [&_th:nth-child(2)]:w-1/2 [&_th:nth-child(3)]:w-1/3 [&_th]:border-b [&_th]:border-border [&_td]:px-6 [&_td]:py-4 [&_td]:text-text-muted [&_td]:text-sm [&_td]:text-left [&_td]:whitespace-nowrap  [&_td]:border-b [&_td]:border-border [&_tr:last-child_td]:border-b-0`}>
             {children}
           </div>
         </div>

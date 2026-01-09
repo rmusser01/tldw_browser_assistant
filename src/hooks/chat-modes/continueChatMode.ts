@@ -1,76 +1,72 @@
 import { systemPromptForNonRagOption } from "~/services/tldw-server"
-import { type ChatHistory, type Message } from "~/store/option"
+import { type ChatHistory, type Message, type ToolChoice } from "~/store/option"
 import { getPromptById } from "@/db/dexie/helpers"
 import { generateHistory } from "@/utils/generate-history"
-import { pageAssistModel } from "@/models"
-import {
-  isReasoningEnded,
-  isReasoningStarted,
-  mergeReasoningContent
-} from "@/libs/reasoning"
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
+import { updateActiveVariant } from "@/utils/message-variants"
+import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
+import {
+  runChatPipeline,
+  type ChatModeDefinition
+} from "./chatModePipeline"
 
-export const continueChatMode = async (
-  messages: Message[],
-  history: ChatHistory,
-  signal: AbortSignal,
-  {
-    selectedModel,
-    selectedSystemPrompt,
-    currentChatModelSettings,
-    setMessages,
-    saveMessageOnSuccess,
-    saveMessageOnError,
-    setHistory,
-    setIsProcessing,
-    setStreaming,
-    setAbortController,
-    historyId,
-    setHistoryId,
-    actorSettings
-  }: {
-    selectedModel: string
-    selectedSystemPrompt: string
-    currentChatModelSettings: any
-    setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
-    saveMessageOnSuccess: (data: any) => Promise<string | null>
-    saveMessageOnError: (data: any) => Promise<string | null>
-    setHistory: (history: ChatHistory) => void
-    setIsProcessing: (value: boolean) => void
-    setStreaming: (value: boolean) => void
-    setAbortController: (controller: AbortController | null) => void
-    historyId: string | null
-    setHistoryId: (id: string) => void
-    actorSettings?: ActorSettings
-  }
-) => {
-  console.log("Using continueChatMode")
-  let promptId: string | undefined = selectedSystemPrompt
-  let promptContent: string | undefined = undefined
+type ContinueChatModeParams = {
+  selectedModel: string
+  useOCR: boolean
+  selectedSystemPrompt: string
+  currentChatModelSettings: any
+  toolChoice?: ToolChoice
+  setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
+  saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
+  saveMessageOnError: (data: SaveMessageErrorData) => Promise<string | null>
+  setHistory: (history: ChatHistory) => void
+  setIsProcessing: (value: boolean) => void
+  setStreaming: (value: boolean) => void
+  setAbortController: (controller: AbortController | null) => void
+  historyId: string | null
+  setHistoryId: (id: string) => void
+  actorSettings?: ActorSettings
+  assistantMessageId?: string
+  assistantParentMessageId?: string | null
+}
 
-  const ollama = await pageAssistModel({ model: selectedModel })
-
-  let newMessage: Message[] = []
-
-  const lastMessage = messages[messages.length - 1]
-  let generateMessageId = lastMessage.id
-  newMessage = [...messages]
-  newMessage[newMessage.length - 1] = {
-    ...lastMessage,
-    message: lastMessage.message + "▋"
-  }
-  setMessages(newMessage)
-  let fullText = lastMessage.message
-  let contentToSave = ""
-  let timetaken = 0
-
-  try {
+const continueChatModeDefinition: ChatModeDefinition<ContinueChatModeParams> = {
+  id: "continue",
+  isContinue: true,
+  setupMessages: (ctx) => {
+    const lastMessage = ctx.messages[ctx.messages.length - 1]
+    if (lastMessage) {
+      const resolvedId = lastMessage.id ?? ctx.resolvedAssistantMessageId
+      const updatedLast = updateActiveVariant(lastMessage, {
+        message: `${lastMessage.message}▋`,
+        id: resolvedId
+      })
+      ctx.setMessages((prev) => {
+        const next = [...prev]
+        next[next.length - 1] = updatedLast
+        return next
+      })
+      return {
+        targetMessageId: resolvedId,
+        initialFullText: lastMessage.message
+      }
+    }
+    return {
+      targetMessageId: ctx.resolvedAssistantMessageId,
+      initialFullText: ""
+    }
+  },
+  preparePrompt: async (ctx) => {
     const prompt = await systemPromptForNonRagOption()
-    const selectedPrompt = await getPromptById(selectedSystemPrompt)
+    const selectedPrompt = await getPromptById(ctx.selectedSystemPrompt)
+    let promptContent: string | undefined = undefined
 
-    const applicationChatHistory = generateHistory(history, selectedModel)
+    const applicationChatHistory = generateHistory(
+      ctx.history,
+      ctx.selectedModel
+    )
 
     if (prompt && !selectedPrompt) {
       applicationChatHistory.unshift(
@@ -81,8 +77,8 @@ export const continueChatMode = async (
     }
 
     const isTempSystemprompt =
-      currentChatModelSettings.systemPrompt &&
-      currentChatModelSettings.systemPrompt?.trim().length > 0
+      ctx.currentChatModelSettings.systemPrompt &&
+      ctx.currentChatModelSettings.systemPrompt?.trim().length > 0
 
     if (!isTempSystemprompt && selectedPrompt) {
       const selectedPromptContent =
@@ -98,163 +94,61 @@ export const continueChatMode = async (
     if (isTempSystemprompt) {
       applicationChatHistory.unshift(
         await systemPromptFormatter({
-          content: currentChatModelSettings.systemPrompt
+          content: ctx.currentChatModelSettings.systemPrompt
         })
       )
-      promptContent = currentChatModelSettings.systemPrompt
+      promptContent = ctx.currentChatModelSettings.systemPrompt
     }
 
-    // Inject Actor prompt for "continue" turns as well, respecting templateMode
-    // when a scene template is selected in Chat Settings.
-    const templatesActive = !!selectedSystemPrompt
+    const templatesActive = !!ctx.selectedSystemPrompt
     const nextHistory = await maybeInjectActorMessage(
       applicationChatHistory,
-      actorSettings || null,
+      ctx.actorSettings || null,
       templatesActive
     )
     applicationChatHistory.length = 0
     applicationChatHistory.push(...nextHistory)
 
-    let generationInfo: any | undefined = undefined
-
-    const chunks = await ollama.stream([...applicationChatHistory], {
-      signal: signal,
-      callbacks: [
-        {
-          handleLLMEnd(output: any): any {
-            try {
-              generationInfo = output?.generations?.[0][0]?.generationInfo
-            } catch (e) {
-              console.error("handleLLMEnd error", e)
-            }
-          }
-        }
-      ]
-    })
-
-    let count = 0
-    let reasoningStartTime: Date | null = null
-    let reasoningEndTime: Date | null = null
-    let apiReasoning: boolean = false
-    for await (const chunk of chunks) {
-      const token = typeof chunk === 'string' ? chunk : (chunk?.content ?? (chunk?.choices?.[0]?.delta?.content ?? ''))
-      if (chunk?.additional_kwargs?.reasoning_content) {
-        const reasoningContent = mergeReasoningContent(
-          fullText,
-          chunk?.additional_kwargs?.reasoning_content || ""
-        )
-        contentToSave = reasoningContent
-        fullText = reasoningContent
-        apiReasoning = true
-      } else {
-        if (apiReasoning) {
-          fullText += "</think>"
-          contentToSave += "</think>"
-          apiReasoning = false
-        }
-      }
-
-      if (token) {
-        contentToSave += token
-        fullText += token
-      }
-
-      if (isReasoningStarted(fullText) && !reasoningStartTime) {
-        reasoningStartTime = new Date()
-      }
-
-      if (
-        reasoningStartTime &&
-        !reasoningEndTime &&
-        isReasoningEnded(fullText)
-      ) {
-        reasoningEndTime = new Date()
-        const reasoningTime =
-          reasoningEndTime.getTime() - reasoningStartTime.getTime()
-        timetaken = reasoningTime
-      }
-
-      if (count === 0) {
-        setIsProcessing(true)
-      }
-
-      setMessages((prev) => {
-        return prev.map((message) => {
-          if (message.id === generateMessageId) {
-            return {
-              ...message,
-              message: fullText + "▋",
-              reasoning_time_taken: timetaken
-            }
-          }
-          return message
-        })
-      })
-      count++
+    return {
+      chatHistory: applicationChatHistory,
+      promptId: ctx.selectedSystemPrompt,
+      promptContent
     }
-
-    setMessages((prev) => {
-      return prev.map((message) => {
-        if (message.id === generateMessageId) {
-          return {
-            ...message,
-            message: fullText,
-            generationInfo,
-            reasoning_time_taken: timetaken
-          }
-        }
-        return message
-      })
-    })
-
-    let newHistory = [...history]
-
-    newHistory[newHistory.length - 1] = {
-      ...newHistory[newHistory.length - 1],
-      content: fullText
+  },
+  updateHistory: (ctx, fullText) => {
+    const nextHistory = [...ctx.history]
+    if (nextHistory.length > 0) {
+      nextHistory[nextHistory.length - 1] = {
+        ...nextHistory[nextHistory.length - 1],
+        content: fullText
+      }
     }
-    setHistory(newHistory)
-    await saveMessageOnSuccess({
-      historyId,
-      setHistoryId,
-      isRegenerate: false,
-      selectedModel: selectedModel,
-      message: "",
-      image: "",
-      fullText,
-      source: [],
-      generationInfo,
-      prompt_content: promptContent,
-      prompt_id: promptId,
-      reasoning_time_taken: timetaken,
-      isContinue: true
-    })
-
-    setIsProcessing(false)
-    setStreaming(false)
-  } catch (e) {
-    const errorSave = await saveMessageOnError({
-      e,
-      botMessage: fullText,
-      history,
-      historyId,
-      image: "",
-      selectedModel,
-      setHistory,
-      setHistoryId,
-      userMessage: "",
-      isRegenerating: false,
-      isContinue: true,
-      prompt_content: promptContent,
-      prompt_id: promptId
-    })
-
-    if (!errorSave) {
-      throw e // Re-throw to be handled by the calling function
-    }
-    setIsProcessing(false)
-    setStreaming(false)
-  } finally {
-    setAbortController(null)
+    return nextHistory
   }
+}
+
+export const continueChatMode = async (
+  messages: Message[],
+  history: ChatHistory,
+  signal: AbortSignal,
+  params: ContinueChatModeParams
+) => {
+  console.log("Using continueChatMode")
+  const lastMessage = messages[messages.length - 1]
+  const assistantMessageId = lastMessage?.id
+
+  await runChatPipeline(
+    continueChatModeDefinition,
+    "",
+    "",
+    false,
+    messages,
+    history,
+    signal,
+    {
+      ...params,
+      assistantMessageId,
+      assistantParentMessageId: lastMessage?.parentMessageId ?? null
+    }
+  )
 }

@@ -1,12 +1,13 @@
-import { useForm } from "@mantine/form"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import React from "react"
 import useDynamicTextareaSize from "~/hooks/useDynamicTextareaSize"
 import { toBase64 } from "~/libs/to-base64"
-import { useMessageOption, MAX_COMPARE_MODELS } from "~/hooks/useMessageOption"
+import { useMessageOption } from "~/hooks/useMessageOption"
+import { MAX_COMPARE_MODELS } from "@/hooks/chat/compare-constants"
 import {
   Checkbox,
   Dropdown,
+  Radio,
   Select,
   Switch,
   Tooltip,
@@ -23,24 +24,29 @@ import {
   GitBranch,
   ImageIcon,
   MicIcon,
+  Hash,
+  SlidersHorizontal,
   StopCircleIcon,
   X,
   FileIcon,
   FileText,
   PaperclipIcon,
   Gauge,
-  Search
+  Search,
+  CornerUpLeft
 } from "lucide-react"
 import { getVariable } from "@/utils/select-variable"
 import { useTranslation } from "react-i18next"
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition"
+import { isFirefoxTarget } from "@/config/platform"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTabMentions } from "~/hooks/useTabMentions"
 import { useFocusShortcuts } from "~/hooks/keyboard"
+import { useDraftPersistence } from "@/hooks/useDraftPersistence"
 import { MentionsDropdown } from "./MentionsDropdown"
-import { DocumentChip } from "./DocumentChip"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { PASTED_TEXT_CHAR_LIMIT } from "@/utils/constant"
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
@@ -52,33 +58,52 @@ import { ConnectionPhase } from "@/types/connection"
 import { Link, useNavigate } from "react-router-dom"
 import { fetchChatModels } from "@/services/tldw-server"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { useTldwAudioStatus } from "@/hooks/useTldwAudioStatus"
+import { useMcpTools } from "@/hooks/useMcpTools"
+import { tldwChat, tldwModels, type ChatMessage } from "@/services/tldw"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { CharacterSelect } from "@/components/Common/CharacterSelect"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import type { Character } from "@/types/character"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
 import { BetaTag } from "@/components/Common/Beta"
+import {
+  SlashCommandMenu,
+  type SlashCommandItem
+} from "@/components/Sidepanel/Chat/SlashCommandMenu"
+import { DocumentGeneratorDrawer } from "@/components/Common/Playground/DocumentGeneratorDrawer"
+import { useUiModeStore } from "@/store/ui-mode"
+import { useStoreChatModelSettings } from "@/store/model"
+import { TokenProgressBar } from "./TokenProgressBar"
+import { AttachmentsSummary } from "./AttachmentsSummary"
+import { CompareToggle } from "./CompareToggle"
+import { useMobile } from "@/hooks/useMediaQuery"
+import { clearSetting, getSetting } from "@/services/settings/registry"
+import { DISCUSS_MEDIA_PROMPT_SETTING } from "@/services/settings/ui-settings"
+import { Button as TldwButton } from "@/components/Common/Button"
+import { useSimpleForm } from "@/hooks/useSimpleForm"
 
 const getPersistenceModeLabel = (
   t: (...args: any[]) => any,
   temporaryChat: boolean,
+  isConnectionReady: boolean,
   serverChatId: string | null
 ) => {
   if (temporaryChat) {
     return t(
       "playground:composer.persistence.ephemeral",
-      "Temporary chat: not saved in history and cleared when you close this window."
+      "Not saved: cleared when you close this window."
     )
   }
-  if (serverChatId) {
+  if (serverChatId || isConnectionReady) {
     return t(
       "playground:composer.persistence.server",
-      "Saved Locally+Server"
+      "Saved to your tldw server (and locally)."
     )
   }
   return t(
     "playground:composer.persistence.local",
-    "Saved in this browser only."
+    "Saved locally until your tldw server is connected."
   )
 }
 
@@ -96,8 +121,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const [checkWideMode] = useStorage("checkWideMode", false)
   const {
     onSubmit,
+    messages,
     selectedModel,
+    setSelectedModel,
     chatMode,
+    setChatMode,
     compareMode,
     setCompareMode,
     compareFeatureEnabled,
@@ -111,6 +139,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     streaming: isSending,
     webSearch,
     setWebSearch,
+    toolChoice,
+    setToolChoice,
     selectedQuickPrompt,
     textareaRef,
     setSelectedQuickPrompt,
@@ -138,22 +168,44 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     serverChatState,
     setServerChatState,
     serverChatSource,
-    setServerChatSource
+    setServerChatSource,
+    setServerChatVersion,
+    replyTarget,
+    clearReplyTarget
   } = useMessageOption()
 
   const [autoSubmitVoiceMessage] = useStorage("autoSubmitVoiceMessage", false)
+  const isMobileViewport = useMobile()
   const [openModelSettings, setOpenModelSettings] = React.useState(false)
   const [openActorSettings, setOpenActorSettings] = React.useState(false)
   const [compareSettingsOpen, setCompareSettingsOpen] = React.useState(false)
+  const apiProvider = useStoreChatModelSettings((state) => state.apiProvider)
+  const numCtx = useStoreChatModelSettings((state) => state.numCtx)
+  const systemPrompt = useStoreChatModelSettings((state) => state.systemPrompt)
 
   const { phase, isConnected } = useConnectionState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
   const { capabilities, loading: capsLoading } = useServerCapabilities()
+  const {
+    hasMcp,
+    healthState: mcpHealthState,
+    tools: mcpTools,
+    toolsLoading: mcpToolsLoading
+  } = useMcpTools()
   const hasServerAudio =
     isConnectionReady && !capsLoading && capabilities?.hasAudio
+  const { healthState: audioHealthState } = useTldwAudioStatus()
+  const canUseServerAudio = hasServerAudio && audioHealthState !== "unhealthy"
   const [hasShownConnectBanner, setHasShownConnectBanner] = React.useState(false)
   const [showConnectBanner, setShowConnectBanner] = React.useState(false)
   const [showQueuedBanner, setShowQueuedBanner] = React.useState(true)
+  const [documentGeneratorOpen, setDocumentGeneratorOpen] =
+    React.useState(false)
+  const [documentGeneratorSeed, setDocumentGeneratorSeed] = React.useState<{
+    conversationId?: string | null
+    message?: string | null
+    messageId?: string | null
+  }>({})
   const [autoStopTimeout] = useStorage("autoStopTimeout", 2000)
   const [sttModel] = useStorage("sttModel", "whisper-1")
   const [sttUseSegmentation] = useStorage("sttUseSegmentation", false)
@@ -184,10 +236,22 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
   const [showServerPersistenceHint, setShowServerPersistenceHint] =
     React.useState(false)
+  const serverSaveInFlightRef = React.useRef(false)
+  const uiMode = useUiModeStore((state) => state.mode)
+  const isProMode = uiMode === "pro"
   const [contextToolsOpen, setContextToolsOpen] = useStorage(
     "playgroundKnowledgeSearchOpen",
     false
   )
+  const replyLabel = replyTarget
+    ? [
+        t("common:replyingTo", "Replying to"),
+        replyTarget.name ? `${replyTarget.name}:` : null,
+        replyTarget.preview
+      ]
+        .filter(Boolean)
+        .join(" ")
+    : ""
 
   React.useEffect(() => {
     if (typeof window === "undefined") return
@@ -197,6 +261,23 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       window.removeEventListener("tldw:open-actor-settings", handler)
     }
   }, [])
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent)?.detail || {}
+      setDocumentGeneratorSeed({
+        conversationId: detail?.conversationId ?? serverChatId ?? null,
+        message: detail?.message ?? null,
+        messageId: detail?.messageId ?? null
+      })
+      setDocumentGeneratorOpen(true)
+    }
+    window.addEventListener("tldw:open-document-generator", handler)
+    return () => {
+      window.removeEventListener("tldw:open-document-generator", handler)
+    }
+  }, [serverChatId])
 
   const {
     tabMentionsEnabled,
@@ -263,6 +344,55 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     )
   }, [composerModels, selectedModel, t])
 
+  const selectedModelMeta = React.useMemo(() => {
+    if (!selectedModel) return null
+    const models = (composerModels as any[]) || []
+    return models.find((model) => model.model === selectedModel) || null
+  }, [composerModels, selectedModel])
+
+  const modelContextLength = React.useMemo(() => {
+    const value =
+      selectedModelMeta?.context_length ??
+      selectedModelMeta?.contextLength ??
+      selectedModelMeta?.details?.context_length
+    return typeof value === "number" && Number.isFinite(value) ? value : null
+  }, [selectedModelMeta])
+
+  const resolvedMaxContext = React.useMemo(() => {
+    if (typeof numCtx === "number" && Number.isFinite(numCtx) && numCtx > 0) {
+      return numCtx
+    }
+    if (typeof modelContextLength === "number" && modelContextLength > 0) {
+      return modelContextLength
+    }
+    return null
+  }, [modelContextLength, numCtx])
+
+  const resolvedProviderKey = React.useMemo(() => {
+    const fromOverride = typeof apiProvider === "string" ? apiProvider.trim() : ""
+    if (fromOverride) return fromOverride.toLowerCase()
+    const provider =
+      typeof selectedModelMeta?.provider === "string"
+        ? selectedModelMeta.provider
+        : "custom"
+    return provider.toLowerCase()
+  }, [apiProvider, selectedModelMeta])
+
+  const providerLabel = React.useMemo(
+    () => tldwModels.getProviderDisplayName(resolvedProviderKey || "custom"),
+    [resolvedProviderKey]
+  )
+
+  const apiModelLabel = React.useMemo(() => {
+    if (!selectedModel) {
+      return t(
+        "playground:composer.modelPlaceholder",
+        "API / model"
+      )
+    }
+    return `${providerLabel} / ${modelSummaryLabel}`
+  }, [modelSummaryLabel, providerLabel, selectedModel, t])
+
   const compareSummaryLabel = React.useMemo(() => {
     if (!compareModeActive) {
       return null
@@ -326,7 +456,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       value: model.model,
       label: (
         <div className="flex items-center gap-2">
-          <ProviderIcons provider={model.provider} className="h-3 w-3 text-gray-400" />
+          <ProviderIcons provider={model.provider} className="h-3 w-3 text-text-subtle" />
           <span className="truncate">
             {model.nickname || model.model}
           </span>
@@ -334,6 +464,71 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       )
     }))
   }, [composerModels])
+
+  // Grouped menu items for quick model selection dropdown
+  const modelDropdownItems = React.useMemo(() => {
+    const models = (composerModels as any[]) || []
+    const groups = new Map<string, any[]>()
+
+    for (const model of models) {
+      const groupKey = model.provider?.toLowerCase() || "other"
+      if (!groups.has(groupKey)) groups.set(groupKey, [])
+      groups.get(groupKey)!.push({
+        key: model.model,
+        label: (
+          <div className="flex items-center gap-2 text-sm">
+            <ProviderIcons provider={model.provider} className="h-3 w-3 text-text-subtle" />
+            <span className="truncate">{model.nickname || model.model}</span>
+          </div>
+        ),
+        onClick: () => setSelectedModel(model.model)
+      })
+    }
+
+    return Array.from(groups).map(([key, children]) => ({
+      type: "group" as const,
+      key: `group-${key}`,
+      label: (
+        <div className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-text-subtle">
+          <ProviderIcons provider={key} className="h-3 w-3" />
+          <span>{getProviderDisplayName(key)}</span>
+        </div>
+      ),
+      children
+    }))
+  }, [composerModels, setSelectedModel])
+  const modelDropdownMenuItems = React.useMemo(() => {
+    if (modelDropdownItems.length > 0) {
+      return modelDropdownItems
+    }
+
+    return [
+      {
+        key: "no-models",
+        disabled: true,
+        label: (
+          <div className="px-1 py-1 text-xs text-text-muted">
+            {t(
+              "playground:composer.noModelsAvailable",
+              "No models available. Connect your server in Settings."
+            )}
+          </div>
+        )
+      },
+      {
+        type: "divider" as const,
+        key: "no-models-divider"
+      },
+      {
+        key: "open-model-settings",
+        label: t(
+          "playground:composer.openModelSettings",
+          "Open model settings"
+        ),
+        onClick: () => navigate("/settings/tldw")
+      }
+    ]
+  }, [modelDropdownItems, navigate, t])
 
   const handleCompareModelChange = (values: string[]) => {
     if (!compareFeatureEnabled) {
@@ -417,12 +612,156 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }, [])
 
-  const form = useForm({
+  const form = useSimpleForm({
     initialValues: {
       message: "",
       image: ""
     }
   })
+
+  // Draft persistence - saves/restores message draft to local-only storage
+  const { draftSaved } = useDraftPersistence({
+    storageKey: "tldw:playgroundChatDraft",
+    getValue: () => form.values.message,
+    setValue: (value) => form.setFieldValue("message", value)
+  })
+
+  const numberFormatter = React.useMemo(() => new Intl.NumberFormat(), [])
+  const formatNumber = React.useCallback(
+    (value: number | null) => {
+      if (typeof value !== "number" || !Number.isFinite(value)) return "—"
+      return numberFormatter.format(Math.round(value))
+    },
+    [numberFormatter]
+  )
+
+  const estimateTokensForText = React.useCallback((text: string) => {
+    const trimmed = text.trim()
+    if (!trimmed) return 0
+    return tldwChat.estimateTokens([
+      { role: "user", content: trimmed }
+    ])
+  }, [])
+
+  const draftTokenCount = React.useMemo(
+    () => estimateTokensForText(form.values.message || ""),
+    [estimateTokensForText, form.values.message]
+  )
+
+  const conversationTokenCountRef = React.useRef(0)
+  const conversationTokenCount = React.useMemo(() => {
+    if (isSending) {
+      return conversationTokenCountRef.current
+    }
+    const convoMessages: ChatMessage[] = []
+    const trimmedSystem = systemPrompt?.trim()
+    if (trimmedSystem) {
+      convoMessages.push({ role: "system", content: trimmedSystem })
+    }
+    messages.forEach((message) => {
+      const content = typeof message.message === "string" ? message.message.trim() : ""
+      if (!content) return
+      if (message.isBot) {
+        convoMessages.push({ role: "assistant", content })
+      } else {
+        convoMessages.push({ role: "user", content })
+      }
+    })
+    if (convoMessages.length === 0) return 0
+    const count = tldwChat.estimateTokens(convoMessages)
+    conversationTokenCountRef.current = count
+    return count
+  }, [isSending, messages, systemPrompt])
+
+  const promptTokenLabel = React.useMemo(
+    () =>
+      `${t("playground:tokens.prompt", "prompt")} ${formatNumber(draftTokenCount)}`,
+    [draftTokenCount, formatNumber, t]
+  )
+  const convoTokenLabel = React.useMemo(
+    () =>
+      `${t("playground:tokens.total", "tokens")} ${formatNumber(conversationTokenCount)}`,
+    [conversationTokenCount, formatNumber, t]
+  )
+  const contextTokenLabel = React.useMemo(
+    () => `${formatNumber(resolvedMaxContext)} ctx`,
+    [formatNumber, resolvedMaxContext]
+  )
+  const tokenUsageLabel = React.useMemo(
+    () => `${promptTokenLabel} · ${convoTokenLabel} / ${contextTokenLabel}`,
+    [contextTokenLabel, convoTokenLabel, promptTokenLabel]
+  )
+  const tokenUsageCompactLabel = React.useMemo(() => {
+    const prompt = formatNumber(draftTokenCount)
+    const convo = formatNumber(conversationTokenCount)
+    const ctx = formatNumber(resolvedMaxContext)
+    return `${prompt} · ${convo}/${ctx} ctx`
+  }, [conversationTokenCount, draftTokenCount, formatNumber, resolvedMaxContext])
+  const tokenUsageDisplay = isProMode
+    ? tokenUsageLabel
+    : tokenUsageCompactLabel
+  const contextLabel = React.useMemo(
+    () =>
+      t(
+        "common:modelSettings.form.numCtx.label",
+        "Context Window Size (num_ctx)"
+      ),
+    [t]
+  )
+  const tokenUsageTooltip = React.useMemo(
+    () =>
+      `${apiModelLabel} · ${promptTokenLabel} · ${convoTokenLabel} · ${contextLabel} ${formatNumber(resolvedMaxContext)}`,
+    [
+      apiModelLabel,
+      contextLabel,
+      convoTokenLabel,
+      formatNumber,
+      promptTokenLabel,
+      resolvedMaxContext
+    ]
+  )
+
+  const showModelLabel = !isProMode
+  const modelUsageBadge = (
+    <div className="inline-flex items-center gap-2">
+      {showModelLabel && (
+        <Dropdown
+          menu={{
+            items: modelDropdownMenuItems,
+            style: { maxHeight: 400, overflowY: "auto" },
+            className: "no-scrollbar",
+            activeKey: selectedModel ?? undefined
+          }}
+          trigger={["click"]}
+          placement="topLeft"
+        >
+          <Tooltip title={apiModelLabel} placement="top">
+            <button
+              type="button"
+              title={apiModelLabel}
+              aria-label={apiModelLabel}
+              className="inline-flex min-w-0 items-center gap-1 rounded-full border border-border bg-surface px-2 h-9 text-[10px] cursor-pointer hover:bg-surface-hover transition-colors"
+            >
+              <ProviderIcons
+                provider={resolvedProviderKey}
+                className="h-3 w-3 text-text-subtle"
+              />
+              <span className="truncate max-w-[120px]">
+                {apiModelLabel}
+              </span>
+            </button>
+          </Tooltip>
+        </Dropdown>
+      )}
+      <TokenProgressBar
+        conversationTokens={conversationTokenCount}
+        draftTokens={draftTokenCount}
+        maxTokens={resolvedMaxContext}
+        modelLabel={isProMode ? apiModelLabel : undefined}
+        compact={!isProMode}
+      />
+    </div>
+  )
 
   // Allow other components (e.g., connection card) to request focus
   React.useEffect(() => {
@@ -458,23 +797,18 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   // Seed composer when a media item requests discussion (e.g., from Quick ingest or Review page)
   React.useEffect(() => {
-    try {
-      if (typeof window === "undefined") return
-      const raw = localStorage.getItem("tldw:discussMediaPrompt")
-      if (!raw) return
-      localStorage.removeItem("tldw:discussMediaPrompt")
-      const payload = JSON.parse(raw) as {
-        mediaId?: string
-        url?: string
-        title?: string
-        content?: string
-      }
+    let cancelled = false
+    void (async () => {
+      const payload = await getSetting(DISCUSS_MEDIA_PROMPT_SETTING)
+      if (cancelled || !payload) return
+      void clearSetting(DISCUSS_MEDIA_PROMPT_SETTING)
       const hint = buildDiscussMediaHint(payload)
       if (!hint) return
       form.setFieldValue("message", hint)
       textAreaFocus()
-    } catch {
-      // ignore storage/parse errors
+    })()
+    return () => {
+      cancelled = true
     }
   }, [form, textAreaFocus])
 
@@ -602,7 +936,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }
 
-  useDynamicTextareaSize(textareaRef, form.values.message, 300)
+  // Match sidepanel textarea sizing: Pro mode gets more space
+  const textareaMaxHeight = isProMode ? 160 : 120
+  useDynamicTextareaSize(textareaRef, form.values.message, textareaMaxHeight)
 
   const {
     transcript,
@@ -621,6 +957,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   })
   const { sendWhenEnter, setSendWhenEnter } = useWebUI()
+  const speechAvailable =
+    browserSupportsSpeechRecognition || canUseServerAudio
+  const speechUsesServer = canUseServerAudio
 
   React.useEffect(() => {
     if (isListening) {
@@ -693,6 +1032,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }, [selectedQuickPrompt])
 
   const queryClient = useQueryClient()
+  const invalidateServerChatHistory = React.useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+  }, [queryClient])
 
   const { mutateAsync: sendMessage } = useMutation({
     mutationFn: onSubmit,
@@ -709,8 +1051,16 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   const submitForm = () => {
     form.onSubmit(async (value) => {
+      const slashResult = applySlashCommand(value.message)
+      if (slashResult.handled) {
+        form.setFieldValue("message", slashResult.message)
+      }
+      const nextMessage = slashResult.handled
+        ? slashResult.message
+        : value.message
+      const trimmed = nextMessage.trim()
       if (
-        value.message.trim().length === 0 &&
+        trimmed.length === 0 &&
         value.image.length === 0 &&
         selectedDocuments.length === 0 &&
         uploadedFiles.length === 0
@@ -719,7 +1069,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       }
       if (!isConnectionReady) {
         addQueuedMessage({
-          message: value.message.trim(),
+          message: trimmed,
           image: value.image
         })
         form.reset()
@@ -757,7 +1107,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       textAreaFocus()
       await sendMessage({
         image: value.image,
-        message: value.message.trim(),
+        message: trimmed,
         docs: selectedDocuments.map((doc) => ({
           type: "tab",
           tabId: doc.id,
@@ -774,6 +1124,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       return
     }
     form.onSubmit(async () => {
+      const slashResult = applySlashCommand(message)
+      const nextMessage = slashResult.handled
+        ? slashResult.message
+        : message
+      const trimmed = nextMessage.trim()
+      if (
+        trimmed.length === 0 &&
+        image.length === 0 &&
+        selectedDocuments.length === 0 &&
+        uploadedFiles.length === 0
+      ) {
+        return
+      }
       const defaultEM = await defaultEmbeddingModelForRag()
       if (!compareModeActive) {
         if (!selectedModel || selectedModel.length === 0) {
@@ -803,7 +1166,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       textAreaFocus()
       await sendMessage({
         image,
-        message,
+        message: trimmed,
         docs: selectedDocuments.map((doc) => ({
           type: "tab",
           tabId: doc.id,
@@ -814,6 +1177,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       })
     })()
   }
+
+  const privateChatLocked = temporaryChat && history.length > 0
 
   const handleToggleTemporaryChat = React.useCallback(
     (next: boolean) => {
@@ -833,6 +1198,20 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
       const hasExistingHistory = history.length > 0
 
+      if (!next && temporaryChat && hasExistingHistory) {
+        notification.warning({
+          message: t(
+            "playground:composer.privateChatLockedTitle",
+            "Private chat is locked"
+          ),
+          description: t(
+            "playground:composer.privateChatLockedBody",
+            "Start a new chat to switch back to saved conversations."
+          )
+        })
+        return
+      }
+
       // Show confirmation when enabling temporary mode with existing messages
       if (next && hasExistingHistory) {
         Modal.confirm({
@@ -849,7 +1228,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           onOk: () => {
             setTemporaryChat(next)
             clearChat()
-            const modeLabel = getPersistenceModeLabel(t, next, serverChatId)
+            const modeLabel = getPersistenceModeLabel(
+              t,
+              next,
+              isConnectionReady,
+              serverChatId
+            )
             notification.info({
               message: modeLabel,
               placement: "bottomRight",
@@ -866,7 +1250,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         clearChat()
       }
 
-      const modeLabel = getPersistenceModeLabel(t, next, serverChatId)
+      const modeLabel = getPersistenceModeLabel(
+        t,
+        next,
+        isConnectionReady,
+        serverChatId
+      )
 
       notification.info({
         message: modeLabel,
@@ -874,11 +1263,24 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         duration: 2.5
       })
     },
-    [clearChat, history.length, serverChatId, setTemporaryChat, t]
+    [
+      clearChat,
+      history.length,
+      isConnectionReady,
+      serverChatId,
+      setTemporaryChat,
+      t,
+      temporaryChat
+    ]
   )
 
   const handleSaveChatToServer = React.useCallback(async () => {
-    if (!isConnectionReady || temporaryChat || serverChatId) {
+    if (
+      !isConnectionReady ||
+      temporaryChat ||
+      serverChatId ||
+      history.length === 0
+    ) {
       return
     }
     try {
@@ -933,6 +1335,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             <Button
               type="primary"
               size="small"
+              title={t(
+                "playground:composer.persistence.serverCharacterCta",
+                "Open Characters workspace"
+              ) as string}
               onClick={() => {
                 navigate("/characters?from=server-chat-persistence-error")
               }}>
@@ -961,6 +1367,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       if (!cid) {
         throw new Error("Failed to create server chat")
       }
+      setServerChatId(cid)
       setServerChatState(
         (created as any)?.state ??
           (created as any)?.conversation_state ??
@@ -968,6 +1375,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           "in-progress"
       )
       setServerChatSource((created as any)?.source ?? serverChatSource ?? null)
+      setServerChatVersion((created as any)?.version ?? null)
+      invalidateServerChatHistory()
 
       for (const msg of snapshot) {
         const content = (msg.content || "").trim()
@@ -984,24 +1393,23 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         })
       }
 
-      setServerChatId(cid)
-      notification.success({
-        message: t(
-          "playground:composer.persistence.serverSavedTitle",
-          "Chat now saved on server"
-        ),
-        description:
-          t(
-            "playground:composer.persistence.serverSaved",
-            "Future messages in this chat will sync to your tldw server."
-          ) +
-          " " +
-          t(
-            "playground:composer.persistence.serverBenefits",
-            "This keeps a durable record in server history so you can reopen the conversation later, access it from other browsers, and run server-side analytics over your chats."
-          )
-      })
       if (!serverPersistenceHintSeen) {
+        notification.success({
+          message: t(
+            "playground:composer.persistence.serverSavedTitle",
+            "Chat now saved on server"
+          ),
+          description:
+            t(
+              "playground:composer.persistence.serverSaved",
+              "Future messages in this chat will sync to your tldw server."
+            ) +
+            " " +
+            t(
+              "playground:composer.persistence.serverBenefits",
+              "This keeps a durable record in server history so you can reopen the conversation later, access it from other browsers, and run server-side analytics over your chats."
+            )
+        })
         setServerPersistenceHintSeen(true)
         setShowServerPersistenceHint(true)
       }
@@ -1013,6 +1421,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }, [
     history,
+    invalidateServerChatHistory,
     isConnectionReady,
     temporaryChat,
     serverChatId,
@@ -1021,6 +1430,30 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     serverPersistenceHintSeen,
     setServerPersistenceHintSeen,
     t
+  ])
+
+  React.useEffect(() => {
+    if (
+      !isConnectionReady ||
+      temporaryChat ||
+      serverChatId ||
+      history.length === 0
+    ) {
+      return
+    }
+    if (serverSaveInFlightRef.current) {
+      return
+    }
+    serverSaveInFlightRef.current = true
+    Promise.resolve(handleSaveChatToServer()).finally(() => {
+      serverSaveInFlightRef.current = false
+    })
+  }, [
+    handleSaveChatToServer,
+    history.length,
+    isConnectionReady,
+    serverChatId,
+    temporaryChat
   ])
 
   const handleClearContext = React.useCallback(() => {
@@ -1066,6 +1499,134 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     fileInputRef.current?.click()
   }, [])
 
+  const slashCommands = React.useMemo<SlashCommandItem[]>(
+    () => [
+      {
+        id: "slash-search",
+        command: "search",
+        label: t(
+          "common:commandPalette.toggleKnowledgeSearch",
+          "Toggle Knowledge Search"
+        ),
+        description: t(
+          "common:commandPalette.toggleKnowledgeSearchDesc",
+          "Search your knowledge base"
+        ),
+        keywords: ["rag", "context", "knowledge", "search"],
+        action: () => setChatMode(chatMode === "rag" ? "normal" : "rag")
+      },
+      {
+        id: "slash-web",
+        command: "web",
+        label: t(
+          "common:commandPalette.toggleWebSearch",
+          "Toggle Web Search"
+        ),
+        description: t(
+          "common:commandPalette.toggleWebDesc",
+          "Search the internet"
+        ),
+        keywords: ["web", "internet", "browse"],
+        action: () => setWebSearch(!webSearch)
+      },
+      {
+        id: "slash-vision",
+        command: "vision",
+        label: t("playground:actions.upload", "Attach image"),
+        description: t(
+          "playground:composer.slashVisionDesc",
+          "Attach an image for vision"
+        ),
+        keywords: ["image", "ocr", "vision"],
+        action: handleImageUpload
+      },
+      {
+        id: "slash-model",
+        command: "model",
+        label: t("common:commandPalette.switchModel", "Switch Model"),
+        description: t(
+          "common:currentChatModelSettings",
+          "Open current chat settings"
+        ),
+        keywords: ["settings", "parameters", "temperature"],
+        action: () => setOpenModelSettings(true)
+      }
+    ],
+    [chatMode, handleImageUpload, setChatMode, setWebSearch, t, webSearch, setOpenModelSettings]
+  )
+
+  const slashCommandLookup = React.useMemo(
+    () => new Map(slashCommands.map((command) => [command.command, command])),
+    [slashCommands]
+  )
+
+  const slashMatch = React.useMemo(
+    () => form.values.message.match(/^\s*\/(\w*)$/),
+    [form.values.message]
+  )
+  const slashQuery = slashMatch?.[1] ?? ""
+  const showSlashMenu = Boolean(slashMatch)
+  const [slashActiveIndex, setSlashActiveIndex] = React.useState(0)
+
+  const filteredSlashCommands = React.useMemo(() => {
+    if (!slashQuery) return slashCommands
+    const q = slashQuery.toLowerCase()
+    return slashCommands.filter((command) => {
+      if (command.command.startsWith(q)) return true
+      if (command.label.toLowerCase().includes(q)) return true
+      return (command.keywords || []).some((keyword) =>
+        keyword.toLowerCase().includes(q)
+      )
+    })
+  }, [slashCommands, slashQuery])
+
+  React.useEffect(() => {
+    if (!showSlashMenu) {
+      setSlashActiveIndex(0)
+      return
+    }
+    setSlashActiveIndex((prev) => {
+      if (filteredSlashCommands.length === 0) return 0
+      return Math.min(prev, filteredSlashCommands.length - 1)
+    })
+  }, [showSlashMenu, filteredSlashCommands.length, slashQuery])
+
+  const parseSlashInput = React.useCallback((text: string) => {
+    const trimmed = text.trimStart()
+    const match = trimmed.match(/^\/(\w+)(?:\s+([\s\S]*))?$/)
+    if (!match) return null
+    return {
+      command: match[1].toLowerCase(),
+      remainder: match[2] || ""
+    }
+  }, [])
+
+  const applySlashCommand = React.useCallback(
+    (text: string) => {
+      const parsed = parseSlashInput(text)
+      if (!parsed) {
+        return { handled: false, message: text }
+      }
+      const command = slashCommandLookup.get(parsed.command)
+      if (!command) {
+        return { handled: false, message: text }
+      }
+      command.action()
+      return { handled: true, message: parsed.remainder }
+    },
+    [parseSlashInput, slashCommandLookup]
+  )
+
+  const handleSlashCommandSelect = React.useCallback(
+    (command: SlashCommandItem) => {
+      const parsed = parseSlashInput(form.values.message)
+      command.action()
+      form.setFieldValue("message", parsed?.remainder || "")
+      requestAnimationFrame(() => textareaRef.current?.focus())
+    },
+    [form, parseSlashInput, textareaRef]
+  )
+
   const serverRecorderRef = React.useRef<MediaRecorder | null>(null)
   const serverChunksRef = React.useRef<BlobPart[]>([])
   const [isServerDictating, setIsServerDictating] = React.useState(false)
@@ -1102,6 +1663,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             "in-progress"
         )
         setServerChatSource((updated as any)?.source ?? null)
+        setServerChatVersion((updated as any)?.version ?? null)
+        invalidateServerChatHistory()
       } catch (e: any) {
         notification.error({
           message: t("error", { defaultValue: "Error" }),
@@ -1112,9 +1675,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       }
     },
     [
+      invalidateServerChatHistory,
       serverChatId,
       setServerChatSource,
       setServerChatState,
+      setServerChatVersion,
       t
     ]
   )
@@ -1124,11 +1689,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       stopServerDictation()
       return
     }
-    if (!hasServerAudio) {
+    if (!canUseServerAudio) {
       notification.error({
-        message: t("playground:actions.speechErrorTitle", "Dictation unavailable"),
+        message: t(
+          "playground:actions.speechUnavailableTitle",
+          "Dictation unavailable"
+        ),
         description: t(
-          "playground:actions.speechErrorBody",
+          "playground:actions.speechUnavailableBody",
           "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
         )
       })
@@ -1261,7 +1829,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       })
     }
   }, [
-    hasServerAudio,
+    canUseServerAudio,
     isServerDictating,
     speechToTextLanguage,
     sttModel,
@@ -1281,8 +1849,42 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const moreToolsContent = React.useMemo(
     () => (
       <div className="flex w-64 flex-col gap-3">
+        <button
+          type="button"
+          onClick={handleToggleContextTools}
+          aria-pressed={contextToolsOpen}
+          title={
+            contextToolsOpen
+              ? (t(
+                  "playground:composer.contextKnowledgeClose",
+                  "Close Ctx + Media"
+                ) as string)
+              : (t(
+                  "playground:composer.contextKnowledge",
+                  "Ctx + Media"
+                ) as string)
+          }
+          className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-sm transition ${
+            contextToolsOpen
+              ? "bg-surface2 text-accent"
+              : "text-text hover:bg-surface2"
+          }`}
+        >
+          <span>
+            {contextToolsOpen
+              ? t(
+                  "playground:composer.contextKnowledgeClose",
+                  "Close Ctx + Media"
+                )
+              : t(
+                  "playground:composer.contextKnowledge",
+                  "Ctx + Media"
+                )}
+          </span>
+          <Search className="h-4 w-4" />
+        </button>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-700 dark:text-gray-200">
+          <span className="text-sm text-text">
             {webSearch
               ? t("playground:actions.webSearchOn")
               : t("playground:actions.webSearchOff")}
@@ -1295,10 +1897,111 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             unCheckedChildren={t("form.webSearch.off")}
           />
         </div>
+        <div className="panel-divider my-1" />
+        <div className="text-xs font-semibold text-text-muted">
+          {t("playground:composer.toolChoiceLabel", "Tool choice")}
+        </div>
+        <Tooltip
+          title={
+            !hasMcp
+              ? t(
+                  "playground:composer.mcpToolsUnavailable",
+                  "MCP tools unavailable"
+                )
+              : mcpHealthState === "unhealthy"
+                ? t("playground:composer.mcpToolsUnhealthy", "MCP tools are offline")
+                : mcpToolsLoading
+                  ? t("playground:composer.mcpToolsLoading", "Loading tools...")
+                  : mcpTools.length === 0
+                    ? t("playground:composer.mcpToolsEmpty", "No MCP tools available")
+                    : ""
+          }
+          open={
+            !hasMcp ||
+            mcpHealthState === "unhealthy" ||
+            mcpToolsLoading ||
+            mcpTools.length === 0
+              ? undefined
+              : false
+          }
+        >
+          <Radio.Group
+            size="small"
+            value={toolChoice}
+            onChange={(e) => setToolChoice(e.target.value as typeof toolChoice)}
+            className="flex flex-wrap gap-2"
+            aria-label={t("playground:composer.toolChoiceLabel", "Tool choice")}
+            disabled={
+              !hasMcp ||
+              mcpHealthState === "unhealthy" ||
+              mcpToolsLoading ||
+              mcpTools.length === 0
+            }
+          >
+            <Radio.Button value="auto">
+              {t("playground:composer.toolChoiceAuto", "Auto")}
+            </Radio.Button>
+            <Radio.Button value="required">
+              {t("playground:composer.toolChoiceRequired", "Required")}
+            </Radio.Button>
+            <Radio.Button value="none">
+              {t("playground:composer.toolChoiceNone", "None")}
+            </Radio.Button>
+          </Radio.Group>
+        </Tooltip>
+        <div className="text-xs font-semibold text-text-muted">
+          {t("playground:composer.mcpToolsLabel", "MCP tools")}
+        </div>
+        {mcpToolsLoading ? (
+          <div className="text-xs text-text-muted">
+            {t("playground:composer.mcpToolsLoading", "Loading tools...")}
+          </div>
+        ) : mcpTools.length === 0 ? (
+          <div className="text-xs text-text-muted">
+            {!hasMcp
+              ? t(
+                  "playground:composer.mcpToolsUnavailable",
+                  "MCP tools unavailable"
+                )
+              : mcpHealthState === "unhealthy"
+                ? t("playground:composer.mcpToolsUnhealthy", "MCP tools are offline")
+                : t("playground:composer.mcpToolsEmpty", "No MCP tools available")}
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-1">
+            {mcpTools.slice(0, 6).map((tool, index) => {
+              const toolFn = (tool as any)?.function
+              const name =
+                (typeof tool?.name === "string" && tool.name) ||
+                (typeof toolFn?.name === "string" && toolFn.name) ||
+                (typeof (tool as any)?.id === "string" && (tool as any).id) ||
+                `tool-${index + 1}`
+              const description =
+                (typeof tool?.description === "string" && tool.description) ||
+                (typeof toolFn?.description === "string" && toolFn.description) ||
+                ""
+              return (
+                <span
+                  key={`${name}-${index}`}
+                  title={description || name}
+                  className="rounded-full border border-border px-2 py-0.5 text-[11px] text-text"
+                >
+                  {name}
+                </span>
+              )
+            })}
+            {mcpTools.length > 6 && (
+              <span className="rounded-full border border-border px-2 py-0.5 text-[11px] text-text-muted">
+                +{mcpTools.length - 6}
+              </span>
+            )}
+          </div>
+        )}
         <button
           type="button"
           onClick={() => setCompareSettingsOpen(true)}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          title={compareButtonLabel}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
         >
           <span>{compareButtonLabel}</span>
           <GitBranch className="h-4 w-4" />
@@ -1307,7 +2010,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           type="button"
           onClick={handleImageUpload}
           disabled={chatMode === "rag"}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          title={t("playground:actions.upload", "Attach image") as string}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-40 disabled:text-text-muted"
         >
           <span>{t("playground:actions.upload", "Attach image")}</span>
           <ImageIcon className="h-4 w-4" />
@@ -1315,7 +2019,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         <button
           type="button"
           onClick={handleDocumentUpload}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          title={t("tooltip.uploadDocuments") as string}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2"
         >
           <span>{t("tooltip.uploadDocuments")}</span>
           <PaperclipIcon className="h-4 w-4" />
@@ -1324,7 +2029,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           type="button"
           onClick={handleClearContext}
           disabled={history.length === 0}
-          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
+          title={t("tooltip.clearContext") as string}
+          className="flex w-full items-center justify-between rounded-md px-2 py-1 text-sm text-text transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-40 disabled:text-text-muted"
         >
           <span>{t("tooltip.clearContext")}</span>
           <EraserIcon className="h-4 w-4" />
@@ -1334,20 +2040,64 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     [
       chatMode,
       compareButtonLabel,
+      contextToolsOpen,
       handleClearContext,
       handleDocumentUpload,
       handleImageUpload,
+      handleToggleContextTools,
       history.length,
       setCompareSettingsOpen,
       setWebSearch,
+      setToolChoice,
       t,
-      webSearch
+      toolChoice,
+      webSearch,
+      hasMcp,
+      mcpHealthState,
+      mcpTools,
+      mcpToolsLoading
     ]
   )
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (import.meta.env.BROWSER !== "firefox") {
+    if (!isFirefoxTarget) {
       if (e.key === "Process" || e.key === "229") return
+    }
+
+    if (showSlashMenu) {
+      if (e.key === "ArrowDown" && filteredSlashCommands.length > 0) {
+        e.preventDefault()
+        setSlashActiveIndex((prev) =>
+          prev + 1 >= filteredSlashCommands.length ? 0 : prev + 1
+        )
+        return
+      }
+      if (e.key === "ArrowUp" && filteredSlashCommands.length > 0) {
+        e.preventDefault()
+        setSlashActiveIndex((prev) =>
+          prev <= 0 ? filteredSlashCommands.length - 1 : prev - 1
+        )
+        return
+      }
+      if (
+        (e.key === "Enter" || (e.key === "Tab" && !e.shiftKey)) &&
+        filteredSlashCommands.length > 0
+      ) {
+        e.preventDefault()
+        const command = filteredSlashCommands[slashActiveIndex]
+        if (command) {
+          handleSlashCommandSelect(command)
+        }
+        return
+      }
+      if (e.key === "Escape") {
+        e.preventDefault()
+        form.setFieldValue(
+          "message",
+          form.values.message.replace(/^\s*\//, "")
+        )
+        return
+      }
     }
 
     if (
@@ -1357,6 +2107,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         e.key === "Enter" ||
         e.key === "Escape")
     ) {
+      return
+    }
+
+    if (!isConnectionReady) {
+      if (e.key === "Enter") {
+        e.preventDefault()
+      }
       return
     }
 
@@ -1381,28 +2138,44 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   }
 
   const persistenceModeLabel = React.useMemo(
-    () => getPersistenceModeLabel(t, temporaryChat, serverChatId),
-    [serverChatId, temporaryChat, t]
+    () =>
+      getPersistenceModeLabel(
+        t,
+        temporaryChat,
+        isConnectionReady,
+        serverChatId
+      ),
+    [isConnectionReady, serverChatId, temporaryChat, t]
   )
 
   const persistencePillLabel = React.useMemo(() => {
     if (temporaryChat) {
       return t(
         "playground:composer.persistence.ephemeralPill",
-        "Temporary"
+        "Not saved"
       )
     }
-    if (serverChatId) {
+    if (serverChatId || isConnectionReady) {
       return t(
         "playground:composer.persistence.serverPill",
-        "Locally + Server"
+        "Server"
       )
     }
     return t(
       "playground:composer.persistence.localPill",
-      "Local only"
+      "Local"
     )
-  }, [serverChatId, temporaryChat, t])
+  }, [isConnectionReady, serverChatId, temporaryChat, t])
+
+  const persistenceTooltip = React.useMemo(
+    () => (
+      <div className="flex flex-col gap-0.5 text-xs">
+        <span className="font-medium">{persistencePillLabel}</span>
+        <span className="text-text-subtle">{persistenceModeLabel}</span>
+      </div>
+    ),
+    [persistenceModeLabel, persistencePillLabel]
+  )
 
   const focusConnectionCard = React.useCallback(() => {
     try {
@@ -1425,141 +2198,197 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   }, [])
 
+  const hasContext =
+    form.values.image.length > 0 ||
+    selectedDocuments.length > 0 ||
+    uploadedFiles.length > 0
+
+  const toolsButton = (
+    <Popover
+      trigger="click"
+      placement="topRight"
+      content={moreToolsContent}
+      overlayClassName="playground-more-tools">
+      <TldwButton
+        variant="outline"
+        size="sm"
+        shape={isProMode ? "rounded" : "pill"}
+        iconOnly={!isProMode}
+        ariaLabel={t("playground:composer.moreTools", "More tools") as string}
+        title={t("playground:composer.moreTools", "More tools") as string}>
+        {isProMode ? (
+          <span>{t("playground:composer.toolsButton", "+Tools")}</span>
+        ) : (
+          <>
+            <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
+            <span className="sr-only">
+              {t("playground:composer.moreTools", "More tools")}
+            </span>
+          </>
+        )}
+      </TldwButton>
+    </Popover>
+  )
+
+  const sendControl = !isSending ? (
+    <Dropdown.Button
+      size={isProMode ? "middle" : "small"}
+      htmlType="submit"
+      disabled={isSending || !isConnectionReady}
+      title={
+        !isConnectionReady
+          ? (t(
+              "playground:composer.connectToSend",
+              "Connect to your tldw server to start chatting."
+            ) as string)
+          : (t("playground:composer.submitAria", "Send message") as string)
+      }
+      aria-label={
+        t("playground:composer.submitAria", "Send message") as string
+      }
+      className={`!justify-end !w-auto ${
+        isProMode ? "" : "!h-9 !rounded-full !px-3 !text-xs"
+      }`}
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className={isProMode ? "w-5 h-5" : "w-4 h-4"}>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m19.5 8.25-7.5 7.5-7.5-7.5"
+          />
+        </svg>
+      }
+      menu={{
+        items: [
+          {
+            key: 1,
+            label: (
+              <Checkbox
+                checked={sendWhenEnter}
+                onChange={(e) =>
+                  setSendWhenEnter(e.target.checked)
+                }>
+                {t("sendWhenEnter")}
+              </Checkbox>
+            )
+          },
+          {
+            key: 2,
+            label: (
+              <Checkbox
+                checked={useOCR}
+                onChange={(e) =>
+                  setUseOCR(e.target.checked)
+                }>
+                {t("useOCR")}
+              </Checkbox>
+            )
+          }
+        ]
+      }}>
+      <div
+        className={`inline-flex items-center ${
+          isProMode ? "gap-2" : "gap-1"
+        }`}
+      >
+        {sendWhenEnter ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            className="h-5 w-5"
+            viewBox="0 0 24 24">
+            <path d="M9 10L4 15 9 20"></path>
+            <path d="M20 4v7a4 4 0 01-4 4H4"></path>
+          </svg>
+        ) : null}
+        <span
+          className={
+            isProMode
+              ? ""
+              : "text-[11px] font-semibold uppercase tracking-[0.12em]"
+          }>
+          {sendLabel}
+        </span>
+      </div>
+    </Dropdown.Button>
+  ) : (
+    <Tooltip
+      title={
+        t("tooltip.stopStreaming") as string
+      }>
+      <TldwButton
+        variant="outline"
+        size={isMobileViewport ? "lg" : "md"}
+        iconOnly
+        onClick={stopStreamingRequest}
+        ariaLabel={t("tooltip.stopStreaming") as string}>
+        <StopCircleIcon className="size-5 sm:size-4" />
+      </TldwButton>
+    </Tooltip>
+  )
+
   return (
-    <div className="flex w-full flex-col items-center px-2">
-      <div className="relative z-10 flex w-full flex-col items-center justify-center gap-2 text-base">
-        <div className="relative flex w-full flex-row justify-center gap-2">
+    <div className="flex w-full flex-col items-center px-4 pb-6">
+      <div
+        data-checkwidemode={checkWideMode}
+        data-ui-mode={uiMode}
+        className="relative z-10 flex w-full max-w-[52rem] flex-col items-center justify-center gap-2 text-base data-[checkwidemode='true']:max-w-none">
+        <div className="relative flex w-full flex-row justify-center">
           <div
             data-istemporary-chat={temporaryChat}
-            data-checkwidemode={checkWideMode}
-            className={` bg-neutral-50  dark:bg-[#2D2D2D] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-gray-600 data-[istemporary-chat='true']:bg-purple-900 data-[istemporary-chat='true']:dark:bg-purple-900 data-[checkwidemode='true']:max-w-none ${
+            className={`relative w-full rounded-3xl border border-border/80 bg-surface/95 p-3 text-text shadow-card backdrop-blur-lg transition-all duration-200 data-[istemporary-chat='true']:border-t-4 data-[istemporary-chat='true']:border-t-purple-500 data-[istemporary-chat='true']:border-dashed data-[istemporary-chat='true']:opacity-90 ${
               !isConnectionReady ? "opacity-80" : ""
             }`}>
-            <div
-              className={`border-b border-gray-200 dark:border-gray-600 relative ${
-                form.values.image.length === 0 ? "hidden" : "block"
-              }`}>
-              <button
-                type="button"
-                onClick={() => {
-                  form.setFieldValue("image", "")
-                }}
-                className="absolute top-1 left-1 flex items-center justify-center z-10 bg-white dark:bg-[#2D2D2D] p-0.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 text-black dark:text-gray-100">
-                <X className="h-4 w-4" />
-              </button>{" "}
-              <Image
-                src={form.values.image}
-                alt="Uploaded Image"
-                preview={false}
-                className="rounded-md max-h-32"
-              />
-            </div>
-            {selectedDocuments.length > 0 && (
-              <div className="p-3" data-playground-tabs="true" tabIndex={-1}>
-                <div className="max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedDocuments.map((document) => (
-                      <DocumentChip
-                        key={document.id}
-                        document={document}
-                        onRemove={removeDocument}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-            {uploadedFiles.length > 0 && (
-              <div
-                className="p-3 border-b border-gray-200 dark:border-gray-600"
-                data-playground-uploads="true"
-                tabIndex={-1}
-              >
-                <div className="flex items-center justify-end mb-2">
-                  <div className="flex items-center gap-2">
-                    <Tooltip title={t("fileRetrievalEnabled")}>
-                      <div className="inline-flex items-center gap-2">
-                        <FileText className="h-4 w-4 dark:text-gray-300" />
-                        <Switch
-                          size="small"
-                          checked={fileRetrievalEnabled}
-                          onChange={setFileRetrievalEnabled}
-                          aria-label={
-                            t(
-                              "fileRetrievalEnabled",
-                              "Enable RAG for Documents"
-                            ) as string
-                          }
-                        />
-                      </div>
-                    </Tooltip>
-                  </div>
-                </div>
-                <div className="max-h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
-                  <div className="flex flex-wrap gap-1.5">
-                    {uploadedFiles.map((file) => (
-                      <button
-                        key={file.id}
-                        className="relative group p-1.5 w-60 flex items-center gap-1 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-white/5 rounded-2xl text-left"
-                        type="button">
-                        <div className="p-3 bg-black/20 dark:bg-white/10 text-white rounded-xl">
-                          <FileIcon className="size-5" />
-                        </div>
-                        <div className="flex flex-col justify-center -space-y-0.5 px-2.5 w-full">
-                          <div className="dark:text-gray-100 text-sm font-medium line-clamp-1 mb-1">
-                            {file.filename}
-                          </div>
-                          <div className="flex justify-between text-gray-500 text-xs line-clamp-1">
-                            File{" "}
-                            <span className="capitalize">
-                              {new Intl.NumberFormat(undefined, {
-                                style: "unit",
-                                unit: "megabyte",
-                                maximumFractionDigits: 2
-                              }).format(file.size / (1024 * 1024))}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="absolute -top-1 -right-1">
-                          <button
-                            onClick={() => removeUploadedFile(file.id)}
-                            className="bg-white dark:bg-gray-700 text-black dark:text-gray-100 border border-gray-50 dark:border-gray-600 rounded-full group-hover:visible invisible transition"
-                            type="button">
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-            {compareModeActive && compareSelectedModels.length > 1 && (
+            {/* Attachments summary (collapsed context management) */}
+            <AttachmentsSummary
+              image={form.values.image}
+              documents={selectedDocuments}
+              files={uploadedFiles}
+              fileRetrievalEnabled={fileRetrievalEnabled}
+              onFileRetrievalChange={setFileRetrievalEnabled}
+              onRemoveImage={() => form.setFieldValue("image", "")}
+              onRemoveDocument={removeDocument}
+              onClearDocuments={clearSelectedDocuments}
+              onRemoveFile={removeUploadedFile}
+              onClearFiles={clearUploadedFiles}
+            />
+            {/* Compare Toggle - surfaced in main toolbar for better discoverability */}
+            {compareFeatureEnabled && (
               <div className="px-3 pb-2">
-                <div className="flex flex-wrap items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-[11px] text-blue-900 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-100">
-                  <span className="text-[10px] font-semibold uppercase tracking-wide">
-                    {t("playground:composer.compareActiveModelsLabel", "Active models")}
-                  </span>
-                  <div className="flex flex-wrap gap-1">
-                    {compareSelectedModels.map((modelId) => (
-                      <button
-                        key={`active-${modelId}`}
-                        type="button"
-                        onClick={() => removeCompareModel(modelId)}
-                        className="flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-blue-800 shadow-sm hover:bg-blue-100 dark:bg-blue-900/60 dark:text-blue-100 dark:hover:bg-blue-800/60">
-                        <span>
-                          {compareModelLabelById.get(modelId) || modelId}
-                        </span>
-                        <X className="h-3 w-3" />
-                      </button>
-                    ))}
-                  </div>
-                  <span className="text-[10px] text-blue-700/80 dark:text-blue-200/80">
-                    {t(
-                      "playground:composer.compareActiveModelsHint",
-                      "Your next message will be sent to each active model."
-                    )}
-                  </span>
+                <div className="flex flex-wrap items-center gap-3">
+                  <CompareToggle
+                    featureEnabled={compareFeatureEnabled}
+                    active={compareModeActive}
+                    onToggle={() => setCompareMode(!compareMode)}
+                    selectedModels={compareSelectedModels}
+                    availableModels={(composerModels as any[]) || []}
+                    maxModels={compareMaxModels || 4}
+                    onAddModel={(modelId) => {
+                      if (!compareSelectedModels.includes(modelId)) {
+                        setCompareSelectedModels([...compareSelectedModels, modelId])
+                      }
+                    }}
+                    onRemoveModel={removeCompareModel}
+                    onOpenSettings={() => setCompareSettingsOpen(true)}
+                  />
+                  {compareModeActive && compareSelectedModels.length > 1 && (
+                    <span className="text-[10px] text-text-muted">
+                      {t(
+                        "playground:composer.compareActiveModelsHint",
+                        "Your next message will be sent to each active model."
+                      )}
+                    </span>
+                  )}
                 </div>
               </div>
             )}
@@ -1575,14 +2404,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
               <div className="space-y-4 text-sm">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <div className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <div className="flex items-center gap-2 text-sm font-medium text-text">
                       {t(
                         "playground:composer.compareFeatureToggle",
                         "Enable Compare mode"
                       )}
                       <BetaTag className="!m-0" />
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted">
                       {t(
                         "playground:composer.compareFeatureToggleHint",
                         "Unlock experimental multi-model compare features."
@@ -1596,13 +2425,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <div className="text-sm font-medium text-text">
                       {t(
                         "playground:composer.compareSettingsToggle",
                         "Enable Compare mode"
                       )}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted">
                       {t(
                         "playground:composer.compareSettingsToggleHint",
                         "Send your next message to multiple models."
@@ -1623,7 +2452,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                       : "space-y-2 opacity-50 pointer-events-none"
                   }
                 >
-                  <div className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-text-subtle">
                     {t(
                       "playground:composer.compareModelPickerLabel",
                       "Select models"
@@ -1642,12 +2471,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                     style={{ width: "100%" }}
                   />
                   {compareSummaryLabel && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted">
                       {compareSummaryLabel}
                     </div>
                   )}
                   {compareActiveSummary && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-text-muted">
                       {compareActiveSummary}
                     </div>
                   )}
@@ -1656,8 +2485,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                 <div
                   className={
                     compareModeActive
-                      ? "flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
-                      : "flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 opacity-50 pointer-events-none"
+                      ? "flex items-center gap-2 text-xs text-text-muted"
+                      : "flex items-center gap-2 text-xs text-text-muted opacity-50 pointer-events-none"
                   }
                 >
                   <span>
@@ -1692,7 +2521,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                     className={`ml-1 ${
                       compareSelectedModels.length >=
                       (compareMaxModels || MAX_COMPARE_MODELS)
-                        ? "text-amber-600 dark:text-amber-400"
+                        ? "text-warn"
                         : ""
                     }`}
                   >
@@ -1791,17 +2620,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                   <div
                     className={`w-full flex flex-col px-2 ${
                       !isConnectionReady
-                        ? "rounded-md border border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-[#1b1b1b]"
+                        ? "rounded-md border border-dashed border-border bg-surface2"
                         : ""
                     }`}>
                     <div
                       className={contextToolsOpen ? "mb-2" : "hidden"}
                       aria-hidden={!contextToolsOpen}
                     >
-                      <div className="rounded-md border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                      <div className="rounded-md border border-border bg-surface p-3">
                         <div className="flex flex-col gap-4">
                           <div>
-                            <div className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-200">
+                            <div className="mb-2 text-xs font-semibold text-text">
                               {t(
                                 "playground:composer.knowledgeSearch",
                                 "Knowledge search"
@@ -1828,8 +2657,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               variant="embedded"
                             />
                           </div>
-                          <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
-                            <div className="mb-3 text-xs font-semibold text-gray-700 dark:text-gray-200">
+                          <div className="border-t border-border pt-4">
+                            <div className="mb-3 text-xs font-semibold text-text">
                               {t(
                                 "playground:composer.contextManagerTitle",
                                 "Context Management"
@@ -1838,13 +2667,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <div className="flex flex-col gap-5">
                               <div className="flex items-start justify-between gap-3">
                                 <div>
-                                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                  <div className="text-sm font-semibold text-text">
                                     {t(
                                       "playground:composer.contextTabsTitle",
                                       "Tabs in context"
                                     )}
                                   </div>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                  <p className="text-xs text-text-muted">
                                     {t(
                                       "playground:composer.contextTabsHint",
                                       "Review or remove referenced tabs, or add more from your open browser tabs."
@@ -1855,14 +2684,21 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   <button
                                     type="button"
                                     onClick={() => reloadTabs()}
-                                    className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                    title={t("common:refresh", "Refresh") as string}
+                                    className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                     {t("common:refresh", "Refresh")}
                                   </button>
                                   {selectedDocuments.length > 0 && (
                                     <button
                                       type="button"
                                       onClick={clearSelectedDocuments}
-                                      className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                      title={
+                                        t(
+                                          "playground:composer.clearTabs",
+                                          "Remove all tabs"
+                                        ) as string
+                                      }
+                                      className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                       {t(
                                         "playground:composer.clearTabs",
                                         "Remove all tabs"
@@ -1871,32 +2707,34 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   )}
                                 </div>
                               </div>
-                              <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                              <div className="rounded-lg border border-border bg-surface p-3">
                                 {selectedDocuments.length > 0 ? (
                                   <div className="flex flex-col gap-2">
                                     {selectedDocuments.map((doc) => (
                                       <div
                                         key={doc.id}
-                                        className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-[#111]">
+                                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface2 px-3 py-2">
                                         <div className="min-w-0">
-                                          <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                          <div className="truncate text-sm font-medium text-text">
                                             {doc.title}
                                           </div>
-                                          <div className="truncate text-xs text-gray-500 dark:text-gray-400">
+                                          <div className="truncate text-xs text-text-muted">
                                             {doc.url}
                                           </div>
                                         </div>
                                         <button
                                           type="button"
                                           onClick={() => removeDocument(doc.id)}
-                                          className="rounded-full border border-gray-200 p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-[#2a2a2a]">
+                                          aria-label={t("common:remove", "Remove") as string}
+                                          title={t("common:remove", "Remove") as string}
+                                          className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
                                           <X className="h-4 w-4" />
                                         </button>
                                       </div>
                                     ))}
                                   </div>
                                 ) : (
-                                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                                  <div className="text-sm text-text-muted">
                                     {t(
                                       "playground:composer.contextTabsEmpty",
                                       "No tabs added yet."
@@ -1904,7 +2742,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   </div>
                                 )}
                                 <div className="mt-3">
-                                  <div className="text-xs font-semibold text-gray-700 dark:text-gray-200">
+                                  <div className="text-xs font-semibold text-text">
                                     {t(
                                       "playground:composer.contextTabsAvailable",
                                       "Open tabs"
@@ -1915,25 +2753,26 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                       availableTabs.map((tab) => (
                                         <div
                                           key={tab.id}
-                                          className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-white px-3 py-2 shadow-sm dark:border-gray-700 dark:bg-[#161616]">
+                                          className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface px-3 py-2 shadow-sm">
                                           <div className="min-w-0">
-                                            <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                            <div className="truncate text-sm font-medium text-text">
                                               {tab.title}
                                             </div>
-                                            <div className="truncate text-xs text-gray-500 dark:text-gray-400">
+                                            <div className="truncate text-xs text-text-muted">
                                               {tab.url}
                                             </div>
                                           </div>
                                           <button
                                             type="button"
                                             onClick={() => addDocument(tab)}
-                                            className="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                            title={t("common:add", "Add") as string}
+                                            className="rounded-md border border-border px-2 py-1 text-xs font-medium text-text hover:bg-surface2">
                                             {t("common:add", "Add")}
                                           </button>
                                         </div>
                                       ))
                                     ) : (
-                                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                                      <div className="text-xs text-text-muted">
                                         {t(
                                           "playground:composer.noTabsFound",
                                           "No eligible open tabs found."
@@ -1945,13 +2784,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               </div>
                               <div className="flex items-start justify-between gap-3">
                                 <div>
-                                  <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                  <div className="text-sm font-semibold text-text">
                                     {t(
                                       "playground:composer.contextFilesTitle",
                                       "Files in context"
                                     )}
                                   </div>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                  <p className="text-xs text-text-muted">
                                     {t(
                                       "playground:composer.contextFilesHint",
                                       "Review attached files, remove them, or add more."
@@ -1964,14 +2803,26 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     onClick={() => {
                                       fileInputRef.current?.click()
                                     }}
-                                    className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                    title={
+                                      t(
+                                        "playground:composer.addFile",
+                                        "Add file"
+                                      ) as string
+                                    }
+                                    className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                     {t("playground:composer.addFile", "Add file")}
                                   </button>
                                   {uploadedFiles.length > 0 && (
                                     <button
                                       type="button"
                                       onClick={clearUploadedFiles}
-                                      className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
+                                      title={
+                                        t(
+                                          "playground:composer.clearFiles",
+                                          "Remove all files"
+                                        ) as string
+                                      }
+                                      className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
                                       {t(
                                         "playground:composer.clearFiles",
                                         "Remove all files"
@@ -1980,32 +2831,34 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   )}
                                 </div>
                               </div>
-                              <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-[#1a1a1a]">
+                              <div className="rounded-lg border border-border bg-surface p-3">
                                 {uploadedFiles.length > 0 ? (
                                   <div className="flex flex-col gap-2">
                                     {uploadedFiles.map((file) => (
                                       <div
                                         key={file.id}
-                                        className="flex items-center justify-between gap-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-[#111]">
+                                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface2 px-3 py-2">
                                         <div className="min-w-0">
-                                          <div className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                                          <div className="truncate text-sm font-medium text-text">
                                             {file.filename}
                                           </div>
-                                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                                          <div className="text-xs text-text-muted">
                                             {(file.size / (1024 * 1024)).toFixed(2)} MB
                                           </div>
                                         </div>
                                         <button
                                           type="button"
                                           onClick={() => removeUploadedFile(file.id)}
-                                          className="rounded-full border border-gray-200 p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-[#2a2a2a]">
+                                          aria-label={t("common:remove", "Remove") as string}
+                                          title={t("common:remove", "Remove") as string}
+                                          className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
                                           <X className="h-4 w-4" />
                                         </button>
                                       </div>
                                     ))}
                                   </div>
                                 ) : (
-                                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                                  <div className="text-sm text-text-muted">
                                     {t(
                                       "playground:composer.contextFilesEmpty",
                                       "No files attached yet."
@@ -2019,98 +2872,468 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                       </div>
                     </div>
                     <div className="relative">
-                      <textarea
-                        id="textarea-message"
-                        onCompositionStart={() => {
-                          if (import.meta.env.BROWSER !== "firefox") {
-                            setTyping(true)
-                          }
-                        }}
-                        onCompositionEnd={() => {
-                          if (import.meta.env.BROWSER !== "firefox") {
-                            setTyping(false)
-                          }
-                        }}
-                        onKeyDown={(e) => {
-                          if (!isConnectionReady) {
-                            if (e.key === "Enter") {
-                              e.preventDefault()
+                      {isProMode && replyTarget && (
+                        <div className="mb-2 flex items-center justify-between gap-2 rounded-md border border-border bg-surface2 px-3 py-2 text-xs text-text">
+                          <div className="flex min-w-0 items-center gap-2">
+                            <CornerUpLeft className="h-3.5 w-3.5 text-text-subtle" />
+                            <span className="min-w-0 truncate">
+                              {replyLabel}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={clearReplyTarget}
+                            aria-label={t(
+                              "common:clearReply",
+                              "Clear reply target"
+                            )}
+                            title={t(
+                              "common:clearReply",
+                              "Clear reply target"
+                            ) as string}
+                            className="rounded p-1 text-text-subtle hover:bg-surface hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus">
+                            <X className="h-3.5 w-3.5" aria-hidden="true" />
+                          </button>
+                        </div>
+                      )}
+                      <div className="relative rounded-2xl border border-border/70 bg-surface/80 px-1 py-1.5 transition focus-within:border-focus/60 focus-within:ring-2 focus-within:ring-focus/30">
+                        <SlashCommandMenu
+                          open={showSlashMenu}
+                          commands={filteredSlashCommands}
+                          activeIndex={slashActiveIndex}
+                          onActiveIndexChange={setSlashActiveIndex}
+                          onSelect={handleSlashCommandSelect}
+                          emptyLabel={t(
+                            "common:commandPalette.noResults",
+                            "No results found"
+                          )}
+                          className="absolute bottom-full left-3 right-3 mb-2"
+                        />
+                        <textarea
+                          id="textarea-message"
+                          onCompositionStart={() => {
+                            if (!isFirefoxTarget) {
+                              setTyping(true)
                             }
-                            return
+                          }}
+                          onCompositionEnd={() => {
+                            if (!isFirefoxTarget) {
+                              setTyping(false)
+                            }
+                          }}
+                          onKeyDown={(e) => {
+                            handleKeyDown(e)
+                          }}
+                          onFocus={handleDisconnectedFocus}
+                          ref={textareaRef}
+                          className={`w-full resize-none bg-transparent text-base leading-6 text-text placeholder:text-text-muted/80 focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0 ${
+                            !isConnectionReady
+                              ? "cursor-not-allowed text-text-muted placeholder:text-text-subtle"
+                              : ""
+                          } ${isProMode ? "px-3 py-2.5" : "px-3 py-2"}`}
+                          onPaste={handlePaste}
+                          rows={1}
+                          style={{ minHeight: isProMode ? "60px" : "44px" }}
+                          tabIndex={0}
+                          placeholder={
+                            isConnectionReady
+                              ? t("form.textarea.placeholder")
+                              : t(
+                                  "playground:composer.connectionPlaceholder",
+                                  "Connect to tldw to start chatting."
+                                )
                           }
-                          handleKeyDown(e)
-                        }}
-                        onFocus={handleDisconnectedFocus}
-                        ref={textareaRef}
-                        className={`px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100 ${
-                          !isConnectionReady
-                            ? "cursor-not-allowed text-gray-500 placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500"
-                            : ""
-                        }`}
-                        onPaste={handlePaste}
-                        rows={1}
-                        style={{ minHeight: "35px" }}
-                        tabIndex={0}
-                        placeholder={
-                          isConnectionReady
-                            ? t("form.textarea.placeholder")
-                            : t(
-                                "playground:composer.connectionPlaceholder",
-                                "Connect to tldw to start chatting."
+                          {...form.getInputProps("message")}
+                          onChange={(e) => {
+                            form.getInputProps("message").onChange(e)
+                            if (tabMentionsEnabled && textareaRef.current) {
+                              handleTextChange(
+                                e.target.value,
+                                textareaRef.current.selectionStart || 0
                               )
-                        }
-                        {...form.getInputProps("message")}
-                        onChange={(e) => {
-                          form.getInputProps("message").onChange(e)
-                          if (tabMentionsEnabled && textareaRef.current) {
-                            handleTextChange(
-                              e.target.value,
-                              textareaRef.current.selectionStart || 0
-                            )
-                          }
-                        }}
-                        onSelect={() => {
-                          if (tabMentionsEnabled && textareaRef.current) {
-                            handleTextChange(
-                              textareaRef.current.value,
-                              textareaRef.current.selectionStart || 0
-                            )
-                          }
-                        }}
-                      />
+                            }
+                          }}
+                          onSelect={() => {
+                            if (tabMentionsEnabled && textareaRef.current) {
+                              handleTextChange(
+                                textareaRef.current.value,
+                                textareaRef.current.selectionStart || 0
+                              )
+                            }
+                          }}
+                        />
 
-                      <MentionsDropdown
-                        show={showMentions}
-                        tabs={filteredTabs}
-                        mentionPosition={mentionPosition}
-                        onSelectTab={(tab) =>
-                          insertMention(tab, form.values.message, (value) =>
-                            form.setFieldValue("message", value)
-                          )
-                        }
-                        onClose={closeMentions}
-                        textareaRef={textareaRef}
-                        refetchTabs={async () => {
-                          await reloadTabs()
-                        }}
-                        onMentionsOpen={handleMentionsOpen}
-                      />
+                        <MentionsDropdown
+                          show={showMentions}
+                          tabs={filteredTabs}
+                          mentionPosition={mentionPosition}
+                          onSelectTab={(tab) =>
+                            insertMention(tab, form.values.message, (value) =>
+                              form.setFieldValue("message", value)
+                            )
+                          }
+                          onClose={closeMentions}
+                          textareaRef={textareaRef}
+                          refetchTabs={async () => {
+                            await reloadTabs()
+                          }}
+                          onMentionsOpen={handleMentionsOpen}
+                        />
+                        {/* Draft saved indicator */}
+                        {draftSaved && (
+                          <span
+                            className="absolute bottom-1 right-2 text-label text-text-subtle transition-opacity pointer-events-none"
+                            role="status"
+                            aria-live="polite"
+                          >
+                            {t("sidepanel:composer.draftSaved", "Draft saved")}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <div className="mt-2 flex flex-col gap-1">
-                      <div className="mt-1 flex flex-col gap-2">
-                        <div className="flex flex-wrap items-start gap-3">
-                          <div className="flex flex-col gap-0.5 text-xs text-gray-700 dark:text-gray-200">
-                            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                              <Switch
-                                size="small"
-                                checked={temporaryChat}
-                                onChange={handleToggleTemporaryChat}
-                                title={persistenceModeLabel as string}
+                    {/* Inline error message with shake animation */}
+                    {form.errors.message && (
+                      <div
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                        className="flex items-center justify-between gap-2 px-2 py-1 text-xs text-red-600 dark:text-red-400 animate-shake"
+                      >
+                        <div className="flex items-center gap-2">
+                          <svg className="h-3.5 w-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          <span>{form.errors.message}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => form.clearFieldError("message")}
+                          className="flex-shrink-0 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                          aria-label={t("common:dismiss", "Dismiss") as string}
+                          title={t("common:dismiss", "Dismiss") as string}
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    )}
+                    {/* Proactive validation hints - show why send might be disabled */}
+                    {!form.errors.message && isConnectionReady && !isSending && isProMode && (
+                      <div className="px-2 py-1 text-label text-text-subtle">
+                        {!selectedModel ? (
+                          <span className="flex items-center gap-1">
+                            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {t("sidepanel:composer.hints.selectModel", "Select a model above to start chatting")}
+                          </span>
+                        ) : form.values.message.trim().length === 0 && form.values.image.length === 0 ? (
+                          <span>
+                            {sendWhenEnter
+                              ? t("sidepanel:composer.hints.typeAndEnter", "Type a message and press Enter to send")
+                              : t("sidepanel:composer.hints.typeAndClick", "Type a message and click Send")}
+                          </span>
+                        ) : null}
+                      </div>
+                    )}
+                    {isProMode ? (
+                      <div className="mt-2 flex flex-col gap-1">
+                        <div className="mt-1 flex flex-col gap-2">
+                          <div className="flex flex-wrap items-start gap-3">
+                            <div className="flex flex-col gap-0.5 text-xs text-text">
+                              <Tooltip title={persistenceTooltip}>
+                                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                                    <Switch
+                                      size="small"
+                                      checked={!temporaryChat}
+                                      disabled={privateChatLocked || isFireFoxPrivateMode}
+                                      onChange={(checked) =>
+                                        handleToggleTemporaryChat(!checked)
+                                      }
+                                    aria-label={
+                                      temporaryChat
+                                        ? (t(
+                                            "playground:actions.temporaryOn",
+                                            "Don't save chat"
+                                          ) as string)
+                                        : (t(
+                                            "playground:actions.temporaryOff",
+                                            "Save chat to history"
+                                          ) as string)
+                                    }
+                                  />
+                                  <span>
+                                    {temporaryChat
+                                      ? t(
+                                          "playground:actions.temporaryOn",
+                                          "Don't save chat"
+                                        )
+                                      : t(
+                                          "playground:actions.temporaryOff",
+                                          "Save chat to history"
+                                        )}
+                                  </span>
+                                </div>
+                              </Tooltip>
+                              {!temporaryChat && !isConnectionReady && (
+                                <button
+                                  type="button"
+                                  onClick={focusConnectionCard}
+                                  title={
+                                    t(
+                                      "playground:composer.persistence.connectToSave",
+                                      "Connect your server to sync chats."
+                                    ) as string
+                                  }
+                                  className="mt-1 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-primary hover:text-primaryStrong">
+                                  {t(
+                                    "playground:composer.persistence.connectToSave",
+                                    "Connect your server to sync chats."
+                                  )}
+                                </button>
+                              )}
+                              {!temporaryChat && serverChatId && showServerPersistenceHint && (
+                                <p className="mt-1 max-w-md text-[11px] text-text-muted">
+                                  <span className="font-semibold">
+                                    {t(
+                                      "playground:composer.persistence.serverInlineTitle",
+                                      "Saved locally + on your server"
+                                    )}
+                                    {": "}
+                                  </span>
+                                  {t(
+                                    "playground:composer.persistence.serverInlineBody",
+                                    "This chat is stored both in this browser and on your tldw server, so you can reopen it from server history, keep a long-term record, and analyze it alongside other conversations."
+                                  )}
+                                  <button
+                                    type="button"
+                                    onClick={() => setShowServerPersistenceHint(false)}
+                                    title={t("common:dismiss", "Dismiss") as string}
+                                    className="ml-1 text-[11px] font-medium text-primary hover:text-primaryStrong"
+                                  >
+                                    {t("common:dismiss", "Dismiss")}
+                                  </button>
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                            <div className="flex flex-wrap items-center gap-2 text-[11px] text-text-muted">
+                              <button
+                                type="button"
+                                onClick={handleToggleContextTools}
+                                title={
+                                  contextToolsOpen
+                                    ? (t(
+                                        "playground:composer.contextKnowledgeClose",
+                                        "Close Ctx + Media"
+                                      ) as string)
+                                    : (t(
+                                        "playground:composer.contextKnowledge",
+                                        "Ctx + Media"
+                                      ) as string)
+                                }
+                                aria-pressed={contextToolsOpen}
+                                aria-expanded={contextToolsOpen}
+                                className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium transition ${
+                                  contextToolsOpen
+                                    ? "border-accent bg-surface2 text-accent hover:bg-surface"
+                                    : "border-border text-text-muted hover:bg-surface2 hover:text-text"
+                                }`}
+                              >
+                                <Search className="h-3 w-3" />
+                                <span>
+                                  {contextToolsOpen
+                                    ? t(
+                                        "playground:composer.contextKnowledgeClose",
+                                        "Close Ctx + Media"
+                                      )
+                                    : t(
+                                        "playground:composer.contextKnowledge",
+                                        "Ctx + Media"
+                                      )}
+                                </span>
+                              </button>
+                              {selectedDocuments.length > 0 && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const chips =
+                                      document.querySelector<HTMLElement>(
+                                        "[data-playground-tabs='true']"
+                                      )
+                                    if (chips) {
+                                      chips.focus()
+                                      chips.scrollIntoView({ block: "nearest" })
+                                    }
+                                  }}
+                                  title={
+                                    t(
+                                      "playground:composer.contextTabsHint",
+                                      "Review or remove referenced tabs, or add more from your open browser tabs."
+                                    ) as string
+                                  }
+                                  className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-border hover:bg-surface2">
+                                  <FileText className="h-3 w-3 text-text-subtle" />
+                                  <span>
+                                    {t("playground:composer.contextTabs", {
+                                      defaultValue: "{{count}} tabs",
+                                      count: selectedDocuments.length
+                                    } as any) as string}
+                                  </span>
+                                </button>
+                              )}
+                              {uploadedFiles.length > 0 && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const files =
+                                      document.querySelector<HTMLElement>(
+                                        "[data-playground-uploads='true']"
+                                      )
+                                    if (files) {
+                                      files.focus()
+                                      files.scrollIntoView({ block: "nearest" })
+                                    }
+                                  }}
+                                  title={
+                                    t(
+                                      "playground:composer.contextFilesHint",
+                                      "Review attached files, remove them, or add more."
+                                    ) as string
+                                  }
+                                  className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-border hover:bg-surface2">
+                                  <FileIcon className="h-3 w-3 text-text-subtle" />
+                                  <span>
+                                    {t("playground:composer.contextFiles", {
+                                      defaultValue: "{{count}} files",
+                                      count: uploadedFiles.length
+                                    } as any) as string}
+                                  </span>
+                                </button>
+                              )}
+                            </div>
+                            <div className="flex items-center justify-end gap-3 flex-wrap">
+                              <CharacterSelect
+                                className="min-w-0 min-h-0 rounded-full border border-border px-2 py-1 text-text-muted hover:bg-surface2 hover:text-text"
+                                iconClassName="h-4 w-4"
+                              />
+                              {(browserSupportsSpeechRecognition || hasServerAudio) && (
+                                <>
+                                  <Tooltip
+                                    title={
+                                      !speechAvailable
+                                        ? t(
+                                            "playground:actions.speechUnavailableBody",
+                                            "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
+                                          )
+                                        : speechUsesServer
+                                          ? t(
+                                              "playground:tooltip.speechToTextServer",
+                                              "Dictation via your tldw server"
+                                            ) +
+                                            " " +
+                                            t(
+                                              "playground:tooltip.speechToTextDetails",
+                                              "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text.",
+                                              {
+                                                model: sttModel || "whisper-1",
+                                                task:
+                                                  sttTask === "translate"
+                                                    ? "translate"
+                                                    : "transcribe",
+                                                format: (sttResponseFormat || "json").toUpperCase()
+                                              } as any
+                                            )
+                                          : t(
+                                              "playground:tooltip.speechToTextBrowser",
+                                              "Dictation via browser speech recognition"
+                                            )
+                                    }>
+                                  <button
+                                    type="button"
+                                    onClick={speechUsesServer ? handleServerDictationToggle : handleSpeechToggle}
+                                    disabled={!speechAvailable}
+                                    className={`inline-flex items-center justify-center rounded-full border text-xs transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-50 ${
+                                      speechAvailable &&
+                                      ((speechUsesServer && isServerDictating) ||
+                                        (!speechUsesServer && isListening))
+                                        ? "border-primary text-primaryStrong"
+                                        : "border-border text-text-muted"
+                                    } ${
+                                      isProMode ? "px-2 py-1" : "h-9 w-9 p-0"
+                                    }`}
+                                    aria-label={
+                                      !speechAvailable
+                                        ? (t(
+                                              "playground:actions.speechUnavailableTitle",
+                                              "Dictation unavailable"
+                                            ) as string)
+                                          : speechUsesServer
+                                            ? (isServerDictating
+                                                ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                                : (t("playground:actions.speechStart", "Start dictation") as string))
+                                            : (isListening
+                                                ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                                : (t("playground:actions.speechStart", "Start dictation") as string))
+                                      }>
+                                      <MicIcon className="h-4 w-4" />
+                                    </button>
+                                  </Tooltip>
+                                </>
+                              )}
+                              {modelUsageBadge}
+                              <Tooltip
+                                title={
+                                  t(
+                                    "common:currentChatModelSettings"
+                                  ) as string
+                                }>
+                                <button
+                                  type="button"
+                                  onClick={() => setOpenModelSettings(true)}
+                                  aria-label={
+                                    t(
+                                      "common:currentChatModelSettings"
+                                    ) as string
+                                  }
+                                  className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text transition hover:bg-surface2">
+                                  <Gauge
+                                    className="h-4 w-4"
+                                    aria-hidden="true"
+                                  />
+                                  <span className="flex flex-col items-start text-left">
+                                    <span className="font-medium">
+                                      {t("playground:composer.chatSettings", "Chat Settings")}
+                                    </span>
+                                    <span className="text-[11px] text-text-muted">
+                                      {modelSummaryLabel} • {promptSummaryLabel}
+                                    </span>
+                                  </span>
+                                </button>
+                              </Tooltip>
+                              {toolsButton}
+                              {sendControl}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="mt-2 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 flex-nowrap">
+                          <Tooltip title={persistenceTooltip}>
+                            <div className="flex items-center gap-1">
+                                <Switch
+                                  size="small"
+                                  checked={!temporaryChat}
+                                  disabled={privateChatLocked || isFireFoxPrivateMode}
+                                  onChange={(checked) =>
+                                    handleToggleTemporaryChat(!checked)
+                                  }
                                 aria-label={
                                   temporaryChat
                                     ? (t(
                                         "playground:actions.temporaryOn",
-                                        "Temporary chat (not saved)"
+                                        "Don't save chat"
                                       ) as string)
                                     : (t(
                                         "playground:actions.temporaryOff",
@@ -2118,365 +3341,140 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                       ) as string)
                                 }
                               />
-                              <span>
+                              <span className="text-xs text-text whitespace-nowrap">
                                 {temporaryChat
                                   ? t(
                                       "playground:actions.temporaryOn",
-                                      "Temporary chat (not saved)"
+                                      "Don't save chat"
                                     )
                                   : t(
                                       "playground:actions.temporaryOff",
                                       "Save chat to history"
                                     )}
                               </span>
-                              <span className="inline-flex items-center rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[11px] font-medium text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200">
-                                {persistencePillLabel}
-                              </span>
-                              <span className="text-[11px] text-gray-500 dark:text-gray-400 font-semibold">
-                                {persistenceModeLabel}
-                              </span>
                             </div>
-                            {!temporaryChat && isConnectionReady && !serverChatId && (
-                              <button
-                                type="button"
-                                onClick={handleSaveChatToServer}
-                                className="mt-1 inline-flex w-fit items-center gap-1 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 hover:bg-blue-100 dark:border-blue-500/60 dark:bg-blue-900/30 dark:text-blue-200 dark:hover:bg-blue-900/50">
-                                {t(
-                                  "playground:composer.persistence.saveToServer",
-                                  "Also save this chat to server"
-                                )}
-                              </button>
-                            )}
-                            {!temporaryChat && !isConnectionReady && (
-                              <button
-                                type="button"
-                                onClick={focusConnectionCard}
-                                className="mt-1 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
-                                {t(
-                                  "playground:composer.persistence.connectToSave",
-                                  "Connect your server to save chats there."
-                                )}
-                              </button>
-                            )}
-                            {!temporaryChat && serverChatId && showServerPersistenceHint && (
-                              <p className="mt-1 max-w-md text-[11px] text-gray-600 dark:text-gray-300">
-                                <span className="font-semibold">
-                                  {t(
-                                    "playground:composer.persistence.serverInlineTitle",
-                                    "Saved locally + on your server"
+                          </Tooltip>
+                          <button
+                            type="button"
+                            onClick={handleToggleContextTools}
+                            title={
+                              contextToolsOpen
+                                ? (t(
+                                    "playground:composer.contextKnowledgeClose",
+                                    "Close Ctx + Media"
+                                  ) as string)
+                                : (t(
+                                    "playground:composer.contextKnowledge",
+                                    "Ctx + Media"
+                                  ) as string)
+                            }
+                            aria-pressed={contextToolsOpen}
+                            aria-expanded={contextToolsOpen}
+                            className={`inline-flex min-w-0 max-w-[140px] items-center gap-1 rounded-full border px-2 py-1 text-[11px] font-medium transition ${
+                              contextToolsOpen
+                                ? "border-accent bg-surface2 text-accent hover:bg-surface"
+                                : "border-border text-text-muted hover:bg-surface2 hover:text-text"
+                            }`}
+                          >
+                            <Search className="h-3 w-3" />
+                            <span className="truncate">
+                              {contextToolsOpen
+                                ? t(
+                                    "playground:composer.contextKnowledgeClose",
+                                    "Close Ctx + Media"
+                                  )
+                                : t(
+                                    "playground:composer.contextKnowledge",
+                                    "Ctx + Media"
                                   )}
-                                  {": "}
-                                </span>
-                                {t(
-                                  "playground:composer.persistence.serverInlineBody",
-                                  "This chat is stored both in this browser and on your tldw server, so you can reopen it from server history, keep a long-term record, and analyze it alongside other conversations."
-                                )}
-                                <button
-                                  type="button"
-                                  onClick={() => setShowServerPersistenceHint(false)}
-                                  className="ml-1 text-[11px] font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-                                >
-                                  {t("common:dismiss", "Dismiss")}
-                                </button>
-                              </p>
-                            )}
-                          </div>
+                            </span>
+                          </button>
                         </div>
-                          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                          <div className="flex flex-wrap items-center gap-2 text-[11px] text-gray-600 dark:text-gray-300">
-                            <button
-                              type="button"
-                              onClick={handleToggleContextTools}
-                              title={
-                                contextToolsOpen
-                                  ? (t(
-                                      "playground:composer.contextKnowledgeClose",
-                                      "Close Context & Knowledge"
-                                    ) as string)
-                                  : (t(
-                                      "playground:composer.contextKnowledge",
-                                      "Context & Knowledge"
-                                    ) as string)
-                              }
-                              aria-pressed={contextToolsOpen}
-                              aria-expanded={contextToolsOpen}
-                              className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium transition ${
-                                contextToolsOpen
-                                  ? "border-pink-200 bg-pink-50 text-pink-700 hover:bg-pink-100 dark:border-pink-700 dark:bg-pink-900/30 dark:text-pink-200 dark:hover:bg-pink-900/40"
-                                  : "border-gray-200 text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]"
-                              }`}
-                            >
-                              <Search className="h-3 w-3" />
-                              <span>
-                                {contextToolsOpen
-                                  ? t(
-                                      "playground:composer.contextKnowledgeClose",
-                                      "Close Context & Knowledge"
-                                    )
-                                  : t(
-                                      "playground:composer.contextKnowledge",
-                                      "Context & Knowledge"
-                                    )}
-                              </span>
-                            </button>
-                            {selectedDocuments.length > 0 && (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const chips =
-                                    document.querySelector<HTMLElement>(
-                                      "[data-playground-tabs='true']"
-                                    )
-                                  if (chips) {
-                                    chips.focus()
-                                    chips.scrollIntoView({ block: "nearest" })
-                                  }
-                                }}
-                                title={
-                                  t(
-                                    "playground:composer.contextTabsHint",
-                                    "Review or remove referenced tabs, or add more from your open browser tabs."
-                                  ) as string
-                                }
-                                className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-[#262626]">
-                                <FileText className="h-3 w-3 text-gray-500 dark:text-gray-400" />
-                                <span>
-                                  {t("playground:composer.contextTabs", {
-                                    defaultValue: "{{count}} tabs",
-                                    count: selectedDocuments.length
-                                  } as any) as string}
-                                </span>
-                              </button>
-                            )}
-                            {uploadedFiles.length > 0 && (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const files =
-                                    document.querySelector<HTMLElement>(
-                                      "[data-playground-uploads='true']"
-                                    )
-                                  if (files) {
-                                    files.focus()
-                                    files.scrollIntoView({ block: "nearest" })
-                                  }
-                                }}
-                                title={
-                                  t(
-                                    "playground:composer.contextFilesHint",
-                                    "Review attached files, remove them, or add more."
-                                  ) as string
-                                }
-                                className="inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-0.5 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-gray-600 dark:hover:bg-[#262626]">
-                                <FileIcon className="h-3 w-3 text-gray-500 dark:text-gray-400" />
-                                <span>
-                                  {t("playground:composer.contextFiles", {
-                                    defaultValue: "{{count}} files",
-                                    count: uploadedFiles.length
-                                  } as any) as string}
-                                </span>
-                              </button>
-                            )}
-                          </div>
-                          <div className="flex items-center justify-end gap-3 flex-wrap">
-                            <CharacterSelect className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100" iconClassName="size-5" />
-                            {(browserSupportsSpeechRecognition || hasServerAudio) && (
-                              <>
-                                <Tooltip
-                                  title={
-                                    hasServerAudio
-                                      ? t(
-                                          "playground:tooltip.speechToTextServer",
-                                          "Dictation via your tldw server"
-                                        ) +
-                                        " " +
-                                        t(
-                                          "playground:tooltip.speechToTextDetails",
-                                          "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text.",
-                                          {
-                                            model: sttModel || "whisper-1",
-                                            task:
-                                              sttTask === "translate"
-                                                ? "translate"
-                                                : "transcribe",
-                                            format: (sttResponseFormat || "json").toUpperCase()
-                                          } as any
-                                        )
-                                      : t(
-                                          "playground:tooltip.speechToTextBrowser",
-                                          "Dictation via browser speech recognition"
-                                        )
-                                  }>
-                                  <button
-                                    type="button"
-                                    onClick={hasServerAudio ? handleServerDictationToggle : handleSpeechToggle}
-                                    className={`inline-flex items-center justify-center rounded-full border px-2 py-1 text-xs transition hover:bg-gray-100 dark:hover:bg-[#2a2a2a] ${
-                                      (hasServerAudio && isServerDictating) || (!hasServerAudio && isListening)
-                                        ? "border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300"
-                                        : "border-gray-200 text-gray-700 dark:border-gray-600 dark:text-gray-200"
-                                    }`}
-                                    aria-label={
-                                      hasServerAudio
-                                        ? (isServerDictating
-                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
-                                            : (t("playground:actions.speechStart", "Start dictation") as string))
-                                        : (isListening
-                                            ? (t("playground:actions.speechStop", "Stop dictation") as string)
-                                            : (t("playground:actions.speechStart", "Start dictation") as string))
-                                    }>
-                                    <MicIcon className="h-4 w-4" />
-                                  </button>
-                                </Tooltip>
-                              </>
-                            )}
+                        <div className="flex items-center gap-2 flex-nowrap">
+                          <CharacterSelect
+                            showLabel={false}
+                            className="min-w-0 min-h-0 h-9 w-9 rounded-full border border-border text-text-muted hover:bg-surface2 hover:text-text"
+                            iconClassName="h-4 w-4"
+                          />
+                          {(browserSupportsSpeechRecognition || hasServerAudio) && (
                             <Tooltip
                               title={
-                                t(
-                                  "common:currentChatModelSettings"
-                                ) as string
+                                !speechAvailable
+                                  ? t(
+                                      "playground:actions.speechUnavailableBody",
+                                      "Connect to a tldw server that exposes the audio transcriptions API to use dictation."
+                                    )
+                                  : speechUsesServer
+                                    ? t(
+                                        "playground:tooltip.speechToTextServer",
+                                        "Dictation via your tldw server"
+                                      )
+                                    : t(
+                                        "playground:tooltip.speechToTextBrowser",
+                                        "Dictation via browser speech recognition"
+                                      )
                               }>
                               <button
                                 type="button"
-                                onClick={() => setOpenModelSettings(true)}
+                                onClick={speechUsesServer ? handleServerDictationToggle : handleSpeechToggle}
+                                disabled={!speechAvailable}
+                                className={`inline-flex items-center justify-center rounded-full border px-2 py-1 text-xs transition hover:bg-surface2 disabled:cursor-not-allowed disabled:opacity-50 ${
+                                  speechAvailable &&
+                                  ((speechUsesServer && isServerDictating) ||
+                                    (!speechUsesServer && isListening))
+                                    ? "border-primary text-primaryStrong"
+                                    : "border-border text-text-muted"
+                                }`}
                                 aria-label={
-                                  t(
-                                    "common:currentChatModelSettings"
-                                  ) as string
-                                }
-                                className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                                <Gauge
-                                  className="h-4 w-4"
-                                  aria-hidden="true"
-                                />
-                                <span className="flex flex-col items-start text-left">
-                                  <span className="font-medium">
-                                    {t("playground:composer.chatSettings", "Chat Settings")}
-                                  </span>
-                                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
-                                    {modelSummaryLabel} • {promptSummaryLabel}
-                                  </span>
-                                </span>
+                                  !speechAvailable
+                                    ? (t(
+                                        "playground:actions.speechUnavailableTitle",
+                                        "Dictation unavailable"
+                                      ) as string)
+                                    : speechUsesServer
+                                      ? (isServerDictating
+                                          ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                          : (t("playground:actions.speechStart", "Start dictation") as string))
+                                      : (isListening
+                                          ? (t("playground:actions.speechStop", "Stop dictation") as string)
+                                          : (t("playground:actions.speechStart", "Start dictation") as string))
+                                }>
+                                <MicIcon className="h-4 w-4" />
                               </button>
                             </Tooltip>
-                          <Popover
-                            trigger="click"
-                            placement="topRight"
-                            content={moreToolsContent}
-                            overlayClassName="playground-more-tools">
-                            <button
-                              type="button"
-                              aria-label={t("playground:composer.moreTools", "More tools") as string}
-                              title={t("playground:composer.moreTools", "More tools") as string}
-                              className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-[#2a2a2a]">
-                                <span>
-                                  {t(
-                                    "playground:composer.toolsButton",
-                                    "+Tools"
-                                  )}
-                                </span>
-                              </button>
-                            </Popover>
-
-                          {!isSending ? (
-                            <Dropdown.Button
-                              htmlType="submit"
-                              disabled={isSending || !isConnectionReady}
-                              title={
-                                !isConnectionReady
-                                  ? (t(
-                                      "playground:composer.connectToSend",
-                                      "Connect to your tldw server to start chatting."
-                                    ) as string)
-                                  : (t(
-                                      "playground:composer.submitAria",
-                                      "Send message"
-                                    ) as string)
-                              }
-                              aria-label={
+                          )}
+                          {modelUsageBadge}
+                          <Tooltip
+                            title={
+                              t(
+                                "common:currentChatModelSettings"
+                              ) as string
+                            }>
+                            <TldwButton
+                              variant="outline"
+                              shape="pill"
+                              iconOnly
+                              onClick={() => setOpenModelSettings(true)}
+                              ariaLabel={
                                 t(
-                                  "playground:composer.submitAria",
-                                  "Send message"
+                                  "common:currentChatModelSettings"
                                 ) as string
                               }
-                              className="!justify-end !w-auto"
-                                icon={
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-5 h-5">
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                                    />
-                                  </svg>
-                                }
-                                menu={{
-                                  items: [
-                                    {
-                                      key: 1,
-                                      label: (
-                                        <Checkbox
-                                          checked={sendWhenEnter}
-                                          onChange={(e) =>
-                                            setSendWhenEnter(e.target.checked)
-                                          }>
-                                          {t("sendWhenEnter")}
-                                        </Checkbox>
-                                      )
-                                    },
-                                    {
-                                      key: 2,
-                                      label: (
-                                        <Checkbox
-                                          checked={useOCR}
-                                          onChange={(e) =>
-                                            setUseOCR(e.target.checked)
-                                          }>
-                                          {t("useOCR")}
-                                        </Checkbox>
-                                      )
-                                    }
-                                  ]
-                                }}>
-                                <div className="inline-flex gap-2">
-                                  {sendWhenEnter ? (
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      className="h-5 w-5"
-                                      viewBox="0 0 24 24">
-                                      <path d="M9 10L4 15 9 20"></path>
-                                      <path d="M20 4v7a4 4 0 01-4 4H4"></path>
-                                    </svg>
-                                  ) : null}
-                                  {sendLabel}
-                                </div>
-                              </Dropdown.Button>
-                            ) : (
-                              <Tooltip
-                                title={
-                                  t("tooltip.stopStreaming") as string
-                                }>
-                                <button
-                                  type="button"
-                                  onClick={stopStreamingRequest}
-                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md p-1">
-                                  <StopCircleIcon className="size-5" />
-                                </button>
-                              </Tooltip>
-                            )}
-                          </div>
+                              className="text-text-muted">
+                              <Gauge className="h-4 w-4" aria-hidden="true" />
+                              <span className="sr-only">
+                                {t(
+                                  "playground:composer.chatSettings",
+                                  "Chat Settings"
+                                )}
+                              </span>
+                            </TldwButton>
+                          </Tooltip>
+                          {toolsButton}
+                          {sendControl}
                         </div>
                       </div>
-                    </div>
+                    )}
                     {showConnectBanner && !isConnectionReady && (
                       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-500 dark:bg-[#2a2310] dark:text-amber-100">
                         <p className="max-w-xs text-left">
@@ -2506,6 +3504,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             onClick={() => setShowConnectBanner(false)}
                             className="inline-flex items-center rounded-full p-1 text-amber-700 hover:bg-amber-100 dark:text-amber-200 dark:hover:bg-[#3a2b10]"
                             aria-label={t("common:close", "Dismiss")}
+                            title={t("common:close", "Dismiss") as string}
                           >
                             <X className="h-3 w-3" />
                           </button>
@@ -2532,6 +3531,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             className={`rounded-md border border-green-300 bg-white px-2 py-1 text-xs font-medium text-green-900 hover:bg-green-100 dark:bg-[#163816] dark:text-green-50 dark:hover:bg-[#194419] ${
                               !isConnectionReady ? "cursor-not-allowed opacity-60" : ""
                             }`}
+                            title={t(
+                              "playground:composer.queuedBanner.sendNow",
+                              "Send queued messages"
+                            ) as string}
                             disabled={!isConnectionReady}
                             onClick={async () => {
                               if (!isConnectionReady) return
@@ -2548,6 +3551,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           <button
                             type="button"
                             className="text-xs font-medium text-green-900 underline hover:text-green-700 dark:text-green-100 dark:hover:text-green-300"
+                            title={t(
+                              "playground:composer.queuedBanner.clear",
+                              "Clear queue"
+                            ) as string}
                             onClick={() => {
                               clearQueuedMessages()
                             }}>
@@ -2569,7 +3576,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             type="button"
                             onClick={() => setShowQueuedBanner(false)}
                             className="inline-flex items-center rounded-full p-1 text-green-700 hover:bg-green-100 dark:text-green-200 dark:hover:bg-[#163816]"
-                            aria-label={t("common:close", "Dismiss")}>
+                            aria-label={t("common:close", "Dismiss")}
+                            title={t("common:close", "Dismiss") as string}>
                             <X className="h-3 w-3" />
                           </button>
                         </div>
@@ -2578,11 +3586,6 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                   </div>
                 </form>
               </div>
-              {form.errors.message && (
-                <div className="text-red-600 dark:text-red-400 text-center text-sm mt-2 px-3 py-2 bg-red-50 dark:bg-red-900/20 rounded-md border border-red-200 dark:border-red-800 transition-opacity">
-                  {form.errors.message}
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -2593,6 +3596,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         isOCREnabled={useOCR}
       />
       <ActorPopout open={openActorSettings} setOpen={setOpenActorSettings} />
+      <DocumentGeneratorDrawer
+        open={documentGeneratorOpen}
+        onClose={() => {
+          setDocumentGeneratorOpen(false)
+          setDocumentGeneratorSeed({})
+        }}
+        conversationId={
+          documentGeneratorSeed?.conversationId ?? serverChatId ?? null
+        }
+        defaultModel={selectedModel || null}
+        seedMessage={documentGeneratorSeed?.message ?? null}
+        seedMessageId={documentGeneratorSeed?.messageId ?? null}
+      />
     </div>
   )
 }

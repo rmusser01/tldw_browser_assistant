@@ -3,19 +3,48 @@ import { useTranslation } from "react-i18next"
 import { MessageSquarePlus } from "lucide-react"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useDemoMode } from "@/context/demo-mode"
-import { useServerOnline } from "@/hooks/useServerOnline"
+import { QuickIngestButton } from "@/components/Layouts/QuickIngestButton"
 
 export const PlaygroundEmpty = () => {
   const { t } = useTranslation(["playground", "common"])
   const { demoEnabled } = useDemoMode()
-  const isOnline = useServerOnline()
+  const [useLocalQuickIngestHost, setUseLocalQuickIngestHost] =
+    React.useState(false)
 
   const handleStartChat = React.useCallback(() => {
     window.dispatchEvent(new CustomEvent("tldw:focus-composer"))
   }, [])
 
   const handleOpenQuickIngest = React.useCallback(() => {
+    if (typeof window === "undefined") return
+    const trigger = document.querySelector<HTMLButtonElement>(
+      '[data-testid="open-quick-ingest"]'
+    )
+    if (trigger) {
+      trigger.click()
+      return
+    }
     window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
+  }, [])
+
+  React.useEffect(() => {
+    if (typeof document === "undefined") return
+    const checkForHeaderHost = () => {
+      const triggers = Array.from(
+        document.querySelectorAll('[data-testid="open-quick-ingest"]')
+      )
+      const hasHeaderHost = triggers.some(
+        (trigger) => !trigger.closest('[data-quick-ingest-host="local"]')
+      )
+      setUseLocalQuickIngestHost(!hasHeaderHost)
+    }
+    checkForHeaderHost()
+    const observer = new MutationObserver(checkForHeaderHost)
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    })
+    return () => observer.disconnect()
   }, [])
 
   return (
@@ -56,8 +85,13 @@ export const PlaygroundEmpty = () => {
         onPrimaryAction={handleStartChat}
         secondaryActionLabel={t("option:header.quickIngest", "Quick ingest")}
         onSecondaryAction={handleOpenQuickIngest}
-        secondaryDisabled={!isOnline && !demoEnabled}
+        secondaryDisabled={false}
       />
+      {useLocalQuickIngestHost && (
+        <div data-quick-ingest-host="local">
+          <QuickIngestButton className="hidden" />
+        </div>
+      )}
     </div>
   )
 }

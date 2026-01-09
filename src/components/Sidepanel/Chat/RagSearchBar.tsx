@@ -144,8 +144,8 @@ export const RagSearchBar: React.FC<Props> = ({
   const wrapperClassName = variant === "embedded" ? "w-full" : "w-full mb-2"
   const panelClassName =
     variant === "embedded"
-      ? "relative rounded-md"
-      : "p-2 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-[#1f1f1f] mb-2 relative"
+      ? "panel-elevated p-2 relative"
+      : "panel-card p-2 mb-2 relative"
 
   return (
     <div className={wrapperClassName}>
@@ -155,8 +155,13 @@ export const RagSearchBar: React.FC<Props> = ({
             type="button"
             aria-expanded={isOpen}
             aria-controls="rag-search-panel"
-            className="text-xs text-gray-600 dark:text-gray-300 underline md:hidden"
+            className="text-caption text-text-muted underline md:hidden"
             onClick={() => setOpenState(!isOpen)}
+            title={
+              isOpen
+                ? t("sidepanel:rag.hide", "Hide RAG search")
+                : t("sidepanel:rag.show", "Show RAG search")
+            }
           >
             {isOpen
               ? t("sidepanel:rag.hide", "Hide RAG search")
@@ -168,31 +173,32 @@ export const RagSearchBar: React.FC<Props> = ({
         <div id="rag-search-panel" data-testid="rag-search-panel" className={panelClassName}>
           {/* Disconnected overlay */}
           {!isConnected && (
-            <div className="absolute inset-0 z-10 bg-gray-100/90 dark:bg-gray-900/90 flex items-center justify-center rounded">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="absolute inset-0 z-10 flex items-center justify-center rounded bg-surface2">
+              <span className="text-sm text-text-muted">
                 {t('sidepanel:rag.disconnected', 'Connect to server to search knowledge base')}
               </span>
             </div>
           )}
           {/* L13: First-use hint banner - only show if not seen and user hasn't searched yet */}
           {!ragHintSeen && !hasAttemptedSearch && (
-            <div className="mb-2 p-2 bg-blue-50 dark:bg-blue-900/20 border-l-2 border-blue-400 rounded flex items-start gap-2">
+            <div className="mb-2 flex items-start gap-2 rounded border-l-2 border-primary bg-surface2 p-2">
               <div className="flex-1">
-                <p className="text-xs text-blue-800 dark:text-blue-200">
+                <p className="text-xs text-text">
                   {t('sidepanel:rag.hint.message', 'Search your knowledge base and insert results into your message.')}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setRagHintSeen(true)}
-                className="p-0.5 rounded hover:bg-blue-100 dark:hover:bg-blue-800/30 text-blue-600 dark:text-blue-300"
+                className="rounded p-1 text-text-subtle hover:bg-surface"
                 aria-label={t('sidepanel:rag.hint.dismiss', 'Dismiss')}
+                title={t('sidepanel:rag.hint.dismiss', 'Dismiss')}
               >
                 <X className="h-3.5 w-3.5" />
               </button>
             </div>
           )}
-          <div className="flex gap-2 items-center mb-2">
+          <div className="mb-2 flex items-center gap-2">
             <Input
               ref={searchInputRef}
               placeholder={t('sidepanel:rag.searchPlaceholder')}
@@ -200,7 +206,9 @@ export const RagSearchBar: React.FC<Props> = ({
               onChange={(e) => setQ(e.target.value)}
               onPressEnter={runSearch}
             />
-            <Button onClick={runSearch} type="default">{t('sidepanel:rag.search')}</Button>
+            <Button onClick={runSearch} type="default" title={t('sidepanel:rag.search')}>
+              {t('sidepanel:rag.search')}
+            </Button>
           </div>
           <div className="flex flex-wrap gap-2 mb-2">
             <Select
@@ -226,10 +234,12 @@ export const RagSearchBar: React.FC<Props> = ({
                 onPressEnter={addTag}
                 style={{ width: 120 }}
               />
-              <Button size="small" onClick={addTag}>{t('sidepanel:rag.add')}</Button>
+              <Button size="small" onClick={addTag} title={t('sidepanel:rag.add')}>
+                {t('sidepanel:rag.add')}
+              </Button>
             </Space>
             <Space size="small" align="center">
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-text-subtle">
                 {t("sidepanel:header.timeoutLabel", "Timeout (s)")}
               </span>
               <InputNumber size="small" min={1} value={timeoutSec} onChange={(v) => setTimeoutSec(Number(v||10))} />
@@ -244,16 +254,36 @@ export const RagSearchBar: React.FC<Props> = ({
             {loading ? (
               <div className="py-4 text-center"><Spin size="small" /></div>
             ) : timedOut ? (
-              <div className="text-xs text-gray-600 dark:text-gray-300">
+              <div className="text-xs text-text-muted">
                 {t('sidepanel:rag.timeout.message', 'Request timed out.')}
                 <div className="mt-1 flex items-center gap-2">
-                  <Button size="small" type="primary" onClick={runSearch}>{t('sidepanel:rag.timeout.retry', 'Retry')}</Button>
-                  <Button size="small" onClick={() => { setTimeoutSec((v) => Number(v||10) + 5); runSearch() }}>{t('sidepanel:rag.timeout.increase', 'Increase timeout')}</Button>
-                  <Button size="small" type="link" onClick={() => { try { const url = browser.runtime.getURL('/options.html#/settings/health'); browser.tabs.create({ url }) } catch { window.open('#/settings/health', '_blank') } }}>{t('sidepanel:rag.timeout.checkHealth', 'Check server health')}</Button>
+                  <Button
+                    size="small"
+                    type="primary"
+                    onClick={runSearch}
+                    title={t('sidepanel:rag.timeout.retry', 'Retry')}
+                  >
+                    {t('sidepanel:rag.timeout.retry', 'Retry')}
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={() => { setTimeoutSec((v) => Number(v||10) + 5); runSearch() }}
+                    title={t('sidepanel:rag.timeout.increase', 'Increase timeout')}
+                  >
+                    {t('sidepanel:rag.timeout.increase', 'Increase timeout')}
+                  </Button>
+                  <Button
+                    size="small"
+                    type="link"
+                    onClick={() => { try { const url = browser.runtime.getURL('/options.html#/settings/health'); browser.tabs.create({ url }) } catch { window.open('#/settings/health', '_blank') } }}
+                    title={t('sidepanel:rag.timeout.checkHealth', 'Check server health')}
+                  >
+                    {t('sidepanel:rag.timeout.checkHealth', 'Check server health')}
+                  </Button>
                 </div>
               </div>
             ) : results.length === 0 ? (
-              <div className="text-xs text-gray-500">{t('sidepanel:rag.noResults')}</div>
+              <div className="text-xs text-text-subtle">{t('sidepanel:rag.noResults')}</div>
             ) : (
               <List
                 size="small"
@@ -272,7 +302,8 @@ export const RagSearchBar: React.FC<Props> = ({
                           key="insert"
                           type="button"
                           onClick={() => onInsert(insertText)}
-                          className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                          className="text-primary hover:text-primaryStrong"
+                          title={t("sidepanel:rag.actions.insert")}
                         >
                           {t("sidepanel:rag.actions.insert")}
                         </button>,
@@ -280,7 +311,8 @@ export const RagSearchBar: React.FC<Props> = ({
                           key="ask"
                           type="button"
                           onClick={() => onAsk(insertText)}
-                          className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                          className="text-primary hover:text-primaryStrong"
+                          title={t("sidepanel:rag.actions.ask")}
                         >
                           {t("sidepanel:rag.actions.ask")}
                         </button>,
@@ -289,7 +321,8 @@ export const RagSearchBar: React.FC<Props> = ({
                             key="open"
                             type="button"
                             onClick={() => window.open(String(url), "_blank")}
-                            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                            className="text-primary hover:text-primaryStrong"
+                            title={t("sidepanel:rag.actions.open")}
                           >
                             {t("sidepanel:rag.actions.open")}
                           </button>
@@ -298,15 +331,26 @@ export const RagSearchBar: React.FC<Props> = ({
                           key="copy"
                           type="button"
                           onClick={() => navigator.clipboard.writeText(insertText)}
-                          className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                          className="text-primary hover:text-primaryStrong"
+                          title={t("sidepanel:rag.actions.copy")}
                         >
                           {t("sidepanel:rag.actions.copy")}
                         </button>
                       ]}
                     >
                       <List.Item.Meta
-                        title={title}
-                        description={<div className="text-xs line-clamp-3">{snippet}</div>}
+                        title={
+                          title ? (
+                            <div className="text-sm font-medium text-text">
+                              {title}
+                            </div>
+                          ) : null
+                        }
+                        description={
+                          <div className="text-xs text-text-muted line-clamp-3">
+                            {snippet}
+                          </div>
+                        }
                       />
                     </List.Item>
                   )

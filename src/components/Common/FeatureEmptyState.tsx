@@ -15,7 +15,7 @@ type FeatureEmptyStateProps = {
   secondaryDisabled?: boolean
   /** Optional icon to display above the title for visual interest */
   icon?: LucideIcon
-  /** Icon color class (default: text-gray-400) */
+  /** Icon color class (default: text-text-subtle) */
   iconClassName?: string
 }
 
@@ -36,30 +36,30 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
   return (
     <div
       className={
-        "mx-auto max-w-xl rounded-lg border border-gray-200 bg-white p-6 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-gray-200 " +
+        "mx-auto max-w-xl rounded-3xl border border-border/80 bg-surface/90 p-7 text-sm text-text shadow-card backdrop-blur " +
         (className || "")
       }>
       <div className="space-y-3">
         {Icon && (
           <div className="flex justify-center">
-            <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-800">
+            <div className="rounded-full bg-surface2/80 p-3">
               <Icon
-                className={iconClassName || "h-8 w-8 text-gray-500 dark:text-gray-400"}
+                className={iconClassName || "h-8 w-8 text-text-subtle"}
                 aria-hidden="true"
               />
             </div>
           </div>
         )}
-        <h2 className={`text-base font-semibold text-gray-900 dark:text-gray-50 ${Icon ? "text-center" : ""}`}>
+        <h2 className={`text-lg font-semibold text-text ${Icon ? "text-center" : ""}`}>
           {title}
         </h2>
         {description && (
-          <p className="text-xs text-gray-600 dark:text-gray-300">
+          <p className="text-sm text-text-muted">
             {description}
           </p>
         )}
         {examples && examples.length > 0 && (
-          <div className="text-xs text-gray-600 dark:text-gray-300">
+          <div className="text-xs text-text-muted">
             <ul className="list-disc pl-4 space-y-1">
               {examples.map((example, index) => (
                 <li key={index}>{example}</li>
@@ -68,13 +68,18 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
           </div>
         )}
         {(primaryActionLabel || secondaryActionLabel) && (
-          <div className="mt-2 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {primaryActionLabel && (
               <Button
                 type="primary"
                 size="small"
                 onClick={onPrimaryAction}
-                className="mr-1"
+                title={
+                  typeof primaryActionLabel === "string"
+                    ? primaryActionLabel
+                    : undefined
+                }
+                className="mr-1 rounded-full px-4 text-[11px] font-semibold uppercase tracking-[0.08em]"
                 disabled={primaryDisabled}>
                 {primaryActionLabel}
               </Button>
@@ -83,6 +88,12 @@ const FeatureEmptyState: React.FC<FeatureEmptyStateProps> = ({
               <Button
                 size="small"
                 onClick={onSecondaryAction}
+                title={
+                  typeof secondaryActionLabel === "string"
+                    ? secondaryActionLabel
+                    : undefined
+                }
+                className="rounded-full px-4 text-[11px] font-semibold uppercase tracking-[0.08em]"
                 disabled={secondaryDisabled}>
                 {secondaryActionLabel}
               </Button>

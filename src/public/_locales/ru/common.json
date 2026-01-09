@@ -1,0 +1,1172 @@
+{
+  "pageAssist": {
+    "message": "Ассистент tldw"
+  },
+  "titles_options": {
+    "message": "tldw Assistant — Options"
+  },
+  "titles_sidepanel": {
+    "message": "tldw Assistant — Sidepanel"
+  },
+  "pdf_passwordTitle": {
+    "message": "Введите пароль PDF"
+  },
+  "pdf_unlock": {
+    "message": "Разблокировать"
+  },
+  "loading_title": {
+    "message": "Загрузка…"
+  },
+  "loading_description": {
+    "message": "Пожалуйста, подождите, мы все подготавливаем."
+  },
+  "loading_content": {
+    "message": "Загрузка содержимого…"
+  },
+  "selectAModel": {
+    "message": "Выберите модель"
+  },
+  "save": {
+    "message": "Сохранить"
+  },
+  "saved": {
+    "message": "Сохранено"
+  },
+  "cancel": {
+    "message": "Отмена"
+  },
+  "retry": {
+    "message": "Повторить"
+  },
+  "share_tooltip_share": {
+    "message": "Поделиться"
+  },
+  "share_modal_title": {
+    "message": "Поделиться ссылкой на чат"
+  },
+  "share_form_defaultValue_name": {
+    "message": "Аноним"
+  },
+  "share_form_defaultValue_title": {
+    "message": "Безымянный чат"
+  },
+  "share_form_title_label": {
+    "message": "Название чата"
+  },
+  "share_form_title_placeholder": {
+    "message": "Введите название чата"
+  },
+  "share_form_title_required": {
+    "message": "Название чата обязательно"
+  },
+  "share_form_name_label": {
+    "message": "Ваше имя"
+  },
+  "share_form_name_placeholder": {
+    "message": "Введите ваше имя"
+  },
+  "share_form_name_required": {
+    "message": "Ваше имя обязательно"
+  },
+  "share_form_btn_save": {
+    "message": "Создать ссылку"
+  },
+  "share_form_btn_saving": {
+    "message": "Создание ссылки..."
+  },
+  "share_notification_successGenerate": {
+    "message": "Ссылка скопирована в буфер обмена"
+  },
+  "share_notification_failGenerate": {
+    "message": "Не удалось создать ссылку"
+  },
+  "copyToClipboard": {
+    "message": "Копировать в буфер обмена"
+  },
+  "webSearch": {
+    "message": "Поиск в интернете"
+  },
+  "regenerate": {
+    "message": "Пересоздать"
+  },
+  "continue": {
+    "message": "Продолжить ответ"
+  },
+  "edit": {
+    "message": "Редактировать"
+  },
+  "delete": {
+    "message": "Удалить"
+  },
+  "saveAndSubmit": {
+    "message": "Сохранить и отправить"
+  },
+  "editMessage_placeholder": {
+    "message": "Введите сообщение..."
+  },
+  "submit": {
+    "message": "Отправить"
+  },
+  "send": {
+    "message": "Отправить"
+  },
+  "connectToServer": {
+    "message": "Подключиться к серверу"
+  },
+  "noData": {
+    "message": "Нет данных"
+  },
+  "noHistory": {
+    "message": "Нет истории чата"
+  },
+  "chatWithCurrentPage": {
+    "message": "Чат с текущей страницей"
+  },
+  "beta": {
+    "message": "Бета-версия"
+  },
+  "tts": {
+    "message": "Прочитать вслух"
+  },
+  "currentChatModelSettings": {
+    "message": "Текущие настройки модели чата"
+  },
+  "modelSettings_label": {
+    "message": "Настройки модели"
+  },
+  "modelSettings_description": {
+    "message": "Устанавливайте параметры модели глобально для всех чатов"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "Время жизни"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "Контролирует, как долго модель будет оставаться в памяти после запроса (по умолчанию: 5 минут)"
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "Введите продолжительность времени жизни (например, 5м, 10м, 1ч)"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "Температура"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "Введите значение температуры (например, 0.7, 1.0)"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "Размер окна контекста (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "Введите значение размера окна контекста (по умолчанию: 2048)"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "Максимальное количество токенов (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "Введите значение максимального количества токенов (например, 2048, 4096)"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "Сид"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "Введите значение сида (например, 1234)"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "Воспроизводимость вывода модели"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "Top K (верхние K)"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "Введите значение Top K (например, 40, 100)"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "Top P (верхнее P)"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "Введите значение Top P (например, 0.9, 0.95)"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "Количество GPU (Num GPU)"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "Введите количество слоев для отправки на GPU"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "Временный системный запрос"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "Введите системный запрос"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "Это быстрый способ установить системный запрос в текущем чате, который переопределит выбранный системный запрос, если он существует."
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "Режим размышления"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap (отображение памяти)"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z (параметр TFS)"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "например, 1.0, 1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Num Keep (количество сохраняемых)"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "например, 256, 512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Num Thread (количество потоков)"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "например, 8, 16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock (блокировка памяти)"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "Усилия на рассуждение"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "низкие, средние, высокие"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P (минимальное P)"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "например, 0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "Штраф за повторения"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "например, 1.1, 1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "Повторять последние N"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "например, 64, 128"
+  },
+  "modelSettings_advanced": {
+    "message": "Больше настроек модели"
+  },
+  "copilot_summary": {
+    "message": "Обобщить"
+  },
+  "copilot_explain": {
+    "message": "Объяснить"
+  },
+  "copilot_rephrase": {
+    "message": "Перефразировать"
+  },
+  "copilot_translate": {
+    "message": "Перевести"
+  },
+  "copilot_custom": {
+    "message": "Пользовательский"
+  },
+  "citations": {
+    "message": "Цитаты"
+  },
+  "downloadCode": {
+    "message": "Скачать код"
+  },
+  "date_pinned": {
+    "message": "Закреплено"
+  },
+  "date_today": {
+    "message": "Сегодня"
+  },
+  "date_yesterday": {
+    "message": "Вчера"
+  },
+  "date_last7Days": {
+    "message": "Последние 7 дней"
+  },
+  "date_older": {
+    "message": "Ранее"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "Вы уверены, что хотите удалить все закрепленные сообщения?"
+  },
+  "range_deleteConfirm_today": {
+    "message": "Вы уверены, что хотите удалить все сообщения за сегодня?"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "Вы уверены, что хотите удалить все сообщения за вчера?"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "Вы уверены, что хотите удалить все сообщения за последние 7 дней?"
+  },
+  "range_deleteConfirm_older": {
+    "message": "Вы уверены, что хотите удалить все старые сообщения?"
+  },
+  "range_tooltip_pinned": {
+    "message": "Удалить все закрепленные сообщения"
+  },
+  "range_tooltip_today": {
+    "message": "Удалить все сообщения за сегодня"
+  },
+  "range_tooltip_yesterday": {
+    "message": "Удалить все сообщения за вчера"
+  },
+  "range_tooltip_last7Days": {
+    "message": "Удалить все сообщения за последние 7 дней"
+  },
+  "range_tooltip_older": {
+    "message": "Удалить все старые сообщения"
+  },
+  "pin": {
+    "message": "Закрепить"
+  },
+  "unpin": {
+    "message": "Открепить"
+  },
+  "generationInfo": {
+    "message": "Информация о генерации"
+  },
+  "sidebarChat": {
+    "message": "Боковой чат"
+  },
+  "reasoning_thinking": {
+    "message": "Размышляю..."
+  },
+  "reasoning_loading": {
+    "message": "Загружаю рассуждение..."
+  },
+  "reasoning_thought": {
+    "message": "Размышлял {{time}}"
+  },
+  "embeddingGen": {
+    "message": "Создание embeddings, это может занять некоторое время"
+  },
+  "semanticSearch": {
+    "message": "Выполнение семантического поиска"
+  },
+  "downloading": {
+    "message": "Загрузка"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "Вы уверены, что хотите отменить загрузку? Это остановит процесс загрузки. Согласно документации Ollama, вы можете возобновить загрузку с того места, на котором остановились."
+  },
+  "table_copyCsv": {
+    "message": "Копировать как CSV"
+  },
+  "table_downloadCsv": {
+    "message": "Скачать CSV"
+  },
+  "dismiss": {
+    "message": "Скрыть"
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant не может сохранить данные"
+  },
+  "confirmTitle": {
+    "message": "Пожалуйста, подтвердите"
+  },
+  "saving": {
+    "message": "Сохранение..."
+  },
+  "close": {
+    "message": "Закрыть"
+  },
+  "loadMore": {
+    "message": "Загрузить ещё..."
+  },
+  "startChat": {
+    "message": "Начать чат"
+  },
+  "previous": {
+    "message": "Назад"
+  },
+  "next": {
+    "message": "Далее"
+  },
+  "chatWithCharacter": {
+    "message": "Чат с персонажем"
+  },
+  "ttsShort": {
+    "message": "Голос"
+  },
+  "copyShort": {
+    "message": "Копировать"
+  },
+  "branchShort": {
+    "message": "Ветка"
+  },
+  "infoShort": {
+    "message": "Инфо"
+  },
+  "regenShort": {
+    "message": "Снова"
+  },
+  "continueShort": {
+    "message": "Ещё"
+  },
+  "fileChanges": {
+    "message": "Изменения файлов"
+  },
+  "deletions": {
+    "message": "Удаления"
+  },
+  "gitOperations": {
+    "message": "Операции Git"
+  },
+  "commands": {
+    "message": "Команды"
+  },
+  "otherOperations": {
+    "message": "Другие операции"
+  },
+  "fileAccess": {
+    "message": "Доступ к файлам"
+  },
+  "notebookEdits": {
+    "message": "Правки блокнота"
+  },
+  "applyPatch": {
+    "message": "Применить патч"
+  },
+  "recursive": {
+    "message": "(рекурсивно)"
+  },
+  "complexArguments": {
+    "message": "[Сложные аргументы]"
+  },
+  "segmented_available": {
+    "message": "Серверные модели"
+  },
+  "segmented_custom": {
+    "message": "Пользовательские модели"
+  },
+  "success": {
+    "message": "Успешно"
+  },
+  "created": {
+    "message": "Создано"
+  },
+  "updated": {
+    "message": "Обновлено"
+  },
+  "deleted": {
+    "message": "Удалено"
+  },
+  "create": {
+    "message": "Создать"
+  },
+  "reset": {
+    "message": "Сбросить"
+  },
+  "serverOffline": {
+    "message": "Сервер не работает или не настроен"
+  },
+  "serverChats": {
+    "message": "Серверные чаты"
+  },
+  "serverChatLoadError": {
+    "message": "Не удалось загрузить серверный чат. Проверьте соединение и попробуйте снова."
+  },
+  "serverChatSourceLabel": {
+    "message": "Источник сервера"
+  },
+  "serverChatForkedLabel": {
+    "message": "Разветвлённый чат"
+  },
+  "serverChatForkedTooltip": {
+    "message": "Разветвлён от чата {{chatId}}"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Серверные чаты будут доступны после подключения к вашему серверу tldw."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Серверные чаты сейчас недоступны. Проверьте журналы сервера или попробуйте снова."
+  },
+  "historiesDeleted": {
+    "message": "{{count}} историй чата удалено"
+  },
+  "deleteHistoriesError": {
+    "message": "Ошибка при удалении историй"
+  },
+  "mermaid": {
+    "message": "Диаграммы Mermaid"
+  },
+  "search": {
+    "message": "Поиск"
+  },
+  "searchResults": {
+    "message": "Результаты поиска"
+  },
+  "newBranch": {
+    "message": "Новая ветка"
+  },
+  "error_label": {
+    "message": "Ошибка"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "Не удалось подключиться к вашему серверу tldw."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Ваш API-ключ может быть недействительным. Откройте Настройки → сервер tldw, чтобы проверить URL и API-ключ, затем попробуйте снова."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Время ожидания чата истекло."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "Сервер перестал отправлять ответы. Попробуйте снова или откройте \"Состояние и диагностика\", чтобы проверить статус сервера."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Произошла ошибка при связи с вашим сервером tldw."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Попробуйте снова через некоторое время или откройте \"Состояние и диагностика\", чтобы проверить состояние сервера."
+  },
+  "error_showDetails": {
+    "message": "Показать технические сведения"
+  },
+  "error_hideDetails": {
+    "message": "Скрыть технические сведения"
+  },
+  "folders": {
+    "message": "Папки"
+  },
+  "folderView": {
+    "message": "Просмотр папок"
+  },
+  "dateView": {
+    "message": "Просмотр по датам"
+  },
+  "newFolder": {
+    "message": "Новая папка"
+  },
+  "folderName": {
+    "message": "Название папки"
+  },
+  "selectFolder": {
+    "message": "Выберите папку"
+  },
+  "noFolders": {
+    "message": "Нет папок"
+  },
+  "expandAll": {
+    "message": "Развернуть все"
+  },
+  "collapseAll": {
+    "message": "Свернуть все"
+  },
+  "refresh": {
+    "message": "Обновить"
+  },
+  "confirm": {
+    "message": "Подтвердить"
+  },
+  "untitled": {
+    "message": "Без названия"
+  },
+  "moveToFolder": {
+    "message": "Переместить в папку"
+  },
+  "noToolCalls": {
+    "message": "Пока нет вызовов инструментов"
+  },
+  "status_pending": {
+    "message": "Ожидание"
+  },
+  "status_running": {
+    "message": "Обработка"
+  },
+  "status_complete": {
+    "message": "Завершено"
+  },
+  "status_error": {
+    "message": "Ошибка"
+  },
+  "arguments": {
+    "message": "Аргументы"
+  },
+  "invalidJson": {
+    "message": "Некорректный JSON; показывается исходное значение"
+  },
+  "result": {
+    "message": "Результат"
+  },
+  "tools_fs_list": {
+    "message": "Список каталога"
+  },
+  "tools_fs_read": {
+    "message": "Прочитать файл"
+  },
+  "tools_fs_write": {
+    "message": "Записать файл"
+  },
+  "tools_fs_apply_patch": {
+    "message": "Применить патч"
+  },
+  "tools_fs_mkdir": {
+    "message": "Создать каталог"
+  },
+  "tools_fs_delete": {
+    "message": "Удалить"
+  },
+  "tools_search_grep": {
+    "message": "Поиск по содержимому"
+  },
+  "tools_search_glob": {
+    "message": "Найти файлы"
+  },
+  "tools_git_status": {
+    "message": "Статус Git"
+  },
+  "tools_git_diff": {
+    "message": "Git diff"
+  },
+  "tools_git_log": {
+    "message": "Журнал Git"
+  },
+  "tools_git_branch": {
+    "message": "Ветка Git"
+  },
+  "tools_git_add": {
+    "message": "Подготовить файлы"
+  },
+  "tools_git_commit": {
+    "message": "Коммит"
+  },
+  "tools_exec_run": {
+    "message": "Выполнить команду"
+  },
+  "markdown_unableToRender": {
+    "message": "Не удалось отобразить содержимое"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "Содержимое сообщения не удалось отобразить. Возможно, причина в неверном форматировании."
+  },
+  "markdown_showRawContent": {
+    "message": "Показать исходный текст"
+  },
+  "commandPalette_goToChat": {
+    "message": "Перейти к чату"
+  },
+  "commandPalette_goToMedia": {
+    "message": "Перейти к медиа"
+  },
+  "commandPalette_goToNotes": {
+    "message": "Перейти к заметкам"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Перейти к флешкартам"
+  },
+  "commandPalette_goToSettings": {
+    "message": "Перейти к настройкам"
+  },
+  "commandPalette_goToHealth": {
+    "message": "Открыть «Состояние и диагностика»"
+  },
+  "commandPalette_newChat": {
+    "message": "Новый чат"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Переключить поиск по знаниям"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "Искать в вашей базе знаний"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Переключить веб‑поиск"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Искать в интернете"
+  },
+  "commandPalette_ingestPage": {
+    "message": "Загрузить текущую страницу"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Сохранить эту страницу в вашей базе знаний"
+  },
+  "commandPalette_switchModel": {
+    "message": "Сменить модель"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Показать/скрыть боковую панель"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Показать или скрыть боковую панель чата"
+  },
+  "commandPalette_placeholder": {
+    "message": "Введите команду или выполните поиск…"
+  },
+  "commandPalette_noResults": {
+    "message": "Ничего не найдено"
+  },
+  "commandPalette_title": {
+    "message": "Палитра команд"
+  },
+  "commandPalette_navigate": {
+    "message": "перемещение"
+  },
+  "commandPalette_select": {
+    "message": "выбор"
+  },
+  "commandPalette_toOpen": {
+    "message": "для открытия"
+  },
+  "commandPalette_categoryActions": {
+    "message": "Действия"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Навигация"
+  },
+  "commandPalette_categorySettings": {
+    "message": "Настройки"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Недавние"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Поиск по знаниям"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Откройте панель поиска знаний, чтобы найти фрагменты и вставить их в чат."
+  },
+  "featureHints_moreTools_title": {
+    "message": "Дополнительные инструменты"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Режим зрения, загрузка изображений, быстрый импорт и полное приложение."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Быстрые команды"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Нажмите {{shortcut}} для поиска команд, настроек и прочего."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Настройка параметров модели"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Настройте температуру, длину контекста и другие параметры модели."
+  },
+  "chatSidebar_title": {
+    "message": "Чаты"
+  },
+  "chatSidebar_newChat": {
+    "message": "Новый чат"
+  },
+  "chatSidebar_collapse": {
+    "message": "Свернуть боковую панель"
+  },
+  "chatSidebar_expand": {
+    "message": "Развернуть боковую панель"
+  },
+  "chatSidebar_search": {
+    "message": "Поиск чатов..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "Загрузить страницу"
+  },
+  "chatSidebar_media": {
+    "message": "Медиа"
+  },
+  "chatSidebar_notes": {
+    "message": "Заметки"
+  },
+  "chatSidebar_flashcards": {
+    "message": "Карточки"
+  },
+  "chatSidebar_prompts": {
+    "message": "Промпты"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Несколько элементов"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Ярлыки"
+  },
+  "chatSidebar_settings": {
+    "message": "Настройки"
+  },
+  "chatSidebar_loadError": {
+    "message": "Не удалось загрузить чаты"
+  },
+  "chatSidebar_localTab": {
+    "message": "Локальные"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Сервер"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Папки"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Локальные"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Сервер"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Папки"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "Пока нет серверных чатов"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Для папок требуется подключение к серверу"
+  },
+  "extName": {
+    "message": "Ассистент tldw"
+  },
+  "extDescription": {
+    "message": "Используйте запущенные локально модели искусственного интеллекта для помощи в веб-просмотре."
+  },
+  "openSidePanelToChat": {
+    "message": "Открыть боковую панель для чата"
+  },
+  "openOptionToChat": {
+    "message": "Открыть веб-интерфейс для чата"
+  },
+  "contextSummarize": {
+    "message": "Обобщить"
+  },
+  "contextExplain": {
+    "message": "Объяснить"
+  },
+  "contextRephrase": {
+    "message": "Перефразировать"
+  },
+  "contextTranslate": {
+    "message": "Перевести"
+  },
+  "contextCustom": {
+    "message": "Пользовательский"
+  },
+  "contextSendToTldw": {
+    "message": "Отправить в tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Обработать с помощью tldw_server (не сохранять)"
+  },
+  "contextTranscribeMedia": {
+    "message": "Транскрибировать видео/аудио"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Транскрибировать и обобщить видео/аудио"
+  },
+  "contextSaveToNotes": {
+    "message": "Сохранить в заметки"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Сначала выделите текст, чтобы сохранить его в заметки."
+  },
+  "contextSidebarOpening": {
+    "message": "Открываем боковую панель..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Открываем боковую панель, чтобы сохранить заметку..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "Не удалось открыть боковую панель для сохранения этой заметки. Проверьте, что боковая панель tldw Assistant разрешена на этом сайте, и попробуйте снова."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] Запрос на отправку страницы отклонён tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] Не удалось отправить эту страницу в tldw_server: $1. Проверьте «Settings → tldw server» и повторите попытку."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] Не удалось отправить эту страницу в tldw_server. Проверьте «Settings → tldw server» и повторите попытку."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Страница отправлена в tldw_server для обработки"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] При отправке этой страницы в tldw_server что-то пошло не так. Убедитесь, что ваш tldw_server и расширение запущены, затем повторите попытку."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] Запрос на загрузку модели уже выполняется. Пожалуйста, дождитесь его завершения, прежде чем запускать новый."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] Отправить запрос на ваш tldw_server, чтобы загрузить модель \"$1\"? Это не связано с сайтом huggingface.co. Ваш сервер начнёт загрузку модели после подтверждения."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Отправляется запрос на ваш tldw_server для загрузки \"$1\". Следите за значком расширения или журналами tldw_server, чтобы отслеживать прогресс."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] Не удалось отправить запрос на загрузку \"$1\": $2. Проверьте «Settings → tldw server» и повторите попытку."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] Не удалось отправить запрос на загрузку \"$1\". Проверьте «Settings → tldw server» и повторите попытку."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Запрос на загрузку \"$1\" отправлен на ваш tldw_server. Отслеживайте статус по значку расширения или журналам tldw_server."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] При отправке запроса на загрузку \"$1\" на ваш tldw_server что-то пошло не так. Убедитесь, что ваш tldw_server и расширение запущены, затем повторите попытку."
+  },
+  "stepLabel": {
+    "message": "Добро пожаловать"
+  },
+  "path": {
+    "message": "С чего вы хотите начать?"
+  },
+  "nextSteps": {
+    "message": "Вы готовы к работе"
+  },
+  "restartOnboardingLabel": {
+    "message": "Снова пройти мастер настройки с самого начала"
+  },
+  "restartOnboardingButton": {
+    "message": "Перезапустить мастер настройки"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "Перезапустить мастер настройки?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "Это сбросит состояние мастера настройки и вернёт вас к началу процесса."
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "generate": {
+    "message": "Generate"
+  },
+  "view": {
+    "message": "View"
+  },
+  "deleteMessageConfirm": {
+    "message": "Delete this message?"
+  },
+  "deleteFailed": {
+    "message": "Delete failed"
+  },
+  "reply": {
+    "message": "Reply"
+  },
+  "replyShort": {
+    "message": "Reply"
+  },
+  "replyingTo": {
+    "message": "Replying to"
+  },
+  "clearReply": {
+    "message": "Clear reply target"
+  },
+  "replyTargetFallback": {
+    "message": "Message"
+  },
+  "artifactsTitle": {
+    "message": "Artifact"
+  },
+  "artifactsDefaultTitle": {
+    "message": "Code"
+  },
+  "artifactsView": {
+    "message": "View code"
+  },
+  "artifactsPin": {
+    "message": "Pin"
+  },
+  "artifactsUnpin": {
+    "message": "Unpin"
+  },
+  "artifactsClose": {
+    "message": "Close"
+  },
+  "artifactsCopy": {
+    "message": "Copy"
+  },
+  "artifactsDownload": {
+    "message": "Download"
+  },
+  "artifactsRun": {
+    "message": "Run"
+  },
+  "saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "saveToFlashcards": {
+    "message": "Save to Flashcards"
+  },
+  "generateDocument": {
+    "message": "Generate document"
+  },
+  "documentShort": {
+    "message": "Doc"
+  },
+  "saveNoteShort": {
+    "message": "Note"
+  },
+  "saveFlashcardShort": {
+    "message": "Card"
+  },
+  "savedToNotes": {
+    "message": "Saved to Notes"
+  },
+  "savedToFlashcards": {
+    "message": "Saved to Flashcards"
+  },
+  "saveToNotesEmpty": {
+    "message": "Nothing to save yet."
+  },
+  "timeline_title": {
+    "message": "Conversation Timeline"
+  },
+  "timeline_searchPlaceholder": {
+    "message": "Search messages... (space = AND)"
+  },
+  "timeline_searchMatches": {
+    "message": "matches"
+  },
+  "timeline_searchNoMatches": {
+    "message": "no matches"
+  },
+  "timeline_searchMode_fragments": {
+    "message": "Fragments"
+  },
+  "timeline_searchMode_substring": {
+    "message": "Substring"
+  },
+  "timeline_searchMode_regex": {
+    "message": "Regex"
+  },
+  "timeline_layout_horizontal": {
+    "message": "horizontal"
+  },
+  "timeline_layout_vertical": {
+    "message": "vertical"
+  },
+  "timeline_refreshGraph": {
+    "message": "Refresh graph"
+  },
+  "timeline_switchLayout": {
+    "message": "Switch to {{layout}} layout"
+  },
+  "timeline_expandAllAlternatives": {
+    "message": "Expand all alternatives"
+  },
+  "timeline_collapseAllAlternatives": {
+    "message": "Collapse all alternatives"
+  },
+  "timeline_hideLegend": {
+    "message": "Hide legend"
+  },
+  "timeline_showLegend": {
+    "message": "Show legend"
+  },
+  "timeline_zoomIn": {
+    "message": "Zoom in"
+  },
+  "timeline_zoomOut": {
+    "message": "Zoom out"
+  },
+  "sourceLabel": {
+    "message": "Source"
+  },
+  "sourceOpen": {
+    "message": "Open source"
+  },
+  "modelSettings_form_historyMessageLimit_label": {
+    "message": "History message limit"
+  },
+  "modelSettings_form_historyMessageLimit_placeholder": {
+    "message": "e.g. 10"
+  },
+  "modelSettings_form_historyMessageLimit_help": {
+    "message": "Limit how many previous messages are sent with each request."
+  },
+  "modelSettings_form_historyMessageOrder_label": {
+    "message": "History message order"
+  },
+  "modelSettings_form_historyMessageOrder_placeholder": {
+    "message": "Select order"
+  },
+  "modelSettings_form_historyMessageOrder_help": {
+    "message": "Choose whether the newest or oldest messages are sent first."
+  },
+  "modelSettings_form_historyMessageOrder_options_desc": {
+    "message": "Newest first"
+  },
+  "modelSettings_form_historyMessageOrder_options_asc": {
+    "message": "Oldest first"
+  },
+  "modelSettings_form_slashCommandInjectionMode_label": {
+    "message": "Slash command injection"
+  },
+  "modelSettings_form_slashCommandInjectionMode_placeholder": {
+    "message": "Select injection mode"
+  },
+  "modelSettings_form_slashCommandInjectionMode_help": {
+    "message": "Choose how slash commands are inserted into the request."
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_system": {
+    "message": "System message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_preface": {
+    "message": "Preface user message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_replace": {
+    "message": "Replace user message"
+  },
+  "modelSettings_form_apiProvider_label": {
+    "message": "API provider override"
+  },
+  "modelSettings_form_apiProvider_placeholder": {
+    "message": "Select provider (optional)"
+  },
+  "modelSettings_form_apiProvider_help": {
+    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+  },
+  "modelSettings_form_extraHeaders_label": {
+    "message": "Extra headers (JSON)"
+  },
+  "modelSettings_form_extraHeaders_placeholder": {
+    "message": "{ \"X-API-Key\": \"...\" }"
+  },
+  "modelSettings_form_extraHeaders_help": {
+    "message": "JSON object merged into request headers."
+  },
+  "modelSettings_form_extraBody_label": {
+    "message": "Extra body (JSON)"
+  },
+  "modelSettings_form_extraBody_placeholder": {
+    "message": "{ \"user\": \"...\" }"
+  },
+  "modelSettings_form_extraBody_help": {
+    "message": "JSON object merged into request body."
+  },
+  "modelSettings_form_guardrails_invalidJson": {
+    "message": "Enter a valid JSON object."
+  },
+  "modelSettings_requestOverrides": {
+    "message": "Request overrides"
+  },
+  "modelSettings_tabs_model": {
+    "message": "Model"
+  },
+  "modelSettings_tabs_conversation": {
+    "message": "Conversation"
+  },
+  "modelSettings_tabs_advanced": {
+    "message": "Advanced"
+  },
+  "modelSettings_tabs_actor": {
+    "message": "Scene Director"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  }
+}

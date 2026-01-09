@@ -1,0 +1,2744 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "Server och autentisering"
+  },
+  "navigation_knowledgeTools": {
+    "message": "Kunskapsverktyg"
+  },
+  "navigation_workspace": {
+    "message": "Arbetsyta"
+  },
+  "navigation_about": {
+    "message": "Om"
+  },
+  "healthNav": {
+    "message": "Hälsa"
+  },
+  "worldBooksNav": {
+    "message": "Världböcker"
+  },
+  "chatDictionariesNav": {
+    "message": "Chatordböcker"
+  },
+  "charactersNav": {
+    "message": "Tecken"
+  },
+  "mediaNav": {
+    "message": "Medier"
+  },
+  "chatAppearance_title": {
+    "message": "Chattutseende"
+  },
+  "chatAppearance_description": {
+    "message": "Anpassa färger, typsnitt och textstorlekar för chattmeddelanden."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "Letar du efter inställningar för chattbeteende (bredskärmsläge, resonemang, kopieringsalternativ)?"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "Gå till Allmänna Inställningar"
+  },
+  "chatAppearance_userHeading": {
+    "message": "Användarmeddelanden"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "Assistentmeddelanden"
+  },
+  "chatAppearance_userColor": {
+    "message": "Textfärg för användare"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "Textfärg för assistent"
+  },
+  "chatAppearance_userFont": {
+    "message": "Typsnitt för användare"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "Typsnitt för assistent"
+  },
+  "chatAppearance_userSize": {
+    "message": "Textstorlek för användare"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "Textstorlek för assistent"
+  },
+  "chatAppearance_color_default": {
+    "message": "Standard"
+  },
+  "chatAppearance_color_blue": {
+    "message": "Blå"
+  },
+  "chatAppearance_color_green": {
+    "message": "Grön"
+  },
+  "chatAppearance_color_purple": {
+    "message": "Lila"
+  },
+  "chatAppearance_color_orange": {
+    "message": "Orangefärgad"
+  },
+  "chatAppearance_color_red": {
+    "message": "Röd"
+  },
+  "chatAppearance_font_default": {
+    "message": "Standard"
+  },
+  "chatAppearance_font_sans": {
+    "message": "Sans"
+  },
+  "chatAppearance_font_serif": {
+    "message": "Antikva"
+  },
+  "chatAppearance_font_mono": {
+    "message": "Fast bredd"
+  },
+  "chatAppearance_size_sm": {
+    "message": "Liten"
+  },
+  "chatAppearance_size_md": {
+    "message": "Mellan"
+  },
+  "chatAppearance_size_lg": {
+    "message": "Stor"
+  },
+  "generalSettings_title": {
+    "message": "Allmänna Inställningar"
+  },
+  "generalSettings_settings_heading": {
+    "message": "Webbgränssnitt Inställningar"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "Taligenkänningsspråk"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "Välj ett språk"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "Språk"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "Välj ett språk"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "Byt Tema"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "Ljust"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "Mörkt"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "Återuppta den senaste chatten när du öppnar sidopanelen (Copilot)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "Aktivera Chatta med Webbplats som standard (Copilot)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "Återuppta den senaste chatten när du öppnar webbgränssnittet"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "Göm de nuvarande chattmodellinställningarna"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "Återställ den senast använda modellen för tidigare chatter"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "Skicka meddelande efter att ha avslutat bearbetning av kunskapsbasen"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "Generera titel med AI"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "Aktivera eller inaktivera serveranslutningsstatuskontroll"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "Aktivera bredskärmsläge"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "Öppna resonemang kollapsat som standard"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "Använd chattbubbla för användarmeddelanden"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "Kopiera svar automatiskt till urklipp"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "Aktivera Markdown-formatering för användarmeddelanden"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "Kopiera som formaterad text"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "Aktivera Flikbenämningar (@tab)"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "Klistra in stor text som fil"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "Aktivera Temporär Chatt i Sidopanelen som standard"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "Aktivera OCR (laddar ner ~5 MB vid första användningen)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "När du aktiverar OCR laddas ungefär 5 MB språkdata ner vid första användningen."
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "OCR-resurserna är aktiverade och klara"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "Standard OCR‑språk"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "Välj ett OCR‑språk"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "Ta bort resonemangstaggen från kopierad text"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "Inkludera serverprompter i promptsökning"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "Starta om onboarding från början"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "Starta om onboarding"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "Starta om onboarding?"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "Detta återställer din onboarding‑status och tar dig tillbaka till installationsflödet."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "Onboarding har återställts"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "Vi tar dig tillbaka till välkomststeget så att du kan granska server‑URL och API‑nyckel."
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "Hämtningsinställningar"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "Aktivera Inbäddning och Hämtning"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "Maximal Innehållsstorlek för Fullständigt Kontextläge"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "Innehållsstorlek (standard 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "Hantera Webb Sök"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "Utför Enkel InternetSökning"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "Sökmotor"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "Välj en sökmotor"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "Totalt Sökresultat"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "Ange Totalt Sökresultat"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "Besök webbplatsen som nämns i meddelandet"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "SearXNG‑URL"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "Brave API-nyckel"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "Ange din Brave API-nyckel"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "Internetsökning PÅ som standard"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "Tavily API‑nyckel"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "Ange din Tavily API‑nyckel"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "Exa API‑nyckel"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "Ange din Exa API‑nyckel"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "Google‑domän"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "Firecrawl API‑nyckel"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "Ange din Firecrawl API‑nyckel"
+  },
+  "generalSettings_system_heading": {
+    "message": "Systeminställningar"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "Standardläge för gränssnitt"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "Helskärm (Web UI)"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "Sidofält"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "Systemåterställning"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "Återställ Allt"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "Är du säker på att du vill utföra en systemåterställning? Detta kommer att radera all data och kan inte ångras."
+  },
+  "generalSettings_system_export_label": {
+    "message": "Exportera chatthistorik, kunskapsbas och instruktioner"
+  },
+  "generalSettings_system_export_button": {
+    "message": "Exportera Data"
+  },
+  "generalSettings_system_export_success": {
+    "message": "Exportering Lyckades"
+  },
+  "generalSettings_system_import_label": {
+    "message": "Importera chatthistorik, kunskapsbas och instruktioner"
+  },
+  "generalSettings_system_import_button": {
+    "message": "Importera Data"
+  },
+  "generalSettings_system_import_success": {
+    "message": "Importering Lyckades"
+  },
+  "generalSettings_system_import_error": {
+    "message": "Importeringsfel"
+  },
+  "generalSettings_tts_heading": {
+    "message": "Text till Tal Inställningar"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "Aktivera Text till Tal"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "Spela upp röstsvaret automatiskt efter slutförande"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "Text till Tal Leverantör"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "Välj en leverantör"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "Text till Tal Röst"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "Välj en röst"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "Aktivera SSML (Speech Synthesis Markup Language)"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "Ta bort resonemangstagg från Text till Tal"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "Uppdelning av svar"
+  },
+  "generalSettings_stt_heading": {
+    "message": "Tal till Text Inställningar"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "Automatiskt Stopptidsgräns (ms)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "Ange automatisk stopptidsgräns i millisekunder"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "Skicka Röstmeddelande Automatiskt"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "Dessa standarder för tal‑till‑text används av dikteringsknappen i Playground och sidopanelen."
+  },
+  "generalSettings_stt_model_label": {
+    "message": "Transkriptionsmodell (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "Kör segmentering för transkript (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "Granularitet för tidsstämplar"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "Per avsnitt"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "Per ord"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "Segment + ord"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "Transkriptionsuppgift"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "Transkribera (samma språk)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "Översätt till engelska"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "Svarformat"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON (text + segment)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "Utförlig JSON"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "Vanlig text"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "SRT‑undertexter"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "VTT‑undertexter"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "Samplingtemperatur"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "Standardtranskriptionsprompt"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "Valfri text för att styra stil"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "Max segment (TreeSeg K)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "Minsta antal objekt per segment"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "Balansstraff (TreeSeg λ)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "Bredd för yttrandeutvidgning"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "Embeddingsleverantör för segmentering"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "Embeddingsmodell för segmentering"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "Systeminställningar"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "Standardläge för gränssnitt"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "Helskärm (Web UI)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "Sidofält"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "Knapp för webbläsaråtgärd"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "Åtgärd i snabbmenyn"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "Visa Web UI‑knapp i sidofältet"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "Bakgrundsbild för chatten"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "Teckenstorlek"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "Datahantering"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "Synkronisering i Firefox privat läge"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "Synkronisera data"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "Systemåterställning"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "Nollställ allt"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "Är du säker på att du vill göra en systemåterställning? Detta rensar all data och kan inte ångras."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "Exportera chathistorik, kunskapsbas och prompter"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "Exportera data"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "Export lyckades"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "Importera chathistorik, kunskapsbas och prompter"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "Importera data"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "Import lyckades"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "Importfel"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "Anslut tldw Assistant till din server"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "Vissa inställningar gäller bara när din tldw‑server kan nås. Anslut din server för att få hela upplevelsen."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "Öppna Inställningar → tldw‑server för att lägga till din server‑URL och API‑nyckel."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "Använd Diagnostik för att bekräfta att servern är frisk innan du provar avancerade verktyg."
+  },
+  "generalSettings_empty_title": {
+    "message": "Finjustera hur tldw Assistant beter sig"
+  },
+  "generalSettings_empty_description": {
+    "message": "Justera standarder för Web UI, sidopanel, tal, sökning och datahantering på ett ställe."
+  },
+  "generalSettings_empty_example1": {
+    "message": "Välj ditt standardspråk, tema och beteende för att återuppta chattar."
+  },
+  "generalSettings_empty_example2": {
+    "message": "Styr om chattar är tillfälliga, hur stora inklistringar hanteras och hur resonemang visas."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "Konfigurera server och autentisering"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "Stäng"
+  },
+  "manageModels_title": {
+    "message": "Hantera Modeller"
+  },
+  "manageModels_addBtn": {
+    "message": "Lägg till Ny Modell"
+  },
+  "manageModels_columns_name": {
+    "message": "Namn"
+  },
+  "manageModels_columns_digest": {
+    "message": "Sammanfattning"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "Modifierad den"
+  },
+  "manageModels_columns_size": {
+    "message": "Storlek"
+  },
+  "manageModels_columns_actions": {
+    "message": "Åtgärder"
+  },
+  "manageModels_columns_nickname": {
+    "message": "Smeknamn"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "Föräldramodell"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "Filformat"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "Familj"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "Parameterstorlek"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "Kvantifieringsnivå"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "Radera Modell"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "Hämta Modell Igen"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "Redigera smeknamn"
+  },
+  "manageModels_confirm_delete": {
+    "message": "Är du säker på att du vill radera denna modell?"
+  },
+  "manageModels_confirm_repull": {
+    "message": "Är du säker på att du vill hämta modellen igen?"
+  },
+  "manageModels_modal_title": {
+    "message": "Lägg till Ny Modell"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "Ange Modellnamn"
+  },
+  "manageModels_modal_pull": {
+    "message": "Hämta Modell"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "Hämtar Modell"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "Hämtar {{modelName}} modell. För mer information, kontrollera ikonen för tillägget."
+  },
+  "manageModels_notification_success": {
+    "message": "Lyckades"
+  },
+  "manageModels_notification_error": {
+    "message": "Fel"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "Modellen hämtades framgångsrikt"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "Modellen raderades framgångsrikt"
+  },
+  "manageModels_notification_someError": {
+    "message": "Något gick fel. Försök igen senare"
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "Avbryter nedladdning"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "Nedladdning av modellen avbryts..."
+  },
+  "managePrompts_title": {
+    "message": "Hantera instruktioner"
+  },
+  "managePrompts_addBtn": {
+    "message": "Lägg till ny instruktion"
+  },
+  "managePrompts_option1": {
+    "message": "Standard"
+  },
+  "managePrompts_option2": {
+    "message": "RAG"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "Frågeinstruktion"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "Custom instruktion"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "Copilot instruktion"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "Skapa och hantera återanvändbara prompter som du kan infoga i chatten."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "Visa och justera fördefinierade Copilot‑prompter från din server."
+  },
+  "managePrompts_columns_title": {
+    "message": "Titel"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "instruktion"
+  },
+  "managePrompts_columns_type": {
+    "message": "Instruktionstyp"
+  },
+  "managePrompts_columns_actions": {
+    "message": "Åtgärder"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "Systeminstruktion"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "Snabb instruktion"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "Radera instruktion"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "Redigera instruktion"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "Duplicera prompt"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "Är du säker på att du vill radera denna instruktion? Denna åtgärd kan inte ångras."
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "Lägg till ny instruktion"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "Redigera instruktion"
+  },
+  "managePrompts_form_title_label": {
+    "message": "Titel"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "Min fantastiska instruktion"
+  },
+  "managePrompts_form_title_required": {
+    "message": "Vänligen ange en titel"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "Instruktion"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "Ange instruktion"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "Vänligen ange en instruktion"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "Du kan använda {key} som variabel i din instruktion."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "Variabeln {text} saknas i instruktionen. Lägg till den."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "Är Systeminstruktion"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "Lägger till instruktion..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "Lägg till instruktion"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "Uppdaterar instruktion..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "Uppdatera instruktion"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "Instruktion Tillagd"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "Instruktionen har lagts till framgångsrikt"
+  },
+  "managePrompts_notification_error": {
+    "message": "Fel"
+  },
+  "managePrompts_notification_someError": {
+    "message": "Något gick fel. Försök igen senare"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "Instruktion Uppdaterad"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "Instruktionen har uppdaterats framgångsrikt"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "Instruktion Raderad"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "Instruktionen har raderats framgångsrikt"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "Prompts‑arbetsyta"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "Återanvändbara prompter hanteras i Prompts‑arbetsytan. Använd knappen nedan för att öppna den."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "Öppna Prompts‑arbetsyta"
+  },
+  "managePrompts_search": {
+    "message": "Sök titlar och innehåll"
+  },
+  "managePrompts_filter_all": {
+    "message": "Alla"
+  },
+  "managePrompts_filter_system": {
+    "message": "Systeminstruktioner"
+  },
+  "managePrompts_filter_quick": {
+    "message": "Snabba"
+  },
+  "managePrompts_tags_label": {
+    "message": "Taggar"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "Lägg till taggar"
+  },
+  "managePrompts_import": {
+    "message": "Importera"
+  },
+  "managePrompts_export": {
+    "message": "Exportera"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "Sammanfoga"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "Ersätt"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "Ersätt kommer att skriva över alla nuvarande prompts med den importerade filen. Fortsätt?"
+  },
+  "managePrompts_favorite": {
+    "message": "Favorit"
+  },
+  "managePrompts_unfavorite": {
+    "message": "Ta bort favorit"
+  },
+  "managePrompts_partialLoad": {
+    "message": "Viss promptdata är inte tillgänglig"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "Kontrollera serveranslutningen och uppdatera för att försöka igen."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "Anslut för att använda prompter"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "För att hantera återanvändbara prompter måste du först ansluta till din tldw‑server."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "Öppna Inställningar → tldw‑server för att lägga till din server‑URL."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "När du är ansluten kan du skapa egna prompter som du kan återanvända i chattar."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "Inga anpassade prompter ännu"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "Skapa återanvändbara prompter för återkommande uppgifter, arbetsflöden och teamkonventioner."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "Spara din favorit‑systemprompt för sammanfattningar, förklaringar eller översättningar."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "Skapa snabba prompter för vanliga åtgärder som att skriva e‑post eller förfina anteckningar."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "Skapa prompt"
+  },
+  "managePrompts_filterHelp": {
+    "message": "Sökning matchar titel och promptinnehåll. Använd typ och taggar för att begränsa listan."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "Inga Copilot‑prompter tillgängliga"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "Copilot‑prompter är fördefinierade mallar som tillhandahålls av din tldw‑server."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "Kontrollera serverversionen eller konfigurationen om du förväntar dig Copilot‑prompter."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "Efter att du uppdaterat servern, ladda om tillägget och återvänd till den här fliken."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "Öppna diagnostik"
+  },
+  "manageShare_title": {
+    "message": "Hantera Delningar"
+  },
+  "manageShare_heading": {
+    "message": "Konfigurera Sidans Delnings-URL"
+  },
+  "manageShare_form_url_label": {
+    "message": "Sidans Delnings-URL"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "Ange Sidans Delnings-URL"
+  },
+  "manageShare_form_url_required": {
+    "message": "Vänligen ange din Sidans Delnings-URL!"
+  },
+  "manageShare_form_url_help": {
+    "message": "För integritetsskäl, kan du använda egen värd för sidans delning och ange URL här. <anchor>Läs Mer</anchor>."
+  },
+  "manageShare_webshare_heading": {
+    "message": "Webbdelning"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "Titel"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "URL‑adress"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "Åtgärder"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "Radera Delning"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "Är du säker på att du vill radera denna delning? Denna åtgärd kan inte ångras."
+  },
+  "manageShare_webshare_label": {
+    "message": "Hantera Sidans Delning"
+  },
+  "manageShare_webshare_description": {
+    "message": "Aktivera eller inaktivera funktionen för sidans delning"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "Sidans Delnings-URL uppdaterad framgångsrikt"
+  },
+  "manageShare_notification_someError": {
+    "message": "Något gick fel. Försök igen senare"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "Webbdelning raderades framgångsrikt"
+  },
+  "ollamaSettings_title": {
+    "message": "Serverinställningar"
+  },
+  "ollamaSettings_heading": {
+    "message": "Konfigurera server"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "Server-URL"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "Ange server-URL"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "Aktivera eller inaktivera serverintegration globalt"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "Om du inaktiverar serverintegrationen hämtar tldw Browser_Assistant inte modeller från servern. Du kan fortfarande lägga till leverantörer under <anchor>OpenAI‑kompatibelt API</anchor>."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "Avancerad server-URL-konfiguration"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "Aktivera eller inaktivera custom ursprungs-URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "Custom ursprungs-URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "Ange Custom ursprungs-URL"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "Aktivera eller inaktivera automatisk CORS-korrigering"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "Anpassade HTTP‑headers"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "Lägg till Header"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "Headernyckel"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "Auktorisering"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "Headervärde"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "Bärare token"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "Om du har anslutningsproblem med servern kan du konfigurera en anpassad ursprungs-URL. För att veta mer, <anchor>klicka här</anchor>."
+  },
+  "manageSearch_title": {
+    "message": "Hantera Webbsök"
+  },
+  "manageSearch_heading": {
+    "message": "Konfigurera Webbsök"
+  },
+  "about_title": {
+    "message": "Om"
+  },
+  "about_heading": {
+    "message": "Om"
+  },
+  "about_chromeVersion": {
+    "message": "tldw Browser_Assistant‑version"
+  },
+  "about_ollamaVersion": {
+    "message": "Serverversion"
+  },
+  "about_support": {
+    "message": "Du kan stödja tldw Browser_Assistant genom att donera eller sponsra via följande plattformar:"
+  },
+  "about_koFi": {
+    "message": "Stöd på Ko-fi"
+  },
+  "about_githubSponsor": {
+    "message": "Sponsra på GitHub"
+  },
+  "about_githubRepo": {
+    "message": "GitHub repository"
+  },
+  "switchToSidebar": {
+    "message": "Byt till sidofält"
+  },
+  "healthPage_title": {
+    "message": "Hälsostatus"
+  },
+  "healthPage_subtitle": {
+    "message": "Quick overview of subsystem health endpoints exposed by the server."
+  },
+  "healthPage_backToChat": {
+    "message": "Tillbaka till chatten"
+  },
+  "healthPage_openSettings": {
+    "message": "Öppna tldw‑inställningar"
+  },
+  "healthPage_recheckAll": {
+    "message": "Kontrollera alla igen"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "Kopiera diagnostik"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "Servern är inte konfigurerad."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "Kunde inte nå serverns kärn‑hälsoendpoint."
+  },
+  "healthPage_triedGet": {
+    "message": "Försökte GET {{url}}"
+  },
+  "healthPage_configureHint": {
+    "message": "Konfigurera en server‑URL under tldw‑inställningar."
+  },
+  "healthPage_configureCta": {
+    "message": "Konfigurera"
+  },
+  "healthPage_connectedTo": {
+    "message": "Ansluten till {{host}}"
+  },
+  "healthPage_autoRefresh": {
+    "message": "Autouppdatera"
+  },
+  "healthPage_intervalLabel": {
+    "message": "Intervall (s):"
+  },
+  "healthPage_checking": {
+    "message": "Kontrollerar…"
+  },
+  "healthPage_recheck": {
+    "message": "Kontrollera igen"
+  },
+  "healthPage_healthy": {
+    "message": "Frisk"
+  },
+  "healthPage_unhealthy": {
+    "message": "Ohälsosam"
+  },
+  "healthPage_unknown": {
+    "message": "Okänd"
+  },
+  "healthPage_checks_core": {
+    "message": "Kärn‑API"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG"
+  },
+  "healthPage_checks_audio": {
+    "message": "Ljud"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "Inbäddningar"
+  },
+  "healthPage_checks_metrics": {
+    "message": "Metrikhälsa"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "Chattmetrik"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "Copies JSON diagnostics to clipboard"
+  },
+  "healthPage_statusHealthy": {
+    "message": "Frisk"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "Ohälsosam"
+  },
+  "healthPage_statusUnknown": {
+    "message": "Okänd"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "Uppdaterad nyss"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "Uppdaterad för {{seconds}} s sedan"
+  },
+  "savedSuccessfully": {
+    "message": "Inställningar sparade"
+  },
+  "saveFailed": {
+    "message": "Kunde inte spara inställningar"
+  },
+  "siteAccessGranted": {
+    "message": "Värdbehörighet beviljad för {{origin}}"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "Avancerade tidsgränser"
+  },
+  "tldw_requestTimeout": {
+    "message": "Begärans timeout (sekunder)"
+  },
+  "tldw_streamingIdle": {
+    "message": "Timeout för inaktiv streaming (sekunder)"
+  },
+  "tldw_chatRequest": {
+    "message": "Timeout för chattbegäran"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "Chattström inaktivitet"
+  },
+  "tldw_ragRequest": {
+    "message": "Timeout för RAG-begäran"
+  },
+  "tldw_mediaRequest": {
+    "message": "Timeout för mediabegäran"
+  },
+  "tldw_uploadRequest": {
+    "message": "Timeout för uppladdningsbegäran"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "Timeout-profil"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "Balanserad"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "Utökad"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "Anpassad"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "Balanserad fungerar bra för de flesta inställningar. Utökad ger mer utrymme för långsamma nätverk eller långvariga jobb."
+  },
+  "tldw_reset": {
+    "message": "Återställ till rekommenderat"
+  },
+  "tldw_resetDone": {
+    "message": "Återställt till rekommenderade standarder"
+  },
+  "tldw_serverNav": {
+    "message": "tldw-server"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "Konfiguration av tldw-server"
+  },
+  "tldw_serverLabel": {
+    "message": "Serveradress:"
+  },
+  "tldw_notConfigured": {
+    "message": "Inte konfigurerad"
+  },
+  "tldw_buttons_health": {
+    "message": "Status"
+  },
+  "tldw_buttons_recheck": {
+    "message": "Kontrollera igen"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "Testa anslutning"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "Bevilja webbplatsåtkomst"
+  },
+  "tldw_buttons_login": {
+    "message": "Logga in"
+  },
+  "tldw_buttons_logout": {
+    "message": "Logga ut"
+  },
+  "tldw_loginRequired_title": {
+    "message": "Inloggning krävs"
+  },
+  "tldw_loginRequired_description": {
+    "message": "Logga in med dina tldw_server-uppgifter"
+  },
+  "tldw_loggedIn_title": {
+    "message": "Inloggad"
+  },
+  "tldw_loggedIn_description": {
+    "message": "Du är inloggad på tldw_server"
+  },
+  "tldw_connection_success": {
+    "message": "Anslutningen lyckades!"
+  },
+  "tldw_connection_failed": {
+    "message": "Anslutningen misslyckades. Kontrollera dina inställningar."
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "Anslutningen misslyckades. Kontrollera server-URL och API-nyckel."
+  },
+  "tldw_authMode_label": {
+    "message": "Autentiseringsläge"
+  },
+  "tldw_authMode_single": {
+    "message": "En användare (API-nyckel)"
+  },
+  "tldw_authMode_multi": {
+    "message": "Flera användare (inloggning)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "Avbryt initiala förfrågningar om inget svar inom denna tid. Standard: {{seconds}}s."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "Avbryt streaming om inga uppdateringar tas emot inom denna tid. Standard: {{seconds}}s."
+  },
+  "tldw_login_success": {
+    "message": "Inloggning lyckades!"
+  },
+  "tldw_login_failed": {
+    "message": "Inloggningen misslyckades"
+  },
+  "tldw_logout_success": {
+    "message": "Utloggning lyckades"
+  },
+  "tldw_logout_failed": {
+    "message": "Utloggningen misslyckades"
+  },
+  "tldw_setupLink": {
+    "message": "Ställ in server"
+  },
+  "tldw_loadError": {
+    "message": "Det gick inte att ladda tldw-serverinställningar. Kontrollera anslutningen och försök igen."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "API-nyckel"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "Ange din API-nyckel"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "Ange din API-nyckel"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "Din tldw_server API-nyckel för autentisering"
+  },
+  "tldw_fields_username_label": {
+    "message": "Användarnamn"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "Ange användarnamn"
+  },
+  "tldw_fields_username_required": {
+    "message": "Ange ditt användarnamn"
+  },
+  "tldw_fields_password_label": {
+    "message": "Lösenord"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "Ange lösenord"
+  },
+  "tldw_fields_password_required": {
+    "message": "Ange ditt lösenord"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "Server-URL"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "Ange server-URL"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "Ange en giltig URL"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "URL:en till din tldw_server-instans (t.ex. http://localhost:8000)"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "Ogiltig API-nyckel"
+  },
+  "tldw_errors_forbidden": {
+    "message": "Förbjudet (kontrollera behörigheter)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "Validering av API-nyckel misslyckades"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "Servern kan inte nås"
+  },
+  "tldw_about_title": {
+    "message": "Om tldw_server-integrationen"
+  },
+  "tldw_about_description": {
+    "message": "Detta tillägg ansluter till din tldw_server-instans och ger tillgång till:"
+  },
+  "tldw_about_points_providers": {
+    "message": "Flera LLM-leverantörer via ett enhetligt API"
+  },
+  "tldw_about_points_rag": {
+    "message": "RAG-sökning (Retrieval-Augmented Generation)"
+  },
+  "tldw_about_points_media": {
+    "message": "Inläsning och bearbetning av media"
+  },
+  "tldw_about_points_notes": {
+    "message": "Hantering av anteckningar och prompts"
+  },
+  "tldw_about_points_stt": {
+    "message": "Tal-till-text-transkribering"
+  },
+  "manageKnowledge_title": {
+    "message": "Kunskaps‑QA"
+  },
+  "manageKnowledge_heading": {
+    "message": "Kunskaps‑QA"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "World Books‑arbetsyta"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "World Books hanteras från World Books‑arbetsytan. Använd knappen nedan för att öppna den."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "Öppna World Books‑arbetsyta"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "Arbetsyta för chatordböcker"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "Chatordböcker hanteras från arbetsytan för chatordböcker. Använd knappen nedan för att öppna den."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "Öppna arbetsyta för chatordböcker"
+  },
+  "rag_title": {
+    "message": "RAG-inställningar"
+  },
+  "rag_ragSettings_label": {
+    "message": "RAG-inställningar"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "Inbäddningsmodell"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "Vänligen välj en modell"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "Det rekommenderas starkt att använda inbäddningsmodeller som 'nomic-embed-text'."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "Välj en modell"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "Rekommenderad: {{model}} (från serverkonfiguration)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "Den tidigare sparade embeddingsmodellen är inte längre tillgänglig på servern. Välj en annan modell."
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "Chunkstorlek"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "Ange chunkstorlek"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "Vänligen ange en chunkstorlek"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "Chunköverlapp"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "Ange chunköverlapp"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "Vänligen ange en chunköverlapp"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "Standardgräns för kunskapsbas filuppladdning"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "Ange standardgräns för filuppladdning (t.ex. 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "Vänligen ange standardgräns för filuppladdning"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "Antal hämtade dokument"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "Ange antal hämtade dokument"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "Vänligen ange antal hämtade dokument"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "Avgränsare"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "Ange separator (t.ex. \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "Vänligen ange en separator"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "Textdelare"
+  },
+  "rag_prompt_label": {
+    "message": "Konfigurera RAG-instruktion"
+  },
+  "rag_prompt_option1": {
+    "message": "Standard"
+  },
+  "rag_prompt_option2": {
+    "message": "Webb"
+  },
+  "rag_prompt_alert": {
+    "message": "Att konfigurera systeminstruktionen här är föråldrat. Använd Hantera instruktioner-sektionen för att lägga till eller redigera instruktionar. Denna sektion kommer att tas bort i en framtida version"
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "Systeminstruktion"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "Ange systeminstruktion"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "Webbsökinstruktion"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "Ta inte bort '{search_results}' från instruktionen."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "Vänligen ange en instruktion för webbsökning"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "Ange instruktion för webbsök"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "Uppföljningsinstruktion för webbsök"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "Ta inte bort '{chat_history}' och '{question}' från instruktionen."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "Vänligen ange din uppföljningsinstruktion för webbsök!"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "Din uppföljningsinstruktion för webbsök"
+  },
+  "onboarding_title": {
+    "message": "Welcome — Let’s get you connected"
+  },
+  "onboarding_description": {
+    "message": "Configure your server and authentication. We’ll verify the connection and RAG health inline."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "Lär dig hur tldw-servern fungerar"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "Exempel: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "Ange en fullständig URL som http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "Använd http- eller https‑URL:er, t.ex. http://127.0.0.1:8000."
+  },
+  "onboarding_serverUrl_label": {
+    "message": "Server‑URL"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "Ange din tldw‑server‑URL för att aktivera Nästa."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "Vi aktiverar Nästa när vi kan nå den här adressen."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "Kontrollerar åtkomlighet…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "Servern svarade. Du kan fortsätta."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "Vi kunde inte nå den här adressen än. Kontrollera URL:en eller försök igen."
+  },
+  "onboarding_buttons_next": {
+    "message": "Nästa"
+  },
+  "onboarding_buttons_back": {
+    "message": "Tillbaka"
+  },
+  "onboarding_buttons_continue": {
+    "message": "Fortsätt"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "Kontrollera igen"
+  },
+  "onboarding_buttons_finish": {
+    "message": "Slutför"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "Slutför utan att ansluta"
+  },
+  "onboarding_buttons_skip": {
+    "message": "Hoppa över för tillfället"
+  },
+  "onboarding_authMode_label": {
+    "message": "Autentiseringsläge"
+  },
+  "onboarding_authMode_single": {
+    "message": "En användare (API‑nyckel)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "Fleranvändare (inloggning)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "API‑nyckel"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "Ange din API‑nyckel (eller använd standarddemo‑nyckeln THIS-IS-A-SECURE-KEY-123-REPLACE-ME för lokala enanvändarinstallationer)"
+  },
+  "onboarding_username_label": {
+    "message": "Användarnamn"
+  },
+  "onboarding_username_placeholder": {
+    "message": "Användarnamn"
+  },
+  "onboarding_password_label": {
+    "message": "Lösenord"
+  },
+  "onboarding_password_placeholder": {
+    "message": "Lösenord"
+  },
+  "onboarding_connection_label": {
+    "message": "Anslutning:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "Okänd"
+  },
+  "onboarding_connection_connected": {
+    "message": "Ansluten"
+  },
+  "onboarding_connection_failed": {
+    "message": "Misslyckades"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "You can continue and complete setup now. You’ll be able to verify the connection later from Settings."
+  },
+  "onboarding_rag_label": {
+    "message": "RAG:"
+  },
+  "onboarding_rag_healthy": {
+    "message": "Frisk"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "Ohälsosam"
+  },
+  "onboarding_rag_unknown": {
+    "message": "Okänd"
+  },
+  "onboarding_connectionFailed": {
+    "message": "Anslutningen misslyckades"
+  },
+  "onboarding_footerHelp": {
+    "message": "När du är ansluten kan du när som helst gå tillbaka till dessa inställningar via tilläggsmenyn."
+  },
+  "onboarding_progressAria": {
+    "message": "Förloppsindikator för onboarding"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "Välkommen"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "Anslut till din tldw-server"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "Välj hur du loggar in"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "Bekräfta anslutning och Knowledge"
+  },
+  "onboarding_startServer_title": {
+    "message": "Innan du börjar — starta din tldw-server"
+  },
+  "onboarding_startServer_body": {
+    "message": "Om du inte har startat servern än kör du något av dessa kommandon i tldw_server-repot och kommer sedan tillbaka hit."
+  },
+  "onboarding_startServer_copy": {
+    "message": "Kopiera kommando"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "Kör lokalt med Python"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "Kör från tldw_server:s virtualenv i repots rot."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "Kör med Docker Compose (en användare)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "Kör från tldw_server-repots rot för att starta API och databas."
+  },
+  "onboarding_path_heading": {
+    "message": "Hur vill du komma igång?"
+  },
+  "onboarding_path_hasServer": {
+    "message": "Jag kör redan tldw_server"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "Anslut till en tldw_server som du redan kör."
+  },
+  "onboarding_path_noServer": {
+    "message": "Jag har ingen server ännu"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "Följ en installationsguide för tldw_server eller starta i demoläge."
+  },
+  "onboarding_path_demo": {
+    "message": "Utforska bara med en lokal demo"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "Testa arbetsytan med exempeldata; anslut din egen server senare."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "Ingen server än? Du kan ändå utforska."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server är en separat, egenhostad app. Du kan följa installationsguiden nu eller komma tillbaka senare och fortsätta i demoläge."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "Kör lokalt med Docker eller Python på din egen dator."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "Distribuera tldw_server till en fjärr-VPS eller ett hanterat webbhotell."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "Använd ett hanterat kommersiellt tldw_server-erbjudande när det finns tillgängligt."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "Öppna installationsguide"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "Använd lokalt demoläge"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "Påminn mig senare"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "Utforska tillägget i demoläge"
+  },
+  "onboarding_path_demoBody": {
+    "message": "Demoläget låter dig testa chatt, anteckningar och media med exempeldata. Serverberoende funktioner, som Knowledge-sökning, förblir begränsade tills du ansluter din egen tldw_server."
+  },
+  "onboarding_path_demoCta": {
+    "message": "Använd lokalt demoläge"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Single User (API-nyckel) rekommenderas för personliga servrar eller små team. Multi User (Login) är för delade installationer där användare loggar in med användarnamn eller SSO. Välj det läge som stämmer med hur din tldw_server är konfigurerad."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "Hitta din API-nyckel i tldw_server → Settings → API Keys. Skapa en nyckel där och klistra in den här."
+  },
+  "onboarding_authStepAria": {
+    "message": "Steg 2 av 3 — konfiguration av autentisering"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "Steg 3 av 3 — sammanfattning av anslutning och nästa steg"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "Du är redo att börja"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "Härifrån kan du öppna sidopanelen, ingestera en sida eller utforska media och anteckningar."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "Börja chatta"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "Öppna sidopanelen och ställ din första fråga."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "Öppna sidopanel"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "Ingestera din första sida"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "Använd Snabbingest i sidhuvudet för att spara den aktuella fliken till din server."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "Utforska media och anteckningar"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "Gå till Media och Anteckningar i Alternativ för att se vad som är sparat och sökbart."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "Visa snabba genvägar i sidhuvudet"
+  },
+  "manageCharacters_title": {
+    "message": "Hantera karaktärer"
+  },
+  "manageCharacters_addBtn": {
+    "message": "Ny karaktär"
+  },
+  "manageCharacters_columns_name": {
+    "message": "Namn"
+  },
+  "manageCharacters_columns_description": {
+    "message": "Beskrivning"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "Åtgärder"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "Profilbild"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "Chatta"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "Redigera"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "Ta bort"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "Visa konversationer"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "Duplicera"
+  },
+  "manageCharacters_tags_label": {
+    "message": "Taggar"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "Lägg till taggar"
+  },
+  "manageCharacters_tags_help": {
+    "message": "Använd taggar för att gruppera karaktärer efter användningsfall (t.ex. “skrivande”, “undervisning”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "Redigera karaktär"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "Ta bort karaktär"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "Chatta som {{name}}"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "Redigera karaktär {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "Ta bort karaktären {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "Visa konversationer för {{name}}"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} karaktärer hittades"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "Duplicera karaktär {{name}}"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "Är du säker på att du vill ta bort den här karaktären? Den här åtgärden kan inte ångras."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "Namn"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "t.ex. Skrivcoach"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "Ange ett namn"
+  },
+  "manageCharacters_form_description": {
+    "message": "Definiera en återanvändbar karaktär som du kan chatta med i sidopanelen."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "Beteende / instruktioner"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "T.ex. Du är en tålmodig mattelärare som förklarar begrepp steg för steg och kontrollerar förståelsen med korta exempel."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "Förklara karaktärens roll, ton och begränsningar. Till exempel: \"Du är en tålmodig mattelärare som förklarar steg för steg.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "Add a short description so the character knows how to respond."
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "Lägg till instruktioner för att styra svaren."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "Systemprompten får vara högst 2000 tecken."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "Avatar‑URL (valfritt)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "t.ex. https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "Hälsningsmeddelande (valfritt)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "Hej! Jag är din skrivcoach. Klistra in ditt utkast så hjälper jag dig att tajta till det."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "Valfritt första meddelande som karaktären skickar när du startar en chatt."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "Skapar karaktär..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "Skapa karaktär"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "Sparar ändringar..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "Spara ändringar"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "Karaktär skapad"
+  },
+  "manageCharacters_notification_error": {
+    "message": "Fel"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "Något gick fel. Försök igen senare."
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "Karaktär uppdaterad"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "Karaktär borttagen"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "Kunde inte läsa in karaktärer"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "Kontrollera anslutningen och försök igen."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "Inga karaktärer ännu"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "Skapa en återanvändbar karaktär med namn, beskrivning och systemprompt som du kan chatta med."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "Definiera en skrivcoach, lore‑expert eller kodassistent som du kan återanvända i chattar."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "Ge varje karaktär en tydlig beskrivning och beteende så att svaren blir konsekventa."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "Skapa karaktär"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "Avatar för {{name}}"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "Användaravatar"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "Konversationer för {{name}}"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "Karaktärskonversationer"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "Välj en konversation för att fortsätta som den här karaktären."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "Inga konversationer hittades för den här karaktären ännu."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "Det gick inte att läsa in konversationer för den här karaktären."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "Uppdaterad {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "Okänt"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "Fortsätt chatten"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "Namnlös"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "Senaste"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "Läs in chatthistorik och fortsätt den här konversationen"
+  },
+  "manageCharacters_preview_title": {
+    "message": "Förhandsvisning"
+  },
+  "manageCharacters_preview_show": {
+    "message": "Visa förhandsvisning"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "Dölj förhandsvisning"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "Namnlös karaktär"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "Hälsning"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "Beteende"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "Fyll i formuläret för att se en förhandsvisning"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "Visa avancerade fält"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "Dölj avancerade fält"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "Ingen beskrivning"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "Matcha alla taggar"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "Profilbild (valfritt)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL‑adress"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "Ladda upp"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "Välj en bildfil"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "Endast PNG-, JPEG- och GIF-bilder stöds"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "Ogiltig bildfil"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "Misslyckades med att bearbeta bilden"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "Klicka eller dra en bild för att ladda upp"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG eller GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "Förhandsgranskning"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "Data importerades"
+  },
+  "systemNotifications_importError": {
+    "message": "Importfel"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Firefox-data synkroniserades, du behöver inte göra det igen"
+  },
+  "systemNotifications_syncError": {
+    "message": "Synkronisering av Firefox-data misslyckades"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "Välj en giltig bildfil"
+  },
+  "prompts_enterPrompt": {
+    "message": "Ange en prompt."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "Ange en prompt."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "Ange en uppföljande prompt."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "Ange en uppföljande prompt."
+  },
+  "prompts_privateModeDescription": {
+    "message": "Firefox privat läge stöder inte lagring i IndexedDB. Lägg till prompts från ett vanligt fönster."
+  },
+  "models_privateModeDescription": {
+    "message": "Firefox privat läge stöder inte lagring i IndexedDB. Lägg till en anpassad modell från ett vanligt fönster."
+  },
+  "evaluationsSettingsNav": {
+    "message": "Utvärderingar"
+  },
+  "promptStudioNav": {
+    "message": "Prompt‑studio"
+  },
+  "promptStudio_nav": {
+    "message": "Prompt‑studio"
+  },
+  "promptStudio_title": {
+    "message": "Prompt‑studio"
+  },
+  "promptStudio_subtitle": {
+    "message": "Konfigurera standarder och övervaka Prompt‑studios hälsa. Anslutning och autentisering återanvänder huvudserverns inställningar."
+  },
+  "promptStudio_probeError": {
+    "message": "Kunde inte nå Prompt‑studio"
+  },
+  "promptStudio_statusCard": {
+    "message": "Statusläge"
+  },
+  "promptStudio_statusHint": {
+    "message": "Knappen anropar /prompt-studio/status med warn_seconds."
+  },
+  "promptStudio_statusError": {
+    "message": "Status‑endpoint otillgänglig"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "Varningssekunder"
+  },
+  "promptStudio_testButton": {
+    "message": "Testa Prompt‑studio"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "Standarder"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "Spara standardprojekt, modellkonfigurationer och sidstorlek."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "Spara standarder via befintlig inställningslagring (TBD) för initialt projektval, execute/evaluation‑modellpresets och paginering."
+  },
+  "promptStudio_defaultProject": {
+    "message": "Standardprojekt‑ID"
+  },
+  "promptStudio_pageSize": {
+    "message": "Sidstorlek"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "Standarder för execute"
+  },
+  "promptStudio_executeProvider": {
+    "message": "Leverantör"
+  },
+  "promptStudio_executeModel": {
+    "message": "Modell"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "Temperatur"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "Max antal tokens"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "Standarder för utvärdering"
+  },
+  "promptStudio_evalModel": {
+    "message": "Modell"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "Temperatur"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "Max antal tokens"
+  },
+  "promptStudio_unavailable": {
+    "message": "Prompt‑studio är ännu inte tillgängligt på servern."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "När det är aktiverat kan du övervaka köhälsa och ange standarder här."
+  },
+  "charactersSettingsTitle": {
+    "message": "Karaktärsarbetsyta"
+  },
+  "charactersSettingsDescription": {
+    "message": "Karaktärer hanteras i Karaktärsarbetsytan. Använd knappen nedan för att öppna den."
+  },
+  "charactersOpenWorkspace": {
+    "message": "Öppna karaktärsarbetsyta"
+  },
+  "mermaid": {
+    "message": "Mermaid-diagram"
+  },
+  "healthSummary_diagnostics": {
+    "message": "Diagnostics"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "Öppna detaljerad diagnostik för att felsöka eller granska hälsokontroller."
+  },
+  "healthSummary_core": {
+    "message": "Servern"
+  },
+  "healthSummary_rag": {
+    "message": "Kunskap"
+  },
+  "healthSummary_coreAria": {
+    "message": "Server: server/API‑hälsa"
+  },
+  "healthSummary_ragAria": {
+    "message": "Kunskap: hälsa för kunskapsindex"
+  },
+  "healthSummary_coreOnline": {
+    "message": "Server: online"
+  },
+  "healthSummary_coreOffline": {
+    "message": "Server: offline"
+  },
+  "healthSummary_coreChecking": {
+    "message": "Server: kontrollerar…"
+  },
+  "healthSummary_ragReady": {
+    "message": "Kunskap: redo"
+  },
+  "healthSummary_ragOffline": {
+    "message": "Kunskap: offline"
+  },
+  "healthSummary_ragChecking": {
+    "message": "Kunskap: kontrollerar…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "Dessa kontroller sammanfattar den senaste lyckade pingningen av din tldw‑server och kunskapsindex."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "För många inställningsskrivningar på kort tid; vänta några sekunder och försök igen."
+  },
+  "storage_quotaTitle": {
+    "message": "Lagringsgräns nådd"
+  },
+  "storage_writeError": {
+    "message": "Kunde inte spara inställningar"
+  },
+  "storage_writeErrorDescription": {
+    "message": "Vi kunde inte spara dina inställningar. Försök igen om en stund."
+  },
+  "evaluations_title": {
+    "message": "Utvärderingsverkstad"
+  },
+  "evaluations_subtitle": {
+    "message": "Definiera utvärderingar mot din tldw‑server och granska senaste körningar."
+  },
+  "evaluations_listTitle": {
+    "message": "Senaste utvärderingar"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "Ny utvärdering"
+  },
+  "evaluations_startRunCta": {
+    "message": "Starta körning"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "Kunde inte läsa in utvärderingar"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "Kontrollera anslutningen till tldw‑servern och API‑uppgifterna och försök igen."
+  },
+  "evaluations_emptyList": {
+    "message": "Inga utvärderingar ännu. När du skapar en visas den här."
+  },
+  "evaluations_selectedTag": {
+    "message": "Vald"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "Utvärderingsgränser"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "Kunde inte hämta gränser"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "Vi kunde inte hämta utvärderingskvoter från servern."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "Information om gränser är inte tillgänglig för den här servern."
+  },
+  "evaluations_tierLabel": {
+    "message": "Nivå"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "Dagliga utvärderingar"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "Tokens i dag"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "Gräns per minut"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "Återställs"
+  },
+  "evaluations_runsTitle": {
+    "message": "Körningar"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "Välj en utvärdering för att se dess senaste körningar."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "Kunde inte läsa in körningar"
+  },
+  "evaluations_runsEmpty": {
+    "message": "Inga körningar ännu för den här utvärderingen."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "Körningsdetaljer"
+  },
+  "evaluations_noRunSelected": {
+    "message": "Välj en körning för att se detaljer."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "Kunde inte läsa in körningsdetaljer"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "Körstatus"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "Målmodell"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "Utvärdering"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "Fel"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "Resultat (utdrag)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "Förlopp"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "Användning"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "Dataset"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "Nytt dataset"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "Kunde inte läsa in dataset"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "Inga dataset ännu. Skapa ett för att koppla till utvärderingar."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} prover"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "Namn"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "mitt_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "Beskrivning"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "Metadata (JSON, valfritt)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "Exempelindata"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "Förväntat utdata (valfritt)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "Exempel‑JSON (valfritt, åsidosätter fält)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "Dataset (valfritt)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "Välj dataset"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "Dataset skapat"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "Ditt dataset är klart att användas i utvärderingar."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "Kunde inte skapa dataset"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "Servern avvisade detta dataset. Kontrollera fälten och försök igen."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "Dataset borttaget"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "Kunde inte ta bort dataset"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "Kunde inte läsa in dataset"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "Datasetdetaljer"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "Ogiltig exempel‑JSON"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "Ny utvärdering"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "Redigera utvärdering"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "Namn"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "min_eval_körning"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "Använd endast bokstäver, siffror, bindestreck och understreck."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "Utvärderingstyp"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "Utvärderingsspecifikation (JSON)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "Utvärderingsspecifikationen måste vara giltig JSON."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "Metadata (JSON, valfritt)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "Bifoga inline‑dataset i stället för att referera till dataset_id"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "Ogiltigt inline‑dataset"
+  },
+  "evaluations_runModelLabel": {
+    "message": "Körningsmodell (för snabba körningar)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "Utvärdering skapad"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "Kunde inte skapa utvärdering"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "Servern avvisade denna utvärdering. Säkerställ att namn, typ och specifikation är giltiga."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "Utvärdering uppdaterad"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "Kunde inte uppdatera utvärdering"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "Kunde inte ta bort utvärdering"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "Ta bort denna utvärdering?"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "Detta tar bort utvärderingsdefinitionen. Körningar som redan skapats finns kvar i historiken."
+  },
+  "evaluations_detailTitle": {
+    "message": "Utvärderingsdetaljer"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "Kunde inte läsa in utvärderingsdetaljer"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "Beskrivning"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "Välj en utvärdering för att granska dess specifikation."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "Körning startad"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "Din utvärderingskörning har startat. Du kan följa den i serverns UI."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "Kunde inte starta körning"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "Servern avvisade denna körningsbegäran. Kontrollera modellen och försök igen."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "Konfiguration (JSON)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "Dataset‑överskrivning (JSON‑array av exempel)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "Ogiltig konfigurations‑JSON"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "Begäran om annullering av körning skickad"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "Kunde inte annullera körning"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "Avbryt körning"
+  },
+  "evaluations_historyTitle": {
+    "message": "Historik"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "Typ"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "Användar‑ID"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "Startdatum (ISO)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "Slutdatum (ISO)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "Hämta historik"
+  },
+  "evaluations_historyEmpty": {
+    "message": "Kör en fråga för att se nylig aktivitet."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "Kunde inte hämta historik"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "Webhookar"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "URL‑adress"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "Händelser"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "Registrera webhook"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "Webhook registrerad"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "Kunde inte registrera webhook"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "Kunde inte ta bort webhook"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "Kunde inte läsa in webhooks"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "Inga webhooks registrerade ännu."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "Hemlighet"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "Idempotensnyckel"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "Anslut för att använda utvärderingar"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "För att skapa och köra utvärderingar måste du först ansluta till din tldw‑server."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "Öppna Inställningar → tldw‑server för att lägga till din server‑URL och API‑nyckel."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "När du är ansluten kan du definiera utvärderingar och granska mätvärden här."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "Exempel"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "Inga exempel returnerades för den här sidan."
+  },
+  "evaluations_metricsLabel": {
+    "message": "Mätvärden"
+  },
+  "evaluationsSettings_title": {
+    "message": "Utvärderingar"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "Konfigurera standarder som används av utvärderingsverkstaden."
+  },
+  "evaluationsSettings_offline": {
+    "message": "Anslut till din tldw‑server för att testa utvärderingar."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "Standardutvärderingstyp"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "Standardmålsmodell"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "Standardkörningskonfiguration (JSON)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "Standard‑dataset‑id (valfritt)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "Spec‑förval för vald typ"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "Testa utvärderings‑API"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "Utvärderings‑API är nåbart"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "Kunde inte nå utvärderings‑API"
+  },
+  "chunkingPlayground_nav": {
+    "message": "Uppdelningslekplats"
+  },
+  "chunkingPlayground_title": {
+    "message": "Uppdelningslekplats"
+  },
+  "chunkingPlayground_description": {
+    "message": "Experimentera med olika uppdelningsinställningar för att se hur text delas upp i mindre delar för behandling."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "Text att dela upp"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "Klistra in text här eller välj ett exempel..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "Ladda upp fil"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "Dela upp text"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "Uppdelningsmetod"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "Maximal delstorlek"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "Överlappning"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "Språk"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "Identifiera automatiskt"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "Engelska"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "Spanska"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "Franska"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "Tyska"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "Italienska"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "Portugisiska"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "Kinesiska"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "Japanska"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "Koreanska"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "Kort"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "Inbäddat"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} delar, snitt {{avgSize}} tecken"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "Text laddad"
+  },
+  "chunkingPlayground_characters": {
+    "message": "tecken"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "Enkel"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "Jämför"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "Del {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "Del {{index}}: {{words}} ord"
+  },
+  "chunkingPlayground_position": {
+    "message": "Placering: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} till"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} tecken"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} ord"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "Ange text att dela upp"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "Delad inmatningstext"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "Jämför båda"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "Jämförelse"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "Konfiguration A ger {{diff}} färre delar"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "Konfiguration A ger {{diff}} fler delar"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "Båda konfigurationerna ger samma antal delar"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "Klicka på \"Jämför\" för att se resultat"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "Överlappande område"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "Klicka på ett markerat avsnitt för att fokusera på den delen"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "Ingen text hittades för detta medieobjekt"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "Kunde inte läsa in mediainnehåll"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "Kunde inte läsa in mediebiblioteket"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "Välj medieobjekt..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "Läser in innehåll..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "Inga medier hittades"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} medieobjekt tillgängliga"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "Klistra in text"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "Ladda upp fil"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "Exempeltext"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "Från mediebiblioteket"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "Nyhetsartikel"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "Artikel med flera stycken och rubriker"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "Källkod"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "Python-kod med klasser och funktioner"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "Transkript"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "Tidsstämplat podkasttranskript"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "Akademisk artikel"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "Teknisk text med referenser"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "Jämför inställningar"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "Konfiguration A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "Konfiguration B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "Enkel"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "Jämför"
+  }
+}

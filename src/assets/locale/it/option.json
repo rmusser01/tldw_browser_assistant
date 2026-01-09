@@ -48,7 +48,7 @@
     "promptLabel": "Istruzione",
     "review": "Revisione",
     "flashcards": "Flashcard",
-    "quiz": "Questionario",
+    "quiz": "Questionari",
     "media": "Contenuti multimediali",
     "libraryView": "Review multi-elemento",
     "notes": "Note",
@@ -88,7 +88,8 @@
     "omniSearchStartChat": "Avvia nuova chat \"{{query}}\"",
     "connectionCard.connectedCaption": "Chat e strumenti sono ora disponibili in Opzioni e nel pannello laterale.",
     "quickIngestQueuedAria": "{{label}} — {{count}} elementi in coda — fai clic per rivedere ed elaborare",
-    "modeSpeech": "Voce"
+    "modeSpeech": "Voce",
+    "moreTools": "Altro"
   },
   "sidebarTitle": "Cronologia Chat",
   "error": "Errore",
@@ -581,7 +582,9 @@
     "searchPlaceholder": "Cerca personaggi per nome",
     "noMatches": "Nessun personaggio corrisponde alla tua ricerca.",
     "refresh": "Aggiorna personaggi",
-    "refreshing": "Aggiornamento personaggi…"
+    "refreshing": "Aggiornamento personaggi…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Usa in chat",

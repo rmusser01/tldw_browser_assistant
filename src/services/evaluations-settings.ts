@@ -1,5 +1,4 @@
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { defineSetting, getSetting, setSetting } from "@/services/settings/registry"
 
 export type EvaluationDefaults = {
   defaultEvalType?: string
@@ -11,8 +10,6 @@ export type EvaluationDefaults = {
 
 const STORAGE_KEY = "evaluationsDefaults"
 
-const storage = createSafeStorage({ area: "local" })
-
 const DEFAULTS: Required<EvaluationDefaults> = {
   defaultEvalType: "response_quality",
   defaultTargetModel: "gpt-3.5-turbo",
@@ -21,13 +18,17 @@ const DEFAULTS: Required<EvaluationDefaults> = {
   defaultDatasetId: null
 }
 
+const EVALUATIONS_DEFAULTS_SETTING = defineSetting(
+  STORAGE_KEY,
+  DEFAULTS,
+  (value) => ({
+    ...DEFAULTS,
+    ...(value && typeof value === "object" ? value : {})
+  })
+)
+
 export async function getEvaluationDefaults(): Promise<EvaluationDefaults> {
-  try {
-    const stored = await storage.get<EvaluationDefaults>(STORAGE_KEY)
-    return { ...DEFAULTS, ...(stored || {}) }
-  } catch {
-    return { ...DEFAULTS }
-  }
+  return await getSetting(EVALUATIONS_DEFAULTS_SETTING)
 }
 
 export async function setEvaluationDefaults(
@@ -35,7 +36,7 @@ export async function setEvaluationDefaults(
 ): Promise<EvaluationDefaults> {
   const current = await getEvaluationDefaults()
   const next = { ...current, ...updates }
-  await storage.set(STORAGE_KEY, next)
+  await setSetting(EVALUATIONS_DEFAULTS_SETTING, next)
   return next
 }
 

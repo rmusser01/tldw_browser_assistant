@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "Ausblenden",
+  "confirmTitle": "Bitte bestätigen",
   "pdf": {
     "passwordTitle": "PDF-Passwort eingeben",
     "unlock": "Entsperren"
@@ -14,10 +16,17 @@
     "content": "Inhalt wird geladen…"
   },
   "selectAModel": "Modell auswählen",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "Speichern",
   "saved": "Gespeichert",
   "cancel": "Abbrechen",
+  "saving": "Speichern...",
   "retry": "Erneut versuchen",
+  "close": "Schließen",
+  "loadMore": "Mehr laden...",
   "share": {
     "tooltip": {
       "share": "Teilen"
@@ -51,10 +60,18 @@
     }
   },
   "copyToClipboard": "In die Zwischenablage kopieren",
+  "table": {
+    "copyCsv": "Als CSV kopieren",
+    "downloadCsv": "CSV herunterladen"
+  },
   "webSearch": "Web durchsuchen",
   "regenerate": "Neu generieren",
   "edit": "Bearbeiten",
+  "generate": "Generate",
+  "view": "View",
   "delete": "Löschen",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
   "continue": "Antwort fortsetzen",
   "saveAndSubmit": "Speichern & Absenden",
   "editMessage": {
@@ -62,12 +79,55 @@
   },
   "submit": "Absenden",
   "send": "Absenden",
+  "startChat": "Chat starten",
   "connectToServer": "Mit Server verbinden",
+  "previous": "Zurück",
+  "next": "Weiter",
   "noData": "Keine Daten",
   "noHistory": "Kein Chat-Verlauf",
   "chatWithCurrentPage": "Mit aktueller Seite chatten",
+  "chatWithCharacter": "Mit Charakter chatten",
   "beta": "Beta-Version",
   "tts": "Vorlesen",
+  "ttsShort": "Ton",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "Kopieren",
+  "branchShort": "Zweig",
+  "infoShort": "Info",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "Neu",
+  "continueShort": "Mehr",
+  "fileChanges": "Dateiänderungen",
+  "deletions": "Löschvorgänge",
+  "gitOperations": "Git-Operationen",
+  "commands": "Befehle",
+  "otherOperations": "Andere Vorgänge",
+  "fileAccess": "Dateizugriff",
+  "notebookEdits": "Notizbuchänderungen",
+  "applyPatch": "Patch anwenden",
+  "recursive": "(rekursiv)",
+  "complexArguments": "[Komplexe Argumente]",
   "currentChatModelSettings": "Aktuelle Chat-Modell-Einstellungen",
   "modelSettings": {
     "label": "Modell-Einstellungen",
@@ -90,6 +150,9 @@
         "label": "Maximale Tokens (num_predict)",
         "placeholder": "Geben Sie den Max-Tokens-Wert ein (z.B. 2048, 4096)"
       },
+      "thinking": {
+        "label": "Denkmodus"
+      },
       "seed": {
         "label": "Seed (Startwert)",
         "placeholder": "Geben Sie den Seed-Wert ein (z.B. 1234)",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Top P (oberste P)",
         "placeholder": "Geben Sie den Top-P-Wert ein (z.B. 0.9, 0.95)"
-      },
-      "numGpu": {
-        "label": "Anzahl GPUs",
-        "placeholder": "Geben Sie die Anzahl der Ebenen ein, die an GPU(s) gesendet werden sollen"
-      },
-      "systemPrompt": {
-        "label": "Temporärer System-Prompt",
-        "placeholder": "System-Prompt eingeben",
-        "help": "Dies ist eine schnelle Möglichkeit, den System-Prompt im aktuellen Chat festzulegen, der den ausgewählten System-Prompt überschreibt, falls vorhanden."
-      },
-      "thinking": {
-        "label": "Denkmodus"
       },
       "useMMap": {
         "label": "useMmap (Speicherabbildung)"
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "Letzte N wiederholen",
         "placeholder": "z.B. 64, 128"
+      },
+      "numGpu": {
+        "label": "Anzahl GPUs",
+        "placeholder": "Geben Sie die Anzahl der Ebenen ein, die an GPU(s) gesendet werden sollen"
+      },
+      "systemPrompt": {
+        "label": "Temporärer System-Prompt",
+        "placeholder": "System-Prompt eingeben",
+        "help": "Dies ist eine schnelle Möglichkeit, den System-Prompt im aktuellen Chat festzulegen, der den ausgewählten System-Prompt überschreibt, falls vorhanden."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "Weitere Modell-Einstellungen"
+    "advanced": "Weitere Modell-Einstellungen",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "Zusammenfassen",
@@ -160,7 +269,25 @@
     "custom": "Benutzerdefiniert"
   },
   "citations": "Zitate",
+  "segmented": {
+    "available": "Server-Modelle",
+    "custom": "Benutzerdefinierte Modelle"
+  },
   "downloadCode": "Code herunterladen",
+  "success": "Erfolg",
+  "created": "Erstellt",
+  "updated": "Aktualisiert",
+  "deleted": "Gelöscht",
+  "create": "Erstellen",
+  "reset": "Zurücksetzen",
+  "serverOffline": "Server offline oder nicht konfiguriert",
+  "serverChats": "Server-Chats",
+  "serverChatLoadError": "Server-Chat konnte nicht geladen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+  "serverChatSourceLabel": "Serverquelle",
+  "serverChatForkedLabel": "Abgezweigter Chat",
+  "serverChatForkedTooltip": "Abgezweigt von Chat {{chatId}}",
+  "serverChatsUnavailableNotConnected": "Server-Chats sind verfügbar, sobald Sie eine Verbindung zu Ihrem tldw-Server hergestellt haben.",
+  "serverChatsUnavailableServerError": "Server-Chats sind derzeit nicht verfügbar. Prüfen Sie die Serverprotokolle oder versuchen Sie es erneut.",
   "date": {
     "pinned": "Angepinnt",
     "today": "Heute",
@@ -184,6 +311,8 @@
       "older": "Alle älteren Nachrichten löschen"
     }
   },
+  "historiesDeleted": "{{count}} Verläufe gelöscht",
+  "deleteHistoriesError": "Fehler beim Löschen der Verläufe",
   "pin": "Anheften",
   "unpin": "Losheften",
   "generationInfo": "Generierungsinformationen",
@@ -193,66 +322,17 @@
     "loading": "Lade Begründung....",
     "thought": "Gedanke für {{time}}"
   },
+  "mermaid": "Mermaid-Diagramme",
+  "search": "Suchen",
+  "searchResults": "Suchergebnisse",
   "embeddingGen": "Erstelle Embeddings, dies kann eine Weile dauern",
   "semanticSearch": "Führe semantische Suche durch",
+  "newBranch": "Neuer Zweig",
   "downloading": "Herunterladen",
   "cancelPullingModel": {
     "confirm": "Sind Sie sicher, dass Sie den Download abbrechen möchten? Dadurch wird der Downloadvorgang gestoppt. Laut der Ollama-Dokumentation können Sie dort weitermachen, wo Sie aufgehört haben."
   },
-  "table": {
-    "copyCsv": "Als CSV kopieren",
-    "downloadCsv": "CSV herunterladen"
-  },
-  "dismiss": "Ausblenden",
   "privateModeSaveErrorTitle": "tldw Assistant kann keine Daten speichern",
-  "confirmTitle": "Bitte bestätigen",
-  "saving": "Speichern...",
-  "close": "Schließen",
-  "loadMore": "Mehr laden...",
-  "startChat": "Chat starten",
-  "previous": "Zurück",
-  "next": "Weiter",
-  "chatWithCharacter": "Mit Charakter chatten",
-  "ttsShort": "Ton",
-  "copyShort": "Kopieren",
-  "branchShort": "Zweig",
-  "infoShort": "Info",
-  "regenShort": "Neu",
-  "continueShort": "Mehr",
-  "fileChanges": "Dateiänderungen",
-  "deletions": "Löschvorgänge",
-  "gitOperations": "Git-Operationen",
-  "commands": "Befehle",
-  "otherOperations": "Andere Vorgänge",
-  "fileAccess": "Dateizugriff",
-  "notebookEdits": "Notizbuchänderungen",
-  "applyPatch": "Patch anwenden",
-  "recursive": "(rekursiv)",
-  "complexArguments": "[Komplexe Argumente]",
-  "segmented": {
-    "available": "Server-Modelle",
-    "custom": "Benutzerdefinierte Modelle"
-  },
-  "success": "Erfolg",
-  "created": "Erstellt",
-  "updated": "Aktualisiert",
-  "deleted": "Gelöscht",
-  "create": "Erstellen",
-  "reset": "Zurücksetzen",
-  "serverOffline": "Server offline oder nicht konfiguriert",
-  "serverChats": "Server-Chats",
-  "serverChatLoadError": "Server-Chat konnte nicht geladen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
-  "serverChatSourceLabel": "Serverquelle",
-  "serverChatForkedLabel": "Abgezweigter Chat",
-  "serverChatForkedTooltip": "Abgezweigt von Chat {{chatId}}",
-  "serverChatsUnavailableNotConnected": "Server-Chats sind verfügbar, sobald Sie eine Verbindung zu Ihrem tldw-Server hergestellt haben.",
-  "serverChatsUnavailableServerError": "Server-Chats sind derzeit nicht verfügbar. Prüfen Sie die Serverprotokolle oder versuchen Sie es erneut.",
-  "historiesDeleted": "{{count}} Verläufe gelöscht",
-  "deleteHistoriesError": "Fehler beim Löschen der Verläufe",
-  "mermaid": "Mermaid-Diagramme",
-  "search": "Suchen",
-  "searchResults": "Suchergebnisse",
-  "newBranch": "Neuer Zweig",
   "error": {
     "label": "Fehler",
     "friendlyApiKeySummary": "Wir konnten Ihren tldw-Server nicht erreichen.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "Beim Kontakt mit Ihrem tldw-Server ist ein Fehler aufgetreten.",
     "friendlyGenericHint": "Versuchen Sie es in einem Moment erneut oder öffnen Sie Status & Diagnose, um den Serverzustand zu prüfen.",
     "showDetails": "Technische Details anzeigen",
-    "hideDetails": "Technische Details ausblenden"
+    "hideDetails": "Technische Details ausblenden",
+    "createFolder": "Failed to create folder"
   },
   "folders": "Ordner",
   "folderView": "Ordneransicht",
@@ -277,7 +358,32 @@
   "confirm": "Bestätigen",
   "untitled": "Unbenannt",
   "moveToFolder": "In Ordner verschieben",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "Noch keine Tool-Aufrufe",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "Ausstehend",
     "running": "In Bearbeitung",
@@ -361,6 +467,9 @@
     "collapse": "Seitenleiste einklappen",
     "expand": "Seitenleiste ausklappen",
     "search": "Chats durchsuchen...",
+    "modeLabel": "Mode",
+    "modeCasual": "Casual",
+    "modePro": "Pro",
     "ingest": "Seite erfassen",
     "media": "Medien",
     "notes": "Notizen",

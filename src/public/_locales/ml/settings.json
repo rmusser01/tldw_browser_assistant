@@ -1,0 +1,2747 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "സെർവർ & ഓത്"
+  },
+  "navigation_knowledgeTools": {
+    "message": "നോളജ് ടൂളുകൾ"
+  },
+  "navigation_workspace": {
+    "message": "വർക്ക്സ്പേസ്"
+  },
+  "navigation_about": {
+    "message": "അറിയുക"
+  },
+  "healthNav": {
+    "message": "ഹെൽത്ത്"
+  },
+  "worldBooksNav": {
+    "message": "വേൾഡ് ബുക്കുകൾ"
+  },
+  "chatDictionariesNav": {
+    "message": "ചാറ്റ് നിഘണ്ടു"
+  },
+  "charactersNav": {
+    "message": "ക്യാരക്ടേഴ്സ്"
+  },
+  "mediaNav": {
+    "message": "മീഡിയ"
+  },
+  "chatAppearance_title": {
+    "message": "ചാറ്റ് രൂപഭാവം"
+  },
+  "chatAppearance_description": {
+    "message": "ചാറ്റ് സന്ദേശങ്ങളിലെ നിറങ്ങൾ, ഫോണ്ടുകൾ, ടെക്സ്റ്റ് വലുപ്പങ്ങൾ ഇഷ്ടാനുസരണം ക്രമീകരിക്കുക."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "ചാറ്റ് പെരുമാറ്റ ക്രമീകരണങ്ങൾ (വൈഡ് മോഡ്, റീസണിംഗ്, കോപ്പി ഓപ്ഷനുകൾ) തേടുകയാണോ?"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "പൊതുവായ സെറ്റിംഗുകൾക്ക് പോകുക"
+  },
+  "chatAppearance_userHeading": {
+    "message": "ഉപയോക്തൃ സന്ദേശങ്ങൾ"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "അസിസ്റ്റന്റ് സന്ദേശങ്ങൾ"
+  },
+  "chatAppearance_userColor": {
+    "message": "ഉപയോക്തൃ ടെക്സ്റ്റ് നിറം"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "അസിസ്റ്റന്റ് ടെക്സ്റ്റ് നിറം"
+  },
+  "chatAppearance_userFont": {
+    "message": "ഉപയോക്തൃ ഫോണ്ട്"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "അസിസ്റ്റന്റ് ഫോണ്ട്"
+  },
+  "chatAppearance_userSize": {
+    "message": "ഉപയോക്തൃ ടെക്സ്റ്റ് വലുപ്പം"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "അസിസ്റ്റന്റ് ടെക്സ്റ്റ് വലുപ്പം"
+  },
+  "chatAppearance_color_default": {
+    "message": "സ്ഥിരസ്ഥിതി"
+  },
+  "chatAppearance_color_blue": {
+    "message": "നീല"
+  },
+  "chatAppearance_color_green": {
+    "message": "പച്ച"
+  },
+  "chatAppearance_color_purple": {
+    "message": "പർപ്പിൾ"
+  },
+  "chatAppearance_color_orange": {
+    "message": "ഓറഞ്ച്"
+  },
+  "chatAppearance_color_red": {
+    "message": "ചുവപ്പ്"
+  },
+  "chatAppearance_font_default": {
+    "message": "സ്ഥിരസ്ഥിതി"
+  },
+  "chatAppearance_font_sans": {
+    "message": "സാൻസ് സെറിഫ്"
+  },
+  "chatAppearance_font_serif": {
+    "message": "സെറിഫ്"
+  },
+  "chatAppearance_font_mono": {
+    "message": "മോണോസ്പേസ്"
+  },
+  "chatAppearance_size_sm": {
+    "message": "ചെറുത്"
+  },
+  "chatAppearance_size_md": {
+    "message": "ഇടത്തരം"
+  },
+  "chatAppearance_size_lg": {
+    "message": "വലിയത്"
+  },
+  "generalSettings_title": {
+    "message": "പൊതുവായ സെറ്റിംഗുകൾ"
+  },
+  "generalSettings_settings_heading": {
+    "message": "വെബ് UI സെറ്റിംഗുകൾ"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "സംഭാഷണ തിരിച്ചറിയല്‍ ഭാഷ"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "ഒരു ഭാഷ തിരഞ്ഞെടുക്കുക"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "ഭാഷ"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "ഒരു ഭാഷ തിരഞ്ഞെടുക്കുക"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "തീം മാറ്റുക"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "ലൈറ്റ്"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "ഡാര്‍ക്ക്"
+  },
+  "generalSettings_settings_searchMode_label": {
+    "message": "സാധാരണ ഇന്റർനെറ്റ് അന്വേഷണം നടത്തുക"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "സൈഡ്പാനൽ തുറക്കുമ്പോൾ അവസാനത്തെ ചാറ്റ് പുനരാരംഭിക്കുക (Copilot)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "സ്ഥിരസ്ഥിതിയായി വെബ്സൈറ്റുമായുള്ള ചാറ്റ് പ്രവർത്തനക്ഷമമാക്കുക (കോപൈലറ്റ്)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "വെബ് UI തുറക്കുമ്പോൾ അവസാനത്തെ ചാറ്റ് പുനരാരംഭിക്കുക"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "നിലവിലുള്ള ചാറ്റ് മോഡൽ ക്രമീകരണങ്ങൾ മറയ്ക്കുക"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "മുൻപത്തെ ചാറ്റുകൾക്കായി അവസാനം ഉപയോഗിച്ച മോഡൽ പുനഃസ്ഥാപിക്കുക"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "അറിവ് ശേഖരം പ്രോസസ്സ് ചെയ്ത് കഴിഞ്ഞതിന് ശേഷം അറിയിപ്പ് അയയ്ക്കുക"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "എഐ ഉപയോഗിച്ച് ശീർഷകം സൃഷ്ടിക്കുക"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "സെർവർ കണക്ഷൻ നില പരിശോധിക്കൽ പ്രവർത്തനക്ഷമമാക്കുക അല്ലെങ്കിൽ അപ്രാപ്തമാക്കുക"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "വിശാലമായ സ്ക്രീൻ മോഡ് പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "സ്ഥിരസ്ഥിതിയായി റീസണിംഗ് കൊളാപ്സ് തുറക്കുക"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "ഉപയോക്തൃ സന്ദേശങ്ങൾക്കായി ചാറ്റ് ബബിൾ ഉപയോഗിക്കുക"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "പ്രതികരണം സ്വയമേവ ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "ഉപയോക്തൃ സന്ദേശങ്ങൾക്കായി മാർക്ക്ഡൗൺ ഫോർമാറ്റിംഗ് പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "ഫോർമാറ്റ് ചെയ്ത ടെക്സ്റ്റായി പകർത്തുക"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "ടാബ് മെൻഷനുകൾ (@tab) പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "വലിയ ടെക്സ്റ്റ് ഫയലായി പേസ്റ്റ് ചെയ്യുക"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "സൈഡ്പാനലിൽ താൽക്കാലിക ചാറ്റ് സ്ഥിരസ്ഥിതിയായി പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "OCR പ്രവർത്തനക്ഷമമാക്കുക (ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഡൗൺലോഡ് ചെയ്യും)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "OCR പ്രവർത്തനക്ഷമമാക്കുമ്പോൾ, ആദ്യ ഉപയോഗത്തിൽ ഏകദേശം 5MB ഭാഷാ ഡാറ്റ ഡൗൺലോഡ് ചെയ്യും."
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "OCR ആസറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി തയ്യാറാക്കി"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "സ്ഥിരസ്ഥിതി OCR ഭാഷ"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "ഒരു OCR ഭാഷ തിരഞ്ഞെടുക്കുക"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "പകർത്തിയ ടെക്സ്റ്റിൽ നിന്നുള്ള റീസണിംഗ് ടാഗ് നീക്കം ചെയ്യുക"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "പ്രോംപ്റ്റ് തിരച്ചിലിൽ സെർവർ പ്രോംപ്റ്റുകളും ഉൾപ്പെടുത്തുക"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "ഓൺബോർഡിംഗ് തുടക്കം മുതൽ വീണ്ടും ആരംഭിക്കുക"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "ഓൺബോർഡിംഗ് വീണ്ടും ആരംഭിക്കുക"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "ഓൺബോർഡിംഗ് വീണ്ടും ആരംഭിക്കണോ?"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "ഇത് നിങ്ങളുടെ ഓൺബോർഡിംഗ് നില റീസെറ്റ് ചെയ്ത് നിങ്ങളെ സജ്ജീകരണ പ്രവാഹത്തിന്റെ തുടക്കത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "ഓൺബോർഡിംഗ് റീസെറ്റ് ചെയ്തു"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "സർവർ URLയും API കീയുമെല്ലാം വീണ്ടും പരിശോധിക്കാനായി നിങ്ങളെ സ്വാഗത ഘട്ടത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും."
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "വീണ്ടെടുക്കൽ ക്രമീകരണങ്ങൾ"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "എംബെഡിംഗും വീണ്ടെടുക്കലും പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "പൂർണ്ണ സന്ദർഭ മോഡിനായുള്ള പരമാവധി ഉള്ളടക്ക വലുപ്പം"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "ഉള്ളടക്ക വലുപ്പം (സ്ഥിരസ്ഥിതി 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "വെബ്ബ് തിരച്ചിൽ നിയന്ത്രിക്കുക"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "സരളമായ ഇന്റർനെറ്റ് തിരച്ചിൽ നടത്തുക"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "തിരച്ചിൽ എഞ്ചിൻ"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "തിരച്ചിൽ എഞ്ചിൻ തിരഞ്ഞെടുക്കുക"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "ആകെ തിരച്ചിൽ ഫലങ്ങൾ"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "ആകെ തിരച്ചിൽ ഫലങ്ങളുടെ എണ്ണം നൽകുക"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "സന്ദേശത്തിൽ പറയുന്ന വെബ്സൈറ്റ് സന്ദർശിക്കുക."
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "SearXNG യുആർഎൽ"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "ബ്രേവ് API കീ"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "നിങ്ങളുടെ ബ്രേവ് API കീ നൽകുക"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "സ്ഥിരസ്ഥിതിയായി ഇന്റർനെറ്റ് തിരച്ചിൽ പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "ടാവിലി API കീ"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "നിങ്ങളുടെ ടാവിലി API കീ നൽകുക"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "എക്സാ API കീ"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "നിങ്ങളുടെ എക്സാ API കീ നൽകുക"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "ഗൂഗിൾ ഡൊമെയ്ൻ"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "ഫയർക്രോൾ API കീ"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "നിങ്ങളുടെ ഫയർക്രോൾ API കീ നൽകുക"
+  },
+  "generalSettings_system_heading": {
+    "message": "സിസ്റ്റം ക്രമീകരണങ്ങൾ"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "സ്ഥിരസ്ഥിതി UI മോഡ്"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "പൂർണ്ണ സ്ക്രീൻ (വെബ് UI)"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "സൈഡ്പാനൽ"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "സിസ്റ്റം റീസെറ്റ്"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "എല്ലാം റീസെറ്റ് ചെയ്യുക"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "നിങ്ങൾക്ക് സിസ്റ്റം റീസെറ്റ് നടത്താൻ തീർച്ചയാണോ? ഇത് എല്ലാ ഡാറ്റയും മായ്ക്കും, പിന്നീട് പുനഃസ്ഥാപിക്കാൻ കഴിയില്ല."
+  },
+  "generalSettings_system_export_label": {
+    "message": "ചാറ്റ് ചരിത്രം, അറിവ് അടിസ്ഥാനം, പ്രോംപ്റ്റുകൾ എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "generalSettings_system_export_button": {
+    "message": "ഡാറ്റ എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "generalSettings_system_export_success": {
+    "message": "എക്സ്പോർട്ട് വിജയകരമായി"
+  },
+  "generalSettings_system_import_label": {
+    "message": "ചാറ്റ് ചരിത്രം, അറിവ് അടിസ്ഥാനം, പ്രോംപ്റ്റുകൾ ഇമ്പോർട്ട് ചെയ്യുക"
+  },
+  "generalSettings_system_import_button": {
+    "message": "ഡാറ്റ ഇമ്പോർട്ട് ചെയ്യുക"
+  },
+  "generalSettings_system_import_success": {
+    "message": "ഇമ്പോർട്ട് വിജയകരമായി"
+  },
+  "generalSettings_system_import_error": {
+    "message": "ഇമ്പോർട്ട് പിശക്"
+  },
+  "generalSettings_tts_heading": {
+    "message": "ടെക്സ്റ്റ്-ടു-സ്പീച്ച് ക്രമീകരണങ്ങൾ"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "ടെക്സ്റ്റ്-ടു-സ്പീച്ച് പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "പൂർത്തിയാക്കിയ ശേഷം വോയ്സ് പ്രതികരണം സ്വയമേവ പ്ലേ ചെയ്യുക"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "ടെക്സ്റ്റ്-ടു-സ്പീച്ച് പ്രോവൈഡർ"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "ഒരു പ്രോവൈഡർ തിരഞ്ഞെടുക്കുക"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "ടെക്സ്റ്റ്-ടു-സ്പീച്ച് വോയ്സ്"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "ഒരു വോയ്സ് തിരഞ്ഞെടുക്കുക"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "SSML (സ്പീച്ച് സിന്തസിസ് മാർക്കപ്പ് ലാംഗ്വേജ്) പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "ടിടിഎസിൽ നിന്ന് റീസണിംഗ് ടാഗ് നീക്കം ചെയ്യുക"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "പ്രതികരണം വിഭജിക്കൽ"
+  },
+  "generalSettings_stt_heading": {
+    "message": "സ്പീച്ച്-ടു-ടെക്സ്റ്റ് ക്രമീകരണങ്ങൾ"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "സ്വയം നിർത്തൽ സമയപരിധി (മില്ലിസെക്കൻഡ്)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "സ്വയം നിർത്തൽ സമയപരിധി മില്ലിസെക്കൻഡിൽ നൽകുക"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "വോയ്സ് സന്ദേശം സ്വയമേവ സമർപ്പിക്കുക"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "പ്ലേഗ്രൗണ്ടിലും സൈഡ്പാനലിലും ഉള്ള ചാറ്റ് ഡിക്റ്റേഷൻ ബട്ടൺ ഈ സ്പീച്ച്-ടു-ടെക്സ്റ്റ് ഡിഫോൾട്ടുകൾ ഉപയോഗിക്കുന്നു."
+  },
+  "generalSettings_stt_model_label": {
+    "message": "ട്രാൻസ്‌ക്രിപ്ഷൻ മോഡൽ (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "ട്രാൻസ്‌ക്രിപ്റ്റുകൾക്കായി സെഗ്മെന്റേഷൻ പ്രവർത്തിപ്പിക്കുക (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "ടൈംസ്റ്റാമ്പ് വിശദത"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "ഓരോ സെഗ്മെന്റിന്"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "ഓരോ വാക്കിന്"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "സെഗ്മെന്റ് + വാക്ക്"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "ട്രാൻസ്‌ക്രിപ്ഷൻ ജോലി"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "ട്രാൻസ്‌ക്രൈബ് (അതേ ഭാഷ)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "ഇംഗ്ലീഷിലേക്ക് വിവർത്തനം"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "പ്രതികരണ ഫോർമാറ്റ്"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON (ടെക്സ്റ്റ് + സെഗ്മെന്റുകൾ)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "വിശദമായ JSON"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "സാധാരണ ടെക്സ്റ്റ്"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "SRT ഉപശീർഷകങ്ങൾ"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "VTT ഉപശീർഷകങ്ങൾ"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "സാമ്പ്ലിംഗ് താപനില"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "സ്ഥിരസ്ഥിതി ട്രാൻസ്‌ക്രിപ്ഷൻ പ്രോംപ്റ്റ്"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "സ്റ്റൈൽ നിർദ്ദേശിക്കാൻ ഐച്ഛിക ടെക്സ്റ്റ്"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "പരമാവധി സെഗ്മെന്റുകൾ (TreeSeg K)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "ഒരു സെഗ്മെന്റിലെ കുറഞ്ഞ ഇനങ്ങൾ"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "ബാലൻസ് പിഴ (TreeSeg λ)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "ഉച്ചാരണ വിപുലീകരണ വീതി"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "സെഗ്മെന്റേഷൻ എംബെഡിംഗ്സ് പ്രൊവൈഡർ"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "സെഗ്മെന്റേഷൻ എംബെഡിംഗ്സ് മോഡൽ"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "സിസ്റ്റം"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "സ്ഥിരസ്ഥിതി UI മോഡ്"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "പൂർണ്ണ സ്ക്രീൻ (വെബ് UI)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "സൈഡ്പാനൽ"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "ബ്രൗസർ ആക്ഷൻ ബട്ടൺ"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "സന്ദർഭ മെനു ആക്ഷൻ"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "സൈഡ്ബാറിൽ വെബ് UI ബട്ടൺ കാണിക്കുക"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "ചാറ്റ് പശ്ചാത്തല ചിത്രം"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "ഫോണ്ട് വലുപ്പം"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "ഡാറ്റ"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "ഫയർഫോക്സ് സ്വകാര്യ മോഡ് സിങ്ക്"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "ഡാറ്റ സിങ്ക് ചെയ്യുക"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "സിസ്റ്റം റീസെറ്റ്"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "എല്ലാം റീസെറ്റ് ചെയ്യുക"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "നിങ്ങൾക്ക് സിസ്റ്റം റീസെറ്റ് നടത്താൻ തീർച്ചയാണോ? ഇത് എല്ലാ ഡാറ്റയും മായ്ക്കും, പിന്നെ പുനഃസ്ഥാപിക്കാൻ കഴിയില്ല."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "ചാറ്റ് ചരിത്രം, നോളജ് ബേസ്, പ്രോംപ്റ്റുകൾ എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "ഡാറ്റ എക്സ്പോർട്ട് ചെയ്യുക"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "എക്സ്പോർട്ട് വിജയം"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "ചാറ്റ് ചരിത്രം, നോളജ് ബേസ്, പ്രോംപ്റ്റുകൾ ഇമ്പോർട്ട് ചെയ്യുക"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "ഡാറ്റ ഇമ്പോർട്ട് ചെയ്യുക"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "ഇമ്പോർട്ട് വിജയം"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "ഇമ്പോർട്ട് പിശക്"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "tldw അസിസ്റ്റന്റിനെ നിങ്ങളുടെ സെർവറുമായി ബന്ധിപ്പിക്കുക"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "ചില ക്രമീകരണങ്ങൾ നിങ്ങളുടെ tldw സെർവർ എത്തിച്ചേരുമ്പോഴേ പ്രാബല്യത്തിൽ വരൂ. മുഴുവൻ അനുഭവത്തിനായി സെർവർ കണക്റ്റ് ചെയ്യുക."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URLയും API കീയുമെല്ലാം ചേർക്കുക."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "ഉന്നത ടൂളുകൾ പരീക്ഷിക്കുന്നതിന് മുമ്പ് Diagnostics ഉപയോഗിച്ച് സെർവർ ആരോഗ്യകരമാണെന്ന് സ്ഥിരീകരിക്കുക."
+  },
+  "generalSettings_empty_title": {
+    "message": "tldw അസിസ്റ്റന്റ് എങ്ങനെ പ്രവർത്തിക്കണമെന്ന് ക്രമീകരിക്കുക"
+  },
+  "generalSettings_empty_description": {
+    "message": "വെബ് UI, സൈഡ്പാനൽ, സ്പീച്ച്, തിരച്ചിൽ, ഡാറ്റ കൈകാര്യം ചെയ്യൽ എന്നിവയുടെ ഡിഫോൾട്ടുകൾ ഒരിടത്ത് ക്രമീകരിക്കുക."
+  },
+  "generalSettings_empty_example1": {
+    "message": "നിങ്ങളുടെ സ്ഥിരസ്ഥിതി ഭാഷ, തീം, ചാറ്റ് പുനരാരംഭ പെരുമാറ്റം തിരഞ്ഞെടുക്കുക."
+  },
+  "generalSettings_empty_example2": {
+    "message": "ചാറ്റുകൾ താൽക്കാലികമാണോ, വലിയ പേസ്റ്റ് എങ്ങനെ കൈകാര്യം ചെയ്യണം, റീസണിംഗ് എങ്ങനെ കാണിക്കണം എന്നിവ നിയന്ത്രിക്കുക."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "സെർവർ & ഓത് ക്രമീകരിക്കുക"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "ഉപേക്ഷിക്കുക"
+  },
+  "manageModels_title": {
+    "message": "മോഡലുകള്‍ കൈകാര്യം ചെയ്യുക"
+  },
+  "manageModels_addBtn": {
+    "message": "പുതിയ മോഡല്‍ ചേര്‍ക്കുക"
+  },
+  "manageModels_columns_name": {
+    "message": "പേര്"
+  },
+  "manageModels_columns_digest": {
+    "message": "ഡൈജസ്റ്റ്"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "അവസാനമായി പരിഷ്‌കരിച്ചത്"
+  },
+  "manageModels_columns_size": {
+    "message": "വലുപ്പം"
+  },
+  "manageModels_columns_actions": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "manageModels_columns_nickname": {
+    "message": "പേരുപേര്"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "പാരന്റ് മോഡല്‍"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "ഫോര്‍മാറ്റ്"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "കുടുംബം"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "പാരാമീറ്റര്‍ വലുപ്പം"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "ക്വാണ്ടൈസേഷന്‍ ലെവല്‍"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "മോഡല്‍ ഇല്ലാതാക്കുക"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "മോഡല്‍ വീണ്ടും ലഭ്യമാക്കുക"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "പേരുപേര് തിരുത്തുക"
+  },
+  "manageModels_confirm_delete": {
+    "message": "ഈ മോഡല്‍ ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ?"
+  },
+  "manageModels_confirm_repull": {
+    "message": "ഈ മോഡല്‍ വീണ്ടും ലഭ്യമാക്കണമെന്ന് തീർച്ചയാണോ?"
+  },
+  "manageModels_modal_title": {
+    "message": "പുതിയ മോഡല്‍ ചേര്‍ക്കുക"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "മോഡല്‍ പേര് നല്‍കുക"
+  },
+  "manageModels_modal_pull": {
+    "message": "മോഡല്‍ ലഭ്യമാക്കുക"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "മോഡല്‍ ലഭ്യമാക്കുന്നു"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "{{modelName}} മോഡല്‍ ലഭ്യമാക്കുന്നു. കൂടുതല്‍ വിവരങ്ങള്‍ക്കായി എക്‌സ്റ്റെന്‍ഷന്‍ ഐക്കണ്‍ പരിശോധിക്കുക."
+  },
+  "manageModels_notification_success": {
+    "message": "വിജയം"
+  },
+  "manageModels_notification_error": {
+    "message": "പിശക്"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "മോഡല്‍ വിജയകരമായി ലഭ്യമാക്കി"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "മോഡല്‍ വിജയകരമായി ഇല്ലാതാക്കി"
+  },
+  "manageModels_notification_someError": {
+    "message": "എന്തോ തെറ്റായി. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക"
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "ഡൗൺലോഡ് റദ്ദാക്കുന്നു"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "മോഡൽ ഡൗൺലോഡ് റദ്ദാക്കുകയാണ്..."
+  },
+  "managePrompts_title": {
+    "message": "പ്രോംപ്റ്റുകള്‍ കൈകാര്യം ചെയ്യുക"
+  },
+  "managePrompts_addBtn": {
+    "message": "പുതിയ പ്രോംപ്റ്റ് ചേര്‍ക്കുക"
+  },
+  "managePrompts_columns_title": {
+    "message": "തലക്കെട്ട്"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "പ്രോംപ്റ്റ്"
+  },
+  "managePrompts_columns_type": {
+    "message": "പ്രോംപ്റ്റ് തരം"
+  },
+  "managePrompts_columns_actions": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "managePrompts_option1": {
+    "message": "സാധാരണ"
+  },
+  "managePrompts_option2": {
+    "message": "ആർഎജി"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "ചോദ്യ പ്രോംപ്റ്റ്"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "വേഗത്തിലുള്ള പ്രോംപ്റ്റ്"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "പ്രോംപ്റ്റ് ഇല്ലാതാക്കുക"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "പ്രോംപ്റ്റ് എഡിറ്റുചെയ്യുക"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "പ്രോംപ്റ്റ് പകർത്തുക"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "ഈ പ്രോംപ്റ്റ് ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ? ഈ പ്രവർത്തനം പിന്നീട് പിൻവലിക്കാനാകില്ല."
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "പുതിയ പ്രോംപ്റ്റ് ചേര്‍ക്കുക"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "പ്രോംപ്റ്റ് എഡിറ്റുചെയ്യുക"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "കസ്റ്റം പ്രോംപ്റ്റുകൾ"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "ചാറ്റിലേക്ക് ചേർക്കാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന പ്രോംപ്റ്റുകൾ സൃഷ്ടിക്കുകയും നിയന്ത്രിക്കുകയും ചെയ്യുക."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "നിങ്ങളുടെ സെർവർ നൽകുന്ന മുൻകൂട്ടി നിർവ്വചിച്ച കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ കാണുകയും ക്രമീകരിക്കുകയും ചെയ്യുക."
+  },
+  "managePrompts_form_title_label": {
+    "message": "തലക്കെട്ട്"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "എന്‍റെ അതുല്യമായ പ്രോംപ്റ്റ്"
+  },
+  "managePrompts_form_title_required": {
+    "message": "ദയവായി ഒരു തലക്കെട്ട് നല്കുക"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "പ്രോംപ്റ്റ്"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "പ്രോംപ്റ്റ് നല്കുക"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "ദയവായി ഒരു പ്രോംപ്റ്റ് നല്കുക"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "നിങ്ങള്‍ക്ക് {key} എന്ന രീതിയില്‍ പ്രോംപ്റ്റില്‍ വേരിയബിളുകള്‍ ഉപയോഗിക്കാവുന്നതാണ്."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "പ്രോംപ്റ്റിൽ {text} വേരിയബിൾ കാണുന്നില്ല. ദയവായി അത് ചേർക്കുക."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് ആണോ"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "പ്രോംപ്റ്റ് ചേര്‍ക്കുന്നു..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "പ്രോംപ്റ്റ് ചേര്‍ക്കുക"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "പ്രോംപ്റ്റ് അപ്ഡേറ്റ് ചെയ്യുന്നു..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "പ്രോംപ്റ്റ് അപ്ഡേറ്റ് ചെയ്യുക"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "പ്രോംപ്റ്റ് ചേർത്തു"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "പ്രോംപ്റ്റ് വിജയകരമായി ചേർത്തു"
+  },
+  "managePrompts_notification_error": {
+    "message": "പിശക്"
+  },
+  "managePrompts_notification_someError": {
+    "message": "എന്തോ തെറ്റായി. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക"
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "പ്രോംപ്റ്റ് അപ്ഡേറ്റ് ചെയ്‌തു"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "പ്രോംപ്റ്റ് വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "പ്രോംപ്റ്റ് ഇല്ലാതാക്കി"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "പ്രോംപ്റ്റ് വിജയകരമായി ഇല്ലാതാക്കി"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "പ്രോംപ്റ്റുകൾ വർക്ക്സ്പേസ്"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "പുനരുപയോഗിക്കാവുന്ന പ്രോംപ്റ്റുകൾ പ്രോംപ്റ്റുകൾ വർക്ക്സ്പേസിൽ നിന്നാണ് നിയന്ത്രിക്കുന്നത്. അത് തുറക്കാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "പ്രോംപ്റ്റുകൾ വർക്ക്സ്പേസ് തുറക്കുക"
+  },
+  "managePrompts_search": {
+    "message": "തലക്കെട്ടുകളും ഉള്ളടക്കവും തിരയുക"
+  },
+  "managePrompts_filter_all": {
+    "message": "എല്ലാം"
+  },
+  "managePrompts_filter_system": {
+    "message": "സിസ്റ്റം"
+  },
+  "managePrompts_filter_quick": {
+    "message": "ക്വിക്ക്"
+  },
+  "managePrompts_tags_label": {
+    "message": "ടാഗുകൾ"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "ടാഗുകൾ ചേർക്കുക"
+  },
+  "managePrompts_import": {
+    "message": "ഇമ്പോർട്ട്"
+  },
+  "managePrompts_export": {
+    "message": "എക്സ്പോർട്ട്"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "ലയിപ്പിക്കുക"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "മാറ്റിസ്ഥാപിക്കുക"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "മാറ്റിസ്ഥാപിക്കൽ ഇമ്പോർട്ട് ചെയ്ത ഫയലോടെ നിലവിലുള്ള എല്ലാ പ്രോംപ്റ്റുകളും മേൽ എഴുതി മാറ്റും. തുടരണമോ?"
+  },
+  "managePrompts_favorite": {
+    "message": "ഇഷ്ടപ്പെട്ടത്"
+  },
+  "managePrompts_unfavorite": {
+    "message": "ഇഷ്ടത്തിൽ നിന്ന് ഒഴിവാക്കുക"
+  },
+  "managePrompts_partialLoad": {
+    "message": "ചില പ്രോംപ്റ്റ് ഡാറ്റ ലഭ്യമല്ല"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "സെർവർ കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കാൻ പേജ് റിഫ്രെഷ് ചെയ്യുക."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "പ്രോംപ്റ്റുകൾ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "പുനരുപയോഗിക്കാവുന്ന പ്രോംപ്റ്റുകൾ നിയന്ത്രിക്കാൻ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URL ചേർക്കുക."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "കണക്റ്റ് ചെയ്ത ശേഷം, ചാറ്റുകളിൽ പുനരുപയോഗിക്കാവുന്ന കസ്റ്റം പ്രോംപ്റ്റുകൾ സൃഷ്ടിക്കുക."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "ഇതുവരെ കസ്റ്റം പ്രോംപ്റ്റുകൾ ഒന്നുമില്ല"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "പുനരാവൃത ജോലികൾക്കും വർക്ക്‌ഫ്ലോകൾക്കും ടീമിലെ രീതികൾക്കും പുനരുപയോഗിക്കാവുന്ന പ്രോംപ്റ്റുകൾ സൃഷ്ടിക്കുക."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "സമ്മറികൾ, വിശദീകരണം, വിവർത്തനം എന്നിവക്ക് ഇഷ്ടപ്പെട്ട സിസ്റ്റം പ്രോംപ്റ്റ് സംരക്ഷിക്കുക."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "ഇമെയിലുകൾ ഡ്രാഫ്റ്റ് ചെയ്യൽ പോലുള്ള പൊതുവായ പ്രവർത്തനങ്ങൾക്ക് ക്വിക് പ്രോംപ്റ്റുകൾ സൃഷ്ടിക്കുക."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "പ്രോംപ്റ്റ് സൃഷ്ടിക്കുക"
+  },
+  "managePrompts_filterHelp": {
+    "message": "തിരച്ചിൽ ശീർഷകവും പ്രോംപ്റ്റ് ഉള്ളടക്കവും പൊരുത്തപ്പെടുത്തുന്നു. പട്ടിക ചുരുക്കാൻ തരംയും ടാഗുകളും ഉപയോഗിക്കുക."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ ലഭ്യമല്ല"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ നിങ്ങളുടെ tldw സെർവർ നൽകുന്ന മുൻകൂട്ടി നിർവ്വചിച്ച ടെംപ്ലേറ്റുകളാണ്."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "കോപൈലറ്റ് പ്രോംപ്റ്റുകൾ ലഭ്യമാകുമെന്ന് നിങ്ങൾ പ്രതീക്ഷിക്കുന്നുവെങ്കിൽ, സെർവർ പതിപ്പ് അല്ലെങ്കിൽ കോൺഫിഗറേഷൻ പരിശോധിക്കുക."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "സെർവർ അപ്ഡേറ്റ് ചെയ്ത ശേഷം, എക്സ്റ്റൻഷൻ റീലോഡ് ചെയ്ത് ഈ ടാബിലേക്ക് മടങ്ങുക."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "Diagnostics തുറക്കുക"
+  },
+  "manageShare_title": {
+    "message": "പങ്കിടുന്നത് കൈകാര്യം ചെയ്യുക"
+  },
+  "manageShare_heading": {
+    "message": "പേജ് പങ്കിടാനുള്ള URL കോൺഫിഗർ ചെയ്യുക"
+  },
+  "manageShare_form_url_label": {
+    "message": "പേജ് പങ്കിടാനുള്ള URL"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "പേജ് പങ്കിടാനുള്ള URL നല്കുക"
+  },
+  "manageShare_form_url_required": {
+    "message": "ദയവായി നിങ്ങളുടെ പേജ് പങ്കിടാനുള്ള URL നല്കുക!"
+  },
+  "manageShare_form_url_help": {
+    "message": "സ്വകാര്യതക്കായി, നിങ്ങള്‍ക്ക് സ്വന്തമായി പേജ് പങ്കിടുന്ന സൗകര്യം ഹോസ്റ്റ് ചെയ്യാനും അവിടെയുള്ള URL ഇവിടെ നല്കാനും കഴിയും. <anchor>കൂടുതല്‍ അറിയുക</anchor>."
+  },
+  "manageShare_webshare_heading": {
+    "message": "വെബ് പങ്കിടല്‍"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "തലക്കെട്ട്"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "യുആർഎൽ"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "പങ്കിടല്‍ ഇല്ലാതാക്കുക"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "ഈ പങ്കിടല്‍ ഇല്ലാതാക്കണമെന്ന് തീർച്ചയാണോ? ഈ പ്രവർത്തനം പിന്നീട് പിൻവലിക്കാനാകില്ല."
+  },
+  "manageShare_webshare_label": {
+    "message": "പേജ് ഷെയർ നിയന്ത്രിക്കുക"
+  },
+  "manageShare_webshare_description": {
+    "message": "പേജ് ഷെയർ സാങ്കേതികത സജ്ജീകരിക്കുക അല്ലെങ്കിൽ നിലവിളിക്കുക ."
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "പേജ് പങ്കിടാനുള്ള URL വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു"
+  },
+  "manageShare_notification_someError": {
+    "message": "എന്തോ തെറ്റായി. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക"
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "വെബ് പങ്കിടല്‍ വിജയകരമായി ഇല്ലാതാക്കി"
+  },
+  "ollamaSettings_title": {
+    "message": "സെർവർ ഇന്റഗ്രേഷൻ"
+  },
+  "ollamaSettings_heading": {
+    "message": "സെർവർ ഇന്റഗ്രേഷന്‍ കോൺഫിഗർ ചെയ്യുക"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "സെർവർ URL"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "സെർവർ URL നല്കുക"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "ഓളാമ ഇന്റഗ്രേഷൻ ആഗോളമായി പ്രവർത്തനക്ഷമമാക്കുക അല്ലെങ്കിൽ നിർജ്ജീവമാക്കുക"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "ഓളാമ ഇന്റഗ്രേഷൻ ആഗോളമായി നിർജ്ജീവമാക്കുന്നതിലൂടെ, പേജ് അസിസ്റ്റ് ഓളാമയിൽ നിന്ന് മോഡലുകൾ ലഭ്യമാക്കില്ല. നിങ്ങൾക്ക് <anchor>OpenAI അനുയോജ്യമായ API</anchor> വിഭാഗത്തിൽ നിന്ന് ഓളാമ ഇൻസ്റ്റൻസ് ചേർക്കാൻ കഴിയും, അത് നന്നായി പ്രവർത്തിക്കും."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "പുരോഗമന സെർവർ URL കോൺഫിഗറേഷൻ"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "ഇഷ്ടാനുസൃത ഒറിജിൻ URL പ്രവർത്തനക്ഷമമാക്കുക അല്ലെങ്കിൽ അപ്രാപ്തമാക്കുക"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "ഇഷ്ടാനുസൃത ഒറിജിൻ URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "ഇഷ്ടാനുസൃത ഒറിജിൻ URL നൽകുക"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "സ്വയമേവ CORS പരിഹാരം പ്രവർത്തനക്ഷമമാക്കുക അല്ലെങ്കിൽ നിർജ്ജീവമാക്കുക"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "കസ്റ്റം തലക്കെട്ടുകൾ"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "തലക്കെട്ട് ചേർക്കുക"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "തലക്കെട്ട് കീ"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "അധികൃതപെടുത്തൽ"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "തലക്കെട്ട് മൂല്യം"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "ബെയറർ ടോക്കൺ"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "സെർവറുമായി ബന്ധപ്പെടുമ്പോൾ പ്രശ്നങ്ങൾ ഉണ്ടെങ്കിൽ, നിങ്ങൾക്ക് ഒരു കസ്റ്റം ഒറിജിൻ URL കോൺഫിഗർ ചെയ്യാം. കൂടുതൽ അറിയാൻ <anchor>ഇവിടെ ക്ലിക്കുചെയ്യുക</anchor>."
+  },
+  "manageSearch_heading": {
+    "message": "Web തിരയൽ സജ്ജമാക്കുക"
+  },
+  "manageSearch_title": {
+    "message": "Web തിരയൽ നിയന്ത്രിക്കുക"
+  },
+  "about_title": {
+    "message": "വിവരങ്ങൾ"
+  },
+  "about_heading": {
+    "message": "വിവരങ്ങൾ"
+  },
+  "about_chromeVersion": {
+    "message": "പേജ് അസിസ്റ്റ് വേർഷൻ"
+  },
+  "about_ollamaVersion": {
+    "message": "സെർവർ വേർഷൻ"
+  },
+  "about_support": {
+    "message": "താഴെ പറയുന്ന പ്ലാറ്റ്ഫോമുകളിലൂടെ ദാനം ചെയ്യുകയോ സ്പോൺസർ ചെയ്യുകയോ ചെയ്ത് പേജ് അസിസ്റ്റ് പ്രോജക്റ്റിനെ പിന്തുണയ്ക്കാവുന്നതാണ്:"
+  },
+  "about_koFi": {
+    "message": "കോഫിയിൽ പിന്തുണയ്ക്കുക"
+  },
+  "about_githubSponsor": {
+    "message": "ഗിറ്റ്ഹബ്ബിൽ സ്പോൺസർ ചെയ്യുക"
+  },
+  "about_githubRepo": {
+    "message": "ഗിറ്റ്ഹബ്ബ് റെപ്പോസിറ്ററി"
+  },
+  "switchToSidebar": {
+    "message": "സൈഡ്ബാറിലേക്ക് മാറുക"
+  },
+  "healthPage_title": {
+    "message": "ആരോഗ്യ സ്ഥിതി"
+  },
+  "healthPage_subtitle": {
+    "message": "സെർവർ പുറത്തു വിടുന്ന ഉപസിസ്റ്റങ്ങളുടെ ആരോഗ്യ നിലയുടെ ദ്രുത അവലോകനം."
+  },
+  "healthPage_backToChat": {
+    "message": "ചാറ്റിലേക്ക് മടങ്ങുക"
+  },
+  "healthPage_openSettings": {
+    "message": "tldw ക്രമീകരണങ്ങൾ തുറക്കുക"
+  },
+  "healthPage_recheckAll": {
+    "message": "എല്ലാം വീണ്ടും പരിശോധിക്കുക"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "ഡയഗ്നോസ്റ്റിക്‌സ് പകർത്തുക"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "സെർവർ കോൺഫിഗർ ചെയ്തിട്ടില്ല."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "സെർവർ കോർ ഹെൽത്ത് എൻഡ്പോയിന്റിലേക്ക് എത്താൻ കഴിഞ്ഞില്ല."
+  },
+  "healthPage_triedGet": {
+    "message": "GET {{url}} ശ്രമിച്ചു"
+  },
+  "healthPage_configureHint": {
+    "message": "ദയവായി tldw ക്രമീകരണങ്ങളിൽ ഒരു സെർവർ URL കോൺഫിഗർ ചെയ്യുക."
+  },
+  "healthPage_configureCta": {
+    "message": "കോൺഫിഗർ ചെയ്യുക"
+  },
+  "healthPage_connectedTo": {
+    "message": "{{host}}-നോട് കണക്റ്റ് ചെയ്‌തു"
+  },
+  "healthPage_autoRefresh": {
+    "message": "ഓട്ടോ-റിഫ്രെഷ്"
+  },
+  "healthPage_intervalLabel": {
+    "message": "ഇടവേള (s):"
+  },
+  "healthPage_checking": {
+    "message": "പരിശോധിക്കുന്നു…"
+  },
+  "healthPage_recheck": {
+    "message": "വീണ്ടും പരിശോധിക്കുക"
+  },
+  "healthPage_healthy": {
+    "message": "സജ്ജം"
+  },
+  "healthPage_unhealthy": {
+    "message": "പ്രശ്നം"
+  },
+  "healthPage_unknown": {
+    "message": "അജ്ഞാതം"
+  },
+  "healthPage_checks_core": {
+    "message": "കോർ API"
+  },
+  "healthPage_checks_rag": {
+    "message": "ആർഎജി"
+  },
+  "healthPage_checks_audio": {
+    "message": "ഓഡിയോ"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "എംബെഡ്ഡിംഗുകൾ"
+  },
+  "healthPage_checks_metrics": {
+    "message": "മെട്രിക്‌സ് ഹെൽത്ത്"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "ചാറ്റ് മെട്രിക്‌സ്"
+  },
+  "healthPage_checks_mcp": {
+    "message": "എംസി.പി"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "JSON ഡയഗ്നോസ്റ്റിക്‌സ് ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുന്നു"
+  },
+  "healthPage_statusHealthy": {
+    "message": "സജ്ജം"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "പ്രശ്നം"
+  },
+  "healthPage_statusUnknown": {
+    "message": "അജ്ഞാതം"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "ഇപ്പോള്‍ തന്നെ അപ്ഡേറ്റ് ചെയ്തു"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "അപ്ഡേറ്റ് ചെയ്തത് {{seconds}} സെക്കൻഡ് മുമ്പ്"
+  },
+  "savedSuccessfully": {
+    "message": "സെറ്റിംഗുകൾ സേവ് ചെയ്തു"
+  },
+  "saveFailed": {
+    "message": "സെറ്റിംഗുകൾ സേവ് ചെയ്യാനായില്ല"
+  },
+  "siteAccessGranted": {
+    "message": "{{origin}} ന് ഹോസ്റ്റ് അനുമതി നൽകിയിരിക്കുന്നു"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "ഉന്നത ടൈംഔട്ടുകൾ"
+  },
+  "tldw_requestTimeout": {
+    "message": "അഭ്യർത്ഥന ടൈംഔട്ട് (സെക്കൻഡ്)"
+  },
+  "tldw_streamingIdle": {
+    "message": "സ്ട്രീമിംഗ് ഐഡിൽ ടൈംഔട്ട് (സെക്കൻഡ്)"
+  },
+  "tldw_chatRequest": {
+    "message": "ചാറ്റ് അഭ്യർത്ഥന ടൈംഔട്ട്"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "ചാറ്റ് സ്ട്രീം ഐഡിൽ"
+  },
+  "tldw_ragRequest": {
+    "message": "RAG അഭ്യർത്ഥന ടൈംഔട്ട്"
+  },
+  "tldw_mediaRequest": {
+    "message": "മീഡിയ അഭ്യർത്ഥന ടൈംഔട്ട്"
+  },
+  "tldw_uploadRequest": {
+    "message": "അപ്‌ലോഡ് അഭ്യർത്ഥന ടൈംഔട്ട്"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "ടൈംഔട്ട് പ്രൊഫൈൽ"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "ബാലൻസ്ഡ്"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "വിപുലീകരിച്ചത്"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "ഇച്ഛാനുസൃതം"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "ബാലൻസ്ഡ് ഭൂരിഭാഗം ക്രമീകരണങ്ങൾക്ക് നല്ലതാണ്. വിപുലീകരിച്ചത് മന്ദഗതിയിലുള്ള നെറ്റ്‌വർക്കുകൾക്കും ദീർഘകാല ജോലികൾക്കും കൂടുതൽ സമയം നൽകുന്നു."
+  },
+  "tldw_reset": {
+    "message": "ശുപാർശ ചെയ്തതിനേക്ക് റിസെറ്റ് ചെയ്യുക"
+  },
+  "tldw_resetDone": {
+    "message": "ശുപാർശ ചെയ്ത ഡീഫോൾട്ടിലേക്ക് റിസെറ്റ് ചെയ്തു"
+  },
+  "tldw_serverNav": {
+    "message": "tldw സർവർ"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "tldw സർവർ ക്രമീകരണം"
+  },
+  "tldw_serverLabel": {
+    "message": "സർവർ:"
+  },
+  "tldw_notConfigured": {
+    "message": "ക്രമീകരിച്ചിട്ടില്ല"
+  },
+  "tldw_buttons_health": {
+    "message": "സ്ഥിതി"
+  },
+  "tldw_buttons_recheck": {
+    "message": "വീണ്ടും പരിശോധിക്കുക"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "കണക്ഷൻ പരിശോധിക്കുക"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "സൈറ്റ് പ്രവേശനം അനുവദിക്കുക"
+  },
+  "tldw_buttons_login": {
+    "message": "ലോഗിൻ"
+  },
+  "tldw_buttons_logout": {
+    "message": "ലോഗൗട്ട്"
+  },
+  "tldw_loginRequired_title": {
+    "message": "ലോഗിൻ ആവശ്യമാണ്"
+  },
+  "tldw_loginRequired_description": {
+    "message": "താങ്കളുടെ tldw_server ക്രെഡൻഷ്യലുകളുമായി ലോഗിൻ ചെയ്യുക"
+  },
+  "tldw_loggedIn_title": {
+    "message": "ലോഗിൻ ചെയ്തു"
+  },
+  "tldw_loggedIn_description": {
+    "message": "നിങ്ങൾ ഇപ്പോൾ tldw_server ൽ ലോഗിൻ ചെയ്‌തിരിക്കുന്നു"
+  },
+  "tldw_connection_success": {
+    "message": "കണക്ഷൻ വിജയകരം!"
+  },
+  "tldw_connection_failed": {
+    "message": "കണക്ഷൻ പരാജയപ്പെട്ടു. ക്രമീകരണങ്ങൾ പരിശോധിക്കുക."
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "കണക്ഷൻ പരാജയപ്പെട്ടു. സർവർ URLയും API കീയും പരിശോധിക്കുക."
+  },
+  "tldw_authMode_label": {
+    "message": "പ്രാമാണീകരണ മോഡ്"
+  },
+  "tldw_authMode_single": {
+    "message": "ഒറ്റ ഉപയോക്താവ് (API കീ)"
+  },
+  "tldw_authMode_multi": {
+    "message": "മൾട്ടി ഉപയോക്താവ് (ലോഗിൻ)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "ഈ സമയത്തിനുള്ളിൽ പ്രതികരണം ഇല്ലെങ്കിൽ ആദ്യ അഭ്യർത്ഥനകൾ അവസാനിപ്പിക്കുക. നിർദിഷ്ടം: {{seconds}}s."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "ഈ സമയത്തിനുള്ളിൽ അപ്‌ഡേറ്റുകൾ ലഭ്യമല്ലെങ്കിൽ സ്ട്രീമിംഗ് അവസാനിപ്പിക്കുക. നിർദിഷ്ടം: {{seconds}}s."
+  },
+  "tldw_login_success": {
+    "message": "ലോഗിൻ വിജയകരമാണ്!"
+  },
+  "tldw_login_failed": {
+    "message": "ലോഗിൻ പരാജയപ്പെട്ടു"
+  },
+  "tldw_logout_success": {
+    "message": "വിജയകരമായി ലോഗൗട്ട് ചെയ്തു"
+  },
+  "tldw_logout_failed": {
+    "message": "ലോഗൗട്ട് പരാജയപ്പെട്ടു"
+  },
+  "tldw_setupLink": {
+    "message": "സർവർ സജ്ജമാക്കുക"
+  },
+  "tldw_loadError": {
+    "message": "tldw സർവർ ക്രമീകരണങ്ങൾ ലോഡ് ചെയ്യാനായില്ല. കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "API കീ"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "നിങ്ങളുടെ API കീ നൽകുക"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "ദയവായി നിങ്ങളുടെ API കീ നൽകുക"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "പ്രാമാണീകരണത്തിനുള്ള നിങ്ങളുടെ tldw_server API കീ"
+  },
+  "tldw_fields_username_label": {
+    "message": "ഉപയോക്തൃനാമം"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "ഉപയോക്തൃനാമം നൽകുക"
+  },
+  "tldw_fields_username_required": {
+    "message": "ദയവായി നിങ്ങളുടെ ഉപയോക്തൃനാമം നൽകുക"
+  },
+  "tldw_fields_password_label": {
+    "message": "പാസ്‌വേഡ്"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "പാസ്‌വേഡ് നൽകുക"
+  },
+  "tldw_fields_password_required": {
+    "message": "ദയവായി നിങ്ങളുടെ പാസ്‌വേഡ് നൽകുക"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "സർവർ URL"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "ദയവായി സർവർ URL നൽകുക"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "ദയവായി സാധുവായ URL നൽകുക"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "നിങ്ങളുടെ tldw_server ഇൻസ്റ്റൻസിന്റെ URL (ഉദാ., http://localhost:8000)"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "അസാധുവായ API കീ"
+  },
+  "tldw_errors_forbidden": {
+    "message": "നിരോധിച്ചു (അനുമതികൾ പരിശോധിക്കുക)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "API കീ വാലിഡേഷൻ പരാജയപ്പെട്ടു"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "സർവർ എത്തിച്ചേരാനാകുന്നില്ല"
+  },
+  "tldw_about_title": {
+    "message": "tldw_server ഇന്റഗ്രേഷൻ സംബന്ധിച്ച്"
+  },
+  "tldw_about_description": {
+    "message": "ഈ വിപുലീകരണം നിങ്ങളുടെ tldw_server ഇൻസ്റ്റൻസിലേക്ക് ബന്ധിപ്പിച്ച് പ്രവേശനം നൽകുന്നു:"
+  },
+  "tldw_about_points_providers": {
+    "message": "ഒറ്റ API വഴി ഒന്നിലധികം LLM പ്രൊവൈഡർമാർ"
+  },
+  "tldw_about_points_rag": {
+    "message": "RAG (Retrieval-Augmented Generation) തിരയൽ"
+  },
+  "tldw_about_points_media": {
+    "message": "മീഡിയ ഇൻജക്ഷനും പ്രോസസ്സിംഗും"
+  },
+  "tldw_about_points_notes": {
+    "message": "കുറിപ്പുകളും പ്രോംപ്റ്റുകളും നിയന്ത്രിക്കൽ"
+  },
+  "tldw_about_points_stt": {
+    "message": "വായനയെ ടെക്സ്റ്റിലേക്ക് മാറ്റൽ"
+  },
+  "manageKnowledge_title": {
+    "message": "അറിവ് QA"
+  },
+  "manageKnowledge_heading": {
+    "message": "അറിവ് QA"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "വേൾഡ് ബുക്കുകൾ വർക്ക്സ്പേസ്"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "വേൾഡ് ബുക്കുകൾ വേൾഡ് ബുക്കുകൾ വർക്ക്സ്പേസിൽ നിന്നാണ് നിയന്ത്രിക്കുന്നത്. അത് തുറക്കാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "വേൾഡ് ബുക്കുകൾ വർക്ക്സ്പേസ് തുറക്കുക"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "ചാറ്റ് നിഘണ്ടു വർക്ക്സ്പേസ്"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "ചാറ്റ് നിഘണ്ടുകൾ ചാറ്റ് നിഘണ്ടു വർക്ക്സ്പേസിൽ നിന്നാണ് നിയന്ത്രിക്കുന്നത്. അത് തുറക്കാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "ചാറ്റ് നിഘണ്ടു വർക്ക്സ്പേസ് തുറക്കുക"
+  },
+  "rag_title": {
+    "message": "RAG സെറ്റിംഗുകൾ"
+  },
+  "rag_ragSettings_label": {
+    "message": "RAG സെറ്റിംഗുകൾ"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "എംബെഡിംഗ് മോഡല്‍"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "ദയവായി ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "`nomic-embed-text` പോലുള്ള എംബെഡിംഗ് മോഡലുകള്‍ ഉപയോഗിക്കുന്നത് വളരെ നന്നായിരിക്കും."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "ശുപാർശ ചെയ്യുന്നത്: {{model}} (സർവർ കോൺഫിഗിൽ നിന്ന്)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "മുമ്പ് സംരക്ഷിച്ച എംബെഡിംഗ് മോഡൽ ഇനി സെർവറിൽ ലഭ്യമല്ല. മറ്റൊരു മോഡൽ തിരഞ്ഞെടുക്കുക."
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "ചങ്ക് വലുപ്പം"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "ചങ്ക് വലുപ്പം നല്കുക"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "ദയവായി ചങ്ക് വലുപ്പം നല്കുക"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "ചങ്ക് ഓവര്‍ലാപ്പ്"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "ചങ്ക് ഓവര്‍ലാപ്പ് നല്കുക"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "ദയവായി ചങ്ക് ഓവര്‍ലാപ്പ് നല്കുക"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "വിജ്ഞാനാധാരത്തിന്റെ സ്ഥിര ഫയൽ അപ്‌ലോഡ് പരിധി"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "സ്ഥിര ഫയൽ അപ്‌ലോഡ് പരിധി നൽകുക (ഉദാ: 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "ദയവായി സ്ഥിര ഫയൽ അപ്‌ലോഡ് പരിധി നൽകുക"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "വീണ്ടെടുത്ത രേഖകളുടെ എണ്ണം"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "വീണ്ടെടുത്ത രേഖകളുടെ എണ്ണം നൽകുക"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "ദയവായി വീണ്ടെടുത്ത രേഖകളുടെ എണ്ണം നൽകുക"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "വിഭജന ചിഹ്നം"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "വിഭജന ചിഹ്നം നൽകുക (ഉദാ: \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "ദയവായി ഒരു വിഭജന ചിഹ്നം നൽകുക"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "ടെക്സ്റ്റ് സ്പ്ലിറ്റർ"
+  },
+  "rag_prompt_label": {
+    "message": "RAG പ്രോംപ്റ്റ് കോൺഫിഗർ ചെയ്യുക"
+  },
+  "rag_prompt_option1": {
+    "message": "സാധാരണ"
+  },
+  "rag_prompt_option2": {
+    "message": "വെബ്"
+  },
+  "rag_prompt_alert": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് ഇവിടെ കോൺഫിഗർ ചെയ്യുന്നത് പഴയൗഖികമായി. ദയവായി പ്രോംപ്റ്റുകള്‍ ചേര്‍ക്കാനോ എഡിറ്റുചെയ്യാനോ മാനേജ് പ്രോംപ്റ്റ്‌സ് സെക്ഷന്‍ ഉപയോഗിക്കുക. ഈ സെക്ഷന്‍ ഭാവിയില്‍ നീക്കം ചെയ്യപ്പെടും."
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ്"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് നല്കുക"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "വെബ് തിരയല്‍ പ്രോംപ്റ്റ്"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "പ്രോംപ്റ്റില്‍ നിന്ന് `{search_results}` നീക്കം ചെയ്യരുത്."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "ദയവായി ഒരു വെബ് തിരയല്‍ പ്രോംപ്റ്റ് നല്കുക"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "വെബ് തിരയല്‍ പ്രോംപ്റ്റ് നല്കുക"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "വെബ് തിരയല്‍ തുടര്‍പ്രോംപ്റ്റ്"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "പ്രോംപ്റ്റില്‍ നിന്ന് `{chat_history}` യും `{question}` യും നീക്കം ചെയ്യരുത്."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "ദയവായി നിങ്ങളുടെ വെബ് തിരയല്‍ തുടര്‍പ്രോംപ്റ്റ് നല്കുക!"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "നിങ്ങളുടെ വെബ് തിരയല്‍ തുടര്‍പ്രോംപ്റ്റ്"
+  },
+  "onboarding_title": {
+    "message": "സ്വാഗതം — നിങ്ങൾക്ക് കണക്റ്റ് ആകാം"
+  },
+  "onboarding_description": {
+    "message": "നിങ്ങളുടെ സർവറും ഓതന്റിക്കേഷനും സജ്ജമാക്കുക. കണക്ഷനും Knowledge/RAG നിലയും നാം ഇവിടെ തന്നെ പരിശോധിക്കും."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "tldw സർവർ എങ്ങനെ പ്രവർത്തിക്കുന്നു എന്ന് അറിയുക"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "ഉദാഹരണം: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "http://127.0.0.1:8000 പോലുള്ള പൂർണ്ണ URL നൽകുക."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "http അല്ലെങ്കിൽ https URL ഉപയോഗിക്കുക (ഉദാ: http://127.0.0.1:8000)."
+  },
+  "onboarding_serverUrl_label": {
+    "message": "tldw സർവർ URL"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "‘Next’ എനേബിൾ ചെയ്യാൻ നിങ്ങളുടെ tldw സർവർ URL നൽകുക."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "ഈ അഡ്രസിലെത്താൻ കഴിയുമ്പോൾ ഞങ്ങൾ ‘Next’ എനേബിൾ ചെയ്യും."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "ആക്‌സസിബിലിറ്റി പരിശോധിക്കുന്നു…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "സർവർ വിജയകരമായി പ്രതികരിച്ചു. നിങ്ങൾക്ക് തുടരാം."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "ഇനിയും ഈ അഡ്രസിലെത്താൻ കഴിഞ്ഞില്ല. URL വീണ്ടും പരിശോധിക്കുകയോ പിന്നീട് വീണ്ടും ശ്രമിക്കുകയോ ചെയ്യൂ."
+  },
+  "onboarding_buttons_next": {
+    "message": "അടുത്തത്"
+  },
+  "onboarding_buttons_back": {
+    "message": "തിരികെ"
+  },
+  "onboarding_buttons_continue": {
+    "message": "തുടരുക"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "വീണ്ടും പരിശോധിക്കുക"
+  },
+  "onboarding_buttons_finish": {
+    "message": "പൂർത്തിയാക്കുക"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "കണക്റ്റ് ചെയ്യാതെ പൂർത്തിയാക്കുക"
+  },
+  "onboarding_buttons_skip": {
+    "message": "ഇപ്പോൾ ഒഴിവാക്കുക"
+  },
+  "onboarding_authMode_label": {
+    "message": "ഓതന്റിക്കേഷൻ മോഡ്"
+  },
+  "onboarding_authMode_single": {
+    "message": "ഒരു ഉപയോക്താവ് (API കീ)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "ഒന്നിലധികം ഉപയോക്താക്കൾ (ലോഗിൻ)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "API കീ"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "നിങ്ങളുടെ API കീ നൽകുക (അല്ലെങ്കിൽ ലോക്കൽ സിംഗിൾ-യൂസർ സജ്ജീകരണങ്ങൾക്ക് ഡീഫോൾട്ട് ഡെമോ കീ THIS-IS-A-SECURE-KEY-123-REPLACE-ME ഉപയോഗിക്കുക)"
+  },
+  "onboarding_username_label": {
+    "message": "യൂസർനെയിം"
+  },
+  "onboarding_username_placeholder": {
+    "message": "യൂസർനെയിം"
+  },
+  "onboarding_password_label": {
+    "message": "പാസ്‌വേഡ്"
+  },
+  "onboarding_password_placeholder": {
+    "message": "പാസ്‌വേഡ്"
+  },
+  "onboarding_connection_label": {
+    "message": "കണക്ഷൻ:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "അജ്ഞാതം"
+  },
+  "onboarding_connection_connected": {
+    "message": "കണക്റ്റ് ചെയ്തു"
+  },
+  "onboarding_connection_failed": {
+    "message": "പരാജയപ്പെട്ടു"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "ഇപ്പോൾ തുടരുകയും സജ്ജീകരണം പൂർത്തിയാക്കുകയും ചെയ്യാം. പിന്നീട് Settingsൽ നിന്ന് കണക്ഷൻ പരിശോധിക്കാൻ കഴിയും."
+  },
+  "onboarding_rag_label": {
+    "message": "Knowledge തിരയൽ (RAG):"
+  },
+  "onboarding_rag_healthy": {
+    "message": "സാധാരണ"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "പ്രശ്നങ്ങളുണ്ട്"
+  },
+  "onboarding_rag_unknown": {
+    "message": "അജ്ഞാതം"
+  },
+  "onboarding_connectionFailed": {
+    "message": "കണക്ഷൻ പരാജയപ്പെട്ടു"
+  },
+  "onboarding_footerHelp": {
+    "message": "കണക്റ്റ് ചെയ്ത ശേഷം ഈ ക്രമീകരണങ്ങളിലേക്ക് നിങ്ങൾക്ക് എപ്പോഴും എക്സ്റ്റൻഷൻ മെനുവിൽ നിന്ന് മടങ്ങി വരാം."
+  },
+  "onboarding_progressAria": {
+    "message": "ഓൺബോർഡിംഗ് പുരോഗതി"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "സ്വാഗതം"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "നിങ്ങളുടെ tldw സർവറിൽ കണക്റ്റ് ചെയ്യുക"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "നിങ്ങൾ എങ്ങനെ സൈൻ ഇൻ ചെയ്യണമെന്ന് തിരഞ്ഞെടുക്കുക"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "കണക്ഷനും Knowledge ഉം സ്ഥിരീകരിക്കുക"
+  },
+  "onboarding_startServer_title": {
+    "message": "തുടങ്ങുന്നതിനുമുമ്പ് — നിങ്ങളുടെ tldw സർവർ ആരംഭിക്കുക"
+  },
+  "onboarding_startServer_body": {
+    "message": "നിങ്ങളുടെ സർവർ ഇതുവരെ ആരംഭിച്ചിട്ടില്ലെങ്കിൽ, tldw_server റെപ്പോസിറ്ററിയിൽ ഈ കമാൻഡുകളിൽ ഏതെങ്കിലും ഒന്ന് റൺ ചെയ്ത് ശേഷം ഇവിടെ തിരികെ വരിക."
+  },
+  "onboarding_startServer_copy": {
+    "message": "കമാൻഡ് കോപ്പി ചെയ്യുക"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "Python ഉപയോഗിച്ച് ലോക്കലായി റൺ ചെയ്യുക"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "tldw_server virtualenv-ൽ, സർവർ റെപ്പോസിറ്ററിയുടെ റൂട്ടിൽ നിന്ന് ഇത് റൺ ചെയ്യുക."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "Docker Compose ഉപയോഗിച്ച് റൺ ചെയ്യുക (ഒറ്റ ഉപയോക്താവ്)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "APIയും ഡാറ്റാബേസും ആരംഭിക്കാൻ tldw_server റെപ്പോസിറ്ററിയുടെ റൂട്ടിൽ നിന്ന് ഇത് റൺ ചെയ്യുക."
+  },
+  "onboarding_path_heading": {
+    "message": "തുടങ്ങാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നത് എങ്ങനെ?"
+  },
+  "onboarding_path_hasServer": {
+    "message": "ഞാൻ ഇതിനകം tldw_server പ്രവർത്തിപ്പിച്ചുകൊണ്ടിരിക്കുന്നു"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "നിങ്ങൾ ഇതിനകം പ്രവർത്തിപ്പിക്കുന്ന tldw_server-ലേക്ക് കണക്റ്റ് ചെയ്യുക."
+  },
+  "onboarding_path_noServer": {
+    "message": "എന്നെക്കൊണ്ടു് ഇനിയും ഒരു സർവർ ഇല്ല"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "tldw_server ന്റെ സെറ്റപ്പ് ഗൈഡ് പിന്തുടരുക, അല്ലെങ്കിൽ ഡെമോ മോഡിൽ തുടങ്ങുക."
+  },
+  "onboarding_path_demo": {
+    "message": "ലോകൽ ഡെമോ ഉപയോഗിച്ച് ഒന്ന് നോക്കാം"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "സാമ്പിള്‍ ഡാറ്റ ഉപയോഗിച്ച് വർക്ക്സ്‌പേസ് പരീക്ഷിക്കുക; നിങ്ങളുടെ സ്വന്തം സർവർ പിന്നീട് കണക്റ്റ് ചെയ്യാം."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "ഇനിയും സർവർ ഇല്ലേ? നിങ്ങൾക്ക് ഇപ്പോഴും എക്സ്പ്ലോർ ചെയ്യാം."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server ഒരു വേറിട്ട, സ്വയം ഹോസ്റ്റ് ചെയ്യുന്ന ആപ്പാണ്. ഇപ്പോൾ സജ്ജമാക്കൽ ഗൈഡ് പിന്തുടരാം, അല്ലെങ്കിൽ പിന്നീട് തിരിച്ചെത്തി ഡെമോ മോഡിൽ തുടരാം."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "നിങ്ങളുടെ സ്വന്തമായ മെഷീനിൽ Docker അല്ലെങ്കിൽ Python ഉപയോഗിച്ച് ലോക്കലായി റൺ ചെയ്യുക."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "tldw_server നെ ഒരു റിമോട്ട് VPS ലേക്കോ മാനേജ്ഡ് ഹോസ്റ്റിംഗിലേക്കോ ഡിപ്ലോയ് ചെയ്യുക."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "ലഭ്യമായിരിക്കുന്നുവെങ്കിൽ മാനേജുചെയ്യുന്ന കമർഷ്യൽ tldw_server ഡിപ്ലോയ്‌മെന്റ് ഉപയോഗിക്കുക."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "സജ്ജമാക്കൽ ഗൈഡ് തുറക്കുക"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "ലോകൽ ഡെമോ മോഡ് ഉപയോഗിക്കുക"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "പിന്നീട് ഓർമ്മിപ്പിക്കുക"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "ഡെമോ മോഡിൽ എക്സ്റ്റൻഷൻ എക്സ്പ്ലോർ ചെയ്യുക"
+  },
+  "onboarding_path_demoBody": {
+    "message": "ഡെമോ മോഡ് ഉപയോഗിച്ച് സാമ്പിൾ ഡാറ്റ ഉപയോഗിച്ചു് ചാറ്റ്, നോട്ടുകൾ, മീഡിയ എന്നിവ പരീക്ഷിക്കാൻ കഴിയും. സർവർ ആശ്രയിക്കുന്ന സവിശേഷതകൾ (ഉദാ. Knowledge സെർച്ച്) നിങ്ങൾ നിങ്ങളുടെ സ്വന്തം tldw_server കണക്റ്റ് ചെയ്യുന്നതുവരെ നിയന്ത്രിച്ച നിലയിൽ തുടരും."
+  },
+  "onboarding_path_demoCta": {
+    "message": "ലോകൽ ഡെമോ മോഡ് ഉപയോഗിക്കുക"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Single User (API Key) വ്യക്തിഗത അല്ലെങ്കിൽ ചെറിയ ടീങ്ങളുടെ സർവർകൾക്ക് ശുപാർശ ചെയ്യുന്നു. Multi User (Login) എന്നത് ഉപയോക്താക്കൾ യൂസർനെയിം അല്ലെങ്കിൽ SSO ഉപയോഗിച്ച് ലോഗിൻ ചെയ്യുന്ന ഷെയർ ചെയ്ത ഡിപ്ലോയ്മെന്റുകൾക്കാണ്. നിങ്ങളുടെ tldw_server എങ്ങനെ സജ്ജീകരിച്ചിട്ടുണ്ടോ അതിനൊത്തു വരുന്ന മോഡ് തിരഞ്ഞെടുക്കുക."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "നിങ്ങളുടെ API കീ, tldw_server → Settings → API Keys എന്നിടത്ത് ലഭിക്കും. അവിടെ ഒരു കീ സൃഷ്ടിച്ച് ഇവിടെ പേസ്റ്റ് ചെയ്യുക."
+  },
+  "onboarding_authStepAria": {
+    "message": "3ൽ 2-ാം പടി — ഓതന്റിക്കേഷൻ ക്രമീകരണം"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "3ൽ 3-ാം പടി — കണക്ഷൻ സംഗ്രഹവും അടുത്ത ചുവടുകളും"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "തുടങ്ങാൻ നിങ്ങൾ തയ്യാറായി"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "ഇവിടെ നിന്ന് നിങ്ങൾക്ക് സൈഡ്‌പാനൽ തുറക്കുകയോ ഒരു പേജ് ഇൻജെസ്റ്റ് ചെയ്യുകയോ മീഡിയയും നോട്ടുകളും പരിശോധിക്കുകയോ ചെയ്യാം."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "ചാറ്റ് ആരംഭിക്കുക"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "സൈഡ്‌പാനൽ തുറന്ന് നിങ്ങളുടെ ആദ്യ ചോദ്യം ചോദിക്കുക."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "സൈഡ്‌പാനൽ തുറക്കുക"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "നിങ്ങളുടെ ആദ്യ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "മുകളിൽ ഉള്ള ഹെഡറിലെ ‘Quick ingest’ ഉപയോഗിച്ച് നിലവിലെ ടാബ് നിങ്ങളുടെ സർവറിൽ സംരക്ഷിക്കുക."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "മീഡിയയും നോട്ടുകളും പരിശോധിക്കുക"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "ഓപ്ഷൻസിലെ ‘Media’യും ‘Notes’ഉം സന്ദർശിച്ച് എന്തൊക്കെ സൂക്ഷിച്ചിട്ടുണ്ടെന്നും തിരയാനാവുന്നതെന്നും കാണുക."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "തലക്കെട്ടിൽ ദ്രുത ഷോർട്ട്‌കട്ടുകൾ കാണിക്കുക"
+  },
+  "manageCharacters_title": {
+    "message": "കഥാപാത്രങ്ങൾ നിയന്ത്രിക്കുക"
+  },
+  "manageCharacters_addBtn": {
+    "message": "പുതിയ കഥാപാത്രം"
+  },
+  "manageCharacters_columns_name": {
+    "message": "പേര്"
+  },
+  "manageCharacters_columns_description": {
+    "message": "വിവരണം"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "പ്രവർത്തനങ്ങൾ"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "അവതാർ"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "ചാറ്റ്"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "തിരുത്തുക"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "ഇല്ലാതാക്കുക"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "സംഭാഷണങ്ങൾ കാണുക"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "പകർത്തുക"
+  },
+  "manageCharacters_tags_label": {
+    "message": "ടാഗുകൾ"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "ടാഗുകൾ ചേർക്കുക"
+  },
+  "manageCharacters_tags_help": {
+    "message": "ഉപയോഗകേസ് പ്രകാരം കഥാപാത്രങ്ങളെ ഗ്രൂപ്പ് ചെയ്യാൻ ടാഗുകൾ ഉപയോഗിക്കുക (ഉദാ., “എഴുത്ത്”, “പഠനം”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "കഥാപാത്രം തിരുത്തുക"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കുക"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}} ആയി ചാറ്റ് ചെയ്യുക"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "കഥാപാത്രം തിരുത്തുക {{name}}"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കുക {{name}}"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "{{name}} എന്ന കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ കാണുക"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}} കഥാപാത്രങ്ങൾ കണ്ടെത്തി"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "{{name}} കഥാപാത്രം പകർത്തുക"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "ഈ കഥാപാത്രം ഇല്ലാതാക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ? ഈ പ്രവർത്തനം പിൻവലിക്കാനാവില്ല."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "പേര്"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "ഉദാ. എഴുത്ത് പരിശീലകൻ"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "ദയവായി ഒരു പേര് നൽകുക"
+  },
+  "manageCharacters_form_description": {
+    "message": "സൈഡ്ബാറിൽ ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന കഥാപാത്രം നിർവചിക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "പെരുമാറ്റം / നിർദ്ദേശങ്ങൾ"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "ഉദാ., നിങ്ങൾ ക്ഷമയുള്ള ഗണിത അധ്യാപകനാണ്; ഘട്ടം ഘട്ടമായി ആശയങ്ങൾ വിശദീകരിച്ച് ചെറു ഉദാഹരണങ്ങളിലൂടെ ബോധ്യപ്പെടുത്തുന്നു."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "കഥാപാത്രത്തിന്റെ റോളും ടോണും നിയന്ത്രണങ്ങളും വിശദീകരിക്കുക. ഉദാഹരണത്തിന്: \"നിങ്ങൾ ഘട്ടം ഘട്ടമായി ആശയങ്ങൾ വിശദീകരിക്കുന്ന ക്ഷമയുള്ള ഗണിത ട്യൂട്ടറാണ്.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "കഥാപാത്രം എങ്ങനെ മറുപടി നൽകണമെന്ന് അറിയാൻ ഒരു ചെറിയ വിവരണം ചേർക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "പ്രതികരണങ്ങൾ നയിക്കാൻ നിർദ്ദേശങ്ങൾ ചേർക്കുക."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ് 2000 പ്രതീകങ്ങൾ അല്ലെങ്കിൽ കുറവായിരിക്കണം."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "അവതാർ URL (ഐച്ഛികം)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "ഉദാ: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "ആശംസ സന്ദേശം (ഐച്ഛികം)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "ഹായ്! ഞാൻ നിങ്ങളുടെ എഴുത്ത് പരിശീലകനാണ്. നിങ്ങളുടെ ഡ്രാഫ്റ്റ് പേസ്റ്റ് ചെയ്യൂ, അതിനെ മെച്ചപ്പെടുത്താൻ ഞാൻ സഹായിക്കും."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "ചാറ്റ് ആരംഭിക്കുമ്പോൾ കഥാപാത്രം അയക്കുന്ന ആദ്യ സന്ദേശം (ഐച്ഛികം)."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുന്നു..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുക"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "മാറ്റങ്ങൾ സേവ് ചെയ്യുന്നു..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "മാറ്റങ്ങൾ സേവ് ചെയ്യുക"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "കഥാപാത്രം സൃഷ്ടിച്ചു"
+  },
+  "manageCharacters_notification_error": {
+    "message": "പിശക്"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "എന്തോ പിശക് സംഭവിച്ചു. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക"
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "കഥാപാത്രം പുതുക്കി"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "കഥാപാത്രം ഇല്ലാതാക്കി"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "കഥാപാത്രങ്ങൾ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "ഇതുവരെ കഥാപാത്രങ്ങളില്ല"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "പേര്, വിവരണം, സിസ്റ്റം പ്രോംപ്റ്റ് എന്നിവയോടെ ചാറ്റ് ചെയ്യാൻ കഴിയുന്ന പുനരുപയോഗിക്കാവുന്ന കഥാപാത്രം സൃഷ്ടിക്കുക."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "ചാറ്റുകളിൽ പുനരുപയോഗിക്കാനാവുന്ന എഴുത്ത് പരിശീലകൻ, ലോർ വിദഗ്‌ധൻ, അല്ലെങ്കിൽ കോഡിംഗ് സഹായി എന്നിവ നിർവചിക്കുക."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "മറുപടികൾ സ്ഥിരതയോടെ നിലനിർത്താൻ ഓരോ കഥാപാത്രത്തിനും വ്യക്തമായ വിവരണവും പെരുമാറ്റവും നൽകുക."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "കഥാപാത്രം സൃഷ്ടിക്കുക"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}}യുടെ അവതാർ"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "ഉപയോക്താവിന്റെ അവതാർ"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}} കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "കഥാപാത്ര സംഭാഷണങ്ങൾ"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "ഈ കഥാപാത്രമായി തുടരാൻ ഒരു സംഭാഷണം തിരഞ്ഞെടുക്കുക."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "ഈ കഥാപാത്രത്തിനായി ഇനിയും സംഭാഷണങ്ങൾ കണ്ടെത്തിയിട്ടില്ല."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "ഈ കഥാപാത്രത്തിനുള്ള സംഭാഷണങ്ങൾ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "പുതുക്കിയത് {{time}}"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "അറിയില്ല"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "ചാറ്റ് തുടരുക"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "ശീർഷകമില്ല"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "ഏറ്റവും പുതിയത്"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "ചാറ്റ് ചരിത്രം ലോഡ് ചെയ്ത് ഈ സംഭാഷണം തുടരുക"
+  },
+  "manageCharacters_preview_title": {
+    "message": "പ്രിവ്യൂ"
+  },
+  "manageCharacters_preview_show": {
+    "message": "പ്രിവ്യൂ കാണിക്കുക"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "പ്രിവ്യൂ മറയ്ക്കുക"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "ശീർഷകമില്ലാത്ത കഥാപാത്രം"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "ആശംസ"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "പെരുമാറ്റം"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "പ്രിവ്യൂ കാണാൻ ഫോം പൂരിപ്പിക്കുക"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "അഡ്വാൻസ്ഡ് ഫീൽഡുകൾ കാണിക്കുക"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "അഡ്വാൻസ്ഡ് ഫീൽഡുകൾ മറയ്ക്കുക"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "വിവരണം ഇല്ല"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "എല്ലാ ടാഗുകളും പൊരുത്തപ്പെടുത്തുക"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "അവതാർ (ഐച്ഛികം)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "യുആർഎൽ"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "അപ്‌ലോഡ്"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "ഒരു ചിത്ര ഫയൽ തിരഞ്ഞെടുക്കുക"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG, JPEG, GIF ചിത്രങ്ങൾ മാത്രമേ പിന്തുണയ്ക്കൂ"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "അസാധുവായ ചിത്ര ഫയൽ"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "ചിത്രം പ്രോസസ്സ് ചെയ്യാൻ കഴിഞ്ഞില്ല"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "അപ്‌ലോഡ് ചെയ്യാൻ ക്ലിക്കുചെയ്യുക അല്ലെങ്കിൽ ചിത്രം വലിച്ചിടുക"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG അല്ലെങ്കിൽ GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "പ്രിവ്യൂ"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "ഡാറ്റ വിജയകരമായി ഇറക്കുമതി ചെയ്തു"
+  },
+  "systemNotifications_importError": {
+    "message": "ഇറക്കുമതി പിശക്"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Firefox ഡാറ്റ വിജയകരമായി സിങ്ക് ചെയ്തു, വീണ്ടും ചെയ്യേണ്ടതില്ല"
+  },
+  "systemNotifications_syncError": {
+    "message": "Firefox ഡാറ്റ സിങ്ക് പരാജയപ്പെട്ടു"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "സാധുവായ ഇമേജ് ഫയൽ തിരഞ്ഞെടുക്കുക"
+  },
+  "prompts_enterPrompt": {
+    "message": "ഒരു പ്രോംപ്റ്റ് നൽകുക."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "ഒരു പ്രോംപ്റ്റ് നൽകുക."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "ഫോളോ-അപ്പ് പ്രോംപ്റ്റ് നൽകുക."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "ഫോളോ-അപ്പ് പ്രോംപ്റ്റ് നൽകുക."
+  },
+  "prompts_privateModeDescription": {
+    "message": "Firefox സ്വകാര്യ മോഡ് IndexedDB-ൽ സംരക്ഷണം പിന്തുണയ്ക്കുന്നില്ല. സാധാരണ വിൻഡോയിലൂടെ പ്രോംപ്റ്റുകൾ ചേർക്കുക."
+  },
+  "models_privateModeDescription": {
+    "message": "Firefox സ്വകാര്യ മോഡ് IndexedDB-ൽ സംരക്ഷണം പിന്തുണയ്ക്കുന്നില്ല. സാധാരണ വിൻഡോയിലൂടെ കസ്റ്റം മോഡൽ ചേർക്കുക."
+  },
+  "evaluationsSettingsNav": {
+    "message": "മൂല്യനിർണ്ണയങ്ങൾ"
+  },
+  "promptStudioNav": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ"
+  },
+  "promptStudio_nav": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ"
+  },
+  "promptStudio_title": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ"
+  },
+  "promptStudio_subtitle": {
+    "message": "ഡിഫോൾട്ടുകൾ ക്രമീകരിച്ച് പ്രോംപ്റ്റ് സ്റ്റുഡിയോ ആരോഗ്യസ്ഥിതി നിരീക്ഷിക്കുക. കണക്ഷനും ഓത്തും പ്രധാന സെർവർ സെറ്റിംഗുകൾ പുനരുപയോഗിക്കുന്നു."
+  },
+  "promptStudio_probeError": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ എത്തിച്ചേരാനായില്ല"
+  },
+  "promptStudio_statusCard": {
+    "message": "സ്ഥിതി"
+  },
+  "promptStudio_statusHint": {
+    "message": "ബട്ടൺ /prompt-studio/status നെ warn_seconds സഹിതം വിളിക്കുന്നു."
+  },
+  "promptStudio_statusError": {
+    "message": "സ്റ്റാറ്റസ് എൻഡ്പോയിന്റ് ലഭ്യമല്ല"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "മുന്നറിയിപ്പ് സെക്കൻഡുകൾ"
+  },
+  "promptStudio_testButton": {
+    "message": "പ്രോംപ്റ്റ് സ്റ്റുഡിയോ ടെസ്റ്റ് ചെയ്യുക"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "ഡിഫോൾട്ടുകൾ"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "സ്ഥിരസ്ഥിതി പ്രോജക്ട്, മോഡൽ കോൺഫിഗുകൾ, ലിസ്റ്റ് പേജ് വലുപ്പം സംഭരിക്കുക."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "പ്രാരംഭ പ്രോജക്ട് തിരഞ്ഞെടുപ്പ്, എക്സിക്യൂട്ട്/മൂല്യനിർണ്ണയ മോഡൽ പ്രീസെറ്റുകൾ, പേജിനേഷൻ എന്നിവയ്ക്കായി നിലവിലെ സെറ്റിംഗ്സ് സ്റ്റോറേജ് (TBD) ഉപയോഗിച്ച് ഡിഫോൾട്ടുകൾ നിലനിർത്തുക."
+  },
+  "promptStudio_defaultProject": {
+    "message": "സ്ഥിരസ്ഥിതി പ്രോജക്ട് ഐഡി"
+  },
+  "promptStudio_pageSize": {
+    "message": "പേജ് വലുപ്പം"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "എക്സിക്യൂട്ട് ഡിഫോൾട്ടുകൾ"
+  },
+  "promptStudio_executeProvider": {
+    "message": "പ്രൊവൈഡർ"
+  },
+  "promptStudio_executeModel": {
+    "message": "മോഡൽ"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "താപനില"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "പരമാവധി ടോക്കൺ"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "മൂല്യനിർണ്ണയ ഡിഫോൾട്ടുകൾ"
+  },
+  "promptStudio_evalModel": {
+    "message": "മോഡൽ"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "താപനില"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "പരമാവധി ടോക്കൺ"
+  },
+  "promptStudio_unavailable": {
+    "message": "സെർവറിൽ ഇനിയും പ്രോംപ്റ്റ് സ്റ്റുഡിയോ ലഭ്യമല്ല."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "എനേബിൾ ചെയ്താൽ, ക്യൂ ആരോഗ്യസ്ഥിതി നിരീക്ഷിച്ച് ഇവിടെ ഡിഫോൾട്ടുകൾ സെറ്റ് ചെയ്യാം."
+  },
+  "charactersSettingsTitle": {
+    "message": "ക്യാരക്ടേഴ്സ് വർക്ക്സ്പേസ്"
+  },
+  "charactersSettingsDescription": {
+    "message": "ക്യാരക്ടേഴ്സ് ക്യാരക്ടേഴ്സ് വർക്ക്സ്പേസിൽ നിന്നാണ് നിയന്ത്രിക്കുന്നത്. അത് തുറക്കാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക."
+  },
+  "charactersOpenWorkspace": {
+    "message": "ക്യാരക്ടേഴ്സ് വർക്ക്സ്പേസ് തുറക്കുക"
+  },
+  "mermaid": {
+    "message": "മെർമെയ്ഡ്"
+  },
+  "healthSummary_diagnostics": {
+    "message": "ഡയഗ്നോസ്റ്റിക്സ്"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "പ്രശ്നപരിഹാരത്തിനോ ഹെൽത്ത് ചെക്കുകൾ പരിശോധിക്കാനോ വിശദമായ ഡയഗ്നോസ്റ്റിക്സ് തുറക്കുക."
+  },
+  "healthSummary_core": {
+    "message": "സെർവർ"
+  },
+  "healthSummary_rag": {
+    "message": "അറിവ്"
+  },
+  "healthSummary_coreAria": {
+    "message": "സെർവർ: സെർവർ/API ആരോഗ്യസ്ഥിതി"
+  },
+  "healthSummary_ragAria": {
+    "message": "അറിവ്: നോളജ് ഇൻഡെക്സ് ആരോഗ്യസ്ഥിതി"
+  },
+  "healthSummary_coreOnline": {
+    "message": "സെർവർ: ഓൺലൈൻ"
+  },
+  "healthSummary_coreOffline": {
+    "message": "സെർവർ: ഓഫ്‌ലൈൻ"
+  },
+  "healthSummary_coreChecking": {
+    "message": "സെർവർ: പരിശോധിക്കുന്നു…"
+  },
+  "healthSummary_ragReady": {
+    "message": "അറിവ്: തയ്യാറാണ്"
+  },
+  "healthSummary_ragOffline": {
+    "message": "അറിവ്: ഓഫ്‌ലൈൻ"
+  },
+  "healthSummary_ragChecking": {
+    "message": "അറിവ്: പരിശോധിക്കുന്നു…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "ഈ ചെക്കുകൾ നിങ്ങളുടെ tldw സെർവർയും നോളജ് ഇൻഡെക്സും അവസാനമായി വിജയകരമായി പിംഗ് ചെയ്തതിന്റെ സംഗ്രഹമാണ്."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "കുറഞ്ഞ സമയത്ത് വളരെ കൂടുതൽ സെറ്റിംഗുകൾ എഴുതപ്പെട്ടു; കുറച്ച് സെക്കൻഡ് കാത്ത് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "storage_quotaTitle": {
+    "message": "സ്റ്റോറേജ് പരിധി എത്തി"
+  },
+  "storage_writeError": {
+    "message": "സെറ്റിംഗുകൾ സേവ് ചെയ്യാനായില്ല"
+  },
+  "storage_writeErrorDescription": {
+    "message": "നിങ്ങളുടെ സെറ്റിംഗുകൾ സേവ് ചെയ്യാനായില്ല. കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "evaluations_title": {
+    "message": "മൂല്യനിർണ്ണയ പ്ലേഗ്രൗണ്ട്"
+  },
+  "evaluations_subtitle": {
+    "message": "നിങ്ങളുടെ tldw സെർവറിനെതിരെ മൂല്യനിർണ്ണയങ്ങൾ നിർവ്വചിച്ച് പുതിയ റൺസ് പരിശോധിക്കുക."
+  },
+  "evaluations_listTitle": {
+    "message": "ഒടുത്തത്തെ മൂല്യനിർണ്ണയങ്ങൾ"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "പുതിയ മൂല്യനിർണ്ണയം"
+  },
+  "evaluations_startRunCta": {
+    "message": "റൺ ആരംഭിക്കുക"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "മൂല്യനിർണ്ണയങ്ങൾ ലോഡ് ചെയ്യാനായില്ല"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "നിങ്ങളുടെ tldw സെർവർ കണക്ഷനും API ക്രെഡൻഷ്യലുകളും പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "evaluations_emptyList": {
+    "message": "ഇതുവരെ മൂല്യനിർണ്ണയങ്ങൾ ഒന്നുമില്ല. നിങ്ങൾ ഒന്നൊരുങ്ങിയാൽ അത് ഇവിടെ പ്രത്യക്ഷപ്പെടും."
+  },
+  "evaluations_selectedTag": {
+    "message": "തിരഞ്ഞെടുത്തത്"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "മൂല്യനിർണ്ണയ പരിധികൾ"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "പരിധികൾ നേടാനായില്ല"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "സെർവർയിൽ നിന്ന് മൂല്യനിർണ്ണയ ക്വോട്ടകൾ ലഭ്യമാക്കാനായില്ല."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "ഈ സെർവറിനായി പരിധി വിവരങ്ങൾ ലഭ്യമല്ല."
+  },
+  "evaluations_tierLabel": {
+    "message": "ടിയർ"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "ദൈനംദിന മൂല്യനിർണ്ണയങ്ങൾ"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "ഇന്നത്തെ ടോക്കണുകൾ"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "മിനിറ്റിന് പരിധി"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "റീസെറ്റ് സമയം"
+  },
+  "evaluations_runsTitle": {
+    "message": "റൺസ്"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "പുതിയ റൺസ് കാണാൻ ഒരു മൂല്യനിർണ്ണയം തിരഞ്ഞെടുക്കുക."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "റൺസ് ലോഡ് ചെയ്യാനായില്ല"
+  },
+  "evaluations_runsEmpty": {
+    "message": "ഈ മൂല്യനിർണ്ണയത്തിനായി ഇനിയും റൺസ് ഒന്നുമില്ല."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "റൺ വിശദാംശങ്ങൾ"
+  },
+  "evaluations_noRunSelected": {
+    "message": "വിശദാംശങ്ങൾ കാണാൻ ഒരു റൺ തിരഞ്ഞെടുക്കുക."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "റൺ വിശദാംശങ്ങൾ ലോഡ് ചെയ്യാനായില്ല"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "സ്ഥിതി"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "ലക്ഷ്യ മോഡൽ"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "മൂല്യനിർണ്ണയം"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "പിശക്"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "ഫലങ്ങൾ (ചുരുക്കം)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "പുരോഗതി"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "ഉപയോഗം"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "ഡാറ്റാസെറ്റുകൾ"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "പുതിയ ഡാറ്റാസെറ്റ്"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "ഡാറ്റാസെറ്റുകൾ ലോഡ് ചെയ്യാനായില്ല"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "ഇതുവരെ ഡാറ്റാസെറ്റ് ഒന്നുമില്ല. മൂല്യനിർണ്ണയങ്ങൾക്ക് ചേർക്കാൻ ഒന്ന് സൃഷ്ടിക്കുക."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}} സാമ്പിളുകൾ"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "പേര്"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "ഉദാ: my_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "വിവരണം"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "മെറ്റാഡേറ്റ (JSON, ഐച്ഛികം)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "സാമ്പിൾ ഇൻപുട്ട്"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "പ്രതീക്ഷിക്കുന്ന ഔട്ട്പുട്ട് (ഐച്ഛികം)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "സാമ്പിളുകൾ JSON (ഐച്ഛികം, ഫീൽഡുകൾ മറികടക്കുന്നു)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "ഡാറ്റാസെറ്റ് (ഐച്ഛികം)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "ഡാറ്റാസെറ്റ് തിരഞ്ഞെടുക്കുക"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "ഡാറ്റാസെറ്റ് സൃഷ്ടിച്ചു"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "നിങ്ങളുടെ ഡാറ്റാസെറ്റ് മൂല്യനിർണ്ണയങ്ങളിൽ ഉപയോഗിക്കാൻ തയ്യാറാണ്."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "ഡാറ്റാസെറ്റ് സൃഷ്ടിക്കാനായില്ല"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "സെർവർ ഈ ഡാറ്റാസെറ്റ് നിരസിച്ചു. ഫീൽഡുകൾ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "ഡാറ്റാസെറ്റ് ഇല്ലാതാക്കി"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "ഡാറ്റാസെറ്റ് ഇല്ലാതാക്കാനായില്ല"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "ഡാറ്റാസെറ്റ് ലോഡ് ചെയ്യാനായില്ല"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "ഡാറ്റാസെറ്റ് വിശദാംശങ്ങൾ"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "അസാധുവായ സാമ്പിളുകൾ JSON"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "പുതിയ മൂല്യനിർണ്ണയം"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "മൂല്യനിർണ്ണയം തിരുത്തുക"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "പേര്"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "ഉദാ: my_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "അക്ഷരങ്ങൾ, അക്കങ്ങൾ, ഹൈഫൻ, അണ്ടർസ്കോർ മാത്രം ഉപയോഗിക്കുക."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "മൂല്യനിർണ്ണയ തരം"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "മൂല്യനിർണ്ണയ സ്പെക്ക് (JSON)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "മൂല്യനിർണ്ണയ സ്പെക്ക് ശരിയായ JSON ആകണം."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "മെറ്റാഡേറ്റ (JSON, ഐച്ഛികം)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "dataset_id റഫറൻസ് ചെയ്യുന്നതിനുപകരം ഇൻലൈൻ ഡാറ്റാസെറ്റ് ചേർക്കുക"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "അസാധുവായ ഇൻലൈൻ ഡാറ്റാസെറ്റ്"
+  },
+  "evaluations_runModelLabel": {
+    "message": "റൺ മോഡൽ (ക്വിക്ക് റൺസിനായി)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "മൂല്യനിർണ്ണയം സൃഷ്ടിച്ചു"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "മൂല്യനിർണ്ണയം സൃഷ്ടിക്കാനായില്ല"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "സെർവർ ഈ മൂല്യനിർണ്ണയം നിരസിച്ചു. പേര്, തരം, സ്പെക്ക് എന്നിവ ശരിയാണെന്ന് ഉറപ്പാക്കുക."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "മൂല്യനിർണ്ണയം അപ്ഡേറ്റ് ചെയ്തു"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "മൂല്യനിർണ്ണയം അപ്ഡേറ്റ് ചെയ്യാനായില്ല"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "മൂല്യനിർണ്ണയം ഇല്ലാതാക്കാനായില്ല"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "ഈ മൂല്യനിർണ്ണയം ഇല്ലാതാക്കണോ?"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "ഇത് മൂല്യനിർണ്ണയ നിർവചനം നീക്കം ചെയ്യും. ഇതിനകം സൃഷ്ടിച്ച റൺസ് ചരിത്രത്തിൽ തുടരും."
+  },
+  "evaluations_detailTitle": {
+    "message": "മൂല്യനിർണ്ണയം വിശദാംശങ്ങൾ"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "മൂല്യനിർണ്ണയം വിശദാംശങ്ങൾ ലോഡ് ചെയ്യാനായില്ല"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "വിവരണം"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "സ്പെക് പരിശോധിക്കാൻ ഒരു മൂല്യനിർണ്ണയം തിരഞ്ഞെടുക്കുക."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "റൺ ആരംഭിച്ചു"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "നിങ്ങളുടെ മൂല്യനിർണ്ണയ റൺ ആരംഭിച്ചു. സർവർ UIയിൽ നിന്ന് നിരീക്ഷിക്കാം."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "റൺ ആരംഭിക്കാനായില്ല"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "സെർവർ ഈ റൺ അഭ്യർത്ഥന നിരസിച്ചു. മോഡൽ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "കോൺഫിഗ് (JSON)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "ഡാറ്റാസെറ്റ് ഓവർറൈഡ് (സാമ്പിളുകളുടെ JSON അറേ)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "അസാധുവായ കോൺഫിഗ് JSON"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "റൺ റദ്ദാക്കൽ അഭ്യർത്ഥിച്ചു"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "റൺ റദ്ദാക്കാനായില്ല"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "റൺ റദ്ദാക്കുക"
+  },
+  "evaluations_historyTitle": {
+    "message": "ചരിത്രം"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "തരം"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "ഉപയോക്തൃ ഐഡി"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "തുടക്ക തീയതി (ISO)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "അവസാന തീയതി (ISO)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "ചരിത്രം നേടുക"
+  },
+  "evaluations_historyEmpty": {
+    "message": "പുതിയ പ്രവർത്തനം കാണാൻ ഒരു ക്വറി പ്രവർത്തിപ്പിക്കുക."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "ചരിത്രം ലഭ്യമാക്കാനായില്ല"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "വെബ്ഹുക്കുകൾ"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "യുആർഎൽ"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "ഇവെന്റുകൾ"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "വെബ്ഹുക്ക് രജിസ്റ്റർ ചെയ്യുക"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "വെബ്ഹുക്ക് രജിസ്റ്റർ ചെയ്തു"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "വെബ്ഹുക്ക് രജിസ്റ്റർ ചെയ്യാനായില്ല"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "വെബ്ഹുക്ക് ഇല്ലാതാക്കാനായില്ല"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "വെബ്ഹുക്കുകൾ ലോഡ് ചെയ്യാനായില്ല"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "ഇതുവരെ വെബ്ഹുക്കുകൾ രജിസ്റ്റർ ചെയ്തിട്ടില്ല."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "സീക്രറ്റ്"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "ഐഡെംപൊട്ടൻസി കീ"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "മൂല്യനിർണ്ണയങ്ങൾ ഉപയോഗിക്കാൻ കണക്റ്റ് ചെയ്യുക"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "മൂല്യനിർണ്ണയങ്ങൾ സൃഷ്ടിക്കുകയും റൺ ചെയ്യുകയും ചെയ്യാൻ ആദ്യം നിങ്ങളുടെ tldw സെർവറുമായി ബന്ധിപ്പിക്കുക."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "Settings → tldw server തുറന്ന് നിങ്ങളുടെ സെർവർ URLയും API കീയുമെല്ലാം ചേർക്കുക."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "കണക്റ്റ് ചെയ്താൽ, ഇവിടെ മൂല്യനിർണ്ണയങ്ങൾ നിർവ്വചിച്ച് മീട്രിക്‌സ് പരിശോധിക്കാം."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "സാമ്പിളുകൾ"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "ഈ പേജിന് വേണ്ടി സാമ്പിളുകൾ ഒന്നും ലഭ്യമല്ല."
+  },
+  "evaluations_metricsLabel": {
+    "message": "മെട്രിക്‌സ്"
+  },
+  "evaluationsSettings_title": {
+    "message": "മൂല്യനിർണ്ണയങ്ങൾ"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "മൂല്യനിർണ്ണയ പ്ലേഗ്രൗണ്ടിൽ ഉപയോഗിക്കുന്ന ഡിഫോൾട്ടുകൾ ക്രമീകരിക്കുക."
+  },
+  "evaluationsSettings_offline": {
+    "message": "മൂല്യനിർണ്ണയങ്ങൾ ടെസ്റ്റ് ചെയ്യാൻ നിങ്ങളുടെ tldw സെർവറുമായി കണക്റ്റ് ചെയ്യുക."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "സ്ഥിരസ്ഥിതി മൂല്യനിർണ്ണയ തരം"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "സ്ഥിരസ്ഥിതി ലക്ഷ്യ മോഡൽ"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "സ്ഥിരസ്ഥിതി റൺ കോൺഫിഗ് (JSON)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "സ്ഥിരസ്ഥിതി ഡാറ്റാസെറ്റ് ഐഡി (ഐച്ഛികം)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "തിരഞ്ഞെടുത്ത തരത്തിനുള്ള സ്പെക്ക് പ്രീസെറ്റ്"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "മൂല്യനിർണ്ണയ API ടെസ്റ്റ് ചെയ്യുക"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "മൂല്യനിർണ്ണയ API ലഭ്യമാണ്"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "മൂല്യനിർണ്ണയ API എത്തിച്ചേരാനായില്ല"
+  },
+  "chunkingPlayground_nav": {
+    "message": "ചങ്കിംഗ് പ്ലേഗ്രൗണ്ട്"
+  },
+  "chunkingPlayground_title": {
+    "message": "ചങ്കിംഗ് പ്ലേഗ്രൗണ്ട്"
+  },
+  "chunkingPlayground_description": {
+    "message": "പ്രോസസ്സിംഗിനായി ടെക്സ്റ്റ് ചെറുഭാഗങ്ങളായി വിഭജിക്കുന്നത് കാണാൻ വ്യത്യസ്ത ചങ്കിംഗ് ക്രമീകരണങ്ങൾ പരീക്ഷിക്കുക."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "ചങ്ക് ചെയ്യാനുള്ള ടെക്സ്റ്റ്"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "ഇവിടെ ടെക്സ്റ്റ് പേസ്റ്റ് ചെയ്യുക അല്ലെങ്കിൽ ഒരു സാമ്പിൾ തിരഞ്ഞെടുക്കുക..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "ഫയൽ അപ്‌ലോഡ് ചെയ്യുക"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "ടെക്സ്റ്റ് ചങ്ക് ചെയ്യുക"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "ചങ്കിംഗ് രീതി"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "പരമാവധി ചങ്ക് വലുപ്പം"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "ഓവർലാപ്പ്"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "ഭാഷ"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "സ്വയം കണ്ടെത്തുക"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "ഇംഗ്ലീഷ്"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "സ്പാനിഷ്"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "ഫ്രെഞ്ച്"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "ജർമ്മൻ"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "ഇറ്റാലിയൻ"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "പോർച്ചുഗീസ്"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "ചൈനീസ്"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "ജാപ്പനീസ്"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "കൊറിയൻ"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "കാർഡുകൾ"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "ഇൻലൈൻ"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}} ചങ്കുകൾ, ശരാശരി {{avgSize}} അക്ഷരങ്ങൾ"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "ടെക്സ്റ്റ് ലോഡ് ചെയ്തു"
+  },
+  "chunkingPlayground_characters": {
+    "message": "അക്ഷരങ്ങൾ"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "ഒറ്റ"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "താരതമ്യം"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "ചങ്ക് {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "ചങ്ക് {{index}}: {{words}} വാക്കുകൾ"
+  },
+  "chunkingPlayground_position": {
+    "message": "സ്ഥാനം: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}} കൂടി"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}} അക്ഷരങ്ങൾ"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}} വാക്കുകൾ"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "ചങ്ക് ചെയ്യാൻ ടെക്സ്റ്റ് നൽകുക"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "പങ്കിട്ട ഇൻപുട്ട് ടെക്സ്റ്റ്"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "ഇരുവരും താരതമ്യം ചെയ്യുക"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "താരതമ്യം"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "കോൺഫിഗ് A {{diff}} കുറവ് ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "കോൺഫിഗ് A {{diff}} കൂടുതൽ ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "ഇരു കോൺഫിഗുകളും ഒരേ എണ്ണം ചങ്കുകൾ സൃഷ്ടിക്കുന്നു"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "ഫലങ്ങൾ കാണാൻ 'താരതമ്യം' ക്ലിക്കുചെയ്യുക"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "ഓവർലാപ്പ് മേഖല"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "ആ ചങ്കിൽ ശ്രദ്ധിക്കാൻ ഹൈലൈറ്റ് ചെയ്ത വിഭാഗത്തിൽ ക്ലിക്കുചെയ്യുക"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "ഈ മീഡിയ ഇനത്തിന് ടെക്സ്റ്റ് ഉള്ളടക്കം കണ്ടെത്തിയില്ല"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "മീഡിയ ഉള്ളടക്കം ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "മീഡിയ ലൈബ്രറി ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "മീഡിയ ഇനം തിരഞ്ഞെടുക്കുക..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "ഉള്ളടക്കം ലോഡ് ചെയ്യുന്നു..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "മീഡിയ കണ്ടെത്തിയില്ല"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}} മീഡിയ ഇനങ്ങൾ ലഭ്യമാണ്"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "ടെക്സ്റ്റ് പേസ്റ്റ് ചെയ്യുക"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "ഫയൽ അപ്‌ലോഡ് ചെയ്യുക"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "സാമ്പിൾ ടെക്സ്റ്റ്"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "മീഡിയ ലൈബ്രറിയിൽ നിന്ന്"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "വാർത്ത ലേഖനം"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "ശീർഷകങ്ങളോടെയുള്ള പല പാരഗ്രാഫുകളുള്ള ലേഖനം"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "സോഴ്‌സ് കോഡ്"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "ക്ലാസുകളും ഫംഗ്ഷനുകളും ഉള്ള Python കോഡ്"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "ട്രാൻസ്ക്രിപ്റ്റ്"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "ടൈംസ്റ്റാംപ് ചെയ്ത പോഡ്കാസ്റ്റ് ട്രാൻസ്ക്രിപ്റ്റ്"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "അക്കാദമിക് പ്രബന്ധം"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "ഉദ്ധരണികളുള്ള സാങ്കേതിക എഴുത്ത്"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "ക്രമീകരണങ്ങൾ താരതമ്യം ചെയ്യുക"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "ക്രമീകരണം A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "ക്രമീകരണം B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "ഒറ്റ"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "താരതമ്യം"
+  }
+}

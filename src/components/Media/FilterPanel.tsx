@@ -77,7 +77,7 @@ export function FilterPanel({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+        <div className="flex items-center gap-2 text-text">
           <Filter className="w-4 h-4" />
           <span>
             {t('review:reviewPage.filters', { defaultValue: 'Filters' })}
@@ -90,7 +90,8 @@ export function FilterPanel({
             onKeywordsChange([])
             onShowFavoritesOnlyChange?.(false)
           }}
-          className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+          className="text-sm text-primary hover:text-primaryStrong"
+          title={t('review:mediaPage.clearAll', { defaultValue: 'Clear all' })}
         >
           {t('review:mediaPage.clearAll', { defaultValue: 'Clear all' })}
         </button>
@@ -98,19 +99,19 @@ export function FilterPanel({
 
       {/* Favorites Toggle */}
       {onShowFavoritesOnlyChange && (
-        <label className="flex items-center gap-2 cursor-pointer py-1 px-1 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+        <label className="flex items-center gap-2 cursor-pointer py-1 px-1 rounded hover:bg-surface2 transition-colors">
           <input
             type="checkbox"
             checked={showFavoritesOnly}
             onChange={(e) => onShowFavoritesOnlyChange(e.target.checked)}
-            className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-yellow-500 focus:ring-2 focus:ring-yellow-500 dark:focus:ring-yellow-600"
+            className="w-4 h-4 rounded border-border text-warn focus:ring-2 focus:ring-warn"
           />
-          <Star className={`w-4 h-4 text-yellow-500 ${showFavoritesOnly ? 'fill-yellow-500' : ''}`} />
-          <span className="text-sm text-gray-700 dark:text-gray-300">
+          <Star className={`w-4 h-4 text-warn ${showFavoritesOnly ? 'fill-warn' : ''}`} />
+          <span className="text-sm text-text">
             {t('review:mediaPage.favoritesOnly', { defaultValue: 'Favorites only' })}
           </span>
           {favoritesCount > 0 && (
-            <span className="text-xs px-1.5 py-0.5 rounded-full bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 font-medium">
+            <span className="text-xs px-1.5 py-0.5 rounded-full bg-warn/10 text-warn font-medium">
               {favoritesCount}
             </span>
           )}
@@ -122,7 +123,10 @@ export function FilterPanel({
         <button
           type="button"
           onClick={() => toggleSection('mediaTypes')}
-          className="flex items-center justify-between w-full text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+          className="flex items-center justify-between w-full text-sm text-text hover:text-text"
+          title={t('review:reviewPage.mediaTypes', {
+            defaultValue: 'Media types'
+          })}
         >
           <span>
             {t('review:reviewPage.mediaTypes', {
@@ -145,16 +149,16 @@ export function FilterPanel({
                         type="checkbox"
                         checked={selectedMediaTypes.includes(type)}
                         onChange={() => handleMediaTypeToggle(type)}
-                        className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"
+                        className="w-4 h-4 rounded border-border text-primary focus:ring-2 focus:ring-focus"
                         aria-label={t('review:mediaPage.filterMediaType', 'Filter by {{type}}', { type: displayLabel })}
                       />
-                      <span className="text-sm text-gray-700 dark:text-gray-300">{displayLabel}</span>
+                      <span className="text-sm text-text">{displayLabel}</span>
                     </label>
                   )
                 })}
               </div>
             ) : (
-              <div className="text-sm text-gray-500 dark:text-gray-400">
+              <div className="text-sm text-text-muted">
                 {t('review:mediaPage.noMediaTypes', {
                   defaultValue: 'No media types available'
                 })}
@@ -167,11 +171,11 @@ export function FilterPanel({
       {/* Keywords */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-700 dark:text-gray-300">
+          <div className="text-sm text-text">
             {t('review:reviewPage.keywords', { defaultValue: 'Keywords' })}
           </div>
           {selectedKeywords.length > 0 && (
-            <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primaryStrong font-medium">
               {t('review:mediaPage.keywordsSelected', '{{count}} selected', { count: selectedKeywords.length })}
             </span>
           )}
@@ -192,7 +196,7 @@ export function FilterPanel({
           }}
           options={keywordOptions.map((k) => ({ label: k, value: k }))}
         />
-        <div className="text-xs text-gray-500 dark:text-gray-400">
+        <div className="text-xs text-text-muted">
           {t('review:mediaPage.keywordHelper', {
             defaultValue:
               'Add keywords to narrow down results. Keywords are assigned when reviewing media.'

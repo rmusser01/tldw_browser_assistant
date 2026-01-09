@@ -110,10 +110,10 @@ export const RagSettings = () => {
         <div className="flex flex-col space-y-6">
           <div>
             <div>
-              <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+              <h2 className="text-base font-semibold leading-7 text-text">
                 {t("rag.ragSettings.label")}
               </h2>
-              <div className="border border-b border-gray-200 dark:border-gray-600 mt-3 mb-6"></div>
+              <div className="border-b border-border mt-3 mb-6"></div>
             </div>
             <Form
               form={form}
@@ -363,10 +363,10 @@ export const RagSettings = () => {
 
           <div>
             <div>
-              <h2 className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+              <h2 className="text-base font-semibold leading-7 text-text">
                 {t("rag.prompt.label")}
               </h2>
-              <div className="border border-b border-gray-200 dark:border-gray-600 mt-3 mb-6"></div>
+              <div className="border-b border-border mt-3 mb-6"></div>
             </div>
             <SettingPrompt />
           </div>

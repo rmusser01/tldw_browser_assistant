@@ -174,35 +174,21 @@ export const PageAssistSelect: React.FC<SelectProps> = ({
   const defaultSelectClass = `
     flex items-center justify-between p-2.5 rounded-lg border
     ${disabled || isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
-    ${isOpen ? "ring-2 ring-blue-500" : ""}
-    bg-transparent border-gray-300 text-gray-900
+    ${isOpen ? "ring-2 ring-focus" : ""}
+    bg-surface border-border text-text
     transition-all duration-200
-    dark:text-white
-    dark:border-[#353534]
-    bg-white dark:bg-[#171717]
   `
 
   const defaultDropdownClass = `
-    absolute z-50 w-full mt-1 bg-white dark:bg-[#1e1e1f] dark:text-white rounded-lg shadow-lg 
-    border border-gray-200 dark:border-[#353534]
+    absolute z-50 w-full mt-1 bg-surface text-text rounded-lg shadow-lg 
+    border border-border
   `
 
   const defaultSearchClass = `
     w-full pl-8 pr-8 py-1.5 rounded-md
-    bg-gray-50 border border-gray-200
-    focus:outline-none focus:ring-2 focus:ring-gray-100
-    text-gray-900
-    dark:bg-[#1e1e1f] dark:text-white
-    dark:border-[#353534]
-    dark:focus:ring-gray-700
-    dark:focus:border-gray-700
-    dark:placeholder-gray-400
-    dark:bg-opacity-90
-    dark:hover:bg-opacity-100
-    dark:focus:bg-opacity-100
-    dark:hover:border-gray-700
-    dark:hover:bg-[#2a2a2b]
-    dark:focus:bg-[#2a2a2b]
+    bg-surface2 border border-border
+    focus:outline-none focus:ring-2 focus:ring-focus
+    text-text placeholder:text-text-subtle
   `
 
   const defaultOptionClass = `
@@ -244,7 +230,7 @@ export const PageAssistSelect: React.FC<SelectProps> = ({
           ) : selectedOption ? (
             selectedOption.label
           ) : (
-            <span className="dark:text-gray-500 font-semibold text-[14px]">
+            <span className="text-text-subtle font-semibold text-[14px]">
               {placeholder}
             </span>
           )}
@@ -262,7 +248,7 @@ export const PageAssistSelect: React.FC<SelectProps> = ({
           id="select-dropdown"
           role="listbox"
           className={`${defaultDropdownClass} ${dropdownClassName}`}>
-          <div className="p-2 border-b border-gray-200 dark:border-[#353534]">
+          <div className="p-2 border-b border-border">
             <div className="relative">
               <input
                 type="text"
@@ -273,21 +259,21 @@ export const PageAssistSelect: React.FC<SelectProps> = ({
                 disabled={isLoading}
                 aria-label="Search options"
               />
-              <Search
-                aria-hidden="true"
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
-              />
+                <Search
+                  aria-hidden="true"
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-subtle"
+                />
               {onRefresh && (
                 <button
                   onClick={handleRefresh}
                   disabled={isLoading}
                   aria-label="Refresh options"
                   className={`absolute right-2 top-1/2 transform -translate-y-1/2
-                    hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200
+                    hover:text-primary transition-colors duration-200
                     ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}>
                   <RotateCw
                     aria-hidden="true"
-                    className={`w-4 h-4 dark:text-gray-400 ${isLoading ? "animate-spin" : ""}`}
+                    className={`w-4 h-4 text-text-subtle ${isLoading ? "animate-spin" : ""}`}
                   />
                 </button>
               )}{" "}
@@ -298,7 +284,7 @@ export const PageAssistSelect: React.FC<SelectProps> = ({
             ref={optionsContainerRef}
             className="max-h-60 overflow-y-auto custom-scrollbar">
             {isLoading ? (
-              <div className="p-4 text-center text-gray-500 flex items-center justify-center gap-2">
+              <div className="p-4 text-center text-text-muted flex items-center justify-center gap-2">
                 <LoadingIndicator />
                 <span>{loadingText}</span>
               </div>
@@ -320,8 +306,8 @@ export const PageAssistSelect: React.FC<SelectProps> = ({
                   }}
                   className={`
                     ${defaultOptionClass}
-                    ${value === option.value ? "bg-blue-50 dark:bg-[#262627]" : "hover:bg-gray-100 dark:hover:bg-[#272728]"}
-                    ${activeIndex === index ? "bg-gray-100 dark:bg-[#272728]" : ""}
+                    ${value === option.value ? "bg-primary/10" : "hover:bg-surface2"}
+                    ${activeIndex === index ? "bg-surface2" : ""}
                     ${optionClassName}`}>
                   {option.label}
                 </div>

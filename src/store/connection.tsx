@@ -3,6 +3,7 @@ import { create } from "zustand"
 import { tldwClient, type TldwConfig } from "@/services/tldw/TldwApiClient"
 import { getStoredTldwServerURL } from "@/services/tldw-server"
 import { apiSend } from "@/services/api-send"
+import { createSafeStorage } from "@/utils/safe-storage"
 import {
   ConnectionPhase,
   type ConnectionState,
@@ -219,14 +220,9 @@ const getPersistedServerUrl = async (): Promise<string | null> => {
   }
 
   try {
-    if (typeof chrome !== "undefined" && chrome?.storage?.local) {
-      const url = await new Promise<string | null>((resolve) =>
-        chrome.storage.local.get("tldwConfig", (res) =>
-          resolve(res?.tldwConfig?.serverUrl ?? null)
-        )
-      )
-      if (url) return url
-    }
+    const storage = createSafeStorage()
+    const cfg = await storage.get<TldwConfig>("tldwConfig")
+    if (cfg?.serverUrl) return cfg.serverUrl
   } catch {
     // ignore storage read errors
   }

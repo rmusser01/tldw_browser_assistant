@@ -1,206 +1,19 @@
-import { Storage } from "@plasmohq/storage"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { isChromiumTarget } from "@/config/platform"
+import {
+  defineSetting,
+  getSetting,
+  setSetting,
+  coerceBoolean,
+  coerceNumber,
+  coerceOptionalString,
+  coerceString
+} from "@/services/settings/registry"
+import {
+  TTS_PROVIDER_VALUES,
+  type TtsProviderValue
+} from "@/services/tts-providers"
 
-const storage = createSafeStorage()
-const storage2 = createSafeStorage({
-  area: "local"
-})
-
-const DEFAULT_TTS_PROVIDER = "browser"
-
-const AVAILABLE_TTS_PROVIDERS = ["browser", "elevenlabs", "openai", "tldw"] as const
-
-export const getTTSProvider = async (): Promise<
-  (typeof AVAILABLE_TTS_PROVIDERS)[number]
-> => {
-  const ttsProvider = await storage.get("ttsProvider")
-  if (!ttsProvider || ttsProvider.length === 0) {
-    return DEFAULT_TTS_PROVIDER
-  }
-  return ttsProvider as (typeof AVAILABLE_TTS_PROVIDERS)[number]
-}
-
-export const setTTSProvider = async (ttsProvider: string) => {
-  await storage.set("ttsProvider", ttsProvider)
-}
-
-export const getBrowserTTSVoices = async () => {
-  if (import.meta.env.BROWSER === "chrome" || import.meta.env.BROWSER === "edge") {
-    const tts = await chrome.tts.getVoices()
-    return tts
-  } else {
-    const tts = await speechSynthesis.getVoices()
-    return tts.map((voice) => ({
-      voiceName: voice.name,
-      lang: voice.lang
-    }))
-  }
-}
-
-export const getVoice = async () => {
-  const voice = await storage.get("voice")
-  return voice
-}
-
-export const setVoice = async (voice: string) => {
-  await storage.set("voice", voice)
-}
-
-export const isTTSEnabled = async () => {
-  const data = await storage.get("isTTSEnabled")
-  if (!data || data.length === 0) {
-    return true
-  }
-  return data === "true"
-}
-
-export const setTTSEnabled = async (isTTSEnabled: boolean) => {
-  await storage.set("isTTSEnabled", isTTSEnabled.toString())
-}
-
-export const isSSMLEnabled = async () => {
-  const data = await storage.get("isSSMLEnabled")
-  return data === "true"
-}
-
-export const setSSMLEnabled = async (isSSMLEnabled: boolean) => {
-  await storage.set("isSSMLEnabled", isSSMLEnabled.toString())
-}
-
-export const getElevenLabsApiKey = async () => {
-  const data = await storage.get("elevenLabsApiKey")
-  return data
-}
-
-export const setElevenLabsApiKey = async (elevenLabsApiKey: string) => {
-  await storage.set("elevenLabsApiKey", elevenLabsApiKey)
-}
-
-export const getElevenLabsVoiceId = async () => {
-  const data = await storage.get("elevenLabsVoiceId")
-  return data
-}
-
-export const setElevenLabsVoiceId = async (elevenLabsVoiceId: string) => {
-  await storage.set("elevenLabsVoiceId", elevenLabsVoiceId)
-}
-
-export const getElevenLabsModel = async () => {
-  const data = await storage.get("elevenLabsModel")
-  return data
-}
-
-export const setElevenLabsModel = async (elevenLabsModel: string) => {
-  await storage.set("elevenLabsModel", elevenLabsModel)
-}
-
-export const getOpenAITTSBaseUrl = async () => {
-  const data = await storage.get("openAITTSBaseUrl")
-  if (!data || data.length === 0) {
-    return "https://api.openai.com/v1"
-  }
-  return data
-}
-
-export const setOpenAITTSBaseUrl = async (openAITTSBaseUrl: string) => {
-  await storage.set("openAITTSBaseUrl", openAITTSBaseUrl)
-}
-
-export const getOpenAITTSApiKey = async () => {
-  const data = await storage.get("openAITTSApiKey")
-  return data || ''
-}
-
-export const getOpenAITTSModel = async () => {
-  const data = await storage.get("openAITTSModel")
-  if (!data || data.length === 0) {
-    return "tts-1"
-  }
-  return data
-}
-
-export const setOpenAITTSModel = async (openAITTSModel: string) => {
-  await storage.set("openAITTSModel", openAITTSModel)
-}
-
-
-export const setOpenAITTSApiKey = async (openAITTSApiKey: string) => {
-  await storage.set("openAITTSApiKey", openAITTSApiKey)
-}
-
-export const getOpenAITTSVoice = async () => {
-  const data = await storage.get("openAITTSVoice")
-  if (!data || data.length === 0) {
-    return "alloy"
-  }
-  return data
-}
-
-export const setOpenAITTSVoice = async (openAITTSVoice: string) => {
-  await storage.set("openAITTSVoice", openAITTSVoice)
-}
-
-
-export const getResponseSplitting = async () => {
-  const data = await storage.get("ttsResponseSplitting")
-  if (!data || data.length === 0 || data === "") {
-    return "punctuation"
-  }
-  return data
-}
-
-export const getRemoveReasoningTagTTS = async () => {
-  const data = await storage2.get("removeReasoningTagTTS")
-  if (!data || data.length === 0 || data === "") {
-    return true
-  }
-  return data === "true"
-}
-
-export const setResponseSplitting = async (responseSplitting: string) => {
-  await storage.set("ttsResponseSplitting", responseSplitting)
-}
-
-export const setRemoveReasoningTagTTS = async (removeReasoningTagTTS: boolean) => {
-  await storage2.set("removeReasoningTagTTS", removeReasoningTagTTS.toString())
-}
-
-
-export const isTTSAutoPlayEnabled = async () => {
-  const data = await storage.get<boolean | undefined>("isTTSAutoPlayEnabled")
-  return data || false
-}
-
-export const setTTSAutoPlayEnabled = async (isTTSAutoPlayEnabled: boolean) => {
-  await storage.set("isTTSAutoPlayEnabled", isTTSAutoPlayEnabled)
-}
-
-export const getSpeechPlaybackSpeed = async () => {
-  const data = await storage.get<number | undefined>("speechPlaybackSpeed")
-  return data || 1
-}
-
-export const setSpeechPlaybackSpeed = async (speechPlaybackSpeed: number) => {
-  await storage.set("speechPlaybackSpeed", speechPlaybackSpeed)
-}
-
-export const getTldwTTSModel = async () => {
-  const data = await storage.get<string | undefined>("tldwTtsModel")
-  return data && data.length > 0 ? data : "kokoro"
-}
-
-export const setTldwTTSModel = async (model: string) => {
-  await storage.set("tldwTtsModel", model)
-}
-
-export const getTldwTTSVoice = async () => {
-  const data = await storage.get<string | undefined>("tldwTtsVoice")
-  return data && data.length > 0 ? data : "af_heart"
-}
-
-export const setTldwTTSVoice = async (voice: string) => {
-  await storage.set("tldwTtsVoice", voice)
-}
+const DEFAULT_TTS_PROVIDER: TtsProviderValue = "browser"
 
 export const SUPPORTED_TLDW_TTS_FORMATS = ["mp3", "ogg", "wav"] as const
 type SupportedTldwTtsFormat = (typeof SUPPORTED_TLDW_TTS_FORMATS)[number]
@@ -222,22 +35,242 @@ export const normalizeTldwTtsResponseFormat = (
     : "mp3"
 }
 
-export const getTldwTTSResponseFormat = async () => {
-  const data = await storage.get<string | undefined>("tldwTtsResponseFormat")
-  return normalizeTldwTtsResponseFormat(data)
+const coercePositiveNumber = (value: unknown, fallback: number): number => {
+  const num = coerceNumber(value, fallback)
+  return num > 0 ? num : fallback
 }
+
+const TTS_PROVIDER_SETTING = defineSetting(
+  "ttsProvider",
+  DEFAULT_TTS_PROVIDER,
+  (value) => {
+    const normalized = String(value || "").toLowerCase()
+    return TTS_PROVIDER_VALUES.includes(normalized as TtsProviderValue)
+      ? (normalized as TtsProviderValue)
+      : DEFAULT_TTS_PROVIDER
+  }
+)
+const VOICE_SETTING = defineSetting("voice", undefined as string | undefined, coerceOptionalString)
+const TTS_ENABLED_SETTING = defineSetting("isTTSEnabled", true, (value) =>
+  coerceBoolean(value, true)
+)
+const SSML_ENABLED_SETTING = defineSetting("isSSMLEnabled", false, (value) =>
+  coerceBoolean(value, false)
+)
+const ELEVEN_LABS_API_KEY_SETTING = defineSetting(
+  "elevenLabsApiKey",
+  undefined as string | undefined,
+  coerceOptionalString
+)
+const ELEVEN_LABS_VOICE_ID_SETTING = defineSetting(
+  "elevenLabsVoiceId",
+  undefined as string | undefined,
+  coerceOptionalString
+)
+const ELEVEN_LABS_MODEL_SETTING = defineSetting(
+  "elevenLabsModel",
+  undefined as string | undefined,
+  coerceOptionalString
+)
+const OPENAI_TTS_BASE_URL_SETTING = defineSetting(
+  "openAITTSBaseUrl",
+  "https://api.openai.com/v1",
+  (value) => coerceString(value, "https://api.openai.com/v1")
+)
+const OPENAI_TTS_API_KEY_SETTING = defineSetting(
+  "openAITTSApiKey",
+  "",
+  (value) => coerceString(value, "")
+)
+const OPENAI_TTS_MODEL_SETTING = defineSetting(
+  "openAITTSModel",
+  "tts-1",
+  (value) => coerceString(value, "tts-1")
+)
+const OPENAI_TTS_VOICE_SETTING = defineSetting(
+  "openAITTSVoice",
+  "alloy",
+  (value) => coerceString(value, "alloy")
+)
+const RESPONSE_SPLITTING_SETTING = defineSetting(
+  "ttsResponseSplitting",
+  "punctuation",
+  (value) => coerceString(value, "punctuation")
+)
+const REMOVE_REASONING_TAG_SETTING = defineSetting(
+  "removeReasoningTagTTS",
+  true,
+  (value) => coerceBoolean(value, true)
+)
+const TTS_AUTOPLAY_SETTING = defineSetting("isTTSAutoPlayEnabled", false, (value) =>
+  coerceBoolean(value, false)
+)
+const SPEECH_PLAYBACK_SPEED_SETTING = defineSetting(
+  "speechPlaybackSpeed",
+  1,
+  (value) => coercePositiveNumber(value, 1)
+)
+const TLDW_TTS_MODEL_SETTING = defineSetting(
+  "tldwTtsModel",
+  "kokoro",
+  (value) => coerceString(value, "kokoro")
+)
+const TLDW_TTS_VOICE_SETTING = defineSetting(
+  "tldwTtsVoice",
+  "af_heart",
+  (value) => coerceString(value, "af_heart")
+)
+const TLDW_TTS_RESPONSE_FORMAT_SETTING = defineSetting(
+  "tldwTtsResponseFormat",
+  "mp3" as SupportedTldwTtsFormat,
+  (value) => normalizeTldwTtsResponseFormat(String(value || ""))
+)
+const TLDW_TTS_SPEED_SETTING = defineSetting(
+  "tldwTtsSpeed",
+  1,
+  (value) => coercePositiveNumber(value, 1)
+)
+
+export const getTTSProvider = async (): Promise<TtsProviderValue> =>
+  getSetting(TTS_PROVIDER_SETTING)
+
+export const setTTSProvider = async (ttsProvider: string) => {
+  await setSetting(TTS_PROVIDER_SETTING, ttsProvider as TtsProviderValue)
+}
+
+export const getBrowserTTSVoices = async () => {
+  if (isChromiumTarget) {
+    const tts = await chrome.tts.getVoices()
+    return tts
+  } else {
+    const tts = await speechSynthesis.getVoices()
+    return tts.map((voice) => ({
+      voiceName: voice.name,
+      lang: voice.lang
+    }))
+  }
+}
+
+export const getVoice = async () => getSetting(VOICE_SETTING)
+
+export const setVoice = async (voice: string) => {
+  await setSetting(VOICE_SETTING, voice)
+}
+
+export const isTTSEnabled = async () => getSetting(TTS_ENABLED_SETTING)
+
+export const setTTSEnabled = async (isTTSEnabled: boolean) => {
+  await setSetting(TTS_ENABLED_SETTING, isTTSEnabled)
+}
+
+export const isSSMLEnabled = async () => getSetting(SSML_ENABLED_SETTING)
+
+export const setSSMLEnabled = async (isSSMLEnabled: boolean) => {
+  await setSetting(SSML_ENABLED_SETTING, isSSMLEnabled)
+}
+
+export const getElevenLabsApiKey = async () =>
+  getSetting(ELEVEN_LABS_API_KEY_SETTING)
+
+export const setElevenLabsApiKey = async (elevenLabsApiKey: string) => {
+  await setSetting(ELEVEN_LABS_API_KEY_SETTING, elevenLabsApiKey)
+}
+
+export const getElevenLabsVoiceId = async () =>
+  getSetting(ELEVEN_LABS_VOICE_ID_SETTING)
+
+export const setElevenLabsVoiceId = async (elevenLabsVoiceId: string) => {
+  await setSetting(ELEVEN_LABS_VOICE_ID_SETTING, elevenLabsVoiceId)
+}
+
+export const getElevenLabsModel = async () =>
+  getSetting(ELEVEN_LABS_MODEL_SETTING)
+
+export const setElevenLabsModel = async (elevenLabsModel: string) => {
+  await setSetting(ELEVEN_LABS_MODEL_SETTING, elevenLabsModel)
+}
+
+export const getOpenAITTSBaseUrl = async () =>
+  getSetting(OPENAI_TTS_BASE_URL_SETTING)
+
+export const setOpenAITTSBaseUrl = async (openAITTSBaseUrl: string) => {
+  await setSetting(OPENAI_TTS_BASE_URL_SETTING, openAITTSBaseUrl)
+}
+
+export const getOpenAITTSApiKey = async () =>
+  getSetting(OPENAI_TTS_API_KEY_SETTING)
+
+export const getOpenAITTSModel = async () =>
+  getSetting(OPENAI_TTS_MODEL_SETTING)
+
+export const setOpenAITTSModel = async (openAITTSModel: string) => {
+  await setSetting(OPENAI_TTS_MODEL_SETTING, openAITTSModel)
+}
+
+export const setOpenAITTSApiKey = async (openAITTSApiKey: string) => {
+  await setSetting(OPENAI_TTS_API_KEY_SETTING, openAITTSApiKey)
+}
+
+export const getOpenAITTSVoice = async () =>
+  getSetting(OPENAI_TTS_VOICE_SETTING)
+
+export const setOpenAITTSVoice = async (openAITTSVoice: string) => {
+  await setSetting(OPENAI_TTS_VOICE_SETTING, openAITTSVoice)
+}
+
+export const getResponseSplitting = async () =>
+  getSetting(RESPONSE_SPLITTING_SETTING)
+
+export const getRemoveReasoningTagTTS = async () =>
+  getSetting(REMOVE_REASONING_TAG_SETTING)
+
+export const setResponseSplitting = async (responseSplitting: string) => {
+  await setSetting(RESPONSE_SPLITTING_SETTING, responseSplitting)
+}
+
+export const setRemoveReasoningTagTTS = async (removeReasoningTagTTS: boolean) => {
+  await setSetting(REMOVE_REASONING_TAG_SETTING, removeReasoningTagTTS)
+}
+
+export const isTTSAutoPlayEnabled = async () => getSetting(TTS_AUTOPLAY_SETTING)
+
+export const setTTSAutoPlayEnabled = async (isTTSAutoPlayEnabled: boolean) => {
+  await setSetting(TTS_AUTOPLAY_SETTING, isTTSAutoPlayEnabled)
+}
+
+export const getSpeechPlaybackSpeed = async () =>
+  getSetting(SPEECH_PLAYBACK_SPEED_SETTING)
+
+export const setSpeechPlaybackSpeed = async (speechPlaybackSpeed: number) => {
+  await setSetting(SPEECH_PLAYBACK_SPEED_SETTING, speechPlaybackSpeed)
+}
+
+export const getTldwTTSModel = async () => getSetting(TLDW_TTS_MODEL_SETTING)
+
+export const setTldwTTSModel = async (model: string) => {
+  await setSetting(TLDW_TTS_MODEL_SETTING, model)
+}
+
+export const getTldwTTSVoice = async () => getSetting(TLDW_TTS_VOICE_SETTING)
+
+export const setTldwTTSVoice = async (voice: string) => {
+  await setSetting(TLDW_TTS_VOICE_SETTING, voice)
+}
+
+export const getTldwTTSResponseFormat = async () =>
+  getSetting(TLDW_TTS_RESPONSE_FORMAT_SETTING)
 
 export const setTldwTTSResponseFormat = async (fmt: string) => {
-  await storage.set("tldwTtsResponseFormat", normalizeTldwTtsResponseFormat(fmt))
+  await setSetting(
+    TLDW_TTS_RESPONSE_FORMAT_SETTING,
+    normalizeTldwTtsResponseFormat(fmt)
+  )
 }
 
-export const getTldwTTSSpeed = async () => {
-  const data = await storage.get<number | undefined>("tldwTtsSpeed")
-  return typeof data === "number" && data > 0 ? data : 1
-}
+export const getTldwTTSSpeed = async () => getSetting(TLDW_TTS_SPEED_SETTING)
 
 export const setTldwTTSSpeed = async (speed: number) => {
-  await storage.set("tldwTtsSpeed", speed)
+  await setSetting(TLDW_TTS_SPEED_SETTING, speed)
 }
 
 export const getTTSSettings = async () => {
@@ -264,7 +297,7 @@ export const getTTSSettings = async () => {
     tldwTtsModel,
     tldwTtsVoice,
     tldwTtsResponseFormat,
-    tldwTtsSpeed,
+    tldwTtsSpeed
   ] = await Promise.all([
     isTTSEnabled(),
     getTTSProvider(),
@@ -276,7 +309,7 @@ export const getTTSSettings = async () => {
     getElevenLabsModel(),
     getResponseSplitting(),
     getRemoveReasoningTagTTS(),
-    // OPENAI 
+    // OPENAI
     getOpenAITTSBaseUrl(),
     getOpenAITTSApiKey(),
     getOpenAITTSModel(),
@@ -288,7 +321,7 @@ export const getTTSSettings = async () => {
     getTldwTTSModel(),
     getTldwTTSVoice(),
     getTldwTTSResponseFormat(),
-    getTldwTTSSpeed(),
+    getTldwTTSSpeed()
   ])
 
   return {
@@ -312,7 +345,7 @@ export const getTTSSettings = async () => {
     tldwTtsModel,
     tldwTtsVoice,
     tldwTtsResponseFormat,
-    tldwTtsSpeed,
+    tldwTtsSpeed
   }
 }
 
@@ -335,7 +368,7 @@ export const setTTSSettings = async ({
   tldwTtsModel,
   tldwTtsVoice,
   tldwTtsResponseFormat,
-  tldwTtsSpeed,
+  tldwTtsSpeed
 }: {
   ttsEnabled: boolean
   ttsProvider: string
@@ -346,16 +379,16 @@ export const setTTSSettings = async ({
   elevenLabsModel: string
   responseSplitting: string
   removeReasoningTagTTS: boolean
-  openAITTSBaseUrl: string,
-  openAITTSApiKey: string,
-  openAITTSModel: string,
-  openAITTSVoice: string,
-  ttsAutoPlay: boolean,
-  playbackSpeed: number,
-  tldwTtsModel: string,
-  tldwTtsVoice: string,
-  tldwTtsResponseFormat: string,
-  tldwTtsSpeed: number,
+  openAITTSBaseUrl: string
+  openAITTSApiKey: string
+  openAITTSModel: string
+  openAITTSVoice: string
+  ttsAutoPlay: boolean
+  playbackSpeed: number
+  tldwTtsModel: string
+  tldwTtsVoice: string
+  tldwTtsResponseFormat: string
+  tldwTtsSpeed: number
 }) => {
   await Promise.all([
     setTTSEnabled(ttsEnabled),
@@ -376,6 +409,6 @@ export const setTTSSettings = async ({
     setTldwTTSModel(tldwTtsModel),
     setTldwTTSVoice(tldwTtsVoice),
     setTldwTTSResponseFormat(tldwTtsResponseFormat),
-    setTldwTTSSpeed(tldwTtsSpeed),
+    setTldwTTSSpeed(tldwTtsSpeed)
   ])
 }

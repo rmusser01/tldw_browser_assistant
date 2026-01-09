@@ -601,14 +601,14 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
           <Title level={3} className="mb-0">
             {t("option:promptStudio.title", "Prompt Studio Playground")}
           </Title>
-          <Paragraph className="mb-0 text-gray-600 dark:text-gray-300">
+          <Paragraph className="mb-0 text-text-muted">
             {t(
               "option:promptStudio.subtitle",
               "Manage Prompt Studio projects, prompts, executions, test cases, and evaluations."
             )}
           </Paragraph>
         </div>
-        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-text-muted">
           <Badge
             status={capabilityQuery.data ? "success" : "warning"}
             text={
@@ -724,7 +724,7 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
               })}
               rowClassName={(record) =>
                 record.id === selectedPromptId
-                  ? "bg-gray-50 dark:bg-[#1f1f1f]"
+                  ? "bg-surface2"
                   : ""
               }
             />
@@ -762,7 +762,7 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
                 <div className="text-xl font-semibold">
                   {(evaluationTotal ?? evaluationList?.length ?? 0) || 0}
                   {runningEvalCount ? (
-                    <span className="ml-1 text-xs text-blue-600 dark:text-blue-300">
+                    <span className="ml-1 text-xs text-primary">
                       ({t("option:promptStudio.running", "running")} {runningEvalCount})
                     </span>
                   ) : null}
@@ -940,7 +940,7 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
                       {executionResult && (
                         <Card className="mt-3" size="small" title={t("common:result", "Result")}>
                           <pre className="whitespace-pre-wrap text-sm">{executionResult.output}</pre>
-                          <div className="mt-2 text-xs text-gray-600 dark:text-gray-300">
+                          <div className="mt-2 text-xs text-text-muted">
                             <div>{`Tokens: ${executionResult.tokens_used ?? 0}`}</div>
                             <div>{`Execution time: ${executionResult.execution_time ?? 0}s`}</div>
                           </div>
@@ -1100,10 +1100,10 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
                                 return (
                                   <div>
                                     <Text strong>{t("common:output", "Output")}</Text>
-                                    <pre className="mt-1 whitespace-pre-wrap text-xs bg-gray-50 dark:bg-[#1f1f1f] p-2 rounded">
+                                    <pre className="mt-1 whitespace-pre-wrap text-xs bg-surface2 p-2 rounded">
                                       {run.output || t("option:promptStudio.noOutput", "No output returned")}
                                     </pre>
-                                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-300">
+                                    <div className="mt-1 text-xs text-text-subtle">
                                       {run.tokens != null && <span className="mr-3">{`Tokens: ${run.tokens}`}</span>}
                                       {run.time != null && <span>{`Time: ${run.time ?? 0}s`}</span>}
                                     </div>
@@ -1147,7 +1147,7 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
                               onClick: () => setSelectedEvaluationId(record.id)
                             })}
                             rowClassName={(record) =>
-                              record.id === selectedEvaluationId ? "bg-gray-50 dark:bg-[#1f1f1f]" : ""
+                              record.id === selectedEvaluationId ? "bg-surface2" : ""
                             }
                           />
 
@@ -1176,7 +1176,7 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
                                 {evaluationDetail.aggregate_metrics && (
                                   <div>
                                     <Text strong>Metrics</Text>
-                                    <pre className="whitespace-pre-wrap text-xs bg-gray-50 dark:bg-[#1f1f1f] p-2 rounded">
+                                    <pre className="whitespace-pre-wrap text-xs bg-surface2 p-2 rounded">
                                       {JSON.stringify(evaluationDetail.aggregate_metrics, null, 2)}
                                     </pre>
                                   </div>
@@ -1184,7 +1184,7 @@ export const PromptStudioPlaygroundPage: React.FC = () => {
                                 {evaluationDetail.metrics && !evaluationDetail.aggregate_metrics && (
                                   <div>
                                     <Text strong>Metrics</Text>
-                                    <pre className="whitespace-pre-wrap text-xs bg-gray-50 dark:bg-[#1f1f1f] p-2 rounded">
+                                    <pre className="whitespace-pre-wrap text-xs bg-surface2 p-2 rounded">
                                       {JSON.stringify(evaluationDetail.metrics, null, 2)}
                                     </pre>
                                   </div>

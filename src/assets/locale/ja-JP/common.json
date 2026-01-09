@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "閉じる",
+  "confirmTitle": "確認してください",
   "pdf": {
     "passwordTitle": "PDF のパスワードを入力してください",
     "unlock": "ロック解除"
@@ -14,10 +16,17 @@
     "content": "コンテンツを読み込み中…"
   },
   "selectAModel": "モデルを選択",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "保存",
   "saved": "保存済み",
   "cancel": "キャンセル",
+  "saving": "保存中...",
   "retry": "再試行",
+  "close": "閉じる",
+  "loadMore": "さらに読み込む...",
   "share": {
     "tooltip": {
       "share": "共有"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "クリップボードにコピー",
+  "table": {
+    "copyCsv": "CSV としてコピー",
+    "downloadCsv": "CSV をダウンロード"
+  },
   "webSearch": "ウェブを検索中",
   "regenerate": "再生成",
-  "continue": "続ける",
   "edit": "編集",
+  "generate": "Generate",
+  "view": "View",
   "delete": "削除",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "続ける",
   "saveAndSubmit": "保存して送信",
   "editMessage": {
     "placeholder": "メッセージを入力..."
   },
   "submit": "送信",
   "send": "送信",
+  "startChat": "チャットを開始",
   "connectToServer": "サーバーに接続",
+  "previous": "前へ",
+  "next": "次へ",
   "noData": "データがありません",
   "noHistory": "チャット履歴がありません",
   "chatWithCurrentPage": "現在のページでチャット",
+  "chatWithCharacter": "キャラクターとチャット",
   "beta": "ベータ",
   "tts": "読み上げ",
+  "ttsShort": "音声",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "コピー",
+  "branchShort": "ブランチ",
+  "infoShort": "情報",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "再実行",
+  "continueShort": "さらに",
+  "fileChanges": "ファイルの変更",
+  "deletions": "削除",
+  "gitOperations": "Git 操作",
+  "commands": "コマンド",
+  "otherOperations": "その他の操作",
+  "fileAccess": "ファイルアクセス",
+  "notebookEdits": "ノートブック編集",
+  "applyPatch": "パッチを適用",
+  "recursive": "(再帰)",
+  "complexArguments": "[複雑な引数]",
   "currentChatModelSettings": "現在のチャットモデル設定",
   "modelSettings": {
     "label": "モデル設定",
@@ -90,6 +150,9 @@
         "label": "最大トークン数 (num_predict)",
         "placeholder": "最大トークン数を入力してください（例：2048、4096）"
       },
+      "thinking": {
+        "label": "思考モード"
+      },
       "seed": {
         "label": "シード",
         "placeholder": "シード値を入力してください（例：1234）",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Top P（上位 P）",
         "placeholder": "Top P 値を入力してください（例：0.9、0.95）"
-      },
-      "numGpu": {
-        "label": "Num GPU（GPU 数）",
-        "placeholder": "GPU に送信するレイヤー数を入力してください"
-      },
-      "systemPrompt": {
-        "label": "一時的なシステムプロンプト",
-        "placeholder": "システムプロンプトを入力",
-        "help": "これは現在のチャットでシステムプロンプトを素早く設定する方法で、選択されたシステムプロンプトが存在する場合はそれを上書きします。"
-      },
-      "thinking": {
-        "label": "思考モード"
       },
       "useMMap": {
         "label": "useMmap（メモリマップ）"
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "直近 N トークンの反復",
         "placeholder": "例: 64, 128"
+      },
+      "numGpu": {
+        "label": "Num GPU（GPU 数）",
+        "placeholder": "GPU に送信するレイヤー数を入力してください"
+      },
+      "systemPrompt": {
+        "label": "一時的なシステムプロンプト",
+        "placeholder": "システムプロンプトを入力",
+        "help": "これは現在のチャットでシステムプロンプトを素早く設定する方法で、選択されたシステムプロンプトが存在する場合はそれを上書きします。"
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "その他のモデル設定"
+    "advanced": "その他のモデル設定",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "要約",
@@ -160,7 +269,25 @@
     "custom": "カスタム"
   },
   "citations": "引用",
+  "segmented": {
+    "available": "サーバーモデル",
+    "custom": "カスタムモデル"
+  },
   "downloadCode": "コードをダウンロード",
+  "success": "成功しました",
+  "created": "作成済み",
+  "updated": "更新済み",
+  "deleted": "削除済み",
+  "create": "作成",
+  "reset": "リセット",
+  "serverOffline": "サーバーがオフラインか、設定されていません",
+  "serverChats": "サーバーチャット",
+  "serverChatLoadError": "サーバーチャットの読み込みに失敗しました。接続を確認して再試行してください。",
+  "serverChatSourceLabel": "サーバー",
+  "serverChatForkedLabel": "フォークしたチャット",
+  "serverChatForkedTooltip": "チャット {{chatId}} からフォーク",
+  "serverChatsUnavailableNotConnected": "tldw サーバーに接続すると、サーバーチャットを利用できるようになります。",
+  "serverChatsUnavailableServerError": "現在サーバーチャットを利用できません。サーバーログを確認するか、もう一度お試しください。",
   "date": {
     "pinned": "固定",
     "today": "今日",
@@ -184,6 +311,8 @@
       "older": "それ以前のメッセージをすべて削除"
     }
   },
+  "historiesDeleted": "{{count}} 件の履歴を削除しました",
+  "deleteHistoriesError": "履歴の削除中にエラーが発生しました",
   "pin": "固定",
   "unpin": "固定解除",
   "generationInfo": "生成情報",
@@ -193,66 +322,17 @@
     "loading": "推論を読み込み中....",
     "thought": "{{time}}の思考"
   },
+  "mermaid": "Mermaid ダイアグラム",
+  "search": "検索",
+  "searchResults": "検索結果",
   "embeddingGen": "埋め込みを作成中です。時間がかかる場合があります",
   "semanticSearch": "意味検索を実行中",
+  "newBranch": "新しいブランチ",
   "downloading": "ダウンロード中",
   "cancelPullingModel": {
     "confirm": "ダウンロードをキャンセルしてもよろしいですか？これによりダウンロードプロセスが停止します。Ollamaのドキュメントによると、中断した場所から再開できます。"
   },
-  "table": {
-    "copyCsv": "CSV としてコピー",
-    "downloadCsv": "CSV をダウンロード"
-  },
-  "dismiss": "閉じる",
   "privateModeSaveErrorTitle": "tldw Assistant はデータを保存できません",
-  "confirmTitle": "確認してください",
-  "saving": "保存中...",
-  "close": "閉じる",
-  "loadMore": "さらに読み込む...",
-  "startChat": "チャットを開始",
-  "previous": "前へ",
-  "next": "次へ",
-  "chatWithCharacter": "キャラクターとチャット",
-  "ttsShort": "音声",
-  "copyShort": "コピー",
-  "branchShort": "ブランチ",
-  "infoShort": "情報",
-  "regenShort": "再実行",
-  "continueShort": "さらに",
-  "fileChanges": "ファイルの変更",
-  "deletions": "削除",
-  "gitOperations": "Git 操作",
-  "commands": "コマンド",
-  "otherOperations": "その他の操作",
-  "fileAccess": "ファイルアクセス",
-  "notebookEdits": "ノートブック編集",
-  "applyPatch": "パッチを適用",
-  "recursive": "(再帰)",
-  "complexArguments": "[複雑な引数]",
-  "segmented": {
-    "available": "サーバーモデル",
-    "custom": "カスタムモデル"
-  },
-  "success": "成功しました",
-  "created": "作成済み",
-  "updated": "更新済み",
-  "deleted": "削除済み",
-  "create": "作成",
-  "reset": "リセット",
-  "serverOffline": "サーバーがオフラインか、設定されていません",
-  "serverChats": "サーバーチャット",
-  "serverChatLoadError": "サーバーチャットの読み込みに失敗しました。接続を確認して再試行してください。",
-  "serverChatSourceLabel": "サーバー",
-  "serverChatForkedLabel": "フォークしたチャット",
-  "serverChatForkedTooltip": "チャット {{chatId}} からフォーク",
-  "serverChatsUnavailableNotConnected": "tldw サーバーに接続すると、サーバーチャットを利用できるようになります。",
-  "serverChatsUnavailableServerError": "現在サーバーチャットを利用できません。サーバーログを確認するか、もう一度お試しください。",
-  "historiesDeleted": "{{count}} 件の履歴を削除しました",
-  "deleteHistoriesError": "履歴の削除中にエラーが発生しました",
-  "mermaid": "Mermaid ダイアグラム",
-  "search": "検索",
-  "searchResults": "検索結果",
-  "newBranch": "新しいブランチ",
   "error": {
     "label": "エラー",
     "friendlyApiKeySummary": "tldw サーバーに接続できませんでした。",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "tldw サーバーとの通信中に問題が発生しました。",
     "friendlyGenericHint": "しばらくしてから再試行するか、「ヘルスと診断」を開いてサーバーの状態を確認してください。",
     "showDetails": "技術的な詳細を表示",
-    "hideDetails": "技術的な詳細を非表示"
+    "hideDetails": "技術的な詳細を非表示",
+    "createFolder": "Failed to create folder"
   },
   "folders": "フォルダー",
   "folderView": "フォルダー表示",
@@ -277,7 +358,32 @@
   "confirm": "確認",
   "untitled": "無題",
   "moveToFolder": "フォルダーに移動",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "ツール呼び出しはまだありません",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "保留中",
     "running": "処理中",
@@ -361,6 +467,9 @@
     "collapse": "サイドバーを折りたたむ",
     "expand": "サイドバーを展開",
     "search": "チャットを検索...",
+    "modeLabel": "Mode",
+    "modeCasual": "Casual",
+    "modePro": "Pro",
     "ingest": "ページを取り込む",
     "media": "メディア",
     "notes": "ノート",

@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "Aggiungi nuova Knowledge Base"
+  },
+  "columns_title": {
+    "message": "Titolo"
+  },
+  "columns_status": {
+    "message": "Stato"
+  },
+  "columns_embeddings": {
+    "message": "Modello di Embedding"
+  },
+  "columns_createdAt": {
+    "message": "Creato da"
+  },
+  "columns_action": {
+    "message": "Azioni"
+  },
+  "expandedColumns_name": {
+    "message": "Nome"
+  },
+  "confirm_delete": {
+    "message": "Sei sicuro di voler eliminare questa Knowledge Base?"
+  },
+  "deleteSuccess": {
+    "message": "Knowledge Base eliminata correttamente"
+  },
+  "status_pending": {
+    "message": "In attesa"
+  },
+  "status_finished": {
+    "message": "Completato"
+  },
+  "status_processing": {
+    "message": "In corso"
+  },
+  "status_failed": {
+    "message": "Fallito"
+  },
+  "addKnowledge": {
+    "message": "Aggiungi Knowledge Base"
+  },
+  "updateKnowledge": {
+    "message": "Aggiungi Fonte"
+  },
+  "form_title_label": {
+    "message": "Titolo Knowledge Base"
+  },
+  "form_title_placeholder": {
+    "message": "Inserisci il titolo della Knowledge Base"
+  },
+  "form_title_required": {
+    "message": "Il Titolo è obbligatorio"
+  },
+  "form_uploadFile_label": {
+    "message": "Carica File"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Trascina un file qui or scegli upload"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Tipi di file supportati: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "File è obbligatorio"
+  },
+  "form_submit": {
+    "message": "Invia"
+  },
+  "form_success": {
+    "message": "Knowledge Base aggiunta correttamente"
+  },
+  "noEmbeddingModel": {
+    "message": "Aggiungi prima un modello dalla pagina di impostazione di RAG"
+  },
+  "privateModeDescription": {
+    "message": "La modalità privata di Firefox non supporta il salvataggio in IndexedDB. Aggiungi una base di conoscenza da una finestra normale."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "La generazione aumentata dal recupero (RAG) consente all’assistente di basare le risposte sui tuoi contenuti multimediali, note e altre fonti di conoscenza indicizzate."
+  },
+  "rag_searchFailed": {
+    "message": "Ricerca RAG non riuscita. Riprova o controlla la pagina Diagnostica."
+  },
+  "empty_demoTitle": {
+    "message": "Esplora Knowledge QA in modalità demo"
+  },
+  "empty_demoDescription": {
+    "message": "Questa demo mostra come Knowledge QA può eseguire ricerche RAG su contenuti di esempio. In seguito puoi collegare il tuo server per cercare nelle tue trascrizioni e nei tuoi documenti."
+  },
+  "empty_demoExample1": {
+    "message": "Prova ricerche RAG rapide ed esamina risultati e citazioni."
+  },
+  "empty_demoExample2": {
+    "message": "Collega il tuo server per abilitare Knowledge QA sui tuoi media e appunti reali."
+  },
+  "empty_connectTitle": {
+    "message": "Connettiti per usare Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "Per usare Knowledge QA e la ricerca RAG, collega prima il tuo server tldw."
+  },
+  "empty_connectExample1": {
+    "message": "Apri Impostazioni → tldw server per aggiungere l’URL del tuo server."
+  },
+  "empty_connectExample2": {
+    "message": "Usa Diagnostica se il server è in esecuzione ma non è raggiungibile."
+  }
+}

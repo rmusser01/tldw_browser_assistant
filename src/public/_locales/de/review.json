@@ -168,7 +168,7 @@
     "message": "Suchen und prüfen Sie jeweils ein Medienelement. Wählen Sie ein Ergebnis, um Inhalt und Analysen rechts anzuzeigen."
   },
   "reviewPage_resultsHelp": {
-    "message": "Tastatur: Tab in die Ergebnisliste, Enter oder Leertaste zum Auswählen, dann Vor/Next in der Analyseleiste zum Wechseln zwischen Elementen."
+    "message": "Tastatur: Tab in die Ergebnisliste, Enter oder Leertaste zum Auswählen, dann Zurück/Weiter in der Analyseleiste zum Wechseln zwischen Elementen."
   },
   "reviewPage_resultsHelpLabel": {
     "message": "Tastaturkürzel für Review-Ergebnisse"
@@ -1224,10 +1224,10 @@
     "message": "Medientyp"
   },
   "contentReview_keywords": {
-    "message": "Schlagwörter"
+    "message": "Schlüsselwörter"
   },
   "contentReview_keywordsPlaceholder": {
-    "message": "Schlagwörter hinzufügen"
+    "message": "Schlüsselwörter hinzufügen"
   },
   "contentReview_reviewNotes": {
     "message": "Review-Notizen"

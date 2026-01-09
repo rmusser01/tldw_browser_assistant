@@ -70,9 +70,9 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
   return (
     <div className="flex flex-col h-full">
       {/* Export header */}
-      <div className="flex-shrink-0 px-4 py-2 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#0c0c0c]">
+      <div className="flex-shrink-0 px-4 py-2 border-b border-border bg-surface2">
         <div className="flex items-center justify-between">
-          <span className="text-xs uppercase tracking-[0.14em] text-gray-500 dark:text-gray-400">
+          <span className="text-xs uppercase tracking-[0.14em] text-text-muted">
             {t('option:notesSearch.resultsLabel', { defaultValue: 'Results' })}
           </span>
           <Tooltip
@@ -144,7 +144,7 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
             <FeatureEmptyState
               title={
                 <span className="inline-flex items-center gap-2">
-                  <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primaryStrong">
                     Demo
                   </span>
                   <span>
@@ -175,22 +175,22 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
               primaryActionLabel={t('settings:tldw.setupLink', 'Set up server')}
               onPrimaryAction={onOpenSettings}
             />
-            <div className="rounded-lg border border-dashed border-gray-300 bg-white p-3 text-xs text-gray-700 dark:border-gray-700 dark:bg-[#111] dark:text-gray-200">
+            <div className="rounded-lg border border-dashed border-border bg-surface p-3 text-xs text-text">
               <div className="mb-2 font-semibold">
                 {t("option:notesEmpty.demoPreviewHeading", {
                   defaultValue: "Example notes (preview only)"
                 })}
               </div>
-              <div className="divide-y divide-gray-200 dark:divide-gray-800">
+              <div className="divide-y divide-border">
                 {demoNotes.map((note) => (
                   <div key={note.id} className="py-2">
-                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <div className="text-sm font-medium text-text">
                       {note.title}
                     </div>
-                    <div className="mt-1 text-[11px] text-gray-600 dark:text-gray-300">
+                    <div className="mt-1 text-[11px] text-text-muted">
                       {note.preview}
                     </div>
-                    <div className="mt-1 text-[11px] text-gray-400 dark:text-gray-500">
+                    <div className="mt-1 text-[11px] text-text-subtle">
                       {note.updated_at}
                     </div>
                   </div>
@@ -226,7 +226,7 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
         <FeatureEmptyState
           title={
             <span className="inline-flex items-center gap-2">
-              <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
+              <span className="rounded-full bg-warn/10 px-2 py-0.5 text-[11px] font-medium text-warn">
                 Feature unavailable
               </span>
               <span>
@@ -257,7 +257,7 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
         />
       ) : Array.isArray(notes) && notes.length > 0 ? (
         <>
-          <div className="divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="divide-y divide-border">
             {notes.map((item) => (
               <button
                 key={String(item.id)}
@@ -265,21 +265,21 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
                 onClick={() => {
                   onSelectNote(item.id)
                 }}
-                className={`w-full py-3 text-left hover:bg-gray-50 dark:hover:bg-[#262626] transition-colors ${
+                className={`w-full py-3 text-left hover:bg-surface2 transition-colors ${
                   selectedId === item.id
-                    ? 'bg-blue-50 dark:bg-blue-900/40 border-l-4 border-l-blue-600 dark:border-l-blue-500 px-3'
+                    ? 'bg-surface2 border-l-4 border-l-primary px-3'
                     : 'px-4'
                 }`}
               >
                 <div className="w-full">
-                  <div className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  <div className="text-sm font-medium text-text truncate">
                     {truncateText(
                       item.title || `Note ${item.id}`,
                       MAX_TITLE_LENGTH
                     )}
                   </div>
                   {item.content && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400 truncate mt-1">
+                    <div className="text-xs text-text-muted truncate mt-1">
                       {truncateText(
                         String(item.content),
                         MAX_PREVIEW_LENGTH
@@ -291,7 +291,7 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
                       {item.keywords.slice(0, 5).map((keyword, idx) => (
                         <span
                           key={`${keyword}-${idx}`}
-                          className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                          className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-surface2 text-text"
                         >
                           {keyword}
                         </span>
@@ -303,7 +303,7 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
                             count: item.keywords.length - 5
                           })}
                         >
-                          <span className="inline-flex items-center px-2 py-0.5 text-xs text-gray-500 dark:text-gray-400">
+                          <span className="inline-flex items-center px-2 py-0.5 text-xs text-text-muted">
                             +{item.keywords.length - 5}
                           </span>
                         </Tooltip>
@@ -311,7 +311,7 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
                     </div>
                   )}
                   {item.conversation_id && (
-                    <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                    <div className="text-xs text-primary mt-1">
                       {t('option:notesSearch.linkedConversation', {
                         defaultValue: 'Linked to conversation'
                       })}
@@ -320,7 +320,7 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
                       {item.message_id ? ` · msg ${String(item.message_id)}` : ''}
                     </div>
                   )}
-                  <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                  <div className="text-xs text-text-subtle mt-1">
                     {item.updated_at
                       ? (() => {
                           const d = new Date(item.updated_at)
@@ -337,7 +337,7 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
         <FeatureEmptyState
           title={
             <span className="inline-flex items-center gap-2">
-              <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-200">
+              <span className="rounded-full bg-surface2 px-2 py-0.5 text-[11px] font-medium text-text">
                 Getting started
               </span>
               <span>
@@ -369,8 +369,8 @@ const NotesListPanel: React.FC<NotesListPanelProps> = ({
 
       {/* Pagination Footer */}
       {hasNotes && (
-        <div className="flex-shrink-0 px-4 py-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#171717]">
-          <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
+        <div className="flex-shrink-0 px-4 py-3 border-t border-border bg-surface">
+          <div className="flex items-center justify-between text-xs text-text-muted">
             <div>
               {t('option:notesSearch.showingRange', {
                 defaultValue: 'Showing {{start}}-{{end}} of {{total}}',

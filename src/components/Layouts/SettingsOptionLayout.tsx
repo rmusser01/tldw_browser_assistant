@@ -3,10 +3,15 @@ import { useTranslation } from "react-i18next"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { BetaTag } from "../Common/Beta"
 import { XIcon } from "lucide-react"
-import { Storage } from "@plasmohq/storage"
-import { browser } from "wxt/browser"
-import { SETTINGS_NAV_GROUPS, type SettingsNavItem } from "./settings-nav"
-import { createSafeStorage } from "@/utils/safe-storage"
+import { getSettingsNavGroups, type SettingsNavItem } from "./settings-nav"
+import { isChromeTarget } from "@/config/platform"
+import { isSidepanelSupported, openSidepanel } from "@/utils/sidepanel"
+import { setSetting } from "@/services/settings/registry"
+import { UI_MODE_SETTING } from "@/services/settings/ui-settings"
+import {
+  ACTION_ICON_CLICK_SETTING,
+  CONTEXT_MENU_CLICK_SETTING
+} from "@/services/action"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
@@ -14,19 +19,16 @@ function classNames(...classes: string[]) {
 
 const shouldHideForBrowser = (item: SettingsNavItem) =>
   // Hide Chrome-specific settings on non-Chrome targets
-  import.meta.env.BROWSER !== "chrome" && item.to === "/settings/chrome"
+  !isChromeTarget && item.to === "/settings/chrome"
 
 export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const { t } = useTranslation(["settings", "common"])
-  const sidepanelSupported =
-    import.meta.env.BROWSER === "firefox"
-      ? !!(browser as any)?.sidebarAction?.open
-      : // @ts-ignore
-        typeof chrome !== "undefined" && !!(chrome as any).sidePanel
+  const sidepanelSupported = isSidepanelSupported()
+  const settingsNavGroups = React.useMemo(() => getSettingsNavGroups(), [])
   const currentNavItem = React.useMemo(() => {
-    for (const group of SETTINGS_NAV_GROUPS) {
+    for (const group of settingsNavGroups) {
       for (const item of group.items) {
         if (item.to === location.pathname) {
           return item
@@ -34,7 +36,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       }
     }
     return null
-  }, [location.pathname])
+  }, [location.pathname, settingsNavGroups])
 
   const currentBreadcrumbLabel = currentNavItem
     ? t(currentNavItem.labelToken)
@@ -45,34 +47,18 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="relative w-full flex-1">
         <div className="mx-auto w-full h-full custom-scrollbar overflow-y-auto">
           <div className="flex flex-col lg:flex-row lg:gap-x-16 lg:px-24">
-            <aside className="lg:sticky lg:mt-0 mt-14 lg:top-0 z-20 bg-white dark:bg-[#171717] border-b dark:border-gray-600 lg:border-0 lg:bg-transparent lg:dark:bg-transparent">
+            <aside className="lg:sticky lg:mt-0 mt-14 lg:top-0 z-20 bg-surface border-b border-border lg:border-0 lg:bg-transparent">
               <nav className="w-full overflow-x-auto px-4 py-4 sm:px-6 lg:px-0 lg:py-0 lg:mt-20">
                 <div className="flex items-center justify-between mb-3">
                   <button
-                    className="text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="text-xs border rounded px-2 py-1 text-text  disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!sidepanelSupported}
                     onClick={async () => {
-                      const storage = createSafeStorage({ area: "local" })
-                      await storage.set("uiMode", "sidePanel")
-                      await storage.set("actionIconClick", "sidePanel")
-                      await storage.set("contextMenuClick", "sidePanel")
+                      await setSetting(UI_MODE_SETTING, "sidePanel")
+                      await setSetting(ACTION_ICON_CLICK_SETTING, "sidePanel")
+                      await setSetting(CONTEXT_MENU_CLICK_SETTING, "sidePanel")
                       try {
-                        if (import.meta.env.BROWSER === "firefox") {
-                          if ((browser as any)?.sidebarAction?.open) {
-                            await (browser as any).sidebarAction.open()
-                          }
-                        } else {
-                          // Chromium sidePanel API
-                          // @ts-ignore
-                          const tabs = await chrome.tabs.query({
-                            active: true,
-                            currentWindow: true
-                          })
-                          if (tabs?.[0]?.id) {
-                            // @ts-ignore
-                            await chrome.sidePanel.open({ tabId: tabs[0].id })
-                          }
-                        }
+                        await openSidepanel()
                       } catch {}
                     }}
                     title={t("settings:switchToSidebar", "Switch to Sidebar")}>
@@ -80,7 +66,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                   </button>
                 </div>
                 <div className="flex flex-col gap-6">
-                  {SETTINGS_NAV_GROUPS.map((group) => {
+                  {settingsNavGroups.map((group) => {
                     const items = group.items.filter(
                       (item) => !shouldHideForBrowser(item)
                     )
@@ -90,7 +76,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                     return (
                       <div key={group.key} className="min-w-max lg:min-w-0">
                         <div className="mb-2 flex flex-col gap-1">
-                          <span className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                          <span className="text-xs font-semibold uppercase tracking-wide text-text-muted ">
                             {t(group.titleToken)}
                           </span>
                         </div>
@@ -105,8 +91,8 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                                 to={item.to}
                                 className={classNames(
                                   location.pathname === item.to
-                                    ? "bg-gray-100 text-gray-700 dark:bg-[#262626] dark:text-white"
-                                    : "text-gray-700 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:text-white dark:hover:bg-[#262626]",
+                                    ? "bg-surface2 text-text"
+                                    : "text-text-muted hover:text-text hover:bg-surface2",
                                   "group flex gap-x-3 rounded-md py-2 pl-2 pr-3 text-sm font-semibold"
                                 )}
                                 aria-current={
@@ -117,8 +103,8 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                                 <item.icon
                                   className={classNames(
                                     location.pathname === item.to
-                                      ? "text-gray-600 dark:text-white"
-                                      : "text-gray-500 group-hover:text-gray-600 dark:text-gray-200 dark:group-hover:text-white",
+                                      ? "text-text"
+                                      : "text-text-subtle group-hover:text-text",
                                     "h-6 w-6 shrink-0"
                                   )}
                                 />
@@ -140,7 +126,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
               {/* Close button over right of content area */}
               <div className="absolute right-4 top-4 lg:right-0 lg:top-6 lg:translate-x-[-1rem]">
                 <button
-                  className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
+                  className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-text  hover:bg-surface2 "
                   title={t("common:close", "Close")}
                   onClick={(e) => {
                     e.preventDefault()
@@ -164,7 +150,7 @@ export const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                 {currentBreadcrumbLabel &&
                   location.pathname !== "/settings" && (
                     <p
-                      className="text-xs text-gray-500 dark:text-gray-400"
+                      className="text-xs text-text-muted "
                       aria-label={t(
                         "settings:breadcrumb.ariaLabel",
                         "Current settings location"

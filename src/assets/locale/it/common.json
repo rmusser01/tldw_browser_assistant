@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "Ignora",
+  "confirmTitle": "Conferma l’azione",
   "pdf": {
     "passwordTitle": "Inserisci la password del PDF",
     "unlock": "Sblocca"
@@ -14,10 +16,17 @@
     "content": "Caricamento del contenuto…"
   },
   "selectAModel": "Seleziona un Modello",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "Salva",
   "saved": "Salvato",
   "cancel": "Annulla",
+  "saving": "Salvataggio...",
   "retry": "Riprova",
+  "close": "Chiudi",
+  "loadMore": "Carica altri...",
   "share": {
     "tooltip": {
       "share": "Condividi"
@@ -51,23 +60,74 @@
     }
   },
   "copyToClipboard": "Copia negli Appunti",
+  "table": {
+    "copyCsv": "Copia come CSV",
+    "downloadCsv": "Scarica CSV"
+  },
   "webSearch": "Ricerca nel Web",
   "regenerate": "Rigenera",
-  "continue": "Continua Risposta",
   "edit": "Modifica",
+  "generate": "Generate",
+  "view": "View",
   "delete": "Elimina",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "Continua Risposta",
   "saveAndSubmit": "Salva e Invia",
   "editMessage": {
     "placeholder": "Scrivi un messaggio..."
   },
   "submit": "Invia",
   "send": "Invia",
+  "startChat": "Inizia una chat",
   "connectToServer": "Connetti al server",
+  "previous": "Precedente",
+  "next": "Successivo",
   "noData": "Nessun Dato",
   "noHistory": "Nessuna Cronologia Chat",
   "chatWithCurrentPage": "Chatta con la Pagina Corrente",
+  "chatWithCharacter": "Chatta con un personaggio",
   "beta": "Versione beta",
   "tts": "Leggi ad Alta Voce",
+  "ttsShort": "Voce",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "Copia",
+  "branchShort": "Ramo",
+  "infoShort": "Info",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "Rigenera",
+  "continueShort": "Altro",
+  "fileChanges": "Modifiche ai file",
+  "deletions": "Eliminazioni",
+  "gitOperations": "Operazioni Git",
+  "commands": "Comandi",
+  "otherOperations": "Altre operazioni",
+  "fileAccess": "Accesso ai file",
+  "notebookEdits": "Modifiche al taccuino",
+  "applyPatch": "Applica patch",
+  "recursive": "(ricorsivo)",
+  "complexArguments": "[Argomenti complessi]",
   "currentChatModelSettings": "Impostazioni del Modello Corrente",
   "modelSettings": {
     "label": "Impostazioni del Modello",
@@ -90,6 +150,9 @@
         "label": "Token Massimi (num_predict)",
         "placeholder": "Inserisci il valore dei Token Massimi (es. 2048, 4096)"
       },
+      "thinking": {
+        "label": "Modalità di ragionamento"
+      },
       "seed": {
         "label": "Seed (seme casuale)",
         "placeholder": "Inserisci il valore Seed (es. 1234)",
@@ -102,18 +165,6 @@
       "topP": {
         "label": "Top P (P più probabili)",
         "placeholder": "Inserisci il valore Top P (es. 0.9, 0.95)"
-      },
-      "numGpu": {
-        "label": "Num GPU (numero di GPU)",
-        "placeholder": "Inserisci il numero di layer da inviare alla/e GPU"
-      },
-      "systemPrompt": {
-        "label": "Prompt di Sistema Temporaneo",
-        "placeholder": "Inserisci il Prompt di Sistema",
-        "help": "Questo è un modo rapido per impostare il prompt di sistema nella chat corrente, che sovrascriverà il prompt di sistema selezionato se esiste."
-      },
-      "thinking": {
-        "label": "Modalità di ragionamento"
       },
       "useMMap": {
         "label": "useMmap (mappa in memoria)"
@@ -148,9 +199,67 @@
       "repeatLastN": {
         "label": "Ripeti ultimi N",
         "placeholder": "es. 64, 128"
+      },
+      "numGpu": {
+        "label": "Num GPU (numero di GPU)",
+        "placeholder": "Inserisci il numero di layer da inviare alla/e GPU"
+      },
+      "systemPrompt": {
+        "label": "Prompt di Sistema Temporaneo",
+        "placeholder": "Inserisci il Prompt di Sistema",
+        "help": "Questo è un modo rapido per impostare il prompt di sistema nella chat corrente, che sovrascriverà il prompt di sistema selezionato se esiste."
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "Altre Impostazioni del Modello"
+    "advanced": "Altre Impostazioni del Modello",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "Riassumere",
@@ -160,7 +269,25 @@
     "custom": "Personalizzato"
   },
   "citations": "Citazioni",
+  "segmented": {
+    "available": "Modelli del server",
+    "custom": "Modelli personalizzati"
+  },
   "downloadCode": "Scarica Codice",
+  "success": "Operazione riuscita",
+  "created": "Creato",
+  "updated": "Aggiornato",
+  "deleted": "Eliminato",
+  "create": "Crea",
+  "reset": "Reimposta",
+  "serverOffline": "Server offline o non configurato",
+  "serverChats": "Chat del server",
+  "serverChatLoadError": "Impossibile caricare la chat del server. Controlla la connessione e riprova.",
+  "serverChatSourceLabel": "Origine server",
+  "serverChatForkedLabel": "Chat derivata",
+  "serverChatForkedTooltip": "Derivata dalla chat {{chatId}}",
+  "serverChatsUnavailableNotConnected": "Le chat del server saranno disponibili una volta connesso al tuo server tldw.",
+  "serverChatsUnavailableServerError": "Le chat del server non sono disponibili al momento. Controlla i log del server o riprova.",
   "date": {
     "pinned": "Fissato",
     "today": "Oggi",
@@ -184,6 +311,8 @@
       "older": "Elimina tutti i messaggi più vecchi"
     }
   },
+  "historiesDeleted": "{{count}} cronologie eliminate",
+  "deleteHistoriesError": "Errore durante l’eliminazione delle cronologie",
   "pin": "Fissa",
   "unpin": "Rimuovi",
   "generationInfo": "Informazioni sulla Generazione",
@@ -194,65 +323,16 @@
     "thought": "Pensato per {{time}}"
   },
   "mermaid": "Diagrammi Mermaid",
+  "search": "Cerca",
+  "searchResults": "Risultati della ricerca",
   "embeddingGen": "Creazione di embeddings, questo può richiedere un po' di tempo",
   "semanticSearch": "Ricerca semantica in corso",
+  "newBranch": "Nuovo ramo",
   "downloading": "Download in corso",
   "cancelPullingModel": {
     "confirm": "Sei sicuro di voler annullare il download? Questo interromperà il processo di download. Secondo la documentazione di Ollama, puoi riprendere da dove hai interrotto."
   },
-  "table": {
-    "copyCsv": "Copia come CSV",
-    "downloadCsv": "Scarica CSV"
-  },
-  "dismiss": "Ignora",
   "privateModeSaveErrorTitle": "tldw Assistant non può salvare i dati",
-  "confirmTitle": "Conferma l’azione",
-  "saving": "Salvataggio...",
-  "close": "Chiudi",
-  "loadMore": "Carica altri...",
-  "startChat": "Inizia una chat",
-  "previous": "Precedente",
-  "next": "Successivo",
-  "chatWithCharacter": "Chatta con un personaggio",
-  "ttsShort": "Voce",
-  "copyShort": "Copia",
-  "branchShort": "Ramo",
-  "infoShort": "Info",
-  "regenShort": "Rigenera",
-  "continueShort": "Altro",
-  "fileChanges": "Modifiche ai file",
-  "deletions": "Eliminazioni",
-  "gitOperations": "Operazioni Git",
-  "commands": "Comandi",
-  "otherOperations": "Altre operazioni",
-  "fileAccess": "Accesso ai file",
-  "notebookEdits": "Modifiche al taccuino",
-  "applyPatch": "Applica patch",
-  "recursive": "(ricorsivo)",
-  "complexArguments": "[Argomenti complessi]",
-  "segmented": {
-    "available": "Modelli del server",
-    "custom": "Modelli personalizzati"
-  },
-  "success": "Operazione riuscita",
-  "created": "Creato",
-  "updated": "Aggiornato",
-  "deleted": "Eliminato",
-  "create": "Crea",
-  "reset": "Reimposta",
-  "serverOffline": "Server offline o non configurato",
-  "serverChats": "Chat del server",
-  "serverChatLoadError": "Impossibile caricare la chat del server. Controlla la connessione e riprova.",
-  "serverChatSourceLabel": "Origine server",
-  "serverChatForkedLabel": "Chat derivata",
-  "serverChatForkedTooltip": "Derivata dalla chat {{chatId}}",
-  "serverChatsUnavailableNotConnected": "Le chat del server saranno disponibili una volta connesso al tuo server tldw.",
-  "serverChatsUnavailableServerError": "Le chat del server non sono disponibili al momento. Controlla i log del server o riprova.",
-  "historiesDeleted": "{{count}} cronologie eliminate",
-  "deleteHistoriesError": "Errore durante l’eliminazione delle cronologie",
-  "search": "Cerca",
-  "searchResults": "Risultati della ricerca",
-  "newBranch": "Nuovo ramo",
   "error": {
     "label": "Errore",
     "friendlyApiKeySummary": "Non siamo riusciti a raggiungere il tuo server tldw.",
@@ -262,7 +342,8 @@
     "friendlyGenericSummary": "Qualcosa è andato storto durante la comunicazione con il tuo server tldw.",
     "friendlyGenericHint": "Riprova tra un momento oppure apri Stato e diagnostica per verificare lo stato del server.",
     "showDetails": "Mostra dettagli tecnici",
-    "hideDetails": "Nascondi dettagli tecnici"
+    "hideDetails": "Nascondi dettagli tecnici",
+    "createFolder": "Failed to create folder"
   },
   "folders": "Cartelle",
   "folderView": "Vista cartelle",
@@ -277,7 +358,32 @@
   "confirm": "Conferma",
   "untitled": "Senza titolo",
   "moveToFolder": "Sposta nella cartella",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "Nessuna chiamata di tool al momento",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "In attesa",
     "running": "In corso",
@@ -361,6 +467,9 @@
     "collapse": "Comprimi barra laterale",
     "expand": "Espandi barra laterale",
     "search": "Cerca chat...",
+    "modeLabel": "Mode",
+    "modeCasual": "Casual",
+    "modePro": "Pro",
     "ingest": "Importa pagina",
     "media": "Media",
     "notes": "Note",

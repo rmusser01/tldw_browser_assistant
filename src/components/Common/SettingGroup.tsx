@@ -46,7 +46,7 @@ export function SettingGroup({
   return (
     <div
       className={cn(
-        "rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 mb-4",
+        "rounded-lg border border-border bg-surface mb-4",
         className
       )}
     >
@@ -57,15 +57,15 @@ export function SettingGroup({
         disabled={!collapsible}
         className={cn(
           "flex w-full items-center gap-3 px-4 py-3 text-left",
-          collapsible && "hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer",
+          collapsible && "hover:bg-surface2 cursor-pointer",
           !collapsible && "cursor-default",
-          expanded && "border-b border-gray-200 dark:border-gray-700"
+          expanded && "border-b border-border"
         )}
         aria-expanded={expanded}
       >
         {/* Collapse indicator */}
         {collapsible && (
-          <span className="text-gray-400">
+          <span className="text-text-subtle">
             {expanded ? (
               <ChevronDown className="size-4" />
             ) : (
@@ -76,23 +76,23 @@ export function SettingGroup({
 
         {/* Icon */}
         {icon && (
-          <span className="text-gray-500 dark:text-gray-400">{icon}</span>
+          <span className="text-text-subtle">{icon}</span>
         )}
 
         {/* Title and description */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h3 className="font-medium text-gray-900 dark:text-gray-100">
+            <h3 className="font-medium text-text">
               {title}
             </h3>
             {modifiedCount !== undefined && modifiedCount > 0 && (
-              <span className="text-[10px] font-medium text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 px-1.5 py-0.5 rounded-full">
+              <span className="text-[10px] font-medium text-warn bg-warn/10 px-1.5 py-0.5 rounded-full">
                 {modifiedCount} modified
               </span>
             )}
           </div>
           {description && (
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+            <p className="text-sm text-text-muted mt-0.5">
               {description}
             </p>
           )}
@@ -100,7 +100,7 @@ export function SettingGroup({
 
         {/* Collapsed indicator */}
         {collapsible && !expanded && (
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-text-subtle">
             Click to expand
           </span>
         )}
@@ -131,7 +131,7 @@ export function SettingSubgroup({
 }) {
   return (
     <div className={cn("mt-4 first:mt-0", className)}>
-      <h4 className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2 px-1">
+      <h4 className="text-xs font-medium uppercase tracking-wide text-text-subtle mb-2 px-1">
         {title}
       </h4>
       <div>{children}</div>

@@ -4,14 +4,16 @@ import {
 } from "~/store/option"
 import { getAllModelNicknames } from "./nickname"
 import { ChatDocuments } from "@/models/ChatTypes"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 type HistoryInfo = {
   id: string
   title: string
   is_rag: boolean
-  message_source?: "copilot" | "web-ui"
+  message_source?: "copilot" | "web-ui" | "server" | "branch"
   is_pinned?: boolean
   createdAt: number
   doc_id?: string
+  server_chat_id?: string
 }
 
 type WebSearch = {
@@ -488,12 +490,21 @@ export const generateID = () => {
 export const saveHistory = async (
   title: string,
   is_rag?: boolean,
-  message_source?: "copilot" | "web-ui",
-  doc_id?: string
+  message_source?: "copilot" | "web-ui" | "server" | "branch",
+  doc_id?: string,
+  server_chat_id?: string
 ) => {
   const id = generateID()
   const createdAt = Date.now()
-  const history = { id, title, createdAt, is_rag, message_source, doc_id }
+  const history = {
+    id,
+    title,
+    createdAt,
+    is_rag,
+    message_source,
+    doc_id,
+    server_chat_id
+  }
   const db = new PageAssitDatabase()
   await db.addChatHistory(history)
   return history
@@ -521,7 +532,8 @@ export const saveMessage = async ({
   modelName,
   reasoning_time_taken,
   time,
-  documents
+  documents,
+  createdAt: createdAtOverride
 }: {
   history_id: string
   name: string
@@ -536,10 +548,14 @@ export const saveMessage = async ({
   modelName?: string
   modelImage?: string
   documents?: ChatDocuments
+  createdAt?: number
 }) => {
   const id = generateID()
-  let createdAt = Date.now()
-  if (time) {
+  let createdAt =
+    typeof createdAtOverride === "number"
+      ? createdAtOverride
+      : Date.now()
+  if (typeof createdAtOverride !== "number" && time) {
     createdAt += time
   }
   const message = {
@@ -570,7 +586,7 @@ export const formatToChatHistory = (
   return messages.map((message) => {
     return {
       content: message.content,
-      role: message.role as "user" | "assistant" | "system",
+      role: normalizeChatRole(message.role),
       images: message.images
     }
   })
@@ -579,8 +595,9 @@ export const formatToChatHistory = (
 export const formatToMessage = (messages: MessageHistory): MessageType[] => {
   messages.sort((a, b) => a.createdAt - b.createdAt)
   return messages.map((message) => {
+    const normalizedRole = normalizeChatRole(message.role)
     return {
-      isBot: message.role === "assistant",
+      isBot: normalizedRole === "assistant",
       message: message.content,
       name: message.name,
       sources: message?.sources || [],
@@ -589,6 +606,7 @@ export const formatToMessage = (messages: MessageHistory): MessageType[] => {
       reasoning_time_taken: message?.reasoning_time_taken,
       modelName: message?.modelName,
       modelImage: message?.modelImage,
+      createdAt: message?.createdAt,
       id: message.id,
       documents: message?.documents
     }
@@ -834,9 +852,9 @@ export const getLastChatHistory = async (history_id: string) => {
   const messages = await db.getChatHistory(history_id)
   messages.sort((a, b) => a.createdAt - b.createdAt)
   const lastMessage = messages[messages.length - 1]
-  return lastMessage?.role === "assistant"
+  return normalizeChatRole(lastMessage?.role) === "assistant"
     ? lastMessage
-    : messages.findLast((m) => m.role === "assistant")
+    : messages.findLast((m) => normalizeChatRole(m.role) === "assistant")
 }
 
 export const deleteHistoriesByDateRange = async (

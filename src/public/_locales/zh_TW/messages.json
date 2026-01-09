@@ -3220,5 +3220,74 @@
   },
   "flashcards_bulkLimitWarning": {
     "message": "此操作僅套用於前 {{limit}} 個項目。"
+  },
+  "playground_composer_compareFeatureToggle": {
+    "message": "啟用對比模式"
+  },
+  "playground_composer_compareFeatureToggleHint": {
+    "message": "解鎖實驗性的多模型對比功能。"
+  },
+  "playground_composer_compareDisabled": {
+    "message": "對比模式在設定中已停用。"
+  },
+  "playground_composer_compareChosenHint": {
+    "message": "使用選定的答案繼續或再次對比。"
+  },
+  "playground_composer_compareChosenLabel": {
+    "message": "已選"
+  },
+  "playground_composer_compareLatency": {
+    "message": "延遲"
+  },
+  "playground_composer_compareHistoryPrefix": {
+    "message": "對比：{{title}}"
+  },
+  "playground_composer_compareHistorySuffix": {
+    "message": "（來自對比）"
+  },
+  "playground_composer_compareClusterLabel": {
+    "message": "多模型回答"
+  },
+  "playground_composer_compareClusterCount": {
+    "message": "{{count}} 個模型"
+  },
+  "playground_composer_compareBulkSplitHint": {
+    "message": "已選模型：{{count}}"
+  },
+  "playground_composer_compareBulkSplit": {
+    "message": "將每個已選答案各自開成聊天"
+  },
+  "playground_composer_compareThreadLabel": {
+    "message": "模型別對話"
+  },
+  "playground_composer_compareThreadYou": {
+    "message": "你"
+  },
+  "playground_composer_compareOpenFullChat": {
+    "message": "以完整聊天開啟"
+  },
+  "playground_composer_compareSpawnedChat": {
+    "message": "開啟分拆聊天"
+  },
+  "playground_composer_compareCanonicalOn": {
+    "message": "標準"
+  },
+  "playground_composer_compareCanonicalOff": {
+    "message": "標記為標準答案"
+  },
+  "playground_composer_compareCanonicalLabel": {
+    "message": "標準答案"
+  },
+  "playground_composer_compareFilterLabel": {
+    "message": "篩選模型"
+  },
+  "playground_composer_compareFilterClear": {
+    "message": "顯示全部"
+  },
+  "playground_composer_compareFilterCount": {
+    "message": "顯示 {{visible}} / {{total}}"
+  },
+  "playground_composer_compareTokens": {
+    "message": "Token：{{count}}"
   }
 }

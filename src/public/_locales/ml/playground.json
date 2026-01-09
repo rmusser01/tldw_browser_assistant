@@ -312,7 +312,7 @@
     "message": "വ്യത്യസ്ത മോഡലുകളും പ്രോംപ്റ്റുകളും അറിവ് ഉറവിടങ്ങളും ഇവിടെ പരീക്ഷിക്കുക."
   },
   "empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "നിങ്ങൾ ഡെമോ മോഡിലാണ് — അസിസ്റ്റന്റ് എങ്ങനെ പ്രതികരിക്കുന്നു എന്ന് കാണാൻ ഒരു ചോദ്യം ചോദിക്കുക. പിന്നീട് നിങ്ങളുടെ tldw സെർവർ കണക്റ്റ് ചെയ്യാം."
   },
   "empty_example1": {
     "message": "ഒരു ചോദ്യം ചോദിച്ച്, ചർച്ച ചെയ്യാൻ ആഗ്രഹിക്കുന്ന ഡോക്യുമെന്റുകളോ വെബ് പേജുകളോ ഇവിടെ ഡ്രാഗ് ചെയ്യുക."
@@ -369,7 +369,7 @@
     "message": "അപ്‌ലോഡുകൾ & ഇൻജെസ്റ്റ്"
   },
   "fileRetrievalEnabled": {
-    "message": "Enable RAG for Documents"
+    "message": "ഡോക്യുമെന്റുകൾക്കായി RAG സജീവമാക്കുക"
   },
   "stt_title": {
     "message": "STT പ്ലേഗ്രൗണ്ട്"
@@ -1081,5 +1081,287 @@
   },
   "actor_sceneTemplateActive": {
     "message": "സീൻ ടെംപ്ലേറ്റ് സജീവമാണ്: Actor ടെംപ്ലേറ്റ് ഇടപെടൽ ക്രമീകരണങ്ങളെ മാനിക്കുന്നു."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "താരതമ്യ മോഡ് പ്രവർത്തിപ്പിക്കുക"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "പരീക്ഷണാത്മക നിരവധി മോഡൽ താരതമ്യ സവിശേഷതകൾ അൺലോക്ക് ചെയ്യുക."
+  },
+  "composer_compareDisabled": {
+    "message": "സെറ്റിംഗ്സിൽ താരതമ്യ മോഡ് അപ്രാപ്തമാക്കിയിട്ടുണ്ട്."
+  },
+  "composer_compareChosenHint": {
+    "message": "തിരഞ്ഞെടുത്ത ഉത്തരത്തോടെ തുടരുക അല്ലെങ്കിൽ വീണ്ടും താരതമ്യം ചെയ്യുക."
+  },
+  "composer_compareChosenLabel": {
+    "message": "തിരഞ്ഞെടുക്കപ്പെട്ടു"
+  },
+  "composer_compareLatency": {
+    "message": "വിലംബം"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "താരതമ്യം: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(താരതമ്യത്തിൽ നിന്ന്)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "അനേകം മോഡലുകളുടെ ഉത്തരങ്ങൾ"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} മോഡലുകൾ"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "തിരഞ്ഞെടുത്ത മോഡലുകൾ: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "തിരഞ്ഞെടുത്ത ഓരോ ഉത്തരവും അതിന്റേതായ ചാറ്റായി തുറക്കുക"
+  },
+  "composer_compareThreadLabel": {
+    "message": "മോഡൽപ്രതി ത്രെഡ്"
+  },
+  "composer_compareThreadYou": {
+    "message": "നിങ്ങൾ"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "പൂർണ്ണ ചാറ്റായി തുറക്കുക"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "വിഭജിച്ച ചാറ്റ് തുറക്കുക"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "കാനോണിക്കൽ"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "കാനോണിക്കലായി പിൻ ചെയ്യുക"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "കാനോണിക്കൽ ഉത്തരമ്"
+  },
+  "composer_compareFilterLabel": {
+    "message": "മോഡലുകൾ ഫിൽറ്റർ ചെയ്യുക"
+  },
+  "composer_compareFilterClear": {
+    "message": "എല്ലാം കാണിക്കുക"
+  },
+  "composer_compareFilterCount": {
+    "message": "{{visible}} / {{total}} കാണിക്കുന്നു"
+  },
+  "composer_compareTokens": {
+    "message": "ടോക്കൺ: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "ഇത് സഹായകരമായിരുന്നോ?"
+  },
+  "feedback_thumbsUp": {
+    "message": "സഹായകരം"
+  },
+  "feedback_thumbsDown": {
+    "message": "സഹായകരമല്ല"
+  },
+  "feedback_more": {
+    "message": "കൂടുതൽ പ്രതികരണം"
+  },
+  "feedback_thanks": {
+    "message": "പ്രതികരണത്തിന് നന്ദി"
+  },
+  "feedback_disabled": {
+    "message": "മറുപടി പൂർത്തിയായ ശേഷം മാത്രമേ പ്രതികരണം ലഭ്യമാകൂ."
+  },
+  "feedback_unavailable": {
+    "message": "ഈ സന്ദേശത്തിന് പ്രതികരണം ലഭ്യമല്ല."
+  },
+  "feedback_modalTitle": {
+    "message": "പ്രതികരണം"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "ഈ മറുപടിയെ നിങ്ങൾ എങ്ങനെ വിലയിരുത്തും?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "എന്താണ് പ്രശ്നം? (പ്രയോഗിക്കുന്ന എല്ലാം തിരഞ്ഞെടുക്കുക)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "കൂടുതൽ അഭിപ്രായങ്ങൾ (ഐച്ഛികം)"
+  },
+  "feedback_modalSubmit": {
+    "message": "പ്രതികരണം സമർപ്പിക്കുക"
+  },
+  "feedback_errorTitle": {
+    "message": "പ്രതികരണം പരാജയപ്പെട്ടു"
+  },
+  "feedback_errorBody": {
+    "message": "പ്രതികരണം സമർപ്പിക്കാൻ കഴിഞ്ഞില്ല."
+  },
+  "feedback_errorSource": {
+    "message": "സ്രോതസ് പ്രതികരണം സമർപ്പിക്കാൻ കഴിഞ്ഞില്ല."
+  },
+  "feedback_issues_incorrect": {
+    "message": "തെറ്റായ വിവരം"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "എന്റെ ചോദ്യവുമായി ബന്ധപ്പെട്ടിട്ടില്ല"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "പ്രധാന വിവരങ്ങൾ കാണാതിരിക്കുന്നു"
+  },
+  "feedback_issues_badSources": {
+    "message": "സ്രോതസുകൾ സഹായകരമായിരുന്നില്ല"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "വളരെ നീളമുള്ളത്"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "വളരെ ചുരുങ്ങിയത്"
+  },
+  "feedback_issues_other": {
+    "message": "മറ്റുള്ളവ"
+  },
+  "feedback_sourceHelpful": {
+    "message": "സഹായകരമായ സ്രോതസ്"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "സഹായകരമല്ലാത്ത സ്രോതസ്"
+  },
+  "actor_uploadedFiles": {
+    "message": "അപ്‌ലോഡ് ചെയ്ത ഫയലുകൾ ({{count}})"
+  },
+  "actor_fileRetrieval": {
+    "message": "ഫയൽ വീണ്ടെടുക്കൽ"
+  },
+  "actor_fileStatusProcessed": {
+    "message": "പ്രോസസ് ചെയ്തത്"
+  },
+  "actor_fileStatusProcessing": {
+    "message": "പ്രോസസ്സിൽ..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
   }
 }

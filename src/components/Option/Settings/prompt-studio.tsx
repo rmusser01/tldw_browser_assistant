@@ -129,7 +129,7 @@ export const PromptStudioSettings: React.FC = () => {
       <Title level={3} className="mb-0">
         {t("settings:promptStudio.title", "Prompt Studio")}
       </Title>
-      <Paragraph className="text-gray-600 dark:text-gray-300">
+      <Paragraph className="text-text-muted">
         {t(
           "settings:promptStudio.subtitle",
           "Configure defaults and monitor Prompt Studio health. Connection and auth reuse the main server settings."

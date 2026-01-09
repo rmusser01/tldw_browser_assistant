@@ -4,6 +4,8 @@
     "options": "tldw Assistant — Options",
     "sidepanel": "tldw Assistant — Sidepanel"
   },
+  "dismiss": "關閉",
+  "confirmTitle": "請確認",
   "pdf": {
     "passwordTitle": "輸入 PDF 密碼",
     "unlock": "解鎖"
@@ -14,10 +16,16 @@
     "content": "正在載入內容…"
   },
   "selectAModel": "選擇一個模型",
+  "modelSelect": {
+    "label": "Model",
+    "tooltip": "Changes model for next message"
+  },
   "save": "儲存",
   "saved": "已儲存",
   "cancel": "取消",
+  "saving": "正在儲存...",
   "retry": "重試",
+  "close": "關閉",
   "loadMore": "載入更多...",
   "share": {
     "tooltip": {
@@ -52,23 +60,74 @@
     }
   },
   "copyToClipboard": "複製到剪貼簿",
+  "table": {
+    "copyCsv": "複製為 CSV",
+    "downloadCsv": "下載 CSV"
+  },
   "webSearch": "搜尋網絡",
   "regenerate": "重新生成",
-  "continue": "繼續回應",
   "edit": "編輯",
+  "generate": "Generate",
+  "view": "View",
   "delete": "刪除",
+  "deleteMessageConfirm": "Delete this message?",
+  "deleteFailed": "Delete failed",
+  "continue": "繼續回應",
   "saveAndSubmit": "儲存並送出",
   "editMessage": {
     "placeholder": "輸入一則訊息..."
   },
   "submit": "送出",
   "send": "送出",
+  "startChat": "開始聊天",
   "connectToServer": "連線到伺服器",
+  "previous": "上一頁",
+  "next": "下一頁",
   "noData": "沒有資料",
   "noHistory": "無聊天記錄",
   "chatWithCurrentPage": "與目前頁面聊天",
+  "chatWithCharacter": "與角色聊天",
   "beta": "測試版",
   "tts": "朗讀",
+  "ttsShort": "語音",
+  "reply": "Reply",
+  "replyShort": "Reply",
+  "replyingTo": "Replying to",
+  "clearReply": "Clear reply target",
+  "replyTargetFallback": "Message",
+  "artifactsTitle": "Artifact",
+  "artifactsDefaultTitle": "Code",
+  "artifactsView": "View code",
+  "artifactsPin": "Pin",
+  "artifactsUnpin": "Unpin",
+  "artifactsClose": "Close",
+  "artifactsCopy": "Copy",
+  "artifactsDownload": "Download",
+  "artifactsRun": "Run",
+  "copyShort": "複製",
+  "branchShort": "分支",
+  "infoShort": "資訊",
+  "saveToNotes": "Save to Notes",
+  "saveToFlashcards": "Save to Flashcards",
+  "generateDocument": "Generate document",
+  "documentShort": "Doc",
+  "saveNoteShort": "Note",
+  "saveFlashcardShort": "Card",
+  "savedToNotes": "Saved to Notes",
+  "savedToFlashcards": "Saved to Flashcards",
+  "saveToNotesEmpty": "Nothing to save yet.",
+  "regenShort": "重試",
+  "continueShort": "更多",
+  "fileChanges": "檔案變更",
+  "deletions": "刪除作業",
+  "gitOperations": "Git 操作",
+  "commands": "指令",
+  "otherOperations": "其他作業",
+  "fileAccess": "檔案存取",
+  "notebookEdits": "筆記本編輯",
+  "applyPatch": "套用補丁",
+  "recursive": "(遞迴)",
+  "complexArguments": "[複雜參數]",
   "currentChatModelSettings": "目前聊天模型設定",
   "modelSettings": {
     "label": "模型設定",
@@ -90,6 +149,9 @@
       "numPredict": {
         "label": "最大 Token 數 (num_predict)",
         "placeholder": "例如：2048、4096"
+      },
+      "thinking": {
+        "label": "Thinking Mode"
       },
       "seed": {
         "label": "隨機種子",
@@ -146,9 +208,58 @@
         "label": "臨時系統提示詞",
         "placeholder": "輸入系統提示詞",
         "help": "這是一種在當前聊天中設置系統提示詞的快捷方法，如果已存在選定的系統提示詞將會覆蓋它。"
+      },
+      "historyMessageLimit": {
+        "label": "History message limit",
+        "placeholder": "e.g. 10",
+        "help": "Limit how many previous messages are sent with each request."
+      },
+      "historyMessageOrder": {
+        "label": "History message order",
+        "placeholder": "Select order",
+        "help": "Choose whether the newest or oldest messages are sent first.",
+        "options": {
+          "desc": "Newest first",
+          "asc": "Oldest first"
+        }
+      },
+      "slashCommandInjectionMode": {
+        "label": "Slash command injection",
+        "placeholder": "Select injection mode",
+        "help": "Choose how slash commands are inserted into the request.",
+        "options": {
+          "system": "System message",
+          "preface": "Preface user message",
+          "replace": "Replace user message"
+        }
+      },
+      "apiProvider": {
+        "label": "API provider override",
+        "placeholder": "Select provider (optional)",
+        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+      },
+      "extraHeaders": {
+        "label": "Extra headers (JSON)",
+        "placeholder": "{ \"X-API-Key\": \"...\" }",
+        "help": "JSON object merged into request headers."
+      },
+      "extraBody": {
+        "label": "Extra body (JSON)",
+        "placeholder": "{ \"user\": \"...\" }",
+        "help": "JSON object merged into request body."
+      },
+      "guardrails": {
+        "invalidJson": "Enter a valid JSON object."
       }
     },
-    "advanced": "更多模型設定"
+    "advanced": "更多模型設定",
+    "requestOverrides": "Request overrides",
+    "tabs": {
+      "model": "Model",
+      "conversation": "Conversation",
+      "advanced": "Advanced",
+      "actor": "Scene Director"
+    }
   },
   "copilot": {
     "summary": "總結",
@@ -163,6 +274,20 @@
     "custom": "自訂模型"
   },
   "downloadCode": "下載程式碼",
+  "success": "成功",
+  "created": "已建立",
+  "updated": "已更新",
+  "deleted": "已刪除",
+  "create": "建立",
+  "reset": "重設",
+  "serverOffline": "伺服器離線或尚未設定",
+  "serverChats": "伺服器聊天",
+  "serverChatLoadError": "無法載入伺服器聊天。請檢查連線後再試一次。",
+  "serverChatSourceLabel": "伺服器來源",
+  "serverChatForkedLabel": "分叉聊天",
+  "serverChatForkedTooltip": "從聊天 {{chatId}} 分叉",
+  "serverChatsUnavailableNotConnected": "連線到 tldw 伺服器後即可使用伺服器聊天。",
+  "serverChatsUnavailableServerError": "目前無法使用伺服器聊天。請檢查伺服器記錄或稍後再試。",
   "date": {
     "pinned": "已置頂",
     "today": "今天",
@@ -197,6 +322,9 @@
     "loading": "正在載入推理....",
     "thought": "思考了 {{time}}"
   },
+  "mermaid": "Mermaid 圖表",
+  "search": "搜尋",
+  "searchResults": "搜尋結果",
   "embeddingGen": "正在建立嵌入向量，這可能需要一些時間",
   "semanticSearch": "正在執行語意搜尋",
   "newBranch": "新分支",
@@ -204,52 +332,7 @@
   "cancelPullingModel": {
     "confirm": "確定要取消下載嗎？這將會停止下載過程。根據 Ollama 說明文件，您可以從中斷處重新開始下載。"
   },
-  "table": {
-    "copyCsv": "複製為 CSV",
-    "downloadCsv": "下載 CSV"
-  },
-  "dismiss": "關閉",
   "privateModeSaveErrorTitle": "tldw Assistant 無法儲存資料",
-  "confirmTitle": "請確認",
-  "saving": "正在儲存...",
-  "close": "關閉",
-  "startChat": "開始聊天",
-  "previous": "上一頁",
-  "next": "下一頁",
-  "chatWithCharacter": "與角色聊天",
-  "ttsShort": "語音",
-  "copyShort": "複製",
-  "branchShort": "分支",
-  "infoShort": "資訊",
-  "regenShort": "重試",
-  "continueShort": "更多",
-  "fileChanges": "檔案變更",
-  "deletions": "刪除作業",
-  "gitOperations": "Git 操作",
-  "commands": "指令",
-  "otherOperations": "其他作業",
-  "fileAccess": "檔案存取",
-  "notebookEdits": "筆記本編輯",
-  "applyPatch": "套用補丁",
-  "recursive": "(遞迴)",
-  "complexArguments": "[複雜參數]",
-  "success": "成功",
-  "created": "已建立",
-  "updated": "已更新",
-  "deleted": "已刪除",
-  "create": "建立",
-  "reset": "重設",
-  "serverOffline": "伺服器離線或尚未設定",
-  "serverChats": "伺服器聊天",
-  "serverChatLoadError": "無法載入伺服器聊天。請檢查連線後再試一次。",
-  "serverChatSourceLabel": "伺服器來源",
-  "serverChatForkedLabel": "分叉聊天",
-  "serverChatForkedTooltip": "從聊天 {{chatId}} 分叉",
-  "serverChatsUnavailableNotConnected": "連線到 tldw 伺服器後即可使用伺服器聊天。",
-  "serverChatsUnavailableServerError": "目前無法使用伺服器聊天。請檢查伺服器記錄或稍後再試。",
-  "mermaid": "Mermaid 圖表",
-  "search": "搜尋",
-  "searchResults": "搜尋結果",
   "error": {
     "label": "錯誤",
     "friendlyApiKeySummary": "無法連線到您的 tldw 伺服器。",
@@ -259,7 +342,8 @@
     "friendlyGenericSummary": "與您的 tldw 伺服器通訊時發生問題。",
     "friendlyGenericHint": "請稍後再試，或開啟 Health & diagnostics 檢查伺服器狀態。",
     "showDetails": "顯示技術詳細資訊",
-    "hideDetails": "隱藏技術詳細資訊"
+    "hideDetails": "隱藏技術詳細資訊",
+    "createFolder": "Failed to create folder"
   },
   "folders": "資料夾",
   "folderView": "資料夾檢視",
@@ -274,7 +358,32 @@
   "confirm": "確認",
   "untitled": "未命名",
   "moveToFolder": "移至資料夾",
+  "timeline": {
+    "title": "Conversation Timeline",
+    "searchPlaceholder": "Search messages... (space = AND)",
+    "searchMatches": "matches",
+    "searchNoMatches": "no matches",
+    "searchMode": {
+      "fragments": "Fragments",
+      "substring": "Substring",
+      "regex": "Regex"
+    },
+    "layout": {
+      "horizontal": "horizontal",
+      "vertical": "vertical"
+    },
+    "refreshGraph": "Refresh graph",
+    "switchLayout": "Switch to {{layout}} layout",
+    "expandAllAlternatives": "Expand all alternatives",
+    "collapseAllAlternatives": "Collapse all alternatives",
+    "hideLegend": "Hide legend",
+    "showLegend": "Show legend",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
   "noToolCalls": "尚未有工具呼叫",
+  "sourceLabel": "Source",
+  "sourceOpen": "Open source",
   "status": {
     "pending": "待處理",
     "running": "處理中",
@@ -358,6 +467,9 @@
     "collapse": "收合側邊欄",
     "expand": "展開側邊欄",
     "search": "搜尋聊天...",
+    "modeLabel": "Mode",
+    "modeCasual": "Casual",
+    "modePro": "Pro",
     "ingest": "匯入頁面",
     "media": "媒體",
     "notes": "筆記",

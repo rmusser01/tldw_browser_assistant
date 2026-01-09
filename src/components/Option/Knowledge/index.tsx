@@ -81,8 +81,7 @@ export const KnowledgeSettings = () => {
     } catch {
       // ignore, defaults are optional
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [capabilities])
+  }, [capabilities, enableCache, enableReranking, strategy])
 
   const handleRagSearch = async () => {
     const q = ragQuery.trim()
@@ -160,7 +159,7 @@ export const KnowledgeSettings = () => {
       <FeatureEmptyState
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primaryStrong">
               Demo
             </span>
             <span>
@@ -191,7 +190,7 @@ export const KnowledgeSettings = () => {
       <ConnectFeatureBanner
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-medium text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-200">
+            <span className="rounded-full bg-warn/10 px-2 py-0.5 text-[11px] font-medium text-warn">
               Not connected
             </span>
             <span>
@@ -224,7 +223,7 @@ export const KnowledgeSettings = () => {
       <FeatureEmptyState
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
+            <span className="rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-medium text-success">
               {t("knowledge:empty.noSourcesPill", {
                 defaultValue: "No sources yet"
               })}
@@ -286,20 +285,20 @@ export const KnowledgeSettings = () => {
   return (
     <div className="space-y-8">
       {/* RAG playground: options, quick search, and navigation into Chat */}
-      <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-[#171717]">
+      <div className="rounded-lg border border-border bg-surface p-4 shadow-sm">
         <div className="flex flex-col gap-1">
-          <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-50">
+          <h2 className="text-sm font-semibold text-text">
             {t("knowledge:ragWorkspace.title", {
               defaultValue: "Knowledge search & chat"
             })}
           </h2>
-          <p className="text-xs text-gray-600 dark:text-gray-300">
+          <p className="text-xs text-text-muted">
             {t("knowledge:ragWorkspace.description", {
               defaultValue:
                 "Configure knowledge search (RAG) options, run quick searches, and use Chat with grounded answers."
             })}
           </p>
-          <p className="text-[11px] text-gray-500 dark:text-gray-400">
+          <p className="text-[11px] text-text-muted">
             {t("knowledge:ragWorkspace.subtitleRag", {
               defaultValue:
                 "Retrieval-augmented generation (RAG) lets the assistant ground answers in your media, notes, and other indexed knowledge sources."
@@ -307,7 +306,7 @@ export const KnowledgeSettings = () => {
           </p>
         </div>
         {ragUnsupported ? (
-          <div className="mt-3 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-100">
+          <div className="mt-3 rounded-md border border-warn/40 bg-warn/10 px-3 py-2 text-xs text-warn">
             <div className="font-semibold">
               {t("knowledge:ragWorkspace.ragUnsupportedTitle", {
                 defaultValue: "RAG search is not available on this server"
@@ -334,9 +333,9 @@ export const KnowledgeSettings = () => {
           <div className="mt-3 grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1.7fr)]">
             {/* Left: RAG configuration & quick search */}
             <div className="space-y-3">
-              <div className="space-y-2 rounded-md bg-gray-50 p-2 text-xs dark:bg-[#1f1f1f]">
+              <div className="space-y-2 rounded-md bg-surface2 p-2 text-xs">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium text-gray-800 dark:text-gray-100">
+                  <span className="font-medium text-text">
                     {t("knowledge:ragWorkspace.autoRagLabel", {
                       defaultValue: "Use RAG for every reply"
                     })}
@@ -348,23 +347,23 @@ export const KnowledgeSettings = () => {
                     aria-label={t("knowledge:ragWorkspace.autoRagLabel", { defaultValue: "Use RAG for every reply" })}
                   />
                 </div>
-                <p className="text-[11px] text-gray-600 dark:text-gray-300">
+                <p className="text-[11px] text-text-muted">
                   {t("knowledge:ragWorkspace.autoRagHelp", {
                     defaultValue:
                       "When enabled, the Chat workspace will run a RAG search before answering each message."
                   })}
                 </p>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                <p className="text-[11px] text-text-muted">
                   {t("knowledge:ragWorkspace.autoRagScopeHelp", {
                     defaultValue:
                       "This setting applies to replies in the main Chat view and sidepanel."
                   })}
                 </p>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                <p className="text-[11px] text-text-muted">
                   {ragScopeText}
                 </p>
                 <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <span className="text-[11px] text-text-muted">
                     {t("knowledge:ragWorkspace.docsPerReply.label", {
                       defaultValue: "Documents per reply (top-k)"
                     })}
@@ -408,9 +407,9 @@ export const KnowledgeSettings = () => {
               </div>
 
               {/* Quick RAG search panel */}
-              <div className="space-y-2 rounded-md border border-gray-200 p-3 text-xs dark:border-gray-700 dark:bg-[#1f1f1f]">
+              <div className="space-y-2 rounded-md border border-border p-3 text-xs">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium text-gray-800 dark:text-gray-100">
+                  <span className="font-medium text-text">
                     {t("knowledge:ragWorkspace.searchTitle", {
                       defaultValue: "Quick RAG search"
                     })}
@@ -442,7 +441,7 @@ export const KnowledgeSettings = () => {
                   </Button>
                 </div>
                 {!isRagSearchBlocked && (
-                  <div className="mt-2 space-y-2 rounded-md bg-gray-50 p-2 text-[11px] text-gray-700 dark:bg-[#111111] dark:text-gray-200">
+                  <div className="mt-2 space-y-2 rounded-md bg-surface2 p-2 text-[11px] text-text">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="flex flex-wrap items-center gap-3">
                         <span className="font-medium">
@@ -612,7 +611,7 @@ export const KnowledgeSettings = () => {
                           }),
                           children: (
                             <div className="space-y-2 text-[11px]">
-                              <div className="text-gray-500 dark:text-gray-400">
+                              <div className="text-text-muted">
                                 {t("knowledge:ragWorkspace.advancedFlagsHelp", {
                                   defaultValue:
                                     "Tweak common UnifiedRAGRequest flags without editing JSON."
@@ -682,7 +681,7 @@ export const KnowledgeSettings = () => {
                     />
                     <div className="mt-3 space-y-1">
                       <div className="flex items-center gap-1">
-                        <span className="text-[11px] font-medium text-gray-700 dark:text-gray-200">
+                        <span className="text-[11px] font-medium text-text ">
                           {t("knowledge:ragWorkspace.advancedLabel", {
                             defaultValue: "Advanced RAG options (JSON)"
                           })}
@@ -691,12 +690,12 @@ export const KnowledgeSettings = () => {
                         <Popover
                           content={
                             <div className="space-y-1 text-xs max-w-xs">
-                              <div className="font-medium text-gray-900 dark:text-gray-100">
+                              <div className="font-medium text-text ">
                                 {t("knowledge:ragWorkspace.validFieldsTitle", {
                                   defaultValue: "Valid JSON field names:"
                                 })}
                               </div>
-                              <ul className="list-disc pl-4 space-y-0.5 text-gray-700 dark:text-gray-300">
+                              <ul className="list-disc pl-4 space-y-0.5 text-text ">
                                 <li>
                                   <code className="text-[10px]">strategy</code> -{" "}
                                   {t("knowledge:rag.hint.strategy", { defaultValue: '"standard" or "agentic"' })}
@@ -736,10 +735,10 @@ export const KnowledgeSettings = () => {
                           }
                           trigger="hover"
                         >
-                          <HelpCircle className="w-3 h-3 text-gray-400 dark:text-gray-500 cursor-help" />
+                          <HelpCircle className="w-3 h-3 text-text-subtle cursor-help" />
                         </Popover>
                       </div>
-                      <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                      <p className="text-[11px] text-text-muted">
                         {t("knowledge:ragWorkspace.advancedHelp", {
                           defaultValue:
                             "Optional: paste a JSON object with any UnifiedRAGRequest fields (e.g., strategy, enable_reranking). Leave blank to use defaults."
@@ -759,13 +758,13 @@ export const KnowledgeSettings = () => {
                           try {
                             JSON.parse(advancedOverridesText)
                             return (
-                              <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
+                              <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] bg-success/10 text-success">
                                 {t("knowledge:ragWorkspace.jsonValid", { defaultValue: "Valid JSON" })}
                               </div>
                             )
                           } catch {
                             return (
-                              <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
+                              <div className="absolute top-1 right-1 px-1.5 py-0.5 rounded text-[10px] bg-danger/10 text-danger">
                                 {t("knowledge:ragWorkspace.jsonInvalid", { defaultValue: "Invalid JSON" })}
                               </div>
                             )
@@ -827,7 +826,7 @@ export const KnowledgeSettings = () => {
                     </div>
                   </div>
                 )}
-                <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-[11px] text-text-muted">
                   {t("knowledge:ragWorkspace.searchActiveHelp", {
                     defaultValue:
                       "Search runs against your configured RAG sources. Use Chat for multi-source RAG across media, notes, and more."
@@ -839,7 +838,7 @@ export const KnowledgeSettings = () => {
                       <Spin size="small" />
                     </div>
                   ) : ragError ? (
-                    <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-[11px] text-red-700 dark:border-red-700 dark:bg-red-900/30 dark:text-red-100">
+                    <div className="rounded-md border border-danger/30 bg-danger/10 px-3 py-2 text-[11px] text-danger">
                       <div className="font-medium">
                         {t("knowledge:ragWorkspace.searchErrorTitle", {
                           defaultValue: "RAG search failed"
@@ -859,7 +858,7 @@ export const KnowledgeSettings = () => {
                       </div>
                     </div>
                   ) : !ragAnswer && ragResults.length === 0 ? (
-                    <div className="text-[11px] text-gray-500 dark:text-gray-400">
+                    <div className="text-[11px] text-text-muted">
                       {t("knowledge:ragWorkspace.noResults", {
                         defaultValue:
                           "No RAG results yet. Enter a query to search your corpus."
@@ -868,7 +867,7 @@ export const KnowledgeSettings = () => {
                   ) : (
                     <div className="space-y-2">
                       {ragAnswer && (
-                        <div className="rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-[11px] text-blue-900 dark:border-blue-700 dark:bg-[#102a43] dark:text-blue-50">
+                        <div className="rounded-md border border-primary/30 bg-primary/10 px-3 py-2 text-[11px] text-primary">
                           <div className="font-semibold">
                             {t("knowledge:ragWorkspace.answerTitle", {
                               defaultValue: "RAG answer"
@@ -889,7 +888,7 @@ export const KnowledgeSettings = () => {
                                   </div>
                                   {/* M7: Show truncation indicator */}
                                   {ragCitations.length > 6 && (
-                                    <span className="px-1.5 py-0.5 text-[10px] bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded">
+                                    <span className="px-1.5 py-0.5 text-[10px] bg-warn/10 text-warn rounded">
                                       +{ragCitations.length - 6} {t("knowledge:ragWorkspace.moreCitations", {
                                         defaultValue: "more citations"
                                       })}
@@ -990,7 +989,7 @@ export const KnowledgeSettings = () => {
                                     </span>
                                   }
                                   description={
-                                    <div className="text-[11px] text-gray-600 dark:text-gray-300 line-clamp-3">
+                                    <div className="text-[11px] text-text-muted line-clamp-3">
                                       {snippet}{wasTruncated && '...'}
                                     </div>
                                   }
@@ -1007,14 +1006,14 @@ export const KnowledgeSettings = () => {
             </div>
 
             {/* Right: helper panel nudging into Chat with these RAG settings */}
-            <div className="flex h-full flex-col rounded-md border border-gray-200 bg-white text-xs dark:border-gray-700 dark:bg-[#111111]">
-              <div className="flex items-center justify-between border-b border-gray-200 px-3 py-2 dark:border-gray-700">
-                <span className="font-medium text-gray-800 dark:text-gray-100">
+            <div className="flex h-full flex-col rounded-md border border-border bg-surface text-xs">
+              <div className="flex items-center justify-between border-b border-border px-3 py-2">
+                <span className="font-medium text-text">
                   {t("knowledge:ragWorkspace.chatTitle", {
                     defaultValue: "Knowledge QA chat"
                   })}
                 </span>
-                <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                <span className="text-[11px] text-text-muted">
                   {autoRagOn
                     ? t("knowledge:ragWorkspace.chatModeRagOn", {
                         defaultValue: "Chat is using RAG for replies."
@@ -1026,7 +1025,7 @@ export const KnowledgeSettings = () => {
                 </span>
               </div>
               <div className="flex-1 min-h-0 overflow-hidden">
-                <div className="flex h-full flex-col items-center justify-center px-3 py-4 text-[11px] text-gray-500 dark:text-gray-300">
+                <div className="flex h-full flex-col items-center justify-center px-3 py-4 text-[11px] text-text-muted">
                   <p className="text-center">
                     {t("knowledge:ragWorkspace.chatHint", {
                       defaultValue:

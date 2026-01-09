@@ -20,6 +20,7 @@ import {
 import { useQuery } from "@tanstack/react-query"
 import { bgRequest } from "@/services/background-proxy"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { getNoteKeywords, searchNoteKeywords } from "@/services/note-keywords"
 import { useTranslation } from "react-i18next"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import { useServerOnline } from "@/hooks/useServerOnline"
@@ -32,9 +33,7 @@ import {
 } from "lucide-react"
 import { ChevronDown, CopyIcon, SendIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-import { Storage } from "@plasmohq/storage"
-import { safeStorageSerde } from "@/utils/safe-storage"
-import { getAllPrompts } from "@/db/dexie/helpers"
+import { createSafeStorage } from "@/utils/safe-storage"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import ConnectionProblemBanner from "@/components/Common/ConnectionProblemBanner"
@@ -44,7 +43,14 @@ import { useDemoMode } from "@/context/demo-mode"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
 import { MarkdownErrorBoundary } from "@/components/Common/MarkdownErrorBoundary"
+import { PromptDropdown } from "@/components/Review/PromptDropdown"
+import { usePromptSearch } from "@/components/Review/usePromptSearch"
 import { getDemoMediaItems } from "@/utils/demo-content"
+import { setSetting } from "@/services/settings/registry"
+import {
+  DISCUSS_MEDIA_PROMPT_SETTING,
+  LAST_MEDIA_ID_SETTING
+} from "@/services/settings/ui-settings"
 const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
 type MediaItem = any
@@ -98,6 +104,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const [keywordTokens, setKeywordTokens] = React.useState<string[]>([])
   const [keywordOptions, setKeywordOptions] = React.useState<string[]>([])
   const [preloadedKeywords, setPreloadedKeywords] = React.useState<string[]>([])
+  const initialLoadRef = React.useRef(false)
   const [autoReviewOnSelect, setAutoReviewOnSelect] =
     React.useState<boolean>(false)
   const [selectedContent, setSelectedContent] = React.useState<string>("")
@@ -134,25 +141,74 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     "Summarize the following content into key points and a brief abstract."
   )
   const [summaryUserPrefix, setSummaryUserPrefix] = React.useState<string>("")
+  const reviewPresets = React.useMemo(
+    () => [
+      {
+        label: t("review:reviewPage.presetsCritical", "Critical"),
+        value:
+          "You are an expert reviewer. Provide a concise, structured review with strengths, weaknesses, and actionable recommendations."
+      },
+      {
+        label: t("review:reviewPage.presetsQaAudit", "QA Audit"),
+        value:
+          "Act as a QA auditor. Identify issues, ambiguities, and missing information. Provide numbered findings and suggested fixes."
+      },
+      {
+        label: t("review:reviewPage.presetsBulletReview", "Bullet Review"),
+        value:
+          "Provide a bullet-point review focusing on clarity, completeness, and relevance. Include a brief overall assessment at the end."
+      }
+    ],
+    [t]
+  )
+  const summaryPresets = React.useMemo(
+    () => [
+      {
+        label: t("review:reviewPage.presetsExecutive", "Executive"),
+        value:
+          "Summarize into key points and an executive abstract. Keep it concise and actionable."
+      },
+      {
+        label: t("review:reviewPage.presetsDetailed", "Detailed"),
+        value:
+          "Write a detailed summary with sections: Overview, Key Points, and Takeaways. Keep neutral tone."
+      },
+      {
+        label: t("review:reviewPage.presetsBullets", "Bullets"),
+        value:
+          "Create a short bullet-point summary capturing the core ideas and any decisions."
+      }
+    ],
+    [t]
+  )
   React.useEffect(() => {
     setContentCollapsed(false)
     setAnalysisCollapsed(false)
   }, [selected])
-  // Quick prompt search states (dropdown editors)
-  const [revQ, setRevQ] = React.useState("")
-  const [revResults, setRevResults] = React.useState<
-    Array<{ id?: string; title: string; content: string }>
-  >([])
-  const [revLoading, setRevLoading] = React.useState(false)
-  const [sumQ, setSumQ] = React.useState("")
-  const [sumResults, setSumResults] = React.useState<
-    Array<{ id?: string; title: string; content: string }>
-  >([])
-  const [sumLoading, setSumLoading] = React.useState(false)
-  const [revIncludeLocal, setRevIncludeLocal] = React.useState(true)
-  const [revIncludeServer, setRevIncludeServer] = React.useState(true)
-  const [sumIncludeLocal, setSumIncludeLocal] = React.useState(true)
-  const [sumIncludeServer, setSumIncludeServer] = React.useState(true)
+  const {
+    query: reviewPromptQuery,
+    setQuery: setReviewPromptQuery,
+    results: reviewPromptResults,
+    loading: reviewPromptLoading,
+    includeLocal: reviewIncludeLocal,
+    setIncludeLocal: setReviewIncludeLocal,
+    includeServer: reviewIncludeServer,
+    setIncludeServer: setReviewIncludeServer,
+    search: searchReviewPrompts,
+    clearResults: clearReviewResults
+  } = usePromptSearch()
+  const {
+    query: summaryPromptQuery,
+    setQuery: setSummaryPromptQuery,
+    results: summaryPromptResults,
+    loading: summaryPromptLoading,
+    includeLocal: summaryIncludeLocal,
+    setIncludeLocal: setSummaryIncludeLocal,
+    includeServer: summaryIncludeServer,
+    setIncludeServer: setSummaryIncludeServer,
+    search: searchSummaryPrompts,
+    clearResults: clearSummaryResults
+  } = usePromptSearch()
   const [page, setPage] = React.useState<number>(1)
   const [pageSize, setPageSize] = React.useState<number>(20)
   const [mediaTotal, setMediaTotal] = React.useState<number>(0)
@@ -167,23 +223,72 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const isOnline = forceOffline ? false : serverOnline
   const returnToPath = isViewMediaMode ? "/media" : "/review"
   const scrollToServerCard = useScrollToServerCard(returnToPath)
+  const [storageScope, setStorageScope] = React.useState<{
+    host: string
+    user: string
+  } | null>(null)
 
   // Storage scoping: per server host and auth mode to avoid cross-user leakage
-  const scopedKey = React.useCallback((base: string) => {
-    try {
-      const raw = localStorage.getItem("tldwConfig")
-      if (raw) {
-        const cfg = JSON.parse(raw) || {}
-        const host = String(cfg?.serverUrl || "")
-          .replace(/\/+$/, "")
-          .replace(/^https?:\/\//, "")
-        const user =
-          cfg?.authMode === "multi-user" && cfg?.accessToken ? "user" : "single"
-        return `${base}:${host || "nohost"}:${user}`
+  React.useEffect(() => {
+    let cancelled = false
+    const storage = createSafeStorage()
+
+    const applyScope = (cfg?: any) => {
+      if (cancelled) return
+      if (!cfg) {
+        setStorageScope(null)
+        return
       }
-    } catch {}
-    return base
+      const host = String(cfg?.serverUrl || "")
+        .replace(/\/+$/, "")
+        .replace(/^https?:\/\//, "")
+      const user =
+        cfg?.authMode === "multi-user" && cfg?.accessToken ? "user" : "single"
+      setStorageScope({ host, user })
+    }
+    const handleConfigChange = (value: { newValue?: any }) =>
+      applyScope(value?.newValue)
+
+    storage.get<any>("tldwConfig").then(applyScope).catch(() => {
+      // ignore storage read issues
+    })
+    storage.watch({ tldwConfig: handleConfigChange })
+
+    return () => {
+      cancelled = true
+      storage.unwatch({ tldwConfig: handleConfigChange })
+    }
   }, [])
+
+  const scopedKey = React.useCallback(
+    (base: string) => {
+      if (!storageScope) return base
+      return `${base}:${storageScope.host || "nohost"}:${storageScope.user}`
+    },
+    [storageScope]
+  )
+  const handleSavePromptDefaults = React.useCallback(async () => {
+    try {
+      const storage = createSafeStorage()
+      await storage.set(scopedKey("review:prompts"), {
+        reviewSystemPrompt,
+        reviewUserPrefix,
+        summarySystemPrompt,
+        summaryUserPrefix
+      })
+      message.success(
+        t("review:reviewPage.saveAsDefault", "Saved as default")
+      )
+    } catch {}
+  }, [
+    message,
+    reviewSystemPrompt,
+    reviewUserPrefix,
+    scopedKey,
+    summarySystemPrompt,
+    summaryUserPrefix,
+    t
+  ])
 
   // Simple markdown-normalize (straight quotes, dashes, NBSP)
   const toMarkdown = React.useCallback((text: string) => {
@@ -446,14 +551,15 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     if (isOnline && (!hasQuery || hasFilters)) {
       refetch()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, pageSize, isOnline])
+  }, [isOnline, keywordTokens, mediaTypes, page, pageSize, query, refetch])
 
   // Initial load: populate media types (cached) and auto-browse first page
   React.useEffect(() => {
+    if (initialLoadRef.current) return
+    initialLoadRef.current = true
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         const cacheKey = "reviewMediaTypesCache"
         const cached = (await storage.get(cacheKey).catch(() => null)) as {
           types?: string[]
@@ -524,15 +630,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         }
       } catch {}
     })()
-    // Intentionally run once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [initialLoadRef, isOnline, keywordTokens.length, mediaTypes.length, query, refetch])
 
   // Load custom prompts from storage
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         const data = (await storage
           .get(scopedKey("review:prompts"))
           .catch(() => null)) as any
@@ -553,7 +657,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         await storage.set(scopedKey("review:prompts"), {
           reviewSystemPrompt,
           reviewUserPrefix,
@@ -582,7 +686,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         const saved = (await storage
           .get(scopedKey("review:autoReviewOnSelect"))
           .catch(() => null)) as any
@@ -610,7 +714,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         await storage.set(
           scopedKey("review:autoReviewOnSelect"),
           autoReviewOnSelect
@@ -623,7 +727,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         await storage.set(scopedKey("review:filtersOpen"), filtersOpen)
       } catch {}
     })()
@@ -633,7 +737,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   React.useEffect(() => {
     ;(async () => {
       try {
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         await storage.set(scopedKey("review:defaultMode"), analysisMode)
       } catch {}
     })()
@@ -659,17 +763,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       }
 
       try {
-        const abs = await bgRequest<any>({
-          path: `/api/v1/notes/keywords/search/?query=${encodeURIComponent(q)}&limit=10` as any,
-          method: "GET" as any
-        })
-        const serverOpts: string[] = Array.isArray(abs)
-          ? abs
-              .map((k: any) =>
-                String(k?.keyword_text || k?.keyword || k?.text || "")
-              )
-              .filter(Boolean)
-          : []
+        const serverOpts = await searchNoteKeywords(q, 10)
         const preloadMatches = preloadedKeywords.filter((k) =>
           k.toLowerCase().includes(q.toLowerCase())
         )
@@ -839,7 +933,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       setExistingAnalyses(arr)
       // Restore previously selected version index if present
       try {
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         const idx = (await storage
           .get(scopedKey(`review:selectedVersion:${item.id}`))
           .catch(() => null)) as any
@@ -864,7 +958,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!selected || selected.kind !== "media") return
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         await storage.set(
           scopedKey(`review:selectedVersion:${selected.id}`),
           selectedExistingIndex
@@ -878,7 +972,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!selected || selected.kind !== "media") return
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         const saved = (await storage
           .get(scopedKey(`review:withAnalysisOnly:${selected.id}`))
           .catch(() => null)) as any
@@ -891,7 +985,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!selected || selected.kind !== "media") return
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         await storage.set(
           scopedKey(`review:withAnalysisOnly:${selected.id}`),
           onlyWithAnalysis
@@ -1057,7 +1151,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
           setExpandedPrompts(new Set())
           return
         }
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         const saved = (await storage
           .get(scopedKey(`review:expandedPrompts:${selected.id}`))
           .catch(() => null)) as any
@@ -1070,7 +1164,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     ;(async () => {
       try {
         if (!selected || selected.kind !== "media") return
-        const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
+        const storage = createSafeStorage()
         await storage.set(
           scopedKey(`review:expandedPrompts:${selected.id}`),
           Array.from(expandedPrompts)
@@ -1166,18 +1260,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       try {
         if (!isOnline) return
 
-        const abs = await bgRequest<any>({
-          path: `/api/v1/notes/keywords/?limit=200` as any,
-          method: "GET" as any
-        })
-        const arr: string[] = Array.isArray(abs)
-          ? abs
-              .map((k: any) =>
-                String(k?.keyword || k?.keyword_text || k?.text || "")
-              )
-              .filter(Boolean)
-          : []
-        const uniq = Array.from(new Set<string>(arr)) as string[]
+        const uniq = await getNoteKeywords(200)
         setPreloadedKeywords(uniq)
         if (uniq.length) setKeywordOptions(uniq)
       } catch {
@@ -1357,7 +1440,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       <FeatureEmptyState
         title={
           <span className="inline-flex items-center gap-2">
-            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primaryStrong">
               {t("review:reviewPage.demoBadge", { defaultValue: "Demo" })}
             </span>
             <span>
@@ -1469,8 +1552,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     )
 
     const previewToolbar = (
-      <div className="sticky top-2 z-10 mb-3 flex flex-wrap items-center gap-2 rounded-md border border-dashed border-gray-300 bg-white/80 p-2 dark:border-gray-700 dark:bg-[#111111]/80 backdrop-blur">
-        <div className="text-xs font-semibold text-gray-700 dark:text-gray-200">
+      <div className="sticky top-2 z-10 mb-3 flex flex-wrap items-center gap-2 rounded-md border border-dashed border-border bg-surface/80 p-2 backdrop-blur">
+        <div className="text-xs font-semibold text-text">
           {t(
             "review:preview.bulkHint",
             "Preview: scroll multiple items with collapsible Content & Analysis"
@@ -1500,22 +1583,22 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         {previewCards.map((c, idx) => (
           <div
             key={idx}
-            className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#111] shadow-sm">
-            <div className="flex items-center justify-between px-3 py-2 border-b dark:border-gray-700">
+            className="rounded-lg border border-border bg-surface shadow-sm">
+            <div className="flex items-center justify-between px-3 py-2 border-b border-border">
               <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                <span className="text-sm font-semibold text-text">
                   {c.title}
                 </span>
-                <span className="text-[11px] text-gray-500">{c.meta}</span>
+                <span className="text-[11px] text-text-muted">{c.meta}</span>
               </div>
               <Tag color={c.status === "Processing" ? "orange" : "green"}>
                 {c.status}
               </Tag>
             </div>
-            <div className="divide-y divide-gray-200 dark:divide-gray-800">
+            <div className="divide-y divide-border">
               <div className="px-3 py-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase text-gray-600 dark:text-gray-300">
+                  <span className="text-xs font-semibold uppercase text-text-muted">
                     Content / Transcript
                   </span>
                   <Button
@@ -1530,16 +1613,16 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   </Button>
                 </div>
                 {previewExpanded.content && (
-                  <div className="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-300">
-                    <div className="h-3 w-3/4 bg-gray-200 dark:bg-gray-800 rounded"></div>
-                    <div className="h-3 w-5/6 bg-gray-200 dark:bg-gray-800 rounded"></div>
-                    <div className="h-3 w-2/3 bg-gray-200 dark:bg-gray-800 rounded"></div>
+                  <div className="mt-2 space-y-1 text-sm text-text-muted">
+                    <div className="h-3 w-3/4 bg-surface2 rounded"></div>
+                    <div className="h-3 w-5/6 bg-surface2 rounded"></div>
+                    <div className="h-3 w-2/3 bg-surface2 rounded"></div>
                   </div>
                 )}
               </div>
-              <div className="px-3 py-2 bg-gray-50 dark:bg-[#0c0c0c]">
+              <div className="px-3 py-2 bg-surface2 ">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase text-gray-600 dark:text-gray-300">
+                  <span className="text-xs font-semibold uppercase text-text-muted">
                     Analysis / Summary
                   </span>
                   <Button
@@ -1557,10 +1640,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   </Button>
                 </div>
                 {previewExpanded.analysis && (
-                  <div className="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-300">
-                    <div className="h-3 w-2/3 bg-gray-200 dark:bg-gray-800 rounded"></div>
-                    <div className="h-3 w-5/6 bg-gray-200 dark:bg-gray-800 rounded"></div>
-                    <div className="h-3 w-1/2 bg-gray-200 dark:bg-gray-800 rounded"></div>
+                  <div className="mt-2 space-y-1 text-sm text-text-muted">
+                    <div className="h-3 w-2/3 bg-surface2 rounded"></div>
+                    <div className="h-3 w-5/6 bg-surface2 rounded"></div>
+                    <div className="h-3 w-1/2 bg-surface2 rounded"></div>
                   </div>
                 )}
               </div>
@@ -1573,12 +1656,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     return (
       <div className="mt-4 space-y-4">
         {demoEnabled && (
-          <div className="mb-2 inline-flex items-center rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:border-amber-600 dark:bg-amber-900/30 dark:text-amber-200">
+          <div className="mb-2 inline-flex items-center rounded-full border border-warn/40 bg-warn/10 px-2 py-0.5 text-[11px] font-medium text-warn">
             {t("review:reviewPage.demoMode", "Demo mode")}
           </div>
         )}
         {baseEmpty}
-        <div className="mt-4 rounded-lg border border-dashed border-gray-300 bg-white dark:border-gray-700 dark:bg-[#171717] p-3">
+        <div className="mt-4 rounded-lg border border-dashed border-border bg-surface p-3">
           {previewToolbar}
           {previewCardsUi}
         </div>
@@ -1592,9 +1675,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         {/* Left column: search + results */}
         {!sidebarHidden && (
           <div className="w-full lg:w-1/3 min-w-0 lg:sticky lg:top-16 lg:self-start">
-            <div className="p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717]">
+            <div className="p-3 rounded-lg border border-border bg-surface ">
               {isViewMediaMode && (
-                <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+                <p className="mb-2 text-xs text-text-muted">
                   {t(
                     "review:reviewPage.mediaModeHint",
                     "Search and inspect one media item at a time. Select a result to view its content and analyses on the right."
@@ -1634,7 +1717,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 />
               </div>
               {!isOnline && (
-                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                <p className="mt-2 text-xs text-text-muted">
                   {t(
                     "review:reviewPage.offlineHint",
                     "Connect to your tldw server in Settings to send messages and view media. Then you can search media from this page."
@@ -1655,7 +1738,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
               </div>
               <div className="mt-2 flex flex-wrap items-center gap-2 justify-between">
                 <button
-                  className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
+                  className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-text hover:bg-surface2 "
                   aria-expanded={filtersOpen}
                   aria-controls="review-filters"
                   onClick={() => setFiltersOpen((v) => !v)}>
@@ -1665,7 +1748,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   <span>{t("review:reviewPage.filters", "Filters")}</span>
                 </button>
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] text-gray-500">
+                  <span className="text-[11px] text-text-muted">
                     {t("review:reviewPage.resultTypes", "Result types")}
                   </span>
                   <Checkbox
@@ -1686,7 +1769,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 <div className="ml-auto">
                   {allowGeneration && (
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-gray-500">
+                      <span className="text-[11px] text-text-muted">
                         {t(
                           "review:reviewPage.generationMode",
                           "Generation mode"
@@ -1790,25 +1873,25 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   </div>
                 )}
               </div>
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-xs text-text-muted">
                 {t(
                   "review:mediaPage.filterHelp",
                   "Search matches title and content; Media types and Keywords further narrow the results."
                 )}
               </p>
             </div>
-            <div className="mt-3 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] max-h-[50vh] md:max-h-[60vh] lg:max-h-[calc(100dvh-18rem)] overflow-auto">
+            <div className="mt-3 p-3 rounded-lg border border-border bg-surface max-h-[50vh] md:max-h-[60vh] lg:max-h-[calc(100dvh-18rem)] overflow-auto">
               <div
-                className="sticky -m-3 mb-2 top-0 z-10 px-3 py-2 bg-white dark:bg-[#171717] border-b dark:border-gray-700 flex items-center justify-between"
+                className="sticky -m-3 mb-2 top-0 z-10 px-3 py-2 bg-surface border-b border-border flex items-center justify-between"
                 role="heading"
                 aria-level={2}
                 aria-label={`${t("review:reviewPage.results", "Results")} (${displayedResults.length} items)`}
                 data-testid="review-results-header">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs uppercase tracking-wide text-gray-500">
+                  <span className="text-xs uppercase tracking-wide text-text-muted">
                     {t("review:reviewPage.results", "Results")}
                   </span>
-                  <span className="text-[11px] text-gray-400">
+                  <span className="text-[11px] text-text-subtle">
                     {t("review:reviewPage.loadedOf", "{{count}} loaded", {
                       count: displayedResults.length
                     })}
@@ -1816,7 +1899,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-text-subtle">
                     {`${displayedResults.length} item${displayedResults.length === 1 ? "" : "s"}`}
                   </span>
                   <Tooltip
@@ -1836,13 +1919,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                           "Review results keyboard shortcuts"
                         ) as string
                       }
-                      className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                      className="text-text-subtle hover:text-text">
                       ?
                     </Button>
                   </Tooltip>
                 </div>
               </div>
-              <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+              <p className="mb-2 text-xs text-text-muted">
                 {t(
                   "review:reviewPage.resultsHint",
                   "Click a result to load its content and analyses on the right."
@@ -1854,7 +1937,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   role="status"
                   aria-live="polite">
                   <Spin />
-                  <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="mt-2 text-xs text-text-muted">
                     {t("review:mediaPage.searchingBanner", "Searching media…")}
                   </div>
                 </div>
@@ -1924,9 +2007,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             loadExistingAnalyses(item)
                           }
                         }}
-                        className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-[#262626] rounded px-2 result-fade-in border-l-2 ${
+                        className={`cursor-pointer hover:bg-surface2 rounded px-2 result-fade-in border-l-2 ${
                           isSelected
-                            ? "border-l-blue-500 !bg-gray-100 dark:!bg-gray-800"
+                            ? "border-l-primary !bg-surface2"
                             : "border-l-transparent"
                         }`}>
                         <div className="w-full flex items-start justify-between gap-3">
@@ -1952,7 +2035,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               )}
                             </div>
                             {item.snippet && (
-                              <div className="text-xs text-gray-500 truncate mt-0.5">
+                              <div className="text-xs text-text-muted truncate mt-0.5">
                                 {item.snippet}
                               </div>
                             )}
@@ -1973,12 +2056,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               if (durationLabel) parts.push(durationLabel)
                               if (parts.length === 0) return null
                               return (
-                                <div className="text-[10px] text-gray-500 mt-0.5">
+                                <div className="text-[10px] text-text-muted mt-0.5">
                                   {parts.join(" · ")}
                                 </div>
                               )
                             })()}
-                            <div className="text-[10px] text-gray-400 mt-0.5">
+                            <div className="text-[10px] text-text-subtle mt-0.5">
                               {item.meta?.type ? String(item.meta.type) : ""}{" "}
                               {item.meta?.created_at
                                 ? `· ${new Date(
@@ -2014,7 +2097,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                       setPageSize(ps)
                     }}
                   />
-                  <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                  <p className="text-[11px] text-text-muted">
                     {t(
                       "review:reviewPage.paginationHint",
                       "Use filters or pagination to refine the results if many items are loaded."
@@ -2039,7 +2122,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 title={sidebarLabel}
                 aria-label={sidebarLabel}
                 onClick={() => setSidebarHidden((v) => !v)}
-                className="h-full w-6 rounded bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300">
+                className="h-full w-6 rounded bg-surface2 hover:bg-surface2 flex items-center justify-center text-xs font-semibold text-text-muted">
                 <span className="sr-only">{sidebarLabel}</span>
                 <span aria-hidden="true">{sidebarHidden ? ">>" : "<<"}</span>
               </button>
@@ -2048,13 +2131,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         </div>
 
         {/* Right/center: analysis panel */}
-        <div className="flex-1 p-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-[#171717] min-h-[70vh] min-w-0 lg:h-[calc(100dvh-8rem)] overflow-auto">
-          <div className="sticky top-0 z-20 mb-3 flex flex-wrap items-center gap-2 rounded-md border border-dashed border-gray-300 bg-white/80 p-2 dark:border-gray-700 dark:bg-[#111111]/80 backdrop-blur">
-            <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
+        <div className="flex-1 p-3 rounded-lg border border-border bg-surface min-h-[70vh] min-w-0 lg:h-[calc(100dvh-8rem)] overflow-auto">
+          <div className="sticky top-0 z-20 mb-3 flex flex-wrap items-center gap-2 rounded-md border border-dashed border-border bg-surface/80 p-2 backdrop-blur">
+            <div className="flex items-center gap-2 text-xs text-text-muted">
               <span className="font-semibold uppercase">
                 {t("review:reviewPage.bulkToolbar", "Review controls")}
               </span>
-              <span className="text-gray-500">
+              <span className="text-text-muted">
                 {t("review:reviewPage.loadedCount", "{{count}} loaded", {
                   count: displayedResults.length
                 })}
@@ -2066,12 +2149,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 size="small"
                 type="link"
                 onClick={() => {
-                  try {
-                    localStorage.setItem(
-                      "tldw:lastMediaId",
-                      String(selected.id)
-                    )
-                  } catch {}
+                  void setSetting(LAST_MEDIA_ID_SETTING, String(selected.id))
                   navigate("/media-multi")
                 }}>
                 {t(
@@ -2082,7 +2160,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
             )}
             <div className="flex flex-wrap items-center gap-3 ml-auto">
               <div className="flex flex-wrap items-center gap-1">
-                <span className="text-[11px] text-gray-500">
+                <span className="text-[11px] text-text-muted">
                   {t("review:reviewPage.viewLabel", "Content view")}
                 </span>
                 <Button
@@ -2103,7 +2181,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 </Button>
               </div>
               <div className="flex flex-wrap items-center gap-1">
-                <span className="text-[11px] text-gray-500">
+                <span className="text-[11px] text-text-muted">
                   {t("review:reviewPage.navigateLabel", "Items")}
                 </span>
                 <Button
@@ -2125,7 +2203,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
             </div>
             {displayedResults.length > 5 && (
               <div className="w-full flex flex-wrap items-center gap-2">
-                <span className="text-[11px] text-gray-500">
+                <span className="text-[11px] text-text-muted">
                   {t("review:reviewPage.jumpTo", "Jump to")}
                 </span>
                 <div className="flex flex-wrap gap-1">
@@ -2180,7 +2258,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                   <div className="flex flex-col gap-1">
-                    <span className="text-[11px] text-gray-500">
+                    <span className="text-[11px] text-text-muted">
                       {t(
                         "review:reviewPage.askAssistantLabel",
                         "Ask the assistant"
@@ -2211,20 +2289,18 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                                     title,
                                     content
                                   }
-                                  if (typeof window !== "undefined") {
-                                    window.localStorage.setItem(
-                                      "tldw:discussMediaPrompt",
-                                      JSON.stringify(payload)
+                                  void setSetting(
+                                    DISCUSS_MEDIA_PROMPT_SETTING,
+                                    payload
+                                  )
+                                  try {
+                                    window.dispatchEvent(
+                                      new CustomEvent("tldw:discuss-media", {
+                                        detail: payload
+                                      })
                                     )
-                                    try {
-                                      window.dispatchEvent(
-                                        new CustomEvent("tldw:discuss-media", {
-                                          detail: payload
-                                        })
-                                      )
-                                    } catch {
-                                      // ignore event errors
-                                    }
+                                  } catch {
+                                    // ignore event errors
                                   }
                                 } catch {
                                   // ignore storage errors
@@ -2332,7 +2408,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     </div>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-[11px] text-gray-500">
+                    <span className="text-[11px] text-text-muted">
                       {t("review:reviewPage.saveResultsLabel", "Save results")}
                     </span>
                     <div className="flex flex-wrap items-center gap-2">
@@ -2686,7 +2762,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                       )}
                     </Checkbox>
                     <button
-                      className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
+                      className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-text hover:bg-surface2 "
                       onClick={() => setPromptsOpen((v) => !v)}
                       aria-expanded={promptsOpen}
                       aria-controls="custom-prompts">
@@ -2697,458 +2773,108 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     </button>
                   </>
                 )}
-                {/* Quick dropdown editors for prompts */}
-                <Dropdown
-                  trigger={["click"]}
-                  placement="bottomLeft"
-                  popupRender={() => (
-                    <div className="p-2 w-[420px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="text-xs text-gray-500">
-                          {t(
-                            "review:reviewPage.searchPrompts",
-                            "Search prompts"
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 text-xs">
-                          <label className="inline-flex items-center gap-1">
-                            <input
-                              type="checkbox"
-                              checked={revIncludeLocal}
-                              onChange={(e) =>
-                                setRevIncludeLocal(e.target.checked)
-                              }
-                            />{" "}
-                            {t("review:reviewPage.includeLocal", "Local")}
-                          </label>
-                          <label className="inline-flex items-center gap-1">
-                            <input
-                              type="checkbox"
-                              checked={revIncludeServer}
-                              onChange={(e) =>
-                                setRevIncludeServer(e.target.checked)
-                              }
-                            />{" "}
-                            {t("review:reviewPage.includeServer", "Server")}
-                          </label>
-                        </div>
-                      </div>
-                      <Input.Search
-                        value={revQ}
-                        onChange={(e) => setRevQ(e.target.value)}
-                        onSearch={async (q) => {
-                          if (!q.trim()) {
-                            setRevResults([])
-                            return
-                          }
-                          setRevLoading(true)
-                          try {
-                            let merged: Array<{
-                              id?: string
-                              title: string
-                              content: string
-                            }> = []
-                            if (revIncludeLocal) {
-                              const locals = await getAllPrompts()
-                              const fl = (locals || [])
-                                .filter(
-                                  (p) =>
-                                    p.title
-                                      ?.toLowerCase()
-                                      .includes(q.toLowerCase()) ||
-                                    p.content
-                                      ?.toLowerCase()
-                                      .includes(q.toLowerCase())
-                                )
-                                .map((p) => ({
-                                  id: p.id,
-                                  title: p.title,
-                                  content: p.content
-                                }))
-                              merged = merged.concat(fl)
-                            }
-                            if (revIncludeServer) {
-                              await tldwClient.initialize().catch(() => null)
-                              const res = await tldwClient
-                                .searchPrompts(q)
-                                .catch(() => [])
-                              const list: any[] = Array.isArray(res)
-                                ? res
-                                : res?.results || res?.prompts || []
-                              merged = merged.concat(
-                                list.map((x) => ({
-                                  id: x.id,
-                                  title: String(
-                                    x.title || x.name || "Untitled"
-                                  ),
-                                  content: String(x.content || x.prompt || "")
-                                }))
-                              )
-                            }
-                            // dedupe by title+first64
-                            const seen = new Set<string>()
-                            const unique = merged.filter((p) => {
-                              const k = `${p.title}:${p.content.slice(0, 64)}`
-                              if (seen.has(k)) return false
-                              seen.add(k)
-                              return true
-                            })
-                            setRevResults(unique.slice(0, 50))
-                          } finally {
-                            setRevLoading(false)
-                          }
-                        }}
-                        loading={revLoading}
-                        placeholder={
-                          t(
-                            "review:reviewPage.searchPrompts",
-                            "Search prompts"
-                          ) as string
-                        }
-                        allowClear
-                      />
-                      {revResults.length > 0 && (
-                        <div className="mt-2 max-h-40 overflow-auto rounded border dark:border-gray-700">
-                          <List
-                            size="small"
-                            dataSource={revResults}
-                            renderItem={(it) => (
-                              <List.Item
-                                className="!px-2 !py-1 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
-                                onMouseDown={(e) => e.preventDefault()}
-                                onClick={() => {
-                                  setReviewSystemPrompt(it.content)
-                                  setRevResults([])
-                                }}>
-                                <div className="truncate text-sm">
-                                  {it.title}
-                                </div>
-                              </List.Item>
-                            )}
-                          />
-                        </div>
-                      )}
-                      <div className="mt-2">
-                        <div className="text-xs text-gray-500 mb-1">
-                          {t("review:reviewPage.presets", "Presets")}
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setReviewSystemPrompt(
-                                "You are an expert reviewer. Provide a concise, structured review with strengths, weaknesses, and actionable recommendations."
-                              )
-                            }>
-                            {t("review:reviewPage.presetsCritical", "Critical")}
-                          </Button>
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setReviewSystemPrompt(
-                                "Act as a QA auditor. Identify issues, ambiguities, and missing information. Provide numbered findings and suggested fixes."
-                              )
-                            }>
-                            {t("review:reviewPage.presetsQaAudit", "QA Audit")}
-                          </Button>
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setReviewSystemPrompt(
-                                "Provide a bullet-point review focusing on clarity, completeness, and relevance. Include a brief overall assessment at the end."
-                              )
-                            }>
-                            {t(
-                              "review:reviewPage.presetsBulletReview",
-                              "Bullet Review"
-                            )}
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="text-xs text-gray-500 mb-1">
-                        {t(
-                          "review:reviewPage.reviewSystemPrompt",
-                          "Review: System prompt"
-                        )}
-                      </div>
-                      <textarea
-                        className="w-full text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] mt-1"
-                        rows={4}
-                        value={reviewSystemPrompt}
-                        onChange={(e) => setReviewSystemPrompt(e.target.value)}
-                      />
-                      <div className="text-xs text-gray-500 mt-2 mb-1">
-                        {t(
-                          "review:reviewPage.reviewUserPrefix",
-                          "Review: User prompt prefix"
-                        )}
-                      </div>
-                      <textarea
-                        className="w-full text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]"
-                        rows={3}
-                        value={reviewUserPrefix}
-                        onChange={(e) => setReviewUserPrefix(e.target.value)}
-                      />
-                      <div className="mt-2 flex justify-end">
-                        <Button
-                          size="small"
-                          onClick={async () => {
-                            try {
-                              const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
-                              await storage.set(scopedKey("review:prompts"), {
-                                reviewSystemPrompt,
-                                reviewUserPrefix,
-                                summarySystemPrompt,
-                                summaryUserPrefix
-                              })
-                              message.success(
-                                t(
-                                  "review:reviewPage.saveAsDefault",
-                                  "Saved as default"
-                                )
-                              )
-                            } catch {}
-                          }}>
-                          {t(
-                            "review:reviewPage.saveAsDefault",
-                            "Save as default"
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                  )}>
-                  <button
-                    className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
-                    aria-haspopup="true">
-                    {t("review:reviewPage.reviewPrompt", "Review prompt")}
-                  </button>
-                </Dropdown>
-                <Dropdown
-                  trigger={["click"]}
-                  placement="bottomLeft"
-                  popupRender={() => (
-                    <div className="p-2 w-[420px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="text-xs text-gray-500">
-                          {t(
-                            "review:reviewPage.searchPrompts",
-                            "Search prompts"
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 text-xs">
-                          <label className="inline-flex items-center gap-1">
-                            <input
-                              type="checkbox"
-                              checked={sumIncludeLocal}
-                              onChange={(e) =>
-                                setSumIncludeLocal(e.target.checked)
-                              }
-                            />{" "}
-                            {t("review:reviewPage.includeLocal", "Local")}
-                          </label>
-                          <label className="inline-flex items-center gap-1">
-                            <input
-                              type="checkbox"
-                              checked={sumIncludeServer}
-                              onChange={(e) =>
-                                setSumIncludeServer(e.target.checked)
-                              }
-                            />{" "}
-                            {t("review:reviewPage.includeServer", "Server")}
-                          </label>
-                        </div>
-                      </div>
-                      <Input.Search
-                        value={sumQ}
-                        onChange={(e) => setSumQ(e.target.value)}
-                        onSearch={async (q) => {
-                          if (!q.trim()) {
-                            setSumResults([])
-                            return
-                          }
-                          setSumLoading(true)
-                          try {
-                            let merged: Array<{
-                              id?: string
-                              title: string
-                              content: string
-                            }> = []
-                            if (sumIncludeLocal) {
-                              const locals = await getAllPrompts()
-                              const fl = (locals || [])
-                                .filter(
-                                  (p) =>
-                                    p.title
-                                      ?.toLowerCase()
-                                      .includes(q.toLowerCase()) ||
-                                    p.content
-                                      ?.toLowerCase()
-                                      .includes(q.toLowerCase())
-                                )
-                                .map((p) => ({
-                                  id: p.id,
-                                  title: p.title,
-                                  content: p.content
-                                }))
-                              merged = merged.concat(fl)
-                            }
-                            if (sumIncludeServer) {
-                              await tldwClient.initialize().catch(() => null)
-                              const res = await tldwClient
-                                .searchPrompts(q)
-                                .catch(() => [])
-                              const list: any[] = Array.isArray(res)
-                                ? res
-                                : res?.results || res?.prompts || []
-                              merged = merged.concat(
-                                list.map((x) => ({
-                                  id: x.id,
-                                  title: String(
-                                    x.title || x.name || "Untitled"
-                                  ),
-                                  content: String(x.content || x.prompt || "")
-                                }))
-                              )
-                            }
-                            const seen = new Set<string>()
-                            const unique = merged.filter((p) => {
-                              const k = `${p.title}:${p.content.slice(0, 64)}`
-                              if (seen.has(k)) return false
-                              seen.add(k)
-                              return true
-                            })
-                            setSumResults(unique.slice(0, 50))
-                          } finally {
-                            setSumLoading(false)
-                          }
-                        }}
-                        loading={sumLoading}
-                        placeholder={
-                          t(
-                            "review:reviewPage.searchPrompts",
-                            "Search prompts"
-                          ) as string
-                        }
-                        allowClear
-                      />
-                      {sumResults.length > 0 && (
-                        <div className="mt-2 max-h-40 overflow-auto rounded border dark:border-gray-700">
-                          <List
-                            size="small"
-                            dataSource={sumResults}
-                            renderItem={(it) => (
-                              <List.Item
-                                className="!px-2 !py-1 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
-                                onMouseDown={(e) => e.preventDefault()}
-                                onClick={() => {
-                                  setSummarySystemPrompt(it.content)
-                                  setSumResults([])
-                                }}>
-                                <div className="truncate text-sm">
-                                  {it.title}
-                                </div>
-                              </List.Item>
-                            )}
-                          />
-                        </div>
-                      )}
-                      <div className="mt-2">
-                        <div className="text-xs text-gray-500 mb-1">
-                          {t("review:reviewPage.presets", "Presets")}
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setSummarySystemPrompt(
-                                "Summarize into key points and an executive abstract. Keep it concise and actionable."
-                              )
-                            }>
-                            {t(
-                              "review:reviewPage.presetsExecutive",
-                              "Executive"
-                            )}
-                          </Button>
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setSummarySystemPrompt(
-                                "Write a detailed summary with sections: Overview, Key Points, and Takeaways. Keep neutral tone."
-                              )
-                            }>
-                            {t("review:reviewPage.presetsDetailed", "Detailed")}
-                          </Button>
-                          <Button
-                            size="small"
-                            onClick={() =>
-                              setSummarySystemPrompt(
-                                "Create a short bullet-point summary capturing the core ideas and any decisions."
-                              )
-                            }>
-                            {t("review:reviewPage.presetsBullets", "Bullets")}
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="text-xs text-gray-500 mb-1">
-                        {t(
-                          "review:reviewPage.summarySystemPrompt",
-                          "Summary: System prompt"
-                        )}
-                      </div>
-                      <textarea
-                        className="w-full text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] mt-1"
-                        rows={4}
-                        value={summarySystemPrompt}
-                        onChange={(e) => setSummarySystemPrompt(e.target.value)}
-                      />
-                      <div className="text-xs text-gray-500 mt-2 mb-1">
-                        {t(
-                          "review:reviewPage.summaryUserPrefix",
-                          "Summary: User prompt prefix"
-                        )}
-                      </div>
-                      <textarea
-                        className="w-full text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]"
-                        rows={3}
-                        value={summaryUserPrefix}
-                        onChange={(e) => setSummaryUserPrefix(e.target.value)}
-                      />
-                      <div className="mt-2 flex justify-end">
-                        <Button
-                          size="small"
-                          onClick={async () => {
-                            try {
-                              const storage = new Storage({ area: "local", serde: safeStorageSerde } as any)
-                              await storage.set(scopedKey("review:prompts"), {
-                                reviewSystemPrompt,
-                                reviewUserPrefix,
-                                summarySystemPrompt,
-                                summaryUserPrefix
-                              })
-                              message.success(
-                                t(
-                                  "review:reviewPage.saveAsDefault",
-                                  "Saved as default"
-                                )
-                              )
-                            } catch {}
-                          }}>
-                          {t(
-                            "review:reviewPage.saveAsDefault",
-                            "Save as default"
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                  )}>
-                  <button
-                    className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
-                    aria-haspopup="true">
-                    {t("review:reviewPage.summaryPrompt", "Summary prompt")}
-                  </button>
-                </Dropdown>
+                <PromptDropdown
+                  triggerLabel={t(
+                    "review:reviewPage.reviewPrompt",
+                    "Review prompt"
+                  )}
+                  searchLabel={t(
+                    "review:reviewPage.searchPrompts",
+                    "Search prompts"
+                  ) as string}
+                  includeLocalLabel={t(
+                    "review:reviewPage.includeLocal",
+                    "Local"
+                  )}
+                  includeServerLabel={t(
+                    "review:reviewPage.includeServer",
+                    "Server"
+                  )}
+                  presetsLabel={t("review:reviewPage.presets", "Presets")}
+                  systemPromptLabel={t(
+                    "review:reviewPage.reviewSystemPrompt",
+                    "Review: System prompt"
+                  )}
+                  userPrefixLabel={t(
+                    "review:reviewPage.reviewUserPrefix",
+                    "Review: User prompt prefix"
+                  )}
+                  saveDefaultsLabel={t(
+                    "review:reviewPage.saveAsDefault",
+                    "Save as default"
+                  )}
+                  query={reviewPromptQuery}
+                  onQueryChange={setReviewPromptQuery}
+                  onSearch={searchReviewPrompts}
+                  loading={reviewPromptLoading}
+                  results={reviewPromptResults}
+                  onSelectResult={(item) => {
+                    setReviewSystemPrompt(item.content)
+                    clearReviewResults()
+                  }}
+                  includeLocal={reviewIncludeLocal}
+                  onIncludeLocalChange={setReviewIncludeLocal}
+                  includeServer={reviewIncludeServer}
+                  onIncludeServerChange={setReviewIncludeServer}
+                  presets={reviewPresets}
+                  systemPrompt={reviewSystemPrompt}
+                  onSystemPromptChange={setReviewSystemPrompt}
+                  userPrefix={reviewUserPrefix}
+                  onUserPrefixChange={setReviewUserPrefix}
+                  onSaveDefaults={handleSavePromptDefaults}
+                />
+                <PromptDropdown
+                  triggerLabel={t(
+                    "review:reviewPage.summaryPrompt",
+                    "Summary prompt"
+                  )}
+                  searchLabel={t(
+                    "review:reviewPage.searchPrompts",
+                    "Search prompts"
+                  ) as string}
+                  includeLocalLabel={t(
+                    "review:reviewPage.includeLocal",
+                    "Local"
+                  )}
+                  includeServerLabel={t(
+                    "review:reviewPage.includeServer",
+                    "Server"
+                  )}
+                  presetsLabel={t("review:reviewPage.presets", "Presets")}
+                  systemPromptLabel={t(
+                    "review:reviewPage.summarySystemPrompt",
+                    "Summary: System prompt"
+                  )}
+                  userPrefixLabel={t(
+                    "review:reviewPage.summaryUserPrefix",
+                    "Summary: User prompt prefix"
+                  )}
+                  saveDefaultsLabel={t(
+                    "review:reviewPage.saveAsDefault",
+                    "Save as default"
+                  )}
+                  query={summaryPromptQuery}
+                  onQueryChange={setSummaryPromptQuery}
+                  onSearch={searchSummaryPrompts}
+                  loading={summaryPromptLoading}
+                  results={summaryPromptResults}
+                  onSelectResult={(item) => {
+                    setSummarySystemPrompt(item.content)
+                    clearSummaryResults()
+                  }}
+                  includeLocal={summaryIncludeLocal}
+                  onIncludeLocalChange={setSummaryIncludeLocal}
+                  includeServer={summaryIncludeServer}
+                  onIncludeServerChange={setSummaryIncludeServer}
+                  presets={summaryPresets}
+                  systemPrompt={summarySystemPrompt}
+                  onSystemPromptChange={setSummarySystemPrompt}
+                  userPrefix={summaryUserPrefix}
+                  onUserPrefixChange={setSummaryUserPrefix}
+                  onSaveDefaults={handleSavePromptDefaults}
+                />
                 <button
-                  className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
+                  className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-text hover:bg-surface2 "
                   onClick={() => setDebugOpen((v) => !v)}
                   aria-expanded={debugOpen}
                   aria-controls="debug-json">
@@ -3158,7 +2884,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   )}
                 </button>
                 <button
-                  className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#262626]"
+                  className="inline-flex items-center gap-1 text-xs border rounded px-2 py-1 text-text hover:bg-surface2 "
                   onClick={() => setAdvancedOpen((v) => !v)}
                   aria-expanded={advancedOpen}
                   aria-controls="debug-json custom-prompts">
@@ -3171,7 +2897,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   <div
                     id="debug-json"
                     className={`overflow-hidden transition-all duration-200 ${debugOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}`}>
-                    <div className="rounded border dark:border-gray-700 p-2 bg-gray-50 dark:bg-[#111] text-xs">
+                    <div className="rounded border border-border p-2 bg-surface2 text-xs">
                       <pre className="whitespace-pre-wrap break-all">
                         {selectedDetail
                           ? JSON.stringify(selectedDetail, null, 2)
@@ -3189,7 +2915,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                       id="custom-prompts"
                       className={`overflow-hidden transition-all duration-200 ${promptsOpen ? "max-h-[700px] opacity-100" : "max-h-0 opacity-0"}`}>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div className="rounded border dark:border-gray-700 p-2">
+                        <div className="rounded border border-border p-2">
                           <Typography.Text type="secondary">
                             {t(
                               "review:reviewPage.reviewSystemPrompt",
@@ -3197,7 +2923,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             )}
                           </Typography.Text>
                           <textarea
-                            className="w-full mt-2 min-h-[6rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]"
+                            className="w-full mt-2 min-h-[6rem] text-sm p-2 rounded border border-border "
                             value={reviewSystemPrompt}
                             onChange={(e) =>
                               setReviewSystemPrompt(e.target.value)
@@ -3212,14 +2938,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             )}
                           </Typography.Text>
                           <textarea
-                            className="w-full mt-2 min-h-[4rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]"
+                            className="w-full mt-2 min-h-[4rem] text-sm p-2 rounded border border-border "
                             value={reviewUserPrefix}
                             onChange={(e) =>
                               setReviewUserPrefix(e.target.value)
                             }
                           />
                         </div>
-                        <div className="rounded border dark:border-gray-700 p-2">
+                        <div className="rounded border border-border p-2">
                           <Typography.Text type="secondary">
                             {t(
                               "review:reviewPage.summarySystemPrompt",
@@ -3227,7 +2953,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             )}
                           </Typography.Text>
                           <textarea
-                            className="w-full mt-2 min-h-[6rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]"
+                            className="w-full mt-2 min-h-[6rem] text-sm p-2 rounded border border-border "
                             value={summarySystemPrompt}
                             onChange={(e) =>
                               setSummarySystemPrompt(e.target.value)
@@ -3242,7 +2968,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                             )}
                           </Typography.Text>
                           <textarea
-                            className="w-full mt-2 min-h-[4rem] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717]"
+                            className="w-full mt-2 min-h-[4rem] text-sm p-2 rounded border border-border "
                             value={summaryUserPrefix}
                             onChange={(e) =>
                               setSummaryUserPrefix(e.target.value)
@@ -3277,7 +3003,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
 
               {/* Stack: Media Content then Analysis then Existing Analyses */}
               <div className="flex flex-col gap-3 flex-1 min-h-0">
-                <div className="rounded border dark:border-gray-700 p-2 overflow-auto min-h-[14rem] md:h-[32vh]">
+                <div className="rounded border border-border p-2 overflow-auto min-h-[14rem] md:h-[32vh]">
                   <div className="flex items-center justify-between">
                     <Typography.Text type="secondary">
                       {t("review:reviewPage.mediaContent", "Media Content")}
@@ -3327,10 +3053,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                       </Button>
                     </div>
                   </div>
-                  <div className="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                  <div className="mt-2 text-sm text-text-muted">
                     {selectedContent ? (
                       contentCollapsed ? (
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-text-muted">
                           {selectedContent.slice(0, 160)}
                           {selectedContent.length > 160 ? "…" : ""}
                         </span>
@@ -3341,7 +3067,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               fallbackText={selectedContent}>
                               <React.Suspense
                                 fallback={
-                                  <span className="text-xs text-gray-500 whitespace-pre-wrap break-words">
+                                  <span className="text-xs text-text-muted whitespace-pre-wrap break-words">
                                     {selectedContent}
                                   </span>
                                 }>
@@ -3352,7 +3078,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               </React.Suspense>
                             </MarkdownErrorBoundary>
                           ) : (
-                            <span className="text-xs text-gray-500 whitespace-pre-wrap break-words">
+                            <span className="text-xs text-text-muted whitespace-pre-wrap break-words">
                               {selectedContent.slice(0, 2500) + "…"}
                             </span>
                           )}
@@ -3368,7 +3094,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                         </>
                       )
                     ) : (
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-text-muted">
                         {t(
                           "review:reviewPage.noContent",
                           "No content available"
@@ -3377,7 +3103,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     )}
                   </div>
                   {mediaJsonOpen && (
-                    <div className="mt-2 rounded border dark:border-gray-700 bg-gray-50 dark:bg-[#111] text-xs p-2 overflow-auto max-h-40">
+                    <div className="mt-2 rounded border border-border bg-surface2 text-xs p-2 overflow-auto max-h-40">
                       <pre className="whitespace-pre-wrap break-all">
                         {selectedDetail
                           ? JSON.stringify(selectedDetail, null, 2)
@@ -3389,7 +3115,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     </div>
                   )}
                 </div>
-                <div className="rounded border dark:border-gray-700 p-2 overflow-auto min-h-[14rem] md:h-[32vh] bg-gray-50 dark:bg-[#121212]">
+                <div className="rounded border border-border p-2 overflow-auto min-h-[14rem] md:h-[32vh] bg-surface2 ">
                   <div className="flex items-center justify-between">
                     <Typography.Text type="secondary">
                       {t("review:reviewPage.analysisTitle", "Analysis")}
@@ -3474,14 +3200,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     </div>
                   </div>
                   {analysisCollapsed ? (
-                    <div className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="mt-2 text-sm text-text-muted">
                       {analysis
                         ? `${analysis.slice(0, 200)}${analysis.length > 200 ? "…" : ""}`
                         : t("review:reviewPage.noAnalysis", "No analysis yet")}
                     </div>
                   ) : (
                     <textarea
-                      className="w-full mt-2 min-h-[12rem] md:h-[26vh] text-sm p-2 rounded border dark:border-gray-700 dark:bg-[#171717] resize-y leading-relaxed"
+                      className="w-full mt-2 min-h-[12rem] md:h-[26vh] text-sm p-2 rounded border border-border resize-y leading-relaxed"
                       value={analysis}
                       onChange={(e) => setAnalysis(e.target.value)}
                       placeholder={t(
@@ -3575,10 +3301,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     </Tooltip>
                   </div>
                 </div>
-                <div className="rounded border dark:border-gray-700 p-2 overflow-auto min-h-[10rem]">
+                <div className="rounded border border-border p-2 overflow-auto min-h-[10rem]">
                   {displayedVersionIndices.length > 0 ? (
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[10px] text-gray-500">
+                      <span className="text-[10px] text-text-muted">
                         {selectedDisplayPos >= 0
                           ? `${selectedDisplayPos + 1}/${displayedVersionIndices.length}`
                           : `0/${displayedVersionIndices.length}`}
@@ -3612,8 +3338,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                         trigger={["click"]}
                         placement="bottomLeft"
                         popupRender={() => (
-                          <div className="p-2 w-[260px] bg-white dark:bg-[#171717] border dark:border-gray-700 rounded shadow">
-                            <div className="text-xs text-gray-500 mb-2">
+                          <div className="p-2 w-[260px] bg-surface border border-border rounded shadow">
+                            <div className="text-xs text-text-muted mb-2">
                               {t("review:reviewPage.moreActions", "More actions")}
                             </div>
                             <div className="flex flex-col gap-1">
@@ -3856,7 +3582,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   </Button>
                 </div>
                 {displayedVersionIndices.length === 0 ? (
-                  <div className="text-xs text-gray-500 mt-2">
+                  <div className="text-xs text-text-muted mt-2">
                     {t(
                       "review:reviewPage.noSavedAnalyses",
                       "No saved analyses for this item yet."
@@ -3870,7 +3596,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     )}
                     renderItem={(n, i) => (
                       <List.Item
-                        className={`!px-1 flex items-start justify-between gap-2 ${displayedVersionIndices[i] === selectedExistingIndex ? "bg-gray-50 dark:bg-[#262626] rounded" : ""}`}
+                        className={`!px-1 flex items-start justify-between gap-2 ${displayedVersionIndices[i] === selectedExistingIndex ? "bg-surface2 rounded" : ""}`}
                         onClick={() =>
                           setSelectedExistingIndex(displayedVersionIndices[i])
                         }>
@@ -3887,7 +3613,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               </Tag>
                             ) : null}
                           </div>
-                          <div className="text-xs text-gray-500 max-w-[48rem]">
+                          <div className="text-xs text-text-muted max-w-[48rem]">
                             {(() => {
                               const key = String(
                                 getVersionNumber(n) ??
@@ -3972,7 +3698,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                               )
                             })()}
                           </div>
-                          <div className="text-[10px] text-gray-400 mt-1">
+                          <div className="text-[10px] text-text-subtle mt-1">
                             <span className="opacity-70">
                               {t("review:reviewPage.promptLabel", "Prompt")}:
                             </span>{" "}
@@ -4121,7 +3847,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   />
                 )}
                 {notesJsonOpen && (
-                  <div className="mt-2 rounded border dark:border-gray-700 bg-gray-50 dark:bg-[#111] text-xs p-2 overflow-auto max-h-48">
+                  <div className="mt-2 rounded border border-border bg-surface2 text-xs p-2 overflow-auto max-h-48">
                     <pre className="whitespace-pre-wrap break-all">
                       {JSON.stringify(existingAnalyses || [], null, 2)}
                     </pre>
@@ -4181,24 +3907,24 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         {diffSideBySide ? (
           <div className="grid grid-cols-2 gap-3 max-h-[60vh] overflow-auto text-xs font-mono">
             <div>
-              <div className="text-[10px] text-gray-500 mb-1">
+              <div className="text-[10px] text-text-muted mb-1">
                 {t(
                   "review:reviewPage.diffSelectedVersion",
                   "Selected version"
                 )}
               </div>
-              <pre className="whitespace-pre-wrap bg-gray-50 dark:bg-[#111] p-2 rounded border dark:border-gray-700">
+              <pre className="whitespace-pre-wrap bg-surface2 p-2 rounded border border-border">
                 {diffLeftText}
               </pre>
             </div>
             <div>
-              <div className="text-[10px] text-gray-500 mb-1">
+              <div className="text-[10px] text-text-muted mb-1">
                 {t(
                   "review:reviewPage.diffCurrentEditor",
                   "Current editor"
                 )}
               </div>
-              <pre className="whitespace-pre-wrap bg-gray-50 dark:bg-[#111] p-2 rounded border dark:border-gray-700">
+              <pre className="whitespace-pre-wrap bg-surface2 p-2 rounded border border-border">
                 {diffRightText}
               </pre>
             </div>
@@ -4206,7 +3932,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         ) : (
           <div className="max-h-[60vh] overflow-auto text-xs font-mono">
             {diffLines.length === 0 ? (
-              <div className="text-gray-500">
+              <div className="text-text-muted">
                 {t("review:reviewPage.noDifferences", "No differences")}
               </div>
             ) : (
@@ -4216,9 +3942,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     key={idx}
                     className={
                       l.type === "add"
-                        ? "bg-green-200/40 dark:bg-green-900/30"
+                        ? "bg-success/10"
                         : l.type === "del"
-                          ? "bg-red-200/40 dark:bg-red-900/30"
+                          ? "bg-danger/10"
                           : ""
                     }>
                     <span className="select-none mr-2 opacity-70">

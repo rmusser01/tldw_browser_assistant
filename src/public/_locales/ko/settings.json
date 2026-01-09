@@ -1,0 +1,2747 @@
+{
+  "navigation_serverAndAuth": {
+    "message": "서버 및 인증"
+  },
+  "navigation_knowledgeTools": {
+    "message": "지식 도구"
+  },
+  "navigation_workspace": {
+    "message": "작업 공간"
+  },
+  "navigation_about": {
+    "message": "정보"
+  },
+  "healthNav": {
+    "message": "상태"
+  },
+  "worldBooksNav": {
+    "message": "월드북"
+  },
+  "chatDictionariesNav": {
+    "message": "채팅 사전"
+  },
+  "charactersNav": {
+    "message": "캐릭터"
+  },
+  "mediaNav": {
+    "message": "미디어"
+  },
+  "chatAppearance_title": {
+    "message": "채팅 모양"
+  },
+  "chatAppearance_description": {
+    "message": "채팅 메시지의 색상, 글꼴, 글자 크기를 사용자 지정합니다."
+  },
+  "chatAppearance_behaviorNote": {
+    "message": "채팅 동작 설정(와이드 모드, 추론, 복사 옵션)을 찾고 계신가요?"
+  },
+  "chatAppearance_goToGeneral": {
+    "message": "일반 설정으로 이동"
+  },
+  "chatAppearance_userHeading": {
+    "message": "사용자 메시지"
+  },
+  "chatAppearance_assistantHeading": {
+    "message": "어시스턴트 메시지"
+  },
+  "chatAppearance_userColor": {
+    "message": "사용자 텍스트 색상"
+  },
+  "chatAppearance_assistantColor": {
+    "message": "어시스턴트 텍스트 색상"
+  },
+  "chatAppearance_userFont": {
+    "message": "사용자 글꼴"
+  },
+  "chatAppearance_assistantFont": {
+    "message": "어시스턴트 글꼴"
+  },
+  "chatAppearance_userSize": {
+    "message": "사용자 텍스트 크기"
+  },
+  "chatAppearance_assistantSize": {
+    "message": "어시스턴트 텍스트 크기"
+  },
+  "chatAppearance_color_default": {
+    "message": "기본값"
+  },
+  "chatAppearance_color_blue": {
+    "message": "파랑"
+  },
+  "chatAppearance_color_green": {
+    "message": "초록"
+  },
+  "chatAppearance_color_purple": {
+    "message": "보라"
+  },
+  "chatAppearance_color_orange": {
+    "message": "주황"
+  },
+  "chatAppearance_color_red": {
+    "message": "빨강"
+  },
+  "chatAppearance_font_default": {
+    "message": "기본값"
+  },
+  "chatAppearance_font_sans": {
+    "message": "고딕체 (Sans serif)"
+  },
+  "chatAppearance_font_serif": {
+    "message": "명조체 (Serif)"
+  },
+  "chatAppearance_font_mono": {
+    "message": "고정폭 글꼴 (Monospace)"
+  },
+  "chatAppearance_size_sm": {
+    "message": "작게"
+  },
+  "chatAppearance_size_md": {
+    "message": "보통"
+  },
+  "chatAppearance_size_lg": {
+    "message": "크게"
+  },
+  "generalSettings_title": {
+    "message": "일반 설정"
+  },
+  "generalSettings_settings_heading": {
+    "message": "웹 UI 설정"
+  },
+  "generalSettings_settings_speechRecognitionLang_label": {
+    "message": "음성 인식 언어"
+  },
+  "generalSettings_settings_speechRecognitionLang_placeholder": {
+    "message": "언어 선택"
+  },
+  "generalSettings_settings_language_label": {
+    "message": "언어"
+  },
+  "generalSettings_settings_language_placeholder": {
+    "message": "언어 선택"
+  },
+  "generalSettings_settings_darkMode_label": {
+    "message": "테마 변경"
+  },
+  "generalSettings_settings_darkMode_options_light": {
+    "message": "라이트"
+  },
+  "generalSettings_settings_darkMode_options_dark": {
+    "message": "다크"
+  },
+  "generalSettings_settings_searchMode_label": {
+    "message": "간편 인터넷 검색 실행"
+  },
+  "generalSettings_settings_copilotResumeLastChat_label": {
+    "message": "사이드 패널을 열 때 마지막 채팅 재개 (Copilot)"
+  },
+  "generalSettings_settings_turnOnChatWithWebsite_label": {
+    "message": "웹사이트와의 채팅 기본 활성화 (Copilot)"
+  },
+  "generalSettings_settings_webUIResumeLastChat_label": {
+    "message": "웹 UI를 열 때 마지막 채팅 재개"
+  },
+  "generalSettings_settings_hideCurrentChatModelSettings_label": {
+    "message": "현재 채팅 모델 설정 숨기기"
+  },
+  "generalSettings_settings_restoreLastChatModel_label": {
+    "message": "이전 채팅에서 마지막 사용한 모델 복원"
+  },
+  "generalSettings_settings_sendNotificationAfterIndexing_label": {
+    "message": "지식 베이스 처리 완료 후 알림 전송"
+  },
+  "generalSettings_settings_generateTitle_label": {
+    "message": "AI로 제목 생성"
+  },
+  "generalSettings_settings_ollamaStatus_label": {
+    "message": "서버 연결 상태 확인 활성화 또는 비활성화"
+  },
+  "generalSettings_settings_wideMode_label": {
+    "message": "와이드 스크린 모드 활성화"
+  },
+  "generalSettings_settings_openReasoning_label": {
+    "message": "추론 섹션을 기본적으로 열기"
+  },
+  "generalSettings_settings_userChatBubble_label": {
+    "message": "사용자 메시지에 채팅 버블 사용"
+  },
+  "generalSettings_settings_autoCopyResponseToClipboard_label": {
+    "message": "응답 자동 클립보드 복사"
+  },
+  "generalSettings_settings_useMarkdownForUserMessage_label": {
+    "message": "사용자 메시지에 마크다운 형식 사용"
+  },
+  "generalSettings_settings_copyAsFormattedText_label": {
+    "message": "서식이 있는 텍스트로 복사"
+  },
+  "generalSettings_settings_tabMentionsEnabled_label": {
+    "message": "탭 멘션 (@tab) 활성화"
+  },
+  "generalSettings_settings_pasteLargeTextAsFile_label": {
+    "message": "큰 텍스트를 파일로 붙여넣기"
+  },
+  "generalSettings_settings_sidepanelTemporaryChat_label": {
+    "message": "사이드 패널에서 임시 채팅 기본 활성화"
+  },
+  "generalSettings_settings_enableOcrAssets_label": {
+    "message": "OCR 활성화 (처음 사용할 때 약 5MB 다운로드)"
+  },
+  "generalSettings_settings_enableOcrAssets_downloadNotice": {
+    "message": "OCR을 활성화하면 처음 사용할 때 약 5MB의 언어 데이터가 다운로드됩니다."
+  },
+  "generalSettings_settings_enableOcrAssets_assetsEnabled": {
+    "message": "OCR 리소스가 활성화되어 준비되었습니다"
+  },
+  "generalSettings_settings_ocrLanguage_label": {
+    "message": "기본 OCR 언어"
+  },
+  "generalSettings_settings_ocrLanguage_placeholder": {
+    "message": "OCR 언어 선택"
+  },
+  "generalSettings_settings_removeReasoningTagFromCopy_label": {
+    "message": "복사한 텍스트에서 추론 태그 제거"
+  },
+  "generalSettings_settings_promptSearchIncludeServer_label": {
+    "message": "프롬프트 검색에 서버 프롬프트 포함"
+  },
+  "generalSettings_settings_restartOnboarding_label": {
+    "message": "온보딩을 처음부터 다시 시작"
+  },
+  "generalSettings_settings_restartOnboarding_button": {
+    "message": "온보딩 다시 시작"
+  },
+  "generalSettings_settings_restartOnboarding_confirmTitle": {
+    "message": "온보딩을 다시 시작할까요?"
+  },
+  "generalSettings_settings_restartOnboarding_confirmMessage": {
+    "message": "온보딩 상태가 초기화되고 설정 흐름의 처음으로 돌아갑니다."
+  },
+  "generalSettings_settings_restartOnboarding_toast": {
+    "message": "온보딩이 초기화되었습니다"
+  },
+  "generalSettings_settings_restartOnboarding_toastBody": {
+    "message": "서버 URL과 API 키를 다시 확인할 수 있도록 환영 단계로 돌아갑니다."
+  },
+  "generalSettings_sidepanelRag_heading": {
+    "message": "검색 설정"
+  },
+  "generalSettings_sidepanelRag_ragEnabled_label": {
+    "message": "임베딩 및 검색 활성화"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_label": {
+    "message": "전체 컨텍스트 모드의 최대 콘텐츠 크기"
+  },
+  "generalSettings_sidepanelRag_maxWebsiteContext_placeholder": {
+    "message": "콘텐츠 크기 (기본값 4028)"
+  },
+  "generalSettings_webSearch_heading": {
+    "message": "웹 검색 관리"
+  },
+  "generalSettings_webSearch_searchMode_label": {
+    "message": "간편한 인터넷 검색 실행"
+  },
+  "generalSettings_webSearch_provider_label": {
+    "message": "검색 엔진"
+  },
+  "generalSettings_webSearch_provider_placeholder": {
+    "message": "검색 엔진 선택"
+  },
+  "generalSettings_webSearch_totalSearchResults_label": {
+    "message": "총 검색 결과"
+  },
+  "generalSettings_webSearch_totalSearchResults_placeholder": {
+    "message": "총 검색 결과 입력"
+  },
+  "generalSettings_webSearch_visitSpecificWebsite_label": {
+    "message": "메시지에 언급된 웹사이트 방문"
+  },
+  "generalSettings_webSearch_searxng_url_label": {
+    "message": "SearXNG URL 주소"
+  },
+  "generalSettings_webSearch_braveApi_label": {
+    "message": "Brave API 키"
+  },
+  "generalSettings_webSearch_braveApi_placeholder": {
+    "message": "Brave API 키를 입력하세요"
+  },
+  "generalSettings_webSearch_searchOnByDefault_label": {
+    "message": "기본적으로 인터넷 검색 켜기"
+  },
+  "generalSettings_webSearch_tavilyApi_label": {
+    "message": "Tavily API 키"
+  },
+  "generalSettings_webSearch_tavilyApi_placeholder": {
+    "message": "Tavily API 키를 입력하세요"
+  },
+  "generalSettings_webSearch_exa_label": {
+    "message": "Exa API 키"
+  },
+  "generalSettings_webSearch_exa_placeholder": {
+    "message": "Exa API 키를 입력하세요"
+  },
+  "generalSettings_webSearch_googleDomain_label": {
+    "message": "Google 도메인"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_label": {
+    "message": "Firecrawl API 키"
+  },
+  "generalSettings_webSearch_firecrawlAPIKey_placeholder": {
+    "message": "Firecrawl API 키를 입력하세요"
+  },
+  "generalSettings_system_heading": {
+    "message": "시스템 설정"
+  },
+  "generalSettings_system_uiMode_label": {
+    "message": "기본 UI 모드"
+  },
+  "generalSettings_system_uiMode_options_webui": {
+    "message": "전체 화면 (Web UI)"
+  },
+  "generalSettings_system_uiMode_options_sidePanel": {
+    "message": "사이드바"
+  },
+  "generalSettings_system_deleteChatHistory_label": {
+    "message": "시스템 초기화"
+  },
+  "generalSettings_system_deleteChatHistory_button": {
+    "message": "전체 초기화"
+  },
+  "generalSettings_system_deleteChatHistory_confirm": {
+    "message": "시스템을 초기화하시겠습니까? 모든 데이터가 삭제되며 되돌릴 수 없습니다."
+  },
+  "generalSettings_system_export_label": {
+    "message": "채팅 기록, 지식 베이스, 프롬프트 내보내기"
+  },
+  "generalSettings_system_export_button": {
+    "message": "데이터 내보내기"
+  },
+  "generalSettings_system_export_success": {
+    "message": "내보내기 성공"
+  },
+  "generalSettings_system_import_label": {
+    "message": "채팅 기록, 지식 베이스, 프롬프트 가져오기"
+  },
+  "generalSettings_system_import_button": {
+    "message": "데이터 가져오기"
+  },
+  "generalSettings_system_import_success": {
+    "message": "가져오기 성공"
+  },
+  "generalSettings_system_import_error": {
+    "message": "가져오기 오류"
+  },
+  "generalSettings_tts_heading": {
+    "message": "텍스트 음성 변환 설정"
+  },
+  "generalSettings_tts_ttsEnabled_label": {
+    "message": "텍스트 음성 변환 활성화"
+  },
+  "generalSettings_tts_ttsAutoPlay_label": {
+    "message": "응답 완료 후 자동 음성 재생"
+  },
+  "generalSettings_tts_ttsProvider_label": {
+    "message": "텍스트 음성 변환 제공자"
+  },
+  "generalSettings_tts_ttsProvider_placeholder": {
+    "message": "제공자 선택"
+  },
+  "generalSettings_tts_ttsVoice_label": {
+    "message": "텍스트 음성 변환 음성"
+  },
+  "generalSettings_tts_ttsVoice_placeholder": {
+    "message": "음성 선택"
+  },
+  "generalSettings_tts_ssmlEnabled_label": {
+    "message": "SSML (Speech Synthesis Markup Language) 활성화"
+  },
+  "generalSettings_tts_removeReasoningTagTTS_label": {
+    "message": "TTS에서 추론 태그 제거"
+  },
+  "generalSettings_tts_responseSplitting_label": {
+    "message": "응답 분할"
+  },
+  "generalSettings_stt_heading": {
+    "message": "음성 인식 설정"
+  },
+  "generalSettings_stt_autoStopTimeout_label": {
+    "message": "자동 중지 시간 (ms)"
+  },
+  "generalSettings_stt_autoStopTimeout_placeholder": {
+    "message": "자동 중지 시간을 밀리초 단위로 입력하세요"
+  },
+  "generalSettings_stt_autoSubmitVoiceMessage_label": {
+    "message": "음성 메시지 자동 전송"
+  },
+  "generalSettings_stt_usedByChat": {
+    "message": "이 음성-텍스트 기본값은 플레이그라운드와 사이드바의 채팅 음성 입력 버튼에서 사용됩니다."
+  },
+  "generalSettings_stt_model_label": {
+    "message": "전사 모델 (tldw_server)"
+  },
+  "generalSettings_stt_useSegmentation_label": {
+    "message": "전사에 세그먼트 분할 실행 (TreeSeg)"
+  },
+  "generalSettings_stt_timestampGranularities_label": {
+    "message": "타임스탬프 세분화"
+  },
+  "generalSettings_stt_timestampGranularities_segment": {
+    "message": "세그먼트당"
+  },
+  "generalSettings_stt_timestampGranularities_word": {
+    "message": "단어당"
+  },
+  "generalSettings_stt_timestampGranularities_segmentWord": {
+    "message": "세그먼트 + 단어"
+  },
+  "generalSettings_stt_task_label": {
+    "message": "전사 작업"
+  },
+  "generalSettings_stt_task_transcribe": {
+    "message": "전사(같은 언어)"
+  },
+  "generalSettings_stt_task_translate": {
+    "message": "영어로 번역"
+  },
+  "generalSettings_stt_responseFormat_label": {
+    "message": "응답 형식"
+  },
+  "generalSettings_stt_responseFormat_json": {
+    "message": "JSON (텍스트 + 세그먼트)"
+  },
+  "generalSettings_stt_responseFormat_verboseJson": {
+    "message": "자세한 JSON"
+  },
+  "generalSettings_stt_responseFormat_text": {
+    "message": "일반 텍스트"
+  },
+  "generalSettings_stt_responseFormat_srt": {
+    "message": "SRT 자막"
+  },
+  "generalSettings_stt_responseFormat_vtt": {
+    "message": "VTT 자막"
+  },
+  "generalSettings_stt_temperature_label": {
+    "message": "샘플링 온도"
+  },
+  "generalSettings_stt_prompt_label": {
+    "message": "기본 전사 프롬프트"
+  },
+  "generalSettings_stt_prompt_placeholder": {
+    "message": "스타일을 안내할 선택적 텍스트"
+  },
+  "generalSettings_stt_segK_label": {
+    "message": "최대 세그먼트 수 (TreeSeg K)"
+  },
+  "generalSettings_stt_segMinSegmentSize_label": {
+    "message": "세그먼트당 최소 항목 수"
+  },
+  "generalSettings_stt_segLambdaBalance_label": {
+    "message": "균형 페널티 (TreeSeg λ)"
+  },
+  "generalSettings_stt_segUtteranceExpansionWidth_label": {
+    "message": "발화 확장 폭"
+  },
+  "generalSettings_stt_segEmbeddingsProvider_label": {
+    "message": "세그먼트 임베딩 제공자"
+  },
+  "generalSettings_stt_segEmbeddingsModel_label": {
+    "message": "세그먼트 임베딩 모델"
+  },
+  "generalSettings_systemBasics_heading": {
+    "message": "시스템"
+  },
+  "generalSettings_systemBasics_uiMode_label": {
+    "message": "기본 UI 모드"
+  },
+  "generalSettings_systemBasics_uiMode_options_webui": {
+    "message": "전체 화면 (웹 UI)"
+  },
+  "generalSettings_systemBasics_uiMode_options_sidePanel": {
+    "message": "사이드바"
+  },
+  "generalSettings_systemBasics_actionIcon_label": {
+    "message": "브라우저 액션 버튼"
+  },
+  "generalSettings_systemBasics_contextMenu_label": {
+    "message": "컨텍스트 메뉴 동작"
+  },
+  "generalSettings_systemBasics_webuiBtnSidePanel_label": {
+    "message": "사이드바에 웹 UI 버튼 표시"
+  },
+  "generalSettings_systemBasics_chatBackgroundImage_label": {
+    "message": "채팅 배경 이미지"
+  },
+  "generalSettings_systemBasics_fontSize_label": {
+    "message": "글꼴 크기"
+  },
+  "generalSettings_systemData_heading": {
+    "message": "데이터"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_label": {
+    "message": "Firefox 사생활 모드 동기화"
+  },
+  "generalSettings_systemData_firefoxPrivateModeSync_button": {
+    "message": "데이터 동기화"
+  },
+  "generalSettings_systemData_deleteChatHistory_label": {
+    "message": "시스템 초기화"
+  },
+  "generalSettings_systemData_deleteChatHistory_button": {
+    "message": "모두 초기화"
+  },
+  "generalSettings_systemData_deleteChatHistory_confirm": {
+    "message": "시스템을 초기화하시겠습니까? 모든 데이터가 삭제되며 되돌릴 수 없습니다."
+  },
+  "generalSettings_systemData_export_label": {
+    "message": "채팅 기록, 지식 베이스, 프롬프트 내보내기"
+  },
+  "generalSettings_systemData_export_button": {
+    "message": "데이터 내보내기"
+  },
+  "generalSettings_systemData_export_success": {
+    "message": "내보내기 성공"
+  },
+  "generalSettings_systemData_import_label": {
+    "message": "채팅 기록, 지식 베이스, 프롬프트 가져오기"
+  },
+  "generalSettings_systemData_import_button": {
+    "message": "데이터 가져오기"
+  },
+  "generalSettings_systemData_import_success": {
+    "message": "가져오기 성공"
+  },
+  "generalSettings_systemData_import_error": {
+    "message": "가져오기 오류"
+  },
+  "generalSettings_empty_connectTitle": {
+    "message": "tldw Assistant를 서버에 연결"
+  },
+  "generalSettings_empty_connectDescription": {
+    "message": "일부 설정은 tldw 서버에 연결되어야 적용됩니다. 서버를 연결해 전체 기능을 사용하세요."
+  },
+  "generalSettings_empty_connectExample1": {
+    "message": "설정 → tldw 서버에서 서버 URL과 API 키를 추가하세요."
+  },
+  "generalSettings_empty_connectExample2": {
+    "message": "고급 도구를 사용하기 전에 Diagnostics로 서버 상태를 확인하세요."
+  },
+  "generalSettings_empty_title": {
+    "message": "tldw Assistant 동작 설정"
+  },
+  "generalSettings_empty_description": {
+    "message": "웹 UI, 사이드패널, 음성, 검색, 데이터 처리를 한 곳에서 조정하세요."
+  },
+  "generalSettings_empty_example1": {
+    "message": "기본 언어, 테마, 채팅 재개 동작을 선택하세요."
+  },
+  "generalSettings_empty_example2": {
+    "message": "임시 채팅 여부, 큰 붙여넣기 처리, 추론 표시 방식을 제어하세요."
+  },
+  "generalSettings_empty_primaryCta": {
+    "message": "서버 및 인증 설정"
+  },
+  "generalSettings_empty_secondaryCta": {
+    "message": "닫기"
+  },
+  "manageModels_title": {
+    "message": "모델 관리"
+  },
+  "manageModels_addBtn": {
+    "message": "새 모델 추가"
+  },
+  "manageModels_columns_name": {
+    "message": "이름"
+  },
+  "manageModels_columns_digest": {
+    "message": "다이제스트"
+  },
+  "manageModels_columns_modifiedAt": {
+    "message": "수정 일시"
+  },
+  "manageModels_columns_size": {
+    "message": "크기"
+  },
+  "manageModels_columns_actions": {
+    "message": "동작"
+  },
+  "manageModels_columns_nickname": {
+    "message": "별칭"
+  },
+  "manageModels_expandedColumns_parentModel": {
+    "message": "상위 모델"
+  },
+  "manageModels_expandedColumns_format": {
+    "message": "형식"
+  },
+  "manageModels_expandedColumns_family": {
+    "message": "패밀리"
+  },
+  "manageModels_expandedColumns_parameterSize": {
+    "message": "파라미터 크기"
+  },
+  "manageModels_expandedColumns_quantizationLevel": {
+    "message": "양자화 수준"
+  },
+  "manageModels_tooltip_delete": {
+    "message": "모델 삭제"
+  },
+  "manageModels_tooltip_repull": {
+    "message": "모델 다시 가져오기"
+  },
+  "manageModels_tooltip_editNickname": {
+    "message": "별칭 편집"
+  },
+  "manageModels_confirm_delete": {
+    "message": "이 모델을 정말 삭제하시겠습니까?"
+  },
+  "manageModels_confirm_repull": {
+    "message": "이 모델을 정말 다시 가져오시겠습니까?"
+  },
+  "manageModels_modal_title": {
+    "message": "새 모델 추가"
+  },
+  "manageModels_modal_placeholder": {
+    "message": "모델 이름 입력"
+  },
+  "manageModels_modal_pull": {
+    "message": "모델 가져오기"
+  },
+  "manageModels_notification_pullModel": {
+    "message": "모델 가져오는 중"
+  },
+  "manageModels_notification_pullModelDescription": {
+    "message": "{{modelName}} 모델을 가져오는 중입니다. 자세한 내용은 확장 기능 아이콘을 확인하세요."
+  },
+  "manageModels_notification_success": {
+    "message": "성공"
+  },
+  "manageModels_notification_error": {
+    "message": "오류"
+  },
+  "manageModels_notification_successDescription": {
+    "message": "모델 가져오기가 완료되었습니다"
+  },
+  "manageModels_notification_successDeleteDescription": {
+    "message": "모델 삭제가 완료되었습니다"
+  },
+  "manageModels_notification_someError": {
+    "message": "문제가 발생했습니다. 나중에 다시 시도해 주세요."
+  },
+  "manageModels_notification_cancellingDownload": {
+    "message": "다운로드 취소 중"
+  },
+  "manageModels_notification_cancellingDownloadDescription": {
+    "message": "모델 다운로드를 취소하는 중입니다..."
+  },
+  "managePrompts_title": {
+    "message": "프롬프트 관리"
+  },
+  "managePrompts_addBtn": {
+    "message": "새 프롬프트 추가"
+  },
+  "managePrompts_option1": {
+    "message": "일반"
+  },
+  "managePrompts_option2": {
+    "message": "RAG (검색 증강)"
+  },
+  "managePrompts_questionPrompt": {
+    "message": "질문 프롬프트"
+  },
+  "managePrompts_columns_title": {
+    "message": "제목"
+  },
+  "managePrompts_columns_prompt": {
+    "message": "프롬프트"
+  },
+  "managePrompts_columns_type": {
+    "message": "프롬프트 유형"
+  },
+  "managePrompts_columns_actions": {
+    "message": "동작"
+  },
+  "managePrompts_systemPrompt": {
+    "message": "시스템 프롬프트"
+  },
+  "managePrompts_quickPrompt": {
+    "message": "퀵 프롬프트"
+  },
+  "managePrompts_tooltip_delete": {
+    "message": "프롬프트 삭제"
+  },
+  "managePrompts_tooltip_edit": {
+    "message": "프롬프트 수정"
+  },
+  "managePrompts_tooltip_duplicate": {
+    "message": "프롬프트 복제"
+  },
+  "managePrompts_confirm_delete": {
+    "message": "이 프롬프트를 정말 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+  },
+  "managePrompts_modal_addTitle": {
+    "message": "새 프롬프트 추가"
+  },
+  "managePrompts_modal_editTitle": {
+    "message": "프롬프트 수정"
+  },
+  "managePrompts_segmented_custom": {
+    "message": "커스텀 프롬프트"
+  },
+  "managePrompts_segmented_copilot": {
+    "message": "Copilot 프롬프트"
+  },
+  "managePrompts_segmented_helpCustom": {
+    "message": "채팅에 삽입할 수 있는 재사용 프롬프트를 만들고 관리합니다."
+  },
+  "managePrompts_segmented_helpCopilot": {
+    "message": "서버에서 제공하는 Copilot 기본 프롬프트를 확인하고 조정합니다."
+  },
+  "managePrompts_form_title_label": {
+    "message": "제목"
+  },
+  "managePrompts_form_title_placeholder": {
+    "message": "훌륭한 프롬프트"
+  },
+  "managePrompts_form_title_required": {
+    "message": "제목을 입력하세요"
+  },
+  "managePrompts_form_prompt_label": {
+    "message": "프롬프트"
+  },
+  "managePrompts_form_prompt_placeholder": {
+    "message": "프롬프트 입력"
+  },
+  "managePrompts_form_prompt_required": {
+    "message": "프롬프트를 입력하세요"
+  },
+  "managePrompts_form_prompt_help": {
+    "message": "프롬프트 내에서 {key}를 변수로 사용할 수 있습니다."
+  },
+  "managePrompts_form_prompt_missingTextPlaceholder": {
+    "message": "프롬프트에 {text} 변수가 없습니다. 추가해 주세요."
+  },
+  "managePrompts_form_isSystem_label": {
+    "message": "시스템 프롬프트"
+  },
+  "managePrompts_form_btnSave_saving": {
+    "message": "프롬프트 추가 중..."
+  },
+  "managePrompts_form_btnSave_save": {
+    "message": "프롬프트 추가"
+  },
+  "managePrompts_form_btnEdit_saving": {
+    "message": "프롬프트 업데이트 중..."
+  },
+  "managePrompts_form_btnEdit_save": {
+    "message": "프롬프트 업데이트"
+  },
+  "managePrompts_notification_addSuccess": {
+    "message": "프롬프트가 추가되었습니다"
+  },
+  "managePrompts_notification_addSuccessDesc": {
+    "message": "프롬프트가 정상적으로 추가되었습니다"
+  },
+  "managePrompts_notification_error": {
+    "message": "오류"
+  },
+  "managePrompts_notification_someError": {
+    "message": "문제가 발생했습니다. 나중에 다시 시도해 주세요."
+  },
+  "managePrompts_notification_updatedSuccess": {
+    "message": "프롬프트가 업데이트되었습니다"
+  },
+  "managePrompts_notification_updatedSuccessDesc": {
+    "message": "프롬프트가 정상적으로 업데이트되었습니다"
+  },
+  "managePrompts_notification_deletedSuccess": {
+    "message": "프롬프트가 삭제되었습니다"
+  },
+  "managePrompts_notification_deletedSuccessDesc": {
+    "message": "프롬프트가 정상적으로 삭제되었습니다"
+  },
+  "managePrompts_workspaceTitle": {
+    "message": "프롬프트 작업 공간"
+  },
+  "managePrompts_workspaceDescription": {
+    "message": "재사용 프롬프트는 프롬프트 작업 공간에서 관리됩니다. 아래 버튼을 눌러 열 수 있습니다."
+  },
+  "managePrompts_openWorkspace": {
+    "message": "프롬프트 작업 공간 열기"
+  },
+  "managePrompts_search": {
+    "message": "제목과 내용 검색"
+  },
+  "managePrompts_filter_all": {
+    "message": "전체"
+  },
+  "managePrompts_filter_system": {
+    "message": "시스템"
+  },
+  "managePrompts_filter_quick": {
+    "message": "퀵"
+  },
+  "managePrompts_tags_label": {
+    "message": "태그"
+  },
+  "managePrompts_tags_placeholder": {
+    "message": "태그 추가"
+  },
+  "managePrompts_import": {
+    "message": "가져오기"
+  },
+  "managePrompts_export": {
+    "message": "내보내기"
+  },
+  "managePrompts_importMode_merge": {
+    "message": "병합"
+  },
+  "managePrompts_importMode_replace": {
+    "message": "덮어쓰기"
+  },
+  "managePrompts_importMode_replaceConfirm": {
+    "message": "덮어쓰기는 현재의 모든 프롬프트를 가져온 파일로 덮어씁니다. 계속하시겠습니까?"
+  },
+  "managePrompts_favorite": {
+    "message": "즐겨찾기"
+  },
+  "managePrompts_unfavorite": {
+    "message": "즐겨찾기 해제"
+  },
+  "managePrompts_partialLoad": {
+    "message": "일부 프롬프트 데이터를 사용할 수 없습니다"
+  },
+  "managePrompts_loadErrorHelp": {
+    "message": "서버 연결을 확인하고 새로고침해 다시 시도하세요."
+  },
+  "managePrompts_emptyConnectTitle": {
+    "message": "프롬프트를 사용하려면 연결하세요"
+  },
+  "managePrompts_emptyConnectDescription": {
+    "message": "재사용 프롬프트를 관리하려면 먼저 tldw 서버에 연결하세요."
+  },
+  "managePrompts_emptyConnectExample1": {
+    "message": "설정 → tldw 서버에서 서버 URL을 추가하세요."
+  },
+  "managePrompts_emptyConnectExample2": {
+    "message": "연결 후에는 채팅에서 재사용할 커스텀 프롬프트를 만들 수 있습니다."
+  },
+  "managePrompts_emptyTitle": {
+    "message": "커스텀 프롬프트가 없습니다"
+  },
+  "managePrompts_emptyDescription": {
+    "message": "반복 작업, 워크플로, 팀 규칙을 위한 재사용 프롬프트를 만들어 보세요."
+  },
+  "managePrompts_emptyExample1": {
+    "message": "요약, 설명, 번역에 사용할 시스템 프롬프트를 저장하세요."
+  },
+  "managePrompts_emptyExample2": {
+    "message": "이메일 작성이나 노트 다듬기 같은 작업을 위한 퀵 프롬프트를 만드세요."
+  },
+  "managePrompts_emptyPrimaryCta": {
+    "message": "프롬프트 만들기"
+  },
+  "managePrompts_filterHelp": {
+    "message": "제목과 프롬프트 내용에서 검색합니다. 유형과 태그로 목록을 좁히세요."
+  },
+  "managePrompts_copilotEmptyTitle": {
+    "message": "Copilot 프롬프트가 없습니다"
+  },
+  "managePrompts_copilotEmptyDescription": {
+    "message": "Copilot 프롬프트는 tldw 서버에서 제공하는 미리 정의된 템플릿입니다."
+  },
+  "managePrompts_copilotEmptyExample1": {
+    "message": "Copilot 프롬프트가 있어야 한다면 서버 버전 또는 구성을 확인하세요."
+  },
+  "managePrompts_copilotEmptyExample2": {
+    "message": "서버를 업데이트한 뒤 확장 프로그램을 새로고침하고 이 탭으로 돌아오세요."
+  },
+  "managePrompts_copilotEmptyCta": {
+    "message": "진단 열기"
+  },
+  "manageShare_title": {
+    "message": "공유 관리"
+  },
+  "manageShare_heading": {
+    "message": "페이지 공유 URL 설정"
+  },
+  "manageShare_form_url_label": {
+    "message": "페이지 공유 URL"
+  },
+  "manageShare_form_url_placeholder": {
+    "message": "페이지 공유 URL 입력"
+  },
+  "manageShare_form_url_required": {
+    "message": "페이지 공유 URL을 입력해 주세요!"
+  },
+  "manageShare_form_url_help": {
+    "message": "개인정보 보호를 위해 페이지 공유를 자체 호스팅하고, 해당 URL을 여기에 입력할 수 있습니다. <anchor>자세히 보기</anchor>"
+  },
+  "manageShare_webshare_heading": {
+    "message": "웹 공유"
+  },
+  "manageShare_webshare_columns_title": {
+    "message": "제목"
+  },
+  "manageShare_webshare_columns_url": {
+    "message": "URL 주소"
+  },
+  "manageShare_webshare_columns_actions": {
+    "message": "동작"
+  },
+  "manageShare_webshare_tooltip_delete": {
+    "message": "공유 삭제"
+  },
+  "manageShare_webshare_confirm_delete": {
+    "message": "이 공유를 정말 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+  },
+  "manageShare_webshare_label": {
+    "message": "페이지 공유 관리"
+  },
+  "manageShare_webshare_description": {
+    "message": "페이지 공유 기능을 활성화 또는 비활성화"
+  },
+  "manageShare_notification_pageShareSuccess": {
+    "message": "페이지 공유 URL이 정상적으로 업데이트되었습니다"
+  },
+  "manageShare_notification_someError": {
+    "message": "문제가 발생했습니다. 나중에 다시 시도해 주세요."
+  },
+  "manageShare_notification_webShareDeleteSuccess": {
+    "message": "웹 공유가 정상적으로 삭제되었습니다"
+  },
+  "ollamaSettings_title": {
+    "message": "서버 설정"
+  },
+  "ollamaSettings_heading": {
+    "message": "서버 설정하기"
+  },
+  "ollamaSettings_settings_ollamaUrl_label": {
+    "message": "서버 URL"
+  },
+  "ollamaSettings_settings_ollamaUrl_placeholder": {
+    "message": "서버 URL 입력"
+  },
+  "ollamaSettings_settings_globalEnable_label": {
+    "message": "서버 통합 기능 전역 활성화 또는 비활성화"
+  },
+  "ollamaSettings_settings_globalEnable_warning": {
+    "message": "서버 통합을 전역적으로 비활성화하면 tldw Assistant가 서버에서 모델을 가져오지 않습니다. <anchor>OpenAI 호환 API</anchor> 섹션에서 공급자를 추가할 수 있습니다."
+  },
+  "ollamaSettings_settings_advanced_label": {
+    "message": "서버 URL 고급 설정"
+  },
+  "ollamaSettings_settings_advanced_urlRewriteEnabled_label": {
+    "message": "사용자 지정 Origin URL 활성화 또는 비활성화"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_label": {
+    "message": "사용자 지정 Origin URL"
+  },
+  "ollamaSettings_settings_advanced_rewriteUrl_placeholder": {
+    "message": "사용자 지정 Origin URL 입력"
+  },
+  "ollamaSettings_settings_advanced_autoCORSFix_label": {
+    "message": "자동 CORS 수정 활성화 또는 비활성화"
+  },
+  "ollamaSettings_settings_advanced_headers_label": {
+    "message": "사용자 지정 헤더"
+  },
+  "ollamaSettings_settings_advanced_headers_add": {
+    "message": "헤더 추가"
+  },
+  "ollamaSettings_settings_advanced_headers_key_label": {
+    "message": "헤더 키"
+  },
+  "ollamaSettings_settings_advanced_headers_key_placeholder": {
+    "message": "인증"
+  },
+  "ollamaSettings_settings_advanced_headers_value_label": {
+    "message": "헤더 값"
+  },
+  "ollamaSettings_settings_advanced_headers_value_placeholder": {
+    "message": "베어러 토큰"
+  },
+  "ollamaSettings_settings_advanced_help": {
+    "message": "서버 연결에 문제가 있는 경우 사용자 지정 Origin URL을 설정할 수 있습니다. 자세한 내용은 <anchor>여기를 클릭</anchor>하세요."
+  },
+  "manageSearch_title": {
+    "message": "웹 검색 관리"
+  },
+  "manageSearch_heading": {
+    "message": "웹 검색 설정하기"
+  },
+  "about_title": {
+    "message": "소개"
+  },
+  "about_heading": {
+    "message": "소개"
+  },
+  "about_chromeVersion": {
+    "message": "tldw Assistant 버전"
+  },
+  "about_ollamaVersion": {
+    "message": "서버 버전"
+  },
+  "about_support": {
+    "message": "tldw Assistant 프로젝트는 다음 플랫폼에서 기부나 후원을 통해 지원할 수 있습니다:"
+  },
+  "about_koFi": {
+    "message": "Ko-fi로 후원하기"
+  },
+  "about_githubSponsor": {
+    "message": "GitHub에서 후원하기"
+  },
+  "about_githubRepo": {
+    "message": "GitHub 저장소"
+  },
+  "switchToSidebar": {
+    "message": "사이드바로 전환"
+  },
+  "healthPage_title": {
+    "message": "상태"
+  },
+  "healthPage_subtitle": {
+    "message": "서버에서 제공하는 하위 시스템 상태 엔드포인트의 빠른 개요입니다."
+  },
+  "healthPage_backToChat": {
+    "message": "채팅으로 돌아가기"
+  },
+  "healthPage_openSettings": {
+    "message": "tldw 설정 열기"
+  },
+  "healthPage_recheckAll": {
+    "message": "전체 다시 확인"
+  },
+  "healthPage_copyDiagnostics": {
+    "message": "진단 복사"
+  },
+  "healthPage_serverNotConfigured": {
+    "message": "서버가 설정되지 않았습니다."
+  },
+  "healthPage_unableToReachCore": {
+    "message": "서버 코어 상태 엔드포인트에 접근할 수 없습니다."
+  },
+  "healthPage_triedGet": {
+    "message": "GET {{url}} 시도함"
+  },
+  "healthPage_configureHint": {
+    "message": "tldw 설정에서 서버 URL을 설정하세요."
+  },
+  "healthPage_configureCta": {
+    "message": "설정"
+  },
+  "healthPage_connectedTo": {
+    "message": "{{host}}에 연결됨"
+  },
+  "healthPage_autoRefresh": {
+    "message": "자동 새로고침"
+  },
+  "healthPage_intervalLabel": {
+    "message": "간격(초):"
+  },
+  "healthPage_checking": {
+    "message": "확인 중…"
+  },
+  "healthPage_recheck": {
+    "message": "다시 확인"
+  },
+  "healthPage_healthy": {
+    "message": "정상"
+  },
+  "healthPage_unhealthy": {
+    "message": "비정상"
+  },
+  "healthPage_unknown": {
+    "message": "알 수 없음"
+  },
+  "healthPage_checks_core": {
+    "message": "코어 API"
+  },
+  "healthPage_checks_rag": {
+    "message": "RAG (검색 증강)"
+  },
+  "healthPage_checks_audio": {
+    "message": "오디오"
+  },
+  "healthPage_checks_embeddings": {
+    "message": "임베딩"
+  },
+  "healthPage_checks_metrics": {
+    "message": "메트릭 상태"
+  },
+  "healthPage_checks_chatMetrics": {
+    "message": "채팅 메트릭"
+  },
+  "healthPage_checks_mcp": {
+    "message": "MCP (모델 컨텍스트 프로토콜)"
+  },
+  "healthPage_checks_coreDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_ragDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_audioDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_embeddingsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_metricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_chatMetricsDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_checks_mcpDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "healthPage_copyDiagnosticsHelp": {
+    "message": "JSON 진단 정보를 클립보드에 복사합니다"
+  },
+  "healthPage_statusHealthy": {
+    "message": "정상"
+  },
+  "healthPage_statusUnhealthy": {
+    "message": "비정상"
+  },
+  "healthPage_statusUnknown": {
+    "message": "알 수 없음"
+  },
+  "healthPage_updatedJustNow": {
+    "message": "방금 업데이트됨"
+  },
+  "healthPage_updatedSecondsAgo": {
+    "message": "{{seconds}}초 전 업데이트됨"
+  },
+  "savedSuccessfully": {
+    "message": "설정이 저장되었습니다"
+  },
+  "saveFailed": {
+    "message": "설정을 저장하지 못했습니다"
+  },
+  "siteAccessGranted": {
+    "message": "{{origin}}에 대한 호스트 권한이 허용되었습니다"
+  },
+  "tldw_advancedTimeouts": {
+    "message": "고급 타임아웃"
+  },
+  "tldw_requestTimeout": {
+    "message": "요청 타임아웃(초)"
+  },
+  "tldw_streamingIdle": {
+    "message": "스트리밍 유휴 타임아웃(초)"
+  },
+  "tldw_chatRequest": {
+    "message": "채팅 요청 타임아웃"
+  },
+  "tldw_chatStreamIdle": {
+    "message": "채팅 스트림 유휴"
+  },
+  "tldw_ragRequest": {
+    "message": "RAG 요청 타임아웃"
+  },
+  "tldw_mediaRequest": {
+    "message": "미디어 요청 타임아웃"
+  },
+  "tldw_uploadRequest": {
+    "message": "업로드 요청 타임아웃"
+  },
+  "tldw_timeoutPresetLabel": {
+    "message": "타임아웃 프로필"
+  },
+  "tldw_timeoutPresetBalanced": {
+    "message": "균형"
+  },
+  "tldw_timeoutPresetExtended": {
+    "message": "확장"
+  },
+  "tldw_timeoutPresetCustom": {
+    "message": "사용자 정의"
+  },
+  "tldw_timeoutPresetHint": {
+    "message": "균형 모드는 대부분의 설정에서 잘 작동합니다. 확장 모드는 느린 네트워크나 장기 작업을 위한 여유를 더 제공합니다."
+  },
+  "tldw_reset": {
+    "message": "권장값으로 재설정"
+  },
+  "tldw_resetDone": {
+    "message": "권장 기본값으로 재설정됨"
+  },
+  "tldw_serverNav": {
+    "message": "tldw 서버"
+  },
+  "tldw_serverConfigTitle": {
+    "message": "tldw 서버 설정"
+  },
+  "tldw_serverLabel": {
+    "message": "서버:"
+  },
+  "tldw_notConfigured": {
+    "message": "구성되지 않음"
+  },
+  "tldw_buttons_health": {
+    "message": "상태"
+  },
+  "tldw_buttons_recheck": {
+    "message": "다시 확인"
+  },
+  "tldw_buttons_testConnection": {
+    "message": "연결 테스트"
+  },
+  "tldw_buttons_grantSiteAccess": {
+    "message": "사이트 접근 허용"
+  },
+  "tldw_buttons_login": {
+    "message": "로그인"
+  },
+  "tldw_buttons_logout": {
+    "message": "로그아웃"
+  },
+  "tldw_loginRequired_title": {
+    "message": "로그인이 필요합니다"
+  },
+  "tldw_loginRequired_description": {
+    "message": "tldw_server 자격 증명으로 로그인하세요"
+  },
+  "tldw_loggedIn_title": {
+    "message": "로그인됨"
+  },
+  "tldw_loggedIn_description": {
+    "message": "현재 tldw_server에 로그인되어 있습니다"
+  },
+  "tldw_connection_success": {
+    "message": "연결에 성공했습니다!"
+  },
+  "tldw_connection_failed": {
+    "message": "연결에 실패했습니다. 설정을 확인하세요."
+  },
+  "tldw_connection_failedDetailed": {
+    "message": "연결에 실패했습니다. 서버 URL과 API 키를 확인하세요."
+  },
+  "tldw_authMode_label": {
+    "message": "인증 모드"
+  },
+  "tldw_authMode_single": {
+    "message": "단일 사용자(API 키)"
+  },
+  "tldw_authMode_multi": {
+    "message": "다중 사용자(로그인)"
+  },
+  "tldw_hints_requestTimeout": {
+    "message": "이 시간 안에 응답이 없으면 초기 요청을 중단합니다. 기본값: {{seconds}}s."
+  },
+  "tldw_hints_streamingIdle": {
+    "message": "이 시간 동안 업데이트가 없으면 스트리밍을 중단합니다. 기본값: {{seconds}}s."
+  },
+  "tldw_login_success": {
+    "message": "로그인 성공!"
+  },
+  "tldw_login_failed": {
+    "message": "로그인 실패"
+  },
+  "tldw_logout_success": {
+    "message": "성공적으로 로그아웃했습니다"
+  },
+  "tldw_logout_failed": {
+    "message": "로그아웃 실패"
+  },
+  "tldw_setupLink": {
+    "message": "서버 설정"
+  },
+  "tldw_loadError": {
+    "message": "tldw 서버 설정을 불러올 수 없습니다. 연결을 확인하고 다시 시도하세요."
+  },
+  "tldw_fields_apiKey_label": {
+    "message": "API 키"
+  },
+  "tldw_fields_apiKey_placeholder": {
+    "message": "API 키를 입력하세요"
+  },
+  "tldw_fields_apiKey_required": {
+    "message": "API 키를 입력하세요"
+  },
+  "tldw_fields_apiKey_extra": {
+    "message": "인증을 위한 tldw_server API 키"
+  },
+  "tldw_fields_username_label": {
+    "message": "사용자 이름"
+  },
+  "tldw_fields_username_placeholder": {
+    "message": "사용자 이름을 입력하세요"
+  },
+  "tldw_fields_username_required": {
+    "message": "사용자 이름을 입력하세요"
+  },
+  "tldw_fields_password_label": {
+    "message": "비밀번호"
+  },
+  "tldw_fields_password_placeholder": {
+    "message": "비밀번호를 입력하세요"
+  },
+  "tldw_fields_password_required": {
+    "message": "비밀번호를 입력하세요"
+  },
+  "tldw_fields_serverUrl_label": {
+    "message": "서버 URL"
+  },
+  "tldw_fields_serverUrl_placeholder": {
+    "message": "http://localhost:8000"
+  },
+  "tldw_fields_serverUrl_required": {
+    "message": "서버 URL을 입력하세요"
+  },
+  "tldw_fields_serverUrl_invalid": {
+    "message": "유효한 URL을 입력하세요"
+  },
+  "tldw_fields_serverUrl_extra": {
+    "message": "tldw_server 인스턴스의 URL (예: http://localhost:8000)"
+  },
+  "tldw_errors_invalidApiKey": {
+    "message": "잘못된 API 키"
+  },
+  "tldw_errors_forbidden": {
+    "message": "금지됨(권한을 확인하세요)"
+  },
+  "tldw_errors_apiKeyValidationFailed": {
+    "message": "API 키 검증 실패"
+  },
+  "tldw_errors_serverUnreachable": {
+    "message": "서버에 연결할 수 없습니다"
+  },
+  "tldw_about_title": {
+    "message": "tldw_server 통합 정보"
+  },
+  "tldw_about_description": {
+    "message": "이 확장 프로그램은 tldw_server 인스턴스에 연결하여 다음에 접근할 수 있게 합니다:"
+  },
+  "tldw_about_points_providers": {
+    "message": "단일 API로 여러 LLM 제공자"
+  },
+  "tldw_about_points_rag": {
+    "message": "RAG 검색(검색 증강 생성)"
+  },
+  "tldw_about_points_media": {
+    "message": "미디어 수집 및 처리"
+  },
+  "tldw_about_points_notes": {
+    "message": "노트 및 프롬프트 관리"
+  },
+  "tldw_about_points_stt": {
+    "message": "음성-텍스트 변환"
+  },
+  "manageKnowledge_title": {
+    "message": "지식 QA"
+  },
+  "manageKnowledge_heading": {
+    "message": "지식 QA"
+  },
+  "manageKnowledge_worldBooksSettingsTitle": {
+    "message": "월드북 작업 공간"
+  },
+  "manageKnowledge_worldBooksSettingsDescription": {
+    "message": "월드북은 월드북 작업 공간에서 관리됩니다. 아래 버튼으로 열 수 있습니다."
+  },
+  "manageKnowledge_worldBooksOpenWorkspace": {
+    "message": "월드북 작업 공간 열기"
+  },
+  "manageKnowledge_dictionariesSettingsTitle": {
+    "message": "채팅 사전 작업 공간"
+  },
+  "manageKnowledge_dictionariesSettingsDescription": {
+    "message": "채팅 사전은 채팅 사전 작업 공간에서 관리됩니다. 아래 버튼으로 열 수 있습니다."
+  },
+  "manageKnowledge_dictionariesOpenWorkspace": {
+    "message": "채팅 사전 작업 공간 열기"
+  },
+  "rag_title": {
+    "message": "RAG 설정"
+  },
+  "rag_ragSettings_label": {
+    "message": "RAG 설정"
+  },
+  "rag_ragSettings_model_label": {
+    "message": "임베딩 모델"
+  },
+  "rag_ragSettings_model_required": {
+    "message": "모델을 선택해주세요"
+  },
+  "rag_ragSettings_model_help": {
+    "message": "`nomic-embed-text`와 같은 임베딩 모델 사용을 강력히 권장합니다."
+  },
+  "rag_ragSettings_model_placeholder": {
+    "message": "모델 선택"
+  },
+  "rag_ragSettings_model_helpRecommended": {
+    "message": "추천: {{model}} (서버 설정 기준)"
+  },
+  "rag_ragSettings_model_helpMissing": {
+    "message": "이전에 저장된 임베딩 모델이 서버에 더 이상 없습니다. 다른 모델을 선택하세요."
+  },
+  "rag_ragSettings_chunkSize_label": {
+    "message": "청크 크기"
+  },
+  "rag_ragSettings_chunkSize_placeholder": {
+    "message": "청크 크기 입력"
+  },
+  "rag_ragSettings_chunkSize_required": {
+    "message": "청크 크기를 입력해주세요"
+  },
+  "rag_ragSettings_chunkOverlap_label": {
+    "message": "청크 오버랩"
+  },
+  "rag_ragSettings_chunkOverlap_placeholder": {
+    "message": "청크 오버랩 입력"
+  },
+  "rag_ragSettings_chunkOverlap_required": {
+    "message": "청크 오버랩을 입력해주세요"
+  },
+  "rag_ragSettings_totalFilePerKB_label": {
+    "message": "지식 베이스 기본 파일 업로드 제한"
+  },
+  "rag_ragSettings_totalFilePerKB_placeholder": {
+    "message": "기본 파일 업로드 제한 입력 (예: 10)"
+  },
+  "rag_ragSettings_totalFilePerKB_required": {
+    "message": "기본 파일 업로드 제한을 입력해주세요"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_label": {
+    "message": "검색 문서 수"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_placeholder": {
+    "message": "검색 문서 수 입력"
+  },
+  "rag_ragSettings_noOfRetrievedDocs_required": {
+    "message": "검색 문서 수를 입력해주세요"
+  },
+  "rag_ragSettings_splittingSeparator_label": {
+    "message": "구분자"
+  },
+  "rag_ragSettings_splittingSeparator_placeholder": {
+    "message": "구분자 입력 (예: \\n\\n)"
+  },
+  "rag_ragSettings_splittingSeparator_required": {
+    "message": "구분자를 입력해주세요"
+  },
+  "rag_ragSettings_splittingStrategy_label": {
+    "message": "텍스트 분할기"
+  },
+  "rag_prompt_label": {
+    "message": "RAG 프롬프트 설정"
+  },
+  "rag_prompt_option1": {
+    "message": "일반"
+  },
+  "rag_prompt_option2": {
+    "message": "웹"
+  },
+  "rag_prompt_alert": {
+    "message": "여기서 시스템 프롬프트를 설정하는 것은 더 이상 권장되지 않습니다. 프롬프트 추가 및 편집은 '프롬프트 관리' 섹션을 이용해주세요. 이 섹션은 향후 릴리스에서 제거될 예정입니다."
+  },
+  "rag_prompt_systemPrompt": {
+    "message": "시스템 프롬프트"
+  },
+  "rag_prompt_systemPromptPlaceholder": {
+    "message": "시스템 프롬프트 입력"
+  },
+  "rag_prompt_webSearchPrompt": {
+    "message": "웹 검색 프롬프트"
+  },
+  "rag_prompt_webSearchPromptHelp": {
+    "message": "프롬프트에서 `{search_results}`를 제거하지 마세요."
+  },
+  "rag_prompt_webSearchPromptError": {
+    "message": "웹 검색 프롬프트를 입력해주세요"
+  },
+  "rag_prompt_webSearchPromptPlaceholder": {
+    "message": "웹 검색 프롬프트 입력"
+  },
+  "rag_prompt_webSearchFollowUpPrompt": {
+    "message": "웹 검색 후속 프롬프트"
+  },
+  "rag_prompt_webSearchFollowUpPromptHelp": {
+    "message": "프롬프트에서 `{chat_history}`와 `{question}`를 제거하지 마세요."
+  },
+  "rag_prompt_webSearchFollowUpPromptError": {
+    "message": "웹 검색 후속 프롬프트를 입력해주세요!"
+  },
+  "rag_prompt_webSearchFollowUpPromptPlaceholder": {
+    "message": "웹 검색 후속 프롬프트"
+  },
+  "onboarding_title": {
+    "message": "환영합니다 — 연결을 시작해볼까요"
+  },
+  "onboarding_description": {
+    "message": "서버와 인증을 설정합니다. 연결과 RAG 상태를 바로 확인합니다."
+  },
+  "onboarding_learnMoreTldw": {
+    "message": "tldw 서버가 어떻게 작동하는지 알아보기"
+  },
+  "onboarding_serverDocsUrl": {
+    "message": "https://github.com/rmusser01/tldw_browser_assistant"
+  },
+  "onboarding_serverUrl_placeholder": {
+    "message": "예: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_help": {
+    "message": "예: http://127.0.0.1:8000"
+  },
+  "onboarding_serverUrl_invalid": {
+    "message": "http://127.0.0.1:8000 과 같은 전체 URL을 입력하세요."
+  },
+  "onboarding_serverUrl_invalidProtocol": {
+    "message": "http 또는 https URL을 사용하세요(예: http://127.0.0.1:8000)."
+  },
+  "onboarding_serverUrl_label": {
+    "message": "서버 URL"
+  },
+  "onboarding_serverUrl_emptyHint": {
+    "message": "다음으로 진행하려면 tldw 서버 URL을 입력하세요."
+  },
+  "onboarding_serverUrl_ready": {
+    "message": "이 주소에 접속할 수 있으면 다음을 활성화합니다."
+  },
+  "onboarding_serverUrl_checking": {
+    "message": "연결 확인 중…"
+  },
+  "onboarding_serverUrl_reachable": {
+    "message": "서버가 응답했습니다. 계속할 수 있습니다."
+  },
+  "onboarding_serverUrl_unreachable": {
+    "message": "아직 이 주소에 접속할 수 없습니다. URL을 확인하거나 다시 시도하세요."
+  },
+  "onboarding_buttons_next": {
+    "message": "다음"
+  },
+  "onboarding_buttons_back": {
+    "message": "뒤로"
+  },
+  "onboarding_buttons_continue": {
+    "message": "계속"
+  },
+  "onboarding_buttons_recheck": {
+    "message": "다시 확인"
+  },
+  "onboarding_buttons_finish": {
+    "message": "완료"
+  },
+  "onboarding_buttons_finishAnyway": {
+    "message": "연결 없이 완료"
+  },
+  "onboarding_buttons_skip": {
+    "message": "지금은 건너뛰기"
+  },
+  "onboarding_authMode_label": {
+    "message": "인증 모드"
+  },
+  "onboarding_authMode_single": {
+    "message": "단일 사용자(API 키)"
+  },
+  "onboarding_authMode_multi": {
+    "message": "다중 사용자(로그인)"
+  },
+  "onboarding_apiKey_label": {
+    "message": "API 키"
+  },
+  "onboarding_apiKey_placeholder": {
+    "message": "API 키를 입력하세요 (또는 로컬 단일 사용자용 기본 데모 키 THIS-IS-A-SECURE-KEY-123-REPLACE-ME 사용)"
+  },
+  "onboarding_username_label": {
+    "message": "사용자 이름"
+  },
+  "onboarding_username_placeholder": {
+    "message": "사용자 이름"
+  },
+  "onboarding_password_label": {
+    "message": "비밀번호"
+  },
+  "onboarding_password_placeholder": {
+    "message": "비밀번호"
+  },
+  "onboarding_connection_label": {
+    "message": "연결:"
+  },
+  "onboarding_connection_unknown": {
+    "message": "알 수 없음"
+  },
+  "onboarding_connection_connected": {
+    "message": "연결됨"
+  },
+  "onboarding_connection_failed": {
+    "message": "실패"
+  },
+  "onboarding_connection_continueAnyway": {
+    "message": "지금 계속해서 설정을 마칠 수 있습니다. 나중에 설정에서 연결을 확인할 수 있습니다."
+  },
+  "onboarding_rag_label": {
+    "message": "RAG:"
+  },
+  "onboarding_rag_healthy": {
+    "message": "정상"
+  },
+  "onboarding_rag_unhealthy": {
+    "message": "비정상"
+  },
+  "onboarding_rag_unknown": {
+    "message": "알 수 없음"
+  },
+  "onboarding_connectionFailed": {
+    "message": "연결 실패"
+  },
+  "onboarding_footerHelp": {
+    "message": "연결이 완료되면 확장 프로그램 메뉴에서 언제든지 이 설정으로 다시 돌아올 수 있습니다."
+  },
+  "onboarding_progressAria": {
+    "message": "온보딩 진행 상황"
+  },
+  "onboarding_stepLabel_welcome": {
+    "message": "환영합니다"
+  },
+  "onboarding_stepLabel_url": {
+    "message": "tldw 서버에 연결"
+  },
+  "onboarding_stepLabel_auth": {
+    "message": "로그인 방법 선택"
+  },
+  "onboarding_stepLabel_health": {
+    "message": "연결 및 Knowledge 확인"
+  },
+  "onboarding_startServer_title": {
+    "message": "시작하기 전에 — tldw 서버를 시작하세요"
+  },
+  "onboarding_startServer_body": {
+    "message": "아직 서버를 시작하지 않았다면 tldw_server 저장소에서 다음 명령 중 하나를 실행한 뒤 이 화면으로 돌아오세요."
+  },
+  "onboarding_startServer_copy": {
+    "message": "명령 복사"
+  },
+  "onboarding_startServer_optionLocal": {
+    "message": "Python으로 로컬에서 실행"
+  },
+  "onboarding_startServer_optionLocalHint": {
+    "message": "서버 저장소 루트에서 tldw_server 가상환경 안에서 실행하세요."
+  },
+  "onboarding_startServer_optionDocker": {
+    "message": "Docker Compose로 실행(단일 사용자)"
+  },
+  "onboarding_startServer_optionDockerHint": {
+    "message": "API와 데이터베이스를 시작하기 위해 tldw_server 저장소 루트에서 실행하세요."
+  },
+  "onboarding_path_heading": {
+    "message": "어떻게 시작하시겠어요?"
+  },
+  "onboarding_path_hasServer": {
+    "message": "이미 tldw_server를 운영하고 있습니다"
+  },
+  "onboarding_path_hasServerHelp": {
+    "message": "이미 운영 중인 tldw_server에 연결합니다."
+  },
+  "onboarding_path_noServer": {
+    "message": "아직 서버가 없습니다"
+  },
+  "onboarding_path_noServerHelp": {
+    "message": "tldw_server 설정 가이드를 따라 진행하거나, 데모 모드로 시작하세요."
+  },
+  "onboarding_path_demo": {
+    "message": "로컬 데모로만 살펴보기"
+  },
+  "onboarding_path_demoHelp": {
+    "message": "샘플 데이터를 사용해 워크스페이스를 먼저 사용해 보고, 나중에 자신의 서버를 연결하세요."
+  },
+  "onboarding_path_noServerTitle": {
+    "message": "아직 서버가 없나요? 그래도 둘러볼 수 있습니다."
+  },
+  "onboarding_path_noServerBody": {
+    "message": "tldw_server는 별도로 실행하는 자체 호스팅 앱입니다. 지금 설정 가이드를 따라 진행하거나, 나중에 다시 돌아와 데모 모드로 계속할 수 있습니다."
+  },
+  "onboarding_path_noServerOptionLocal": {
+    "message": "내 컴퓨터에서 Docker 또는 Python으로 로컬 실행합니다."
+  },
+  "onboarding_path_noServerOptionRemote": {
+    "message": "tldw_server를 원격 VPS나 관리형 호스팅에 배포합니다."
+  },
+  "onboarding_path_noServerOptionManaged": {
+    "message": "가능한 경우 관리형 상용 tldw_server 배포를 사용합니다."
+  },
+  "onboarding_path_openSetupGuide": {
+    "message": "설정 가이드 열기"
+  },
+  "onboarding_path_useDemoFromNoServer": {
+    "message": "로컬 데모 모드 사용"
+  },
+  "onboarding_path_remindMeLater": {
+    "message": "나중에 다시 알려주기"
+  },
+  "onboarding_path_demoTitle": {
+    "message": "데모 모드에서 확장 프로그램 살펴보기"
+  },
+  "onboarding_path_demoBody": {
+    "message": "데모 모드에서는 샘플 데이터를 사용해 채팅, 노트 및 미디어를 시험해 볼 수 있습니다. Knowledge 검색처럼 서버에 의존하는 기능은, 직접 운영하는 tldw_server를 연결할 때까지 제한된 상태로 유지됩니다."
+  },
+  "onboarding_path_demoCta": {
+    "message": "로컬 데모 모드 사용"
+  },
+  "onboarding_authModeHelp": {
+    "message": "Single User(API 키)는 개인 또는 소규모 팀 서버에 권장됩니다. Multi User(로그인)는 사람들이 사용자 이름이나 SSO로 로그인하는 공유 배포 환경에 적합합니다. tldw_server 설정 방식에 맞는 모드를 선택하세요."
+  },
+  "onboarding_apiKeyHelp": {
+    "message": "tldw_server → Settings → API Keys에서 API 키를 찾을 수 있습니다. 그곳에서 키를 생성한 뒤 여기에 붙여넣으세요."
+  },
+  "onboarding_authStepAria": {
+    "message": "{{total}}단계 중 {{current}}단계 — 로그인 방법 선택"
+  },
+  "onboarding_confirmStepAria": {
+    "message": "{{total}}단계 중 {{current}}단계 — 연결 요약 및 다음 단계"
+  },
+  "onboarding_nextSteps_title": {
+    "message": "준비가 완료되었습니다"
+  },
+  "onboarding_nextSteps_subtitle": {
+    "message": "이제 사이드패널을 열거나, 페이지를 수집하거나, 미디어와 노트를 둘러볼 수 있습니다."
+  },
+  "onboarding_nextSteps_chatTitle": {
+    "message": "채팅 시작하기"
+  },
+  "onboarding_nextSteps_chatBody": {
+    "message": "사이드패널을 열고 첫 질문을 해보세요."
+  },
+  "onboarding_nextSteps_chatCta": {
+    "message": "사이드패널 열기"
+  },
+  "onboarding_nextSteps_ingestTitle": {
+    "message": "첫 페이지 수집하기"
+  },
+  "onboarding_nextSteps_ingestBody": {
+    "message": "헤더의 Quick ingest를 사용해 현재 탭을 서버에 저장하세요."
+  },
+  "onboarding_nextSteps_mediaTitle": {
+    "message": "미디어 및 노트 둘러보기"
+  },
+  "onboarding_nextSteps_mediaBody": {
+    "message": "옵션에서 미디어와 노트를 열어 저장된 내용과 검색 가능한 항목을 확인하세요."
+  },
+  "onboarding_headerShortcuts": {
+    "message": "헤더에 빠른 바로가기를 표시하기"
+  },
+  "manageCharacters_title": {
+    "message": "캐릭터 관리"
+  },
+  "manageCharacters_addBtn": {
+    "message": "새 캐릭터"
+  },
+  "manageCharacters_columns_name": {
+    "message": "이름"
+  },
+  "manageCharacters_columns_description": {
+    "message": "설명"
+  },
+  "manageCharacters_columns_actions": {
+    "message": "동작"
+  },
+  "manageCharacters_columns_avatar": {
+    "message": "아바타"
+  },
+  "manageCharacters_actions_chat": {
+    "message": "채팅"
+  },
+  "manageCharacters_actions_edit": {
+    "message": "편집"
+  },
+  "manageCharacters_actions_delete": {
+    "message": "삭제"
+  },
+  "manageCharacters_actions_viewConversations": {
+    "message": "대화 목록 보기"
+  },
+  "manageCharacters_actions_duplicate": {
+    "message": "복제"
+  },
+  "manageCharacters_tags_label": {
+    "message": "태그"
+  },
+  "manageCharacters_tags_placeholder": {
+    "message": "태그 추가"
+  },
+  "manageCharacters_tags_help": {
+    "message": "태그로 캐릭터를 용도별로 묶을 수 있습니다(예: “글쓰기”, “교육”)."
+  },
+  "manageCharacters_tooltip_edit": {
+    "message": "캐릭터 편집"
+  },
+  "manageCharacters_tooltip_delete": {
+    "message": "캐릭터 삭제"
+  },
+  "manageCharacters_aria_chatWith": {
+    "message": "{{name}}로 채팅하기"
+  },
+  "manageCharacters_aria_edit": {
+    "message": "캐릭터 {{name}} 편집"
+  },
+  "manageCharacters_aria_delete": {
+    "message": "캐릭터 {{name}} 삭제"
+  },
+  "manageCharacters_aria_viewConversations": {
+    "message": "{{name}}의 대화 목록 보기"
+  },
+  "manageCharacters_aria_searchResults": {
+    "message": "{{count}}개의 캐릭터를 찾았습니다"
+  },
+  "manageCharacters_aria_duplicate": {
+    "message": "{{name}} 캐릭터 복제"
+  },
+  "manageCharacters_confirm_delete": {
+    "message": "이 캐릭터를 삭제할까요? 이 작업은 되돌릴 수 없습니다."
+  },
+  "manageCharacters_form_name_label": {
+    "message": "이름"
+  },
+  "manageCharacters_form_name_placeholder": {
+    "message": "예: 글쓰기 코치"
+  },
+  "manageCharacters_form_name_required": {
+    "message": "이름을 입력하세요"
+  },
+  "manageCharacters_form_description": {
+    "message": "사이드바에서 대화할 수 있는 재사용 캐릭터를 정의하세요."
+  },
+  "manageCharacters_form_systemPrompt_label": {
+    "message": "행동 / 지침"
+  },
+  "manageCharacters_form_systemPrompt_placeholder": {
+    "message": "예: 단계별로 개념을 설명하고 짧은 예시로 이해도를 확인하는 인내심 있는 수학 교사입니다."
+  },
+  "manageCharacters_form_systemPrompt_help": {
+    "message": "캐릭터의 역할, 톤, 제약을 설명하세요. 예: \"단계별로 개념을 설명하는 인내심 있는 수학 튜터입니다.\""
+  },
+  "manageCharacters_form_systemPrompt_min": {
+    "message": "캐릭터가 적절히 응답할 수 있도록 짧은 설명을 추가하세요."
+  },
+  "manageCharacters_form_systemPrompt_required": {
+    "message": "응답을 안내할 지침을 추가해 주세요."
+  },
+  "manageCharacters_form_systemPrompt_max": {
+    "message": "시스템 프롬프트는 2000자 이하여야 합니다."
+  },
+  "manageCharacters_form_avatarUrl_label": {
+    "message": "아바타 URL(선택)"
+  },
+  "manageCharacters_form_avatarUrl_placeholder": {
+    "message": "예: https://example.com/avatar.png"
+  },
+  "manageCharacters_form_greeting_label": {
+    "message": "인사말(선택)"
+  },
+  "manageCharacters_form_greeting_placeholder": {
+    "message": "안녕하세요! 저는 글쓰기 코치예요. 초안을 붙여 넣으면 다듬어 드릴게요."
+  },
+  "manageCharacters_form_greeting_help": {
+    "message": "채팅을 시작할 때 캐릭터가 보내는 선택적 첫 메시지입니다."
+  },
+  "manageCharacters_form_btnSave_saving": {
+    "message": "캐릭터 생성 중..."
+  },
+  "manageCharacters_form_btnSave_save": {
+    "message": "캐릭터 생성"
+  },
+  "manageCharacters_form_btnEdit_saving": {
+    "message": "변경 사항 저장 중..."
+  },
+  "manageCharacters_form_btnEdit_save": {
+    "message": "변경 사항 저장"
+  },
+  "manageCharacters_notification_addSuccess": {
+    "message": "캐릭터가 생성되었습니다"
+  },
+  "manageCharacters_notification_error": {
+    "message": "오류"
+  },
+  "manageCharacters_notification_someError": {
+    "message": "문제가 발생했습니다. 나중에 다시 시도하세요."
+  },
+  "manageCharacters_notification_updatedSuccess": {
+    "message": "캐릭터가 업데이트되었습니다"
+  },
+  "manageCharacters_notification_deletedSuccess": {
+    "message": "캐릭터가 삭제되었습니다"
+  },
+  "manageCharacters_loadError_title": {
+    "message": "캐릭터를 불러올 수 없습니다"
+  },
+  "manageCharacters_loadError_description": {
+    "message": "연결을 확인하고 다시 시도하세요."
+  },
+  "manageCharacters_emptyTitle": {
+    "message": "캐릭터가 없습니다"
+  },
+  "manageCharacters_emptyDescription": {
+    "message": "이름, 설명, 시스템 프롬프트가 있는 재사용 캐릭터를 만들어 보세요."
+  },
+  "manageCharacters_emptyExample1": {
+    "message": "글쓰기 코치, 세계관 전문가, 코딩 도우미 등 재사용할 캐릭터를 정의하세요."
+  },
+  "manageCharacters_emptyExample2": {
+    "message": "각 캐릭터에 명확한 설명과 행동을 추가해 응답이 일관되게 유지되도록 하세요."
+  },
+  "manageCharacters_emptyPrimaryCta": {
+    "message": "캐릭터 만들기"
+  },
+  "manageCharacters_avatarAltWithName": {
+    "message": "{{name}}의 아바타"
+  },
+  "manageCharacters_avatarAlt": {
+    "message": "사용자 아바타"
+  },
+  "manageCharacters_conversations_title": {
+    "message": "{{name}}의 대화 목록"
+  },
+  "manageCharacters_conversations_titleGeneric": {
+    "message": "캐릭터 대화"
+  },
+  "manageCharacters_conversations_subtitle": {
+    "message": "이 캐릭터로 계속할 대화를 선택하세요."
+  },
+  "manageCharacters_conversations_empty": {
+    "message": "이 캐릭터의 대화가 아직 없습니다."
+  },
+  "manageCharacters_conversations_error": {
+    "message": "이 캐릭터의 대화를 불러올 수 없습니다."
+  },
+  "manageCharacters_conversations_updated": {
+    "message": "{{time}}에 업데이트됨"
+  },
+  "manageCharacters_conversations_unknownTime": {
+    "message": "알 수 없음"
+  },
+  "manageCharacters_conversations_resume": {
+    "message": "대화 이어서"
+  },
+  "manageCharacters_conversations_untitled": {
+    "message": "제목 없음"
+  },
+  "manageCharacters_conversations_mostRecent": {
+    "message": "최근"
+  },
+  "manageCharacters_conversations_resumeTooltip": {
+    "message": "채팅 기록을 불러와 이 대화를 이어서 진행합니다"
+  },
+  "manageCharacters_preview_title": {
+    "message": "미리보기"
+  },
+  "manageCharacters_preview_show": {
+    "message": "미리보기 표시"
+  },
+  "manageCharacters_preview_hide": {
+    "message": "미리보기 숨기기"
+  },
+  "manageCharacters_preview_untitled": {
+    "message": "제목 없는 캐릭터"
+  },
+  "manageCharacters_preview_greeting": {
+    "message": "인사말"
+  },
+  "manageCharacters_preview_behavior": {
+    "message": "행동"
+  },
+  "manageCharacters_preview_empty": {
+    "message": "양식을 입력하면 미리보기를 볼 수 있습니다"
+  },
+  "manageCharacters_advanced_show": {
+    "message": "고급 필드 표시"
+  },
+  "manageCharacters_advanced_hide": {
+    "message": "고급 필드 숨기기"
+  },
+  "manageCharacters_table_noDescription": {
+    "message": "설명 없음"
+  },
+  "manageCharacters_filter_matchAll": {
+    "message": "모든 태그 일치"
+  },
+  "manageCharacters_avatar_label": {
+    "message": "아바타(선택 사항)"
+  },
+  "manageCharacters_avatar_tabUrl": {
+    "message": "URL 주소"
+  },
+  "manageCharacters_avatar_tabUpload": {
+    "message": "업로드"
+  },
+  "manageCharacters_avatar_selectImageError": {
+    "message": "이미지 파일을 선택해 주세요"
+  },
+  "manageCharacters_avatar_formatError": {
+    "message": "PNG, JPEG, GIF 이미지만 지원됩니다"
+  },
+  "manageCharacters_avatar_invalidError": {
+    "message": "유효하지 않은 이미지 파일"
+  },
+  "manageCharacters_avatar_processError": {
+    "message": "이미지 처리 실패"
+  },
+  "manageCharacters_avatar_dropzone": {
+    "message": "클릭하거나 드래그하여 이미지를 업로드"
+  },
+  "manageCharacters_avatar_formats": {
+    "message": "PNG, JPEG 또는 GIF"
+  },
+  "manageCharacters_avatar_preview": {
+    "message": "미리보기"
+  },
+  "systemNotifications_importSuccess": {
+    "message": "데이터를 성공적으로 가져왔습니다"
+  },
+  "systemNotifications_importError": {
+    "message": "가져오기 오류"
+  },
+  "systemNotifications_syncSuccess": {
+    "message": "Firefox 데이터가 동기화되었습니다. 다시 실행할 필요 없습니다"
+  },
+  "systemNotifications_syncError": {
+    "message": "Firefox 데이터 동기화 실패"
+  },
+  "systemNotifications_invalidImage": {
+    "message": "유효한 이미지 파일을 선택하세요"
+  },
+  "prompts_enterPrompt": {
+    "message": "프롬프트를 입력하세요."
+  },
+  "prompts_enterPromptPlaceholder": {
+    "message": "프롬프트를 입력하세요."
+  },
+  "prompts_enterFollowUpPrompt": {
+    "message": "후속 프롬프트를 입력하세요."
+  },
+  "prompts_enterFollowUpPromptPlaceholder": {
+    "message": "후속 프롬프트를 입력하세요."
+  },
+  "prompts_privateModeDescription": {
+    "message": "Firefox 사생활 모드는 IndexedDB 저장을 지원하지 않습니다. 일반 창에서 프롬프트를 추가하세요."
+  },
+  "models_privateModeDescription": {
+    "message": "Firefox 사생활 모드는 IndexedDB 저장을 지원하지 않습니다. 일반 창에서 사용자 지정 모델을 추가하세요."
+  },
+  "evaluationsSettingsNav": {
+    "message": "평가"
+  },
+  "promptStudioNav": {
+    "message": "프롬프트 스튜디오"
+  },
+  "promptStudio_nav": {
+    "message": "프롬프트 스튜디오"
+  },
+  "promptStudio_title": {
+    "message": "프롬프트 스튜디오"
+  },
+  "promptStudio_subtitle": {
+    "message": "기본값을 설정하고 프롬프트 스튜디오 상태를 모니터링합니다. 연결과 인증은 메인 서버 설정을 재사용합니다."
+  },
+  "promptStudio_probeError": {
+    "message": "프롬프트 스튜디오에 연결할 수 없습니다"
+  },
+  "promptStudio_statusCard": {
+    "message": "상태"
+  },
+  "promptStudio_statusHint": {
+    "message": "버튼은 warn_seconds를 포함한 /prompt-studio/status를 호출합니다."
+  },
+  "promptStudio_statusError": {
+    "message": "상태 엔드포인트를 사용할 수 없습니다"
+  },
+  "promptStudio_warnSeconds": {
+    "message": "경고 시간(초)"
+  },
+  "promptStudio_testButton": {
+    "message": "프롬프트 스튜디오 테스트"
+  },
+  "promptStudio_defaultsCard": {
+    "message": "기본값"
+  },
+  "promptStudio_defaultsHint": {
+    "message": "기본 프로젝트, 모델 구성, 목록 페이지 크기를 저장합니다."
+  },
+  "promptStudio_defaultsPlaceholder": {
+    "message": "초기 프로젝트 선택, 실행/평가 모델 프리셋, 페이지네이션을 위해 기존 설정 저장소(TBD)에 기본값을 저장합니다."
+  },
+  "promptStudio_defaultProject": {
+    "message": "기본 프로젝트 ID"
+  },
+  "promptStudio_pageSize": {
+    "message": "페이지 크기"
+  },
+  "promptStudio_executeDefaults": {
+    "message": "실행 기본값"
+  },
+  "promptStudio_executeProvider": {
+    "message": "공급자"
+  },
+  "promptStudio_executeModel": {
+    "message": "모델"
+  },
+  "promptStudio_executeTemperature": {
+    "message": "온도"
+  },
+  "promptStudio_executeMaxTokens": {
+    "message": "최대 토큰"
+  },
+  "promptStudio_evalDefaults": {
+    "message": "평가 기본값"
+  },
+  "promptStudio_evalModel": {
+    "message": "모델"
+  },
+  "promptStudio_evalTemperature": {
+    "message": "온도"
+  },
+  "promptStudio_evalMaxTokens": {
+    "message": "최대 토큰"
+  },
+  "promptStudio_unavailable": {
+    "message": "서버에서 아직 프롬프트 스튜디오를 사용할 수 없습니다."
+  },
+  "promptStudio_unavailableBody": {
+    "message": "활성화되면 큐 상태를 모니터링하고 여기서 기본값을 설정할 수 있습니다."
+  },
+  "charactersSettingsTitle": {
+    "message": "캐릭터 작업 공간"
+  },
+  "charactersSettingsDescription": {
+    "message": "캐릭터는 캐릭터 작업 공간에서 관리됩니다. 아래 버튼을 눌러 열 수 있습니다."
+  },
+  "charactersOpenWorkspace": {
+    "message": "캐릭터 작업 공간 열기"
+  },
+  "mermaid": {
+    "message": "Mermaid 다이어그램"
+  },
+  "healthSummary_diagnostics": {
+    "message": "진단"
+  },
+  "healthSummary_diagnosticsTooltip": {
+    "message": "상세 진단을 열어 상태 점검을 확인하거나 문제를 해결합니다."
+  },
+  "healthSummary_core": {
+    "message": "서버"
+  },
+  "healthSummary_rag": {
+    "message": "지식"
+  },
+  "healthSummary_coreAria": {
+    "message": "서버: 서버/API 상태"
+  },
+  "healthSummary_ragAria": {
+    "message": "지식: 지식 인덱스 상태"
+  },
+  "healthSummary_coreOnline": {
+    "message": "서버: 온라인"
+  },
+  "healthSummary_coreOffline": {
+    "message": "서버: 오프라인"
+  },
+  "healthSummary_coreChecking": {
+    "message": "서버: 확인 중…"
+  },
+  "healthSummary_ragReady": {
+    "message": "지식: 준비됨"
+  },
+  "healthSummary_ragOffline": {
+    "message": "지식: 오프라인"
+  },
+  "healthSummary_ragChecking": {
+    "message": "지식: 확인 중…"
+  },
+  "healthSummary_footerInfo": {
+    "message": "이 점검은 tldw 서버와 지식 인덱스에 대한 마지막 성공 핑을 요약합니다."
+  },
+  "storage_quotaFriendlyMessage": {
+    "message": "짧은 시간에 설정 저장을 너무 많이 요청했습니다. 몇 초 기다린 후 다시 시도하세요."
+  },
+  "storage_quotaTitle": {
+    "message": "저장소 한도 도달"
+  },
+  "storage_writeError": {
+    "message": "설정을 저장할 수 없습니다"
+  },
+  "storage_writeErrorDescription": {
+    "message": "설정을 저장하지 못했습니다. 잠시 후 다시 시도하세요."
+  },
+  "evaluations_title": {
+    "message": "평가 플레이그라운드"
+  },
+  "evaluations_subtitle": {
+    "message": "tldw 서버에 대한 평가를 정의하고 최근 실행을 확인합니다."
+  },
+  "evaluations_listTitle": {
+    "message": "최근 평가"
+  },
+  "evaluations_newEvaluationCta": {
+    "message": "새 평가"
+  },
+  "evaluations_startRunCta": {
+    "message": "실행 시작"
+  },
+  "evaluations_loadErrorTitle": {
+    "message": "평가를 불러올 수 없습니다"
+  },
+  "evaluations_loadErrorDescription": {
+    "message": "tldw 서버 연결과 API 자격 증명을 확인한 뒤 다시 시도하세요."
+  },
+  "evaluations_emptyList": {
+    "message": "아직 평가가 없습니다. 생성하면 여기에 표시됩니다."
+  },
+  "evaluations_selectedTag": {
+    "message": "선택됨"
+  },
+  "evaluations_rateLimitsTitle": {
+    "message": "평가 제한"
+  },
+  "evaluations_rateLimitsErrorTitle": {
+    "message": "제한 정보를 가져올 수 없습니다"
+  },
+  "evaluations_rateLimitsErrorDescription": {
+    "message": "서버에서 평가 할당량을 가져오지 못했습니다."
+  },
+  "evaluations_rateLimitsNoData": {
+    "message": "이 서버에는 제한 정보가 없습니다."
+  },
+  "evaluations_tierLabel": {
+    "message": "티어"
+  },
+  "evaluations_dailyLimitLabel": {
+    "message": "일일 평가"
+  },
+  "evaluations_tokensTodayLabel": {
+    "message": "오늘 토큰"
+  },
+  "evaluations_perMinuteLabel": {
+    "message": "분당 제한"
+  },
+  "evaluations_resetAtLabel": {
+    "message": "리셋 시간"
+  },
+  "evaluations_runsTitle": {
+    "message": "실행"
+  },
+  "evaluations_noEvalSelectedRuns": {
+    "message": "최근 실행을 보려면 평가를 선택하세요."
+  },
+  "evaluations_runsErrorTitle": {
+    "message": "실행을 불러올 수 없습니다"
+  },
+  "evaluations_runsEmpty": {
+    "message": "이 평가의 실행 기록이 없습니다."
+  },
+  "evaluations_runDetailTitle": {
+    "message": "실행 상세"
+  },
+  "evaluations_noRunSelected": {
+    "message": "상세를 보려면 실행을 선택하세요."
+  },
+  "evaluations_runDetailErrorTitle": {
+    "message": "실행 상세를 불러올 수 없습니다"
+  },
+  "evaluations_runStatusLabel": {
+    "message": "상태"
+  },
+  "evaluations_runModelLabelShort": {
+    "message": "대상 모델"
+  },
+  "evaluations_runEvalIdLabel": {
+    "message": "평가"
+  },
+  "evaluations_runErrorLabel": {
+    "message": "오류"
+  },
+  "evaluations_runResultsLabel": {
+    "message": "결과(일부)"
+  },
+  "evaluations_runProgressLabel": {
+    "message": "진행"
+  },
+  "evaluations_runUsageLabel": {
+    "message": "사용량"
+  },
+  "evaluations_datasetsTitle": {
+    "message": "데이터셋"
+  },
+  "evaluations_newDatasetCta": {
+    "message": "새 데이터셋"
+  },
+  "evaluations_datasetsErrorTitle": {
+    "message": "데이터셋을 불러올 수 없습니다"
+  },
+  "evaluations_datasetsEmpty": {
+    "message": "아직 데이터셋이 없습니다. 평가에 연결할 데이터셋을 만들어 보세요."
+  },
+  "evaluations_datasetSampleCount": {
+    "message": "{{count}}개 샘플"
+  },
+  "evaluations_datasetNameLabel": {
+    "message": "이름"
+  },
+  "evaluations_datasetNamePlaceholder": {
+    "message": "예: my_dataset"
+  },
+  "evaluations_datasetDescriptionLabel": {
+    "message": "설명"
+  },
+  "evaluations_datasetMetadataLabel": {
+    "message": "메타데이터(JSON, 선택)"
+  },
+  "evaluations_sampleInputLabel": {
+    "message": "샘플 입력"
+  },
+  "evaluations_sampleExpectedLabel": {
+    "message": "예상 출력(선택)"
+  },
+  "evaluations_samplesJsonLabel": {
+    "message": "샘플 JSON(선택, 필드 재정의)"
+  },
+  "evaluations_datasetLabel": {
+    "message": "데이터셋(선택)"
+  },
+  "evaluations_datasetPlaceholder": {
+    "message": "데이터셋 선택"
+  },
+  "evaluations_datasetCreateSuccessTitle": {
+    "message": "데이터셋이 생성되었습니다"
+  },
+  "evaluations_datasetCreateSuccessDescription": {
+    "message": "데이터셋을 평가에 사용할 수 있습니다."
+  },
+  "evaluations_datasetCreateErrorTitle": {
+    "message": "데이터셋 생성 실패"
+  },
+  "evaluations_datasetCreateErrorDescription": {
+    "message": "서버가 이 데이터셋을 거부했습니다. 필드를 확인하고 다시 시도하세요."
+  },
+  "evaluations_datasetDeleteSuccessTitle": {
+    "message": "데이터셋이 삭제되었습니다"
+  },
+  "evaluations_datasetDeleteErrorTitle": {
+    "message": "데이터셋 삭제 실패"
+  },
+  "evaluations_datasetLoadErrorTitle": {
+    "message": "데이터셋 로드 실패"
+  },
+  "evaluations_datasetDetailTitle": {
+    "message": "데이터셋 상세"
+  },
+  "evaluations_datasetParseErrorTitle": {
+    "message": "샘플 JSON이 올바르지 않습니다"
+  },
+  "evaluations_createEvalModalTitle": {
+    "message": "새 평가"
+  },
+  "evaluations_editEvalModalTitle": {
+    "message": "평가 편집"
+  },
+  "evaluations_evalNameLabel": {
+    "message": "이름"
+  },
+  "evaluations_evalNamePlaceholder": {
+    "message": "예: my_eval_run"
+  },
+  "evaluations_evalNameValidation": {
+    "message": "문자, 숫자, 하이픈, 밑줄만 사용할 수 있습니다."
+  },
+  "evaluations_evalTypeLabel": {
+    "message": "평가 유형"
+  },
+  "evaluations_evalSpecLabel": {
+    "message": "평가 스펙(JSON)"
+  },
+  "evaluations_evalSpecParseError": {
+    "message": "평가 스펙은 유효한 JSON이어야 합니다."
+  },
+  "evaluations_evalMetadataLabel": {
+    "message": "메타데이터(JSON, 선택)"
+  },
+  "evaluations_inlineDatasetCheckbox": {
+    "message": "dataset_id 대신 인라인 데이터셋 첨부"
+  },
+  "evaluations_inlineDatasetErrorTitle": {
+    "message": "인라인 데이터셋이 올바르지 않습니다"
+  },
+  "evaluations_runModelLabel": {
+    "message": "실행 모델(퀵 런에 사용)"
+  },
+  "evaluations_createSuccessTitle": {
+    "message": "평가가 생성되었습니다"
+  },
+  "evaluations_createErrorTitle": {
+    "message": "평가 생성 실패"
+  },
+  "evaluations_createErrorDescription": {
+    "message": "서버가 이 평가를 거부했습니다. 이름, 유형, 스펙을 확인하세요."
+  },
+  "evaluations_updateSuccessTitle": {
+    "message": "평가가 업데이트되었습니다"
+  },
+  "evaluations_updateErrorTitle": {
+    "message": "평가 업데이트 실패"
+  },
+  "evaluations_deleteErrorTitle": {
+    "message": "평가 삭제 실패"
+  },
+  "evaluations_deleteConfirmTitle": {
+    "message": "이 평가를 삭제할까요?"
+  },
+  "evaluations_deleteConfirmDescription": {
+    "message": "평가 정의가 삭제됩니다. 이미 생성된 실행 기록은 유지됩니다."
+  },
+  "evaluations_detailTitle": {
+    "message": "평가 상세"
+  },
+  "evaluations_detailErrorTitle": {
+    "message": "평가 상세를 불러올 수 없습니다"
+  },
+  "evaluations_descriptionLabel": {
+    "message": "설명"
+  },
+  "evaluations_noEvalSelectedDetails": {
+    "message": "스펙을 보려면 평가를 선택하세요."
+  },
+  "evaluations_runCreateSuccessTitle": {
+    "message": "실행이 시작되었습니다"
+  },
+  "evaluations_runCreateSuccessDescription": {
+    "message": "평가 실행이 시작되었습니다. 서버 UI에서 모니터링할 수 있습니다."
+  },
+  "evaluations_runCreateErrorTitle": {
+    "message": "실행 시작 실패"
+  },
+  "evaluations_runCreateErrorDescription": {
+    "message": "서버가 이 실행 요청을 거부했습니다. 모델을 확인하고 다시 시도하세요."
+  },
+  "evaluations_runConfigLabel": {
+    "message": "구성(JSON)"
+  },
+  "evaluations_datasetOverrideLabel": {
+    "message": "데이터셋 오버라이드(JSON 샘플 배열)"
+  },
+  "evaluations_runConfigParseError": {
+    "message": "구성 JSON이 올바르지 않습니다"
+  },
+  "evaluations_runCancelSuccessTitle": {
+    "message": "실행 취소 요청됨"
+  },
+  "evaluations_runCancelErrorTitle": {
+    "message": "실행 취소 실패"
+  },
+  "evaluations_cancelRunCta": {
+    "message": "실행 취소"
+  },
+  "evaluations_historyTitle": {
+    "message": "히스토리"
+  },
+  "evaluations_historyTypeLabel": {
+    "message": "유형"
+  },
+  "evaluations_historyUserLabel": {
+    "message": "사용자 ID"
+  },
+  "evaluations_historyStartLabel": {
+    "message": "시작 날짜(ISO)"
+  },
+  "evaluations_historyEndLabel": {
+    "message": "종료 날짜(ISO)"
+  },
+  "evaluations_historyFetchCta": {
+    "message": "히스토리 가져오기"
+  },
+  "evaluations_historyEmpty": {
+    "message": "쿼리를 실행하면 최근 활동이 표시됩니다."
+  },
+  "evaluations_historyErrorTitle": {
+    "message": "히스토리를 가져오지 못했습니다"
+  },
+  "evaluations_webhooksTitle": {
+    "message": "웹훅"
+  },
+  "evaluations_webhookUrlLabel": {
+    "message": "URL 주소"
+  },
+  "evaluations_webhookEventsLabel": {
+    "message": "이벤트"
+  },
+  "evaluations_webhookCreateCta": {
+    "message": "웹훅 등록"
+  },
+  "evaluations_webhookCreateSuccessTitle": {
+    "message": "웹훅이 등록되었습니다"
+  },
+  "evaluations_webhookCreateErrorTitle": {
+    "message": "웹훅 등록 실패"
+  },
+  "evaluations_webhookDeleteErrorTitle": {
+    "message": "웹훅 삭제 실패"
+  },
+  "evaluations_webhookListErrorTitle": {
+    "message": "웹훅을 불러올 수 없습니다"
+  },
+  "evaluations_webhooksEmpty": {
+    "message": "등록된 웹훅이 없습니다."
+  },
+  "evaluations_webhookSecretTitle": {
+    "message": "시크릿"
+  },
+  "evaluations_idempotencyKeyLabel": {
+    "message": "멱등성 키"
+  },
+  "evaluations_emptyConnectTitle": {
+    "message": "평가를 사용하려면 연결하세요"
+  },
+  "evaluations_emptyConnectDescription": {
+    "message": "평가를 만들고 실행하려면 먼저 tldw 서버에 연결하세요."
+  },
+  "evaluations_emptyConnectExample1": {
+    "message": "설정 → tldw 서버에서 서버 URL과 API 키를 추가하세요."
+  },
+  "evaluations_emptyConnectExample2": {
+    "message": "연결 후에는 여기에서 평가를 정의하고 메트릭을 확인할 수 있습니다."
+  },
+  "evaluations_datasetSamplesLabel": {
+    "message": "샘플"
+  },
+  "evaluations_datasetSamplesEmpty": {
+    "message": "이 페이지에 대한 샘플이 없습니다."
+  },
+  "evaluations_metricsLabel": {
+    "message": "메트릭"
+  },
+  "evaluationsSettings_title": {
+    "message": "평가"
+  },
+  "evaluationsSettings_subtitle": {
+    "message": "평가 플레이그라운드에서 사용할 기본값을 설정합니다."
+  },
+  "evaluationsSettings_offline": {
+    "message": "평가를 테스트하려면 tldw 서버에 연결하세요."
+  },
+  "evaluationsSettings_defaultType": {
+    "message": "기본 평가 유형"
+  },
+  "evaluationsSettings_defaultModel": {
+    "message": "기본 대상 모델"
+  },
+  "evaluationsSettings_defaultRunConfig": {
+    "message": "기본 실행 구성(JSON)"
+  },
+  "evaluationsSettings_defaultDataset": {
+    "message": "기본 데이터셋 ID(선택)"
+  },
+  "evaluationsSettings_specForType": {
+    "message": "선택한 유형의 스펙 프리셋"
+  },
+  "evaluationsSettings_testCta": {
+    "message": "평가 API 테스트"
+  },
+  "evaluationsSettings_testOk": {
+    "message": "평가 API에 연결되었습니다"
+  },
+  "evaluationsSettings_testFail": {
+    "message": "평가 API에 연결할 수 없습니다"
+  },
+  "chunkingPlayground_nav": {
+    "message": "청킹 플레이그라운드"
+  },
+  "chunkingPlayground_title": {
+    "message": "청킹 플레이그라운드"
+  },
+  "chunkingPlayground_description": {
+    "message": "다양한 청킹 설정을 실험하여 텍스트가 처리용으로 작은 조각으로 분할되는 방식을 확인하세요."
+  },
+  "chunkingPlayground_inputLabel": {
+    "message": "분할할 텍스트"
+  },
+  "chunkingPlayground_inputPlaceholder": {
+    "message": "여기에 텍스트를 붙여넣거나 샘플을 선택하세요..."
+  },
+  "chunkingPlayground_uploadButton": {
+    "message": "파일 업로드"
+  },
+  "chunkingPlayground_chunkButton": {
+    "message": "텍스트 분할"
+  },
+  "chunkingPlayground_methodLabel": {
+    "message": "청킹 방법"
+  },
+  "chunkingPlayground_maxSizeLabel": {
+    "message": "최대 청크 크기"
+  },
+  "chunkingPlayground_overlapLabel": {
+    "message": "겹침"
+  },
+  "chunkingPlayground_languageLabel": {
+    "message": "언어"
+  },
+  "chunkingPlayground_languages_auto": {
+    "message": "자동 감지"
+  },
+  "chunkingPlayground_languages_en": {
+    "message": "영어"
+  },
+  "chunkingPlayground_languages_es": {
+    "message": "스페인어"
+  },
+  "chunkingPlayground_languages_fr": {
+    "message": "프랑스어"
+  },
+  "chunkingPlayground_languages_de": {
+    "message": "독일어"
+  },
+  "chunkingPlayground_languages_it": {
+    "message": "이탈리아어"
+  },
+  "chunkingPlayground_languages_pt": {
+    "message": "포르투갈어"
+  },
+  "chunkingPlayground_languages_zh": {
+    "message": "중국어"
+  },
+  "chunkingPlayground_languages_ja": {
+    "message": "일본어"
+  },
+  "chunkingPlayground_languages_ko": {
+    "message": "한국어"
+  },
+  "chunkingPlayground_viewCards": {
+    "message": "카드"
+  },
+  "chunkingPlayground_viewInline": {
+    "message": "인라인"
+  },
+  "chunkingPlayground_stats": {
+    "message": "{{count}}개 청크 · 평균 {{avgSize}}자"
+  },
+  "chunkingPlayground_textLoaded": {
+    "message": "텍스트를 불러왔습니다"
+  },
+  "chunkingPlayground_characters": {
+    "message": "자"
+  },
+  "chunkingPlayground_tabSingle": {
+    "message": "단일"
+  },
+  "chunkingPlayground_tabCompare": {
+    "message": "비교"
+  },
+  "chunkingPlayground_chunkIndex": {
+    "message": "청크 {{index}}"
+  },
+  "chunkingPlayground_chunkInfo": {
+    "message": "청크 {{index}}: {{words}}단어"
+  },
+  "chunkingPlayground_position": {
+    "message": "위치: {{start}} - {{end}}"
+  },
+  "chunkingPlayground_additionalChunks": {
+    "message": "+{{count}}개 더"
+  },
+  "chunkingPlayground_charCount": {
+    "message": "{{count}}자"
+  },
+  "chunkingPlayground_wordCount": {
+    "message": "{{count}}단어"
+  },
+  "chunkingPlayground_noInput": {
+    "message": "분할할 텍스트를 입력하세요"
+  },
+  "chunkingPlayground_sharedInput": {
+    "message": "공유 입력 텍스트"
+  },
+  "chunkingPlayground_compareButton": {
+    "message": "둘 다 비교"
+  },
+  "chunkingPlayground_comparison": {
+    "message": "비교"
+  },
+  "chunkingPlayground_fewerChunks": {
+    "message": "구성 A는 {{diff}}개 적은 청크를 생성합니다"
+  },
+  "chunkingPlayground_moreChunks": {
+    "message": "구성 A는 {{diff}}개 더 많은 청크를 생성합니다"
+  },
+  "chunkingPlayground_sameChunks": {
+    "message": "두 구성 모두 동일한 수의 청크를 생성합니다"
+  },
+  "chunkingPlayground_clickToChunk": {
+    "message": "\"비교\"를 클릭하여 결과를 확인하세요"
+  },
+  "chunkingPlayground_overlapRegion": {
+    "message": "겹침 영역"
+  },
+  "chunkingPlayground_clickHint": {
+    "message": "강조 표시된 영역을 클릭하여 해당 청크에 집중하세요"
+  },
+  "chunkingPlayground_noContentFound": {
+    "message": "이 미디어 항목에서 텍스트 콘텐츠를 찾을 수 없습니다"
+  },
+  "chunkingPlayground_loadContentError": {
+    "message": "미디어 콘텐츠를 불러오지 못했습니다"
+  },
+  "chunkingPlayground_loadMediaListError": {
+    "message": "미디어 라이브러리를 불러오지 못했습니다"
+  },
+  "chunkingPlayground_selectMedia": {
+    "message": "미디어 항목 선택..."
+  },
+  "chunkingPlayground_loadingMedia": {
+    "message": "콘텐츠를 불러오는 중..."
+  },
+  "chunkingPlayground_noMediaFound": {
+    "message": "미디어가 없습니다"
+  },
+  "chunkingPlayground_mediaCount": {
+    "message": "{{count}}개의 미디어 항목 사용 가능"
+  },
+  "chunkingPlayground_inputSource_paste": {
+    "message": "텍스트 붙여넣기"
+  },
+  "chunkingPlayground_inputSource_upload": {
+    "message": "파일 업로드"
+  },
+  "chunkingPlayground_inputSource_sample": {
+    "message": "샘플 텍스트"
+  },
+  "chunkingPlayground_inputSource_media": {
+    "message": "미디어 라이브러리에서"
+  },
+  "chunkingPlayground_samples_article": {
+    "message": "뉴스 기사"
+  },
+  "chunkingPlayground_samples_articleDesc": {
+    "message": "헤더가 있는 여러 단락의 기사"
+  },
+  "chunkingPlayground_samples_code": {
+    "message": "소스 코드"
+  },
+  "chunkingPlayground_samples_codeDesc": {
+    "message": "클래스와 함수가 있는 파이썬 코드"
+  },
+  "chunkingPlayground_samples_transcript": {
+    "message": "전사"
+  },
+  "chunkingPlayground_samples_transcriptDesc": {
+    "message": "타임스탬프가 포함된 팟캐스트 전사"
+  },
+  "chunkingPlayground_samples_academic": {
+    "message": "학술 논문"
+  },
+  "chunkingPlayground_samples_academicDesc": {
+    "message": "인용이 포함된 기술 문서"
+  },
+  "chunkingPlayground_compare_title": {
+    "message": "설정 비교"
+  },
+  "chunkingPlayground_compare_configA": {
+    "message": "구성 A"
+  },
+  "chunkingPlayground_compare_configB": {
+    "message": "구성 B"
+  },
+  "chunkingPlayground_mode_single": {
+    "message": "단일"
+  },
+  "chunkingPlayground_mode_compare": {
+    "message": "비교"
+  }
+}

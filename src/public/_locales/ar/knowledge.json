@@ -1,0 +1,131 @@
+{
+  "addBtn": {
+    "message": "إضافة معرفة جديدة"
+  },
+  "columns_title": {
+    "message": "العنوان"
+  },
+  "columns_status": {
+    "message": "الحالة"
+  },
+  "columns_embeddings": {
+    "message": "نموذج التضمين"
+  },
+  "columns_createdAt": {
+    "message": "تاريخ الإنشاء"
+  },
+  "columns_action": {
+    "message": "الإجراءات"
+  },
+  "expandedColumns_name": {
+    "message": "الاسم"
+  },
+  "confirm_delete": {
+    "message": "هل أنت متأكد أنك تريد حذف هذه المعرفة؟"
+  },
+  "deleteSuccess": {
+    "message": "تم حذف المعرفة بنجاح"
+  },
+  "status_pending": {
+    "message": "قيد الانتظار"
+  },
+  "status_finished": {
+    "message": "مكتمل"
+  },
+  "status_processing": {
+    "message": "قيد المعالجة"
+  },
+  "status_failed": {
+    "message": "فشل"
+  },
+  "addKnowledge": {
+    "message": "إضافة معرفة"
+  },
+  "updateKnowledge": {
+    "message": "تحديث المعرفة"
+  },
+  "form_title_label": {
+    "message": "عنوان المعرفة"
+  },
+  "form_title_placeholder": {
+    "message": "أدخل عنوان المعرفة"
+  },
+  "form_title_required": {
+    "message": "عنوان المعرفة مطلوب"
+  },
+  "form_uploadFile_label": {
+    "message": "رفع ملف"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "اسحب وأفلت ملفًا هنا أو انقر للرفع"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "أنواع الملفات المدعومة: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "الملف مطلوب"
+  },
+  "form_submit": {
+    "message": "إرسال"
+  },
+  "form_success": {
+    "message": "تمت إضافة المعرفة بنجاح"
+  },
+  "noEmbeddingModel": {
+    "message": "يرجى إضافة نموذج تضمين من صفحة إعدادات RAG أولاً"
+  },
+  "privateModeDescription": {
+    "message": "وضع التصفح الخاص في فايرفوكس لا يدعم حفظ البيانات في IndexedDB. الرجاء إضافة قاعدة معرفة من نافذة عادية."
+  },
+  "ragWorkspace_title": {
+    "message": "البحث في المعرفة والدردشة"
+  },
+  "ragWorkspace_description": {
+    "message": "قم بضبط خيارات البحث المعزز (RAG)، وتشغيل عمليات بحث سريعة، واستخدم الدردشة بإجابات مستندة إلى البيانات."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "التوليد المعزز بالاسترجاع (RAG) يُمكّن المساعد من تأصيل الإجابات في وسائطك وملاحظاتك ومصادر المعرفة المفهرَسة الأخرى."
+  },
+  "ragWorkspace_autoRagLabel": {
+    "message": "استخدم RAG لكل رد"
+  },
+  "ragWorkspace_autoRagHelp": {
+    "message": "عند التفعيل، سيجري مساحة عمل الدردشة بحث معرفة (RAG) قبل الإجابة على كل رسالة."
+  },
+  "ragWorkspace_autoRagScopeHelp": {
+    "message": "ينطبق هذا الإعداد على الردود في واجهة الدردشة الرئيسية ولوحة الجانب."
+  },
+  "ragWorkspace_docsPerReply_label": {
+    "message": "عدد المستندات لكل إجابة (top-k)"
+  },
+  "ragWorkspace_docsPerReply_current": {
+    "message": "{{count}} مستند لكل إجابة"
+  },
+  "rag_searchFailed": {
+    "message": "فشل بحث RAG. حاول مرة أخرى أو تحقق من صفحة التشخيص."
+  },
+  "empty_demoTitle": {
+    "message": "استكشف Knowledge QA في وضع العرض التجريبي"
+  },
+  "empty_demoDescription": {
+    "message": "يوضح لك هذا العرض كيف يمكن لـ Knowledge QA تشغيل عمليات بحث RAG على محتوى تجريبي. يمكنك لاحقًا توصيل خادومك الخاص للبحث في التسجيلات والمستندات الخاصة بك."
+  },
+  "empty_demoExample1": {
+    "message": "جرّب عمليات بحث RAG سريعة واطلع على النتائج والمراجع."
+  },
+  "empty_demoExample2": {
+    "message": "وصّل خادومك الخاص لتمكين Knowledge QA على الوسائط والملاحظات الحقيقية لديك."
+  },
+  "empty_connectTitle": {
+    "message": "اتصل لاستخدام Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "لاستخدام Knowledge QA وبحث RAG، يجب أولًا الاتصال بخادوم tldw الخاص بك."
+  },
+  "empty_connectExample1": {
+    "message": "افتح الإعدادات → tldw server لإضافة رابط خادومك."
+  },
+  "empty_connectExample2": {
+    "message": "استخدم صفحة التشخيص Diagnostics إذا كان الخادوم يعمل لكنه غير متاح."
+  }
+}

@@ -1,0 +1,1172 @@
+{
+  "pageAssist": {
+    "message": "Asistente tldw"
+  },
+  "titles_options": {
+    "message": "tldw Assistant — Options"
+  },
+  "titles_sidepanel": {
+    "message": "tldw Assistant — Sidepanel"
+  },
+  "pdf_passwordTitle": {
+    "message": "Introduce la contraseña del PDF"
+  },
+  "pdf_unlock": {
+    "message": "Desbloquear"
+  },
+  "loading_title": {
+    "message": "Cargando…"
+  },
+  "loading_description": {
+    "message": "Espera mientras preparamos todo."
+  },
+  "loading_content": {
+    "message": "Cargando contenido…"
+  },
+  "selectAModel": {
+    "message": "Selecione un Modelo"
+  },
+  "save": {
+    "message": "Guardar"
+  },
+  "saved": {
+    "message": "Guardado"
+  },
+  "cancel": {
+    "message": "Cancelar"
+  },
+  "retry": {
+    "message": "Reintentar"
+  },
+  "share_tooltip_share": {
+    "message": "Compartir"
+  },
+  "share_modal_title": {
+    "message": "Compartir enlace para chat"
+  },
+  "share_form_defaultValue_name": {
+    "message": "Anónimo"
+  },
+  "share_form_defaultValue_title": {
+    "message": "Chat sin título"
+  },
+  "share_form_title_label": {
+    "message": "Título del Chat"
+  },
+  "share_form_title_placeholder": {
+    "message": "Ingresar el título del Chat"
+  },
+  "share_form_title_required": {
+    "message": "El título del Chat es obligatorio"
+  },
+  "share_form_name_label": {
+    "message": "Tu nombre"
+  },
+  "share_form_name_placeholder": {
+    "message": "Ingresar tu nombre"
+  },
+  "share_form_name_required": {
+    "message": "Tu nombre es obligatorio"
+  },
+  "share_form_btn_save": {
+    "message": "Generar enlace"
+  },
+  "share_form_btn_saving": {
+    "message": "Generando enlace..."
+  },
+  "share_notification_successGenerate": {
+    "message": "Enlace copiado al Clipboard"
+  },
+  "share_notification_failGenerate": {
+    "message": "Fallo al generar el enlace"
+  },
+  "copyToClipboard": {
+    "message": "Copiar al clipboard"
+  },
+  "webSearch": {
+    "message": "Buscando en la web"
+  },
+  "regenerate": {
+    "message": "Regenerar"
+  },
+  "continue": {
+    "message": "Continuar Respuesta"
+  },
+  "edit": {
+    "message": "Editar"
+  },
+  "delete": {
+    "message": "Borrar"
+  },
+  "saveAndSubmit": {
+    "message": "Guardar y Enviar"
+  },
+  "editMessage_placeholder": {
+    "message": "Ingresar un mensaje..."
+  },
+  "submit": {
+    "message": "Enviar"
+  },
+  "send": {
+    "message": "Enviar"
+  },
+  "connectToServer": {
+    "message": "Conectar con el servidor"
+  },
+  "noData": {
+    "message": "Sin datos"
+  },
+  "noHistory": {
+    "message": "Chat sin histórico"
+  },
+  "chatWithCurrentPage": {
+    "message": "Conversar con la página actual"
+  },
+  "beta": {
+    "message": "Versión beta"
+  },
+  "tts": {
+    "message": "Leer en voz alta"
+  },
+  "currentChatModelSettings": {
+    "message": "Configuraciones del Modelo de Chat Actual"
+  },
+  "modelSettings_label": {
+    "message": "Configuraciones del Modelo"
+  },
+  "modelSettings_description": {
+    "message": "Definir las opciones del modelo globalmente para todos los chats"
+  },
+  "modelSettings_form_keepAlive_label": {
+    "message": "Mantener vivo"
+  },
+  "modelSettings_form_keepAlive_help": {
+    "message": "controlar cuanto tiempo el modelo permanecera cargado en la memoria luego de su utilización (por defecto: 5m)"
+  },
+  "modelSettings_form_keepAlive_placeholder": {
+    "message": "Ingresar duración para mantenerlo vivo (ej: 5m, 10m, 1h)"
+  },
+  "modelSettings_form_temperature_label": {
+    "message": "Temperatura"
+  },
+  "modelSettings_form_temperature_placeholder": {
+    "message": "Ingresar valor de la Temperatura (ej: 0.7, 1.0)"
+  },
+  "modelSettings_form_numCtx_label": {
+    "message": "Tamaño de la Ventana de Contexto (num_ctx)"
+  },
+  "modelSettings_form_numCtx_placeholder": {
+    "message": "Ingrese el valor del tamaño de la ventana de contexto (por defecto: 2048)"
+  },
+  "modelSettings_form_numPredict_label": {
+    "message": "Máximo de Tokens (num_predict)"
+  },
+  "modelSettings_form_numPredict_placeholder": {
+    "message": "Ingrese el valor máximo de Tokens (ej: 2048, 4096)"
+  },
+  "modelSettings_form_seed_label": {
+    "message": "Semilla"
+  },
+  "modelSettings_form_seed_placeholder": {
+    "message": "Ingresar el valor de la semilla (ej: 1234)"
+  },
+  "modelSettings_form_seed_help": {
+    "message": "Reproductibilidad de la salida del modelo"
+  },
+  "modelSettings_form_topK_label": {
+    "message": "Top K (superior K)"
+  },
+  "modelSettings_form_topK_placeholder": {
+    "message": "Ingresar el valor de Top K (ej: 40, 100)"
+  },
+  "modelSettings_form_topP_label": {
+    "message": "Top P (superior P)"
+  },
+  "modelSettings_form_topP_placeholder": {
+    "message": "Ingresar el valor de Top P (ej: 0.9, 0.95)"
+  },
+  "modelSettings_form_numGpu_label": {
+    "message": "N.º de GPU"
+  },
+  "modelSettings_form_numGpu_placeholder": {
+    "message": "Ingrese el número de capas para enviar a la(s) GPU(s)"
+  },
+  "modelSettings_form_systemPrompt_label": {
+    "message": "Prompt de Sistema Temporal"
+  },
+  "modelSettings_form_systemPrompt_placeholder": {
+    "message": "Ingrese el Prompt de Sistema"
+  },
+  "modelSettings_form_systemPrompt_help": {
+    "message": "Esta es una forma rápida de establecer el prompt de sistema en el chat actual, que anulará el prompt de sistema seleccionado si existe."
+  },
+  "modelSettings_form_thinking_label": {
+    "message": "Modo de razonamiento"
+  },
+  "modelSettings_form_useMMap_label": {
+    "message": "useMmap (mapear en memoria)"
+  },
+  "modelSettings_form_tfsZ_label": {
+    "message": "TFS-Z (parámetro TFS)"
+  },
+  "modelSettings_form_tfsZ_placeholder": {
+    "message": "p. ej.: 1.0, 1.1"
+  },
+  "modelSettings_form_numKeep_label": {
+    "message": "Num Keep (n.º a mantener)"
+  },
+  "modelSettings_form_numKeep_placeholder": {
+    "message": "p. ej.: 256, 512"
+  },
+  "modelSettings_form_numThread_label": {
+    "message": "Num Thread (n.º de hilos)"
+  },
+  "modelSettings_form_numThread_placeholder": {
+    "message": "p. ej.: 8, 16"
+  },
+  "modelSettings_form_useMlock_label": {
+    "message": "useMlock (bloquear en memoria)"
+  },
+  "modelSettings_form_reasoningEffort_label": {
+    "message": "Esfuerzo de razonamiento"
+  },
+  "modelSettings_form_reasoningEffort_placeholder": {
+    "message": "bajo, medio, alto"
+  },
+  "modelSettings_form_minP_label": {
+    "message": "Min P (P mínima)"
+  },
+  "modelSettings_form_minP_placeholder": {
+    "message": "p. ej.: 0.05"
+  },
+  "modelSettings_form_repeatPenalty_label": {
+    "message": "Penalización por repetición"
+  },
+  "modelSettings_form_repeatPenalty_placeholder": {
+    "message": "p. ej.: 1.1, 1.2"
+  },
+  "modelSettings_form_repeatLastN_label": {
+    "message": "Repetir últimos N"
+  },
+  "modelSettings_form_repeatLastN_placeholder": {
+    "message": "p. ej.: 64, 128"
+  },
+  "modelSettings_advanced": {
+    "message": "Más Configuraciones del Modelo"
+  },
+  "copilot_summary": {
+    "message": "Resumir"
+  },
+  "copilot_explain": {
+    "message": "Explicar"
+  },
+  "copilot_rephrase": {
+    "message": "Reformular"
+  },
+  "copilot_translate": {
+    "message": "Traducir"
+  },
+  "copilot_custom": {
+    "message": "Personalizado"
+  },
+  "citations": {
+    "message": "Citas"
+  },
+  "downloadCode": {
+    "message": "Descargar Código"
+  },
+  "date_pinned": {
+    "message": "Fijado"
+  },
+  "date_today": {
+    "message": "Hoy"
+  },
+  "date_yesterday": {
+    "message": "Ayer"
+  },
+  "date_last7Days": {
+    "message": "Últimos 7 días"
+  },
+  "date_older": {
+    "message": "Más antiguo"
+  },
+  "range_deleteConfirm_pinned": {
+    "message": "¿Está seguro de que desea eliminar todos los mensajes fijados?"
+  },
+  "range_deleteConfirm_today": {
+    "message": "¿Está seguro de que desea eliminar todos los mensajes de hoy?"
+  },
+  "range_deleteConfirm_yesterday": {
+    "message": "¿Está seguro de que desea eliminar todos los mensajes de ayer?"
+  },
+  "range_deleteConfirm_last7Days": {
+    "message": "¿Está seguro de que desea eliminar todos los mensajes de los últimos 7 días?"
+  },
+  "range_deleteConfirm_older": {
+    "message": "¿Está seguro de que desea eliminar todos los mensajes más antiguos?"
+  },
+  "range_tooltip_pinned": {
+    "message": "Eliminar todos los mensajes fijados"
+  },
+  "range_tooltip_today": {
+    "message": "Eliminar todos los mensajes de hoy"
+  },
+  "range_tooltip_yesterday": {
+    "message": "Eliminar todos los mensajes de ayer"
+  },
+  "range_tooltip_last7Days": {
+    "message": "Eliminar todos los mensajes de los últimos 7 días"
+  },
+  "range_tooltip_older": {
+    "message": "Eliminar todos los mensajes más antiguos"
+  },
+  "pin": {
+    "message": "Fijar"
+  },
+  "unpin": {
+    "message": "Desfijar"
+  },
+  "generationInfo": {
+    "message": "Información de Generación"
+  },
+  "sidebarChat": {
+    "message": "Chat lateral"
+  },
+  "reasoning_thinking": {
+    "message": "Pensando...."
+  },
+  "reasoning_loading": {
+    "message": "Cargando razonamiento...."
+  },
+  "reasoning_thought": {
+    "message": "Pensamiento por {{time}}"
+  },
+  "embeddingGen": {
+    "message": "Creando embeddings, esto puede tardar un poco"
+  },
+  "semanticSearch": {
+    "message": "Realizando búsqueda semántica"
+  },
+  "downloading": {
+    "message": "Descargando"
+  },
+  "cancelPullingModel_confirm": {
+    "message": "¿Está seguro de que desea cancelar la descarga? Esto detendrá el proceso de descarga. Según la documentación de Ollama, puede reiniciar desde donde lo dejó."
+  },
+  "table_copyCsv": {
+    "message": "Copiar como CSV"
+  },
+  "table_downloadCsv": {
+    "message": "Descargar CSV"
+  },
+  "dismiss": {
+    "message": "Descartar"
+  },
+  "privateModeSaveErrorTitle": {
+    "message": "tldw Assistant no puede guardar datos"
+  },
+  "confirmTitle": {
+    "message": "Confirma la acción"
+  },
+  "saving": {
+    "message": "Guardando..."
+  },
+  "close": {
+    "message": "Cerrar"
+  },
+  "loadMore": {
+    "message": "Cargar más..."
+  },
+  "startChat": {
+    "message": "Iniciar chat"
+  },
+  "previous": {
+    "message": "Anterior"
+  },
+  "next": {
+    "message": "Siguiente"
+  },
+  "chatWithCharacter": {
+    "message": "Chatear con personaje"
+  },
+  "ttsShort": {
+    "message": "Voz"
+  },
+  "copyShort": {
+    "message": "Copiar"
+  },
+  "branchShort": {
+    "message": "Rama"
+  },
+  "infoShort": {
+    "message": "Info"
+  },
+  "regenShort": {
+    "message": "Repetir"
+  },
+  "continueShort": {
+    "message": "Más"
+  },
+  "fileChanges": {
+    "message": "Cambios de archivos"
+  },
+  "deletions": {
+    "message": "Eliminaciones"
+  },
+  "gitOperations": {
+    "message": "Operaciones de Git"
+  },
+  "commands": {
+    "message": "Comandos"
+  },
+  "otherOperations": {
+    "message": "Otras operaciones"
+  },
+  "fileAccess": {
+    "message": "Acceso a archivos"
+  },
+  "notebookEdits": {
+    "message": "Ediciones del cuaderno"
+  },
+  "applyPatch": {
+    "message": "Aplicar parche"
+  },
+  "recursive": {
+    "message": "(recursivo)"
+  },
+  "complexArguments": {
+    "message": "[Argumentos complejos]"
+  },
+  "segmented_available": {
+    "message": "Modelos del servidor"
+  },
+  "segmented_custom": {
+    "message": "Modelos personalizados"
+  },
+  "success": {
+    "message": "Éxito"
+  },
+  "created": {
+    "message": "Creado"
+  },
+  "updated": {
+    "message": "Actualizado"
+  },
+  "deleted": {
+    "message": "Eliminado"
+  },
+  "create": {
+    "message": "Crear"
+  },
+  "reset": {
+    "message": "Restablecer"
+  },
+  "serverOffline": {
+    "message": "Servidor sin conexión o no configurado"
+  },
+  "serverChats": {
+    "message": "Chats del servidor"
+  },
+  "serverChatLoadError": {
+    "message": "No se pudo cargar el chat del servidor. Comprueba la conexión e inténtalo de nuevo."
+  },
+  "serverChatSourceLabel": {
+    "message": "Servidor"
+  },
+  "serverChatForkedLabel": {
+    "message": "Chat bifurcado"
+  },
+  "serverChatForkedTooltip": {
+    "message": "Bifurcado del chat {{chatId}}"
+  },
+  "serverChatsUnavailableNotConnected": {
+    "message": "Los chats del servidor estarán disponibles cuando te conectes a tu servidor tldw."
+  },
+  "serverChatsUnavailableServerError": {
+    "message": "Los chats del servidor no están disponibles en este momento. Revisa los registros de tu servidor o inténtalo de nuevo."
+  },
+  "historiesDeleted": {
+    "message": "{{count}} historiales eliminados"
+  },
+  "deleteHistoriesError": {
+    "message": "Error al eliminar historiales"
+  },
+  "mermaid": {
+    "message": "Diagramas Mermaid"
+  },
+  "search": {
+    "message": "Buscar"
+  },
+  "searchResults": {
+    "message": "Resultados de la búsqueda"
+  },
+  "newBranch": {
+    "message": "Nueva rama"
+  },
+  "error_label": {
+    "message": "Error"
+  },
+  "error_friendlyApiKeySummary": {
+    "message": "No pudimos conectarnos a su servidor tldw."
+  },
+  "error_friendlyApiKeyHint": {
+    "message": "Su clave API puede ser inválida. Abra Ajustes → servidor tldw para comprobar la URL y la clave API, luego inténtelo de nuevo."
+  },
+  "error_friendlyTimeoutSummary": {
+    "message": "Su chat agotó el tiempo de espera."
+  },
+  "error_friendlyTimeoutHint": {
+    "message": "El servidor dejó de transmitir respuestas. Inténtelo de nuevo o abra Salud y diagnóstico para comprobar el estado del servidor."
+  },
+  "error_friendlyGenericSummary": {
+    "message": "Algo salió mal al comunicarse con su servidor tldw."
+  },
+  "error_friendlyGenericHint": {
+    "message": "Inténtelo de nuevo en un momento o abra Salud y diagnóstico para revisar el estado del servidor."
+  },
+  "error_showDetails": {
+    "message": "Mostrar detalles técnicos"
+  },
+  "error_hideDetails": {
+    "message": "Ocultar detalles técnicos"
+  },
+  "folders": {
+    "message": "Carpetas"
+  },
+  "folderView": {
+    "message": "Vista de carpetas"
+  },
+  "dateView": {
+    "message": "Vista de fecha"
+  },
+  "newFolder": {
+    "message": "Nueva carpeta"
+  },
+  "folderName": {
+    "message": "Nombre de carpeta"
+  },
+  "selectFolder": {
+    "message": "Seleccionar carpeta"
+  },
+  "noFolders": {
+    "message": "Sin carpetas"
+  },
+  "expandAll": {
+    "message": "Expandir todo"
+  },
+  "collapseAll": {
+    "message": "Contraer todo"
+  },
+  "refresh": {
+    "message": "Actualizar"
+  },
+  "confirm": {
+    "message": "Confirmar"
+  },
+  "untitled": {
+    "message": "Sin título"
+  },
+  "moveToFolder": {
+    "message": "Mover a carpeta"
+  },
+  "noToolCalls": {
+    "message": "Aún no hay llamadas de herramientas"
+  },
+  "status_pending": {
+    "message": "Pendiente"
+  },
+  "status_running": {
+    "message": "Procesando"
+  },
+  "status_complete": {
+    "message": "Finalizado"
+  },
+  "status_error": {
+    "message": "Error"
+  },
+  "arguments": {
+    "message": "Argumentos"
+  },
+  "invalidJson": {
+    "message": "JSON no válido; se muestra el valor bruto"
+  },
+  "result": {
+    "message": "Resultado"
+  },
+  "tools_fs_list": {
+    "message": "Listar directorio"
+  },
+  "tools_fs_read": {
+    "message": "Leer archivo"
+  },
+  "tools_fs_write": {
+    "message": "Escribir archivo"
+  },
+  "tools_fs_apply_patch": {
+    "message": "Aplicar parche"
+  },
+  "tools_fs_mkdir": {
+    "message": "Crear directorio"
+  },
+  "tools_fs_delete": {
+    "message": "Eliminar"
+  },
+  "tools_search_grep": {
+    "message": "Buscar contenido"
+  },
+  "tools_search_glob": {
+    "message": "Buscar archivos"
+  },
+  "tools_git_status": {
+    "message": "Estado de Git"
+  },
+  "tools_git_diff": {
+    "message": "Diff de Git"
+  },
+  "tools_git_log": {
+    "message": "Log de Git"
+  },
+  "tools_git_branch": {
+    "message": "Rama de Git"
+  },
+  "tools_git_add": {
+    "message": "Preparar archivos"
+  },
+  "tools_git_commit": {
+    "message": "Commit"
+  },
+  "tools_exec_run": {
+    "message": "Ejecutar comando"
+  },
+  "markdown_unableToRender": {
+    "message": "No se puede renderizar el contenido"
+  },
+  "markdown_couldNotDisplay": {
+    "message": "El contenido del mensaje no se pudo mostrar. Esto puede deberse a un formato inválido."
+  },
+  "markdown_showRawContent": {
+    "message": "Mostrar contenido sin formato"
+  },
+  "commandPalette_goToChat": {
+    "message": "Ir al chat"
+  },
+  "commandPalette_goToMedia": {
+    "message": "Ir a Medios"
+  },
+  "commandPalette_goToNotes": {
+    "message": "Ir a Notas"
+  },
+  "commandPalette_goToFlashcards": {
+    "message": "Ir a tarjetas de estudio"
+  },
+  "commandPalette_goToSettings": {
+    "message": "Ir a Configuración"
+  },
+  "commandPalette_goToHealth": {
+    "message": "Ir a Salud y diagnósticos"
+  },
+  "commandPalette_newChat": {
+    "message": "Nuevo chat"
+  },
+  "commandPalette_toggleKnowledgeSearch": {
+    "message": "Alternar búsqueda en conocimiento"
+  },
+  "commandPalette_toggleKnowledgeSearchDesc": {
+    "message": "Buscar en tu base de conocimiento"
+  },
+  "commandPalette_toggleWebSearch": {
+    "message": "Alternar búsqueda web"
+  },
+  "commandPalette_toggleWebDesc": {
+    "message": "Buscar en Internet"
+  },
+  "commandPalette_ingestPage": {
+    "message": "Ingerir página actual"
+  },
+  "commandPalette_ingestDesc": {
+    "message": "Guardar esta página en tu base de conocimiento"
+  },
+  "commandPalette_switchModel": {
+    "message": "Cambiar modelo"
+  },
+  "commandPalette_toggleSidebar": {
+    "message": "Alternar barra lateral"
+  },
+  "commandPalette_toggleSidebarDesc": {
+    "message": "Mostrar u ocultar la barra lateral de chat"
+  },
+  "commandPalette_placeholder": {
+    "message": "Escribe un comando o busca..."
+  },
+  "commandPalette_noResults": {
+    "message": "No se encontraron resultados"
+  },
+  "commandPalette_title": {
+    "message": "Paleta de comandos"
+  },
+  "commandPalette_navigate": {
+    "message": "navegar"
+  },
+  "commandPalette_select": {
+    "message": "seleccionar"
+  },
+  "commandPalette_toOpen": {
+    "message": "para abrir"
+  },
+  "commandPalette_categoryActions": {
+    "message": "Acciones"
+  },
+  "commandPalette_categoryNavigation": {
+    "message": "Navegación"
+  },
+  "commandPalette_categorySettings": {
+    "message": "Configuración"
+  },
+  "commandPalette_categoryRecent": {
+    "message": "Recientes"
+  },
+  "featureHints_knowledge_title": {
+    "message": "Buscar en tu conocimiento"
+  },
+  "featureHints_knowledge_description": {
+    "message": "Abre el panel de búsqueda de conocimiento para encontrar fragmentos e insertarlos en tu chat."
+  },
+  "featureHints_moreTools_title": {
+    "message": "Más herramientas disponibles"
+  },
+  "featureHints_moreTools_description": {
+    "message": "Accede al modo visión, carga de imágenes, ingesta rápida y la aplicación completa."
+  },
+  "featureHints_commandPalette_title": {
+    "message": "Comandos rápidos"
+  },
+  "featureHints_commandPalette_description": {
+    "message": "Presiona {{shortcut}} para buscar comandos, configuración y más."
+  },
+  "featureHints_modelSettings_title": {
+    "message": "Ajustar parámetros del modelo"
+  },
+  "featureHints_modelSettings_description": {
+    "message": "Ajusta la temperatura, longitud del contexto y otras configuraciones del modelo."
+  },
+  "chatSidebar_title": {
+    "message": "Chats"
+  },
+  "chatSidebar_newChat": {
+    "message": "Nuevo chat"
+  },
+  "chatSidebar_collapse": {
+    "message": "Contraer barra lateral"
+  },
+  "chatSidebar_expand": {
+    "message": "Expandir barra lateral"
+  },
+  "chatSidebar_search": {
+    "message": "Buscar chats..."
+  },
+  "chatSidebar_modeLabel": {
+    "message": "Mode"
+  },
+  "chatSidebar_modeCasual": {
+    "message": "Casual"
+  },
+  "chatSidebar_modePro": {
+    "message": "Pro"
+  },
+  "chatSidebar_ingest": {
+    "message": "Ingerir página"
+  },
+  "chatSidebar_media": {
+    "message": "Medios"
+  },
+  "chatSidebar_notes": {
+    "message": "Notas"
+  },
+  "chatSidebar_flashcards": {
+    "message": "Tarjetas de estudio"
+  },
+  "chatSidebar_prompts": {
+    "message": "Indicaciones"
+  },
+  "chatSidebar_multiItem": {
+    "message": "Múltiples elementos"
+  },
+  "chatSidebar_shortcuts": {
+    "message": "Accesos directos"
+  },
+  "chatSidebar_settings": {
+    "message": "Configuración"
+  },
+  "chatSidebar_loadError": {
+    "message": "Error al cargar chats"
+  },
+  "chatSidebar_localTab": {
+    "message": "Local"
+  },
+  "chatSidebar_serverTab": {
+    "message": "Servidor"
+  },
+  "chatSidebar_foldersTab": {
+    "message": "Carpetas"
+  },
+  "chatSidebar_tabs_local": {
+    "message": "Local"
+  },
+  "chatSidebar_tabs_server": {
+    "message": "Servidor"
+  },
+  "chatSidebar_tabs_folders": {
+    "message": "Carpetas"
+  },
+  "chatSidebar_noServerChats": {
+    "message": "Aún no hay chats del servidor"
+  },
+  "chatSidebar_foldersRequireConnection": {
+    "message": "Las carpetas requieren conexión al servidor"
+  },
+  "extName": {
+    "message": "Asistente tldw"
+  },
+  "extDescription": {
+    "message": "Usa tu modelo de IA corriendo localmente para asistirte en la navegación."
+  },
+  "openSidePanelToChat": {
+    "message": "Abrir barra lateral para chatear"
+  },
+  "openOptionToChat": {
+    "message": "Abrir Web UI para Chatear"
+  },
+  "contextSummarize": {
+    "message": "Resumir"
+  },
+  "contextExplain": {
+    "message": "Explicar"
+  },
+  "contextRephrase": {
+    "message": "Reformular"
+  },
+  "contextTranslate": {
+    "message": "Traducir"
+  },
+  "contextCustom": {
+    "message": "Personalizado"
+  },
+  "contextSendToTldw": {
+    "message": "Enviar a tldw_server"
+  },
+  "contextProcessLocalTldw": {
+    "message": "Procesar con tldw_server (no guardar)"
+  },
+  "contextTranscribeMedia": {
+    "message": "Transcribir vídeo/audio"
+  },
+  "contextTranscribeAndSummarizeMedia": {
+    "message": "Transcribir y resumir vídeo/audio"
+  },
+  "contextSaveToNotes": {
+    "message": "Guardar en notas"
+  },
+  "contextSaveToNotesNoSelection": {
+    "message": "Selecciona texto primero para guardarlo en notas."
+  },
+  "contextSidebarOpening": {
+    "message": "Abriendo la barra lateral..."
+  },
+  "contextSaveToNotesOpeningSidebar": {
+    "message": "Abriendo la barra lateral para guardar la nota..."
+  },
+  "contextSaveToNotesDeliveryFailed": {
+    "message": "No se pudo abrir la barra lateral para guardar esta nota. Verifica que la barra lateral de tldw Assistant esté permitida en este sitio y vuelve a intentarlo."
+  },
+  "hfSendPageRejected": {
+    "message": "[tldw] La solicitud para enviar la página fue rechazada por tldw_server"
+  },
+  "hfSendPageErrorWithDetail": {
+    "message": "[tldw] No se pudo enviar esta página a tldw_server: $1. Revisa \"Settings → tldw server\" y vuelve a intentarlo."
+  },
+  "hfSendPageError": {
+    "message": "[tldw] No se pudo enviar esta página a tldw_server. Revisa \"Settings → tldw server\" y vuelve a intentarlo."
+  },
+  "hfSendPageSuccess": {
+    "message": "[tldw] Página enviada a tldw_server para su procesamiento"
+  },
+  "hfSendPageException": {
+    "message": "[tldw] Ocurrió un problema al enviar esta página a tldw_server. Comprueba que tu tldw_server y la extensión estén en ejecución y vuelve a intentarlo."
+  },
+  "hfPullInProgress": {
+    "message": "[tldw Assistant] Ya hay una solicitud de descarga de modelo en curso. Espera a que termine antes de iniciar otra."
+  },
+  "hfPullConfirm": {
+    "message": "[tldw Assistant] ¿Quieres enviar una solicitud a tu tldw_server para descargar el modelo \"$1\"? Esto es independiente del sitio web huggingface.co. Tu servidor empezará a descargar el modelo después de que lo confirmes."
+  },
+  "hfPullSending": {
+    "message": "[tldw Assistant] Enviando una solicitud a tu tldw_server para descargar \"$1\". Revisa el icono de la extensión o los registros de tu tldw_server para ver el progreso."
+  },
+  "hfPullErrorWithDetail": {
+    "message": "[tldw Assistant] No se pudo enviar la solicitud de descarga para \"$1\": $2. Revisa \"Settings → tldw server\" y vuelve a intentarlo."
+  },
+  "hfPullError": {
+    "message": "[tldw Assistant] No se pudo enviar la solicitud de descarga para \"$1\". Revisa \"Settings → tldw server\" y vuelve a intentarlo."
+  },
+  "hfPullSuccess": {
+    "message": "[tldw Assistant] Solicitud enviada a tu tldw_server para descargar \"$1\". Supervisa el icono de la extensión o los registros de tldw_server para ver el estado."
+  },
+  "hfPullException": {
+    "message": "[tldw Assistant] Ocurrió un problema al enviar una solicitud de descarga de \"$1\" a tu tldw_server. Comprueba que tu tldw_server y la extensión estén en ejecución y vuelve a intentarlo."
+  },
+  "stepLabel": {
+    "message": "Bienvenido"
+  },
+  "path": {
+    "message": "¿Cómo quieres empezar?"
+  },
+  "nextSteps": {
+    "message": "Ya estás listo"
+  },
+  "restartOnboardingLabel": {
+    "message": "Reiniciar la incorporación desde el principio"
+  },
+  "restartOnboardingButton": {
+    "message": "Reiniciar incorporación"
+  },
+  "restartOnboardingConfirmTitle": {
+    "message": "¿Reiniciar la incorporación?"
+  },
+  "restartOnboardingConfirmMessage": {
+    "message": "Esto restablecerá tu estado de incorporación y te llevará de nuevo al flujo de configuración."
+  },
+  "modelSelect_label": {
+    "message": "Model"
+  },
+  "modelSelect_tooltip": {
+    "message": "Changes model for next message"
+  },
+  "generate": {
+    "message": "Generate"
+  },
+  "view": {
+    "message": "View"
+  },
+  "deleteMessageConfirm": {
+    "message": "Delete this message?"
+  },
+  "deleteFailed": {
+    "message": "Delete failed"
+  },
+  "reply": {
+    "message": "Reply"
+  },
+  "replyShort": {
+    "message": "Reply"
+  },
+  "replyingTo": {
+    "message": "Replying to"
+  },
+  "clearReply": {
+    "message": "Clear reply target"
+  },
+  "replyTargetFallback": {
+    "message": "Message"
+  },
+  "artifactsTitle": {
+    "message": "Artifact"
+  },
+  "artifactsDefaultTitle": {
+    "message": "Code"
+  },
+  "artifactsView": {
+    "message": "View code"
+  },
+  "artifactsPin": {
+    "message": "Pin"
+  },
+  "artifactsUnpin": {
+    "message": "Unpin"
+  },
+  "artifactsClose": {
+    "message": "Close"
+  },
+  "artifactsCopy": {
+    "message": "Copy"
+  },
+  "artifactsDownload": {
+    "message": "Download"
+  },
+  "artifactsRun": {
+    "message": "Run"
+  },
+  "saveToNotes": {
+    "message": "Save to Notes"
+  },
+  "saveToFlashcards": {
+    "message": "Save to Flashcards"
+  },
+  "generateDocument": {
+    "message": "Generate document"
+  },
+  "documentShort": {
+    "message": "Doc"
+  },
+  "saveNoteShort": {
+    "message": "Note"
+  },
+  "saveFlashcardShort": {
+    "message": "Card"
+  },
+  "savedToNotes": {
+    "message": "Saved to Notes"
+  },
+  "savedToFlashcards": {
+    "message": "Saved to Flashcards"
+  },
+  "saveToNotesEmpty": {
+    "message": "Nothing to save yet."
+  },
+  "timeline_title": {
+    "message": "Conversation Timeline"
+  },
+  "timeline_searchPlaceholder": {
+    "message": "Search messages... (space = AND)"
+  },
+  "timeline_searchMatches": {
+    "message": "matches"
+  },
+  "timeline_searchNoMatches": {
+    "message": "no matches"
+  },
+  "timeline_searchMode_fragments": {
+    "message": "Fragments"
+  },
+  "timeline_searchMode_substring": {
+    "message": "Substring"
+  },
+  "timeline_searchMode_regex": {
+    "message": "Regex"
+  },
+  "timeline_layout_horizontal": {
+    "message": "horizontal"
+  },
+  "timeline_layout_vertical": {
+    "message": "vertical"
+  },
+  "timeline_refreshGraph": {
+    "message": "Refresh graph"
+  },
+  "timeline_switchLayout": {
+    "message": "Switch to {{layout}} layout"
+  },
+  "timeline_expandAllAlternatives": {
+    "message": "Expand all alternatives"
+  },
+  "timeline_collapseAllAlternatives": {
+    "message": "Collapse all alternatives"
+  },
+  "timeline_hideLegend": {
+    "message": "Hide legend"
+  },
+  "timeline_showLegend": {
+    "message": "Show legend"
+  },
+  "timeline_zoomIn": {
+    "message": "Zoom in"
+  },
+  "timeline_zoomOut": {
+    "message": "Zoom out"
+  },
+  "sourceLabel": {
+    "message": "Source"
+  },
+  "sourceOpen": {
+    "message": "Open source"
+  },
+  "modelSettings_form_historyMessageLimit_label": {
+    "message": "History message limit"
+  },
+  "modelSettings_form_historyMessageLimit_placeholder": {
+    "message": "e.g. 10"
+  },
+  "modelSettings_form_historyMessageLimit_help": {
+    "message": "Limit how many previous messages are sent with each request."
+  },
+  "modelSettings_form_historyMessageOrder_label": {
+    "message": "History message order"
+  },
+  "modelSettings_form_historyMessageOrder_placeholder": {
+    "message": "Select order"
+  },
+  "modelSettings_form_historyMessageOrder_help": {
+    "message": "Choose whether the newest or oldest messages are sent first."
+  },
+  "modelSettings_form_historyMessageOrder_options_desc": {
+    "message": "Newest first"
+  },
+  "modelSettings_form_historyMessageOrder_options_asc": {
+    "message": "Oldest first"
+  },
+  "modelSettings_form_slashCommandInjectionMode_label": {
+    "message": "Slash command injection"
+  },
+  "modelSettings_form_slashCommandInjectionMode_placeholder": {
+    "message": "Select injection mode"
+  },
+  "modelSettings_form_slashCommandInjectionMode_help": {
+    "message": "Choose how slash commands are inserted into the request."
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_system": {
+    "message": "System message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_preface": {
+    "message": "Preface user message"
+  },
+  "modelSettings_form_slashCommandInjectionMode_options_replace": {
+    "message": "Replace user message"
+  },
+  "modelSettings_form_apiProvider_label": {
+    "message": "API provider override"
+  },
+  "modelSettings_form_apiProvider_placeholder": {
+    "message": "Select provider (optional)"
+  },
+  "modelSettings_form_apiProvider_help": {
+    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+  },
+  "modelSettings_form_extraHeaders_label": {
+    "message": "Extra headers (JSON)"
+  },
+  "modelSettings_form_extraHeaders_placeholder": {
+    "message": "{ \"X-API-Key\": \"...\" }"
+  },
+  "modelSettings_form_extraHeaders_help": {
+    "message": "JSON object merged into request headers."
+  },
+  "modelSettings_form_extraBody_label": {
+    "message": "Extra body (JSON)"
+  },
+  "modelSettings_form_extraBody_placeholder": {
+    "message": "{ \"user\": \"...\" }"
+  },
+  "modelSettings_form_extraBody_help": {
+    "message": "JSON object merged into request body."
+  },
+  "modelSettings_form_guardrails_invalidJson": {
+    "message": "Enter a valid JSON object."
+  },
+  "modelSettings_requestOverrides": {
+    "message": "Request overrides"
+  },
+  "modelSettings_tabs_model": {
+    "message": "Model"
+  },
+  "modelSettings_tabs_conversation": {
+    "message": "Conversation"
+  },
+  "modelSettings_tabs_advanced": {
+    "message": "Advanced"
+  },
+  "modelSettings_tabs_actor": {
+    "message": "Scene Director"
+  },
+  "error_createFolder": {
+    "message": "Failed to create folder"
+  }
+}

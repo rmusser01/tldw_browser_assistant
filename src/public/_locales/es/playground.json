@@ -156,7 +156,7 @@
     "message": "El TTS del navegador usa el audio del sistema"
   },
   "tts_browserInfoDescription": {
-    "message": "Browser TTS plays using your system synthesizer and does not expose a downloadable audio file. Use the segment controls below, or switch providers for a track list and player."
+    "message": "El TTS del navegador usa el sintetizador del sistema y no genera un archivo de audio descargable. Usa los controles de segmento abajo o cambia de proveedor para ver la lista de pistas y el reproductor."
   },
   "tts_unsupportedProviderTitle": {
     "message": "Proveedor de TTS no compatible"
@@ -204,16 +204,16 @@
     "message": "Enable text-to-speech above to play audio."
   },
   "tts_playDisabledElevenLabs": {
-    "message": "Add an ElevenLabs API key, voice, and model to enable Play."
+    "message": "Reproducción deshabilitada: ElevenLabs requiere una clave API en Configuración."
   },
   "tts_stopDisabled": {
-    "message": "Stop activates after audio starts."
+    "message": "Detener se activa después de iniciar el audio."
   },
   "tts_providerChangeHelper": {
-    "message": "Open the provider selector below to switch between Browser, tldw, OpenAI, or Supersonic."
+    "message": "Cambia de proveedor para obtener lista de pistas y controles de reproducción."
   },
   "tts_changeProvider": {
-    "message": "Change provider"
+    "message": "Cambiar proveedor"
   },
   "tts_title": {
     "message": "TTS Playground"
@@ -1084,5 +1084,287 @@
   },
   "actor_sceneTemplateActive": {
     "message": "Plantilla de escena activa: Actor respeta la configuración de interacción con plantillas."
+  },
+  "composer_compareFeatureToggle": {
+    "message": "Activar modo de comparación"
+  },
+  "composer_compareFeatureToggleHint": {
+    "message": "Desbloquea las funciones experimentales de comparación entre modelos."
+  },
+  "composer_compareDisabled": {
+    "message": "El modo de comparación está desactivado en la configuración."
+  },
+  "composer_compareChosenHint": {
+    "message": "Continúe con la respuesta elegida o compare de nuevo."
+  },
+  "composer_compareChosenLabel": {
+    "message": "Elegida"
+  },
+  "composer_compareLatency": {
+    "message": "Latencia"
+  },
+  "composer_compareHistoryPrefix": {
+    "message": "Comparar: {{title}}"
+  },
+  "composer_compareHistorySuffix": {
+    "message": "(de comparación)"
+  },
+  "composer_compareClusterLabel": {
+    "message": "Respuestas de varios modelos"
+  },
+  "composer_compareClusterCount": {
+    "message": "{{count}} modelos"
+  },
+  "composer_compareBulkSplitHint": {
+    "message": "Modelos seleccionados: {{count}}"
+  },
+  "composer_compareBulkSplit": {
+    "message": "Abrir cada respuesta seleccionada como un chat propio"
+  },
+  "composer_compareThreadLabel": {
+    "message": "Hilo por modelo"
+  },
+  "composer_compareThreadYou": {
+    "message": "Usted"
+  },
+  "composer_compareOpenFullChat": {
+    "message": "Abrir como chat completo"
+  },
+  "composer_compareSpawnedChat": {
+    "message": "Abrir chat dividido"
+  },
+  "composer_compareCanonicalOn": {
+    "message": "Canónica"
+  },
+  "composer_compareCanonicalOff": {
+    "message": "Fijar como canónica"
+  },
+  "composer_compareCanonicalLabel": {
+    "message": "Respuesta canónica"
+  },
+  "composer_compareFilterLabel": {
+    "message": "Filtrar modelos"
+  },
+  "composer_compareFilterClear": {
+    "message": "Mostrar todo"
+  },
+  "composer_compareFilterCount": {
+    "message": "Mostrando {{visible}} / {{total}}"
+  },
+  "composer_compareTokens": {
+    "message": "Tokens: {{count}}"
+  },
+  "feedback_prompt": {
+    "message": "Was this helpful?"
+  },
+  "feedback_thumbsUp": {
+    "message": "Helpful"
+  },
+  "feedback_thumbsDown": {
+    "message": "Not helpful"
+  },
+  "feedback_more": {
+    "message": "More feedback"
+  },
+  "feedback_thanks": {
+    "message": "Thanks for the feedback"
+  },
+  "feedback_disabled": {
+    "message": "Feedback is available after the response finishes."
+  },
+  "feedback_unavailable": {
+    "message": "Feedback is unavailable for this message."
+  },
+  "feedback_modalTitle": {
+    "message": "Feedback"
+  },
+  "feedback_modalRatingLabel": {
+    "message": "How would you rate this response?"
+  },
+  "feedback_modalIssuesLabel": {
+    "message": "What was the issue? (select all that apply)"
+  },
+  "feedback_modalNotesLabel": {
+    "message": "Additional comments (optional)"
+  },
+  "feedback_modalSubmit": {
+    "message": "Submit feedback"
+  },
+  "feedback_errorTitle": {
+    "message": "Feedback failed"
+  },
+  "feedback_errorBody": {
+    "message": "Unable to submit feedback."
+  },
+  "feedback_errorSource": {
+    "message": "Unable to submit source feedback."
+  },
+  "feedback_issues_incorrect": {
+    "message": "Incorrect information"
+  },
+  "feedback_issues_notRelevant": {
+    "message": "Not relevant to my question"
+  },
+  "feedback_issues_missingDetails": {
+    "message": "Missing important details"
+  },
+  "feedback_issues_badSources": {
+    "message": "Sources were unhelpful"
+  },
+  "feedback_issues_tooVerbose": {
+    "message": "Too verbose"
+  },
+  "feedback_issues_tooBrief": {
+    "message": "Too brief"
+  },
+  "feedback_issues_other": {
+    "message": "Other"
+  },
+  "feedback_sourceHelpful": {
+    "message": "Helpful source"
+  },
+  "feedback_sourceUnhelpful": {
+    "message": "Unhelpful source"
+  },
+  "actor_uploadedFiles": {
+    "message": "Uploaded Files ({{count}})"
+  },
+  "actor_fileRetrieval": {
+    "message": "File Retrieval"
+  },
+  "actor_fileStatusProcessed": {
+    "message": "Processed"
+  },
+  "actor_fileStatusProcessing": {
+    "message": "Processing..."
+  },
+  "documentGenerator_title": {
+    "message": "Document generator"
+  },
+  "documentGenerator_unavailable": {
+    "message": "Document generation is not available on this server."
+  },
+  "documentGenerator_noConversation": {
+    "message": "Start a server-backed chat to generate documents."
+  },
+  "documentGenerator_source": {
+    "message": "Source"
+  },
+  "documentGenerator_sourceId": {
+    "message": "Conversation {{id}}"
+  },
+  "documentGenerator_sourceMissing": {
+    "message": "No active conversation yet."
+  },
+  "documentGenerator_sourceMessageId": {
+    "message": "Message {{id}}"
+  },
+  "documentGenerator_documentType": {
+    "message": "Document type"
+  },
+  "documentGenerator_model": {
+    "message": "Model"
+  },
+  "documentGenerator_modelPlaceholder": {
+    "message": "Model ID"
+  },
+  "documentGenerator_providerPlaceholder": {
+    "message": "Provider name"
+  },
+  "documentGenerator_providerLabel": {
+    "message": "Provider: {{provider}}"
+  },
+  "documentGenerator_specificMessage": {
+    "message": "Focus on a specific message"
+  },
+  "documentGenerator_specificMessagePlaceholder": {
+    "message": "Optional: paste a message excerpt to focus on."
+  },
+  "documentGenerator_customPrompt": {
+    "message": "Custom prompt"
+  },
+  "documentGenerator_customPromptPlaceholder": {
+    "message": "Optional instructions for the generated document."
+  },
+  "documentGenerator_asyncGeneration": {
+    "message": "Generate asynchronously"
+  },
+  "documentGenerator_promptPresetTitle": {
+    "message": "Prompt preset"
+  },
+  "documentGenerator_promptPresetHint": {
+    "message": "Customize the system/user prompts used for this document type."
+  },
+  "documentGenerator_promptReload": {
+    "message": "Reload from server"
+  },
+  "documentGenerator_systemPrompt": {
+    "message": "System prompt"
+  },
+  "documentGenerator_userPrompt": {
+    "message": "User prompt"
+  },
+  "documentGenerator_temperature": {
+    "message": "Temperature"
+  },
+  "documentGenerator_maxTokens": {
+    "message": "Max tokens"
+  },
+  "documentGenerator_jobQueued": {
+    "message": "Document generation queued."
+  },
+  "documentGenerator_generated": {
+    "message": "Document generated."
+  },
+  "documentGenerator_deleteTitle": {
+    "message": "Delete document?"
+  },
+  "documentGenerator_deleteBody": {
+    "message": "This will permanently remove the generated document."
+  },
+  "documentGenerator_jobCancelled": {
+    "message": "Job cancelled."
+  },
+  "documentGenerator_promptSaved": {
+    "message": "Prompt preset saved."
+  },
+  "documentGenerator_documentsTitle": {
+    "message": "Generated documents"
+  },
+  "documentGenerator_loading": {
+    "message": "Loading…"
+  },
+  "documentGenerator_noDocuments": {
+    "message": "No documents yet."
+  },
+  "documentGenerator_jobsTitle": {
+    "message": "Generation jobs"
+  },
+  "documentGenerator_progress": {
+    "message": "{{percent}}% complete"
+  },
+  "documentGenerator_noContent": {
+    "message": "No content available."
+  },
+  "documentGenerator_errors_missingModel": {
+    "message": "Select a model and provider first."
+  },
+  "documentGenerator_types_summary": {
+    "message": "Summary"
+  },
+  "documentGenerator_types_timeline": {
+    "message": "Timeline"
+  },
+  "documentGenerator_types_briefing": {
+    "message": "Briefing"
+  },
+  "documentGenerator_types_study_guide": {
+    "message": "Study guide"
+  },
+  "documentGenerator_types_q_and_a": {
+    "message": "Q&A"
+  },
+  "documentGenerator_types_meeting_notes": {
+    "message": "Meeting notes"
   }
 }

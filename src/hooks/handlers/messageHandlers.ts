@@ -3,6 +3,8 @@ import {
   deleteChatForEdit,
   formatToChatHistory,
   formatToMessage,
+  saveHistory,
+  saveMessage,
   updateMessageByIndex
 } from "@/db/dexie/helpers"
 import { generateBranchMessage } from "@/db/dexie/branch"
@@ -16,8 +18,6 @@ export const createRegenerateLastMessage = ({
   messages,
   setHistory,
   setMessages,
-  historyId,
-  removeMessageUsingHistoryIdFn,
   onSubmit
 }: {
   validateBeforeSubmitFn: () => boolean
@@ -25,8 +25,6 @@ export const createRegenerateLastMessage = ({
   messages: Message[]
   setHistory: (history: ChatHistory) => void
   setMessages: (messages: Message[]) => void
-  historyId: string | null
-  removeMessageUsingHistoryIdFn: (id: string | null) => Promise<void>
   onSubmit: (params: any) => Promise<void>
 }) => {
   return async () => {
@@ -37,12 +35,14 @@ export const createRegenerateLastMessage = ({
     }
     if (history.length > 0) {
       const lastMessage = history[history.length - 2]
+      const lastAssistant = messages[messages.length - 1]
+      if (!lastAssistant || !lastAssistant.isBot) {
+        return
+      }
       let newHistory = history.slice(0, -2)
-      let mewMessages = messages
-      mewMessages.pop()
+      const mewMessages = messages.slice(0, -1)
       setHistory(newHistory)
       setMessages(mewMessages)
-      await removeMessageUsingHistoryIdFn(historyId)
       if (lastMessage.role === "user") {
         const newController = new AbortController()
         await onSubmit({
@@ -50,7 +50,8 @@ export const createRegenerateLastMessage = ({
           image: lastMessage.image || "",
           isRegenerate: true,
           memory: newHistory,
-          controller: newController
+          controller: newController,
+          regenerateFromMessage: lastAssistant
         })
       }
     }
@@ -80,8 +81,7 @@ export const createEditMessage = ({
     isHuman: boolean,
     isSend: boolean
   ) => {
-    let newMessages = messages
-    let newHistory = history
+    const newHistory = history
 
     // if human message and send then only trigger the submit
     if (isHuman && isSend) {
@@ -91,9 +91,11 @@ export const createEditMessage = ({
         return
       }
 
-      const currentHumanMessage = newMessages[index]
-      newMessages[index].message = message
-      const previousMessages = newMessages.slice(0, index + 1)
+      const currentHumanMessage = messages[index]
+      const updatedMessages = messages.map((msg, idx) =>
+        idx === index ? { ...msg, message } : msg
+      )
+      const previousMessages = updatedMessages.slice(0, index + 1)
       setMessages(previousMessages)
       const previousHistory = newHistory.slice(0, index)
       setHistory(previousHistory)
@@ -110,10 +112,14 @@ export const createEditMessage = ({
       })
       return
     }
-    newMessages[index].message = message
-    setMessages(newMessages)
-    newHistory[index].content = message
-    setHistory(newHistory)
+    const updatedMessages = messages.map((msg, idx) =>
+      idx === index ? { ...msg, message } : msg
+    )
+    setMessages(updatedMessages)
+    const updatedHistory = newHistory.map((item, idx) =>
+      idx === index ? { ...item, content: message } : item
+    )
+    setHistory(updatedHistory)
     await updateMessageByIndex(historyId, index, message)
   }
 }
@@ -129,17 +135,24 @@ export const createBranchMessage = ({
   serverChatId,
   setServerChatId,
   setServerChatState,
+  setServerChatVersion,
+  setServerChatTitle,
+  setServerChatCharacterId,
+  setServerChatMetaLoaded,
   setServerChatTopic,
   setServerChatClusterId,
   setServerChatSource,
   setServerChatExternalRef,
+  characterId,
+  chatTitle,
   serverChatState,
   serverChatTopic,
   serverChatClusterId,
   serverChatSource,
   serverChatExternalRef,
   messages,
-  history
+  history,
+  onServerChatMutated
 }: {
   setMessages: (messages: Message[]) => void
   setHistory: (history: ChatHistory) => void
@@ -151,10 +164,16 @@ export const createBranchMessage = ({
   serverChatId?: string | null
   setServerChatId?: (id: string | null) => void
   setServerChatState?: (state: ConversationState | null) => void
+  setServerChatVersion?: (version: number | null) => void
+  setServerChatTitle?: (title: string | null) => void
+  setServerChatCharacterId?: (id: string | number | null) => void
+  setServerChatMetaLoaded?: (loaded: boolean) => void
   setServerChatTopic?: (topic: string | null) => void
   setServerChatClusterId?: (clusterId: string | null) => void
   setServerChatSource?: (source: string | null) => void
   setServerChatExternalRef?: (ref: string | null) => void
+  characterId?: string | number | null
+  chatTitle?: string | null
   serverChatState?: ConversationState | null
   serverChatTopic?: string | null
   serverChatClusterId?: string | null
@@ -162,116 +181,9 @@ export const createBranchMessage = ({
   serverChatExternalRef?: string | null
   messages?: Message[]
   history?: ChatHistory
+  onServerChatMutated?: () => void
 }) => {
-  return async (index: number): Promise<string | null> => {
-    // When a server-backed character chat is active, create a new server chat
-    // branched from the current context and mirror the prefix messages.
-    if (serverChatId) {
-      try {
-        await tldwClient.initialize().catch(() => null)
-
-        const chat = await tldwClient.getChat(serverChatId)
-        const originalTitle = (chat?.title || "").trim() || "Extension chat"
-        const shortId = String(serverChatId).slice(0, 8)
-        const base =
-          originalTitle.length > 60
-            ? `${originalTitle.slice(0, 57)}…`
-            : originalTitle
-        const branchTitle = `${base} [${shortId}] · msg #${index + 1}`
-
-        const characterId =
-          (chat as any)?.character_id ?? (chat as any)?.characterId ?? null
-        if (characterId == null) {
-          notification.error({
-            message: "Branch failed",
-            description:
-              "Unable to determine character for this server chat. Branching is only supported for character-backed chats."
-          })
-          return null
-        }
-
-        const created = await tldwClient.createChat({
-          title: branchTitle,
-          character_id: characterId,
-          parent_conversation_id: serverChatId,
-          state: serverChatState || "in-progress",
-          topic_label: serverChatTopic || undefined,
-          cluster_id: serverChatClusterId || undefined,
-          source: serverChatSource || undefined,
-          external_ref: serverChatExternalRef || undefined
-        })
-        const rawId =
-          (created as any)?.id ?? (created as any)?.chat_id ?? created
-        const newChatId = rawId != null ? String(rawId) : ""
-        if (!newChatId) {
-          throw new Error("Failed to create server branch chat")
-        }
-
-        const snapshot: ChatHistory =
-          (history && Array.isArray(history) ? history : []).slice(
-            0,
-            index + 1
-          )
-
-        for (const msg of snapshot) {
-          const content = (msg.content || "").trim()
-          if (!content) continue
-          const role =
-            msg.role === "system" ||
-            msg.role === "assistant" ||
-            msg.role === "user"
-              ? msg.role
-              : "user"
-          await tldwClient.addChatMessage(newChatId, {
-            role,
-            content
-          })
-        }
-
-        if (setServerChatId) {
-          setServerChatId(newChatId)
-        }
-        if (setServerChatState) {
-          setServerChatState(
-            (created as any)?.state ??
-              (created as any)?.conversation_state ??
-              "in-progress"
-          )
-        }
-        if (setServerChatTopic) {
-          setServerChatTopic((created as any)?.topic_label ?? null)
-        }
-        if (setServerChatClusterId) {
-          setServerChatClusterId((created as any)?.cluster_id ?? null)
-        }
-        if (setServerChatSource) {
-          setServerChatSource((created as any)?.source ?? null)
-        }
-        if (setServerChatExternalRef) {
-          setServerChatExternalRef((created as any)?.external_ref ?? null)
-        }
-
-        if (messages && messages.length > 0) {
-          const slicedMessages = messages.slice(0, index + 1)
-          setMessages(slicedMessages)
-          if (history && history.length > 0) {
-            setHistory(snapshot)
-          }
-        }
-
-        return newChatId
-      } catch (e) {
-        console.log("[branch] server branch failed", e)
-        notification.error({
-          message: "Branch failed",
-          description:
-            "Unable to create a branched server chat. Check your server connection and try again."
-          })
-      }
-      return null
-    }
-
-    // Local Dexie-backed branch (existing behavior)
+  const createLocalBranch = async (index: number): Promise<string | null> => {
     if (!historyId) {
       // No persisted history; nothing to branch from.
       return null
@@ -304,6 +216,224 @@ export const createBranchMessage = ({
       console.log("[branch] local branch failed", e)
       return null
     }
+  }
+
+  const createLocalBranchFromSnapshot = async (
+    index: number,
+    branchTitle: string
+  ): Promise<string | null> => {
+    if (!messages || messages.length === 0) {
+      return null
+    }
+
+    const snapshot = messages.slice(0, index + 1)
+    if (snapshot.length === 0) {
+      return null
+    }
+
+    try {
+      const newHistory = await saveHistory(branchTitle, false, "branch")
+      const savedMessages: any[] = []
+
+      for (let i = 0; i < snapshot.length; i++) {
+        const msg = snapshot[i]
+        const role =
+          msg.name === "System"
+            ? "system"
+            : msg.isBot
+              ? "assistant"
+              : "user"
+        const name =
+          msg.name ||
+          (role === "assistant"
+            ? "Assistant"
+            : role === "system"
+              ? "System"
+              : "You")
+        const saved = await saveMessage({
+          history_id: newHistory.id,
+          name,
+          role,
+          content: String(msg.message ?? ""),
+          images: msg.images || [],
+          source: msg.sources || [],
+          time: i,
+          message_type: msg.messageType,
+          clusterId: msg.clusterId,
+          modelId: msg.modelId,
+          modelImage: msg.modelImage,
+          modelName: msg.modelName,
+          parent_message_id: msg.parentMessageId ?? null,
+          documents: msg.documents
+        })
+        savedMessages.push(saved)
+      }
+
+      setHistory(formatToChatHistory(savedMessages))
+      setMessages(formatToMessage(savedMessages))
+      setHistoryId(newHistory.id)
+      if (setContext) {
+        setContext([])
+      }
+      return newHistory.id
+    } catch (e) {
+      console.log("[branch] local snapshot branch failed", e)
+      return null
+    }
+  }
+
+  return async (index: number): Promise<string | null> => {
+    // When a server-backed character chat is active, create a new server chat
+    // branched from the current context and mirror the prefix messages.
+    if (serverChatId) {
+      try {
+        await tldwClient.initialize().catch(() => null)
+
+        let resolvedTitle = (chatTitle || "").trim()
+        let resolvedCharacterId = characterId ?? null
+        if (resolvedCharacterId == null) {
+          try {
+            const chat = await tldwClient.getChat(serverChatId)
+            if (!resolvedTitle) {
+              resolvedTitle = (chat?.title || "").trim()
+            }
+            resolvedCharacterId =
+              (chat as any)?.character_id ?? (chat as any)?.characterId ?? null
+          } catch (e) {
+            console.log("[branch] server metadata fetch failed", e)
+          }
+        }
+
+        const originalTitle =
+          resolvedTitle || (serverChatTopic || "").trim() || "Extension chat"
+        const shortId = String(serverChatId).slice(0, 8)
+        const base =
+          originalTitle.length > 60
+            ? `${originalTitle.slice(0, 57)}…`
+            : originalTitle
+        const branchTitle = `${base} [${shortId}] · msg #${index + 1}`
+
+        const payload: Record<string, any> = {
+          title: branchTitle,
+          parent_conversation_id: serverChatId,
+          state: serverChatState || "in-progress",
+          topic_label: serverChatTopic || undefined,
+          cluster_id: serverChatClusterId || undefined,
+          source: serverChatSource || undefined,
+          external_ref: serverChatExternalRef || undefined
+        }
+        if (resolvedCharacterId != null) {
+          payload.character_id = resolvedCharacterId
+        }
+
+        const created = await tldwClient.createChat(payload)
+        const rawId =
+          (created as any)?.id ?? (created as any)?.chat_id ?? created
+        const newChatId = rawId != null ? String(rawId) : ""
+        if (!newChatId) {
+          throw new Error("Failed to create server branch chat")
+        }
+        onServerChatMutated?.()
+
+        const snapshot: ChatHistory =
+          (history && Array.isArray(history) ? history : []).slice(
+            0,
+            index + 1
+          )
+
+        for (const msg of snapshot) {
+          const content = (msg.content || "").trim()
+          if (!content) continue
+          const role =
+            msg.role === "system" ||
+            msg.role === "assistant" ||
+            msg.role === "user"
+              ? msg.role
+              : "user"
+          await tldwClient.addChatMessage(newChatId, {
+            role,
+            content
+          })
+        }
+
+        if (setServerChatId) {
+          setServerChatId(newChatId)
+        }
+        if (setServerChatState) {
+          setServerChatState(
+            (created as any)?.state ??
+              (created as any)?.conversation_state ??
+              "in-progress"
+          )
+        }
+        if (setServerChatVersion) {
+          setServerChatVersion((created as any)?.version ?? null)
+        }
+        if (setServerChatTopic) {
+          setServerChatTopic((created as any)?.topic_label ?? null)
+        }
+        if (setServerChatClusterId) {
+          setServerChatClusterId((created as any)?.cluster_id ?? null)
+        }
+        if (setServerChatSource) {
+          setServerChatSource((created as any)?.source ?? null)
+        }
+        if (setServerChatExternalRef) {
+          setServerChatExternalRef((created as any)?.external_ref ?? null)
+        }
+        if (setServerChatTitle) {
+          setServerChatTitle(
+            String((created as any)?.title ?? chatTitle ?? "")
+          )
+        }
+        if (setServerChatCharacterId) {
+          setServerChatCharacterId(
+            (created as any)?.character_id ?? characterId ?? null
+          )
+        }
+        if (setServerChatMetaLoaded) {
+          setServerChatMetaLoaded(true)
+        }
+
+        if (messages && messages.length > 0) {
+          const slicedMessages = messages.slice(0, index + 1)
+          setMessages(slicedMessages)
+          if (history && history.length > 0) {
+            setHistory(snapshot)
+          }
+        }
+
+        return newChatId
+      } catch (e) {
+        console.log("[branch] server branch failed", e)
+        const fallbackTitle = `${String(serverChatId).slice(0, 8)} · msg #${
+          index + 1
+        }`
+        const fallbackId =
+          (await createLocalBranch(index)) ??
+          (await createLocalBranchFromSnapshot(index, fallbackTitle))
+        if (fallbackId) {
+          notification.warning({
+            message: "Branch fallback",
+            description:
+              "Server branch failed. Created a local branch instead."
+          })
+          return fallbackId
+        }
+        notification.error({
+          message: "Branch failed",
+          description:
+            "Unable to create a branched server chat. Check your server connection and try again."
+        })
+        return null
+      }
+    }
+
+    // Local Dexie-backed branch (existing behavior)
+    return (
+      (await createLocalBranch(index)) ??
+      (await createLocalBranchFromSnapshot(index, `Branch · msg #${index + 1}`))
+    )
   }
 }
 

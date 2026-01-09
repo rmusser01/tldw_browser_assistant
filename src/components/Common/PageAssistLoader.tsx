@@ -48,10 +48,10 @@ export const PageAssistLoader: React.FC<PageAssistLoaderProps> = ({
       aria-describedby="pa-loader-desc"
       className={
         fullScreen
-          ? "fixed inset-0 z-50 flex items-center justify-center bg-white/70 dark:bg-black/60 backdrop-blur-[1px]"
+          ? "fixed inset-0 z-50 flex items-center justify-center bg-bg/70 backdrop-blur-[1px]"
           : "w-full"
       }>
-      <div className="mx-4 flex max-w-sm flex-col items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-6 text-center shadow-lg dark:border-gray-700 dark:bg-[#1a1a1a]">
+      <div className="mx-4 flex max-w-sm flex-col items-center justify-center rounded-xl border border-border bg-surface px-6 py-6 text-center shadow-lg">
         <div
           className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-transparent"
           role="progressbar"
@@ -59,7 +59,7 @@ export const PageAssistLoader: React.FC<PageAssistLoaderProps> = ({
           aria-valuemax={100}
           aria-valuetext={ariaLabel}>
           <svg
-            className="h-8 w-8 text-blue-600 dark:text-blue-400 motion-reduce:animate-none animate-spin"
+            className="h-8 w-8 text-primary motion-reduce:animate-none animate-spin"
             viewBox="0 0 24 24"
             aria-hidden="true"
             focusable="false">
@@ -82,14 +82,14 @@ export const PageAssistLoader: React.FC<PageAssistLoaderProps> = ({
 
         <p
           id="pa-loader-label"
-          className="text-base font-medium text-gray-900 dark:text-gray-100"
+          className="text-base font-medium text-text"
           role="status"
           aria-live="polite">
           {ariaLabel}
         </p>
         <p
           id="pa-loader-desc"
-          className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+          className="mt-1 text-sm text-text-muted">
           {ariaDescription}
         </p>
         <span className="sr-only">{ariaLabel}</span>

@@ -13,6 +13,8 @@ import { FC, useState, useRef, useEffect, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
 import { Highlight, themes } from "prism-react-renderer"
+import { useUiModeStore } from "@/store/ui-mode"
+import { useArtifactsStore } from "@/store/artifacts"
 // import Mermaid from "./Mermaid"
 
 interface Props {
@@ -41,7 +43,20 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
   const lines = value ? value.split(/\r?\n/) : []
   const totalLines = lines.length
   const isLong = totalLines > 15
+  const artifactAutoThreshold = 10
   const [codeTheme] = useStorage("codeTheme", "auto")
+  const uiMode = useUiModeStore((state) => state.mode)
+  const isProMode = uiMode === "pro"
+  const { openArtifact, isPinned } = useArtifactsStore()
+  const { t } = useTranslation("common")
+
+  const isDiagramLanguage = ["mermaid", "diagram", "graphviz", "dot"].includes(
+    normalizedLanguage
+  )
+  const artifactKind = isDiagramLanguage ? "diagram" : "code"
+  const viewLabel = isDiagramLanguage
+    ? t("view", "View")
+    : t("artifactsView", "View code")
   
   const computeKey = () => {
     const base =
@@ -55,8 +70,10 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
     return hash.toString(36)
   }
   const keyRef = useRef<string>(computeKey())
+  const artifactId = computeKey()
   const previewMapRef = useRef<Map<string, boolean> | null>(null)
   const collapsedMapRef = useRef<Map<string, boolean> | null>(null)
+  const autoOpenMapRef = useRef<Map<string, boolean> | null>(null)
 
   if (!previewMapRef.current) {
     if (typeof window !== "undefined") {
@@ -84,8 +101,22 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
     }
   }
 
+  if (!autoOpenMapRef.current) {
+    if (typeof window !== "undefined") {
+      const win = window as any
+      if (!win.__artifactAutoOpenState) {
+        win.__artifactAutoOpenState = new Map<string, boolean>()
+      }
+      autoOpenMapRef.current =
+        win.__artifactAutoOpenState as Map<string, boolean>
+    } else {
+      autoOpenMapRef.current = new Map()
+    }
+  }
+
   const previewStateMap = previewMapRef.current!
   const collapsedStateMap = collapsedMapRef.current!
+  const autoOpenStateMap = autoOpenMapRef.current!
 
   const [showPreview, setShowPreview] = useState<boolean>(() => {
     return previewStateMap.get(keyRef.current) || false
@@ -96,7 +127,6 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
     if (typeof stored === "boolean") return stored
     return isLong
   })
-  const { t } = useTranslation("common")
   const resolveTheme = (key: string) => {
     if (key === "auto") {
       let isDark = false
@@ -220,20 +250,77 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
     if (!isPreviewable && showPreview) setShowPreview(false)
   }, [isPreviewable])
 
+  useEffect(() => {
+    if (!isProMode) {
+      return
+    }
+    if (!isDiagramLanguage && totalLines <= artifactAutoThreshold) {
+      return
+    }
+    if (autoOpenStateMap.get(artifactId)) {
+      return
+    }
+    if (isPinned) {
+      return
+    }
+    openArtifact(
+      {
+        id: artifactId,
+        title:
+          normalizedLanguage && normalizedLanguage !== "plaintext"
+            ? normalizedLanguage
+            : t("artifactsDefaultTitle", "Code"),
+        content: value,
+        language: normalizedLanguage,
+        kind: artifactKind,
+        lineCount: totalLines
+      },
+      { auto: true }
+    )
+    autoOpenStateMap.set(artifactId, true)
+  }, [
+    artifactId,
+    artifactAutoThreshold,
+    autoOpenStateMap,
+    isDiagramLanguage,
+    isPinned,
+    isProMode,
+    normalizedLanguage,
+    openArtifact,
+    t,
+    totalLines,
+    value
+  ])
+
+  const handleOpenArtifact = () => {
+    openArtifact({
+      id: artifactId,
+      title:
+        normalizedLanguage && normalizedLanguage !== "plaintext"
+          ? normalizedLanguage
+          : t("artifactsDefaultTitle", "Code"),
+      content: value,
+      language: normalizedLanguage,
+      kind: artifactKind,
+      lineCount: totalLines
+    })
+    autoOpenStateMap.set(artifactId, true)
+  }
+
   return (
     <>
       <div className="not-prose">
-        <div className=" [&_div+div]:!mt-0 my-4 bg-zinc-950 rounded-xl">
-          <div className="flex flex-row px-4 py-2 rounded-t-xl gap-3 bg-gray-800 items-center justify-between">
+        <div className=" [&_div+div]:!mt-0 my-4 bg-surface rounded-xl">
+          <div className="flex flex-row px-4 py-2 rounded-t-xl gap-3 bg-surface2 items-center justify-between">
             <div className="flex items-center gap-3">
               {isPreviewable && !collapsed && (
-                <div className="flex rounded-md overflow-hidden border border-gray-700">
+                <div className="flex rounded-md overflow-hidden border border-border">
                   <button
                     onClick={() => setShowPreview(false)}
                     className={`px-2 flex items-center gap-1 text-xs transition-colors ${
                       !showPreview
-                        ? "bg-gray-700 text-white"
-                        : "bg-transparent text-gray-300 hover:bg-gray-700/60"
+                        ? "bg-surface text-text"
+                        : "bg-transparent text-text-muted hover:bg-surface"
                     }`}
                     aria-label={t("showCode") || "Code"}>
                     <CodeIcon className="size-3" />
@@ -242,8 +329,8 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
                     onClick={() => setShowPreview(true)}
                     className={`px-2 flex items-center gap-1 text-xs transition-colors ${
                       showPreview
-                        ? "bg-gray-700 text-white"
-                        : "bg-transparent text-gray-300 hover:bg-gray-700/60"
+                        ? "bg-surface text-text"
+                        : "bg-transparent text-text-muted hover:bg-surface"
                     }`}
                     aria-label={t("preview") || "Preview"}>
                     <EyeIcon className="size-3" />
@@ -255,46 +342,54 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
                 {normalizedLanguage || "text"}
               </span>
               {isLong && (
-                <span className="text-[10px] text-gray-300">
+                <span className="text-[10px] text-text-subtle">
                   {totalLines} {t("lines", "lines")}
                 </span>
               )}
             </div>
-            {isLong && (
+            <div className="flex items-center gap-2">
               <button
-                onClick={() => setCollapsed((prev) => !prev)}
-                className="inline-flex items-center gap-1 text-[11px] text-gray-200 hover:text-white">
-                {collapsed ? (
-                  <>
-                    <ChevronDown className="size-3" />
-                    <span>{t("expand", "Expand")}</span>
-                  </>
-                ) : (
-                  <>
-                    <ChevronUp className="size-3" />
-                    <span>{t("collapse", "Collapse")}</span>
-                  </>
-                )}
+                onClick={handleOpenArtifact}
+                className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-1 text-[11px] font-medium text-text-muted hover:text-text">
+                <CodeIcon className="size-3" />
+                <span>{viewLabel}</span>
               </button>
-            )}
+              {isLong && (
+                <button
+                  onClick={() => setCollapsed((prev) => !prev)}
+                  className="inline-flex items-center gap-1 text-[11px] text-text-muted hover:text-text">
+                  {collapsed ? (
+                    <>
+                      <ChevronDown className="size-3" />
+                      <span>{t("expand", "Expand")}</span>
+                    </>
+                  ) : (
+                    <>
+                      <ChevronUp className="size-3" />
+                      <span>{t("collapse", "Collapse")}</span>
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
           </div>
           <div className="sticky top-9 md:top-[5.75rem]">
             <div className="absolute bottom-0 right-2 flex h-9 items-center gap-1">
               <Tooltip title={t("downloadCode")}>
                 <button
                   onClick={handleDownload}
-                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-gray-200 hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
+                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none">
                   <DownloadIcon className="size-4" />
                 </button>
               </Tooltip>
               <Tooltip title={t("copyToClipboard")}>
                 <button
                   onClick={handleCopy}
-                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-gray-200 hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
+                  className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-text-muted hover:bg-surface2 hover:text-text focus:outline-none">
                   {!isBtnPressed ? (
                     <CopyIcon className="size-4" />
                   ) : (
-                    <CopyCheckIcon className="size-4 text-green-400" />
+                    <CopyCheckIcon className="size-4 text-success" />
                   )}
                 </button>
               </Tooltip>
@@ -303,11 +398,11 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
 
           {collapsed ? (
             <div className="relative px-4 py-3">
-              <pre className="text-xs font-mono text-gray-100 max-h-36 overflow-hidden whitespace-pre-wrap">
+              <pre className="text-xs font-mono text-text max-h-36 overflow-hidden whitespace-pre-wrap">
                 {lines.slice(0, 3).join("\n")}
                 {totalLines > 3 ? "…" : ""}
               </pre>
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-zinc-950 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-surface to-transparent" />
             </div>
           ) : (
             <>
@@ -334,7 +429,7 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
                           key={i}
                           {...getLineProps({ line, key: i })}
                           className="table w-full">
-                          <span className="table-cell select-none pr-4 text-right text-xs text-gray-500">
+                          <span className="table-cell select-none pr-4 text-right text-xs text-text-subtle">
                             {i + 1}
                           </span>
                           <span className="table-cell whitespace-pre-wrap">
@@ -352,7 +447,7 @@ export const CodeBlock: FC<Props> = ({ language, value, blockIndex }) => {
                 </Highlight>
               )}
               {showPreview && isPreviewable && (
-                <div className="w-full h-[420px] bg-white rounded-b-xl overflow-hidden border-t border-gray-800">
+                <div className="w-full h-[420px] bg-surface rounded-b-xl overflow-hidden border-t border-border">
                   <iframe
                     title="Preview"
                     srcDoc={buildPreviewDoc()}

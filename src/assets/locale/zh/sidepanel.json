@@ -131,5 +131,15 @@
     "newChat": "新聊天",
     "newTabAria": "新建对话标签页",
     "closeTabAria": "关闭对话标签页"
+  },
+  "characterSelect": {
+    "label": "Character",
+    "tooltip": "Select a character",
+    "search": "Search characters...",
+    "noMatches": "No matching characters",
+    "noCharacters": "No characters available",
+    "none": "No character",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   }
 }

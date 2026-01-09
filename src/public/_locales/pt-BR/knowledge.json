@@ -1,0 +1,110 @@
+{
+  "addBtn": {
+    "message": "Adicionar Novo Conhecimento"
+  },
+  "columns_title": {
+    "message": "Título"
+  },
+  "columns_status": {
+    "message": "Status (situação)"
+  },
+  "columns_embeddings": {
+    "message": "Modelo de Incorporação"
+  },
+  "columns_createdAt": {
+    "message": "Criado Em"
+  },
+  "columns_action": {
+    "message": "Ações"
+  },
+  "expandedColumns_name": {
+    "message": "Nome"
+  },
+  "confirm_delete": {
+    "message": "Tem certeza de que deseja excluir este conhecimento?"
+  },
+  "deleteSuccess": {
+    "message": "Conhecimento excluído com sucesso"
+  },
+  "status_pending": {
+    "message": "Pendente"
+  },
+  "status_finished": {
+    "message": "Concluído"
+  },
+  "status_processing": {
+    "message": "Processando"
+  },
+  "status_failed": {
+    "message": "Falhou"
+  },
+  "addKnowledge": {
+    "message": "Adicionar Conhecimento"
+  },
+  "updateKnowledge": {
+    "message": "Adicionar Fonte"
+  },
+  "form_title_label": {
+    "message": "Título do Conhecimento"
+  },
+  "form_title_placeholder": {
+    "message": "Digite o título do conhecimento"
+  },
+  "form_title_required": {
+    "message": "O título do conhecimento é obrigatório"
+  },
+  "form_uploadFile_label": {
+    "message": "Carregar Arquivo"
+  },
+  "form_uploadFile_uploadText": {
+    "message": "Arraste e solte um arquivo aqui ou clique para carregar"
+  },
+  "form_uploadFile_uploadHint": {
+    "message": "Tipos de arquivo suportados: .pdf, .csv, .txt, .md, .docx"
+  },
+  "form_uploadFile_required": {
+    "message": "O arquivo é obrigatório"
+  },
+  "form_submit": {
+    "message": "Enviar"
+  },
+  "form_success": {
+    "message": "Conhecimento adicionado com sucesso"
+  },
+  "noEmbeddingModel": {
+    "message": "Por favor, adicione um modelo de incorporação na página de configurações RAG primeiro"
+  },
+  "privateModeDescription": {
+    "message": "O modo privativo do Firefox não suporta salvar no IndexedDB. Adicione uma base de conhecimento em uma janela normal."
+  },
+  "ragWorkspace_subtitleRag": {
+    "message": "A geração aumentada por recuperação (RAG) permite que o assistente baseie as respostas em suas mídias, anotações e outras fontes de conhecimento indexadas."
+  },
+  "rag_searchFailed": {
+    "message": "A pesquisa RAG falhou. Tente novamente ou verifique Diagnóstico."
+  },
+  "empty_demoTitle": {
+    "message": "Explore o Knowledge QA no modo de demonstração"
+  },
+  "empty_demoDescription": {
+    "message": "Esta demonstração mostra como o Knowledge QA pode executar buscas RAG em conteúdo de exemplo. Depois, você pode conectar seu próprio servidor para pesquisar suas transcrições e documentos."
+  },
+  "empty_demoExample1": {
+    "message": "Experimente buscas RAG rápidas e inspecione resultados e citações."
+  },
+  "empty_demoExample2": {
+    "message": "Conecte seu próprio servidor para habilitar o Knowledge QA sobre seus meios e notas reais."
+  },
+  "empty_connectTitle": {
+    "message": "Conecte-se para usar o Knowledge QA"
+  },
+  "empty_connectDescription": {
+    "message": "Para usar o Knowledge QA e a busca RAG, primeiro conecte-se ao seu servidor tldw."
+  },
+  "empty_connectExample1": {
+    "message": "Abra Configurações → tldw server para adicionar a URL do seu servidor."
+  },
+  "empty_connectExample2": {
+    "message": "Use Diagnóstico se o servidor estiver em execução mas não puder ser acessado."
+  }
+}

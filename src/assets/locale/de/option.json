@@ -48,7 +48,7 @@
     "promptLabel": "Eingabeaufforderung",
     "review": "Überprüfung",
     "flashcards": "Karteikarten",
-    "quiz": "Wissensquiz",
+    "quiz": "Wissensquizze",
     "media": "Medien",
     "libraryView": "Review mehrerer Elemente",
     "notes": "Notizen",
@@ -88,7 +88,8 @@
     "omniSearchStartChat": "Neuen Chat \"{{query}}\" starten",
     "connectionCard.connectedCaption": "Chat und Tools sind jetzt in den Einstellungen und in der Seitenleiste verfügbar.",
     "quickIngestQueuedAria": "{{label}} — {{count}} Elemente in der Warteschlange — klicken, um zu prüfen und zu verarbeiten",
-    "modeSpeech": "Sprache"
+    "modeSpeech": "Sprache",
+    "moreTools": "Mehr"
   },
   "sidebarTitle": "Chat-Verlauf",
   "error": "Fehler",
@@ -592,7 +593,9 @@
     "searchPlaceholder": "Charaktere nach Namen durchsuchen",
     "noMatches": "Noch keine Charaktere passen zu deiner Suche.",
     "refresh": "Charaktere aktualisieren",
-    "refreshing": "Charaktere werden aktualisiert…"
+    "refreshing": "Charaktere werden aktualisiert…",
+    "createNewCharacter": "Create a New Character+",
+    "importCharacter": "Import Character"
   },
   "promptInsert": {
     "useInChat": "Im Chat verwenden",
