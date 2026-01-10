@@ -1429,5 +1429,53 @@
   },
   "trashPage_selectItem": {
     "message": "Select item {{id}}"
+  },
+  "trashPage_selectedCount_one": {
+    "message": "{{count}} item selected"
+  },
+  "trashPage_selectedCount_other": {
+    "message": "{{count}} items selected"
+  },
+  "trashPage_restoreSelectedSuccess_one": {
+    "message": "Restored {{count}} item"
+  },
+  "trashPage_restoreSelectedSuccess_other": {
+    "message": "Restored {{count}} items"
+  },
+  "trashPage_restoreSelectedPartial_one": {
+    "message": "Failed to restore {{count}} item"
+  },
+  "trashPage_restoreSelectedPartial_other": {
+    "message": "Failed to restore {{count}} items"
+  },
+  "trashPage_deleteSelectedConfirm_one": {
+    "message": "Permanently delete {{count}} item? This cannot be undone."
+  },
+  "trashPage_deleteSelectedConfirm_other": {
+    "message": "Permanently delete {{count}} items? This cannot be undone."
+  },
+  "trashPage_deleteSelectedSuccess_one": {
+    "message": "Deleted {{count}} item"
+  },
+  "trashPage_deleteSelectedSuccess_other": {
+    "message": "Deleted {{count}} items"
+  },
+  "trashPage_deleteSelectedPartial_one": {
+    "message": "Failed to delete {{count}} item"
+  },
+  "trashPage_deleteSelectedPartial_other": {
+    "message": "Failed to delete {{count}} items"
+  },
+  "trashPage_emptyTrashSuccess_one": {
+    "message": "Deleted {{count}} item"
+  },
+  "trashPage_emptyTrashSuccess_other": {
+    "message": "Deleted {{count}} items"
+  },
+  "trashPage_emptyTrashPartial_one": {
+    "message": "{{count}} item could not be deleted"
+  },
+  "trashPage_emptyTrashPartial_other": {
+    "message": "{{count}} items could not be deleted"
   }
 }

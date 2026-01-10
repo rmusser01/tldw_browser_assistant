@@ -1292,6 +1292,13 @@ export class TldwApiClient {
   }
 
   // Chats API (resource-based)
+  async listChatCommands(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/commands",
+      method: "GET"
+    })
+  }
+
   async listChats(params?: Record<string, any>): Promise<ServerChatSummary[]> {
     const query = this.buildQuery(params)
     const data = await bgRequest<any>({

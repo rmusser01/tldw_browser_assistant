@@ -621,6 +621,20 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   const [isMessageCollapsed, setIsMessageCollapsed] = React.useState(false)
   const [hasExpandedLargeText, setHasExpandedLargeText] = React.useState(false)
+  const restoreMessageValue = React.useCallback(
+    (value: string, metadata?: { wasExpanded?: boolean }) => {
+      form.setFieldValue("message", value)
+      if (value.length <= PASTED_TEXT_CHAR_LIMIT) {
+        setIsMessageCollapsed(false)
+        setHasExpandedLargeText(false)
+        return
+      }
+      const wasExpanded = Boolean(metadata?.wasExpanded)
+      setIsMessageCollapsed(!wasExpanded)
+      setHasExpandedLargeText(wasExpanded)
+    },
+    [form.setFieldValue]
+  )
 
   const buildCollapsedMessageLabel = React.useCallback((text: string) => {
     const lineCount = text ? text.split(/\r\n|\r|\n/).length : 0
@@ -694,21 +708,15 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       }
       return
     }
-
-    if (!isMessageCollapsed && !hasExpandedLargeText) {
-      setIsMessageCollapsed(true)
-    }
   }, [form.values.message, hasExpandedLargeText, isMessageCollapsed])
 
   // Draft persistence - saves/restores message draft to local-only storage
   const { draftSaved } = useDraftPersistence({
     storageKey: "tldw:playgroundChatDraft",
     getValue: () => form.values.message,
-    setValue: (value) =>
-      setMessageValue(value, {
-        collapseLarge: true,
-        forceCollapse: true
-      })
+    getMetadata: () => ({ wasExpanded: hasExpandedLargeText }),
+    setValue: (value) => restoreMessageValue(value),
+    setValueWithMetadata: restoreMessageValue
   })
 
   const numberFormatter = React.useMemo(() => new Intl.NumberFormat(), [])
@@ -1015,6 +1023,23 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         forceCollapse: true
       })
       return
+    }
+
+    const currentValue = form.values.message || ""
+    const textarea = textareaRef.current
+    const selectionStart = textarea?.selectionStart ?? currentValue.length
+    const selectionEnd = textarea?.selectionEnd ?? selectionStart
+    const nextValue =
+      currentValue.slice(0, selectionStart) +
+      pastedText +
+      currentValue.slice(selectionEnd)
+
+    if (
+      nextValue.length > PASTED_TEXT_CHAR_LIMIT &&
+      !hasExpandedLargeText
+    ) {
+      e.preventDefault()
+      setMessageValue(nextValue, { collapseLarge: true })
     }
   }
   React.useEffect(() => {
@@ -3055,11 +3080,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           value={messageDisplayValue}
                           onChange={(e) => {
                             if (isMessageCollapsed) return
-                            const nextValue = e.target.value
                             form.getInputProps("message").onChange(e)
-                            if (nextValue.length > PASTED_TEXT_CHAR_LIMIT) {
-                              collapseLargeMessage(nextValue)
-                            }
                             if (tabMentionsEnabled && textareaRef.current) {
                               handleTextChange(
                                 e.target.value,

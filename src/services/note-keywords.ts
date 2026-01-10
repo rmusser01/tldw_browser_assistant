@@ -80,8 +80,9 @@ export const getAllNoteKeywords = async (pageSize = 1000): Promise<string[]> => 
   const request = (async () => {
     const out: string[] = []
     let offset = 0
+    const maxPages = 100
 
-    for (;;) {
+    for (let page = 0; page < maxPages; page += 1) {
       const abs = await bgRequest<any>({
         path: `/api/v1/notes/keywords${buildQuery({ limit: pageSize, offset })}` as any,
         method: "GET" as any

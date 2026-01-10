@@ -14,7 +14,10 @@ import {
   CornerUpLeft,
   EyeIcon,
   EyeOffIcon,
-  Gauge
+  Gauge,
+  Search,
+  FileText,
+  Globe
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { getVariable } from "@/utils/select-variable"
@@ -39,12 +42,15 @@ import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { useFocusShortcuts } from "@/hooks/keyboard"
 import { isFirefoxTarget } from "@/config/platform"
 import { useDraftPersistence } from "@/hooks/useDraftPersistence"
+import { useSlashCommands, type SlashCommandItem } from "@/hooks/useSlashCommands"
+import { useTabMentions, type TabInfo } from "~/hooks/useTabMentions"
 import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
 import { QueuedMessagesBanner } from "@/components/Sidepanel/Chat/QueuedMessagesBanner"
 import { ConnectionStatusIndicator } from "@/components/Sidepanel/Chat/ConnectionStatusIndicator"
 import { ControlRow } from "@/components/Sidepanel/Chat/ControlRow"
 import { ContextChips } from "@/components/Sidepanel/Chat/ContextChips"
-import { SlashCommandMenu, type SlashCommandItem } from "@/components/Sidepanel/Chat/SlashCommandMenu"
+import { SlashCommandMenu } from "@/components/Sidepanel/Chat/SlashCommandMenu"
+import { MentionsMenu, type MentionMenuItem } from "@/components/Sidepanel/Chat/MentionsMenu"
 import { ModelParamsPanel } from "@/components/Sidepanel/Chat/ModelParamsPanel"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
 import { ActorPopout } from "@/components/Common/Settings/ActorPopout"
@@ -66,6 +72,9 @@ import { useStoreMessageOption } from "@/store/option"
 import { shallow } from "zustand/shallow"
 import { Button } from "@/components/Common/Button"
 import { useSimpleForm } from "@/hooks/useSimpleForm"
+import { generateID } from "@/db/dexie/helpers"
+import type { UploadedFile } from "@/db/dexie/types"
+import { browser } from "wxt/browser"
 
 type Props = {
   dropedFile: File | undefined
@@ -84,6 +93,7 @@ export const SidepanelForm = ({
   const localTextareaRef = React.useRef<HTMLTextAreaElement>(null)
   const textareaRef = inputRef ?? localTextareaRef
   const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const contextFileInputRef = React.useRef<HTMLInputElement>(null)
   const { sendWhenEnter, setSendWhenEnter } = useWebUI()
   const [typing, setTyping] = React.useState<boolean>(false)
   const { t } = useTranslation(["playground", "common", "option", "sidepanel"])
@@ -121,6 +131,10 @@ export const SidepanelForm = ({
       image: ""
     }
   })
+  const messageInputProps = form.getInputProps("message")
+  const [knowledgeMentionActive, setKnowledgeMentionActive] = React.useState(false)
+  const [contextFiles, setContextFiles] = React.useState<UploadedFile[]>([])
+  const [mentionActiveIndex, setMentionActiveIndex] = React.useState(0)
   const {
     transcript,
     isListening,
@@ -129,6 +143,21 @@ export const SidepanelForm = ({
     stop: stopSpeechRecognition,
     supported: browserSupportsSpeechRecognition
   } = useSpeechRecognition()
+
+  const {
+    tabMentionsEnabled,
+    mentionPosition,
+    filteredTabs,
+    selectedDocuments,
+    handleTextChange,
+    insertMention,
+    closeMentions,
+    addDocument,
+    removeDocument,
+    clearSelectedDocuments,
+    reloadTabs,
+    handleMentionsOpen
+  } = useTabMentions(textareaRef, { includeActive: true })
 
   const stopListening = async () => {
     if (isListening) {
@@ -222,6 +251,35 @@ export const SidepanelForm = ({
     t("form.textarea.placeholder")
   )
   const placeholderTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const {
+    onSubmit,
+    selectedModel,
+    chatMode,
+    stopStreamingRequest,
+    streaming,
+    setChatMode,
+    webSearch,
+    setWebSearch,
+    selectedQuickPrompt,
+    setSelectedQuickPrompt,
+    selectedSystemPrompt,
+    setSelectedSystemPrompt,
+    speechToTextLanguage,
+    useOCR,
+    setUseOCR,
+    defaultInternetSearchOn,
+    defaultChatWithWebsite,
+    temporaryChat,
+    setTemporaryChat,
+    toolChoice,
+    setToolChoice,
+    messages,
+    clearChat,
+    queuedMessages,
+    addQueuedMessage,
+    clearQueuedMessages,
+    serverChatId
+  } = useMessage()
   const hasImage = form.values.image.length > 0
   const replyLabel = replyTarget
     ? [
@@ -232,6 +290,7 @@ export const SidepanelForm = ({
         .filter(Boolean)
         .join(" ")
     : ""
+  const pageContextActive = chatMode === "rag" && chatWithWebsiteEmbedding
   const contextChips = [
     ...(replyTarget && isProMode
       ? [
@@ -244,6 +303,49 @@ export const SidepanelForm = ({
           }
         ]
       : []),
+    ...(pageContextActive
+      ? [
+          {
+            id: "page-context",
+            label: t("sidepanel:composer.pageContext", "Current page"),
+            icon: <Globe className="h-3 w-3 text-text-subtle" />,
+            onRemove: () => setChatMode("normal"),
+            removeLabel: t(
+              "sidepanel:composer.removePageContext",
+              "Remove page context"
+            )
+          }
+        ]
+      : []),
+    ...selectedDocuments.map((doc) => ({
+      id: `tab-${doc.id}`,
+      label: doc.title,
+      icon: <Globe className="h-3 w-3 text-text-subtle" />,
+      onRemove: () => removeDocument(doc.id),
+      removeLabel: t("sidepanel:composer.removeDocument", "Remove page")
+    })),
+    ...(knowledgeMentionActive
+      ? [
+          {
+            id: "knowledge",
+            label: t("sidepanel:composer.knowledgeContext", "Knowledge base"),
+            icon: <Search className="h-3 w-3 text-text-subtle" />,
+            onRemove: () => setKnowledgeMentionActive(false),
+            removeLabel: t(
+              "sidepanel:composer.removeKnowledge",
+              "Remove knowledge context"
+            )
+          }
+        ]
+      : []),
+    ...contextFiles.map((file) => ({
+      id: `file-${file.id}`,
+      label: file.filename,
+      icon: <FileText className="h-3 w-3 text-text-subtle" />,
+      onRemove: () =>
+        setContextFiles((prev) => prev.filter((item) => item.id !== file.id)),
+      removeLabel: t("sidepanel:composer.removeFile", "Remove file")
+    })),
     ...(hasImage
       ? [
           {
@@ -327,36 +429,6 @@ export const SidepanelForm = ({
   // When sidepanel connection transitions to CONNECTED, focus the composer
   useFocusComposerOnConnect(phase)
 
-  const {
-    onSubmit,
-    selectedModel,
-    chatMode,
-    stopStreamingRequest,
-    streaming,
-    setChatMode,
-    webSearch,
-    setWebSearch,
-    selectedQuickPrompt,
-    setSelectedQuickPrompt,
-    selectedSystemPrompt,
-    setSelectedSystemPrompt,
-    speechToTextLanguage,
-    useOCR,
-    setUseOCR,
-    defaultInternetSearchOn,
-    defaultChatWithWebsite,
-    temporaryChat,
-    setTemporaryChat,
-    toolChoice,
-    setToolChoice,
-    messages,
-    clearChat,
-    queuedMessages,
-    addQueuedMessage,
-    clearQueuedMessages,
-    serverChatId
-  } = useMessage()
-
   // Server-side dictation hook
   const {
     isServerDictating,
@@ -409,133 +481,215 @@ export const SidepanelForm = ({
   // Character selection state
   const [selectedCharacterId, setSelectedCharacterId] = React.useState<string | null>(null)
 
-  const slashCommands = React.useMemo<SlashCommandItem[]>(
-    () => [
-      {
-        id: "slash-search",
-        command: "search",
-        label: t(
-          "common:commandPalette.toggleKnowledgeSearch",
-          "Toggle Knowledge Search"
-        ),
-        description: t(
-          "common:commandPalette.toggleKnowledgeSearchDesc",
-          "Search your knowledge base"
-        ),
-        keywords: ["rag", "context", "knowledge", "search"],
-        action: () => setChatMode(chatMode === "rag" ? "normal" : "rag")
-      },
-      {
-        id: "slash-web",
-        command: "web",
-        label: t(
-          "common:commandPalette.toggleWebSearch",
-          "Toggle Web Search"
-        ),
-        description: t(
-          "common:commandPalette.toggleWebDesc",
-          "Search the internet"
-        ),
-        keywords: ["web", "internet", "browse"],
-        action: () => setWebSearch(!webSearch)
-      },
-      {
-        id: "slash-vision",
-        command: "vision",
-        label: t("sidepanel:controlRow.vision", "Vision"),
-        description: t(
-          "sidepanel:controlRow.visionTooltip",
-          "Enable Vision to analyze images"
-        ),
-        keywords: ["image", "ocr", "vision"],
-        action: () =>
-          setChatMode(chatMode === "vision" ? "normal" : "vision")
-      },
-      {
-        id: "slash-model",
-        command: "model",
-        label: t("common:commandPalette.switchModel", "Switch Model"),
-        description: t(
-          "common:currentChatModelSettings",
-          "Open current chat settings"
-        ),
-        keywords: ["settings", "parameters", "temperature"],
-        action: () => setOpenModelSettings(true)
-      }
-    ],
-    [chatMode, t, webSearch, setChatMode, setWebSearch, setOpenModelSettings]
-  )
+  const {
+    filteredSlashCommands,
+    showSlashMenu,
+    slashActiveIndex,
+    setSlashActiveIndex,
+    applySlashCommand,
+    handleSlashCommandSelect
+  } = useSlashCommands({
+    chatMode,
+    webSearch,
+    setChatMode,
+    setWebSearch,
+    onOpenModelSettings: () => setOpenModelSettings(true),
+    inputValue: form.values.message,
+    setInputValue: (value) => form.setFieldValue("message", value)
+  })
 
-  const slashCommandLookup = React.useMemo(
-    () => new Map(slashCommands.map((command) => [command.command, command])),
-    [slashCommands]
-  )
-
-  const slashMatch = React.useMemo(
-    () => form.values.message.match(/^\s*\/(\w*)$/),
-    [form.values.message]
-  )
-  const slashQuery = slashMatch?.[1] ?? ""
-  const showSlashMenu = Boolean(slashMatch)
-  const [slashActiveIndex, setSlashActiveIndex] = React.useState(0)
-
-  const filteredSlashCommands = React.useMemo(() => {
-    if (!slashQuery) return slashCommands
-    const q = slashQuery.toLowerCase()
-    return slashCommands.filter((command) => {
-      if (command.command.startsWith(q)) return true
-      if (command.label.toLowerCase().includes(q)) return true
-      return (command.keywords || []).some((keyword) =>
-        keyword.toLowerCase().includes(q)
-      )
-    })
-  }, [slashCommands, slashQuery])
-
-  React.useEffect(() => {
-    if (!showSlashMenu) {
-      setSlashActiveIndex(0)
-      return
-    }
-    setSlashActiveIndex((prev) => {
-      if (filteredSlashCommands.length === 0) return 0
-      return Math.min(prev, filteredSlashCommands.length - 1)
-    })
-  }, [showSlashMenu, filteredSlashCommands.length, slashQuery])
-
-  const parseSlashInput = React.useCallback((text: string) => {
-    const trimmed = text.trimStart()
-    const match = trimmed.match(/^\/(\w+)(?:\s+([\s\S]*))?$/)
-    if (!match) return null
-    return {
-      command: match[1].toLowerCase(),
-      remainder: match[2] || ""
-    }
-  }, [])
-
-  const applySlashCommand = React.useCallback(
-    (text: string) => {
-      const parsed = parseSlashInput(text)
-      if (!parsed) {
-        return { handled: false, message: text }
-      }
-      const command = slashCommandLookup.get(parsed.command)
-      if (!command) {
-        return { handled: false, message: text }
-      }
-      command.action()
-      return { handled: true, message: parsed.remainder }
-    },
-    [parseSlashInput, slashCommandLookup]
-  )
-
-  const handleSlashCommandSelect = React.useCallback(
+  const handleSlashCommandPick = React.useCallback(
     (command: SlashCommandItem) => {
-      const parsed = parseSlashInput(form.values.message)
-      command.action()
-      form.setFieldValue("message", parsed?.remainder || "")
+      handleSlashCommandSelect(command)
       requestAnimationFrame(() => textareaRef.current?.focus())
     },
-    [form, parseSlashInput, textareaRef]
+    [handleSlashCommandSelect, textareaRef]
+  )
+
+  const removeMentionToken = React.useCallback(() => {
+    if (!mentionPosition || !textareaRef.current) return
+    const current = form.values.message || ""
+    const before = current.substring(0, mentionPosition.start)
+    const after = current.substring(mentionPosition.end)
+    const nextValue = before + after
+    form.setFieldValue("message", nextValue)
+    requestAnimationFrame(() => {
+      textareaRef.current?.focus()
+      textareaRef.current?.setSelectionRange(
+        mentionPosition.start,
+        mentionPosition.start
+      )
+    })
+    closeMentions()
+  }, [closeMentions, form, mentionPosition, textareaRef])
+
+  const handleCurrentPageMention = React.useCallback(async () => {
+    try {
+      const tabs = await browser.tabs.query({
+        active: true,
+        currentWindow: true
+      })
+      const activeTab = tabs.find((tab) => tab.id && tab.title && tab.url)
+      if (!activeTab) return
+      const tabInfo: TabInfo = {
+        id: activeTab.id!,
+        title: activeTab.title!,
+        url: activeTab.url!,
+        favIconUrl: activeTab.favIconUrl
+      }
+      addDocument(tabInfo)
+    } finally {
+      removeMentionToken()
+    }
+  }, [addDocument, removeMentionToken])
+
+  const handleKnowledgeMention = React.useCallback(() => {
+    setKnowledgeMentionActive(true)
+    window.dispatchEvent(new CustomEvent("tldw:toggle-rag"))
+    removeMentionToken()
+  }, [removeMentionToken])
+
+  const handleFileMention = React.useCallback(() => {
+    contextFileInputRef.current?.click()
+    removeMentionToken()
+  }, [removeMentionToken])
+
+  const handleContextFileChange = React.useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = Array.from(event.target.files || [])
+      if (files.length === 0) return
+      try {
+        const { processFileUpload } = await import("~/utils/file-processor")
+        const nextFiles: UploadedFile[] = []
+        for (const file of files) {
+          const source = await processFileUpload(file)
+          nextFiles.push({
+            id: generateID(),
+            filename: file.name,
+            type: file.type,
+            content: source.content,
+            size: file.size,
+            uploadedAt: Date.now(),
+            processed: false
+          })
+        }
+        setContextFiles((prev) => [...prev, ...nextFiles])
+        notification.success({
+          message: t("sidepanel:composer.fileAdded", "File added to context")
+        })
+      } catch (error: any) {
+        notification.error({
+          message: t("sidepanel:composer.fileAddError", "Failed to add file"),
+          description: error?.message || ""
+        })
+      } finally {
+        event.target.value = ""
+      }
+    },
+    [notification, setContextFiles, t]
+  )
+
+  const mentionQuery = (mentionPosition?.query || "").toLowerCase()
+  const staticMentionItems = React.useMemo<MentionMenuItem[]>(
+    () => [
+      {
+        id: "mention-current-page",
+        label: t("sidepanel:composer.mentionCurrentPage", "Current page"),
+        description: t(
+          "sidepanel:composer.mentionCurrentPageDesc",
+          "Use the active tab as context"
+        ),
+        icon: <Globe className="size-3.5" />,
+        kind: "page"
+      },
+      {
+        id: "mention-knowledge",
+        label: t("sidepanel:composer.mentionKnowledge", "Knowledge base"),
+        description: t(
+          "sidepanel:composer.mentionKnowledgeDesc",
+          "Search your knowledge base"
+        ),
+        icon: <Search className="size-3.5" />,
+        kind: "knowledge"
+      },
+      {
+        id: "mention-file",
+        label: t("sidepanel:composer.mentionFile", "File"),
+        description: t(
+          "sidepanel:composer.mentionFileDesc",
+          "Attach a file as context"
+        ),
+        icon: <FileText className="size-3.5" />,
+        kind: "file"
+      }
+    ],
+    [t]
+  )
+
+  const mentionItems = React.useMemo<MentionMenuItem[]>(() => {
+    if (!tabMentionsEnabled) return []
+    const filteredStatic =
+      mentionQuery.length === 0
+        ? staticMentionItems
+        : staticMentionItems.filter((item) =>
+            item.label.toLowerCase().includes(mentionQuery)
+          )
+    const tabItems: MentionMenuItem[] = filteredTabs.map((tab) => ({
+      id: `tab-${tab.id}`,
+      label: tab.title,
+      description: tab.url,
+      icon: <Globe className="size-3.5" />,
+      kind: "tab",
+      payload: tab
+    }))
+    return [...filteredStatic, ...tabItems]
+  }, [filteredTabs, mentionQuery, staticMentionItems, tabMentionsEnabled])
+
+  const showMentionMenu = Boolean(mentionPosition) && tabMentionsEnabled
+
+  React.useEffect(() => {
+    if (!showMentionMenu) {
+      setMentionActiveIndex(0)
+      return
+    }
+    setMentionActiveIndex((prev) => {
+      if (mentionItems.length === 0) return 0
+      return Math.min(prev, mentionItems.length - 1)
+    })
+  }, [mentionItems.length, showMentionMenu])
+
+  React.useEffect(() => {
+    if (!showMentionMenu) return
+    void handleMentionsOpen()
+  }, [handleMentionsOpen, showMentionMenu])
+
+  const handleMentionSelect = React.useCallback(
+    (item: MentionMenuItem) => {
+      if (item.kind === "tab" && item.payload) {
+        insertMention(item.payload as TabInfo, form.values.message, (value) =>
+          form.setFieldValue("message", value)
+        )
+        return
+      }
+      if (item.kind === "page") {
+        void handleCurrentPageMention()
+        return
+      }
+      if (item.kind === "knowledge") {
+        handleKnowledgeMention()
+        return
+      }
+      if (item.kind === "file") {
+        handleFileMention()
+      }
+    },
+    [
+      form,
+      handleCurrentPageMention,
+      handleFileMention,
+      handleKnowledgeMention,
+      insertMention
+    ]
   )
 
 
@@ -594,7 +748,12 @@ export const SidepanelForm = ({
     }
     const nextMessage = slashResult.handled ? slashResult.message : rawMessage
     const trimmed = nextMessage.trim()
-    if (trimmed.length === 0 && image.length === 0) {
+    if (
+      trimmed.length === 0 &&
+      image.length === 0 &&
+      selectedDocuments.length === 0 &&
+      contextFiles.length === 0
+    ) {
       return
     }
     await stopListening()
@@ -610,11 +769,54 @@ export const SidepanelForm = ({
     textAreaFocus()
     await sendMessage({
       image,
-      message: trimmed
+      message: trimmed,
+      docs: selectedDocuments.map((doc) => ({
+        type: "tab",
+        tabId: doc.id,
+        title: doc.title,
+        url: doc.url,
+        favIconUrl: doc.favIconUrl
+      })),
+      uploadedFiles: contextFiles
     })
+    clearSelectedDocuments()
+    setContextFiles([])
+    setKnowledgeMentionActive(false)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (showMentionMenu) {
+      if (e.key === "ArrowDown" && mentionItems.length > 0) {
+        e.preventDefault()
+        setMentionActiveIndex((prev) =>
+          prev + 1 >= mentionItems.length ? 0 : prev + 1
+        )
+        return
+      }
+      if (e.key === "ArrowUp" && mentionItems.length > 0) {
+        e.preventDefault()
+        setMentionActiveIndex((prev) =>
+          prev <= 0 ? mentionItems.length - 1 : prev - 1
+        )
+        return
+      }
+      if (
+        (e.key === "Enter" || (e.key === "Tab" && !e.shiftKey)) &&
+        mentionItems.length > 0
+      ) {
+        e.preventDefault()
+        const item = mentionItems[mentionActiveIndex]
+        if (item) {
+          handleMentionSelect(item)
+        }
+        return
+      }
+      if (e.key === "Escape") {
+        e.preventDefault()
+        closeMentions()
+        return
+      }
+    }
     if (showSlashMenu) {
       if (e.key === "ArrowDown" && filteredSlashCommands.length > 0) {
         e.preventDefault()
@@ -637,7 +839,7 @@ export const SidepanelForm = ({
         e.preventDefault()
         const command = filteredSlashCommands[slashActiveIndex]
         if (command) {
-          handleSlashCommandSelect(command)
+          handleSlashCommandPick(command)
         }
         return
       }
@@ -662,7 +864,21 @@ export const SidepanelForm = ({
             ? slashResult.message
             : value.message
           const trimmed = nextMessage.trim()
-          if (trimmed.length === 0 && value.image.length === 0) {
+          if (
+            trimmed.length === 0 &&
+            value.image.length === 0 &&
+            selectedDocuments.length === 0 &&
+            contextFiles.length === 0
+          ) {
+            return
+          }
+          if (selectedDocuments.length > 0 || contextFiles.length > 0) {
+            notification.info({
+              message: t(
+                "sidepanel:composer.attachmentsRequireConnection",
+                "Connect to send attachments"
+              )
+            })
             return
           }
           addQueuedMessage({
@@ -1027,6 +1243,17 @@ export const SidepanelForm = ({
                     aria-hidden="true"
                     onChange={onInputChange}
                   />
+                  <input
+                    id="context-file-upload"
+                    name="context-file-upload"
+                    type="file"
+                    className="sr-only"
+                    ref={contextFileInputRef}
+                    multiple
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    onChange={handleContextFileChange}
+                  />
                   <div
                     className={`w-full flex flex-col px-1 ${
                       !isConnectionReady
@@ -1094,10 +1321,22 @@ export const SidepanelForm = ({
                           commands={filteredSlashCommands}
                           activeIndex={slashActiveIndex}
                           onActiveIndexChange={setSlashActiveIndex}
-                          onSelect={handleSlashCommandSelect}
+                          onSelect={handleSlashCommandPick}
                           emptyLabel={t(
                             "common:commandPalette.noResults",
                             "No results found"
+                          )}
+                          className="absolute bottom-full left-3 right-3 mb-2"
+                        />
+                        <MentionsMenu
+                          open={showMentionMenu}
+                          items={mentionItems}
+                          activeIndex={mentionActiveIndex}
+                          onActiveIndexChange={setMentionActiveIndex}
+                          onSelect={handleMentionSelect}
+                          emptyLabel={t(
+                            "sidepanel:composer.noMentions",
+                            "No matches found"
                           )}
                           className="absolute bottom-full left-3 right-3 mb-2"
                         />
@@ -1136,7 +1375,24 @@ export const SidepanelForm = ({
                             }
                           }}
                           placeholder={debouncedPlaceholder || t("form.textarea.placeholder")}
-                          {...form.getInputProps("message")}
+                          {...messageInputProps}
+                          onChange={(event) => {
+                            messageInputProps.onChange(event)
+                            if (tabMentionsEnabled && textareaRef.current) {
+                              handleTextChange(
+                                event.target.value,
+                                textareaRef.current.selectionStart || 0
+                              )
+                            }
+                          }}
+                          onSelect={() => {
+                            if (tabMentionsEnabled && textareaRef.current) {
+                              handleTextChange(
+                                textareaRef.current.value,
+                                textareaRef.current.selectionStart || 0
+                              )
+                            }
+                          }}
                         />
                       </div>
                       {/* Draft saved indicator */}

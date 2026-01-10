@@ -36,6 +36,7 @@ type RagModeParams = {
   ragEnableGeneration: boolean
   ragEnableCitations: boolean
   ragSources: string[]
+  ragAdvancedOptions?: Record<string, unknown>
   actorSettings?: ActorSettings
   clusterId?: string
   userMessageType?: string
@@ -144,6 +145,13 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
       }
       if (ctx.ragEnableCitations) {
         ragOptions.enable_citations = true
+      }
+      if (ctx.ragAdvancedOptions) {
+        Object.entries(ctx.ragAdvancedOptions).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "") {
+            ragOptions[key] = value
+          }
+        })
       }
       if (Array.isArray(ctx.ragSources) && ctx.ragSources.length > 0) {
         ragOptions.sources = ctx.ragSources

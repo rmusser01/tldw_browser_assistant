@@ -22,6 +22,14 @@ import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 import { useSetting } from "@/hooks/useSetting"
 import { useStorage } from "@plasmohq/storage/hook"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
+import { useLoadLocalConversation } from "@/hooks/useLoadLocalConversation"
+import {
+  EDIT_MESSAGE_EVENT,
+  OPEN_HISTORY_EVENT,
+  TIMELINE_ACTION_EVENT,
+  type OpenHistoryDetail,
+  type TimelineActionDetail
+} from "@/utils/timeline-actions"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
@@ -40,6 +48,10 @@ export const Playground = () => {
     setHistory,
     setMessages,
     setSelectedSystemPrompt,
+    setSelectedModel,
+    setServerChatId,
+    setContextFiles,
+    createChatBranch,
     streaming
   } = useMessageOption()
   const { setSystemPrompt } = useStoreChatModelSettings()
@@ -207,6 +219,157 @@ export const Playground = () => {
   React.useEffect(() => {
     initializePlayground()
   }, [])
+
+  const loadLocalConversation = useLoadLocalConversation(
+    {
+      setServerChatId,
+      setHistoryId: (id) => setHistoryId(id, { preserveServerChatId: false }),
+      setHistory,
+      setMessages,
+      setSelectedModel: (id) => setSelectedModel(id),
+      setSelectedSystemPrompt: (id) => {
+        if (id) {
+          setSelectedSystemPrompt(id)
+        }
+      },
+      setSystemPrompt,
+      setContextFiles
+    },
+    {
+      t,
+      errorLogPrefix: "Failed to load local chat history",
+      errorDefaultMessage: "Something went wrong while loading local chat history."
+    }
+  )
+
+  const pendingTimelineActionRef = React.useRef<TimelineActionDetail | null>(null)
+
+  const findMessageIndex = React.useCallback(
+    (messageId: string) =>
+      messages.findIndex(
+        (message) =>
+          message.id === messageId || message.serverMessageId === messageId
+      ),
+    [messages]
+  )
+
+  const scrollToMessage = React.useCallback(
+    (messageId: string) => {
+      const container = containerRef.current
+      if (!container) return false
+      const target = container.querySelector<HTMLElement>(
+        `[data-message-id="${messageId}"], [data-server-message-id="${messageId}"]`
+      )
+      if (!target) return false
+      target.scrollIntoView({ block: "center", behavior: "smooth" })
+      return true
+    },
+    [containerRef]
+  )
+
+  const dispatchEditMessage = React.useCallback((messageId: string) => {
+    if (typeof window === "undefined") return
+    window.dispatchEvent(
+      new CustomEvent(EDIT_MESSAGE_EVENT, { detail: { messageId } })
+    )
+  }, [])
+
+  const performTimelineAction = React.useCallback(
+    (detail: TimelineActionDetail) => {
+      if (!detail?.historyId) return true
+      if (detail.historyId !== historyId) return false
+
+      if (detail.action === "branch") {
+        if (!detail.messageId) return true
+        if (messages.length === 0) return false
+        const index = findMessageIndex(detail.messageId)
+        if (index < 0) return true
+        void createChatBranch(index)
+        return true
+      }
+
+      if (!detail.messageId) return true
+
+      const scrolled = scrollToMessage(detail.messageId)
+      if (!scrolled) {
+        if (!containerRef.current) return false
+        setTimeout(() => {
+          const retry = scrollToMessage(detail.messageId)
+          if (retry && detail.action === "edit") {
+            dispatchEditMessage(detail.messageId)
+          }
+        }, 80)
+        return true
+      }
+
+      if (detail.action === "edit") {
+        dispatchEditMessage(detail.messageId)
+      }
+      return true
+    },
+    [
+      containerRef,
+      createChatBranch,
+      dispatchEditMessage,
+      findMessageIndex,
+      historyId,
+      messages.length,
+      scrollToMessage
+    ]
+  )
+
+  const enqueueTimelineAction = React.useCallback(
+    (detail: TimelineActionDetail) => {
+      if (!detail?.historyId) return
+      if (detail.historyId !== historyId) {
+        pendingTimelineActionRef.current = detail
+        void loadLocalConversation(detail.historyId)
+        return
+      }
+
+      const handled = performTimelineAction(detail)
+      if (!handled) {
+        pendingTimelineActionRef.current = detail
+      }
+    },
+    [historyId, loadLocalConversation, performTimelineAction]
+  )
+
+  React.useEffect(() => {
+    const pending = pendingTimelineActionRef.current
+    if (!pending) return
+    const handled = performTimelineAction(pending)
+    if (handled) {
+      pendingTimelineActionRef.current = null
+    }
+  }, [historyId, messages, performTimelineAction])
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const handleTimelineActionEvent = (event: Event) => {
+      const detail = (event as CustomEvent<TimelineActionDetail>).detail
+      if (!detail?.historyId) return
+      enqueueTimelineAction(detail)
+    }
+
+    const handleOpenHistoryEvent = (event: Event) => {
+      const detail = (event as CustomEvent<OpenHistoryDetail>).detail
+      if (!detail?.historyId) return
+      enqueueTimelineAction({
+        action: "go",
+        historyId: detail.historyId,
+        messageId: detail.messageId
+      })
+    }
+
+    window.addEventListener(TIMELINE_ACTION_EVENT, handleTimelineActionEvent)
+    window.addEventListener(OPEN_HISTORY_EVENT, handleOpenHistoryEvent)
+    return () => {
+      window.removeEventListener(TIMELINE_ACTION_EVENT, handleTimelineActionEvent)
+      window.removeEventListener(OPEN_HISTORY_EVENT, handleOpenHistoryEvent)
+    }
+  }, [enqueueTimelineAction])
 
   const compareParentByHistory = useStoreMessageOption(
     (state) => state.compareParentByHistory

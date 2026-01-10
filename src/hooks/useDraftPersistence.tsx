@@ -5,10 +5,35 @@ import { createLocalRegistryBucket } from "@/services/settings/local-bucket"
 const DRAFT_BUCKET_PREFIX = "registry:draft:"
 const DRAFT_TTL_MS = 30 * 24 * 60 * 60 * 1000
 
-const draftBucket = createLocalRegistryBucket<string>({
+type DraftMetadata = Record<string, unknown>
+
+type DraftPayload = {
+  content: string
+  metadata?: DraftMetadata
+}
+
+type DraftValue = string | DraftPayload
+
+const draftBucket = createLocalRegistryBucket<DraftValue>({
   prefix: DRAFT_BUCKET_PREFIX,
   ttlMs: DRAFT_TTL_MS
 })
+
+const normalizeDraftValue = (value: DraftValue | null): DraftPayload | null => {
+  if (typeof value === "string") {
+    return { content: value }
+  }
+  if (!value || typeof value !== "object") return null
+  if (!("content" in value)) return null
+  const content = (value as DraftPayload).content
+  if (typeof content !== "string") return null
+  const metadata =
+    typeof (value as DraftPayload).metadata === "object" &&
+    (value as DraftPayload).metadata !== null
+      ? (value as DraftPayload).metadata
+      : undefined
+  return { content, metadata }
+}
 
 const readLegacyDraft = (storageKey: string): string | null => {
   if (typeof window === "undefined") return null
@@ -34,6 +59,8 @@ interface DraftPersistenceOptions {
   storageKey: string
   getValue: () => string
   setValue: (value: string) => void
+  getMetadata?: () => DraftMetadata | undefined
+  setValueWithMetadata?: (value: string, metadata?: DraftMetadata) => void
   enabled?: boolean
 }
 
@@ -54,16 +81,23 @@ export const useDraftPersistence = ({
   storageKey,
   getValue,
   setValue,
+  getMetadata,
+  setValueWithMetadata,
   enabled = true
 }: DraftPersistenceOptions): DraftPersistenceResult => {
   const [draftSaved, setDraftSaved] = React.useState(false)
   const draftSavedTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const persistTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const setValueRef = React.useRef(setValue)
+  const setValueWithMetadataRef = React.useRef(setValueWithMetadata)
 
   React.useEffect(() => {
     setValueRef.current = setValue
   }, [setValue])
+
+  React.useEffect(() => {
+    setValueWithMetadataRef.current = setValueWithMetadata
+  }, [setValueWithMetadata])
 
   // Restore unsent draft on mount
   React.useEffect(() => {
@@ -71,21 +105,26 @@ export const useDraftPersistence = ({
     let cancelled = false
     const restoreDraft = async () => {
       const record = await draftBucket.get(storageKey)
-      let draftValue = record?.value ?? null
+      let draftValue = normalizeDraftValue(record?.value ?? null)
 
-      if (!draftValue) {
+      if (!draftValue?.content) {
         const legacyDraft = readLegacyDraft(storageKey)
         if (legacyDraft) {
           await draftBucket.set(storageKey, legacyDraft)
           clearLegacyDraft(storageKey)
-          draftValue = legacyDraft
+          draftValue = { content: legacyDraft }
         }
       } else {
         clearLegacyDraft(storageKey)
       }
 
-      if (!cancelled && draftValue) {
-        setValueRef.current(draftValue)
+      if (!cancelled && draftValue?.content) {
+        const setValueWithMetadata = setValueWithMetadataRef.current
+        if (setValueWithMetadata) {
+          setValueWithMetadata(draftValue.content, draftValue.metadata)
+        } else {
+          setValueRef.current(draftValue.content)
+        }
       }
     }
 
@@ -130,7 +169,11 @@ export const useDraftPersistence = ({
     setDraftSaved(false)
     persistTimeoutRef.current = setTimeout(() => {
       void (async () => {
-        await draftBucket.set(storageKey, value)
+        const metadata = getMetadata?.()
+        const nextValue: DraftValue = getMetadata
+          ? { content: value, metadata }
+          : value
+        await draftBucket.set(storageKey, nextValue)
         clearLegacyDraft(storageKey)
         if (cancelled) return
 
@@ -148,7 +191,7 @@ export const useDraftPersistence = ({
         persistTimeoutRef.current = null
       }
     }
-  }, [currentValue, storageKey, enabled])
+  }, [currentValue, storageKey, enabled, getMetadata])
 
   // Cleanup timeout on unmount
   React.useEffect(() => {

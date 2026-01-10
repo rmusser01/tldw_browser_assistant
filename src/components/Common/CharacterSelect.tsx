@@ -4,6 +4,7 @@ import { UserCircle2 } from "lucide-react"
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTranslation } from "react-i18next"
+import { browser } from "wxt/browser"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { IconButton } from "./IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
@@ -138,6 +139,35 @@ export const CharacterSelect: React.FC<Props> = ({
     defaultValue: "Search characters by name"
   }) as string
 
+  const handleImportSuccess = React.useCallback(
+    (imported: any) => {
+      const importedCharacter =
+        imported?.character ??
+        (imported?.id && imported?.name
+          ? { id: imported.id, name: imported.name }
+          : imported)
+      const successDetail =
+        typeof imported?.message === "string" && imported.message.trim()
+          ? imported.message
+          : undefined
+
+      notification.success({
+        message: t("settings:manageCharacters.notification.addSuccess", {
+          defaultValue: "Character created"
+        }),
+        description: successDetail
+      })
+      refetch({ cancelRefetch: true })
+      try {
+        const normalized = normalizeCharacter(importedCharacter || {})
+        setSelectedCharacter(normalized)
+      } catch {
+        // ignore normalization failures; list will refresh
+      }
+    },
+    [notification, refetch, setSelectedCharacter, t]
+  )
+
   React.useEffect(() => {
     if (!error || isFetching) {
       lastErrorRef.current = null
@@ -187,11 +217,19 @@ export const CharacterSelect: React.FC<Props> = ({
     previousCharacterId.current = selectedCharacter?.id ?? null
   }, [notification, selectedCharacter?.id, selectedCharacter?.name, t])
 
-  const handleOpenCharacters = React.useCallback(() => {
+  const buildCharactersHash = React.useCallback((create?: boolean) => {
+    const params = new URLSearchParams({ from: "header-select" })
+    if (create) {
+      params.set("create", "true")
+    }
+    return `#/characters?${params.toString()}`
+  }, [])
+
+  const handleOpenCharacters = React.useCallback((options?: { create?: boolean }) => {
     try {
       if (typeof window === "undefined") return
 
-      const hash = "#/characters?from=header-select"
+      const hash = buildCharactersHash(options?.create)
       const pathname = window.location.pathname || ""
 
       // If we're already inside the options UI, just switch routes in-place.
@@ -218,7 +256,11 @@ export const CharacterSelect: React.FC<Props> = ({
     } catch {
       // ignore navigation errors
     }
-  }, [])
+  }, [buildCharactersHash])
+
+  const handleOpenCreate = React.useCallback(() => {
+    handleOpenCharacters({ create: true })
+  }, [handleOpenCharacters])
 
   const handleImportClick = React.useCallback(() => {
     if (isImporting) return
@@ -269,31 +311,8 @@ export const CharacterSelect: React.FC<Props> = ({
         await tldwClient.initialize().catch(() => null)
         const importCharacter = async (allowImageOnly = false) =>
           await tldwClient.importCharacterFile(file, { allowImageOnly })
-        let selectedPayload: Record<string, any> | null = null
-        let successDetail: string | undefined
         const imported = await importCharacter()
-        const importedCharacter =
-          imported?.character ??
-          (imported?.id && imported?.name
-            ? { id: imported.id, name: imported.name }
-            : imported)
-        selectedPayload = importedCharacter
-        if (typeof imported?.message === "string" && imported.message.trim()) {
-          successDetail = imported.message
-        }
-        notification.success({
-          message: t("settings:manageCharacters.notification.addSuccess", {
-            defaultValue: "Character created"
-          }),
-          description: successDetail
-        })
-        refetch({ cancelRefetch: true })
-        try {
-          const normalized = normalizeCharacter(selectedPayload || {})
-          setSelectedCharacter(normalized)
-        } catch {
-          // ignore normalization failures; list will refresh
-        }
+        handleImportSuccess(imported)
       } catch (error) {
         const imageOnlyDetail = getImageOnlyDetail(error)
         if (imageOnlyDetail) {
@@ -305,28 +324,7 @@ export const CharacterSelect: React.FC<Props> = ({
               const imported = await tldwClient.importCharacterFile(file, {
                 allowImageOnly: true
               })
-              const importedCharacter =
-                imported?.character ??
-                (imported?.id && imported?.name
-                  ? { id: imported.id, name: imported.name }
-                  : imported)
-              const successDetail =
-                typeof imported?.message === "string" && imported.message.trim()
-                  ? imported.message
-                  : undefined
-              notification.success({
-                message: t("settings:manageCharacters.notification.addSuccess", {
-                  defaultValue: "Character created"
-                }),
-                description: successDetail
-              })
-              refetch({ cancelRefetch: true })
-              try {
-                const normalized = normalizeCharacter(importedCharacter || {})
-                setSelectedCharacter(normalized)
-              } catch {
-                // ignore normalization failures; list will refresh
-              }
+              handleImportSuccess(imported)
             } catch (retryError) {
               const messageText =
                 retryError instanceof Error
@@ -363,7 +361,7 @@ export const CharacterSelect: React.FC<Props> = ({
         event.target.value = ""
       }
     },
-    [modal, notification, refetch, setSelectedCharacter, t]
+    [handleImportSuccess, modal, notification, refetch, setSelectedCharacter, t]
   )
 
   const filteredCharacters = React.useMemo(() => {
@@ -498,7 +496,7 @@ export const CharacterSelect: React.FC<Props> = ({
         {createNewLabel}
       </button>
     ),
-    onClick: handleOpenCharacters
+    onClick: handleOpenCreate
   }
 
   const openPageItem: MenuProps["items"][number] = {
@@ -511,7 +509,7 @@ export const CharacterSelect: React.FC<Props> = ({
         {openPageLabel}
       </button>
     ),
-    onClick: handleOpenCharacters
+    onClick: () => handleOpenCharacters()
   }
 
   const importItem: MenuProps["items"][number] = {
@@ -551,7 +549,7 @@ export const CharacterSelect: React.FC<Props> = ({
             </button>
           </div>
         ),
-        onClick: handleOpenCharacters
+        onClick: handleOpenCreate
       }
     )
   } else {

@@ -410,6 +410,76 @@ const buildContentItems = async (
   }
 }
 
+const FETCH_ALL_ONCE_TYPES = new Set<ContentTypeKey>([
+  "prompt",
+  "evaluation",
+  "world_book",
+  "dictionary",
+  "generated_document"
+])
+
+const fetchAllItemsCache = new Map<ContentTypeKey, ChatbookEntity[]>()
+
+const fetchAllItemsForType = async (type: ContentTypeKey): Promise<ChatbookEntity[]> => {
+  if (fetchAllItemsCache.has(type)) {
+    return fetchAllItemsCache.get(type) ?? []
+  }
+  let items: ChatbookEntity[] = []
+
+  switch (type) {
+    case "prompt": {
+      const data = await bgRequest<any>({
+        path: "/api/v1/prompts",
+        method: "GET"
+      })
+      const list = Array.isArray(data) ? data : data?.items || data?.results || data || []
+      items = (Array.isArray(list) ? list : []).map(mapPrompt)
+      break
+    }
+    case "evaluation": {
+      const data = await bgRequest<any>({
+        path: "/api/v1/evaluations?limit=200",
+        method: "GET"
+      })
+      const list = data?.data || data?.items || data?.results || data || []
+      items = (Array.isArray(list) ? list : []).map(mapEvaluation)
+      break
+    }
+    case "world_book": {
+      const data = await bgRequest<any>({
+        path: "/api/v1/characters/world-books",
+        method: "GET"
+      })
+      const list = Array.isArray(data) ? data : data?.items || data?.results || data || []
+      items = (Array.isArray(list) ? list : []).map(mapWorldBook)
+      break
+    }
+    case "dictionary": {
+      const data = await bgRequest<any>({
+        path: "/api/v1/chat/dictionaries",
+        method: "GET"
+      })
+      const list = Array.isArray(data) ? data : data?.items || data?.results || data || []
+      items = (Array.isArray(list) ? list : []).map(mapDictionary)
+      break
+    }
+    case "generated_document": {
+      const data = await bgRequest<any>({
+        path: `/api/v1/chat/documents?limit=${SEARCH_FETCH_LIMIT}`,
+        method: "GET"
+      })
+      const list = data?.documents || data?.items || data?.results || data?.data || data || []
+      items = (Array.isArray(list) ? list : []).map(mapGeneratedDocument)
+      break
+    }
+    default:
+      items = []
+  }
+
+  fetchAllItemsCache.set(type, items)
+  return items
+}
+
 const INCLUDE_ALL_PAGE_SIZES: Record<ContentTypeKey, number> = {
   conversation: 200,
   note: 1000,
@@ -424,6 +494,10 @@ const INCLUDE_ALL_PAGE_SIZES: Record<ContentTypeKey, number> = {
 }
 
 const fetchAllIds = async (type: ContentTypeKey) => {
+  if (FETCH_ALL_ONCE_TYPES.has(type)) {
+    const items = await fetchAllItemsForType(type)
+    return Array.from(new Set(items.map((item) => item.id).filter(Boolean)))
+  }
   const pageSize = INCLUDE_ALL_PAGE_SIZES[type] || 200
   if (!pageSize) return []
   const ids: string[] = []

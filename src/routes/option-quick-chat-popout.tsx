@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next"
 import { useQuickChatStore } from "@/store/quick-chat"
 import { useQuickChat } from "@/hooks/useQuickChat"
 import { fetchChatModels } from "@/services/tldw-server"
-import { getProviderDisplayName } from "@/utils/provider-registry"
 import { QuickChatMessage } from "@/components/Common/QuickChatHelper/QuickChatMessage"
 import { QuickChatInput } from "@/components/Common/QuickChatHelper/QuickChatInput"
 import { AlertCircle } from "lucide-react"
+import { useChatModelsSelect } from "@/hooks/useChatModelsSelect"
 
 const QuickChatPopout: React.FC = () => {
   const { t } = useTranslation(["option", "common"])
@@ -30,7 +30,12 @@ const QuickChatPopout: React.FC = () => {
   } = useQuickChat()
   const { data: models = [], isLoading: modelsLoading } = useQuery({
     queryKey: ["quickChatModels"],
-    queryFn: () => fetchChatModels({ returnEmpty: true })
+    queryFn: () => fetchChatModels({ returnEmpty: true }),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    select: (data) => data.filter((model) => model?.model)
   })
 
   // Restore state from sessionStorage on mount
@@ -46,9 +51,11 @@ const QuickChatPopout: React.FC = () => {
         const parsed: any = JSON.parse(savedState)
         // Validate parsed state structure before restoring
         if (parsed && typeof parsed === "object" && Array.isArray(parsed.messages)) {
+          const nextModelOverride =
+            typeof parsed.modelOverride === "string" ? parsed.modelOverride : null
           useQuickChatStore.getState().restoreFromState({
             messages: parsed.messages,
-            modelOverride: parsed.modelOverride ?? null
+            modelOverride: nextModelOverride
           })
         } else {
           console.warn("Invalid quick chat state structure in sessionStorage")
@@ -87,32 +94,14 @@ const QuickChatPopout: React.FC = () => {
     "quickChatHelper.emptyState",
     "Start a quick side chat to keep your main thread clean."
   )
-  const formatModelLabel = React.useCallback(
-    (model: { model: string; nickname?: string; provider?: string }) => {
-      const providerLabel = getProviderDisplayName(model.provider)
-      const modelLabel = model.nickname || model.model
-      return providerLabel ? `${providerLabel} - ${modelLabel}` : modelLabel
-    },
-    []
-  )
-  const modelOptions = React.useMemo(
-    () =>
-      models.map((model) => ({
-        label: formatModelLabel(model),
-        value: model.model
-      })),
-    [formatModelLabel, models]
-  )
-  const currentModelLabel = React.useMemo(() => {
-    if (!currentModel) return null
-    const match = models.find((model) => model.model === currentModel)
-    return match ? formatModelLabel(match) : currentModel
-  }, [currentModel, formatModelLabel, models])
-  const modelPlaceholder = currentModelLabel
-    ? t("quickChatHelper.modelPlaceholder", "Current: {{model}}", {
-        model: currentModelLabel
-      })
-    : t("quickChatHelper.modelPlaceholderEmpty", "Select a model")
+  const { allowClear, modelOptions, modelPlaceholder, handleModelChange } =
+    useChatModelsSelect({
+      models,
+      currentModel,
+      modelOverride,
+      setModelOverride,
+      t
+    })
 
   return (
     <div className="flex flex-col h-screen bg-white dark:bg-gray-900">
@@ -132,15 +121,9 @@ const QuickChatPopout: React.FC = () => {
           placeholder={modelPlaceholder}
           loading={modelsLoading}
           optionFilterProp="label"
-          allowClear={!!modelOverride}
+          allowClear={allowClear}
           aria-label={t("quickChatHelper.modelLabel", "Model")}
-          onChange={(value) => {
-            if (!value || (currentModel && value === currentModel)) {
-              setModelOverride(null)
-              return
-            }
-            setModelOverride(value)
-          }}
+          onChange={handleModelChange}
         />
       </div>
 

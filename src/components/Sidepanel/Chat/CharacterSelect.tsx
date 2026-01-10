@@ -42,9 +42,29 @@ export const CharacterSelect: React.FC<Props> = ({
   const [isImporting, setIsImporting] = useState(false)
   const searchInputRef = useRef<InputRef | null>(null)
   const importInputRef = useRef<HTMLInputElement | null>(null)
+  const imageOnlyModalRef = useRef<{ destroy: () => void } | null>(null)
+  const imageOnlyModalResolveRef = useRef<((value: boolean) => void) | null>(
+    null
+  )
   const { capabilities } = useServerCapabilities()
 
   const hasCharacters = capabilities?.hasCharacters
+
+  const destroyImageOnlyModal = React.useCallback(() => {
+    if (!imageOnlyModalRef.current) return
+    imageOnlyModalRef.current.destroy()
+    imageOnlyModalRef.current = null
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (imageOnlyModalResolveRef.current) {
+        imageOnlyModalResolveRef.current(false)
+        imageOnlyModalResolveRef.current = null
+      }
+      destroyImageOnlyModal()
+    }
+  }, [destroyImageOnlyModal])
 
   const { data: characters = [], isLoading, refetch } = useQuery({
     queryKey: ["characters-list"],
@@ -105,7 +125,14 @@ export const CharacterSelect: React.FC<Props> = ({
 
     const confirmImageOnlyImport = (message?: string) =>
       new Promise<boolean>((resolve) => {
-        const instance = modal.confirm({
+        let settled = false
+        const finish = (value: boolean) => {
+          if (settled) return
+          settled = true
+          resolve(value)
+        }
+        imageOnlyModalResolveRef.current = finish
+        imageOnlyModalRef.current = modal.confirm({
           title: t("settings:manageCharacters.imageOnlyTitle", {
             defaultValue: "No character data detected"
           }),
@@ -122,31 +149,28 @@ export const CharacterSelect: React.FC<Props> = ({
           centered: true,
           okButtonProps: { danger: false },
           maskClosable: false,
-          onOk: () => resolve(true),
-          onCancel: () => resolve(false)
+          onOk: () => finish(true),
+          onCancel: () => finish(false)
         })
-        void instance
+      }).finally(() => {
+        imageOnlyModalResolveRef.current = null
+        destroyImageOnlyModal()
       })
 
-    try {
-      setIsImporting(true)
-      await tldwClient.initialize().catch(() => null)
-      const importCharacter = async (allowImageOnly = false) =>
-        await tldwClient.importCharacterFile(file, {
-          allowImageOnly
-        })
-      let selectedPayload: Record<string, any> | null = null
-      let successDetail: string | undefined
-      const imported = await importCharacter()
+    const importCharacter = async (allowImageOnly = false) =>
+      await tldwClient.importCharacterFile(file, {
+        allowImageOnly
+      })
+    const handleImportSuccess = (imported: Record<string, any>) => {
       const importedCharacter =
         imported?.character ??
         (imported?.id && imported?.name
           ? { id: imported.id, name: imported.name }
           : imported)
-      selectedPayload = importedCharacter
-      if (typeof imported?.message === "string" && imported.message.trim()) {
-        successDetail = imported.message
-      }
+      const successDetail =
+        typeof imported?.message === "string" && imported.message.trim()
+          ? imported.message
+          : undefined
       notification.success({
         message: t("settings:manageCharacters.notification.addSuccess", {
           defaultValue: "Character created"
@@ -155,12 +179,19 @@ export const CharacterSelect: React.FC<Props> = ({
       })
       refetch({ cancelRefetch: true })
       const createdId =
-        selectedPayload?.id ??
-        selectedPayload?.character_id ??
-        selectedPayload?.characterId
+        importedCharacter?.id ??
+        importedCharacter?.character_id ??
+        importedCharacter?.characterId
       if (createdId != null) {
         setSelectedCharacterId(String(createdId))
       }
+    }
+
+    try {
+      setIsImporting(true)
+      await tldwClient.initialize().catch(() => null)
+      const imported = await importCharacter()
+      handleImportSuccess(imported)
     } catch (error) {
       const imageOnlyDetail = getImageOnlyDetail(error)
       if (imageOnlyDetail) {
@@ -169,32 +200,8 @@ export const CharacterSelect: React.FC<Props> = ({
         )
         if (confirmed) {
           try {
-            const imported = await tldwClient.importCharacterFile(file, {
-              allowImageOnly: true
-            })
-            const importedCharacter =
-              imported?.character ??
-              (imported?.id && imported?.name
-                ? { id: imported.id, name: imported.name }
-                : imported)
-            const successDetail =
-              typeof imported?.message === "string" && imported.message.trim()
-                ? imported.message
-                : undefined
-            notification.success({
-              message: t("settings:manageCharacters.notification.addSuccess", {
-                defaultValue: "Character created"
-              }),
-              description: successDetail
-            })
-            refetch({ cancelRefetch: true })
-            const createdId =
-              importedCharacter?.id ??
-              importedCharacter?.character_id ??
-              importedCharacter?.characterId
-            if (createdId != null) {
-              setSelectedCharacterId(String(createdId))
-            }
+            const imported = await importCharacter(true)
+            handleImportSuccess(imported)
           } catch (retryError) {
             const messageText =
               retryError instanceof Error ? retryError.message : String(retryError)
@@ -230,11 +237,19 @@ export const CharacterSelect: React.FC<Props> = ({
     }
   }
 
-  const openCharactersWorkspace = React.useCallback(() => {
+  const buildCharactersHash = React.useCallback((create?: boolean) => {
+    const params = new URLSearchParams({ from: "sidepanel-character-select" })
+    if (create) {
+      params.set("create", "true")
+    }
+    return `#/characters?${params.toString()}`
+  }, [])
+
+  const openCharactersWorkspace = React.useCallback((options?: { create?: boolean }) => {
+    const hash = buildCharactersHash(options?.create)
     try {
       if (typeof window === "undefined") return
 
-      const hash = "#/characters?from=sidepanel-character-select"
       const url = browser.runtime.getURL(`/options.html${hash}`)
 
       if (browser.tabs?.create) {
@@ -247,11 +262,8 @@ export const CharacterSelect: React.FC<Props> = ({
       // fall back to window.open below
     }
 
-    window.open(
-      "/options.html#/characters?from=sidepanel-character-select",
-      "_blank"
-    )
-  }, [])
+    window.open(`/options.html${hash}`, "_blank")
+  }, [buildCharactersHash])
 
   const createCharacterItem = (char: Character): MenuItemType => ({
     key: String(char.id),
@@ -293,7 +305,7 @@ export const CharacterSelect: React.FC<Props> = ({
       ),
       onClick: () => {
         setDropdownOpen(false)
-        openCharactersWorkspace()
+        openCharactersWorkspace({ create: true })
       }
     }
     const importItem: ItemType = {

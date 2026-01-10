@@ -48,6 +48,60 @@ const shouldRecordRequestError = (entry: {
   return true
 }
 
+const REDACTED_VALUE = "[REDACTED]"
+const SENSITIVE_KEY_FRAGMENTS = [
+  "stack",
+  "trace",
+  "sql",
+  "query",
+  "password",
+  "passwd",
+  "token",
+  "secret",
+  "path",
+  "headers",
+  "internalid",
+  "authorization",
+  "cookie",
+  "api_key",
+  "apikey",
+  "access_key",
+  "accesskey",
+  "private",
+  "credential",
+  "session",
+  "bearer"
+]
+
+const isSensitiveKey = (key: string): boolean => {
+  const normalized = key.toLowerCase().replace(/[\s-]/g, "_")
+  return SENSITIVE_KEY_FRAGMENTS.some((fragment) => normalized.includes(fragment))
+}
+
+// Redact known sensitive fields (stack/trace/sql/query/secret/headers/etc.) recursively.
+const sanitizeResponseData = (
+  value: unknown,
+  seen: WeakSet<object> = new WeakSet()
+): unknown => {
+  if (value == null || typeof value !== "object") return value
+  if (seen.has(value as object)) return REDACTED_VALUE
+  seen.add(value as object)
+
+  if (Array.isArray(value)) {
+    return value.map((entry) => sanitizeResponseData(entry, seen))
+  }
+
+  const result: Record<string, unknown> = {}
+  Object.entries(value as Record<string, unknown>).forEach(([key, entry]) => {
+    if (isSensitiveKey(key)) {
+      result[key] = REDACTED_VALUE
+      return
+    }
+    result[key] = sanitizeResponseData(entry, seen)
+  })
+  return result
+}
+
 export interface BgRequestInit<
   P extends PathOrUrl = AllowedPath,
   M extends AllowedMethodFor<P> = AllowedMethodFor<P>
@@ -315,7 +369,7 @@ export async function bgUpload<T = any, P extends AllowedPath = AllowedPath, M e
     const error = new Error(msg) as Error & { status?: number; details?: unknown }
     error.status = resp?.status
     if (typeof resp?.data !== "undefined") {
-      error.details = resp.data
+      error.details = sanitizeResponseData(resp.data)
     }
     throw error
   }

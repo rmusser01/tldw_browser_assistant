@@ -27,6 +27,9 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
 
   const {
     folders,
+    keywords,
+    folderKeywordLinks,
+    conversationKeywordLinks,
     isLoading,
     folderApiAvailable,
     getFolderTree,
@@ -36,6 +39,9 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
   } = useFolderStore(
     (state) => ({
       folders: state.folders,
+      keywords: state.keywords,
+      folderKeywordLinks: state.folderKeywordLinks,
+      conversationKeywordLinks: state.conversationKeywordLinks,
       isLoading: state.isLoading,
       folderApiAvailable: state.folderApiAvailable,
       getFolderTree: state.getFolderTree,
@@ -59,7 +65,10 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
     }
   }, [open])
 
-  const folderTree = React.useMemo(() => getFolderTree(), [getFolderTree, folders])
+  const folderTree = React.useMemo(
+    () => getFolderTree(),
+    [getFolderTree, folders, keywords, folderKeywordLinks, conversationKeywordLinks]
+  )
 
   const treeData: TreeProps["treeData"] = React.useMemo(() => {
     const buildTreeData = (
@@ -84,7 +93,12 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
 
   const handleCheck: TreeProps["onCheck"] = (checked) => {
     if (Array.isArray(checked)) {
-      setSelectedFolderIds(checked as number[])
+      setSelectedFolderIds(checked.map(Number))
+      return
+    }
+
+    if (checked && typeof checked === "object" && "checked" in checked) {
+      setSelectedFolderIds((checked.checked ?? []).map(Number))
     }
   }
 
@@ -107,12 +121,29 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
     setIsSaving(true)
     try {
       const tasks = conversationIds.flatMap((conversationId) =>
-        selectedFolderIds.map(async (folderId) => {
-          const ok = await addConversationToFolder(conversationId, folderId)
-          return { ok, conversationId, folderId }
-        })
+        selectedFolderIds.map((folderId) => ({
+          conversationId,
+          folderId
+        }))
       )
-      const results = await Promise.allSettled(tasks)
+      const results: PromiseSettledResult<{
+        ok: boolean
+        conversationId: string
+        folderId: number
+      }>[] = []
+      // Limit concurrent requests to avoid large bursts on bulk apply.
+      const maxConcurrentRequests = 12
+
+      for (let i = 0; i < tasks.length; i += maxConcurrentRequests) {
+        const chunk = tasks.slice(i, i + maxConcurrentRequests).map(async (task) => {
+          const ok = await addConversationToFolder(
+            task.conversationId,
+            task.folderId
+          )
+          return { ok, conversationId: task.conversationId, folderId: task.folderId }
+        })
+        results.push(...(await Promise.allSettled(chunk)))
+      }
       const failures = results.filter(
         (result) => result.status === "fulfilled" && !result.value.ok
       ).length +

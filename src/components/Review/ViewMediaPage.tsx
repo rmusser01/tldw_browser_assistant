@@ -930,12 +930,27 @@ const MediaPageContent: React.FC = () => {
         `${t('review:mediaPage.media', { defaultValue: 'Media' })} ${idStr}`
       try {
         if (item.kind === 'note') {
+          const parseVersionCandidate = (value: unknown): number | null => {
+            if (typeof value === 'number' && Number.isFinite(value)) return value
+            if (typeof value === 'string') {
+              const trimmed = value.trim()
+              if (/^\d+$/.test(trimmed)) return Number.parseInt(trimmed, 10)
+            }
+            return null
+          }
           let expectedVersion: number | null = null
-          const detailVersion = detail?.version ?? detail?.metadata?.version
-          const rawVersion = item.raw?.version ?? item.raw?.metadata?.version
-          if (typeof detailVersion === 'number') expectedVersion = detailVersion
-          if (expectedVersion == null && typeof rawVersion === 'number') {
-            expectedVersion = rawVersion
+          const versionCandidates = [
+            detail?.version,
+            detail?.metadata?.version,
+            item.raw?.version,
+            item.raw?.metadata?.version
+          ]
+          for (const candidate of versionCandidates) {
+            const parsed = parseVersionCandidate(candidate)
+            if (parsed != null) {
+              expectedVersion = parsed
+              break
+            }
           }
           if (expectedVersion == null) {
             try {
@@ -943,10 +958,9 @@ const MediaPageContent: React.FC = () => {
                 path: `/api/v1/notes/${id}` as any,
                 method: 'GET' as any
               })
-              const latestVersion = latest?.version ?? latest?.metadata?.version
-              if (typeof latestVersion === 'number') {
-                expectedVersion = latestVersion
-              }
+              expectedVersion =
+                parseVersionCandidate(latest?.version) ??
+                parseVersionCandidate(latest?.metadata?.version)
             } catch {
               throw new Error(
                 t('review:mediaPage.noteDeleteNeedsReload', {
@@ -1045,7 +1059,11 @@ const MediaPageContent: React.FC = () => {
               (r: MediaResultItem) => String(r.id) === idStr
             )
             if (restoredItem) {
-              setSelected(restoredItem)
+              setSelected((prev) => {
+                const prevId = prev?.id != null ? String(prev.id) : null
+                if (!prevId || prevId === idStr) return restoredItem
+                return prev
+              })
             }
           }
         })
@@ -1285,6 +1303,7 @@ const MediaPageContent: React.FC = () => {
                   type="button"
                   onClick={() => navigate('/media-trash')}
                   className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-muted hover:bg-surface2 hover:text-text"
+                  aria-label={t('review:mediaPage.openTrash', { defaultValue: 'Trash' })}
                   title={t('review:mediaPage.openTrash', { defaultValue: 'Trash' })}
                 >
                   <Trash2 className="h-3.5 w-3.5" />

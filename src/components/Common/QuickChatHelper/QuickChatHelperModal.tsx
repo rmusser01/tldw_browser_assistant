@@ -6,12 +6,12 @@ import { useTranslation } from "react-i18next"
 import { useQuickChat } from "@/hooks/useQuickChat"
 import { useQuickChatStore } from "@/store/quick-chat"
 import { fetchChatModels } from "@/services/tldw-server"
-import { getProviderDisplayName } from "@/utils/provider-registry"
 import { QuickChatMessage } from "./QuickChatMessage"
 import { QuickChatInput } from "./QuickChatInput"
 import { browser } from "wxt/browser"
 import { useConnectionPhase, useIsConnected } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
+import { useChatModelsSelect } from "@/hooks/useChatModelsSelect"
 
 const EMPTY_POP_OUT_TOOLTIP_STYLES = {
   root: { maxWidth: "200px" }
@@ -41,32 +41,20 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
   const { data: models = [], isLoading: modelsLoading } = useQuery({
     queryKey: ["quickChatModels"],
-    queryFn: () => fetchChatModels({ returnEmpty: true })
+    queryFn: () => fetchChatModels({ returnEmpty: true }),
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    select: (data) => data.filter((model) => model?.model)
   })
 
-  const formatModelLabel = useCallback(
-    (model: { model: string; nickname?: string; provider?: string }) => {
-      const providerLabel = getProviderDisplayName(model.provider)
-      const modelLabel = model.nickname || model.model
-      return providerLabel ? `${providerLabel} - ${modelLabel}` : modelLabel
-    },
-    []
-  )
-
-  const modelOptions = React.useMemo(
-    () =>
-      models.map((model) => ({
-        label: formatModelLabel(model),
-        value: model.model
-      })),
-    [formatModelLabel, models]
-  )
-
-  const currentModelLabel = React.useMemo(() => {
-    if (!currentModel) return null
-    const match = models.find((model) => model.model === currentModel)
-    return match ? formatModelLabel(match) : currentModel
-  }, [currentModel, formatModelLabel, models])
+  const { allowClear, modelOptions, modelPlaceholder, handleModelChange } =
+    useChatModelsSelect({
+      models,
+      currentModel,
+      modelOverride,
+      setModelOverride,
+      t
+    })
 
   const getModalContainer = useCallback(() => {
     if (typeof document === "undefined") return null
@@ -122,11 +110,6 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
   const connectionDotClass = isConnectionReady
     ? "bg-success"
     : "bg-warn"
-  const modelPlaceholder = currentModelLabel
-    ? t("quickChatHelper.modelPlaceholder", "Current: {{model}}", {
-        model: currentModelLabel
-      })
-    : t("quickChatHelper.modelPlaceholderEmpty", "Select a model")
   const descriptionId =
     messages.length === 0 ? "quick-chat-description" : undefined
 
@@ -173,15 +156,9 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
             placeholder={modelPlaceholder}
             loading={modelsLoading}
             optionFilterProp="label"
-            allowClear={!!modelOverride}
+            allowClear={allowClear}
             aria-label={t("quickChatHelper.modelLabel", "Model")}
-            onChange={(value) => {
-              if (!value || (currentModel && value === currentModel)) {
-                setModelOverride(null)
-                return
-              }
-              setModelOverride(value)
-            }}
+            onChange={handleModelChange}
           />
           <span
             role="status"

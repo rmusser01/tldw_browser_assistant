@@ -13,23 +13,37 @@ const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
 type DocSource = "extension" | "server"
 
+type DocImportMap = Record<string, () => Promise<string>>
+
 type DocEntry = {
   id: string
   title: string
-  content: string
   source: DocSource
   relativePath: string
   fullPath: string
+  importPath: string
 }
 
-const EXTENSION_DOC_IMPORTS = import.meta.glob<string>(
+type DocLoadState = {
+  status: "loading" | "loaded" | "error"
+  content?: string
+  title?: string
+  error?: string
+}
+
+const EXTENSION_DOC_IMPORTS: DocImportMap = import.meta.glob<string>(
   "/Docs/User_Documentation/**/*.{md,mdx}",
-  { eager: true, as: "raw" }
+  { as: "raw" }
 )
-const SERVER_DOC_IMPORTS = import.meta.glob<string>(
+const SERVER_DOC_IMPORTS: DocImportMap = import.meta.glob<string>(
   "/Docs/Published/**/*.{md,mdx}",
-  { eager: true, as: "raw" }
+  { as: "raw" }
 )
+
+const DOC_IMPORTS_BY_SOURCE: Record<DocSource, DocImportMap> = {
+  extension: EXTENSION_DOC_IMPORTS,
+  server: SERVER_DOC_IMPORTS
+}
 
 const stripFrontmatter = (content: string) =>
   content.replace(/^---[\s\S]*?---\s*/, "")
@@ -58,28 +72,37 @@ const extractTitle = (content: string, fallback: string) => {
 const normalizePath = (path: string) => path.replace(/^\/+/, "")
 
 const buildDocs = (
-  imports: Record<string, string>,
+  imports: DocImportMap,
   source: DocSource,
   baseDir: string
 ): DocEntry[] =>
-  Object.entries(imports)
-    .map(([path, content]) => {
+  Object.keys(imports)
+    .map((path) => {
       const fullPath = normalizePath(path)
       const relativePath = fullPath.startsWith(`${baseDir}/`)
         ? fullPath.slice(baseDir.length + 1)
         : fullPath
-      const fallbackTitle = fileTitleFromPath(relativePath)
-      const title = extractTitle(content, fallbackTitle)
       return {
         id: `${source}:${fullPath}`,
-        title,
-        content,
+        title: fileTitleFromPath(relativePath),
         source,
         relativePath,
-        fullPath
+        fullPath,
+        importPath: path
       }
     })
     .sort((a, b) => a.title.localeCompare(b.title))
+
+const resolveSelectedDocSelection = (
+  docs: DocEntry[],
+  activeId: string | null
+) => {
+  if (activeId && docs.some((doc) => doc.id === activeId)) {
+    return { selectedId: activeId, shouldSync: false }
+  }
+  const selectedId = docs[0]?.id ?? null
+  return { selectedId, shouldSync: selectedId !== null }
+}
 
 const EXTENSION_DOCS = buildDocs(
   EXTENSION_DOC_IMPORTS,
@@ -106,6 +129,10 @@ export const DocumentationPage: React.FC = () => {
     server: SERVER_DOCS[0]?.id ?? null
   }))
   const [searchQuery, setSearchQuery] = React.useState("")
+  const [docStateById, setDocStateById] = React.useState<
+    Record<string, DocLoadState>
+  >({})
+  const loadingDocIds = React.useRef(new Set<string>())
 
   const docsBySource = React.useMemo(
     () => ({
@@ -137,23 +164,155 @@ export const DocumentationPage: React.FC = () => {
   const filterDocs = React.useCallback(
     (docs: DocEntry[]) => {
       if (!trimmedQuery) return docs
-      return docs.filter((doc) =>
-        textContainsQuery(`${doc.title}\n${doc.content}`, trimmedQuery)
-      )
+      return docs.filter((doc) => {
+        const docState = docStateById[doc.id]
+        const title = docState?.title ?? doc.title
+        const content = docState?.content ?? ""
+        return textContainsQuery(`${title}\n${content}`, trimmedQuery)
+      })
     },
-    [trimmedQuery]
+    [docStateById, trimmedQuery]
   )
+
+  const filteredDocsBySource = React.useMemo(
+    () => ({
+      extension: filterDocs(docsBySource.extension),
+      server: filterDocs(docsBySource.server)
+    }),
+    [docsBySource, filterDocs]
+  )
+
+  const resolvedSelectionBySource = React.useMemo(
+    () => ({
+      extension: resolveSelectedDocSelection(
+        filteredDocsBySource.extension,
+        activeDocIds.extension
+      ),
+      server: resolveSelectedDocSelection(
+        filteredDocsBySource.server,
+        activeDocIds.server
+      )
+    }),
+    [activeDocIds, filteredDocsBySource]
+  )
+
+  const selectedDocIdBySource = React.useMemo(
+    () => ({
+      extension: resolvedSelectionBySource.extension.selectedId,
+      server: resolvedSelectionBySource.server.selectedId
+    }),
+    [resolvedSelectionBySource]
+  )
+
+  const selectedDocBySource = React.useMemo(
+    () => ({
+      extension:
+        filteredDocsBySource.extension.find(
+          (doc) => doc.id === selectedDocIdBySource.extension
+        ) ?? null,
+      server:
+        filteredDocsBySource.server.find(
+          (doc) => doc.id === selectedDocIdBySource.server
+        ) ?? null
+    }),
+    [filteredDocsBySource, selectedDocIdBySource]
+  )
+
+  React.useEffect(() => {
+    const sources: DocSource[] = ["extension", "server"]
+    const nextActiveDocIds = { ...activeDocIds }
+    let shouldUpdate = false
+
+    for (const source of sources) {
+      const { selectedId, shouldSync } = resolvedSelectionBySource[source]
+      if (shouldSync && selectedId !== activeDocIds[source]) {
+        nextActiveDocIds[source] = selectedId
+        shouldUpdate = true
+      }
+    }
+
+    if (shouldUpdate) {
+      setActiveDocIds(nextActiveDocIds)
+    }
+  }, [activeDocIds, resolvedSelectionBySource])
+
+  const ensureDocLoaded = React.useCallback(
+    async (doc: DocEntry | null) => {
+      if (!doc) return
+      const existingState = docStateById[doc.id]
+      if (
+        existingState?.status === "loaded" ||
+        existingState?.status === "loading" ||
+        existingState?.status === "error"
+      ) {
+        return
+      }
+      if (loadingDocIds.current.has(doc.id)) return
+      const loader = DOC_IMPORTS_BY_SOURCE[doc.source][doc.importPath]
+      if (!loader) {
+        setDocStateById((prev) => ({
+          ...prev,
+          [doc.id]: {
+            status: "error",
+            error: "Document loader not found."
+          }
+        }))
+        return
+      }
+
+      loadingDocIds.current.add(doc.id)
+      setDocStateById((prev) => ({
+        ...prev,
+        [doc.id]: { status: "loading" }
+      }))
+
+      try {
+        const content = await loader()
+        const title = extractTitle(content, doc.title)
+        setDocStateById((prev) => ({
+          ...prev,
+          [doc.id]: {
+            status: "loaded",
+            content,
+            title
+          }
+        }))
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Unknown error"
+        setDocStateById((prev) => ({
+          ...prev,
+          [doc.id]: {
+            status: "error",
+            error: message
+          }
+        }))
+      } finally {
+        loadingDocIds.current.delete(doc.id)
+      }
+    },
+    [docStateById]
+  )
+
+  const activeSelectedDoc = selectedDocBySource[activeSource]
+
+  React.useEffect(() => {
+    void ensureDocLoaded(activeSelectedDoc)
+  }, [activeSelectedDoc, ensureDocLoaded])
 
   const renderDocPane = (source: DocSource) => {
     const docs = docsBySource[source]
-    const filteredDocs = filterDocs(docs)
-    const activeDocId = activeDocIds[source]
-    const selectedDocId =
-      activeDocId && filteredDocs.some((doc) => doc.id === activeDocId)
-        ? activeDocId
-        : filteredDocs[0]?.id ?? null
-    const selectedDoc =
-      filteredDocs.find((doc) => doc.id === selectedDocId) ?? null
+    const filteredDocs = filteredDocsBySource[source]
+    const selectedDocId = selectedDocIdBySource[source]
+    const selectedDoc = selectedDocBySource[source]
+    const selectedDocState = selectedDoc
+      ? docStateById[selectedDoc.id]
+      : undefined
+    const selectedDocTitle = selectedDoc
+      ? selectedDocState?.title ?? selectedDoc.title
+      : ""
+    const selectedDocContent = selectedDocState?.content ?? ""
+    const isDocLoaded = selectedDocState?.status === "loaded"
+    const isDocError = selectedDocState?.status === "error"
 
     if (docs.length === 0) {
       return (
@@ -196,6 +355,7 @@ export const DocumentationPage: React.FC = () => {
               {filteredDocs.length > 0 ? (
                 filteredDocs.map((doc) => {
                   const isActive = selectedDocId === doc.id
+                  const docTitle = docStateById[doc.id]?.title ?? doc.title
                   return (
                     <button
                       key={doc.id}
@@ -214,7 +374,7 @@ export const DocumentationPage: React.FC = () => {
                           : "border-transparent text-text-muted hover:border-border hover:bg-surface2 hover:text-text"
                       )}
                     >
-                      <div className="font-medium">{doc.title}</div>
+                      <div className="font-medium">{docTitle}</div>
                       <div className="mt-0.5 text-xs text-text-muted">
                         {doc.relativePath}
                       </div>
@@ -239,7 +399,7 @@ export const DocumentationPage: React.FC = () => {
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <h2 className="text-lg font-semibold text-text">
-                      {selectedDoc.title}
+                      {selectedDocTitle}
                     </h2>
                     <p className="text-xs text-text-muted">
                       {selectedDoc.relativePath}
@@ -251,21 +411,34 @@ export const DocumentationPage: React.FC = () => {
                 </div>
               </div>
               <div className="pt-4">
-                <MarkdownErrorBoundary fallbackText={selectedDoc.content}>
-                  <React.Suspense
-                    fallback={
-                      <div className="text-sm text-text-muted">
-                        {t("common:loading.content", "Loading content...")}
-                      </div>
-                    }
-                  >
-                    <Markdown
-                      message={selectedDoc.content}
-                      searchQuery={trimmedQuery}
-                      className="prose break-words dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
-                    />
-                  </React.Suspense>
-                </MarkdownErrorBoundary>
+                {isDocError ? (
+                  <div className="text-sm text-text-muted">
+                    {t(
+                      "option:documentation.loadError",
+                      "Unable to load document."
+                    )}
+                  </div>
+                ) : isDocLoaded ? (
+                  <MarkdownErrorBoundary fallbackText={selectedDocContent}>
+                    <React.Suspense
+                      fallback={
+                        <div className="text-sm text-text-muted">
+                          {t("common:loading.content", "Loading content...")}
+                        </div>
+                      }
+                    >
+                      <Markdown
+                        message={selectedDocContent}
+                        searchQuery={trimmedQuery}
+                        className="prose break-words dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark"
+                      />
+                    </React.Suspense>
+                  </MarkdownErrorBoundary>
+                ) : (
+                  <div className="text-sm text-text-muted">
+                    {t("common:loading.content", "Loading content...")}
+                  </div>
+                )}
               </div>
             </div>
           ) : (

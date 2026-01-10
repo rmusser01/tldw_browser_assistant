@@ -21,21 +21,24 @@ import {
   Form,
   InputNumber,
   Collapse,
-  Switch
+  Switch,
+  Button
 } from "antd"
 import { useDarkMode } from "~/hooks/useDarkmode"
 import { SaveButton } from "~/components/Common/SaveButton"
 import { SUPPORTED_LANGUAGES } from "~/utils/supported-languages"
-import { useMessage } from "~/hooks/useMessage"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { Trans, useTranslation } from "react-i18next"
 import { useI18n } from "@/hooks/useI18n"
-import { TTSModeSettings } from "@/components/Option/Settings/tts-mode"
+import { TTSModeSettings } from "@/components/Option/Settings/TTSModeSettings"
 import { AdvancedCORSSettings } from "@/components/Common/Settings/AdvancedCORSSettings"
 import { useStorage } from "@plasmohq/storage/hook"
 import { getTotalFilePerKB } from "@/services/app"
 import { SidepanelRag } from "@/components/Option/Settings/sidepanel-rag"
 import { SSTSettings } from "@/components/Option/Settings/sst-settings"
+import { useServerCapabilities } from "@/hooks/useServerCapabilities"
+import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { useStoreMessageOption } from "@/store/option"
 
 export const SettingsBody = () => {
   const { t } = useTranslation("settings")
@@ -58,10 +61,24 @@ export const SettingsBody = () => {
     "speechToTextLanguage",
     "en-US"
   )
+  const [citationStyle, setCitationStyle] = useStorage(
+    "ragCitationStyle",
+    "apa"
+  )
+  const [activeChatDictionaries, setActiveChatDictionaries] = useStorage<
+    string[]
+  >("activeChatDictionaries", [])
   const { mode, toggleDarkMode } = useDarkMode()
   const queryClient = useQueryClient()
 
   const { changeLocale, locale, supportLanguage } = useI18n()
+  const { capabilities } = useServerCapabilities()
+  const { ragAdvancedOptions, setRagAdvancedOptions } = useStoreMessageOption(
+    (state) => ({
+      ragAdvancedOptions: state.ragAdvancedOptions,
+      setRagAdvancedOptions: state.setRagAdvancedOptions
+    })
+  )
 
   const { data, status } = useQuery({
     queryKey: ["sidebarSettings"],
@@ -98,6 +115,50 @@ export const SettingsBody = () => {
       }
     }
   })
+
+  const dictionariesEnabled = Boolean(capabilities?.hasChatDictionaries)
+  const { data: dictionariesData } = useQuery({
+    queryKey: ["sidepanelChatDictionaries"],
+    queryFn: async () => {
+      await tldwClient.initialize()
+      return await tldwClient.listDictionaries(true)
+    },
+    enabled: dictionariesEnabled
+  })
+
+  const dictionaryOptions = React.useMemo(() => {
+    if (!dictionariesData) return []
+    const list: any[] = Array.isArray(dictionariesData)
+      ? dictionariesData
+      : (dictionariesData as any)?.dictionaries ||
+        (dictionariesData as any)?.items ||
+        (dictionariesData as any)?.results ||
+        []
+    return list.map((dict) => ({
+      value: String(dict.id ?? dict.dictionary_id ?? dict.dictionaryId),
+      label: dict.name || dict.title || `Dictionary ${dict.id}`
+    }))
+  }, [dictionariesData])
+
+  const citationStyleOptions = React.useMemo(
+    () => [
+      { value: "apa", label: "APA" },
+      { value: "mla", label: "MLA" },
+      { value: "chicago", label: "Chicago" },
+      { value: "ieee", label: "IEEE" },
+      { value: "harvard", label: "Harvard" }
+    ],
+    []
+  )
+
+  React.useEffect(() => {
+    const currentStyle = ragAdvancedOptions?.citation_style
+    if (currentStyle === citationStyle) return
+    setRagAdvancedOptions({
+      ...(ragAdvancedOptions || {}),
+      citation_style: citationStyle
+    })
+  }, [citationStyle, ragAdvancedOptions, setRagAdvancedOptions])
 
   const { mutate: saveRAG, isPending: isSaveRAGPending } = useMutation({
     mutationFn: async (f: {
@@ -213,6 +274,71 @@ export const SettingsBody = () => {
       </div>
       <div className="border border-border rounded p-4 bg-surface">
         <SidepanelRag hideBorder />
+      </div>
+      <div className="border border-border rounded p-4 bg-surface">
+        <h2 className="text-md font-semibold text-text">
+          {t("citationSettings.heading", "Citations & Dictionaries")}
+        </h2>
+        <div className="mt-4 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <span className="text-text">
+              {t("citationSettings.styleLabel", "Citation style")}
+            </span>
+            <Select
+              value={citationStyle}
+              onChange={(value) => setCitationStyle(value)}
+              options={citationStyleOptions}
+              style={{ width: 200 }}
+              aria-label={t("citationSettings.styleLabel", "Citation style")}
+            />
+          </div>
+          <div className="border-b border-border" />
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <div className="text-text">
+                  {t("citationSettings.dictionariesLabel", "Chat dictionaries")}
+                </div>
+                <div className="text-xs text-text-muted">
+                  {t(
+                    "citationSettings.dictionariesHelp",
+                    "Select dictionaries to apply to chat messages."
+                  )}
+                </div>
+              </div>
+              <Button
+                size="small"
+                onClick={() => window.open("/options.html#/dictionaries", "_blank")}
+              >
+                {t(
+                  "citationSettings.openWorkspace",
+                  "Open workspace"
+                )}
+              </Button>
+            </div>
+            <Select
+              mode="multiple"
+              placeholder={t(
+                "citationSettings.dictionariesPlaceholder",
+                "Select dictionaries"
+              )}
+              options={dictionaryOptions}
+              value={activeChatDictionaries}
+              onChange={(values) =>
+                setActiveChatDictionaries(values as string[])
+              }
+              disabled={!dictionariesEnabled}
+            />
+            {!dictionariesEnabled && (
+              <div className="text-xs text-text-muted">
+                {t(
+                  "citationSettings.dictionariesUnavailable",
+                  "Chat dictionaries are not available on this server."
+                )}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
       <div className="border flex flex-col gap-4 border-border rounded p-4 bg-surface">
         <h2 className="text-md font-semibold text-text">

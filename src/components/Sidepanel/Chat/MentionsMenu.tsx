@@ -1,68 +1,66 @@
 import React from "react"
 import { cn } from "@/libs/utils"
 
-export type SlashCommandItem = {
+export type MentionMenuItem = {
   id: string
-  command: string
   label: string
   description?: string
-  keywords?: string[]
-  action?: () => void
+  icon?: React.ReactNode
+  kind?: "tab" | "knowledge" | "file" | "page"
+  payload?: unknown
 }
 
-type SlashCommandMenuProps = {
+type MentionsMenuProps = {
   open: boolean
-  commands: SlashCommandItem[]
+  items: MentionMenuItem[]
   activeIndex: number
   onActiveIndexChange: (index: number) => void
-  onSelect: (command: SlashCommandItem) => void
+  onSelect: (item: MentionMenuItem) => void
   className?: string
   emptyLabel?: string
 }
 
-export const SlashCommandMenu: React.FC<SlashCommandMenuProps> = ({
+export const MentionsMenu: React.FC<MentionsMenuProps> = ({
   open,
-  commands,
+  items,
   activeIndex,
   onActiveIndexChange,
   onSelect,
   className,
-  emptyLabel = "No commands found"
+  emptyLabel = "No matches"
 }) => {
-  if (!open) {
-    return null
-  }
+  if (!open) return null
 
   return (
     <div className={cn("z-20", className)}>
       <div className="max-h-48 overflow-auto rounded-md border border-border bg-elevated shadow-lg">
-        {commands.length === 0 ? (
-          <div className="px-3 py-2 text-xs text-text-muted">{emptyLabel}</div>
+        {items.length === 0 ? (
+          <div className="px-3 py-2 text-xs text-text-muted">
+            {emptyLabel}
+          </div>
         ) : (
-          commands.map((command, index) => (
+          items.map((item, index) => (
             <button
-              key={command.id}
+              key={item.id}
               type="button"
               role="option"
               aria-selected={index === activeIndex}
               onMouseEnter={() => onActiveIndexChange(index)}
-              onClick={() => onSelect(command)}
-              title={
-                command.description
-                  ? `${command.label} - ${command.description}`
-                  : command.label
-              }
+              onClick={() => onSelect(item)}
               className={cn(
                 "flex w-full items-start gap-2 px-3 py-2 text-left text-sm transition-colors",
                 index === activeIndex ? "bg-surface2 text-text" : "text-text"
               )}
+              title={item.description ? `${item.label} - ${item.description}` : item.label}
             >
-              <span className="text-text-muted">/{command.command}</span>
+              {item.icon && (
+                <span className="mt-0.5 text-text-subtle">{item.icon}</span>
+              )}
               <span className="flex flex-col">
-                <span className="text-text">{command.label}</span>
-                {command.description && (
+                <span className="text-text">{item.label}</span>
+                {item.description && (
                   <span className="text-xs text-text-subtle">
-                    {command.description}
+                    {item.description}
                   </span>
                 )}
               </span>
@@ -74,4 +72,4 @@ export const SlashCommandMenu: React.FC<SlashCommandMenuProps> = ({
   )
 }
 
-export default SlashCommandMenu
+export default MentionsMenu

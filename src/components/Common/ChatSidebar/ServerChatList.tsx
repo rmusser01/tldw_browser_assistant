@@ -85,6 +85,10 @@ export function ServerChatList({
   const [topicValue, setTopicValue] = React.useState("")
   const selectionMode = selectionModeProp ?? false
   const [selectedChatIds, setSelectedChatIds] = React.useState<string[]>([])
+  const selectedChatIdSet = React.useMemo(
+    () => new Set(selectedChatIds),
+    [selectedChatIds]
+  )
   const [bulkFolderPickerOpen, setBulkFolderPickerOpen] = React.useState(false)
   const [bulkTagPickerOpen, setBulkTagPickerOpen] = React.useState(false)
   const [bulkDeleteConfirmOpen, setBulkDeleteConfirmOpen] = React.useState(false)
@@ -165,6 +169,10 @@ export function ServerChatList({
     () => Array.from(new Set(serverChats.map((chat) => chat.id))),
     [serverChats]
   )
+  const visibleChatIdSet = React.useMemo(
+    () => new Set(visibleChatIds),
+    [visibleChatIds]
+  )
   const chatById = React.useMemo(
     () => new Map(serverChats.map((chat) => [chat.id, chat])),
     [serverChats]
@@ -210,24 +218,34 @@ export function ServerChatList({
       return
     }
     setSelectedChatIds((prev) => {
-      const next = prev.filter((id) => visibleChatIds.includes(id))
+      const next = prev.filter((id) => visibleChatIdSet.has(id))
       if (next.length === prev.length && next.every((id, idx) => id === prev[idx])) {
         return prev
       }
       return next
     })
-  }, [selectionMode, visibleChatIds])
+  }, [selectionMode, visibleChatIdSet])
 
   React.useEffect(() => {
     if (selectionMode) {
       setOpenMenuFor(null)
+      return
     }
+    setBulkFolderPickerOpen(false)
+    setBulkTagPickerOpen(false)
+    setBulkDeleteConfirmOpen(false)
   }, [selectionMode])
 
   const toggleChatSelected = React.useCallback((chatId: string) => {
-    setSelectedChatIds((prev) =>
-      prev.includes(chatId) ? prev.filter((id) => id !== chatId) : [...prev, chatId]
-    )
+    setSelectedChatIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(chatId)) {
+        next.delete(chatId)
+      } else {
+        next.add(chatId)
+      }
+      return Array.from(next)
+    })
   }, [])
 
   const handleSelectAllVisible = React.useCallback(() => {
@@ -425,6 +443,15 @@ export function ServerChatList({
     },
     [selectionMode, selectServerChat, toggleChatSelected]
   )
+
+  const selectionPropsForChat = (chatId: string) =>
+    selectionMode
+      ? {
+          selectionMode: true as const,
+          isSelected: selectedChatIdSet.has(chatId),
+          onToggleSelected: toggleChatSelected
+        }
+      : {}
 
   const openBulkDeleteConfirm = React.useCallback(() => {
     setBulkDeleteConfirmOpen(true)
@@ -643,8 +670,6 @@ export function ServerChatList({
               chat={chat}
               isPinned={pinnedChatSet.has(chat.id)}
               isActive={serverChatId === chat.id}
-              selectionMode={selectionMode}
-              isSelected={selectedChatIds.includes(chat.id)}
               openMenuFor={openMenuFor}
               setOpenMenuFor={setOpenMenuFor}
               onSelectChat={handleRowClick}
@@ -654,7 +679,7 @@ export function ServerChatList({
               onEditTopic={handleEditTopic}
               onDeleteChat={handleDeleteChat}
               onUpdateState={handleUpdateState}
-              onToggleSelected={toggleChatSelected}
+              {...selectionPropsForChat(chat.id)}
               t={t}
             />
           ))}
@@ -668,8 +693,6 @@ export function ServerChatList({
               chat={chat}
               isPinned={pinnedChatSet.has(chat.id)}
               isActive={serverChatId === chat.id}
-              selectionMode={selectionMode}
-              isSelected={selectedChatIds.includes(chat.id)}
               openMenuFor={openMenuFor}
               setOpenMenuFor={setOpenMenuFor}
               onSelectChat={handleRowClick}
@@ -679,7 +702,7 @@ export function ServerChatList({
               onEditTopic={handleEditTopic}
               onDeleteChat={handleDeleteChat}
               onUpdateState={handleUpdateState}
-              onToggleSelected={toggleChatSelected}
+              {...selectionPropsForChat(chat.id)}
               t={t}
             />
           ))}

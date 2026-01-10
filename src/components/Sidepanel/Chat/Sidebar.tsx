@@ -17,20 +17,23 @@ import {
   Trash2,
   CheckSquare
 } from "lucide-react"
+import type { TFunction } from "i18next"
 import { useTranslation } from "react-i18next"
 import { shallow } from "zustand/shallow"
 import { classNames } from "@/libs/class-name"
 import type { SidepanelChatTab, ConversationStatus } from "@/store/sidepanel-chat-tabs"
 import { useSidepanelChatTabsStore } from "@/store/sidepanel-chat-tabs"
 import { useUiModeStore } from "@/store/ui-mode"
+import { useDebounce } from "@/hooks/useDebounce"
+import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
+import { PageAssistDatabase } from "@/db/dexie/chat"
+import type { HistoryInfo } from "@/db/dexie/types"
 import { useFolderStore } from "@/store/folder"
 import { useBulkChatOperations } from "@/hooks/useBulkChatOperations"
 import { useStorage } from "@plasmohq/storage/hook"
 import { ModeToggle } from "./ModeToggle"
 import { ConversationContextMenu } from "./ConversationContextMenu"
 import { FolderPickerModal } from "./FolderPickerModal"
-import { BulkFolderPickerModal } from "./BulkFolderPickerModal"
-import { BulkTagPickerModal } from "./BulkTagPickerModal"
 import { exportTabToJSON, exportTabToMarkdown } from "@/utils/conversation-export"
 
 const DEFAULT_SIDEBAR_WIDTH = 288
@@ -39,6 +42,9 @@ const SIDEBAR_MAX_WIDTH = 420
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value))
+
+const BulkFolderPickerModal = React.lazy(() => import("./BulkFolderPickerModal"))
+const BulkTagPickerModal = React.lazy(() => import("./BulkTagPickerModal"))
 
 type SidebarGroup = {
   label: string
@@ -55,6 +61,10 @@ type SidepanelChatSidebarProps = {
   onNewTab: () => void
   searchQuery: string
   onSearchQueryChange: (value: string) => void
+  searchInputRef?: React.RefObject<HTMLInputElement>
+  focusSearchTrigger?: number
+  onOpenLocalHistory?: (historyId: string) => void
+  onOpenServerChat?: (chat: ServerChatHistoryItem) => void
   onClose?: () => void
 }
 
@@ -84,12 +94,18 @@ const SidebarMetaRow: React.FC<{
   conversationId: string | null
   topic?: string | null
 }> = ({ conversationId, topic }) => {
-  const getFoldersForConversation = useFolderStore(
-    (state) => state.getFoldersForConversation
+  const { getFoldersForConversation, uiPrefs } = useFolderStore(
+    (state) => ({
+      getFoldersForConversation: state.getFoldersForConversation,
+      uiPrefs: state.uiPrefs
+    }),
+    shallow
   )
-  const uiPrefs = useFolderStore((state) => state.uiPrefs)
   const normalizedTopic = (topic || "").trim()
-  const folders = conversationId ? getFoldersForConversation(conversationId) : []
+  const folders = React.useMemo(
+    () => (conversationId ? getFoldersForConversation(conversationId) : []),
+    [conversationId, getFoldersForConversation]
+  )
 
   if (!normalizedTopic && folders.length === 0) return null
 
@@ -136,7 +152,7 @@ const SidebarMetaRow: React.FC<{
   )
 }
 
-const buildGroups = (tabs: SidepanelChatTab[], t: (key: string, fallback: string) => string): SidebarGroup[] => {
+const buildGroups = (tabs: SidepanelChatTab[], t: TFunction): SidebarGroup[] => {
   const now = new Date()
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const startOfYesterday = new Date(startOfToday)
@@ -189,6 +205,10 @@ export const SidepanelChatSidebar = ({
   onNewTab,
   searchQuery,
   onSearchQueryChange,
+  searchInputRef,
+  focusSearchTrigger,
+  onOpenLocalHistory,
+  onOpenServerChat,
   onClose
 }: SidepanelChatSidebarProps) => {
   const { t } = useTranslation(["common", "sidepanel"])
@@ -301,6 +321,51 @@ export const SidepanelChatSidebar = ({
   // Folder picker modal state
   const [folderPickerOpen, setFolderPickerOpen] = React.useState(false)
   const [folderPickerTabId, setFolderPickerTabId] = React.useState<string | null>(null)
+
+  const debouncedSearchQuery = useDebounce(searchQuery, 250)
+  const dbRef = React.useRef<PageAssistDatabase | null>(null)
+  const [localSearchResults, setLocalSearchResults] = React.useState<HistoryInfo[]>([])
+  const { data: serverSearchResults = [] } = useServerChatHistory(
+    debouncedSearchQuery
+  )
+
+  React.useEffect(() => {
+    if (!focusSearchTrigger) return
+    if (searchInputRef?.current) {
+      searchInputRef.current.focus()
+      searchInputRef.current.select()
+    }
+  }, [focusSearchTrigger, searchInputRef])
+
+  React.useEffect(() => {
+    const normalized = debouncedSearchQuery.trim()
+    if (!normalized) {
+      setLocalSearchResults([])
+      return
+    }
+    let isActive = true
+    if (!dbRef.current) {
+      dbRef.current = new PageAssistDatabase()
+    }
+    const fetchResults = async () => {
+      try {
+        const results = await dbRef.current!.fullTextSearchChatHistories(
+          normalized
+        )
+        if (isActive) {
+          setLocalSearchResults(results)
+        }
+      } catch {
+        if (isActive) {
+          setLocalSearchResults([])
+        }
+      }
+    }
+    void fetchResults()
+    return () => {
+      isActive = false
+    }
+  }, [debouncedSearchQuery])
 
   // Bulk selection state
   const [selectionMode, setSelectionMode] = React.useState(false)
@@ -507,7 +572,51 @@ export const SidepanelChatSidebar = ({
     ]
   )
 
+  const renderSearchRow = React.useCallback(
+    ({
+      key,
+      label,
+      metaLabel,
+      onOpen,
+      topic
+    }: {
+      key: string
+      label: string
+      metaLabel: string
+      onOpen: () => void
+      topic?: string | null
+    }) => (
+      <div
+        key={key}
+        className={classNames(
+          "flex items-center justify-between rounded-md border border-transparent",
+          itemClass,
+          "text-text-muted hover:bg-surface2 hover:text-text"
+        )}
+      >
+        <button
+          type="button"
+          onClick={onOpen}
+          className="flex-1 min-w-0 text-left"
+          title={label}
+        >
+          <div className="flex items-center gap-1.5">
+            <span className="truncate">{label}</span>
+          </div>
+          <div className="mt-0.5 flex flex-wrap items-center gap-2 text-[10px] text-text-subtle">
+            <span>{metaLabel}</span>
+            {topic && (
+              <span className="truncate max-w-[140px]">#{topic}</span>
+            )}
+          </div>
+        </button>
+      </div>
+    ),
+    [itemClass]
+  )
+
   const normalizedQuery = searchQuery.trim().toLowerCase()
+  const hasSearch = normalizedQuery.length > 0
   const sortedTabs = React.useMemo(
     () =>
       [...tabs].sort((a, b) => b.updatedAt - a.updatedAt),
@@ -521,11 +630,48 @@ export const SidepanelChatSidebar = ({
     )
   }, [normalizedQuery, sortedTabs])
 
+  const openHistoryIds = React.useMemo(() => {
+    const ids = new Set<string>()
+    tabs.forEach((tab) => {
+      if (tab.historyId) ids.add(tab.historyId)
+    })
+    return ids
+  }, [tabs])
+
+  const openServerChatIds = React.useMemo(() => {
+    const ids = new Set<string>()
+    tabs.forEach((tab) => {
+      if (tab.serverChatId) ids.add(tab.serverChatId)
+    })
+    return ids
+  }, [tabs])
+
+  const filteredLocalResults = React.useMemo(() => {
+    if (!hasSearch) return []
+    return localSearchResults.filter((history) => !openHistoryIds.has(history.id))
+  }, [hasSearch, localSearchResults, openHistoryIds])
+
+  const localServerIds = React.useMemo(() => {
+    const ids = new Set<string>()
+    filteredLocalResults.forEach((history) => {
+      if (history.server_chat_id) ids.add(history.server_chat_id)
+    })
+    return ids
+  }, [filteredLocalResults])
+
+  const filteredServerResults = React.useMemo(() => {
+    if (!hasSearch) return []
+    return serverSearchResults.filter((chat) => {
+      const chatId = String(chat.id)
+      if (openServerChatIds.has(chatId)) return false
+      if (localServerIds.has(chatId)) return false
+      return true
+    })
+  }, [hasSearch, localServerIds, openServerChatIds, serverSearchResults])
+
   const pinnedTabs = filteredTabs.filter((tab) => tab.pinned)
   const unpinnedTabs = filteredTabs.filter((tab) => !tab.pinned)
-  const groups = buildGroups(unpinnedTabs, (key, fallback) =>
-    t(key as any, fallback)
-  )
+  const groups = buildGroups(unpinnedTabs, t)
 
   const visibleTabIds = React.useMemo(() => {
     const ids = new Set<string>()
@@ -545,7 +691,7 @@ export const SidepanelChatSidebar = ({
     () =>
       selectedTabIds
         .map((id) => tabById.get(id))
-        .filter(Boolean) as SidepanelChatTab[],
+        .filter((tab): tab is SidepanelChatTab => Boolean(tab)),
     [selectedTabIds, tabById]
   )
 
@@ -578,6 +724,9 @@ export const SidepanelChatSidebar = ({
   React.useEffect(() => {
     if (!selectionMode) {
       setSelectedTabIds([])
+      setBulkFolderPickerOpen(false)
+      setBulkTagPickerOpen(false)
+      setBulkDeleteConfirmOpen(false)
       return
     }
     setSelectedTabIds((prev) => prev.filter((id) => visibleTabIds.includes(id)))
@@ -736,9 +885,10 @@ export const SidepanelChatSidebar = ({
             type="text"
             value={searchQuery}
             onChange={(event) => onSearchQueryChange(event.target.value)}
-            placeholder={t("common:chatSidebar.search", "Search chats...") as string}
+            placeholder={t("common:chatSidebar.search", "Search chats...")}
             data-testid="sidepanel-sidebar-search"
             className="w-full bg-transparent text-body text-text outline-none placeholder:text-text-subtle"
+            ref={searchInputRef}
           />
         </label>
       </div>
@@ -795,36 +945,116 @@ export const SidepanelChatSidebar = ({
               onClick={openBulkDeleteConfirm}
               className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-red-600 hover:bg-surface2"
               disabled={selectedTabIds.length === 0}
+              aria-label={t("sidepanel:multiSelect.deleteConfirmOk", "Move to trash")}
+              title={t("sidepanel:multiSelect.deleteConfirmOk", "Move to trash")}
             >
               <Trash2 className="size-3.5" />
-              {t("common:delete", "Delete")}
+              {t("sidepanel:multiSelect.deleteConfirmOk", "Move to trash")}
             </button>
           </div>
         </div>
       )}
 
       <div className="flex-1 min-h-0 overflow-y-auto px-3 py-3">
-        {pinnedTabs.length > 0 && (
-          <div className={groupSpacing}>
-            <div className="panel-section-label">
-              {t("common:pinned", "Pinned")}
-            </div>
-            <div className={classNames("flex flex-col", groupGap)}>
-              {pinnedTabs.map((tab) => renderTabRow(tab))}
-            </div>
-          </div>
-        )}
+        {hasSearch ? (
+          <>
+            {pinnedTabs.length > 0 && (
+              <div className={groupSpacing}>
+                <div className="panel-section-label">
+                  {t("common:pinned", "Pinned")}
+                </div>
+                <div className={classNames("flex flex-col", groupGap)}>
+                  {pinnedTabs.map((tab) => renderTabRow(tab))}
+                </div>
+              </div>
+            )}
 
-        {groups.map((group) => (
-          <div key={group.label} className={groupSpacing}>
-            <div className="panel-section-label">
-              {group.label}
-            </div>
-            <div className={classNames("flex flex-col", groupGap)}>
-              {group.items.map((tab) => renderTabRow(tab))}
-            </div>
-          </div>
-        ))}
+            {groups.map((group) => (
+              <div key={group.label} className={groupSpacing}>
+                <div className="panel-section-label">
+                  {group.label}
+                </div>
+                <div className={classNames("flex flex-col", groupGap)}>
+                  {group.items.map((tab) => renderTabRow(tab))}
+                </div>
+              </div>
+            ))}
+
+            {filteredLocalResults.length > 0 && (
+              <div className={groupSpacing}>
+                <div className="panel-section-label">
+                  {t("common:chatSidebar.historyResults", "History")}
+                </div>
+                <div className={classNames("flex flex-col", groupGap)}>
+                  {filteredLocalResults.map((history) =>
+                    renderSearchRow({
+                      key: `local-${history.id}`,
+                      label:
+                        history.title ||
+                        t("common:untitled", { defaultValue: "Untitled" }),
+                      metaLabel: t("common:chatSidebar.localLabel", "Local"),
+                      onOpen: () => onOpenLocalHistory?.(history.id)
+                    })
+                  )}
+                </div>
+              </div>
+            )}
+
+            {filteredServerResults.length > 0 && (
+              <div className={groupSpacing}>
+                <div className="panel-section-label">
+                  {t("common:chatSidebar.serverResults", "Server")}
+                </div>
+                <div className={classNames("flex flex-col", groupGap)}>
+                  {filteredServerResults.map((chat) =>
+                    renderSearchRow({
+                      key: `server-${chat.id}`,
+                      label:
+                        chat.title ||
+                        t("common:untitled", { defaultValue: "Untitled" }),
+                      metaLabel: t("common:chatSidebar.serverLabel", "Server"),
+                      topic: chat.topic_label ?? null,
+                      onOpen: () => onOpenServerChat?.(chat)
+                    })
+                  )}
+                </div>
+              </div>
+            )}
+
+            {pinnedTabs.length === 0 &&
+              groups.length === 0 &&
+              filteredLocalResults.length === 0 &&
+              filteredServerResults.length === 0 && (
+                <div className="px-2 py-3 text-xs text-text-subtle">
+                  {t("common:chatSidebar.noResults", "No matches found")}
+                </div>
+              )}
+          </>
+        ) : (
+          <>
+            {pinnedTabs.length > 0 && (
+              <div className={groupSpacing}>
+                <div className="panel-section-label">
+                  {t("common:pinned", "Pinned")}
+                </div>
+                <div className={classNames("flex flex-col", groupGap)}>
+                  {pinnedTabs.map((tab) => renderTabRow(tab))}
+                </div>
+              </div>
+            )}
+
+            {groups.map((group) => (
+              <div key={group.label} className={groupSpacing}>
+                <div className="panel-section-label">
+                  {group.label}
+                </div>
+                <div className={classNames("flex flex-col", groupGap)}>
+                  {group.items.map((tab) => renderTabRow(tab))}
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
 
       <div className="border-t border-border px-4 py-3">
@@ -837,19 +1067,24 @@ export const SidepanelChatSidebar = ({
         conversationId={folderPickerTabId}
       />
 
-      <BulkFolderPickerModal
-        open={bulkFolderPickerOpen}
-        conversationIds={selectedConversationIds}
-        onClose={handleBulkFolderPickerClose}
-        onSuccess={clearSelection}
-      />
-
-      <BulkTagPickerModal
-        open={bulkTagPickerOpen}
-        conversationIds={selectedConversationIds}
-        onClose={handleBulkTagPickerClose}
-        onSuccess={clearSelection}
-      />
+      <React.Suspense fallback={null}>
+        {bulkFolderPickerOpen && (
+          <BulkFolderPickerModal
+            open={bulkFolderPickerOpen}
+            conversationIds={selectedConversationIds}
+            onClose={handleBulkFolderPickerClose}
+            onSuccess={clearSelection}
+          />
+        )}
+        {bulkTagPickerOpen && (
+          <BulkTagPickerModal
+            open={bulkTagPickerOpen}
+            conversationIds={selectedConversationIds}
+            onClose={handleBulkTagPickerClose}
+            onSuccess={clearSelection}
+          />
+        )}
+      </React.Suspense>
 
       <Modal
         open={bulkDeleteConfirmOpen}

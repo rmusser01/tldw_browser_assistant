@@ -29,6 +29,7 @@ import { focusComposer } from "@/hooks/useComposerFocus"
 import { useStoreMessageOption } from "@/store/option"
 import { shallow } from "zustand/shallow"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 
 const MAX_NAME_LENGTH = 75
 const MAX_DESCRIPTION_LENGTH = 65
@@ -148,10 +149,12 @@ const buildCharacterPayload = (values: any): Record<string, any> => {
 
 type CharactersManagerProps = {
   forwardedNewButtonRef?: React.RefObject<HTMLButtonElement | null>
+  autoOpenCreate?: boolean
 }
 
 export const CharactersManager: React.FC<CharactersManagerProps> = ({
-  forwardedNewButtonRef
+  forwardedNewButtonRef,
+  autoOpenCreate = false
 }) => {
   const { t } = useTranslation(["settings", "common"])
   const qc = useQueryClient()
@@ -186,6 +189,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
   const searchDebounceRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const [showCreatePreview, setShowCreatePreview] = React.useState(false)
   const [showEditPreview, setShowEditPreview] = React.useState(false)
+  const autoOpenCreateHandledRef = React.useRef(false)
 
   React.useEffect(() => {
     if (forwardedNewButtonRef && newButtonRef.current) {
@@ -196,6 +200,16 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
       ;(forwardedNewButtonRef as any).current = newButtonRef.current
     }
   }, [forwardedNewButtonRef])
+
+  React.useEffect(() => {
+    if (!autoOpenCreate) {
+      autoOpenCreateHandledRef.current = false
+      return
+    }
+    if (autoOpenCreateHandledRef.current) return
+    autoOpenCreateHandledRef.current = true
+    setOpen(true)
+  }, [autoOpenCreate])
 
   // C8: Debounce search input to reduce API calls
   React.useEffect(() => {
@@ -1198,6 +1212,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                                   ? undefined
                                   : createdAt,
                                 isBot: m.role === "assistant",
+                                role: normalizeChatRole(m.role),
                                 name:
                                   m.role === "assistant"
                                     ? assistantName

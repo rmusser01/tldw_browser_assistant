@@ -49,11 +49,15 @@ import {
   updateActiveVariant
 } from "@/utils/message-variants"
 import { normalChatMode } from "./chat-modes/normalChatMode"
+import { tabChatMode } from "./chat-modes/tabChatMode"
+import { documentChatMode } from "./chat-modes/documentChatMode"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
 import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
 import { normalizeConversationState } from "@/utils/conversation-state"
 import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
+import type { ChatDocuments } from "@/models/ChatTypes"
+import type { UploadedFile } from "@/db/dexie/types"
 
 type ServerBackedMessage = Message & {
   serverMessageId?: string
@@ -93,6 +97,8 @@ export const useMessage = () => {
     addQueuedMessage,
     setQueuedMessages,
     clearQueuedMessages,
+    fileRetrievalEnabled,
+    setActionInfo,
     replyTarget,
     clearReplyTarget
   } = useStoreMessageOption()
@@ -1620,7 +1626,9 @@ export const useMessage = () => {
     memory,
     messages: chatHistory,
     messageType,
-    regenerateFromMessage
+    regenerateFromMessage,
+    docs,
+    uploadedFiles
   }: {
     message: string
     image: string
@@ -1630,6 +1638,8 @@ export const useMessage = () => {
     controller?: AbortController
     messageType?: string
     regenerateFromMessage?: Message
+    docs?: ChatDocuments
+    uploadedFiles?: UploadedFile[]
   }) => {
     if (!validateBeforeSubmit(selectedModel || "", t, notification)) {
       return
@@ -1665,6 +1675,66 @@ export const useMessage = () => {
       : {}
 
     try {
+      if (uploadedFiles && uploadedFiles.length > 0) {
+        await documentChatMode(
+          message,
+          image,
+          isRegenerate,
+          chatHistory || messages,
+          memory || history,
+          signal,
+          uploadedFiles,
+          {
+            selectedModel: model,
+            useOCR,
+            currentChatModelSettings,
+            toolChoice,
+            setMessages,
+            saveMessageOnSuccess,
+            saveMessageOnError,
+            setHistory,
+            setIsProcessing,
+            setStreaming,
+            setAbortController,
+            historyId: historyId ?? null,
+            setHistoryId: setHistoryId as (id: string) => void,
+            fileRetrievalEnabled,
+            setActionInfo,
+            regenerateFromMessage,
+            ...replyOverrides
+          }
+        )
+        return
+      }
+      if (docs && docs.length > 0) {
+        await tabChatMode(
+          message,
+          image,
+          docs,
+          isRegenerate,
+          chatHistory || messages,
+          memory || history,
+          signal,
+          {
+            selectedModel: model,
+            useOCR,
+            selectedSystemPrompt: selectedSystemPrompt ?? "",
+            toolChoice,
+            setMessages,
+            saveMessageOnSuccess,
+            saveMessageOnError,
+            setHistory,
+            setIsProcessing,
+            setStreaming,
+            setAbortController,
+            historyId: historyId ?? null,
+            setHistoryId: setHistoryId as (id: string) => void,
+            regenerateFromMessage,
+            ...replyOverrides
+          }
+        )
+        return
+      }
       // this means that the user is trying to send something from a selected text on the web
       if (messageType) {
         await presetChatMode(

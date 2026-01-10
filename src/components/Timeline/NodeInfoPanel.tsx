@@ -20,6 +20,8 @@ import {
 } from '@ant-design/icons'
 import { useTimelineStore } from '@/store/timeline'
 import { timelineSearch } from '@/services/timeline'
+import { db } from '@/db/dexie/schema'
+import { TIMELINE_ACTION_EVENT, type TimelineAction } from '@/utils/timeline-actions'
 
 const { Text, Paragraph } = Typography
 
@@ -36,6 +38,8 @@ export const NodeInfoPanel: React.FC = () => {
   const selectNode = useTimelineStore((s) => s.selectNode)
   const toggleSwipeExpansion = useTimelineStore((s) => s.toggleSwipeExpansion)
   const expandedSwipeNodes = useTimelineStore((s) => s.expandedSwipeNodes)
+  const closeTimeline = useTimelineStore((s) => s.closeTimeline)
+  const currentHistoryId = useTimelineStore((s) => s.currentHistoryId)
 
   // Get highlighted content if search is active
   const highlightedContent = useMemo(() => {
@@ -50,6 +54,9 @@ export const NodeInfoPanel: React.FC = () => {
   if (!node) return null
 
   const isSwipeExpanded = expandedSwipeNodes.has(node.id)
+  const hasMessage = node.message_ids?.length > 0
+  const canEditMessage = hasMessage && node.role === 'user'
+  const canBranchFromMessage = hasMessage && node.role === 'assistant'
 
   // Format timestamp
   const formattedTime = new Date(node.timestamp).toLocaleString()
@@ -68,6 +75,59 @@ export const NodeInfoPanel: React.FC = () => {
     : node.role === 'assistant'
       ? 'green'
       : 'gray'
+
+  const resolveMessageTarget = React.useCallback(async () => {
+    if (!node.message_ids?.length) return null
+
+    const preferredHistoryId =
+      currentHistoryId && node.history_ids.includes(currentHistoryId)
+        ? currentHistoryId
+        : node.history_ids[0]
+
+    if (!preferredHistoryId) return null
+
+    const candidates = await db.messages.bulkGet(node.message_ids)
+    const matching = candidates.find(
+      (message) => message && message.history_id === preferredHistoryId
+    )
+    const fallback = candidates.find(Boolean)
+
+    const resolvedHistoryId =
+      matching?.history_id || fallback?.history_id || preferredHistoryId
+    const resolvedMessageId =
+      matching?.id || fallback?.id || node.message_ids[0]
+
+    return {
+      historyId: resolvedHistoryId,
+      messageId: resolvedMessageId
+    }
+  }, [currentHistoryId, node.history_ids, node.message_ids])
+
+  const handleTimelineAction = React.useCallback(
+    async (action: TimelineAction) => {
+      if (typeof window === 'undefined') return
+      if (!hasMessage) return
+
+      try {
+        const target = await resolveMessageTarget()
+        if (!target?.historyId) return
+
+        const detail = {
+          action,
+          historyId: target.historyId,
+          ...(target.messageId ? { messageId: target.messageId } : {})
+        }
+
+        window.dispatchEvent(
+          new CustomEvent(TIMELINE_ACTION_EVENT, { detail })
+        )
+        closeTimeline()
+      } catch (error) {
+        console.error('Timeline action failed:', error)
+      }
+    },
+    [closeTimeline, hasMessage, resolveMessageTarget]
+  )
 
   return (
     <div className="node-info-panel absolute right-0 top-0 bottom-0 w-80 bg-[var(--bg-secondary,#1f1f1f)] border-l border-[var(--border-color,#333)] p-4 overflow-y-auto z-20 flex flex-col">
@@ -131,32 +191,42 @@ export const NodeInfoPanel: React.FC = () => {
       <div className="mt-auto">
         <Space direction="vertical" className="w-full">
           {/* Navigate to message */}
-          <Tooltip title="Not yet available">
-            <span className="inline-block w-full">
-              <Button type="primary" icon={<SendOutlined />} block disabled>
-                Go to Message
-              </Button>
-            </span>
-          </Tooltip>
+          <Button
+            type="primary"
+            icon={<SendOutlined />}
+            block
+            disabled={!hasMessage}
+            onClick={() => {
+              void handleTimelineAction('go')
+            }}
+          >
+            Go to Message
+          </Button>
 
           {/* Branch from here */}
-          <Tooltip title="Not yet available">
-            <span className="inline-block w-full">
-              <Button icon={<BranchesOutlined />} block disabled>
-                Branch from Here
-              </Button>
-            </span>
-          </Tooltip>
+          <Button
+            icon={<BranchesOutlined />}
+            block
+            disabled={!canBranchFromMessage}
+            onClick={() => {
+              void handleTimelineAction('branch')
+            }}
+          >
+            Branch from Here
+          </Button>
 
           {/* Edit message */}
           {node.role === 'user' && (
-            <Tooltip title="Not yet available">
-              <span className="inline-block w-full">
-                <Button icon={<EditOutlined />} block disabled>
-                  Edit Message
-                </Button>
-              </span>
-            </Tooltip>
+            <Button
+              icon={<EditOutlined />}
+              block
+              disabled={!canEditMessage}
+              onClick={() => {
+                void handleTimelineAction('edit')
+              }}
+            >
+              Edit Message
+            </Button>
           )}
 
           {/* Regenerate response */}

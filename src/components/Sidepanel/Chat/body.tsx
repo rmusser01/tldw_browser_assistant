@@ -8,16 +8,24 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { useStorage } from "@plasmohq/storage/hook"
 import { applyVariantToMessage } from "@/utils/message-variants"
 import { generateID } from "@/db/dexie/helpers"
+import {
+  EDIT_MESSAGE_EVENT,
+  type TimelineActionDetail
+} from "@/utils/timeline-actions"
 
 type Props = {
   scrollParentRef?: React.RefObject<HTMLDivElement>
   searchQuery?: string
+  timelineAction?: TimelineActionDetail | null
+  onTimelineActionHandled?: () => void
 }
 
 export const SidePanelBody = ({
   scrollParentRef,
   searchQuery,
-  inputRef
+  inputRef,
+  timelineAction,
+  onTimelineActionHandled
 }: Props & { inputRef?: React.RefObject<HTMLTextAreaElement> }) => {
   const {
     messages,
@@ -101,6 +109,66 @@ export const SidePanelBody = ({
     measureElement: (el) => el?.getBoundingClientRect().height || 120
   })
 
+  const findMessageIndex = React.useCallback(
+    (messageId: string) =>
+      messages.findIndex(
+        (message) =>
+          message.id === messageId || message.serverMessageId === messageId
+      ),
+    [messages]
+  )
+
+  React.useEffect(() => {
+    if (!timelineAction) return
+    if (timelineAction.historyId && timelineAction.historyId !== historyId) {
+      return
+    }
+
+    if (timelineAction.action === "branch") {
+      if (!timelineAction.messageId) {
+        onTimelineActionHandled?.()
+        return
+      }
+      if (messages.length === 0) return
+      const index = findMessageIndex(timelineAction.messageId)
+      if (index >= 0) {
+        void createChatBranch(index)
+      }
+      onTimelineActionHandled?.()
+      return
+    }
+
+    if (!timelineAction.messageId) {
+      onTimelineActionHandled?.()
+      return
+    }
+
+    if (messages.length === 0) return
+    const index = findMessageIndex(timelineAction.messageId)
+    if (index < 0) {
+      onTimelineActionHandled?.()
+      return
+    }
+
+    rowVirtualizer.scrollToIndex(index, { align: "center" })
+    if (timelineAction.action === "edit" && typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent(EDIT_MESSAGE_EVENT, {
+          detail: { messageId: timelineAction.messageId }
+        })
+      )
+    }
+    onTimelineActionHandled?.()
+  }, [
+    createChatBranch,
+    findMessageIndex,
+    historyId,
+    messages.length,
+    onTimelineActionHandled,
+    rowVirtualizer,
+    timelineAction
+  ])
+
   // Lock scroll position during streaming to prevent virtualizer jumps
   React.useEffect(() => {
     if (!parentEl) return
@@ -146,6 +214,7 @@ export const SidePanelBody = ({
                   isBot={message.isBot}
                   message={message.message}
                   name={message.name}
+                  role={message.role}
                   images={message.images || []}
                   currentMessageIndex={index}
                   totalMessages={messages.length}

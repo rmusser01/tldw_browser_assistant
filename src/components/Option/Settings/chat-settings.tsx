@@ -11,11 +11,11 @@ export const ChatSettings = () => {
 
   const [copilotResumeLastChat, setCopilotResumeLastChat] = useStorage(
     "copilotResumeLastChat",
-    false
+    DEFAULT_CHAT_SETTINGS.copilotResumeLastChat
   )
   const [defaultChatWithWebsite, setDefaultChatWithWebsite] = useStorage(
     "defaultChatWithWebsite",
-    false
+    DEFAULT_CHAT_SETTINGS.defaultChatWithWebsite
   )
   const [webUIResumeLastChat, setWebUIResumeLastChat] = useStorage(
     "webUIResumeLastChat",
@@ -28,13 +28,16 @@ export const ChatSettings = () => {
     )
   const [hideQuickChatHelper, setHideQuickChatHelper] = useStorage(
     "hideQuickChatHelper",
-    false
+    DEFAULT_CHAT_SETTINGS.hideQuickChatHelper
   )
   const [restoreLastChatModel, setRestoreLastChatModel] = useStorage(
     "restoreLastChatModel",
     DEFAULT_CHAT_SETTINGS.restoreLastChatModel
   )
-  const [generateTitle, setGenerateTitle] = useStorage("titleGenEnabled", false)
+  const [generateTitle, setGenerateTitle] = useStorage(
+    "titleGenEnabled",
+    DEFAULT_CHAT_SETTINGS.titleGenEnabled
+  )
   const [checkWideMode, setCheckWideMode] = useStorage(
     "checkWideMode",
     DEFAULT_CHAT_SETTINGS.checkWideMode
@@ -70,15 +73,15 @@ export const ChatSettings = () => {
   )
   const [tabMentionsEnabled, setTabMentionsEnabled] = useStorage(
     "tabMentionsEnabled",
-    false
+    DEFAULT_CHAT_SETTINGS.tabMentionsEnabled
   )
   const [pasteLargeTextAsFile, setPasteLargeTextAsFile] = useStorage(
     "pasteLargeTextAsFile",
-    false
+    DEFAULT_CHAT_SETTINGS.pasteLargeTextAsFile
   )
   const [sidepanelTemporaryChat, setSidepanelTemporaryChat] = useStorage(
     "sidepanelTemporaryChat",
-    false
+    DEFAULT_CHAT_SETTINGS.sidepanelTemporaryChat
   )
   const [removeReasoningTagFromCopy, setRemoveReasoningTagFromCopy] =
     useStorage(
@@ -86,7 +89,10 @@ export const ChatSettings = () => {
       DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy
     )
   const [promptSearchIncludeServer, setPromptSearchIncludeServer] =
-    useStorage("promptSearchIncludeServer", false)
+    useStorage(
+      "promptSearchIncludeServer",
+      DEFAULT_CHAT_SETTINGS.promptSearchIncludeServer
+    )
 
   const [userTextColor, setUserTextColor] = useStorage(
     "chatUserTextColor",
@@ -467,9 +473,11 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-text ">
-          {t("generalSettings.settings.sidepanelTemporaryChat.label")}
-        </span>
+        <div className="inline-flex items-center gap-2">
+          <span className="text-text">
+            {t("generalSettings.settings.sidepanelTemporaryChat.label")}
+          </span>
+        </div>
 
         <Switch
           checked={sidepanelTemporaryChat}
@@ -499,12 +507,14 @@ export const ChatSettings = () => {
       </div>
 
       <div className="flex flex-row justify-between">
-        <span className="text-text">
-          {t("generalSettings.settings.promptSearchIncludeServer.label")}
-        </span>
+        <div className="inline-flex items-center gap-2">
+          <span className="text-text">
+            {t("generalSettings.settings.promptSearchIncludeServer.label")}
+          </span>
+        </div>
         <Switch
           checked={promptSearchIncludeServer}
-          onChange={setPromptSearchIncludeServer}
+          onChange={(checked) => setPromptSearchIncludeServer(checked)}
           aria-label={t("generalSettings.settings.promptSearchIncludeServer.label")}
         />
       </div>

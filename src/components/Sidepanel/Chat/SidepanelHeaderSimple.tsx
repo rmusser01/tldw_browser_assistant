@@ -82,14 +82,14 @@ export const SidepanelHeaderSimple = ({
   }, [activeTitle, draftTitle, onRenameTitle])
 
   const openFullScreen = () => {
+    const url = browser.runtime.getURL("/options.html#/")
     try {
-      const url = browser.runtime.getURL("/options.html#/")
       if (browser.tabs?.create) {
         browser.tabs.create({ url })
         return
       }
     } catch {}
-    window.open("/options.html#/", "_blank")
+    window.open(url, "_blank")
   }
 
   return (
@@ -139,6 +139,7 @@ export const SidepanelHeaderSimple = ({
                 value={draftTitle}
                 onChange={(event) => setDraftTitle(event.target.value)}
                 onBlur={() => {
+                  if (!onRenameTitle) return
                   if (ignoreBlurRef.current) {
                     ignoreBlurRef.current = false
                     return

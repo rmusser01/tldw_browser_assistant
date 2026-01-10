@@ -4,8 +4,8 @@
 The Documentation page is a built-in viewer for project docs. It surfaces two
 doc sources inside the extension Options UI:
 
-- tldw browser extension docs: `Docs/User_Documentation`
-- tldw_server docs: `Docs/Published`
+- tldw browser extension docs: `docs/User_Documentation`
+- tldw_server docs: `docs/Published`
 
 Each source is presented as a tab with a searchable list and a Markdown reader.
 
@@ -23,8 +23,8 @@ Each source is presented as a tab with a searchable list and a Markdown reader.
 - Search filters the list and highlights matches in the content.
 
 ## Adding docs
-1. Drop `.md` files in `Docs/User_Documentation` for extension docs.
-2. Drop `.md` files in `Docs/Published` for tldw_server docs.
+1. Drop `.md` files in `docs/User_Documentation` for extension docs.
+2. Drop `.md` files in `docs/Published` for tldw_server docs.
 3. Reload the extension (or restart `bun dev`) to pick up changes.
 
 Note: The viewer renders Markdown only. Avoid MDX-only features for now.

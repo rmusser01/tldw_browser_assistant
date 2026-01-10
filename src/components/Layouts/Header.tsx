@@ -106,6 +106,7 @@ export const Header: React.FC<Props> = ({
   const [isEditingTitle, setIsEditingTitle] = React.useState(false)
 
   const canOpenTimeline = Boolean(historyId) && !temporaryChat && historyId !== "temp"
+  const showTimelineButton = canOpenTimeline && !streaming
 
   const handleOpenTimeline = React.useCallback(() => {
     if (!historyId || temporaryChat || historyId === "temp") return
@@ -314,6 +315,8 @@ export const Header: React.FC<Props> = ({
         onOpenShortcutsModal={openShortcutsModal}
         onOpenSettings={() => navigate("/settings/tldw")}
         onClearChat={clearChat}
+        showTimelineButton={showTimelineButton}
+        onOpenTimeline={handleOpenTimeline}
         shortcutsExpanded={headerShortcutsExpanded}
         onToggleShortcuts={toggleHeaderShortcuts}
         commandKeyLabel={cmdKey}

@@ -43,6 +43,7 @@ export type MessageVariant = {
 export type Message = {
   isBot: boolean
   name: string
+  role?: "user" | "assistant" | "system"
   message: string
   sources: any[]
   images?: string[]

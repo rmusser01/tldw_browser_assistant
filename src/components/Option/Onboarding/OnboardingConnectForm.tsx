@@ -207,11 +207,11 @@ export function OnboardingConnectForm({ onFinish }: Props) {
     staleTime: 5 * 60 * 1000,
   })
 
-  const normalizeProviderValue = useCallback(
-    (value?: string | null) => String(value || "").trim().toLowerCase(),
-    []
-  )
-  const normalizedDefaultProvider = normalizeProviderValue(defaultApiProvider)
+  const normalizedDefaultProvider = useMemo(() => {
+    if (!defaultApiProvider) return ""
+    const normalized = normalizeProviderKey(defaultApiProvider)
+    return normalized === "unknown" ? "" : normalized
+  }, [defaultApiProvider])
   const providerSelectValue = normalizedDefaultProvider || "auto"
 
   const providerOptions = useMemo(() => {
@@ -236,9 +236,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         if (!normalizedDefaultProvider) return true
         const rawProvider = model.details?.provider ?? model.provider
         if (!rawProvider) return false
-        return (
-          normalizeProviderKey(rawProvider) === normalizedDefaultProvider
-        )
+        return normalizeProviderKey(rawProvider) === normalizedDefaultProvider
       })
       .map((model) => {
         const rawProvider = model.details?.provider ?? model.provider
@@ -671,11 +669,14 @@ export function OnboardingConnectForm({ onFinish }: Props) {
                   size="large"
                   value={providerSelectValue}
                   onChange={(value) => {
-                    const normalized =
-                      value === "auto"
-                        ? null
-                        : normalizeProviderValue(value)
-                    setDefaultApiProvider(normalized)
+                    if (value === "auto") {
+                      setDefaultApiProvider(null)
+                      return
+                    }
+                    const normalized = normalizeProviderKey(value)
+                    setDefaultApiProvider(
+                      normalized && normalized !== "unknown" ? normalized : null
+                    )
                   }}
                   options={[
                     {

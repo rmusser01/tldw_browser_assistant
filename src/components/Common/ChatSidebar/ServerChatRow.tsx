@@ -34,8 +34,8 @@ type ServerChatRowProps = {
   chat: ServerChatHistoryItem
   isPinned: boolean
   isActive: boolean
-  selectionMode?: boolean
-  isSelected?: boolean
+  selectionMode?: false
+  isSelected?: false
   openMenuFor: string | null
   setOpenMenuFor: (value: string | null) => void
   onSelectChat: (chat: ServerChatHistoryItem) => void
@@ -45,9 +45,20 @@ type ServerChatRowProps = {
   onEditTopic: (chat: ServerChatHistoryItem) => void
   onDeleteChat: (chat: ServerChatHistoryItem) => void | Promise<void>
   onUpdateState: (chat: ServerChatHistoryItem, state: ConversationState) => void
-  onToggleSelected?: (chatId: string) => void
+  onToggleSelected?: undefined
   t: TFunction
 }
+
+type ServerChatRowSelectionProps = Omit<
+  ServerChatRowProps,
+  "selectionMode" | "isSelected" | "onToggleSelected"
+> & {
+  selectionMode: true
+  isSelected: boolean
+  onToggleSelected: (chatId: string) => void
+}
+
+type ServerChatRowAllProps = ServerChatRowProps | ServerChatRowSelectionProps
 
 export const ServerChatRow = React.memo(
   ({
@@ -67,7 +78,7 @@ export const ServerChatRow = React.memo(
     onUpdateState,
     onToggleSelected,
     t
-  }: ServerChatRowProps) => {
+  }: ServerChatRowAllProps) => {
     const lastModifiedMs = chat.updatedAtMs ?? chat.createdAtMs
     const lastModifiedLabel = Number.isNaN(lastModifiedMs)
       ? null

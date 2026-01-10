@@ -105,6 +105,13 @@ type Props = {
   autoProcessQueued?: boolean
 }
 
+const buildLocalFileKey = (file: File) => {
+  const name = file?.name || ""
+  const size = Number.isFinite(file?.size) ? file.size : 0
+  const lastModified = Number.isFinite(file?.lastModified) ? file.lastModified : 0
+  return `${name}::${size}::${lastModified}`
+}
+
 const ProcessingIndicator = ({ label }: { label: string }) => (
   <div className="flex items-center gap-2 text-[11px] text-text-subtle">
     <span className="relative flex h-2.5 w-2.5">
@@ -465,6 +472,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   )
 
   const lastFileLookupRef = React.useRef<Map<string, File> | null>(null)
+  const lastFileIdByKeyRef = React.useRef<Map<string, string> | null>(null)
   const pendingStoreWithoutReviewRef = React.useRef(false)
   const unmountedRef = React.useRef(false)
   const processOnly = reviewBeforeStorage || !storeRemote
@@ -1074,6 +1082,21 @@ export const QuickIngestModal: React.FC<Props> = ({
     return map
   }, [results])
 
+  const getResultForFile = React.useCallback(
+    (file: File) => {
+      const fileIdByKey = lastFileIdByKeyRef.current
+      if (fileIdByKey) {
+        const id = fileIdByKey.get(buildLocalFileKey(file))
+        if (id) {
+          return resultById.get(id) || null
+        }
+      }
+      const fallbackMatches = results.filter((r) => r.fileName === file.name)
+      return fallbackMatches.length === 1 ? fallbackMatches[0] : null
+    },
+    [resultById, results]
+  )
+
   const stagedCount = React.useMemo(() => {
     let count = 0
     const trimmedRows = rows.filter((r) => r.url.trim().length > 0)
@@ -1084,13 +1107,13 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
     }
     for (const file of localFiles) {
-      const match = results.find((r) => r.fileName === file.name)
+      const match = getResultForFile(file)
       if (!match || !match.status) {
         count += 1
       }
     }
     return count
-  }, [rows, localFiles, resultById, results])
+  }, [rows, localFiles, resultById, getResultForFile])
 
   const pendingLabel = React.useMemo(() => {
     if (!ingestBlocked) {
@@ -1190,6 +1213,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     setDraftCreationRetrying(false)
     setReviewNavigationError(null)
     lastFileLookupRef.current = null
+    lastFileIdByKeyRef.current = null
     clearFailure()
 
     if (ingestBlocked) {
@@ -1255,6 +1279,7 @@ export const QuickIngestModal: React.FC<Props> = ({
 
       // Convert local files to transferable payloads (ArrayBuffer)
       const fileLookup = new Map<string, File>()
+      const fileIdByKey = new Map<string, string>()
       const filesPayload = await Promise.all(
         localFiles.map(async (f) => {
           if (f.size && f.size > INLINE_FILE_WARN_BYTES) {
@@ -1270,6 +1295,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           }
           const id = crypto.randomUUID()
           fileLookup.set(id, f)
+          fileIdByKey.set(buildLocalFileKey(f), id)
           // Use a plain array so runtime message cloning (MV3 SW) preserves bytes
           const data = Array.from(new Uint8Array(await f.arrayBuffer()))
           return {
@@ -1281,6 +1307,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         })
       )
       lastFileLookupRef.current = fileLookup
+      lastFileIdByKeyRef.current = fileIdByKey
 
       const resp = (await browser.runtime.sendMessage({
         type: "tldw:quick-ingest-batch",
@@ -1463,6 +1490,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       setDraftCreationRetrying(false)
       setReviewNavigationError(null)
       lastFileLookupRef.current = null
+      lastFileIdByKeyRef.current = null
       pendingStoreWithoutReviewRef.current = false
       return
     }
@@ -1823,7 +1851,10 @@ export const QuickIngestModal: React.FC<Props> = ({
   }, [loadSpec, open, preferServerSpec])
 
   React.useEffect(() => {
-    if (!open || ingestConnectionStatus !== "online") return
+    if (!open || ingestConnectionStatus !== "online") {
+      setTranscriptionModelsLoading(false)
+      return
+    }
     let cancelled = false
     const fetchModels = async () => {
       setTranscriptionModelsLoading(true)
@@ -1853,6 +1884,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     fetchModels()
     return () => {
       cancelled = true
+      setTranscriptionModelsLoading(false)
     }
   }, [ingestConnectionStatus, open])
 
@@ -2176,18 +2208,19 @@ export const QuickIngestModal: React.FC<Props> = ({
   const addLocalFiles = React.useCallback(
     (incoming: File[]) => {
       if (incoming.length === 0) return
-      const existingNames = new Set(localFiles.map((f) => f.name))
-      const seenNames = new Set<string>()
+      const existingKeys = new Set(localFiles.map((file) => buildLocalFileKey(file)))
+      const seenKeys = new Set<string>()
       const accepted: File[] = []
       const duplicates: string[] = []
 
       for (const file of incoming) {
         const name = file?.name || ""
-        if (existingNames.has(name) || seenNames.has(name)) {
+        const key = buildLocalFileKey(file)
+        if (existingKeys.has(key) || seenKeys.has(key)) {
           duplicates.push(name || "Unnamed file")
           continue
         }
-        seenNames.add(name)
+        seenKeys.add(key)
         accepted.push(file)
       }
 
@@ -2198,7 +2231,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         messageApi.warning(
           qi(
             "duplicateFiles",
-            "Skipped {{count}} file(s) with duplicate names: {{names}}",
+            "Skipped {{count}} duplicate file(s): {{names}}",
             {
               count: duplicates.length,
               names: `${label}${suffix}`
@@ -2962,7 +2995,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 const status = statusForFile(f)
                 const isSelected = selectedFileIndex === idx
                 const type = fileTypeFromName(f)
-                const match = results.find((r) => r.fileName === f.name)
+                const match = getResultForFile(f)
                 const runStatus = match?.status
                 const isProcessing = running && !runStatus
                 let runTag: React.ReactNode = null

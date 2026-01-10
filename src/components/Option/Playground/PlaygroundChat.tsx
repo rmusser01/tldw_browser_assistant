@@ -271,6 +271,7 @@ export const PlaygroundChat = () => {
                 isBot={message.isBot}
                 message={message.message}
                 name={message.name}
+                role={message.role}
                 images={message.images || []}
                 currentMessageIndex={block.index}
                 totalMessages={messages.length}
@@ -489,6 +490,7 @@ export const PlaygroundChat = () => {
                 isBot={userMessage.isBot}
                 message={userMessage.message}
                 name={userMessage.name}
+                role={userMessage.role}
                 images={userMessage.images || []}
                 currentMessageIndex={block.userIndex}
                 totalMessages={messages.length}
@@ -818,6 +820,7 @@ export const PlaygroundChat = () => {
                         isBot={message.isBot}
                         message={message.message}
                         name={message.name}
+                        role={message.role}
                         images={message.images || []}
                         currentMessageIndex={index}
                         totalMessages={messages.length}

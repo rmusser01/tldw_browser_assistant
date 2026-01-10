@@ -41,6 +41,26 @@ const ContentEditModal = React.lazy(() =>
   import('./ContentEditModal').then((m) => ({ default: m.ContentEditModal }))
 )
 
+const PLAIN_TEXT_MEDIA_TYPES = new Set(['audio', 'video', 'transcript', 'subtitle'])
+const MARKDOWN_HINTS = [
+  /^#{1,6}\s+/m,
+  /^\s*([-*+]|\d+\.)\s+/m,
+  /^>\s+/m,
+  /```/,
+  /`[^`]+`/,
+  /\[[^\]]+\]\([^)]+\)/,
+  /<\/?[a-z][\s\S]*>/i
+]
+
+const looksLikeMarkdown = (text: string) =>
+  MARKDOWN_HINTS.some((pattern) => pattern.test(text))
+
+const shouldForceHardBreaks = (text: string, mediaType?: string) => {
+  const normalizedType = mediaType?.toLowerCase().trim()
+  if (!normalizedType || !PLAIN_TEXT_MEDIA_TYPES.has(normalizedType)) return false
+  return !looksLikeMarkdown(text)
+}
+
 interface ContentViewerProps {
   selectedMedia: MediaResultItem | null
   content: string
@@ -107,6 +127,7 @@ export function ContentViewer({
   const [contentEditModalOpen, setContentEditModalOpen] = useState(false)
   const [editingContentText, setEditingContentText] = useState('')
   const [deletingItem, setDeletingItem] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
 
   // Content length threshold for collapse (2500 chars)
   const CONTENT_COLLAPSE_THRESHOLD = 2500
@@ -114,10 +135,25 @@ export function ContentViewer({
   const contentForPreview = useMemo(() => {
     if (!content) return ''
     if (selectedMedia?.kind === 'note') return content
-    return content.replace(/\r\n/g, '\n').replace(/\n/g, '  \n')
-  }, [content, selectedMedia?.kind])
+    const normalized = content.replace(/\r\n/g, '\n')
+    if (!shouldForceHardBreaks(normalized, selectedMedia?.meta?.type)) {
+      return normalized
+    }
+    return normalized.replace(/\n/g, '  \n')
+  }, [content, selectedMedia?.kind, selectedMedia?.meta?.type])
 
-  const resolveNoteVersion = (detail: any, raw: any): number | null => {
+  const selectedMediaId = selectedMedia?.id != null ? String(selectedMedia.id) : null
+  const isAwaitingSelectionUpdate =
+    !!pendingDeleteId && !!selectedMediaId && pendingDeleteId === selectedMediaId
+
+  useEffect(() => {
+    if (!pendingDeleteId) return
+    if (!selectedMediaId || pendingDeleteId !== selectedMediaId) {
+      setPendingDeleteId(null)
+    }
+  }, [pendingDeleteId, selectedMediaId])
+
+  const resolveNoteVersion = useCallback((detail: any, raw: any): number | null => {
     const candidates = [
       detail?.version,
       detail?.metadata?.version,
@@ -132,7 +168,7 @@ export function ContentViewer({
       }
     }
     return null
-  }
+  }, [])
 
   // Sync editing keywords with selected media
   useEffect(() => {
@@ -203,7 +239,7 @@ export function ContentViewer({
         setSavingKeywords(false)
       }
     },
-    [selectedMedia, onKeywordsUpdated]
+    [mediaDetail, onKeywordsUpdated, resolveNoteVersion, selectedMedia, t]
   )
 
   const handleDeleteItem = useCallback(async () => {
@@ -220,6 +256,7 @@ export function ContentViewer({
     setDeletingItem(true)
     try {
       await onDeleteItem(selectedMedia, mediaDetail ?? null)
+      setPendingDeleteId(String(selectedMedia.id))
       message.success(t('common:deleted', { defaultValue: 'Deleted' }))
     } catch (err) {
       const msg =
@@ -436,7 +473,7 @@ export function ContentViewer({
     }
   }, [content, mediaDetail])
 
-  if (!selectedMedia) {
+  if (!selectedMedia || isAwaitingSelectionUpdate) {
     return (
       <div className="flex-1 flex items-center justify-center bg-bg">
         <div className="text-center max-w-md px-6">
@@ -446,21 +483,29 @@ export function ContentViewer({
             </div>
           </div>
           <h2 className="mb-2 text-xl font-semibold text-text">
-            {t('review:mediaPage.noSelectionTitle', {
-              defaultValue: 'No media item selected'
-            })}
+            {isAwaitingSelectionUpdate
+              ? t('common:deleted', { defaultValue: 'Deleted' })
+              : t('review:mediaPage.noSelectionTitle', {
+                  defaultValue: 'No media item selected'
+                })}
           </h2>
           <p className="text-text-muted">
-            {t('review:mediaPage.noSelectionDescription', {
-              defaultValue:
-                'Select a media item from the left sidebar to view its content and analyses here.'
-            })}
+            {isAwaitingSelectionUpdate
+              ? t('review:mediaPage.loadingContent', {
+                  defaultValue: 'Loading content...'
+                })
+              : t('review:mediaPage.noSelectionDescription', {
+                  defaultValue:
+                    'Select a media item from the left sidebar to view its content and analyses here.'
+                })}
           </p>
-          <p className="mt-4 text-xs text-text-subtle">
-            {t('review:mediaPage.keyboardHint', {
-              defaultValue: 'Tip: Use j/k to navigate items, arrow keys to change pages'
-            })}
-          </p>
+          {!isAwaitingSelectionUpdate && (
+            <p className="mt-4 text-xs text-text-subtle">
+              {t('review:mediaPage.keyboardHint', {
+                defaultValue: 'Tip: Use j/k to navigate items, arrow keys to change pages'
+              })}
+            </p>
+          )}
         </div>
       </div>
     )

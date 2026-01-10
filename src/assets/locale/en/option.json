@@ -572,7 +572,7 @@
     "refreshing": "Refreshing characters…",
     "createNewCharacter": "Create a New Character+",
     "importCharacter": "Import Character",
-    "openCharactersPage": "Characters Page"
+    "openCharactersPage": "Characters"
   },
   "promptInsert": {
     "useInChat": "Use in chat",

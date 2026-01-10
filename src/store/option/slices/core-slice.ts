@@ -108,7 +108,7 @@ export const createCoreSlice: StoreSlice<
   setIsEmbedding: (isEmbedding) => set({ isEmbedding }),
   webSearch: false,
   setWebSearch: (webSearch) => set({ webSearch }),
-  toolChoice: "auto",
+  toolChoice: "none",
   setToolChoice: (toolChoice) => set({ toolChoice }),
   isSearchingInternet: false,
   setIsSearchingInternet: (isSearchingInternet) => set({ isSearchingInternet }),

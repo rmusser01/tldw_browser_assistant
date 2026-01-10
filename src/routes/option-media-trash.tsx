@@ -1,4 +1,4 @@
-import OptionLayout from "~/components/Layouts/Layout"
+import OptionLayout from "@/components/Layouts/Layout"
 import MediaTrashPage from "@/components/Review/MediaTrashPage"
 
 const OptionMediaTrash = () => {

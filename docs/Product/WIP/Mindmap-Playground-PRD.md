@@ -208,13 +208,13 @@ PRD — Mindmap Playground (Options Mode)
   - Node line syntax:
       - `- Label {id=mm_n1; tags=tag1,tag2; link=https://example.com; color=#ff8800; collapsed=0; sort=10}`
   - Metadata suffix:
-      - Optional final ` { ... }` block at end of the line.
+      - Optional final `{ ... }` block at end of the line.
       - Key/value pairs separated by `;`. Unknown keys are ignored for forward compatibility.
       - Values may be quoted with double quotes to include spaces or commas.
       - Escaping: use `\\{` or `\\}` in labels to avoid metadata parsing; use `\\\\` for literal backslash.
   - Notes:
       - Immediately following blockquote lines belong to the node.
-      - Blockquote lines are indented to the node level + 2 spaces and start with `> `.
+      - Blockquote lines are indented to the node level + 2 spaces and start with `>`.
       - A single `>` line represents a blank line in the note.
   - Example:
       ```markdown

@@ -1,5 +1,5 @@
-import OptionLayout from "~/components/Layouts/Layout"
-import { ChatbooksPlaygroundPage } from "~/components/Option/Chatbooks/ChatbooksPlaygroundPage"
+import OptionLayout from "@/components/Layouts/Layout"
+import { ChatbooksPlaygroundPage } from "@/components/Option/Chatbooks/ChatbooksPlaygroundPage"
 
 const OptionChatbooksPlayground = () => {
   return (

@@ -390,8 +390,12 @@ export default defineBackground({
       }
       if (
         typeof input === "object" &&
+        input !== null &&
         typeof (input as { byteLength?: number }).byteLength === "number" &&
-        typeof (input as { slice?: unknown }).slice === "function"
+        typeof (input as { slice?: unknown }).slice === "function" &&
+        (input instanceof ArrayBuffer ||
+          Object.prototype.toString.call(input) === "[object ArrayBuffer]" ||
+          ArrayBuffer.isView(input))
       ) {
         try {
           return new Uint8Array(input as ArrayBuffer)

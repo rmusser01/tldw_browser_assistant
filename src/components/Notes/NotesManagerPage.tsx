@@ -1,6 +1,6 @@
 import React from 'react'
 import type { InputRef } from 'antd'
-import { Input, Typography, Select, Button, Tooltip, Modal, Checkbox } from 'antd'
+import { Input, Typography, Select, Button, Tooltip } from 'antd'
 import { Plus as PlusIcon, Search as SearchIcon, ChevronLeft, ChevronRight } from 'lucide-react'
 import { bgRequest } from '@/services/background-proxy'
 import { useQuery, keepPreviousData, useQueryClient } from '@tanstack/react-query'
@@ -17,6 +17,7 @@ import { getAllNoteKeywords, searchNoteKeywords } from "@/services/note-keywords
 import { useStoreMessageOption } from "@/store/option"
 import { shallow } from "zustand/shallow"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
 import { MarkdownPreview } from "@/components/Common/MarkdownPreview"
 import NotesEditorHeader from "@/components/Notes/NotesEditorHeader"
@@ -31,6 +32,8 @@ type NoteWithKeywords = {
   metadata?: { keywords?: any[] }
   keywords?: any[]
 }
+
+const KeywordPickerModal = React.lazy(() => import('@/components/Notes/KeywordPickerModal'))
 
 const extractBacklink = (note: any) => {
   const meta = note?.metadata || {}
@@ -81,10 +84,16 @@ const toNoteVersion = (note: any): number | null => {
     note?.metadata?.expectedVersion
   ]
   for (const candidate of candidates) {
-    if (typeof candidate === 'number' && Number.isFinite(candidate)) return candidate
+    if (
+      typeof candidate === 'number' &&
+      Number.isFinite(candidate) &&
+      Number.isInteger(candidate)
+    ) {
+      return candidate
+    }
     if (typeof candidate === 'string' && candidate.trim().length > 0) {
       const parsed = Number(candidate)
-      if (Number.isFinite(parsed)) return parsed
+      if (Number.isFinite(parsed) && Number.isInteger(parsed)) return parsed
     }
   }
   return null
@@ -411,7 +420,24 @@ const NotesManagerPage: React.FC = () => {
         }
       }
     } catch (e: any) {
-      message.error(e?.message || 'Save failed')
+      const msg = String(e?.message || '')
+      const lower = msg.toLowerCase()
+      const status = e?.status ?? e?.response?.status
+      if (status === 409 || lower.includes('expected-version') || lower.includes('version mismatch')) {
+        message.error({
+          content: (
+            <span className="inline-flex items-center gap-2">
+              <span>This note changed on the server.</span>
+              <Button type="link" size="small" onClick={() => void reloadNotes(selectedId)}>
+                Reload notes
+              </Button>
+            </span>
+          ),
+          duration: 6
+        })
+      } else {
+        message.error(msg || 'Save failed')
+      }
     } finally { setSaving(false) }
   }
 
@@ -467,7 +493,8 @@ const NotesManagerPage: React.FC = () => {
     } catch (e: any) {
       const msg = String(e?.message || '')
       const lower = msg.toLowerCase()
-      if (e?.status === 409 || lower.includes('expected-version') || lower.includes('version mismatch')) {
+      const status = e?.status ?? e?.response?.status
+      if (status === 409 || lower.includes('expected-version') || lower.includes('version mismatch')) {
         message.error({
           content: (
             <span className="inline-flex items-center gap-2">
@@ -535,6 +562,7 @@ const NotesManagerPage: React.FC = () => {
         return {
           createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
           isBot: m.role === "assistant",
+          role: normalizeChatRole(m.role),
           name:
             m.role === "assistant"
               ? assistantName
@@ -1188,88 +1216,28 @@ const NotesManagerPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <Modal
-        open={keywordPickerOpen}
-        title={t('option:notesSearch.keywordPickerTitle', {
-          defaultValue: 'Browse keywords'
-        })}
-        onCancel={() => setKeywordPickerOpen(false)}
-        onOk={() => {
-          setKeywordTokens(keywordPickerSelection)
-          setPage(1)
-          setKeywordPickerOpen(false)
-        }}
-        okText={t('option:notesSearch.keywordPickerApply', {
-          defaultValue: 'Apply filters'
-        })}
-        cancelText={t('common:cancel', { defaultValue: 'Cancel' })}
-        destroyOnClose
-      >
-        <div className="space-y-3">
-          <Input
-            allowClear
-            placeholder={t('option:notesSearch.keywordPickerSearch', {
-              defaultValue: 'Search keywords'
-            })}
-            value={keywordPickerQuery}
-            onChange={(e) => setKeywordPickerQuery(e.target.value)}
+      {keywordPickerOpen && (
+        <React.Suspense fallback={null}>
+          <KeywordPickerModal
+            open={keywordPickerOpen}
+            availableKeywords={availableKeywords}
+            filteredKeywordPickerOptions={filteredKeywordPickerOptions}
+            keywordPickerQuery={keywordPickerQuery}
+            keywordPickerSelection={keywordPickerSelection}
+            onCancel={() => setKeywordPickerOpen(false)}
+            onApply={() => {
+              setKeywordTokens(keywordPickerSelection)
+              setPage(1)
+              setKeywordPickerOpen(false)
+            }}
+            onQueryChange={(value) => setKeywordPickerQuery(value)}
+            onSelectionChange={(vals) => setKeywordPickerSelection(vals)}
+            onSelectAll={() => setKeywordPickerSelection(availableKeywords)}
+            onClear={() => setKeywordPickerSelection([])}
+            t={t}
           />
-          <div className="flex items-center justify-between gap-2">
-            <Typography.Text type="secondary" className="text-xs text-text-muted">
-              {t('option:notesSearch.keywordPickerCount', {
-                defaultValue: '{{count}} keywords',
-                count: availableKeywords.length
-              })}
-            </Typography.Text>
-            <div className="flex items-center gap-2">
-              <Button
-                size="small"
-                onClick={() => setKeywordPickerSelection(availableKeywords)}
-                disabled={availableKeywords.length === 0}
-              >
-                {t('option:notesSearch.keywordPickerSelectAll', {
-                  defaultValue: 'Select all'
-                })}
-              </Button>
-              <Button
-                size="small"
-                onClick={() => setKeywordPickerSelection([])}
-                disabled={keywordPickerSelection.length === 0}
-              >
-                {t('option:notesSearch.keywordPickerClear', {
-                  defaultValue: 'Clear'
-                })}
-              </Button>
-            </div>
-          </div>
-          <div className="max-h-64 overflow-auto rounded-lg border border-border bg-surface2 p-3">
-            {filteredKeywordPickerOptions.length === 0 ? (
-              <Typography.Text
-                type="secondary"
-                className="block text-xs text-text-muted text-center"
-              >
-                {t('option:notesSearch.keywordPickerEmpty', {
-                  defaultValue: 'No keywords found'
-                })}
-              </Typography.Text>
-            ) : (
-              <Checkbox.Group
-                value={keywordPickerSelection}
-                onChange={(vals) => setKeywordPickerSelection(vals as string[])}
-                className="w-full"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {filteredKeywordPickerOptions.map((keyword) => (
-                    <Checkbox key={keyword} value={keyword}>
-                      {keyword}
-                    </Checkbox>
-                  ))}
-                </div>
-              </Checkbox.Group>
-            )}
-          </div>
-        </div>
-      </Modal>
+        </React.Suspense>
+      )}
     </div>
   )
 }
