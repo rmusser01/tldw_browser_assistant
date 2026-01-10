@@ -280,6 +280,31 @@ export const SidepanelForm = ({
     clearQueuedMessages,
     serverChatId
   } = useMessage()
+  const previousServerChatIdRef = React.useRef<string | null | undefined>(
+    serverChatId
+  )
+
+  React.useEffect(() => {
+    const previous = previousServerChatIdRef.current
+    const current = serverChatId
+
+    if (previous && previous !== "" && !current && !temporaryChat) {
+      notification.warning({
+        message: t(
+          "sidepanel:saveStatus.saveFailed",
+          "Failed to save chat to server"
+        ),
+        description: t(
+          "sidepanel:saveStatus.saveFailedDescription",
+          "Chat is now saving locally only. Check your connection and try again."
+        ),
+        placement: "bottomRight",
+        duration: 4
+      })
+    }
+
+    previousServerChatIdRef.current = current
+  }, [notification, serverChatId, t, temporaryChat])
   const hasImage = form.values.image.length > 0
   const replyLabel = replyTarget
     ? [
@@ -466,17 +491,52 @@ export const SidepanelForm = ({
   })
 
   // Temporary chat toggle hook
-  const {
-    handleToggleTemporaryChat,
-    currentModeLabel,
-    currentModeChipLabel
-  } = useTemporaryChatToggle({
+  const { handleToggleTemporaryChat } = useTemporaryChatToggle({
     temporaryChat,
     setTemporaryChat,
     messagesLength: messages.length,
     clearChat
   })
   const temporaryChatLocked = temporaryChat && messages.length > 0
+  const temporaryChatToggleLabel = temporaryChat
+    ? t("playground:actions.temporaryOn", "Temporary chat (not saved)")
+    : t("playground:actions.temporaryOff", "Save chat to history")
+  const persistenceModeLabel = React.useMemo(() => {
+    if (temporaryChat) {
+      return t(
+        "playground:composer.persistence.ephemeral",
+        "Not saved: cleared when you close this window."
+      )
+    }
+    if (serverChatId || isConnectionReady) {
+      return t(
+        "playground:composer.persistence.server",
+        "Saved to your tldw server (and locally)."
+      )
+    }
+    return t(
+      "playground:composer.persistence.local",
+      "Saved locally until your tldw server is connected."
+    )
+  }, [isConnectionReady, serverChatId, t, temporaryChat])
+  const persistencePillLabel = React.useMemo(() => {
+    if (temporaryChat) {
+      return t("playground:composer.persistence.ephemeralPill", "Not saved")
+    }
+    if (serverChatId || isConnectionReady) {
+      return t("playground:composer.persistence.serverPill", "Server")
+    }
+    return t("playground:composer.persistence.localPill", "Local")
+  }, [isConnectionReady, serverChatId, t, temporaryChat])
+  const persistenceTooltip = React.useMemo(
+    () => (
+      <div className="flex flex-col gap-0.5 text-xs">
+        <span className="font-medium">{persistencePillLabel}</span>
+        <span className="text-text-subtle">{persistenceModeLabel}</span>
+      </div>
+    ),
+    [persistenceModeLabel, persistencePillLabel]
+  )
 
   // Character selection state
   const [selectedCharacterId, setSelectedCharacterId] = React.useState<string | null>(null)
@@ -1450,20 +1510,33 @@ export const SidepanelForm = ({
                         ) : null}
                       </div>
                     )}
-                    <div className="mt-2 flex w-full flex-row items-center justify-between gap-1.5">
+                    <div className="mt-2 flex flex-col gap-2">
+                      <Tooltip title={persistenceTooltip}>
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            size="small"
+                            checked={!temporaryChat}
+                            disabled={temporaryChatLocked || isFireFoxPrivateMode}
+                            onChange={(checked) =>
+                              handleToggleTemporaryChat(!checked)
+                            }
+                            aria-label={temporaryChatToggleLabel as string}
+                          />
+                          <span className="text-xs text-text whitespace-nowrap">
+                            {temporaryChatToggleLabel}
+                          </span>
+                        </div>
+                      </Tooltip>
+                      <div className="flex w-full flex-row items-center justify-between gap-1.5">
                       {isProMode ? (
                         <>
-                          {/* Control Row - contains Prompt, Model, RAG, Save, and More tools */}
+                          {/* Control Row - contains Prompt, Model, RAG, and More tools */}
                           <ControlRow
                             selectedSystemPrompt={selectedSystemPrompt}
                             setSelectedSystemPrompt={setSelectedSystemPrompt}
                             setSelectedQuickPrompt={setSelectedQuickPrompt}
                             selectedCharacterId={selectedCharacterId}
                             setSelectedCharacterId={setSelectedCharacterId}
-                            temporaryChat={temporaryChat}
-                            temporaryChatLocked={temporaryChatLocked}
-                            serverChatId={serverChatId}
-                            setTemporaryChat={handleToggleTemporaryChat}
                             webSearch={webSearch}
                             setWebSearch={setWebSearch}
                             chatMode={chatMode}
@@ -1859,6 +1932,7 @@ export const SidepanelForm = ({
                         </>
                       )}
                     </div>
+                  </div>
                   </div>
                 </form>
               </div>
