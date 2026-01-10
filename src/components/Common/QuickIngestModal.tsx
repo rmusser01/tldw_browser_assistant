@@ -13,8 +13,8 @@ import { defaultEmbeddingModelForRag } from '@/services/tldw-server'
 import { tldwModels } from '@/services/tldw'
 import {
   coerceDraftMediaType,
-  inferIngestTypeFromFilename,
-  inferIngestTypeFromUrl
+  inferIngestTypeFromUrl,
+  inferUploadMediaTypeFromFile
 } from "@/services/tldw/media-routing"
 import { useConnectionActions, useConnectionState } from '@/hooks/useConnectionState'
 import { useQuickIngestStore } from "@/store/quick-ingest"
@@ -34,14 +34,31 @@ import {
   LAST_MEDIA_ID_SETTING
 } from "@/services/settings/ui-settings"
 
+type TypeDefaults = {
+  audio?: { language?: string; diarize?: boolean }
+  document?: { ocr?: boolean }
+  video?: { captions?: boolean }
+}
+
 type Entry = {
   id: string
   url: string
   type: 'auto' | 'html' | 'pdf' | 'document' | 'audio' | 'video'
+  defaults?: TypeDefaults
   // Simple per-type options; server can ignore unknown fields
   audio?: { language?: string; diarize?: boolean }
   document?: { ocr?: boolean }
   video?: { captions?: boolean }
+}
+
+type QueuedFileStub = {
+  id: string
+  key: string
+  name: string
+  size: number
+  type?: string
+  lastModified?: number
+  defaults?: TypeDefaults
 }
 
 type ProcessingItem = {
@@ -112,6 +129,34 @@ const buildLocalFileKey = (file: File) => {
   return `${name}::${size}::${lastModified}`
 }
 
+const snapshotTypeDefaults = (defaults?: TypeDefaults): TypeDefaults | undefined => {
+  if (!defaults) return undefined
+  const next: TypeDefaults = {}
+  if (defaults.audio && (defaults.audio.language || typeof defaults.audio.diarize === 'boolean')) {
+    next.audio = { ...defaults.audio }
+  }
+  if (defaults.document && typeof defaults.document.ocr === 'boolean') {
+    next.document = { ...defaults.document }
+  }
+  if (defaults.video && typeof defaults.video.captions === 'boolean') {
+    next.video = { ...defaults.video }
+  }
+  return Object.keys(next).length > 0 ? next : undefined
+}
+
+const buildQueuedFileStub = (
+  file: File,
+  defaults?: TypeDefaults
+): QueuedFileStub => ({
+  id: crypto.randomUUID(),
+  key: buildLocalFileKey(file),
+  name: file?.name || "",
+  size: Number.isFinite(file?.size) ? file.size : 0,
+  type: file?.type,
+  lastModified: Number.isFinite(file?.lastModified) ? file.lastModified : undefined,
+  defaults: snapshotTypeDefaults(defaults)
+})
+
 const ProcessingIndicator = ({ label }: { label: string }) => (
   <div className="flex items-center gap-2 text-[11px] text-text-subtle">
     <span className="relative flex h-2.5 w-2.5">
@@ -121,6 +166,16 @@ const ProcessingIndicator = ({ label }: { label: string }) => (
     <span>{label}</span>
   </div>
 )
+
+const DEFAULT_EMPTY_ROW: Entry = {
+  id: crypto.randomUUID(),
+  url: '',
+  type: 'auto'
+}
+
+const DEFAULT_TYPE_DEFAULTS: TypeDefaults = {
+  document: { ocr: true }
+}
 
 const MAX_LOCAL_FILE_BYTES = 500 * 1024 * 1024 // 500MB soft cap for local file ingest
 const INLINE_FILE_WARN_BYTES = 100 * 1024 * 1024 // warn/block before copying very large buffers in-memory
@@ -343,9 +398,18 @@ export const QuickIngestModal: React.FC<Props> = ({
     "quickIngestReviewBeforeStorage",
     false
   )
-  const [rows, setRows] = React.useState<Entry[]>([
-    { id: crypto.randomUUID(), url: '', type: 'auto' }
-  ])
+  const [rows, setRows] = useStorage<Entry[]>(
+    "quickIngestQueuedRows",
+    [DEFAULT_EMPTY_ROW]
+  )
+  const [queuedFiles, setQueuedFiles] = useStorage<QueuedFileStub[]>(
+    "quickIngestQueuedFiles",
+    []
+  )
+  const [typeDefaults, setTypeDefaults] = useStorage<TypeDefaults>(
+    "quickIngestTypeDefaults",
+    DEFAULT_TYPE_DEFAULTS
+  )
   // Common ingest options available across media types (promote booleans only; rely on Advanced for the rest)
   const [common, setCommon] = React.useState<{ perform_analysis: boolean; perform_chunking: boolean; overwrite_existing: boolean }>({
     perform_analysis: true,
@@ -368,6 +432,29 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [transcriptionModelsLoading, setTranscriptionModelsLoading] = React.useState(false)
   const [storageHintSeen, setStorageHintSeen] = useStorage<boolean>('quickIngestStorageHintSeen', false)
   const navigate = useNavigate()
+  const normalizedTypeDefaults = React.useMemo(
+    () => ({
+      audio: typeDefaults?.audio,
+      document: {
+        ocr: typeDefaults?.document?.ocr ?? true
+      },
+      video: typeDefaults?.video
+    }),
+    [typeDefaults]
+  )
+  const createDefaultsSnapshot = React.useCallback(
+    () => snapshotTypeDefaults(normalizedTypeDefaults),
+    [normalizedTypeDefaults]
+  )
+  const buildRowEntry = React.useCallback(
+    (url = '', type: Entry['type'] = 'auto'): Entry => ({
+      id: crypto.randomUUID(),
+      url,
+      type,
+      defaults: createDefaultsSnapshot()
+    }),
+    [createDefaultsSnapshot]
+  )
   const lastRefreshedLabel = React.useMemo(() => {
     const ts = specPrefs?.lastRemote?.cachedAt
     if (!ts) return null
@@ -387,11 +474,13 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [runStartedAt, setRunStartedAt] = React.useState<number | null>(null)
   const [pendingUrlInput, setPendingUrlInput] = React.useState<string>('')
   const [selectedRowId, setSelectedRowId] = React.useState<string | null>(null)
-  const [selectedFileIndex, setSelectedFileIndex] = React.useState<number | null>(null)
+  const [selectedFileId, setSelectedFileId] = React.useState<string | null>(null)
+  const [pendingReattachId, setPendingReattachId] = React.useState<string | null>(null)
   const [inspectorOpen, setInspectorOpen] = React.useState<boolean>(false)
   const [hasOpenedInspector, setHasOpenedInspector] = React.useState<boolean>(false)
   const [showInspectorIntro, setShowInspectorIntro] = React.useState<boolean>(true)
   const [inspectorIntroDismissed, setInspectorIntroDismissed] = useStorage<boolean>('quickIngestInspectorIntroDismissed', false)
+  const reattachInputRef = React.useRef<HTMLInputElement | null>(null)
   const confirmDanger = useConfirmDanger()
   const introToast = React.useRef(false)
   const handleDismissInspectorIntro = React.useCallback(() => {
@@ -921,7 +1010,13 @@ export const QuickIngestModal: React.FC<Props> = ({
   )
 
   const fileTypeFromName = React.useCallback(
-    (f: File): Entry['type'] => inferIngestTypeFromFilename(f.name || ''),
+    (f: { name?: string; type?: string }): Entry['type'] => {
+      const uploadType = inferUploadMediaTypeFromFile(
+        f?.name || '',
+        f?.type || ''
+      )
+      return uploadType === 'ebook' ? 'document' : uploadType
+    },
     []
   )
 
@@ -942,29 +1037,79 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
   }, [])
 
+  const mergeDefaults = React.useCallback(
+    <T extends Record<string, any>>(defaults?: T, overrides?: T): T | undefined => {
+      const next: Record<string, any> = {
+        ...(defaults || {}),
+        ...(overrides || {})
+      }
+      for (const key of Object.keys(next)) {
+        if (next[key] === undefined || next[key] === null || next[key] === '') {
+          delete next[key]
+        }
+      }
+      return Object.keys(next).length > 0 ? (next as T) : undefined
+    },
+    []
+  )
+
+  const hasOverrides = React.useCallback(
+    <T extends Record<string, any>>(overrides?: T, defaults?: T): boolean => {
+      if (!overrides) return false
+      for (const [key, value] of Object.entries(overrides)) {
+        if (value === undefined || value === null || value === '') continue
+        const defaultValue = defaults ? (defaults as Record<string, any>)[key] : undefined
+        if (value !== defaultValue) return true
+      }
+      return false
+    },
+    []
+  )
+
   const statusForUrlRow = React.useCallback((row: Entry) => {
     const raw = (row.url || '').trim()
     if (raw && !isLikelyUrl(raw)) {
-      return { label: 'Needs review', color: 'orange', reason: 'Invalid URL format' }
+      return {
+        label: qi('needsReview', 'Needs review'),
+        color: 'orange',
+        reason: qi('invalidUrlFormat', 'Invalid URL format')
+      }
     }
+    const baselineDefaults = row.defaults || normalizedTypeDefaults
     const custom =
       row.type !== 'auto' ||
-      (row.audio && Object.keys(row.audio).length > 0) ||
-      (row.document && Object.keys(row.document).length > 0) ||
-      (row.video && Object.keys(row.video).length > 0)
+      hasOverrides(row.audio, baselineDefaults.audio) ||
+      hasOverrides(row.document, baselineDefaults.document) ||
+      hasOverrides(row.video, baselineDefaults.video)
     return {
-      label: custom ? 'Custom' : 'Default',
+      label: custom ? qi('customLabel', 'Custom') : qi('defaultLabel', 'Default'),
       color: custom ? 'blue' : 'default' as const,
-      reason: custom ? 'Custom type or options' : undefined
+      reason: custom
+        ? qi('customReason', 'Custom type or options')
+        : undefined
     }
-  }, [])
+  }, [hasOverrides, qi, normalizedTypeDefaults])
 
-  const statusForFile = React.useCallback((file: File) => {
-    if (file.size && file.size > MAX_LOCAL_FILE_BYTES) {
-      return { label: 'Needs review', color: 'orange', reason: 'File is over 500MB' }
+  const statusForFile = React.useCallback((fileLike: { size: number }, attached: boolean) => {
+    if (!attached) {
+      return {
+        label: qi('missingFile', 'Missing file'),
+        color: 'orange',
+        reason: qi('missingFileReason', 'Reattach this file to process it.')
+      }
     }
-    return { label: 'Default', color: 'default' as const }
-  }, [])
+    if (fileLike.size && fileLike.size > MAX_LOCAL_FILE_BYTES) {
+      return {
+        label: qi('needsReview', 'Needs review'),
+        color: 'orange',
+        reason: qi('fileTooLarge', 'File is over 500MB')
+      }
+    }
+    return {
+      label: qi('defaultLabel', 'Default'),
+      color: 'default' as const
+    }
+  }, [qi])
 
   const addUrlsFromInput = React.useCallback(
     (text: string) => {
@@ -973,27 +1118,27 @@ export const QuickIngestModal: React.FC<Props> = ({
         .map((s) => s.trim())
         .filter(Boolean)
       if (parts.length === 0) return
-      const entries = parts.map((u) => ({
-        id: crypto.randomUUID(),
-        url: u,
-        type: inferIngestTypeFromUrl(u)
-      }))
+      const entries = parts.map((u) =>
+        buildRowEntry(u, inferIngestTypeFromUrl(u) as Entry['type'])
+      )
       setRows((prev) => [...prev, ...entries])
       setPendingUrlInput('')
       setSelectedRowId(entries[0].id)
-      setSelectedFileIndex(null)
+      setSelectedFileId(null)
       messageApi.success(`Added ${entries.length} URL${entries.length === 1 ? '' : 's'} to the queue.`)
     },
-    [messageApi]
+    [buildRowEntry, messageApi]
   )
 
   const clearAllQueues = React.useCallback(() => {
-    setRows([{ id: crypto.randomUUID(), url: '', type: 'auto' }])
+    setRows([buildRowEntry()])
+    setQueuedFiles([])
     setLocalFiles([])
     setSelectedRowId(null)
-    setSelectedFileIndex(null)
+    setSelectedFileId(null)
+    setPendingReattachId(null)
     setPendingUrlInput('')
-  }, [])
+  }, [buildRowEntry, setQueuedFiles, setRows])
 
   const pasteFromClipboard = React.useCallback(async () => {
     try {
@@ -1018,7 +1163,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     [setSpecPrefs]
   )
 
-  const addRow = () => setRows((r) => [...r, { id: crypto.randomUUID(), url: '', type: 'auto' }])
+  const addRow = () => setRows((r) => [...r, buildRowEntry()])
   const removeRow = (id: string) => {
     setRows((r) => r.filter((x) => x.id !== id))
     if (selectedRowId === id) {
@@ -1026,24 +1171,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
   }
   const updateRow = (id: string, patch: Partial<Entry>) => setRows((r) => r.map((x) => (x.id === id ? { ...x, ...patch } : x)))
-
-  // Default OCR to on for document/PDF rows so users get best extraction without extra clicks
-  React.useEffect(() => {
-    let changed = false
-    const next = rows.map((r) => {
-      const isDocType =
-        r.type === 'document' ||
-        r.type === 'pdf' ||
-        (r.type === 'auto' &&
-          ['document', 'pdf'].includes(inferIngestTypeFromUrl(r.url)))
-      if (isDocType && r.document?.ocr === undefined) {
-        changed = true
-        return { ...r, document: { ...(r.document || {}), ocr: true } }
-      }
-      return r
-    })
-    if (changed) setRows(next)
-  }, [rows])
 
   // Resolve current RAG embedding model for display in Advanced section
   React.useEffect(() => {
@@ -1071,10 +1198,62 @@ export const QuickIngestModal: React.FC<Props> = ({
     })()
   }, [])
 
+  const queuedFileStubs = queuedFiles || []
+
+  React.useEffect(() => {
+    if (!open) return
+    const snapshot = createDefaultsSnapshot()
+    if (!snapshot) return
+    setRows((prev) => {
+      let changed = false
+      const next = prev.map((row) => {
+        if (row.defaults) return row
+        changed = true
+        return { ...row, defaults: snapshotTypeDefaults(snapshot) }
+      })
+      return changed ? next : prev
+    })
+    setQueuedFiles((prev) => {
+      if (!prev || prev.length === 0) return prev
+      let changed = false
+      const next = prev.map((stub) => {
+        if (stub.defaults) return stub
+        changed = true
+        return { ...stub, defaults: snapshotTypeDefaults(snapshot) }
+      })
+      return changed ? next : prev
+    })
+  }, [createDefaultsSnapshot, open, setQueuedFiles, setRows])
+
+  const attachedFilesByKey = React.useMemo(
+    () => new Map(localFiles.map((file) => [buildLocalFileKey(file), file])),
+    [localFiles]
+  )
+
+  const attachedFileStubs = React.useMemo(
+    () => queuedFileStubs.filter((stub) => attachedFilesByKey.has(stub.key)),
+    [attachedFilesByKey, queuedFileStubs]
+  )
+
+  const missingFileStubs = React.useMemo(
+    () => queuedFileStubs.filter((stub) => !attachedFilesByKey.has(stub.key)),
+    [attachedFilesByKey, queuedFileStubs]
+  )
+  const hasMissingFiles = missingFileStubs.length > 0
+
+  const attachedFiles = React.useMemo(() => {
+    const next: File[] = []
+    for (const stub of attachedFileStubs) {
+      const file = attachedFilesByKey.get(stub.key)
+      if (file) next.push(file)
+    }
+    return next
+  }, [attachedFileStubs, attachedFilesByKey])
+
   const plannedCount = React.useMemo(() => {
     const valid = rows.filter((r) => r.url.trim().length > 0)
-    return valid.length + localFiles.length
-  }, [rows, localFiles])
+    return valid.length + attachedFileStubs.length
+  }, [rows, attachedFileStubs.length])
 
   const resultById = React.useMemo(() => {
     const map = new Map<string, ResultItem>()
@@ -1106,14 +1285,16 @@ export const QuickIngestModal: React.FC<Props> = ({
         count += 1
       }
     }
-    for (const file of localFiles) {
+    for (const stub of attachedFileStubs) {
+      const file = attachedFilesByKey.get(stub.key)
+      if (!file) continue
       const match = getResultForFile(file)
       if (!match || !match.status) {
         count += 1
       }
     }
     return count
-  }, [rows, localFiles, resultById, getResultForFile])
+  }, [rows, attachedFileStubs, attachedFilesByKey, resultById, getResultForFile])
 
   const pendingLabel = React.useMemo(() => {
     if (!ingestBlocked) {
@@ -1216,6 +1397,18 @@ export const QuickIngestModal: React.FC<Props> = ({
     lastFileIdByKeyRef.current = null
     clearFailure()
 
+    const missingFileCount = missingFileStubs.length
+    if (missingFileCount > 0) {
+      messageApi.error(
+        qi(
+          "missingFilesBlock",
+          "Reattach {{count}} local file(s) to run ingest.",
+          { count: missingFileCount }
+        )
+      )
+      return
+    }
+
     if (ingestBlocked) {
       let key = "quickIngest.offlineQueueToast"
       let fallback =
@@ -1235,11 +1428,11 @@ export const QuickIngestModal: React.FC<Props> = ({
       return
     }
     const valid = rows.filter((r) => r.url.trim().length > 0)
-    if (valid.length === 0 && localFiles.length === 0) {
+    if (valid.length === 0 && attachedFiles.length === 0) {
       messageApi.error('Please add at least one URL or file')
       return
     }
-    const oversizedFiles = localFiles.filter(
+    const oversizedFiles = attachedFiles.filter(
       (f) => f.size && f.size > MAX_LOCAL_FILE_BYTES
     )
     if (oversizedFiles.length > 0) {
@@ -1253,7 +1446,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       setLastRunError(msg)
       return
     }
-    const total = valid.length + localFiles.length
+    const total = valid.length + attachedFiles.length
     setTotalPlanned(total)
     setProcessedCount(0)
     setLiveTotalCount(total)
@@ -1268,20 +1461,50 @@ export const QuickIngestModal: React.FC<Props> = ({
       } catch {}
 
       // Prepare entries payload (URLs + simple options)
-      const entries = valid.map((r) => ({
-        id: r.id,
-        url: r.url,
-        type: r.type,
-        audio: r.audio,
-        document: r.document,
-        video: r.video
-      }))
+      const entries = valid.map((r) => {
+        const inferredType =
+          r.type === "auto" ? inferIngestTypeFromUrl(r.url) : r.type
+        const rowDefaults = r.defaults || normalizedTypeDefaults
+        const defaultsForType = {
+          audio: inferredType === "audio" ? rowDefaults.audio : undefined,
+          document:
+            inferredType === "document" || inferredType === "pdf"
+              ? rowDefaults.document
+              : undefined,
+          video: inferredType === "video" ? rowDefaults.video : undefined
+        }
+        const audio = mergeDefaults(defaultsForType.audio, r.audio)
+        const document = mergeDefaults(defaultsForType.document, r.document)
+        const video = mergeDefaults(defaultsForType.video, r.video)
+        return {
+          id: r.id,
+          url: r.url,
+          type: r.type,
+          audio,
+          document,
+          video
+        }
+      })
+
+      const fileDefaults = {
+        audio: mergeDefaults(normalizedTypeDefaults.audio),
+        document: mergeDefaults(normalizedTypeDefaults.document),
+        video: mergeDefaults(normalizedTypeDefaults.video)
+      }
+      const fileDefaultsByKey = new Map(
+        attachedFileStubs.map((stub) => [
+          stub.key,
+          stub.defaults || normalizedTypeDefaults
+        ])
+      )
 
       // Convert local files to transferable payloads (ArrayBuffer)
       const fileLookup = new Map<string, File>()
       const fileIdByKey = new Map<string, string>()
       const filesPayload = await Promise.all(
-        localFiles.map(async (f) => {
+        attachedFiles.map(async (f) => {
+          const defaultsForFile =
+            fileDefaultsByKey.get(buildLocalFileKey(f)) || normalizedTypeDefaults
           if (f.size && f.size > INLINE_FILE_WARN_BYTES) {
             const msg = `File "${f.name}" is too large for inline transfer (over ${formatBytes(INLINE_FILE_WARN_BYTES)}). Please upload a smaller file or process directly on the server.`
             messageApi.error(msg)
@@ -1302,7 +1525,8 @@ export const QuickIngestModal: React.FC<Props> = ({
             id,
             name: f.name,
             type: f.type,
-            data
+            data,
+            defaults: defaultsForFile
           }
         })
       )
@@ -1317,7 +1541,8 @@ export const QuickIngestModal: React.FC<Props> = ({
           storeRemote,
           processOnly,
           common,
-          advancedValues
+          advancedValues,
+          fileDefaults
         }
       })) as { ok: boolean; error?: string; results?: ResultItem[] } | undefined
 
@@ -1415,15 +1640,19 @@ export const QuickIngestModal: React.FC<Props> = ({
     handleReviewBatchReady,
     ingestBlocked,
     ingestConnectionStatus,
-    localFiles,
+    attachedFiles,
+    attachedFileStubs,
     formatBytes,
     messageApi,
+    mergeDefaults,
     processOnly,
     qi,
     reviewBeforeStorage,
     rows,
     storeRemote,
-    t
+    t,
+    normalizedTypeDefaults,
+    missingFileStubs.length
   ])
 
   const hasReviewableResults = React.useMemo(
@@ -2025,36 +2254,41 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
   }
 
-  const firstAudioRow = React.useMemo(
+  const hasAudioItems = React.useMemo(
     () =>
-      rows.find(
+      rows.some(
         (r) =>
           r.type === "audio" ||
           (r.type === "auto" && inferIngestTypeFromUrl(r.url) === "audio")
-      ),
-    [rows]
+      ) ||
+      queuedFileStubs.some((stub) => fileTypeFromName(stub) === "audio"),
+    [fileTypeFromName, queuedFileStubs, rows]
   )
 
-  const firstDocumentRow = React.useMemo(
+  const hasDocumentItems = React.useMemo(
     () =>
-      rows.find(
+      rows.some(
         (r) =>
           r.type === "document" ||
           r.type === "pdf" ||
           (r.type === "auto" &&
             ["document", "pdf"].includes(inferIngestTypeFromUrl(r.url)))
+      ) ||
+      queuedFileStubs.some((stub) =>
+        ["document", "pdf"].includes(fileTypeFromName(stub))
       ),
-    [rows]
+    [fileTypeFromName, queuedFileStubs, rows]
   )
 
-  const firstVideoRow = React.useMemo(
+  const hasVideoItems = React.useMemo(
     () =>
-      rows.find(
+      rows.some(
         (r) =>
           r.type === "video" ||
           (r.type === "auto" && inferIngestTypeFromUrl(r.url) === "video")
-      ),
-    [rows]
+      ) ||
+      queuedFileStubs.some((stub) => fileTypeFromName(stub) === "video"),
+    [fileTypeFromName, queuedFileStubs, rows]
   )
 
   const selectedRow = React.useMemo(
@@ -2062,10 +2296,25 @@ export const QuickIngestModal: React.FC<Props> = ({
     [rows, selectedRowId]
   )
 
+  const selectedFileStub = React.useMemo(
+    () => queuedFileStubs.find((f) => f.id === selectedFileId) || null,
+    [queuedFileStubs, selectedFileId]
+  )
+
   const selectedFile = React.useMemo(() => {
-    if (selectedFileIndex == null || selectedFileIndex < 0) return null
-    return localFiles[selectedFileIndex] || null
-  }, [localFiles, selectedFileIndex])
+    if (!selectedFileStub) return null
+    return attachedFilesByKey.get(selectedFileStub.key) || null
+  }, [attachedFilesByKey, selectedFileStub])
+  const requestFileReattach = React.useCallback((stubId: string) => {
+    setPendingReattachId(stubId)
+    if (reattachInputRef.current) {
+      reattachInputRef.current.click()
+    }
+  }, [setPendingReattachId])
+  const handleReattachSelectedFile = React.useCallback(() => {
+    if (!selectedFileStub) return
+    requestFileReattach(selectedFileStub.id)
+  }, [requestFileReattach, selectedFileStub])
 
   // Keep intro hidden if user dismissed previously
   React.useEffect(() => {
@@ -2078,17 +2327,16 @@ export const QuickIngestModal: React.FC<Props> = ({
   // tune future onboarding copy, but avoid auto-opening it so the queue
   // stays visually dominant until the user explicitly opts in.
   React.useEffect(() => {
-    if ((selectedRow || selectedFile) && inspectorOpen && !hasOpenedInspector) {
+    if ((selectedRow || selectedFileStub) && inspectorOpen && !hasOpenedInspector) {
       setHasOpenedInspector(true)
     }
-  }, [hasOpenedInspector, inspectorOpen, selectedFile, selectedRow])
+  }, [hasOpenedInspector, inspectorOpen, selectedFileStub, selectedRow])
 
   React.useEffect(() => {
-    setSelectedFileIndex((prev) => {
-      if (localFiles.length === 0) return null
-      if (prev == null) return 0
-      if (prev >= localFiles.length) return localFiles.length - 1
-      return prev
+    setSelectedFileId((prev) => {
+      if (queuedFileStubs.length === 0) return null
+      if (prev && queuedFileStubs.some((f) => f.id === prev)) return prev
+      return queuedFileStubs[0].id
     })
 
     if (selectedRowId && rows.some((r) => r.id === selectedRowId)) {
@@ -2096,10 +2344,10 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
     if (rows.length > 0) {
       setSelectedRowId(rows[0].id)
-      setSelectedFileIndex(null)
+      setSelectedFileId(null)
       return
     }
-  }, [localFiles.length, rows, selectedRowId])
+  }, [queuedFileStubs, rows, selectedRowId])
 
   React.useEffect(() => {
     if (!running) return
@@ -2208,20 +2456,37 @@ export const QuickIngestModal: React.FC<Props> = ({
   const addLocalFiles = React.useCallback(
     (incoming: File[]) => {
       if (incoming.length === 0) return
-      const existingKeys = new Set(localFiles.map((file) => buildLocalFileKey(file)))
+      const defaultsSnapshot = createDefaultsSnapshot()
+      const attachedKeys = new Set(
+        localFiles.map((file) => buildLocalFileKey(file))
+      )
+      const stubsByKey = new Map(
+        (queuedFiles || []).map((stub) => [stub.key, stub])
+      )
       const seenKeys = new Set<string>()
       const accepted: File[] = []
+      const newStubs: QueuedFileStub[] = []
       const duplicates: string[] = []
+      let firstSelectedId: string | null = null
 
       for (const file of incoming) {
         const name = file?.name || ""
         const key = buildLocalFileKey(file)
-        if (existingKeys.has(key) || seenKeys.has(key)) {
+        if (attachedKeys.has(key) || seenKeys.has(key)) {
           duplicates.push(name || "Unnamed file")
           continue
         }
         seenKeys.add(key)
+        const existingStub = stubsByKey.get(key)
+        if (existingStub) {
+          accepted.push(file)
+          if (!firstSelectedId) firstSelectedId = existingStub.id
+          continue
+        }
+        const stub = buildQueuedFileStub(file, defaultsSnapshot)
+        newStubs.push(stub)
         accepted.push(file)
+        if (!firstSelectedId) firstSelectedId = stub.id
       }
 
       if (duplicates.length > 0) {
@@ -2240,12 +2505,61 @@ export const QuickIngestModal: React.FC<Props> = ({
         )
       }
 
+      if (newStubs.length > 0) {
+        setQueuedFiles((prev) => [...(prev || []), ...newStubs])
+      }
       if (accepted.length === 0) return
       setLocalFiles((prev) => [...prev, ...accepted])
-      setSelectedFileIndex((prev) => (prev == null ? 0 : prev))
+      if (firstSelectedId) {
+        setSelectedFileId(firstSelectedId)
+      }
       setSelectedRowId(null)
     },
-    [localFiles, messageApi, qi]
+    [createDefaultsSnapshot, localFiles, messageApi, qi, queuedFiles, setQueuedFiles]
+  )
+
+  const handleReattachChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      event.currentTarget.value = ''
+      const stubId = pendingReattachId
+      setPendingReattachId(null)
+      if (!file || !stubId) return
+      const stub = queuedFileStubs.find((item) => item.id === stubId)
+      if (!stub) return
+      if (buildLocalFileKey(file) !== stub.key) {
+        messageApi.error(
+          qi(
+            "reattachMismatch",
+            "That file does not match {{name}}. Choose the original file or remove this item.",
+            { name: stub.name || "this file" }
+          )
+        )
+        return
+      }
+      setLocalFiles((prev) => {
+        if (prev.some((existing) => buildLocalFileKey(existing) === stub.key)) {
+          return prev
+        }
+        return [...prev, file]
+      })
+      setSelectedFileId(stub.id)
+      setSelectedRowId(null)
+      messageApi.success(
+        qi("reattachSuccess", "Reattached {{name}}.", {
+          name: stub.name || "file"
+        })
+      )
+    },
+    [
+      messageApi,
+      pendingReattachId,
+      qi,
+      queuedFileStubs,
+      setLocalFiles,
+      setSelectedFileId,
+      setSelectedRowId
+    ]
   )
 
   const handleFileDrop = React.useCallback(
@@ -2265,19 +2579,20 @@ export const QuickIngestModal: React.FC<Props> = ({
       const key = (r.url || "").trim()
       const existing = byUrl.get(key)
       if (existing) {
-        return { ...existing, id: crypto.randomUUID() }
+        return {
+          ...existing,
+          id: crypto.randomUUID(),
+          defaults: existing.defaults || createDefaultsSnapshot()
+        }
       }
-      return {
-        id: crypto.randomUUID(),
-        url: r.url || "",
-        type: "auto" as Entry["type"]
-      }
+      return buildRowEntry(r.url || "", "auto")
     })
     if (failedUrls.length === 0) {
       messageApi.info(qi("noFailedUrlToRetry", "No failed URL items to retry."))
       return
     }
     setRows(failedUrls)
+    setQueuedFiles([])
     setLocalFiles([])
     setResults([])
     setProcessedCount(0)
@@ -2291,7 +2606,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         { count: failedUrls.length }
       )
     )
-  }, [messageApi, qi, results, rows])
+  }, [buildRowEntry, createDefaultsSnapshot, messageApi, qi, results, rows, setQueuedFiles])
 
   const confirmReplaceQueue = React.useCallback(
     async (otherCount: number) => {
@@ -2313,10 +2628,15 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   const resetQueueForRetry = React.useCallback(
     (nextRows: Entry[], nextFiles: File[], message: string) => {
+      const defaultsSnapshot = createDefaultsSnapshot()
+      const nextFileStubs = nextFiles.map((file) =>
+        buildQueuedFileStub(file, defaultsSnapshot)
+      )
       setRows(nextRows)
+      setQueuedFiles(nextFileStubs)
       setLocalFiles(nextFiles)
       setSelectedRowId(nextRows[0]?.id ?? null)
-      setSelectedFileIndex(nextFiles.length > 0 ? 0 : null)
+      setSelectedFileId(nextFileStubs[0]?.id ?? null)
       setResults([])
       setProcessedCount(0)
       const total =
@@ -2329,14 +2649,15 @@ export const QuickIngestModal: React.FC<Props> = ({
         messageApi.info(message)
       }
     },
-    [messageApi]
+    [createDefaultsSnapshot, messageApi, setQueuedFiles, setRows]
   )
 
   const retrySingleRow = React.useCallback(
     async (row: Entry) => {
       if (running) return
       const totalItems =
-        rows.filter((r) => r.url.trim().length > 0).length + localFiles.length
+        rows.filter((r) => r.url.trim().length > 0).length +
+        queuedFileStubs.length
       const otherCount = totalItems - (row.url.trim() ? 1 : 0)
       const ok = await confirmReplaceQueue(otherCount)
       if (!ok) return
@@ -2347,14 +2668,15 @@ export const QuickIngestModal: React.FC<Props> = ({
         qi("queuedRetrySingle", "Queued 1 item to retry. Click Run to start.")
       )
     },
-    [confirmReplaceQueue, localFiles.length, qi, resetQueueForRetry, rows, running]
+    [confirmReplaceQueue, qi, queuedFileStubs.length, resetQueueForRetry, rows, running]
   )
 
   const retrySingleFile = React.useCallback(
     async (file: File) => {
       if (running) return
       const totalItems =
-        rows.filter((r) => r.url.trim().length > 0).length + localFiles.length
+        rows.filter((r) => r.url.trim().length > 0).length +
+        queuedFileStubs.length
       const otherCount = Math.max(0, totalItems - 1)
       const ok = await confirmReplaceQueue(otherCount)
       if (!ok) return
@@ -2368,7 +2690,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         )
       )
     },
-    [confirmReplaceQueue, localFiles.length, qi, resetQueueForRetry, rows, running]
+    [confirmReplaceQueue, qi, queuedFileStubs.length, resetQueueForRetry, rows, running]
   )
 
   // Live progress updates from background batch processor
@@ -2687,7 +3009,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             <li>
               {qi(
                 'tipsPerType',
-                'Per-type settings (Audio/PDF/Video) apply to all items of that type.'
+                'Per-type settings (Audio/PDF/Video) apply to new items of that type.'
               )}
             </li>
             <li>
@@ -2736,6 +3058,13 @@ export const QuickIngestModal: React.FC<Props> = ({
               }}
               accept=".pdf,.txt,.rtf,.doc,.docx,.md,.epub,application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*"
             />
+            <input
+              type="file"
+              style={{ display: 'none' }}
+              ref={reattachInputRef}
+              onChange={handleReattachChange}
+              accept=".pdf,.txt,.rtf,.doc,.docx,.md,.epub,application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*"
+            />
             <div
               className="mt-3 w-full rounded-md border border-dashed border-border bg-surface2 px-4 py-4 text-center"
               onDragOver={(e) => {
@@ -2766,6 +3095,17 @@ export const QuickIngestModal: React.FC<Props> = ({
                 </div>
               </div>
             </div>
+            {queuedFileStubs.length > 0 && (
+              <div className="mt-2 flex items-start gap-2 rounded-md border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
+                <AlertTriangle className="mt-0.5 h-4 w-4" />
+                <span>
+                  {qi(
+                    "localFilesWarning",
+                    "Local files stay attached only while this modal is open. Keep it open until you click Run, or reattach files after reopening."
+                  )}
+                </span>
+              </div>
+            )}
             <div className="mt-3 space-y-2">
               <div className="flex items-center justify-between">
                 <Typography.Text strong>
@@ -2846,7 +3186,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                     aria-label={qi('openInspector', 'Open Inspector')}
                     title={qi('openInspector', 'Open Inspector')}
                     onClick={() => setInspectorOpen(true)}
-                    disabled={!(selectedRow || selectedFile)}>
+                    disabled={!(selectedRow || selectedFileStub)}>
                     {qi('openInspector', 'Open Inspector')}
                   </Button>
                 </div>
@@ -2857,6 +3197,18 @@ export const QuickIngestModal: React.FC<Props> = ({
                 'Staged items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention.'
               )}
             </div>
+            {missingFileStubs.length > 0 && (
+              <div className="mb-2 flex items-start gap-2 rounded-md border border-warn/30 bg-warn/10 px-2 py-1 text-xs text-warn">
+                <AlertTriangle className="mt-0.5 h-4 w-4" />
+                <span>
+                  {qi(
+                    "missingFilesQueueNotice",
+                    "{{count}} local file(s) need reattachment. Add the files again or remove them before running ingest.",
+                    { count: missingFileStubs.length }
+                  )}
+                </span>
+              </div>
+            )}
             <div className="max-h-[360px] space-y-2 overflow-auto pr-1">
               {rows.map((row) => {
                 const status = statusForUrlRow(row)
@@ -2887,7 +3239,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${isSelected ? 'border-primary shadow-sm' : 'border-border'}`}
                   onClick={() => {
                     setSelectedRowId(row.id)
-                    setSelectedFileIndex(null)
+                    setSelectedFileId(null)
                     setInspectorOpen(true)
                   }}
                 >
@@ -2900,7 +3252,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       onClick={(e) => {
                         e.stopPropagation()
                         setSelectedRowId(row.id)
-                        setSelectedFileIndex(null)
+                        setSelectedFileId(null)
                         setInspectorOpen(true)
                       }}>
                       <Info className="w-4 h-4 text-text-subtle" />
@@ -2991,13 +3343,14 @@ export const QuickIngestModal: React.FC<Props> = ({
                 )
               })}
 
-              {localFiles.map((f, idx) => {
-                const status = statusForFile(f)
-                const isSelected = selectedFileIndex === idx
-                const type = fileTypeFromName(f)
-                const match = getResultForFile(f)
+              {queuedFileStubs.map((stub) => {
+                const attachedFile = attachedFilesByKey.get(stub.key)
+                const status = statusForFile(attachedFile || stub, Boolean(attachedFile))
+                const isSelected = selectedFileId === stub.id
+                const type = fileTypeFromName(stub)
+                const match = attachedFile ? getResultForFile(attachedFile) : null
                 const runStatus = match?.status
-                const isProcessing = running && !runStatus
+                const isProcessing = !!attachedFile && running && !runStatus
                 let runTag: React.ReactNode = null
                 if (runStatus === 'ok') runTag = <Tag color="green">{qi('statusDone', 'Done')}</Tag>
                 else if (runStatus === 'error') {
@@ -3006,9 +3359,11 @@ export const QuickIngestModal: React.FC<Props> = ({
                       <Tag color="red">{qi('statusFailed', 'Failed')}</Tag>
                     </AntTooltip>
                   )
-                } else if (running) runTag = <Tag icon={<Spin size="small" />} color="blue">{qi('statusRunning', 'Running')}</Tag>
+                } else if (running && attachedFile) {
+                  runTag = <Tag icon={<Spin size="small" />} color="blue">{qi('statusRunning', 'Running')}</Tag>
+                }
                 const pendingTag =
-                  ingestBlocked && !running && !runStatus
+                  ingestBlocked && !running && attachedFile && !runStatus
                     ? (
                       <Tag>
                         {t(
@@ -3021,10 +3376,10 @@ export const QuickIngestModal: React.FC<Props> = ({
 
                 return (
                   <div
-                    key={`${f.name}-${idx}`}
+                    key={stub.id}
                   className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${isSelected ? 'border-primary shadow-sm' : 'border-border'}`}
                   onClick={() => {
-                    setSelectedFileIndex(idx)
+                    setSelectedFileId(stub.id)
                     setSelectedRowId(null)
                     setInspectorOpen(true)
                   }}
@@ -3037,7 +3392,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       title="Open Inspector for this file"
                       onClick={(e) => {
                         e.stopPropagation()
-                        setSelectedFileIndex(idx)
+                        setSelectedFileId(stub.id)
                         setSelectedRowId(null)
                         setInspectorOpen(true)
                       }}>
@@ -3048,11 +3403,11 @@ export const QuickIngestModal: React.FC<Props> = ({
                       {typeIcon(type)}
                         <div className="flex flex-col">
                           <Typography.Text className="text-sm font-medium truncate max-w-[360px]">
-                            {f.name}
+                            {stub.name}
                           </Typography.Text>
                           <div className="flex items-center gap-2 text-[11px] text-text-subtle">
                             <Tag color="geekblue">{type.toUpperCase()}</Tag>
-                            <span>{formatBytes((f as any)?.size)} {f.type ? `· ${f.type}` : ''}</span>
+                            <span>{formatBytes(stub.size)} {stub.type ? `· ${stub.type}` : ''}</span>
                             {status.reason ? <span className="text-orange-600">{status.reason}</span> : null}
                           </div>
                         </div>
@@ -3064,12 +3419,26 @@ export const QuickIngestModal: React.FC<Props> = ({
                       </div>
                     </div>
                     <div className="mt-2 flex items-center gap-2 text-xs text-text-muted">
-                        {runStatus === "error" && (
+                        {!attachedFile && (
                           <Button
                             size="small"
                             onClick={(e) => {
                               e.stopPropagation()
-                              void retrySingleFile(f)
+                              requestFileReattach(stub.id)
+                            }}
+                            disabled={running}
+                            aria-label={qi("reattachFileAria", "Reattach this file")}
+                            title={qi("reattachFileAria", "Reattach this file")}
+                          >
+                            {qi("reattachFile", "Reattach")}
+                          </Button>
+                        )}
+                        {runStatus === "error" && attachedFile && (
+                          <Button
+                            size="small"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              void retrySingleFile(attachedFile)
                             }}
                             disabled={running}
                             aria-label={qi("retryItemAria", "Retry this item")}
@@ -3085,13 +3454,13 @@ export const QuickIngestModal: React.FC<Props> = ({
                           title="Remove this file from queue"
                           onClick={(e) => {
                             e.stopPropagation()
-                            setLocalFiles((prev) => {
-                              const next = prev.filter((_, i) => i !== idx)
-                              if (selectedFileIndex === idx) {
-                                setSelectedFileIndex(null)
-                              }
-                              return next
-                            })
+                            setQueuedFiles((prev) => (prev || []).filter((f) => f.id !== stub.id))
+                            setLocalFiles((prev) =>
+                              prev.filter((file) => buildLocalFileKey(file) !== stub.key)
+                            )
+                            if (selectedFileId === stub.id) {
+                              setSelectedFileId(null)
+                            }
                           }}
                           disabled={running}
                         >
@@ -3109,7 +3478,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   )
                 })}
 
-              {rows.length === 0 && localFiles.length === 0 && (
+              {rows.length === 0 && queuedFileStubs.length === 0 && (
                 <div className="rounded-md border border-dashed border-border p-4 text-center text-sm text-text-muted">
                   {qi('emptyQueue', 'No items queued yet. Drop files or add URLs to start.')}
                 </div>
@@ -3119,6 +3488,14 @@ export const QuickIngestModal: React.FC<Props> = ({
 
           <div className="rounded-md border border-border bg-surface p-3 space-y-3">
             <Typography.Title level={5} className="!mb-2">{t('quickIngest.commonOptions') || 'Ingestion options'}</Typography.Title>
+            {(hasAudioItems || hasDocumentItems || hasVideoItems) && (
+              <Typography.Text type="secondary" className="text-xs text-text-subtle">
+                {qi(
+                  "defaultsForNewItems",
+                  "Defaults apply to items added after this point."
+                )}
+              </Typography.Text>
+            )}
             <Space wrap size="middle" align="center">
                 <Space align="center">
                   <span>{qi('analysisLabel', 'Analysis')}</span>
@@ -3177,30 +3554,32 @@ export const QuickIngestModal: React.FC<Props> = ({
               </div>
             )}
 
-            {rows.some((r) => (r.type === 'audio' || (r.type === 'auto' && inferIngestTypeFromUrl(r.url) === 'audio'))) && (
+            {hasAudioItems && (
               <div className="space-y-1">
                 <Typography.Title level={5} className="!mb-1">{t('quickIngest.audioOptions') || 'Audio options'}</Typography.Title>
                 <Space className="w-full">
                   <Input
                     placeholder={t('quickIngest.audioLanguage') || 'Language (e.g., en)'}
-                    value={firstAudioRow?.audio?.language || ''}
-                    onChange={(e) => setRows((rs) => rs.map((x) => {
-                      const isAudio = x.type === 'audio' || (x.type === 'auto' && inferIngestTypeFromUrl(x.url) === 'audio')
-                      if (!isAudio) return x
-                      return { ...x, audio: { ...(x.audio || {}), language: e.target.value } }
-                    }))}
+                    value={normalizedTypeDefaults.audio?.language || ''}
+                    onChange={(e) =>
+                      setTypeDefaults((prev) => ({
+                        ...(prev || {}),
+                        audio: { ...(prev?.audio || {}), language: e.target.value }
+                      }))
+                    }
                     disabled={running}
                     aria-label="Audio language"
                     title="Audio language"
                   />
                     <Select
                       className="min-w-40"
-                    value={firstAudioRow?.audio?.diarize ?? false}
-                    onChange={(v) => setRows((rs) => rs.map((x) => {
-                      const isAudio = x.type === 'audio' || (x.type === 'auto' && inferIngestTypeFromUrl(x.url) === 'audio')
-                      if (!isAudio) return x
-                      return { ...x, audio: { ...(x.audio || {}), diarize: Boolean(v) } }
-                    }))}
+                    value={normalizedTypeDefaults.audio?.diarize ?? false}
+                    onChange={(v) =>
+                      setTypeDefaults((prev) => ({
+                        ...(prev || {}),
+                        audio: { ...(prev?.audio || {}), diarize: Boolean(v) }
+                      }))
+                    }
                     aria-label="Audio diarization toggle"
                     title="Audio diarization toggle"
                     options={[
@@ -3211,27 +3590,28 @@ export const QuickIngestModal: React.FC<Props> = ({
                   />
                 </Space>
                 <Typography.Text type="secondary" className="text-xs">
-                  {t('quickIngest.audioDiarizationHelp') || 'Turn on to separate speakers in transcripts; applies to all audio rows in this batch.'}
+                  {t('quickIngest.audioDiarizationHelp') || 'Turn on to separate speakers in transcripts; applies to new audio items added after this point.'}
                 </Typography.Text>
                 <Typography.Text
                   className="text-[11px] text-text-subtle block"
-                  title={qi('audioSettingsTitle', 'These audio settings apply to every audio item in this run.')}>
-                  {qi('audioSettingsHint', 'These settings apply to every audio item in this run.')}
+                  title={qi('audioSettingsTitle', 'These audio settings apply to new audio items added after this point.')}>
+                  {qi('audioSettingsHint', 'These settings apply to new audio items added after this point.')}
                 </Typography.Text>
               </div>
             )}
 
-            {rows.some((r) => (r.type === 'document' || r.type === 'pdf' || (r.type === 'auto' && ['document', 'pdf'].includes(inferIngestTypeFromUrl(r.url))))) && (
+            {hasDocumentItems && (
               <div className="space-y-1">
                 <Typography.Title level={5} className="!mb-1">{t('quickIngest.documentOptions') || 'Document options'}</Typography.Title>
                   <Select
                     className="min-w-40"
-                    value={firstDocumentRow?.document?.ocr ?? true}
-                    onChange={(v) => setRows((rs) => rs.map((x) => {
-                      const isDoc = x.type === 'document' || x.type === 'pdf' || (x.type === 'auto' && ['document', 'pdf'].includes(inferIngestTypeFromUrl(x.url)))
-                      if (!isDoc) return x
-                      return { ...x, document: { ...(x.document || {}), ocr: Boolean(v) } }
-                    }))}
+                    value={normalizedTypeDefaults.document?.ocr ?? true}
+                    onChange={(v) =>
+                      setTypeDefaults((prev) => ({
+                        ...(prev || {}),
+                        document: { ...(prev?.document || {}), ocr: Boolean(v) }
+                      }))
+                    }
                     aria-label="OCR toggle"
                     title="OCR toggle"
                     options={[
@@ -3241,27 +3621,28 @@ export const QuickIngestModal: React.FC<Props> = ({
                     disabled={running}
                   />
                 <Typography.Text type="secondary" className="text-xs">
-                  {t('quickIngest.ocrHelp') || 'OCR helps extract text from scanned PDFs or images; applies to all document/PDF rows.'}
+                  {t('quickIngest.ocrHelp') || 'OCR helps extract text from scanned PDFs or images; applies to new document/PDF items added after this point.'}
                 </Typography.Text>
                 <Typography.Text
                   className="text-[11px] text-text-subtle block"
-                  title={qi('documentSettingsTitle', 'These document settings apply to every document/PDF in this run.')}>
-                  {qi('documentSettingsHint', 'Applies to all document/PDF items in this batch.')}
+                  title={qi('documentSettingsTitle', 'These document settings apply to new document/PDF items added after this point.')}>
+                  {qi('documentSettingsHint', 'Applies to new document/PDF items added after this point.')}
                 </Typography.Text>
               </div>
             )}
 
-            {rows.some((r) => (r.type === 'video' || (r.type === 'auto' && inferIngestTypeFromUrl(r.url) === 'video'))) && (
+            {hasVideoItems && (
               <div className="space-y-1">
                 <Typography.Title level={5} className="!mb-1">{t('quickIngest.videoOptions') || 'Video options'}</Typography.Title>
                 <Select
                   className="min-w-40"
-                  value={firstVideoRow?.video?.captions ?? false}
-                  onChange={(v) => setRows((rs) => rs.map((x) => {
-                    const isVideo = x.type === 'video' || (x.type === 'auto' && inferIngestTypeFromUrl(x.url) === 'video')
-                    if (!isVideo) return x
-                    return { ...x, video: { ...(x.video || {}), captions: Boolean(v) } }
-                  }))}
+                  value={normalizedTypeDefaults.video?.captions ?? false}
+                  onChange={(v) =>
+                    setTypeDefaults((prev) => ({
+                      ...(prev || {}),
+                      video: { ...(prev?.video || {}), captions: Boolean(v) }
+                    }))
+                  }
                   aria-label="Captions toggle"
                   title="Captions toggle"
                   options={[
@@ -3271,12 +3652,12 @@ export const QuickIngestModal: React.FC<Props> = ({
                   disabled={running}
                 />
                 <Typography.Text type="secondary" className="text-xs">
-                  {t('quickIngest.captionsHelp') || 'Include timestamps/captions for all video rows; helpful for search and summaries.'}
+                  {t('quickIngest.captionsHelp') || 'Include timestamps/captions for new video items added after this point; helpful for search and summaries.'}
                 </Typography.Text>
                 <Typography.Text
                   className="text-[11px] text-text-subtle block"
-                  title={qi('videoSettingsTitle', 'These video settings apply to every video in this run.')}>
-                  {qi('videoSettingsHint', 'Applies to all video items in this batch.')}
+                  title={qi('videoSettingsTitle', 'These video settings apply to new video items added after this point.')}>
+                  {qi('videoSettingsHint', 'Applies to new video items added after this point.')}
                 </Typography.Text>
               </div>
             )}
@@ -3474,7 +3855,12 @@ export const QuickIngestModal: React.FC<Props> = ({
                 {showProcessQueuedButton && (
                   <Button
                     onClick={run}
-                    disabled={running || plannedCount === 0 || ingestBlocked}
+                    disabled={
+                      running ||
+                      plannedCount === 0 ||
+                      ingestBlocked ||
+                      hasMissingFiles
+                    }
                     aria-label={t(
                       "quickIngest.processQueuedItemsAria",
                       "Process queued Quick Ingest items"
@@ -3493,7 +3879,12 @@ export const QuickIngestModal: React.FC<Props> = ({
                   type="primary"
                   loading={running}
                   onClick={run}
-                  disabled={plannedCount === 0 || running || ingestBlocked}
+                  disabled={
+                    plannedCount === 0 ||
+                    running ||
+                    ingestBlocked ||
+                    hasMissingFiles
+                  }
                   aria-label={
                     ingestBlocked
                       ? ingestConnectionStatus === "unconfigured"
@@ -3559,6 +3950,18 @@ export const QuickIngestModal: React.FC<Props> = ({
                   {t('quickIngest.cancel') || 'Cancel'}
                 </Button>
               </div>
+              {hasMissingFiles && (
+                <div className="mt-1 flex items-center gap-2 text-xs text-warn">
+                  <AlertTriangle className="h-4 w-4" />
+                  <span>
+                    {qi(
+                      "missingFilesBlock",
+                      "Reattach {{count}} local file(s) to run ingest.",
+                      { count: missingFileStubs.length }
+                    )}
+                  </span>
+                </div>
+              )}
               {ingestBlocked && (
                 <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-warn">
                   <span>
@@ -3636,25 +4039,27 @@ export const QuickIngestModal: React.FC<Props> = ({
 
         <div
           aria-hidden
-          className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ease-out ${inspectorOpen && (selectedRow || selectedFile) ? 'opacity-100' : 'opacity-0'}`}
+          className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ease-out ${inspectorOpen && (selectedRow || selectedFileStub) ? 'opacity-100' : 'opacity-0'}`}
         >
           <div className="absolute right-0 top-0 h-full w-40 bg-gradient-to-l from-primary/30 via-primary/10 to-transparent blur-md" />
         </div>
 
         <QuickIngestInspectorDrawer
-          open={inspectorOpen && (!!selectedRow || !!selectedFile)}
+          open={inspectorOpen && (!!selectedRow || !!selectedFileStub)}
           onClose={() => setInspectorOpen(false)}
           showIntro={showInspectorIntro}
           onDismissIntro={handleDismissInspectorIntro}
           qi={qi}
           selectedRow={selectedRow}
-          selectedFile={selectedFile}
+          selectedFile={selectedFile || selectedFileStub}
+          selectedFileAttached={Boolean(selectedFile)}
           typeIcon={typeIcon}
           inferIngestTypeFromUrl={inferIngestTypeFromUrl}
           fileTypeFromName={fileTypeFromName}
           statusForUrlRow={statusForUrlRow}
           statusForFile={statusForFile}
           formatBytes={formatBytes}
+          onReattachFile={handleReattachSelectedFile}
         />
 
         <Collapse

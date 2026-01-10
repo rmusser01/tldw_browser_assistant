@@ -13,6 +13,12 @@ type StatusSummary = {
   reason?: string
 }
 
+type FileLike = {
+  name: string
+  size: number
+  type?: string
+}
+
 type QuickIngestInspectorDrawerProps = {
   open: boolean
   onClose: () => void
@@ -20,13 +26,15 @@ type QuickIngestInspectorDrawerProps = {
   onDismissIntro: () => void
   qi: (key: string, defaultValue: string, options?: Record<string, any>) => string
   selectedRow: QuickIngestRow | null
-  selectedFile: File | null
+  selectedFile: FileLike | null
+  selectedFileAttached?: boolean
   typeIcon: (type: string) => React.ReactNode
   inferIngestTypeFromUrl: (url: string) => string
-  fileTypeFromName: (file: File) => string
+  fileTypeFromName: (file: FileLike) => string
   statusForUrlRow: (row: QuickIngestRow) => StatusSummary
-  statusForFile: (file: File) => StatusSummary
+  statusForFile: (file: FileLike, attached: boolean) => StatusSummary
   formatBytes: (size: number) => string
+  onReattachFile?: () => void
 }
 
 export const QuickIngestInspectorDrawer: React.FC<
@@ -39,12 +47,14 @@ export const QuickIngestInspectorDrawer: React.FC<
   qi,
   selectedRow,
   selectedFile,
+  selectedFileAttached,
   typeIcon,
   inferIngestTypeFromUrl,
   fileTypeFromName,
   statusForUrlRow,
   statusForFile,
-  formatBytes
+  formatBytes,
+  onReattachFile
 }) => {
   return (
     <Drawer
@@ -70,7 +80,7 @@ export const QuickIngestInspectorDrawer: React.FC<
               <li>
                 {qi(
                   "inspectorIntroItem2",
-                  "Use per-type controls on the main panel to set defaults; any per-row override marks it Custom."
+                  "Use per-type controls on the main panel to set defaults for new items; any per-row override marks it Custom."
                 )}
               </li>
               <li>
@@ -145,11 +155,17 @@ export const QuickIngestInspectorDrawer: React.FC<
                 <>
                   <Tag
                     color={
-                      statusForFile(selectedFile).color === "default"
+                      statusForFile(
+                        selectedFile,
+                        Boolean(selectedFileAttached)
+                      ).color === "default"
                         ? undefined
-                        : statusForFile(selectedFile).color
+                        : statusForFile(
+                            selectedFile,
+                            Boolean(selectedFileAttached)
+                          ).color
                     }>
-                    {statusForFile(selectedFile).label}
+                    {statusForFile(selectedFile, Boolean(selectedFileAttached)).label}
                   </Tag>
                   <Tag color="geekblue">
                     {fileTypeFromName(selectedFile).toUpperCase()}
@@ -158,9 +174,9 @@ export const QuickIngestInspectorDrawer: React.FC<
                     {formatBytes(selectedFile.size)}
                     {selectedFile.type ? ` · ${selectedFile.type}` : ""}
                   </span>
-                  {statusForFile(selectedFile).reason ? (
+                  {statusForFile(selectedFile, Boolean(selectedFileAttached)).reason ? (
                     <span className="text-orange-600">
-                      {statusForFile(selectedFile).reason}
+                      {statusForFile(selectedFile, Boolean(selectedFileAttached)).reason}
                     </span>
                   ) : null}
                 </>
@@ -178,8 +194,35 @@ export const QuickIngestInspectorDrawer: React.FC<
               <div className="text-xs text-text-muted">
                 {qi(
                   "inspectorFileHint",
-                  "File settings follow the per-type controls on the main panel."
+                  "File settings follow the per-type defaults captured when this file was added."
                 )}
+              </div>
+            ) : null}
+            {selectedFile && !selectedFileAttached ? (
+              <div className="rounded-md border border-warn/30 bg-warn/10 p-2 text-xs text-warn">
+                <div className="font-medium">
+                  {qi("inspectorMissingFileTitle", "Missing file")}
+                </div>
+                <div className="mt-1">
+                  {qi(
+                    "inspectorMissingFileBody",
+                    "Reattach this file before running ingest."
+                  )}
+                </div>
+                {onReattachFile ? (
+                  <Button
+                    size="small"
+                    className="mt-2"
+                    onClick={onReattachFile}
+                    aria-label={qi(
+                      "reattachFileAria",
+                      "Reattach this file"
+                    )}
+                    title={qi("reattachFileAria", "Reattach this file")}
+                  >
+                    {qi("reattachFile", "Reattach")}
+                  </Button>
+                ) : null}
               </div>
             ) : null}
             <div className="text-xs text-text-subtle">

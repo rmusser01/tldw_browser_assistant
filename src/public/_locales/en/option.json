@@ -642,7 +642,7 @@
     "message": "Language (e.g., en)"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "Turn on to separate speakers in transcripts; applies to new audio items added after this point."
   },
   "quickIngest_documentOptions": {
     "message": "Document options"
@@ -654,7 +654,7 @@
     "message": "Video options"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "Include timestamps/captions for new video items added after this point; helpful for search and summaries."
   },
   "quickIngest_cancel": {
     "message": "Cancel"
@@ -804,7 +804,7 @@
     "message": "Hybrid input: drop files or paste URLs (comma/newline separated) to build the queue."
   },
   "quickIngest_tipsPerType": {
-    "message": "Per-type settings (Audio/PDF/Video) apply to all items of that type."
+    "message": "Per-type settings (Audio/PDF/Video) apply to new items of that type."
   },
   "quickIngest_tipsInspector": {
     "message": "Use the Inspector to see status, type, and quick checks before ingesting."
@@ -933,10 +933,10 @@
     "message": "Diarization: On"
   },
   "quickIngest_audioSettingsTitle": {
-    "message": "These audio settings apply to every audio item in this run."
+    "message": "These audio settings apply to new audio items added after this point."
   },
   "quickIngest_audioSettingsHint": {
-    "message": "These settings apply to every audio item in this run."
+    "message": "These settings apply to new audio items added after this point."
   },
   "quickIngest_ocrOff": {
     "message": "OCR: Off"
@@ -945,10 +945,10 @@
     "message": "OCR: On"
   },
   "quickIngest_documentSettingsTitle": {
-    "message": "These document settings apply to every document/PDF in this run."
+    "message": "These document settings apply to new document/PDF items added after this point."
   },
   "quickIngest_documentSettingsHint": {
-    "message": "Applies to all document/PDF items in this batch."
+    "message": "Applies to new document/PDF items added after this point."
   },
   "quickIngest_captionsOff": {
     "message": "Captions: Off"
@@ -957,10 +957,10 @@
     "message": "Captions: On"
   },
   "quickIngest_videoSettingsTitle": {
-    "message": "These video settings apply to every video in this run."
+    "message": "These video settings apply to new video items added after this point."
   },
   "quickIngest_videoSettingsHint": {
-    "message": "Applies to all video items in this batch."
+    "message": "Applies to new video items added after this point."
   },
   "quickIngest_ingestProgressTitle": {
     "message": "Current ingest progress"
@@ -987,7 +987,7 @@
     "message": "Click a queued item to see its detected type, status, and warnings."
   },
   "quickIngest_inspectorIntroItem2": {
-    "message": "Use per-type controls on the main panel to set defaults; any per-row override marks it Custom."
+    "message": "Use per-type controls on the main panel to set defaults for new items; any per-row override marks it Custom."
   },
   "quickIngest_inspectorIntroItem3": {
     "message": "For auth-required URLs, add cookies/headers in Advanced before ingesting."
@@ -1005,7 +1005,7 @@
     "message": "Editing the URL or forcing a type marks this item as Custom."
   },
   "quickIngest_inspectorFileHint": {
-    "message": "File settings follow the per-type controls on the main panel."
+    "message": "File settings follow the per-type defaults captured when this file was added."
   },
   "quickIngest_inspectorAdvancedHint": {
     "message": "Use Advanced options to set cookies/auth if required. Errors or warnings appear on each row."
@@ -2443,5 +2443,44 @@
   },
   "characters_openCharactersPage": {
     "message": "Characters"
+  },
+  "quickIngest_defaultsForNewItems": {
+    "message": "Defaults apply to items added after this point."
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images; applies to new document/PDF items added after this point."
+  },
+  "quickIngest_localFilesWarning": {
+    "message": "Local files stay attached only while this modal is open. Keep it open until you click Run, or reattach files after reopening."
+  },
+  "quickIngest_missingFile": {
+    "message": "Missing file"
+  },
+  "quickIngest_missingFileReason": {
+    "message": "Reattach this file to process it."
+  },
+  "quickIngest_missingFilesBlock": {
+    "message": "Reattach {{count}} local file(s) to run ingest."
+  },
+  "quickIngest_missingFilesQueueNotice": {
+    "message": "{{count}} local file(s) need reattachment. Add the files again or remove them before running ingest."
+  },
+  "quickIngest_reattachFileAria": {
+    "message": "Reattach this file"
+  },
+  "quickIngest_reattachFile": {
+    "message": "Reattach"
+  },
+  "quickIngest_reattachMismatch": {
+    "message": "That file does not match {{name}}. Choose the original file or remove this item."
+  },
+  "quickIngest_reattachSuccess": {
+    "message": "Reattached {{name}}."
+  },
+  "quickIngest_inspectorMissingFileTitle": {
+    "message": "Missing file"
+  },
+  "quickIngest_inspectorMissingFileBody": {
+    "message": "Reattach this file before running ingest."
   }
 }

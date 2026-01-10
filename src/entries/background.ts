@@ -577,6 +577,9 @@ export default defineBackground({
         const advancedValues = payload.advancedValues && typeof payload.advancedValues === 'object'
           ? payload.advancedValues
           : {}
+        const fileDefaults = payload.fileDefaults && typeof payload.fileDefaults === 'object'
+          ? payload.fileDefaults
+          : {}
         // processOnly=true forces local-only processing even if storeRemote was requested
         const shouldStoreRemote = storeRemote && !processOnly
 
@@ -592,7 +595,7 @@ export default defineBackground({
           }
         }
 
-        const buildFields = (rawType: string, entry?: any) => {
+        const buildFields = (rawType: string, entry?: any, defaults?: any) => {
           const mediaType = normalizeMediaType(rawType)
           const fields: Record<string, any> = {
             media_type: mediaType,
@@ -600,17 +603,33 @@ export default defineBackground({
             perform_chunking: Boolean(common.perform_chunking),
             overwrite_existing: Boolean(common.overwrite_existing)
           }
+          const resolvedDefaults: {
+            audio?: { language?: string; diarize?: boolean }
+            document?: { ocr?: boolean }
+            video?: { captions?: boolean }
+          } = (() => {
+            if (!defaults || typeof defaults !== 'object') return {}
+            if (mediaType === 'audio') return { audio: defaults.audio }
+            if (mediaType === 'video') return { video: defaults.video }
+            if (mediaType === 'document' || mediaType === 'pdf' || mediaType === 'ebook') {
+              return { document: defaults.document }
+            }
+            return {}
+          })()
           const nested: Record<string, any> = {}
           for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
             if (k.includes('.')) assignPath(nested, k.split('.'), v)
             else fields[k] = v
           }
           for (const [k, v] of Object.entries(nested)) fields[k] = v
-          if (entry?.audio?.language) fields['transcription_language'] = entry.audio.language
-          if (typeof entry?.audio?.diarize === 'boolean') fields['diarize'] = entry.audio.diarize
-          if (typeof entry?.video?.captions === 'boolean') fields['timestamp_option'] = entry.video.captions
-          if (typeof entry?.document?.ocr === 'boolean') {
-            fields['pdf_parsing_engine'] = entry.document.ocr ? 'pymupdf4llm' : ''
+          const audio = { ...(resolvedDefaults.audio || {}), ...(entry?.audio || {}) }
+          const video = { ...(resolvedDefaults.video || {}), ...(entry?.video || {}) }
+          const document = { ...(resolvedDefaults.document || {}), ...(entry?.document || {}) }
+          if (audio.language) fields['transcription_language'] = audio.language
+          if (typeof audio.diarize === 'boolean') fields['diarize'] = audio.diarize
+          if (typeof video.captions === 'boolean') fields['timestamp_option'] = video.captions
+          if (typeof document.ocr === 'boolean') {
+            fields['pdf_parsing_engine'] = document.ocr ? 'pymupdf4llm' : ''
           }
           return fields
         }
@@ -758,10 +777,18 @@ export default defineBackground({
           const id = f?.id || crypto.randomUUID()
           const name = f?.name || 'upload'
           const mediaType = inferUploadMediaTypeFromFile(name, f?.type)
+          const resolvedFileDefaults =
+            f?.defaults && typeof f.defaults === 'object'
+              ? f.defaults
+              : fileDefaults
           try {
             let data: any
             if (shouldStoreRemote) {
-              const fields: Record<string, any> = buildFields(mediaType)
+              const fields: Record<string, any> = buildFields(
+                mediaType,
+                undefined,
+                resolvedFileDefaults
+              )
               const resp = await handleUpload({
                 path: '/api/v1/media/add',
                 method: 'POST',
@@ -774,7 +801,11 @@ export default defineBackground({
               }
               data = resp.data
             } else {
-              const fields: Record<string, any> = buildFields(mediaType)
+              const fields: Record<string, any> = buildFields(
+                mediaType,
+                undefined,
+                resolvedFileDefaults
+              )
               const resp = await handleUpload({
                 path: getProcessPathForType(mediaType),
                 method: 'POST',
