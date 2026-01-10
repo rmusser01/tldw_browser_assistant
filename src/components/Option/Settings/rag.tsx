@@ -26,6 +26,33 @@ export const RagSettings = () => {
   const [failedAvatars, setFailedAvatars] = React.useState<Set<string>>(new Set())
   const [isFormValid, setIsFormValid] = React.useState(false)
 
+  const updateFormValidity = React.useCallback(() => {
+    const values = form.getFieldsValue()
+    const hasErrors = form.getFieldsError().some((field) => field.errors.length > 0)
+
+    const isNonEmptyString = (value: unknown) =>
+      typeof value === "string" && value.trim().length > 0
+    const isValidNumber = (value: unknown, min: number, max?: number) =>
+      typeof value === "number" &&
+      Number.isFinite(value) &&
+      value >= min &&
+      (max == null || value <= max)
+
+    const isMissingRequired =
+      !isNonEmptyString(values.defaultEM) ||
+      !isNonEmptyString(values.splittingStrategy) ||
+      !isValidNumber(values.chunkSize, 100, 10000) ||
+      !isValidNumber(values.chunkOverlap, 0, 1000) ||
+      !isValidNumber(values.noOfRetrievedDocs, 1, 50) ||
+      !isValidNumber(values.totalFilePerKB, 1)
+
+    const needsSeparator = values.splittingStrategy !== "RecursiveCharacterTextSplitter"
+    const separatorMissing =
+      needsSeparator && !isNonEmptyString(values.splittingSeparator)
+
+    setIsFormValid(!hasErrors && !isMissingRequired && !separatorMissing)
+  }, [form])
+
   const { data: ollamaInfo, status } = useQuery({
     queryKey: ["fetchRAGSettings"],
     queryFn: async () => {
@@ -97,11 +124,9 @@ export const RagSettings = () => {
   // Validate form on initial load
   React.useEffect(() => {
     if (status === "success") {
-      form.validateFields()
-        .then(() => setIsFormValid(true))
-        .catch(() => setIsFormValid(false))
+      updateFormValidity()
     }
-  }, [status, form])
+  }, [status, updateFormValidity])
 
   return (
     <div className="flex flex-col space-y-3">
@@ -129,11 +154,8 @@ export const RagSettings = () => {
                   strategy: data.splittingStrategy
                 })
               }}
-              onFieldsChange={() => {
-                // Check if form has errors
-                form.validateFields()
-                  .then(() => setIsFormValid(true))
-                  .catch(() => setIsFormValid(false))
+              onValuesChange={() => {
+                updateFormValidity()
               }}
               initialValues={{
                 chunkSize: ollamaInfo?.chunkSize,

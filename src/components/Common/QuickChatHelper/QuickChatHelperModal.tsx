@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useCallback } from "react"
-import { Modal, Button, Tooltip } from "antd"
+import { Modal, Button, Tooltip, Select } from "antd"
 import { ExternalLink, AlertCircle } from "lucide-react"
+import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { useQuickChat } from "@/hooks/useQuickChat"
 import { useQuickChatStore } from "@/store/quick-chat"
+import { fetchChatModels } from "@/services/tldw-server"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { QuickChatMessage } from "./QuickChatMessage"
 import { QuickChatInput } from "./QuickChatInput"
 import { browser } from "wxt/browser"
@@ -27,11 +30,43 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     sendMessage,
     cancelStream,
     isStreaming,
-    hasModel
+    hasModel,
+    activeModel,
+    currentModel,
+    modelOverride,
+    setModelOverride
   } = useQuickChat()
   const phase = useConnectionPhase()
   const isConnected = useIsConnected()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
+  const { data: models = [], isLoading: modelsLoading } = useQuery({
+    queryKey: ["quickChatModels"],
+    queryFn: () => fetchChatModels({ returnEmpty: true })
+  })
+
+  const formatModelLabel = useCallback(
+    (model: { model: string; nickname?: string; provider?: string }) => {
+      const providerLabel = getProviderDisplayName(model.provider)
+      const modelLabel = model.nickname || model.model
+      return providerLabel ? `${providerLabel} - ${modelLabel}` : modelLabel
+    },
+    []
+  )
+
+  const modelOptions = React.useMemo(
+    () =>
+      models.map((model) => ({
+        label: formatModelLabel(model),
+        value: model.model
+      })),
+    [formatModelLabel, models]
+  )
+
+  const currentModelLabel = React.useMemo(() => {
+    if (!currentModel) return null
+    const match = models.find((model) => model.model === currentModel)
+    return match ? formatModelLabel(match) : currentModel
+  }, [currentModel, formatModelLabel, models])
 
   const getModalContainer = useCallback(() => {
     if (typeof document === "undefined") return null
@@ -87,6 +122,11 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
   const connectionDotClass = isConnectionReady
     ? "bg-success"
     : "bg-warn"
+  const modelPlaceholder = currentModelLabel
+    ? t("quickChatHelper.modelPlaceholder", "Current: {{model}}", {
+        model: currentModelLabel
+      })
+    : t("quickChatHelper.modelPlaceholderEmpty", "Select a model")
   const descriptionId =
     messages.length === 0 ? "quick-chat-description" : undefined
 
@@ -123,7 +163,26 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
       aria-labelledby="quick-chat-title"
       aria-describedby={descriptionId}>
       <div className="flex flex-col h-[50vh] max-h-[400px]">
-        <div className="flex items-center justify-end px-1 pb-2">
+        <div className="flex items-center gap-2 px-1 pb-2">
+          <Select
+            className="flex-1"
+            size="small"
+            showSearch
+            options={modelOptions}
+            value={activeModel || undefined}
+            placeholder={modelPlaceholder}
+            loading={modelsLoading}
+            optionFilterProp="label"
+            allowClear={!!modelOverride}
+            aria-label={t("quickChatHelper.modelLabel", "Model")}
+            onChange={(value) => {
+              if (!value || (currentModel && value === currentModel)) {
+                setModelOverride(null)
+                return
+              }
+              setModelOverride(value)
+            }}
+          />
           <span
             role="status"
             aria-live="polite"
@@ -150,7 +209,7 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
                   <span>
                     {t(
                       "quickChatHelper.noModelWarning",
-                      "Please select a model in the main chat first."
+                      "Select a model in the main chat or choose one here."
                     )}
                   </span>
                 </div>

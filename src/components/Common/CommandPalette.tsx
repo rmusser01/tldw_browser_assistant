@@ -7,6 +7,7 @@ import {
   MessageSquare,
   Settings,
   BookText,
+  BookOpen,
   StickyNote,
   Layers,
   UploadCloud,
@@ -142,6 +143,17 @@ export function CommandPalette({
           action: () => { navigate("/flashcards"); setOpen(false) },
           category: "navigation" as const,
           keywords: ["study", "cards", "learn"],
+        },
+        {
+          id: "nav-documentation",
+          label: t(
+            "common:commandPalette.goToDocumentation",
+            "Go to Documentation"
+          ),
+          icon: <BookOpen className="size-4" />,
+          action: () => { navigate("/documentation"); setOpen(false) },
+          category: "navigation" as const,
+          keywords: ["docs", "documentation", "guide", "help", "reference"],
         },
       ] : []),
       {

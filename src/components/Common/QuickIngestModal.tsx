@@ -105,6 +105,16 @@ type Props = {
   autoProcessQueued?: boolean
 }
 
+const ProcessingIndicator = ({ label }: { label: string }) => (
+  <div className="flex items-center gap-2 text-[11px] text-text-subtle">
+    <span className="relative flex h-2.5 w-2.5">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60 opacity-75" />
+      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
+    </span>
+    <span>{label}</span>
+  </div>
+)
+
 const MAX_LOCAL_FILE_BYTES = 500 * 1024 * 1024 // 500MB soft cap for local file ingest
 const INLINE_FILE_WARN_BYTES = 100 * 1024 * 1024 // warn/block before copying very large buffers in-memory
 const MAX_RECOMMENDED_FIELDS = 12
@@ -347,6 +357,8 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [savedAdvValues, setSavedAdvValues] = useStorage<Record<string, any>>('quickIngestAdvancedValues', {})
   const [uiPrefs, setUiPrefs] = useStorage<{ advancedOpen?: boolean; fieldDetailsOpen?: Record<string, boolean> }>('quickIngestAdvancedUI', {})
   const [specPrefs, setSpecPrefs] = useStorage<{ preferServer?: boolean; lastRemote?: { version?: string; cachedAt?: number } }>('quickIngestSpecPrefs', { preferServer: true })
+  const [transcriptionModelOptions, setTranscriptionModelOptions] = React.useState<string[]>([])
+  const [transcriptionModelsLoading, setTranscriptionModelsLoading] = React.useState(false)
   const [storageHintSeen, setStorageHintSeen] = useStorage<boolean>('quickIngestStorageHintSeen', false)
   const navigate = useNavigate()
   const lastRefreshedLabel = React.useMemo(() => {
@@ -1811,6 +1823,40 @@ export const QuickIngestModal: React.FC<Props> = ({
   }, [loadSpec, open, preferServerSpec])
 
   React.useEffect(() => {
+    if (!open || ingestConnectionStatus !== "online") return
+    let cancelled = false
+    const fetchModels = async () => {
+      setTranscriptionModelsLoading(true)
+      try {
+        const res = await tldwClient.getTranscriptionModels()
+        const all = Array.isArray(res?.all_models) ? res.all_models : []
+        if (!cancelled && all.length > 0) {
+          const seen = new Set<string>()
+          const unique: string[] = []
+          for (const model of all) {
+            const value = String(model)
+            if (!value || seen.has(value)) continue
+            seen.add(value)
+            unique.push(value)
+          }
+          setTranscriptionModelOptions(unique)
+        }
+      } catch (e) {
+        if ((import.meta as any)?.env?.DEV) {
+          // eslint-disable-next-line no-console
+          console.warn("Failed to load transcription models for Quick Ingest", e)
+        }
+      } finally {
+        if (!cancelled) setTranscriptionModelsLoading(false)
+      }
+    }
+    fetchModels()
+    return () => {
+      cancelled = true
+    }
+  }, [ingestConnectionStatus, open])
+
+  React.useEffect(() => {
     lastSavedAdvValuesRef.current = JSON.stringify(savedAdvValues || {})
   }, [savedAdvValues])
 
@@ -2106,6 +2152,15 @@ export const QuickIngestModal: React.FC<Props> = ({
     return null
   }, [qi, specSource])
 
+  const resolvedAdvSchema = React.useMemo(() => {
+    if (transcriptionModelOptions.length === 0) return advSchema
+    return advSchema.map((field) =>
+      field.name === "transcription_model"
+        ? { ...field, enum: transcriptionModelOptions }
+        : field
+    )
+  }, [advSchema, transcriptionModelOptions])
+
   const setAdvancedValue = React.useCallback((name: string, value: any) => {
     setAdvancedValues((prev) => {
       const next = { ...(prev || {}) }
@@ -2118,18 +2173,56 @@ export const QuickIngestModal: React.FC<Props> = ({
     })
   }, [])
 
+  const addLocalFiles = React.useCallback(
+    (incoming: File[]) => {
+      if (incoming.length === 0) return
+      const existingNames = new Set(localFiles.map((f) => f.name))
+      const seenNames = new Set<string>()
+      const accepted: File[] = []
+      const duplicates: string[] = []
+
+      for (const file of incoming) {
+        const name = file?.name || ""
+        if (existingNames.has(name) || seenNames.has(name)) {
+          duplicates.push(name || "Unnamed file")
+          continue
+        }
+        seenNames.add(name)
+        accepted.push(file)
+      }
+
+      if (duplicates.length > 0) {
+        const uniqueNames = Array.from(new Set(duplicates))
+        const label = uniqueNames.slice(0, 3).join(", ")
+        const suffix = uniqueNames.length > 3 ? "..." : ""
+        messageApi.warning(
+          qi(
+            "duplicateFiles",
+            "Skipped {{count}} file(s) with duplicate names: {{names}}",
+            {
+              count: duplicates.length,
+              names: `${label}${suffix}`
+            }
+          )
+        )
+      }
+
+      if (accepted.length === 0) return
+      setLocalFiles((prev) => [...prev, ...accepted])
+      setSelectedFileIndex((prev) => (prev == null ? 0 : prev))
+      setSelectedRowId(null)
+    },
+    [localFiles, messageApi, qi]
+  )
+
   const handleFileDrop = React.useCallback(
     (ev: React.DragEvent<HTMLDivElement>) => {
       ev.preventDefault()
       ev.stopPropagation()
       const files = Array.from(ev.dataTransfer?.files || [])
-      if (files.length > 0) {
-        setLocalFiles((prev) => [...prev, ...files])
-        setSelectedFileIndex((prev) => (prev == null ? 0 : prev))
-        setSelectedRowId(null)
-      }
+      addLocalFiles(files)
     },
-    []
+    [addLocalFiles]
   )
 
   const retryFailedUrls = React.useCallback(() => {
@@ -2166,6 +2259,84 @@ export const QuickIngestModal: React.FC<Props> = ({
       )
     )
   }, [messageApi, qi, results, rows])
+
+  const confirmReplaceQueue = React.useCallback(
+    async (otherCount: number) => {
+      if (otherCount <= 0) return true
+      return await confirmDanger({
+        title: qi("retryReplaceQueueTitle", "Replace current queue?"),
+        content: qi(
+          "retryReplaceQueueBody",
+          "Retrying this item will replace the current queue and remove {{count}} other item(s). Continue?",
+          { count: otherCount }
+        ),
+        okText: qi("retryReplaceQueueConfirm", "Replace and retry"),
+        cancelText: qi("cancel", "Cancel"),
+        danger: false
+      })
+    },
+    [confirmDanger, qi]
+  )
+
+  const resetQueueForRetry = React.useCallback(
+    (nextRows: Entry[], nextFiles: File[], message: string) => {
+      setRows(nextRows)
+      setLocalFiles(nextFiles)
+      setSelectedRowId(nextRows[0]?.id ?? null)
+      setSelectedFileIndex(nextFiles.length > 0 ? 0 : null)
+      setResults([])
+      setProcessedCount(0)
+      const total =
+        nextRows.filter((r) => r.url.trim().length > 0).length +
+        nextFiles.length
+      setTotalPlanned(total)
+      setLiveTotalCount(total)
+      setRunStartedAt(null)
+      if (message) {
+        messageApi.info(message)
+      }
+    },
+    [messageApi]
+  )
+
+  const retrySingleRow = React.useCallback(
+    async (row: Entry) => {
+      if (running) return
+      const totalItems =
+        rows.filter((r) => r.url.trim().length > 0).length + localFiles.length
+      const otherCount = totalItems - (row.url.trim() ? 1 : 0)
+      const ok = await confirmReplaceQueue(otherCount)
+      if (!ok) return
+      const nextRow = { ...row, id: crypto.randomUUID() }
+      resetQueueForRetry(
+        [nextRow],
+        [],
+        qi("queuedRetrySingle", "Queued 1 item to retry. Click Run to start.")
+      )
+    },
+    [confirmReplaceQueue, localFiles.length, qi, resetQueueForRetry, rows, running]
+  )
+
+  const retrySingleFile = React.useCallback(
+    async (file: File) => {
+      if (running) return
+      const totalItems =
+        rows.filter((r) => r.url.trim().length > 0).length + localFiles.length
+      const otherCount = Math.max(0, totalItems - 1)
+      const ok = await confirmReplaceQueue(otherCount)
+      if (!ok) return
+      resetQueueForRetry(
+        [],
+        [file],
+        qi(
+          "queuedRetryFile",
+          "Queued {{name}} for retry. Click Run to start.",
+          { name: file.name || "file" }
+        )
+      )
+    },
+    [confirmReplaceQueue, localFiles.length, qi, resetQueueForRetry, rows, running]
+  )
 
   // Live progress updates from background batch processor
   React.useEffect(() => {
@@ -2527,11 +2698,7 @@ export const QuickIngestModal: React.FC<Props> = ({
               data-testid="qi-file-input"
               onChange={(e) => {
                 const files = Array.from(e.target.files || [])
-                if (files.length > 0) {
-                  setLocalFiles((prev) => [...prev, ...files])
-                  setSelectedFileIndex((prev) => (prev == null ? 0 : prev))
-                  setSelectedRowId(null)
-                }
+                addLocalFiles(files)
                 e.currentTarget.value = ''
               }}
               accept=".pdf,.txt,.rtf,.doc,.docx,.md,.epub,application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*"
@@ -2663,6 +2830,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 const isSelected = selectedRowId === row.id
                 const detected = row.type === 'auto' ? inferIngestTypeFromUrl(row.url) : row.type
                 const res = resultById.get(row.id)
+                const isProcessing = running && !res?.status
                 let runTag: React.ReactNode = null
                 if (res?.status === 'ok') runTag = <Tag color="green">{qi('statusDone', 'Done')}</Tag>
                 else if (res?.status === 'error') runTag = (
@@ -2753,17 +2921,38 @@ export const QuickIngestModal: React.FC<Props> = ({
                           ]}
                           disabled={running}
                         />
+                        {res?.status === "error" && (
+                          <Button
+                            size="small"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              void retrySingleRow(row)
+                            }}
+                            disabled={running}
+                            aria-label={qi("retryItemAria", "Retry this item")}
+                            title={qi("retryItemAria", "Retry this item")}
+                          >
+                            {qi("retryItem", "Retry")}
+                          </Button>
+                        )}
                           <Button
                             size="small"
                             danger
                             onClick={(e) => { e.stopPropagation(); removeRow(row.id) }}
-                            disabled={rows.length === 1 || running}
+                            disabled={running}
                             aria-label="Remove this row from queue"
                             title="Remove this row from queue"
                           >
                             {t('quickIngest.remove') || 'Remove'}
                           </Button>
                       </div>
+                      {isProcessing && (
+                        <div className="mt-1">
+                          <ProcessingIndicator
+                            label={qi("processingItem", "Processing...")}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 )
@@ -2775,6 +2964,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 const type = fileTypeFromName(f)
                 const match = results.find((r) => r.fileName === f.name)
                 const runStatus = match?.status
+                const isProcessing = running && !runStatus
                 let runTag: React.ReactNode = null
                 if (runStatus === 'ok') runTag = <Tag color="green">{qi('statusDone', 'Done')}</Tag>
                 else if (runStatus === 'error') {
@@ -2841,6 +3031,20 @@ export const QuickIngestModal: React.FC<Props> = ({
                       </div>
                     </div>
                     <div className="mt-2 flex items-center gap-2 text-xs text-text-muted">
+                        {runStatus === "error" && (
+                          <Button
+                            size="small"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              void retrySingleFile(f)
+                            }}
+                            disabled={running}
+                            aria-label={qi("retryItemAria", "Retry this item")}
+                            title={qi("retryItemAria", "Retry this item")}
+                          >
+                            {qi("retryItem", "Retry")}
+                          </Button>
+                        )}
                         <Button
                           size="small"
                           danger
@@ -2861,6 +3065,13 @@ export const QuickIngestModal: React.FC<Props> = ({
                           {t('quickIngest.remove') || 'Remove'}
                         </Button>
                       </div>
+                      {isProcessing && (
+                        <div className="mt-1">
+                          <ProcessingIndicator
+                            label={qi("processingItem", "Processing...")}
+                          />
+                        </div>
+                      )}
                     </div>
                   )
                 })}
@@ -3425,7 +3636,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             <div className="flex flex-col gap-1 w-full">
               <div className="flex items-center gap-2">
                 <span>{qi('advancedOptionsTitle', 'Advanced options')}</span>
-                <Tag color="blue">{t('quickIngest.advancedSummary', '{{count}} advanced fields loaded', { count: advSchema.length })}</Tag>
+                <Tag color="blue">{t('quickIngest.advancedSummary', '{{count}} advanced fields loaded', { count: resolvedAdvSchema.length })}</Tag>
                 {modifiedAdvancedCount > 0 && (
                   <Tag color="gold">{t('quickIngest.modifiedCount', '{{count}} modified', { count: modifiedAdvancedCount })}</Tag>
                 )}
@@ -3576,12 +3787,12 @@ export const QuickIngestModal: React.FC<Props> = ({
                   <Tag color="gold">{t('quickIngest.modifiedCount', '{{count}} modified', { count: modifiedAdvancedCount })}</Tag>
                 )}
               </div>
-              {advSchema.length === 0 ? (
+              {resolvedAdvSchema.length === 0 ? (
                 <Typography.Text type="secondary">{t('quickIngest.advancedEmpty', 'No advanced options detected — try reloading the spec.')}</Typography.Text>
               ) : (
                 (() => {
-                  const grouped: Record<string, typeof advSchema> = {}
-                  const recommended: typeof advSchema = []
+                  const grouped: Record<string, typeof resolvedAdvSchema> = {}
+                  const recommended: typeof resolvedAdvSchema = []
                   const q = advSearch.trim().toLowerCase()
                   const match = (f: { name: string; title?: string; description?: string }) => {
                     if (!q) return true
@@ -3591,7 +3802,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       (f.description || '').toLowerCase().includes(q)
                     )
                   }
-                  const allMatched = advSchema.filter(match)
+                  const allMatched = resolvedAdvSchema.filter(match)
 
                   // Build a small "Recommended fields" subset for common
                   // parameters, while intentionally duplicating those fields
@@ -3647,6 +3858,8 @@ export const QuickIngestModal: React.FC<Props> = ({
                               ...prev,
                               [f.name]: open
                             }))
+                          const isTranscriptionModel =
+                            f.name === "transcription_model"
                           const ariaLabel = `${g} \u2013 ${f.title || f.name}`
                           const isAlsoRecommended =
                             g !== "Recommended" &&
@@ -3680,6 +3893,8 @@ export const QuickIngestModal: React.FC<Props> = ({
                                 <Select
                                   className="w-72"
                                   allowClear
+                                  showSearch={isTranscriptionModel}
+                                  loading={isTranscriptionModel && transcriptionModelsLoading}
                                   aria-label={ariaLabel}
                                   value={v}
                                   onChange={setV as any}

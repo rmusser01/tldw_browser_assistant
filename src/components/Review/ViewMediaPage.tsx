@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { Storage } from '@plasmohq/storage'
 import { useStorage } from '@plasmohq/storage/hook'
@@ -12,6 +12,7 @@ import { useServerCapabilities } from '@/hooks/useServerCapabilities'
 import { useDemoMode } from '@/context/demo-mode'
 import { useMessageOption } from '@/hooks/useMessageOption'
 import { useAntdMessage } from '@/hooks/useAntdMessage'
+import { useUndoNotification } from '@/hooks/useUndoNotification'
 import FeatureEmptyState from '@/components/Common/FeatureEmptyState'
 import { SearchBar } from '@/components/Media/SearchBar'
 import { FilterPanel } from '@/components/Media/FilterPanel'
@@ -211,6 +212,7 @@ const MediaPageContent: React.FC = () => {
   const { t } = useTranslation(['review', 'common'])
   const navigate = useNavigate()
   const message = useAntdMessage()
+  const { showUndoNotification, contextHolder } = useUndoNotification()
   const {
     setChatMode,
     setSelectedKnowledge,
@@ -918,6 +920,140 @@ const MediaPageContent: React.FC = () => {
     }
   }
 
+  const handleDeleteItem = useCallback(
+    async (item: MediaResultItem, detail: any | null) => {
+      const id = item.id
+      const idStr = String(id)
+      const wasFavorite = favoritesSet.has(idStr)
+      const itemTitle =
+        item.title ||
+        `${t('review:mediaPage.media', { defaultValue: 'Media' })} ${idStr}`
+      try {
+        if (item.kind === 'note') {
+          let expectedVersion: number | null = null
+          const detailVersion = detail?.version ?? detail?.metadata?.version
+          const rawVersion = item.raw?.version ?? item.raw?.metadata?.version
+          if (typeof detailVersion === 'number') expectedVersion = detailVersion
+          if (expectedVersion == null && typeof rawVersion === 'number') {
+            expectedVersion = rawVersion
+          }
+          if (expectedVersion == null) {
+            try {
+              const latest = await bgRequest<any>({
+                path: `/api/v1/notes/${id}` as any,
+                method: 'GET' as any
+              })
+              const latestVersion = latest?.version ?? latest?.metadata?.version
+              if (typeof latestVersion === 'number') {
+                expectedVersion = latestVersion
+              }
+            } catch {
+              throw new Error(
+                t('review:mediaPage.noteDeleteNeedsReload', {
+                  defaultValue: 'Unable to delete note. Reload and try again.'
+                })
+              )
+            }
+          }
+          if (expectedVersion == null) {
+            throw new Error(
+              t('review:mediaPage.noteDeleteNeedsReload', {
+                defaultValue: 'Unable to delete note. Reload and try again.'
+              })
+            )
+          }
+          await bgRequest({
+            path: `/api/v1/notes/${id}` as any,
+            method: 'DELETE' as any,
+            headers: { 'expected-version': String(expectedVersion) }
+          })
+        } else {
+          await bgRequest({
+            path: `/api/v1/media/${id}` as any,
+            method: 'DELETE' as any
+          })
+        }
+      } catch (err) {
+        const status = err && typeof err === 'object' && 'status' in err
+          ? (err as { status?: number }).status
+          : undefined
+        const msg = err && typeof err === 'object' && 'message' in err
+          ? String((err as { message?: unknown }).message || '')
+          : ''
+        if (
+          item.kind === 'note' &&
+          (status === 409 ||
+            msg.toLowerCase().includes('expected-version') ||
+            msg.toLowerCase().includes('version'))
+        ) {
+          throw new Error(
+            t('review:mediaPage.noteDeleteNeedsReload', {
+              defaultValue: 'Unable to delete note. Reload and try again.'
+            })
+          )
+        }
+        throw err
+      }
+
+      setFavorites((prev: string[] | undefined) =>
+        (prev || []).filter((fav) => fav !== idStr)
+      )
+
+      const remainingResults = displayResults.filter(
+        (r) => String(r.id) !== idStr
+      )
+      if (remainingResults.length > 0) {
+        const currentIndex = displayResults.findIndex(
+          (r) => String(r.id) === idStr
+        )
+        const nextIndex =
+          currentIndex >= 0
+            ? Math.min(currentIndex, remainingResults.length - 1)
+            : 0
+        setSelected(remainingResults[nextIndex])
+      } else {
+        setSelected(null)
+        setSelectedContent('')
+        setSelectedDetail(null)
+        setLastFetchedId(null)
+      }
+
+      void refetch()
+      if (item.kind === 'media') {
+        showUndoNotification({
+          title: t('review:mediaPage.itemMovedToTrash', {
+            defaultValue: 'Moved to trash'
+          }),
+          description: t('review:mediaPage.itemMovedToTrashDesc', {
+            defaultValue: '"{{title}}" moved to trash.',
+            title: itemTitle
+          }),
+          onUndo: async () => {
+            await bgRequest({
+              path: `/api/v1/media/${id}/restore` as any,
+              method: 'POST' as any
+            })
+            if (wasFavorite) {
+              setFavorites((prev: string[] | undefined) => {
+                const next = new Set(prev || [])
+                next.add(idStr)
+                return Array.from(next)
+              })
+            }
+            const refreshed = await refetch()
+            const restoredItem = refreshed.data?.find(
+              (r: MediaResultItem) => String(r.id) === idStr
+            )
+            if (restoredItem) {
+              setSelected(restoredItem)
+            }
+          }
+        })
+      }
+    },
+    [displayResults, favoritesSet, refetch, setFavorites, showUndoNotification, t]
+  )
+
   // Keyboard shortcuts for navigation (j/k for items, arrows for pages)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -1111,6 +1247,7 @@ const MediaPageContent: React.FC = () => {
 
   return (
     <div className="flex bg-bg" style={{ minHeight: '100vh' }}>
+      {contextHolder}
       {/* Left Sidebar */}
       <div
         className={`bg-surface border-r border-border flex flex-col ${
@@ -1130,19 +1267,30 @@ const MediaPageContent: React.FC = () => {
         >
           {/* Header */}
           <div className="px-4 py-3 border-b border-border">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3">
               <h1 className="text-text text-base font-semibold">
                 {t('review:mediaPage.mediaInspector', { defaultValue: 'Media Inspector' })}
               </h1>
-              <span className="text-xs text-text-muted">
-                {displayResults.length} / {
-                  kinds.media && kinds.notes
-                    ? combinedTotal
-                    : kinds.notes
-                      ? notesTotal
-                      : mediaTotal
-                }
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-text-muted">
+                  {displayResults.length} / {
+                    kinds.media && kinds.notes
+                      ? combinedTotal
+                      : kinds.notes
+                        ? notesTotal
+                        : mediaTotal
+                  }
+                </span>
+                <button
+                  type="button"
+                  onClick={() => navigate('/media-trash')}
+                  className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-muted hover:bg-surface2 hover:text-text"
+                  title={t('review:mediaPage.openTrash', { defaultValue: 'Trash' })}
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                  {t('review:mediaPage.openTrash', { defaultValue: 'Trash' })}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -1293,6 +1441,7 @@ const MediaPageContent: React.FC = () => {
             // Refresh the list to show updated keywords
             refetch()
           }}
+          onDeleteItem={handleDeleteItem}
           onCreateNoteWithContent={handleCreateNoteWithContent}
           onOpenInMultiReview={handleOpenInMultiReview}
           onSendAnalysisToChat={handleSendAnalysisToChat}

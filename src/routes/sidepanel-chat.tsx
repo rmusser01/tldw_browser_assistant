@@ -32,6 +32,7 @@ import { SidepanelChatSidebar } from "~/components/Sidepanel/Chat/Sidebar"
 import NoteQuickSaveModal from "~/components/Sidepanel/Notes/NoteQuickSaveModal"
 import { useMessage } from "~/hooks/useMessage"
 import { useSidepanelChatTabsStore } from "@/store/sidepanel-chat-tabs"
+import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
 import type {
   ChatModelSettingsSnapshot,
   SidepanelChatSnapshot,
@@ -262,6 +263,10 @@ const SidepanelChat = () => {
   const [noteSaving, setNoteSaving] = React.useState(false)
   const [noteError, setNoteError] = React.useState<string | null>(null)
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
+  const [stickyChatInput] = useStorage(
+    "stickyChatInput",
+    DEFAULT_CHAT_SETTINGS.stickyChatInput
+  )
 
   const resetNoteModal = React.useCallback(() => {
     setNoteModalOpen(false)
@@ -709,6 +714,9 @@ const SidepanelChat = () => {
     if (!activeTabId || isSwitchingTabRef.current) return
     let isCurrent = true
     const updateLabel = async () => {
+      const store = useSidepanelChatTabsStore.getState()
+      const currentTab = store.tabs.find((tab) => tab.id === activeTabId)
+      const isManualLabel = currentTab?.labelSource === "manual"
       let label = ""
       if (historyId) {
         try {
@@ -729,7 +737,11 @@ const SidepanelChat = () => {
       if (!isCurrent) return
       useSidepanelChatTabsStore.getState().upsertTab({
         id: activeTabId,
-        label: truncateTabLabel(label),
+        label:
+          isManualLabel && currentTab?.label
+            ? currentTab.label
+            : truncateTabLabel(label),
+        labelSource: isManualLabel ? "manual" : "auto",
         historyId: historyId ?? null,
         serverChatId: serverChatId ?? null,
         serverChatTopic: serverChatTopic ?? null,
@@ -749,6 +761,15 @@ const SidepanelChat = () => {
     t,
     truncateTabLabel
   ])
+
+  const handleRenameActiveTab = React.useCallback(
+    (nextLabel: string) => {
+      const trimmed = nextLabel.trim()
+      if (!activeTabId || !trimmed) return
+      useSidepanelChatTabsStore.getState().renameTab(activeTabId, trimmed)
+    },
+    [activeTabId]
+  )
 
   React.useEffect(() => {
     if (!activeTabId || isSwitchingTabRef.current) return
@@ -1143,6 +1164,7 @@ const SidepanelChat = () => {
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
             activeTitle={activeTabLabel}
+            onRenameTitle={handleRenameActiveTab}
           />
           <ConnectionBanner className="pt-12" />
         </div>
@@ -1204,8 +1226,15 @@ const SidepanelChat = () => {
             aria-relevant="additions"
             aria-label={t("playground:aria.chatTranscript", "Chat messages")}
             data-testid="chat-messages"
-            className={`custom-scrollbar relative z-10 flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto ${messagePadding}`}
-            style={{ paddingBottom: composerHeight ? composerHeight + 16 : 160 }}>
+            className={`custom-scrollbar relative z-10 flex flex-1 w-full flex-col items-center overflow-x-hidden overflow-y-auto ${messagePadding}`}
+            style={{
+              paddingBottom: stickyChatInput
+                ? composerHeight
+                  ? composerHeight + 16
+                  : 160
+                : 0
+            }}
+          >
             {isRestoringChat ? (
               <div
                 className="relative flex w-full flex-col items-center pt-16 pb-4"
@@ -1231,29 +1260,42 @@ const SidepanelChat = () => {
                 inputRef={textareaRef}
               />
             )}
-          </div>
-
-          <div className="absolute bottom-0 w-full z-10">
-            {!isAutoScrollToBottom && (
-              <div className="fixed bottom-32 z-20 left-0 right-0 flex justify-center">
-                <button
-                  onClick={() => autoScrollToBottom()}
-                  aria-label={t("playground:composer.scrollToLatest", "Scroll to latest messages")}
-                  title={t("playground:composer.scrollToLatest", "Scroll to latest messages") as string}
-                  data-testid="chat-scroll-latest"
-                  className="bg-gray-50 shadow border border-gray-200 dark:border-none dark:bg-white/20 p-1.5 rounded-full pointer-events-auto hover:bg-gray-100 dark:hover:bg-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
-                  <ChevronDown className="size-4 text-gray-600 dark:text-gray-300" aria-hidden="true" />
-                </button>
+            {!stickyChatInput && (
+              <div className="w-full pt-4 pb-6">
+                <SidepanelForm
+                  key={activeTabId || "sidepanel-chat"}
+                  dropedFile={dropedFile}
+                  inputRef={textareaRef}
+                  onHeightChange={setComposerHeight}
+                  draftKey={draftKey}
+                />
               </div>
             )}
-            <SidepanelForm
-              key={activeTabId || "sidepanel-chat"}
-              dropedFile={dropedFile}
-              inputRef={textareaRef}
-              onHeightChange={setComposerHeight}
-              draftKey={draftKey}
-            />
           </div>
+
+          {!isAutoScrollToBottom && (
+            <div className="fixed bottom-32 z-20 left-0 right-0 flex justify-center">
+              <button
+                onClick={() => autoScrollToBottom()}
+                aria-label={t("playground:composer.scrollToLatest", "Scroll to latest messages")}
+                title={t("playground:composer.scrollToLatest", "Scroll to latest messages") as string}
+                data-testid="chat-scroll-latest"
+                className="bg-gray-50 shadow border border-gray-200 dark:border-none dark:bg-white/20 p-1.5 rounded-full pointer-events-auto hover:bg-gray-100 dark:hover:bg-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
+                <ChevronDown className="size-4 text-gray-600 dark:text-gray-300" aria-hidden="true" />
+              </button>
+            </div>
+          )}
+          {stickyChatInput && (
+            <div className="absolute bottom-0 w-full z-10">
+              <SidepanelForm
+                key={activeTabId || "sidepanel-chat"}
+                dropedFile={dropedFile}
+                inputRef={textareaRef}
+                onHeightChange={setComposerHeight}
+                draftKey={draftKey}
+              />
+            </div>
+          )}
         </div>
       </main>
       {artifactsOpen && (

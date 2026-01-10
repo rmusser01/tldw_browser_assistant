@@ -11,9 +11,11 @@
   "chatbooksNav": "Chatbooks",
   "charactersNav": "Characters",
   "mediaNav": "Media",
+  "mediaTrashNav": "Media Trash",
   "evaluationsSettingsNav": "Evaluations",
   "promptStudioNav": "Prompt Studio",
   "chatSettingsNav": "Chat",
+  "speechSettingsNav": "Speech",
   "admin": {
     "adminGuardForbiddenTitle": "Admin access required for these controls",
     "adminGuardNotFoundTitle": "Admin APIs are not available on this server",
@@ -83,6 +85,10 @@
       "lg": "Large"
     }
   },
+  "speechSettings": {
+    "title": "Speech settings",
+    "subtitle": "Manage Speech-to-Text and Text-to-Speech defaults for dictation and playback."
+  },
   "generalSettings": {
     "title": "General Settings",
     "settings": {
@@ -132,6 +138,9 @@
       },
       "wideMode": {
         "label": "Enable wide screen mode"
+      },
+      "stickyChatInput": {
+        "label": "Keep chat input visible while scrolling"
       },
       "openReasoning": {
         "label": "Open Reasoning Collapse by default"
@@ -1105,6 +1114,19 @@
       "help": "Checks whether your server can search your notes, media, and other connected knowledge sources."
     },
     "connectionFailed": "Connection failed",
+    "defaults": {
+      "title": "Set your defaults",
+      "subtitle": "Pick a default provider and model for new chats.",
+      "loading": "Loading models...",
+      "empty": "No models are available yet. You can set this later in Settings > Models.",
+      "providerLabel": "Default API provider",
+      "providerAuto": "Auto (from model)",
+      "providerHelp": "Leave on Auto to use the provider attached to each model.",
+      "providerUnknown": "Provider",
+      "modelLabel": "Default model",
+      "modelPlaceholder": "Select a model",
+      "modelHelp": "This becomes the starting model when you open a new chat."
+    },
     "progressAria": "Onboarding progress",
     "stepLabel": {
       "welcome": "Welcome",

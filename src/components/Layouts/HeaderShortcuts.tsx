@@ -21,6 +21,7 @@ import {
   Scissors,
   Gauge,
   Signpost,
+  FileText,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -211,6 +212,18 @@ export function HeaderShortcuts({
             to: "/admin/server",
             icon: CogIcon,
             label: t("option:header.adminServer", "Server Admin"),
+          },
+          {
+            type: "link" as const,
+            to: "/documentation",
+            icon: FileText,
+            label: t("option:header.modeDocumentation", "Documentation"),
+          },
+          {
+            type: "link" as const,
+            to: "/chatbooks",
+            icon: BookOpen,
+            label: t("option:header.chatbooksPlayground", "Chatbooks Playground"),
           },
           {
             type: "link" as const,

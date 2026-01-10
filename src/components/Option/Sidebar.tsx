@@ -1063,7 +1063,7 @@ export const Sidebar = ({ onClose, isOpen }: Props) => {
                 }
                 className="flex items-center gap-2 text-sm">
                 {isFetchingNextPage
-                  ? t("common:loading")
+                  ? t("common:loading.title", { defaultValue: "Loading..." })
                   : t("common:loadMore")}
               </Button>
             </div>

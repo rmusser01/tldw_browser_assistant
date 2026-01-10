@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { IconButton } from "./IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { useAntdModal } from "@/hooks/useAntdModal"
 
 type Props = {
   className?: string
@@ -76,6 +77,7 @@ export const CharacterSelect: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(["option", "common", "settings", "playground"])
   const notification = useAntdNotification()
+  const modal = useAntdModal()
   const [selectedCharacter, setSelectedCharacter] = useStorage<
     CharacterSelection | null
   >(
@@ -128,6 +130,9 @@ export const CharacterSelect: React.FC<Props> = ({
   }) as string
   const importLabel = t("option:characters.importCharacter", {
     defaultValue: "Import Character"
+  }) as string
+  const openPageLabel = t("option:characters.openCharactersPage", {
+    defaultValue: "Characters Page"
   }) as string
   const searchPlaceholder = t("option:characters.searchPlaceholder", {
     defaultValue: "Search characters by name"
@@ -227,12 +232,46 @@ export const CharacterSelect: React.FC<Props> = ({
       const file = event.target.files?.[0]
       if (!file) return
 
+      const getImageOnlyDetail = (error: unknown) => {
+        const details = (error as { details?: any })?.details
+        const detail = details?.detail ?? details
+        if (detail?.code === "missing_character_data") return detail
+        return null
+      }
+
+      const confirmImageOnlyImport = (message?: string) =>
+        new Promise<boolean>((resolve) => {
+          const instance = modal.confirm({
+            title: t("settings:manageCharacters.imageOnlyTitle", {
+              defaultValue: "No character data detected"
+            }),
+            content:
+              message ||
+              t("settings:manageCharacters.imageOnlyBody", {
+                defaultValue:
+                  "No character data was found in the image metadata. Import this image as a character anyway?"
+              }),
+            okText: t("settings:manageCharacters.imageOnlyConfirm", {
+              defaultValue: "Import image-only"
+            }),
+            cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+            centered: true,
+            okButtonProps: { danger: false },
+            maskClosable: false,
+            onOk: () => resolve(true),
+            onCancel: () => resolve(false)
+          })
+          void instance
+        })
+
       try {
         setIsImporting(true)
         await tldwClient.initialize().catch(() => null)
+        const importCharacter = async (allowImageOnly = false) =>
+          await tldwClient.importCharacterFile(file, { allowImageOnly })
         let selectedPayload: Record<string, any> | null = null
         let successDetail: string | undefined
-        const imported = await tldwClient.importCharacterFile(file)
+        const imported = await importCharacter()
         const importedCharacter =
           imported?.character ??
           (imported?.id && imported?.name
@@ -256,6 +295,57 @@ export const CharacterSelect: React.FC<Props> = ({
           // ignore normalization failures; list will refresh
         }
       } catch (error) {
+        const imageOnlyDetail = getImageOnlyDetail(error)
+        if (imageOnlyDetail) {
+          const confirmed = await confirmImageOnlyImport(
+            imageOnlyDetail?.message
+          )
+          if (confirmed) {
+            try {
+              const imported = await tldwClient.importCharacterFile(file, {
+                allowImageOnly: true
+              })
+              const importedCharacter =
+                imported?.character ??
+                (imported?.id && imported?.name
+                  ? { id: imported.id, name: imported.name }
+                  : imported)
+              const successDetail =
+                typeof imported?.message === "string" && imported.message.trim()
+                  ? imported.message
+                  : undefined
+              notification.success({
+                message: t("settings:manageCharacters.notification.addSuccess", {
+                  defaultValue: "Character created"
+                }),
+                description: successDetail
+              })
+              refetch({ cancelRefetch: true })
+              try {
+                const normalized = normalizeCharacter(importedCharacter || {})
+                setSelectedCharacter(normalized)
+              } catch {
+                // ignore normalization failures; list will refresh
+              }
+            } catch (retryError) {
+              const messageText =
+                retryError instanceof Error
+                  ? retryError.message
+                  : String(retryError)
+              notification.error({
+                message: t("settings:manageCharacters.notification.error", {
+                  defaultValue: "Error"
+                }),
+                description:
+                  messageText ||
+                  t("settings:manageCharacters.notification.someError", {
+                    defaultValue: "Something went wrong. Please try again later"
+                  })
+              })
+            }
+          }
+          return
+        }
         const messageText =
           error instanceof Error ? error.message : String(error)
         notification.error({
@@ -273,7 +363,7 @@ export const CharacterSelect: React.FC<Props> = ({
         event.target.value = ""
       }
     },
-    [notification, refetch, setSelectedCharacter, t]
+    [modal, notification, refetch, setSelectedCharacter, t]
   )
 
   const filteredCharacters = React.useMemo(() => {
@@ -411,6 +501,19 @@ export const CharacterSelect: React.FC<Props> = ({
     onClick: handleOpenCharacters
   }
 
+  const openPageItem: MenuProps["items"][number] = {
+    key: "__open_characters_page__",
+    label: (
+      <button
+        type="button"
+        className="w-full text-left text-xs font-medium text-primary hover:text-primaryStrong"
+      >
+        {openPageLabel}
+      </button>
+    ),
+    onClick: handleOpenCharacters
+  }
+
   const importItem: MenuProps["items"][number] = {
     key: "__import_character__",
     label: (
@@ -424,7 +527,7 @@ export const CharacterSelect: React.FC<Props> = ({
     onClick: handleImportClick
   }
 
-  menuItems.push(noneItem, createItem, importItem)
+  menuItems.push(noneItem, openPageItem, createItem, importItem)
 
   if (characterItems && characterItems.length > 0) {
     menuItems.push(dividerItem("__divider_items__"), ...characterItems)

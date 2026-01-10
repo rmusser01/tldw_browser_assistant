@@ -20,7 +20,9 @@ import {
   Microscope,
   FlaskConical,
   MessageSquare,
-  ClipboardList
+  ClipboardList,
+  MicIcon,
+  Trash2
 } from "lucide-react"
 import { ALL_TARGETS, type PlatformTarget } from "@/config/platform"
 import OptionLayout from "~/components/Layouts/Layout"
@@ -66,6 +68,7 @@ const OptionShare = createSettingsRoute(
 )
 const OptionProcessed = lazy(() => import("./option-settings-processed"))
 const OptionHealth = lazy(() => import("./option-settings-health"))
+const OptionMediaTrash = lazy(() => import("./option-media-trash"))
 const OptionKnowledgeBase = createSettingsRoute(
   () => import("~/components/Option/Knowledge"),
   "KnowledgeSettings"
@@ -119,6 +122,10 @@ const OptionSettingsEvaluations = createSettingsRoute(
   () => import("~/components/Option/Settings/evaluations"),
   "EvaluationsSettings"
 )
+const OptionSpeechSettings = createSettingsRoute(
+  () => import("~/components/Option/Settings/speech-settings"),
+  "SpeechSettings"
+)
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
 const OptionSettingsPromptStudio = createSettingsRoute(
   () => import("~/components/Option/Settings/prompt-studio"),
@@ -134,7 +141,9 @@ const OptionChatSettings = createSettingsRoute(
 const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))
 const OptionContentReview = lazy(() => import("./option-content-review"))
 const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground"))
+const OptionDocumentation = lazy(() => import("./option-documentation"))
 const OptionQuiz = lazy(() => import("./option-quiz"))
+const OptionChatbooksPlayground = lazy(() => import("./option-chatbooks-playground"))
 
 export const ROUTE_DEFINITIONS: RouteDefinition[] = [
   { kind: "options", path: "/", element: <OptionIndex /> },
@@ -213,6 +222,17 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "settings:chatSettingsNav",
       icon: MessageSquare,
       order: 3
+    }
+  },
+  {
+    kind: "options",
+    path: "/settings/speech",
+    element: <OptionSpeechSettings />,
+    nav: {
+      group: "server",
+      labelToken: "settings:speechSettingsNav",
+      icon: MicIcon,
+      order: 4.5
     }
   },
   {
@@ -317,6 +337,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
     }
   },
   { kind: "options", path: "/chunking-playground", element: <OptionChunkingPlayground /> },
+  { kind: "options", path: "/documentation", element: <OptionDocumentation /> },
   {
     kind: "options",
     path: "/settings/about",
@@ -353,6 +374,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       beta: true
     }
   },
+  { kind: "options", path: "/chatbooks", element: <OptionChatbooksPlayground /> },
   {
     kind: "options",
     path: "/media",
@@ -362,6 +384,17 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "settings:mediaNav",
       icon: BookText,
       order: 6
+    }
+  },
+  {
+    kind: "options",
+    path: "/media-trash",
+    element: <OptionMediaTrash />,
+    nav: {
+      group: "knowledge",
+      labelToken: "settings:mediaTrashNav",
+      icon: Trash2,
+      order: 7
     }
   },
   {

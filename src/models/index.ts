@@ -3,6 +3,7 @@ import {
   getAllDefaultModelSettings,
   getModelSettings
 } from "@/services/model-settings"
+import { getDefaultApiProvider } from "@/services/tldw-server"
 import { tldwModels } from "@/services/tldw"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useStoreMessageOption, type ToolChoice } from "@/store/option"
@@ -130,9 +131,11 @@ export const pageAssistModel = async ({
     resolvedSlashInjectionMode && resolvedSlashInjectionMode.trim().length > 0
       ? resolvedSlashInjectionMode.trim()
       : undefined
+  const defaultApiProvider = await getDefaultApiProvider()
   const normalizedApiProvider = await resolveApiProviderForModel({
     modelId: model,
-    explicitProvider: apiProvider ?? currentChatModelSettings.apiProvider,
+    explicitProvider:
+      apiProvider ?? currentChatModelSettings.apiProvider ?? defaultApiProvider,
     providerHint: modelProviderHint
   })
   const resolvedExtraHeaders = parseJsonObject(

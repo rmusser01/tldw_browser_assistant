@@ -25,12 +25,20 @@ import { useSidepanelChatTabsStore } from "@/store/sidepanel-chat-tabs"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useFolderStore } from "@/store/folder"
 import { useBulkChatOperations } from "@/hooks/useBulkChatOperations"
+import { useStorage } from "@plasmohq/storage/hook"
 import { ModeToggle } from "./ModeToggle"
 import { ConversationContextMenu } from "./ConversationContextMenu"
 import { FolderPickerModal } from "./FolderPickerModal"
 import { BulkFolderPickerModal } from "./BulkFolderPickerModal"
 import { BulkTagPickerModal } from "./BulkTagPickerModal"
 import { exportTabToJSON, exportTabToMarkdown } from "@/utils/conversation-export"
+
+const DEFAULT_SIDEBAR_WIDTH = 288
+const SIDEBAR_MIN_WIDTH = 240
+const SIDEBAR_MAX_WIDTH = 420
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, value))
 
 type SidebarGroup = {
   label: string
@@ -72,44 +80,57 @@ const StatusIndicator: React.FC<{ status: ConversationStatus }> = ({
   )
 }
 
-/**
- * Folder labels component - shows folder assignments as small chips
- */
-const FolderLabels: React.FC<{ conversationId: string | null }> = ({
-  conversationId
-}) => {
+const SidebarMetaRow: React.FC<{
+  conversationId: string | null
+  topic?: string | null
+}> = ({ conversationId, topic }) => {
   const getFoldersForConversation = useFolderStore(
     (state) => state.getFoldersForConversation
   )
   const uiPrefs = useFolderStore((state) => state.uiPrefs)
+  const normalizedTopic = (topic || "").trim()
+  const folders = conversationId ? getFoldersForConversation(conversationId) : []
 
-  if (!conversationId) return null
+  if (!normalizedTopic && folders.length === 0) return null
 
-  const folders = getFoldersForConversation(conversationId)
-  if (folders.length === 0) return null
+  const topicLabel = normalizedTopic.startsWith("#")
+    ? normalizedTopic
+    : `#${normalizedTopic}`
 
   return (
-    <div className="flex flex-wrap gap-1 mt-0.5">
-      {folders.slice(0, 3).map((folder) => {
-        const color = uiPrefs[folder.id]?.color || "#6b7280"
-        return (
-          <span
-            key={folder.id}
-            className="inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[10px] font-medium"
-            style={{
-              backgroundColor: `${color}20`,
-              color: color
-            }}
-          >
-            <Folder className="size-2" />
-            <span className="truncate max-w-[60px]">{folder.name}</span>
-          </span>
-        )
-      })}
-      {folders.length > 3 && (
-        <span className="text-[10px] text-text-muted">
-          +{folders.length - 3}
+    <div className="mt-0.5 flex flex-wrap items-center gap-1">
+      {normalizedTopic && (
+        <span
+          className="max-w-[140px] truncate rounded-full border border-border/60 bg-surface2/70 px-1.5 py-0.5 text-[10px] font-medium text-text-subtle"
+          title={normalizedTopic}
+        >
+          {topicLabel}
         </span>
+      )}
+      {folders.length > 0 && (
+        <div className="flex flex-wrap gap-1">
+          {folders.slice(0, 3).map((folder) => {
+            const color = uiPrefs[folder.id]?.color || "#6b7280"
+            return (
+              <span
+                key={folder.id}
+                className="inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[10px] font-medium"
+                style={{
+                  backgroundColor: `${color}20`,
+                  color: color
+                }}
+              >
+                <Folder className="size-2" />
+                <span className="truncate max-w-[60px]">{folder.name}</span>
+              </span>
+            )
+          })}
+          {folders.length > 3 && (
+            <span className="text-[10px] text-text-muted">
+              +{folders.length - 3}
+            </span>
+          )}
+        </div>
       )}
     </div>
   )
@@ -177,6 +198,90 @@ export const SidepanelChatSidebar = ({
   const renameTab = useSidepanelChatTabsStore((state) => state.renameTab)
   const setStatus = useSidepanelChatTabsStore((state) => state.setStatus)
   const uiMode = useUiModeStore((state) => state.mode)
+  const [storedSidebarWidth, setStoredSidebarWidth] = useStorage<number>(
+    "sidepanelSidebarWidth",
+    DEFAULT_SIDEBAR_WIDTH
+  )
+  const [isResizing, setIsResizing] = React.useState(false)
+  const resizeOriginRef = React.useRef<{ startX: number; startWidth: number } | null>(
+    null
+  )
+  const isResizable = variant === "docked" && uiMode === "pro"
+  const rawSidebarWidth =
+    typeof storedSidebarWidth === "number" && Number.isFinite(storedSidebarWidth)
+      ? storedSidebarWidth
+      : DEFAULT_SIDEBAR_WIDTH
+  const sidebarWidth = clamp(
+    rawSidebarWidth,
+    SIDEBAR_MIN_WIDTH,
+    SIDEBAR_MAX_WIDTH
+  )
+
+  const handleResizeStart = React.useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      if (!isResizable) return
+      event.preventDefault()
+      resizeOriginRef.current = {
+        startX: event.clientX,
+        startWidth: sidebarWidth
+      }
+      setIsResizing(true)
+    },
+    [isResizable, sidebarWidth]
+  )
+
+  const handleResizeKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!isResizable) return
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
+      event.preventDefault()
+      const step = event.shiftKey ? 32 : 16
+      const delta = event.key === "ArrowRight" ? step : -step
+      const nextWidth = clamp(
+        sidebarWidth + delta,
+        SIDEBAR_MIN_WIDTH,
+        SIDEBAR_MAX_WIDTH
+      )
+      setStoredSidebarWidth(nextWidth)
+    },
+    [isResizable, sidebarWidth, setStoredSidebarWidth]
+  )
+
+  React.useEffect(() => {
+    if (!isResizing) return
+    const handleMove = (event: MouseEvent) => {
+      if (!resizeOriginRef.current) return
+      const delta = event.clientX - resizeOriginRef.current.startX
+      const nextWidth = clamp(
+        resizeOriginRef.current.startWidth + delta,
+        SIDEBAR_MIN_WIDTH,
+        SIDEBAR_MAX_WIDTH
+      )
+      setStoredSidebarWidth(nextWidth)
+    }
+    const handleUp = () => {
+      setIsResizing(false)
+      resizeOriginRef.current = null
+    }
+    window.addEventListener("mousemove", handleMove)
+    window.addEventListener("mouseup", handleUp)
+    return () => {
+      window.removeEventListener("mousemove", handleMove)
+      window.removeEventListener("mouseup", handleUp)
+    }
+  }, [isResizing, setStoredSidebarWidth])
+
+  React.useEffect(() => {
+    if (!isResizing || typeof document === "undefined") return
+    const previousCursor = document.body.style.cursor
+    const previousUserSelect = document.body.style.userSelect
+    document.body.style.cursor = "col-resize"
+    document.body.style.userSelect = "none"
+    return () => {
+      document.body.style.cursor = previousCursor
+      document.body.style.userSelect = previousUserSelect
+    }
+  }, [isResizing])
 
   // Context menu handlers
   const handleRename = React.useCallback(
@@ -323,7 +428,10 @@ export const SidepanelChatSidebar = ({
               <StatusIndicator status={tab.status} />
               <span className="truncate">{tab.label}</span>
             </div>
-            <FolderLabels conversationId={tab.serverChatId || tab.historyId} />
+            <SidebarMetaRow
+              conversationId={tab.serverChatId || tab.historyId}
+              topic={tab.serverChatTopic}
+            />
           </button>
           {!selectionMode && (
             <div className="flex items-center gap-1 flex-shrink-0">
@@ -532,16 +640,20 @@ export const SidepanelChatSidebar = ({
   }
 
   const panelClass = classNames(
-    "flex h-full min-h-0 flex-col border-r border-border bg-surface",
+    "relative flex h-full min-h-0 flex-col border-r border-border bg-surface",
     variant === "overlay"
       ? `fixed left-0 top-0 z-40 w-72 shadow-card transition-transform ${
           open ? "translate-x-0" : "-translate-x-full"
         }`
-      : "w-72"
+      : "shadow-none"
   )
 
   return (
-    <aside className={panelClass} data-testid="sidepanel-chat-sidebar">
+    <aside
+      className={panelClass}
+      data-testid="sidepanel-chat-sidebar"
+      style={variant === "docked" ? { width: sidebarWidth } : undefined}
+    >
       <div
         className={classNames(
           "flex items-center justify-between border-b border-border",
@@ -759,6 +871,23 @@ export const SidepanelChatSidebar = ({
           )}
         </p>
       </Modal>
+      {isResizable && (
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          aria-label={t("common:chatSidebar.resize", "Resize sidebar")}
+          aria-valuemin={SIDEBAR_MIN_WIDTH}
+          aria-valuemax={SIDEBAR_MAX_WIDTH}
+          aria-valuenow={Math.round(sidebarWidth)}
+          tabIndex={0}
+          onMouseDown={handleResizeStart}
+          onKeyDown={handleResizeKeyDown}
+          className={classNames(
+            "absolute right-0 top-0 h-full w-1.5 cursor-col-resize transition-colors",
+            isResizing ? "bg-border" : "hover:bg-border/60"
+          )}
+        />
+      )}
     </aside>
   )
 }

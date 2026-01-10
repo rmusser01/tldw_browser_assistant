@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from "react"
+import { Select } from "antd"
+import { useQuery } from "@tanstack/react-query"
 import { useSearchParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useQuickChatStore } from "@/store/quick-chat"
 import { useQuickChat } from "@/hooks/useQuickChat"
+import { fetchChatModels } from "@/services/tldw-server"
+import { getProviderDisplayName } from "@/utils/provider-registry"
 import { QuickChatMessage } from "@/components/Common/QuickChatHelper/QuickChatMessage"
 import { QuickChatInput } from "@/components/Common/QuickChatHelper/QuickChatInput"
 import { AlertCircle } from "lucide-react"
@@ -18,8 +22,16 @@ const QuickChatPopout: React.FC = () => {
     sendMessage,
     cancelStream,
     isStreaming,
-    hasModel
+    hasModel,
+    activeModel,
+    currentModel,
+    modelOverride,
+    setModelOverride
   } = useQuickChat()
+  const { data: models = [], isLoading: modelsLoading } = useQuery({
+    queryKey: ["quickChatModels"],
+    queryFn: () => fetchChatModels({ returnEmpty: true })
+  })
 
   // Restore state from sessionStorage on mount
   useEffect(() => {
@@ -35,7 +47,8 @@ const QuickChatPopout: React.FC = () => {
         // Validate parsed state structure before restoring
         if (parsed && typeof parsed === "object" && Array.isArray(parsed.messages)) {
           useQuickChatStore.getState().restoreFromState({
-            messages: parsed.messages
+            messages: parsed.messages,
+            modelOverride: parsed.modelOverride ?? null
           })
         } else {
           console.warn("Invalid quick chat state structure in sessionStorage")
@@ -74,6 +87,32 @@ const QuickChatPopout: React.FC = () => {
     "quickChatHelper.emptyState",
     "Start a quick side chat to keep your main thread clean."
   )
+  const formatModelLabel = React.useCallback(
+    (model: { model: string; nickname?: string; provider?: string }) => {
+      const providerLabel = getProviderDisplayName(model.provider)
+      const modelLabel = model.nickname || model.model
+      return providerLabel ? `${providerLabel} - ${modelLabel}` : modelLabel
+    },
+    []
+  )
+  const modelOptions = React.useMemo(
+    () =>
+      models.map((model) => ({
+        label: formatModelLabel(model),
+        value: model.model
+      })),
+    [formatModelLabel, models]
+  )
+  const currentModelLabel = React.useMemo(() => {
+    if (!currentModel) return null
+    const match = models.find((model) => model.model === currentModel)
+    return match ? formatModelLabel(match) : currentModel
+  }, [currentModel, formatModelLabel, models])
+  const modelPlaceholder = currentModelLabel
+    ? t("quickChatHelper.modelPlaceholder", "Current: {{model}}", {
+        model: currentModelLabel
+      })
+    : t("quickChatHelper.modelPlaceholderEmpty", "Select a model")
 
   return (
     <div className="flex flex-col h-screen bg-white dark:bg-gray-900">
@@ -82,6 +121,27 @@ const QuickChatPopout: React.FC = () => {
         <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
           {title}
         </h1>
+      </div>
+      <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+        <Select
+          className="w-full"
+          size="small"
+          showSearch
+          options={modelOptions}
+          value={activeModel || undefined}
+          placeholder={modelPlaceholder}
+          loading={modelsLoading}
+          optionFilterProp="label"
+          allowClear={!!modelOverride}
+          aria-label={t("quickChatHelper.modelLabel", "Model")}
+          onChange={(value) => {
+            if (!value || (currentModel && value === currentModel)) {
+              setModelOverride(null)
+              return
+            }
+            setModelOverride(value)
+          }}
+        />
       </div>
 
       {/* Messages area */}
@@ -99,7 +159,7 @@ const QuickChatPopout: React.FC = () => {
                 <span>
                   {t(
                     "quickChatHelper.noModelWarning",
-                    "Please select a model in the main chat first."
+                    "Select a model in the main chat or choose one here."
                   )}
                 </span>
               </div>

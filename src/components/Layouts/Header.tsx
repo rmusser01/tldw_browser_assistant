@@ -155,6 +155,7 @@ export const Header: React.FC<Props> = ({
     ) {
       return "evaluations"
     }
+    if (pathname.startsWith("/documentation")) return "documentation"
     if (pathname.startsWith("/chunking-playground")) return "chunkingPlayground"
     if (
       pathname.startsWith("/speech") ||
@@ -203,6 +204,9 @@ export const Header: React.FC<Props> = ({
         break
       case "evaluations":
         navigate("/evaluations")
+        break
+      case "documentation":
+        navigate("/documentation")
         break
       case "chunkingPlayground":
         navigate("/chunking-playground")

@@ -2983,5 +2983,53 @@
   },
   "chatbooksNav": {
     "message": "Chatbooks"
+  },
+  "generalSettings_settings_stickyChatInput_label": {
+    "message": "Keep chat input visible while scrolling"
+  },
+  "onboarding_defaults_title": {
+    "message": "Set your defaults"
+  },
+  "onboarding_defaults_subtitle": {
+    "message": "Pick a default provider and model for new chats."
+  },
+  "onboarding_defaults_loading": {
+    "message": "Loading models..."
+  },
+  "onboarding_defaults_empty": {
+    "message": "No models are available yet. You can set this later in Settings > Models."
+  },
+  "onboarding_defaults_providerLabel": {
+    "message": "Default API provider"
+  },
+  "onboarding_defaults_providerAuto": {
+    "message": "Auto (from model)"
+  },
+  "onboarding_defaults_providerHelp": {
+    "message": "Leave on Auto to use the provider attached to each model."
+  },
+  "onboarding_defaults_providerUnknown": {
+    "message": "Provider"
+  },
+  "onboarding_defaults_modelLabel": {
+    "message": "Default model"
+  },
+  "onboarding_defaults_modelPlaceholder": {
+    "message": "Select a model"
+  },
+  "onboarding_defaults_modelHelp": {
+    "message": "This becomes the starting model when you open a new chat."
+  },
+  "speechSettingsNav": {
+    "message": "Speech"
+  },
+  "speechSettings_title": {
+    "message": "Speech settings"
+  },
+  "speechSettings_subtitle": {
+    "message": "Manage Speech-to-Text and Text-to-Speech defaults for dictation and playback."
+  },
+  "mediaTrashNav": {
+    "message": "Media Trash"
   }
 }

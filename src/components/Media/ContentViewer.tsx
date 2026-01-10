@@ -16,7 +16,8 @@ import {
   ExternalLink,
   Expand,
   Minimize2,
-  Loader2
+  Loader2,
+  Trash2
 } from 'lucide-react'
 import React, { useState, useEffect, Suspense, useMemo, useRef, useCallback } from 'react'
 import { Select, Dropdown, Tooltip, message, Spin } from 'antd'
@@ -27,14 +28,13 @@ import { AnalysisEditModal } from './AnalysisEditModal'
 import { VersionHistoryPanel } from './VersionHistoryPanel'
 import { DeveloperToolsSection } from './DeveloperToolsSection'
 import { DiffViewModal } from './DiffViewModal'
+import { MarkdownPreview } from '@/components/Common/MarkdownPreview'
+import { useConfirmDanger } from '@/components/Common/confirm-danger'
 import { bgRequest } from '@/services/background-proxy'
 import type { MediaResultItem } from './types'
 import { getTextStats } from '@/utils/text-stats'
 import { useSetting } from '@/hooks/useSetting'
 import { MEDIA_COLLAPSED_SECTIONS_SETTING } from '@/services/settings/ui-settings'
-
-// Lazy load Markdown component
-const Markdown = React.lazy(() => import('@/components/Common/Markdown'))
 
 // Lazy load ContentEditModal for code splitting
 const ContentEditModal = React.lazy(() =>
@@ -60,6 +60,7 @@ interface ContentViewerProps {
   onOpenInMultiReview?: () => void
   onSendAnalysisToChat?: (text: string) => void
   contentRef?: (node: HTMLDivElement | null) => void
+  onDeleteItem?: (item: MediaResultItem, detail: any | null) => Promise<void>
 }
 
 
@@ -81,9 +82,11 @@ export function ContentViewer({
   onCreateNoteWithContent,
   onOpenInMultiReview,
   onSendAnalysisToChat,
-  contentRef
+  contentRef,
+  onDeleteItem
 }: ContentViewerProps) {
-  const { t } = useTranslation(['review'])
+  const { t } = useTranslation(['review', 'common'])
+  const confirmDanger = useConfirmDanger()
   const [collapsedSections, setCollapsedSections] = useSetting(
     MEDIA_COLLAPSED_SECTIONS_SETTING
   )
@@ -103,10 +106,33 @@ export function ContentViewer({
   const [diffRightLabel, setDiffRightLabel] = useState('')
   const [contentEditModalOpen, setContentEditModalOpen] = useState(false)
   const [editingContentText, setEditingContentText] = useState('')
+  const [deletingItem, setDeletingItem] = useState(false)
 
   // Content length threshold for collapse (2500 chars)
   const CONTENT_COLLAPSE_THRESHOLD = 2500
   const shouldShowExpandToggle = content && content.length > CONTENT_COLLAPSE_THRESHOLD
+  const contentForPreview = useMemo(() => {
+    if (!content) return ''
+    if (selectedMedia?.kind === 'note') return content
+    return content.replace(/\r\n/g, '\n').replace(/\n/g, '  \n')
+  }, [content, selectedMedia?.kind])
+
+  const resolveNoteVersion = (detail: any, raw: any): number | null => {
+    const candidates = [
+      detail?.version,
+      detail?.metadata?.version,
+      raw?.version,
+      raw?.metadata?.version
+    ]
+    for (const candidate of candidates) {
+      if (typeof candidate === 'number' && Number.isFinite(candidate)) return candidate
+      if (typeof candidate === 'string' && candidate.trim().length > 0) {
+        const parsed = Number(candidate)
+        if (Number.isFinite(parsed)) return parsed
+      }
+    }
+    return null
+  }
 
   // Sync editing keywords with selected media
   useEffect(() => {
@@ -127,11 +153,34 @@ export function ContentViewer({
           selectedMedia.kind === 'note'
             ? `/api/v1/notes/${selectedMedia.id}`
             : `/api/v1/media/${selectedMedia.id}`
+        const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+        if (selectedMedia.kind === 'note') {
+          let expectedVersion = resolveNoteVersion(mediaDetail, selectedMedia.raw)
+          if (expectedVersion == null) {
+            try {
+              const latest = await bgRequest<any>({
+                path: `/api/v1/notes/${selectedMedia.id}` as any,
+                method: 'GET' as any
+              })
+              expectedVersion = resolveNoteVersion(latest, null)
+            } catch {
+              expectedVersion = null
+            }
+          }
+          if (expectedVersion == null) {
+            throw new Error(
+              t('review:mediaPage.noteUpdateNeedsReload', {
+                defaultValue: 'Unable to update note. Reload and try again.'
+              })
+            )
+          }
+          headers['expected-version'] = String(expectedVersion)
+        }
 
         await bgRequest({
           path: endpoint as any,
           method: 'PUT' as any,
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: { keywords: newKeywords }
         })
         setEditingKeywords(newKeywords)
@@ -156,6 +205,32 @@ export function ContentViewer({
     },
     [selectedMedia, onKeywordsUpdated]
   )
+
+  const handleDeleteItem = useCallback(async () => {
+    if (!selectedMedia || !onDeleteItem || deletingItem) return
+    const ok = await confirmDanger({
+      title: t('common:confirmTitle', { defaultValue: 'Please confirm' }),
+      content: t('review:mediaPage.deleteItemConfirm', {
+        defaultValue: 'Delete this item? This cannot be undone.'
+      }),
+      okText: t('common:delete', { defaultValue: 'Delete' }),
+      cancelText: t('common:cancel', { defaultValue: 'Cancel' })
+    })
+    if (!ok) return
+    setDeletingItem(true)
+    try {
+      await onDeleteItem(selectedMedia, mediaDetail ?? null)
+      message.success(t('common:deleted', { defaultValue: 'Deleted' }))
+    } catch (err) {
+      const msg =
+        err && typeof err === 'object' && 'message' in err
+          ? String((err as { message?: unknown }).message)
+          : ''
+      message.error(msg || t('common:deleteFailed', { defaultValue: 'Delete failed' }))
+    } finally {
+      setDeletingItem(false)
+    }
+  }, [confirmDanger, deletingItem, mediaDetail, onDeleteItem, selectedMedia, t])
 
   const handleSaveKeywords = (newKeywords: string[]) => {
     setEditingKeywords(newKeywords)
@@ -610,20 +685,19 @@ export function ContentViewer({
             {!collapsedSections.content && (
               <div className="p-3 bg-surface animate-in fade-in slide-in-from-top-1 duration-150">
                 <div
-                  className={`prose prose-slate dark:prose-invert max-w-none ${
+                  className={`text-sm text-text leading-relaxed ${
                     !contentExpanded && shouldShowExpandToggle ? 'max-h-64 overflow-hidden relative' : ''
                   }`}
                 >
-                  <Suspense fallback={
-                    <div className="text-sm text-text whitespace-pre-wrap leading-relaxed">
-                      {content || t('review:mediaPage.noContent', { defaultValue: 'No content available' })}
-                    </div>
-                  }>
-                    <Markdown
-                      message={content || t('review:mediaPage.noContent', { defaultValue: 'No content available' })}
-                      className="text-sm text-text leading-relaxed prose-p:leading-relaxed prose-pre:p-0"
-                    />
-                  </Suspense>
+                  <MarkdownPreview
+                    content={
+                      contentForPreview ||
+                      t('review:mediaPage.noContent', {
+                        defaultValue: 'No content available'
+                      })
+                    }
+                    size="sm"
+                  />
                   {/* Fade overlay when collapsed */}
                   {!contentExpanded && shouldShowExpandToggle && (
                     <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-surface to-transparent" />
@@ -912,6 +986,26 @@ export function ContentViewer({
             data={mediaDetail}
             label={t('review:mediaPage.developerTools', { defaultValue: 'Developer Tools' })}
           />
+          {selectedMedia && onDeleteItem && (
+            <div className="mt-2">
+              <button
+                type="button"
+                onClick={handleDeleteItem}
+                disabled={deletingItem}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-danger/30 px-3 py-2 text-sm text-danger hover:bg-danger/10 disabled:opacity-60"
+                title={t('review:mediaPage.deleteItem', { defaultValue: 'Delete item' })}
+              >
+                {deletingItem ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Trash2 className="w-4 h-4" />
+                )}
+                {deletingItem
+                  ? t('review:mediaPage.deletingItem', { defaultValue: 'Deleting...' })
+                  : t('review:mediaPage.deleteItem', { defaultValue: 'Delete item' })}
+              </button>
+            </div>
+          )}
         </div>
         )}
       </div>

@@ -2,15 +2,17 @@ import logoImage from "~/assets/icon.png"
 import { useMessage } from "~/hooks/useMessage"
 import { Link } from "react-router-dom"
 import { Tooltip } from "antd"
-import { CogIcon, Menu } from "lucide-react"
+import { CogIcon, ExternalLink, Menu, Pencil } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import React from "react"
 import { StatusDot } from "./StatusDot"
+import { browser } from "wxt/browser"
 
 type SidepanelHeaderSimpleProps = {
   sidebarOpen?: boolean
   setSidebarOpen?: (open: boolean) => void
   activeTitle?: string
+  onRenameTitle?: (nextTitle: string) => void
 }
 
 /**
@@ -25,11 +27,16 @@ type SidepanelHeaderSimpleProps = {
 export const SidepanelHeaderSimple = ({
   sidebarOpen: propSidebarOpen,
   setSidebarOpen: propSetSidebarOpen,
-  activeTitle
+  activeTitle,
+  onRenameTitle
 }: SidepanelHeaderSimpleProps = {}) => {
   const { temporaryChat } = useMessage()
   const { t } = useTranslation(["sidepanel", "common", "option"])
   const [localSidebarOpen, setLocalSidebarOpen] = React.useState(false)
+  const [isEditingTitle, setIsEditingTitle] = React.useState(false)
+  const [draftTitle, setDraftTitle] = React.useState(activeTitle || "")
+  const ignoreBlurRef = React.useRef(false)
+  const titleInputRef = React.useRef<HTMLInputElement>(null)
   const isControlled = typeof propSidebarOpen === "boolean"
   const sidebarOpen = isControlled
     ? (propSidebarOpen as boolean)
@@ -42,6 +49,47 @@ export const SidepanelHeaderSimple = ({
       return
     }
     propSetSidebarOpen?.(next)
+  }
+
+  React.useEffect(() => {
+    setDraftTitle(activeTitle || "")
+    setIsEditingTitle(false)
+  }, [activeTitle])
+
+  React.useEffect(() => {
+    if (!isEditingTitle) return
+    titleInputRef.current?.focus()
+    titleInputRef.current?.select()
+  }, [isEditingTitle])
+
+  const cancelTitleEdit = React.useCallback(() => {
+    ignoreBlurRef.current = true
+    setDraftTitle(activeTitle || "")
+    setIsEditingTitle(false)
+  }, [activeTitle])
+
+  const submitTitleEdit = React.useCallback(() => {
+    const trimmed = draftTitle.trim()
+    if (!trimmed) {
+      setDraftTitle(activeTitle || "")
+      setIsEditingTitle(false)
+      return
+    }
+    if (trimmed !== (activeTitle || "").trim()) {
+      onRenameTitle?.(trimmed)
+    }
+    setIsEditingTitle(false)
+  }, [activeTitle, draftTitle, onRenameTitle])
+
+  const openFullScreen = () => {
+    try {
+      const url = browser.runtime.getURL("/options.html#/")
+      if (browser.tabs?.create) {
+        browser.tabs.create({ url })
+        return
+      }
+    } catch {}
+    window.open("/options.html#/", "_blank")
   }
 
   return (
@@ -84,14 +132,74 @@ export const SidepanelHeaderSimple = ({
           </span>
         </div>
         {activeTitle && (
-          <span className="ml-2 hidden max-w-[12rem] truncate text-caption text-text-muted sm:inline">
-            {activeTitle}
-          </span>
+          <div className="ml-2 hidden max-w-[12rem] sm:inline">
+            {isEditingTitle && onRenameTitle ? (
+              <input
+                ref={titleInputRef}
+                value={draftTitle}
+                onChange={(event) => setDraftTitle(event.target.value)}
+                onBlur={() => {
+                  if (ignoreBlurRef.current) {
+                    ignoreBlurRef.current = false
+                    return
+                  }
+                  submitTitleEdit()
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault()
+                    ignoreBlurRef.current = true
+                    submitTitleEdit()
+                  }
+                  if (event.key === "Escape") {
+                    event.preventDefault()
+                    cancelTitleEdit()
+                  }
+                }}
+                aria-label={t(
+                  "sidepanel:header.renameTitle",
+                  "Rename conversation"
+                )}
+                className="w-full rounded-md border border-border bg-surface px-2 py-0.5 text-caption text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+              />
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  if (!onRenameTitle) return
+                  setIsEditingTitle(true)
+                }}
+                className="group flex max-w-full items-center gap-1 text-caption text-text-muted hover:text-text"
+                title={activeTitle}
+                aria-label={t(
+                  "sidepanel:header.renameTitle",
+                  "Rename conversation"
+                )}
+              >
+                <span className="truncate">{activeTitle}</span>
+                {onRenameTitle && (
+                  <Pencil className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-80" />
+                )}
+              </button>
+            )}
+          </div>
         )}
       </div>
 
-      {/* Right: Settings */}
+      {/* Right: Full-screen + Settings */}
       <div className="flex items-center gap-1">
+        <Tooltip title={t("sidepanel:header.openFullScreen", "Open Full-Screen")}>
+          <button
+            type="button"
+            onClick={openFullScreen}
+            aria-label={t("sidepanel:header.openFullScreen", "Open Full-Screen")}
+            className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
+            title={t("sidepanel:header.openFullScreen", "Open Full-Screen")}
+            data-testid="chat-open-full-screen"
+          >
+            <ExternalLink className="size-4" aria-hidden="true" />
+          </button>
+        </Tooltip>
         <Tooltip title={t("sidepanel:header.settingsShortLabel", "Settings")}>
           <Link
             to="/settings"
@@ -99,10 +207,7 @@ export const SidepanelHeaderSimple = ({
             className="rounded-md p-2 text-text-muted hover:bg-surface2 hover:text-text"
             title={t("sidepanel:header.settingsShortLabel", "Settings")}
           >
-            <CogIcon
-              className="size-4"
-              aria-hidden="true"
-            />
+            <CogIcon className="size-4" aria-hidden="true" />
           </Link>
         </Tooltip>
       </div>

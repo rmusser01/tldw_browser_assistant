@@ -294,8 +294,8 @@ export interface BgUploadInit<P extends AllowedPath = AllowedPath, M extends All
   method?: UpperLower<M>
   // key/value fields to include alongside file in FormData
   fields?: Record<string, any>
-  // File payload as raw bytes with metadata (ArrayBuffer is structured-cloneable)
-  file?: { name?: string; type?: string; data: ArrayBuffer }
+  // File payload as raw bytes with metadata (structured-cloneable)
+  file?: { name?: string; type?: string; data: ArrayBuffer | Uint8Array | number[] }
   // Optional override for the multipart file field name
   fileFieldName?: string
 }
@@ -312,7 +312,12 @@ export async function bgUpload<T = any, P extends AllowedPath = AllowedPath, M e
       resp?.error,
       `Upload failed: ${resp?.status}`
     )
-    throw new Error(msg)
+    const error = new Error(msg) as Error & { status?: number; details?: unknown }
+    error.status = resp?.status
+    if (typeof resp?.data !== "undefined") {
+      error.details = resp.data
+    }
+    throw error
   }
   return resp.data as T
 }

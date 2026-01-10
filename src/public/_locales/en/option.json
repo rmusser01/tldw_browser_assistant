@@ -2178,7 +2178,7 @@
     "message": "Pop-out is disabled when there are no messages. Start a conversation first."
   },
   "quickChatHelper_noModelWarning": {
-    "message": "Please select a model in the main chat first."
+    "message": "Select a model in the main chat or choose one here."
   },
   "quickChatHelper_userMessageAria": {
     "message": "Your message"
@@ -2362,5 +2362,86 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickChatHelper_modelLabel": {
+    "message": "Model"
+  },
+  "quickChatHelper_modelPlaceholder": {
+    "message": "Current: {{model}}"
+  },
+  "quickChatHelper_modelPlaceholderEmpty": {
+    "message": "Select a model"
+  },
+  "header_modeDocumentation": {
+    "message": "Documentation"
+  },
+  "documentation_title": {
+    "message": "Documentation"
+  },
+  "documentation_subtitle": {
+    "message": "Browse documentation for the tldw browser extension and tldw_server."
+  },
+  "documentation_searchPlaceholder": {
+    "message": "Search documentation..."
+  },
+  "documentation_sourceExtension": {
+    "message": "tldw browser extension"
+  },
+  "documentation_sourceServer": {
+    "message": "tldw_server"
+  },
+  "documentation_sourceHint": {
+    "message": "Sources: {{extensionPath}} and {{serverPath}}"
+  },
+  "documentation_documentsLabel": {
+    "message": "Documents"
+  },
+  "documentation_resultsLabel": {
+    "message": "{{count}} results"
+  },
+  "documentation_emptyTitle": {
+    "message": "No documentation found"
+  },
+  "documentation_emptyDescription": {
+    "message": "Add markdown files under {{path}} to populate this section."
+  },
+  "documentation_noMatchesTitle": {
+    "message": "No matches"
+  },
+  "documentation_noMatchesDescription": {
+    "message": "Try a different search term."
+  },
+  "documentation_noMatchesList": {
+    "message": "No matches in this source."
+  },
+  "notesSearch_keywordsBrowse": {
+    "message": "Browse keywords"
+  },
+  "notesSearch_keywordsBrowseCount": {
+    "message": "{{count}} available"
+  },
+  "notesSearch_keywordPickerTitle": {
+    "message": "Browse keywords"
+  },
+  "notesSearch_keywordPickerSearch": {
+    "message": "Search keywords"
+  },
+  "notesSearch_keywordPickerCount": {
+    "message": "{{count}} keywords"
+  },
+  "notesSearch_keywordPickerSelectAll": {
+    "message": "Select all"
+  },
+  "notesSearch_keywordPickerClear": {
+    "message": "Clear"
+  },
+  "notesSearch_keywordPickerApply": {
+    "message": "Apply filters"
+  },
+  "notesSearch_keywordPickerEmpty": {
+    "message": "No keywords found"
+  },
+  "characters_openCharactersPage": {
+    "message": "Characters Page"
   }
 }

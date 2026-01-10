@@ -10,6 +10,7 @@ import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useStorage } from "@plasmohq/storage/hook"
 import { IconButton } from "@/components/Common/IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { useAntdModal } from "@/hooks/useAntdModal"
 
 type Character = {
   id: string | number
@@ -34,6 +35,7 @@ export const CharacterSelect: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(["sidepanel", "common", "settings"])
   const notification = useAntdNotification()
+  const modal = useAntdModal()
   const [menuDensity] = useStorage("menuDensity", "comfortable")
   const [searchText, setSearchText] = useState("")
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -94,12 +96,48 @@ export const CharacterSelect: React.FC<Props> = ({
     const file = event.target.files?.[0]
     if (!file) return
 
+    const getImageOnlyDetail = (error: unknown) => {
+      const details = (error as { details?: any })?.details
+      const detail = details?.detail ?? details
+      if (detail?.code === "missing_character_data") return detail
+      return null
+    }
+
+    const confirmImageOnlyImport = (message?: string) =>
+      new Promise<boolean>((resolve) => {
+        const instance = modal.confirm({
+          title: t("settings:manageCharacters.imageOnlyTitle", {
+            defaultValue: "No character data detected"
+          }),
+          content:
+            message ||
+            t("settings:manageCharacters.imageOnlyBody", {
+              defaultValue:
+                "No character data was found in the image metadata. Import this image as a character anyway?"
+            }),
+          okText: t("settings:manageCharacters.imageOnlyConfirm", {
+            defaultValue: "Import image-only"
+          }),
+          cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+          centered: true,
+          okButtonProps: { danger: false },
+          maskClosable: false,
+          onOk: () => resolve(true),
+          onCancel: () => resolve(false)
+        })
+        void instance
+      })
+
     try {
       setIsImporting(true)
       await tldwClient.initialize().catch(() => null)
+      const importCharacter = async (allowImageOnly = false) =>
+        await tldwClient.importCharacterFile(file, {
+          allowImageOnly
+        })
       let selectedPayload: Record<string, any> | null = null
       let successDetail: string | undefined
-      const imported = await tldwClient.importCharacterFile(file)
+      const imported = await importCharacter()
       const importedCharacter =
         imported?.character ??
         (imported?.id && imported?.name
@@ -124,6 +162,56 @@ export const CharacterSelect: React.FC<Props> = ({
         setSelectedCharacterId(String(createdId))
       }
     } catch (error) {
+      const imageOnlyDetail = getImageOnlyDetail(error)
+      if (imageOnlyDetail) {
+        const confirmed = await confirmImageOnlyImport(
+          imageOnlyDetail?.message
+        )
+        if (confirmed) {
+          try {
+            const imported = await tldwClient.importCharacterFile(file, {
+              allowImageOnly: true
+            })
+            const importedCharacter =
+              imported?.character ??
+              (imported?.id && imported?.name
+                ? { id: imported.id, name: imported.name }
+                : imported)
+            const successDetail =
+              typeof imported?.message === "string" && imported.message.trim()
+                ? imported.message
+                : undefined
+            notification.success({
+              message: t("settings:manageCharacters.notification.addSuccess", {
+                defaultValue: "Character created"
+              }),
+              description: successDetail
+            })
+            refetch({ cancelRefetch: true })
+            const createdId =
+              importedCharacter?.id ??
+              importedCharacter?.character_id ??
+              importedCharacter?.characterId
+            if (createdId != null) {
+              setSelectedCharacterId(String(createdId))
+            }
+          } catch (retryError) {
+            const messageText =
+              retryError instanceof Error ? retryError.message : String(retryError)
+            notification.error({
+              message: t("settings:manageCharacters.notification.error", {
+                defaultValue: "Error"
+              }),
+              description:
+                messageText ||
+                t("settings:manageCharacters.notification.someError", {
+                  defaultValue: "Something went wrong. Please try again later"
+                })
+            })
+          }
+        }
+        return
+      }
       const messageText =
         error instanceof Error ? error.message : String(error)
       notification.error({
@@ -224,7 +312,7 @@ export const CharacterSelect: React.FC<Props> = ({
           key: "loading",
           label: (
             <div className="text-text-muted text-sm py-2">
-              {t("common:loading", "Loading...")}
+              {t("common:loading.title", { defaultValue: "Loading..." })}
             </div>
           ),
           disabled: true

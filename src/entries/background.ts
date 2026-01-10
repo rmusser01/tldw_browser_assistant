@@ -382,8 +382,23 @@ export default defineBackground({
     const normalizeFileData = (input: any): Uint8Array | null => {
       if (!input) return null
       if (input instanceof ArrayBuffer) return new Uint8Array(input)
+      if (typeof SharedArrayBuffer !== "undefined" && input instanceof SharedArrayBuffer) {
+        return new Uint8Array(input)
+      }
       if (ArrayBuffer.isView(input)) {
         return new Uint8Array(input.buffer, input.byteOffset, input.byteLength)
+      }
+      if (
+        typeof input === "object" &&
+        typeof (input as { byteLength?: number }).byteLength === "number" &&
+        typeof (input as { slice?: unknown }).slice === "function"
+      ) {
+        try {
+          return new Uint8Array(input as ArrayBuffer)
+        } catch (error) {
+          logBackgroundError("normalize arraybuffer-like input", error)
+          return null
+        }
       }
       // Accept common structured-clone shapes (e.g., { data: [...] })
       if (Array.isArray((input as any)?.data)) return new Uint8Array((input as any).data)
@@ -489,7 +504,10 @@ export default defineBackground({
         let data: any = null
         if (contentType.includes('application/json')) data = await resp.json().catch(() => null)
         else data = await resp.text().catch(() => null)
-        return { ok: resp.ok, status: resp.status, data }
+        const error = resp.ok
+          ? undefined
+          : formatErrorMessage(data, `Upload failed: ${resp.status}`)
+        return { ok: resp.ok, status: resp.status, data, error }
       } catch (e: any) {
         return { ok: false, status: 0, error: e?.message || 'Upload failed' }
       }

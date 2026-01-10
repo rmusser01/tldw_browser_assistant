@@ -66,6 +66,7 @@
     "modeStt": "STT Playground",
     "modeSpeech": "Speech",
     "modePromptStudio": "Prompt Studio",
+    "modeDocumentation": "Documentation",
     "modeFlashcards": "Flashcards",
     "modeWorldBooks": "World Books",
     "modeDictionaries": "Chat dictionaries",
@@ -95,6 +96,21 @@
     "omniSearchStartChat": "Start new chat \"{{query}}\"",
     "connectionCard.connectedCaption": "Chat and tools are now available in Options and the sidepanel.",
     "quickIngestQueuedAria": "{{label}} — {{count}} items queued — click to review and process"
+  },
+  "documentation": {
+    "title": "Documentation",
+    "subtitle": "Browse documentation for the tldw browser extension and tldw_server.",
+    "searchPlaceholder": "Search documentation...",
+    "sourceExtension": "tldw browser extension",
+    "sourceServer": "tldw_server",
+    "sourceHint": "Sources: {{extensionPath}} and {{serverPath}}",
+    "documentsLabel": "Documents",
+    "resultsLabel": "{{count}} results",
+    "emptyTitle": "No documentation found",
+    "emptyDescription": "Add markdown files under {{path}} to populate this section.",
+    "noMatchesTitle": "No matches",
+    "noMatchesDescription": "Try a different search term.",
+    "noMatchesList": "No matches in this source."
   },
   "promptStudio": {
     "title": "Prompt Studio Playground",
@@ -396,6 +412,15 @@
     "placeholder": "Search titles and contents",
     "clear": "Clear search & filters",
     "keywordsPlaceholder": "Filter by keyword",
+    "keywordsBrowse": "Browse keywords",
+    "keywordsBrowseCount": "{{count}} available",
+    "keywordPickerTitle": "Browse keywords",
+    "keywordPickerSearch": "Search keywords",
+    "keywordPickerCount": "{{count}} keywords",
+    "keywordPickerSelectAll": "Select all",
+    "keywordPickerClear": "Clear",
+    "keywordPickerApply": "Apply filters",
+    "keywordPickerEmpty": "No keywords found",
     "new": "New note",
     "newTooltip": "Create a new note",
     "listCount": "{{count}} notes",
@@ -546,7 +571,8 @@
     "refresh": "Refresh characters",
     "refreshing": "Refreshing characters…",
     "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "importCharacter": "Import Character",
+    "openCharactersPage": "Characters Page"
   },
   "promptInsert": {
     "useInChat": "Use in chat",
@@ -809,7 +835,10 @@
     "emptyState": "Start a quick side chat to keep your main thread clean.",
     "popOutButton": "Pop out",
     "popOutDisabled": "Pop-out is disabled when there are no messages. Start a conversation first.",
-    "noModelWarning": "Please select a model in the main chat first.",
+    "noModelWarning": "Select a model in the main chat or choose one here.",
+    "modelLabel": "Model",
+    "modelPlaceholder": "Current: {{model}}",
+    "modelPlaceholderEmpty": "Select a model",
     "userMessageAria": "Your message",
     "assistantMessageAria": "Assistant message"
   },

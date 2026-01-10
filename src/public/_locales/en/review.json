@@ -1309,5 +1309,125 @@
   },
   "contentReview_editedLabel": {
     "message": "Edited"
+  },
+  "mediaPage_previewLabel": {
+    "message": "Preview"
+  },
+  "mediaPage_deleteItem": {
+    "message": "Delete item"
+  },
+  "mediaPage_deleteItemConfirm": {
+    "message": "Delete this item? This cannot be undone."
+  },
+  "mediaPage_deletingItem": {
+    "message": "Deleting..."
+  },
+  "mediaPage_noteDeleteNeedsReload": {
+    "message": "Unable to delete note. Reload and try again."
+  },
+  "mediaPage_itemMovedToTrash": {
+    "message": "Moved to trash"
+  },
+  "mediaPage_itemMovedToTrashDesc": {
+    "message": "\"{{title}}\" moved to trash."
+  },
+  "mediaPage_openTrash": {
+    "message": "Trash"
+  },
+  "trashPage_title": {
+    "message": "Trash"
+  },
+  "trashPage_subtitle": {
+    "message": "Items moved to trash stay here until you restore or permanently delete them."
+  },
+  "trashPage_emptyTitle": {
+    "message": "Trash is empty"
+  },
+  "trashPage_emptyDescription": {
+    "message": "Deleted media items show up here until you restore them or delete them permanently."
+  },
+  "trashPage_restore": {
+    "message": "Restore"
+  },
+  "trashPage_restoring": {
+    "message": "Restoring..."
+  },
+  "trashPage_restoreSuccess": {
+    "message": "Item restored"
+  },
+  "trashPage_restoreFailed": {
+    "message": "Failed to restore item"
+  },
+  "trashPage_deletePermanent": {
+    "message": "Delete permanently"
+  },
+  "trashPage_deleting": {
+    "message": "Deleting..."
+  },
+  "trashPage_deletePermanentConfirm": {
+    "message": "Permanently delete this item? This cannot be undone."
+  },
+  "trashPage_deletePermanentSuccess": {
+    "message": "Item permanently deleted"
+  },
+  "trashPage_deletePermanentFailed": {
+    "message": "Failed to delete item"
+  },
+  "trashPage_refresh": {
+    "message": "Refresh"
+  },
+  "trashPage_selectAllVisible": {
+    "message": "Select all visible"
+  },
+  "trashPage_selectedCount": {
+    "message": "{{count}} selected"
+  },
+  "trashPage_restoreSelected": {
+    "message": "Restore selected"
+  },
+  "trashPage_restoreSelectedSuccess": {
+    "message": "Restored {{count}} items"
+  },
+  "trashPage_restoreSelectedPartial": {
+    "message": "Failed to restore {{count}} items"
+  },
+  "trashPage_restoreSelectedFailed": {
+    "message": "Failed to restore selected items"
+  },
+  "trashPage_deleteSelected": {
+    "message": "Delete selected"
+  },
+  "trashPage_deleteSelectedConfirm": {
+    "message": "Permanently delete {{count}} items? This cannot be undone."
+  },
+  "trashPage_deleteSelectedSuccess": {
+    "message": "Deleted {{count}} items"
+  },
+  "trashPage_deleteSelectedPartial": {
+    "message": "Failed to delete {{count}} items"
+  },
+  "trashPage_deleteSelectedFailed": {
+    "message": "Failed to delete selected items"
+  },
+  "trashPage_emptyTrash": {
+    "message": "Empty trash"
+  },
+  "trashPage_emptyTrashConfirm": {
+    "message": "Permanently delete all items in trash? This cannot be undone."
+  },
+  "trashPage_emptyTrashSuccess": {
+    "message": "Deleted {{count}} items"
+  },
+  "trashPage_emptyTrashPartial": {
+    "message": "{{count}} items could not be deleted"
+  },
+  "trashPage_emptyTrashNone": {
+    "message": "Trash already empty"
+  },
+  "trashPage_emptyTrashFailed": {
+    "message": "Failed to empty trash"
+  },
+  "trashPage_selectItem": {
+    "message": "Select item {{id}}"
   }
 }

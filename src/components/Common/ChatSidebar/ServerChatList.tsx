@@ -206,12 +206,16 @@ export function ServerChatList({
 
   React.useEffect(() => {
     if (!selectionMode) {
-      setSelectedChatIds([])
+      setSelectedChatIds((prev) => (prev.length === 0 ? prev : []))
       return
     }
-    setSelectedChatIds((prev) =>
-      prev.filter((id) => visibleChatIds.includes(id))
-    )
+    setSelectedChatIds((prev) => {
+      const next = prev.filter((id) => visibleChatIds.includes(id))
+      if (next.length === prev.length && next.every((id, idx) => id === prev[idx])) {
+        return prev
+      }
+      return next
+    })
   }, [selectionMode, visibleChatIds])
 
   React.useEffect(() => {

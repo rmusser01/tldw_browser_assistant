@@ -9,6 +9,7 @@ PRD — Mindmap Playground (Options Mode)
   - Keywords tokenization:
       - Accepts list or comma-separated string; trims whitespace and drops empty entries.
       - Deduped case-insensitively; max length 100 chars; case-insensitive uniqueness in storage.
+      - Avoid special characters that may be stripped or treated as wildcards in search; prefer `[A-Za-z0-9_-]`.
   - Sync scope:
       - Sync runs only while the Mindmap UI is open (no background sync in v1).
 
@@ -16,7 +17,7 @@ PRD — Mindmap Playground (Options Mode)
 
   - Add a full-screen mindmap playground to the Options UI for creating, editing, and viewing mindmaps.
   - Support multiple named maps with local-first persistence and fast offline editing.
-  - Sync maps to Notes as tagged items with keyword `_*_mindmaps_*_`.
+  - Sync maps to Notes as tagged items with keyword `tldw_mindmaps`.
   - Import/export formats: Markdown outline, OPML, Mermaid, PNG, and SVG.
   - Core conversions: Markdown/OPML -> Mermaid.
   - Rendering library for v1: React Flow.
@@ -63,25 +64,28 @@ PRD — Mindmap Playground (Options Mode)
   - Drag to reorder/reparent nodes with live preview.
   - Collapse/expand branches; multi-select; copy/paste subtrees.
   - Undo/redo stack with “Revert to last saved” action.
+      - “Last saved” means last persisted local snapshot; if a synced note exists, offer “Revert to last synced” separately.
   - Search and focus: find, next/previous match, spotlight mode.
 
   6. Data Model & Local Storage
 
   - Dexie table for mindmaps with indexed lookup by id and updatedAt.
   - MindmapDocument:
-      - id, title, rootId, nodes, edges, layout, viewState, noteId, lastSyncedAt, updatedAt.
+      - id, title, rootId, nodes, edges, layout, viewState, noteId, lastSyncedAt, updatedAt, version, hash.
+      - `edges` is a derived/cache layer from node `parentId` and is not a source of truth.
   - MindmapNode:
       - id, parentId, label, notes, tags, link, color, collapsed, position, sortIndex.
   - UI prefs in `useStorage`:
       - last map id, zoom, layout, panel collapsed state.
   - Save behavior:
       - Debounced saves for typing, immediate saves for structural edits.
+      - Structural edits are coalesced into a short debounce window before syncing to avoid PUT spam.
 
   7. Notes Sync (Always-On with Manual Pause)
 
   - Always-on sync; per-map “Pause sync” toggle in toolbar.
   - Sync runs only while the Mindmap UI is open (no background sync in v1).
-  - Tagged note keyword: `_*_mindmaps_*_` (used for search and discovery).
+  - Tagged note keyword: `tldw_mindmaps` (used for search and discovery).
   - Note payload:
       - content: Markdown outline; may include an embedded Mindmap JSON block for full-fidelity round-trips.
       - embedded JSON fields: `mindmap_id`, `mindmap_version`, `layout`, `node_count`, `hash`, plus full document when size allows (see limits below).
@@ -93,6 +97,9 @@ PRD — Mindmap Playground (Options Mode)
   - Conflict handling:
       - If note updated after last sync and local map changed, prompt:
           - Keep local, Keep remote, or Duplicate (creates new map + note).
+  - Pause sync behavior:
+      - While paused, do not push updates or pull remote changes; surface “sync paused” and allow manual pull.
+      - On resume, compare hashes and run normal conflict flow if needed.
 
   7.1 Embedded JSON Size Strategy (in note content)
 
@@ -105,6 +112,8 @@ PRD — Mindmap Playground (Options Mode)
       - Rebuild structure from Markdown outline on load; layout reflows.
   - Ensure `hash` is computed from canonical JSON for conflict detection.
   - Ensure total note content stays under server limit (5 MB).
+  - If the Markdown outline alone exceeds 5 MB:
+      - Block sync, show a size error, and keep the map local-only until reduced or exported.
 
   7.2 Tagged Notes Open Behavior
 
@@ -122,7 +131,7 @@ PRD — Mindmap Playground (Options Mode)
   - Delimiters:
       - Start: `<!-- tldw:mindmap:v1 -->`
       - End: `<!-- /tldw:mindmap -->`
-      - JSON lives inside a fenced code block with language `json`.
+      - JSON lives inside a fenced code block with language `json`. Notes UI should hide/collapse content between the delimiters to avoid rendering the JSON.
   - JSON fields:
       - `schema_version`: `1`
       - `mindmap_id`, `mindmap_version`, `layout`, `node_count`, `hash`
@@ -276,6 +285,7 @@ PRD — Mindmap Playground (Options Mode)
   - Notes sync creates and updates tagged notes; conflict flow works.
   - Pause/resume sync behaves correctly.
   - Modes bar, command palette, and shortcut open Mindmap.
+  - Sync is blocked with a clear error when outline-only content exceeds 5 MB.
 
   13. Open Questions
 

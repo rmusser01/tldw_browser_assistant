@@ -20,11 +20,17 @@ import { useStoreMessageOption } from "@/store/option"
 import { useArtifactsStore } from "@/store/artifacts"
 import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 import { useSetting } from "@/hooks/useSetting"
+import { useStorage } from "@plasmohq/storage/hook"
+import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
   const { t } = useTranslation(["playground", "common"])
   const [chatBackgroundImage] = useSetting(CHAT_BACKGROUND_IMAGE_SETTING)
+  const [stickyChatInput] = useStorage(
+    "stickyChatInput",
+    DEFAULT_CHAT_SETTINGS.stickyChatInput
+  )
 
   const {
     messages,
@@ -299,7 +305,13 @@ export const Playground = () => {
               <PlaygroundChat />
             </div>
           </div>
-          <div className="relative w-full">
+          <div
+            className={`relative w-full ${
+              stickyChatInput
+                ? "sticky bottom-0 z-20 border-t border-border bg-surface/95 backdrop-blur"
+                : ""
+            }`}
+          >
             {!isAutoScrollToBottom && (
               <div className="pointer-events-none absolute -top-10 left-0 right-0 flex justify-center">
                 <button
