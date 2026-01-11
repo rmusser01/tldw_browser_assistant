@@ -110,14 +110,10 @@ export const SidePanelBody = ({
     measureElement: (el) => el?.getBoundingClientRect().height || 120
   })
 
-  const findMessageIndex = React.useCallback(
-    (messageId: string) =>
-      messages.findIndex(
-        (message) =>
-          message.id === messageId || message.serverMessageId === messageId
-      ),
-    [messages]
-  )
+  const messagesRef = React.useRef(messages)
+  React.useEffect(() => {
+    messagesRef.current = messages
+  }, [messages])
 
   React.useEffect(() => {
     if (!timelineAction) return
@@ -125,16 +121,22 @@ export const SidePanelBody = ({
       return
     }
 
+    const findIndex = (messageId: string) =>
+      messagesRef.current.findIndex(
+        (message) =>
+          message.id === messageId || message.serverMessageId === messageId
+      )
+
     if (timelineAction.action === "branch") {
       if (!timelineAction.messageId) {
         onTimelineActionHandled?.()
         return
       }
-      if (messages.length === 0) {
+      if (messagesRef.current.length === 0) {
         onTimelineActionHandled?.()
         return
       }
-      const index = findMessageIndex(timelineAction.messageId)
+      const index = findIndex(timelineAction.messageId)
       if (index >= 0) {
         void createChatBranch(index)
       }
@@ -147,11 +149,11 @@ export const SidePanelBody = ({
       return
     }
 
-    if (messages.length === 0) {
+    if (messagesRef.current.length === 0) {
       onTimelineActionHandled?.()
       return
     }
-    const index = findMessageIndex(timelineAction.messageId)
+    const index = findIndex(timelineAction.messageId)
     if (index < 0) {
       onTimelineActionHandled?.()
       return
@@ -168,9 +170,7 @@ export const SidePanelBody = ({
     onTimelineActionHandled?.()
   }, [
     createChatBranch,
-    findMessageIndex,
     historyId,
-    messages.length,
     onTimelineActionHandled,
     rowVirtualizer,
     timelineAction

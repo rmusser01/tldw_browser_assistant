@@ -1,14 +1,7 @@
 import React from "react"
 import { Button, Tag, Typography } from "antd"
 import { Info } from "lucide-react"
-import type { StatusSummary } from "./types"
-
-type QueuedFileStub = {
-  id: string
-  name: string
-  size: number
-  type?: string
-}
+import type { QueuedFileStub, StatusSummary } from "./types"
 
 type QueuedFileRowProps = {
   stub: QueuedFileStub
@@ -31,26 +24,27 @@ type QueuedFileRowProps = {
   onRemove: () => void
 }
 
-export const QueuedFileRow: React.FC<QueuedFileRowProps> = ({
-  stub,
-  isSelected,
-  status,
-  fileType,
-  sizeLabel,
-  runTag,
-  pendingTag,
-  processingIndicator,
-  running,
-  showReattach,
-  canRetry,
-  qi,
-  typeIcon,
-  onSelect,
-  onOpenInspector,
-  onReattach,
-  onRetry,
-  onRemove
-}) => {
+export const QueuedFileRow = React.memo(
+  ({
+    stub,
+    isSelected,
+    status,
+    fileType,
+    sizeLabel,
+    runTag,
+    pendingTag,
+    processingIndicator,
+    running,
+    showReattach,
+    canRetry,
+    qi,
+    typeIcon,
+    onSelect,
+    onOpenInspector,
+    onReattach,
+    onRetry,
+    onRemove
+  }: QueuedFileRowProps) => {
   return (
     <div
       className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${
@@ -71,13 +65,16 @@ export const QueuedFileRow: React.FC<QueuedFileRowProps> = ({
           onOpenInspector()
         }}
       >
-        <Info className="w-4 h-4 text-text-subtle" />
+        <Info className="h-4 w-4 text-text-subtle" />
       </Button>
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
           {typeIcon(fileType)}
           <div className="flex flex-col">
-            <Typography.Text className="text-sm font-medium truncate max-w-[360px]">
+            <Typography.Text
+              className="text-sm font-medium truncate max-w-full"
+              title={stub.name}
+            >
               {stub.name}
             </Typography.Text>
             <div className="flex items-center gap-2 text-[11px] text-text-subtle">
@@ -145,6 +142,9 @@ export const QueuedFileRow: React.FC<QueuedFileRowProps> = ({
       {processingIndicator}
     </div>
   )
-}
+  }
+)
+
+QueuedFileRow.displayName = "QueuedFileRow"
 
 export default QueuedFileRow

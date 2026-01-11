@@ -83,6 +83,7 @@ const toNoteVersion = (note: any): number | null => {
     note?.metadata?.expected_version,
     note?.metadata?.expectedVersion
   ]
+  const validVersions: number[] = []
   for (const candidate of candidates) {
     if (
       typeof candidate === 'number' &&
@@ -90,16 +91,22 @@ const toNoteVersion = (note: any): number | null => {
       Number.isInteger(candidate) &&
       candidate >= 0
     ) {
-      return candidate
+      validVersions.push(candidate)
     }
     if (typeof candidate === 'string' && candidate.trim().length > 0) {
       const parsed = Number(candidate)
       if (Number.isFinite(parsed) && Number.isInteger(parsed) && parsed >= 0) {
-        return parsed
+        validVersions.push(parsed)
       }
     }
   }
-  return null
+  if (validVersions.length > 1) {
+    const allSame = validVersions.every((version) => version === validVersions[0])
+    if (!allSame) {
+      console.warn('[toNoteVersion] Multiple conflicting versions found:', validVersions)
+    }
+  }
+  return validVersions[0] ?? null
 }
 
 // 120px offset accounts for page header and padding

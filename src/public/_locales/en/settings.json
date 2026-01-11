@@ -3037,5 +3037,8 @@
   },
   "rag_ragSettings_chunkOverlap_range": {
     "message": "Must be between {{min}} and {{max}}"
+  },
+  "rag_ragSettings_chunkOverlap_mustBeLessThanSize": {
+    "message": "Overlap must be less than chunk size"
   }
 }

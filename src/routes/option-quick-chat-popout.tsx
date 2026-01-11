@@ -43,13 +43,18 @@ const QuickChatPopout: React.FC = () => {
   })
   const models = modelsData ?? []
   const showModelsError = modelsError && models.length === 0
+  const modelsErrorHintId = "quick-chat-models-error-hint"
 
   // Restore state from sessionStorage on mount
   useEffect(() => {
     if (hasRestoredRef.current) return
 
     const stateKey = searchParams.get("state")
-    if (stateKey) {
+    if (!stateKey) {
+      hasRestoredRef.current = true
+      return
+    }
+    {
       if (!/^[a-zA-Z0-9:_-]{1,128}$/.test(stateKey)) {
         console.warn("Invalid quick chat state key")
         hasRestoredRef.current = true
@@ -90,9 +95,9 @@ const QuickChatPopout: React.FC = () => {
       } finally {
         // Clean up sessionStorage regardless of validity or parse errors
         sessionStorage.removeItem(stateKey)
+        hasRestoredRef.current = true
       }
     }
-    hasRestoredRef.current = true
   }, [searchParams])
 
   // Scroll to bottom when messages change
@@ -145,9 +150,12 @@ const QuickChatPopout: React.FC = () => {
           value={activeModel || undefined}
           placeholder={modelPlaceholder}
           loading={modelsLoading}
+          disabled={showModelsError}
+          status={showModelsError ? "error" : undefined}
           optionFilterProp="label"
           allowClear={allowClear}
           aria-label={t("option:quickChatHelper.modelLabel", "Model")}
+          aria-describedby={showModelsError ? modelsErrorHintId : undefined}
           onChange={handleModelChange}
           notFoundContent={
             showModelsError
@@ -164,7 +172,9 @@ const QuickChatPopout: React.FC = () => {
           }
         />
         {showModelsError && (
-          <div className="mt-2 flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400">
+          <div
+            className="mt-2 flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400"
+            id={modelsErrorHintId}>
             <AlertCircle className="h-4 w-4" />
             <span>
               {t(

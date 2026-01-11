@@ -27,6 +27,7 @@ export interface ChatSettingsConfig {
   removeReasoningTagFromCopy: boolean
   promptSearchIncludeServer: boolean
   stickyChatInput: boolean
+  allowExternalImages: boolean
 }
 
 export const DEFAULT_CHAT_SETTINGS: ChatSettingsConfig = {
@@ -55,5 +56,6 @@ export const DEFAULT_CHAT_SETTINGS: ChatSettingsConfig = {
   chatAssistantTextSize: "md",
   removeReasoningTagFromCopy: true,
   promptSearchIncludeServer: false,
-  stickyChatInput: false
+  stickyChatInput: false,
+  allowExternalImages: false
 }

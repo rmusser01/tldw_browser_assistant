@@ -22,6 +22,7 @@ import { useTimelineStore } from '@/store/timeline'
 import { timelineSearch } from '@/services/timeline'
 import { db } from '@/db/dexie/schema'
 import { TIMELINE_ACTION_EVENT, type TimelineAction } from '@/utils/timeline-actions'
+import { useAntdMessage } from '@/hooks/useAntdMessage'
 
 const { Text, Paragraph } = Typography
 
@@ -40,6 +41,7 @@ export const NodeInfoPanel: React.FC = () => {
   const expandedSwipeNodes = useTimelineStore((s) => s.expandedSwipeNodes)
   const closeTimeline = useTimelineStore((s) => s.closeTimeline)
   const currentHistoryId = useTimelineStore((s) => s.currentHistoryId)
+  const message = useAntdMessage()
 
   // Get highlighted content if search is active
   const highlightedContent = useMemo(() => {
@@ -87,7 +89,10 @@ export const NodeInfoPanel: React.FC = () => {
 
       try {
         const target = await resolveMessageTarget()
-        if (!target?.historyId) return
+        if (!target?.historyId) {
+          message.error('Unable to locate the message for this action.')
+          return
+        }
 
         const detail = {
           action,
@@ -101,9 +106,10 @@ export const NodeInfoPanel: React.FC = () => {
         closeTimeline()
       } catch (error) {
         console.error('Timeline action failed:', error)
+        message.error('Failed to perform timeline action. Please try again.')
       }
     },
-    [closeTimeline, hasMessage, resolveMessageTarget]
+    [closeTimeline, hasMessage, message, resolveMessageTarget]
   )
 
   if (!node) return null

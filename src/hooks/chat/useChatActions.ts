@@ -74,7 +74,8 @@ type ChatModeOverrides = {
   serverChatId?: string | null
 } & Record<string, unknown>
 
-type SaveMessagePayload = SaveMessageData & {
+type SaveMessagePayload = Omit<SaveMessageData, "setHistoryId"> & {
+  setHistoryId?: SaveMessageData["setHistoryId"]
   conversationId?: string | number | null
   message_source?: "copilot" | "web-ui" | "server" | "branch"
   message_type?: string
@@ -292,7 +293,17 @@ export const useChatActions = ({
   const saveMessageOnSuccess = async (
     payload?: SaveMessagePayload
   ): Promise<string | null> => {
-    const historyKey = await baseSaveMessageOnSuccess(payload)
+    const payloadWithHistory = payload
+      ? {
+          ...payload,
+          setHistoryId:
+            payload.setHistoryId ??
+            ((id: string) => {
+              setHistoryId(id)
+            })
+        }
+      : undefined
+    const historyKey = await baseSaveMessageOnSuccess(payloadWithHistory)
 
     if (!payload?.historyId && historyKey) {
       markCompareHistoryCreated(historyKey)
@@ -459,16 +470,20 @@ export const useChatActions = ({
       await tldwClient.initialize().catch(() => null)
 
       const modelInfo = await getModelNicknameByID(model)
+      const characterName =
+        activeCharacter?.name || modelInfo?.model_name || model
+      const characterAvatar =
+        activeCharacter?.avatar_url || modelInfo?.model_avatar
       const createdAt = Date.now()
       const assistantStub: Message = {
         isBot: true,
-        name: model,
+        name: characterName,
         message: "▋",
         sources: [],
         createdAt,
         id: generateMessageId,
-        modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || model,
+        modelImage: characterAvatar,
+        modelName: characterName,
         parentMessageId: resolvedAssistantParentMessageId ?? null
       }
       if (regenerateVariants.length > 0) {
@@ -701,11 +716,43 @@ export const useChatActions = ({
         console.error("Failed to persist assistant message to server:", e)
       }
 
-      setHistory([
-        ...chatMemory,
-        { role: "user", content: message, image },
-        { role: "assistant", content: fullText }
-      ])
+      const lastEntry = chatMemory[chatMemory.length - 1]
+      const prevEntry = chatMemory[chatMemory.length - 2]
+      const endsWithUser =
+        lastEntry?.role === "user" && lastEntry.content === message
+      const endsWithUserAssistant =
+        lastEntry?.role === "assistant" &&
+        prevEntry?.role === "user" &&
+        prevEntry.content === message
+
+      if (isRegenerate) {
+        if (endsWithUser) {
+          setHistory([
+            ...chatMemory,
+            { role: "assistant", content: fullText }
+          ])
+        } else if (endsWithUserAssistant) {
+          setHistory(
+            chatMemory.map((entry, index) =>
+              index === chatMemory.length - 1 && entry.role === "assistant"
+                ? { ...entry, content: fullText }
+                : entry
+            )
+          )
+        } else {
+          setHistory([
+            ...chatMemory,
+            { role: "user", content: message, image },
+            { role: "assistant", content: fullText }
+          ])
+        }
+      } else {
+        setHistory([
+          ...chatMemory,
+          { role: "user", content: message, image },
+          { role: "assistant", content: fullText }
+        ])
+      }
 
       await saveMessageOnSuccess({
         historyId,

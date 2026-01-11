@@ -996,16 +996,20 @@ export const useMessage = () => {
 
       // Visual placeholder
       const modelInfo = await getModelNicknameByID(model)
+      const characterName =
+        selectedCharacter?.name || modelInfo?.model_name || model
+      const characterAvatar =
+        selectedCharacter?.avatar_url || modelInfo?.model_avatar
       const createdAt = Date.now()
       const assistantStub: Message = {
         isBot: true,
-        name: model,
+        name: characterName,
         message: "▋",
         sources: [],
         createdAt,
         id: generateMessageId,
-        modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || model,
+        modelImage: characterAvatar,
+        modelName: characterName,
         parentMessageId: resolvedAssistantParentMessageId ?? null
       }
       if (regenerateVariants.length > 0) {
@@ -1695,7 +1699,7 @@ export const useMessage = () => {
             setStreaming,
             setAbortController,
             historyId: historyId ?? null,
-            setHistoryId: setHistoryId as (id: string) => void,
+            setHistoryId,
             fileRetrievalEnabled,
             setActionInfo,
             regenerateFromMessage,
@@ -1726,7 +1730,7 @@ export const useMessage = () => {
             setStreaming,
             setAbortController,
             historyId: historyId ?? null,
-            setHistoryId: setHistoryId as (id: string) => void,
+            setHistoryId,
             regenerateFromMessage,
             ...replyOverrides
           }

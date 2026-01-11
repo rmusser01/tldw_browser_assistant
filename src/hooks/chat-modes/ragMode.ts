@@ -182,7 +182,11 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
       // ctx.ragEnableGeneration/citations control presence of their flags, even if set.
       if (typeof ctx.ragTopK === "number" && ctx.ragTopK > 0) {
         ragOptions.top_k = ctx.ragTopK
-      } else if (ragOptions.top_k == null) {
+      } else if (
+        ragOptions.top_k == null ||
+        typeof ragOptions.top_k !== "number" ||
+        ragOptions.top_k <= 0
+      ) {
         ragOptions.top_k = top_k
       }
       ragOptions.search_mode = ctx.ragSearchMode

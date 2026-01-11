@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { Loader2, RefreshCw, Trash2, Undo2 } from 'lucide-react'
 import FeatureEmptyState from '@/components/Common/FeatureEmptyState'
 import { useServerOnline } from '@/hooks/useServerOnline'
@@ -38,7 +38,7 @@ const TrashPageContent: React.FC = () => {
   const message = useAntdMessage()
   const confirmDanger = useConfirmDanger()
   const [page, setPage] = useState(1)
-  const [pageSize] = useState(20)
+  const pageSize = 20
   const [actionId, setActionId] = useState<number | null>(null)
   const [actionType, setActionType] = useState<'restore' | 'delete' | null>(null)
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
@@ -55,17 +55,22 @@ const TrashPageContent: React.FC = () => {
     data,
     isLoading,
     isFetching,
+    isError,
     refetch
   } = useQuery({
     queryKey: ['media-trash', page, pageSize],
     queryFn: fetchTrash,
+    placeholderData: keepPreviousData,
     staleTime: 20_000
   })
 
-  const items = useMemo(() => data?.items || [], [data])
-  const pagination = data?.pagination
-  const totalItems = Number(pagination?.total_items || items.length || 0)
-  const totalPages = Number(pagination?.total_pages ?? (items.length > 0 ? 1 : 0))
+  const hasData = Boolean(data)
+  const items = useMemo(() => (hasData ? data?.items ?? [] : []), [data, hasData])
+  const pagination = hasData ? data?.pagination : undefined
+  const totalItems = hasData ? Number(pagination?.total_items ?? items.length ?? 0) : 0
+  const totalPages = hasData
+    ? Number(pagination?.total_pages ?? (items.length > 0 ? 1 : 0))
+    : 0
   const visibleSelectedCount = useMemo(
     () => items.filter((item) => selectedIds.has(item.id)).length,
     [items, selectedIds]
@@ -74,6 +79,8 @@ const TrashPageContent: React.FC = () => {
   const allVisibleSelected = items.length > 0 && visibleSelectedCount === items.length
   const someVisibleSelected = visibleSelectedCount > 0 && !allVisibleSelected
   const isBulkBusy = bulkAction !== null
+  const isAnyActionBusy = isBulkBusy || actionId !== null
+  const showLoadingState = (isLoading || isFetching) && !hasData
 
   useEffect(() => {
     if (!totalPages || page <= totalPages) return
@@ -124,7 +131,7 @@ const TrashPageContent: React.FC = () => {
   }, [items])
 
   const restoreItem = useCallback(async (item: TrashItem) => {
-    if (!item.id) return
+    if (item.id == null) return
     setActionId(item.id)
     setActionType('restore')
     try {
@@ -152,7 +159,7 @@ const TrashPageContent: React.FC = () => {
   }, [message, refetch, t])
 
   const deleteItem = useCallback(async (item: TrashItem) => {
-    if (!item.id) return
+    if (item.id == null) return
     const ok = await confirmDanger({
       title: t('common:confirmTitle', { defaultValue: 'Please confirm' }),
       content: t('review:trashPage.deletePermanentConfirm', {
@@ -377,7 +384,7 @@ const TrashPageContent: React.FC = () => {
             type="button"
             onClick={() => refetch()}
             className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text-muted hover:bg-surface2 hover:text-text disabled:opacity-60"
-            disabled={isFetching || isBulkBusy}
+            disabled={isFetching || isAnyActionBusy}
           >
             {isFetching ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -390,7 +397,7 @@ const TrashPageContent: React.FC = () => {
             type="button"
             onClick={handleEmptyTrash}
             className="inline-flex items-center gap-2 rounded-md border border-danger/40 px-3 py-1.5 text-xs text-danger hover:bg-danger/10 disabled:opacity-60"
-            disabled={totalItems === 0 || isBulkBusy}
+            disabled={totalItems === 0 || isAnyActionBusy}
           >
             {bulkAction === 'empty' ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -402,7 +409,7 @@ const TrashPageContent: React.FC = () => {
         </div>
       </div>
 
-      {items.length > 0 && (
+      {hasData && !isError && items.length > 0 && (
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface px-3 py-2 text-xs text-text-muted">
           <label className="inline-flex items-center gap-2">
             <input
@@ -411,7 +418,7 @@ const TrashPageContent: React.FC = () => {
               className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
               checked={allVisibleSelected}
               onChange={toggleSelectAllVisible}
-              disabled={isBulkBusy}
+              disabled={isAnyActionBusy}
               aria-label={t('review:trashPage.selectAllVisible', {
                 defaultValue: 'Select all visible'
               })}
@@ -428,7 +435,7 @@ const TrashPageContent: React.FC = () => {
             <button
               type="button"
               onClick={handleBulkRestore}
-              disabled={selectedCount === 0 || isBulkBusy}
+              disabled={selectedCount === 0 || isAnyActionBusy}
               className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text hover:bg-surface2 disabled:opacity-60"
             >
               {bulkAction === 'restore' ? (
@@ -441,7 +448,7 @@ const TrashPageContent: React.FC = () => {
             <button
               type="button"
               onClick={handleBulkDelete}
-              disabled={selectedCount === 0 || isBulkBusy}
+              disabled={selectedCount === 0 || isAnyActionBusy}
               className="inline-flex items-center gap-2 rounded-md border border-danger/40 px-3 py-1.5 text-xs text-danger hover:bg-danger/10 disabled:opacity-60"
             >
               {bulkAction === 'delete' ? (
@@ -456,10 +463,24 @@ const TrashPageContent: React.FC = () => {
       )}
 
       <div className="mt-6 flex-1">
-        {isLoading ? (
+        {showLoadingState ? (
           <div className="flex h-full items-center justify-center text-text-muted">
             <Loader2 className="h-5 w-5 animate-spin" />
           </div>
+        ) : isError ? (
+          <FeatureEmptyState
+            title={t('review:trashPage.errorTitle', {
+              defaultValue: 'Unable to load trash'
+            })}
+            description={t('review:trashPage.errorDescription', {
+              defaultValue:
+                'We could not load trash items. Check your connection and try again.'
+            })}
+            examples={[]}
+            primaryActionLabel={t('common:retry', { defaultValue: 'Retry' })}
+            onPrimaryAction={() => refetch()}
+            primaryDisabled={isFetching}
+          />
         ) : items.length === 0 ? (
           <FeatureEmptyState
             title={t('review:trashPage.emptyTitle', {
@@ -477,7 +498,7 @@ const TrashPageContent: React.FC = () => {
               const isRestoring = actionId === item.id && actionType === 'restore'
               const isDeleting = actionId === item.id && actionType === 'delete'
               const isChecked = selectedIds.has(item.id)
-              const isBusy = isRestoring || isDeleting || isBulkBusy
+              const isBusy = isAnyActionBusy
               return (
                 <div
                   key={item.id}
@@ -546,16 +567,18 @@ const TrashPageContent: React.FC = () => {
         )}
       </div>
 
-      <div className="mt-6">
-        <Pagination
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={setPage}
-          totalItems={totalItems}
-          itemsPerPage={pageSize}
-          currentItemsCount={items.length}
-        />
-      </div>
+      {hasData && !isError && (
+        <div className="mt-6">
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            totalItems={totalItems}
+            itemsPerPage={pageSize}
+            currentItemsCount={items.length}
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -598,6 +621,14 @@ const MediaTrashPage: React.FC = () => {
           })}
           examples={[]}
         />
+      </div>
+    )
+  }
+
+  if (capsLoading) {
+    return (
+      <div className="flex h-full items-center justify-center text-text-muted">
+        <Loader2 className="h-5 w-5 animate-spin" />
       </div>
     )
   }

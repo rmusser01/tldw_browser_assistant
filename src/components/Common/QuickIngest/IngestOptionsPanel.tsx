@@ -113,28 +113,37 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
 }) => {
   const done = doneCount || 0
   const total = totalCount || 0
-  const ingestBlockedLabel =
-    ingestConnectionStatus === "unconfigured"
-      ? t(
-          "quickIngest.unavailableUnconfigured",
-          "Ingest unavailable \u2014 server not configured"
-        )
-      : ingestConnectionStatus === "offlineBypass"
-        ? t(
-            "quickIngest.unavailableOfflineBypass",
-            "Ingest unavailable \u2014 offline mode enabled"
-          )
-        : t(
-            "quickIngest.unavailableOffline",
-            "Ingest unavailable \u2014 server offline"
-          )
-  const primaryActionLabel = ingestBlocked
-    ? ingestBlockedLabel
-    : reviewBeforeStorage
-      ? qi("reviewRunLabel", "Review")
-      : storeRemote
-        ? t("quickIngest.ingest", "Ingest")
-        : t("quickIngest.process", "Process")
+  const getIngestBlockedLabel = () => {
+    if (ingestConnectionStatus === "unconfigured") {
+      return t(
+        "quickIngest.unavailableUnconfigured",
+        "Ingest unavailable \u2014 server not configured"
+      )
+    }
+    if (ingestConnectionStatus === "offlineBypass") {
+      return t(
+        "quickIngest.unavailableOfflineBypass",
+        "Ingest unavailable \u2014 offline mode enabled"
+      )
+    }
+    if (ingestConnectionStatus === "unknown") {
+      return t("quickIngest.checkingTitle", "Checking server connection\u2026")
+    }
+    return t(
+      "quickIngest.unavailableOffline",
+      "Ingest unavailable \u2014 server offline"
+    )
+  }
+  const ingestBlockedLabel = getIngestBlockedLabel()
+  const getPrimaryActionLabel = () => {
+    if (ingestBlocked) return ingestBlockedLabel
+    if (reviewBeforeStorage) return qi("reviewRunLabel", "Review")
+    if (storeRemote) return t("quickIngest.ingest", "Ingest")
+    return t("quickIngest.process", "Process")
+  }
+  const primaryActionLabel = getPrimaryActionLabel()
+  const isIngestDisabled =
+    running || plannedCount === 0 || ingestBlocked || hasMissingFiles
   const handleAnalysisToggle = React.useCallback(
     (value: boolean) => {
       setCommon((current) => ({ ...current, perform_analysis: value }))
@@ -159,7 +168,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
       const normalizedValue = nextValue === "" ? undefined : nextValue
       setTypeDefaults((prev) => {
         const nextAudio = { ...(prev?.audio || {}) }
-        if (normalizedValue == null) {
+        if (normalizedValue === undefined || normalizedValue === null) {
           delete nextAudio.language
         } else {
           nextAudio.language = normalizedValue
@@ -441,10 +450,14 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
         <div className="flex flex-col gap-2">
           <div className="sr-only" aria-live="polite" role="status">
             {running && total > 0
-              ? t("quickIngest.progress", "Processing {{done}} / {{total}} items\u2026", {
-                  done,
-                  total
-                })
+              ? t(
+                  "quickIngest.progress",
+                  "Processing {{done}} / {{total}} items\u2026",
+                  {
+                    done,
+                    total
+                  }
+                )
               : qi("itemsReadySr", "{{count}} item(s) ready", {
                   count: plannedCount || 0
                 })}
@@ -573,7 +586,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
               {running && total > 0
                 ? t(
                     "quickIngest.progress",
-                    "Running quick ingest \u2014 processing {{done}} / {{total}} items\u2026",
+                    "Processing {{done}} / {{total}} items\u2026",
                     {
                       done,
                       total
@@ -589,9 +602,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
           {showProcessQueuedButton && (
             <Button
               onClick={run}
-              disabled={
-                running || plannedCount === 0 || ingestBlocked || hasMissingFiles
-              }
+              disabled={isIngestDisabled}
               aria-label={t(
                 "quickIngest.processQueuedItemsAria",
                 "Process queued Quick Ingest items"
@@ -605,9 +616,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             type="primary"
             loading={running}
             onClick={run}
-            disabled={
-              plannedCount === 0 || running || ingestBlocked || hasMissingFiles
-            }
+            disabled={isIngestDisabled}
             aria-label={primaryActionLabel}
             title={primaryActionLabel}
           >
@@ -645,6 +654,11 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
                       "quickIngest.offlineBypassFooter",
                       "Offline mode enabled: items are staged here and will process once you disable offline mode."
                     )
+                  : ingestConnectionStatus === "unknown"
+                    ? t(
+                        "quickIngest.checkingDescription",
+                        "We’re checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
+                      )
                   : t(
                       "quickIngest.offlineFooter",
                       "Offline mode: items are staged here and will process once your server reconnects."

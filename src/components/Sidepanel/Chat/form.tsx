@@ -669,11 +669,19 @@ export const SidepanelForm = ({
         for (const file of files) {
           try {
             const source = await processFileUpload(file)
+            const content =
+              source && typeof (source as any).content === "string"
+                ? (source as any).content
+                : null
+            if (!content) {
+              failedFiles.push(file.name)
+              continue
+            }
             nextFiles.push({
               id: generateID(),
               filename: file.name,
               type: file.type,
-              content: source.content,
+              content,
               size: file.size,
               uploadedAt: Date.now(),
               processed: false
@@ -801,7 +809,13 @@ export const SidepanelForm = ({
   const handleMentionSelect = React.useCallback(
     (item: MentionMenuItem) => {
       if (item.kind === "tab" && item.payload) {
-        insertMention(item.payload as TabInfo, form.values.message, (value) =>
+        const tab = item.payload as TabInfo
+        const alreadySelected = selectedDocuments.some((doc) => doc.id === tab.id)
+        if (alreadySelected) {
+          removeMentionToken()
+          return
+        }
+        insertMention(tab, form.values.message, (value) =>
           form.setFieldValue("message", value)
         )
         return
@@ -823,7 +837,9 @@ export const SidepanelForm = ({
       handleCurrentPageMention,
       handleFileMention,
       handleKnowledgeMention,
-      insertMention
+      insertMention,
+      removeMentionToken,
+      selectedDocuments
     ]
   )
 
@@ -1275,8 +1291,11 @@ export const SidepanelForm = ({
     const handleDragOver = (e: DragEvent) => {
       e.preventDefault()
     }
-    textareaRef.current?.addEventListener("drop", handleDrop)
-    textareaRef.current?.addEventListener("dragover", handleDragOver)
+    const el = textareaRef.current
+    if (el) {
+      el.addEventListener("drop", handleDrop)
+      el.addEventListener("dragover", handleDragOver)
+    }
 
     if (defaultInternetSearchOn) {
       setWebSearch(true)
@@ -1287,8 +1306,10 @@ export const SidepanelForm = ({
     }
 
     return () => {
-      textareaRef.current?.removeEventListener("drop", handleDrop)
-      textareaRef.current?.removeEventListener("dragover", handleDragOver)
+      if (el) {
+        el.removeEventListener("drop", handleDrop)
+        el.removeEventListener("dragover", handleDragOver)
+      }
     }
   }, [])
 

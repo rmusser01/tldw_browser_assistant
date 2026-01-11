@@ -30,12 +30,10 @@ const STATE_ICON_BY_VALUE: Record<ConversationState, React.ReactElement> = {
   "non-viable": <XCircle className="size-3 text-red-400" />
 }
 
-type ServerChatRowProps = {
+type ServerChatRowCommonProps = {
   chat: ServerChatHistoryItem
   isPinned: boolean
   isActive: boolean
-  selectionMode?: false
-  isSelected?: false
   openMenuFor: string | null
   setOpenMenuFor: (value: string | null) => void
   onSelectChat: (chat: ServerChatHistoryItem) => void
@@ -45,12 +43,17 @@ type ServerChatRowProps = {
   onEditTopic: (chat: ServerChatHistoryItem) => void
   onDeleteChat: (chat: ServerChatHistoryItem) => void | Promise<void>
   onUpdateState: (chat: ServerChatHistoryItem, state: ConversationState) => void
-  onToggleSelected?: undefined
   t: TFunction
 }
 
+type ServerChatRowProps = ServerChatRowCommonProps & {
+  selectionMode: false
+  isSelected?: undefined
+  onToggleSelected?: undefined
+}
+
 type ServerChatRowSelectionProps = Omit<
-  ServerChatRowProps,
+  ServerChatRowCommonProps,
   "selectionMode" | "isSelected" | "onToggleSelected"
 > & {
   selectionMode: true
@@ -76,10 +79,9 @@ export const ServerChatRow = React.memo((props: ServerChatRowAllProps) => {
     onUpdateState,
     t
   } = props
-  const selectionMode = props.selectionMode ?? false
-  const isSelected = props.isSelected ?? false
-  const onToggleSelected =
-    "onToggleSelected" in props ? props.onToggleSelected : undefined
+  const selectionMode = props.selectionMode
+  const isSelected = props.selectionMode ? props.isSelected : false
+  const onToggleSelected = props.selectionMode ? props.onToggleSelected : undefined
   const lastModifiedMs = chat.updatedAtMs ?? chat.createdAtMs
   const lastModifiedLabel = Number.isNaN(lastModifiedMs)
     ? null

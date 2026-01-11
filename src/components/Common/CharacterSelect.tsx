@@ -11,6 +11,8 @@ import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { collectGreetings, pickGreeting } from "@/utils/character-greetings"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useStoreMessageOption } from "@/store/option"
 
 type Props = {
   className?: string
@@ -85,6 +87,12 @@ export const CharacterSelect: React.FC<Props> = ({
   const modal = useAntdModal()
   const [selectedCharacter, setSelectedCharacter] =
     useSelectedCharacter<CharacterSelection | null>(null)
+  const clearChat = useClearChat()
+  const messages = useStoreMessageOption((state) => state.messages)
+  const [userDisplayName, setUserDisplayName] = useStorage(
+    "chatUserDisplayName",
+    ""
+  )
   const previousCharacterId = React.useRef<string | null>(null)
   const initialized = React.useRef(false)
   const lastErrorRef = React.useRef<unknown | null>(null)
@@ -141,6 +149,115 @@ export const CharacterSelect: React.FC<Props> = ({
   const searchPlaceholder = t("option:characters.searchPlaceholder", {
     defaultValue: "Search characters by name"
   }) as string
+  const trimmedDisplayName = userDisplayName.trim()
+  const hasActiveChat = React.useMemo(
+    () =>
+      messages.some(
+        (message) => message.messageType !== "character:greeting"
+      ),
+    [messages]
+  )
+  const openDisplayNameModal = React.useCallback(() => {
+    let nextValue = trimmedDisplayName
+    modal.confirm({
+      title: t("option:characters.displayNameTitle", {
+        defaultValue: "Set your name"
+      }),
+      content: (
+        <div className="space-y-2">
+          <Input
+            autoFocus
+            defaultValue={trimmedDisplayName}
+            placeholder={t("option:characters.displayNamePlaceholder", {
+              defaultValue: "Enter a display name"
+            }) as string}
+            onChange={(event) => {
+              nextValue = event.target.value
+            }}
+          />
+          <div className="text-xs text-text-muted">
+            {t("option:characters.displayNameHelp", {
+              defaultValue: "Used to replace {{user}} and similar placeholders."
+            })}
+          </div>
+        </div>
+      ),
+      okText: t("option:characters.displayNameSave", {
+        defaultValue: "Save"
+      }),
+      cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+      centered: true,
+      onOk: () => {
+        setUserDisplayName(nextValue.trim())
+      }
+    })
+  }, [modal, setUserDisplayName, t, trimmedDisplayName])
+
+  const confirmCharacterSwitch = React.useCallback(
+    (nextName?: string) =>
+      new Promise<boolean>((resolve) => {
+        modal.confirm({
+          title: t("option:characters.switchConfirmTitle", {
+            defaultValue: "Switch character?"
+          }),
+          content: t("option:characters.switchConfirmBody", {
+            defaultValue: nextName
+              ? "Switching to {{name}} will clear the current chat. Continue?"
+              : "Changing the character will clear the current chat. Continue?",
+            name: nextName
+          }),
+          okText: t("option:characters.switchConfirmOk", {
+            defaultValue: "Clear chat & switch"
+          }),
+          cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+          centered: true,
+          okButtonProps: { danger: true },
+          onOk: () => resolve(true),
+          onCancel: () => resolve(false)
+        })
+      }),
+    [modal, t]
+  )
+
+  const applySelection = React.useCallback(
+    async (next: CharacterSelection | null) => {
+      const nextId = next?.id ?? null
+      const currentId = selectedCharacter?.id ?? null
+      if (nextId === currentId) return
+
+      if (hasActiveChat) {
+        const confirmed = await confirmCharacterSwitch(next?.name)
+        if (!confirmed) return
+      }
+
+      setSelectedCharacter(next)
+      if (hasActiveChat) {
+        clearChat()
+      }
+
+      if (next && !next.greeting) {
+        const targetId = next.id
+        void tldwClient
+          .initialize()
+          .catch(() => null)
+          .then(() => tldwClient.getCharacter(targetId))
+          .then((full) => {
+            const hydrated = normalizeCharacter(full || {})
+            if (hydrated?.id === targetId && hydrated.greeting) {
+              setSelectedCharacter(hydrated)
+            }
+          })
+          .catch(() => {})
+      }
+    },
+    [
+      clearChat,
+      confirmCharacterSwitch,
+      hasActiveChat,
+      selectedCharacter?.id,
+      setSelectedCharacter
+    ]
+  )
 
   const handleImportSuccess = React.useCallback(
     (imported: any) => {
@@ -163,12 +280,12 @@ export const CharacterSelect: React.FC<Props> = ({
       refetch({ cancelRefetch: true })
       try {
         const normalized = normalizeCharacter(importedCharacter || {})
-        setSelectedCharacter(normalized)
+        void applySelection(normalized)
       } catch {
         // ignore normalization failures; list will refresh
       }
     },
-    [notification, refetch, setSelectedCharacter, t]
+    [applySelection, notification, refetch, t]
   )
 
   React.useEffect(() => {
@@ -429,20 +546,7 @@ export const CharacterSelect: React.FC<Props> = ({
             </div>
           ),
           onClick: () => {
-            setSelectedCharacter(normalized)
-            if (normalized.greeting) return
-            const targetId = normalized.id
-            void tldwClient
-              .initialize()
-              .catch(() => null)
-              .then(() => tldwClient.getCharacter(targetId))
-              .then((full) => {
-                const hydrated = normalizeCharacter(full || {})
-                if (hydrated?.id === targetId && hydrated.greeting) {
-                  setSelectedCharacter(hydrated)
-                }
-              })
-              .catch(() => {})
+            void applySelection(normalized)
           }
         })
       } catch (err) {
@@ -455,7 +559,7 @@ export const CharacterSelect: React.FC<Props> = ({
       }
       return items
     }, [] as MenuProps["items"])
-  }, [filteredCharacters, setSelectedCharacter])
+  }, [applySelection, filteredCharacters])
 
   const clearItem: MenuProps["items"][number] | null =
     selectedCharacter
@@ -473,7 +577,7 @@ export const CharacterSelect: React.FC<Props> = ({
             </button>
           ),
           onClick: () => {
-            setSelectedCharacter(null)
+            void applySelection(null)
           }
         }
       : null
@@ -513,7 +617,7 @@ export const CharacterSelect: React.FC<Props> = ({
       </button>
     ),
     onClick: () => {
-      setSelectedCharacter(null)
+      void applySelection(null)
     }
   }
 
@@ -556,7 +660,27 @@ export const CharacterSelect: React.FC<Props> = ({
     onClick: handleImportClick
   }
 
-  menuItems.push(noneItem, openPageItem, createItem, importItem)
+  const displayNameItem: MenuProps["items"][number] = {
+    key: "__user_display_name__",
+    label: (
+      <button
+        type="button"
+        className="w-full text-left text-xs font-medium text-text hover:text-text-muted"
+      >
+        {trimmedDisplayName
+          ? t("option:characters.displayNameCurrent", {
+              defaultValue: "Your name: {{name}}",
+              name: trimmedDisplayName
+            })
+          : t("option:characters.displayNameAction", {
+              defaultValue: "Set your name"
+            })}
+      </button>
+    ),
+    onClick: openDisplayNameModal
+  }
+
+  menuItems.push(noneItem, displayNameItem, openPageItem, createItem, importItem)
 
   if (characterItems && characterItems.length > 0) {
     menuItems.push(dividerItem("__divider_items__"), ...characterItems)
@@ -743,7 +867,7 @@ export const CharacterSelect: React.FC<Props> = ({
                 onClick={(event) => {
                   event.preventDefault()
                   event.stopPropagation()
-                  setSelectedCharacter(null)
+                  void applySelection(null)
                 }}
                 className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-text text-[10px] font-semibold text-bg shadow-sm hover:bg-text-muted"
                 aria-label={clearLabel}

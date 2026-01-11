@@ -33,6 +33,8 @@ import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
 import type { MessageVariant } from "@/store/option"
 import { EDIT_MESSAGE_EVENT } from "@/utils/timeline-actions"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import type { Character } from "@/types/character"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
 
@@ -147,6 +149,8 @@ export const PlaygroundMessage = (props: Props) => {
   const [assistantTextFont] = useStorage("chatAssistantTextFont", "default")
   const [userTextSize] = useStorage("chatUserTextSize", "md")
   const [assistantTextSize] = useStorage("chatAssistantTextSize", "md")
+  const [userDisplayName] = useStorage("chatUserDisplayName", "")
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [ttsProvider] = useStorage("ttsProvider", "browser")
   const { t } = useTranslation(["common", "playground"])
   const { capabilities } = useServerCapabilities()
@@ -159,6 +163,7 @@ export const PlaygroundMessage = (props: Props) => {
       requireVoices: ttsProvider === "tldw"
     })
   const [isFeedbackOpen, setIsFeedbackOpen] = React.useState(false)
+  const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = React.useState(false)
   const [savingKnowledge, setSavingKnowledge] = React.useState<
     "note" | "flashcard" | null
   >(null)
@@ -209,11 +214,21 @@ export const PlaygroundMessage = (props: Props) => {
     showVariantPager &&
     Boolean(props.onSwipeNext) &&
     resolvedVariantIndex < variantCount - 1
-  const resolvedRole = React.useMemo(() => {
-    if (props.role) return props.role
-    return props.isBot ? "assistant" : "user"
-  }, [props.isBot, props.role])
+  const resolvedRole = props.role ?? (props.isBot ? "assistant" : "user")
   const isSystemMessage = resolvedRole === "system"
+  const shouldUseCharacterIdentity =
+    props.isBot && Boolean(selectedCharacter?.id)
+  const characterAvatar = selectedCharacter?.avatar_url || ""
+  const resolvedModelImage =
+    shouldUseCharacterIdentity && characterAvatar
+      ? characterAvatar
+      : props.modelImage
+  const resolvedModelName =
+    shouldUseCharacterIdentity && selectedCharacter?.name
+      ? selectedCharacter.name
+      : props.modelName || props.name
+  const shouldPreviewAvatar =
+    shouldUseCharacterIdentity && Boolean(characterAvatar)
 
   const messageKey = React.useMemo(() => {
     if (props.serverMessageId) return `srv:${props.serverMessageId}`
@@ -442,7 +457,7 @@ export const PlaygroundMessage = (props: Props) => {
   )
 
   const chatTextClass = props.isBot ? assistantTextClass : userTextClass
-  const renderPlainAssistant =
+  const renderGreetingMarkdown =
     props.isBot && props.message_type === "character:greeting"
 
   const shouldShowLoadingStatus =
@@ -647,14 +662,44 @@ export const PlaygroundMessage = (props: Props) => {
         }`}>
         <div className="w-8 flex flex-col relative items-end">
           {props.isBot ? (
-            !props.modelImage ? (
+            !resolvedModelImage ? (
               <div className="relative h-7 w-7 p-1 rounded-sm text-white flex items-center justify-center  text-opacity-100">
                 <div className="absolute h-8 w-8 rounded-full bg-gradient-to-r from-green-300 to-purple-400"></div>
               </div>
+            ) : shouldPreviewAvatar ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setIsAvatarPreviewOpen(true)}
+                  className="rounded-full focus:outline-none focus:ring-2 focus:ring-focus"
+                  aria-label={t("playground:previewCharacterAvatar", {
+                    defaultValue: "Preview character avatar"
+                  }) as string}
+                >
+                  <Avatar
+                    src={resolvedModelImage}
+                    alt={resolvedModelName || props.name}
+                    className="size-8"
+                  />
+                </button>
+                <Modal
+                  open={isAvatarPreviewOpen}
+                  onCancel={() => setIsAvatarPreviewOpen(false)}
+                  footer={null}
+                  centered
+                >
+                  <Image
+                    src={resolvedModelImage}
+                    alt={resolvedModelName || props.name}
+                    preview={false}
+                    className="w-full"
+                  />
+                </Modal>
+              </>
             ) : (
               <Avatar
-                src={props.modelImage}
-                alt={props.name}
+                src={resolvedModelImage}
+                alt={resolvedModelName || props.name}
                 className="size-8"
               />
             )
@@ -682,12 +727,12 @@ export const PlaygroundMessage = (props: Props) => {
                   <span className="text-caption font-semibold text-text">
                     {props.isBot
                       ? removeModelSuffix(
-                          `${props?.modelName || props?.name}`?.replaceAll(
+                          `${resolvedModelName || props?.name}`?.replaceAll(
                             /accounts\/[^\/]+\/models\//g,
                             ""
                           )
                         )
-                      : "You"}
+                      : userDisplayName.trim() || t("common:you", "You")}
                   </span>
                 )}
                 {messageTimestamp && (
@@ -779,20 +824,13 @@ export const PlaygroundMessage = (props: Props) => {
                       ) as string
                     }}
                   />
-                ) : renderPlainAssistant ? (
-                  <p
-                    className={`text-message whitespace-pre-wrap break-words ${assistantTextClass} ${
-                      props.message_type &&
-                      props.message_type !== "character:greeting" &&
-                      "italic text-text-muted text-body"
-                    } ${
-                      checkWideMode ? "max-w-none" : ""
-                    }`}
-                  >
-                    {props.searchQuery
-                      ? highlightText(props.message, props.searchQuery)
-                      : props.message}
-                  </p>
+                ) : renderGreetingMarkdown ? (
+                  <Markdown
+                    message={props.message}
+                    className={`${MARKDOWN_BASE_CLASSES} ${assistantTextClass}`}
+                    searchQuery={props.searchQuery}
+                    codeBlockVariant="compact"
+                  />
                 ) : (
                   <>
                     {parseReasoning(props.message).map((e, i) => {

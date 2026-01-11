@@ -1,11 +1,20 @@
 import { Select, Switch, Tag } from "antd"
-import { useCallback } from "react"
+import { type ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
 import { BetaTag } from "@/components/Common/Beta"
 
 const SELECT_WIDTH = 200
+
+type SettingRowProps = {
+  label: string
+  value?: boolean | string
+  defaultValue?: boolean | string
+  beta?: boolean
+  labelFor?: string
+  control: ReactNode
+}
 
 export const ChatSettings = () => {
   const { t } = useTranslation("settings")
@@ -72,6 +81,10 @@ export const ChatSettings = () => {
     "copyAsFormattedText",
     DEFAULT_CHAT_SETTINGS.copyAsFormattedText
   )
+  const [allowExternalImages, setAllowExternalImages] = useStorage(
+    "allowExternalImages",
+    DEFAULT_CHAT_SETTINGS.allowExternalImages
+  )
   const [tabMentionsEnabled, setTabMentionsEnabled] = useStorage(
     "tabMentionsEnabled",
     DEFAULT_CHAT_SETTINGS.tabMentionsEnabled
@@ -120,108 +133,18 @@ export const ChatSettings = () => {
     DEFAULT_CHAT_SETTINGS.chatAssistantTextSize
   )
 
-  const handleCopilotResumeLastChatChange = useCallback(
-    (checked: boolean) => setCopilotResumeLastChat(checked),
-    [setCopilotResumeLastChat]
-  )
-  const handleDefaultChatWithWebsiteChange = useCallback(
-    (checked: boolean) => setDefaultChatWithWebsite(checked),
-    [setDefaultChatWithWebsite]
-  )
-  const handleWebUIResumeLastChatChange = useCallback(
-    (checked: boolean) => setWebUIResumeLastChat(checked),
-    [setWebUIResumeLastChat]
-  )
-  const handleHideCurrentChatModelSettingsChange = useCallback(
-    (checked: boolean) => setHideCurrentChatModelSettings(checked),
-    [setHideCurrentChatModelSettings]
-  )
-  const handleHideQuickChatHelperChange = useCallback(
-    (checked: boolean) => setHideQuickChatHelper(checked),
-    [setHideQuickChatHelper]
-  )
-  const handleRestoreLastChatModelChange = useCallback(
-    (checked: boolean) => setRestoreLastChatModel(checked),
-    [setRestoreLastChatModel]
-  )
-  const handleGenerateTitleChange = useCallback(
-    (checked: boolean) => setGenerateTitle(checked),
-    [setGenerateTitle]
-  )
-  const handleCheckWideModeChange = useCallback(
-    (checked: boolean) => setCheckWideMode(checked),
-    [setCheckWideMode]
-  )
-  const handleStickyChatInputChange = useCallback(
-    (checked: boolean) => setStickyChatInput(checked),
-    [setStickyChatInput]
-  )
   const handleMenuDensityChange = useCallback(
-    (value: string) => setMenuDensity(value),
+    (value: string) =>
+      setMenuDensity(value as "comfortable" | "compact"),
     [setMenuDensity]
   )
-  const handleOpenReasoningChange = useCallback(
-    (checked: boolean) => setOpenReasoning(checked),
-    [setOpenReasoning]
-  )
-  const handleUserChatBubbleChange = useCallback(
-    (checked: boolean) => setUserChatBubble(checked),
-    [setUserChatBubble]
-  )
-  const handleAutoCopyResponseToClipboardChange = useCallback(
-    (checked: boolean) => setAutoCopyResponseToClipboard(checked),
-    [setAutoCopyResponseToClipboard]
-  )
-  const handleUseMarkdownForUserMessageChange = useCallback(
-    (checked: boolean) => setUseMarkdownForUserMessage(checked),
-    [setUseMarkdownForUserMessage]
-  )
-  const handleCopyAsFormattedTextChange = useCallback(
-    (checked: boolean) => setCopyAsFormattedText(checked),
-    [setCopyAsFormattedText]
-  )
-  const handleTabMentionsEnabledChange = useCallback(
-    (checked: boolean) => setTabMentionsEnabled(checked),
-    [setTabMentionsEnabled]
-  )
-  const handlePasteLargeTextAsFileChange = useCallback(
-    (checked: boolean) => setPasteLargeTextAsFile(checked),
-    [setPasteLargeTextAsFile]
-  )
-  const handleSidepanelTemporaryChatChange = useCallback(
-    (checked: boolean) => setSidepanelTemporaryChat(checked),
-    [setSidepanelTemporaryChat]
-  )
-  const handleRemoveReasoningTagFromCopyChange = useCallback(
-    (checked: boolean) => setRemoveReasoningTagFromCopy(checked),
-    [setRemoveReasoningTagFromCopy]
-  )
-  const handlePromptSearchIncludeServerChange = useCallback(
-    (checked: boolean) => setPromptSearchIncludeServer(checked),
-    [setPromptSearchIncludeServer]
-  )
-  const handleUserTextColorChange = useCallback(
-    (value: string) => setUserTextColor(value),
-    [setUserTextColor]
-  )
-  const handleAssistantTextColorChange = useCallback(
-    (value: string) => setAssistantTextColor(value),
-    [setAssistantTextColor]
-  )
-  const handleUserTextFontChange = useCallback(
-    (value: string) => setUserTextFont(value),
-    [setUserTextFont]
-  )
-  const handleAssistantTextFontChange = useCallback(
-    (value: string) => setAssistantTextFont(value),
-    [setAssistantTextFont]
-  )
   const handleUserTextSizeChange = useCallback(
-    (value: string) => setUserTextSize(value),
+    (value: string) => setUserTextSize(value as "sm" | "md" | "lg"),
     [setUserTextSize]
   )
   const handleAssistantTextSizeChange = useCallback(
-    (value: string) => setAssistantTextSize(value),
+    (value: string) =>
+      setAssistantTextSize(value as "sm" | "md" | "lg"),
     [setAssistantTextSize]
   )
 
@@ -253,6 +176,52 @@ export const ChatSettings = () => {
     { value: "lg", label: t("chatAppearance.size.lg", "Large") }
   ]
 
+  const menuDensityOptions = [
+    {
+      value: "comfortable",
+      label: t("generalSettings.settings.menuDensity.comfortable", "Comfortable")
+    },
+    {
+      value: "compact",
+      label: t("generalSettings.settings.menuDensity.compact", "Compact")
+    }
+  ]
+
+  const defaultBadgeLabel = t("generalSettings.settings.defaultBadge", "default")
+
+  const SettingRow = ({
+    label,
+    value,
+    defaultValue,
+    beta = false,
+    labelFor,
+    control
+  }: SettingRowProps) => {
+    const showDefaultBadge =
+      defaultValue !== undefined && value === defaultValue
+
+    return (
+      <div className="flex flex-row justify-between">
+        <div className="inline-flex items-center gap-2">
+          {beta && <BetaTag />}
+          {labelFor ? (
+            <label htmlFor={labelFor} className="text-text">
+              {label}
+            </label>
+          ) : (
+            <span className="text-text">{label}</span>
+          )}
+          {showDefaultBadge && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {defaultBadgeLabel}
+            </Tag>
+          )}
+        </div>
+        {control}
+      </div>
+    )
+  }
+
   return (
     <dl className="flex flex-col space-y-6 text-sm">
       <div>
@@ -268,411 +237,280 @@ export const ChatSettings = () => {
         <div className="border-b border-border mt-3" />
       </div>
 
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.copilotResumeLastChat.label")}
-          </span>
-          {copilotResumeLastChat ===
-            DEFAULT_CHAT_SETTINGS.copilotResumeLastChat && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={copilotResumeLastChat}
-          onChange={handleCopilotResumeLastChatChange}
-          aria-label={t("generalSettings.settings.copilotResumeLastChat.label")}
-        />
-      </div>
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.turnOnChatWithWebsite.label")}
-          </span>
-          {defaultChatWithWebsite ===
-            DEFAULT_CHAT_SETTINGS.defaultChatWithWebsite && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={defaultChatWithWebsite}
-          onChange={handleDefaultChatWithWebsiteChange}
-          aria-label={t("generalSettings.settings.turnOnChatWithWebsite.label")}
-        />
-      </div>
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.webUIResumeLastChat.label")}
-          </span>
-          {webUIResumeLastChat === DEFAULT_CHAT_SETTINGS.webUIResumeLastChat && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={webUIResumeLastChat}
-          onChange={handleWebUIResumeLastChatChange}
-          aria-label={t("generalSettings.settings.webUIResumeLastChat.label")}
-        />
-      </div>
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.hideCurrentChatModelSettings.label")}
-          </span>
-          {hideCurrentChatModelSettings ===
-            DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={hideCurrentChatModelSettings}
-          onChange={handleHideCurrentChatModelSettingsChange}
-          aria-label={t("generalSettings.settings.hideCurrentChatModelSettings.label")}
-        />
-      </div>
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t(
+      <SettingRow
+        label={t("generalSettings.settings.copilotResumeLastChat.label")}
+        value={copilotResumeLastChat}
+        defaultValue={DEFAULT_CHAT_SETTINGS.copilotResumeLastChat}
+        control={
+          <Switch
+            checked={copilotResumeLastChat}
+            onChange={setCopilotResumeLastChat}
+            aria-label={t("generalSettings.settings.copilotResumeLastChat.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.turnOnChatWithWebsite.label")}
+        value={defaultChatWithWebsite}
+        defaultValue={DEFAULT_CHAT_SETTINGS.defaultChatWithWebsite}
+        control={
+          <Switch
+            checked={defaultChatWithWebsite}
+            onChange={setDefaultChatWithWebsite}
+            aria-label={t("generalSettings.settings.turnOnChatWithWebsite.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.webUIResumeLastChat.label")}
+        value={webUIResumeLastChat}
+        defaultValue={DEFAULT_CHAT_SETTINGS.webUIResumeLastChat}
+        control={
+          <Switch
+            checked={webUIResumeLastChat}
+            onChange={setWebUIResumeLastChat}
+            aria-label={t("generalSettings.settings.webUIResumeLastChat.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.hideCurrentChatModelSettings.label")}
+        value={hideCurrentChatModelSettings}
+        defaultValue={DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings}
+        control={
+          <Switch
+            checked={hideCurrentChatModelSettings}
+            onChange={setHideCurrentChatModelSettings}
+            aria-label={t(
+              "generalSettings.settings.hideCurrentChatModelSettings.label"
+            )}
+          />
+        }
+      />
+      <SettingRow
+        label={t(
+          "generalSettings.settings.hideQuickChatHelper.label",
+          "Hide Quick Chat Helper button"
+        )}
+        value={hideQuickChatHelper}
+        defaultValue={DEFAULT_CHAT_SETTINGS.hideQuickChatHelper}
+        control={
+          <Switch
+            checked={hideQuickChatHelper}
+            onChange={setHideQuickChatHelper}
+            aria-label={t(
               "generalSettings.settings.hideQuickChatHelper.label",
               "Hide Quick Chat Helper button"
             )}
-          </span>
-          {hideQuickChatHelper === DEFAULT_CHAT_SETTINGS.hideQuickChatHelper && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={hideQuickChatHelper}
-          onChange={handleHideQuickChatHelperChange}
-          aria-label={t(
-            "generalSettings.settings.hideQuickChatHelper.label",
-            "Hide Quick Chat Helper button"
-          )}
-        />
-      </div>
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.restoreLastChatModel.label")}
-          </span>
-          {restoreLastChatModel === DEFAULT_CHAT_SETTINGS.restoreLastChatModel && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={restoreLastChatModel}
-          onChange={handleRestoreLastChatModelChange}
-          aria-label={t("generalSettings.settings.restoreLastChatModel.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.generateTitle.label")}
-          </span>
-          {generateTitle === DEFAULT_CHAT_SETTINGS.titleGenEnabled && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={generateTitle}
-          onChange={handleGenerateTitleChange}
-          aria-label={t("generalSettings.settings.generateTitle.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.wideMode.label")}
-          </span>
-          {checkWideMode === DEFAULT_CHAT_SETTINGS.checkWideMode && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={checkWideMode}
-          onChange={handleCheckWideModeChange}
-          aria-label={t("generalSettings.settings.wideMode.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.stickyChatInput.label")}
-          </span>
-          {stickyChatInput === DEFAULT_CHAT_SETTINGS.stickyChatInput && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={stickyChatInput}
-          onChange={handleStickyChatInputChange}
-          aria-label={t("generalSettings.settings.stickyChatInput.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.menuDensity.label", "Menu density")}
-          </span>
-          {menuDensity === DEFAULT_CHAT_SETTINGS.menuDensity && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-        <Select
-          aria-label={t("generalSettings.settings.menuDensity.label", "Menu density")}
-          style={{ width: SELECT_WIDTH }}
-          value={menuDensity}
-          onChange={handleMenuDensityChange}
-          options={[
-            {
-              value: "comfortable",
-              label: t(
-                "generalSettings.settings.menuDensity.comfortable",
-                "Comfortable"
-              )
-            },
-            {
-              value: "compact",
-              label: t(
-                "generalSettings.settings.menuDensity.compact",
-                "Compact"
-              )
-            }
-          ]}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.openReasoning.label")}
-          </span>
-          {openReasoning === DEFAULT_CHAT_SETTINGS.openReasoning && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={openReasoning}
-          onChange={handleOpenReasoningChange}
-          aria-label={t("generalSettings.settings.openReasoning.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.userChatBubble.label")}
-          </span>
-          {userChatBubble === DEFAULT_CHAT_SETTINGS.userChatBubble && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={userChatBubble}
-          onChange={handleUserChatBubbleChange}
-          aria-label={t("generalSettings.settings.userChatBubble.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.autoCopyResponseToClipboard.label")}
-          </span>
-          {autoCopyResponseToClipboard ===
-            DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={autoCopyResponseToClipboard}
-          onChange={handleAutoCopyResponseToClipboardChange}
-          aria-label={t("generalSettings.settings.autoCopyResponseToClipboard.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.useMarkdownForUserMessage.label")}
-          </span>
-          {useMarkdownForUserMessage ===
-            DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={useMarkdownForUserMessage}
-          onChange={handleUseMarkdownForUserMessageChange}
-          aria-label={t("generalSettings.settings.useMarkdownForUserMessage.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.copyAsFormattedText.label")}
-          </span>
-          {copyAsFormattedText === DEFAULT_CHAT_SETTINGS.copyAsFormattedText && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={copyAsFormattedText}
-          onChange={handleCopyAsFormattedTextChange}
-          aria-label={t("generalSettings.settings.copyAsFormattedText.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <BetaTag />
-          <span className="text-text">
-            {t("generalSettings.settings.tabMentionsEnabled.label")}
-          </span>
-          {tabMentionsEnabled === DEFAULT_CHAT_SETTINGS.tabMentionsEnabled && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={tabMentionsEnabled}
-          onChange={handleTabMentionsEnabledChange}
-          aria-label={t("generalSettings.settings.tabMentionsEnabled.label")}
-        />
-      </div>
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.pasteLargeTextAsFile.label")}
-          </span>
-          {pasteLargeTextAsFile ===
-            DEFAULT_CHAT_SETTINGS.pasteLargeTextAsFile && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={pasteLargeTextAsFile}
-          onChange={handlePasteLargeTextAsFileChange}
-          aria-label={t("generalSettings.settings.pasteLargeTextAsFile.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.sidepanelTemporaryChat.label")}
-          </span>
-          {sidepanelTemporaryChat ===
-            DEFAULT_CHAT_SETTINGS.sidepanelTemporaryChat && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={sidepanelTemporaryChat}
-          onChange={handleSidepanelTemporaryChatChange}
-          aria-label={t("generalSettings.settings.sidepanelTemporaryChat.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.removeReasoningTagFromCopy.label")}
-          </span>
-          {removeReasoningTagFromCopy ===
-            DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={removeReasoningTagFromCopy}
-          onChange={handleRemoveReasoningTagFromCopyChange}
-          aria-label={t("generalSettings.settings.removeReasoningTagFromCopy.label")}
-        />
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          <span className="text-text">
-            {t("generalSettings.settings.promptSearchIncludeServer.label")}
-          </span>
-          {promptSearchIncludeServer ===
-            DEFAULT_CHAT_SETTINGS.promptSearchIncludeServer && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {t("generalSettings.settings.defaultBadge", "default")}
-            </Tag>
-          )}
-        </div>
-
-        <Switch
-          checked={promptSearchIncludeServer}
-          onChange={handlePromptSearchIncludeServerChange}
-          aria-label={t("generalSettings.settings.promptSearchIncludeServer.label")}
-        />
-      </div>
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.restoreLastChatModel.label")}
+        value={restoreLastChatModel}
+        defaultValue={DEFAULT_CHAT_SETTINGS.restoreLastChatModel}
+        control={
+          <Switch
+            checked={restoreLastChatModel}
+            onChange={setRestoreLastChatModel}
+            aria-label={t("generalSettings.settings.restoreLastChatModel.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.generateTitle.label")}
+        value={generateTitle}
+        defaultValue={DEFAULT_CHAT_SETTINGS.titleGenEnabled}
+        control={
+          <Switch
+            checked={generateTitle}
+            onChange={setGenerateTitle}
+            aria-label={t("generalSettings.settings.generateTitle.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.wideMode.label")}
+        value={checkWideMode}
+        defaultValue={DEFAULT_CHAT_SETTINGS.checkWideMode}
+        control={
+          <Switch
+            checked={checkWideMode}
+            onChange={setCheckWideMode}
+            aria-label={t("generalSettings.settings.wideMode.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.stickyChatInput.label")}
+        value={stickyChatInput}
+        defaultValue={DEFAULT_CHAT_SETTINGS.stickyChatInput}
+        control={
+          <Switch
+            checked={stickyChatInput}
+            onChange={setStickyChatInput}
+            aria-label={t("generalSettings.settings.stickyChatInput.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.menuDensity.label", "Menu density")}
+        value={menuDensity}
+        defaultValue={DEFAULT_CHAT_SETTINGS.menuDensity}
+        control={
+          <Select
+            aria-label={t(
+              "generalSettings.settings.menuDensity.label",
+              "Menu density"
+            )}
+            style={{ width: SELECT_WIDTH }}
+            value={menuDensity}
+            onChange={handleMenuDensityChange}
+            options={menuDensityOptions}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.openReasoning.label")}
+        value={openReasoning}
+        defaultValue={DEFAULT_CHAT_SETTINGS.openReasoning}
+        control={
+          <Switch
+            checked={openReasoning}
+            onChange={setOpenReasoning}
+            aria-label={t("generalSettings.settings.openReasoning.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.userChatBubble.label")}
+        value={userChatBubble}
+        defaultValue={DEFAULT_CHAT_SETTINGS.userChatBubble}
+        control={
+          <Switch
+            checked={userChatBubble}
+            onChange={setUserChatBubble}
+            aria-label={t("generalSettings.settings.userChatBubble.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.autoCopyResponseToClipboard.label")}
+        value={autoCopyResponseToClipboard}
+        defaultValue={DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard}
+        control={
+          <Switch
+            checked={autoCopyResponseToClipboard}
+            onChange={setAutoCopyResponseToClipboard}
+            aria-label={t(
+              "generalSettings.settings.autoCopyResponseToClipboard.label"
+            )}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.useMarkdownForUserMessage.label")}
+        value={useMarkdownForUserMessage}
+        defaultValue={DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage}
+        control={
+          <Switch
+            checked={useMarkdownForUserMessage}
+            onChange={setUseMarkdownForUserMessage}
+            aria-label={t("generalSettings.settings.useMarkdownForUserMessage.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t(
+          "generalSettings.settings.allowExternalImages.label",
+          "Load external images in messages"
+        )}
+        value={allowExternalImages}
+        defaultValue={DEFAULT_CHAT_SETTINGS.allowExternalImages}
+        control={
+          <Switch
+            checked={allowExternalImages}
+            onChange={setAllowExternalImages}
+            aria-label={t(
+              "generalSettings.settings.allowExternalImages.label",
+              "Load external images in messages"
+            )}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.copyAsFormattedText.label")}
+        value={copyAsFormattedText}
+        defaultValue={DEFAULT_CHAT_SETTINGS.copyAsFormattedText}
+        control={
+          <Switch
+            checked={copyAsFormattedText}
+            onChange={setCopyAsFormattedText}
+            aria-label={t("generalSettings.settings.copyAsFormattedText.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.tabMentionsEnabled.label")}
+        value={tabMentionsEnabled}
+        defaultValue={DEFAULT_CHAT_SETTINGS.tabMentionsEnabled}
+        beta
+        control={
+          <Switch
+            checked={tabMentionsEnabled}
+            onChange={setTabMentionsEnabled}
+            aria-label={t("generalSettings.settings.tabMentionsEnabled.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.pasteLargeTextAsFile.label")}
+        value={pasteLargeTextAsFile}
+        defaultValue={DEFAULT_CHAT_SETTINGS.pasteLargeTextAsFile}
+        control={
+          <Switch
+            checked={pasteLargeTextAsFile}
+            onChange={setPasteLargeTextAsFile}
+            aria-label={t("generalSettings.settings.pasteLargeTextAsFile.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.sidepanelTemporaryChat.label")}
+        value={sidepanelTemporaryChat}
+        defaultValue={DEFAULT_CHAT_SETTINGS.sidepanelTemporaryChat}
+        control={
+          <Switch
+            checked={sidepanelTemporaryChat}
+            onChange={setSidepanelTemporaryChat}
+            aria-label={t("generalSettings.settings.sidepanelTemporaryChat.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.removeReasoningTagFromCopy.label")}
+        value={removeReasoningTagFromCopy}
+        defaultValue={DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy}
+        control={
+          <Switch
+            checked={removeReasoningTagFromCopy}
+            onChange={setRemoveReasoningTagFromCopy}
+            aria-label={t("generalSettings.settings.removeReasoningTagFromCopy.label")}
+          />
+        }
+      />
+      <SettingRow
+        label={t("generalSettings.settings.promptSearchIncludeServer.label")}
+        value={promptSearchIncludeServer}
+        defaultValue={DEFAULT_CHAT_SETTINGS.promptSearchIncludeServer}
+        control={
+          <Switch
+            checked={promptSearchIncludeServer}
+            onChange={setPromptSearchIncludeServer}
+            aria-label={t("generalSettings.settings.promptSearchIncludeServer.label")}
+          />
+        }
+      />
 
       <div>
         <h2 className="text-base font-semibold leading-7 text-text">
@@ -693,53 +531,47 @@ export const ChatSettings = () => {
         </h3>
       </div>
 
-      <div className="flex flex-row justify-between">
-        <label
-          htmlFor="user-text-color"
-          className="inline-flex items-center gap-2 text-text"
-        >
-          {t("chatAppearance.userColor", "User text color")}
-        </label>
-        <Select
-          id="user-text-color"
-          style={{ width: SELECT_WIDTH }}
-          value={userTextColor}
-          onChange={handleUserTextColorChange}
-          options={colorOptions}
-        />
-      </div>
+      <SettingRow
+        label={t("chatAppearance.userColor", "User text color")}
+        labelFor="user-text-color"
+        control={
+          <Select
+            id="user-text-color"
+            style={{ width: SELECT_WIDTH }}
+            value={userTextColor}
+            onChange={setUserTextColor}
+            options={colorOptions}
+          />
+        }
+      />
 
-      <div className="flex flex-row justify-between">
-        <label
-          htmlFor="user-text-font"
-          className="inline-flex items-center gap-2 text-text"
-        >
-          {t("chatAppearance.userFont", "User font")}
-        </label>
-        <Select
-          id="user-text-font"
-          style={{ width: SELECT_WIDTH }}
-          value={userTextFont}
-          onChange={handleUserTextFontChange}
-          options={fontOptions}
-        />
-      </div>
+      <SettingRow
+        label={t("chatAppearance.userFont", "User font")}
+        labelFor="user-text-font"
+        control={
+          <Select
+            id="user-text-font"
+            style={{ width: SELECT_WIDTH }}
+            value={userTextFont}
+            onChange={setUserTextFont}
+            options={fontOptions}
+          />
+        }
+      />
 
-      <div className="flex flex-row justify-between">
-        <label
-          htmlFor="user-text-size"
-          className="inline-flex items-center gap-2 text-text"
-        >
-          {t("chatAppearance.userSize", "User text size")}
-        </label>
-        <Select
-          id="user-text-size"
-          style={{ width: SELECT_WIDTH }}
-          value={userTextSize}
-          onChange={handleUserTextSizeChange}
-          options={sizeOptions}
-        />
-      </div>
+      <SettingRow
+        label={t("chatAppearance.userSize", "User text size")}
+        labelFor="user-text-size"
+        control={
+          <Select
+            id="user-text-size"
+            style={{ width: SELECT_WIDTH }}
+            value={userTextSize}
+            onChange={handleUserTextSizeChange}
+            options={sizeOptions}
+          />
+        }
+      />
 
       <div className="pt-4">
         <h3 className="text-sm font-semibold leading-6 text-text">
@@ -747,53 +579,47 @@ export const ChatSettings = () => {
         </h3>
       </div>
 
-      <div className="flex flex-row justify-between">
-        <label
-          htmlFor="assistant-text-color"
-          className="inline-flex items-center gap-2 text-text"
-        >
-          {t("chatAppearance.assistantColor", "Assistant text color")}
-        </label>
-        <Select
-          id="assistant-text-color"
-          style={{ width: SELECT_WIDTH }}
-          value={assistantTextColor}
-          onChange={handleAssistantTextColorChange}
-          options={colorOptions}
-        />
-      </div>
+      <SettingRow
+        label={t("chatAppearance.assistantColor", "Assistant text color")}
+        labelFor="assistant-text-color"
+        control={
+          <Select
+            id="assistant-text-color"
+            style={{ width: SELECT_WIDTH }}
+            value={assistantTextColor}
+            onChange={setAssistantTextColor}
+            options={colorOptions}
+          />
+        }
+      />
 
-      <div className="flex flex-row justify-between">
-        <label
-          htmlFor="assistant-text-font"
-          className="inline-flex items-center gap-2 text-text"
-        >
-          {t("chatAppearance.assistantFont", "Assistant font")}
-        </label>
-        <Select
-          id="assistant-text-font"
-          style={{ width: SELECT_WIDTH }}
-          value={assistantTextFont}
-          onChange={handleAssistantTextFontChange}
-          options={fontOptions}
-        />
-      </div>
+      <SettingRow
+        label={t("chatAppearance.assistantFont", "Assistant font")}
+        labelFor="assistant-text-font"
+        control={
+          <Select
+            id="assistant-text-font"
+            style={{ width: SELECT_WIDTH }}
+            value={assistantTextFont}
+            onChange={setAssistantTextFont}
+            options={fontOptions}
+          />
+        }
+      />
 
-      <div className="flex flex-row justify-between">
-        <label
-          htmlFor="assistant-text-size"
-          className="inline-flex items-center gap-2 text-text"
-        >
-          {t("chatAppearance.assistantSize", "Assistant text size")}
-        </label>
-        <Select
-          id="assistant-text-size"
-          style={{ width: SELECT_WIDTH }}
-          value={assistantTextSize}
-          onChange={handleAssistantTextSizeChange}
-          options={sizeOptions}
-        />
-      </div>
+      <SettingRow
+        label={t("chatAppearance.assistantSize", "Assistant text size")}
+        labelFor="assistant-text-size"
+        control={
+          <Select
+            id="assistant-text-size"
+            style={{ width: SELECT_WIDTH }}
+            value={assistantTextSize}
+            onChange={handleAssistantTextSizeChange}
+            options={sizeOptions}
+          />
+        }
+      />
     </dl>
   )
 }

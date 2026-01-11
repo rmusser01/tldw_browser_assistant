@@ -8,10 +8,14 @@ import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useStorage } from "@plasmohq/storage/hook"
+import { browser } from "wxt/browser"
+import { collectGreetings, pickGreeting } from "@/utils/character-greetings"
 import { IconButton } from "@/components/Common/IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useStoreMessageOption } from "@/store/option"
 import type {
   Character as StoredCharacter,
   CharacterApiResponse
@@ -23,6 +27,13 @@ type Props = {
   className?: string
   iconClassName?: string
 }
+
+type ImportCharacterResponse = {
+  character?: CharacterApiResponse
+  message?: string
+  character_id?: string | number
+  characterId?: string | number
+} & Partial<CharacterApiResponse>
 
 export const CharacterSelect: React.FC<Props> = ({
   selectedCharacterId,
@@ -36,6 +47,12 @@ export const CharacterSelect: React.FC<Props> = ({
   const [menuDensity] = useStorage("menuDensity", "comfortable")
   const [, setSelectedCharacter] =
     useSelectedCharacter<StoredCharacter | null>(null)
+  const clearChat = useClearChat()
+  const messages = useStoreMessageOption((state) => state.messages)
+  const [userDisplayName, setUserDisplayName] = useStorage(
+    "chatUserDisplayName",
+    ""
+  )
   const [searchText, setSearchText] = useState("")
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isImporting, setIsImporting] = useState(false)
@@ -97,42 +114,14 @@ export const CharacterSelect: React.FC<Props> = ({
       (char) => String(char.id) === String(selectedCharacterId)
     )
   }, [characters, selectedCharacterId])
-
-  const normalizeGreetingValue = React.useCallback((value: unknown) => {
-    if (!value) return [] as string[]
-    if (Array.isArray(value)) {
-      return value
-        .map((entry) => (typeof entry === "string" ? entry.trim() : ""))
-        .filter((entry) => entry.length > 0)
-    }
-    if (typeof value === "string") {
-      const trimmed = value.trim()
-      return trimmed.length > 0 ? [trimmed] : []
-    }
-    return []
-  }, [])
-
-  const collectGreetings = React.useCallback(
-    (character: Partial<CharacterApiResponse>) => {
-      const greetings = [
-        ...normalizeGreetingValue(character.greeting),
-        ...normalizeGreetingValue(character.first_message),
-        ...normalizeGreetingValue(character.firstMessage),
-        ...normalizeGreetingValue(character.greet),
-        ...normalizeGreetingValue(character.alternate_greetings),
-        ...normalizeGreetingValue(character.alternateGreetings)
-      ]
-      return Array.from(new Set(greetings))
-    },
-    [normalizeGreetingValue]
+  const hasActiveChat = useMemo(
+    () =>
+      messages.some(
+        (message) => message.messageType !== "character:greeting"
+      ),
+    [messages]
   )
-
-  const pickGreeting = React.useCallback((greetings: string[]) => {
-    if (greetings.length === 0) return ""
-    if (greetings.length === 1) return greetings[0]
-    const index = Math.floor(Math.random() * greetings.length)
-    return greetings[index]
-  }, [])
+  const trimmedDisplayName = userDisplayName.trim()
 
   const buildStoredCharacter = React.useCallback(
     (character: Partial<CharacterApiResponse>): StoredCharacter | null => {
@@ -157,39 +146,130 @@ export const CharacterSelect: React.FC<Props> = ({
     [collectGreetings, pickGreeting]
   )
 
-  const handleSelect = (id: string | null) => {
-    setSelectedCharacterId(id)
-    if (!id) {
-      setSelectedCharacter(null)
+  const confirmCharacterSwitch = React.useCallback(
+    (nextName?: string) =>
+      new Promise<boolean>((resolve) => {
+        modal.confirm({
+          title: t("sidepanel:characterSelect.switchConfirmTitle", {
+            defaultValue: "Switch character?"
+          }),
+          content: t("sidepanel:characterSelect.switchConfirmBody", {
+            defaultValue: nextName
+              ? "Switching to {{name}} will clear the current chat. Continue?"
+              : "Changing the character will clear the current chat. Continue?",
+            name: nextName
+          }),
+          okText: t("sidepanel:characterSelect.switchConfirmOk", {
+            defaultValue: "Clear chat & switch"
+          }),
+          cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+          centered: true,
+          okButtonProps: { danger: true },
+          onOk: () => resolve(true),
+          onCancel: () => resolve(false)
+        })
+      }),
+    [modal, t]
+  )
+
+  const openDisplayNameModal = React.useCallback(() => {
+    let nextValue = trimmedDisplayName
+    modal.confirm({
+      title: t("sidepanel:characterSelect.displayNameTitle", {
+        defaultValue: "Set your name"
+      }),
+      content: (
+        <div className="space-y-2">
+          <Input
+            autoFocus
+            defaultValue={trimmedDisplayName}
+            placeholder={t("sidepanel:characterSelect.displayNamePlaceholder", {
+              defaultValue: "Enter a display name"
+            }) as string}
+            onChange={(event) => {
+              nextValue = event.target.value
+            }}
+          />
+          <div className="text-xs text-text-muted">
+            {t("sidepanel:characterSelect.displayNameHelp", {
+              defaultValue: "Used to replace {{user}} and similar placeholders."
+            })}
+          </div>
+        </div>
+      ),
+      okText: t("sidepanel:characterSelect.displayNameSave", {
+        defaultValue: "Save"
+      }),
+      cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+      centered: true,
+      onOk: () => {
+        setUserDisplayName(nextValue.trim())
+      }
+    })
+  }, [modal, setUserDisplayName, t, trimmedDisplayName])
+
+  const applySelection = React.useCallback(
+    async (nextId: string | null, stored: StoredCharacter | null) => {
+      const currentId = selectedCharacterId ?? null
+      if (nextId === currentId) {
+        setDropdownOpen(false)
+        return
+      }
+
+      if (hasActiveChat) {
+        const confirmed = await confirmCharacterSwitch(stored?.name)
+        if (!confirmed) return
+        clearChat()
+      }
+
+      setSelectedCharacterId(nextId)
+      if (!nextId) {
+        setSelectedCharacter(null)
+        setDropdownOpen(false)
+        return
+      }
+
+      if (stored) {
+        setSelectedCharacter(stored)
+      }
       setDropdownOpen(false)
-      return
-    }
 
-    const selected = characters?.find(
-      (char) => String(char.id) === String(id)
-    )
-    const stored = selected ? buildStoredCharacter(selected) : null
-    if (stored) {
-      setSelectedCharacter(stored)
-    }
-    setDropdownOpen(false)
+      if (stored?.greeting) return
 
-    if (stored?.greeting) return
+      void tldwClient
+        .initialize()
+        .catch(() => null)
+        .then(() => tldwClient.getCharacter(nextId))
+        .then((full) => {
+          const hydrated = buildStoredCharacter(full || {})
+          if (hydrated?.id === String(nextId) && hydrated.greeting) {
+            setSelectedCharacter(hydrated)
+          }
+        })
+        .catch((error) => {
+          console.warn("Failed to hydrate character greeting:", error)
+        })
+    },
+    [
+      clearChat,
+      confirmCharacterSwitch,
+      hasActiveChat,
+      selectedCharacterId,
+      setSelectedCharacter,
+      setSelectedCharacterId
+    ]
+  )
 
-    void tldwClient
-      .initialize()
-      .catch(() => null)
-      .then(() => tldwClient.getCharacter(id))
-      .then((full) => {
-        const hydrated = buildStoredCharacter(full || {})
-        if (hydrated?.id === String(id) && hydrated.greeting) {
-          setSelectedCharacter(hydrated)
-        }
-      })
-      .catch((error) => {
-        console.warn("Failed to hydrate character greeting:", error)
-      })
-  }
+  const handleSelect = React.useCallback(
+    (id: string | null) => {
+      const selected = id
+        ? characters?.find((char) => String(char.id) === String(id))
+        : null
+      const stored = selected ? buildStoredCharacter(selected) : null
+      void applySelection(id, stored)
+    },
+    [applySelection, buildStoredCharacter, characters]
+  )
 
   const handleImportClick = () => {
     if (isImporting) return
@@ -250,7 +330,7 @@ export const CharacterSelect: React.FC<Props> = ({
       await tldwClient.importCharacterFile(file, {
         allowImageOnly
       })
-    const handleImportSuccess = (imported: Record<string, any>) => {
+    const handleImportSuccess = (imported: ImportCharacterResponse) => {
       const importedCharacter =
         imported?.character ??
         (imported?.id && imported?.name
@@ -267,16 +347,24 @@ export const CharacterSelect: React.FC<Props> = ({
         description: successDetail
       })
       refetch({ cancelRefetch: true })
-      const createdId =
-        importedCharacter?.id ??
-        importedCharacter?.character_id ??
-        importedCharacter?.characterId
-      if (createdId != null) {
-        setSelectedCharacterId(String(createdId))
-        const stored = buildStoredCharacter(importedCharacter ?? {})
-        if (stored) {
-          setSelectedCharacter(stored)
+      const createdId = (() => {
+        if (!importedCharacter || typeof importedCharacter !== "object") {
+          return null
         }
+        const candidate = importedCharacter as Record<string, unknown>
+        const resolveId = (value: unknown) =>
+          typeof value === "string" || typeof value === "number"
+            ? value
+            : null
+        return (
+          resolveId(candidate.id) ??
+          resolveId(candidate.character_id) ??
+          resolveId(candidate.characterId)
+        )
+      })()
+      if (createdId != null) {
+        const stored = buildStoredCharacter(importedCharacter ?? {})
+        void applySelection(String(createdId), stored)
       }
     }
 
@@ -358,27 +446,30 @@ export const CharacterSelect: React.FC<Props> = ({
     window.open(`/options.html${hash}`, "_blank")
   }, [buildCharactersHash])
 
-  const createCharacterItem = (char: Character): MenuItemType => ({
-    key: String(char.id),
-    label: (
-      <div className="w-56 py-0.5 flex items-center gap-2">
-        {char.avatar_url ? (
-          <Avatar src={char.avatar_url} size="small" />
-        ) : (
-          <Avatar size="small" icon={<User2 className="size-3" />} />
-        )}
-        <div className="flex-1 min-w-0">
-          <div className="truncate font-medium">{char.name}</div>
-          {char.description && (
-            <p className="text-xs text-text-subtle line-clamp-1">
-              {char.description}
-            </p>
+  const createCharacterItem = React.useCallback(
+    (char: CharacterApiResponse): MenuItemType => ({
+      key: String(char.id),
+      label: (
+        <div className="w-56 py-0.5 flex items-center gap-2">
+          {char.avatar_url ? (
+            <Avatar src={char.avatar_url} size="small" />
+          ) : (
+            <Avatar size="small" icon={<User2 className="size-3" />} />
           )}
+          <div className="flex-1 min-w-0">
+            <div className="truncate font-medium">{char.name}</div>
+            {char.description && (
+              <p className="text-xs text-text-subtle line-clamp-1">
+                {char.description}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
-    ),
-    onClick: () => handleSelect(String(char.id))
-  })
+      ),
+      onClick: () => handleSelect(String(char.id))
+    }),
+    [handleSelect]
+  )
 
   const menuItems = useMemo<ItemType[]>(() => {
     const createLabel = t(
@@ -464,6 +555,25 @@ export const CharacterSelect: React.FC<Props> = ({
       onClick: () => handleSelect(null)
     })
 
+    items.push({
+      key: "display-name",
+      label: (
+        <div className="w-56 py-0.5 flex items-center gap-2 text-text-muted">
+          <span>
+            {trimmedDisplayName
+              ? t("sidepanel:characterSelect.displayNameCurrent", {
+                  defaultValue: "Your name: {{name}}",
+                  name: trimmedDisplayName
+                })
+              : t("sidepanel:characterSelect.displayNameAction", {
+                  defaultValue: "Set your name"
+                })}
+          </span>
+        </div>
+      ),
+      onClick: openDisplayNameModal
+    })
+
     items.push(createItem, importItem)
     items.push({ type: "divider" })
 
@@ -473,11 +583,15 @@ export const CharacterSelect: React.FC<Props> = ({
     return items
   }, [
     filteredCharacters,
+    createCharacterItem,
     handleImportClick,
+    handleSelect,
     isLoading,
+    openDisplayNameModal,
     openCharactersWorkspace,
     searchText,
-    t
+    t,
+    trimmedDisplayName
   ])
 
   // Focus search input when dropdown opens

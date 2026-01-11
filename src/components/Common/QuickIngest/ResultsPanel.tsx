@@ -1,75 +1,99 @@
 import React from "react"
 import { Button, List, Select, Tag, Typography } from "antd"
 import type { TFunction } from "i18next"
-
-type ResultItem = {
-  id: string
-  status: "ok" | "error"
-  url?: string
-  fileName?: string
-  type: string
-  data?: unknown
-  error?: string
-}
-
-type ResultSummary = {
-  successCount: number
-  failCount: number
-}
-
-type ResultFilters = {
-  ALL: string
-  ERROR: string
-  SUCCESS: string
-}
-
-type ResultsFilter = ResultFilters[keyof ResultFilters]
+import { ResultsListItem } from "./ResultsListItem"
+import type {
+  ResultFilters,
+  ResultItem,
+  ResultItemWithMediaId,
+  ResultSummary,
+  ResultsFilter
+} from "./types"
 
 type ResultsPanelProps = {
-  results: ResultItem[]
-  visibleResults: ResultItem[]
-  resultsFilter: ResultsFilter
-  setResultsFilter: (value: ResultsFilter) => void
-  resultFilters: ResultFilters
-  retryFailedUrls: () => void
-  resultSummary: ResultSummary | null
-  running: boolean
-  shouldStoreRemote: boolean
-  firstResultWithMedia?: ResultItem | null
-  reviewBatchId?: string | null
-  tryOpenContentReview: (batchId: string) => void | Promise<void>
-  openInMediaViewer: (item: ResultItem) => void
-  discussInChat: (item: ResultItem) => void
-  downloadJson: (item: ResultItem) => void
-  openHealthDiagnostics: () => void
-  mediaIdFromPayload: (payload: unknown) => string | number | null
-  processOnly: boolean
-  qi: (key: string, defaultValue: string, options?: Record<string, any>) => string
-  t: TFunction
+  data: {
+    results: ResultItem[]
+    visibleResults: ResultItem[]
+    resultSummary: ResultSummary | null
+    running: boolean
+    filters: {
+      value: ResultsFilter
+      options: ResultFilters
+      onChange: (value: ResultsFilter) => void
+    }
+  }
+  context: {
+    shouldStoreRemote: boolean
+    firstResultWithMedia?: ResultItem | null
+    reviewBatchId?: string | null
+    processOnly: boolean
+    mediaIdFromPayload: (payload: unknown) => string | number | null
+  }
+  actions: {
+    retryFailedUrls: () => void
+    tryOpenContentReview: (batchId: string) => void | Promise<void>
+    openInMediaViewer: (item: ResultItem) => void
+    discussInChat: (item: ResultItem) => void
+    downloadJson: (item: ResultItem) => void
+    openHealthDiagnostics: () => void
+  }
+  i18n: {
+    qi: (key: string, defaultValue: string, options?: Record<string, any>) => string
+    t: TFunction
+  }
 }
 
 export const ResultsPanel: React.FC<ResultsPanelProps> = ({
-  results,
-  visibleResults,
-  resultsFilter,
-  setResultsFilter,
-  resultFilters,
-  retryFailedUrls,
-  resultSummary,
-  running,
-  shouldStoreRemote,
-  firstResultWithMedia,
-  reviewBatchId,
-  tryOpenContentReview,
-  openInMediaViewer,
-  discussInChat,
-  downloadJson,
-  openHealthDiagnostics,
-  mediaIdFromPayload,
-  processOnly,
-  qi,
-  t
+  data,
+  context,
+  actions,
+  i18n
 }) => {
+  const { results, visibleResults, resultSummary, running, filters } = data
+  const {
+    shouldStoreRemote,
+    firstResultWithMedia,
+    reviewBatchId,
+    processOnly,
+    mediaIdFromPayload
+  } = context
+  const {
+    retryFailedUrls,
+    tryOpenContentReview,
+    openInMediaViewer,
+    discussInChat,
+    downloadJson,
+    openHealthDiagnostics
+  } = actions
+  const { qi, t } = i18n
+
+  const resultsWithMediaIds = React.useMemo<ResultItemWithMediaId[]>(() => {
+    return results.map((item) => {
+      const mediaId =
+        item.status === "ok" && shouldStoreRemote
+          ? mediaIdFromPayload(item.data)
+          : null
+
+      return {
+        ...item,
+        mediaId
+      }
+    })
+  }, [results, shouldStoreRemote, mediaIdFromPayload])
+
+  const mediaIdCache = React.useMemo(() => {
+    return new Map<string, ResultItemWithMediaId["mediaId"]>(
+      resultsWithMediaIds.map((item) => [item.id, item.mediaId])
+    )
+  }, [resultsWithMediaIds])
+
+  const visibleResultsWithMediaIds = React.useMemo<ResultItemWithMediaId[]>(() => {
+    return visibleResults.map((item) => ({
+      ...item,
+      mediaId: mediaIdCache.get(item.id) ?? null
+    }))
+  }, [mediaIdCache, visibleResults])
+
   if (results.length === 0) return null
 
   return (
@@ -97,20 +121,20 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             aria-label={t(
               "quickIngest.resultsFilterAria",
               "Filter results by status"
-            ) as string}
-            value={resultsFilter}
-            onChange={(value) => setResultsFilter(value as ResultsFilter)}
+            )}
+            value={filters.value}
+            onChange={(value) => filters.onChange(value as ResultsFilter)}
             options={[
               {
-                value: resultFilters.ALL,
+                value: filters.options.ALL,
                 label: t("quickIngest.resultsFilterAll", "All")
               },
               {
-                value: resultFilters.ERROR,
+                value: filters.options.ERROR,
                 label: t("quickIngest.resultsFilterFailed", "Failed only")
               },
               {
-                value: resultFilters.SUCCESS,
+                value: filters.options.SUCCESS,
                 label: t("quickIngest.resultsFilterSucceeded", "Succeeded only")
               }
             ]}
@@ -142,6 +166,10 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
                 size="small"
                 type="primary"
                 data-testid="quick-ingest-open-media-primary"
+                aria-label={t(
+                  "quickIngest.openFirstInMediaAria",
+                  "Open first result in media viewer"
+                )}
                 onClick={() => {
                   openInMediaViewer(firstResultWithMedia)
                 }}
@@ -153,6 +181,10 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
               <Button
                 size="small"
                 type="primary"
+                aria-label={qi(
+                  "openContentReviewAria",
+                  "Open Content Review for batch"
+                )}
                 onClick={() => {
                   void tryOpenContentReview(reviewBatchId)
                 }}
@@ -161,11 +193,23 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
               </Button>
             ) : null}
             {resultSummary.failCount > 0 && (
-              <Button size="small" onClick={retryFailedUrls}>
+              <Button
+                size="small"
+                onClick={retryFailedUrls}
+                aria-label={qi("retryFailedUrlsAria", "Retry all failed URLs")}
+              >
                 {qi("retryFailedUrls", "Retry failed URLs")}
               </Button>
             )}
-            <Button size="small" type="default" onClick={openHealthDiagnostics}>
+            <Button
+              size="small"
+              type="default"
+              onClick={openHealthDiagnostics}
+              aria-label={t(
+                "settings:healthSummary.diagnosticsAria",
+                "Open health and diagnostics"
+              )}
+            >
               {t("settings:healthSummary.diagnostics", "Health & diagnostics")}
             </Button>
           </div>
@@ -173,77 +217,17 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       )}
       <List
         size="small"
-        dataSource={visibleResults}
-        renderItem={(item) => {
-          const mediaId =
-            item.status === "ok" && shouldStoreRemote
-              ? mediaIdFromPayload(item.data)
-              : null
-          const hasMediaId = mediaId != null
-          const actions: React.ReactNode[] = []
-          if (processOnly && item.status === "ok") {
-            actions.push(
-              <Button
-                key="dl"
-                type="link"
-                size="small"
-                onClick={() => downloadJson(item)}
-                aria-label={`Download JSON for ${
-                  item.url || item.fileName || "item"
-                }`}
-              >
-                {t("quickIngest.downloadJson") || "Download JSON"}
-              </Button>
-            )
-          }
-          if (hasMediaId) {
-            actions.push(
-              <Button
-                key="open-media"
-                type="link"
-                size="small"
-                onClick={() => openInMediaViewer(item)}
-              >
-                {t("quickIngest.openInMedia", "Open in Media viewer")}
-              </Button>
-            )
-            actions.push(
-              <Button
-                key="discuss-chat"
-                type="link"
-                size="small"
-                onClick={() => discussInChat(item)}
-              >
-                {t("quickIngest.discussInChat", "Discuss in chat")}
-              </Button>
-            )
-          }
-          return (
-            <List.Item actions={actions}>
-              <div className="text-sm">
-                <div className="flex items-center gap-2">
-                  <Tag color={item.status === "ok" ? "green" : "red"}>
-                    {item.status.toUpperCase()}
-                  </Tag>
-                  <span>{item.type.toUpperCase()}</span>
-                </div>
-                <div className="text-xs text-text-subtle break-all">
-                  {item.url || item.fileName}
-                </div>
-                {hasMediaId ? (
-                  <div className="text-[11px] text-text-subtle">
-                    {t("quickIngest.savedAsMedia", "Saved as media {{id}}", {
-                      id: String(mediaId)
-                    })}
-                  </div>
-                ) : null}
-                {item.error ? (
-                  <div className="text-xs text-danger">{item.error}</div>
-                ) : null}
-              </div>
-            </List.Item>
-          )
-        }}
+        dataSource={visibleResultsWithMediaIds}
+        renderItem={(item) => (
+          <ResultsListItem
+            item={item}
+            processOnly={processOnly}
+            onDownloadJson={downloadJson}
+            onOpenMedia={openInMediaViewer}
+            onDiscussInChat={discussInChat}
+            t={t}
+          />
+        )}
       />
     </div>
   )

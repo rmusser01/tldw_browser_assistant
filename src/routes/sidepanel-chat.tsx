@@ -23,6 +23,7 @@ import { useConnectionActions } from "@/hooks/useConnectionState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { copilotResumeLastChat } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import type { ServerChatMessage as ApiServerChatMessage } from "@/services/tldw/TldwApiClient"
 import { createSafeStorage } from "@/utils/safe-storage"
 import { CHAT_BACKGROUND_IMAGE_SETTING } from "@/services/settings/ui-settings"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -43,6 +44,7 @@ import type {
   SidepanelChatSnapshot,
   SidepanelChatTab
 } from "@/store/sidepanel-chat-tabs"
+import type { HistoryInfo } from "@/db/dexie/types"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useArtifactsStore } from "@/store/artifacts"
@@ -68,16 +70,19 @@ const CommandPalette = lazy(() =>
 )
 import type { ChatHistory, Message as ChatMessage } from "~/store/option"
 
-type ServerChatMessage = {
+type ServerChatMessageInput = Omit<ApiServerChatMessage, "id"> & {
   id: string | number
-  role: string
-  content: string
-  created_at: string
-  version?: number | null
-  [key: string]: unknown
 }
 
-const mapServerChatMessages = (list: ServerChatMessage[]) => {
+const normalizeServerChatMessageId = (
+  id: ServerChatMessageInput["id"]
+) => (typeof id === "number" ? String(id) : id)
+
+const mapServerChatMessages = (
+  list: ServerChatMessageInput[],
+  userDisplayName?: string
+) => {
+  const resolvedUserName = userDisplayName?.trim() || "You"
   const normalizeRole = (role: string) => normalizeChatRole(role)
   const history = list.map((m) => ({
     role: normalizeRole(m.role),
@@ -87,6 +92,7 @@ const mapServerChatMessages = (list: ServerChatMessage[]) => {
     const meta = m as Record<string, unknown>
     const createdAt = Date.parse(m.created_at)
     const normalizedRole = normalizeRole(m.role)
+    const normalizedId = normalizeServerChatMessageId(m.id)
     return {
       createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
       isBot: normalizedRole === "assistant",
@@ -96,12 +102,12 @@ const mapServerChatMessages = (list: ServerChatMessage[]) => {
           ? "Assistant"
           : normalizedRole === "system"
             ? "System"
-            : "You",
+            : resolvedUserName,
       message: m.content,
       sources: [],
       images: [],
-      id: String(m.id),
-      serverMessageId: String(m.id),
+      id: normalizedId,
+      serverMessageId: normalizedId,
       serverMessageVersion: m.version,
       parentMessageId:
         (meta?.parent_message_id as string | null | undefined) ??
@@ -150,6 +156,8 @@ const deriveNoteTitle = (
   }
   return ""
 }
+
+const DEFAULT_COMPOSER_HEIGHT = 160
 
 const MODEL_SETTINGS_KEYS = [
   "f16KV",
@@ -224,6 +232,57 @@ const applyChatModelSettingsSnapshot = (
   })
 }
 
+type BuildHistorySnapshotParams = {
+  historyInfo: HistoryInfo
+  restoredHistory: ChatHistory
+  restoredMessages: ChatMessage[]
+  modelSettings: ChatModelSettingsSnapshot
+  selectedModel: SidepanelChatSnapshot["selectedModel"]
+  toolChoice: SidepanelChatSnapshot["toolChoice"]
+  useOCR: SidepanelChatSnapshot["useOCR"]
+  webSearch: SidepanelChatSnapshot["webSearch"]
+}
+
+const buildHistorySnapshot = ({
+  historyInfo,
+  restoredHistory,
+  restoredMessages,
+  modelSettings,
+  selectedModel,
+  toolChoice,
+  useOCR,
+  webSearch
+}: BuildHistorySnapshotParams): SidepanelChatSnapshot => {
+  const lastUsedPrompt = historyInfo.last_used_prompt
+  const nextSelectedSystemPrompt = lastUsedPrompt?.prompt_id ?? null
+  const nextSelectedQuickPrompt = lastUsedPrompt?.prompt_id
+    ? null
+    : lastUsedPrompt?.prompt_content ?? null
+  const nextSelectedModel = historyInfo.model_id ?? selectedModel ?? null
+
+  return {
+    history: restoredHistory,
+    messages: restoredMessages,
+    chatMode: historyInfo.is_rag ? "rag" : "normal",
+    historyId: historyInfo.id,
+    webSearch,
+    toolChoice,
+    selectedModel: nextSelectedModel,
+    selectedSystemPrompt: nextSelectedSystemPrompt,
+    selectedQuickPrompt: nextSelectedQuickPrompt,
+    temporaryChat: false,
+    useOCR,
+    serverChatId: historyInfo.server_chat_id ?? null,
+    serverChatState: null,
+    serverChatTopic: null,
+    serverChatClusterId: null,
+    serverChatSource: null,
+    serverChatExternalRef: null,
+    queuedMessages: [],
+    modelSettings
+  }
+}
+
 const SidepanelChat = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
@@ -234,6 +293,9 @@ const SidepanelChat = () => {
   const [composerHeight, setComposerHeight] = React.useState(0)
   const { t } = useTranslation(["playground", "sidepanel", "common"])
   const notification = useAntdNotification()
+  React.useEffect(() => {
+    void tldwClient.initialize().catch(() => null)
+  }, [])
   // Per-tab storage (Chrome side panel) or per-window/global (Firefox sidebar).
   // tabId: undefined = not resolved yet, null = resolved but unavailable.
   const [tabId, setTabId] = React.useState<number | null | undefined>(undefined)
@@ -346,10 +408,15 @@ const SidepanelChat = () => {
     "stickyChatInput",
     DEFAULT_CHAT_SETTINGS.stickyChatInput
   )
-  const composerPadding = composerHeight ? `${composerHeight + 16}px` : "160px"
+  const [userDisplayName] = useStorage("chatUserDisplayName", "")
+  const composerPadding = composerHeight
+    ? `${composerHeight + 16}px`
+    : `${DEFAULT_COMPOSER_HEIGHT}px`
   const scrollToLatestBottom = React.useMemo(() => {
     if (!stickyChatInput) return "8rem"
-    const baseOffset = composerHeight ? composerHeight + 24 : 160
+    const baseOffset = composerHeight
+      ? composerHeight + 24
+      : DEFAULT_COMPOSER_HEIGHT
     return `${Math.max(baseOffset, 128)}px`
   }, [composerHeight, stickyChatInput])
 
@@ -1025,35 +1092,16 @@ const SidepanelChat = () => {
         const restoredHistory = formatToChatHistory(chatData.messages)
         const restoredMessages = formatToMessage(chatData.messages)
         const historyInfo = chatData.historyInfo
-        const lastUsedPrompt = historyInfo.last_used_prompt
-        const nextSelectedSystemPrompt = lastUsedPrompt?.prompt_id ?? null
-        const nextSelectedQuickPrompt = lastUsedPrompt?.prompt_id
-          ? null
-          : lastUsedPrompt?.prompt_content ?? null
-        const nextSelectedModel =
-          historyInfo.model_id ?? selectedModel ?? null
-
-        const snapshot: SidepanelChatSnapshot = {
-          history: restoredHistory,
-          messages: restoredMessages,
-          chatMode: historyInfo.is_rag ? "rag" : "normal",
-          historyId: historyInfo.id,
-          webSearch,
+        const snapshot = buildHistorySnapshot({
+          historyInfo,
+          restoredHistory,
+          restoredMessages,
+          modelSettings: modelSettingsSnapshot,
+          selectedModel: selectedModel ?? null,
           toolChoice,
-          selectedModel: nextSelectedModel,
-          selectedSystemPrompt: nextSelectedSystemPrompt,
-          selectedQuickPrompt: nextSelectedQuickPrompt,
-          temporaryChat: false,
           useOCR,
-          serverChatId: historyInfo.server_chat_id ?? null,
-          serverChatState: null,
-          serverChatTopic: null,
-          serverChatClusterId: null,
-          serverChatSource: null,
-          serverChatExternalRef: null,
-          queuedMessages: [],
-          modelSettings: modelSettingsSnapshot
-        }
+          webSearch
+        })
 
         const newTabId = generateID()
         openSnapshotTab(
@@ -1088,8 +1136,6 @@ const SidepanelChat = () => {
       openSnapshotTab,
       saveActiveTabSnapshot,
       selectedModel,
-      selectedQuickPrompt,
-      selectedSystemPrompt,
       setDropedFile,
       setIsLoading,
       stopStreamingRequest,
@@ -1118,7 +1164,7 @@ const SidepanelChat = () => {
     async (
       chatId: string,
       chat: ServerChatHistoryItem,
-      list: ServerChatMessage[]
+      list: ServerChatMessageInput[]
     ) => {
       let localHistoryId: string | null = null
       try {
@@ -1141,13 +1187,14 @@ const SidepanelChat = () => {
           const existingMeta = metadataMap.get(localHistoryId)
           if (!existingMeta || existingMeta.messageCount === 0) {
             const now = Date.now()
-            await Promise.all(
+            const results = await Promise.allSettled(
               list.map((m, index) => {
                 const meta = m as Record<string, unknown>
                 const parsedCreatedAt = Date.parse(m.created_at)
                 const resolvedCreatedAt = Number.isNaN(parsedCreatedAt)
                   ? now + index
                   : parsedCreatedAt
+                const normalizedId = normalizeServerChatMessageId(m.id)
                 const role =
                   m.role === "assistant" ||
                   m.role === "system" ||
@@ -1161,7 +1208,7 @@ const SidepanelChat = () => {
                       ? "System"
                       : "You"
                 return saveMessage({
-                  id: String(m.id),
+                  id: normalizedId,
                   history_id: localHistoryId,
                   name,
                   role,
@@ -1199,10 +1246,29 @@ const SidepanelChat = () => {
                 })
               })
             )
+            const failed = results
+              .map((result, index) => ({
+                result,
+                messageId:
+                  list[index]?.id === undefined
+                    ? String(index)
+                    : normalizeServerChatMessageId(list[index].id)
+              }))
+              .filter((entry) => entry.result.status === "rejected")
+            if (failed.length > 0) {
+              console.warn(
+                `[ensureLocalHistoryMirror] ${failed.length} messages failed to save`,
+                failed.map(({ messageId, result }) => ({
+                  messageId,
+                  reason:
+                    result.status === "rejected" ? result.reason : undefined
+                }))
+              )
+            }
           }
         }
       } catch (err) {
-        console.debug("[openServerChat] Local mirror failed:", err)
+        console.error("[ensureLocalHistoryMirror] Failed:", err)
       }
       return localHistoryId
     },
@@ -1228,8 +1294,11 @@ const SidepanelChat = () => {
         const list = await tldwClient.listChatMessages(chatId, {
           include_deleted: "false"
         })
-        const messageList = list as ServerChatMessage[]
-        const { history, mappedMessages } = mapServerChatMessages(messageList)
+        const messageList: ServerChatMessageInput[] = list
+        const { history, mappedMessages } = mapServerChatMessages(
+          messageList,
+          userDisplayName
+        )
         const localHistoryId = await ensureLocalHistoryMirror(
           chatId,
           chat,

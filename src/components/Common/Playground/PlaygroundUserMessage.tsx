@@ -66,6 +66,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
   const [userTextColor] = useStorage("chatUserTextColor", "default")
   const [userTextFont] = useStorage("chatUserTextFont", "default")
   const [userTextSize] = useStorage("chatUserTextSize", "md")
+  const [userDisplayName] = useStorage("chatUserDisplayName", "")
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
   const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const [editMode, setEditMode] = React.useState(false)
@@ -171,7 +172,9 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
               {systemLabel}
             </span>
           ) : (
-            <span className="text-caption font-semibold text-text">You</span>
+            <span className="text-caption font-semibold text-text">
+              {userDisplayName.trim() || t("common:you", "You")}
+            </span>
           )}
           {messageTimestamp && (
             <span className="text-[11px] text-text-muted">

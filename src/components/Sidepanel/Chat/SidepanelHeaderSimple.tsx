@@ -102,7 +102,7 @@ export const SidepanelHeaderSimple = ({
       }
     }
     if (browser.tabs?.create) {
-      Promise.resolve(browser.tabs.create({ url })).catch((error) => {
+      browser.tabs.create({ url }).catch((error) => {
         console.error("Failed to open full-screen tab:", error)
         openFallback()
       })

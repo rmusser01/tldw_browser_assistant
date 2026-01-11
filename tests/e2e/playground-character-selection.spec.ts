@@ -394,7 +394,7 @@ test.describe("Playground character selection", () => {
             document.querySelector("[data-role='assistant']")
           if (!greetingNode) return null
           const markdownNodes = Array.from(
-            greetingNode.querySelectorAll("pre, code, img, ul, ol, blockquote")
+            greetingNode.querySelectorAll("pre")
           )
           return {
             text: greetingNode.textContent || "",

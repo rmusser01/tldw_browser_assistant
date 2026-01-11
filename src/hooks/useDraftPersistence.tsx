@@ -29,8 +29,10 @@ const normalizeDraftValue = (value: DraftValue | null): DraftPayload | null => {
   const content = payload.content
   if (typeof content !== "string") return null
   const metadata =
-    typeof payload.metadata === "object" && payload.metadata !== null
-      ? payload.metadata
+    typeof payload.metadata === "object" &&
+    payload.metadata !== null &&
+    !Array.isArray(payload.metadata)
+      ? (payload.metadata as DraftMetadata)
       : undefined
   return { content, metadata }
 }
@@ -106,19 +108,23 @@ export const useDraftPersistence = ({
     const restoreDraft = async () => {
       const record = await draftBucket.get(storageKey)
       let draftValue = normalizeDraftValue(record?.value ?? null)
+      const hasDraftContent = (draft: DraftPayload | null) =>
+        typeof draft?.content === "string" && draft.content.trim().length > 0
 
-      if (!draftValue?.content) {
+      if (!hasDraftContent(draftValue)) {
         const legacyDraft = readLegacyDraft(storageKey)
-        if (legacyDraft) {
+        if (legacyDraft && legacyDraft.trim().length > 0) {
           await draftBucket.set(storageKey, legacyDraft)
           clearLegacyDraft(storageKey)
           draftValue = { content: legacyDraft }
+        } else if (legacyDraft) {
+          clearLegacyDraft(storageKey)
         }
       } else {
         clearLegacyDraft(storageKey)
       }
 
-      if (!cancelled && draftValue?.content) {
+      if (!cancelled && hasDraftContent(draftValue)) {
         const setValueWithMetadata = setValueWithMetadataRef.current
         if (setValueWithMetadata) {
           setValueWithMetadata(draftValue.content, draftValue.metadata)
@@ -169,7 +175,12 @@ export const useDraftPersistence = ({
     setDraftSaved(false)
     persistTimeoutRef.current = setTimeout(() => {
       void (async () => {
-        const metadata = getMetadata?.()
+        let metadata: DraftMetadata | undefined
+        try {
+          metadata = getMetadata?.()
+        } catch {
+          metadata = undefined
+        }
         const nextValue: DraftValue =
           metadata === undefined ? value : { content: value, metadata }
         await draftBucket.set(storageKey, nextValue)
@@ -188,6 +199,10 @@ export const useDraftPersistence = ({
       if (persistTimeoutRef.current) {
         clearTimeout(persistTimeoutRef.current)
         persistTimeoutRef.current = null
+      }
+      if (draftSavedTimeoutRef.current) {
+        clearTimeout(draftSavedTimeoutRef.current)
+        draftSavedTimeoutRef.current = null
       }
     }
   }, [currentValue, storageKey, enabled, getMetadata])

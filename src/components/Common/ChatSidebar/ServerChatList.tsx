@@ -468,7 +468,7 @@ export function ServerChatList({
           isSelected: selectedChatIdSet.has(chatId),
           onToggleSelected: toggleChatSelected
         }
-      : {}
+      : { selectionMode: false as const }
 
   const openBulkDeleteConfirm = React.useCallback(() => {
     setBulkDeleteConfirmOpen(true)

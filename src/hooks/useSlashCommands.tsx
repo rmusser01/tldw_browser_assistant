@@ -66,39 +66,103 @@ interface UseSlashCommandsResult {
 const normalizeCommand = (value: string) =>
   value.replace(/^\/+/, "").trim().toLowerCase()
 
-const normalizeStringArray = (
-  value?: string[] | string | null
-): string[] => {
-  if (!value) return []
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  Boolean(value) && typeof value === "object" && !Array.isArray(value)
+
+const normalizeStringArray = (value?: unknown): string[] => {
+  if (value == null) return []
   if (Array.isArray(value)) {
     return value.map((item) => String(item)).filter(Boolean)
   }
-  return [String(value)]
-}
-
-const extractServerCommands = (payload: ServerCommandsResponse | any) => {
-  if (Array.isArray(payload)) return payload as ServerSlashCommand[]
-  if (!payload || typeof payload !== "object") return []
-  if (Array.isArray(payload.commands)) return payload.commands
-  if (Array.isArray(payload.data)) return payload.data
-  if (Array.isArray(payload.results)) return payload.results
+  if (typeof value === "string") {
+    const trimmed = value.trim()
+    return trimmed ? [trimmed] : []
+  }
+  if (typeof value === "number" || typeof value === "boolean") {
+    return [String(value)]
+  }
   return []
 }
 
-const extractPermissions = (payload: ServerCommandsResponse | any): string[] => {
-  if (!payload || typeof payload !== "object") return []
+const isServerSlashCommand = (value: unknown): value is ServerSlashCommand => {
+  if (!isRecord(value)) return false
+  const id = value.id
+  if (id != null && typeof id !== "string" && typeof id !== "number") {
+    return false
+  }
+  const stringFields = ["command", "name", "label", "description"] as const
+  for (const field of stringFields) {
+    const fieldValue = value[field]
+    if (fieldValue != null && typeof fieldValue !== "string") {
+      return false
+    }
+  }
+  const booleanFields = ["allowed", "enabled"] as const
+  for (const field of booleanFields) {
+    const fieldValue = value[field]
+    if (fieldValue != null && typeof fieldValue !== "boolean") {
+      return false
+    }
+  }
+  return true
+}
+
+const extractServerCommands = (payload: unknown): ServerSlashCommand[] => {
+  if (Array.isArray(payload)) {
+    return payload.filter(isServerSlashCommand)
+  }
+  if (!isRecord(payload)) return []
+  if (Array.isArray(payload.commands)) {
+    return payload.commands.filter(isServerSlashCommand)
+  }
+  if (Array.isArray(payload.data)) {
+    return payload.data.filter(isServerSlashCommand)
+  }
+  if (Array.isArray(payload.results)) {
+    return payload.results.filter(isServerSlashCommand)
+  }
+  return []
+}
+
+const extractPermissions = (payload: unknown): string[] => {
+  if (!isRecord(payload)) return []
   const perms =
     payload.permissions || payload.user_permissions || payload.userPermissions
   return normalizeStringArray(perms)
 }
 
 const extractAllowedCommands = (
-  payload: ServerCommandsResponse | any
+  payload: unknown
 ): string[] | null => {
-  if (!payload || typeof payload !== "object") return null
+  if (!isRecord(payload)) return null
   const allowed = payload.allowed_commands || payload.allowedCommands
   const list = normalizeStringArray(allowed)
   return list.length > 0 ? list.map(normalizeCommand) : null
+}
+
+const normalizeServerCommandsPayload = (
+  payload: unknown
+): ServerCommandsResponse | null => {
+  if (payload == null) return null
+  if (Array.isArray(payload)) {
+    return { commands: payload.filter(isServerSlashCommand) }
+  }
+  if (!isRecord(payload)) return null
+  const hasCommandArray =
+    Array.isArray(payload.commands) ||
+    Array.isArray(payload.data) ||
+    Array.isArray(payload.results)
+  const commands = extractServerCommands(payload)
+  const permissions = extractPermissions(payload)
+  const allowedCommands = extractAllowedCommands(payload)
+  if (!hasCommandArray && permissions.length === 0 && !allowedCommands) {
+    return null
+  }
+  return {
+    ...(hasCommandArray ? { commands } : {}),
+    ...(permissions.length ? { permissions } : {}),
+    ...(allowedCommands ? { allowed_commands: allowedCommands } : {})
+  }
 }
 
 /**
@@ -120,14 +184,12 @@ export const useSlashCommands = ({
   const { data: serverPayload } = useQuery({
     queryKey: ["tldw:chat:slashCommands"],
     queryFn: async (): Promise<ServerCommandsResponse | null> => {
-      await tldwClient.initialize()
-      const payload = (await tldwClient.listChatCommands()) as
-        | ServerCommandsResponse
-        | ServerSlashCommand[]
-      if (Array.isArray(payload)) {
-        return { commands: payload }
+      const payload = (await tldwClient.listChatCommands()) as unknown
+      const normalized = normalizeServerCommandsPayload(payload)
+      if (!normalized && payload != null) {
+        console.warn("Unable to parse slash commands response:", payload)
       }
-      return payload || null
+      return normalized
     },
     enabled: isOnline,
     staleTime: 60_000,
@@ -244,7 +306,7 @@ export const useSlashCommands = ({
           label: command.label || command.name || fallback?.label || commandName,
           description:
             command.description || fallback?.description || undefined,
-          keywords: command.keywords || fallback?.keywords,
+          keywords: normalizeStringArray(command.keywords || fallback?.keywords),
           action: localActions[commandName as keyof typeof localActions],
           source: "server"
         }
@@ -260,6 +322,7 @@ export const useSlashCommands = ({
     [slashCommands]
   )
 
+  // Match incomplete slash commands for autocomplete (allows just "/").
   const slashMatch = React.useMemo(
     () => inputValue.match(/^\s*\/(\w*)$/),
     [inputValue]

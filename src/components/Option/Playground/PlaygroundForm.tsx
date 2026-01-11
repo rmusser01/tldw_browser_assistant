@@ -1118,7 +1118,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
     const applyOverwrite = () => {
       const word = getVariable(promptText)
-      form.setFieldValue("message", promptText)
+      setMessageValue(promptText, { collapseLarge: true })
       if (word) {
         textareaRef.current?.focus()
         const interval = setTimeout(() => {
@@ -1138,7 +1138,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         currentMessage.trim().length > 0
           ? `${currentMessage}\n\n${promptText}`
           : promptText
-      form.setFieldValue("message", next)
+      setMessageValue(next, { collapseLarge: true })
       setSelectedQuickPrompt(null)
     }
 
@@ -2795,13 +2795,16 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               onInsert={(text) => {
                                 const current = form.values.message || ""
                                 const next = current ? `${current}\n\n${text}` : text
-                                form.setFieldValue("message", next)
+                                setMessageValue(next, { collapseLarge: true })
                                 textAreaFocus()
                               }}
                               onAsk={(text) => {
                                 const trimmed = text.trim()
                                 if (!trimmed) return
-                                form.setFieldValue("message", text)
+                                setMessageValue(text, {
+                                  collapseLarge: true,
+                                  forceCollapse: true
+                                })
                                 setTimeout(() => submitForm(), 0)
                               }}
                               isConnected={isConnectionReady}
@@ -3077,6 +3080,16 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             }
                           }}
                           onKeyDown={(e) => {
+                            if (
+                              isMessageCollapsed &&
+                              (e.key === "Enter" ||
+                                e.key === " " ||
+                                e.key === "Spacebar")
+                            ) {
+                              e.preventDefault()
+                              expandLargeMessage()
+                              return
+                            }
                             handleKeyDown(e)
                           }}
                           onFocus={handleDisconnectedFocus}
@@ -3093,6 +3106,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           } ${isProMode ? "px-3 py-2.5" : "px-3 py-2"}`}
                           onPaste={handlePaste}
                           readOnly={isMessageCollapsed}
+                          aria-expanded={!isMessageCollapsed}
                           rows={1}
                           style={{ minHeight: isProMode ? "60px" : "44px" }}
                           tabIndex={0}

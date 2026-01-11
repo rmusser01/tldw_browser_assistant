@@ -3,6 +3,7 @@ import { Button, Select, Skeleton } from "antd"
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
+import { browser } from "wxt/browser"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useStoreMessageOption } from "@/store/option"
@@ -51,7 +52,9 @@ export const CitationDictionarySettings = () => {
 
   React.useEffect(() => {
     if (!dictionariesEnabled) return
-    void tldwClient.initialize().catch(() => null)
+    void tldwClient.initialize().catch((error) => {
+      console.error("Failed to initialize tldwClient:", error)
+    })
   }, [dictionariesEnabled])
 
   const { data: dictionariesData, isLoading: dictionariesLoading } = useQuery<
@@ -78,12 +81,12 @@ export const CitationDictionarySettings = () => {
 
   React.useEffect(() => {
     const currentStyle = ragAdvancedOptions?.citation_style
-    if (currentStyle === citationStyle) return
+    if (currentStyle === citationStyle || !citationStyle) return
     setRagAdvancedOptions({
       ...(ragAdvancedOptions || {}),
       citation_style: citationStyle
     })
-  }, [citationStyle, ragAdvancedOptions, setRagAdvancedOptions])
+  }, [citationStyle, setRagAdvancedOptions])
 
   return (
     <div className="border border-border rounded p-4 bg-surface">
@@ -126,7 +129,10 @@ export const CitationDictionarySettings = () => {
               <Button
                 size="small"
                 onClick={() =>
-                  window.open("/options.html#/dictionaries", "_blank")
+                  window.open(
+                    browser.runtime.getURL("/options.html#/dictionaries"),
+                    "_blank"
+                  )
                 }
               >
                 {t("citationSettings.openWorkspace", "Open workspace")}

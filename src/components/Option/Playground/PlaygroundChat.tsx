@@ -216,7 +216,7 @@ export const PlaygroundChat = () => {
           typeof message?.message === "string"
         ) {
           const normalizedMessage = normalizeGreetingText(message.message)
-          if (!greetingNeedle || normalizedMessage.includes(greetingNeedle)) {
+          if (greetingNeedle && normalizedMessage.includes(greetingNeedle)) {
             return "character:greeting"
           }
         }
@@ -226,6 +226,7 @@ export const PlaygroundChat = () => {
     [
       firstAssistantIndex,
       firstUserIndex,
+      hasSelectedCharacter,
       greetingNeedle,
       normalizeGreetingText,
       serverChatId

@@ -4012,28 +4012,35 @@ export const QuickIngestModal: React.FC<Props> = ({
 
         <React.Suspense fallback={null}>
           <ResultsPanel
-            results={results}
-            visibleResults={visibleResults}
-            resultsFilter={resultsFilter}
-            setResultsFilter={(value) => setResultsFilter(value as ResultsFilter)}
-            resultFilters={RESULT_FILTERS}
-            retryFailedUrls={retryFailedUrls}
-            resultSummary={resultSummary}
-            running={running}
-            shouldStoreRemote={shouldStoreRemote}
-            firstResultWithMedia={firstResultWithMedia}
-            reviewBatchId={reviewBatchId}
-            tryOpenContentReview={(batchId) => {
-              void tryOpenContentReview(batchId)
+            data={{
+              results,
+              visibleResults,
+              resultSummary,
+              running,
+              filters: {
+                value: resultsFilter,
+                options: RESULT_FILTERS,
+                onChange: (value) => setResultsFilter(value as ResultsFilter)
+              }
             }}
-            openInMediaViewer={openInMediaViewer}
-            discussInChat={discussInChat}
-            downloadJson={downloadJson}
-            openHealthDiagnostics={openHealthDiagnostics}
-            mediaIdFromPayload={mediaIdFromPayload}
-            processOnly={processOnly}
-            qi={qi}
-            t={t}
+            context={{
+              shouldStoreRemote,
+              firstResultWithMedia,
+              reviewBatchId,
+              processOnly,
+              mediaIdFromPayload
+            }}
+            actions={{
+              retryFailedUrls,
+              tryOpenContentReview: (batchId) => {
+                void tryOpenContentReview(batchId)
+              },
+              openInMediaViewer,
+              discussInChat,
+              downloadJson,
+              openHealthDiagnostics
+            }}
+            i18n={{ qi, t }}
           />
         </React.Suspense>
       </Space>
