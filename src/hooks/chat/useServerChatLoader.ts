@@ -6,6 +6,7 @@ import { useStoreMessageOption } from "@/store/option"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getHistoriesWithMetadata, saveMessage } from "@/db/dexie/helpers"
 import { normalizeConversationState } from "@/utils/conversation-state"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 import { updatePageTitle } from "@/utils/update-page-title"
 
 type NotificationApi = {
@@ -200,6 +201,7 @@ export const useServerChatLoader = ({
             return {
               createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
               isBot: m.role === "assistant",
+              role: normalizeChatRole(m.role),
               name:
                 m.role === "assistant"
                   ? assistantName

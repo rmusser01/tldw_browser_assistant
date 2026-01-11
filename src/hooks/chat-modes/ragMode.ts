@@ -15,6 +15,44 @@ import {
   type ChatModeDefinition
 } from "./chatModePipeline"
 
+const RAG_ADVANCED_OPTION_KEYS = new Set([
+  "strategy",
+  "enable_reranking",
+  "enable_cache",
+  "top_k",
+  "search_mode",
+  "enable_generation",
+  "enable_citations",
+  "sources",
+  "filters",
+  "rerank_top_k",
+  "include_media_ids",
+  "timeoutMs",
+  "citation_style"
+])
+
+const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
+  if (!options) return {}
+  const sanitized: Record<string, unknown> = {}
+  const ignored: string[] = []
+  for (const [key, value] of Object.entries(options)) {
+    if (!RAG_ADVANCED_OPTION_KEYS.has(key)) {
+      ignored.push(key)
+      continue
+    }
+    if (value === undefined || value === null) continue
+    if (typeof value === "string" && value.trim() === "") continue
+    sanitized[key] = value
+  }
+  if (ignored.length > 0) {
+    console.debug(
+      "[ragMode] Ignoring unsupported ragAdvancedOptions keys:",
+      ignored
+    )
+  }
+  return sanitized
+}
+
 type RagModeParams = {
   selectedModel: string
   useOCR: boolean
@@ -36,6 +74,7 @@ type RagModeParams = {
   ragEnableGeneration: boolean
   ragEnableCitations: boolean
   ragSources: string[]
+  ragAdvancedOptions?: Record<string, unknown>
   actorSettings?: ActorSettings
   clusterId?: string
   userMessageType?: string
@@ -135,16 +174,34 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
         typeof ctx.ragTopK === "number" && ctx.ragTopK > 0
           ? ctx.ragTopK
           : defaultTopK
-      const ragOptions: any = {
-        top_k,
-        search_mode: ctx.ragSearchMode
+      const ragOptions: Record<string, unknown> = sanitizeRagAdvancedOptions(
+        ctx.ragAdvancedOptions
+      )
+      // Precedence: ctx.ragTopK overrides ragOptions.top_k; defaultTopK applies only
+      // when neither is set. ctx.ragSearchMode always overrides ragOptions.search_mode.
+      // ctx.ragEnableGeneration/citations control presence of their flags, even if set.
+      if (typeof ctx.ragTopK === "number" && ctx.ragTopK > 0) {
+        ragOptions.top_k = ctx.ragTopK
+      } else if (
+        ragOptions.top_k == null ||
+        typeof ragOptions.top_k !== "number" ||
+        ragOptions.top_k <= 0
+      ) {
+        ragOptions.top_k = top_k
       }
+      ragOptions.search_mode = ctx.ragSearchMode
       if (ctx.ragEnableGeneration) {
         ragOptions.enable_generation = true
+      } else {
+        delete ragOptions.enable_generation
       }
       if (ctx.ragEnableCitations) {
         ragOptions.enable_citations = true
+      } else {
+        delete ragOptions.enable_citations
       }
+      // Precedence: ctx.ragSources overrides ragAdvancedOptions.sources; ctx.ragMediaIds
+      // overrides include_media_ids and forces sources to ["media_db"].
       if (Array.isArray(ctx.ragSources) && ctx.ragSources.length > 0) {
         ragOptions.sources = ctx.ragSources
       }

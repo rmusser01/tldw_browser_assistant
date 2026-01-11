@@ -31,7 +31,7 @@ import {
   estimateActorTokens
 } from "@/utils/actor"
 import type { Character } from "@/types/character"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import {
   ModelBasicsTab,
   ConversationTab,
@@ -148,10 +148,9 @@ export const CurrentChatModelSettings = ({
     setServerChatVersion
   } = useMessageOption()
 
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter, , selectedCharacterMeta] =
+    useSelectedCharacter<Character | null>(null)
+  const selectedCharacterId = selectedCharacter?.id ?? null
 
   const {
     settings: actorSettings,
@@ -225,7 +224,7 @@ export const CurrentChatModelSettings = ({
         settings: next
       })
     },
-    [actorSettings, cUserSettings, historyId, serverChatId]
+    [actorSettings, cUserSettings, historyId, serverChatId, setActorSettings]
   )
 
   const buildBaseValues = useCallback(
@@ -261,7 +260,7 @@ export const CurrentChatModelSettings = ({
   )
 
   const { isLoading } = useQuery({
-    queryKey: ["fetchModelConfig2", open],
+    queryKey: ["fetchModelConfig2", open, selectedCharacterId],
     queryFn: async () => {
       const data = await getAllModelSettings()
 
@@ -284,7 +283,7 @@ export const CurrentChatModelSettings = ({
         (await getActorSettingsForChatWithCharacterFallback({
           historyId,
           serverChatId,
-          characterId: selectedCharacter?.id ?? null
+          characterId: selectedCharacterId
         }))
       setActorSettings(actor)
 
@@ -311,7 +310,7 @@ export const CurrentChatModelSettings = ({
       setPreviewAndTokens(preview, estimateActorTokens(preview))
       return data
     },
-    enabled: open,
+    enabled: open && !selectedCharacterMeta.isLoading,
     refetchOnMount: false,
     refetchOnWindowFocus: false
   })

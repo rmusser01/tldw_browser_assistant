@@ -120,7 +120,7 @@
   "notes": "Нотатки",
   "upload": {
     "fileTooLargeTitle": "Файл надто великий",
-    "fileTooLargeDescription": "Розмір файлу має бути менше 10 МБ",
+    "fileTooLargeDescription": "Розмір файлу має бути менше {{size}}",
     "uploadFailedTitle": "Не вдалося завантажити",
     "uploadFailedDescription": "Не вдалося завантажити файл. Спробуйте ще раз."
   },

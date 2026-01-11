@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react"
-import { Tooltip, Collapse, Avatar, Modal, message as antdMessage } from "antd"
+import { Tooltip, Collapse, Avatar, Modal, Image, message as antdMessage } from "antd"
 import {
   Check,
   Copy,
@@ -28,6 +28,9 @@ import { decodeChatErrorPayload, type ChatErrorPayload } from "@/utils/chat-erro
 import { highlightText } from "@/utils/text-highlight"
 import { cn } from "@/libs/utils"
 import { translateMessage } from "@/i18n/translateMessage"
+import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import type { Character } from "@/types/character"
 import type { Source, GenerationInfo } from "./types"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
@@ -103,8 +106,11 @@ export function CompactMessage({
   const [editedText, setEditedText] = useState(message)
   const [saveError, setSaveError] = useState<string | null>(null)
   const [showSources, setShowSources] = useState(false)
+  const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = useState(false)
   const { cancel, isSpeaking, speak } = useTTS()
   const uiMode = useUiModeStore((state) => state.mode)
+  const [userDisplayName] = useStorage("chatUserDisplayName", "")
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const isProMode = uiMode === "pro"
   const actionBarVisibility = isProMode
     ? "opacity-100"
@@ -118,9 +124,22 @@ export function CompactMessage({
   }, [message, editMode])
 
   const errorPayload = decodeChatErrorPayload(message)
+  const shouldUseCharacterIdentity =
+    isBot && Boolean(selectedCharacter?.id)
+  const characterAvatar = selectedCharacter?.avatar_url || ""
+  const resolvedModelImage =
+    shouldUseCharacterIdentity && characterAvatar
+      ? characterAvatar
+      : modelImage
+  const resolvedModelName =
+    shouldUseCharacterIdentity && selectedCharacter?.name
+      ? selectedCharacter.name
+      : modelName || name
+  const shouldPreviewAvatar =
+    shouldUseCharacterIdentity && Boolean(characterAvatar)
   const displayName = isBot
-    ? removeModelSuffix(modelName || name)
-    : t("common:you", "You")
+    ? removeModelSuffix(resolvedModelName)
+    : userDisplayName.trim() || t("common:you", "You")
 
   // Parse reasoning blocks
   const parsedContent = useMemo(() => {
@@ -222,8 +241,44 @@ export function CompactMessage({
         {/* Avatar */}
         <div className="shrink-0">
           {isBot ? (
-            modelImage ? (
-              <Avatar src={modelImage} alt={displayName} className="size-6" />
+            resolvedModelImage ? (
+              shouldPreviewAvatar ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setIsAvatarPreviewOpen(true)}
+                    className="rounded-full focus:outline-none focus:ring-2 focus:ring-focus"
+                    aria-label={t("playground:previewCharacterAvatar", {
+                      defaultValue: "Preview character avatar"
+                    }) as string}
+                  >
+                    <Avatar
+                      src={resolvedModelImage}
+                      alt={displayName}
+                      className="size-6"
+                    />
+                  </button>
+                  <Modal
+                    open={isAvatarPreviewOpen}
+                    onCancel={() => setIsAvatarPreviewOpen(false)}
+                    footer={null}
+                    centered
+                  >
+                    <Image
+                      src={resolvedModelImage}
+                      alt={displayName}
+                      preview={false}
+                      className="w-full"
+                    />
+                  </Modal>
+                </>
+              ) : (
+                <Avatar
+                  src={resolvedModelImage}
+                  alt={displayName}
+                  className="size-6"
+                />
+              )
             ) : (
               <div className="size-6 rounded-full bg-gradient-to-r from-green-300 to-purple-400" />
             )

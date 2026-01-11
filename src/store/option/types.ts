@@ -43,6 +43,7 @@ export type MessageVariant = {
 export type Message = {
   isBot: boolean
   name: string
+  role?: "user" | "assistant" | "system"
   message: string
   sources: any[]
   images?: string[]
@@ -79,7 +80,12 @@ export type State = {
     messagesOrUpdater: Message[] | ((prev: Message[]) => Message[])
   ) => void
   history: ChatHistory
-  setHistory: (history: ChatHistory) => void
+  // Accepts either direct ChatHistory or functional update (like React setState)
+  setHistory: (
+    historyOrUpdater:
+      | ChatHistory
+      | ((prev: ChatHistory) => ChatHistory)
+  ) => void
   streaming: boolean
   setStreaming: (streaming: boolean) => void
   isFirstMessage: boolean

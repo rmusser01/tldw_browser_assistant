@@ -120,7 +120,7 @@
   "notes": "കുറിപ്പുകൾ",
   "upload": {
     "fileTooLargeTitle": "ഫയൽ വളരെ വലുതാണ്",
-    "fileTooLargeDescription": "ഫയൽ വലുപ്പം 10MB ൽ താഴെയായിരിക്കണം",
+    "fileTooLargeDescription": "ഫയൽ വലുപ്പം {{size}} ൽ താഴെയായിരിക്കണം",
     "uploadFailedTitle": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു",
     "uploadFailedDescription": "ഫയൽ അപ്‌ലോഡ് ചെയ്യാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക."
   },

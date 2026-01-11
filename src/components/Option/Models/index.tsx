@@ -92,7 +92,9 @@ export const ModelsBody = () => {
                 {refreshing ? (
                   <>
                     <Spin size="small" className="mr-2" />
-                    {t("common:loading", { defaultValue: "Loading…" })}
+                    {t("common:loading.title", {
+                      defaultValue: "Loading..."
+                    })}
                   </>
                 ) : (
                   t("common:refresh", { defaultValue: "Refresh" })

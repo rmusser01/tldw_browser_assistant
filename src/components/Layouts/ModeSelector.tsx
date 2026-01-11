@@ -25,6 +25,7 @@ export type CoreMode =
   | "speech"
   | "promptStudio"
   | "flashcards"
+  | "documentation"
   | "chunkingPlayground"
   | "worldBooks"
   | "dictionaries"
@@ -111,6 +112,11 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
     {
       key: "evaluations",
       label: t("settings:evaluationsSettingsNav", "Evaluations"),
+      shortcut: undefined,
+    },
+    {
+      key: "documentation",
+      label: t("option:header.modeDocumentation", "Documentation"),
       shortcut: undefined,
     },
     {

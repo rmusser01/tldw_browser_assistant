@@ -660,7 +660,9 @@ export function LocalChatList({
             icon={!isFetchingNextPage ? <ChevronDown className="w-4 h-4" /> : undefined}
             className="flex items-center gap-2 text-sm"
           >
-            {isFetchingNextPage ? t("common:loading") : t("common:loadMore")}
+            {isFetchingNextPage
+              ? t("common:loading.title", { defaultValue: "Loading..." })
+              : t("common:loadMore")}
           </Button>
         </div>
       )}

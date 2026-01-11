@@ -10,7 +10,7 @@ import {
   Typography
 } from "antd"
 import { useTranslation } from "react-i18next"
-import { TTSModeSettings } from "@/components/Option/Settings/tts-mode"
+import { TTSModeSettings } from "@/components/Option/Settings/TTSModeSettings"
 import type { getTTSSettings } from "@/services/tts"
 import type {
   TldwTtsProviderCapabilities,

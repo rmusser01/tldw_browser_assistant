@@ -464,6 +464,25 @@ export const setSelectedModel = async (model: string) => {
   await storage.set("selectedModel", model)
 }
 
+export const getDefaultApiProvider = async (): Promise<string | null> => {
+  const provider = await storage.get("defaultApiProvider")
+  if (typeof provider !== "string") return null
+  const trimmed = provider.trim()
+  if (!trimmed || trimmed.toLowerCase() === "auto") return null
+  return trimmed
+}
+
+export const setDefaultApiProvider = async (
+  provider: string | null
+): Promise<void> => {
+  const trimmed = typeof provider === "string" ? provider.trim() : ""
+  if (!trimmed || trimmed.toLowerCase() === "auto") {
+    await storage.remove("defaultApiProvider")
+    return
+  }
+  await storage.set("defaultApiProvider", trimmed)
+}
+
 export const getEmbeddingModels = async () => {
   try {
     const models = await tldwModels.getEmbeddingModels(false)

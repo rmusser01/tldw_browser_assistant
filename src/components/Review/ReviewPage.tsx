@@ -51,6 +51,7 @@ import {
   DISCUSS_MEDIA_PROMPT_SETTING,
   LAST_MEDIA_ID_SETTING
 } from "@/services/settings/ui-settings"
+import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
 const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
 type MediaItem = any
@@ -792,8 +793,14 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     const system = mode === "review" ? reviewSystemPrompt : summarySystemPrompt
     const userPrefix = mode === "review" ? reviewUserPrefix : summaryUserPrefix
     setLastPrompt(system)
+    const modelId = selectedModel || "default"
+    const normalizedModel = modelId.replace(/^tldw:/, "").trim() || modelId
+    const resolvedApiProvider = await resolveApiProviderForModel({
+      modelId
+    })
     const body = {
-      model: selectedModel || "default",
+      model: normalizedModel,
+      ...(resolvedApiProvider ? { api_provider: resolvedApiProvider } : {}),
       stream: false,
       messages: [
         { role: "system", content: system },

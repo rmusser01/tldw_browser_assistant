@@ -1,6 +1,7 @@
 import {
   coerceBoolean,
   coerceOptionalString,
+  coerceNumber,
   coerceString,
   defineSetting
 } from "@/services/settings/registry"
@@ -51,6 +52,16 @@ export const CHAT_BACKGROUND_IMAGE_SETTING = defineSetting(
   "chatBackgroundImage",
   undefined as string | undefined,
   coerceOptionalString
+)
+
+export const CONTEXT_FILE_SIZE_MB_SETTING = defineSetting(
+  "tldw:contextFileMaxSizeMb",
+  10,
+  (value) => coerceNumber(value, 10),
+  {
+    area: "local",
+    validate: (value) => Number.isFinite(value) && value > 0
+  }
 )
 
 const UI_MODE_VALUES = ["sidePanel", "webui"] as const

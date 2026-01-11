@@ -36,6 +36,7 @@ import { ChatHeader } from "./ChatHeader"
 import { openSidepanel } from "@/utils/sidepanel"
 import { useSetting } from "@/hooks/useSetting"
 import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 
 type Props = {
   setOpenModelSettings: (open: boolean) => void
@@ -63,10 +64,7 @@ export const Header: React.FC<Props> = ({
   const [headerShortcutsExpanded, setHeaderShortcutsExpanded] = useSetting(
     HEADER_SHORTCUTS_EXPANDED_SETTING
   )
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const {
     selectedModel,
     setSelectedModel,
@@ -106,6 +104,7 @@ export const Header: React.FC<Props> = ({
   const [isEditingTitle, setIsEditingTitle] = React.useState(false)
 
   const canOpenTimeline = Boolean(historyId) && !temporaryChat && historyId !== "temp"
+  const showTimelineButton = canOpenTimeline && !streaming
 
   const handleOpenTimeline = React.useCallback(() => {
     if (!historyId || temporaryChat || historyId === "temp") return
@@ -155,6 +154,7 @@ export const Header: React.FC<Props> = ({
     ) {
       return "evaluations"
     }
+    if (pathname.startsWith("/documentation")) return "documentation"
     if (pathname.startsWith("/chunking-playground")) return "chunkingPlayground"
     if (
       pathname.startsWith("/speech") ||
@@ -203,6 +203,9 @@ export const Header: React.FC<Props> = ({
         break
       case "evaluations":
         navigate("/evaluations")
+        break
+      case "documentation":
+        navigate("/documentation")
         break
       case "chunkingPlayground":
         navigate("/chunking-playground")
@@ -310,6 +313,8 @@ export const Header: React.FC<Props> = ({
         onOpenShortcutsModal={openShortcutsModal}
         onOpenSettings={() => navigate("/settings/tldw")}
         onClearChat={clearChat}
+        showTimelineButton={showTimelineButton}
+        onOpenTimeline={handleOpenTimeline}
         shortcutsExpanded={headerShortcutsExpanded}
         onToggleShortcuts={toggleHeaderShortcuts}
         commandKeyLabel={cmdKey}

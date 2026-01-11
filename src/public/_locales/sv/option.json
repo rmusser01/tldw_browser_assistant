@@ -336,7 +336,7 @@
     "message": "Filen är för stor"
   },
   "upload_fileTooLargeDescription": {
-    "message": "Filstorleken måste vara under 10 MB"
+    "message": "Filstorleken måste vara under {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Uppladdning misslyckades"

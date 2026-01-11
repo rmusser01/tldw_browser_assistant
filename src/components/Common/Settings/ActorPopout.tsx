@@ -16,7 +16,7 @@ import {
 import { ActorEditor } from "@/components/Common/Settings/ActorEditor"
 import { useActorStore } from "@/store/actor"
 import type { Character } from "@/types/character"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 
 type Props = {
   open: boolean
@@ -26,10 +26,7 @@ type Props = {
 export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
   const { t } = useTranslation(["playground", "common"])
   const { historyId, serverChatId } = useMessageOption()
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [form] = Form.useForm()
   const {
     settings,

@@ -121,7 +121,7 @@
   "notes": "Noter",
   "upload": {
     "fileTooLargeTitle": "Filen er for stor",
-    "fileTooLargeDescription": "Filstørrelsen skal være under 10 MB",
+    "fileTooLargeDescription": "Filstørrelsen skal være under {{size}}",
     "uploadFailedTitle": "Overførsel mislykkedes",
     "uploadFailedDescription": "Kunne ikke uploade filen. Prøv igen."
   },

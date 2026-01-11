@@ -7,6 +7,7 @@ import { bgRequest } from '@/services/background-proxy'
 import { tldwModels } from '@/services/tldw'
 import { ANALYSIS_PRESETS } from "@/components/Media/analysisPresets"
 import { safeStorageSerde } from "@/utils/safe-storage"
+import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
 
 interface AnalysisModalProps {
   open: boolean
@@ -43,6 +44,12 @@ export function AnalysisModal({
       })),
     [t]
   )
+  const selectedModelKey = useMemo(() => {
+    if (!selectedModel) return undefined
+    return selectedModel.startsWith("tldw:")
+      ? selectedModel
+      : `tldw:${selectedModel}`
+  }, [selectedModel])
 
   // Load models from tldw_server
   useEffect(() => {
@@ -51,7 +58,7 @@ export function AnalysisModal({
       try {
         const chatModels = await tldwModels.getChatModels(true)
         const allModels = chatModels.map((m) => ({
-          id: m.id,
+          id: m.id.startsWith("tldw:") ? m.id : `tldw:${m.id}`,
           name: m.name || m.id
         }))
         if (!cancelled) {
@@ -110,7 +117,7 @@ export function AnalysisModal({
     }
 
     const validSelectedModel =
-      selectedModel && models.find((m) => m.id === selectedModel)?.id
+      selectedModelKey && models.find((m) => m.id === selectedModelKey)?.id
     const effectiveModel = validSelectedModel || models[0]?.id
     if (!effectiveModel) {
       message.warning(
@@ -121,6 +128,10 @@ export function AnalysisModal({
       )
       return
     }
+    const normalizedModel = effectiveModel.replace(/^tldw:/, "").trim()
+    const resolvedApiProvider = await resolveApiProviderForModel({
+      modelId: effectiveModel
+    })
 
     setGenerating(true)
     setElapsedSeconds(0)
@@ -130,7 +141,8 @@ export function AnalysisModal({
     }, 1000)
     try {
       const body = {
-        model: effectiveModel,
+        model: normalizedModel || effectiveModel,
+        ...(resolvedApiProvider ? { api_provider: resolvedApiProvider } : {}),
         stream: false,
         messages: [
           { role: 'system', content: systemPrompt },
@@ -239,7 +251,7 @@ export function AnalysisModal({
           <Select
             id="media-analysis-model"
             aria-label={t('mediaPage.model', 'Model')}
-            value={selectedModel}
+            value={selectedModelKey}
             onChange={setSelectedModel}
             className="w-full"
             placeholder={t('mediaPage.selectModel', 'Select a model')}

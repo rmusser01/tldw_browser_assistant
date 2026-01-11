@@ -18,6 +18,12 @@ export const CharactersWorkspace: React.FC = () => {
   const { demoEnabled } = useDemoMode()
   const { capabilities, loading: capsLoading } = useServerCapabilities()
   const hasCharacters = capabilities?.hasCharacters
+  const createRequested = React.useMemo(() => {
+    const params = new URLSearchParams(location.search)
+    const value = params.get("create")
+    if (value == null) return false
+    return value === "" || value === "true" || value === "1"
+  }, [location.search])
   const fromPersistenceError = React.useMemo(
     () => location.search.includes("from=server-chat-persistence-error"),
     [location.search]
@@ -29,7 +35,7 @@ export const CharactersWorkspace: React.FC = () => {
   const newButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
   React.useEffect(() => {
-    if (!fromHeaderSelect) return
+    if (!fromHeaderSelect || createRequested) return
     if (capsLoading || !hasCharacters) return
 
     const id = window.setTimeout(() => {
@@ -37,7 +43,7 @@ export const CharactersWorkspace: React.FC = () => {
     }, 300)
 
     return () => window.clearTimeout(id)
-  }, [fromHeaderSelect, capsLoading, hasCharacters])
+  }, [fromHeaderSelect, capsLoading, hasCharacters, createRequested])
 
   if (!isOnline) {
     return demoEnabled ? (
@@ -180,7 +186,10 @@ export const CharactersWorkspace: React.FC = () => {
         </div>
       )}
       {!capsLoading && hasCharacters && (
-        <CharactersManager forwardedNewButtonRef={newButtonRef} />
+        <CharactersManager
+          forwardedNewButtonRef={newButtonRef}
+          autoOpenCreate={createRequested}
+        />
       )}
     </PageShell>
   )

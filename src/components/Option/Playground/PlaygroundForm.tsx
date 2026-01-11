@@ -46,6 +46,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { useTabMentions } from "~/hooks/useTabMentions"
 import { useFocusShortcuts } from "~/hooks/keyboard"
 import { useDraftPersistence } from "@/hooks/useDraftPersistence"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { MentionsDropdown } from "./MentionsDropdown"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { PASTED_TEXT_CHAR_LIMIT } from "@/utils/constant"
@@ -226,10 +227,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
   const [sttSegEmbeddingsProvider] = useStorage("sttSegEmbeddingsProvider", "")
   const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [serverPersistenceHintSeen, setServerPersistenceHintSeen] = useStorage(
     "serverPersistenceHintSeen",
     false
@@ -619,11 +617,111 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   })
 
+  const [isMessageCollapsed, setIsMessageCollapsed] = React.useState(false)
+  const [hasExpandedLargeText, setHasExpandedLargeText] = React.useState(false)
+  const restoreMessageValue = React.useCallback(
+    (value: string, metadata?: { wasExpanded?: boolean }) => {
+      form.setFieldValue("message", value)
+      if (value.length <= PASTED_TEXT_CHAR_LIMIT) {
+        setIsMessageCollapsed(false)
+        setHasExpandedLargeText(false)
+        return
+      }
+      const wasExpanded = Boolean(metadata?.wasExpanded)
+      setIsMessageCollapsed(!wasExpanded)
+      setHasExpandedLargeText(wasExpanded)
+    },
+    [form.setFieldValue]
+  )
+
+  const buildCollapsedMessageLabel = React.useCallback(
+    (text: string) => {
+      const lineCount = text ? text.split(/\r\n|\r|\n/).length : 0
+      return t(
+        "playground:composer.collapsedMessageLabel",
+        "[{lines, plural, one {# line} other {# lines}}/{chars, plural, one {# char} other {# chars}} in message]",
+        { lines: lineCount, chars: text.length }
+      )
+    },
+    [t]
+  )
+
+  const collapseLargeMessage = React.useCallback(
+    (text: string, options?: { force?: boolean }) => {
+      if (text.length <= PASTED_TEXT_CHAR_LIMIT) return
+      if (!options?.force && hasExpandedLargeText) return
+      setIsMessageCollapsed(true)
+      setHasExpandedLargeText(false)
+    },
+    [hasExpandedLargeText]
+  )
+
+  const expandLargeMessage = React.useCallback(() => {
+    if (!isMessageCollapsed) return
+    setIsMessageCollapsed(false)
+    setHasExpandedLargeText(true)
+    requestAnimationFrame(() => {
+      const el = textareaRef.current
+      if (!el) return
+      const caret = el.value.length
+      el.focus()
+      el.setSelectionRange(caret, caret)
+    })
+  }, [isMessageCollapsed, textareaRef])
+
+  const setMessageValue = React.useCallback(
+    (
+      nextValue: string,
+      options?: { collapseLarge?: boolean; forceCollapse?: boolean }
+    ) => {
+      form.setFieldValue("message", nextValue)
+      if (options?.collapseLarge) {
+        collapseLargeMessage(nextValue, { force: options?.forceCollapse })
+      }
+    },
+    [collapseLargeMessage, form.setFieldValue]
+  )
+
+  const messageDisplayValue = React.useMemo(
+    () => {
+      const message = form.values.message || ""
+      if (!message) return ""
+      return isMessageCollapsed
+        ? buildCollapsedMessageLabel(message)
+        : message
+    },
+    [buildCollapsedMessageLabel, form.values.message, isMessageCollapsed]
+  )
+
+  React.useEffect(() => {
+    if (!form.values.message) {
+      if (isMessageCollapsed) {
+        setIsMessageCollapsed(false)
+      }
+      if (hasExpandedLargeText) {
+        setHasExpandedLargeText(false)
+      }
+      return
+    }
+
+    if (form.values.message.length <= PASTED_TEXT_CHAR_LIMIT) {
+      if (isMessageCollapsed) {
+        setIsMessageCollapsed(false)
+      }
+      if (hasExpandedLargeText) {
+        setHasExpandedLargeText(false)
+      }
+      return
+    }
+  }, [form.values.message, hasExpandedLargeText, isMessageCollapsed])
+
   // Draft persistence - saves/restores message draft to local-only storage
   const { draftSaved } = useDraftPersistence({
     storageKey: "tldw:playgroundChatDraft",
     getValue: () => form.values.message,
-    setValue: (value) => form.setFieldValue("message", value)
+    getMetadata: () => ({ wasExpanded: hasExpandedLargeText }),
+    setValue: (value) => restoreMessageValue(value),
+    setValueWithMetadata: restoreMessageValue
   })
 
   const numberFormatter = React.useMemo(() => new Intl.NumberFormat(), [])
@@ -804,13 +902,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       void clearSetting(DISCUSS_MEDIA_PROMPT_SETTING)
       const hint = buildDiscussMediaHint(payload)
       if (!hint) return
-      form.setFieldValue("message", hint)
+      setMessageValue(hint, { collapseLarge: true, forceCollapse: true })
       textAreaFocus()
     })()
     return () => {
       cancelled = true
     }
-  }, [form, textAreaFocus])
+  }, [setMessageValue, textAreaFocus])
 
   React.useEffect(() => {
     const handler = (event: Event) => {
@@ -818,14 +916,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       if (!detail) return
       const hint = buildDiscussMediaHint(detail || {})
       if (!hint) return
-      form.setFieldValue("message", hint)
+      setMessageValue(hint, { collapseLarge: true, forceCollapse: true })
       textAreaFocus()
     }
     window.addEventListener("tldw:discuss-media", handler as any)
     return () => {
       window.removeEventListener("tldw:discuss-media", handler as any)
     }
-  }, [form, textAreaFocus])
+  }, [setMessageValue, textAreaFocus])
 
   React.useEffect(() => {
     textAreaFocus()
@@ -900,29 +998,72 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     },
     [form, handleFileUpload, onFileInputChange, otherUnsupportedTypes, toBase64]
   )
-  const handlePaste = async (e: React.ClipboardEvent) => {
-    if (e.clipboardData.files.length > 0) {
-      onInputChange(e.clipboardData.files[0])
-      return
-    }
+  const handlePaste = React.useCallback(
+    async (e: React.ClipboardEvent) => {
+      if (e.clipboardData.files.length > 0) {
+        onInputChange(e.clipboardData.files[0])
+        return
+      }
 
-    const pastedText = e.clipboardData.getData("text/plain")
+      const pastedText = e.clipboardData.getData("text/plain")
+      if (!pastedText) return
 
-    if (
-      pasteLargeTextAsFile &&
-      pastedText &&
-      pastedText.length > PASTED_TEXT_CHAR_LIMIT
-    ) {
-      e.preventDefault()
-      const blob = new Blob([pastedText], { type: "text/plain" })
-      const file = new File([blob], `pasted-text-${Date.now()}.txt`, {
-        type: "text/plain"
-      })
+      if (
+        pasteLargeTextAsFile &&
+        pastedText.length > PASTED_TEXT_CHAR_LIMIT
+      ) {
+        e.preventDefault()
+        const blob = new Blob([pastedText], { type: "text/plain" })
+        const file = new File([blob], `pasted-text-${Date.now()}.txt`, {
+          type: "text/plain"
+        })
 
-      await handleFileUpload(file)
-      return
-    }
-  }
+        await handleFileUpload(file)
+        return
+      }
+
+      if (isMessageCollapsed) {
+        e.preventDefault()
+        const currentValue = form.values.message || ""
+        const nextValue =
+          currentValue.length > 0
+            ? `${currentValue}\n${pastedText}`
+            : pastedText
+        setMessageValue(nextValue, {
+          collapseLarge: true,
+          forceCollapse: true
+        })
+        return
+      }
+
+      const currentValue = form.values.message || ""
+      const textarea = textareaRef.current
+      const selectionStart = textarea?.selectionStart ?? currentValue.length
+      const selectionEnd = textarea?.selectionEnd ?? selectionStart
+      const nextValue =
+        currentValue.slice(0, selectionStart) +
+        pastedText +
+        currentValue.slice(selectionEnd)
+
+      if (
+        nextValue.length > PASTED_TEXT_CHAR_LIMIT &&
+        !hasExpandedLargeText
+      ) {
+        e.preventDefault()
+        setMessageValue(nextValue, { collapseLarge: true })
+      }
+    },
+    [
+      form.values.message,
+      handleFileUpload,
+      hasExpandedLargeText,
+      isMessageCollapsed,
+      onInputChange,
+      pasteLargeTextAsFile,
+      setMessageValue,
+      textareaRef
+    ]
+  )
   React.useEffect(() => {
     if (dropedFile) {
       onInputChange(dropedFile)
@@ -938,7 +1079,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   // Match sidepanel textarea sizing: Pro mode gets more space
   const textareaMaxHeight = isProMode ? 160 : 120
-  useDynamicTextareaSize(textareaRef, form.values.message, textareaMaxHeight)
+  useDynamicTextareaSize(textareaRef, messageDisplayValue, textareaMaxHeight)
 
   const {
     transcript,
@@ -977,7 +1118,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
     const applyOverwrite = () => {
       const word = getVariable(promptText)
-      form.setFieldValue("message", promptText)
+      setMessageValue(promptText, { collapseLarge: true })
       if (word) {
         textareaRef.current?.focus()
         const interval = setTimeout(() => {
@@ -997,7 +1138,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         currentMessage.trim().length > 0
           ? `${currentMessage}\n\n${promptText}`
           : promptText
-      form.setFieldValue("message", next)
+      setMessageValue(next, { collapseLarge: true })
       setSelectedQuickPrompt(null)
     }
 
@@ -1423,13 +1564,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     history,
     invalidateServerChatHistory,
     isConnectionReady,
+    selectedCharacter,
     temporaryChat,
     serverChatId,
     setServerChatId,
     navigate,
     serverPersistenceHintSeen,
     setServerPersistenceHintSeen,
-    t
+    t,
+    serverChatState,
+    serverChatSource,
+    setServerChatState,
+    setServerChatSource,
+    setServerChatVersion
   ])
 
   React.useEffect(() => {
@@ -2060,6 +2207,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isMessageCollapsed && (e.key === "Backspace" || e.key === "Delete")) {
+      e.preventDefault()
+      form.setFieldValue("message", "")
+      setIsMessageCollapsed(false)
+      setHasExpandedLargeText(false)
+      return
+    }
+
     if (!isFirefoxTarget) {
       if (e.key === "Process" || e.key === "229") return
     }
@@ -2640,13 +2795,16 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               onInsert={(text) => {
                                 const current = form.values.message || ""
                                 const next = current ? `${current}\n\n${text}` : text
-                                form.setFieldValue("message", next)
+                                setMessageValue(next, { collapseLarge: true })
                                 textAreaFocus()
                               }}
                               onAsk={(text) => {
                                 const trimmed = text.trim()
                                 if (!trimmed) return
-                                form.setFieldValue("message", text)
+                                setMessageValue(text, {
+                                  collapseLarge: true,
+                                  forceCollapse: true
+                                })
                                 setTimeout(() => submitForm(), 0)
                               }}
                               isConnected={isConnectionReady}
@@ -2922,9 +3080,24 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             }
                           }}
                           onKeyDown={(e) => {
+                            if (
+                              isMessageCollapsed &&
+                              (e.key === "Enter" ||
+                                e.key === " " ||
+                                e.key === "Spacebar")
+                            ) {
+                              e.preventDefault()
+                              expandLargeMessage()
+                              return
+                            }
                             handleKeyDown(e)
                           }}
                           onFocus={handleDisconnectedFocus}
+                          onClick={() => {
+                            if (isMessageCollapsed) {
+                              expandLargeMessage()
+                            }
+                          }}
                           ref={textareaRef}
                           className={`w-full resize-none bg-transparent text-base leading-6 text-text placeholder:text-text-muted/80 focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0 ${
                             !isConnectionReady
@@ -2932,6 +3105,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               : ""
                           } ${isProMode ? "px-3 py-2.5" : "px-3 py-2"}`}
                           onPaste={handlePaste}
+                          readOnly={isMessageCollapsed}
+                          aria-expanded={!isMessageCollapsed}
                           rows={1}
                           style={{ minHeight: isProMode ? "60px" : "44px" }}
                           tabIndex={0}
@@ -2944,7 +3119,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 )
                           }
                           {...form.getInputProps("message")}
+                          value={messageDisplayValue}
                           onChange={(e) => {
+                            if (isMessageCollapsed) return
                             form.getInputProps("message").onChange(e)
                             if (tabMentionsEnabled && textareaRef.current) {
                               handleTextChange(
@@ -2954,6 +3131,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             }
                           }}
                           onSelect={() => {
+                            if (isMessageCollapsed) return
                             if (tabMentionsEnabled && textareaRef.current) {
                               handleTextChange(
                                 textareaRef.current.value,

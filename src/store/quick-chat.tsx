@@ -22,19 +22,27 @@ type QuickChatStore = {
   isStreaming: boolean
   setIsStreaming: (streaming: boolean) => void
 
+  // Model override for quick chat
+  modelOverride: string | null
+  setModelOverride: (model: string | null) => void
+
   // Pop-out window reference
   popoutWindow: Window | null
   setPopoutWindow: (win: Window | null) => void
 
   // For state transfer to pop-out
-  getSerializableState: () => { messages: QuickChatMessage[] }
-  restoreFromState: (state: { messages: QuickChatMessage[] }) => void
+  getSerializableState: () => { messages: QuickChatMessage[]; modelOverride: string | null }
+  restoreFromState: (state: {
+    messages: QuickChatMessage[]
+    modelOverride?: string | null
+  }) => void
 }
 
 export const useQuickChatStore = create<QuickChatStore>((set, get) => ({
   isOpen: false,
   messages: [],
   isStreaming: false,
+  modelOverride: null,
   popoutWindow: null,
 
   setIsOpen: (open) => {
@@ -79,6 +87,10 @@ export const useQuickChatStore = create<QuickChatStore>((set, get) => ({
     set({ isStreaming: streaming })
   },
 
+  setModelOverride: (model) => {
+    set({ modelOverride: model })
+  },
+
   setPopoutWindow: (win) => {
     set({ popoutWindow: win })
   },
@@ -86,13 +98,15 @@ export const useQuickChatStore = create<QuickChatStore>((set, get) => ({
   getSerializableState: () => {
     const state = get()
     return {
-      messages: state.messages
+      messages: state.messages,
+      modelOverride: state.modelOverride
     }
   },
 
   restoreFromState: (restoredState) => {
     set({
-      messages: restoredState.messages || []
+      messages: restoredState.messages || [],
+      modelOverride: restoredState.modelOverride ?? null
     })
   }
 }))

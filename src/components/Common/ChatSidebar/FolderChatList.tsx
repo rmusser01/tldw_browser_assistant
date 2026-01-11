@@ -19,6 +19,8 @@ interface FolderChatListProps {
   className?: string
 }
 
+const MISSING_CHAT_BATCH_SIZE = 5
+
 export function FolderChatList({ className }: FolderChatListProps) {
   const { t } = useTranslation(["common"])
   const { isConnected } = useConnectionState()
@@ -76,23 +78,41 @@ export function FolderChatList({ className }: FolderChatListProps) {
   const { data: missingFolderChats = [], isLoading: isMissingChatsLoading } = useQuery({
     queryKey: ["folderConversationMissingChats", missingFolderConversationIds],
     queryFn: async () => {
-      await tldwClient.initialize().catch(() => null)
+      try {
+        await tldwClient.initialize()
+      } catch (error) {
+        console.error("Failed to initialize tldw client for folder chats:", error)
+        throw error
+      }
+
       // No batch chat lookup endpoint yet; fetch missing chats in parallel and cache.
-      const results = await Promise.all(
-        missingFolderConversationIds.map(async (conversationId) => {
-          try {
-            return await tldwClient.getChat(conversationId)
-          } catch (error) {
-            console.error(
-              "Failed to load server chat info for folder conversation:",
-              conversationId,
-              error
-            )
-            return null
-          }
-        })
-      )
-      return results.filter(Boolean) as ServerChatSummary[]
+      const results: ServerChatSummary[] = []
+      for (
+        let index = 0;
+        index < missingFolderConversationIds.length;
+        index += MISSING_CHAT_BATCH_SIZE
+      ) {
+        const batch = missingFolderConversationIds.slice(
+          index,
+          index + MISSING_CHAT_BATCH_SIZE
+        )
+        const batchResults = await Promise.all(
+          batch.map(async (conversationId) => {
+            try {
+              return await tldwClient.getChat(conversationId)
+            } catch (error) {
+              console.error(
+                "Failed to load server chat info for folder conversation:",
+                conversationId,
+                error
+              )
+              return null
+            }
+          })
+        )
+        results.push(...(batchResults.filter(Boolean) as ServerChatSummary[]))
+      }
+      return results
     },
     enabled: isConnected && missingFolderConversationIds.length > 0,
     staleTime: 60_000
@@ -136,7 +156,7 @@ export function FolderChatList({ className }: FolderChatListProps) {
       }
 
       try {
-        await tldwClient.initialize().catch(() => null)
+        await tldwClient.initialize()
         const chat = await tldwClient.getChat(conversationId)
         selectServerChat(chat)
       } catch (error) {
@@ -157,7 +177,7 @@ export function FolderChatList({ className }: FolderChatListProps) {
 
   const handleCreateFolder = async () => {
     const trimmedName = newFolderName.trim()
-    if (!trimmedName) return
+    if (!trimmedName || isCreating) return
 
     setIsCreating(true)
     try {

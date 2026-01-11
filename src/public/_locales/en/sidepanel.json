@@ -409,5 +409,74 @@
   },
   "characterSelect_importCharacter": {
     "message": "Import Character"
+  },
+  "multiSelect_enter": {
+    "message": "Select chats"
+  },
+  "multiSelect_exit": {
+    "message": "Exit selection"
+  },
+  "multiSelect_toggle": {
+    "message": "Toggle selection"
+  },
+  "multiSelect_count": {
+    "message": "{{count}} selected"
+  },
+  "multiSelect_selectAll": {
+    "message": "Select all"
+  },
+  "multiSelect_clear": {
+    "message": "Clear"
+  },
+  "multiSelect_addToFolder": {
+    "message": "Add to folders"
+  },
+  "multiSelect_addTags": {
+    "message": "Add tags"
+  },
+  "multiSelect_folderApplySuccess": {
+    "message": "Folders applied to selected chats."
+  },
+  "multiSelect_folderApplyError": {
+    "message": "Some chats could not be added to folders."
+  },
+  "multiSelect_tagsApplySuccess": {
+    "message": "Tags applied to selected chats."
+  },
+  "multiSelect_tagsApplyError": {
+    "message": "Some chats could not be tagged."
+  },
+  "multiSelect_tagsUnavailable": {
+    "message": "Tags are not available on this server"
+  },
+  "multiSelect_tagsHint": {
+    "message": "Add tags to the selected chats."
+  },
+  "multiSelect_tagsPlaceholder": {
+    "message": "Add tags..."
+  },
+  "multiSelect_serverOnlyWarning": {
+    "message": "Select chats saved on the server to apply this action."
+  },
+  "multiSelect_deleteConfirmTitle": {
+    "message": "Move chats to trash?"
+  },
+  "multiSelect_deleteConfirmBody": {
+    "message": "This will hide the selected chats by tagging them as Trash."
+  },
+  "multiSelect_deleteConfirmOk": {
+    "message": "Move to trash"
+  },
+  "multiSelect_deleteFailed": {
+    "message": "Unable to move chats to trash."
+  },
+  "multiSelect_deletePartial": {
+    "message": "Some chats could not be moved to trash."
+  },
+  "multiSelect_deleteSuccess": {
+    "message": "Chats moved to trash."
+  },
+  "multiSelect_localOnlyClosed": {
+    "message": "{{count}} local chat(s) were closed."
   }
 }

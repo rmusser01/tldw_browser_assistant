@@ -77,6 +77,7 @@ export type ConversationStatus =
 export type SidepanelChatTab = {
   id: string
   label: string
+  labelSource?: "auto" | "manual"
   historyId: string | null
   serverChatId: string | null
   serverChatTopic: string | null
@@ -154,7 +155,9 @@ export const useSidepanelChatTabsStore = create<State>((set, get) => ({
   renameTab: (id, label) =>
     set((state) => ({
       tabs: state.tabs.map((tab) =>
-        tab.id === id ? { ...tab, label, updatedAt: Date.now() } : tab
+        tab.id === id
+          ? { ...tab, label, labelSource: "manual", updatedAt: Date.now() }
+          : tab
       )
     })),
   setStatus: (id, status) =>

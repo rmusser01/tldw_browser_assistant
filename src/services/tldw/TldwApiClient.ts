@@ -1116,19 +1116,27 @@ export class TldwApiClient {
     })
   }
 
-  async importCharacterFile(file: File): Promise<any> {
-    const data = await file.arrayBuffer()
+  async importCharacterFile(
+    file: File,
+    options?: { allowImageOnly?: boolean }
+  ): Promise<any> {
+    const buffer = await file.arrayBuffer()
+    const data = Array.from(new Uint8Array(buffer))
     const name = file.name || "character-card"
     const type = file.type || "application/octet-stream"
     const path = await this.resolveApiPath("characters.import", [
       "/api/v1/characters/import",
       "/api/v1/characters/import/"
     ])
+    const fields = options?.allowImageOnly
+      ? { allow_image_only: true }
+      : undefined
     return await this.upload<any>({
       path,
       method: "POST",
       fileFieldName: "character_file",
-      file: { name, type, data }
+      file: { name, type, data },
+      fields
     })
   }
 
@@ -1284,6 +1292,13 @@ export class TldwApiClient {
   }
 
   // Chats API (resource-based)
+  async listChatCommands(): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/chat/commands",
+      method: "GET"
+    })
+  }
+
   async listChats(params?: Record<string, any>): Promise<ServerChatSummary[]> {
     const query = this.buildQuery(params)
     const data = await bgRequest<any>({
@@ -1912,6 +1927,7 @@ export class TldwApiClient {
       import_media?: boolean
       import_embeddings?: boolean
       async_mode?: boolean
+      content_selections?: Record<string, string[]>
     }
   ): Promise<any> {
     const data = await file.arrayBuffer()

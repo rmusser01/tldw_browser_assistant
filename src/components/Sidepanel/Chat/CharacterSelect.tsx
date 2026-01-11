@@ -8,16 +8,18 @@ import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useStorage } from "@plasmohq/storage/hook"
+import { browser } from "wxt/browser"
+import { collectGreetings, pickGreeting } from "@/utils/character-greetings"
 import { IconButton } from "@/components/Common/IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
-
-type Character = {
-  id: string | number
-  name: string
-  description?: string
-  avatar_url?: string
-  tags?: string[]
-}
+import { useAntdModal } from "@/hooks/useAntdModal"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useStoreMessageOption } from "@/store/option"
+import type {
+  Character as StoredCharacter,
+  CharacterApiResponse
+} from "@/types/character"
 
 type Props = {
   selectedCharacterId: string | null
@@ -25,6 +27,13 @@ type Props = {
   className?: string
   iconClassName?: string
 }
+
+type ImportCharacterResponse = {
+  character?: CharacterApiResponse
+  message?: string
+  character_id?: string | number
+  characterId?: string | number
+} & Partial<CharacterApiResponse>
 
 export const CharacterSelect: React.FC<Props> = ({
   selectedCharacterId,
@@ -34,29 +43,60 @@ export const CharacterSelect: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(["sidepanel", "common", "settings"])
   const notification = useAntdNotification()
+  const modal = useAntdModal()
   const [menuDensity] = useStorage("menuDensity", "comfortable")
+  const [, setSelectedCharacter] =
+    useSelectedCharacter<StoredCharacter | null>(null)
+  const clearChat = useClearChat()
+  const messages = useStoreMessageOption((state) => state.messages)
+  const [userDisplayName, setUserDisplayName] = useStorage(
+    "chatUserDisplayName",
+    ""
+  )
   const [searchText, setSearchText] = useState("")
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isImporting, setIsImporting] = useState(false)
   const searchInputRef = useRef<InputRef | null>(null)
   const importInputRef = useRef<HTMLInputElement | null>(null)
+  const imageOnlyModalRef = useRef<{ destroy: () => void } | null>(null)
+  const imageOnlyModalResolveRef = useRef<((value: boolean) => void) | null>(
+    null
+  )
   const { capabilities } = useServerCapabilities()
 
   const hasCharacters = capabilities?.hasCharacters
 
-  const { data: characters = [], isLoading, refetch } = useQuery({
+  const destroyImageOnlyModal = React.useCallback(() => {
+    if (!imageOnlyModalRef.current) return
+    imageOnlyModalRef.current.destroy()
+    imageOnlyModalRef.current = null
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (imageOnlyModalResolveRef.current) {
+        imageOnlyModalResolveRef.current(false)
+        imageOnlyModalResolveRef.current = null
+      }
+      destroyImageOnlyModal()
+    }
+  }, [destroyImageOnlyModal])
+
+  const { data: characters = [], isLoading, refetch } = useQuery<
+    CharacterApiResponse[]
+  >({
     queryKey: ["characters-list"],
     queryFn: async () => {
       await tldwClient.initialize().catch(() => null)
       const result = await tldwClient.listCharacters({ limit: 100 })
-      return result as Character[]
+      return result as CharacterApiResponse[]
     },
     enabled: !!hasCharacters,
     staleTime: 5 * 60 * 1000 // 5 minutes
   })
 
   // Filter characters based on search
-  const filteredCharacters = useMemo<Character[]>(() => {
+  const filteredCharacters = useMemo<CharacterApiResponse[]>(() => {
     if (!characters) return []
     if (!searchText.trim()) return characters
     const q = searchText.toLowerCase()
@@ -74,11 +114,162 @@ export const CharacterSelect: React.FC<Props> = ({
       (char) => String(char.id) === String(selectedCharacterId)
     )
   }, [characters, selectedCharacterId])
+  const hasActiveChat = useMemo(
+    () =>
+      messages.some(
+        (message) => message.messageType !== "character:greeting"
+      ),
+    [messages]
+  )
+  const trimmedDisplayName = userDisplayName.trim()
 
-  const handleSelect = (id: string | null) => {
-    setSelectedCharacterId(id)
-    setDropdownOpen(false)
-  }
+  const buildStoredCharacter = React.useCallback(
+    (character: Partial<CharacterApiResponse>): StoredCharacter | null => {
+      const id = character?.id
+      const name = character?.name
+      if (!id || !name) return null
+      const avatar =
+        character.avatar_url ||
+        (character.image_base64
+          ? `data:${character.image_mime || "image/png"};base64,${
+              character.image_base64
+            }`
+          : undefined)
+      return {
+        id: String(id),
+        name,
+        avatar_url: avatar ?? null,
+        tags: character.tags,
+        greeting: pickGreeting(collectGreetings(character)) || null
+      }
+    },
+    [collectGreetings, pickGreeting]
+  )
+
+  const confirmCharacterSwitch = React.useCallback(
+    (nextName?: string) =>
+      new Promise<boolean>((resolve) => {
+        modal.confirm({
+          title: t("sidepanel:characterSelect.switchConfirmTitle", {
+            defaultValue: "Switch character?"
+          }),
+          content: t("sidepanel:characterSelect.switchConfirmBody", {
+            defaultValue: nextName
+              ? "Switching to {{name}} will clear the current chat. Continue?"
+              : "Changing the character will clear the current chat. Continue?",
+            name: nextName
+          }),
+          okText: t("sidepanel:characterSelect.switchConfirmOk", {
+            defaultValue: "Clear chat & switch"
+          }),
+          cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+          centered: true,
+          okButtonProps: { danger: true },
+          onOk: () => resolve(true),
+          onCancel: () => resolve(false)
+        })
+      }),
+    [modal, t]
+  )
+
+  const openDisplayNameModal = React.useCallback(() => {
+    let nextValue = trimmedDisplayName
+    modal.confirm({
+      title: t("sidepanel:characterSelect.displayNameTitle", {
+        defaultValue: "Set your name"
+      }),
+      content: (
+        <div className="space-y-2">
+          <Input
+            autoFocus
+            defaultValue={trimmedDisplayName}
+            placeholder={t("sidepanel:characterSelect.displayNamePlaceholder", {
+              defaultValue: "Enter a display name"
+            }) as string}
+            onChange={(event) => {
+              nextValue = event.target.value
+            }}
+          />
+          <div className="text-xs text-text-muted">
+            {t("sidepanel:characterSelect.displayNameHelp", {
+              defaultValue: "Used to replace {{user}} and similar placeholders."
+            })}
+          </div>
+        </div>
+      ),
+      okText: t("sidepanel:characterSelect.displayNameSave", {
+        defaultValue: "Save"
+      }),
+      cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+      centered: true,
+      onOk: () => {
+        setUserDisplayName(nextValue.trim())
+      }
+    })
+  }, [modal, setUserDisplayName, t, trimmedDisplayName])
+
+  const applySelection = React.useCallback(
+    async (nextId: string | null, stored: StoredCharacter | null) => {
+      const currentId = selectedCharacterId ?? null
+      if (nextId === currentId) {
+        setDropdownOpen(false)
+        return
+      }
+
+      if (hasActiveChat) {
+        const confirmed = await confirmCharacterSwitch(stored?.name)
+        if (!confirmed) return
+        clearChat()
+      }
+
+      setSelectedCharacterId(nextId)
+      if (!nextId) {
+        setSelectedCharacter(null)
+        setDropdownOpen(false)
+        return
+      }
+
+      if (stored) {
+        setSelectedCharacter(stored)
+      }
+      setDropdownOpen(false)
+
+      if (stored?.greeting) return
+
+      void tldwClient
+        .initialize()
+        .catch(() => null)
+        .then(() => tldwClient.getCharacter(nextId))
+        .then((full) => {
+          const hydrated = buildStoredCharacter(full || {})
+          if (hydrated?.id === String(nextId) && hydrated.greeting) {
+            setSelectedCharacter(hydrated)
+          }
+        })
+        .catch((error) => {
+          console.warn("Failed to hydrate character greeting:", error)
+        })
+    },
+    [
+      clearChat,
+      confirmCharacterSwitch,
+      hasActiveChat,
+      selectedCharacterId,
+      setSelectedCharacter,
+      setSelectedCharacterId
+    ]
+  )
+
+  const handleSelect = React.useCallback(
+    (id: string | null) => {
+      const selected = id
+        ? characters?.find((char) => String(char.id) === String(id))
+        : null
+      const stored = selected ? buildStoredCharacter(selected) : null
+      void applySelection(id, stored)
+    },
+    [applySelection, buildStoredCharacter, characters]
+  )
 
   const handleImportClick = () => {
     if (isImporting) return
@@ -94,21 +285,61 @@ export const CharacterSelect: React.FC<Props> = ({
     const file = event.target.files?.[0]
     if (!file) return
 
-    try {
-      setIsImporting(true)
-      await tldwClient.initialize().catch(() => null)
-      let selectedPayload: Record<string, any> | null = null
-      let successDetail: string | undefined
-      const imported = await tldwClient.importCharacterFile(file)
+    const getImageOnlyDetail = (error: unknown) => {
+      const details = (error as { details?: any })?.details
+      const detail = details?.detail ?? details
+      if (detail?.code === "missing_character_data") return detail
+      return null
+    }
+
+    const confirmImageOnlyImport = (message?: string) =>
+      new Promise<boolean>((resolve) => {
+        let settled = false
+        const finish = (value: boolean) => {
+          if (settled) return
+          settled = true
+          resolve(value)
+        }
+        imageOnlyModalResolveRef.current = finish
+        imageOnlyModalRef.current = modal.confirm({
+          title: t("settings:manageCharacters.imageOnlyTitle", {
+            defaultValue: "No character data detected"
+          }),
+          content:
+            message ||
+            t("settings:manageCharacters.imageOnlyBody", {
+              defaultValue:
+                "No character data was found in the image metadata. Import this image as a character anyway?"
+            }),
+          okText: t("settings:manageCharacters.imageOnlyConfirm", {
+            defaultValue: "Import image-only"
+          }),
+          cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+          centered: true,
+          okButtonProps: { danger: false },
+          maskClosable: false,
+          onOk: () => finish(true),
+          onCancel: () => finish(false)
+        })
+      }).finally(() => {
+        imageOnlyModalResolveRef.current = null
+        destroyImageOnlyModal()
+      })
+
+    const importCharacter = async (allowImageOnly = false) =>
+      await tldwClient.importCharacterFile(file, {
+        allowImageOnly
+      })
+    const handleImportSuccess = (imported: ImportCharacterResponse) => {
       const importedCharacter =
         imported?.character ??
         (imported?.id && imported?.name
           ? { id: imported.id, name: imported.name }
           : imported)
-      selectedPayload = importedCharacter
-      if (typeof imported?.message === "string" && imported.message.trim()) {
-        successDetail = imported.message
-      }
+      const successDetail =
+        typeof imported?.message === "string" && imported.message.trim()
+          ? imported.message
+          : undefined
       notification.success({
         message: t("settings:manageCharacters.notification.addSuccess", {
           defaultValue: "Character created"
@@ -116,14 +347,59 @@ export const CharacterSelect: React.FC<Props> = ({
         description: successDetail
       })
       refetch({ cancelRefetch: true })
-      const createdId =
-        selectedPayload?.id ??
-        selectedPayload?.character_id ??
-        selectedPayload?.characterId
+      const createdId = (() => {
+        if (!importedCharacter || typeof importedCharacter !== "object") {
+          return null
+        }
+        const candidate = importedCharacter as Record<string, unknown>
+        const resolveId = (value: unknown) =>
+          typeof value === "string" || typeof value === "number"
+            ? value
+            : null
+        return (
+          resolveId(candidate.id) ??
+          resolveId(candidate.character_id) ??
+          resolveId(candidate.characterId)
+        )
+      })()
       if (createdId != null) {
-        setSelectedCharacterId(String(createdId))
+        const stored = buildStoredCharacter(importedCharacter ?? {})
+        void applySelection(String(createdId), stored)
       }
+    }
+
+    try {
+      setIsImporting(true)
+      await tldwClient.initialize().catch(() => null)
+      const imported = await importCharacter()
+      handleImportSuccess(imported)
     } catch (error) {
+      const imageOnlyDetail = getImageOnlyDetail(error)
+      if (imageOnlyDetail) {
+        const confirmed = await confirmImageOnlyImport(
+          imageOnlyDetail?.message
+        )
+        if (confirmed) {
+          try {
+            const imported = await importCharacter(true)
+            handleImportSuccess(imported)
+          } catch (retryError) {
+            const messageText =
+              retryError instanceof Error ? retryError.message : String(retryError)
+            notification.error({
+              message: t("settings:manageCharacters.notification.error", {
+                defaultValue: "Error"
+              }),
+              description:
+                messageText ||
+                t("settings:manageCharacters.notification.someError", {
+                  defaultValue: "Something went wrong. Please try again later"
+                })
+            })
+          }
+        }
+        return
+      }
       const messageText =
         error instanceof Error ? error.message : String(error)
       notification.error({
@@ -142,11 +418,19 @@ export const CharacterSelect: React.FC<Props> = ({
     }
   }
 
-  const openCharactersWorkspace = React.useCallback(() => {
+  const buildCharactersHash = React.useCallback((create?: boolean) => {
+    const params = new URLSearchParams({ from: "sidepanel-character-select" })
+    if (create) {
+      params.set("create", "true")
+    }
+    return `#/characters?${params.toString()}`
+  }, [])
+
+  const openCharactersWorkspace = React.useCallback((options?: { create?: boolean }) => {
+    const hash = buildCharactersHash(options?.create)
     try {
       if (typeof window === "undefined") return
 
-      const hash = "#/characters?from=sidepanel-character-select"
       const url = browser.runtime.getURL(`/options.html${hash}`)
 
       if (browser.tabs?.create) {
@@ -159,33 +443,33 @@ export const CharacterSelect: React.FC<Props> = ({
       // fall back to window.open below
     }
 
-    window.open(
-      "/options.html#/characters?from=sidepanel-character-select",
-      "_blank"
-    )
-  }, [])
+    window.open(`/options.html${hash}`, "_blank")
+  }, [buildCharactersHash])
 
-  const createCharacterItem = (char: Character): MenuItemType => ({
-    key: String(char.id),
-    label: (
-      <div className="w-56 py-0.5 flex items-center gap-2">
-        {char.avatar_url ? (
-          <Avatar src={char.avatar_url} size="small" />
-        ) : (
-          <Avatar size="small" icon={<User2 className="size-3" />} />
-        )}
-        <div className="flex-1 min-w-0">
-          <div className="truncate font-medium">{char.name}</div>
-          {char.description && (
-            <p className="text-xs text-text-subtle line-clamp-1">
-              {char.description}
-            </p>
+  const createCharacterItem = React.useCallback(
+    (char: CharacterApiResponse): MenuItemType => ({
+      key: String(char.id),
+      label: (
+        <div className="w-56 py-0.5 flex items-center gap-2">
+          {char.avatar_url ? (
+            <Avatar src={char.avatar_url} size="small" />
+          ) : (
+            <Avatar size="small" icon={<User2 className="size-3" />} />
           )}
+          <div className="flex-1 min-w-0">
+            <div className="truncate font-medium">{char.name}</div>
+            {char.description && (
+              <p className="text-xs text-text-subtle line-clamp-1">
+                {char.description}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
-    ),
-    onClick: () => handleSelect(String(char.id))
-  })
+      ),
+      onClick: () => handleSelect(String(char.id))
+    }),
+    [handleSelect]
+  )
 
   const menuItems = useMemo<ItemType[]>(() => {
     const createLabel = t(
@@ -205,7 +489,7 @@ export const CharacterSelect: React.FC<Props> = ({
       ),
       onClick: () => {
         setDropdownOpen(false)
-        openCharactersWorkspace()
+        openCharactersWorkspace({ create: true })
       }
     }
     const importItem: ItemType = {
@@ -224,7 +508,7 @@ export const CharacterSelect: React.FC<Props> = ({
           key: "loading",
           label: (
             <div className="text-text-muted text-sm py-2">
-              {t("common:loading", "Loading...")}
+              {t("common:loading.title", { defaultValue: "Loading..." })}
             </div>
           ),
           disabled: true
@@ -271,6 +555,25 @@ export const CharacterSelect: React.FC<Props> = ({
       onClick: () => handleSelect(null)
     })
 
+    items.push({
+      key: "display-name",
+      label: (
+        <div className="w-56 py-0.5 flex items-center gap-2 text-text-muted">
+          <span>
+            {trimmedDisplayName
+              ? t("sidepanel:characterSelect.displayNameCurrent", {
+                  defaultValue: "Your name: {{name}}",
+                  name: trimmedDisplayName
+                })
+              : t("sidepanel:characterSelect.displayNameAction", {
+                  defaultValue: "Set your name"
+                })}
+          </span>
+        </div>
+      ),
+      onClick: openDisplayNameModal
+    })
+
     items.push(createItem, importItem)
     items.push({ type: "divider" })
 
@@ -280,11 +583,15 @@ export const CharacterSelect: React.FC<Props> = ({
     return items
   }, [
     filteredCharacters,
+    createCharacterItem,
     handleImportClick,
+    handleSelect,
     isLoading,
+    openDisplayNameModal,
     openCharactersWorkspace,
     searchText,
-    t
+    t,
+    trimmedDisplayName
   ])
 
   // Focus search input when dropdown opens

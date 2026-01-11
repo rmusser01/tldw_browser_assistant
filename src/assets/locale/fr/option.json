@@ -347,7 +347,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "Fichier trop volumineux",
-    "fileTooLargeDescription": "La taille du fichier doit être inférieure à 10 Mo",
+    "fileTooLargeDescription": "La taille du fichier doit être inférieure à {{size}}",
     "uploadFailedTitle": "Échec du téléversement",
     "uploadFailedDescription": "Impossible de téléverser le fichier. Réessayez."
   },

@@ -129,7 +129,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "Filen är för stor",
-    "fileTooLargeDescription": "Filstorleken måste vara under 10 MB",
+    "fileTooLargeDescription": "Filstorleken måste vara under {{size}}",
     "uploadFailedTitle": "Uppladdning misslyckades",
     "uploadFailedDescription": "Det gick inte att ladda upp filen. Försök igen."
   },

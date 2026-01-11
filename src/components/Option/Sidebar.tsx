@@ -66,6 +66,8 @@ import { useStoreChatModelSettings } from "@/store/model"
 import { useStoreMessageOption } from "@/store/option"
 import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
 
+const FOLDER_CONVERSATION_BATCH_SIZE = 10
+
 type Props = {
   onClose: () => void
   isOpen: boolean
@@ -669,27 +671,39 @@ export const Sidebar = ({ onClose, isOpen }: Props) => {
     queryKey: ["folderConversationTitles", stableMissingFolderConversationIds],
     queryFn: async () => {
       await tldwClient.initialize().catch(() => null)
-      const results = await Promise.all(
-        stableMissingFolderConversationIds.map(async (conversationId) => {
-          try {
-            const chat = await tldwClient.getChat(conversationId)
-            return {
-              id: conversationId,
-              title: chat?.title || ""
+      const results: Array<{ id: string; title: string }> = []
+      for (
+        let i = 0;
+        i < stableMissingFolderConversationIds.length;
+        i += FOLDER_CONVERSATION_BATCH_SIZE
+      ) {
+        const batch = stableMissingFolderConversationIds.slice(
+          i,
+          i + FOLDER_CONVERSATION_BATCH_SIZE
+        )
+        const batchResults = await Promise.all(
+          batch.map(async (conversationId) => {
+            try {
+              const chat = await tldwClient.getChat(conversationId)
+              return {
+                id: conversationId,
+                title: chat?.title || ""
+              }
+            } catch (error) {
+              console.error(
+                "Failed to load server chat info for folder conversation:",
+                conversationId,
+                error
+              )
+              return {
+                id: conversationId,
+                title: ""
+              }
             }
-          } catch (error) {
-            console.error(
-              "Failed to load server chat info for folder conversation:",
-              conversationId,
-              error
-            )
-            return {
-              id: conversationId,
-              title: ""
-            }
-          }
-        })
-      )
+          })
+        )
+        results.push(...batchResults)
+      }
       return results
     },
     enabled:
@@ -1063,7 +1077,7 @@ export const Sidebar = ({ onClose, isOpen }: Props) => {
                 }
                 className="flex items-center gap-2 text-sm">
                 {isFetchingNextPage
-                  ? t("common:loading")
+                  ? t("common:loading.title", { defaultValue: "Loading..." })
                   : t("common:loadMore")}
               </Button>
             </div>

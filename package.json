@@ -58,7 +58,7 @@
     "i18next-icu": "^2.4.1",
     "lucide-react": "^0.561.0",
     "marked": "^15.0.12",
-    "mermaid": "^10.9.5",
+    "mermaid": "^11.12.2",
     "pa-tesseract.js": "^5.1.1",
     "prism-react-renderer": "^2.4.1",
     "property-information": "^6.5.0",

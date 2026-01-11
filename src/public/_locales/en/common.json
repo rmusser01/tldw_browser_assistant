@@ -1168,5 +1168,8 @@
   },
   "modelSettings_tabs_actor": {
     "message": "Scene Director"
+  },
+  "commandPalette_goToDocumentation": {
+    "message": "Go to Documentation"
   }
 }

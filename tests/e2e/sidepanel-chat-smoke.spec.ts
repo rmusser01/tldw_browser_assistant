@@ -1,0 +1,215 @@
+import { expect, test, type Page } from "@playwright/test"
+import http from "node:http"
+import { AddressInfo } from "node:net"
+import path from "path"
+import { launchWithExtension } from "./utils/extension"
+import {
+  forceConnected,
+  setSelectedModel,
+  waitForConnectionStore
+} from "./utils/connection"
+import { grantHostPermission } from "./utils/permissions"
+
+const EXT_PATH = path.resolve("build/chrome-mv3")
+const MODEL_ID = "mock-model"
+const MODEL_KEY = `tldw:${MODEL_ID}`
+
+const readBody = (req: http.IncomingMessage) =>
+  new Promise<string>((resolve) => {
+    let body = ""
+    req.on("data", (chunk) => {
+      body += chunk
+    })
+    req.on("end", () => resolve(body))
+  })
+
+const startChatMockServer = async () => {
+  const server = http.createServer(async (req, res) => {
+    const method = (req.method || "GET").toUpperCase()
+    const url = req.url || "/"
+
+    const sendJson = (code: number, payload: unknown) => {
+      res.writeHead(code, {
+        "content-type": "application/json",
+        "access-control-allow-origin": "http://127.0.0.1",
+        "access-control-allow-credentials": "true"
+      })
+      res.end(JSON.stringify(payload))
+    }
+
+    if (method === "OPTIONS") {
+      res.writeHead(204, {
+        "access-control-allow-origin": "http://127.0.0.1",
+        "access-control-allow-credentials": "true",
+        "access-control-allow-headers":
+          "content-type, x-api-key, authorization"
+      })
+      return res.end()
+    }
+
+    if (url === "/api/v1/health" && method === "GET") {
+      return sendJson(200, { status: "ok" })
+    }
+
+    if (url === "/api/v1/llm/models/metadata" && method === "GET") {
+      return sendJson(200, [
+        {
+          id: MODEL_ID,
+          name: "Mock Model",
+          provider: "mock",
+          context_length: 4096,
+          capabilities: ["chat"]
+        }
+      ])
+    }
+
+    if (url === "/api/v1/llm/models" && method === "GET") {
+      return sendJson(200, [MODEL_ID])
+    }
+
+    if (url === "/openapi.json" && method === "GET") {
+      return sendJson(200, {
+        openapi: "3.0.0",
+        info: { version: "mock" },
+        paths: {
+          "/api/v1/health": {},
+          "/api/v1/chat/completions": {},
+          "/api/v1/llm/models": {},
+          "/api/v1/llm/models/metadata": {}
+        }
+      })
+    }
+
+    if (url === "/api/v1/chat/completions" && method === "POST") {
+      const body = await readBody(req)
+      let stream = true
+      try {
+        const parsed = JSON.parse(body || "{}")
+        stream = parsed?.stream !== false
+      } catch {
+        stream = true
+      }
+
+      if (!stream) {
+        return sendJson(200, {
+          choices: [
+            {
+              message: { role: "assistant", content: "Mock reply from Playwright" }
+            }
+          ]
+        })
+      }
+
+      res.writeHead(200, {
+        "content-type": "text/event-stream",
+        "cache-control": "no-cache",
+        connection: "keep-alive"
+      })
+
+      const chunks = ["Mock reply", " from Playwright"]
+      chunks.forEach((chunk) => {
+        res.write(
+          `data: ${JSON.stringify({
+            choices: [{ delta: { content: chunk } }]
+          })}\n\n`
+        )
+      })
+      res.write("data: [DONE]\n\n")
+      return res.end()
+    }
+
+    return sendJson(404, { detail: "not found" })
+  })
+
+  await new Promise<void>((resolve) =>
+    server.listen(0, "127.0.0.1", resolve)
+  )
+  const addr = server.address() as AddressInfo
+  return { server, baseUrl: `http://127.0.0.1:${addr.port}` }
+}
+
+const ensureChatInput = async (page: Page) => {
+  const startButton = page.getByRole("button", { name: /Start chatting/i })
+  if ((await startButton.count()) > 0) {
+    await startButton.first().click()
+  }
+
+  let input = page.getByTestId("chat-input")
+  if ((await input.count()) === 0) {
+    input = page.getByPlaceholder(/Type a message/i)
+  }
+  await expect(input).toBeVisible({ timeout: 15000 })
+  await expect(input).toBeEditable({ timeout: 15000 })
+  await input.click()
+  return input
+}
+
+test.describe("Sidepanel chat smoke", () => {
+  test("sends and renders a reply", async () => {
+    test.setTimeout(90000)
+    const { server, baseUrl } = await startChatMockServer()
+
+    const { context, page, openSidepanel, extensionId } =
+      (await launchWithExtension(EXT_PATH, {
+        seedConfig: {
+          __tldw_first_run_complete: true,
+          __tldw_allow_offline: true,
+          tldwConfig: {
+            serverUrl: baseUrl,
+            authMode: "single-user",
+            apiKey: "test-key"
+          }
+        }
+      })) as any
+
+    try {
+      const origin = new URL(baseUrl).origin + "/*"
+      const granted = await grantHostPermission(
+        context,
+        extensionId,
+        origin
+      )
+      test.skip(
+        !granted,
+        "Host permission not granted; allow it in chrome://extensions > tldw Assistant > Site access, then re-run."
+      )
+
+      await setSelectedModel(page, MODEL_KEY)
+
+      const sidepanel = await openSidepanel()
+      await waitForConnectionStore(sidepanel, "sidepanel-chat:store")
+      await forceConnected(
+        sidepanel,
+        { serverUrl: baseUrl },
+        "sidepanel-chat:connected"
+      )
+
+      const input = await ensureChatInput(sidepanel)
+      const message = `Playwright smoke ${Date.now()}`
+      await input.fill(message)
+
+      const sendButton = sidepanel.locator('[data-testid="chat-send"]')
+      if ((await sendButton.count()) > 0) {
+        await expect(sendButton).toBeEnabled({ timeout: 15000 })
+        await sendButton.click()
+      } else {
+        await input.press("Enter")
+      }
+
+      const userMessage = sidepanel
+        .locator('[data-testid="chat-message"][data-role="user"]')
+        .filter({ hasText: message })
+        .first()
+      await expect(userMessage).toBeVisible({ timeout: 15000 })
+
+      const assistantMessage = sidepanel
+        .locator('[data-testid="chat-message"][data-role="assistant"]')
+        .filter({ hasText: "Mock reply from Playwright" })
+        .first()
+      await expect(assistantMessage).toBeVisible({ timeout: 20000 })
+    } finally {
+      await context.close()
+      await new Promise<void>((resolve) => server.close(() => resolve()))
+    }
+  })
+})

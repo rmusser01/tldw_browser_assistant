@@ -29,6 +29,7 @@ export type ClientPath =
   | "/api/v1/llm/models/metadata"
   | "/api/v1/llm/providers"
   | "/api/v1/chat/completions"
+  | "/api/v1/chat/commands"
   | "/api/v1/feedback/explicit"
   | "/api/v1/rag/health"
   | "/api/v1/rag/search"

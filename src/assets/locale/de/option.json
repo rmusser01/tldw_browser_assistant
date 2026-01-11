@@ -343,7 +343,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "Datei ist zu groß",
-    "fileTooLargeDescription": "Die Datei muss kleiner als 10 MB sein",
+    "fileTooLargeDescription": "Die Datei muss kleiner als {{size}} sein",
     "uploadFailedTitle": "Upload fehlgeschlagen",
     "uploadFailedDescription": "Datei konnte nicht hochgeladen werden. Bitte erneut versuchen."
   },

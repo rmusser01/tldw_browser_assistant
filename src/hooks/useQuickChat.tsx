@@ -18,12 +18,15 @@ export const useQuickChat = () => {
     isStreaming,
     setIsStreaming,
     isOpen,
-    setIsOpen
+    setIsOpen,
+    modelOverride,
+    setModelOverride
   } = useQuickChatStore()
+  const activeModel = modelOverride || selectedModel || null
 
   const sendMessage = useCallback(
     async (content: string) => {
-      if (!content.trim() || !selectedModel || isStreaming) {
+      if (!content.trim() || !activeModel || isStreaming) {
         return
       }
 
@@ -47,7 +50,7 @@ export const useQuickChat = () => {
           )
 
         const options: TldwChatOptions = {
-          model: selectedModel,
+          model: activeModel,
           stream: true
         }
 
@@ -76,7 +79,7 @@ export const useQuickChat = () => {
         setIsStreaming(false)
       }
     },
-    [selectedModel, isStreaming, addMessage, updateLastMessage, setIsStreaming]
+    [activeModel, isStreaming, addMessage, updateLastMessage, setIsStreaming]
   )
 
   const cancelStream = useCallback(() => {
@@ -102,6 +105,10 @@ export const useQuickChat = () => {
     isOpen,
     openModal,
     closeModal,
-    hasModel: !!selectedModel
+    hasModel: !!activeModel,
+    activeModel,
+    currentModel: selectedModel || null,
+    modelOverride,
+    setModelOverride
   }
 }

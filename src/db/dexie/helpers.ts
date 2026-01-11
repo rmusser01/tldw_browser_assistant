@@ -244,6 +244,7 @@ export const formatToMessage = (messages: MessageHistory): MessageType[] => {
       isBot: normalizedRole === "assistant",
       message: message.content,
       name: message.name,
+      role: normalizedRole,
       sources: message?.sources || [],
       images: message.images || [],
       messageType: message?.messageType,

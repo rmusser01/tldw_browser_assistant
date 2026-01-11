@@ -343,7 +343,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "檔案太大",
-    "fileTooLargeDescription": "檔案大小必須小於 10MB",
+    "fileTooLargeDescription": "檔案大小必須小於 {{size}}",
     "uploadFailedTitle": "上傳失敗",
     "uploadFailedDescription": "無法上傳檔案，請再試一次。"
   },

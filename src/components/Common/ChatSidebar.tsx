@@ -15,7 +15,8 @@ import {
   Settings,
   ChevronDown,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  CheckSquare
 } from "lucide-react"
 import {
   SIDEBAR_ACTIVE_TAB_SETTING,
@@ -54,6 +55,7 @@ export function ChatSidebar({
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState("")
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
+  const [selectionMode, setSelectionMode] = useState(false)
 
   // Tab state persisted in UI settings
   const [currentTab, setCurrentTab] = useSetting(SIDEBAR_ACTIVE_TAB_SETTING)
@@ -89,6 +91,12 @@ export function ChatSidebar({
       window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
     }
   }
+
+  React.useEffect(() => {
+    if (currentTab !== "server" && selectionMode) {
+      setSelectionMode(false)
+    }
+  }, [currentTab, selectionMode])
 
   // Build tab options with counts
   const tabOptions: Array<{ value: SidebarTab; label: string }> = [
@@ -265,6 +273,34 @@ export function ChatSidebar({
               <Plus className="size-4" />
             </button>
           </Tooltip>
+          {currentTab === "server" && (
+            <Tooltip
+              title={
+                selectionMode
+                  ? t("sidepanel:multiSelect.exit", "Exit selection")
+                  : t("sidepanel:multiSelect.enter", "Select chats")
+              }
+            >
+              <button
+                type="button"
+                onClick={() => setSelectionMode((prev) => !prev)}
+                className={cn(
+                  "rounded p-2",
+                  selectionMode
+                    ? "bg-surface text-text"
+                    : "text-text-muted hover:bg-surface hover:text-text"
+                )}
+                aria-pressed={selectionMode}
+                aria-label={
+                  selectionMode
+                    ? t("sidepanel:multiSelect.exit", "Exit selection")
+                    : t("sidepanel:multiSelect.enter", "Select chats")
+                }
+              >
+                <CheckSquare className="size-4" />
+              </button>
+            </Tooltip>
+          )}
           <Tooltip
             title={t("common:chatSidebar.collapse", "Collapse sidebar")}
           >
@@ -399,6 +435,7 @@ export function ChatSidebar({
         {currentTab === "server" && (
           <ServerChatList
             searchQuery={debouncedSearchQuery}
+            selectionMode={selectionMode}
           />
         )}
 

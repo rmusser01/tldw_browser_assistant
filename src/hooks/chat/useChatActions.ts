@@ -13,6 +13,8 @@ import {
   getSessionFiles,
   getPromptById
 } from "@/db/dexie/helpers"
+import { getModelNicknameByID } from "@/db/dexie/nickname"
+import { isReasoningEnded, isReasoningStarted } from "@/libs/reasoning"
 import type { ChatDocuments } from "@/models/ChatTypes"
 import { normalChatMode } from "@/hooks/chat-modes/normalChatMode"
 import { continueChatMode } from "@/hooks/chat-modes/continueChatMode"
@@ -32,19 +34,36 @@ import {
 } from "@/hooks/handlers/messageHandlers"
 import { generateBranchFromMessageIds } from "@/db/dexie/branch"
 import { type UploadedFile } from "@/db/dexie/types"
+import { buildAssistantErrorContent } from "@/utils/chat-error-message"
+import {
+  buildMessageVariant,
+  getLastUserMessageId,
+  normalizeMessageVariants,
+  updateActiveVariant
+} from "@/utils/message-variants"
+import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
+import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { normalizeConversationState } from "@/utils/conversation-state"
+import {
+  SELECTED_CHARACTER_STORAGE_KEY,
+  selectedCharacterStorage,
+  selectedCharacterSyncStorage
+} from "@/utils/selected-character-storage"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { getServerCapabilities } from "@/services/tldw/server-capabilities"
 import { getActorSettingsForChat } from "@/services/actor-settings"
 import { generateTitle } from "@/services/title"
 import { trackCompareMetric } from "@/utils/compare-metrics"
 import { MAX_COMPARE_MODELS } from "@/hooks/chat/compare-constants"
+import type { Character } from "@/types/character"
 import type {
   Knowledge,
   ReplyTarget,
   ToolChoice
 } from "@/store/option"
 import type { ChatModelSettings } from "@/store/model"
+import type { SaveMessageData } from "@/types/chat-modes"
 
 type ChatModelSettingsStore = ChatModelSettings & {
   setSystemPrompt?: (prompt: string) => void
@@ -55,15 +74,31 @@ type ChatModeOverrides = {
   serverChatId?: string | null
 } & Record<string, unknown>
 
-type SaveMessagePayload = {
-  historyId?: string | null
+type SaveMessagePayload = Omit<SaveMessageData, "setHistoryId"> & {
+  setHistoryId?: SaveMessageData["setHistoryId"]
   conversationId?: string | number | null
-  saveToDb?: boolean
-  isRegenerate?: boolean
-  isContinue?: boolean
-  message?: string
-  fullText?: string
+  message_source?: "copilot" | "web-ui" | "server" | "branch"
+  message_type?: string
 }
+
+type TldwChatMeta =
+  | {
+      id?: string | number
+      chat_id?: string | number
+      version?: number
+      state?: string | null
+      conversation_state?: string | null
+      topic_label?: string | null
+      cluster_id?: string | null
+      source?: string | null
+      external_ref?: string | null
+      title?: string | null
+      character_id?: string | number | null
+    }
+  | string
+  | number
+  | null
+  | undefined
 
 type UseChatActionsOptions = {
   t: TFunction
@@ -137,6 +172,7 @@ type UseChatActionsOptions = {
   clearReplyTarget: () => void
   setSelectedSystemPrompt: (prompt: string) => void
   invalidateServerChatHistory: () => void
+  selectedCharacter: Character | null
 }
 
 export const useChatActions = ({
@@ -202,13 +238,40 @@ export const useChatActions = ({
   replyTarget,
   clearReplyTarget,
   setSelectedSystemPrompt,
-  invalidateServerChatHistory
+  invalidateServerChatHistory,
+  selectedCharacter
 }: UseChatActionsOptions) => {
   const messagesRef = React.useRef(messages)
 
   React.useEffect(() => {
     messagesRef.current = messages
   }, [messages])
+
+  const resolveSelectedCharacter = React.useCallback(async () => {
+    if (selectedCharacter?.id) {
+      return selectedCharacter
+    }
+    try {
+      const stored = await selectedCharacterStorage.get(
+        SELECTED_CHARACTER_STORAGE_KEY
+      )
+      if (stored && typeof stored === "object" && (stored as any)?.id) {
+        return stored as Character
+      }
+      const storedSync = await selectedCharacterSyncStorage.get(
+        SELECTED_CHARACTER_STORAGE_KEY
+      )
+      if (storedSync && typeof storedSync === "object" && (storedSync as any)?.id) {
+        await selectedCharacterStorage
+          .set(SELECTED_CHARACTER_STORAGE_KEY, storedSync)
+          .catch(() => {})
+        return storedSync as Character
+      }
+    } catch {
+      // best-effort only
+    }
+    return selectedCharacter
+  }, [selectedCharacter])
 
   const baseSaveMessageOnSuccess = createSaveMessageOnSuccess(
     temporaryChat,
@@ -230,7 +293,17 @@ export const useChatActions = ({
   const saveMessageOnSuccess = async (
     payload?: SaveMessagePayload
   ): Promise<string | null> => {
-    const historyKey = await baseSaveMessageOnSuccess(payload)
+    const payloadWithHistory = payload
+      ? {
+          ...payload,
+          setHistoryId:
+            payload.setHistoryId ??
+            ((id: string) => {
+              setHistoryId(id)
+            })
+        }
+      : undefined
+    const historyKey = await baseSaveMessageOnSuccess(payloadWithHistory)
 
     if (!payload?.historyId && historyKey) {
       markCompareHistoryCreated(historyKey)
@@ -350,6 +423,392 @@ export const useChatActions = ({
       webSearch,
       actorSettings,
       ...overrides
+    }
+  }
+
+  const characterChatMode = async ({
+    message,
+    image,
+    isRegenerate,
+    messages: chatHistory,
+    history: chatMemory,
+    signal,
+    model,
+    regenerateFromMessage,
+    character
+  }: {
+    message: string
+    image: string
+    isRegenerate: boolean
+    messages: Message[]
+    history: ChatHistory
+    signal: AbortSignal
+    model: string
+    regenerateFromMessage?: Message
+    character?: Character | null
+  }) => {
+    const activeCharacter = character ?? selectedCharacter
+    if (!activeCharacter?.id) {
+      throw new Error("No character selected")
+    }
+
+    let fullText = ""
+    let contentToSave = ""
+    const resolvedAssistantMessageId = generateID()
+    const resolvedUserMessageId = !isRegenerate ? generateID() : undefined
+    let generateMessageId = resolvedAssistantMessageId
+    const fallbackParentMessageId = getLastUserMessageId(chatHistory)
+    const resolvedAssistantParentMessageId = isRegenerate
+      ? regenerateFromMessage?.parentMessageId ?? fallbackParentMessageId
+      : resolvedUserMessageId ?? null
+    const regenerateVariants =
+      isRegenerate && regenerateFromMessage
+        ? normalizeMessageVariants(regenerateFromMessage)
+        : []
+
+    try {
+      await tldwClient.initialize().catch(() => null)
+
+      const modelInfo = await getModelNicknameByID(model)
+      const characterName =
+        activeCharacter?.name || modelInfo?.model_name || model
+      const characterAvatar =
+        activeCharacter?.avatar_url || modelInfo?.model_avatar
+      const createdAt = Date.now()
+      const assistantStub: Message = {
+        isBot: true,
+        name: characterName,
+        message: "▋",
+        sources: [],
+        createdAt,
+        id: generateMessageId,
+        modelImage: characterAvatar,
+        modelName: characterName,
+        parentMessageId: resolvedAssistantParentMessageId ?? null
+      }
+      if (regenerateVariants.length > 0) {
+        const variants = [
+          ...regenerateVariants,
+          buildMessageVariant(assistantStub)
+        ]
+        assistantStub.variants = variants
+        assistantStub.activeVariantIndex = variants.length - 1
+      }
+
+      const newMessageList: Message[] = !isRegenerate
+        ? [
+            ...chatHistory,
+            {
+              isBot: false,
+              name: "You",
+              message,
+              sources: [],
+              images: [],
+              createdAt,
+              id: resolvedUserMessageId,
+              parentMessageId: null
+            },
+            assistantStub
+          ]
+        : [...chatHistory, assistantStub]
+      setMessages(newMessageList)
+
+      let chatId = serverChatId
+      if (!chatId) {
+        const created = await tldwClient.createChat({
+          character_id: activeCharacter.id,
+          state: serverChatState || "in-progress",
+          topic_label: serverChatTopic || undefined,
+          cluster_id: serverChatClusterId || undefined,
+          source: serverChatSource || undefined,
+          external_ref: serverChatExternalRef || undefined
+        }) as TldwChatMeta
+
+        let rawId: string | number | undefined
+        if (created && typeof created === "object") {
+          const {
+            id,
+            chat_id,
+            version,
+            state,
+            conversation_state,
+            topic_label,
+            cluster_id,
+            source,
+            external_ref
+          } = created
+          rawId = id ?? chat_id
+          const normalizedState = normalizeConversationState(
+            state ?? conversation_state ?? null
+          )
+          setServerChatState(normalizedState)
+          setServerChatVersion(typeof version === "number" ? version : null)
+          setServerChatTopic(topic_label ?? null)
+          setServerChatClusterId(cluster_id ?? null)
+          setServerChatSource(source ?? null)
+          setServerChatExternalRef(external_ref ?? null)
+        } else if (typeof created === "string" || typeof created === "number") {
+          rawId = created
+        }
+
+        const normalizedId = rawId != null ? String(rawId) : ""
+        if (!normalizedId) {
+          throw new Error("Failed to create character chat session")
+        }
+        chatId = normalizedId
+        setServerChatId(normalizedId)
+        const createdTitle =
+          created && typeof created === "object"
+            ? String(created.title ?? "")
+            : ""
+        const createdCharacterId =
+          created && typeof created === "object"
+            ? created.character_id ?? activeCharacter?.id ?? null
+            : activeCharacter?.id ?? null
+        setServerChatTitle(createdTitle)
+        setServerChatCharacterId(createdCharacterId)
+        setServerChatMetaLoaded(true)
+        invalidateServerChatHistory()
+      }
+
+      if (!isRegenerate) {
+        type TldwChatMessage = {
+          id?: string | number
+          version?: number
+          role?: string
+          content?: string
+          image_base64?: string
+        }
+
+        const payload: TldwChatMessage = { role: "user", content: message }
+        if (image && image.startsWith("data:")) {
+          const b64 = image.includes(",") ? image.split(",")[1] : undefined
+          if (b64) {
+            payload.image_base64 = b64
+          }
+        }
+        const createdUser = (await tldwClient.addChatMessage(
+          chatId,
+          payload
+        )) as TldwChatMessage | null
+        setMessages((prev) => {
+          const updated = [...prev] as (Message & {
+            serverMessageId?: string
+            serverMessageVersion?: number
+          })[]
+          const serverMessageId =
+            createdUser?.id != null ? String(createdUser.id) : undefined
+          const serverMessageVersion = createdUser?.version
+          for (let i = updated.length - 1; i >= 0; i--) {
+            if (!updated[i].isBot) {
+              updated[i] = {
+                ...updated[i],
+                serverMessageId,
+                serverMessageVersion
+              }
+              break
+            }
+          }
+          return updated as Message[]
+        })
+      }
+
+      let count = 0
+      let reasoningStartTime: Date | null = null
+      let reasoningEndTime: Date | null = null
+      let timetaken = 0
+      let apiReasoning = false
+
+      const resolvedApiProvider = await resolveApiProviderForModel({
+        modelId: model,
+        explicitProvider: currentChatModelSettings.apiProvider
+      })
+      const normalizedModel = model.replace(/^tldw:/, "").trim()
+      const resolvedModel = normalizedModel.length > 0 ? normalizedModel : model
+
+      for await (const chunk of tldwClient.streamCharacterChatCompletion(
+        chatId,
+        {
+          include_character_context: true,
+          model: resolvedModel,
+          provider: resolvedApiProvider,
+          save_to_db: false
+        },
+        { signal }
+      )) {
+        const chunkState = consumeStreamingChunk(
+          { fullText, contentToSave, apiReasoning },
+          chunk
+        )
+        fullText = chunkState.fullText
+        contentToSave = chunkState.contentToSave
+        apiReasoning = chunkState.apiReasoning
+
+        if (chunkState.token) {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === generateMessageId
+                ? updateActiveVariant(m, {
+                    message: fullText + "▋",
+                    reasoning_time_taken: timetaken
+                  })
+                : m
+            )
+          )
+        }
+        if (count === 0) {
+          setIsProcessing(true)
+        }
+
+        if (isReasoningStarted(fullText) && !reasoningStartTime) {
+          reasoningStartTime = new Date()
+        }
+
+        if (
+          reasoningStartTime &&
+          !reasoningEndTime &&
+          isReasoningEnded(fullText)
+        ) {
+          reasoningEndTime = new Date()
+          const reasoningTime =
+            reasoningEndTime.getTime() - reasoningStartTime.getTime()
+          timetaken = reasoningTime
+        }
+
+        count++
+        if (signal?.aborted) break
+      }
+
+      if (signal?.aborted) {
+        const abortError = new Error("AbortError")
+        ;(abortError as any).name = "AbortError"
+        throw abortError
+      }
+
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === generateMessageId
+            ? updateActiveVariant(m, {
+                message: fullText,
+                reasoning_time_taken: timetaken
+              })
+            : m
+        )
+      )
+
+      try {
+        const createdAsst = (await tldwClient.addChatMessage(chatId, {
+          role: "assistant",
+          content: fullText
+        })) as { id?: string | number; version?: number } | null
+        setMessages((prev) =>
+          ((prev as any[]).map((m) => {
+            if (m.id !== generateMessageId) return m
+            const serverMessageId =
+              createdAsst?.id != null ? String(createdAsst.id) : undefined
+            return updateActiveVariant(m, {
+              serverMessageId,
+              serverMessageVersion: createdAsst?.version
+            })
+          }) as Message[])
+        )
+      } catch (e) {
+        console.error("Failed to persist assistant message to server:", e)
+      }
+
+      const lastEntry = chatMemory[chatMemory.length - 1]
+      const prevEntry = chatMemory[chatMemory.length - 2]
+      const endsWithUser =
+        lastEntry?.role === "user" && lastEntry.content === message
+      const endsWithUserAssistant =
+        lastEntry?.role === "assistant" &&
+        prevEntry?.role === "user" &&
+        prevEntry.content === message
+
+      if (isRegenerate) {
+        if (endsWithUser) {
+          setHistory([
+            ...chatMemory,
+            { role: "assistant", content: fullText }
+          ])
+        } else if (endsWithUserAssistant) {
+          setHistory(
+            chatMemory.map((entry, index) =>
+              index === chatMemory.length - 1 && entry.role === "assistant"
+                ? { ...entry, content: fullText }
+                : entry
+            )
+          )
+        } else {
+          setHistory([
+            ...chatMemory,
+            { role: "user", content: message, image },
+            { role: "assistant", content: fullText }
+          ])
+        }
+      } else {
+        setHistory([
+          ...chatMemory,
+          { role: "user", content: message, image },
+          { role: "assistant", content: fullText }
+        ])
+      }
+
+      await saveMessageOnSuccess({
+        historyId,
+        isRegenerate,
+        selectedModel: model,
+        modelId: model,
+        message,
+        image,
+        fullText,
+        source: [],
+        message_source: "copilot",
+        reasoning_time_taken: timetaken,
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
+      })
+
+      setIsProcessing(false)
+      setStreaming(false)
+    } catch (e) {
+      const assistantContent = buildAssistantErrorContent(fullText, e)
+      if (generateMessageId) {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === generateMessageId
+              ? updateActiveVariant(msg, { message: assistantContent })
+              : msg
+          )
+        )
+      }
+      const errorSave = await saveMessageOnError({
+        e,
+        botMessage: assistantContent,
+        history: chatMemory,
+        historyId,
+        image,
+        selectedModel: model,
+        modelId: model,
+        userMessage: message,
+        isRegenerating: isRegenerate,
+        message_source: "copilot",
+        userMessageId: resolvedUserMessageId,
+        assistantMessageId: resolvedAssistantMessageId,
+        assistantParentMessageId: resolvedAssistantParentMessageId ?? null
+      })
+
+      if (!errorSave) {
+        notification.error({
+          message: t("error"),
+          description: e instanceof Error ? e.message : t("somethingWentWrong")
+        })
+      }
+      setIsProcessing(false)
+      setStreaming(false)
+    } finally {
+      setAbortController(null)
     }
   }
 
@@ -558,7 +1017,8 @@ export const useChatActions = ({
       Boolean(replyTarget) &&
       !compareModeActive &&
       !isRegenerate &&
-      !isContinue
+      !isContinue &&
+      !selectedCharacter?.id
     const replyOverrides = replyActive
       ? (() => {
           const userMessageId = generateID()
@@ -644,6 +1104,24 @@ export const useChatActions = ({
         }
         const baseMessages = chatHistory || messages
         const baseHistory = memory || history
+
+        if (!compareModeActive) {
+          const resolvedSelectedCharacter = await resolveSelectedCharacter()
+          if (resolvedSelectedCharacter?.id) {
+            await characterChatMode({
+              message,
+              image,
+              isRegenerate,
+              messages: baseMessages,
+              history: baseHistory,
+              signal,
+              model: selectedModel || "",
+              regenerateFromMessage,
+              character: resolvedSelectedCharacter
+            })
+            return
+          }
+        }
 
         if (!compareModeActive) {
           await normalChatMode(

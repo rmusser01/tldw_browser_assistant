@@ -343,7 +343,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "ファイルサイズが大きすぎます",
-    "fileTooLargeDescription": "ファイルサイズは 10MB 未満にしてください",
+    "fileTooLargeDescription": "ファイルサイズは {{size}} 未満にしてください",
     "uploadFailedTitle": "アップロードに失敗しました",
     "uploadFailedDescription": "ファイルをアップロードできませんでした。もう一度お試しください。"
   },

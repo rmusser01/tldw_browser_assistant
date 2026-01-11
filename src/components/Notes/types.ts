@@ -6,4 +6,5 @@ export type NoteListItem = {
   conversation_id?: string | null
   message_id?: string | null
   keywords?: string[]
+  version?: number
 }

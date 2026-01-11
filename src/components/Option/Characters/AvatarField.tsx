@@ -209,7 +209,9 @@ export function AvatarField({ value, onChange }: AvatarFieldProps) {
                 <ImageIcon className="w-8 h-8 text-text-subtle" />
                 <p className="text-sm text-text-muted">
                   {loading
-                    ? t("common:loading", { defaultValue: "Loading..." })
+                    ? t("common:loading.title", {
+                        defaultValue: "Loading..."
+                      })
                     : t("settings:manageCharacters.avatar.dropzone", {
                         defaultValue: "Click or drag image to upload"
                       })}

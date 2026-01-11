@@ -42,7 +42,7 @@ export const QuickChatHelperButton: React.FC<QuickChatHelperButtonProps> = ({
     setIsOpen(false)
   }, [setIsOpen])
 
-  const tooltip = t("quickChatHelper.tooltip", "Quick Chat Helper")
+  const tooltip = t("option:quickChatHelper.tooltip", "Quick Chat Helper")
   const toggleLabel = hideQuickChatHelper
     ? t(
         "settings:generalSettings.settings.hideQuickChatHelper.showLabel",

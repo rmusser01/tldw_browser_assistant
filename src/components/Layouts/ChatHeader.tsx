@@ -1,7 +1,7 @@
 import React from "react"
 import type { TFunction } from "i18next"
 import { Tooltip, Input } from "antd"
-import { CogIcon, Menu, Search, Signpost, SquarePen, Keyboard } from "lucide-react"
+import { CogIcon, Menu, Search, Signpost, SquarePen, Keyboard, GitBranch } from "lucide-react"
 import { ConnectionStatus } from "./ConnectionStatus"
 import { HeaderShortcuts } from "./HeaderShortcuts"
 import logoImage from "~/assets/icon.png"
@@ -21,6 +21,8 @@ type ChatHeaderProps = {
   onOpenShortcutsModal: () => void
   onOpenSettings: () => void
   onClearChat: () => void
+  showTimelineButton?: boolean
+  onOpenTimeline?: () => void
   shortcutsExpanded: boolean
   onToggleShortcuts: () => void
   commandKeyLabel: string
@@ -41,6 +43,8 @@ export function ChatHeader({
   onOpenShortcutsModal,
   onOpenSettings,
   onClearChat,
+  showTimelineButton = false,
+  onOpenTimeline,
   shortcutsExpanded,
   onToggleShortcuts,
   commandKeyLabel
@@ -53,6 +57,7 @@ export function ChatHeader({
     ? t("option:header.hideShortcuts", "Hide shortcuts")
     : t("option:header.showShortcuts", "Show shortcuts")
   const canEditTitle = !temporaryChat && historyId && historyId !== "temp"
+  const timelineLabel = t("option:header.timeline", "Timeline")
 
   return (
     <header
@@ -162,6 +167,19 @@ export function ChatHeader({
               <Keyboard className="size-4" aria-hidden="true" />
             </button>
           </Tooltip>
+          {showTimelineButton && onOpenTimeline && (
+            <Tooltip title={timelineLabel}>
+              <button
+                type="button"
+                onClick={onOpenTimeline}
+                aria-label={timelineLabel as string}
+                className="inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:bg-surface2 hover:text-text"
+                title={timelineLabel}
+              >
+                <GitBranch className="size-4" aria-hidden="true" />
+              </button>
+            </Tooltip>
+          )}
           <Tooltip title={t("common:newChat", "New chat")}>
             <button
               type="button"

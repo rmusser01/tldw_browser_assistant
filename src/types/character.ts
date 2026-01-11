@@ -9,3 +9,14 @@ export interface Character {
   title?: string | null
   tags?: string[]
 }
+
+export type CharacterApiResponse = Omit<Character, "id"> & {
+  id: string | number
+  description?: string | null
+  first_message?: string | null
+  firstMessage?: string | null
+  greet?: string | null
+  alternate_greetings?: string[] | string | null
+  alternateGreetings?: string[] | string | null
+  image_mime?: string | null
+}
