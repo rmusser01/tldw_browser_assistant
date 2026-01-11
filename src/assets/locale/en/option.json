@@ -575,7 +575,7 @@
   },
   "characters": {
     "selectCharacter": "Select character",
-    "chattingAs": "You're chatting with {{name}}.",
+    "chattingAs": "You are chatting with {{name}}.",
     "clearCharacter": "Clear character",
     "fetchErrorTitle": "Unable to load characters",
     "fetchErrorBody": "Check your connection or server health, then try again.",

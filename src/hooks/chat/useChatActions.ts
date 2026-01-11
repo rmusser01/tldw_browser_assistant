@@ -525,7 +525,27 @@ export const useChatActions = ({
         : [...chatHistory, assistantStub]
       setMessages(newMessageList)
 
-      let chatId = serverChatId
+      const activeCharacterId = String(activeCharacter.id)
+      const serverCharacterId =
+        serverChatCharacterId != null ? String(serverChatCharacterId) : null
+      const shouldResetServerChat =
+        Boolean(serverChatId) &&
+        (!serverCharacterId || serverCharacterId !== activeCharacterId)
+
+      if (shouldResetServerChat) {
+        setServerChatId(null)
+        setServerChatCharacterId(null)
+        setServerChatMetaLoaded(false)
+        setServerChatTitle(null)
+        setServerChatState("in-progress")
+        setServerChatVersion(null)
+        setServerChatTopic(null)
+        setServerChatClusterId(null)
+        setServerChatSource(null)
+        setServerChatExternalRef(null)
+      }
+
+      let chatId = shouldResetServerChat ? null : serverChatId
       if (!chatId) {
         const created = await tldwClient.createChat({
           character_id: activeCharacter.id,

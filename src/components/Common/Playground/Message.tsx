@@ -460,7 +460,9 @@ export const PlaygroundMessage = (props: Props) => {
 
   const chatTextClass = props.isBot ? assistantTextClass : userTextClass
   const renderGreetingMarkdown =
-    props.isBot && props.message_type === "character:greeting"
+    props.isBot &&
+    (props.message_type === "character:greeting" ||
+      props.message_type === "greeting")
 
   const shouldShowLoadingStatus =
     props.isBot &&

@@ -231,15 +231,15 @@ export const CharacterSelect: React.FC<Props> = ({
 
       setSelectedCharacterId(nextId)
       if (!nextId) {
-        setSelectedCharacter(null)
+        await setSelectedCharacter(null)
         setDropdownOpen(false)
         return
       }
 
       if (!stored) {
-        setSelectedCharacter(null)
+        await setSelectedCharacter(null)
       } else {
-        setSelectedCharacter(stored)
+        await setSelectedCharacter(stored)
       }
       setDropdownOpen(false)
 
@@ -256,7 +256,7 @@ export const CharacterSelect: React.FC<Props> = ({
             hydrated.greeting &&
             selectedCharacterIdRef.current === nextId
           ) {
-            setSelectedCharacter(hydrated)
+            void setSelectedCharacter(hydrated)
           }
         })
         .catch((error) => {

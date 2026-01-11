@@ -1416,7 +1416,7 @@
     "message": "Select character"
   },
   "characters_chattingAs": {
-    "message": "You're chatting with {{name}}."
+    "message": "You are chatting with {{name}}."
   },
   "characters_clearCharacter": {
     "message": "Clear character"

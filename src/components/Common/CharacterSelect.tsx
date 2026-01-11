@@ -252,12 +252,10 @@ export const CharacterSelect: React.FC<Props> = ({
       if (hasActiveChat) {
         const confirmed = await confirmCharacterSwitch(next?.name)
         if (!confirmed) return
-      }
-
-      setSelectedCharacter(next)
-      if (hasActiveChat) {
         clearChat()
       }
+
+      await setSelectedCharacter(next)
 
       if (next && !next.greeting) {
         const targetId = next.id
@@ -268,7 +266,7 @@ export const CharacterSelect: React.FC<Props> = ({
           .then((full) => {
             const hydrated = normalizeCharacter(full || {})
             if (hydrated?.id === targetId && hydrated.greeting) {
-              setSelectedCharacter(hydrated)
+              void setSelectedCharacter(hydrated)
             }
           })
           .catch(() => {})
@@ -361,7 +359,7 @@ export const CharacterSelect: React.FC<Props> = ({
     ) {
       notification.success({
         message: t("option:characters.chattingAs", {
-          defaultValue: "You're chatting with {{name}}.",
+          defaultValue: "You are chatting with {{name}}.",
           name: selectedCharacter.name
         })
       })

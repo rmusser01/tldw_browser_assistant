@@ -37,7 +37,6 @@ export const useSelectedCharacter = <T = StoredCharacter>(
     initialValue
   )
   const migratedRef = React.useRef(false)
-  const normalizingRef = React.useRef(false)
   const setRenderValueRef = React.useRef(meta.setRenderValue)
 
   React.useEffect(() => {
@@ -66,6 +65,16 @@ export const useSelectedCharacter = <T = StoredCharacter>(
     if (meta.isLoading || migratedRef.current) return
     if (hasValidId(selectedCharacter)) return
 
+    const normalizedLocal = parseSelectedCharacterValue<T>(selectedCharacter)
+    if (hasValidId(normalizedLocal)) {
+      migratedRef.current = true
+      void setSelectedCharacterWithBroadcast(normalizedLocal)
+      void selectedCharacterSyncStorage
+        .remove(SELECTED_CHARACTER_STORAGE_KEY)
+        .catch(() => {})
+      return
+    }
+
     migratedRef.current = true
     let cancelled = false
 
@@ -87,17 +96,6 @@ export const useSelectedCharacter = <T = StoredCharacter>(
     return () => {
       cancelled = true
     }
-  }, [meta.isLoading, selectedCharacter, setSelectedCharacterWithBroadcast])
-
-  React.useEffect(() => {
-    if (meta.isLoading || normalizingRef.current) return
-    if (hasValidId(selectedCharacter)) return
-    const normalized = parseSelectedCharacterValue<T>(selectedCharacter)
-    if (!hasValidId(normalized)) return
-    normalizingRef.current = true
-    void setSelectedCharacterWithBroadcast(normalized).finally(() => {
-      normalizingRef.current = false
-    })
   }, [meta.isLoading, selectedCharacter, setSelectedCharacterWithBroadcast])
 
   return [selectedCharacter, setSelectedCharacterWithBroadcast, meta] as const

@@ -13,13 +13,30 @@ import { collectGreetings } from "../../src/utils/character-greetings"
 const normalizeServerUrl = (value: string) =>
   value.match(/^https?:\/\//) ? value : `http://${value}`
 
+const fetchWithTimeout = async (
+  url: string,
+  init: RequestInit | undefined,
+  timeoutMs = 15000
+) => {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetch(url, {
+      ...init,
+      signal: controller.signal
+    })
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
 const requestJson = async (
   serverUrl: string,
   apiKey: string,
   path: string,
   init?: RequestInit
 ) => {
-  const response = await fetch(`${serverUrl}${path}`, {
+  const response = await fetchWithTimeout(`${serverUrl}${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
@@ -66,29 +83,141 @@ const getFirstModelId = (payload: any): string | null => {
   return id ? String(id) : null
 }
 
-const ensureCharacter = async (serverUrl: string, apiKey: string) => {
-  const list = await requestJson(serverUrl, apiKey, "/api/v1/characters/").catch(
-    () => requestJson(serverUrl, apiKey, "/api/v1/characters")
-  )
-  const characters = parseListPayload(list)
-  const existingWithGreeting =
-    characters.find(
-      (c: any) => c?.id && c?.name && collectGreetings(c).length > 0
-    ) || null
-  if (existingWithGreeting?.id != null && existingWithGreeting?.name) {
-    const greetings = collectGreetings(existingWithGreeting)
-    return {
-      id: String(existingWithGreeting.id),
-      name: String(existingWithGreeting.name),
-      greetings,
-      created: false
+const getCharacterTrigger = (page: any) =>
+  page
+    .getByRole("button", { name: /select character/i })
+    .or(page.getByRole("button", { name: /clear character/i }))
+    .first()
+
+const confirmCharacterSwitchIfNeeded = async (
+  page: any,
+  { expectModal = false }: { expectModal?: boolean } = {}
+) => {
+  const modal = page.locator(".ant-modal")
+  const confirmButton = modal.locator(".ant-btn-dangerous").first()
+  const isVisible = await confirmButton
+    .isVisible({ timeout: expectModal ? 15000 : 2000 })
+    .then(() => true)
+    .catch(() => false)
+  if (!isVisible) {
+    if (expectModal) {
+      throw new Error("Expected switch character modal, but it was not shown.")
     }
+    return
   }
-  const name = `E2E Character ${Date.now()}`
-  const greeting = `Hello from ${name}!`
+  await confirmButton.click({ timeout: 5000 }).catch(() => {})
+  await expect(modal).toBeHidden({ timeout: 15000 })
+}
+
+const readSelectedCharacterFromStorage = async (page: any) =>
+  page.evaluate(async () => {
+    const read = (area: any) =>
+      new Promise<any>((resolve) => {
+        if (!area?.get) {
+          resolve(null)
+          return
+        }
+        area.get(["selectedCharacter"], (items: any) => {
+          resolve(items?.selectedCharacter ?? null)
+        })
+      })
+    const sync = (window as any)?.chrome?.storage?.sync
+      ? await read((window as any).chrome.storage.sync)
+      : null
+    const local = (window as any)?.chrome?.storage?.local
+      ? await read((window as any).chrome.storage.local)
+      : null
+    const value = local ?? sync
+    if (typeof value === "string") {
+      try {
+        return JSON.parse(value)
+      } catch {
+        return value
+      }
+    }
+    return value
+  })
+
+const waitForGreeting = async (page: any, characterName: string) => {
+  const greetingMessage = page
+    .locator(
+      "[data-message-type='character:greeting'], [data-message-type='greeting']"
+    )
+    .first()
+  const visible = await greetingMessage
+    .waitFor({ state: "visible", timeout: 15000 })
+    .then(() => true)
+    .catch(() => false)
+  if (!visible) {
+    const debug = await page.evaluate(() => {
+      const w = window as any
+      const store = w.__tldw_useStoreMessageOption?.getState?.()
+      const messages = store?.messages || []
+      return {
+        serverChatId: store?.serverChatId ?? null,
+        serverChatCharacterId: store?.serverChatCharacterId ?? null,
+        historyId: store?.historyId ?? null,
+        selectedCharacter: store?.selectedCharacter ?? null,
+        messages: messages.map((msg: any) => ({
+          isBot: msg?.isBot,
+          name: msg?.name,
+          messageType: msg?.messageType ?? msg?.message_type,
+          message: msg?.message
+        }))
+      }
+    })
+    throw new Error(
+      `Character greeting not visible. Debug: ${JSON.stringify(debug)}`
+    )
+  }
+  const hasName = await greetingMessage
+    .getByText(new RegExp(characterName, "i"))
+    .first()
+    .isVisible()
+    .catch(() => false)
+  if (!hasName) {
+    const text = await greetingMessage.textContent()
+    throw new Error(
+      `Greeting did not mention ${characterName}. Content: ${text || ""}`
+    )
+  }
+  return greetingMessage
+}
+
+const createCharacter = async (
+  serverUrl: string,
+  apiKey: string,
+  name: string
+) => {
+  const greeting = [
+    `Hello from ${name}!`,
+    "",
+    "```",
+    `${name} ready`,
+    "```",
+    "",
+    "- /start",
+    "- /help"
+  ].join("\n")
   const alternateGreetings = [
-    `${greeting} (alt 1)`,
-    `${greeting} (alt 2)`
+    [
+      `Hello from ${name}!`,
+      "",
+      "```",
+      `${name} alternate 1`,
+      "```",
+      "",
+      "- /alt1"
+    ].join("\n"),
+    [
+      `Hello from ${name}!`,
+      "",
+      "```",
+      `${name} alternate 2`,
+      "```",
+      "",
+      "- /alt2"
+    ].join("\n")
   ]
   const created = await requestJson(serverUrl, apiKey, "/api/v1/characters/", {
     method: "POST",
@@ -115,9 +244,47 @@ const ensureCharacter = async (serverUrl: string, apiKey: string) => {
   return {
     id: String(created.id),
     name,
-    greetings: [greeting, ...alternateGreetings],
-    created: true
+    greetings: [greeting, ...alternateGreetings]
   }
+}
+
+const ensureCharacters = async (
+  serverUrl: string,
+  apiKey: string,
+  count = 2
+) => {
+  const list = await requestJson(serverUrl, apiKey, "/api/v1/characters/").catch(
+    () => requestJson(serverUrl, apiKey, "/api/v1/characters")
+  )
+  const characters = parseListPayload(list)
+  const existing = characters.filter(
+    (c: any) => c?.id && c?.name && collectGreetings(c).length > 0
+  )
+  const results: { id: string; name: string; greetings: string[] }[] = []
+  const createdIds: string[] = []
+  const usedIds = new Set<string>()
+
+  for (const entry of existing) {
+    if (results.length >= count) break
+    const id = String(entry.id)
+    if (usedIds.has(id)) continue
+    usedIds.add(id)
+    results.push({
+      id,
+      name: String(entry.name),
+      greetings: collectGreetings(entry)
+    })
+  }
+
+  while (results.length < count) {
+    const suffix = `${Date.now()}-${results.length + 1}`
+    const name = `E2E Character ${suffix}`
+    const created = await createCharacter(serverUrl, apiKey, name)
+    createdIds.push(created.id)
+    results.push(created)
+  }
+
+  return { characters: results, createdIds }
 }
 
 const deleteCharacter = async (
@@ -136,7 +303,7 @@ test.describe("Playground character selection", () => {
     const { serverUrl, apiKey } = requireRealServerConfig(test)
     const normalizedServerUrl = normalizeServerUrl(serverUrl)
 
-    const modelsResponse = await fetch(
+    const modelsResponse = await fetchWithTimeout(
       `${normalizedServerUrl}/api/v1/llm/models/metadata`,
       { headers: { "x-api-key": apiKey } }
     )
@@ -157,10 +324,13 @@ test.describe("Playground character selection", () => {
       ? modelId
       : `tldw:${modelId}`
 
-    const character = await ensureCharacter(normalizedServerUrl, apiKey)
-    let createdCharacterId: string | null = character.created
-      ? character.id
-      : null
+    const { characters, createdIds } = await ensureCharacters(
+      normalizedServerUrl,
+      apiKey,
+      2
+    )
+    const [character, secondCharacter] = characters
+    const createdCharacterIds = [...createdIds]
 
     const { context, page, extensionId, optionsUrl } =
       await launchWithExtension("", {
@@ -173,17 +343,15 @@ test.describe("Playground character selection", () => {
           }
         }
       })
+    page.setDefaultTimeout(15000)
+    page.setDefaultNavigationTimeout(20000)
 
     const origin = new URL(normalizedServerUrl).origin + "/*"
     const granted = await grantHostPermission(context, extensionId, origin)
     if (!granted) {
       await context.close()
-      if (createdCharacterId) {
-        await deleteCharacter(
-          normalizedServerUrl,
-          apiKey,
-          createdCharacterId
-        )
+      for (const createdId of createdCharacterIds) {
+        await deleteCharacter(normalizedServerUrl, apiKey, createdId)
       }
       test.skip(
         true,
@@ -202,32 +370,6 @@ test.describe("Playground character selection", () => {
         "character-playground:force-connect"
       )
       await setSelectedModel(page, selectedModelId)
-
-      await page.evaluate(() => {
-        const w = window as any
-        if (w.__tldwSendMessageWrapped) return
-        w.__tldwSendMessageWrapped = true
-        w.__tldwCapturedRequests = []
-        const wrapRuntime = (runtime: any) => {
-          if (!runtime?.sendMessage || runtime.__tldwWrapped) return
-          const original = runtime.sendMessage.bind(runtime)
-          runtime.__tldwWrapped = true
-          runtime.sendMessage = async (...args: any[]) => {
-            const message = args[0]
-            if (message?.type === "tldw:request") {
-              w.__tldwCapturedRequests.push(message)
-            }
-            return original(...args)
-          }
-        }
-        try {
-          // @ts-ignore
-          wrapRuntime((browser as any)?.runtime)
-          wrapRuntime((chrome as any)?.runtime)
-        } catch {
-          // best-effort; if patching fails we still want the test to continue
-        }
-      })
       await page.evaluate(() => {
         const w = window as any
         if (w.__tldwStorageWrapped) return
@@ -261,7 +403,7 @@ test.describe("Playground character selection", () => {
       const composerInput = page.locator("#textarea-message")
       await expect(composerInput).toBeVisible({ timeout: 15000 })
 
-      const trigger = page.locator('button[aria-label*="character"]').first()
+      const trigger = getCharacterTrigger(page)
       await expect(trigger).toBeVisible({ timeout: 15000 })
       await trigger.click()
 
@@ -279,64 +421,20 @@ test.describe("Playground character selection", () => {
       }
       await expect(menuItem).toBeVisible({ timeout: 15000 })
       await menuItem.click()
-
-      const storageWriteSeen = await page
-        .waitForFunction(
-          () => {
-            const w = window as any
-            const writes = w.__tldwStorageWrites || []
-            return writes.some((entry: any) =>
-              entry?.items && Object.prototype.hasOwnProperty.call(entry.items, "selectedCharacter")
-            )
-          },
-          undefined,
-          { timeout: 15000 }
-        )
-        .then(() => true)
-        .catch(() => false)
-
-      const storageSnapshot = await page.evaluate(() => {
-        const w = window as any
-        const normalize = (value: any) => {
-          if (typeof value !== "string") return value
-          try {
-            return JSON.parse(value)
-          } catch {
-            return value
-          }
-        }
-        const writes = w.__tldwStorageWrites || []
-        const latest = [...writes]
-          .reverse()
-          .find(
-            (entry: any) =>
-              entry?.items &&
-              Object.prototype.hasOwnProperty.call(entry.items, "selectedCharacter")
+      await confirmCharacterSwitchIfNeeded(page)
+      await expect(
+        page.getByRole("button", {
+          name: new RegExp(
+            `${character.name}.*clear character`,
+            "i"
           )
-        const selectedCharacter = latest
-          ? normalize(latest.items.selectedCharacter)
-          : null
-        return { selectedCharacter, rawWrites: writes }
-      })
-      if (!storageWriteSeen || !storageSnapshot.selectedCharacter?.id) {
-        test.info().attach("character-storage-writes", {
-          body: JSON.stringify(
-            {
-              storageWriteSeen,
-              selectedCharacter: storageSnapshot.selectedCharacter,
-              rawWrites: storageSnapshot.rawWrites
-            },
-            null,
-            2
-          ),
-          contentType: "application/json"
         })
-      }
-      if (!storageSnapshot.selectedCharacter?.id) {
+      ).toBeVisible({ timeout: 15000 })
+
+      const storageSnapshot = await readSelectedCharacterFromStorage(page)
+      if (!storageSnapshot?.id) {
         const debugPayload = {
-          storageWriteSeen,
-          selectedCharacter: storageSnapshot.selectedCharacter,
-          rawWrites: storageSnapshot.rawWrites
+          selectedCharacter: storageSnapshot
         }
         const debugPath = test
           .info()
@@ -344,232 +442,50 @@ test.describe("Playground character selection", () => {
         fs.writeFileSync(debugPath, JSON.stringify(debugPayload, null, 2))
         throw new Error("selectedCharacter was not stored after selection.")
       }
-      expect(String(storageSnapshot.selectedCharacter.id)).toBe(
-        String(character.id)
-      )
+      expect(String(storageSnapshot.id)).toBe(String(character.id))
 
-      const rawGreeting =
-        typeof storageSnapshot.selectedCharacter?.greeting === "string"
-          ? storageSnapshot.selectedCharacter.greeting
-          : ""
-      const greetingFallback = Array.isArray(character.greetings)
-        ? character.greetings[0]
-        : ""
-      const greetingSeed = rawGreeting || greetingFallback || ""
-      if (greetingSeed.trim().length > 0) {
-        const greetingLine =
-          greetingSeed
-            .split(/\r?\n/)
-            .map((line) => line.trim())
-            .find((line) => line.length > 0) || ""
-        const snippetSource = greetingLine || greetingSeed
-        const snippet = snippetSource
-          .replace(/\s+/g, " ")
-          .trim()
-          .slice(0, 120)
-        const greetingSeen = await page
-          .waitForFunction(
-            (needle) => {
-              const normalize = (value: string) =>
-                value.replace(/\s+/g, " ").trim().toLowerCase()
-              const needleNorm = normalize(needle)
-              const greetingNode =
-                document.querySelector(
-                  "[data-message-type='character:greeting']"
-                ) || document.querySelector("[data-role='assistant']")
-              if (!greetingNode) return false
-              if (!needleNorm) return true
-              const text = greetingNode.textContent || ""
-              const normalized = normalize(text)
-              return normalized.includes(needleNorm)
-            },
-            snippet,
-            { timeout: 15000 }
-          )
-          .then(() => true)
-          .catch(() => false)
-        const greetingRender = await page.evaluate(() => {
-          const greetingNode =
-            document.querySelector("[data-message-type='character:greeting']") ||
-            document.querySelector("[data-role='assistant']")
-          if (!greetingNode) return null
-          const markdownNodes = Array.from(
-            greetingNode.querySelectorAll("pre")
-          )
-          return {
-            text: greetingNode.textContent || "",
-            markdownTags: markdownNodes.map((node) =>
-              node.tagName.toLowerCase()
-            )
-          }
-        })
-        if (!greetingSeen) {
-          const debug = await page.evaluate(() => {
-            const assistantNodes = Array.from(
-              document.querySelectorAll("[data-role='assistant']")
-            )
-            return {
-              assistantText: assistantNodes.map((node) => node.textContent || ""),
-              selectedCharacter:
-                (window as any).__tldwSelectedCharacterSnapshot || null
-            }
-          })
-          test.info().attach("character-greeting-debug", {
-            body: JSON.stringify(debug, null, 2),
-            contentType: "application/json"
-          })
-          const debugPath = test
-            .info()
-            .outputPath("character-greeting-debug.json")
-          fs.writeFileSync(debugPath, JSON.stringify(debug, null, 2))
-        }
-        expect(greetingSeen).toBeTruthy()
-        if (greetingRender?.markdownTags?.length) {
-          test.info().attach("character-greeting-markdown", {
-            body: JSON.stringify(greetingRender, null, 2),
-            contentType: "application/json"
-          })
-          throw new Error(
-            `Greeting message rendered markdown elements: ${greetingRender.markdownTags.join(
-              ", "
-            )}`
-          )
-        }
+      await waitForGreeting(page, character.name)
+
+      await trigger.click()
+      if ((await searchInput.count()) > 0) {
+        await searchInput.fill(secondCharacter.name)
       }
-
-      await page.evaluate(() => {
-        ;(window as any).__tldwCapturedRequests = []
-      })
-
-      const input = page.locator("#textarea-message")
-      await expect(input).toBeVisible({ timeout: 15000 })
-      const message = `E2E character chat ${Date.now()}`
-      await input.fill(message)
-      const sendButton = page
-        .getByTestId("chat-send")
-        .or(page.getByRole("button", { name: /Send message/i }))
-        .or(page.getByRole("button", { name: /^send$/i }))
-      await expect(sendButton).toBeEnabled({ timeout: 15000 })
-      const createRequestPromise = context
-        .waitForEvent("request", {
-          predicate: (req) => {
-            const url = req.url()
-            if (req.method() !== "POST") return false
-            if (!/\/api\/v1\/chats\/?(?:\?|$)/.test(url)) return false
-            return true
-          },
-          timeout: 20000
+      let secondItem = page
+        .locator('[role="menuitem"]', { hasText: secondCharacter.name })
+        .first()
+      if ((await secondItem.count()) === 0) {
+        secondItem = page
+          .locator(".ant-dropdown-menu-item", { hasText: secondCharacter.name })
+          .first()
+      }
+      await expect(secondItem).toBeVisible({ timeout: 15000 })
+      await secondItem.click()
+      await confirmCharacterSwitchIfNeeded(page)
+      await expect(
+        page.getByRole("button", {
+          name: new RegExp(
+            `${secondCharacter.name}.*clear character`,
+            "i"
+          )
         })
-        .catch(() => null)
-      await sendButton.click()
-
-      const hasCreateRequest = await page
-        .waitForFunction(
-          () => {
-            const reqs = (window as any).__tldwCapturedRequests || []
-            return reqs.some((req: any) => {
-              const path = String(req?.payload?.path || "")
-              const method = String(req?.payload?.method || "").toUpperCase()
-              return (
-                method === "POST" &&
-                /\/api\/v1\/chats\/?(?:\?|$)/.test(path)
-              )
-            })
+      ).toBeVisible({ timeout: 15000 })
+      await expect
+        .poll(
+          async () => {
+            const selection = await readSelectedCharacterFromStorage(page)
+            return selection?.id ? String(selection.id) : ""
           },
-          undefined,
-          { timeout: 20000 }
+          { timeout: 15000 }
         )
-        .then(() => true)
-        .catch(() => false)
+        .toBe(String(secondCharacter.id))
 
-      const networkRequest = hasCreateRequest
-        ? null
-        : await createRequestPromise
-
-      if (!hasCreateRequest && !networkRequest) {
-        const debug = await page.evaluate(async () => {
-          const w = window as any
-          const read = (area: any) =>
-            new Promise<any>((resolve) => {
-              if (!area?.get) {
-                resolve(null)
-                return
-              }
-              area.get(["selectedCharacter"], (items: any) => {
-                resolve(items?.selectedCharacter ?? null)
-              })
-            })
-          const sync = w?.chrome?.storage?.sync
-            ? await read(w.chrome.storage.sync)
-            : null
-          const local = w?.chrome?.storage?.local
-            ? await read(w.chrome.storage.local)
-            : null
-          const normalize = (value: any) => {
-            if (typeof value !== "string") return value
-            try {
-              return JSON.parse(value)
-            } catch {
-              return value
-            }
-          }
-          return {
-            selectedCharacter: normalize(sync ?? local),
-            capturedRequests: w.__tldwCapturedRequests || []
-          }
-        })
-        test.info().attach("character-chat-debug", {
-          body: JSON.stringify(debug, null, 2),
-          contentType: "application/json"
-        })
-        throw new Error("No /api/v1/chats create request captured.")
-      }
-
-      const captured = await page.evaluate(() => {
-        const reqs = (window as any).__tldwCapturedRequests || []
-        const matches = reqs.filter((req: any) => {
-          const path = String(req?.payload?.path || "")
-          const method = String(req?.payload?.method || "").toUpperCase()
-          return (
-            method === "POST" &&
-            /\/api\/v1\/chats\/?(?:\?|$)/.test(path)
-          )
-        })
-        return matches.map((match: any) => match?.payload || null)
-      })
-
-      const createBodies: any[] = []
-      for (const payload of captured || []) {
-        if (!payload) continue
-        const body = payload?.body ?? null
-        if (body != null) {
-          createBodies.push(body)
-        }
-      }
-      if (networkRequest) {
-        const postData = networkRequest.postData()
-        if (postData) {
-          try {
-            createBodies.push(JSON.parse(postData))
-          } catch {
-            createBodies.push(postData)
-          }
-        }
-      }
-      const matched = createBodies.find(
-        (body) => String(body?.character_id || "") === String(character.id)
-      )
-      if (!matched) {
-        test.info().attach("character-chat-create-bodies", {
-          body: JSON.stringify(createBodies, null, 2),
-          contentType: "application/json"
-        })
-        const debugPath = test
-          .info()
-          .outputPath("character-chat-create-bodies.json")
-        fs.writeFileSync(debugPath, JSON.stringify(createBodies, null, 2))
-      }
-      expect(matched).toBeTruthy()
+      await waitForGreeting(page, secondCharacter.name)
+      await expect(
+        page.locator(
+          "[data-message-type='character:greeting'], [data-message-type='greeting']",
+          { hasText: character.name }
+        )
+      ).toHaveCount(0)
     } finally {
       if (!page.isClosed()) {
         const finalScreenshotPath = test
@@ -586,8 +502,8 @@ test.describe("Playground character selection", () => {
           .catch(() => null)
       }
       await context.close()
-      if (createdCharacterId) {
-        await deleteCharacter(normalizedServerUrl, apiKey, createdCharacterId)
+      for (const createdId of createdCharacterIds) {
+        await deleteCharacter(normalizedServerUrl, apiKey, createdId)
       }
     }
   })

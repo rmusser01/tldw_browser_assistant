@@ -35,6 +35,9 @@ export const useServerChatLoader = ({
     setMessages,
     setIsLoading
   } = useChatBaseState(useStoreMessageOption)
+  const messagesRef = React.useRef(messages)
+  const streamingRef = React.useRef(streaming)
+  const processingRef = React.useRef(isProcessing)
   const {
     serverChatId,
     serverChatTitle,
@@ -91,6 +94,18 @@ export const useServerChatLoader = ({
       }
     }
   }, [])
+
+  React.useEffect(() => {
+    messagesRef.current = messages
+  }, [messages])
+
+  React.useEffect(() => {
+    streamingRef.current = streaming
+  }, [streaming])
+
+  React.useEffect(() => {
+    processingRef.current = isProcessing
+  }, [isProcessing])
 
   React.useEffect(() => {
     if (!serverChatId) return
@@ -242,13 +257,16 @@ export const useServerChatLoader = ({
             }
           })
 
-          const hasLocalMessages = messages.length > 0
-          const hasUnsyncedMessages = messages.some(
+          const currentMessages = messagesRef.current
+          const hasLocalMessages = currentMessages.length > 0
+          const hasUnsyncedMessages = currentMessages.some(
             (msg) =>
               !msg.serverMessageId && String(msg.message || "").trim().length > 0
           )
           const shouldPreserveLocal =
-            streaming || isProcessing || (hasLocalMessages && hasUnsyncedMessages)
+            streamingRef.current ||
+            processingRef.current ||
+            (hasLocalMessages && hasUnsyncedMessages)
 
           if (!shouldPreserveLocal) {
             setHistory(history)
