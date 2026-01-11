@@ -347,7 +347,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "الملف كبير جدًا",
-    "fileTooLargeDescription": "يجب أن يكون حجم الملف أقل من 10 ميجابايت",
+    "fileTooLargeDescription": "يجب أن يكون حجم الملف أقل من {{size}}",
     "uploadFailedTitle": "فشل الرفع",
     "uploadFailedDescription": "تعذّر رفع الملف. حاول مرة أخرى."
   },

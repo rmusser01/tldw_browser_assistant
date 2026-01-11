@@ -318,7 +318,7 @@
     "message": "Filen er for stor"
   },
   "upload_fileTooLargeDescription": {
-    "message": "Filstørrelsen skal være under 10 MB"
+    "message": "Filstørrelsen skal være under {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Overførsel mislykkedes"

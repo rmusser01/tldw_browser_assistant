@@ -1,7 +1,7 @@
 import React from "react"
 import { Button, Input, Select, Tag, Typography } from "antd"
-import type { TFunction } from "i18next"
 import { Info } from "lucide-react"
+import type { StatusSummary } from "./types"
 
 type EntryType = "auto" | "html" | "pdf" | "document" | "audio" | "video"
 
@@ -9,12 +9,6 @@ type Entry = {
   id: string
   url: string
   type: EntryType
-}
-
-type StatusSummary = {
-  label: string
-  color: string
-  reason?: string
 }
 
 type QueuedItemRowProps = {
@@ -28,7 +22,6 @@ type QueuedItemRowProps = {
   running: boolean
   canRetry: boolean
   qi: (key: string, defaultValue: string) => string
-  t: TFunction
   typeIcon: (type: string) => React.ReactNode
   onSelect: () => void
   onOpenInspector: () => void
@@ -48,7 +41,6 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
   running,
   canRetry,
   qi,
-  t,
   typeIcon,
   onSelect,
   onOpenInspector,
@@ -69,8 +61,8 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
         className={`absolute right-2 top-2 opacity-0 transition focus:opacity-100 group-hover:opacity-100 ${
           isSelected ? "opacity-100" : ""
         }`}
-        aria-label="Open Inspector for this item"
-        title="Open Inspector for this item"
+        aria-label={qi("openInspectorAria", "Open Inspector for this item")}
+        title={qi("openInspectorAria", "Open Inspector for this item")}
         onClick={(event) => {
           event.stopPropagation()
           onOpenInspector()
@@ -153,10 +145,10 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
               onRemove()
             }}
             disabled={running}
-            aria-label="Remove this row from queue"
-            title="Remove this row from queue"
+            aria-label={qi("removeItemAria", "Remove this row from queue")}
+            title={qi("removeItemAria", "Remove this row from queue")}
           >
-            {t("quickIngest.remove") || "Remove"}
+            {qi("removeItem", "Remove")}
           </Button>
         </div>
         {processingIndicator}

@@ -8,6 +8,7 @@ import {
   setSelectedModel,
   waitForConnectionStore
 } from "./utils/connection"
+import { collectGreetings } from "../../src/utils/character-greetings"
 
 const normalizeServerUrl = (value: string) =>
   value.match(/^https?:\/\//) ? value : `http://${value}`
@@ -63,34 +64,6 @@ const getFirstModelId = (payload: any): string | null => {
     modelsList.find((m: any) => m?.id || m?.model || m?.name) || null
   const id = candidate?.id || candidate?.model || candidate?.name
   return id ? String(id) : null
-}
-
-const collectGreetings = (character: any): string[] => {
-  const candidates = [
-    character?.greeting,
-    character?.first_message,
-    character?.firstMessage,
-    character?.greet,
-    character?.alternate_greetings,
-    character?.alternateGreetings
-  ]
-  const flattened = candidates.flatMap((entry) => {
-    if (!entry) return []
-    if (Array.isArray(entry)) {
-      return entry
-    }
-    if (typeof entry === "string") {
-      return [entry]
-    }
-    return []
-  })
-  return Array.from(
-    new Set(
-      flattened
-        .map((entry) => (typeof entry === "string" ? entry.trim() : ""))
-        .filter((entry) => entry.length > 0)
-    )
-  )
 }
 
 const ensureCharacter = async (serverUrl: string, apiKey: string) => {
@@ -384,7 +357,13 @@ test.describe("Playground character selection", () => {
         : ""
       const greetingSeed = rawGreeting || greetingFallback || ""
       if (greetingSeed.trim().length > 0) {
-        const snippet = greetingSeed
+        const greetingLine =
+          greetingSeed
+            .split(/\r?\n/)
+            .map((line) => line.trim())
+            .find((line) => line.length > 0) || ""
+        const snippetSource = greetingLine || greetingSeed
+        const snippet = snippetSource
           .replace(/\s+/g, " ")
           .trim()
           .slice(0, 120)
@@ -394,21 +373,36 @@ test.describe("Playground character selection", () => {
               const normalize = (value: string) =>
                 value.replace(/\s+/g, " ").trim().toLowerCase()
               const needleNorm = normalize(needle)
-              if (!needleNorm) return false
-              const nodes = Array.from(
-                document.querySelectorAll("[data-role='assistant']")
-              )
-              return nodes.some((node) => {
-                const text = node.textContent || ""
-                const normalized = normalize(text)
-                return normalized.includes(needleNorm)
-              })
+              const greetingNode =
+                document.querySelector(
+                  "[data-message-type='character:greeting']"
+                ) || document.querySelector("[data-role='assistant']")
+              if (!greetingNode) return false
+              if (!needleNorm) return true
+              const text = greetingNode.textContent || ""
+              const normalized = normalize(text)
+              return normalized.includes(needleNorm)
             },
             snippet,
             { timeout: 15000 }
           )
           .then(() => true)
           .catch(() => false)
+        const greetingRender = await page.evaluate(() => {
+          const greetingNode =
+            document.querySelector("[data-message-type='character:greeting']") ||
+            document.querySelector("[data-role='assistant']")
+          if (!greetingNode) return null
+          const markdownNodes = Array.from(
+            greetingNode.querySelectorAll("pre, code, img, ul, ol, blockquote")
+          )
+          return {
+            text: greetingNode.textContent || "",
+            markdownTags: markdownNodes.map((node) =>
+              node.tagName.toLowerCase()
+            )
+          }
+        })
         if (!greetingSeen) {
           const debug = await page.evaluate(() => {
             const assistantNodes = Array.from(
@@ -416,7 +410,8 @@ test.describe("Playground character selection", () => {
             )
             return {
               assistantText: assistantNodes.map((node) => node.textContent || ""),
-              selectedCharacter: (window as any).__tldwSelectedCharacterSnapshot || null
+              selectedCharacter:
+                (window as any).__tldwSelectedCharacterSnapshot || null
             }
           })
           test.info().attach("character-greeting-debug", {
@@ -429,6 +424,17 @@ test.describe("Playground character selection", () => {
           fs.writeFileSync(debugPath, JSON.stringify(debug, null, 2))
         }
         expect(greetingSeen).toBeTruthy()
+        if (greetingRender?.markdownTags?.length) {
+          test.info().attach("character-greeting-markdown", {
+            body: JSON.stringify(greetingRender, null, 2),
+            contentType: "application/json"
+          })
+          throw new Error(
+            `Greeting message rendered markdown elements: ${greetingRender.markdownTags.join(
+              ", "
+            )}`
+          )
+        }
       }
 
       await page.evaluate(() => {
@@ -565,6 +571,20 @@ test.describe("Playground character selection", () => {
       }
       expect(matched).toBeTruthy()
     } finally {
+      if (!page.isClosed()) {
+        const finalScreenshotPath = test
+          .info()
+          .outputPath("final-before-close.png")
+        await page
+          .screenshot({ path: finalScreenshotPath, fullPage: true })
+          .then(() => {
+            test.info().attach("final-before-close", {
+              path: finalScreenshotPath,
+              contentType: "image/png"
+            })
+          })
+          .catch(() => null)
+      }
       await context.close()
       if (createdCharacterId) {
         await deleteCharacter(normalizedServerUrl, apiKey, createdCharacterId)

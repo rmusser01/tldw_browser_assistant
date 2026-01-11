@@ -35,6 +35,7 @@ import {
 import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { Character } from "@/types/character"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { createBranchMessage } from "./handlers/messageHandlers"
 import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import {
@@ -111,10 +112,7 @@ export const useMessage = () => {
     false
   )
   const [maxWebsiteContext] = useStorage("maxWebsiteContext", 4028)
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
 
   const {
     history,

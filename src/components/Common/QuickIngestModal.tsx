@@ -1506,21 +1506,22 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
 
     if (ingestBlocked) {
-      let key = "quickIngest.offlineQueueToast"
-      let fallback =
-        "Offline mode: items are queued here until your server is back online."
-
-      if (ingestConnectionStatus === "unconfigured") {
-        key = "quickIngest.unconfiguredQueueToast"
-        fallback =
-          "Server not configured: items are staged here and will not run until you configure a server under Settings → tldw server."
-      } else if (ingestConnectionStatus === "offlineBypass") {
-        key = "quickIngest.offlineBypassQueueToast"
-        fallback =
-          "Offline mode enabled: items are staged here and will process once you disable offline mode."
-      }
-
-      messageApi.warning(t(key, fallback))
+      const blockedMessage =
+        ingestConnectionStatus === "unconfigured"
+          ? t(
+              "quickIngest.unavailableUnconfigured",
+              "Ingest unavailable \u2014 server not configured"
+            )
+          : ingestConnectionStatus === "offlineBypass"
+            ? t(
+                "quickIngest.unavailableOfflineBypass",
+                "Ingest unavailable \u2014 offline mode enabled"
+              )
+            : t(
+                "quickIngest.unavailableOffline",
+                "Ingest unavailable \u2014 server offline"
+              )
+      messageApi.warning(blockedMessage)
       return
     }
     const valid = rows.filter((r) => r.url.trim().length > 0)
@@ -3415,7 +3416,6 @@ export const QuickIngestModal: React.FC<Props> = ({
                       running={running}
                       canRetry={res?.status === "error"}
                       qi={qi}
-                      t={t}
                       typeIcon={typeIcon}
                       onSelect={() => {
                         setSelectedRowId(row.id)
@@ -3515,7 +3515,6 @@ export const QuickIngestModal: React.FC<Props> = ({
                       showReattach={!attachedFile}
                       canRetry={runStatus === "error" && Boolean(attachedFile)}
                       qi={qi}
-                      t={t}
                       typeIcon={typeIcon}
                       onSelect={() => {
                         setSelectedFileId(stub.id)

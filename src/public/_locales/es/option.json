@@ -948,7 +948,7 @@
     "message": "Archivo demasiado grande"
   },
   "upload_fileTooLargeDescription": {
-    "message": "El archivo debe ser menor a 10 MB"
+    "message": "El archivo debe ser menor a {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Error al subir"

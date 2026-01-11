@@ -25,12 +25,12 @@ const normalizeDraftValue = (value: DraftValue | null): DraftPayload | null => {
   }
   if (!value || typeof value !== "object") return null
   if (!("content" in value)) return null
-  const content = (value as DraftPayload).content
+  const payload = value as DraftPayload
+  const content = payload.content
   if (typeof content !== "string") return null
   const metadata =
-    typeof (value as DraftPayload).metadata === "object" &&
-    (value as DraftPayload).metadata !== null
-      ? (value as DraftPayload).metadata
+    typeof payload.metadata === "object" && payload.metadata !== null
+      ? payload.metadata
       : undefined
   return { content, metadata }
 }

@@ -21,8 +21,7 @@ import {
   Form,
   InputNumber,
   Collapse,
-  Switch,
-  Button
+  Switch
 } from "antd"
 import { useDarkMode } from "~/hooks/useDarkmode"
 import { SaveButton } from "~/components/Common/SaveButton"
@@ -36,23 +35,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { getTotalFilePerKB } from "@/services/app"
 import { SidepanelRag } from "@/components/Option/Settings/sidepanel-rag"
 import { SSTSettings } from "@/components/Option/Settings/SSTSettings"
-import { useServerCapabilities } from "@/hooks/useServerCapabilities"
-import { tldwClient } from "@/services/tldw/TldwApiClient"
-import { useStoreMessageOption } from "@/store/option"
-
-interface DictionaryItem {
-  id?: string | number
-  dictionary_id?: string | number
-  dictionaryId?: string | number
-  name?: string
-  title?: string
-}
-
-interface DictionariesResponse {
-  dictionaries?: DictionaryItem[]
-  items?: DictionaryItem[]
-  results?: DictionaryItem[]
-}
+import { CitationDictionarySettings } from "@/components/Sidepanel/Settings/CitationDictionarySettings"
 
 const RAG_VALIDATION_RANGES = {
   chunkSize: { min: 100, max: 10000 },
@@ -80,24 +63,10 @@ export const SettingsBody = () => {
     "speechToTextLanguage",
     "en-US"
   )
-  const [citationStyle, setCitationStyle] = useStorage(
-    "ragCitationStyle",
-    "apa"
-  )
-  const [activeChatDictionaries, setActiveChatDictionaries] = useStorage<
-    string[]
-  >("activeChatDictionaries", [])
   const { mode, toggleDarkMode } = useDarkMode()
   const queryClient = useQueryClient()
 
   const { changeLocale, locale, supportLanguage } = useI18n()
-  const { capabilities } = useServerCapabilities()
-  const { ragAdvancedOptions, setRagAdvancedOptions } = useStoreMessageOption(
-    (state) => ({
-      ragAdvancedOptions: state.ragAdvancedOptions,
-      setRagAdvancedOptions: state.setRagAdvancedOptions
-    })
-  )
 
   const { data, status } = useQuery({
     queryKey: ["sidebarSettings"],
@@ -134,53 +103,6 @@ export const SettingsBody = () => {
       }
     }
   })
-
-  const dictionariesEnabled = Boolean(capabilities?.hasChatDictionaries)
-  const { data: dictionariesData } = useQuery<
-    DictionariesResponse | DictionaryItem[]
-  >({
-    queryKey: ["sidepanelChatDictionaries"],
-    queryFn: async () => {
-      await tldwClient.initialize()
-      return await tldwClient.listDictionaries(true)
-    },
-    enabled: dictionariesEnabled
-  })
-
-  const dictionaryOptions = React.useMemo(() => {
-    if (!dictionariesData) return []
-    const list = Array.isArray(dictionariesData)
-      ? dictionariesData
-      : dictionariesData?.dictionaries ||
-        dictionariesData?.items ||
-        dictionariesData?.results ||
-        []
-    return list.map((dict) => ({
-      value: String(dict.id ?? dict.dictionary_id ?? dict.dictionaryId),
-      label: dict.name || dict.title || `Dictionary ${dict.id}`
-    }))
-  }, [dictionariesData])
-
-  const citationStyleOptions = React.useMemo(
-    () => [
-      { value: "apa", label: "APA" },
-      { value: "mla", label: "MLA" },
-      { value: "chicago", label: "Chicago" },
-      { value: "ieee", label: "IEEE" },
-      { value: "harvard", label: "Harvard" }
-    ],
-    []
-  )
-
-  React.useEffect(() => {
-    const currentStyle = ragAdvancedOptions?.citation_style
-    if (currentStyle === citationStyle) return
-    setRagAdvancedOptions({
-      ...(ragAdvancedOptions || {}),
-      citation_style: citationStyle
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- avoid reruns from ragAdvancedOptions object churn
-  }, [citationStyle, ragAdvancedOptions?.citation_style, setRagAdvancedOptions])
 
   const { mutate: saveRAG, isPending: isSaveRAGPending } = useMutation({
     mutationFn: async (f: {
@@ -297,75 +219,7 @@ export const SettingsBody = () => {
       <div className="border border-border rounded p-4 bg-surface">
         <SidepanelRag hideBorder />
       </div>
-      <div className="border border-border rounded p-4 bg-surface">
-        <h2 className="text-md font-semibold text-text">
-          {t("citationSettings.heading", "Citations & Dictionaries")}
-        </h2>
-        <div className="mt-4 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <span className="text-text">
-              {t("citationSettings.styleLabel", "Citation style")}
-            </span>
-            <Select
-              value={citationStyle}
-              onChange={(value) => setCitationStyle(value)}
-              options={citationStyleOptions}
-              style={{ width: 200 }}
-              aria-label={t("citationSettings.styleLabel", "Citation style")}
-            />
-          </div>
-          <div className="border-b border-border" />
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <div>
-                <div className="text-text">
-                  {t("citationSettings.dictionariesLabel", "Chat dictionaries")}
-                </div>
-                <div className="text-xs text-text-muted">
-                  {t(
-                    "citationSettings.dictionariesHelp",
-                    "Select dictionaries to apply to chat messages."
-                  )}
-                </div>
-              </div>
-              <Button
-                size="small"
-                onClick={() => window.open("/options.html#/dictionaries", "_blank")}
-              >
-                {t(
-                  "citationSettings.openWorkspace",
-                  "Open workspace"
-                )}
-              </Button>
-            </div>
-            <Select
-              mode="multiple"
-              placeholder={t(
-                "citationSettings.dictionariesPlaceholder",
-                "Select dictionaries"
-              )}
-              options={dictionaryOptions}
-              value={activeChatDictionaries}
-              onChange={(values) =>
-                setActiveChatDictionaries(values as string[])
-              }
-              disabled={!dictionariesEnabled}
-              aria-label={t(
-                "citationSettings.dictionariesLabel",
-                "Chat dictionaries"
-              )}
-            />
-            {!dictionariesEnabled && (
-              <div className="text-xs text-text-muted">
-                {t(
-                  "citationSettings.dictionariesUnavailable",
-                  "Chat dictionaries are not available on this server."
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <CitationDictionarySettings />
       <div className="border flex flex-col gap-4 border-border rounded p-4 bg-surface">
         <h2 className="text-md font-semibold text-text">
           {t("ollamaSettings.heading")}
@@ -487,7 +341,11 @@ export const SettingsBody = () => {
                 max: RAG_VALIDATION_RANGES.chunkSize.max,
                 message: t(
                   "rag.ragSettings.chunkSize.range",
-                  `Must be between ${RAG_VALIDATION_RANGES.chunkSize.min} and ${RAG_VALIDATION_RANGES.chunkSize.max}`
+                  {
+                    min: RAG_VALIDATION_RANGES.chunkSize.min,
+                    max: RAG_VALIDATION_RANGES.chunkSize.max,
+                    defaultValue: `Must be between ${RAG_VALIDATION_RANGES.chunkSize.min} and ${RAG_VALIDATION_RANGES.chunkSize.max}`
+                  }
                 )
               }
             ]}>
@@ -512,7 +370,10 @@ export const SettingsBody = () => {
                 max: RAG_VALIDATION_RANGES.chunkOverlap.max,
                 message: t(
                   "rag.ragSettings.chunkOverlap.range",
-                  `Must be between ${RAG_VALIDATION_RANGES.chunkOverlap.min} and ${RAG_VALIDATION_RANGES.chunkOverlap.max}`
+                  {
+                    min: RAG_VALIDATION_RANGES.chunkOverlap.min,
+                    max: RAG_VALIDATION_RANGES.chunkOverlap.max
+                  }
                 )
               }
             ]}>

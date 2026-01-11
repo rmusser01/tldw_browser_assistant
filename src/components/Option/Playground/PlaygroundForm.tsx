@@ -46,6 +46,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { useTabMentions } from "~/hooks/useTabMentions"
 import { useFocusShortcuts } from "~/hooks/keyboard"
 import { useDraftPersistence } from "@/hooks/useDraftPersistence"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { MentionsDropdown } from "./MentionsDropdown"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { PASTED_TEXT_CHAR_LIMIT } from "@/utils/constant"
@@ -226,10 +227,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
   const [sttSegEmbeddingsProvider] = useStorage("sttSegEmbeddingsProvider", "")
   const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [serverPersistenceHintSeen, setServerPersistenceHintSeen] = useStorage(
     "serverPersistenceHintSeen",
     false
@@ -665,11 +663,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     requestAnimationFrame(() => {
       const el = textareaRef.current
       if (!el) return
-      const caret = form.values.message.length
+      const caret = el.value.length
       el.focus()
       el.setSelectionRange(caret, caret)
     })
-  }, [form.values.message.length, isMessageCollapsed, textareaRef])
+  }, [isMessageCollapsed, textareaRef])
 
   const setMessageValue = React.useCallback(
     (
@@ -1573,7 +1571,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     navigate,
     serverPersistenceHintSeen,
     setServerPersistenceHintSeen,
-    t
+    t,
+    serverChatState,
+    serverChatSource,
+    setServerChatState,
+    setServerChatSource,
+    setServerChatVersion
   ])
 
   React.useEffect(() => {

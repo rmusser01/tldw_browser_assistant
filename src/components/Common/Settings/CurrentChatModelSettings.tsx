@@ -31,7 +31,7 @@ import {
   estimateActorTokens
 } from "@/utils/actor"
 import type { Character } from "@/types/character"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import {
   ModelBasicsTab,
   ConversationTab,
@@ -148,10 +148,7 @@ export const CurrentChatModelSettings = ({
     setServerChatVersion
   } = useMessageOption()
 
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
 
   const {
     settings: actorSettings,

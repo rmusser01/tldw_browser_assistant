@@ -187,7 +187,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:manageModels.title",
       icon: BrainCircuitIcon,
-      order: 5
+      order: 6
     }
   },
   {
@@ -209,7 +209,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:evaluationsSettings.title",
       icon: FlaskConical,
-      order: 8,
+      order: 9,
       beta: true
     }
   },
@@ -232,7 +232,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:speechSettingsNav",
       icon: MicIcon,
-      order: 4.5
+      order: 5
     }
   },
   {
@@ -255,7 +255,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:healthNav",
       icon: ActivityIcon,
-      order: 10
+      order: 11
     }
   },
   {
@@ -266,7 +266,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:promptStudio.nav",
       icon: Microscope,
-      order: 9,
+      order: 10,
       beta: true
     }
   },
@@ -455,7 +455,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "option:header.adminLlamacpp",
       icon: CpuIcon,
-      order: 6
+      order: 7
     }
   },
   {
@@ -467,7 +467,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "option:header.adminMlx",
       icon: Gauge,
-      order: 7
+      order: 8
     }
   },
   {

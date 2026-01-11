@@ -28,15 +28,21 @@ const QuickChatPopout: React.FC = () => {
     modelOverride,
     setModelOverride
   } = useQuickChat()
-  const { data: models = [], isLoading: modelsLoading } = useQuery({
+  const {
+    data: modelsData,
+    isLoading: modelsLoading,
+    isError: modelsError
+  } = useQuery({
     queryKey: ["quickChatModels"],
-    queryFn: () => fetchChatModels({ returnEmpty: true }),
+    queryFn: () => fetchChatModels({ returnEmpty: false }),
     staleTime: 5 * 60 * 1000,
     gcTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     select: (data) => data.filter((model) => model?.model)
   })
+  const models = modelsData ?? []
+  const showModelsError = modelsError && models.length === 0
 
   // Restore state from sessionStorage on mount
   useEffect(() => {
@@ -44,17 +50,36 @@ const QuickChatPopout: React.FC = () => {
 
     const stateKey = searchParams.get("state")
     if (stateKey) {
+      if (!/^[a-zA-Z0-9:_-]{1,128}$/.test(stateKey)) {
+        console.warn("Invalid quick chat state key")
+        hasRestoredRef.current = true
+        return
+      }
       try {
         const savedState = sessionStorage.getItem(stateKey)
         if (!savedState) return
 
-        const parsed: any = JSON.parse(savedState)
+        const parsed: unknown = JSON.parse(savedState)
         // Validate parsed state structure before restoring
-        if (parsed && typeof parsed === "object" && Array.isArray(parsed.messages)) {
+        if (
+          parsed &&
+          typeof parsed === "object" &&
+          Array.isArray((parsed as any).messages)
+        ) {
+          const isValidMsg = (m: any) =>
+            m &&
+            typeof m.id === "string" &&
+            (m.role === "user" || m.role === "assistant") &&
+            typeof m.content === "string" &&
+            typeof m.timestamp === "number"
+
+          const nextMessages = (parsed as any).messages.filter(isValidMsg)
           const nextModelOverride =
-            typeof parsed.modelOverride === "string" ? parsed.modelOverride : null
+            typeof (parsed as any).modelOverride === "string"
+              ? (parsed as any).modelOverride
+              : null
           useQuickChatStore.getState().restoreFromState({
-            messages: parsed.messages,
+            messages: nextMessages,
             modelOverride: nextModelOverride
           })
         } else {
@@ -124,7 +149,31 @@ const QuickChatPopout: React.FC = () => {
           allowClear={allowClear}
           aria-label={t("option:quickChatHelper.modelLabel", "Model")}
           onChange={handleModelChange}
+          notFoundContent={
+            showModelsError
+              ? t(
+                  "option:quickChatHelper.modelsLoadError",
+                  "Unable to load models"
+                )
+              : models.length === 0 && !modelsLoading
+                ? t(
+                    "option:quickChatHelper.noModelsAvailable",
+                    "No models available"
+                  )
+                : undefined
+          }
         />
+        {showModelsError && (
+          <div className="mt-2 flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400">
+            <AlertCircle className="h-4 w-4" />
+            <span>
+              {t(
+                "option:quickChatHelper.modelsLoadErrorHint",
+                "Check your server connection, then try again."
+              )}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Messages area */}

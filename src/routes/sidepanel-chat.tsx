@@ -78,21 +78,23 @@ type ServerChatMessage = {
 }
 
 const mapServerChatMessages = (list: ServerChatMessage[]) => {
+  const normalizeRole = (role: string) => normalizeChatRole(role)
   const history = list.map((m) => ({
-    role: m.role,
+    role: normalizeRole(m.role),
     content: m.content
   }))
   const mappedMessages = list.map((m) => {
     const meta = m as Record<string, unknown>
     const createdAt = Date.parse(m.created_at)
+    const normalizedRole = normalizeRole(m.role)
     return {
       createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
-      isBot: m.role === "assistant",
-      role: normalizeChatRole(m.role),
+      isBot: normalizedRole === "assistant",
+      role: normalizedRole,
       name:
-        m.role === "assistant"
+        normalizedRole === "assistant"
           ? "Assistant"
-          : m.role === "system"
+          : normalizedRole === "system"
             ? "System"
             : "You",
       message: m.content,

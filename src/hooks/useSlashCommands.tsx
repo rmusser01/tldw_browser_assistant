@@ -280,20 +280,15 @@ export const useSlashCommands = ({
     })
   }, [slashCommands, slashQuery])
 
-  // Reset active index when filtered list changes
+  // Reset or clamp active index when menu state or filtered list changes.
   React.useEffect(() => {
-    setSlashActiveIndex(0)
-  }, [filteredSlashCommands.length])
-
-  React.useEffect(() => {
-    if (!showSlashMenu) {
+    if (!showSlashMenu || filteredSlashCommands.length === 0) {
       setSlashActiveIndex(0)
       return
     }
-    setSlashActiveIndex((prev) => {
-      if (filteredSlashCommands.length === 0) return 0
-      return Math.min(prev, filteredSlashCommands.length - 1)
-    })
+    setSlashActiveIndex((prev) =>
+      Math.min(prev, filteredSlashCommands.length - 1)
+    )
   }, [filteredSlashCommands.length, showSlashMenu])
 
   const parseSlashInput = React.useCallback((text: string) => {

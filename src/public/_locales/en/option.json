@@ -2145,7 +2145,7 @@
     "message": "File Too Large"
   },
   "upload_fileTooLargeDescription": {
-    "message": "File size must be less than 10MB"
+    "message": "File size must be less than {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Upload Failed"

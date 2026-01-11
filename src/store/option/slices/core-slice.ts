@@ -67,7 +67,13 @@ export const createCoreSlice: StoreSlice<
           : messagesOrUpdater
     }),
   history: [],
-  setHistory: (history) => set({ history }),
+  setHistory: (historyOrUpdater) =>
+    set({
+      history:
+        typeof historyOrUpdater === "function"
+          ? historyOrUpdater(get().history)
+          : historyOrUpdater
+    }),
   streaming: false,
   setStreaming: (streaming) => set({ streaming }),
   isFirstMessage: true,

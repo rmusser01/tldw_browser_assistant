@@ -315,7 +315,7 @@
     "message": "Файл надто великий"
   },
   "upload_fileTooLargeDescription": {
-    "message": "Розмір файлу має бути менше 10 МБ"
+    "message": "Розмір файлу має бути менше {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Не вдалося завантажити"

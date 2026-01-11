@@ -14,6 +14,7 @@ import { bgRequest } from '@/services/background-proxy'
 import { toAllowedPath } from '@/services/tldw/path-utils'
 
 const BULK_ACTION_BATCH_SIZE = 10
+const BULK_ACTION_DELAY_MS = 100
 
 type TrashItem = {
   id: number
@@ -202,6 +203,9 @@ const TrashPageContent: React.FC = () => {
           })
         )
         results.push(...(await Promise.allSettled(chunk)))
+        if (i + BULK_ACTION_BATCH_SIZE < ids.length) {
+          await new Promise((resolve) => setTimeout(resolve, BULK_ACTION_DELAY_MS))
+        }
       }
       const successCount = results.filter((r) => r.status === 'fulfilled').length
       const failedCount = ids.length - successCount
@@ -259,6 +263,9 @@ const TrashPageContent: React.FC = () => {
           })
         )
         results.push(...(await Promise.allSettled(chunk)))
+        if (i + BULK_ACTION_BATCH_SIZE < ids.length) {
+          await new Promise((resolve) => setTimeout(resolve, BULK_ACTION_DELAY_MS))
+        }
       }
       const successCount = results.filter((r) => r.status === 'fulfilled').length
       const failedCount = ids.length - successCount

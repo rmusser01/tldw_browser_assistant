@@ -29,7 +29,7 @@ import { buildActorDictionaryTokens } from "@/utils/actor"
 const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 import { applyActorPresetById } from "@/data/actor-presets"
 import type { ActorPresetId } from "@/data/actor-presets"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 
 const parseWorldBookEntryOptions = (content: string): string[] => {
   const text = (content || "").trim()
@@ -91,7 +91,7 @@ export const ActorEditor: React.FC<Props> = ({
 
   // Currently active assistant/character (from CharacterSelect).
   // Used to label per-character defaults and profiles.
-  const [selectedCharacter] = useStorage<any>("selectedCharacter", null)
+  const [selectedCharacter] = useSelectedCharacter<any>(null)
 
   React.useEffect(() => {
     if (!settings) return

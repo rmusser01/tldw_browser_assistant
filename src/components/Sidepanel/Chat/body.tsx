@@ -18,6 +18,7 @@ type Props = {
   searchQuery?: string
   timelineAction?: TimelineActionDetail | null
   onTimelineActionHandled?: () => void
+  inputRef?: React.RefObject<HTMLTextAreaElement>
 }
 
 export const SidePanelBody = ({
@@ -26,7 +27,7 @@ export const SidePanelBody = ({
   inputRef,
   timelineAction,
   onTimelineActionHandled
-}: Props & { inputRef?: React.RefObject<HTMLTextAreaElement> }) => {
+}: Props) => {
   const {
     messages,
     setMessages,

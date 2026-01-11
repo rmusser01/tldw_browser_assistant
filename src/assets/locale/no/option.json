@@ -120,7 +120,7 @@
   "notes": "Notater",
   "upload": {
     "fileTooLargeTitle": "Filen er for stor",
-    "fileTooLargeDescription": "Filstørrelsen må være under 10 MB",
+    "fileTooLargeDescription": "Filstørrelsen må være under {{size}}",
     "uploadFailedTitle": "Opplasting mislyktes",
     "uploadFailedDescription": "Klarte ikke å laste opp filen. Prøv igjen."
   },

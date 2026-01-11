@@ -87,13 +87,16 @@ const toNoteVersion = (note: any): number | null => {
     if (
       typeof candidate === 'number' &&
       Number.isFinite(candidate) &&
-      Number.isInteger(candidate)
+      Number.isInteger(candidate) &&
+      candidate >= 0
     ) {
       return candidate
     }
     if (typeof candidate === 'string' && candidate.trim().length > 0) {
       const parsed = Number(candidate)
-      if (Number.isFinite(parsed) && Number.isInteger(parsed)) return parsed
+      if (Number.isFinite(parsed) && Number.isInteger(parsed) && parsed >= 0) {
+        return parsed
+      }
     }
   }
   return null
@@ -292,11 +295,49 @@ const NotesManagerPage: React.FC = () => {
     return availableKeywords.filter((kw) => kw.toLowerCase().includes(q))
   }, [availableKeywords, keywordPickerQuery])
 
+  const loadAllKeywords = React.useCallback(async () => {
+    if (allKeywords.length > 0) return
+    try {
+      const arr = await getAllNoteKeywords()
+      setAllKeywords(arr)
+      setKeywordOptions(arr)
+    } catch {
+      console.debug('[NotesManagerPage] Keyword suggestions load failed')
+    }
+  }, [allKeywords])
+
   const openKeywordPicker = React.useCallback(() => {
     setKeywordPickerQuery('')
     setKeywordPickerSelection(keywordTokens)
     setKeywordPickerOpen(true)
-  }, [keywordTokens])
+    void loadAllKeywords()
+  }, [keywordTokens, loadAllKeywords])
+
+  const handleKeywordPickerCancel = React.useCallback(() => {
+    setKeywordPickerOpen(false)
+  }, [])
+
+  const handleKeywordPickerApply = React.useCallback(() => {
+    setKeywordTokens(keywordPickerSelection)
+    setPage(1)
+    setKeywordPickerOpen(false)
+  }, [keywordPickerSelection])
+
+  const handleKeywordPickerQueryChange = React.useCallback((value: string) => {
+    setKeywordPickerQuery(value)
+  }, [])
+
+  const handleKeywordPickerSelectionChange = React.useCallback((vals: string[]) => {
+    setKeywordPickerSelection(vals)
+  }, [])
+
+  const handleKeywordPickerSelectAll = React.useCallback(() => {
+    setKeywordPickerSelection(availableKeywords)
+  }, [availableKeywords])
+
+  const handleKeywordPickerClear = React.useCallback(() => {
+    setKeywordPickerSelection([])
+  }, [])
 
   const loadDetail = React.useCallback(async (id: string | number) => {
     setLoadingDetail(true)
@@ -401,9 +442,11 @@ const NotesManagerPage: React.FC = () => {
           return
         }
         const updated = await bgRequest<any>({
-          path: `/api/v1/notes/${selectedId}` as any,
+          path: `/api/v1/notes/${selectedId}?expected_version=${encodeURIComponent(
+            String(expectedVersion)
+          )}` as any,
           method: 'PUT' as any,
-          headers: { 'Content-Type': 'application/json', 'expected-version': String(expectedVersion) },
+          headers: { 'Content-Type': 'application/json' },
           body: payload
         })
         const updatedVersion = toNoteVersion(updated)
@@ -423,7 +466,12 @@ const NotesManagerPage: React.FC = () => {
       const msg = String(e?.message || '')
       const lower = msg.toLowerCase()
       const status = e?.status ?? e?.response?.status
-      if (status === 409 || lower.includes('expected-version') || lower.includes('version mismatch')) {
+      if (
+        status === 409 ||
+        lower.includes('expected-version') ||
+        lower.includes('expected_version') ||
+        lower.includes('version mismatch')
+      ) {
         message.error({
           content: (
             <span className="inline-flex items-center gap-2">
@@ -483,18 +531,24 @@ const NotesManagerPage: React.FC = () => {
         return
       }
       await bgRequest<any>({
-        path: `/api/v1/notes/${target}` as any,
-        method: 'DELETE' as any,
-        headers: { 'expected-version': String(expectedVersion) }
+        path: `/api/v1/notes/${target}?expected_version=${encodeURIComponent(
+          String(expectedVersion)
+        )}` as any,
+        method: 'DELETE' as any
       })
       message.success('Note deleted')
-      if (selectedId === target) resetEditor()
+      if (selectedId != null && String(selectedId) === targetId) resetEditor()
       await refetch()
     } catch (e: any) {
       const msg = String(e?.message || '')
       const lower = msg.toLowerCase()
       const status = e?.status ?? e?.response?.status
-      if (status === 409 || lower.includes('expected-version') || lower.includes('version mismatch')) {
+      if (
+        status === 409 ||
+        lower.includes('expected-version') ||
+        lower.includes('expected_version') ||
+        lower.includes('version mismatch')
+      ) {
         message.error({
           content: (
             <span className="inline-flex items-center gap-2">
@@ -554,7 +608,7 @@ const NotesManagerPage: React.FC = () => {
         { include_deleted: "false" } as any
       )
       const historyArr = messages.map((m) => ({
-        role: m.role,
+        role: normalizeChatRole(m.role),
         content: m.content
       }))
       const mappedMessages = messages.map((m) => {
@@ -808,16 +862,14 @@ const NotesManagerPage: React.FC = () => {
       if (text && text.trim().length > 0) {
         const arr = await searchNoteKeywords(text, 10)
         setKeywordOptions(arr)
-      } else {
-        const arr = await getAllNoteKeywords()
-        setAllKeywords(arr)
-        setKeywordOptions(arr)
+      } else if (allKeywords.length > 0) {
+        setKeywordOptions(allKeywords)
       }
     } catch {
       // Keyword load failed - feature will use empty suggestions
       console.debug('[NotesManagerPage] Keyword suggestions load failed')
     }
-  }, [])
+  }, [allKeywords])
 
   const debouncedLoadKeywordSuggestions = React.useCallback(
     (text?: string) => {
@@ -835,10 +887,31 @@ const NotesManagerPage: React.FC = () => {
     [loadKeywordSuggestions]
   )
 
+  const handleKeywordFilterSearch = React.useCallback(
+    (text: string) => {
+      if (isOnline) void debouncedLoadKeywordSuggestions(text)
+    },
+    [debouncedLoadKeywordSuggestions, isOnline]
+  )
+
+  const handleKeywordFilterChange = React.useCallback(
+    (vals: string[] | string) => {
+      setKeywordTokens(Array.isArray(vals) ? vals : [vals])
+      setPage(1)
+    },
+    []
+  )
+
+  const handleClearFilters = React.useCallback(() => {
+    setQuery('')
+    setKeywordTokens([])
+    setPage(1)
+  }, [])
+
   React.useEffect(() => {
-    if (!isOnline) return
-    void loadKeywordSuggestions()
-  }, [isOnline, loadKeywordSuggestions])
+    if (!isOnline || !keywordPickerOpen) return
+    void loadAllKeywords()
+  }, [isOnline, keywordPickerOpen, loadAllKeywords])
 
   React.useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => {
@@ -977,19 +1050,14 @@ const NotesManagerPage: React.FC = () => {
                 })}
                 className="w-full"
                 value={keywordTokens}
-                onSearch={(txt) => {
-                  if (isOnline) void debouncedLoadKeywordSuggestions(txt)
-                }}
-                onChange={(vals) => {
-                  setKeywordTokens(vals as string[])
-                  setPage(1)
-                }}
+                onSearch={handleKeywordFilterSearch}
+                onChange={handleKeywordFilterChange}
                 options={keywordOptions.map((k) => ({ label: k, value: k }))}
               />
               <div className="flex items-center justify-between gap-2">
                 <Button
                   size="small"
-                  onClick={() => openKeywordPicker()}
+                  onClick={openKeywordPicker}
                   disabled={!isOnline}
                   className="text-xs"
                 >
@@ -1012,11 +1080,7 @@ const NotesManagerPage: React.FC = () => {
               {hasActiveFilters && (
                 <Button
                   size="small"
-                  onClick={() => {
-                    setQuery('')
-                    setKeywordTokens([])
-                    setPage(1)
-                  }}
+                  onClick={handleClearFilters}
                   className="w-full text-xs"
                 >
                   {t('option:notesSearch.clear', {
@@ -1225,16 +1289,12 @@ const NotesManagerPage: React.FC = () => {
             filteredKeywordPickerOptions={filteredKeywordPickerOptions}
             keywordPickerQuery={keywordPickerQuery}
             keywordPickerSelection={keywordPickerSelection}
-            onCancel={() => setKeywordPickerOpen(false)}
-            onApply={() => {
-              setKeywordTokens(keywordPickerSelection)
-              setPage(1)
-              setKeywordPickerOpen(false)
-            }}
-            onQueryChange={(value) => setKeywordPickerQuery(value)}
-            onSelectionChange={(vals) => setKeywordPickerSelection(vals)}
-            onSelectAll={() => setKeywordPickerSelection(availableKeywords)}
-            onClear={() => setKeywordPickerSelection([])}
+            onCancel={handleKeywordPickerCancel}
+            onApply={handleKeywordPickerApply}
+            onQueryChange={handleKeywordPickerQueryChange}
+            onSelectionChange={handleKeywordPickerSelectionChange}
+            onSelectAll={handleKeywordPickerSelectAll}
+            onClear={handleKeywordPickerClear}
             t={t}
           />
         </React.Suspense>

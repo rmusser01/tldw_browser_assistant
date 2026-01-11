@@ -1,4 +1,5 @@
 import { Select, Switch, Tag } from "antd"
+import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
@@ -119,6 +120,111 @@ export const ChatSettings = () => {
     DEFAULT_CHAT_SETTINGS.chatAssistantTextSize
   )
 
+  const handleCopilotResumeLastChatChange = useCallback(
+    (checked: boolean) => setCopilotResumeLastChat(checked),
+    [setCopilotResumeLastChat]
+  )
+  const handleDefaultChatWithWebsiteChange = useCallback(
+    (checked: boolean) => setDefaultChatWithWebsite(checked),
+    [setDefaultChatWithWebsite]
+  )
+  const handleWebUIResumeLastChatChange = useCallback(
+    (checked: boolean) => setWebUIResumeLastChat(checked),
+    [setWebUIResumeLastChat]
+  )
+  const handleHideCurrentChatModelSettingsChange = useCallback(
+    (checked: boolean) => setHideCurrentChatModelSettings(checked),
+    [setHideCurrentChatModelSettings]
+  )
+  const handleHideQuickChatHelperChange = useCallback(
+    (checked: boolean) => setHideQuickChatHelper(checked),
+    [setHideQuickChatHelper]
+  )
+  const handleRestoreLastChatModelChange = useCallback(
+    (checked: boolean) => setRestoreLastChatModel(checked),
+    [setRestoreLastChatModel]
+  )
+  const handleGenerateTitleChange = useCallback(
+    (checked: boolean) => setGenerateTitle(checked),
+    [setGenerateTitle]
+  )
+  const handleCheckWideModeChange = useCallback(
+    (checked: boolean) => setCheckWideMode(checked),
+    [setCheckWideMode]
+  )
+  const handleStickyChatInputChange = useCallback(
+    (checked: boolean) => setStickyChatInput(checked),
+    [setStickyChatInput]
+  )
+  const handleMenuDensityChange = useCallback(
+    (value: string) => setMenuDensity(value),
+    [setMenuDensity]
+  )
+  const handleOpenReasoningChange = useCallback(
+    (checked: boolean) => setOpenReasoning(checked),
+    [setOpenReasoning]
+  )
+  const handleUserChatBubbleChange = useCallback(
+    (checked: boolean) => setUserChatBubble(checked),
+    [setUserChatBubble]
+  )
+  const handleAutoCopyResponseToClipboardChange = useCallback(
+    (checked: boolean) => setAutoCopyResponseToClipboard(checked),
+    [setAutoCopyResponseToClipboard]
+  )
+  const handleUseMarkdownForUserMessageChange = useCallback(
+    (checked: boolean) => setUseMarkdownForUserMessage(checked),
+    [setUseMarkdownForUserMessage]
+  )
+  const handleCopyAsFormattedTextChange = useCallback(
+    (checked: boolean) => setCopyAsFormattedText(checked),
+    [setCopyAsFormattedText]
+  )
+  const handleTabMentionsEnabledChange = useCallback(
+    (checked: boolean) => setTabMentionsEnabled(checked),
+    [setTabMentionsEnabled]
+  )
+  const handlePasteLargeTextAsFileChange = useCallback(
+    (checked: boolean) => setPasteLargeTextAsFile(checked),
+    [setPasteLargeTextAsFile]
+  )
+  const handleSidepanelTemporaryChatChange = useCallback(
+    (checked: boolean) => setSidepanelTemporaryChat(checked),
+    [setSidepanelTemporaryChat]
+  )
+  const handleRemoveReasoningTagFromCopyChange = useCallback(
+    (checked: boolean) => setRemoveReasoningTagFromCopy(checked),
+    [setRemoveReasoningTagFromCopy]
+  )
+  const handlePromptSearchIncludeServerChange = useCallback(
+    (checked: boolean) => setPromptSearchIncludeServer(checked),
+    [setPromptSearchIncludeServer]
+  )
+  const handleUserTextColorChange = useCallback(
+    (value: string) => setUserTextColor(value),
+    [setUserTextColor]
+  )
+  const handleAssistantTextColorChange = useCallback(
+    (value: string) => setAssistantTextColor(value),
+    [setAssistantTextColor]
+  )
+  const handleUserTextFontChange = useCallback(
+    (value: string) => setUserTextFont(value),
+    [setUserTextFont]
+  )
+  const handleAssistantTextFontChange = useCallback(
+    (value: string) => setAssistantTextFont(value),
+    [setAssistantTextFont]
+  )
+  const handleUserTextSizeChange = useCallback(
+    (value: string) => setUserTextSize(value),
+    [setUserTextSize]
+  )
+  const handleAssistantTextSizeChange = useCallback(
+    (value: string) => setAssistantTextSize(value),
+    [setAssistantTextSize]
+  )
+
   const colorOptions = [
     {
       value: "default",
@@ -174,9 +280,10 @@ export const ChatSettings = () => {
             </Tag>
           )}
         </div>
+
         <Switch
           checked={copilotResumeLastChat}
-          onChange={(checked) => setCopilotResumeLastChat(checked)}
+          onChange={handleCopilotResumeLastChatChange}
           aria-label={t("generalSettings.settings.copilotResumeLastChat.label")}
         />
       </div>
@@ -192,9 +299,10 @@ export const ChatSettings = () => {
             </Tag>
           )}
         </div>
+
         <Switch
           checked={defaultChatWithWebsite}
-          onChange={(checked) => setDefaultChatWithWebsite(checked)}
+          onChange={handleDefaultChatWithWebsiteChange}
           aria-label={t("generalSettings.settings.turnOnChatWithWebsite.label")}
         />
       </div>
@@ -209,9 +317,10 @@ export const ChatSettings = () => {
             </Tag>
           )}
         </div>
+
         <Switch
           checked={webUIResumeLastChat}
-          onChange={(checked) => setWebUIResumeLastChat(checked)}
+          onChange={handleWebUIResumeLastChatChange}
           aria-label={t("generalSettings.settings.webUIResumeLastChat.label")}
         />
       </div>
@@ -230,7 +339,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={hideCurrentChatModelSettings}
-          onChange={(checked) => setHideCurrentChatModelSettings(checked)}
+          onChange={handleHideCurrentChatModelSettingsChange}
           aria-label={t("generalSettings.settings.hideCurrentChatModelSettings.label")}
         />
       </div>
@@ -242,11 +351,16 @@ export const ChatSettings = () => {
               "Hide Quick Chat Helper button"
             )}
           </span>
+          {hideQuickChatHelper === DEFAULT_CHAT_SETTINGS.hideQuickChatHelper && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={hideQuickChatHelper}
-          onChange={(checked) => setHideQuickChatHelper(checked)}
+          onChange={handleHideQuickChatHelperChange}
           aria-label={t(
             "generalSettings.settings.hideQuickChatHelper.label",
             "Hide Quick Chat Helper button"
@@ -267,7 +381,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={restoreLastChatModel}
-          onChange={(checked) => setRestoreLastChatModel(checked)}
+          onChange={handleRestoreLastChatModelChange}
           aria-label={t("generalSettings.settings.restoreLastChatModel.label")}
         />
       </div>
@@ -277,11 +391,16 @@ export const ChatSettings = () => {
           <span className="text-text">
             {t("generalSettings.settings.generateTitle.label")}
           </span>
+          {generateTitle === DEFAULT_CHAT_SETTINGS.titleGenEnabled && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={generateTitle}
-          onChange={(checked) => setGenerateTitle(checked)}
+          onChange={handleGenerateTitleChange}
           aria-label={t("generalSettings.settings.generateTitle.label")}
         />
       </div>
@@ -300,7 +419,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={checkWideMode}
-          onChange={(checked) => setCheckWideMode(checked)}
+          onChange={handleCheckWideModeChange}
           aria-label={t("generalSettings.settings.wideMode.label")}
         />
       </div>
@@ -319,7 +438,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={stickyChatInput}
-          onChange={(checked) => setStickyChatInput(checked)}
+          onChange={handleStickyChatInputChange}
           aria-label={t("generalSettings.settings.stickyChatInput.label")}
         />
       </div>
@@ -339,7 +458,7 @@ export const ChatSettings = () => {
           aria-label={t("generalSettings.settings.menuDensity.label", "Menu density")}
           style={{ width: SELECT_WIDTH }}
           value={menuDensity}
-          onChange={(v) => setMenuDensity(v)}
+          onChange={handleMenuDensityChange}
           options={[
             {
               value: "comfortable",
@@ -373,7 +492,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={openReasoning}
-          onChange={(checked) => setOpenReasoning(checked)}
+          onChange={handleOpenReasoningChange}
           aria-label={t("generalSettings.settings.openReasoning.label")}
         />
       </div>
@@ -392,7 +511,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={userChatBubble}
-          onChange={(checked) => setUserChatBubble(checked)}
+          onChange={handleUserChatBubbleChange}
           aria-label={t("generalSettings.settings.userChatBubble.label")}
         />
       </div>
@@ -412,7 +531,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={autoCopyResponseToClipboard}
-          onChange={(checked) => setAutoCopyResponseToClipboard(checked)}
+          onChange={handleAutoCopyResponseToClipboardChange}
           aria-label={t("generalSettings.settings.autoCopyResponseToClipboard.label")}
         />
       </div>
@@ -432,7 +551,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={useMarkdownForUserMessage}
-          onChange={(checked) => setUseMarkdownForUserMessage(checked)}
+          onChange={handleUseMarkdownForUserMessageChange}
           aria-label={t("generalSettings.settings.useMarkdownForUserMessage.label")}
         />
       </div>
@@ -451,7 +570,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={copyAsFormattedText}
-          onChange={(checked) => setCopyAsFormattedText(checked)}
+          onChange={handleCopyAsFormattedTextChange}
           aria-label={t("generalSettings.settings.copyAsFormattedText.label")}
         />
       </div>
@@ -462,11 +581,16 @@ export const ChatSettings = () => {
           <span className="text-text">
             {t("generalSettings.settings.tabMentionsEnabled.label")}
           </span>
+          {tabMentionsEnabled === DEFAULT_CHAT_SETTINGS.tabMentionsEnabled && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={tabMentionsEnabled}
-          onChange={(checked) => setTabMentionsEnabled(checked)}
+          onChange={handleTabMentionsEnabledChange}
           aria-label={t("generalSettings.settings.tabMentionsEnabled.label")}
         />
       </div>
@@ -475,11 +599,17 @@ export const ChatSettings = () => {
           <span className="text-text">
             {t("generalSettings.settings.pasteLargeTextAsFile.label")}
           </span>
+          {pasteLargeTextAsFile ===
+            DEFAULT_CHAT_SETTINGS.pasteLargeTextAsFile && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={pasteLargeTextAsFile}
-          onChange={(checked) => setPasteLargeTextAsFile(checked)}
+          onChange={handlePasteLargeTextAsFileChange}
           aria-label={t("generalSettings.settings.pasteLargeTextAsFile.label")}
         />
       </div>
@@ -489,11 +619,17 @@ export const ChatSettings = () => {
           <span className="text-text">
             {t("generalSettings.settings.sidepanelTemporaryChat.label")}
           </span>
+          {sidepanelTemporaryChat ===
+            DEFAULT_CHAT_SETTINGS.sidepanelTemporaryChat && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
 
         <Switch
           checked={sidepanelTemporaryChat}
-          onChange={(checked) => setSidepanelTemporaryChat(checked)}
+          onChange={handleSidepanelTemporaryChatChange}
           aria-label={t("generalSettings.settings.sidepanelTemporaryChat.label")}
         />
       </div>
@@ -513,7 +649,7 @@ export const ChatSettings = () => {
 
         <Switch
           checked={removeReasoningTagFromCopy}
-          onChange={(checked) => setRemoveReasoningTagFromCopy(checked)}
+          onChange={handleRemoveReasoningTagFromCopyChange}
           aria-label={t("generalSettings.settings.removeReasoningTagFromCopy.label")}
         />
       </div>
@@ -523,10 +659,17 @@ export const ChatSettings = () => {
           <span className="text-text">
             {t("generalSettings.settings.promptSearchIncludeServer.label")}
           </span>
+          {promptSearchIncludeServer ===
+            DEFAULT_CHAT_SETTINGS.promptSearchIncludeServer && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
+
         <Switch
           checked={promptSearchIncludeServer}
-          onChange={(checked) => setPromptSearchIncludeServer(checked)}
+          onChange={handlePromptSearchIncludeServerChange}
           aria-label={t("generalSettings.settings.promptSearchIncludeServer.label")}
         />
       </div>
@@ -561,7 +704,7 @@ export const ChatSettings = () => {
           id="user-text-color"
           style={{ width: SELECT_WIDTH }}
           value={userTextColor}
-          onChange={(value) => setUserTextColor(value)}
+          onChange={handleUserTextColorChange}
           options={colorOptions}
         />
       </div>
@@ -577,7 +720,7 @@ export const ChatSettings = () => {
           id="user-text-font"
           style={{ width: SELECT_WIDTH }}
           value={userTextFont}
-          onChange={(value) => setUserTextFont(value)}
+          onChange={handleUserTextFontChange}
           options={fontOptions}
         />
       </div>
@@ -593,7 +736,7 @@ export const ChatSettings = () => {
           id="user-text-size"
           style={{ width: SELECT_WIDTH }}
           value={userTextSize}
-          onChange={(value) => setUserTextSize(value)}
+          onChange={handleUserTextSizeChange}
           options={sizeOptions}
         />
       </div>
@@ -615,7 +758,7 @@ export const ChatSettings = () => {
           id="assistant-text-color"
           style={{ width: SELECT_WIDTH }}
           value={assistantTextColor}
-          onChange={(value) => setAssistantTextColor(value)}
+          onChange={handleAssistantTextColorChange}
           options={colorOptions}
         />
       </div>
@@ -631,7 +774,7 @@ export const ChatSettings = () => {
           id="assistant-text-font"
           style={{ width: SELECT_WIDTH }}
           value={assistantTextFont}
-          onChange={(value) => setAssistantTextFont(value)}
+          onChange={handleAssistantTextFontChange}
           options={fontOptions}
         />
       </div>
@@ -647,7 +790,7 @@ export const ChatSettings = () => {
           id="assistant-text-size"
           style={{ width: SELECT_WIDTH }}
           value={assistantTextSize}
-          onChange={(value) => setAssistantTextSize(value)}
+          onChange={handleAssistantTextSizeChange}
           options={sizeOptions}
         />
       </div>

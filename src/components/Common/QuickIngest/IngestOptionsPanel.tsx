@@ -32,7 +32,11 @@ type ProgressMeta = {
 }
 
 type IngestOptionsPanelProps = {
-  qi: (key: string, defaultValue: string, options?: Record<string, any>) => string
+  qi: (
+    key: string,
+    defaultValue: string,
+    options?: Record<string, unknown>
+  ) => string
   t: TFunction
   hasAudioItems: boolean
   hasDocumentItems: boolean
@@ -61,8 +65,13 @@ type IngestOptionsPanelProps = {
   run: () => void
   hasMissingFiles: boolean
   missingFileCount: number
-  ingestConnectionStatus: string
-  checkOnce?: () => void
+  ingestConnectionStatus:
+    | "online"
+    | "offline"
+    | "unconfigured"
+    | "offlineBypass"
+    | "unknown"
+  checkOnce?: () => Promise<void> | void
   disableOfflineBypass?: () => Promise<void>
   onClose: () => void
 }
@@ -104,6 +113,140 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
 }) => {
   const done = doneCount || 0
   const total = totalCount || 0
+  const ingestBlockedLabel =
+    ingestConnectionStatus === "unconfigured"
+      ? t(
+          "quickIngest.unavailableUnconfigured",
+          "Ingest unavailable \u2014 server not configured"
+        )
+      : ingestConnectionStatus === "offlineBypass"
+        ? t(
+            "quickIngest.unavailableOfflineBypass",
+            "Ingest unavailable \u2014 offline mode enabled"
+          )
+        : t(
+            "quickIngest.unavailableOffline",
+            "Ingest unavailable \u2014 server offline"
+          )
+  const primaryActionLabel = ingestBlocked
+    ? ingestBlockedLabel
+    : reviewBeforeStorage
+      ? qi("reviewRunLabel", "Review")
+      : storeRemote
+        ? t("quickIngest.ingest", "Ingest")
+        : t("quickIngest.process", "Process")
+  const handleAnalysisToggle = React.useCallback(
+    (value: boolean) => {
+      setCommon((current) => ({ ...current, perform_analysis: value }))
+    },
+    [setCommon]
+  )
+  const handleChunkingToggle = React.useCallback(
+    (value: boolean) => {
+      setCommon((current) => ({ ...current, perform_chunking: value }))
+    },
+    [setCommon]
+  )
+  const handleOverwriteToggle = React.useCallback(
+    (value: boolean) => {
+      setCommon((current) => ({ ...current, overwrite_existing: value }))
+    },
+    [setCommon]
+  )
+  const handleAudioLanguageChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const nextValue = event.target.value
+      const normalizedValue = nextValue === "" ? undefined : nextValue
+      setTypeDefaults((prev) => {
+        const nextAudio = { ...(prev?.audio || {}) }
+        if (normalizedValue == null) {
+          delete nextAudio.language
+        } else {
+          nextAudio.language = normalizedValue
+        }
+        return { ...(prev || {}), audio: nextAudio }
+      })
+    },
+    [setTypeDefaults]
+  )
+  const handleAudioDiarizeChange = React.useCallback(
+    (value: boolean) => {
+      setTypeDefaults((prev) => ({
+        ...(prev || {}),
+        audio: { ...(prev?.audio || {}), diarize: Boolean(value) }
+      }))
+    },
+    [setTypeDefaults]
+  )
+  const handleDocumentOcrChange = React.useCallback(
+    (value: boolean) => {
+      setTypeDefaults((prev) => ({
+        ...(prev || {}),
+        document: { ...(prev?.document || {}), ocr: Boolean(value) }
+      }))
+    },
+    [setTypeDefaults]
+  )
+  const handleVideoCaptionsChange = React.useCallback(
+    (value: boolean) => {
+      setTypeDefaults((prev) => ({
+        ...(prev || {}),
+        video: { ...(prev?.video || {}), captions: Boolean(value) }
+      }))
+    },
+    [setTypeDefaults]
+  )
+  const handleStorageDocsClick = React.useCallback(() => {
+    const defaultUrl = "https://github.com/rmusser01/tldw_browser_assistant"
+    const allowedHostnames = new Set(["github.com"])
+    try {
+      const docsUrl =
+        t("quickIngest.storageDocsUrl", defaultUrl) || defaultUrl
+      let validatedUrl = defaultUrl
+      try {
+        if (docsUrl.startsWith("/")) {
+          const resolvedUrl = new URL(docsUrl, window.location.origin)
+          if (resolvedUrl.protocol === "http:" || resolvedUrl.protocol === "https:") {
+            validatedUrl = resolvedUrl.toString()
+          }
+        } else {
+          const parsedUrl = new URL(docsUrl)
+          if (
+            (parsedUrl.protocol === "http:" ||
+              parsedUrl.protocol === "https:") &&
+            allowedHostnames.has(parsedUrl.hostname)
+          ) {
+            validatedUrl = parsedUrl.toString()
+          }
+        }
+      } catch {
+        // fallback to defaultUrl
+      }
+      window.open(validatedUrl, "_blank", "noopener,noreferrer")
+    } catch {
+      // ignore navigation errors
+    } finally {
+      try {
+        setStorageHintSeen(true)
+      } catch {
+        // ignore storage errors
+      }
+    }
+  }, [setStorageHintSeen, t])
+  const handleCheckOnce = React.useCallback(async () => {
+    try {
+      await checkOnce?.()
+    } catch {
+      // ignore check errors; footer is informational
+    }
+  }, [checkOnce])
+  const handleDisableOfflineBypass = React.useCallback(async () => {
+    try {
+      await disableOfflineBypass?.()
+    } catch {
+      // ignore disable errors; Quick Ingest will update when connection state changes
+    }
+  }, [disableOfflineBypass])
 
   return (
     <div className="rounded-md border border-border bg-surface p-3 space-y-3">
@@ -125,9 +268,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             aria-label="Ingestion options \u2013 analysis"
             title="Toggle analysis"
             checked={common.perform_analysis}
-            onChange={(value) =>
-              setCommon((current) => ({ ...current, perform_analysis: value }))
-            }
+            onChange={handleAnalysisToggle}
             disabled={running}
           />
         </Space>
@@ -137,9 +278,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             aria-label="Ingestion options \u2013 chunking"
             title="Toggle chunking"
             checked={common.perform_chunking}
-            onChange={(value) =>
-              setCommon((current) => ({ ...current, perform_chunking: value }))
-            }
+            onChange={handleChunkingToggle}
             disabled={running}
           />
         </Space>
@@ -149,9 +288,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             aria-label="Ingestion options \u2013 overwrite existing"
             title="Toggle overwrite existing"
             checked={common.overwrite_existing}
-            onChange={(value) =>
-              setCommon((current) => ({ ...current, overwrite_existing: value }))
-            }
+            onChange={handleOverwriteToggle}
             disabled={running}
           />
         </Space>
@@ -185,15 +322,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             <Input
               placeholder={t("quickIngest.audioLanguage") || "Language (e.g., en)"}
               value={normalizedTypeDefaults.audio?.language || ""}
-              onChange={(event) =>
-                setTypeDefaults((prev) => ({
-                  ...(prev || {}),
-                  audio: {
-                    ...(prev?.audio || {}),
-                    language: event.target.value
-                  }
-                }))
-              }
+              onChange={handleAudioLanguageChange}
               disabled={running}
               aria-label="Audio language"
               title="Audio language"
@@ -201,12 +330,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             <Select
               className="min-w-40"
               value={normalizedTypeDefaults.audio?.diarize ?? false}
-              onChange={(value) =>
-                setTypeDefaults((prev) => ({
-                  ...(prev || {}),
-                  audio: { ...(prev?.audio || {}), diarize: Boolean(value) }
-                }))
-              }
+              onChange={handleAudioDiarizeChange}
               aria-label="Audio diarization toggle"
               title="Audio diarization toggle"
               options={[
@@ -249,12 +373,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
           <Select
             className="min-w-40"
             value={normalizedTypeDefaults.document?.ocr ?? true}
-            onChange={(value) =>
-              setTypeDefaults((prev) => ({
-                ...(prev || {}),
-                document: { ...(prev?.document || {}), ocr: Boolean(value) }
-              }))
-            }
+            onChange={handleDocumentOcrChange}
             aria-label="OCR toggle"
             title="OCR toggle"
             options={[
@@ -290,12 +409,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
           <Select
             className="min-w-40"
             value={normalizedTypeDefaults.video?.captions ?? false}
-            onChange={(value) =>
-              setTypeDefaults((prev) => ({
-                ...(prev || {}),
-                video: { ...(prev?.video || {}), captions: Boolean(value) }
-              }))
-            }
+            onChange={handleVideoCaptionsChange}
             aria-label="Captions toggle"
             title="Captions toggle"
             options={[
@@ -395,25 +509,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
                         <button
                           type="button"
                           className="text-xs underline text-primary hover:text-primaryStrong"
-                          onClick={() => {
-                            try {
-                              const docsUrl =
-                                t(
-                                  "quickIngest.storageDocsUrl",
-                                  "https://github.com/rmusser01/tldw_browser_assistant"
-                                ) ||
-                                "https://github.com/rmusser01/tldw_browser_assistant"
-                              window.open(docsUrl, "_blank", "noopener,noreferrer")
-                            } catch {
-                              // ignore navigation errors
-                            } finally {
-                              try {
-                                setStorageHintSeen(true)
-                              } catch {
-                                // ignore storage errors
-                              }
-                            }
-                          }}
+                          onClick={handleStorageDocsClick}
                         >
                           {t(
                             "quickIngest.storageDocsLink",
@@ -512,63 +608,10 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             disabled={
               plannedCount === 0 || running || ingestBlocked || hasMissingFiles
             }
-            aria-label={
-              ingestBlocked
-                ? ingestConnectionStatus === "unconfigured"
-                  ? t(
-                      "quickIngest.queueOnlyUnconfiguredAria",
-                    "Server not configured \u2014 queue items to process after you configure a server."
-                    )
-                  : ingestConnectionStatus === "offlineBypass"
-                    ? t(
-                        "quickIngest.queueOnlyOfflineBypassAria",
-                        "Offline mode enabled \u2014 queue items to process after you disable offline mode."
-                      )
-                    : t(
-                        "quickIngest.queueOnlyOfflineAria",
-                        "Offline \u2014 queue items to process later"
-                      )
-                : t("quickIngest.runAria", "Run quick ingest")
-            }
-            title={
-              ingestBlocked
-                ? ingestConnectionStatus === "unconfigured"
-                  ? t(
-                      "quickIngest.queueOnlyUnconfigured",
-                      "Queue only \u2014 server not configured"
-                    )
-                  : ingestConnectionStatus === "offlineBypass"
-                    ? t(
-                        "quickIngest.queueOnlyOfflineBypass",
-                        "Queue only \u2014 offline mode enabled"
-                      )
-                    : t(
-                        "quickIngest.queueOnlyOffline",
-                        "Queue only \u2014 server offline"
-                      )
-                : t("quickIngest.runLabel", "Run quick ingest")
-            }
+            aria-label={primaryActionLabel}
+            title={primaryActionLabel}
           >
-            {ingestBlocked
-              ? ingestConnectionStatus === "unconfigured"
-                ? t(
-                    "quickIngest.queueOnlyUnconfigured",
-                    "Queue only \u2014 server not configured"
-                  )
-                : ingestConnectionStatus === "offlineBypass"
-                  ? t(
-                      "quickIngest.queueOnlyOfflineBypass",
-                      "Queue only \u2014 offline mode enabled"
-                    )
-                  : t(
-                      "quickIngest.queueOnlyOffline",
-                      "Queue only \u2014 server offline"
-                    )
-              : reviewBeforeStorage
-                ? qi("reviewRunLabel", "Review")
-                : storeRemote
-                  ? t("quickIngest.ingest", "Ingest")
-                  : t("quickIngest.process", "Process")}
+            {primaryActionLabel}
           </Button>
           <Button
             onClick={onClose}
@@ -610,13 +653,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             {ingestConnectionStatus === "offline" && checkOnce ? (
               <Button
                 size="small"
-                onClick={() => {
-                  try {
-                    checkOnce?.()
-                  } catch {
-                    // ignore check errors; footer is informational
-                  }
-                }}
+                onClick={handleCheckOnce}
               >
                 {qi("retryConnection", "Retry connection")}
               </Button>
@@ -624,13 +661,7 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             {ingestConnectionStatus === "offlineBypass" && disableOfflineBypass && (
               <Button
                 size="small"
-                onClick={async () => {
-                  try {
-                    await disableOfflineBypass()
-                  } catch {
-                    // ignore disable errors; Quick Ingest will update when connection state changes
-                  }
-                }}
+                onClick={handleDisableOfflineBypass}
               >
                 {t("quickIngest.disableOfflineMode", "Disable offline mode")}
               </Button>

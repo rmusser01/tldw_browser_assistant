@@ -8,6 +8,7 @@ import { useWebUI } from "@/store/webui"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useStoreChatModelSettings } from "@/store/model"
 import { UploadedFile } from "@/db/dexie/types"
+import { formatFileSize } from "@/utils/format"
 import { useAntdNotification } from "./useAntdNotification"
 import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
 import { useSelectServerChat } from "@/hooks/chat/useSelectServerChat"
@@ -17,6 +18,9 @@ import { useClearChat } from "@/hooks/chat/useClearChat"
 import { useCompareMode } from "@/hooks/chat/useCompareMode"
 import { useChatActions } from "@/hooks/chat/useChatActions"
 import type { Character } from "@/types/character"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import { useSetting } from "@/hooks/useSetting"
+import { CONTEXT_FILE_SIZE_MB_SETTING } from "@/services/settings/ui-settings"
 
 export const useMessageOption = () => {
   // Controllers come from Context (for aborting streaming requests)
@@ -139,10 +143,7 @@ export const useMessageOption = () => {
 
   const currentChatModelSettings = useStoreChatModelSettings()
   const [selectedModel, setSelectedModel] = useStorage("selectedModel")
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [defaultInternetSearchOn] = useStorage("defaultInternetSearchOn", false)
   const [speechToTextLanguage, setSpeechToTextLanguage] = useStorage(
     "speechToTextLanguage",
@@ -152,6 +153,15 @@ export const useMessageOption = () => {
   const { ttsEnabled } = useWebUI()
 
   const { t } = useTranslation("option")
+  const [contextFileMaxSizeMb] = useSetting(CONTEXT_FILE_SIZE_MB_SETTING)
+  const maxContextFileSizeBytes = React.useMemo(
+    () => contextFileMaxSizeMb * 1024 * 1024,
+    [contextFileMaxSizeMb]
+  )
+  const maxContextFileSizeLabel = React.useMemo(
+    () => formatFileSize(maxContextFileSizeBytes),
+    [maxContextFileSizeBytes]
+  )
   const queryClient = useQueryClient()
   const invalidateServerChatHistory = React.useCallback(() => {
     queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
@@ -263,14 +273,13 @@ export const useMessageOption = () => {
         return file
       }
 
-      const maxSize = 10 * 1024 * 1024
-      if (file.size > maxSize) {
+      if (file.size > maxContextFileSizeBytes) {
         notification.error({
           message: t("upload.fileTooLargeTitle", "File Too Large"),
-          description: t(
-            "upload.fileTooLargeDescription",
-            "File size must be less than 10MB"
-          )
+          description: t("upload.fileTooLargeDescription", {
+            defaultValue: "File size must be less than {{size}}",
+            size: maxContextFileSizeLabel
+          })
         })
         return
       }

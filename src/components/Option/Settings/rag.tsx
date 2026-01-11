@@ -25,6 +25,11 @@ const VALIDATION_RANGES = {
   totalFilePerKB: { min: 1, max: 10000 }
 } as const
 
+const SPLITTING_STRATEGIES = {
+  RECURSIVE_CHARACTER: "RecursiveCharacterTextSplitter",
+  CHARACTER: "CharacterTextSplitter"
+} as const
+
 export const RagSettings = () => {
   const { t } = useTranslation("settings")
   const [form] = Form.useForm()
@@ -74,11 +79,27 @@ export const RagSettings = () => {
         VALIDATION_RANGES.totalFilePerKB.max
       )
 
-    const needsSeparator = values.splittingStrategy !== "RecursiveCharacterTextSplitter"
+    const invalidOverlap =
+      isValidNumber(
+        values.chunkSize,
+        VALIDATION_RANGES.chunkSize.min,
+        VALIDATION_RANGES.chunkSize.max
+      ) &&
+      isValidNumber(
+        values.chunkOverlap,
+        VALIDATION_RANGES.chunkOverlap.min,
+        VALIDATION_RANGES.chunkOverlap.max
+      ) &&
+      values.chunkOverlap >= values.chunkSize
+
+    const needsSeparator =
+      values.splittingStrategy !== SPLITTING_STRATEGIES.RECURSIVE_CHARACTER
     const separatorMissing =
       needsSeparator && !isNonEmptyString(values.splittingSeparator)
 
-    setIsFormValid(!hasErrors && !isMissingRequired && !separatorMissing)
+    setIsFormValid(
+      !hasErrors && !isMissingRequired && !separatorMissing && !invalidOverlap
+    )
   }, [form])
 
   const { data: ollamaInfo, status } = useQuery({
@@ -279,18 +300,19 @@ export const RagSettings = () => {
                   size="large"
                   showSearch
                   style={{ width: "100%" }}
-                  className="mt-4"
-                  options={[
-                    "RecursiveCharacterTextSplitter",
-                    "CharacterTextSplitter"
-                  ].map((e) => ({
-                    label: e,
-                    value: e
-                  }))}
-                />
-              </Form.Item>
+                className="mt-4"
+                options={[
+                  SPLITTING_STRATEGIES.RECURSIVE_CHARACTER,
+                  SPLITTING_STRATEGIES.CHARACTER
+                ].map((e) => ({
+                  label: e,
+                  value: e
+                }))}
+              />
+            </Form.Item>
 
-              {splittingStrategy !== "RecursiveCharacterTextSplitter" && (
+              {splittingStrategy !==
+                SPLITTING_STRATEGIES.RECURSIVE_CHARACTER && (
                 <Form.Item
                   name="splittingSeparator"
                   label={t("rag.ragSettings.splittingSeparator.label")}
@@ -346,6 +368,7 @@ export const RagSettings = () => {
                   "rag.ragSettings.chunkOverlap.help",
                   `Overlap between chunks to maintain context (${VALIDATION_RANGES.chunkOverlap.min}-${VALIDATION_RANGES.chunkOverlap.max})`
                 )}
+                dependencies={["chunkSize"]}
                 rules={[
                   {
                     required: true,
@@ -359,6 +382,22 @@ export const RagSettings = () => {
                       "rag.ragSettings.chunkOverlap.range",
                       `Must be between ${VALIDATION_RANGES.chunkOverlap.min} and ${VALIDATION_RANGES.chunkOverlap.max}`
                     )
+                  },
+                  {
+                    validator: async (_, value) => {
+                      const chunkSize = form.getFieldValue("chunkSize")
+                      if (
+                        typeof value === "number" &&
+                        typeof chunkSize === "number" &&
+                        value >= chunkSize
+                      ) {
+                        throw new Error(
+                          t("rag.ragSettings.chunkOverlap.mustBeLessThanSize", {
+                            defaultValue: "Overlap must be less than chunk size"
+                          })
+                        )
+                      }
+                    }
                   }
                 ]}>
                 <InputNumber

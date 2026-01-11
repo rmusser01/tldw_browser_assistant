@@ -31,11 +31,18 @@ export const MentionsMenu: React.FC<MentionsMenuProps> = ({
   emptyLabel
 }) => {
   const { t } = useTranslation("sidepanel")
-  const resolvedEmptyLabel =
-    emptyLabel ?? t("composer.noMentions", "No matches")
-  const listboxLabel = t("composer.mentionsLabel", "Mentions")
-  const activeOptionId =
-    items.length > 0 ? `mentions-option-${activeIndex}` : undefined
+  const resolvedEmptyLabel = React.useMemo(
+    () => emptyLabel ?? t("composer.noMentions", "No matches"),
+    [emptyLabel, t]
+  )
+  const listboxLabel = React.useMemo(
+    () => t("composer.mentionsLabel", "Mentions"),
+    [t]
+  )
+  const activeOptionId = React.useMemo(
+    () => (items.length > 0 ? `mentions-option-${activeIndex}` : undefined),
+    [activeIndex, items.length]
+  )
   if (!open) return null
 
   return (

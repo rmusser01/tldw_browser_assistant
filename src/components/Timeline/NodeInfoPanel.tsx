@@ -78,7 +78,7 @@ export const NodeInfoPanel: React.FC = () => {
       historyId: resolvedHistoryId,
       messageId: resolvedMessageId
     }
-  }, [currentHistoryId, db, node?.history_ids, node?.message_ids])
+  }, [currentHistoryId, node?.history_ids, node?.message_ids])
 
   const handleTimelineAction = React.useCallback(
     async (action: TimelineAction) => {

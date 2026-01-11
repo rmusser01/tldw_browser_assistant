@@ -78,6 +78,8 @@ export const ServerChatRow = React.memo((props: ServerChatRowAllProps) => {
   } = props
   const selectionMode = props.selectionMode ?? false
   const isSelected = props.isSelected ?? false
+  const onToggleSelected =
+    "onToggleSelected" in props ? props.onToggleSelected : undefined
   const lastModifiedMs = chat.updatedAtMs ?? chat.createdAtMs
   const lastModifiedLabel = Number.isNaN(lastModifiedMs)
     ? null
@@ -172,12 +174,12 @@ export const ServerChatRow = React.memo((props: ServerChatRowAllProps) => {
   }
 
   const handleRowClick = React.useCallback(() => {
-    if (props.selectionMode) {
-      props.onToggleSelected(chat.id)
+    if (selectionMode && onToggleSelected) {
+      onToggleSelected(chat.id)
       return
     }
     onSelectChat(chat)
-  }, [props.selectionMode, props.onToggleSelected, chat, onSelectChat])
+  }, [selectionMode, onToggleSelected, chat, onSelectChat])
 
   return (
     <div
@@ -189,11 +191,11 @@ export const ServerChatRow = React.memo((props: ServerChatRowAllProps) => {
         selectionMode && isSelected && "border-primary/40"
       )}
     >
-      {props.selectionMode ? (
+      {selectionMode ? (
         <input
           type="checkbox"
           checked={isSelected}
-          onChange={() => props.onToggleSelected(chat.id)}
+          onChange={() => onToggleSelected?.(chat.id)}
           onClick={(event) => event.stopPropagation()}
           className="size-3 rounded border-border text-primary accent-primary"
           aria-label={t("sidepanel:multiSelect.toggle", "Toggle selection")}

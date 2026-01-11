@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import React from "react"
 import { StatusDot } from "./StatusDot"
 import { browser } from "wxt/browser"
+import { useAntdNotification } from "@/hooks/useAntdNotification"
 
 type SidepanelHeaderSimpleProps = {
   sidebarOpen?: boolean
@@ -32,10 +33,11 @@ export const SidepanelHeaderSimple = ({
 }: SidepanelHeaderSimpleProps = {}) => {
   const { temporaryChat } = useMessage()
   const { t } = useTranslation(["sidepanel", "common", "option"])
+  const notification = useAntdNotification()
   const [localSidebarOpen, setLocalSidebarOpen] = React.useState(false)
   const [isEditingTitle, setIsEditingTitle] = React.useState(false)
   const [draftTitle, setDraftTitle] = React.useState(activeTitle || "")
-  const ignoreBlurRef = React.useRef(false)
+  const titleBlurActionRef = React.useRef<"submit" | "cancel" | null>(null)
   const titleInputRef = React.useRef<HTMLInputElement>(null)
   const isControlled = typeof propSidebarOpen === "boolean"
   const sidebarOpen = isControlled
@@ -45,14 +47,14 @@ export const SidepanelHeaderSimple = ({
     ? t("common:chatSidebar.collapse", "Collapse sidebar")
     : t("common:chatSidebar.expand", "Expand sidebar")
 
-  const handleSidebarToggle = () => {
+  const handleSidebarToggle = React.useCallback(() => {
     const next = !sidebarOpen
     if (!isControlled) {
       setLocalSidebarOpen(next)
       return
     }
     propSetSidebarOpen?.(next)
-  }
+  }, [isControlled, propSetSidebarOpen, sidebarOpen])
 
   React.useEffect(() => {
     setDraftTitle(activeTitle || "")
@@ -66,7 +68,6 @@ export const SidepanelHeaderSimple = ({
   }, [isEditingTitle])
 
   const cancelTitleEdit = React.useCallback(() => {
-    ignoreBlurRef.current = true
     setDraftTitle(activeTitle || "")
     setIsEditingTitle(false)
   }, [activeTitle])
@@ -84,18 +85,31 @@ export const SidepanelHeaderSimple = ({
     setIsEditingTitle(false)
   }, [activeTitle, draftTitle, onRenameTitle])
 
-  const openFullScreen = () => {
+  const openFullScreen = React.useCallback(() => {
     const url = browser.runtime.getURL("/options.html#/")
-    try {
-      if (browser.tabs?.create) {
-        browser.tabs.create({ url })
-        return
-      }
-    } catch (e) {
-      console.error("Failed to open full-screen tab:", e)
+    const showFailure = () => {
+      notification.error({
+        message: t(
+          "sidepanel:header.openFullScreenFailed",
+          "Unable to open full-screen view."
+        )
+      })
     }
-    window.open(url, "_blank")
-  }
+    const openFallback = () => {
+      const opened = window.open(url, "_blank")
+      if (!opened) {
+        showFailure()
+      }
+    }
+    if (browser.tabs?.create) {
+      Promise.resolve(browser.tabs.create({ url })).catch((error) => {
+        console.error("Failed to open full-screen tab:", error)
+        openFallback()
+      })
+      return
+    }
+    openFallback()
+  }, [notification, t])
 
   return (
     <div
@@ -138,8 +152,10 @@ export const SidepanelHeaderSimple = ({
                 onChange={(event) => setDraftTitle(event.target.value)}
                 onBlur={() => {
                   if (!onRenameTitle) return
-                  if (ignoreBlurRef.current) {
-                    ignoreBlurRef.current = false
+                  const action = titleBlurActionRef.current
+                  titleBlurActionRef.current = null
+                  if (action === "cancel") {
+                    cancelTitleEdit()
                     return
                   }
                   submitTitleEdit()
@@ -147,12 +163,13 @@ export const SidepanelHeaderSimple = ({
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     event.preventDefault()
-                    ignoreBlurRef.current = true
-                    submitTitleEdit()
+                    titleBlurActionRef.current = "submit"
+                    event.currentTarget.blur()
                   }
                   if (event.key === "Escape") {
                     event.preventDefault()
-                    cancelTitleEdit()
+                    titleBlurActionRef.current = "cancel"
+                    event.currentTarget.blur()
                   }
                 }}
                 aria-label={t(

@@ -836,7 +836,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "File Too Large",
-    "fileTooLargeDescription": "File size must be less than 10MB",
+    "fileTooLargeDescription": "File size must be less than {{size}}",
     "uploadFailedTitle": "Upload Failed",
     "uploadFailedDescription": "Failed to upload file. Please try again."
   },

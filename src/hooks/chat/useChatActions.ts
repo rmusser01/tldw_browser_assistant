@@ -45,7 +45,11 @@ import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
 import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { normalizeConversationState } from "@/utils/conversation-state"
-import { createSafeStorage } from "@/utils/safe-storage"
+import {
+  SELECTED_CHARACTER_STORAGE_KEY,
+  selectedCharacterStorage,
+  selectedCharacterSyncStorage
+} from "@/utils/selected-character-storage"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { getServerCapabilities } from "@/services/tldw/server-capabilities"
 import { getActorSettingsForChat } from "@/services/actor-settings"
@@ -59,6 +63,7 @@ import type {
   ToolChoice
 } from "@/store/option"
 import type { ChatModelSettings } from "@/store/model"
+import type { SaveMessageData } from "@/types/chat-modes"
 
 type ChatModelSettingsStore = ChatModelSettings & {
   setSystemPrompt?: (prompt: string) => void
@@ -69,15 +74,30 @@ type ChatModeOverrides = {
   serverChatId?: string | null
 } & Record<string, unknown>
 
-type SaveMessagePayload = {
-  historyId?: string | null
+type SaveMessagePayload = SaveMessageData & {
   conversationId?: string | number | null
-  saveToDb?: boolean
-  isRegenerate?: boolean
-  isContinue?: boolean
-  message?: string
-  fullText?: string
+  message_source?: "copilot" | "web-ui" | "server" | "branch"
+  message_type?: string
 }
+
+type TldwChatMeta =
+  | {
+      id?: string | number
+      chat_id?: string | number
+      version?: number
+      state?: string | null
+      conversation_state?: string | null
+      topic_label?: string | null
+      cluster_id?: string | null
+      source?: string | null
+      external_ref?: string | null
+      title?: string | null
+      character_id?: string | number | null
+    }
+  | string
+  | number
+  | null
+  | undefined
 
 type UseChatActionsOptions = {
   t: TFunction
@@ -231,10 +251,20 @@ export const useChatActions = ({
       return selectedCharacter
     }
     try {
-      const storage = createSafeStorage()
-      const stored = await storage.get("selectedCharacter")
+      const stored = await selectedCharacterStorage.get(
+        SELECTED_CHARACTER_STORAGE_KEY
+      )
       if (stored && typeof stored === "object" && (stored as any)?.id) {
         return stored as Character
+      }
+      const storedSync = await selectedCharacterSyncStorage.get(
+        SELECTED_CHARACTER_STORAGE_KEY
+      )
+      if (storedSync && typeof storedSync === "object" && (storedSync as any)?.id) {
+        await selectedCharacterStorage
+          .set(SELECTED_CHARACTER_STORAGE_KEY, storedSync)
+          .catch(() => {})
+        return storedSync as Character
       }
     } catch {
       // best-effort only
@@ -470,30 +500,14 @@ export const useChatActions = ({
 
       let chatId = serverChatId
       if (!chatId) {
-        type TldwChatMeta =
-          | {
-              id?: string | number
-              chat_id?: string | number
-              state?: string
-              conversation_state?: string
-              topic_label?: string | null
-              cluster_id?: string | null
-              source?: string | null
-              external_ref?: string | null
-            }
-          | string
-          | number
-          | null
-          | undefined
-
-        const created = (await tldwClient.createChat({
+        const created = await tldwClient.createChat({
           character_id: activeCharacter.id,
           state: serverChatState || "in-progress",
           topic_label: serverChatTopic || undefined,
           cluster_id: serverChatClusterId || undefined,
           source: serverChatSource || undefined,
           external_ref: serverChatExternalRef || undefined
-        })) as TldwChatMeta
+        }) as TldwChatMeta
 
         let rawId: string | number | undefined
         if (created && typeof created === "object") {
@@ -507,17 +521,7 @@ export const useChatActions = ({
             cluster_id,
             source,
             external_ref
-          } = created as {
-            id?: string | number
-            chat_id?: string | number
-            version?: number
-            state?: string | null
-            conversation_state?: string | null
-            topic_label?: string | null
-            cluster_id?: string | null
-            source?: string | null
-            external_ref?: string | null
-          }
+          } = created
           rawId = id ?? chat_id
           const normalizedState = normalizeConversationState(
             state ?? conversation_state ?? null
@@ -538,10 +542,16 @@ export const useChatActions = ({
         }
         chatId = normalizedId
         setServerChatId(normalizedId)
-        setServerChatTitle(String((created as any)?.title || ""))
-        setServerChatCharacterId(
-          (created as any)?.character_id ?? activeCharacter?.id ?? null
-        )
+        const createdTitle =
+          created && typeof created === "object"
+            ? String(created.title ?? "")
+            : ""
+        const createdCharacterId =
+          created && typeof created === "object"
+            ? created.character_id ?? activeCharacter?.id ?? null
+            : activeCharacter?.id ?? null
+        setServerChatTitle(createdTitle)
+        setServerChatCharacterId(createdCharacterId)
         setServerChatMetaLoaded(true)
         invalidateServerChatHistory()
       }
@@ -699,7 +709,6 @@ export const useChatActions = ({
 
       await saveMessageOnSuccess({
         historyId,
-        setHistoryId,
         isRegenerate,
         selectedModel: model,
         modelId: model,
@@ -735,8 +744,6 @@ export const useChatActions = ({
         image,
         selectedModel: model,
         modelId: model,
-        setHistory,
-        setHistoryId,
         userMessage: message,
         isRegenerating: isRegenerate,
         message_source: "copilot",
@@ -957,7 +964,6 @@ export const useChatActions = ({
     }
 
     const chatModeParams = await buildChatModeParams()
-    const resolvedSelectedCharacter = await resolveSelectedCharacter()
     const baseMessages = chatHistory || messages
     const baseHistory = memory || history
     const replyActive =
@@ -965,7 +971,7 @@ export const useChatActions = ({
       !compareModeActive &&
       !isRegenerate &&
       !isContinue &&
-      !resolvedSelectedCharacter?.id
+      !selectedCharacter?.id
     const replyOverrides = replyActive
       ? (() => {
           const userMessageId = generateID()
@@ -1052,19 +1058,22 @@ export const useChatActions = ({
         const baseMessages = chatHistory || messages
         const baseHistory = memory || history
 
-        if (!compareModeActive && resolvedSelectedCharacter?.id) {
-          await characterChatMode({
-            message,
-            image,
-            isRegenerate,
-            messages: baseMessages,
-            history: baseHistory,
-            signal,
-            model: selectedModel || "",
-            regenerateFromMessage,
-            character: resolvedSelectedCharacter
-          })
-          return
+        if (!compareModeActive) {
+          const resolvedSelectedCharacter = await resolveSelectedCharacter()
+          if (resolvedSelectedCharacter?.id) {
+            await characterChatMode({
+              message,
+              image,
+              isRegenerate,
+              messages: baseMessages,
+              history: baseHistory,
+              signal,
+              model: selectedModel || "",
+              regenerateFromMessage,
+              character: resolvedSelectedCharacter
+            })
+            return
+          }
         }
 
         if (!compareModeActive) {

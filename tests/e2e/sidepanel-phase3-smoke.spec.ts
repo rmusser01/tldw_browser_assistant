@@ -95,7 +95,7 @@ const enableTabMentions = async (page: Page) => {
 test.describe("Sidepanel Phase 3 smoke", () => {
   test(
     "covers slash commands, mentions, chips, palette, and settings",
-    async ({}, testInfo) => {
+    async (_, testInfo) => {
       test.setTimeout(120_000)
       const { serverUrl: rawServerUrl, apiKey } = requireRealServerConfig(test)
       const serverUrl = normalizeServerUrl(rawServerUrl)

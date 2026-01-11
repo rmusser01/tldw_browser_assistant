@@ -354,7 +354,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "Файл слишком большой",
-    "fileTooLargeDescription": "Размер файла должен быть меньше 10 МБ",
+    "fileTooLargeDescription": "Размер файла должен быть меньше {{size}}",
     "uploadFailedTitle": "Не удалось загрузить",
     "uploadFailedDescription": "Не удалось загрузить файл. Попробуйте еще раз."
   },

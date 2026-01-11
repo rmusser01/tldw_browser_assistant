@@ -131,7 +131,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
                 )}
           </div>
           <div className="mt-1">
-            {t("quickIngest.summaryCounts", "{{success}} succeeded \\u00b7 {{failed}} failed", {
+            {t("quickIngest.summaryCounts", "{{success}} succeeded \u00b7 {{failed}} failed", {
               success: resultSummary.successCount,
               failed: resultSummary.failCount
             })}
@@ -154,7 +154,6 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
                 size="small"
                 type="primary"
                 onClick={() => {
-                  if (!reviewBatchId) return
                   void tryOpenContentReview(reviewBatchId)
                 }}
               >
@@ -184,39 +183,39 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
           const actions: React.ReactNode[] = []
           if (processOnly && item.status === "ok") {
             actions.push(
-              <button
+              <Button
                 key="dl"
-                type="button"
+                type="link"
+                size="small"
                 onClick={() => downloadJson(item)}
                 aria-label={`Download JSON for ${
                   item.url || item.fileName || "item"
                 }`}
-                className="text-primary hover:underline"
               >
                 {t("quickIngest.downloadJson") || "Download JSON"}
-              </button>
+              </Button>
             )
           }
           if (hasMediaId) {
             actions.push(
-              <button
+              <Button
                 key="open-media"
-                type="button"
+                type="link"
+                size="small"
                 onClick={() => openInMediaViewer(item)}
-                className="text-primary hover:underline"
               >
                 {t("quickIngest.openInMedia", "Open in Media viewer")}
-              </button>
+              </Button>
             )
             actions.push(
-              <button
+              <Button
                 key="discuss-chat"
-                type="button"
+                type="link"
+                size="small"
                 onClick={() => discussInChat(item)}
-                className="text-primary hover:underline"
               >
                 {t("quickIngest.discussInChat", "Discuss in chat")}
-              </button>
+              </Button>
             )
           }
           return (

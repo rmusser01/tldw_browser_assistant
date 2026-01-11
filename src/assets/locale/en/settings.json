@@ -828,12 +828,15 @@
       "chunkSize": {
         "label": "Chunk Size",
         "placeholder": "Enter Chunk Size",
-        "required": "Please enter a chunk size"
+        "required": "Please enter a chunk size",
+        "range": "Must be between {{min}} and {{max}}"
       },
       "chunkOverlap": {
         "label": "Chunk Overlap",
         "placeholder": "Enter Chunk Overlap",
-        "required": "Please enter a chunk overlap"
+        "required": "Please enter a chunk overlap",
+        "range": "Must be between {{min}} and {{max}}",
+        "mustBeLessThanSize": "Overlap must be less than chunk size"
       },
       "totalFilePerKB": {
         "label": "Knowledge Base Default File Upload Limit",

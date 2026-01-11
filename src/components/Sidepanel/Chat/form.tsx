@@ -32,6 +32,7 @@ import { useSttSettings } from "@/hooks/useSttSettings"
 import { useServerDictation } from "@/hooks/useServerDictation"
 import { useComposerEvents } from "@/hooks/useComposerEvents"
 import { useTemporaryChatToggle } from "@/hooks/useTemporaryChatToggle"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import {
   COMPOSER_CONSTANTS,
   SPACING,
@@ -65,6 +66,7 @@ import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useTldwAudioStatus } from "@/hooks/useTldwAudioStatus"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { useSetting } from "@/hooks/useSetting"
 import { useFocusComposerOnConnect } from "@/hooks/useComposerFocus"
 import { useQuickIngestStore } from "@/store/quick-ingest"
 import { useUiModeStore } from "@/store/ui-mode"
@@ -74,6 +76,8 @@ import { Button } from "@/components/Common/Button"
 import { useSimpleForm } from "@/hooks/useSimpleForm"
 import { generateID } from "@/db/dexie/helpers"
 import type { UploadedFile } from "@/db/dexie/types"
+import { formatFileSize } from "@/utils/format"
+import { CONTEXT_FILE_SIZE_MB_SETTING } from "@/services/settings/ui-settings"
 import { browser } from "wxt/browser"
 import type { Character } from "@/types/character"
 
@@ -83,8 +87,6 @@ type Props = {
   onHeightChange?: (height: number) => void
   draftKey?: string
 }
-
-const MAX_CONTEXT_FILE_SIZE_BYTES = 10 * 1024 * 1024
 
 export const SidepanelForm = ({
   dropedFile,
@@ -105,9 +107,15 @@ export const SidepanelForm = ({
     "chatWithWebsiteEmbedding",
     false
   )
-  const [storedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
+  const [storedCharacter] = useSelectedCharacter<Character | null>(null)
+  const [contextFileMaxSizeMb] = useSetting(CONTEXT_FILE_SIZE_MB_SETTING)
+  const maxContextFileSizeBytes = React.useMemo(
+    () => contextFileMaxSizeMb * 1024 * 1024,
+    [contextFileMaxSizeMb]
+  )
+  const maxContextFileSizeLabel = React.useMemo(
+    () => formatFileSize(maxContextFileSizeBytes),
+    [maxContextFileSizeBytes]
   )
   // STT settings consolidated into a single hook
   const sttSettings = useSttSettings()
@@ -604,7 +612,10 @@ export const SidepanelForm = ({
         currentWindow: true
       })
       const activeTab = tabs.find((tab) => tab.id && tab.title && tab.url)
-      if (!activeTab) return
+      if (!activeTab) {
+        console.error("[Sidepanel] No active tab found for page mention.")
+        return
+      }
       const tabInfo: TabInfo = {
         id: activeTab.id!,
         title: activeTab.title!,
@@ -612,6 +623,8 @@ export const SidepanelForm = ({
         favIconUrl: activeTab.favIconUrl
       }
       addDocument(tabInfo)
+    } catch (error) {
+      console.error("[Sidepanel] Failed to fetch active tab for mention:", error)
     } finally {
       removeMentionToken()
     }
@@ -633,14 +646,17 @@ export const SidepanelForm = ({
       const files = Array.from(event.target.files || [])
       if (files.length === 0) return
       const oversized = files.find(
-        (file) => file.size > MAX_CONTEXT_FILE_SIZE_BYTES
+        (file) => file.size > maxContextFileSizeBytes
       )
       if (oversized) {
         notification.error({
           message: t("option:upload.fileTooLargeTitle", "File Too Large"),
           description: t(
             "option:upload.fileTooLargeDescription",
-            "File size must be less than 10MB"
+            {
+              defaultValue: "File size must be less than {{size}}",
+              size: maxContextFileSizeLabel
+            }
           )
         })
         event.target.value = ""
@@ -649,22 +665,40 @@ export const SidepanelForm = ({
       try {
         const { processFileUpload } = await import("~/utils/file-processor")
         const nextFiles: UploadedFile[] = []
+        const failedFiles: string[] = []
         for (const file of files) {
-          const source = await processFileUpload(file)
-          nextFiles.push({
-            id: generateID(),
-            filename: file.name,
-            type: file.type,
-            content: source.content,
-            size: file.size,
-            uploadedAt: Date.now(),
-            processed: false
+          try {
+            const source = await processFileUpload(file)
+            nextFiles.push({
+              id: generateID(),
+              filename: file.name,
+              type: file.type,
+              content: source.content,
+              size: file.size,
+              uploadedAt: Date.now(),
+              processed: false
+            })
+          } catch {
+            failedFiles.push(file.name)
+          }
+        }
+        if (nextFiles.length > 0) {
+          setContextFiles((prev) => [...prev, ...nextFiles])
+          notification.success({
+            message: t("sidepanel:composer.filesAdded", {
+              defaultValue: "{{count}} file(s) added to context",
+              count: nextFiles.length
+            })
           })
         }
-        setContextFiles((prev) => [...prev, ...nextFiles])
-        notification.success({
-          message: t("sidepanel:composer.fileAdded", "File added to context")
-        })
+        if (failedFiles.length > 0) {
+          notification.warning({
+            message: t("sidepanel:composer.someFilesFailed", {
+              defaultValue: "Failed to process: {{files}}",
+              files: failedFiles.join(", ")
+            })
+          })
+        }
       } catch (error: any) {
         notification.error({
           message: t("sidepanel:composer.fileAddError", "Failed to add file"),
@@ -674,7 +708,13 @@ export const SidepanelForm = ({
         event.target.value = ""
       }
     },
-    [notification, setContextFiles, t]
+    [
+      maxContextFileSizeBytes,
+      maxContextFileSizeLabel,
+      notification,
+      setContextFiles,
+      t
+    ]
   )
 
   const mentionQuery = (mentionPosition?.query || "").toLowerCase()

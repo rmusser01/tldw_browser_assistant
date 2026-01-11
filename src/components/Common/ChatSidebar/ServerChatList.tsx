@@ -219,6 +219,7 @@ export function ServerChatList({
       visibleChatIdSetRef.current = visibleChatIdSet
       return
     }
+    // Use the ref to detect actual visible set changes and avoid redundant trim work.
     const prevVisible = visibleChatIdSetRef.current
     if (prevVisible && prevVisible.size === visibleChatIdSet.size) {
       let hasDiff = false
@@ -486,11 +487,24 @@ export function ServerChatList({
   }, [])
 
   const handleBulkDelete = async () => {
-    let failedConversationIds: Set<string> | null = null
     try {
       const result = await applyBulkTrash()
       if (!result) return
-      failedConversationIds = result.failedConversationIds
+      const { failedConversationIds } = result
+      setPinnedChatIds((prev) =>
+        (prev || []).filter(
+          (id) =>
+            !selectedConversationIds.includes(id) ||
+            failedConversationIds.has(id)
+        )
+      )
+      setSelectedChatIds(
+        selectedConversationIds.filter((id) =>
+          failedConversationIds.has(id)
+        )
+      )
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+      setBulkDeleteConfirmOpen(false)
     } catch (error) {
       console.error("[ServerChatList] Failed to bulk delete chats:", error)
       message.error(
@@ -498,23 +512,6 @@ export function ServerChatList({
           defaultValue: "Unable to move chats to trash."
         })
       )
-    } finally {
-      if (failedConversationIds) {
-        setPinnedChatIds((prev) =>
-          (prev || []).filter(
-            (id) =>
-              !selectedConversationIds.includes(id) ||
-              failedConversationIds?.has(id)
-          )
-        )
-        setSelectedChatIds(
-          selectedConversationIds.filter((id) =>
-            failedConversationIds?.has(id)
-          )
-        )
-      }
-      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
-      setBulkDeleteConfirmOpen(false)
     }
   }
 

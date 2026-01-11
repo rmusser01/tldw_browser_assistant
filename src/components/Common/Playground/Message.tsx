@@ -211,11 +211,8 @@ export const PlaygroundMessage = (props: Props) => {
     resolvedVariantIndex < variantCount - 1
   const resolvedRole = React.useMemo(() => {
     if (props.role) return props.role
-    if (props.isBot) return "assistant"
-    const normalizedName = props.name?.trim().toLowerCase()
-    if (normalizedName === "system") return "system"
-    return "user"
-  }, [props.isBot, props.name, props.role])
+    return props.isBot ? "assistant" : "user"
+  }, [props.isBot, props.role])
   const isSystemMessage = resolvedRole === "system"
 
   const messageKey = React.useMemo(() => {
@@ -445,6 +442,8 @@ export const PlaygroundMessage = (props: Props) => {
   )
 
   const chatTextClass = props.isBot ? assistantTextClass : userTextClass
+  const renderPlainAssistant =
+    props.isBot && props.message_type === "character:greeting"
 
   const shouldShowLoadingStatus =
     props.isBot &&
@@ -618,6 +617,7 @@ export const PlaygroundMessage = (props: Props) => {
     <div
       data-testid="chat-message"
       data-role={isSystemMessage ? "system" : props.isBot ? "assistant" : "user"}
+      data-message-type={props.message_type}
       data-index={props.currentMessageIndex}
       data-message-id={props.messageId}
       data-server-message-id={props.serverMessageId}
@@ -779,6 +779,20 @@ export const PlaygroundMessage = (props: Props) => {
                       ) as string
                     }}
                   />
+                ) : renderPlainAssistant ? (
+                  <p
+                    className={`text-message whitespace-pre-wrap break-words ${assistantTextClass} ${
+                      props.message_type &&
+                      props.message_type !== "character:greeting" &&
+                      "italic text-text-muted text-body"
+                    } ${
+                      checkWideMode ? "max-w-none" : ""
+                    }`}
+                  >
+                    {props.searchQuery
+                      ? highlightText(props.message, props.searchQuery)
+                      : props.message}
+                  </p>
                 ) : (
                   <>
                     {parseReasoning(props.message).map((e, i) => {

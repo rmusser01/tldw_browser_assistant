@@ -11,21 +11,11 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { IconButton } from "@/components/Common/IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
-import type { Character as StoredCharacter } from "@/types/character"
-
-type Character = {
-  id: string | number
-  name: string
-  description?: string
-  avatar_url?: string
-  tags?: string[]
-  greeting?: string | null
-  first_message?: string | null
-  firstMessage?: string | null
-  greet?: string | null
-  alternate_greetings?: string[] | string | null
-  alternateGreetings?: string[] | string | null
-}
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import type {
+  Character as StoredCharacter,
+  CharacterApiResponse
+} from "@/types/character"
 
 type Props = {
   selectedCharacterId: string | null
@@ -44,10 +34,8 @@ export const CharacterSelect: React.FC<Props> = ({
   const notification = useAntdNotification()
   const modal = useAntdModal()
   const [menuDensity] = useStorage("menuDensity", "comfortable")
-  const [, setSelectedCharacter] = useStorage<StoredCharacter | null>(
-    "selectedCharacter",
-    null
-  )
+  const [, setSelectedCharacter] =
+    useSelectedCharacter<StoredCharacter | null>(null)
   const [searchText, setSearchText] = useState("")
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isImporting, setIsImporting] = useState(false)
@@ -77,19 +65,21 @@ export const CharacterSelect: React.FC<Props> = ({
     }
   }, [destroyImageOnlyModal])
 
-  const { data: characters = [], isLoading, refetch } = useQuery({
+  const { data: characters = [], isLoading, refetch } = useQuery<
+    CharacterApiResponse[]
+  >({
     queryKey: ["characters-list"],
     queryFn: async () => {
       await tldwClient.initialize().catch(() => null)
       const result = await tldwClient.listCharacters({ limit: 100 })
-      return result as Character[]
+      return result as CharacterApiResponse[]
     },
     enabled: !!hasCharacters,
     staleTime: 5 * 60 * 1000 // 5 minutes
   })
 
   // Filter characters based on search
-  const filteredCharacters = useMemo<Character[]>(() => {
+  const filteredCharacters = useMemo<CharacterApiResponse[]>(() => {
     if (!characters) return []
     if (!searchText.trim()) return characters
     const q = searchText.toLowerCase()
@@ -123,7 +113,7 @@ export const CharacterSelect: React.FC<Props> = ({
   }, [])
 
   const collectGreetings = React.useCallback(
-    (character: Character) => {
+    (character: Partial<CharacterApiResponse>) => {
       const greetings = [
         ...normalizeGreetingValue(character.greeting),
         ...normalizeGreetingValue(character.first_message),
@@ -145,14 +135,7 @@ export const CharacterSelect: React.FC<Props> = ({
   }, [])
 
   const buildStoredCharacter = React.useCallback(
-    (character: {
-      id?: string | number
-      name?: string
-      avatar_url?: string
-      image_base64?: string
-      image_mime?: string
-      tags?: string[]
-    }): StoredCharacter | null => {
+    (character: Partial<CharacterApiResponse>): StoredCharacter | null => {
       const id = character?.id
       const name = character?.name
       if (!id || !name) return null
@@ -168,9 +151,7 @@ export const CharacterSelect: React.FC<Props> = ({
         name,
         avatar_url: avatar ?? null,
         tags: character.tags,
-        greeting: pickGreeting(
-          collectGreetings(character as Character)
-        ) || null
+        greeting: pickGreeting(collectGreetings(character)) || null
       }
     },
     [collectGreetings, pickGreeting]
@@ -205,7 +186,9 @@ export const CharacterSelect: React.FC<Props> = ({
           setSelectedCharacter(hydrated)
         }
       })
-      .catch(() => {})
+      .catch((error) => {
+        console.warn("Failed to hydrate character greeting:", error)
+      })
   }
 
   const handleImportClick = () => {

@@ -174,7 +174,12 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
         typeof ctx.ragTopK === "number" && ctx.ragTopK > 0
           ? ctx.ragTopK
           : defaultTopK
-      const ragOptions: any = sanitizeRagAdvancedOptions(ctx.ragAdvancedOptions)
+      const ragOptions: Record<string, unknown> = sanitizeRagAdvancedOptions(
+        ctx.ragAdvancedOptions
+      )
+      // Precedence: ctx.ragTopK overrides ragOptions.top_k; defaultTopK applies only
+      // when neither is set. ctx.ragSearchMode always overrides ragOptions.search_mode.
+      // ctx.ragEnableGeneration/citations control presence of their flags, even if set.
       if (typeof ctx.ragTopK === "number" && ctx.ragTopK > 0) {
         ragOptions.top_k = ctx.ragTopK
       } else if (ragOptions.top_k == null) {
@@ -191,6 +196,8 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
       } else {
         delete ragOptions.enable_citations
       }
+      // Precedence: ctx.ragSources overrides ragAdvancedOptions.sources; ctx.ragMediaIds
+      // overrides include_media_ids and forces sources to ["media_db"].
       if (Array.isArray(ctx.ragSources) && ctx.ragSources.length > 0) {
         ragOptions.sources = ctx.ragSources
       }

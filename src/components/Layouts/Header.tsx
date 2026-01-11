@@ -36,6 +36,7 @@ import { ChatHeader } from "./ChatHeader"
 import { openSidepanel } from "@/utils/sidepanel"
 import { useSetting } from "@/hooks/useSetting"
 import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 
 type Props = {
   setOpenModelSettings: (open: boolean) => void
@@ -63,10 +64,7 @@ export const Header: React.FC<Props> = ({
   const [headerShortcutsExpanded, setHeaderShortcutsExpanded] = useSetting(
     HEADER_SHORTCUTS_EXPANDED_SETTING
   )
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const {
     selectedModel,
     setSelectedModel,

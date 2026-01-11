@@ -1,6 +1,7 @@
 import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useMessageOption } from "@/hooks/useMessageOption"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { PlaygroundEmpty } from "./PlaygroundEmpty"
 import { PlaygroundMessage } from "@/components/Common/Playground/Message"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
@@ -15,6 +16,7 @@ import { trackCompareMetric } from "@/utils/compare-metrics"
 import { fetchChatModels } from "@/services/tldw-server"
 import { tldwModels } from "@/services/tldw"
 import { applyVariantToMessage } from "@/utils/message-variants"
+import type { Character } from "@/types/character"
 
 type TimelineBlock =
   | { kind: "single"; index: number }
@@ -143,6 +145,7 @@ export const PlaygroundChat = () => {
     compareMaxModels
   } = useMessageOption()
   const [openReasoning] = useStorage("openReasoning", false)
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const { data: chatModels = [] } = useQuery({
     queryKey: ["playground:chatModels"],
     queryFn: () => fetchChatModels({ returnEmpty: true }),
@@ -174,6 +177,60 @@ export const PlaygroundChat = () => {
     previousMessageCount.current = messages.length
   }, [messages.length, serverChatId, stableHistoryId])
   const blocks = React.useMemo(() => buildBlocks(messages), [messages])
+  const selectedGreeting = React.useMemo(() => {
+    if (!selectedCharacter || typeof selectedCharacter.greeting !== "string") {
+      return ""
+    }
+    return selectedCharacter.greeting.trim()
+  }, [selectedCharacter])
+  const normalizeGreetingText = React.useCallback(
+    (value: string) => value.replace(/\s+/g, " ").trim().toLowerCase(),
+    []
+  )
+  const greetingNeedle = React.useMemo(() => {
+    if (!selectedGreeting) return ""
+    const normalized = normalizeGreetingText(selectedGreeting)
+    if (!normalized) return ""
+    return normalized.slice(0, 180)
+  }, [normalizeGreetingText, selectedGreeting])
+  const firstAssistantIndex = React.useMemo(
+    () => messages.findIndex((msg) => msg?.role === "assistant" || msg?.isBot),
+    [messages]
+  )
+  const firstUserIndex = React.useMemo(
+    () => messages.findIndex((msg) => msg?.role === "user"),
+    [messages]
+  )
+  const hasSelectedCharacter = Boolean(selectedCharacter?.id)
+  const resolveMessageType = React.useCallback(
+    (message: any, index: number) => {
+      const explicit = message?.messageType ?? message?.message_type
+      if (explicit) return explicit
+      if (!serverChatId && hasSelectedCharacter) {
+        const isFirstAssistant = index === firstAssistantIndex
+        const hasNoUserBefore = firstUserIndex === -1 || firstUserIndex > index
+        if (
+          isFirstAssistant &&
+          hasNoUserBefore &&
+          message?.isBot &&
+          typeof message?.message === "string"
+        ) {
+          const normalizedMessage = normalizeGreetingText(message.message)
+          if (!greetingNeedle || normalizedMessage.includes(greetingNeedle)) {
+            return "character:greeting"
+          }
+        }
+      }
+      return undefined
+    },
+    [
+      firstAssistantIndex,
+      firstUserIndex,
+      greetingNeedle,
+      normalizeGreetingText,
+      serverChatId
+    ]
+  )
   const getPreviousUserMessage = React.useCallback(
     (index: number) => {
       for (let i = index - 1; i >= 0; i--) {
@@ -314,7 +371,7 @@ export const PlaygroundChat = () => {
                 conversationInstanceId={conversationInstanceId}
                 feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
-                message_type={message.messageType}
+                message_type={resolveMessageType(message, block.index)}
                 variants={message.variants}
                 activeVariantIndex={message.activeVariantIndex}
                 onSwipePrev={() => handleVariantSwipe(message.id, "prev")}
@@ -538,7 +595,7 @@ export const PlaygroundChat = () => {
                 conversationInstanceId={conversationInstanceId}
                 feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
-                message_type={userMessage.messageType}
+                message_type={resolveMessageType(userMessage, block.userIndex)}
                 variants={userMessage.variants}
                 activeVariantIndex={userMessage.activeVariantIndex}
                 onSwipePrev={() => handleVariantSwipe(userMessage.id, "prev")}
@@ -863,7 +920,7 @@ export const PlaygroundChat = () => {
                         conversationInstanceId={conversationInstanceId}
                         feedbackQuery={previousUserMessage?.message ?? null}
                         isEmbedding={isEmbedding}
-                        message_type={message.messageType}
+                        message_type={resolveMessageType(message, index)}
                         compareSelectable={isSelectable}
                         compareSelected={isSelected}
                         onToggleCompareSelect={handleToggle}

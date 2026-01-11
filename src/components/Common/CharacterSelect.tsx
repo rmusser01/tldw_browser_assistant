@@ -9,6 +9,8 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { IconButton } from "./IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import { collectGreetings, pickGreeting } from "@/utils/character-greetings"
 
 type Props = {
   className?: string
@@ -41,39 +43,6 @@ type CharacterSelection = {
   system_prompt: string
   greeting: string
   avatar_url: string
-}
-
-const normalizeGreetingValue = (value: unknown): string[] => {
-  if (!value) return []
-  if (Array.isArray(value)) {
-    return value
-      .map((entry) => (typeof entry === "string" ? entry.trim() : ""))
-      .filter((entry) => entry.length > 0)
-  }
-  if (typeof value === "string") {
-    const trimmed = value.trim()
-    return trimmed.length > 0 ? [trimmed] : []
-  }
-  return []
-}
-
-const collectGreetings = (character: CharacterSummary): string[] => {
-  const greetings = [
-    ...normalizeGreetingValue(character.greeting),
-    ...normalizeGreetingValue(character.first_message),
-    ...normalizeGreetingValue(character.firstMessage),
-    ...normalizeGreetingValue(character.greet),
-    ...normalizeGreetingValue(character.alternate_greetings),
-    ...normalizeGreetingValue(character.alternateGreetings)
-  ]
-  return Array.from(new Set(greetings))
-}
-
-const pickGreeting = (greetings: string[]): string => {
-  if (greetings.length === 0) return ""
-  if (greetings.length === 1) return greetings[0]
-  const index = Math.floor(Math.random() * greetings.length)
-  return greetings[index]
 }
 
 const normalizeCharacter = (character: CharacterSummary): CharacterSelection => {
@@ -114,12 +83,8 @@ export const CharacterSelect: React.FC<Props> = ({
   const { t } = useTranslation(["option", "common", "settings", "playground"])
   const notification = useAntdNotification()
   const modal = useAntdModal()
-  const [selectedCharacter, setSelectedCharacter] = useStorage<
-    CharacterSelection | null
-  >(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter, setSelectedCharacter] =
+    useSelectedCharacter<CharacterSelection | null>(null)
   const previousCharacterId = React.useRef<string | null>(null)
   const initialized = React.useRef(false)
   const lastErrorRef = React.useRef<unknown | null>(null)

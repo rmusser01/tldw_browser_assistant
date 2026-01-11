@@ -84,11 +84,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
   const replyId = props.messageId ?? props.serverMessageId ?? null
   const canReply =
     isProMode && Boolean(replyId) && !props.message_type?.startsWith("compare")
-  const resolvedRole =
-    props.role ??
-    (!props.isBot && props.name?.trim().toLowerCase() === "system"
-      ? "system"
-      : "user")
+  const resolvedRole = props.role ?? (props.isBot ? "assistant" : "user")
   const isSystemMessage = resolvedRole === "system"
   const systemLabel = t("playground:systemPrompt", "System prompt")
   const buildReplyPreview = React.useCallback(

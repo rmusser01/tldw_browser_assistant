@@ -1,19 +1,13 @@
 import React from "react"
 import { Button, Tag, Typography } from "antd"
-import type { TFunction } from "i18next"
 import { Info } from "lucide-react"
+import type { StatusSummary } from "./types"
 
 type QueuedFileStub = {
   id: string
   name: string
   size: number
   type?: string
-}
-
-type StatusSummary = {
-  label: string
-  color: string
-  reason?: string
 }
 
 type QueuedFileRowProps = {
@@ -29,7 +23,6 @@ type QueuedFileRowProps = {
   showReattach: boolean
   canRetry: boolean
   qi: (key: string, defaultValue: string) => string
-  t: TFunction
   typeIcon: (type: string) => React.ReactNode
   onSelect: () => void
   onOpenInspector: () => void
@@ -51,7 +44,6 @@ export const QueuedFileRow: React.FC<QueuedFileRowProps> = ({
   showReattach,
   canRetry,
   qi,
-  t,
   typeIcon,
   onSelect,
   onOpenInspector,
@@ -72,8 +64,8 @@ export const QueuedFileRow: React.FC<QueuedFileRowProps> = ({
         className={`absolute right-2 top-2 opacity-0 transition focus:opacity-100 group-hover:opacity-100 ${
           isSelected ? "opacity-100" : ""
         }`}
-        aria-label="Open Inspector for this file"
-        title="Open Inspector for this file"
+        aria-label={qi("openFileInspectorAria", "Open Inspector for this file")}
+        title={qi("openFileInspectorAria", "Open Inspector for this file")}
         onClick={(event) => {
           event.stopPropagation()
           onOpenInspector()
@@ -139,15 +131,15 @@ export const QueuedFileRow: React.FC<QueuedFileRowProps> = ({
         <Button
           size="small"
           danger
-          aria-label="Remove this file from queue"
-          title="Remove this file from queue"
+          aria-label={qi("removeFileAria", "Remove this file from queue")}
+          title={qi("removeFileAria", "Remove this file from queue")}
           onClick={(event) => {
             event.stopPropagation()
             onRemove()
           }}
           disabled={running}
         >
-          {t("quickIngest.remove") || "Remove"}
+          {qi("removeFile", "Remove")}
         </Button>
       </div>
       {processingIndicator}

@@ -352,7 +352,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "文件过大",
-    "fileTooLargeDescription": "文件大小必须小于 10MB",
+    "fileTooLargeDescription": "文件大小必须小于 {{size}}",
     "uploadFailedTitle": "上传失败",
     "uploadFailedDescription": "无法上传文件，请重试。"
   },

@@ -3031,5 +3031,11 @@
   },
   "mediaTrashNav": {
     "message": "Media Trash"
+  },
+  "rag_ragSettings_chunkSize_range": {
+    "message": "Must be between {{min}} and {{max}}"
+  },
+  "rag_ragSettings_chunkOverlap_range": {
+    "message": "Must be between {{min}} and {{max}}"
   }
 }

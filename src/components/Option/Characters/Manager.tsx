@@ -22,7 +22,7 @@ import { validateAndCreateImageDataUrl } from "@/utils/image-utils"
 import { useTranslation } from "react-i18next"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useNavigate } from "react-router-dom"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { focusComposer } from "@/hooks/useComposerFocus"
@@ -167,7 +167,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
   const [editVersion, setEditVersion] = React.useState<number | null>(null)
   const [createForm] = Form.useForm()
   const [editForm] = Form.useForm()
-  const [, setSelectedCharacter] = useStorage<any>("selectedCharacter", null)
+  const [, setSelectedCharacter] = useSelectedCharacter<any>(null)
   const newButtonRef = React.useRef<HTMLButtonElement | null>(null)
   const lastEditTriggerRef = React.useRef<HTMLButtonElement | null>(null)
   const createNameRef = React.useRef<InputRef>(null)
@@ -202,14 +202,13 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
   }, [forwardedNewButtonRef])
 
   React.useEffect(() => {
-    if (!autoOpenCreate) {
-      autoOpenCreateHandledRef.current = false
-      return
-    }
+    if (!autoOpenCreate) return
     if (autoOpenCreateHandledRef.current) return
     autoOpenCreateHandledRef.current = true
-    setOpen(true)
-  }, [autoOpenCreate])
+    if (!openEdit && !conversationsOpen) {
+      setOpen(true)
+    }
+  }, [autoOpenCreate, conversationsOpen, openEdit])
 
   // C8: Debounce search input to reduce API calls
   React.useEffect(() => {
@@ -1202,7 +1201,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                               { include_deleted: "false" } as any
                             )
                             const history = messages.map((m) => ({
-                              role: m.role,
+                              role: normalizeChatRole(m.role),
                               content: m.content
                             }))
                             const mappedMessages = messages.map((m) => {
@@ -1218,8 +1217,10 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                                   normalized === "assistant"
                                     ? assistantName
                                     : normalized === "system"
-                                      ? "System"
-                                      : "You",
+                                      ? t("common:system", {
+                                          defaultValue: "System"
+                                        })
+                                      : t("common:you", { defaultValue: "You" }),
                                 message: m.content,
                                 sources: [],
                                 images: [],
