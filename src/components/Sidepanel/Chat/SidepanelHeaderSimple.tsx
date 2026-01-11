@@ -41,6 +41,9 @@ export const SidepanelHeaderSimple = ({
   const sidebarOpen = isControlled
     ? (propSidebarOpen as boolean)
     : localSidebarOpen
+  const sidebarToggleLabel = sidebarOpen
+    ? t("common:chatSidebar.collapse", "Collapse sidebar")
+    : t("common:chatSidebar.expand", "Expand sidebar")
 
   const handleSidebarToggle = () => {
     const next = !sidebarOpen
@@ -88,7 +91,9 @@ export const SidepanelHeaderSimple = ({
         browser.tabs.create({ url })
         return
       }
-    } catch {}
+    } catch (e) {
+      console.error("Failed to open full-screen tab:", e)
+    }
     window.open(url, "_blank")
   }
 
@@ -101,21 +106,14 @@ export const SidepanelHeaderSimple = ({
       {/* Left: Sidebar toggle + Status dot + Logo + Title */}
       <div className="flex items-center gap-2">
         <Tooltip
-          title={
-            sidebarOpen
-              ? t("common:chatSidebar.collapse", "Collapse sidebar")
-              : t("common:chatSidebar.expand", "Expand sidebar")
-          }>
+          title={sidebarToggleLabel}>
           <button
             type="button"
-            aria-label={t("common:chatSidebar.expand", "Open sidebar")}
+            aria-label={sidebarToggleLabel}
+            aria-expanded={sidebarOpen}
             onClick={handleSidebarToggle}
             className="rounded-md p-1.5 text-text-muted hover:bg-surface2 hover:text-text"
-            title={
-              sidebarOpen
-                ? t("common:chatSidebar.collapse", "Collapse sidebar")
-                : t("common:chatSidebar.expand", "Expand sidebar")
-            }
+            title={sidebarToggleLabel}
           >
             <Menu className="size-4" />
           </button>

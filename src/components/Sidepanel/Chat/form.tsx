@@ -75,6 +75,7 @@ import { useSimpleForm } from "@/hooks/useSimpleForm"
 import { generateID } from "@/db/dexie/helpers"
 import type { UploadedFile } from "@/db/dexie/types"
 import { browser } from "wxt/browser"
+import type { Character } from "@/types/character"
 
 type Props = {
   dropedFile: File | undefined
@@ -82,6 +83,8 @@ type Props = {
   onHeightChange?: (height: number) => void
   draftKey?: string
 }
+
+const MAX_CONTEXT_FILE_SIZE_BYTES = 10 * 1024 * 1024
 
 export const SidepanelForm = ({
   dropedFile,
@@ -101,6 +104,10 @@ export const SidepanelForm = ({
   const [chatWithWebsiteEmbedding] = useStorage(
     "chatWithWebsiteEmbedding",
     false
+  )
+  const [storedCharacter] = useStorage<Character | null>(
+    "selectedCharacter",
+    null
   )
   // STT settings consolidated into a single hook
   const sttSettings = useSttSettings()
@@ -539,7 +546,14 @@ export const SidepanelForm = ({
   )
 
   // Character selection state
-  const [selectedCharacterId, setSelectedCharacterId] = React.useState<string | null>(null)
+  const [selectedCharacterId, setSelectedCharacterId] = React.useState<
+    string | null
+  >(storedCharacter?.id ? String(storedCharacter.id) : null)
+
+  React.useEffect(() => {
+    const nextId = storedCharacter?.id ? String(storedCharacter.id) : null
+    setSelectedCharacterId((prev) => (prev === nextId ? prev : nextId))
+  }, [storedCharacter?.id])
 
   const {
     filteredSlashCommands,
@@ -618,6 +632,20 @@ export const SidepanelForm = ({
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = Array.from(event.target.files || [])
       if (files.length === 0) return
+      const oversized = files.find(
+        (file) => file.size > MAX_CONTEXT_FILE_SIZE_BYTES
+      )
+      if (oversized) {
+        notification.error({
+          message: t("option:upload.fileTooLargeTitle", "File Too Large"),
+          description: t(
+            "option:upload.fileTooLargeDescription",
+            "File size must be less than 10MB"
+          )
+        })
+        event.target.value = ""
+        return
+      }
       try {
         const { processFileUpload } = await import("~/utils/file-processor")
         const nextFiles: UploadedFile[] = []
@@ -720,7 +748,14 @@ export const SidepanelForm = ({
 
   React.useEffect(() => {
     if (!showMentionMenu) return
-    void handleMentionsOpen()
+    let cancelled = false
+    void handleMentionsOpen().catch((error) => {
+      if (cancelled) return
+      console.error("Failed to open mentions menu:", error)
+    })
+    return () => {
+      cancelled = true
+    }
   }, [handleMentionsOpen, showMentionMenu])
 
   const handleMentionSelect = React.useCallback(

@@ -256,6 +256,7 @@
     "moreTools": "More tools",
     "scrollToLatest": "Scroll to latest messages",
     "submitAria": "Send message",
+    "collapsedMessageLabel": "[{lines, plural, one {# line} other {# lines}}/{chars, plural, one {# char} other {# chars}} in message]",
     "openModelSettings": "Open current chat settings",
     "stopStreaming": "Stop streaming response",
     "connectionPlaceholder": "Connect to your tldw server in Settings to send messages and view media.",

@@ -22,7 +22,7 @@ const VALIDATION_RANGES = {
   chunkSize: { min: 100, max: 10000 },
   chunkOverlap: { min: 0, max: 1000 },
   noOfRetrievedDocs: { min: 1, max: 50 },
-  totalFilePerKB: { min: 1 }
+  totalFilePerKB: { min: 1, max: 10000 }
 } as const
 
 export const RagSettings = () => {
@@ -33,9 +33,14 @@ export const RagSettings = () => {
   const [failedAvatars, setFailedAvatars] = React.useState<Set<string>>(new Set())
   const [isFormValid, setIsFormValid] = React.useState(false)
 
-  const updateFormValidity = React.useCallback(() => {
+  const updateFormValidity = React.useCallback(async () => {
     const values = form.getFieldsValue()
-    const hasErrors = form.getFieldsError().some((field) => field.errors.length > 0)
+    let hasErrors = false
+    try {
+      await form.validateFields({ validateOnly: true })
+    } catch {
+      hasErrors = true
+    }
 
     const isNonEmptyString = (value: unknown) =>
       typeof value === "string" && value.trim().length > 0
@@ -63,7 +68,11 @@ export const RagSettings = () => {
         VALIDATION_RANGES.noOfRetrievedDocs.min,
         VALIDATION_RANGES.noOfRetrievedDocs.max
       ) ||
-      !isValidNumber(values.totalFilePerKB, VALIDATION_RANGES.totalFilePerKB.min)
+      !isValidNumber(
+        values.totalFilePerKB,
+        VALIDATION_RANGES.totalFilePerKB.min,
+        VALIDATION_RANGES.totalFilePerKB.max
+      )
 
     const needsSeparator = values.splittingStrategy !== "RecursiveCharacterTextSplitter"
     const separatorMissing =
@@ -143,7 +152,7 @@ export const RagSettings = () => {
   // Validate form on initial load
   React.useEffect(() => {
     if (status === "success") {
-      updateFormValidity()
+      void updateFormValidity()
     }
   }, [status, updateFormValidity])
 
@@ -174,7 +183,7 @@ export const RagSettings = () => {
                 })
               }}
               onValuesChange={() => {
-                updateFormValidity()
+                void updateFormValidity()
               }}
               initialValues={{
                 chunkSize: ollamaInfo?.chunkSize,
@@ -403,15 +412,17 @@ export const RagSettings = () => {
                   {
                     type: "number",
                     min: VALIDATION_RANGES.totalFilePerKB.min,
+                    max: VALIDATION_RANGES.totalFilePerKB.max,
                     message: t(
                       "rag.ragSettings.totalFilePerKB.range",
-                      `Must be at least ${VALIDATION_RANGES.totalFilePerKB.min}`
+                      `Must be between ${VALIDATION_RANGES.totalFilePerKB.min} and ${VALIDATION_RANGES.totalFilePerKB.max}`
                     )
                   }
                 ]}>
                 <InputNumber
                   style={{ width: "100%" }}
                   min={VALIDATION_RANGES.totalFilePerKB.min}
+                  max={VALIDATION_RANGES.totalFilePerKB.max}
                   placeholder={t("rag.ragSettings.totalFilePerKB.placeholder")}
                 />
               </Form.Item>

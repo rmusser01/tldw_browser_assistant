@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Button, Input, Select, Space, Switch, Typography, List, Tag, message, Collapse, InputNumber, Tooltip as AntTooltip, Spin, Progress } from 'antd'
+import { Modal, Button, Input, Select, Space, Switch, Typography, Tag, message, Collapse, InputNumber, Tooltip as AntTooltip, Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from "react-router-dom"
 import { browser } from "wxt/browser"
@@ -54,6 +54,7 @@ type Entry = {
 type QueuedFileStub = {
   id: string
   key: string
+  instanceId?: string
   name: string
   size: number
   type?: string
@@ -129,6 +130,17 @@ const buildLocalFileKey = (file: File) => {
   return `${name}::${size}::${lastModified}`
 }
 
+// Per-session IDs avoid collisions when multiple files share the same signature.
+const fileInstanceIds = new WeakMap<File, string>()
+
+const getFileInstanceId = (file: File) => {
+  const existing = fileInstanceIds.get(file)
+  if (existing) return existing
+  const id = crypto.randomUUID()
+  fileInstanceIds.set(file, id)
+  return id
+}
+
 const snapshotTypeDefaults = (defaults?: TypeDefaults): TypeDefaults | undefined => {
   if (!defaults) return undefined
   const next: TypeDefaults = {}
@@ -150,6 +162,7 @@ const buildQueuedFileStub = (
 ): QueuedFileStub => ({
   id: crypto.randomUUID(),
   key: buildLocalFileKey(file),
+  instanceId: getFileInstanceId(file),
   name: file?.name || "",
   size: Number.isFinite(file?.size) ? file.size : 0,
   type: file?.type,
@@ -167,11 +180,32 @@ const ProcessingIndicator = ({ label }: { label: string }) => (
   </div>
 )
 
-const DEFAULT_EMPTY_ROW: Entry = {
+const QueuedItemRow = React.lazy(() =>
+  import("./QuickIngest/QueuedItemRow").then((m) => ({
+    default: m.QueuedItemRow
+  }))
+)
+const QueuedFileRow = React.lazy(() =>
+  import("./QuickIngest/QueuedFileRow").then((m) => ({
+    default: m.QueuedFileRow
+  }))
+)
+const IngestOptionsPanel = React.lazy(() =>
+  import("./QuickIngest/IngestOptionsPanel").then((m) => ({
+    default: m.IngestOptionsPanel
+  }))
+)
+const ResultsPanel = React.lazy(() =>
+  import("./QuickIngest/ResultsPanel").then((m) => ({
+    default: m.ResultsPanel
+  }))
+)
+
+const createEmptyRow = (): Entry => ({
   id: crypto.randomUUID(),
   url: '',
   type: 'auto'
-}
+})
 
 const DEFAULT_TYPE_DEFAULTS: TypeDefaults = {
   document: { ocr: true }
@@ -400,7 +434,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   )
   const [rows, setRows] = useStorage<Entry[]>(
     "quickIngestQueuedRows",
-    [DEFAULT_EMPTY_ROW]
+    () => [createEmptyRow()]
   )
   const [queuedFiles, setQueuedFiles] = useStorage<QueuedFileStub[]>(
     "quickIngestQueuedFiles",
@@ -483,6 +517,9 @@ export const QuickIngestModal: React.FC<Props> = ({
   const reattachInputRef = React.useRef<HTMLInputElement | null>(null)
   const confirmDanger = useConfirmDanger()
   const introToast = React.useRef(false)
+  const handleCloseInspector = React.useCallback(() => {
+    setInspectorOpen(false)
+  }, [])
   const handleDismissInspectorIntro = React.useCallback(() => {
     setShowInspectorIntro(false)
     try {
@@ -561,7 +598,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   )
 
   const lastFileLookupRef = React.useRef<Map<string, File> | null>(null)
-  const lastFileIdByKeyRef = React.useRef<Map<string, string> | null>(null)
+  const lastFileIdByInstanceIdRef = React.useRef<Map<string, string> | null>(null)
   const pendingStoreWithoutReviewRef = React.useRef(false)
   const unmountedRef = React.useRef(false)
   const processOnly = reviewBeforeStorage || !storeRemote
@@ -1225,30 +1262,89 @@ export const QuickIngestModal: React.FC<Props> = ({
     })
   }, [createDefaultsSnapshot, open, setQueuedFiles, setRows])
 
-  const attachedFilesByKey = React.useMemo(
-    () => new Map(localFiles.map((file) => [buildLocalFileKey(file), file])),
+  const attachedFilesByInstanceId = React.useMemo(
+    () => new Map(localFiles.map((file) => [getFileInstanceId(file), file])),
     [localFiles]
   )
 
-  const attachedFileStubs = React.useMemo(
-    () => queuedFileStubs.filter((stub) => attachedFilesByKey.has(stub.key)),
-    [attachedFilesByKey, queuedFileStubs]
-  )
+  const {
+    attachedFileStubs,
+    missingFileStubs,
+    attachedFiles,
+    fileForStubId,
+    stubsNeedingInstanceId
+  } = React.useMemo(() => {
+    const fileForStubId = new Map<string, File>()
+    const matchedInstanceIds = new Set<string>()
+    const filesBySignature = new Map<string, File[]>()
+    for (const file of localFiles) {
+      const signature = buildLocalFileKey(file)
+      const list = filesBySignature.get(signature) || []
+      list.push(file)
+      filesBySignature.set(signature, list)
+    }
+    const stubsNeedingInstanceId: Array<{ id: string; instanceId: string }> = []
 
-  const missingFileStubs = React.useMemo(
-    () => queuedFileStubs.filter((stub) => !attachedFilesByKey.has(stub.key)),
-    [attachedFilesByKey, queuedFileStubs]
-  )
+    for (const stub of queuedFileStubs) {
+      let file: File | undefined
+      if (stub.instanceId) {
+        file = attachedFilesByInstanceId.get(stub.instanceId)
+      }
+      if (!file) {
+        const candidates = filesBySignature.get(stub.key)
+        if (candidates) {
+          file = candidates.find(
+            (candidate) => !matchedInstanceIds.has(getFileInstanceId(candidate))
+          )
+        }
+      }
+      if (file) {
+        const instanceId = getFileInstanceId(file)
+        fileForStubId.set(stub.id, file)
+        matchedInstanceIds.add(instanceId)
+        if (!stub.instanceId || stub.instanceId !== instanceId) {
+          stubsNeedingInstanceId.push({ id: stub.id, instanceId })
+        }
+      }
+    }
+
+    const attachedFileStubs = queuedFileStubs.filter((stub) =>
+      fileForStubId.has(stub.id)
+    )
+    const missingFileStubs = queuedFileStubs.filter(
+      (stub) => !fileForStubId.has(stub.id)
+    )
+    const attachedFiles = attachedFileStubs
+      .map((stub) => fileForStubId.get(stub.id))
+      .filter(Boolean) as File[]
+
+    return {
+      attachedFileStubs,
+      missingFileStubs,
+      attachedFiles,
+      fileForStubId,
+      stubsNeedingInstanceId
+    }
+  }, [attachedFilesByInstanceId, localFiles, queuedFileStubs])
   const hasMissingFiles = missingFileStubs.length > 0
 
-  const attachedFiles = React.useMemo(() => {
-    const next: File[] = []
-    for (const stub of attachedFileStubs) {
-      const file = attachedFilesByKey.get(stub.key)
-      if (file) next.push(file)
-    }
-    return next
-  }, [attachedFileStubs, attachedFilesByKey])
+  React.useEffect(() => {
+    if (!stubsNeedingInstanceId.length) return
+    setQueuedFiles((prev) => {
+      if (!prev || prev.length === 0) return prev
+      let changed = false
+      const updates = new Map(
+        stubsNeedingInstanceId.map((item) => [item.id, item.instanceId])
+      )
+      const next = prev.map((stub) => {
+        const nextInstanceId = updates.get(stub.id)
+        if (!nextInstanceId || stub.instanceId === nextInstanceId) return stub
+        changed = true
+        return { ...stub, instanceId: nextInstanceId }
+      })
+      return changed ? next : prev
+    })
+  }, [setQueuedFiles, stubsNeedingInstanceId])
 
   const plannedCount = React.useMemo(() => {
     const valid = rows.filter((r) => r.url.trim().length > 0)
@@ -1263,9 +1359,9 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   const getResultForFile = React.useCallback(
     (file: File) => {
-      const fileIdByKey = lastFileIdByKeyRef.current
-      if (fileIdByKey) {
-        const id = fileIdByKey.get(buildLocalFileKey(file))
+      const fileIdByInstanceId = lastFileIdByInstanceIdRef.current
+      if (fileIdByInstanceId) {
+        const id = fileIdByInstanceId.get(getFileInstanceId(file))
         if (id) {
           return resultById.get(id) || null
         }
@@ -1286,7 +1382,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
     }
     for (const stub of attachedFileStubs) {
-      const file = attachedFilesByKey.get(stub.key)
+      const file = fileForStubId.get(stub.id)
       if (!file) continue
       const match = getResultForFile(file)
       if (!match || !match.status) {
@@ -1294,7 +1390,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
     }
     return count
-  }, [rows, attachedFileStubs, attachedFilesByKey, resultById, getResultForFile])
+  }, [rows, attachedFileStubs, fileForStubId, resultById, getResultForFile])
 
   const pendingLabel = React.useMemo(() => {
     if (!ingestBlocked) {
@@ -1394,7 +1490,7 @@ export const QuickIngestModal: React.FC<Props> = ({
     setDraftCreationRetrying(false)
     setReviewNavigationError(null)
     lastFileLookupRef.current = null
-    lastFileIdByKeyRef.current = null
+    lastFileIdByInstanceIdRef.current = null
     clearFailure()
 
     const missingFileCount = missingFileStubs.length
@@ -1491,20 +1587,23 @@ export const QuickIngestModal: React.FC<Props> = ({
         document: mergeDefaults(normalizedTypeDefaults.document),
         video: mergeDefaults(normalizedTypeDefaults.video)
       }
-      const fileDefaultsByKey = new Map(
-        attachedFileStubs.map((stub) => [
-          stub.key,
+      const fileDefaultsByInstanceId = new Map<string, TypeDefaults>()
+      for (const stub of attachedFileStubs) {
+        const file = fileForStubId.get(stub.id)
+        if (!file) continue
+        fileDefaultsByInstanceId.set(
+          getFileInstanceId(file),
           stub.defaults || normalizedTypeDefaults
-        ])
-      )
+        )
+      }
 
       // Convert local files to transferable payloads (ArrayBuffer)
       const fileLookup = new Map<string, File>()
-      const fileIdByKey = new Map<string, string>()
+      const fileIdByInstanceId = new Map<string, string>()
       const filesPayload = await Promise.all(
         attachedFiles.map(async (f) => {
           const defaultsForFile =
-            fileDefaultsByKey.get(buildLocalFileKey(f)) || normalizedTypeDefaults
+            fileDefaultsByInstanceId.get(getFileInstanceId(f)) || normalizedTypeDefaults
           if (f.size && f.size > INLINE_FILE_WARN_BYTES) {
             const msg = `File "${f.name}" is too large for inline transfer (over ${formatBytes(INLINE_FILE_WARN_BYTES)}). Please upload a smaller file or process directly on the server.`
             messageApi.error(msg)
@@ -1518,7 +1617,7 @@ export const QuickIngestModal: React.FC<Props> = ({
           }
           const id = crypto.randomUUID()
           fileLookup.set(id, f)
-          fileIdByKey.set(buildLocalFileKey(f), id)
+          fileIdByInstanceId.set(getFileInstanceId(f), id)
           // Use a plain array so runtime message cloning (MV3 SW) preserves bytes
           const data = Array.from(new Uint8Array(await f.arrayBuffer()))
           return {
@@ -1531,7 +1630,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         })
       )
       lastFileLookupRef.current = fileLookup
-      lastFileIdByKeyRef.current = fileIdByKey
+      lastFileIdByInstanceIdRef.current = fileIdByInstanceId
 
       const resp = (await browser.runtime.sendMessage({
         type: "tldw:quick-ingest-batch",
@@ -1642,7 +1741,9 @@ export const QuickIngestModal: React.FC<Props> = ({
     ingestConnectionStatus,
     attachedFiles,
     attachedFileStubs,
+    fileForStubId,
     formatBytes,
+    markFailure,
     messageApi,
     mergeDefaults,
     processOnly,
@@ -1719,7 +1820,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       setDraftCreationRetrying(false)
       setReviewNavigationError(null)
       lastFileLookupRef.current = null
-      lastFileIdByKeyRef.current = null
+      lastFileIdByInstanceIdRef.current = null
       pendingStoreWithoutReviewRef.current = false
       return
     }
@@ -2082,6 +2183,9 @@ export const QuickIngestModal: React.FC<Props> = ({
   React.useEffect(() => {
     if (!open || ingestConnectionStatus !== "online") {
       setTranscriptionModelsLoading(false)
+      if (ingestConnectionStatus !== "online") {
+        setTranscriptionModelOptions([])
+      }
       return
     }
     let cancelled = false
@@ -2090,17 +2194,15 @@ export const QuickIngestModal: React.FC<Props> = ({
       try {
         const res = await tldwClient.getTranscriptionModels()
         const all = Array.isArray(res?.all_models) ? res.all_models : []
-        if (!cancelled && all.length > 0) {
-          const seen = new Set<string>()
-          const unique: string[] = []
-          for (const model of all) {
-            const value = String(model)
-            if (!value || seen.has(value)) continue
-            seen.add(value)
-            unique.push(value)
-          }
-          setTranscriptionModelOptions(unique)
+        const seen = new Set<string>()
+        const unique: string[] = []
+        for (const model of all) {
+          const value = String(model)
+          if (!value || seen.has(value)) continue
+          seen.add(value)
+          unique.push(value)
         }
+        if (!cancelled) setTranscriptionModelOptions(unique)
       } catch (e) {
         if ((import.meta as any)?.env?.DEV) {
           // eslint-disable-next-line no-console
@@ -2303,8 +2405,8 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   const selectedFile = React.useMemo(() => {
     if (!selectedFileStub) return null
-    return attachedFilesByKey.get(selectedFileStub.key) || null
-  }, [attachedFilesByKey, selectedFileStub])
+    return fileForStubId.get(selectedFileStub.id) || null
+  }, [fileForStubId, selectedFileStub])
   const requestFileReattach = React.useCallback((stubId: string) => {
     setPendingReattachId(stubId)
     if (reattachInputRef.current) {
@@ -2366,6 +2468,11 @@ export const QuickIngestModal: React.FC<Props> = ({
         : null
     return { total, done, pct, elapsedLabel }
   }, [liveTotalCount, processedCount, progressTick, results.length, runStartedAt, totalPlanned])
+
+  const doneCount = processedCount || results.length || 0
+  const totalCount = liveTotalCount || totalPlanned || 0
+  const missingFileCount = missingFileStubs.length
+  const draftStorageCapLabel = formatBytes(DRAFT_STORAGE_CAP_BYTES)
 
   const resultSummary = React.useMemo(() => {
     if (!results || results.length === 0) {
@@ -2457,29 +2564,44 @@ export const QuickIngestModal: React.FC<Props> = ({
     (incoming: File[]) => {
       if (incoming.length === 0) return
       const defaultsSnapshot = createDefaultsSnapshot()
-      const attachedKeys = new Set(
-        localFiles.map((file) => buildLocalFileKey(file))
+      const attachedInstanceIds = new Set(
+        localFiles.map((file) => getFileInstanceId(file))
       )
-      const stubsByKey = new Map(
-        (queuedFiles || []).map((stub) => [stub.key, stub])
-      )
-      const seenKeys = new Set<string>()
+      const stubsByKey = new Map<string, QueuedFileStub[]>()
+      for (const stub of queuedFiles || []) {
+        const list = stubsByKey.get(stub.key) || []
+        list.push(stub)
+        stubsByKey.set(stub.key, list)
+      }
+      const claimedStubIds = new Set<string>()
+      const seenInstanceIds = new Set<string>()
       const accepted: File[] = []
       const newStubs: QueuedFileStub[] = []
-      const duplicates: string[] = []
+      const updatedStubs: Array<{ id: string; instanceId: string }> = []
+      const skipped: string[] = []
       let firstSelectedId: string | null = null
 
       for (const file of incoming) {
         const name = file?.name || ""
-        const key = buildLocalFileKey(file)
-        if (attachedKeys.has(key) || seenKeys.has(key)) {
-          duplicates.push(name || "Unnamed file")
+        const instanceId = getFileInstanceId(file)
+        if (seenInstanceIds.has(instanceId) || attachedInstanceIds.has(instanceId)) {
+          skipped.push(name || "Unnamed file")
           continue
         }
-        seenKeys.add(key)
-        const existingStub = stubsByKey.get(key)
+        seenInstanceIds.add(instanceId)
+        const key = buildLocalFileKey(file)
+        const candidates = stubsByKey.get(key) || []
+        const existingStub = candidates.find((stub) => {
+          if (claimedStubIds.has(stub.id)) return false
+          if (stub.instanceId && attachedInstanceIds.has(stub.instanceId)) return false
+          return true
+        })
         if (existingStub) {
+          claimedStubIds.add(existingStub.id)
           accepted.push(file)
+          if (existingStub.instanceId !== instanceId) {
+            updatedStubs.push({ id: existingStub.id, instanceId })
+          }
           if (!firstSelectedId) firstSelectedId = existingStub.id
           continue
         }
@@ -2489,8 +2611,8 @@ export const QuickIngestModal: React.FC<Props> = ({
         if (!firstSelectedId) firstSelectedId = stub.id
       }
 
-      if (duplicates.length > 0) {
-        const uniqueNames = Array.from(new Set(duplicates))
+      if (skipped.length > 0) {
+        const uniqueNames = Array.from(new Set(skipped))
         const label = uniqueNames.slice(0, 3).join(", ")
         const suffix = uniqueNames.length > 3 ? "..." : ""
         messageApi.warning(
@@ -2498,15 +2620,32 @@ export const QuickIngestModal: React.FC<Props> = ({
             "duplicateFiles",
             "Skipped {{count}} duplicate file(s): {{names}}",
             {
-              count: duplicates.length,
+              count: skipped.length,
               names: `${label}${suffix}`
             }
           )
         )
       }
 
-      if (newStubs.length > 0) {
-        setQueuedFiles((prev) => [...(prev || []), ...newStubs])
+      if (newStubs.length > 0 || updatedStubs.length > 0) {
+        setQueuedFiles((prev) => {
+          const base = prev || []
+          let changed = false
+          const updates = new Map(
+            updatedStubs.map((item) => [item.id, item.instanceId])
+          )
+          const next = base.map((stub) => {
+            const nextInstanceId = updates.get(stub.id)
+            if (!nextInstanceId || stub.instanceId === nextInstanceId) return stub
+            changed = true
+            return { ...stub, instanceId: nextInstanceId }
+          })
+          if (newStubs.length > 0) {
+            changed = true
+            return [...next, ...newStubs]
+          }
+          return changed ? next : prev
+        })
       }
       if (accepted.length === 0) return
       setLocalFiles((prev) => [...prev, ...accepted])
@@ -2527,6 +2666,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       if (!file || !stubId) return
       const stub = queuedFileStubs.find((item) => item.id === stubId)
       if (!stub) return
+      const instanceId = getFileInstanceId(file)
       if (buildLocalFileKey(file) !== stub.key) {
         messageApi.error(
           qi(
@@ -2538,11 +2678,22 @@ export const QuickIngestModal: React.FC<Props> = ({
         return
       }
       setLocalFiles((prev) => {
-        if (prev.some((existing) => buildLocalFileKey(existing) === stub.key)) {
+        if (
+          stub.instanceId &&
+          prev.some((existing) => getFileInstanceId(existing) === stub.instanceId)
+        ) {
           return prev
         }
         return [...prev, file]
       })
+      if (stub.instanceId !== instanceId) {
+        setQueuedFiles((prev) => {
+          if (!prev) return prev
+          return prev.map((item) =>
+            item.id === stub.id ? { ...item, instanceId } : item
+          )
+        })
+      }
       setSelectedFileId(stub.id)
       setSelectedRowId(null)
       messageApi.success(
@@ -2557,6 +2708,7 @@ export const QuickIngestModal: React.FC<Props> = ({
       qi,
       queuedFileStubs,
       setLocalFiles,
+      setQueuedFiles,
       setSelectedFileId,
       setSelectedRowId
     ]
@@ -3210,831 +3362,231 @@ export const QuickIngestModal: React.FC<Props> = ({
               </div>
             )}
             <div className="max-h-[360px] space-y-2 overflow-auto pr-1">
-              {rows.map((row) => {
-                const status = statusForUrlRow(row)
-                const isSelected = selectedRowId === row.id
-                const detected = row.type === 'auto' ? inferIngestTypeFromUrl(row.url) : row.type
-                const res = resultById.get(row.id)
-                const isProcessing = running && !res?.status
-                let runTag: React.ReactNode = null
-                if (res?.status === 'ok') runTag = <Tag color="green">{qi('statusDone', 'Done')}</Tag>
-                else if (res?.status === 'error') runTag = (
-                  <AntTooltip title={res.error || qi('statusFailed', 'Failed')}>
-                    <Tag color="red">{qi('statusFailed', 'Failed')}</Tag>
-                  </AntTooltip>
-                )
-                else if (running) runTag = <Tag icon={<Spin size="small" />} color="blue">{qi('statusRunning', 'Running')}</Tag>
-                const pendingTag =
-                  ingestBlocked && !running && (!res || !res.status)
-                    ? (
-                      <Tag>
-                        {pendingLabel}
+              <React.Suspense fallback={null}>
+                {rows.map((row) => {
+                  const status = statusForUrlRow(row)
+                  const isSelected = selectedRowId === row.id
+                  const detected =
+                    row.type === "auto"
+                      ? inferIngestTypeFromUrl(row.url)
+                      : row.type
+                  const res = resultById.get(row.id)
+                  const isProcessing = running && !res?.status
+                  let runTag: React.ReactNode = null
+                  if (res?.status === "ok") {
+                    runTag = <Tag color="green">{qi("statusDone", "Done")}</Tag>
+                  } else if (res?.status === "error") {
+                    runTag = (
+                      <AntTooltip
+                        title={res.error || qi("statusFailed", "Failed")}
+                      >
+                        <Tag color="red">{qi("statusFailed", "Failed")}</Tag>
+                      </AntTooltip>
+                    )
+                  } else if (running) {
+                    runTag = (
+                      <Tag icon={<Spin size="small" />} color="blue">
+                        {qi("statusRunning", "Running")}
                       </Tag>
                     )
-                    : null
+                  }
+                  const pendingTag =
+                    ingestBlocked && !running && (!res || !res.status) ? (
+                      <Tag>{pendingLabel}</Tag>
+                    ) : null
+                  const processingIndicator = isProcessing ? (
+                    <div className="mt-1">
+                      <ProcessingIndicator
+                        label={qi("processingItem", "Processing...")}
+                      />
+                    </div>
+                  ) : null
 
-                return (
-                  <div
-                    key={row.id}
-                  className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${isSelected ? 'border-primary shadow-sm' : 'border-border'}`}
-                  onClick={() => {
-                    setSelectedRowId(row.id)
-                    setSelectedFileId(null)
-                    setInspectorOpen(true)
-                  }}
-                >
-                    <Button
-                      size="small"
-                      type="text"
-                      className={`absolute right-2 top-2 opacity-0 transition focus:opacity-100 group-hover:opacity-100 ${isSelected ? 'opacity-100' : ''}`}
-                      aria-label="Open Inspector for this item"
-                      title="Open Inspector for this item"
-                      onClick={(e) => {
-                        e.stopPropagation()
+                  return (
+                    <QueuedItemRow
+                      key={row.id}
+                      row={row}
+                      isSelected={isSelected}
+                      detectedType={detected}
+                      status={status}
+                      runTag={runTag}
+                      pendingTag={pendingTag}
+                      processingIndicator={processingIndicator}
+                      running={running}
+                      canRetry={res?.status === "error"}
+                      qi={qi}
+                      t={t}
+                      typeIcon={typeIcon}
+                      onSelect={() => {
                         setSelectedRowId(row.id)
                         setSelectedFileId(null)
                         setInspectorOpen(true)
-                      }}>
-                      <Info className="w-4 h-4 text-text-subtle" />
-                    </Button>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      {typeIcon(detected)}
-                        <div className="flex flex-col">
-                          <Typography.Text className="text-sm font-medium">
-                            {row.url ? row.url : qi('untitledUrl', 'Untitled URL')}
-                          </Typography.Text>
-                          <div className="flex items-center gap-2 text-[11px] text-text-subtle">
-                            <Tag color="geekblue">{detected.toUpperCase()}</Tag>
-                            {status.reason ? <span className="text-orange-600">{status.reason}</span> : (
-                              <span>{qi('defaultsApplied', 'Defaults will be applied.')}</span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Tag color={status.color === 'default' ? undefined : status.color}>{status.label}</Tag>
-                        {runTag}
-                        {pendingTag}
-                      </div>
-                    </div>
-                    <div className="mt-2 flex flex-col gap-2">
-                      <Input
-                        placeholder={qi('urlPlaceholder', 'https://...')}
-                        value={row.url}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={(e) => updateRow(row.id, { url: e.target.value })}
-                        disabled={running}
-                        aria-label={qi('sourceUrlAria', 'Source URL')}
-                        title={qi('sourceUrlAria', 'Source URL')}
-                      />
-                      <div className="flex flex-wrap items-center gap-2 text-xs text-text-subtle">
-                        <Select
-                          className="min-w-32"
-                          value={row.type}
-                          onClick={(e) => e.stopPropagation()}
-                          onChange={(v) => updateRow(row.id, { type: v as Entry['type'] })}
-                          aria-label={qi('forceMediaType', 'Force media type')}
-                          title={qi('forceMediaType', 'Force media type')}
-                          options={[
-                            { label: qi('typeAuto', 'Auto'), value: 'auto' },
-                            { label: qi('typeHtml', 'HTML'), value: 'html' },
-                            { label: qi('typePdf', 'PDF'), value: 'pdf' },
-                            { label: qi('typeDocument', 'Document'), value: 'document' },
-                            { label: qi('typeAudio', 'Audio'), value: 'audio' },
-                            { label: qi('typeVideo', 'Video'), value: 'video' }
-                          ]}
-                          disabled={running}
-                        />
-                        {res?.status === "error" && (
-                          <Button
-                            size="small"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              void retrySingleRow(row)
-                            }}
-                            disabled={running}
-                            aria-label={qi("retryItemAria", "Retry this item")}
-                            title={qi("retryItemAria", "Retry this item")}
-                          >
-                            {qi("retryItem", "Retry")}
-                          </Button>
-                        )}
-                          <Button
-                            size="small"
-                            danger
-                            onClick={(e) => { e.stopPropagation(); removeRow(row.id) }}
-                            disabled={running}
-                            aria-label="Remove this row from queue"
-                            title="Remove this row from queue"
-                          >
-                            {t('quickIngest.remove') || 'Remove'}
-                          </Button>
-                      </div>
-                      {isProcessing && (
-                        <div className="mt-1">
-                          <ProcessingIndicator
-                            label={qi("processingItem", "Processing...")}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )
-              })}
-
-              {queuedFileStubs.map((stub) => {
-                const attachedFile = attachedFilesByKey.get(stub.key)
-                const status = statusForFile(attachedFile || stub, Boolean(attachedFile))
-                const isSelected = selectedFileId === stub.id
-                const type = fileTypeFromName(stub)
-                const match = attachedFile ? getResultForFile(attachedFile) : null
-                const runStatus = match?.status
-                const isProcessing = !!attachedFile && running && !runStatus
-                let runTag: React.ReactNode = null
-                if (runStatus === 'ok') runTag = <Tag color="green">{qi('statusDone', 'Done')}</Tag>
-                else if (runStatus === 'error') {
-                  runTag = (
-                    <AntTooltip title={match?.error || qi('statusFailed', 'Failed')}>
-                      <Tag color="red">{qi('statusFailed', 'Failed')}</Tag>
-                    </AntTooltip>
+                      }}
+                      onOpenInspector={() => {
+                        setSelectedRowId(row.id)
+                        setSelectedFileId(null)
+                        setInspectorOpen(true)
+                      }}
+                      onUpdateRow={(updates) => updateRow(row.id, updates)}
+                      onRetry={() => {
+                        void retrySingleRow(row)
+                      }}
+                      onRemove={() => removeRow(row.id)}
+                    />
                   )
-                } else if (running && attachedFile) {
-                  runTag = <Tag icon={<Spin size="small" />} color="blue">{qi('statusRunning', 'Running')}</Tag>
-                }
-                const pendingTag =
-                  ingestBlocked && !running && attachedFile && !runStatus
-                    ? (
+                })}
+
+                {queuedFileStubs.map((stub) => {
+                  const attachedFile = fileForStubId.get(stub.id)
+                  const status = statusForFile(
+                    attachedFile || stub,
+                    Boolean(attachedFile)
+                  )
+                  const isSelected = selectedFileId === stub.id
+                  const type = fileTypeFromName(stub)
+                  const match = attachedFile
+                    ? getResultForFile(attachedFile)
+                    : null
+                  const runStatus = match?.status
+                  const isProcessing = !!attachedFile && running && !runStatus
+                  let runTag: React.ReactNode = null
+                  if (runStatus === "ok") {
+                    runTag = <Tag color="green">{qi("statusDone", "Done")}</Tag>
+                  } else if (runStatus === "error") {
+                    runTag = (
+                      <AntTooltip
+                        title={match?.error || qi("statusFailed", "Failed")}
+                      >
+                        <Tag color="red">{qi("statusFailed", "Failed")}</Tag>
+                      </AntTooltip>
+                    )
+                  } else if (running && attachedFile) {
+                    runTag = (
+                      <Tag icon={<Spin size="small" />} color="blue">
+                        {qi("statusRunning", "Running")}
+                      </Tag>
+                    )
+                  }
+                  const pendingTag =
+                    ingestBlocked && !running && attachedFile && !runStatus ? (
                       <Tag>
                         {t(
                           "quickIngest.pendingLabel",
                           "Pending — will run when connected"
                         )}
                       </Tag>
+                    ) : null
+                  const processingIndicator = isProcessing ? (
+                    <div className="mt-1">
+                      <ProcessingIndicator
+                        label={qi("processingItem", "Processing...")}
+                      />
+                    </div>
+                  ) : null
+                  const handleRemove = () => {
+                    setQueuedFiles((prev) =>
+                      (prev || []).filter((file) => file.id !== stub.id)
                     )
-                    : null
+                    if (attachedFile) {
+                      const instanceId = getFileInstanceId(attachedFile)
+                      setLocalFiles((prev) =>
+                        prev.filter(
+                          (file) => getFileInstanceId(file) !== instanceId
+                        )
+                      )
+                    }
+                    if (selectedFileId === stub.id) {
+                      setSelectedFileId(null)
+                    }
+                  }
 
-                return (
-                  <div
-                    key={stub.id}
-                  className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${isSelected ? 'border-primary shadow-sm' : 'border-border'}`}
-                  onClick={() => {
-                    setSelectedFileId(stub.id)
-                    setSelectedRowId(null)
-                    setInspectorOpen(true)
-                  }}
-                >
-                    <Button
-                      size="small"
-                      type="text"
-                      className={`absolute right-2 top-2 opacity-0 transition focus:opacity-100 group-hover:opacity-100 ${isSelected ? 'opacity-100' : ''}`}
-                      aria-label="Open Inspector for this file"
-                      title="Open Inspector for this file"
-                      onClick={(e) => {
-                        e.stopPropagation()
+                  return (
+                    <QueuedFileRow
+                      key={stub.id}
+                      stub={stub}
+                      isSelected={isSelected}
+                      status={status}
+                      fileType={type}
+                      sizeLabel={formatBytes(stub.size)}
+                      runTag={runTag}
+                      pendingTag={pendingTag}
+                      processingIndicator={processingIndicator}
+                      running={running}
+                      showReattach={!attachedFile}
+                      canRetry={runStatus === "error" && Boolean(attachedFile)}
+                      qi={qi}
+                      t={t}
+                      typeIcon={typeIcon}
+                      onSelect={() => {
                         setSelectedFileId(stub.id)
                         setSelectedRowId(null)
                         setInspectorOpen(true)
-                      }}>
-                      <Info className="w-4 h-4 text-text-subtle" />
-                    </Button>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      {typeIcon(type)}
-                        <div className="flex flex-col">
-                          <Typography.Text className="text-sm font-medium truncate max-w-[360px]">
-                            {stub.name}
-                          </Typography.Text>
-                          <div className="flex items-center gap-2 text-[11px] text-text-subtle">
-                            <Tag color="geekblue">{type.toUpperCase()}</Tag>
-                            <span>{formatBytes(stub.size)} {stub.type ? `· ${stub.type}` : ''}</span>
-                            {status.reason ? <span className="text-orange-600">{status.reason}</span> : null}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Tag color={status.color === 'default' ? undefined : status.color}>{status.label}</Tag>
-                        {runTag}
-                        {pendingTag}
-                      </div>
-                    </div>
-                    <div className="mt-2 flex items-center gap-2 text-xs text-text-muted">
-                        {!attachedFile && (
-                          <Button
-                            size="small"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              requestFileReattach(stub.id)
-                            }}
-                            disabled={running}
-                            aria-label={qi("reattachFileAria", "Reattach this file")}
-                            title={qi("reattachFileAria", "Reattach this file")}
-                          >
-                            {qi("reattachFile", "Reattach")}
-                          </Button>
-                        )}
-                        {runStatus === "error" && attachedFile && (
-                          <Button
-                            size="small"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              void retrySingleFile(attachedFile)
-                            }}
-                            disabled={running}
-                            aria-label={qi("retryItemAria", "Retry this item")}
-                            title={qi("retryItemAria", "Retry this item")}
-                          >
-                            {qi("retryItem", "Retry")}
-                          </Button>
-                        )}
-                        <Button
-                          size="small"
-                          danger
-                          aria-label="Remove this file from queue"
-                          title="Remove this file from queue"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            setQueuedFiles((prev) => (prev || []).filter((f) => f.id !== stub.id))
-                            setLocalFiles((prev) =>
-                              prev.filter((file) => buildLocalFileKey(file) !== stub.key)
-                            )
-                            if (selectedFileId === stub.id) {
-                              setSelectedFileId(null)
-                            }
-                          }}
-                          disabled={running}
-                        >
-                          {t('quickIngest.remove') || 'Remove'}
-                        </Button>
-                      </div>
-                      {isProcessing && (
-                        <div className="mt-1">
-                          <ProcessingIndicator
-                            label={qi("processingItem", "Processing...")}
-                          />
-                        </div>
-                      )}
-                    </div>
+                      }}
+                      onOpenInspector={() => {
+                        setSelectedFileId(stub.id)
+                        setSelectedRowId(null)
+                        setInspectorOpen(true)
+                      }}
+                      onReattach={() => requestFileReattach(stub.id)}
+                      onRetry={() => {
+                        if (attachedFile) {
+                          void retrySingleFile(attachedFile)
+                        }
+                      }}
+                      onRemove={handleRemove}
+                    />
                   )
                 })}
+              </React.Suspense>
 
               {rows.length === 0 && queuedFileStubs.length === 0 && (
                 <div className="rounded-md border border-dashed border-border p-4 text-center text-sm text-text-muted">
-                  {qi('emptyQueue', 'No items queued yet. Drop files or add URLs to start.')}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="rounded-md border border-border bg-surface p-3 space-y-3">
-            <Typography.Title level={5} className="!mb-2">{t('quickIngest.commonOptions') || 'Ingestion options'}</Typography.Title>
-            {(hasAudioItems || hasDocumentItems || hasVideoItems) && (
-              <Typography.Text type="secondary" className="text-xs text-text-subtle">
-                {qi(
-                  "defaultsForNewItems",
-                  "Defaults apply to items added after this point."
-                )}
-              </Typography.Text>
-            )}
-            <Space wrap size="middle" align="center">
-                <Space align="center">
-                  <span>{qi('analysisLabel', 'Analysis')}</span>
-                  <Switch
-                    aria-label="Ingestion options \u2013 analysis"
-                    title="Toggle analysis"
-                    checked={common.perform_analysis}
-                    onChange={(v) =>
-                      setCommon((c) => ({ ...c, perform_analysis: v }))
-                    }
-                    disabled={running}
-                />
-              </Space>
-                <Space align="center">
-                  <span>{qi('chunkingLabel', 'Chunking')}</span>
-                  <Switch
-                    aria-label="Ingestion options \u2013 chunking"
-                    title="Toggle chunking"
-                    checked={common.perform_chunking}
-                  onChange={(v) =>
-                      setCommon((c) => ({ ...c, perform_chunking: v }))
-                    }
-                    disabled={running}
-                />
-              </Space>
-                <Space align="center">
-                  <span>{qi('overwriteLabel', 'Overwrite existing')}</span>
-                  <Switch
-                    aria-label="Ingestion options \u2013 overwrite existing"
-                    title="Toggle overwrite existing"
-                    checked={common.overwrite_existing}
-                    onChange={(v) =>
-                      setCommon((c) => ({ ...c, overwrite_existing: v }))
-                    }
-                    disabled={running}
-                />
-              </Space>
-            </Space>
-
-            {ragEmbeddingLabel && (
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-text-subtle">
-                <span>
-                  {t(
-                    "quickIngest.ragEmbeddingHintInline",
-                    "Uses {{label}} for RAG search.",
-                    { label: ragEmbeddingLabel }
+                  {qi(
+                    "emptyQueue",
+                    "No items queued yet. Drop files or add URLs to start."
                   )}
-                </span>
-                <button
-                  type="button"
-                  onClick={openModelSettings}
-                  className="text-primary underline underline-offset-2"
-                >
-                  {t("option:header.modelSettings", "Model settings")}
-                </button>
-              </div>
-            )}
-
-            {hasAudioItems && (
-              <div className="space-y-1">
-                <Typography.Title level={5} className="!mb-1">{t('quickIngest.audioOptions') || 'Audio options'}</Typography.Title>
-                <Space className="w-full">
-                  <Input
-                    placeholder={t('quickIngest.audioLanguage') || 'Language (e.g., en)'}
-                    value={normalizedTypeDefaults.audio?.language || ''}
-                    onChange={(e) =>
-                      setTypeDefaults((prev) => ({
-                        ...(prev || {}),
-                        audio: { ...(prev?.audio || {}), language: e.target.value }
-                      }))
-                    }
-                    disabled={running}
-                    aria-label="Audio language"
-                    title="Audio language"
-                  />
-                    <Select
-                      className="min-w-40"
-                    value={normalizedTypeDefaults.audio?.diarize ?? false}
-                    onChange={(v) =>
-                      setTypeDefaults((prev) => ({
-                        ...(prev || {}),
-                        audio: { ...(prev?.audio || {}), diarize: Boolean(v) }
-                      }))
-                    }
-                    aria-label="Audio diarization toggle"
-                    title="Audio diarization toggle"
-                    options={[
-                      { label: qi('audioDiarizationOff', 'Diarization: Off'), value: false },
-                      { label: qi('audioDiarizationOn', 'Diarization: On'), value: true }
-                    ]}
-                    disabled={running}
-                  />
-                </Space>
-                <Typography.Text type="secondary" className="text-xs">
-                  {t('quickIngest.audioDiarizationHelp') || 'Turn on to separate speakers in transcripts; applies to new audio items added after this point.'}
-                </Typography.Text>
-                <Typography.Text
-                  className="text-[11px] text-text-subtle block"
-                  title={qi('audioSettingsTitle', 'These audio settings apply to new audio items added after this point.')}>
-                  {qi('audioSettingsHint', 'These settings apply to new audio items added after this point.')}
-                </Typography.Text>
-              </div>
-            )}
-
-            {hasDocumentItems && (
-              <div className="space-y-1">
-                <Typography.Title level={5} className="!mb-1">{t('quickIngest.documentOptions') || 'Document options'}</Typography.Title>
-                  <Select
-                    className="min-w-40"
-                    value={normalizedTypeDefaults.document?.ocr ?? true}
-                    onChange={(v) =>
-                      setTypeDefaults((prev) => ({
-                        ...(prev || {}),
-                        document: { ...(prev?.document || {}), ocr: Boolean(v) }
-                      }))
-                    }
-                    aria-label="OCR toggle"
-                    title="OCR toggle"
-                    options={[
-                      { label: qi('ocrOff', 'OCR: Off'), value: false },
-                      { label: qi('ocrOn', 'OCR: On'), value: true }
-                    ]}
-                    disabled={running}
-                  />
-                <Typography.Text type="secondary" className="text-xs">
-                  {t('quickIngest.ocrHelp') || 'OCR helps extract text from scanned PDFs or images; applies to new document/PDF items added after this point.'}
-                </Typography.Text>
-                <Typography.Text
-                  className="text-[11px] text-text-subtle block"
-                  title={qi('documentSettingsTitle', 'These document settings apply to new document/PDF items added after this point.')}>
-                  {qi('documentSettingsHint', 'Applies to new document/PDF items added after this point.')}
-                </Typography.Text>
-              </div>
-            )}
-
-            {hasVideoItems && (
-              <div className="space-y-1">
-                <Typography.Title level={5} className="!mb-1">{t('quickIngest.videoOptions') || 'Video options'}</Typography.Title>
-                <Select
-                  className="min-w-40"
-                  value={normalizedTypeDefaults.video?.captions ?? false}
-                  onChange={(v) =>
-                    setTypeDefaults((prev) => ({
-                      ...(prev || {}),
-                      video: { ...(prev?.video || {}), captions: Boolean(v) }
-                    }))
-                  }
-                  aria-label="Captions toggle"
-                  title="Captions toggle"
-                  options={[
-                    { label: qi('captionsOff', 'Captions: Off'), value: false },
-                    { label: qi('captionsOn', 'Captions: On'), value: true }
-                  ]}
-                  disabled={running}
-                />
-                <Typography.Text type="secondary" className="text-xs">
-                  {t('quickIngest.captionsHelp') || 'Include timestamps/captions for new video items added after this point; helpful for search and summaries.'}
-                </Typography.Text>
-                <Typography.Text
-                  className="text-[11px] text-text-subtle block"
-                  title={qi('videoSettingsTitle', 'These video settings apply to new video items added after this point.')}>
-                  {qi('videoSettingsHint', 'Applies to new video items added after this point.')}
-                </Typography.Text>
-              </div>
-            )}
-
-            <div className="rounded-md border border-border bg-surface2 p-3">
-              <div className="flex flex-col gap-2">
-                {(() => {
-                  const done = processedCount || results.length
-                  const total = liveTotalCount || totalPlanned
-                  return (
-                    <>
-                      <div className="sr-only" aria-live="polite" role="status">
-                        {running && total > 0
-                          ? t('quickIngest.progress', 'Processing {{done}} / {{total}} items…', {
-                              done,
-                              total
-                            })
-                          : qi('itemsReadySr', '{{count}} item(s) ready', {
-                              count: plannedCount || 0
-                            })}
-                      </div>
-                    </>
-                  )
-                })()}
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between text-sm text-text">
-                  <div className="flex-1">
-                    <div className="rounded-md border border-border bg-surface2 p-3">
-                      <div className="flex flex-col gap-2">
-                        <div className="flex items-start justify-between gap-2">
-                          <Typography.Text strong>
-                            {t(
-                              'quickIngest.storageHeading',
-                              'Where ingest results are stored'
-                            )}
-                          </Typography.Text>
-                          <Space align="center" size="small">
-                            <Switch
-                              aria-label={
-                                storeRemote
-                                  ? t(
-                                      'quickIngest.storeRemoteAria',
-                                      'Store ingest results on your tldw server'
-                                    )
-                                  : t(
-                                      'quickIngest.processOnlyAria',
-                                      'Process ingest results locally only'
-                                    )
-                              }
-                              title={
-                                storeRemote
-                                  ? t(
-                                      'quickIngest.storeRemote',
-                                      'Store to remote DB'
-                                    )
-                                  : t('quickIngest.process', 'Process locally')
-                              }
-                              checked={storeRemote}
-                              onChange={setStoreRemote}
-                              disabled={running || reviewBeforeStorage}
-                            />
-                            <Typography.Text>
-                              {storageLabel}
-                            </Typography.Text>
-                          </Space>
-                        </div>
-                        <div className="mt-1 space-y-1 text-xs text-text-muted">
-                          <div className="flex items-start gap-2">
-                            <span className="mt-[2px]">•</span>
-                            <span>
-                              {t(
-                                'quickIngest.storageServerDescription',
-                                'Stored on your tldw server (recommended for RAG and shared workspaces).'
-                              )}
-                            </span>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <span className="mt-[2px]">•</span>
-                            <span>
-                              {t(
-                                'quickIngest.storageLocalDescription',
-                                'Kept in this browser only; no data written to your server.'
-                              )}
-                            </span>
-                          </div>
-                          {!storageHintSeen && (
-                            <div className="pt-1">
-                              <button
-                                type="button"
-                                className="text-xs underline text-primary hover:text-primaryStrong"
-                                onClick={() => {
-                                  try {
-                                    const docsUrl =
-                                      t(
-                                        'quickIngest.storageDocsUrl',
-                                        'https://github.com/rmusser01/tldw_browser_assistant'
-                                      ) ||
-                                      'https://github.com/rmusser01/tldw_browser_assistant'
-                                    window.open(
-                                      docsUrl,
-                                      '_blank',
-                                      'noopener,noreferrer'
-                                    )
-                                  } catch {
-                                    // ignore navigation errors
-                                  } finally {
-                                    try {
-                                      setStorageHintSeen(true)
-                                    } catch {
-                                      // ignore storage errors
-                                    }
-                                  }
-                                }}
-                              >
-                                {t(
-                                  'quickIngest.storageDocsLink',
-                                  'Learn more about ingest & storage'
-                                )}
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                        <div className="mt-3 border-t border-border pt-3 text-xs text-text-muted">
-                          <div className="flex items-start justify-between gap-2">
-                            <Space align="center" size="small">
-                              <Switch
-                                aria-label={qi(
-                                  "reviewBeforeStorage",
-                                  "Review before saving"
-                                )}
-                                checked={reviewBeforeStorage}
-                                onChange={handleReviewToggle}
-                                disabled={running}
-                              />
-                              <Typography.Text>
-                                {qi(
-                                  "reviewBeforeStorage",
-                                  "Review before saving"
-                                )}
-                              </Typography.Text>
-                            </Space>
-                            {reviewBeforeStorage ? (
-                              <Tag color="blue">
-                                {qi("reviewEnabled", "Review mode")}
-                              </Tag>
-                            ) : null}
-                          </div>
-                          <div className="mt-2 flex items-start gap-2">
-                            <span className="mt-[2px]">•</span>
-                            <span>
-                              {qi(
-                                "reviewBeforeStorageHint",
-                                "Process now, then edit drafts locally before committing to your server."
-                              )}
-                            </span>
-                          </div>
-                          <div className="mt-1 flex items-start gap-2">
-                            <span className="mt-[2px]">•</span>
-                            <span>
-                              {qi(
-                                "reviewStorageCap",
-                                "Local drafts are capped at {{cap}}.",
-                                { cap: formatBytes(DRAFT_STORAGE_CAP_BYTES) }
-                              )}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <span
-                    className="mt-2 text-xs text-text-subtle sm:mt-0"
-                    title={
-                      running && (liveTotalCount || totalPlanned) > 0
-                        ? qi('ingestProgressTitle', 'Current ingest progress')
-                        : qi('itemsReadyTitle', 'Items ready to ingest')
-                    }
-                  >
-                    {(() => {
-                      const done = processedCount || results.length
-                      const total = liveTotalCount || totalPlanned
-                      if (running && total > 0) {
-                        return t('quickIngest.progress', 'Running quick ingest — processing {{done}} / {{total}} items…', {
-                          done,
-                          total
-                        })
-                      }
-                      return qi('itemsReady', '{{count}} item(s) ready', {
-                        count: plannedCount || 0
-                      })
-                    })()}
-                  </span>
-                </div>
-              </div>
-              <div className="flex justify-end gap-2 mt-2">
-                {showProcessQueuedButton && (
-                  <Button
-                    onClick={run}
-                    disabled={
-                      running ||
-                      plannedCount === 0 ||
-                      ingestBlocked ||
-                      hasMissingFiles
-                    }
-                    aria-label={t(
-                      "quickIngest.processQueuedItemsAria",
-                      "Process queued Quick Ingest items"
-                    )}
-                    title={t(
-                      "quickIngest.processQueuedItems",
-                      "Process queued items"
-                    )}>
-                    {t(
-                      "quickIngest.processQueuedItems",
-                      "Process queued items"
-                    )}
-                  </Button>
-                )}
-                <Button
-                  type="primary"
-                  loading={running}
-                  onClick={run}
-                  disabled={
-                    plannedCount === 0 ||
-                    running ||
-                    ingestBlocked ||
-                    hasMissingFiles
-                  }
-                  aria-label={
-                    ingestBlocked
-                      ? ingestConnectionStatus === "unconfigured"
-                        ? t(
-                            "quickIngest.queueOnlyUnconfiguredAria",
-                            "Server not configured \u2014 queue items to process after you configure a server."
-                          )
-                        : ingestConnectionStatus === "offlineBypass"
-                          ? t(
-                              "quickIngest.queueOnlyOfflineBypassAria",
-                              "Offline mode enabled \u2014 queue items to process after you disable offline mode."
-                            )
-                          : t(
-                              "quickIngest.queueOnlyOfflineAria",
-                              "Offline \u2014 queue items to process later"
-                            )
-                      : t("quickIngest.runAria", "Run quick ingest")
-                  }
-                  title={
-                    ingestBlocked
-                      ? ingestConnectionStatus === "unconfigured"
-                        ? t(
-                            "quickIngest.queueOnlyUnconfigured",
-                            "Queue only \u2014 server not configured"
-                          )
-                        : ingestConnectionStatus === "offlineBypass"
-                          ? t(
-                              "quickIngest.queueOnlyOfflineBypass",
-                              "Queue only \u2014 offline mode enabled"
-                            )
-                          : t(
-                              "quickIngest.queueOnlyOffline",
-                              "Queue only \u2014 server offline"
-                            )
-                      : t("quickIngest.runLabel", "Run quick ingest")
-                  }>
-                  {ingestBlocked
-                    ? ingestConnectionStatus === "unconfigured"
-                      ? t(
-                          "quickIngest.queueOnlyUnconfigured",
-                          "Queue only \u2014 server not configured"
-                        )
-                      : ingestConnectionStatus === "offlineBypass"
-                        ? t(
-                            "quickIngest.queueOnlyOfflineBypass",
-                            "Queue only \u2014 offline mode enabled"
-                          )
-                        : t(
-                            "quickIngest.queueOnlyOffline",
-                            "Queue only \u2014 server offline"
-                          )
-                    : reviewBeforeStorage
-                      ? qi("reviewRunLabel", "Review")
-                      : storeRemote
-                        ? t("quickIngest.ingest", "Ingest")
-                        : t("quickIngest.process", "Process")}
-                </Button>
-                <Button
-                  onClick={onClose}
-                  disabled={running}
-                  aria-label={qi('closeQuickIngest', 'Close quick ingest')}
-                  title={qi('closeQuickIngest', 'Close quick ingest')}>
-                  {t('quickIngest.cancel') || 'Cancel'}
-                </Button>
-              </div>
-              {hasMissingFiles && (
-                <div className="mt-1 flex items-center gap-2 text-xs text-warn">
-                  <AlertTriangle className="h-4 w-4" />
-                  <span>
-                    {qi(
-                      "missingFilesBlock",
-                      "Reattach {{count}} local file(s) to run ingest.",
-                      { count: missingFileStubs.length }
-                    )}
-                  </span>
-                </div>
-              )}
-              {ingestBlocked && (
-                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-warn">
-                  <span>
-                    {ingestConnectionStatus === "unconfigured"
-                      ? t(
-                          "quickIngest.unconfiguredFooter",
-                          "Server not configured: items are staged here and will process after you configure a server URL and API key under Settings \u2192 tldw server."
-                        )
-                      : ingestConnectionStatus === "offlineBypass"
-                        ? t(
-                            "quickIngest.offlineBypassFooter",
-                            "Offline mode enabled: items are staged here and will process once you disable offline mode."
-                          )
-                        : t(
-                            "quickIngest.offlineFooter",
-                            "Offline mode: items are staged here and will process once your server reconnects."
-                          )}
-                  </span>
-                  {ingestConnectionStatus === "offline" && checkOnce ? (
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        try {
-                          checkOnce?.()
-                        } catch {
-                          // ignore check errors; footer is informational
-                        }
-                      }}>
-                      {qi("retryConnection", "Retry connection")}
-                    </Button>
-                  ) : null}
-                  {ingestConnectionStatus === "offlineBypass" &&
-                    disableOfflineBypass && (
-                      <Button
-                        size="small"
-                        onClick={async () => {
-                          try {
-                            await disableOfflineBypass()
-                          } catch {
-                            // ignore disable errors; Quick Ingest will update when connection state changes
-                          }
-                        }}>
-                        {t(
-                          "quickIngest.disableOfflineMode",
-                          "Disable offline mode"
-                        )}
-                      </Button>
-                    )}
-                </div>
-              )}
-              {progressMeta.total > 0 && (
-                <div className="mt-2">
-                  <Progress percent={progressMeta.pct} showInfo={false} size="small" />
-                  <div className="flex justify-between text-xs text-text-muted mt-1">
-                    <span>
-                      {qi(
-                        'processedCount',
-                        '{{done}}/{{total}} processed',
-                        { done: progressMeta.done, total: progressMeta.total }
-                      )}
-                    </span>
-                    {progressMeta.elapsedLabel ? (
-                      <span>
-                        {qi('elapsedLabel', 'Elapsed {{time}}', {
-                          time: progressMeta.elapsedLabel
-                        })}
-                      </span>
-                    ) : null}
-                  </div>
                 </div>
               )}
             </div>
           </div>
+
+          <React.Suspense fallback={null}>
+            <IngestOptionsPanel
+              qi={qi}
+              t={t}
+              hasAudioItems={hasAudioItems}
+              hasDocumentItems={hasDocumentItems}
+              hasVideoItems={hasVideoItems}
+              running={running}
+              ingestBlocked={ingestBlocked}
+              common={common}
+              setCommon={setCommon}
+              normalizedTypeDefaults={normalizedTypeDefaults}
+              setTypeDefaults={setTypeDefaults}
+              ragEmbeddingLabel={ragEmbeddingLabel}
+              openModelSettings={openModelSettings}
+              storeRemote={storeRemote}
+              setStoreRemote={setStoreRemote}
+              reviewBeforeStorage={reviewBeforeStorage}
+              handleReviewToggle={handleReviewToggle}
+              storageLabel={storageLabel}
+              storageHintSeen={storageHintSeen}
+              setStorageHintSeen={setStorageHintSeen}
+              draftStorageCapLabel={draftStorageCapLabel}
+              doneCount={doneCount}
+              totalCount={totalCount}
+              plannedCount={plannedCount}
+              progressMeta={progressMeta}
+              showProcessQueuedButton={showProcessQueuedButton}
+              run={run}
+              hasMissingFiles={hasMissingFiles}
+              missingFileCount={missingFileCount}
+              ingestConnectionStatus={ingestConnectionStatus}
+              checkOnce={checkOnce}
+              disableOfflineBypass={disableOfflineBypass}
+              onClose={onClose}
+            />
+          </React.Suspense>
         </div>
 
         <div
@@ -4046,7 +3598,7 @@ export const QuickIngestModal: React.FC<Props> = ({
 
         <QuickIngestInspectorDrawer
           open={inspectorOpen && (!!selectedRow || !!selectedFileStub)}
-          onClose={() => setInspectorOpen(false)}
+          onClose={handleCloseInspector}
           showIntro={showInspectorIntro}
           onDismissIntro={handleDismissInspectorIntro}
           qi={qi}
@@ -4459,200 +4011,32 @@ export const QuickIngestModal: React.FC<Props> = ({
           )
         }]} />
 
-        {results.length > 0 && (
-          <div className="mt-4">
-            <div className="flex items-center justify-between">
-      <Typography.Title level={5} className="!mb-0">{t('quickIngest.results') || 'Results'}</Typography.Title>
-              <div className="flex items-center gap-2 text-xs">
-                <Tag color="blue">
-                  {qi('resultsCount', '{{count}} item(s)', { count: results.length })}
-                </Tag>
-                <Button
-                  size="small"
-                  onClick={retryFailedUrls}
-                  disabled={!results.some((r) => r.status === 'error')}>
-                  {qi('retryFailedUrls', 'Retry failed URLs')}
-                </Button>
-                <Select
-                  size="small"
-                  className="w-32"
-                  aria-label={t(
-                    "quickIngest.resultsFilterAria",
-                    "Filter results by status"
-                  ) as string}
-                  value={resultsFilter}
-                  onChange={(value) =>
-                    setResultsFilter(value as ResultsFilter)
-                  }
-                  options={[
-                    {
-                      value: RESULT_FILTERS.ALL,
-                      label: t(
-                        "quickIngest.resultsFilterAll",
-                        "All"
-                      )
-                    },
-                    {
-                      value: RESULT_FILTERS.ERROR,
-                      label: t(
-                        "quickIngest.resultsFilterFailed",
-                        "Failed only"
-                      )
-                    },
-                    {
-                      value: RESULT_FILTERS.SUCCESS,
-                      label: t(
-                        "quickIngest.resultsFilterSucceeded",
-                        "Succeeded only"
-                      )
-                    }
-                  ]}
-                />
-              </div>
-            </div>
-            {resultSummary && !running && (
-              <div className="mt-2 rounded-md border border-border bg-surface2 px-3 py-2 text-xs text-text">
-                <div className="font-medium">
-                  {resultSummary.failCount === 0
-                    ? t(
-                        "quickIngest.summaryAllSucceeded",
-                        "Quick ingest completed successfully."
-                      )
-                    : t(
-                        "quickIngest.summarySomeFailed",
-                        "Quick ingest completed with some errors."
-                      )}
-                </div>
-                <div className="mt-1">
-                  {t(
-                    "quickIngest.summaryCounts",
-                    "{{success}} succeeded \u00b7 {{failed}} failed",
-                    {
-                      success: resultSummary.successCount,
-                      failed: resultSummary.failCount
-                    }
-                  )}
-                </div>
-                <div className="mt-2 flex flex-wrap items-center gap-2">
-                  {/* Primary next-step CTA: open the first successful media item in Review. */}
-                  {shouldStoreRemote && firstResultWithMedia && (
-                    <Button
-                      size="small"
-                      type="primary"
-                      data-testid="quick-ingest-open-media-primary"
-                      onClick={() => {
-                        openInMediaViewer(firstResultWithMedia)
-                      }}>
-                      {t(
-                        "quickIngest.openFirstInMedia",
-                        "Open in Media viewer"
-                      )}
-                    </Button>
-                  )}
-                  {reviewBatchId ? (
-                    <Button
-                      size="small"
-                      type="primary"
-                      onClick={() => {
-                        if (!reviewBatchId) return
-                        void tryOpenContentReview(reviewBatchId)
-                      }}
-                    >
-                      {qi("openContentReview", "Open Content Review")}
-                    </Button>
-                  ) : null}
-                  {resultSummary.failCount > 0 && (
-                    <Button
-                      size="small"
-                      onClick={retryFailedUrls}
-                    >
-                      {qi("retryFailedUrls", "Retry failed URLs")}
-                    </Button>
-                  )}
-                  <Button
-                    size="small"
-                    type="default"
-                    onClick={openHealthDiagnostics}
-                  >
-                    {t(
-                      "settings:healthSummary.diagnostics",
-                      "Health & diagnostics"
-                    )}
-                  </Button>
-                </div>
-              </div>
-            )}
-            <List
-              size="small"
-              dataSource={visibleResults}
-              renderItem={(item) => {
-                const mediaId = item.status === "ok" && shouldStoreRemote ? mediaIdFromPayload(item.data) : null
-                const hasMediaId = mediaId != null
-                const actions: React.ReactNode[] = []
-                if (processOnly && item.status === "ok") {
-                  actions.push(
-                    <button
-                      key="dl"
-                      type="button"
-                      onClick={() => downloadJson(item)}
-                      aria-label={`Download JSON for ${item.url || item.fileName || "item"}`}
-                      className="text-primary hover:underline"
-                    >
-                      {t("quickIngest.downloadJson") || "Download JSON"}
-                    </button>
-                  )
-                }
-                if (hasMediaId) {
-                  actions.push(
-                    <button
-                      key="open-media"
-                      type="button"
-                      onClick={() => openInMediaViewer(item)}
-                      className="text-primary hover:underline"
-                    >
-                      {t("quickIngest.openInMedia", "Open in Media viewer")}
-                    </button>
-                  )
-                  actions.push(
-                    <button
-                      key="discuss-chat"
-                      type="button"
-                      onClick={() => discussInChat(item)}
-                      className="text-primary hover:underline"
-                    >
-                      {t("quickIngest.discussInChat", "Discuss in chat")}
-                    </button>
-                  )
-                }
-                return (
-                  <List.Item actions={actions}>
-                    <div className="text-sm">
-                      <div className="flex items-center gap-2">
-                        <Tag color={item.status === "ok" ? "green" : "red"}>
-                          {item.status.toUpperCase()}
-                        </Tag>
-                        <span>{item.type.toUpperCase()}</span>
-                      </div>
-                      <div className="text-xs text-text-subtle break-all">
-                        {item.url || item.fileName}
-                      </div>
-                      {hasMediaId ? (
-                        <div className="text-[11px] text-text-subtle">
-                          {t("quickIngest.savedAsMedia", "Saved as media {{id}}", {
-                            id: String(mediaId)
-                          })}
-                        </div>
-                      ) : null}
-                      {item.error ? (
-                        <div className="text-xs text-danger">{item.error}</div>
-                      ) : null}
-                    </div>
-                  </List.Item>
-                )
-              }}
-            />
-          </div>
-        )}
+        <React.Suspense fallback={null}>
+          <ResultsPanel
+            results={results}
+            visibleResults={visibleResults}
+            resultsFilter={resultsFilter}
+            setResultsFilter={(value) => setResultsFilter(value as ResultsFilter)}
+            resultFilters={RESULT_FILTERS}
+            retryFailedUrls={retryFailedUrls}
+            resultSummary={resultSummary}
+            running={running}
+            shouldStoreRemote={shouldStoreRemote}
+            firstResultWithMedia={firstResultWithMedia}
+            reviewBatchId={reviewBatchId}
+            tryOpenContentReview={(batchId) => {
+              void tryOpenContentReview(batchId)
+            }}
+            openInMediaViewer={openInMediaViewer}
+            discussInChat={discussInChat}
+            downloadJson={downloadJson}
+            openHealthDiagnostics={openHealthDiagnostics}
+            mediaIdFromPayload={mediaIdFromPayload}
+            processOnly={processOnly}
+            qi={qi}
+            t={t}
+          />
+        </React.Suspense>
       </Space>
       </div>
     </Modal>

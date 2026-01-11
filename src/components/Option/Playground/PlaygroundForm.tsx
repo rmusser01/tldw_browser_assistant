@@ -636,10 +636,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     [form.setFieldValue]
   )
 
-  const buildCollapsedMessageLabel = React.useCallback((text: string) => {
-    const lineCount = text ? text.split(/\r\n|\r|\n/).length : 0
-    return `[${lineCount} Lines/${text.length} Chars copied]`
-  }, [])
+  const buildCollapsedMessageLabel = React.useCallback(
+    (text: string) => {
+      const lineCount = text ? text.split(/\r\n|\r|\n/).length : 0
+      return t(
+        "playground:composer.collapsedMessageLabel",
+        "[{lines, plural, one {# line} other {# lines}}/{chars, plural, one {# char} other {# chars}} in message]",
+        { lines: lineCount, chars: text.length }
+      )
+    },
+    [t]
+  )
 
   const collapseLargeMessage = React.useCallback(
     (text: string, options?: { force?: boolean }) => {
@@ -993,55 +1000,72 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     },
     [form, handleFileUpload, onFileInputChange, otherUnsupportedTypes, toBase64]
   )
-  const handlePaste = async (e: React.ClipboardEvent) => {
-    if (e.clipboardData.files.length > 0) {
-      onInputChange(e.clipboardData.files[0])
-      return
-    }
+  const handlePaste = React.useCallback(
+    async (e: React.ClipboardEvent) => {
+      if (e.clipboardData.files.length > 0) {
+        onInputChange(e.clipboardData.files[0])
+        return
+      }
 
-    const pastedText = e.clipboardData.getData("text/plain")
-    if (!pastedText) return
+      const pastedText = e.clipboardData.getData("text/plain")
+      if (!pastedText) return
 
-    if (
-      pasteLargeTextAsFile &&
-      pastedText.length > PASTED_TEXT_CHAR_LIMIT
-    ) {
-      e.preventDefault()
-      const blob = new Blob([pastedText], { type: "text/plain" })
-      const file = new File([blob], `pasted-text-${Date.now()}.txt`, {
-        type: "text/plain"
-      })
+      if (
+        pasteLargeTextAsFile &&
+        pastedText.length > PASTED_TEXT_CHAR_LIMIT
+      ) {
+        e.preventDefault()
+        const blob = new Blob([pastedText], { type: "text/plain" })
+        const file = new File([blob], `pasted-text-${Date.now()}.txt`, {
+          type: "text/plain"
+        })
 
-      await handleFileUpload(file)
-      return
-    }
+        await handleFileUpload(file)
+        return
+      }
 
-    if (isMessageCollapsed) {
-      e.preventDefault()
-      setMessageValue(pastedText, {
-        collapseLarge: true,
-        forceCollapse: true
-      })
-      return
-    }
+      if (isMessageCollapsed) {
+        e.preventDefault()
+        const currentValue = form.values.message || ""
+        const nextValue =
+          currentValue.length > 0
+            ? `${currentValue}\n${pastedText}`
+            : pastedText
+        setMessageValue(nextValue, {
+          collapseLarge: true,
+          forceCollapse: true
+        })
+        return
+      }
 
-    const currentValue = form.values.message || ""
-    const textarea = textareaRef.current
-    const selectionStart = textarea?.selectionStart ?? currentValue.length
-    const selectionEnd = textarea?.selectionEnd ?? selectionStart
-    const nextValue =
-      currentValue.slice(0, selectionStart) +
-      pastedText +
-      currentValue.slice(selectionEnd)
+      const currentValue = form.values.message || ""
+      const textarea = textareaRef.current
+      const selectionStart = textarea?.selectionStart ?? currentValue.length
+      const selectionEnd = textarea?.selectionEnd ?? selectionStart
+      const nextValue =
+        currentValue.slice(0, selectionStart) +
+        pastedText +
+        currentValue.slice(selectionEnd)
 
-    if (
-      nextValue.length > PASTED_TEXT_CHAR_LIMIT &&
-      !hasExpandedLargeText
-    ) {
-      e.preventDefault()
-      setMessageValue(nextValue, { collapseLarge: true })
-    }
-  }
+      if (
+        nextValue.length > PASTED_TEXT_CHAR_LIMIT &&
+        !hasExpandedLargeText
+      ) {
+        e.preventDefault()
+        setMessageValue(nextValue, { collapseLarge: true })
+      }
+    },
+    [
+      form.values.message,
+      handleFileUpload,
+      hasExpandedLargeText,
+      isMessageCollapsed,
+      onInputChange,
+      pasteLargeTextAsFile,
+      setMessageValue,
+      textareaRef
+    ]
+  )
   React.useEffect(() => {
     if (dropedFile) {
       onInputChange(dropedFile)
@@ -1542,6 +1566,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     history,
     invalidateServerChatHistory,
     isConnectionReady,
+    selectedCharacter,
     temporaryChat,
     serverChatId,
     setServerChatId,

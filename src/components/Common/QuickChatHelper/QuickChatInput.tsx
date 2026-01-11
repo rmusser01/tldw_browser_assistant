@@ -52,7 +52,7 @@ export const QuickChatInput: React.FC<Props> = ({
 
   const inputPlaceholder =
     placeholder ||
-    t("quickChatHelper.inputPlaceholder", "Ask a quick question...")
+    t("option:quickChatHelper.inputPlaceholder", "Ask a quick question...")
 
   return (
     <div className="flex gap-2 items-end border-t border-border pt-3">
@@ -81,8 +81,8 @@ export const QuickChatInput: React.FC<Props> = ({
           icon={<Send className="h-4 w-4" />}
           onClick={handleSend}
           disabled={!value.trim() || disabled}
-          aria-label={t("quickChatHelper.sendButton", "Send")}
-          title={t("quickChatHelper.sendButton", "Send")}
+          aria-label={t("option:quickChatHelper.sendButton", "Send")}
+          title={t("option:quickChatHelper.sendButton", "Send")}
         />
       )}
     </div>

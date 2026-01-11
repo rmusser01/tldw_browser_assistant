@@ -559,14 +559,15 @@ const NotesManagerPage: React.FC = () => {
       }))
       const mappedMessages = messages.map((m) => {
         const createdAt = Date.parse(m.created_at)
+        const normalizedRole = normalizeChatRole(m.role)
         return {
           createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
-          isBot: m.role === "assistant",
-          role: normalizeChatRole(m.role),
+          isBot: normalizedRole === "assistant",
+          role: normalizedRole,
           name:
-            m.role === "assistant"
+            normalizedRole === "assistant"
               ? assistantName
-              : m.role === "system"
+              : normalizedRole === "system"
                 ? "System"
                 : "You",
           message: m.content,

@@ -48,11 +48,15 @@ export const useChatModelsSelect = ({
     return match ? formatModelLabel(match) : currentModel
   }, [currentModel, formatModelLabel, models])
 
-  const modelPlaceholder = currentModelLabel
-    ? t("quickChatHelper.modelPlaceholder", "Current: {{model}}", {
-        model: currentModelLabel
-      })
-    : t("quickChatHelper.modelPlaceholderEmpty", "Select a model")
+  const modelPlaceholder = useMemo(
+    () =>
+      currentModelLabel
+        ? t("option:quickChatHelper.modelPlaceholder", "Current: {{model}}", {
+            model: currentModelLabel
+          })
+        : t("option:quickChatHelper.modelPlaceholderEmpty", "Select a model"),
+    [currentModelLabel, t]
+  )
 
   const handleModelChange = useCallback(
     (value?: string | null) => {

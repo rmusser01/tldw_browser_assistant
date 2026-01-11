@@ -167,6 +167,12 @@ export const ChatSettings = () => {
           <span className="text-text">
             {t("generalSettings.settings.copilotResumeLastChat.label")}
           </span>
+          {copilotResumeLastChat ===
+            DEFAULT_CHAT_SETTINGS.copilotResumeLastChat && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
         <Switch
           checked={copilotResumeLastChat}
@@ -179,6 +185,12 @@ export const ChatSettings = () => {
           <span className="text-text">
             {t("generalSettings.settings.turnOnChatWithWebsite.label")}
           </span>
+          {defaultChatWithWebsite ===
+            DEFAULT_CHAT_SETTINGS.defaultChatWithWebsite && (
+            <Tag className="text-[10px] py-0 px-1.5 leading-4">
+              {t("generalSettings.settings.defaultBadge", "default")}
+            </Tag>
+          )}
         </div>
         <Switch
           checked={defaultChatWithWebsite}

@@ -16,6 +16,7 @@ import { useServerChatLoader } from "@/hooks/chat/useServerChatLoader"
 import { useClearChat } from "@/hooks/chat/useClearChat"
 import { useCompareMode } from "@/hooks/chat/useCompareMode"
 import { useChatActions } from "@/hooks/chat/useChatActions"
+import type { Character } from "@/types/character"
 
 export const useMessageOption = () => {
   // Controllers come from Context (for aborting streaming requests)
@@ -138,6 +139,10 @@ export const useMessageOption = () => {
 
   const currentChatModelSettings = useStoreChatModelSettings()
   const [selectedModel, setSelectedModel] = useStorage("selectedModel")
+  const [selectedCharacter] = useStorage<Character | null>(
+    "selectedCharacter",
+    null
+  )
   const [defaultInternetSearchOn] = useStorage("defaultInternetSearchOn", false)
   const [speechToTextLanguage, setSpeechToTextLanguage] = useStorage(
     "speechToTextLanguage",
@@ -164,6 +169,42 @@ export const useMessageOption = () => {
   })
 
   useServerChatLoader({ ensureServerChatHistoryId, notification, t })
+
+  const resetServerChatState = React.useCallback(() => {
+    setServerChatState("in-progress")
+    setServerChatVersion(null)
+    setServerChatTitle(null)
+    setServerChatCharacterId(null)
+    setServerChatMetaLoaded(false)
+    setServerChatTopic(null)
+    setServerChatClusterId(null)
+    setServerChatSource(null)
+    setServerChatExternalRef(null)
+  }, [
+    setServerChatCharacterId,
+    setServerChatClusterId,
+    setServerChatExternalRef,
+    setServerChatMetaLoaded,
+    setServerChatSource,
+    setServerChatState,
+    setServerChatTitle,
+    setServerChatTopic,
+    setServerChatVersion
+  ])
+
+  const lastCharacterIdRef = React.useRef<string | null>(
+    selectedCharacter?.id ? String(selectedCharacter.id) : null
+  )
+
+  React.useEffect(() => {
+    const nextId = selectedCharacter?.id ? String(selectedCharacter.id) : null
+    if (lastCharacterIdRef.current === nextId) {
+      return
+    }
+    lastCharacterIdRef.current = nextId
+    setServerChatId(null)
+    resetServerChatState()
+  }, [resetServerChatState, selectedCharacter?.id, setServerChatId])
 
   React.useEffect(() => {
     if (!serverChatId || temporaryChat) return
@@ -352,7 +393,8 @@ export const useMessageOption = () => {
     replyTarget,
     clearReplyTarget,
     setSelectedSystemPrompt,
-    invalidateServerChatHistory
+    invalidateServerChatHistory,
+    selectedCharacter
   })
 
   return {

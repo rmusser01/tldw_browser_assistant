@@ -393,9 +393,7 @@ export default defineBackground({
         input !== null &&
         typeof (input as { byteLength?: number }).byteLength === "number" &&
         typeof (input as { slice?: unknown }).slice === "function" &&
-        (input instanceof ArrayBuffer ||
-          Object.prototype.toString.call(input) === "[object ArrayBuffer]" ||
-          ArrayBuffer.isView(input))
+        Object.prototype.toString.call(input) === "[object ArrayBuffer]"
       ) {
         try {
           return new Uint8Array(input as ArrayBuffer)
@@ -409,13 +407,20 @@ export default defineBackground({
       if (Array.isArray(input)) return new Uint8Array(input)
       if (typeof input === 'string' && input.startsWith('data:')) {
         try {
-          const base64 = input.split(',', 2)[1] || ''
-          const binary = atob(base64)
-          const out = new Uint8Array(binary.length)
-          for (let i = 0; i < binary.length; i += 1) out[i] = binary.charCodeAt(i)
-          return out
+          const [meta, payload = ''] = input.split(',', 2)
+          const isBase64 = /;base64/i.test(meta)
+          if (isBase64) {
+            const binary = atob(payload)
+            const out = new Uint8Array(binary.length)
+            for (let i = 0; i < binary.length; i += 1) {
+              out[i] = binary.charCodeAt(i)
+            }
+            return out
+          }
+          const text = decodeURIComponent(payload)
+          return new TextEncoder().encode(text)
         } catch (error) {
-          logBackgroundError("decode file data url", error)
+          logBackgroundError('decode file data url', error)
           return null
         }
       }
@@ -502,8 +507,12 @@ export default defineBackground({
               ? Number(cfg.requestTimeoutMs)
               : 10000
         const timeout = setTimeout(() => controller.abort(), timeoutMs)
-        const resp = await fetch(url, { method, headers, body: form, signal: controller.signal })
-        clearTimeout(timeout)
+        let resp: Response
+        try {
+          resp = await fetch(url, { method, headers, body: form, signal: controller.signal })
+        } finally {
+          clearTimeout(timeout)
+        }
         const contentType = resp.headers.get('content-type') || ''
         let data: any = null
         if (contentType.includes('application/json')) data = await resp.json().catch(() => null)
@@ -625,11 +634,17 @@ export default defineBackground({
           const audio = { ...(resolvedDefaults.audio || {}), ...(entry?.audio || {}) }
           const video = { ...(resolvedDefaults.video || {}), ...(entry?.video || {}) }
           const document = { ...(resolvedDefaults.document || {}), ...(entry?.document || {}) }
-          if (audio.language) fields['transcription_language'] = audio.language
-          if (typeof audio.diarize === 'boolean') fields['diarize'] = audio.diarize
-          if (typeof video.captions === 'boolean') fields['timestamp_option'] = video.captions
-          if (typeof document.ocr === 'boolean') {
-            fields['pdf_parsing_engine'] = document.ocr ? 'pymupdf4llm' : ''
+          if (audio.language && fields.transcription_language == null) {
+            fields.transcription_language = audio.language
+          }
+          if (typeof audio.diarize === 'boolean' && fields.diarize == null) {
+            fields.diarize = audio.diarize
+          }
+          if (typeof video.captions === 'boolean' && fields.timestamp_option == null) {
+            fields.timestamp_option = video.captions
+          }
+          if (typeof document.ocr === 'boolean' && fields.pdf_parsing_engine == null) {
+            fields.pdf_parsing_engine = document.ocr ? 'pymupdf4llm' : ''
           }
           return fields
         }
@@ -729,7 +744,9 @@ export default defineBackground({
             let data: any
             if (shouldStoreRemote) {
               // Ingest & store via multipart form
-              const fields: Record<string, any> = buildFields(t, r)
+              const resolvedDefaults =
+                r?.defaults && typeof r.defaults === 'object' ? r.defaults : fileDefaults
+              const fields: Record<string, any> = buildFields(t, r, resolvedDefaults)
               fields.urls = [url]
               const resp = await handleUpload({ path: '/api/v1/media/add', method: 'POST', fields })
               if (!resp?.ok) {
@@ -742,7 +759,9 @@ export default defineBackground({
               if (t === 'html') {
                 data = await processWebScrape(url)
               } else {
-                const fields = buildFields(t, r)
+                const resolvedDefaults =
+                  r?.defaults && typeof r.defaults === 'object' ? r.defaults : fileDefaults
+                const fields = buildFields(t, r, resolvedDefaults)
                 fields.urls = [url]
                 const resp = await handleUpload({
                   path: getProcessPathForType(t),

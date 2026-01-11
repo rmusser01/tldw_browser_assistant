@@ -1495,5 +1495,8 @@
   },
   "actor_fileStatusProcessing": {
     "message": "Processing..."
+  },
+  "composer_collapsedMessageLabel": {
+    "message": "[{lines, plural, one {# line} other {# lines}}/{chars, plural, one {# char} other {# chars}} in message]"
   }
 }

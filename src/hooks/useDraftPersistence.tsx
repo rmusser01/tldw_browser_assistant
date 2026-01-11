@@ -170,9 +170,8 @@ export const useDraftPersistence = ({
     persistTimeoutRef.current = setTimeout(() => {
       void (async () => {
         const metadata = getMetadata?.()
-        const nextValue: DraftValue = getMetadata
-          ? { content: value, metadata }
-          : value
+        const nextValue: DraftValue =
+          metadata === undefined ? value : { content: value, metadata }
         await draftBucket.set(storageKey, nextValue)
         clearLegacyDraft(storageKey)
         if (cancelled) return

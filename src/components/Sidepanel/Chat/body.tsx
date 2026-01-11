@@ -129,7 +129,10 @@ export const SidePanelBody = ({
         onTimelineActionHandled?.()
         return
       }
-      if (messages.length === 0) return
+      if (messages.length === 0) {
+        onTimelineActionHandled?.()
+        return
+      }
       const index = findMessageIndex(timelineAction.messageId)
       if (index >= 0) {
         void createChatBranch(index)
@@ -143,7 +146,10 @@ export const SidePanelBody = ({
       return
     }
 
-    if (messages.length === 0) return
+    if (messages.length === 0) {
+      onTimelineActionHandled?.()
+      return
+    }
     const index = findMessageIndex(timelineAction.messageId)
     if (index < 0) {
       onTimelineActionHandled?.()

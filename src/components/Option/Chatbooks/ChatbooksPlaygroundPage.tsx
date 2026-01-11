@@ -63,6 +63,7 @@ type ChatbookEntity = {
 type EntityListResult = {
   items: ChatbookEntity[]
   total?: number
+  truncated?: boolean
 }
 
 type FetchParams = {
@@ -139,8 +140,18 @@ const normalizeUpdatedAt = (source: any): string | null => {
     null
   if (!value) return null
   if (typeof value === "string") return value
-  if (typeof value === "number") return new Date(value * 1000).toISOString()
+  if (typeof value === "number") {
+    return value > 1e12
+      ? new Date(value).toISOString()
+      : new Date(value * 1000).toISOString()
+  }
   return null
+}
+
+const normalizeTotal = (value: unknown): number | undefined => {
+  if (value == null) return undefined
+  const parsed = Number(value)
+  return Number.isFinite(parsed) ? parsed : undefined
 }
 
 const buildSearchText = (item: ChatbookEntity) =>
@@ -307,10 +318,14 @@ const buildContentItems = async (
       })
       const list = data?.chats || data?.items || data?.results || data?.data || data || []
       const items = (Array.isArray(list) ? list : []).map(mapConversation)
+      const totalAvailable = normalizeTotal(data?.total)
       const filtered = filterClientSide ? applyFilters(items, search, tags, updatedAfter) : items
       const paged = filterClientSide ? paginateItems(filtered, page, pageSize) : filtered
-      const total = data?.total ?? (filterClientSide ? filtered.length : undefined)
-      return { items: paged, total }
+      const truncated =
+        filterClientSide &&
+        (totalAvailable != null ? totalAvailable > items.length : items.length >= limit)
+      const total = filterClientSide ? filtered.length : totalAvailable
+      return { items: paged, total, truncated }
     }
     case "note": {
       const data = await bgRequest<any>({
@@ -319,10 +334,14 @@ const buildContentItems = async (
       })
       const list = data?.notes || data?.items || data?.results || data || []
       const items = (Array.isArray(list) ? list : []).map(mapNote)
+      const totalAvailable = normalizeTotal(data?.total)
       const filtered = filterClientSide ? applyFilters(items, search, tags, updatedAfter) : items
       const paged = filterClientSide ? paginateItems(filtered, page, pageSize) : filtered
-      const total = data?.total ?? (filterClientSide ? filtered.length : undefined)
-      return { items: paged, total }
+      const truncated =
+        filterClientSide &&
+        (totalAvailable != null ? totalAvailable > items.length : items.length >= limit)
+      const total = filterClientSide ? filtered.length : totalAvailable
+      return { items: paged, total, truncated }
     }
     case "character": {
       const data = await bgRequest<any>({
@@ -331,10 +350,14 @@ const buildContentItems = async (
       })
       const list = Array.isArray(data) ? data : data?.items || data?.results || data || []
       const items = (Array.isArray(list) ? list : []).map(mapCharacter)
+      const totalAvailable = normalizeTotal(data?.total)
       const filtered = filterClientSide ? applyFilters(items, search, tags, updatedAfter) : items
       const paged = filterClientSide ? paginateItems(filtered, page, pageSize) : filtered
-      const total = filterClientSide ? filtered.length : undefined
-      return { items: paged, total }
+      const truncated =
+        filterClientSide &&
+        (totalAvailable != null ? totalAvailable > items.length : items.length >= limit)
+      const total = filterClientSide ? filtered.length : totalAvailable
+      return { items: paged, total, truncated }
     }
     case "media": {
       const pageParam = filterClientSide ? 1 : page
@@ -345,10 +368,14 @@ const buildContentItems = async (
       })
       const list = data?.items || data?.results || data?.data || data || []
       const items = (Array.isArray(list) ? list : []).map(mapMedia)
+      const totalAvailable = normalizeTotal(data?.pagination?.total_items)
       const filtered = filterClientSide ? applyFilters(items, search, tags, updatedAfter) : items
       const paged = filterClientSide ? paginateItems(filtered, page, pageSize) : filtered
-      const total = data?.pagination?.total_items ?? (filterClientSide ? filtered.length : undefined)
-      return { items: paged, total }
+      const truncated =
+        filterClientSide &&
+        (totalAvailable != null ? totalAvailable > items.length : items.length >= perPage)
+      const total = filterClientSide ? filtered.length : totalAvailable
+      return { items: paged, total, truncated }
     }
     case "prompt": {
       const data = await bgRequest<any>({
@@ -419,6 +446,10 @@ const FETCH_ALL_ONCE_TYPES = new Set<ContentTypeKey>([
 ])
 
 const fetchAllItemsCache = new Map<ContentTypeKey, ChatbookEntity[]>()
+
+const clearFetchAllItemsCache = () => {
+  fetchAllItemsCache.clear()
+}
 
 const fetchAllItemsForType = async (type: ContentTypeKey): Promise<ChatbookEntity[]> => {
   if (fetchAllItemsCache.has(type)) {
@@ -606,6 +637,7 @@ const ContentTypePicker: React.FC<ContentTypePickerProps> = ({
   const total = itemsOverride
     ? filteredOverride?.length
     : query.data?.total ?? (query.data?.items?.length || 0)
+  const showTruncatedWarning = Boolean(query.data?.truncated)
 
   const columns = React.useMemo<ColumnsType<ChatbookEntity>>(
     () => [
@@ -731,6 +763,18 @@ const ContentTypePicker: React.FC<ContentTypePickerProps> = ({
               />
             </Space>
 
+            {showTruncatedWarning && (
+              <Alert
+                type="warning"
+                showIcon
+                message={t("settings:chatbooksPlayground.resultsTruncated", {
+                  defaultValue:
+                    "Results limited to the first {{limit}} items. Refine filters to narrow the list.",
+                  limit: SEARCH_FETCH_LIMIT
+                })}
+              />
+            )}
+
             <Table
               rowKey={(record) => record.id}
               size="small"
@@ -822,10 +866,10 @@ const getContentTypeLabel = (t: (key: string, fallback: string) => string) => ({
   generated_document: t("settings:chatbooksPlayground.typeGenerated", "Generated documents")
 })
 
-const JOB_LABELS: Record<JobKind, string> = {
-  export: "Export",
-  import: "Import"
-}
+const getJobLabels = (t: (key: string, fallback: string) => string): Record<JobKind, string> => ({
+  export: t("settings:chatbooksPlayground.tabExport", "Export"),
+  import: t("settings:chatbooksPlayground.tabImport", "Import")
+})
 
 const extractJobList = (payload: any): ChatbookJob[] => {
   if (Array.isArray(payload)) return payload
@@ -902,6 +946,10 @@ export const ChatbooksPlaygroundPage: React.FC = () => {
     () => getContentTypeLabel((key, fallback) => t(key, fallback) as string),
     [t]
   )
+  const jobLabels = React.useMemo(
+    () => getJobLabels((key, fallback) => t(key, fallback) as string),
+    [t]
+  )
 
   const [exportName, setExportName] = React.useState("")
   const [exportDescription, setExportDescription] = React.useState("")
@@ -946,6 +994,11 @@ export const ChatbooksPlaygroundPage: React.FC = () => {
   const lastSignatureRef = React.useRef<string>("")
 
   const canUseChatbooks = capabilities?.hasChatbooks !== false
+
+  React.useEffect(() => {
+    clearFetchAllItemsCache()
+    return () => clearFetchAllItemsCache()
+  }, [])
 
   const previewItemsByType = React.useMemo(() => {
     if (!previewManifest?.content_items?.length) return null
@@ -1057,8 +1110,12 @@ export const ChatbooksPlaygroundPage: React.FC = () => {
       const link = document.createElement("a")
       link.href = url
       link.download = filename
+      document.body.appendChild(link)
       link.click()
-      URL.revokeObjectURL(url)
+      window.setTimeout(() => {
+        link.remove()
+        URL.revokeObjectURL(url)
+      }, 0)
       resetPolling()
     } catch (error) {
       notification.error({
@@ -1114,19 +1171,23 @@ export const ChatbooksPlaygroundPage: React.FC = () => {
   }
 
   const resolveExportSelections = async () => {
-    const entries = await Promise.all(
-      CONTENT_TYPE_KEYS.map(async (key) => {
-        if (key === "generated_document" && !includeGenerated) return null
-        if (exportIncludeAll[key]) {
-          const ids = await fetchAllIds(key)
-          return [key, ids] as const
-        }
-        if (exportSelections[key].length) {
-          return [key, exportSelections[key]] as const
-        }
-        return null
-      })
-    )
+    const entries: Array<readonly [ContentTypeKey, string[]] | null> = []
+    for (const key of CONTENT_TYPE_KEYS) {
+      if (key === "generated_document" && !includeGenerated) {
+        entries.push(null)
+        continue
+      }
+      if (exportIncludeAll[key]) {
+        const ids = await fetchAllIds(key)
+        entries.push([key, ids] as const)
+        continue
+      }
+      if (exportSelections[key].length) {
+        entries.push([key, exportSelections[key]] as const)
+        continue
+      }
+      entries.push(null)
+    }
 
     return entries
       .filter((entry): entry is [ContentTypeKey, string[]] => Boolean(entry))
@@ -1179,6 +1240,7 @@ export const ChatbooksPlaygroundPage: React.FC = () => {
           ? t("settings:chatbooksPlayground.exportQueued", "Export job created")
           : t("settings:chatbooksPlayground.exportComplete", "Export complete")
       })
+      clearFetchAllItemsCache()
       resetPolling()
       await loadJobs()
     } catch (error) {
@@ -1216,16 +1278,24 @@ export const ChatbooksPlaygroundPage: React.FC = () => {
   const resolveImportSelections = () => {
     const anySelective = previewTypes.some((key) => !importIncludeAll[key])
     if (!anySelective) return undefined
+    const selections: Record<string, string[]> = {}
+    const missingPreviewMessage = t(
+      "settings:chatbooksPlayground.previewMissingItems",
+      "This preview does not include item details. Import all or re-run preview on a newer server."
+    )
+
     if (!previewItemsByType) {
-      throw new Error(
-        t(
-          "settings:chatbooksPlayground.previewMissingItems",
-          "This preview does not include item details. Import all or re-run preview on a newer server."
-        )
-      )
+      previewTypes.forEach((key) => {
+        if (importIncludeAll[key]) return
+        const selectedIds = importSelections[key]
+        if (!selectedIds || selectedIds.length === 0) {
+          throw new Error(missingPreviewMessage)
+        }
+        selections[key] = selectedIds
+      })
+      return Object.keys(selections).length ? selections : undefined
     }
 
-    const selections: Record<string, string[]> = {}
     previewTypes.forEach((key) => {
       if (importIncludeAll[key]) {
         selections[key] = previewItemsByType[key].map((item) => item.id)
@@ -1282,6 +1352,7 @@ export const ChatbooksPlaygroundPage: React.FC = () => {
           ? t("settings:chatbooksPlayground.importQueued", "Import job created")
           : t("settings:chatbooksPlayground.importComplete", "Import complete")
       })
+      clearFetchAllItemsCache()
       resetPolling()
       await loadJobs()
     } catch (error) {
@@ -1863,7 +1934,7 @@ export const ChatbooksPlaygroundPage: React.FC = () => {
                         <div className="flex w-full flex-col gap-2">
                           <div className="flex items-center justify-between">
                             <Text strong>
-                              {JOB_LABELS[job.kind]} · {job.chatbook_name || job.job_id}
+                              {jobLabels[job.kind]} · {job.chatbook_name || job.job_id}
                             </Text>
                             <Tag color={statusColor(job.status)}>{job.status}</Tag>
                           </div>

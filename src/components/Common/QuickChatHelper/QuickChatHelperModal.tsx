@@ -91,14 +91,14 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     }
   }, [onClose])
 
-  const title = t("quickChatHelper.title", "Quick Chat Helper")
+  const title = t("option:quickChatHelper.title", "Quick Chat Helper")
   const emptyState = t(
-    "quickChatHelper.emptyState",
+    "option:quickChatHelper.emptyState",
     "Start a quick side chat to keep your main thread clean."
   )
-  const popOutLabel = t("quickChatHelper.popOutButton", "Pop out")
+  const popOutLabel = t("option:quickChatHelper.popOutButton", "Pop out")
   const popOutDisabledTooltip = t(
-    "quickChatHelper.popOutDisabled",
+    "option:quickChatHelper.popOutDisabled",
     "Pop-out is disabled when there are no messages. Start a conversation first."
   )
   const connectionLabel = isConnectionReady
@@ -157,7 +157,7 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
             loading={modelsLoading}
             optionFilterProp="label"
             allowClear={allowClear}
-            aria-label={t("quickChatHelper.modelLabel", "Model")}
+            aria-label={t("option:quickChatHelper.modelLabel", "Model")}
             onChange={handleModelChange}
           />
           <span
@@ -185,7 +185,7 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
                   <AlertCircle className="h-4 w-4" />
                   <span>
                     {t(
-                      "quickChatHelper.noModelWarning",
+                      "option:quickChatHelper.noModelWarning",
                       "Select a model in the main chat or choose one here."
                     )}
                   </span>

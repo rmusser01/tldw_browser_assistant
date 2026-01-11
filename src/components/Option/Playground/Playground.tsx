@@ -7,6 +7,7 @@ import { webUIResumeLastChat } from "@/services/app"
 import {
   formatToChatHistory,
   formatToMessage,
+  generateID,
   getPromptById,
   getRecentChatFromWebUI
 } from "@/db/dexie/helpers"
@@ -22,6 +23,7 @@ import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 import { useSetting } from "@/hooks/useSetting"
 import { useStorage } from "@plasmohq/storage/hook"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
+import type { Character } from "@/types/character"
 import { useLoadLocalConversation } from "@/hooks/useLoadLocalConversation"
 import {
   EDIT_MESSAGE_EVENT,
@@ -39,11 +41,16 @@ export const Playground = () => {
     "stickyChatInput",
     DEFAULT_CHAT_SETTINGS.stickyChatInput
   )
+  const [selectedCharacter, setSelectedCharacter] = useStorage<Character | null>(
+    "selectedCharacter",
+    null
+  )
 
   const {
     messages,
     historyId,
     serverChatId,
+    isLoading,
     setHistoryId,
     setHistory,
     setMessages,
@@ -64,6 +71,10 @@ export const Playground = () => {
   const [dropFeedback, setDropFeedback] = React.useState<
     { type: "info" | "error"; message: string } | null
   >(null)
+  const [playgroundReady, setPlaygroundReady] = React.useState(false)
+  const greetingInjectedRef = React.useRef<string | null>(null)
+  const greetingFetchRef = React.useRef<string | null>(null)
+  const chatWasEmptyRef = React.useRef(false)
   const feedbackTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null
   )
@@ -217,8 +228,149 @@ export const Playground = () => {
   }
 
   React.useEffect(() => {
-    initializePlayground()
+    let cancelled = false
+    const run = async () => {
+      await initializePlayground()
+      if (!cancelled) {
+        setPlaygroundReady(true)
+      }
+    }
+    void run()
+    return () => {
+      cancelled = true
+    }
   }, [])
+
+  React.useEffect(() => {
+    const isEmpty = messages.length === 0
+    if (isEmpty && !chatWasEmptyRef.current) {
+      greetingInjectedRef.current = null
+    }
+    chatWasEmptyRef.current = isEmpty
+  }, [messages.length])
+
+  React.useEffect(() => {
+    greetingFetchRef.current = null
+  }, [selectedCharacter?.id])
+
+  React.useEffect(() => {
+    if (!playgroundReady) return
+    if (!selectedCharacter?.id) return
+    const normalizeGreetingValue = (value: unknown) => {
+      if (!value) return [] as string[]
+      if (Array.isArray(value)) {
+        return value
+          .map((entry) => (typeof entry === "string" ? entry.trim() : ""))
+          .filter((entry) => entry.length > 0)
+      }
+      if (typeof value === "string") {
+        const trimmed = value.trim()
+        return trimmed.length > 0 ? [trimmed] : []
+      }
+      return []
+    }
+
+    const collectGreetings = (character: any) => {
+      const greetings = [
+        ...normalizeGreetingValue(character?.greeting),
+        ...normalizeGreetingValue(character?.first_message),
+        ...normalizeGreetingValue(character?.firstMessage),
+        ...normalizeGreetingValue(character?.greet),
+        ...normalizeGreetingValue(character?.alternate_greetings),
+        ...normalizeGreetingValue(character?.alternateGreetings)
+      ]
+      return Array.from(new Set(greetings))
+    }
+
+    const pickGreeting = (greetings: string[]) => {
+      if (greetings.length === 0) return ""
+      if (greetings.length === 1) return greetings[0]
+      const index = Math.floor(Math.random() * greetings.length)
+      return greetings[index]
+    }
+
+    const injectGreeting = (
+      greetingValue: string,
+      avatarUrl?: string | null
+    ) => {
+      const trimmed = greetingValue.trim()
+      if (!trimmed) return
+      if (serverChatId) return
+      const characterId = String(selectedCharacter.id)
+      if (greetingInjectedRef.current === characterId) return
+
+      const createdAt = Date.now()
+      const messageId = generateID()
+      let injected = false
+
+      setMessages((prev) => {
+        if (prev.length > 0) return prev
+        injected = true
+        return [
+          {
+            isBot: true,
+            name: selectedCharacter.name || "Assistant",
+            role: "assistant",
+            message: trimmed,
+            sources: [],
+            createdAt,
+            id: messageId,
+            modelName: selectedCharacter.name || "Assistant",
+            modelImage: avatarUrl ?? undefined
+          }
+        ]
+      })
+
+      if (!injected) return
+      greetingInjectedRef.current = characterId
+
+      setHistory((prev) => {
+        if (prev.length > 0) return prev
+        return [{ role: "assistant", content: trimmed }]
+      })
+    }
+
+    const greeting = selectedCharacter.greeting?.trim() || ""
+    if (!greeting) {
+      const characterId = String(selectedCharacter.id)
+      if (greetingFetchRef.current !== characterId) {
+        greetingFetchRef.current = characterId
+        void tldwClient
+          .initialize()
+          .catch(() => null)
+          .then(() => tldwClient.getCharacter(characterId))
+          .then((full) => {
+            const greetings = collectGreetings(full)
+            const picked = pickGreeting(greetings)
+            if (!picked) return
+            setSelectedCharacter({
+              ...selectedCharacter,
+              greeting: picked,
+              avatar_url:
+                full?.avatar_url ??
+                selectedCharacter.avatar_url ??
+                null
+            })
+            injectGreeting(picked, full?.avatar_url ?? null)
+          })
+          .catch(() => {})
+      }
+      return
+    }
+
+    injectGreeting(greeting, selectedCharacter.avatar_url ?? null)
+  }, [
+    messages.length,
+    playgroundReady,
+    selectedCharacter?.avatar_url,
+    selectedCharacter?.greeting,
+    selectedCharacter?.id,
+    selectedCharacter?.name,
+    serverChatId,
+    setSelectedCharacter,
+    setHistory,
+    setMessages
+  ])
 
   const loadLocalConversation = useLoadLocalConversation(
     {

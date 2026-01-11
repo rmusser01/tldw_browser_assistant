@@ -642,19 +642,16 @@
     "message": "Language (e.g., en)"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts; applies to new audio items added after this point."
+    "message": "Turn on to separate speakers in transcripts; applies to new audio items."
   },
   "quickIngest_documentOptions": {
     "message": "Document options"
-  },
-  "quickIngest_quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "quickIngest_videoOptions": {
     "message": "Video options"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions for new video items added after this point; helpful for search and summaries."
+    "message": "Include timestamps/captions for new video items; helpful for search and summaries."
   },
   "quickIngest_cancel": {
     "message": "Cancel"
@@ -933,10 +930,10 @@
     "message": "Diarization: On"
   },
   "quickIngest_audioSettingsTitle": {
-    "message": "These audio settings apply to new audio items added after this point."
+    "message": "These audio settings apply to new audio items."
   },
   "quickIngest_audioSettingsHint": {
-    "message": "These settings apply to new audio items added after this point."
+    "message": "These settings apply to new audio items."
   },
   "quickIngest_ocrOff": {
     "message": "OCR: Off"
@@ -945,10 +942,10 @@
     "message": "OCR: On"
   },
   "quickIngest_documentSettingsTitle": {
-    "message": "These document settings apply to new document/PDF items added after this point."
+    "message": "These document settings apply to new document/PDF items."
   },
   "quickIngest_documentSettingsHint": {
-    "message": "Applies to new document/PDF items added after this point."
+    "message": "Applies to new document/PDF items."
   },
   "quickIngest_captionsOff": {
     "message": "Captions: Off"
@@ -957,10 +954,10 @@
     "message": "Captions: On"
   },
   "quickIngest_videoSettingsTitle": {
-    "message": "These video settings apply to new video items added after this point."
+    "message": "These video settings apply to new video items."
   },
   "quickIngest_videoSettingsHint": {
-    "message": "Applies to new video items added after this point."
+    "message": "Applies to new video items."
   },
   "quickIngest_ingestProgressTitle": {
     "message": "Current ingest progress"
@@ -2445,13 +2442,13 @@
     "message": "Characters"
   },
   "quickIngest_defaultsForNewItems": {
-    "message": "Defaults apply to items added after this point."
+    "message": "Defaults apply only to items added after you change them."
   },
   "quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images; applies to new document/PDF items added after this point."
+    "message": "OCR helps extract text from scanned PDFs or images; applies to new document/PDF items."
   },
   "quickIngest_localFilesWarning": {
-    "message": "Local files stay attached only while this modal is open. Keep it open until you click Run, or reattach files after reopening."
+    "message": "Local files are kept only while this dialog is open. Complete your ingest run before closing, or reattach files when you return."
   },
   "quickIngest_missingFile": {
     "message": "Missing file"
@@ -2482,5 +2479,8 @@
   },
   "quickIngest_inspectorMissingFileBody": {
     "message": "Reattach this file before running ingest."
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
   }
 }

@@ -1,6 +1,8 @@
 import React from "react"
+import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { useServerOnline } from "@/hooks/useServerOnline"
 
 type ServerSlashCommand = {
   id?: string | number
@@ -113,36 +115,24 @@ export const useSlashCommands = ({
   setInputValue
 }: UseSlashCommandsOptions): UseSlashCommandsResult => {
   const { t } = useTranslation(["common", "sidepanel"])
+  const isOnline = useServerOnline()
   const [slashActiveIndex, setSlashActiveIndex] = React.useState(0)
-  const [serverPayload, setServerPayload] =
-    React.useState<ServerCommandsResponse | null>(null)
-
-  React.useEffect(() => {
-    let isActive = true
-    const loadCommands = async () => {
-      try {
-        await tldwClient.initialize()
-        const payload = (await tldwClient.listChatCommands()) as
-          | ServerCommandsResponse
-          | ServerSlashCommand[]
-        if (isActive) {
-          if (Array.isArray(payload)) {
-            setServerPayload({ commands: payload })
-          } else {
-            setServerPayload(payload || null)
-          }
-        }
-      } catch {
-        if (isActive) {
-          setServerPayload(null)
-        }
+  const { data: serverPayload } = useQuery({
+    queryKey: ["tldw:chat:slashCommands"],
+    queryFn: async (): Promise<ServerCommandsResponse | null> => {
+      await tldwClient.initialize()
+      const payload = (await tldwClient.listChatCommands()) as
+        | ServerCommandsResponse
+        | ServerSlashCommand[]
+      if (Array.isArray(payload)) {
+        return { commands: payload }
       }
-    }
-    void loadCommands()
-    return () => {
-      isActive = false
-    }
-  }, [])
+      return payload || null
+    },
+    enabled: isOnline,
+    staleTime: 60_000,
+    retry: 2
+  })
 
   const fallbackMeta = React.useMemo(
     () => ({
@@ -235,14 +225,17 @@ export const useSlashCommands = ({
             command.permissions ||
             command.permission
         )
-        if (
-          requiredPermissions.length > 0 &&
-          userPermissions.length > 0 &&
-          !requiredPermissions.every((perm) =>
-            userPermissions.includes(perm)
-          )
-        ) {
-          return null
+        if (requiredPermissions.length > 0) {
+          if (!userPermissions || userPermissions.length === 0) {
+            return null
+          }
+          if (
+            !requiredPermissions.every((perm) =>
+              userPermissions.includes(perm)
+            )
+          ) {
+            return null
+          }
         }
         const fallback = fallbackMeta[commandName as keyof typeof fallbackMeta]
         return {

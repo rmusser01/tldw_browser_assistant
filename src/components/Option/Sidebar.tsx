@@ -66,6 +66,8 @@ import { useStoreChatModelSettings } from "@/store/model"
 import { useStoreMessageOption } from "@/store/option"
 import { ModeToggle } from "@/components/Sidepanel/Chat/ModeToggle"
 
+const FOLDER_CONVERSATION_BATCH_SIZE = 10
+
 type Props = {
   onClose: () => void
   isOpen: boolean
@@ -664,8 +666,6 @@ export const Sidebar = ({ onClose, isOpen }: Props) => {
   const stableMissingFolderConversationIds = React.useMemo(() => {
     return [...missingFolderConversationIds].sort()
   }, [missingFolderConversationIds])
-
-  const FOLDER_CONVERSATION_BATCH_SIZE = 10
 
   const { data: missingFolderConversationTitles = [] } = useQuery({
     queryKey: ["folderConversationTitles", stableMissingFolderConversationIds],

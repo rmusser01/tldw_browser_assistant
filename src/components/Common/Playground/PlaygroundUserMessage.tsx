@@ -114,10 +114,8 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
     }
   }, [])
 
-  React.useEffect(() => {
-    if (typeof window === "undefined") return
-
-    const handleEditMessage = (event: Event) => {
+  const handleEditMessage = React.useCallback(
+    (event: Event) => {
       const detail = (event as CustomEvent<{ messageId?: string }>).detail
       if (!detail?.messageId) return
       if (props.isBot) return
@@ -127,13 +125,18 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
       if (matches) {
         setEditMode(true)
       }
-    }
+    },
+    [props.isBot, props.messageId, props.serverMessageId]
+  )
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
 
     window.addEventListener(EDIT_MESSAGE_EVENT, handleEditMessage)
     return () => {
       window.removeEventListener(EDIT_MESSAGE_EVENT, handleEditMessage)
     }
-  }, [props.isBot, props.messageId, props.serverMessageId])
+  }, [handleEditMessage])
 
   const messageTimestamp = React.useMemo(() => {
     const raw = props.createdAt

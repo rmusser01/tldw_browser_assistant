@@ -89,9 +89,9 @@ const QuickChatPopout: React.FC = () => {
     }
   }, [cancelStream])
 
-  const title = t("quickChatHelper.title", "Quick Chat Helper")
+  const title = t("option:quickChatHelper.title", "Quick Chat Helper")
   const emptyState = t(
-    "quickChatHelper.emptyState",
+    "option:quickChatHelper.emptyState",
     "Start a quick side chat to keep your main thread clean."
   )
   const { allowClear, modelOptions, modelPlaceholder, handleModelChange } =
@@ -122,7 +122,7 @@ const QuickChatPopout: React.FC = () => {
           loading={modelsLoading}
           optionFilterProp="label"
           allowClear={allowClear}
-          aria-label={t("quickChatHelper.modelLabel", "Model")}
+          aria-label={t("option:quickChatHelper.modelLabel", "Model")}
           onChange={handleModelChange}
         />
       </div>
@@ -141,7 +141,7 @@ const QuickChatPopout: React.FC = () => {
                 <AlertCircle className="h-4 w-4" />
                 <span>
                   {t(
-                    "quickChatHelper.noModelWarning",
+                    "option:quickChatHelper.noModelWarning",
                     "Select a model in the main chat or choose one here."
                   )}
                 </span>

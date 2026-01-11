@@ -28,8 +28,8 @@ export const QuickChatMessage: React.FC<Props> = ({
       role="article"
       aria-label={
         isUser
-          ? t("quickChatHelper.userMessageAria", "Your message")
-          : t("quickChatHelper.assistantMessageAria", "Assistant message")
+          ? t("option:quickChatHelper.userMessageAria", "Your message")
+          : t("option:quickChatHelper.assistantMessageAria", "Assistant message")
       }>
       <div
         className={classNames(

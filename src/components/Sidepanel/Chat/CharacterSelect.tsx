@@ -11,6 +11,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import { IconButton } from "@/components/Common/IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
+import type { Character as StoredCharacter } from "@/types/character"
 
 type Character = {
   id: string | number
@@ -18,6 +19,12 @@ type Character = {
   description?: string
   avatar_url?: string
   tags?: string[]
+  greeting?: string | null
+  first_message?: string | null
+  firstMessage?: string | null
+  greet?: string | null
+  alternate_greetings?: string[] | string | null
+  alternateGreetings?: string[] | string | null
 }
 
 type Props = {
@@ -37,6 +44,10 @@ export const CharacterSelect: React.FC<Props> = ({
   const notification = useAntdNotification()
   const modal = useAntdModal()
   const [menuDensity] = useStorage("menuDensity", "comfortable")
+  const [, setSelectedCharacter] = useStorage<StoredCharacter | null>(
+    "selectedCharacter",
+    null
+  )
   const [searchText, setSearchText] = useState("")
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [isImporting, setIsImporting] = useState(false)
@@ -97,9 +108,104 @@ export const CharacterSelect: React.FC<Props> = ({
     )
   }, [characters, selectedCharacterId])
 
+  const normalizeGreetingValue = React.useCallback((value: unknown) => {
+    if (!value) return [] as string[]
+    if (Array.isArray(value)) {
+      return value
+        .map((entry) => (typeof entry === "string" ? entry.trim() : ""))
+        .filter((entry) => entry.length > 0)
+    }
+    if (typeof value === "string") {
+      const trimmed = value.trim()
+      return trimmed.length > 0 ? [trimmed] : []
+    }
+    return []
+  }, [])
+
+  const collectGreetings = React.useCallback(
+    (character: Character) => {
+      const greetings = [
+        ...normalizeGreetingValue(character.greeting),
+        ...normalizeGreetingValue(character.first_message),
+        ...normalizeGreetingValue(character.firstMessage),
+        ...normalizeGreetingValue(character.greet),
+        ...normalizeGreetingValue(character.alternate_greetings),
+        ...normalizeGreetingValue(character.alternateGreetings)
+      ]
+      return Array.from(new Set(greetings))
+    },
+    [normalizeGreetingValue]
+  )
+
+  const pickGreeting = React.useCallback((greetings: string[]) => {
+    if (greetings.length === 0) return ""
+    if (greetings.length === 1) return greetings[0]
+    const index = Math.floor(Math.random() * greetings.length)
+    return greetings[index]
+  }, [])
+
+  const buildStoredCharacter = React.useCallback(
+    (character: {
+      id?: string | number
+      name?: string
+      avatar_url?: string
+      image_base64?: string
+      image_mime?: string
+      tags?: string[]
+    }): StoredCharacter | null => {
+      const id = character?.id
+      const name = character?.name
+      if (!id || !name) return null
+      const avatar =
+        character.avatar_url ||
+        (character.image_base64
+          ? `data:${character.image_mime || "image/png"};base64,${
+              character.image_base64
+            }`
+          : undefined)
+      return {
+        id: String(id),
+        name,
+        avatar_url: avatar ?? null,
+        tags: character.tags,
+        greeting: pickGreeting(
+          collectGreetings(character as Character)
+        ) || null
+      }
+    },
+    [collectGreetings, pickGreeting]
+  )
+
   const handleSelect = (id: string | null) => {
     setSelectedCharacterId(id)
+    if (!id) {
+      setSelectedCharacter(null)
+      setDropdownOpen(false)
+      return
+    }
+
+    const selected = characters?.find(
+      (char) => String(char.id) === String(id)
+    )
+    const stored = selected ? buildStoredCharacter(selected) : null
+    if (stored) {
+      setSelectedCharacter(stored)
+    }
     setDropdownOpen(false)
+
+    if (stored?.greeting) return
+
+    void tldwClient
+      .initialize()
+      .catch(() => null)
+      .then(() => tldwClient.getCharacter(id))
+      .then((full) => {
+        const hydrated = buildStoredCharacter(full || {})
+        if (hydrated?.id === String(id) && hydrated.greeting) {
+          setSelectedCharacter(hydrated)
+        }
+      })
+      .catch(() => {})
   }
 
   const handleImportClick = () => {
@@ -184,6 +290,10 @@ export const CharacterSelect: React.FC<Props> = ({
         importedCharacter?.characterId
       if (createdId != null) {
         setSelectedCharacterId(String(createdId))
+        const stored = buildStoredCharacter(importedCharacter ?? {})
+        if (stored) {
+          setSelectedCharacter(stored)
+        }
       }
     }
 

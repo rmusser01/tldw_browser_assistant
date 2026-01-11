@@ -54,7 +54,7 @@ export const useTabMentions = (
       console.error("Failed to fetch tabs:", error)
       return []
     }
-  }, [])
+  }, [includeActive])
 
   const detectMention = React.useCallback((text: string, cursorPosition: number) => {
     if (!tabMentionsEnabled) return null

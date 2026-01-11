@@ -4,7 +4,7 @@ import type { TreeProps } from "antd"
 import { Folder, Plus } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { shallow } from "zustand/shallow"
-import { useFolderStore } from "@/store/folder"
+import { useFolderStore, type FolderTreeNode } from "@/store/folder"
 
 type BulkFolderPickerModalProps = {
   open: boolean
@@ -26,25 +26,17 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
   const [isSaving, setIsSaving] = React.useState(false)
 
   const {
-    folders,
-    keywords,
-    folderKeywordLinks,
-    conversationKeywordLinks,
+    folderTree,
     isLoading,
     folderApiAvailable,
-    getFolderTree,
     addConversationToFolder,
     createFolder,
     refreshFromServer
   } = useFolderStore(
     (state) => ({
-      folders: state.folders,
-      keywords: state.keywords,
-      folderKeywordLinks: state.folderKeywordLinks,
-      conversationKeywordLinks: state.conversationKeywordLinks,
+      folderTree: state.getFolderTree(),
       isLoading: state.isLoading,
       folderApiAvailable: state.folderApiAvailable,
-      getFolderTree: state.getFolderTree,
       addConversationToFolder: state.addConversationToFolder,
       createFolder: state.createFolder,
       refreshFromServer: state.refreshFromServer
@@ -65,14 +57,9 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
     }
   }, [open])
 
-  const folderTree = React.useMemo(
-    () => getFolderTree(),
-    [getFolderTree, folders, keywords, folderKeywordLinks, conversationKeywordLinks]
-  )
-
   const treeData: TreeProps["treeData"] = React.useMemo(() => {
     const buildTreeData = (
-      nodes: ReturnType<typeof getFolderTree>
+      nodes: FolderTreeNode[]
     ): TreeProps["treeData"] => {
       return nodes.map((node) => ({
         key: node.key,
@@ -187,7 +174,7 @@ export const BulkFolderPickerModal: React.FC<BulkFolderPickerModalProps> = ({
       )
     }
 
-    if (folders.filter((f) => !f.deleted).length === 0) {
+    if (folderTree.length === 0) {
       return (
         <div className="space-y-4">
           <Empty

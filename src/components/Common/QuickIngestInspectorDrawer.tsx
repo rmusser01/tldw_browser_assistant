@@ -56,6 +56,10 @@ export const QuickIngestInspectorDrawer: React.FC<
   formatBytes,
   onReattachFile
 }) => {
+  const fileStatus = selectedFile
+    ? statusForFile(selectedFile, Boolean(selectedFileAttached))
+    : null
+
   return (
     <Drawer
       title={qi("inspectorTitle", "Inspector")}
@@ -155,17 +159,11 @@ export const QuickIngestInspectorDrawer: React.FC<
                 <>
                   <Tag
                     color={
-                      statusForFile(
-                        selectedFile,
-                        Boolean(selectedFileAttached)
-                      ).color === "default"
+                      fileStatus?.color === "default"
                         ? undefined
-                        : statusForFile(
-                            selectedFile,
-                            Boolean(selectedFileAttached)
-                          ).color
+                        : fileStatus?.color
                     }>
-                    {statusForFile(selectedFile, Boolean(selectedFileAttached)).label}
+                    {fileStatus?.label}
                   </Tag>
                   <Tag color="geekblue">
                     {fileTypeFromName(selectedFile).toUpperCase()}
@@ -174,9 +172,9 @@ export const QuickIngestInspectorDrawer: React.FC<
                     {formatBytes(selectedFile.size)}
                     {selectedFile.type ? ` · ${selectedFile.type}` : ""}
                   </span>
-                  {statusForFile(selectedFile, Boolean(selectedFileAttached)).reason ? (
+                  {fileStatus?.reason ? (
                     <span className="text-orange-600">
-                      {statusForFile(selectedFile, Boolean(selectedFileAttached)).reason}
+                      {fileStatus.reason}
                     </span>
                   ) : null}
                 </>

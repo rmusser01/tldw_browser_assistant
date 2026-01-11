@@ -11,7 +11,9 @@ import { useAntdMessage } from '@/hooks/useAntdMessage'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
 import { Pagination } from '@/components/Media/Pagination'
 import { bgRequest } from '@/services/background-proxy'
-import type { AllowedPath } from '@/services/tldw/openapi-guard'
+import { toAllowedPath } from '@/services/tldw/path-utils'
+
+const BULK_ACTION_BATCH_SIZE = 10
 
 type TrashItem = {
   id: number
@@ -42,13 +44,11 @@ const TrashPageContent: React.FC = () => {
   const [bulkAction, setBulkAction] = useState<'restore' | 'delete' | 'empty' | null>(null)
   const selectAllRef = useRef<HTMLInputElement | null>(null)
 
-  const toPath = useCallback((path: string) => path as AllowedPath, [])
-
   const fetchTrash = useCallback(async (): Promise<TrashResponse> => {
     return await bgRequest<TrashResponse>({
-      path: toPath(`/api/v1/media/trash?page=${page}&results_per_page=${pageSize}`)
+      path: toAllowedPath(`/api/v1/media/trash?page=${page}&results_per_page=${pageSize}`)
     })
-  }, [page, pageSize, toPath])
+  }, [page, pageSize])
 
   const {
     data,
@@ -128,7 +128,7 @@ const TrashPageContent: React.FC = () => {
     setActionType('restore')
     try {
       await bgRequest({
-        path: toPath(`/api/v1/media/${item.id}/restore`),
+        path: toAllowedPath(`/api/v1/media/${item.id}/restore`),
         method: 'POST'
       })
       message.success(
@@ -148,7 +148,7 @@ const TrashPageContent: React.FC = () => {
       setActionId(null)
       setActionType(null)
     }
-  }, [message, refetch, t, toPath])
+  }, [message, refetch, t])
 
   const deleteItem = useCallback(async (item: TrashItem) => {
     if (!item.id) return
@@ -166,7 +166,7 @@ const TrashPageContent: React.FC = () => {
     setActionType('delete')
     try {
       await bgRequest({
-        path: toPath(`/api/v1/media/${item.id}/permanent`),
+        path: toAllowedPath(`/api/v1/media/${item.id}/permanent`),
         method: 'DELETE'
       })
       message.success(
@@ -186,21 +186,23 @@ const TrashPageContent: React.FC = () => {
       setActionId(null)
       setActionType(null)
     }
-  }, [confirmDanger, message, refetch, t, toPath])
+  }, [confirmDanger, message, refetch, t])
 
   const handleBulkRestore = useCallback(async () => {
     const ids = Array.from(selectedIds)
     if (ids.length === 0) return
     setBulkAction('restore')
     try {
-      const results = await Promise.allSettled(
-        ids.map((id) =>
+      const results: PromiseSettledResult<unknown>[] = []
+      for (let i = 0; i < ids.length; i += BULK_ACTION_BATCH_SIZE) {
+        const chunk = ids.slice(i, i + BULK_ACTION_BATCH_SIZE).map((id) =>
           bgRequest({
-            path: toPath(`/api/v1/media/${id}/restore`),
+            path: toAllowedPath(`/api/v1/media/${id}/restore`),
             method: 'POST'
           })
         )
-      )
+        results.push(...(await Promise.allSettled(chunk)))
+      }
       const successCount = results.filter((r) => r.status === 'fulfilled').length
       const failedCount = ids.length - successCount
       if (successCount > 0) {
@@ -231,7 +233,7 @@ const TrashPageContent: React.FC = () => {
       setSelectedIds(new Set())
       setBulkAction(null)
     }
-  }, [message, refetch, selectedIds, t, toPath])
+  }, [message, refetch, selectedIds, t])
 
   const handleBulkDelete = useCallback(async () => {
     const ids = Array.from(selectedIds)
@@ -248,14 +250,16 @@ const TrashPageContent: React.FC = () => {
     if (!ok) return
     setBulkAction('delete')
     try {
-      const results = await Promise.allSettled(
-        ids.map((id) =>
+      const results: PromiseSettledResult<unknown>[] = []
+      for (let i = 0; i < ids.length; i += BULK_ACTION_BATCH_SIZE) {
+        const chunk = ids.slice(i, i + BULK_ACTION_BATCH_SIZE).map((id) =>
           bgRequest({
-            path: toPath(`/api/v1/media/${id}/permanent`),
+            path: toAllowedPath(`/api/v1/media/${id}/permanent`),
             method: 'DELETE'
           })
         )
-      )
+        results.push(...(await Promise.allSettled(chunk)))
+      }
       const successCount = results.filter((r) => r.status === 'fulfilled').length
       const failedCount = ids.length - successCount
       if (successCount > 0) {
@@ -286,7 +290,7 @@ const TrashPageContent: React.FC = () => {
       setSelectedIds(new Set())
       setBulkAction(null)
     }
-  }, [confirmDanger, message, refetch, selectedIds, t, toPath])
+  }, [confirmDanger, message, refetch, selectedIds, t])
 
   const handleEmptyTrash = useCallback(async () => {
     const ok = await confirmDanger({
@@ -305,7 +309,7 @@ const TrashPageContent: React.FC = () => {
         deleted_count?: number
         failed_count?: number
       }>({
-        path: toPath('/api/v1/media/trash/empty'),
+        path: toAllowedPath('/api/v1/media/trash/empty'),
         method: 'POST'
       })
       const deletedCount = Number(response?.deleted_count || 0)
@@ -345,7 +349,7 @@ const TrashPageContent: React.FC = () => {
       setSelectedIds(new Set())
       setBulkAction(null)
     }
-  }, [confirmDanger, message, refetch, t, toPath])
+  }, [confirmDanger, message, refetch, t])
 
   return (
     <div className="flex flex-1 flex-col px-6 pb-8 pt-6">

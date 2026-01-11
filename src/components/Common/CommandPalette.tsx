@@ -269,7 +269,7 @@ export function CommandPalette({
           ]
         : []),
       ...(isSidepanel && onSwitchChat && sidepanelChats?.length
-        ? sidepanelChats.map((chat) => ({
+        ? sidepanelChats.slice(0, 15).map((chat) => ({
             id: `switch-chat-${chat.id}`,
             label: chat.label || t("common:untitled", "Untitled"),
             icon: <MessageSquare className="size-4" />,

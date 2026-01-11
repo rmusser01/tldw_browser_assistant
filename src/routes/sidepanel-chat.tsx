@@ -68,6 +68,65 @@ const CommandPalette = lazy(() =>
 )
 import type { ChatHistory, Message as ChatMessage } from "~/store/option"
 
+type ServerChatMessage = {
+  id: string | number
+  role: string
+  content: string
+  created_at: string
+  version?: number | null
+  [key: string]: unknown
+}
+
+const mapServerChatMessages = (list: ServerChatMessage[]) => {
+  const history = list.map((m) => ({
+    role: m.role,
+    content: m.content
+  }))
+  const mappedMessages = list.map((m) => {
+    const meta = m as Record<string, unknown>
+    const createdAt = Date.parse(m.created_at)
+    return {
+      createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
+      isBot: m.role === "assistant",
+      role: normalizeChatRole(m.role),
+      name:
+        m.role === "assistant"
+          ? "Assistant"
+          : m.role === "system"
+            ? "System"
+            : "You",
+      message: m.content,
+      sources: [],
+      images: [],
+      id: String(m.id),
+      serverMessageId: String(m.id),
+      serverMessageVersion: m.version,
+      parentMessageId:
+        (meta?.parent_message_id as string | null | undefined) ??
+        (meta?.parentMessageId as string | null | undefined) ??
+        null,
+      messageType:
+        (meta?.message_type as string | undefined) ??
+        (meta?.messageType as string | undefined),
+      clusterId:
+        (meta?.cluster_id as string | undefined) ??
+        (meta?.clusterId as string | undefined),
+      modelId:
+        (meta?.model_id as string | undefined) ??
+        (meta?.modelId as string | undefined),
+      modelName:
+        (meta?.model_name as string | undefined) ??
+        (meta?.modelName as string | undefined) ??
+        "Assistant",
+      modelImage:
+        (meta?.model_image as string | undefined) ??
+        (meta?.modelImage as string | undefined)
+    }
+  })
+
+  return { history, mappedMessages }
+}
+
 const deriveNoteTitle = (
   content: string,
   pageTitle?: string,
@@ -286,6 +345,11 @@ const SidepanelChat = () => {
     DEFAULT_CHAT_SETTINGS.stickyChatInput
   )
   const composerPadding = composerHeight ? `${composerHeight + 16}px` : "160px"
+  const scrollToLatestBottom = React.useMemo(() => {
+    if (!stickyChatInput) return "8rem"
+    const baseOffset = composerHeight ? composerHeight + 24 : 160
+    return `${Math.max(baseOffset, 128)}px`
+  }, [composerHeight, stickyChatInput])
 
   const resetNoteModal = React.useCallback(() => {
     setNoteModalOpen(false)
@@ -1048,6 +1112,101 @@ const SidepanelChat = () => {
     [historyId, openLocalHistory]
   )
 
+  const ensureLocalHistoryMirror = React.useCallback(
+    async (
+      chatId: string,
+      chat: ServerChatHistoryItem,
+      list: ServerChatMessage[]
+    ) => {
+      let localHistoryId: string | null = null
+      try {
+        const existingHistory = await getHistoryByServerChatId(chatId)
+        if (existingHistory) {
+          localHistoryId = existingHistory.id
+        } else {
+          const newHistory = await saveHistory(
+            chat.title || t("sidepanel:tabs.newChat", "New chat"),
+            false,
+            "server",
+            undefined,
+            chatId
+          )
+          localHistoryId = newHistory.id
+        }
+
+        if (localHistoryId) {
+          const metadataMap = await getHistoriesWithMetadata([localHistoryId])
+          const existingMeta = metadataMap.get(localHistoryId)
+          if (!existingMeta || existingMeta.messageCount === 0) {
+            const now = Date.now()
+            await Promise.all(
+              list.map((m, index) => {
+                const meta = m as Record<string, unknown>
+                const parsedCreatedAt = Date.parse(m.created_at)
+                const resolvedCreatedAt = Number.isNaN(parsedCreatedAt)
+                  ? now + index
+                  : parsedCreatedAt
+                const role =
+                  m.role === "assistant" ||
+                  m.role === "system" ||
+                  m.role === "user"
+                    ? m.role
+                    : "user"
+                const name =
+                  role === "assistant"
+                    ? "Assistant"
+                    : role === "system"
+                      ? "System"
+                      : "You"
+                return saveMessage({
+                  id: String(m.id),
+                  history_id: localHistoryId,
+                  name,
+                  role,
+                  content: m.content,
+                  images: [],
+                  source: [],
+                  time: index,
+                  message_type:
+                    (meta?.message_type as string | undefined) ??
+                    (meta?.messageType as string | undefined),
+                  clusterId:
+                    (meta?.cluster_id as string | undefined) ??
+                    (meta?.clusterId as string | undefined),
+                  modelId:
+                    (meta?.model_id as string | undefined) ??
+                    (meta?.modelId as string | undefined),
+                  modelName:
+                    (meta?.model_name as string | undefined) ??
+                    (meta?.modelName as string | undefined) ??
+                    "Assistant",
+                  modelImage:
+                    (meta?.model_image as string | undefined) ??
+                    (meta?.modelImage as string | undefined),
+                  parent_message_id:
+                    (meta?.parent_message_id as
+                      | string
+                      | null
+                      | undefined) ??
+                    (meta?.parentMessageId as
+                      | string
+                      | null
+                      | undefined) ??
+                    null,
+                  createdAt: resolvedCreatedAt
+                })
+              })
+            )
+          }
+        }
+      } catch (err) {
+        console.debug("[openServerChat] Local mirror failed:", err)
+      }
+      return localHistoryId
+    },
+    [t]
+  )
+
   const openServerChat = React.useCallback(
     async (chat: ServerChatHistoryItem) => {
       const chatId = String(chat.id)
@@ -1067,136 +1226,13 @@ const SidepanelChat = () => {
         const list = await tldwClient.listChatMessages(chatId, {
           include_deleted: "false"
         })
-        const history = list.map((m) => ({
-          role: m.role,
-          content: m.content
-        }))
-        const mappedMessages = list.map((m) => {
-          const meta = m as unknown as Record<string, unknown>
-          const createdAt = Date.parse(m.created_at)
-          return {
-            createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
-            isBot: m.role === "assistant",
-            role: normalizeChatRole(m.role),
-            name:
-              m.role === "assistant"
-                ? "Assistant"
-                : m.role === "system"
-                  ? "System"
-                  : "You",
-            message: m.content,
-            sources: [],
-            images: [],
-            id: String(m.id),
-            serverMessageId: String(m.id),
-            serverMessageVersion: m.version,
-            parentMessageId:
-              (meta?.parent_message_id as string | null | undefined) ??
-              (meta?.parentMessageId as string | null | undefined) ??
-              null,
-            messageType:
-              (meta?.message_type as string | undefined) ??
-              (meta?.messageType as string | undefined),
-            clusterId:
-              (meta?.cluster_id as string | undefined) ??
-              (meta?.clusterId as string | undefined),
-            modelId:
-              (meta?.model_id as string | undefined) ??
-              (meta?.modelId as string | undefined),
-            modelName:
-              (meta?.model_name as string | undefined) ??
-              (meta?.modelName as string | undefined) ??
-              "Assistant",
-            modelImage:
-              (meta?.model_image as string | undefined) ??
-              (meta?.modelImage as string | undefined)
-          }
-        })
-
-        let localHistoryId: string | null = null
-        try {
-          const existingHistory = await getHistoryByServerChatId(chatId)
-          if (existingHistory) {
-            localHistoryId = existingHistory.id
-          } else {
-            const newHistory = await saveHistory(
-              chat.title || t("sidepanel:tabs.newChat", "New chat"),
-              false,
-              "server",
-              undefined,
-              chatId
-            )
-            localHistoryId = newHistory.id
-          }
-
-          if (localHistoryId) {
-            const metadataMap = await getHistoriesWithMetadata([localHistoryId])
-            const existingMeta = metadataMap.get(localHistoryId)
-            if (!existingMeta || existingMeta.messageCount === 0) {
-              const now = Date.now()
-              await Promise.all(
-                list.map((m, index) => {
-                  const meta = m as unknown as Record<string, unknown>
-                  const parsedCreatedAt = Date.parse(m.created_at)
-                  const resolvedCreatedAt = Number.isNaN(parsedCreatedAt)
-                    ? now + index
-                    : parsedCreatedAt
-                  const role =
-                    m.role === "assistant" ||
-                    m.role === "system" ||
-                    m.role === "user"
-                      ? m.role
-                      : "user"
-                  const name =
-                    role === "assistant"
-                      ? "Assistant"
-                      : role === "system"
-                        ? "System"
-                        : "You"
-                  return saveMessage({
-                    id: String(m.id),
-                    history_id: localHistoryId,
-                    name,
-                    role,
-                    content: m.content,
-                    images: [],
-                    source: [],
-                    time: index,
-                    message_type:
-                      (meta?.message_type as string | undefined) ??
-                      (meta?.messageType as string | undefined),
-                    clusterId:
-                      (meta?.cluster_id as string | undefined) ??
-                      (meta?.clusterId as string | undefined),
-                    modelId:
-                      (meta?.model_id as string | undefined) ??
-                      (meta?.modelId as string | undefined),
-                    modelName:
-                      (meta?.model_name as string | undefined) ??
-                      (meta?.modelName as string | undefined) ??
-                      "Assistant",
-                    modelImage:
-                      (meta?.model_image as string | undefined) ??
-                      (meta?.modelImage as string | undefined),
-                    parent_message_id:
-                      (meta?.parent_message_id as
-                        | string
-                        | null
-                        | undefined) ??
-                      (meta?.parentMessageId as
-                        | string
-                        | null
-                        | undefined) ??
-                      null,
-                    createdAt: resolvedCreatedAt
-                  })
-                })
-              )
-            }
-          }
-        } catch {
-          // local mirror best-effort
-        }
+        const messageList = list as ServerChatMessage[]
+        const { history, mappedMessages } = mapServerChatMessages(messageList)
+        const localHistoryId = await ensureLocalHistoryMirror(
+          chatId,
+          chat,
+          messageList
+        )
 
         const snapshot: SidepanelChatSnapshot = {
           history,
@@ -1248,6 +1284,7 @@ const SidepanelChat = () => {
     },
     [
       chatMode,
+      ensureLocalHistoryMirror,
       handleSelectTab,
       modelSettingsSnapshot,
       notification,
@@ -1699,7 +1736,10 @@ const SidepanelChat = () => {
           </div>
 
           {!isAutoScrollToBottom && (
-            <div className="fixed bottom-32 z-20 left-0 right-0 flex justify-center">
+            <div
+              className="fixed z-20 left-0 right-0 flex justify-center"
+              style={{ bottom: scrollToLatestBottom }}
+            >
               <button
                 onClick={() => autoScrollToBottom()}
                 aria-label={t("playground:composer.scrollToLatest", "Scroll to latest messages")}

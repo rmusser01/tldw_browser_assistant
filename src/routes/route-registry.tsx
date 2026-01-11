@@ -123,7 +123,7 @@ const OptionSettingsEvaluations = createSettingsRoute(
   "EvaluationsSettings"
 )
 const OptionSpeechSettings = createSettingsRoute(
-  () => import("~/components/Option/Settings/speech-settings"),
+  () => import("@/components/Option/Settings/SpeechSettings"),
   "SpeechSettings"
 )
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))

@@ -1207,16 +1207,17 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                             }))
                             const mappedMessages = messages.map((m) => {
                               const createdAt = Date.parse(m.created_at)
+                              const normalized = normalizeChatRole(m.role)
                               return {
                                 createdAt: Number.isNaN(createdAt)
                                   ? undefined
                                   : createdAt,
-                                isBot: m.role === "assistant",
-                                role: normalizeChatRole(m.role),
+                                isBot: normalized === "assistant",
+                                role: normalized,
                                 name:
-                                  m.role === "assistant"
+                                  normalized === "assistant"
                                     ? assistantName
-                                    : m.role === "system"
+                                    : normalized === "system"
                                       ? "System"
                                       : "You",
                                 message: m.content,

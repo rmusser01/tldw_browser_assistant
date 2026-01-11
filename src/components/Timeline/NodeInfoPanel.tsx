@@ -51,38 +51,15 @@ export const NodeInfoPanel: React.FC = () => {
     return timelineSearch.highlightMatches(node.content, fragments)
   }, [node, searchQuery])
 
-  if (!node) return null
-
-  const isSwipeExpanded = expandedSwipeNodes.has(node.id)
-  const hasMessage = node.message_ids?.length > 0
-  const canEditMessage = hasMessage && node.role === 'user'
-  const canBranchFromMessage = hasMessage && node.role === 'assistant'
-
-  // Format timestamp
-  const formattedTime = new Date(node.timestamp).toLocaleString()
-  const historyCount = node.history_ids?.length ?? 0
-
-  // Role icon
-  const RoleIcon = node.role === 'user'
-    ? UserOutlined
-    : node.role === 'assistant'
-      ? RobotOutlined
-      : SettingOutlined
-
-  // Role color
-  const roleColor = node.role === 'user'
-    ? 'blue'
-    : node.role === 'assistant'
-      ? 'green'
-      : 'gray'
-
+  const hasMessage = (node?.message_ids?.length ?? 0) > 0
   const resolveMessageTarget = React.useCallback(async () => {
-    if (!node.message_ids?.length) return null
+    if (!node?.message_ids?.length) return null
+    const historyIds = node.history_ids ?? []
 
     const preferredHistoryId =
-      currentHistoryId && node.history_ids.includes(currentHistoryId)
+      currentHistoryId && historyIds.includes(currentHistoryId)
         ? currentHistoryId
-        : node.history_ids[0]
+        : historyIds[0]
 
     if (!preferredHistoryId) return null
 
@@ -101,7 +78,7 @@ export const NodeInfoPanel: React.FC = () => {
       historyId: resolvedHistoryId,
       messageId: resolvedMessageId
     }
-  }, [currentHistoryId, node.history_ids, node.message_ids])
+  }, [currentHistoryId, db, node?.history_ids, node?.message_ids])
 
   const handleTimelineAction = React.useCallback(
     async (action: TimelineAction) => {
@@ -128,6 +105,30 @@ export const NodeInfoPanel: React.FC = () => {
     },
     [closeTimeline, hasMessage, resolveMessageTarget]
   )
+
+  if (!node) return null
+
+  const isSwipeExpanded = expandedSwipeNodes.has(node.id)
+  const canEditMessage = hasMessage && node.role === 'user'
+  const canBranchFromMessage = hasMessage && node.role === 'assistant'
+
+  // Format timestamp
+  const formattedTime = new Date(node.timestamp).toLocaleString()
+  const historyCount = node.history_ids?.length ?? 0
+
+  // Role icon
+  const RoleIcon = node.role === 'user'
+    ? UserOutlined
+    : node.role === 'assistant'
+      ? RobotOutlined
+      : SettingOutlined
+
+  // Role color
+  const roleColor = node.role === 'user'
+    ? 'blue'
+    : node.role === 'assistant'
+      ? 'green'
+      : 'gray'
 
   return (
     <div className="node-info-panel absolute right-0 top-0 bottom-0 w-80 bg-[var(--bg-secondary,#1f1f1f)] border-l border-[var(--border-color,#333)] p-4 overflow-y-auto z-20 flex flex-col">

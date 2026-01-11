@@ -29,7 +29,10 @@ type CharacterSummary = {
   instructions?: string
   greeting?: string
   first_message?: string
+  firstMessage?: string
   greet?: string
+  alternate_greetings?: string[] | string | null
+  alternateGreetings?: string[] | string | null
 }
 
 type CharacterSelection = {
@@ -38,6 +41,39 @@ type CharacterSelection = {
   system_prompt: string
   greeting: string
   avatar_url: string
+}
+
+const normalizeGreetingValue = (value: unknown): string[] => {
+  if (!value) return []
+  if (Array.isArray(value)) {
+    return value
+      .map((entry) => (typeof entry === "string" ? entry.trim() : ""))
+      .filter((entry) => entry.length > 0)
+  }
+  if (typeof value === "string") {
+    const trimmed = value.trim()
+    return trimmed.length > 0 ? [trimmed] : []
+  }
+  return []
+}
+
+const collectGreetings = (character: CharacterSummary): string[] => {
+  const greetings = [
+    ...normalizeGreetingValue(character.greeting),
+    ...normalizeGreetingValue(character.first_message),
+    ...normalizeGreetingValue(character.firstMessage),
+    ...normalizeGreetingValue(character.greet),
+    ...normalizeGreetingValue(character.alternate_greetings),
+    ...normalizeGreetingValue(character.alternateGreetings)
+  ]
+  return Array.from(new Set(greetings))
+}
+
+const pickGreeting = (greetings: string[]): string => {
+  if (greetings.length === 0) return ""
+  if (greetings.length === 1) return greetings[0]
+  const index = Math.floor(Math.random() * greetings.length)
+  return greetings[index]
 }
 
 const normalizeCharacter = (character: CharacterSummary): CharacterSelection => {
@@ -65,8 +101,7 @@ const normalizeCharacter = (character: CharacterSummary): CharacterSelection => 
       character.systemPrompt ||
       character.instructions ||
       "",
-    greeting:
-      character.greeting || character.first_message || character.greet || "",
+    greeting: pickGreeting(collectGreetings(character)),
     avatar_url: avatar
   }
 }
@@ -89,6 +124,9 @@ export const CharacterSelect: React.FC<Props> = ({
   const initialized = React.useRef(false)
   const lastErrorRef = React.useRef<unknown | null>(null)
   const importInputRef = React.useRef<HTMLInputElement | null>(null)
+  const imageOnlyModalRef = React.useRef<ReturnType<typeof modal.confirm> | null>(
+    null
+  )
   const [isImporting, setIsImporting] = React.useState(false)
 
   const { data, refetch, isFetching, error } = useQuery<CharacterSummary[]>({
@@ -262,6 +300,13 @@ export const CharacterSelect: React.FC<Props> = ({
     handleOpenCharacters({ create: true })
   }, [handleOpenCharacters])
 
+  React.useEffect(() => {
+    return () => {
+      imageOnlyModalRef.current?.destroy()
+      imageOnlyModalRef.current = null
+    }
+  }, [])
+
   const handleImportClick = React.useCallback(() => {
     if (isImporting) return
     if (!importInputRef.current) return
@@ -283,7 +328,10 @@ export const CharacterSelect: React.FC<Props> = ({
 
       const confirmImageOnlyImport = (message?: string) =>
         new Promise<boolean>((resolve) => {
-          const instance = modal.confirm({
+          const clearRef = () => {
+            imageOnlyModalRef.current = null
+          }
+          imageOnlyModalRef.current = modal.confirm({
             title: t("settings:manageCharacters.imageOnlyTitle", {
               defaultValue: "No character data detected"
             }),
@@ -300,10 +348,15 @@ export const CharacterSelect: React.FC<Props> = ({
             centered: true,
             okButtonProps: { danger: false },
             maskClosable: false,
-            onOk: () => resolve(true),
-            onCancel: () => resolve(false)
+            onOk: () => {
+              resolve(true)
+              clearRef()
+            },
+            onCancel: () => {
+              resolve(false)
+              clearRef()
+            }
           })
-          void instance
         })
 
       try {
@@ -361,7 +414,7 @@ export const CharacterSelect: React.FC<Props> = ({
         event.target.value = ""
       }
     },
-    [handleImportSuccess, modal, notification, refetch, setSelectedCharacter, t]
+    [handleImportSuccess, modal, notification, t]
   )
 
   const filteredCharacters = React.useMemo(() => {
@@ -412,6 +465,19 @@ export const CharacterSelect: React.FC<Props> = ({
           ),
           onClick: () => {
             setSelectedCharacter(normalized)
+            if (normalized.greeting) return
+            const targetId = normalized.id
+            void tldwClient
+              .initialize()
+              .catch(() => null)
+              .then(() => tldwClient.getCharacter(targetId))
+              .then((full) => {
+                const hydrated = normalizeCharacter(full || {})
+                if (hydrated?.id === targetId && hydrated.greeting) {
+                  setSelectedCharacter(hydrated)
+                }
+              })
+              .catch(() => {})
           }
         })
       } catch (err) {

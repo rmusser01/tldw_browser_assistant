@@ -212,7 +212,10 @@ export function OnboardingConnectForm({ onFinish }: Props) {
     const normalized = normalizeProviderKey(defaultApiProvider)
     return normalized === "unknown" ? "" : normalized
   }, [defaultApiProvider])
-  const providerSelectValue = normalizedDefaultProvider || "auto"
+  const providerSelectValue = useMemo(
+    () => normalizedDefaultProvider || "auto",
+    [normalizedDefaultProvider]
+  )
 
   const providerOptions = useMemo(() => {
     const providers = new Map<string, string>()
@@ -250,6 +253,27 @@ export function OnboardingConnectForm({ onFinish }: Props) {
         }
       })
   }, [availableModels, normalizedDefaultProvider, t])
+
+  const handleProviderChange = useCallback(
+    (value: string) => {
+      if (value === "auto") {
+        setDefaultApiProvider(null)
+        return
+      }
+      const normalized = normalizeProviderKey(value)
+      setDefaultApiProvider(
+        normalized && normalized !== "unknown" ? normalized : null
+      )
+    },
+    [setDefaultApiProvider]
+  )
+
+  const handleModelChange = useCallback(
+    (value: string) => {
+      setSelectedModel(value || null)
+    },
+    [setSelectedModel]
+  )
 
   useEffect(() => {
     if (!normalizedDefaultProvider || !selectedModel) return
@@ -668,16 +692,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
                 <Select
                   size="large"
                   value={providerSelectValue}
-                  onChange={(value) => {
-                    if (value === "auto") {
-                      setDefaultApiProvider(null)
-                      return
-                    }
-                    const normalized = normalizeProviderKey(value)
-                    setDefaultApiProvider(
-                      normalized && normalized !== "unknown" ? normalized : null
-                    )
-                  }}
+                  onChange={handleProviderChange}
                   options={[
                     {
                       value: "auto",
@@ -708,7 +723,7 @@ export function OnboardingConnectForm({ onFinish }: Props) {
                   showSearch
                   size="large"
                   value={selectedModel || undefined}
-                  onChange={(value) => setSelectedModel(value || null)}
+                  onChange={handleModelChange}
                   placeholder={t(
                     "settings:onboarding.defaults.modelPlaceholder",
                     "Select a model"

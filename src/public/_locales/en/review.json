@@ -1379,9 +1379,6 @@
   "trashPage_selectAllVisible": {
     "message": "Select all visible"
   },
-  "trashPage_selectedCount": {
-    "message": "{{count}} selected"
-  },
   "trashPage_restoreSelected": {
     "message": "Restore selected"
   },

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
-import { SSTSettings } from "./sst-settings"
-import { TTSModeSettings } from "./TTSModeSettings"
+import { SSTSettings } from "@/components/Option/Settings/SSTSettings"
+import { TTSModeSettings } from "@/components/Option/Settings/TTSModeSettings"
 
 export const SpeechSettings = () => {
   const { t } = useTranslation("settings")

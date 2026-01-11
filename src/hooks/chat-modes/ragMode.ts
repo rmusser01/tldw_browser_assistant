@@ -15,6 +15,44 @@ import {
   type ChatModeDefinition
 } from "./chatModePipeline"
 
+const RAG_ADVANCED_OPTION_KEYS = new Set([
+  "strategy",
+  "enable_reranking",
+  "enable_cache",
+  "top_k",
+  "search_mode",
+  "enable_generation",
+  "enable_citations",
+  "sources",
+  "filters",
+  "rerank_top_k",
+  "include_media_ids",
+  "timeoutMs",
+  "citation_style"
+])
+
+const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
+  if (!options) return {}
+  const sanitized: Record<string, unknown> = {}
+  const ignored: string[] = []
+  for (const [key, value] of Object.entries(options)) {
+    if (!RAG_ADVANCED_OPTION_KEYS.has(key)) {
+      ignored.push(key)
+      continue
+    }
+    if (value === undefined || value === null) continue
+    if (typeof value === "string" && value.trim() === "") continue
+    sanitized[key] = value
+  }
+  if (ignored.length > 0) {
+    console.debug(
+      "[ragMode] Ignoring unsupported ragAdvancedOptions keys:",
+      ignored
+    )
+  }
+  return sanitized
+}
+
 type RagModeParams = {
   selectedModel: string
   useOCR: boolean
@@ -136,22 +174,22 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
         typeof ctx.ragTopK === "number" && ctx.ragTopK > 0
           ? ctx.ragTopK
           : defaultTopK
-      const ragOptions: any = {
-        top_k,
-        search_mode: ctx.ragSearchMode
+      const ragOptions: any = sanitizeRagAdvancedOptions(ctx.ragAdvancedOptions)
+      if (typeof ctx.ragTopK === "number" && ctx.ragTopK > 0) {
+        ragOptions.top_k = ctx.ragTopK
+      } else if (ragOptions.top_k == null) {
+        ragOptions.top_k = top_k
       }
+      ragOptions.search_mode = ctx.ragSearchMode
       if (ctx.ragEnableGeneration) {
         ragOptions.enable_generation = true
+      } else {
+        delete ragOptions.enable_generation
       }
       if (ctx.ragEnableCitations) {
         ragOptions.enable_citations = true
-      }
-      if (ctx.ragAdvancedOptions) {
-        Object.entries(ctx.ragAdvancedOptions).forEach(([key, value]) => {
-          if (value !== undefined && value !== null && value !== "") {
-            ragOptions[key] = value
-          }
-        })
+      } else {
+        delete ragOptions.enable_citations
       }
       if (Array.isArray(ctx.ragSources) && ctx.ragSources.length > 0) {
         ragOptions.sources = ctx.ragSources

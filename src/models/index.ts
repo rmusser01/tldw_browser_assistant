@@ -131,14 +131,16 @@ export const pageAssistModel = async ({
     resolvedSlashInjectionMode && resolvedSlashInjectionMode.trim().length > 0
       ? resolvedSlashInjectionMode.trim()
       : undefined
-  const explicitProvider = apiProvider ?? currentChatModelSettings.apiProvider
+  const rawProvider = apiProvider ?? currentChatModelSettings.apiProvider
+  const explicitProvider =
+    typeof rawProvider === "string" && rawProvider.trim().length > 0
+      ? rawProvider.trim()
+      : undefined
   const defaultApiProvider =
-    explicitProvider === undefined ? await getDefaultApiProvider() : null
-  const normalizedDefaultApiProvider =
-    defaultApiProvider == null ? undefined : defaultApiProvider
+    !explicitProvider ? await getDefaultApiProvider() : null
   const normalizedApiProvider = await resolveApiProviderForModel({
     modelId: model,
-    explicitProvider: explicitProvider ?? normalizedDefaultApiProvider,
+    explicitProvider: explicitProvider ?? defaultApiProvider ?? undefined,
     providerHint: modelProviderHint
   })
   const resolvedExtraHeaders = parseJsonObject(

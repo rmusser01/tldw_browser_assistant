@@ -89,6 +89,7 @@ export function ServerChatList({
     () => new Set(selectedChatIds),
     [selectedChatIds]
   )
+  const visibleChatIdSetRef = React.useRef<Set<string> | null>(null)
   const [bulkFolderPickerOpen, setBulkFolderPickerOpen] = React.useState(false)
   const [bulkTagPickerOpen, setBulkTagPickerOpen] = React.useState(false)
   const [bulkDeleteConfirmOpen, setBulkDeleteConfirmOpen] = React.useState(false)
@@ -215,8 +216,23 @@ export function ServerChatList({
   React.useEffect(() => {
     if (!selectionMode) {
       setSelectedChatIds((prev) => (prev.length === 0 ? prev : []))
+      visibleChatIdSetRef.current = visibleChatIdSet
       return
     }
+    const prevVisible = visibleChatIdSetRef.current
+    if (prevVisible && prevVisible.size === visibleChatIdSet.size) {
+      let hasDiff = false
+      for (const id of visibleChatIdSet) {
+        if (!prevVisible.has(id)) {
+          hasDiff = true
+          break
+        }
+      }
+      if (!hasDiff) {
+        return
+      }
+    }
+    visibleChatIdSetRef.current = visibleChatIdSet
     setSelectedChatIds((prev) => {
       const next = prev.filter((id) => visibleChatIdSet.has(id))
       if (next.length === prev.length && next.every((id, idx) => id === prev[idx])) {
@@ -470,22 +486,36 @@ export function ServerChatList({
   }, [])
 
   const handleBulkDelete = async () => {
-    const result = await applyBulkTrash()
-    if (!result) return
-    const { failedConversationIds } = result
-
-    setPinnedChatIds((prev) =>
-      (prev || []).filter(
-        (id) =>
-          !selectedConversationIds.includes(id) ||
-          failedConversationIds.has(id)
+    let failedConversationIds: Set<string> | null = null
+    try {
+      const result = await applyBulkTrash()
+      if (!result) return
+      failedConversationIds = result.failedConversationIds
+    } catch (error) {
+      console.error("[ServerChatList] Failed to bulk delete chats:", error)
+      message.error(
+        t("sidepanel:multiSelect.deleteFailed", {
+          defaultValue: "Unable to move chats to trash."
+        })
       )
-    )
-    queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
-    setSelectedChatIds(
-      selectedConversationIds.filter((id) => failedConversationIds.has(id))
-    )
-    setBulkDeleteConfirmOpen(false)
+    } finally {
+      if (failedConversationIds) {
+        setPinnedChatIds((prev) =>
+          (prev || []).filter(
+            (id) =>
+              !selectedConversationIds.includes(id) ||
+              failedConversationIds?.has(id)
+          )
+        )
+        setSelectedChatIds(
+          selectedConversationIds.filter((id) =>
+            failedConversationIds?.has(id)
+          )
+        )
+      }
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+      setBulkDeleteConfirmOpen(false)
+    }
   }
 
   // Not connected state

@@ -35,10 +35,29 @@ import { AdvancedCORSSettings } from "@/components/Common/Settings/AdvancedCORSS
 import { useStorage } from "@plasmohq/storage/hook"
 import { getTotalFilePerKB } from "@/services/app"
 import { SidepanelRag } from "@/components/Option/Settings/sidepanel-rag"
-import { SSTSettings } from "@/components/Option/Settings/sst-settings"
+import { SSTSettings } from "@/components/Option/Settings/SSTSettings"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useStoreMessageOption } from "@/store/option"
+
+interface DictionaryItem {
+  id?: string | number
+  dictionary_id?: string | number
+  dictionaryId?: string | number
+  name?: string
+  title?: string
+}
+
+interface DictionariesResponse {
+  dictionaries?: DictionaryItem[]
+  items?: DictionaryItem[]
+  results?: DictionaryItem[]
+}
+
+const RAG_VALIDATION_RANGES = {
+  chunkSize: { min: 100, max: 10000 },
+  chunkOverlap: { min: 0, max: 1000 }
+} as const
 
 export const SettingsBody = () => {
   const { t } = useTranslation("settings")
@@ -117,7 +136,9 @@ export const SettingsBody = () => {
   })
 
   const dictionariesEnabled = Boolean(capabilities?.hasChatDictionaries)
-  const { data: dictionariesData } = useQuery({
+  const { data: dictionariesData } = useQuery<
+    DictionariesResponse | DictionaryItem[]
+  >({
     queryKey: ["sidepanelChatDictionaries"],
     queryFn: async () => {
       await tldwClient.initialize()
@@ -128,11 +149,11 @@ export const SettingsBody = () => {
 
   const dictionaryOptions = React.useMemo(() => {
     if (!dictionariesData) return []
-    const list: any[] = Array.isArray(dictionariesData)
+    const list = Array.isArray(dictionariesData)
       ? dictionariesData
-      : (dictionariesData as any)?.dictionaries ||
-        (dictionariesData as any)?.items ||
-        (dictionariesData as any)?.results ||
+      : dictionariesData?.dictionaries ||
+        dictionariesData?.items ||
+        dictionariesData?.results ||
         []
     return list.map((dict) => ({
       value: String(dict.id ?? dict.dictionary_id ?? dict.dictionaryId),
@@ -158,7 +179,8 @@ export const SettingsBody = () => {
       ...(ragAdvancedOptions || {}),
       citation_style: citationStyle
     })
-  }, [citationStyle, ragAdvancedOptions, setRagAdvancedOptions])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- avoid reruns from ragAdvancedOptions object churn
+  }, [citationStyle, ragAdvancedOptions?.citation_style, setRagAdvancedOptions])
 
   const { mutate: saveRAG, isPending: isSaveRAGPending } = useMutation({
     mutationFn: async (f: {
@@ -328,6 +350,10 @@ export const SettingsBody = () => {
                 setActiveChatDictionaries(values as string[])
               }
               disabled={!dictionariesEnabled}
+              aria-label={t(
+                "citationSettings.dictionariesLabel",
+                "Chat dictionaries"
+              )}
             />
             {!dictionariesEnabled && (
               <div className="text-xs text-text-muted">
@@ -454,10 +480,21 @@ export const SettingsBody = () => {
               {
                 required: true,
                 message: t("rag.ragSettings.chunkSize.required")
+              },
+              {
+                type: "number",
+                min: RAG_VALIDATION_RANGES.chunkSize.min,
+                max: RAG_VALIDATION_RANGES.chunkSize.max,
+                message: t(
+                  "rag.ragSettings.chunkSize.range",
+                  `Must be between ${RAG_VALIDATION_RANGES.chunkSize.min} and ${RAG_VALIDATION_RANGES.chunkSize.max}`
+                )
               }
             ]}>
             <InputNumber
               style={{ width: "100%" }}
+              min={RAG_VALIDATION_RANGES.chunkSize.min}
+              max={RAG_VALIDATION_RANGES.chunkSize.max}
               placeholder={t("rag.ragSettings.chunkSize.placeholder")}
             />
           </Form.Item>
@@ -468,10 +505,21 @@ export const SettingsBody = () => {
               {
                 required: true,
                 message: t("rag.ragSettings.chunkOverlap.required")
+              },
+              {
+                type: "number",
+                min: RAG_VALIDATION_RANGES.chunkOverlap.min,
+                max: RAG_VALIDATION_RANGES.chunkOverlap.max,
+                message: t(
+                  "rag.ragSettings.chunkOverlap.range",
+                  `Must be between ${RAG_VALIDATION_RANGES.chunkOverlap.min} and ${RAG_VALIDATION_RANGES.chunkOverlap.max}`
+                )
               }
             ]}>
             <InputNumber
               style={{ width: "100%" }}
+              min={RAG_VALIDATION_RANGES.chunkOverlap.min}
+              max={RAG_VALIDATION_RANGES.chunkOverlap.max}
               placeholder={t("rag.ragSettings.chunkOverlap.placeholder")}
             />
           </Form.Item>

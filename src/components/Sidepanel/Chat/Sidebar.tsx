@@ -373,6 +373,7 @@ export const SidepanelChatSidebar = ({
   const [bulkFolderPickerOpen, setBulkFolderPickerOpen] = React.useState(false)
   const [bulkTagPickerOpen, setBulkTagPickerOpen] = React.useState(false)
   const [bulkDeleteConfirmOpen, setBulkDeleteConfirmOpen] = React.useState(false)
+  const [isBulkDeleting, setIsBulkDeleting] = React.useState(false)
 
   const {
     folderApiAvailable,
@@ -759,33 +760,38 @@ export const SidepanelChatSidebar = ({
   const handleBulkDelete = async () => {
     if (selectedTabs.length === 0) return
 
-    const failedConversationIds = new Set<string>()
-    if (selectedConversationIds.length > 0) {
-      const result = await applyBulkTrash()
-      if (!result) return
-      result.failedConversationIds.forEach((id) => failedConversationIds.add(id))
-    }
-
-    const remainingSelection: string[] = []
-    selectedTabs.forEach((tab) => {
-      if (tab.serverChatId && failedConversationIds.has(tab.serverChatId)) {
-        remainingSelection.push(tab.id)
-        return
+    setIsBulkDeleting(true)
+    try {
+      const failedConversationIds = new Set<string>()
+      if (selectedConversationIds.length > 0) {
+        const result = await applyBulkTrash()
+        if (!result) return
+        result.failedConversationIds.forEach((id) => failedConversationIds.add(id))
       }
-      onCloseTab(tab.id)
-    })
 
-    if (localOnlySelectedCount > 0) {
-      message.info(
-        t("sidepanel:multiSelect.localOnlyClosed", {
-          defaultValue: "{{count}} local chat(s) were closed.",
-          count: localOnlySelectedCount
-        })
-      )
+      const remainingSelection: string[] = []
+      selectedTabs.forEach((tab) => {
+        if (tab.serverChatId && failedConversationIds.has(tab.serverChatId)) {
+          remainingSelection.push(tab.id)
+          return
+        }
+        onCloseTab(tab.id)
+      })
+
+      if (localOnlySelectedCount > 0) {
+        message.info(
+          t("sidepanel:multiSelect.localOnlyClosed", {
+            defaultValue: "{{count}} local chat(s) were closed.",
+            count: localOnlySelectedCount
+          })
+        )
+      }
+
+      setSelectedTabIds(remainingSelection)
+      setBulkDeleteConfirmOpen(false)
+    } finally {
+      setIsBulkDeleting(false)
     }
-
-    setSelectedTabIds(remainingSelection)
-    setBulkDeleteConfirmOpen(false)
   }
 
   const panelClass = classNames(
@@ -1092,7 +1098,7 @@ export const SidepanelChatSidebar = ({
         onOk={handleBulkDelete}
         okText={t("sidepanel:multiSelect.deleteConfirmOk", "Move to trash")}
         cancelText={t("common:cancel", "Cancel")}
-        okButtonProps={{ danger: true }}
+        okButtonProps={{ danger: true, loading: isBulkDeleting }}
         title={t(
           "sidepanel:multiSelect.deleteConfirmTitle",
           "Move chats to trash?"
