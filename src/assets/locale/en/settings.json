@@ -1121,7 +1121,7 @@
       "title": "Set your defaults",
       "subtitle": "Pick a default provider and model for new chats.",
       "loading": "Loading models...",
-      "empty": "No models are available yet. You can set this later in Settings > Models.",
+      "empty": "No models are available yet. You can set this later in Settings \u2192 Models.",
       "providerLabel": "Default API provider",
       "providerAuto": "Auto (from model)",
       "providerHelp": "Leave on Auto to use the provider attached to each model.",

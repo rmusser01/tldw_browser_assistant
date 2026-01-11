@@ -8,6 +8,9 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { useStorage } from "@plasmohq/storage/hook"
 import { applyVariantToMessage } from "@/utils/message-variants"
 import { generateID } from "@/db/dexie/helpers"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import { useStoreMessageOption } from "@/store/option"
+import type { Character } from "@/types/character"
 import {
   EDIT_MESSAGE_EVENT,
   type TimelineActionDetail
@@ -46,6 +49,10 @@ export const SidePanelBody = ({
   } = useMessage()
   const { ttsEnabled } = useWebUI()
   const [openReasoning] = useStorage("openReasoning", false)
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
+  const serverChatCharacterId = useStoreMessageOption(
+    (state) => state.serverChatCharacterId
+  )
   const uiMode = useUiModeStore((state) => state.mode)
   const scrollAnchorRef = React.useRef<number | null>(null)
   const topPaddingClass = "pt-12"
@@ -133,7 +140,6 @@ export const SidePanelBody = ({
         return
       }
       if (messagesRef.current.length === 0) {
-        onTimelineActionHandled?.()
         return
       }
       const index = findIndex(timelineAction.messageId)
@@ -150,7 +156,6 @@ export const SidePanelBody = ({
     }
 
     if (messagesRef.current.length === 0) {
-      onTimelineActionHandled?.()
       return
     }
     const index = findIndex(timelineAction.messageId)
@@ -171,6 +176,7 @@ export const SidePanelBody = ({
   }, [
     createChatBranch,
     historyId,
+    messages.length,
     onTimelineActionHandled,
     rowVirtualizer,
     timelineAction
@@ -203,6 +209,15 @@ export const SidePanelBody = ({
     parentEl.addEventListener('scroll', handleScroll, { passive: true })
     return () => parentEl.removeEventListener('scroll', handleScroll)
   }, [streaming, parentEl])
+
+  const characterIdentityEnabled = React.useMemo(() => {
+    if (!selectedCharacter?.id) return false
+    if (serverChatId) {
+      if (serverChatCharacterId == null) return false
+      return String(serverChatCharacterId) === String(selectedCharacter.id)
+    }
+    return true
+  }, [selectedCharacter?.id, serverChatCharacterId, serverChatId])
 
   return (
     <>
@@ -251,6 +266,8 @@ export const SidePanelBody = ({
                   feedbackQuery={previousUserMessage?.message ?? null}
                   searchQuery={searchQuery}
                   isEmbedding={isEmbedding}
+                  characterIdentity={selectedCharacter}
+                  characterIdentityEnabled={characterIdentityEnabled}
                   variants={message.variants}
                   activeVariantIndex={message.activeVariantIndex}
                   onSwipePrev={() => handleVariantSwipe(message.id, "prev")}

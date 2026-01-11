@@ -143,7 +143,8 @@ export const useMessageOption = () => {
 
   const currentChatModelSettings = useStoreChatModelSettings()
   const [selectedModel, setSelectedModel] = useStorage("selectedModel")
-  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
+  const [selectedCharacter, setSelectedCharacter] =
+    useSelectedCharacter<Character | null>(null)
   const [defaultInternetSearchOn] = useStorage("defaultInternetSearchOn", false)
   const [speechToTextLanguage, setSpeechToTextLanguage] = useStorage(
     "speechToTextLanguage",
@@ -521,6 +522,8 @@ export const useMessageOption = () => {
     setCompareSplitChat,
     compareMaxModels,
     setCompareMaxModels,
+    selectedCharacter,
+    setSelectedCharacter,
     replyTarget,
     clearReplyTarget
   }

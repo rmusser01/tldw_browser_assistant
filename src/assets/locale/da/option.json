@@ -248,6 +248,7 @@
     "runLabel": "Kør hurtig indlæsning",
     "results": "Resultater",
     "downloadJson": "Download JSON-fil",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} avancerede felter indlæst",
     "advancedEmpty": "Ingen avancerede indstillinger fundet — prøv at genindlæse specifikationen.",
     "modifiedCount": "{{count}} ændret",

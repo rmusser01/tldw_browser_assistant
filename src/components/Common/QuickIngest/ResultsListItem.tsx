@@ -1,7 +1,10 @@
 import React from "react"
 import { Button, List, Tag } from "antd"
 import type { TFunction } from "i18next"
-import type { ResultItem, ResultItemWithMediaId } from "./types"
+import type {
+  ResultItem,
+  ResultItemWithMediaId
+} from "@/components/Common/QuickIngest/types"
 
 type ResultsListItemProps = {
   item: ResultItemWithMediaId
@@ -16,18 +19,32 @@ export const ResultsListItem: React.FC<ResultsListItemProps> = React.memo(
   ({ item, processOnly, onDownloadJson, onOpenMedia, onDiscussInChat, t }) => {
     const mediaId = item.mediaId
     const hasMediaId = mediaId != null
+    const handleDownloadJson = React.useCallback(() => {
+      onDownloadJson(item)
+    }, [item, onDownloadJson])
+    const handleOpenMedia = React.useCallback(() => {
+      onOpenMedia(item)
+    }, [item, onOpenMedia])
+    const handleDiscussInChat = React.useCallback(() => {
+      onDiscussInChat(item)
+    }, [item, onDiscussInChat])
     const actions: React.ReactNode[] = []
 
     if (processOnly && item.status === "ok") {
+      const downloadName = item.url || item.fileName || "item"
       actions.push(
         <Button
           key="dl"
           type="link"
           size="small"
-          onClick={() => onDownloadJson(item)}
-          aria-label={`Download JSON for ${item.url || item.fileName || "item"}`}
+          onClick={handleDownloadJson}
+          aria-label={
+            t("quickIngest.downloadJsonAria", "Download JSON for {{name}}", {
+              name: downloadName
+            }) || `Download JSON for ${downloadName}`
+          }
         >
-          {t("quickIngest.downloadJson") || "Download JSON"}
+          {t("quickIngest.downloadJson", "Download JSON")}
         </Button>
       )
     }
@@ -38,7 +55,7 @@ export const ResultsListItem: React.FC<ResultsListItemProps> = React.memo(
           key="open-media"
           type="link"
           size="small"
-          onClick={() => onOpenMedia(item)}
+          onClick={handleOpenMedia}
         >
           {t("quickIngest.openInMedia", "Open in Media viewer")}
         </Button>
@@ -48,7 +65,7 @@ export const ResultsListItem: React.FC<ResultsListItemProps> = React.memo(
           key="discuss-chat"
           type="link"
           size="small"
-          onClick={() => onDiscussInChat(item)}
+          onClick={handleDiscussInChat}
         >
           {t("quickIngest.discussInChat", "Discuss in chat")}
         </Button>

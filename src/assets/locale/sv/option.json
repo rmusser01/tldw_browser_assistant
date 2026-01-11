@@ -248,6 +248,7 @@
     "process": "Bearbeta",
     "results": "Resultat",
     "downloadJson": "Ladda ner JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} avancerade fält inlästa",
     "advancedEmpty": "Inga avancerade alternativ hittades — försök ladda om specifikationen.",
     "modifiedCount": "{{count}} ändrade",

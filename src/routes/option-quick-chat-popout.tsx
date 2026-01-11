@@ -54,49 +54,69 @@ const QuickChatPopout: React.FC = () => {
       hasRestoredRef.current = true
       return
     }
-    {
-      if (!/^[a-zA-Z0-9:_-]{1,128}$/.test(stateKey)) {
-        console.warn("Invalid quick chat state key")
-        hasRestoredRef.current = true
-        return
-      }
-      try {
-        const savedState = sessionStorage.getItem(stateKey)
-        if (!savedState) return
+    if (!/^[a-zA-Z0-9:_-]{1,128}$/.test(stateKey)) {
+      console.warn("Invalid quick chat state key")
+      hasRestoredRef.current = true
+      return
+    }
+    try {
+      const savedState = sessionStorage.getItem(stateKey)
+      if (!savedState) return
 
-        const parsed: unknown = JSON.parse(savedState)
-        // Validate parsed state structure before restoring
-        if (
-          parsed &&
-          typeof parsed === "object" &&
-          Array.isArray((parsed as any).messages)
-        ) {
-          const isValidMsg = (m: any) =>
-            m &&
-            typeof m.id === "string" &&
-            (m.role === "user" || m.role === "assistant") &&
-            typeof m.content === "string" &&
-            typeof m.timestamp === "number"
-
-          const nextMessages = (parsed as any).messages.filter(isValidMsg)
-          const nextModelOverride =
-            typeof (parsed as any).modelOverride === "string"
-              ? (parsed as any).modelOverride
-              : null
-          useQuickChatStore.getState().restoreFromState({
-            messages: nextMessages,
-            modelOverride: nextModelOverride
-          })
-        } else {
-          console.warn("Invalid quick chat state structure in sessionStorage")
+      const parsed = JSON.parse(savedState) as unknown
+      // Validate parsed state structure before restoring
+      if (
+        parsed &&
+        typeof parsed === "object" &&
+        "messages" in parsed &&
+        Array.isArray((parsed as { messages: unknown }).messages)
+      ) {
+        const parsedState = parsed as {
+          messages: unknown[]
+          modelOverride?: unknown
         }
-      } catch (error) {
-        console.error("Failed to restore quick chat state:", error)
-      } finally {
-        // Clean up sessionStorage regardless of validity or parse errors
-        sessionStorage.removeItem(stateKey)
-        hasRestoredRef.current = true
+        const isValidMsg = (m: unknown): m is QuickChatMessage => {
+          if (!m || typeof m !== "object") return false
+          if (
+            !("id" in m) ||
+            !("role" in m) ||
+            !("content" in m) ||
+            !("timestamp" in m)
+          ) {
+            return false
+          }
+          const candidate = m as {
+            id: unknown
+            role: unknown
+            content: unknown
+            timestamp: unknown
+          }
+          return (
+            typeof candidate.id === "string" &&
+            (candidate.role === "user" || candidate.role === "assistant") &&
+            typeof candidate.content === "string" &&
+            typeof candidate.timestamp === "number"
+          )
+        }
+
+        const nextMessages = parsedState.messages.filter(isValidMsg)
+        const nextModelOverride =
+          typeof parsedState.modelOverride === "string"
+            ? parsedState.modelOverride
+            : null
+        useQuickChatStore.getState().restoreFromState({
+          messages: nextMessages,
+          modelOverride: nextModelOverride
+        })
+      } else {
+        console.warn("Invalid quick chat state structure in sessionStorage")
       }
+    } catch (error) {
+      console.error("Failed to restore quick chat state:", error)
+    } finally {
+      // Clean up sessionStorage regardless of validity or parse errors
+      sessionStorage.removeItem(stateKey)
+      hasRestoredRef.current = true
     }
   }, [searchParams])
 
@@ -124,6 +144,18 @@ const QuickChatPopout: React.FC = () => {
     "option:quickChatHelper.emptyState",
     "Start a quick side chat to keep your main thread clean."
   )
+  let notFoundContent: string | undefined
+  if (showModelsError) {
+    notFoundContent = t(
+      "option:quickChatHelper.modelsLoadError",
+      "Unable to load models"
+    )
+  } else if (models.length === 0 && !modelsLoading) {
+    notFoundContent = t(
+      "option:quickChatHelper.noModelsAvailable",
+      "No models available"
+    )
+  }
   const { allowClear, modelOptions, modelPlaceholder, handleModelChange } =
     useChatModelsSelect({
       models,
@@ -157,19 +189,7 @@ const QuickChatPopout: React.FC = () => {
           aria-label={t("option:quickChatHelper.modelLabel", "Model")}
           aria-describedby={showModelsError ? modelsErrorHintId : undefined}
           onChange={handleModelChange}
-          notFoundContent={
-            showModelsError
-              ? t(
-                  "option:quickChatHelper.modelsLoadError",
-                  "Unable to load models"
-                )
-              : models.length === 0 && !modelsLoading
-                ? t(
-                    "option:quickChatHelper.noModelsAvailable",
-                    "No models available"
-                  )
-                : undefined
-          }
+          notFoundContent={notFoundContent}
         />
         {showModelsError && (
           <div

@@ -21,6 +21,7 @@ import {
 } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { useCharacterGreeting } from "@/hooks/useCharacterGreeting"
 import { copilotResumeLastChat } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ServerChatMessage as ApiServerChatMessage } from "@/services/tldw/TldwApiClient"
@@ -37,8 +38,10 @@ import { ConnectionBanner } from "~/components/Sidepanel/Chat/ConnectionBanner"
 import { SidepanelChatSidebar } from "~/components/Sidepanel/Chat/Sidebar"
 import NoteQuickSaveModal from "~/components/Sidepanel/Notes/NoteQuickSaveModal"
 import { useMessage } from "~/hooks/useMessage"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { useSidepanelChatTabsStore } from "@/store/sidepanel-chat-tabs"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
+import type { Character } from "@/types/character"
 import type {
   ChatModelSettingsSnapshot,
   SidepanelChatSnapshot,
@@ -383,6 +386,8 @@ const SidepanelChat = () => {
     webSearch,
     setWebSearch
   } = useMessage()
+  const [selectedCharacter, setSelectedCharacter] =
+    useSelectedCharacter<Character | null>(null)
   const tabs = useSidepanelChatTabsStore((state) => state.tabs)
   const activeTabId = useSidepanelChatTabsStore((state) => state.activeTabId)
   const modelSettingsSnapshot = useStoreChatModelSettings((state) =>
@@ -409,6 +414,15 @@ const SidepanelChat = () => {
     DEFAULT_CHAT_SETTINGS.stickyChatInput
   )
   const [userDisplayName] = useStorage("chatUserDisplayName", "")
+  useCharacterGreeting({
+    playgroundReady: !isRestoringChat,
+    selectedCharacter,
+    serverChatId,
+    messagesLength: messages.length,
+    setMessages,
+    setHistory,
+    setSelectedCharacter
+  })
   const composerPadding = composerHeight
     ? `${composerHeight + 16}px`
     : `${DEFAULT_COMPOSER_HEIGHT}px`

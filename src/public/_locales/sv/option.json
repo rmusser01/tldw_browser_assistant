@@ -1768,5 +1768,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

@@ -22,7 +22,6 @@ import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 import { useSetting } from "@/hooks/useSetting"
 import { useStorage } from "@plasmohq/storage/hook"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
-import type { Character } from "@/types/character"
 import { useLoadLocalConversation } from "@/hooks/useLoadLocalConversation"
 import {
   EDIT_MESSAGE_EVENT,
@@ -31,7 +30,6 @@ import {
   type OpenHistoryDetail,
   type TimelineActionDetail
 } from "@/utils/timeline-actions"
-import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { useCharacterGreeting } from "@/hooks/useCharacterGreeting"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
@@ -42,9 +40,6 @@ export const Playground = () => {
     "stickyChatInput",
     DEFAULT_CHAT_SETTINGS.stickyChatInput
   )
-  const [selectedCharacter, setSelectedCharacter] =
-    useSelectedCharacter<Character | null>(null)
-
   const {
     messages,
     history,
@@ -59,7 +54,9 @@ export const Playground = () => {
     setServerChatId,
     setContextFiles,
     createChatBranch,
-    streaming
+    streaming,
+    selectedCharacter,
+    setSelectedCharacter
   } = useMessageOption()
   const { setSystemPrompt } = useStoreChatModelSettings()
   const { containerRef, isAutoScrollToBottom, autoScrollToBottom } =

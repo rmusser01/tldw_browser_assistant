@@ -1,20 +1,11 @@
-import { Select, Switch, Tag } from "antd"
-import { type ReactNode, useCallback } from "react"
+import { Select, Switch } from "antd"
 import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
 import { BetaTag } from "@/components/Common/Beta"
+import { SettingRow } from "@/components/Common/SettingRow"
 
 const SELECT_WIDTH = 200
-
-type SettingRowProps = {
-  label: string
-  value?: boolean | string
-  defaultValue?: boolean | string
-  beta?: boolean
-  labelFor?: string
-  control: ReactNode
-}
 
 export const ChatSettings = () => {
   const { t } = useTranslation("settings")
@@ -133,21 +124,6 @@ export const ChatSettings = () => {
     DEFAULT_CHAT_SETTINGS.chatAssistantTextSize
   )
 
-  const handleMenuDensityChange = useCallback(
-    (value: string) =>
-      setMenuDensity(value as "comfortable" | "compact"),
-    [setMenuDensity]
-  )
-  const handleUserTextSizeChange = useCallback(
-    (value: string) => setUserTextSize(value as "sm" | "md" | "lg"),
-    [setUserTextSize]
-  )
-  const handleAssistantTextSizeChange = useCallback(
-    (value: string) =>
-      setAssistantTextSize(value as "sm" | "md" | "lg"),
-    [setAssistantTextSize]
-  )
-
   const colorOptions = [
     {
       value: "default",
@@ -187,40 +163,14 @@ export const ChatSettings = () => {
     }
   ]
 
-  const defaultBadgeLabel = t("generalSettings.settings.defaultBadge", "default")
-
-  const SettingRow = ({
-    label,
-    value,
-    defaultValue,
-    beta = false,
-    labelFor,
-    control
-  }: SettingRowProps) => {
-    const showDefaultBadge =
-      defaultValue !== undefined && value === defaultValue
-
-    return (
-      <div className="flex flex-row justify-between">
-        <div className="inline-flex items-center gap-2">
-          {beta && <BetaTag />}
-          {labelFor ? (
-            <label htmlFor={labelFor} className="text-text">
-              {label}
-            </label>
-          ) : (
-            <span className="text-text">{label}</span>
-          )}
-          {showDefaultBadge && (
-            <Tag className="text-[10px] py-0 px-1.5 leading-4">
-              {defaultBadgeLabel}
-            </Tag>
-          )}
-        </div>
-        {control}
-      </div>
-    )
-  }
+  const getResetProps = <T extends boolean | string>(
+    value: T,
+    defaultValue: T,
+    setter: (next: T) => void
+  ) => ({
+    modified: value !== defaultValue,
+    onReset: () => setter(defaultValue)
+  })
 
   return (
     <dl className="flex flex-col space-y-6 text-sm">
@@ -239,8 +189,11 @@ export const ChatSettings = () => {
 
       <SettingRow
         label={t("generalSettings.settings.copilotResumeLastChat.label")}
-        value={copilotResumeLastChat}
-        defaultValue={DEFAULT_CHAT_SETTINGS.copilotResumeLastChat}
+        {...getResetProps(
+          copilotResumeLastChat,
+          DEFAULT_CHAT_SETTINGS.copilotResumeLastChat,
+          setCopilotResumeLastChat
+        )}
         control={
           <Switch
             checked={copilotResumeLastChat}
@@ -251,8 +204,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.turnOnChatWithWebsite.label")}
-        value={defaultChatWithWebsite}
-        defaultValue={DEFAULT_CHAT_SETTINGS.defaultChatWithWebsite}
+        {...getResetProps(
+          defaultChatWithWebsite,
+          DEFAULT_CHAT_SETTINGS.defaultChatWithWebsite,
+          setDefaultChatWithWebsite
+        )}
         control={
           <Switch
             checked={defaultChatWithWebsite}
@@ -263,8 +219,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.webUIResumeLastChat.label")}
-        value={webUIResumeLastChat}
-        defaultValue={DEFAULT_CHAT_SETTINGS.webUIResumeLastChat}
+        {...getResetProps(
+          webUIResumeLastChat,
+          DEFAULT_CHAT_SETTINGS.webUIResumeLastChat,
+          setWebUIResumeLastChat
+        )}
         control={
           <Switch
             checked={webUIResumeLastChat}
@@ -275,8 +234,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.hideCurrentChatModelSettings.label")}
-        value={hideCurrentChatModelSettings}
-        defaultValue={DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings}
+        {...getResetProps(
+          hideCurrentChatModelSettings,
+          DEFAULT_CHAT_SETTINGS.hideCurrentChatModelSettings,
+          setHideCurrentChatModelSettings
+        )}
         control={
           <Switch
             checked={hideCurrentChatModelSettings}
@@ -292,8 +254,11 @@ export const ChatSettings = () => {
           "generalSettings.settings.hideQuickChatHelper.label",
           "Hide Quick Chat Helper button"
         )}
-        value={hideQuickChatHelper}
-        defaultValue={DEFAULT_CHAT_SETTINGS.hideQuickChatHelper}
+        {...getResetProps(
+          hideQuickChatHelper,
+          DEFAULT_CHAT_SETTINGS.hideQuickChatHelper,
+          setHideQuickChatHelper
+        )}
         control={
           <Switch
             checked={hideQuickChatHelper}
@@ -307,8 +272,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.restoreLastChatModel.label")}
-        value={restoreLastChatModel}
-        defaultValue={DEFAULT_CHAT_SETTINGS.restoreLastChatModel}
+        {...getResetProps(
+          restoreLastChatModel,
+          DEFAULT_CHAT_SETTINGS.restoreLastChatModel,
+          setRestoreLastChatModel
+        )}
         control={
           <Switch
             checked={restoreLastChatModel}
@@ -319,8 +287,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.generateTitle.label")}
-        value={generateTitle}
-        defaultValue={DEFAULT_CHAT_SETTINGS.titleGenEnabled}
+        {...getResetProps(
+          generateTitle,
+          DEFAULT_CHAT_SETTINGS.titleGenEnabled,
+          setGenerateTitle
+        )}
         control={
           <Switch
             checked={generateTitle}
@@ -331,8 +302,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.wideMode.label")}
-        value={checkWideMode}
-        defaultValue={DEFAULT_CHAT_SETTINGS.checkWideMode}
+        {...getResetProps(
+          checkWideMode,
+          DEFAULT_CHAT_SETTINGS.checkWideMode,
+          setCheckWideMode
+        )}
         control={
           <Switch
             checked={checkWideMode}
@@ -343,8 +317,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.stickyChatInput.label")}
-        value={stickyChatInput}
-        defaultValue={DEFAULT_CHAT_SETTINGS.stickyChatInput}
+        {...getResetProps(
+          stickyChatInput,
+          DEFAULT_CHAT_SETTINGS.stickyChatInput,
+          setStickyChatInput
+        )}
         control={
           <Switch
             checked={stickyChatInput}
@@ -355,8 +332,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.menuDensity.label", "Menu density")}
-        value={menuDensity}
-        defaultValue={DEFAULT_CHAT_SETTINGS.menuDensity}
+        {...getResetProps(
+          menuDensity,
+          DEFAULT_CHAT_SETTINGS.menuDensity,
+          setMenuDensity
+        )}
         control={
           <Select
             aria-label={t(
@@ -365,15 +345,20 @@ export const ChatSettings = () => {
             )}
             style={{ width: SELECT_WIDTH }}
             value={menuDensity}
-            onChange={handleMenuDensityChange}
+            onChange={(value) =>
+              setMenuDensity(value as "comfortable" | "compact")
+            }
             options={menuDensityOptions}
           />
         }
       />
       <SettingRow
         label={t("generalSettings.settings.openReasoning.label")}
-        value={openReasoning}
-        defaultValue={DEFAULT_CHAT_SETTINGS.openReasoning}
+        {...getResetProps(
+          openReasoning,
+          DEFAULT_CHAT_SETTINGS.openReasoning,
+          setOpenReasoning
+        )}
         control={
           <Switch
             checked={openReasoning}
@@ -384,8 +369,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.userChatBubble.label")}
-        value={userChatBubble}
-        defaultValue={DEFAULT_CHAT_SETTINGS.userChatBubble}
+        {...getResetProps(
+          userChatBubble,
+          DEFAULT_CHAT_SETTINGS.userChatBubble,
+          setUserChatBubble
+        )}
         control={
           <Switch
             checked={userChatBubble}
@@ -396,8 +384,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.autoCopyResponseToClipboard.label")}
-        value={autoCopyResponseToClipboard}
-        defaultValue={DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard}
+        {...getResetProps(
+          autoCopyResponseToClipboard,
+          DEFAULT_CHAT_SETTINGS.autoCopyResponseToClipboard,
+          setAutoCopyResponseToClipboard
+        )}
         control={
           <Switch
             checked={autoCopyResponseToClipboard}
@@ -410,8 +401,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.useMarkdownForUserMessage.label")}
-        value={useMarkdownForUserMessage}
-        defaultValue={DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage}
+        {...getResetProps(
+          useMarkdownForUserMessage,
+          DEFAULT_CHAT_SETTINGS.useMarkdownForUserMessage,
+          setUseMarkdownForUserMessage
+        )}
         control={
           <Switch
             checked={useMarkdownForUserMessage}
@@ -425,8 +419,11 @@ export const ChatSettings = () => {
           "generalSettings.settings.allowExternalImages.label",
           "Load external images in messages"
         )}
-        value={allowExternalImages}
-        defaultValue={DEFAULT_CHAT_SETTINGS.allowExternalImages}
+        {...getResetProps(
+          allowExternalImages,
+          DEFAULT_CHAT_SETTINGS.allowExternalImages,
+          setAllowExternalImages
+        )}
         control={
           <Switch
             checked={allowExternalImages}
@@ -440,8 +437,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.copyAsFormattedText.label")}
-        value={copyAsFormattedText}
-        defaultValue={DEFAULT_CHAT_SETTINGS.copyAsFormattedText}
+        {...getResetProps(
+          copyAsFormattedText,
+          DEFAULT_CHAT_SETTINGS.copyAsFormattedText,
+          setCopyAsFormattedText
+        )}
         control={
           <Switch
             checked={copyAsFormattedText}
@@ -451,10 +451,17 @@ export const ChatSettings = () => {
         }
       />
       <SettingRow
-        label={t("generalSettings.settings.tabMentionsEnabled.label")}
-        value={tabMentionsEnabled}
-        defaultValue={DEFAULT_CHAT_SETTINGS.tabMentionsEnabled}
-        beta
+        label={
+          <span className="inline-flex items-center gap-2">
+            {t("generalSettings.settings.tabMentionsEnabled.label")}
+            <BetaTag />
+          </span>
+        }
+        {...getResetProps(
+          tabMentionsEnabled,
+          DEFAULT_CHAT_SETTINGS.tabMentionsEnabled,
+          setTabMentionsEnabled
+        )}
         control={
           <Switch
             checked={tabMentionsEnabled}
@@ -465,8 +472,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.pasteLargeTextAsFile.label")}
-        value={pasteLargeTextAsFile}
-        defaultValue={DEFAULT_CHAT_SETTINGS.pasteLargeTextAsFile}
+        {...getResetProps(
+          pasteLargeTextAsFile,
+          DEFAULT_CHAT_SETTINGS.pasteLargeTextAsFile,
+          setPasteLargeTextAsFile
+        )}
         control={
           <Switch
             checked={pasteLargeTextAsFile}
@@ -477,8 +487,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.sidepanelTemporaryChat.label")}
-        value={sidepanelTemporaryChat}
-        defaultValue={DEFAULT_CHAT_SETTINGS.sidepanelTemporaryChat}
+        {...getResetProps(
+          sidepanelTemporaryChat,
+          DEFAULT_CHAT_SETTINGS.sidepanelTemporaryChat,
+          setSidepanelTemporaryChat
+        )}
         control={
           <Switch
             checked={sidepanelTemporaryChat}
@@ -489,8 +502,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.removeReasoningTagFromCopy.label")}
-        value={removeReasoningTagFromCopy}
-        defaultValue={DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy}
+        {...getResetProps(
+          removeReasoningTagFromCopy,
+          DEFAULT_CHAT_SETTINGS.removeReasoningTagFromCopy,
+          setRemoveReasoningTagFromCopy
+        )}
         control={
           <Switch
             checked={removeReasoningTagFromCopy}
@@ -501,8 +517,11 @@ export const ChatSettings = () => {
       />
       <SettingRow
         label={t("generalSettings.settings.promptSearchIncludeServer.label")}
-        value={promptSearchIncludeServer}
-        defaultValue={DEFAULT_CHAT_SETTINGS.promptSearchIncludeServer}
+        {...getResetProps(
+          promptSearchIncludeServer,
+          DEFAULT_CHAT_SETTINGS.promptSearchIncludeServer,
+          setPromptSearchIncludeServer
+        )}
         control={
           <Switch
             checked={promptSearchIncludeServer}
@@ -533,13 +552,18 @@ export const ChatSettings = () => {
 
       <SettingRow
         label={t("chatAppearance.userColor", "User text color")}
-        labelFor="user-text-color"
+        id="user-text-color"
+        {...getResetProps(
+          userTextColor,
+          DEFAULT_CHAT_SETTINGS.chatUserTextColor,
+          setUserTextColor
+        )}
         control={
           <Select
             id="user-text-color"
             style={{ width: SELECT_WIDTH }}
             value={userTextColor}
-            onChange={setUserTextColor}
+            onChange={(value) => setUserTextColor(value)}
             options={colorOptions}
           />
         }
@@ -547,13 +571,18 @@ export const ChatSettings = () => {
 
       <SettingRow
         label={t("chatAppearance.userFont", "User font")}
-        labelFor="user-text-font"
+        id="user-text-font"
+        {...getResetProps(
+          userTextFont,
+          DEFAULT_CHAT_SETTINGS.chatUserTextFont,
+          setUserTextFont
+        )}
         control={
           <Select
             id="user-text-font"
             style={{ width: SELECT_WIDTH }}
             value={userTextFont}
-            onChange={setUserTextFont}
+            onChange={(value) => setUserTextFont(value)}
             options={fontOptions}
           />
         }
@@ -561,13 +590,18 @@ export const ChatSettings = () => {
 
       <SettingRow
         label={t("chatAppearance.userSize", "User text size")}
-        labelFor="user-text-size"
+        id="user-text-size"
+        {...getResetProps(
+          userTextSize,
+          DEFAULT_CHAT_SETTINGS.chatUserTextSize,
+          setUserTextSize
+        )}
         control={
           <Select
             id="user-text-size"
             style={{ width: SELECT_WIDTH }}
             value={userTextSize}
-            onChange={handleUserTextSizeChange}
+            onChange={(value) => setUserTextSize(value as "sm" | "md" | "lg")}
             options={sizeOptions}
           />
         }
@@ -581,13 +615,18 @@ export const ChatSettings = () => {
 
       <SettingRow
         label={t("chatAppearance.assistantColor", "Assistant text color")}
-        labelFor="assistant-text-color"
+        id="assistant-text-color"
+        {...getResetProps(
+          assistantTextColor,
+          DEFAULT_CHAT_SETTINGS.chatAssistantTextColor,
+          setAssistantTextColor
+        )}
         control={
           <Select
             id="assistant-text-color"
             style={{ width: SELECT_WIDTH }}
             value={assistantTextColor}
-            onChange={setAssistantTextColor}
+            onChange={(value) => setAssistantTextColor(value)}
             options={colorOptions}
           />
         }
@@ -595,13 +634,18 @@ export const ChatSettings = () => {
 
       <SettingRow
         label={t("chatAppearance.assistantFont", "Assistant font")}
-        labelFor="assistant-text-font"
+        id="assistant-text-font"
+        {...getResetProps(
+          assistantTextFont,
+          DEFAULT_CHAT_SETTINGS.chatAssistantTextFont,
+          setAssistantTextFont
+        )}
         control={
           <Select
             id="assistant-text-font"
             style={{ width: SELECT_WIDTH }}
             value={assistantTextFont}
-            onChange={setAssistantTextFont}
+            onChange={(value) => setAssistantTextFont(value)}
             options={fontOptions}
           />
         }
@@ -609,13 +653,20 @@ export const ChatSettings = () => {
 
       <SettingRow
         label={t("chatAppearance.assistantSize", "Assistant text size")}
-        labelFor="assistant-text-size"
+        id="assistant-text-size"
+        {...getResetProps(
+          assistantTextSize,
+          DEFAULT_CHAT_SETTINGS.chatAssistantTextSize,
+          setAssistantTextSize
+        )}
         control={
           <Select
             id="assistant-text-size"
             style={{ width: SELECT_WIDTH }}
             value={assistantTextSize}
-            onChange={handleAssistantTextSizeChange}
+            onChange={(value) =>
+              setAssistantTextSize(value as "sm" | "md" | "lg")
+            }
             options={sizeOptions}
           />
         }

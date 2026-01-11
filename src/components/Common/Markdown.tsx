@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
 import ReactMarkdown from "react-markdown"
 import rehypeKatex from "rehype-katex"
-import { Highlight, themes } from "prism-react-renderer"
+import { Highlight } from "prism-react-renderer"
 
 import "property-information"
 import React from "react"
@@ -14,18 +14,7 @@ import { preprocessLaTeX } from "@/utils/latex"
 import { useStorage } from "@plasmohq/storage/hook"
 import { highlightText } from "@/utils/text-highlight"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
-
-const normalizeLanguage = (language: string): string => {
-  const lang = (language || "").toLowerCase()
-  if (lang === "js" || lang === "jsx") return "javascript"
-  if (lang === "ts" || lang === "tsx") return "typescript"
-  if (lang === "sh" || lang === "bash") return "bash"
-  if (lang === "py") return "python"
-  if (lang === "md" || lang === "markdown") return "markdown"
-  if (lang === "yml") return "yaml"
-  if (!lang) return ""
-  return lang
-}
+import { normalizeLanguage, resolveTheme, safeLanguage } from "@/utils/code-theme"
 
 function Markdown({
   message,
@@ -47,39 +36,7 @@ function Markdown({
     DEFAULT_CHAT_SETTINGS.allowExternalImages
   )
   const blockIndexRef = React.useRef(0)
-  const resolveTheme = (key: string) => {
-    if (key === "auto") {
-      let isDark = false
-      try {
-        if (typeof document !== "undefined") {
-          const root = document.documentElement
-          if (root.classList.contains("dark")) {
-            isDark = true
-          } else if (root.classList.contains("light")) {
-            isDark = false
-          } else if (typeof window !== "undefined") {
-            isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-          }
-        }
-      } catch {
-        isDark = false
-      }
-      return isDark ? themes.dracula : themes.github
-    }
-    switch (key) {
-      case "github":
-        return themes.github
-      case "nightOwl":
-        return themes.nightOwl
-      case "nightOwlLight":
-        return themes.nightOwlLight
-      case "vsDark":
-        return themes.vsDark
-      case "dracula":
-      default:
-        return themes.dracula
-    }
-  }
+  blockIndexRef.current = 0
   if (checkWideMode) {
     className += " max-w-none"
   }
@@ -124,7 +81,7 @@ function Markdown({
                   <div className="not-prose my-2 rounded-lg border border-border bg-surface2/70 px-3 py-2 overflow-x-auto">
                     <Highlight
                       code={value}
-                      language={highlightLanguage as any}
+                      language={safeLanguage(highlightLanguage)}
                       theme={resolveTheme(codeTheme || "dracula")}>
                       {({
                         className: highlightClassName,
@@ -215,7 +172,7 @@ function Markdown({
               />
             )
           },
-          table({ children,    }) {
+          table({ children }) {
             return <TableBlock>{children}</TableBlock>
           },
           p({ children }) {

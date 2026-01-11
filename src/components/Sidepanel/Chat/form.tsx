@@ -370,7 +370,10 @@ export const SidepanelForm = ({
             id: "knowledge",
             label: t("sidepanel:composer.knowledgeContext", "Knowledge base"),
             icon: <Search className="h-3 w-3 text-text-subtle" />,
-            onRemove: () => setKnowledgeMentionActive(false),
+            onRemove: () => {
+              setKnowledgeMentionActive(false)
+              window.dispatchEvent(new CustomEvent("tldw:toggle-rag"))
+            },
             removeLabel: t(
               "sidepanel:composer.removeKnowledge",
               "Remove knowledge context"

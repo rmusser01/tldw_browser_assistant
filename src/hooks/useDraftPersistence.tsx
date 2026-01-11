@@ -5,7 +5,15 @@ import { createLocalRegistryBucket } from "@/services/settings/local-bucket"
 const DRAFT_BUCKET_PREFIX = "registry:draft:"
 const DRAFT_TTL_MS = 30 * 24 * 60 * 60 * 1000
 
-type DraftMetadata = Record<string, unknown>
+type DraftMetadataValue =
+  | string
+  | number
+  | boolean
+  | null
+  | DraftMetadata
+  | DraftMetadataValue[]
+
+type DraftMetadata = Record<string, DraftMetadataValue>
 
 type DraftPayload = {
   content: string
@@ -19,22 +27,47 @@ const draftBucket = createLocalRegistryBucket<DraftValue>({
   ttlMs: DRAFT_TTL_MS
 })
 
+const isPlainObject = (value: unknown): value is Record<string, unknown> => {
+  if (!value || typeof value !== "object") return false
+  const proto = Object.getPrototypeOf(value)
+  return proto === Object.prototype || proto === null
+}
+
+const isJsonSafe = (value: unknown): value is DraftMetadataValue => {
+  if (value === null) return true
+  const valueType = typeof value
+  if (valueType === "string" || valueType === "number" || valueType === "boolean") {
+    return true
+  }
+  if (Array.isArray(value)) {
+    return value.every((item) => isJsonSafe(item))
+  }
+  if (isPlainObject(value)) {
+    return Object.values(value).every((item) => isJsonSafe(item))
+  }
+  return false
+}
+
+const isDraftPayload = (value: DraftValue | null): value is DraftPayload => {
+  if (!isPlainObject(value)) return false
+  if (!Object.prototype.hasOwnProperty.call(value, "content")) return false
+  const payload = value as { content?: unknown }
+  return typeof payload.content === "string"
+}
+
+const hasDraftContent = (draft: DraftPayload | null) =>
+  typeof draft?.content === "string" && draft.content.trim().length > 0
+
 const normalizeDraftValue = (value: DraftValue | null): DraftPayload | null => {
   if (typeof value === "string") {
     return { content: value }
   }
-  if (!value || typeof value !== "object") return null
-  if (!("content" in value)) return null
-  const payload = value as DraftPayload
-  const content = payload.content
-  if (typeof content !== "string") return null
+  if (!isDraftPayload(value)) return null
   const metadata =
-    typeof payload.metadata === "object" &&
-    payload.metadata !== null &&
-    !Array.isArray(payload.metadata)
-      ? (payload.metadata as DraftMetadata)
+    isPlainObject(value.metadata) && isJsonSafe(value.metadata)
+      ? (value.metadata as DraftMetadata)
       : undefined
-  return { content, metadata }
+  return { content: value.content, metadata }
 }
 
 const readLegacyDraft = (storageKey: string): string | null => {
@@ -107,9 +140,9 @@ export const useDraftPersistence = ({
     let cancelled = false
     const restoreDraft = async () => {
       const record = await draftBucket.get(storageKey)
-      let draftValue = normalizeDraftValue(record?.value ?? null)
-      const hasDraftContent = (draft: DraftPayload | null) =>
-        typeof draft?.content === "string" && draft.content.trim().length > 0
+      const storedValue = record?.value ?? null
+      let draftValue = normalizeDraftValue(storedValue)
+      const hasInvalidRecord = storedValue != null && draftValue === null
 
       if (!hasDraftContent(draftValue)) {
         const legacyDraft = readLegacyDraft(storageKey)
@@ -119,6 +152,8 @@ export const useDraftPersistence = ({
           draftValue = { content: legacyDraft }
         } else if (legacyDraft) {
           clearLegacyDraft(storageKey)
+        } else if (hasInvalidRecord) {
+          await draftBucket.remove(storageKey)
         }
       } else {
         clearLegacyDraft(storageKey)
@@ -177,8 +212,11 @@ export const useDraftPersistence = ({
       void (async () => {
         let metadata: DraftMetadata | undefined
         try {
-          metadata = getMetadata?.()
+          metadata = getMetadata?.() ?? undefined
         } catch {
+          metadata = undefined
+        }
+        if (metadata && (!isPlainObject(metadata) || !isJsonSafe(metadata))) {
           metadata = undefined
         }
         const nextValue: DraftValue =

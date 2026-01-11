@@ -241,6 +241,7 @@
     "process": "Обробити",
     "results": "Результати",
     "downloadJson": "Завантажити JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "Завантажено {{count}} розширених полів",
     "advancedEmpty": "Розширені параметри не знайдено — спробуйте перезавантажити специфікацію.",
     "modifiedCount": "Змінено: {{count}}",

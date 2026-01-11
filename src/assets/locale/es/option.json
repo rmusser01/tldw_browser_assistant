@@ -470,6 +470,7 @@
     "runLabel": "Ejecutar Quick Ingest",
     "results": "Resultados",
     "downloadJson": "Descargar JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} campos avanzados cargados",
     "advancedEmpty": "No se detectaron opciones avanzadas — prueba a recargar la especificación.",
     "modifiedCount": "{{count}} modificados",

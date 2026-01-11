@@ -462,6 +462,7 @@
     "process": "處理",
     "results": "結果",
     "downloadJson": "下載 JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "已載入 {{count}} 個進階欄位",
     "advancedEmpty": "未偵測到進階選項 — 請嘗試重新載入規格。",
     "modifiedCount": "{{count}} 項已修改",

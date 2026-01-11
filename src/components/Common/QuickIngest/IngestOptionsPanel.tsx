@@ -7,6 +7,7 @@ import {
   Space,
   Switch,
   Tag,
+  Tooltip,
   Typography
 } from "antd"
 import type { TFunction } from "i18next"
@@ -207,40 +208,39 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
   )
   const handleStorageDocsClick = React.useCallback(() => {
     const defaultUrl = "https://github.com/rmusser01/tldw_browser_assistant"
-    const allowedHostnames = new Set(["github.com"])
-    try {
-      const docsUrl =
-        t("quickIngest.storageDocsUrl", defaultUrl) || defaultUrl
-      let validatedUrl = defaultUrl
+    const allowedHostnames = new Set([
+      "github.com",
+      "docs.tldw.io",
+      "readthedocs.io"
+    ])
+    const docsUrl =
+      t("quickIngest.storageDocsUrl", defaultUrl) || defaultUrl
+    let validatedUrl = defaultUrl
+    if (docsUrl.startsWith("/")) {
+      const resolvedUrl = new URL(docsUrl, window.location.origin)
+      if (resolvedUrl.protocol === "http:" || resolvedUrl.protocol === "https:") {
+        validatedUrl = resolvedUrl.toString()
+      }
+    } else {
       try {
-        if (docsUrl.startsWith("/")) {
-          const resolvedUrl = new URL(docsUrl, window.location.origin)
-          if (resolvedUrl.protocol === "http:" || resolvedUrl.protocol === "https:") {
-            validatedUrl = resolvedUrl.toString()
-          }
-        } else {
-          const parsedUrl = new URL(docsUrl)
-          if (
-            (parsedUrl.protocol === "http:" ||
-              parsedUrl.protocol === "https:") &&
-            allowedHostnames.has(parsedUrl.hostname)
-          ) {
-            validatedUrl = parsedUrl.toString()
-          }
+        const parsedUrl = new URL(docsUrl)
+        if (
+          (parsedUrl.protocol === "http:" ||
+            parsedUrl.protocol === "https:") &&
+          allowedHostnames.has(parsedUrl.hostname)
+        ) {
+          validatedUrl = parsedUrl.toString()
         }
       } catch {
-        // fallback to defaultUrl
-      }
-      window.open(validatedUrl, "_blank", "noopener,noreferrer")
-    } catch {
-      // ignore navigation errors
-    } finally {
-      try {
-        setStorageHintSeen(true)
-      } catch {
-        // ignore storage errors
+        // Invalid URL, fallback to defaultUrl
       }
     }
+    try {
+      window.open(validatedUrl, "_blank", "noopener,noreferrer")
+    } catch (error) {
+      console.warn("Failed to open docs link:", error)
+    }
+    setStorageHintSeen(true)
   }, [setStorageHintSeen, t])
   const handleCheckOnce = React.useCallback(async () => {
     try {
@@ -474,27 +474,40 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
                       )}
                     </Typography.Text>
                     <Space align="center" size="small">
-                      <Switch
-                        aria-label={
-                          storeRemote
-                            ? t(
-                                "quickIngest.storeRemoteAria",
-                                "Store ingest results on your tldw server"
-                              )
-                            : t(
-                                "quickIngest.processOnlyAria",
-                                "Process ingest results locally only"
-                              )
-                        }
+                      <Tooltip
                         title={
-                          storeRemote
-                            ? t("quickIngest.storeRemote", "Store to remote DB")
-                            : t("quickIngest.process", "Process locally")
+                          reviewBeforeStorage
+                            ? qi(
+                                "reviewModeStorageDisabled",
+                                "Storage location is locked when review mode is enabled"
+                              )
+                            : undefined
                         }
-                        checked={storeRemote}
-                        onChange={setStoreRemote}
-                        disabled={running || reviewBeforeStorage}
-                      />
+                      >
+                        <span>
+                          <Switch
+                            aria-label={
+                              storeRemote
+                                ? t(
+                                    "quickIngest.storeRemoteAria",
+                                    "Store ingest results on your tldw server"
+                                  )
+                                : t(
+                                    "quickIngest.processOnlyAria",
+                                    "Process ingest results locally only"
+                                  )
+                            }
+                            title={
+                              storeRemote
+                                ? t("quickIngest.storeRemote", "Store to remote DB")
+                                : t("quickIngest.process", "Process locally")
+                            }
+                            checked={storeRemote}
+                            onChange={setStoreRemote}
+                            disabled={running || reviewBeforeStorage}
+                          />
+                        </span>
+                      </Tooltip>
                       <Typography.Text>{storageLabel}</Typography.Text>
                     </Space>
                   </div>

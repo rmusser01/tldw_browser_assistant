@@ -2997,7 +2997,7 @@
     "message": "Loading models..."
   },
   "onboarding_defaults_empty": {
-    "message": "No models are available yet. You can set this later in Settings > Models."
+    "message": "No models are available yet. You can set this later in Settings → Models."
   },
   "onboarding_defaults_providerLabel": {
     "message": "Default API provider"

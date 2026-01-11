@@ -124,6 +124,7 @@ export const PlaygroundChat = () => {
     createCompareBranch,
     temporaryChat,
     serverChatId,
+    serverChatCharacterId,
     stopStreamingRequest,
     isEmbedding,
     compareMode,
@@ -198,10 +199,27 @@ export const PlaygroundChat = () => {
     [messages]
   )
   const firstUserIndex = React.useMemo(
-    () => messages.findIndex((msg) => msg?.role === "user"),
+    () =>
+      messages.findIndex(
+        (msg) => msg?.role === "user" || msg?.isBot === false
+      ),
     [messages]
   )
   const hasSelectedCharacter = Boolean(selectedCharacter?.id)
+  const characterIdentityEnabled = React.useMemo(() => {
+    if (!selectedCharacter?.id) return false
+    if (compareModeActive) return false
+    if (serverChatId) {
+      if (serverChatCharacterId == null) return false
+      return String(serverChatCharacterId) === String(selectedCharacter.id)
+    }
+    return true
+  }, [
+    compareModeActive,
+    selectedCharacter?.id,
+    serverChatCharacterId,
+    serverChatId
+  ])
   const resolveMessageType = React.useCallback(
     (message: any, index: number) => {
       const explicit = message?.messageType ?? message?.message_type
@@ -372,6 +390,8 @@ export const PlaygroundChat = () => {
                 conversationInstanceId={conversationInstanceId}
                 feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
+                characterIdentity={selectedCharacter}
+                characterIdentityEnabled={characterIdentityEnabled}
                 message_type={resolveMessageType(message, block.index)}
                 variants={message.variants}
                 activeVariantIndex={message.activeVariantIndex}
@@ -596,6 +616,8 @@ export const PlaygroundChat = () => {
                 conversationInstanceId={conversationInstanceId}
                 feedbackQuery={previousUserMessage?.message ?? null}
                 isEmbedding={isEmbedding}
+                characterIdentity={selectedCharacter}
+                characterIdentityEnabled={characterIdentityEnabled}
                 message_type={resolveMessageType(userMessage, block.userIndex)}
                 variants={userMessage.variants}
                 activeVariantIndex={userMessage.activeVariantIndex}
@@ -921,6 +943,8 @@ export const PlaygroundChat = () => {
                         conversationInstanceId={conversationInstanceId}
                         feedbackQuery={previousUserMessage?.message ?? null}
                         isEmbedding={isEmbedding}
+                        characterIdentity={selectedCharacter}
+                        characterIdentityEnabled={characterIdentityEnabled}
                         message_type={resolveMessageType(message, index)}
                         compareSelectable={isSelectable}
                         compareSelected={isSelected}

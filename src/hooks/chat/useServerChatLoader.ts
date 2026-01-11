@@ -27,9 +27,14 @@ export const useServerChatLoader = ({
   notification,
   t
 }: UseServerChatLoaderOptions) => {
-  const { setHistory, setMessages, setIsLoading } = useChatBaseState(
-    useStoreMessageOption
-  )
+  const {
+    messages,
+    streaming,
+    isProcessing,
+    setHistory,
+    setMessages,
+    setIsLoading
+  } = useChatBaseState(useStoreMessageOption)
   const {
     serverChatId,
     serverChatTitle,
@@ -237,9 +242,19 @@ export const useServerChatLoader = ({
             }
           })
 
-          setHistory(history)
-          setMessages(mappedMessages)
-          if (!temporaryChat) {
+          const hasLocalMessages = messages.length > 0
+          const hasUnsyncedMessages = messages.some(
+            (msg) =>
+              !msg.serverMessageId && String(msg.message || "").trim().length > 0
+          )
+          const shouldPreserveLocal =
+            streaming || isProcessing || (hasLocalMessages && hasUnsyncedMessages)
+
+          if (!shouldPreserveLocal) {
+            setHistory(history)
+            setMessages(mappedMessages)
+          }
+          if (!temporaryChat && !shouldPreserveLocal) {
             try {
               const localHistoryId = await ensureServerChatHistoryId(
                 serverChatId,
@@ -354,6 +369,8 @@ export const useServerChatLoader = ({
     }
   }, [
     ensureServerChatHistoryId,
+    isProcessing,
+    messages,
     notification,
     serverChatCharacterId,
     serverChatId,
@@ -371,6 +388,7 @@ export const useServerChatLoader = ({
     setServerChatTitle,
     setServerChatTopic,
     setServerChatVersion,
+    streaming,
     t,
     temporaryChat
   ])

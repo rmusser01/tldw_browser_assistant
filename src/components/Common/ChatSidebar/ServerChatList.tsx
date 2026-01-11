@@ -219,20 +219,7 @@ export function ServerChatList({
       visibleChatIdSetRef.current = visibleChatIdSet
       return
     }
-    // Use the ref to detect actual visible set changes and avoid redundant trim work.
-    const prevVisible = visibleChatIdSetRef.current
-    if (prevVisible && prevVisible.size === visibleChatIdSet.size) {
-      let hasDiff = false
-      for (const id of visibleChatIdSet) {
-        if (!prevVisible.has(id)) {
-          hasDiff = true
-          break
-        }
-      }
-      if (!hasDiff) {
-        return
-      }
-    }
+    if (visibleChatIdSetRef.current === visibleChatIdSet) return
     visibleChatIdSetRef.current = visibleChatIdSet
     setSelectedChatIds((prev) => {
       const next = prev.filter((id) => visibleChatIdSet.has(id))
@@ -486,7 +473,7 @@ export function ServerChatList({
     setBulkDeleteConfirmOpen(false)
   }, [])
 
-  const handleBulkDelete = async () => {
+  const handleBulkDelete = React.useCallback(async () => {
     try {
       const result = await applyBulkTrash()
       if (!result) return
@@ -513,7 +500,14 @@ export function ServerChatList({
         })
       )
     }
-  }
+  }, [
+    applyBulkTrash,
+    message,
+    queryClient,
+    selectedConversationIds,
+    setPinnedChatIds,
+    t
+  ])
 
   // Not connected state
   if (!isConnected) {

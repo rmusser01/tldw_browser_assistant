@@ -1104,7 +1104,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   React.useEffect(() => {
     if (isListening) {
-      form.setFieldValue("message", transcript)
+      setMessageValue(transcript, { collapseLarge: true, forceCollapse: true })
     }
   }, [transcript])
 
@@ -1937,7 +1937,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             }
           }
           if (text) {
-            form.setFieldValue("message", text)
+            setMessageValue(text, { collapseLarge: true, forceCollapse: true })
           } else {
             notification.error({
               message: t("playground:actions.speechErrorTitle", "Dictation failed"),
@@ -1982,6 +1982,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     sttModel,
     sttTimestampGranularities,
     sttUseSegmentation,
+    setMessageValue,
     stopServerDictation,
     t,
     form

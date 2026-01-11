@@ -10,7 +10,7 @@ import { IconButton } from "./IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
-import { collectGreetings, pickGreeting } from "@/utils/character-greetings"
+import { collectGreetings } from "@/utils/character-greetings"
 import { useClearChat } from "@/hooks/chat/useClearChat"
 import { useStoreMessageOption } from "@/store/option"
 
@@ -44,6 +44,7 @@ type CharacterSelection = {
   name: string
   system_prompt: string
   greeting: string
+  alternate_greetings?: string[]
   avatar_url: string
 }
 
@@ -64,6 +65,9 @@ const normalizeCharacter = (character: CharacterSummary): CharacterSelection => 
         }`
       : "")
 
+  const greetings = collectGreetings(character)
+  const [primaryGreeting, ...alternateGreetings] = greetings
+
   return {
     id: String(idSource),
     name: String(nameSource),
@@ -72,7 +76,10 @@ const normalizeCharacter = (character: CharacterSummary): CharacterSelection => 
       character.systemPrompt ||
       character.instructions ||
       "",
-    greeting: pickGreeting(collectGreetings(character)),
+    // Keep greeting deterministic; choose a randomized greeting at injection time.
+    greeting: primaryGreeting ?? "",
+    alternate_greetings:
+      alternateGreetings.length > 0 ? alternateGreetings : undefined,
     avatar_url: avatar
   }
 }
@@ -89,6 +96,7 @@ export const CharacterSelect: React.FC<Props> = ({
     useSelectedCharacter<CharacterSelection | null>(null)
   const clearChat = useClearChat()
   const messages = useStoreMessageOption((state) => state.messages)
+  const serverChatId = useStoreMessageOption((state) => state.serverChatId)
   const [userDisplayName, setUserDisplayName] = useStorage(
     "chatUserDisplayName",
     ""
@@ -98,6 +106,9 @@ export const CharacterSelect: React.FC<Props> = ({
   const lastErrorRef = React.useRef<unknown | null>(null)
   const importInputRef = React.useRef<HTMLInputElement | null>(null)
   const imageOnlyModalRef = React.useRef<ReturnType<typeof modal.confirm> | null>(
+    null
+  )
+  const confirmResolveRef = React.useRef<((confirmed: boolean) => void) | null>(
     null
   )
   const [isImporting, setIsImporting] = React.useState(false)
@@ -150,13 +161,12 @@ export const CharacterSelect: React.FC<Props> = ({
     defaultValue: "Search characters by name"
   }) as string
   const trimmedDisplayName = userDisplayName.trim()
-  const hasActiveChat = React.useMemo(
-    () =>
-      messages.some(
-        (message) => message.messageType !== "character:greeting"
-      ),
-    [messages]
-  )
+  const hasActiveChat = React.useMemo(() => {
+    if (serverChatId) return true
+    return messages.some(
+      (message) => message.messageType !== "character:greeting"
+    )
+  }, [messages, serverChatId])
   const openDisplayNameModal = React.useCallback(() => {
     let nextValue = trimmedDisplayName
     modal.confirm({
@@ -196,6 +206,19 @@ export const CharacterSelect: React.FC<Props> = ({
   const confirmCharacterSwitch = React.useCallback(
     (nextName?: string) =>
       new Promise<boolean>((resolve) => {
+        if (confirmResolveRef.current) {
+          confirmResolveRef.current(false)
+        }
+        let settled = false
+        const finalize = (value: boolean) => {
+          if (settled) return
+          settled = true
+          if (confirmResolveRef.current === resolve) {
+            confirmResolveRef.current = null
+          }
+          resolve(value)
+        }
+        confirmResolveRef.current = resolve
         modal.confirm({
           title: t("option:characters.switchConfirmTitle", {
             defaultValue: "Switch character?"
@@ -212,8 +235,9 @@ export const CharacterSelect: React.FC<Props> = ({
           cancelText: t("common:cancel", { defaultValue: "Cancel" }),
           centered: true,
           okButtonProps: { danger: true },
-          onOk: () => resolve(true),
-          onCancel: () => resolve(false)
+          onOk: () => finalize(true),
+          onCancel: () => finalize(false),
+          afterClose: () => finalize(false)
         })
       }),
     [modal, t]
@@ -289,6 +313,15 @@ export const CharacterSelect: React.FC<Props> = ({
   )
 
   React.useEffect(() => {
+    return () => {
+      if (confirmResolveRef.current) {
+        confirmResolveRef.current(false)
+        confirmResolveRef.current = null
+      }
+    }
+  }, [])
+
+  React.useEffect(() => {
     if (!error || isFetching) {
       lastErrorRef.current = null
       return
@@ -328,7 +361,7 @@ export const CharacterSelect: React.FC<Props> = ({
     ) {
       notification.success({
         message: t("option:characters.chattingAs", {
-          defaultValue: "You're now chatting as {{name}}.",
+          defaultValue: "You're chatting with {{name}}.",
           name: selectedCharacter.name
         })
       })

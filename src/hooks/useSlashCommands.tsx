@@ -30,6 +30,9 @@ type ServerCommandsResponse = {
   allowedCommands?: string[]
 }
 
+const SLASH_MENU_REGEX = /^\s*\/([\w-]*)$/
+const SLASH_COMMAND_REGEX = /^\/+([^\s/]+)(?:\s+([\s\S]*))?$/
+
 export interface SlashCommandItem {
   id: string
   command: string
@@ -72,7 +75,9 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 const normalizeStringArray = (value?: unknown): string[] => {
   if (value == null) return []
   if (Array.isArray(value)) {
-    return value.map((item) => String(item)).filter(Boolean)
+    return value
+      .map((item) => String(item).trim())
+      .filter((item) => item.length > 0)
   }
   if (typeof value === "string") {
     const trimmed = value.trim()
@@ -315,7 +320,7 @@ export const useSlashCommands = ({
   }, [fallbackMeta, localActions, serverPayload])
 
   const slashCommands =
-    serverCommands.length > 0 ? serverCommands : fallbackCommands
+    isOnline && serverCommands.length > 0 ? serverCommands : fallbackCommands
 
   const slashCommandLookup = React.useMemo(
     () => new Map(slashCommands.map((command) => [command.command, command])),
@@ -324,7 +329,7 @@ export const useSlashCommands = ({
 
   // Match incomplete slash commands for autocomplete (allows just "/").
   const slashMatch = React.useMemo(
-    () => inputValue.match(/^\s*\/(\w*)$/),
+    () => inputValue.match(SLASH_MENU_REGEX),
     [inputValue]
   )
 
@@ -356,10 +361,10 @@ export const useSlashCommands = ({
 
   const parseSlashInput = React.useCallback((text: string) => {
     const trimmed = text.trimStart()
-    const match = trimmed.match(/^\/(\w+)(?:\s+([\s\S]*))?$/)
+    const match = trimmed.match(SLASH_COMMAND_REGEX)
     if (!match) return null
     return {
-      command: match[1].toLowerCase(),
+      command: normalizeCommand(match[1]),
       remainder: match[2] || ""
     }
   }, [])
@@ -375,9 +380,15 @@ export const useSlashCommands = ({
         return { handled: false, message: text }
       }
       if (command.action) {
-        command.action()
-        return { handled: true, message: parsed.remainder }
+        try {
+          command.action()
+          return { handled: true, message: parsed.remainder }
+        } catch (error) {
+          console.error("Slash command action failed:", error)
+          return { handled: false, message: text }
+        }
       }
+      // No local handler; let the backend interpret the slash command.
       return { handled: false, message: text }
     },
     [parseSlashInput, slashCommandLookup]
@@ -385,14 +396,22 @@ export const useSlashCommands = ({
 
   const handleSlashCommandSelect = React.useCallback(
     (command: SlashCommandItem) => {
-      if (!setInputValue) return
-      const parsed = parseSlashInput(inputValue)
       if (command.action) {
-        command.action()
-        setInputValue(parsed?.remainder || "")
-        return
+        try {
+          command.action()
+          if (setInputValue) {
+            const parsed = parseSlashInput(inputValue)
+            setInputValue(parsed?.remainder || "")
+          }
+          return
+        } catch (error) {
+          console.error("Slash command action failed:", error)
+          return
+        }
       }
-      setInputValue(`/${command.command} `)
+      if (setInputValue) {
+        setInputValue(`/${command.command} `)
+      }
     },
     [inputValue, parseSlashInput, setInputValue]
   )
@@ -420,7 +439,7 @@ export const useSlashCommandInput = (
   slashCommands: SlashCommandItem[]
 ) => {
   const slashMatch = React.useMemo(
-    () => inputValue.match(/^\s*\/(\w*)$/),
+    () => inputValue.match(SLASH_MENU_REGEX),
     [inputValue]
   )
 

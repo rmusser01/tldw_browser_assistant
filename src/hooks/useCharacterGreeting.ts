@@ -6,13 +6,17 @@ import type { Character } from "@/types/character"
 import { collectGreetings, pickGreeting } from "@/utils/character-greetings"
 import { replaceUserDisplayNamePlaceholders } from "@/utils/chat-display-name"
 import { useStorage } from "@plasmohq/storage/hook"
+import {
+  SELECTED_CHARACTER_STORAGE_KEY,
+  selectedCharacterStorage,
+  parseSelectedCharacterValue
+} from "@/utils/selected-character-storage"
 
 type UseCharacterGreetingOptions = {
   playgroundReady: boolean
   selectedCharacter: Character | null
   serverChatId: string | number | null
   messagesLength: number
-  history: ChatHistory
   setMessages: (
     messagesOrUpdater: Message[] | ((prev: Message[]) => Message[])
   ) => void
@@ -27,7 +31,6 @@ export const useCharacterGreeting = ({
   selectedCharacter,
   serverChatId,
   messagesLength,
-  history,
   setMessages,
   setHistory,
   setSelectedCharacter
@@ -35,38 +38,69 @@ export const useCharacterGreeting = ({
   const [userDisplayName] = useStorage("chatUserDisplayName", "")
   const greetingInjectedRef = React.useRef<string | null>(null)
   const greetingFetchRef = React.useRef<string | null>(null)
+  const greetingTemplateRef = React.useRef<{
+    characterId: string
+    greeting: string
+  } | null>(null)
   const chatWasEmptyRef = React.useRef(false)
   const selectedCharacterIdRef = React.useRef<string | null>(null)
+
+  React.useEffect(() => {
+    if (!playgroundReady) return
+    let cancelled = false
+    const syncSelection = async () => {
+      try {
+        const storedRaw = await selectedCharacterStorage.get(
+          SELECTED_CHARACTER_STORAGE_KEY
+        )
+        const stored = parseSelectedCharacterValue<Character>(storedRaw)
+        if (!stored?.id || cancelled) return
+        const storedId = String(stored.id)
+        const currentId = selectedCharacter?.id
+          ? String(selectedCharacter.id)
+          : null
+        if (storedId !== currentId) {
+          setSelectedCharacter(stored)
+        }
+      } catch {
+        // ignore
+      }
+    }
+    void syncSelection()
+    return () => {
+      cancelled = true
+    }
+  }, [playgroundReady, selectedCharacter?.id, setSelectedCharacter])
 
   React.useEffect(() => {
     const isEmpty = messagesLength === 0
     if (isEmpty && !chatWasEmptyRef.current) {
       greetingInjectedRef.current = null
+      greetingTemplateRef.current = null
     }
     chatWasEmptyRef.current = isEmpty
   }, [messagesLength])
 
   React.useEffect(() => {
     greetingFetchRef.current = null
-  }, [selectedCharacter?.id])
-
-  React.useEffect(() => {
-    selectedCharacterIdRef.current = selectedCharacter?.id
-      ? String(selectedCharacter.id)
-      : null
+    greetingTemplateRef.current = null
   }, [selectedCharacter?.id])
 
   React.useEffect(() => {
     if (!playgroundReady) return
-    if (!selectedCharacter?.id) return
+    if (!selectedCharacter?.id) {
+      selectedCharacterIdRef.current = null
+      return
+    }
 
     const characterId = String(selectedCharacter.id)
+    selectedCharacterIdRef.current = characterId
     const characterName = selectedCharacter.name || "Assistant"
     const characterAvatarUrl = selectedCharacter.avatar_url ?? null
     const isCurrentSelection = () =>
       selectedCharacterIdRef.current === characterId
 
-    const injectGreeting = (
+    const upsertGreeting = (
       greetingValue: string,
       avatarUrl?: string | null
     ) => {
@@ -78,11 +112,10 @@ export const useCharacterGreeting = ({
       const trimmed = rendered.trim()
       if (!trimmed) return
       if (serverChatId) return
-      if (greetingInjectedRef.current === characterId) return
 
       const createdAt = Date.now()
       const messageId = generateID()
-      let injected = false
+      let updated = false
 
       setMessages((prev) => {
         if (!isCurrentSelection()) return prev
@@ -93,7 +126,19 @@ export const useCharacterGreeting = ({
         const canReplace =
           prev.length === 0 || onlyGreetings || singleAssistant
         if (!canReplace) return prev
-        injected = true
+        updated = true
+        if (prev.length === 1 && prev[0]?.messageType === "character:greeting") {
+          return [
+            {
+              ...prev[0],
+              name: characterName,
+              role: "assistant",
+              message: trimmed,
+              modelName: characterName,
+              modelImage: avatarUrl ?? prev[0]?.modelImage
+            }
+          ]
+        }
         return [
           {
             isBot: true,
@@ -110,8 +155,9 @@ export const useCharacterGreeting = ({
         ]
       })
 
-      if (!injected) return
+      if (!updated) return
       greetingInjectedRef.current = characterId
+      greetingTemplateRef.current = { characterId, greeting: greetingValue }
 
       setHistory((prev) => {
         if (!isCurrentSelection()) return prev
@@ -123,6 +169,14 @@ export const useCharacterGreeting = ({
         const canReplace =
           prev.length === 0 || onlyGreetings || singleAssistant
         if (!canReplace) return prev
+        if (prev.length === 1 && prev[0]?.messageType === "character:greeting") {
+          return [
+            {
+              ...prev[0],
+              content: trimmed
+            }
+          ]
+        }
         return [
           {
             role: "assistant",
@@ -133,53 +187,77 @@ export const useCharacterGreeting = ({
       })
     }
 
-    const greeting = selectedCharacter.greeting?.trim() || ""
-    if (!greeting) {
-      if (greetingFetchRef.current !== characterId) {
-        greetingFetchRef.current = characterId
-        void (async () => {
-          try {
-            await tldwClient.initialize().catch(() => null)
-            if (!isCurrentSelection() || greetingFetchRef.current !== characterId) {
-              return
-            }
-            const full = await tldwClient.getCharacter(characterId)
-            if (!isCurrentSelection() || greetingFetchRef.current !== characterId) {
-              return
-            }
-            const greetings = collectGreetings(full)
-            const picked = pickGreeting(greetings)
-            if (!picked) return
-            if (!isCurrentSelection() || greetingFetchRef.current !== characterId) {
-              return
-            }
-            if (
-              !selectedCharacter ||
-              String(selectedCharacter.id) !== characterId
-            ) {
-              return
-            }
-            setSelectedCharacter({
-              ...selectedCharacter,
-              greeting: picked,
-              avatar_url: full?.avatar_url ?? selectedCharacter.avatar_url ?? null
-            })
-            if (!isCurrentSelection() || greetingFetchRef.current !== characterId) {
-              return
-            }
-            injectGreeting(picked, full?.avatar_url ?? null)
-          } catch {
-            // ignore
-          }
-        })()
-      }
+    const cachedGreeting =
+      greetingTemplateRef.current?.characterId === characterId
+        ? greetingTemplateRef.current?.greeting
+        : ""
+    if (cachedGreeting) {
+      upsertGreeting(cachedGreeting, characterAvatarUrl)
       return
     }
 
-    injectGreeting(greeting, characterAvatarUrl)
+    const greetings = collectGreetings(selectedCharacter)
+    if (greetings.length > 1) {
+      const picked = pickGreeting(greetings)
+      greetingTemplateRef.current = { characterId, greeting: picked }
+      upsertGreeting(picked, characterAvatarUrl)
+      return
+    }
+
+    const fallbackGreeting = greetings[0]?.trim() || ""
+    if (greetingFetchRef.current !== characterId) {
+      greetingFetchRef.current = characterId
+      void (async () => {
+        try {
+          await tldwClient.initialize().catch(() => null)
+          if (
+            !isCurrentSelection() ||
+            greetingFetchRef.current !== characterId
+          ) {
+            return
+          }
+          const full = await tldwClient.getCharacter(characterId)
+          if (
+            !isCurrentSelection() ||
+            greetingFetchRef.current !== characterId
+          ) {
+            return
+          }
+          const fetchedGreetings = collectGreetings(full)
+          const picked = pickGreeting(fetchedGreetings) || fallbackGreeting
+          if (!picked) return
+          greetingTemplateRef.current = { characterId, greeting: picked }
+          const nextAvatar =
+            full?.avatar_url ?? selectedCharacter.avatar_url ?? null
+          if (nextAvatar !== selectedCharacter.avatar_url) {
+            setSelectedCharacter({
+              ...selectedCharacter,
+              avatar_url: nextAvatar
+            })
+          }
+          if (
+            !isCurrentSelection() ||
+            greetingFetchRef.current !== characterId
+          ) {
+            return
+          }
+          upsertGreeting(picked, nextAvatar)
+        } catch {
+          if (fallbackGreeting) {
+            greetingTemplateRef.current = {
+              characterId,
+              greeting: fallbackGreeting
+            }
+            upsertGreeting(fallbackGreeting, characterAvatarUrl)
+          }
+        } finally {
+          if (greetingFetchRef.current === characterId) {
+            greetingFetchRef.current = null
+          }
+        }
+      })()
+    }
   }, [
-    messagesLength,
-    history,
     playgroundReady,
     selectedCharacter,
     serverChatId,

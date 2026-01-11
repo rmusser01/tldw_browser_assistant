@@ -51,6 +51,14 @@ export const QueuedFileRow = React.memo(
         isSelected ? "border-primary shadow-sm" : "border-border"
       }`}
       onClick={onSelect}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault()
+          onSelect()
+        }
+      }}
     >
       <Button
         size="small"

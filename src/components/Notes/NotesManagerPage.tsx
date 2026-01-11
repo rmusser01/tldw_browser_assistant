@@ -74,6 +74,11 @@ const extractKeywords = (note: NoteWithKeywords | any): string[] => {
     .filter((s): s is string => !!s && s.trim().length > 0)
 }
 
+// Extract version from note object. Checks multiple candidate fields in order:
+// 1. note.version (primary)
+// 2. note.expected_version (fallback)
+// 3. note.expectedVersion (camelCase variant)
+// 4. note.metadata.* (nested variants)
 const toNoteVersion = (note: any): number | null => {
   const candidates = [
     note?.version,
@@ -303,6 +308,7 @@ const NotesManagerPage: React.FC = () => {
   }, [availableKeywords, keywordPickerQuery])
 
   const loadAllKeywords = React.useCallback(async () => {
+    // Cached for session; add a refresh/TTL if keyword updates become frequent.
     if (allKeywords.length > 0) return
     try {
       const arr = await getAllNoteKeywords()
@@ -481,9 +487,26 @@ const NotesManagerPage: React.FC = () => {
       ) {
         message.error({
           content: (
-            <span className="inline-flex items-center gap-2">
+            <span
+              className="inline-flex items-center gap-2"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+              tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  void reloadNotes(selectedId)
+                }
+              }}
+            >
               <span>This note changed on the server.</span>
-              <Button type="link" size="small" onClick={() => void reloadNotes(selectedId)}>
+              <Button
+                type="link"
+                size="small"
+                onClick={() => void reloadNotes(selectedId)}
+                aria-label="Reload notes"
+              >
                 Reload notes
               </Button>
             </span>
@@ -558,9 +581,26 @@ const NotesManagerPage: React.FC = () => {
       ) {
         message.error({
           content: (
-            <span className="inline-flex items-center gap-2">
+            <span
+              className="inline-flex items-center gap-2"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+              tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  void reloadNotes(target)
+                }
+              }}
+            >
               <span>This note changed on the server.</span>
-              <Button type="link" size="small" onClick={() => void reloadNotes(target)}>
+              <Button
+                type="link"
+                size="small"
+                onClick={() => void reloadNotes(target)}
+                aria-label="Reload notes"
+              >
                 Reload notes
               </Button>
             </span>

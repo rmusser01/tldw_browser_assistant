@@ -18,6 +18,7 @@ import {
   RobotOutlined,
   SettingOutlined
 } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import { useTimelineStore } from '@/store/timeline'
 import { timelineSearch } from '@/services/timeline'
 import { db } from '@/db/dexie/schema'
@@ -41,6 +42,7 @@ export const NodeInfoPanel: React.FC = () => {
   const expandedSwipeNodes = useTimelineStore((s) => s.expandedSwipeNodes)
   const closeTimeline = useTimelineStore((s) => s.closeTimeline)
   const currentHistoryId = useTimelineStore((s) => s.currentHistoryId)
+  const { t } = useTranslation(['common'])
   const message = useAntdMessage()
 
   // Get highlighted content if search is active
@@ -71,14 +73,14 @@ export const NodeInfoPanel: React.FC = () => {
     )
     const fallback = candidates.find(Boolean)
 
-    const resolvedHistoryId =
-      matching?.history_id || fallback?.history_id || preferredHistoryId
-    const resolvedMessageId =
-      matching?.id || fallback?.id || node.message_ids[0]
+    const resolvedMessage = matching || fallback || null
+    const resolvedHistoryId = resolvedMessage?.history_id || preferredHistoryId
+    const resolvedMessageId = resolvedMessage?.id || null
 
     return {
       historyId: resolvedHistoryId,
-      messageId: resolvedMessageId
+      messageId: resolvedMessageId,
+      messageFound: Boolean(resolvedMessage)
     }
   }, [currentHistoryId, node?.history_ids, node?.message_ids])
 
@@ -88,8 +90,13 @@ export const NodeInfoPanel: React.FC = () => {
       if (!hasMessage) return
 
       try {
+        const actionNeedsMessage = action === 'edit' || action === 'branch'
         const target = await resolveMessageTarget()
         if (!target?.historyId) {
+          message.error('Unable to locate the message for this action.')
+          return
+        }
+        if (actionNeedsMessage && (!target.messageId || !target.messageFound)) {
           message.error('Unable to locate the message for this action.')
           return
         }
@@ -112,11 +119,26 @@ export const NodeInfoPanel: React.FC = () => {
     [closeTimeline, hasMessage, message, resolveMessageTarget]
   )
 
+  const handleGoToMessage = React.useCallback(() => {
+    void handleTimelineAction('go')
+  }, [handleTimelineAction])
+
+  const handleBranchFromMessage = React.useCallback(() => {
+    void handleTimelineAction('branch')
+  }, [handleTimelineAction])
+
+  const handleEditMessage = React.useCallback(() => {
+    void handleTimelineAction('edit')
+  }, [handleTimelineAction])
+
   if (!node) return null
 
   const isSwipeExpanded = expandedSwipeNodes.has(node.id)
   const canEditMessage = hasMessage && node.role === 'user'
   const canBranchFromMessage = hasMessage && node.role === 'assistant'
+  const goToMessageLabel = t('common:timeline.goToMessage', 'Go to Message')
+  const branchFromHereLabel = t('common:timeline.branchFromHere', 'Branch from Here')
+  const editMessageLabel = t('common:timeline.editMessage', 'Edit Message')
 
   // Format timestamp
   const formattedTime = new Date(node.timestamp).toLocaleString()
@@ -203,11 +225,9 @@ export const NodeInfoPanel: React.FC = () => {
             icon={<SendOutlined />}
             block
             disabled={!hasMessage}
-            onClick={() => {
-              void handleTimelineAction('go')
-            }}
+            onClick={handleGoToMessage}
           >
-            Go to Message
+            {goToMessageLabel}
           </Button>
 
           {/* Branch from here */}
@@ -215,11 +235,9 @@ export const NodeInfoPanel: React.FC = () => {
             icon={<BranchesOutlined />}
             block
             disabled={!canBranchFromMessage}
-            onClick={() => {
-              void handleTimelineAction('branch')
-            }}
+            onClick={handleBranchFromMessage}
           >
-            Branch from Here
+            {branchFromHereLabel}
           </Button>
 
           {/* Edit message */}
@@ -228,11 +246,9 @@ export const NodeInfoPanel: React.FC = () => {
               icon={<EditOutlined />}
               block
               disabled={!canEditMessage}
-              onClick={() => {
-                void handleTimelineAction('edit')
-              }}
+              onClick={handleEditMessage}
             >
-              Edit Message
+              {editMessageLabel}
             </Button>
           )}
 

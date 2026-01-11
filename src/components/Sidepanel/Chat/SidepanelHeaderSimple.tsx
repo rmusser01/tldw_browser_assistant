@@ -1,5 +1,5 @@
-import logoImage from "~/assets/icon.png"
-import { useMessage } from "~/hooks/useMessage"
+import logoImage from "@/assets/icon.png"
+import { useMessage } from "@/hooks/useMessage"
 import { Link } from "react-router-dom"
 import { Tooltip } from "antd"
 import { CogIcon, ExternalLink, Menu, Pencil } from "lucide-react"
@@ -179,24 +179,30 @@ export const SidepanelHeaderSimple = ({
                 className="w-full rounded-md border border-border bg-surface px-2 py-0.5 text-caption text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
               />
             ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  if (!onRenameTitle) return
-                  setIsEditingTitle(true)
-                }}
-                className="group flex max-w-full items-center gap-1 text-caption text-text-muted hover:text-text"
-                title={activeTitle}
-                aria-label={t(
-                  "sidepanel:header.renameTitle",
-                  "Rename conversation"
-                )}
-              >
-                <span className="truncate">{activeTitle}</span>
-                {onRenameTitle && (
+              onRenameTitle ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditingTitle(true)
+                  }}
+                  className="group flex max-w-full items-center gap-1 text-caption text-text-muted hover:text-text"
+                  title={activeTitle}
+                  aria-label={t(
+                    "sidepanel:header.renameTitle",
+                    "Rename conversation"
+                  )}
+                >
+                  <span className="truncate">{activeTitle}</span>
                   <Pencil className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-80" />
-                )}
-              </button>
+                </button>
+              ) : (
+                <span
+                  className="flex max-w-full items-center gap-1 text-caption text-text-muted"
+                  title={activeTitle}
+                >
+                  <span className="truncate">{activeTitle}</span>
+                </span>
+              )
             )}
           </div>
         )}

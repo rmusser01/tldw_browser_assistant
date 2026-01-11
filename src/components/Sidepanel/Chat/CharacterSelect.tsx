@@ -49,6 +49,7 @@ export const CharacterSelect: React.FC<Props> = ({
     useSelectedCharacter<StoredCharacter | null>(null)
   const clearChat = useClearChat()
   const messages = useStoreMessageOption((state) => state.messages)
+  const serverChatId = useStoreMessageOption((state) => state.serverChatId)
   const [userDisplayName, setUserDisplayName] = useStorage(
     "chatUserDisplayName",
     ""
@@ -58,6 +59,9 @@ export const CharacterSelect: React.FC<Props> = ({
   const [isImporting, setIsImporting] = useState(false)
   const searchInputRef = useRef<InputRef | null>(null)
   const importInputRef = useRef<HTMLInputElement | null>(null)
+  const selectedCharacterIdRef = useRef<string | null>(
+    selectedCharacterId ?? null
+  )
   const imageOnlyModalRef = useRef<{ destroy: () => void } | null>(null)
   const imageOnlyModalResolveRef = useRef<((value: boolean) => void) | null>(
     null
@@ -81,6 +85,10 @@ export const CharacterSelect: React.FC<Props> = ({
       destroyImageOnlyModal()
     }
   }, [destroyImageOnlyModal])
+
+  useEffect(() => {
+    selectedCharacterIdRef.current = selectedCharacterId ?? null
+  }, [selectedCharacterId])
 
   const { data: characters = [], isLoading, refetch } = useQuery<
     CharacterApiResponse[]
@@ -114,13 +122,12 @@ export const CharacterSelect: React.FC<Props> = ({
       (char) => String(char.id) === String(selectedCharacterId)
     )
   }, [characters, selectedCharacterId])
-  const hasActiveChat = useMemo(
-    () =>
-      messages.some(
-        (message) => message.messageType !== "character:greeting"
-      ),
-    [messages]
-  )
+  const hasActiveChat = useMemo(() => {
+    if (serverChatId) return true
+    return messages.some(
+      (message) => message.messageType !== "character:greeting"
+    )
+  }, [messages, serverChatId])
   const trimmedDisplayName = userDisplayName.trim()
 
   const buildStoredCharacter = React.useCallback(
@@ -229,7 +236,9 @@ export const CharacterSelect: React.FC<Props> = ({
         return
       }
 
-      if (stored) {
+      if (!stored) {
+        setSelectedCharacter(null)
+      } else {
         setSelectedCharacter(stored)
       }
       setDropdownOpen(false)
@@ -242,7 +251,11 @@ export const CharacterSelect: React.FC<Props> = ({
         .then(() => tldwClient.getCharacter(nextId))
         .then((full) => {
           const hydrated = buildStoredCharacter(full || {})
-          if (hydrated?.id === String(nextId) && hydrated.greeting) {
+          if (
+            hydrated?.id === String(nextId) &&
+            hydrated.greeting &&
+            selectedCharacterIdRef.current === nextId
+          ) {
             setSelectedCharacter(hydrated)
           }
         })

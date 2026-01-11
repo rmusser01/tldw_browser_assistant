@@ -177,8 +177,8 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
       const ragOptions: Record<string, unknown> = sanitizeRagAdvancedOptions(
         ctx.ragAdvancedOptions
       )
-      // Precedence: ctx.ragTopK overrides ragOptions.top_k; defaultTopK applies only
-      // when neither is set. ctx.ragSearchMode always overrides ragOptions.search_mode.
+      // Precedence for top_k: (1) ctx.ragTopK if valid > 0, (2) ragOptions.top_k if valid > 0,
+      // (3) defaultTopK fallback. ctx.ragSearchMode always overrides ragOptions.search_mode.
       // ctx.ragEnableGeneration/citations control presence of their flags, even if set.
       if (typeof ctx.ragTopK === "number" && ctx.ragTopK > 0) {
         ragOptions.top_k = ctx.ragTopK
@@ -190,6 +190,7 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
         ragOptions.top_k = top_k
       }
       ragOptions.search_mode = ctx.ragSearchMode
+      // Delete false flags so the backend can apply its default behavior.
       if (ctx.ragEnableGeneration) {
         ragOptions.enable_generation = true
       } else {

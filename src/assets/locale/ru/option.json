@@ -483,6 +483,7 @@
     "runLabel": "Запустить быстрый импорт",
     "results": "Результаты",
     "downloadJson": "Скачать JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "Загружено {{count}} расширенных полей",
     "advancedEmpty": "Расширенные параметры не обнаружены — попробуйте заново загрузить спецификацию.",
     "modifiedCount": "Изменено: {{count}}",

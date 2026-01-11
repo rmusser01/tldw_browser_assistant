@@ -1,14 +1,14 @@
 import React from "react"
 import { Button, List, Select, Tag, Typography } from "antd"
 import type { TFunction } from "i18next"
-import { ResultsListItem } from "./ResultsListItem"
 import type {
   ResultFilters,
   ResultItem,
   ResultItemWithMediaId,
   ResultSummary,
   ResultsFilter
-} from "./types"
+} from "@/components/Common/QuickIngest/types"
+import { ResultsListItem } from "@/components/Common/QuickIngest/ResultsListItem"
 
 type ResultsPanelProps = {
   data: {
@@ -93,6 +93,40 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       mediaId: mediaIdCache.get(item.id) ?? null
     }))
   }, [mediaIdCache, visibleResults])
+  const hasErrors = React.useMemo(
+    () => results.some((item) => item.status === "error"),
+    [results]
+  )
+  const handleRetryClick = React.useCallback(() => {
+    retryFailedUrls()
+  }, [retryFailedUrls])
+  const handleFilterChange = React.useCallback(
+    (value: ResultsFilter | string) => {
+      filters.onChange(value as ResultsFilter)
+    },
+    [filters]
+  )
+  const handleOpenFirstInMedia = React.useCallback(() => {
+    if (!firstResultWithMedia) return
+    openInMediaViewer(firstResultWithMedia)
+  }, [firstResultWithMedia, openInMediaViewer])
+  const handleOpenContentReview = React.useCallback(() => {
+    if (!reviewBatchId) return
+    void tryOpenContentReview(reviewBatchId)
+  }, [reviewBatchId, tryOpenContentReview])
+  const renderResultItem = React.useCallback(
+    (item: ResultItemWithMediaId) => (
+      <ResultsListItem
+        item={item}
+        processOnly={processOnly}
+        onDownloadJson={downloadJson}
+        onOpenMedia={openInMediaViewer}
+        onDiscussInChat={discussInChat}
+        t={t}
+      />
+    ),
+    [processOnly, downloadJson, openInMediaViewer, discussInChat, t]
+  )
 
   if (results.length === 0) return null
 
@@ -110,8 +144,8 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
           </Tag>
           <Button
             size="small"
-            onClick={retryFailedUrls}
-            disabled={!results.some((item) => item.status === "error")}
+            onClick={handleRetryClick}
+            disabled={!hasErrors}
           >
             {qi("retryFailedUrls", "Retry failed URLs")}
           </Button>
@@ -123,7 +157,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
               "Filter results by status"
             )}
             value={filters.value}
-            onChange={(value) => filters.onChange(value as ResultsFilter)}
+            onChange={handleFilterChange}
             options={[
               {
                 value: filters.options.ALL,
@@ -170,9 +204,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
                   "quickIngest.openFirstInMediaAria",
                   "Open first result in media viewer"
                 )}
-                onClick={() => {
-                  openInMediaViewer(firstResultWithMedia)
-                }}
+                onClick={handleOpenFirstInMedia}
               >
                 {t("quickIngest.openFirstInMedia", "Open in Media viewer")}
               </Button>
@@ -185,9 +217,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
                   "openContentReviewAria",
                   "Open Content Review for batch"
                 )}
-                onClick={() => {
-                  void tryOpenContentReview(reviewBatchId)
-                }}
+                onClick={handleOpenContentReview}
               >
                 {qi("openContentReview", "Open Content Review")}
               </Button>
@@ -195,7 +225,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             {resultSummary.failCount > 0 && (
               <Button
                 size="small"
-                onClick={retryFailedUrls}
+                onClick={handleRetryClick}
                 aria-label={qi("retryFailedUrlsAria", "Retry all failed URLs")}
               >
                 {qi("retryFailedUrls", "Retry failed URLs")}
@@ -218,16 +248,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       <List
         size="small"
         dataSource={visibleResultsWithMediaIds}
-        renderItem={(item) => (
-          <ResultsListItem
-            item={item}
-            processOnly={processOnly}
-            onDownloadJson={downloadJson}
-            onOpenMedia={openInMediaViewer}
-            onDiscussInChat={discussInChat}
-            t={t}
-          />
-        )}
+        renderItem={renderResultItem}
       />
     </div>
   )

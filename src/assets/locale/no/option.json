@@ -239,6 +239,7 @@
     "process": "Behandle",
     "results": "Resultater",
     "downloadJson": "Last ned JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} avanserte felt lastet",
     "advancedEmpty": "Ingen avanserte alternativer oppdaget — prøv å laste spesifikasjonen på nytt.",
     "modifiedCount": "{{count}} endret",

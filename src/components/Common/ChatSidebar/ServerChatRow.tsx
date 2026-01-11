@@ -52,10 +52,7 @@ type ServerChatRowProps = ServerChatRowCommonProps & {
   onToggleSelected?: undefined
 }
 
-type ServerChatRowSelectionProps = Omit<
-  ServerChatRowCommonProps,
-  "selectionMode" | "isSelected" | "onToggleSelected"
-> & {
+type ServerChatRowSelectionProps = ServerChatRowCommonProps & {
   selectionMode: true
   isSelected: boolean
   onToggleSelected: (chatId: string) => void

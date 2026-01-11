@@ -48,7 +48,8 @@ import { normalizeConversationState } from "@/utils/conversation-state"
 import {
   SELECTED_CHARACTER_STORAGE_KEY,
   selectedCharacterStorage,
-  selectedCharacterSyncStorage
+  selectedCharacterSyncStorage,
+  parseSelectedCharacterValue
 } from "@/utils/selected-character-storage"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { getServerCapabilities } from "@/services/tldw/server-capabilities"
@@ -248,24 +249,33 @@ export const useChatActions = ({
   }, [messages])
 
   const resolveSelectedCharacter = React.useCallback(async () => {
-    if (selectedCharacter?.id) {
-      return selectedCharacter
-    }
     try {
-      const stored = await selectedCharacterStorage.get(
+      const storedRaw = await selectedCharacterStorage.get(
         SELECTED_CHARACTER_STORAGE_KEY
       )
-      if (stored && typeof stored === "object" && (stored as any)?.id) {
-        return stored as Character
+      const stored = parseSelectedCharacterValue<Character>(storedRaw)
+      if (stored?.id) {
+        if (
+          !selectedCharacter?.id ||
+          String(stored.id) !== String(selectedCharacter.id)
+        ) {
+          return stored
+        }
       }
-      const storedSync = await selectedCharacterSyncStorage.get(
+      const storedSyncRaw = await selectedCharacterSyncStorage.get(
         SELECTED_CHARACTER_STORAGE_KEY
       )
-      if (storedSync && typeof storedSync === "object" && (storedSync as any)?.id) {
+      const storedSync = parseSelectedCharacterValue<Character>(storedSyncRaw)
+      if (storedSync?.id) {
         await selectedCharacterStorage
           .set(SELECTED_CHARACTER_STORAGE_KEY, storedSync)
           .catch(() => {})
-        return storedSync as Character
+        if (
+          !selectedCharacter?.id ||
+          String(storedSync.id) !== String(selectedCharacter.id)
+        ) {
+          return storedSync
+        }
       }
     } catch {
       // best-effort only
@@ -477,6 +487,7 @@ export const useChatActions = ({
       const createdAt = Date.now()
       const assistantStub: Message = {
         isBot: true,
+        role: "assistant",
         name: characterName,
         message: "▋",
         sources: [],
@@ -500,6 +511,7 @@ export const useChatActions = ({
             ...chatHistory,
             {
               isBot: false,
+              role: "user",
               name: "You",
               message,
               sources: [],
@@ -696,10 +708,12 @@ export const useChatActions = ({
         )
       )
 
+      const finalContent = contentToSave || fullText
+
       try {
         const createdAsst = (await tldwClient.addChatMessage(chatId, {
           role: "assistant",
-          content: fullText
+          content: finalContent
         })) as { id?: string | number; version?: number } | null
         setMessages((prev) =>
           ((prev as any[]).map((m) => {
@@ -729,13 +743,13 @@ export const useChatActions = ({
         if (endsWithUser) {
           setHistory([
             ...chatMemory,
-            { role: "assistant", content: fullText }
+            { role: "assistant", content: finalContent }
           ])
         } else if (endsWithUserAssistant) {
           setHistory(
             chatMemory.map((entry, index) =>
               index === chatMemory.length - 1 && entry.role === "assistant"
-                ? { ...entry, content: fullText }
+                ? { ...entry, content: finalContent }
                 : entry
             )
           )
@@ -743,14 +757,14 @@ export const useChatActions = ({
           setHistory([
             ...chatMemory,
             { role: "user", content: message, image },
-            { role: "assistant", content: fullText }
+            { role: "assistant", content: finalContent }
           ])
         }
       } else {
         setHistory([
           ...chatMemory,
           { role: "user", content: message, image },
-          { role: "assistant", content: fullText }
+          { role: "assistant", content: finalContent }
         ])
       }
 
@@ -761,9 +775,9 @@ export const useChatActions = ({
         modelId: model,
         message,
         image,
-        fullText,
+        fullText: finalContent,
         source: [],
-        message_source: "copilot",
+        message_source: "web-ui",
         reasoning_time_taken: timetaken,
         userMessageId: resolvedUserMessageId,
         assistantMessageId: resolvedAssistantMessageId,
@@ -793,7 +807,7 @@ export const useChatActions = ({
         modelId: model,
         userMessage: message,
         isRegenerating: isRegenerate,
-        message_source: "copilot",
+        message_source: "web-ui",
         userMessageId: resolvedUserMessageId,
         assistantMessageId: resolvedAssistantMessageId,
         assistantParentMessageId: resolvedAssistantParentMessageId ?? null

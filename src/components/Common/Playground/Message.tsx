@@ -33,7 +33,6 @@ import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
 import type { MessageVariant } from "@/store/option"
 import { EDIT_MESSAGE_EVENT } from "@/utils/timeline-actions"
-import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import type { Character } from "@/types/character"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
@@ -130,6 +129,8 @@ type Props = {
   historyId?: string
   conversationInstanceId: string
   onDeleteMessage?: () => void
+  characterIdentity?: Character | null
+  characterIdentityEnabled?: boolean
 }
 
 export const PlaygroundMessage = (props: Props) => {
@@ -150,7 +151,6 @@ export const PlaygroundMessage = (props: Props) => {
   const [userTextSize] = useStorage("chatUserTextSize", "md")
   const [assistantTextSize] = useStorage("chatAssistantTextSize", "md")
   const [userDisplayName] = useStorage("chatUserDisplayName", "")
-  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [ttsProvider] = useStorage("ttsProvider", "browser")
   const { t } = useTranslation(["common", "playground"])
   const { capabilities } = useServerCapabilities()
@@ -217,15 +217,17 @@ export const PlaygroundMessage = (props: Props) => {
   const resolvedRole = props.role ?? (props.isBot ? "assistant" : "user")
   const isSystemMessage = resolvedRole === "system"
   const shouldUseCharacterIdentity =
-    props.isBot && Boolean(selectedCharacter?.id)
-  const characterAvatar = selectedCharacter?.avatar_url || ""
+    props.isBot &&
+    Boolean(props.characterIdentityEnabled) &&
+    Boolean(props.characterIdentity?.id)
+  const characterAvatar = props.characterIdentity?.avatar_url || ""
   const resolvedModelImage =
     shouldUseCharacterIdentity && characterAvatar
       ? characterAvatar
       : props.modelImage
   const resolvedModelName =
-    shouldUseCharacterIdentity && selectedCharacter?.name
-      ? selectedCharacter.name
+    shouldUseCharacterIdentity && props.characterIdentity?.name
+      ? props.characterIdentity.name
       : props.modelName || props.name
   const shouldPreviewAvatar =
     shouldUseCharacterIdentity && Boolean(characterAvatar)
@@ -682,19 +684,21 @@ export const PlaygroundMessage = (props: Props) => {
                     className="size-8"
                   />
                 </button>
-                <Modal
-                  open={isAvatarPreviewOpen}
-                  onCancel={() => setIsAvatarPreviewOpen(false)}
-                  footer={null}
-                  centered
-                >
-                  <Image
-                    src={resolvedModelImage}
-                    alt={resolvedModelName || props.name}
-                    preview={false}
-                    className="w-full"
-                  />
-                </Modal>
+                {isAvatarPreviewOpen && (
+                  <Modal
+                    open
+                    onCancel={() => setIsAvatarPreviewOpen(false)}
+                    footer={null}
+                    centered
+                  >
+                    <Image
+                      src={resolvedModelImage}
+                      alt={resolvedModelName || props.name}
+                      preview={false}
+                      className="w-full"
+                    />
+                  </Modal>
+                )}
               </>
             ) : (
               <Avatar

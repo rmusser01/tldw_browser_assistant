@@ -239,6 +239,7 @@
     "process": "പ്രോസസ്സ് ചെയ്യുക",
     "results": "ഫലങ്ങൾ",
     "downloadJson": "JSON ഡൗൺലോഡ് ചെയ്യുക",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} ഉന്നത ഫീൽഡുകൾ ലോഡ് ചെയ്തു",
     "advancedEmpty": "ഉന്നത ഓപ്ഷനുകൾ കണ്ടെത്തിയില്ല — സ്പെക് റീലോഡ് ചെയ്ത് നോക്കുക.",
     "modifiedCount": "{{count}} മാറ്റം ചെയ്തു",

@@ -239,6 +239,7 @@
     "process": "پردازش",
     "results": "نتایج",
     "downloadJson": "دانلود JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} فیلد پیشرفته بارگذاری شد",
     "advancedEmpty": "گزینه پیشرفته‌ای یافت نشد — مشخصات را دوباره بارگذاری کنید.",
     "modifiedCount": "{{count}} مورد تغییر کرد",

@@ -470,6 +470,7 @@
     "runLabel": "퀵 인제스트 실행",
     "results": "결과",
     "downloadJson": "JSON 다운로드",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}}개의 고급 필드가 로드되었습니다",
     "advancedEmpty": "고급 옵션이 감지되지 않았습니다 — 사양을 다시 로드해 보세요.",
     "modifiedCount": "{{count}}개 수정됨",

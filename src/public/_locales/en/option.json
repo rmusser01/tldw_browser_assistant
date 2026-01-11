@@ -1416,7 +1416,7 @@
     "message": "Select character"
   },
   "characters_chattingAs": {
-    "message": "You're now chatting as {{name}}."
+    "message": "You're chatting with {{name}}."
   },
   "characters_clearCharacter": {
     "message": "Clear character"
@@ -2482,5 +2482,8 @@
   },
   "quickIngest_quickIngest_ocrHelp": {
     "message": "OCR helps extract text from scanned PDFs or images."
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

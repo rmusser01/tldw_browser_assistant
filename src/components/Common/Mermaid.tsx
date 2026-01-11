@@ -39,6 +39,7 @@ export const Mermaid: React.FC<MermaidProps> = ({ code, className }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [error, setError] = useState<string | null>(null)
   const renderIdRef = useRef(0)
+  renderIdRef.current = 0
 
   useEffect(() => {
     if (typeof window === "undefined") {

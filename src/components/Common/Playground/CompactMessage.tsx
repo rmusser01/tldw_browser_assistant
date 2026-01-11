@@ -29,7 +29,6 @@ import { highlightText } from "@/utils/text-highlight"
 import { cn } from "@/libs/utils"
 import { translateMessage } from "@/i18n/translateMessage"
 import { useStorage } from "@plasmohq/storage/hook"
-import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import type { Character } from "@/types/character"
 import type { Source, GenerationInfo } from "./types"
 
@@ -64,6 +63,8 @@ interface CompactMessageProps {
   /** Timestamp of the message */
   timestamp?: number
   onDelete?: () => void | Promise<void>
+  characterIdentity?: Character | null
+  characterIdentityEnabled?: boolean
 }
 
 /**
@@ -107,10 +108,10 @@ export function CompactMessage({
   const [saveError, setSaveError] = useState<string | null>(null)
   const [showSources, setShowSources] = useState(false)
   const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = useState(false)
+  const previousModelImageRef = React.useRef<string | undefined>(undefined)
   const { cancel, isSpeaking, speak } = useTTS()
   const uiMode = useUiModeStore((state) => state.mode)
   const [userDisplayName] = useStorage("chatUserDisplayName", "")
-  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const isProMode = uiMode === "pro"
   const actionBarVisibility = isProMode
     ? "opacity-100"
@@ -125,21 +126,35 @@ export function CompactMessage({
 
   const errorPayload = decodeChatErrorPayload(message)
   const shouldUseCharacterIdentity =
-    isBot && Boolean(selectedCharacter?.id)
-  const characterAvatar = selectedCharacter?.avatar_url || ""
+    isBot &&
+    Boolean(characterIdentityEnabled) &&
+    Boolean(characterIdentity?.id)
+  const characterAvatar = characterIdentity?.avatar_url || ""
   const resolvedModelImage =
     shouldUseCharacterIdentity && characterAvatar
       ? characterAvatar
       : modelImage
   const resolvedModelName =
-    shouldUseCharacterIdentity && selectedCharacter?.name
-      ? selectedCharacter.name
+    shouldUseCharacterIdentity && characterIdentity?.name
+      ? characterIdentity.name
       : modelName || name
   const shouldPreviewAvatar =
     shouldUseCharacterIdentity && Boolean(characterAvatar)
   const displayName = isBot
     ? removeModelSuffix(resolvedModelName)
     : userDisplayName.trim() || t("common:you", "You")
+
+  React.useEffect(() => {
+    if (!shouldPreviewAvatar) {
+      setIsAvatarPreviewOpen(false)
+    } else if (
+      isAvatarPreviewOpen &&
+      previousModelImageRef.current !== resolvedModelImage
+    ) {
+      setIsAvatarPreviewOpen(false)
+    }
+    previousModelImageRef.current = resolvedModelImage
+  }, [isAvatarPreviewOpen, resolvedModelImage, shouldPreviewAvatar])
 
   // Parse reasoning blocks
   const parsedContent = useMemo(() => {

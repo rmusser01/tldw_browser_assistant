@@ -466,6 +466,7 @@
     "process": "معالجة",
     "results": "النتائج",
     "downloadJson": "تنزيل JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} من الحقول المتقدمة تم تحميلها",
     "advancedEmpty": "لم يتم اكتشاف خيارات متقدمة — جرّب إعادة تحميل المواصفات.",
     "modifiedCount": "{{count}} تم تعديلها",

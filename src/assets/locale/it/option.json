@@ -462,6 +462,7 @@
     "process": "Elabora",
     "results": "Risultati",
     "downloadJson": "Scarica JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} campi avanzati caricati",
     "advancedEmpty": "Nessuna opzione avanzata rilevata — prova a ricaricare la specifica.",
     "modifiedCount": "{{count}} modificati",

@@ -280,6 +280,7 @@
     "resultsFilterFailed": "Failed only",
     "resultsFilterSucceeded": "Succeeded only",
     "downloadJson": "Download JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} advanced fields loaded",
     "advancedEmpty": "No advanced options detected — try reloading the spec.",
     "modifiedCount": "{{count}} modified",
@@ -574,7 +575,7 @@
   },
   "characters": {
     "selectCharacter": "Select character",
-    "chattingAs": "You're now chatting as {{name}}.",
+    "chattingAs": "You're chatting with {{name}}.",
     "clearCharacter": "Clear character",
     "fetchErrorTitle": "Unable to load characters",
     "fetchErrorBody": "Check your connection or server health, then try again.",

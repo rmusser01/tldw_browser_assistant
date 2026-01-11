@@ -15,6 +15,7 @@ import { toAllowedPath } from '@/services/tldw/path-utils'
 
 const BULK_ACTION_BATCH_SIZE = 10
 const BULK_ACTION_DELAY_MS = 100
+const PAGE_SIZE = 20
 
 type TrashItem = {
   id: number
@@ -38,7 +39,6 @@ const TrashPageContent: React.FC = () => {
   const message = useAntdMessage()
   const confirmDanger = useConfirmDanger()
   const [page, setPage] = useState(1)
-  const pageSize = 20
   const [actionId, setActionId] = useState<number | null>(null)
   const [actionType, setActionType] = useState<'restore' | 'delete' | null>(null)
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
@@ -47,9 +47,9 @@ const TrashPageContent: React.FC = () => {
 
   const fetchTrash = useCallback(async (): Promise<TrashResponse> => {
     return await bgRequest<TrashResponse>({
-      path: toAllowedPath(`/api/v1/media/trash?page=${page}&results_per_page=${pageSize}`)
+      path: toAllowedPath(`/api/v1/media/trash?page=${page}&results_per_page=${PAGE_SIZE}`)
     })
-  }, [page, pageSize])
+  }, [page])
 
   const {
     data,
@@ -58,7 +58,7 @@ const TrashPageContent: React.FC = () => {
     isError,
     refetch
   } = useQuery({
-    queryKey: ['media-trash', page, pageSize],
+    queryKey: ['media-trash', page, PAGE_SIZE],
     queryFn: fetchTrash,
     placeholderData: keepPreviousData,
     staleTime: 20_000
@@ -382,7 +382,7 @@ const TrashPageContent: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
-            onClick={() => refetch()}
+            onClick={refetch}
             className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text-muted hover:bg-surface2 hover:text-text disabled:opacity-60"
             disabled={isFetching || isAnyActionBusy}
           >
@@ -478,7 +478,7 @@ const TrashPageContent: React.FC = () => {
             })}
             examples={[]}
             primaryActionLabel={t('common:retry', { defaultValue: 'Retry' })}
-            onPrimaryAction={() => refetch()}
+            onPrimaryAction={refetch}
             primaryDisabled={isFetching}
           />
         ) : items.length === 0 ? (
