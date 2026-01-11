@@ -100,6 +100,8 @@ export function CompactMessage({
   sendStatus,
   timestamp,
   onDelete,
+  characterIdentity,
+  characterIdentityEnabled,
 }: CompactMessageProps) {
   const { t, i18n } = useTranslation(["common", "playground"])
   const [copied, setCopied] = useState(false)

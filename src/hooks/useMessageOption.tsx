@@ -215,7 +215,17 @@ export const useMessageOption = () => {
     lastCharacterIdRef.current = nextId
     setServerChatId(null)
     resetServerChatState()
-  }, [resetServerChatState, selectedCharacter?.id, setServerChatId])
+    setMessages([])
+    setHistory([])
+    setHistoryId(null)
+  }, [
+    resetServerChatState,
+    selectedCharacter?.id,
+    setHistory,
+    setHistoryId,
+    setMessages,
+    setServerChatId
+  ])
 
   React.useEffect(() => {
     if (!serverChatId || temporaryChat) return

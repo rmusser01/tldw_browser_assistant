@@ -574,7 +574,7 @@ const TrashPageContent: React.FC = () => {
             totalPages={totalPages}
             onPageChange={setPage}
             totalItems={totalItems}
-            itemsPerPage={pageSize}
+            itemsPerPage={PAGE_SIZE}
             currentItemsCount={items.length}
           />
         </div>

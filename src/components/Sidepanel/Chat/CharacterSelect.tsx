@@ -456,7 +456,7 @@ export const CharacterSelect: React.FC<Props> = ({
       // fall back to window.open below
     }
 
-    window.open(`/options.html${hash}`, "_blank")
+    window.open(browser.runtime.getURL(`/options.html${hash}`), "_blank")
   }, [buildCharactersHash])
 
   const createCharacterItem = React.useCallback(

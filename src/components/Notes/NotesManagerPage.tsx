@@ -415,6 +415,49 @@ const NotesManagerPage: React.FC = () => {
     [confirmDiscardIfDirty, loadDetail]
   )
 
+  const isVersionConflictError = (error: any) => {
+    const msg = String(error?.message || '')
+    const lower = msg.toLowerCase()
+    const status = error?.status ?? error?.response?.status
+    return (
+      status === 409 ||
+      lower.includes('expected-version') ||
+      lower.includes('expected_version') ||
+      lower.includes('version mismatch')
+    )
+  }
+
+  const handleVersionConflict = (noteId?: string | number | null) => {
+    message.error({
+      content: (
+        <span
+          className="inline-flex items-center gap-2"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault()
+              void reloadNotes(noteId)
+            }
+          }}
+        >
+          <span>This note changed on the server.</span>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => void reloadNotes(noteId)}
+            aria-label="Reload notes"
+          >
+            Reload notes
+          </Button>
+        </span>
+      ),
+      duration: 6
+    })
+  }
+
   const saveNote = async () => {
     if (!content.trim() && !title.trim()) { message.warning('Nothing to save'); return }
     setSaving(true)
@@ -476,45 +519,10 @@ const NotesManagerPage: React.FC = () => {
         }
       }
     } catch (e: any) {
-      const msg = String(e?.message || '')
-      const lower = msg.toLowerCase()
-      const status = e?.status ?? e?.response?.status
-      if (
-        status === 409 ||
-        lower.includes('expected-version') ||
-        lower.includes('expected_version') ||
-        lower.includes('version mismatch')
-      ) {
-        message.error({
-          content: (
-            <span
-              className="inline-flex items-center gap-2"
-              role="alert"
-              aria-live="assertive"
-              aria-atomic="true"
-              tabIndex={0}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault()
-                  void reloadNotes(selectedId)
-                }
-              }}
-            >
-              <span>This note changed on the server.</span>
-              <Button
-                type="link"
-                size="small"
-                onClick={() => void reloadNotes(selectedId)}
-                aria-label="Reload notes"
-              >
-                Reload notes
-              </Button>
-            </span>
-          ),
-          duration: 6
-        })
+      if (isVersionConflictError(e)) {
+        handleVersionConflict(selectedId)
       } else {
-        message.error(msg || 'Save failed')
+        message.error(String(e?.message || '') || 'Operation failed')
       }
     } finally { setSaving(false) }
   }
@@ -570,45 +578,10 @@ const NotesManagerPage: React.FC = () => {
       if (selectedId != null && String(selectedId) === targetId) resetEditor()
       await refetch()
     } catch (e: any) {
-      const msg = String(e?.message || '')
-      const lower = msg.toLowerCase()
-      const status = e?.status ?? e?.response?.status
-      if (
-        status === 409 ||
-        lower.includes('expected-version') ||
-        lower.includes('expected_version') ||
-        lower.includes('version mismatch')
-      ) {
-        message.error({
-          content: (
-            <span
-              className="inline-flex items-center gap-2"
-              role="alert"
-              aria-live="assertive"
-              aria-atomic="true"
-              tabIndex={0}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault()
-                  void reloadNotes(target)
-                }
-              }}
-            >
-              <span>This note changed on the server.</span>
-              <Button
-                type="link"
-                size="small"
-                onClick={() => void reloadNotes(target)}
-                aria-label="Reload notes"
-              >
-                Reload notes
-              </Button>
-            </span>
-          ),
-          duration: 6
-        })
+      if (isVersionConflictError(e)) {
+        handleVersionConflict(target)
       } else {
-        message.error(msg || 'Delete failed')
+        message.error(String(e?.message || '') || 'Operation failed')
       }
     }
   }

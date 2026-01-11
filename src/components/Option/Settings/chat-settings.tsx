@@ -166,10 +166,10 @@ export const ChatSettings = () => {
   const getResetProps = <T extends boolean | string>(
     value: T,
     defaultValue: T,
-    setter: (next: T) => void
+    setter: (next: T) => void | Promise<void>
   ) => ({
     modified: value !== defaultValue,
-    onReset: () => setter(defaultValue)
+    onReset: () => void setter(defaultValue)
   })
 
   return (

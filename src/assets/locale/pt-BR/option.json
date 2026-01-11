@@ -247,7 +247,7 @@
     "runLabel": "Executar Quick Ingest",
     "results": "Resultados",
     "downloadJson": "Baixar JSON",
-    "downloadJsonAria": "Download JSON for {{name}}",
+    "downloadJsonAria": "Baixar JSON de {{name}}",
     "advancedSummary": "{{count}} campos avançados carregados",
     "advancedEmpty": "Nenhuma opção avançada detectada — tente recarregar o spec.",
     "modifiedCount": "{{count}} modificados",

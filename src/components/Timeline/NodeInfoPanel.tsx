@@ -52,6 +52,7 @@ export const NodeInfoPanel: React.FC = () => {
     const fragments = timelineSearch.parseQueryFragments(searchQuery)
     if (fragments.length === 0) return null
 
+    // highlightMatches escapes node.content and only injects <mark> tags.
     return timelineSearch.highlightMatches(node.content, fragments)
   }, [node, searchQuery])
 

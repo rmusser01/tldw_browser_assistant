@@ -31,6 +31,7 @@ Tip: WXT outputs to `.output/<browser>-mv3/` for loading as an unpacked extensio
 - No formal test suite yet; use manual smoke tests.
 - Verify: options pages, sidepanel flows, keyboard shortcuts, OCR/TTS, and provider integrations across Chrome/Firefox/Edge.
 - Run type checks before PR: `bun run compile`.
+- All new functionality must include Unit + Integration + Property (where applicable) tests.
 
 ## Commit & Pull Request Guidelines
 - Commits: conventional prefixes (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`). Use imperative mood and keep concise.

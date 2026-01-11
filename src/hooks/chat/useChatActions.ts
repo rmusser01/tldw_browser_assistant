@@ -613,8 +613,19 @@ export const useChatActions = ({
         }
 
         const payload: TldwChatMessage = { role: "user", content: message }
-        if (image && image.startsWith("data:")) {
-          const b64 = image.includes(",") ? image.split(",")[1] : undefined
+        let normalizedImage = image
+        if (normalizedImage.length > 0 && !normalizedImage.startsWith("data:")) {
+          const payloadValue = normalizedImage.includes(",")
+            ? normalizedImage.split(",")[1]
+            : normalizedImage
+          if (payloadValue && payloadValue.length > 0) {
+            normalizedImage = `data:image/jpeg;base64,${payloadValue}`
+          }
+        }
+        if (normalizedImage && normalizedImage.startsWith("data:")) {
+          const b64 = normalizedImage.includes(",")
+            ? normalizedImage.split(",")[1]
+            : undefined
           if (b64) {
             payload.image_base64 = b64
           }

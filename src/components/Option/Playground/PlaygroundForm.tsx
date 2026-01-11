@@ -1001,7 +1001,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const handlePaste = React.useCallback(
     async (e: React.ClipboardEvent) => {
       if (e.clipboardData.files.length > 0) {
-        onInputChange(e.clipboardData.files[0])
+        try {
+          await onInputChange(e.clipboardData.files[0])
+        } catch (error) {
+          console.error("Failed to handle pasted file:", error)
+        }
         return
       }
 

@@ -90,7 +90,7 @@ export class TimelineSearchService {
 
   /**
    * Highlight matching fragments in text
-   * Returns HTML string with <mark> tags around matches
+   * Returns HTML string with <mark> tags around matches; input text is escaped.
    */
   highlightMatches(text: string, fragments: string[], caseSensitive = false): string {
     if (!fragments.length || !text) {

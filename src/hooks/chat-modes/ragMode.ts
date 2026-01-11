@@ -31,10 +31,42 @@ const RAG_ADVANCED_OPTION_KEYS = new Set([
   "citation_style"
 ])
 
+const RAG_SEARCH_MODES = new Set(["hybrid", "vector", "fts"])
+const RAG_NUMBER_KEYS = new Set(["top_k", "rerank_top_k", "timeoutMs"])
+const RAG_ARRAY_KEYS = new Set(["sources", "include_media_ids"])
+
+const coercePositiveNumber = (value: unknown): number | null => {
+  if (typeof value === "number") {
+    return Number.isFinite(value) && value > 0 ? value : null
+  }
+  if (typeof value === "string") {
+    const trimmed = value.trim()
+    if (!trimmed) return null
+    const parsed = Number(trimmed)
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : null
+  }
+  return null
+}
+
+const coerceBoolean = (value: unknown): boolean | null => {
+  if (typeof value === "boolean") return value
+  if (typeof value === "string") {
+    const trimmed = value.trim().toLowerCase()
+    if (trimmed === "true") return true
+    if (trimmed === "false") return false
+  }
+  if (typeof value === "number") {
+    if (value === 1) return true
+    if (value === 0) return false
+  }
+  return null
+}
+
 const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
   if (!options) return {}
   const sanitized: Record<string, unknown> = {}
   const ignored: string[] = []
+  const invalid: string[] = []
   for (const [key, value] of Object.entries(options)) {
     if (!RAG_ADVANCED_OPTION_KEYS.has(key)) {
       ignored.push(key)
@@ -42,12 +74,52 @@ const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
     }
     if (value === undefined || value === null) continue
     if (typeof value === "string" && value.trim() === "") continue
+    if (RAG_NUMBER_KEYS.has(key)) {
+      const coerced = coercePositiveNumber(value)
+      if (coerced == null) {
+        invalid.push(key)
+        continue
+      }
+      sanitized[key] = coerced
+      continue
+    }
+    if (key.startsWith("enable_")) {
+      const coerced = coerceBoolean(value)
+      if (coerced == null) {
+        invalid.push(key)
+        continue
+      }
+      sanitized[key] = coerced
+      continue
+    }
+    if (RAG_ARRAY_KEYS.has(key)) {
+      if (!Array.isArray(value)) {
+        invalid.push(key)
+        continue
+      }
+      sanitized[key] = value
+      continue
+    }
+    if (key === "search_mode") {
+      if (typeof value !== "string" || !RAG_SEARCH_MODES.has(value)) {
+        invalid.push(key)
+        continue
+      }
+      sanitized[key] = value
+      continue
+    }
     sanitized[key] = value
   }
   if (ignored.length > 0) {
     console.debug(
       "[ragMode] Ignoring unsupported ragAdvancedOptions keys:",
       ignored
+    )
+  }
+  if (invalid.length > 0) {
+    console.debug(
+      "[ragMode] Dropping invalid ragAdvancedOptions values for keys:",
+      invalid
     )
   }
   return sanitized

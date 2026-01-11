@@ -464,7 +464,7 @@
     "runLabel": "クイックインジェスト実行",
     "results": "結果",
     "downloadJson": "JSON をダウンロード",
-    "downloadJsonAria": "Download JSON for {{name}}",
+    "downloadJsonAria": "「{{name}}」のJSONをダウンロード",
     "advancedSummary": "{{count}} 件の高度なフィールドを読み込みました",
     "advancedEmpty": "高度なオプションが検出されません — 仕様を再読み込みしてください。",
     "modifiedCount": "{{count}} 件変更",
