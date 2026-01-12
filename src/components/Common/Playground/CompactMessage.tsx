@@ -111,6 +111,9 @@ export function CompactMessage({
   const [showSources, setShowSources] = useState(false)
   const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = useState(false)
   const previousModelImageRef = React.useRef<string | undefined>(undefined)
+  const copyResetTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  )
   const { cancel, isSpeaking, speak } = useTTS()
   const uiMode = useUiModeStore((state) => state.mode)
   const [userDisplayName] = useStorage("chatUserDisplayName", "")
@@ -158,6 +161,15 @@ export function CompactMessage({
     previousModelImageRef.current = resolvedModelImage
   }, [isAvatarPreviewOpen, resolvedModelImage, shouldPreviewAvatar])
 
+  React.useEffect(() => {
+    return () => {
+      if (copyResetTimeoutRef.current) {
+        clearTimeout(copyResetTimeoutRef.current)
+        copyResetTimeoutRef.current = null
+      }
+    }
+  }, [])
+
   // Parse reasoning blocks
   const parsedContent = useMemo(() => {
     if (!isBot) return [{ type: "text" as const, content: message }]
@@ -177,7 +189,13 @@ export function CompactMessage({
   const handleCopy = React.useCallback(async () => {
     await copyToClipboard({ text: message, formatted: false })
     setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    if (copyResetTimeoutRef.current) {
+      clearTimeout(copyResetTimeoutRef.current)
+    }
+    copyResetTimeoutRef.current = window.setTimeout(() => {
+      setCopied(false)
+      copyResetTimeoutRef.current = null
+    }, 2000)
   }, [message])
 
   const handleSpeak = React.useCallback(() => {

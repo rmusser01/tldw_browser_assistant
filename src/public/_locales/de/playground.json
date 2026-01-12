@@ -1384,5 +1384,11 @@
   },
   "composer_noTabsFound": {
     "message": "Keine geeigneten offenen Tabs gefunden."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

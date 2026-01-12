@@ -1381,5 +1381,11 @@
   },
   "composer_noTabsFound": {
     "message": "യോഗ്യമായ തുറന്ന ടാബുകൾ കണ്ടെത്തിയില്ല."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

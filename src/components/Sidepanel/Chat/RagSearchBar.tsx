@@ -2698,431 +2698,850 @@ export const RagSearchBar: React.FC<Props> = ({
               </div>
             )}
 
-            <div className="rounded border border-border bg-surface p-3">
-              <div className="text-xs font-semibold text-text mb-2">
-                {t("sidepanel:rag.reranking", "Reranking")}
-              </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.enable_reranking}
-                    onChange={(checked) => updateSetting("enable_reranking", checked)}
-                    aria-label={t("sidepanel:rag.enableReranking", "Enable reranking")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.enableReranking", "Enable reranking")}
-                  </span>
+            {matchesAny(
+              t("sidepanel:rag.reranking", "Reranking") as string,
+              t("sidepanel:rag.enableReranking", "Enable reranking") as string,
+              t("sidepanel:rag.rerankStrategy", "Strategy") as string,
+              t("sidepanel:rag.rerankTopK", "Rerank top_k") as string,
+              t("sidepanel:rag.rerankingModel", "Reranking model") as string,
+              t("sidepanel:rag.rerankMinProb", "Min relevance prob") as string,
+              t("sidepanel:rag.rerankSentinel", "Sentinel margin") as string
+            ) && (
+              <div className="rounded border border-border bg-surface p-3">
+                <div className="text-xs font-semibold text-text mb-2">
+                  {t("sidepanel:rag.reranking", "Reranking")}
                 </div>
-                {draftSettings.enable_reranking && (
-                  <>
-                    {renderSelect(
-                      t("sidepanel:rag.rerankStrategy", "Strategy"),
-                      draftSettings.reranking_strategy,
-                      (next) =>
-                        updateSetting(
-                          "reranking_strategy",
-                          next as RagSettings["reranking_strategy"]
-                        ),
-                      RERANK_STRATEGY_OPTIONS
-                    )}
-                    {renderNumberInput(
-                      t("sidepanel:rag.rerankTopK", "Rerank top_k"),
-                      draftSettings.rerank_top_k,
-                      (next) => updateSetting("rerank_top_k", next),
-                      { min: 1 }
-                    )}
-                    {renderTextInput(
-                      t("sidepanel:rag.rerankingModel", "Reranking model"),
-                      draftSettings.reranking_model,
-                      (next) => updateSetting("reranking_model", next)
-                    )}
-                    {renderNumberInput(
-                      t("sidepanel:rag.rerankMinProb", "Min relevance prob"),
-                      draftSettings.rerank_min_relevance_prob,
-                      (next) => updateSetting("rerank_min_relevance_prob", next),
-                      { min: 0, max: 1, step: 0.05 }
-                    )}
-                    {renderNumberInput(
-                      t("sidepanel:rag.rerankSentinel", "Sentinel margin"),
-                      draftSettings.rerank_sentinel_margin,
-                      (next) => updateSetting("rerank_sentinel_margin", next),
-                      { min: 0, max: 1, step: 0.05 }
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="rounded border border-border bg-surface p-3">
-              <div className="text-xs font-semibold text-text mb-2">
-                {t("sidepanel:rag.answerCitations", "Answer & Citations")}
-              </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.enable_generation}
-                    onChange={(checked) => updateSetting("enable_generation", checked)}
-                    aria-label={t("sidepanel:rag.enableGeneration", "Enable generation")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.enableGeneration", "Enable generation")}
-                  </span>
-                </div>
-                {draftSettings.enable_generation && (
-                  <>
+                <div className="grid gap-3 md:grid-cols-2">
+                  {matchesAny(
+                    t("sidepanel:rag.reranking", "Reranking") as string,
+                    t("sidepanel:rag.enableReranking", "Enable reranking") as string,
+                    t("sidepanel:rag.rerankStrategy", "Strategy") as string,
+                    t("sidepanel:rag.rerankTopK", "Rerank top_k") as string,
+                    t("sidepanel:rag.rerankingModel", "Reranking model") as string,
+                    t("sidepanel:rag.rerankMinProb", "Min relevance prob") as string,
+                    t("sidepanel:rag.rerankSentinel", "Sentinel margin") as string
+                  ) && (
                     <div className="flex items-center gap-2">
                       <Switch
-                        checked={draftSettings.strict_extractive}
+                        checked={draftSettings.enable_reranking}
                         onChange={(checked) =>
-                          updateSetting("strict_extractive", checked)
+                          updateSetting("enable_reranking", checked)
                         }
-                        aria-label={t("sidepanel:rag.strictExtractive", "Strict extractive")}
+                        aria-label={t(
+                          "sidepanel:rag.enableReranking",
+                          "Enable reranking"
+                        )}
                       />
                       <span className="text-xs text-text">
-                        {t("sidepanel:rag.strictExtractive", "Strict extractive")}
+                        {t("sidepanel:rag.enableReranking", "Enable reranking")}
                       </span>
                     </div>
-                    {renderTextInput(
-                      t("sidepanel:rag.generationModel", "Generation model"),
-                      draftSettings.generation_model || "",
-                      (next) => updateSetting("generation_model", next || null)
-                    )}
-                    {renderTextInput(
-                      t("sidepanel:rag.generationPrompt", "Generation prompt"),
-                      draftSettings.generation_prompt || "",
-                      (next) => updateSetting("generation_prompt", next || null)
-                    )}
-                    {renderNumberInput(
-                      t("sidepanel:rag.maxTokens", "Max tokens"),
-                      draftSettings.max_generation_tokens,
-                      (next) => updateSetting("max_generation_tokens", next),
-                      { min: 1 }
-                    )}
+                  )}
+                  {draftSettings.enable_reranking && (
+                    <>
+                      {matchesAny(
+                        t("sidepanel:rag.reranking", "Reranking") as string,
+                        t("sidepanel:rag.rerankStrategy", "Strategy") as string
+                      ) &&
+                        renderSelect(
+                          t("sidepanel:rag.rerankStrategy", "Strategy"),
+                          draftSettings.reranking_strategy,
+                          (next) =>
+                            updateSetting(
+                              "reranking_strategy",
+                              next as RagSettings["reranking_strategy"]
+                            ),
+                          RERANK_STRATEGY_OPTIONS
+                        )}
+                      {matchesAny(
+                        t("sidepanel:rag.reranking", "Reranking") as string,
+                        t("sidepanel:rag.rerankTopK", "Rerank top_k") as string
+                      ) &&
+                        renderNumberInput(
+                          t("sidepanel:rag.rerankTopK", "Rerank top_k"),
+                          draftSettings.rerank_top_k,
+                          (next) => updateSetting("rerank_top_k", next),
+                          { min: 1 }
+                        )}
+                      {matchesAny(
+                        t("sidepanel:rag.reranking", "Reranking") as string,
+                        t("sidepanel:rag.rerankingModel", "Reranking model") as string
+                      ) &&
+                        renderTextInput(
+                          t("sidepanel:rag.rerankingModel", "Reranking model"),
+                          draftSettings.reranking_model,
+                          (next) => updateSetting("reranking_model", next)
+                        )}
+                      {matchesAny(
+                        t("sidepanel:rag.reranking", "Reranking") as string,
+                        t("sidepanel:rag.rerankMinProb", "Min relevance prob") as string
+                      ) &&
+                        renderNumberInput(
+                          t("sidepanel:rag.rerankMinProb", "Min relevance prob"),
+                          draftSettings.rerank_min_relevance_prob,
+                          (next) => updateSetting("rerank_min_relevance_prob", next),
+                          { min: 0, max: 1, step: 0.05 }
+                        )}
+                      {matchesAny(
+                        t("sidepanel:rag.reranking", "Reranking") as string,
+                        t("sidepanel:rag.rerankSentinel", "Sentinel margin") as string
+                      ) &&
+                        renderNumberInput(
+                          t("sidepanel:rag.rerankSentinel", "Sentinel margin"),
+                          draftSettings.rerank_sentinel_margin,
+                          (next) => updateSetting("rerank_sentinel_margin", next),
+                          { min: 0, max: 1, step: 0.05 }
+                        )}
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {matchesAny(
+              t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+              t("sidepanel:rag.enableGeneration", "Enable generation") as string,
+              t("sidepanel:rag.strictExtractive", "Strict extractive") as string,
+              t("sidepanel:rag.generationModel", "Generation model") as string,
+              t("sidepanel:rag.generationPrompt", "Generation prompt") as string,
+              t("sidepanel:rag.maxTokens", "Max tokens") as string,
+              t("sidepanel:rag.enableAbstention", "Enable abstention") as string,
+              t("sidepanel:rag.abstentionBehavior", "Abstention behavior") as string,
+              t("sidepanel:rag.enableSynthesis", "Multi-turn synthesis") as string,
+              t("sidepanel:rag.synthesisBudget", "Synthesis time budget") as string,
+              t("sidepanel:rag.synthesisDraft", "Draft tokens") as string,
+              t("sidepanel:rag.synthesisRefine", "Refine tokens") as string,
+              t("sidepanel:rag.enableCitations", "Enable citations") as string,
+              t("sidepanel:rag.citationStyle", "Citation style") as string,
+              t("sidepanel:rag.includePageNumbers", "Include page numbers") as string,
+              t("sidepanel:rag.chunkCitations", "Chunk citations") as string,
+              t("sidepanel:rag.requireHardCitations", "Require hard citations") as string
+            ) && (
+              <div className="rounded border border-border bg-surface p-3">
+                <div className="text-xs font-semibold text-text mb-2">
+                  {t("sidepanel:rag.answerCitations", "Answer & Citations")}
+                </div>
+                <div className="grid gap-3 md:grid-cols-2">
+                  {matchesAny(
+                    t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                    t("sidepanel:rag.enableGeneration", "Enable generation") as string,
+                    t("sidepanel:rag.strictExtractive", "Strict extractive") as string,
+                    t("sidepanel:rag.generationModel", "Generation model") as string,
+                    t("sidepanel:rag.generationPrompt", "Generation prompt") as string,
+                    t("sidepanel:rag.maxTokens", "Max tokens") as string,
+                    t("sidepanel:rag.enableAbstention", "Enable abstention") as string,
+                    t("sidepanel:rag.abstentionBehavior", "Abstention behavior") as string,
+                    t("sidepanel:rag.enableSynthesis", "Multi-turn synthesis") as string,
+                    t("sidepanel:rag.synthesisBudget", "Synthesis time budget") as string,
+                    t("sidepanel:rag.synthesisDraft", "Draft tokens") as string,
+                    t("sidepanel:rag.synthesisRefine", "Refine tokens") as string
+                  ) && (
                     <div className="flex items-center gap-2">
                       <Switch
-                        checked={draftSettings.enable_abstention}
-                        onChange={(checked) => updateSetting("enable_abstention", checked)}
-                        aria-label={t("sidepanel:rag.enableAbstention", "Enable abstention")}
+                        checked={draftSettings.enable_generation}
+                        onChange={(checked) =>
+                          updateSetting("enable_generation", checked)
+                        }
+                        aria-label={t(
+                          "sidepanel:rag.enableGeneration",
+                          "Enable generation"
+                        )}
                       />
                       <span className="text-xs text-text">
-                        {t("sidepanel:rag.enableAbstention", "Enable abstention")}
+                        {t("sidepanel:rag.enableGeneration", "Enable generation")}
                       </span>
                     </div>
-                    {draftSettings.enable_abstention &&
-                      renderSelect(
-                        t("sidepanel:rag.abstentionBehavior", "Abstention behavior"),
-                        draftSettings.abstention_behavior,
-                        (next) =>
-                          updateSetting(
-                            "abstention_behavior",
-                            next as RagSettings["abstention_behavior"]
-                          ),
-                        ABSTENTION_OPTIONS
+                  )}
+                  {draftSettings.enable_generation && (
+                    <>
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t("sidepanel:rag.strictExtractive", "Strict extractive") as string
+                      ) && (
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={draftSettings.strict_extractive}
+                            onChange={(checked) =>
+                              updateSetting("strict_extractive", checked)
+                            }
+                            aria-label={t(
+                              "sidepanel:rag.strictExtractive",
+                              "Strict extractive"
+                            )}
+                          />
+                          <span className="text-xs text-text">
+                            {t("sidepanel:rag.strictExtractive", "Strict extractive")}
+                          </span>
+                        </div>
                       )}
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t("sidepanel:rag.generationModel", "Generation model") as string
+                      ) &&
+                        renderTextInput(
+                          t("sidepanel:rag.generationModel", "Generation model"),
+                          draftSettings.generation_model || "",
+                          (next) => updateSetting("generation_model", next || null)
+                        )}
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t("sidepanel:rag.generationPrompt", "Generation prompt") as string
+                      ) &&
+                        renderTextInput(
+                          t("sidepanel:rag.generationPrompt", "Generation prompt"),
+                          draftSettings.generation_prompt || "",
+                          (next) => updateSetting("generation_prompt", next || null)
+                        )}
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t("sidepanel:rag.maxTokens", "Max tokens") as string
+                      ) &&
+                        renderNumberInput(
+                          t("sidepanel:rag.maxTokens", "Max tokens"),
+                          draftSettings.max_generation_tokens,
+                          (next) => updateSetting("max_generation_tokens", next),
+                          { min: 1 }
+                        )}
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t("sidepanel:rag.enableAbstention", "Enable abstention") as string,
+                        t("sidepanel:rag.abstentionBehavior", "Abstention behavior") as string
+                      ) && (
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={draftSettings.enable_abstention}
+                            onChange={(checked) =>
+                              updateSetting("enable_abstention", checked)
+                            }
+                            aria-label={t(
+                              "sidepanel:rag.enableAbstention",
+                              "Enable abstention"
+                            )}
+                          />
+                          <span className="text-xs text-text">
+                            {t("sidepanel:rag.enableAbstention", "Enable abstention")}
+                          </span>
+                        </div>
+                      )}
+                      {draftSettings.enable_abstention &&
+                        matchesAny(
+                          t(
+                            "sidepanel:rag.answerCitations",
+                            "Answer & Citations"
+                          ) as string,
+                          t(
+                            "sidepanel:rag.abstentionBehavior",
+                            "Abstention behavior"
+                          ) as string
+                        ) &&
+                        renderSelect(
+                          t("sidepanel:rag.abstentionBehavior", "Abstention behavior"),
+                          draftSettings.abstention_behavior,
+                          (next) =>
+                            updateSetting(
+                              "abstention_behavior",
+                              next as RagSettings["abstention_behavior"]
+                            ),
+                          ABSTENTION_OPTIONS
+                        )}
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t("sidepanel:rag.enableSynthesis", "Multi-turn synthesis") as string,
+                        t(
+                          "sidepanel:rag.synthesisBudget",
+                          "Synthesis time budget"
+                        ) as string,
+                        t("sidepanel:rag.synthesisDraft", "Draft tokens") as string,
+                        t("sidepanel:rag.synthesisRefine", "Refine tokens") as string
+                      ) && (
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={draftSettings.enable_multi_turn_synthesis}
+                            onChange={(checked) =>
+                              updateSetting("enable_multi_turn_synthesis", checked)
+                            }
+                            aria-label={t(
+                              "sidepanel:rag.enableSynthesis",
+                              "Multi-turn synthesis"
+                            )}
+                          />
+                          <span className="text-xs text-text">
+                            {t("sidepanel:rag.enableSynthesis", "Multi-turn synthesis")}
+                          </span>
+                        </div>
+                      )}
+                      {draftSettings.enable_multi_turn_synthesis && (
+                        <>
+                          {matchesAny(
+                            t(
+                              "sidepanel:rag.answerCitations",
+                              "Answer & Citations"
+                            ) as string,
+                            t(
+                              "sidepanel:rag.synthesisBudget",
+                              "Synthesis time budget"
+                            ) as string
+                          ) &&
+                            renderNumberInput(
+                              t("sidepanel:rag.synthesisBudget", "Synthesis time budget"),
+                              draftSettings.synthesis_time_budget_sec,
+                              (next) =>
+                                updateSetting("synthesis_time_budget_sec", next),
+                              { min: 1 }
+                            )}
+                          {matchesAny(
+                            t(
+                              "sidepanel:rag.answerCitations",
+                              "Answer & Citations"
+                            ) as string,
+                            t("sidepanel:rag.synthesisDraft", "Draft tokens") as string
+                          ) &&
+                            renderNumberInput(
+                              t("sidepanel:rag.synthesisDraft", "Draft tokens"),
+                              draftSettings.synthesis_draft_tokens,
+                              (next) => updateSetting("synthesis_draft_tokens", next),
+                              { min: 1 }
+                            )}
+                          {matchesAny(
+                            t(
+                              "sidepanel:rag.answerCitations",
+                              "Answer & Citations"
+                            ) as string,
+                            t("sidepanel:rag.synthesisRefine", "Refine tokens") as string
+                          ) &&
+                            renderNumberInput(
+                              t("sidepanel:rag.synthesisRefine", "Refine tokens"),
+                              draftSettings.synthesis_refine_tokens,
+                              (next) => updateSetting("synthesis_refine_tokens", next),
+                              { min: 1 }
+                            )}
+                        </>
+                      )}
+                    </>
+                  )}
+                  {matchesAny(
+                    t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                    t("sidepanel:rag.enableCitations", "Enable citations") as string,
+                    t("sidepanel:rag.citationStyle", "Citation style") as string,
+                    t("sidepanel:rag.includePageNumbers", "Include page numbers") as string,
+                    t("sidepanel:rag.chunkCitations", "Chunk citations") as string,
+                    t("sidepanel:rag.requireHardCitations", "Require hard citations") as string
+                  ) && (
                     <div className="flex items-center gap-2">
                       <Switch
-                        checked={draftSettings.enable_multi_turn_synthesis}
+                        checked={draftSettings.enable_citations}
                         onChange={(checked) =>
-                          updateSetting("enable_multi_turn_synthesis", checked)
+                          updateSetting("enable_citations", checked)
                         }
-                        aria-label={t("sidepanel:rag.enableSynthesis", "Multi-turn synthesis")}
+                        aria-label={t(
+                          "sidepanel:rag.enableCitations",
+                          "Enable citations"
+                        )}
                       />
                       <span className="text-xs text-text">
-                        {t("sidepanel:rag.enableSynthesis", "Multi-turn synthesis")}
+                        {t("sidepanel:rag.enableCitations", "Enable citations")}
                       </span>
                     </div>
-                    {draftSettings.enable_multi_turn_synthesis && (
-                      <>
-                        {renderNumberInput(
-                          t("sidepanel:rag.synthesisBudget", "Synthesis time budget"),
-                          draftSettings.synthesis_time_budget_sec,
-                          (next) => updateSetting("synthesis_time_budget_sec", next),
-                          { min: 1 }
+                  )}
+                  {draftSettings.enable_citations && (
+                    <>
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t("sidepanel:rag.citationStyle", "Citation style") as string
+                      ) &&
+                        renderSelect(
+                          t("sidepanel:rag.citationStyle", "Citation style"),
+                          draftSettings.citation_style,
+                          (next) =>
+                            updateSetting(
+                              "citation_style",
+                              next as RagSettings["citation_style"]
+                            ),
+                          CITATION_STYLE_OPTIONS
                         )}
-                        {renderNumberInput(
-                          t("sidepanel:rag.synthesisDraft", "Draft tokens"),
-                          draftSettings.synthesis_draft_tokens,
-                          (next) => updateSetting("synthesis_draft_tokens", next),
-                          { min: 1 }
-                        )}
-                        {renderNumberInput(
-                          t("sidepanel:rag.synthesisRefine", "Refine tokens"),
-                          draftSettings.synthesis_refine_tokens,
-                          (next) => updateSetting("synthesis_refine_tokens", next),
-                          { min: 1 }
-                        )}
-                      </>
-                    )}
-                  </>
-                )}
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.enable_citations}
-                    onChange={(checked) => updateSetting("enable_citations", checked)}
-                    aria-label={t("sidepanel:rag.enableCitations", "Enable citations")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.enableCitations", "Enable citations")}
-                  </span>
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t(
+                          "sidepanel:rag.includePageNumbers",
+                          "Include page numbers"
+                        ) as string
+                      ) && (
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={draftSettings.include_page_numbers}
+                            onChange={(checked) =>
+                              updateSetting("include_page_numbers", checked)
+                            }
+                            aria-label={t(
+                              "sidepanel:rag.includePageNumbers",
+                              "Include page numbers"
+                            )}
+                          />
+                          <span className="text-xs text-text">
+                            {t("sidepanel:rag.includePageNumbers", "Include page numbers")}
+                          </span>
+                        </div>
+                      )}
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t("sidepanel:rag.chunkCitations", "Chunk citations") as string
+                      ) && (
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={draftSettings.enable_chunk_citations}
+                            onChange={(checked) =>
+                              updateSetting("enable_chunk_citations", checked)
+                            }
+                            aria-label={t("sidepanel:rag.chunkCitations", "Chunk citations")}
+                          />
+                          <span className="text-xs text-text">
+                            {t("sidepanel:rag.chunkCitations", "Chunk citations")}
+                          </span>
+                        </div>
+                      )}
+                      {matchesAny(
+                        t("sidepanel:rag.answerCitations", "Answer & Citations") as string,
+                        t(
+                          "sidepanel:rag.requireHardCitations",
+                          "Require hard citations"
+                        ) as string
+                      ) && (
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={draftSettings.require_hard_citations}
+                            onChange={(checked) =>
+                              updateSetting("require_hard_citations", checked)
+                            }
+                            aria-label={t(
+                              "sidepanel:rag.requireHardCitations",
+                              "Require hard citations"
+                            )}
+                          />
+                          <span className="text-xs text-text">
+                            {t(
+                              "sidepanel:rag.requireHardCitations",
+                              "Require hard citations"
+                            )}
+                          </span>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
-                {draftSettings.enable_citations && (
-                  <>
-                    {renderSelect(
-                      t("sidepanel:rag.citationStyle", "Citation style"),
-                      draftSettings.citation_style,
+              </div>
+            )}
+
+            {matchesAny(
+              t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+              t("sidepanel:rag.securityFilter", "Security filter") as string,
+              t("sidepanel:rag.contentFilter", "Content filter") as string,
+              t("sidepanel:rag.detectPii", "PII detect") as string,
+              t("sidepanel:rag.redactPii", "PII redact") as string,
+              t("sidepanel:rag.sensitivity", "Sensitivity") as string,
+              t("sidepanel:rag.injectionFilter", "Injection filter") as string,
+              t("sidepanel:rag.injectionStrength", "Injection strength") as string,
+              t("sidepanel:rag.numericFidelity", "Numeric fidelity") as string,
+              t(
+                "sidepanel:rag.numericFidelityBehavior",
+                "Numeric fidelity behavior"
+              ) as string
+            ) && (
+              <div className="rounded border border-border bg-surface p-3">
+                <div className="text-xs font-semibold text-text mb-2">
+                  {t("sidepanel:rag.safetyIntegrity", "Safety & Integrity")}
+                </div>
+                <div className="grid gap-3 md:grid-cols-2">
+                  {matchesAny(
+                    t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                    t("sidepanel:rag.securityFilter", "Security filter") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.enable_security_filter}
+                        onChange={(checked) =>
+                          updateSetting("enable_security_filter", checked)
+                        }
+                        aria-label={t("sidepanel:rag.securityFilter", "Security filter")}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.securityFilter", "Security filter")}
+                      </span>
+                    </div>
+                  )}
+                  {matchesAny(
+                    t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                    t("sidepanel:rag.contentFilter", "Content filter") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.content_filter}
+                        onChange={(checked) => updateSetting("content_filter", checked)}
+                        aria-label={t("sidepanel:rag.contentFilter", "Content filter")}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.contentFilter", "Content filter")}
+                      </span>
+                    </div>
+                  )}
+                  {matchesAny(
+                    t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                    t("sidepanel:rag.detectPii", "PII detect") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.detect_pii}
+                        onChange={(checked) => updateSetting("detect_pii", checked)}
+                        aria-label={t("sidepanel:rag.detectPii", "PII detect")}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.detectPii", "PII detect")}
+                      </span>
+                    </div>
+                  )}
+                  {matchesAny(
+                    t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                    t("sidepanel:rag.redactPii", "PII redact") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.redact_pii}
+                        onChange={(checked) => updateSetting("redact_pii", checked)}
+                        aria-label={t("sidepanel:rag.redactPii", "PII redact")}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.redactPii", "PII redact")}
+                      </span>
+                    </div>
+                  )}
+                  {matchesAny(
+                    t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                    t("sidepanel:rag.sensitivity", "Sensitivity") as string
+                  ) &&
+                    renderSelect(
+                      t("sidepanel:rag.sensitivity", "Sensitivity"),
+                      draftSettings.sensitivity_level,
                       (next) =>
                         updateSetting(
-                          "citation_style",
-                          next as RagSettings["citation_style"]
+                          "sensitivity_level",
+                          next as RagSettings["sensitivity_level"]
                         ),
-                      CITATION_STYLE_OPTIONS
+                      SENSITIVITY_OPTIONS
                     )}
+                  {matchesAny(
+                    t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                    t("sidepanel:rag.injectionFilter", "Injection filter") as string,
+                    t("sidepanel:rag.injectionStrength", "Injection strength") as string
+                  ) && (
                     <div className="flex items-center gap-2">
                       <Switch
-                        checked={draftSettings.include_page_numbers}
-                        onChange={(checked) => updateSetting("include_page_numbers", checked)}
-                        aria-label={t("sidepanel:rag.includePageNumbers", "Include page numbers")}
+                        checked={draftSettings.enable_injection_filter}
+                        onChange={(checked) =>
+                          updateSetting("enable_injection_filter", checked)
+                        }
+                        aria-label={t("sidepanel:rag.injectionFilter", "Injection filter")}
                       />
                       <span className="text-xs text-text">
-                        {t("sidepanel:rag.includePageNumbers", "Include page numbers")}
+                        {t("sidepanel:rag.injectionFilter", "Injection filter")}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Switch
-                        checked={draftSettings.enable_chunk_citations}
-                        onChange={(checked) => updateSetting("enable_chunk_citations", checked)}
-                        aria-label={t("sidepanel:rag.chunkCitations", "Chunk citations")}
-                      />
-                      <span className="text-xs text-text">
-                        {t("sidepanel:rag.chunkCitations", "Chunk citations")}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Switch
-                        checked={draftSettings.require_hard_citations}
-                        onChange={(checked) => updateSetting("require_hard_citations", checked)}
-                        aria-label={t("sidepanel:rag.requireHardCitations", "Require hard citations")}
-                      />
-                      <span className="text-xs text-text">
-                        {t("sidepanel:rag.requireHardCitations", "Require hard citations")}
-                      </span>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="rounded border border-border bg-surface p-3">
-              <div className="text-xs font-semibold text-text mb-2">
-                {t("sidepanel:rag.safetyIntegrity", "Safety & Integrity")}
-              </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.enable_security_filter}
-                    onChange={(checked) => updateSetting("enable_security_filter", checked)}
-                    aria-label={t("sidepanel:rag.securityFilter", "Security filter")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.securityFilter", "Security filter")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.content_filter}
-                    onChange={(checked) => updateSetting("content_filter", checked)}
-                    aria-label={t("sidepanel:rag.contentFilter", "Content filter")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.contentFilter", "Content filter")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.detect_pii}
-                    onChange={(checked) => updateSetting("detect_pii", checked)}
-                    aria-label={t("sidepanel:rag.detectPii", "PII detect")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.detectPii", "PII detect")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.redact_pii}
-                    onChange={(checked) => updateSetting("redact_pii", checked)}
-                    aria-label={t("sidepanel:rag.redactPii", "PII redact")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.redactPii", "PII redact")}
-                  </span>
-                </div>
-                {renderSelect(
-                  t("sidepanel:rag.sensitivity", "Sensitivity"),
-                  draftSettings.sensitivity_level,
-                  (next) =>
-                    updateSetting(
-                      "sensitivity_level",
-                      next as RagSettings["sensitivity_level"]
-                    ),
-                  SENSITIVITY_OPTIONS
-                )}
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.enable_injection_filter}
-                    onChange={(checked) => updateSetting("enable_injection_filter", checked)}
-                    aria-label={t("sidepanel:rag.injectionFilter", "Injection filter")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.injectionFilter", "Injection filter")}
-                  </span>
-                </div>
-                {draftSettings.enable_injection_filter &&
-                  renderNumberInput(
-                    t("sidepanel:rag.injectionStrength", "Injection strength"),
-                    draftSettings.injection_filter_strength,
-                    (next) => updateSetting("injection_filter_strength", next),
-                    { min: 0, max: 1, step: 0.05 }
                   )}
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.enable_numeric_fidelity}
-                    onChange={(checked) => updateSetting("enable_numeric_fidelity", checked)}
-                    aria-label={t("sidepanel:rag.numericFidelity", "Numeric fidelity")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.numericFidelity", "Numeric fidelity")}
-                  </span>
-                </div>
-                {draftSettings.enable_numeric_fidelity &&
-                  renderSelect(
-                    t("sidepanel:rag.numericFidelityBehavior", "Numeric fidelity behavior"),
-                    draftSettings.numeric_fidelity_behavior,
-                    (next) =>
-                      updateSetting(
-                        "numeric_fidelity_behavior",
-                        next as RagSettings["numeric_fidelity_behavior"]
+                  {draftSettings.enable_injection_filter &&
+                    matchesAny(
+                      t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                      t("sidepanel:rag.injectionStrength", "Injection strength") as string
+                    ) &&
+                    renderNumberInput(
+                      t("sidepanel:rag.injectionStrength", "Injection strength"),
+                      draftSettings.injection_filter_strength,
+                      (next) => updateSetting("injection_filter_strength", next),
+                      { min: 0, max: 1, step: 0.05 }
+                    )}
+                  {matchesAny(
+                    t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                    t("sidepanel:rag.numericFidelity", "Numeric fidelity") as string,
+                    t(
+                      "sidepanel:rag.numericFidelityBehavior",
+                      "Numeric fidelity behavior"
+                    ) as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.enable_numeric_fidelity}
+                        onChange={(checked) =>
+                          updateSetting("enable_numeric_fidelity", checked)
+                        }
+                        aria-label={t(
+                          "sidepanel:rag.numericFidelity",
+                          "Numeric fidelity"
+                        )}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.numericFidelity", "Numeric fidelity")}
+                      </span>
+                    </div>
+                  )}
+                  {draftSettings.enable_numeric_fidelity &&
+                    matchesAny(
+                      t("sidepanel:rag.safetyIntegrity", "Safety & Integrity") as string,
+                      t(
+                        "sidepanel:rag.numericFidelityBehavior",
+                        "Numeric fidelity behavior"
+                      ) as string
+                    ) &&
+                    renderSelect(
+                      t(
+                        "sidepanel:rag.numericFidelityBehavior",
+                        "Numeric fidelity behavior"
                       ),
-                    NUMERIC_FIDELITY_OPTIONS
-                  )}
-              </div>
-            </div>
-
-            <div className="rounded border border-border bg-surface p-3">
-              <div className="text-xs font-semibold text-text mb-2">
-                {t("sidepanel:rag.contextConstruction", "Context Construction")}
-              </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                {renderMultiSelect(
-                  t("sidepanel:rag.chunkTypeFilter", "Chunk types"),
-                  draftSettings.chunk_type_filter,
-                  (next) =>
-                    updateSetting("chunk_type_filter", next as RagSettings["chunk_type_filter"]),
-                  CHUNK_TYPE_OPTIONS
-                )}
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.enable_parent_expansion}
-                    onChange={(checked) => updateSetting("enable_parent_expansion", checked)}
-                    aria-label={t("sidepanel:rag.parentExpansion", "Parent expansion")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.parentExpansion", "Parent expansion")}
-                  </span>
-                </div>
-                {draftSettings.enable_parent_expansion && (
-                  <>
-                    {renderNumberInput(
-                      t("sidepanel:rag.parentContextSize", "Parent context size"),
-                      draftSettings.parent_context_size,
-                      (next) => updateSetting("parent_context_size", next),
-                      { min: 1 }
+                      draftSettings.numeric_fidelity_behavior,
+                      (next) =>
+                        updateSetting(
+                          "numeric_fidelity_behavior",
+                          next as RagSettings["numeric_fidelity_behavior"]
+                        ),
+                      NUMERIC_FIDELITY_OPTIONS
                     )}
-                    {renderNumberInput(
-                      t("sidepanel:rag.parentMaxTokens", "Parent max tokens"),
-                      draftSettings.parent_max_tokens,
-                      (next) => updateSetting("parent_max_tokens", next),
-                      { min: 1 }
-                    )}
-                  </>
-                )}
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.include_sibling_chunks}
-                    onChange={(checked) => updateSetting("include_sibling_chunks", checked)}
-                    aria-label={t("sidepanel:rag.includeSiblings", "Include siblings")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.includeSiblings", "Include siblings")}
-                  </span>
-                </div>
-                {draftSettings.include_sibling_chunks &&
-                  renderNumberInput(
-                    t("sidepanel:rag.siblingWindow", "Sibling window"),
-                    draftSettings.sibling_window,
-                    (next) => updateSetting("sibling_window", next),
-                    { min: 0 }
-                  )}
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.include_parent_document}
-                    onChange={(checked) => updateSetting("include_parent_document", checked)}
-                    aria-label={t("sidepanel:rag.includeParentDoc", "Include parent document")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.includeParentDoc", "Include parent document")}
-                  </span>
                 </div>
               </div>
-            </div>
+            )}
 
-            <div className="rounded border border-border bg-surface p-3">
-              <div className="text-xs font-semibold text-text mb-2">
-                {t("sidepanel:rag.quickWins", "Quick Wins")}
+            {matchesAny(
+              t("sidepanel:rag.contextConstruction", "Context Construction") as string,
+              t("sidepanel:rag.chunkTypeFilter", "Chunk types") as string,
+              t("sidepanel:rag.parentExpansion", "Parent expansion") as string,
+              t("sidepanel:rag.parentContextSize", "Parent context size") as string,
+              t("sidepanel:rag.parentMaxTokens", "Parent max tokens") as string,
+              t("sidepanel:rag.includeSiblings", "Include siblings") as string,
+              t("sidepanel:rag.siblingWindow", "Sibling window") as string,
+              t("sidepanel:rag.includeParentDoc", "Include parent document") as string
+            ) && (
+              <div className="rounded border border-border bg-surface p-3">
+                <div className="text-xs font-semibold text-text mb-2">
+                  {t("sidepanel:rag.contextConstruction", "Context Construction")}
+                </div>
+                <div className="grid gap-3 md:grid-cols-2">
+                  {matchesAny(
+                    t(
+                      "sidepanel:rag.contextConstruction",
+                      "Context Construction"
+                    ) as string,
+                    t("sidepanel:rag.chunkTypeFilter", "Chunk types") as string
+                  ) &&
+                    renderMultiSelect(
+                      t("sidepanel:rag.chunkTypeFilter", "Chunk types"),
+                      draftSettings.chunk_type_filter,
+                      (next) =>
+                        updateSetting(
+                          "chunk_type_filter",
+                          next as RagSettings["chunk_type_filter"]
+                        ),
+                      CHUNK_TYPE_OPTIONS
+                    )}
+                  {matchesAny(
+                    t(
+                      "sidepanel:rag.contextConstruction",
+                      "Context Construction"
+                    ) as string,
+                    t("sidepanel:rag.parentExpansion", "Parent expansion") as string,
+                    t("sidepanel:rag.parentContextSize", "Parent context size") as string,
+                    t("sidepanel:rag.parentMaxTokens", "Parent max tokens") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.enable_parent_expansion}
+                        onChange={(checked) =>
+                          updateSetting("enable_parent_expansion", checked)
+                        }
+                        aria-label={t(
+                          "sidepanel:rag.parentExpansion",
+                          "Parent expansion"
+                        )}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.parentExpansion", "Parent expansion")}
+                      </span>
+                    </div>
+                  )}
+                  {draftSettings.enable_parent_expansion && (
+                    <>
+                      {matchesAny(
+                        t(
+                          "sidepanel:rag.contextConstruction",
+                          "Context Construction"
+                        ) as string,
+                        t(
+                          "sidepanel:rag.parentContextSize",
+                          "Parent context size"
+                        ) as string
+                      ) &&
+                        renderNumberInput(
+                          t("sidepanel:rag.parentContextSize", "Parent context size"),
+                          draftSettings.parent_context_size,
+                          (next) => updateSetting("parent_context_size", next),
+                          { min: 1 }
+                        )}
+                      {matchesAny(
+                        t(
+                          "sidepanel:rag.contextConstruction",
+                          "Context Construction"
+                        ) as string,
+                        t("sidepanel:rag.parentMaxTokens", "Parent max tokens") as string
+                      ) &&
+                        renderNumberInput(
+                          t("sidepanel:rag.parentMaxTokens", "Parent max tokens"),
+                          draftSettings.parent_max_tokens,
+                          (next) => updateSetting("parent_max_tokens", next),
+                          { min: 1 }
+                        )}
+                    </>
+                  )}
+                  {matchesAny(
+                    t(
+                      "sidepanel:rag.contextConstruction",
+                      "Context Construction"
+                    ) as string,
+                    t("sidepanel:rag.includeSiblings", "Include siblings") as string,
+                    t("sidepanel:rag.siblingWindow", "Sibling window") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.include_sibling_chunks}
+                        onChange={(checked) =>
+                          updateSetting("include_sibling_chunks", checked)
+                        }
+                        aria-label={t("sidepanel:rag.includeSiblings", "Include siblings")}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.includeSiblings", "Include siblings")}
+                      </span>
+                    </div>
+                  )}
+                  {draftSettings.include_sibling_chunks &&
+                    matchesAny(
+                      t(
+                        "sidepanel:rag.contextConstruction",
+                        "Context Construction"
+                      ) as string,
+                      t("sidepanel:rag.siblingWindow", "Sibling window") as string
+                    ) &&
+                    renderNumberInput(
+                      t("sidepanel:rag.siblingWindow", "Sibling window"),
+                      draftSettings.sibling_window,
+                      (next) => updateSetting("sibling_window", next),
+                      { min: 0 }
+                    )}
+                  {matchesAny(
+                    t(
+                      "sidepanel:rag.contextConstruction",
+                      "Context Construction"
+                    ) as string,
+                    t("sidepanel:rag.includeParentDoc", "Include parent document") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.include_parent_document}
+                        onChange={(checked) =>
+                          updateSetting("include_parent_document", checked)
+                        }
+                        aria-label={t(
+                          "sidepanel:rag.includeParentDoc",
+                          "Include parent document"
+                        )}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.includeParentDoc", "Include parent document")}
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.highlight_results}
-                    onChange={(checked) => updateSetting("highlight_results", checked)}
-                    aria-label={t("sidepanel:rag.highlightResults", "Highlight results")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.highlightResults", "Highlight results")}
-                  </span>
+            )}
+
+            {matchesAny(
+              t("sidepanel:rag.quickWins", "Quick Wins") as string,
+              t("sidepanel:rag.highlightResults", "Highlight results") as string,
+              t("sidepanel:rag.highlightQuery", "Highlight query terms") as string,
+              t("sidepanel:rag.trackCost", "Track cost") as string,
+              t("sidepanel:rag.debugMode", "Debug mode") as string
+            ) && (
+              <div className="rounded border border-border bg-surface p-3">
+                <div className="text-xs font-semibold text-text mb-2">
+                  {t("sidepanel:rag.quickWins", "Quick Wins")}
                 </div>
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.highlight_query_terms}
-                    onChange={(checked) => updateSetting("highlight_query_terms", checked)}
-                    aria-label={t("sidepanel:rag.highlightQuery", "Highlight query terms")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.highlightQuery", "Highlight query terms")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.track_cost}
-                    onChange={(checked) => updateSetting("track_cost", checked)}
-                    aria-label={t("sidepanel:rag.trackCost", "Track cost")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.trackCost", "Track cost")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch
-                    checked={draftSettings.debug_mode}
-                    onChange={(checked) => updateSetting("debug_mode", checked)}
-                    aria-label={t("sidepanel:rag.debugMode", "Debug mode")}
-                  />
-                  <span className="text-xs text-text">
-                    {t("sidepanel:rag.debugMode", "Debug mode")}
-                  </span>
+                <div className="grid gap-3 md:grid-cols-2">
+                  {matchesAny(
+                    t("sidepanel:rag.quickWins", "Quick Wins") as string,
+                    t("sidepanel:rag.highlightResults", "Highlight results") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.highlight_results}
+                        onChange={(checked) =>
+                          updateSetting("highlight_results", checked)
+                        }
+                        aria-label={t(
+                          "sidepanel:rag.highlightResults",
+                          "Highlight results"
+                        )}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.highlightResults", "Highlight results")}
+                      </span>
+                    </div>
+                  )}
+                  {matchesAny(
+                    t("sidepanel:rag.quickWins", "Quick Wins") as string,
+                    t("sidepanel:rag.highlightQuery", "Highlight query terms") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.highlight_query_terms}
+                        onChange={(checked) =>
+                          updateSetting("highlight_query_terms", checked)
+                        }
+                        aria-label={t(
+                          "sidepanel:rag.highlightQuery",
+                          "Highlight query terms"
+                        )}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.highlightQuery", "Highlight query terms")}
+                      </span>
+                    </div>
+                  )}
+                  {matchesAny(
+                    t("sidepanel:rag.quickWins", "Quick Wins") as string,
+                    t("sidepanel:rag.trackCost", "Track cost") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.track_cost}
+                        onChange={(checked) => updateSetting("track_cost", checked)}
+                        aria-label={t("sidepanel:rag.trackCost", "Track cost")}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.trackCost", "Track cost")}
+                      </span>
+                    </div>
+                  )}
+                  {matchesAny(
+                    t("sidepanel:rag.quickWins", "Quick Wins") as string,
+                    t("sidepanel:rag.debugMode", "Debug mode") as string
+                  ) && (
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={draftSettings.debug_mode}
+                        onChange={(checked) => updateSetting("debug_mode", checked)}
+                        aria-label={t("sidepanel:rag.debugMode", "Debug mode")}
+                      />
+                      <span className="text-xs text-text">
+                        {t("sidepanel:rag.debugMode", "Debug mode")}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
+            )}
 
             <div className="rounded border border-border bg-surface p-3">
               <div className="flex items-center justify-between mb-2">
@@ -3141,15 +3560,23 @@ export const RagSearchBar: React.FC<Props> = ({
               </div>
               {advancedOpen && (
                 <div className="space-y-3">
-                  <Input
-                    placeholder={t(
-                      "sidepanel:rag.searchSettings",
-                      "Search settings"
-                    )}
-                    value={advancedSearch}
-                    aria-label={t("sidepanel:rag.searchSettings", "Search settings")}
-                    onChange={(e) => setAdvancedSearch(e.target.value)}
-                  />
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[11px] text-text-muted">
+                      {t("sidepanel:rag.searchAllSettings", "Search all settings")}
+                    </span>
+                    <Input
+                      placeholder={t(
+                        "sidepanel:rag.searchSettings",
+                        "Search settings"
+                      )}
+                      value={advancedSearch}
+                      aria-label={t(
+                        "sidepanel:rag.searchAllSettings",
+                        "Search all settings"
+                      )}
+                      onChange={(e) => setAdvancedSearch(e.target.value)}
+                    />
+                  </div>
                   {advancedItems.length === 0 ? (
                     <div className="text-xs text-text-muted">
                       {t("sidepanel:rag.advancedNoMatches", "No matching advanced settings.")}

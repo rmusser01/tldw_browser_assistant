@@ -1065,7 +1065,11 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     const run = async () => {
       for (const file of droppedFiles) {
         if (cancelled) return
-        await onInputChange(file)
+        try {
+          await onInputChange(file)
+        } catch (error) {
+          console.error("Failed to process dropped file:", file.name, error)
+        }
       }
     }
     void run()

@@ -258,10 +258,10 @@
     "message": "Search"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "Mostra ricerca RAG"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "Nascondi ricerca RAG"
   },
   "rag_addTagPlaceholder": {
     "message": "Add tag (Enter)"

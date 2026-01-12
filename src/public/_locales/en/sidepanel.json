@@ -481,5 +481,8 @@
   },
   "rag_attachedContext": {
     "message": "Attached context"
+  },
+  "rag_searchAllSettings": {
+    "message": "Search all settings"
   }
 }

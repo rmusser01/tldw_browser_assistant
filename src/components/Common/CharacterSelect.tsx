@@ -39,6 +39,22 @@ type CharacterSummary = {
   alternateGreetings?: string[] | string | null
 }
 
+type ImportedCharacterResponse = {
+  character?: CharacterSummary
+  id?: string | number
+  name?: string
+  message?: string
+}
+
+type ImageOnlyErrorDetail = {
+  code?: string
+  message?: string
+}
+
+type ImportError = Error & {
+  details?: ImageOnlyErrorDetail | { detail?: ImageOnlyErrorDetail }
+}
+
 type CharacterSelection = {
   id: string
   name: string
@@ -289,7 +305,7 @@ export const CharacterSelect: React.FC<Props> = ({
   }, [selectedCharacter?.id])
 
   const handleImportSuccess = React.useCallback(
-    (imported: any) => {
+    (imported: ImportedCharacterResponse) => {
       const importedCharacter =
         imported?.character ??
         (imported?.id && imported?.name
@@ -439,9 +455,13 @@ export const CharacterSelect: React.FC<Props> = ({
       const file = event.target.files?.[0]
       if (!file) return
 
-      const getImageOnlyDetail = (error: unknown) => {
-        const details = (error as { details?: any })?.details
-        const detail = details?.detail ?? details
+      const getImageOnlyDetail = (error: unknown): ImageOnlyErrorDetail | null => {
+        const details = (error as ImportError)?.details
+        if (!details || typeof details !== "object") return null
+        const detail =
+          "detail" in details
+            ? (details as { detail?: ImageOnlyErrorDetail }).detail
+            : details
         if (detail?.code === "missing_character_data") return detail
         return null
       }

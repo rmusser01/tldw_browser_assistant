@@ -58,7 +58,10 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - Prompt assembly order/precedence:
   - Apply preset template to build the base prompt (system + examples + scenario/personality) first.
   - Apply Actor/World Book injections after preset formatting using existing injection order.
-  - When both preset and Actor/World Book add system instructions, the later injection in the pipeline takes precedence (Actor/World Book content appended after preset).
+  - Conflict resolution/precedence:
+    - Scalar parameters (temperature, top_p, penalties, stop strings): later injection overrides earlier values on key conflict.
+    - System instructions: later injection wins and replaces prior system-level directives unless the earlier directive is explicitly marked as "appendable".
+    - Text blocks can be appended only when both sources flag them as non-conflicting/appendable; otherwise later wins.
 
 ---
 
@@ -118,7 +121,8 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - PNG validation must include chunk integrity, MIME/type validation, and checksum verification for embedded JSON and avatar data.
 - Avatar storage: enforce max size (e.g., 200KB), store in blob store with AV scan and content-type validation, reject oversized images.
 - Surface validation failures with actionable error messaging in the import flow.
-- Rate-limit import attempts to mitigate abuse (e.g., rapid fuzzing/DoS).
+- Rate-limit import attempts to mitigate abuse (e.g., 1 import per 5 seconds per
+  session, max 20 imports per user per hour; failed validations count).
 
 ---
 
@@ -140,6 +144,11 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 ### Stage G1 (MVP)
 - Add a collapsible “Prompt Preview” showing final prompt sections and token counts.
 - Highlight which sections are active (system prompt, character preset, author note, greeting, lorebook, actor).
+- Surface a warning in Prompt Assembly Preview when overlapping keys or contradictory system directives are detected.
+- Include concise examples in the Prompt Assembly Preview:
+  - Preset sets temperature=0.7; Actor/World Book sets temperature=0.2 → effective temperature=0.2.
+  - Preset system directive: "Speak tersely"; Actor/World Book directive: "Be verbose" → later directive replaces earlier.
+  - Preset examples marked appendable + Actor/World Book examples marked appendable → both appended in order.
 
 ### Stage G2
 - Allow temporary toggles per section (preview-only) to understand impact.
@@ -236,7 +245,10 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
   - characterMemoryById: {} (empty map, no per-character memory).
 - Existing greeting behavior (auto-select random) preserved for legacy chats until user explicitly picks a greeting.
 - Existing prompt assembly logic unaffected for non-character chats.
-- Data schema version bump required; include rollback plan for downgrade compatibility.
+- Data schema version bump required; target schemaVersion = 2. Rollback plan:
+  older clients ignore new per-chat settings fields and continue using legacy
+  fields; avoid destructive transforms and keep new fields intact for
+  re-upgrade.
 
 ## Sync & Conflict Resolution
 - Reconciliation rule: last-write-wins per field group using `updatedAt` timestamps on the per-chat settings record.
@@ -244,7 +256,8 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - Map merges (e.g., `characterMemoryById`): apply last-write-wins per entry using per-entry timestamps when available, otherwise fall back to record-level `updatedAt`.
 
 ## Migration Plan
-- Add `schemaVersion` and `updatedAt` to per-chat settings records; default `schemaVersion` to 1 for existing data.
+- Add `schemaVersion` and `updatedAt` to per-chat settings records; default
+  `schemaVersion` to 1 for existing data and set new records to 2.
 - On upgrade, migrate existing local keys (historyId/serverChatId) into the new per-chat settings record; set `updatedAt` to the local record timestamp.
 - For server-backed chats, perform one-time reconciliation:
   - If server metadata is missing, push local record.
@@ -269,4 +282,6 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - E2E tests: full refresh + server sync conflict resolution flows (local vs server metadata), covering persistence keys and preset-sync reconciliation.
 - Regression tests: non-character chats and single-character chats remain unchanged (no prompt assembly drift).
 - Security tests: Feature E import validation with malformed PNG/JSON, oversized avatars (>200KB), prompt-injection payloads; verify rejection and error messages.
+- Rollback tests: downgrade to a v1 client and verify legacy fields still load,
+  new fields are ignored, and no data loss occurs when returning to v2.
 - Performance tests: multi-character chats with all features active; measure token counts, prompt assembly time, and memory usage under load.

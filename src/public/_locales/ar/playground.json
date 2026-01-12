@@ -1486,5 +1486,11 @@
   },
   "composer_noTabsFound": {
     "message": "لم يتم العثور على علامات تبويب مفتوحة مؤهلة."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "تعذّر تحميل سجل الدردشة المحلي"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "حدث خطأ أثناء تحميل سجل الدردشة المحلي."
   }
 }

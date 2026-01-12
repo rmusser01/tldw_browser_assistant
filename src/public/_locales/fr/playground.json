@@ -1381,5 +1381,11 @@
   },
   "composer_noTabsFound": {
     "message": "Aucun onglet ouvert éligible."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

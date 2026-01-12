@@ -66,7 +66,9 @@ Advanced (collapsed by default, search input present):
 - Feedback
 - User context
 
-Note: the current search input only filters Source scope labels.
+Note: target behavior is for the advanced search input to filter all advanced
+field labels (and helper text) across sections. The current implementation only
+filters Source scope labels; expand or relabel as part of this redesign.
 
 ## Presets
 Presets apply explicit values to all fields and flip to "Custom" when any field changes.

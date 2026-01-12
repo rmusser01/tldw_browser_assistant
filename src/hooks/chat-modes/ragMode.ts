@@ -44,6 +44,30 @@ const RAG_ALLOWED_KEYS = new Set([
   "filters"
 ])
 
+const normalizeStringArray = (values: unknown[]) => {
+  if (values.length === 0) return null
+  const normalized: string[] = []
+  for (const entry of values) {
+    if (typeof entry !== "string") return null
+    const trimmed = entry.trim()
+    if (!trimmed) return null
+    normalized.push(trimmed)
+  }
+  return normalized
+}
+
+const normalizePositiveIntArray = (values: unknown[]) => {
+  if (values.length === 0) return null
+  const normalized: number[] = []
+  for (const entry of values) {
+    if (typeof entry !== "number" || !Number.isInteger(entry) || entry <= 0) {
+      return null
+    }
+    normalized.push(entry)
+  }
+  return normalized
+}
+
 const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
   if (!options) return {}
   const sanitized: Record<string, unknown> = {}
@@ -58,22 +82,17 @@ const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
       continue
     }
 
-    if (RAG_STRING_ARRAY_KEYS.has(key) || RAG_NUMBER_ARRAY_KEYS.has(key)) {
-      if (!Array.isArray(value) || value.length === 0) continue
-      if (RAG_STRING_ARRAY_KEYS.has(key)) {
-        const normalized = value
-          .filter((entry) => typeof entry === "string")
-          .map((entry) => entry.trim())
-          .filter((entry) => entry.length > 0)
-        if (normalized.length !== value.length) continue
-        sanitized[key] = normalized
-        continue
-      }
-      const normalized = value.filter(
-        (entry) =>
-          typeof entry === "number" && Number.isInteger(entry) && entry > 0
-      )
-      if (normalized.length !== value.length) continue
+    if (RAG_STRING_ARRAY_KEYS.has(key)) {
+      if (!Array.isArray(value)) continue
+      const normalized = normalizeStringArray(value)
+      if (!normalized) continue
+      sanitized[key] = normalized
+      continue
+    }
+    if (RAG_NUMBER_ARRAY_KEYS.has(key)) {
+      if (!Array.isArray(value)) continue
+      const normalized = normalizePositiveIntArray(value)
+      if (!normalized) continue
       sanitized[key] = normalized
       continue
     }
@@ -105,7 +124,12 @@ const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
       sanitized[key] = trimmed
       continue
     }
-    if (typeof value === "object" && !Array.isArray(value)) {
+    if (
+      defaultValue &&
+      typeof defaultValue === "object" &&
+      !Array.isArray(defaultValue)
+    ) {
+      if (typeof value !== "object" || Array.isArray(value)) continue
       sanitized[key] = value
     }
   }

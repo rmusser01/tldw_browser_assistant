@@ -475,13 +475,24 @@ export const useChatActions = ({
       isRegenerate && regenerateFromMessage
         ? normalizeMessageVariants(regenerateFromMessage)
         : []
+    const resolvedModel = model?.trim()
 
     try {
+      if (!resolvedModel) {
+        notification.error({
+          message: t("error"),
+          description: t("validationSelectModel")
+        })
+        setIsProcessing(false)
+        setStreaming(false)
+        return
+      }
+
       await tldwClient.initialize().catch(() => null)
 
-      const modelInfo = await getModelNicknameByID(model)
+      const modelInfo = await getModelNicknameByID(resolvedModel)
       const characterName =
-        activeCharacter?.name || modelInfo?.model_name || model
+        activeCharacter?.name || modelInfo?.model_name || resolvedModel
       const characterAvatar =
         activeCharacter?.avatar_url || modelInfo?.model_avatar
       const createdAt = Date.now()
@@ -663,17 +674,18 @@ export const useChatActions = ({
       let apiReasoning = false
 
       const resolvedApiProvider = await resolveApiProviderForModel({
-        modelId: model,
+        modelId: resolvedModel,
         explicitProvider: currentChatModelSettings.apiProvider
       })
-      const normalizedModel = model.replace(/^tldw:/, "").trim()
-      const resolvedModel = normalizedModel.length > 0 ? normalizedModel : model
+      const normalizedModel = resolvedModel.replace(/^tldw:/, "").trim()
+      const streamModel =
+        normalizedModel.length > 0 ? normalizedModel : resolvedModel
 
       for await (const chunk of tldwClient.streamCharacterChatCompletion(
         chatId,
         {
           include_character_context: true,
-          model: resolvedModel,
+          model: streamModel,
           provider: resolvedApiProvider,
           save_to_db: false
         },
@@ -802,8 +814,8 @@ export const useChatActions = ({
       await saveMessageOnSuccess({
         historyId,
         isRegenerate,
-        selectedModel: model,
-        modelId: model,
+        selectedModel: resolvedModel,
+        modelId: resolvedModel,
         message,
         image,
         fullText: finalContent,
@@ -834,8 +846,8 @@ export const useChatActions = ({
         history: chatMemory,
         historyId,
         image,
-        selectedModel: model,
-        modelId: model,
+        selectedModel: resolvedModel,
+        modelId: resolvedModel,
         userMessage: message,
         isRegenerating: isRegenerate,
         message_source: "web-ui",

@@ -135,6 +135,8 @@ const NotesManagerPage: React.FC = () => {
   const [keywordTokens, setKeywordTokens] = React.useState<string[]>([])
   const [keywordOptions, setKeywordOptions] = React.useState<string[]>([])
   const [allKeywords, setAllKeywords] = React.useState<string[]>([])
+  const allKeywordsRef = React.useRef<string[]>([])
+  allKeywordsRef.current = allKeywords
   const [keywordPickerOpen, setKeywordPickerOpen] = React.useState(false)
   const [keywordPickerQuery, setKeywordPickerQuery] = React.useState('')
   const [keywordPickerSelection, setKeywordPickerSelection] = React.useState<string[]>([])
@@ -309,7 +311,7 @@ const NotesManagerPage: React.FC = () => {
 
   const loadAllKeywords = React.useCallback(async () => {
     // Cached for session; add a refresh/TTL if keyword updates become frequent.
-    if (allKeywords.length > 0) return
+    if (allKeywordsRef.current.length > 0) return
     try {
       const arr = await getAllNoteKeywords()
       setAllKeywords(arr)
@@ -317,7 +319,7 @@ const NotesManagerPage: React.FC = () => {
     } catch {
       console.debug('[NotesManagerPage] Keyword suggestions load failed')
     }
-  }, [allKeywords])
+  }, [])
 
   const openKeywordPicker = React.useCallback(() => {
     setKeywordPickerQuery('')
@@ -708,6 +710,7 @@ const NotesManagerPage: React.FC = () => {
   const exportAll = async () => {
     try {
       let arr: NoteListItem[] = []
+      let limitReached = false
       const q = query.trim()
       const toks = keywordTokens.map((k) => k.toLowerCase())
       if (q || toks.length > 0) {
@@ -727,6 +730,7 @@ const NotesManagerPage: React.FC = () => {
           if (items.length < ps) break
           p++
         }
+        if (p > MAX_EXPORT_PAGES) limitReached = true
       } else {
         // Iterate pages (chunk by 100)
         let p = 1
@@ -740,8 +744,12 @@ const NotesManagerPage: React.FC = () => {
           if (p >= totalPages || items.length === 0) break
           p++
         }
+        if (p > MAX_EXPORT_PAGES) limitReached = true
       }
       if (arr.length === 0) { message.info('No notes to export'); return }
+      if (limitReached) {
+        message.warning(`Export limited to ${arr.length} notes. Some notes may be excluded.`)
+      }
       const md = arr.map((n, idx) => `### ${n.title || `Note ${n.id ?? idx+1}`}\n\n${String(n.content || '')}`).join("\n\n---\n\n")
       const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' })
       const url = URL.createObjectURL(blob)

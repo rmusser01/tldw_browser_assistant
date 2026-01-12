@@ -1381,5 +1381,11 @@
   },
   "composer_noTabsFound": {
     "message": "找不到可用的開啟分頁。"
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

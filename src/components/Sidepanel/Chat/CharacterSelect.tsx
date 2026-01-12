@@ -35,6 +35,11 @@ type ImportCharacterResponse = {
   characterId?: string | number
 } & Partial<CharacterApiResponse>
 
+type ImageOnlyErrorDetail = {
+  code?: string
+  message?: string
+}
+
 export const CharacterSelect: React.FC<Props> = ({
   selectedCharacterId,
   setSelectedCharacterId,
@@ -129,6 +134,7 @@ export const CharacterSelect: React.FC<Props> = ({
     )
   }, [messages, serverChatId])
   const trimmedDisplayName = userDisplayName.trim()
+  const displayNameInputRef = useRef(trimmedDisplayName)
 
   const buildStoredCharacter = React.useCallback(
     (character: Partial<CharacterApiResponse>): StoredCharacter | null => {
@@ -180,7 +186,7 @@ export const CharacterSelect: React.FC<Props> = ({
   )
 
   const openDisplayNameModal = React.useCallback(() => {
-    let nextValue = trimmedDisplayName
+    displayNameInputRef.current = trimmedDisplayName
     modal.confirm({
       title: t("sidepanel:characterSelect.displayNameTitle", {
         defaultValue: "Set your name"
@@ -194,7 +200,7 @@ export const CharacterSelect: React.FC<Props> = ({
               defaultValue: "Enter a display name"
             }) as string}
             onChange={(event) => {
-              nextValue = event.target.value
+              displayNameInputRef.current = event.target.value
             }}
           />
           <div className="text-xs text-text-muted">
@@ -210,7 +216,7 @@ export const CharacterSelect: React.FC<Props> = ({
       cancelText: t("common:cancel", { defaultValue: "Cancel" }),
       centered: true,
       onOk: () => {
-        setUserDisplayName(nextValue.trim())
+        setUserDisplayName(displayNameInputRef.current.trim())
       }
     })
   }, [modal, setUserDisplayName, t, trimmedDisplayName])
@@ -293,15 +299,40 @@ export const CharacterSelect: React.FC<Props> = ({
     importInputRef.current.click()
   }, [isImporting, setDropdownOpen])
 
+  const showImportError = React.useCallback(
+    (error: unknown) => {
+      const messageText = error instanceof Error ? error.message : String(error)
+      notification.error({
+        message: t("settings:manageCharacters.notification.error", {
+          defaultValue: "Error"
+        }),
+        description:
+          messageText ||
+          t("settings:manageCharacters.notification.someError", {
+            defaultValue: "Something went wrong. Please try again later"
+          })
+      })
+    },
+    [notification, t]
+  )
+
   const handleImportFile = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0]
     if (!file) return
 
-    const getImageOnlyDetail = (error: unknown) => {
-      const details = (error as { details?: any })?.details
-      const detail = details?.detail ?? details
+    const getImageOnlyDetail = (error: unknown): ImageOnlyErrorDetail | null => {
+      const details = (
+        error as {
+          details?: ImageOnlyErrorDetail | { detail?: ImageOnlyErrorDetail }
+        }
+      )?.details
+      if (!details || typeof details !== "object") return null
+      const detail =
+        "detail" in details
+          ? (details as { detail?: ImageOnlyErrorDetail }).detail
+          : details
       if (detail?.code === "missing_character_data") return detail
       return null
     }
@@ -393,43 +424,21 @@ export const CharacterSelect: React.FC<Props> = ({
         const confirmed = await confirmImageOnlyImport(
           imageOnlyDetail?.message
         )
-        if (confirmed) {
-          try {
-            const imported = await importCharacter(true)
-            handleImportSuccess(imported)
-          } catch (retryError) {
-            const messageText =
-              retryError instanceof Error ? retryError.message : String(retryError)
-            notification.error({
-              message: t("settings:manageCharacters.notification.error", {
-                defaultValue: "Error"
-              }),
-              description:
-                messageText ||
-                t("settings:manageCharacters.notification.someError", {
-                  defaultValue: "Something went wrong. Please try again later"
-                })
-            })
+          if (confirmed) {
+            try {
+              const imported = await importCharacter(true)
+              handleImportSuccess(imported)
+            } catch (retryError) {
+              showImportError(retryError)
+            }
           }
+          return
         }
-        return
+        showImportError(error)
+      } finally {
+        setIsImporting(false)
+        event.target.value = ""
       }
-      const messageText =
-        error instanceof Error ? error.message : String(error)
-      notification.error({
-        message: t("settings:manageCharacters.notification.error", {
-          defaultValue: "Error"
-        }),
-        description:
-          messageText ||
-          t("settings:manageCharacters.notification.someError", {
-            defaultValue: "Something went wrong. Please try again later"
-          })
-      })
-    } finally {
-      setIsImporting(false)
-      event.target.value = ""
-    }
   }
 
   const buildCharactersHash = React.useCallback((create?: boolean) => {
@@ -659,40 +668,40 @@ export const CharacterSelect: React.FC<Props> = ({
         onChange={handleImportFile}
       />
       <Dropdown
-      open={dropdownOpen}
-      onOpenChange={setDropdownOpen}
-      menu={{
-        items: menuItems,
-        style: { maxHeight: 400, overflowY: "auto" },
-        className: `no-scrollbar ${
-          menuDensity === "compact"
-            ? "menu-density-compact"
-            : "menu-density-comfortable"
-        }`,
-        activeKey: selectedCharacterId ?? undefined
-      }}
-      dropdownRender={(menu) => (
-        <div className="bg-surface rounded-lg shadow-lg border border-border">
-          <div className="p-2 border-b border-border">
-            <Input
-              ref={searchInputRef}
-              placeholder={t(
-                "sidepanel:characterSelect.search",
-                "Search characters..."
-              )}
-              prefix={<Search className="size-4 text-text-subtle" />}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              allowClear
-              size="small"
-              onKeyDown={(e) => e.stopPropagation()}
-            />
+        open={dropdownOpen}
+        onOpenChange={setDropdownOpen}
+        menu={{
+          items: menuItems,
+          style: { maxHeight: 400, overflowY: "auto" },
+          className: `no-scrollbar ${
+            menuDensity === "compact"
+              ? "menu-density-compact"
+              : "menu-density-comfortable"
+          }`,
+          activeKey: selectedCharacterId ?? undefined
+        }}
+        dropdownRender={(menu) => (
+          <div className="bg-surface rounded-lg shadow-lg border border-border">
+            <div className="p-2 border-b border-border">
+              <Input
+                ref={searchInputRef}
+                placeholder={t(
+                  "sidepanel:characterSelect.search",
+                  "Search characters..."
+                )}
+                prefix={<Search className="size-4 text-text-subtle" />}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                allowClear
+                size="small"
+                onKeyDown={(e) => e.stopPropagation()}
+              />
+            </div>
+            {menu}
           </div>
-          {menu}
-        </div>
-      )}
-      placement="topLeft"
-      trigger={["click"]}
+        )}
+        placement="topLeft"
+        trigger={["click"]}
       >
         <Tooltip
           title={t("sidepanel:characterSelect.tooltip", "Select a character")}

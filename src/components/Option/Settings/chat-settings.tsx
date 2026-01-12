@@ -576,10 +576,9 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            id="user-text-color"
             style={{ width: SELECT_WIDTH }}
             value={userTextColor}
-            onChange={(value) => setUserTextColor(value)}
+            onChange={setUserTextColor}
             options={colorOptions}
           />
         }
@@ -595,10 +594,9 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            id="user-text-font"
             style={{ width: SELECT_WIDTH }}
             value={userTextFont}
-            onChange={(value) => setUserTextFont(value)}
+            onChange={setUserTextFont}
             options={fontOptions}
           />
         }
@@ -614,7 +612,6 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            id="user-text-size"
             style={{ width: SELECT_WIDTH }}
             value={userTextSize}
             onChange={(value) => setUserTextSize(value as "sm" | "md" | "lg")}
@@ -639,10 +636,9 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            id="assistant-text-color"
             style={{ width: SELECT_WIDTH }}
             value={assistantTextColor}
-            onChange={(value) => setAssistantTextColor(value)}
+            onChange={setAssistantTextColor}
             options={colorOptions}
           />
         }
@@ -658,10 +654,9 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            id="assistant-text-font"
             style={{ width: SELECT_WIDTH }}
             value={assistantTextFont}
-            onChange={(value) => setAssistantTextFont(value)}
+            onChange={setAssistantTextFont}
             options={fontOptions}
           />
         }
@@ -677,7 +672,6 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            id="assistant-text-size"
             style={{ width: SELECT_WIDTH }}
             value={assistantTextSize}
             onChange={(value) =>

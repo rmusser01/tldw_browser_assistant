@@ -139,8 +139,8 @@
   },
   "errors": {
     "privateModeDescription": "لا يدعم وضع التصفح الخاص في فايرفوكس حفظ الدردشة. يتم تفعيل الدردشة المؤقتة افتراضيًا. تحسينات قادمة قريبًا.",
-    "loadLocalHistoryPrefix": "Failed to load local chat history",
-    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
+    "loadLocalHistoryPrefix": "تعذّر تحميل سجل الدردشة المحلي",
+    "loadLocalHistoryDefault": "حدث خطأ أثناء تحميل سجل الدردشة المحلي."
   },
   "tts": {
     "playErrorTitle": "خطأ",
