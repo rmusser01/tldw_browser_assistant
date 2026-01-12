@@ -77,6 +77,7 @@ import { useSimpleForm } from "@/hooks/useSimpleForm"
 import { generateID } from "@/db/dexie/helpers"
 import type { UploadedFile } from "@/db/dexie/types"
 import { formatFileSize } from "@/utils/format"
+import { formatPinnedResults } from "@/utils/rag-format"
 import { CONTEXT_FILE_SIZE_MB_SETTING } from "@/services/settings/ui-settings"
 import { browser } from "wxt/browser"
 import type { Character } from "@/types/character"
@@ -123,10 +124,11 @@ export const SidepanelForm = ({
   const quickIngestHadFailure = useQuickIngestStore((s) => s.hadRecentFailure)
   const uiMode = useUiModeStore((state) => state.mode)
   const isProMode = uiMode === "pro"
-  const { replyTarget, clearReplyTarget } = useStoreMessageOption(
+  const { replyTarget, clearReplyTarget, ragPinnedResults } = useStoreMessageOption(
     (state) => ({
       replyTarget: state.replyTarget,
-      clearReplyTarget: state.clearReplyTarget
+      clearReplyTarget: state.clearReplyTarget,
+      ragPinnedResults: state.ragPinnedResults
     }),
     shallow
   )
@@ -892,16 +894,28 @@ export const SidepanelForm = ({
     return true
   }
 
+  const buildPinnedMessage = React.useCallback(
+    (message: string, options?: { ignorePinnedResults?: boolean }) => {
+      if (options?.ignorePinnedResults) return message
+      if (!ragPinnedResults || ragPinnedResults.length === 0) return message
+      const pinnedText = formatPinnedResults(ragPinnedResults, "markdown")
+      return message ? `${message}\n\n${pinnedText}` : pinnedText
+    },
+    [ragPinnedResults]
+  )
+
   async function sendCurrentFormMessage(
     rawMessage: string,
-    image: string
+    image: string,
+    options?: { ignorePinnedResults?: boolean }
   ): Promise<void> {
     const slashResult = applySlashCommand(rawMessage)
     if (slashResult.handled) {
       form.setFieldValue("message", slashResult.message)
     }
     const nextMessage = slashResult.handled ? slashResult.message : rawMessage
-    const trimmed = nextMessage.trim()
+    const withPins = buildPinnedMessage(nextMessage, options)
+    const trimmed = withPins.trim()
     if (
       trimmed.length === 0 &&
       image.length === 0 &&
@@ -1435,7 +1449,7 @@ export const SidepanelForm = ({
                           // Focus textarea for quick edits
                           textareaRef.current?.focus()
                         }}
-                        onAsk={async (text) => {
+                        onAsk={async (text, options) => {
                           // Set message and submit immediately
                           const trimmed = text.trim()
                           if (!trimmed) return
@@ -1448,8 +1462,20 @@ export const SidepanelForm = ({
                             form.reset()
                             return
                           }
-                          await sendCurrentFormMessage(trimmed, "")
+                          await sendCurrentFormMessage(trimmed, "", options)
                         }}
+                        currentMessage={form.values.message}
+                        showAttachedContext
+                        attachedTabs={selectedDocuments}
+                        attachedFiles={contextFiles}
+                        onRemoveTab={removeDocument}
+                        onRefreshTabs={reloadTabs}
+                        onAddFile={() => contextFileInputRef.current?.click()}
+                        onRemoveFile={(fileId) =>
+                          setContextFiles((prev) =>
+                            prev.filter((item) => item.id !== fileId)
+                          )
+                        }
                       />
                     )}
                     {/* Queued messages banner - shown above input area */}

@@ -102,6 +102,7 @@ export const CharacterSelect: React.FC<Props> = ({
     ""
   )
   const previousCharacterId = React.useRef<string | null>(null)
+  const latestSelectionIdRef = React.useRef<string | null>(null)
   const initialized = React.useRef(false)
   const lastErrorRef = React.useRef<unknown | null>(null)
   const importInputRef = React.useRef<HTMLInputElement | null>(null)
@@ -255,6 +256,7 @@ export const CharacterSelect: React.FC<Props> = ({
         clearChat()
       }
 
+      latestSelectionIdRef.current = nextId
       await setSelectedCharacter(next)
 
       if (next && !next.greeting) {
@@ -264,6 +266,7 @@ export const CharacterSelect: React.FC<Props> = ({
           .catch(() => null)
           .then(() => tldwClient.getCharacter(targetId))
           .then((full) => {
+            if (latestSelectionIdRef.current !== targetId) return
             const hydrated = normalizeCharacter(full || {})
             if (hydrated?.id === targetId && hydrated.greeting) {
               void setSelectedCharacter(hydrated)
@@ -280,6 +283,10 @@ export const CharacterSelect: React.FC<Props> = ({
       setSelectedCharacter
     ]
   )
+
+  React.useEffect(() => {
+    latestSelectionIdRef.current = selectedCharacter?.id ?? null
+  }, [selectedCharacter?.id])
 
   const handleImportSuccess = React.useCallback(
     (imported: any) => {

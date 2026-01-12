@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react"
-import { Tooltip, Collapse, Avatar, Modal, Image, message as antdMessage } from "antd"
+import { Tooltip, Avatar, Modal, Image, message as antdMessage } from "antd"
 import {
   Check,
   Copy,
@@ -174,19 +174,19 @@ export function CompactMessage({
     })
   }, [timestamp, i18n.language])
 
-  const handleCopy = async () => {
+  const handleCopy = React.useCallback(async () => {
     await copyToClipboard({ text: message, formatted: false })
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
-  }
+  }, [message])
 
-  const handleSpeak = () => {
+  const handleSpeak = React.useCallback(() => {
     if (isSpeaking) {
       cancel()
     } else {
       speak({ utterance: message })
     }
-  }
+  }, [isSpeaking, cancel, speak, message])
 
   const handleDelete = React.useCallback(() => {
     if (!onDelete) return

@@ -1363,5 +1363,23 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "선택된 탭이 없습니다."
+  },
+  "composer_contextFilesTitle": {
+    "message": "컨텍스트의 파일"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "첨부된 파일이 없습니다."
+  },
+  "composer_addFile": {
+    "message": "파일 추가"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "열린 탭"
+  },
+  "composer_noTabsFound": {
+    "message": "사용 가능한 열린 탭이 없습니다."
   }
 }

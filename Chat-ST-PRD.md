@@ -34,8 +34,11 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - Greeting injection uses selected greeting and display-name replacements.
 - Deterministic fallback rules:
   - If no greetings exist, do not auto-select; hide greeting picker and skip greeting injection.
-  - If multiple greetings have identical text, treat the first occurrence in source order as the deterministic "first" greeting (persist by index/id).
-  - If a persisted greeting is deleted or missing, fall back to deterministic first greeting when "Use character default" is on; otherwise re-roll from remaining greetings and re-persist.
+  - If multiple greetings have identical text, treat the first occurrence in source order as the deterministic "first" greeting (persist by stable greeting ID; if IDs are unavailable, use index with a staleness check on load).
+  - If a persisted greeting is deleted or missing:
+    - If "Use character default" is enabled: fall back to the deterministic first greeting (by ID or index 0).
+    - Otherwise: re-roll randomly from remaining greetings and persist the new selection.
+    - If no greetings remain: hide greeting picker and skip injection (see above).
 
 ---
 
@@ -63,7 +66,11 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 ### Stage C1 (MVP)
 - Per-chat toggle: “Include greeting in context” (default on).
 - Toggle influences prompt history construction (exclude greeting message when off).
-- Regenerate always uses character chat mode for character chats (per message action).
+- Regenerate behavior for character chats:
+  - Always apply the character's prompt formatting preset (Feature B) and generation settings (Feature H) when regenerating a character response.
+  - Respect the current "Include greeting in context" toggle state (Feature C).
+  - Include author's note if configured (Feature D).
+  - For non-character chats or user messages, use the default/global prompt mode.
 
 ### Stage C2
 - Toggle surfaced in composer header with tooltip + persistence per chat.
@@ -111,6 +118,7 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - PNG validation must include chunk integrity, MIME/type validation, and checksum verification for embedded JSON and avatar data.
 - Avatar storage: enforce max size (e.g., 200KB), store in blob store with AV scan and content-type validation, reject oversized images.
 - Surface validation failures with actionable error messaging in the import flow.
+- Rate-limit import attempts to mitigate abuse (e.g., rapid fuzzing/DoS).
 
 ---
 
@@ -182,6 +190,8 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
     - shared: one author note applies to all turns.
     - per character: only the speaking character memory block is injected for that turn.
     - both: shared note is injected first, then the speaking character memory block.
+- Document the scope interaction rules with a decision matrix or state diagram; add edge-case scenarios for misconfigured or missing scope settings.
+- If scope settings are missing or invalid, fall back to safe defaults (greetingScope: chat, presetScope: character, memoryScope: shared).
 
 ---
 
@@ -204,22 +214,53 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - Memory scope label: "Memory scope: Shared / Per character / Both".
 
 ## Data & Persistence
-- Greeting selection: per conversation (local, keyed by historyId/serverChatId).
-- Preset selection: per character (local + sync if existing) plus optional chat-level override.
-- Author’s note: per chat + optional per character.
-- New fields:
-  - greetingScope: "chat" | "character" (or perCharacterGreeting: boolean).
-  - presetScope: "chat" | "character".
-  - memoryScope: "shared" | "character" | "both".
-  - chatPresetOverrideId: string | null.
-  - characterMemoryById: map of characterId -> memory text.
+- Storage strategy: Option C (Hybrid). Use local storage for offline-first edits and sync to server history metadata when a serverChatId exists.
+- Storage map (per-chat settings, keyed by historyId with optional serverChatId mapping):
+  - Feature A greeting selection: `greetingSelectionId` stored locally and synced to server history metadata.
+  - Feature C greeting toggle: `greetingEnabled` stored locally and synced to server history metadata.
+  - Feature D author's note: shared note stored as `authorNote`; per-character notes stored in `characterMemoryById` map. Both stored locally and synced to server history metadata.
+  - Feature H per-chat generation preset: `chatPresetOverrideId` + `presetScope` stored locally and synced to server history metadata.
+  - Data model fields:
+    - `greetingScope` stored in per-chat settings (local + server metadata).
+    - `presetScope` stored in per-chat settings (local + server metadata).
+    - `memoryScope` stored in per-chat settings (local + server metadata).
+    - `chatPresetOverrideId` stored in per-chat settings (local + server metadata).
+    - `characterMemoryById` stored in per-chat settings (local + server metadata).
+
+## Migration Strategy (New Fields)
+- Legacy characters/chats without new fields receive safe defaults:
+  - greetingScope: "chat" (single greeting per conversation, preserves existing behavior).
+  - presetScope: "character" (per-character presets, opt-in to chat overrides).
+  - memoryScope: "shared" (single author's note per chat).
+  - chatPresetOverrideId: null (no override, use character preset).
+  - characterMemoryById: {} (empty map, no per-character memory).
+- Existing greeting behavior (auto-select random) preserved for legacy chats until user explicitly picks a greeting.
+- Existing prompt assembly logic unaffected for non-character chats.
+- Data schema version bump required; include rollback plan for downgrade compatibility.
+
+## Sync & Conflict Resolution
+- Reconciliation rule: last-write-wins per field group using `updatedAt` timestamps on the per-chat settings record.
+- Tie-breaker when timestamps are missing or equal: server-wins for server-backed chats; local-wins for local-only chats.
+- Map merges (e.g., `characterMemoryById`): apply last-write-wins per entry using per-entry timestamps when available, otherwise fall back to record-level `updatedAt`.
+
+## Migration Plan
+- Add `schemaVersion` and `updatedAt` to per-chat settings records; default `schemaVersion` to 1 for existing data.
+- On upgrade, migrate existing local keys (historyId/serverChatId) into the new per-chat settings record; set `updatedAt` to the local record timestamp.
+- For server-backed chats, perform one-time reconciliation:
+  - If server metadata is missing, push local record.
+  - If both exist, apply last-write-wins and persist the merged result to both local and server.
+- Keep a backward-compat read path for one release: if new fields are missing, read legacy locations, migrate, and save once.
+- For future schema/format changes, introduce a versioned migration function per schema version and run migrations before sync; if migration fails, fall back to the latest server metadata and preserve the local record as a conflict copy for manual recovery.
 
 ## Risks / Open Questions
 - Where to store per-chat settings (history metadata vs local store)?
 - How to reconcile server-backed chats vs local histories?
+- Performance: cumulative token overhead from preset + author's note + greeting + lorebook + actor/world book injections may exceed model context limits or increase latency. Define token budgets per feature and add warnings in prompt preview (Feature G).
+- Performance testing: include load tests for multi-character chats with all features active to measure prompt assembly time and token counts.
 
 ## Testing
 - Manual: switch characters, reroll greeting, refresh, confirm persistence.
+- Greeting fallback: delete persisted greeting and verify fallback to first greeting (default mode) or re-roll (manual mode); delete all greetings and verify picker is hidden.
 - Ensure prompt preview reflects preset + author note + greeting toggle.
 - Unit tests: scope resolution for greeting/preset/memory in multi-character mode.
 - Integration tests: C+I greeting scope, H+I preset precedence, D+I memory merge behavior.
@@ -227,3 +268,5 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - Integration tests: prompt assembly combining preset + author note + greeting toggle; character switching and multi-character turn-taking across turns.
 - E2E tests: full refresh + server sync conflict resolution flows (local vs server metadata), covering persistence keys and preset-sync reconciliation.
 - Regression tests: non-character chats and single-character chats remain unchanged (no prompt assembly drift).
+- Security tests: Feature E import validation with malformed PNG/JSON, oversized avatars (>200KB), prompt-injection payloads; verify rejection and error messages.
+- Performance tests: multi-character chats with all features active; measure token counts, prompt assembly time, and memory usage under load.

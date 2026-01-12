@@ -138,7 +138,9 @@
     "recheck": "Check again"
   },
   "errors": {
-    "privateModeDescription": "Firefox 사생활 모드에서는 채팅을 저장할 수 없습니다. 기본적으로 임시 채팅이 활성화되어 있습니다. 곧 개선될 예정입니다."
+    "privateModeDescription": "Firefox 사생활 모드에서는 채팅을 저장할 수 없습니다. 기본적으로 임시 채팅이 활성화되어 있습니다. 곧 개선될 예정입니다.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "오류",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "아직 미디어 및 노트가 선택되지 않았습니다.",
     "addKnowledge": "미디어 및 노트 추가",
     "contextTabsTitle": "컨텍스트 탭",
+    "contextTabsAvailable": "열린 탭",
+    "noTabsFound": "사용 가능한 열린 탭이 없습니다.",
+    "contextTabsEmpty": "선택된 탭이 없습니다.",
+    "contextFilesTitle": "컨텍스트의 파일",
+    "contextFilesEmpty": "첨부된 파일이 없습니다.",
+    "addFile": "파일 추가",
     "contextTabsHint": "참조된 탭을 검토하거나 제거하고, 열려 있는 브라우저 탭에서 더 추가하세요.",
     "contextManager": "컨텍스트 관리",
     "contextManagerTitle": "컨텍스트 관리",

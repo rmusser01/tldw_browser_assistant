@@ -1171,5 +1171,11 @@
   },
   "error_createFolder": {
     "message": "Failed to create folder"
+  },
+  "timeline_unableLocateMessage": {
+    "message": "Unable to locate the message for this action."
+  },
+  "timeline_actionFailed": {
+    "message": "Failed to perform timeline action. Please try again."
   }
 }

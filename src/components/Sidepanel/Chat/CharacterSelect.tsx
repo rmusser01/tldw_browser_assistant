@@ -150,7 +150,7 @@ export const CharacterSelect: React.FC<Props> = ({
         greeting: pickGreeting(collectGreetings(character)) || null
       }
     },
-    [collectGreetings, pickGreeting]
+    []
   )
 
   const confirmCharacterSwitch = React.useCallback(
@@ -264,6 +264,7 @@ export const CharacterSelect: React.FC<Props> = ({
         })
     },
     [
+      buildStoredCharacter,
       clearChat,
       confirmCharacterSwitch,
       hasActiveChat,
@@ -284,13 +285,13 @@ export const CharacterSelect: React.FC<Props> = ({
     [applySelection, buildStoredCharacter, characters]
   )
 
-  const handleImportClick = () => {
+  const handleImportClick = React.useCallback(() => {
     if (isImporting) return
     if (!importInputRef.current) return
     setDropdownOpen(false)
     importInputRef.current.value = ""
     importInputRef.current.click()
-  }
+  }, [isImporting, setDropdownOpen])
 
   const handleImportFile = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -439,25 +440,29 @@ export const CharacterSelect: React.FC<Props> = ({
     return `#/characters?${params.toString()}`
   }, [])
 
-  const openCharactersWorkspace = React.useCallback((options?: { create?: boolean }) => {
-    const hash = buildCharactersHash(options?.create)
-    try {
+  const openCharactersWorkspace = React.useCallback(
+    async (options?: { create?: boolean }) => {
       if (typeof window === "undefined") return
-
+      const hash = buildCharactersHash(options?.create)
       const url = browser.runtime.getURL(`/options.html${hash}`)
-
-      if (browser.tabs?.create) {
-        browser.tabs.create({ url })
-      } else {
+      try {
+        if (browser.tabs?.create) {
+          await browser.tabs.create({ url })
+          return
+        }
         window.open(url, "_blank")
+        return
+      } catch (error) {
+        console.debug(
+          "[CharacterSelect] Failed to open characters workspace tab:",
+          error
+        )
       }
-      return
-    } catch {
-      // fall back to window.open below
-    }
 
-    window.open(browser.runtime.getURL(`/options.html${hash}`), "_blank")
-  }, [buildCharactersHash])
+      window.open(url, "_blank")
+    },
+    [buildCharactersHash]
+  )
 
   const createCharacterItem = React.useCallback(
     (char: CharacterApiResponse): MenuItemType => ({
@@ -502,7 +507,7 @@ export const CharacterSelect: React.FC<Props> = ({
       ),
       onClick: () => {
         setDropdownOpen(false)
-        openCharactersWorkspace({ create: true })
+        void openCharactersWorkspace({ create: true })
       }
     }
     const importItem: ItemType = {

@@ -104,6 +104,7 @@
     "saveFailedDescription": "Теперь чат сохраняется только локально. Проверьте соединение и попробуйте снова."
   },
   "rag": {
+    "attachedContext": "Прикрепленный контекст",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",

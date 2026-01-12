@@ -515,7 +515,9 @@ const NotesManagerPage: React.FC = () => {
           try {
             const latest = await bgRequest<any>({ path: `/api/v1/notes/${selectedId}` as any, method: 'GET' as any })
             setSelectedVersion(toNoteVersion(latest))
-          } catch {}
+          } catch (err) {
+            console.debug('[NotesManagerPage] Version refresh after save failed:', err)
+          }
         }
       }
     } catch (e: any) {
@@ -701,6 +703,8 @@ const NotesManagerPage: React.FC = () => {
     )
   }
 
+  const MAX_EXPORT_PAGES = 1000
+
   const exportAll = async () => {
     try {
       let arr: NoteListItem[] = []
@@ -710,8 +714,7 @@ const NotesManagerPage: React.FC = () => {
         // Fetch all matching notes in chunks using server-side filtering
         let p = 1
         const ps = 100
-        // eslint-disable-next-line no-constant-condition
-        while (true) {
+        while (p <= MAX_EXPORT_PAGES) {
           const { items } = await fetchFilteredNotesRaw(q, toks, p, ps)
           if (!items.length) break
           arr.push(
@@ -728,7 +731,7 @@ const NotesManagerPage: React.FC = () => {
         // Iterate pages (chunk by 100)
         let p = 1
         const ps = 100
-        while (true) {
+        while (p <= MAX_EXPORT_PAGES) {
           const res = await bgRequest<any>({ path: `/api/v1/notes/?page=${p}&results_per_page=${ps}` as any, method: 'GET' as any })
           const items = Array.isArray(res?.items) ? res.items : (Array.isArray(res) ? res : [])
           arr.push(...items.map((n: any) => ({ id: n?.id, title: n?.title, content: n?.content })))
@@ -770,8 +773,7 @@ const NotesManagerPage: React.FC = () => {
       // Fetch all matching notes in chunks using server-side filtering
       let p = 1
       const ps = 100
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
+      while (p <= MAX_EXPORT_PAGES) {
         const { items } = await fetchFilteredNotesRaw(q, toks, p, ps)
         if (!items.length) break
         arr.push(
@@ -790,7 +792,7 @@ const NotesManagerPage: React.FC = () => {
       // Iterate pages (chunk by 100)
       let p = 1
       const ps = 100
-      while (true) {
+      while (p <= MAX_EXPORT_PAGES) {
         const res = await bgRequest<any>({ path: `/api/v1/notes/?page=${p}&results_per_page=${ps}` as any, method: 'GET' as any })
         const items = Array.isArray(res?.items) ? res.items : (Array.isArray(res) ? res : [])
         arr.push(
@@ -927,11 +929,6 @@ const NotesManagerPage: React.FC = () => {
     setKeywordTokens([])
     setPage(1)
   }, [])
-
-  React.useEffect(() => {
-    if (!isOnline || !keywordPickerOpen) return
-    void loadAllKeywords()
-  }, [isOnline, keywordPickerOpen, loadAllKeywords])
 
   React.useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => {

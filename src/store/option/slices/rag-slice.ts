@@ -1,4 +1,5 @@
 import type { StoreSlice } from "@/store/option/slices/types"
+import { DEFAULT_RAG_SETTINGS, toRagAdvancedOptions } from "@/services/rag/unified-rag"
 
 export const createRagSlice: StoreSlice<
   Pick<
@@ -17,22 +18,26 @@ export const createRagSlice: StoreSlice<
     | "setRagSources"
     | "ragAdvancedOptions"
     | "setRagAdvancedOptions"
+    | "ragPinnedResults"
+    | "setRagPinnedResults"
   >
 > = (set) => ({
   ragMediaIds: null,
   setRagMediaIds: (ragMediaIds) => set({ ragMediaIds }),
-  ragSearchMode: "hybrid",
+  ragSearchMode: DEFAULT_RAG_SETTINGS.search_mode,
   setRagSearchMode: (ragSearchMode) => set({ ragSearchMode }),
-  ragTopK: null,
+  ragTopK: DEFAULT_RAG_SETTINGS.top_k,
   setRagTopK: (ragTopK) => set({ ragTopK }),
-  ragEnableGeneration: false,
+  ragEnableGeneration: DEFAULT_RAG_SETTINGS.enable_generation,
   setRagEnableGeneration: (ragEnableGeneration) =>
     set({ ragEnableGeneration }),
-  ragEnableCitations: false,
+  ragEnableCitations: DEFAULT_RAG_SETTINGS.enable_citations,
   setRagEnableCitations: (ragEnableCitations) =>
     set({ ragEnableCitations }),
-  ragSources: [],
+  ragSources: DEFAULT_RAG_SETTINGS.sources,
   setRagSources: (ragSources) => set({ ragSources }),
-  ragAdvancedOptions: {},
-  setRagAdvancedOptions: (ragAdvancedOptions) => set({ ragAdvancedOptions })
+  ragAdvancedOptions: toRagAdvancedOptions(DEFAULT_RAG_SETTINGS),
+  setRagAdvancedOptions: (ragAdvancedOptions) => set({ ragAdvancedOptions }),
+  ragPinnedResults: [],
+  setRagPinnedResults: (ragPinnedResults) => set({ ragPinnedResults })
 })

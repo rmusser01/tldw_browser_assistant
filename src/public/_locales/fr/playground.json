@@ -1363,5 +1363,23 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "Aucun onglet sélectionné."
+  },
+  "composer_contextFilesTitle": {
+    "message": "Fichiers dans le contexte"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "Aucun fichier joint."
+  },
+  "composer_addFile": {
+    "message": "Ajouter un fichier"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "Onglets ouverts"
+  },
+  "composer_noTabsFound": {
+    "message": "Aucun onglet ouvert éligible."
   }
 }

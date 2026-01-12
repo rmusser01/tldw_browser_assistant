@@ -138,7 +138,9 @@
     "troubleshoot": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
   },
   "errors": {
-    "privateModeDescription": "Firefox privat tilstand understøtter ikke at gemme chat. Midlertidig chat er slået til som standard. Flere forbedringer er på vej."
+    "privateModeDescription": "Firefox privat tilstand understøtter ikke at gemme chat. Midlertidig chat er slået til som standard. Flere forbedringer er på vej.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "Fejl",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "No Media & Notes selected yet.",
     "addKnowledge": "Add Media & Notes",
     "contextTabsTitle": "Tabs in context",
+    "contextTabsAvailable": "Åbne faner",
+    "noTabsFound": "Ingen egnede åbne faner fundet.",
+    "contextTabsEmpty": "Ingen faner valgt.",
+    "contextFilesTitle": "Filer i konteksten",
+    "contextFilesEmpty": "Ingen filer vedhæftet.",
+    "addFile": "Tilføj fil",
     "contextTabsHint": "Review or remove referenced tabs, or add more from your open browser tabs.",
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",

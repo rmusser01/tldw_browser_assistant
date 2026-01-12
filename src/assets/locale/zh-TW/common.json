@@ -379,7 +379,9 @@
     "hideLegend": "Hide legend",
     "showLegend": "Show legend",
     "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out"
+    "zoomOut": "Zoom out",
+    "unableLocateMessage": "Unable to locate the message for this action.",
+    "actionFailed": "Failed to perform timeline action. Please try again."
   },
   "noToolCalls": "尚未有工具呼叫",
   "sourceLabel": "Source",

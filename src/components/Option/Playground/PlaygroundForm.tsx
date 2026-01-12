@@ -42,6 +42,7 @@ import { isFirefoxTarget } from "@/config/platform"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
 import { getProviderDisplayName } from "@/utils/provider-registry"
+import { formatPinnedResults } from "@/utils/rag-format"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTabMentions } from "~/hooks/useTabMentions"
 import { useFocusShortcuts } from "~/hooks/keyboard"
@@ -109,10 +110,10 @@ const getPersistenceModeLabel = (
 }
 
 type Props = {
-  dropedFile: File | undefined
+  droppedFiles: File[]
 }
 
-export const PlaygroundForm = ({ dropedFile }: Props) => {
+export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const { t } = useTranslation(["playground", "common", "option"])
   const inputRef = React.useRef<HTMLInputElement>(null)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
@@ -172,7 +173,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     setServerChatSource,
     setServerChatVersion,
     replyTarget,
-    clearReplyTarget
+    clearReplyTarget,
+    ragPinnedResults
   } = useMessageOption()
 
   const [autoSubmitVoiceMessage] = useStorage("autoSubmitVoiceMessage", false)
@@ -695,25 +697,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   React.useEffect(() => {
     if (!form.values.message) {
-      if (isMessageCollapsed) {
-        setIsMessageCollapsed(false)
-      }
-      if (hasExpandedLargeText) {
-        setHasExpandedLargeText(false)
-      }
+      setIsMessageCollapsed(false)
+      setHasExpandedLargeText(false)
       return
     }
 
     if (form.values.message.length <= PASTED_TEXT_CHAR_LIMIT) {
-      if (isMessageCollapsed) {
-        setIsMessageCollapsed(false)
-      }
-      if (hasExpandedLargeText) {
-        setHasExpandedLargeText(false)
-      }
+      setIsMessageCollapsed(false)
+      setHasExpandedLargeText(false)
       return
     }
-  }, [form.values.message, hasExpandedLargeText, isMessageCollapsed])
+  }, [form.values.message])
 
   // Draft persistence - saves/restores message draft to local-only storage
   const { draftSaved } = useDraftPersistence({
@@ -1049,10 +1043,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         pastedText +
         currentValue.slice(selectionEnd)
 
-      if (
-        nextValue.length > PASTED_TEXT_CHAR_LIMIT &&
-        !hasExpandedLargeText
-      ) {
+      if (nextValue.length > PASTED_TEXT_CHAR_LIMIT) {
         e.preventDefault()
         setMessageValue(nextValue, { collapseLarge: true })
       }
@@ -1069,10 +1060,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     ]
   )
   React.useEffect(() => {
-    if (dropedFile) {
-      onInputChange(dropedFile)
+    if (droppedFiles.length === 0) return
+    let cancelled = false
+    const run = async () => {
+      for (const file of droppedFiles) {
+        if (cancelled) return
+        await onInputChange(file)
+      }
     }
-  }, [dropedFile, onInputChange])
+    void run()
+    return () => {
+      cancelled = true
+    }
+  }, [droppedFiles, onInputChange])
 
   const handleDisconnectedFocus = () => {
     if (!isConnectionReady && !hasShownConnectBanner) {
@@ -1110,7 +1110,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     if (isListening) {
       setMessageValue(transcript, { collapseLarge: true, forceCollapse: true })
     }
-  }, [transcript])
+  }, [transcript, isListening, setMessageValue])
 
   React.useEffect(() => {
     if (!selectedQuickPrompt) {
@@ -1194,7 +1194,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   })
 
-  const submitForm = () => {
+  const buildPinnedMessage = React.useCallback(
+    (message: string, options?: { ignorePinnedResults?: boolean }) => {
+      if (options?.ignorePinnedResults) return message
+      if (!ragPinnedResults || ragPinnedResults.length === 0) return message
+      const pinnedText = formatPinnedResults(ragPinnedResults, "markdown")
+      return message ? `${message}\n\n${pinnedText}` : pinnedText
+    },
+    [ragPinnedResults]
+  )
+
+  const submitForm = (options?: { ignorePinnedResults?: boolean }) => {
     form.onSubmit(async (value) => {
       const slashResult = applySlashCommand(value.message)
       if (slashResult.handled) {
@@ -1203,7 +1213,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       const nextMessage = slashResult.handled
         ? slashResult.message
         : value.message
-      const trimmed = nextMessage.trim()
+      const combinedMessage = buildPinnedMessage(nextMessage, options)
+      const trimmed = combinedMessage.trim()
       if (
         trimmed.length === 0 &&
         value.image.length === 0 &&
@@ -1273,7 +1284,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       const nextMessage = slashResult.handled
         ? slashResult.message
         : message
-      const trimmed = nextMessage.trim()
+      const combinedMessage = buildPinnedMessage(nextMessage)
+      const trimmed = combinedMessage.trim()
       if (
         trimmed.length === 0 &&
         image.length === 0 &&
@@ -1657,11 +1669,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         command: "search",
         label: t(
           "common:commandPalette.toggleKnowledgeSearch",
-          "Toggle Knowledge Search"
+          "Toggle Search & Context"
         ),
         description: t(
           "common:commandPalette.toggleKnowledgeSearchDesc",
-          "Search your knowledge base"
+          "Search your knowledge base and context"
         ),
         keywords: ["rag", "context", "knowledge", "search"],
         action: () => setChatMode(chatMode === "rag" ? "normal" : "rag")
@@ -2009,11 +2021,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             contextToolsOpen
               ? (t(
                   "playground:composer.contextKnowledgeClose",
-                  "Close Ctx + Media"
+                  "Close Search & Context"
                 ) as string)
               : (t(
                   "playground:composer.contextKnowledge",
-                  "Ctx + Media"
+                  "Search & Context"
                 ) as string)
           }
           className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-sm transition ${
@@ -2026,11 +2038,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             {contextToolsOpen
               ? t(
                   "playground:composer.contextKnowledgeClose",
-                  "Close Ctx + Media"
+                  "Close Search & Context"
                 )
               : t(
                   "playground:composer.contextKnowledge",
-                  "Ctx + Media"
+                  "Search & Context"
                 )}
           </span>
           <Search className="h-4 w-4" />
@@ -2793,7 +2805,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <div className="mb-2 text-xs font-semibold text-text">
                               {t(
                                 "playground:composer.knowledgeSearch",
-                                "Knowledge search"
+                                "Search & Context"
                               )}
                             </div>
                             <RagSearchBar
@@ -2803,14 +2815,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 setMessageValue(next, { collapseLarge: true })
                                 textAreaFocus()
                               }}
-                              onAsk={(text) => {
+                              onAsk={(text, options) => {
                                 const trimmed = text.trim()
                                 if (!trimmed) return
                                 setMessageValue(text, {
                                   collapseLarge: true,
                                   forceCollapse: true
                                 })
-                                setTimeout(() => submitForm(), 0)
+                                setTimeout(
+                                  () => submitForm({ ignorePinnedResults: options?.ignorePinnedResults }),
+                                  0
+                                )
                               }}
                               isConnected={isConnectionReady}
                               open={contextToolsOpen}
@@ -2818,218 +2833,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               autoFocus
                               showToggle={false}
                               variant="embedded"
+                              currentMessage={form.values.message}
+                              showAttachedContext
+                              attachedTabs={selectedDocuments}
+                              availableTabs={availableTabs}
+                              attachedFiles={uploadedFiles}
+                              onRemoveTab={removeDocument}
+                              onAddTab={addDocument}
+                              onClearTabs={clearSelectedDocuments}
+                              onRefreshTabs={reloadTabs}
+                              onAddFile={() => fileInputRef.current?.click()}
+                              onRemoveFile={removeUploadedFile}
+                              onClearFiles={clearUploadedFiles}
                             />
-                          </div>
-                          <div className="border-t border-border pt-4">
-                            <div className="mb-3 text-xs font-semibold text-text">
-                              {t(
-                                "playground:composer.contextManagerTitle",
-                                "Context Management"
-                              )}
-                            </div>
-                            <div className="flex flex-col gap-5">
-                              <div className="flex items-start justify-between gap-3">
-                                <div>
-                                  <div className="text-sm font-semibold text-text">
-                                    {t(
-                                      "playground:composer.contextTabsTitle",
-                                      "Tabs in context"
-                                    )}
-                                  </div>
-                                  <p className="text-xs text-text-muted">
-                                    {t(
-                                      "playground:composer.contextTabsHint",
-                                      "Review or remove referenced tabs, or add more from your open browser tabs."
-                                    )}
-                                  </p>
-                                </div>
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <button
-                                    type="button"
-                                    onClick={() => reloadTabs()}
-                                    title={t("common:refresh", "Refresh") as string}
-                                    className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                    {t("common:refresh", "Refresh")}
-                                  </button>
-                                  {selectedDocuments.length > 0 && (
-                                    <button
-                                      type="button"
-                                      onClick={clearSelectedDocuments}
-                                      title={
-                                        t(
-                                          "playground:composer.clearTabs",
-                                          "Remove all tabs"
-                                        ) as string
-                                      }
-                                      className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                      {t(
-                                        "playground:composer.clearTabs",
-                                        "Remove all tabs"
-                                      )}
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="rounded-lg border border-border bg-surface p-3">
-                                {selectedDocuments.length > 0 ? (
-                                  <div className="flex flex-col gap-2">
-                                    {selectedDocuments.map((doc) => (
-                                      <div
-                                        key={doc.id}
-                                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface2 px-3 py-2">
-                                        <div className="min-w-0">
-                                          <div className="truncate text-sm font-medium text-text">
-                                            {doc.title}
-                                          </div>
-                                          <div className="truncate text-xs text-text-muted">
-                                            {doc.url}
-                                          </div>
-                                        </div>
-                                        <button
-                                          type="button"
-                                          onClick={() => removeDocument(doc.id)}
-                                          aria-label={t("common:remove", "Remove") as string}
-                                          title={t("common:remove", "Remove") as string}
-                                          className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
-                                          <X className="h-4 w-4" />
-                                        </button>
-                                      </div>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <div className="text-sm text-text-muted">
-                                    {t(
-                                      "playground:composer.contextTabsEmpty",
-                                      "No tabs added yet."
-                                    )}
-                                  </div>
-                                )}
-                                <div className="mt-3">
-                                  <div className="text-xs font-semibold text-text">
-                                    {t(
-                                      "playground:composer.contextTabsAvailable",
-                                      "Open tabs"
-                                    )}
-                                  </div>
-                                  <div className="mt-2 max-h-40 overflow-y-auto space-y-2">
-                                    {availableTabs.length > 0 ? (
-                                      availableTabs.map((tab) => (
-                                        <div
-                                          key={tab.id}
-                                          className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface px-3 py-2 shadow-sm">
-                                          <div className="min-w-0">
-                                            <div className="truncate text-sm font-medium text-text">
-                                              {tab.title}
-                                            </div>
-                                            <div className="truncate text-xs text-text-muted">
-                                              {tab.url}
-                                            </div>
-                                          </div>
-                                          <button
-                                            type="button"
-                                            onClick={() => addDocument(tab)}
-                                            title={t("common:add", "Add") as string}
-                                            className="rounded-md border border-border px-2 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                            {t("common:add", "Add")}
-                                          </button>
-                                        </div>
-                                      ))
-                                    ) : (
-                                      <div className="text-xs text-text-muted">
-                                        {t(
-                                          "playground:composer.noTabsFound",
-                                          "No eligible open tabs found."
-                                        )}
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="flex items-start justify-between gap-3">
-                                <div>
-                                  <div className="text-sm font-semibold text-text">
-                                    {t(
-                                      "playground:composer.contextFilesTitle",
-                                      "Files in context"
-                                    )}
-                                  </div>
-                                  <p className="text-xs text-text-muted">
-                                    {t(
-                                      "playground:composer.contextFilesHint",
-                                      "Review attached files, remove them, or add more."
-                                    )}
-                                  </p>
-                                </div>
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      fileInputRef.current?.click()
-                                    }}
-                                    title={
-                                      t(
-                                        "playground:composer.addFile",
-                                        "Add file"
-                                      ) as string
-                                    }
-                                    className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                    {t("playground:composer.addFile", "Add file")}
-                                  </button>
-                                  {uploadedFiles.length > 0 && (
-                                    <button
-                                      type="button"
-                                      onClick={clearUploadedFiles}
-                                      title={
-                                        t(
-                                          "playground:composer.clearFiles",
-                                          "Remove all files"
-                                        ) as string
-                                      }
-                                      className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                      {t(
-                                        "playground:composer.clearFiles",
-                                        "Remove all files"
-                                      )}
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="rounded-lg border border-border bg-surface p-3">
-                                {uploadedFiles.length > 0 ? (
-                                  <div className="flex flex-col gap-2">
-                                    {uploadedFiles.map((file) => (
-                                      <div
-                                        key={file.id}
-                                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface2 px-3 py-2">
-                                        <div className="min-w-0">
-                                          <div className="truncate text-sm font-medium text-text">
-                                            {file.filename}
-                                          </div>
-                                          <div className="text-xs text-text-muted">
-                                            {(file.size / (1024 * 1024)).toFixed(2)} MB
-                                          </div>
-                                        </div>
-                                        <button
-                                          type="button"
-                                          onClick={() => removeUploadedFile(file.id)}
-                                          aria-label={t("common:remove", "Remove") as string}
-                                          title={t("common:remove", "Remove") as string}
-                                          className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
-                                          <X className="h-4 w-4" />
-                                        </button>
-                                      </div>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <div className="text-sm text-text-muted">
-                                    {t(
-                                      "playground:composer.contextFilesEmpty",
-                                      "No files attached yet."
-                                    )}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -3308,11 +3124,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   contextToolsOpen
                                     ? (t(
                                         "playground:composer.contextKnowledgeClose",
-                                        "Close Ctx + Media"
+                                        "Close Search & Context"
                                       ) as string)
                                     : (t(
                                         "playground:composer.contextKnowledge",
-                                        "Ctx + Media"
+                                        "Search & Context"
                                       ) as string)
                                 }
                                 aria-pressed={contextToolsOpen}
@@ -3328,11 +3144,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   {contextToolsOpen
                                     ? t(
                                         "playground:composer.contextKnowledgeClose",
-                                        "Close Ctx + Media"
+                                        "Close Search & Context"
                                       )
                                     : t(
                                         "playground:composer.contextKnowledge",
-                                        "Ctx + Media"
+                                        "Search & Context"
                                       )}
                                 </span>
                               </button>
@@ -3544,11 +3360,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               contextToolsOpen
                                 ? (t(
                                     "playground:composer.contextKnowledgeClose",
-                                    "Close Ctx + Media"
+                                    "Close Search & Context"
                                   ) as string)
                                 : (t(
                                     "playground:composer.contextKnowledge",
-                                    "Ctx + Media"
+                                    "Search & Context"
                                   ) as string)
                             }
                             aria-pressed={contextToolsOpen}
@@ -3564,11 +3380,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               {contextToolsOpen
                                 ? t(
                                     "playground:composer.contextKnowledgeClose",
-                                    "Close Ctx + Media"
+                                    "Close Search & Context"
                                   )
                                 : t(
                                     "playground:composer.contextKnowledge",
-                                    "Ctx + Media"
+                                    "Search & Context"
                                   )}
                             </span>
                           </button>

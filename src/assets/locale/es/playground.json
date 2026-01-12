@@ -139,7 +139,9 @@
     "recheck": "Check again"
   },
   "errors": {
-    "privateModeDescription": "El modo privado de Firefox no admite guardar el chat. El chat temporal está activado por defecto. Más mejoras próximamente."
+    "privateModeDescription": "El modo privado de Firefox no admite guardar el chat. El chat temporal está activado por defecto. Más mejoras próximamente.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "Error",
@@ -304,6 +306,12 @@
     "contextMediaEmpty": "No Media & Notes selected yet.",
     "addKnowledge": "Add Media & Notes",
     "contextTabsTitle": "Tabs in context",
+    "contextTabsAvailable": "Pestañas abiertas",
+    "noTabsFound": "No se encontraron pestañas abiertas elegibles.",
+    "contextTabsEmpty": "No hay pestañas seleccionadas.",
+    "contextFilesTitle": "Archivos en contexto",
+    "contextFilesEmpty": "No hay archivos adjuntos.",
+    "addFile": "Agregar archivo",
     "contextTabsHint": "Review or remove referenced tabs, or add more from your open browser tabs.",
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",

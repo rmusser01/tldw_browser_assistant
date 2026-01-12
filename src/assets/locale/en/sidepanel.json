@@ -101,10 +101,11 @@
     "saveFailedDescription": "Chat is now saving locally only. Check your connection and try again."
   },
   "rag": {
+    "attachedContext": "Attached context",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
-    "show": "Show Knowledge Search",
-    "hide": "Hide Knowledge Search",
+    "show": "Show Search & Context",
+    "hide": "Hide Search & Context",
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results",

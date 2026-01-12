@@ -193,8 +193,8 @@ export function CommandPalette({
       },
       {
         id: "action-toggle-rag",
-        label: t("common:commandPalette.toggleKnowledgeSearch", "Toggle Knowledge Search"),
-        description: t("common:commandPalette.toggleKnowledgeSearchDesc", "Search your knowledge base"),
+        label: t("common:commandPalette.toggleKnowledgeSearch", "Toggle Search & Context"),
+        description: t("common:commandPalette.toggleKnowledgeSearchDesc", "Search your knowledge base and context"),
         icon: <Search className="size-4" />,
         shortcut: buildShortcut("r", "alt"),
         action: () => { onToggleRag?.(); setOpen(false) },

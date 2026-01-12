@@ -618,15 +618,15 @@ export const useChatActions = ({
           const payloadValue = normalizedImage.includes(",")
             ? normalizedImage.split(",")[1]
             : normalizedImage
-          if (payloadValue && payloadValue.length > 0) {
+          if (payloadValue !== undefined && payloadValue.length > 0) {
             normalizedImage = `data:image/jpeg;base64,${payloadValue}`
           }
         }
         if (normalizedImage && normalizedImage.startsWith("data:")) {
           const b64 = normalizedImage.includes(",")
             ? normalizedImage.split(",")[1]
-            : undefined
-          if (b64) {
+            : normalizedImage
+          if (b64 !== undefined && b64.length > 0) {
             payload.image_base64 = b64
           }
         }
@@ -1153,6 +1153,17 @@ export const useChatActions = ({
         if (!compareModeActive) {
           const resolvedSelectedCharacter = await resolveSelectedCharacter()
           if (resolvedSelectedCharacter?.id) {
+            const resolvedModel = selectedModel?.trim()
+            if (!resolvedModel) {
+              notification.error({
+                message: t("error"),
+                description: t("validationSelectModel")
+              })
+              setIsProcessing(false)
+              setStreaming(false)
+              setAbortController(null)
+              return
+            }
             await characterChatMode({
               message,
               image,
@@ -1160,7 +1171,7 @@ export const useChatActions = ({
               messages: baseMessages,
               history: baseHistory,
               signal,
-              model: selectedModel || "",
+              model: resolvedModel,
               regenerateFromMessage,
               character: resolvedSelectedCharacter
             })

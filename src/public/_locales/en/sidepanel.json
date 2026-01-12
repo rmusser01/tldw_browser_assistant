@@ -240,10 +240,10 @@
     "message": "Search"
   },
   "rag_show": {
-    "message": "Show Knowledge Search"
+    "message": "Show Search & Context"
   },
   "rag_hide": {
-    "message": "Hide Knowledge Search"
+    "message": "Hide Search & Context"
   },
   "rag_addTagPlaceholder": {
     "message": "Add tag (Enter)"
@@ -478,5 +478,8 @@
   },
   "multiSelect_localOnlyClosed": {
     "message": "{{count}} local chat(s) were closed."
+  },
+  "rag_attachedContext": {
+    "message": "Attached context"
   }
 }

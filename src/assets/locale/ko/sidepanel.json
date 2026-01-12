@@ -104,6 +104,7 @@
     "saveFailedDescription": "이제 채팅이 로컬에만 저장됩니다. 연결을 확인하고 다시 시도하세요."
   },
   "rag": {
+    "attachedContext": "첨부된 컨텍스트",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",

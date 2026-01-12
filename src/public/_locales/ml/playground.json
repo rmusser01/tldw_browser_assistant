@@ -1363,5 +1363,23 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "ഇതുവരെ ടാബുകൾ തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല."
+  },
+  "composer_contextFilesTitle": {
+    "message": "കോൺടെക്സ്റ്റിലുള്ള ഫയലുകൾ"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "ഇതുവരെ ഫയലുകൾ അറ്റാച്ച് ചെയ്തിട്ടില്ല."
+  },
+  "composer_addFile": {
+    "message": "ഫയൽ ചേർക്കുക"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "തുറന്ന ടാബുകൾ"
+  },
+  "composer_noTabsFound": {
+    "message": "യോഗ്യമായ തുറന്ന ടാബുകൾ കണ്ടെത്തിയില്ല."
   }
 }

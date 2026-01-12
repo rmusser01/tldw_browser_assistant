@@ -104,6 +104,7 @@
     "saveFailedDescription": "チャットは現在ローカルのみに保存されています。接続を確認して再試行してください。"
   },
   "rag": {
+    "attachedContext": "添付されたコンテキスト",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",

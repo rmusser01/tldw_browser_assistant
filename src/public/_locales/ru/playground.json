@@ -1363,5 +1363,23 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "Вкладки не выбраны."
+  },
+  "composer_contextFilesTitle": {
+    "message": "Файлы в контексте"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "Файлы не прикреплены."
+  },
+  "composer_addFile": {
+    "message": "Добавить файл"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "Открытые вкладки"
+  },
+  "composer_noTabsFound": {
+    "message": "Подходящих открытых вкладок не найдено."
   }
 }

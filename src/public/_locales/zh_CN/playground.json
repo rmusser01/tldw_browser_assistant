@@ -1363,5 +1363,23 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "尚未选择标签页。"
+  },
+  "composer_contextFilesTitle": {
+    "message": "上下文中的文件"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "尚未附加文件。"
+  },
+  "composer_addFile": {
+    "message": "添加文件"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "打开的标签页"
+  },
+  "composer_noTabsFound": {
+    "message": "未找到可用的打开标签页。"
   }
 }

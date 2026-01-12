@@ -1363,5 +1363,23 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "タブが選択されていません。"
+  },
+  "composer_contextFilesTitle": {
+    "message": "コンテキスト内のファイル"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "ファイルが添付されていません。"
+  },
+  "composer_addFile": {
+    "message": "ファイルを追加"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "開いているタブ"
+  },
+  "composer_noTabsFound": {
+    "message": "対象の開いているタブが見つかりません。"
   }
 }

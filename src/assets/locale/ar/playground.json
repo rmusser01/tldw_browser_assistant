@@ -138,7 +138,9 @@
     "troubleshoot": "تأكد من أن الخادم يعمل وأن المتصفح مسموح له بالوصول إليه، ثم أعد المحاولة من صفحة الخيارات."
   },
   "errors": {
-    "privateModeDescription": "لا يدعم وضع التصفح الخاص في فايرفوكس حفظ الدردشة. يتم تفعيل الدردشة المؤقتة افتراضيًا. تحسينات قادمة قريبًا."
+    "privateModeDescription": "لا يدعم وضع التصفح الخاص في فايرفوكس حفظ الدردشة. يتم تفعيل الدردشة المؤقتة افتراضيًا. تحسينات قادمة قريبًا.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "خطأ",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "لم يتم اختيار أي وسائط أو ملاحظات بعد.",
     "addKnowledge": "إضافة وسائط وملاحظات",
     "contextTabsTitle": "الألسنة في السياق",
+    "contextTabsAvailable": "علامات التبويب المفتوحة",
+    "noTabsFound": "لم يتم العثور على علامات تبويب مفتوحة مؤهلة.",
+    "contextTabsEmpty": "لا توجد علامات تبويب محددة بعد.",
+    "contextFilesTitle": "الملفات ضمن السياق",
+    "contextFilesEmpty": "لا توجد ملفات مرفقة بعد.",
+    "addFile": "إضافة ملف",
     "contextTabsHint": "راجع الألسنة المشار إليها أو أزلها، أو أضف المزيد من ألسنة المتصفح المفتوحة.",
     "contextManager": "إدارة السياق",
     "contextManagerTitle": "إدارة السياق",

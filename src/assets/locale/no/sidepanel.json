@@ -104,6 +104,7 @@
     "saveFailedDescription": "Chatten lagres nå kun lokalt. Sjekk tilkoblingen og prøv igjen."
   },
   "rag": {
+    "attachedContext": "Vedlagt kontekst",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",

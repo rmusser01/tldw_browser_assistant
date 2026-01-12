@@ -138,7 +138,9 @@
     "troubleshoot": "確認伺服器正在運作且瀏覽器允許連線，然後從選項頁面重試。"
   },
   "errors": {
-    "privateModeDescription": "Firefox 隱私模式不支援儲存聊天。暫存聊天預設為開啟。後續會改進。"
+    "privateModeDescription": "Firefox 隱私模式不支援儲存聊天。暫存聊天預設為開啟。後續會改進。",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "錯誤",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "尚未選擇任何媒體與筆記。",
     "addKnowledge": "加入媒體與筆記",
     "contextTabsTitle": "上下文中的分頁",
+    "contextTabsAvailable": "開啟的分頁",
+    "noTabsFound": "找不到可用的開啟分頁。",
+    "contextTabsEmpty": "尚未選取分頁。",
+    "contextFilesTitle": "脈絡中的檔案",
+    "contextFilesEmpty": "尚未附加檔案。",
+    "addFile": "新增檔案",
     "contextTabsHint": "檢視或移除已引用的分頁，或從已開啟的瀏覽器分頁新增更多。",
     "contextManager": "上下文管理",
     "contextManagerTitle": "上下文管理",

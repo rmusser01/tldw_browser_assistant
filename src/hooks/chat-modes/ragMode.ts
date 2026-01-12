@@ -1,135 +1,152 @@
 import { promptForRag } from "~/services/tldw-server" // Reuse prompts storage for now
-import { type ChatHistory, type Message, type ToolChoice } from "~/store/option"
+import {
+  type ChatHistory,
+  type Message,
+  type ToolChoice,
+  type Knowledge
+} from "~/store/option"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
 import { humanMessageFormatter } from "@/utils/human-message"
 import { removeReasoning } from "@/libs/reasoning"
 import { formatDocs } from "@/utils/format-docs"
 import { getNoOfRetrievedDocs } from "@/services/app"
+import { DEFAULT_RAG_SETTINGS } from "@/services/rag/unified-rag"
+import { coerceBooleanOrNull } from "@/services/settings/registry"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
+import type { ChatModelSettings } from "@/store/model"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 import {
   runChatPipeline,
   type ChatModeDefinition
 } from "./chatModePipeline"
 
-const RAG_ADVANCED_OPTION_KEYS = new Set([
-  "strategy",
-  "enable_reranking",
-  "enable_cache",
-  "top_k",
-  "search_mode",
-  "enable_generation",
-  "enable_citations",
+const RAG_STRING_ARRAY_KEYS = new Set([
   "sources",
-  "filters",
-  "rerank_top_k",
-  "include_media_ids",
-  "timeoutMs",
-  "citation_style"
+  "expansion_strategies",
+  "chunk_type_filter",
+  "content_policy_types",
+  "html_allowed_tags",
+  "html_allowed_attrs",
+  "batch_queries"
 ])
-
-const RAG_SEARCH_MODES = new Set(["hybrid", "vector", "fts"])
-const RAG_NUMBER_KEYS = new Set(["top_k", "rerank_top_k", "timeoutMs"])
-const RAG_ARRAY_KEYS = new Set(["sources", "include_media_ids"])
-
-const coercePositiveNumber = (value: unknown): number | null => {
-  if (typeof value === "number") {
-    return Number.isFinite(value) && value > 0 ? value : null
-  }
-  if (typeof value === "string") {
-    const trimmed = value.trim()
-    if (!trimmed) return null
-    const parsed = Number(trimmed)
-    return Number.isFinite(parsed) && parsed > 0 ? parsed : null
-  }
-  return null
-}
-
-const coerceBoolean = (value: unknown): boolean | null => {
-  if (typeof value === "boolean") return value
-  if (typeof value === "string") {
-    const trimmed = value.trim().toLowerCase()
-    if (trimmed === "true") return true
-    if (trimmed === "false") return false
-  }
-  if (typeof value === "number") {
-    if (value === 1) return true
-    if (value === 0) return false
-  }
-  return null
-}
+const RAG_NUMBER_ARRAY_KEYS = new Set(["include_media_ids", "include_note_ids"])
+const RAG_NULLABLE_STRING_KEYS = new Set([
+  "generation_model",
+  "generation_prompt",
+  "user_id",
+  "session_id"
+])
+const RAG_ALLOWED_KEYS = new Set([
+  ...Object.keys(DEFAULT_RAG_SETTINGS).filter((key) => key !== "query"),
+  "filters"
+])
 
 const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
   if (!options) return {}
   const sanitized: Record<string, unknown> = {}
-  const ignored: string[] = []
-  const invalid: string[] = []
   for (const [key, value] of Object.entries(options)) {
-    if (!RAG_ADVANCED_OPTION_KEYS.has(key)) {
-      ignored.push(key)
-      continue
-    }
     if (value === undefined || value === null) continue
     if (typeof value === "string" && value.trim() === "") continue
-    if (RAG_NUMBER_KEYS.has(key)) {
-      const coerced = coercePositiveNumber(value)
-      if (coerced == null) {
-        invalid.push(key)
-        continue
-      }
-      sanitized[key] = coerced
+    if (!RAG_ALLOWED_KEYS.has(key)) continue
+
+    if (key === "filters") {
+      if (typeof value !== "object" || Array.isArray(value)) continue
+      sanitized[key] = value
       continue
     }
-    if (key.startsWith("enable_")) {
-      const coerced = coerceBoolean(value)
-      if (coerced == null) {
-        invalid.push(key)
+
+    if (RAG_STRING_ARRAY_KEYS.has(key) || RAG_NUMBER_ARRAY_KEYS.has(key)) {
+      if (!Array.isArray(value) || value.length === 0) continue
+      if (RAG_STRING_ARRAY_KEYS.has(key)) {
+        const normalized = value
+          .filter((entry) => typeof entry === "string")
+          .map((entry) => entry.trim())
+          .filter((entry) => entry.length > 0)
+        if (normalized.length !== value.length) continue
+        sanitized[key] = normalized
         continue
       }
-      sanitized[key] = coerced
+      const normalized = value.filter(
+        (entry) =>
+          typeof entry === "number" && Number.isInteger(entry) && entry > 0
+      )
+      if (normalized.length !== value.length) continue
+      sanitized[key] = normalized
       continue
     }
-    if (RAG_ARRAY_KEYS.has(key)) {
-      if (!Array.isArray(value)) {
-        invalid.push(key)
+
+    if (key === "top_k") {
+      if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) {
         continue
       }
       sanitized[key] = value
       continue
     }
-    if (key === "search_mode") {
-      if (typeof value !== "string" || !RAG_SEARCH_MODES.has(value)) {
-        invalid.push(key)
-        continue
-      }
+
+    const defaultValue = (DEFAULT_RAG_SETTINGS as Record<string, unknown>)[key]
+    if (typeof defaultValue === "boolean") {
+      const coerced = coerceBooleanOrNull(value)
+      if (coerced === null) continue
+      sanitized[key] = coerced
+      continue
+    }
+    if (typeof defaultValue === "number") {
+      if (typeof value !== "number" || !Number.isFinite(value)) continue
       sanitized[key] = value
       continue
     }
-    sanitized[key] = value
-  }
-  if (ignored.length > 0) {
-    console.debug(
-      "[ragMode] Ignoring unsupported ragAdvancedOptions keys:",
-      ignored
-    )
-  }
-  if (invalid.length > 0) {
-    console.debug(
-      "[ragMode] Dropping invalid ragAdvancedOptions values for keys:",
-      invalid
-    )
+    if (typeof defaultValue === "string" || RAG_NULLABLE_STRING_KEYS.has(key)) {
+      if (typeof value !== "string") continue
+      const trimmed = value.trim()
+      if (!trimmed) continue
+      sanitized[key] = trimmed
+      continue
+    }
+    if (typeof value === "object" && !Array.isArray(value)) {
+      sanitized[key] = value
+    }
   }
   return sanitized
+}
+
+interface RagDocumentMetadata {
+  source?: string
+  title?: string
+  type?: string
+  url?: string
+  [key: string]: unknown
+}
+
+interface RagDocument {
+  content?: string
+  text?: string
+  chunk?: string
+  metadata?: RagDocumentMetadata
+}
+
+interface RagResponse {
+  results?: RagDocument[]
+  documents?: RagDocument[]
+  docs?: RagDocument[]
+}
+
+type RagSourceEntry = {
+  name: string
+  type: string
+  mode: "rag"
+  url: string
+  pageContent: string
+  metadata: RagDocumentMetadata
 }
 
 type RagModeParams = {
   selectedModel: string
   useOCR: boolean
-  selectedKnowledge: any
-  currentChatModelSettings: any
+  selectedKnowledge: Knowledge | null
+  currentChatModelSettings: ChatModelSettings | null
   toolChoice?: ToolChoice
   setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
   saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
@@ -239,7 +256,7 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
 
     const defaultTopK = await getNoOfRetrievedDocs()
     let context = ""
-    let source: any[] = []
+    let source: RagSourceEntry[] = []
     try {
       await tldwClient.initialize()
       const top_k =
@@ -254,11 +271,7 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
       // ctx.ragEnableGeneration/citations control presence of their flags, even if set.
       if (typeof ctx.ragTopK === "number" && ctx.ragTopK > 0) {
         ragOptions.top_k = ctx.ragTopK
-      } else if (
-        ragOptions.top_k == null ||
-        typeof ragOptions.top_k !== "number" ||
-        ragOptions.top_k <= 0
-      ) {
+      } else if (ragOptions.top_k == null) {
         ragOptions.top_k = top_k
       }
       ragOptions.search_mode = ctx.ragSearchMode
@@ -283,15 +296,19 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
         // When a specific media list is provided, ensure we query the media DB
         ragOptions.sources = ["media_db"]
       }
-      const ragRes = await tldwClient.ragSearch(query, ragOptions)
-      const docs = ragRes?.results || ragRes?.documents || ragRes?.docs || []
+      const ragRes = (await tldwClient.ragSearch(
+        query,
+        ragOptions
+      )) as RagResponse
+      const docs: RagDocument[] =
+        ragRes?.results || ragRes?.documents || ragRes?.docs || []
       context = formatDocs(
-        docs.map((doc: any) => ({
+        docs.map((doc) => ({
           pageContent: doc.content || doc.text || doc.chunk || "",
           metadata: doc.metadata || {}
         }))
       )
-      source = docs.map((doc: any) => ({
+      source = docs.map((doc) => ({
         name: doc.metadata?.source || doc.metadata?.title || "untitled",
         type: doc.metadata?.type || "unknown",
         mode: "rag",

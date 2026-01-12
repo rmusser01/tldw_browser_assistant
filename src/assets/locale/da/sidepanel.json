@@ -104,6 +104,7 @@
     "saveFailedDescription": "Chatten gemmes nu kun lokalt. Tjek din forbindelse og prøv igen."
   },
   "rag": {
+    "attachedContext": "Vedhæftet kontekst",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",

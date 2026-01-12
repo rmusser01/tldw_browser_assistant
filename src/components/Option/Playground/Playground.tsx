@@ -33,7 +33,7 @@ import {
 import { useCharacterGreeting } from "@/hooks/useCharacterGreeting"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
-  const [dropedFile, setDropedFile] = React.useState<File | undefined>()
+  const [droppedFiles, setDroppedFiles] = React.useState<File[]>([])
   const { t } = useTranslation(["playground", "common"])
   const [chatBackgroundImage] = useSetting(CHAT_BACKGROUND_IMAGE_SETTING)
   const [stickyChatInput] = useStorage(
@@ -72,6 +72,9 @@ export const Playground = () => {
   const feedbackTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null
   )
+  const timelineActionRetryTimeoutRef = React.useRef<
+    ReturnType<typeof setTimeout> | null
+  >(null)
   const initializePlaygroundRef = React.useRef(false)
 
   const showDropFeedback = React.useCallback(
@@ -123,9 +126,7 @@ export const Playground = () => {
 
       const newFiles = Array.from(e.dataTransfer?.files || []).slice(0, 5) // Allow multiple files
       if (newFiles.length > 0) {
-        newFiles.forEach((file) => {
-          setDropedFile(file)
-        })
+        setDroppedFiles(newFiles)
         showDropFeedback({
           type: "info",
           message:
@@ -180,6 +181,9 @@ export const Playground = () => {
       if (feedbackTimerRef.current) {
         clearTimeout(feedbackTimerRef.current)
       }
+      if (timelineActionRetryTimeoutRef.current) {
+        clearTimeout(timelineActionRetryTimeoutRef.current)
+      }
     }
   }, [])
 
@@ -213,10 +217,14 @@ export const Playground = () => {
             const prompt = await getPromptById(lastUsedPrompt.prompt_id)
             if (prompt) {
               setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
-              setSystemPrompt(prompt.content)
+              if (!lastUsedPrompt.prompt_content?.trim()) {
+                setSystemPrompt(prompt.content)
+              }
             }
           }
-          setSystemPrompt(lastUsedPrompt.prompt_content)
+          if (lastUsedPrompt.prompt_content?.trim()) {
+            setSystemPrompt(lastUsedPrompt.prompt_content)
+          }
         }
       }
     }
@@ -277,8 +285,14 @@ export const Playground = () => {
     },
     {
       t,
-      errorLogPrefix: "Failed to load local chat history",
-      errorDefaultMessage: "Something went wrong while loading local chat history."
+      errorLogPrefix: t(
+        "playground:errors.loadLocalHistoryPrefix",
+        "Failed to load local chat history"
+      ),
+      errorDefaultMessage: t(
+        "playground:errors.loadLocalHistoryDefault",
+        "Something went wrong while loading local chat history."
+      )
     }
   )
 
@@ -333,7 +347,11 @@ export const Playground = () => {
       const scrolled = scrollToMessage(detail.messageId)
       if (!scrolled) {
         if (!containerRef.current) return false
-        setTimeout(() => {
+        if (timelineActionRetryTimeoutRef.current) {
+          clearTimeout(timelineActionRetryTimeoutRef.current)
+        }
+        timelineActionRetryTimeoutRef.current = setTimeout(() => {
+          timelineActionRetryTimeoutRef.current = null
           const retry = scrollToMessage(detail.messageId)
           if (retry && detail.action === "edit") {
             dispatchEditMessage(detail.messageId)
@@ -354,7 +372,8 @@ export const Playground = () => {
       findMessageIndex,
       historyId,
       messages.length,
-      scrollToMessage
+      scrollToMessage,
+      timelineActionRetryTimeoutRef
     ]
   )
 
@@ -526,7 +545,7 @@ export const Playground = () => {
                 </button>
               </div>
             )}
-            <PlaygroundForm dropedFile={dropedFile} />
+            <PlaygroundForm droppedFiles={droppedFiles} />
           </div>
         </div>
         {artifactsOpen && (

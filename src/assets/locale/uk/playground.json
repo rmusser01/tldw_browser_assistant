@@ -138,7 +138,9 @@
     "troubleshoot": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
   },
   "errors": {
-    "privateModeDescription": "Приватний режим Firefox не підтримує збереження чату. Тимчасовий чат увімкнено за замовчуванням. Далі будуть покращення."
+    "privateModeDescription": "Приватний режим Firefox не підтримує збереження чату. Тимчасовий чат увімкнено за замовчуванням. Далі будуть покращення.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "Помилка",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "No Media & Notes selected yet.",
     "addKnowledge": "Add Media & Notes",
     "contextTabsTitle": "Tabs in context",
+    "contextTabsAvailable": "Відкриті вкладки",
+    "noTabsFound": "Відповідних відкритих вкладок не знайдено.",
+    "contextTabsEmpty": "Вкладки не вибрано.",
+    "contextFilesTitle": "Файли в контексті",
+    "contextFilesEmpty": "Файли не прикріплено.",
+    "addFile": "Додати файл",
     "contextTabsHint": "Review or remove referenced tabs, or add more from your open browser tabs.",
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",

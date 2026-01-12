@@ -138,7 +138,9 @@
     "recheck": "بررسی دوباره"
   },
   "errors": {
-    "privateModeDescription": "حالت خصوصی فایرفاکس از ذخیره چت پشتیبانی نمی‌کند. چت موقت به‌صورت پیش‌فرض فعال است. به‌زودی بهبود می‌یابد."
+    "privateModeDescription": "حالت خصوصی فایرفاکس از ذخیره چت پشتیبانی نمی‌کند. چت موقت به‌صورت پیش‌فرض فعال است. به‌زودی بهبود می‌یابد.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "خطا",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "هنوز رسانه یا یادداشتی انتخاب نشده است.",
     "addKnowledge": "افزودن رسانه و یادداشت‌ها",
     "contextTabsTitle": "تب‌ها در زمینه",
+    "contextTabsAvailable": "تب‌های باز",
+    "noTabsFound": "هیچ تب باز واجدی یافت نشد.",
+    "contextTabsEmpty": "هنوز هیچ تبی انتخاب نشده است.",
+    "contextFilesTitle": "فایل‌ها در زمینه",
+    "contextFilesEmpty": "هنوز فایلی پیوست نشده است.",
+    "addFile": "افزودن فایل",
     "contextTabsHint": "تب‌های ارجاع‌شده را بررسی یا حذف کنید، یا از تب‌های باز مرورگر موارد بیشتری اضافه کنید.",
     "contextManager": "مدیریت زمینه",
     "contextManagerTitle": "مدیریت زمینه",

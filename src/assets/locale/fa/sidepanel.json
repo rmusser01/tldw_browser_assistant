@@ -104,6 +104,7 @@
     "saveFailedDescription": "اکنون گفتگو فقط به صورت محلی ذخیره می شود. اتصال خود را بررسی کرده و دوباره تلاش کنید."
   },
   "rag": {
+    "attachedContext": "زمینه پیوست‌شده",
     "searchPlaceholder": "جستجوی دانش شما…",
     "search": "جستجو",
     "show": "Show RAG search",

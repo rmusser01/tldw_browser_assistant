@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { Select, Switch } from "antd"
 import { useTranslation } from "react-i18next"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -124,49 +125,64 @@ export const ChatSettings = () => {
     DEFAULT_CHAT_SETTINGS.chatAssistantTextSize
   )
 
-  const colorOptions = [
-    {
-      value: "default",
-      label: t("chatAppearance.color.default", "Default")
-    },
-    { value: "blue", label: t("chatAppearance.color.blue", "Blue") },
-    { value: "green", label: t("chatAppearance.color.green", "Green") },
-    { value: "purple", label: t("chatAppearance.color.purple", "Purple") },
-    { value: "orange", label: t("chatAppearance.color.orange", "Orange") },
-    { value: "red", label: t("chatAppearance.color.red", "Red") }
-  ]
+  const colorOptions = useMemo(
+    () => [
+      {
+        value: "default",
+        label: t("chatAppearance.color.default", "Default")
+      },
+      { value: "blue", label: t("chatAppearance.color.blue", "Blue") },
+      { value: "green", label: t("chatAppearance.color.green", "Green") },
+      { value: "purple", label: t("chatAppearance.color.purple", "Purple") },
+      { value: "orange", label: t("chatAppearance.color.orange", "Orange") },
+      { value: "red", label: t("chatAppearance.color.red", "Red") }
+    ],
+    [t]
+  )
 
-  const fontOptions = [
-    {
-      value: "default",
-      label: t("chatAppearance.font.default", "Default")
-    },
-    { value: "sans", label: t("chatAppearance.font.sans", "Sans serif") },
-    { value: "serif", label: t("chatAppearance.font.serif", "Serif") },
-    { value: "mono", label: t("chatAppearance.font.mono", "Monospace") }
-  ]
+  const fontOptions = useMemo(
+    () => [
+      {
+        value: "default",
+        label: t("chatAppearance.font.default", "Default")
+      },
+      { value: "sans", label: t("chatAppearance.font.sans", "Sans serif") },
+      { value: "serif", label: t("chatAppearance.font.serif", "Serif") },
+      { value: "mono", label: t("chatAppearance.font.mono", "Monospace") }
+    ],
+    [t]
+  )
 
-  const sizeOptions = [
-    { value: "sm", label: t("chatAppearance.size.sm", "Small") },
-    { value: "md", label: t("chatAppearance.size.md", "Medium") },
-    { value: "lg", label: t("chatAppearance.size.lg", "Large") }
-  ]
+  const sizeOptions = useMemo(
+    () => [
+      { value: "sm", label: t("chatAppearance.size.sm", "Small") },
+      { value: "md", label: t("chatAppearance.size.md", "Medium") },
+      { value: "lg", label: t("chatAppearance.size.lg", "Large") }
+    ],
+    [t]
+  )
 
-  const menuDensityOptions = [
-    {
-      value: "comfortable",
-      label: t("generalSettings.settings.menuDensity.comfortable", "Comfortable")
-    },
-    {
-      value: "compact",
-      label: t("generalSettings.settings.menuDensity.compact", "Compact")
-    }
-  ]
+  const menuDensityOptions = useMemo(
+    () => [
+      {
+        value: "comfortable",
+        label: t(
+          "generalSettings.settings.menuDensity.comfortable",
+          "Comfortable"
+        )
+      },
+      {
+        value: "compact",
+        label: t("generalSettings.settings.menuDensity.compact", "Compact")
+      }
+    ],
+    [t]
+  )
 
   const getResetProps = <T extends boolean | string>(
     value: T,
     defaultValue: T,
-    setter: (next: T) => void | Promise<void>
+    setter: (next: T | ((prev: T) => T)) => void | Promise<void>
   ) => ({
     modified: value !== defaultValue,
     onReset: () => void setter(defaultValue)

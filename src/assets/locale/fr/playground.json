@@ -138,7 +138,9 @@
     "recheck": "Vérifier à nouveau"
   },
   "errors": {
-    "privateModeDescription": "Le mode privé de Firefox ne permet pas d’enregistrer les discussions. Le chat temporaire est activé par défaut. D’autres améliorations arrivent."
+    "privateModeDescription": "Le mode privé de Firefox ne permet pas d’enregistrer les discussions. Le chat temporaire est activé par défaut. D’autres améliorations arrivent.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "Erreur",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "Aucun média ni note sélectionné pour le moment.",
     "addKnowledge": "Ajouter des médias et notes",
     "contextTabsTitle": "Onglets dans le contexte",
+    "contextTabsAvailable": "Onglets ouverts",
+    "noTabsFound": "Aucun onglet ouvert éligible.",
+    "contextTabsEmpty": "Aucun onglet sélectionné.",
+    "contextFilesTitle": "Fichiers dans le contexte",
+    "contextFilesEmpty": "Aucun fichier joint.",
+    "addFile": "Ajouter un fichier",
     "contextTabsHint": "Passez en revue ou retirez les onglets référencés, ou ajoutez-en depuis vos onglets ouverts.",
     "contextManager": "Gestion du contexte",
     "contextManagerTitle": "Gestion du contexte",

@@ -1,13 +1,13 @@
-# PRD: Search & Context Modal (Unified RAG)
+# PRD: Search & Context Panel (Unified RAG)
 
 ## Summary
-Redesign the "Ctx + Media" modal into a combined "Search & Context" experience that exposes all Unified RAG options with clear information architecture, progressive disclosure, and dependency-aware controls, while also enabling in-modal search, review, and selection of results before insertion.
+Redesign the "Ctx + Media" UI into a combined "Search & Context" panel (embedded in the sidepanel and options playground) that exposes all Unified RAG options with clear information architecture, progressive disclosure, and dependency-aware controls, while enabling in-panel search, review, and selection of results before insertion.
 
 ## Goals
 - Provide full access to all Unified RAG request options in a usable, structured layout.
 - Reduce cognitive load with clear grouping, defaults, and progressive disclosure.
 - Make dependencies explicit (agentic-only, generation-only, citations-only).
-- Allow in-modal search, preview, and selection of content before insertion.
+- Allow in-panel search, preview, and selection of content before insertion.
 - Ensure keyboard, screen reader, and low-vision accessibility.
 
 ## Non-goals
@@ -26,15 +26,17 @@ Redesign the "Ctx + Media" modal into a combined "Search & Context" experience t
 - Lower configuration abandonment.
 
 ## Scope
-- New modal layout, controls, defaults, and presets.
+- New Search & Context panel layout, controls, defaults, and presets.
 - Dependency-aware visibility and validation.
 - Explicit default values for every field (no "Auto").
-- In-modal search results list with per-result actions (insert, ask, preview, open, copy, pin).
-- Attached context list for pinned results, tabs, and files.
+- In-panel search results list with per-result actions (insert, ask, preview, open, copy, pin).
+- Attached context list within the panel for tabs, files, and pinned results.
 
 ## Information Architecture
 Common (default visible):
-- Query
+- Header: Title, Preset, Strategy, Explain only, Reset to Balanced
+- Use current message toggle
+- Query + Search
 - Sources & Filters
 - Retrieval
 - Reranking
@@ -43,9 +45,10 @@ Common (default visible):
 - Context Construction
 - Quick Wins
 - Results list
-- Attached context
+- Attached context (tabs/files/pins)
+- Footer actions (Apply, Apply & Search, Cancel)
 
-Advanced (collapsed by default, searchable):
+Advanced (collapsed by default, search input present):
 - Source scope
 - Query expansion
 - Caching
@@ -61,8 +64,9 @@ Advanced (collapsed by default, searchable):
 - Resilience
 - Batch
 - Feedback
-- Explain / Dry run
 - User context
+
+Note: the current search input only filters Source scope labels.
 
 ## Presets
 Presets apply explicit values to all fields and flip to "Custom" when any field changes.
@@ -71,10 +75,10 @@ Presets apply explicit values to all fields and flip to "Custom" when any field 
 - Thorough
 
 ## Dependencies and Progressive Disclosure
-- Agentic-only settings visible when Strategy = Agentic.
-- Generation-only settings visible when Enable Generation is on.
-- Citation-only settings visible when Enable Citations is on.
-- VLM settings visible only when VLM late chunking is enabled (standard or agentic).
+- Agentic-only settings render only when Strategy = Agentic; otherwise show a brief helper note.
+- Generation-only settings render only when Enable Generation is on; guardrails show a helper note when generation is off.
+- Citation-only settings render only when Enable Citations is on.
+- VLM sub-controls render only when VLM late chunking is enabled (standard or agentic).
 
 ## Field Coverage (All Unified RAG Options)
 Core:
@@ -184,30 +188,42 @@ User Context:
 ## Defaults (Explicit Values)
 Balanced preset is the default and sets explicit values for every field. See Appendix A for full values and preset overrides (Fast, Thorough).
 
+## Backend-Validated Defaults and Sentinels
+- query must be a concrete string in the request; resolve "Use current message" to actual text before calling the API.
+- generation_model and generation_prompt should be null/omitted to use backend defaults; do not send "inherit_*" sentinel strings.
+- user_id and session_id should be actual identifiers or omitted; do not send "current_*" sentinel strings.
+- vlm_backend and agentic_vlm_backend accept "auto" or null; "auto" is normalized to default backend selection.
+- Empty strings and empty arrays are omitted from request options; only non-empty values are sent.
+- timeout_seconds is converted to milliseconds for the request timeout.
+
 ## Interaction Spec
-- Search runs in-modal using current settings; results list updates inline.
-- Apply saves all fields to the next request payload and closes the modal.
-- Any field change switches preset to "Custom".
-- Dependency controls show badges and are disabled with helper text when not applicable.
-- Inline validation for numeric ranges; query is required.
-- Explain-only switches Apply to "Preview request".
+- Search runs in-panel using draft settings (no Apply needed); Apply persists settings for future queries.
+- If "Use current message" is enabled and query input is empty, resolve from the current draft chat input before Search; if no message exists, show inline error and block Search.
+- When batch mode is enabled and the query input is empty, the first batch query is used to satisfy the required query before Search.
+- Apply saves all fields to the next request payload and closes the panel.
+- Apply & Search saves draft edits, executes Search with those settings, and keeps the panel open.
+- Cancel discards draft edits, resets fields to last applied settings, and closes the panel.
+- Any non-transient field change switches preset to "Custom" (exclude query and batch_queries).
+- Dependency controls render conditionally or show helper text when not applicable.
+- Query is required and shows an inline error; numeric inputs enforce ranges via control constraints.
+- Explain-only toggles the explain flag; Apply/Apply & Search labels remain unchanged.
 - Result actions:
-  - Insert: inserts snippet + citation into the current chat input.
-  - Ask: starts a chat about the specific item (pre-fills context from that item).
-  - Preview: opens an in-modal content preview for the item.
+  - Insert: inserts a formatted snippet with a source line into the current chat input.
+  - Ask: starts a chat about the specific item; pinned results are ignored while tabs/files remain included.
+  - Preview: opens a modal content preview for the item.
   - Open: opens the item in its source location (media/notes/other origin).
   - Copy: copies as markdown or plaintext (format selector).
   - Pin: pins the result to keep it while reviewing other results.
-- Pinned results appear in Attached context and are included in the next message.
-- Empty state shows examples and quick actions (remove filters, switch retrieval mode).
-- No results and error states include retry and diagnostic guidance.
+- Pinned results appear in Attached context alongside tabs and files and are included in the next message.
+- Empty/no-results state shows a hint banner and a "No results yet" message.
+- Error handling collapses to a timeout state with retry, increase-timeout, and server-health actions.
 
 ## Copy Guidance
 - Title: "Search & Context"
-- Subtitle: "Retrieve sources and configure RAG behavior"
-- Strategy labels: "Standard (fast)" and "Agentic (deep)"
+- Strategy labels: "Standard" and "Agentic"
 - Use plain-language labels: "Retrieval mode", "Results (top_k)", "Minimum relevance"
-- Dependency helper text for all gated settings
+- Apply & Search button: "Apply & Search"
+- Helper text for gated sections (guardrails, agentic) when disabled
 
 ## Accessibility
 - Keyboard-only flow supports section navigation and field access.
@@ -216,42 +232,45 @@ Balanced preset is the default and sets explicit values for every field. See App
 - Minimum 44px hit targets and WCAG AA contrast.
 
 ## Key User Flows
-- Configure and search: user opens modal, tunes settings, runs search, reviews results,
+- Configure and search: user opens the panel, tunes settings, runs search, reviews results,
   and inserts selected items into the current chat.
 - Review and refine: user adjusts filters or retrieval mode, re-runs search,
   previews results, and pins selected items while continuing to browse.
-- Ask about a result: user chooses Ask on a specific item, which starts a new chat
-  with that item pre-attached as context.
+- Apply & Search: user tunes settings and persists them while running search without closing the panel.
+- Ask about a result: user chooses Ask on a specific item; if pins exist they confirm
+  pins will be ignored, then a new chat starts with that item.
 - Apply settings only: user tweaks settings and clicks Apply to persist for the next query.
-- Power tuning: user opens Advanced, uses search to jump to specific settings,
-  and saves a preset for reuse.
+- Power tuning: user opens Advanced and uses the search field to locate settings
+  (currently scoped to source scope labels); preset flips to Custom on edits.
 
 ## UI States
-- Idle: no query yet; show examples and a "Search" affordance.
-- Loading: show spinner and keep prior results visible with a subtle "stale" label.
-- No results: show suggestions (switch retrieval mode, widen min_score, remove filters).
-- Error/timeout: show retry and a quick way to increase timeout or reduce top_k.
-- Offline/disconnected: show reconnect hint and link to settings.
-- Preview open: focus trap within preview; return focus to the originating result.
+- Idle: show a dismissible hint banner and "No results yet. Enter a query to search."
+- Loading: show spinner; clear prior results while request is in flight.
+- No results: same "No results yet" message (no suggestion list yet).
+- Error/timeout: show "Request timed out" with retry, increase-timeout, and server-health actions.
+- Offline/disconnected: overlay message "Connect to server to search knowledge base."
+- Preview open: modal preview of the pinned snippet.
 
 ## Search and Results Behavior
-- Search executes on Enter or Search button; no auto-search on every field change.
+- Search executes on Enter or Search button using draft settings; no auto-search on every field change.
+- When Enable batch is on, Search executes batch queries and displays results grouped by query (supports `batch_results` or `results_by_query` payloads).
 - Results are sorted by relevance by default; additional sorts include date and type.
-- Each result displays type, title, snippet, source, and score (if available).
+- Each result displays title, snippet, and score (if available).
 - Highlight terms and matches when enabled (highlight_results, highlight_query_terms).
 
 ## Result Actions (Behavior Detail)
-- Insert: inserts snippet + citation into current chat input.
-- Ask: starts a new chat about the specific item; item is pinned automatically.
-- Preview: opens an in-modal content preview with a scrollable excerpt and metadata.
+- Insert: inserts a formatted snippet with a source line into the current chat input.
+- Ask: starts a new chat about the specific item; if pins exist, confirm that pins will be ignored.
+- Preview: opens a modal preview showing the pinned snippet and source.
 - Open: deep-links to the item's origin (media viewer, notes, or source type).
 - Copy: copy selector for Markdown or plain text.
 - Pin: pins the result so it remains available while exploring other results.
 
 ## Attached Context Behavior
-- Tabs and files are managed as before; pinned results are added as a third group.
-- Each pinned item shows title + source; remove is immediate; Clear all only affects pins.
-- Pinned items are included in the next request payload by default.
+- Tabs and files from the composer context are mirrored in the panel; removing them updates the same selections.
+- Tabs support Refresh and show an "Open tabs" list with Add actions; files support Add file; each item shows title/source and Remove.
+- Pinned items appear alongside tabs/files; Clear all only affects pins.
+- Pinned items are appended to the next outgoing message by default; Ask bypasses pins.
 
 ## Validation Rules (UI-Level)
 - Required: query.
@@ -259,74 +278,75 @@ Balanced preset is the default and sets explicit values for every field. See App
   - Probabilities/thresholds/alphas: 0.0–1.0.
   - K and counts: positive integers.
   - Token limits and time budgets: positive integers.
-- Provide inline errors and keep user input on validation failures.
+- Inputs enforce ranges via control constraints; only query shows inline error today.
 
 ## State Persistence
-- Preset selection and manual edits persist per user across sessions.
+- Last applied settings persist per user across sessions; draft edits are discarded on Cancel.
+- Preset selection and "Use current message" are persisted in storage.
+- Query and batch queries are transient and cleared on Apply.
 - Pinned results are session-only and cleared on restart.
 
 ## Telemetry (Lightweight, Existing Schema)
-- Modal opened/closed.
+- Panel opened/closed.
 - Preset applied or switched to Custom.
 - Advanced toggled open and search used.
 - Search executed, result count, and action usage (Insert/Ask/Preview/Open/Copy/Pin).
 - Error and timeout events.
+- Current implementation does not emit new telemetry hooks yet.
 
 ## Risks and Dependencies
 - Large settings surface area risks overwhelm without clean grouping.
 - Missing or slow metadata for preview may degrade UX; plan skeleton and timeout states.
 - Deep-linking to media/notes sources requires reliable routing in the app.
 
-## Staged Implementation Plan
-### Phase 0: Discovery and Mapping
-- Confirm API fields and defaults; identify existing settings sources and storage.
-- Inventory current modal and search components; document data flow for search results.
-- Define result object schema used by preview and actions.
+## Staged Implementation Plan (Current Code)
+### Phase 0: Discovery and Mapping (done)
+- Unified defaults and preset overrides codified in `src/services/rag/unified-rag.ts`.
+- Store wiring for rag options and pins in `src/store/option/slices/rag-slice.ts`.
 
-### Phase 1: Layout and State Foundation
-- Build new modal scaffold, header, presets, and Common sections layout.
-- Implement local state model for all fields with explicit defaults.
-- Add Advanced drawer with search filter and section navigation.
+### Phase 1: Layout and State Foundation (done)
+- Extended `src/components/Sidepanel/Chat/RagSearchBar.tsx` into the Search & Context panel.
+- Persisted preset selection, settings, and "Use current message" via storage.
 
-### Phase 2: Search and Results
-- Wire search execution to API using current settings.
-- Implement results list with actions and highlight support.
-- Add empty/no-results/error/timeout states.
+### Phase 2: Search and Results (done)
+- Search execution uses `buildRagSearchRequest` and `tldwClient.ragSearch`.
+- Results list supports sorting, highlighting, batch grouping, and timeout handling.
 
-### Phase 3: Preview, Pinning, and Context
-- Build preview modal with focus management and metadata.
-- Implement Pin behavior and Attached context list (tabs/files/pins).
-- Implement Ask flow (new chat with pinned item).
+### Phase 3: Preview, Pinning, and Context (done)
+- Preview modal shows the pinned snippet with Insert/Ask/Copy.
+- Pinned results stored in `ragPinnedResults` and appended to outgoing messages
+  in `src/components/Sidepanel/Chat/form.tsx` and
+  `src/components/Option/Playground/PlaygroundForm.tsx`.
+- Sidepanel panel now surfaces tabs/files alongside pinned results with Refresh/Add file.
+- Ask prompts confirm pins will be ignored.
 
-### Phase 4: Dependencies, Validation, and Accessibility
-- Add dependency gating logic and helper text.
-- Implement validation rules and inline errors.
-- Add keyboard shortcuts and ARIA labeling; verify focus order and contrast.
+### Phase 4: Dependencies, Validation, and Accessibility (partial)
+- Conditional rendering and helper notes for agentic/guardrail-only sections.
+- Query required error; numeric inputs enforce constraints via InputNumber.
 
-### Phase 5: QA, i18n, and Documentation
-- Add UI copy to locale files and update docs.
-- Manual QA against edge cases and error states.
-- Add unit, integration, and property tests where applicable.
+### Phase 5: QA, i18n, and Documentation (partial)
+- Unit tests added in `tests/unit/unified-rag.test.ts` and
+  `tests/unit/rag-format.test.ts`.
+- i18n keys are referenced via `sidepanel:rag.*` (locale updates pending).
 
 ## ASCII Wireframes
 
 ### Common (default)
 ```text
 +--------------------------------------------------------------------------------------+
-| SEARCH & CONTEXT                                                       [Help] [X]    |
-| Preset: (Fast) (Balanced) (Thorough) (Custom)   Strategy: (Standard) (Agentic)       |
-| Advanced: [Show]   Explain only: [ ]   Reset to Balanced                              |
+| SEARCH & CONTEXT                                                                      |
+| Preset: [Balanced v]   Strategy: [Standard v]   Explain only: [ ]   Reset to Balanced |
 +--------------------------------------------------------------------------------------+
 
 COMMON
 +--------------------------------------------------------------------------------------+
-| Query (required)                                                                     |
-| [ Use current message ] [__________________________________________] [Search]        |
+| [ Use current message ]                                                              |
+| [__________________________________________] [Search]                                |
 +--------------------------------------------------------------------------------------+
 
 +--------------------------------------------------------------------------------------+
 | Sources & Filters                                                                    |
-| Sources: [x] media_db  [x] notes  [x] characters  [x] chats                           |
+| Sources: [media_db, notes, characters, chats]                                        |
 | Keyword filter: [________________________________________]                            |
 | Include media IDs: [____________________________________]  (comma separated)         |
 | Include note IDs:  [____________________________________]  (comma separated)         |
@@ -340,14 +360,14 @@ COMMON
 
 +--------------------------------------------------------------------------------------+
 | Reranking                                                                            |
-| Enable: [x]  Strategy: [flashrank v]  Rerank top K: [20]  Model: [default v]          |
+| Enable: [x]  Strategy: [flashrank v]  Rerank top K: [20]  Model: [default]            |
 | Min relevance prob: [0.20]   Sentinel margin: [0.05]                                   |
 +--------------------------------------------------------------------------------------+
 
 +--------------------------------------------------------------------------------------+
 | Answer & Citations                                                                    |
 | Generation: [x]  Strict extractive: [ ]  Max tokens: [800]                            |
-| Model: [inherit_chat_model v]  Prompt: [inherit_system_prompt v]                      |
+| Model: [_________________]  Prompt: [_________________]                               |
 | Abstention: [x] Behavior: [ask v]                                                     |
 | Multi-turn synthesis: [ ] Time budget: [45] Draft: [400] Refine: [400]                |
 | Citations: [x] Style: [apa v]  Page numbers: [x]  Chunk cites: [x]                    |
@@ -380,21 +400,19 @@ ADVANCED (collapsed)
 | Sections: Source scope, Query expansion, Caching, Document processing, VLM,           |
 | Advanced retrieval, Claims & factuality, Guardrails (Gen-only), Post verification,   |
 | Agentic (Agentic-only), Monitoring, Performance, Resilience, Batch, Feedback,        |
-| Explain-only, User context                                                           |
+| User context                                                                          |
 +--------------------------------------------------------------------------------------+
 
 RESULTS
 +--------------------------------------------------------------------------------------+
-| Results (8 found)                                      Sort: [relevance | date | type]|
+| Results                                               Sort: [relevance | date | type] |
 +--------------------------------------------------------------------------------------+
-| [PDF] "Machine Learning Fundamentals"        Score: 0.94                              |
+| "Machine Learning Fundamentals"        Score: 0.94                                    |
 | Neural networks are computing systems inspired by biological...                       |
-| Source: uploads/ml-book.pdf                                                           |
 | [Insert] [Ask] [Preview] [Open] [Copy] [Pin]                                           |
 |--------------------------------------------------------------------------------------|
-| [HTML] "Deep Learning Tutorial"                Score: 0.87                             |
+| "Deep Learning Tutorial"                Score: 0.87                                   |
 | Convolutional neural networks excel at image recognition...                           |
-| Source: https://example.com/tutorial                                                  |
 | [Insert] [Ask] [Preview] [Open] [Copy] [Pin]                                           |
 +--------------------------------------------------------------------------------------+
 
@@ -411,7 +429,7 @@ ATTACHED CONTEXT
 
 FOOTER
 +--------------------------------------------------------------------------------------+
-| Apply to next query [Apply]   [Cancel]   Save as preset [Save]                         |
+| Apply to next query [Apply] [Apply & Search]   [Cancel]                               |
 +--------------------------------------------------------------------------------------+
 ```
 
@@ -419,7 +437,7 @@ FOOTER
 ```text
 ADVANCED (expanded)
 +--------------------------------------------------------------------------------------+
-| Advanced settings  |  Search: [_____________________________]                          |
+| Advanced settings  |  Search settings: [_____________________________]               |
 +--------------------------------------------------------------------------------------+
 
 +--------------------------------------------------------------------------------------+
@@ -445,7 +463,7 @@ ADVANCED (expanded)
 
 +--------------------------------------------------------------------------------------+
 | VLM Late Chunking                                                                   |
-| Enable VLM late chunking: [ ]  Backend: [auto v]                                     |
+| Enable VLM late chunking: [ ]  Backend: [auto]                                       |
 | Detect tables only: [ ]  Max pages: [20]  Top K docs: [5]                            |
 +--------------------------------------------------------------------------------------+
 
@@ -458,7 +476,7 @@ ADVANCED (expanded)
 
 +--------------------------------------------------------------------------------------+
 | Claims & Factuality                                                                  |
-| Enable claims: [ ]  Extractor: [auto v]  Verifier: [hybrid v]  NLI model: [default v] |
+| Enable claims: [ ]  Extractor: [auto v]  Verifier: [hybrid v]  NLI model: [default]   |
 | Top K: [8]  Conf threshold: [0.50]  Max claims: [20]  Concurrency: [4]               |
 +--------------------------------------------------------------------------------------+
 
@@ -491,7 +509,7 @@ ADVANCED (expanded)
 | Query decomposition: [x]  Subgoal max: [5]                                            |
 | Semantic within: [x]  Section index: [x]  Prefer structural anchors: [x]              |
 | Table support: [x]                                                                    |
-| Agentic VLM late chunking: [ ]  Backend: [auto v]                                     |
+| Agentic VLM late chunking: [ ]  Backend: [auto]                                       |
 | VLM detect tables only: [ ]  VLM max pages: [20]  VLM top K docs: [5]                 |
 | Use provider embeddings within: [ ]  Provider model id: [______________]             |
 | Adaptive budgets: [x]  Coverage target: [0.80]  Min corroborating docs: [2]            |
@@ -526,13 +544,8 @@ ADVANCED (expanded)
 +--------------------------------------------------------------------------------------+
 
 +--------------------------------------------------------------------------------------+
-| Explain / Dry Run                                                                    |
-| Explain only: [ ]                                                                    |
-+--------------------------------------------------------------------------------------+
-
-+--------------------------------------------------------------------------------------+
 | User Context                                                                        |
-| User ID: [inherit_user]  Session ID: [inherit_session]                                |
+| User ID: [______________]  Session ID: [______________]                              |
 +--------------------------------------------------------------------------------------+
 ```
 
@@ -545,7 +558,8 @@ Balanced defaults and preset overrides are explicit and should be copied into im
 ```yaml
 balanced:
   core:
-    query: "use_current_message"
+    # Resolved from UI before request; API requires a concrete string.
+    query: ""
     sources: [media_db, notes, characters, chats]
     strategy: standard
     corpus: ""
@@ -653,8 +667,8 @@ balanced:
   answer_generation:
     enable_generation: true
     strict_extractive: false
-    generation_model: inherit_chat_model
-    generation_prompt: inherit_system_prompt
+    generation_model: null
+    generation_prompt: null
     max_generation_tokens: 800
     enable_abstention: true
     abstention_behavior: ask
@@ -720,8 +734,8 @@ balanced:
     retry_attempts: 2
     circuit_breaker: true
   user_context:
-    user_id: current_user
-    session_id: current_session
+    user_id: null
+    session_id: null
 
 presets:
   fast_overrides:

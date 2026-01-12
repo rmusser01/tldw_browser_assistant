@@ -56,10 +56,17 @@ export const NodeInfoPanel: React.FC = () => {
     return timelineSearch.highlightMatches(node.content, fragments)
   }, [node, searchQuery])
 
-  const hasMessage = (node?.message_ids?.length ?? 0) > 0
+  const messageIds = useMemo(
+    () => node?.message_ids ?? [],
+    [JSON.stringify(node?.message_ids)]
+  )
+  const historyIds = useMemo(
+    () => node?.history_ids ?? [],
+    [JSON.stringify(node?.history_ids)]
+  )
+  const hasMessage = messageIds.length > 0
   const resolveMessageTarget = React.useCallback(async () => {
-    if (!node?.message_ids?.length) return null
-    const historyIds = node.history_ids ?? []
+    if (messageIds.length === 0) return null
 
     const preferredHistoryId =
       currentHistoryId && historyIds.includes(currentHistoryId)
@@ -68,7 +75,7 @@ export const NodeInfoPanel: React.FC = () => {
 
     if (!preferredHistoryId) return null
 
-    const candidates = await db.messages.bulkGet(node.message_ids)
+    const candidates = await db.messages.bulkGet(messageIds)
     const matching = candidates.find(
       (message) => message && message.history_id === preferredHistoryId
     )
@@ -83,7 +90,7 @@ export const NodeInfoPanel: React.FC = () => {
       messageId: resolvedMessageId,
       messageFound: Boolean(resolvedMessage)
     }
-  }, [currentHistoryId, node?.history_ids, node?.message_ids])
+  }, [currentHistoryId, historyIds, messageIds])
 
   const handleTimelineAction = React.useCallback(
     async (action: TimelineAction) => {
@@ -94,11 +101,21 @@ export const NodeInfoPanel: React.FC = () => {
         const actionNeedsMessage = action === 'edit' || action === 'branch'
         const target = await resolveMessageTarget()
         if (!target?.historyId) {
-          message.error('Unable to locate the message for this action.')
+          message.error(
+            t(
+              'common:timeline.unableLocateMessage',
+              'Unable to locate the message for this action.'
+            )
+          )
           return
         }
         if (actionNeedsMessage && (!target.messageId || !target.messageFound)) {
-          message.error('Unable to locate the message for this action.')
+          message.error(
+            t(
+              'common:timeline.unableLocateMessage',
+              'Unable to locate the message for this action.'
+            )
+          )
           return
         }
 
@@ -114,10 +131,15 @@ export const NodeInfoPanel: React.FC = () => {
         closeTimeline()
       } catch (error) {
         console.error('Timeline action failed:', error)
-        message.error('Failed to perform timeline action. Please try again.')
+        message.error(
+          t(
+            'common:timeline.actionFailed',
+            'Failed to perform timeline action. Please try again.'
+          )
+        )
       }
     },
-    [closeTimeline, hasMessage, message, resolveMessageTarget]
+    [closeTimeline, hasMessage, message, resolveMessageTarget, t]
   )
 
   const handleGoToMessage = React.useCallback(() => {
@@ -143,7 +165,7 @@ export const NodeInfoPanel: React.FC = () => {
 
   // Format timestamp
   const formattedTime = new Date(node.timestamp).toLocaleString()
-  const historyCount = node.history_ids?.length ?? 0
+  const historyCount = historyIds.length
 
   // Role icon
   const RoleIcon = node.role === 'user'

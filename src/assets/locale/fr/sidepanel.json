@@ -104,6 +104,7 @@
     "saveFailedDescription": "Le chat est maintenant enregistré uniquement en local. Vérifiez votre connexion et réessayez."
   },
   "rag": {
+    "attachedContext": "Contexte joint",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",

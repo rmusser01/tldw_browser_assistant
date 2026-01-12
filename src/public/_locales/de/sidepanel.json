@@ -331,5 +331,8 @@
   },
   "characterSelect_importCharacter": {
     "message": "Import Character"
+  },
+  "rag_attachedContext": {
+    "message": "Angehängter Kontext"
   }
 }

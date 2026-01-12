@@ -1363,5 +1363,23 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "Inga flikar valda."
+  },
+  "composer_contextFilesTitle": {
+    "message": "Filer i sammanhanget"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "Inga filer bifogade."
+  },
+  "composer_addFile": {
+    "message": "Lägg till fil"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "Öppna flikar"
+  },
+  "composer_noTabsFound": {
+    "message": "Inga lämpliga öppna flikar hittades."
   }
 }

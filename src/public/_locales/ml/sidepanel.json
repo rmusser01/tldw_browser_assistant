@@ -331,5 +331,8 @@
   },
   "characterSelect_importCharacter": {
     "message": "Import Character"
+  },
+  "rag_attachedContext": {
+    "message": "അറ്റാച്ച് ചെയ്ത കോൺടെക്സ്റ്റ്"
   }
 }

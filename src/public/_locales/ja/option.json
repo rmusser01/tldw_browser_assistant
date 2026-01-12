@@ -1803,6 +1803,6 @@
     "message": "Import Character"
   },
   "quickIngest_downloadJsonAria": {
-    "message": "Download JSON for {{name}}"
+    "message": "「{{name}}」のJSONをダウンロード"
   }
 }

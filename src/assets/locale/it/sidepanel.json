@@ -104,6 +104,7 @@
     "saveFailedDescription": "La chat ora viene salvata solo localmente. Controlla la connessione e riprova."
   },
   "rag": {
+    "attachedContext": "Contesto allegato",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",

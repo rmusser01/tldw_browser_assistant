@@ -1,4 +1,4 @@
-# CLAUDE.md - tldw Assistant Browser Extension
+# AGENTS.md - tldw Assistant Browser Extension
 
 This file provides context for Claude Code when working on this codebase.
 
@@ -171,6 +171,12 @@ Located in `src/db/`. Uses Dexie.js as an IndexedDB wrapper:
 
 ## Testing
 
+### Unit + Integration Tests (Bun)
+- Framework: Bun's built-in test runner (`bun:test`).
+- Location: `tests/unit/` (and `tests/integration/` when needed), mirroring `src/` where helpful.
+- Naming: `*.test.ts` / `*.test.tsx`.
+- Run: `bun test` (or `bun test tests/unit`).
+
 ### E2E Tests (Playwright)
 Located in `tests/e2e/`. Tests run against built extension:
 
@@ -189,12 +195,21 @@ Key test files:
 - `quick-ingest.spec.ts` - Content ingestion
 - `media-ux.spec.ts` - Media handling
 
+### Property-based Tests
+- "Property tests" refers to property-based testing.
+- Not configured by default. If needed, add a library (e.g., `fast-check`) and document the new dependency.
+
 ### Manual Testing
 1. Build: `bun run build:chrome`
 2. Open Chrome → `chrome://extensions`
 3. Enable "Developer mode"
 4. "Load unpacked" → Select `.output/chrome-mv3/`
 5. Test options page, sidepanel, keyboard shortcuts
+
+### Expectations
+- Add unit tests for new non-trivial logic; add integration or E2E tests for critical flows.
+- No coverage gate yet; focus tests on the highest-risk paths.
+- Run `bun run compile` and the relevant test commands before PRs.
 
 ## Internationalization (i18n)
 
