@@ -303,7 +303,6 @@ export function CompactMessage({
                   </button>
                   {isAvatarPreviewOpen && (
                     <Modal
-                      open
                       onCancel={() => setIsAvatarPreviewOpen(false)}
                       footer={null}
                       centered

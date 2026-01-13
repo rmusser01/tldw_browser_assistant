@@ -6,7 +6,7 @@ import { BetaTag } from "@/components/Common/Beta"
 import { SettingRow } from "@/components/Common/SettingRow"
 import { useChatSettings } from "@/hooks/useChatSettings"
 
-const SELECT_WIDTH = 200
+const SELECT_CLASSNAME = "w-[200px]"
 
 export const ChatSettings = () => {
   const { t } = useTranslation("settings")
@@ -132,7 +132,7 @@ export const ChatSettings = () => {
   })
 
   return (
-    <dl className="flex flex-col space-y-6 text-sm">
+    <div className="flex flex-col space-y-6 text-sm">
       <div>
         <h2 className="text-base font-semibold leading-7 text-text">
           {t("chatBehavior.title", "Chat behavior")}
@@ -302,7 +302,7 @@ export const ChatSettings = () => {
               "generalSettings.settings.menuDensity.label",
               "Menu density"
             )}
-            style={{ width: SELECT_WIDTH }}
+            className={SELECT_CLASSNAME}
             value={menuDensity}
             onChange={(value) =>
               setMenuDensity(value as "comfortable" | "compact")
@@ -519,7 +519,7 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            style={{ width: SELECT_WIDTH }}
+            className={SELECT_CLASSNAME}
             value={userTextColor}
             onChange={setUserTextColor}
             options={colorOptions}
@@ -538,7 +538,7 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            style={{ width: SELECT_WIDTH }}
+            className={SELECT_CLASSNAME}
             value={userTextFont}
             onChange={setUserTextFont}
             options={fontOptions}
@@ -557,7 +557,7 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            style={{ width: SELECT_WIDTH }}
+            className={SELECT_CLASSNAME}
             value={userTextSize}
             onChange={(value) => setUserTextSize(value as "sm" | "md" | "lg")}
             options={sizeOptions}
@@ -582,7 +582,7 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            style={{ width: SELECT_WIDTH }}
+            className={SELECT_CLASSNAME}
             value={assistantTextColor}
             onChange={setAssistantTextColor}
             options={colorOptions}
@@ -601,7 +601,7 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            style={{ width: SELECT_WIDTH }}
+            className={SELECT_CLASSNAME}
             value={assistantTextFont}
             onChange={setAssistantTextFont}
             options={fontOptions}
@@ -620,7 +620,7 @@ export const ChatSettings = () => {
         )}
         control={
           <Select
-            style={{ width: SELECT_WIDTH }}
+            className={SELECT_CLASSNAME}
             value={assistantTextSize}
             onChange={(value) =>
               setAssistantTextSize(value as "sm" | "md" | "lg")
@@ -630,6 +630,6 @@ export const ChatSettings = () => {
           />
         }
       />
-    </dl>
+    </div>
   )
 }

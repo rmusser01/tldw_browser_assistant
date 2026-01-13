@@ -344,4 +344,4 @@ Legend:
 
 
 ### Extra:
-Allow for auto-summarization past a certain threshhold, while also allowign for 'pinned' messages to be avoided in compression
+Allow for auto-summarization past a certain threshold, while also allowing for 'pinned' messages to be avoided in compression

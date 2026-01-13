@@ -9,6 +9,7 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { IconButton } from "./IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
+import { useConfirmModal } from "@/hooks/useConfirmModal"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { collectGreetings } from "@/utils/character-greetings"
 import { createImageDataUrl } from "@/utils/image-utils"
@@ -65,13 +66,15 @@ type CharacterSelection = {
   avatar_url: string
 }
 
-const normalizeCharacter = (character: CharacterSummary): CharacterSelection => {
+const normalizeCharacter = (
+  character: CharacterSummary
+): CharacterSelection | null => {
   const idSource =
     character.id ?? character.slug ?? character.name ?? character.title ?? ""
   const nameSource = character.name ?? character.title ?? character.slug ?? ""
 
   if (!idSource || !nameSource) {
-    throw new Error("Character must have a valid id and name")
+    return null
   }
 
   const avatar =
@@ -107,6 +110,7 @@ export const CharacterSelect: React.FC<Props> = ({
   const { t } = useTranslation(["option", "common", "settings", "playground"])
   const notification = useAntdNotification()
   const modal = useAntdModal()
+  const confirmWithModal = useConfirmModal()
   const [selectedCharacter, setSelectedCharacter] =
     useSelectedCharacter<CharacterSelection | null>(null)
   const clearChat = useClearChat()
@@ -128,64 +132,6 @@ export const CharacterSelect: React.FC<Props> = ({
     null
   )
   const [isImporting, setIsImporting] = React.useState(false)
-
-  const confirmWithModal = React.useCallback(
-    (
-      options: Parameters<typeof modal.confirm>[0],
-      refs?: {
-        instance?: React.MutableRefObject<ReturnType<typeof modal.confirm> | null>
-        resolver?: React.MutableRefObject<((confirmed: boolean) => void) | null>
-      }
-    ) =>
-      new Promise<boolean>((resolve) => {
-        const resolverRef = refs?.resolver
-        if (resolverRef?.current) {
-          resolverRef.current(false)
-        }
-        let settled = false
-        const finalize = (value: boolean) => {
-          if (settled) return
-          settled = true
-          if (resolverRef?.current === resolve) {
-            resolverRef.current = null
-          }
-          resolve(value)
-        }
-        const clearInstance = () => {
-          if (refs?.instance) {
-            refs.instance.current = null
-          }
-        }
-        if (resolverRef) {
-          resolverRef.current = resolve
-        }
-
-        const instance = modal.confirm({
-          ...options,
-          onOk: async () => {
-            const result = await options.onOk?.()
-            finalize(true)
-            clearInstance()
-            return result
-          },
-          onCancel: () => {
-            options.onCancel?.()
-            finalize(false)
-            clearInstance()
-          },
-          afterClose: () => {
-            options.afterClose?.()
-            finalize(false)
-            clearInstance()
-          }
-        })
-
-        if (refs?.instance) {
-          refs.instance.current = instance
-        }
-      }),
-    [modal]
-  )
 
   const { data, refetch, isFetching, error } = useQuery<CharacterSummary[]>({
     queryKey: ["tldw:listCharacters"],
@@ -326,19 +272,31 @@ export const CharacterSelect: React.FC<Props> = ({
           .then((full) => {
             if (latestSelectionIdRef.current !== targetId) return
             const hydrated = normalizeCharacter(full || {})
-            if (hydrated?.id === targetId && hydrated.greeting) {
+            if (hydrated && hydrated.id === targetId && hydrated.greeting) {
               void setSelectedCharacter(hydrated)
             }
           })
-          .catch(() => {})
+          .catch((error) => {
+            if (latestSelectionIdRef.current !== targetId) return
+            console.warn("Failed to hydrate character greeting:", error)
+            notification.warning({
+              message: t("settings:manageCharacters.notification.error", "Error"),
+              description: t(
+                "settings:manageCharacters.notification.someError",
+                "Couldn't load the character greeting. Try again later."
+              )
+            })
+          })
       }
     },
     [
       clearChat,
       confirmCharacterSwitch,
       hasActiveChat,
+      notification,
       selectedCharacter?.id,
-      setSelectedCharacter
+      setSelectedCharacter,
+      t
     ]
   )
 
@@ -365,11 +323,9 @@ export const CharacterSelect: React.FC<Props> = ({
         description: successDetail
       })
       refetch({ cancelRefetch: true })
-      try {
-        const normalized = normalizeCharacter(importedCharacter || {})
+      const normalized = normalizeCharacter(importedCharacter || {})
+      if (normalized) {
         void applySelection(normalized)
-      } catch {
-        // ignore normalization failures; list will refresh
       }
     },
     [applySelection, notification, refetch, t]
@@ -606,47 +562,45 @@ export const CharacterSelect: React.FC<Props> = ({
 
   const characterItems = React.useMemo<MenuProps["items"]>(() => {
     return filteredCharacters.reduce<MenuProps["items"]>((items, character, index) => {
-      try {
-        const normalized = normalizeCharacter(character)
-        const displayName =
-          normalized.name || character.slug || character.title || ""
-        const menuKey =
-          character.id ??
-          character.slug ??
-          character.name ??
-          character.title ??
-          `character-${index}`
-
-        items.push({
-          key: String(menuKey),
-          label: (
-            <div className="w-56 gap-2 text-sm truncate inline-flex items-center leading-5">
-              {normalized.avatar_url ? (
-                <img
-                  src={normalized.avatar_url}
-                  alt={displayName || normalized.id || `Character ${menuKey}`}
-                  className="w-4 h-4 rounded-full"
-                />
-              ) : (
-                <UserCircle2 className="w-4 h-4" />
-              )}
-              <span className="truncate">
-                {displayName || normalized.id || String(menuKey)}
-              </span>
-            </div>
-          ),
-          onClick: () => {
-            void applySelection(normalized)
-          }
-        })
-      } catch (err) {
-        // Skip characters with invalid identifiers but log for debugging.
+      const normalized = normalizeCharacter(character)
+      if (!normalized) {
         console.debug(
           "[CharacterSelect] Skipping character with invalid id/name",
-          character,
-          err
+          character
         )
+        return items
       }
+      const displayName =
+        normalized.name || character.slug || character.title || ""
+      const menuKey =
+        character.id ??
+        character.slug ??
+        character.name ??
+        character.title ??
+        `character-${index}`
+
+      items.push({
+        key: String(menuKey),
+        label: (
+          <div className="w-56 gap-2 text-sm truncate inline-flex items-center leading-5">
+            {normalized.avatar_url ? (
+              <img
+                src={normalized.avatar_url}
+                alt={displayName || normalized.id || `Character ${menuKey}`}
+                className="w-4 h-4 rounded-full"
+              />
+            ) : (
+              <UserCircle2 className="w-4 h-4" />
+            )}
+            <span className="truncate">
+              {displayName || normalized.id || String(menuKey)}
+            </span>
+          </div>
+        ),
+        onClick: () => {
+          void applySelection(normalized)
+        }
+      })
       return items
     }, [] as MenuProps["items"])
   }, [applySelection, filteredCharacters])

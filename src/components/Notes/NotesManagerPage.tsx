@@ -109,7 +109,6 @@ const toNoteVersion = (note: any): number | null => {
     const allSame = validVersions.every((version) => version === validVersions[0])
     if (!allSame) {
       console.warn('[toNoteVersion] Multiple conflicting versions found:', validVersions)
-      return null
     }
   }
   return validVersions[0] ?? null

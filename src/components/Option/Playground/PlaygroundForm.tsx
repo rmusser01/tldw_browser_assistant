@@ -699,16 +699,10 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   )
 
   React.useEffect(() => {
-    if (!form.values.message) {
+    const message = form.values.message || ""
+    if (!message || message.length <= PASTED_TEXT_CHAR_LIMIT) {
       setIsMessageCollapsed(false)
       setHasExpandedLargeText(false)
-      return
-    }
-
-    if (form.values.message.length <= PASTED_TEXT_CHAR_LIMIT) {
-      setIsMessageCollapsed(false)
-      setHasExpandedLargeText(false)
-      return
     }
   }, [form.values.message])
 
@@ -1054,7 +1048,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     [
       form.values.message,
       handleFileUpload,
-      hasExpandedLargeText,
       isMessageCollapsed,
       onInputChange,
       pasteLargeTextAsFile,
@@ -1184,7 +1177,14 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         applyAppend()
       }
     })
-  }, [selectedQuickPrompt])
+  }, [
+    selectedQuickPrompt,
+    form.values.message,
+    setMessageValue,
+    setSelectedQuickPrompt,
+    t,
+    textareaRef
+  ])
 
   const queryClient = useQueryClient()
   const invalidateServerChatHistory = React.useCallback(() => {
@@ -2010,8 +2010,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     sttUseSegmentation,
     setMessageValue,
     stopServerDictation,
-    t,
-    form
+    t
   ])
 
   React.useEffect(() => {

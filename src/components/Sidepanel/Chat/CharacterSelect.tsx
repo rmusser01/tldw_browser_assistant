@@ -13,6 +13,7 @@ import { collectGreetings, pickGreeting } from "@/utils/character-greetings"
 import { IconButton } from "@/components/Common/IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
+import { useConfirmModal } from "@/hooks/useConfirmModal"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { useClearChat } from "@/hooks/chat/useClearChat"
 import { useStoreMessageOption } from "@/store/option"
@@ -49,6 +50,7 @@ export const CharacterSelect: React.FC<Props> = ({
   const { t } = useTranslation(["sidepanel", "common", "settings"])
   const notification = useAntdNotification()
   const modal = useAntdModal()
+  const confirmWithModal = useConfirmModal()
   const [menuDensity] = useStorage("menuDensity", "comfortable")
   const [, setSelectedCharacter] =
     useSelectedCharacter<StoredCharacter | null>(null)
@@ -64,10 +66,13 @@ export const CharacterSelect: React.FC<Props> = ({
   const [isImporting, setIsImporting] = useState(false)
   const searchInputRef = useRef<InputRef | null>(null)
   const importInputRef = useRef<HTMLInputElement | null>(null)
+  const isMountedRef = useRef(true)
   const selectedCharacterIdRef = useRef<string | null>(
     selectedCharacterId ?? null
   )
-  const imageOnlyModalRef = useRef<{ destroy: () => void } | null>(null)
+  const imageOnlyModalRef = useRef<
+    ReturnType<ReturnType<typeof useAntdModal>["confirm"]> | null
+  >(null)
   const imageOnlyModalResolveRef = useRef<((value: boolean) => void) | null>(
     null
   )
@@ -83,6 +88,7 @@ export const CharacterSelect: React.FC<Props> = ({
 
   useEffect(() => {
     return () => {
+      isMountedRef.current = false
       if (imageOnlyModalResolveRef.current) {
         imageOnlyModalResolveRef.current(false)
         imageOnlyModalResolveRef.current = null
@@ -161,28 +167,24 @@ export const CharacterSelect: React.FC<Props> = ({
 
   const confirmCharacterSwitch = React.useCallback(
     (nextName?: string) =>
-      new Promise<boolean>((resolve) => {
-        modal.confirm({
-          title: t("sidepanel:characterSelect.switchConfirmTitle", {
-            defaultValue: "Switch character?"
-          }),
-          content: t("sidepanel:characterSelect.switchConfirmBody", {
-            defaultValue: nextName
-              ? "Switching to {{name}} will clear the current chat. Continue?"
-              : "Changing the character will clear the current chat. Continue?",
-            name: nextName
-          }),
-          okText: t("sidepanel:characterSelect.switchConfirmOk", {
-            defaultValue: "Clear chat & switch"
-          }),
-          cancelText: t("common:cancel", { defaultValue: "Cancel" }),
-          centered: true,
-          okButtonProps: { danger: true },
-          onOk: () => resolve(true),
-          onCancel: () => resolve(false)
-        })
+      confirmWithModal({
+        title: t("sidepanel:characterSelect.switchConfirmTitle", {
+          defaultValue: "Switch character?"
+        }),
+        content: t("sidepanel:characterSelect.switchConfirmBody", {
+          defaultValue: nextName
+            ? "Switching to {{name}} will clear the current chat. Continue?"
+            : "Changing the character will clear the current chat. Continue?",
+          name: nextName
+        }),
+        okText: t("sidepanel:characterSelect.switchConfirmOk", {
+          defaultValue: "Clear chat & switch"
+        }),
+        cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+        centered: true,
+        okButtonProps: { danger: true }
       }),
-    [modal, t]
+    [confirmWithModal, t]
   )
 
   const openDisplayNameModal = React.useCallback(() => {
@@ -254,12 +256,15 @@ export const CharacterSelect: React.FC<Props> = ({
       const hydrateGreeting = async () => {
         try {
           await tldwClient.initialize().catch(() => null)
+          if (!isMountedRef.current) return false
           const full = await tldwClient.getCharacter(nextId)
+          if (!isMountedRef.current) return false
           const hydrated = buildStoredCharacter(full || {})
           if (
             hydrated?.id === String(nextId) &&
             hydrated.greeting &&
-            selectedCharacterIdRef.current === nextId
+            selectedCharacterIdRef.current === nextId &&
+            isMountedRef.current
           ) {
             await setSelectedCharacter(hydrated)
           }
@@ -272,9 +277,12 @@ export const CharacterSelect: React.FC<Props> = ({
 
       void (async () => {
         const ok = await hydrateGreeting()
+        if (!isMountedRef.current) return
         if (!ok && selectedCharacterIdRef.current === nextId) {
           await new Promise((resolve) => setTimeout(resolve, 800))
+          if (!isMountedRef.current) return
           const retried = await hydrateGreeting()
+          if (!isMountedRef.current) return
           if (!retried && selectedCharacterIdRef.current === nextId) {
             notification.warning({
               message: t(
@@ -360,15 +368,8 @@ export const CharacterSelect: React.FC<Props> = ({
     }
 
     const confirmImageOnlyImport = (message?: string) =>
-      new Promise<boolean>((resolve) => {
-        let settled = false
-        const finish = (value: boolean) => {
-          if (settled) return
-          settled = true
-          resolve(value)
-        }
-        imageOnlyModalResolveRef.current = finish
-        imageOnlyModalRef.current = modal.confirm({
+      confirmWithModal(
+        {
           title: t("settings:manageCharacters.imageOnlyTitle", {
             defaultValue: "No character data detected"
           }),
@@ -384,11 +385,10 @@ export const CharacterSelect: React.FC<Props> = ({
           cancelText: t("common:cancel", { defaultValue: "Cancel" }),
           centered: true,
           okButtonProps: { danger: false },
-          maskClosable: false,
-          onOk: () => finish(true),
-          onCancel: () => finish(false)
-        })
-      }).finally(() => {
+          maskClosable: false
+        },
+        { instance: imageOnlyModalRef, resolver: imageOnlyModalResolveRef }
+      ).finally(() => {
         imageOnlyModalResolveRef.current = null
         destroyImageOnlyModal()
       })
@@ -481,8 +481,6 @@ export const CharacterSelect: React.FC<Props> = ({
           await browser.tabs.create({ url })
           return
         }
-        window.open(url, "_blank")
-        return
       } catch (error) {
         console.debug(
           "[CharacterSelect] Failed to open characters workspace tab:",

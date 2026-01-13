@@ -34,6 +34,22 @@ type TrashResponse = {
   }
 }
 
+const executeBatchedRequests = async <T,>(
+  ids: number[],
+  makeRequest: (id: number) => Promise<T>
+): Promise<{ successCount: number; failedCount: number }> => {
+  const results: PromiseSettledResult<T>[] = []
+  for (let i = 0; i < ids.length; i += BULK_ACTION_BATCH_SIZE) {
+    const chunk = ids.slice(i, i + BULK_ACTION_BATCH_SIZE).map(makeRequest)
+    results.push(...(await Promise.allSettled(chunk)))
+    if (i + BULK_ACTION_BATCH_SIZE < ids.length) {
+      await new Promise((resolve) => setTimeout(resolve, BULK_ACTION_DELAY_MS))
+    }
+  }
+  const successCount = results.filter((result) => result.status === 'fulfilled').length
+  return { successCount, failedCount: ids.length - successCount }
+}
+
 const TrashPageContent: React.FC = () => {
   const { t } = useTranslation(['review', 'common'])
   const message = useAntdMessage()
@@ -64,8 +80,8 @@ const TrashPageContent: React.FC = () => {
     staleTime: 20_000
   })
 
+  const items = useMemo(() => data?.items ?? [], [data])
   const hasData = Boolean(data)
-  const items = useMemo(() => (hasData ? data?.items ?? [] : []), [data, hasData])
   const pagination = hasData ? data?.pagination : undefined
   const totalItems = hasData ? Number(pagination?.total_items ?? items.length ?? 0) : 0
   const totalPages = hasData
@@ -201,21 +217,12 @@ const TrashPageContent: React.FC = () => {
     if (ids.length === 0) return
     setBulkAction('restore')
     try {
-      const results: PromiseSettledResult<unknown>[] = []
-      for (let i = 0; i < ids.length; i += BULK_ACTION_BATCH_SIZE) {
-        const chunk = ids.slice(i, i + BULK_ACTION_BATCH_SIZE).map((id) =>
-          bgRequest({
-            path: toAllowedPath(`/api/v1/media/${id}/restore`),
-            method: 'POST'
-          })
-        )
-        results.push(...(await Promise.allSettled(chunk)))
-        if (i + BULK_ACTION_BATCH_SIZE < ids.length) {
-          await new Promise((resolve) => setTimeout(resolve, BULK_ACTION_DELAY_MS))
-        }
-      }
-      const successCount = results.filter((r) => r.status === 'fulfilled').length
-      const failedCount = ids.length - successCount
+      const { successCount, failedCount } = await executeBatchedRequests(ids, (id) =>
+        bgRequest({
+          path: toAllowedPath(`/api/v1/media/${id}/restore`),
+          method: 'POST'
+        })
+      )
       if (successCount > 0) {
         message.success(
           t('review:trashPage.restoreSelectedSuccess', {
@@ -261,21 +268,12 @@ const TrashPageContent: React.FC = () => {
     if (!ok) return
     setBulkAction('delete')
     try {
-      const results: PromiseSettledResult<unknown>[] = []
-      for (let i = 0; i < ids.length; i += BULK_ACTION_BATCH_SIZE) {
-        const chunk = ids.slice(i, i + BULK_ACTION_BATCH_SIZE).map((id) =>
-          bgRequest({
-            path: toAllowedPath(`/api/v1/media/${id}/permanent`),
-            method: 'DELETE'
-          })
-        )
-        results.push(...(await Promise.allSettled(chunk)))
-        if (i + BULK_ACTION_BATCH_SIZE < ids.length) {
-          await new Promise((resolve) => setTimeout(resolve, BULK_ACTION_DELAY_MS))
-        }
-      }
-      const successCount = results.filter((r) => r.status === 'fulfilled').length
-      const failedCount = ids.length - successCount
+      const { successCount, failedCount } = await executeBatchedRequests(ids, (id) =>
+        bgRequest({
+          path: toAllowedPath(`/api/v1/media/${id}/permanent`),
+          method: 'DELETE'
+        })
+      )
       if (successCount > 0) {
         message.success(
           t('review:trashPage.deleteSelectedSuccess', {
