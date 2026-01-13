@@ -117,6 +117,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const { t } = useTranslation(["playground", "common", "option"])
   const inputRef = React.useRef<HTMLInputElement>(null)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const processedFilesRef = React.useRef<WeakSet<File>>(new WeakSet())
   const navigate = useNavigate()
 
   const [typing, setTyping] = React.useState<boolean>(false)
@@ -638,7 +639,9 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
 
   const buildCollapsedMessageLabel = React.useCallback(
     (text: string) => {
-      const lineCount = text ? text.split(/\r\n|\r|\n/).length : 0
+      // Avoid allocating an array for very large messages.
+      const lineCount =
+        text ? (text.match(/\r\n|\r|\n/g)?.length ?? 0) + 1 : 0
       return t(
         "playground:composer.collapsedMessageLabel",
         "[{lines, plural, one {# line} other {# lines}}/{chars, plural, one {# char} other {# chars}} in message]",
@@ -1065,9 +1068,12 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     const run = async () => {
       for (const file of droppedFiles) {
         if (cancelled) return
+        if (processedFilesRef.current.has(file)) continue
         try {
+          processedFilesRef.current.add(file)
           await onInputChange(file)
         } catch (error) {
+          processedFilesRef.current.delete(file)
           console.error("Failed to process dropped file:", file.name, error)
         }
       }
@@ -2230,7 +2236,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isMessageCollapsed && (e.key === "Backspace" || e.key === "Delete")) {
       e.preventDefault()
-      form.setFieldValue("message", "")
+      setMessageValue("")
       setIsMessageCollapsed(false)
       setHasExpandedLargeText(false)
       return

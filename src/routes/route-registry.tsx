@@ -135,7 +135,7 @@ const OptionAdminServer = lazy(() => import("./option-admin-server"))
 const OptionAdminLlamacpp = lazy(() => import("./option-admin-llamacpp"))
 const OptionAdminMlx = lazy(() => import("./option-admin-mlx"))
 const OptionChatSettings = createSettingsRoute(
-  () => import("~/components/Option/Settings/chat-settings"),
+  () => import("~/components/Option/Settings/ChatSettings"),
   "ChatSettings"
 )
 const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))

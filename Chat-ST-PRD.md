@@ -14,6 +14,8 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - Overhauling world book logic or server APIs.
 - New model providers or server schema changes (unless required).
 
+
+
 ---
 
 ## Feature Grouping A: Greeting Picker + Persistence
@@ -32,6 +34,13 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - Store selected greeting per conversation (local storage or history metadata).
 - Clear selection when character changes or chat is reset.
 - Greeting injection uses selected greeting and display-name replacements.
+- Persist greeting staleness metadata alongside `persistedGreetingId` or `persistedGreetingIndex`:
+  - Maintain `greetingsVersion` (increment on add/edit/delete/reorder) and/or `greetingsChecksum` (hash of concatenated greeting IDs + texts) on any greetings change.
+  - On load, compare current `greetingsVersion`/`greetingsChecksum` to persisted values; if they differ, treat the persisted index as stale and re-select:
+    - If `useCharacterDefault` is true, pick the deterministic first greeting (by ID or index 0) and persist it.
+    - Otherwise re-roll randomly from remaining greetings and persist the new selection.
+    - If no greetings remain, hide the greeting picker and skip injection.
+  - Ensure greetings edits always update `greetingsVersion`/`greetingsChecksum` so future loads detect staleness.
 - Deterministic fallback rules:
   - If no greetings exist, do not auto-select; hide greeting picker and skip greeting injection.
   - If multiple greetings have identical text, treat the first occurrence in source order as the deterministic "first" greeting (persist by stable greeting ID; if IDs are unavailable, use index with a staleness check on load).
@@ -55,13 +64,18 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 ### Requirements
 - Preset applied only when character chat is active.
 - Preserve current Actor/World Book injection logic.
+- Appendable metadata:
+  - Per-text-block boolean field named `appendable`, stored alongside content in preset templates and Actor/World Book records (template/schema metadata + Actor/World Book entry records).
+  - UI exposes a checkbox labeled "Appendable".
+  - Default when absent: false (treat as non-appendable).
+  - Text blocks are concatenated only when both source and target blocks have `appendable=true`.
 - Prompt assembly order/precedence:
   - Apply preset template to build the base prompt (system + examples + scenario/personality) first.
   - Apply Actor/World Book injections after preset formatting using existing injection order.
   - Conflict resolution/precedence:
+    - "Later injection" means Actor/World Book injections applied after preset template formatting (preset → then Actor/World Book).
     - Scalar parameters (temperature, top_p, penalties, stop strings): later injection overrides earlier values on key conflict.
-    - System instructions: later injection wins and replaces prior system-level directives unless the earlier directive is explicitly marked as "appendable".
-    - Text blocks can be appended only when both sources flag them as non-conflicting/appendable; otherwise later wins.
+    - System instructions and other text blocks: later injection replaces earlier values on conflict unless both blocks are `appendable=true`, in which case concatenate.
 
 ---
 
@@ -199,8 +213,35 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
     - shared: one author note applies to all turns.
     - per character: only the speaking character memory block is injected for that turn.
     - both: shared note is injected first, then the speaking character memory block.
-- Document the scope interaction rules with a decision matrix or state diagram; add edge-case scenarios for misconfigured or missing scope settings.
-- If scope settings are missing or invalid, fall back to safe defaults (greetingScope: chat, presetScope: character, memoryScope: shared).
+
+### Scope Interaction Decision Matrix
+Legend:
+- Greeting injected assumes greetingEnabled=true and at least one greeting exists; otherwise `none`.
+- Preset order abbreviations: PM=per-message override, Chat=chat-level override, Char=character preset, Global=global/default.
+- When presetScope=chat, Chat override applies even if the character has no preset; if no Chat override is set, fall back to Global/default.
+- Memory truncation: apply the Feature D cap; for `shared->char`, use remaining budget for the character note, truncate character first, then shared if still over.
+
+| greetingScope (perCharacterGreeting) | presetScope | memoryScope | Greeting injected | Preset resolution | Memory injection + truncation |
+| --- | --- | --- | --- | --- | --- |
+| chat (false) | chat | shared | chat-first | PM -> Chat -> Global | shared (truncate shared) |
+| chat (false) | chat | character | chat-first | PM -> Chat -> Global | char (truncate character) |
+| chat (false) | chat | both | chat-first | PM -> Chat -> Global | shared -> char (truncate char first) |
+| chat (false) | character | shared | chat-first | PM -> Char -> Global | shared (truncate shared) |
+| chat (false) | character | character | chat-first | PM -> Char -> Global | char (truncate character) |
+| chat (false) | character | both | chat-first | PM -> Char -> Global | shared -> char (truncate char first) |
+| character (true) | chat | shared | per-char-first | PM -> Chat -> Global | shared (truncate shared) |
+| character (true) | chat | character | per-char-first | PM -> Chat -> Global | char (truncate character) |
+| character (true) | chat | both | per-char-first | PM -> Chat -> Global | shared -> char (truncate char first) |
+| character (true) | character | shared | per-char-first | PM -> Char -> Global | shared (truncate shared) |
+| character (true) | character | character | per-char-first | PM -> Char -> Global | char (truncate character) |
+| character (true) | character | both | per-char-first | PM -> Char -> Global | shared -> char (truncate char first) |
+
+### Edge Cases
+- Only one active character with per-character greetings: treat as chat-first (single greeting on first reply) to avoid repeated greetings.
+- greetingEnabled=false or no eligible greeting available: inject none regardless of scope.
+
+### Fallbacks
+- Missing/invalid scope values: fall back to Migration Strategy defaults (greetingScope: chat, presetScope: character, memoryScope: shared).
 
 ---
 
@@ -236,6 +277,19 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
     - `chatPresetOverrideId` stored in per-chat settings (local + server metadata).
     - `characterMemoryById` stored in per-chat settings (local + server metadata).
 
+## Token Budget Allocation
+- Total supplemental injection budget: 1200 tokens per prompt across Features A/B/D/F + Actor/World Book.
+- Feature A greeting: max 120 tokens (truncate to fit).
+- Feature D author's note: max 240 tokens total (shared + active character note combined).
+- Feature B per-character presets: max 180 tokens.
+- Feature F lorebook entries: max 420 tokens total; cap individual entries at 140 tokens and include highest-score entries until budget is exhausted.
+- Actor/World Book injections: max 240 tokens combined (actor up to 160, world up to 80).
+- Allocation/overflow strategy:
+  - Priority order for retention: presets (B) > author's note (D) > lorebook (F) > actor/world > greeting (A).
+  - Apply per-feature caps first; if still over the 1200-token total after capping (tokenization variance), drop or further truncate lowest-priority sections in order.
+  - Prompt Preview (Feature G) shows per-section token counts, flags any truncated section, and displays a warning when the total exceeds 90% (caution) or hits the hard cap (error).
+  - Prompt assembly enforces caps and total limit; performance tests assert total supplemental tokens never exceed 1200 and record truncation events.
+
 ## Migration Strategy (New Fields)
 - Legacy characters/chats without new fields receive safe defaults:
   - greetingScope: "chat" (single greeting per conversation, preserves existing behavior).
@@ -266,7 +320,6 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - For future schema/format changes, introduce a versioned migration function per schema version and run migrations before sync; if migration fails, fall back to the latest server metadata and preserve the local record as a conflict copy for manual recovery.
 
 ## Risks / Open Questions
-- Where to store per-chat settings (history metadata vs local store)?
 - How to reconcile server-backed chats vs local histories?
 - Performance: cumulative token overhead from preset + author's note + greeting + lorebook + actor/world book injections may exceed model context limits or increase latency. Define token budgets per feature and add warnings in prompt preview (Feature G).
 - Performance testing: include load tests for multi-character chats with all features active to measure prompt assembly time and token counts.
@@ -285,3 +338,10 @@ Bring character chat closer to SillyTavern behavior: deterministic character dat
 - Rollback tests: downgrade to a v1 client and verify legacy fields still load,
   new fields are ignored, and no data loss occurs when returning to v2.
 - Performance tests: multi-character chats with all features active; measure token counts, prompt assembly time, and memory usage under load.
+
+
+
+
+
+### Extra:
+Allow for auto-summarization past a certain threshhold, while also allowign for 'pinned' messages to be avoided in compression

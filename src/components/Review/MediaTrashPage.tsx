@@ -382,7 +382,7 @@ const TrashPageContent: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
-            onClick={refetch}
+            onClick={() => refetch()}
             className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-text-muted hover:bg-surface2 hover:text-text disabled:opacity-60"
             disabled={isFetching || isAnyActionBusy}
           >

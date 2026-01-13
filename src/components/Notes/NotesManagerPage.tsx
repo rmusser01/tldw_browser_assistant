@@ -109,6 +109,7 @@ const toNoteVersion = (note: any): number | null => {
     const allSame = validVersions.every((version) => version === validVersions[0])
     if (!allSame) {
       console.warn('[toNoteVersion] Multiple conflicting versions found:', validVersions)
+      return null
     }
   }
   return validVersions[0] ?? null
@@ -374,7 +375,7 @@ const NotesManagerPage: React.FC = () => {
     } catch {
       message.error('Failed to load note')
     } finally { setLoadingDetail(false) }
-  }, [])
+  }, [message])
 
   const resetEditor = () => {
     setSelectedId(null)
@@ -773,8 +774,9 @@ const NotesManagerPage: React.FC = () => {
     }
   }
 
-  const gatherAllMatching = async (): Promise<NoteListItem[]> => {
-    let arr: NoteListItem[] = []
+  const gatherAllMatching = async (): Promise<{ arr: NoteListItem[]; limitReached: boolean }> => {
+    const arr: NoteListItem[] = []
+    let limitReached = false
     const q = query.trim()
     const toks = keywordTokens.map((k) => k.toLowerCase())
     if (q || toks.length > 0) {
@@ -796,6 +798,7 @@ const NotesManagerPage: React.FC = () => {
         if (items.length < ps) break
         p++
       }
+      if (p > MAX_EXPORT_PAGES) limitReached = true
     } else {
       // Iterate pages (chunk by 100)
       let p = 1
@@ -817,14 +820,18 @@ const NotesManagerPage: React.FC = () => {
         if (p >= totalPages || items.length === 0) break
         p++
       }
+      if (p > MAX_EXPORT_PAGES) limitReached = true
     }
-    return arr
+    return { arr, limitReached }
   }
 
   const exportAllCSV = async () => {
     try {
-      const arr = await gatherAllMatching()
+      const { arr, limitReached } = await gatherAllMatching()
       if (!arr.length) { message.info('No notes to export'); return }
+      if (limitReached) {
+        message.warning(`Export limited to ${arr.length} notes. Some notes may be excluded.`)
+      }
       const escape = (s: any) => '"' + String(s ?? '').replace(/"/g, '""') + '"'
       const header = ['id','title','content','updated_at','keywords']
       const rows = [
@@ -864,8 +871,11 @@ const NotesManagerPage: React.FC = () => {
 
   const exportAllJSON = async () => {
     try {
-      const arr = await gatherAllMatching()
+      const { arr, limitReached } = await gatherAllMatching()
       if (!arr.length) { message.info('No notes to export'); return }
+      if (limitReached) {
+        message.warning(`Export limited to ${arr.length} notes. Some notes may be excluded.`)
+      }
       const blob = new Blob([JSON.stringify(arr, null, 2)], { type: 'application/json;charset=utf-8' })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')

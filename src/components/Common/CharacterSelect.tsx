@@ -11,6 +11,7 @@ import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { useAntdModal } from "@/hooks/useAntdModal"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { collectGreetings } from "@/utils/character-greetings"
+import { createImageDataUrl } from "@/utils/image-utils"
 import { useClearChat } from "@/hooks/chat/useClearChat"
 import { useStoreMessageOption } from "@/store/option"
 
@@ -76,9 +77,7 @@ const normalizeCharacter = (character: CharacterSummary): CharacterSelection => 
   const avatar =
     character.avatar_url ||
     (character.image_base64
-      ? `data:${character.image_mime || "image/png"};base64,${
-          character.image_base64
-        }`
+      ? createImageDataUrl(character.image_base64) || ""
       : "")
 
   const greetings = collectGreetings(character)
@@ -129,6 +128,64 @@ export const CharacterSelect: React.FC<Props> = ({
     null
   )
   const [isImporting, setIsImporting] = React.useState(false)
+
+  const confirmWithModal = React.useCallback(
+    (
+      options: Parameters<typeof modal.confirm>[0],
+      refs?: {
+        instance?: React.MutableRefObject<ReturnType<typeof modal.confirm> | null>
+        resolver?: React.MutableRefObject<((confirmed: boolean) => void) | null>
+      }
+    ) =>
+      new Promise<boolean>((resolve) => {
+        const resolverRef = refs?.resolver
+        if (resolverRef?.current) {
+          resolverRef.current(false)
+        }
+        let settled = false
+        const finalize = (value: boolean) => {
+          if (settled) return
+          settled = true
+          if (resolverRef?.current === resolve) {
+            resolverRef.current = null
+          }
+          resolve(value)
+        }
+        const clearInstance = () => {
+          if (refs?.instance) {
+            refs.instance.current = null
+          }
+        }
+        if (resolverRef) {
+          resolverRef.current = resolve
+        }
+
+        const instance = modal.confirm({
+          ...options,
+          onOk: async () => {
+            const result = await options.onOk?.()
+            finalize(true)
+            clearInstance()
+            return result
+          },
+          onCancel: () => {
+            options.onCancel?.()
+            finalize(false)
+            clearInstance()
+          },
+          afterClose: () => {
+            options.afterClose?.()
+            finalize(false)
+            clearInstance()
+          }
+        })
+
+        if (refs?.instance) {
+          refs.instance.current = instance
+        }
+      }),
+    [modal]
+  )
 
   const { data, refetch, isFetching, error } = useQuery<CharacterSummary[]>({
     queryKey: ["tldw:listCharacters"],
@@ -222,21 +279,8 @@ export const CharacterSelect: React.FC<Props> = ({
 
   const confirmCharacterSwitch = React.useCallback(
     (nextName?: string) =>
-      new Promise<boolean>((resolve) => {
-        if (confirmResolveRef.current) {
-          confirmResolveRef.current(false)
-        }
-        let settled = false
-        const finalize = (value: boolean) => {
-          if (settled) return
-          settled = true
-          if (confirmResolveRef.current === resolve) {
-            confirmResolveRef.current = null
-          }
-          resolve(value)
-        }
-        confirmResolveRef.current = resolve
-        modal.confirm({
+      confirmWithModal(
+        {
           title: t("option:characters.switchConfirmTitle", {
             defaultValue: "Switch character?"
           }),
@@ -251,13 +295,11 @@ export const CharacterSelect: React.FC<Props> = ({
           }),
           cancelText: t("common:cancel", { defaultValue: "Cancel" }),
           centered: true,
-          okButtonProps: { danger: true },
-          onOk: () => finalize(true),
-          onCancel: () => finalize(false),
-          afterClose: () => finalize(false)
-        })
-      }),
-    [modal, t]
+          okButtonProps: { danger: true }
+        },
+        { resolver: confirmResolveRef }
+      ),
+    [confirmWithModal, t]
   )
 
   const applySelection = React.useCallback(
@@ -458,20 +500,17 @@ export const CharacterSelect: React.FC<Props> = ({
       const getImageOnlyDetail = (error: unknown): ImageOnlyErrorDetail | null => {
         const details = (error as ImportError)?.details
         if (!details || typeof details !== "object") return null
-        const detail =
-          "detail" in details
-            ? (details as { detail?: ImageOnlyErrorDetail }).detail
-            : details
-        if (detail?.code === "missing_character_data") return detail
+        const candidate =
+          "detail" in details ? (details as { detail?: unknown }).detail : details
+        if (!candidate || typeof candidate !== "object") return null
+        const code = (candidate as { code?: unknown }).code
+        if (code === "missing_character_data") return candidate as ImageOnlyErrorDetail
         return null
       }
 
       const confirmImageOnlyImport = (message?: string) =>
-        new Promise<boolean>((resolve) => {
-          const clearRef = () => {
-            imageOnlyModalRef.current = null
-          }
-          imageOnlyModalRef.current = modal.confirm({
+        confirmWithModal(
+          {
             title: t("settings:manageCharacters.imageOnlyTitle", {
               defaultValue: "No character data detected"
             }),
@@ -487,17 +526,10 @@ export const CharacterSelect: React.FC<Props> = ({
             cancelText: t("common:cancel", { defaultValue: "Cancel" }),
             centered: true,
             okButtonProps: { danger: false },
-            maskClosable: false,
-            onOk: () => {
-              resolve(true)
-              clearRef()
-            },
-            onCancel: () => {
-              resolve(false)
-              clearRef()
-            }
-          })
-        })
+            maskClosable: false
+          },
+          { instance: imageOnlyModalRef }
+        )
 
       try {
         setIsImporting(true)
@@ -554,7 +586,7 @@ export const CharacterSelect: React.FC<Props> = ({
         event.target.value = ""
       }
     },
-    [handleImportSuccess, modal, notification, t]
+    [confirmWithModal, handleImportSuccess, notification, t]
   )
 
   const filteredCharacters = React.useMemo(() => {

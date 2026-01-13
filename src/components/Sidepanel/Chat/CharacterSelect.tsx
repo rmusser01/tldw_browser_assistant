@@ -251,32 +251,55 @@ export const CharacterSelect: React.FC<Props> = ({
 
       if (stored?.greeting) return
 
-      void tldwClient
-        .initialize()
-        .catch(() => null)
-        .then(() => tldwClient.getCharacter(nextId))
-        .then((full) => {
+      const hydrateGreeting = async () => {
+        try {
+          await tldwClient.initialize().catch(() => null)
+          const full = await tldwClient.getCharacter(nextId)
           const hydrated = buildStoredCharacter(full || {})
           if (
             hydrated?.id === String(nextId) &&
             hydrated.greeting &&
             selectedCharacterIdRef.current === nextId
           ) {
-            void setSelectedCharacter(hydrated)
+            await setSelectedCharacter(hydrated)
           }
-        })
-        .catch((error) => {
+          return true
+        } catch (error) {
           console.warn("Failed to hydrate character greeting:", error)
-        })
+          return false
+        }
+      }
+
+      void (async () => {
+        const ok = await hydrateGreeting()
+        if (!ok && selectedCharacterIdRef.current === nextId) {
+          await new Promise((resolve) => setTimeout(resolve, 800))
+          const retried = await hydrateGreeting()
+          if (!retried && selectedCharacterIdRef.current === nextId) {
+            notification.warning({
+              message: t(
+                "settings:manageCharacters.notification.error",
+                "Error"
+              ),
+              description: t(
+                "settings:manageCharacters.notification.someError",
+                "Couldn't load the character greeting. Try again later."
+              )
+            })
+          }
+        }
+      })()
     },
     [
       buildStoredCharacter,
       clearChat,
       confirmCharacterSwitch,
       hasActiveChat,
+      notification,
       selectedCharacterId,
       setSelectedCharacter,
-      setSelectedCharacterId
+      setSelectedCharacterId,
+      t
     ]
   )
 
@@ -323,17 +346,16 @@ export const CharacterSelect: React.FC<Props> = ({
     if (!file) return
 
     const getImageOnlyDetail = (error: unknown): ImageOnlyErrorDetail | null => {
-      const details = (
-        error as {
-          details?: ImageOnlyErrorDetail | { detail?: ImageOnlyErrorDetail }
-        }
-      )?.details
+      const details: unknown = (error as { details?: unknown })?.details
       if (!details || typeof details !== "object") return null
-      const detail =
-        "detail" in details
-          ? (details as { detail?: ImageOnlyErrorDetail }).detail
-          : details
-      if (detail?.code === "missing_character_data") return detail
+      const detailCandidate =
+        "detail" in details ? (details as { detail?: unknown }).detail : details
+      if (!detailCandidate || typeof detailCandidate !== "object") return null
+      const code = (detailCandidate as { code?: unknown }).code
+      if (typeof code !== "string") return null
+      if (code === "missing_character_data") {
+        return detailCandidate as ImageOnlyErrorDetail
+      }
       return null
     }
 
@@ -424,21 +446,21 @@ export const CharacterSelect: React.FC<Props> = ({
         const confirmed = await confirmImageOnlyImport(
           imageOnlyDetail?.message
         )
-          if (confirmed) {
-            try {
-              const imported = await importCharacter(true)
-              handleImportSuccess(imported)
-            } catch (retryError) {
-              showImportError(retryError)
-            }
+        if (confirmed) {
+          try {
+            const imported = await importCharacter(true)
+            handleImportSuccess(imported)
+          } catch (retryError) {
+            showImportError(retryError)
           }
-          return
         }
-        showImportError(error)
-      } finally {
-        setIsImporting(false)
-        event.target.value = ""
+        return
       }
+      showImportError(error)
+    } finally {
+      setIsImporting(false)
+      event.target.value = ""
+    }
   }
 
   const buildCharactersHash = React.useCallback((create?: boolean) => {

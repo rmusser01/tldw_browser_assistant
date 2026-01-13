@@ -6,10 +6,11 @@ import { useTranslation } from "react-i18next"
 import { useQuickChatStore } from "@/store/quick-chat"
 import { useQuickChat } from "@/hooks/useQuickChat"
 import { fetchChatModels } from "@/services/tldw-server"
-import { QuickChatMessage } from "@/components/Common/QuickChatHelper/QuickChatMessage"
+import { QuickChatMessage as QuickChatMessageView } from "@/components/Common/QuickChatHelper/QuickChatMessage"
 import { QuickChatInput } from "@/components/Common/QuickChatHelper/QuickChatInput"
 import { AlertCircle } from "lucide-react"
 import { useChatModelsSelect } from "@/hooks/useChatModelsSelect"
+import type { QuickChatMessage } from "@/store/quick-chat"
 
 const QuickChatPopout: React.FC = () => {
   const { t } = useTranslation(["option", "common"])
@@ -230,7 +231,7 @@ const QuickChatPopout: React.FC = () => {
         ) : (
           <>
             {messages.map((message, index) => (
-              <QuickChatMessage
+              <QuickChatMessageView
                 key={message.id}
                 message={message}
                 isStreaming={isStreaming}

@@ -3,6 +3,15 @@
 ## Summary
 Redesign the "Ctx + Media" UI into a combined "Search & Context" panel (embedded in the sidepanel and options playground) that exposes all Unified RAG options with clear information architecture, progressive disclosure, and dependency-aware controls, while enabling in-panel search, review, and selection of results before insertion.
 
+## Document Status
+This PRD is both a retroactive design record for phases already implemented and a forward-looking roadmap for remaining work. Use the Tracking section below to follow outstanding gaps and ensure remaining phases are completed.
+
+## Tracking
+- Advanced search filtering coverage gap (Issue: TBD).
+- Telemetry hooks for Search & Context events (Issue: TBD).
+- Phase 4 completion (dependencies, validation, accessibility) (Issue: TBD).
+- Phase 5 completion (QA, i18n, documentation) (Issue: TBD).
+
 ## Goals
 - Provide full access to all Unified RAG request options in a usable, structured layout.
 - Reduce cognitive load with clear grouping, defaults, and progressive disclosure.
@@ -69,6 +78,7 @@ Advanced (collapsed by default, search input present):
 Note: target behavior is for the advanced search input to filter all advanced
 field labels (and helper text) across sections. The current implementation only
 filters Source scope labels; expand or relabel as part of this redesign.
+Tracked: Advanced search filtering coverage gap (Issue: TBD).
 
 ## Presets
 Presets apply explicit values to all fields and flip to "Custom" when any field changes.
@@ -295,6 +305,7 @@ Balanced preset is the default and sets explicit values for every field. See App
 - Search executed, result count, and action usage (Insert/Ask/Preview/Open/Copy/Pin).
 - Error and timeout events.
 - Current implementation does not emit new telemetry hooks yet.
+Tracked: Telemetry instrumentation (Issue: TBD).
 
 ## Risks and Dependencies
 - Large settings surface area risks overwhelm without clean grouping.

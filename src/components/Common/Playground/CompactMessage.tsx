@@ -26,6 +26,7 @@ import { parseReasoning } from "@/libs/reasoning"
 import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
 import { decodeChatErrorPayload, type ChatErrorPayload } from "@/utils/chat-error-message"
 import { highlightText } from "@/utils/text-highlight"
+import { createImageDataUrl } from "@/utils/image-utils"
 import { cn } from "@/libs/utils"
 import { translateMessage } from "@/i18n/translateMessage"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -101,7 +102,7 @@ export function CompactMessage({
   timestamp,
   onDelete,
   characterIdentity,
-  characterIdentityEnabled,
+  characterIdentityEnabled = false,
 }: CompactMessageProps) {
   const { t, i18n } = useTranslation(["common", "playground"])
   const [copied, setCopied] = useState(false)
@@ -134,7 +135,14 @@ export function CompactMessage({
     isBot &&
     Boolean(characterIdentityEnabled) &&
     Boolean(characterIdentity?.id)
-  const characterAvatar = characterIdentity?.avatar_url || ""
+  const characterAvatar = useMemo(() => {
+    if (!characterIdentity) return ""
+    if (characterIdentity.avatar_url) return characterIdentity.avatar_url
+    if (characterIdentity.image_base64) {
+      return createImageDataUrl(characterIdentity.image_base64) || ""
+    }
+    return ""
+  }, [characterIdentity])
   const resolvedModelImage =
     shouldUseCharacterIdentity && characterAvatar
       ? characterAvatar
@@ -192,7 +200,7 @@ export function CompactMessage({
     if (copyResetTimeoutRef.current) {
       clearTimeout(copyResetTimeoutRef.current)
     }
-    copyResetTimeoutRef.current = window.setTimeout(() => {
+    copyResetTimeoutRef.current = setTimeout(() => {
       setCopied(false)
       copyResetTimeoutRef.current = null
     }, 2000)
@@ -293,19 +301,21 @@ export function CompactMessage({
                       className="size-6"
                     />
                   </button>
-                  <Modal
-                    open={isAvatarPreviewOpen}
-                    onCancel={() => setIsAvatarPreviewOpen(false)}
-                    footer={null}
-                    centered
-                  >
-                    <Image
-                      src={resolvedModelImage}
-                      alt={displayName}
-                      preview={false}
-                      className="w-full"
-                    />
-                  </Modal>
+                  {isAvatarPreviewOpen && (
+                    <Modal
+                      open
+                      onCancel={() => setIsAvatarPreviewOpen(false)}
+                      footer={null}
+                      centered
+                    >
+                      <Image
+                        src={resolvedModelImage}
+                        alt={displayName}
+                        preview={false}
+                        className="w-full"
+                      />
+                    </Modal>
+                  )}
                 </>
               ) : (
                 <Avatar
