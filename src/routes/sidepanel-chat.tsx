@@ -548,7 +548,13 @@ const SidepanelChat = () => {
       setChatMode(snapshot.chatMode || "normal")
       setWebSearch(snapshot.webSearch ?? false)
       setToolChoice(snapshot.toolChoice ?? "none")
-      setSelectedModel(snapshot.selectedModel ?? null)
+      const snapshotModel =
+        typeof snapshot.selectedModel === "string"
+          ? snapshot.selectedModel.trim()
+          : ""
+      if (snapshotModel) {
+        setSelectedModel(snapshotModel)
+      }
       setSelectedSystemPrompt(snapshot.selectedSystemPrompt ?? null)
       setSelectedQuickPrompt(snapshot.selectedQuickPrompt ?? null)
       setTemporaryChat(snapshot.temporaryChat ?? false)

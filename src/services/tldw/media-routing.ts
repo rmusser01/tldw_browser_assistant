@@ -34,12 +34,28 @@ const DOCUMENT_EXTENSIONS = [
   ".md"
 ]
 
-const getPathFromUrl = (raw: string): string => {
-  try {
-    return new URL(raw).pathname.toLowerCase()
-  } catch {
-    return String(raw || "").toLowerCase()
+const isSubdomainOf = (host: string, domain: string): boolean =>
+  host === domain || host.endsWith(`.${domain}`)
+
+const isYouTubeVideoUrl = (url: URL): boolean => {
+  const host = url.hostname.toLowerCase()
+  if (isSubdomainOf(host, "youtu.be")) {
+    return url.pathname.length > 1
   }
+  if (
+    !isSubdomainOf(host, "youtube.com") &&
+    !isSubdomainOf(host, "youtube-nocookie.com")
+  ) {
+    return false
+  }
+  const path = url.pathname.toLowerCase()
+  if (path === "/watch" || path === "/watch/") {
+    return url.searchParams.has("v")
+  }
+  const videoPrefixes = ["/shorts/", "/live/", "/embed/", "/v/", "/clip/"]
+  return videoPrefixes.some(
+    (prefix) => path.startsWith(prefix) && path.length > prefix.length
+  )
 }
 
 const endsWithAny = (value: string, exts: string[]): boolean =>
@@ -58,8 +74,15 @@ const inferMediaTypeFromPath = (
   return path ? fallback : "auto"
 }
 
-export const inferMediaTypeFromUrl = (raw: string): DetectedMediaType =>
-  inferMediaTypeFromPath(getPathFromUrl(raw), "html")
+export const inferMediaTypeFromUrl = (raw: string): DetectedMediaType => {
+  try {
+    const parsed = new URL(raw)
+    if (isYouTubeVideoUrl(parsed)) return "video"
+    return inferMediaTypeFromPath(parsed.pathname, "html")
+  } catch {
+    return inferMediaTypeFromPath(String(raw || ""), "html")
+  }
+}
 
 export const inferMediaTypeFromFilename = (raw: string): DetectedMediaType =>
   inferMediaTypeFromPath(raw, "auto")

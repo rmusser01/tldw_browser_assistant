@@ -201,12 +201,22 @@ export const SETTINGS_INDEX: SettingDefinition[] = [
   // ========================================
   {
     id: "setting-default-model",
-    labelKey: "settings:manageModels.defaultModel.label",
+    labelKey: "settings:onboarding.defaults.modelLabel",
     defaultLabel: "Default model",
     defaultDescription: "Model to use when starting new chats",
     route: "/settings/model",
     section: "Models",
     keywords: ["model", "default", "ai", "llm"],
+    controlType: "select",
+  },
+  {
+    id: "setting-default-api-provider",
+    labelKey: "settings:onboarding.defaults.providerLabel",
+    defaultLabel: "Default API provider",
+    defaultDescription: "Provider to use when starting new chats",
+    route: "/settings/model",
+    section: "Models",
+    keywords: ["provider", "api", "default", "model", "llm"],
     controlType: "select",
   },
 

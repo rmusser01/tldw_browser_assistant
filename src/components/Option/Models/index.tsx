@@ -1,13 +1,19 @@
-import { Spin } from "antd"
+import { Select, Spin } from "antd"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
-import { useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useQueryClient } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { browser } from "wxt/browser"
 import { AvailableModelsList } from "./AvailableModelsList"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { tldwModels } from "@/services/tldw"
+import { useStorage } from "@plasmohq/storage/hook"
+import { fetchChatModels } from "@/services/tldw-server"
+import {
+  getProviderDisplayName,
+  normalizeProviderKey
+} from "@/utils/provider-registry"
 
 dayjs.extend(relativeTime)
 
@@ -29,6 +35,110 @@ export const ModelsBody = () => {
   const { t } = useTranslation(["settings", "common"])
   const notification = useAntdNotification()
   const queryClient = useQueryClient()
+  const [selectedModel, setSelectedModel] = useStorage<string | null>(
+    "selectedModel",
+    null
+  )
+  const [defaultApiProvider, setDefaultApiProvider] = useStorage<
+    string | null
+  >("defaultApiProvider", null)
+
+  const {
+    data: availableModels = [],
+    isLoading: modelsLoading
+  } = useQuery({
+    queryKey: ["tldw-chat-models"],
+    queryFn: async () => fetchChatModels({ returnEmpty: true }),
+    staleTime: 5 * 60 * 1000
+  })
+
+  const normalizedDefaultProvider = useMemo(() => {
+    if (!defaultApiProvider) return ""
+    const normalized = normalizeProviderKey(defaultApiProvider)
+    return normalized === "unknown" ? "" : normalized
+  }, [defaultApiProvider])
+
+  const providerSelectValue = useMemo(
+    () => normalizedDefaultProvider || "auto",
+    [normalizedDefaultProvider]
+  )
+
+  const providerOptions = useMemo(() => {
+    const providers = new Map<string, string>()
+    for (const model of availableModels) {
+      const rawProvider = model.details?.provider ?? model.provider
+      if (!rawProvider) continue
+      const key = normalizeProviderKey(rawProvider)
+      if (!key || key === "unknown") continue
+      if (!providers.has(key)) {
+        providers.set(key, getProviderDisplayName(rawProvider))
+      }
+    }
+    return Array.from(providers.entries())
+      .map(([value, label]) => ({ value, label }))
+      .sort((a, b) => a.label.localeCompare(b.label))
+  }, [availableModels])
+
+  const modelOptions = useMemo(() => {
+    return availableModels
+      .filter((model) => {
+        if (!normalizedDefaultProvider) return true
+        const rawProvider = model.details?.provider ?? model.provider
+        if (!rawProvider) return false
+        return normalizeProviderKey(rawProvider) === normalizedDefaultProvider
+      })
+      .map((model) => {
+        const rawProvider = model.details?.provider ?? model.provider
+        const providerLabel = rawProvider
+          ? getProviderDisplayName(rawProvider)
+          : t("settings:onboarding.defaults.providerUnknown", "Provider")
+        const modelLabel = model.nickname || model.model
+        return {
+          value: model.model,
+          label: `${providerLabel} - ${modelLabel}`
+        }
+      })
+  }, [availableModels, normalizedDefaultProvider, t])
+
+  const handleProviderChange = useCallback(
+    (value: string) => {
+      if (value === "auto") {
+        setDefaultApiProvider(null)
+        return
+      }
+      const normalized = normalizeProviderKey(value)
+      setDefaultApiProvider(
+        normalized && normalized !== "unknown" ? normalized : null
+      )
+    },
+    [setDefaultApiProvider]
+  )
+
+  const handleModelChange = useCallback(
+    (value: string) => {
+      setSelectedModel(value || null)
+    },
+    [setSelectedModel]
+  )
+
+  useEffect(() => {
+    if (!normalizedDefaultProvider || !selectedModel) return
+    if (availableModels.length === 0) return
+    const selectedEntry = availableModels.find(
+      (model) => model.model === selectedModel
+    )
+    if (!selectedEntry) return
+    const rawProvider = selectedEntry.details?.provider ?? selectedEntry.provider
+    if (!rawProvider) return
+    if (normalizeProviderKey(rawProvider) !== normalizedDefaultProvider) {
+      setSelectedModel(null)
+    }
+  }, [
+    availableModels,
+    normalizedDefaultProvider,
+    selectedModel,
+    setSelectedModel
+  ])
 
   const handleRefresh = async () => {
     setRefreshing(true)
@@ -42,7 +152,8 @@ export const ModelsBody = () => {
       }
       await Promise.all([
         queryClient.refetchQueries({ queryKey: ["tldw-providers-models"] }),
-        queryClient.refetchQueries({ queryKey: ["tldw-models"] })
+        queryClient.refetchQueries({ queryKey: ["tldw-models"] }),
+        queryClient.refetchQueries({ queryKey: ["tldw-chat-models"] })
       ])
       const providers = queryClient.getQueryData<Record<string, unknown[]>>([
         "tldw-providers-models"
@@ -109,6 +220,101 @@ export const ModelsBody = () => {
                 </span>
               )}
             </div>
+          </div>
+          <div className="mt-4 rounded-2xl border border-border/70 bg-surface p-4">
+            <div className="mb-3">
+              <div className="text-sm font-semibold text-text">
+                {t("settings:onboarding.defaults.title", "Set your defaults")}
+              </div>
+              <p className="text-xs text-text-subtle">
+                {t(
+                  "settings:onboarding.defaults.subtitle",
+                  "Pick a default provider and model for new chats."
+                )}
+              </p>
+            </div>
+            {modelsLoading ? (
+              <div className="flex items-center gap-2 text-xs text-text-subtle">
+                <Spin size="small" />
+                {t("settings:onboarding.defaults.loading", "Loading models...")}
+              </div>
+            ) : availableModels.length === 0 ? (
+              <div className="text-xs text-text-subtle">
+                <div className="font-medium text-text">
+                  {t(
+                    "settings:models.noProvidersTitle",
+                    "No providers available."
+                  )}
+                </div>
+                <div className="mt-1">
+                  {t(
+                    "settings:models.noProvidersBody",
+                    "The extension could not load providers from your tldw_server. Check your server URL and API key in Settings, ensure the server is running, then use Retry (or Refresh) to try again."
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-text">
+                    {t(
+                      "settings:onboarding.defaults.providerLabel",
+                      "Default API provider"
+                    )}
+                  </label>
+                  <Select
+                    size="large"
+                    value={providerSelectValue}
+                    onChange={handleProviderChange}
+                    options={[
+                      {
+                        value: "auto",
+                        label: t(
+                          "settings:onboarding.defaults.providerAuto",
+                          "Auto (from model)"
+                        )
+                      },
+                      ...providerOptions
+                    ]}
+                    className="w-full"
+                  />
+                  <p className="mt-1 text-[11px] text-text-subtle">
+                    {t(
+                      "settings:onboarding.defaults.providerHelp",
+                      "Leave on Auto to use the provider attached to each model."
+                    )}
+                  </p>
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-text">
+                    {t(
+                      "settings:onboarding.defaults.modelLabel",
+                      "Default model"
+                    )}
+                  </label>
+                  <Select
+                    showSearch
+                    size="large"
+                    value={selectedModel || undefined}
+                    onChange={handleModelChange}
+                    placeholder={t(
+                      "settings:onboarding.defaults.modelPlaceholder",
+                      "Select a model"
+                    )}
+                    options={modelOptions}
+                    optionFilterProp="label"
+                    className="w-full"
+                    allowClear
+                  />
+                  <p className="mt-1 text-[11px] text-text-subtle">
+                    {t(
+                      "settings:onboarding.defaults.modelHelp",
+                      "This becomes the starting model when you open a new chat."
+                    )}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
           <AvailableModelsList />
         </div>
