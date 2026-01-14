@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Modal, Button, Input, Select, Space, Switch, Typography, Tag, message, Collapse, InputNumber, Tooltip as AntTooltip, Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from "react-router-dom"
 import { browser } from "wxt/browser"
 import { tldwClient } from '@/services/tldw/TldwApiClient'
+import { QuickIngestTabs } from "./QuickIngest/QuickIngestTabs"
+import type { QuickIngestTab } from "./QuickIngest/types"
 import { MEDIA_ADD_SCHEMA_FALLBACK, MEDIA_ADD_SCHEMA_FALLBACK_VERSION } from '@/services/tldw/fallback-schemas'
 import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star, X } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
@@ -427,6 +429,25 @@ export const QuickIngestModal: React.FC<Props> = ({
     getContainer: () =>
       (document.querySelector('.quick-ingest-modal .ant-modal-content') as HTMLElement) || document.body
   })
+
+  // Tab navigation state
+  const [activeTab, setActiveTab] = useState<QuickIngestTab>('queue')
+  const [runNonce, setRunNonce] = useState(0)
+
+  // Auto-switch to results tab when processing starts (user-initiated only)
+  useEffect(() => {
+    if (runNonce > 0) {
+      setActiveTab('results')
+    }
+  }, [runNonce])
+
+  // Reset to queue tab when modal opens
+  useEffect(() => {
+    if (open) {
+      setActiveTab('queue')
+    }
+  }, [open])
+
   const [storeRemote, setStoreRemote] = React.useState<boolean>(true)
   const [reviewBeforeStorage, setReviewBeforeStorage] = useStorage<boolean>(
     "quickIngestReviewBeforeStorage",
@@ -1352,6 +1373,22 @@ export const QuickIngestModal: React.FC<Props> = ({
     return valid.length + attachedFileStubs.length
   }, [rows, attachedFileStubs.length])
 
+  // Compute tab badge state
+  const tabBadges = React.useMemo(() => {
+    // Options modified: check if common options differ from defaults or typeDefaults differ
+    const optionsModified =
+      common.perform_analysis !== true ||
+      common.perform_chunking !== true ||
+      common.overwrite_existing !== false ||
+      Object.keys(advancedValues || {}).some((k) => advancedValues[k] != null)
+
+    return {
+      queueCount: plannedCount,
+      optionsModified,
+      isProcessing: running
+    }
+  }, [plannedCount, common, advancedValues, running])
+
   const resultById = React.useMemo(() => {
     const map = new Map<string, ResultItem>()
     for (const r of results) map.set(r.id, r)
@@ -1493,6 +1530,9 @@ export const QuickIngestModal: React.FC<Props> = ({
     lastFileLookupRef.current = null
     lastFileIdByInstanceIdRef.current = null
     clearFailure()
+
+    // Increment runNonce to trigger auto-switch to results tab
+    setRunNonce(n => n + 1)
 
     const missingFileCount = missingFileStubs.length
     if (missingFileCount > 0) {
@@ -3039,7 +3079,15 @@ export const QuickIngestModal: React.FC<Props> = ({
     >
       {contextHolder}
       <div className="relative" data-state={modalReady ? 'ready' : 'loading'}>
+      {/* Tab Navigation */}
+      <QuickIngestTabs
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        badges={tabBadges}
+      />
+
       <Space direction="vertical" className="w-full">
+        {/* Connection/Onboarding banners shown on all tabs */}
         {!isOnlineForIngest && connectionBannerTitle && (
           <div className="rounded-md border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
             <div className="font-medium">{connectionBannerTitle}</div>
@@ -3171,6 +3219,10 @@ export const QuickIngestModal: React.FC<Props> = ({
             </div>
           </div>
         )}
+
+        {/* QUEUE TAB CONTENT */}
+        {activeTab === 'queue' && (
+        <React.Fragment>
         <div className="flex flex-col gap-1">
           <Typography.Text strong>{t('quickIngest.howItWorks', 'How this works')}</Typography.Text>
           <Typography.Paragraph type="secondary" className="!mb-1 text-sm text-text-muted">
@@ -3586,7 +3638,12 @@ export const QuickIngestModal: React.FC<Props> = ({
               )}
             </div>
           </div>
+        </div>
+        </React.Fragment>
+        )}
 
+        {/* OPTIONS TAB CONTENT */}
+        {activeTab === 'options' && (
           <React.Suspense fallback={null}>
             <IngestOptionsPanel
               qi={qi}
@@ -3624,8 +3681,11 @@ export const QuickIngestModal: React.FC<Props> = ({
               onClose={onClose}
             />
           </React.Suspense>
-        </div>
+        )}
 
+        {/* Inspector drawer glow and drawer - visible when queue tab active */}
+        {activeTab === 'queue' && (
+        <React.Fragment>
         <div
           aria-hidden
           className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ease-out ${inspectorOpen && (selectedRow || selectedFileStub) ? 'opacity-100' : 'opacity-0'}`}
@@ -3650,7 +3710,11 @@ export const QuickIngestModal: React.FC<Props> = ({
           formatBytes={formatBytes}
           onReattachFile={handleReattachSelectedFile}
         />
+        </React.Fragment>
+        )}
 
+        {/* Advanced options - visible when options tab active */}
+        {activeTab === 'options' && (
         <Collapse
           className="mt-3"
           activeKey={advancedOpen ? ['adv'] : []}
@@ -4047,7 +4111,10 @@ export const QuickIngestModal: React.FC<Props> = ({
             </Space>
           )
         }]} />
+        )}
 
+        {/* RESULTS TAB CONTENT */}
+        {activeTab === 'results' && (
         <React.Suspense fallback={null}>
           <ResultsPanel
             data={{
@@ -4083,6 +4150,7 @@ export const QuickIngestModal: React.FC<Props> = ({
             i18n={{ qi, t }}
           />
         </React.Suspense>
+        )}
       </Space>
       </div>
     </Modal>

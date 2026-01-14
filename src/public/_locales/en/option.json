@@ -2584,5 +2584,35 @@
   },
   "quickIngest_videoOptionsDisabled": {
     "message": "(add video to enable)"
+  },
+  "quickIngest_tabs_queue": {
+    "message": "Queue"
+  },
+  "quickIngest_tabs_options": {
+    "message": "Options"
+  },
+  "quickIngest_tabs_results": {
+    "message": "Results"
+  },
+  "quickIngest_tabs_ariaLabel": {
+    "message": "Quick Ingest sections"
+  },
+  "quickIngest_tabs_queueAria": {
+    "message": "Queue tab"
+  },
+  "quickIngest_tabs_queueAriaWithCount": {
+    "message": "Queue tab, {{count}} items"
+  },
+  "quickIngest_tabs_optionsAria": {
+    "message": "Options tab"
+  },
+  "quickIngest_tabs_optionsAriaModified": {
+    "message": "Options tab, settings modified"
+  },
+  "quickIngest_tabs_resultsAria": {
+    "message": "Results tab"
+  },
+  "quickIngest_tabs_resultsAriaProcessing": {
+    "message": "Results tab, processing in progress"
   }
 }

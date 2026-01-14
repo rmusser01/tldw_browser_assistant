@@ -43,3 +43,20 @@ export type ResultFilters = {
 }
 
 export type ResultsFilter = ResultFilters[keyof ResultFilters]
+
+/**
+ * Tab identifiers for the Quick Ingest modal.
+ */
+export type QuickIngestTab = "queue" | "options" | "results"
+
+/**
+ * Badge state for tab indicators.
+ */
+export type TabBadgeState = {
+  /** Number of items in queue (for Queue tab) */
+  queueCount: number
+  /** Whether options have been modified from defaults (for Options tab) */
+  optionsModified: boolean
+  /** Whether processing is currently running (for Results tab) */
+  isProcessing: boolean
+}
