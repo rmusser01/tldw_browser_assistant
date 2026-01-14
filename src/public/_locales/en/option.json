@@ -78,10 +78,13 @@
     "message": "Go to server card"
   },
   "connectionCard_tipQuickIngest": {
-    "message": "Tip: Need ingest help while you’re offline?"
+    "message": "Tip: Need help connecting Quick Ingest?"
+  },
+  "connectionCard_quickIngestHelpInline": {
+    "message": "Tip: The ? icon reopens the Quick Ingest intro."
   },
   "connectionCard_quickIngestHint": {
-    "message": "When your server is offline, Quick Ingest works as a staging area. You can queue URLs and files now and process them once you reconnect."
+    "message": "Quick Ingest requires a server connection. Connect to add URLs and files."
   },
   "connectionCard_backToWorkspace": {
     "message": "Back to workspace"
@@ -90,7 +93,7 @@
     "message": "Settings open in a new browser tab so you can configure your tldw server."
   },
   "connectionCard_quickIngestInlineHint": {
-    "message": "Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect."
+    "message": "Quick Ingest requires a server connection. Connect to add URLs and files."
   },
   "buttonRetry": {
     "message": "Retry connection"
@@ -501,28 +504,28 @@
     "message": "Enter one or more URLs. Force type per row if needed."
   },
   "quickIngest_offlineTitle": {
-    "message": "Server offline — staging only"
+    "message": "Server offline — connection required"
   },
   "quickIngest_offlineDescription": {
-    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
+    "message": "Connect your server to run ingest."
   },
   "quickIngest_unconfiguredTitle": {
-    "message": "Server not configured — queue only"
+    "message": "Server not configured"
   },
   "quickIngest_unconfiguredDescription": {
-    "message": "You can queue URLs and files now; ingestion will run after you configure a server URL and API key under Settings → tldw server."
+    "message": "Configure your server URL and API key under Settings → tldw server to run ingest."
   },
   "quickIngest_offlineBypassTitle": {
-    "message": "Offline mode enabled — queue only"
+    "message": "Offline mode enabled"
   },
   "quickIngest_offlineBypassDescription": {
-    "message": "Items are staged here and will process once you disable offline mode or re-enable live server checks."
+    "message": "Connect to your server to run ingest."
   },
   "quickIngest_checkingTitle": {
     "message": "Checking server connection…"
   },
   "quickIngest_checkingDescription": {
-    "message": "We're checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
+    "message": "Checking your tldw server before running ingest. Inputs are disabled until we confirm the connection."
   },
   "quickIngest_sourceHeading": {
     "message": "Source URLs or files"
@@ -690,10 +693,10 @@
     "message": "Offline mode enabled: items are staged here and will process once you disable offline mode."
   },
   "quickIngest_offlineFooter": {
-    "message": "Can’t reach your server. Items are staged here and will process once your server reconnects."
+    "message": "Cannot reach your server. Connect to run ingest."
   },
   "quickIngest_unconfiguredFooter": {
-    "message": "Can’t reach your server. Items are staged here and will process after you configure a server URL and API key under Settings → tldw server."
+    "message": "Server not configured. Configure your server URL and API key under Settings → tldw server to run ingest."
   },
   "quickIngest_offlineBypassFooter": {
     "message": "Can’t reach your server. Items are staged here and will process once you disable offline mode."
@@ -741,10 +744,16 @@
     "message": "Running quick ingest — processing {{done}} / {{total}} items…"
   },
   "quickIngest_pendingLabel": {
-    "message": "Pending — will run when connected"
+    "message": "Not connected — reconnect to run."
   },
   "quickIngest_pendingUnconfigured": {
-    "message": "Pending — will run after you configure a server."
+    "message": "Not connected — configure your server to run."
+  },
+  "quickIngest_queueBlocked": {
+    "message": "Connect to your server to add items."
+  },
+  "quickIngest_urlsAdded": {
+    "message": "Added {{count}} URL(s) to the queue."
   },
   "quickIngest_pendingOfflineBypass": {
     "message": "Pending — will run when offline mode is disabled."
@@ -867,7 +876,7 @@
     "message": "Open Inspector"
   },
   "quickIngest_queueDescription": {
-    "message": "Staged items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention."
+    "message": "Queued items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention."
   },
   "quickIngest_statusDone": {
     "message": "Done"

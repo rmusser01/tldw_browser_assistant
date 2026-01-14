@@ -51,7 +51,6 @@ type OptionsTabProps = {
   totalCount: number
   plannedCount: number
   progressMeta: ProgressMeta
-  showProcessQueuedButton: boolean
   run: () => void
   hasMissingFiles: boolean
   missingFileCount: number
@@ -59,24 +58,29 @@ type OptionsTabProps = {
     | "online"
     | "offline"
     | "unconfigured"
-    | "offlineBypass"
     | "unknown"
   checkOnce?: () => Promise<void> | void
-  disableOfflineBypass?: () => Promise<void>
   onClose: () => void
+  isActive?: boolean
 }
 
-export const OptionsTab: React.FC<OptionsTabProps> = (props) => {
+export const OptionsTab: React.FC<OptionsTabProps> = ({
+  isActive = true,
+  ...props
+}) => {
   return (
     <div
       role="tabpanel"
       id="quick-ingest-panel-options"
       aria-labelledby="quick-ingest-tab-options"
       className="py-3"
+      hidden={!isActive}
     >
-      <React.Suspense fallback={null}>
-        <IngestOptionsPanel {...props} />
-      </React.Suspense>
+      {isActive ? (
+        <React.Suspense fallback={null}>
+          <IngestOptionsPanel {...props} />
+        </React.Suspense>
+      ) : null}
     </div>
   )
 }

@@ -134,18 +134,45 @@ src/components/Common/QuickIngest/
 - Cursor not-allowed
 - Informative message
 
+### Disabled State (Server Offline)
+
+When `!isOnlineForIngest` (server unreachable or offline mode enabled):
+
+```
++--------------------------------------------------+
+|     ┌─────────────────────────────────────┐      |
+|     │                                     │      |
+|     │    🔌 Server not connected          │      |
+|     │    Connect to add files             │      |
+|     │                                     │      |
+|     └─────────────────────────────────────┘      |
++--------------------------------------------------+
+```
+
+- Grayed out (`opacity-50`)
+- Shows connection-related message
+- Aligns with existing `disabled={running || !isOnlineForIngest}` pattern (line 3321)
+
 ---
 
 ## Technical Implementation
 
 ### Dependency Decision
 
-**Recommendation:** Use `react-dropzone` library.
+**Recommendation:** Use native implementation (matching existing codebase pattern).
+
+The codebase already has a working drag-drop implementation in `src/components/Flashcards/components/FileDropZone.tsx` (132 lines) that uses native browser APIs with a drag counter pattern to prevent flickering.
 
 | Approach | Pros | Cons |
 |----------|------|------|
-| `react-dropzone` | Battle-tested, handles edge cases, good a11y | +15KB bundle |
-| Native implementation | No dependency | Browser inconsistencies, more code to maintain |
+| **Native (Recommended)** | No new dependency, matches existing codebase pattern, proven in Flashcards | More code than react-dropzone |
+| `react-dropzone` | Battle-tested, good a11y built-in | +15KB bundle, new dependency |
+
+**Reference implementation:** `src/components/Flashcards/components/FileDropZone.tsx`
+- Drag counter pattern (prevents flickering on nested elements)
+- `isDragging` state for visual feedback
+- Size and type validation
+- Click-to-browse fallback
 
 ### Component Implementation
 
@@ -162,15 +189,12 @@ interface FileDropZoneProps {
   className?: string
 }
 
-const ACCEPTED_TYPES = {
-  'application/pdf': ['.pdf'],
-  'audio/*': ['.mp3', '.wav', '.m4a', '.flac', '.ogg', '.aac'],
-  'video/*': ['.mp4', '.webm', '.mov', '.mkv', '.avi'],
-  'application/msword': ['.doc'],
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-  'text/*': ['.txt', '.md', '.csv'],
-  'application/epub+zip': ['.epub']
-}
+// Matches QuickIngestModal.tsx:3296
+const ACCEPTED_EXTENSIONS = '.pdf,.txt,.rtf,.doc,.docx,.md,.epub'
+const ACCEPTED_MIME_TYPES = 'application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*'
+
+// Combined accept string for file input
+const ACCEPT_STRING = `${ACCEPTED_EXTENSIONS},${ACCEPTED_MIME_TYPES}`
 
 const MAX_FILE_SIZE = 500 * 1024 * 1024 // 500MB
 
@@ -278,41 +302,24 @@ const handleFilesRejected = (rejections: FileRejection[]) => {
 
 ### Duplicate Detection
 
+**Note:** The existing `addLocalFiles()` function in `QuickIngestModal.tsx:2605-2700` already handles duplicate detection using a file key composed of `name::size::lastModified`. The FileDropZone should call this existing handler rather than reimplementing duplicate logic.
+
 ```typescript
-// In QueueTab.tsx
-const handleFilesAdded = (newFiles: File[]) => {
-  const duplicates: string[] = []
-  const filesToAdd: File[] = []
+// Existing pattern in QuickIngestModal.tsx:161-173
+const buildLocalFileKey = (file: File) =>
+  `${file.name}::${file.size}::${file.lastModified}`
 
-  for (const file of newFiles) {
-    const isDuplicate = queuedItems.some(
-      item => item.type === 'file' &&
-              item.file.name === file.name &&
-              item.file.size === file.size
-    )
-    if (isDuplicate) {
-      duplicates.push(file.name)
-    } else {
-      filesToAdd.push(file)
-    }
-  }
-
-  // Add non-duplicate files
-  if (filesToAdd.length > 0) {
-    addFilesToQueue(filesToAdd)
-  }
-
-  // Warn about duplicates
-  if (duplicates.length > 0) {
-    toast.warning(
-      duplicates.length === 1
-        ? `${duplicates[0]} is already in queue`
-        : `${duplicates.length} files already in queue`,
-      { description: duplicates.length > 1 ? duplicates.join(', ') : undefined }
-    )
-  }
+// FileDropZone simply passes files to the existing handler:
+const handleDrop = (acceptedFiles: File[]) => {
+  addLocalFiles(acceptedFiles)  // Uses existing dedup logic
 }
 ```
+
+The existing `addLocalFiles()` function handles:
+- Duplicate detection via `buildLocalFileKey()` (name + size + lastModified)
+- WeakMap-based file identity tracking via `getFileInstanceId()`
+- Queue state management
+- Type defaults snapshot for each file
 
 ---
 
@@ -337,7 +344,7 @@ const handleFilesAdded = (newFiles: File[]) => {
 - [ ] Disabled appearance while processing
 - [ ] Do not interfere with URL paste input
 - [ ] Dropped files added to queue exactly once
-- [ ] Duplicate files (same name+size) show warning toast instead of adding
+- [ ] Duplicate files (same name+size+lastModified) handled by existing `addLocalFiles()`
 - [ ] Visual feedback for drag enter/leave
 - [ ] Works in Chrome, Firefox, Edge
 - [ ] Keyboard accessible via click-to-browse
@@ -349,10 +356,10 @@ const handleFilesAdded = (newFiles: File[]) => {
 
 | Risk | Mitigation |
 |------|------------|
-| Browser drag event inconsistencies | Use react-dropzone (handles edge cases) |
+| Browser drag event flickering | Use drag counter pattern (proven in `Flashcards/FileDropZone.tsx`) |
 | Noisy rejection messages for many files | Aggregate errors: "3 files rejected" with expandable details |
 | Conflicts with URL input area | Clear visual separation; drop zone has distinct boundaries |
-| Large file performance | Show upload progress indicator if browser supports it |
+| Large file performance | Server enforces 500MB limit; show size error before upload |
 | Mobile/touch devices | Drop zone degrades to click-only (touch drag-drop is rare) |
 
 ---
@@ -362,10 +369,11 @@ const handleFilesAdded = (newFiles: File[]) => {
 1. **Happy Path:** User drags 3 valid files into drop zone → all 3 appear in queue
 2. **Mixed Files:** User drags 2 valid + 1 invalid file → 2 added, 1 rejection toast
 3. **Oversized File:** User drags 600 MB file → rejection with "exceeds 500 MB limit"
-4. **Duplicate File:** User drops file already in queue → warning toast "file.pdf is already in queue"
-5. **During Processing:** User tries to drop files while processing → drop ignored, message shown
-6. **Keyboard Flow:** User tabs to drop zone → presses Enter → file picker opens
-7. **Screen Reader:** Focus on drop zone announces purpose and instructions
+4. **Duplicate File:** User drops file already in queue → handled by existing `addLocalFiles()` dedup logic
+5. **During Processing:** User tries to drop files while `running=true` → drop ignored, "Processing" message shown
+6. **Server Offline:** User tries to drop files when `!isOnlineForIngest` → drop ignored, "Connect to server" message shown
+7. **Keyboard Flow:** User tabs to drop zone → presses Enter → file picker opens
+8. **Screen Reader:** Focus on drop zone announces purpose and instructions
 
 ---
 
@@ -373,11 +381,12 @@ const handleFilesAdded = (newFiles: File[]) => {
 
 ### Manual Testing
 
-- [ ] Drag valid files (PDF, MP3, MP4, DOCX) → verify queued
-- [ ] Drag invalid files (.exe, .zip) → verify rejection message
-- [ ] Drag oversized file → verify size limit message
-- [ ] Drag duplicate file (same name+size already queued) → verify warning toast
-- [ ] Drag during processing → verify disabled state
+- [ ] Drag valid files (PDF, TXT, RTF, DOCX, MD, EPUB, audio, video) → verify queued
+- [ ] Drag invalid files (.exe, .zip, .csv) → verify rejection message
+- [ ] Drag oversized file (>500MB) → verify size limit message
+- [ ] Drag duplicate file (same name+size+lastModified) → handled by `addLocalFiles()`
+- [ ] Drag during processing (`running=true`) → verify "Processing" disabled state
+- [ ] Drag when server offline (`!isOnlineForIngest`) → verify "Connect to server" disabled state
 - [ ] Click drop zone → verify file picker opens
 - [ ] Tab to drop zone → verify focus ring visible
 - [ ] Test in Chrome, Firefox, Edge
@@ -408,15 +417,29 @@ Note: Playwright doesn't support native drag-and-drop simulation well, so drag b
 
 ---
 
+## Existing Code to Integrate With
+
+This enhancement builds on existing code. Key integration points:
+
+| Code Location | Purpose | Integration Notes |
+|---------------|---------|-------------------|
+| `QuickIngestModal.tsx:2605-2700` | `addLocalFiles()` function | Call this to add files - handles dedup, identity, queue state |
+| `QuickIngestModal.tsx:2759-2767` | `handleFileDrop()` handler | Existing drop handler - can be enhanced or replaced |
+| `QuickIngestModal.tsx:3305-3334` | Current drop zone div | Replace with new FileDropZone component |
+| `QuickIngestModal.tsx:3296` | Accept string for file input | Use same accept string for consistency |
+| `QuickIngestModal.tsx:3321` | Disabled condition | Use `running \|\| !isOnlineForIngest` |
+| `Flashcards/FileDropZone.tsx` | Reference implementation | Copy drag counter pattern from here |
+
+---
+
 ## Files to Create/Modify
 
 | File | Action |
 |------|--------|
-| `package.json` | Add `react-dropzone` dependency |
-| `src/components/Common/QuickIngest/QueueTab/FileDropZone.tsx` | Create new component |
-| `src/components/Common/QuickIngest/QueueTab/QueueTab.tsx` | Import and use FileDropZone |
-| `src/assets/locale/en/quick-ingest.json` | Add i18n strings for drop zone messages |
-| `tests/e2e/quick-ingest-dropzone.spec.ts` | Add E2E tests |
+| `src/components/Common/QuickIngest/QueueTab/FileDropZone.tsx` | **CREATE** - New component with drag counter pattern |
+| `src/components/Common/QuickIngestModal.tsx` | **MODIFY** - Import FileDropZone, replace lines 3305-3334 |
+| `src/assets/locale/en/option.json` | **MODIFY** - Add i18n keys for new states (some exist: `qi('dragAndDrop')`) |
+| `tests/e2e/quick-ingest-dropzone.spec.ts` | **CREATE** - Add E2E tests for file picker flow |
 
 ---
 
@@ -429,15 +452,21 @@ Note: Playwright doesn't support native drag-and-drop simulation well, so drag b
 ## Design Decisions
 
 1. **Tab drag behavior:** Drop only works on Queue tab. Dragging over Options/Results tabs is ignored (simplest implementation).
-2. **Duplicate detection:** Show warning toast ("file.pdf is already in queue") when user tries to add a file with matching name+size.
+2. **Duplicate detection:** Defer to existing `addLocalFiles()` which uses `name::size::lastModified` key via `buildLocalFileKey()`.
 3. **Batch rejection UX:** Aggregate errors: "3 files rejected" with expandable details in toast.
+4. **Disabled condition:** Must use `running || !isOnlineForIngest` to match existing button behavior (line 3321).
 
 ---
 
 ## Dependencies
 
-- `react-dropzone` (~15KB gzipped) - handles cross-browser drag-and-drop edge cases
-- Existing: `lucide-react` for FileIcon, toast system for notifications
+**No new dependencies required** (using native implementation pattern from Flashcards).
+
+Existing dependencies used:
+- `lucide-react` - for Upload/FileIcon
+- `antd` - for Button component
+- Toast system - for rejection/duplicate messages
+- `react-i18next` - for i18n
 
 ## Scope
 

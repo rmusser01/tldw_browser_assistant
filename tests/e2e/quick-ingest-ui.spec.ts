@@ -132,7 +132,7 @@ test.describe('Quick ingest modal', () => {
     await context.close()
   })
 
-  test('offline mode shows staging banner and pending tags', async () => {
+  test('not connected state disables queueing', async () => {
     const { context, page, optionsUrl } = await launchWithBuiltExtension({
       allowOffline: true
     })
@@ -148,65 +148,29 @@ test.describe('Quick ingest modal', () => {
     const modal = page.locator('.quick-ingest-modal .ant-modal-content')
     await expect(modal).toBeVisible()
 
-    // Offline banner explains staging-only behavior.
     await expect(
-      modal.getByText(/Server offline — staging only/i)
+      modal.getByText(/Not connected to server/i)
     ).toBeVisible()
     await expect(
-      modal.getByText(/Check server health in Health & diagnostics/i)
+      modal.getByText(/Inputs are disabled until connected/i)
     ).toBeVisible()
 
-    // Add a URL while offline; queued rows should show a pending status.
     const urlInput = page
       .getByLabel(/Paste URLs input/i)
       .or(page.getByPlaceholder(/https:\/\/example\.com/i))
       .first()
-    await urlInput.click()
-    await urlInput.fill('https://example.com')
-    await page.getByRole('button', { name: /Add URLs/i }).click()
-
-    const row = page.getByText('https://example.com').first()
-    await expect(row).toBeVisible()
+    await expect(urlInput).toBeDisabled()
 
     await expect(
-      modal.getByText(/Pending — will run when connected/i)
-    ).toBeVisible()
-
-    // Header quick-ingest trigger should indicate queued items.
+      page.getByRole('button', { name: /Add URLs/i })
+    ).toBeDisabled()
     await expect(
-      ingestButton
-    ).toHaveAttribute("data-has-queued-ingest", "true")
-
-    // Primary action switches to an explicit offline label.
-    const offlineAction = modal.getByRole('button', {
-      name: /Queue only \u2014 server offline/i
-    })
-    await expect(offlineAction).toBeVisible()
-    await offlineAction.click()
+      page.getByRole('button', { name: /Browse files/i })
+    ).toBeDisabled()
     await expect(
-      modal.getByText(/Offline mode: items are queued here until your server is back online\./i)
-    ).toBeVisible()
+      page.getByRole('button', { name: /Paste URLs from clipboard/i })
+    ).toBeDisabled()
 
-    // Simulate the server coming back online; queued items should be processable.
-    await page.evaluate(async () => {
-      const w: any = window
-      if (typeof w.__tldw_disableOfflineBypass === "function") {
-        await w.__tldw_disableOfflineBypass()
-      }
-    })
-    await waitForConnectionStore(page, 'quick-ingest-modal-reconnect')
-    await forceConnected(
-      page,
-      { offlineBypass: false },
-      'quick-ingest-modal-reconnect'
-    )
-
-    await expect(
-      modal.getByRole('button', { name: /Process queued items/i })
-    ).toBeVisible()
-    await modal.getByRole('button', { name: /Process queued items/i }).click()
-
-    // After processing queued items, the badge should clear.
     await expect(ingestButton).toHaveAttribute(
       "data-has-queued-ingest",
       "false"
@@ -215,7 +179,7 @@ test.describe('Quick ingest modal', () => {
     await context.close()
   })
 
-  test('header CTA processes queued items after reconnection', async () => {
+  test('reconnection enables queueing', async () => {
     const { context, page, optionsUrl } = await launchWithBuiltExtension({
       allowOffline: true
     })
@@ -235,59 +199,17 @@ test.describe('Quick ingest modal', () => {
       .getByLabel(/Paste URLs input/i)
       .or(page.getByPlaceholder(/https:\/\/example\.com/i))
       .first()
-    await urlInput.click()
+    await expect(urlInput).toBeDisabled()
+
+    await waitForConnectionStore(page, 'quick-ingest-header-reconnect')
+    await forceConnected(page, {}, 'quick-ingest-header-reconnect')
+
+    await expect(urlInput).toBeEnabled()
+
     await urlInput.fill('https://example.com')
     await page.getByRole('button', { name: /Add URLs/i }).click()
 
-    await expect(
-      modal.getByText(/Pending — will run when connected/i)
-    ).toBeVisible()
-
-    // Close the modal; queued badge should remain set.
-    await page
-      .getByRole('button', { name: /Close quick ingest/i })
-      .click()
-
-    await expect(ingestButton).toHaveAttribute(
-      'data-has-queued-ingest',
-      'true'
-    )
-
-    // Header Quick Ingest aria-label should mention queued items.
-    await expect(ingestButton).toHaveAttribute(
-      'aria-label',
-      /items queued — click to review and process/i
-    )
-
-    // Simulate the server coming back online so queued items are processable.
-    await page.evaluate(async () => {
-      const w: any = window
-      if (typeof w.__tldw_disableOfflineBypass === 'function') {
-        await w.__tldw_disableOfflineBypass()
-      }
-    })
-    await waitForConnectionStore(page, 'quick-ingest-header-reconnect')
-    await forceConnected(
-      page,
-      { offlineBypass: false },
-      'quick-ingest-header-reconnect'
-    )
-
-    // Global CTA near the header button should be visible.
-    const processCta = page.getByTestId('process-queued-ingest-header')
-    await expect(processCta).toBeVisible()
-
-    await processCta.click()
-
-    // Modal should reopen and queued items should be processed, clearing the badge.
-    await expect(
-      page.locator('.quick-ingest-modal .ant-modal-content')
-    ).toBeVisible()
-
-    await expect(ingestButton).toHaveAttribute(
-      'data-has-queued-ingest',
-      'false'
-    )
+    await expect(page.getByText('https://example.com').first()).toBeVisible()
 
     await context.close()
   })

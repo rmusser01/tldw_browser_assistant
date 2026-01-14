@@ -13,6 +13,7 @@ type QueuedFileRowProps = {
   pendingTag?: React.ReactNode
   processingIndicator?: React.ReactNode
   running: boolean
+  queueDisabled: boolean
   showReattach: boolean
   canRetry: boolean
   qi: (key: string, defaultValue: string) => string
@@ -35,6 +36,7 @@ export const QueuedFileRow = React.memo(
     pendingTag,
     processingIndicator,
     running,
+    queueDisabled,
     showReattach,
     canRetry,
     qi,
@@ -45,7 +47,9 @@ export const QueuedFileRow = React.memo(
     onRetry,
     onRemove
   }: QueuedFileRowProps) => {
-  return (
+    const actionDisabled = running || queueDisabled
+
+    return (
     <div
       className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${
         isSelected ? "border-primary shadow-sm" : "border-border"
@@ -112,7 +116,7 @@ export const QueuedFileRow = React.memo(
               event.stopPropagation()
               onReattach()
             }}
-            disabled={running}
+            disabled={actionDisabled}
             aria-label={qi("reattachFileAria", "Reattach this file")}
             title={qi("reattachFileAria", "Reattach this file")}
           >
@@ -126,7 +130,7 @@ export const QueuedFileRow = React.memo(
               event.stopPropagation()
               onRetry()
             }}
-            disabled={running}
+            disabled={actionDisabled}
             aria-label={qi("retryItemAria", "Retry this item")}
             title={qi("retryItemAria", "Retry this item")}
           >

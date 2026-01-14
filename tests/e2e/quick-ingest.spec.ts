@@ -86,11 +86,9 @@ test.describe('Quick Ingest UX smoke (extension context)', () => {
         // Wait for modal content (root may briefly stay hidden)
         await expect(page.locator('.quick-ingest-modal')).not.toHaveAttribute('hidden', 'true', { timeout: 10_000 })
         await expect(page.locator('.quick-ingest-modal [data-state="ready"]')).toBeVisible({ timeout: 10_000 })
-        // Wait for offline banner to clear or ingest button to lose "server offline" text
-        const offlineBanner = page.getByText(/server offline — staging only/i).first()
-        await offlineBanner.waitFor({ state: 'hidden', timeout: 10_000 }).catch(() => {})
-        const ingestBtn = page.getByRole('button', { name: /ingest|process/i }).first()
-        await expect(ingestBtn).not.toHaveText(/server offline/i, { timeout: 10_000 })
+        // Wait for not-connected banner to clear (if it appears)
+        const notConnectedBanner = page.getByText(/Not connected to server/i).first()
+        await notConnectedBanner.waitFor({ state: 'hidden', timeout: 10_000 }).catch(() => {})
       } catch {
         // allow skip when the trigger selector is missing in this view
         test.skip(true, 'Quick Ingest trigger not found on options page; adjust selector or open manually.')

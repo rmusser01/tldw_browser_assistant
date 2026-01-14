@@ -1605,7 +1605,7 @@
     "message": "Open Inspector"
   },
   "quickIngest_queueDescription": {
-    "message": "Staged items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention."
+    "message": "Queued items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention."
   },
   "quickIngest_statusDone": {
     "message": "Done"

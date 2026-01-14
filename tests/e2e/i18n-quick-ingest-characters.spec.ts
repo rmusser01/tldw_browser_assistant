@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test"
 import { launchWithBuiltExtension } from "./utils/extension-build"
+import { forceErrorUnreachable, waitForConnectionStore } from "./utils/connection"
 import { grantHostPermission } from "./utils/permissions"
 import { requireRealServerConfig } from "./utils/real-server"
 
 test.describe('i18n smoke test for Quick Ingest & Characters', () => {
-  test('non-English locale loads Quick Ingest hint and None character option', async () => {
+  test('non-English locale resolves Quick Ingest hint and None character option', async () => {
     const { serverUrl, apiKey } = requireRealServerConfig(test)
 
     const { context, page, extensionId, optionsUrl } =
@@ -36,17 +37,23 @@ test.describe('i18n smoke test for Quick Ingest & Characters', () => {
     })
     await page.reload()
 
-    // Connection card: Quick Ingest inline hint should resolve to a real string,
-    // not a missing key literal.
-    const inlineHint = page.getByText(
-      /Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect\./i
+    await waitForConnectionStore(page, 'i18n-quick-ingest-hint')
+    await forceErrorUnreachable(
+      page,
+      { serverUrl },
+      'i18n-quick-ingest-hint'
     )
-    await expect(inlineHint).toBeVisible()
 
-    // Sanity check: the missing-key literal should not be present.
-    await expect(
-      page.getByText(/option:connectionCard\.quickIngestInlineHint/i)
-    ).toHaveCount(0)
+    // Open troubleshooting options so the hint is visible.
+    const advancedToggle = page.getByTestId('toggle-advanced-troubleshooting')
+    await expect(advancedToggle).toBeVisible()
+    await advancedToggle.click()
+
+    const inlineHint = page.getByTestId('connection-card-quick-ingest-hint')
+    await expect(inlineHint).toBeVisible()
+    await expect(inlineHint).not.toHaveText(
+      /option:connectionCard\.quickIngestInlineHint/i
+    )
 
     // Open the Playground and verify the Characters selector shows localized search
     // and a "None" option without missing-key literals.

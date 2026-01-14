@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom"
 import { browser } from "wxt/browser"
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { QuickIngestTabs } from "./QuickIngest/QuickIngestTabs"
+import { QueueTab } from "./QuickIngest/QueueTab/QueueTab"
+import { OptionsTab } from "./QuickIngest/OptionsTab/OptionsTab"
+import { ResultsTab } from "./QuickIngest/ResultsTab/ResultsTab"
+import { ProcessButton } from "./QuickIngest/shared/ProcessButton"
 import type { QuickIngestTab } from "./QuickIngest/types"
 import { MEDIA_ADD_SCHEMA_FALLBACK, MEDIA_ADD_SCHEMA_FALLBACK_VERSION } from '@/services/tldw/fallback-schemas'
 import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star, X } from 'lucide-react'
@@ -21,7 +25,6 @@ import {
 import { useConnectionActions, useConnectionState } from '@/hooks/useConnectionState'
 import { useQuickIngestStore } from "@/store/quick-ingest"
 import { ConnectionPhase } from "@/types/connection"
-import { cleanUrl } from "@/libs/clean-url"
 import { detectSections } from "@/utils/content-review"
 import {
   DRAFT_STORAGE_CAP_BYTES,
@@ -192,17 +195,6 @@ const QueuedFileRow = React.lazy(() =>
     default: m.QueuedFileRow
   }))
 )
-const IngestOptionsPanel = React.lazy(() =>
-  import("./QuickIngest/IngestOptionsPanel").then((m) => ({
-    default: m.IngestOptionsPanel
-  }))
-)
-const ResultsPanel = React.lazy(() =>
-  import("./QuickIngest/ResultsPanel").then((m) => ({
-    default: m.ResultsPanel
-  }))
-)
-
 const createEmptyRow = (): Entry => ({
   id: crypto.randomUUID(),
   url: '',
@@ -558,21 +550,16 @@ export const QuickIngestModal: React.FC<Props> = ({
       introToast.current = true
     }
   }, [messageApi, qi, setInspectorIntroDismissed])
-  const { phase, isConnected, offlineBypass, serverUrl, errorKind } =
-    useConnectionState()
-  const { checkOnce, disableOfflineBypass } = useConnectionActions?.() || {}
+  const { phase, isConnected, serverUrl } = useConnectionState()
+  const { checkOnce } = useConnectionActions?.() || {}
 
   type IngestConnectionStatus =
     | "online"
     | "offline"
     | "unconfigured"
-    | "offlineBypass"
     | "unknown"
 
   const ingestConnectionStatus: IngestConnectionStatus = React.useMemo(() => {
-    if (offlineBypass) {
-      return "offlineBypass"
-    }
     if (phase === ConnectionPhase.UNCONFIGURED) {
       return "unconfigured"
     }
@@ -589,22 +576,13 @@ export const QuickIngestModal: React.FC<Props> = ({
       return "offline"
     }
     return "unknown"
-  }, [phase, isConnected, offlineBypass])
-  const ingestHost = React.useMemo(
-    () => (serverUrl ? cleanUrl(serverUrl) : "tldw_server"),
-    [serverUrl]
-  )
-
+  }, [phase, isConnected])
   const ingestBlocked = ingestConnectionStatus !== "online"
-  const ingestBlockedPrevRef = React.useRef(ingestBlocked)
-  const hadOfflineQueuedRef = React.useRef(false)
-  const { setQueuedCount, clearQueued, markFailure, clearFailure } =
-    useQuickIngestStore((s) => ({
-      setQueuedCount: s.setQueuedCount,
-      clearQueued: s.clearQueued,
-      markFailure: s.markFailure,
-      clearFailure: s.clearFailure
-    }))
+  const { markFailure, clearFailure, setQueuedCount } = useQuickIngestStore((s) => ({
+    markFailure: s.markFailure,
+    clearFailure: s.clearFailure,
+    setQueuedCount: s.setQueuedCount
+  }))
   const [lastRunError, setLastRunError] = React.useState<string | null>(null)
   const [draftCreationError, setDraftCreationError] = React.useState<string | null>(null)
   const [draftCreationRetrying, setDraftCreationRetrying] = React.useState(false)
@@ -1172,6 +1150,12 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   const addUrlsFromInput = React.useCallback(
     (text: string) => {
+      if (ingestBlocked) {
+        messageApi.warning(
+          qi("queueBlocked", "Connect to your server to add items.")
+        )
+        return
+      }
       const parts = text
         .split(/[\n,]+/)
         .map((s) => s.trim())
@@ -1184,9 +1168,13 @@ export const QuickIngestModal: React.FC<Props> = ({
       setPendingUrlInput('')
       setSelectedRowId(entries[0].id)
       setSelectedFileId(null)
-      messageApi.success(`Added ${entries.length} URL${entries.length === 1 ? '' : 's'} to the queue.`)
+      messageApi.success(
+        qi("urlsAdded", "Added {{count}} URL(s) to the queue.", {
+          count: entries.length
+        })
+      )
     },
-    [buildRowEntry, messageApi]
+    [buildRowEntry, ingestBlocked, messageApi, qi]
   )
 
   const clearAllQueues = React.useCallback(() => {
@@ -1373,6 +1361,31 @@ export const QuickIngestModal: React.FC<Props> = ({
     return valid.length + attachedFileStubs.length
   }, [rows, attachedFileStubs.length])
 
+  React.useEffect(() => {
+    const queuedUrls = rows.filter((r) => r.url.trim().length > 0).length
+    const queuedFiles = queuedFileStubs.length
+    setQueuedCount(queuedUrls + queuedFiles)
+  }, [queuedFileStubs.length, rows, setQueuedCount])
+
+  const hasTypeDefaultChanges = React.useMemo(() => {
+    const baselineAudio = DEFAULT_TYPE_DEFAULTS.audio
+    const baselineDocument = DEFAULT_TYPE_DEFAULTS.document
+    const baselineVideo = DEFAULT_TYPE_DEFAULTS.video
+    const currentAudio = normalizedTypeDefaults.audio
+    const currentDocument = normalizedTypeDefaults.document
+    const currentVideo = normalizedTypeDefaults.video
+
+    const audioChanged =
+      (currentAudio?.language ?? null) !== (baselineAudio?.language ?? null) ||
+      (currentAudio?.diarize ?? null) !== (baselineAudio?.diarize ?? null)
+    const documentChanged =
+      (currentDocument?.ocr ?? true) !== (baselineDocument?.ocr ?? true)
+    const videoChanged =
+      (currentVideo?.captions ?? null) !== (baselineVideo?.captions ?? null)
+
+    return audioChanged || documentChanged || videoChanged
+  }, [normalizedTypeDefaults])
+
   // Compute tab badge state
   const tabBadges = React.useMemo(() => {
     // Options modified: check if common options differ from defaults or typeDefaults differ
@@ -1380,6 +1393,9 @@ export const QuickIngestModal: React.FC<Props> = ({
       common.perform_analysis !== true ||
       common.perform_chunking !== true ||
       common.overwrite_existing !== false ||
+      hasTypeDefaultChanges ||
+      reviewBeforeStorage ||
+      !storeRemote ||
       Object.keys(advancedValues || {}).some((k) => advancedValues[k] != null)
 
     return {
@@ -1387,7 +1403,15 @@ export const QuickIngestModal: React.FC<Props> = ({
       optionsModified,
       isProcessing: running
     }
-  }, [plannedCount, common, advancedValues, running])
+  }, [
+    plannedCount,
+    common,
+    advancedValues,
+    hasTypeDefaultChanges,
+    reviewBeforeStorage,
+    running,
+    storeRemote
+  ])
 
   const resultById = React.useMemo(() => {
     const map = new Map<string, ResultItem>()
@@ -1410,26 +1434,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     [resultById, results]
   )
 
-  const stagedCount = React.useMemo(() => {
-    let count = 0
-    const trimmedRows = rows.filter((r) => r.url.trim().length > 0)
-    for (const row of trimmedRows) {
-      const res = resultById.get(row.id)
-      if (!res || !res.status) {
-        count += 1
-      }
-    }
-    for (const stub of attachedFileStubs) {
-      const file = fileForStubId.get(stub.id)
-      if (!file) continue
-      const match = getResultForFile(file)
-      if (!match || !match.status) {
-        count += 1
-      }
-    }
-    return count
-  }, [rows, attachedFileStubs, fileForStubId, resultById, getResultForFile])
-
   const pendingLabel = React.useMemo(() => {
     if (!ingestBlocked) {
       return ""
@@ -1437,39 +1441,14 @@ export const QuickIngestModal: React.FC<Props> = ({
     if (ingestConnectionStatus === "unconfigured") {
       return t(
         "quickIngest.pendingUnconfigured",
-        "Pending — will run after you configure a server."
-      )
-    }
-    if (ingestConnectionStatus === "offlineBypass") {
-      return t(
-        "quickIngest.pendingOfflineBypass",
-        "Pending — will run when offline mode is disabled."
+        "Not connected — configure your server to run."
       )
     }
     return t(
       "quickIngest.pendingLabel",
-      "Pending — will run when connected."
+      "Not connected — reconnect to run."
     )
   }, [ingestBlocked, ingestConnectionStatus, t])
-
-  React.useEffect(() => {
-    if (ingestBlocked && stagedCount > 0) {
-      hadOfflineQueuedRef.current = true
-    }
-    if (ingestBlockedPrevRef.current && !ingestBlocked && stagedCount > 0) {
-      messageApi.info(
-        t(
-          "quickIngest.readyToast",
-          "Server back online — ready to process {{count}} queued items.",
-          { count: stagedCount }
-        )
-      )
-    }
-    if (!ingestBlocked && stagedCount === 0) {
-      hadOfflineQueuedRef.current = false
-    }
-    ingestBlockedPrevRef.current = ingestBlocked
-  }, [ingestBlocked, stagedCount, messageApi, t])
 
   // Mark modal as ready once we have evaluated connection state at least once
   React.useEffect(() => {
@@ -1477,23 +1456,6 @@ export const QuickIngestModal: React.FC<Props> = ({
       setModalReady(true)
     }
   }, [modalReady, ingestBlocked])
-
-  React.useEffect(() => {
-    if (hadOfflineQueuedRef.current && stagedCount > 0) {
-      setQueuedCount(stagedCount)
-    } else {
-      setQueuedCount(0)
-    }
-  }, [setQueuedCount, stagedCount])
-
-  React.useEffect(() => {
-    return () => {
-      clearQueued()
-    }
-  }, [clearQueued])
-
-  const showProcessQueuedButton =
-    !ingestBlocked && stagedCount > 0 && hadOfflineQueuedRef.current
 
   const autoProcessedRef = React.useRef(false)
 
@@ -1531,9 +1493,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     lastFileIdByInstanceIdRef.current = null
     clearFailure()
 
-    // Increment runNonce to trigger auto-switch to results tab
-    setRunNonce(n => n + 1)
-
     const missingFileCount = missingFileStubs.length
     if (missingFileCount > 0) {
       messageApi.error(
@@ -1553,14 +1512,14 @@ export const QuickIngestModal: React.FC<Props> = ({
               "quickIngest.unavailableUnconfigured",
               "Ingest unavailable \u2014 server not configured"
             )
-          : ingestConnectionStatus === "offlineBypass"
+          : ingestConnectionStatus === "unknown"
             ? t(
-                "quickIngest.unavailableOfflineBypass",
-                "Ingest unavailable \u2014 offline mode enabled"
+                "quickIngest.checkingTitle",
+                "Checking server connection\u2026"
               )
             : t(
                 "quickIngest.unavailableOffline",
-                "Ingest unavailable \u2014 server offline"
+                "Ingest unavailable \u2014 not connected"
               )
       messageApi.warning(blockedMessage)
       return
@@ -1585,6 +1544,8 @@ export const QuickIngestModal: React.FC<Props> = ({
       return
     }
     const total = valid.length + attachedFiles.length
+    // Increment runNonce to trigger auto-switch to results tab
+    setRunNonce((n) => n + 1)
     setTotalPlanned(total)
     setProcessedCount(0)
     setLiveTotalCount(total)
@@ -1867,11 +1828,11 @@ export const QuickIngestModal: React.FC<Props> = ({
       return
     }
     if (autoProcessedRef.current) return
-    if (!showProcessQueuedButton) return
-    if (running) return
+    if (!autoProcessQueued) return
+    if (running || ingestBlocked || plannedCount <= 0) return
     autoProcessedRef.current = true
     void run()
-  }, [autoProcessQueued, open, run, running, showProcessQueuedButton])
+  }, [autoProcessQueued, open, run, running, ingestBlocked, plannedCount])
 
   // Auto-run after "store without review" is triggered.
   React.useEffect(() => {
@@ -2605,6 +2566,12 @@ export const QuickIngestModal: React.FC<Props> = ({
   const addLocalFiles = React.useCallback(
     (incoming: File[]) => {
       if (incoming.length === 0) return
+      if (ingestBlocked) {
+        messageApi.warning(
+          qi("queueBlocked", "Connect to your server to add items.")
+        )
+        return
+      }
       const defaultsSnapshot = createDefaultsSnapshot()
       const attachedInstanceIds = new Set(
         localFiles.map((file) => getFileInstanceId(file))
@@ -2696,7 +2663,15 @@ export const QuickIngestModal: React.FC<Props> = ({
       }
       setSelectedRowId(null)
     },
-    [createDefaultsSnapshot, localFiles, messageApi, qi, queuedFiles, setQueuedFiles]
+    [
+      createDefaultsSnapshot,
+      ingestBlocked,
+      localFiles,
+      messageApi,
+      qi,
+      queuedFiles,
+      setQueuedFiles
+    ]
   )
 
   const handleReattachChange = React.useCallback(
@@ -2768,10 +2743,12 @@ export const QuickIngestModal: React.FC<Props> = ({
 
   const retryFailedUrls = React.useCallback(() => {
     const failedByUrl = results.filter((r) => r.status === "error" && r.url)
-    const byUrl = new Map(rows.map((row) => [row.url.trim(), row]))
+    const rowsById = new Map(rows.map((row) => [row.id, row]))
+    const rowsByUrl = new Map(rows.map((row) => [row.url.trim(), row]))
     const failedUrls = failedByUrl.map((r) => {
       const key = (r.url || "").trim()
-      const existing = byUrl.get(key)
+      const existing =
+        (r.id && rowsById.get(r.id)) || (key ? rowsByUrl.get(key) : undefined)
       if (existing) {
         return {
           ...existing,
@@ -2800,14 +2777,75 @@ export const QuickIngestModal: React.FC<Props> = ({
         { count: failedUrls.length }
       )
     )
-  }, [buildRowEntry, createDefaultsSnapshot, messageApi, qi, results, rows, setQueuedFiles])
+  }, [
+    buildRowEntry,
+    createDefaultsSnapshot,
+    messageApi,
+    qi,
+    results,
+    rows,
+    setQueuedFiles
+  ])
 
   const requeueFailed = React.useCallback(() => {
     const failedItems = results.filter((r) => r.status === "error")
-    const failedUrls = failedItems
-      .filter((r) => r.url)
-      .map((r) => buildRowEntry(r.url || "", "auto"))
-    const failedFileCount = failedItems.filter((r) => r.fileName && !r.url).length
+    const rowsById = new Map(rows.map((row) => [row.id, row]))
+    const rowsByUrl = new Map(rows.map((row) => [row.url.trim(), row]))
+    const fileIdByInstanceId = lastFileIdByInstanceIdRef.current
+    const fileIdToStub = new Map<string, QueuedFileStub>()
+    if (fileIdByInstanceId) {
+      for (const stub of queuedFileStubs) {
+        if (!stub.instanceId) continue
+        const fileId = fileIdByInstanceId.get(stub.instanceId)
+        if (fileId) fileIdToStub.set(fileId, stub)
+      }
+    }
+    const stubsByName = new Map<string, QueuedFileStub[]>()
+    for (const stub of queuedFileStubs) {
+      const name = stub.name || ""
+      if (!name) continue
+      const list = stubsByName.get(name) || []
+      list.push(stub)
+      stubsByName.set(name, list)
+    }
+
+    const failedUrls: Entry[] = []
+    const failedFileStubs: QueuedFileStub[] = []
+    let failedFileCount = 0
+
+    for (const item of failedItems) {
+      if (item.url) {
+        const key = (item.url || "").trim()
+        const existing =
+          (item.id && rowsById.get(item.id)) ||
+          (key ? rowsByUrl.get(key) : undefined)
+        if (existing) {
+          failedUrls.push({
+            ...existing,
+            id: crypto.randomUUID(),
+            defaults: existing.defaults || createDefaultsSnapshot()
+          })
+        } else {
+          failedUrls.push(buildRowEntry(item.url || "", "auto"))
+        }
+        continue
+      }
+      if (item.fileName) {
+        failedFileCount += 1
+        const byId = item.id ? fileIdToStub.get(item.id) : undefined
+        const byName = stubsByName.get(item.fileName) || []
+        const existingStub =
+          byId || (byName.length === 1 ? byName[0] : undefined)
+        if (existingStub) {
+          failedFileStubs.push({
+            ...existingStub,
+            id: crypto.randomUUID(),
+            defaults:
+              existingStub.defaults || createDefaultsSnapshot()
+          })
+        }
+      }
+    }
 
     if (failedUrls.length === 0 && failedFileCount === 0) {
       messageApi.info(qi("noFailedToRequeue", "No failed items to requeue."))
@@ -2817,6 +2855,9 @@ export const QuickIngestModal: React.FC<Props> = ({
     // Add URLs back to queue
     if (failedUrls.length > 0) {
       setRows((prev) => [...prev, ...failedUrls])
+    }
+    if (failedFileStubs.length > 0) {
+      setQueuedFiles((prev) => [...(prev || []), ...failedFileStubs])
     }
     setResults([])
 
@@ -2832,7 +2873,16 @@ export const QuickIngestModal: React.FC<Props> = ({
           { count: failedUrls.length }
         )
     messageApi.success(message)
-  }, [buildRowEntry, messageApi, qi, results])
+  }, [
+    buildRowEntry,
+    createDefaultsSnapshot,
+    messageApi,
+    qi,
+    queuedFileStubs,
+    results,
+    rows,
+    setQueuedFiles
+  ])
 
   const exportFailedList = React.useCallback(() => {
     const failedItems = results.filter((r) => r.status === "error")
@@ -3221,8 +3271,7 @@ export const QuickIngestModal: React.FC<Props> = ({
         )}
 
         {/* QUEUE TAB CONTENT */}
-        {activeTab === 'queue' && (
-        <React.Fragment>
+        <QueueTab isActive={activeTab === "queue"}>
         <div className="flex flex-col gap-1">
           <Typography.Text strong>{t('quickIngest.howItWorks', 'How this works')}</Typography.Text>
           <Typography.Paragraph type="secondary" className="!mb-1 text-sm text-text-muted">
@@ -3359,23 +3408,23 @@ export const QuickIngestModal: React.FC<Props> = ({
                 {qi('urlsLabel', 'URLs to ingest')}
               </label>
               <Space.Compact className="w-full">
-                <Input
-                  id="quick-ingest-url-input"
-                  placeholder={qi('urlsPlaceholder', 'https://example.com, https://...')}
-                  value={pendingUrlInput}
-                  onChange={(e) => setPendingUrlInput(e.target.value)}
-                  onPressEnter={(e) => {
-                    e.preventDefault()
-                    addUrlsFromInput(pendingUrlInput)
-                  }}
-                  disabled={running}
-                  aria-label={qi('urlsInputAria', 'Paste URLs input')}
-                  title={qi('urlsInputAria', 'Paste URLs input')}
-                />
+                  <Input
+                    id="quick-ingest-url-input"
+                    placeholder={qi('urlsPlaceholder', 'https://example.com, https://...')}
+                    value={pendingUrlInput}
+                    onChange={(e) => setPendingUrlInput(e.target.value)}
+                    onPressEnter={(e) => {
+                      e.preventDefault()
+                      addUrlsFromInput(pendingUrlInput)
+                    }}
+                    disabled={running || !isOnlineForIngest}
+                    aria-label={qi('urlsInputAria', 'Paste URLs input')}
+                    title={qi('urlsInputAria', 'Paste URLs input')}
+                  />
                   <Button
                     type="primary"
                     onClick={() => addUrlsFromInput(pendingUrlInput)}
-                    disabled={running}
+                    disabled={running || !isOnlineForIngest}
                     aria-label={qi('addUrlsAria', 'Add URLs to queue')}
                     title={qi('addUrlsAria', 'Add URLs to queue')}
                   >
@@ -3412,7 +3461,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                 <Button
                   size="small"
                   onClick={addRow}
-                  disabled={running}
+                  disabled={running || !isOnlineForIngest}
                   aria-label={qi('addBlankRowAria', 'Add blank URL row')}
                   title={qi('addBlankRowAria', 'Add blank URL row')}
                 >
@@ -3428,10 +3477,10 @@ export const QuickIngestModal: React.FC<Props> = ({
                   </Button>
                 </div>
               </div>
-            <div className="text-xs text-text-subtle mb-2">
+              <div className="text-xs text-text-subtle mb-2">
               {qi(
                 'queueDescription',
-                'Staged items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention.'
+                'Queued items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention.'
               )}
             </div>
             {missingFileStubs.length > 0 && (
@@ -3476,7 +3525,10 @@ export const QuickIngestModal: React.FC<Props> = ({
                     )
                   }
                   const pendingTag =
-                    ingestBlocked && !running && (!res || !res.status) ? (
+                    ingestBlocked &&
+                    !running &&
+                    row.url.trim().length > 0 &&
+                    (!res || !res.status) ? (
                       <Tag>{pendingLabel}</Tag>
                     ) : null
                   const processingIndicator = isProcessing ? (
@@ -3498,6 +3550,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       pendingTag={pendingTag}
                       processingIndicator={processingIndicator}
                       running={running}
+                      queueDisabled={ingestBlocked}
                       canRetry={res?.status === "error"}
                       qi={qi}
                       typeIcon={typeIcon}
@@ -3553,12 +3606,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                   }
                   const pendingTag =
                     ingestBlocked && !running && attachedFile && !runStatus ? (
-                      <Tag>
-                        {t(
-                          "quickIngest.pendingLabel",
-                          "Pending — will run when connected"
-                        )}
-                      </Tag>
+                      <Tag>{pendingLabel}</Tag>
                     ) : null
                   const processingIndicator = isProcessing ? (
                     <div className="mt-1">
@@ -3596,6 +3644,7 @@ export const QuickIngestModal: React.FC<Props> = ({
                       pendingTag={pendingTag}
                       processingIndicator={processingIndicator}
                       running={running}
+                      queueDisabled={ingestBlocked}
                       showReattach={!attachedFile}
                       canRetry={runStatus === "error" && Boolean(attachedFile)}
                       qi={qi}
@@ -3639,49 +3688,55 @@ export const QuickIngestModal: React.FC<Props> = ({
             </div>
           </div>
         </div>
-        </React.Fragment>
-        )}
+        <div className="mt-3 flex justify-end">
+          <ProcessButton
+            plannedCount={plannedCount}
+            running={running}
+            ingestBlocked={ingestBlocked}
+            hasMissingFiles={hasMissingFiles}
+            missingFileCount={missingFileCount}
+            onRun={run}
+            storeRemote={storeRemote}
+            reviewBeforeStorage={reviewBeforeStorage}
+          />
+        </div>
+        </QueueTab>
 
         {/* OPTIONS TAB CONTENT */}
-        {activeTab === 'options' && (
-          <React.Suspense fallback={null}>
-            <IngestOptionsPanel
-              qi={qi}
-              t={t}
-              hasAudioItems={hasAudioItems}
-              hasDocumentItems={hasDocumentItems}
-              hasVideoItems={hasVideoItems}
-              running={running}
-              ingestBlocked={ingestBlocked}
-              common={common}
-              setCommon={setCommon}
-              normalizedTypeDefaults={normalizedTypeDefaults}
-              setTypeDefaults={setTypeDefaults}
-              ragEmbeddingLabel={ragEmbeddingLabel}
-              openModelSettings={openModelSettings}
-              storeRemote={storeRemote}
-              setStoreRemote={setStoreRemote}
-              reviewBeforeStorage={reviewBeforeStorage}
-              handleReviewToggle={handleReviewToggle}
-              storageLabel={storageLabel}
-              storageHintSeen={storageHintSeen}
-              setStorageHintSeen={setStorageHintSeen}
-              draftStorageCapLabel={draftStorageCapLabel}
-              doneCount={doneCount}
-              totalCount={totalCount}
-              plannedCount={plannedCount}
-              progressMeta={progressMeta}
-              showProcessQueuedButton={showProcessQueuedButton}
-              run={run}
-              hasMissingFiles={hasMissingFiles}
-              missingFileCount={missingFileCount}
-              ingestConnectionStatus={ingestConnectionStatus}
-              checkOnce={checkOnce}
-              disableOfflineBypass={disableOfflineBypass}
-              onClose={onClose}
-            />
-          </React.Suspense>
-        )}
+        <OptionsTab
+          isActive={activeTab === "options"}
+          qi={qi}
+          t={t}
+          hasAudioItems={hasAudioItems}
+          hasDocumentItems={hasDocumentItems}
+          hasVideoItems={hasVideoItems}
+          running={running}
+          ingestBlocked={ingestBlocked}
+          common={common}
+          setCommon={setCommon}
+          normalizedTypeDefaults={normalizedTypeDefaults}
+          setTypeDefaults={setTypeDefaults}
+          ragEmbeddingLabel={ragEmbeddingLabel}
+          openModelSettings={openModelSettings}
+          storeRemote={storeRemote}
+          setStoreRemote={setStoreRemote}
+          reviewBeforeStorage={reviewBeforeStorage}
+          handleReviewToggle={handleReviewToggle}
+          storageLabel={storageLabel}
+          storageHintSeen={storageHintSeen}
+          setStorageHintSeen={setStorageHintSeen}
+          draftStorageCapLabel={draftStorageCapLabel}
+          doneCount={doneCount}
+          totalCount={totalCount}
+          plannedCount={plannedCount}
+          progressMeta={progressMeta}
+          run={run}
+          hasMissingFiles={hasMissingFiles}
+          missingFileCount={missingFileCount}
+          ingestConnectionStatus={ingestConnectionStatus}
+          checkOnce={checkOnce}
+          onClose={onClose}
+        />
 
         {/* Inspector drawer glow and drawer - visible when queue tab active */}
         {activeTab === 'queue' && (
@@ -4114,43 +4169,53 @@ export const QuickIngestModal: React.FC<Props> = ({
         )}
 
         {/* RESULTS TAB CONTENT */}
-        {activeTab === 'results' && (
-        <React.Suspense fallback={null}>
-          <ResultsPanel
-            data={{
-              results,
-              visibleResults,
-              resultSummary,
-              running,
-              filters: {
-                value: resultsFilter,
-                options: RESULT_FILTERS,
-                onChange: (value) => setResultsFilter(value as ResultsFilter)
-              }
-            }}
-            context={{
-              shouldStoreRemote,
-              firstResultWithMedia,
-              reviewBatchId,
-              processOnly,
-              mediaIdFromPayload
-            }}
-            actions={{
-              retryFailedUrls,
-              requeueFailed,
-              exportFailedList,
-              tryOpenContentReview: (batchId) => {
-                void tryOpenContentReview(batchId)
-              },
-              openInMediaViewer,
-              discussInChat,
-              downloadJson,
-              openHealthDiagnostics
-            }}
-            i18n={{ qi, t }}
-          />
-        </React.Suspense>
-        )}
+        <ResultsTab
+          isActive={activeTab === "results"}
+          processButton={
+            <ProcessButton
+              plannedCount={plannedCount}
+              running={running}
+              ingestBlocked={ingestBlocked}
+              hasMissingFiles={hasMissingFiles}
+              missingFileCount={missingFileCount}
+              onRun={run}
+              storeRemote={storeRemote}
+              reviewBeforeStorage={reviewBeforeStorage}
+            />
+          }
+          data={{
+            results,
+            visibleResults,
+            resultSummary,
+            running,
+            progressMeta,
+            filters: {
+              value: resultsFilter,
+              options: RESULT_FILTERS,
+              onChange: (value) => setResultsFilter(value as ResultsFilter)
+            }
+          }}
+          context={{
+            shouldStoreRemote,
+            firstResultWithMedia,
+            reviewBatchId,
+            processOnly,
+            mediaIdFromPayload
+          }}
+          actions={{
+            retryFailedUrls,
+            requeueFailed,
+            exportFailedList,
+            tryOpenContentReview: (batchId) => {
+              void tryOpenContentReview(batchId)
+            },
+            openInMediaViewer,
+            discussInChat,
+            downloadJson,
+            openHealthDiagnostics
+          }}
+          i18n={{ qi, t }}
+        />
       </Space>
       </div>
     </Modal>

@@ -62,7 +62,6 @@ type IngestOptionsPanelProps = {
   totalCount: number
   plannedCount: number
   progressMeta: ProgressMeta
-  showProcessQueuedButton: boolean
   run: () => void
   hasMissingFiles: boolean
   missingFileCount: number
@@ -70,10 +69,8 @@ type IngestOptionsPanelProps = {
     | "online"
     | "offline"
     | "unconfigured"
-    | "offlineBypass"
     | "unknown"
   checkOnce?: () => Promise<void> | void
-  disableOfflineBypass?: () => Promise<void>
   onClose: () => void
 }
 
@@ -103,13 +100,11 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
   totalCount,
   plannedCount,
   progressMeta,
-  showProcessQueuedButton,
   run,
   hasMissingFiles,
   missingFileCount,
   ingestConnectionStatus,
   checkOnce,
-  disableOfflineBypass,
   onClose
 }) => {
   const done = doneCount || 0
@@ -121,18 +116,12 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
         "Ingest unavailable \u2014 server not configured"
       )
     }
-    if (ingestConnectionStatus === "offlineBypass") {
-      return t(
-        "quickIngest.unavailableOfflineBypass",
-        "Ingest unavailable \u2014 offline mode enabled"
-      )
-    }
     if (ingestConnectionStatus === "unknown") {
       return t("quickIngest.checkingTitle", "Checking server connection\u2026")
     }
     return t(
       "quickIngest.unavailableOffline",
-      "Ingest unavailable \u2014 server offline"
+      "Ingest unavailable \u2014 not connected"
     )
   }
   const ingestBlockedLabel = getIngestBlockedLabel()
@@ -249,14 +238,6 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
       // ignore check errors; footer is informational
     }
   }, [checkOnce])
-  const handleDisableOfflineBypass = React.useCallback(async () => {
-    try {
-      await disableOfflineBypass?.()
-    } catch {
-      // ignore disable errors; Quick Ingest will update when connection state changes
-    }
-  }, [disableOfflineBypass])
-
   return (
     <div className="rounded-md border border-border bg-surface p-3 space-y-3">
       <Typography.Title level={5} className="!mb-2">
@@ -647,19 +628,6 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
           </div>
         </div>
         <div className="flex justify-end gap-2 mt-2">
-          {showProcessQueuedButton && (
-            <Button
-              onClick={run}
-              disabled={isIngestDisabled}
-              aria-label={t(
-                "quickIngest.processQueuedItemsAria",
-                "Process queued Quick Ingest items"
-              )}
-              title={t("quickIngest.processQueuedItems", "Process queued items")}
-            >
-              {t("quickIngest.processQueuedItems", "Process queued items")}
-            </Button>
-          )}
           <Button
             type="primary"
             loading={running}
@@ -695,22 +663,17 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
               {ingestConnectionStatus === "unconfigured"
                 ? t(
                     "quickIngest.unconfiguredFooter",
-                    "Server not configured: items are staged here and will process after you configure a server URL and API key under Settings \u2192 tldw server."
-                  )
-                : ingestConnectionStatus === "offlineBypass"
-                  ? t(
-                      "quickIngest.offlineBypassFooter",
-                      "Offline mode enabled: items are staged here and will process once you disable offline mode."
+                    "Server not configured. Configure your server URL and API key under Settings \u2192 tldw server to run ingest."
                     )
-                  : ingestConnectionStatus === "unknown"
-                    ? t(
-                        "quickIngest.checkingDescription",
-                        "We’re checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
-                      )
-                  : t(
-                      "quickIngest.offlineFooter",
-                      "Offline mode: items are staged here and will process once your server reconnects."
-                    )}
+                : ingestConnectionStatus === "unknown"
+                  ? t(
+                      "quickIngest.checkingDescription",
+                      "Checking your tldw server before running ingest. Inputs are disabled until we confirm the connection."
+                    )
+                : t(
+                    "quickIngest.offlineFooter",
+                    "Cannot reach your server. Connect to run ingest."
+                  )}
             </span>
             {ingestConnectionStatus === "offline" && checkOnce ? (
               <Button
@@ -720,14 +683,6 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
                 {qi("retryConnection", "Retry connection")}
               </Button>
             ) : null}
-            {ingestConnectionStatus === "offlineBypass" && disableOfflineBypass && (
-              <Button
-                size="small"
-                onClick={handleDisableOfflineBypass}
-              >
-                {t("quickIngest.disableOfflineMode", "Disable offline mode")}
-              </Button>
-            )}
           </div>
         )}
         {progressMeta.total > 0 && (

@@ -20,6 +20,7 @@ type QueuedItemRowProps = {
   pendingTag?: React.ReactNode
   processingIndicator?: React.ReactNode
   running: boolean
+  queueDisabled: boolean
   canRetry: boolean
   qi: (key: string, defaultValue: string) => string
   typeIcon: (type: string) => React.ReactNode
@@ -39,6 +40,7 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
   pendingTag,
   processingIndicator,
   running,
+  queueDisabled,
   canRetry,
   qi,
   typeIcon,
@@ -48,6 +50,8 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
   onRetry,
   onRemove
 }) => {
+  const inputDisabled = running || queueDisabled
+
   return (
     <div
       className={`group relative rounded-md border px-3 py-2 transition hover:border-primary ${
@@ -101,7 +105,7 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
           value={row.url}
           onClick={(event) => event.stopPropagation()}
           onChange={(event) => onUpdateRow({ url: event.target.value })}
-          disabled={running}
+          disabled={inputDisabled}
           aria-label={qi("sourceUrlAria", "Source URL")}
           title={qi("sourceUrlAria", "Source URL")}
         />
@@ -121,7 +125,7 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
               { label: qi("typeAudio", "Audio"), value: "audio" },
               { label: qi("typeVideo", "Video"), value: "video" }
             ]}
-            disabled={running}
+            disabled={inputDisabled}
           />
           {canRetry && (
             <Button
@@ -130,7 +134,7 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
                 event.stopPropagation()
                 onRetry()
               }}
-              disabled={running}
+              disabled={inputDisabled}
               aria-label={qi("retryItemAria", "Retry this item")}
               title={qi("retryItemAria", "Retry this item")}
             >

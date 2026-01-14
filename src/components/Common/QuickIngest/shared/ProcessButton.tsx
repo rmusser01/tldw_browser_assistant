@@ -18,6 +18,8 @@ type ProcessButtonProps = {
   onRun: () => void
   /** Whether to store remotely or process locally */
   storeRemote: boolean
+  /** Whether review-before-storage mode is enabled */
+  reviewBeforeStorage?: boolean
   /** Optional className */
   className?: string
 }
@@ -30,6 +32,7 @@ export const ProcessButton: React.FC<ProcessButtonProps> = ({
   missingFileCount,
   onRun,
   storeRemote,
+  reviewBeforeStorage,
   className
 }) => {
   const { t } = useTranslation(["option"])
@@ -43,9 +46,11 @@ export const ProcessButton: React.FC<ProcessButtonProps> = ({
   )
 
   const isDisabled = running || plannedCount === 0 || ingestBlocked || hasMissingFiles
-  const buttonLabel = storeRemote
-    ? qi("runIngest", "Ingest {{count}} item(s)", { count: plannedCount })
-    : qi("runProcessOnly", "Process {{count}} item(s)", { count: plannedCount })
+  const buttonLabel = reviewBeforeStorage
+    ? qi("reviewRunLabel", "Review")
+    : storeRemote
+      ? qi("runIngest", "Ingest {{count}} item(s)", { count: plannedCount })
+      : qi("runProcessOnly", "Process {{count}} item(s)", { count: plannedCount })
 
   const getTooltip = () => {
     if (hasMissingFiles) {

@@ -45,7 +45,7 @@ test.describe('Quick Ingest workflows and UX', () => {
       const tooltip = await trigger.getAttribute('title')
       if (tooltip) {
         expect(tooltip).toMatch(
-          /Stage URLs and files for processing, even while your server is offline\.|Quick ingest/i
+          /Import URLs, documents, and media to your knowledge base|Quick ingest/i
         )
       }
       await trigger.click()
@@ -53,10 +53,8 @@ test.describe('Quick Ingest workflows and UX', () => {
       // Wait for modal content (root may briefly stay hidden)
       await expect(page.locator('.quick-ingest-modal')).not.toHaveAttribute('hidden', 'true', { timeout: 10_000 })
       await expect(page.locator('.quick-ingest-modal [data-state="ready"]')).toBeVisible({ timeout: 10_000 })
-      const offlineBanner = page.getByText(/server offline — staging only/i).first()
-      await offlineBanner.waitFor({ state: 'hidden', timeout: 10_000 }).catch(() => {})
-      const ingestBtn = page.getByRole('button', { name: /ingest|process/i }).first()
-      await expect(ingestBtn).not.toHaveText(/server offline/i, { timeout: 10_000 })
+      const notConnectedBanner = page.getByText(/Not connected to server/i).first()
+      await notConnectedBanner.waitFor({ state: 'hidden', timeout: 10_000 }).catch(() => {})
 
       // Workflow 1: add URLs and see queue + Inspector intro
       const urlInput = page

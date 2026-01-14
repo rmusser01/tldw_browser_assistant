@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, List, Select, Tag, Typography } from "antd"
+import { Button, List, Progress, Select, Tag, Typography } from "antd"
 import type { TFunction } from "i18next"
 import type {
   ResultFilters,
@@ -16,6 +16,12 @@ type ResultsPanelProps = {
     visibleResults: ResultItem[]
     resultSummary: ResultSummary | null
     running: boolean
+    progressMeta: {
+      total: number
+      done: number
+      pct: number
+      elapsedLabel?: string | null
+    }
     filters: {
       value: ResultsFilter
       options: ResultFilters
@@ -52,6 +58,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
   i18n
 }) => {
   const { results, visibleResults, resultSummary, running, filters } = data
+  const { progressMeta } = data
   const {
     shouldStoreRemote,
     firstResultWithMedia,
@@ -132,54 +139,98 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
     [processOnly, downloadJson, openInMediaViewer, discussInChat, t]
   )
 
-  if (results.length === 0) return null
+  const hasResults = results.length > 0
+  const hasProgress = progressMeta.total > 0
+
+  if (!hasResults && !hasProgress) return null
 
   return (
     <div className="mt-4">
-      <div className="flex items-center justify-between">
-        <Typography.Title level={5} className="!mb-0">
-          {t("quickIngest.results") || "Results"}
-        </Typography.Title>
-        <div className="flex items-center gap-2 text-xs">
-          <Tag color="blue">
-            {qi("resultsCount", "{{count}} item(s)", {
-              count: results.length
-            })}
-          </Tag>
-          <Button
-            size="small"
-            onClick={handleRetryClick}
-            disabled={!hasErrors}
-          >
-            {qi("retryFailedUrls", "Retry failed URLs")}
-          </Button>
-          <Select
-            size="small"
-            className="w-32"
-            aria-label={t(
-              "quickIngest.resultsFilterAria",
-              "Filter results by status"
-            )}
-            value={filters.value}
-            onChange={handleFilterChange}
-            options={[
-              {
-                value: filters.options.ALL,
-                label: t("quickIngest.resultsFilterAll", "All")
-              },
-              {
-                value: filters.options.ERROR,
-                label: t("quickIngest.resultsFilterFailed", "Failed only")
-              },
-              {
-                value: filters.options.SUCCESS,
-                label: t("quickIngest.resultsFilterSucceeded", "Succeeded only")
-              }
-            ]}
-          />
+      {running && hasProgress ? (
+        <div className="sr-only" aria-live="polite" role="status">
+          {t(
+            "quickIngest.progress",
+            "Processing {{done}} / {{total}} items…",
+            {
+              done: progressMeta.done,
+              total: progressMeta.total
+            }
+          )}
         </div>
-      </div>
-      {resultSummary && !running && (
+      ) : null}
+      {hasProgress && (
+        <div className="mb-3 rounded-md border border-border bg-surface2 px-3 py-2 text-xs text-text">
+          <div className="flex items-center justify-between">
+            <span className="font-medium">
+              {running
+                ? qi("ingestProgressTitle", "Current ingest progress")
+                : qi("itemsReadyTitle", "Items ready to ingest")}
+            </span>
+            {progressMeta.elapsedLabel ? (
+              <span>
+                {qi("elapsedLabel", "Elapsed {{time}}", {
+                  time: progressMeta.elapsedLabel
+                })}
+              </span>
+            ) : null}
+          </div>
+          <Progress percent={progressMeta.pct} showInfo={false} size="small" />
+          <div className="flex justify-between text-xs text-text-muted mt-1">
+            <span>
+              {qi("processedCount", "{{done}}/{{total}} processed", {
+                done: progressMeta.done,
+                total: progressMeta.total
+              })}
+            </span>
+          </div>
+        </div>
+      )}
+      {hasResults ? (
+        <>
+          <div className="flex items-center justify-between">
+            <Typography.Title level={5} className="!mb-0">
+              {t("quickIngest.results") || "Results"}
+            </Typography.Title>
+            <div className="flex items-center gap-2 text-xs">
+              <Tag color="blue">
+                {qi("resultsCount", "{{count}} item(s)", {
+                  count: results.length
+                })}
+              </Tag>
+              <Button
+                size="small"
+                onClick={handleRetryClick}
+                disabled={!hasErrors}
+              >
+                {qi("retryFailedUrls", "Retry failed URLs")}
+              </Button>
+              <Select
+                size="small"
+                className="w-32"
+                aria-label={t(
+                  "quickIngest.resultsFilterAria",
+                  "Filter results by status"
+                )}
+                value={filters.value}
+                onChange={handleFilterChange}
+                options={[
+                  {
+                    value: filters.options.ALL,
+                    label: t("quickIngest.resultsFilterAll", "All")
+                  },
+                  {
+                    value: filters.options.ERROR,
+                    label: t("quickIngest.resultsFilterFailed", "Failed only")
+                  },
+                  {
+                    value: filters.options.SUCCESS,
+                    label: t("quickIngest.resultsFilterSucceeded", "Succeeded only")
+                  }
+                ]}
+              />
+            </div>
+          </div>
+          {resultSummary && !running && (
         <div className="mt-2 rounded-md border border-border bg-surface2 px-3 py-2 text-xs text-text">
           <div className="font-medium">
             {resultSummary.failCount === 0
@@ -264,12 +315,14 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             </Button>
           </div>
         </div>
-      )}
-      <List
-        size="small"
-        dataSource={visibleResultsWithMediaIds}
-        renderItem={renderResultItem}
-      />
+          )}
+          <List
+            size="small"
+            dataSource={visibleResultsWithMediaIds}
+            renderItem={renderResultItem}
+          />
+        </>
+      ) : null}
     </div>
   )
 }
