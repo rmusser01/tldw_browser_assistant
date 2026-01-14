@@ -1474,5 +1474,11 @@
   },
   "trashPage_emptyTrashPartial_other": {
     "message": "{{count}} items could not be deleted"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "Media API not available offline"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "Server offline"
   }
 }

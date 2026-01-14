@@ -928,6 +928,7 @@ export const CharacterSelect: React.FC<Props> = ({
           {selectedCharacter?.avatar_url ? (
             <img
               src={selectedCharacter.avatar_url}
+              alt={selectedCharacter.name || "Character avatar"}
               className="h-5 w-5 rounded-full"
             />
           ) : (

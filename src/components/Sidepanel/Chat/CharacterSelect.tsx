@@ -41,6 +41,35 @@ type ImageOnlyErrorDetail = {
   message?: string
 }
 
+const GREETING_RETRY_DELAY_MS = 800
+
+const delayWithAbort = (ms: number, signal?: AbortSignal) =>
+  new Promise<void>((resolve) => {
+    if (!signal) {
+      window.setTimeout(resolve, ms)
+      return
+    }
+    if (signal.aborted) {
+      resolve()
+      return
+    }
+    let timeoutId: number | null = null
+    const onAbort = () => {
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId)
+        timeoutId = null
+      }
+      signal.removeEventListener("abort", onAbort)
+      resolve()
+    }
+    timeoutId = window.setTimeout(() => {
+      signal.removeEventListener("abort", onAbort)
+      timeoutId = null
+      resolve()
+    }, ms)
+    signal.addEventListener("abort", onAbort, { once: true })
+  })
+
 export const CharacterSelect: React.FC<Props> = ({
   selectedCharacterId,
   setSelectedCharacterId,
@@ -67,6 +96,7 @@ export const CharacterSelect: React.FC<Props> = ({
   const searchInputRef = useRef<InputRef | null>(null)
   const importInputRef = useRef<HTMLInputElement | null>(null)
   const isMountedRef = useRef(true)
+  const greetingRetryAbortRef = useRef<AbortController | null>(null)
   const selectedCharacterIdRef = useRef<string | null>(
     selectedCharacterId ?? null
   )
@@ -89,6 +119,8 @@ export const CharacterSelect: React.FC<Props> = ({
   useEffect(() => {
     return () => {
       isMountedRef.current = false
+      greetingRetryAbortRef.current?.abort()
+      greetingRetryAbortRef.current = null
       if (imageOnlyModalResolveRef.current) {
         imageOnlyModalResolveRef.current(false)
         imageOnlyModalResolveRef.current = null
@@ -237,6 +269,8 @@ export const CharacterSelect: React.FC<Props> = ({
         clearChat()
       }
 
+      greetingRetryAbortRef.current?.abort()
+      greetingRetryAbortRef.current = null
       setSelectedCharacterId(nextId)
       if (!nextId) {
         await setSelectedCharacter(null)
@@ -252,6 +286,9 @@ export const CharacterSelect: React.FC<Props> = ({
       setDropdownOpen(false)
 
       if (stored?.greeting) return
+
+      const retryController = new AbortController()
+      greetingRetryAbortRef.current = retryController
 
       const hydrateGreeting = async () => {
         try {
@@ -276,24 +313,33 @@ export const CharacterSelect: React.FC<Props> = ({
       }
 
       void (async () => {
-        const ok = await hydrateGreeting()
-        if (!isMountedRef.current) return
-        if (!ok && selectedCharacterIdRef.current === nextId) {
-          await new Promise((resolve) => setTimeout(resolve, 800))
-          if (!isMountedRef.current) return
-          const retried = await hydrateGreeting()
-          if (!isMountedRef.current) return
-          if (!retried && selectedCharacterIdRef.current === nextId) {
-            notification.warning({
-              message: t(
-                "settings:manageCharacters.notification.error",
-                "Error"
-              ),
-              description: t(
-                "settings:manageCharacters.notification.someError",
-                "Couldn't load the character greeting. Try again later."
-              )
-            })
+        try {
+          const ok = await hydrateGreeting()
+          if (!isMountedRef.current || retryController.signal.aborted) return
+          if (!ok && selectedCharacterIdRef.current === nextId) {
+            await delayWithAbort(
+              GREETING_RETRY_DELAY_MS,
+              retryController.signal
+            )
+            if (!isMountedRef.current || retryController.signal.aborted) return
+            const retried = await hydrateGreeting()
+            if (!isMountedRef.current || retryController.signal.aborted) return
+            if (!retried && selectedCharacterIdRef.current === nextId) {
+              notification.warning({
+                message: t(
+                  "settings:manageCharacters.notification.error",
+                  "Error"
+                ),
+                description: t(
+                  "settings:manageCharacters.notification.someError",
+                  "Couldn't load the character greeting. Try again later."
+                )
+              })
+            }
+          }
+        } finally {
+          if (greetingRetryAbortRef.current === retryController) {
+            greetingRetryAbortRef.current = null
           }
         }
       })()
@@ -347,7 +393,7 @@ export const CharacterSelect: React.FC<Props> = ({
     [notification, t]
   )
 
-  const handleImportFile = async (
+  const handleImportFile = React.useCallback(async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0]
@@ -461,7 +507,17 @@ export const CharacterSelect: React.FC<Props> = ({
       setIsImporting(false)
       event.target.value = ""
     }
-  }
+  }, [
+    applySelection,
+    buildStoredCharacter,
+    confirmWithModal,
+    destroyImageOnlyModal,
+    notification,
+    refetch,
+    setIsImporting,
+    showImportError,
+    t
+  ])
 
   const buildCharactersHash = React.useCallback((create?: boolean) => {
     const params = new URLSearchParams({ from: "sidepanel-character-select" })

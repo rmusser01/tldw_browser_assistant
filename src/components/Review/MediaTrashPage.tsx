@@ -36,19 +36,25 @@ type TrashResponse = {
 
 const executeBatchedRequests = async <T,>(
   ids: number[],
-  makeRequest: (id: number) => Promise<T>
+  makeRequest: (id: number) => Promise<T>,
+  signal?: AbortSignal
 ): Promise<{ successCount: number; failedCount: number }> => {
   const results: PromiseSettledResult<T>[] = []
   for (let i = 0; i < ids.length; i += BULK_ACTION_BATCH_SIZE) {
+    if (signal?.aborted) break
     const chunk = ids.slice(i, i + BULK_ACTION_BATCH_SIZE).map(makeRequest)
     results.push(...(await Promise.allSettled(chunk)))
     if (i + BULK_ACTION_BATCH_SIZE < ids.length) {
+      if (signal?.aborted) break
       await new Promise((resolve) => setTimeout(resolve, BULK_ACTION_DELAY_MS))
     }
   }
   const successCount = results.filter((result) => result.status === 'fulfilled').length
   return { successCount, failedCount: ids.length - successCount }
 }
+
+const isAbortError = (err: unknown) =>
+  err instanceof Error && err.message.toLowerCase().includes('abort')
 
 const TrashPageContent: React.FC = () => {
   const { t } = useTranslation(['review', 'common'])
@@ -60,6 +66,7 @@ const TrashPageContent: React.FC = () => {
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
   const [bulkAction, setBulkAction] = useState<'restore' | 'delete' | 'empty' | null>(null)
   const selectAllRef = useRef<HTMLInputElement | null>(null)
+  const bulkActionAbortRef = useRef<AbortController | null>(null)
 
   const fetchTrash = useCallback(async (): Promise<TrashResponse> => {
     return await bgRequest<TrashResponse>({
@@ -97,6 +104,13 @@ const TrashPageContent: React.FC = () => {
   const isBulkBusy = bulkAction !== null
   const isAnyActionBusy = isBulkBusy || actionId !== null
   const showLoadingState = (isLoading || isFetching) && !hasData
+
+  useEffect(() => {
+    return () => {
+      bulkActionAbortRef.current?.abort()
+      bulkActionAbortRef.current = null
+    }
+  }, [])
 
   useEffect(() => {
     if (!totalPages || page <= totalPages) return
@@ -215,14 +229,22 @@ const TrashPageContent: React.FC = () => {
   const handleBulkRestore = useCallback(async () => {
     const ids = Array.from(selectedIds)
     if (ids.length === 0) return
+    bulkActionAbortRef.current?.abort()
+    const controller = new AbortController()
+    bulkActionAbortRef.current = controller
     setBulkAction('restore')
     try {
-      const { successCount, failedCount } = await executeBatchedRequests(ids, (id) =>
-        bgRequest({
-          path: toAllowedPath(`/api/v1/media/${id}/restore`),
-          method: 'POST'
-        })
+      const { successCount, failedCount } = await executeBatchedRequests(
+        ids,
+        (id) =>
+          bgRequest({
+            path: toAllowedPath(`/api/v1/media/${id}/restore`),
+            method: 'POST',
+            abortSignal: controller.signal
+          }),
+        controller.signal
       )
+      if (controller.signal.aborted) return
       if (successCount > 0) {
         message.success(
           t('review:trashPage.restoreSelectedSuccess', {
@@ -241,6 +263,7 @@ const TrashPageContent: React.FC = () => {
       }
       await refetch()
     } catch (err) {
+      if (isAbortError(err)) return
       console.error('Failed to restore selected items:', err)
       message.error(
         t('review:trashPage.restoreSelectedFailed', {
@@ -248,6 +271,9 @@ const TrashPageContent: React.FC = () => {
         })
       )
     } finally {
+      if (bulkActionAbortRef.current === controller) {
+        bulkActionAbortRef.current = null
+      }
       setSelectedIds(new Set())
       setBulkAction(null)
     }
@@ -266,14 +292,22 @@ const TrashPageContent: React.FC = () => {
       cancelText: t('common:cancel', { defaultValue: 'Cancel' })
     })
     if (!ok) return
+    bulkActionAbortRef.current?.abort()
+    const controller = new AbortController()
+    bulkActionAbortRef.current = controller
     setBulkAction('delete')
     try {
-      const { successCount, failedCount } = await executeBatchedRequests(ids, (id) =>
-        bgRequest({
-          path: toAllowedPath(`/api/v1/media/${id}/permanent`),
-          method: 'DELETE'
-        })
+      const { successCount, failedCount } = await executeBatchedRequests(
+        ids,
+        (id) =>
+          bgRequest({
+            path: toAllowedPath(`/api/v1/media/${id}/permanent`),
+            method: 'DELETE',
+            abortSignal: controller.signal
+          }),
+        controller.signal
       )
+      if (controller.signal.aborted) return
       if (successCount > 0) {
         message.success(
           t('review:trashPage.deleteSelectedSuccess', {
@@ -292,6 +326,7 @@ const TrashPageContent: React.FC = () => {
       }
       await refetch()
     } catch (err) {
+      if (isAbortError(err)) return
       console.error('Failed to delete selected items:', err)
       message.error(
         t('review:trashPage.deleteSelectedFailed', {
@@ -299,6 +334,9 @@ const TrashPageContent: React.FC = () => {
         })
       )
     } finally {
+      if (bulkActionAbortRef.current === controller) {
+        bulkActionAbortRef.current = null
+      }
       setSelectedIds(new Set())
       setBulkAction(null)
     }
@@ -315,6 +353,9 @@ const TrashPageContent: React.FC = () => {
       cancelText: t('common:cancel', { defaultValue: 'Cancel' })
     })
     if (!ok) return
+    bulkActionAbortRef.current?.abort()
+    const controller = new AbortController()
+    bulkActionAbortRef.current = controller
     setBulkAction('empty')
     try {
       const response = await bgRequest<{
@@ -322,8 +363,10 @@ const TrashPageContent: React.FC = () => {
         failed_count?: number
       }>({
         path: toAllowedPath('/api/v1/media/trash/empty'),
-        method: 'POST'
+        method: 'POST',
+        abortSignal: controller.signal
       })
+      if (controller.signal.aborted) return
       const deletedCount = Number(response?.deleted_count || 0)
       const failedCount = Number(response?.failed_count || 0)
       if (deletedCount > 0) {
@@ -351,6 +394,7 @@ const TrashPageContent: React.FC = () => {
       }
       await refetch()
     } catch (err) {
+      if (isAbortError(err)) return
       console.error('Failed to empty trash:', err)
       message.error(
         t('review:trashPage.emptyTrashFailed', {
@@ -358,6 +402,9 @@ const TrashPageContent: React.FC = () => {
         })
       )
     } finally {
+      if (bulkActionAbortRef.current === controller) {
+        bulkActionAbortRef.current = null
+      }
       setSelectedIds(new Set())
       setBulkAction(null)
     }
@@ -594,7 +641,7 @@ const MediaTrashPage: React.FC = () => {
     return (
       <div className="flex h-full items-center justify-center">
         <FeatureEmptyState
-          title={t('review:mediaEmpty.offlineTitle', {
+          title={t('review:mediaEmpty.apiOfflineTitle', {
             defaultValue: 'Media API not available offline'
           })}
           description={t('review:mediaEmpty.offlineDescription', {
@@ -611,7 +658,7 @@ const MediaTrashPage: React.FC = () => {
     return (
       <div className="flex h-full items-center justify-center">
         <FeatureEmptyState
-          title={t('review:mediaEmpty.offlineTitle', {
+          title={t('review:mediaEmpty.serverOfflineTitle', {
             defaultValue: 'Server offline'
           })}
           description={t('review:mediaEmpty.offlineDescription', {
@@ -631,7 +678,7 @@ const MediaTrashPage: React.FC = () => {
     )
   }
 
-  if (isOnline && mediaUnsupported) {
+  if (mediaUnsupported) {
     return (
       <FeatureEmptyState
         title={

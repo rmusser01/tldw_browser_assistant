@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { Select, Switch } from "antd"
 import { useTranslation } from "react-i18next"
 import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
@@ -120,6 +120,21 @@ export const ChatSettings = () => {
       }
     ],
     [t]
+  )
+
+  const handleMenuDensityChange = useCallback(
+    (value: string) => setMenuDensity(value as "comfortable" | "compact"),
+    [setMenuDensity]
+  )
+
+  const handleUserTextSizeChange = useCallback(
+    (value: string) => setUserTextSize(value as "sm" | "md" | "lg"),
+    [setUserTextSize]
+  )
+
+  const handleAssistantTextSizeChange = useCallback(
+    (value: string) => setAssistantTextSize(value as "sm" | "md" | "lg"),
+    [setAssistantTextSize]
   )
 
   const getResetProps = <T extends boolean | string>(
@@ -304,9 +319,7 @@ export const ChatSettings = () => {
             )}
             className={SELECT_CLASSNAME}
             value={menuDensity}
-            onChange={(value) =>
-              setMenuDensity(value as "comfortable" | "compact")
-            }
+            onChange={handleMenuDensityChange}
             options={menuDensityOptions}
           />
         }
@@ -559,7 +572,7 @@ export const ChatSettings = () => {
           <Select
             className={SELECT_CLASSNAME}
             value={userTextSize}
-            onChange={(value) => setUserTextSize(value as "sm" | "md" | "lg")}
+            onChange={handleUserTextSizeChange}
             options={sizeOptions}
             aria-label={t("chatAppearance.userSize", "User text size")}
           />
@@ -622,9 +635,7 @@ export const ChatSettings = () => {
           <Select
             className={SELECT_CLASSNAME}
             value={assistantTextSize}
-            onChange={(value) =>
-              setAssistantTextSize(value as "sm" | "md" | "lg")
-            }
+            onChange={handleAssistantTextSizeChange}
             options={sizeOptions}
             aria-label={t("chatAppearance.assistantSize", "Assistant text size")}
           />

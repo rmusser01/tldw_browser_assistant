@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react"
 import { Tooltip, Avatar, Modal, Image, message as antdMessage } from "antd"
 import {
   Check,
@@ -111,8 +111,8 @@ export function CompactMessage({
   const [saveError, setSaveError] = useState<string | null>(null)
   const [showSources, setShowSources] = useState(false)
   const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = useState(false)
-  const previousModelImageRef = React.useRef<string | undefined>(undefined)
-  const copyResetTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+  const previousModelImageRef = useRef<string | undefined>(undefined)
+  const copyResetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null
   )
   const { cancel, isSpeaking, speak } = useTTS()
@@ -124,7 +124,7 @@ export function CompactMessage({
     : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
 
   // Keep edited text in sync with message prop when not actively editing
-  React.useEffect(() => {
+  useEffect(() => {
     if (!editMode) {
       setEditedText(message)
     }
@@ -157,7 +157,7 @@ export function CompactMessage({
     ? removeModelSuffix(resolvedModelName)
     : userDisplayName.trim() || t("common:you", "You")
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!shouldPreviewAvatar) {
       setIsAvatarPreviewOpen(false)
     } else if (
@@ -169,7 +169,7 @@ export function CompactMessage({
     previousModelImageRef.current = resolvedModelImage
   }, [isAvatarPreviewOpen, resolvedModelImage, shouldPreviewAvatar])
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       if (copyResetTimeoutRef.current) {
         clearTimeout(copyResetTimeoutRef.current)
@@ -194,7 +194,7 @@ export function CompactMessage({
     })
   }, [timestamp, i18n.language])
 
-  const handleCopy = React.useCallback(async () => {
+  const handleCopy = useCallback(async () => {
     await copyToClipboard({ text: message, formatted: false })
     setCopied(true)
     if (copyResetTimeoutRef.current) {
@@ -206,7 +206,7 @@ export function CompactMessage({
     }, 2000)
   }, [message])
 
-  const handleSpeak = React.useCallback(() => {
+  const handleSpeak = useCallback(() => {
     if (isSpeaking) {
       cancel()
     } else {
@@ -214,7 +214,7 @@ export function CompactMessage({
     }
   }, [isSpeaking, cancel, speak, message])
 
-  const handleDelete = React.useCallback(() => {
+  const handleDelete = useCallback(() => {
     if (!onDelete) return
     Modal.confirm({
       title: t("common:confirmTitle", "Please confirm"),
@@ -234,6 +234,27 @@ export function CompactMessage({
       }
     })
   }, [onDelete, t])
+
+  const handleSaveEdit = useCallback(async () => {
+    if (!onEditFormSubmit) {
+      setEditMode(false)
+      return
+    }
+    try {
+      await onEditFormSubmit(editedText, false)
+      setSaveError(null)
+      setEditMode(false)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to save edited message:", error)
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : t("common:saveFailed", "Failed to save message")
+      setSaveError(errorMessage)
+      antdMessage.error(errorMessage)
+    }
+  }, [onEditFormSubmit, editedText, t])
 
   // Error state
   if (errorPayload) {
@@ -301,20 +322,19 @@ export function CompactMessage({
                       className="size-6"
                     />
                   </button>
-                  {isAvatarPreviewOpen && (
-                    <Modal
-                      onCancel={() => setIsAvatarPreviewOpen(false)}
-                      footer={null}
-                      centered
-                    >
-                      <Image
-                        src={resolvedModelImage}
-                        alt={displayName}
-                        preview={false}
-                        className="w-full"
-                      />
-                    </Modal>
-                  )}
+                  <Modal
+                    open={isAvatarPreviewOpen}
+                    onCancel={() => setIsAvatarPreviewOpen(false)}
+                    footer={null}
+                    centered
+                  >
+                    <Image
+                      src={resolvedModelImage}
+                      alt={displayName}
+                      preview={false}
+                      className="w-full"
+                    />
+                  </Modal>
                 </>
               ) : (
                 <Avatar
@@ -398,26 +418,7 @@ export function CompactMessage({
               />
               <div className="flex gap-2 mt-2">
                 <button
-                  onClick={async () => {
-                    if (!onEditFormSubmit) {
-                      setEditMode(false)
-                      return
-                    }
-                    try {
-                      await onEditFormSubmit(editedText, false)
-                      setSaveError(null)
-                      setEditMode(false)
-                    } catch (error) {
-                      // eslint-disable-next-line no-console
-                      console.error("Failed to save edited message:", error)
-                      const errorMessage =
-                        error instanceof Error
-                          ? error.message
-                          : t("common:saveFailed", "Failed to save message")
-                      setSaveError(errorMessage)
-                      antdMessage.error(errorMessage)
-                    }
-                  }}
+                  onClick={handleSaveEdit}
                   title={t("common:save", "Save") as string}
                   className="rounded bg-primary px-3 py-1 text-xs text-surface hover:bg-primaryStrong"
                 >

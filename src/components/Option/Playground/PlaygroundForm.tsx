@@ -620,11 +620,16 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     }
   })
 
+  const setFieldValueRef = React.useRef(form.setFieldValue)
+  React.useEffect(() => {
+    setFieldValueRef.current = form.setFieldValue
+  }, [form.setFieldValue])
+
   const [isMessageCollapsed, setIsMessageCollapsed] = React.useState(false)
   const [hasExpandedLargeText, setHasExpandedLargeText] = React.useState(false)
   const restoreMessageValue = React.useCallback(
     (value: string, metadata?: { wasExpanded?: boolean }) => {
-      form.setFieldValue("message", value)
+      setFieldValueRef.current("message", value)
       if (value.length <= PASTED_TEXT_CHAR_LIMIT) {
         setIsMessageCollapsed(false)
         setHasExpandedLargeText(false)
@@ -634,7 +639,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       setIsMessageCollapsed(!wasExpanded)
       setHasExpandedLargeText(wasExpanded)
     },
-    [form.setFieldValue]
+    []
   )
 
   const buildCollapsedMessageLabel = React.useCallback(
@@ -1024,10 +1029,8 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
           currentValue.length > 0
             ? `${currentValue}\n${pastedText}`
             : pastedText
-        setMessageValue(nextValue, {
-          collapseLarge: true,
-          forceCollapse: true
-        })
+        setMessageValue(nextValue)
+        expandLargeMessage()
         return
       }
 
@@ -1052,7 +1055,8 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       onInputChange,
       pasteLargeTextAsFile,
       setMessageValue,
-      textareaRef
+      textareaRef,
+      expandLargeMessage
     ]
   )
   React.useEffect(() => {
@@ -2827,13 +2831,9 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                               onAsk={(text, options) => {
                                 const trimmed = text.trim()
                                 if (!trimmed) return
-                                setMessageValue(text, {
-                                  collapseLarge: true,
-                                  forceCollapse: true
-                                })
-                                setTimeout(
-                                  () => submitForm({ ignorePinnedResults: options?.ignorePinnedResults }),
-                                  0
+                                form.setFieldValue("message", trimmed)
+                                queueMicrotask(() =>
+                                  submitForm({ ignorePinnedResults: options?.ignorePinnedResults })
                                 )
                               }}
                               isConnected={isConnectionReady}

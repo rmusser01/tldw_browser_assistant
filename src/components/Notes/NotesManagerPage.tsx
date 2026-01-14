@@ -564,7 +564,7 @@ const NotesManagerPage: React.FC = () => {
           const detail = await bgRequest<any>({ path: `/api/v1/notes/${target}` as any, method: 'GET' as any })
           expectedVersion = toNoteVersion(detail)
         } catch (e: any) {
-          message.error(e?.message || 'Delete failed')
+          message.error(e?.message || 'Could not verify note version')
           return
         }
       }
