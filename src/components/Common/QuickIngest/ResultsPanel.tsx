@@ -31,6 +31,8 @@ type ResultsPanelProps = {
   }
   actions: {
     retryFailedUrls: () => void
+    requeueFailed: () => void
+    exportFailedList: () => void
     tryOpenContentReview: (batchId: string) => void | Promise<void>
     openInMediaViewer: (item: ResultItem) => void
     discussInChat: (item: ResultItem) => void
@@ -59,6 +61,8 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
   } = context
   const {
     retryFailedUrls,
+    requeueFailed,
+    exportFailedList,
     tryOpenContentReview,
     openInMediaViewer,
     discussInChat,
@@ -223,13 +227,29 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
               </Button>
             ) : null}
             {resultSummary.failCount > 0 && (
-              <Button
-                size="small"
-                onClick={handleRetryClick}
-                aria-label={qi("retryFailedUrlsAria", "Retry all failed URLs")}
-              >
-                {qi("retryFailedUrls", "Retry failed URLs")}
-              </Button>
+              <>
+                <Button
+                  size="small"
+                  onClick={handleRetryClick}
+                  aria-label={qi("retryFailedUrlsAria", "Retry all failed URLs")}
+                >
+                  {qi("retryFailedUrls", "Retry failed URLs")}
+                </Button>
+                <Button
+                  size="small"
+                  onClick={requeueFailed}
+                  aria-label={qi("requeueFailedAria", "Requeue failed items")}
+                >
+                  {qi("requeueFailed", "Requeue failed")}
+                </Button>
+                <Button
+                  size="small"
+                  onClick={exportFailedList}
+                  aria-label={qi("exportFailedListAria", "Export failed items list")}
+                >
+                  {qi("exportFailedList", "Export failed list")}
+                </Button>
+              </>
             )}
             <Button
               size="small"

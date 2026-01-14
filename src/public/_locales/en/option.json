@@ -495,7 +495,7 @@
     "message": "Failed to save prompt"
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "Quick Ingest"
   },
   "quickIngest_subtitle": {
     "message": "Enter one or more URLs. Force type per row if needed."
@@ -522,7 +522,7 @@
     "message": "Checking server connection…"
   },
   "quickIngest_checkingDescription": {
-    "message": "We’re checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
+    "message": "We're checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
   },
   "quickIngest_sourceHeading": {
     "message": "Source URLs or files"
@@ -912,7 +912,7 @@
     "message": "Video"
   },
   "quickIngest_emptyQueue": {
-    "message": "No items queued yet. Drop files or add URLs to start."
+    "message": "No items queued yet."
   },
   "quickIngest_analysisLabel": {
     "message": "Analysis"
@@ -2485,5 +2485,104 @@
   },
   "quickIngest_downloadJsonAria": {
     "message": "Download JSON for {{name}}"
+  },
+  "header_addContent": {
+    "message": "Add Content"
+  },
+  "header_quickIngestTooltip": {
+    "message": "Import URLs, documents, and media to your knowledge base"
+  },
+  "quickIngest_connectingTitle": {
+    "message": "Checking connection..."
+  },
+  "quickIngest_connectingBody": {
+    "message": "Verifying your tldw server is reachable."
+  },
+  "quickIngest_notConnectedTitle": {
+    "message": "Not connected to server"
+  },
+  "quickIngest_notConnectedBody": {
+    "message": "Configure your server to process content. Inputs are disabled until connected."
+  },
+  "quickIngest_configureServer": {
+    "message": "Configure server"
+  },
+  "quickIngest_requeueFailed": {
+    "message": "Requeue failed"
+  },
+  "quickIngest_requeueFailedAria": {
+    "message": "Requeue failed items"
+  },
+  "quickIngest_noFailedToRequeue": {
+    "message": "No failed items to requeue."
+  },
+  "quickIngest_requeuedFailed": {
+    "message": "Requeued {{count}} failed item(s)."
+  },
+  "quickIngest_requeuedFailedWithFiles": {
+    "message": "Requeued {{urlCount}} URL(s). Re-upload {{fileCount}} file(s) if needed."
+  },
+  "quickIngest_exportFailedList": {
+    "message": "Export failed list"
+  },
+  "quickIngest_exportFailedListAria": {
+    "message": "Export failed items list"
+  },
+  "quickIngest_noFailedToExport": {
+    "message": "No failed items to export."
+  },
+  "quickIngest_exportedToClipboard": {
+    "message": "Copied {{count}} failed item(s) to clipboard."
+  },
+  "quickIngest_exportedToFile": {
+    "message": "Downloaded {{count}} failed item(s) as file."
+  },
+  "quickIngest_emptyQueueHint": {
+    "message": "Paste URLs (one per line) or drop files here."
+  },
+  "quickIngest_emptyQueueExample": {
+    "message": "Try a YouTube URL, PDF, or article link."
+  },
+  "quickIngest_emptyQueueShortcut": {
+    "message": "Tip: Use Ctrl+V to paste from clipboard"
+  },
+  "quickIngest_analysisTooltip": {
+    "message": "Generate AI summary and analysis of content"
+  },
+  "quickIngest_chunkingTooltip": {
+    "message": "Split content into chunks for RAG retrieval"
+  },
+  "quickIngest_overwriteTooltip": {
+    "message": "Replace existing content if URL was previously ingested"
+  },
+  "quickIngest_storageToggleTooltip": {
+    "message": "Store on server for RAG search, or process locally for one-time use"
+  },
+  "quickIngest_reviewToggleTooltip": {
+    "message": "Save drafts locally to edit before committing to server"
+  },
+  "quickIngest_onboardingTitle": {
+    "message": "Add content to your knowledge base"
+  },
+  "quickIngest_onboardingStep1": {
+    "message": "Paste URLs or drop files above"
+  },
+  "quickIngest_onboardingStep2": {
+    "message": "Configure options (or use defaults)"
+  },
+  "quickIngest_onboardingStep3": {
+    "message": "Click Process to start ingestion"
+  },
+  "quickIngest_dismissOnboarding": {
+    "message": "Dismiss onboarding"
+  },
+  "quickIngest_audioOptionsDisabled": {
+    "message": "(add audio to enable)"
+  },
+  "quickIngest_documentOptionsDisabled": {
+    "message": "(add document to enable)"
+  },
+  "quickIngest_videoOptionsDisabled": {
+    "message": "(add video to enable)"
   }
 }

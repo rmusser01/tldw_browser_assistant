@@ -271,36 +271,45 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
         </Typography.Text>
       )}
       <Space wrap size="middle" align="center">
-        <Space align="center">
-          <span>{qi("analysisLabel", "Analysis")}</span>
-          <Switch
-            aria-label="Ingestion options \u2013 analysis"
-            title="Toggle analysis"
-            checked={common.perform_analysis}
-            onChange={handleAnalysisToggle}
-            disabled={running}
-          />
-        </Space>
-        <Space align="center">
-          <span>{qi("chunkingLabel", "Chunking")}</span>
-          <Switch
-            aria-label="Ingestion options \u2013 chunking"
-            title="Toggle chunking"
-            checked={common.perform_chunking}
-            onChange={handleChunkingToggle}
-            disabled={running}
-          />
-        </Space>
-        <Space align="center">
-          <span>{qi("overwriteLabel", "Overwrite existing")}</span>
-          <Switch
-            aria-label="Ingestion options \u2013 overwrite existing"
-            title="Toggle overwrite existing"
-            checked={common.overwrite_existing}
-            onChange={handleOverwriteToggle}
-            disabled={running}
-          />
-        </Space>
+        <Tooltip
+          title={qi("analysisTooltip", "Generate AI summary and analysis of content")}
+        >
+          <Space align="center">
+            <span>{qi("analysisLabel", "Analysis")}</span>
+            <Switch
+              aria-label="Ingestion options \u2013 analysis"
+              checked={common.perform_analysis}
+              onChange={handleAnalysisToggle}
+              disabled={running}
+            />
+          </Space>
+        </Tooltip>
+        <Tooltip
+          title={qi("chunkingTooltip", "Split content into chunks for RAG retrieval")}
+        >
+          <Space align="center">
+            <span>{qi("chunkingLabel", "Chunking")}</span>
+            <Switch
+              aria-label="Ingestion options \u2013 chunking"
+              checked={common.perform_chunking}
+              onChange={handleChunkingToggle}
+              disabled={running}
+            />
+          </Space>
+        </Tooltip>
+        <Tooltip
+          title={qi("overwriteTooltip", "Replace existing content if URL was previously ingested")}
+        >
+          <Space align="center">
+            <span>{qi("overwriteLabel", "Overwrite existing")}</span>
+            <Switch
+              aria-label="Ingestion options \u2013 overwrite existing"
+              checked={common.overwrite_existing}
+              onChange={handleOverwriteToggle}
+              disabled={running}
+            />
+          </Space>
+        </Tooltip>
       </Space>
 
       {ragEmbeddingLabel && (
@@ -322,129 +331,150 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
         </div>
       )}
 
-      {hasAudioItems && (
-        <div className="space-y-1">
-          <Typography.Title level={5} className="!mb-1">
-            {t("quickIngest.audioOptions") || "Audio options"}
-          </Typography.Title>
-          <Space className="w-full">
-            <Input
-              placeholder={t("quickIngest.audioLanguage") || "Language (e.g., en)"}
-              value={normalizedTypeDefaults.audio?.language || ""}
-              onChange={handleAudioLanguageChange}
-              disabled={running}
-              aria-label="Audio language"
-              title="Audio language"
-            />
-            <Select
-              className="min-w-40"
-              value={normalizedTypeDefaults.audio?.diarize ?? false}
-              onChange={handleAudioDiarizeChange}
-              aria-label="Audio diarization toggle"
-              title="Audio diarization toggle"
-              options={[
-                {
-                  label: qi("audioDiarizationOff", "Diarization: Off"),
-                  value: false
-                },
-                {
-                  label: qi("audioDiarizationOn", "Diarization: On"),
-                  value: true
-                }
-              ]}
-              disabled={running}
-            />
-          </Space>
-          <Typography.Text type="secondary" className="text-xs">
-            {t("quickIngest.audioDiarizationHelp") ||
-              "Turn on to separate speakers in transcripts; applies to new audio items added after this point."}
-          </Typography.Text>
-          <Typography.Text
-            className="text-[11px] text-text-subtle block"
-            title={qi(
-              "audioSettingsTitle",
-              "These audio settings apply to new audio items added after this point."
-            )}
-          >
-            {qi(
-              "audioSettingsHint",
-              "These settings apply to new audio items added after this point."
-            )}
-          </Typography.Text>
-        </div>
-      )}
-
-      {hasDocumentItems && (
-        <div className="space-y-1">
-          <Typography.Title level={5} className="!mb-1">
-            {t("quickIngest.documentOptions") || "Document options"}
-          </Typography.Title>
+      <div className={`space-y-1 ${!hasAudioItems ? 'opacity-50' : ''}`}>
+        <Typography.Title level={5} className="!mb-1">
+          {t("quickIngest.audioOptions") || "Audio options"}
+          {!hasAudioItems && (
+            <span className="ml-2 text-xs font-normal text-text-muted">
+              {qi("audioOptionsDisabled", "(add audio to enable)")}
+            </span>
+          )}
+        </Typography.Title>
+        <Space className="w-full">
+          <Input
+            placeholder={t("quickIngest.audioLanguage") || "Language (e.g., en)"}
+            value={normalizedTypeDefaults.audio?.language || ""}
+            onChange={handleAudioLanguageChange}
+            disabled={running || !hasAudioItems}
+            aria-label="Audio language"
+            title="Audio language"
+          />
           <Select
             className="min-w-40"
-            value={normalizedTypeDefaults.document?.ocr ?? true}
-            onChange={handleDocumentOcrChange}
-            aria-label="OCR toggle"
-            title="OCR toggle"
+            value={normalizedTypeDefaults.audio?.diarize ?? false}
+            onChange={handleAudioDiarizeChange}
+            aria-label="Audio diarization toggle"
+            title="Audio diarization toggle"
             options={[
-              { label: qi("ocrOff", "OCR: Off"), value: false },
-              { label: qi("ocrOn", "OCR: On"), value: true }
+              {
+                label: qi("audioDiarizationOff", "Diarization: Off"),
+                value: false
+              },
+              {
+                label: qi("audioDiarizationOn", "Diarization: On"),
+                value: true
+              }
             ]}
-            disabled={running}
+            disabled={running || !hasAudioItems}
           />
-          <Typography.Text type="secondary" className="text-xs">
-            {t("quickIngest.ocrHelp") ||
-              "OCR helps extract text from scanned PDFs or images; applies to new document/PDF items added after this point."}
-          </Typography.Text>
-          <Typography.Text
-            className="text-[11px] text-text-subtle block"
-            title={qi(
-              "documentSettingsTitle",
-              "These document settings apply to new document/PDF items added after this point."
-            )}
-          >
-            {qi(
-              "documentSettingsHint",
-              "Applies to new document/PDF items added after this point."
-            )}
-          </Typography.Text>
-        </div>
-      )}
+        </Space>
+        {hasAudioItems && (
+          <>
+            <Typography.Text type="secondary" className="text-xs">
+              {t("quickIngest.audioDiarizationHelp") ||
+                "Turn on to separate speakers in transcripts; applies to new audio items added after this point."}
+            </Typography.Text>
+            <Typography.Text
+              className="text-[11px] text-text-subtle block"
+              title={qi(
+                "audioSettingsTitle",
+                "These audio settings apply to new audio items added after this point."
+              )}
+            >
+              {qi(
+                "audioSettingsHint",
+                "These settings apply to new audio items added after this point."
+              )}
+            </Typography.Text>
+          </>
+        )}
+      </div>
 
-      {hasVideoItems && (
-        <div className="space-y-1">
-          <Typography.Title level={5} className="!mb-1">
-            {t("quickIngest.videoOptions") || "Video options"}
-          </Typography.Title>
-          <Select
-            className="min-w-40"
-            value={normalizedTypeDefaults.video?.captions ?? false}
-            onChange={handleVideoCaptionsChange}
-            aria-label="Captions toggle"
-            title="Captions toggle"
-            options={[
-              { label: qi("captionsOff", "Captions: Off"), value: false },
-              { label: qi("captionsOn", "Captions: On"), value: true }
-            ]}
-            disabled={running}
-          />
-          <Typography.Text type="secondary" className="text-xs">
-            {t("quickIngest.captionsHelp") ||
-              "Include timestamps/captions for new video items added after this point; helpful for search and summaries."}
-          </Typography.Text>
-          <Typography.Text
-            className="text-[11px] text-text-subtle block"
-            title={qi(
-              "videoSettingsTitle",
-              "These video settings apply to new video items added after this point."
-            )}
-          >
-            {qi(
-              "videoSettingsHint",
-              "Applies to new video items added after this point."
-            )}
-          </Typography.Text>
-        </div>
-      )}
+      <div className={`space-y-1 ${!hasDocumentItems ? 'opacity-50' : ''}`}>
+        <Typography.Title level={5} className="!mb-1">
+          {t("quickIngest.documentOptions") || "Document options"}
+          {!hasDocumentItems && (
+            <span className="ml-2 text-xs font-normal text-text-muted">
+              {qi("documentOptionsDisabled", "(add document to enable)")}
+            </span>
+          )}
+        </Typography.Title>
+        <Select
+          className="min-w-40"
+          value={normalizedTypeDefaults.document?.ocr ?? true}
+          onChange={handleDocumentOcrChange}
+          aria-label="OCR toggle"
+          title="OCR toggle"
+          options={[
+            { label: qi("ocrOff", "OCR: Off"), value: false },
+            { label: qi("ocrOn", "OCR: On"), value: true }
+          ]}
+          disabled={running || !hasDocumentItems}
+        />
+        {hasDocumentItems && (
+          <>
+            <Typography.Text type="secondary" className="text-xs">
+              {t("quickIngest.ocrHelp") ||
+                "OCR helps extract text from scanned PDFs or images; applies to new document/PDF items added after this point."}
+            </Typography.Text>
+            <Typography.Text
+              className="text-[11px] text-text-subtle block"
+              title={qi(
+                "documentSettingsTitle",
+                "These document settings apply to new document/PDF items added after this point."
+              )}
+            >
+              {qi(
+                "documentSettingsHint",
+                "Applies to new document/PDF items added after this point."
+              )}
+            </Typography.Text>
+          </>
+        )}
+      </div>
+
+      <div className={`space-y-1 ${!hasVideoItems ? 'opacity-50' : ''}`}>
+        <Typography.Title level={5} className="!mb-1">
+          {t("quickIngest.videoOptions") || "Video options"}
+          {!hasVideoItems && (
+            <span className="ml-2 text-xs font-normal text-text-muted">
+              {qi("videoOptionsDisabled", "(add video to enable)")}
+            </span>
+          )}
+        </Typography.Title>
+        <Select
+          className="min-w-40"
+          value={normalizedTypeDefaults.video?.captions ?? false}
+          onChange={handleVideoCaptionsChange}
+          aria-label="Captions toggle"
+          title="Captions toggle"
+          options={[
+            { label: qi("captionsOff", "Captions: Off"), value: false },
+            { label: qi("captionsOn", "Captions: On"), value: true }
+          ]}
+          disabled={running || !hasVideoItems}
+        />
+        {hasVideoItems && (
+          <>
+            <Typography.Text type="secondary" className="text-xs">
+              {t("quickIngest.captionsHelp") ||
+                "Include timestamps/captions for new video items added after this point; helpful for search and summaries."}
+            </Typography.Text>
+            <Typography.Text
+              className="text-[11px] text-text-subtle block"
+              title={qi(
+                "videoSettingsTitle",
+                "These video settings apply to new video items added after this point."
+              )}
+            >
+              {qi(
+                "videoSettingsHint",
+                "Applies to new video items added after this point."
+              )}
+            </Typography.Text>
+          </>
+        )}
+      </div>
 
       <div className="rounded-md border border-border bg-surface2 p-3">
         <div className="flex flex-col gap-2">
@@ -481,7 +511,10 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
                                 "reviewModeStorageDisabled",
                                 "Storage location is locked when review mode is enabled"
                               )
-                            : undefined
+                            : qi(
+                                "storageToggleTooltip",
+                                "Store on server for RAG search, or process locally for one-time use"
+                              )
                         }
                       >
                         <span>
@@ -496,11 +529,6 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
                                     "quickIngest.processOnlyAria",
                                     "Process ingest results locally only"
                                   )
-                            }
-                            title={
-                              storeRemote
-                                ? t("quickIngest.storeRemote", "Store to remote DB")
-                                : t("quickIngest.process", "Process locally")
                             }
                             checked={storeRemote}
                             onChange={setStoreRemote}
@@ -547,20 +575,27 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
                   </div>
                   <div className="mt-3 border-t border-border pt-3 text-xs text-text-muted">
                     <div className="flex items-start justify-between gap-2">
-                      <Space align="center" size="small">
-                        <Switch
-                          aria-label={qi(
-                            "reviewBeforeStorage",
-                            "Review before saving"
-                          )}
-                          checked={reviewBeforeStorage}
-                          onChange={handleReviewToggle}
-                          disabled={running}
-                        />
-                        <Typography.Text>
-                          {qi("reviewBeforeStorage", "Review before saving")}
-                        </Typography.Text>
-                      </Space>
+                      <Tooltip
+                        title={qi(
+                          "reviewToggleTooltip",
+                          "Save drafts locally to edit before committing to server"
+                        )}
+                      >
+                        <Space align="center" size="small">
+                          <Switch
+                            aria-label={qi(
+                              "reviewBeforeStorage",
+                              "Review before saving"
+                            )}
+                            checked={reviewBeforeStorage}
+                            onChange={handleReviewToggle}
+                            disabled={running}
+                          />
+                          <Typography.Text>
+                            {qi("reviewBeforeStorage", "Review before saving")}
+                          </Typography.Text>
+                        </Space>
+                      </Tooltip>
                       {reviewBeforeStorage ? (
                         <Tag color="blue">
                           {qi("reviewEnabled", "Review mode")}

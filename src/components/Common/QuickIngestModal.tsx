@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { browser } from "wxt/browser"
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { MEDIA_ADD_SCHEMA_FALLBACK, MEDIA_ADD_SCHEMA_FALLBACK_VERSION } from '@/services/tldw/fallback-schemas'
-import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star } from 'lucide-react'
+import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star, X } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
 import { QuickIngestInspectorDrawer } from "@/components/Common/QuickIngestInspectorDrawer"
@@ -514,6 +514,7 @@ export const QuickIngestModal: React.FC<Props> = ({
   const [hasOpenedInspector, setHasOpenedInspector] = React.useState<boolean>(false)
   const [showInspectorIntro, setShowInspectorIntro] = React.useState<boolean>(true)
   const [inspectorIntroDismissed, setInspectorIntroDismissed] = useStorage<boolean>('quickIngestInspectorIntroDismissed', false)
+  const [onboardingDismissed, setOnboardingDismissed] = useStorage<boolean>('quickIngestOnboardingDismissed', false)
   const reattachInputRef = React.useRef<HTMLInputElement | null>(null)
   const confirmDanger = useConfirmDanger()
   const introToast = React.useRef(false)
@@ -2761,6 +2762,75 @@ export const QuickIngestModal: React.FC<Props> = ({
     )
   }, [buildRowEntry, createDefaultsSnapshot, messageApi, qi, results, rows, setQueuedFiles])
 
+  const requeueFailed = React.useCallback(() => {
+    const failedItems = results.filter((r) => r.status === "error")
+    const failedUrls = failedItems
+      .filter((r) => r.url)
+      .map((r) => buildRowEntry(r.url || "", "auto"))
+    const failedFileCount = failedItems.filter((r) => r.fileName && !r.url).length
+
+    if (failedUrls.length === 0 && failedFileCount === 0) {
+      messageApi.info(qi("noFailedToRequeue", "No failed items to requeue."))
+      return
+    }
+
+    // Add URLs back to queue
+    if (failedUrls.length > 0) {
+      setRows((prev) => [...prev, ...failedUrls])
+    }
+    setResults([])
+
+    const message = failedFileCount > 0
+      ? qi(
+          "requeuedFailedWithFiles",
+          "Requeued {{urlCount}} URL(s). Re-upload {{fileCount}} file(s) if needed.",
+          { urlCount: failedUrls.length, fileCount: failedFileCount }
+        )
+      : qi(
+          "requeuedFailed",
+          "Requeued {{count}} failed item(s).",
+          { count: failedUrls.length }
+        )
+    messageApi.success(message)
+  }, [buildRowEntry, messageApi, qi, results])
+
+  const exportFailedList = React.useCallback(() => {
+    const failedItems = results.filter((r) => r.status === "error")
+    const lines = failedItems.map((item) => {
+      if (item.url) return `URL: ${item.url}`
+      if (item.fileName) return `File: ${item.fileName}`
+      return `Unknown: ${item.id}`
+    })
+
+    if (lines.length === 0) {
+      messageApi.info(qi("noFailedToExport", "No failed items to export."))
+      return
+    }
+
+    const text = lines.join('\n')
+    navigator.clipboard.writeText(text).then(() => {
+      messageApi.success(
+        qi("exportedToClipboard", "Copied {{count}} failed item(s) to clipboard.", {
+          count: lines.length
+        })
+      )
+    }).catch(() => {
+      // Fallback: download as file
+      const blob = new Blob([text], { type: 'text/plain' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'failed-items.txt'
+      a.click()
+      URL.revokeObjectURL(url)
+      messageApi.success(
+        qi("exportedToFile", "Downloaded {{count}} failed item(s) as file.", {
+          count: lines.length
+        })
+      )
+    })
+  }, [messageApi, qi, results])
+
   const confirmReplaceQueue = React.useCallback(
     async (otherCount: number) => {
       if (otherCount <= 0) return true
@@ -2904,66 +2974,31 @@ export const QuickIngestModal: React.FC<Props> = ({
     window.dispatchEvent(new CustomEvent("tldw:quick-ingest-ready"))
   }, [open])
 
-  // Derive a short, state-aware connectivity banner message so users
-  // immediately understand whether Quick Ingest will run or only queue.
+  // Simplified connection states: Ready, Not Connected, or Configuring
   const isOnlineForIngest = ingestConnectionStatus === "online"
+  const isConfiguring = ingestConnectionStatus === "unknown"
   let connectionBannerTitle: string | null = null
   let connectionBannerBody: string | null = null
-  let showHealthLink = false
 
   if (!isOnlineForIngest) {
-    if (ingestConnectionStatus === "unconfigured") {
+    if (isConfiguring) {
       connectionBannerTitle = t(
-        "option:connectionCard.headlineError",
-        "Can’t reach your tldw server"
+        "quickIngest.connectingTitle",
+        "Checking connection..."
       )
       connectionBannerBody = t(
-        "quickIngest.unconfiguredDescription",
-        "You can queue URLs and files now; ingestion will run after you configure a server URL and API key under Settings → tldw server."
+        "quickIngest.connectingBody",
+        "Verifying your tldw server is reachable."
       )
-      showHealthLink = true
-    } else if (ingestConnectionStatus === "offlineBypass") {
-      connectionBannerTitle = t(
-        "option:connectionCard.headlineError",
-        "Can’t reach your tldw server"
-      )
-      connectionBannerBody = t(
-        "quickIngest.offlineBypassDescription",
-        "Items are staged here and will process once you disable offline mode or re-enable live server checks."
-      )
-      showHealthLink = true
-    } else if (ingestConnectionStatus === "offline") {
-      if ((errorKind as any) === "auth") {
-        connectionBannerTitle = t(
-          "option:connectionCard.headlineErrorAuth",
-          "API key needs attention"
-        )
-        connectionBannerBody = t(
-          "option:connectionCard.descriptionErrorAuth",
-          "Your server is up but the API key is wrong or missing. Fix the key in Settings → tldw server, then retry."
-        )
-      } else {
-        connectionBannerTitle = t(
-          "option:connectionCard.headlineError",
-          "Can’t reach your tldw server"
-        )
-        connectionBannerBody = t(
-          "option:connectionCard.descriptionError",
-          "We couldn’t reach {{host}}. Check that your tldw_server is running and that your browser can reach it, then open diagnostics or update the URL.",
-          { host: ingestHost }
-        )
-      }
-      showHealthLink = true
     } else {
       connectionBannerTitle = t(
-        "quickIngest.checkingTitle",
-        "Checking server connection…"
+        "quickIngest.notConnectedTitle",
+        "Not connected to server"
       )
       connectionBannerBody = t(
-        "quickIngest.checkingDescription",
-        "We’re checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
+        "quickIngest.notConnectedBody",
+        "Configure your server to process content. Inputs are disabled until connected."
       )
-      showHealthLink = false
     }
   }
 
@@ -2971,7 +3006,14 @@ export const QuickIngestModal: React.FC<Props> = ({
     <Modal
       title={
         <div className="flex items-center gap-2">
-          <span>{t('quickIngest.title') || 'Quick Ingest Media'}</span>
+          <span>
+            {t('quickIngest.title', 'Quick Ingest')}
+            {plannedCount > 0 && (
+              <span className="ml-1.5 text-text-muted font-normal text-sm">
+                ({plannedCount})
+              </span>
+            )}
+          </span>
           <Button
             size="small"
             type="text"
@@ -3001,52 +3043,42 @@ export const QuickIngestModal: React.FC<Props> = ({
         {!isOnlineForIngest && connectionBannerTitle && (
           <div className="rounded-md border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
             <div className="font-medium">{connectionBannerTitle}</div>
-            {connectionBannerBody ? (
+            {connectionBannerBody && (
               <div className="mt-0.5">{connectionBannerBody}</div>
-            ) : null}
-            <div className="mt-1 flex flex-wrap items-center gap-2">
-              {showHealthLink && (
-                <button
-                  type="button"
-                  onClick={openHealthDiagnostics}
-                  className="inline-flex items-center text-[11px] font-medium text-warn underline underline-offset-2"
-                >
-                  {t(
-                    "quickIngest.checkHealthLink",
-                    "Check server health in Health & diagnostics"
-                  )}
-                </button>
-              )}
-              {ingestConnectionStatus === "offline" && checkOnce ? (
-                <Button
-                  size="small"
-                  onClick={() => {
-                    try {
-                      checkOnce?.()
-                    } catch {
-                      // ignore retry failures
-                    }
-                  }}>
-                  {qi("retryConnection", "Retry connection")}
-                </Button>
-              ) : null}
-              {ingestConnectionStatus === "offlineBypass" &&
-                disableOfflineBypass && (
-                  <Button
-                    size="small"
-                    onClick={async () => {
-                      try {
-                        await disableOfflineBypass()
-                      } catch {
-                        // ignore disable errors; Quick Ingest will update when connection state changes
-                      }
-                    }}>
-                    {t(
-                      "quickIngest.disableOfflineMode",
-                      "Disable offline mode"
-                    )}
-                  </Button>
-                )}
+            )}
+            {!isConfiguring && (
+              <Button
+                size="small"
+                className="mt-2"
+                onClick={openHealthDiagnostics}
+              >
+                {t("quickIngest.configureServer", "Configure server")}
+              </Button>
+            )}
+          </div>
+        )}
+        {!onboardingDismissed && isOnlineForIngest && (
+          <div className="rounded-md border border-primary/30 bg-primary/5 px-3 py-2 text-xs text-text">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <div className="font-medium mb-1">
+                  {qi("onboardingTitle", "Add content to your knowledge base")}
+                </div>
+                <ul className="list-disc list-inside space-y-0.5 text-text-muted">
+                  <li>{qi("onboardingStep1", "Paste URLs or drop files above")}</li>
+                  <li>{qi("onboardingStep2", "Configure options (or use defaults)")}</li>
+                  <li>{qi("onboardingStep3", "Click Process to start ingestion")}</li>
+                </ul>
+              </div>
+              <Button
+                type="text"
+                size="small"
+                icon={<X className="w-3.5 h-3.5" />}
+                onClick={() => {
+                  try { setOnboardingDismissed(true) } catch {}
+                }}
+                aria-label={qi("dismissOnboarding", "Dismiss onboarding")}
+              />
             </div>
           </div>
         )}
@@ -3234,12 +3266,12 @@ export const QuickIngestModal: React.FC<Props> = ({
                   {qi('dragAndDropHint', 'Docs, PDFs, audio, and video are all welcome.')}
                 </Typography.Text>
                 <div className="flex items-center gap-2">
-                  <Button onClick={() => document.getElementById('qi-file-input')?.click()} disabled={running}>
+                  <Button onClick={() => document.getElementById('qi-file-input')?.click()} disabled={running || !isOnlineForIngest}>
                     {t('quickIngest.addFiles') || 'Browse files'}
                   </Button>
                   <Button
                     onClick={pasteFromClipboard}
-                    disabled={running}
+                    disabled={running || !isOnlineForIngest}
                     aria-label={qi('pasteFromClipboard', 'Paste URLs from clipboard')}
                     title={qi('pasteFromClipboard', 'Paste URLs from clipboard')}
                   >
@@ -3539,11 +3571,17 @@ export const QuickIngestModal: React.FC<Props> = ({
               </React.Suspense>
 
               {rows.length === 0 && queuedFileStubs.length === 0 && (
-                <div className="rounded-md border border-dashed border-border p-4 text-center text-sm text-text-muted">
-                  {qi(
-                    "emptyQueue",
-                    "No items queued yet. Drop files or add URLs to start."
-                  )}
+                <div className="rounded-md border border-dashed border-border p-4 text-center text-sm text-text-muted space-y-1.5">
+                  <div>{qi("emptyQueue", "No items queued yet.")}</div>
+                  <div className="text-xs">
+                    {qi("emptyQueueHint", "Paste URLs (one per line) or drop files here.")}
+                  </div>
+                  <div className="text-xs text-text-subtle">
+                    {qi("emptyQueueExample", "Try a YouTube URL, PDF, or article link.")}
+                  </div>
+                  <div className="text-[11px] text-text-subtle pt-1">
+                    {qi("emptyQueueShortcut", "Tip: Use Ctrl+V to paste from clipboard")}
+                  </div>
                 </div>
               )}
             </div>
@@ -4032,6 +4070,8 @@ export const QuickIngestModal: React.FC<Props> = ({
             }}
             actions={{
               retryFailedUrls,
+              requeueFailed,
+              exportFailedList,
               tryOpenContentReview: (batchId) => {
                 void tryOpenContentReview(batchId)
               },
