@@ -1314,9 +1314,9 @@
     "message": "Modifié"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "L'API Media n’est pas disponible hors ligne"
   },
   "mediaEmpty_serverOfflineTitle": {
-    "message": "Server offline"
+    "message": "Serveur hors ligne"
   }
 }

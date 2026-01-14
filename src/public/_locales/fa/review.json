@@ -1314,9 +1314,9 @@
     "message": "نسخه ویرایش‌شده"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "API رسانه در حالت آفلاین در دسترس نیست"
   },
   "mediaEmpty_serverOfflineTitle": {
-    "message": "Server offline"
+    "message": "سرور آفلاین است"
   }
 }

@@ -1314,9 +1314,9 @@
     "message": "بعد التعديل"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "واجهة برمجة تطبيقات الوسائط غير متاحة دون اتصال"
   },
   "mediaEmpty_serverOfflineTitle": {
-    "message": "Server offline"
+    "message": "الخادم غير متصل"
   }
 }

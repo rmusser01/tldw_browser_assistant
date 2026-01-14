@@ -1314,9 +1314,9 @@
     "message": "編集済み"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "メディアAPIはオフラインでは利用できません"
   },
   "mediaEmpty_serverOfflineTitle": {
-    "message": "Server offline"
+    "message": "サーバーがオフラインです"
   }
 }

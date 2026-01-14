@@ -1314,7 +1314,7 @@
     "message": "Modificato"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "L'API Media non è disponibile offline"
   },
   "mediaEmpty_serverOfflineTitle": {
     "message": "Server offline"

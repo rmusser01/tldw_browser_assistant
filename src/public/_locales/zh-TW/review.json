@@ -1314,9 +1314,9 @@
     "message": "已編輯"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "媒體 API 離線不可用"
   },
   "mediaEmpty_serverOfflineTitle": {
-    "message": "Server offline"
+    "message": "伺服器離線"
   }
 }

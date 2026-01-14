@@ -1320,9 +1320,9 @@
     "message": "Изменённый"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "API Media недоступен офлайн"
   },
   "mediaEmpty_serverOfflineTitle": {
-    "message": "Server offline"
+    "message": "Сервер офлайн"
   }
 }

@@ -67,7 +67,7 @@ import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClien
 import { CharacterSelect } from "@/components/Common/CharacterSelect"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import type { Character } from "@/types/character"
-import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
+import { KnowledgePanel } from "@/components/Knowledge"
 import { BetaTag } from "@/components/Common/Beta"
 import {
   SlashCommandMenu,
@@ -2821,7 +2821,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                                 "Search & Context"
                               )}
                             </div>
-                            <RagSearchBar
+                            <KnowledgePanel
                               onInsert={(text) => {
                                 const current = form.values.message || ""
                                 const next = current ? `${current}\n\n${text}` : text

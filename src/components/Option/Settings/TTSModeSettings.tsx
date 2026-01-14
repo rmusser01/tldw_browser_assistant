@@ -1,9 +1,14 @@
 import { SaveButton } from "@/components/Common/SaveButton"
 import { getModels, getVoices } from "@/services/elevenlabs"
 import { getTTSSettings, setTTSSettings } from "@/services/tts"
+import { inferTldwProviderFromModel } from "@/services/tts-provider"
 import { TTS_PROVIDER_OPTIONS } from "@/services/tts-providers"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { fetchTldwVoices, type TldwVoice } from "@/services/tldw/audio-voices"
+import {
+  fetchTldwVoiceCatalog,
+  fetchTldwVoices,
+  type TldwVoice
+} from "@/services/tldw/audio-voices"
 import {
   fetchTldwTtsModels,
   type TldwTtsModel
@@ -100,9 +105,22 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
       form.values.ttsProvider === "elevenlabs" && !!form.values.elevenLabsApiKey
   })
 
-  const { data: tldwVoices } = useQuery({
-    queryKey: ["fetchTldwVoices"],
-    queryFn: fetchTldwVoices,
+  const inferredTldwProviderKey = React.useMemo(
+    () => inferTldwProviderFromModel(form.values.tldwTtsModel),
+    [form.values.tldwTtsModel]
+  )
+
+  const { data: tldwVoices = [], isLoading: tldwVoicesLoading } = useQuery<
+    TldwVoice[]
+  >({
+    queryKey: ["fetchTldwVoices", inferredTldwProviderKey],
+    queryFn: async () => {
+      if (inferredTldwProviderKey) {
+        const catalog = await fetchTldwVoiceCatalog(inferredTldwProviderKey)
+        if (catalog.length > 0) return catalog
+      }
+      return fetchTldwVoices()
+    },
     enabled: form.values.ttsProvider === "tldw"
   })
 
@@ -111,6 +129,26 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     queryFn: fetchTldwTtsModels,
     enabled: form.values.ttsProvider === "tldw"
   })
+
+  const tldwVoiceOptions = React.useMemo(() => {
+    if (tldwVoices.length > 0) {
+      return tldwVoices
+        .map((voice, index) => {
+          const value = voice.voice_id || voice.id || voice.name
+          if (!value) return null
+          const label =
+            voice.name ||
+            voice.voice_id ||
+            voice.id ||
+            `Voice ${index + 1}`
+          return { label, value }
+        })
+        .filter(Boolean) as { label: string; value: string }[]
+    }
+
+    const fallback = (form.values.tldwTtsVoice || "").trim()
+    return fallback ? [{ label: fallback, value: fallback }] : []
+  }, [form.values.tldwTtsVoice, tldwVoices])
 
   // Save mutation with loading state
   const { mutate: saveTTSMutation, isPending: isSaving } = useMutation({
@@ -493,26 +531,19 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
               <span className="text-text">
                 TTS Voice
               </span>
-              {tldwVoices && tldwVoices.length > 0 ? (
-                <Select
-                  id={ids.tldwVoice}
-                  aria-label="tldw TTS voice"
-                  className="w-full mt-4 sm:mt-0 sm:w-[200px] focus-ring"
-                  placeholder="Select a voice"
-                  options={tldwVoices.map((v: TldwVoice) => ({
-                    label: v.name || v.voice_id || v.id || "Voice",
-                    value: v.voice_id || v.id || v.name || ""
-                  }))}
-                  {...form.getInputProps("tldwTtsVoice")}
-                />
-              ) : (
-                <Input
-                  placeholder="af_heart"
-                  className=" mt-4 sm:mt-0 !w-[300px] sm:w-[200px]"
-                  {...form.getInputProps("tldwTtsVoice")}
-                />
-              )}
-          </div>
+              <Select
+                id={ids.tldwVoice}
+                aria-label="tldw TTS voice"
+                className="w-full mt-4 sm:mt-0 sm:w-[200px] focus-ring"
+                placeholder="Select a voice"
+                options={tldwVoiceOptions}
+                loading={tldwVoicesLoading}
+                disabled={!tldwVoicesLoading && tldwVoiceOptions.length === 0}
+                showSearch
+                optionFilterProp="label"
+                {...form.getInputProps("tldwTtsVoice")}
+              />
+            </div>
             <div className="flex sm:flex-row flex-col space-y-4 sm:space-y-0 sm:justify-between">
               <span className="text-text">
                 Response format

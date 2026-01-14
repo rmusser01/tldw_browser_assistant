@@ -1314,9 +1314,9 @@
     "message": "Redigeret"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "Media-API er ikke tilgængelig offline"
   },
   "mediaEmpty_serverOfflineTitle": {
-    "message": "Server offline"
+    "message": "Serveren er offline"
   }
 }

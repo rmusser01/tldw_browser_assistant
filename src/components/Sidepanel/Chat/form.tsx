@@ -45,7 +45,7 @@ import { isFirefoxTarget } from "@/config/platform"
 import { useDraftPersistence } from "@/hooks/useDraftPersistence"
 import { useSlashCommands, type SlashCommandItem } from "@/hooks/useSlashCommands"
 import { useTabMentions, type TabInfo } from "~/hooks/useTabMentions"
-import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
+import { KnowledgePanel } from "@/components/Knowledge"
 import { QueuedMessagesBanner } from "@/components/Sidepanel/Chat/QueuedMessagesBanner"
 import { ConnectionStatusIndicator } from "@/components/Sidepanel/Chat/ConnectionStatusIndicator"
 import { ControlRow } from "@/components/Sidepanel/Chat/ControlRow"
@@ -165,6 +165,7 @@ export const SidepanelForm = ({
     tabMentionsEnabled,
     mentionPosition,
     filteredTabs,
+    availableTabs,
     selectedDocuments,
     handleTextChange,
     insertMention,
@@ -1439,9 +1440,9 @@ export const SidepanelForm = ({
                       uxState={uxState}
                       onOpenSettings={openSettings}
                     />
-                    {/* RAG Search Bar: search KB, insert snippets, ask directly */}
+                    {/* Knowledge Search: search KB, insert snippets, ask directly */}
                     {isProMode && (
-                      <RagSearchBar
+                      <KnowledgePanel
                         onInsert={(text) => {
                           const current = form.values.message || ""
                           const next = current ? `${current}\n\n${text}` : text
@@ -1467,8 +1468,11 @@ export const SidepanelForm = ({
                         currentMessage={form.values.message}
                         showAttachedContext
                         attachedTabs={selectedDocuments}
+                        availableTabs={availableTabs}
                         attachedFiles={contextFiles}
+                        onAddTab={addDocument}
                         onRemoveTab={removeDocument}
+                        onClearTabs={clearSelectedDocuments}
                         onRefreshTabs={reloadTabs}
                         onAddFile={() => contextFileInputRef.current?.click()}
                         onRemoveFile={(fileId) =>
@@ -1476,6 +1480,7 @@ export const SidepanelForm = ({
                             prev.filter((item) => item.id !== fileId)
                           )
                         }
+                        onClearFiles={() => setContextFiles([])}
                       />
                     )}
                     {/* Queued messages banner - shown above input area */}

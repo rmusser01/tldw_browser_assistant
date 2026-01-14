@@ -1314,9 +1314,9 @@
     "message": "എഡിറ്റ് ചെയ്‌തത്"
   },
   "mediaEmpty_apiOfflineTitle": {
-    "message": "Media API not available offline"
+    "message": "ഓഫ്‌ലൈൻ ആയി മീഡിയ API ലഭ്യമല്ല"
   },
   "mediaEmpty_serverOfflineTitle": {
-    "message": "Server offline"
+    "message": "സർവർ ഓഫ്‌ലൈൻ ആണ്"
   }
 }
