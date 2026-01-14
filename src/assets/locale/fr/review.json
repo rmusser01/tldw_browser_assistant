@@ -323,6 +323,8 @@
     "connectDescription": "Connectez votre serveur tldw dans les paramètres pour envoyer des messages et voir les médias. Une fois connecté, les enregistrements et documents traités seront listés ici.",
     "connectExample1": "Ouvrez Paramètres → serveur tldw pour ajouter l’URL de votre serveur.",
     "connectExample2": "Une fois connecté, utilisez Quick ingest dans l’en-tête pour ajouter des médias depuis vos enregistrements et fichiers.",
+    "apiOfflineTitle": "Media API not available offline",
+    "serverOfflineTitle": "Server offline",
     "offlineTitle": "La revue des médias n’est pas encore disponible sur ce serveur",
     "offlineDescription": "Cet espace dépend du support de la Revue des médias sur votre serveur tldw. Vous pouvez continuer à utiliser le chat, les notes et d’autres outils pendant que vous mettez à niveau vers une version qui inclut Médias.",
     "offlineExample1": "Ouvrez Diagnostics pour confirmer la version de votre serveur et les API disponibles.",

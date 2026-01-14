@@ -323,6 +323,8 @@
     "connectDescription": "Подключите свой сервер tldw в настройках, чтобы отправлять сообщения и просматривать медиа. После подключения обработанные записи и документы будут отображаться здесь.",
     "connectExample1": "Откройте Настройки → tldw server, чтобы добавить URL сервера.",
     "connectExample2": "После подключения используйте Quick ingest в шапке, чтобы добавлять медиа из своих записей и файлов.",
+    "apiOfflineTitle": "Media API not available offline",
+    "serverOfflineTitle": "Server offline",
     "offlineTitle": "Media API not available on this server",
     "offlineDescription": "This tldw server does not advertise the Media endpoints (for example, /api/v1/media and /api/v1/media/search). Upgrade your server to a version that includes Media to use this workspace.",
     "offlineExample1": "Откройте Diagnostics, чтобы подтвердить версию сервера и доступные API.",

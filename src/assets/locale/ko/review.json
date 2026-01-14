@@ -323,6 +323,8 @@
     "connectDescription": "설정에서 tldw 서버에 연결해 메시지를 보내고 미디어를 볼 수 있습니다. 연결되면 처리된 녹음과 문서가 여기에 표시됩니다.",
     "connectExample1": "설정 → tldw 서버를 열어 서버 URL을 추가하세요.",
     "connectExample2": "연결되면 헤더의 Quick ingest를 사용해 녹음과 파일에서 미디어를 추가하세요.",
+    "apiOfflineTitle": "Media API not available offline",
+    "serverOfflineTitle": "Server offline",
     "offlineTitle": "이 서버에서는 Media API를 사용할 수 없습니다",
     "offlineDescription": "이 tldw 서버는 Media 엔드포인트(/api/v1/media 및 /api/v1/media/search 등)를 제공하지 않습니다. 이 작업 공간을 사용하려면 Media가 포함된 버전으로 서버를 업그레이드하세요.",
     "offlineExample1": "Diagnostics를 열어 서버 버전과 사용 가능한 API를 확인하세요.",

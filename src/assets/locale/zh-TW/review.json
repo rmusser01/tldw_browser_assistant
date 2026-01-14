@@ -323,6 +323,8 @@
     "connectDescription": "在設定中連線至你的 tldw 伺服器以傳送訊息並查看媒體。連線後，處理過的錄音與文件會在此列出。",
     "connectExample1": "開啟「設定 → tldw server」以新增你的伺服器 URL。",
     "connectExample2": "連線後，使用標題列的 Quick Ingest 從你的錄音與檔案加入媒體。",
+    "apiOfflineTitle": "Media API not available offline",
+    "serverOfflineTitle": "Server offline",
     "offlineTitle": "此伺服器尚未提供媒體審閱",
     "offlineDescription": "此工作區仰賴你的 tldw 伺服器支援媒體審閱。升級到包含媒體功能的版本期間，你仍可使用聊天、筆記與其他工具。",
     "offlineExample1": "開啟 Diagnostics 以確認你的伺服器版本與可用的 API。",
