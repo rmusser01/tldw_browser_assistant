@@ -33,11 +33,11 @@ type DocLoadState = {
 
 const EXTENSION_DOC_IMPORTS: DocImportMap = import.meta.glob<string>(
   "/Docs/User_Documentation/**/*.{md,mdx}",
-  { as: "raw" }
+  { query: "?raw", import: "default" }
 )
 const SERVER_DOC_IMPORTS: DocImportMap = import.meta.glob<string>(
   "/Docs/Published/**/*.{md,mdx}",
-  { as: "raw" }
+  { query: "?raw", import: "default" }
 )
 
 const DOC_IMPORTS_BY_SOURCE: Record<DocSource, DocImportMap> = {

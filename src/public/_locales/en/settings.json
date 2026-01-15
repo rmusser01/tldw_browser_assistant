@@ -3055,5 +3055,233 @@
   },
   "quickIngestSettings_resetAll": {
     "message": "Reset all presets"
+  },
+  "admin_llamacppIntro": {
+    "message": "Manage the Llama.cpp inference server: start/stop with custom configuration and inspect available models."
+  },
+  "admin_llamacppLoadTitle": {
+    "message": "Load Model"
+  },
+  "admin_llamacppSelectModel": {
+    "message": "Select model"
+  },
+  "admin_llamacppSelectModelPlaceholder": {
+    "message": "Choose a GGUF model..."
+  },
+  "admin_llamacppBasicSettings": {
+    "message": "Basic Settings"
+  },
+  "admin_llamacppContextSize": {
+    "message": "Context size"
+  },
+  "admin_llamacppGpuLayers": {
+    "message": "GPU layers"
+  },
+  "admin_llamacppGpuLayersHint": {
+    "message": "0 = CPU only, -1 = all layers"
+  },
+  "admin_llamacppPerformanceSettings": {
+    "message": "Performance Settings"
+  },
+  "admin_llamacppPerformanceSettingsDesc": {
+    "message": "Thread count, batch size, memory options"
+  },
+  "admin_llamacppThreads": {
+    "message": "Threads"
+  },
+  "admin_llamacppThreadsHint": {
+    "message": "Leave empty for auto-detect"
+  },
+  "admin_llamacppBatchSize": {
+    "message": "Batch size"
+  },
+  "admin_llamacppMlock": {
+    "message": "Memory lock"
+  },
+  "admin_llamacppMlockHint": {
+    "message": "Lock model in RAM (requires permissions)"
+  },
+  "admin_llamacppCustomArgs": {
+    "message": "Custom Arguments"
+  },
+  "admin_llamacppCustomArgsDesc": {
+    "message": "Pass additional server arguments"
+  },
+  "admin_llamacppCustomArgsPlaceholder": {
+    "message": "No custom arguments. Click 'Add argument' to add one."
+  },
+  "admin_llamacppStart": {
+    "message": "Start Server"
+  },
+  "admin_llamacppStartDefaults": {
+    "message": "Start with Defaults"
+  },
+  "admin_llamacppStop": {
+    "message": "Stop"
+  },
+  "admin_llamacppAlreadyRunning": {
+    "message": "Server is already running. Stop it first to start with new settings."
+  },
+  "admin_llamacppActiveModel": {
+    "message": "Model"
+  },
+  "admin_llamacppPort": {
+    "message": "Port"
+  },
+  "admin_llamacppModelsTitle": {
+    "message": "Available Models"
+  },
+  "admin_llamacppModelsDesc": {
+    "message": "GGUF model(s) detected"
+  },
+  "admin_llamacppModelsEmpty": {
+    "message": "No local GGUF models detected. Configure your Llama.cpp models directory on the server."
+  },
+  "admin_mlxIntro": {
+    "message": "Manage MLX language models: load models with custom configuration and monitor status."
+  },
+  "admin_mlxLoadTitle": {
+    "message": "Load Model"
+  },
+  "admin_mlxModelPathLabel": {
+    "message": "Model path or HuggingFace repo"
+  },
+  "admin_mlxModelPathPlaceholder": {
+    "message": "e.g., mlx-community/Meta-Llama-3.1-8B-Instruct-4bit"
+  },
+  "admin_mlxModelPathHint": {
+    "message": "Enter a HuggingFace repo ID or local path to an MLX model"
+  },
+  "admin_mlxBasicSettings": {
+    "message": "Basic Settings"
+  },
+  "admin_mlxDeviceLabel": {
+    "message": "Device"
+  },
+  "admin_mlxCompileLabel": {
+    "message": "Compile at load"
+  },
+  "admin_mlxCompileHint": {
+    "message": "Compile model for faster inference"
+  },
+  "admin_mlxMaxConcurrentLabel": {
+    "message": "Max concurrent"
+  },
+  "admin_mlxPerformanceSettings": {
+    "message": "Performance Settings"
+  },
+  "admin_mlxPerformanceSettingsDesc": {
+    "message": "Sequence length, batch size, data type, cache"
+  },
+  "admin_mlxMaxSeqLen": {
+    "message": "Max sequence length"
+  },
+  "admin_mlxMaxBatchSize": {
+    "message": "Max batch size"
+  },
+  "admin_mlxDtype": {
+    "message": "Data type"
+  },
+  "admin_mlxKvCacheSize": {
+    "message": "KV cache size"
+  },
+  "admin_mlxKvCacheSizeHint": {
+    "message": "Max KV cache entries (0 = unlimited)"
+  },
+  "admin_mlxAdvancedSettings": {
+    "message": "Advanced Settings"
+  },
+  "admin_mlxAdvancedSettingsDesc": {
+    "message": "Quantization, tokenizer, prompt template"
+  },
+  "admin_mlxQuantization": {
+    "message": "Quantization"
+  },
+  "admin_mlxWarmupLabel": {
+    "message": "Warmup after load"
+  },
+  "admin_mlxTrustRemoteCode": {
+    "message": "Trust remote code"
+  },
+  "admin_mlxTrustRemoteCodeWarning": {
+    "message": "Security risk"
+  },
+  "admin_mlxRevision": {
+    "message": "HF revision"
+  },
+  "admin_mlxTokenizer": {
+    "message": "Custom tokenizer"
+  },
+  "admin_mlxTokenizerPlaceholder": {
+    "message": "Path or repo ID"
+  },
+  "admin_mlxPromptTemplate": {
+    "message": "Prompt template"
+  },
+  "admin_mlxPromptTemplatePlaceholder": {
+    "message": "Custom prompt template (optional)"
+  },
+  "admin_mlxLoraSettings": {
+    "message": "LoRA / Adapter Settings"
+  },
+  "admin_mlxLoraSettingsDesc": {
+    "message": "Load fine-tuned adapters"
+  },
+  "admin_mlxAdapter": {
+    "message": "Adapter path"
+  },
+  "admin_mlxAdapterPlaceholder": {
+    "message": "Path to LoRA adapter"
+  },
+  "admin_mlxAdapterWeights": {
+    "message": "Adapter weights"
+  },
+  "admin_mlxAdapterWeightsPlaceholder": {
+    "message": "Path to adapter weights"
+  },
+  "admin_mlxLoadCta": {
+    "message": "Load Model"
+  },
+  "admin_mlxUnloadCta": {
+    "message": "Unload Model"
+  },
+  "admin_mlxAlreadyLoaded": {
+    "message": "A model is currently loaded. Unload it first or load a different model to replace it."
+  },
+  "admin_mlxCurrentModel": {
+    "message": "Model"
+  },
+  "admin_mlxConcurrency": {
+    "message": "Concurrent"
+  },
+  "admin_mlxActive": {
+    "message": "Active"
+  },
+  "admin_mlxInactive": {
+    "message": "Inactive"
+  },
+  "admin_mlxProviderTitle": {
+    "message": "Available Provider Models"
+  },
+  "admin_mlxProviderDesc": {
+    "message": "model(s) configured"
+  },
+  "admin_mlxNoModels": {
+    "message": "No MLX models configured. Enable MLX provider on the server to see models here."
+  },
+  "admin_mlxVision": {
+    "message": "Vision"
+  },
+  "admin_mlxTools": {
+    "message": "Tools"
+  },
+  "admin_mlxAudio": {
+    "message": "Audio"
+  },
+  "quickIngestSettings_advancedHeading": {
+    "message": "Advanced options"
+  },
+  "quickIngestSettings_advancedHint": {
+    "message": "Configure advanced ingest fields for this preset."
   }
 }
