@@ -1,6 +1,7 @@
 import React from "react"
 import { Button, Input, Select, Tag, Typography } from "antd"
 import { Info } from "lucide-react"
+import { handleQueuedRowKeyDown } from "./queued-row-keydown"
 import type { StatusSummary } from "./types"
 
 type EntryType = "auto" | "html" | "pdf" | "document" | "audio" | "video"
@@ -58,6 +59,9 @@ export const QueuedItemRow: React.FC<QueuedItemRowProps> = ({
         isSelected ? "border-primary shadow-sm" : "border-border"
       }`}
       onClick={onSelect}
+      onKeyDown={(event) => handleQueuedRowKeyDown(event, onSelect)}
+      role="button"
+      tabIndex={0}
     >
       <Button
         size="small"

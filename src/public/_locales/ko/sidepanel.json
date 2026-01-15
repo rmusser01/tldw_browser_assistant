@@ -334,5 +334,8 @@
   },
   "rag_attachedContext": {
     "message": "첨부된 컨텍스트"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

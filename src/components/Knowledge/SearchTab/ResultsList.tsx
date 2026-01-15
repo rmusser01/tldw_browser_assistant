@@ -1,6 +1,17 @@
 import React from "react"
 import { Select, Spin } from "antd"
 import { useTranslation } from "react-i18next"
+import {
+  getResultChunkIndex,
+  getResultDate,
+  getResultId,
+  getResultScore,
+  getResultSource,
+  getResultText,
+  getResultTitle,
+  getResultType,
+  getResultUrl
+} from "../hooks"
 import type { RagResult, SortMode } from "../hooks"
 import type { RagPinnedResult } from "@/utils/rag-format"
 import { ResultItem } from "./ResultItem"
@@ -22,6 +33,46 @@ type ResultsListProps = {
   timedOut: boolean
   onRetry?: () => void
   highlightTerms?: boolean
+}
+
+const getMetadataTitle = (result: RagResult) => {
+  const metadata = result.metadata
+  if (!metadata || typeof metadata !== "object") return ""
+  const title = (metadata as Record<string, unknown>).title
+  return typeof title === "string" ? title : ""
+}
+
+const getResultKey = (result: RagResult) => {
+  const resultId = getResultId(result)
+  if (resultId !== undefined) return `id:${String(resultId)}`
+
+  const title = getResultTitle(result)
+  const url = getResultUrl(result)
+  const type = getResultType(result)
+  const date = getResultDate(result)
+  const score = getResultScore(result)
+  const source = getResultSource(result)
+  const chunkIndex = getResultChunkIndex(result)
+  const snippet = getResultText(result).slice(0, 32)
+
+  const parts = [
+    title,
+    source,
+    url,
+    type,
+    date,
+    chunkIndex,
+    score,
+    snippet
+  ]
+    .filter((value) => value !== undefined && value !== null && value !== "")
+    .map((value) => String(value))
+
+  if (parts.length === 0) {
+    return JSON.stringify(result)
+  }
+
+  return parts.join("|")
 }
 
 /**
@@ -55,14 +106,16 @@ export const ResultsList: React.FC<ResultsListProps> = ({
   // Check if a result is already pinned
   const isPinned = React.useCallback(
     (result: RagResult) => {
-      const resultId =
-        result.metadata?.id ||
-        result.metadata?.title ||
-        result.content?.slice(0, 20)
+      const resultId = getResultId(result)
+      if (resultId !== undefined) {
+        return pinnedResults.some((p) => p.id === String(resultId))
+      }
+
+      const metadataTitle = getMetadataTitle(result)
+      if (!metadataTitle) return false
+
       return pinnedResults.some(
-        (p) =>
-          p.id.includes(String(resultId)) ||
-          p.title === result.metadata?.title
+        (p) => p.id === metadataTitle || p.title === metadataTitle
       )
     },
     [pinnedResults]
@@ -144,8 +197,8 @@ export const ResultsList: React.FC<ResultsListProps> = ({
         role="list"
         aria-label={t("sidepanel:rag.resultsList", "Search results")}
       >
-        {sortedResults.map((result, index) => (
-          <div key={result.metadata?.id || index} role="listitem">
+        {sortedResults.map((result) => (
+          <div key={getResultKey(result)} role="listitem">
             <ResultItem
               result={result}
               query={query}

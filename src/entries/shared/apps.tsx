@@ -7,7 +7,12 @@ import { AppShell } from "./AppShell"
 import { RouteShell } from "@/routes/app-route"
 import { platformConfig } from "@/config/platform"
 import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
-import { KeyboardShortcutsModal } from "@/components/Common/KeyboardShortcutsModal"
+
+const KeyboardShortcutsModal = React.lazy(() =>
+  import("@/components/Common/KeyboardShortcutsModal").then((m) => ({
+    default: m.KeyboardShortcutsModal
+  }))
+)
 
 const resolveRouter = (mode: "hash" | "memory") =>
   mode === "hash" ? HashRouter : MemoryRouter
@@ -45,7 +50,11 @@ export const SidepanelApp: React.FC = () => {
   const extras = (
     <>
       {platformConfig.features.showQuickChatHelper && <QuickChatHelperButton />}
-      {platformConfig.features.showKeyboardShortcutsModal && <KeyboardShortcutsModal />}
+      {platformConfig.features.showKeyboardShortcutsModal && (
+        <React.Suspense fallback={null}>
+          <KeyboardShortcutsModal />
+        </React.Suspense>
+      )}
     </>
   )
 

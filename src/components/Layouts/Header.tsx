@@ -222,6 +222,9 @@ export const Header: React.FC<Props> = ({
       case "speech":
         navigate("/speech")
         break
+      case "watchlists":
+        navigate("/watchlists")
+        break
     }
   }
 

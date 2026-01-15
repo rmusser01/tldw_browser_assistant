@@ -334,5 +334,8 @@
   },
   "rag_attachedContext": {
     "message": "附加的脈絡"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

@@ -48,7 +48,7 @@ flowchart LR
 { type: "llm_chunk"; content: string }
 { type: "llm_complete"; content: string; tool_calls?: ToolCall[] }
 { type: "tool_start"; tool_call: ToolCall }
-{ type: "tool_complete"; tool_call_id: string; result: any }
+{ type: "tool_complete"; tool_call_id: string; result: unknown }
 { type: "approval_needed"; approvals: PendingApproval[] }
 { type: "complete"; result: AgentResult }
 { type: "error"; error: string }
@@ -74,7 +74,7 @@ Pending approval (`PendingApproval`):
 {
   toolCallId: string
   toolName: string
-  args: Record<string, any>
+  args: Record<string, unknown>
   tier: "auto" | "batch" | "individual"
   status: "pending" | "approved" | "rejected"
 }
@@ -86,7 +86,7 @@ Tool result appended to conversation (`AgentMessage` with role `tool`):
 {
   role: "tool"
   tool_call_id: string
-  content: JSON.stringify({ ok: boolean, data?: any, error?: string })
+  content: JSON.stringify({ ok: boolean, data?: unknown, error?: string })
 }
 ```
 
@@ -100,7 +100,7 @@ Native messaging shapes (from `src/services/native/native-client.ts`):
   payload?: {
     method: "tools/call"
     tool_name: string
-    arguments: Record<string, any>
+    arguments: Record<string, unknown>
   }
 }
 
@@ -108,7 +108,7 @@ Native messaging shapes (from `src/services/native/native-client.ts`):
 {
   id: string
   ok: boolean
-  data?: any
+  data?: unknown
   error?: { code: string; message: string }
   streaming?: boolean
 }
@@ -120,7 +120,7 @@ MCP tool definitions returned by `listTools()`:
 {
   name: string
   description: string
-  parameters: Record<string, any>
+  parameters: Record<string, unknown>
   tier: "read" | "write" | "exec"
 }[]
 ```

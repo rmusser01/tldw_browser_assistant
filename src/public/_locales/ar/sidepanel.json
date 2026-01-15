@@ -334,5 +334,8 @@
   },
   "rag_attachedContext": {
     "message": "السياق المرفق"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

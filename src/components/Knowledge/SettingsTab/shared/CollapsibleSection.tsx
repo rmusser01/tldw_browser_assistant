@@ -20,6 +20,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   helperText
 }) => {
   const [expanded, setExpanded] = React.useState(defaultExpanded)
+  const sectionId = `section-${title.toLowerCase().replace(/\s+/g, "-")}`
 
   if (!visible) return null
 
@@ -30,7 +31,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center justify-between p-3 hover:bg-surface2 transition-colors"
         aria-expanded={expanded}
-        aria-controls={`section-${title.toLowerCase().replace(/\s+/g, "-")}`}
+        aria-controls={sectionId}
       >
         <span className="text-xs font-semibold text-text">{title}</span>
         {expanded ? (
@@ -42,7 +43,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
 
       {expanded && (
         <div
-          id={`section-${title.toLowerCase().replace(/\s+/g, "-")}`}
+          id={sectionId}
           className="p-3 pt-0 border-t border-border"
         >
           {helperText && (

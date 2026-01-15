@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import type { TFunction } from "i18next"
 import type { RagSettings } from "@/services/rag/unified-rag"
 import { SettingField } from "../shared/SettingField"
 import { CollapsibleSection } from "../shared/CollapsibleSection"
@@ -10,30 +11,24 @@ type SafetySectionProps = {
   searchFilter?: string
 }
 
-const SENSITIVITY_LEVEL_OPTIONS = [
-  { label: "Public", value: "public" },
-  { label: "Internal", value: "internal" },
-  { label: "Confidential", value: "confidential" },
-  { label: "Restricted", value: "restricted" }
-]
-
-const CONTENT_POLICY_TYPE_OPTIONS = [
-  { label: "PII", value: "pii" },
-  { label: "PHI", value: "phi" }
-]
-
-const CONTENT_POLICY_MODE_OPTIONS = [
-  { label: "Redact", value: "redact" },
-  { label: "Drop", value: "drop" },
-  { label: "Annotate", value: "annotate" }
-]
-
-const NUMERIC_FIDELITY_BEHAVIOR_OPTIONS = [
-  { label: "Continue", value: "continue" },
-  { label: "Ask user", value: "ask" },
-  { label: "Decline", value: "decline" },
-  { label: "Retry", value: "retry" }
-]
+export const getSafetySectionVisible = (
+  searchFilter: string,
+  t: TFunction
+) => {
+  const normalizedFilter = searchFilter.trim().toLowerCase()
+  if (!normalizedFilter) return true
+  const labels = [
+    t("sidepanel:rag.safety", "Safety & Integrity"),
+    t("sidepanel:rag.enableSecurityFilter", "Security filter"),
+    t("sidepanel:rag.contentFilter", "Content filter"),
+    t("sidepanel:rag.sensitivityLevel", "Sensitivity level"),
+    t("sidepanel:rag.piiHandling", "PII Handling"),
+    t("sidepanel:rag.contentPolicy", "Content Policy"),
+    t("sidepanel:rag.injectionProtection", "Injection Protection"),
+    t("sidepanel:rag.numericFidelity", "Numeric Fidelity")
+  ]
+  return labels.some((label) => label.toLowerCase().includes(normalizedFilter))
+}
 
 /**
  * Safety section - security, PII, content filters, and integrity checks
@@ -44,31 +39,123 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
   searchFilter = ""
 }) => {
   const { t } = useTranslation(["sidepanel"])
+  const safetyTitle = t("sidepanel:rag.safety", "Safety & Integrity")
+  const securityFilterLabel = t(
+    "sidepanel:rag.enableSecurityFilter",
+    "Security filter"
+  )
+  const contentFilterLabel = t("sidepanel:rag.contentFilter", "Content filter")
+  const sensitivityLevelLabel = t(
+    "sidepanel:rag.sensitivityLevel",
+    "Sensitivity level"
+  )
+  const piiSectionLabel = t("sidepanel:rag.piiHandling", "PII Handling")
+  const detectPiiLabel = t("sidepanel:rag.detectPii", "Detect PII")
+  const redactPiiLabel = t("sidepanel:rag.redactPii", "Redact PII")
+  const contentPolicyLabel = t(
+    "sidepanel:rag.contentPolicy",
+    "Content Policy"
+  )
+  const enableContentPolicyLabel = t(
+    "sidepanel:rag.enableContentPolicy",
+    "Enable policy filter"
+  )
+  const contentPolicyTypesLabel = t(
+    "sidepanel:rag.contentPolicyTypes",
+    "Policy types"
+  )
+  const contentPolicyModeLabel = t(
+    "sidepanel:rag.contentPolicyMode",
+    "Policy mode"
+  )
+  const injectionProtectionLabel = t(
+    "sidepanel:rag.injectionProtection",
+    "Injection Protection"
+  )
+  const enableInjectionFilterLabel = t(
+    "sidepanel:rag.enableInjectionFilter",
+    "Enable filter"
+  )
+  const injectionFilterStrengthLabel = t(
+    "sidepanel:rag.injectionFilterStrength",
+    "Filter strength"
+  )
+  const numericFidelityLabel = t(
+    "sidepanel:rag.numericFidelity",
+    "Numeric Fidelity"
+  )
+  const enableNumericFidelityLabel = t(
+    "sidepanel:rag.enableNumericFidelity",
+    "Enable checking"
+  )
+  const numericFidelityBehaviorLabel = t(
+    "sidepanel:rag.numericFidelityBehavior",
+    "On error"
+  )
 
+  const sensitivityLevelOptions = [
+    { label: t("sidepanel:rag.sensitivity.public", "Public"), value: "public" },
+    {
+      label: t("sidepanel:rag.sensitivity.internal", "Internal"),
+      value: "internal"
+    },
+    {
+      label: t("sidepanel:rag.sensitivity.confidential", "Confidential"),
+      value: "confidential"
+    },
+    {
+      label: t("sidepanel:rag.sensitivity.restricted", "Restricted"),
+      value: "restricted"
+    }
+  ]
+
+  const contentPolicyTypeOptions = [
+    { label: t("sidepanel:rag.contentPolicyTypeOptions.pii", "PII"), value: "pii" },
+    { label: t("sidepanel:rag.contentPolicyTypeOptions.phi", "PHI"), value: "phi" }
+  ]
+
+  const contentPolicyModeOptions = [
+    {
+      label: t("sidepanel:rag.contentPolicyModeOptions.redact", "Redact"),
+      value: "redact"
+    },
+    { label: t("sidepanel:rag.contentPolicyModeOptions.drop", "Drop"), value: "drop" },
+    {
+      label: t("sidepanel:rag.contentPolicyModeOptions.annotate", "Annotate"),
+      value: "annotate"
+    }
+  ]
+
+  const numericFidelityBehaviorOptions = [
+    {
+      label: t("sidepanel:rag.numericFidelityBehaviorOptions.continue", "Continue"),
+      value: "continue"
+    },
+    { label: t("sidepanel:rag.numericFidelityBehaviorOptions.ask", "Ask user"), value: "ask" },
+    {
+      label: t("sidepanel:rag.numericFidelityBehaviorOptions.decline", "Decline"),
+      value: "decline"
+    },
+    { label: t("sidepanel:rag.numericFidelityBehaviorOptions.retry", "Retry"), value: "retry" }
+  ]
+
+  const normalizedFilter = searchFilter.trim().toLowerCase()
   const matchesFilter = (label: string) =>
-    !searchFilter || label.toLowerCase().includes(searchFilter.toLowerCase())
+    !normalizedFilter || label.toLowerCase().includes(normalizedFilter)
 
-  const sectionVisible =
-    !searchFilter ||
-    matchesFilter("Safety") ||
-    matchesFilter("Security") ||
-    matchesFilter("PII") ||
-    matchesFilter("filter") ||
-    matchesFilter("injection") ||
-    matchesFilter("sensitivity") ||
-    matchesFilter("content policy")
+  const sectionVisible = getSafetySectionVisible(searchFilter, t)
 
   return (
     <CollapsibleSection
-      title={t("sidepanel:rag.safety", "Safety & Integrity")}
+      title={safetyTitle}
       defaultExpanded={false}
       visible={sectionVisible}
     >
       {/* Security Filter */}
-      {matchesFilter("Security filter") && (
+      {matchesFilter(securityFilterLabel) && (
         <SettingField
           type="switch"
-          label={t("sidepanel:rag.enableSecurityFilter", "Security filter")}
+          label={securityFilterLabel}
           value={settings.enable_security_filter}
           onChange={(val) => onUpdate("enable_security_filter", val)}
           helper={t(
@@ -79,39 +166,39 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
       )}
 
       {/* Content Filter */}
-      {matchesFilter("Content filter") && (
+      {matchesFilter(contentFilterLabel) && (
         <SettingField
           type="switch"
-          label={t("sidepanel:rag.contentFilter", "Content filter")}
+          label={contentFilterLabel}
           value={settings.content_filter}
           onChange={(val) => onUpdate("content_filter", val)}
         />
       )}
 
       {/* Sensitivity Level */}
-      {matchesFilter("Sensitivity level") && (
+      {matchesFilter(sensitivityLevelLabel) && (
         <SettingField
           type="select"
-          label={t("sidepanel:rag.sensitivityLevel", "Sensitivity level")}
+          label={sensitivityLevelLabel}
           value={settings.sensitivity_level}
           onChange={(val) =>
             onUpdate("sensitivity_level", val as RagSettings["sensitivity_level"])
           }
-          options={SENSITIVITY_LEVEL_OPTIONS}
+          options={sensitivityLevelOptions}
         />
       )}
 
       {/* PII Section */}
-      {matchesFilter("PII") && (
+      {matchesFilter(piiSectionLabel) && (
         <div className="col-span-2 border-t border-border pt-3 mt-2">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.piiHandling", "PII Handling")}
+            {piiSectionLabel}
           </span>
 
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
               type="switch"
-              label={t("sidepanel:rag.detectPii", "Detect PII")}
+              label={detectPiiLabel}
               value={settings.detect_pii}
               onChange={(val) => onUpdate("detect_pii", val)}
             />
@@ -119,7 +206,7 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
             {settings.detect_pii && (
               <SettingField
                 type="switch"
-                label={t("sidepanel:rag.redactPii", "Redact PII")}
+                label={redactPiiLabel}
                 value={settings.redact_pii}
                 onChange={(val) => onUpdate("redact_pii", val)}
                 helper={t(
@@ -133,16 +220,16 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
       )}
 
       {/* Content Policy Section */}
-      {matchesFilter("Content policy") && (
+      {matchesFilter(contentPolicyLabel) && (
         <div className="col-span-2 border-t border-border pt-3 mt-2">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.contentPolicy", "Content Policy")}
+            {contentPolicyLabel}
           </span>
 
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
               type="switch"
-              label={t("sidepanel:rag.enableContentPolicy", "Enable policy filter")}
+              label={enableContentPolicyLabel}
               value={settings.enable_content_policy_filter}
               onChange={(val) => onUpdate("enable_content_policy_filter", val)}
             />
@@ -151,7 +238,7 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
               <>
                 <SettingField
                   type="multiselect"
-                  label={t("sidepanel:rag.contentPolicyTypes", "Policy types")}
+                  label={contentPolicyTypesLabel}
                   value={settings.content_policy_types}
                   onChange={(val) =>
                     onUpdate(
@@ -159,12 +246,12 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
                       val as RagSettings["content_policy_types"]
                     )
                   }
-                  options={CONTENT_POLICY_TYPE_OPTIONS}
+                  options={contentPolicyTypeOptions}
                 />
 
                 <SettingField
                   type="select"
-                  label={t("sidepanel:rag.contentPolicyMode", "Policy mode")}
+                  label={contentPolicyModeLabel}
                   value={settings.content_policy_mode}
                   onChange={(val) =>
                     onUpdate(
@@ -172,7 +259,7 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
                       val as RagSettings["content_policy_mode"]
                     )
                   }
-                  options={CONTENT_POLICY_MODE_OPTIONS}
+                  options={contentPolicyModeOptions}
                 />
               </>
             )}
@@ -181,16 +268,16 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
       )}
 
       {/* Injection Filter Section */}
-      {matchesFilter("injection") && (
+      {matchesFilter(injectionProtectionLabel) && (
         <div className="col-span-2 border-t border-border pt-3 mt-2">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.injectionProtection", "Injection Protection")}
+            {injectionProtectionLabel}
           </span>
 
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
               type="switch"
-              label={t("sidepanel:rag.enableInjectionFilter", "Enable filter")}
+              label={enableInjectionFilterLabel}
               value={settings.enable_injection_filter}
               onChange={(val) => onUpdate("enable_injection_filter", val)}
               helper={t(
@@ -202,7 +289,7 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
             {settings.enable_injection_filter && (
               <SettingField
                 type="number"
-                label={t("sidepanel:rag.injectionFilterStrength", "Filter strength")}
+                label={injectionFilterStrengthLabel}
                 value={settings.injection_filter_strength}
                 onChange={(val) => onUpdate("injection_filter_strength", val)}
                 min={0}
@@ -215,16 +302,16 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
       )}
 
       {/* Numeric Fidelity Section */}
-      {matchesFilter("numeric") && (
+      {matchesFilter(numericFidelityLabel) && (
         <div className="col-span-2 border-t border-border pt-3 mt-2">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.numericFidelity", "Numeric Fidelity")}
+            {numericFidelityLabel}
           </span>
 
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
               type="switch"
-              label={t("sidepanel:rag.enableNumericFidelity", "Enable checking")}
+              label={enableNumericFidelityLabel}
               value={settings.enable_numeric_fidelity}
               onChange={(val) => onUpdate("enable_numeric_fidelity", val)}
               helper={t(
@@ -236,7 +323,7 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
             {settings.enable_numeric_fidelity && (
               <SettingField
                 type="select"
-                label={t("sidepanel:rag.numericFidelityBehavior", "On error")}
+                label={numericFidelityBehaviorLabel}
                 value={settings.numeric_fidelity_behavior}
                 onChange={(val) =>
                   onUpdate(
@@ -244,7 +331,7 @@ export const SafetySection: React.FC<SafetySectionProps> = ({
                     val as RagSettings["numeric_fidelity_behavior"]
                   )
                 }
-                options={NUMERIC_FIDELITY_BEHAVIOR_OPTIONS}
+                options={numericFidelityBehaviorOptions}
               />
             )}
           </div>

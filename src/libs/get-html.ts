@@ -7,19 +7,8 @@ import {
 } from "@/parser/twitter"
 import { isGoogleDocs, parseGoogleDocs } from "@/parser/google-docs"
 import { cleanUnwantedUnicode } from "@/utils/clean"
-import { isYoutubeLink } from "@/utils/is-youtube"
 import { isChromiumTarget, isFirefoxTarget } from "@/config/platform"
-const getTranscript = async (url: string) => {
-  try {
-    const mod = await import(/* @vite-ignore */ 'yt-transcript')
-    const YtTranscript = (mod as any).YtTranscript || mod
-    const ytTranscript = new YtTranscript({ url })
-    return await ytTranscript.getTranscript()
-  } catch (e) {
-    console.warn('YouTube transcript disabled in this environment:', e)
-    return null
-  }
-}
+
 const _getHtml = () => {
   const url = window.location.href
   if (document.contentType === "application/pdf") {
@@ -134,24 +123,6 @@ export const getContentFromCurrentTab = async (isUsingVS: boolean) => {
 
   if (isUsingVS) {
     return data
-  }
-
-  if (isYoutubeLink(data.url)) {
-    console.log("Youtube link detected")
-
-    const transcript = await getTranscript(data.url)
-    if (!transcript) {
-      return data
-    }
-
-    const text = transcript
-      ?.map(item => `[${item?.start}] ${item?.text}`)
-      ?.join(" ")
-
-    return {
-      ...data,
-      content: text,
-    }
   }
 
   return data

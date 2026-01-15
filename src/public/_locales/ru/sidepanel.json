@@ -334,5 +334,8 @@
   },
   "rag_attachedContext": {
     "message": "Прикрепленный контекст"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

@@ -49,6 +49,7 @@ export type KnowledgePanelProps = {
 }
 
 const normalizeUrl = (value?: string) => value?.trim().toLowerCase()
+const noop = () => {}
 
 /**
  * KnowledgePanel - Main container for the 3-tab RAG interface
@@ -291,14 +292,14 @@ export const KnowledgePanel: React.FC<KnowledgePanelProps> = ({
           <ContextTab
             attachedTabs={attachedTabs}
             availableTabs={availableTabs}
-            onRemoveTab={onRemoveTab || (() => {})}
-            onAddTab={onAddTab || (() => {})}
-            onClearTabs={onClearTabs || (() => {})}
-            onRefreshTabs={onRefreshTabs || (() => {})}
+            onRemoveTab={onRemoveTab || noop}
+            onAddTab={onAddTab || noop}
+            onClearTabs={onClearTabs || noop}
+            onRefreshTabs={onRefreshTabs || noop}
             attachedFiles={attachedFiles}
-            onAddFile={onAddFile || (() => {})}
-            onRemoveFile={onRemoveFile || (() => {})}
-            onClearFiles={onClearFiles || (() => {})}
+            onAddFile={onAddFile || noop}
+            onRemoveFile={onRemoveFile || noop}
+            onClearFiles={onClearFiles || noop}
             pinnedResults={search.pinnedResults}
             onUnpinResult={search.handleUnpin}
             onClearPins={search.handleClearPins}

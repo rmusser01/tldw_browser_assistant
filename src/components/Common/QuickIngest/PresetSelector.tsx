@@ -26,6 +26,15 @@ type PresetSelectorProps = {
   disabled?: boolean
 }
 
+type PresetOption = {
+  value: IngestPreset
+  label: React.ReactNode
+  searchLabel: string
+  description: string
+  icon: React.ReactNode
+  isRecommended: boolean
+}
+
 export const PresetSelector: React.FC<PresetSelectorProps> = ({
   qi,
   value,
@@ -33,6 +42,11 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
   onReset,
   disabled = false
 }) => {
+  const recommendedLabel = React.useMemo(
+    () => qi("preset.recommended", "(Recommended)"),
+    [qi]
+  )
+
   const handleChange = React.useCallback(
     (newValue: IngestPreset) => {
       onChange(newValue)
@@ -44,32 +58,39 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
     onReset?.()
   }, [onReset])
 
-  const options = PRESET_ORDER.map((presetKey) => {
-    const meta = PRESET_META[presetKey]
-    const label = qi(meta.labelKey, presetKey.charAt(0).toUpperCase() + presetKey.slice(1))
-    const description = qi(meta.descriptionKey, "")
-    const isRecommended = presetKey === DEFAULT_PRESET
+  const options = React.useMemo<PresetOption[]>(() => {
+    return PRESET_ORDER.map((presetKey) => {
+      const meta = PRESET_META[presetKey]
+      const label = qi(
+        meta.labelKey,
+        presetKey.charAt(0).toUpperCase() + presetKey.slice(1)
+      )
+      const description = qi(meta.descriptionKey, "")
+      const isRecommended = presetKey === DEFAULT_PRESET
 
-    return {
-      value: presetKey,
-      label: (
-        <div className="flex items-center gap-2">
-          <span aria-hidden="true">{meta.icon}</span>
-          <span>
-            {label}
-            {isRecommended && (
-              <span className="ml-1 text-xs text-text-muted">
-                {qi("preset.recommended", "(Recommended)")}
-              </span>
-            )}
-          </span>
-        </div>
-      ),
-      // For search filtering
-      searchLabel: label,
-      description
-    }
-  })
+      return {
+        value: presetKey,
+        label: (
+          <div className="flex items-center gap-2">
+            <span aria-hidden="true">{meta.icon}</span>
+            <span>
+              {label}
+              {isRecommended && (
+                <span className="ml-1 text-xs text-text-muted">
+                  {recommendedLabel}
+                </span>
+              )}
+            </span>
+          </div>
+        ),
+        // For search filtering
+        searchLabel: label,
+        description,
+        icon: meta.icon,
+        isRecommended
+      }
+    })
+  }, [qi, recommendedLabel])
 
   return (
     <div className="flex items-center gap-3">
@@ -85,30 +106,25 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({
           popupMatchSelectWidth={false}
           aria-label={qi("preset.ariaLabel", "Select processing preset")}
           optionLabelProp="label"
-          options={options.map((opt) => ({
-            value: opt.value,
-            label: opt.label,
-            // Custom render for dropdown with description
-            dropdownRender: undefined
-          }))}
+          options={options}
           optionRender={(option) => {
-            const presetKey = option.value as IngestPreset
-            const meta = PRESET_META[presetKey]
-            const label = qi(meta.labelKey, presetKey.charAt(0).toUpperCase() + presetKey.slice(1))
-            const description = qi(meta.descriptionKey, "")
-            const isRecommended = presetKey === DEFAULT_PRESET
+            const data = option.data as PresetOption | undefined
+            if (!data) return option.label as React.ReactNode
+            const label = data.searchLabel
+            const description = data.description
+            const isRecommended = data.isRecommended
 
             return (
               <div className="py-1">
                 <div className="flex items-center gap-2">
                   <span aria-hidden="true" className="text-base">
-                    {meta.icon}
+                    {data.icon}
                   </span>
                   <span className="font-medium">
                     {label}
                     {isRecommended && (
                       <span className="ml-1 text-xs font-normal text-text-muted">
-                        {qi("preset.recommended", "(Recommended)")}
+                        {recommendedLabel}
                       </span>
                     )}
                   </span>

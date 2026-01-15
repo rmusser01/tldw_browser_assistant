@@ -34,7 +34,8 @@ const getFileIcon = (type: string) => {
 const formatSize = (bytes: number) => {
   if (bytes < 1024) return `${bytes} B`
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`
 }
 
 /**
@@ -102,7 +103,7 @@ export const AttachedFiles: React.FC<AttachedFilesProps> = ({
                   </div>
                   <button
                     onClick={() => onRemove(file.id)}
-                    className="p-0.5 text-text-muted hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                    className="p-0.5 text-text-muted hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
                     aria-label={t("sidepanel:rag.removeFile", "Remove file")}
                   >
                     <X className="h-3.5 w-3.5" />

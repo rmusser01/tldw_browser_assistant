@@ -148,6 +148,7 @@ const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground
 const OptionDocumentation = lazy(() => import("./option-documentation"))
 const OptionQuiz = lazy(() => import("./option-quiz"))
 const OptionChatbooksPlayground = lazy(() => import("./option-chatbooks-playground"))
+const OptionWatchlists = lazy(() => import("./option-watchlists"))
 
 export const ROUTE_DEFINITIONS: RouteDefinition[] = [
   { kind: "options", path: "/", element: <OptionIndex /> },
@@ -390,6 +391,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
     }
   },
   { kind: "options", path: "/chatbooks", element: <OptionChatbooksPlayground /> },
+  { kind: "options", path: "/watchlists", element: <OptionWatchlists /> },
   {
     kind: "options",
     path: "/media",

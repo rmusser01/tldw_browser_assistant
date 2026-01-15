@@ -22,6 +22,7 @@ import {
   Gauge,
   Signpost,
   FileText,
+  Rss,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -166,6 +167,12 @@ export function HeaderShortcuts({
             to: "/notes",
             icon: StickyNote,
             label: t("option:header.notes", "Notes"),
+          },
+          {
+            type: "link" as const,
+            to: "/watchlists",
+            icon: Rss,
+            label: t("option:header.modeWatchlists", "Watchlists"),
           },
         ],
       },

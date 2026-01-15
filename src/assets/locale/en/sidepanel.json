@@ -119,6 +119,7 @@
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results found",
+    "initialState": "No results yet",
     "noResultsHint": "Try different keywords or adjust your filters.",
     "disconnected": "Connect to server to search knowledge base",
     "enterQuery": "Enter a search query",
@@ -197,6 +198,9 @@
     "enableAbstention": "Enable abstention",
     "enableAbstentionHelper": "Allow declining when uncertain",
     "abstentionBehavior": "Behavior",
+    "abstentionBehaviorContinue": "Continue",
+    "abstentionBehaviorAskUser": "Ask user",
+    "abstentionBehaviorDecline": "Decline",
     "synthesis": "Multi-turn Synthesis",
     "enableSynthesis": "Enable synthesis",
     "enableSynthesisHelper": "Draft and refine answers in multiple passes",
@@ -217,6 +221,12 @@
     "enableSecurityFilterHelper": "Filter potentially harmful content",
     "contentFilter": "Content filter",
     "sensitivityLevel": "Sensitivity level",
+    "sensitivity": {
+      "public": "Public",
+      "internal": "Internal",
+      "confidential": "Confidential",
+      "restricted": "Restricted"
+    },
     "piiHandling": "PII Handling",
     "detectPii": "Detect PII",
     "redactPii": "Redact PII",
@@ -224,7 +234,16 @@
     "contentPolicy": "Content Policy",
     "enableContentPolicy": "Enable policy filter",
     "contentPolicyTypes": "Policy types",
+    "contentPolicyTypeOptions": {
+      "pii": "PII",
+      "phi": "PHI"
+    },
     "contentPolicyMode": "Policy mode",
+    "contentPolicyModeOptions": {
+      "redact": "Redact",
+      "drop": "Drop",
+      "annotate": "Annotate"
+    },
     "injectionProtection": "Injection Protection",
     "enableInjectionFilter": "Enable filter",
     "enableInjectionFilterHelper": "Detect prompt injection attempts",
@@ -233,6 +252,12 @@
     "enableNumericFidelity": "Enable checking",
     "enableNumericFidelityHelper": "Verify numeric accuracy in answers",
     "numericFidelityBehavior": "On error",
+    "numericFidelityBehaviorOptions": {
+      "continue": "Continue",
+      "ask": "Ask user",
+      "decline": "Decline",
+      "retry": "Retry"
+    },
     "advanced": "Advanced",
     "advancedHelper": "Expert settings for fine-tuning RAG behavior",
     "queryExpansion": "Query Expansion",

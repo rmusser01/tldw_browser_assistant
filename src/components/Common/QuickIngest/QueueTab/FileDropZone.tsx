@@ -2,12 +2,10 @@ import { Button } from "antd"
 import { AlertTriangle, Loader2, Upload, WifiOff } from "lucide-react"
 import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
-
-// Accept string from QuickIngestModal.tsx:3296
-const ACCEPT_STRING =
-  ".pdf,.txt,.rtf,.doc,.docx,.md,.epub,application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*"
-
-const MAX_FILE_SIZE = 500 * 1024 * 1024 // 500MB
+import {
+  QUICK_INGEST_ACCEPT_STRING,
+  QUICK_INGEST_MAX_FILE_SIZE
+} from "../constants"
 
 interface FileDropZoneProps {
   /** Callback when valid files are dropped or selected */
@@ -54,12 +52,12 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
   )
 
   const acceptEntries = React.useMemo(() => {
-    return ACCEPT_STRING.split(",")
+    return QUICK_INGEST_ACCEPT_STRING.split(",")
       .map((entry) => entry.trim().toLowerCase())
       .filter(Boolean)
   }, [])
 
-  // Validate extensions from ACCEPT_STRING
+  // Validate extensions from accept string
   const validExtensions = React.useMemo(() => {
     return acceptEntries.filter((entry) => entry.startsWith("."))
   }, [acceptEntries])
@@ -82,7 +80,7 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
   const validateFile = useCallback(
     (file: File): string | null => {
       // Size check
-      if (file.size > MAX_FILE_SIZE) {
+      if (file.size > QUICK_INGEST_MAX_FILE_SIZE) {
         return `${file.name} exceeds 500 MB limit`
       }
 
@@ -153,7 +151,7 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
     [disabled, validateFile, onFilesAdded, onFilesRejected]
   )
 
-  const handleDragEnter = (e: React.DragEvent) => {
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     if (disabled) {
@@ -167,9 +165,9 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
       setIsDragReject(summary.isReject)
       setIsDragging(true)
     }
-  }
+  }, [disabled, getDragSummary, resetDragState])
 
-  const handleDragLeave = (e: React.DragEvent) => {
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     if (disabled) {
@@ -182,9 +180,9 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
       setIsDragReject(false)
       setDragFileCount(0)
     }
-  }
+  }, [disabled, resetDragState])
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     if (disabled) return
@@ -194,9 +192,9 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
     if (e.dataTransfer) {
       e.dataTransfer.dropEffect = summary.isReject ? "none" : "copy"
     }
-  }
+  }, [disabled, getDragSummary])
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     resetDragState()
@@ -207,7 +205,7 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
     if (files.length > 0) {
       processFiles(files)
     }
-  }
+  }, [disabled, processFiles, resetDragState])
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
@@ -218,14 +216,14 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
     if (e.target) e.target.value = ""
   }
 
-  const handleBrowseClick = (
+  const handleBrowseClick = useCallback((
     event?: React.MouseEvent | React.KeyboardEvent
   ) => {
     event?.stopPropagation()
     if (!disabled) {
       inputRef.current?.click()
     }
-  }
+  }, [disabled])
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.currentTarget !== event.target) return
@@ -343,7 +341,7 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
         {/* Browse button - only show when not dragging */}
         {!isDragging && (
           <Button onClick={handleBrowseClick} disabled={disabled}>
-            {t("quickIngest.addFiles", "Browse files")}
+            {qi("addFiles", "Browse files")}
           </Button>
         )}
       </div>
@@ -356,7 +354,7 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
         ref={inputRef}
         type="file"
         multiple
-        accept={ACCEPT_STRING}
+        accept={QUICK_INGEST_ACCEPT_STRING}
         onChange={handleFileSelect}
         className="hidden"
         data-testid="qi-file-input"

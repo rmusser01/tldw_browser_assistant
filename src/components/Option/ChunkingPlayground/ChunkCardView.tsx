@@ -39,6 +39,20 @@ export const ChunkCardView: React.FC<ChunkCardViewProps> = ({
 
     const charCount = metadata.char_count ?? chunk.text.length
     const wordCount = metadata.word_count ?? 0
+    const tokenCount = metadata.token_count
+    const start =
+      metadata.start_char ??
+      metadata.start_index ??
+      metadata.start ??
+      metadata.offset_start
+    const end =
+      metadata.end_char ??
+      metadata.end_index ??
+      metadata.end ??
+      metadata.offset_end
+    const hasPosition =
+      typeof start === "number" && typeof end === "number"
+    const metadataJson = JSON.stringify(metadata, null, 2)
 
     return (
       <div
@@ -66,12 +80,19 @@ export const ChunkCardView: React.FC<ChunkCardViewProps> = ({
               <div className="flex gap-1">
                 <Tag color="blue">{charCount} chars</Tag>
                 <Tag color="green">{wordCount} words</Tag>
+                {typeof tokenCount === "number" && (
+                  <Tag color="purple">{tokenCount} tokens</Tag>
+                )}
                 {metadata.overlap_with_previous != null &&
                   metadata.overlap_with_previous > 0 && (
                     <Tag color="orange">
                       +{metadata.overlap_with_previous} overlap
                     </Tag>
                   )}
+                {metadata.chunk_method && (
+                  <Tag color="geekblue">{metadata.chunk_method}</Tag>
+                )}
+                {metadata.section && <Tag color="cyan">{metadata.section}</Tag>}
               </div>
             </div>
           }>
@@ -93,21 +114,32 @@ export const ChunkCardView: React.FC<ChunkCardViewProps> = ({
                     {chunk.text}
                   </div>
                 )
+              },
+              {
+                key: "2",
+                label: t("settings:chunkingPlayground.metadataLabel", "Metadata"),
+                children: (
+                  <pre className="text-xs bg-surface2 rounded p-2 overflow-x-auto">
+                    {metadataJson}
+                  </pre>
+                )
               }
             ]}
           />
 
           {/* Position info */}
-          <div className="mt-2 text-xs text-text-muted">
-            {t(
-              "settings:chunkingPlayground.position",
-              "Position: {{start}} - {{end}}",
-              {
-                start: metadata.start_char,
-                end: metadata.end_char
-              }
-            )}
-          </div>
+          {hasPosition && (
+            <div className="mt-2 text-xs text-text-muted">
+              {t(
+                "settings:chunkingPlayground.position",
+                "Position: {{start}} - {{end}}",
+                {
+                  start,
+                  end
+                }
+              )}
+            </div>
+          )}
         </Card>
       </div>
     )

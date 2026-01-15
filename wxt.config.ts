@@ -22,6 +22,11 @@ const reactAliases = [
   { find: /^react\/jsx-dev-runtime$/, replacement: require.resolve("react/jsx-dev-runtime") }
 ]
 
+const nodePolyfills = [
+  { find: /^stream$/, replacement: "stream-browserify" },
+  { find: /^buffer$/, replacement: "buffer" }
+]
+
 const isFirefox = process.env.TARGET === "firefox"
 const isDevelopment = process.env.NODE_ENV === "development"
 const isHmrDisabled = isEnvEnabled(process.env.WXT_DISABLE_HMR)
@@ -242,6 +247,9 @@ export default defineConfig({
         }),
         ...(analyzerPlugin ? [analyzerPlugin] : [])
       ],
+      define: {
+        global: "globalThis"
+      },
       // Ensure every entry (options, sidepanel, content scripts) shares a single React instance.
       resolve: {
         dedupe: [
@@ -251,7 +259,7 @@ export default defineConfig({
           "react/jsx-runtime",
           "react/jsx-dev-runtime"
         ],
-        alias: reactAliases
+        alias: [...reactAliases, ...nodePolyfills]
       },
       // Keep HMR enabled so dep optimization can trigger a full reload.
       server: {
@@ -272,7 +280,9 @@ export default defineConfig({
           "react-dom",
           "react-dom/client",
           "react/jsx-runtime",
-          "react/jsx-dev-runtime"
+          "react/jsx-dev-runtime",
+          "buffer",
+          "stream-browserify"
         ],
         entries: [
           "src/entries/options/index.html",

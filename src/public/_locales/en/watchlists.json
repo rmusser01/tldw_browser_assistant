@@ -1,0 +1,437 @@
+{
+  "title": {
+    "message": "Watchlists"
+  },
+  "description": {
+    "message": "Monitor RSS feeds, websites, and forums. Create scheduled jobs to automatically scrape and process content."
+  },
+  "offline": {
+    "message": "Server is offline. Please connect to use Watchlists."
+  },
+  "betaNotice": {
+    "message": "Beta Feature"
+  },
+  "betaDescription": {
+    "message": "Watchlists is currently in beta. Some features may be incomplete or change."
+  },
+  "comingSoon": {
+    "message": "Coming soon..."
+  },
+  "tabs_sources": {
+    "message": "Sources"
+  },
+  "tabs_jobs": {
+    "message": "Jobs"
+  },
+  "tabs_runs": {
+    "message": "Runs"
+  },
+  "tabs_outputs": {
+    "message": "Outputs"
+  },
+  "tabs_templates": {
+    "message": "Templates"
+  },
+  "tabs_settings": {
+    "message": "Settings"
+  },
+  "sources_title": {
+    "message": "Sources"
+  },
+  "sources_addSource": {
+    "message": "Add Source"
+  },
+  "sources_editSource": {
+    "message": "Edit Source"
+  },
+  "sources_searchPlaceholder": {
+    "message": "Search sources..."
+  },
+  "sources_filterByTag": {
+    "message": "Filter by tag"
+  },
+  "sources_filterByType": {
+    "message": "Filter by type"
+  },
+  "sources_totalItems": {
+    "message": "{{total}} sources"
+  },
+  "sources_fetchError": {
+    "message": "Failed to load sources"
+  },
+  "sources_saveError": {
+    "message": "Failed to save source"
+  },
+  "sources_deleteError": {
+    "message": "Failed to delete source"
+  },
+  "sources_toggleError": {
+    "message": "Failed to update source"
+  },
+  "sources_created": {
+    "message": "Source created"
+  },
+  "sources_updated": {
+    "message": "Source updated"
+  },
+  "sources_deleted": {
+    "message": "Source deleted"
+  },
+  "sources_enabled": {
+    "message": "Source enabled"
+  },
+  "sources_disabled": {
+    "message": "Source disabled"
+  },
+  "sources_deleteConfirm": {
+    "message": "Delete this source?"
+  },
+  "sources_never": {
+    "message": "Never"
+  },
+  "sources_columns_name": {
+    "message": "Name"
+  },
+  "sources_columns_type": {
+    "message": "Type"
+  },
+  "sources_columns_tags": {
+    "message": "Tags"
+  },
+  "sources_columns_lastScraped": {
+    "message": "Last Scraped"
+  },
+  "sources_columns_active": {
+    "message": "Active"
+  },
+  "sources_columns_actions": {
+    "message": "Actions"
+  },
+  "sources_types_rss": {
+    "message": "RSS Feed"
+  },
+  "sources_types_site": {
+    "message": "Website"
+  },
+  "sources_types_forum": {
+    "message": "Forum"
+  },
+  "sources_form_name": {
+    "message": "Name"
+  },
+  "sources_form_nameRequired": {
+    "message": "Please enter a name"
+  },
+  "sources_form_nameTooLong": {
+    "message": "Name must be less than 200 characters"
+  },
+  "sources_form_namePlaceholder": {
+    "message": "e.g., Tech News Daily"
+  },
+  "sources_form_url": {
+    "message": "URL"
+  },
+  "sources_form_urlRequired": {
+    "message": "Please enter a URL"
+  },
+  "sources_form_urlInvalid": {
+    "message": "Please enter a valid URL"
+  },
+  "sources_form_urlPlaceholder": {
+    "message": "e.g., https://example.com/feed.xml"
+  },
+  "sources_form_type": {
+    "message": "Type"
+  },
+  "sources_form_typeRequired": {
+    "message": "Please select a type"
+  },
+  "sources_form_tags": {
+    "message": "Tags"
+  },
+  "sources_form_tagsPlaceholder": {
+    "message": "Add or select tags"
+  },
+  "sources_form_tagsHelp": {
+    "message": "Add tags to organize and filter your sources"
+  },
+  "jobs_title": {
+    "message": "Jobs"
+  },
+  "jobs_description": {
+    "message": "Create scheduled jobs to automatically fetch and process content from your sources."
+  },
+  "jobs_addJob": {
+    "message": "Add Job"
+  },
+  "jobs_editJob": {
+    "message": "Edit Job"
+  },
+  "jobs_totalItems": {
+    "message": "{{total}} jobs"
+  },
+  "jobs_fetchError": {
+    "message": "Failed to load jobs"
+  },
+  "jobs_saveError": {
+    "message": "Failed to save job"
+  },
+  "jobs_deleteError": {
+    "message": "Failed to delete job"
+  },
+  "jobs_toggleError": {
+    "message": "Failed to update job"
+  },
+  "jobs_runError": {
+    "message": "Failed to trigger run"
+  },
+  "jobs_created": {
+    "message": "Job created"
+  },
+  "jobs_updated": {
+    "message": "Job updated"
+  },
+  "jobs_deleted": {
+    "message": "Job deleted"
+  },
+  "jobs_enabled": {
+    "message": "Job enabled"
+  },
+  "jobs_disabled": {
+    "message": "Job disabled"
+  },
+  "jobs_runTriggered": {
+    "message": "Run triggered"
+  },
+  "jobs_deleteConfirm": {
+    "message": "Delete this job?"
+  },
+  "jobs_runNow": {
+    "message": "Run Now"
+  },
+  "jobs_never": {
+    "message": "Never"
+  },
+  "jobs_columns_name": {
+    "message": "Name"
+  },
+  "jobs_columns_schedule": {
+    "message": "Schedule"
+  },
+  "jobs_columns_scope": {
+    "message": "Scope"
+  },
+  "jobs_columns_filters": {
+    "message": "Filters"
+  },
+  "jobs_columns_lastRun": {
+    "message": "Last Run"
+  },
+  "jobs_columns_active": {
+    "message": "Active"
+  },
+  "jobs_columns_actions": {
+    "message": "Actions"
+  },
+  "jobs_form_name": {
+    "message": "Name"
+  },
+  "jobs_form_nameRequired": {
+    "message": "Please enter a name"
+  },
+  "jobs_form_nameTooLong": {
+    "message": "Name must be less than 200 characters"
+  },
+  "jobs_form_namePlaceholder": {
+    "message": "e.g., Daily Tech News"
+  },
+  "jobs_form_description": {
+    "message": "Description"
+  },
+  "jobs_form_descriptionPlaceholder": {
+    "message": "Optional description of what this job does"
+  },
+  "jobs_form_active": {
+    "message": "Active"
+  },
+  "jobs_form_scope": {
+    "message": "Scope"
+  },
+  "jobs_form_scopeRequired": {
+    "message": "Please select at least one source, group, or tag"
+  },
+  "jobs_form_schedule": {
+    "message": "Schedule"
+  },
+  "jobs_form_filters": {
+    "message": "Filters"
+  },
+  "jobs_scope_sources": {
+    "message": "Sources"
+  },
+  "jobs_scope_groups": {
+    "message": "Groups"
+  },
+  "jobs_scope_tags": {
+    "message": "Tags"
+  },
+  "jobs_scope_selectSources": {
+    "message": "Select sources to include"
+  },
+  "jobs_scope_selectGroups": {
+    "message": "Select groups to include"
+  },
+  "jobs_scope_selectTags": {
+    "message": "Select tags to include"
+  },
+  "jobs_scope_sourcesHelp": {
+    "message": "Job will fetch from selected sources directly"
+  },
+  "jobs_scope_groupsHelp": {
+    "message": "Job will fetch from all sources in selected groups"
+  },
+  "jobs_scope_tagsHelp": {
+    "message": "Job will fetch from all sources with selected tags"
+  },
+  "filters_noFilters": {
+    "message": "No filters configured. All items will be included."
+  },
+  "filters_addFilter": {
+    "message": "Add Filter"
+  },
+  "filters_keywordsPlaceholder": {
+    "message": "Enter keywords"
+  },
+  "filters_authorsPlaceholder": {
+    "message": "Enter author names"
+  },
+  "filters_regexPlaceholder": {
+    "message": "Regular expression pattern"
+  },
+  "filters_matchAny": {
+    "message": "Match any"
+  },
+  "filters_matchAll": {
+    "message": "Match all"
+  },
+  "filters_fieldTitle": {
+    "message": "Title"
+  },
+  "filters_fieldSummary": {
+    "message": "Summary"
+  },
+  "filters_fieldContent": {
+    "message": "Content"
+  },
+  "filters_fieldAuthor": {
+    "message": "Author"
+  },
+  "filters_startDate": {
+    "message": "Start date"
+  },
+  "filters_endDate": {
+    "message": "End date"
+  },
+  "filters_help": {
+    "message": "Filters determine which items are included, excluded, or flagged during job runs. Include filters require at least one match."
+  },
+  "schedule_presets": {
+    "message": "Quick Presets"
+  },
+  "schedule_custom": {
+    "message": "Custom Schedule"
+  },
+  "schedule_cronPlaceholder": {
+    "message": "Cron expression (e.g., 0 9 * * MON)"
+  },
+  "schedule_apply": {
+    "message": "Apply"
+  },
+  "schedule_clear": {
+    "message": "Clear"
+  },
+  "schedule_preview": {
+    "message": "Preview"
+  },
+  "schedule_timezone": {
+    "message": "Timezone"
+  },
+  "schedule_help": {
+    "message": "Cron format: minute hour day-of-month month day-of-week. Use * for any, */N for every N intervals."
+  },
+  "runs_title": {
+    "message": "Runs"
+  },
+  "runs_description": {
+    "message": "View execution history and logs for your watchlist jobs."
+  },
+  "runs_totalItems": {
+    "message": "{{total}} runs"
+  },
+  "runs_fetchError": {
+    "message": "Failed to load runs"
+  },
+  "runs_triggerError": {
+    "message": "Failed to trigger run"
+  },
+  "runs_runTriggered": {
+    "message": "Run triggered successfully"
+  },
+  "runs_viewDetails": {
+    "message": "View Details"
+  },
+  "runs_filterByJob": {
+    "message": "Filter by job"
+  },
+  "runs_filterByStatus": {
+    "message": "Filter by status"
+  },
+  "runs_columns_job": {
+    "message": "Job"
+  },
+  "runs_columns_status": {
+    "message": "Status"
+  },
+  "runs_columns_started": {
+    "message": "Started"
+  },
+  "runs_columns_duration": {
+    "message": "Duration"
+  },
+  "runs_columns_itemsFound": {
+    "message": "Found"
+  },
+  "runs_columns_itemsProcessed": {
+    "message": "Processed"
+  },
+  "runs_columns_actions": {
+    "message": "Actions"
+  },
+  "runs_detail_title": {
+    "message": "Run Details"
+  },
+  "runs_detail_stats": {
+    "message": "Statistics"
+  },
+  "runs_detail_logs": {
+    "message": "Logs"
+  },
+  "runs_detail_items": {
+    "message": "Scraped Items"
+  },
+  "runs_detail_noLogs": {
+    "message": "No logs available"
+  },
+  "runs_detail_noItems": {
+    "message": "No items found"
+  },
+  "outputs_title": {
+    "message": "Outputs"
+  },
+  "templates_title": {
+    "message": "Templates"
+  },
+  "settings_title": {
+    "message": "Settings"
+  }
+}
