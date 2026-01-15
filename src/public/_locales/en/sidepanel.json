@@ -1045,5 +1045,56 @@
   },
   "rag_contextHint": {
     "message": "Pin search results or attach browser tabs and files to include them in your queries."
+  },
+  "rag_initialState": {
+    "message": "No results yet"
+  },
+  "rag_abstentionBehaviorContinue": {
+    "message": "Continue"
+  },
+  "rag_abstentionBehaviorAskUser": {
+    "message": "Ask user"
+  },
+  "rag_abstentionBehaviorDecline": {
+    "message": "Decline"
+  },
+  "rag_sensitivity_public": {
+    "message": "Public"
+  },
+  "rag_sensitivity_internal": {
+    "message": "Internal"
+  },
+  "rag_sensitivity_confidential": {
+    "message": "Confidential"
+  },
+  "rag_sensitivity_restricted": {
+    "message": "Restricted"
+  },
+  "rag_contentPolicyTypeOptions_pii": {
+    "message": "PII"
+  },
+  "rag_contentPolicyTypeOptions_phi": {
+    "message": "PHI"
+  },
+  "rag_contentPolicyModeOptions_redact": {
+    "message": "Redact"
+  },
+  "rag_contentPolicyModeOptions_drop": {
+    "message": "Drop"
+  },
+  "rag_contentPolicyModeOptions_annotate": {
+    "message": "Annotate"
+  },
+  "rag_numericFidelityBehaviorOptions_continue": {
+    "message": "Continue"
+  },
+  "rag_numericFidelityBehaviorOptions_ask": {
+    "message": "Ask user"
+  },
+  "rag_numericFidelityBehaviorOptions_decline": {
+    "message": "Decline"
+  },
+  "rag_numericFidelityBehaviorOptions_retry": {
+    "message": "Retry"
   }
 }

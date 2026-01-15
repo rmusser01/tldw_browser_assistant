@@ -112,6 +112,7 @@
     "addTagPlaceholder": "ടാഗ് ചേർക്കുക (Enter)",
     "add": "ചേർക്കുക",
     "noResults": "ഫലങ്ങളില്ല",
+    "initialState": "ഫലങ്ങളില്ല",
     "timeout": {
       "message": "അഭ്യർത്ഥനയുടെ സമയപരിധി കഴിഞ്ഞു.",
       "increase": "ടൈംഔട്ട് വർധിപ്പിക്കുക",

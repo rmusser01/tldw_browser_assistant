@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import type { TFunction } from "i18next"
 import type { RagSettings } from "@/services/rag/unified-rag"
 import { SettingField } from "../shared/SettingField"
 import { CollapsibleSection } from "../shared/CollapsibleSection"
@@ -18,6 +19,23 @@ const CITATION_STYLE_OPTIONS = [
   { label: "IEEE", value: "ieee" }
 ]
 
+export const getCitationsSectionVisible = (
+  searchFilter: string,
+  t: TFunction
+) => {
+  const normalizedFilter = searchFilter.trim().toLowerCase()
+  if (!normalizedFilter) return true
+  const labels = [
+    t("sidepanel:rag.citations", "Citations"),
+    t("sidepanel:rag.enableCitations", "Enable citations"),
+    t("sidepanel:rag.citationStyle", "Citation style"),
+    t("sidepanel:rag.includePageNumbers", "Include page numbers"),
+    t("sidepanel:rag.enableChunkCitations", "Chunk-level citations"),
+    t("sidepanel:rag.requireHardCitations", "Require hard citations")
+  ]
+  return labels.some((label) => label.toLowerCase().includes(normalizedFilter))
+}
+
 /**
  * Citations section - citation style and formatting
  */
@@ -27,30 +45,42 @@ export const CitationsSection: React.FC<CitationsSectionProps> = ({
   searchFilter = ""
 }) => {
   const { t } = useTranslation(["sidepanel"])
+  const citationsTitle = t("sidepanel:rag.citations", "Citations")
+  const enableCitationsLabel = t(
+    "sidepanel:rag.enableCitations",
+    "Enable citations"
+  )
+  const citationStyleLabel = t("sidepanel:rag.citationStyle", "Citation style")
+  const includePageNumbersLabel = t(
+    "sidepanel:rag.includePageNumbers",
+    "Include page numbers"
+  )
+  const chunkCitationsLabel = t(
+    "sidepanel:rag.enableChunkCitations",
+    "Chunk-level citations"
+  )
+  const requireHardCitationsLabel = t(
+    "sidepanel:rag.requireHardCitations",
+    "Require hard citations"
+  )
 
+  const normalizedFilter = searchFilter.trim().toLowerCase()
   const matchesFilter = (label: string) =>
-    !searchFilter || label.toLowerCase().includes(searchFilter.toLowerCase())
+    !normalizedFilter || label.toLowerCase().includes(normalizedFilter)
 
-  const sectionVisible =
-    !searchFilter ||
-    matchesFilter("Citations") ||
-    matchesFilter("citation") ||
-    matchesFilter("page numbers") ||
-    matchesFilter("chunk") ||
-    matchesFilter("APA") ||
-    matchesFilter("MLA")
+  const sectionVisible = getCitationsSectionVisible(searchFilter, t)
 
   return (
     <CollapsibleSection
-      title={t("sidepanel:rag.citations", "Citations")}
+      title={citationsTitle}
       defaultExpanded={false}
       visible={sectionVisible}
     >
       {/* Enable Citations */}
-      {matchesFilter("Enable citations") && (
+      {matchesFilter(enableCitationsLabel) && (
         <SettingField
           type="switch"
-          label={t("sidepanel:rag.enableCitations", "Enable citations")}
+          label={enableCitationsLabel}
           value={settings.enable_citations}
           onChange={(val) => onUpdate("enable_citations", val)}
           helper={t(
@@ -61,10 +91,10 @@ export const CitationsSection: React.FC<CitationsSectionProps> = ({
       )}
 
       {/* Citation Style */}
-      {settings.enable_citations && matchesFilter("Citation style") && (
+      {settings.enable_citations && matchesFilter(citationStyleLabel) && (
         <SettingField
           type="select"
-          label={t("sidepanel:rag.citationStyle", "Citation style")}
+          label={citationStyleLabel}
           value={settings.citation_style}
           onChange={(val) =>
             onUpdate("citation_style", val as RagSettings["citation_style"])
@@ -74,20 +104,20 @@ export const CitationsSection: React.FC<CitationsSectionProps> = ({
       )}
 
       {/* Include Page Numbers */}
-      {settings.enable_citations && matchesFilter("page numbers") && (
+      {settings.enable_citations && matchesFilter(includePageNumbersLabel) && (
         <SettingField
           type="switch"
-          label={t("sidepanel:rag.includePageNumbers", "Include page numbers")}
+          label={includePageNumbersLabel}
           value={settings.include_page_numbers}
           onChange={(val) => onUpdate("include_page_numbers", val)}
         />
       )}
 
       {/* Chunk Citations */}
-      {settings.enable_citations && matchesFilter("chunk") && (
+      {settings.enable_citations && matchesFilter(chunkCitationsLabel) && (
         <SettingField
           type="switch"
-          label={t("sidepanel:rag.enableChunkCitations", "Chunk-level citations")}
+          label={chunkCitationsLabel}
           value={settings.enable_chunk_citations}
           onChange={(val) => onUpdate("enable_chunk_citations", val)}
           helper={t(
@@ -98,10 +128,11 @@ export const CitationsSection: React.FC<CitationsSectionProps> = ({
       )}
 
       {/* Require Hard Citations */}
-      {settings.enable_citations && matchesFilter("hard citations") && (
+      {settings.enable_citations &&
+        matchesFilter(requireHardCitationsLabel) && (
         <SettingField
           type="switch"
-          label={t("sidepanel:rag.requireHardCitations", "Require hard citations")}
+          label={requireHardCitationsLabel}
           value={settings.require_hard_citations}
           onChange={(val) => onUpdate("require_hard_citations", val)}
           helper={t(

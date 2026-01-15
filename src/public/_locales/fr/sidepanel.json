@@ -334,5 +334,8 @@
   },
   "rag_attachedContext": {
     "message": "Contexte joint"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

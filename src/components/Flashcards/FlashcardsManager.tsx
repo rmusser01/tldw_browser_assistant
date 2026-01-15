@@ -1,15 +1,32 @@
 import React from "react"
 import { Tabs } from "antd"
 import { useTranslation } from "react-i18next"
-import { ReviewTab, CreateTab, ManageTab, ImportExportTab } from "./tabs"
+import { ReviewTab, ManageTab, ImportExportTab } from "./tabs"
+import type { Flashcard } from "@/services/flashcards"
 
 /**
  * FlashcardsManager contains all the tabs and core flashcard logic.
  * Connection state is handled by FlashcardsWorkspace.
+ *
+ * Structure: Review | Cards | Import/Export
+ * - Review: Spaced repetition study loop
+ * - Cards: Browse, filter, create, edit, bulk operations
+ * - Import/Export: CSV/APKG import and export
  */
 export const FlashcardsManager: React.FC = () => {
   const { t } = useTranslation(["option", "common"])
   const [activeTab, setActiveTab] = React.useState<string>("review")
+  const [reviewDeckId, setReviewDeckId] = React.useState<number | null | undefined>(undefined)
+  const [reviewOverrideCard, setReviewOverrideCard] = React.useState<Flashcard | null>(null)
+
+  const handleReviewCard = React.useCallback(
+    (card: Flashcard) => {
+      setReviewDeckId(card.deck_id ?? undefined)
+      setReviewOverrideCard(card)
+      setActiveTab("review")
+    },
+    [setActiveTab]
+  )
 
   return (
     <div className="mx-auto max-w-6xl p-4">
@@ -23,23 +40,22 @@ export const FlashcardsManager: React.FC = () => {
             label: t("option:flashcards.review", { defaultValue: "Review" }),
             children: (
               <ReviewTab
-                onNavigateToCreate={() => setActiveTab("create")}
+                onNavigateToCreate={() => setActiveTab("cards")}
                 onNavigateToImport={() => setActiveTab("importExport")}
+                reviewDeckId={reviewDeckId}
+                onReviewDeckChange={setReviewDeckId}
+                reviewOverrideCard={reviewOverrideCard}
+                onClearOverride={() => setReviewOverrideCard(null)}
               />
             )
           },
           {
-            key: "create",
-            label: t("option:flashcards.create", { defaultValue: "Create" }),
-            children: <CreateTab />
-          },
-          {
-            key: "manage",
-            label: t("option:flashcards.manage", { defaultValue: "Manage" }),
+            key: "cards",
+            label: t("option:flashcards.cards", { defaultValue: "Cards" }),
             children: (
               <ManageTab
-                onNavigateToCreate={() => setActiveTab("create")}
                 onNavigateToImport={() => setActiveTab("importExport")}
+                onReviewCard={handleReviewCard}
               />
             )
           },

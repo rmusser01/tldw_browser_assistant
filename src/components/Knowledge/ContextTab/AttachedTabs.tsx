@@ -51,6 +51,7 @@ export const AttachedTabs: React.FC<AttachedTabsProps> = ({
         </span>
         <div className="flex items-center gap-1">
           <button
+            type="button"
             onClick={onRefresh}
             className="p-1 text-text-muted hover:text-text transition-colors rounded hover:bg-surface3"
             aria-label={t("sidepanel:rag.refreshTabs", "Refresh tabs")}
@@ -60,6 +61,7 @@ export const AttachedTabs: React.FC<AttachedTabsProps> = ({
           </button>
           {tabs.length > 0 && (
             <button
+              type="button"
               onClick={onClear}
               className="p-1 text-text-muted hover:text-red-500 transition-colors rounded hover:bg-surface3"
               aria-label={t("sidepanel:rag.clearTabs", "Clear all tabs")}
@@ -100,6 +102,7 @@ export const AttachedTabs: React.FC<AttachedTabsProps> = ({
                   {tab.title}
                 </span>
                 <button
+                  type="button"
                   onClick={() => onRemove(tab.id)}
                   className="p-0.5 text-text-muted hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                   aria-label={t("sidepanel:rag.removeTab", "Remove tab")}
@@ -120,7 +123,14 @@ export const AttachedTabs: React.FC<AttachedTabsProps> = ({
             label: (
               <div className="flex items-center gap-2">
                 {tab.favIconUrl ? (
-                  <img src={tab.favIconUrl} alt="" className="h-4 w-4" />
+                  <img
+                    src={tab.favIconUrl}
+                    alt=""
+                    className="h-4 w-4"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none"
+                    }}
+                  />
                 ) : (
                   <Globe className="h-4 w-4 text-text-muted" />
                 )}

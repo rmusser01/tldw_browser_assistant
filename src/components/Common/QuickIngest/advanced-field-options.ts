@@ -24,20 +24,20 @@ const CHUNK_METHOD_OPTIONS = [
   "ebook_chapters",
   "json",
   "propositions"
-]
+] as const
 const CLAIMS_EXTRACTOR_MODE_OPTIONS = [
   "auto",
   "heuristic",
   "ner",
   "aps",
   "llm"
-]
+] as const
 const CONTEXT_STRATEGY_OPTIONS = [
   "auto",
   "full",
   "window",
   "outline_window"
-]
+] as const
 
 const toTitleCase = (value: string) =>
   value
@@ -58,7 +58,7 @@ const toEnumOptions = (values?: unknown[]) => {
     }))
 }
 
-export const getChunkLanguageOptions = (t: TFunction): SelectOption[] =>
+export const getChunkLanguageOptions = (): SelectOption[] =>
   SUPPORTED_LANGUAGES.reduce<SelectOption[]>((acc, option) => {
     const value = String(option.value)
     if (!value) return acc
@@ -67,7 +67,7 @@ export const getChunkLanguageOptions = (t: TFunction): SelectOption[] =>
     return acc
   }, [])
 
-const toSimpleOptions = (values: string[]) =>
+const toSimpleOptions = (values: readonly string[]) =>
   values.map((value) => ({
     value,
     label: toTitleCase(value)
@@ -90,7 +90,7 @@ export const getAdvancedFieldSelectOptions = ({
 
   switch (fieldName) {
     case "chunk_language":
-      return getChunkLanguageOptions(t)
+      return getChunkLanguageOptions()
     case "chunk_method":
       return enumOptions.length > 0
         ? enumOptions
@@ -140,7 +140,6 @@ export const ensureSelectOption = (
 ) => {
   if (value === undefined || value === null || value === "") return options
   const normalized = String(value)
-  if (!normalized) return options
   const exists = options.some((option) => String(option.value) === normalized)
   if (exists) return options
   return [...options, { value: normalized, label: normalized }]

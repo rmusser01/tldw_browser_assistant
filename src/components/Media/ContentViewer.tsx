@@ -61,6 +61,13 @@ const shouldForceHardBreaks = (text: string, mediaType?: string) => {
   return !looksLikeMarkdown(text)
 }
 
+const firstNonEmptyString = (...vals: any[]): string => {
+  for (const v of vals) {
+    if (typeof v === 'string' && v.trim().length > 0) return v
+  }
+  return ''
+}
+
 interface ContentViewerProps {
   selectedMedia: MediaResultItem | null
   content: string
@@ -169,6 +176,70 @@ export function ContentViewer({
     }
     return null
   }, [])
+
+  const getVersionNumber = useCallback((v: any): number | null => {
+    const raw = v?.version_number ?? v?.version
+    if (typeof raw === 'number' && Number.isFinite(raw)) return raw
+    if (typeof raw === 'string' && raw.trim().length > 0) {
+      const parsed = Number(raw)
+      if (Number.isFinite(parsed)) return parsed
+    }
+    return null
+  }, [])
+
+  const pickLatestVersion = useCallback((versions: any[]): any | null => {
+    if (!Array.isArray(versions) || versions.length === 0) return null
+    let best: any | null = null
+    let bestNum = -Infinity
+    for (const v of versions) {
+      const num = getVersionNumber(v)
+      if (num != null && num > bestNum) {
+        best = v
+        bestNum = num
+      }
+    }
+    return best || versions[0]
+  }, [getVersionNumber])
+
+  const latestVersion = useMemo(() => {
+    if (!mediaDetail || typeof mediaDetail !== 'object') return null
+    const direct = mediaDetail.latest_version || mediaDetail.latestVersion
+    if (direct && typeof direct === 'object') return direct
+    const versions = Array.isArray(mediaDetail.versions) ? mediaDetail.versions : []
+    return pickLatestVersion(versions)
+  }, [mediaDetail, pickLatestVersion])
+
+  const derivedPrompt = useMemo(() => {
+    if (!mediaDetail) return ''
+    const fromRoot = firstNonEmptyString(mediaDetail.prompt)
+    if (fromRoot) return fromRoot
+    const fromProcessing = firstNonEmptyString(mediaDetail?.processing?.prompt)
+    if (fromProcessing) return fromProcessing
+    return firstNonEmptyString(latestVersion?.prompt)
+  }, [mediaDetail, latestVersion])
+
+  const derivedAnalysisContent = useMemo(() => {
+    if (!mediaDetail) return ''
+    const fromProcessing = firstNonEmptyString(mediaDetail?.processing?.analysis)
+    if (fromProcessing) return fromProcessing
+    const fromAnalysis = firstNonEmptyString(mediaDetail?.analysis)
+    if (fromAnalysis) return fromAnalysis
+    if (Array.isArray(mediaDetail?.analyses)) {
+      for (const entry of mediaDetail.analyses) {
+        const text = typeof entry === 'string'
+          ? entry
+          : (entry?.content || entry?.text || entry?.summary || entry?.analysis_content || '')
+        const resolved = firstNonEmptyString(text)
+        if (resolved) return resolved
+      }
+    }
+    const fromVersion = firstNonEmptyString(
+      latestVersion?.analysis_content,
+      latestVersion?.analysis
+    )
+    if (fromVersion) return fromVersion
+    return firstNonEmptyString(mediaDetail?.summary)
+  }, [mediaDetail, latestVersion])
 
   // Sync editing keywords with selected media
   useEffect(() => {
@@ -1076,6 +1147,8 @@ export function ContentViewer({
         onClose={() => setAnalysisEditModalOpen(false)}
         initialText={editingAnalysisText}
         mediaId={selectedMedia?.id}
+        content={content}
+        prompt={derivedPrompt}
         onSendToChat={onSendAnalysisToChat}
         onSaveNewVersion={() => {
           if (onRefreshMedia) {
@@ -1092,6 +1165,8 @@ export function ContentViewer({
             onClose={() => setContentEditModalOpen(false)}
             initialText={editingContentText || content}
             mediaId={selectedMedia.id}
+            analysisContent={derivedAnalysisContent}
+            prompt={derivedPrompt}
             onSaveNewVersion={() => {
               if (onRefreshMedia) {
                 onRefreshMedia()

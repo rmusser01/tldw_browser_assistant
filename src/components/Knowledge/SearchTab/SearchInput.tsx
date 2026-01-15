@@ -42,12 +42,15 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   }, [autoFocus])
 
   // Handle Enter key to search
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      onSearch()
-    }
-  }
+  const handleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" && !e.shiftKey && !loading) {
+        e.preventDefault()
+        onSearch()
+      }
+    },
+    [loading, onSearch]
+  )
 
   return (
     <div className="flex flex-col gap-2">

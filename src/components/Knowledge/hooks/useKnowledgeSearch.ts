@@ -21,7 +21,7 @@ export type RagResult = {
   content?: string
   text?: string
   chunk?: string
-  metadata?: any
+  metadata?: Record<string, unknown>
   score?: number
   relevance?: number
 }
@@ -39,20 +39,69 @@ export type BatchResultGroup = {
  */
 export type SortMode = "relevance" | "date" | "type"
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null
+
+const getMetadataValue = (
+  metadata: RagResult["metadata"],
+  key: string
+): unknown => (isRecord(metadata) ? metadata[key] : undefined)
+
+const getMetadataString = (metadata: RagResult["metadata"], keys: string[]) => {
+  for (const key of keys) {
+    const value = getMetadataValue(metadata, key)
+    if (typeof value === "string" && value.trim().length > 0) {
+      return value
+    }
+  }
+  return ""
+}
+
+const getMetadataPrimitive = (
+  metadata: RagResult["metadata"],
+  keys: string[]
+) => {
+  for (const key of keys) {
+    const value = getMetadataValue(metadata, key)
+    if (typeof value === "string") {
+      const trimmed = value.trim()
+      if (trimmed.length > 0) return trimmed
+    } else if (typeof value === "number") {
+      return value
+    }
+  }
+  return undefined
+}
+
 // Helper functions for result extraction
 export const getResultText = (item: RagResult) =>
   item.content || item.text || item.chunk || ""
 
 export const getResultTitle = (item: RagResult) =>
-  item.metadata?.title || item.metadata?.source || item.metadata?.url || ""
+  getMetadataString(item.metadata, ["title", "source", "url"])
 
 export const getResultUrl = (item: RagResult) =>
-  item.metadata?.url || item.metadata?.source || ""
+  getMetadataString(item.metadata, ["url", "source"])
 
-export const getResultType = (item: RagResult) => item.metadata?.type || ""
+export const getResultType = (item: RagResult) =>
+  getMetadataString(item.metadata, ["type"])
 
 export const getResultDate = (item: RagResult) =>
-  item.metadata?.created_at || item.metadata?.date || item.metadata?.added_at
+  getMetadataPrimitive(item.metadata, ["created_at", "date", "added_at"])
+
+export const getResultId = (item: RagResult) =>
+  getMetadataPrimitive(item.metadata, ["id"])
+
+export const getResultSource = (item: RagResult) =>
+  getMetadataString(item.metadata, ["source"])
+
+export const getResultChunkIndex = (item: RagResult) =>
+  getMetadataPrimitive(item.metadata, [
+    "chunk_index",
+    "chunkIndex",
+    "index",
+    "offset"
+  ])
 
 export const getResultScore = (item: RagResult) =>
   typeof item.score === "number"
@@ -61,17 +110,65 @@ export const getResultScore = (item: RagResult) =>
       ? item.relevance
       : undefined
 
+const getErrorMessage = (error: unknown) => {
+  if (typeof error === "string") return error
+  if (error instanceof Error) return error.message
+  if (typeof error === "object" && error !== null) {
+    const candidate = (error as { message?: unknown }).message
+    if (typeof candidate === "string") return candidate
+  }
+  return ""
+}
+
+const isTimeoutError = (error: unknown) => {
+  if (error instanceof Error && error.name === "AbortError") return true
+  const message = getErrorMessage(error).toLowerCase()
+  return message.includes("timeout") || message.includes("timed out")
+}
+
+const hashString = (value: string) => {
+  let hash = 0
+  for (let i = 0; i < value.length; i++) {
+    hash = (hash * 31 + value.charCodeAt(i)) >>> 0
+  }
+  return hash.toString(36)
+}
+
+const buildPinnedResultId = (item: RagResult, text: string) => {
+  const seedParts = [
+    getResultId(item),
+    getResultUrl(item),
+    getResultSource(item),
+    getResultTitle(item),
+    getResultType(item),
+    getResultDate(item),
+    text ? text.slice(0, 4096) : ""
+  ]
+    .map((value) => (value == null ? "" : String(value).trim()))
+    .filter(Boolean)
+
+  if (seedParts.length === 0) {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return `rag-${crypto.randomUUID()}`
+    }
+    return `rag-${Math.random().toString(36).slice(2)}`
+  }
+
+  return `rag-${hashString(seedParts.join("|"))}`
+}
+
 /**
  * Convert a RAG result to a pinned result format
  */
 export const toPinnedResult = (item: RagResult): RagPinnedResult => {
-  const snippet = getResultText(item).slice(0, 800)
+  const text = getResultText(item)
+  const snippet = text.slice(0, 800)
   const title = getResultTitle(item)
   const url = getResultUrl(item)
   return {
-    id: `${title || url || snippet.slice(0, 12)}-${item.metadata?.id || ""}`,
+    id: buildPinnedResultId(item, text),
     title: title || undefined,
-    source: item.metadata?.source || undefined,
+    source: getResultSource(item) || undefined,
     url: url || undefined,
     snippet,
     type: getResultType(item) || undefined
@@ -215,10 +312,15 @@ export function useKnowledgeSearch({
         applySettings()
       }
 
+      const batchQueries = Array.isArray(draftSettings.batch_queries)
+        ? draftSettings.batch_queries
+        : []
       const hasBatchQueries =
-        draftSettings.enable_batch && draftSettings.batch_queries.length > 0
-      const query =
-        resolvedQuery || (hasBatchQueries ? draftSettings.batch_queries[0] : "")
+        draftSettings.enable_batch && batchQueries.length > 0
+      const batchQuery = hasBatchQueries
+        ? batchQueries.find((value) => String(value).trim().length > 0) ?? ""
+        : ""
+      const query = (resolvedQuery || batchQuery).trim()
 
       if (!query) {
         setQueryError(
@@ -238,18 +340,22 @@ export function useKnowledgeSearch({
       setResults([])
       setBatchResults([])
 
+      let timeoutMs: number | undefined
+      let startedAt = 0
+
       try {
         await tldwClient.initialize()
         const settings = {
           ...draftSettings,
           query
         }
-        const { query: resolved, options, timeoutMs } =
-          buildRagSearchRequest(settings)
+        const request = buildRagSearchRequest(settings)
+        timeoutMs = request.timeoutMs
+        startedAt = Date.now()
 
-        const ragRes = await tldwClient.ragSearch(resolved, {
-          ...options,
-          timeoutMs
+        const ragRes = await tldwClient.ragSearch(request.query, {
+          ...request.options,
+          timeoutMs: request.timeoutMs
         })
 
         // Handle batch results
@@ -267,7 +373,13 @@ export function useKnowledgeSearch({
       } catch (e) {
         setResults([])
         setBatchResults([])
-        setTimedOut(true)
+        const elapsedMs = startedAt ? Date.now() - startedAt : 0
+        const isTimeout =
+          (typeof timeoutMs === "number" &&
+            startedAt > 0 &&
+            elapsedMs >= timeoutMs) ||
+          isTimeoutError(e)
+        setTimedOut(isTimeout)
       } finally {
         setLoading(false)
       }
@@ -286,7 +398,14 @@ export function useKnowledgeSearch({
   const copyResult = React.useCallback(
     async (item: RagResult, format: RagCopyFormat) => {
       const pinned = toPinnedResult(item)
-      await navigator.clipboard.writeText(formatRagResult(pinned, format))
+      if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) {
+        return
+      }
+      try {
+        await navigator.clipboard.writeText(formatRagResult(pinned, format))
+      } catch (error) {
+        console.error("Failed to copy knowledge result to clipboard:", error)
+      }
     },
     []
   )

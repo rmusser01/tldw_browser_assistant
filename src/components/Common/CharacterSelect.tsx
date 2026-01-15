@@ -128,6 +128,9 @@ export const CharacterSelect: React.FC<Props> = ({
   const imageOnlyModalRef = React.useRef<ReturnType<typeof modal.confirm> | null>(
     null
   )
+  const displayNameModalRef = React.useRef<ReturnType<typeof modal.confirm> | null>(
+    null
+  )
   const confirmResolveRef = React.useRef<((confirmed: boolean) => void) | null>(
     null
   )
@@ -180,7 +183,8 @@ export const CharacterSelect: React.FC<Props> = ({
   const searchPlaceholder = t("option:characters.searchPlaceholder", {
     defaultValue: "Search characters by name"
   }) as string
-  const trimmedDisplayName = userDisplayName.trim()
+  const trimmedDisplayName =
+    typeof userDisplayName === "string" ? userDisplayName.trim() : ""
   const hasActiveChat = React.useMemo(() => {
     if (serverChatId) return true
     return messages.some(
@@ -189,7 +193,7 @@ export const CharacterSelect: React.FC<Props> = ({
   }, [messages, serverChatId])
   const openDisplayNameModal = React.useCallback(() => {
     let nextValue = trimmedDisplayName
-    modal.confirm({
+    displayNameModalRef.current = modal.confirm({
       title: t("option:characters.displayNameTitle", {
         defaultValue: "Set your name"
       }),
@@ -219,6 +223,9 @@ export const CharacterSelect: React.FC<Props> = ({
       centered: true,
       onOk: () => {
         setUserDisplayName(nextValue.trim())
+      },
+      afterClose: () => {
+        displayNameModalRef.current = null
       }
     })
   }, [modal, setUserDisplayName, t, trimmedDisplayName])
@@ -438,6 +445,8 @@ export const CharacterSelect: React.FC<Props> = ({
     return () => {
       imageOnlyModalRef.current?.destroy()
       imageOnlyModalRef.current = null
+      displayNameModalRef.current?.destroy()
+      displayNameModalRef.current = null
     }
   }, [])
 
@@ -487,11 +496,18 @@ export const CharacterSelect: React.FC<Props> = ({
           { instance: imageOnlyModalRef }
         )
 
+      const importCharacter = (allowImageOnly = false) =>
+        tldwClient.importCharacterFile(file, { allowImageOnly })
+
       try {
         setIsImporting(true)
-        await tldwClient.initialize().catch(() => null)
-        const importCharacter = async (allowImageOnly = false) =>
-          await tldwClient.importCharacterFile(file, { allowImageOnly })
+        const initOk = await tldwClient
+          .initialize()
+          .then(() => true)
+          .catch(() => false)
+        if (!initOk) {
+          throw new Error("Failed to initialize character service.")
+        }
         const imported = await importCharacter()
         handleImportSuccess(imported)
       } catch (error) {
@@ -502,9 +518,7 @@ export const CharacterSelect: React.FC<Props> = ({
           )
           if (confirmed) {
             try {
-              const imported = await tldwClient.importCharacterFile(file, {
-                allowImageOnly: true
-              })
+              const imported = await importCharacter(true)
               handleImportSuccess(imported)
             } catch (retryError) {
               const messageText =
@@ -566,7 +580,12 @@ export const CharacterSelect: React.FC<Props> = ({
       if (!normalized) {
         console.debug(
           "[CharacterSelect] Skipping character with invalid id/name",
-          character
+          {
+            id: character.id,
+            slug: character.slug,
+            name: character.name,
+            title: character.title
+          }
         )
         return items
       }

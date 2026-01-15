@@ -80,7 +80,7 @@ export type PresetConfig = {
   storeRemote: boolean
   reviewBeforeStorage: boolean
   typeDefaults: TypeDefaults
-  advancedValues?: Record<string, any>
+  advancedValues?: Record<string, unknown>
 }
 
 /**

@@ -11,6 +11,7 @@ import { FileDropZone } from "./QuickIngest/QueueTab/FileDropZone"
 import { OptionsTab } from "./QuickIngest/OptionsTab/OptionsTab"
 import { ResultsTab } from "./QuickIngest/ResultsTab/ResultsTab"
 import { ProcessButton } from "./QuickIngest/shared/ProcessButton"
+import { QUICK_INGEST_ACCEPT_STRING } from "./QuickIngest/constants"
 import type { QuickIngestTab, IngestPreset } from "./QuickIngest/types"
 import {
   DEFAULT_PRESET,
@@ -3532,7 +3533,7 @@ export const QuickIngestModal: React.FC<Props> = ({
               style={{ display: 'none' }}
               ref={reattachInputRef}
               onChange={handleReattachChange}
-              accept=".pdf,.txt,.rtf,.doc,.docx,.md,.epub,application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*"
+              accept={QUICK_INGEST_ACCEPT_STRING}
             />
             <FileDropZone
               onFilesAdded={addLocalFiles}

@@ -1,6 +1,5 @@
 import React from "react"
 import { Input, InputNumber, Select, Switch } from "antd"
-import type { InputRef } from "antd"
 
 type BaseFieldProps = {
   label: string
@@ -173,3 +172,5 @@ export const SettingField: React.FC<SettingFieldProps> = React.memo((props) => {
     </div>
   )
 })
+
+SettingField.displayName = "SettingField"

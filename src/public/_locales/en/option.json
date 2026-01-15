@@ -2710,5 +2710,107 @@
   },
   "quickIngest_videoCaptionsLabel": {
     "message": "Captions"
+  },
+  "header_modeWatchlists": {
+    "message": "Watchlists"
+  },
+  "header_modeKanban": {
+    "message": "Kanban Playground"
+  },
+  "flashcards_cards": {
+    "message": "Cards"
+  },
+  "flashcards_shortcutFlip": {
+    "message": "Press Space to flip"
+  },
+  "flashcards_shortcutRate": {
+    "message": "Press 1-4 to rate"
+  },
+  "flashcards_noCardsYet": {
+    "message": "No flashcards yet"
+  },
+  "flashcards_allCaughtUp": {
+    "message": "You're all caught up!"
+  },
+  "flashcards_allCaughtUpDescription": {
+    "message": "No cards are due for review. Great job!"
+  },
+  "flashcards_reviewedToday": {
+    "message": "{{count}} cards reviewed this session"
+  },
+  "flashcards_createFirstCard": {
+    "message": "Create a flashcard"
+  },
+  "flashcards_createMoreCards": {
+    "message": "Create more cards"
+  },
+  "flashcards_filterByTag": {
+    "message": "Filter by tag"
+  },
+  "flashcards_tagPlaceholder": {
+    "message": "Enter tag..."
+  },
+  "flashcards_dueSoon": {
+    "message": "Due now"
+  },
+  "flashcards_compactView": {
+    "message": "Compact view"
+  },
+  "flashcards_expandedView": {
+    "message": "Expanded view"
+  },
+  "flashcards_moreFilters": {
+    "message": "More"
+  },
+  "flashcards_export": {
+    "message": "Export"
+  },
+  "flashcards_reviewCard": {
+    "message": "Review now"
+  },
+  "flashcards_moveToDeck": {
+    "message": "Move to deck"
+  },
+  "flashcards_bulkProgressTitle": {
+    "message": "Processing"
+  },
+  "flashcards_bulkProgressPleaseWait": {
+    "message": "Please wait..."
+  },
+  "flashcards_bulkProgressDeleting": {
+    "message": "Deleting cards"
+  },
+  "flashcards_bulkDeleteConfirm": {
+    "message": "Delete {{count}} selected cards? This cannot be undone."
+  },
+  "flashcards_bulkDeleteLargeTitle": {
+    "message": "Delete {{count}} cards?"
+  },
+  "flashcards_bulkDeleteLargeWarning": {
+    "message": "You are about to delete a large number of cards."
+  },
+  "flashcards_bulkDeleteLargeContent": {
+    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+  },
+  "flashcards_typeDeleteToConfirm": {
+    "message": "Type DELETE to confirm:"
+  },
+  "flashcards_selectedAcrossAll": {
+    "message": "selected across all results"
+  },
+  "flashcards_selectedOnPage": {
+    "message": "selected on this page"
+  },
+  "flashcards_selected": {
+    "message": "selected"
+  },
+  "flashcards_selectAllCount": {
+    "message": "Select all {{count}}"
+  },
+  "flashcards_clear": {
+    "message": "Clear"
+  },
+  "flashcards_createCard": {
+    "message": "Create Flashcard"
   }
 }

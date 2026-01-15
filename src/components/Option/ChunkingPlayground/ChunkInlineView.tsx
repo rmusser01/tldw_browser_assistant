@@ -1,6 +1,6 @@
 import React, { useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip } from "antd"
+import { Alert, Tooltip } from "antd"
 import { useDarkMode } from "@/hooks/useDarkmode"
 import { getChunkColor, type Chunk } from "@/services/chunking"
 
@@ -30,6 +30,24 @@ const adjustColorOpacity = (color: string, delta: number): string => {
   return `rgba(${r}, ${g}, ${b}, ${newAlpha})`
 }
 
+const resolveStart = (chunk: Chunk): number | null => {
+  const start =
+    chunk.metadata.start_char ??
+    chunk.metadata.start_index ??
+    chunk.metadata.start ??
+    chunk.metadata.offset_start
+  return typeof start === "number" ? start : null
+}
+
+const resolveEnd = (chunk: Chunk): number | null => {
+  const end =
+    chunk.metadata.end_char ??
+    chunk.metadata.end_index ??
+    chunk.metadata.end ??
+    chunk.metadata.offset_end
+  return typeof end === "number" ? end : null
+}
+
 export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
   originalText,
   chunks,
@@ -40,9 +58,18 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
   const { mode } = useDarkMode()
   const isDark = mode === "dark"
 
+  const hasOffsets = useMemo(
+    () =>
+      chunks.length > 0 &&
+      chunks.every(
+        (chunk) => resolveStart(chunk) != null && resolveEnd(chunk) != null
+      ),
+    [chunks]
+  )
+
   // Build segments from chunks with proper overlap handling
   const segments = useMemo(() => {
-    if (!chunks.length || !originalText) return []
+    if (!chunks.length || !originalText || !hasOffsets) return []
 
     // Collect all boundary points
     const boundaries = new Set<number>()
@@ -50,8 +77,10 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
     boundaries.add(originalText.length)
 
     for (const chunk of chunks) {
-      boundaries.add(chunk.metadata.start_char)
-      boundaries.add(chunk.metadata.end_char)
+      const start = resolveStart(chunk)
+      const end = resolveEnd(chunk)
+      if (start != null) boundaries.add(start)
+      if (end != null) boundaries.add(end)
     }
 
     // Sort boundaries
@@ -68,7 +97,14 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
       // Find which chunks this segment belongs to
       const chunkIndices: number[] = []
       chunks.forEach((chunk, idx) => {
-        if (start >= chunk.metadata.start_char && end <= chunk.metadata.end_char) {
+        const chunkStart = resolveStart(chunk)
+        const chunkEnd = resolveEnd(chunk)
+        if (
+          chunkStart != null &&
+          chunkEnd != null &&
+          start >= chunkStart &&
+          end <= chunkEnd
+        ) {
           chunkIndices.push(idx)
         }
       })
@@ -82,7 +118,7 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
     }
 
     return result
-  }, [originalText, chunks])
+  }, [originalText, chunks, hasOffsets])
 
   const getSegmentStyle = (
     segment: TextSegment
@@ -140,12 +176,15 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
 
     const chunkInfo = segment.chunkIndices.map((chunkIdx) => {
       const chunk = chunks[chunkIdx]
+      const words =
+        chunk.metadata.word_count ??
+        chunk.text.split(/\s+/).filter(Boolean).length
       return t(
         "settings:chunkingPlayground.chunkInfo",
         "Chunk {{index}}: {{words}} words",
         {
           index: chunkIdx + 1,
-          words: chunk.metadata.word_count
+          words
         }
       )
     })
@@ -183,6 +222,19 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
 
   if (!originalText || chunks.length === 0) {
     return null
+  }
+
+  if (!hasOffsets) {
+    return (
+      <Alert
+        type="info"
+        showIcon
+        message={t(
+          "settings:chunkingPlayground.inlineUnavailable",
+          "Inline view requires character offsets; switch to Cards to inspect chunks."
+        )}
+      />
+    )
   }
 
   return (

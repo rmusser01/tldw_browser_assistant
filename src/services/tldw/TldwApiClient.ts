@@ -2154,6 +2154,152 @@ export class TldwApiClient {
     }
     return await resp.arrayBuffer()
   }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Data Tables API
+  // ─────────────────────────────────────────────────────────────────────────
+
+  async listDataTables(params?: {
+    page?: number
+    page_size?: number
+    search?: string
+    sort_by?: string
+    sort_order?: string
+  }): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/data-tables${query}`,
+      method: "GET"
+    })
+  }
+
+  async getDataTable(tableId: string): Promise<any> {
+    const id = encodeURIComponent(tableId)
+    return await bgRequest<any>({
+      path: `/api/v1/data-tables/${id}`,
+      method: "GET"
+    })
+  }
+
+  async generateDataTable(payload: {
+    prompt: string
+    sources: Array<{ type: string; id: string; title: string; snippet?: string }>
+    column_hints?: Array<{ name?: string; type?: string; description?: string }>
+    model?: string
+    max_rows?: number
+  }): Promise<any> {
+    return await bgRequest<any>({
+      path: "/api/v1/data-tables/generate",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async updateDataTable(
+    tableId: string,
+    payload: { name?: string; description?: string }
+  ): Promise<any> {
+    const id = encodeURIComponent(tableId)
+    return await bgRequest<any>({
+      path: `/api/v1/data-tables/${id}`,
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async saveDataTableContent(
+    tableId: string,
+    payload: {
+      columns: Array<{ id: string; name: string; type: string; description?: string; format?: string }>
+      rows: Record<string, any>[]
+    }
+  ): Promise<any> {
+    const id = encodeURIComponent(tableId)
+    return await bgRequest<any>({
+      path: `/api/v1/data-tables/${id}/content`,
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
+  }
+
+  async deleteDataTable(tableId: string): Promise<void> {
+    const id = encodeURIComponent(tableId)
+    await bgRequest<void>({
+      path: `/api/v1/data-tables/${id}`,
+      method: "DELETE"
+    })
+  }
+
+  async regenerateDataTable(
+    tableId: string,
+    payload?: { prompt?: string; model?: string }
+  ): Promise<any> {
+    const id = encodeURIComponent(tableId)
+    return await bgRequest<any>({
+      path: `/api/v1/data-tables/${id}/regenerate`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload || {}
+    })
+  }
+
+  async exportDataTable(
+    tableId: string,
+    format: "csv" | "xlsx" | "json"
+  ): Promise<{ blob: Blob; filename: string }> {
+    await this.initialize()
+    const cfg = await this.ensureConfigForRequest(true)
+    const base = (this.baseUrl || cfg?.serverUrl || "").replace(/\/$/, "")
+    if (!base) throw new Error("Server not configured")
+
+    const headers: Record<string, string> = {}
+    if (cfg.authMode === "single-user") {
+      const key = String(cfg.apiKey || "").trim()
+      if (key) headers["X-API-KEY"] = key
+    } else if (cfg.authMode === "multi-user") {
+      const token = String(cfg.accessToken || "").trim()
+      if (token) headers["Authorization"] = `Bearer ${token}`
+    }
+
+    const url = `${base}/api/v1/data-tables/${encodeURIComponent(tableId)}/export?format=${encodeURIComponent(format)}`
+    const res = await fetch(url, {
+      method: "GET",
+      headers,
+      credentials: "include"
+    })
+
+    if (!res.ok) {
+      let detail: string | undefined
+      try {
+        const data = await res.json()
+        detail = data?.detail || data?.error || data?.message
+      } catch {
+        // ignore
+      }
+      throw new Error(detail || `Export failed: ${res.status}`)
+    }
+
+    const blob = await res.blob()
+    const disposition = res.headers.get("content-disposition")
+    let filename = `data-table-${tableId}.${format}`
+    if (disposition) {
+      const utfMatch = disposition.match(/filename\*=UTF-8''([^;]+)/i)
+      const plainMatch = disposition.match(/filename="?([^\";]+)"?/i)
+      const raw = utfMatch?.[1] || plainMatch?.[1]
+      if (raw) {
+        try {
+          filename = decodeURIComponent(raw)
+        } catch {
+          filename = raw
+        }
+      }
+    }
+
+    return { blob, filename }
+  }
 }
 
 // Singleton instance

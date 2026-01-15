@@ -83,6 +83,7 @@ export async function launchWithExtension(
 
   const { homeDir, userDataDir } = makeTempProfileDirs()
 
+  const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
   const context = await chromium.launchPersistentContext(userDataDir, {
     headless: !!process.env.CI,
     acceptDownloads: true,
@@ -91,6 +92,7 @@ export async function launchWithExtension(
       ...process.env,
       HOME: homeDir
     },
+    executablePath: executablePath || undefined,
     args: [
       `--disable-extensions-except=${extPath}`,
       `--load-extension=${extPath}`,

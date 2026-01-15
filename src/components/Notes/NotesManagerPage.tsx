@@ -903,6 +903,8 @@ const NotesManagerPage: React.FC = () => {
         setKeywordOptions(arr)
       } else if (allKeywords.length > 0) {
         setKeywordOptions(allKeywords)
+      } else {
+        setKeywordOptions([])
       }
     } catch {
       // Keyword load failed - feature will use empty suggestions

@@ -9,6 +9,9 @@ export type {
   SortMode
 } from "./useKnowledgeSearch"
 export {
+  getResultChunkIndex,
+  getResultId,
+  getResultSource,
   getResultText,
   getResultTitle,
   getResultUrl,

@@ -53,7 +53,6 @@ import {
 } from "@/utils/selected-character-storage"
 import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClient"
 import { getServerCapabilities } from "@/services/tldw/server-capabilities"
-import { getActorSettingsForChat } from "@/services/actor-settings"
 import { generateTitle } from "@/services/title"
 import { trackCompareMetric } from "@/utils/compare-metrics"
 import { MAX_COMPARE_MODELS } from "@/hooks/chat/compare-constants"
@@ -74,6 +73,8 @@ type ChatModeOverrides = {
   historyId?: string | null
   serverChatId?: string | null
 } & Record<string, unknown>
+
+const loadActorSettings = () => import("@/services/actor-settings")
 
 type SaveMessagePayload = Omit<SaveMessageData, "setHistoryId"> & {
   setHistoryId?: SaveMessageData["setHistoryId"]
@@ -399,6 +400,7 @@ export const useChatActions = ({
           )
         : historyId
 
+    const { getActorSettingsForChat } = await loadActorSettings()
     const actorSettings = await getActorSettingsForChat({
       historyId: resolvedHistoryId ?? historyId,
       serverChatId: resolvedServerChatId

@@ -21,6 +21,7 @@ import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
   EraserIcon,
+  BookPlus,
   GitBranch,
   ImageIcon,
   MicIcon,
@@ -55,6 +56,10 @@ import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
 import { ActorPopout } from "@/components/Common/Settings/ActorPopout"
 import { PromptSelect } from "@/components/Common/PromptSelect"
+import {
+  PromptInsertModal,
+  type PromptInsertItem
+} from "@/components/Common/PromptInsertModal"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 import { Link, useNavigate } from "react-router-dom"
@@ -107,6 +112,11 @@ const getPersistenceModeLabel = (
     "playground:composer.persistence.local",
     "Saved locally until your tldw server is connected."
   )
+}
+
+type CollapsedRange = {
+  start: number
+  end: number
 }
 
 type Props = {
@@ -205,6 +215,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const [showQueuedBanner, setShowQueuedBanner] = React.useState(true)
   const [documentGeneratorOpen, setDocumentGeneratorOpen] =
     React.useState(false)
+  const [promptInsertOpen, setPromptInsertOpen] = React.useState(false)
   const [documentGeneratorSeed, setDocumentGeneratorSeed] = React.useState<{
     conversationId?: string | null
     message?: string | null
@@ -625,21 +636,73 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     setFieldValueRef.current = form.setFieldValue
   }, [form.setFieldValue])
 
+  const pendingCaretRef = React.useRef<number | null>(null)
+  const lastDisplaySelectionRef = React.useRef<{
+    start: number
+    end: number
+  } | null>(null)
+  const pendingCollapsedStateRef = React.useRef<{
+    message: string
+    range: CollapsedRange
+    caret: number
+  } | null>(null)
+  const pointerDownRef = React.useRef(false)
+  const selectionFromPointerRef = React.useRef(false)
   const [isMessageCollapsed, setIsMessageCollapsed] = React.useState(false)
+  const [collapsedRange, setCollapsedRange] =
+    React.useState<CollapsedRange | null>(null)
   const [hasExpandedLargeText, setHasExpandedLargeText] = React.useState(false)
+  const normalizeCollapsedRange = React.useCallback(
+    (range: CollapsedRange, messageLength: number): CollapsedRange => {
+      const start = Math.max(0, Math.min(range.start, messageLength))
+      const end = Math.max(start, Math.min(range.end, messageLength))
+      return { start, end }
+    },
+    []
+  )
+
+  const parseCollapsedRange = React.useCallback(
+    (value: unknown, messageLength: number): CollapsedRange | null => {
+      if (!value || typeof value !== "object") return null
+      const start = Number((value as { start?: number }).start)
+      const end = Number((value as { end?: number }).end)
+      if (!Number.isFinite(start) || !Number.isFinite(end)) return null
+      const range = normalizeCollapsedRange({ start, end }, messageLength)
+      if (range.end <= range.start) return null
+      return range
+    },
+    [normalizeCollapsedRange]
+  )
+
   const restoreMessageValue = React.useCallback(
-    (value: string, metadata?: { wasExpanded?: boolean }) => {
+    (
+      value: string,
+      metadata?: { wasExpanded?: boolean; collapsedRange?: CollapsedRange | null }
+    ) => {
       setFieldValueRef.current("message", value)
       if (value.length <= PASTED_TEXT_CHAR_LIMIT) {
         setIsMessageCollapsed(false)
         setHasExpandedLargeText(false)
+        setCollapsedRange(null)
         return
       }
       const wasExpanded = Boolean(metadata?.wasExpanded)
-      setIsMessageCollapsed(!wasExpanded)
-      setHasExpandedLargeText(wasExpanded)
+      if (wasExpanded) {
+        setIsMessageCollapsed(false)
+        setHasExpandedLargeText(true)
+        setCollapsedRange(null)
+        return
+      }
+      const range =
+        parseCollapsedRange(metadata?.collapsedRange, value.length) ?? {
+          start: 0,
+          end: value.length
+        }
+      setIsMessageCollapsed(true)
+      setHasExpandedLargeText(false)
+      setCollapsedRange(range)
     },
-    []
+    [parseCollapsedRange]
   )
 
   const buildCollapsedMessageLabel = React.useCallback(
@@ -656,51 +719,147 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     [t]
   )
 
-  const collapseLargeMessage = React.useCallback(
-    (text: string, options?: { force?: boolean }) => {
-      if (text.length <= PASTED_TEXT_CHAR_LIMIT) return
-      if (!options?.force && hasExpandedLargeText) return
-      setIsMessageCollapsed(true)
-      setHasExpandedLargeText(false)
+  const getCollapsedDisplayMeta = React.useCallback(
+    (text: string, range: CollapsedRange) => {
+      const normalizedRange = normalizeCollapsedRange(range, text.length)
+      const collapsedText = text.slice(
+        normalizedRange.start,
+        normalizedRange.end
+      )
+      const label = buildCollapsedMessageLabel(collapsedText)
+      const prefix = text.slice(0, normalizedRange.start)
+      const suffix = text.slice(normalizedRange.end)
+      const labelStart = prefix.length
+      const labelEnd = labelStart + label.length
+      const blockLength = normalizedRange.end - normalizedRange.start
+      return {
+        display: `${prefix}${label}${suffix}`,
+        label,
+        labelStart,
+        labelEnd,
+        labelLength: label.length,
+        blockLength,
+        rangeStart: normalizedRange.start,
+        rangeEnd: normalizedRange.end,
+        messageLength: text.length
+      }
     },
-    [hasExpandedLargeText]
+    [buildCollapsedMessageLabel, normalizeCollapsedRange]
   )
 
-  const expandLargeMessage = React.useCallback(() => {
-    if (!isMessageCollapsed) return
-    setIsMessageCollapsed(false)
-    setHasExpandedLargeText(true)
-    requestAnimationFrame(() => {
-      const el = textareaRef.current
-      if (!el) return
-      const caret = el.value.length
-      el.focus()
-      el.setSelectionRange(caret, caret)
-    })
-  }, [isMessageCollapsed, textareaRef])
+  const getDisplayCaretFromMessage = React.useCallback(
+    (
+      messageCaret: number,
+      meta: ReturnType<typeof getCollapsedDisplayMeta>
+    ) => {
+      if (messageCaret <= meta.rangeStart) return messageCaret
+      if (messageCaret >= meta.rangeEnd) {
+        return (
+          messageCaret -
+          meta.blockLength +
+          meta.labelLength
+        )
+      }
+      return meta.labelEnd
+    },
+    []
+  )
+
+  const getMessageCaretFromDisplay = React.useCallback(
+    (
+      displayCaret: number,
+      meta: ReturnType<typeof getCollapsedDisplayMeta>,
+      options?: { prefer?: "before" | "after" }
+    ) => {
+      if (displayCaret <= meta.labelStart) return displayCaret
+      if (displayCaret >= meta.labelEnd) {
+        return (
+          displayCaret -
+          meta.labelLength +
+          meta.blockLength
+        )
+      }
+      return options?.prefer === "before"
+        ? meta.rangeStart
+        : meta.rangeEnd
+    },
+    []
+  )
+
+  const collapseLargeMessage = React.useCallback(
+    (text: string, options?: { force?: boolean; range?: CollapsedRange }) => {
+      if (text.length <= PASTED_TEXT_CHAR_LIMIT) {
+        setIsMessageCollapsed(false)
+        setHasExpandedLargeText(false)
+        setCollapsedRange(null)
+        return
+      }
+      if (!options?.force && hasExpandedLargeText) return
+      const range =
+        options?.range ?? { start: 0, end: text.length }
+      const normalizedRange = normalizeCollapsedRange(range, text.length)
+      setIsMessageCollapsed(true)
+      setHasExpandedLargeText(false)
+      setCollapsedRange(normalizedRange)
+    },
+    [hasExpandedLargeText, normalizeCollapsedRange]
+  )
+
+  const expandLargeMessage = React.useCallback(
+    (options?: { caret?: number; force?: boolean }) => {
+      if (!isMessageCollapsed && !options?.force) return
+      setIsMessageCollapsed(false)
+      setHasExpandedLargeText(true)
+      setCollapsedRange(null)
+      requestAnimationFrame(() => {
+        const el = textareaRef.current
+        if (!el) return
+        const caret =
+          typeof options?.caret === "number"
+            ? Math.min(options.caret, el.value.length)
+            : pendingCaretRef.current ?? el.value.length
+        pendingCaretRef.current = null
+        el.focus()
+        el.setSelectionRange(caret, caret)
+      })
+    },
+    [isMessageCollapsed, textareaRef]
+  )
 
   const setMessageValue = React.useCallback(
     (
       nextValue: string,
-      options?: { collapseLarge?: boolean; forceCollapse?: boolean }
+      options?: {
+        collapseLarge?: boolean
+        forceCollapse?: boolean
+        collapsedRange?: CollapsedRange
+      }
     ) => {
       form.setFieldValue("message", nextValue)
       if (options?.collapseLarge) {
-        collapseLargeMessage(nextValue, { force: options?.forceCollapse })
+        collapseLargeMessage(nextValue, {
+          force: options?.forceCollapse,
+          range: options?.collapsedRange
+        })
       }
     },
     [collapseLargeMessage, form.setFieldValue]
   )
 
+  const collapsedDisplayMeta = React.useMemo(() => {
+    const message = form.values.message || ""
+    if (!message || !collapsedRange) return null
+    return getCollapsedDisplayMeta(message, collapsedRange)
+  }, [collapsedRange, form.values.message, getCollapsedDisplayMeta])
+
   const messageDisplayValue = React.useMemo(
     () => {
       const message = form.values.message || ""
       if (!message) return ""
-      return isMessageCollapsed
-        ? buildCollapsedMessageLabel(message)
-        : message
+      if (!isMessageCollapsed || !collapsedDisplayMeta) return message
+      return collapsedDisplayMeta.display
     },
-    [buildCollapsedMessageLabel, form.values.message, isMessageCollapsed]
+    [collapsedDisplayMeta, form.values.message, isMessageCollapsed]
   )
 
   React.useEffect(() => {
@@ -708,6 +867,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     if (!message || message.length <= PASTED_TEXT_CHAR_LIMIT) {
       setIsMessageCollapsed(false)
       setHasExpandedLargeText(false)
+      setCollapsedRange(null)
     }
   }, [form.values.message])
 
@@ -715,7 +875,12 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const { draftSaved } = useDraftPersistence({
     storageKey: "tldw:playgroundChatDraft",
     getValue: () => form.values.message,
-    getMetadata: () => ({ wasExpanded: hasExpandedLargeText }),
+    getMetadata: () => ({
+      wasExpanded: hasExpandedLargeText,
+      collapsedRange: collapsedRange
+        ? { start: collapsedRange.start, end: collapsedRange.end }
+        : null
+    }),
     setValue: (value) => restoreMessageValue(value),
     setValueWithMetadata: restoreMessageValue
   })
@@ -994,6 +1159,172 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     },
     [form, handleFileUpload, onFileInputChange, otherUnsupportedTypes, toBase64]
   )
+
+  const syncCollapsedCaret = React.useCallback(
+    (options?: {
+      message?: string
+      range?: CollapsedRange | null
+      caret?: number
+    }) => {
+      if (!isMessageCollapsed) return
+      const pendingState = pendingCollapsedStateRef.current
+      const message =
+        options?.message ?? pendingState?.message ?? form.values.message ?? ""
+      const range = options?.range ?? pendingState?.range ?? collapsedRange
+      if (!range) return
+      if (!message) return
+      requestAnimationFrame(() => {
+        const el = textareaRef.current
+        if (!el) return
+        const meta = getCollapsedDisplayMeta(message, range)
+        const selection =
+          lastDisplaySelectionRef.current ??
+          (el.selectionStart !== null
+            ? {
+                start: el.selectionStart ?? 0,
+                end: el.selectionEnd ?? el.selectionStart ?? 0
+              }
+            : null)
+        const hasSelection =
+          selection ? selection.start !== selection.end : false
+        let caret =
+          options?.caret ?? pendingState?.caret ?? pendingCaretRef.current
+        if (caret === undefined || caret === null) {
+          if (selection && hasSelection) {
+            const start = Math.max(
+              0,
+              Math.min(selection.start, meta.display.length)
+            )
+            const end = Math.max(0, Math.min(selection.end, meta.display.length))
+            el.focus()
+            el.setSelectionRange(start, end)
+            pendingCollapsedStateRef.current = null
+            return
+          }
+          if (selection) {
+            const displayCaret = Math.max(
+              0,
+              Math.min(selection.start, meta.display.length)
+            )
+            const prefer =
+              displayCaret > meta.labelStart && displayCaret < meta.labelEnd
+                ? "after"
+                : undefined
+            caret = getMessageCaretFromDisplay(displayCaret, meta, { prefer })
+          } else {
+            caret = meta.messageLength
+          }
+        }
+        if (caret > meta.rangeStart && caret < meta.rangeEnd) {
+          caret = meta.rangeEnd
+        }
+        caret = Math.max(0, Math.min(caret, meta.messageLength))
+        pendingCaretRef.current = caret
+        pendingCollapsedStateRef.current = null
+        const displayCaret = getDisplayCaretFromMessage(caret, meta)
+        el.focus()
+        el.setSelectionRange(displayCaret, displayCaret)
+      })
+    },
+    [
+      collapsedRange,
+      form.values.message,
+      getDisplayCaretFromMessage,
+      getCollapsedDisplayMeta,
+      isMessageCollapsed,
+      textareaRef
+    ]
+  )
+
+  React.useEffect(() => {
+    if (!isMessageCollapsed || !collapsedRange) return
+    if (!pendingCollapsedStateRef.current && pendingCaretRef.current === null) {
+      const el = textareaRef.current
+      if (el) {
+        lastDisplaySelectionRef.current = {
+          start: el.selectionStart ?? 0,
+          end: el.selectionEnd ?? el.selectionStart ?? 0
+        }
+      }
+    }
+    syncCollapsedCaret()
+  }, [
+    collapsedRange,
+    form.values.message,
+    isMessageCollapsed,
+    syncCollapsedCaret
+  ])
+
+  const commitCollapsedEdit = React.useCallback(
+    (
+      nextValue: string,
+      nextCaret: number,
+      nextRange: CollapsedRange | null
+    ) => {
+      const shouldCollapse = nextValue.length > PASTED_TEXT_CHAR_LIMIT
+      const range = shouldCollapse
+        ? normalizeCollapsedRange(
+            nextRange ?? { start: 0, end: nextValue.length },
+            nextValue.length
+          )
+        : null
+      pendingCaretRef.current = nextCaret
+      pendingCollapsedStateRef.current = range
+        ? { message: nextValue, range, caret: nextCaret }
+        : null
+      setMessageValue(nextValue, {
+        collapseLarge: shouldCollapse,
+        forceCollapse: shouldCollapse,
+        collapsedRange: range ?? undefined
+      })
+      if (range) {
+        syncCollapsedCaret({ message: nextValue, range, caret: nextCaret })
+        return
+      }
+      requestAnimationFrame(() => {
+        const el = textareaRef.current
+        if (!el) return
+        el.focus()
+        el.setSelectionRange(nextCaret, nextCaret)
+      })
+    },
+    [normalizeCollapsedRange, setMessageValue, syncCollapsedCaret, textareaRef]
+  )
+
+  const replaceCollapsedRange = React.useCallback(
+    (
+      currentValue: string,
+      meta: ReturnType<typeof getCollapsedDisplayMeta>,
+      editStart: number,
+      editEnd: number,
+      replacement: string
+    ) => {
+      const safeStart = Math.max(0, Math.min(editStart, currentValue.length))
+      const safeEnd = Math.max(safeStart, Math.min(editEnd, currentValue.length))
+      const nextValue =
+        currentValue.slice(0, safeStart) +
+        replacement +
+        currentValue.slice(safeEnd)
+      const nextCaret = safeStart + replacement.length
+      const overlapsBlock =
+        safeStart < meta.rangeEnd && safeEnd > meta.rangeStart
+      if (overlapsBlock) {
+        commitCollapsedEdit(nextValue, nextCaret, null)
+        return
+      }
+      const delta = replacement.length - (safeEnd - safeStart)
+      const nextRange =
+        safeEnd <= meta.rangeStart
+          ? {
+              start: meta.rangeStart + delta,
+              end: meta.rangeEnd + delta
+            }
+          : { start: meta.rangeStart, end: meta.rangeEnd }
+      commitCollapsedEdit(nextValue, nextCaret, nextRange)
+    },
+    [commitCollapsedEdit]
+  )
+
   const handlePaste = React.useCallback(
     async (e: React.ClipboardEvent) => {
       if (e.clipboardData.files.length > 0) {
@@ -1022,15 +1353,69 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         return
       }
 
-      if (isMessageCollapsed) {
+      if (isMessageCollapsed && collapsedRange) {
         e.preventDefault()
         const currentValue = form.values.message || ""
-        const nextValue =
-          currentValue.length > 0
-            ? `${currentValue}\n${pastedText}`
-            : pastedText
-        setMessageValue(nextValue)
-        expandLargeMessage()
+        const meta = getCollapsedDisplayMeta(currentValue, collapsedRange)
+        const textarea = textareaRef.current
+        const rawStart = textarea?.selectionStart ?? meta.labelEnd
+        const rawEnd = textarea?.selectionEnd ?? rawStart
+        const displayStart = Math.min(rawStart, rawEnd)
+        const displayEnd = Math.max(rawStart, rawEnd)
+        const hasSelection = displayStart !== displayEnd
+        const selectionTouchesLabel =
+          displayStart < meta.labelEnd && displayEnd > meta.labelStart
+        if (hasSelection) {
+          const startPrefer =
+            displayStart > meta.labelStart && displayStart < meta.labelEnd
+              ? "before"
+              : undefined
+          const endPrefer =
+            displayEnd > meta.labelStart && displayEnd < meta.labelEnd
+              ? "after"
+              : undefined
+          let editStart = getMessageCaretFromDisplay(displayStart, meta, {
+            prefer: startPrefer
+          })
+          let editEnd = getMessageCaretFromDisplay(displayEnd, meta, {
+            prefer: endPrefer
+          })
+          if (editStart > editEnd) {
+            ;[editStart, editEnd] = [editEnd, editStart]
+          }
+          if (selectionTouchesLabel) {
+            editStart = Math.min(editStart, meta.rangeStart)
+            editEnd = Math.max(editEnd, meta.rangeEnd)
+          }
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            editStart,
+            editEnd,
+            pastedText
+          )
+          return
+        }
+        const caretPrefer =
+          rawStart > meta.labelStart && rawStart < meta.labelEnd
+            ? (pendingCaretRef.current !== null &&
+              pendingCaretRef.current <= meta.rangeStart
+                ? "before"
+                : "after")
+            : undefined
+        let caret = getMessageCaretFromDisplay(rawStart, meta, {
+          prefer: caretPrefer
+        })
+        if (caret > meta.rangeStart && caret < meta.rangeEnd) {
+          caret = meta.rangeEnd
+        }
+        const insertAt =
+          caret <= meta.rangeStart
+            ? caret
+            : caret >= meta.rangeEnd
+              ? caret
+              : meta.rangeEnd
+        replaceCollapsedRange(currentValue, meta, insertAt, insertAt, pastedText)
         return
       }
 
@@ -1045,18 +1430,35 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
 
       if (nextValue.length > PASTED_TEXT_CHAR_LIMIT) {
         e.preventDefault()
-        setMessageValue(nextValue, { collapseLarge: true })
+        const blockRange = {
+          start: selectionStart,
+          end: selectionStart + pastedText.length
+        }
+        pendingCaretRef.current = blockRange.end
+        pendingCollapsedStateRef.current = {
+          message: nextValue,
+          range: blockRange,
+          caret: blockRange.end
+        }
+        setMessageValue(nextValue, {
+          collapseLarge: true,
+          forceCollapse: true,
+          collapsedRange: blockRange
+        })
       }
     },
     [
+      collapsedRange,
       form.values.message,
       handleFileUpload,
       isMessageCollapsed,
+      getCollapsedDisplayMeta,
+      getMessageCaretFromDisplay,
       onInputChange,
       pasteLargeTextAsFile,
+      replaceCollapsedRange,
       setMessageValue,
-      textareaRef,
-      expandLargeMessage
+      textareaRef
     ]
   )
   React.useEffect(() => {
@@ -1189,6 +1591,16 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     t,
     textareaRef
   ])
+
+  const handlePromptInsert = React.useCallback(
+    (prompt: PromptInsertItem) => {
+      setPromptInsertOpen(false)
+      if (prompt.content) {
+        setSelectedQuickPrompt(prompt.content)
+      }
+    },
+    [setPromptInsertOpen, setSelectedQuickPrompt]
+  )
 
   const queryClient = useQueryClient()
   const invalidateServerChatHistory = React.useCallback(() => {
@@ -2237,14 +2649,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   )
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (isMessageCollapsed && (e.key === "Backspace" || e.key === "Delete")) {
-      e.preventDefault()
-      setMessageValue("")
-      setIsMessageCollapsed(false)
-      setHasExpandedLargeText(false)
-      return
-    }
-
     if (!isFirefoxTarget) {
       if (e.key === "Process" || e.key === "229") return
     }
@@ -2315,6 +2719,239 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
       submitForm()
     }
   }
+
+  const handleCollapsedKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      if (!isMessageCollapsed || !collapsedRange) return false
+
+      const shouldSend = handleChatInputKeyDown({
+        e,
+        sendWhenEnter,
+        typing,
+        isSending
+      })
+      if (shouldSend) return false
+
+      const currentValue = form.values.message || ""
+      const meta = getCollapsedDisplayMeta(currentValue, collapsedRange)
+      const textarea = textareaRef.current
+      const rawStart = textarea?.selectionStart ?? meta.labelEnd
+      const rawEnd = textarea?.selectionEnd ?? rawStart
+      const displayStart = Math.min(rawStart, rawEnd)
+      const displayEnd = Math.max(rawStart, rawEnd)
+      const hasSelection = displayStart !== displayEnd
+      const selectionTouchesLabel =
+        displayStart < meta.labelEnd && displayEnd > meta.labelStart
+      const startPrefer =
+        displayStart > meta.labelStart && displayStart < meta.labelEnd
+          ? "before"
+          : undefined
+      const endPrefer =
+        displayEnd > meta.labelStart && displayEnd < meta.labelEnd
+          ? "after"
+          : undefined
+      let selectionStart = getMessageCaretFromDisplay(displayStart, meta, {
+        prefer: startPrefer
+      })
+      let selectionEnd = getMessageCaretFromDisplay(displayEnd, meta, {
+        prefer: endPrefer
+      })
+      if (selectionStart > selectionEnd) {
+        ;[selectionStart, selectionEnd] = [selectionEnd, selectionStart]
+      }
+      if (selectionTouchesLabel) {
+        selectionStart = Math.min(selectionStart, meta.rangeStart)
+        selectionEnd = Math.max(selectionEnd, meta.rangeEnd)
+      }
+      const caretPrefer =
+        rawStart > meta.labelStart && rawStart < meta.labelEnd
+          ? (pendingCaretRef.current !== null &&
+            pendingCaretRef.current <= meta.rangeStart
+              ? "before"
+              : "after")
+          : undefined
+      let caret = getMessageCaretFromDisplay(rawStart, meta, {
+        prefer: caretPrefer
+      })
+      if (caret > meta.rangeStart && caret < meta.rangeEnd) {
+        caret = meta.rangeEnd
+      }
+
+      const deleteCollapsedBlock = () => {
+        const nextValue =
+          currentValue.slice(0, meta.rangeStart) +
+          currentValue.slice(meta.rangeEnd)
+        const nextCaret = Math.min(meta.rangeStart, nextValue.length)
+        commitCollapsedEdit(nextValue, nextCaret, null)
+      }
+
+      const insertAtCaret = (text: string) => {
+        const insertAt =
+          caret <= meta.rangeStart
+            ? caret
+            : caret >= meta.rangeEnd
+              ? caret
+              : meta.rangeEnd
+        replaceCollapsedRange(currentValue, meta, insertAt, insertAt, text)
+      }
+
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        if (e.shiftKey) return false
+        e.preventDefault()
+        let nextCaret = caret
+        if (hasSelection) {
+          nextCaret =
+            e.key === "ArrowLeft" ? selectionStart : selectionEnd
+        } else {
+          nextCaret =
+            e.key === "ArrowLeft"
+              ? Math.max(0, caret - 1)
+              : Math.min(meta.messageLength, caret + 1)
+          if (nextCaret > meta.rangeStart && nextCaret < meta.rangeEnd) {
+            nextCaret =
+              e.key === "ArrowLeft" ? meta.rangeStart : meta.rangeEnd
+          }
+        }
+        pendingCaretRef.current = nextCaret
+        syncCollapsedCaret({ caret: nextCaret })
+        return true
+      }
+
+      if (e.key === "Backspace") {
+        if (hasSelection) {
+          e.preventDefault()
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            ""
+          )
+          return true
+        }
+        if (caret === meta.rangeEnd) {
+          e.preventDefault()
+          deleteCollapsedBlock()
+          return true
+        }
+        if (caret === 0) {
+          e.preventDefault()
+          return true
+        }
+        if (caret > meta.rangeStart && caret <= meta.rangeEnd) {
+          e.preventDefault()
+          deleteCollapsedBlock()
+          return true
+        }
+        e.preventDefault()
+        replaceCollapsedRange(
+          currentValue,
+          meta,
+          Math.max(0, caret - 1),
+          caret,
+          ""
+        )
+        return true
+      }
+
+      if (e.key === "Delete") {
+        if (hasSelection) {
+          e.preventDefault()
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            ""
+          )
+          return true
+        }
+        if (caret === meta.rangeStart) {
+          e.preventDefault()
+          deleteCollapsedBlock()
+          return true
+        }
+        if (caret >= meta.messageLength) {
+          e.preventDefault()
+          return true
+        }
+        if (caret >= meta.rangeStart && caret < meta.rangeEnd) {
+          e.preventDefault()
+          deleteCollapsedBlock()
+          return true
+        }
+        e.preventDefault()
+        replaceCollapsedRange(currentValue, meta, caret, caret + 1, "")
+        return true
+      }
+
+      if (e.key === "Enter") {
+        e.preventDefault()
+        if (hasSelection) {
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            "\n"
+          )
+        } else {
+          insertAtCaret("\n")
+        }
+        return true
+      }
+
+      if (e.key === " " || e.key === "Spacebar") {
+        e.preventDefault()
+        if (hasSelection) {
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            " "
+          )
+        } else {
+          insertAtCaret(" ")
+        }
+        return true
+      }
+
+      const isPrintable =
+        e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey
+      if (isPrintable) {
+        e.preventDefault()
+        if (hasSelection) {
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            e.key
+          )
+        } else {
+          insertAtCaret(e.key)
+        }
+        return true
+      }
+
+      return false
+    },
+    [
+      collapsedRange,
+      commitCollapsedEdit,
+      form.values.message,
+      getCollapsedDisplayMeta,
+      getMessageCaretFromDisplay,
+      isMessageCollapsed,
+      isSending,
+      replaceCollapsedRange,
+      sendWhenEnter,
+      syncCollapsedCaret,
+      textareaRef,
+      typing
+    ]
+  )
 
   const stopListening = async () => {
     if (isListening) {
@@ -2909,24 +3546,38 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                               setTyping(false)
                             }
                           }}
-                          onKeyDown={(e) => {
-                            if (
-                              isMessageCollapsed &&
-                              (e.key === "Enter" ||
-                                e.key === " " ||
-                                e.key === "Spacebar")
-                            ) {
-                              e.preventDefault()
-                              expandLargeMessage()
-                              return
+                          onMouseDown={() => {
+                            if (isMessageCollapsed) {
+                              pointerDownRef.current = true
+                              selectionFromPointerRef.current = true
                             }
+                          }}
+                          onMouseUp={() => {
+                            pointerDownRef.current = false
+                            if (selectionFromPointerRef.current) {
+                              requestAnimationFrame(() => {
+                                selectionFromPointerRef.current = false
+                              })
+                            }
+                          }}
+                          onKeyDown={(e) => {
+                            if (handleCollapsedKeyDown(e)) return
                             handleKeyDown(e)
                           }}
-                          onFocus={handleDisconnectedFocus}
-                          onClick={() => {
-                            if (isMessageCollapsed) {
-                              expandLargeMessage()
+                          onFocus={() => {
+                            handleDisconnectedFocus()
+                            if (!isMessageCollapsed) return
+                            const wasPointer = pointerDownRef.current
+                            pointerDownRef.current = false
+                            if (wasPointer) return
+                            const textarea = textareaRef.current
+                            if (pendingCaretRef.current === null && textarea) {
+                              lastDisplaySelectionRef.current = {
+                                start: textarea.selectionStart ?? 0,
+                                end: textarea.selectionEnd ?? textarea.selectionStart ?? 0
+                              }
                             }
+                            syncCollapsedCaret()
                           }}
                           ref={textareaRef}
                           className={`w-full resize-none bg-transparent text-base leading-6 text-text placeholder:text-text-muted/80 focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0 ${
@@ -2935,7 +3586,6 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                               : ""
                           } ${isProMode ? "px-3 py-2.5" : "px-3 py-2"}`}
                           onPaste={handlePaste}
-                          readOnly={isMessageCollapsed}
                           aria-expanded={!isMessageCollapsed}
                           rows={1}
                           style={{ minHeight: isProMode ? "60px" : "44px" }}
@@ -2961,7 +3611,75 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                             }
                           }}
                           onSelect={() => {
-                            if (isMessageCollapsed) return
+                            const textarea = textareaRef.current
+                            if (textarea) {
+                              lastDisplaySelectionRef.current = {
+                                start: textarea.selectionStart ?? 0,
+                                end: textarea.selectionEnd ?? textarea.selectionStart ?? 0
+                              }
+                            }
+                            if (isMessageCollapsed && collapsedRange) {
+                              const message = form.values.message || ""
+                              if (!message || !textarea) return
+                              const meta =
+                                collapsedDisplayMeta ??
+                                getCollapsedDisplayMeta(
+                                  message,
+                                  collapsedRange
+                                )
+                              const selectionStart =
+                                textarea.selectionStart ?? meta.labelStart
+                              const selectionEnd =
+                                textarea.selectionEnd ?? selectionStart
+                              const displayStart = Math.min(
+                                selectionStart,
+                                selectionEnd
+                              )
+                              const displayEnd = Math.max(
+                                selectionStart,
+                                selectionEnd
+                              )
+                              const hasSelection = displayStart !== displayEnd
+                              const selectionTouchesLabel =
+                                displayStart < meta.labelEnd &&
+                                displayEnd > meta.labelStart
+                              const fromPointer = selectionFromPointerRef.current
+                              selectionFromPointerRef.current = false
+                              if (hasSelection) {
+                                pendingCaretRef.current = null
+                                return
+                              }
+                              const caretInsideLabel =
+                                displayStart > meta.labelStart &&
+                                displayStart < meta.labelEnd
+                              if (
+                                selectionTouchesLabel &&
+                                fromPointer &&
+                                caretInsideLabel
+                              ) {
+                                pendingCaretRef.current = meta.rangeEnd
+                                expandLargeMessage({ force: true })
+                                return
+                              }
+                              const prefer =
+                                caretInsideLabel &&
+                                (pendingCaretRef.current ?? meta.rangeEnd) <=
+                                  meta.rangeStart
+                                  ? "before"
+                                  : "after"
+                              const caret = getMessageCaretFromDisplay(
+                                displayStart,
+                                meta,
+                                {
+                                  prefer: caretInsideLabel ? prefer : undefined
+                                }
+                              )
+                              pendingCaretRef.current = caret
+                              if (caretInsideLabel) {
+                                syncCollapsedCaret({ caret })
+                              }
+                              return
+                            }
                             if (tabMentionsEnabled && textareaRef.current) {
                               handleTextChange(
                                 textareaRef.current.value,
@@ -3225,6 +3943,33 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                                 className="min-w-0 min-h-0 rounded-full border border-border px-2 py-1 text-text-muted hover:bg-surface2 hover:text-text"
                                 iconClassName="h-4 w-4"
                               />
+                              <Tooltip
+                                title={
+                                  t(
+                                    "option:promptInsert.useInChat",
+                                    "Insert prompt"
+                                  ) as string
+                                }>
+                                <button
+                                  type="button"
+                                  onClick={() => setPromptInsertOpen(true)}
+                                  aria-label={
+                                    t(
+                                      "option:promptInsert.useInChat",
+                                      "Insert prompt"
+                                    ) as string
+                                  }
+                                  className="inline-flex items-center gap-1 rounded-full border border-border px-2 py-1 text-xs text-text-muted transition hover:bg-surface2 hover:text-text"
+                                >
+                                  <BookPlus className="h-4 w-4" />
+                                  <span className="hidden text-xs font-medium sm:inline">
+                                    {t(
+                                      "option:promptInsert.useInChat",
+                                      "Insert prompt"
+                                    )}
+                                  </span>
+                                </button>
+                              </Tooltip>
                               {(browserSupportsSpeechRecognition || hasServerAudio) && (
                                 <>
                                   <Tooltip
@@ -3404,6 +4149,27 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                             className="min-w-0 min-h-0 h-9 w-9 rounded-full border border-border text-text-muted hover:bg-surface2 hover:text-text"
                             iconClassName="h-4 w-4"
                           />
+                          <Tooltip
+                            title={
+                              t(
+                                "option:promptInsert.useInChat",
+                                "Insert prompt"
+                              ) as string
+                            }>
+                            <button
+                              type="button"
+                              onClick={() => setPromptInsertOpen(true)}
+                              aria-label={
+                                t(
+                                  "option:promptInsert.useInChat",
+                                  "Insert prompt"
+                                ) as string
+                              }
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-text-muted transition hover:bg-surface2 hover:text-text"
+                            >
+                              <BookPlus className="h-4 w-4" />
+                            </button>
+                          </Tooltip>
                           {(browserSupportsSpeechRecognition || hasServerAudio) && (
                             <Tooltip
                               title={
@@ -3598,6 +4364,11 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
           </div>
         </div>
       </div>
+      <PromptInsertModal
+        open={promptInsertOpen}
+        onClose={() => setPromptInsertOpen(false)}
+        onInsertPrompt={handlePromptInsert}
+      />
       <CurrentChatModelSettings
         open={openModelSettings}
         setOpen={setOpenModelSettings}

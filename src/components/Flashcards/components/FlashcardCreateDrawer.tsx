@@ -1,5 +1,15 @@
 import React from "react"
-import { Button, Collapse, Divider, Form, Input, Modal, Select, Space, Typography } from "antd"
+import {
+  Button,
+  Collapse,
+  Divider,
+  Drawer,
+  Form,
+  Input,
+  Select,
+  Space,
+  Typography
+} from "antd"
 import { Plus } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
@@ -9,11 +19,11 @@ import {
   useCreateDeckMutation,
   useDebouncedFormField
 } from "../hooks"
-import { MarkdownWithBoundary } from "../components"
+import { MarkdownWithBoundary } from "./MarkdownWithBoundary"
 import { normalizeFlashcardTemplateFields } from "../utils/template-helpers"
-import type { FlashcardCreate } from "@/services/flashcards"
+import type { FlashcardCreate, Deck } from "@/services/flashcards"
 
-const { Text, Title } = Typography
+const { Text } = Typography
 
 interface PreviewProps {
   content?: string
@@ -33,37 +43,53 @@ const Preview: React.FC<PreviewProps> = ({ content, showPreview }) => {
   )
 }
 
-/**
- * Simplified Create tab for adding new flashcards.
- * - Core fields (deck, template, front, back) always visible
- * - Advanced options (tags, extra, notes) collapsed by default
- * - Single preview toggle for all fields
- */
-export const CreateTab: React.FC = () => {
+interface FlashcardCreateDrawerProps {
+  open: boolean
+  onClose: () => void
+  decks?: Deck[]
+  decksLoading?: boolean
+  onSuccess?: () => void
+}
+
+export const FlashcardCreateDrawer: React.FC<FlashcardCreateDrawerProps> = ({
+  open,
+  onClose,
+  decks: propDecks,
+  decksLoading: propDecksLoading,
+  onSuccess
+}) => {
   const { t } = useTranslation(["option", "common"])
   const message = useAntdMessage()
 
   // Form and state
-  const [createForm] = Form.useForm<FlashcardCreate>()
+  const [form] = Form.useForm<FlashcardCreate>()
   const [showPreview, setShowPreview] = React.useState(false)
-  const createFrontPreview = useDebouncedFormField(createForm, "front")
-  const createBackPreview = useDebouncedFormField(createForm, "back")
-  const createExtraPreview = useDebouncedFormField(createForm, "extra")
-  const createNotesPreview = useDebouncedFormField(createForm, "notes")
+  const frontPreview = useDebouncedFormField(form, "front")
+  const backPreview = useDebouncedFormField(form, "back")
+  const extraPreview = useDebouncedFormField(form, "extra")
+  const notesPreview = useDebouncedFormField(form, "notes")
 
   // Inline deck creation state
   const [showInlineCreate, setShowInlineCreate] = React.useState(false)
   const [inlineDeckName, setInlineDeckName] = React.useState("")
 
-  // New deck modal state (for adding description)
-  const [newDeckModalOpen, setNewDeckModalOpen] = React.useState(false)
-  const [newDeckName, setNewDeckName] = React.useState("")
-  const [newDeckDesc, setNewDeckDesc] = React.useState("")
+  // Queries and mutations - use props if provided, otherwise fetch
+  const decksQuery = useDecksQuery({ enabled: !propDecks })
+  const decks = propDecks ?? decksQuery.data ?? []
+  const decksLoading = propDecksLoading ?? decksQuery.isLoading
 
-  // Queries and mutations
-  const decksQuery = useDecksQuery()
   const createMutation = useCreateFlashcardMutation()
   const createDeckMutation = useCreateDeckMutation()
+
+  // Reset form when drawer opens
+  React.useEffect(() => {
+    if (open) {
+      form.resetFields()
+      setShowPreview(false)
+      setShowInlineCreate(false)
+      setInlineDeckName("")
+    }
+  }, [open, form])
 
   // Create new deck (inline)
   const handleInlineCreateDeck = async () => {
@@ -82,34 +108,7 @@ export const CreateTab: React.FC = () => {
       message.success(t("common:created", { defaultValue: "Created" }))
       setShowInlineCreate(false)
       setInlineDeckName("")
-      createForm.setFieldsValue({ deck_id: deck.id })
-    } catch (e: unknown) {
-      const errorMessage =
-        e instanceof Error ? e.message : "Failed to create deck"
-      message.error(errorMessage)
-    }
-  }
-
-  // Create new deck (modal with description)
-  const handleCreateDeck = async () => {
-    try {
-      if (!newDeckName.trim()) {
-        message.error(
-          t("option:flashcards.newDeckNameRequired", {
-            defaultValue: "Enter a deck name."
-          })
-        )
-        return
-      }
-      const deck = await createDeckMutation.mutateAsync({
-        name: newDeckName.trim(),
-        description: newDeckDesc.trim() || undefined
-      })
-      message.success(t("common:created", { defaultValue: "Created" }))
-      setNewDeckModalOpen(false)
-      setNewDeckName("")
-      setNewDeckDesc("")
-      createForm.setFieldsValue({ deck_id: deck.id })
+      form.setFieldsValue({ deck_id: deck.id })
     } catch (e: unknown) {
       const errorMessage =
         e instanceof Error ? e.message : "Failed to create deck"
@@ -118,12 +117,14 @@ export const CreateTab: React.FC = () => {
   }
 
   // Create flashcard
-  const handleCreateFlashcard = async () => {
+  const handleCreate = async () => {
     try {
-      const values = await createForm.validateFields()
+      const values = await form.validateFields()
       await createMutation.mutateAsync(normalizeFlashcardTemplateFields(values))
       message.success(t("common:created", { defaultValue: "Created" }))
-      createForm.resetFields()
+      form.resetFields()
+      onSuccess?.()
+      onClose()
     } catch (e: unknown) {
       if (e && typeof e === "object" && "errorFields" in e) return // form validation
       const errorMessage = e instanceof Error ? e.message : "Create failed"
@@ -131,24 +132,59 @@ export const CreateTab: React.FC = () => {
     }
   }
 
-  return (
-    <div className="max-w-3xl">
-      <div className="mb-3">
-        <Title level={5}>
-          {t("option:flashcards.createTitle", {
-            defaultValue: "Create flashcards from your notes"
-          })}
-        </Title>
-        <Text type="secondary">
-          {t("option:flashcards.createDescriptionSimple", {
-            defaultValue:
-              "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
-          })}
-        </Text>
-      </div>
+  // Create and add another
+  const handleCreateAndAddAnother = async () => {
+    try {
+      const values = await form.validateFields()
+      await createMutation.mutateAsync(normalizeFlashcardTemplateFields(values))
+      message.success(t("common:created", { defaultValue: "Created" }))
+      // Keep deck selection but clear content
+      const deckId = form.getFieldValue("deck_id")
+      const modelType = form.getFieldValue("model_type")
+      form.resetFields()
+      form.setFieldsValue({ deck_id: deckId, model_type: modelType })
+      onSuccess?.()
+    } catch (e: unknown) {
+      if (e && typeof e === "object" && "errorFields" in e) return
+      const errorMessage = e instanceof Error ? e.message : "Create failed"
+      message.error(errorMessage)
+    }
+  }
 
+  return (
+    <Drawer
+      placement="right"
+      width={520}
+      open={open}
+      onClose={onClose}
+      title={t("option:flashcards.createCard", { defaultValue: "Create Flashcard" })}
+      footer={
+        <div className="flex justify-between">
+          <Button onClick={onClose}>
+            {t("common:cancel", { defaultValue: "Cancel" })}
+          </Button>
+          <Space>
+            <Button
+              onClick={handleCreateAndAddAnother}
+              loading={createMutation.isPending}
+            >
+              {t("option:flashcards.createAndAddAnother", {
+                defaultValue: "Create & Add Another"
+              })}
+            </Button>
+            <Button
+              type="primary"
+              onClick={handleCreate}
+              loading={createMutation.isPending}
+            >
+              {t("common:create", { defaultValue: "Create" })}
+            </Button>
+          </Space>
+        </div>
+      }
+    >
       <Form
-        form={createForm}
+        form={form}
         layout="vertical"
         initialValues={{
           is_cloze: false,
@@ -157,7 +193,7 @@ export const CreateTab: React.FC = () => {
         }}
       >
         {/* Deck selector with inline creation */}
-        <div className="flex items-end gap-2 mb-2">
+        <div className="mb-4">
           {!showInlineCreate ? (
             <Form.Item
               name="deck_id"
@@ -169,10 +205,9 @@ export const CreateTab: React.FC = () => {
                   defaultValue: "Select deck"
                 })}
                 allowClear
-                loading={decksQuery.isLoading}
-                className="min-w-64"
-                data-testid="flashcards-create-deck-select"
-                options={(decksQuery.data || []).map((d) => ({
+                loading={decksLoading}
+                className="w-full"
+                options={decks.map((d) => ({
                   label: d.name,
                   value: d.id
                 }))}
@@ -204,7 +239,7 @@ export const CreateTab: React.FC = () => {
                 })}
                 value={inlineDeckName}
                 onChange={(e) => setInlineDeckName(e.target.value)}
-                className="w-64"
+                className="flex-1"
                 autoFocus
                 onKeyDown={(e) => {
                   if (e.key === "Enter") handleInlineCreateDeck()
@@ -233,18 +268,9 @@ export const CreateTab: React.FC = () => {
               </Button>
             </div>
           )}
-          <Button
-            onClick={() => setNewDeckModalOpen(true)}
-            data-testid="flashcards-create-new-deck"
-            title={t("option:flashcards.newDeckWithDescription", {
-              defaultValue: "Create deck with description"
-            })}
-          >
-            {t("option:flashcards.newDeck", { defaultValue: "New Deck" })}
-          </Button>
         </div>
 
-        {/* Card template - model_type handles reverse and cloze */}
+        {/* Card template */}
         <Form.Item
           name="model_type"
           label={t("option:flashcards.modelType", {
@@ -294,10 +320,9 @@ export const CreateTab: React.FC = () => {
             placeholder={t("option:flashcards.frontPlaceholder", {
               defaultValue: "Question or prompt..."
             })}
-            data-testid="flashcards-create-front"
           />
-          <Preview content={createFrontPreview} showPreview={showPreview} />
         </Form.Item>
+        <Preview content={frontPreview} showPreview={showPreview} />
 
         {/* Back - required */}
         <Form.Item
@@ -310,10 +335,9 @@ export const CreateTab: React.FC = () => {
             placeholder={t("option:flashcards.backPlaceholder", {
               defaultValue: "Answer..."
             })}
-            data-testid="flashcards-create-back"
           />
-          <Preview content={createBackPreview} showPreview={showPreview} />
         </Form.Item>
+        <Preview content={backPreview} showPreview={showPreview} />
 
         {/* Preview toggle and help text */}
         <div className="flex items-center gap-4 mb-4">
@@ -323,16 +347,12 @@ export const CreateTab: React.FC = () => {
             onClick={() => setShowPreview((v) => !v)}
           >
             {showPreview
-              ? t("option:flashcards.hidePreview", {
-                  defaultValue: "Hide preview"
-                })
-              : t("option:flashcards.showPreview", {
-                  defaultValue: "Show preview"
-                })}
+              ? t("option:flashcards.hidePreview", { defaultValue: "Hide preview" })
+              : t("option:flashcards.showPreview", { defaultValue: "Show preview" })}
           </button>
           <Text type="secondary" className="text-xs">
             {t("option:flashcards.markdownHint", {
-              defaultValue: "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+              defaultValue: "Supports Markdown and LaTeX"
             })}
           </Text>
         </div>
@@ -340,7 +360,7 @@ export const CreateTab: React.FC = () => {
         {/* Advanced options - collapsed by default */}
         <Collapse
           ghost
-          className="mb-4 -mx-4"
+          className="-mx-4"
           items={[
             {
               key: "advanced",
@@ -353,7 +373,6 @@ export const CreateTab: React.FC = () => {
               ),
               children: (
                 <div className="space-y-4">
-                  {/* Tags */}
                   <Form.Item
                     name="tags"
                     label={t("option:flashcards.tags", { defaultValue: "Tags" })}
@@ -369,7 +388,6 @@ export const CreateTab: React.FC = () => {
                     />
                   </Form.Item>
 
-                  {/* Extra */}
                   <Form.Item
                     name="extra"
                     label={t("option:flashcards.extra", { defaultValue: "Extra" })}
@@ -381,10 +399,9 @@ export const CreateTab: React.FC = () => {
                         defaultValue: "Optional hints or explanations..."
                       })}
                     />
-                    <Preview content={createExtraPreview} showPreview={showPreview} />
                   </Form.Item>
+                  <Preview content={extraPreview} showPreview={showPreview} />
 
-                  {/* Notes */}
                   <Form.Item
                     name="notes"
                     label={t("option:flashcards.notes", { defaultValue: "Notes" })}
@@ -396,64 +413,16 @@ export const CreateTab: React.FC = () => {
                         defaultValue: "Internal notes (not shown during review)..."
                       })}
                     />
-                    <Preview content={createNotesPreview} showPreview={showPreview} />
                   </Form.Item>
+                  <Preview content={notesPreview} showPreview={showPreview} />
                 </div>
               )
             }
           ]}
         />
-
-        {/* Action buttons */}
-        <Space>
-          <Button
-            type="primary"
-            onClick={handleCreateFlashcard}
-            loading={createMutation.isPending}
-            data-testid="flashcards-create-submit"
-          >
-            {t("common:create", { defaultValue: "Create" })}
-          </Button>
-          <Button onClick={() => createForm.resetFields()}>
-            {t("common:reset", { defaultValue: "Reset" })}
-          </Button>
-        </Space>
       </Form>
-
-      {/* New deck modal */}
-      <Modal
-        title={t("option:flashcards.newDeck", { defaultValue: "New Deck" })}
-        open={newDeckModalOpen}
-        onCancel={() => setNewDeckModalOpen(false)}
-        onOk={handleCreateDeck}
-        okText={t("common:create", { defaultValue: "Create" })}
-        confirmLoading={createDeckMutation.isPending}
-        okButtonProps={{
-          disabled: !newDeckName.trim(),
-          "data-testid": "flashcards-new-deck-submit"
-        }}
-      >
-        <Space direction="vertical" className="w-full">
-          <Input
-            placeholder={t("option:flashcards.deckNamePlaceholder", {
-              defaultValue: "Name"
-            })}
-            value={newDeckName}
-            onChange={(e) => setNewDeckName(e.target.value)}
-            data-testid="flashcards-new-deck-name"
-          />
-          <Input.TextArea
-            placeholder={t("option:flashcards.deckDescriptionPlaceholder", {
-              defaultValue: "Description (optional)"
-            })}
-            value={newDeckDesc}
-            onChange={(e) => setNewDeckDesc(e.target.value)}
-            data-testid="flashcards-new-deck-description"
-          />
-        </Space>
-      </Modal>
-    </div>
+    </Drawer>
   )
 }
 
-export default CreateTab
+export default FlashcardCreateDrawer

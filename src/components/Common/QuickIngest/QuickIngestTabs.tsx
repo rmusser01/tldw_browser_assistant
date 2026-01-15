@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react"
+import React, { useCallback, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Loader2 } from "lucide-react"
 import type { QuickIngestTab, TabBadgeState } from "./types"
@@ -29,31 +29,26 @@ export const QuickIngestTabs: React.FC<QuickIngestTabsProps> = ({
   )
 
   // Keyboard navigation: 1/2/3 keys switch tabs (except in text inputs)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement
-      const isTextInput =
-        target.tagName === "INPUT" ||
-        target.tagName === "TEXTAREA" ||
-        target.isContentEditable
+  const handleTabListKeyDown = (e: React.KeyboardEvent) => {
+    const target = e.target as HTMLElement
+    const isTextInput =
+      target.tagName === "INPUT" ||
+      target.tagName === "TEXTAREA" ||
+      target.isContentEditable
 
-      if (isTextInput) return
+    if (isTextInput) return
 
-      if (e.key === "1") {
-        e.preventDefault()
-        onTabChange("queue")
-      } else if (e.key === "2") {
-        e.preventDefault()
-        onTabChange("options")
-      } else if (e.key === "3") {
-        e.preventDefault()
-        onTabChange("results")
-      }
+    if (e.key === "1") {
+      e.preventDefault()
+      onTabChange("queue")
+    } else if (e.key === "2") {
+      e.preventDefault()
+      onTabChange("options")
+    } else if (e.key === "3") {
+      e.preventDefault()
+      onTabChange("results")
     }
-
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [onTabChange])
+  }
 
   // Arrow key navigation within tablist
   const handleTabKeyDown = (e: React.KeyboardEvent, currentTab: QuickIngestTab) => {
@@ -154,6 +149,7 @@ export const QuickIngestTabs: React.FC<QuickIngestTabsProps> = ({
       role="tablist"
       aria-label={qi("tabs.ariaLabel", "Quick Ingest sections")}
       className="flex border-b border-border"
+      onKeyDown={handleTabListKeyDown}
     >
       {TABS.map((tab) => {
         const isActive = activeTab === tab

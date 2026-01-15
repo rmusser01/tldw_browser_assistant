@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from "react"
 import type { CommandPaletteProps } from "@/components/Common/CommandPalette"
-import { QuickIngestModalHost } from "@/components/Layouts/QuickIngestButton"
 
 const CommandPalette = lazy(() =>
   import("@/components/Common/CommandPalette").then((m) => ({
@@ -22,7 +21,6 @@ export const EventOnlyHosts = ({
   commandPaletteProps
 }: EventOnlyHostsProps) => (
   <>
-    <QuickIngestModalHost />
     <Suspense fallback={null}>
       <CommandPalette {...commandPaletteProps} />
     </Suspense>

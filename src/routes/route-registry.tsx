@@ -22,7 +22,8 @@ import {
   MessageSquare,
   ClipboardList,
   MicIcon,
-  Trash2
+  Trash2,
+  Table2
 } from "lucide-react"
 import { ALL_TARGETS, type PlatformTarget } from "@/config/platform"
 import OptionLayout from "~/components/Layouts/Layout"
@@ -148,6 +149,9 @@ const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground
 const OptionDocumentation = lazy(() => import("./option-documentation"))
 const OptionQuiz = lazy(() => import("./option-quiz"))
 const OptionChatbooksPlayground = lazy(() => import("./option-chatbooks-playground"))
+const OptionWatchlists = lazy(() => import("./option-watchlists"))
+const OptionKanbanPlayground = lazy(() => import("./option-kanban-playground"))
+const OptionDataTables = lazy(() => import("./option-data-tables"))
 
 export const ROUTE_DEFINITIONS: RouteDefinition[] = [
   { kind: "options", path: "/", element: <OptionIndex /> },
@@ -155,7 +159,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
     kind: "options",
     path: "/onboarding-test",
     element: (
-      <OptionLayout hideHeader={true} showHeaderSelectors={false}>
+      <OptionLayout hideHeader>
         <OnboardingWizard />
       </OptionLayout>
     ),
@@ -390,6 +394,20 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
     }
   },
   { kind: "options", path: "/chatbooks", element: <OptionChatbooksPlayground /> },
+  { kind: "options", path: "/watchlists", element: <OptionWatchlists /> },
+  { kind: "options", path: "/kanban", element: <OptionKanbanPlayground /> },
+  {
+    kind: "options",
+    path: "/data-tables",
+    element: <OptionDataTables />,
+    nav: {
+      group: "workspace",
+      labelToken: "option:header.dataTables",
+      icon: Table2,
+      order: 8,
+      beta: true
+    }
+  },
   {
     kind: "options",
     path: "/media",

@@ -112,6 +112,7 @@
     "addTagPlaceholder": "افزودن برچسب (Enter)",
     "add": "افزودن",
     "noResults": "نتیجه‌ای یافت نشد",
+    "initialState": "نتیجه‌ای یافت نشد",
     "timeout": {
       "message": "درخواست زمان‌بر شد.",
       "increase": "افزایش زمان انتظار",

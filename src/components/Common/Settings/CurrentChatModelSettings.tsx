@@ -22,10 +22,6 @@ import { getProviderDisplayName } from "@/utils/provider-registry"
 import type { ActorSettings, ActorTarget } from "@/types/actor"
 import { createDefaultActorSettings } from "@/types/actor"
 import {
-  getActorSettingsForChatWithCharacterFallback,
-  saveActorSettingsForChat
-} from "@/services/actor-settings"
-import {
   buildActorPrompt,
   buildActorSettingsFromForm,
   estimateActorTokens
@@ -116,6 +112,8 @@ const CHAT_MODEL_SETTING_KEYS: ReadonlySet<keyof ChatModelSettings> = new Set([
   "extraBody",
   "jsonMode"
 ])
+
+const loadActorSettings = () => import("@/services/actor-settings")
 
 const isChatModelSettingKey = (
   key: string
@@ -218,11 +216,13 @@ export const CurrentChatModelSettings = ({
       const next: ActorSettings = buildActorSettingsFromForm(base, values)
 
       setActorSettings(next)
-      void saveActorSettingsForChat({
-        historyId,
-        serverChatId,
-        settings: next
-      })
+      void loadActorSettings().then(({ saveActorSettingsForChat }) =>
+        saveActorSettingsForChat({
+          historyId,
+          serverChatId,
+          settings: next
+        })
+      )
     },
     [actorSettings, cUserSettings, historyId, serverChatId, setActorSettings]
   )
@@ -278,13 +278,16 @@ export const CurrentChatModelSettings = ({
 
       const baseValues = buildBaseValues(data, tempSystemPrompt)
 
-      const actor =
-        actorSettings ??
-        (await getActorSettingsForChatWithCharacterFallback({
+      let actor = actorSettings
+      if (!actor) {
+        const { getActorSettingsForChatWithCharacterFallback } =
+          await loadActorSettings()
+        actor = await getActorSettingsForChatWithCharacterFallback({
           historyId,
           serverChatId,
           characterId: selectedCharacterId
-        }))
+        })
+      }
       setActorSettings(actor)
 
       const actorFields: Record<string, any> = {

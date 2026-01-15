@@ -30,6 +30,7 @@ export type CoreMode =
   | "worldBooks"
   | "dictionaries"
   | "characters"
+  | "watchlists"
 
 interface ModeSelectorProps {
   currentMode: CoreMode
@@ -143,6 +144,11 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
       key: "characters",
       label: t("option:header.modeCharacters", "Characters"),
       shortcut: shortcutConfig.modeCharacters,
+    },
+    {
+      key: "watchlists",
+      label: t("option:header.modeWatchlists", "Watchlists"),
+      shortcut: undefined,
     },
   ]
 

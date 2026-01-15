@@ -8,7 +8,6 @@ import { SearchInput } from "./SearchInput"
 import { SourceChips } from "./SourceChips"
 import { ResultsList } from "./ResultsList"
 import { PinnedChips } from "./PinnedChips"
-import { toPinnedResult } from "../hooks"
 
 type SearchTabProps = {
   // Query state
@@ -55,13 +54,6 @@ type SearchTabProps = {
   autoFocus?: boolean
 }
 
-const PRESET_OPTIONS = [
-  { label: "Fast", value: "fast" },
-  { label: "Balanced", value: "balanced" },
-  { label: "Thorough", value: "thorough" },
-  { label: "Custom", value: "custom" }
-]
-
 /**
  * Search tab - the primary 80% use case workflow
  *
@@ -103,12 +95,14 @@ export const SearchTab: React.FC<SearchTabProps> = ({
 }) => {
   const { t } = useTranslation(["sidepanel"])
 
-  // Handle preview - convert RagResult to RagPinnedResult for preview modal
-  const handlePreview = React.useCallback(
-    (result: RagResult) => {
-      onPreview(result)
-    },
-    [onPreview]
+  const presetOptions = React.useMemo(
+    () => [
+      { label: t("sidepanel:rag.presets.fast", "Fast"), value: "fast" },
+      { label: t("sidepanel:rag.presets.balanced", "Balanced"), value: "balanced" },
+      { label: t("sidepanel:rag.presets.thorough", "Thorough"), value: "thorough" },
+      { label: t("sidepanel:rag.presets.custom", "Custom"), value: "custom" }
+    ],
+    [t]
   )
 
   // Build screen reader announcement for search status
@@ -159,7 +153,7 @@ export const SearchTab: React.FC<SearchTabProps> = ({
         <Select
           value={preset}
           onChange={onPresetChange}
-          options={PRESET_OPTIONS}
+          options={presetOptions}
           size="small"
           className="w-28 flex-shrink-0"
           disabled={!isConnected}
@@ -177,7 +171,7 @@ export const SearchTab: React.FC<SearchTabProps> = ({
         pinnedResults={pinnedResults}
         onInsert={onInsert}
         onAsk={onAsk}
-        onPreview={handlePreview}
+        onPreview={onPreview}
         onPin={onPin}
         hasAttemptedSearch={hasAttemptedSearch}
         timedOut={timedOut}

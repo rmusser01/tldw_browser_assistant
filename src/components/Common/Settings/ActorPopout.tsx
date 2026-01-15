@@ -5,10 +5,6 @@ import { useMessageOption } from "@/hooks/useMessageOption"
 import type { ActorSettings, ActorTarget } from "@/types/actor"
 import { createDefaultActorSettings } from "@/types/actor"
 import {
-  getActorSettingsForChatWithCharacterFallback,
-  saveActorSettingsForChat
-} from "@/services/actor-settings"
-import {
   buildActorPrompt,
   buildActorSettingsFromForm,
   estimateActorTokens
@@ -22,6 +18,8 @@ type Props = {
   open: boolean
   setOpen: (open: boolean) => void
 }
+
+const loadActorSettings = () => import("@/services/actor-settings")
 
 export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
   const { t } = useTranslation(["playground", "common"])
@@ -47,6 +45,8 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
     if (!open) return
     setLoading(true)
     try {
+      const { getActorSettingsForChatWithCharacterFallback } =
+        await loadActorSettings()
       const actor = await getActorSettingsForChatWithCharacterFallback({
         historyId,
         serverChatId,
@@ -126,6 +126,7 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
     const base = settings ?? createDefaultActorSettings()
     const next: ActorSettings = buildActorSettingsFromForm(base, values)
     setSettings(next)
+    const { saveActorSettingsForChat } = await loadActorSettings()
     await saveActorSettingsForChat({
       historyId,
       serverChatId,

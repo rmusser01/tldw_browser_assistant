@@ -92,6 +92,28 @@ export const tldwRequest = async (
   const baseUrl = cfg?.serverUrl ? String(cfg.serverUrl).replace(/\/$/, "") : ""
   const url = isAbsolute ? path : `${baseUrl}${path.startsWith("/") ? "" : "/"}${path}`
   const h: Record<string, string> = { ...(headers || {}) }
+  const hasContentType = Object.keys(h).some(
+    (key) => key.toLowerCase() === "content-type"
+  )
+  const isBinaryBody = (value: any) => {
+    if (!value || typeof value !== "object") return false
+    if (typeof FormData !== "undefined" && value instanceof FormData) return true
+    if (typeof Blob !== "undefined" && value instanceof Blob) return true
+    if (
+      typeof URLSearchParams !== "undefined" &&
+      value instanceof URLSearchParams
+    ) {
+      return true
+    }
+    if (typeof ArrayBuffer !== "undefined") {
+      if (value instanceof ArrayBuffer) return true
+      if (ArrayBuffer.isView?.(value)) return true
+    }
+    return false
+  }
+  if (body != null && !hasContentType && typeof body !== "string" && !isBinaryBody(body)) {
+    h["Content-Type"] = "application/json"
+  }
   if (!noAuth) {
     for (const k of Object.keys(h)) {
       const kl = k.toLowerCase()

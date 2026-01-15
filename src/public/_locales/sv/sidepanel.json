@@ -334,5 +334,8 @@
   },
   "rag_attachedContext": {
     "message": "Bifogat sammanhang"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

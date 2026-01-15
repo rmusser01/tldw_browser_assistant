@@ -2740,5 +2740,281 @@
   },
   "chunkingPlayground_mode_compare": {
     "message": "Сравнить"
+  },
+  "chunkingPlayground_settingsTitle": {
+    "message": "Settings"
+  },
+  "chunkingPlayground_tabTemplates": {
+    "message": "Templates"
+  },
+  "chunkingPlayground_tabCapabilities": {
+    "message": "Capabilities"
+  },
+  "chunkingPlayground_appliedOptionsTitle": {
+    "message": "Applied options"
+  },
+  "chunkingPlayground_responseMetaTitle": {
+    "message": "Response metadata"
+  },
+  "chunkingPlayground_inlineUnavailable": {
+    "message": "Inline view requires character offsets; switch to Cards to inspect chunks."
+  },
+  "chunkingPlayground_metadataLabel": {
+    "message": "Metadata"
+  },
+  "chunkingPlayground_advanced_title": {
+    "message": "Advanced Options"
+  },
+  "chunkingPlayground_advanced_methodRequiresLlm": {
+    "message": "This method requires an LLM provider on the server."
+  },
+  "chunkingPlayground_advanced_templateNameLabel": {
+    "message": "Template name"
+  },
+  "chunkingPlayground_advanced_templateNamePlaceholder": {
+    "message": "Select or type a template name"
+  },
+  "chunkingPlayground_advanced_templateOverridesHint": {
+    "message": "Template defaults are applied first; form values override them."
+  },
+  "chunkingPlayground_advanced_requestModeLabel": {
+    "message": "Request Endpoint"
+  },
+  "chunkingPlayground_advanced_requestModeJson": {
+    "message": "JSON (/chunk_text)"
+  },
+  "chunkingPlayground_advanced_requestModeFile": {
+    "message": "Multipart (/chunk_file)"
+  },
+  "chunkingPlayground_advanced_requestModeHint": {
+    "message": "Use JSON for full option support; multipart matches /chunk_file."
+  },
+  "chunkingPlayground_advanced_tokenizerLabel": {
+    "message": "Tokenizer"
+  },
+  "chunkingPlayground_advanced_tokenizerPlaceholder": {
+    "message": "Tokenizer name or path (e.g., gpt2)"
+  },
+  "chunkingPlayground_advanced_adaptiveLabel": {
+    "message": "Adaptive chunking"
+  },
+  "chunkingPlayground_advanced_multiLevelLabel": {
+    "message": "Multi-level chunking"
+  },
+  "chunkingPlayground_advanced_codeModeLabel": {
+    "message": "Code mode"
+  },
+  "chunkingPlayground_advanced_codeModeHint": {
+    "message": "Controls how code is parsed when method is 'code'."
+  },
+  "chunkingPlayground_advanced_semanticSimilarityLabel": {
+    "message": "Semantic similarity threshold"
+  },
+  "chunkingPlayground_advanced_semanticOverlapLabel": {
+    "message": "Semantic overlap sentences"
+  },
+  "chunkingPlayground_advanced_jsonKeyLabel": {
+    "message": "JSON chunkable key"
+  },
+  "chunkingPlayground_advanced_frontmatterLabel": {
+    "message": "Enable frontmatter parsing"
+  },
+  "chunkingPlayground_advanced_frontmatterSentinelLabel": {
+    "message": "Frontmatter sentinel key"
+  },
+  "chunkingPlayground_advanced_customChapterPatternLabel": {
+    "message": "Custom chapter pattern"
+  },
+  "chunkingPlayground_advanced_summarizationDetailLabel": {
+    "message": "Summarization detail"
+  },
+  "chunkingPlayground_advanced_llmOptionsTitle": {
+    "message": "LLM Options (internal steps)"
+  },
+  "chunkingPlayground_advanced_llmTemperatureLabel": {
+    "message": "LLM temperature"
+  },
+  "chunkingPlayground_advanced_llmSystemPromptLabel": {
+    "message": "LLM system prompt"
+  },
+  "chunkingPlayground_advanced_llmMaxTokensLabel": {
+    "message": "LLM max tokens"
+  },
+  "chunkingPlayground_advanced_propositionEngineLabel": {
+    "message": "Proposition engine"
+  },
+  "chunkingPlayground_advanced_propositionAggressivenessLabel": {
+    "message": "Proposition aggressiveness"
+  },
+  "chunkingPlayground_advanced_propositionMinLengthLabel": {
+    "message": "Min proposition length"
+  },
+  "chunkingPlayground_advanced_propositionPromptProfileLabel": {
+    "message": "Proposition prompt profile"
+  },
+  "chunkingPlayground_advanced_resetDefaults": {
+    "message": "Reset to defaults"
+  },
+  "chunkingPlayground_templates_title": {
+    "message": "Chunking Templates"
+  },
+  "chunkingPlayground_templates_description": {
+    "message": "Manage, validate, and apply chunking templates."
+  },
+  "chunkingPlayground_templates_tabBrowse": {
+    "message": "Browse"
+  },
+  "chunkingPlayground_templates_tabEditor": {
+    "message": "Editor"
+  },
+  "chunkingPlayground_templates_tabApply": {
+    "message": "Apply"
+  },
+  "chunkingPlayground_templates_tabValidate": {
+    "message": "Validate"
+  },
+  "chunkingPlayground_templates_tabMatch": {
+    "message": "Match"
+  },
+  "chunkingPlayground_templates_tabLearn": {
+    "message": "Learn"
+  },
+  "chunkingPlayground_templates_tabDiagnostics": {
+    "message": "Diagnostics"
+  },
+  "chunkingPlayground_templates_filtersTitle": {
+    "message": "Filters"
+  },
+  "chunkingPlayground_templates_includeBuiltin": {
+    "message": "Include built-in"
+  },
+  "chunkingPlayground_templates_includeCustom": {
+    "message": "Include custom"
+  },
+  "chunkingPlayground_templates_tagsLabel": {
+    "message": "Tags"
+  },
+  "chunkingPlayground_templates_tagsPlaceholder": {
+    "message": "Add tags"
+  },
+  "chunkingPlayground_templates_userIdLabel": {
+    "message": "User ID"
+  },
+  "chunkingPlayground_templates_selectLabel": {
+    "message": "Template"
+  },
+  "chunkingPlayground_templates_selectPlaceholder": {
+    "message": "Select a template"
+  },
+  "chunkingPlayground_templates_detailsTitle": {
+    "message": "Template details"
+  },
+  "chunkingPlayground_templates_isBuiltin": {
+    "message": "Built-in"
+  },
+  "chunkingPlayground_templates_version": {
+    "message": "Version"
+  },
+  "chunkingPlayground_templates_updatedAt": {
+    "message": "Updated"
+  },
+  "chunkingPlayground_templates_loadIntoEditor": {
+    "message": "Load into editor"
+  },
+  "chunkingPlayground_templates_deleteConfirm": {
+    "message": "Delete this template?"
+  },
+  "chunkingPlayground_templates_hardDeleteLabel": {
+    "message": "Hard delete"
+  },
+  "chunkingPlayground_templates_noSelection": {
+    "message": "Select a template to view details."
+  },
+  "chunkingPlayground_templates_templateJsonLabel": {
+    "message": "Template JSON"
+  },
+  "chunkingPlayground_templates_overrideOptionsLabel": {
+    "message": "Override options (JSON)"
+  },
+  "chunkingPlayground_templates_includeMetadataLabel": {
+    "message": "Include metadata"
+  },
+  "chunkingPlayground_templates_applyTextLabel": {
+    "message": "Text to apply template"
+  },
+  "chunkingPlayground_templates_applyTextPlaceholder": {
+    "message": "Paste text to chunk with this template"
+  },
+  "chunkingPlayground_templates_validateLabel": {
+    "message": "Template JSON to validate"
+  },
+  "chunkingPlayground_templates_matchMediaTypeLabel": {
+    "message": "Media type"
+  },
+  "chunkingPlayground_templates_matchTitleLabel": {
+    "message": "Title"
+  },
+  "chunkingPlayground_templates_matchUrlLabel": {
+    "message": "URL"
+  },
+  "chunkingPlayground_templates_matchFilenameLabel": {
+    "message": "Filename"
+  },
+  "chunkingPlayground_templates_learnNameLabel": {
+    "message": "Template name"
+  },
+  "chunkingPlayground_templates_learnExampleLabel": {
+    "message": "Example text"
+  },
+  "chunkingPlayground_templates_learnDescriptionLabel": {
+    "message": "Description"
+  },
+  "chunkingPlayground_templates_learnSaveLabel": {
+    "message": "Save template"
+  },
+  "chunkingPlayground_templates_learnClassifierLabel": {
+    "message": "Classifier (JSON)"
+  },
+  "chunkingPlayground_templates_jsonError": {
+    "message": "Invalid JSON. Please fix and try again."
+  },
+  "chunkingPlayground_templates_nameRequired": {
+    "message": "Template name is required."
+  },
+  "chunkingPlayground_templates_updateAction": {
+    "message": "Update"
+  },
+  "chunkingPlayground_templates_applyAction": {
+    "message": "Apply"
+  },
+  "chunkingPlayground_templates_validateAction": {
+    "message": "Validate"
+  },
+  "chunkingPlayground_templates_matchAction": {
+    "message": "Match"
+  },
+  "chunkingPlayground_templates_learnAction": {
+    "message": "Learn"
+  },
+  "chunkingPlayground_templates_diagnosticsAction": {
+    "message": "Run diagnostics"
+  },
+  "chunkingPlayground_capabilities_title": {
+    "message": "Chunking Capabilities"
+  },
+  "chunkingPlayground_capabilities_methodsLabel": {
+    "message": "Methods"
+  },
+  "chunkingPlayground_capabilities_llmLabel": {
+    "message": "LLM-required methods"
+  },
+  "chunkingPlayground_capabilities_defaultsLabel": {
+    "message": "Default options"
+  },
+  "chunkingPlayground_capabilities_methodOptionsLabel": {
+    "message": "Method-specific options"
+  },
+  "chunkingPlayground_capabilities_notesLabel": {
+    "message": "Notes"
   }
 }

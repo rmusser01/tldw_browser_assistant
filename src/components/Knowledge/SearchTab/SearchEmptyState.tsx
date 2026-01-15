@@ -28,7 +28,7 @@ export const SearchEmptyState: React.FC<SearchEmptyStateProps> = ({
       <div className="flex flex-col items-center justify-center py-8 text-center">
         <Search className="h-10 w-10 text-text-muted mb-3" />
         <p className="text-sm text-text-muted mb-1">
-          {t("sidepanel:rag.noResults", "No results yet")}
+          {t("sidepanel:rag.initialState", "No results yet")}
         </p>
         <p className="text-xs text-text-muted">
           {t(

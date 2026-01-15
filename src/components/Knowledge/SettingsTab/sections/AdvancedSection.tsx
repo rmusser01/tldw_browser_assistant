@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import type { TFunction } from "i18next"
 import type { RagSettings } from "@/services/rag/unified-rag"
 import { SettingField } from "../shared/SettingField"
 import { CollapsibleSection } from "../shared/CollapsibleSection"
@@ -50,6 +51,29 @@ const LOW_CONFIDENCE_BEHAVIOR_OPTIONS = [
   { label: "Decline", value: "decline" }
 ]
 
+export const getAdvancedSectionVisible = (
+  searchFilter: string,
+  t: TFunction
+) => {
+  const normalizedFilter = searchFilter.trim().toLowerCase()
+  if (!normalizedFilter) return true
+  const labels = [
+    t("sidepanel:rag.advanced", "Advanced"),
+    t("sidepanel:rag.queryExpansion", "Query Expansion"),
+    t("sidepanel:rag.caching", "Caching"),
+    t("sidepanel:rag.contextConstruction", "Context Construction"),
+    t("sidepanel:rag.tableProcessing", "Table Processing"),
+    t("sidepanel:rag.vlm", "VLM Late Chunking"),
+    t("sidepanel:rag.claims", "Claims Verification"),
+    t("sidepanel:rag.adaptiveVerification", "Adaptive Verification"),
+    t("sidepanel:rag.monitoring", "Monitoring & Analytics"),
+    t("sidepanel:rag.performance", "Performance"),
+    t("sidepanel:rag.resilience", "Resilience"),
+    t("sidepanel:rag.debugDisplay", "Debug & Display")
+  ]
+  return labels.some((label) => label.toLowerCase().includes(normalizedFilter))
+}
+
 /**
  * Advanced section - all remaining expert settings
  */
@@ -59,27 +83,40 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
   searchFilter = ""
 }) => {
   const { t } = useTranslation(["sidepanel"])
+  const advancedTitle = t("sidepanel:rag.advanced", "Advanced")
+  const queryExpansionLabel = t("sidepanel:rag.queryExpansion", "Query Expansion")
+  const cachingLabel = t("sidepanel:rag.caching", "Caching")
+  const contextConstructionLabel = t(
+    "sidepanel:rag.contextConstruction",
+    "Context Construction"
+  )
+  const tableProcessingLabel = t(
+    "sidepanel:rag.tableProcessing",
+    "Table Processing"
+  )
+  const vlmLabel = t("sidepanel:rag.vlm", "VLM Late Chunking")
+  const claimsLabel = t("sidepanel:rag.claims", "Claims Verification")
+  const adaptiveVerificationLabel = t(
+    "sidepanel:rag.adaptiveVerification",
+    "Adaptive Verification"
+  )
+  const monitoringLabel = t(
+    "sidepanel:rag.monitoring",
+    "Monitoring & Analytics"
+  )
+  const performanceLabel = t("sidepanel:rag.performance", "Performance")
+  const resilienceLabel = t("sidepanel:rag.resilience", "Resilience")
+  const debugDisplayLabel = t("sidepanel:rag.debugDisplay", "Debug & Display")
 
+  const normalizedFilter = searchFilter.trim().toLowerCase()
   const matchesFilter = (label: string) =>
-    !searchFilter || label.toLowerCase().includes(searchFilter.toLowerCase())
+    !normalizedFilter || label.toLowerCase().includes(normalizedFilter)
 
-  const sectionVisible =
-    !searchFilter ||
-    matchesFilter("Advanced") ||
-    matchesFilter("Query expansion") ||
-    matchesFilter("Cache") ||
-    matchesFilter("Context") ||
-    matchesFilter("VLM") ||
-    matchesFilter("Claims") ||
-    matchesFilter("Agentic") ||
-    matchesFilter("Monitoring") ||
-    matchesFilter("Performance") ||
-    matchesFilter("Batch") ||
-    matchesFilter("Debug")
+  const sectionVisible = getAdvancedSectionVisible(searchFilter, t)
 
   return (
     <CollapsibleSection
-      title={t("sidepanel:rag.advanced", "Advanced")}
+      title={advancedTitle}
       defaultExpanded={false}
       visible={sectionVisible}
       helperText={t(
@@ -88,10 +125,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
     >
       {/* Query Expansion */}
-      {matchesFilter("Query expansion") && (
+      {matchesFilter(queryExpansionLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.queryExpansion", "Query Expansion")}
+            {queryExpansionLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -125,10 +162,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Caching */}
-      {matchesFilter("Cache") && (
+      {matchesFilter(cachingLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.caching", "Caching")}
+            {cachingLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -167,10 +204,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Context Construction */}
-      {matchesFilter("Context") && (
+      {matchesFilter(contextConstructionLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.contextConstruction", "Context Construction")}
+            {contextConstructionLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -236,10 +273,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Table Processing */}
-      {matchesFilter("Table") && (
+      {matchesFilter(tableProcessingLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.tableProcessing", "Table Processing")}
+            {tableProcessingLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -272,10 +309,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* VLM Late Chunking */}
-      {matchesFilter("VLM") && (
+      {matchesFilter(vlmLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.vlm", "VLM Late Chunking")}
+            {vlmLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -322,10 +359,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Claims Verification */}
-      {matchesFilter("Claims") && (
+      {matchesFilter(claimsLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.claims", "Claims Verification")}
+            {claimsLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -401,10 +438,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Post-Verification / Adaptive */}
-      {matchesFilter("Adaptive") && (
+      {matchesFilter(adaptiveVerificationLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.adaptiveVerification", "Adaptive Verification")}
+            {adaptiveVerificationLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -458,10 +495,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Monitoring & Analytics */}
-      {matchesFilter("Monitoring") && (
+      {matchesFilter(monitoringLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.monitoring", "Monitoring & Analytics")}
+            {monitoringLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -494,10 +531,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Performance */}
-      {matchesFilter("Performance") && (
+      {matchesFilter(performanceLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.performance", "Performance")}
+            {performanceLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -525,10 +562,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Resilience */}
-      {matchesFilter("Resilience") && (
+      {matchesFilter(resilienceLabel) && (
         <div className="col-span-2 border-b border-border pb-3 mb-3">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.resilience", "Resilience")}
+            {resilienceLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField
@@ -560,10 +597,10 @@ export const AdvancedSection: React.FC<AdvancedSectionProps> = ({
       )}
 
       {/* Debug & Display */}
-      {matchesFilter("Debug") && (
+      {matchesFilter(debugDisplayLabel) && (
         <div className="col-span-2">
           <span className="text-xs font-medium text-text mb-2 block">
-            {t("sidepanel:rag.debugDisplay", "Debug & Display")}
+            {debugDisplayLabel}
           </span>
           <div className="grid gap-3 md:grid-cols-2">
             <SettingField

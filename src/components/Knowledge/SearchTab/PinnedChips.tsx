@@ -22,14 +22,15 @@ export const PinnedChips: React.FC<PinnedChipsProps> = ({
   onClearAll,
   maxVisible = 5
 }) => {
-  const { t } = useTranslation(["sidepanel"])
+  const { t } = useTranslation(["common", "sidepanel"])
 
   if (pinnedResults.length === 0) {
     return null
   }
 
-  const visiblePins = pinnedResults.slice(0, maxVisible)
-  const hiddenCount = pinnedResults.length - maxVisible
+  const safeMaxVisible = Math.max(0, maxVisible)
+  const visiblePins = pinnedResults.slice(0, safeMaxVisible)
+  const hiddenCount = Math.max(0, pinnedResults.length - safeMaxVisible)
 
   return (
     <div className="flex flex-col gap-2 pt-2 border-t border-border">
@@ -57,7 +58,9 @@ export const PinnedChips: React.FC<PinnedChipsProps> = ({
           >
             <div className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-surface2 rounded-full max-w-[180px] group">
               <span className="truncate text-text">
-                {pin.title || pin.snippet?.slice(0, 30) || "Untitled"}
+                {pin.title ||
+                  pin.snippet?.slice(0, 30) ||
+                  t("common:untitled", "Untitled")}
               </span>
               <button
                 type="button"

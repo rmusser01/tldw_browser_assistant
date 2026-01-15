@@ -36,7 +36,7 @@ const OptionIndex = () => {
   // the onboarding wizard (“Welcome — Let’s get you connected”).
   if (!hasCompletedFirstRun) {
     return (
-      <OptionLayout hideHeader showHeaderSelectors={false}>
+      <OptionLayout hideHeader>
         <OnboardingWizard
           onFinish={async () => {
             try {
@@ -55,9 +55,7 @@ const OptionIndex = () => {
   }
 
   return (
-    <OptionLayout
-      showHeaderSelectors={false}
-    >
+    <OptionLayout>
       <Playground />
     </OptionLayout>
   )

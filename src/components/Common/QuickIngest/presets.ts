@@ -54,7 +54,7 @@ export const DEFAULT_PRESETS: PresetMap = {
   }
 }
 
-const mergePresetConfig = (
+export const mergePresetConfig = (
   base: PresetConfig,
   override?: Partial<PresetConfig>
 ): PresetConfig => ({
@@ -133,6 +133,31 @@ export const PRESET_ORDER: IngestPreset[] = ["quick", "standard", "deep", "custo
  */
 export const DEFAULT_PRESET: IngestPreset = "standard"
 
+const isPlainObject = (value: unknown): value is Record<string, unknown> => {
+  if (!value || typeof value !== "object") return false
+  const proto = Object.getPrototypeOf(value)
+  return proto === Object.prototype || proto === null
+}
+
+const normalizeAdvancedValue = (value: unknown): unknown => {
+  if (Array.isArray(value)) {
+    return value.map(normalizeAdvancedValue)
+  }
+  if (isPlainObject(value)) {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([, entryValue]) => entryValue !== undefined)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([key, entryValue]) => [key, normalizeAdvancedValue(entryValue)])
+    )
+  }
+  return value
+}
+
+const serializeAdvancedValues = (values?: Record<string, unknown>) => {
+  return JSON.stringify(normalizeAdvancedValue(values ?? {}))
+}
+
 /**
  * Check if current configuration matches a specific preset.
  */
@@ -142,19 +167,12 @@ export function configMatchesPreset(
     storeRemote: boolean
     reviewBeforeStorage: boolean
     typeDefaults: TypeDefaults
-    advancedValues?: Record<string, any>
+    advancedValues?: Record<string, unknown>
   },
   presetName: Exclude<IngestPreset, "custom">,
   presetMap: PresetMap = DEFAULT_PRESETS
 ): boolean {
   const preset = presetMap[presetName]
-  const serializeAdvancedValues = (values?: Record<string, any>) => {
-    const entries = Object.entries(values ?? {}).filter(
-      ([, value]) => value !== undefined
-    )
-    entries.sort(([a], [b]) => a.localeCompare(b))
-    return JSON.stringify(entries)
-  }
 
   // Check common options
   if (
@@ -211,7 +229,7 @@ export function detectPreset(config: {
   storeRemote: boolean
   reviewBeforeStorage: boolean
   typeDefaults: TypeDefaults
-  advancedValues?: Record<string, any>
+  advancedValues?: Record<string, unknown>
 }, presetMap: PresetMap = DEFAULT_PRESETS): IngestPreset {
   for (const name of ["quick", "standard", "deep"] as const) {
     if (configMatchesPreset(config, name, presetMap)) {

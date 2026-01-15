@@ -1,6 +1,7 @@
 import React from "react"
 import { Button, Tag, Typography } from "antd"
 import { Info } from "lucide-react"
+import { handleQueuedRowKeyDown } from "./queued-row-keydown"
 import type { QueuedFileStub, StatusSummary } from "./types"
 
 type QueuedFileRowProps = {
@@ -57,12 +58,7 @@ export const QueuedFileRow = React.memo(
       onClick={onSelect}
       role="button"
       tabIndex={0}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault()
-          onSelect()
-        }
-      }}
+      onKeyDown={(event) => handleQueuedRowKeyDown(event, onSelect)}
     >
       <Button
         size="small"

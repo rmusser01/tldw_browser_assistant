@@ -334,5 +334,8 @@
   },
   "rag_attachedContext": {
     "message": "Vedlagt kontekst"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

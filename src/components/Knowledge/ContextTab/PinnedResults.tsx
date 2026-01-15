@@ -93,7 +93,7 @@ export const PinnedResults: React.FC<PinnedResultsProps> = ({
                   </div>
                   <button
                     onClick={() => onUnpin(result.id)}
-                    className="p-0.5 text-text-muted hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                    className="p-0.5 text-text-muted hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
                     aria-label={t("sidepanel:rag.unpinResult", "Unpin result")}
                   >
                     <X className="h-3.5 w-3.5" />

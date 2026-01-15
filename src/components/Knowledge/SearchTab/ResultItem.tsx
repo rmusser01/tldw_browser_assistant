@@ -2,14 +2,15 @@ import React from "react"
 import { Button, Tooltip } from "antd"
 import { Eye, MessageSquare, Pin, Plus } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import type { RagResult } from "../hooks"
 import {
   getResultTitle,
   getResultText,
   getResultType,
   getResultDate,
   getResultScore
-} from "../hooks"
+} from "@/components/Knowledge/hooks"
+import type { RagResult } from "@/components/Knowledge/hooks"
+import { highlightText } from "@/utils/text-highlight"
 
 type ResultItemProps = {
   result: RagResult
@@ -43,37 +44,6 @@ const formatScore = (score?: number) =>
   typeof score === "number" && Number.isFinite(score)
     ? score.toFixed(2)
     : null
-
-/**
- * Highlight query terms in text
- */
-const highlightText = (text: string, query?: string) => {
-  if (!query) return text
-
-  const terms = query
-    .split(/\s+/)
-    .map((term) => term.trim())
-    .filter(Boolean)
-
-  if (terms.length === 0) return text
-
-  const escaped = terms.map((term) =>
-    term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-  )
-  const regex = new RegExp(`(${escaped.join("|")})`, "gi")
-  const parts = text.split(regex)
-  const termSet = new Set(terms.map((term) => term.toLowerCase()))
-
-  return parts.map((part, idx) =>
-    termSet.has(part.toLowerCase()) ? (
-      <mark key={`h-${idx}`} className="bg-warn/20 text-text rounded px-0.5">
-        {part}
-      </mark>
-    ) : (
-      <React.Fragment key={`t-${idx}`}>{part}</React.Fragment>
-    )
-  )
-}
 
 /**
  * Single search result with 4 actions: Insert, Ask, Preview, Pin
@@ -125,7 +95,11 @@ export const ResultItem: React.FC<ResultItemProps> = React.memo(
 
         {/* Snippet */}
         <p className="text-xs text-text-muted line-clamp-3 mb-3">
-          {highlightTerms ? highlightText(snippet, query) : snippet}
+          {highlightTerms
+            ? highlightText(snippet, query ?? "", {
+                highlightClassName: "bg-warn/20 text-text rounded px-0.5"
+              })
+            : snippet}
         </p>
 
         {/* Actions */}
@@ -173,24 +147,26 @@ export const ResultItem: React.FC<ResultItemProps> = React.memo(
                 : t("sidepanel:rag.actions.pin", "Pin")
             }
           >
-            <Button
-              type="text"
-              size="small"
-              onClick={() => onPin(result)}
-              disabled={isPinned}
-              icon={
-                <Pin
-                  className={`h-3.5 w-3.5 ${isPinned ? "fill-current" : ""}`}
-                />
-              }
-              className={
-                isPinned
-                  ? "text-accent"
-                  : "text-text-muted hover:text-accent"
-              }
-            >
-              {t("sidepanel:rag.actions.pin", "Pin")}
-            </Button>
+            <span className="inline-block">
+              <Button
+                type="text"
+                size="small"
+                onClick={() => onPin(result)}
+                disabled={isPinned}
+                icon={
+                  <Pin
+                    className={`h-3.5 w-3.5 ${isPinned ? "fill-current" : ""}`}
+                  />
+                }
+                className={
+                  isPinned
+                    ? "text-accent"
+                    : "text-text-muted hover:text-accent"
+                }
+              >
+                {t("sidepanel:rag.actions.pin", "Pin")}
+              </Button>
+            </span>
           </Tooltip>
         </div>
       </div>

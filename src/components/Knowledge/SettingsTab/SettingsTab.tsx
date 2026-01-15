@@ -4,11 +4,16 @@ import { Search, RotateCcw } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import type { RagPresetName, RagSettings } from "@/services/rag/unified-rag"
 import {
-  QualitySection,
-  GenerationSection,
+  AdvancedSection,
   CitationsSection,
+  GenerationSection,
+  QualitySection,
   SafetySection,
-  AdvancedSection
+  getAdvancedSectionVisible,
+  getCitationsSectionVisible,
+  getGenerationSectionVisible,
+  getQualitySectionVisible,
+  getSafetySectionVisible
 } from "./sections"
 
 type SettingsTabProps = {
@@ -50,49 +55,66 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
 }) => {
   const { t } = useTranslation(["sidepanel", "common"])
   const effectiveFilter = searchFilter.trim()
-  const normalizedFilter = effectiveFilter.toLowerCase()
-  const matchesFilter = (label: string) =>
-    label.toLowerCase().includes(normalizedFilter)
-  const hasMatchingSection =
-    !normalizedFilter ||
-    [
-      "Quality",
-      "Search mode",
-      "Retrieval",
-      "Reranking",
-      "top_k",
-      "relevance",
-      "Generation",
-      "Answer",
-      "Abstention",
-      "Synthesis",
-      "extractive",
-      "tokens",
-      "Citations",
-      "citation",
-      "page numbers",
-      "chunk",
-      "APA",
-      "MLA",
-      "Safety",
-      "Security",
-      "PII",
-      "filter",
-      "injection",
-      "sensitivity",
-      "content policy",
-      "Advanced",
-      "Query expansion",
-      "Cache",
-      "Context",
-      "VLM",
-      "Claims",
-      "Agentic",
-      "Monitoring",
-      "Performance",
-      "Batch",
-      "Debug"
-    ].some((label) => matchesFilter(label))
+  const sections = [
+    {
+      key: "quality",
+      sectionVisible: getQualitySectionVisible(effectiveFilter, t),
+      element: (
+        <QualitySection
+          settings={settings}
+          onUpdate={onUpdate}
+          searchFilter={effectiveFilter}
+        />
+      )
+    },
+    {
+      key: "generation",
+      sectionVisible: getGenerationSectionVisible(effectiveFilter, t),
+      element: (
+        <GenerationSection
+          settings={settings}
+          onUpdate={onUpdate}
+          searchFilter={effectiveFilter}
+        />
+      )
+    },
+    {
+      key: "citations",
+      sectionVisible: getCitationsSectionVisible(effectiveFilter, t),
+      element: (
+        <CitationsSection
+          settings={settings}
+          onUpdate={onUpdate}
+          searchFilter={effectiveFilter}
+        />
+      )
+    },
+    {
+      key: "safety",
+      sectionVisible: getSafetySectionVisible(effectiveFilter, t),
+      element: (
+        <SafetySection
+          settings={settings}
+          onUpdate={onUpdate}
+          searchFilter={effectiveFilter}
+        />
+      )
+    },
+    {
+      key: "advanced",
+      sectionVisible: getAdvancedSectionVisible(effectiveFilter, t),
+      element: (
+        <AdvancedSection
+          settings={settings}
+          onUpdate={onUpdate}
+          searchFilter={effectiveFilter}
+        />
+      )
+    }
+  ]
+  const hasMatchingSection = sections.some(
+    (section) => section.sectionVisible
+  )
 
   return (
     <div
@@ -129,6 +151,7 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
           />
         </div>
         <button
+          type="button"
           onClick={onResetToBalanced}
           className="flex items-center gap-1 px-2 py-1 text-xs text-text-muted hover:text-text transition-colors rounded hover:bg-surface2"
           aria-label={t("sidepanel:rag.resetToDefaults", "Reset to defaults")}
@@ -140,38 +163,16 @@ export const SettingsTab: React.FC<SettingsTabProps> = ({
 
       {/* Scrollable Settings Sections */}
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-3">
-        <QualitySection
-          settings={settings}
-          onUpdate={onUpdate}
-          searchFilter={effectiveFilter}
-        />
-
-        <GenerationSection
-          settings={settings}
-          onUpdate={onUpdate}
-          searchFilter={effectiveFilter}
-        />
-
-        <CitationsSection
-          settings={settings}
-          onUpdate={onUpdate}
-          searchFilter={effectiveFilter}
-        />
-
-        <SafetySection
-          settings={settings}
-          onUpdate={onUpdate}
-          searchFilter={effectiveFilter}
-        />
-
-        <AdvancedSection
-          settings={settings}
-          onUpdate={onUpdate}
-          searchFilter={effectiveFilter}
-        />
+        {sections
+          .filter((section) => !effectiveFilter || section.sectionVisible)
+          .map((section) => (
+            <React.Fragment key={section.key}>
+              {section.element}
+            </React.Fragment>
+          ))}
 
         {/* No results message */}
-        {normalizedFilter && !hasMatchingSection && (
+        {effectiveFilter && !hasMatchingSection && (
           <NoMatchMessage
             searchFilter={effectiveFilter}
             onClear={() => onSearchFilterChange("")}
@@ -200,6 +201,7 @@ const NoMatchMessage: React.FC<{
         {searchFilter}&quot;
       </p>
       <button
+        type="button"
         onClick={onClear}
         className="mt-2 text-xs text-accent hover:underline"
       >

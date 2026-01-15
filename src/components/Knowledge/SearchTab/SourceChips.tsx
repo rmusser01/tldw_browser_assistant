@@ -24,10 +24,15 @@ export const SourceChips: React.FC<SourceChipsProps> = ({
 }) => {
   const { t } = useTranslation(["sidepanel"])
 
+  const selectedSourceSet = new Set(selectedSources)
+  const normalizedSources = ALL_SOURCES.filter((source) =>
+    selectedSourceSet.has(source)
+  )
+
   // Check if "All" is effectively selected (all sources or empty array)
   const isAllSelected =
-    selectedSources.length === 0 ||
-    selectedSources.length === ALL_SOURCES.length
+    normalizedSources.length === 0 ||
+    normalizedSources.length === ALL_SOURCES.length
 
   const sourceLabels: Record<RagSource, string> = {
     media_db: t("sidepanel:rag.sources.media", "Media"),
@@ -45,29 +50,33 @@ export const SourceChips: React.FC<SourceChipsProps> = ({
     if (isAllSelected) {
       // If "All" is selected, clicking a specific source selects only that source
       onSourcesChange([source])
-    } else if (selectedSources.includes(source)) {
+    } else if (selectedSourceSet.has(source)) {
       // Deselect this source
-      const newSources = selectedSources.filter((s) => s !== source)
+      const nextSources = normalizedSources.filter((s) => s !== source)
       // If no sources remain, revert to "All"
-      onSourcesChange(newSources.length === 0 ? [] : newSources)
+      onSourcesChange(nextSources.length === 0 ? [] : nextSources)
     } else {
       // Add this source to selection
-      const newSources = [...selectedSources, source]
+      const nextSourceSet = new Set(normalizedSources)
+      nextSourceSet.add(source)
+      const nextSources = ALL_SOURCES.filter((s) => nextSourceSet.has(s))
       // If all sources are now selected, treat as "All"
       onSourcesChange(
-        newSources.length === ALL_SOURCES.length ? [] : newSources
+        nextSources.length === ALL_SOURCES.length ? [] : nextSources
       )
     }
   }
 
   const chipClass = (isSelected: boolean) =>
-    `px-3 py-1 text-xs font-medium rounded-full transition-colors cursor-pointer
+    `px-3 py-1 text-xs font-medium rounded-full transition-colors ${
+      disabled ? "cursor-not-allowed" : "cursor-pointer"
+    }
      ${
        isSelected
          ? "bg-accent text-white"
          : "bg-surface2 text-text-muted hover:bg-surface3 hover:text-text"
      }
-     ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+     ${disabled ? "opacity-50" : ""}
     `
 
   return (
@@ -87,7 +96,7 @@ export const SourceChips: React.FC<SourceChipsProps> = ({
       </button>
 
       {ALL_SOURCES.map((source) => {
-        const isSelected = !isAllSelected && selectedSources.includes(source)
+        const isSelected = !isAllSelected && selectedSourceSet.has(source)
         return (
           <button
             key={source}

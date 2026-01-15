@@ -57,7 +57,7 @@ The Quick-Ingest feature is a powerful batch content ingestion tool that allows 
 **Why it matters:** First impressions determine adoption. Users who don't understand the flow may not trust the tool.
 
 **Suggested Fix:**
-- Add modal-level onboarding banner on first open (similar to `Quick-Ingest-UX.md` mentions for RAG)
+- Add modal-level onboarding banner on first open (aligns with the RAG onboarding notes in this review)
 - Show inline help icons with tooltips for each major section
 - Pre-populate one example URL as a hint (e.g., "Try pasting a YouTube URL here")
 - Consider a "Dry run" or "Preview" button that shows what will happen without executing

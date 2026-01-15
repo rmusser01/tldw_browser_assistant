@@ -5,28 +5,6 @@ import { isTwitterProfile, isTwitterTimeline, parseTweetProfile, parseTwitterTim
 import { isWikipedia, parseWikipedia } from "@/parser/wiki"
 import { getMaxContextSize } from "@/services/kb"
 
-const getTranscript = async (url: string) => {
-  try {
-    const mod = await import(/* @vite-ignore */ 'yt-transcript')
-    const YtTranscript = (mod as any).YtTranscript || mod
-    const ytTranscript = new YtTranscript({ url })
-    return await ytTranscript.getTranscript()
-  } catch (e) {
-    console.warn('YouTube transcript disabled in this environment:', e)
-    return null
-  }
-}
-
-const formatTranscriptText = (transcript: any[]) => {
-    return transcript
-        ?.map((item) => {
-            const timestamp = `[${item.start}s]`
-            const transcriptText = item.text
-            return `${timestamp} ${transcriptText}`
-        })
-        ?.join(" ")
-}
-
 const formatDocumentHeader = (title: string, url: string) => {
     const hostname = new URL(url).hostname
     return `# ${title} (${hostname}) \n\n`
@@ -78,12 +56,7 @@ export const getTabContents = async (documents: ChatDocuments) => {
             const header = formatDocumentHeader(doc.title, doc.url)
             let extractedContent = ""
 
-            if (isYoutubeLink(doc.url)) {
-                const transcript = await getTranscript(doc.url)
-                if (transcript) {
-                    extractedContent = formatTranscriptText(transcript)
-                }
-            } else if (isWikipedia(doc.url)) {
+            if (isWikipedia(doc.url)) {
                 extractedContent = parseWikipedia(content.html)
             } else if (isAmazonURL(doc.url)) {
                 extractedContent = parseAmazonWebsite(content.html)

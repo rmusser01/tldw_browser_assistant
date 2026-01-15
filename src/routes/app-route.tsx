@@ -6,6 +6,7 @@ import { PageAssistLoader } from "@/components/Common/PageAssistLoader"
 import { useAutoButtonTitles } from "@/hooks/useAutoButtonTitles"
 import { ensureI18nNamespaces } from "@/i18n"
 import { registerUiDiagnostics } from "@/utils/ui-diagnostics"
+import { useLayoutUiStore } from "@/store/layout-ui"
 import {
   platformConfig,
   type PlatformTarget
@@ -16,6 +17,8 @@ import {
   type RouteDefinition,
   type RouteKind
 } from "@/routes/route-registry"
+import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
+import { setSetting } from "@/services/settings/registry"
 
 const getRoutesForTarget = (
   routes: RouteDefinition[],
@@ -176,6 +179,9 @@ export const RouteShell = ({ kind }: { kind: RouteKind }) => {
   const navigate = useNavigate()
   useAutoButtonTitles()
   const location = useLocation()
+  const setChatSidebarCollapsed = useLayoutUiStore(
+    (state) => state.setChatSidebarCollapsed
+  )
   React.useEffect(() => {
     if (typeof window === "undefined") return
     const targetWindow = window as Window & {
@@ -211,6 +217,12 @@ export const RouteShell = ({ kind }: { kind: RouteKind }) => {
       void ensureI18nNamespaces(["option"])
     }
   }, [kind, location.pathname])
+  React.useEffect(() => {
+    setChatSidebarCollapsed(true)
+    void setSetting(HEADER_SHORTCUTS_EXPANDED_SETTING, false).catch(() => {
+      // ignore storage write failures
+    })
+  }, [location.pathname, setChatSidebarCollapsed])
   const { label, description } = ROUTE_FALLBACKS[kind]
   const routes = kind === "options" ? optionRoutes : sidepanelRoutes
   const visibleRoutes = getRoutesForTarget(routes, platformConfig.target)

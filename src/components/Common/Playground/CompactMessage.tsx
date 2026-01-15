@@ -143,19 +143,83 @@ export function CompactMessage({
     }
     return ""
   }, [characterIdentity])
-  const resolvedModelImage =
-    shouldUseCharacterIdentity && characterAvatar
-      ? characterAvatar
-      : modelImage
-  const resolvedModelName =
-    shouldUseCharacterIdentity && characterIdentity?.name
-      ? characterIdentity.name
-      : modelName || name
-  const shouldPreviewAvatar =
-    shouldUseCharacterIdentity && Boolean(characterAvatar)
+  const resolvedModelImage = useMemo(
+    () =>
+      shouldUseCharacterIdentity && characterAvatar
+        ? characterAvatar
+        : modelImage,
+    [shouldUseCharacterIdentity, characterAvatar, modelImage]
+  )
+  const resolvedModelName = useMemo(
+    () =>
+      shouldUseCharacterIdentity && characterIdentity?.name
+        ? characterIdentity.name
+        : modelName || name,
+    [shouldUseCharacterIdentity, characterIdentity?.name, modelName, name]
+  )
+  const shouldPreviewAvatar = useMemo(
+    () => shouldUseCharacterIdentity && Boolean(characterAvatar),
+    [shouldUseCharacterIdentity, characterAvatar]
+  )
   const displayName = isBot
     ? removeModelSuffix(resolvedModelName)
     : userDisplayName.trim() || t("common:you", "You")
+
+  const renderAvatar = () => {
+    if (!isBot) {
+      return (
+        <div className="size-6 rounded-full bg-gradient-to-r from-blue-400 to-blue-600" />
+      )
+    }
+
+    if (!resolvedModelImage) {
+      return (
+        <div className="size-6 rounded-full bg-gradient-to-r from-green-300 to-purple-400" />
+      )
+    }
+
+    if (!shouldPreviewAvatar) {
+      return (
+        <Avatar
+          src={resolvedModelImage}
+          alt={displayName}
+          className="size-6"
+        />
+      )
+    }
+
+    return (
+      <>
+        <button
+          type="button"
+          onClick={() => setIsAvatarPreviewOpen(true)}
+          className="rounded-full focus:outline-none focus:ring-2 focus:ring-focus"
+          aria-label={t("playground:previewCharacterAvatar", {
+            defaultValue: "Preview character avatar"
+          }) as string}
+        >
+          <Avatar
+            src={resolvedModelImage}
+            alt={displayName}
+            className="size-6"
+          />
+        </button>
+        <Modal
+          open={isAvatarPreviewOpen}
+          onCancel={() => setIsAvatarPreviewOpen(false)}
+          footer={null}
+          centered
+        >
+          <Image
+            src={resolvedModelImage}
+            alt={displayName}
+            preview={false}
+            className="w-full"
+          />
+        </Modal>
+      </>
+    )
+  }
 
   useEffect(() => {
     if (!shouldPreviewAvatar) {
@@ -304,51 +368,7 @@ export function CompactMessage({
       <div className="flex items-start gap-3">
         {/* Avatar */}
         <div className="shrink-0">
-          {isBot ? (
-            resolvedModelImage ? (
-              shouldPreviewAvatar ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => setIsAvatarPreviewOpen(true)}
-                    className="rounded-full focus:outline-none focus:ring-2 focus:ring-focus"
-                    aria-label={t("playground:previewCharacterAvatar", {
-                      defaultValue: "Preview character avatar"
-                    }) as string}
-                  >
-                    <Avatar
-                      src={resolvedModelImage}
-                      alt={displayName}
-                      className="size-6"
-                    />
-                  </button>
-                  <Modal
-                    open={isAvatarPreviewOpen}
-                    onCancel={() => setIsAvatarPreviewOpen(false)}
-                    footer={null}
-                    centered
-                  >
-                    <Image
-                      src={resolvedModelImage}
-                      alt={displayName}
-                      preview={false}
-                      className="w-full"
-                    />
-                  </Modal>
-                </>
-              ) : (
-                <Avatar
-                  src={resolvedModelImage}
-                  alt={displayName}
-                  className="size-6"
-                />
-              )
-            ) : (
-              <div className="size-6 rounded-full bg-gradient-to-r from-green-300 to-purple-400" />
-            )
-          ) : (
-            <div className="size-6 rounded-full bg-gradient-to-r from-blue-400 to-blue-600" />
-          )}
+          {renderAvatar()}
         </div>
 
         {/* Content */}

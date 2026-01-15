@@ -23,6 +23,29 @@ const normalizeSettings = (value?: Partial<RagSettings>): RagSettings => ({
   ...(value || {})
 })
 
+const isObject = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null
+
+const deepEqual = (a: unknown, b: unknown): boolean => {
+  if (Object.is(a, b)) return true
+  if (Array.isArray(a)) {
+    if (!Array.isArray(b) || a.length !== b.length) return false
+    return a.every((item, index) => deepEqual(item, b[index]))
+  }
+  if (isObject(a)) {
+    if (!isObject(b)) return false
+    const keysA = Object.keys(a)
+    const keysB = Object.keys(b)
+    if (keysA.length !== keysB.length) return false
+    return keysA.every(
+      (key) =>
+        Object.prototype.hasOwnProperty.call(b, key) &&
+        deepEqual(a[key], b[key])
+    )
+  }
+  return false
+}
+
 /**
  * Return type for useKnowledgeSettings hook
  */
@@ -210,7 +233,7 @@ export function useKnowledgeSettings(
     const draftCopy = { ...draftSettings, query: "", batch_queries: [] }
     const storedCopy = { ...storedSettings, query: "", batch_queries: [] }
     return (
-      JSON.stringify(draftCopy) !== JSON.stringify(storedCopy) ||
+      !deepEqual(draftCopy, storedCopy) ||
       draftPreset !== storedPreset
     )
   }, [draftPreset, draftSettings, storedPreset, storedSettings])

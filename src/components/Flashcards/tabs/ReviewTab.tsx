@@ -1,7 +1,8 @@
 import React from "react"
-import { Button, Card, Empty, Input, Select, Space, Tag, Tooltip, Typography } from "antd"
+import { Button, Card, Empty, Select, Space, Tag, Tooltip, Typography } from "antd"
 import { useTranslation } from "react-i18next"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import type { Flashcard } from "@/services/flashcards"
 import {
   useDecksQuery,
   useReviewQuery,
@@ -18,6 +19,10 @@ const { Text, Title } = Typography
 interface ReviewTabProps {
   onNavigateToCreate: () => void
   onNavigateToImport: () => void
+  reviewDeckId: number | null | undefined
+  onReviewDeckChange: (deckId: number | null | undefined) => void
+  reviewOverrideCard?: Flashcard | null
+  onClearOverride?: () => void
 }
 
 /**
@@ -25,17 +30,21 @@ interface ReviewTabProps {
  */
 export const ReviewTab: React.FC<ReviewTabProps> = ({
   onNavigateToCreate,
-  onNavigateToImport
+  onNavigateToImport,
+  reviewDeckId,
+  onReviewDeckChange,
+  reviewOverrideCard,
+  onClearOverride
 }) => {
   const { t } = useTranslation(["option", "common"])
   const message = useAntdMessage()
 
   // State
-  const [reviewDeckId, setReviewDeckId] = React.useState<number | null | undefined>(undefined)
   const [showAnswer, setShowAnswer] = React.useState(false)
-  const [answerMs, setAnswerMs] = React.useState<number | undefined>(undefined)
-  const [showAdvancedTiming, setShowAdvancedTiming] = React.useState(false)
   const [reviewedCount, setReviewedCount] = React.useState(0)
+
+  // Auto-track answer time - stores the timestamp when answer was revealed
+  const answerStartTimeRef = React.useRef<number | null>(null)
 
   // Queries and mutations
   const decksQuery = useDecksQuery()
@@ -43,6 +52,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   const reviewMutation = useReviewFlashcardMutation()
   const dueCountsQuery = useDueCountsQuery(reviewDeckId)
   const hasCardsQuery = useHasCardsQuery()
+  const activeCard = reviewOverrideCard ?? reviewQuery.data
 
   // Get deck name for progress display
   const currentDeckName = React.useMemo(() => {
@@ -52,10 +62,9 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
 
   // Calculate intervals for current card
   const intervals = React.useMemo(() => {
-    const card = reviewQuery.data
-    if (!card) return null
-    return calculateIntervals(card)
-  }, [reviewQuery.data])
+    if (!activeCard) return null
+    return calculateIntervals(activeCard)
+  }, [activeCard])
 
   // Rating options for Anki-style review with colors, shortcuts, and interval previews
   const ratingOptions = React.useMemo(
@@ -108,21 +117,24 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   const onSubmitReview = React.useCallback(
     async (rating: number) => {
       try {
-        const card = reviewQuery.data
+        const card = activeCard
         if (!card) return
-        const answer_time_ms =
-          typeof answerMs === "number" && !Number.isNaN(answerMs)
-            ? Math.round(answerMs * 1000)
-            : undefined
+        // Auto-calculate answer time from when the answer was shown
+        let answerTimeMs: number | undefined
+        if (answerStartTimeRef.current) {
+          answerTimeMs = Date.now() - answerStartTimeRef.current
+        }
         await reviewMutation.mutateAsync({
           cardUuid: card.uuid,
           rating,
-          answerTimeMs: answer_time_ms
+          answerTimeMs
         })
         setShowAnswer(false)
-        setAnswerMs(undefined)
-        setShowAdvancedTiming(false)
+        answerStartTimeRef.current = null
         setReviewedCount((c) => c + 1)
+        if (reviewOverrideCard) {
+          onClearOverride?.()
+        }
         message.success(t("common:success", { defaultValue: "Success" }))
       } catch (e: unknown) {
         const errorMessage =
@@ -130,8 +142,19 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         message.error(errorMessage)
       }
     },
-    [reviewQuery.data, answerMs, reviewMutation, message, t]
+    [activeCard, reviewMutation, message, t, reviewOverrideCard, onClearOverride]
   )
+
+  React.useEffect(() => {
+    setShowAnswer(false)
+    answerStartTimeRef.current = null
+  }, [activeCard?.uuid])
+
+  // Track when the answer is shown (for auto-timing)
+  const handleShowAnswer = React.useCallback(() => {
+    setShowAnswer(true)
+    answerStartTimeRef.current = Date.now()
+  }, [])
 
   // Reset reviewed count when deck changes
   React.useEffect(() => {
@@ -140,15 +163,15 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
 
   // Keyboard shortcuts for review
   useFlashcardShortcuts({
-    enabled: !!reviewQuery.data,
+    enabled: !!activeCard,
     showingAnswer: showAnswer,
-    onFlip: () => setShowAnswer(true),
+    onFlip: handleShowAnswer,
     onRate: onSubmitReview
   })
 
   return (
     <div>
-      <Space wrap className="mb-3">
+      <div className="mb-3">
         <Select
           placeholder={t("option:flashcards.selectDeck", {
             defaultValue: "Select deck (optional)"
@@ -157,21 +180,19 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
           loading={decksQuery.isLoading}
           value={reviewDeckId ?? undefined}
           className="min-w-64"
-          onChange={(v) => setReviewDeckId(v)}
+          onChange={(v) => {
+            onReviewDeckChange(v)
+            if (reviewOverrideCard) {
+              onClearOverride?.()
+            }
+          }}
           data-testid="flashcards-review-deck-select"
           options={(decksQuery.data || []).map((d) => ({
             label: d.name,
             value: d.id
           }))}
         />
-        <Button
-          onClick={() => reviewQuery.refetch()}
-          loading={reviewQuery.isFetching}
-          data-testid="flashcards-review-next-due"
-        >
-          {t("option:flashcards.nextDue", { defaultValue: "Next due" })}
-        </Button>
-      </Space>
+      </div>
 
       {dueCountsQuery.data && dueCountsQuery.data.total > 0 && (
         <ReviewProgress
@@ -181,15 +202,15 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         />
       )}
 
-      {reviewQuery.data ? (
+      {activeCard ? (
         <Card>
           <div className="flex flex-col gap-3">
             <div>
               <Tag>
-                {reviewQuery.data.model_type}
-                {reviewQuery.data.reverse ? " - reverse" : ""}
+                {activeCard.model_type}
+                {activeCard.reverse ? " - reverse" : ""}
               </Tag>
-              {reviewQuery.data.tags?.map((tag) => (
+              {activeCard.tags?.map((tag) => (
                 <Tag key={tag}>{tag}</Tag>
               ))}
             </div>
@@ -200,7 +221,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
               </Title>
               <div className="rounded border border-border bg-surface p-3 text-sm">
                 <MarkdownWithBoundary
-                  content={reviewQuery.data.front}
+                  content={activeCard.front}
                   size="sm"
                 />
               </div>
@@ -213,14 +234,14 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                 </Title>
                 <div className="rounded border border-border bg-surface p-3 text-sm">
                   <MarkdownWithBoundary
-                    content={reviewQuery.data.back}
+                    content={activeCard.back}
                     size="sm"
                   />
                 </div>
-                {reviewQuery.data.extra && (
+                {activeCard.extra && (
                   <div className="mt-2 text-sm opacity-80">
                     <MarkdownWithBoundary
-                      content={reviewQuery.data.extra}
+                      content={activeCard.extra}
                       size="xs"
                     />
                   </div>
@@ -233,7 +254,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                 <div className="flex flex-col gap-2">
                   <Button
                     type="primary"
-                    onClick={() => setShowAnswer(true)}
+                    onClick={handleShowAnswer}
                     data-testid="flashcards-review-show-answer"
                   >
                     {t("option:flashcards.showAnswer", {
@@ -287,44 +308,6 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                       })}
                     </Text>
                   </div>
-                  <button
-                    type="button"
-                    className="self-start text-xs text-text-subtle hover:text-text"
-                    onClick={() => setShowAdvancedTiming((v) => !v)}
-                  >
-                    {showAdvancedTiming
-                      ? t("option:flashcards.hideTiming", {
-                          defaultValue: "Hide timing"
-                        })
-                      : t("option:flashcards.showTiming", {
-                          defaultValue: "Track answer time"
-                        })}
-                  </button>
-                  {showAdvancedTiming && (
-                    <div className="flex items-center gap-2">
-                      <Text type="secondary">
-                        {t("option:flashcards.answerMs", {
-                          defaultValue: "Time to answer (seconds, optional)"
-                        })}
-                      </Text>
-                      <Input
-                        className="w-32"
-                        type="number"
-                        min={0}
-                        value={
-                          typeof answerMs === "number" && !Number.isNaN(answerMs)
-                            ? String(answerMs)
-                            : ""
-                        }
-                        onChange={(e) => {
-                          const v = Number(e.target.value)
-                          setAnswerMs(
-                            Number.isFinite(v) && v >= 0 ? v : undefined
-                          )
-                        }}
-                      />
-                    </div>
-                  )}
                 </>
               )}
             </div>
@@ -367,13 +350,27 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                 </>
               ) : (
                 <>
+                  {/* Celebratory state with session stats */}
+                  {reviewedCount > 0 && (
+                    <div className="text-center mb-3">
+                      <Text className="text-4xl">🎉</Text>
+                      <div className="mt-2">
+                        <Text strong className="text-lg">
+                          {t("option:flashcards.reviewedToday", {
+                            defaultValue: "{{count}} cards reviewed this session",
+                            count: reviewedCount
+                          })}
+                        </Text>
+                      </div>
+                    </div>
+                  )}
                   <Text type="secondary">
                     {t("option:flashcards.allCaughtUpDescription", {
                       defaultValue:
                         "No cards are due for review. Great job!"
                     })}
                   </Text>
-                  <Button onClick={onNavigateToCreate}>
+                  <Button type="link" onClick={onNavigateToCreate}>
                     {t("option:flashcards.createMoreCards", {
                       defaultValue: "Create more cards"
                     })}
