@@ -138,6 +138,10 @@ const OptionChatSettings = createSettingsRoute(
   () => import("~/components/Option/Settings/ChatSettings"),
   "ChatSettings"
 )
+const OptionQuickIngestSettings = createSettingsRoute(
+  () => import("~/components/Option/Settings/QuickIngestSettings"),
+  "QuickIngestSettings"
+)
 const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))
 const OptionContentReview = lazy(() => import("./option-content-review"))
 const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground"))
@@ -222,6 +226,17 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "settings:chatSettingsNav",
       icon: MessageSquare,
       order: 3
+    }
+  },
+  {
+    kind: "options",
+    path: "/settings/quick-ingest",
+    element: <OptionQuickIngestSettings />,
+    nav: {
+      group: "server",
+      labelToken: "settings:quickIngestSettingsNav",
+      icon: ClipboardList,
+      order: 4
     }
   },
   {

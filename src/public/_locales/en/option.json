@@ -504,22 +504,22 @@
     "message": "Enter one or more URLs. Force type per row if needed."
   },
   "quickIngest_offlineTitle": {
-    "message": "Server offline — connection required"
+    "message": "Server offline — staging only"
   },
   "quickIngest_offlineDescription": {
-    "message": "Connect your server to run ingest."
+    "message": "You can queue URLs and files here and inspect fields, but ingestion will not run until your tldw server is online. Reconnect to process pending items."
   },
   "quickIngest_unconfiguredTitle": {
-    "message": "Server not configured"
+    "message": "Server not configured — queue only"
   },
   "quickIngest_unconfiguredDescription": {
-    "message": "Configure your server URL and API key under Settings → tldw server to run ingest."
+    "message": "You can queue URLs and files now; ingestion will run after you configure a server URL and API key under Settings → tldw server."
   },
   "quickIngest_offlineBypassTitle": {
-    "message": "Offline mode enabled"
+    "message": "Offline mode enabled — queue only"
   },
   "quickIngest_offlineBypassDescription": {
-    "message": "Connect to your server to run ingest."
+    "message": "Items are staged here and will process once you disable offline mode or re-enable live server checks."
   },
   "quickIngest_checkingTitle": {
     "message": "Checking server connection…"
@@ -2623,5 +2623,92 @@
   },
   "quickIngest_tabs_resultsAriaProcessing": {
     "message": "Results tab, processing in progress"
+  },
+  "quickIngest_dropzoneProcessing": {
+    "message": "Processing in progress..."
+  },
+  "quickIngest_dropzoneWaitProcessing": {
+    "message": "Wait for completion to add more"
+  },
+  "quickIngest_dropzoneOffline": {
+    "message": "Server not connected"
+  },
+  "quickIngest_dropzoneConnectHint": {
+    "message": "Connect to add files"
+  },
+  "quickIngest_dropzoneRejectTitle": {
+    "message": "Some files not supported"
+  },
+  "quickIngest_dropzoneRejectHint": {
+    "message": "Check file type and size (max 500 MB)"
+  },
+  "quickIngest_dropzoneRelease": {
+    "message": "Release to add files"
+  },
+  "quickIngest_dropzoneReleaseSingle": {
+    "message": "Release to add 1 file"
+  },
+  "quickIngest_dropzoneReleaseMultiple": {
+    "message": "Release to add {{count}} files"
+  },
+  "quickIngest_dropzoneAriaLabel": {
+    "message": "File upload zone. Drag and drop files or press Enter to browse."
+  },
+  "quickIngest_addFiles": {
+    "message": "Browse files"
+  },
+  "quickIngest_filesRejected": {
+    "message": "{{count}} files rejected"
+  },
+  "quickIngest_preset.label": {
+    "message": "Preset"
+  },
+  "quickIngest_preset.quick": {
+    "message": "Quick"
+  },
+  "quickIngest_preset.quick.description": {
+    "message": "Process fast, skip analysis"
+  },
+  "quickIngest_preset.standard": {
+    "message": "Standard"
+  },
+  "quickIngest_preset.standard.description": {
+    "message": "Analyze + chunk for RAG search"
+  },
+  "quickIngest_preset.deep": {
+    "message": "Deep"
+  },
+  "quickIngest_preset.deep.description": {
+    "message": "All options, review before save"
+  },
+  "quickIngest_preset.custom": {
+    "message": "Custom"
+  },
+  "quickIngest_preset.custom.description": {
+    "message": "Your manual configuration"
+  },
+  "quickIngest_preset.reset": {
+    "message": "Reset to defaults"
+  },
+  "quickIngest_preset.recommended": {
+    "message": "(Recommended)"
+  },
+  "quickIngest_preset.ariaLabel": {
+    "message": "Select processing preset"
+  },
+  "quickIngest_transcriptionModelLabel": {
+    "message": "Transcription model"
+  },
+  "quickIngest_transcriptionModelPlaceholder": {
+    "message": "Select model"
+  },
+  "quickIngest_audioDiarizationLabel": {
+    "message": "Diarization"
+  },
+  "quickIngest_documentOcrLabel": {
+    "message": "OCR"
+  },
+  "quickIngest_videoCaptionsLabel": {
+    "message": "Captions"
   }
 }

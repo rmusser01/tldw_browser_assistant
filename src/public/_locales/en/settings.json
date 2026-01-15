@@ -3040,5 +3040,20 @@
   },
   "rag_ragSettings_chunkOverlap_mustBeLessThanSize": {
     "message": "Overlap must be less than chunk size"
+  },
+  "quickIngestSettingsNav": {
+    "message": "Quick Ingest"
+  },
+  "quickIngestSettings_title": {
+    "message": "Quick Ingest settings"
+  },
+  "quickIngestSettings_subtitle": {
+    "message": "Customize the presets used in the Quick Ingest Options tab."
+  },
+  "quickIngestSettings_presetHint": {
+    "message": "Changes apply the next time you open Quick Ingest."
+  },
+  "quickIngestSettings_resetAll": {
+    "message": "Reset all presets"
   }
 }

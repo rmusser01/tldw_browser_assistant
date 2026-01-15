@@ -1,22 +1,39 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { Modal, Button, Input, Select, Space, Switch, Typography, Tag, message, Collapse, InputNumber, Tooltip as AntTooltip, Spin } from 'antd'
+import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from "react-router-dom"
 import { browser } from "wxt/browser"
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { QuickIngestTabs } from "./QuickIngest/QuickIngestTabs"
 import { QueueTab } from "./QuickIngest/QueueTab/QueueTab"
+import { FileDropZone } from "./QuickIngest/QueueTab/FileDropZone"
 import { OptionsTab } from "./QuickIngest/OptionsTab/OptionsTab"
 import { ResultsTab } from "./QuickIngest/ResultsTab/ResultsTab"
 import { ProcessButton } from "./QuickIngest/shared/ProcessButton"
-import type { QuickIngestTab } from "./QuickIngest/types"
+import type { QuickIngestTab, IngestPreset } from "./QuickIngest/types"
+import {
+  DEFAULT_PRESET,
+  detectPreset,
+  getPresetConfig,
+  resolvePresetMap,
+  type PresetMap
+} from "./QuickIngest/presets"
 import { MEDIA_ADD_SCHEMA_FALLBACK, MEDIA_ADD_SCHEMA_FALLBACK_VERSION } from '@/services/tldw/fallback-schemas'
 import { HelpCircle, Headphones, Layers, Database, FileText, Film, Cookie, Info, Clock, Grid, BookText, Link2, File as FileIcon, AlertTriangle, Star, X } from 'lucide-react'
 import { useStorage } from '@plasmohq/storage/hook'
 import { useConfirmDanger } from '@/components/Common/confirm-danger'
 import { QuickIngestInspectorDrawer } from "@/components/Common/QuickIngestInspectorDrawer"
-import { defaultEmbeddingModelForRag } from '@/services/tldw-server'
+import {
+  defaultEmbeddingModelForRag,
+  fetchChatModels,
+  getEmbeddingModels
+} from '@/services/tldw-server'
 import { tldwModels } from '@/services/tldw'
+import {
+  ensureSelectOption,
+  getAdvancedFieldSelectOptions
+} from "@/components/Common/QuickIngest/advanced-field-options"
 import {
   coerceDraftMediaType,
   inferIngestTypeFromUrl,
@@ -440,7 +457,10 @@ export const QuickIngestModal: React.FC<Props> = ({
     }
   }, [open])
 
-  const [storeRemote, setStoreRemote] = React.useState<boolean>(true)
+  const [storeRemote, setStoreRemote] = useStorage<boolean>(
+    "quickIngestStoreRemote",
+    true
+  )
   const [reviewBeforeStorage, setReviewBeforeStorage] = useStorage<boolean>(
     "quickIngestReviewBeforeStorage",
     false
@@ -457,8 +477,25 @@ export const QuickIngestModal: React.FC<Props> = ({
     "quickIngestTypeDefaults",
     DEFAULT_TYPE_DEFAULTS
   )
-  // Common ingest options available across media types (promote booleans only; rely on Advanced for the rest)
-  const [common, setCommon] = React.useState<{ perform_analysis: boolean; perform_chunking: boolean; overwrite_existing: boolean }>({
+  // Preset selection (persisted)
+  const [activePreset, setActivePreset] = useStorage<IngestPreset>(
+    "quickIngestPreset",
+    DEFAULT_PRESET
+  )
+  const [presetConfigs] = useStorage<PresetMap>(
+    "quickIngestPresetConfigs",
+    resolvePresetMap()
+  )
+  const resolvedPresets = React.useMemo(
+    () => resolvePresetMap(presetConfigs),
+    [presetConfigs]
+  )
+  // Common ingest options available across media types (persisted for Custom preset recovery)
+  const [common, setCommon] = useStorage<{
+    perform_analysis: boolean
+    perform_chunking: boolean
+    overwrite_existing: boolean
+  }>("quickIngestCommon", {
     perform_analysis: true,
     perform_chunking: true,
     overwrite_existing: false
@@ -489,6 +526,15 @@ export const QuickIngestModal: React.FC<Props> = ({
     }),
     [typeDefaults]
   )
+  const modifiedAdvancedCount = React.useMemo(
+    () => Object.keys(advancedValues || {}).length,
+    [advancedValues]
+  )
+  const advancedDefaultsDirty = React.useMemo(() => {
+    const current = JSON.stringify(advancedValues || {})
+    const saved = JSON.stringify(savedAdvValues || {})
+    return current !== saved
+  }, [advancedValues, savedAdvValues])
   const createDefaultsSnapshot = React.useCallback(
     () => snapshotTypeDefaults(normalizedTypeDefaults),
     [normalizedTypeDefaults]
@@ -578,6 +624,17 @@ export const QuickIngestModal: React.FC<Props> = ({
     return "unknown"
   }, [phase, isConnected])
   const ingestBlocked = ingestConnectionStatus !== "online"
+  const { data: chatModels = [], isLoading: chatModelsLoading } = useQuery({
+    queryKey: ["playground:chatModels"],
+    queryFn: () => fetchChatModels({ returnEmpty: true }),
+    enabled: open && ingestConnectionStatus === "online"
+  })
+  const { data: embeddingModels = [], isLoading: embeddingModelsLoading } =
+    useQuery({
+      queryKey: ["embedding-models"],
+      queryFn: () => getEmbeddingModels(),
+      enabled: open && ingestConnectionStatus === "online"
+    })
   const { markFailure, clearFailure, setQueuedCount } = useQuickIngestStore((s) => ({
     markFailure: s.markFailure,
     clearFailure: s.clearFailure,
@@ -622,6 +679,97 @@ export const QuickIngestModal: React.FC<Props> = ({
       setReviewNavigationError(null)
     }
   }, [reviewBeforeStorage])
+
+  // Track if we're currently applying a preset to avoid auto-switch to Custom
+  const applyingPresetRef = React.useRef(false)
+
+  // Initialize options from preset or saved values when modal opens
+  React.useEffect(() => {
+    if (!open) return
+    applyingPresetRef.current = true
+
+    if (activePreset && activePreset !== "custom") {
+      const presetConfig = getPresetConfig(activePreset, resolvedPresets)
+      if (presetConfig) {
+        setCommon(presetConfig.common)
+        setStoreRemote(presetConfig.storeRemote)
+        setReviewBeforeStorage(presetConfig.reviewBeforeStorage)
+        setTypeDefaults(presetConfig.typeDefaults)
+        setAdvancedValues(presetConfig.advancedValues ?? {})
+      }
+    }
+
+    // Allow auto-switch detection after a short delay
+    setTimeout(() => {
+      applyingPresetRef.current = false
+    }, 100)
+  }, [open]) // Only run on modal open
+
+  // Detect option changes and auto-switch to Custom preset
+  React.useEffect(() => {
+    if (!open || applyingPresetRef.current) return
+    if (activePreset === "custom") return
+
+    const currentConfig = {
+      common,
+      storeRemote,
+      reviewBeforeStorage: reviewBeforeStorage ?? false,
+      typeDefaults: normalizedTypeDefaults,
+      advancedValues
+    }
+
+    const detectedPreset = detectPreset(currentConfig, resolvedPresets)
+    if (detectedPreset !== activePreset) {
+      setActivePreset("custom")
+    }
+  }, [
+    common,
+    storeRemote,
+    reviewBeforeStorage,
+    normalizedTypeDefaults,
+    activePreset,
+    open,
+    advancedValues,
+    resolvedPresets
+  ])
+
+  // Handler for preset selection
+  const handlePresetChange = React.useCallback(
+    (preset: IngestPreset) => {
+      applyingPresetRef.current = true
+      setActivePreset(preset)
+
+      if (preset !== "custom") {
+        const presetConfig = getPresetConfig(preset, resolvedPresets)
+        if (presetConfig) {
+          setCommon(presetConfig.common)
+          setStoreRemote(presetConfig.storeRemote)
+          setReviewBeforeStorage(presetConfig.reviewBeforeStorage)
+          setTypeDefaults(presetConfig.typeDefaults)
+          setAdvancedValues(presetConfig.advancedValues ?? {})
+        }
+      }
+      // For Custom, keep current values (user is explicitly choosing to keep their config)
+
+      setTimeout(() => {
+        applyingPresetRef.current = false
+      }, 100)
+    },
+    [
+      setActivePreset,
+      setCommon,
+      setStoreRemote,
+      setReviewBeforeStorage,
+      setTypeDefaults,
+      setAdvancedValues,
+      resolvedPresets
+    ]
+  )
+
+  // Handler for reset to defaults
+  const handlePresetReset = React.useCallback(() => {
+    handlePresetChange(DEFAULT_PRESET)
+  }, [handlePresetChange])
 
   const formatBytes = React.useCallback((bytes?: number) => {
     if (!bytes || Number.isNaN(bytes)) return ''
@@ -2522,16 +2670,6 @@ export const QuickIngestModal: React.FC<Props> = ({
     return ranked
   }, [results, resultsFilter])
 
-  const modifiedAdvancedCount = React.useMemo(
-    () => Object.keys(advancedValues || {}).length,
-    [advancedValues]
-  )
-
-  const advancedDefaultsDirty = React.useMemo(() => {
-    const current = JSON.stringify(advancedValues || {})
-    const saved = JSON.stringify(savedAdvValues || {})
-    return current !== saved
-  }, [advancedValues, savedAdvValues])
   const specSourceLabel = React.useMemo(() => {
     if (specSource === 'server') {
       return qi('specSourceLive', 'Live server spec')
@@ -2550,6 +2688,33 @@ export const QuickIngestModal: React.FC<Props> = ({
         : field
     )
   }, [advSchema, transcriptionModelOptions])
+  const transcriptionModelChoices = React.useMemo(() => {
+    const fallbackField = advSchema.find(
+      (field) => field.name === "transcription_model"
+    )
+    const fallbackEnum = Array.isArray(fallbackField?.enum)
+      ? fallbackField.enum.map((value) => String(value))
+      : []
+    const source =
+      transcriptionModelOptions.length > 0
+        ? transcriptionModelOptions
+        : fallbackEnum
+    const seen = new Set<string>()
+    return source.reduce<string[]>((acc, value) => {
+      const normalized = String(value)
+      if (!normalized || seen.has(normalized)) return acc
+      seen.add(normalized)
+      acc.push(normalized)
+      return acc
+    }, [])
+  }, [advSchema, transcriptionModelOptions])
+  const transcriptionModelValue = React.useMemo(() => {
+    const value = advancedValues?.transcription_model
+    if (value === undefined || value === null || value === "") {
+      return undefined
+    }
+    return String(value)
+  }, [advancedValues])
 
   const setAdvancedValue = React.useCallback((name: string, value: any) => {
     setAdvancedValues((prev) => {
@@ -2562,6 +2727,12 @@ export const QuickIngestModal: React.FC<Props> = ({
       return next
     })
   }, [])
+  const handleTranscriptionModelChange = React.useCallback(
+    (value?: string) => {
+      setAdvancedValue("transcription_model", value)
+    },
+    [setAdvancedValue]
+  )
 
   const addLocalFiles = React.useCallback(
     (incoming: File[]) => {
@@ -2739,6 +2910,26 @@ export const QuickIngestModal: React.FC<Props> = ({
       addLocalFiles(files)
     },
     [addLocalFiles]
+  )
+
+  const handleModalDragOver = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault()
+      if (activeTab !== "queue" && event.dataTransfer) {
+        event.dataTransfer.dropEffect = "none"
+      }
+    },
+    [activeTab]
+  )
+
+  const handleModalDrop = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault()
+      if (activeTab !== "queue") {
+        event.stopPropagation()
+      }
+    },
+    [activeTab]
   )
 
   const retryFailedUrls = React.useCallback(() => {
@@ -3128,7 +3319,12 @@ export const QuickIngestModal: React.FC<Props> = ({
       maskClosable={!running}
     >
       {contextHolder}
-      <div className="relative" data-state={modalReady ? 'ready' : 'loading'}>
+      <div
+        className="relative"
+        data-state={modalReady ? 'ready' : 'loading'}
+        onDragOver={handleModalDragOver}
+        onDrop={handleModalDrop}
+      >
       {/* Tab Navigation */}
       <QuickIngestTabs
         activeTab={activeTab}
@@ -3333,53 +3529,33 @@ export const QuickIngestModal: React.FC<Props> = ({
             </div>
             <input
               type="file"
-              multiple
-              style={{ display: 'none' }}
-              id="qi-file-input"
-              data-testid="qi-file-input"
-              onChange={(e) => {
-                const files = Array.from(e.target.files || [])
-                addLocalFiles(files)
-                e.currentTarget.value = ''
-              }}
-              accept=".pdf,.txt,.rtf,.doc,.docx,.md,.epub,application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*"
-            />
-            <input
-              type="file"
               style={{ display: 'none' }}
               ref={reattachInputRef}
               onChange={handleReattachChange}
               accept=".pdf,.txt,.rtf,.doc,.docx,.md,.epub,application/pdf,text/plain,application/rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/epub+zip,audio/*,video/*"
             />
-            <div
-              className="mt-3 w-full rounded-md border border-dashed border-border bg-surface2 px-4 py-4 text-center"
-              onDragOver={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
+            <FileDropZone
+              onFilesAdded={addLocalFiles}
+              onFilesRejected={(errors) => {
+                messageApi.error(
+                  errors.length === 1
+                    ? errors[0]
+                    : qi('filesRejected', '{{count}} files rejected', { count: errors.length }),
+                  errors.length > 1 ? 5 : 3
+                )
               }}
-              onDrop={handleFileDrop}
-            >
-              <div className="flex flex-col gap-2 items-center justify-center">
-                <Typography.Text className="text-base font-medium">
-                  {qi('dragAndDrop', 'Drag and drop files')}
-                </Typography.Text>
-                <Typography.Text type="secondary" className="text-xs">
-                  {qi('dragAndDropHint', 'Docs, PDFs, audio, and video are all welcome.')}
-                </Typography.Text>
-                <div className="flex items-center gap-2">
-                  <Button onClick={() => document.getElementById('qi-file-input')?.click()} disabled={running || !isOnlineForIngest}>
-                    {t('quickIngest.addFiles') || 'Browse files'}
-                  </Button>
-                  <Button
-                    onClick={pasteFromClipboard}
-                    disabled={running || !isOnlineForIngest}
-                    aria-label={qi('pasteFromClipboard', 'Paste URLs from clipboard')}
-                    title={qi('pasteFromClipboard', 'Paste URLs from clipboard')}
-                  >
-                    {qi('pasteFromClipboard', 'Paste URLs from clipboard')}
-                  </Button>
-                </div>
-              </div>
+              running={running}
+              isOnlineForIngest={isOnlineForIngest}
+            />
+            <div className="mt-2 flex justify-center">
+              <Button
+                onClick={pasteFromClipboard}
+                disabled={running || !isOnlineForIngest}
+                aria-label={qi('pasteFromClipboard', 'Paste URLs from clipboard')}
+                title={qi('pasteFromClipboard', 'Paste URLs from clipboard')}
+              >
+                {qi('pasteFromClipboard', 'Paste URLs from clipboard')}
+              </Button>
             </div>
             {queuedFileStubs.length > 0 && (
               <div className="mt-2 flex items-start gap-2 rounded-md border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
@@ -3707,6 +3883,9 @@ export const QuickIngestModal: React.FC<Props> = ({
           isActive={activeTab === "options"}
           qi={qi}
           t={t}
+          activePreset={activePreset ?? DEFAULT_PRESET}
+          onPresetChange={handlePresetChange}
+          onPresetReset={handlePresetReset}
           hasAudioItems={hasAudioItems}
           hasDocumentItems={hasDocumentItems}
           hasVideoItems={hasVideoItems}
@@ -3716,6 +3895,10 @@ export const QuickIngestModal: React.FC<Props> = ({
           setCommon={setCommon}
           normalizedTypeDefaults={normalizedTypeDefaults}
           setTypeDefaults={setTypeDefaults}
+          transcriptionModelOptions={transcriptionModelChoices}
+          transcriptionModelsLoading={transcriptionModelsLoading}
+          transcriptionModelValue={transcriptionModelValue}
+          onTranscriptionModelChange={handleTranscriptionModelChange}
           ragEmbeddingLabel={ragEmbeddingLabel}
           openModelSettings={openModelSettings}
           storeRemote={storeRemote}
@@ -3948,7 +4131,9 @@ export const QuickIngestModal: React.FC<Props> = ({
                       (f.description || '').toLowerCase().includes(q)
                     )
                   }
-                  const allMatched = resolvedAdvSchema.filter(match)
+                  const allMatched = resolvedAdvSchema
+                    .filter(match)
+                    .filter((field) => field.name !== "transcription_model")
 
                   // Build a small "Recommended fields" subset for common
                   // parameters, while intentionally duplicating those fields
@@ -4006,6 +4191,9 @@ export const QuickIngestModal: React.FC<Props> = ({
                             }))
                           const isTranscriptionModel =
                             f.name === "transcription_model"
+                          const isContextualModel =
+                            f.name === "contextual_llm_model"
+                          const isEmbeddingModel = f.name === "embedding_model"
                           const ariaLabel = `${g} \u2013 ${f.title || f.name}`
                           const isAlsoRecommended =
                             g !== "Recommended" &&
@@ -4014,6 +4202,32 @@ export const QuickIngestModal: React.FC<Props> = ({
                             !!f.description &&
                             (g === "Recommended" ||
                               !recommendedNameSet.has(f.name))
+                          const selectOptions = getAdvancedFieldSelectOptions({
+                            fieldName: f.name,
+                            fieldEnum: f.enum,
+                            t,
+                            chatModels,
+                            embeddingModels
+                          })
+                          const fallbackEnumOptions =
+                            f.enum && f.enum.length > 0
+                              ? f.enum.map((entry) => ({
+                                  value: String(entry),
+                                  label: String(entry)
+                                }))
+                              : null
+                          const selectValue =
+                            v === undefined || v === null || v === ""
+                              ? undefined
+                              : String(v)
+                          const resolvedSelectOptions = selectOptions
+                            ? ensureSelectOption(selectOptions, selectValue)
+                            : fallbackEnumOptions
+                              ? ensureSelectOption(
+                                  fallbackEnumOptions,
+                                  selectValue
+                                )
+                              : null
                           const Label = (
                             <div className="flex items-center gap-1">
                               <span className="min-w-60 text-sm">{f.title || f.name}</span>
@@ -4032,19 +4246,29 @@ export const QuickIngestModal: React.FC<Props> = ({
                               ) : null}
                             </div>
                           )
-                          if (f.enum && f.enum.length > 0) {
+                          if (resolvedSelectOptions) {
                             return (
                               <div key={f.name} className="flex items-center gap-2">
                                 {Label}
                                 <Select
                                   className="w-72"
                                   allowClear
-                                  showSearch={isTranscriptionModel}
-                                  loading={isTranscriptionModel && transcriptionModelsLoading}
+                                  showSearch={
+                                    isTranscriptionModel ||
+                                    isContextualModel ||
+                                    isEmbeddingModel ||
+                                    resolvedSelectOptions.length > 6
+                                  }
+                                  loading={
+                                    (isTranscriptionModel &&
+                                      transcriptionModelsLoading) ||
+                                    (isContextualModel && chatModelsLoading) ||
+                                    (isEmbeddingModel && embeddingModelsLoading)
+                                  }
                                   aria-label={ariaLabel}
-                                  value={v}
+                                  value={selectValue}
                                   onChange={setV as any}
-                                  options={f.enum.map((e) => ({ value: e, label: String(e) }))}
+                                  options={resolvedSelectOptions}
                                 />
                                 {canShowDetailsHere && (
                                   <button

@@ -50,6 +50,40 @@ export type ResultsFilter = ResultFilters[keyof ResultFilters]
 export type QuickIngestTab = "queue" | "options" | "results"
 
 /**
+ * Common processing options shared across all media types.
+ */
+export type CommonOptions = {
+  perform_analysis: boolean
+  perform_chunking: boolean
+  overwrite_existing: boolean
+}
+
+/**
+ * Type-specific default options applied per media type.
+ */
+export type TypeDefaults = {
+  audio?: { language?: string; diarize?: boolean }
+  document?: { ocr?: boolean }
+  video?: { captions?: boolean }
+}
+
+/**
+ * Preset identifiers for Quick Ingest option configurations.
+ */
+export type IngestPreset = "quick" | "standard" | "deep" | "custom"
+
+/**
+ * Configuration for a preset, defining all option values.
+ */
+export type PresetConfig = {
+  common: CommonOptions
+  storeRemote: boolean
+  reviewBeforeStorage: boolean
+  typeDefaults: TypeDefaults
+  advancedValues?: Record<string, any>
+}
+
+/**
  * Badge state for tab indicators.
  */
 export type TabBadgeState = {

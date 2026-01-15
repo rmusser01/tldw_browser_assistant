@@ -48,6 +48,10 @@ type IngestOptionsPanelProps = {
   setCommon: React.Dispatch<React.SetStateAction<CommonOptions>>
   normalizedTypeDefaults: TypeDefaults
   setTypeDefaults: React.Dispatch<React.SetStateAction<TypeDefaults | null>>
+  transcriptionModelOptions: string[]
+  transcriptionModelsLoading: boolean
+  transcriptionModelValue?: string
+  onTranscriptionModelChange: (value?: string) => void
   ragEmbeddingLabel?: string | null
   openModelSettings: () => void
   storeRemote: boolean
@@ -86,6 +90,10 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
   setCommon,
   normalizedTypeDefaults,
   setTypeDefaults,
+  transcriptionModelOptions,
+  transcriptionModelsLoading,
+  transcriptionModelValue,
+  onTranscriptionModelChange,
   ragEmbeddingLabel,
   openModelSettings,
   storeRemote,
@@ -238,6 +246,22 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
       // ignore check errors; footer is informational
     }
   }, [checkOnce])
+  const transcriptionOptions = React.useMemo(() => {
+    const options = transcriptionModelOptions.map((value) => ({
+      value,
+      label: value
+    }))
+    if (
+      transcriptionModelValue &&
+      !transcriptionModelOptions.includes(transcriptionModelValue)
+    ) {
+      options.unshift({
+        value: transcriptionModelValue,
+        label: transcriptionModelValue
+      })
+    }
+    return options
+  }, [transcriptionModelOptions, transcriptionModelValue])
   return (
     <div className="rounded-md border border-border bg-surface p-3 space-y-3">
       <Typography.Title level={5} className="!mb-2">
@@ -349,6 +373,23 @@ export const IngestOptionsPanel: React.FC<IngestOptionsPanelProps> = ({
             disabled={running || !hasAudioItems}
           />
         </Space>
+        <div className="flex items-center gap-2">
+          <span className="min-w-40 text-sm">
+            {qi("transcriptionModelLabel", "Transcription model")}
+          </span>
+          <Select
+            className="min-w-60"
+            allowClear
+            showSearch
+            loading={transcriptionModelsLoading}
+            value={transcriptionModelValue}
+            placeholder={qi("transcriptionModelPlaceholder", "Select model")}
+            aria-label={qi("transcriptionModelLabel", "Transcription model")}
+            onChange={(value) => onTranscriptionModelChange(value ?? undefined)}
+            options={transcriptionOptions}
+            disabled={running || !hasAudioItems}
+          />
+        </div>
         {hasAudioItems && (
           <>
             <Typography.Text type="secondary" className="text-xs">

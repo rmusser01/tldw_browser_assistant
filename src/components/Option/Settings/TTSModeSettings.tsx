@@ -10,6 +10,11 @@ import {
   type TldwVoice
 } from "@/services/tldw/audio-voices"
 import {
+  fetchTtsProviders,
+  type TldwTtsProvidersInfo,
+  type TldwTtsVoiceInfo
+} from "@/services/tldw/audio-providers"
+import {
   fetchTldwTtsModels,
   type TldwTtsModel
 } from "@/services/tldw/audio-models"
@@ -124,15 +129,50 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
     enabled: form.values.ttsProvider === "tldw"
   })
 
+  const { data: tldwProvidersInfo, isLoading: tldwProvidersLoading } =
+    useQuery<TldwTtsProvidersInfo | null>({
+      queryKey: ["fetchTldwTtsProviders"],
+      queryFn: fetchTtsProviders,
+      enabled: form.values.ttsProvider === "tldw"
+    })
+
   const { data: tldwModels } = useQuery<TldwTtsModel[]>({
     queryKey: ["fetchTldwTtsModels"],
     queryFn: fetchTldwTtsModels,
     enabled: form.values.ttsProvider === "tldw"
   })
 
+  const providerVoices = React.useMemo((): TldwTtsVoiceInfo[] => {
+    if (!tldwProvidersInfo || !inferredTldwProviderKey) return []
+    const allVoices = tldwProvidersInfo.voices || {}
+    const direct = allVoices[inferredTldwProviderKey]
+    if (Array.isArray(direct) && direct.length > 0) {
+      return direct
+    }
+    const fallbackKey = inferredTldwProviderKey.toLowerCase()
+    const fallback = allVoices[fallbackKey]
+    if (Array.isArray(fallback) && fallback.length > 0) {
+      return fallback
+    }
+    return []
+  }, [inferredTldwProviderKey, tldwProvidersInfo])
+
   const tldwVoiceOptions = React.useMemo(() => {
-    if (tldwVoices.length > 0) {
-      return tldwVoices
+    const combined: Array<TldwVoice | TldwTtsVoiceInfo> = []
+    const seen = new Set<string>()
+
+    const pushVoice = (voice: TldwVoice | TldwTtsVoiceInfo) => {
+      const value = voice.voice_id || voice.id || voice.name
+      if (!value || seen.has(value)) return
+      seen.add(value)
+      combined.push(voice)
+    }
+
+    providerVoices.forEach(pushVoice)
+    tldwVoices.forEach(pushVoice)
+
+    if (combined.length > 0) {
+      return combined
         .map((voice, index) => {
           const value = voice.voice_id || voice.id || voice.name
           if (!value) return null
@@ -148,7 +188,7 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
 
     const fallback = (form.values.tldwTtsVoice || "").trim()
     return fallback ? [{ label: fallback, value: fallback }] : []
-  }, [form.values.tldwTtsVoice, tldwVoices])
+  }, [form.values.tldwTtsVoice, providerVoices, tldwVoices])
 
   // Save mutation with loading state
   const { mutate: saveTTSMutation, isPending: isSaving } = useMutation({
@@ -324,6 +364,8 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                 aria-label={t("generalSettings.tts.ttsVoice.label") as string}
                 placeholder={t("generalSettings.tts.ttsVoice.placeholder")}
                 className="w-full mt-4 sm:mt-0 sm:w-[200px] focus-ring"
+                showSearch
+                optionFilterProp="label"
                 options={data?.browserTTSVoices?.map((voice) => ({
                   label: `${voice.voiceName} - ${voice.lang}`.trim(),
                   value: voice.voiceName
@@ -394,6 +436,8 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                     }))}
                     className="w-full mt-4 sm:mt-0 sm:w-[200px] focus-ring"
                     placeholder="Select a voice"
+                    showSearch
+                    optionFilterProp="label"
                     {...form.getInputProps("elevenLabsVoiceId")}
                   />
                 </div>
@@ -537,8 +581,12 @@ export const TTSModeSettings = ({ hideBorder }: { hideBorder?: boolean }) => {
                 className="w-full mt-4 sm:mt-0 sm:w-[200px] focus-ring"
                 placeholder="Select a voice"
                 options={tldwVoiceOptions}
-                loading={tldwVoicesLoading}
-                disabled={!tldwVoicesLoading && tldwVoiceOptions.length === 0}
+                loading={tldwVoicesLoading || tldwProvidersLoading}
+                disabled={
+                  !tldwVoicesLoading &&
+                  !tldwProvidersLoading &&
+                  tldwVoiceOptions.length === 0
+                }
                 showSearch
                 optionFilterProp="label"
                 {...form.getInputProps("tldwTtsVoice")}

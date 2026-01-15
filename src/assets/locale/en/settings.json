@@ -15,6 +15,7 @@
   "evaluationsSettingsNav": "Evaluations",
   "promptStudioNav": "Prompt Studio",
   "chatSettingsNav": "Chat",
+  "quickIngestSettingsNav": "Quick Ingest",
   "speechSettingsNav": "Speech",
   "admin": {
     "adminGuardForbiddenTitle": "Admin access required for these controls",
@@ -88,6 +89,14 @@
   "speechSettings": {
     "title": "Speech settings",
     "subtitle": "Manage Speech-to-Text and Text-to-Speech defaults for dictation and playback."
+  },
+  "quickIngestSettings": {
+    "title": "Quick Ingest settings",
+    "subtitle": "Customize the presets used in the Quick Ingest Options tab.",
+    "presetHint": "Changes apply the next time you open Quick Ingest.",
+    "resetAll": "Reset all presets",
+    "advancedHeading": "Advanced options",
+    "advancedHint": "Configure advanced ingest fields for this preset."
   },
   "generalSettings": {
     "title": "General Settings",

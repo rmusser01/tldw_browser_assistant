@@ -1,18 +1,8 @@
 import React from "react"
 import type { TFunction } from "i18next"
 import { IngestOptionsPanel } from "../IngestOptionsPanel"
-
-type CommonOptions = {
-  perform_analysis: boolean
-  perform_chunking: boolean
-  overwrite_existing: boolean
-}
-
-type TypeDefaults = {
-  audio?: { language?: string; diarize?: boolean }
-  document?: { ocr?: boolean }
-  video?: { captions?: boolean }
-}
+import { PresetSelector } from "../PresetSelector"
+import type { IngestPreset, CommonOptions, TypeDefaults } from "../types"
 
 type ProgressMeta = {
   total: number
@@ -28,6 +18,9 @@ type OptionsTabProps = {
     options?: Record<string, unknown>
   ) => string
   t: TFunction
+  activePreset: IngestPreset
+  onPresetChange: (preset: IngestPreset) => void
+  onPresetReset: () => void
   hasAudioItems: boolean
   hasDocumentItems: boolean
   hasVideoItems: boolean
@@ -37,6 +30,10 @@ type OptionsTabProps = {
   setCommon: React.Dispatch<React.SetStateAction<CommonOptions>>
   normalizedTypeDefaults: TypeDefaults
   setTypeDefaults: React.Dispatch<React.SetStateAction<TypeDefaults | null>>
+  transcriptionModelOptions: string[]
+  transcriptionModelsLoading: boolean
+  transcriptionModelValue?: string
+  onTranscriptionModelChange: (value?: string) => void
   ragEmbeddingLabel?: string | null
   openModelSettings: () => void
   storeRemote: boolean
@@ -66,6 +63,11 @@ type OptionsTabProps = {
 
 export const OptionsTab: React.FC<OptionsTabProps> = ({
   isActive = true,
+  qi,
+  activePreset,
+  onPresetChange,
+  onPresetReset,
+  running,
   ...props
 }) => {
   return (
@@ -78,7 +80,16 @@ export const OptionsTab: React.FC<OptionsTabProps> = ({
     >
       {isActive ? (
         <React.Suspense fallback={null}>
-          <IngestOptionsPanel {...props} />
+          <div className="mb-4">
+            <PresetSelector
+              qi={qi}
+              value={activePreset}
+              onChange={onPresetChange}
+              onReset={onPresetReset}
+              disabled={running}
+            />
+          </div>
+          <IngestOptionsPanel qi={qi} running={running} {...props} />
         </React.Suspense>
       ) : null}
     </div>
