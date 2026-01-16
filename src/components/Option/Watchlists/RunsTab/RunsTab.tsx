@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import {
   Button,
   Progress,
@@ -13,6 +13,7 @@ import { Eye, RefreshCw } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useWatchlistsStore } from "@/store/watchlists"
 import {
+  fetchJobRuns,
   fetchWatchlistJobs,
   fetchWatchlistRuns
 } from "@/services/watchlists"
@@ -37,7 +38,7 @@ export const RunsTab: React.FC = () => {
   const pollingActive = useWatchlistsStore((s) => s.pollingActive)
   const runDetailOpen = useWatchlistsStore((s) => s.runDetailOpen)
   const selectedRunId = useWatchlistsStore((s) => s.selectedRunId)
-  const jobs = useWatchlistsStore((s) => s.jobs)
+  const [jobs, setJobs] = useState<WatchlistJob[]>([])
 
   // Store actions
   const setRuns = useWatchlistsStore((s) => s.setRuns)
@@ -49,7 +50,6 @@ export const RunsTab: React.FC = () => {
   const setPollingActive = useWatchlistsStore((s) => s.setPollingActive)
   const openRunDetail = useWatchlistsStore((s) => s.openRunDetail)
   const closeRunDetail = useWatchlistsStore((s) => s.closeRunDetail)
-  const setJobs = useWatchlistsStore((s) => s.setJobs)
 
   // Refs for polling
   const pollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -58,16 +58,35 @@ export const RunsTab: React.FC = () => {
   const loadRuns = useCallback(async (showLoading = true) => {
     if (showLoading) setRunsLoading(true)
     try {
-      const result = await fetchWatchlistRuns({
-        job_id: runsJobFilter || undefined,
-        status: runsStatusFilter || undefined,
-        limit: runsPageSize,
-        offset: (runsPage - 1) * runsPageSize
-      })
-      setRuns(result.items, result.total)
+      const useClientFilter = Boolean(runsJobFilter && runsStatusFilter)
+      let result
+      if (runsJobFilter) {
+        result = await fetchJobRuns(runsJobFilter, {
+          page: useClientFilter ? 1 : runsPage,
+          size: useClientFilter ? 200 : runsPageSize
+        })
+      } else {
+        result = await fetchWatchlistRuns({
+          q: runsStatusFilter || undefined,
+          page: runsPage,
+          size: runsPageSize
+        })
+      }
+
+      let items = result.items || []
+      if (useClientFilter && runsStatusFilter) {
+        items = items.filter((run) => run.status === runsStatusFilter)
+      }
+
+      const total = useClientFilter ? items.length : result.total
+      const pagedItems = useClientFilter
+        ? items.slice((runsPage - 1) * runsPageSize, runsPage * runsPageSize)
+        : items
+
+      setRuns(pagedItems, total)
 
       // Check if any runs are still running
-      const hasRunning = result.items.some((r) => r.status === "running" || r.status === "pending")
+      const hasRunning = items.some((r) => r.status === "running" || r.status === "pending")
       setPollingActive(hasRunning)
     } catch (err) {
       console.error("Failed to fetch runs:", err)
@@ -91,12 +110,12 @@ export const RunsTab: React.FC = () => {
   // Load jobs for filter dropdown
   const loadJobs = useCallback(async () => {
     try {
-      const result = await fetchWatchlistJobs({ limit: 100 })
-      setJobs(result.items, result.total)
+      const result = await fetchWatchlistJobs({ page: 1, size: 200 })
+      setJobs(result.items || [])
     } catch (err) {
       console.error("Failed to fetch jobs:", err)
     }
-  }, [setJobs])
+  }, [])
 
   // Initial load
   useEffect(() => {

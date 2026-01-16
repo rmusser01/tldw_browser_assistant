@@ -433,5 +433,452 @@
   },
   "settings_title": {
     "message": "Settings"
+  },
+  "sources_groupFilterError": {
+    "message": "Failed to load group filter"
+  },
+  "sources_export": {
+    "message": "Export OPML"
+  },
+  "sources_exported": {
+    "message": "OPML exported"
+  },
+  "sources_exportError": {
+    "message": "Failed to export OPML"
+  },
+  "sources_import": {
+    "message": "Import OPML"
+  },
+  "sources_importTitle": {
+    "message": "Import OPML"
+  },
+  "sources_importDrop": {
+    "message": "Drop OPML file here or click to upload"
+  },
+  "sources_importHint": {
+    "message": "Supports standard OPML exports"
+  },
+  "sources_imported": {
+    "message": "OPML imported"
+  },
+  "sources_importError": {
+    "message": "Failed to import OPML"
+  },
+  "sources_importGroup": {
+    "message": "Assign Group"
+  },
+  "sources_importGroupPlaceholder": {
+    "message": "None"
+  },
+  "sources_importTags": {
+    "message": "Apply Tags"
+  },
+  "sources_importTagsPlaceholder": {
+    "message": "Select tags"
+  },
+  "sources_importActive": {
+    "message": "Set Active"
+  },
+  "sources_importSummary": {
+    "message": "Import Summary"
+  },
+  "sources_importSummaryDesc": {
+    "message": "{{created}} created, {{skipped}} skipped, {{errors}} errors"
+  },
+  "sources_selectedCount": {
+    "message": "{{count}} selected"
+  },
+  "sources_bulkEnable": {
+    "message": "Enable"
+  },
+  "sources_bulkDisable": {
+    "message": "Disable"
+  },
+  "sources_bulkDelete": {
+    "message": "Delete"
+  },
+  "sources_bulkDeleteConfirm": {
+    "message": "Delete selected sources?"
+  },
+  "sources_bulkUpdated": {
+    "message": "{{count}} sources updated"
+  },
+  "sources_bulkDeleted": {
+    "message": "{{count}} sources deleted"
+  },
+  "sources_bulkDeleteError": {
+    "message": "Bulk delete failed"
+  },
+  "sources_bulkError": {
+    "message": "Bulk update failed"
+  },
+  "sources_columns_url": {
+    "message": "URL"
+  },
+  "sources_columns_status": {
+    "message": "Status"
+  },
+  "sources_columns_error": {
+    "message": "Error"
+  },
+  "groups_title": {
+    "message": "Groups"
+  },
+  "groups_all": {
+    "message": "All Sources"
+  },
+  "groups_create": {
+    "message": "Create Group"
+  },
+  "groups_created": {
+    "message": "Group created"
+  },
+  "groups_createError": {
+    "message": "Failed to create group"
+  },
+  "groups_deleteConfirm": {
+    "message": "Delete this group?"
+  },
+  "groups_deleted": {
+    "message": "Group deleted"
+  },
+  "groups_deleteError": {
+    "message": "Failed to delete group"
+  },
+  "groups_empty": {
+    "message": "No groups yet"
+  },
+  "groups_nameRequired": {
+    "message": "Please enter a name"
+  },
+  "groups_namePlaceholder": {
+    "message": "News Sources"
+  },
+  "groups_descriptionPlaceholder": {
+    "message": "Optional description"
+  },
+  "groups_none": {
+    "message": "None"
+  },
+  "groups_fields_name": {
+    "message": "Name"
+  },
+  "groups_fields_description": {
+    "message": "Description"
+  },
+  "groups_fields_parent": {
+    "message": "Parent Group"
+  },
+  "jobs_preview_button": {
+    "message": "Preview"
+  },
+  "jobs_preview_title": {
+    "message": "Job Preview"
+  },
+  "jobs_preview_summary": {
+    "message": "{{total}} candidates: {{ingestable}} ingestable, {{filtered}} filtered"
+  },
+  "jobs_preview_empty": {
+    "message": "No preview data available"
+  },
+  "jobs_preview_columns_title": {
+    "message": "Title"
+  },
+  "jobs_preview_columns_decision": {
+    "message": "Decision"
+  },
+  "jobs_preview_columns_action": {
+    "message": "Action"
+  },
+  "jobs_preview_columns_source": {
+    "message": "Source"
+  },
+  "runs_detail_itemsError": {
+    "message": "Failed to load items"
+  },
+  "runs_detail_itemsUpdateError": {
+    "message": "Failed to update item"
+  },
+  "runs_detail_itemsUntitled": {
+    "message": "Untitled"
+  },
+  "runs_detail_logsTruncated": {
+    "message": "Logs truncated"
+  },
+  "runs_detail_logsTruncatedDesc": {
+    "message": "Showing the most recent log output."
+  },
+  "runs_detail_logsPath": {
+    "message": "Logs stored at {{path}}"
+  },
+  "runs_detail_itemsColumns_title": {
+    "message": "Title"
+  },
+  "runs_detail_itemsColumns_status": {
+    "message": "Status"
+  },
+  "runs_detail_itemsColumns_reviewed": {
+    "message": "Reviewed"
+  },
+  "runs_detail_itemsColumns_source": {
+    "message": "Source"
+  },
+  "runs_detail_itemsColumns_published": {
+    "message": "Published"
+  },
+  "runs_detail_itemsColumns_created": {
+    "message": "Ingested"
+  },
+  "outputs_description": {
+    "message": "Generated briefings and reports from your watchlist jobs."
+  },
+  "outputs_totalItems": {
+    "message": "{{total}} outputs"
+  },
+  "outputs_fetchError": {
+    "message": "Failed to load outputs"
+  },
+  "outputs_downloadError": {
+    "message": "Failed to download output"
+  },
+  "outputs_downloaded": {
+    "message": "Output downloaded"
+  },
+  "outputs_preview": {
+    "message": "Preview"
+  },
+  "outputs_download": {
+    "message": "Download"
+  },
+  "outputs_filterByJob": {
+    "message": "Filter by job"
+  },
+  "outputs_noContent": {
+    "message": "No content available"
+  },
+  "outputs_openInNewTab": {
+    "message": "Open in new tab"
+  },
+  "outputs_rendered": {
+    "message": "Rendered"
+  },
+  "outputs_source": {
+    "message": "Source"
+  },
+  "outputs_regenerate": {
+    "message": "Regenerate"
+  },
+  "outputs_regenerated": {
+    "message": "Output regenerated"
+  },
+  "outputs_regenerateError": {
+    "message": "Failed to regenerate output"
+  },
+  "outputs_regenerateTitle": {
+    "message": "Regenerate Output"
+  },
+  "outputs_templateLabel": {
+    "message": "Template"
+  },
+  "outputs_templatePlaceholder": {
+    "message": "Select a template"
+  },
+  "outputs_titleLabel": {
+    "message": "Title"
+  },
+  "outputs_titlePlaceholder": {
+    "message": "Optional title override"
+  },
+  "outputs_columns_title": {
+    "message": "Title"
+  },
+  "outputs_columns_job": {
+    "message": "Job"
+  },
+  "outputs_columns_run": {
+    "message": "Run"
+  },
+  "outputs_columns_format": {
+    "message": "Format"
+  },
+  "outputs_columns_created": {
+    "message": "Created"
+  },
+  "outputs_columns_expires": {
+    "message": "Expires"
+  },
+  "outputs_columns_actions": {
+    "message": "Actions"
+  },
+  "templates_description": {
+    "message": "Jinja2 templates for generating briefing outputs."
+  },
+  "templates_fetchError": {
+    "message": "Failed to load templates"
+  },
+  "templates_loadError": {
+    "message": "Failed to load template"
+  },
+  "templates_saveError": {
+    "message": "Failed to save template"
+  },
+  "templates_deleteError": {
+    "message": "Failed to delete template"
+  },
+  "templates_created": {
+    "message": "Template created"
+  },
+  "templates_updated": {
+    "message": "Template updated"
+  },
+  "templates_deleted": {
+    "message": "Template deleted"
+  },
+  "templates_create": {
+    "message": "Create Template"
+  },
+  "templates_createFirst": {
+    "message": "Create your first template"
+  },
+  "templates_edit": {
+    "message": "Edit"
+  },
+  "templates_delete": {
+    "message": "Delete"
+  },
+  "templates_deleteConfirm": {
+    "message": "Delete this template?"
+  },
+  "templates_empty": {
+    "message": "No templates yet"
+  },
+  "templates_createTitle": {
+    "message": "Create Template"
+  },
+  "templates_editTitle": {
+    "message": "Edit Template"
+  },
+  "templates_nameRequired": {
+    "message": "Name is required"
+  },
+  "templates_contentRequired": {
+    "message": "Template content is required"
+  },
+  "templates_contentPlaceholder": {
+    "message": "Enter Jinja2 template..."
+  },
+  "templates_namePlaceholder": {
+    "message": "my-briefing-template"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "Optional description..."
+  },
+  "templates_columns_name": {
+    "message": "Name"
+  },
+  "templates_columns_description": {
+    "message": "Description"
+  },
+  "templates_columns_format": {
+    "message": "Format"
+  },
+  "templates_columns_updated": {
+    "message": "Updated"
+  },
+  "templates_columns_actions": {
+    "message": "Actions"
+  },
+  "templates_fields_name": {
+    "message": "Template Name"
+  },
+  "templates_fields_description": {
+    "message": "Description"
+  },
+  "templates_fields_format": {
+    "message": "Output Format"
+  },
+  "templates_editor_tab": {
+    "message": "Editor"
+  },
+  "templates_preview_tab": {
+    "message": "Preview"
+  },
+  "templates_preview_note": {
+    "message": "Preview shows rendered markup only; Jinja2 logic is not evaluated."
+  },
+  "templates_preview_empty": {
+    "message": "Nothing to preview yet."
+  },
+  "templates_docs_tab": {
+    "message": "Variables"
+  },
+  "templates_docs_title": {
+    "message": "Available Variables"
+  },
+  "templates_docs_description": {
+    "message": "These variables are available in your Jinja2 template."
+  },
+  "templates_docs_hint": {
+    "message": "Use Jinja2 syntax: {% for item in items %}, {{ item.title }}, {% if condition %}, etc."
+  },
+  "settings_description": {
+    "message": "Server configuration and retention settings for the watchlists module."
+  },
+  "settings_fetchError": {
+    "message": "Failed to load settings"
+  },
+  "settings_unavailable": {
+    "message": "Settings unavailable"
+  },
+  "settings_unavailableDesc": {
+    "message": "Could not load server settings. Make sure the server is running."
+  },
+  "settings_ttl_title": {
+    "message": "Output Retention"
+  },
+  "settings_ttl_defaultOutput": {
+    "message": "Default Output TTL"
+  },
+  "settings_ttl_temporaryOutput": {
+    "message": "Temporary Output TTL"
+  },
+  "settings_ttl_note": {
+    "message": "TTL values are configured on the server."
+  },
+  "settings_clusters_title": {
+    "message": "Claim Clusters"
+  },
+  "settings_clusters_jobPlaceholder": {
+    "message": "Select job"
+  },
+  "settings_clusters_searchPlaceholder": {
+    "message": "Search clusters"
+  },
+  "settings_clusters_selectJob": {
+    "message": "Select a job to manage cluster subscriptions."
+  },
+  "settings_clusters_fetchError": {
+    "message": "Failed to load claim clusters"
+  },
+  "settings_clusters_updateError": {
+    "message": "Failed to update cluster subscription"
+  },
+  "settings_clusters_empty": {
+    "message": "No clusters found"
+  },
+  "settings_clusters_idLabel": {
+    "message": "ID {{id}}"
+  },
+  "settings_clusters_columns_cluster": {
+    "message": "Cluster"
+  },
+  "settings_clusters_columns_members": {
+    "message": "Members"
+  },
+  "settings_clusters_columns_updated": {
+    "message": "Updated"
+  },
+  "settings_clusters_columns_subscribed": {
+    "message": "Subscribed"
   }
 }

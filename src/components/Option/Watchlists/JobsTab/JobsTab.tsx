@@ -10,7 +10,7 @@ import {
   message
 } from "antd"
 import type { ColumnsType } from "antd/es/table"
-import { Edit2, Play, Plus, RefreshCw, Trash2 } from "lucide-react"
+import { Edit2, Eye, Play, Plus, RefreshCw, Trash2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useWatchlistsStore } from "@/store/watchlists"
 import {
@@ -23,6 +23,7 @@ import type { WatchlistJob } from "@/types/watchlists"
 import { formatRelativeTime } from "@/utils/dateFormatters"
 import { CronDisplay, StatusTag } from "../shared"
 import { JobFormModal } from "./JobFormModal"
+import { JobPreviewModal } from "./JobPreviewModal"
 
 export const JobsTab: React.FC = () => {
   const { t } = useTranslation(["watchlists", "common"])
@@ -50,14 +51,16 @@ export const JobsTab: React.FC = () => {
 
   // Local state
   const [triggeringJobId, setTriggeringJobId] = useState<number | null>(null)
+  const [previewJob, setPreviewJob] = useState<WatchlistJob | null>(null)
+  const [previewOpen, setPreviewOpen] = useState(false)
 
   // Fetch jobs
   const loadJobs = useCallback(async () => {
     setJobsLoading(true)
     try {
       const result = await fetchWatchlistJobs({
-        limit: jobsPageSize,
-        offset: (jobsPage - 1) * jobsPageSize
+        page: jobsPage,
+        size: jobsPageSize
       })
       setJobs(result.items, result.total)
     } catch (err) {
@@ -233,6 +236,17 @@ export const JobsTab: React.FC = () => {
               disabled={!record.active}
             />
           </Tooltip>
+          <Tooltip title={t("watchlists:jobs.preview.button", "Preview")}>
+            <Button
+              type="text"
+              size="small"
+              icon={<Eye className="h-4 w-4" />}
+              onClick={() => {
+                setPreviewJob(record)
+                setPreviewOpen(true)
+              }}
+            />
+          </Tooltip>
           <Tooltip title={t("common:edit", "Edit")}>
             <Button
               type="text"
@@ -319,6 +333,12 @@ export const JobsTab: React.FC = () => {
           closeJobForm()
           loadJobs()
         }}
+      />
+
+      <JobPreviewModal
+        job={previewJob}
+        open={previewOpen}
+        onClose={() => setPreviewOpen(false)}
       />
     </div>
   )

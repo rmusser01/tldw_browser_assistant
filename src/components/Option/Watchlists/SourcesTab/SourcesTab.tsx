@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import {
   Button,
   Input,
-  Modal,
   Popconfirm,
   Select,
   Space,
@@ -13,19 +12,23 @@ import {
   message
 } from "antd"
 import type { ColumnsType } from "antd/es/table"
-import { Edit2, ExternalLink, Plus, RefreshCw, Trash2 } from "lucide-react"
+import { Download, Edit2, ExternalLink, Plus, RefreshCw, Trash2, UploadCloud } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useWatchlistsStore } from "@/store/watchlists"
 import {
   createWatchlistSource,
   deleteWatchlistSource,
+  exportOpml,
   fetchWatchlistSources,
+  fetchWatchlistGroups,
   fetchWatchlistTags,
   updateWatchlistSource
 } from "@/services/watchlists"
 import type { WatchlistSource, SourceType } from "@/types/watchlists"
 import { formatRelativeTime } from "@/utils/dateFormatters"
 import { SourceFormModal } from "./SourceFormModal"
+import { GroupsTree } from "./GroupsTree"
+import { SourcesBulkImport } from "./SourcesBulkImport"
 
 const { Search } = Input
 
@@ -34,6 +37,8 @@ const SOURCE_TYPE_COLORS: Record<SourceType, string> = {
   site: "green",
   forum: "purple"
 }
+const CLIENT_FILTER_PAGE_SIZE = 200
+const CLIENT_FILTER_MAX_ITEMS = 1000
 
 export const SourcesTab: React.FC = () => {
   const { t } = useTranslation(["watchlists", "common"])
@@ -46,6 +51,9 @@ export const SourcesTab: React.FC = () => {
   const sourcesPage = useWatchlistsStore((s) => s.sourcesPage)
   const sourcesPageSize = useWatchlistsStore((s) => s.sourcesPageSize)
   const tags = useWatchlistsStore((s) => s.tags)
+  const groups = useWatchlistsStore((s) => s.groups)
+  const groupsLoading = useWatchlistsStore((s) => s.groupsLoading)
+  const selectedGroupId = useWatchlistsStore((s) => s.selectedGroupId)
   const selectedTagName = useWatchlistsStore((s) => s.selectedTagName)
   const sourceFormOpen = useWatchlistsStore((s) => s.sourceFormOpen)
   const sourceFormEditId = useWatchlistsStore((s) => s.sourceFormEditId)
@@ -57,6 +65,9 @@ export const SourcesTab: React.FC = () => {
   const setSourcesPage = useWatchlistsStore((s) => s.setSourcesPage)
   const setSourcesPageSize = useWatchlistsStore((s) => s.setSourcesPageSize)
   const setTags = useWatchlistsStore((s) => s.setTags)
+  const setGroups = useWatchlistsStore((s) => s.setGroups)
+  const setGroupsLoading = useWatchlistsStore((s) => s.setGroupsLoading)
+  const setSelectedGroupId = useWatchlistsStore((s) => s.setSelectedGroupId)
   const setSelectedTagName = useWatchlistsStore((s) => s.setSelectedTagName)
   const openSourceForm = useWatchlistsStore((s) => s.openSourceForm)
   const closeSourceForm = useWatchlistsStore((s) => s.closeSourceForm)
@@ -68,19 +79,79 @@ export const SourcesTab: React.FC = () => {
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string | null>(
     null
   )
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+  const [bulkWorking, setBulkWorking] = useState(false)
+  const [importOpen, setImportOpen] = useState(false)
+
+  const selectedSources = useMemo(
+    () => sources.filter((source) => selectedRowKeys.includes(source.id)),
+    [sources, selectedRowKeys]
+  )
 
   // Fetch sources
   const loadSources = useCallback(async () => {
     setSourcesLoading(true)
     try {
-      const result = await fetchWatchlistSources({
-        search: sourcesSearch || undefined,
-        tag: selectedTagName || undefined,
-        source_type: selectedTypeFilter || undefined,
-        limit: sourcesPageSize,
-        offset: (sourcesPage - 1) * sourcesPageSize
-      })
-      setSources(result.items, result.total)
+      const useClientFilter = Boolean(selectedGroupId || selectedTypeFilter)
+      const baseParams = {
+        q: sourcesSearch || undefined,
+        tags: selectedTagName ? [selectedTagName] : undefined
+      }
+      let items: WatchlistSource[] = []
+      let total = 0
+
+      if (useClientFilter) {
+        let page = 1
+        while (items.length < CLIENT_FILTER_MAX_ITEMS) {
+          const result = await fetchWatchlistSources({
+            ...baseParams,
+            page,
+            size: CLIENT_FILTER_PAGE_SIZE
+          })
+          const batch = Array.isArray(result.items) ? result.items : []
+          if (page === 1) total = result.total || batch.length
+          items = items.concat(batch)
+          if (items.length >= total || batch.length < CLIENT_FILTER_PAGE_SIZE) {
+            break
+          }
+          page += 1
+        }
+      } else {
+        const result = await fetchWatchlistSources({
+          ...baseParams,
+          page: sourcesPage,
+          size: sourcesPageSize
+        })
+        items = Array.isArray(result.items) ? result.items : []
+        total = result.total || items.length
+      }
+
+      if (selectedGroupId) {
+        try {
+          const opml = await exportOpml({ group: [selectedGroupId] })
+          const parser = new DOMParser()
+          const doc = parser.parseFromString(opml, "text/xml")
+          const urls = Array.from(doc.querySelectorAll("outline[xmlUrl]"))
+            .map((node) => node.getAttribute("xmlUrl"))
+            .filter((url): url is string => Boolean(url))
+          const urlSet = new Set(urls)
+          items = items.filter((source) => urlSet.has(source.url))
+        } catch (err) {
+          console.error("Failed to load group OPML:", err)
+          message.error(t("watchlists:sources.groupFilterError", "Failed to load group filter"))
+        }
+      }
+
+      if (selectedTypeFilter) {
+        items = items.filter((source) => source.source_type === selectedTypeFilter)
+      }
+
+      total = useClientFilter ? items.length : total
+      const pagedItems = useClientFilter
+        ? items.slice((sourcesPage - 1) * sourcesPageSize, sourcesPage * sourcesPageSize)
+        : items
+
+      setSources(pagedItems, total)
     } catch (err) {
       console.error("Failed to fetch sources:", err)
       message.error(t("watchlists:sources.fetchError", "Failed to load sources"))
@@ -91,6 +162,7 @@ export const SourcesTab: React.FC = () => {
     sourcesSearch,
     selectedTagName,
     selectedTypeFilter,
+    selectedGroupId,
     sourcesPage,
     sourcesPageSize,
     setSources,
@@ -101,19 +173,33 @@ export const SourcesTab: React.FC = () => {
   // Fetch tags
   const loadTags = useCallback(async () => {
     try {
-      const result = await fetchWatchlistTags()
-      setTags(Array.isArray(result) ? result : [])
+      const result = await fetchWatchlistTags({ page: 1, size: 200 })
+      setTags(Array.isArray(result.items) ? result.items : [])
     } catch (err) {
       console.error("Failed to fetch tags:", err)
       setTags([])
     }
   }, [setTags])
 
+  const loadGroups = useCallback(async () => {
+    setGroupsLoading(true)
+    try {
+      const result = await fetchWatchlistGroups({ page: 1, size: 200 })
+      setGroups(Array.isArray(result.items) ? result.items : [])
+    } catch (err) {
+      console.error("Failed to fetch groups:", err)
+      setGroups([])
+    } finally {
+      setGroupsLoading(false)
+    }
+  }, [setGroups, setGroupsLoading])
+
   // Initial load
   useEffect(() => {
     loadSources()
     loadTags()
-  }, [loadSources, loadTags])
+    loadGroups()
+  }, [loadSources, loadTags, loadGroups])
 
   // Handle toggle active
   const handleToggleActive = async (source: WatchlistSource) => {
@@ -145,6 +231,68 @@ export const SourcesTab: React.FC = () => {
     }
   }
 
+  const handleBulkToggle = async (active: boolean) => {
+    if (selectedSources.length === 0) return
+    setBulkWorking(true)
+    try {
+      const results = await Promise.allSettled(
+        selectedSources.map((source) =>
+          updateWatchlistSource(source.id, { active })
+        )
+      )
+      let successCount = 0
+      results.forEach((result, idx) => {
+        if (result.status === "fulfilled") {
+          updateSourceInList(selectedSources[idx].id, result.value)
+          successCount += 1
+        }
+      })
+      message.success(
+        t(
+          "watchlists:sources.bulkUpdated",
+          "{{count}} sources updated",
+          { count: successCount }
+        )
+      )
+    } catch (err) {
+      console.error("Bulk update failed:", err)
+      message.error(t("watchlists:sources.bulkError", "Bulk update failed"))
+    } finally {
+      setBulkWorking(false)
+      setSelectedRowKeys([])
+    }
+  }
+
+  const handleBulkDelete = async () => {
+    if (selectedSources.length === 0) return
+    setBulkWorking(true)
+    try {
+      const results = await Promise.allSettled(
+        selectedSources.map((source) => deleteWatchlistSource(source.id))
+      )
+      let successCount = 0
+      results.forEach((result, idx) => {
+        if (result.status === "fulfilled") {
+          removeSource(selectedSources[idx].id)
+          successCount += 1
+        }
+      })
+      message.success(
+        t(
+          "watchlists:sources.bulkDeleted",
+          "{{count}} sources deleted",
+          { count: successCount }
+        )
+      )
+    } catch (err) {
+      console.error("Bulk delete failed:", err)
+      message.error(t("watchlists:sources.bulkDeleteError", "Bulk delete failed"))
+    } finally {
+      setBulkWorking(false)
+      setSelectedRowKeys([])
+    }
+  }
+
   // Handle form submit
   const handleFormSubmit = async (
     values: { name: string; url: string; source_type: SourceType; tags: string[] }
@@ -164,6 +312,29 @@ export const SourcesTab: React.FC = () => {
     } catch (err) {
       console.error("Failed to save source:", err)
       message.error(t("watchlists:sources.saveError", "Failed to save source"))
+    }
+  }
+
+  const handleExport = async () => {
+    try {
+      const opml = await exportOpml({
+        tag: selectedTagName ? [selectedTagName] : undefined,
+        group: selectedGroupId ? [selectedGroupId] : undefined,
+        type: selectedTypeFilter || undefined
+      })
+      const blob = new Blob([opml], { type: "application/xml" })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = `watchlists_sources_${Date.now()}.opml`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+      message.success(t("watchlists:sources.exported", "OPML exported"))
+    } catch (err) {
+      console.error("Failed to export OPML:", err)
+      message.error(t("watchlists:sources.exportError", "Failed to export OPML"))
     }
   }
 
@@ -319,7 +490,10 @@ export const SourcesTab: React.FC = () => {
           <Select
             placeholder={t("watchlists:sources.filterByType", "Filter by type")}
             value={selectedTypeFilter}
-            onChange={setSelectedTypeFilter}
+            onChange={(value) => {
+              setSelectedTypeFilter(value)
+              setSourcesPage(1)
+            }}
             allowClear
             className="w-32"
             options={[
@@ -338,6 +512,18 @@ export const SourcesTab: React.FC = () => {
             {t("common:refresh", "Refresh")}
           </Button>
           <Button
+            icon={<Download className="h-4 w-4" />}
+            onClick={handleExport}
+          >
+            {t("watchlists:sources.export", "Export OPML")}
+          </Button>
+          <Button
+            icon={<UploadCloud className="h-4 w-4" />}
+            onClick={() => setImportOpen(true)}
+          >
+            {t("watchlists:sources.import", "Import OPML")}
+          </Button>
+          <Button
             type="primary"
             icon={<Plus className="h-4 w-4" />}
             onClick={() => openSourceForm()}
@@ -347,37 +533,93 @@ export const SourcesTab: React.FC = () => {
         </div>
       </div>
 
-      {/* Table */}
-      <Table
-        dataSource={Array.isArray(sources) ? sources : []}
-        columns={columns}
-        rowKey="id"
-        loading={sourcesLoading}
-        pagination={{
-          current: sourcesPage,
-          pageSize: sourcesPageSize,
-          total: sourcesTotal,
-          showSizeChanger: true,
-          showTotal: (total) =>
-            t("watchlists:sources.totalItems", "{{total}} sources", { total }),
-          onChange: (page, pageSize) => {
-            setSourcesPage(page)
-            if (pageSize !== sourcesPageSize) {
-              setSourcesPageSize(pageSize)
-            }
-          }
-        }}
-        size="middle"
-        scroll={{ x: 800 }}
-      />
+      {selectedRowKeys.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-dashed border-zinc-200 dark:border-zinc-700 p-3 text-sm">
+          <span className="text-zinc-600 dark:text-zinc-300">
+            {t("watchlists:sources.selectedCount", "{{count}} selected", { count: selectedRowKeys.length })}
+          </span>
+          <Button size="small" onClick={() => handleBulkToggle(true)} loading={bulkWorking}>
+            {t("watchlists:sources.bulkEnable", "Enable")}
+          </Button>
+          <Button size="small" onClick={() => handleBulkToggle(false)} loading={bulkWorking}>
+            {t("watchlists:sources.bulkDisable", "Disable")}
+          </Button>
+          <Popconfirm
+            title={t("watchlists:sources.bulkDeleteConfirm", "Delete selected sources?")}
+            onConfirm={handleBulkDelete}
+            okText={t("common:yes", "Yes")}
+            cancelText={t("common:no", "No")}
+          >
+            <Button size="small" danger loading={bulkWorking}>
+              {t("watchlists:sources.bulkDelete", "Delete")}
+            </Button>
+          </Popconfirm>
+          <Button size="small" onClick={() => setSelectedRowKeys([])}>
+            {t("common:clear", "Clear")}
+          </Button>
+        </div>
+      )}
 
-      {/* Source Form Modal */}
+      <div className="flex flex-col gap-4 lg:flex-row">
+        <div className="w-full lg:w-72 shrink-0 space-y-4">
+          <GroupsTree
+            groups={groups}
+            selectedGroupId={selectedGroupId}
+            loading={groupsLoading}
+            onSelect={setSelectedGroupId}
+            onRefresh={loadGroups}
+          />
+        </div>
+
+        <div className="flex-1">
+          <Table
+            dataSource={Array.isArray(sources) ? sources : []}
+            columns={columns}
+            rowKey="id"
+            loading={sourcesLoading}
+            rowSelection={{
+              selectedRowKeys,
+              onChange: setSelectedRowKeys
+            }}
+            pagination={{
+              current: sourcesPage,
+              pageSize: sourcesPageSize,
+              total: sourcesTotal,
+              showSizeChanger: true,
+              showTotal: (total) =>
+                t("watchlists:sources.totalItems", "{{total}} sources", { total }),
+              onChange: (page, pageSize) => {
+                setSourcesPage(page)
+                if (pageSize !== sourcesPageSize) {
+                  setSourcesPageSize(pageSize)
+                }
+              }
+            }}
+            size="middle"
+            scroll={{ x: 800 }}
+          />
+        </div>
+      </div>
+
       <SourceFormModal
         open={sourceFormOpen}
         onClose={closeSourceForm}
         onSubmit={handleFormSubmit}
         initialValues={editingSource}
         existingTags={(Array.isArray(tags) ? tags : []).map((t) => t.name)}
+      />
+
+      <SourcesBulkImport
+        open={importOpen}
+        onClose={() => setImportOpen(false)}
+        groups={groups}
+        tags={tags}
+        defaultGroupId={selectedGroupId}
+        onImported={() => {
+          loadSources()
+          loadTags()
+          loadGroups()
+        }}
       />
     </div>
   )

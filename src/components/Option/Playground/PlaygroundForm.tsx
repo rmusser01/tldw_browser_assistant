@@ -631,6 +631,10 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   }, [form.setFieldValue])
 
   const pendingCaretRef = React.useRef<number | null>(null)
+  const lastDisplaySelectionRef = React.useRef<{
+    start: number
+    end: number
+  } | null>(null)
   const pendingCollapsedStateRef = React.useRef<{
     message: string
     range: CollapsedRange
@@ -1167,11 +1171,44 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         const el = textareaRef.current
         if (!el) return
         const meta = getCollapsedDisplayMeta(message, range)
+        const selection =
+          lastDisplaySelectionRef.current ??
+          (el.selectionStart !== null
+            ? {
+                start: el.selectionStart ?? 0,
+                end: el.selectionEnd ?? el.selectionStart ?? 0
+              }
+            : null)
+        const hasSelection =
+          selection ? selection.start !== selection.end : false
         let caret =
-          options?.caret ??
-          pendingState?.caret ??
-          pendingCaretRef.current ??
-          meta.messageLength
+          options?.caret ?? pendingState?.caret ?? pendingCaretRef.current
+        if (caret === undefined || caret === null) {
+          if (selection && hasSelection) {
+            const start = Math.max(
+              0,
+              Math.min(selection.start, meta.display.length)
+            )
+            const end = Math.max(0, Math.min(selection.end, meta.display.length))
+            el.focus()
+            el.setSelectionRange(start, end)
+            pendingCollapsedStateRef.current = null
+            return
+          }
+          if (selection) {
+            const displayCaret = Math.max(
+              0,
+              Math.min(selection.start, meta.display.length)
+            )
+            const prefer =
+              displayCaret > meta.labelStart && displayCaret < meta.labelEnd
+                ? "after"
+                : undefined
+            caret = getMessageCaretFromDisplay(displayCaret, meta, { prefer })
+          } else {
+            caret = meta.messageLength
+          }
+        }
         if (caret > meta.rangeStart && caret < meta.rangeEnd) {
           caret = meta.rangeEnd
         }
@@ -1196,7 +1233,13 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   React.useEffect(() => {
     if (!isMessageCollapsed || !collapsedRange) return
     if (!pendingCollapsedStateRef.current && pendingCaretRef.current === null) {
-      pendingCaretRef.current = (form.values.message || "").length
+      const el = textareaRef.current
+      if (el) {
+        lastDisplaySelectionRef.current = {
+          start: el.selectionStart ?? 0,
+          end: el.selectionEnd ?? el.selectionStart ?? 0
+        }
+      }
     }
     syncCollapsedCaret()
   }, [
@@ -3511,9 +3554,12 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                             const wasPointer = pointerDownRef.current
                             pointerDownRef.current = false
                             if (wasPointer) return
-                            if (pendingCaretRef.current === null) {
-                              pendingCaretRef.current =
-                                (form.values.message || "").length
+                            const textarea = textareaRef.current
+                            if (pendingCaretRef.current === null && textarea) {
+                              lastDisplaySelectionRef.current = {
+                                start: textarea.selectionStart ?? 0,
+                                end: textarea.selectionEnd ?? textarea.selectionStart ?? 0
+                              }
                             }
                             syncCollapsedCaret()
                           }}
@@ -3549,9 +3595,15 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                             }
                           }}
                           onSelect={() => {
+                            const textarea = textareaRef.current
+                            if (textarea) {
+                              lastDisplaySelectionRef.current = {
+                                start: textarea.selectionStart ?? 0,
+                                end: textarea.selectionEnd ?? textarea.selectionStart ?? 0
+                              }
+                            }
                             if (isMessageCollapsed && collapsedRange) {
                               const message = form.values.message || ""
-                              const textarea = textareaRef.current
                               if (!message || !textarea) return
                               const meta =
                                 collapsedDisplayMeta ??

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import {
   Alert,
   Button,
@@ -10,6 +10,8 @@ import {
   Tabs,
   message
 } from "antd"
+import DOMPurify from "dompurify"
+import { marked } from "marked"
 import { useTranslation } from "react-i18next"
 import {
   createWatchlistTemplate,
@@ -30,37 +32,34 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
 }) => {
   const { t } = useTranslation(["watchlists", "common"])
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [activeTab, setActiveTab] = useState<"editor" | "docs">("editor")
+  const [activeTab, setActiveTab] = useState<"editor" | "preview" | "docs">("editor")
 
   const isEditing = !!template
+  const formatValue = Form.useWatch("format", form)
+  const contentValue = Form.useWatch("content", form)
 
   // Load template content when editing
   useEffect(() => {
     if (open && template) {
-      setLoading(true)
       getWatchlistTemplate(template.name)
         .then((result) => {
           form.setFieldsValue({
             name: result.name,
             description: result.description || "",
             content: result.content || "",
-            output_format: result.output_format || "html"
+            format: result.format || "html"
           })
         })
         .catch((err) => {
           console.error("Failed to load template:", err)
           message.error(t("watchlists:templates.loadError", "Failed to load template"))
         })
-        .finally(() => {
-          setLoading(false)
-        })
     } else if (open) {
       form.resetFields()
       form.setFieldsValue({
-        output_format: "html",
-        content: DEFAULT_TEMPLATE
+        format: "html",
+        content: DEFAULT_HTML_TEMPLATE
       })
     }
   }, [open, template, form, t])
@@ -75,7 +74,8 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
         name: values.name,
         description: values.description || null,
         content: values.content,
-        output_format: values.output_format
+        format: values.format,
+        overwrite: isEditing
       }
 
       await createWatchlistTemplate(payload)
@@ -94,6 +94,28 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
     }
   }
 
+  useEffect(() => {
+    if (!open || isEditing) return
+    const touched = form.isFieldTouched("content")
+    if (touched) return
+    if (formatValue === "md") {
+      form.setFieldsValue({ content: DEFAULT_MARKDOWN_TEMPLATE })
+      return
+    }
+    if (formatValue === "html") {
+      form.setFieldsValue({ content: DEFAULT_HTML_TEMPLATE })
+    }
+  }, [formatValue, form, isEditing, open])
+
+  const previewHtml = useMemo(() => {
+    if (!contentValue) return ""
+    if (formatValue === "md") {
+      const rendered = marked.parse(contentValue)
+      return DOMPurify.sanitize(String(rendered), { USE_PROFILES: { html: true } })
+    }
+    return DOMPurify.sanitize(contentValue, { USE_PROFILES: { html: true } })
+  }, [contentValue, formatValue])
+
   const tabItems = [
     {
       key: "editor",
@@ -111,6 +133,32 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
             style={{ resize: "none" }}
           />
         </Form.Item>
+      )
+    },
+    {
+      key: "preview",
+      label: t("watchlists:templates.preview.tab", "Preview"),
+      children: (
+        <div className="space-y-3">
+          <Alert
+            message={t(
+              "watchlists:templates.preview.note",
+              "Preview shows rendered markup only; Jinja2 logic is not evaluated."
+            )}
+            type="info"
+            showIcon
+          />
+          {previewHtml ? (
+            <div
+              className="prose dark:prose-invert max-w-none p-4 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-auto max-h-96"
+              dangerouslySetInnerHTML={{ __html: previewHtml }}
+            />
+          ) : (
+            <div className="text-sm text-zinc-500">
+              {t("watchlists:templates.preview.empty", "Nothing to preview yet.")}
+            </div>
+          )}
+        </div>
       )
     },
     {
@@ -183,12 +231,12 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
           </Form.Item>
 
           <Form.Item
-            name="output_format"
+            name="format"
             label={t("watchlists:templates.fields.format", "Output Format")}
           >
             <Radio.Group>
               <Radio value="html">HTML</Radio>
-              <Radio value="markdown">Markdown</Radio>
+              <Radio value="md">Markdown</Radio>
             </Radio.Group>
           </Form.Item>
         </div>
@@ -204,7 +252,7 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
 
         <Tabs
           activeKey={activeTab}
-          onChange={(key) => setActiveTab(key as "editor" | "docs")}
+          onChange={(key) => setActiveTab(key as "editor" | "preview" | "docs")}
           items={tabItems}
         />
       </Form>
@@ -213,7 +261,7 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({
 }
 
 // Default template for new templates
-const DEFAULT_TEMPLATE = `<!DOCTYPE html>
+const DEFAULT_HTML_TEMPLATE = `<!DOCTYPE html>
 <html>
 <head>
   <title>{{ job.name }} - {{ generated_at }}</title>
@@ -259,3 +307,34 @@ const DEFAULT_TEMPLATE = `<!DOCTYPE html>
   {% endfor %}
 </body>
 </html>`
+
+const DEFAULT_MARKDOWN_TEMPLATE = `# {{ job.name }}
+
+Generated: {{ generated_at }}
+Items: {{ items | length }}
+
+{% for item in items %}
+## {{ item.title }}
+{{ item.url }}
+
+{% if item.summary %}
+{{ item.summary }}
+{% endif %}
+
+{% if item.author %}
+- Author: {{ item.author }}
+{% endif %}
+{% if item.published_at %}
+- Published: {{ item.published_at }}
+{% endif %}
+{% if item.source %}
+- Source: {{ item.source.name }}
+{% endif %}
+
+{% if item.filter_matches %}
+Matched filters: {{ item.filter_matches | join(", ") }}
+{% endif %}
+
+---
+{% endfor %}
+`

@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import {
   Button,
-  Popconfirm,
+  Input,
+  Modal,
   Select,
   Space,
   Table,
@@ -10,15 +11,17 @@ import {
   message
 } from "antd"
 import type { ColumnsType } from "antd/es/table"
-import { Download, Eye, RefreshCw, Trash2 } from "lucide-react"
+import { Download, Eye, RefreshCw, RotateCcw } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useWatchlistsStore } from "@/store/watchlists"
 import {
+  createWatchlistOutput,
   fetchWatchlistJobs,
   fetchWatchlistOutputs,
+  fetchWatchlistTemplates,
   downloadWatchlistOutput
 } from "@/services/watchlists"
-import type { WatchlistOutput } from "@/types/watchlists"
+import type { WatchlistJob, WatchlistOutput, WatchlistTemplate } from "@/types/watchlists"
 import { formatRelativeTime } from "@/utils/dateFormatters"
 import { OutputPreviewDrawer } from "./OutputPreviewDrawer"
 
@@ -34,7 +37,6 @@ export const OutputsTab: React.FC = () => {
   const outputsJobFilter = useWatchlistsStore((s) => s.outputsJobFilter)
   const outputPreviewOpen = useWatchlistsStore((s) => s.outputPreviewOpen)
   const selectedOutputId = useWatchlistsStore((s) => s.selectedOutputId)
-  const jobs = useWatchlistsStore((s) => s.jobs)
 
   // Store actions
   const setOutputs = useWatchlistsStore((s) => s.setOutputs)
@@ -44,7 +46,15 @@ export const OutputsTab: React.FC = () => {
   const setOutputsJobFilter = useWatchlistsStore((s) => s.setOutputsJobFilter)
   const openOutputPreview = useWatchlistsStore((s) => s.openOutputPreview)
   const closeOutputPreview = useWatchlistsStore((s) => s.closeOutputPreview)
-  const setJobs = useWatchlistsStore((s) => s.setJobs)
+
+  const [jobs, setJobs] = useState<WatchlistJob[]>([])
+  const [regenOpen, setRegenOpen] = useState(false)
+  const [regenOutput, setRegenOutput] = useState<WatchlistOutput | null>(null)
+  const [templates, setTemplates] = useState<WatchlistTemplate[]>([])
+  const [templatesLoading, setTemplatesLoading] = useState(false)
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null)
+  const [customTitle, setCustomTitle] = useState("")
+  const [regenLoading, setRegenLoading] = useState(false)
 
   // Fetch outputs
   const loadOutputs = useCallback(async () => {
@@ -52,9 +62,8 @@ export const OutputsTab: React.FC = () => {
     try {
       const result = await fetchWatchlistOutputs({
         job_id: outputsJobFilter || undefined,
-        expired: false,
-        limit: outputsPageSize,
-        offset: (outputsPage - 1) * outputsPageSize
+        page: outputsPage,
+        size: outputsPageSize
       })
       setOutputs(result.items, result.total)
     } catch (err) {
@@ -68,18 +77,37 @@ export const OutputsTab: React.FC = () => {
   // Load jobs for filter dropdown
   const loadJobs = useCallback(async () => {
     try {
-      const result = await fetchWatchlistJobs({ limit: 100 })
-      setJobs(result.items, result.total)
+      const result = await fetchWatchlistJobs({ page: 1, size: 200 })
+      setJobs(result.items || [])
     } catch (err) {
       console.error("Failed to fetch jobs:", err)
     }
-  }, [setJobs])
+  }, [])
 
   // Initial load
   useEffect(() => {
     loadOutputs()
     loadJobs()
   }, [loadOutputs, loadJobs])
+
+  const loadTemplates = useCallback(async () => {
+    setTemplatesLoading(true)
+    try {
+      const result = await fetchWatchlistTemplates()
+      setTemplates(Array.isArray(result.items) ? result.items : [])
+    } catch (err) {
+      console.error("Failed to fetch templates:", err)
+      setTemplates([])
+    } finally {
+      setTemplatesLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (regenOpen) {
+      loadTemplates()
+    }
+  }, [regenOpen, loadTemplates])
 
   // Get job name by ID
   const getJobName = useCallback(
@@ -93,7 +121,9 @@ export const OutputsTab: React.FC = () => {
   // Handle download
   const handleDownload = async (output: WatchlistOutput) => {
     try {
-      const blob = await downloadWatchlistOutput(output.id)
+      const content = await downloadWatchlistOutput(output.id)
+      const mimeType = output.format === "html" ? "text/html" : "text/markdown"
+      const blob = new Blob([content], { type: mimeType })
       const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
       a.href = url
@@ -106,6 +136,34 @@ export const OutputsTab: React.FC = () => {
     } catch (err) {
       console.error("Failed to download output:", err)
       message.error(t("watchlists:outputs.downloadError", "Failed to download output"))
+    }
+  }
+
+  const openRegenerate = (output: WatchlistOutput) => {
+    setRegenOutput(output)
+    setSelectedTemplate(null)
+    setCustomTitle(output.title || "")
+    setRegenOpen(true)
+  }
+
+  const handleRegenerate = async () => {
+    if (!regenOutput) return
+    setRegenLoading(true)
+    try {
+      await createWatchlistOutput({
+        run_id: regenOutput.run_id,
+        title: customTitle || undefined,
+        template_name: selectedTemplate || undefined,
+        type: regenOutput.type || undefined
+      })
+      message.success(t("watchlists:outputs.regenerated", "Output regenerated"))
+      setRegenOpen(false)
+      loadOutputs()
+    } catch (err) {
+      console.error("Failed to regenerate output:", err)
+      message.error(t("watchlists:outputs.regenerateError", "Failed to regenerate output"))
+    } finally {
+      setRegenLoading(false)
     }
   }
 
@@ -136,6 +194,15 @@ export const OutputsTab: React.FC = () => {
         <span className="text-sm text-zinc-600 dark:text-zinc-400">
           {getJobName(record.job_id)}
         </span>
+      )
+    },
+    {
+      title: t("watchlists:outputs.columns.run", "Run"),
+      dataIndex: "run_id",
+      key: "run_id",
+      width: 100,
+      render: (runId: number) => (
+        <span className="text-sm text-zinc-500">#{runId}</span>
       )
     },
     {
@@ -182,7 +249,7 @@ export const OutputsTab: React.FC = () => {
     {
       title: t("watchlists:outputs.columns.actions", "Actions"),
       key: "actions",
-      width: 100,
+      width: 140,
       align: "center",
       render: (_, record) => (
         <Space size="small">
@@ -200,6 +267,14 @@ export const OutputsTab: React.FC = () => {
               size="small"
               icon={<Download className="h-4 w-4" />}
               onClick={() => handleDownload(record)}
+            />
+          </Tooltip>
+          <Tooltip title={t("watchlists:outputs.regenerate", "Regenerate")}>
+            <Button
+              type="text"
+              size="small"
+              icon={<RotateCcw className="h-4 w-4" />}
+              onClick={() => openRegenerate(record)}
             />
           </Tooltip>
         </Space>
@@ -268,6 +343,46 @@ export const OutputsTab: React.FC = () => {
         open={outputPreviewOpen}
         onClose={closeOutputPreview}
       />
+
+      <Modal
+        title={t("watchlists:outputs.regenerateTitle", "Regenerate Output")}
+        open={regenOpen}
+        onCancel={() => setRegenOpen(false)}
+        onOk={handleRegenerate}
+        okText={t("watchlists:outputs.regenerate", "Regenerate")}
+        cancelText={t("common:cancel", "Cancel")}
+        confirmLoading={regenLoading}
+      >
+        <div className="space-y-3">
+          <div>
+            <div className="text-xs font-medium text-zinc-500 mb-1">
+              {t("watchlists:outputs.templateLabel", "Template")}
+            </div>
+            <Select
+              value={selectedTemplate ?? undefined}
+              onChange={(value) => setSelectedTemplate(value ?? null)}
+              placeholder={t("watchlists:outputs.templatePlaceholder", "Select a template")}
+              options={templates.map((template) => ({
+                label: template.name,
+                value: template.name
+              }))}
+              loading={templatesLoading}
+              allowClear
+              className="w-full"
+            />
+          </div>
+          <div>
+            <div className="text-xs font-medium text-zinc-500 mb-1">
+              {t("watchlists:outputs.titleLabel", "Title")}
+            </div>
+            <Input
+              value={customTitle}
+              onChange={(e) => setCustomTitle(e.target.value)}
+              placeholder={t("watchlists:outputs.titlePlaceholder", "Optional title override")}
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

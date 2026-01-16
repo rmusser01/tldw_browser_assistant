@@ -2710,5 +2710,11 @@
   },
   "quickIngest_videoCaptionsLabel": {
     "message": "Captions"
+  },
+  "header_modeWatchlists": {
+    "message": "Watchlists"
+  },
+  "header_modeKanban": {
+    "message": "Kanban Playground"
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button, Input, Select, Space } from "antd"
 import { Clock } from "lucide-react"
 import { useTranslation } from "react-i18next"
@@ -49,13 +49,12 @@ export const SchedulePicker: React.FC<SchedulePickerProps> = ({
   onTimezoneChange
 }) => {
   const { t } = useTranslation(["watchlists"])
-  const [customMode, setCustomMode] = useState(false)
   const [customCron, setCustomCron] = useState(value || "")
-
-  const isPreset = PRESETS.some((p) => p.cron === value)
+  useEffect(() => {
+    setCustomCron(value || "")
+  }, [value])
 
   const handlePresetClick = (cron: string) => {
-    setCustomMode(false)
     onChange(cron)
   }
 
@@ -71,7 +70,6 @@ export const SchedulePicker: React.FC<SchedulePickerProps> = ({
 
   const handleClear = () => {
     setCustomCron("")
-    setCustomMode(false)
     onChange(null)
   }
 

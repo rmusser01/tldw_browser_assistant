@@ -23,6 +23,7 @@ import {
   Signpost,
   FileText,
   Rss,
+  Kanban,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -202,6 +203,12 @@ export function HeaderShortcuts({
             to: "/chunking-playground",
             icon: Scissors,
             label: t("settings:chunkingPlayground.nav", "Chunking Playground"),
+          },
+          {
+            type: "link" as const,
+            to: "/kanban",
+            icon: Kanban,
+            label: t("option:header.modeKanban", "Kanban Playground"),
           },
           {
             type: "link" as const,

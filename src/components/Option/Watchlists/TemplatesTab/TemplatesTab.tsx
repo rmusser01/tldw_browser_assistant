@@ -40,7 +40,7 @@ export const TemplatesTab: React.FC = () => {
     setTemplatesLoading(true)
     try {
       const result = await fetchWatchlistTemplates()
-      setTemplates(Array.isArray(result) ? result : [])
+      setTemplates(Array.isArray(result.items) ? result.items : [])
     } catch (err) {
       console.error("Failed to fetch templates:", err)
       message.error(t("watchlists:templates.fetchError", "Failed to load templates"))
@@ -115,11 +115,11 @@ export const TemplatesTab: React.FC = () => {
     },
     {
       title: t("watchlists:templates.columns.format", "Format"),
-      dataIndex: "output_format",
-      key: "output_format",
+      dataIndex: "format",
+      key: "format",
       width: 100,
       render: (format: string) => (
-        <span className="text-sm uppercase">{format || "html"}</span>
+        <span className="text-sm uppercase">{format || "md"}</span>
       )
     },
     {

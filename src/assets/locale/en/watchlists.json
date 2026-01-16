@@ -32,12 +32,41 @@
     "disabled": "Source disabled",
     "deleteConfirm": "Delete this source?",
     "never": "Never",
+    "groupFilterError": "Failed to load group filter",
+    "export": "Export OPML",
+    "exported": "OPML exported",
+    "exportError": "Failed to export OPML",
+    "import": "Import OPML",
+    "importTitle": "Import OPML",
+    "importDrop": "Drop OPML file here or click to upload",
+    "importHint": "Supports standard OPML exports",
+    "imported": "OPML imported",
+    "importError": "Failed to import OPML",
+    "importGroup": "Assign Group",
+    "importGroupPlaceholder": "None",
+    "importTags": "Apply Tags",
+    "importTagsPlaceholder": "Select tags",
+    "importActive": "Set Active",
+    "importSummary": "Import Summary",
+    "importSummaryDesc": "{{created}} created, {{skipped}} skipped, {{errors}} errors",
+    "selectedCount": "{{count}} selected",
+    "bulkEnable": "Enable",
+    "bulkDisable": "Disable",
+    "bulkDelete": "Delete",
+    "bulkDeleteConfirm": "Delete selected sources?",
+    "bulkUpdated": "{{count}} sources updated",
+    "bulkDeleted": "{{count}} sources deleted",
+    "bulkDeleteError": "Bulk delete failed",
+    "bulkError": "Bulk update failed",
     "columns": {
       "name": "Name",
+      "url": "URL",
       "type": "Type",
       "tags": "Tags",
       "lastScraped": "Last Scraped",
       "active": "Active",
+      "status": "Status",
+      "error": "Error",
       "actions": "Actions"
     },
     "types": {
@@ -59,6 +88,26 @@
       "tags": "Tags",
       "tagsPlaceholder": "Add or select tags",
       "tagsHelp": "Add tags to organize and filter your sources"
+    }
+  },
+  "groups": {
+    "title": "Groups",
+    "all": "All Sources",
+    "create": "Create Group",
+    "created": "Group created",
+    "createError": "Failed to create group",
+    "deleteConfirm": "Delete this group?",
+    "deleted": "Group deleted",
+    "deleteError": "Failed to delete group",
+    "empty": "No groups yet",
+    "nameRequired": "Please enter a name",
+    "namePlaceholder": "News Sources",
+    "descriptionPlaceholder": "Optional description",
+    "none": "None",
+    "fields": {
+      "name": "Name",
+      "description": "Description",
+      "parent": "Parent Group"
     }
   },
   "jobs": {
@@ -113,6 +162,18 @@
       "sourcesHelp": "Job will fetch from selected sources directly",
       "groupsHelp": "Job will fetch from all sources in selected groups",
       "tagsHelp": "Job will fetch from all sources with selected tags"
+    },
+    "preview": {
+      "button": "Preview",
+      "title": "Job Preview",
+      "summary": "{{total}} candidates: {{ingestable}} ingestable, {{filtered}} filtered",
+      "empty": "No preview data available",
+      "columns": {
+        "title": "Title",
+        "decision": "Decision",
+        "action": "Action",
+        "source": "Source"
+      }
     }
   },
   "filters": {
@@ -166,7 +227,21 @@
       "logs": "Logs",
       "items": "Scraped Items",
       "noLogs": "No logs available",
-      "noItems": "No items found"
+      "noItems": "No items found",
+      "itemsError": "Failed to load items",
+      "itemsUpdateError": "Failed to update item",
+      "itemsUntitled": "Untitled",
+      "logsTruncated": "Logs truncated",
+      "logsTruncatedDesc": "Showing the most recent log output.",
+      "logsPath": "Logs stored at {{path}}",
+      "itemsColumns": {
+        "title": "Title",
+        "status": "Status",
+        "reviewed": "Reviewed",
+        "source": "Source",
+        "published": "Published",
+        "created": "Ingested"
+      }
     }
   },
   "outputs": {
@@ -183,9 +258,18 @@
     "openInNewTab": "Open in new tab",
     "rendered": "Rendered",
     "source": "Source",
+    "regenerate": "Regenerate",
+    "regenerated": "Output regenerated",
+    "regenerateError": "Failed to regenerate output",
+    "regenerateTitle": "Regenerate Output",
+    "templateLabel": "Template",
+    "templatePlaceholder": "Select a template",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Optional title override",
     "columns": {
       "title": "Title",
       "job": "Job",
+      "run": "Run",
       "format": "Format",
       "created": "Created",
       "expires": "Expires",
@@ -230,6 +314,11 @@
     "editor": {
       "tab": "Editor"
     },
+    "preview": {
+      "tab": "Preview",
+      "note": "Preview shows rendered markup only; Jinja2 logic is not evaluated.",
+      "empty": "Nothing to preview yet."
+    },
     "docs": {
       "tab": "Variables",
       "title": "Available Variables",
@@ -244,25 +333,26 @@
     "unavailable": "Settings unavailable",
     "unavailableDesc": "Could not load server settings. Make sure the server is running.",
     "ttl": {
-      "title": "Data Retention",
-      "items": "Items TTL",
-      "runs": "Runs TTL",
-      "outputs": "Outputs TTL",
+      "title": "Output Retention",
+      "defaultOutput": "Default Output TTL",
+      "temporaryOutput": "Temporary Output TTL",
       "note": "TTL values are configured on the server."
     },
-    "stats": {
-      "title": "Database Statistics",
-      "sources": "Sources",
-      "jobs": "Jobs",
-      "runs": "Total Runs",
-      "items": "Total Items"
-    },
-    "scheduler": {
-      "title": "Scheduler",
-      "status": "Status",
-      "running": "Running",
-      "stopped": "Stopped",
-      "pendingJobs": "Pending Jobs"
+    "clusters": {
+      "title": "Claim Clusters",
+      "jobPlaceholder": "Select job",
+      "searchPlaceholder": "Search clusters",
+      "selectJob": "Select a job to manage cluster subscriptions.",
+      "fetchError": "Failed to load claim clusters",
+      "updateError": "Failed to update cluster subscription",
+      "empty": "No clusters found",
+      "idLabel": "ID {{id}}",
+      "columns": {
+        "cluster": "Cluster",
+        "members": "Members",
+        "updated": "Updated",
+        "subscribed": "Subscribed"
+      }
     }
   }
 }

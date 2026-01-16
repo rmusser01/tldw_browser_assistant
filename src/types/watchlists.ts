@@ -26,10 +26,11 @@ export interface WatchlistSource {
 export interface WatchlistSourceCreate {
   name: string
   url: string
-  source_type?: SourceType
+  source_type: SourceType
   active?: boolean
   tags?: string[]
   settings?: Record<string, unknown>
+  group_ids?: number[]
 }
 
 export interface WatchlistSourceUpdate {
@@ -39,6 +40,7 @@ export interface WatchlistSourceUpdate {
   active?: boolean
   tags?: string[]
   settings?: Record<string, unknown>
+  group_ids?: number[]
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -180,9 +182,18 @@ export interface WatchlistRun {
 }
 
 export interface RunDetailResponse {
-  run: WatchlistRun
-  logs?: string[]
-  filter_tallies?: Record<string, number>
+  id: number
+  job_id: number
+  status: string
+  started_at?: string | null
+  finished_at?: string | null
+  stats: Record<string, number>
+  filter_tallies?: Record<string, number> | null
+  error_msg?: string | null
+  log_text?: string | null
+  log_path?: string | null
+  truncated?: boolean
+  filtered_sample?: Array<Record<string, unknown>> | null
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -238,16 +249,33 @@ export interface WatchlistOutput {
 }
 
 export interface WatchlistOutputCreate {
-  run_id?: number
+  run_id: number
   item_ids?: number[]
-  template_name?: string
   title?: string
-  delivery_config?: {
-    email_recipients?: string[]
-    email_format?: "auto" | "text" | "html"
-    create_chatbook?: boolean
-  }
+  type?: string
+  format?: OutputFormat
+  metadata?: Record<string, unknown>
+  template_name?: string
   retention_seconds?: number
+  temporary?: boolean
+  deliveries?: {
+    email?: {
+      recipients?: string[]
+      format?: "auto" | "text" | "html"
+      subject?: string
+      sender?: string
+      reply_to?: string
+    }
+    chatbook?: {
+      enabled?: boolean
+      title?: string
+      description?: string
+      conversation_id?: number
+      provider?: string
+      model?: string
+      metadata?: Record<string, unknown>
+    }
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -257,9 +285,8 @@ export interface WatchlistOutputCreate {
 export interface WatchlistTemplate {
   name: string
   description?: string | null
-  content: string
-  output_format?: "html" | "markdown"
-  created_at?: string
+  content?: string
+  format: "md" | "html"
   updated_at?: string | null
 }
 
@@ -267,7 +294,8 @@ export interface WatchlistTemplateCreate {
   name: string
   description?: string | null
   content: string
-  output_format?: "html" | "markdown"
+  format?: "md" | "html"
+  overwrite?: boolean
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -282,14 +310,8 @@ export interface WatchlistSettingsStats {
 }
 
 export interface WatchlistSettings {
-  default_ttl_seconds?: number
-  temporary_ttl_seconds?: number
-  items_ttl_hours?: number
-  runs_ttl_hours?: number
-  outputs_ttl_hours?: number
-  scheduler_running?: boolean
-  pending_jobs_count?: number
-  stats?: WatchlistSettingsStats
+  default_output_ttl_seconds?: number
+  temporary_output_ttl_seconds?: number
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -298,8 +320,16 @@ export interface WatchlistSettings {
 
 export interface ClaimCluster {
   id: number
-  name: string
-  description?: string | null
+  canonical_claim_text?: string | null
+  summary?: string | null
+  member_count?: number
+  updated_at?: string | null
+  watchlist_count?: number
+}
+
+export interface WatchlistClusterSubscription {
+  cluster_id: number
+  created_at?: string | null
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -309,19 +339,37 @@ export interface ClaimCluster {
 export interface PaginatedResponse<T> {
   items: T[]
   total: number
-  offset?: number
-  limit?: number
+  page?: number
+  size?: number
+  has_more?: boolean
 }
 
-export interface BulkCreateResult {
+export interface SourcesBulkCreateItem {
+  name?: string | null
+  url: string
+  id?: number | null
+  status: "created" | "error"
+  error?: string | null
+}
+
+export interface SourcesBulkCreateResponse {
+  items: SourcesBulkCreateItem[]
+  total: number
   created: number
-  errors: Array<{ index: number; error: string }>
+  errors: number
 }
 
-export interface OpmlImportResult {
-  imported: number
-  skipped: number
-  errors: Array<{ url: string; error: string }>
+export interface SourcesImportItem {
+  url: string
+  name?: string | null
+  id?: number | null
+  status: "created" | "skipped" | "error"
+  error?: string | null
+}
+
+export interface SourcesImportResponse {
+  items: SourcesImportItem[]
+  total: number
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -329,16 +377,23 @@ export interface OpmlImportResult {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface PreviewItem {
-  url: string
-  title?: string
-  published_at?: string
-  decision: "include" | "exclude" | "flag"
-  matched_filter?: WatchlistFilter
+  source_id: number
+  source_type: SourceType
+  url?: string | null
+  title?: string | null
+  summary?: string | null
+  published_at?: string | null
+  decision: "ingest" | "filtered"
+  matched_action: "include" | "exclude" | "flag"
+  matched_filter_key?: string | null
+  flagged?: boolean
 }
 
 export interface JobPreviewResult {
-  candidates: PreviewItem[]
-  filter_tallies: Record<string, number>
+  items: PreviewItem[]
+  total: number
+  ingestable: number
+  filtered: number
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -43,13 +43,13 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = ({
       setLoading(true)
       try {
         const [sourcesRes, groupsRes, tagsRes] = await Promise.all([
-          fetchWatchlistSources({ limit: 500 }),
-          fetchWatchlistGroups(),
-          fetchWatchlistTags()
+          fetchWatchlistSources({ page: 1, size: 500 }),
+          fetchWatchlistGroups({ page: 1, size: 200 }),
+          fetchWatchlistTags({ page: 1, size: 200 })
         ])
-        setSources(sourcesRes.items)
-        setGroups(groupsRes)
-        setTags(tagsRes)
+        setSources(sourcesRes.items || [])
+        setGroups(groupsRes.items || [])
+        setTags(tagsRes.items || [])
       } catch (err) {
         console.error("Failed to load scope data:", err)
       } finally {
@@ -59,24 +59,21 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = ({
     loadData()
   }, [])
 
-  // Handle mode change - clear other selections
+  // Sync active tab when value changes
+  useEffect(() => {
+    setActiveMode(getActiveMode())
+  }, [value])
+
+  // Handle mode change
   const handleModeChange = (mode: string) => {
     setActiveMode(mode as ScopeMode)
-    // Clear scope when switching modes
-    onChange({
-      sources: mode === "sources" ? value.sources : undefined,
-      groups: mode === "groups" ? value.groups : undefined,
-      tags: mode === "tags" ? value.tags : undefined
-    })
   }
 
   // Handle source selection
   const handleSourcesChange = (sourceIds: number[]) => {
     onChange({
       ...value,
-      sources: sourceIds.length > 0 ? sourceIds : undefined,
-      groups: undefined,
-      tags: undefined
+      sources: sourceIds.length > 0 ? sourceIds : undefined
     })
   }
 
@@ -84,9 +81,7 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = ({
   const handleGroupsChange = (groupIds: number[]) => {
     onChange({
       ...value,
-      sources: undefined,
-      groups: groupIds.length > 0 ? groupIds : undefined,
-      tags: undefined
+      groups: groupIds.length > 0 ? groupIds : undefined
     })
   }
 
@@ -94,8 +89,6 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = ({
   const handleTagsChange = (tagNames: string[]) => {
     onChange({
       ...value,
-      sources: undefined,
-      groups: undefined,
       tags: tagNames.length > 0 ? tagNames : undefined
     })
   }

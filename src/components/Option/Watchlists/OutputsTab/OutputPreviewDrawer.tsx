@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import {
   Button,
   Drawer,
@@ -9,8 +9,9 @@ import {
   message
 } from "antd"
 import { Download, ExternalLink } from "lucide-react"
+import DOMPurify from "dompurify"
 import { useTranslation } from "react-i18next"
-import { getWatchlistOutputContent, downloadWatchlistOutput } from "@/services/watchlists"
+import { downloadWatchlistOutput } from "@/services/watchlists"
 import type { WatchlistOutput } from "@/types/watchlists"
 
 interface OutputPreviewDrawerProps {
@@ -35,10 +36,8 @@ export const OutputPreviewDrawer: React.FC<OutputPreviewDrawerProps> = ({
     if (open && output) {
       setLoading(true)
       setError(null)
-      getWatchlistOutputContent(output.id)
-        .then((result) => {
-          setContent(result)
-        })
+      downloadWatchlistOutput(output.id)
+        .then((result) => setContent(result))
         .catch((err) => {
           console.error("Failed to fetch output content:", err)
           setError(err.message || "Failed to load content")
@@ -56,7 +55,9 @@ export const OutputPreviewDrawer: React.FC<OutputPreviewDrawerProps> = ({
   const handleDownload = async () => {
     if (!output) return
     try {
-      const blob = await downloadWatchlistOutput(output.id)
+      const content = await downloadWatchlistOutput(output.id)
+      const mimeType = output.format === "html" ? "text/html" : "text/markdown"
+      const blob = new Blob([content], { type: mimeType })
       const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
       a.href = url
@@ -72,10 +73,16 @@ export const OutputPreviewDrawer: React.FC<OutputPreviewDrawerProps> = ({
     }
   }
 
+  const sanitizedHtml = useMemo(() => {
+    if (!content) return null
+    return DOMPurify.sanitize(content, { USE_PROFILES: { html: true } })
+  }, [content])
+
   // Open in new tab (for HTML)
   const handleOpenInNewTab = () => {
     if (!content || output?.format !== "html") return
-    const blob = new Blob([content], { type: "text/html" })
+    const safeHtml = sanitizedHtml || content
+    const blob = new Blob([safeHtml], { type: "text/html" })
     const url = URL.createObjectURL(blob)
     window.open(url, "_blank")
     // Clean up after a delay
@@ -138,7 +145,7 @@ export const OutputPreviewDrawer: React.FC<OutputPreviewDrawerProps> = ({
           {output?.format === "html" && viewMode === "rendered" ? (
             <div
               className="prose dark:prose-invert max-w-none p-4 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-auto max-h-[calc(100vh-200px)]"
-              dangerouslySetInnerHTML={{ __html: content }}
+              dangerouslySetInnerHTML={{ __html: sanitizedHtml || "" }}
             />
           ) : output?.format === "html" && viewMode === "source" ? (
             <pre className="p-4 bg-zinc-900 text-zinc-100 rounded-lg font-mono text-xs overflow-auto max-h-[calc(100vh-200px)] whitespace-pre-wrap">
