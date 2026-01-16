@@ -138,7 +138,9 @@
     "troubleshoot": "സെർവർ പ്രവർത്തിക്കുന്നുണ്ടെന്ന് ഉറപ്പാക്കി ബ്രൗസറിന് എത്തിച്ചേരാൻ അനുമതിയുണ്ടോ പരിശോധിച്ച് Options പേജിൽ നിന്ന് വീണ്ടും ശ്രമിക്കുക."
   },
   "errors": {
-    "privateModeDescription": "Firefox സ്വകാര്യ മോഡിൽ ചാറ്റ് സംരക്ഷണം പിന്തുണയ്ക്കുന്നില്ല. താൽക്കാലിക ചാറ്റ് സ്ഥിരമായി ഓണാണ്. കൂടുതൽ മെച്ചപ്പെടുത്തലുകൾ വരുന്നു."
+    "privateModeDescription": "Firefox സ്വകാര്യ മോഡിൽ ചാറ്റ് സംരക്ഷണം പിന്തുണയ്ക്കുന്നില്ല. താൽക്കാലിക ചാറ്റ് സ്ഥിരമായി ഓണാണ്. കൂടുതൽ മെച്ചപ്പെടുത്തലുകൾ വരുന്നു.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "പിശക്",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "ഇതുവരെ മീഡിയ & കുറിപ്പുകൾ ഒന്നും തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല.",
     "addKnowledge": "മീഡിയ & കുറിപ്പുകൾ ചേർക്കുക",
     "contextTabsTitle": "സന്ദർഭത്തിലുള്ള ടാബുകൾ",
+    "contextTabsAvailable": "തുറന്ന ടാബുകൾ",
+    "noTabsFound": "യോഗ്യമായ തുറന്ന ടാബുകൾ കണ്ടെത്തിയില്ല.",
+    "contextTabsEmpty": "ഇതുവരെ ടാബുകൾ തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല.",
+    "contextFilesTitle": "കോൺടെക്സ്റ്റിലുള്ള ഫയലുകൾ",
+    "contextFilesEmpty": "ഇതുവരെ ഫയലുകൾ അറ്റാച്ച് ചെയ്തിട്ടില്ല.",
+    "addFile": "ഫയൽ ചേർക്കുക",
     "contextTabsHint": "റഫറൻസ് ചെയ്ത ടാബുകൾ പരിശോധിച്ച് നീക്കുക, അല്ലെങ്കിൽ തുറന്നിരിക്കുന്ന ബ്രൗസർ ടാബുകളിൽ നിന്ന് കൂടുതൽ ചേർക്കുക.",
     "contextManager": "സന്ദർഭ മാനേജ്മെന്റ്",
     "contextManagerTitle": "സന്ദർഭ മാനേജ്മെന്റ്",

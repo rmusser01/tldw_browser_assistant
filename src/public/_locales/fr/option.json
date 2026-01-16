@@ -960,7 +960,7 @@
     "message": "Fichier trop volumineux"
   },
   "upload_fileTooLargeDescription": {
-    "message": "La taille du fichier doit être inférieure à 10 Mo"
+    "message": "La taille du fichier doit être inférieure à {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Échec du téléversement"
@@ -1813,5 +1813,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

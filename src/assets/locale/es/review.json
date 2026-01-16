@@ -323,6 +323,8 @@
     "connectDescription": "Conéctate a tu servidor tldw en Ajustes para enviar mensajes y ver medios. Después de conectar, las grabaciones y documentos procesados se listarán aquí.",
     "connectExample1": "Abre Ajustes → tldw server para añadir la URL de tu servidor.",
     "connectExample2": "Una vez conectado, usa Quick ingest en el encabezado para añadir medios desde tus grabaciones y archivos.",
+    "apiOfflineTitle": "La API de Media no está disponible sin conexión",
+    "serverOfflineTitle": "Servidor sin conexión",
     "offlineTitle": "Media Review aún no está disponible en este servidor",
     "offlineDescription": "Este espacio de trabajo depende del soporte de Media Review en tu servidor tldw. Puedes seguir usando chat, notas y otras herramientas mientras actualizas a una versión que incluya Media.",
     "offlineExample1": "Abre Diagnostics para confirmar la versión de tu servidor y las API disponibles.",

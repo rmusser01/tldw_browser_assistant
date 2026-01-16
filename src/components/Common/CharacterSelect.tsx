@@ -4,9 +4,17 @@ import { UserCircle2 } from "lucide-react"
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTranslation } from "react-i18next"
+import { browser } from "wxt/browser"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { IconButton } from "./IconButton"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { useAntdModal } from "@/hooks/useAntdModal"
+import { useConfirmModal } from "@/hooks/useConfirmModal"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import { collectGreetings } from "@/utils/character-greetings"
+import { createImageDataUrl } from "@/utils/image-utils"
+import { useClearChat } from "@/hooks/chat/useClearChat"
+import { useStoreMessageOption } from "@/store/option"
 
 type Props = {
   className?: string
@@ -27,7 +35,26 @@ type CharacterSummary = {
   instructions?: string
   greeting?: string
   first_message?: string
+  firstMessage?: string
   greet?: string
+  alternate_greetings?: string[] | string | null
+  alternateGreetings?: string[] | string | null
+}
+
+type ImportedCharacterResponse = {
+  character?: CharacterSummary
+  id?: string | number
+  name?: string
+  message?: string
+}
+
+type ImageOnlyErrorDetail = {
+  code?: string
+  message?: string
+}
+
+type ImportError = Error & {
+  details?: ImageOnlyErrorDetail | { detail?: ImageOnlyErrorDetail }
 }
 
 type CharacterSelection = {
@@ -35,25 +62,29 @@ type CharacterSelection = {
   name: string
   system_prompt: string
   greeting: string
+  alternate_greetings?: string[]
   avatar_url: string
 }
 
-const normalizeCharacter = (character: CharacterSummary): CharacterSelection => {
+const normalizeCharacter = (
+  character: CharacterSummary
+): CharacterSelection | null => {
   const idSource =
     character.id ?? character.slug ?? character.name ?? character.title ?? ""
   const nameSource = character.name ?? character.title ?? character.slug ?? ""
 
   if (!idSource || !nameSource) {
-    throw new Error("Character must have a valid id and name")
+    return null
   }
 
   const avatar =
     character.avatar_url ||
     (character.image_base64
-      ? `data:${character.image_mime || "image/png"};base64,${
-          character.image_base64
-        }`
+      ? createImageDataUrl(character.image_base64) || ""
       : "")
+
+  const greetings = collectGreetings(character)
+  const [primaryGreeting, ...alternateGreetings] = greetings
 
   return {
     id: String(idSource),
@@ -63,8 +94,10 @@ const normalizeCharacter = (character: CharacterSummary): CharacterSelection => 
       character.systemPrompt ||
       character.instructions ||
       "",
-    greeting:
-      character.greeting || character.first_message || character.greet || "",
+    // Keep greeting deterministic; choose a randomized greeting at injection time.
+    greeting: primaryGreeting ?? "",
+    alternate_greetings:
+      alternateGreetings.length > 0 ? alternateGreetings : undefined,
     avatar_url: avatar
   }
 }
@@ -76,16 +109,31 @@ export const CharacterSelect: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(["option", "common", "settings", "playground"])
   const notification = useAntdNotification()
-  const [selectedCharacter, setSelectedCharacter] = useStorage<
-    CharacterSelection | null
-  >(
-    "selectedCharacter",
-    null
+  const modal = useAntdModal()
+  const confirmWithModal = useConfirmModal()
+  const [selectedCharacter, setSelectedCharacter] =
+    useSelectedCharacter<CharacterSelection | null>(null)
+  const clearChat = useClearChat()
+  const messages = useStoreMessageOption((state) => state.messages)
+  const serverChatId = useStoreMessageOption((state) => state.serverChatId)
+  const [userDisplayName, setUserDisplayName] = useStorage(
+    "chatUserDisplayName",
+    ""
   )
   const previousCharacterId = React.useRef<string | null>(null)
+  const latestSelectionIdRef = React.useRef<string | null>(null)
   const initialized = React.useRef(false)
   const lastErrorRef = React.useRef<unknown | null>(null)
   const importInputRef = React.useRef<HTMLInputElement | null>(null)
+  const imageOnlyModalRef = React.useRef<ReturnType<typeof modal.confirm> | null>(
+    null
+  )
+  const displayNameModalRef = React.useRef<ReturnType<typeof modal.confirm> | null>(
+    null
+  )
+  const confirmResolveRef = React.useRef<((confirmed: boolean) => void) | null>(
+    null
+  )
   const [isImporting, setIsImporting] = React.useState(false)
 
   const { data, refetch, isFetching, error } = useQuery<CharacterSummary[]>({
@@ -129,9 +177,175 @@ export const CharacterSelect: React.FC<Props> = ({
   const importLabel = t("option:characters.importCharacter", {
     defaultValue: "Import Character"
   }) as string
+  const openPageLabel = t("option:characters.openCharactersPage", {
+    defaultValue: "Characters Page"
+  }) as string
   const searchPlaceholder = t("option:characters.searchPlaceholder", {
     defaultValue: "Search characters by name"
   }) as string
+  const trimmedDisplayName =
+    typeof userDisplayName === "string" ? userDisplayName.trim() : ""
+  const hasActiveChat = React.useMemo(() => {
+    if (serverChatId) return true
+    return messages.some(
+      (message) => message.messageType !== "character:greeting"
+    )
+  }, [messages, serverChatId])
+  const openDisplayNameModal = React.useCallback(() => {
+    let nextValue = trimmedDisplayName
+    displayNameModalRef.current = modal.confirm({
+      title: t("option:characters.displayNameTitle", {
+        defaultValue: "Set your name"
+      }),
+      content: (
+        <div className="space-y-2">
+          <Input
+            autoFocus
+            defaultValue={trimmedDisplayName}
+            placeholder={t("option:characters.displayNamePlaceholder", {
+              defaultValue: "Enter a display name"
+            }) as string}
+            onChange={(event) => {
+              nextValue = event.target.value
+            }}
+          />
+          <div className="text-xs text-text-muted">
+            {t("option:characters.displayNameHelp", {
+              defaultValue: "Used to replace {{user}} and similar placeholders."
+            })}
+          </div>
+        </div>
+      ),
+      okText: t("option:characters.displayNameSave", {
+        defaultValue: "Save"
+      }),
+      cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+      centered: true,
+      onOk: () => {
+        setUserDisplayName(nextValue.trim())
+      },
+      afterClose: () => {
+        displayNameModalRef.current = null
+      }
+    })
+  }, [modal, setUserDisplayName, t, trimmedDisplayName])
+
+  const confirmCharacterSwitch = React.useCallback(
+    (nextName?: string) =>
+      confirmWithModal(
+        {
+          title: t("option:characters.switchConfirmTitle", {
+            defaultValue: "Switch character?"
+          }),
+          content: t("option:characters.switchConfirmBody", {
+            defaultValue: nextName
+              ? "Switching to {{name}} will clear the current chat. Continue?"
+              : "Changing the character will clear the current chat. Continue?",
+            name: nextName
+          }),
+          okText: t("option:characters.switchConfirmOk", {
+            defaultValue: "Clear chat & switch"
+          }),
+          cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+          centered: true,
+          okButtonProps: { danger: true }
+        },
+        { resolver: confirmResolveRef }
+      ),
+    [confirmWithModal, t]
+  )
+
+  const applySelection = React.useCallback(
+    async (next: CharacterSelection | null) => {
+      const nextId = next?.id ?? null
+      const currentId = selectedCharacter?.id ?? null
+      if (nextId === currentId) return
+
+      if (hasActiveChat) {
+        const confirmed = await confirmCharacterSwitch(next?.name)
+        if (!confirmed) return
+        clearChat()
+      }
+
+      latestSelectionIdRef.current = nextId
+      await setSelectedCharacter(next)
+
+      if (next && !next.greeting) {
+        const targetId = next.id
+        void tldwClient
+          .initialize()
+          .catch(() => null)
+          .then(() => tldwClient.getCharacter(targetId))
+          .then((full) => {
+            if (latestSelectionIdRef.current !== targetId) return
+            const hydrated = normalizeCharacter(full || {})
+            if (hydrated && hydrated.id === targetId && hydrated.greeting) {
+              void setSelectedCharacter(hydrated)
+            }
+          })
+          .catch((error) => {
+            if (latestSelectionIdRef.current !== targetId) return
+            console.warn("Failed to hydrate character greeting:", error)
+            notification.warning({
+              message: t("settings:manageCharacters.notification.error", "Error"),
+              description: t(
+                "settings:manageCharacters.notification.someError",
+                "Couldn't load the character greeting. Try again later."
+              )
+            })
+          })
+      }
+    },
+    [
+      clearChat,
+      confirmCharacterSwitch,
+      hasActiveChat,
+      notification,
+      selectedCharacter?.id,
+      setSelectedCharacter,
+      t
+    ]
+  )
+
+  React.useEffect(() => {
+    latestSelectionIdRef.current = selectedCharacter?.id ?? null
+  }, [selectedCharacter?.id])
+
+  const handleImportSuccess = React.useCallback(
+    (imported: ImportedCharacterResponse) => {
+      const importedCharacter =
+        imported?.character ??
+        (imported?.id && imported?.name
+          ? { id: imported.id, name: imported.name }
+          : imported)
+      const successDetail =
+        typeof imported?.message === "string" && imported.message.trim()
+          ? imported.message
+          : undefined
+
+      notification.success({
+        message: t("settings:manageCharacters.notification.addSuccess", {
+          defaultValue: "Character created"
+        }),
+        description: successDetail
+      })
+      refetch({ cancelRefetch: true })
+      const normalized = normalizeCharacter(importedCharacter || {})
+      if (normalized) {
+        void applySelection(normalized)
+      }
+    },
+    [applySelection, notification, refetch, t]
+  )
+
+  React.useEffect(() => {
+    return () => {
+      if (confirmResolveRef.current) {
+        confirmResolveRef.current(false)
+        confirmResolveRef.current = null
+      }
+    }
+  }, [])
 
   React.useEffect(() => {
     if (!error || isFetching) {
@@ -173,7 +387,7 @@ export const CharacterSelect: React.FC<Props> = ({
     ) {
       notification.success({
         message: t("option:characters.chattingAs", {
-          defaultValue: "You're now chatting as {{name}}.",
+          defaultValue: "You are chatting with {{name}}.",
           name: selectedCharacter.name
         })
       })
@@ -182,11 +396,19 @@ export const CharacterSelect: React.FC<Props> = ({
     previousCharacterId.current = selectedCharacter?.id ?? null
   }, [notification, selectedCharacter?.id, selectedCharacter?.name, t])
 
-  const handleOpenCharacters = React.useCallback(() => {
+  const buildCharactersHash = React.useCallback((create?: boolean) => {
+    const params = new URLSearchParams({ from: "header-select" })
+    if (create) {
+      params.set("create", "true")
+    }
+    return `#/characters?${params.toString()}`
+  }, [])
+
+  const handleOpenCharacters = React.useCallback((options?: { create?: boolean }) => {
     try {
       if (typeof window === "undefined") return
 
-      const hash = "#/characters?from=header-select"
+      const hash = buildCharactersHash(options?.create)
       const pathname = window.location.pathname || ""
 
       // If we're already inside the options UI, just switch routes in-place.
@@ -213,6 +435,19 @@ export const CharacterSelect: React.FC<Props> = ({
     } catch {
       // ignore navigation errors
     }
+  }, [buildCharactersHash])
+
+  const handleOpenCreate = React.useCallback(() => {
+    handleOpenCharacters({ create: true })
+  }, [handleOpenCharacters])
+
+  React.useEffect(() => {
+    return () => {
+      imageOnlyModalRef.current?.destroy()
+      imageOnlyModalRef.current = null
+      displayNameModalRef.current?.destroy()
+      displayNameModalRef.current = null
+    }
   }, [])
 
   const handleImportClick = React.useCallback(() => {
@@ -227,35 +462,83 @@ export const CharacterSelect: React.FC<Props> = ({
       const file = event.target.files?.[0]
       if (!file) return
 
+      const getImageOnlyDetail = (error: unknown): ImageOnlyErrorDetail | null => {
+        const details = (error as ImportError)?.details
+        if (!details || typeof details !== "object") return null
+        const candidate =
+          "detail" in details ? (details as { detail?: unknown }).detail : details
+        if (!candidate || typeof candidate !== "object") return null
+        const code = (candidate as { code?: unknown }).code
+        if (code === "missing_character_data") return candidate as ImageOnlyErrorDetail
+        return null
+      }
+
+      const confirmImageOnlyImport = (message?: string) =>
+        confirmWithModal(
+          {
+            title: t("settings:manageCharacters.imageOnlyTitle", {
+              defaultValue: "No character data detected"
+            }),
+            content:
+              message ||
+              t("settings:manageCharacters.imageOnlyBody", {
+                defaultValue:
+                  "No character data was found in the image metadata. Import this image as a character anyway?"
+              }),
+            okText: t("settings:manageCharacters.imageOnlyConfirm", {
+              defaultValue: "Import image-only"
+            }),
+            cancelText: t("common:cancel", { defaultValue: "Cancel" }),
+            centered: true,
+            okButtonProps: { danger: false },
+            maskClosable: false
+          },
+          { instance: imageOnlyModalRef }
+        )
+
+      const importCharacter = (allowImageOnly = false) =>
+        tldwClient.importCharacterFile(file, { allowImageOnly })
+
       try {
         setIsImporting(true)
-        await tldwClient.initialize().catch(() => null)
-        let selectedPayload: Record<string, any> | null = null
-        let successDetail: string | undefined
-        const imported = await tldwClient.importCharacterFile(file)
-        const importedCharacter =
-          imported?.character ??
-          (imported?.id && imported?.name
-            ? { id: imported.id, name: imported.name }
-            : imported)
-        selectedPayload = importedCharacter
-        if (typeof imported?.message === "string" && imported.message.trim()) {
-          successDetail = imported.message
+        const initOk = await tldwClient
+          .initialize()
+          .then(() => true)
+          .catch(() => false)
+        if (!initOk) {
+          throw new Error("Failed to initialize character service.")
         }
-        notification.success({
-          message: t("settings:manageCharacters.notification.addSuccess", {
-            defaultValue: "Character created"
-          }),
-          description: successDetail
-        })
-        refetch({ cancelRefetch: true })
-        try {
-          const normalized = normalizeCharacter(selectedPayload || {})
-          setSelectedCharacter(normalized)
-        } catch {
-          // ignore normalization failures; list will refresh
-        }
+        const imported = await importCharacter()
+        handleImportSuccess(imported)
       } catch (error) {
+        const imageOnlyDetail = getImageOnlyDetail(error)
+        if (imageOnlyDetail) {
+          const confirmed = await confirmImageOnlyImport(
+            imageOnlyDetail?.message
+          )
+          if (confirmed) {
+            try {
+              const imported = await importCharacter(true)
+              handleImportSuccess(imported)
+            } catch (retryError) {
+              const messageText =
+                retryError instanceof Error
+                  ? retryError.message
+                  : String(retryError)
+              notification.error({
+                message: t("settings:manageCharacters.notification.error", {
+                  defaultValue: "Error"
+                }),
+                description:
+                  messageText ||
+                  t("settings:manageCharacters.notification.someError", {
+                    defaultValue: "Something went wrong. Please try again later"
+                  })
+              })
+            }
+          }
+          return
+        }
         const messageText =
           error instanceof Error ? error.message : String(error)
         notification.error({
@@ -273,7 +556,7 @@ export const CharacterSelect: React.FC<Props> = ({
         event.target.value = ""
       }
     },
-    [notification, refetch, setSelectedCharacter, t]
+    [confirmWithModal, handleImportSuccess, notification, t]
   )
 
   const filteredCharacters = React.useMemo(() => {
@@ -293,50 +576,53 @@ export const CharacterSelect: React.FC<Props> = ({
 
   const characterItems = React.useMemo<MenuProps["items"]>(() => {
     return filteredCharacters.reduce<MenuProps["items"]>((items, character, index) => {
-      try {
-        const normalized = normalizeCharacter(character)
-        const displayName =
-          normalized.name || character.slug || character.title || ""
-        const menuKey =
-          character.id ??
-          character.slug ??
-          character.name ??
-          character.title ??
-          `character-${index}`
-
-        items.push({
-          key: String(menuKey),
-          label: (
-            <div className="w-56 gap-2 text-sm truncate inline-flex items-center leading-5">
-              {normalized.avatar_url ? (
-                <img
-                  src={normalized.avatar_url}
-                  alt={displayName || normalized.id || `Character ${menuKey}`}
-                  className="w-4 h-4 rounded-full"
-                />
-              ) : (
-                <UserCircle2 className="w-4 h-4" />
-              )}
-              <span className="truncate">
-                {displayName || normalized.id || String(menuKey)}
-              </span>
-            </div>
-          ),
-          onClick: () => {
-            setSelectedCharacter(normalized)
-          }
-        })
-      } catch (err) {
-        // Skip characters with invalid identifiers but log for debugging.
+      const normalized = normalizeCharacter(character)
+      if (!normalized) {
         console.debug(
           "[CharacterSelect] Skipping character with invalid id/name",
-          character,
-          err
+          {
+            id: character.id,
+            slug: character.slug,
+            name: character.name,
+            title: character.title
+          }
         )
+        return items
       }
+      const displayName =
+        normalized.name || character.slug || character.title || ""
+      const menuKey =
+        character.id ??
+        character.slug ??
+        character.name ??
+        character.title ??
+        `character-${index}`
+
+      items.push({
+        key: String(menuKey),
+        label: (
+          <div className="w-56 gap-2 text-sm truncate inline-flex items-center leading-5">
+            {normalized.avatar_url ? (
+              <img
+                src={normalized.avatar_url}
+                alt={displayName || normalized.id || `Character ${menuKey}`}
+                className="w-4 h-4 rounded-full"
+              />
+            ) : (
+              <UserCircle2 className="w-4 h-4" />
+            )}
+            <span className="truncate">
+              {displayName || normalized.id || String(menuKey)}
+            </span>
+          </div>
+        ),
+        onClick: () => {
+          void applySelection(normalized)
+        }
+      })
       return items
     }, [] as MenuProps["items"])
-  }, [filteredCharacters, setSelectedCharacter])
+  }, [applySelection, filteredCharacters])
 
   const clearItem: MenuProps["items"][number] | null =
     selectedCharacter
@@ -354,7 +640,7 @@ export const CharacterSelect: React.FC<Props> = ({
             </button>
           ),
           onClick: () => {
-            setSelectedCharacter(null)
+            void applySelection(null)
           }
         }
       : null
@@ -394,7 +680,7 @@ export const CharacterSelect: React.FC<Props> = ({
       </button>
     ),
     onClick: () => {
-      setSelectedCharacter(null)
+      void applySelection(null)
     }
   }
 
@@ -408,7 +694,20 @@ export const CharacterSelect: React.FC<Props> = ({
         {createNewLabel}
       </button>
     ),
-    onClick: handleOpenCharacters
+    onClick: handleOpenCreate
+  }
+
+  const openPageItem: MenuProps["items"][number] = {
+    key: "__open_characters_page__",
+    label: (
+      <button
+        type="button"
+        className="w-full text-left text-xs font-medium text-primary hover:text-primaryStrong"
+      >
+        {openPageLabel}
+      </button>
+    ),
+    onClick: () => handleOpenCharacters()
   }
 
   const importItem: MenuProps["items"][number] = {
@@ -424,7 +723,27 @@ export const CharacterSelect: React.FC<Props> = ({
     onClick: handleImportClick
   }
 
-  menuItems.push(noneItem, createItem, importItem)
+  const displayNameItem: MenuProps["items"][number] = {
+    key: "__user_display_name__",
+    label: (
+      <button
+        type="button"
+        className="w-full text-left text-xs font-medium text-text hover:text-text-muted"
+      >
+        {trimmedDisplayName
+          ? t("option:characters.displayNameCurrent", {
+              defaultValue: "Your name: {{name}}",
+              name: trimmedDisplayName
+            })
+          : t("option:characters.displayNameAction", {
+              defaultValue: "Set your name"
+            })}
+      </button>
+    ),
+    onClick: openDisplayNameModal
+  }
+
+  menuItems.push(noneItem, displayNameItem, openPageItem, createItem, importItem)
 
   if (characterItems && characterItems.length > 0) {
     menuItems.push(dividerItem("__divider_items__"), ...characterItems)
@@ -448,7 +767,7 @@ export const CharacterSelect: React.FC<Props> = ({
             </button>
           </div>
         ),
-        onClick: handleOpenCharacters
+        onClick: handleOpenCreate
       }
     )
   } else {
@@ -611,7 +930,7 @@ export const CharacterSelect: React.FC<Props> = ({
                 onClick={(event) => {
                   event.preventDefault()
                   event.stopPropagation()
-                  setSelectedCharacter(null)
+                  void applySelection(null)
                 }}
                 className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-text text-[10px] font-semibold text-bg shadow-sm hover:bg-text-muted"
                 aria-label={clearLabel}
@@ -628,6 +947,7 @@ export const CharacterSelect: React.FC<Props> = ({
           {selectedCharacter?.avatar_url ? (
             <img
               src={selectedCharacter.avatar_url}
+              alt={selectedCharacter.name || "Character avatar"}
               className="h-5 w-5 rounded-full"
             />
           ) : (

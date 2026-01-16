@@ -22,13 +22,14 @@ import { validateAndCreateImageDataUrl } from "@/utils/image-utils"
 import { useTranslation } from "react-i18next"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useNavigate } from "react-router-dom"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import FeatureEmptyState from "@/components/Common/FeatureEmptyState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { focusComposer } from "@/hooks/useComposerFocus"
 import { useStoreMessageOption } from "@/store/option"
 import { shallow } from "zustand/shallow"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 
 const MAX_NAME_LENGTH = 75
 const MAX_DESCRIPTION_LENGTH = 65
@@ -148,10 +149,12 @@ const buildCharacterPayload = (values: any): Record<string, any> => {
 
 type CharactersManagerProps = {
   forwardedNewButtonRef?: React.RefObject<HTMLButtonElement | null>
+  autoOpenCreate?: boolean
 }
 
 export const CharactersManager: React.FC<CharactersManagerProps> = ({
-  forwardedNewButtonRef
+  forwardedNewButtonRef,
+  autoOpenCreate = false
 }) => {
   const { t } = useTranslation(["settings", "common"])
   const qc = useQueryClient()
@@ -164,7 +167,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
   const [editVersion, setEditVersion] = React.useState<number | null>(null)
   const [createForm] = Form.useForm()
   const [editForm] = Form.useForm()
-  const [, setSelectedCharacter] = useStorage<any>("selectedCharacter", null)
+  const [, setSelectedCharacter] = useSelectedCharacter<any>(null)
   const newButtonRef = React.useRef<HTMLButtonElement | null>(null)
   const lastEditTriggerRef = React.useRef<HTMLButtonElement | null>(null)
   const createNameRef = React.useRef<InputRef>(null)
@@ -186,6 +189,7 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
   const searchDebounceRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const [showCreatePreview, setShowCreatePreview] = React.useState(false)
   const [showEditPreview, setShowEditPreview] = React.useState(false)
+  const autoOpenCreateHandledRef = React.useRef(false)
 
   React.useEffect(() => {
     if (forwardedNewButtonRef && newButtonRef.current) {
@@ -196,6 +200,15 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
       ;(forwardedNewButtonRef as any).current = newButtonRef.current
     }
   }, [forwardedNewButtonRef])
+
+  React.useEffect(() => {
+    if (!autoOpenCreate) return
+    if (autoOpenCreateHandledRef.current) return
+    autoOpenCreateHandledRef.current = true
+    if (!openEdit && !conversationsOpen) {
+      setOpen(true)
+    }
+  }, [autoOpenCreate, conversationsOpen, openEdit])
 
   // C8: Debounce search input to reduce API calls
   React.useEffect(() => {
@@ -1188,22 +1201,26 @@ export const CharactersManager: React.FC<CharactersManagerProps> = ({
                               { include_deleted: "false" } as any
                             )
                             const history = messages.map((m) => ({
-                              role: m.role,
+                              role: normalizeChatRole(m.role),
                               content: m.content
                             }))
                             const mappedMessages = messages.map((m) => {
                               const createdAt = Date.parse(m.created_at)
+                              const normalized = normalizeChatRole(m.role)
                               return {
                                 createdAt: Number.isNaN(createdAt)
                                   ? undefined
                                   : createdAt,
-                                isBot: m.role === "assistant",
+                                isBot: normalized === "assistant",
+                                role: normalized,
                                 name:
-                                  m.role === "assistant"
+                                  normalized === "assistant"
                                     ? assistantName
-                                    : m.role === "system"
-                                      ? "System"
-                                      : "You",
+                                    : normalized === "system"
+                                      ? t("common:system", {
+                                          defaultValue: "System"
+                                        })
+                                      : t("common:you", { defaultValue: "You" }),
                                 message: m.content,
                                 sources: [],
                                 images: [],

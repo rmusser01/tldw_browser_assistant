@@ -6,6 +6,7 @@ import { useStoreMessageOption } from "@/store/option"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { getHistoriesWithMetadata, saveMessage } from "@/db/dexie/helpers"
 import { normalizeConversationState } from "@/utils/conversation-state"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 import { updatePageTitle } from "@/utils/update-page-title"
 
 type NotificationApi = {
@@ -26,9 +27,17 @@ export const useServerChatLoader = ({
   notification,
   t
 }: UseServerChatLoaderOptions) => {
-  const { setHistory, setMessages, setIsLoading } = useChatBaseState(
-    useStoreMessageOption
-  )
+  const {
+    messages,
+    streaming,
+    isProcessing,
+    setHistory,
+    setMessages,
+    setIsLoading
+  } = useChatBaseState(useStoreMessageOption)
+  const messagesRef = React.useRef(messages)
+  const streamingRef = React.useRef(streaming)
+  const processingRef = React.useRef(isProcessing)
   const {
     serverChatId,
     serverChatTitle,
@@ -85,6 +94,18 @@ export const useServerChatLoader = ({
       }
     }
   }, [])
+
+  React.useEffect(() => {
+    messagesRef.current = messages
+  }, [messages])
+
+  React.useEffect(() => {
+    streamingRef.current = streaming
+  }, [streaming])
+
+  React.useEffect(() => {
+    processingRef.current = isProcessing
+  }, [isProcessing])
 
   React.useEffect(() => {
     if (!serverChatId) return
@@ -200,6 +221,7 @@ export const useServerChatLoader = ({
             return {
               createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
               isBot: m.role === "assistant",
+              role: normalizeChatRole(m.role),
               name:
                 m.role === "assistant"
                   ? assistantName
@@ -235,9 +257,22 @@ export const useServerChatLoader = ({
             }
           })
 
-          setHistory(history)
-          setMessages(mappedMessages)
-          if (!temporaryChat) {
+          const currentMessages = messagesRef.current
+          const hasLocalMessages = currentMessages.length > 0
+          const hasUnsyncedMessages = currentMessages.some(
+            (msg) =>
+              !msg.serverMessageId && String(msg.message || "").trim().length > 0
+          )
+          const shouldPreserveLocal =
+            streamingRef.current ||
+            processingRef.current ||
+            (hasLocalMessages && hasUnsyncedMessages)
+
+          if (!shouldPreserveLocal) {
+            setHistory(history)
+            setMessages(mappedMessages)
+          }
+          if (!temporaryChat && !shouldPreserveLocal) {
             try {
               const localHistoryId = await ensureServerChatHistoryId(
                 serverChatId,
@@ -352,6 +387,8 @@ export const useServerChatLoader = ({
     }
   }, [
     ensureServerChatHistoryId,
+    isProcessing,
+    messages,
     notification,
     serverChatCharacterId,
     serverChatId,
@@ -369,6 +406,7 @@ export const useServerChatLoader = ({
     setServerChatTitle,
     setServerChatTopic,
     setServerChatVersion,
+    streaming,
     t,
     temporaryChat
   ])

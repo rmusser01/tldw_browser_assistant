@@ -32,6 +32,8 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
 import type { MessageVariant } from "@/store/option"
+import { EDIT_MESSAGE_EVENT } from "@/utils/timeline-actions"
+import type { Character } from "@/types/character"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
 
@@ -78,6 +80,7 @@ type Props = {
   userAvatar?: JSX.Element
   isBot: boolean
   name: string
+  role?: "user" | "assistant" | "system"
   images?: string[]
   currentMessageIndex: number
   totalMessages: number
@@ -126,6 +129,8 @@ type Props = {
   historyId?: string
   conversationInstanceId: string
   onDeleteMessage?: () => void
+  characterIdentity?: Character | null
+  characterIdentityEnabled?: boolean
 }
 
 export const PlaygroundMessage = (props: Props) => {
@@ -145,6 +150,7 @@ export const PlaygroundMessage = (props: Props) => {
   const [assistantTextFont] = useStorage("chatAssistantTextFont", "default")
   const [userTextSize] = useStorage("chatUserTextSize", "md")
   const [assistantTextSize] = useStorage("chatAssistantTextSize", "md")
+  const [userDisplayName] = useStorage("chatUserDisplayName", "")
   const [ttsProvider] = useStorage("ttsProvider", "browser")
   const { t } = useTranslation(["common", "playground"])
   const { capabilities } = useServerCapabilities()
@@ -157,6 +163,7 @@ export const PlaygroundMessage = (props: Props) => {
       requireVoices: ttsProvider === "tldw"
     })
   const [isFeedbackOpen, setIsFeedbackOpen] = React.useState(false)
+  const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = React.useState(false)
   const [savingKnowledge, setSavingKnowledge] = React.useState<
     "note" | "flashcard" | null
   >(null)
@@ -207,6 +214,23 @@ export const PlaygroundMessage = (props: Props) => {
     showVariantPager &&
     Boolean(props.onSwipeNext) &&
     resolvedVariantIndex < variantCount - 1
+  const resolvedRole = props.role ?? (props.isBot ? "assistant" : "user")
+  const isSystemMessage = resolvedRole === "system"
+  const shouldUseCharacterIdentity =
+    props.isBot &&
+    Boolean(props.characterIdentityEnabled) &&
+    Boolean(props.characterIdentity?.id)
+  const characterAvatar = props.characterIdentity?.avatar_url || ""
+  const resolvedModelImage =
+    shouldUseCharacterIdentity && characterAvatar
+      ? characterAvatar
+      : props.modelImage
+  const resolvedModelName =
+    shouldUseCharacterIdentity && props.characterIdentity?.name
+      ? props.characterIdentity.name
+      : props.modelName || props.name
+  const shouldPreviewAvatar =
+    shouldUseCharacterIdentity && Boolean(characterAvatar)
 
   const messageKey = React.useMemo(() => {
     if (props.serverMessageId) return `srv:${props.serverMessageId}`
@@ -223,6 +247,28 @@ export const PlaygroundMessage = (props: Props) => {
     props.serverChatId,
     props.serverMessageId
   ])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (!props.isBot && isUserChatBubble) return
+
+    const handleEditMessage = (event: Event) => {
+      const detail = (event as CustomEvent<{ messageId?: string }>).detail
+      if (!detail?.messageId) return
+      if (props.isBot) return
+      const matches =
+        detail.messageId === props.messageId ||
+        detail.messageId === props.serverMessageId
+      if (matches) {
+        setEditMode(true)
+      }
+    }
+
+    window.addEventListener(EDIT_MESSAGE_EVENT, handleEditMessage)
+    return () => {
+      window.removeEventListener(EDIT_MESSAGE_EVENT, handleEditMessage)
+    }
+  }, [isUserChatBubble, props.isBot, props.messageId, props.serverMessageId])
 
   const {
     thumb,
@@ -413,6 +459,10 @@ export const PlaygroundMessage = (props: Props) => {
   )
 
   const chatTextClass = props.isBot ? assistantTextClass : userTextClass
+  const renderGreetingMarkdown =
+    props.isBot &&
+    (props.message_type === "character:greeting" ||
+      props.message_type === "greeting")
 
   const shouldShowLoadingStatus =
     props.isBot &&
@@ -559,11 +609,13 @@ export const PlaygroundMessage = (props: Props) => {
   ])
 
   const compareLabel = t("playground:composer.compareTag", "Compare")
+  const systemLabel = t("playground:systemPrompt", "System prompt")
 
   if (isUserChatBubble && !props.isBot) {
     return (
       <PlaygroundUserMessageBubble
         {...props}
+        role={resolvedRole}
         onDelete={props.onDeleteMessage ? handleDelete : undefined}
       />
     )
@@ -575,14 +627,19 @@ export const PlaygroundMessage = (props: Props) => {
   const messageSpacing = isProMode
     ? `gap-2 px-4 pt-3 ${hasSources ? "pb-4" : "pb-2.5"}`
     : `gap-1.5 px-3 pt-2 ${hasSources ? "pb-3" : "pb-2"}`
-  const messageCardClass = props.isBot
-    ? `flex flex-col rounded-2xl border border-border bg-surface/70 shadow-sm ${messageSpacing}`
-    : `flex flex-col rounded-2xl border border-border bg-surface2/70 shadow-sm ${messageSpacing}`
+  const messageCardClass = isSystemMessage
+    ? `flex flex-col rounded-2xl border border-dashed border-warn/30 bg-warn/10 shadow-sm ${messageSpacing}`
+    : props.isBot
+      ? `flex flex-col rounded-2xl border border-border bg-surface/70 shadow-sm ${messageSpacing}`
+      : `flex flex-col rounded-2xl border border-border bg-surface2/70 shadow-sm ${messageSpacing}`
   return (
     <div
       data-testid="chat-message"
-      data-role={props.isBot ? "assistant" : "user"}
+      data-role={isSystemMessage ? "system" : props.isBot ? "assistant" : "user"}
+      data-message-type={props.message_type}
       data-index={props.currentMessageIndex}
+      data-message-id={props.messageId}
+      data-server-message-id={props.serverMessageId}
       className={`group relative flex w-full max-w-3xl flex-col items-end justify-center text-text ${
         isProMode ? "pb-2 md:px-4" : "pb-1 md:px-3"
       } ${checkWideMode ? "max-w-none" : ""}`}>
@@ -609,17 +666,53 @@ export const PlaygroundMessage = (props: Props) => {
         }`}>
         <div className="w-8 flex flex-col relative items-end">
           {props.isBot ? (
-            !props.modelImage ? (
+            !resolvedModelImage ? (
               <div className="relative h-7 w-7 p-1 rounded-sm text-white flex items-center justify-center  text-opacity-100">
                 <div className="absolute h-8 w-8 rounded-full bg-gradient-to-r from-green-300 to-purple-400"></div>
               </div>
+            ) : shouldPreviewAvatar ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setIsAvatarPreviewOpen(true)}
+                  className="rounded-full focus:outline-none focus:ring-2 focus:ring-focus"
+                  aria-label={t("playground:previewCharacterAvatar", {
+                    defaultValue: "Preview character avatar"
+                  }) as string}
+                >
+                  <Avatar
+                    src={resolvedModelImage}
+                    alt={resolvedModelName || props.name}
+                    className="size-8"
+                  />
+                </button>
+                {isAvatarPreviewOpen && (
+                  <Modal
+                    open
+                    onCancel={() => setIsAvatarPreviewOpen(false)}
+                    footer={null}
+                    centered
+                  >
+                    <Image
+                      src={resolvedModelImage}
+                      alt={resolvedModelName || props.name}
+                      preview={false}
+                      className="w-full"
+                    />
+                  </Modal>
+                )}
+              </>
             ) : (
               <Avatar
-                src={props.modelImage}
-                alt={props.name}
+                src={resolvedModelImage}
+                alt={resolvedModelName || props.name}
                 className="size-8"
               />
             )
+          ) : isSystemMessage ? (
+            <div className="relative h-7 w-7 p-1 rounded-sm text-warn flex items-center justify-center text-opacity-100">
+              <div className="absolute h-8 w-8 rounded-full border border-warn/40 bg-warn/10"></div>
+            </div>
           ) : !props.userAvatar ? (
             <div className="relative h-7 w-7 p-1 rounded-sm text-white flex items-center justify-center  text-opacity-100">
               <div className="absolute h-8 w-8 rounded-full from-blue-400 to-blue-600 bg-gradient-to-r"></div>
@@ -632,16 +725,22 @@ export const PlaygroundMessage = (props: Props) => {
           <div className={messageCardClass}>
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-caption font-semibold text-text">
-                  {props.isBot
-                    ? removeModelSuffix(
-                        `${props?.modelName || props?.name}`?.replaceAll(
-                          /accounts\/[^\/]+\/models\//g,
-                          ""
+                {isSystemMessage ? (
+                  <span className="inline-flex items-center rounded-full border border-warn/40 bg-warn/10 px-2 py-0.5 text-[10px] font-medium text-warn">
+                    {systemLabel}
+                  </span>
+                ) : (
+                  <span className="text-caption font-semibold text-text">
+                    {props.isBot
+                      ? removeModelSuffix(
+                          `${resolvedModelName || props?.name}`?.replaceAll(
+                            /accounts\/[^\/]+\/models\//g,
+                            ""
+                          )
                         )
-                      )
-                    : "You"}
-                </span>
+                      : userDisplayName.trim() || t("common:you", "You")}
+                  </span>
+                )}
                 {messageTimestamp && (
                   <span className="text-[11px] text-text-muted">
                     • {messageTimestamp}
@@ -730,6 +829,13 @@ export const PlaygroundMessage = (props: Props) => {
                         "Hide technical details"
                       ) as string
                     }}
+                  />
+                ) : renderGreetingMarkdown ? (
+                  <Markdown
+                    message={props.message}
+                    className={`${MARKDOWN_BASE_CLASSES} ${assistantTextClass}`}
+                    searchQuery={props.searchQuery}
+                    codeBlockVariant="compact"
                   />
                 ) : (
                   <>

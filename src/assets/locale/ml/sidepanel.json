@@ -104,6 +104,7 @@
     "saveFailedDescription": "ഇപ്പോൾ ചാറ്റ് പ്രാദേശികമായി മാത്രമാണ് സേവ് ചെയ്യുന്നത്. ബന്ധം പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
   },
   "rag": {
+    "attachedContext": "അറ്റാച്ച് ചെയ്ത കോൺടെക്സ്റ്റ്",
     "searchPlaceholder": "നിങ്ങളുടെ അറിവ് തിരയുക…",
     "search": "തിരയുക",
     "show": "Show RAG search",
@@ -111,6 +112,7 @@
     "addTagPlaceholder": "ടാഗ് ചേർക്കുക (Enter)",
     "add": "ചേർക്കുക",
     "noResults": "ഫലങ്ങളില്ല",
+    "initialState": "ഫലങ്ങളില്ല",
     "timeout": {
       "message": "അഭ്യർത്ഥനയുടെ സമയപരിധി കഴിഞ്ഞു.",
       "increase": "ടൈംഔട്ട് വർധിപ്പിക്കുക",

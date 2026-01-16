@@ -352,7 +352,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "文件过大",
-    "fileTooLargeDescription": "文件大小必须小于 10MB",
+    "fileTooLargeDescription": "文件大小必须小于 {{size}}",
     "uploadFailedTitle": "上传失败",
     "uploadFailedDescription": "无法上传文件，请重试。"
   },
@@ -471,6 +471,7 @@
     "process": "处理",
     "results": "结果",
     "downloadJson": "下载 JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "已加载 {{count}} 个高级字段",
     "advancedEmpty": "未检测到高级选项——请尝试重新加载规范。",
     "modifiedCount": "{{count}} 处已修改",

@@ -120,7 +120,7 @@
   "notes": "Notas",
   "upload": {
     "fileTooLargeTitle": "Arquivo muito grande",
-    "fileTooLargeDescription": "O arquivo deve ter menos de 10 MB",
+    "fileTooLargeDescription": "O arquivo deve ter menos de {{size}}",
     "uploadFailedTitle": "Falha no upload",
     "uploadFailedDescription": "Não foi possível enviar o arquivo. Tente novamente."
   },
@@ -247,6 +247,7 @@
     "runLabel": "Executar Quick Ingest",
     "results": "Resultados",
     "downloadJson": "Baixar JSON",
+    "downloadJsonAria": "Baixar JSON de {{name}}",
     "advancedSummary": "{{count}} campos avançados carregados",
     "advancedEmpty": "Nenhuma opção avançada detectada — tente recarregar o spec.",
     "modifiedCount": "{{count}} modificados",

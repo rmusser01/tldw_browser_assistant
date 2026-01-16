@@ -2,8 +2,7 @@ import { create } from "zustand"
 
 type QuickIngestStore = {
   /**
-   * Number of items queued in Quick Ingest while the server
-   * was offline / in bypass mode and not yet processed.
+   * Number of items queued in Quick Ingest (used for UI badges).
    */
   queuedCount: number
   setQueuedCount: (count: number) => void

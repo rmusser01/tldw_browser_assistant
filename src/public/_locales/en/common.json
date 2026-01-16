@@ -810,10 +810,10 @@
     "message": "New Chat"
   },
   "commandPalette_toggleKnowledgeSearch": {
-    "message": "Toggle Knowledge Search"
+    "message": "Toggle Search & Context"
   },
   "commandPalette_toggleKnowledgeSearchDesc": {
-    "message": "Search your knowledge base"
+    "message": "Search your knowledge base and context"
   },
   "commandPalette_toggleWebSearch": {
     "message": "Toggle Web Search"
@@ -1168,5 +1168,14 @@
   },
   "modelSettings_tabs_actor": {
     "message": "Scene Director"
+  },
+  "commandPalette_goToDocumentation": {
+    "message": "Go to Documentation"
+  },
+  "timeline_unableLocateMessage": {
+    "message": "Unable to locate the message for this action."
+  },
+  "timeline_actionFailed": {
+    "message": "Failed to perform timeline action. Please try again."
   }
 }

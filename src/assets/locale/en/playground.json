@@ -256,6 +256,7 @@
     "moreTools": "More tools",
     "scrollToLatest": "Scroll to latest messages",
     "submitAria": "Send message",
+    "collapsedMessageLabel": "[{lines, plural, one {# line} other {# lines}}/{chars, plural, one {# char} other {# chars}} in message]",
     "openModelSettings": "Open current chat settings",
     "stopStreaming": "Stop streaming response",
     "connectionPlaceholder": "Connect to your tldw server in Settings to send messages and view media.",
@@ -271,13 +272,19 @@
     "contextMediaEmpty": "No Media & Notes selected yet.",
     "addKnowledge": "Add Media & Notes",
     "contextTabsTitle": "Tabs in context",
+    "contextTabsAvailable": "Open tabs",
+    "noTabsFound": "No eligible open tabs found.",
+    "contextTabsEmpty": "No tabs selected yet.",
+    "contextFilesTitle": "Files in context",
+    "contextFilesEmpty": "No files attached yet.",
+    "addFile": "Add file",
     "contextTabsHint": "Review or remove referenced tabs, or add more from your open browser tabs.",
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",
-  "contextKnowledge": "Ctx + Media",
-  "contextKnowledgeClose": "Close Ctx + Media",
-    "knowledgeSearch": "Knowledge search",
-    "knowledgeSearchClose": "Close Knowledge search",
+    "contextKnowledge": "Search & Context",
+    "contextKnowledgeClose": "Close Search & Context",
+    "knowledgeSearch": "Search & Context",
+    "knowledgeSearchClose": "Close Search & Context",
     "persistence": {
       "ephemeral": "Temporary chat: not saved in history and cleared when you close this window.",
       "local": "Saved locally in this browser only (not synced to your tldw server).",
@@ -548,6 +555,8 @@
     "errorDetailsLabel": "Details:"
   },
   "errors": {
-    "privateModeDescription": "Firefox Private Mode does not support saving chat. Temporary chat is enabled by default. More fixes coming soon."
+    "privateModeDescription": "Firefox Private Mode does not support saving chat. Temporary chat is enabled by default. More fixes coming soon.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   }
 }

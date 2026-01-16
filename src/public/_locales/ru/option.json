@@ -975,7 +975,7 @@
     "message": "Файл слишком большой"
   },
   "upload_fileTooLargeDescription": {
-    "message": "Размер файла должен быть меньше 10 МБ"
+    "message": "Размер файла должен быть меньше {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Не удалось загрузить"
@@ -1813,5 +1813,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

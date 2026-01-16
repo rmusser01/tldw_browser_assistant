@@ -1312,5 +1312,11 @@
   },
   "contentReview_editedLabel": {
     "message": "Redigerad"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "Media-API är inte tillgängligt offline"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "Servern är offline"
   }
 }

@@ -20,7 +20,9 @@ import {
   Microscope,
   FlaskConical,
   MessageSquare,
-  ClipboardList
+  ClipboardList,
+  MicIcon,
+  Trash2
 } from "lucide-react"
 import { ALL_TARGETS, type PlatformTarget } from "@/config/platform"
 import OptionLayout from "~/components/Layouts/Layout"
@@ -66,6 +68,7 @@ const OptionShare = createSettingsRoute(
 )
 const OptionProcessed = lazy(() => import("./option-settings-processed"))
 const OptionHealth = lazy(() => import("./option-settings-health"))
+const OptionMediaTrash = lazy(() => import("./option-media-trash"))
 const OptionKnowledgeBase = createSettingsRoute(
   () => import("~/components/Option/Knowledge"),
   "KnowledgeSettings"
@@ -119,6 +122,10 @@ const OptionSettingsEvaluations = createSettingsRoute(
   () => import("~/components/Option/Settings/evaluations"),
   "EvaluationsSettings"
 )
+const OptionSpeechSettings = createSettingsRoute(
+  () => import("@/components/Option/Settings/SpeechSettings"),
+  "SpeechSettings"
+)
 const OptionPromptStudio = lazy(() => import("./option-prompt-studio"))
 const OptionSettingsPromptStudio = createSettingsRoute(
   () => import("~/components/Option/Settings/prompt-studio"),
@@ -128,13 +135,21 @@ const OptionAdminServer = lazy(() => import("./option-admin-server"))
 const OptionAdminLlamacpp = lazy(() => import("./option-admin-llamacpp"))
 const OptionAdminMlx = lazy(() => import("./option-admin-mlx"))
 const OptionChatSettings = createSettingsRoute(
-  () => import("~/components/Option/Settings/chat-settings"),
+  () => import("~/components/Option/Settings/ChatSettings"),
   "ChatSettings"
+)
+const OptionQuickIngestSettings = createSettingsRoute(
+  () => import("~/components/Option/Settings/QuickIngestSettings"),
+  "QuickIngestSettings"
 )
 const OptionQuickChatPopout = lazy(() => import("./option-quick-chat-popout"))
 const OptionContentReview = lazy(() => import("./option-content-review"))
 const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground"))
+const OptionDocumentation = lazy(() => import("./option-documentation"))
 const OptionQuiz = lazy(() => import("./option-quiz"))
+const OptionChatbooksPlayground = lazy(() => import("./option-chatbooks-playground"))
+const OptionWatchlists = lazy(() => import("./option-watchlists"))
+const OptionKanbanPlayground = lazy(() => import("./option-kanban-playground"))
 
 export const ROUTE_DEFINITIONS: RouteDefinition[] = [
   { kind: "options", path: "/", element: <OptionIndex /> },
@@ -142,7 +157,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
     kind: "options",
     path: "/onboarding-test",
     element: (
-      <OptionLayout hideHeader={true} showHeaderSelectors={false}>
+      <OptionLayout hideHeader>
         <OnboardingWizard />
       </OptionLayout>
     ),
@@ -178,7 +193,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:manageModels.title",
       icon: BrainCircuitIcon,
-      order: 5
+      order: 6
     }
   },
   {
@@ -200,7 +215,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:evaluationsSettings.title",
       icon: FlaskConical,
-      order: 8,
+      order: 9,
       beta: true
     }
   },
@@ -213,6 +228,28 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "settings:chatSettingsNav",
       icon: MessageSquare,
       order: 3
+    }
+  },
+  {
+    kind: "options",
+    path: "/settings/quick-ingest",
+    element: <OptionQuickIngestSettings />,
+    nav: {
+      group: "server",
+      labelToken: "settings:quickIngestSettingsNav",
+      icon: ClipboardList,
+      order: 4
+    }
+  },
+  {
+    kind: "options",
+    path: "/settings/speech",
+    element: <OptionSpeechSettings />,
+    nav: {
+      group: "server",
+      labelToken: "settings:speechSettingsNav",
+      icon: MicIcon,
+      order: 5
     }
   },
   {
@@ -235,7 +272,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:healthNav",
       icon: ActivityIcon,
-      order: 10
+      order: 11
     }
   },
   {
@@ -246,7 +283,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "settings:promptStudio.nav",
       icon: Microscope,
-      order: 9,
+      order: 10,
       beta: true
     }
   },
@@ -317,6 +354,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
     }
   },
   { kind: "options", path: "/chunking-playground", element: <OptionChunkingPlayground /> },
+  { kind: "options", path: "/documentation", element: <OptionDocumentation /> },
   {
     kind: "options",
     path: "/settings/about",
@@ -353,6 +391,9 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       beta: true
     }
   },
+  { kind: "options", path: "/chatbooks", element: <OptionChatbooksPlayground /> },
+  { kind: "options", path: "/watchlists", element: <OptionWatchlists /> },
+  { kind: "options", path: "/kanban", element: <OptionKanbanPlayground /> },
   {
     kind: "options",
     path: "/media",
@@ -362,6 +403,17 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "settings:mediaNav",
       icon: BookText,
       order: 6
+    }
+  },
+  {
+    kind: "options",
+    path: "/media-trash",
+    element: <OptionMediaTrash />,
+    nav: {
+      group: "knowledge",
+      labelToken: "settings:mediaTrashNav",
+      icon: Trash2,
+      order: 7
     }
   },
   {
@@ -422,7 +474,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "option:header.adminLlamacpp",
       icon: CpuIcon,
-      order: 6
+      order: 7
     }
   },
   {
@@ -434,7 +486,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       group: "server",
       labelToken: "option:header.adminMlx",
       icon: Gauge,
-      order: 7
+      order: 8
     }
   },
   {

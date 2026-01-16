@@ -343,7 +343,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "ファイルサイズが大きすぎます",
-    "fileTooLargeDescription": "ファイルサイズは 10MB 未満にしてください",
+    "fileTooLargeDescription": "ファイルサイズは {{size}} 未満にしてください",
     "uploadFailedTitle": "アップロードに失敗しました",
     "uploadFailedDescription": "ファイルをアップロードできませんでした。もう一度お試しください。"
   },
@@ -464,6 +464,7 @@
     "runLabel": "クイックインジェスト実行",
     "results": "結果",
     "downloadJson": "JSON をダウンロード",
+    "downloadJsonAria": "「{{name}}」のJSONをダウンロード",
     "advancedSummary": "{{count}} 件の高度なフィールドを読み込みました",
     "advancedEmpty": "高度なオプションが検出されません — 仕様を再読み込みしてください。",
     "modifiedCount": "{{count}} 件変更",

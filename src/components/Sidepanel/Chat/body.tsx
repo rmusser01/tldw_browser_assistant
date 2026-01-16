@@ -8,17 +8,29 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { useStorage } from "@plasmohq/storage/hook"
 import { applyVariantToMessage } from "@/utils/message-variants"
 import { generateID } from "@/db/dexie/helpers"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
+import { useStoreMessageOption } from "@/store/option"
+import type { Character } from "@/types/character"
+import {
+  EDIT_MESSAGE_EVENT,
+  type TimelineActionDetail
+} from "@/utils/timeline-actions"
 
 type Props = {
   scrollParentRef?: React.RefObject<HTMLDivElement>
   searchQuery?: string
+  timelineAction?: TimelineActionDetail | null
+  onTimelineActionHandled?: () => void
+  inputRef?: React.RefObject<HTMLTextAreaElement>
 }
 
 export const SidePanelBody = ({
   scrollParentRef,
   searchQuery,
-  inputRef
-}: Props & { inputRef?: React.RefObject<HTMLTextAreaElement> }) => {
+  inputRef,
+  timelineAction,
+  onTimelineActionHandled
+}: Props) => {
   const {
     messages,
     setMessages,
@@ -37,6 +49,10 @@ export const SidePanelBody = ({
   } = useMessage()
   const { ttsEnabled } = useWebUI()
   const [openReasoning] = useStorage("openReasoning", false)
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
+  const serverChatCharacterId = useStoreMessageOption(
+    (state) => state.serverChatCharacterId
+  )
   const uiMode = useUiModeStore((state) => state.mode)
   const scrollAnchorRef = React.useRef<number | null>(null)
   const topPaddingClass = "pt-12"
@@ -101,6 +117,71 @@ export const SidePanelBody = ({
     measureElement: (el) => el?.getBoundingClientRect().height || 120
   })
 
+  const messagesRef = React.useRef(messages)
+  React.useEffect(() => {
+    messagesRef.current = messages
+  }, [messages])
+
+  React.useEffect(() => {
+    if (!timelineAction) return
+    if (timelineAction.historyId && timelineAction.historyId !== historyId) {
+      return
+    }
+
+    const findIndex = (messageId: string) =>
+      messagesRef.current.findIndex(
+        (message) =>
+          message.id === messageId || message.serverMessageId === messageId
+      )
+
+    if (timelineAction.action === "branch") {
+      if (!timelineAction.messageId) {
+        onTimelineActionHandled?.()
+        return
+      }
+      if (messagesRef.current.length === 0) {
+        return
+      }
+      const index = findIndex(timelineAction.messageId)
+      if (index >= 0) {
+        void createChatBranch(index)
+      }
+      onTimelineActionHandled?.()
+      return
+    }
+
+    if (!timelineAction.messageId) {
+      onTimelineActionHandled?.()
+      return
+    }
+
+    if (messagesRef.current.length === 0) {
+      return
+    }
+    const index = findIndex(timelineAction.messageId)
+    if (index < 0) {
+      onTimelineActionHandled?.()
+      return
+    }
+
+    rowVirtualizer.scrollToIndex(index, { align: "center" })
+    if (timelineAction.action === "edit" && typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent(EDIT_MESSAGE_EVENT, {
+          detail: { messageId: timelineAction.messageId }
+        })
+      )
+    }
+    onTimelineActionHandled?.()
+  }, [
+    createChatBranch,
+    historyId,
+    messages.length,
+    onTimelineActionHandled,
+    rowVirtualizer,
+    timelineAction
+  ])
+
   // Lock scroll position during streaming to prevent virtualizer jumps
   React.useEffect(() => {
     if (!parentEl) return
@@ -129,6 +210,15 @@ export const SidePanelBody = ({
     return () => parentEl.removeEventListener('scroll', handleScroll)
   }, [streaming, parentEl])
 
+  const characterIdentityEnabled = React.useMemo(() => {
+    if (!selectedCharacter?.id) return false
+    if (serverChatId) {
+      if (serverChatCharacterId == null) return false
+      return String(serverChatCharacterId) === String(selectedCharacter.id)
+    }
+    return true
+  }, [selectedCharacter?.id, serverChatCharacterId, serverChatId])
+
   return (
     <>
       <div
@@ -146,6 +236,7 @@ export const SidePanelBody = ({
                   isBot={message.isBot}
                   message={message.message}
                   name={message.name}
+                  role={message.role}
                   images={message.images || []}
                   currentMessageIndex={index}
                   totalMessages={messages.length}
@@ -175,6 +266,8 @@ export const SidePanelBody = ({
                   feedbackQuery={previousUserMessage?.message ?? null}
                   searchQuery={searchQuery}
                   isEmbedding={isEmbedding}
+                  characterIdentity={selectedCharacter}
+                  characterIdentityEnabled={characterIdentityEnabled}
                   variants={message.variants}
                   activeVariantIndex={message.activeVariantIndex}
                   onSwipePrev={() => handleVariantSwipe(message.id, "prev")}

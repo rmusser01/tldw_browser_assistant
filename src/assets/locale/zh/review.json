@@ -323,6 +323,8 @@
     "connectDescription": "在设置中连接你的 tldw 服务器以发送消息并查看媒体。连接后，处理过的录音和文档将列在此处。",
     "connectExample1": "打开 设置 → tldw server 以添加你的服务器 URL。",
     "connectExample2": "连接后，使用顶部栏中的 Quick ingest 从你的录音和文件添加媒体。",
+    "apiOfflineTitle": "媒体 API 离线不可用",
+    "serverOfflineTitle": "服务器离线",
     "offlineTitle": "此服务器尚未提供媒体审阅",
     "offlineDescription": "此工作区依赖于你的 tldw 服务器对媒体审阅的支持。升级到包含媒体的版本期间，你仍可继续使用聊天、笔记和其他工具。",
     "offlineExample1": "打开 Diagnostics 以确认你的服务器版本和可用的 API。",

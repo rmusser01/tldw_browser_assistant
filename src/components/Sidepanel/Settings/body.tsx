@@ -26,16 +26,21 @@ import {
 import { useDarkMode } from "~/hooks/useDarkmode"
 import { SaveButton } from "~/components/Common/SaveButton"
 import { SUPPORTED_LANGUAGES } from "~/utils/supported-languages"
-import { useMessage } from "~/hooks/useMessage"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { Trans, useTranslation } from "react-i18next"
 import { useI18n } from "@/hooks/useI18n"
-import { TTSModeSettings } from "@/components/Option/Settings/tts-mode"
+import { TTSModeSettings } from "@/components/Option/Settings/TTSModeSettings"
 import { AdvancedCORSSettings } from "@/components/Common/Settings/AdvancedCORSSettings"
 import { useStorage } from "@plasmohq/storage/hook"
 import { getTotalFilePerKB } from "@/services/app"
 import { SidepanelRag } from "@/components/Option/Settings/sidepanel-rag"
-import { SSTSettings } from "@/components/Option/Settings/sst-settings"
+import { SSTSettings } from "@/components/Option/Settings/SSTSettings"
+import { CitationDictionarySettings } from "@/components/Sidepanel/Settings/CitationDictionarySettings"
+
+const RAG_VALIDATION_RANGES = {
+  chunkSize: { min: 100, max: 10000 },
+  chunkOverlap: { min: 0, max: 1000 }
+} as const
 
 export const SettingsBody = () => {
   const { t } = useTranslation("settings")
@@ -214,6 +219,7 @@ export const SettingsBody = () => {
       <div className="border border-border rounded p-4 bg-surface">
         <SidepanelRag hideBorder />
       </div>
+      <CitationDictionarySettings />
       <div className="border flex flex-col gap-4 border-border rounded p-4 bg-surface">
         <h2 className="text-md font-semibold text-text">
           {t("ollamaSettings.heading")}
@@ -328,10 +334,25 @@ export const SettingsBody = () => {
               {
                 required: true,
                 message: t("rag.ragSettings.chunkSize.required")
+              },
+              {
+                type: "number",
+                min: RAG_VALIDATION_RANGES.chunkSize.min,
+                max: RAG_VALIDATION_RANGES.chunkSize.max,
+                message: t(
+                  "rag.ragSettings.chunkSize.range",
+                  {
+                    min: RAG_VALIDATION_RANGES.chunkSize.min,
+                    max: RAG_VALIDATION_RANGES.chunkSize.max,
+                    defaultValue: `Must be between ${RAG_VALIDATION_RANGES.chunkSize.min} and ${RAG_VALIDATION_RANGES.chunkSize.max}`
+                  }
+                )
               }
             ]}>
             <InputNumber
               style={{ width: "100%" }}
+              min={RAG_VALIDATION_RANGES.chunkSize.min}
+              max={RAG_VALIDATION_RANGES.chunkSize.max}
               placeholder={t("rag.ragSettings.chunkSize.placeholder")}
             />
           </Form.Item>
@@ -342,10 +363,24 @@ export const SettingsBody = () => {
               {
                 required: true,
                 message: t("rag.ragSettings.chunkOverlap.required")
+              },
+              {
+                type: "number",
+                min: RAG_VALIDATION_RANGES.chunkOverlap.min,
+                max: RAG_VALIDATION_RANGES.chunkOverlap.max,
+                message: t(
+                  "rag.ragSettings.chunkOverlap.range",
+                  {
+                    min: RAG_VALIDATION_RANGES.chunkOverlap.min,
+                    max: RAG_VALIDATION_RANGES.chunkOverlap.max
+                  }
+                )
               }
             ]}>
             <InputNumber
               style={{ width: "100%" }}
+              min={RAG_VALIDATION_RANGES.chunkOverlap.min}
+              max={RAG_VALIDATION_RANGES.chunkOverlap.max}
               placeholder={t("rag.ragSettings.chunkOverlap.placeholder")}
             />
           </Form.Item>

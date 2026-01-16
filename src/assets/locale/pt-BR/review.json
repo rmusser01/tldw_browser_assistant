@@ -323,6 +323,8 @@
     "connectDescription": "Conecte-se ao seu servidor tldw em Configurações para enviar mensagens e ver mídias. Após conectar, gravações e documentos processados serão listados aqui.",
     "connectExample1": "Abra Configurações → tldw server para adicionar a URL do seu servidor.",
     "connectExample2": "Após conectar, use Quick ingest no cabeçalho para adicionar mídias das suas gravações e arquivos.",
+    "apiOfflineTitle": "A API de Media não está disponível offline",
+    "serverOfflineTitle": "Servidor offline",
     "offlineTitle": "API de Media não disponível neste servidor",
     "offlineDescription": "Este servidor tldw não anuncia os endpoints de Media (por exemplo, /api/v1/media e /api/v1/media/search). Atualize seu servidor para uma versão que inclua Media para usar este espaço de trabalho.",
     "offlineExample1": "Abra Diagnostics para confirmar a versão do servidor e as APIs disponíveis.",

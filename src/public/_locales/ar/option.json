@@ -960,7 +960,7 @@
     "message": "الملف كبير جدًا"
   },
   "upload_fileTooLargeDescription": {
-    "message": "يجب أن يكون حجم الملف أقل من 10 ميجابايت"
+    "message": "يجب أن يكون حجم الملف أقل من {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "فشل الرفع"
@@ -1780,5 +1780,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

@@ -22,16 +22,12 @@ import { getProviderDisplayName } from "@/utils/provider-registry"
 import type { ActorSettings, ActorTarget } from "@/types/actor"
 import { createDefaultActorSettings } from "@/types/actor"
 import {
-  getActorSettingsForChatWithCharacterFallback,
-  saveActorSettingsForChat
-} from "@/services/actor-settings"
-import {
   buildActorPrompt,
   buildActorSettingsFromForm,
   estimateActorTokens
 } from "@/utils/actor"
 import type { Character } from "@/types/character"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import {
   ModelBasicsTab,
   ConversationTab,
@@ -117,6 +113,8 @@ const CHAT_MODEL_SETTING_KEYS: ReadonlySet<keyof ChatModelSettings> = new Set([
   "jsonMode"
 ])
 
+const loadActorSettings = () => import("@/services/actor-settings")
+
 const isChatModelSettingKey = (
   key: string
 ): key is keyof ChatModelSettings =>
@@ -148,10 +146,9 @@ export const CurrentChatModelSettings = ({
     setServerChatVersion
   } = useMessageOption()
 
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter, , selectedCharacterMeta] =
+    useSelectedCharacter<Character | null>(null)
+  const selectedCharacterId = selectedCharacter?.id ?? null
 
   const {
     settings: actorSettings,
@@ -219,13 +216,15 @@ export const CurrentChatModelSettings = ({
       const next: ActorSettings = buildActorSettingsFromForm(base, values)
 
       setActorSettings(next)
-      void saveActorSettingsForChat({
-        historyId,
-        serverChatId,
-        settings: next
-      })
+      void loadActorSettings().then(({ saveActorSettingsForChat }) =>
+        saveActorSettingsForChat({
+          historyId,
+          serverChatId,
+          settings: next
+        })
+      )
     },
-    [actorSettings, cUserSettings, historyId, serverChatId]
+    [actorSettings, cUserSettings, historyId, serverChatId, setActorSettings]
   )
 
   const buildBaseValues = useCallback(
@@ -261,7 +260,7 @@ export const CurrentChatModelSettings = ({
   )
 
   const { isLoading } = useQuery({
-    queryKey: ["fetchModelConfig2", open],
+    queryKey: ["fetchModelConfig2", open, selectedCharacterId],
     queryFn: async () => {
       const data = await getAllModelSettings()
 
@@ -279,13 +278,16 @@ export const CurrentChatModelSettings = ({
 
       const baseValues = buildBaseValues(data, tempSystemPrompt)
 
-      const actor =
-        actorSettings ??
-        (await getActorSettingsForChatWithCharacterFallback({
+      let actor = actorSettings
+      if (!actor) {
+        const { getActorSettingsForChatWithCharacterFallback } =
+          await loadActorSettings()
+        actor = await getActorSettingsForChatWithCharacterFallback({
           historyId,
           serverChatId,
-          characterId: selectedCharacter?.id ?? null
-        }))
+          characterId: selectedCharacterId
+        })
+      }
       setActorSettings(actor)
 
       const actorFields: Record<string, any> = {
@@ -311,7 +313,7 @@ export const CurrentChatModelSettings = ({
       setPreviewAndTokens(preview, estimateActorTokens(preview))
       return data
     },
-    enabled: open,
+    enabled: open && !selectedCharacterMeta.isLoading,
     refetchOnMount: false,
     refetchOnWindowFocus: false
   })

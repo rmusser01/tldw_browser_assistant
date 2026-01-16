@@ -25,10 +25,12 @@ export type CoreMode =
   | "speech"
   | "promptStudio"
   | "flashcards"
+  | "documentation"
   | "chunkingPlayground"
   | "worldBooks"
   | "dictionaries"
   | "characters"
+  | "watchlists"
 
 interface ModeSelectorProps {
   currentMode: CoreMode
@@ -114,6 +116,11 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
       shortcut: undefined,
     },
     {
+      key: "documentation",
+      label: t("option:header.modeDocumentation", "Documentation"),
+      shortcut: undefined,
+    },
+    {
       key: "speech",
       label: t("option:header.modeSpeech", "Speech"),
       shortcut: undefined,
@@ -137,6 +144,11 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
       key: "characters",
       label: t("option:header.modeCharacters", "Characters"),
       shortcut: shortcutConfig.modeCharacters,
+    },
+    {
+      key: "watchlists",
+      label: t("option:header.modeWatchlists", "Watchlists"),
+      shortcut: undefined,
     },
   ]
 

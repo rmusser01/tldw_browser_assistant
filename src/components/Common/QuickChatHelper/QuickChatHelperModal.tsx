@@ -1,14 +1,17 @@
 import React, { useRef, useEffect, useCallback } from "react"
-import { Modal, Button, Tooltip } from "antd"
+import { Modal, Button, Tooltip, Select } from "antd"
 import { ExternalLink, AlertCircle } from "lucide-react"
+import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { useQuickChat } from "@/hooks/useQuickChat"
 import { useQuickChatStore } from "@/store/quick-chat"
+import { fetchChatModels } from "@/services/tldw-server"
 import { QuickChatMessage } from "./QuickChatMessage"
 import { QuickChatInput } from "./QuickChatInput"
 import { browser } from "wxt/browser"
 import { useConnectionPhase, useIsConnected } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
+import { useChatModelsSelect } from "@/hooks/useChatModelsSelect"
 
 const EMPTY_POP_OUT_TOOLTIP_STYLES = {
   root: { maxWidth: "200px" }
@@ -27,11 +30,31 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     sendMessage,
     cancelStream,
     isStreaming,
-    hasModel
+    hasModel,
+    activeModel,
+    currentModel,
+    modelOverride,
+    setModelOverride
   } = useQuickChat()
   const phase = useConnectionPhase()
   const isConnected = useIsConnected()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
+  const { data: models = [], isLoading: modelsLoading } = useQuery({
+    queryKey: ["quickChatModels"],
+    queryFn: () => fetchChatModels({ returnEmpty: true }),
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    select: (data) => data.filter((model) => model?.model)
+  })
+
+  const { allowClear, modelOptions, modelPlaceholder, handleModelChange } =
+    useChatModelsSelect({
+      models,
+      currentModel,
+      modelOverride,
+      setModelOverride,
+      t
+    })
 
   const getModalContainer = useCallback(() => {
     if (typeof document === "undefined") return null
@@ -68,14 +91,14 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
     }
   }, [onClose])
 
-  const title = t("quickChatHelper.title", "Quick Chat Helper")
+  const title = t("option:quickChatHelper.title", "Quick Chat Helper")
   const emptyState = t(
-    "quickChatHelper.emptyState",
+    "option:quickChatHelper.emptyState",
     "Start a quick side chat to keep your main thread clean."
   )
-  const popOutLabel = t("quickChatHelper.popOutButton", "Pop out")
+  const popOutLabel = t("option:quickChatHelper.popOutButton", "Pop out")
   const popOutDisabledTooltip = t(
-    "quickChatHelper.popOutDisabled",
+    "option:quickChatHelper.popOutDisabled",
     "Pop-out is disabled when there are no messages. Start a conversation first."
   )
   const connectionLabel = isConnectionReady
@@ -123,7 +146,20 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
       aria-labelledby="quick-chat-title"
       aria-describedby={descriptionId}>
       <div className="flex flex-col h-[50vh] max-h-[400px]">
-        <div className="flex items-center justify-end px-1 pb-2">
+        <div className="flex items-center gap-2 px-1 pb-2">
+          <Select
+            className="flex-1"
+            size="small"
+            showSearch
+            options={modelOptions}
+            value={activeModel || undefined}
+            placeholder={modelPlaceholder}
+            loading={modelsLoading}
+            optionFilterProp="label"
+            allowClear={allowClear}
+            aria-label={t("option:quickChatHelper.modelLabel", "Model")}
+            onChange={handleModelChange}
+          />
           <span
             role="status"
             aria-live="polite"
@@ -149,8 +185,8 @@ export const QuickChatHelperModal: React.FC<Props> = ({ open, onClose }) => {
                   <AlertCircle className="h-4 w-4" />
                   <span>
                     {t(
-                      "quickChatHelper.noModelWarning",
-                      "Please select a model in the main chat first."
+                      "option:quickChatHelper.noModelWarning",
+                      "Select a model in the main chat or choose one here."
                     )}
                   </span>
                 </div>

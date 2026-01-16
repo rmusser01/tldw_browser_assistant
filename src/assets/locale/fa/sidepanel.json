@@ -104,6 +104,7 @@
     "saveFailedDescription": "اکنون گفتگو فقط به صورت محلی ذخیره می شود. اتصال خود را بررسی کرده و دوباره تلاش کنید."
   },
   "rag": {
+    "attachedContext": "زمینه پیوست‌شده",
     "searchPlaceholder": "جستجوی دانش شما…",
     "search": "جستجو",
     "show": "Show RAG search",
@@ -111,6 +112,7 @@
     "addTagPlaceholder": "افزودن برچسب (Enter)",
     "add": "افزودن",
     "noResults": "نتیجه‌ای یافت نشد",
+    "initialState": "نتیجه‌ای یافت نشد",
     "timeout": {
       "message": "درخواست زمان‌بر شد.",
       "increase": "افزایش زمان انتظار",

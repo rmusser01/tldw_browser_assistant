@@ -1,6 +1,7 @@
 import type { ChatDocuments } from "@/models/ChatTypes"
 import type { UploadedFile } from "@/db/dexie/types"
 import type { ConversationState } from "@/services/tldw/TldwApiClient"
+import type { RagPinnedResult } from "@/utils/rag-format"
 
 // Knowledge type is now server-side only; this is a placeholder for legacy compatibility
 export type Knowledge = {
@@ -43,6 +44,7 @@ export type MessageVariant = {
 export type Message = {
   isBot: boolean
   name: string
+  role?: "user" | "assistant" | "system"
   message: string
   sources: any[]
   images?: string[]
@@ -79,7 +81,12 @@ export type State = {
     messagesOrUpdater: Message[] | ((prev: Message[]) => Message[])
   ) => void
   history: ChatHistory
-  setHistory: (history: ChatHistory) => void
+  // Accepts either direct ChatHistory or functional update (like React setState)
+  setHistory: (
+    historyOrUpdater:
+      | ChatHistory
+      | ((prev: ChatHistory) => ChatHistory)
+  ) => void
   streaming: boolean
   setStreaming: (streaming: boolean) => void
   isFirstMessage: boolean
@@ -148,6 +155,9 @@ export type State = {
   // Advanced RAG options (free-form UnifiedRAGRequest fields)
   ragAdvancedOptions: Record<string, any>
   setRagAdvancedOptions: (opts: Record<string, any>) => void
+  // Session-only pinned RAG results for the Search & Context modal
+  ragPinnedResults: RagPinnedResult[]
+  setRagPinnedResults: (results: RagPinnedResult[]) => void
   // Server-backed character chat id
   serverChatId: string | null
   setServerChatId: (id: string | null) => void

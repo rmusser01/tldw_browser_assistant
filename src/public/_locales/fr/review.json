@@ -1312,5 +1312,11 @@
   },
   "contentReview_editedLabel": {
     "message": "Modifié"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "L'API Media n’est pas disponible hors ligne"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "Serveur hors ligne"
   }
 }

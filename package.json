@@ -32,6 +32,9 @@
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.24.0",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@heroicons/react": "^2.2.0",
     "@mozilla/readability": "^0.5.0",
     "@plasmohq/storage": "^1.15.0",
@@ -42,6 +45,7 @@
     "@vitejs/plugin-react": "^4.7.0",
     "antd": "^5.29.3",
     "axios": "^1.13.2",
+    "buffer": "^6.0.3",
     "caniuse-lite": "^1.0.30001763",
     "cheerio": "^1.1.2",
     "cytoscape": "^3.33.1",
@@ -58,7 +62,7 @@
     "i18next-icu": "^2.4.1",
     "lucide-react": "^0.561.0",
     "marked": "^15.0.12",
-    "mermaid": "^10.9.5",
+    "mermaid": "^11.12.2",
     "pa-tesseract.js": "^5.1.1",
     "prism-react-renderer": "^2.4.1",
     "property-information": "^6.5.0",
@@ -75,9 +79,9 @@
     "rehype-mathjax": "4.0.3",
     "remark-gfm": "3.0.1",
     "remark-math": "5.1.1",
+    "stream-browserify": "^3.0.0",
     "turndown": "^7.2.2",
     "unist-util-visit": "^5.0.0",
-    "yt-transcript": "^0.0.2",
     "zustand": "^4.5.7"
   },
   "devDependencies": {

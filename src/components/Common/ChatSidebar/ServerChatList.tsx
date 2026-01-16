@@ -3,13 +3,16 @@ import { useTranslation } from "react-i18next"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Empty, Skeleton, Input, Modal, message } from "antd"
 import { useStorage } from "@plasmohq/storage/hook"
+import { FolderPlus, Tag, Trash2 } from "lucide-react"
 
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { useServerChatHistory, type ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
 import { useClearChat } from "@/hooks/chat/useClearChat"
 import { useSelectServerChat } from "@/hooks/chat/useSelectServerChat"
+import { useBulkChatOperations } from "@/hooks/useBulkChatOperations"
 import { useStoreMessageOption } from "@/store/option"
+import { useFolderStore } from "@/store/folder"
 import { shallow } from "zustand/shallow"
 import {
   tldwClient,
@@ -21,9 +24,17 @@ import { cn } from "@/libs/utils"
 import { normalizeConversationState } from "@/utils/conversation-state"
 import { ServerChatRow } from "./ServerChatRow"
 
+const BulkFolderPickerModal = React.lazy(
+  () => import("@/components/Sidepanel/Chat/BulkFolderPickerModal")
+)
+const BulkTagPickerModal = React.lazy(
+  () => import("@/components/Sidepanel/Chat/BulkTagPickerModal")
+)
+
 interface ServerChatListProps {
   searchQuery: string
   className?: string
+  selectionMode?: boolean
 }
 
 type UpdateChatRequestPayload = {
@@ -32,7 +43,11 @@ type UpdateChatRequestPayload = {
   expectedVersion?: number | null
 }
 
-export function ServerChatList({ searchQuery, className }: ServerChatListProps) {
+export function ServerChatList({
+  searchQuery,
+  className,
+  selectionMode: selectionModeProp
+}: ServerChatListProps) {
   const { t } = useTranslation(["common", "sidepanel", "option", "playground"])
   const { isConnected } = useConnectionState()
   const queryClient = useQueryClient()
@@ -68,6 +83,29 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
   const [editingTopicChat, setEditingTopicChat] =
     React.useState<ServerChatHistoryItem | null>(null)
   const [topicValue, setTopicValue] = React.useState("")
+  const selectionMode = selectionModeProp ?? false
+  const [selectedChatIds, setSelectedChatIds] = React.useState<string[]>([])
+  const selectedChatIdSet = React.useMemo(
+    () => new Set(selectedChatIds),
+    [selectedChatIds]
+  )
+  const visibleChatIdSetRef = React.useRef<Set<string> | null>(null)
+  const [bulkFolderPickerOpen, setBulkFolderPickerOpen] = React.useState(false)
+  const [bulkTagPickerOpen, setBulkTagPickerOpen] = React.useState(false)
+  const [bulkDeleteConfirmOpen, setBulkDeleteConfirmOpen] = React.useState(false)
+
+  const {
+    folderApiAvailable,
+    ensureKeyword,
+    addKeywordToConversation
+  } = useFolderStore(
+    (state) => ({
+      folderApiAvailable: state.folderApiAvailable,
+      ensureKeyword: state.ensureKeyword,
+      addKeywordToConversation: state.addKeywordToConversation
+    }),
+    shallow
+  )
 
   const updateChatRequest = React.useCallback(
     async (payload: UpdateChatRequestPayload): Promise<ServerChatSummary> =>
@@ -97,7 +135,10 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     Error,
     UpdateChatRequestPayload
   >({
-    mutationFn: updateChatRequest
+    mutationFn: updateChatRequest,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+    }
   })
 
   const { mutate: updateChatTopic, isPending: topicLoading } = useMutation<
@@ -105,7 +146,10 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     Error,
     UpdateChatRequestPayload
   >({
-    mutationFn: updateChatRequest
+    mutationFn: updateChatRequest,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+    }
   })
 
   const {
@@ -122,6 +166,39 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
   const unpinnedChats = serverChats.filter(
     (chat) => !pinnedChatSet.has(chat.id)
   )
+  const visibleChatIds = React.useMemo(
+    () => Array.from(new Set(serverChats.map((chat) => chat.id))),
+    [serverChats]
+  )
+  const visibleChatIdSet = React.useMemo(
+    () => new Set(visibleChatIds),
+    [visibleChatIds]
+  )
+  const chatById = React.useMemo(
+    () => new Map(serverChats.map((chat) => [chat.id, chat])),
+    [serverChats]
+  )
+  const selectedChats = React.useMemo(
+    () =>
+      selectedChatIds
+        .map((id) => chatById.get(id))
+        .filter(Boolean) as ServerChatHistoryItem[],
+    [selectedChatIds, chatById]
+  )
+  const selectedConversationIds = React.useMemo(
+    () => selectedChats.map((chat) => chat.id),
+    [selectedChats]
+  )
+  const { openBulkFolderPicker, openBulkTagPicker, applyBulkTrash } =
+    useBulkChatOperations({
+      selectedConversationIds,
+      folderApiAvailable,
+      ensureKeyword,
+      addKeywordToConversation,
+      t,
+      setBulkFolderPickerOpen,
+      setBulkTagPickerOpen
+    })
 
   const togglePinned = React.useCallback(
     (chatId: string) => {
@@ -135,6 +212,53 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     },
     [setPinnedChatIds]
   )
+
+  React.useEffect(() => {
+    if (!selectionMode) {
+      setSelectedChatIds((prev) => (prev.length === 0 ? prev : []))
+      visibleChatIdSetRef.current = visibleChatIdSet
+      return
+    }
+    if (visibleChatIdSetRef.current === visibleChatIdSet) return
+    visibleChatIdSetRef.current = visibleChatIdSet
+    setSelectedChatIds((prev) => {
+      const next = prev.filter((id) => visibleChatIdSet.has(id))
+      if (next.length === prev.length && next.every((id, idx) => id === prev[idx])) {
+        return prev
+      }
+      return next
+    })
+  }, [selectionMode, visibleChatIdSet])
+
+  React.useEffect(() => {
+    if (selectionMode) {
+      setOpenMenuFor(null)
+      return
+    }
+    setBulkFolderPickerOpen(false)
+    setBulkTagPickerOpen(false)
+    setBulkDeleteConfirmOpen(false)
+  }, [selectionMode])
+
+  const toggleChatSelected = React.useCallback((chatId: string) => {
+    setSelectedChatIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(chatId)) {
+        next.delete(chatId)
+      } else {
+        next.add(chatId)
+      }
+      return Array.from(next)
+    })
+  }, [])
+
+  const handleSelectAllVisible = React.useCallback(() => {
+    setSelectedChatIds(visibleChatIds)
+  }, [visibleChatIds])
+
+  const clearSelection = React.useCallback(() => {
+    setSelectedChatIds([])
+  }, [])
 
   const handleRenameSubmit = () => {
     if (renameLoading) return
@@ -151,7 +275,6 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     }
 
     setRenameError(null)
-    if (renameLoading) return
     renameChat(
       {
         chatId: renamingChat.id,
@@ -166,7 +289,6 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
             setServerChatVersion(updated?.version ?? null)
             updatePageTitle(resolvedTitle)
           }
-          queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
           setRenamingChat(null)
           setRenameValue("")
         },
@@ -186,7 +308,6 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
     if (!editingTopicChat) return
 
     const nextTopic = topicValue.trim()
-    if (topicLoading) return
     updateChatTopic(
       {
         chatId: editingTopicChat.id,
@@ -200,7 +321,6 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
             setServerChatTopic(resolvedTopic)
             setServerChatVersion(updated?.version ?? null)
           }
-          queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
           setEditingTopicChat(null)
           setTopicValue("")
         },
@@ -306,7 +426,7 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
       setRenameValue(chat.title || "")
       setRenameError(null)
     },
-    [setRenameError, setRenameValue, setRenamingChat]
+    []
   )
 
   const handleEditTopic = React.useCallback(
@@ -314,8 +434,80 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
       setEditingTopicChat(chat)
       setTopicValue(chat.topic_label || "")
     },
-    [setEditingTopicChat, setTopicValue]
+    []
   )
+
+  const handleRowClick = React.useCallback(
+    (chat: ServerChatHistoryItem) => {
+      if (selectionMode) {
+        toggleChatSelected(chat.id)
+        return
+      }
+      selectServerChat(chat)
+    },
+    [selectionMode, selectServerChat, toggleChatSelected]
+  )
+
+  const selectionPropsForChat = (chatId: string) =>
+    selectionMode
+      ? {
+          selectionMode: true as const,
+          isSelected: selectedChatIdSet.has(chatId),
+          onToggleSelected: toggleChatSelected
+        }
+      : { selectionMode: false as const }
+
+  const openBulkDeleteConfirm = React.useCallback(() => {
+    setBulkDeleteConfirmOpen(true)
+  }, [])
+
+  const handleBulkFolderPickerClose = React.useCallback(() => {
+    setBulkFolderPickerOpen(false)
+  }, [])
+
+  const handleBulkTagPickerClose = React.useCallback(() => {
+    setBulkTagPickerOpen(false)
+  }, [])
+
+  const handleBulkDeleteConfirmClose = React.useCallback(() => {
+    setBulkDeleteConfirmOpen(false)
+  }, [])
+
+  const handleBulkDelete = React.useCallback(async () => {
+    try {
+      const result = await applyBulkTrash()
+      if (!result) return
+      const { failedConversationIds } = result
+      setPinnedChatIds((prev) =>
+        (prev || []).filter(
+          (id) =>
+            !selectedConversationIds.includes(id) ||
+            failedConversationIds.has(id)
+        )
+      )
+      setSelectedChatIds(
+        selectedConversationIds.filter((id) =>
+          failedConversationIds.has(id)
+        )
+      )
+      queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
+      setBulkDeleteConfirmOpen(false)
+    } catch (error) {
+      console.error("[ServerChatList] Failed to bulk delete chats:", error)
+      message.error(
+        t("sidepanel:multiSelect.deleteFailed", {
+          defaultValue: "Unable to move chats to trash."
+        })
+      )
+    }
+  }, [
+    applyBulkTrash,
+    message,
+    queryClient,
+    selectedConversationIds,
+    setPinnedChatIds,
+    t
+  ])
 
   // Not connected state
   if (!isConnected) {
@@ -429,6 +621,65 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
           />
         </Modal>
       )}
+      {selectionMode && (
+        <div className="sticky top-0 z-10 border-b border-border bg-surface2 px-2 py-2">
+          <div className="flex items-center justify-between text-xs text-text-subtle">
+            <span>
+              {t("sidepanel:multiSelect.count", {
+                defaultValue: "{{count}} selected",
+                count: selectedChatIds.length
+              })}
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleSelectAllVisible}
+                className="text-text-subtle hover:text-text"
+                disabled={visibleChatIds.length === 0}
+              >
+                {t("sidepanel:multiSelect.selectAll", "Select all")}
+              </button>
+              <button
+                type="button"
+                onClick={clearSelection}
+                className="text-text-subtle hover:text-text"
+                disabled={selectedChatIds.length === 0}
+              >
+                {t("sidepanel:multiSelect.clear", "Clear")}
+              </button>
+            </div>
+          </div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={openBulkFolderPicker}
+              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text hover:bg-surface2"
+              disabled={selectedChatIds.length === 0}
+            >
+              <FolderPlus className="size-3.5" />
+              {t("sidepanel:multiSelect.addToFolder", "Add to folders")}
+            </button>
+            <button
+              type="button"
+              onClick={openBulkTagPicker}
+              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text hover:bg-surface2"
+              disabled={selectedChatIds.length === 0}
+            >
+              <Tag className="size-3.5" />
+              {t("sidepanel:multiSelect.addTags", "Add tags")}
+            </button>
+            <button
+              type="button"
+              onClick={openBulkDeleteConfirm}
+              className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-red-600 hover:bg-surface2"
+              disabled={selectedChatIds.length === 0}
+            >
+              <Trash2 className="size-3.5" />
+              {t("common:delete", "Delete")}
+            </button>
+          </div>
+        </div>
+      )}
       {pinnedChats.length > 0 && (
         <div className="flex flex-col gap-2">
           <div className="px-2 text-[11px] font-medium text-text-subtle uppercase tracking-wide">
@@ -442,13 +693,14 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
               isActive={serverChatId === chat.id}
               openMenuFor={openMenuFor}
               setOpenMenuFor={setOpenMenuFor}
-              onSelectChat={selectServerChat}
+              onSelectChat={handleRowClick}
               onTogglePinned={togglePinned}
               onOpenSettings={handleOpenSettings}
               onRenameChat={handleRenameChat}
               onEditTopic={handleEditTopic}
               onDeleteChat={handleDeleteChat}
               onUpdateState={handleUpdateState}
+              {...selectionPropsForChat(chat.id)}
               t={t}
             />
           ))}
@@ -464,18 +716,57 @@ export function ServerChatList({ searchQuery, className }: ServerChatListProps) 
               isActive={serverChatId === chat.id}
               openMenuFor={openMenuFor}
               setOpenMenuFor={setOpenMenuFor}
-              onSelectChat={selectServerChat}
+              onSelectChat={handleRowClick}
               onTogglePinned={togglePinned}
               onOpenSettings={handleOpenSettings}
               onRenameChat={handleRenameChat}
               onEditTopic={handleEditTopic}
               onDeleteChat={handleDeleteChat}
               onUpdateState={handleUpdateState}
+              {...selectionPropsForChat(chat.id)}
               t={t}
             />
           ))}
         </div>
       )}
+      <React.Suspense fallback={null}>
+        {bulkFolderPickerOpen && (
+          <BulkFolderPickerModal
+            open={bulkFolderPickerOpen}
+            conversationIds={selectedConversationIds}
+            onClose={handleBulkFolderPickerClose}
+            onSuccess={clearSelection}
+          />
+        )}
+        {bulkTagPickerOpen && (
+          <BulkTagPickerModal
+            open={bulkTagPickerOpen}
+            conversationIds={selectedConversationIds}
+            onClose={handleBulkTagPickerClose}
+            onSuccess={clearSelection}
+          />
+        )}
+      </React.Suspense>
+      <Modal
+        open={bulkDeleteConfirmOpen}
+        onCancel={handleBulkDeleteConfirmClose}
+        onOk={handleBulkDelete}
+        okText={t("sidepanel:multiSelect.deleteConfirmOk", "Move to trash")}
+        cancelText={t("common:cancel", "Cancel")}
+        okButtonProps={{ danger: true }}
+        title={t(
+          "sidepanel:multiSelect.deleteConfirmTitle",
+          "Move chats to trash?"
+        )}
+        destroyOnClose
+      >
+        <p>
+          {t(
+            "sidepanel:multiSelect.deleteConfirmBody",
+            "This will hide the selected chats by tagging them as Trash."
+          )}
+        </p>
+      </Modal>
     </div>
   )
 }

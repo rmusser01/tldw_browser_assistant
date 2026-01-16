@@ -67,7 +67,13 @@ export const createCoreSlice: StoreSlice<
           : messagesOrUpdater
     }),
   history: [],
-  setHistory: (history) => set({ history }),
+  setHistory: (historyOrUpdater) =>
+    set({
+      history:
+        typeof historyOrUpdater === "function"
+          ? historyOrUpdater(get().history)
+          : historyOrUpdater
+    }),
   streaming: false,
   setStreaming: (streaming) => set({ streaming }),
   isFirstMessage: true,
@@ -108,7 +114,7 @@ export const createCoreSlice: StoreSlice<
   setIsEmbedding: (isEmbedding) => set({ isEmbedding }),
   webSearch: false,
   setWebSearch: (webSearch) => set({ webSearch }),
-  toolChoice: "auto",
+  toolChoice: "none",
   setToolChoice: (toolChoice) => set({ toolChoice }),
   isSearchingInternet: false,
   setIsSearchingInternet: (isSearchingInternet) => set({ isSearchingInternet }),

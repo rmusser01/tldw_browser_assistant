@@ -1,10 +1,28 @@
 import React from "react"
-import { Typography, Card, List, Tag, Space, Alert, Button, Input, Select, Switch } from "antd"
+import {
+  Typography,
+  Card,
+  List,
+  Tag,
+  Space,
+  Alert,
+  Button,
+  Input,
+  Select,
+  Switch,
+  InputNumber,
+  AutoComplete
+} from "antd"
 import { useTranslation } from "react-i18next"
+import { AlertTriangle } from "lucide-react"
 import { tldwClient, type MlxStatus, type MlxLoadRequest } from "@/services/tldw/TldwApiClient"
 import { PageShell } from "@/components/Common/PageShell"
+import { buildMlxLoadRequest } from "@/utils/build-mlx-load-request"
+import { StatusBanner } from "./StatusBanner"
+import { CollapsibleSection } from "./CollapsibleSection"
 
 const { Title, Text } = Typography
+const { TextArea } = Input
 
 type ProviderConfig = {
   name?: string
@@ -12,22 +30,93 @@ type ProviderConfig = {
   [key: string]: any
 }
 
+const DTYPE_OPTIONS = [
+  { label: "auto", value: "auto" },
+  { label: "float16", value: "float16" },
+  { label: "bfloat16", value: "bfloat16" },
+  { label: "float32", value: "float32" }
+]
+
+const DEVICE_OPTIONS = [
+  { label: "auto", value: "auto" },
+  { label: "mps (Metal)", value: "mps" },
+  { label: "cpu", value: "cpu" }
+]
+
+const QUANTIZATION_OPTIONS = [
+  { label: "None", value: "" },
+  { label: "4bit", value: "4bit" },
+  { label: "8bit", value: "8bit" }
+]
+
+const coerceModelLabel = (value: unknown): string => {
+  if (typeof value === "string" || typeof value === "number") return String(value)
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>
+    const candidate = record.name ?? record.id ?? record.title
+    if (typeof candidate === "string" || typeof candidate === "number") {
+      return String(candidate)
+    }
+    try {
+      return JSON.stringify(value)
+    } catch {
+      return "[object]"
+    }
+  }
+  return ""
+}
+
+const coerceModelNotes = (value: unknown): string | null => {
+  if (typeof value === "string") return value
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>
+    const parts = [record.title, record.description, record.content]
+      .filter((entry) => typeof entry === "string" && entry.trim().length > 0) as string[]
+    if (parts.length > 0) return parts.join(" - ")
+  }
+  return null
+}
+
 export const MlxAdminPage: React.FC = () => {
-  const { t } = useTranslation(["option", "settings"])
-  const [mlxProvider, setMlxProvider] = React.useState<ProviderConfig | null>(
-    null
-  )
-  const [loading, setLoading] = React.useState(false)
-  const [error, setError] = React.useState<string | null>(null)
+  const { t } = useTranslation(["option", "settings", "common"])
+
+  // Provider state
+  const [mlxProvider, setMlxProvider] = React.useState<ProviderConfig | null>(null)
+  const [loadingProvider, setLoadingProvider] = React.useState(false)
+
+  // Status state
   const [status, setStatus] = React.useState<MlxStatus | null>(null)
   const [statusLoading, setStatusLoading] = React.useState(false)
-  const [actionLoading, setActionLoading] = React.useState(false)
-  const [modelPath, setModelPath] = React.useState<string>("")
-  const [device, setDevice] = React.useState<string | undefined>()
-  const [compileFlag, setCompileFlag] = React.useState<boolean>(true)
-  const [warmupFlag, setWarmupFlag] = React.useState<boolean>(true)
-  const [maxConcurrent, setMaxConcurrent] = React.useState<string>("")
+  const [statusError, setStatusError] = React.useState<string | null>(null)
 
+  // Action state
+  const [actionLoading, setActionLoading] = React.useState(false)
+
+  // Basic settings (always visible)
+  const [modelPath, setModelPath] = React.useState<string>("")
+  const [device, setDevice] = React.useState<string>("auto")
+  const [compileFlag, setCompileFlag] = React.useState<boolean>(true)
+  const [maxConcurrent, setMaxConcurrent] = React.useState<number>(1)
+
+  // Performance settings
+  const [maxSeqLen, setMaxSeqLen] = React.useState<number | undefined>()
+  const [maxBatchSize, setMaxBatchSize] = React.useState<number | undefined>()
+  const [dtype, setDtype] = React.useState<string>("auto")
+  const [maxKvCacheSize, setMaxKvCacheSize] = React.useState<number | undefined>()
+
+  // Advanced settings
+  const [quantization, setQuantization] = React.useState<string>("")
+  const [warmupFlag, setWarmupFlag] = React.useState<boolean>(true)
+  const [trustRemoteCode, setTrustRemoteCode] = React.useState<boolean>(false)
+  const [revision, setRevision] = React.useState<string>("")
+  const [tokenizer, setTokenizer] = React.useState<string>("")
+  const [promptTemplate, setPromptTemplate] = React.useState<string>("")
+
+  // LoRA settings
+  const [adapter, setAdapter] = React.useState<string>("")
+  const [adapterWeights, setAdapterWeights] = React.useState<string>("")
+
+  // Admin guard
   const [adminGuard, setAdminGuard] = React.useState<"forbidden" | "notFound" | null>(null)
 
   const markAdminGuardFromError = (err: any) => {
@@ -42,35 +131,33 @@ export const MlxAdminPage: React.FC = () => {
   const loadStatus = React.useCallback(async () => {
     try {
       setStatusLoading(true)
+      setStatusError(null)
       const data = await tldwClient.getMlxStatus()
       setStatus(data)
-      setError(null)
-      if (data?.model && !modelPath) {
-        setModelPath(String(data.model))
+      // Sync form state from loaded model config
+      if (data?.model) {
+        setModelPath((current) => (current ? current : String(data.model)))
       }
       if (data?.config) {
-        setDevice(data.config.device || undefined)
-        setCompileFlag(
-          typeof data.config.compile === "boolean" ? data.config.compile : true
-        )
-        setWarmupFlag(
-          typeof data.config.warmup === "boolean" ? data.config.warmup : true
-        )
-        if (typeof data.max_concurrent === "number") {
-          setMaxConcurrent(String(data.max_concurrent))
-        }
+        if (data.config.device) setDevice(data.config.device)
+        if (typeof data.config.compile === "boolean") setCompileFlag(data.config.compile)
+        if (typeof data.config.warmup === "boolean") setWarmupFlag(data.config.warmup)
+        if (data.config.dtype) setDtype(data.config.dtype)
+      }
+      if (typeof data?.max_concurrent === "number") {
+        setMaxConcurrent(data.max_concurrent)
       }
     } catch (e: any) {
-      setError(e?.message || "Failed to load MLX status.")
+      setStatusError(e?.message || "Failed to load MLX status.")
       markAdminGuardFromError(e)
     } finally {
       setStatusLoading(false)
     }
-  }, [modelPath])
+  }, [])
 
   const loadProviders = React.useCallback(async () => {
     try {
-      setLoading(true)
+      setLoadingProvider(true)
       const data = await tldwClient.getLlmProviders()
       const providers: ProviderConfig[] = Array.isArray(data?.providers)
         ? (data.providers as ProviderConfig[])
@@ -82,55 +169,12 @@ export const MlxAdminPage: React.FC = () => {
             p.name?.toLowerCase() === "mlx_lm"
         ) || null
       setMlxProvider(match)
-      setError(null)
     } catch (e: any) {
-      setError(e?.message || "Failed to load LLM providers.")
       markAdminGuardFromError(e)
     } finally {
-      setLoading(false)
+      setLoadingProvider(false)
     }
   }, [])
-
-  const handleLoadModel = async () => {
-    const path = modelPath.trim()
-    if (!path) {
-      return
-    }
-    const payload: MlxLoadRequest = {
-      model_path: path,
-      device: device || undefined,
-      compile: compileFlag,
-      warmup: warmupFlag
-    }
-    const mc = parseInt(maxConcurrent, 10)
-    if (!Number.isNaN(mc) && mc > 0) {
-      payload.max_concurrent = mc
-    }
-    try {
-      setActionLoading(true)
-      const data = await tldwClient.loadMlxModel(payload)
-      setStatus(data)
-      setError(null)
-    } catch (e: any) {
-      setError(e?.message || "Failed to load MLX model.")
-      markAdminGuardFromError(e)
-    } finally {
-      setActionLoading(false)
-    }
-  }
-
-  const handleUnloadModel = async () => {
-    try {
-      setActionLoading(true)
-      await tldwClient.unloadMlxModel()
-      await loadStatus()
-    } catch (e: any) {
-      setError(e?.message || "Failed to unload MLX model.")
-      markAdminGuardFromError(e)
-    } finally {
-      setActionLoading(false)
-    }
-  }
 
   React.useEffect(() => {
     let cancelled = false
@@ -144,337 +188,534 @@ export const MlxAdminPage: React.FC = () => {
     }
   }, [loadProviders, loadStatus])
 
-  const models = (mlxProvider?.models_info || []) as Array<Record<string, any>>
+  const handleLoadModel = async () => {
+    const path = modelPath.trim()
+    if (!path) return
+
+    try {
+      setActionLoading(true)
+      const payload: MlxLoadRequest = buildMlxLoadRequest({
+        modelPath,
+        compile: compileFlag,
+        warmup: warmupFlag,
+        maxConcurrent,
+        device,
+        maxSeqLen,
+        maxBatchSize,
+        dtype,
+        maxKvCacheSize,
+        quantization,
+        revision,
+        trustRemoteCode,
+        tokenizer,
+        promptTemplate,
+        adapter,
+        adapterWeights
+      })
+      const data = await tldwClient.loadMlxModel(payload)
+      setStatus(data)
+      setStatusError(null)
+    } catch (e: any) {
+      setStatusError(e?.message || "Failed to load MLX model.")
+      markAdminGuardFromError(e)
+    } finally {
+      setActionLoading(false)
+    }
+  }
+
+  const handleUnloadModel = async () => {
+    try {
+      setActionLoading(true)
+      await tldwClient.unloadMlxModel()
+      await loadStatus()
+    } catch (e: any) {
+      setStatusError(e?.message || "Failed to unload MLX model.")
+      markAdminGuardFromError(e)
+    } finally {
+      setActionLoading(false)
+    }
+  }
+
+  // Build autocomplete options from provider models
+  const modelOptions = React.useMemo(() => {
+    const models = (mlxProvider?.models_info || []) as Array<Record<string, any>>
+    return models
+      .map((m) => {
+        const label = coerceModelLabel(m.id ?? m.name ?? m.model_id ?? "")
+        if (!label) return null
+        return { value: label, label }
+      })
+      .filter((option): option is { value: string; label: string } => option !== null)
+  }, [mlxProvider])
+
+  const effectiveState = status?.active ? "active" : "inactive"
+  const providerModels = (mlxProvider?.models_info || []) as Array<Record<string, any>>
 
   return (
     <PageShell>
       <Space direction="vertical" size="large" className="w-full py-6">
+        {/* Admin Guard Alert */}
         {adminGuard && (
           <Alert
             type="warning"
             showIcon
-            className="mb-4"
             message={
               adminGuard === "forbidden"
-                ? t(
-                    "settings:admin.adminGuardForbiddenTitle",
-                    "Admin access required for these controls"
-                  )
-                : t(
-                    "settings:admin.adminGuardNotFoundTitle",
-                    "Admin APIs are not available on this server"
-                  )
+                ? t("settings:admin.adminGuardForbiddenTitle", "Admin access required")
+                : t("settings:admin.adminGuardNotFoundTitle", "Admin APIs not available")
             }
             description={
               <span>
                 {adminGuard === "forbidden"
                   ? t(
                       "settings:admin.adminGuardForbiddenBody",
-                      "Sign in as an admin user on your tldw server to view and manage users, roles, and system statistics."
+                      "Sign in as an admin user on your tldw server to access these controls."
                     )
                   : t(
                       "settings:admin.adminGuardNotFoundBody",
-                      "This tldw server does not expose the /admin endpoints, or they are disabled. Upgrade or reconfigure the server to enable these views."
+                      "This tldw server does not expose the admin endpoints."
                     )}{" "}
                 <a
                   href="https://github.com/rmusser01/tldw_server#documentation--resources"
                   target="_blank"
-                  rel="noreferrer">
-                  {t(
-                    "settings:admin.adminGuardLearnMore",
-                    "Learn more in the tldw server documentation."
-                  )}
+                  rel="noreferrer"
+                >
+                  {t("settings:admin.adminGuardLearnMore", "Learn more")}
                 </a>
               </span>
             }
           />
         )}
+
+        {/* Page Header */}
         <div>
-          <Title level={2}>{t("option:header.adminMlx", "MLX LM Admin")}</Title>
+          <Title level={2}>
+            {t("option:header.adminMlx", "MLX LM Admin")}
+          </Title>
           <Text type="secondary">
             {t(
               "settings:admin.mlxIntro",
-              "Inspect configured MLX language models on your tldw server."
+              "Manage MLX language models: load models with custom configuration and monitor status."
             )}
           </Text>
         </div>
 
-        {adminGuard && (
-          <Text type="secondary">
-            {t(
-              "settings:admin.adminGuardLimitedInfo",
-              "Admin-level details and controls are hidden until admin APIs are available."
-            )}
-          </Text>
-        )}
-
         {!adminGuard && (
           <>
-            <Card
-              title={t("settings:admin.mlxStatusTitle", "MLX status")}
+            {/* Status Banner */}
+            <StatusBanner
+              state={effectiveState}
               loading={statusLoading}
-              extra={
-                <Button size="small" onClick={loadStatus} disabled={statusLoading}>
-                  {t("common:refresh", "Refresh")}
-                </Button>
-              }>
-              {error && (
-                <Alert
-                  type="error"
-                  message={t(
-                    "settings:admin.mlxError",
-                    "Unable to load MLX provider information"
-                  )}
-                  description={error}
-                  showIcon
-                  className="mb-3"
-                />
-              )}
-              {status ? (
-                <Space direction="vertical" size="small" className="w-full">
-                  <Space align="center" size="small">
-                    <Text strong>{t("settings:admin.mlxActiveLabel", "Active")}:</Text>
-                    <Tag color={status.active ? "green" : "default"}>
-                      {status.active
-                        ? t("settings:admin.mlxActive", "Active")
-                        : t("settings:admin.mlxInactive", "Inactive")}
-                    </Tag>
-                  </Space>
-                  <Space align="center" size="small">
-                    <Text strong>{t("settings:admin.mlxCurrentModel", "Current model")}:</Text>
-                    <Text code>{status.model || t("settings:admin.mlxNoActiveModel", "None")}</Text>
-                  </Space>
-                  <Space align="center" size="small">
-                    <Text strong>
-                      {t("settings:admin.mlxConcurrency", "Max concurrent requests")}:
-                    </Text>
-                    <Text>{status.max_concurrent}</Text>
-                  </Space>
-                  {status.config && (
-                    <Space direction="vertical" size="small">
-                      <Text strong>
-                        {t("settings:admin.mlxConfigHeading", "Effective configuration")}
-                      </Text>
-                      <Text type="secondary">
-                        {t(
-                          "settings:admin.mlxConfigSummary",
-                          "Device: {{device}} · dtype: {{dtype}} · compile: {{compile}} · warmup: {{warmup}}",
-                          {
-                            device: status.config.device || "auto",
-                            dtype: status.config.dtype || "auto",
-                            compile: String(
-                              typeof status.config.compile === "boolean"
-                                ? status.config.compile
-                                : true
-                            ),
-                            warmup: String(
-                              typeof status.config.warmup === "boolean"
-                                ? status.config.warmup
-                                : true
-                            )
-                          }
-                        )}
-                      </Text>
-                    </Space>
-                  )}
-                </Space>
-              ) : (
-                <Text type="secondary">
-                  {t(
-                    "settings:admin.mlxStatusEmpty",
-                    "No MLX model is currently loaded. Use the controls below to load one."
-                  )}
-                </Text>
-              )}
-            </Card>
+              error={statusError}
+              items={[
+                {
+                  label: t("settings:admin.mlxCurrentModel", "Model"),
+                  value: status?.model,
+                  code: true
+                },
+                {
+                  label: t("settings:admin.mlxConcurrency", "Concurrent"),
+                  value: status?.max_concurrent
+                }
+              ]}
+              onRefresh={loadStatus}
+              quickAction={
+                status?.active
+                  ? {
+                      label: t("settings:admin.mlxUnloadCta", "Unload"),
+                      onClick: handleUnloadModel,
+                      loading: actionLoading,
+                      danger: true
+                    }
+                  : undefined
+              }
+              stateLabel={(state) =>
+                state === "active"
+                  ? t("settings:admin.mlxActive", "Active")
+                  : t("settings:admin.mlxInactive", "Inactive")
+              }
+            />
 
-            <Card
-              title={t("settings:admin.mlxManageTitle", "Load / unload MLX model")}
-              extra={
-                status?.active ? (
-                  <Tag color="green">
-                    {t("settings:admin.mlxManageActiveHint", "A model is currently loaded")}
-                  </Tag>
-                ) : null
-              }>
-              <Space direction="vertical" size="small" className="w-full">
-                <Space direction="vertical" size="small" className="w-full">
-                  <Text strong>
-                    {t("settings:admin.mlxModelPathLabel", "Model path or repo id")}
+            {/* Model Load Card */}
+            <Card title={t("settings:admin.mlxLoadTitle", "Load Model")}>
+              <Space direction="vertical" size="middle" className="w-full">
+                {/* Model Path Input */}
+                <div>
+                  <Text strong className="mb-2 block">
+                    {t("settings:admin.mlxModelPathLabel", "Model path or HuggingFace repo")}
                   </Text>
-                  <Input
-                    size="small"
+                  <AutoComplete
                     value={modelPath}
-                    onChange={(e) => setModelPath(e.target.value)}
+                    onChange={setModelPath}
+                    options={modelOptions}
                     placeholder={t(
                       "settings:admin.mlxModelPathPlaceholder",
-                      "E.g. mlx-community/Meta-Llama-3.1-8B-Instruct-4bit"
+                      "e.g., mlx-community/Meta-Llama-3.1-8B-Instruct-4bit"
                     )}
+                    className="w-full"
+                    filterOption={(input, option) =>
+                      (option?.value ?? "").toLowerCase().includes(input.toLowerCase())
+                    }
                   />
-                </Space>
+                  <Text type="secondary" className="mt-1 block text-xs">
+                    {t("settings:admin.mlxModelPathHint", "Enter a HuggingFace repo ID or local path to an MLX model")}
+                  </Text>
+                </div>
 
-                <Space wrap>
-                  <Space direction="vertical" size="small">
-                    <Text strong>{t("settings:admin.mlxDeviceLabel", "Device")}</Text>
-                    <Select
-                      size="small"
-                      value={device || "auto"}
-                      style={{ minWidth: 140 }}
-                      onChange={(val) => setDevice(val === "auto" ? undefined : val)}
-                      options={[
-                        { label: "auto", value: "auto" },
-                        { label: "mps", value: "mps" },
-                        { label: "cpu", value: "cpu" }
-                      ]}
-                    />
-                  </Space>
-                  <Space direction="vertical" size="small">
-                    <Text strong>
-                      {t("settings:admin.mlxCompileLabel", "Compile at load")}
-                    </Text>
-                    <Switch
-                      size="small"
-                      checked={compileFlag}
-                      onChange={(val) => setCompileFlag(val)}
-                    />
-                  </Space>
-                  <Space direction="vertical" size="small">
-                    <Text strong>
-                      {t("settings:admin.mlxWarmupLabel", "Warmup after load")}
-                    </Text>
-                    <Switch
-                      size="small"
-                      checked={warmupFlag}
-                      onChange={(val) => setWarmupFlag(val)}
-                    />
-                  </Space>
-                  <Space direction="vertical" size="small">
-                    <Text strong>
-                      {t("settings:admin.mlxMaxConcurrentLabel", "Max concurrent")}
-                    </Text>
-                    <Input
-                      size="small"
-                      style={{ width: 80 }}
-                      value={maxConcurrent}
-                      onChange={(e) => setMaxConcurrent(e.target.value)}
-                      placeholder="1"
-                    />
-                  </Space>
-                </Space>
+                {/* Basic Settings - Always Visible */}
+                <div className="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                  <Text strong className="mb-3 block">
+                    {t("settings:admin.mlxBasicSettings", "Basic Settings")}
+                  </Text>
+                  <Space direction="vertical" size="small" className="w-full">
+                    {/* Device */}
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Text className="w-32">
+                        {t("settings:admin.mlxDeviceLabel", "Device")}:
+                      </Text>
+                      <Select
+                        size="small"
+                        value={device}
+                        onChange={setDevice}
+                        options={DEVICE_OPTIONS}
+                        style={{ width: 160 }}
+                      />
+                    </div>
 
-                <Space className="mt-2 flex flex-wrap gap-2">
+                    {/* Compile */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-32">
+                        {t("settings:admin.mlxCompileLabel", "Compile at load")}:
+                      </Text>
+                      <Switch
+                        size="small"
+                        checked={compileFlag}
+                        onChange={setCompileFlag}
+                      />
+                      <Text type="secondary" className="text-xs">
+                        {t("settings:admin.mlxCompileHint", "Compile model for faster inference")}
+                      </Text>
+                    </div>
+
+                    {/* Max Concurrent */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-32">
+                        {t("settings:admin.mlxMaxConcurrentLabel", "Max concurrent")}:
+                      </Text>
+                      <InputNumber
+                        size="small"
+                        value={maxConcurrent}
+                        onChange={(val) => setMaxConcurrent(val ?? 1)}
+                        min={1}
+                        max={32}
+                        style={{ width: 80 }}
+                      />
+                    </div>
+                  </Space>
+                </div>
+
+                {/* Performance Settings - Collapsible */}
+                <CollapsibleSection
+                  title={t("settings:admin.mlxPerformanceSettings", "Performance Settings")}
+                  description={t("settings:admin.mlxPerformanceSettingsDesc", "Sequence length, batch size, data type, cache")}
+                >
+                  <Space direction="vertical" size="small" className="w-full">
+                    {/* Max Sequence Length */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxMaxSeqLen", "Max sequence length")}:
+                      </Text>
+                      <InputNumber
+                        size="small"
+                        value={maxSeqLen}
+                        onChange={(val) => setMaxSeqLen(val ?? undefined)}
+                        min={128}
+                        max={131072}
+                        placeholder="auto"
+                        style={{ width: 100 }}
+                      />
+                    </div>
+
+                    {/* Max Batch Size */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxMaxBatchSize", "Max batch size")}:
+                      </Text>
+                      <InputNumber
+                        size="small"
+                        value={maxBatchSize}
+                        onChange={(val) => setMaxBatchSize(val ?? undefined)}
+                        min={1}
+                        max={256}
+                        placeholder="auto"
+                        style={{ width: 100 }}
+                      />
+                    </div>
+
+                    {/* Data Type */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxDtype", "Data type")}:
+                      </Text>
+                      <Select
+                        size="small"
+                        value={dtype}
+                        onChange={setDtype}
+                        options={DTYPE_OPTIONS}
+                        style={{ width: 120 }}
+                      />
+                    </div>
+
+                    {/* KV Cache Size */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxKvCacheSize", "KV cache size")}:
+                      </Text>
+                      <InputNumber
+                        size="small"
+                        value={maxKvCacheSize}
+                        onChange={(val) => setMaxKvCacheSize(val ?? undefined)}
+                        min={0}
+                        placeholder="auto"
+                        style={{ width: 100 }}
+                      />
+                      <Text type="secondary" className="text-xs">
+                        {t("settings:admin.mlxKvCacheSizeHint", "Max KV cache entries (0 = unlimited)")}
+                      </Text>
+                    </div>
+                  </Space>
+                </CollapsibleSection>
+
+                {/* Advanced Settings - Collapsible */}
+                <CollapsibleSection
+                  title={t("settings:admin.mlxAdvancedSettings", "Advanced Settings")}
+                  description={t("settings:admin.mlxAdvancedSettingsDesc", "Quantization, tokenizer, prompt template")}
+                >
+                  <Space direction="vertical" size="small" className="w-full">
+                    {/* Quantization */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxQuantization", "Quantization")}:
+                      </Text>
+                      <Select
+                        size="small"
+                        value={quantization}
+                        onChange={setQuantization}
+                        options={QUANTIZATION_OPTIONS}
+                        style={{ width: 120 }}
+                      />
+                    </div>
+
+                    {/* Warmup */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxWarmupLabel", "Warmup after load")}:
+                      </Text>
+                      <Switch
+                        size="small"
+                        checked={warmupFlag}
+                        onChange={setWarmupFlag}
+                      />
+                    </div>
+
+                    {/* Trust Remote Code */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxTrustRemoteCode", "Trust remote code")}:
+                      </Text>
+                      <Switch
+                        size="small"
+                        checked={trustRemoteCode}
+                        onChange={setTrustRemoteCode}
+                      />
+                      {trustRemoteCode && (
+                        <Tag color="warning" icon={<AlertTriangle size={12} />}>
+                          {t("settings:admin.mlxTrustRemoteCodeWarning", "Security risk")}
+                        </Tag>
+                      )}
+                    </div>
+
+                    {/* Revision */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxRevision", "HF revision")}:
+                      </Text>
+                      <Input
+                        size="small"
+                        value={revision}
+                        onChange={(e) => setRevision(e.target.value)}
+                        placeholder="main"
+                        style={{ width: 160 }}
+                      />
+                    </div>
+
+                    {/* Tokenizer */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxTokenizer", "Custom tokenizer")}:
+                      </Text>
+                      <Input
+                        size="small"
+                        value={tokenizer}
+                        onChange={(e) => setTokenizer(e.target.value)}
+                        placeholder={t("settings:admin.mlxTokenizerPlaceholder", "Path or repo ID")}
+                        style={{ width: 240 }}
+                      />
+                    </div>
+
+                    {/* Prompt Template */}
+                    <div>
+                      <Text className="mb-1 block">
+                        {t("settings:admin.mlxPromptTemplate", "Prompt template")}:
+                      </Text>
+                      <TextArea
+                        size="small"
+                        value={promptTemplate}
+                        onChange={(e) => setPromptTemplate(e.target.value)}
+                        placeholder={t("settings:admin.mlxPromptTemplatePlaceholder", "Custom prompt template (optional)")}
+                        autoSize={{ minRows: 2, maxRows: 6 }}
+                        className="font-mono text-xs"
+                      />
+                    </div>
+                  </Space>
+                </CollapsibleSection>
+
+                {/* LoRA Settings - Collapsible */}
+                <CollapsibleSection
+                  title={t("settings:admin.mlxLoraSettings", "LoRA / Adapter Settings")}
+                  description={t("settings:admin.mlxLoraSettingsDesc", "Load fine-tuned adapters")}
+                >
+                  <Space direction="vertical" size="small" className="w-full">
+                    {/* Adapter Path */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxAdapter", "Adapter path")}:
+                      </Text>
+                      <Input
+                        size="small"
+                        value={adapter}
+                        onChange={(e) => setAdapter(e.target.value)}
+                        placeholder={t("settings:admin.mlxAdapterPlaceholder", "Path to LoRA adapter")}
+                        style={{ width: 280 }}
+                      />
+                    </div>
+
+                    {/* Adapter Weights */}
+                    <div className="flex items-center gap-3">
+                      <Text className="w-36">
+                        {t("settings:admin.mlxAdapterWeights", "Adapter weights")}:
+                      </Text>
+                      <Input
+                        size="small"
+                        value={adapterWeights}
+                        onChange={(e) => setAdapterWeights(e.target.value)}
+                        placeholder={t("settings:admin.mlxAdapterWeightsPlaceholder", "Path to adapter weights")}
+                        style={{ width: 280 }}
+                      />
+                    </div>
+                  </Space>
+                </CollapsibleSection>
+
+                {/* Action Buttons */}
+                <Space className="mt-4">
                   <Button
                     type="primary"
-                    size="small"
                     onClick={handleLoadModel}
-                    loading={actionLoading}>
-                    {t("settings:admin.mlxLoadCta", "Load model")}
+                    loading={actionLoading}
+                    disabled={!modelPath.trim()}
+                  >
+                    {t("settings:admin.mlxLoadCta", "Load Model")}
                   </Button>
                   <Button
                     danger
-                    size="small"
                     onClick={handleUnloadModel}
                     loading={actionLoading}
-                    disabled={!status?.active}>
-                    {t("settings:admin.mlxUnloadCta", "Unload model")}
+                    disabled={!status?.active}
+                  >
+                    {t("settings:admin.mlxUnloadCta", "Unload Model")}
                   </Button>
                 </Space>
+
+                {status?.active && (
+                  <Alert
+                    type="info"
+                    message={t(
+                      "settings:admin.mlxAlreadyLoaded",
+                      "A model is currently loaded. Unload it first or load a different model to replace it."
+                    )}
+                    showIcon
+                  />
+                )}
               </Space>
             </Card>
 
-            <Card
-              title={t("settings:admin.mlxProviderTitle", "MLX provider")}
-              loading={loading}
-              extra={
-                <Button size="small" onClick={loadProviders} disabled={loading}>
-                  {t("common:refresh", "Refresh")}
-                </Button>
-              }>
-              {error && (
-                <Alert
-                  type="error"
-                  message={t(
-                    "settings:admin.mlxError",
-                    "Unable to load MLX provider information"
-                  )}
-                  description={error}
-                  showIcon
-                  className="mb-3"
+            {/* Provider Models - Collapsible */}
+            <CollapsibleSection
+              title={t("settings:admin.mlxProviderTitle", "Available Provider Models")}
+              description={t("settings:admin.mlxProviderDesc", `${providerModels.length} model(s) configured`)}
+            >
+              {loadingProvider ? (
+                <Text type="secondary">{t("common:loading", "Loading...")}</Text>
+              ) : providerModels.length > 0 ? (
+                <List
+                  size="small"
+                  bordered
+                  dataSource={providerModels}
+                  renderItem={(m) => {
+                    const idLabel = coerceModelLabel(m.id ?? m.name ?? m.model_id ?? "") || "model"
+                    const notes = coerceModelNotes(m.notes)
+                    const capabilities = m.capabilities as Record<string, boolean> | undefined
+                    return (
+                      <List.Item
+                        actions={[
+                          <Button
+                            key="use"
+                            size="small"
+                            type="link"
+                            onClick={() => setModelPath(idLabel)}
+                          >
+                            {t("common:use", "Use")}
+                          </Button>
+                        ]}
+                      >
+                        <div className="flex flex-col gap-1">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <Text code>{idLabel}</Text>
+                            {capabilities?.vision && (
+                              <Tag color="purple">
+                                {t("settings:admin.mlxVision", "Vision")}
+                              </Tag>
+                            )}
+                            {capabilities?.tool_use && (
+                              <Tag color="geekblue">
+                                {t("settings:admin.mlxTools", "Tools")}
+                              </Tag>
+                            )}
+                            {capabilities?.audio_input && (
+                              <Tag color="volcano">
+                                {t("settings:admin.mlxAudio", "Audio")}
+                              </Tag>
+                            )}
+                          </div>
+                          {notes && (
+                            <Text type="secondary" className="text-xs">
+                              {notes}
+                            </Text>
+                          )}
+                        </div>
+                      </List.Item>
+                    )
+                  }}
                 />
-              )}
-
-              {mlxProvider ? (
-                <Space direction="vertical" size="small" className="w-full">
-                  <Space align="center" size="small">
-                    <Text strong>
-                      {t("settings:admin.mlxProviderName", "Provider")}:
-                    </Text>
-                    <Tag color="blue">{mlxProvider.name || "mlx"}</Tag>
-                  </Space>
-
-                  {models.length > 0 ? (
-                    <List
-                      size="small"
-                      bordered
-                      dataSource={models}
-                      renderItem={(m) => {
-                        const id =
-                          (m as any).id ||
-                          (m as any).name ||
-                          (m as any).model_id
-                        const notes = (m as any).notes as string | undefined
-                        const capabilities = (m as any).capabilities as
-                          | Record<string, boolean>
-                          | undefined
-                        return (
-                          <List.Item>
-                            <div className="flex flex-col gap-1">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <Text code>{id || "model"}</Text>
-                                {capabilities?.vision && (
-                                  <Tag color="purple">
-                                    {t("settings:admin.mlxVision", "Vision")}
-                                  </Tag>
-                                )}
-                                {capabilities?.tool_use && (
-                                  <Tag color="geekblue">
-                                    {t("settings:admin.mlxTools", "Tools")}
-                                  </Tag>
-                                )}
-                                {capabilities?.audio_input && (
-                                  <Tag color="volcano">
-                                    {t("settings:admin.mlxAudio", "Audio")}
-                                  </Tag>
-                                )}
-                              </div>
-                              {notes && (
-                                <Text type="secondary" className="text-xs">
-                                  {notes}
-                                </Text>
-                              )}
-                            </div>
-                          </List.Item>
-                        )
-                      }}
-                    />
-                  ) : (
-                    <Text type="secondary">
-                      {t(
-                        "settings:admin.mlxNoModels",
-                        "No MLX models are configured. Enable provider=mlx on the server to see models here."
-                      )}
-                    </Text>
-                  )}
-                </Space>
-              ) : !loading ? (
+              ) : (
                 <Text type="secondary">
                   {t(
-                    "settings:admin.mlxProviderMissing",
-                    "MLX is not currently configured as an LLM provider on this server."
+                    "settings:admin.mlxNoModels",
+                    "No MLX models configured. Enable MLX provider on the server to see models here."
                   )}
                 </Text>
-              ) : null}
-            </Card>
+              )}
+            </CollapsibleSection>
           </>
         )}
       </Space>

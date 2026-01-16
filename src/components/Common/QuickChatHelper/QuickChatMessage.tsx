@@ -1,8 +1,9 @@
 import React from "react"
 import { QuickChatMessage as QuickChatMessageType } from "@/store/quick-chat"
-import Markdown from "@/components/Common/Markdown"
 import { classNames } from "@/libs/class-name"
 import { useTranslation } from "react-i18next"
+
+const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
 
 type Props = {
   message: QuickChatMessageType
@@ -18,6 +19,8 @@ export const QuickChatMessage: React.FC<Props> = ({
   const { t } = useTranslation("option")
   const isUser = message.role === "user"
   const showStreamingCursor = isStreaming && isLast && !isUser
+  const assistantContent =
+    message.content + (showStreamingCursor ? "▋" : "")
 
   return (
     <div
@@ -28,8 +31,8 @@ export const QuickChatMessage: React.FC<Props> = ({
       role="article"
       aria-label={
         isUser
-          ? t("quickChatHelper.userMessageAria", "Your message")
-          : t("quickChatHelper.assistantMessageAria", "Assistant message")
+          ? t("option:quickChatHelper.userMessageAria", "Your message")
+          : t("option:quickChatHelper.assistantMessageAria", "Assistant message")
       }>
       <div
         className={classNames(
@@ -45,10 +48,18 @@ export const QuickChatMessage: React.FC<Props> = ({
         ) : (
           <div className="text-sm">
             {message.content ? (
-              <Markdown
-                message={message.content + (showStreamingCursor ? "▋" : "")}
-                className="prose prose-sm dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 max-w-none"
-              />
+              <React.Suspense
+                fallback={
+                  <p className="whitespace-pre-wrap break-words">
+                    {assistantContent}
+                  </p>
+                }
+              >
+                <Markdown
+                  message={assistantContent}
+                  className="prose prose-sm dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 max-w-none"
+                />
+              </React.Suspense>
             ) : showStreamingCursor ? (
               <span className="inline-block animate-pulse">▋</span>
             ) : null}

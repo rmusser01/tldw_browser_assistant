@@ -471,16 +471,16 @@
     "message": "Context Management"
   },
   "composer_contextKnowledge": {
-    "message": "Ctx + Media"
+    "message": "Search & Context"
   },
   "composer_contextKnowledgeClose": {
-    "message": "Close Ctx + Media"
+    "message": "Close Search & Context"
   },
   "composer_knowledgeSearch": {
-    "message": "Knowledge search"
+    "message": "Search & Context"
   },
   "composer_knowledgeSearchClose": {
-    "message": "Close Knowledge search"
+    "message": "Close Search & Context"
   },
   "composer_persistence_ephemeral": {
     "message": "Temporary chat: not saved in history and cleared when you close this window."
@@ -1495,5 +1495,32 @@
   },
   "actor_fileStatusProcessing": {
     "message": "Processing..."
+  },
+  "composer_collapsedMessageLabel": {
+    "message": "[{lines, plural, one {# line} other {# lines}}/{chars, plural, one {# char} other {# chars}} in message]"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "No tabs selected yet."
+  },
+  "composer_contextFilesTitle": {
+    "message": "Files in context"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "No files attached yet."
+  },
+  "composer_addFile": {
+    "message": "Add file"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "Open tabs"
+  },
+  "composer_noTabsFound": {
+    "message": "No eligible open tabs found."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

@@ -10,6 +10,8 @@ type KeywordCacheEntry = {
 
 const listCache = new Map<number, KeywordCacheEntry>()
 const listInFlight = new Map<number, Promise<string[]>>()
+const allCache = new Map<number, KeywordCacheEntry>()
+const allInFlight = new Map<number, Promise<string[]>>()
 
 const normalizeKeyword = (value: any): string | null => {
   const raw =
@@ -64,6 +66,51 @@ export const getNoteKeywords = async (limit = 200): Promise<string[]> => {
     return await request
   } finally {
     listInFlight.delete(limit)
+  }
+}
+
+export const getAllNoteKeywords = async (pageSize = 1000): Promise<string[]> => {
+  const now = Date.now()
+  const cached = allCache.get(pageSize)
+  if (cached && cached.expiresAt > now) return cached.data
+
+  const inFlight = allInFlight.get(pageSize)
+  if (inFlight) return inFlight
+
+  const request = (async () => {
+    const out: string[] = []
+    let offset = 0
+    const maxPages = 100
+
+    for (let page = 0; page < maxPages; page += 1) {
+      const abs = await bgRequest<any>({
+        path: `/api/v1/notes/keywords${buildQuery({ limit: pageSize, offset })}` as any,
+        method: "GET" as any
+      })
+      const arr = Array.isArray(abs)
+        ? abs
+            .map((item: any) => normalizeKeyword(item))
+            .filter(Boolean) as string[]
+        : []
+      if (!arr.length) break
+      out.push(...arr)
+      if (arr.length < pageSize) break
+      offset += pageSize
+    }
+
+    const deduped = dedupeKeywords(out)
+    allCache.set(pageSize, {
+      data: deduped,
+      expiresAt: Date.now() + KEYWORDS_CACHE_TTL_MS
+    })
+    return deduped
+  })()
+
+  allInFlight.set(pageSize, request)
+  try {
+    return await request
+  } finally {
+    allInFlight.delete(pageSize)
   }
 }
 

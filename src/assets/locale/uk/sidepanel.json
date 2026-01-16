@@ -104,6 +104,7 @@
     "saveFailedDescription": "Тепер чат зберігається лише локально. Перевірте з'єднання та спробуйте ще раз."
   },
   "rag": {
+    "attachedContext": "Прикріплений контекст",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",
@@ -111,6 +112,7 @@
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results",
+    "initialState": "No results",
     "timeout": {
       "message": "Request timed out.",
       "increase": "Increase timeout",

@@ -138,7 +138,9 @@
     "troubleshoot": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
   },
   "errors": {
-    "privateModeDescription": "Firefox のプライベートモードではチャットの保存はできません。デフォルトで一時チャットが有効です。今後改善予定です。"
+    "privateModeDescription": "Firefox のプライベートモードではチャットの保存はできません。デフォルトで一時チャットが有効です。今後改善予定です。",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "エラー",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "No Media & Notes selected yet.",
     "addKnowledge": "Add Media & Notes",
     "contextTabsTitle": "Tabs in context",
+    "contextTabsAvailable": "開いているタブ",
+    "noTabsFound": "対象の開いているタブが見つかりません。",
+    "contextTabsEmpty": "タブが選択されていません。",
+    "contextFilesTitle": "コンテキスト内のファイル",
+    "contextFilesEmpty": "ファイルが添付されていません。",
+    "addFile": "ファイルを追加",
     "contextTabsHint": "Review or remove referenced tabs, or add more from your open browser tabs.",
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",

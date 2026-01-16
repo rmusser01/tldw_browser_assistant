@@ -331,5 +331,11 @@
   },
   "characterSelect_importCharacter": {
     "message": "Import Character"
+  },
+  "rag_attachedContext": {
+    "message": "Прикріплений контекст"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

@@ -315,7 +315,7 @@
     "message": "فایل خیلی بزرگ است"
   },
   "upload_fileTooLargeDescription": {
-    "message": "حجم فایل باید کمتر از ۱۰ مگابایت باشد"
+    "message": "حجم فایل باید کمتر از {{size}} باشد"
   },
   "upload_uploadFailedTitle": {
     "message": "آپلود ناموفق بود"
@@ -1471,5 +1471,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

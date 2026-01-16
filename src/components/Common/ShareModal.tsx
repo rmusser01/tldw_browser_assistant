@@ -1,9 +1,7 @@
 import { Form, Image, Input, Modal, Tooltip } from "antd"
 import { Share } from "lucide-react"
-import { useState } from "react"
+import React, { useState } from "react"
 import type { Message } from "~/store/option"
-import Markdown from "./Markdown"
-import React from "react"
 import { useMutation } from "@tanstack/react-query"
 import { getPageShareUrl } from "~/services/tldw-server"
 import { cleanUrl } from "~/libs/clean-url"
@@ -12,6 +10,8 @@ import { useTranslation } from "react-i18next"
 import fetcher from "@/libs/fetcher"
 import { removeModelSuffix } from "@/db/dexie/models"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+
+const Markdown = React.lazy(() => import("./Markdown"))
 
 type Props = {
   messages: Message[]
@@ -70,7 +70,15 @@ export const PlaygroundMessage = (
             </span>
 
             <div className="flex flex-grow flex-col">
-              <Markdown message={props.message} />
+              <React.Suspense
+                fallback={
+                  <div className="whitespace-pre-wrap break-words">
+                    {props.message}
+                  </div>
+                }
+              >
+                <Markdown message={props.message} />
+              </React.Suspense>
             </div>
             {/* source if aviable */}
             {props.images && props.images.length > 0 && (

@@ -139,7 +139,9 @@
     "recheck": "Erneut prüfen"
   },
   "errors": {
-    "privateModeDescription": "Der Firefox-Privatmodus unterstützt kein Speichern von Chats. Temporärer Chat ist standardmäßig aktiviert. Weitere Verbesserungen folgen."
+    "privateModeDescription": "Der Firefox-Privatmodus unterstützt kein Speichern von Chats. Temporärer Chat ist standardmäßig aktiviert. Weitere Verbesserungen folgen.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "Fehler",
@@ -304,6 +306,12 @@
     "contextMediaEmpty": "Noch keine Medien & Notizen ausgewählt.",
     "addKnowledge": "Medien & Notizen hinzufügen",
     "contextTabsTitle": "Tabs im Kontext",
+    "contextTabsAvailable": "Offene Tabs",
+    "noTabsFound": "Keine geeigneten offenen Tabs gefunden.",
+    "contextTabsEmpty": "Keine Tabs ausgewählt.",
+    "contextFilesTitle": "Dateien im Kontext",
+    "contextFilesEmpty": "Keine Dateien angehängt.",
+    "addFile": "Datei hinzufügen",
     "contextTabsHint": "Überprüfen oder entfernen Sie referenzierte Tabs oder fügen Sie weitere aus Ihren offenen Browser-Tabs hinzu.",
     "contextManager": "Kontextverwaltung",
     "contextManagerTitle": "Kontextverwaltung",

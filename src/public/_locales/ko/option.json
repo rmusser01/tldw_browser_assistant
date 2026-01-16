@@ -948,7 +948,7 @@
     "message": "파일이 너무 큽니다"
   },
   "upload_fileTooLargeDescription": {
-    "message": "파일 크기는 10MB 미만이어야 합니다"
+    "message": "파일 크기는 {{size}} 미만이어야 합니다"
   },
   "upload_uploadFailedTitle": {
     "message": "업로드 실패"
@@ -1801,5 +1801,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

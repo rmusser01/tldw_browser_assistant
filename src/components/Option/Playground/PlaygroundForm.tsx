@@ -21,6 +21,7 @@ import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
   EraserIcon,
+  BookPlus,
   GitBranch,
   ImageIcon,
   MicIcon,
@@ -42,10 +43,12 @@ import { isFirefoxTarget } from "@/config/platform"
 import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
 import { getProviderDisplayName } from "@/utils/provider-registry"
+import { formatPinnedResults } from "@/utils/rag-format"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useTabMentions } from "~/hooks/useTabMentions"
 import { useFocusShortcuts } from "~/hooks/keyboard"
 import { useDraftPersistence } from "@/hooks/useDraftPersistence"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { MentionsDropdown } from "./MentionsDropdown"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { PASTED_TEXT_CHAR_LIMIT } from "@/utils/constant"
@@ -53,6 +56,10 @@ import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
 import { ActorPopout } from "@/components/Common/Settings/ActorPopout"
 import { PromptSelect } from "@/components/Common/PromptSelect"
+import {
+  PromptInsertModal,
+  type PromptInsertItem
+} from "@/components/Common/PromptInsertModal"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 import { Link, useNavigate } from "react-router-dom"
@@ -65,7 +72,7 @@ import { tldwClient, type ConversationState } from "@/services/tldw/TldwApiClien
 import { CharacterSelect } from "@/components/Common/CharacterSelect"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 import type { Character } from "@/types/character"
-import { RagSearchBar } from "@/components/Sidepanel/Chat/RagSearchBar"
+import { KnowledgePanel } from "@/components/Knowledge"
 import { BetaTag } from "@/components/Common/Beta"
 import {
   SlashCommandMenu,
@@ -107,14 +114,20 @@ const getPersistenceModeLabel = (
   )
 }
 
-type Props = {
-  dropedFile: File | undefined
+type CollapsedRange = {
+  start: number
+  end: number
 }
 
-export const PlaygroundForm = ({ dropedFile }: Props) => {
+type Props = {
+  droppedFiles: File[]
+}
+
+export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const { t } = useTranslation(["playground", "common", "option"])
   const inputRef = React.useRef<HTMLInputElement>(null)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const processedFilesRef = React.useRef<WeakSet<File>>(new WeakSet())
   const navigate = useNavigate()
 
   const [typing, setTyping] = React.useState<boolean>(false)
@@ -171,7 +184,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     setServerChatSource,
     setServerChatVersion,
     replyTarget,
-    clearReplyTarget
+    clearReplyTarget,
+    ragPinnedResults
   } = useMessageOption()
 
   const [autoSubmitVoiceMessage] = useStorage("autoSubmitVoiceMessage", false)
@@ -201,6 +215,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const [showQueuedBanner, setShowQueuedBanner] = React.useState(true)
   const [documentGeneratorOpen, setDocumentGeneratorOpen] =
     React.useState(false)
+  const [promptInsertOpen, setPromptInsertOpen] = React.useState(false)
   const [documentGeneratorSeed, setDocumentGeneratorSeed] = React.useState<{
     conversationId?: string | null
     message?: string | null
@@ -226,10 +241,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
   const [sttSegEmbeddingsProvider] = useStorage("sttSegEmbeddingsProvider", "")
   const [sttSegEmbeddingsModel] = useStorage("sttSegEmbeddingsModel", "")
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [serverPersistenceHintSeen, setServerPersistenceHintSeen] = useStorage(
     "serverPersistenceHintSeen",
     false
@@ -619,11 +631,258 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   })
 
+  const setFieldValueRef = React.useRef(form.setFieldValue)
+  React.useEffect(() => {
+    setFieldValueRef.current = form.setFieldValue
+  }, [form.setFieldValue])
+
+  const pendingCaretRef = React.useRef<number | null>(null)
+  const lastDisplaySelectionRef = React.useRef<{
+    start: number
+    end: number
+  } | null>(null)
+  const pendingCollapsedStateRef = React.useRef<{
+    message: string
+    range: CollapsedRange
+    caret: number
+  } | null>(null)
+  const pointerDownRef = React.useRef(false)
+  const selectionFromPointerRef = React.useRef(false)
+  const [isMessageCollapsed, setIsMessageCollapsed] = React.useState(false)
+  const [collapsedRange, setCollapsedRange] =
+    React.useState<CollapsedRange | null>(null)
+  const [hasExpandedLargeText, setHasExpandedLargeText] = React.useState(false)
+  const normalizeCollapsedRange = React.useCallback(
+    (range: CollapsedRange, messageLength: number): CollapsedRange => {
+      const start = Math.max(0, Math.min(range.start, messageLength))
+      const end = Math.max(start, Math.min(range.end, messageLength))
+      return { start, end }
+    },
+    []
+  )
+
+  const parseCollapsedRange = React.useCallback(
+    (value: unknown, messageLength: number): CollapsedRange | null => {
+      if (!value || typeof value !== "object") return null
+      const start = Number((value as { start?: number }).start)
+      const end = Number((value as { end?: number }).end)
+      if (!Number.isFinite(start) || !Number.isFinite(end)) return null
+      const range = normalizeCollapsedRange({ start, end }, messageLength)
+      if (range.end <= range.start) return null
+      return range
+    },
+    [normalizeCollapsedRange]
+  )
+
+  const restoreMessageValue = React.useCallback(
+    (
+      value: string,
+      metadata?: { wasExpanded?: boolean; collapsedRange?: CollapsedRange | null }
+    ) => {
+      setFieldValueRef.current("message", value)
+      if (value.length <= PASTED_TEXT_CHAR_LIMIT) {
+        setIsMessageCollapsed(false)
+        setHasExpandedLargeText(false)
+        setCollapsedRange(null)
+        return
+      }
+      const wasExpanded = Boolean(metadata?.wasExpanded)
+      if (wasExpanded) {
+        setIsMessageCollapsed(false)
+        setHasExpandedLargeText(true)
+        setCollapsedRange(null)
+        return
+      }
+      const range =
+        parseCollapsedRange(metadata?.collapsedRange, value.length) ?? {
+          start: 0,
+          end: value.length
+        }
+      setIsMessageCollapsed(true)
+      setHasExpandedLargeText(false)
+      setCollapsedRange(range)
+    },
+    [parseCollapsedRange]
+  )
+
+  const buildCollapsedMessageLabel = React.useCallback(
+    (text: string) => {
+      // Avoid allocating an array for very large messages.
+      const lineCount =
+        text ? (text.match(/\r\n|\r|\n/g)?.length ?? 0) + 1 : 0
+      return t(
+        "playground:composer.collapsedMessageLabel",
+        "[{lines, plural, one {# line} other {# lines}}/{chars, plural, one {# char} other {# chars}} in message]",
+        { lines: lineCount, chars: text.length }
+      )
+    },
+    [t]
+  )
+
+  const getCollapsedDisplayMeta = React.useCallback(
+    (text: string, range: CollapsedRange) => {
+      const normalizedRange = normalizeCollapsedRange(range, text.length)
+      const collapsedText = text.slice(
+        normalizedRange.start,
+        normalizedRange.end
+      )
+      const label = buildCollapsedMessageLabel(collapsedText)
+      const prefix = text.slice(0, normalizedRange.start)
+      const suffix = text.slice(normalizedRange.end)
+      const labelStart = prefix.length
+      const labelEnd = labelStart + label.length
+      const blockLength = normalizedRange.end - normalizedRange.start
+      return {
+        display: `${prefix}${label}${suffix}`,
+        label,
+        labelStart,
+        labelEnd,
+        labelLength: label.length,
+        blockLength,
+        rangeStart: normalizedRange.start,
+        rangeEnd: normalizedRange.end,
+        messageLength: text.length
+      }
+    },
+    [buildCollapsedMessageLabel, normalizeCollapsedRange]
+  )
+
+  const getDisplayCaretFromMessage = React.useCallback(
+    (
+      messageCaret: number,
+      meta: ReturnType<typeof getCollapsedDisplayMeta>
+    ) => {
+      if (messageCaret <= meta.rangeStart) return messageCaret
+      if (messageCaret >= meta.rangeEnd) {
+        return (
+          messageCaret -
+          meta.blockLength +
+          meta.labelLength
+        )
+      }
+      return meta.labelEnd
+    },
+    []
+  )
+
+  const getMessageCaretFromDisplay = React.useCallback(
+    (
+      displayCaret: number,
+      meta: ReturnType<typeof getCollapsedDisplayMeta>,
+      options?: { prefer?: "before" | "after" }
+    ) => {
+      if (displayCaret <= meta.labelStart) return displayCaret
+      if (displayCaret >= meta.labelEnd) {
+        return (
+          displayCaret -
+          meta.labelLength +
+          meta.blockLength
+        )
+      }
+      return options?.prefer === "before"
+        ? meta.rangeStart
+        : meta.rangeEnd
+    },
+    []
+  )
+
+  const collapseLargeMessage = React.useCallback(
+    (text: string, options?: { force?: boolean; range?: CollapsedRange }) => {
+      if (text.length <= PASTED_TEXT_CHAR_LIMIT) {
+        setIsMessageCollapsed(false)
+        setHasExpandedLargeText(false)
+        setCollapsedRange(null)
+        return
+      }
+      if (!options?.force && hasExpandedLargeText) return
+      const range =
+        options?.range ?? { start: 0, end: text.length }
+      const normalizedRange = normalizeCollapsedRange(range, text.length)
+      setIsMessageCollapsed(true)
+      setHasExpandedLargeText(false)
+      setCollapsedRange(normalizedRange)
+    },
+    [hasExpandedLargeText, normalizeCollapsedRange]
+  )
+
+  const expandLargeMessage = React.useCallback(
+    (options?: { caret?: number; force?: boolean }) => {
+      if (!isMessageCollapsed && !options?.force) return
+      setIsMessageCollapsed(false)
+      setHasExpandedLargeText(true)
+      setCollapsedRange(null)
+      requestAnimationFrame(() => {
+        const el = textareaRef.current
+        if (!el) return
+        const caret =
+          typeof options?.caret === "number"
+            ? Math.min(options.caret, el.value.length)
+            : pendingCaretRef.current ?? el.value.length
+        pendingCaretRef.current = null
+        el.focus()
+        el.setSelectionRange(caret, caret)
+      })
+    },
+    [isMessageCollapsed, textareaRef]
+  )
+
+  const setMessageValue = React.useCallback(
+    (
+      nextValue: string,
+      options?: {
+        collapseLarge?: boolean
+        forceCollapse?: boolean
+        collapsedRange?: CollapsedRange
+      }
+    ) => {
+      form.setFieldValue("message", nextValue)
+      if (options?.collapseLarge) {
+        collapseLargeMessage(nextValue, {
+          force: options?.forceCollapse,
+          range: options?.collapsedRange
+        })
+      }
+    },
+    [collapseLargeMessage, form.setFieldValue]
+  )
+
+  const collapsedDisplayMeta = React.useMemo(() => {
+    const message = form.values.message || ""
+    if (!message || !collapsedRange) return null
+    return getCollapsedDisplayMeta(message, collapsedRange)
+  }, [collapsedRange, form.values.message, getCollapsedDisplayMeta])
+
+  const messageDisplayValue = React.useMemo(
+    () => {
+      const message = form.values.message || ""
+      if (!message) return ""
+      if (!isMessageCollapsed || !collapsedDisplayMeta) return message
+      return collapsedDisplayMeta.display
+    },
+    [collapsedDisplayMeta, form.values.message, isMessageCollapsed]
+  )
+
+  React.useEffect(() => {
+    const message = form.values.message || ""
+    if (!message || message.length <= PASTED_TEXT_CHAR_LIMIT) {
+      setIsMessageCollapsed(false)
+      setHasExpandedLargeText(false)
+      setCollapsedRange(null)
+    }
+  }, [form.values.message])
+
   // Draft persistence - saves/restores message draft to local-only storage
   const { draftSaved } = useDraftPersistence({
     storageKey: "tldw:playgroundChatDraft",
     getValue: () => form.values.message,
-    setValue: (value) => form.setFieldValue("message", value)
+    getMetadata: () => ({
+      wasExpanded: hasExpandedLargeText,
+      collapsedRange: collapsedRange
+        ? { start: collapsedRange.start, end: collapsedRange.end }
+        : null
+    }),
+    setValue: (value) => restoreMessageValue(value),
+    setValueWithMetadata: restoreMessageValue
   })
 
   const numberFormatter = React.useMemo(() => new Intl.NumberFormat(), [])
@@ -804,13 +1063,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       void clearSetting(DISCUSS_MEDIA_PROMPT_SETTING)
       const hint = buildDiscussMediaHint(payload)
       if (!hint) return
-      form.setFieldValue("message", hint)
+      setMessageValue(hint, { collapseLarge: true, forceCollapse: true })
       textAreaFocus()
     })()
     return () => {
       cancelled = true
     }
-  }, [form, textAreaFocus])
+  }, [setMessageValue, textAreaFocus])
 
   React.useEffect(() => {
     const handler = (event: Event) => {
@@ -818,14 +1077,14 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       if (!detail) return
       const hint = buildDiscussMediaHint(detail || {})
       if (!hint) return
-      form.setFieldValue("message", hint)
+      setMessageValue(hint, { collapseLarge: true, forceCollapse: true })
       textAreaFocus()
     }
     window.addEventListener("tldw:discuss-media", handler as any)
     return () => {
       window.removeEventListener("tldw:discuss-media", handler as any)
     }
-  }, [form, textAreaFocus])
+  }, [setMessageValue, textAreaFocus])
 
   React.useEffect(() => {
     textAreaFocus()
@@ -900,34 +1159,329 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     },
     [form, handleFileUpload, onFileInputChange, otherUnsupportedTypes, toBase64]
   )
-  const handlePaste = async (e: React.ClipboardEvent) => {
-    if (e.clipboardData.files.length > 0) {
-      onInputChange(e.clipboardData.files[0])
-      return
-    }
 
-    const pastedText = e.clipboardData.getData("text/plain")
-
-    if (
-      pasteLargeTextAsFile &&
-      pastedText &&
-      pastedText.length > PASTED_TEXT_CHAR_LIMIT
-    ) {
-      e.preventDefault()
-      const blob = new Blob([pastedText], { type: "text/plain" })
-      const file = new File([blob], `pasted-text-${Date.now()}.txt`, {
-        type: "text/plain"
+  const syncCollapsedCaret = React.useCallback(
+    (options?: {
+      message?: string
+      range?: CollapsedRange | null
+      caret?: number
+    }) => {
+      if (!isMessageCollapsed) return
+      const pendingState = pendingCollapsedStateRef.current
+      const message =
+        options?.message ?? pendingState?.message ?? form.values.message ?? ""
+      const range = options?.range ?? pendingState?.range ?? collapsedRange
+      if (!range) return
+      if (!message) return
+      requestAnimationFrame(() => {
+        const el = textareaRef.current
+        if (!el) return
+        const meta = getCollapsedDisplayMeta(message, range)
+        const selection =
+          lastDisplaySelectionRef.current ??
+          (el.selectionStart !== null
+            ? {
+                start: el.selectionStart ?? 0,
+                end: el.selectionEnd ?? el.selectionStart ?? 0
+              }
+            : null)
+        const hasSelection =
+          selection ? selection.start !== selection.end : false
+        let caret =
+          options?.caret ?? pendingState?.caret ?? pendingCaretRef.current
+        if (caret === undefined || caret === null) {
+          if (selection && hasSelection) {
+            const start = Math.max(
+              0,
+              Math.min(selection.start, meta.display.length)
+            )
+            const end = Math.max(0, Math.min(selection.end, meta.display.length))
+            el.focus()
+            el.setSelectionRange(start, end)
+            pendingCollapsedStateRef.current = null
+            return
+          }
+          if (selection) {
+            const displayCaret = Math.max(
+              0,
+              Math.min(selection.start, meta.display.length)
+            )
+            const prefer =
+              displayCaret > meta.labelStart && displayCaret < meta.labelEnd
+                ? "after"
+                : undefined
+            caret = getMessageCaretFromDisplay(displayCaret, meta, { prefer })
+          } else {
+            caret = meta.messageLength
+          }
+        }
+        if (caret > meta.rangeStart && caret < meta.rangeEnd) {
+          caret = meta.rangeEnd
+        }
+        caret = Math.max(0, Math.min(caret, meta.messageLength))
+        pendingCaretRef.current = caret
+        pendingCollapsedStateRef.current = null
+        const displayCaret = getDisplayCaretFromMessage(caret, meta)
+        el.focus()
+        el.setSelectionRange(displayCaret, displayCaret)
       })
+    },
+    [
+      collapsedRange,
+      form.values.message,
+      getDisplayCaretFromMessage,
+      getCollapsedDisplayMeta,
+      isMessageCollapsed,
+      textareaRef
+    ]
+  )
 
-      await handleFileUpload(file)
-      return
-    }
-  }
   React.useEffect(() => {
-    if (dropedFile) {
-      onInputChange(dropedFile)
+    if (!isMessageCollapsed || !collapsedRange) return
+    if (!pendingCollapsedStateRef.current && pendingCaretRef.current === null) {
+      const el = textareaRef.current
+      if (el) {
+        lastDisplaySelectionRef.current = {
+          start: el.selectionStart ?? 0,
+          end: el.selectionEnd ?? el.selectionStart ?? 0
+        }
+      }
     }
-  }, [dropedFile, onInputChange])
+    syncCollapsedCaret()
+  }, [
+    collapsedRange,
+    form.values.message,
+    isMessageCollapsed,
+    syncCollapsedCaret
+  ])
+
+  const commitCollapsedEdit = React.useCallback(
+    (
+      nextValue: string,
+      nextCaret: number,
+      nextRange: CollapsedRange | null
+    ) => {
+      const shouldCollapse = nextValue.length > PASTED_TEXT_CHAR_LIMIT
+      const range = shouldCollapse
+        ? normalizeCollapsedRange(
+            nextRange ?? { start: 0, end: nextValue.length },
+            nextValue.length
+          )
+        : null
+      pendingCaretRef.current = nextCaret
+      pendingCollapsedStateRef.current = range
+        ? { message: nextValue, range, caret: nextCaret }
+        : null
+      setMessageValue(nextValue, {
+        collapseLarge: shouldCollapse,
+        forceCollapse: shouldCollapse,
+        collapsedRange: range ?? undefined
+      })
+      if (range) {
+        syncCollapsedCaret({ message: nextValue, range, caret: nextCaret })
+        return
+      }
+      requestAnimationFrame(() => {
+        const el = textareaRef.current
+        if (!el) return
+        el.focus()
+        el.setSelectionRange(nextCaret, nextCaret)
+      })
+    },
+    [normalizeCollapsedRange, setMessageValue, syncCollapsedCaret, textareaRef]
+  )
+
+  const replaceCollapsedRange = React.useCallback(
+    (
+      currentValue: string,
+      meta: ReturnType<typeof getCollapsedDisplayMeta>,
+      editStart: number,
+      editEnd: number,
+      replacement: string
+    ) => {
+      const safeStart = Math.max(0, Math.min(editStart, currentValue.length))
+      const safeEnd = Math.max(safeStart, Math.min(editEnd, currentValue.length))
+      const nextValue =
+        currentValue.slice(0, safeStart) +
+        replacement +
+        currentValue.slice(safeEnd)
+      const nextCaret = safeStart + replacement.length
+      const overlapsBlock =
+        safeStart < meta.rangeEnd && safeEnd > meta.rangeStart
+      if (overlapsBlock) {
+        commitCollapsedEdit(nextValue, nextCaret, null)
+        return
+      }
+      const delta = replacement.length - (safeEnd - safeStart)
+      const nextRange =
+        safeEnd <= meta.rangeStart
+          ? {
+              start: meta.rangeStart + delta,
+              end: meta.rangeEnd + delta
+            }
+          : { start: meta.rangeStart, end: meta.rangeEnd }
+      commitCollapsedEdit(nextValue, nextCaret, nextRange)
+    },
+    [commitCollapsedEdit]
+  )
+
+  const handlePaste = React.useCallback(
+    async (e: React.ClipboardEvent) => {
+      if (e.clipboardData.files.length > 0) {
+        try {
+          await onInputChange(e.clipboardData.files[0])
+        } catch (error) {
+          console.error("Failed to handle pasted file:", error)
+        }
+        return
+      }
+
+      const pastedText = e.clipboardData.getData("text/plain")
+      if (!pastedText) return
+
+      if (
+        pasteLargeTextAsFile &&
+        pastedText.length > PASTED_TEXT_CHAR_LIMIT
+      ) {
+        e.preventDefault()
+        const blob = new Blob([pastedText], { type: "text/plain" })
+        const file = new File([blob], `pasted-text-${Date.now()}.txt`, {
+          type: "text/plain"
+        })
+
+        await handleFileUpload(file)
+        return
+      }
+
+      if (isMessageCollapsed && collapsedRange) {
+        e.preventDefault()
+        const currentValue = form.values.message || ""
+        const meta = getCollapsedDisplayMeta(currentValue, collapsedRange)
+        const textarea = textareaRef.current
+        const rawStart = textarea?.selectionStart ?? meta.labelEnd
+        const rawEnd = textarea?.selectionEnd ?? rawStart
+        const displayStart = Math.min(rawStart, rawEnd)
+        const displayEnd = Math.max(rawStart, rawEnd)
+        const hasSelection = displayStart !== displayEnd
+        const selectionTouchesLabel =
+          displayStart < meta.labelEnd && displayEnd > meta.labelStart
+        if (hasSelection) {
+          const startPrefer =
+            displayStart > meta.labelStart && displayStart < meta.labelEnd
+              ? "before"
+              : undefined
+          const endPrefer =
+            displayEnd > meta.labelStart && displayEnd < meta.labelEnd
+              ? "after"
+              : undefined
+          let editStart = getMessageCaretFromDisplay(displayStart, meta, {
+            prefer: startPrefer
+          })
+          let editEnd = getMessageCaretFromDisplay(displayEnd, meta, {
+            prefer: endPrefer
+          })
+          if (editStart > editEnd) {
+            ;[editStart, editEnd] = [editEnd, editStart]
+          }
+          if (selectionTouchesLabel) {
+            editStart = Math.min(editStart, meta.rangeStart)
+            editEnd = Math.max(editEnd, meta.rangeEnd)
+          }
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            editStart,
+            editEnd,
+            pastedText
+          )
+          return
+        }
+        const caretPrefer =
+          rawStart > meta.labelStart && rawStart < meta.labelEnd
+            ? (pendingCaretRef.current !== null &&
+              pendingCaretRef.current <= meta.rangeStart
+                ? "before"
+                : "after")
+            : undefined
+        let caret = getMessageCaretFromDisplay(rawStart, meta, {
+          prefer: caretPrefer
+        })
+        if (caret > meta.rangeStart && caret < meta.rangeEnd) {
+          caret = meta.rangeEnd
+        }
+        const insertAt =
+          caret <= meta.rangeStart
+            ? caret
+            : caret >= meta.rangeEnd
+              ? caret
+              : meta.rangeEnd
+        replaceCollapsedRange(currentValue, meta, insertAt, insertAt, pastedText)
+        return
+      }
+
+      const currentValue = form.values.message || ""
+      const textarea = textareaRef.current
+      const selectionStart = textarea?.selectionStart ?? currentValue.length
+      const selectionEnd = textarea?.selectionEnd ?? selectionStart
+      const nextValue =
+        currentValue.slice(0, selectionStart) +
+        pastedText +
+        currentValue.slice(selectionEnd)
+
+      if (nextValue.length > PASTED_TEXT_CHAR_LIMIT) {
+        e.preventDefault()
+        const blockRange = {
+          start: selectionStart,
+          end: selectionStart + pastedText.length
+        }
+        pendingCaretRef.current = blockRange.end
+        pendingCollapsedStateRef.current = {
+          message: nextValue,
+          range: blockRange,
+          caret: blockRange.end
+        }
+        setMessageValue(nextValue, {
+          collapseLarge: true,
+          forceCollapse: true,
+          collapsedRange: blockRange
+        })
+      }
+    },
+    [
+      collapsedRange,
+      form.values.message,
+      handleFileUpload,
+      isMessageCollapsed,
+      getCollapsedDisplayMeta,
+      getMessageCaretFromDisplay,
+      onInputChange,
+      pasteLargeTextAsFile,
+      replaceCollapsedRange,
+      setMessageValue,
+      textareaRef
+    ]
+  )
+  React.useEffect(() => {
+    if (droppedFiles.length === 0) return
+    let cancelled = false
+    const run = async () => {
+      for (const file of droppedFiles) {
+        if (cancelled) return
+        if (processedFilesRef.current.has(file)) continue
+        try {
+          processedFilesRef.current.add(file)
+          await onInputChange(file)
+        } catch (error) {
+          processedFilesRef.current.delete(file)
+          console.error("Failed to process dropped file:", file.name, error)
+        }
+      }
+    }
+    void run()
+    return () => {
+      cancelled = true
+    }
+  }, [droppedFiles, onInputChange])
 
   const handleDisconnectedFocus = () => {
     if (!isConnectionReady && !hasShownConnectBanner) {
@@ -938,7 +1492,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   // Match sidepanel textarea sizing: Pro mode gets more space
   const textareaMaxHeight = isProMode ? 160 : 120
-  useDynamicTextareaSize(textareaRef, form.values.message, textareaMaxHeight)
+  useDynamicTextareaSize(textareaRef, messageDisplayValue, textareaMaxHeight)
 
   const {
     transcript,
@@ -963,9 +1517,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
   React.useEffect(() => {
     if (isListening) {
-      form.setFieldValue("message", transcript)
+      setMessageValue(transcript, { collapseLarge: true, forceCollapse: true })
     }
-  }, [transcript])
+  }, [transcript, isListening, setMessageValue])
 
   React.useEffect(() => {
     if (!selectedQuickPrompt) {
@@ -977,7 +1531,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
 
     const applyOverwrite = () => {
       const word = getVariable(promptText)
-      form.setFieldValue("message", promptText)
+      setMessageValue(promptText, { collapseLarge: true })
       if (word) {
         textareaRef.current?.focus()
         const interval = setTimeout(() => {
@@ -997,7 +1551,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         currentMessage.trim().length > 0
           ? `${currentMessage}\n\n${promptText}`
           : promptText
-      form.setFieldValue("message", next)
+      setMessageValue(next, { collapseLarge: true })
       setSelectedQuickPrompt(null)
     }
 
@@ -1029,7 +1583,24 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         applyAppend()
       }
     })
-  }, [selectedQuickPrompt])
+  }, [
+    selectedQuickPrompt,
+    form.values.message,
+    setMessageValue,
+    setSelectedQuickPrompt,
+    t,
+    textareaRef
+  ])
+
+  const handlePromptInsert = React.useCallback(
+    (prompt: PromptInsertItem) => {
+      setPromptInsertOpen(false)
+      if (prompt.content) {
+        setSelectedQuickPrompt(prompt.content)
+      }
+    },
+    [setPromptInsertOpen, setSelectedQuickPrompt]
+  )
 
   const queryClient = useQueryClient()
   const invalidateServerChatHistory = React.useCallback(() => {
@@ -1049,7 +1620,17 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     }
   })
 
-  const submitForm = () => {
+  const buildPinnedMessage = React.useCallback(
+    (message: string, options?: { ignorePinnedResults?: boolean }) => {
+      if (options?.ignorePinnedResults) return message
+      if (!ragPinnedResults || ragPinnedResults.length === 0) return message
+      const pinnedText = formatPinnedResults(ragPinnedResults, "markdown")
+      return message ? `${message}\n\n${pinnedText}` : pinnedText
+    },
+    [ragPinnedResults]
+  )
+
+  const submitForm = (options?: { ignorePinnedResults?: boolean }) => {
     form.onSubmit(async (value) => {
       const slashResult = applySlashCommand(value.message)
       if (slashResult.handled) {
@@ -1058,7 +1639,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       const nextMessage = slashResult.handled
         ? slashResult.message
         : value.message
-      const trimmed = nextMessage.trim()
+      const combinedMessage = buildPinnedMessage(nextMessage, options)
+      const trimmed = combinedMessage.trim()
       if (
         trimmed.length === 0 &&
         value.image.length === 0 &&
@@ -1128,7 +1710,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       const nextMessage = slashResult.handled
         ? slashResult.message
         : message
-      const trimmed = nextMessage.trim()
+      const combinedMessage = buildPinnedMessage(nextMessage)
+      const trimmed = combinedMessage.trim()
       if (
         trimmed.length === 0 &&
         image.length === 0 &&
@@ -1423,13 +2006,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     history,
     invalidateServerChatHistory,
     isConnectionReady,
+    selectedCharacter,
     temporaryChat,
     serverChatId,
     setServerChatId,
     navigate,
     serverPersistenceHintSeen,
     setServerPersistenceHintSeen,
-    t
+    t,
+    serverChatState,
+    serverChatSource,
+    setServerChatState,
+    setServerChatSource,
+    setServerChatVersion
   ])
 
   React.useEffect(() => {
@@ -1506,11 +2095,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
         command: "search",
         label: t(
           "common:commandPalette.toggleKnowledgeSearch",
-          "Toggle Knowledge Search"
+          "Toggle Search & Context"
         ),
         description: t(
           "common:commandPalette.toggleKnowledgeSearchDesc",
-          "Search your knowledge base"
+          "Search your knowledge base and context"
         ),
         keywords: ["rag", "context", "knowledge", "search"],
         action: () => setChatMode(chatMode === "rag" ? "normal" : "rag")
@@ -1790,7 +2379,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             }
           }
           if (text) {
-            form.setFieldValue("message", text)
+            setMessageValue(text, { collapseLarge: true, forceCollapse: true })
           } else {
             notification.error({
               message: t("playground:actions.speechErrorTitle", "Dictation failed"),
@@ -1835,9 +2424,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
     sttModel,
     sttTimestampGranularities,
     sttUseSegmentation,
+    setMessageValue,
     stopServerDictation,
-    t,
-    form
+    t
   ])
 
   React.useEffect(() => {
@@ -1857,11 +2446,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             contextToolsOpen
               ? (t(
                   "playground:composer.contextKnowledgeClose",
-                  "Close Ctx + Media"
+                  "Close Search & Context"
                 ) as string)
               : (t(
                   "playground:composer.contextKnowledge",
-                  "Ctx + Media"
+                  "Search & Context"
                 ) as string)
           }
           className={`flex w-full items-center justify-between rounded-md px-2 py-1 text-sm transition ${
@@ -1874,11 +2463,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             {contextToolsOpen
               ? t(
                   "playground:composer.contextKnowledgeClose",
-                  "Close Ctx + Media"
+                  "Close Search & Context"
                 )
               : t(
                   "playground:composer.contextKnowledge",
-                  "Ctx + Media"
+                  "Search & Context"
                 )}
           </span>
           <Search className="h-4 w-4" />
@@ -2130,6 +2719,239 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
       submitForm()
     }
   }
+
+  const handleCollapsedKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      if (!isMessageCollapsed || !collapsedRange) return false
+
+      const shouldSend = handleChatInputKeyDown({
+        e,
+        sendWhenEnter,
+        typing,
+        isSending
+      })
+      if (shouldSend) return false
+
+      const currentValue = form.values.message || ""
+      const meta = getCollapsedDisplayMeta(currentValue, collapsedRange)
+      const textarea = textareaRef.current
+      const rawStart = textarea?.selectionStart ?? meta.labelEnd
+      const rawEnd = textarea?.selectionEnd ?? rawStart
+      const displayStart = Math.min(rawStart, rawEnd)
+      const displayEnd = Math.max(rawStart, rawEnd)
+      const hasSelection = displayStart !== displayEnd
+      const selectionTouchesLabel =
+        displayStart < meta.labelEnd && displayEnd > meta.labelStart
+      const startPrefer =
+        displayStart > meta.labelStart && displayStart < meta.labelEnd
+          ? "before"
+          : undefined
+      const endPrefer =
+        displayEnd > meta.labelStart && displayEnd < meta.labelEnd
+          ? "after"
+          : undefined
+      let selectionStart = getMessageCaretFromDisplay(displayStart, meta, {
+        prefer: startPrefer
+      })
+      let selectionEnd = getMessageCaretFromDisplay(displayEnd, meta, {
+        prefer: endPrefer
+      })
+      if (selectionStart > selectionEnd) {
+        ;[selectionStart, selectionEnd] = [selectionEnd, selectionStart]
+      }
+      if (selectionTouchesLabel) {
+        selectionStart = Math.min(selectionStart, meta.rangeStart)
+        selectionEnd = Math.max(selectionEnd, meta.rangeEnd)
+      }
+      const caretPrefer =
+        rawStart > meta.labelStart && rawStart < meta.labelEnd
+          ? (pendingCaretRef.current !== null &&
+            pendingCaretRef.current <= meta.rangeStart
+              ? "before"
+              : "after")
+          : undefined
+      let caret = getMessageCaretFromDisplay(rawStart, meta, {
+        prefer: caretPrefer
+      })
+      if (caret > meta.rangeStart && caret < meta.rangeEnd) {
+        caret = meta.rangeEnd
+      }
+
+      const deleteCollapsedBlock = () => {
+        const nextValue =
+          currentValue.slice(0, meta.rangeStart) +
+          currentValue.slice(meta.rangeEnd)
+        const nextCaret = Math.min(meta.rangeStart, nextValue.length)
+        commitCollapsedEdit(nextValue, nextCaret, null)
+      }
+
+      const insertAtCaret = (text: string) => {
+        const insertAt =
+          caret <= meta.rangeStart
+            ? caret
+            : caret >= meta.rangeEnd
+              ? caret
+              : meta.rangeEnd
+        replaceCollapsedRange(currentValue, meta, insertAt, insertAt, text)
+      }
+
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        if (e.shiftKey) return false
+        e.preventDefault()
+        let nextCaret = caret
+        if (hasSelection) {
+          nextCaret =
+            e.key === "ArrowLeft" ? selectionStart : selectionEnd
+        } else {
+          nextCaret =
+            e.key === "ArrowLeft"
+              ? Math.max(0, caret - 1)
+              : Math.min(meta.messageLength, caret + 1)
+          if (nextCaret > meta.rangeStart && nextCaret < meta.rangeEnd) {
+            nextCaret =
+              e.key === "ArrowLeft" ? meta.rangeStart : meta.rangeEnd
+          }
+        }
+        pendingCaretRef.current = nextCaret
+        syncCollapsedCaret({ caret: nextCaret })
+        return true
+      }
+
+      if (e.key === "Backspace") {
+        if (hasSelection) {
+          e.preventDefault()
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            ""
+          )
+          return true
+        }
+        if (caret === meta.rangeEnd) {
+          e.preventDefault()
+          deleteCollapsedBlock()
+          return true
+        }
+        if (caret === 0) {
+          e.preventDefault()
+          return true
+        }
+        if (caret > meta.rangeStart && caret <= meta.rangeEnd) {
+          e.preventDefault()
+          deleteCollapsedBlock()
+          return true
+        }
+        e.preventDefault()
+        replaceCollapsedRange(
+          currentValue,
+          meta,
+          Math.max(0, caret - 1),
+          caret,
+          ""
+        )
+        return true
+      }
+
+      if (e.key === "Delete") {
+        if (hasSelection) {
+          e.preventDefault()
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            ""
+          )
+          return true
+        }
+        if (caret === meta.rangeStart) {
+          e.preventDefault()
+          deleteCollapsedBlock()
+          return true
+        }
+        if (caret >= meta.messageLength) {
+          e.preventDefault()
+          return true
+        }
+        if (caret >= meta.rangeStart && caret < meta.rangeEnd) {
+          e.preventDefault()
+          deleteCollapsedBlock()
+          return true
+        }
+        e.preventDefault()
+        replaceCollapsedRange(currentValue, meta, caret, caret + 1, "")
+        return true
+      }
+
+      if (e.key === "Enter") {
+        e.preventDefault()
+        if (hasSelection) {
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            "\n"
+          )
+        } else {
+          insertAtCaret("\n")
+        }
+        return true
+      }
+
+      if (e.key === " " || e.key === "Spacebar") {
+        e.preventDefault()
+        if (hasSelection) {
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            " "
+          )
+        } else {
+          insertAtCaret(" ")
+        }
+        return true
+      }
+
+      const isPrintable =
+        e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey
+      if (isPrintable) {
+        e.preventDefault()
+        if (hasSelection) {
+          replaceCollapsedRange(
+            currentValue,
+            meta,
+            selectionStart,
+            selectionEnd,
+            e.key
+          )
+        } else {
+          insertAtCaret(e.key)
+        }
+        return true
+      }
+
+      return false
+    },
+    [
+      collapsedRange,
+      commitCollapsedEdit,
+      form.values.message,
+      getCollapsedDisplayMeta,
+      getMessageCaretFromDisplay,
+      isMessageCollapsed,
+      isSending,
+      replaceCollapsedRange,
+      sendWhenEnter,
+      syncCollapsedCaret,
+      textareaRef,
+      typing
+    ]
+  )
 
   const stopListening = async () => {
     if (isListening) {
@@ -2633,21 +3455,23 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <div className="mb-2 text-xs font-semibold text-text">
                               {t(
                                 "playground:composer.knowledgeSearch",
-                                "Knowledge search"
+                                "Search & Context"
                               )}
                             </div>
-                            <RagSearchBar
+                            <KnowledgePanel
                               onInsert={(text) => {
                                 const current = form.values.message || ""
                                 const next = current ? `${current}\n\n${text}` : text
-                                form.setFieldValue("message", next)
+                                setMessageValue(next, { collapseLarge: true })
                                 textAreaFocus()
                               }}
-                              onAsk={(text) => {
+                              onAsk={(text, options) => {
                                 const trimmed = text.trim()
                                 if (!trimmed) return
-                                form.setFieldValue("message", text)
-                                setTimeout(() => submitForm(), 0)
+                                form.setFieldValue("message", trimmed)
+                                queueMicrotask(() =>
+                                  submitForm({ ignorePinnedResults: options?.ignorePinnedResults })
+                                )
                               }}
                               isConnected={isConnectionReady}
                               open={contextToolsOpen}
@@ -2655,218 +3479,19 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               autoFocus
                               showToggle={false}
                               variant="embedded"
+                              currentMessage={form.values.message}
+                              showAttachedContext
+                              attachedTabs={selectedDocuments}
+                              availableTabs={availableTabs}
+                              attachedFiles={uploadedFiles}
+                              onRemoveTab={removeDocument}
+                              onAddTab={addDocument}
+                              onClearTabs={clearSelectedDocuments}
+                              onRefreshTabs={reloadTabs}
+                              onAddFile={() => fileInputRef.current?.click()}
+                              onRemoveFile={removeUploadedFile}
+                              onClearFiles={clearUploadedFiles}
                             />
-                          </div>
-                          <div className="border-t border-border pt-4">
-                            <div className="mb-3 text-xs font-semibold text-text">
-                              {t(
-                                "playground:composer.contextManagerTitle",
-                                "Context Management"
-                              )}
-                            </div>
-                            <div className="flex flex-col gap-5">
-                              <div className="flex items-start justify-between gap-3">
-                                <div>
-                                  <div className="text-sm font-semibold text-text">
-                                    {t(
-                                      "playground:composer.contextTabsTitle",
-                                      "Tabs in context"
-                                    )}
-                                  </div>
-                                  <p className="text-xs text-text-muted">
-                                    {t(
-                                      "playground:composer.contextTabsHint",
-                                      "Review or remove referenced tabs, or add more from your open browser tabs."
-                                    )}
-                                  </p>
-                                </div>
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <button
-                                    type="button"
-                                    onClick={() => reloadTabs()}
-                                    title={t("common:refresh", "Refresh") as string}
-                                    className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                    {t("common:refresh", "Refresh")}
-                                  </button>
-                                  {selectedDocuments.length > 0 && (
-                                    <button
-                                      type="button"
-                                      onClick={clearSelectedDocuments}
-                                      title={
-                                        t(
-                                          "playground:composer.clearTabs",
-                                          "Remove all tabs"
-                                        ) as string
-                                      }
-                                      className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                      {t(
-                                        "playground:composer.clearTabs",
-                                        "Remove all tabs"
-                                      )}
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="rounded-lg border border-border bg-surface p-3">
-                                {selectedDocuments.length > 0 ? (
-                                  <div className="flex flex-col gap-2">
-                                    {selectedDocuments.map((doc) => (
-                                      <div
-                                        key={doc.id}
-                                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface2 px-3 py-2">
-                                        <div className="min-w-0">
-                                          <div className="truncate text-sm font-medium text-text">
-                                            {doc.title}
-                                          </div>
-                                          <div className="truncate text-xs text-text-muted">
-                                            {doc.url}
-                                          </div>
-                                        </div>
-                                        <button
-                                          type="button"
-                                          onClick={() => removeDocument(doc.id)}
-                                          aria-label={t("common:remove", "Remove") as string}
-                                          title={t("common:remove", "Remove") as string}
-                                          className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
-                                          <X className="h-4 w-4" />
-                                        </button>
-                                      </div>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <div className="text-sm text-text-muted">
-                                    {t(
-                                      "playground:composer.contextTabsEmpty",
-                                      "No tabs added yet."
-                                    )}
-                                  </div>
-                                )}
-                                <div className="mt-3">
-                                  <div className="text-xs font-semibold text-text">
-                                    {t(
-                                      "playground:composer.contextTabsAvailable",
-                                      "Open tabs"
-                                    )}
-                                  </div>
-                                  <div className="mt-2 max-h-40 overflow-y-auto space-y-2">
-                                    {availableTabs.length > 0 ? (
-                                      availableTabs.map((tab) => (
-                                        <div
-                                          key={tab.id}
-                                          className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface px-3 py-2 shadow-sm">
-                                          <div className="min-w-0">
-                                            <div className="truncate text-sm font-medium text-text">
-                                              {tab.title}
-                                            </div>
-                                            <div className="truncate text-xs text-text-muted">
-                                              {tab.url}
-                                            </div>
-                                          </div>
-                                          <button
-                                            type="button"
-                                            onClick={() => addDocument(tab)}
-                                            title={t("common:add", "Add") as string}
-                                            className="rounded-md border border-border px-2 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                            {t("common:add", "Add")}
-                                          </button>
-                                        </div>
-                                      ))
-                                    ) : (
-                                      <div className="text-xs text-text-muted">
-                                        {t(
-                                          "playground:composer.noTabsFound",
-                                          "No eligible open tabs found."
-                                        )}
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="flex items-start justify-between gap-3">
-                                <div>
-                                  <div className="text-sm font-semibold text-text">
-                                    {t(
-                                      "playground:composer.contextFilesTitle",
-                                      "Files in context"
-                                    )}
-                                  </div>
-                                  <p className="text-xs text-text-muted">
-                                    {t(
-                                      "playground:composer.contextFilesHint",
-                                      "Review attached files, remove them, or add more."
-                                    )}
-                                  </p>
-                                </div>
-                                <div className="flex flex-wrap items-center gap-2">
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      fileInputRef.current?.click()
-                                    }}
-                                    title={
-                                      t(
-                                        "playground:composer.addFile",
-                                        "Add file"
-                                      ) as string
-                                    }
-                                    className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                    {t("playground:composer.addFile", "Add file")}
-                                  </button>
-                                  {uploadedFiles.length > 0 && (
-                                    <button
-                                      type="button"
-                                      onClick={clearUploadedFiles}
-                                      title={
-                                        t(
-                                          "playground:composer.clearFiles",
-                                          "Remove all files"
-                                        ) as string
-                                      }
-                                      className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-text hover:bg-surface2">
-                                      {t(
-                                        "playground:composer.clearFiles",
-                                        "Remove all files"
-                                      )}
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="rounded-lg border border-border bg-surface p-3">
-                                {uploadedFiles.length > 0 ? (
-                                  <div className="flex flex-col gap-2">
-                                    {uploadedFiles.map((file) => (
-                                      <div
-                                        key={file.id}
-                                        className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface2 px-3 py-2">
-                                        <div className="min-w-0">
-                                          <div className="truncate text-sm font-medium text-text">
-                                            {file.filename}
-                                          </div>
-                                          <div className="text-xs text-text-muted">
-                                            {(file.size / (1024 * 1024)).toFixed(2)} MB
-                                          </div>
-                                        </div>
-                                        <button
-                                          type="button"
-                                          onClick={() => removeUploadedFile(file.id)}
-                                          aria-label={t("common:remove", "Remove") as string}
-                                          title={t("common:remove", "Remove") as string}
-                                          className="rounded-full border border-border p-1 text-text-muted hover:bg-surface2 hover:text-text">
-                                          <X className="h-4 w-4" />
-                                        </button>
-                                      </div>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <div className="text-sm text-text-muted">
-                                    {t(
-                                      "playground:composer.contextFilesEmpty",
-                                      "No files attached yet."
-                                    )}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -2921,10 +3546,39 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               setTyping(false)
                             }
                           }}
+                          onMouseDown={() => {
+                            if (isMessageCollapsed) {
+                              pointerDownRef.current = true
+                              selectionFromPointerRef.current = true
+                            }
+                          }}
+                          onMouseUp={() => {
+                            pointerDownRef.current = false
+                            if (selectionFromPointerRef.current) {
+                              requestAnimationFrame(() => {
+                                selectionFromPointerRef.current = false
+                              })
+                            }
+                          }}
                           onKeyDown={(e) => {
+                            if (handleCollapsedKeyDown(e)) return
                             handleKeyDown(e)
                           }}
-                          onFocus={handleDisconnectedFocus}
+                          onFocus={() => {
+                            handleDisconnectedFocus()
+                            if (!isMessageCollapsed) return
+                            const wasPointer = pointerDownRef.current
+                            pointerDownRef.current = false
+                            if (wasPointer) return
+                            const textarea = textareaRef.current
+                            if (pendingCaretRef.current === null && textarea) {
+                              lastDisplaySelectionRef.current = {
+                                start: textarea.selectionStart ?? 0,
+                                end: textarea.selectionEnd ?? textarea.selectionStart ?? 0
+                              }
+                            }
+                            syncCollapsedCaret()
+                          }}
                           ref={textareaRef}
                           className={`w-full resize-none bg-transparent text-base leading-6 text-text placeholder:text-text-muted/80 focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 border-0 ${
                             !isConnectionReady
@@ -2932,6 +3586,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               : ""
                           } ${isProMode ? "px-3 py-2.5" : "px-3 py-2"}`}
                           onPaste={handlePaste}
+                          aria-expanded={!isMessageCollapsed}
                           rows={1}
                           style={{ minHeight: isProMode ? "60px" : "44px" }}
                           tabIndex={0}
@@ -2944,7 +3599,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 )
                           }
                           {...form.getInputProps("message")}
+                          value={messageDisplayValue}
                           onChange={(e) => {
+                            if (isMessageCollapsed) return
                             form.getInputProps("message").onChange(e)
                             if (tabMentionsEnabled && textareaRef.current) {
                               handleTextChange(
@@ -2954,6 +3611,75 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             }
                           }}
                           onSelect={() => {
+                            const textarea = textareaRef.current
+                            if (textarea) {
+                              lastDisplaySelectionRef.current = {
+                                start: textarea.selectionStart ?? 0,
+                                end: textarea.selectionEnd ?? textarea.selectionStart ?? 0
+                              }
+                            }
+                            if (isMessageCollapsed && collapsedRange) {
+                              const message = form.values.message || ""
+                              if (!message || !textarea) return
+                              const meta =
+                                collapsedDisplayMeta ??
+                                getCollapsedDisplayMeta(
+                                  message,
+                                  collapsedRange
+                                )
+                              const selectionStart =
+                                textarea.selectionStart ?? meta.labelStart
+                              const selectionEnd =
+                                textarea.selectionEnd ?? selectionStart
+                              const displayStart = Math.min(
+                                selectionStart,
+                                selectionEnd
+                              )
+                              const displayEnd = Math.max(
+                                selectionStart,
+                                selectionEnd
+                              )
+                              const hasSelection = displayStart !== displayEnd
+                              const selectionTouchesLabel =
+                                displayStart < meta.labelEnd &&
+                                displayEnd > meta.labelStart
+                              const fromPointer = selectionFromPointerRef.current
+                              selectionFromPointerRef.current = false
+                              if (hasSelection) {
+                                pendingCaretRef.current = null
+                                return
+                              }
+                              const caretInsideLabel =
+                                displayStart > meta.labelStart &&
+                                displayStart < meta.labelEnd
+                              if (
+                                selectionTouchesLabel &&
+                                fromPointer &&
+                                caretInsideLabel
+                              ) {
+                                pendingCaretRef.current = meta.rangeEnd
+                                expandLargeMessage({ force: true })
+                                return
+                              }
+                              const prefer =
+                                caretInsideLabel &&
+                                (pendingCaretRef.current ?? meta.rangeEnd) <=
+                                  meta.rangeStart
+                                  ? "before"
+                                  : "after"
+                              const caret = getMessageCaretFromDisplay(
+                                displayStart,
+                                meta,
+                                {
+                                  prefer: caretInsideLabel ? prefer : undefined
+                                }
+                              )
+                              pendingCaretRef.current = caret
+                              if (caretInsideLabel) {
+                                syncCollapsedCaret({ caret })
+                              }
+                              return
+                            }
                             if (tabMentionsEnabled && textareaRef.current) {
                               handleTextChange(
                                 textareaRef.current.value,
@@ -3125,11 +3851,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   contextToolsOpen
                                     ? (t(
                                         "playground:composer.contextKnowledgeClose",
-                                        "Close Ctx + Media"
+                                        "Close Search & Context"
                                       ) as string)
                                     : (t(
                                         "playground:composer.contextKnowledge",
-                                        "Ctx + Media"
+                                        "Search & Context"
                                       ) as string)
                                 }
                                 aria-pressed={contextToolsOpen}
@@ -3145,11 +3871,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   {contextToolsOpen
                                     ? t(
                                         "playground:composer.contextKnowledgeClose",
-                                        "Close Ctx + Media"
+                                        "Close Search & Context"
                                       )
                                     : t(
                                         "playground:composer.contextKnowledge",
-                                        "Ctx + Media"
+                                        "Search & Context"
                                       )}
                                 </span>
                               </button>
@@ -3217,6 +3943,33 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 className="min-w-0 min-h-0 rounded-full border border-border px-2 py-1 text-text-muted hover:bg-surface2 hover:text-text"
                                 iconClassName="h-4 w-4"
                               />
+                              <Tooltip
+                                title={
+                                  t(
+                                    "option:promptInsert.useInChat",
+                                    "Insert prompt"
+                                  ) as string
+                                }>
+                                <button
+                                  type="button"
+                                  onClick={() => setPromptInsertOpen(true)}
+                                  aria-label={
+                                    t(
+                                      "option:promptInsert.useInChat",
+                                      "Insert prompt"
+                                    ) as string
+                                  }
+                                  className="inline-flex items-center gap-1 rounded-full border border-border px-2 py-1 text-xs text-text-muted transition hover:bg-surface2 hover:text-text"
+                                >
+                                  <BookPlus className="h-4 w-4" />
+                                  <span className="hidden text-xs font-medium sm:inline">
+                                    {t(
+                                      "option:promptInsert.useInChat",
+                                      "Insert prompt"
+                                    )}
+                                  </span>
+                                </button>
+                              </Tooltip>
                               {(browserSupportsSpeechRecognition || hasServerAudio) && (
                                 <>
                                   <Tooltip
@@ -3361,11 +4114,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               contextToolsOpen
                                 ? (t(
                                     "playground:composer.contextKnowledgeClose",
-                                    "Close Ctx + Media"
+                                    "Close Search & Context"
                                   ) as string)
                                 : (t(
                                     "playground:composer.contextKnowledge",
-                                    "Ctx + Media"
+                                    "Search & Context"
                                   ) as string)
                             }
                             aria-pressed={contextToolsOpen}
@@ -3381,11 +4134,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               {contextToolsOpen
                                 ? t(
                                     "playground:composer.contextKnowledgeClose",
-                                    "Close Ctx + Media"
+                                    "Close Search & Context"
                                   )
                                 : t(
                                     "playground:composer.contextKnowledge",
-                                    "Ctx + Media"
+                                    "Search & Context"
                                   )}
                             </span>
                           </button>
@@ -3396,6 +4149,27 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             className="min-w-0 min-h-0 h-9 w-9 rounded-full border border-border text-text-muted hover:bg-surface2 hover:text-text"
                             iconClassName="h-4 w-4"
                           />
+                          <Tooltip
+                            title={
+                              t(
+                                "option:promptInsert.useInChat",
+                                "Insert prompt"
+                              ) as string
+                            }>
+                            <button
+                              type="button"
+                              onClick={() => setPromptInsertOpen(true)}
+                              aria-label={
+                                t(
+                                  "option:promptInsert.useInChat",
+                                  "Insert prompt"
+                                ) as string
+                              }
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-text-muted transition hover:bg-surface2 hover:text-text"
+                            >
+                              <BookPlus className="h-4 w-4" />
+                            </button>
+                          </Tooltip>
                           {(browserSupportsSpeechRecognition || hasServerAudio) && (
                             <Tooltip
                               title={
@@ -3590,6 +4364,11 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           </div>
         </div>
       </div>
+      <PromptInsertModal
+        open={promptInsertOpen}
+        onClose={() => setPromptInsertOpen(false)}
+        onInsertPrompt={handlePromptInsert}
+      />
       <CurrentChatModelSettings
         open={openModelSettings}
         setOpen={setOpenModelSettings}

@@ -1,25 +1,176 @@
 import { promptForRag } from "~/services/tldw-server" // Reuse prompts storage for now
-import { type ChatHistory, type Message, type ToolChoice } from "~/store/option"
+import {
+  type ChatHistory,
+  type Message,
+  type ToolChoice,
+  type Knowledge
+} from "~/store/option"
 import { generateHistory } from "@/utils/generate-history"
 import { pageAssistModel } from "@/models"
 import { humanMessageFormatter } from "@/utils/human-message"
 import { removeReasoning } from "@/libs/reasoning"
 import { formatDocs } from "@/utils/format-docs"
 import { getNoOfRetrievedDocs } from "@/services/app"
+import { DEFAULT_RAG_SETTINGS } from "@/services/rag/unified-rag"
+import { coerceBooleanOrNull } from "@/services/settings/registry"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { ActorSettings } from "@/types/actor"
 import { maybeInjectActorMessage } from "@/utils/actor"
+import type { ChatModelSettings } from "@/store/model"
 import type { SaveMessageData, SaveMessageErrorData } from "@/types/chat-modes"
 import {
   runChatPipeline,
   type ChatModeDefinition
 } from "./chatModePipeline"
 
+const RAG_STRING_ARRAY_KEYS = new Set([
+  "sources",
+  "expansion_strategies",
+  "chunk_type_filter",
+  "content_policy_types",
+  "html_allowed_tags",
+  "html_allowed_attrs",
+  "batch_queries"
+])
+const RAG_NUMBER_ARRAY_KEYS = new Set(["include_media_ids", "include_note_ids"])
+const RAG_NULLABLE_STRING_KEYS = new Set([
+  "generation_model",
+  "generation_prompt",
+  "user_id",
+  "session_id"
+])
+const RAG_ALLOWED_KEYS = new Set([
+  ...Object.keys(DEFAULT_RAG_SETTINGS).filter((key) => key !== "query"),
+  "filters"
+])
+
+const normalizeStringArray = (values: unknown[]) => {
+  if (values.length === 0) return null
+  const normalized: string[] = []
+  for (const entry of values) {
+    if (typeof entry !== "string") return null
+    const trimmed = entry.trim()
+    if (!trimmed) return null
+    normalized.push(trimmed)
+  }
+  return normalized
+}
+
+const normalizePositiveIntArray = (values: unknown[]) => {
+  if (values.length === 0) return null
+  const normalized: number[] = []
+  for (const entry of values) {
+    if (typeof entry !== "number" || !Number.isInteger(entry) || entry <= 0) {
+      return null
+    }
+    normalized.push(entry)
+  }
+  return normalized
+}
+
+const sanitizeRagAdvancedOptions = (options?: Record<string, unknown>) => {
+  if (!options) return {}
+  const sanitized: Record<string, unknown> = {}
+  for (const [key, value] of Object.entries(options)) {
+    if (value === undefined || value === null) continue
+    if (typeof value === "string" && value.trim() === "") continue
+    if (!RAG_ALLOWED_KEYS.has(key)) continue
+
+    if (key === "filters") {
+      if (typeof value !== "object" || Array.isArray(value)) continue
+      sanitized[key] = value
+      continue
+    }
+
+    if (RAG_STRING_ARRAY_KEYS.has(key)) {
+      if (!Array.isArray(value)) continue
+      const normalized = normalizeStringArray(value)
+      if (!normalized) continue
+      sanitized[key] = normalized
+      continue
+    }
+    if (RAG_NUMBER_ARRAY_KEYS.has(key)) {
+      if (!Array.isArray(value)) continue
+      const normalized = normalizePositiveIntArray(value)
+      if (!normalized) continue
+      sanitized[key] = normalized
+      continue
+    }
+
+    if (key === "top_k") {
+      if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) {
+        continue
+      }
+      sanitized[key] = value
+      continue
+    }
+
+    const defaultValue = (DEFAULT_RAG_SETTINGS as Record<string, unknown>)[key]
+    if (typeof defaultValue === "boolean") {
+      const coerced = coerceBooleanOrNull(value)
+      if (coerced === null) continue
+      sanitized[key] = coerced
+      continue
+    }
+    if (typeof defaultValue === "number") {
+      if (typeof value !== "number" || !Number.isFinite(value)) continue
+      sanitized[key] = value
+      continue
+    }
+    if (typeof defaultValue === "string" || RAG_NULLABLE_STRING_KEYS.has(key)) {
+      if (typeof value !== "string") continue
+      const trimmed = value.trim()
+      if (!trimmed) continue
+      sanitized[key] = trimmed
+      continue
+    }
+    if (
+      defaultValue &&
+      typeof defaultValue === "object" &&
+      !Array.isArray(defaultValue)
+    ) {
+      if (typeof value !== "object" || Array.isArray(value)) continue
+      sanitized[key] = value
+    }
+  }
+  return sanitized
+}
+
+interface RagDocumentMetadata {
+  source?: string
+  title?: string
+  type?: string
+  url?: string
+  [key: string]: unknown
+}
+
+interface RagDocument {
+  content?: string
+  text?: string
+  chunk?: string
+  metadata?: RagDocumentMetadata
+}
+
+interface RagResponse {
+  results?: RagDocument[]
+  documents?: RagDocument[]
+  docs?: RagDocument[]
+}
+
+type RagSourceEntry = {
+  name: string
+  type: string
+  mode: "rag"
+  url: string
+  pageContent: string
+  metadata: RagDocumentMetadata
+}
+
 type RagModeParams = {
   selectedModel: string
   useOCR: boolean
-  selectedKnowledge: any
-  currentChatModelSettings: any
+  selectedKnowledge: Knowledge | null
+  currentChatModelSettings: ChatModelSettings | null
   toolChoice?: ToolChoice
   setMessages: (messages: Message[] | ((prev: Message[]) => Message[])) => void
   saveMessageOnSuccess: (data: SaveMessageData) => Promise<string | null>
@@ -36,6 +187,7 @@ type RagModeParams = {
   ragEnableGeneration: boolean
   ragEnableCitations: boolean
   ragSources: string[]
+  ragAdvancedOptions?: Record<string, unknown>
   actorSettings?: ActorSettings
   clusterId?: string
   userMessageType?: string
@@ -128,23 +280,38 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
 
     const defaultTopK = await getNoOfRetrievedDocs()
     let context = ""
-    let source: any[] = []
+    let source: RagSourceEntry[] = []
     try {
       await tldwClient.initialize()
       const top_k =
         typeof ctx.ragTopK === "number" && ctx.ragTopK > 0
           ? ctx.ragTopK
           : defaultTopK
-      const ragOptions: any = {
-        top_k,
-        search_mode: ctx.ragSearchMode
+      const ragOptions: Record<string, unknown> = sanitizeRagAdvancedOptions(
+        ctx.ragAdvancedOptions
+      )
+      // Precedence for top_k: (1) ctx.ragTopK if valid > 0, (2) ragOptions.top_k if valid > 0,
+      // (3) defaultTopK fallback. ctx.ragSearchMode always overrides ragOptions.search_mode.
+      // ctx.ragEnableGeneration/citations control presence of their flags, even if set.
+      if (typeof ctx.ragTopK === "number" && ctx.ragTopK > 0) {
+        ragOptions.top_k = ctx.ragTopK
+      } else if (ragOptions.top_k == null) {
+        ragOptions.top_k = top_k
       }
+      ragOptions.search_mode = ctx.ragSearchMode
+      // Delete false flags so the backend can apply its default behavior.
       if (ctx.ragEnableGeneration) {
         ragOptions.enable_generation = true
+      } else {
+        delete ragOptions.enable_generation
       }
       if (ctx.ragEnableCitations) {
         ragOptions.enable_citations = true
+      } else {
+        delete ragOptions.enable_citations
       }
+      // Precedence: ctx.ragSources overrides ragAdvancedOptions.sources; ctx.ragMediaIds
+      // overrides include_media_ids and forces sources to ["media_db"].
       if (Array.isArray(ctx.ragSources) && ctx.ragSources.length > 0) {
         ragOptions.sources = ctx.ragSources
       }
@@ -153,15 +320,19 @@ const ragModeDefinition: ChatModeDefinition<RagModeParams> = {
         // When a specific media list is provided, ensure we query the media DB
         ragOptions.sources = ["media_db"]
       }
-      const ragRes = await tldwClient.ragSearch(query, ragOptions)
-      const docs = ragRes?.results || ragRes?.documents || ragRes?.docs || []
+      const ragRes = (await tldwClient.ragSearch(
+        query,
+        ragOptions
+      )) as RagResponse
+      const docs: RagDocument[] =
+        ragRes?.results || ragRes?.documents || ragRes?.docs || []
       context = formatDocs(
-        docs.map((doc: any) => ({
+        docs.map((doc) => ({
           pageContent: doc.content || doc.text || doc.chunk || "",
           metadata: doc.metadata || {}
         }))
       )
-      source = docs.map((doc: any) => ({
+      source = docs.map((doc) => ({
         name: doc.metadata?.source || doc.metadata?.title || "untitled",
         type: doc.metadata?.type || "unknown",
         mode: "rag",

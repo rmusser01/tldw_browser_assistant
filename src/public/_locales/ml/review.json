@@ -1312,5 +1312,11 @@
   },
   "contentReview_editedLabel": {
     "message": "എഡിറ്റ് ചെയ്‌തത്"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "ഓഫ്‌ലൈൻ ആയി മീഡിയ API ലഭ്യമല്ല"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "സർവർ ഓഫ്‌ലൈൻ ആണ്"
   }
 }

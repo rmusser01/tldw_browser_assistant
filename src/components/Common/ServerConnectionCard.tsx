@@ -10,7 +10,6 @@ import {
   useConnectionState,
   useConnectionUxState
 } from "@/hooks/useConnectionState"
-import { useConnectionStore } from "@/store/connection"
 import { ConnectionPhase } from "@/types/connection"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
 import { focusComposer } from "@/hooks/useComposerFocus"
@@ -139,22 +138,18 @@ export const ServerConnectionCard: React.FC<Props> = ({
     lastCheckedAt,
     lastError,
     isChecking,
-    lastStatusCode,
-    offlineBypass
+    lastStatusCode
   } = useConnectionState()
   const { uxState, errorKind, mode, hasCompletedFirstRun } =
     useConnectionUxState()
   const {
     checkOnce,
-    enableOfflineBypass,
-    disableOfflineBypass,
     setDemoMode
   } = useConnectionActions()
   const { setDemoEnabled } = useDemoMode()
   const notification = useAntdNotification()
   const [knownServerUrl, setKnownServerUrl] = React.useState<string | null>(null)
   const [showAdvanced, setShowAdvanced] = React.useState(false)
-  const [offlineHintVisible, setOfflineHintVisible] = React.useState(false)
   const [returnTo, setReturnToState] = React.useState<string | null>(null)
   const [showErrorDetails, setShowErrorDetails] = React.useState(false)
 
@@ -535,44 +530,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
     } catch {
       // ignore check failures; we will gate on current connection state
     }
-    const { state } = useConnectionStore.getState()
-    const canOpen = state.offlineBypass || state.isConnected
-    if (!canOpen) {
-      try {
-        await enableOfflineBypass()
-      } catch {
-        // allow fallback to regular open even if bypass enabling fails
-      }
-    }
     window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
-  }
-
-  const handleOfflineBypass = async () => {
-    try {
-      await enableOfflineBypass()
-    } catch {
-      // ignore enable failures; fallback to a regular check
-      try {
-        await checkOnce()
-      } catch {
-        // swallow fallback failures
-      }
-    }
-    setOfflineHintVisible(true)
-  }
-
-  const handleDisableOfflineBypass = async () => {
-    try {
-      await disableOfflineBypass()
-    } catch {
-      // ignore disable failures; fallback to a regular check
-      try {
-        await checkOnce()
-      } catch {
-        // swallow fallback failures
-      }
-    }
-    setOfflineHintVisible(false)
   }
 
   const handleReturn = () => {
@@ -704,14 +662,6 @@ export const ServerConnectionCard: React.FC<Props> = ({
                   "Connection failed"
                 )
               })()}
-            </Tag>
-          )}
-          {offlineBypass && (
-            <Tag color="gold" className="rounded-full px-4 py-1 text-xs">
-              {t(
-                "option:connectionCard.offlineModeBadge",
-                "Offline mode — staging only"
-              )}
             </Tag>
           )}
         </div>
@@ -851,8 +801,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
         )}
 
         {(statusVariant === "error" ||
-          statusVariant === "missing" ||
-          offlineBypass) && (
+          statusVariant === "missing") && (
           <>
             <button
               type="button"
@@ -872,24 +821,6 @@ export const ServerConnectionCard: React.FC<Props> = ({
             {showAdvanced && (
               <div className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-surface2/70 p-3 text-xs text-text-muted">
                 <div className="flex flex-wrap items-center gap-2">
-                  <Button
-                    size="small"
-                    onClick={
-                      offlineBypass
-                        ? handleDisableOfflineBypass
-                        : handleOfflineBypass
-                    }
-                    className="rounded-full">
-                    {offlineBypass
-                      ? t(
-                          "option:connectionCard.buttonDisableOffline",
-                          "Disable offline mode"
-                        )
-                      : t(
-                          "option:connectionCard.buttonContinueOffline",
-                          "Continue offline"
-                        )}
-                  </Button>
                   <Button
                     size="small"
                     onClick={handleOpenQuickIngestIntro}
@@ -932,7 +863,7 @@ export const ServerConnectionCard: React.FC<Props> = ({
                 <div className="text-[11px] text-text-subtle">
                   {t(
                     "option:connectionCard.quickIngestHelpInline",
-                    "Tip: The ? icon reopens the Quick Ingest intro. You can stage items offline; they will process after you reconnect."
+                    "Tip: The ? icon reopens the Quick Ingest intro."
                   )}
                 </div>
                 {isSearching && serverHost ? (
@@ -944,21 +875,15 @@ export const ServerConnectionCard: React.FC<Props> = ({
                     )}
                   </div>
                 ) : null}
-                {offlineHintVisible || offlineBypass ? (
-                  <span className="text-[11px] text-text-subtle">
-                    {t(
-                      "option:connectionCard.quickIngestHint",
-                      "When your server is offline, Quick Ingest works as a staging area. You can queue URLs and files now and process them once you reconnect."
-                    )}
-                  </span>
-                ) : (
-                  <span className="text-[11px] text-text-subtle">
-                    {t(
-                      "option:connectionCard.quickIngestInlineHint",
-                      "Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect."
-                    )}
-                  </span>
-                )}
+                <span
+                  className="text-[11px] text-text-subtle"
+                  data-testid="connection-card-quick-ingest-hint"
+                >
+                  {t(
+                    "option:connectionCard.quickIngestInlineHint",
+                    "Quick Ingest requires a server connection. Connect to add URLs and files."
+                  )}
+                </span>
               </div>
             )}
           </>

@@ -5,7 +5,7 @@ import { cn } from "@/libs/utils"
 
 export interface SettingRowProps {
   /** Main label for the setting */
-  label: string
+  label: React.ReactNode
   /** Description explaining what the setting does */
   description?: string
   /** The control element (Switch, Select, Input, etc.) */

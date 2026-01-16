@@ -18,6 +18,18 @@ import { getNoOfRetrievedDocs, getTotalFilePerKB } from "@/services/app"
 import { SidepanelRag } from "./sidepanel-rag"
 import { ProviderIcons } from "@/components/Common/ProviderIcon"
 
+const VALIDATION_RANGES = {
+  chunkSize: { min: 100, max: 10000 },
+  chunkOverlap: { min: 0, max: 1000 },
+  noOfRetrievedDocs: { min: 1, max: 50 },
+  totalFilePerKB: { min: 1, max: 10000 }
+} as const
+
+const SPLITTING_STRATEGIES = {
+  RECURSIVE_CHARACTER: "RecursiveCharacterTextSplitter",
+  CHARACTER: "CharacterTextSplitter"
+} as const
+
 export const RagSettings = () => {
   const { t } = useTranslation("settings")
   const [form] = Form.useForm()
@@ -25,6 +37,70 @@ export const RagSettings = () => {
   const queryClient = useQueryClient()
   const [failedAvatars, setFailedAvatars] = React.useState<Set<string>>(new Set())
   const [isFormValid, setIsFormValid] = React.useState(false)
+
+  const updateFormValidity = React.useCallback(async () => {
+    const values = form.getFieldsValue()
+    let hasErrors = false
+    try {
+      await form.validateFields({ validateOnly: true })
+    } catch {
+      hasErrors = true
+    }
+
+    const isNonEmptyString = (value: unknown) =>
+      typeof value === "string" && value.trim().length > 0
+    const isValidNumber = (value: unknown, min: number, max?: number) =>
+      typeof value === "number" &&
+      Number.isFinite(value) &&
+      value >= min &&
+      (max == null || value <= max)
+
+    const isMissingRequired =
+      !isNonEmptyString(values.defaultEM) ||
+      !isNonEmptyString(values.splittingStrategy) ||
+      !isValidNumber(
+        values.chunkSize,
+        VALIDATION_RANGES.chunkSize.min,
+        VALIDATION_RANGES.chunkSize.max
+      ) ||
+      !isValidNumber(
+        values.chunkOverlap,
+        VALIDATION_RANGES.chunkOverlap.min,
+        VALIDATION_RANGES.chunkOverlap.max
+      ) ||
+      !isValidNumber(
+        values.noOfRetrievedDocs,
+        VALIDATION_RANGES.noOfRetrievedDocs.min,
+        VALIDATION_RANGES.noOfRetrievedDocs.max
+      ) ||
+      !isValidNumber(
+        values.totalFilePerKB,
+        VALIDATION_RANGES.totalFilePerKB.min,
+        VALIDATION_RANGES.totalFilePerKB.max
+      )
+
+    const invalidOverlap =
+      isValidNumber(
+        values.chunkSize,
+        VALIDATION_RANGES.chunkSize.min,
+        VALIDATION_RANGES.chunkSize.max
+      ) &&
+      isValidNumber(
+        values.chunkOverlap,
+        VALIDATION_RANGES.chunkOverlap.min,
+        VALIDATION_RANGES.chunkOverlap.max
+      ) &&
+      values.chunkOverlap >= values.chunkSize
+
+    const needsSeparator =
+      values.splittingStrategy !== SPLITTING_STRATEGIES.RECURSIVE_CHARACTER
+    const separatorMissing =
+      needsSeparator && !isNonEmptyString(values.splittingSeparator)
+
+    setIsFormValid(
+      !hasErrors && !isMissingRequired && !separatorMissing && !invalidOverlap
+    )
+  }, [form])
 
   const { data: ollamaInfo, status } = useQuery({
     queryKey: ["fetchRAGSettings"],
@@ -97,11 +173,9 @@ export const RagSettings = () => {
   // Validate form on initial load
   React.useEffect(() => {
     if (status === "success") {
-      form.validateFields()
-        .then(() => setIsFormValid(true))
-        .catch(() => setIsFormValid(false))
+      void updateFormValidity()
     }
-  }, [status, form])
+  }, [status, updateFormValidity])
 
   return (
     <div className="flex flex-col space-y-3">
@@ -129,11 +203,8 @@ export const RagSettings = () => {
                   strategy: data.splittingStrategy
                 })
               }}
-              onFieldsChange={() => {
-                // Check if form has errors
-                form.validateFields()
-                  .then(() => setIsFormValid(true))
-                  .catch(() => setIsFormValid(false))
+              onValuesChange={() => {
+                void updateFormValidity()
               }}
               initialValues={{
                 chunkSize: ollamaInfo?.chunkSize,
@@ -229,18 +300,19 @@ export const RagSettings = () => {
                   size="large"
                   showSearch
                   style={{ width: "100%" }}
-                  className="mt-4"
-                  options={[
-                    "RecursiveCharacterTextSplitter",
-                    "CharacterTextSplitter"
-                  ].map((e) => ({
-                    label: e,
-                    value: e
-                  }))}
-                />
-              </Form.Item>
+                className="mt-4"
+                options={[
+                  SPLITTING_STRATEGIES.RECURSIVE_CHARACTER,
+                  SPLITTING_STRATEGIES.CHARACTER
+                ].map((e) => ({
+                  label: e,
+                  value: e
+                }))}
+              />
+            </Form.Item>
 
-              {splittingStrategy !== "RecursiveCharacterTextSplitter" && (
+              {splittingStrategy !==
+                SPLITTING_STRATEGIES.RECURSIVE_CHARACTER && (
                 <Form.Item
                   name="splittingSeparator"
                   label={t("rag.ragSettings.splittingSeparator.label")}
@@ -263,46 +335,75 @@ export const RagSettings = () => {
               <Form.Item
                 name="chunkSize"
                 label={t("rag.ragSettings.chunkSize.label")}
-                help={t("rag.ragSettings.chunkSize.help", "Number of characters per text chunk (100-10000)")}
+                help={t(
+                  "rag.ragSettings.chunkSize.help",
+                  `Number of characters per text chunk (${VALIDATION_RANGES.chunkSize.min}-${VALIDATION_RANGES.chunkSize.max})`
+                )}
                 rules={[
                   {
                     required: true,
                     message: t("rag.ragSettings.chunkSize.required")
                   },
                   {
-                    type: 'number',
-                    min: 100,
-                    max: 10000,
-                    message: t("rag.ragSettings.chunkSize.range", "Must be between 100 and 10000")
+                    type: "number",
+                    min: VALIDATION_RANGES.chunkSize.min,
+                    max: VALIDATION_RANGES.chunkSize.max,
+                    message: t(
+                      "rag.ragSettings.chunkSize.range",
+                      `Must be between ${VALIDATION_RANGES.chunkSize.min} and ${VALIDATION_RANGES.chunkSize.max}`
+                    )
                   }
                 ]}>
                 <InputNumber
                   style={{ width: "100%" }}
-                  min={100}
-                  max={10000}
+                  min={VALIDATION_RANGES.chunkSize.min}
+                  max={VALIDATION_RANGES.chunkSize.max}
                   placeholder={t("rag.ragSettings.chunkSize.placeholder")}
                 />
               </Form.Item>
               <Form.Item
                 name="chunkOverlap"
                 label={t("rag.ragSettings.chunkOverlap.label")}
-                help={t("rag.ragSettings.chunkOverlap.help", "Overlap between chunks to maintain context (0-1000)")}
+                help={t(
+                  "rag.ragSettings.chunkOverlap.help",
+                  `Overlap between chunks to maintain context (${VALIDATION_RANGES.chunkOverlap.min}-${VALIDATION_RANGES.chunkOverlap.max})`
+                )}
+                dependencies={["chunkSize"]}
                 rules={[
                   {
                     required: true,
                     message: t("rag.ragSettings.chunkOverlap.required")
                   },
                   {
-                    type: 'number',
-                    min: 0,
-                    max: 1000,
-                    message: t("rag.ragSettings.chunkOverlap.range", "Must be between 0 and 1000")
+                    type: "number",
+                    min: VALIDATION_RANGES.chunkOverlap.min,
+                    max: VALIDATION_RANGES.chunkOverlap.max,
+                    message: t(
+                      "rag.ragSettings.chunkOverlap.range",
+                      `Must be between ${VALIDATION_RANGES.chunkOverlap.min} and ${VALIDATION_RANGES.chunkOverlap.max}`
+                    )
+                  },
+                  {
+                    validator: async (_, value) => {
+                      const chunkSize = form.getFieldValue("chunkSize")
+                      if (
+                        typeof value === "number" &&
+                        typeof chunkSize === "number" &&
+                        value >= chunkSize
+                      ) {
+                        throw new Error(
+                          t("rag.ragSettings.chunkOverlap.mustBeLessThanSize", {
+                            defaultValue: "Overlap must be less than chunk size"
+                          })
+                        )
+                      }
+                    }
                   }
                 ]}>
                 <InputNumber
                   style={{ width: "100%" }}
-                  min={0}
-                  max={1000}
+                  min={VALIDATION_RANGES.chunkOverlap.min}
+                  max={VALIDATION_RANGES.chunkOverlap.max}
                   placeholder={t("rag.ragSettings.chunkOverlap.placeholder")}
                 />
               </Form.Item>
@@ -310,23 +411,29 @@ export const RagSettings = () => {
               <Form.Item
                 name="noOfRetrievedDocs"
                 label={t("rag.ragSettings.noOfRetrievedDocs.label")}
-                help={t("rag.ragSettings.noOfRetrievedDocs.help", "Number of documents to retrieve per query (1-50)")}
+                help={t(
+                  "rag.ragSettings.noOfRetrievedDocs.help",
+                  `Number of documents to retrieve per query (${VALIDATION_RANGES.noOfRetrievedDocs.min}-${VALIDATION_RANGES.noOfRetrievedDocs.max})`
+                )}
                 rules={[
                   {
                     required: true,
                     message: t("rag.ragSettings.noOfRetrievedDocs.required")
                   },
                   {
-                    type: 'number',
-                    min: 1,
-                    max: 50,
-                    message: t("rag.ragSettings.noOfRetrievedDocs.range", "Must be between 1 and 50")
+                    type: "number",
+                    min: VALIDATION_RANGES.noOfRetrievedDocs.min,
+                    max: VALIDATION_RANGES.noOfRetrievedDocs.max,
+                    message: t(
+                      "rag.ragSettings.noOfRetrievedDocs.range",
+                      `Must be between ${VALIDATION_RANGES.noOfRetrievedDocs.min} and ${VALIDATION_RANGES.noOfRetrievedDocs.max}`
+                    )
                   }
                 ]}>
                 <InputNumber
                   style={{ width: "100%" }}
-                  min={1}
-                  max={50}
+                  min={VALIDATION_RANGES.noOfRetrievedDocs.min}
+                  max={VALIDATION_RANGES.noOfRetrievedDocs.max}
                   placeholder={t(
                     "rag.ragSettings.noOfRetrievedDocs.placeholder"
                   )}
@@ -340,11 +447,21 @@ export const RagSettings = () => {
                   {
                     required: true,
                     message: t("rag.ragSettings.totalFilePerKB.required")
+                  },
+                  {
+                    type: "number",
+                    min: VALIDATION_RANGES.totalFilePerKB.min,
+                    max: VALIDATION_RANGES.totalFilePerKB.max,
+                    message: t(
+                      "rag.ragSettings.totalFilePerKB.range",
+                      `Must be between ${VALIDATION_RANGES.totalFilePerKB.min} and ${VALIDATION_RANGES.totalFilePerKB.max}`
+                    )
                   }
                 ]}>
                 <InputNumber
                   style={{ width: "100%" }}
-                  min={1}
+                  min={VALIDATION_RANGES.totalFilePerKB.min}
+                  max={VALIDATION_RANGES.totalFilePerKB.max}
                   placeholder={t("rag.ragSettings.totalFilePerKB.placeholder")}
                 />
               </Form.Item>

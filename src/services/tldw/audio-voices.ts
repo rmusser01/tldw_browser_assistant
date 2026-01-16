@@ -10,6 +10,63 @@ export type TldwVoice = {
   tags?: string[] | null
 }
 
+const isVoiceRecord = (value: unknown): value is TldwVoice => {
+  if (!value || typeof value !== "object") return false
+  const record = value as Record<string, unknown>
+  if ("voices" in record || "data" in record) return false
+  return (
+    "voice_id" in record ||
+    "id" in record ||
+    "name" in record ||
+    "provider" in record
+  )
+}
+
+const collectVoices = (source: unknown, output: TldwVoice[]) => {
+  if (!source) return
+  if (Array.isArray(source)) {
+    for (const item of source) {
+      collectVoices(item, output)
+    }
+    return
+  }
+  if (typeof source === "string") {
+    output.push({ id: source, name: source })
+    return
+  }
+  if (typeof source !== "object") return
+
+  const record = source as Record<string, unknown>
+  if ("voices" in record) {
+    collectVoices(record.voices, output)
+    return
+  }
+  if ("data" in record) {
+    collectVoices(record.data, output)
+    return
+  }
+  if (isVoiceRecord(record)) {
+    output.push(record as TldwVoice)
+    return
+  }
+  for (const value of Object.values(record)) {
+    collectVoices(value, output)
+  }
+}
+
+const extractVoices = (source: unknown): TldwVoice[] => {
+  const output: TldwVoice[] = []
+  collectVoices(source, output)
+  const seen = new Set<string>()
+  return output.filter((voice) => {
+    const key = voice.voice_id || voice.id || voice.name
+    if (!key) return false
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
 export const fetchTldwVoices = async (): Promise<TldwVoice[]> => {
   try {
     const res = await bgRequestClient<any>({
@@ -17,9 +74,7 @@ export const fetchTldwVoices = async (): Promise<TldwVoice[]> => {
       method: "GET"
     })
     if (!res) return []
-    if (Array.isArray(res)) return res
-    if (Array.isArray(res.voices)) return res.voices
-    return []
+    return extractVoices(res)
   } catch {
     return []
   }
@@ -36,10 +91,7 @@ export const fetchTldwVoiceCatalog = async (
       method: "GET"
     })
     if (!res) return []
-    if (Array.isArray(res)) return res as TldwVoice[]
-    if (Array.isArray(res.voices)) return res.voices as TldwVoice[]
-    if (Array.isArray(res.data)) return res.data as TldwVoice[]
-    return []
+    return extractVoices(res)
   } catch {
     return []
   }

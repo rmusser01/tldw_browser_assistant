@@ -104,13 +104,15 @@
     "saveFailedDescription": "La chat ora viene salvata solo localmente. Controlla la connessione e riprova."
   },
   "rag": {
+    "attachedContext": "Contesto allegato",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
+    "show": "Mostra ricerca RAG",
+    "hide": "Nascondi ricerca RAG",
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results",
+    "initialState": "No results",
     "timeout": {
       "message": "Request timed out.",
       "increase": "Increase timeout",

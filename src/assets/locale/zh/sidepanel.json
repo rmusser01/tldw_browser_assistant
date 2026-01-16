@@ -104,6 +104,7 @@
     "saveFailedDescription": "聊天现在仅保存在本地。请检查连接并重试。"
   },
   "rag": {
+    "attachedContext": "附加的上下文",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",
@@ -111,6 +112,7 @@
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results",
+    "initialState": "No results",
     "timeout": {
       "message": "Request timed out.",
       "increase": "Increase timeout",

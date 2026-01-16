@@ -120,7 +120,7 @@
   "notes": "یادداشت‌ها",
   "upload": {
     "fileTooLargeTitle": "فایل خیلی بزرگ است",
-    "fileTooLargeDescription": "حجم فایل باید کمتر از ۱۰ مگابایت باشد",
+    "fileTooLargeDescription": "حجم فایل باید کمتر از {{size}} باشد",
     "uploadFailedTitle": "آپلود ناموفق بود",
     "uploadFailedDescription": "آپلود فایل انجام نشد. دوباره امتحان کنید."
   },
@@ -239,6 +239,7 @@
     "process": "پردازش",
     "results": "نتایج",
     "downloadJson": "دانلود JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} فیلد پیشرفته بارگذاری شد",
     "advancedEmpty": "گزینه پیشرفته‌ای یافت نشد — مشخصات را دوباره بارگذاری کنید.",
     "modifiedCount": "{{count}} مورد تغییر کرد",

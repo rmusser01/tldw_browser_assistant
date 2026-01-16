@@ -1363,5 +1363,29 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "Nessuna scheda selezionata."
+  },
+  "composer_contextFilesTitle": {
+    "message": "File nel contesto"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "Nessun file allegato."
+  },
+  "composer_addFile": {
+    "message": "Aggiungi file"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "Schede aperte"
+  },
+  "composer_noTabsFound": {
+    "message": "Nessuna scheda aperta idonea trovata."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

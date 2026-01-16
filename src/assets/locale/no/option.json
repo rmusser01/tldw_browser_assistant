@@ -120,7 +120,7 @@
   "notes": "Notater",
   "upload": {
     "fileTooLargeTitle": "Filen er for stor",
-    "fileTooLargeDescription": "Filstørrelsen må være under 10 MB",
+    "fileTooLargeDescription": "Filstørrelsen må være under {{size}}",
     "uploadFailedTitle": "Opplasting mislyktes",
     "uploadFailedDescription": "Klarte ikke å laste opp filen. Prøv igjen."
   },
@@ -239,6 +239,7 @@
     "process": "Behandle",
     "results": "Resultater",
     "downloadJson": "Last ned JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} avanserte felt lastet",
     "advancedEmpty": "Ingen avanserte alternativer oppdaget — prøv å laste spesifikasjonen på nytt.",
     "modifiedCount": "{{count}} endret",

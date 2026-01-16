@@ -12,6 +12,7 @@ export const MEDIA_ADD_SCHEMA_FALLBACK: Array<{
   type: string
   description?: string
   title?: string
+  enum?: unknown[]
 }> = [
   { name: 'accept_archives', type: 'boolean', description: 'Accept .zip archives of EMLs', title: 'Accept Archives' },
   { name: 'accept_mbox', type: 'boolean', description: 'Accept .mbox mailboxes', title: 'Accept Mbox' },
@@ -19,12 +20,39 @@ export const MEDIA_ADD_SCHEMA_FALLBACK: Array<{
   { name: 'api_name', type: 'string', description: 'Optional API name', title: 'Api Name' },
   { name: 'author', type: 'string', description: 'Optional author', title: 'Author' },
   { name: 'chunk_language', type: 'string', description: 'Chunking language override', title: 'Chunk Language' },
-  { name: 'chunk_method', type: 'string', description: 'Chunking method', title: 'Chunk Method' },
+  {
+    name: 'chunk_method',
+    type: 'string',
+    description: 'Chunking method',
+    title: 'Chunk Method',
+    enum: [
+      'semantic',
+      'tokens',
+      'paragraphs',
+      'sentences',
+      'words',
+      'ebook_chapters',
+      'json',
+      'propositions'
+    ]
+  },
   { name: 'chunk_overlap', type: 'integer', description: 'Chunk overlap size', title: 'Chunk Overlap' },
   { name: 'chunk_size', type: 'integer', description: 'Target chunk size', title: 'Chunk Size' },
-  { name: 'claims_extractor_mode', type: 'string', description: 'Claims extractor mode', title: 'Claims Extractor Mode' },
+  {
+    name: 'claims_extractor_mode',
+    type: 'string',
+    description: 'Claims extractor mode',
+    title: 'Claims Extractor Mode',
+    enum: ['auto', 'heuristic', 'ner', 'aps', 'llm']
+  },
   { name: 'claims_max_per_chunk', type: 'string', description: 'Max claims per chunk', title: 'Claims Max Per Chunk' },
-  { name: 'context_strategy', type: 'string', description: 'Context strategy', title: 'Context Strategy' },
+  {
+    name: 'context_strategy',
+    type: 'string',
+    description: 'Context strategy',
+    title: 'Context Strategy',
+    enum: ['auto', 'full', 'window', 'outline_window']
+  },
   { name: 'context_token_budget', type: 'string', description: 'Token budget for auto strategy', title: 'Context Token Budget' },
   { name: 'context_window_size', type: 'string', description: 'Context window size (chars)', title: 'Context Window Size' },
   { name: 'contextual_llm_model', type: 'string', description: 'LLM model for contextual chunking', title: 'Contextual Llm Model' },

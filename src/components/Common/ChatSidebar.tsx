@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { Input, Tooltip, Segmented } from "antd"
 import {
@@ -15,7 +15,8 @@ import {
   Settings,
   ChevronDown,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  CheckSquare
 } from "lucide-react"
 import {
   SIDEBAR_ACTIVE_TAB_SETTING,
@@ -28,6 +29,7 @@ import { useServerChatHistory } from "@/hooks/useServerChatHistory"
 import { useClearChat } from "@/hooks/chat/useClearChat"
 import { useStoreMessageOption } from "@/store/option"
 import { useFolderStore } from "@/store/folder"
+import { useRouteTransitionStore } from "@/store/route-transition"
 import { cn } from "@/libs/utils"
 import { ServerChatList } from "./ChatSidebar/ServerChatList"
 import { FolderChatList } from "./ChatSidebar/FolderChatList"
@@ -52,8 +54,10 @@ export function ChatSidebar({
 }: ChatSidebarProps) {
   const { t } = useTranslation(["common", "sidepanel", "option"])
   const navigate = useNavigate()
+  const location = useLocation()
   const [searchQuery, setSearchQuery] = useState("")
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
+  const [selectionMode, setSelectionMode] = useState(false)
 
   // Tab state persisted in UI settings
   const [currentTab, setCurrentTab] = useSetting(SIDEBAR_ACTIVE_TAB_SETTING)
@@ -64,6 +68,7 @@ export function ChatSidebar({
 
   const clearChat = useClearChat()
   const temporaryChat = useStoreMessageOption((state) => state.temporaryChat)
+  const startRouteTransition = useRouteTransitionStore((state) => state.start)
 
   // Folder conversation count for tab badge
   const conversationKeywordLinks = useFolderStore((s) => s.conversationKeywordLinks)
@@ -89,6 +94,29 @@ export function ChatSidebar({
       window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
     }
   }
+
+  const navigateWithLoading = React.useCallback(
+    (path: string) => {
+      void setShortcutsCollapsed(true)
+      startRouteTransition(path)
+      navigate(path)
+    },
+    [navigate, setShortcutsCollapsed, startRouteTransition]
+  )
+
+  React.useEffect(() => {
+    if (currentTab !== "server" && selectionMode) {
+      setSelectionMode(false)
+    }
+  }, [currentTab, selectionMode])
+
+  const previousPathRef = React.useRef(location.pathname)
+  React.useEffect(() => {
+    if (previousPathRef.current !== location.pathname) {
+      previousPathRef.current = location.pathname
+      void setShortcutsCollapsed(true)
+    }
+  }, [location.pathname, setShortcutsCollapsed])
 
   // Build tab options with counts
   const tabOptions: Array<{ value: SidebarTab; label: string }> = [
@@ -265,6 +293,34 @@ export function ChatSidebar({
               <Plus className="size-4" />
             </button>
           </Tooltip>
+          {currentTab === "server" && (
+            <Tooltip
+              title={
+                selectionMode
+                  ? t("sidepanel:multiSelect.exit", "Exit selection")
+                  : t("sidepanel:multiSelect.enter", "Select chats")
+              }
+            >
+              <button
+                type="button"
+                onClick={() => setSelectionMode((prev) => !prev)}
+                className={cn(
+                  "rounded p-2",
+                  selectionMode
+                    ? "bg-surface text-text"
+                    : "text-text-muted hover:bg-surface hover:text-text"
+                )}
+                aria-pressed={selectionMode}
+                aria-label={
+                  selectionMode
+                    ? t("sidepanel:multiSelect.exit", "Exit selection")
+                    : t("sidepanel:multiSelect.enter", "Select chats")
+                }
+              >
+                <CheckSquare className="size-4" />
+              </button>
+            </Tooltip>
+          )}
           <Tooltip
             title={t("common:chatSidebar.collapse", "Collapse sidebar")}
           >
@@ -338,35 +394,35 @@ export function ChatSidebar({
             <span>{t("common:chatSidebar.ingest", "Quick Ingest")}</span>
           </button>
           <button
-            onClick={() => navigate("/media")}
+            onClick={() => navigateWithLoading("/media")}
             className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <BookText className="size-4" />
             <span>{t("common:chatSidebar.media", "Media")}</span>
           </button>
           <button
-            onClick={() => navigate("/notes")}
+            onClick={() => navigateWithLoading("/notes")}
             className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <StickyNote className="size-4" />
             <span>{t("common:chatSidebar.notes", "Notes")}</span>
           </button>
           <button
-            onClick={() => navigate("/flashcards")}
+            onClick={() => navigateWithLoading("/flashcards")}
             className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <Layers className="size-4" />
             <span>{t("common:chatSidebar.flashcards", "Flashcards")}</span>
           </button>
           <button
-            onClick={() => navigate("/prompts")}
+            onClick={() => navigateWithLoading("/prompts")}
             className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <NotebookPen className="size-4" />
             <span>{t("common:chatSidebar.prompts", "Prompts")}</span>
           </button>
           <button
-            onClick={() => navigate("/chunking-playground")}
+            onClick={() => navigateWithLoading("/chunking-playground")}
             className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <Scissors className="size-4" />
@@ -378,7 +434,7 @@ export function ChatSidebar({
             </span>
           </button>
           <button
-            onClick={() => navigate("/media-multi")}
+            onClick={() => navigateWithLoading("/media-multi")}
             className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
           >
             <Microscope className="size-4" />
@@ -399,6 +455,7 @@ export function ChatSidebar({
         {currentTab === "server" && (
           <ServerChatList
             searchQuery={debouncedSearchQuery}
+            selectionMode={selectionMode}
           />
         )}
 

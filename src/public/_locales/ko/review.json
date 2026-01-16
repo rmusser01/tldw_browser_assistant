@@ -1312,5 +1312,11 @@
   },
   "contentReview_editedLabel": {
     "message": "편집됨"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "오프라인에서는 Media API를 사용할 수 없습니다"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "서버가 오프라인입니다"
   }
 }

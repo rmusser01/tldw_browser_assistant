@@ -343,7 +343,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "Datei ist zu groß",
-    "fileTooLargeDescription": "Die Datei muss kleiner als 10 MB sein",
+    "fileTooLargeDescription": "Die Datei muss kleiner als {{size}} sein",
     "uploadFailedTitle": "Upload fehlgeschlagen",
     "uploadFailedDescription": "Datei konnte nicht hochgeladen werden. Bitte erneut versuchen."
   },
@@ -470,6 +470,7 @@
     "runLabel": "Quick Ingest ausführen",
     "results": "Ergebnisse",
     "downloadJson": "JSON herunterladen",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} erweiterte Felder geladen",
     "advancedEmpty": "Keine erweiterten Optionen erkannt — versuche, die Spezifikation neu zu laden.",
     "modifiedCount": "{{count}} geändert",

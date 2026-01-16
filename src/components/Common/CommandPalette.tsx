@@ -7,6 +7,7 @@ import {
   MessageSquare,
   Settings,
   BookText,
+  BookOpen,
   StickyNote,
   Layers,
   UploadCloud,
@@ -57,6 +58,9 @@ export interface CommandPaletteProps {
   onIngestPage?: () => void
   onSwitchModel?: () => void
   onToggleSidebar?: () => void
+  onSearchHistory?: () => void
+  onSwitchChat?: (chatId: string) => void
+  sidepanelChats?: { id: string; label: string }[]
   scope?: "global" | "sidepanel"
 }
 
@@ -68,6 +72,9 @@ export function CommandPalette({
   onIngestPage,
   onSwitchModel,
   onToggleSidebar,
+  onSearchHistory,
+  onSwitchChat,
+  sidepanelChats,
   scope = "global",
 }: CommandPaletteProps) {
   const [open, setOpen] = useState(false)
@@ -143,6 +150,17 @@ export function CommandPalette({
           category: "navigation" as const,
           keywords: ["study", "cards", "learn"],
         },
+        {
+          id: "nav-documentation",
+          label: t(
+            "common:commandPalette.goToDocumentation",
+            "Go to Documentation"
+          ),
+          icon: <BookOpen className="size-4" />,
+          action: () => { navigate("/documentation"); setOpen(false) },
+          category: "navigation" as const,
+          keywords: ["docs", "documentation", "guide", "help", "reference"],
+        },
       ] : []),
       {
         id: "nav-settings",
@@ -175,8 +193,8 @@ export function CommandPalette({
       },
       {
         id: "action-toggle-rag",
-        label: t("common:commandPalette.toggleKnowledgeSearch", "Toggle Knowledge Search"),
-        description: t("common:commandPalette.toggleKnowledgeSearchDesc", "Search your knowledge base"),
+        label: t("common:commandPalette.toggleKnowledgeSearch", "Toggle Search & Context"),
+        description: t("common:commandPalette.toggleKnowledgeSearchDesc", "Search your knowledge base and context"),
         icon: <Search className="size-4" />,
         shortcut: buildShortcut("r", "alt"),
         action: () => { onToggleRag?.(); setOpen(false) },
@@ -228,6 +246,41 @@ export function CommandPalette({
         category: "action",
         keywords: ["sidebar", "layout", "panel"],
       },
+      ...(isSidepanel && onSearchHistory
+        ? [
+            {
+              id: "action-search-history",
+              label: t(
+                "common:commandPalette.searchHistory",
+                "Search chat history"
+              ),
+              description: t(
+                "common:commandPalette.searchHistoryDesc",
+                "Focus the chat search input"
+              ),
+              icon: <Search className="size-4" />,
+              action: () => {
+                onSearchHistory()
+                setOpen(false)
+              },
+              category: "action" as const,
+              keywords: ["history", "search", "chats", "sidebar"]
+            }
+          ]
+        : []),
+      ...(isSidepanel && onSwitchChat && sidepanelChats?.length
+        ? sidepanelChats.slice(0, 15).map((chat) => ({
+            id: `switch-chat-${chat.id}`,
+            label: chat.label || t("common:untitled", "Untitled"),
+            icon: <MessageSquare className="size-4" />,
+            action: () => {
+              onSwitchChat(chat.id)
+              setOpen(false)
+            },
+            category: "recent" as const,
+            keywords: ["switch", "chat", "conversation"]
+          }))
+        : [])
     ]
 
     return commands
@@ -240,6 +293,9 @@ export function CommandPalette({
     onIngestPage,
     onSwitchModel,
     onToggleSidebar,
+    onSearchHistory,
+    onSwitchChat,
+    sidepanelChats,
     isSidepanel
   ])
 

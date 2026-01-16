@@ -1363,5 +1363,29 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "Ingen faner valgt."
+  },
+  "composer_contextFilesTitle": {
+    "message": "Filer i konteksten"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "Ingen filer vedhæftet."
+  },
+  "composer_addFile": {
+    "message": "Tilføj fil"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "Åbne faner"
+  },
+  "composer_noTabsFound": {
+    "message": "Ingen egnede åbne faner fundet."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

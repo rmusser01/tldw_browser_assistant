@@ -22,6 +22,7 @@ import { IconButton } from "../IconButton"
 import { tagColors } from "@/utils/color"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useStoreMessageOption } from "@/store/option"
+import { EDIT_MESSAGE_EVENT } from "@/utils/timeline-actions"
 
 const ACTION_BUTTON_CLASS =
   "flex items-center justify-center rounded-full border border-border bg-surface2 text-text-muted hover:bg-surface hover:text-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-focus min-w-[44px] min-h-[44px]"
@@ -34,6 +35,7 @@ type Props = {
   userAvatar?: JSX.Element
   isBot: boolean
   name: string
+  role?: "user" | "assistant" | "system"
   images?: string[]
   currentMessageIndex: number
   totalMessages: number
@@ -64,10 +66,11 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
   const [userTextColor] = useStorage("chatUserTextColor", "default")
   const [userTextFont] = useStorage("chatUserTextFont", "default")
   const [userTextSize] = useStorage("chatUserTextSize", "md")
+  const [userDisplayName] = useStorage("chatUserDisplayName", "")
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
   const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const [editMode, setEditMode] = React.useState(false)
-  const { t } = useTranslation("common")
+  const { t } = useTranslation(["common", "playground"])
   const { cancel, isSpeaking, speak } = useTTS()
   const uiMode = useUiModeStore((state) => state.mode)
   const isProMode = uiMode === "pro"
@@ -82,6 +85,9 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
   const replyId = props.messageId ?? props.serverMessageId ?? null
   const canReply =
     isProMode && Boolean(replyId) && !props.message_type?.startsWith("compare")
+  const resolvedRole = props.role ?? (props.isBot ? "assistant" : "user")
+  const isSystemMessage = resolvedRole === "system"
+  const systemLabel = t("playground:systemPrompt", "System prompt")
   const buildReplyPreview = React.useCallback(
     (value: string) => {
       const collapsed = value.replace(/\s+/g, " ").trim()
@@ -105,6 +111,30 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
     }
   }, [])
 
+  const handleEditMessage = React.useCallback(
+    (event: Event) => {
+      const detail = (event as CustomEvent<{ messageId?: string }>).detail
+      if (!detail?.messageId) return
+      if (props.isBot) return
+      const matches =
+        detail.messageId === props.messageId ||
+        detail.messageId === props.serverMessageId
+      if (matches) {
+        setEditMode(true)
+      }
+    },
+    [props.isBot, props.messageId, props.serverMessageId]
+  )
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+
+    window.addEventListener(EDIT_MESSAGE_EVENT, handleEditMessage)
+    return () => {
+      window.removeEventListener(EDIT_MESSAGE_EVENT, handleEditMessage)
+    }
+  }, [handleEditMessage])
+
   const messageTimestamp = React.useMemo(() => {
     const raw = props.createdAt
     if (!raw) return null
@@ -123,16 +153,29 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
     () => buildChatTextClass(userTextColor, userTextFont, userTextSize),
     [userTextColor, userTextFont, userTextSize]
   )
+  const bubbleToneClass = isSystemMessage
+    ? "bg-warn/10 border-warn/30 border-dashed"
+    : "bg-surface2/80 border-border"
 
   return (
     <div
       data-testid="chat-message"
-      data-role="user"
+      data-role={isSystemMessage ? "system" : "user"}
       data-index={props.currentMessageIndex}
+      data-message-id={props.messageId}
+      data-server-message-id={props.serverMessageId}
       className={`group gap-2 relative flex w-full max-w-3xl flex-col items-end justify-center pb-2 md:px-4 text-text ${checkWideMode ? "max-w-none" : ""}`}>
       <div className="flex w-full flex-wrap items-center justify-end gap-2">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-caption font-semibold text-text">You</span>
+          {isSystemMessage ? (
+            <span className="inline-flex items-center rounded-full border border-warn/40 bg-warn/10 px-2 py-0.5 text-[10px] font-medium text-warn">
+              {systemLabel}
+            </span>
+          ) : (
+            <span className="text-caption font-semibold text-text">
+              {userDisplayName.trim() || t("common:you", "You")}
+            </span>
+          )}
           {messageTimestamp && (
             <span className="text-[11px] text-text-muted">
               • {messageTimestamp}
@@ -189,7 +232,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
         <div
           dir="auto"
           data-is-not-editable={!editMode}
-          className={`message-bubble bg-surface2/80 shadow-sm rounded-3xl prose dark:prose-invert break-words min-h-7 prose-p:opacity-95 prose-strong:opacity-100 border border-border max-w-[100%] sm:max-w-[90%] px-4 py-3 rounded-br-lg ${userTextClass} ${
+          className={`message-bubble ${bubbleToneClass} shadow-sm rounded-3xl prose dark:prose-invert break-words min-h-7 prose-p:opacity-95 prose-strong:opacity-100 border max-w-[100%] sm:max-w-[90%] px-4 py-3 rounded-br-lg ${userTextClass} ${
             props.message_type && !editMode ? "italic" : ""
           }`}>
           <HumanMessage message={props.message} />
@@ -199,7 +242,7 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
       {editMode && (
         <div
           dir="auto"
-          className={`message-bubble bg-surface2/80 shadow-sm rounded-3xl prose dark:prose-invert break-words min-h-7 prose-p:opacity-95 prose-strong:opacity-100 border border-border max-w-[100%] sm:max-w-[90%] px-4 py-3 rounded-br-lg ${userTextClass} ${
+          className={`message-bubble ${bubbleToneClass} shadow-sm rounded-3xl prose dark:prose-invert break-words min-h-7 prose-p:opacity-95 prose-strong:opacity-100 border max-w-[100%] sm:max-w-[90%] px-4 py-3 rounded-br-lg ${userTextClass} ${
             props.message_type && !editMode ? "italic" : ""
           }`}>
           <div className="w-screen max-w-[100%]">

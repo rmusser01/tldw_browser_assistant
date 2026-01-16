@@ -315,7 +315,7 @@
     "message": "Filen er for stor"
   },
   "upload_fileTooLargeDescription": {
-    "message": "Filstørrelsen må være under 10 MB"
+    "message": "Filstørrelsen må være under {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Opplasting mislyktes"
@@ -1768,5 +1768,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

@@ -200,10 +200,6 @@ export const SUPPORTED_LANGUAGES = [
     value: "es-AR"
   },
   {
-    label: "Español (Argentina)",
-    value: "es-AR"
-  },
-  {
     label: "Español (Bolivia)",
     value: "es-BO"
   },

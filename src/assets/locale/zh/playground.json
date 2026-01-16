@@ -138,7 +138,9 @@
     "troubleshoot": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
   },
   "errors": {
-    "privateModeDescription": "Firefox 隐私模式不支持保存聊天。临时聊天默认开启。后续会改进。"
+    "privateModeDescription": "Firefox 隐私模式不支持保存聊天。临时聊天默认开启。后续会改进。",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "错误",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "No Media & Notes selected yet.",
     "addKnowledge": "Add Media & Notes",
     "contextTabsTitle": "Tabs in context",
+    "contextTabsAvailable": "打开的标签页",
+    "noTabsFound": "未找到可用的打开标签页。",
+    "contextTabsEmpty": "尚未选择标签页。",
+    "contextFilesTitle": "上下文中的文件",
+    "contextFilesEmpty": "尚未附加文件。",
+    "addFile": "添加文件",
     "contextTabsHint": "Review or remove referenced tabs, or add more from your open browser tabs.",
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",

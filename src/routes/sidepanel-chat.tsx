@@ -3,7 +3,12 @@ import {
   formatToMessage,
   getTitleById,
   getRecentChatFromCopilot,
-  generateID
+  generateID,
+  getFullChatData,
+  getHistoryByServerChatId,
+  getHistoriesWithMetadata,
+  saveHistory,
+  saveMessage
 } from "@/db/dexie/helpers"
 import useBackgroundMessage from "@/hooks/useBackgroundMessage"
 import { useMigration } from "@/hooks/useMigration"
@@ -16,8 +21,10 @@ import {
 } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { useConnectionActions } from "@/hooks/useConnectionState"
 import { useAntdNotification } from "@/hooks/useAntdNotification"
+import { useCharacterGreeting } from "@/hooks/useCharacterGreeting"
 import { copilotResumeLastChat } from "@/services/app"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import type { ServerChatMessage as ApiServerChatMessage } from "@/services/tldw/TldwApiClient"
 import { createSafeStorage } from "@/utils/safe-storage"
 import { CHAT_BACKGROUND_IMAGE_SETTING } from "@/services/settings/ui-settings"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -31,16 +38,29 @@ import { ConnectionBanner } from "~/components/Sidepanel/Chat/ConnectionBanner"
 import { SidepanelChatSidebar } from "~/components/Sidepanel/Chat/Sidebar"
 import NoteQuickSaveModal from "~/components/Sidepanel/Notes/NoteQuickSaveModal"
 import { useMessage } from "~/hooks/useMessage"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { useSidepanelChatTabsStore } from "@/store/sidepanel-chat-tabs"
+import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
+import type { Character } from "@/types/character"
 import type {
   ChatModelSettingsSnapshot,
   SidepanelChatSnapshot,
   SidepanelChatTab
 } from "@/store/sidepanel-chat-tabs"
+import type { HistoryInfo } from "@/db/dexie/types"
 import { useStoreChatModelSettings } from "@/store/model"
 import { useUiModeStore } from "@/store/ui-mode"
 import { useArtifactsStore } from "@/store/artifacts"
 import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
+import { normalizeConversationState } from "@/utils/conversation-state"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
+import type { ServerChatHistoryItem } from "@/hooks/useServerChatHistory"
+import {
+  OPEN_HISTORY_EVENT,
+  TIMELINE_ACTION_EVENT,
+  type OpenHistoryDetail,
+  type TimelineActionDetail
+} from "@/utils/timeline-actions"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
@@ -52,6 +72,71 @@ const CommandPalette = lazy(() =>
   }))
 )
 import type { ChatHistory, Message as ChatMessage } from "~/store/option"
+
+type ServerChatMessageInput = Omit<ApiServerChatMessage, "id"> & {
+  id: string | number
+}
+
+const normalizeServerChatMessageId = (
+  id: ServerChatMessageInput["id"]
+) => (typeof id === "number" ? String(id) : id)
+
+const mapServerChatMessages = (
+  list: ServerChatMessageInput[],
+  userDisplayName?: string
+) => {
+  const resolvedUserName = userDisplayName?.trim() || "You"
+  const normalizeRole = (role: string) => normalizeChatRole(role)
+  const history = list.map((m) => ({
+    role: normalizeRole(m.role),
+    content: m.content
+  }))
+  const mappedMessages = list.map((m) => {
+    const meta = m as Record<string, unknown>
+    const createdAt = Date.parse(m.created_at)
+    const normalizedRole = normalizeRole(m.role)
+    const normalizedId = normalizeServerChatMessageId(m.id)
+    return {
+      createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
+      isBot: normalizedRole === "assistant",
+      role: normalizedRole,
+      name:
+        normalizedRole === "assistant"
+          ? "Assistant"
+          : normalizedRole === "system"
+            ? "System"
+            : resolvedUserName,
+      message: m.content,
+      sources: [],
+      images: [],
+      id: normalizedId,
+      serverMessageId: normalizedId,
+      serverMessageVersion: m.version,
+      parentMessageId:
+        (meta?.parent_message_id as string | null | undefined) ??
+        (meta?.parentMessageId as string | null | undefined) ??
+        null,
+      messageType:
+        (meta?.message_type as string | undefined) ??
+        (meta?.messageType as string | undefined),
+      clusterId:
+        (meta?.cluster_id as string | undefined) ??
+        (meta?.clusterId as string | undefined),
+      modelId:
+        (meta?.model_id as string | undefined) ??
+        (meta?.modelId as string | undefined),
+      modelName:
+        (meta?.model_name as string | undefined) ??
+        (meta?.modelName as string | undefined) ??
+        "Assistant",
+      modelImage:
+        (meta?.model_image as string | undefined) ??
+        (meta?.modelImage as string | undefined)
+    }
+  })
+
+  return { history, mappedMessages }
+}
 
 const deriveNoteTitle = (
   content: string,
@@ -74,6 +159,8 @@ const deriveNoteTitle = (
   }
   return ""
 }
+
+const DEFAULT_COMPOSER_HEIGHT = 160
 
 const MODEL_SETTINGS_KEYS = [
   "f16KV",
@@ -148,14 +235,70 @@ const applyChatModelSettingsSnapshot = (
   })
 }
 
+type BuildHistorySnapshotParams = {
+  historyInfo: HistoryInfo
+  restoredHistory: ChatHistory
+  restoredMessages: ChatMessage[]
+  modelSettings: ChatModelSettingsSnapshot
+  selectedModel: SidepanelChatSnapshot["selectedModel"]
+  toolChoice: SidepanelChatSnapshot["toolChoice"]
+  useOCR: SidepanelChatSnapshot["useOCR"]
+  webSearch: SidepanelChatSnapshot["webSearch"]
+}
+
+const buildHistorySnapshot = ({
+  historyInfo,
+  restoredHistory,
+  restoredMessages,
+  modelSettings,
+  selectedModel,
+  toolChoice,
+  useOCR,
+  webSearch
+}: BuildHistorySnapshotParams): SidepanelChatSnapshot => {
+  const lastUsedPrompt = historyInfo.last_used_prompt
+  const nextSelectedSystemPrompt = lastUsedPrompt?.prompt_id ?? null
+  const nextSelectedQuickPrompt = lastUsedPrompt?.prompt_id
+    ? null
+    : lastUsedPrompt?.prompt_content ?? null
+  const nextSelectedModel = historyInfo.model_id ?? selectedModel ?? null
+
+  return {
+    history: restoredHistory,
+    messages: restoredMessages,
+    chatMode: historyInfo.is_rag ? "rag" : "normal",
+    historyId: historyInfo.id,
+    webSearch,
+    toolChoice,
+    selectedModel: nextSelectedModel,
+    selectedSystemPrompt: nextSelectedSystemPrompt,
+    selectedQuickPrompt: nextSelectedQuickPrompt,
+    temporaryChat: false,
+    useOCR,
+    serverChatId: historyInfo.server_chat_id ?? null,
+    serverChatState: null,
+    serverChatTopic: null,
+    serverChatClusterId: null,
+    serverChatSource: null,
+    serverChatExternalRef: null,
+    queuedMessages: [],
+    modelSettings
+  }
+}
+
 const SidepanelChat = () => {
   const drop = React.useRef<HTMLDivElement>(null)
   const [dropedFile, setDropedFile] = React.useState<File | undefined>()
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
   const [sidebarSearchQuery, setSidebarSearchQuery] = React.useState("")
+  const sidebarSearchInputRef = React.useRef<HTMLInputElement>(null)
+  const [sidebarSearchFocusNonce, setSidebarSearchFocusNonce] = React.useState(0)
   const [composerHeight, setComposerHeight] = React.useState(0)
   const { t } = useTranslation(["playground", "sidepanel", "common"])
   const notification = useAntdNotification()
+  React.useEffect(() => {
+    void tldwClient.initialize().catch(() => null)
+  }, [])
   // Per-tab storage (Chrome side panel) or per-window/global (Firefox sidebar).
   // tabId: undefined = not resolved yet, null = resolved but unavailable.
   const [tabId, setTabId] = React.useState<number | null | undefined>(undefined)
@@ -243,11 +386,15 @@ const SidepanelChat = () => {
     webSearch,
     setWebSearch
   } = useMessage()
+  const [selectedCharacter, setSelectedCharacter] =
+    useSelectedCharacter<Character | null>(null)
   const tabs = useSidepanelChatTabsStore((state) => state.tabs)
   const activeTabId = useSidepanelChatTabsStore((state) => state.activeTabId)
   const modelSettingsSnapshot = useStoreChatModelSettings((state) =>
     pickChatModelSettings(state)
   )
+  const [timelineAction, setTimelineAction] =
+    React.useState<TimelineActionDetail | null>(null)
   const isSwitchingTabRef = React.useRef(false)
   const { containerRef, isAutoScrollToBottom, autoScrollToBottom } =
     useSmartScroll(messages, streaming, 100)
@@ -262,6 +409,30 @@ const SidepanelChat = () => {
   const [noteSaving, setNoteSaving] = React.useState(false)
   const [noteError, setNoteError] = React.useState<string | null>(null)
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
+  const [stickyChatInput] = useStorage(
+    "stickyChatInput",
+    DEFAULT_CHAT_SETTINGS.stickyChatInput
+  )
+  const [userDisplayName] = useStorage("chatUserDisplayName", "")
+  useCharacterGreeting({
+    playgroundReady: !isRestoringChat,
+    selectedCharacter,
+    serverChatId,
+    messagesLength: messages.length,
+    setMessages,
+    setHistory,
+    setSelectedCharacter
+  })
+  const composerPadding = composerHeight
+    ? `${composerHeight + 16}px`
+    : `${DEFAULT_COMPOSER_HEIGHT}px`
+  const scrollToLatestBottom = React.useMemo(() => {
+    if (!stickyChatInput) return "8rem"
+    const baseOffset = composerHeight
+      ? composerHeight + 24
+      : DEFAULT_COMPOSER_HEIGHT
+    return `${Math.max(baseOffset, 128)}px`
+  }, [composerHeight, stickyChatInput])
 
   const resetNoteModal = React.useCallback(() => {
     setNoteModalOpen(false)
@@ -376,8 +547,14 @@ const SidepanelChat = () => {
       setHistoryId(snapshot.historyId ?? null)
       setChatMode(snapshot.chatMode || "normal")
       setWebSearch(snapshot.webSearch ?? false)
-      setToolChoice(snapshot.toolChoice ?? "auto")
-      setSelectedModel(snapshot.selectedModel ?? null)
+      setToolChoice(snapshot.toolChoice ?? "none")
+      const snapshotModel =
+        typeof snapshot.selectedModel === "string"
+          ? snapshot.selectedModel.trim()
+          : ""
+      if (snapshotModel) {
+        setSelectedModel(snapshotModel)
+      }
       setSelectedSystemPrompt(snapshot.selectedSystemPrompt ?? null)
       setSelectedQuickPrompt(snapshot.selectedQuickPrompt ?? null)
       setTemporaryChat(snapshot.temporaryChat ?? false)
@@ -437,6 +614,13 @@ const SidepanelChat = () => {
   const toggleSidebar = () => {
     setSidebarOpen((prev) => !prev)
   }
+
+  const requestSidebarSearchFocus = React.useCallback(() => {
+    if (uiMode !== "pro" || isNarrow) {
+      setSidebarOpen(true)
+    }
+    setSidebarSearchFocusNonce((prev) => prev + 1)
+  }, [isNarrow, uiMode])
 
   const toggleChatMode = () => {
     setChatMode(chatMode === "rag" ? "normal" : "rag")
@@ -709,6 +893,9 @@ const SidepanelChat = () => {
     if (!activeTabId || isSwitchingTabRef.current) return
     let isCurrent = true
     const updateLabel = async () => {
+      const store = useSidepanelChatTabsStore.getState()
+      const currentTab = store.tabs.find((tab) => tab.id === activeTabId)
+      const isManualLabel = currentTab?.labelSource === "manual"
       let label = ""
       if (historyId) {
         try {
@@ -729,7 +916,11 @@ const SidepanelChat = () => {
       if (!isCurrent) return
       useSidepanelChatTabsStore.getState().upsertTab({
         id: activeTabId,
-        label: truncateTabLabel(label),
+        label:
+          isManualLabel && currentTab?.label
+            ? currentTab.label
+            : truncateTabLabel(label),
+        labelSource: isManualLabel ? "manual" : "auto",
         historyId: historyId ?? null,
         serverChatId: serverChatId ?? null,
         serverChatTopic: serverChatTopic ?? null,
@@ -749,6 +940,15 @@ const SidepanelChat = () => {
     t,
     truncateTabLabel
   ])
+
+  const handleRenameActiveTab = React.useCallback(
+    (nextLabel: string) => {
+      const trimmed = nextLabel.trim()
+      if (!activeTabId || !trimmed) return
+      useSidepanelChatTabsStore.getState().renameTab(activeTabId, trimmed)
+    },
+    [activeTabId]
+  )
 
   React.useEffect(() => {
     if (!activeTabId || isSwitchingTabRef.current) return
@@ -868,6 +1068,335 @@ const SidepanelChat = () => {
     [handleNewTab, handleSelectTab]
   )
 
+  const openSnapshotTab = React.useCallback(
+    (tab: SidepanelChatTab, snapshot: SidepanelChatSnapshot) => {
+      const store = useSidepanelChatTabsStore.getState()
+      store.upsertTab(tab)
+      store.setSnapshot(tab.id, snapshot)
+      isSwitchingTabRef.current = true
+      store.setActiveTabId(tab.id)
+      applySnapshot(snapshot)
+      setTimeout(() => {
+        isSwitchingTabRef.current = false
+      }, 0)
+    },
+    [applySnapshot]
+  )
+
+  const openLocalHistory = React.useCallback(
+    async (targetHistoryId: string) => {
+      const existingTab = tabs.find((tab) => tab.historyId === targetHistoryId)
+      if (existingTab) {
+        handleSelectTab(existingTab.id)
+        return
+      }
+      saveActiveTabSnapshot()
+      if (streaming) {
+        stopStreamingRequest()
+      }
+      setDropedFile(undefined)
+      setIsLoading(true)
+      try {
+        const chatData = await getFullChatData(targetHistoryId)
+        if (!chatData) {
+          notification.error({
+            message: t("common:error", "Error"),
+            description: t(
+              "common:serverChatLoadError",
+              "Failed to load conversation."
+            )
+          })
+          return
+        }
+
+        const restoredHistory = formatToChatHistory(chatData.messages)
+        const restoredMessages = formatToMessage(chatData.messages)
+        const historyInfo = chatData.historyInfo
+        const snapshot = buildHistorySnapshot({
+          historyInfo,
+          restoredHistory,
+          restoredMessages,
+          modelSettings: modelSettingsSnapshot,
+          selectedModel: selectedModel ?? null,
+          toolChoice,
+          useOCR,
+          webSearch
+        })
+
+        const newTabId = generateID()
+        openSnapshotTab(
+          {
+            id: newTabId,
+            label: truncateTabLabel(
+              historyInfo.title || t("sidepanel:tabs.newChat", "New chat")
+            ),
+            labelSource: "auto",
+            historyId: historyInfo.id,
+            serverChatId: historyInfo.server_chat_id ?? null,
+            serverChatTopic: null,
+            updatedAt: Date.now()
+          },
+          snapshot
+        )
+      } catch (err: any) {
+        notification.error({
+          message: t("common:error", "Error"),
+          description:
+            err?.message ||
+            t("common:serverChatLoadError", "Failed to load conversation.")
+        })
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [
+      handleSelectTab,
+      modelSettingsSnapshot,
+      notification,
+      openSnapshotTab,
+      saveActiveTabSnapshot,
+      selectedModel,
+      setDropedFile,
+      setIsLoading,
+      stopStreamingRequest,
+      streaming,
+      t,
+      tabs,
+      toolChoice,
+      truncateTabLabel,
+      useOCR,
+      webSearch
+    ]
+  )
+
+  const handleTimelineActionRequest = React.useCallback(
+    async (detail: TimelineActionDetail) => {
+      if (!detail?.historyId) return
+      if (detail.historyId !== historyId) {
+        await openLocalHistory(detail.historyId)
+      }
+      setTimelineAction(detail)
+    },
+    [historyId, openLocalHistory]
+  )
+
+  const ensureLocalHistoryMirror = React.useCallback(
+    async (
+      chatId: string,
+      chat: ServerChatHistoryItem,
+      list: ServerChatMessageInput[]
+    ) => {
+      let localHistoryId: string | null = null
+      try {
+        const existingHistory = await getHistoryByServerChatId(chatId)
+        if (existingHistory) {
+          localHistoryId = existingHistory.id
+        } else {
+          const newHistory = await saveHistory(
+            chat.title || t("sidepanel:tabs.newChat", "New chat"),
+            false,
+            "server",
+            undefined,
+            chatId
+          )
+          localHistoryId = newHistory.id
+        }
+
+        if (localHistoryId) {
+          const metadataMap = await getHistoriesWithMetadata([localHistoryId])
+          const existingMeta = metadataMap.get(localHistoryId)
+          if (!existingMeta || existingMeta.messageCount === 0) {
+            const now = Date.now()
+            const results = await Promise.allSettled(
+              list.map((m, index) => {
+                const meta = m as Record<string, unknown>
+                const parsedCreatedAt = Date.parse(m.created_at)
+                const resolvedCreatedAt = Number.isNaN(parsedCreatedAt)
+                  ? now + index
+                  : parsedCreatedAt
+                const normalizedId = normalizeServerChatMessageId(m.id)
+                const role =
+                  m.role === "assistant" ||
+                  m.role === "system" ||
+                  m.role === "user"
+                    ? m.role
+                    : "user"
+                const name =
+                  role === "assistant"
+                    ? "Assistant"
+                    : role === "system"
+                      ? "System"
+                      : "You"
+                return saveMessage({
+                  id: normalizedId,
+                  history_id: localHistoryId,
+                  name,
+                  role,
+                  content: m.content,
+                  images: [],
+                  source: [],
+                  time: index,
+                  message_type:
+                    (meta?.message_type as string | undefined) ??
+                    (meta?.messageType as string | undefined),
+                  clusterId:
+                    (meta?.cluster_id as string | undefined) ??
+                    (meta?.clusterId as string | undefined),
+                  modelId:
+                    (meta?.model_id as string | undefined) ??
+                    (meta?.modelId as string | undefined),
+                  modelName:
+                    (meta?.model_name as string | undefined) ??
+                    (meta?.modelName as string | undefined) ??
+                    "Assistant",
+                  modelImage:
+                    (meta?.model_image as string | undefined) ??
+                    (meta?.modelImage as string | undefined),
+                  parent_message_id:
+                    (meta?.parent_message_id as
+                      | string
+                      | null
+                      | undefined) ??
+                    (meta?.parentMessageId as
+                      | string
+                      | null
+                      | undefined) ??
+                    null,
+                  createdAt: resolvedCreatedAt
+                })
+              })
+            )
+            const failed = results
+              .map((result, index) => ({
+                result,
+                messageId:
+                  list[index]?.id === undefined
+                    ? String(index)
+                    : normalizeServerChatMessageId(list[index].id)
+              }))
+              .filter((entry) => entry.result.status === "rejected")
+            if (failed.length > 0) {
+              console.warn(
+                `[ensureLocalHistoryMirror] ${failed.length} messages failed to save`,
+                failed.map(({ messageId, result }) => ({
+                  messageId,
+                  reason:
+                    result.status === "rejected" ? result.reason : undefined
+                }))
+              )
+            }
+          }
+        }
+      } catch (err) {
+        console.error("[ensureLocalHistoryMirror] Failed:", err)
+      }
+      return localHistoryId
+    },
+    [t]
+  )
+
+  const openServerChat = React.useCallback(
+    async (chat: ServerChatHistoryItem) => {
+      const chatId = String(chat.id)
+      const existingTab = tabs.find((tab) => tab.serverChatId === chatId)
+      if (existingTab) {
+        handleSelectTab(existingTab.id)
+        return
+      }
+      saveActiveTabSnapshot()
+      if (streaming) {
+        stopStreamingRequest()
+      }
+      setDropedFile(undefined)
+      setIsLoading(true)
+      try {
+        await tldwClient.initialize().catch(() => null)
+        const list = await tldwClient.listChatMessages(chatId, {
+          include_deleted: "false"
+        })
+        const messageList: ServerChatMessageInput[] = list
+        const { history, mappedMessages } = mapServerChatMessages(
+          messageList,
+          userDisplayName
+        )
+        const localHistoryId = await ensureLocalHistoryMirror(
+          chatId,
+          chat,
+          messageList
+        )
+
+        const snapshot: SidepanelChatSnapshot = {
+          history,
+          messages: mappedMessages,
+          chatMode,
+          historyId: localHistoryId,
+          webSearch,
+          toolChoice,
+          selectedModel: selectedModel ?? null,
+          selectedSystemPrompt,
+          selectedQuickPrompt,
+          temporaryChat: false,
+          useOCR,
+          serverChatId: chatId,
+          serverChatState: normalizeConversationState(chat.state),
+          serverChatTopic: chat.topic_label ?? null,
+          serverChatClusterId: chat.cluster_id ?? null,
+          serverChatSource: chat.source ?? null,
+          serverChatExternalRef: chat.external_ref ?? null,
+          queuedMessages: [],
+          modelSettings: modelSettingsSnapshot
+        }
+
+        const newTabId = generateID()
+        openSnapshotTab(
+          {
+            id: newTabId,
+            label: truncateTabLabel(
+              chat.title || t("sidepanel:tabs.newChat", "New chat")
+            ),
+            labelSource: "auto",
+            historyId: localHistoryId,
+            serverChatId: chatId,
+            serverChatTopic: chat.topic_label ?? null,
+            updatedAt: Date.now()
+          },
+          snapshot
+        )
+      } catch (err: any) {
+        notification.error({
+          message: t("common:error", "Error"),
+          description:
+            err?.message ||
+            t("common:serverChatLoadError", "Failed to load conversation.")
+        })
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [
+      chatMode,
+      ensureLocalHistoryMirror,
+      handleSelectTab,
+      modelSettingsSnapshot,
+      notification,
+      openSnapshotTab,
+      saveActiveTabSnapshot,
+      selectedModel,
+      selectedQuickPrompt,
+      selectedSystemPrompt,
+      setDropedFile,
+      setIsLoading,
+      stopStreamingRequest,
+      streaming,
+      t,
+      tabs,
+      toolChoice,
+      truncateTabLabel,
+      useOCR,
+      webSearch
+    ]
+  )
+
   React.useEffect(() => {
     const handleBeforeUnload = () => {
       persistSidepanelState()
@@ -888,6 +1417,33 @@ const SidepanelChat = () => {
       persistSidepanelState()
     }
   }, [persistSidepanelState])
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const handleTimelineActionEvent = (event: Event) => {
+      const detail = (event as CustomEvent<TimelineActionDetail>).detail
+      if (!detail?.historyId) return
+      void handleTimelineActionRequest(detail)
+    }
+
+    const handleOpenHistoryEvent = (event: Event) => {
+      const detail = (event as CustomEvent<OpenHistoryDetail>).detail
+      if (!detail?.historyId) return
+      void handleTimelineActionRequest({
+        action: "go",
+        historyId: detail.historyId,
+        messageId: detail.messageId
+      })
+    }
+
+    window.addEventListener(TIMELINE_ACTION_EVENT, handleTimelineActionEvent)
+    window.addEventListener(OPEN_HISTORY_EVENT, handleOpenHistoryEvent)
+    return () => {
+      window.removeEventListener(TIMELINE_ACTION_EVENT, handleTimelineActionEvent)
+      window.removeEventListener(OPEN_HISTORY_EVENT, handleOpenHistoryEvent)
+    }
+  }, [handleTimelineActionRequest])
 
   React.useEffect(() => {
     if (!drop.current) {
@@ -1108,6 +1664,17 @@ const SidepanelChat = () => {
     return t("sidepanel:tabs.newChat", "New chat")
   }, [activeTabId, tabs, t])
 
+  const commandPaletteChats = React.useMemo(
+    () =>
+      [...tabs]
+        .sort((a, b) => b.updatedAt - a.updatedAt)
+        .map((tab) => ({
+          id: tab.id,
+          label: tab.label || t("common:untitled", "Untitled")
+        })),
+    [tabs, t]
+  )
+
   const isDockedSidebar = uiMode === "pro" && !isNarrow
   const isSidebarVisible = isDockedSidebar || sidebarOpen
   const messagePadding = uiMode === "pro" ? "px-4" : "px-6"
@@ -1127,6 +1694,10 @@ const SidepanelChat = () => {
           onNewTab={handleNewTab}
           searchQuery={sidebarSearchQuery}
           onSearchQueryChange={setSidebarSearchQuery}
+          searchInputRef={sidebarSearchInputRef}
+          focusSearchTrigger={sidebarSearchFocusNonce}
+          onOpenLocalHistory={openLocalHistory}
+          onOpenServerChat={openServerChat}
           onClose={() => setSidebarOpen(false)}
         />
       )}
@@ -1143,6 +1714,7 @@ const SidepanelChat = () => {
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
             activeTitle={activeTabLabel}
+            onRenameTitle={handleRenameActiveTab}
           />
           <ConnectionBanner className="pt-12" />
         </div>
@@ -1204,8 +1776,16 @@ const SidepanelChat = () => {
             aria-relevant="additions"
             aria-label={t("playground:aria.chatTranscript", "Chat messages")}
             data-testid="chat-messages"
-            className={`custom-scrollbar relative z-10 flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto ${messagePadding}`}
-            style={{ paddingBottom: composerHeight ? composerHeight + 16 : 160 }}>
+            className={`custom-scrollbar relative z-10 flex flex-1 w-full flex-col items-center overflow-x-hidden overflow-y-auto ${messagePadding}`}
+            style={
+              {
+                "--composer-padding": composerPadding,
+                paddingBottom: stickyChatInput
+                  ? "calc(var(--composer-padding) + env(safe-area-inset-bottom, 0px))"
+                  : "0px"
+              } as React.CSSProperties
+            }
+          >
             {isRestoringChat ? (
               <div
                 className="relative flex w-full flex-col items-center pt-16 pb-4"
@@ -1229,31 +1809,52 @@ const SidepanelChat = () => {
                 scrollParentRef={containerRef}
                 searchQuery={sidebarSearchQuery}
                 inputRef={textareaRef}
+                timelineAction={timelineAction}
+                onTimelineActionHandled={() => setTimelineAction(null)}
               />
+            )}
+            {!stickyChatInput && (
+              <div className="w-full pt-4 pb-6">
+                <SidepanelForm
+                  key={activeTabId || "sidepanel-chat"}
+                  dropedFile={dropedFile}
+                  inputRef={textareaRef}
+                  onHeightChange={setComposerHeight}
+                  draftKey={draftKey}
+                />
+              </div>
             )}
           </div>
 
-          <div className="absolute bottom-0 w-full z-10">
-            {!isAutoScrollToBottom && (
-              <div className="fixed bottom-32 z-20 left-0 right-0 flex justify-center">
-                <button
-                  onClick={() => autoScrollToBottom()}
-                  aria-label={t("playground:composer.scrollToLatest", "Scroll to latest messages")}
-                  title={t("playground:composer.scrollToLatest", "Scroll to latest messages") as string}
-                  data-testid="chat-scroll-latest"
-                  className="bg-gray-50 shadow border border-gray-200 dark:border-none dark:bg-white/20 p-1.5 rounded-full pointer-events-auto hover:bg-gray-100 dark:hover:bg-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
-                  <ChevronDown className="size-4 text-gray-600 dark:text-gray-300" aria-hidden="true" />
-                </button>
-              </div>
-            )}
-            <SidepanelForm
-              key={activeTabId || "sidepanel-chat"}
-              dropedFile={dropedFile}
-              inputRef={textareaRef}
-              onHeightChange={setComposerHeight}
-              draftKey={draftKey}
-            />
-          </div>
+          {!isAutoScrollToBottom && (
+            <div
+              className="fixed z-20 left-0 right-0 flex justify-center"
+              style={{ bottom: scrollToLatestBottom }}
+            >
+              <button
+                onClick={() => autoScrollToBottom()}
+                aria-label={t("playground:composer.scrollToLatest", "Scroll to latest messages")}
+                title={t("playground:composer.scrollToLatest", "Scroll to latest messages") as string}
+                data-testid="chat-scroll-latest"
+                className="bg-gray-50 shadow border border-gray-200 dark:border-none dark:bg-white/20 p-1.5 rounded-full pointer-events-auto hover:bg-gray-100 dark:hover:bg-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
+                <ChevronDown className="size-4 text-gray-600 dark:text-gray-300" aria-hidden="true" />
+              </button>
+            </div>
+          )}
+          {stickyChatInput && (
+            <div
+              className="absolute bottom-0 w-full z-10"
+              style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+            >
+              <SidepanelForm
+                key={activeTabId || "sidepanel-chat"}
+                dropedFile={dropedFile}
+                inputRef={textareaRef}
+                onHeightChange={setComposerHeight}
+                draftKey={draftKey}
+              />
+            </div>
+          )}
         </div>
       </main>
       {artifactsOpen && (
@@ -1308,6 +1909,9 @@ const SidepanelChat = () => {
             }
           }}
           onToggleSidebar={toggleSidebar}
+          onSearchHistory={requestSidebarSearchFocus}
+          onSwitchChat={handleSelectTab}
+          sidepanelChats={commandPaletteChats}
         />
       </Suspense>
       <Suspense fallback={null}>

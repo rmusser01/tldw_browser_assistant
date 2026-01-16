@@ -323,6 +323,8 @@
     "connectDescription": "設定で tldw サーバーに接続してメッセージの送信やメディアの表示を行います。接続後、処理済みの録音やドキュメントがここに表示されます。",
     "connectExample1": "設定 → tldw server を開いてサーバー URL を追加します。",
     "connectExample2": "接続後、ヘッダーの Quick ingest を使って自分の録音やファイルからメディアを追加します。",
+    "apiOfflineTitle": "メディアAPIはオフラインでは利用できません",
+    "serverOfflineTitle": "サーバーがオフラインです",
     "offlineTitle": "このサーバーでは Media API を利用できません",
     "offlineDescription": "この tldw サーバーは Media エンドポイント（/api/v1/media や /api/v1/media/search など）を公開していません。Media ワークスペースを利用するには、Media を含むバージョンにサーバーをアップグレードしてください。",
     "offlineExample1": "Diagnostics を開いてサーバーのバージョンと利用可能な API を確認します。",

@@ -35,6 +35,7 @@ import {
 import { getModelNicknameByID } from "@/db/dexie/nickname"
 import { systemPromptFormatter } from "@/utils/system-message"
 import type { Character } from "@/types/character"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 import { createBranchMessage } from "./handlers/messageHandlers"
 import { consumeStreamingChunk } from "@/utils/streaming-chunks"
 import {
@@ -49,11 +50,15 @@ import {
   updateActiveVariant
 } from "@/utils/message-variants"
 import { normalChatMode } from "./chat-modes/normalChatMode"
+import { tabChatMode } from "./chat-modes/tabChatMode"
+import { documentChatMode } from "./chat-modes/documentChatMode"
 import { updatePageTitle } from "@/utils/update-page-title"
 import { useAntdNotification } from "./useAntdNotification"
 import { useChatBaseState } from "@/hooks/chat/useChatBaseState"
 import { normalizeConversationState } from "@/utils/conversation-state"
 import { resolveApiProviderForModel } from "@/utils/resolve-api-provider"
+import type { ChatDocuments } from "@/models/ChatTypes"
+import type { UploadedFile } from "@/db/dexie/types"
 
 type ServerBackedMessage = Message & {
   serverMessageId?: string
@@ -93,6 +98,8 @@ export const useMessage = () => {
     addQueuedMessage,
     setQueuedMessages,
     clearQueuedMessages,
+    fileRetrievalEnabled,
+    setActionInfo,
     replyTarget,
     clearReplyTarget
   } = useStoreMessageOption()
@@ -105,10 +112,7 @@ export const useMessage = () => {
     false
   )
   const [maxWebsiteContext] = useStorage("maxWebsiteContext", 4028)
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
 
   const {
     history,
@@ -992,16 +996,20 @@ export const useMessage = () => {
 
       // Visual placeholder
       const modelInfo = await getModelNicknameByID(model)
+      const characterName =
+        selectedCharacter?.name || modelInfo?.model_name || model
+      const characterAvatar =
+        selectedCharacter?.avatar_url || modelInfo?.model_avatar
       const createdAt = Date.now()
       const assistantStub: Message = {
         isBot: true,
-        name: model,
+        name: characterName,
         message: "▋",
         sources: [],
         createdAt,
         id: generateMessageId,
-        modelImage: modelInfo?.model_avatar,
-        modelName: modelInfo?.model_name || model,
+        modelImage: characterAvatar,
+        modelName: characterName,
         parentMessageId: resolvedAssistantParentMessageId ?? null
       }
       if (regenerateVariants.length > 0) {
@@ -1620,7 +1628,9 @@ export const useMessage = () => {
     memory,
     messages: chatHistory,
     messageType,
-    regenerateFromMessage
+    regenerateFromMessage,
+    docs,
+    uploadedFiles
   }: {
     message: string
     image: string
@@ -1630,6 +1640,8 @@ export const useMessage = () => {
     controller?: AbortController
     messageType?: string
     regenerateFromMessage?: Message
+    docs?: ChatDocuments
+    uploadedFiles?: UploadedFile[]
   }) => {
     if (!validateBeforeSubmit(selectedModel || "", t, notification)) {
       return
@@ -1665,6 +1677,66 @@ export const useMessage = () => {
       : {}
 
     try {
+      if (uploadedFiles && uploadedFiles.length > 0) {
+        await documentChatMode(
+          message,
+          image,
+          isRegenerate,
+          chatHistory || messages,
+          memory || history,
+          signal,
+          uploadedFiles,
+          {
+            selectedModel: model,
+            useOCR,
+            currentChatModelSettings,
+            toolChoice,
+            setMessages,
+            saveMessageOnSuccess,
+            saveMessageOnError,
+            setHistory,
+            setIsProcessing,
+            setStreaming,
+            setAbortController,
+            historyId: historyId ?? null,
+            setHistoryId,
+            fileRetrievalEnabled,
+            setActionInfo,
+            regenerateFromMessage,
+            ...replyOverrides
+          }
+        )
+        return
+      }
+      if (docs && docs.length > 0) {
+        await tabChatMode(
+          message,
+          image,
+          docs,
+          isRegenerate,
+          chatHistory || messages,
+          memory || history,
+          signal,
+          {
+            selectedModel: model,
+            useOCR,
+            selectedSystemPrompt: selectedSystemPrompt ?? "",
+            toolChoice,
+            setMessages,
+            saveMessageOnSuccess,
+            saveMessageOnError,
+            setHistory,
+            setIsProcessing,
+            setStreaming,
+            setAbortController,
+            historyId: historyId ?? null,
+            setHistoryId,
+            regenerateFromMessage,
+            ...replyOverrides
+          }
+        )
+        return
+      }
       // this means that the user is trying to send something from a selected text on the web
       if (messageType) {
         await presetChatMode(

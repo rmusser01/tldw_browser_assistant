@@ -14,7 +14,11 @@ export interface MentionPosition {
   query: string
 }
 
-export const useTabMentions = (textareaRef: React.RefObject<HTMLTextAreaElement>) => {
+export const useTabMentions = (
+  textareaRef: React.RefObject<HTMLTextAreaElement>,
+  options?: { includeActive?: boolean }
+) => {
+  const includeActive = options?.includeActive ?? false
   const [tabMentionsEnabled] = useStorage("tabMentionsEnabled", false)
   const [showMentions, setShowMentions] = React.useState(false)
   const [mentionPosition, setMentionPosition] = React.useState<MentionPosition | null>(null)
@@ -27,7 +31,7 @@ export const useTabMentions = (textareaRef: React.RefObject<HTMLTextAreaElement>
       const tabs = await browser.tabs.query({})
       const tabInfos: TabInfo[] = tabs
         .filter(tab => tab.id && tab.title && tab.url)
-        .filter(tab => !tab.active)
+        .filter(tab => includeActive || !tab.active)
         .filter(tab => tab?.status === 'complete') 
         .filter(tab => {
           const url = tab.url!.toLowerCase()
@@ -50,7 +54,7 @@ export const useTabMentions = (textareaRef: React.RefObject<HTMLTextAreaElement>
       console.error("Failed to fetch tabs:", error)
       return []
     }
-  }, [])
+  }, [includeActive])
 
   const detectMention = React.useCallback((text: string, cursorPosition: number) => {
     if (!tabMentionsEnabled) return null

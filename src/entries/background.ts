@@ -382,21 +382,45 @@ export default defineBackground({
     const normalizeFileData = (input: any): Uint8Array | null => {
       if (!input) return null
       if (input instanceof ArrayBuffer) return new Uint8Array(input)
+      if (typeof SharedArrayBuffer !== "undefined" && input instanceof SharedArrayBuffer) {
+        return new Uint8Array(input)
+      }
       if (ArrayBuffer.isView(input)) {
         return new Uint8Array(input.buffer, input.byteOffset, input.byteLength)
+      }
+      if (
+        typeof input === "object" &&
+        input !== null &&
+        typeof (input as { byteLength?: number }).byteLength === "number" &&
+        typeof (input as { slice?: unknown }).slice === "function" &&
+        Object.prototype.toString.call(input) === "[object ArrayBuffer]"
+      ) {
+        try {
+          return new Uint8Array(input as ArrayBuffer)
+        } catch (error) {
+          logBackgroundError("normalize arraybuffer-like input", error)
+          return null
+        }
       }
       // Accept common structured-clone shapes (e.g., { data: [...] })
       if (Array.isArray((input as any)?.data)) return new Uint8Array((input as any).data)
       if (Array.isArray(input)) return new Uint8Array(input)
       if (typeof input === 'string' && input.startsWith('data:')) {
         try {
-          const base64 = input.split(',', 2)[1] || ''
-          const binary = atob(base64)
-          const out = new Uint8Array(binary.length)
-          for (let i = 0; i < binary.length; i += 1) out[i] = binary.charCodeAt(i)
-          return out
+          const [meta, payload = ''] = input.split(',', 2)
+          const isBase64 = /;base64/i.test(meta)
+          if (isBase64) {
+            const binary = atob(payload)
+            const out = new Uint8Array(binary.length)
+            for (let i = 0; i < binary.length; i += 1) {
+              out[i] = binary.charCodeAt(i)
+            }
+            return out
+          }
+          const text = decodeURIComponent(payload)
+          return new TextEncoder().encode(text)
         } catch (error) {
-          logBackgroundError("decode file data url", error)
+          logBackgroundError('decode file data url', error)
           return null
         }
       }
@@ -483,13 +507,20 @@ export default defineBackground({
               ? Number(cfg.requestTimeoutMs)
               : 10000
         const timeout = setTimeout(() => controller.abort(), timeoutMs)
-        const resp = await fetch(url, { method, headers, body: form, signal: controller.signal })
-        clearTimeout(timeout)
+        let resp: Response
+        try {
+          resp = await fetch(url, { method, headers, body: form, signal: controller.signal })
+        } finally {
+          clearTimeout(timeout)
+        }
         const contentType = resp.headers.get('content-type') || ''
         let data: any = null
         if (contentType.includes('application/json')) data = await resp.json().catch(() => null)
         else data = await resp.text().catch(() => null)
-        return { ok: resp.ok, status: resp.status, data }
+        const error = resp.ok
+          ? undefined
+          : formatErrorMessage(data, `Upload failed: ${resp.status}`)
+        return { ok: resp.ok, status: resp.status, data, error }
       } catch (e: any) {
         return { ok: false, status: 0, error: e?.message || 'Upload failed' }
       }
@@ -555,6 +586,9 @@ export default defineBackground({
         const advancedValues = payload.advancedValues && typeof payload.advancedValues === 'object'
           ? payload.advancedValues
           : {}
+        const fileDefaults = payload.fileDefaults && typeof payload.fileDefaults === 'object'
+          ? payload.fileDefaults
+          : {}
         // processOnly=true forces local-only processing even if storeRemote was requested
         const shouldStoreRemote = storeRemote && !processOnly
 
@@ -570,7 +604,7 @@ export default defineBackground({
           }
         }
 
-        const buildFields = (rawType: string, entry?: any) => {
+        const buildFields = (rawType: string, entry?: any, defaults?: any) => {
           const mediaType = normalizeMediaType(rawType)
           const fields: Record<string, any> = {
             media_type: mediaType,
@@ -578,17 +612,39 @@ export default defineBackground({
             perform_chunking: Boolean(common.perform_chunking),
             overwrite_existing: Boolean(common.overwrite_existing)
           }
+          const resolvedDefaults: {
+            audio?: { language?: string; diarize?: boolean }
+            document?: { ocr?: boolean }
+            video?: { captions?: boolean }
+          } = (() => {
+            if (!defaults || typeof defaults !== 'object') return {}
+            if (mediaType === 'audio') return { audio: defaults.audio }
+            if (mediaType === 'video') return { video: defaults.video }
+            if (mediaType === 'document' || mediaType === 'pdf' || mediaType === 'ebook') {
+              return { document: defaults.document }
+            }
+            return {}
+          })()
           const nested: Record<string, any> = {}
           for (const [k, v] of Object.entries(advancedValues as Record<string, any>)) {
             if (k.includes('.')) assignPath(nested, k.split('.'), v)
             else fields[k] = v
           }
           for (const [k, v] of Object.entries(nested)) fields[k] = v
-          if (entry?.audio?.language) fields['transcription_language'] = entry.audio.language
-          if (typeof entry?.audio?.diarize === 'boolean') fields['diarize'] = entry.audio.diarize
-          if (typeof entry?.video?.captions === 'boolean') fields['timestamp_option'] = entry.video.captions
-          if (typeof entry?.document?.ocr === 'boolean') {
-            fields['pdf_parsing_engine'] = entry.document.ocr ? 'pymupdf4llm' : ''
+          const audio = { ...(resolvedDefaults.audio || {}), ...(entry?.audio || {}) }
+          const video = { ...(resolvedDefaults.video || {}), ...(entry?.video || {}) }
+          const document = { ...(resolvedDefaults.document || {}), ...(entry?.document || {}) }
+          if (audio.language && fields.transcription_language == null) {
+            fields.transcription_language = audio.language
+          }
+          if (typeof audio.diarize === 'boolean' && fields.diarize == null) {
+            fields.diarize = audio.diarize
+          }
+          if (typeof video.captions === 'boolean' && fields.timestamp_option == null) {
+            fields.timestamp_option = video.captions
+          }
+          if (typeof document.ocr === 'boolean' && fields.pdf_parsing_engine == null) {
+            fields.pdf_parsing_engine = document.ocr ? 'pymupdf4llm' : ''
           }
           return fields
         }
@@ -688,7 +744,9 @@ export default defineBackground({
             let data: any
             if (shouldStoreRemote) {
               // Ingest & store via multipart form
-              const fields: Record<string, any> = buildFields(t, r)
+              const resolvedDefaults =
+                r?.defaults && typeof r.defaults === 'object' ? r.defaults : fileDefaults
+              const fields: Record<string, any> = buildFields(t, r, resolvedDefaults)
               fields.urls = [url]
               const resp = await handleUpload({ path: '/api/v1/media/add', method: 'POST', fields })
               if (!resp?.ok) {
@@ -701,7 +759,9 @@ export default defineBackground({
               if (t === 'html') {
                 data = await processWebScrape(url)
               } else {
-                const fields = buildFields(t, r)
+                const resolvedDefaults =
+                  r?.defaults && typeof r.defaults === 'object' ? r.defaults : fileDefaults
+                const fields = buildFields(t, r, resolvedDefaults)
                 fields.urls = [url]
                 const resp = await handleUpload({
                   path: getProcessPathForType(t),
@@ -736,10 +796,18 @@ export default defineBackground({
           const id = f?.id || crypto.randomUUID()
           const name = f?.name || 'upload'
           const mediaType = inferUploadMediaTypeFromFile(name, f?.type)
+          const resolvedFileDefaults =
+            f?.defaults && typeof f.defaults === 'object'
+              ? f.defaults
+              : fileDefaults
           try {
             let data: any
             if (shouldStoreRemote) {
-              const fields: Record<string, any> = buildFields(mediaType)
+              const fields: Record<string, any> = buildFields(
+                mediaType,
+                undefined,
+                resolvedFileDefaults
+              )
               const resp = await handleUpload({
                 path: '/api/v1/media/add',
                 method: 'POST',
@@ -752,7 +820,11 @@ export default defineBackground({
               }
               data = resp.data
             } else {
-              const fields: Record<string, any> = buildFields(mediaType)
+              const fields: Record<string, any> = buildFields(
+                mediaType,
+                undefined,
+                resolvedFileDefaults
+              )
               const resp = await handleUpload({
                 path: getProcessPathForType(mediaType),
                 method: 'POST',

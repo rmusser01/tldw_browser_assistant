@@ -5,10 +5,6 @@ import { useMessageOption } from "@/hooks/useMessageOption"
 import type { ActorSettings, ActorTarget } from "@/types/actor"
 import { createDefaultActorSettings } from "@/types/actor"
 import {
-  getActorSettingsForChatWithCharacterFallback,
-  saveActorSettingsForChat
-} from "@/services/actor-settings"
-import {
   buildActorPrompt,
   buildActorSettingsFromForm,
   estimateActorTokens
@@ -16,20 +12,19 @@ import {
 import { ActorEditor } from "@/components/Common/Settings/ActorEditor"
 import { useActorStore } from "@/store/actor"
 import type { Character } from "@/types/character"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 
 type Props = {
   open: boolean
   setOpen: (open: boolean) => void
 }
 
+const loadActorSettings = () => import("@/services/actor-settings")
+
 export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
   const { t } = useTranslation(["playground", "common"])
   const { historyId, serverChatId } = useMessageOption()
-  const [selectedCharacter] = useStorage<Character | null>(
-    "selectedCharacter",
-    null
-  )
+  const [selectedCharacter] = useSelectedCharacter<Character | null>(null)
   const [form] = Form.useForm()
   const {
     settings,
@@ -50,6 +45,8 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
     if (!open) return
     setLoading(true)
     try {
+      const { getActorSettingsForChatWithCharacterFallback } =
+        await loadActorSettings()
       const actor = await getActorSettingsForChatWithCharacterFallback({
         historyId,
         serverChatId,
@@ -129,6 +126,7 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
     const base = settings ?? createDefaultActorSettings()
     const next: ActorSettings = buildActorSettingsFromForm(base, values)
     setSettings(next)
+    const { saveActorSettingsForChat } = await loadActorSettings()
     await saveActorSettingsForChat({
       historyId,
       serverChatId,

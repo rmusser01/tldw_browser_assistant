@@ -948,7 +948,7 @@
     "message": "Datei ist zu groß"
   },
   "upload_fileTooLargeDescription": {
-    "message": "Die Datei muss kleiner als 10 MB sein"
+    "message": "Die Datei muss kleiner als {{size}} sein"
   },
   "upload_uploadFailedTitle": {
     "message": "Upload fehlgeschlagen"
@@ -1801,5 +1801,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

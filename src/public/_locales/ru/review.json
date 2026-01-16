@@ -1318,5 +1318,11 @@
   },
   "contentReview_editedLabel": {
     "message": "Изменённый"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "API Media недоступен офлайн"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "Сервер офлайн"
   }
 }

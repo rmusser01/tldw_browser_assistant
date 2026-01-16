@@ -124,13 +124,12 @@ describeLive('Live server UX workflows (no mocks)', () => {
       await expect(runButton).toBeVisible()
       await expect(runButton).toBeEnabled()
 
-      // The offline staging banner and generic pending label should not
-      // appear when the connection store reports an online server.
+      // Connection gating copy should not appear when online.
       await expect(
-        modal.getByText(/Server offline — staging only/i)
+        modal.getByText(/Not connected to server/i)
       ).toHaveCount(0)
       await expect(
-        modal.getByText(/Pending — will run when connected/i)
+        modal.getByText(/Not connected — reconnect to run/i)
       ).toHaveCount(0)
     } finally {
       await context.close()

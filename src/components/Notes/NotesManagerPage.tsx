@@ -13,10 +13,11 @@ import { useDemoMode } from '@/context/demo-mode'
 import { useServerCapabilities } from '@/hooks/useServerCapabilities'
 import { tldwClient } from '@/services/tldw/TldwApiClient'
 import { useAntdMessage } from '@/hooks/useAntdMessage'
-import { getNoteKeywords, searchNoteKeywords } from "@/services/note-keywords"
+import { getAllNoteKeywords, searchNoteKeywords } from "@/services/note-keywords"
 import { useStoreMessageOption } from "@/store/option"
 import { shallow } from "zustand/shallow"
 import { updatePageTitle } from "@/utils/update-page-title"
+import { normalizeChatRole } from "@/utils/normalize-chat-role"
 import { useScrollToServerCard } from "@/hooks/useScrollToServerCard"
 import { MarkdownPreview } from "@/components/Common/MarkdownPreview"
 import NotesEditorHeader from "@/components/Notes/NotesEditorHeader"
@@ -31,6 +32,8 @@ type NoteWithKeywords = {
   metadata?: { keywords?: any[] }
   keywords?: any[]
 }
+
+const KeywordPickerModal = React.lazy(() => import('@/components/Notes/KeywordPickerModal'))
 
 const extractBacklink = (note: any) => {
   const meta = note?.metadata || {}
@@ -71,6 +74,46 @@ const extractKeywords = (note: NoteWithKeywords | any): string[] => {
     .filter((s): s is string => !!s && s.trim().length > 0)
 }
 
+// Extract version from note object. Checks multiple candidate fields in order:
+// 1. note.version (primary)
+// 2. note.expected_version (fallback)
+// 3. note.expectedVersion (camelCase variant)
+// 4. note.metadata.* (nested variants)
+const toNoteVersion = (note: any): number | null => {
+  const candidates = [
+    note?.version,
+    note?.expected_version,
+    note?.expectedVersion,
+    note?.metadata?.version,
+    note?.metadata?.expected_version,
+    note?.metadata?.expectedVersion
+  ]
+  const validVersions: number[] = []
+  for (const candidate of candidates) {
+    if (
+      typeof candidate === 'number' &&
+      Number.isFinite(candidate) &&
+      Number.isInteger(candidate) &&
+      candidate >= 0
+    ) {
+      validVersions.push(candidate)
+    }
+    if (typeof candidate === 'string' && candidate.trim().length > 0) {
+      const parsed = Number(candidate)
+      if (Number.isFinite(parsed) && Number.isInteger(parsed) && parsed >= 0) {
+        validVersions.push(parsed)
+      }
+    }
+  }
+  if (validVersions.length > 1) {
+    const allSame = validVersions.every((version) => version === validVersions[0])
+    if (!allSame) {
+      console.warn('[toNoteVersion] Multiple conflicting versions found:', validVersions)
+    }
+  }
+  return validVersions[0] ?? null
+}
+
 // 120px offset accounts for page header and padding
 const MIN_SIDEBAR_HEIGHT = 600
 const calculateSidebarHeight = () => {
@@ -91,8 +134,15 @@ const NotesManagerPage: React.FC = () => {
   const [saving, setSaving] = React.useState(false)
   const [keywordTokens, setKeywordTokens] = React.useState<string[]>([])
   const [keywordOptions, setKeywordOptions] = React.useState<string[]>([])
+  const [allKeywords, setAllKeywords] = React.useState<string[]>([])
+  const allKeywordsRef = React.useRef<string[]>([])
+  allKeywordsRef.current = allKeywords
+  const [keywordPickerOpen, setKeywordPickerOpen] = React.useState(false)
+  const [keywordPickerQuery, setKeywordPickerQuery] = React.useState('')
+  const [keywordPickerSelection, setKeywordPickerSelection] = React.useState<string[]>([])
   const [editorKeywords, setEditorKeywords] = React.useState<string[]>([])
   const [originalMetadata, setOriginalMetadata] = React.useState<Record<string, any> | null>(null)
+  const [selectedVersion, setSelectedVersion] = React.useState<number | null>(null)
   const [isDirty, setIsDirty] = React.useState(false)
   const [backlinkConversationId, setBacklinkConversationId] = React.useState<string | null>(null)
   const [backlinkMessageId, setBacklinkMessageId] = React.useState<string | null>(null)
@@ -140,13 +190,13 @@ const NotesManagerPage: React.FC = () => {
     page: number,
     pageSize: number
   ): Promise<{ items: any[]; total: number }> => {
-    const qstr = q || toks.join(' ')
-    if (!qstr.trim()) {
+    const qstr = q.trim()
+    if (!qstr && toks.length === 0) {
       return { items: [], total: 0 }
     }
 
     const params = new URLSearchParams()
-    params.set('query', qstr)
+    if (qstr) params.set('query', qstr)
     params.set('limit', String(pageSize))
     params.set('offset', String((page - 1) * pageSize))
     params.set('include_keywords', 'true')
@@ -200,7 +250,8 @@ const NotesManagerPage: React.FC = () => {
           updated_at: n?.updated_at,
           conversation_id: links.conversation_id,
           message_id: links.message_id,
-          keywords
+          keywords,
+          version: toNoteVersion(n) ?? undefined
         }
       })
     }
@@ -219,7 +270,8 @@ const NotesManagerPage: React.FC = () => {
         updated_at: n?.updated_at,
         conversation_id: links.conversation_id,
         message_id: links.message_id,
-        keywords
+        keywords,
+        version: toNoteVersion(n) ?? undefined
       }
     })
   }
@@ -234,6 +286,74 @@ const NotesManagerPage: React.FC = () => {
   const filteredCount = Array.isArray(data) ? data.length : 0
   const hasActiveFilters = query.trim().length > 0 || keywordTokens.length > 0
 
+  const availableKeywords = React.useMemo(() => {
+    const base = allKeywords.length ? allKeywords : keywordOptions
+    const seen = new Set<string>()
+    const out: string[] = []
+    const add = (value: string) => {
+      const text = String(value || '').trim()
+      if (!text) return
+      const key = text.toLowerCase()
+      if (seen.has(key)) return
+      seen.add(key)
+      out.push(text)
+    }
+    base.forEach(add)
+    keywordTokens.forEach(add)
+    return out
+  }, [allKeywords, keywordOptions, keywordTokens])
+
+  const filteredKeywordPickerOptions = React.useMemo(() => {
+    const q = keywordPickerQuery.trim().toLowerCase()
+    if (!q) return availableKeywords
+    return availableKeywords.filter((kw) => kw.toLowerCase().includes(q))
+  }, [availableKeywords, keywordPickerQuery])
+
+  const loadAllKeywords = React.useCallback(async () => {
+    // Cached for session; add a refresh/TTL if keyword updates become frequent.
+    if (allKeywordsRef.current.length > 0) return
+    try {
+      const arr = await getAllNoteKeywords()
+      setAllKeywords(arr)
+      setKeywordOptions(arr)
+    } catch {
+      console.debug('[NotesManagerPage] Keyword suggestions load failed')
+    }
+  }, [])
+
+  const openKeywordPicker = React.useCallback(() => {
+    setKeywordPickerQuery('')
+    setKeywordPickerSelection(keywordTokens)
+    setKeywordPickerOpen(true)
+    void loadAllKeywords()
+  }, [keywordTokens, loadAllKeywords])
+
+  const handleKeywordPickerCancel = React.useCallback(() => {
+    setKeywordPickerOpen(false)
+  }, [])
+
+  const handleKeywordPickerApply = React.useCallback(() => {
+    setKeywordTokens(keywordPickerSelection)
+    setPage(1)
+    setKeywordPickerOpen(false)
+  }, [keywordPickerSelection])
+
+  const handleKeywordPickerQueryChange = React.useCallback((value: string) => {
+    setKeywordPickerQuery(value)
+  }, [])
+
+  const handleKeywordPickerSelectionChange = React.useCallback((vals: string[]) => {
+    setKeywordPickerSelection(vals)
+  }, [])
+
+  const handleKeywordPickerSelectAll = React.useCallback(() => {
+    setKeywordPickerSelection(availableKeywords)
+  }, [availableKeywords])
+
+  const handleKeywordPickerClear = React.useCallback(() => {
+    setKeywordPickerSelection([])
+  }, [])
+
   const loadDetail = React.useCallback(async (id: string | number) => {
     setLoadingDetail(true)
     try {
@@ -242,6 +362,7 @@ const NotesManagerPage: React.FC = () => {
       setTitle(String(d?.title || ''))
       setContent(String(d?.content || ''))
       setEditorKeywords(extractKeywords(d))
+      setSelectedVersion(toNoteVersion(d))
       const rawMeta = d && typeof d === "object" ? (d as any).metadata : null
       setOriginalMetadata(
         rawMeta && typeof rawMeta === "object" ? { ...(rawMeta as Record<string, any>) } : null
@@ -253,7 +374,7 @@ const NotesManagerPage: React.FC = () => {
     } catch {
       message.error('Failed to load note')
     } finally { setLoadingDetail(false) }
-  }, [])
+  }, [message])
 
   const resetEditor = () => {
     setSelectedId(null)
@@ -261,6 +382,7 @@ const NotesManagerPage: React.FC = () => {
     setContent('')
     setEditorKeywords([])
     setOriginalMetadata(null)
+    setSelectedVersion(null)
     setBacklinkConversationId(null)
     setBacklinkMessageId(null)
     setIsDirty(false)
@@ -295,6 +417,49 @@ const NotesManagerPage: React.FC = () => {
     [confirmDiscardIfDirty, loadDetail]
   )
 
+  const isVersionConflictError = (error: any) => {
+    const msg = String(error?.message || '')
+    const lower = msg.toLowerCase()
+    const status = error?.status ?? error?.response?.status
+    return (
+      status === 409 ||
+      lower.includes('expected-version') ||
+      lower.includes('expected_version') ||
+      lower.includes('version mismatch')
+    )
+  }
+
+  const handleVersionConflict = (noteId?: string | number | null) => {
+    message.error({
+      content: (
+        <span
+          className="inline-flex items-center gap-2"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault()
+              void reloadNotes(noteId)
+            }
+          }}
+        >
+          <span>This note changed on the server.</span>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => void reloadNotes(noteId)}
+            aria-label="Reload notes"
+          >
+            Reload notes
+          </Button>
+        </span>
+      ),
+      duration: 6
+    })
+  }
+
   const saveNote = async () => {
     if (!content.trim() && !title.trim()) { message.warning('Nothing to save'); return }
     setSaving(true)
@@ -305,23 +470,78 @@ const NotesManagerPage: React.FC = () => {
       }
       if (backlinkConversationId) metadata.conversation_id = backlinkConversationId
       if (backlinkMessageId) metadata.message_id = backlinkMessageId
+      const payload: Record<string, any> = {
+        title: title || undefined,
+        content,
+        metadata,
+        keywords: editorKeywords
+      }
+      if (backlinkConversationId) payload.conversation_id = backlinkConversationId
+      if (backlinkMessageId) payload.message_id = backlinkMessageId
       if (selectedId == null) {
-        const payload = { title: title || undefined, content, metadata }
         const created = await bgRequest<any>({ path: '/api/v1/notes/' as any, method: 'POST' as any, headers: { 'Content-Type': 'application/json' }, body: payload })
         message.success('Note created')
         setIsDirty(false)
         await refetch()
         if (created?.id != null) await loadDetail(created.id)
       } else {
-        const payload = { title: title || undefined, content, metadata }
-        await bgRequest<any>({ path: `/api/v1/notes/${selectedId}` as any, method: 'PUT' as any, headers: { 'Content-Type': 'application/json' }, body: payload })
+        let expectedVersion = selectedVersion
+        if (expectedVersion == null) {
+          try {
+            const latest = await bgRequest<any>({ path: `/api/v1/notes/${selectedId}` as any, method: 'GET' as any })
+            expectedVersion = toNoteVersion(latest)
+          } catch (e: any) {
+            message.error(e?.message || 'Save failed')
+            return
+          }
+        }
+        if (expectedVersion == null) {
+          message.error('Missing version; reload and try again')
+          return
+        }
+        const updated = await bgRequest<any>({
+          path: `/api/v1/notes/${selectedId}?expected_version=${encodeURIComponent(
+            String(expectedVersion)
+          )}` as any,
+          method: 'PUT' as any,
+          headers: { 'Content-Type': 'application/json' },
+          body: payload
+        })
+        const updatedVersion = toNoteVersion(updated)
         message.success('Note updated')
         setIsDirty(false)
         await refetch()
+        if (updatedVersion != null) {
+          setSelectedVersion(updatedVersion)
+        } else if (selectedId != null) {
+          try {
+            const latest = await bgRequest<any>({ path: `/api/v1/notes/${selectedId}` as any, method: 'GET' as any })
+            setSelectedVersion(toNoteVersion(latest))
+          } catch (err) {
+            console.debug('[NotesManagerPage] Version refresh after save failed:', err)
+          }
+        }
       }
     } catch (e: any) {
-      message.error(e?.message || 'Save failed')
+      if (isVersionConflictError(e)) {
+        handleVersionConflict(selectedId)
+      } else {
+        message.error(String(e?.message || '') || 'Operation failed')
+      }
     } finally { setSaving(false) }
+  }
+
+  const reloadNotes = async (noteId?: string | number | null) => {
+    await refetch()
+    const target = noteId ?? selectedId
+    if (target == null) return
+    try {
+      const detail = await bgRequest<any>({ path: `/api/v1/notes/${target}` as any, method: 'GET' as any })
+      const version = toNoteVersion(detail)
+      if (version != null) setSelectedVersion(version)
+    } catch {
+      // Ignore refresh errors for reload action; list refresh already happened.
+    }
   }
 
   const deleteNote = async (id?: string | number | null) => {
@@ -330,12 +550,43 @@ const NotesManagerPage: React.FC = () => {
     const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete this note?', okText: 'Delete', cancelText: 'Cancel' })
     if (!ok) return
     try {
-      await bgRequest<any>({ path: `/api/v1/notes/${target}` as any, method: 'DELETE' as any })
+      const targetId = String(target)
+      let expectedVersion: number | null = null
+      if (selectedId != null && String(selectedId) === targetId) {
+        expectedVersion = selectedVersion
+      }
+      if (expectedVersion == null && Array.isArray(data)) {
+        const match = data.find((note) => String(note.id) === targetId)
+        if (typeof match?.version === 'number') expectedVersion = match.version
+      }
+      if (expectedVersion == null) {
+        try {
+          const detail = await bgRequest<any>({ path: `/api/v1/notes/${target}` as any, method: 'GET' as any })
+          expectedVersion = toNoteVersion(detail)
+        } catch (e: any) {
+          message.error(e?.message || 'Could not verify note version')
+          return
+        }
+      }
+      if (expectedVersion == null) {
+        message.error('Missing version; reload and try again')
+        return
+      }
+      await bgRequest<any>({
+        path: `/api/v1/notes/${target}?expected_version=${encodeURIComponent(
+          String(expectedVersion)
+        )}` as any,
+        method: 'DELETE' as any
+      })
       message.success('Note deleted')
-      if (selectedId === target) resetEditor()
+      if (selectedId != null && String(selectedId) === targetId) resetEditor()
       await refetch()
     } catch (e: any) {
-      message.error(e?.message || 'Delete failed')
+      if (isVersionConflictError(e)) {
+        handleVersionConflict(target)
+      } else {
+        message.error(String(e?.message || '') || 'Operation failed')
+      }
     }
   }
 
@@ -381,18 +632,20 @@ const NotesManagerPage: React.FC = () => {
         { include_deleted: "false" } as any
       )
       const historyArr = messages.map((m) => ({
-        role: m.role,
+        role: normalizeChatRole(m.role),
         content: m.content
       }))
       const mappedMessages = messages.map((m) => {
         const createdAt = Date.parse(m.created_at)
+        const normalizedRole = normalizeChatRole(m.role)
         return {
           createdAt: Number.isNaN(createdAt) ? undefined : createdAt,
-          isBot: m.role === "assistant",
+          isBot: normalizedRole === "assistant",
+          role: normalizedRole,
           name:
-            m.role === "assistant"
+            normalizedRole === "assistant"
               ? assistantName
-              : m.role === "system"
+              : normalizedRole === "system"
                 ? "System"
                 : "You",
           message: m.content,
@@ -452,17 +705,19 @@ const NotesManagerPage: React.FC = () => {
     )
   }
 
+  const MAX_EXPORT_PAGES = 1000
+
   const exportAll = async () => {
     try {
       let arr: NoteListItem[] = []
+      let limitReached = false
       const q = query.trim()
       const toks = keywordTokens.map((k) => k.toLowerCase())
       if (q || toks.length > 0) {
         // Fetch all matching notes in chunks using server-side filtering
         let p = 1
         const ps = 100
-        // eslint-disable-next-line no-constant-condition
-        while (true) {
+        while (p <= MAX_EXPORT_PAGES) {
           const { items } = await fetchFilteredNotesRaw(q, toks, p, ps)
           if (!items.length) break
           arr.push(
@@ -475,11 +730,12 @@ const NotesManagerPage: React.FC = () => {
           if (items.length < ps) break
           p++
         }
+        if (p > MAX_EXPORT_PAGES) limitReached = true
       } else {
         // Iterate pages (chunk by 100)
         let p = 1
         const ps = 100
-        while (true) {
+        while (p <= MAX_EXPORT_PAGES) {
           const res = await bgRequest<any>({ path: `/api/v1/notes/?page=${p}&results_per_page=${ps}` as any, method: 'GET' as any })
           const items = Array.isArray(res?.items) ? res.items : (Array.isArray(res) ? res : [])
           arr.push(...items.map((n: any) => ({ id: n?.id, title: n?.title, content: n?.content })))
@@ -488,8 +744,12 @@ const NotesManagerPage: React.FC = () => {
           if (p >= totalPages || items.length === 0) break
           p++
         }
+        if (p > MAX_EXPORT_PAGES) limitReached = true
       }
       if (arr.length === 0) { message.info('No notes to export'); return }
+      if (limitReached) {
+        message.warning(`Export limited to ${arr.length} notes. Some notes may be excluded.`)
+      }
       const md = arr.map((n, idx) => `### ${n.title || `Note ${n.id ?? idx+1}`}\n\n${String(n.content || '')}`).join("\n\n---\n\n")
       const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' })
       const url = URL.createObjectURL(blob)
@@ -513,16 +773,16 @@ const NotesManagerPage: React.FC = () => {
     }
   }
 
-  const gatherAllMatching = async (): Promise<NoteListItem[]> => {
-    let arr: NoteListItem[] = []
+  const gatherAllMatching = async (): Promise<{ arr: NoteListItem[]; limitReached: boolean }> => {
+    const arr: NoteListItem[] = []
+    let limitReached = false
     const q = query.trim()
     const toks = keywordTokens.map((k) => k.toLowerCase())
     if (q || toks.length > 0) {
       // Fetch all matching notes in chunks using server-side filtering
       let p = 1
       const ps = 100
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
+      while (p <= MAX_EXPORT_PAGES) {
         const { items } = await fetchFilteredNotesRaw(q, toks, p, ps)
         if (!items.length) break
         arr.push(
@@ -537,11 +797,12 @@ const NotesManagerPage: React.FC = () => {
         if (items.length < ps) break
         p++
       }
+      if (p > MAX_EXPORT_PAGES) limitReached = true
     } else {
       // Iterate pages (chunk by 100)
       let p = 1
       const ps = 100
-      while (true) {
+      while (p <= MAX_EXPORT_PAGES) {
         const res = await bgRequest<any>({ path: `/api/v1/notes/?page=${p}&results_per_page=${ps}` as any, method: 'GET' as any })
         const items = Array.isArray(res?.items) ? res.items : (Array.isArray(res) ? res : [])
         arr.push(
@@ -558,14 +819,18 @@ const NotesManagerPage: React.FC = () => {
         if (p >= totalPages || items.length === 0) break
         p++
       }
+      if (p > MAX_EXPORT_PAGES) limitReached = true
     }
-    return arr
+    return { arr, limitReached }
   }
 
   const exportAllCSV = async () => {
     try {
-      const arr = await gatherAllMatching()
+      const { arr, limitReached } = await gatherAllMatching()
       if (!arr.length) { message.info('No notes to export'); return }
+      if (limitReached) {
+        message.warning(`Export limited to ${arr.length} notes. Some notes may be excluded.`)
+      }
       const escape = (s: any) => '"' + String(s ?? '').replace(/"/g, '""') + '"'
       const header = ['id','title','content','updated_at','keywords']
       const rows = [
@@ -605,8 +870,11 @@ const NotesManagerPage: React.FC = () => {
 
   const exportAllJSON = async () => {
     try {
-      const arr = await gatherAllMatching()
+      const { arr, limitReached } = await gatherAllMatching()
       if (!arr.length) { message.info('No notes to export'); return }
+      if (limitReached) {
+        message.warning(`Export limited to ${arr.length} notes. Some notes may be excluded.`)
+      }
       const blob = new Blob([JSON.stringify(arr, null, 2)], { type: 'application/json;charset=utf-8' })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -633,15 +901,16 @@ const NotesManagerPage: React.FC = () => {
       if (text && text.trim().length > 0) {
         const arr = await searchNoteKeywords(text, 10)
         setKeywordOptions(arr)
+      } else if (allKeywords.length > 0) {
+        setKeywordOptions(allKeywords)
       } else {
-        const arr = await getNoteKeywords(200)
-        setKeywordOptions(arr)
+        setKeywordOptions([])
       }
     } catch {
       // Keyword load failed - feature will use empty suggestions
       console.debug('[NotesManagerPage] Keyword suggestions load failed')
     }
-  }, [])
+  }, [allKeywords])
 
   const debouncedLoadKeywordSuggestions = React.useCallback(
     (text?: string) => {
@@ -658,6 +927,27 @@ const NotesManagerPage: React.FC = () => {
     },
     [loadKeywordSuggestions]
   )
+
+  const handleKeywordFilterSearch = React.useCallback(
+    (text: string) => {
+      if (isOnline) void debouncedLoadKeywordSuggestions(text)
+    },
+    [debouncedLoadKeywordSuggestions, isOnline]
+  )
+
+  const handleKeywordFilterChange = React.useCallback(
+    (vals: string[] | string) => {
+      setKeywordTokens(Array.isArray(vals) ? vals : [vals])
+      setPage(1)
+    },
+    []
+  )
+
+  const handleClearFilters = React.useCallback(() => {
+    setQuery('')
+    setKeywordTokens([])
+    setPage(1)
+  }, [])
 
   React.useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => {
@@ -796,23 +1086,37 @@ const NotesManagerPage: React.FC = () => {
                 })}
                 className="w-full"
                 value={keywordTokens}
-                onSearch={(txt) => {
-                  if (isOnline) void debouncedLoadKeywordSuggestions(txt)
-                }}
-                onChange={(vals) => {
-                  setKeywordTokens(vals as string[])
-                  setPage(1)
-                }}
+                onSearch={handleKeywordFilterSearch}
+                onChange={handleKeywordFilterChange}
                 options={keywordOptions.map((k) => ({ label: k, value: k }))}
               />
+              <div className="flex items-center justify-between gap-2">
+                <Button
+                  size="small"
+                  onClick={openKeywordPicker}
+                  disabled={!isOnline}
+                  className="text-xs"
+                >
+                  {t('option:notesSearch.keywordsBrowse', {
+                    defaultValue: 'Browse keywords'
+                  })}
+                </Button>
+                {availableKeywords.length > 0 && (
+                  <Typography.Text
+                    type="secondary"
+                    className="text-[11px] text-text-muted"
+                  >
+                    {t('option:notesSearch.keywordsBrowseCount', {
+                      defaultValue: '{{count}} available',
+                      count: availableKeywords.length
+                    })}
+                  </Typography.Text>
+                )}
+              </div>
               {hasActiveFilters && (
                 <Button
                   size="small"
-                  onClick={() => {
-                    setQuery('')
-                    setKeywordTokens([])
-                    setPage(1)
-                  }}
+                  onClick={handleClearFilters}
                   className="w-full text-xs"
                 >
                   {t('option:notesSearch.clear', {
@@ -1013,6 +1317,24 @@ const NotesManagerPage: React.FC = () => {
           </div>
         </div>
       </div>
+      {keywordPickerOpen && (
+        <React.Suspense fallback={null}>
+          <KeywordPickerModal
+            open={keywordPickerOpen}
+            availableKeywords={availableKeywords}
+            filteredKeywordPickerOptions={filteredKeywordPickerOptions}
+            keywordPickerQuery={keywordPickerQuery}
+            keywordPickerSelection={keywordPickerSelection}
+            onCancel={handleKeywordPickerCancel}
+            onApply={handleKeywordPickerApply}
+            onQueryChange={handleKeywordPickerQueryChange}
+            onSelectionChange={handleKeywordPickerSelectionChange}
+            onSelectAll={handleKeywordPickerSelectAll}
+            onClear={handleKeywordPickerClear}
+            t={t}
+          />
+        </React.Suspense>
+      )}
     </div>
   )
 }

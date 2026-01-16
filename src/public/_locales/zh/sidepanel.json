@@ -331,5 +331,11 @@
   },
   "characterSelect_importCharacter": {
     "message": "Import Character"
+  },
+  "rag_attachedContext": {
+    "message": "附加的上下文"
+  },
+  "rag_initialState": {
+    "message": "No results"
   }
 }

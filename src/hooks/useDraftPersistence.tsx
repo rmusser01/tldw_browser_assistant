@@ -5,10 +5,72 @@ import { createLocalRegistryBucket } from "@/services/settings/local-bucket"
 const DRAFT_BUCKET_PREFIX = "registry:draft:"
 const DRAFT_TTL_MS = 30 * 24 * 60 * 60 * 1000
 
-const draftBucket = createLocalRegistryBucket<string>({
+type DraftMetadataPrimitive = string | number | boolean | null
+
+type DraftMetadataValue = DraftMetadataPrimitive | DraftMetadataObject | DraftMetadataArray
+
+interface DraftMetadataObject {
+  [key: string]: DraftMetadataValue
+}
+
+type DraftMetadataArray = DraftMetadataValue[]
+
+type DraftMetadata = DraftMetadataObject
+
+type DraftPayload = {
+  content: string
+  metadata?: DraftMetadata
+}
+
+type DraftValue = string | DraftPayload
+
+const draftBucket = createLocalRegistryBucket<DraftValue>({
   prefix: DRAFT_BUCKET_PREFIX,
   ttlMs: DRAFT_TTL_MS
 })
+
+const isPlainObject = (value: unknown): value is Record<string, unknown> => {
+  if (!value || typeof value !== "object") return false
+  const proto = Object.getPrototypeOf(value)
+  return proto === Object.prototype || proto === null
+}
+
+const isJsonSafe = (value: unknown): value is DraftMetadataValue => {
+  if (value === null) return true
+  const valueType = typeof value
+  if (valueType === "string" || valueType === "number" || valueType === "boolean") {
+    return true
+  }
+  if (Array.isArray(value)) {
+    return value.every((item) => isJsonSafe(item))
+  }
+  if (isPlainObject(value)) {
+    return Object.values(value).every((item) => isJsonSafe(item))
+  }
+  return false
+}
+
+const isDraftPayload = (value: DraftValue | null): value is DraftPayload => {
+  if (!isPlainObject(value)) return false
+  if (!Object.prototype.hasOwnProperty.call(value, "content")) return false
+  const payload = value as { content?: unknown }
+  return typeof payload.content === "string"
+}
+
+const hasDraftContent = (draft: DraftPayload | null) =>
+  typeof draft?.content === "string" && draft.content.trim().length > 0
+
+const normalizeDraftValue = (value: DraftValue | null): DraftPayload | null => {
+  if (typeof value === "string") {
+    return { content: value }
+  }
+  if (!isDraftPayload(value)) return null
+  const metadata =
+    isPlainObject(value.metadata) && isJsonSafe(value.metadata)
+      ? (value.metadata as DraftMetadata)
+      : undefined
+  return { content: value.content, metadata }
+}
 
 const readLegacyDraft = (storageKey: string): string | null => {
   if (typeof window === "undefined") return null
@@ -34,6 +96,8 @@ interface DraftPersistenceOptions {
   storageKey: string
   getValue: () => string
   setValue: (value: string) => void
+  getMetadata?: () => DraftMetadata | undefined
+  setValueWithMetadata?: (value: string, metadata?: DraftMetadata) => void
   enabled?: boolean
 }
 
@@ -54,16 +118,23 @@ export const useDraftPersistence = ({
   storageKey,
   getValue,
   setValue,
+  getMetadata,
+  setValueWithMetadata,
   enabled = true
 }: DraftPersistenceOptions): DraftPersistenceResult => {
   const [draftSaved, setDraftSaved] = React.useState(false)
   const draftSavedTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const persistTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const setValueRef = React.useRef(setValue)
+  const setValueWithMetadataRef = React.useRef(setValueWithMetadata)
 
   React.useEffect(() => {
     setValueRef.current = setValue
   }, [setValue])
+
+  React.useEffect(() => {
+    setValueWithMetadataRef.current = setValueWithMetadata
+  }, [setValueWithMetadata])
 
   // Restore unsent draft on mount
   React.useEffect(() => {
@@ -71,21 +142,32 @@ export const useDraftPersistence = ({
     let cancelled = false
     const restoreDraft = async () => {
       const record = await draftBucket.get(storageKey)
-      let draftValue = record?.value ?? null
+      const storedValue = record?.value ?? null
+      let draftValue = normalizeDraftValue(storedValue)
+      const hasInvalidRecord = storedValue != null && draftValue === null
 
-      if (!draftValue) {
+      if (!hasDraftContent(draftValue)) {
         const legacyDraft = readLegacyDraft(storageKey)
-        if (legacyDraft) {
+        if (legacyDraft && legacyDraft.trim().length > 0) {
           await draftBucket.set(storageKey, legacyDraft)
           clearLegacyDraft(storageKey)
-          draftValue = legacyDraft
+          draftValue = { content: legacyDraft }
+        } else if (legacyDraft) {
+          clearLegacyDraft(storageKey)
+        } else if (hasInvalidRecord) {
+          await draftBucket.remove(storageKey)
         }
       } else {
         clearLegacyDraft(storageKey)
       }
 
-      if (!cancelled && draftValue) {
-        setValueRef.current(draftValue)
+      if (!cancelled && hasDraftContent(draftValue)) {
+        const setValueWithMetadata = setValueWithMetadataRef.current
+        if (setValueWithMetadata) {
+          setValueWithMetadata(draftValue.content, draftValue.metadata)
+        } else {
+          setValueRef.current(draftValue.content)
+        }
       }
     }
 
@@ -130,7 +212,18 @@ export const useDraftPersistence = ({
     setDraftSaved(false)
     persistTimeoutRef.current = setTimeout(() => {
       void (async () => {
-        await draftBucket.set(storageKey, value)
+        let metadata: DraftMetadata | undefined
+        try {
+          metadata = getMetadata?.() ?? undefined
+        } catch {
+          metadata = undefined
+        }
+        if (metadata && (!isPlainObject(metadata) || !isJsonSafe(metadata))) {
+          metadata = undefined
+        }
+        const nextValue: DraftValue =
+          metadata === undefined ? value : { content: value, metadata }
+        await draftBucket.set(storageKey, nextValue)
         clearLegacyDraft(storageKey)
         if (cancelled) return
 
@@ -147,8 +240,12 @@ export const useDraftPersistence = ({
         clearTimeout(persistTimeoutRef.current)
         persistTimeoutRef.current = null
       }
+      if (draftSavedTimeoutRef.current) {
+        clearTimeout(draftSavedTimeoutRef.current)
+        draftSavedTimeoutRef.current = null
+      }
     }
-  }, [currentValue, storageKey, enabled])
+  }, [currentValue, storageKey, enabled, getMetadata])
 
   // Cleanup timeout on unmount
   React.useEffect(() => {

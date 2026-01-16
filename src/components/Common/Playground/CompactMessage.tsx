@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react"
-import { Tooltip, Collapse, Avatar, Modal, message as antdMessage } from "antd"
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react"
+import { Tooltip, Avatar, Modal, Image, message as antdMessage } from "antd"
 import {
   Check,
   Copy,
@@ -26,8 +26,11 @@ import { parseReasoning } from "@/libs/reasoning"
 import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
 import { decodeChatErrorPayload, type ChatErrorPayload } from "@/utils/chat-error-message"
 import { highlightText } from "@/utils/text-highlight"
+import { createImageDataUrl } from "@/utils/image-utils"
 import { cn } from "@/libs/utils"
 import { translateMessage } from "@/i18n/translateMessage"
+import { useStorage } from "@plasmohq/storage/hook"
+import type { Character } from "@/types/character"
 import type { Source, GenerationInfo } from "./types"
 
 const Markdown = React.lazy(() => import("../../Common/Markdown"))
@@ -61,6 +64,8 @@ interface CompactMessageProps {
   /** Timestamp of the message */
   timestamp?: number
   onDelete?: () => void | Promise<void>
+  characterIdentity?: Character | null
+  characterIdentityEnabled?: boolean
 }
 
 /**
@@ -96,6 +101,8 @@ export function CompactMessage({
   sendStatus,
   timestamp,
   onDelete,
+  characterIdentity,
+  characterIdentityEnabled = false,
 }: CompactMessageProps) {
   const { t, i18n } = useTranslation(["common", "playground"])
   const [copied, setCopied] = useState(false)
@@ -103,24 +110,137 @@ export function CompactMessage({
   const [editedText, setEditedText] = useState(message)
   const [saveError, setSaveError] = useState<string | null>(null)
   const [showSources, setShowSources] = useState(false)
+  const [isAvatarPreviewOpen, setIsAvatarPreviewOpen] = useState(false)
+  const previousModelImageRef = useRef<string | undefined>(undefined)
+  const copyResetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  )
   const { cancel, isSpeaking, speak } = useTTS()
   const uiMode = useUiModeStore((state) => state.mode)
+  const [userDisplayName] = useStorage("chatUserDisplayName", "")
   const isProMode = uiMode === "pro"
   const actionBarVisibility = isProMode
     ? "opacity-100"
     : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
 
   // Keep edited text in sync with message prop when not actively editing
-  React.useEffect(() => {
+  useEffect(() => {
     if (!editMode) {
       setEditedText(message)
     }
   }, [message, editMode])
 
   const errorPayload = decodeChatErrorPayload(message)
+  const shouldUseCharacterIdentity =
+    isBot &&
+    Boolean(characterIdentityEnabled) &&
+    Boolean(characterIdentity?.id)
+  const characterAvatar = useMemo(() => {
+    if (!characterIdentity) return ""
+    if (characterIdentity.avatar_url) return characterIdentity.avatar_url
+    if (characterIdentity.image_base64) {
+      return createImageDataUrl(characterIdentity.image_base64) || ""
+    }
+    return ""
+  }, [characterIdentity])
+  const resolvedModelImage = useMemo(
+    () =>
+      shouldUseCharacterIdentity && characterAvatar
+        ? characterAvatar
+        : modelImage,
+    [shouldUseCharacterIdentity, characterAvatar, modelImage]
+  )
+  const resolvedModelName = useMemo(
+    () =>
+      shouldUseCharacterIdentity && characterIdentity?.name
+        ? characterIdentity.name
+        : modelName || name,
+    [shouldUseCharacterIdentity, characterIdentity?.name, modelName, name]
+  )
+  const shouldPreviewAvatar = useMemo(
+    () => shouldUseCharacterIdentity && Boolean(characterAvatar),
+    [shouldUseCharacterIdentity, characterAvatar]
+  )
   const displayName = isBot
-    ? removeModelSuffix(modelName || name)
-    : t("common:you", "You")
+    ? removeModelSuffix(resolvedModelName)
+    : userDisplayName.trim() || t("common:you", "You")
+
+  const renderAvatar = () => {
+    if (!isBot) {
+      return (
+        <div className="size-6 rounded-full bg-gradient-to-r from-blue-400 to-blue-600" />
+      )
+    }
+
+    if (!resolvedModelImage) {
+      return (
+        <div className="size-6 rounded-full bg-gradient-to-r from-green-300 to-purple-400" />
+      )
+    }
+
+    if (!shouldPreviewAvatar) {
+      return (
+        <Avatar
+          src={resolvedModelImage}
+          alt={displayName}
+          className="size-6"
+        />
+      )
+    }
+
+    return (
+      <>
+        <button
+          type="button"
+          onClick={() => setIsAvatarPreviewOpen(true)}
+          className="rounded-full focus:outline-none focus:ring-2 focus:ring-focus"
+          aria-label={t("playground:previewCharacterAvatar", {
+            defaultValue: "Preview character avatar"
+          }) as string}
+        >
+          <Avatar
+            src={resolvedModelImage}
+            alt={displayName}
+            className="size-6"
+          />
+        </button>
+        <Modal
+          open={isAvatarPreviewOpen}
+          onCancel={() => setIsAvatarPreviewOpen(false)}
+          footer={null}
+          centered
+        >
+          <Image
+            src={resolvedModelImage}
+            alt={displayName}
+            preview={false}
+            className="w-full"
+          />
+        </Modal>
+      </>
+    )
+  }
+
+  useEffect(() => {
+    if (!shouldPreviewAvatar) {
+      setIsAvatarPreviewOpen(false)
+    } else if (
+      isAvatarPreviewOpen &&
+      previousModelImageRef.current !== resolvedModelImage
+    ) {
+      setIsAvatarPreviewOpen(false)
+    }
+    previousModelImageRef.current = resolvedModelImage
+  }, [isAvatarPreviewOpen, resolvedModelImage, shouldPreviewAvatar])
+
+  useEffect(() => {
+    return () => {
+      if (copyResetTimeoutRef.current) {
+        clearTimeout(copyResetTimeoutRef.current)
+        copyResetTimeoutRef.current = null
+      }
+    }
+  }, [])
 
   // Parse reasoning blocks
   const parsedContent = useMemo(() => {
@@ -138,21 +258,27 @@ export function CompactMessage({
     })
   }, [timestamp, i18n.language])
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     await copyToClipboard({ text: message, formatted: false })
     setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+    if (copyResetTimeoutRef.current) {
+      clearTimeout(copyResetTimeoutRef.current)
+    }
+    copyResetTimeoutRef.current = setTimeout(() => {
+      setCopied(false)
+      copyResetTimeoutRef.current = null
+    }, 2000)
+  }, [message])
 
-  const handleSpeak = () => {
+  const handleSpeak = useCallback(() => {
     if (isSpeaking) {
       cancel()
     } else {
       speak({ utterance: message })
     }
-  }
+  }, [isSpeaking, cancel, speak, message])
 
-  const handleDelete = React.useCallback(() => {
+  const handleDelete = useCallback(() => {
     if (!onDelete) return
     Modal.confirm({
       title: t("common:confirmTitle", "Please confirm"),
@@ -172,6 +298,27 @@ export function CompactMessage({
       }
     })
   }, [onDelete, t])
+
+  const handleSaveEdit = useCallback(async () => {
+    if (!onEditFormSubmit) {
+      setEditMode(false)
+      return
+    }
+    try {
+      await onEditFormSubmit(editedText, false)
+      setSaveError(null)
+      setEditMode(false)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to save edited message:", error)
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : t("common:saveFailed", "Failed to save message")
+      setSaveError(errorMessage)
+      antdMessage.error(errorMessage)
+    }
+  }, [onEditFormSubmit, editedText, t])
 
   // Error state
   if (errorPayload) {
@@ -221,15 +368,7 @@ export function CompactMessage({
       <div className="flex items-start gap-3">
         {/* Avatar */}
         <div className="shrink-0">
-          {isBot ? (
-            modelImage ? (
-              <Avatar src={modelImage} alt={displayName} className="size-6" />
-            ) : (
-              <div className="size-6 rounded-full bg-gradient-to-r from-green-300 to-purple-400" />
-            )
-          ) : (
-            <div className="size-6 rounded-full bg-gradient-to-r from-blue-400 to-blue-600" />
-          )}
+          {renderAvatar()}
         </div>
 
         {/* Content */}
@@ -299,26 +438,7 @@ export function CompactMessage({
               />
               <div className="flex gap-2 mt-2">
                 <button
-                  onClick={async () => {
-                    if (!onEditFormSubmit) {
-                      setEditMode(false)
-                      return
-                    }
-                    try {
-                      await onEditFormSubmit(editedText, false)
-                      setSaveError(null)
-                      setEditMode(false)
-                    } catch (error) {
-                      // eslint-disable-next-line no-console
-                      console.error("Failed to save edited message:", error)
-                      const errorMessage =
-                        error instanceof Error
-                          ? error.message
-                          : t("common:saveFailed", "Failed to save message")
-                      setSaveError(errorMessage)
-                      antdMessage.error(errorMessage)
-                    }
-                  }}
+                  onClick={handleSaveEdit}
                   title={t("common:save", "Save") as string}
                   className="rounded bg-primary px-3 py-1 text-xs text-surface hover:bg-primaryStrong"
                 >

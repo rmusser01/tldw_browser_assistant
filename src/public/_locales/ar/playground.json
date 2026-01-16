@@ -1468,5 +1468,29 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "لا توجد علامات تبويب محددة بعد."
+  },
+  "composer_contextFilesTitle": {
+    "message": "الملفات ضمن السياق"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "لا توجد ملفات مرفقة بعد."
+  },
+  "composer_addFile": {
+    "message": "إضافة ملف"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "علامات التبويب المفتوحة"
+  },
+  "composer_noTabsFound": {
+    "message": "لم يتم العثور على علامات تبويب مفتوحة مؤهلة."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "تعذّر تحميل سجل الدردشة المحلي"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "حدث خطأ أثناء تحميل سجل الدردشة المحلي."
   }
 }

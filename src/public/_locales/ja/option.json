@@ -948,7 +948,7 @@
     "message": "ファイルサイズが大きすぎます"
   },
   "upload_fileTooLargeDescription": {
-    "message": "ファイルサイズは 10MB 未満にしてください"
+    "message": "ファイルサイズは {{size}} 未満にしてください"
   },
   "upload_uploadFailedTitle": {
     "message": "アップロードに失敗しました"
@@ -1801,5 +1801,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "「{{name}}」のJSONをダウンロード"
   }
 }

@@ -315,7 +315,7 @@
     "message": "ഫയൽ വളരെ വലുതാണ്"
   },
   "upload_fileTooLargeDescription": {
-    "message": "ഫയൽ വലുപ്പം 10MB ൽ താഴെയായിരിക്കണം"
+    "message": "ഫയൽ വലുപ്പം {{size}} ൽ താഴെയായിരിക്കണം"
   },
   "upload_uploadFailedTitle": {
     "message": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു"
@@ -1723,5 +1723,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

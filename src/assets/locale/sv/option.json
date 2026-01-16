@@ -129,7 +129,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "Filen är för stor",
-    "fileTooLargeDescription": "Filstorleken måste vara under 10 MB",
+    "fileTooLargeDescription": "Filstorleken måste vara under {{size}}",
     "uploadFailedTitle": "Uppladdning misslyckades",
     "uploadFailedDescription": "Det gick inte att ladda upp filen. Försök igen."
   },
@@ -248,6 +248,7 @@
     "process": "Bearbeta",
     "results": "Resultat",
     "downloadJson": "Ladda ner JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} avancerade fält inlästa",
     "advancedEmpty": "Inga avancerade alternativ hittades — försök ladda om specifikationen.",
     "modifiedCount": "{{count}} ändrade",

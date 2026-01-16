@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 import http from 'node:http'
 import { AddressInfo } from 'node:net'
 import { launchWithBuiltExtension } from './utils/extension-build'
@@ -18,6 +18,29 @@ test.describe('Quick ingest file upload', () => {
       req.on('end', () => resolve(size))
       req.on('error', () => resolve(size))
     })
+
+  const openQuickIngestModal = async (page: Page, optionsUrl: string) => {
+    await page.goto(optionsUrl + '#/media', { waitUntil: 'domcontentloaded' })
+    await page.waitForLoadState('networkidle')
+    await page.evaluate(() => {
+      window.dispatchEvent(new CustomEvent('tldw:check-connection'))
+    })
+
+    await page
+      .waitForFunction(() => {
+        const state = window.__tldw_useConnectionStore?.getState?.().state
+        return Boolean(state?.isConnected) && !state?.offlineBypass
+      })
+      .catch(() => {})
+
+    const trigger = page.getByTestId('open-quick-ingest').first()
+    await expect(trigger).toBeVisible({ timeout: 10_000 })
+    await trigger.click()
+
+    const modal = page.locator('.quick-ingest-modal .ant-modal-content')
+    await expect(modal).toBeVisible({ timeout: 10_000 })
+    return modal
+  }
 
   test.beforeAll(async () => {
     server = http.createServer(async (req, res) => {
@@ -94,25 +117,7 @@ test.describe('Quick ingest file upload', () => {
     })
 
     try {
-      await page.goto(optionsUrl + '#/media', { waitUntil: 'domcontentloaded' })
-      await page.waitForLoadState('networkidle')
-      await page.evaluate(() => {
-        window.dispatchEvent(new CustomEvent('tldw:check-connection'))
-      })
-
-      await page
-        .waitForFunction(() => {
-          const state = window.__tldw_useConnectionStore?.getState?.().state
-          return Boolean(state?.isConnected) && !state?.offlineBypass
-        })
-        .catch(() => {})
-
-      const trigger = page.getByTestId('open-quick-ingest').first()
-      await expect(trigger).toBeVisible({ timeout: 10_000 })
-      await trigger.click()
-
-      const modal = page.locator('.quick-ingest-modal .ant-modal-content')
-      await expect(modal).toBeVisible({ timeout: 10_000 })
+      const modal = await openQuickIngestModal(page, optionsUrl)
 
       await page.setInputFiles('[data-testid="qi-file-input"]', {
         name: 'sample.txt',
@@ -134,6 +139,30 @@ test.describe('Quick ingest file upload', () => {
 
       expect(mediaAddCount).toBeGreaterThan(0)
       expect(mediaAddBytes).toBeGreaterThan(0)
+    } finally {
+      await context.close()
+    }
+  })
+
+  test('exposes dropzone a11y attributes', async () => {
+    const { context, page, optionsUrl } = await launchWithBuiltExtension({
+      seedConfig: {
+        serverUrl: baseUrl,
+        authMode: 'single-user',
+        apiKey: 'test-key'
+      }
+    })
+
+    try {
+      await openQuickIngestModal(page, optionsUrl)
+
+      const dropzone = page.getByTestId('qi-file-dropzone')
+      await expect(dropzone).toHaveAttribute('role', 'button')
+      await expect(dropzone).toHaveAttribute('tabindex', '0')
+      await expect(dropzone).toHaveAttribute('aria-label', /File upload zone/i)
+      await expect(
+        dropzone.locator('[aria-live="polite"]')
+      ).toHaveCount(1)
     } finally {
       await context.close()
     }

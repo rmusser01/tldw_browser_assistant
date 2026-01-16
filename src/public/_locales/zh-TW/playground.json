@@ -1363,5 +1363,29 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "尚未選取分頁。"
+  },
+  "composer_contextFilesTitle": {
+    "message": "脈絡中的檔案"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "尚未附加檔案。"
+  },
+  "composer_addFile": {
+    "message": "新增檔案"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "開啟的分頁"
+  },
+  "composer_noTabsFound": {
+    "message": "找不到可用的開啟分頁。"
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

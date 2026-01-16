@@ -90,10 +90,7 @@ test.describe('ServerConnectionCard states', () => {
     await expect(advancedToggle).toBeVisible()
     await advancedToggle.click()
 
-    // Advanced panel exposes offline + Quick Ingest paths and docs.
-    await expect(
-      page.getByRole('button', { name: /Continue offline/i })
-    ).toBeVisible()
+    // Advanced panel exposes Quick Ingest paths and docs.
     await expect(
       page.getByRole('button', { name: /Open Quick Ingest intro/i })
     ).toBeVisible()
@@ -107,38 +104,9 @@ test.describe('ServerConnectionCard states', () => {
       page.getByRole('button', { name: /Health & diagnostics/i })
     ).toBeVisible()
 
-    // Even before enabling offline mode, users should see a short hint
-    // that Quick Ingest can queue items while offline.
-    await expect(
-      page.getByText(/Quick Ingest can queue URLs and files/i)
-    ).toBeVisible()
-
-    // Enabling offline mode should surface a clear hint about staging.
-    await page.getByRole('button', { name: /Continue offline/i }).click()
-    await expect(
-      page.getByText(/Quick Ingest works as a staging area/i)
-    ).toBeVisible()
-
-    // Offline mode badge is visible on the card.
-    await expect(
-      page.getByText(/Offline mode \u2014 staging only/i)
-    ).toBeVisible()
-
-    // Advanced panel now offers a reversible toggle.
-    const disableOffline = page.getByRole('button', {
-      name: /Disable offline mode/i
-    })
-    await expect(disableOffline).toBeVisible()
-    await disableOffline.click()
-
-    // Once disabled, we fall back to the regular error state.
-    await expect(
-      page.getByRole('button', { name: /Continue offline/i })
-    ).toBeVisible()
-
-    await expect(
-      page.getByText(/Offline mode \u2014 staging only/i)
-    ).toBeHidden()
+    // Quick Ingest hint should resolve to a localized string.
+    const hint = page.getByTestId('connection-card-quick-ingest-hint')
+    await expect(hint).toBeVisible()
 
     await context.close()
   })

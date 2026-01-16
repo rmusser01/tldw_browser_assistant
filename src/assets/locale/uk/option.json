@@ -120,7 +120,7 @@
   "notes": "Нотатки",
   "upload": {
     "fileTooLargeTitle": "Файл надто великий",
-    "fileTooLargeDescription": "Розмір файлу має бути менше 10 МБ",
+    "fileTooLargeDescription": "Розмір файлу має бути менше {{size}}",
     "uploadFailedTitle": "Не вдалося завантажити",
     "uploadFailedDescription": "Не вдалося завантажити файл. Спробуйте ще раз."
   },
@@ -241,6 +241,7 @@
     "process": "Обробити",
     "results": "Результати",
     "downloadJson": "Завантажити JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "Завантажено {{count}} розширених полів",
     "advancedEmpty": "Розширені параметри не знайдено — спробуйте перезавантажити специфікацію.",
     "modifiedCount": "Змінено: {{count}}",

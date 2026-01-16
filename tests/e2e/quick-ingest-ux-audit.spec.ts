@@ -326,14 +326,18 @@ test.describe('Quick ingest – UX audit', () => {
       const assertBannerAndFooter = async () => {
         const { modal } = await openQuickIngest()
 
-        // Headline should be either generic connection error or auth error.
+        // Headline should indicate that we are not connected.
         await expect(
-          modal.getByText(/Can.?t reach your tldw server|API key needs attention/i)
+          modal.getByText(/Not connected to server/i)
         ).toBeVisible()
 
-        // Footer should start with "Can't reach your server."
+        // Banner body should explain inputs are disabled until connected.
         await expect(
-          modal.getByText(/Can.?t reach your server\./i)
+          modal.getByText(/Inputs are disabled until connected/i)
+        ).toBeVisible()
+
+        await expect(
+          modal.getByText(/Connect to run ingest|Configure your server URL/i)
         ).toBeVisible()
 
         // Close between states so each run starts clean.
@@ -355,14 +359,6 @@ test.describe('Quick ingest – UX audit', () => {
       )
       await assertBannerAndFooter()
 
-      // 3) Offline bypass / allow-offline mode
-      await page.evaluate(async () => {
-        const w: any = window
-        if (typeof w.__tldw_enableOfflineBypass === 'function') {
-          await w.__tldw_enableOfflineBypass()
-        }
-      })
-      await assertBannerAndFooter()
     } finally {
       await context.close()
     }

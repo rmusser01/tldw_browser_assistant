@@ -347,7 +347,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "Fichier trop volumineux",
-    "fileTooLargeDescription": "La taille du fichier doit être inférieure à 10 Mo",
+    "fileTooLargeDescription": "La taille du fichier doit être inférieure à {{size}}",
     "uploadFailedTitle": "Échec du téléversement",
     "uploadFailedDescription": "Impossible de téléverser le fichier. Réessayez."
   },
@@ -474,6 +474,7 @@
     "runLabel": "Lancer l'ingestion rapide",
     "results": "Résultats",
     "downloadJson": "Télécharger le JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} champs avancés chargés",
     "advancedEmpty": "Aucune option avancée détectée — essayez de recharger la spécification.",
     "modifiedCount": "{{count}} modifiés",

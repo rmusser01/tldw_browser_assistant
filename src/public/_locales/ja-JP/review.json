@@ -1312,5 +1312,11 @@
   },
   "contentReview_editedLabel": {
     "message": "編集済み"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "メディアAPIはオフラインでは利用できません"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "サーバーがオフラインです"
   }
 }

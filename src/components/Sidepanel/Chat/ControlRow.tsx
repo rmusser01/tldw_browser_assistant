@@ -10,11 +10,9 @@ import {
 } from "lucide-react"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { BsIncognito } from "react-icons/bs"
 import { ModelSelect } from "@/components/Common/ModelSelect"
 import { PromptSelect } from "@/components/Common/PromptSelect"
 import { FeatureHint, useFeatureHintSeen } from "@/components/Common/FeatureHint"
-import { SaveStatusIcon } from "./SaveStatusIcon"
 import { CharacterSelect } from "./CharacterSelect"
 import { useServerCapabilities } from "@/hooks/useServerCapabilities"
 import { useMcpTools } from "@/hooks/useMcpTools"
@@ -29,11 +27,6 @@ interface ControlRowProps {
   // Character selection
   selectedCharacterId: string | null
   setSelectedCharacterId: (id: string | null) => void
-  // Save state
-  temporaryChat: boolean
-  temporaryChatLocked?: boolean
-  serverChatId?: string | null
-  setTemporaryChat: (value: boolean) => void
   // Toggles
   webSearch: boolean
   setWebSearch: (value: boolean) => void
@@ -55,10 +48,6 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   setSelectedQuickPrompt,
   selectedCharacterId,
   setSelectedCharacterId,
-  temporaryChat,
-  temporaryChatLocked = false,
-  serverChatId,
-  setTemporaryChat,
   webSearch,
   setWebSearch,
   chatMode,
@@ -83,11 +72,6 @@ export const ControlRow: React.FC<ControlRowProps> = ({
   // Track if hints have been seen
   const knowledgeHintSeen = useFeatureHintSeen("knowledge-search")
   const moreToolsHintSeen = useFeatureHintSeen("more-tools")
-
-  const handleSaveClick = () => {
-    // Toggle between ephemeral and local save
-    setTemporaryChat(!temporaryChat)
-  }
 
   const openQuickIngest = () => {
     window.dispatchEvent(new CustomEvent("tldw:open-quick-ingest"))
@@ -121,24 +105,6 @@ export const ControlRow: React.FC<ControlRowProps> = ({
         }
       }}
     >
-      {/* Save Mode */}
-      <div className="text-caption text-text-muted font-medium">
-        {t("sidepanel:controlRow.saveMode", "Save Mode")}
-      </div>
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-sm">
-          {t("sidepanel:controlRow.ephemeral", "Ephemeral")}
-        </span>
-        <Switch
-          size="small"
-          checked={temporaryChat}
-          disabled={temporaryChatLocked}
-          onChange={(checked) => setTemporaryChat(checked)}
-        />
-      </div>
-
-      <div className="panel-divider my-1" />
-
       {/* Search & Vision Section */}
       <div className="text-caption text-text-muted font-medium">
         {t("sidepanel:controlRow.searchSection", "Search & Vision")}
@@ -332,18 +298,6 @@ export const ControlRow: React.FC<ControlRowProps> = ({
 
   return (
     <div data-testid="control-row" className="flex items-center gap-2 flex-wrap">
-        {/* Ephemeral mode indicator badge */}
-        {temporaryChat && (
-          <Tooltip title={t("sidepanel:controlRow.ephemeralModeActive", "Ephemeral mode: chat won't be saved")}>
-            <div
-              data-testid="chat-ephemeral-badge"
-              className="flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
-              <BsIncognito className="size-3" />
-              <span>{t("sidepanel:controlRow.ephemeralBadge", "Ephemeral")}</span>
-            </div>
-          </Tooltip>
-        )}
-
         {/* Prompt, Model & Character selectors */}
         <PromptSelect
           selectedSystemPrompt={selectedSystemPrompt}
@@ -405,13 +359,6 @@ export const ControlRow: React.FC<ControlRowProps> = ({
             <span className="hidden sm:inline">{t("sidepanel:controlRow.web", "Web")}</span>
           </button>
         )}
-
-        {/* Save Status Icon */}
-        <SaveStatusIcon
-          temporaryChat={temporaryChat}
-          serverChatId={serverChatId}
-          onClick={handleSaveClick}
-        />
 
         {/* More Tools Menu */}
         <div className="relative">

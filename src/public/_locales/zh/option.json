@@ -969,7 +969,7 @@
     "message": "文件过大"
   },
   "upload_fileTooLargeDescription": {
-    "message": "文件大小必须小于 10MB"
+    "message": "文件大小必须小于 {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "上传失败"
@@ -1768,5 +1768,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

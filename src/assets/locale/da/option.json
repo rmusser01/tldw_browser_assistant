@@ -121,7 +121,7 @@
   "notes": "Noter",
   "upload": {
     "fileTooLargeTitle": "Filen er for stor",
-    "fileTooLargeDescription": "Filstørrelsen skal være under 10 MB",
+    "fileTooLargeDescription": "Filstørrelsen skal være under {{size}}",
     "uploadFailedTitle": "Overførsel mislykkedes",
     "uploadFailedDescription": "Kunne ikke uploade filen. Prøv igen."
   },
@@ -248,6 +248,7 @@
     "runLabel": "Kør hurtig indlæsning",
     "results": "Resultater",
     "downloadJson": "Download JSON-fil",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} avancerede felter indlæst",
     "advancedEmpty": "Ingen avancerede indstillinger fundet — prøv at genindlæse specifikationen.",
     "modifiedCount": "{{count}} ændret",

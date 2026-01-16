@@ -10,6 +10,8 @@ interface ContentEditModalProps {
   onClose: () => void
   initialText: string
   mediaId?: string | number
+  analysisContent?: string
+  prompt?: string
   onSaveNewVersion?: (text: string) => void
 }
 
@@ -18,6 +20,8 @@ export function ContentEditModal({
   onClose,
   initialText,
   mediaId,
+  analysisContent,
+  prompt,
   onSaveNewVersion
 }: ContentEditModalProps) {
   const { t } = useTranslation(['review', 'common'])
@@ -69,12 +73,59 @@ export function ContentEditModal({
 
     setSaving(true)
     try {
+      const getVersionNumber = (v: any): number | null => {
+        const raw = v?.version_number ?? v?.version
+        if (typeof raw === 'number' && Number.isFinite(raw)) return raw
+        if (typeof raw === 'string' && raw.trim().length > 0) {
+          const parsed = Number(raw)
+          if (Number.isFinite(parsed)) return parsed
+        }
+        return null
+      }
+
+      const pickLatestVersion = (versions: any[]): any | null => {
+        if (!Array.isArray(versions) || versions.length === 0) return null
+        let best: any | null = null
+        let bestNum = -Infinity
+        for (const v of versions) {
+          const num = getVersionNumber(v)
+          if (num != null && num > bestNum) {
+            best = v
+            bestNum = num
+          }
+        }
+        return best || versions[0]
+      }
+
+      let resolvedPrompt = String(prompt || '')
+      let resolvedAnalysis = String(analysisContent || '')
+      if (!resolvedPrompt || !resolvedAnalysis) {
+        try {
+          const versions = await bgRequest<any>({
+            path: `/api/v1/media/${mediaId}/versions?include_content=false&limit=50&page=1`,
+            method: 'GET'
+          })
+          const arr = Array.isArray(versions) ? versions : (versions?.items || [])
+          const latest = pickLatestVersion(arr)
+          if (!resolvedPrompt) {
+            resolvedPrompt = String(latest?.prompt || '')
+          }
+          if (!resolvedAnalysis) {
+            resolvedAnalysis = String(
+              latest?.analysis_content || latest?.analysis || ''
+            )
+          }
+        } catch {}
+      }
+
       await bgRequest({
         path: `/api/v1/media/${mediaId}/versions`,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: {
-          content: text
+          content: text,
+          prompt: resolvedPrompt,
+          analysis_content: resolvedAnalysis
         }
       })
       message.success(t('mediaPage.versionSaved', 'Saved as new version'))

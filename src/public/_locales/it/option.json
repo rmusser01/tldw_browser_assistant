@@ -948,7 +948,7 @@
     "message": "File troppo grande"
   },
   "upload_fileTooLargeDescription": {
-    "message": "La dimensione del file deve essere inferiore a 10 MB"
+    "message": "La dimensione del file deve essere inferiore a {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Caricamento non riuscito"
@@ -1768,5 +1768,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

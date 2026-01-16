@@ -20,21 +20,43 @@ import { useStoreMessageOption } from "@/store/option"
 import { useArtifactsStore } from "@/store/artifacts"
 import { ArtifactsPanel } from "@/components/Sidepanel/Chat/ArtifactsPanel"
 import { useSetting } from "@/hooks/useSetting"
+import { useStorage } from "@plasmohq/storage/hook"
+import { DEFAULT_CHAT_SETTINGS } from "@/types/chat-settings"
+import { useLoadLocalConversation } from "@/hooks/useLoadLocalConversation"
+import {
+  EDIT_MESSAGE_EVENT,
+  OPEN_HISTORY_EVENT,
+  TIMELINE_ACTION_EVENT,
+  type OpenHistoryDetail,
+  type TimelineActionDetail
+} from "@/utils/timeline-actions"
+import { useCharacterGreeting } from "@/hooks/useCharacterGreeting"
 export const Playground = () => {
   const drop = React.useRef<HTMLDivElement>(null)
-  const [dropedFile, setDropedFile] = React.useState<File | undefined>()
+  const [droppedFiles, setDroppedFiles] = React.useState<File[]>([])
   const { t } = useTranslation(["playground", "common"])
   const [chatBackgroundImage] = useSetting(CHAT_BACKGROUND_IMAGE_SETTING)
-
+  const [stickyChatInput] = useStorage(
+    "stickyChatInput",
+    DEFAULT_CHAT_SETTINGS.stickyChatInput
+  )
   const {
     messages,
+    history,
     historyId,
     serverChatId,
+    isLoading,
     setHistoryId,
     setHistory,
     setMessages,
     setSelectedSystemPrompt,
-    streaming
+    setSelectedModel,
+    setServerChatId,
+    setContextFiles,
+    createChatBranch,
+    streaming,
+    selectedCharacter,
+    setSelectedCharacter
   } = useMessageOption()
   const { setSystemPrompt } = useStoreChatModelSettings()
   const { containerRef, isAutoScrollToBottom, autoScrollToBottom } =
@@ -46,9 +68,14 @@ export const Playground = () => {
   const [dropFeedback, setDropFeedback] = React.useState<
     { type: "info" | "error"; message: string } | null
   >(null)
+  const [playgroundReady, setPlaygroundReady] = React.useState(false)
   const feedbackTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null
   )
+  const timelineActionRetryTimeoutRef = React.useRef<
+    ReturnType<typeof setTimeout> | null
+  >(null)
+  const initializePlaygroundRef = React.useRef(false)
 
   const showDropFeedback = React.useCallback(
     (feedback: { type: "info" | "error"; message: string }) => {
@@ -99,9 +126,7 @@ export const Playground = () => {
 
       const newFiles = Array.from(e.dataTransfer?.files || []).slice(0, 5) // Allow multiple files
       if (newFiles.length > 0) {
-        newFiles.forEach((file) => {
-          setDropedFile(file)
-        })
+        setDroppedFiles(newFiles)
         showDropFeedback({
           type: "info",
           message:
@@ -149,12 +174,15 @@ export const Playground = () => {
         drop.current.removeEventListener("dragleave", handleDragLeave)
       }
     }
-  }, [])
+  }, [showDropFeedback, t])
 
   React.useEffect(() => {
     return () => {
       if (feedbackTimerRef.current) {
         clearTimeout(feedbackTimerRef.current)
+      }
+      if (timelineActionRetryTimeoutRef.current) {
+        clearTimeout(timelineActionRetryTimeoutRef.current)
       }
     }
   }, [])
@@ -162,7 +190,7 @@ export const Playground = () => {
   // Session persistence for draft restoration
   const { restoreSession, hasPersistedSession } = usePlaygroundSessionPersistence()
 
-  const initializePlayground = async () => {
+  const initializePlayground = React.useCallback(async () => {
     if (serverChatId) {
       return
     }
@@ -189,18 +217,218 @@ export const Playground = () => {
             const prompt = await getPromptById(lastUsedPrompt.prompt_id)
             if (prompt) {
               setSelectedSystemPrompt(lastUsedPrompt.prompt_id)
-              setSystemPrompt(prompt.content)
+              if (!lastUsedPrompt.prompt_content?.trim()) {
+                setSystemPrompt(prompt.content)
+              }
             }
           }
-          setSystemPrompt(lastUsedPrompt.prompt_content)
+          if (lastUsedPrompt.prompt_content?.trim()) {
+            setSystemPrompt(lastUsedPrompt.prompt_content)
+          }
         }
       }
     }
-  }
+  }, [
+    hasPersistedSession,
+    messages.length,
+    restoreSession,
+    serverChatId,
+    setHistory,
+    setHistoryId,
+    setMessages,
+    setSelectedSystemPrompt,
+    setSystemPrompt
+  ])
 
   React.useEffect(() => {
-    initializePlayground()
+    if (initializePlaygroundRef.current) {
+      return
+    }
+    initializePlaygroundRef.current = true
+    let cancelled = false
+    const run = async () => {
+      await initializePlayground()
+      if (!cancelled) {
+        setPlaygroundReady(true)
+      }
+    }
+    void run()
+    return () => {
+      cancelled = true
+    }
+  }, [initializePlayground])
+
+  useCharacterGreeting({
+    playgroundReady,
+    selectedCharacter,
+    serverChatId,
+    messagesLength: messages.length,
+    setMessages,
+    setHistory,
+    setSelectedCharacter
+  })
+
+  const loadLocalConversation = useLoadLocalConversation(
+    {
+      setServerChatId,
+      setHistoryId: (id) => setHistoryId(id, { preserveServerChatId: false }),
+      setHistory,
+      setMessages,
+      setSelectedModel: (id) => setSelectedModel(id),
+      setSelectedSystemPrompt: (id) => {
+        if (id) {
+          setSelectedSystemPrompt(id)
+        }
+      },
+      setSystemPrompt,
+      setContextFiles
+    },
+    {
+      t,
+      errorLogPrefix: t(
+        "playground:errors.loadLocalHistoryPrefix",
+        "Failed to load local chat history"
+      ),
+      errorDefaultMessage: t(
+        "playground:errors.loadLocalHistoryDefault",
+        "Something went wrong while loading local chat history."
+      )
+    }
+  )
+
+  const pendingTimelineActionRef = React.useRef<TimelineActionDetail | null>(null)
+
+  const findMessageIndex = React.useCallback(
+    (messageId: string) =>
+      messages.findIndex(
+        (message) =>
+          message.id === messageId || message.serverMessageId === messageId
+      ),
+    [messages]
+  )
+
+  const scrollToMessage = React.useCallback(
+    (messageId: string) => {
+      const container = containerRef.current
+      if (!container) return false
+      const target = container.querySelector<HTMLElement>(
+        `[data-message-id="${messageId}"], [data-server-message-id="${messageId}"]`
+      )
+      if (!target) return false
+      target.scrollIntoView({ block: "center", behavior: "smooth" })
+      return true
+    },
+    [containerRef]
+  )
+
+  const dispatchEditMessage = React.useCallback((messageId: string) => {
+    if (typeof window === "undefined") return
+    window.dispatchEvent(
+      new CustomEvent(EDIT_MESSAGE_EVENT, { detail: { messageId } })
+    )
   }, [])
+
+  const performTimelineAction = React.useCallback(
+    (detail: TimelineActionDetail) => {
+      if (!detail?.historyId) return true
+      if (detail.historyId !== historyId) return false
+
+      if (detail.action === "branch") {
+        if (!detail.messageId) return true
+        if (messages.length === 0) return false
+        const index = findMessageIndex(detail.messageId)
+        if (index < 0) return true
+        void createChatBranch(index)
+        return true
+      }
+
+      if (!detail.messageId) return true
+
+      const scrolled = scrollToMessage(detail.messageId)
+      if (!scrolled) {
+        if (!containerRef.current) return false
+        if (timelineActionRetryTimeoutRef.current) {
+          clearTimeout(timelineActionRetryTimeoutRef.current)
+        }
+        timelineActionRetryTimeoutRef.current = setTimeout(() => {
+          timelineActionRetryTimeoutRef.current = null
+          const retry = scrollToMessage(detail.messageId)
+          if (retry && detail.action === "edit") {
+            dispatchEditMessage(detail.messageId)
+          }
+        }, 80)
+        return true
+      }
+
+      if (detail.action === "edit") {
+        dispatchEditMessage(detail.messageId)
+      }
+      return true
+    },
+    [
+      containerRef,
+      createChatBranch,
+      dispatchEditMessage,
+      findMessageIndex,
+      historyId,
+      messages.length,
+      scrollToMessage,
+      timelineActionRetryTimeoutRef
+    ]
+  )
+
+  const enqueueTimelineAction = React.useCallback(
+    (detail: TimelineActionDetail) => {
+      if (!detail?.historyId) return
+      if (detail.historyId !== historyId) {
+        pendingTimelineActionRef.current = detail
+        void loadLocalConversation(detail.historyId)
+        return
+      }
+
+      const handled = performTimelineAction(detail)
+      if (!handled) {
+        pendingTimelineActionRef.current = detail
+      }
+    },
+    [historyId, loadLocalConversation, performTimelineAction]
+  )
+
+  React.useEffect(() => {
+    const pending = pendingTimelineActionRef.current
+    if (!pending) return
+    const handled = performTimelineAction(pending)
+    if (handled) {
+      pendingTimelineActionRef.current = null
+    }
+  }, [historyId, messages, performTimelineAction])
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const handleTimelineActionEvent = (event: Event) => {
+      const detail = (event as CustomEvent<TimelineActionDetail>).detail
+      if (!detail?.historyId) return
+      enqueueTimelineAction(detail)
+    }
+
+    const handleOpenHistoryEvent = (event: Event) => {
+      const detail = (event as CustomEvent<OpenHistoryDetail>).detail
+      if (!detail?.historyId) return
+      enqueueTimelineAction({
+        action: "go",
+        historyId: detail.historyId,
+        messageId: detail.messageId
+      })
+    }
+
+    window.addEventListener(TIMELINE_ACTION_EVENT, handleTimelineActionEvent)
+    window.addEventListener(OPEN_HISTORY_EVENT, handleOpenHistoryEvent)
+    return () => {
+      window.removeEventListener(TIMELINE_ACTION_EVENT, handleTimelineActionEvent)
+      window.removeEventListener(OPEN_HISTORY_EVENT, handleOpenHistoryEvent)
+    }
+  }, [enqueueTimelineAction])
 
   const compareParentByHistory = useStoreMessageOption(
     (state) => state.compareParentByHistory
@@ -299,7 +527,13 @@ export const Playground = () => {
               <PlaygroundChat />
             </div>
           </div>
-          <div className="relative w-full">
+          <div
+            className={`relative w-full ${
+              stickyChatInput
+                ? "sticky bottom-0 z-20 border-t border-border bg-surface/95 backdrop-blur"
+                : ""
+            }`}
+          >
             {!isAutoScrollToBottom && (
               <div className="pointer-events-none absolute -top-10 left-0 right-0 flex justify-center">
                 <button
@@ -311,7 +545,7 @@ export const Playground = () => {
                 </button>
               </div>
             )}
-            <PlaygroundForm dropedFile={dropedFile} />
+            <PlaygroundForm droppedFiles={droppedFiles} />
           </div>
         </div>
         {artifactsOpen && (

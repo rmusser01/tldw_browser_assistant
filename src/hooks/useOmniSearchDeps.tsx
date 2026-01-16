@@ -93,6 +93,15 @@ const BASE_SCREEN_CONFIGS: ScreenConfig[] = [
     icon: "note"
   },
   {
+    id: "documentation",
+    route: "/documentation",
+    labelKey: "option:header.modeDocumentation",
+    defaultLabel: "Documentation",
+    description: "Browse extension and server documentation",
+    keywords: ["docs", "documentation", "guide", "help"],
+    icon: "documentation"
+  },
+  {
     id: "knowledge",
     route: "/knowledge",
     labelKey: "option:header.modeKnowledge",

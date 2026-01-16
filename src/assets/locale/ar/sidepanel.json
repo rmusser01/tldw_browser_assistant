@@ -104,6 +104,7 @@
     "saveFailedDescription": "يتم الآن حفظ الدردشة محليًا فقط. تحقق من الاتصال وحاول مرة أخرى."
   },
   "rag": {
+    "attachedContext": "السياق المرفق",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",
@@ -111,6 +112,7 @@
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results",
+    "initialState": "No results",
     "timeout": {
       "message": "Request timed out.",
       "increase": "Increase timeout",

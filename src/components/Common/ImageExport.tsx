@@ -1,7 +1,9 @@
-import { Message } from "@/types/message"
-import { removeModelSuffix } from "@/db/dexie/models"
-import Markdown from "./Markdown"
+import React from "react"
 import { Avatar } from "antd"
+import { removeModelSuffix } from "@/db/dexie/models"
+import { Message } from "@/types/message"
+
+const Markdown = React.lazy(() => import("./Markdown"))
 
 export const ImageExportWrapper = ({ messages }: { messages: Message[] }) => {
   return (
@@ -46,7 +48,15 @@ export const ImageExportWrapper = ({ messages }: { messages: Message[] }) => {
               </span>
 
               <div className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 dark:prose-dark">
-                <Markdown message={msg.message} />
+                <React.Suspense
+                  fallback={
+                    <div className="whitespace-pre-wrap break-words">
+                      {msg.message}
+                    </div>
+                  }
+                >
+                  <Markdown message={msg.message} />
+                </React.Suspense>
                 {msg.images &&
                   msg.images.filter((img) => img.length > 0).length > 0 && (
                     <div className="flex flex-wrap gap-2">

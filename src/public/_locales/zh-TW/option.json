@@ -948,7 +948,7 @@
     "message": "檔案太大"
   },
   "upload_fileTooLargeDescription": {
-    "message": "檔案大小必須小於 10MB"
+    "message": "檔案大小必須小於 {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "上傳失敗"
@@ -1768,5 +1768,8 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
   }
 }

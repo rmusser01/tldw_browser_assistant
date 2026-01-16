@@ -343,7 +343,7 @@
   },
   "upload": {
     "fileTooLargeTitle": "檔案太大",
-    "fileTooLargeDescription": "檔案大小必須小於 10MB",
+    "fileTooLargeDescription": "檔案大小必須小於 {{size}}",
     "uploadFailedTitle": "上傳失敗",
     "uploadFailedDescription": "無法上傳檔案，請再試一次。"
   },
@@ -462,6 +462,7 @@
     "process": "處理",
     "results": "結果",
     "downloadJson": "下載 JSON",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "已載入 {{count}} 個進階欄位",
     "advancedEmpty": "未偵測到進階選項 — 請嘗試重新載入規格。",
     "modifiedCount": "{{count}} 項已修改",

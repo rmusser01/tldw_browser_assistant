@@ -1363,5 +1363,29 @@
   },
   "documentGenerator_types_meeting_notes": {
     "message": "Meeting notes"
+  },
+  "composer_contextTabsEmpty": {
+    "message": "Вкладки не вибрано."
+  },
+  "composer_contextFilesTitle": {
+    "message": "Файли в контексті"
+  },
+  "composer_contextFilesEmpty": {
+    "message": "Файли не прикріплено."
+  },
+  "composer_addFile": {
+    "message": "Додати файл"
+  },
+  "composer_contextTabsAvailable": {
+    "message": "Відкриті вкладки"
+  },
+  "composer_noTabsFound": {
+    "message": "Відповідних відкритих вкладок не знайдено."
+  },
+  "errors_loadLocalHistoryPrefix": {
+    "message": "Failed to load local chat history"
+  },
+  "errors_loadLocalHistoryDefault": {
+    "message": "Something went wrong while loading local chat history."
   }
 }

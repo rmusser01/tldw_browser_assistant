@@ -234,7 +234,7 @@
     "message": "Chat is now saving locally only. Check your connection and try again."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "Search your knowledge..."
   },
   "rag_search": {
     "message": "Search"
@@ -252,7 +252,7 @@
     "message": "Add"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "No results found"
   },
   "rag_disconnected": {
     "message": "Connect to server to search knowledge base"
@@ -409,5 +409,692 @@
   },
   "characterSelect_importCharacter": {
     "message": "Import Character"
+  },
+  "multiSelect_enter": {
+    "message": "Select chats"
+  },
+  "multiSelect_exit": {
+    "message": "Exit selection"
+  },
+  "multiSelect_toggle": {
+    "message": "Toggle selection"
+  },
+  "multiSelect_count": {
+    "message": "{{count}} selected"
+  },
+  "multiSelect_selectAll": {
+    "message": "Select all"
+  },
+  "multiSelect_clear": {
+    "message": "Clear"
+  },
+  "multiSelect_addToFolder": {
+    "message": "Add to folders"
+  },
+  "multiSelect_addTags": {
+    "message": "Add tags"
+  },
+  "multiSelect_folderApplySuccess": {
+    "message": "Folders applied to selected chats."
+  },
+  "multiSelect_folderApplyError": {
+    "message": "Some chats could not be added to folders."
+  },
+  "multiSelect_tagsApplySuccess": {
+    "message": "Tags applied to selected chats."
+  },
+  "multiSelect_tagsApplyError": {
+    "message": "Some chats could not be tagged."
+  },
+  "multiSelect_tagsUnavailable": {
+    "message": "Tags are not available on this server"
+  },
+  "multiSelect_tagsHint": {
+    "message": "Add tags to the selected chats."
+  },
+  "multiSelect_tagsPlaceholder": {
+    "message": "Add tags..."
+  },
+  "multiSelect_serverOnlyWarning": {
+    "message": "Select chats saved on the server to apply this action."
+  },
+  "multiSelect_deleteConfirmTitle": {
+    "message": "Move chats to trash?"
+  },
+  "multiSelect_deleteConfirmBody": {
+    "message": "This will hide the selected chats by tagging them as Trash."
+  },
+  "multiSelect_deleteConfirmOk": {
+    "message": "Move to trash"
+  },
+  "multiSelect_deleteFailed": {
+    "message": "Unable to move chats to trash."
+  },
+  "multiSelect_deletePartial": {
+    "message": "Some chats could not be moved to trash."
+  },
+  "multiSelect_deleteSuccess": {
+    "message": "Chats moved to trash."
+  },
+  "multiSelect_localOnlyClosed": {
+    "message": "{{count}} local chat(s) were closed."
+  },
+  "rag_attachedContext": {
+    "message": "Attached context"
+  },
+  "rag_searchAllSettings": {
+    "message": "Search all settings"
+  },
+  "knowledge_title": {
+    "message": "Knowledge Search"
+  },
+  "knowledge_tabs_search": {
+    "message": "Search"
+  },
+  "knowledge_tabs_settings": {
+    "message": "Settings"
+  },
+  "knowledge_tabs_context": {
+    "message": "Context"
+  },
+  "rag_searchSettings": {
+    "message": "Search settings..."
+  },
+  "rag_noResultsHint": {
+    "message": "Try different keywords or adjust your filters."
+  },
+  "rag_enterQuery": {
+    "message": "Enter a search query"
+  },
+  "rag_enterQueryHint": {
+    "message": "Type a query above or enable 'Use current message' to search."
+  },
+  "rag_actions_preview": {
+    "message": "Preview"
+  },
+  "rag_actions_pin": {
+    "message": "Pin"
+  },
+  "rag_actions_unpin": {
+    "message": "Unpin"
+  },
+  "rag_sources_all": {
+    "message": "All"
+  },
+  "rag_sources_media": {
+    "message": "Media"
+  },
+  "rag_sources_notes": {
+    "message": "Notes"
+  },
+  "rag_sources_characters": {
+    "message": "Characters"
+  },
+  "rag_sources_chats": {
+    "message": "Chats"
+  },
+  "rag_preset": {
+    "message": "Preset"
+  },
+  "rag_presets_fast": {
+    "message": "Fast"
+  },
+  "rag_presets_balanced": {
+    "message": "Balanced"
+  },
+  "rag_presets_thorough": {
+    "message": "Thorough"
+  },
+  "rag_presets_custom": {
+    "message": "Custom"
+  },
+  "rag_useCurrentMessage": {
+    "message": "Use current message"
+  },
+  "rag_sortBy": {
+    "message": "Sort"
+  },
+  "rag_sortRelevance": {
+    "message": "Relevance"
+  },
+  "rag_sortDate": {
+    "message": "Date"
+  },
+  "rag_sortTitle": {
+    "message": "Title"
+  },
+  "rag_results": {
+    "message": "Results"
+  },
+  "rag_pinnedResults": {
+    "message": "Pinned"
+  },
+  "rag_clearPins": {
+    "message": "Clear all"
+  },
+  "rag_preview": {
+    "message": "Preview"
+  },
+  "rag_source": {
+    "message": "Source"
+  },
+  "rag_askConfirmTitle": {
+    "message": "Ask about this item?"
+  },
+  "rag_askConfirmContent": {
+    "message": "Pinned results will be ignored for this Ask."
+  },
+  "rag_quality": {
+    "message": "Quality"
+  },
+  "rag_searchMode": {
+    "message": "Search mode"
+  },
+  "rag_ftsLevel": {
+    "message": "FTS level"
+  },
+  "rag_hybridAlpha": {
+    "message": "Hybrid alpha"
+  },
+  "rag_hybridAlphaHelper": {
+    "message": "0 = full FTS, 1 = full vector"
+  },
+  "rag_intentRouting": {
+    "message": "Intent routing"
+  },
+  "rag_topK": {
+    "message": "Top results"
+  },
+  "rag_minScore": {
+    "message": "Min relevance"
+  },
+  "rag_reranking": {
+    "message": "Reranking"
+  },
+  "rag_enableReranking": {
+    "message": "Enable reranking"
+  },
+  "rag_rerankStrategy": {
+    "message": "Strategy"
+  },
+  "rag_rerankTopK": {
+    "message": "Rerank top_k"
+  },
+  "rag_rerankingModel": {
+    "message": "Reranking model"
+  },
+  "rag_rerankMinProb": {
+    "message": "Min relevance prob"
+  },
+  "rag_rerankSentinel": {
+    "message": "Sentinel margin"
+  },
+  "rag_generation": {
+    "message": "Answer Generation"
+  },
+  "rag_enableGeneration": {
+    "message": "Enable generation"
+  },
+  "rag_enableGenerationHelper": {
+    "message": "Generate answers from retrieved context"
+  },
+  "rag_strictExtractive": {
+    "message": "Strict extractive"
+  },
+  "rag_strictExtractiveHelper": {
+    "message": "Only use verbatim quotes from sources"
+  },
+  "rag_generationModel": {
+    "message": "Generation model"
+  },
+  "rag_generationModelPlaceholder": {
+    "message": "Default"
+  },
+  "rag_generationPrompt": {
+    "message": "Generation prompt"
+  },
+  "rag_generationPromptPlaceholder": {
+    "message": "Custom prompt template..."
+  },
+  "rag_maxGenerationTokens": {
+    "message": "Max tokens"
+  },
+  "rag_abstention": {
+    "message": "Abstention"
+  },
+  "rag_enableAbstention": {
+    "message": "Enable abstention"
+  },
+  "rag_enableAbstentionHelper": {
+    "message": "Allow declining when uncertain"
+  },
+  "rag_abstentionBehavior": {
+    "message": "Behavior"
+  },
+  "rag_synthesis": {
+    "message": "Multi-turn Synthesis"
+  },
+  "rag_enableSynthesis": {
+    "message": "Enable synthesis"
+  },
+  "rag_enableSynthesisHelper": {
+    "message": "Draft and refine answers in multiple passes"
+  },
+  "rag_synthesisTimeBudget": {
+    "message": "Time budget (s)"
+  },
+  "rag_synthesisDraftTokens": {
+    "message": "Draft tokens"
+  },
+  "rag_synthesisRefineTokens": {
+    "message": "Refine tokens"
+  },
+  "rag_citations": {
+    "message": "Citations"
+  },
+  "rag_enableCitations": {
+    "message": "Enable citations"
+  },
+  "rag_enableCitationsHelper": {
+    "message": "Include source citations in answers"
+  },
+  "rag_citationStyle": {
+    "message": "Citation style"
+  },
+  "rag_includePageNumbers": {
+    "message": "Include page numbers"
+  },
+  "rag_enableChunkCitations": {
+    "message": "Chunk-level citations"
+  },
+  "rag_enableChunkCitationsHelper": {
+    "message": "Cite specific text chunks rather than whole documents"
+  },
+  "rag_requireHardCitations": {
+    "message": "Require hard citations"
+  },
+  "rag_requireHardCitationsHelper": {
+    "message": "Reject answers without verifiable citations"
+  },
+  "rag_safety": {
+    "message": "Safety & Integrity"
+  },
+  "rag_enableSecurityFilter": {
+    "message": "Security filter"
+  },
+  "rag_enableSecurityFilterHelper": {
+    "message": "Filter potentially harmful content"
+  },
+  "rag_contentFilter": {
+    "message": "Content filter"
+  },
+  "rag_sensitivityLevel": {
+    "message": "Sensitivity level"
+  },
+  "rag_piiHandling": {
+    "message": "PII Handling"
+  },
+  "rag_detectPii": {
+    "message": "Detect PII"
+  },
+  "rag_redactPii": {
+    "message": "Redact PII"
+  },
+  "rag_redactPiiHelper": {
+    "message": "Replace detected PII with placeholders"
+  },
+  "rag_contentPolicy": {
+    "message": "Content Policy"
+  },
+  "rag_enableContentPolicy": {
+    "message": "Enable policy filter"
+  },
+  "rag_contentPolicyTypes": {
+    "message": "Policy types"
+  },
+  "rag_contentPolicyMode": {
+    "message": "Policy mode"
+  },
+  "rag_injectionProtection": {
+    "message": "Injection Protection"
+  },
+  "rag_enableInjectionFilter": {
+    "message": "Enable filter"
+  },
+  "rag_enableInjectionFilterHelper": {
+    "message": "Detect prompt injection attempts"
+  },
+  "rag_injectionFilterStrength": {
+    "message": "Filter strength"
+  },
+  "rag_numericFidelity": {
+    "message": "Numeric Fidelity"
+  },
+  "rag_enableNumericFidelity": {
+    "message": "Enable checking"
+  },
+  "rag_enableNumericFidelityHelper": {
+    "message": "Verify numeric accuracy in answers"
+  },
+  "rag_numericFidelityBehavior": {
+    "message": "On error"
+  },
+  "rag_advanced": {
+    "message": "Advanced"
+  },
+  "rag_advancedHelper": {
+    "message": "Expert settings for fine-tuning RAG behavior"
+  },
+  "rag_queryExpansion": {
+    "message": "Query Expansion"
+  },
+  "rag_expandQuery": {
+    "message": "Expand query"
+  },
+  "rag_expansionStrategies": {
+    "message": "Strategies"
+  },
+  "rag_spellCheck": {
+    "message": "Spell check"
+  },
+  "rag_caching": {
+    "message": "Caching"
+  },
+  "rag_enableCache": {
+    "message": "Enable cache"
+  },
+  "rag_cacheThreshold": {
+    "message": "Cache threshold"
+  },
+  "rag_adaptiveCache": {
+    "message": "Adaptive cache"
+  },
+  "rag_useEmbeddingCache": {
+    "message": "Embedding cache"
+  },
+  "rag_contextConstruction": {
+    "message": "Context Construction"
+  },
+  "rag_chunkTypeFilter": {
+    "message": "Chunk types"
+  },
+  "rag_enableParentExpansion": {
+    "message": "Parent expansion"
+  },
+  "rag_parentContextSize": {
+    "message": "Parent context"
+  },
+  "rag_includeSiblingChunks": {
+    "message": "Include siblings"
+  },
+  "rag_siblingWindow": {
+    "message": "Sibling window"
+  },
+  "rag_includeParentDocument": {
+    "message": "Include parent doc"
+  },
+  "rag_parentMaxTokens": {
+    "message": "Parent max tokens"
+  },
+  "rag_tableProcessing": {
+    "message": "Table Processing"
+  },
+  "rag_enableTableProcessing": {
+    "message": "Enable tables"
+  },
+  "rag_tableMethod": {
+    "message": "Table method"
+  },
+  "rag_enableNumericTableBoost": {
+    "message": "Numeric boost"
+  },
+  "rag_vlm": {
+    "message": "VLM Late Chunking"
+  },
+  "rag_enableVlmLateChunking": {
+    "message": "Enable VLM"
+  },
+  "rag_vlmBackend": {
+    "message": "VLM backend"
+  },
+  "rag_vlmDetectTablesOnly": {
+    "message": "Tables only"
+  },
+  "rag_vlmMaxPages": {
+    "message": "Max pages"
+  },
+  "rag_vlmLateChunkTopK": {
+    "message": "Late chunk top_k"
+  },
+  "rag_claims": {
+    "message": "Claims Verification"
+  },
+  "rag_enableClaims": {
+    "message": "Enable claims"
+  },
+  "rag_claimExtractor": {
+    "message": "Extractor"
+  },
+  "rag_claimVerifier": {
+    "message": "Verifier"
+  },
+  "rag_claimsTopK": {
+    "message": "Claims top_k"
+  },
+  "rag_claimsConfThreshold": {
+    "message": "Confidence"
+  },
+  "rag_claimsMax": {
+    "message": "Max claims"
+  },
+  "rag_claimsConcurrency": {
+    "message": "Concurrency"
+  },
+  "rag_nliModel": {
+    "message": "NLI model"
+  },
+  "rag_adaptiveVerification": {
+    "message": "Adaptive Verification"
+  },
+  "rag_enablePostVerification": {
+    "message": "Post-verification"
+  },
+  "rag_lowConfidenceBehavior": {
+    "message": "Low confidence"
+  },
+  "rag_adaptiveMaxRetries": {
+    "message": "Max retries"
+  },
+  "rag_adaptiveTimeBudget": {
+    "message": "Time budget (s)"
+  },
+  "rag_adaptiveRerunOnLowConf": {
+    "message": "Rerun on low conf"
+  },
+  "rag_adaptiveAdvancedRewrites": {
+    "message": "Advanced rewrites"
+  },
+  "rag_monitoring": {
+    "message": "Monitoring & Analytics"
+  },
+  "rag_enableMonitoring": {
+    "message": "Enable monitoring"
+  },
+  "rag_enableAnalytics": {
+    "message": "Enable analytics"
+  },
+  "rag_enableObservability": {
+    "message": "Observability"
+  },
+  "rag_traceId": {
+    "message": "Trace ID"
+  },
+  "rag_traceIdPlaceholder": {
+    "message": "Auto-generated"
+  },
+  "rag_performance": {
+    "message": "Performance"
+  },
+  "rag_useConnectionPool": {
+    "message": "Connection pool"
+  },
+  "rag_enablePerfAnalysis": {
+    "message": "Perf analysis"
+  },
+  "rag_timeoutSeconds": {
+    "message": "Timeout (s)"
+  },
+  "rag_resilience": {
+    "message": "Resilience"
+  },
+  "rag_enableResilience": {
+    "message": "Enable resilience"
+  },
+  "rag_retryAttempts": {
+    "message": "Retry attempts"
+  },
+  "rag_circuitBreaker": {
+    "message": "Circuit breaker"
+  },
+  "rag_debugDisplay": {
+    "message": "Debug & Display"
+  },
+  "rag_highlightResults": {
+    "message": "Highlight results"
+  },
+  "rag_highlightQueryTerms": {
+    "message": "Highlight query terms"
+  },
+  "rag_trackCost": {
+    "message": "Track cost"
+  },
+  "rag_debugMode": {
+    "message": "Debug mode"
+  },
+  "rag_explainOnly": {
+    "message": "Explain only"
+  },
+  "rag_explainOnlyHelper": {
+    "message": "Return query plan without executing"
+  },
+  "rag_reset": {
+    "message": "Reset"
+  },
+  "rag_resetToDefaults": {
+    "message": "Reset to defaults"
+  },
+  "rag_apply": {
+    "message": "Apply"
+  },
+  "rag_applyAndSearch": {
+    "message": "Apply & Search"
+  },
+  "rag_noSettingsMatch": {
+    "message": "No settings match"
+  },
+  "rag_clearSearch": {
+    "message": "Clear search"
+  },
+  "rag_contextExplanation": {
+    "message": "These items will be included in your next query."
+  },
+  "rag_browserTabs": {
+    "message": "Browser Tabs"
+  },
+  "rag_refreshTabs": {
+    "message": "Refresh tabs"
+  },
+  "rag_clearTabs": {
+    "message": "Clear all tabs"
+  },
+  "rag_removeTab": {
+    "message": "Remove tab"
+  },
+  "rag_addFromOpenTabs": {
+    "message": "+ Add from open tabs..."
+  },
+  "rag_noMoreTabs": {
+    "message": "No more tabs available"
+  },
+  "rag_files": {
+    "message": "Files"
+  },
+  "rag_addFile": {
+    "message": "Add file"
+  },
+  "rag_clearFiles": {
+    "message": "Clear all files"
+  },
+  "rag_removeFile": {
+    "message": "Remove file"
+  },
+  "rag_clickToAddFile": {
+    "message": "Click to add a file..."
+  },
+  "rag_unpinResult": {
+    "message": "Unpin result"
+  },
+  "rag_noPinnedResults": {
+    "message": "No pinned results. Pin items from the Search tab."
+  },
+  "rag_pinnedFromSearch": {
+    "message": "Pinned from search"
+  },
+  "rag_noContextItems": {
+    "message": "No context items attached yet."
+  },
+  "rag_contextHint": {
+    "message": "Pin search results or attach browser tabs and files to include them in your queries."
+  },
+  "rag_initialState": {
+    "message": "No results yet"
+  },
+  "rag_abstentionBehaviorContinue": {
+    "message": "Continue"
+  },
+  "rag_abstentionBehaviorAskUser": {
+    "message": "Ask user"
+  },
+  "rag_abstentionBehaviorDecline": {
+    "message": "Decline"
+  },
+  "rag_sensitivity_public": {
+    "message": "Public"
+  },
+  "rag_sensitivity_internal": {
+    "message": "Internal"
+  },
+  "rag_sensitivity_confidential": {
+    "message": "Confidential"
+  },
+  "rag_sensitivity_restricted": {
+    "message": "Restricted"
+  },
+  "rag_contentPolicyTypeOptions_pii": {
+    "message": "PII"
+  },
+  "rag_contentPolicyTypeOptions_phi": {
+    "message": "PHI"
+  },
+  "rag_contentPolicyModeOptions_redact": {
+    "message": "Redact"
+  },
+  "rag_contentPolicyModeOptions_drop": {
+    "message": "Drop"
+  },
+  "rag_contentPolicyModeOptions_annotate": {
+    "message": "Annotate"
+  },
+  "rag_numericFidelityBehaviorOptions_continue": {
+    "message": "Continue"
+  },
+  "rag_numericFidelityBehaviorOptions_ask": {
+    "message": "Ask user"
+  },
+  "rag_numericFidelityBehaviorOptions_decline": {
+    "message": "Decline"
+  },
+  "rag_numericFidelityBehaviorOptions_retry": {
+    "message": "Retry"
   }
 }

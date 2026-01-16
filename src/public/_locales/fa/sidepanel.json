@@ -331,5 +331,11 @@
   },
   "characterSelect_importCharacter": {
     "message": "Import Character"
+  },
+  "rag_attachedContext": {
+    "message": "زمینه پیوست‌شده"
+  },
+  "rag_initialState": {
+    "message": "نتیجه‌ای یافت نشد"
   }
 }

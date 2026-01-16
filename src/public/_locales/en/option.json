@@ -78,10 +78,13 @@
     "message": "Go to server card"
   },
   "connectionCard_tipQuickIngest": {
-    "message": "Tip: Need ingest help while you’re offline?"
+    "message": "Tip: Need help connecting Quick Ingest?"
+  },
+  "connectionCard_quickIngestHelpInline": {
+    "message": "Tip: The ? icon reopens the Quick Ingest intro."
   },
   "connectionCard_quickIngestHint": {
-    "message": "When your server is offline, Quick Ingest works as a staging area. You can queue URLs and files now and process them once you reconnect."
+    "message": "Quick Ingest requires a server connection. Connect to add URLs and files."
   },
   "connectionCard_backToWorkspace": {
     "message": "Back to workspace"
@@ -90,7 +93,7 @@
     "message": "Settings open in a new browser tab so you can configure your tldw server."
   },
   "connectionCard_quickIngestInlineHint": {
-    "message": "Quick Ingest can queue URLs and files while your server is offline so you can process them once you reconnect."
+    "message": "Quick Ingest requires a server connection. Connect to add URLs and files."
   },
   "buttonRetry": {
     "message": "Retry connection"
@@ -495,7 +498,7 @@
     "message": "Failed to save prompt"
   },
   "quickIngest_title": {
-    "message": "Quick Ingest Media"
+    "message": "Quick Ingest"
   },
   "quickIngest_subtitle": {
     "message": "Enter one or more URLs. Force type per row if needed."
@@ -522,7 +525,7 @@
     "message": "Checking server connection…"
   },
   "quickIngest_checkingDescription": {
-    "message": "We’re checking your tldw server before running ingest. You can start queuing items while we confirm reachability."
+    "message": "Checking your tldw server before running ingest. Inputs are disabled until we confirm the connection."
   },
   "quickIngest_sourceHeading": {
     "message": "Source URLs or files"
@@ -642,19 +645,16 @@
     "message": "Language (e.g., en)"
   },
   "quickIngest_audioDiarizationHelp": {
-    "message": "Turn on to separate speakers in transcripts."
+    "message": "Turn on to separate speakers in transcripts; applies to new audio items."
   },
   "quickIngest_documentOptions": {
     "message": "Document options"
-  },
-  "quickIngest_quickIngest_ocrHelp": {
-    "message": "OCR helps extract text from scanned PDFs or images."
   },
   "quickIngest_videoOptions": {
     "message": "Video options"
   },
   "quickIngest_captionsHelp": {
-    "message": "Include timestamps/captions when available."
+    "message": "Include timestamps/captions for new video items; helpful for search and summaries."
   },
   "quickIngest_cancel": {
     "message": "Cancel"
@@ -693,10 +693,10 @@
     "message": "Offline mode enabled: items are staged here and will process once you disable offline mode."
   },
   "quickIngest_offlineFooter": {
-    "message": "Can’t reach your server. Items are staged here and will process once your server reconnects."
+    "message": "Cannot reach your server. Connect to run ingest."
   },
   "quickIngest_unconfiguredFooter": {
-    "message": "Can’t reach your server. Items are staged here and will process after you configure a server URL and API key under Settings → tldw server."
+    "message": "Server not configured. Configure your server URL and API key under Settings → tldw server to run ingest."
   },
   "quickIngest_offlineBypassFooter": {
     "message": "Can’t reach your server. Items are staged here and will process once you disable offline mode."
@@ -744,10 +744,16 @@
     "message": "Running quick ingest — processing {{done}} / {{total}} items…"
   },
   "quickIngest_pendingLabel": {
-    "message": "Pending — will run when connected"
+    "message": "Not connected — reconnect to run."
   },
   "quickIngest_pendingUnconfigured": {
-    "message": "Pending — will run after you configure a server."
+    "message": "Not connected — configure your server to run."
+  },
+  "quickIngest_queueBlocked": {
+    "message": "Connect to your server to add items."
+  },
+  "quickIngest_urlsAdded": {
+    "message": "Added {{count}} URL(s) to the queue."
   },
   "quickIngest_pendingOfflineBypass": {
     "message": "Pending — will run when offline mode is disabled."
@@ -804,7 +810,7 @@
     "message": "Hybrid input: drop files or paste URLs (comma/newline separated) to build the queue."
   },
   "quickIngest_tipsPerType": {
-    "message": "Per-type settings (Audio/PDF/Video) apply to all items of that type."
+    "message": "Per-type settings (Audio/PDF/Video) apply to new items of that type."
   },
   "quickIngest_tipsInspector": {
     "message": "Use the Inspector to see status, type, and quick checks before ingesting."
@@ -870,7 +876,7 @@
     "message": "Open Inspector"
   },
   "quickIngest_queueDescription": {
-    "message": "Staged items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention."
+    "message": "Queued items appear here. Click a row to open the Inspector; badges show defaults, custom edits, or items needing attention."
   },
   "quickIngest_statusDone": {
     "message": "Done"
@@ -915,7 +921,7 @@
     "message": "Video"
   },
   "quickIngest_emptyQueue": {
-    "message": "No items queued yet. Drop files or add URLs to start."
+    "message": "No items queued yet."
   },
   "quickIngest_analysisLabel": {
     "message": "Analysis"
@@ -933,10 +939,10 @@
     "message": "Diarization: On"
   },
   "quickIngest_audioSettingsTitle": {
-    "message": "These audio settings apply to every audio item in this run."
+    "message": "These audio settings apply to new audio items."
   },
   "quickIngest_audioSettingsHint": {
-    "message": "These settings apply to every audio item in this run."
+    "message": "These settings apply to new audio items."
   },
   "quickIngest_ocrOff": {
     "message": "OCR: Off"
@@ -945,10 +951,10 @@
     "message": "OCR: On"
   },
   "quickIngest_documentSettingsTitle": {
-    "message": "These document settings apply to every document/PDF in this run."
+    "message": "These document settings apply to new document/PDF items."
   },
   "quickIngest_documentSettingsHint": {
-    "message": "Applies to all document/PDF items in this batch."
+    "message": "Applies to new document/PDF items."
   },
   "quickIngest_captionsOff": {
     "message": "Captions: Off"
@@ -957,10 +963,10 @@
     "message": "Captions: On"
   },
   "quickIngest_videoSettingsTitle": {
-    "message": "These video settings apply to every video in this run."
+    "message": "These video settings apply to new video items."
   },
   "quickIngest_videoSettingsHint": {
-    "message": "Applies to all video items in this batch."
+    "message": "Applies to new video items."
   },
   "quickIngest_ingestProgressTitle": {
     "message": "Current ingest progress"
@@ -987,7 +993,7 @@
     "message": "Click a queued item to see its detected type, status, and warnings."
   },
   "quickIngest_inspectorIntroItem2": {
-    "message": "Use per-type controls on the main panel to set defaults; any per-row override marks it Custom."
+    "message": "Use per-type controls on the main panel to set defaults for new items; any per-row override marks it Custom."
   },
   "quickIngest_inspectorIntroItem3": {
     "message": "For auth-required URLs, add cookies/headers in Advanced before ingesting."
@@ -1005,7 +1011,7 @@
     "message": "Editing the URL or forcing a type marks this item as Custom."
   },
   "quickIngest_inspectorFileHint": {
-    "message": "File settings follow the per-type controls on the main panel."
+    "message": "File settings follow the per-type defaults captured when this file was added."
   },
   "quickIngest_inspectorAdvancedHint": {
     "message": "Use Advanced options to set cookies/auth if required. Errors or warnings appear on each row."
@@ -1419,7 +1425,7 @@
     "message": "Select character"
   },
   "characters_chattingAs": {
-    "message": "You're now chatting as {{name}}."
+    "message": "You are chatting with {{name}}."
   },
   "characters_clearCharacter": {
     "message": "Clear character"
@@ -2148,7 +2154,7 @@
     "message": "File Too Large"
   },
   "upload_fileTooLargeDescription": {
-    "message": "File size must be less than 10MB"
+    "message": "File size must be less than {{size}}"
   },
   "upload_uploadFailedTitle": {
     "message": "Upload Failed"
@@ -2178,7 +2184,7 @@
     "message": "Pop-out is disabled when there are no messages. Start a conversation first."
   },
   "quickChatHelper_noModelWarning": {
-    "message": "Please select a model in the main chat first."
+    "message": "Select a model in the main chat or choose one here."
   },
   "quickChatHelper_userMessageAria": {
     "message": "Your message"
@@ -2362,5 +2368,353 @@
   },
   "characters_importCharacter": {
     "message": "Import Character"
+  },
+  "quickChatHelper_modelLabel": {
+    "message": "Model"
+  },
+  "quickChatHelper_modelPlaceholder": {
+    "message": "Current: {{model}}"
+  },
+  "quickChatHelper_modelPlaceholderEmpty": {
+    "message": "Select a model"
+  },
+  "header_modeDocumentation": {
+    "message": "Documentation"
+  },
+  "documentation_title": {
+    "message": "Documentation"
+  },
+  "documentation_subtitle": {
+    "message": "Browse documentation for the tldw browser extension and tldw_server."
+  },
+  "documentation_searchPlaceholder": {
+    "message": "Search documentation..."
+  },
+  "documentation_sourceExtension": {
+    "message": "tldw browser extension"
+  },
+  "documentation_sourceServer": {
+    "message": "tldw_server"
+  },
+  "documentation_sourceHint": {
+    "message": "Sources: {{extensionPath}} and {{serverPath}}"
+  },
+  "documentation_documentsLabel": {
+    "message": "Documents"
+  },
+  "documentation_resultsLabel": {
+    "message": "{{count}} results"
+  },
+  "documentation_emptyTitle": {
+    "message": "No documentation found"
+  },
+  "documentation_emptyDescription": {
+    "message": "Add markdown files under {{path}} to populate this section."
+  },
+  "documentation_noMatchesTitle": {
+    "message": "No matches"
+  },
+  "documentation_noMatchesDescription": {
+    "message": "Try a different search term."
+  },
+  "documentation_noMatchesList": {
+    "message": "No matches in this source."
+  },
+  "notesSearch_keywordsBrowse": {
+    "message": "Browse keywords"
+  },
+  "notesSearch_keywordsBrowseCount": {
+    "message": "{{count}} available"
+  },
+  "notesSearch_keywordPickerTitle": {
+    "message": "Browse keywords"
+  },
+  "notesSearch_keywordPickerSearch": {
+    "message": "Search keywords"
+  },
+  "notesSearch_keywordPickerCount": {
+    "message": "{{count}} keywords"
+  },
+  "notesSearch_keywordPickerSelectAll": {
+    "message": "Select all"
+  },
+  "notesSearch_keywordPickerClear": {
+    "message": "Clear"
+  },
+  "notesSearch_keywordPickerApply": {
+    "message": "Apply filters"
+  },
+  "notesSearch_keywordPickerEmpty": {
+    "message": "No keywords found"
+  },
+  "characters_openCharactersPage": {
+    "message": "Characters"
+  },
+  "quickIngest_defaultsForNewItems": {
+    "message": "Defaults apply only to items added after you change them."
+  },
+  "quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images; applies to new document/PDF items."
+  },
+  "quickIngest_localFilesWarning": {
+    "message": "Local files are kept only while this dialog is open. Complete your ingest run before closing, or reattach files when you return."
+  },
+  "quickIngest_missingFile": {
+    "message": "Missing file"
+  },
+  "quickIngest_missingFileReason": {
+    "message": "Reattach this file to process it."
+  },
+  "quickIngest_missingFilesBlock": {
+    "message": "Reattach {{count}} local file(s) to run ingest."
+  },
+  "quickIngest_missingFilesQueueNotice": {
+    "message": "{{count}} local file(s) need reattachment. Add the files again or remove them before running ingest."
+  },
+  "quickIngest_reattachFileAria": {
+    "message": "Reattach this file"
+  },
+  "quickIngest_reattachFile": {
+    "message": "Reattach"
+  },
+  "quickIngest_reattachMismatch": {
+    "message": "That file does not match {{name}}. Choose the original file or remove this item."
+  },
+  "quickIngest_reattachSuccess": {
+    "message": "Reattached {{name}}."
+  },
+  "quickIngest_inspectorMissingFileTitle": {
+    "message": "Missing file"
+  },
+  "quickIngest_inspectorMissingFileBody": {
+    "message": "Reattach this file before running ingest."
+  },
+  "quickIngest_quickIngest_ocrHelp": {
+    "message": "OCR helps extract text from scanned PDFs or images."
+  },
+  "quickIngest_downloadJsonAria": {
+    "message": "Download JSON for {{name}}"
+  },
+  "header_addContent": {
+    "message": "Add Content"
+  },
+  "header_quickIngestTooltip": {
+    "message": "Import URLs, documents, and media to your knowledge base"
+  },
+  "quickIngest_connectingTitle": {
+    "message": "Checking connection..."
+  },
+  "quickIngest_connectingBody": {
+    "message": "Verifying your tldw server is reachable."
+  },
+  "quickIngest_notConnectedTitle": {
+    "message": "Not connected to server"
+  },
+  "quickIngest_notConnectedBody": {
+    "message": "Configure your server to process content. Inputs are disabled until connected."
+  },
+  "quickIngest_configureServer": {
+    "message": "Configure server"
+  },
+  "quickIngest_requeueFailed": {
+    "message": "Requeue failed"
+  },
+  "quickIngest_requeueFailedAria": {
+    "message": "Requeue failed items"
+  },
+  "quickIngest_noFailedToRequeue": {
+    "message": "No failed items to requeue."
+  },
+  "quickIngest_requeuedFailed": {
+    "message": "Requeued {{count}} failed item(s)."
+  },
+  "quickIngest_requeuedFailedWithFiles": {
+    "message": "Requeued {{urlCount}} URL(s). Re-upload {{fileCount}} file(s) if needed."
+  },
+  "quickIngest_exportFailedList": {
+    "message": "Export failed list"
+  },
+  "quickIngest_exportFailedListAria": {
+    "message": "Export failed items list"
+  },
+  "quickIngest_noFailedToExport": {
+    "message": "No failed items to export."
+  },
+  "quickIngest_exportedToClipboard": {
+    "message": "Copied {{count}} failed item(s) to clipboard."
+  },
+  "quickIngest_exportedToFile": {
+    "message": "Downloaded {{count}} failed item(s) as file."
+  },
+  "quickIngest_emptyQueueHint": {
+    "message": "Paste URLs (one per line) or drop files here."
+  },
+  "quickIngest_emptyQueueExample": {
+    "message": "Try a YouTube URL, PDF, or article link."
+  },
+  "quickIngest_emptyQueueShortcut": {
+    "message": "Tip: Use Ctrl+V to paste from clipboard"
+  },
+  "quickIngest_analysisTooltip": {
+    "message": "Generate AI summary and analysis of content"
+  },
+  "quickIngest_chunkingTooltip": {
+    "message": "Split content into chunks for RAG retrieval"
+  },
+  "quickIngest_overwriteTooltip": {
+    "message": "Replace existing content if URL was previously ingested"
+  },
+  "quickIngest_storageToggleTooltip": {
+    "message": "Store on server for RAG search, or process locally for one-time use"
+  },
+  "quickIngest_reviewToggleTooltip": {
+    "message": "Save drafts locally to edit before committing to server"
+  },
+  "quickIngest_onboardingTitle": {
+    "message": "Add content to your knowledge base"
+  },
+  "quickIngest_onboardingStep1": {
+    "message": "Paste URLs or drop files above"
+  },
+  "quickIngest_onboardingStep2": {
+    "message": "Configure options (or use defaults)"
+  },
+  "quickIngest_onboardingStep3": {
+    "message": "Click Process to start ingestion"
+  },
+  "quickIngest_dismissOnboarding": {
+    "message": "Dismiss onboarding"
+  },
+  "quickIngest_audioOptionsDisabled": {
+    "message": "(add audio to enable)"
+  },
+  "quickIngest_documentOptionsDisabled": {
+    "message": "(add document to enable)"
+  },
+  "quickIngest_videoOptionsDisabled": {
+    "message": "(add video to enable)"
+  },
+  "quickIngest_tabs_queue": {
+    "message": "Queue"
+  },
+  "quickIngest_tabs_options": {
+    "message": "Options"
+  },
+  "quickIngest_tabs_results": {
+    "message": "Results"
+  },
+  "quickIngest_tabs_ariaLabel": {
+    "message": "Quick Ingest sections"
+  },
+  "quickIngest_tabs_queueAria": {
+    "message": "Queue tab"
+  },
+  "quickIngest_tabs_queueAriaWithCount": {
+    "message": "Queue tab, {{count}} items"
+  },
+  "quickIngest_tabs_optionsAria": {
+    "message": "Options tab"
+  },
+  "quickIngest_tabs_optionsAriaModified": {
+    "message": "Options tab, settings modified"
+  },
+  "quickIngest_tabs_resultsAria": {
+    "message": "Results tab"
+  },
+  "quickIngest_tabs_resultsAriaProcessing": {
+    "message": "Results tab, processing in progress"
+  },
+  "quickIngest_dropzoneProcessing": {
+    "message": "Processing in progress..."
+  },
+  "quickIngest_dropzoneWaitProcessing": {
+    "message": "Wait for completion to add more"
+  },
+  "quickIngest_dropzoneOffline": {
+    "message": "Server not connected"
+  },
+  "quickIngest_dropzoneConnectHint": {
+    "message": "Connect to add files"
+  },
+  "quickIngest_dropzoneRejectTitle": {
+    "message": "Some files not supported"
+  },
+  "quickIngest_dropzoneRejectHint": {
+    "message": "Check file type and size (max 500 MB)"
+  },
+  "quickIngest_dropzoneRelease": {
+    "message": "Release to add files"
+  },
+  "quickIngest_dropzoneReleaseSingle": {
+    "message": "Release to add 1 file"
+  },
+  "quickIngest_dropzoneReleaseMultiple": {
+    "message": "Release to add {{count}} files"
+  },
+  "quickIngest_dropzoneAriaLabel": {
+    "message": "File upload zone. Drag and drop files or press Enter to browse."
+  },
+  "quickIngest_addFiles": {
+    "message": "Browse files"
+  },
+  "quickIngest_filesRejected": {
+    "message": "{{count}} files rejected"
+  },
+  "quickIngest_preset.label": {
+    "message": "Preset"
+  },
+  "quickIngest_preset.quick": {
+    "message": "Quick"
+  },
+  "quickIngest_preset.quick.description": {
+    "message": "Process fast, skip analysis"
+  },
+  "quickIngest_preset.standard": {
+    "message": "Standard"
+  },
+  "quickIngest_preset.standard.description": {
+    "message": "Analyze + chunk for RAG search"
+  },
+  "quickIngest_preset.deep": {
+    "message": "Deep"
+  },
+  "quickIngest_preset.deep.description": {
+    "message": "All options, review before save"
+  },
+  "quickIngest_preset.custom": {
+    "message": "Custom"
+  },
+  "quickIngest_preset.custom.description": {
+    "message": "Your manual configuration"
+  },
+  "quickIngest_preset.reset": {
+    "message": "Reset to defaults"
+  },
+  "quickIngest_preset.recommended": {
+    "message": "(Recommended)"
+  },
+  "quickIngest_preset.ariaLabel": {
+    "message": "Select processing preset"
+  },
+  "quickIngest_transcriptionModelLabel": {
+    "message": "Transcription model"
+  },
+  "quickIngest_transcriptionModelPlaceholder": {
+    "message": "Select model"
+  },
+  "quickIngest_audioDiarizationLabel": {
+    "message": "Diarization"
+  },
+  "quickIngest_documentOcrLabel": {
+    "message": "OCR"
+  },
+  "quickIngest_videoCaptionsLabel": {
+    "message": "Captions"
+  },
+  "header_modeWatchlists": {
+    "message": "Watchlists"
+  },
+  "header_modeKanban": {
+    "message": "Kanban Playground"
   }
 }

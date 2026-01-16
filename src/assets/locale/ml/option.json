@@ -120,7 +120,7 @@
   "notes": "കുറിപ്പുകൾ",
   "upload": {
     "fileTooLargeTitle": "ഫയൽ വളരെ വലുതാണ്",
-    "fileTooLargeDescription": "ഫയൽ വലുപ്പം 10MB ൽ താഴെയായിരിക്കണം",
+    "fileTooLargeDescription": "ഫയൽ വലുപ്പം {{size}} ൽ താഴെയായിരിക്കണം",
     "uploadFailedTitle": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു",
     "uploadFailedDescription": "ഫയൽ അപ്‌ലോഡ് ചെയ്യാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക."
   },
@@ -239,6 +239,7 @@
     "process": "പ്രോസസ്സ് ചെയ്യുക",
     "results": "ഫലങ്ങൾ",
     "downloadJson": "JSON ഡൗൺലോഡ് ചെയ്യുക",
+    "downloadJsonAria": "Download JSON for {{name}}",
     "advancedSummary": "{{count}} ഉന്നത ഫീൽഡുകൾ ലോഡ് ചെയ്തു",
     "advancedEmpty": "ഉന്നത ഓപ്ഷനുകൾ കണ്ടെത്തിയില്ല — സ്പെക് റീലോഡ് ചെയ്ത് നോക്കുക.",
     "modifiedCount": "{{count}} മാറ്റം ചെയ്തു",

@@ -1312,5 +1312,11 @@
   },
   "contentReview_editedLabel": {
     "message": "نسخه ویرایش‌شده"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "API رسانه در حالت آفلاین در دسترس نیست"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "سرور آفلاین است"
   }
 }

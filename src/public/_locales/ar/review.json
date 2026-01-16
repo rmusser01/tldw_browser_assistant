@@ -1312,5 +1312,11 @@
   },
   "contentReview_editedLabel": {
     "message": "بعد التعديل"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "واجهة برمجة تطبيقات الوسائط غير متاحة دون اتصال"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "الخادم غير متصل"
   }
 }

@@ -1312,5 +1312,11 @@
   },
   "contentReview_editedLabel": {
     "message": "已編輯"
+  },
+  "mediaEmpty_apiOfflineTitle": {
+    "message": "媒體 API 離線不可用"
+  },
+  "mediaEmpty_serverOfflineTitle": {
+    "message": "伺服器離線"
   }
 }

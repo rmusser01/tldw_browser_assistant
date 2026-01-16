@@ -42,6 +42,71 @@ export function ResultsList({
   onToggleFavorite
 }: ResultsListProps) {
   const { t } = useTranslation(['review'])
+
+  const buildInspectorTooltip = (result: Result) => {
+    const title = result.title || `${result.kind} ${result.id}`
+    const lines: Array<{
+      label: string
+      value: string
+      multiline?: boolean
+      preserveWhitespace?: boolean
+    }> = [
+      {
+        label: t('mediaPage.titleLabel', 'Title'),
+        value: title
+      },
+      {
+        label: t('mediaPage.typeLabel', 'Type'),
+        value: result.meta?.type || result.kind
+      }
+    ]
+    if (result.meta?.source) {
+      lines.push({
+        label: t('mediaPage.source', 'Source'),
+        value: result.meta.source
+      })
+    }
+    if (result.snippet) {
+      lines.push({
+        label: t('mediaPage.previewLabel', 'Preview'),
+        value: result.snippet,
+        multiline: true,
+        preserveWhitespace: true
+      })
+    }
+    if (Array.isArray(result.keywords) && result.keywords.length > 0) {
+      lines.push({
+        label: t('mediaPage.keywords', 'Keywords'),
+        value: result.keywords.join(', '),
+        multiline: true
+      })
+    }
+
+    return (
+      <div className="space-y-1 text-xs max-w-xs">
+        {lines.map((line, index) => (
+          <div
+            key={`${line.label}-${index}`}
+            className={line.multiline ? "flex flex-col gap-1" : "flex gap-1"}
+          >
+            <span className="font-medium text-text">{line.label}:</span>
+            <span
+              className={
+                line.multiline
+                  ? `text-text-subtle break-words line-clamp-4 ${
+                      line.preserveWhitespace ? "whitespace-pre-wrap" : "whitespace-normal"
+                    }`
+                  : "text-text-subtle break-words"
+              }
+            >
+              {line.value}
+            </span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <div>
       {/* Results Header */}
@@ -143,11 +208,12 @@ export function ResultsList({
                     </Tooltip>
                   )}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-primary/10 text-primaryStrong">
-                      {result.kind.toUpperCase()}
-                    </span>
+                <Tooltip placement="right" title={buildInspectorTooltip(result)}>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-primary/10 text-primaryStrong">
+                        {result.kind.toUpperCase()}
+                      </span>
                     {result.meta?.type && (
                       <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-surface2 text-text capitalize">
                         {result.meta.type}
@@ -184,12 +250,13 @@ export function ResultsList({
                       )}
                     </div>
                   )}
-                  {result.meta?.source && (
-                    <div className="text-xs text-text-subtle mt-0.5">
-                      {result.meta.source}
-                    </div>
-                  )}
-                </div>
+                    {result.meta?.source && (
+                      <div className="text-xs text-text-subtle mt-0.5">
+                        {result.meta.source}
+                      </div>
+                    )}
+                  </div>
+                </Tooltip>
               </div>
             </div>
           ))

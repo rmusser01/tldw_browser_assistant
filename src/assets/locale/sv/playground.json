@@ -138,7 +138,9 @@
     "troubleshoot": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
   },
   "errors": {
-    "privateModeDescription": "Firefox privat läge stöder inte att spara chatt. Tillfällig chatt är aktiverat som standard. Fler förbättringar kommer."
+    "privateModeDescription": "Firefox privat läge stöder inte att spara chatt. Tillfällig chatt är aktiverat som standard. Fler förbättringar kommer.",
+    "loadLocalHistoryPrefix": "Failed to load local chat history",
+    "loadLocalHistoryDefault": "Something went wrong while loading local chat history."
   },
   "tts": {
     "playErrorTitle": "Fel",
@@ -303,6 +305,12 @@
     "contextMediaEmpty": "No Media & Notes selected yet.",
     "addKnowledge": "Add Media & Notes",
     "contextTabsTitle": "Tabs in context",
+    "contextTabsAvailable": "Öppna flikar",
+    "noTabsFound": "Inga lämpliga öppna flikar hittades.",
+    "contextTabsEmpty": "Inga flikar valda.",
+    "contextFilesTitle": "Filer i sammanhanget",
+    "contextFilesEmpty": "Inga filer bifogade.",
+    "addFile": "Lägg till fil",
     "contextTabsHint": "Review or remove referenced tabs, or add more from your open browser tabs.",
     "contextManager": "Context Management",
     "contextManagerTitle": "Context Management",

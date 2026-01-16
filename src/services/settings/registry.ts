@@ -172,6 +172,19 @@ export const coerceBoolean = (value: unknown, fallback: boolean): boolean => {
   return fallback
 }
 
+export const coerceBooleanOrNull = (value: unknown): boolean | null => {
+  if (typeof value === "boolean") return value
+  if (typeof value === "string") {
+    if (value === "true") return true
+    if (value === "false") return false
+  }
+  if (typeof value === "number") {
+    if (value === 1) return true
+    if (value === 0) return false
+  }
+  return null
+}
+
 export const coerceNumber = (value: unknown, fallback: number): number => {
   if (typeof value === "number" && Number.isFinite(value)) return value
   if (typeof value === "string") {

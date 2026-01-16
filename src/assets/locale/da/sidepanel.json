@@ -104,6 +104,7 @@
     "saveFailedDescription": "Chatten gemmes nu kun lokalt. Tjek din forbindelse og prøv igen."
   },
   "rag": {
+    "attachedContext": "Vedhæftet kontekst",
     "searchPlaceholder": "Search your knowledge…",
     "search": "Search",
     "show": "Show RAG search",
@@ -111,6 +112,7 @@
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
     "noResults": "No results",
+    "initialState": "No results",
     "timeout": {
       "message": "Request timed out.",
       "increase": "Increase timeout",

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { useShortcut } from "@/hooks/useKeyboardShortcuts"
 import { useSetting } from "@/hooks/useSetting"
 import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settings"
@@ -21,6 +21,9 @@ import {
   Scissors,
   Gauge,
   Signpost,
+  FileText,
+  Rss,
+  Kanban,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -97,9 +100,11 @@ export function HeaderShortcuts({
   const [shortcutsExpanded, setShortcutsExpanded] = useState(() =>
     Boolean(shortcutsPreference ?? defaultExpanded)
   )
+  const location = useLocation()
   const shortcutsToggleRef = useRef<HTMLButtonElement>(null)
   const shortcutsContainerRef = useRef<HTMLDivElement>(null)
   const shortcutsSectionId = "header-shortcuts-section"
+  const previousPathRef = useRef(location.pathname)
 
   // Navigation groups
   const navigationGroups = React.useMemo(
@@ -166,6 +171,12 @@ export function HeaderShortcuts({
             icon: StickyNote,
             label: t("option:header.notes", "Notes"),
           },
+          {
+            type: "link" as const,
+            to: "/watchlists",
+            icon: Rss,
+            label: t("option:header.modeWatchlists", "Watchlists"),
+          },
         ],
       },
       {
@@ -197,6 +208,12 @@ export function HeaderShortcuts({
           },
           {
             type: "link" as const,
+            to: "/kanban",
+            icon: Kanban,
+            label: t("option:header.modeKanban", "Kanban Playground"),
+          },
+          {
+            type: "link" as const,
             to: "/prompt-studio",
             icon: NotebookPen,
             label: t("option:header.modePromptStudio", "Prompt Studio"),
@@ -211,6 +228,18 @@ export function HeaderShortcuts({
             to: "/admin/server",
             icon: CogIcon,
             label: t("option:header.adminServer", "Server Admin"),
+          },
+          {
+            type: "link" as const,
+            to: "/documentation",
+            icon: FileText,
+            label: t("option:header.modeDocumentation", "Documentation"),
+          },
+          {
+            type: "link" as const,
+            to: "/chatbooks",
+            icon: BookOpen,
+            label: t("option:header.chatbooksPlayground", "Chatbooks Playground"),
           },
           {
             type: "link" as const,
@@ -279,6 +308,12 @@ export function HeaderShortcuts({
     debouncedSetShortcutsPreference(next)
   }, [shortcutsExpanded, debouncedSetShortcutsPreference])
 
+  const handleShortcutNavigate = useCallback(() => {
+    if (!shortcutsExpanded) return
+    setShortcutsExpanded(false)
+    debouncedSetShortcutsPreference(false)
+  }, [shortcutsExpanded, debouncedSetShortcutsPreference])
+
   // Register "?" keyboard shortcut to toggle shortcuts
   useShortcut({
     key: "?",
@@ -287,6 +322,16 @@ export function HeaderShortcuts({
     description: "Toggle keyboard shortcuts",
     allowInInput: false,
   })
+
+  useEffect(() => {
+    if (previousPathRef.current !== location.pathname) {
+      previousPathRef.current = location.pathname
+      if (shortcutsExpanded) {
+        setShortcutsExpanded(false)
+        debouncedSetShortcutsPreference(false)
+      }
+    }
+  }, [location.pathname, shortcutsExpanded, debouncedSetShortcutsPreference])
 
   if (!showToggle && !shortcutsExpanded) {
     return null
@@ -372,6 +417,7 @@ export function HeaderShortcuts({
                         <NavLink
                           key={item.to}
                           to={item.to}
+                          onClick={handleShortcutNavigate}
                           className={({ isActive }) =>
                             classNames(
                               "flex w-full items-center gap-2 rounded-md border px-3 py-2 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus sm:w-auto",
