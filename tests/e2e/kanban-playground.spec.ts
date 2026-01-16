@@ -3,71 +3,26 @@ import path from 'path'
 
 import { launchWithExtension } from './utils/extension'
 
-const log = (message: string, data?: unknown) => {
-  if (data !== undefined) {
-    console.log(`[kanban-e2e] ${message}`, data)
-  } else {
-    console.log(`[kanban-e2e] ${message}`)
-  }
-}
-
-const attachPageLogging = (page: Page) => {
-  page.on('console', (msg) => {
-    log(`page:${msg.type()}`, msg.text())
-  })
-  page.on('pageerror', (err) => {
-    log('pageerror', err.message)
-  })
-  page.on('requestfailed', (req) => {
-    log('requestfailed', { url: req.url(), error: req.failure()?.errorText })
-  })
-}
-
-const readKanbanLogs = async (page: Page) =>
-  page.evaluate(() => (window as any).__kanbanLogs || [])
-
 const readKanbanSnapshot = async (page: Page) =>
   page.evaluate(() => (window as any).__kanbanSnapshot?.() || [])
 
-const readUiDebug = async (page: Page) =>
-  page.evaluate(() => (window as any).__kanbanUiDebug || null)
-
-const dumpKanbanState = async (page: Page, label: string) => {
-  const logs = await readKanbanLogs(page)
-  const snapshot = await readKanbanSnapshot(page)
-  log(`${label}: logCount=${logs.length}`)
-  if (logs.length) {
-    log('recentLogs', logs.slice(-10))
-  }
-  if (snapshot.length) {
-    log('snapshot', snapshot)
-  }
-}
-
 const waitForKanbanEvent = async (
   page: Page,
-  criteria: { event: string; path: string; method?: string },
-  label: string
+  criteria: { event: string; path: string; method?: string }
 ) => {
-  try {
-    await page.waitForFunction(
-      (target) => {
-        const logs = (window as any).__kanbanLogs || []
-        return logs.some(
-          (entry: any) =>
-            entry.event === target.event &&
-            entry.path === target.path &&
-            (!target.method || entry.method === target.method)
-        )
-      },
-      criteria,
-      { timeout: 5000 }
-    )
-    log(`${label} observed`, criteria)
-  } catch (error) {
-    log(`${label} not observed`, String(error))
-    await dumpKanbanState(page, `${label}-missing`)
-  }
+  await page.waitForFunction(
+    (target) => {
+      const logs = (window as any).__kanbanLogs || []
+      return logs.some(
+        (entry: any) =>
+          entry.event === target.event &&
+          entry.path === target.path &&
+          (!target.method || entry.method === target.method)
+      )
+    },
+    criteria,
+    { timeout: 5000 }
+  )
 }
 
 test.describe('Kanban playground smoke', () => {
@@ -79,7 +34,6 @@ test.describe('Kanban playground smoke', () => {
         __tldw_allow_offline: true
       }
     })
-    log('extension launched', { optionsUrl })
 
     await context.addInitScript(() => {
       const now = () => new Date().toISOString()
@@ -450,27 +404,11 @@ test.describe('Kanban playground smoke', () => {
     })
 
     const page = await context.newPage()
-    attachPageLogging(page)
-    log('navigate to kanban page')
     await page.goto(optionsUrl + '?e2e=1#/kanban', { waitUntil: 'domcontentloaded' })
     await page.waitForFunction(() => window.__kanbanStubbed === true)
-    log('stub ready')
-    const runtimeInfo = await page.evaluate(() => ({
-      href: window.location.href,
-      search: window.location.search,
-      hasBrowser: Boolean(window.browser),
-      hasChrome: Boolean(window.chrome),
-      browserIsChrome: window.browser === window.chrome,
-      browserRuntimeId: window.browser?.runtime?.id ?? null,
-      chromeRuntimeId: window.chrome?.runtime?.id ?? null
-    }))
-    log('runtime info', runtimeInfo)
     await basePage.close().catch(() => {})
-    await dumpKanbanState(page, 'after-navigation')
-    log('ui debug after navigation', await readUiDebug(page))
     await expect(page.getByRole('heading', { name: 'Kanban Playground' })).toBeVisible()
 
-    log('open create board modal')
     await page.getByRole('button', { name: 'New Board' }).click()
     const createDialog = page.getByRole('dialog', { name: /Create New Board/i })
     await expect(createDialog).toBeVisible()
@@ -478,19 +416,14 @@ test.describe('Kanban playground smoke', () => {
     await createDialog.getByRole('button', { name: 'Create' }).click()
     await waitForKanbanEvent(
       page,
-      { event: 'request', path: '/api/v1/kanban/boards', method: 'POST' },
-      'create-board-request'
+      { event: 'request', path: '/api/v1/kanban/boards', method: 'POST' }
     )
     await waitForKanbanEvent(
       page,
-      { event: 'response', path: '/api/v1/kanban/boards', method: 'POST' },
-      'create-board-response'
+      { event: 'response', path: '/api/v1/kanban/boards', method: 'POST' }
     )
-    await dumpKanbanState(page, 'after-create-click')
     const snapshotAfterCreate = await readKanbanSnapshot(page)
     const createdBoardId = snapshotAfterCreate?.[0]?.id
-    log('created board id', createdBoardId)
-    log('ui debug after create', await readUiDebug(page))
     if (createdBoardId) {
       await waitForKanbanEvent(
         page,
@@ -498,25 +431,12 @@ test.describe('Kanban playground smoke', () => {
           event: 'request',
           path: `/api/v1/kanban/boards/${createdBoardId}`,
           method: 'GET'
-        },
-        'get-board-request'
+        }
       )
     }
-    const selectedBoardLabel = await page
-      .locator('.ant-select-selection-item')
-      .first()
-      .textContent()
-      .catch(() => null)
-    log('selected board label', selectedBoardLabel)
-    const emptyStateVisible = await page
-      .getByText('Select a board or create a new one')
-      .isVisible()
-      .catch(() => false)
-    log('empty state visible', emptyStateVisible)
 
     await expect(page.getByRole('heading', { name: 'My Board' })).toBeVisible()
 
-    log('rename board')
     await page.getByRole('button', { name: 'Rename board' }).click()
     const renameDialog = page.getByRole('dialog', { name: /Rename Board/i })
     await expect(renameDialog).toBeVisible()
@@ -525,25 +445,21 @@ test.describe('Kanban playground smoke', () => {
 
     await expect(page.getByRole('heading', { name: 'My Renamed Board' })).toBeVisible()
 
-    log('add list Todo')
     await page.getByRole('button', { name: 'Add List' }).click()
     await page.getByPlaceholder('Enter list name').fill('Todo')
     await page.getByRole('button', { name: 'Add List' }).click()
 
-    log('add list Doing')
     await page.getByRole('button', { name: 'Add List' }).click()
     await page.getByPlaceholder('Enter list name').fill('Doing')
     await page.getByRole('button', { name: 'Add List' }).click()
 
     const todoList = page.locator('.kanban-list').filter({ hasText: 'Todo' })
-    log('add card Card A')
     await todoList.getByRole('button', { name: /Add card/i }).click()
     await todoList.getByPlaceholder('Enter card title').fill('Card A')
     await todoList.getByRole('button', { name: 'Add' }).click()
 
     await expect(todoList.getByText('Card A')).toBeVisible()
 
-    log('edit card Card A')
     await todoList.getByText('Card A').click()
     const drawer = page.locator('.ant-drawer-content')
     await expect(drawer.getByText('Edit Card')).toBeVisible()
@@ -557,22 +473,21 @@ test.describe('Kanban playground smoke', () => {
     await drawer.getByRole('button', { name: 'Save Changes' }).click()
     await drawer.getByRole('button', { name: 'Cancel' }).click()
 
-    log('clear description/priority')
     await todoList.getByText('Card A').click()
     await expect(drawer.getByText('Edit Card')).toBeVisible()
     await drawer.getByPlaceholder('Add a description...').fill('')
     await prioritySection.locator('.ant-select-clear').click()
     await drawer.getByRole('button', { name: 'Save Changes' }).click()
 
-    log('move card to Doing')
     const moveRow = drawer.getByRole('button', { name: 'Move' }).locator('..')
     const moveSelect = moveRow.locator('.ant-select-selector')
     await moveSelect.click()
     const moveDropdown = page.locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden)')
     await expect(moveDropdown).toBeVisible()
-    const moveOption = moveDropdown.getByRole('option', { name: 'Doing' })
+    const moveOption = moveDropdown.getByText('Doing', { exact: true })
     await expect(moveOption).toBeVisible()
     await moveOption.click()
+    await expect(moveRow.locator('.ant-select-selection-item')).toHaveText('Doing')
     await expect(drawer.getByRole('button', { name: 'Move' })).toBeEnabled()
     await drawer.getByRole('button', { name: 'Move' }).click()
     await waitForKanbanEvent(
@@ -581,15 +496,13 @@ test.describe('Kanban playground smoke', () => {
         event: 'request',
         path: '/api/v1/kanban/cards/1/move',
         method: 'POST'
-      },
-      'move-card-request'
+      }
     )
     await drawer.getByRole('button', { name: 'Cancel' }).click()
 
     const doingList = page.locator('.kanban-list').filter({ hasText: 'Doing' })
     await expect(doingList.getByText('Card A')).toBeVisible()
 
-    log('import board')
     await page.getByRole('tab', { name: /Import/i }).click()
 
     const importPayload = {

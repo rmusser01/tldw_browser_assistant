@@ -21,6 +21,7 @@ import { useWebUI } from "~/store/webui"
 import { defaultEmbeddingModelForRag } from "~/services/tldw-server"
 import {
   EraserIcon,
+  BookPlus,
   GitBranch,
   ImageIcon,
   MicIcon,
@@ -55,6 +56,10 @@ import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
 import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentChatModelSettings"
 import { ActorPopout } from "@/components/Common/Settings/ActorPopout"
 import { PromptSelect } from "@/components/Common/PromptSelect"
+import {
+  PromptInsertModal,
+  type PromptInsertItem
+} from "@/components/Common/PromptInsertModal"
 import { useConnectionState } from "@/hooks/useConnectionState"
 import { ConnectionPhase } from "@/types/connection"
 import { Link, useNavigate } from "react-router-dom"
@@ -210,6 +215,7 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const [showQueuedBanner, setShowQueuedBanner] = React.useState(true)
   const [documentGeneratorOpen, setDocumentGeneratorOpen] =
     React.useState(false)
+  const [promptInsertOpen, setPromptInsertOpen] = React.useState(false)
   const [documentGeneratorSeed, setDocumentGeneratorSeed] = React.useState<{
     conversationId?: string | null
     message?: string | null
@@ -1585,6 +1591,16 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     t,
     textareaRef
   ])
+
+  const handlePromptInsert = React.useCallback(
+    (prompt: PromptInsertItem) => {
+      setPromptInsertOpen(false)
+      if (prompt.content) {
+        setSelectedQuickPrompt(prompt.content)
+      }
+    },
+    [setPromptInsertOpen, setSelectedQuickPrompt]
+  )
 
   const queryClient = useQueryClient()
   const invalidateServerChatHistory = React.useCallback(() => {
@@ -3927,6 +3943,33 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                                 className="min-w-0 min-h-0 rounded-full border border-border px-2 py-1 text-text-muted hover:bg-surface2 hover:text-text"
                                 iconClassName="h-4 w-4"
                               />
+                              <Tooltip
+                                title={
+                                  t(
+                                    "option:promptInsert.useInChat",
+                                    "Insert prompt"
+                                  ) as string
+                                }>
+                                <button
+                                  type="button"
+                                  onClick={() => setPromptInsertOpen(true)}
+                                  aria-label={
+                                    t(
+                                      "option:promptInsert.useInChat",
+                                      "Insert prompt"
+                                    ) as string
+                                  }
+                                  className="inline-flex items-center gap-1 rounded-full border border-border px-2 py-1 text-xs text-text-muted transition hover:bg-surface2 hover:text-text"
+                                >
+                                  <BookPlus className="h-4 w-4" />
+                                  <span className="hidden text-xs font-medium sm:inline">
+                                    {t(
+                                      "option:promptInsert.useInChat",
+                                      "Insert prompt"
+                                    )}
+                                  </span>
+                                </button>
+                              </Tooltip>
                               {(browserSupportsSpeechRecognition || hasServerAudio) && (
                                 <>
                                   <Tooltip
@@ -4106,6 +4149,27 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
                             className="min-w-0 min-h-0 h-9 w-9 rounded-full border border-border text-text-muted hover:bg-surface2 hover:text-text"
                             iconClassName="h-4 w-4"
                           />
+                          <Tooltip
+                            title={
+                              t(
+                                "option:promptInsert.useInChat",
+                                "Insert prompt"
+                              ) as string
+                            }>
+                            <button
+                              type="button"
+                              onClick={() => setPromptInsertOpen(true)}
+                              aria-label={
+                                t(
+                                  "option:promptInsert.useInChat",
+                                  "Insert prompt"
+                                ) as string
+                              }
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-text-muted transition hover:bg-surface2 hover:text-text"
+                            >
+                              <BookPlus className="h-4 w-4" />
+                            </button>
+                          </Tooltip>
                           {(browserSupportsSpeechRecognition || hasServerAudio) && (
                             <Tooltip
                               title={
@@ -4300,6 +4364,11 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
           </div>
         </div>
       </div>
+      <PromptInsertModal
+        open={promptInsertOpen}
+        onClose={() => setPromptInsertOpen(false)}
+        onInsertPrompt={handlePromptInsert}
+      />
       <CurrentChatModelSettings
         open={openModelSettings}
         setOpen={setOpenModelSettings}

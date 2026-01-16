@@ -3,6 +3,7 @@ import React, { lazy, Suspense, useState } from "react"
 import { Drawer, Tooltip } from "antd"
 import { EraserIcon, XIcon } from "lucide-react"
 import { IconButton } from "../Common/IconButton"
+import { useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useQueryClient } from "@tanstack/react-query"
 
@@ -15,6 +16,7 @@ import {
   useQuickChatShortcuts
 } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { useQuickChatStore } from "@/store/quick-chat"
+import { useRouteTransitionStore } from "@/store/route-transition"
 import { QuickChatHelperButton } from "@/components/Common/QuickChatHelper"
 import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSettings"
 import { Sidebar } from "../Option/Sidebar"
@@ -23,6 +25,7 @@ import { useMigration } from "../../hooks/useMigration"
 import { useChatSidebar } from "@/hooks/useFeatureFlags"
 import { ChatSidebar } from "@/components/Common/ChatSidebar"
 import { EventOnlyHosts } from "@/components/Common/EventHosts"
+import { PageAssistLoader } from "@/components/Common/PageAssistLoader"
 
 // Lazy-load Timeline to reduce initial bundle size (~1.2MB cytoscape)
 const TimelineModal = lazy(() =>
@@ -47,13 +50,14 @@ import { DemoModeProvider, useDemoMode } from "@/context/demo-mode"
 type OptionLayoutProps = {
   children: React.ReactNode
   hideHeader?: boolean
-  showHeaderSelectors?: boolean
 }
+
+const SHORTCUT_LOADING_MIN_MS = 0
+const SHORTCUT_LOADING_MAX_MS = 2500
 
 const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   children,
-  hideHeader = false,
-  showHeaderSelectors = false
+  hideHeader = false
 }) => {
   const confirmDanger = useConfirmDanger()
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -63,9 +67,21 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   const { isLoading: migrationLoading } = useMigration()
   const { demoEnabled } = useDemoMode()
   const [showChatSidebar] = useChatSidebar()
+  const location = useLocation()
   const { clearChat, useOCR, chatMode, setChatMode, webSearch, setWebSearch } =
     useMessageOption()
   const queryClient = useQueryClient()
+  const {
+    active: shortcutLoading,
+    pendingPath: shortcutPendingPath,
+    startedAt: shortcutStartedAt,
+    stop: stopShortcutLoading
+  } = useRouteTransitionStore((state) => ({
+    active: state.active,
+    pendingPath: state.pendingPath,
+    startedAt: state.startedAt,
+    stop: state.stop
+  }))
 
   // Create toggle function for sidebar
   const toggleSidebar = () => {
@@ -102,6 +118,41 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
   useSidebarShortcuts(toggleSidebar, true)
   useQuickChatShortcuts(toggleQuickChat, true)
 
+  React.useEffect(() => {
+    if (!shortcutLoading) return
+    if (
+      shortcutPendingPath &&
+      shortcutPendingPath !== location.pathname
+    ) {
+      return
+    }
+    const elapsed = shortcutStartedAt ? Date.now() - shortcutStartedAt : 0
+    const delay = Math.max(SHORTCUT_LOADING_MIN_MS - elapsed, 0)
+    if (delay <= 0) {
+      stopShortcutLoading()
+      return
+    }
+    const timeoutId = window.setTimeout(() => {
+      stopShortcutLoading()
+    }, delay)
+    return () => window.clearTimeout(timeoutId)
+  }, [
+    shortcutLoading,
+    shortcutPendingPath,
+    location.pathname,
+    shortcutStartedAt,
+    stopShortcutLoading
+  ])
+
+  React.useEffect(() => {
+    if (!shortcutLoading) return
+    const timeoutId = window.setTimeout(() => {
+      stopShortcutLoading()
+    }, SHORTCUT_LOADING_MAX_MS)
+    return () => window.clearTimeout(timeoutId)
+  }, [shortcutLoading, stopShortcutLoading])
+
+
   if (migrationLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-bg ">
@@ -116,6 +167,20 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
       </div>
     )
   }
+
+  const renderShortcutOverlay = () => (
+    <div className="pointer-events-none absolute inset-0 z-30 flex justify-center px-4 sm:px-6 lg:px-8">
+      <div className="pointer-events-auto relative w-full max-w-6xl">
+        <div className="absolute inset-0 rounded-2xl bg-bg/70 backdrop-blur-[1px]">
+          <PageAssistLoader
+            label="Loading..."
+            fullScreen={false}
+            autoFocus={false}
+          />
+        </div>
+      </div>
+    </div>
+  )
 
   return (
     <div className="flex min-h-screen w-full">
@@ -136,18 +201,20 @@ const OptionLayoutInner: React.FC<OptionLayoutProps> = ({
         {hideHeader ? (
           <div className="relative flex min-h-screen flex-1 flex-col items-center justify-center px-4 py-10 sm:px-8 overflow-auto">
             {children}
+            {shortcutLoading && renderShortcutOverlay()}
           </div>
         ) : (
           <div className="relative flex min-h-[135vh] flex-col pt-2 sm:pt-3">
             <div className="relative z-20 w-full">
               <Header
-                setOpenModelSettings={setOpenModelSettings}
-                showSelectors={showHeaderSelectors}
                 onToggleSidebar={toggleSidebar}
                 sidebarCollapsed={chatSidebarCollapsed}
               />
             </div>
-            {children}
+            <div className="relative flex min-h-0 flex-1 flex-col">
+              {children}
+              {shortcutLoading && renderShortcutOverlay()}
+            </div>
           </div>
         )}
         {/* Legacy Drawer sidebar - only shown when new ChatSidebar feature is disabled */}

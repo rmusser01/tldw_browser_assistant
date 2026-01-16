@@ -189,7 +189,7 @@ const firefoxMV2Permissions = [
 ]
 
 const chromeExtensionPagesCsp = isDevelopment
-  ? "script-src 'self' 'wasm-unsafe-eval' http://localhost:* http://127.0.0.1:* 'sha256-KBN6R1KcvjRVpG1rNylmQazReH5ay4n5vCmBrCLTJSE='; object-src 'self';"
+  ? "script-src 'self' 'wasm-unsafe-eval' http://localhost:* http://127.0.0.1:*; object-src 'self';"
   : "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
 
 const firefoxExtensionPagesCsp =

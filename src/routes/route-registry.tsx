@@ -157,7 +157,7 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
     kind: "options",
     path: "/onboarding-test",
     element: (
-      <OptionLayout hideHeader={true} showHeaderSelectors={false}>
+      <OptionLayout hideHeader>
         <OnboardingWizard />
       </OptionLayout>
     ),

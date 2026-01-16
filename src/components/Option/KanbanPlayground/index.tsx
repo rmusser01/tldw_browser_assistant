@@ -1,6 +1,16 @@
-import { useState, useCallback, useEffect, useMemo } from "react"
+import { useState, useCallback } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { Tabs, message, Spin, Empty, Button, Select, Modal, Input } from "antd"
+import {
+  Tabs,
+  message,
+  Spin,
+  Empty,
+  Button,
+  Select,
+  Modal,
+  Input,
+  Badge
+} from "antd"
 import { Plus, Kanban, Upload, RefreshCw } from "lucide-react"
 import { useTranslation } from "react-i18next"
 
@@ -19,29 +29,6 @@ type PlaygroundTab = "board" | "import"
 export const KanbanPlayground = () => {
   const { t } = useTranslation(["settings", "common"])
   const queryClient = useQueryClient()
-  const debugEnabled = useMemo(() => {
-    if (typeof window === "undefined") return false
-    try {
-      const href = window.location.href
-      if (href.includes("e2e=1") || href.includes("e2e=true")) return true
-      return new URLSearchParams(window.location.search).has("e2e")
-    } catch {
-      return false
-    }
-  }, [])
-
-  const debugLog = useCallback(
-    (message: string, data?: Record<string, unknown>) => {
-      if (!debugEnabled) return
-      if (data) {
-        console.log(`[kanban-ui] ${message}`, data)
-      } else {
-        console.log(`[kanban-ui] ${message}`)
-      }
-    },
-    [debugEnabled]
-  )
-
   // Tab state
   const [activeTab, setActiveTab] = useState<PlaygroundTab>("board")
 
@@ -80,7 +67,6 @@ export const KanbanPlayground = () => {
     mutationFn: (name: string) =>
       createBoard({ name, client_id: generateClientId() }),
     onSuccess: (newBoard) => {
-      debugLog("createBoard:success", { boardId: newBoard.id })
       message.success("Board created")
       queryClient.invalidateQueries({ queryKey: ["kanban-boards"] })
       setSelectedBoardId(newBoard.id)
@@ -88,9 +74,6 @@ export const KanbanPlayground = () => {
       setNewBoardName("")
     },
     onError: (err) => {
-      debugLog("createBoard:error", {
-        message: err instanceof Error ? err.message : "Unknown error"
-      })
       message.error(`Failed to create board: ${err instanceof Error ? err.message : "Unknown error"}`)
     }
   })
@@ -99,15 +82,11 @@ export const KanbanPlayground = () => {
   const deleteBoardMutation = useMutation({
     mutationFn: (boardId: number) => deleteBoard(boardId),
     onSuccess: () => {
-      debugLog("deleteBoard:success")
       message.success("Board deleted")
       queryClient.invalidateQueries({ queryKey: ["kanban-boards"] })
       setSelectedBoardId(null)
     },
     onError: (err) => {
-      debugLog("deleteBoard:error", {
-        message: err instanceof Error ? err.message : "Unknown error"
-      })
       message.error(`Failed to delete board: ${err instanceof Error ? err.message : "Unknown error"}`)
     }
   })
@@ -117,9 +96,8 @@ export const KanbanPlayground = () => {
       message.warning("Please enter a board name")
       return
     }
-    debugLog("createBoard:submit", { name: newBoardName.trim() })
     createBoardMutation.mutate(newBoardName.trim())
-  }, [newBoardName, createBoardMutation, debugLog])
+  }, [newBoardName, createBoardMutation])
 
   const handleDeleteBoard = useCallback(() => {
     if (!selectedBoardId) return
@@ -139,27 +117,6 @@ export const KanbanPlayground = () => {
     label: b.name
   }))
 
-  useEffect(() => {
-    if (!debugEnabled) return
-    const debugState = {
-      selectedBoardId,
-      createModalOpen,
-      createPending: createBoardMutation.isPending,
-      boardsCount: boards.length,
-      boardLoaded: boardData ? boardData.id : null
-    }
-    ;(window as any).__kanbanUiDebug = debugState
-    debugLog("state", debugState)
-  }, [
-    debugEnabled,
-    selectedBoardId,
-    createModalOpen,
-    createBoardMutation.isPending,
-    boards.length,
-    boardData?.id,
-    debugLog
-  ])
-
   const renderHeader = () => (
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center gap-3">
@@ -167,6 +124,16 @@ export const KanbanPlayground = () => {
         <h1 className="text-xl font-semibold">Kanban Playground</h1>
       </div>
       <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <span>Boards</span>
+          <Badge
+            count={boards.length}
+            showZero
+            styles={{
+              indicator: { backgroundColor: "#60a5fa", color: "#0b1f4b" }
+            }}
+          />
+        </div>
         <Select
           placeholder="Select a board"
           style={{ width: 200 }}
