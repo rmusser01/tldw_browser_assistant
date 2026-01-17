@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
   DndContext,
   closestCenter,
@@ -39,6 +39,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { useDataTablesStore } from "@/store/data-tables"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
+import { pollDataTableJob } from "@/utils/data-tables-jobs"
 import type { DataTableColumn, DataTableRow } from "@/types/data-tables"
 import { EditableCell } from "./EditableCell"
 import { AddColumnModal } from "./AddColumnModal"
@@ -106,6 +107,7 @@ export const TablePreview: React.FC = () => {
   const { t } = useTranslation(["dataTables", "common"])
 
   // Store state
+  const tableName = useDataTablesStore((s) => s.tableName)
   const prompt = useDataTablesStore((s) => s.prompt)
   const selectedSources = useDataTablesStore((s) => s.selectedSources)
   const columnHints = useDataTablesStore((s) => s.columnHints)
@@ -141,6 +143,7 @@ export const TablePreview: React.FC = () => {
 
   // Local state
   const [addColumnModalOpen, setAddColumnModalOpen] = useState(false)
+  const generationAbortRef = useRef<AbortController | null>(null)
 
   // DnD sensors
   const sensors = useSensors(
@@ -148,8 +151,17 @@ export const TablePreview: React.FC = () => {
     useSensor(KeyboardSensor)
   )
 
+  useEffect(() => {
+    return () => {
+      generationAbortRef.current?.abort()
+    }
+  }, [])
+
   // Generate table
   const generateTable = async () => {
+    generationAbortRef.current?.abort()
+    const abortController = new AbortController()
+    generationAbortRef.current = abortController
     setIsGenerating(true)
     setGenerationError(null)
     setGenerationWarnings([])
@@ -158,6 +170,7 @@ export const TablePreview: React.FC = () => {
 
     try {
       const response = await tldwClient.generateDataTable({
+        name: tableName.trim() || "Untitled Table",
         prompt,
         sources: selectedSources.map((s) => ({
           type: s.type,
@@ -170,29 +183,46 @@ export const TablePreview: React.FC = () => {
         max_rows: maxRows
       })
 
-      // Handle response
-      const table = response?.table || response
-      if (table) {
-        // Give it a temporary ID for editing
-        const tableWithId = {
-          ...table,
-          id: table.id || `preview-${Date.now()}`
-        }
-        setGeneratedTable(tableWithId)
-        startEditing(tableWithId) // Start editing mode
-        if (response?.warnings) {
-          setGenerationWarnings(response.warnings)
-        }
-        message.success(t("dataTables:generateSuccess", "Table generated successfully!"))
-      } else {
+      const jobId = response?.job_id
+      const tableUuid = response?.table?.uuid
+      if (!jobId || !tableUuid) {
+        throw new Error("Generation job was not created")
+      }
+
+      const jobStatus = await pollDataTableJob({
+        jobId,
+        fetchJob: (id) => tldwClient.getDataTableJob(id),
+        signal: abortController.signal
+      })
+      if (abortController.signal.aborted) return
+
+      const status = String(jobStatus?.status || "").toLowerCase()
+      if (status !== "completed") {
+        throw new Error(jobStatus?.error_message || "Generation failed")
+      }
+
+      const table = await tldwClient.getDataTable(jobStatus.table_uuid || tableUuid)
+      if (!table) {
         throw new Error("No table data in response")
       }
+
+      const tableWithId = {
+        ...table,
+        id: table.id || `preview-${Date.now()}`
+      }
+      setGeneratedTable(tableWithId)
+      startEditing(tableWithId) // Start editing mode
+      message.success(t("dataTables:generateSuccess", "Table generated successfully!"))
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Generation failed"
-      setGenerationError(errorMessage)
-      message.error(errorMessage)
+      if (!abortController.signal.aborted) {
+        setGenerationError(errorMessage)
+        message.error(errorMessage)
+      }
     } finally {
-      setIsGenerating(false)
+      if (!abortController.signal.aborted) {
+        setIsGenerating(false)
+      }
     }
   }
 
@@ -452,7 +482,7 @@ export const TablePreview: React.FC = () => {
         <span className="font-medium">{editingRows.length || generatedTable?.rows?.length || 0}</span>{" "}
         {t("dataTables:rows", "rows")} &bull;{" "}
         <span className="font-medium">{(editingTable?.columns || generatedTable?.columns)?.length || 0}</span>{" "}
-        {t("dataTables:columns", "columns")}
+        {t("dataTables:columnsLabel", "columns")}
       </div>
 
       {/* Editable table with DnD */}

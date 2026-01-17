@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Empty, Skeleton, Input, Modal, message } from "antd"
 import { useStorage } from "@plasmohq/storage/hook"
 import { FolderPlus, Tag, Trash2 } from "lucide-react"
+import { browser } from "wxt/browser"
 
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useConnectionState } from "@/hooks/useConnectionState"
@@ -22,6 +23,8 @@ import {
 import { updatePageTitle } from "@/utils/update-page-title"
 import { cn } from "@/libs/utils"
 import { normalizeConversationState } from "@/utils/conversation-state"
+import { useDataTablesStore } from "@/store/data-tables"
+import { queueDataTablesPrefill } from "@/utils/data-tables-prefill"
 import { ServerChatRow } from "./ServerChatRow"
 
 const BulkFolderPickerModal = React.lazy(
@@ -48,7 +51,13 @@ export function ServerChatList({
   className,
   selectionMode: selectionModeProp
 }: ServerChatListProps) {
-  const { t } = useTranslation(["common", "sidepanel", "option", "playground"])
+  const { t } = useTranslation([
+    "common",
+    "sidepanel",
+    "option",
+    "playground",
+    "dataTables"
+  ])
   const { isConnected } = useConnectionState()
   const queryClient = useQueryClient()
   const confirmDanger = useConfirmDanger()
@@ -93,6 +102,44 @@ export function ServerChatList({
   const [bulkFolderPickerOpen, setBulkFolderPickerOpen] = React.useState(false)
   const [bulkTagPickerOpen, setBulkTagPickerOpen] = React.useState(false)
   const [bulkDeleteConfirmOpen, setBulkDeleteConfirmOpen] = React.useState(false)
+
+  const openExtensionUrl = (
+    path: `/options.html${string}` | `/sidepanel.html${string}`
+  ) => {
+    try {
+      if (browser?.runtime?.getURL) {
+        const url = browser.runtime.getURL(path)
+        if (browser.tabs?.create) {
+          browser.tabs.create({ url })
+        } else {
+          window.open(url, "_blank")
+        }
+        return
+      }
+    } catch (err) {
+      console.debug("[ServerChatList] openExtensionUrl browser API unavailable:", err)
+    }
+
+    try {
+      if (typeof chrome !== "undefined" && chrome.runtime?.getURL) {
+        const url = chrome.runtime.getURL(path)
+        window.open(url, "_blank")
+        return
+      }
+      if (
+        typeof chrome !== "undefined" &&
+        chrome.runtime?.openOptionsPage &&
+        path.includes("/options.html")
+      ) {
+        chrome.runtime.openOptionsPage()
+        return
+      }
+    } catch (err) {
+      console.debug("[ServerChatList] openExtensionUrl chrome API unavailable:", err)
+    }
+
+    window.open(path, "_blank")
+  }
 
   const {
     folderApiAvailable,
@@ -229,6 +276,37 @@ export function ServerChatList({
       return next
     })
   }, [selectionMode, visibleChatIdSet])
+
+  const handleCreateTable = React.useCallback(
+    async (chat: ServerChatHistoryItem) => {
+      const source = {
+        type: "chat" as const,
+        id: chat.id,
+        title: chat.title || `Chat ${chat.id}`,
+        snippet: chat.topic_label || undefined
+      }
+      const isOptionsPage =
+        typeof window !== "undefined" &&
+        window.location.pathname.endsWith("options.html")
+
+      if (isOptionsPage) {
+        const dataTableStore = useDataTablesStore.getState()
+        dataTableStore.resetWizard()
+        dataTableStore.addSource(source)
+        dataTableStore.setWizardStep("prompt")
+        const navigateFn = (window as Window & { __tldwNavigate?: (path: string) => void })
+          .__tldwNavigate
+        if (navigateFn) {
+          navigateFn("/data-tables")
+          return
+        }
+      }
+
+      await queueDataTablesPrefill({ kind: "chat", source })
+      openExtensionUrl("/options.html#/data-tables")
+    },
+    []
+  )
 
   React.useEffect(() => {
     if (selectionMode) {
@@ -697,6 +775,7 @@ export function ServerChatList({
               onTogglePinned={togglePinned}
               onOpenSettings={handleOpenSettings}
               onRenameChat={handleRenameChat}
+              onCreateTable={handleCreateTable}
               onEditTopic={handleEditTopic}
               onDeleteChat={handleDeleteChat}
               onUpdateState={handleUpdateState}
@@ -720,6 +799,7 @@ export function ServerChatList({
               onTogglePinned={togglePinned}
               onOpenSettings={handleOpenSettings}
               onRenameChat={handleRenameChat}
+              onCreateTable={handleCreateTable}
               onEditTopic={handleEditTopic}
               onDeleteChat={handleDeleteChat}
               onUpdateState={handleUpdateState}

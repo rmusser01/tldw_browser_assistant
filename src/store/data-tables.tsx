@@ -42,6 +42,7 @@ interface WizardState {
   sourceSearchQuery: string
   activeSourceType: DataTableSourceType
   // Generation
+  tableName: string
   prompt: string
   columnHints: Partial<DataTableColumn>[]
   selectedModel: string | null
@@ -101,6 +102,7 @@ interface WizardActions {
   setSourceSearchQuery: (query: string) => void
   setActiveSourceType: (type: DataTableSourceType) => void
   // Generation
+  setTableName: (name: string) => void
   setPrompt: (prompt: string) => void
   addColumnHint: (hint: Partial<DataTableColumn>) => void
   updateColumnHint: (index: number, hint: Partial<DataTableColumn>) => void
@@ -183,6 +185,7 @@ const initialWizardState: WizardState = {
   selectedSources: [],
   sourceSearchQuery: "",
   activeSourceType: "chat",
+  tableName: "",
   prompt: "",
   columnHints: [],
   selectedModel: null,
@@ -297,6 +300,7 @@ export const useDataTablesStore = create<DataTablesState>()((set) => ({
   setActiveSourceType: (activeSourceType) => set({ activeSourceType }),
 
   // Generation
+  setTableName: (tableName) => set({ tableName }),
   setPrompt: (prompt) => set({ prompt }),
 
   addColumnHint: (hint) =>

@@ -71,13 +71,7 @@ export const DataTablesList: React.FC = () => {
         search: tablesSearch || undefined
       })
 
-      // Handle different response formats
-      const tablesList = Array.isArray(response)
-        ? response
-        : response?.tables || response?.data || []
-      const total = response?.total ?? tablesList.length
-
-      setTables(tablesList, total)
+      setTables(response.tables, response.total)
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to load tables"
       setTablesError(errorMessage)

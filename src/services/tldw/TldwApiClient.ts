@@ -5,6 +5,14 @@ import { isPlaceholderApiKey } from "@/utils/api-key"
 import { normalizeChatRole } from "@/utils/normalize-chat-role"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
 import { appendPathQuery } from "@/services/tldw/path-utils"
+import {
+  buildContentPayload,
+  mapApiDetailToUi,
+  mapApiListToUi,
+  mapUiSourceToApi,
+  type ApiDataTableGenerateResponse,
+  type ApiDataTableJobStatus
+} from "@/services/tldw/data-tables"
 
 const DEFAULT_SERVER_URL = "http://127.0.0.1:8000"
 const CHARACTER_CACHE_TTL_MS = 5 * 60 * 1000
@@ -947,6 +955,41 @@ export class TldwApiClient {
       else normalized[k] = v
     }
     return await bgUpload<any>({ path: '/api/v1/media/add', method: 'POST', fields: normalized, file: { name, type, data } })
+  }
+
+  async listMedia(params?: {
+    page?: number
+    results_per_page?: number
+    include_keywords?: boolean
+  }): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/media${query}`,
+      method: "GET"
+    })
+  }
+
+  async searchMedia(
+    payload: {
+      query?: string
+      fields?: string[]
+      exact_phrase?: string
+      media_types?: string[]
+      date_range?: Record<string, any>
+      must_have?: string[]
+      must_not_have?: string[]
+      sort_by?: string
+      boost_fields?: Record<string, number>
+    },
+    params?: { page?: number; results_per_page?: number }
+  ): Promise<any> {
+    const query = this.buildQuery(params as Record<string, any>)
+    return await bgRequest<any>({
+      path: `/api/v1/media/search${query}`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    })
   }
 
   // Notes Methods
@@ -2162,37 +2205,57 @@ export class TldwApiClient {
   async listDataTables(params?: {
     page?: number
     page_size?: number
+    limit?: number
+    offset?: number
     search?: string
-    sort_by?: string
-    sort_order?: string
-  }): Promise<any> {
-    const query = this.buildQuery(params as Record<string, any>)
-    return await bgRequest<any>({
+    status?: string
+  }): Promise<{ tables: any[]; total: number }> {
+    const limit = params?.limit ?? params?.page_size ?? 20
+    const page = params?.page ?? 1
+    const offset = params?.offset ?? Math.max(0, (page - 1) * limit)
+    const query = this.buildQuery({
+      limit,
+      offset,
+      search: params?.search,
+      status_filter: params?.status
+    } as Record<string, any>)
+    const response = await bgRequest<any>({
       path: `/api/v1/data-tables${query}`,
       method: "GET"
     })
+    return mapApiListToUi(response)
   }
 
   async getDataTable(tableId: string): Promise<any> {
     const id = encodeURIComponent(tableId)
-    return await bgRequest<any>({
+    const response = await bgRequest<any>({
       path: `/api/v1/data-tables/${id}`,
       method: "GET"
     })
+    return response?.table ? mapApiDetailToUi(response) : response
   }
 
   async generateDataTable(payload: {
+    name: string
     prompt: string
     sources: Array<{ type: string; id: string; title: string; snippet?: string }>
-    column_hints?: Array<{ name?: string; type?: string; description?: string }>
+    column_hints?: Array<{ name?: string; type?: string; description?: string; format?: string }>
     model?: string
     max_rows?: number
-  }): Promise<any> {
-    return await bgRequest<any>({
+  }): Promise<ApiDataTableGenerateResponse> {
+    const body = {
+      name: payload.name,
+      prompt: payload.prompt,
+      sources: payload.sources.map(mapUiSourceToApi),
+      column_hints: payload.column_hints,
+      model: payload.model,
+      max_rows: payload.max_rows
+    }
+    return await bgRequest<ApiDataTableGenerateResponse>({
       path: "/api/v1/data-tables/generate",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: payload
+      body
     })
   }
 
@@ -2203,7 +2266,7 @@ export class TldwApiClient {
     const id = encodeURIComponent(tableId)
     return await bgRequest<any>({
       path: `/api/v1/data-tables/${id}`,
-      method: "PUT",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: payload
     })
@@ -2217,12 +2280,14 @@ export class TldwApiClient {
     }
   ): Promise<any> {
     const id = encodeURIComponent(tableId)
-    return await bgRequest<any>({
+    const body = buildContentPayload(payload.columns, payload.rows)
+    const response = await bgRequest<any>({
       path: `/api/v1/data-tables/${id}/content`,
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: payload
+      body
     })
+    return response?.table ? mapApiDetailToUi(response) : response
   }
 
   async deleteDataTable(tableId: string): Promise<void> {
@@ -2233,12 +2298,19 @@ export class TldwApiClient {
     })
   }
 
+  async getDataTableJob(jobId: number): Promise<ApiDataTableJobStatus> {
+    return await bgRequest<ApiDataTableJobStatus>({
+      path: `/api/v1/data-tables/jobs/${encodeURIComponent(String(jobId))}`,
+      method: "GET"
+    })
+  }
+
   async regenerateDataTable(
     tableId: string,
-    payload?: { prompt?: string; model?: string }
-  ): Promise<any> {
+    payload?: { prompt?: string; model?: string; max_rows?: number }
+  ): Promise<ApiDataTableGenerateResponse> {
     const id = encodeURIComponent(tableId)
-    return await bgRequest<any>({
+    return await bgRequest<ApiDataTableGenerateResponse>({
       path: `/api/v1/data-tables/${id}/regenerate`,
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -48,6 +48,7 @@ export const GenerationPanel: React.FC = () => {
   const { t } = useTranslation(["dataTables", "common"])
 
   // Store state
+  const tableName = useDataTablesStore((s) => s.tableName)
   const prompt = useDataTablesStore((s) => s.prompt)
   const columnHints = useDataTablesStore((s) => s.columnHints)
   const selectedModel = useDataTablesStore((s) => s.selectedModel)
@@ -55,6 +56,7 @@ export const GenerationPanel: React.FC = () => {
   const selectedSources = useDataTablesStore((s) => s.selectedSources)
 
   // Store actions
+  const setTableName = useDataTablesStore((s) => s.setTableName)
   const setPrompt = useDataTablesStore((s) => s.setPrompt)
   const addColumnHint = useDataTablesStore((s) => s.addColumnHint)
   const updateColumnHint = useDataTablesStore((s) => s.updateColumnHint)
@@ -104,6 +106,19 @@ export const GenerationPanel: React.FC = () => {
             </Tag>
           ))}
         </div>
+      </div>
+
+      {/* Table name */}
+      <div>
+        <h4 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+          {t("dataTables:tableName", "Table Name")}
+        </h4>
+        <Input
+          value={tableName}
+          onChange={(e) => setTableName(e.target.value)}
+          placeholder={t("dataTables:tableNamePlaceholder", "Enter a name for your table")}
+          maxLength={100}
+        />
       </div>
 
       {/* Prompt input */}

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { useServerOnline } from "@/hooks/useServerOnline"
 import { PageShell } from "@/components/Common/PageShell"
 import { useDataTablesStore } from "@/store/data-tables"
+import { consumeDataTablesPrefill } from "@/utils/data-tables-prefill"
 import { DataTablesList } from "./DataTablesList"
 import { CreateTableWizard } from "./CreateTableWizard"
 
@@ -21,7 +22,11 @@ export const DataTablesPage: React.FC = () => {
 
   const activeTab = useDataTablesStore((s) => s.activeTab)
   const setActiveTab = useDataTablesStore((s) => s.setActiveTab)
+  const addSource = useDataTablesStore((s) => s.addSource)
+  const setWizardStep = useDataTablesStore((s) => s.setWizardStep)
+  const setGeneratedTable = useDataTablesStore((s) => s.setGeneratedTable)
   const resetStore = useDataTablesStore((s) => s.resetStore)
+  const resetWizard = useDataTablesStore((s) => s.resetWizard)
 
   // Reset store on unmount
   useEffect(() => {
@@ -29,6 +34,36 @@ export const DataTablesPage: React.FC = () => {
       resetStore()
     }
   }, [resetStore])
+
+  useEffect(() => {
+    let isActive = true
+    const applyPrefill = async () => {
+      const payload = await consumeDataTablesPrefill()
+      if (!payload || !isActive) return
+
+      resetWizard()
+
+      if (payload.kind === "chat") {
+        addSource(payload.source)
+        setWizardStep("prompt")
+        return
+      }
+
+      if (payload.kind === "artifact") {
+        if (payload.source) {
+          addSource(payload.source)
+        }
+        setGeneratedTable(payload.table)
+        setWizardStep("preview")
+      }
+    }
+
+    void applyPrefill()
+
+    return () => {
+      isActive = false
+    }
+  }, [addSource, resetWizard, setGeneratedTable, setWizardStep])
 
   const tabItems: TabsProps["items"] = [
     {

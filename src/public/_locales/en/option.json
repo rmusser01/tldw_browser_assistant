@@ -2812,5 +2812,8 @@
   },
   "flashcards_createCard": {
     "message": "Create Flashcard"
+  },
+  "header_dataTables": {
+    "message": "Data Tables"
   }
 }

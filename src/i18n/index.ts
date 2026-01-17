@@ -14,7 +14,8 @@ const NAMESPACES = [
     "sidepanel",
     "settings",
     "knowledge",
-    "review"
+    "review",
+    "dataTables"
 ] as const
 
 type Namespace = typeof NAMESPACES[number]

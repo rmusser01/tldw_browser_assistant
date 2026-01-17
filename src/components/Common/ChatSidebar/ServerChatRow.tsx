@@ -10,6 +10,7 @@ import {
   Pencil,
   Pin,
   PinOff,
+  Table2,
   Settings2,
   Tag,
   Trash2,
@@ -40,6 +41,7 @@ type ServerChatRowCommonProps = {
   onTogglePinned: (chatId: string) => void
   onOpenSettings: (chat: ServerChatHistoryItem) => void
   onRenameChat: (chat: ServerChatHistoryItem) => void
+  onCreateTable: (chat: ServerChatHistoryItem) => void
   onEditTopic: (chat: ServerChatHistoryItem) => void
   onDeleteChat: (chat: ServerChatHistoryItem) => void | Promise<void>
   onUpdateState: (chat: ServerChatHistoryItem, state: ConversationState) => void
@@ -114,6 +116,15 @@ export const ServerChatRow = React.memo((props: ServerChatRowAllProps) => {
       onClick: () => {
         setOpenMenuFor(null)
         onRenameChat(chat)
+      }
+    },
+    {
+      key: "create-table",
+      icon: <Table2 className="size-3" />,
+      label: t("dataTables:createFromChat", "Create Table from Chat"),
+      onClick: () => {
+        setOpenMenuFor(null)
+        onCreateTable(chat)
       }
     },
     {

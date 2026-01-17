@@ -39,11 +39,17 @@ export const SaveTablePanel: React.FC = () => {
     if (!generatedTable) return
 
     const name = tableName.trim() || "Untitled Table"
+    const tableId = generatedTable.id || `local-${Date.now()}`
+    const canUpdateRemote =
+      Boolean(generatedTable.id) &&
+      !generatedTable.id.startsWith("preview-") &&
+      !generatedTable.id.startsWith("artifact-") &&
+      !generatedTable.id.startsWith("local-")
     setIsSaving(true)
 
     try {
       // If table has an ID, update it; otherwise the server should have assigned one
-      if (generatedTable.id) {
+      if (canUpdateRemote && generatedTable.id) {
         await tldwClient.updateDataTable(generatedTable.id, {
           name,
           description: tableDescription.trim() || undefined
@@ -52,7 +58,7 @@ export const SaveTablePanel: React.FC = () => {
 
       // Add to local store
       addTable({
-        id: generatedTable.id,
+        id: tableId,
         name,
         description: tableDescription.trim() || undefined,
         row_count: generatedTable.row_count || generatedTable.rows?.length || 0,
@@ -155,7 +161,7 @@ export const SaveTablePanel: React.FC = () => {
               {generatedTable.row_count || generatedTable.rows?.length || 0}{" "}
               {t("dataTables:rows", "rows")} &bull;{" "}
               {generatedTable.columns?.length || 0}{" "}
-              {t("dataTables:columns", "columns")} &bull;{" "}
+              {t("dataTables:columnsLabel", "columns")} &bull;{" "}
               {generatedTable.sources?.length || 0}{" "}
               {t("dataTables:sources", "sources")}
             </p>

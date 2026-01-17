@@ -202,7 +202,7 @@ export const RouteShell = ({ kind }: { kind: RouteKind }) => {
   }, [kind])
   React.useEffect(() => {
     if (kind === "options") {
-      void ensureI18nNamespaces(["option"])
+      void ensureI18nNamespaces(["option", "dataTables"])
       const path = location.pathname
       const needsReview =
         path === "/review" ||
@@ -213,6 +213,7 @@ export const RouteShell = ({ kind }: { kind: RouteKind }) => {
       }
     } else {
       void ensureI18nNamespaces(["sidepanel", "common", "settings", "playground"])
+      void ensureI18nNamespaces(["dataTables"])
       // Sidepanel uses some "option" strings; keep loaded for now to avoid missing labels.
       void ensureI18nNamespaces(["option"])
     }

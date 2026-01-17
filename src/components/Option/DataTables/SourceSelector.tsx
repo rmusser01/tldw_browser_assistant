@@ -16,6 +16,25 @@ import { useDataTablesStore } from "@/store/data-tables"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { DataTableSource, DataTableSourceType } from "@/types/data-tables"
 
+const DOCUMENT_MEDIA_TYPES = new Set([
+  "document",
+  "pdf",
+  "ebook",
+  "email",
+  "code",
+  "html"
+])
+
+const extractMediaItems = (response: any): any[] => {
+  if (!response) return []
+  if (Array.isArray(response)) return response
+  if (Array.isArray(response.items)) return response.items
+  if (Array.isArray(response.results)) return response.results
+  if (Array.isArray(response.data)) return response.data
+  if (Array.isArray(response.media)) return response.media
+  return []
+}
+
 /**
  * SourceSelector
  *
@@ -95,25 +114,41 @@ export const SourceSelector: React.FC = () => {
         }))
         setAvailableItems(sources)
       } else if (activeSourceType === "document") {
-        // Note: This assumes a media/documents endpoint exists
-        // Adjust based on actual API
-        try {
-          const response = await tldwClient.listChats({
-            limit: 50,
-            source: "media",
-            search: sourceSearchQuery || undefined
+        const mediaTypes = Array.from(DOCUMENT_MEDIA_TYPES)
+        const response = sourceSearchQuery
+          ? await tldwClient.searchMedia(
+              {
+                query: sourceSearchQuery,
+                fields: ["title", "content"],
+                media_types: mediaTypes
+              },
+              { page: 1, results_per_page: 50 }
+            )
+          : await tldwClient.listMedia({ page: 1, results_per_page: 50 })
+
+        const items = extractMediaItems(response)
+        const sources: DataTableSource[] = items
+          .map((item: any) => {
+            const rawType = String(item?.type || item?.media_type || "").toLowerCase()
+            if (rawType && !DOCUMENT_MEDIA_TYPES.has(rawType)) {
+              return null
+            }
+            const title = item?.title || item?.name || `Document ${item?.id ?? ""}`
+            const snippet =
+              item?.content_preview ||
+              item?.description ||
+              item?.summary ||
+              (rawType ? rawType.toUpperCase() : undefined)
+            return {
+              type: "document" as const,
+              id: String(item?.id ?? ""),
+              title,
+              snippet
+            }
           })
-          const sources: DataTableSource[] = (response || []).map((item: any) => ({
-            type: "document" as const,
-            id: String(item.id),
-            title: item.title || item.name || `Document ${item.id}`,
-            snippet: item.description || item.summary || undefined
-          }))
-          setAvailableItems(sources)
-        } catch {
-          // If media endpoint doesn't work, show empty
-          setAvailableItems([])
-        }
+          .filter(Boolean) as DataTableSource[]
+
+        setAvailableItems(sources)
       }
     } catch (error) {
       console.error("Failed to fetch items:", error)

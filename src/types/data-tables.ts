@@ -61,6 +61,7 @@ export interface DataTableSummary {
 
 // Request to generate a new table
 export interface GenerateTableRequest {
+  name: string
   prompt: string
   sources: DataTableSource[]
   column_hints?: Partial<DataTableColumn>[] // Optional schema guidance

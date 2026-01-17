@@ -420,7 +420,7 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
         <span className="font-medium">
           {(editingTable?.columns || table.columns || []).length}
         </span>{" "}
-        {t("dataTables:columns", "columns")}
+        {t("dataTables:columnsLabel", "columns")}
       </div>
 
       {/* Table with DnD */}

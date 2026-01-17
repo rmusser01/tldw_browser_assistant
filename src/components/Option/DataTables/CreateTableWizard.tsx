@@ -22,6 +22,7 @@ export const CreateTableWizard: React.FC = () => {
   // Store state
   const wizardStep = useDataTablesStore((s) => s.wizardStep)
   const selectedSources = useDataTablesStore((s) => s.selectedSources)
+  const tableName = useDataTablesStore((s) => s.tableName)
   const prompt = useDataTablesStore((s) => s.prompt)
   const generatedTable = useDataTablesStore((s) => s.generatedTable)
   const isGenerating = useDataTablesStore((s) => s.isGenerating)
@@ -62,7 +63,7 @@ export const CreateTableWizard: React.FC = () => {
       case "sources":
         return selectedSources.length > 0
       case "prompt":
-        return prompt.trim().length > 0
+        return tableName.trim().length > 0 && prompt.trim().length > 0
       case "preview":
         return generatedTable !== null
       case "save":

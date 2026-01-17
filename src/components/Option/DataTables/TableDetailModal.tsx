@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import {
   Alert,
   Button,
@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useDataTablesStore } from "@/store/data-tables"
 import { exportAndDownload } from "@/utils/data-table-export"
+import { pollDataTableJob } from "@/utils/data-tables-jobs"
 import type { DataTable, ExportFormat } from "@/types/data-tables"
 import { EditableDataTable } from "./EditableDataTable"
 
@@ -52,6 +53,7 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
   const [isExporting, setIsExporting] = useState(false)
   const [isRegenerating, setIsRegenerating] = useState(false)
   const [editMode, setEditMode] = useState(false)
+  const regenerateAbortRef = useRef<AbortController | null>(null)
 
   // Fetch table details
   const fetchTable = async () => {
@@ -86,6 +88,18 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
       }
     }
   }, [open, tableId]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!open) {
+      regenerateAbortRef.current?.abort()
+    }
+  }, [open])
+
+  useEffect(() => {
+    return () => {
+      regenerateAbortRef.current?.abort()
+    }
+  }, [])
 
   // Handle close with unsaved changes check
   const handleClose = () => {
@@ -123,26 +137,52 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
   const handleRegenerate = async () => {
     if (!tableId) return
 
+    regenerateAbortRef.current?.abort()
+    const abortController = new AbortController()
+    regenerateAbortRef.current = abortController
     setIsRegenerating(true)
     try {
-      const updatedTable = await tldwClient.regenerateDataTable(tableId)
-      const table = updatedTable?.table || updatedTable
-      setCurrentTable(table)
-      // Update in list
-      if (table) {
-        updateTableInList(tableId, {
-          row_count: table.row_count || table.rows?.length || 0,
-          column_count: table.columns?.length || 0,
-          updated_at: table.updated_at
-        })
+      const response = await tldwClient.regenerateDataTable(tableId)
+      const jobId = response?.job_id
+      const tableUuid = response?.table?.uuid || tableId
+      if (!jobId) {
+        throw new Error("Regeneration job was not created")
       }
+
+      const jobStatus = await pollDataTableJob({
+        jobId,
+        fetchJob: (id) => tldwClient.getDataTableJob(id),
+        signal: abortController.signal
+      })
+      if (abortController.signal.aborted) return
+
+      const status = String(jobStatus?.status || "").toLowerCase()
+      if (status !== "completed") {
+        throw new Error(jobStatus?.error_message || "Regeneration failed")
+      }
+
+      const table = await tldwClient.getDataTable(jobStatus.table_uuid || tableUuid)
+      if (!table) {
+        throw new Error("No table data in response")
+      }
+
+      setCurrentTable(table)
+      updateTableInList(tableId, {
+        row_count: table.row_count || table.rows?.length || 0,
+        column_count: table.columns?.length || 0,
+        updated_at: table.updated_at
+      })
       message.success(t("dataTables:regenerateSuccess", "Table regenerated successfully!"))
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Regeneration failed"
-      message.error(errorMessage)
+      if (!abortController.signal.aborted) {
+        message.error(errorMessage)
+      }
     } finally {
-      setIsRegenerating(false)
+      if (!abortController.signal.aborted) {
+        setIsRegenerating(false)
+      }
     }
   }
 
@@ -255,7 +295,7 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
             <Descriptions.Item label={t("dataTables:rows", "Rows")}>
               {currentTable.row_count || currentTable.rows?.length || 0}
             </Descriptions.Item>
-            <Descriptions.Item label={t("dataTables:columns", "Columns")}>
+            <Descriptions.Item label={t("dataTables:columnsLabel", "Columns")}>
               {currentTable.columns?.length || 0}
             </Descriptions.Item>
             <Descriptions.Item label={t("dataTables:created", "Created")}>
