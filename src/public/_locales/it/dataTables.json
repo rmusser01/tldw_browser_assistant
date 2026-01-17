@@ -1,0 +1,374 @@
+{
+  "title": {
+    "message": "Data Tables Studio"
+  },
+  "description": {
+    "message": "Description"
+  },
+  "betaNotice": {
+    "message": "Beta Feature"
+  },
+  "betaDescription": {
+    "message": "Data Tables is currently in beta. Table generation requires backend support."
+  },
+  "offline": {
+    "message": "Server is offline. Please connect to use Data Tables."
+  },
+  "tabs_tables": {
+    "message": "My Tables"
+  },
+  "tabs_create": {
+    "message": "Create Table"
+  },
+  "wizard_sources": {
+    "message": "Select Sources"
+  },
+  "wizard_sourcesDesc": {
+    "message": "Choose data sources"
+  },
+  "wizard_prompt": {
+    "message": "Describe Table"
+  },
+  "wizard_promptDesc": {
+    "message": "Write your prompt"
+  },
+  "wizard_preview": {
+    "message": "Preview"
+  },
+  "wizard_previewDesc": {
+    "message": "Review generated table"
+  },
+  "wizard_save": {
+    "message": "Save"
+  },
+  "wizard_saveDesc": {
+    "message": "Save to library"
+  },
+  "wizard_tip": {
+    "message": "Tip"
+  },
+  "wizard_tipText": {
+    "message": "Select chats, documents, or search your knowledge base to extract structured data. The more specific your sources, the better the results."
+  },
+  "wizard_reset": {
+    "message": "Start Over"
+  },
+  "sourceTypes_chat": {
+    "message": "Chats"
+  },
+  "sourceTypes_document": {
+    "message": "Documents"
+  },
+  "sourceTypes_rag": {
+    "message": "RAG Search"
+  },
+  "selectedSources": {
+    "message": "Selected Sources"
+  },
+  "sourcesSelected": {
+    "message": "Sources Selected"
+  },
+  "searchPlaceholder": {
+    "message": "Search..."
+  },
+  "ragPlaceholder": {
+    "message": "Enter a search query for your knowledge base..."
+  },
+  "ragQuerySnippet": {
+    "message": "Knowledge base search query"
+  },
+  "ragAdded": {
+    "message": "RAG query added as source"
+  },
+  "ragTip": {
+    "message": "Enter search queries to find relevant content in your knowledge base. Each query will be added as a separate source."
+  },
+  "fetchError": {
+    "message": "Failed to load items"
+  },
+  "promptLabel": {
+    "message": "Describe the table you want to create"
+  },
+  "promptPlaceholder": {
+    "message": "E.g., Create a table comparing the main topics discussed, with columns for topic, key points, and relevance score..."
+  },
+  "examplePrompts": {
+    "message": "Example prompts:"
+  },
+  "advancedOptions": {
+    "message": "Advanced Options"
+  },
+  "columnHints": {
+    "message": "Column Hints (Optional)"
+  },
+  "columnHintsDesc": {
+    "message": "Suggest column names and types to guide the LLM. If not specified, columns will be inferred from your prompt."
+  },
+  "newColumnName": {
+    "message": "Column name"
+  },
+  "modelSelection": {
+    "message": "Model"
+  },
+  "selectModel": {
+    "message": "Use default model"
+  },
+  "maxRows": {
+    "message": "Maximum Rows"
+  },
+  "maxRowsHint": {
+    "message": "(1-1000)"
+  },
+  "generating": {
+    "message": "Generating table from your sources..."
+  },
+  "generatingNote": {
+    "message": "This may take a moment depending on the amount of data."
+  },
+  "generateSuccess": {
+    "message": "Table generated successfully!"
+  },
+  "generationFailed": {
+    "message": "Generation Failed"
+  },
+  "tryAgain": {
+    "message": "Try Again"
+  },
+  "warnings": {
+    "message": "Warnings"
+  },
+  "noPreview": {
+    "message": "No preview available"
+  },
+  "promptUsed": {
+    "message": "Prompt used:"
+  },
+  "previewModified": {
+    "message": "You've modified the preview. Changes will be saved with the table."
+  },
+  "addRow": {
+    "message": "Add Row"
+  },
+  "addColumn": {
+    "message": "Add Column"
+  },
+  "deleteRow": {
+    "message": "Delete row?"
+  },
+  "deleteRowConfirm": {
+    "message": "This action cannot be undone."
+  },
+  "deleteColumn": {
+    "message": "Delete column?"
+  },
+  "deleteColumnConfirm": {
+    "message": "This action cannot be undone."
+  },
+  "discard": {
+    "message": "Discard"
+  },
+  "changesDiscarded": {
+    "message": "Changes discarded"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "saveSuccess": {
+    "message": "Changes saved successfully!"
+  },
+  "unsavedChanges": {
+    "message": "You have unsaved changes"
+  },
+  "columnAdded": {
+    "message": "Column '{{name}}' added"
+  },
+  "rows": {
+    "message": "rows"
+  },
+  "columnsLabel": {
+    "message": "columns"
+  },
+  "showingRows": {
+    "message": "Showing {{total}} rows"
+  },
+  "tableSummary": {
+    "message": "Table Summary"
+  },
+  "tableName": {
+    "message": "Table Name"
+  },
+  "tableNamePlaceholder": {
+    "message": "Enter a name for your table"
+  },
+  "tableDescription": {
+    "message": "Description (optional)"
+  },
+  "tableDescPlaceholder": {
+    "message": "Add a description to help you remember what this table contains"
+  },
+  "saveToLibrary": {
+    "message": "Save to Library"
+  },
+  "tableSaved": {
+    "message": "Table Saved!"
+  },
+  "tableSavedDesc": {
+    "message": "Your table has been saved to the library. You can view and export it anytime."
+  },
+  "viewTables": {
+    "message": "View My Tables"
+  },
+  "createAnother": {
+    "message": "Create Another"
+  },
+  "orExport": {
+    "message": "Or export directly:"
+  },
+  "export": {
+    "message": "Export"
+  },
+  "exportCSV": {
+    "message": "Export as CSV"
+  },
+  "exportExcel": {
+    "message": "Export as Excel"
+  },
+  "exportJSON": {
+    "message": "Export as JSON"
+  },
+  "exportSuccess": {
+    "message": "Table exported as {{format}}"
+  },
+  "noTableToSave": {
+    "message": "No table to save"
+  },
+  "goBackToGenerate": {
+    "message": "Go back to the previous step to generate a table first."
+  },
+  "tableDetails": {
+    "message": "Table Details"
+  },
+  "tableNotFound": {
+    "message": "Table not found"
+  },
+  "noData": {
+    "message": "No data"
+  },
+  "data": {
+    "message": "Data"
+  },
+  "editMode": {
+    "message": "Edit Mode"
+  },
+  "editModeActive": {
+    "message": "Click cells to edit"
+  },
+  "regenerate": {
+    "message": "Regenerate"
+  },
+  "regenerateSuccess": {
+    "message": "Table regenerated successfully!"
+  },
+  "model": {
+    "message": "Model"
+  },
+  "prompt": {
+    "message": "Generation Prompt"
+  },
+  "sources": {
+    "message": "Sources"
+  },
+  "created": {
+    "message": "Created"
+  },
+  "updated": {
+    "message": "Updated"
+  },
+  "noTables": {
+    "message": "No tables yet. Create your first table!"
+  },
+  "noSearchResults": {
+    "message": "No tables found matching your search"
+  },
+  "totalTables": {
+    "message": "{{total}} tables"
+  },
+  "view": {
+    "message": "View"
+  },
+  "delete": {
+    "message": "Delete"
+  },
+  "deleteConfirmTitle": {
+    "message": "Delete Table"
+  },
+  "deleteConfirmMessage": {
+    "message": "Are you sure you want to delete this table? This action cannot be undone."
+  },
+  "noTable": {
+    "message": "No table data"
+  },
+  "add": {
+    "message": "Add"
+  },
+  "columnName": {
+    "message": "Column Name"
+  },
+  "columnNamePlaceholder": {
+    "message": "e.g., Price, Status, Date"
+  },
+  "columnNameRequired": {
+    "message": "Please enter a column name"
+  },
+  "columnNameTooLong": {
+    "message": "Column name must be 50 characters or less"
+  },
+  "columnNameExists": {
+    "message": "A column with this name already exists"
+  },
+  "columnType": {
+    "message": "Column Type"
+  },
+  "columnTypeRequired": {
+    "message": "Please select a column type"
+  },
+  "columnDescription": {
+    "message": "Description (optional)"
+  },
+  "columnDescriptionHint": {
+    "message": "A brief description of what this column contains"
+  },
+  "columnDescriptionPlaceholder": {
+    "message": "e.g., The price of the item in USD"
+  },
+  "discardUnsavedChanges": {
+    "message": "You have unsaved changes. Are you sure you want to close?"
+  },
+  "createFromChat": {
+    "message": "Create Table from Chat"
+  },
+  "saveFromArtifact": {
+    "message": "Save to Data Tables"
+  },
+  "importedPrompt": {
+    "message": "Imported from table artifact"
+  },
+  "columns_name": {
+    "message": "Name"
+  },
+  "columns_rows": {
+    "message": "Rows"
+  },
+  "columns_columns": {
+    "message": "Columns"
+  },
+  "columns_sources": {
+    "message": "Sources"
+  },
+  "columns_created": {
+    "message": "Created"
+  },
+  "columns_actions": {
+    "message": "Actions"
+  }
+}

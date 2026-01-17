@@ -39,20 +39,25 @@ export const SaveTablePanel: React.FC = () => {
     if (!generatedTable) return
 
     const name = tableName.trim() || "Untitled Table"
-    const tableId = generatedTable.id || `local-${Date.now()}`
-    const canUpdateRemote =
-      Boolean(generatedTable.id) &&
+    const description = tableDescription.trim() || undefined
+    const fallbackId = `local-${Date.now()}`
+    const tableId = generatedTable.id ? String(generatedTable.id) : fallbackId
+    const serverId =
+      typeof generatedTable.id === "string" &&
+      generatedTable.id &&
       !generatedTable.id.startsWith("preview-") &&
       !generatedTable.id.startsWith("artifact-") &&
       !generatedTable.id.startsWith("local-")
+        ? generatedTable.id
+        : undefined
     setIsSaving(true)
 
     try {
       // If table has an ID, update it; otherwise the server should have assigned one
-      if (canUpdateRemote && generatedTable.id) {
-        await tldwClient.updateDataTable(generatedTable.id, {
+      if (serverId) {
+        await tldwClient.updateDataTable(serverId, {
           name,
-          description: tableDescription.trim() || undefined
+          description
         })
       }
 
@@ -60,7 +65,7 @@ export const SaveTablePanel: React.FC = () => {
       addTable({
         id: tableId,
         name,
-        description: tableDescription.trim() || undefined,
+        description,
         row_count: generatedTable.row_count || generatedTable.rows?.length || 0,
         column_count: generatedTable.columns?.length || 0,
         created_at: generatedTable.created_at || new Date().toISOString(),

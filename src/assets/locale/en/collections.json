@@ -1,0 +1,230 @@
+{
+  "title": "Collections",
+  "description": "Save articles, create highlights, manage templates, and import/export your reading list.",
+  "offline": "Server is offline. Please connect to use Collections.",
+  "betaNotice": "Beta Feature",
+  "betaDescription": "Collections is currently in beta. Some features may require backend support.",
+
+  "tabs": {
+    "reading": "Reading List",
+    "highlights": "Highlights",
+    "templates": "Templates",
+    "importExport": "Import/Export"
+  },
+
+  "status": {
+    "all": "All",
+    "saved": "Saved",
+    "reading": "Reading",
+    "read": "Read",
+    "archived": "Archived"
+  },
+
+  "sort": {
+    "created_at": "Date Added",
+    "updated_at": "Last Updated",
+    "title": "Title",
+    "relevance": "Relevance"
+  },
+
+  "colors": {
+    "all": "All Colors",
+    "yellow": "Yellow",
+    "green": "Green",
+    "blue": "Blue",
+    "pink": "Pink",
+    "purple": "Purple"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}}m ago",
+    "hoursAgo": "{{count}}h ago",
+    "daysAgo": "{{count}}d ago"
+  },
+
+  "reading": {
+    "addUrl": "Add URL",
+    "addUrlTitle": "Add to Reading List",
+    "addFirst": "Add your first article",
+    "addSuccess": "Article added to reading list",
+    "searchPlaceholder": "Search articles...",
+    "filters": "Filters",
+    "favorites": "Favorites",
+    "sortBy": "Sort",
+    "clearFilters": "Clear filters",
+    "noResults": "No articles match your filters",
+    "empty": "Your reading list is empty",
+    "pagination": "{{start}}-{{end}} of {{total}} items",
+
+    "readingTime": "{{count}} min read",
+    "favorite": "Favorite",
+    "unfavorite": "Unfavorite",
+    "viewDetails": "View details",
+    "openOriginal": "Open original",
+    "changeStatus": "Change status",
+    "archive": "Archive",
+    "unarchive": "Unarchive",
+    "statusUpdated": "Status updated to {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "Please enter a URL",
+    "urlInvalid": "Please enter a valid URL",
+    "titleLabel": "Title (optional)",
+    "titleHint": "Leave blank to auto-detect from the page",
+    "titlePlaceholder": "Article title",
+    "tagsLabel": "Tags",
+    "tagsPlaceholder": "Add tags...",
+    "notesLabel": "Notes (optional)",
+    "notesPlaceholder": "Add any notes about this article...",
+    "saveToList": "Save to List",
+    "addTag": "Add tag...",
+
+    "tabs": {
+      "content": "Content",
+      "summary": "Summary",
+      "highlights": "Highlights",
+      "notes": "Notes"
+    },
+
+    "noContent": "Content not available",
+    "noSummary": "No summary yet",
+    "noNotes": "No notes yet",
+    "editNotes": "Edit Notes",
+    "addNotes": "Add Notes",
+    "notesSaved": "Notes saved",
+    "notesPlaceholder": "Add your notes...",
+
+    "summarize": "Summarize",
+    "generateSummary": "Generate Summary",
+    "summarized": "Summary generated",
+    "generateTts": "Generate Audio",
+    "ttsGenerated": "Audio generated",
+    "downloadAudio": "Download Audio",
+
+    "deleted": "Article deleted",
+    "deleteConfirm": {
+      "title": "Delete Article",
+      "message": "Are you sure you want to delete this article? This action cannot be undone."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "Search highlights...",
+    "groupByItem": "Group by article",
+    "add": "Add Highlight",
+    "edit": "Edit Highlight",
+    "quoteLabel": "Quote",
+    "quoteRequired": "Please enter the highlight text",
+    "quotePlaceholder": "Paste the highlighted text...",
+    "noteLabel": "Note (optional)",
+    "notePlaceholder": "Add context or why this matters...",
+    "colorLabel": "Highlight color",
+    "noResults": "No highlights match your filters",
+    "empty": "No highlights yet",
+    "emptyForItem": "No highlights for this article yet",
+    "emptyHint": "Highlights you create while reading will appear here.",
+    "from": "From",
+    "viewArticle": "View Article",
+    "created": "Highlight created",
+    "updated": "Highlight updated",
+    "missingItem": "Select an article first",
+    "deleted": "Highlight deleted",
+    "deleteConfirm": {
+      "title": "Delete Highlight",
+      "message": "Are you sure you want to delete this highlight?"
+    }
+  },
+
+  "templates": {
+    "create": "Create Template",
+    "createFirst": "Create your first template",
+    "searchPlaceholder": "Search templates...",
+    "noResults": "No templates match your filters",
+    "empty": "No templates yet",
+    "default": "Default",
+    "preview": "Preview",
+    "duplicate": "Duplicate",
+    "deleted": "Template deleted",
+    "created": "Template created",
+    "updated": "Template updated",
+
+    "editTitle": "Edit Template",
+    "createTitle": "Create Template",
+    "nameLabel": "Template Name",
+    "nameRequired": "Please enter a name",
+    "namePlaceholder": "My Newsletter Template",
+    "descriptionLabel": "Description (optional)",
+    "descriptionPlaceholder": "Brief description of this template",
+    "typeLabel": "Template Type",
+    "formatLabel": "Output Format",
+    "bodyLabel": "Template Body (Jinja2)",
+    "bodyRequired": "Please enter template content",
+    "bodyHint": "Use Jinja2 syntax. Available variables: items (array of reading items), now (current datetime)",
+
+    "previewTitle": "Template Preview",
+    "selectItems": "Please select at least one article",
+    "selectItemsHint": "Select articles to include in the preview:",
+    "selectAll": "Select All",
+    "selectedCount": "{{count}} selected",
+    "noItems": "No articles in your reading list",
+    "generatePreview": "Generate Preview",
+    "generateOutput": "Generate Output",
+    "audioUnavailable": "Audio output unavailable",
+    "noGeneratedContent": "No output generated yet",
+
+    "deleteConfirm": {
+      "title": "Delete Template",
+      "message": "Are you sure you want to delete this template?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "All Types",
+    "newsletter_markdown": "Newsletter (MD)",
+    "briefing_markdown": "Briefing (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "Newsletter (HTML)",
+    "tts_audio": "TTS Audio"
+  },
+
+  "import": {
+    "title": "Import",
+    "selectSource": "Select import source:",
+    "methodFile": "File Upload",
+    "methodApiKey": "API Key",
+    "apiKeyLabel": "API Key",
+    "apiKeyPlaceholder": "Paste your API key",
+    "apiKeyRequired": "Please enter an API key",
+    "previewWithKey": "Preview Import",
+    "processing": "Processing file...",
+    "dropzone": "Click or drag file to upload",
+    "formats": "Supports JSON, CSV, HTML",
+    "previewHint": "{{count}} items found",
+    "selectAll": "Select All",
+    "selectItems": "Please select items to import",
+    "importSelected": "Import {{count}} items",
+    "success": "Imported {{count}} items",
+    "complete": "Import Complete",
+    "resultSummary": "Imported: {{imported}}, Skipped: {{skipped}}",
+    "importMore": "Import More",
+    "steps": {
+      "source": "Source",
+      "upload": "Upload",
+      "preview": "Preview",
+      "result": "Result"
+    }
+  },
+
+  "export": {
+    "title": "Export",
+    "format": "Format",
+    "options": "Options",
+    "includeContent": "Include full content",
+    "includeHighlights": "Include highlights",
+    "items": "Items to Export",
+    "allItems": "All items (leave empty)",
+    "itemsHint": "Leave empty to export all items, or select specific ones",
+    "download": "Download Export",
+    "success": "Export ready for download"
+  }
+}

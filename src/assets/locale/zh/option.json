@@ -458,6 +458,7 @@
     "or": "或",
     "remove": "移除",
     "add": "添加 URL",
+    "addFiles": "Browse files",
     "commonOptions": "摄取选项",
     "audioOptions": "音频选项",
     "audioLanguage": "语言（例如 en）",

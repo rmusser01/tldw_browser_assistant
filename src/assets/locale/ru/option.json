@@ -462,6 +462,7 @@
     "or": "или",
     "remove": "Удалить",
     "add": "Добавить URL",
+    "addFiles": "Browse files",
     "commonOptions": "Параметры импорта",
     "audioOptions": "Параметры аудио",
     "audioLanguage": "Язык (например, en)",

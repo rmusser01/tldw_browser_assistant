@@ -63,7 +63,7 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
     setError(null)
 
     try {
-      const table = await tldwClient.getDataTable(tableId)
+      const table = await tldwClient.getDataTable(tableId, { rows_limit: 2000 })
       setCurrentTable(table)
     } catch (err) {
       const errorMessage =
@@ -81,11 +81,9 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
       setEditMode(false) // Reset edit mode when opening
     }
     return () => {
-      if (!open) {
-        setCurrentTable(null)
-        setError(null)
-        stopEditing()
-      }
+      setCurrentTable(null)
+      setError(null)
+      stopEditing()
     }
   }, [open, tableId]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -161,7 +159,9 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
         throw new Error(jobStatus?.error_message || "Regeneration failed")
       }
 
-      const table = await tldwClient.getDataTable(jobStatus.table_uuid || tableUuid)
+      const table = await tldwClient.getDataTable(jobStatus.table_uuid || tableUuid, {
+        rows_limit: 2000
+      })
       if (!table) {
         throw new Error("No table data in response")
       }

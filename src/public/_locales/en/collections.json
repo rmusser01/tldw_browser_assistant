@@ -1,0 +1,527 @@
+{
+  "title": {
+    "message": "Collections"
+  },
+  "description": {
+    "message": "Save articles, create highlights, manage templates, and import/export your reading list."
+  },
+  "offline": {
+    "message": "Server is offline. Please connect to use Collections."
+  },
+  "betaNotice": {
+    "message": "Beta Feature"
+  },
+  "betaDescription": {
+    "message": "Collections is currently in beta. Some features may require backend support."
+  },
+  "tabs_reading": {
+    "message": "Reading List"
+  },
+  "tabs_highlights": {
+    "message": "Highlights"
+  },
+  "tabs_templates": {
+    "message": "Templates"
+  },
+  "tabs_importExport": {
+    "message": "Import/Export"
+  },
+  "status_all": {
+    "message": "All"
+  },
+  "status_saved": {
+    "message": "Saved"
+  },
+  "status_reading": {
+    "message": "Reading"
+  },
+  "status_read": {
+    "message": "Read"
+  },
+  "status_archived": {
+    "message": "Archived"
+  },
+  "sort_created_at": {
+    "message": "Date Added"
+  },
+  "sort_updated_at": {
+    "message": "Last Updated"
+  },
+  "sort_title": {
+    "message": "Title"
+  },
+  "sort_relevance": {
+    "message": "Relevance"
+  },
+  "colors_all": {
+    "message": "All Colors"
+  },
+  "colors_yellow": {
+    "message": "Yellow"
+  },
+  "colors_green": {
+    "message": "Green"
+  },
+  "colors_blue": {
+    "message": "Blue"
+  },
+  "colors_pink": {
+    "message": "Pink"
+  },
+  "colors_purple": {
+    "message": "Purple"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}}m ago"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}}h ago"
+  },
+  "time_daysAgo": {
+    "message": "{{count}}d ago"
+  },
+  "reading_addUrl": {
+    "message": "Add URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "Add to Reading List"
+  },
+  "reading_addFirst": {
+    "message": "Add your first article"
+  },
+  "reading_addSuccess": {
+    "message": "Article added to reading list"
+  },
+  "reading_searchPlaceholder": {
+    "message": "Search articles..."
+  },
+  "reading_filters": {
+    "message": "Filters"
+  },
+  "reading_favorites": {
+    "message": "Favorites"
+  },
+  "reading_sortBy": {
+    "message": "Sort"
+  },
+  "reading_clearFilters": {
+    "message": "Clear filters"
+  },
+  "reading_noResults": {
+    "message": "No articles match your filters"
+  },
+  "reading_empty": {
+    "message": "Your reading list is empty"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} of {{total}} items"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} min read"
+  },
+  "reading_favorite": {
+    "message": "Favorite"
+  },
+  "reading_unfavorite": {
+    "message": "Unfavorite"
+  },
+  "reading_viewDetails": {
+    "message": "View details"
+  },
+  "reading_openOriginal": {
+    "message": "Open original"
+  },
+  "reading_changeStatus": {
+    "message": "Change status"
+  },
+  "reading_archive": {
+    "message": "Archive"
+  },
+  "reading_unarchive": {
+    "message": "Unarchive"
+  },
+  "reading_statusUpdated": {
+    "message": "Status updated to {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "Please enter a URL"
+  },
+  "reading_urlInvalid": {
+    "message": "Please enter a valid URL"
+  },
+  "reading_titleLabel": {
+    "message": "Title (optional)"
+  },
+  "reading_titleHint": {
+    "message": "Leave blank to auto-detect from the page"
+  },
+  "reading_titlePlaceholder": {
+    "message": "Article title"
+  },
+  "reading_tagsLabel": {
+    "message": "Tags"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "Add tags..."
+  },
+  "reading_notesLabel": {
+    "message": "Notes (optional)"
+  },
+  "reading_notesPlaceholder": {
+    "message": "Add your notes..."
+  },
+  "reading_saveToList": {
+    "message": "Save to List"
+  },
+  "reading_addTag": {
+    "message": "Add tag..."
+  },
+  "reading_tabs_content": {
+    "message": "Content"
+  },
+  "reading_tabs_summary": {
+    "message": "Summary"
+  },
+  "reading_tabs_notes": {
+    "message": "Notes"
+  },
+  "reading_noContent": {
+    "message": "Content not available"
+  },
+  "reading_noSummary": {
+    "message": "No summary yet"
+  },
+  "reading_noNotes": {
+    "message": "No notes yet"
+  },
+  "reading_editNotes": {
+    "message": "Edit Notes"
+  },
+  "reading_addNotes": {
+    "message": "Add Notes"
+  },
+  "reading_notesSaved": {
+    "message": "Notes saved"
+  },
+  "reading_summarize": {
+    "message": "Summarize"
+  },
+  "reading_generateSummary": {
+    "message": "Generate Summary"
+  },
+  "reading_summarized": {
+    "message": "Summary generated"
+  },
+  "reading_generateTts": {
+    "message": "Generate Audio"
+  },
+  "reading_ttsGenerated": {
+    "message": "Audio generated"
+  },
+  "reading_downloadAudio": {
+    "message": "Download Audio"
+  },
+  "reading_deleted": {
+    "message": "Article deleted"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "Delete Article"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "Are you sure you want to delete this article? This action cannot be undone."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "Search highlights..."
+  },
+  "highlights_groupByItem": {
+    "message": "Group by article"
+  },
+  "highlights_noResults": {
+    "message": "No highlights match your filters"
+  },
+  "highlights_empty": {
+    "message": "No highlights yet"
+  },
+  "highlights_emptyHint": {
+    "message": "Highlights you create while reading will appear here."
+  },
+  "highlights_from": {
+    "message": "From"
+  },
+  "highlights_viewArticle": {
+    "message": "View Article"
+  },
+  "highlights_deleted": {
+    "message": "Highlight deleted"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "Delete Highlight"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "Are you sure you want to delete this highlight?"
+  },
+  "templates_create": {
+    "message": "Create Template"
+  },
+  "templates_createFirst": {
+    "message": "Create your first template"
+  },
+  "templates_searchPlaceholder": {
+    "message": "Search templates..."
+  },
+  "templates_noResults": {
+    "message": "No templates match your filters"
+  },
+  "templates_empty": {
+    "message": "No templates yet"
+  },
+  "templates_default": {
+    "message": "Default"
+  },
+  "templates_preview": {
+    "message": "Preview"
+  },
+  "templates_duplicate": {
+    "message": "Duplicate"
+  },
+  "templates_deleted": {
+    "message": "Template deleted"
+  },
+  "templates_created": {
+    "message": "Template created"
+  },
+  "templates_updated": {
+    "message": "Template updated"
+  },
+  "templates_editTitle": {
+    "message": "Edit Template"
+  },
+  "templates_createTitle": {
+    "message": "Create Template"
+  },
+  "templates_nameLabel": {
+    "message": "Template Name"
+  },
+  "templates_nameRequired": {
+    "message": "Please enter a name"
+  },
+  "templates_namePlaceholder": {
+    "message": "My Newsletter Template"
+  },
+  "templates_descriptionLabel": {
+    "message": "Description (optional)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "Brief description of this template"
+  },
+  "templates_typeLabel": {
+    "message": "Template Type"
+  },
+  "templates_formatLabel": {
+    "message": "Output Format"
+  },
+  "templates_bodyLabel": {
+    "message": "Template Body (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "Please enter template content"
+  },
+  "templates_bodyHint": {
+    "message": "Use Jinja2 syntax. Available variables: items (array of reading items), now (current datetime)"
+  },
+  "templates_previewTitle": {
+    "message": "Template Preview"
+  },
+  "templates_selectItems": {
+    "message": "Please select at least one article"
+  },
+  "templates_selectItemsHint": {
+    "message": "Select articles to include in the preview:"
+  },
+  "templates_selectAll": {
+    "message": "Select All"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} selected"
+  },
+  "templates_noItems": {
+    "message": "No articles in your reading list"
+  },
+  "templates_generatePreview": {
+    "message": "Generate Preview"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "Delete Template"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "Are you sure you want to delete this template?"
+  },
+  "templateTypes_all": {
+    "message": "All Types"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "Newsletter (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "Briefing (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "Newsletter (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS Audio"
+  },
+  "import_title": {
+    "message": "Import"
+  },
+  "import_selectSource": {
+    "message": "Select import source:"
+  },
+  "import_processing": {
+    "message": "Processing file..."
+  },
+  "import_dropzone": {
+    "message": "Click or drag file to upload"
+  },
+  "import_formats": {
+    "message": "Supports JSON, CSV, HTML"
+  },
+  "import_previewHint": {
+    "message": "{{count}} items found"
+  },
+  "import_selectAll": {
+    "message": "Select All"
+  },
+  "import_selectItems": {
+    "message": "Please select items to import"
+  },
+  "import_importSelected": {
+    "message": "Import {{count}} items"
+  },
+  "import_success": {
+    "message": "Imported {{count}} items"
+  },
+  "import_complete": {
+    "message": "Import Complete"
+  },
+  "import_resultSummary": {
+    "message": "Imported: {{imported}}, Skipped: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "Import More"
+  },
+  "import_steps_source": {
+    "message": "Source"
+  },
+  "import_steps_upload": {
+    "message": "Upload"
+  },
+  "import_steps_preview": {
+    "message": "Preview"
+  },
+  "import_steps_result": {
+    "message": "Result"
+  },
+  "export_title": {
+    "message": "Export"
+  },
+  "export_format": {
+    "message": "Format"
+  },
+  "export_options": {
+    "message": "Options"
+  },
+  "export_includeContent": {
+    "message": "Include full content"
+  },
+  "export_includeHighlights": {
+    "message": "Include highlights"
+  },
+  "export_items": {
+    "message": "Items to Export"
+  },
+  "export_allItems": {
+    "message": "All items (leave empty)"
+  },
+  "export_itemsHint": {
+    "message": "Leave empty to export all items, or select specific ones"
+  },
+  "export_download": {
+    "message": "Download Export"
+  },
+  "export_success": {
+    "message": "Export ready for download"
+  },
+  "reading_tabs_highlights": {
+    "message": "Highlights"
+  },
+  "highlights_add": {
+    "message": "Add Highlight"
+  },
+  "highlights_edit": {
+    "message": "Edit Highlight"
+  },
+  "highlights_quoteLabel": {
+    "message": "Quote"
+  },
+  "highlights_quoteRequired": {
+    "message": "Please enter the highlight text"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "Paste the highlighted text..."
+  },
+  "highlights_noteLabel": {
+    "message": "Note (optional)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "Add context or why this matters..."
+  },
+  "highlights_colorLabel": {
+    "message": "Highlight color"
+  },
+  "highlights_emptyForItem": {
+    "message": "No highlights for this article yet"
+  },
+  "highlights_created": {
+    "message": "Highlight created"
+  },
+  "highlights_updated": {
+    "message": "Highlight updated"
+  },
+  "highlights_missingItem": {
+    "message": "Select an article first"
+  },
+  "templates_generateOutput": {
+    "message": "Generate Output"
+  },
+  "templates_audioUnavailable": {
+    "message": "Audio output unavailable"
+  },
+  "templates_noGeneratedContent": {
+    "message": "No output generated yet"
+  },
+  "import_methodFile": {
+    "message": "File Upload"
+  },
+  "import_methodApiKey": {
+    "message": "API Key"
+  },
+  "import_apiKeyLabel": {
+    "message": "API Key"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "Paste your API key"
+  },
+  "import_apiKeyRequired": {
+    "message": "Please enter an API key"
+  },
+  "import_previewWithKey": {
+    "message": "Preview Import"
+  }
+}

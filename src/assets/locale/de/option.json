@@ -449,6 +449,7 @@
     "or": "oder",
     "remove": "Entfernen",
     "add": "URL hinzufügen",
+    "addFiles": "Browse files",
     "commonOptions": "Ingestion-Optionen",
     "audioOptions": "Audio-Optionen",
     "audioLanguage": "Sprache (z. B. en)",

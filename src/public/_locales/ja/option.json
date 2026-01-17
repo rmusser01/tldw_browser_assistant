@@ -1804,5 +1804,8 @@
   },
   "quickIngest_downloadJsonAria": {
     "message": "「{{name}}」のJSONをダウンロード"
+  },
+  "quickIngest_addFiles": {
+    "message": "Browse files"
   }
 }

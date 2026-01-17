@@ -226,6 +226,7 @@
     "or": "ou",
     "remove": "Remover",
     "add": "Adicionar URL",
+    "addFiles": "Browse files",
     "commonOptions": "Opções de ingestão",
     "audioOptions": "Opções de áudio",
     "audioLanguage": "Idioma (ex.: pt-BR)",

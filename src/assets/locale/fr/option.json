@@ -453,6 +453,7 @@
     "or": "ou",
     "remove": "Supprimer",
     "add": "Ajouter une URL",
+    "addFiles": "Browse files",
     "commonOptions": "Options d’ingestion",
     "audioOptions": "Options audio",
     "audioLanguage": "Langue (ex. en)",

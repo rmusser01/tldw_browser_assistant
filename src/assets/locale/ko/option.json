@@ -449,6 +449,7 @@
     "or": "또는",
     "remove": "제거",
     "add": "URL 추가",
+    "addFiles": "Browse files",
     "commonOptions": "인제스트 옵션",
     "audioOptions": "오디오 옵션",
     "audioLanguage": "언어 (예: en)",

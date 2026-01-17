@@ -10,6 +10,7 @@ export interface ApiSendPayload<P extends PathOrUrl = PathOrUrl, M extends Allow
   body?: any
   noAuth?: boolean
   timeoutMs?: number
+  responseType?: "json" | "text" | "arrayBuffer"
 }
 
 export interface ApiSendResponse<T = any> {

@@ -113,6 +113,8 @@ export interface BgRequestInit<
   noAuth?: boolean
   timeoutMs?: number
   abortSignal?: AbortSignal
+  responseType?: "json" | "text" | "arrayBuffer"
+  returnResponse?: boolean
 }
 
 export async function bgRequest<
@@ -120,7 +122,17 @@ export async function bgRequest<
   P extends PathOrUrl = AllowedPath,
   M extends AllowedMethodFor<P> = AllowedMethodFor<P>
 >(
-  { path, method = 'GET' as UpperLower<M>, headers = {}, body, noAuth = false, timeoutMs, abortSignal }: BgRequestInit<P, M>
+  {
+    path,
+    method = 'GET' as UpperLower<M>,
+    headers = {},
+    body,
+    noAuth = false,
+    timeoutMs,
+    abortSignal,
+    responseType,
+    returnResponse
+  }: BgRequestInit<P, M>
 ): Promise<T> {
   const recordRequestError = async (entry: {
     method: string
@@ -152,12 +164,15 @@ export async function bgRequest<
     if (browser?.runtime?.sendMessage) {
       const payload = {
         type: 'tldw:request',
-        payload: { path, method, headers, body, noAuth, timeoutMs }
+        payload: { path, method, headers, body, noAuth, timeoutMs, responseType }
       }
 
       if (!abortSignal) {
         const resp = await browser.runtime.sendMessage(payload) as { ok: boolean; error?: string; status?: number; data: T } | undefined
-        if (!resp?.ok) {
+        if (!resp) {
+          throw new Error(`Request failed (${method} ${path})`)
+        }
+        if (!resp.ok) {
           const msg = formatErrorMessage(
             resp?.error,
             `Request failed: ${resp?.status}`
@@ -176,9 +191,11 @@ export async function bgRequest<
             status?: number
           }
           error.status = resp?.status
-          throw error
+          if (!returnResponse) {
+            throw error
+          }
         }
-        return resp.data as T
+        return (returnResponse ? resp : resp.data) as T
       }
 
       if (abortSignal.aborted) {
@@ -207,7 +224,10 @@ export async function bgRequest<
           })
       })
 
-      if (!resp?.ok) {
+      if (!resp) {
+        throw new Error(`Request failed (${method} ${path})`)
+      }
+      if (!resp.ok) {
         const msg = formatErrorMessage(
           resp?.error,
           `Request failed: ${resp?.status}`
@@ -226,9 +246,11 @@ export async function bgRequest<
           status?: number
         }
         error.status = resp?.status
-        throw error
+        if (!returnResponse) {
+          throw error
+        }
       }
-      return resp.data as T
+      return (returnResponse ? resp : resp.data) as T
     }
   } catch (e) {
     // fallthrough to direct fetch
@@ -237,7 +259,7 @@ export async function bgRequest<
   // Fallback: direct fetch (web/dev context)
   const storage = createSafeStorage()
   const resp = await tldwRequest(
-    { path, method, headers, body, noAuth, timeoutMs, abortSignal },
+    { path, method, headers, body, noAuth, timeoutMs, abortSignal, responseType },
     { getConfig: () => storage.get("tldwConfig").catch(() => null) }
   )
   if (!resp?.ok) {
@@ -259,9 +281,11 @@ export async function bgRequest<
       status?: number
     }
     error.status = resp?.status
-    throw error
+    if (!returnResponse) {
+      throw error
+    }
   }
-  return resp.data as T
+  return (returnResponse ? resp : resp.data) as T
 }
 
 export interface BgStreamInit<

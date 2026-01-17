@@ -7,6 +7,7 @@ import { HEADER_SHORTCUTS_EXPANDED_SETTING } from "@/services/settings/ui-settin
 import {
   CogIcon,
   Mic,
+  Volume2,
   UserCircle2,
   Microscope,
   BookText,
@@ -24,6 +25,8 @@ import {
   FileText,
   Rss,
   Kanban,
+  Table2,
+  Library,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -177,6 +180,12 @@ export function HeaderShortcuts({
             icon: Rss,
             label: t("option:header.modeWatchlists", "Watchlists"),
           },
+          {
+            type: "link" as const,
+            to: "/collections",
+            icon: Library,
+            label: t("option:header.modeCollections", "Collections"),
+          },
         ],
       },
       {
@@ -196,9 +205,15 @@ export function HeaderShortcuts({
           },
           {
             type: "link" as const,
-            to: "/speech",
+            to: "/stt",
             icon: Mic,
-            label: t("option:header.modeSpeech", "Speech"),
+            label: t("option:header.modeStt", "STT Playground"),
+          },
+          {
+            type: "link" as const,
+            to: "/tts",
+            icon: Volume2,
+            label: t("option:tts.playground", "TTS Playground"),
           },
           {
             type: "link" as const,
@@ -211,6 +226,12 @@ export function HeaderShortcuts({
             to: "/kanban",
             icon: Kanban,
             label: t("option:header.modeKanban", "Kanban Playground"),
+          },
+          {
+            type: "link" as const,
+            to: "/data-tables",
+            icon: Table2,
+            label: t("option:header.dataTables", "Data Tables"),
           },
           {
             type: "link" as const,

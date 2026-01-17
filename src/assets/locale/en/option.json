@@ -74,6 +74,8 @@
     "modeDictionaries": "Chat dictionaries",
     "modeCharacters": "Characters",
     "modeWatchlists": "Watchlists",
+    "modeCollections": "Collections",
+    "collections": "Collections",
     "modeKanban": "Kanban Playground",
     "modeShortcutHint": "{{shortcut}} to switch",
     "quickIngest": "Quick ingest",

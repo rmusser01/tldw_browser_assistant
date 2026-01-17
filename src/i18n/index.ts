@@ -15,7 +15,8 @@ const NAMESPACES = [
     "settings",
     "knowledge",
     "review",
-    "dataTables"
+    "dataTables",
+    "collections"
 ] as const
 
 type Namespace = typeof NAMESPACES[number]

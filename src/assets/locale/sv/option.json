@@ -235,6 +235,7 @@
     "or": "eller",
     "remove": "Ta bort",
     "add": "Lägg till URL",
+    "addFiles": "Browse files",
     "commonOptions": "Ingest‑alternativ",
     "audioOptions": "Ljudalternativ",
     "audioLanguage": "Språk (t.ex. en)",

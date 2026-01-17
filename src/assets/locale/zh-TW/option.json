@@ -449,6 +449,7 @@
     "or": "或",
     "remove": "移除",
     "add": "新增 URL",
+    "addFiles": "Browse files",
     "commonOptions": "匯入選項",
     "audioOptions": "音訊選項",
     "audioLanguage": "語言（例如 en）",

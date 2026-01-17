@@ -443,6 +443,7 @@
     "or": "または",
     "remove": "削除",
     "add": "URL を追加",
+    "addFiles": "Browse files",
     "commonOptions": "取り込みオプション",
     "audioOptions": "音声オプション",
     "audioLanguage": "言語（例: en）",

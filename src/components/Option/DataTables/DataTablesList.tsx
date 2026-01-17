@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react"
+import React, { Suspense, useCallback, useEffect } from "react"
 import {
   Button,
   Card,
@@ -6,6 +6,7 @@ import {
   Input,
   Modal,
   Pagination,
+  Skeleton,
   Spin,
   Table,
   Tooltip,
@@ -25,7 +26,11 @@ import { useDataTablesStore } from "@/store/data-tables"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { DataTableSummary } from "@/types/data-tables"
 import { ExportMenu } from "./ExportMenu"
-import { TableDetailModal } from "./TableDetailModal"
+const TableDetailModal = React.lazy(() =>
+  import("./TableDetailModal").then((module) => ({
+    default: module.TableDetailModal
+  }))
+)
 
 /**
  * DataTablesList
@@ -266,11 +271,21 @@ export const DataTablesList: React.FC = () => {
       )}
 
       {/* Table detail modal */}
-      <TableDetailModal
-        open={tableDetailOpen}
-        tableId={selectedTableId}
-        onClose={closeTableDetail}
-      />
+      {tableDetailOpen && (
+        <Suspense
+          fallback={
+            <Card className="bg-white dark:bg-zinc-900">
+              <Skeleton active title paragraph={{ rows: 2 }} />
+            </Card>
+          }
+        >
+          <TableDetailModal
+            open={tableDetailOpen}
+            tableId={selectedTableId}
+            onClose={closeTableDetail}
+          />
+        </Suspense>
+      )}
 
       {/* Delete confirmation modal */}
       <Modal

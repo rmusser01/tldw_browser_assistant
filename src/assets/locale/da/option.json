@@ -227,6 +227,7 @@
     "or": "eller",
     "remove": "Fjern",
     "add": "Tilføj URL",
+    "addFiles": "Browse files",
     "commonOptions": "Ingestionsindstillinger",
     "audioOptions": "Lydindstillinger",
     "audioLanguage": "Sprog (f.eks. en)",

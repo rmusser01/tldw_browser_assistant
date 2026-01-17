@@ -11,6 +11,7 @@ export type TldwRequestPayload = {
   noAuth?: boolean
   timeoutMs?: number
   abortSignal?: AbortSignal
+  responseType?: "json" | "text" | "arrayBuffer"
 }
 
 type TldwConfigLike = Record<string, any> | null | undefined
@@ -78,7 +79,8 @@ export const tldwRequest = async (
     body,
     noAuth = false,
     timeoutMs: overrideTimeoutMs,
-    abortSignal
+    abortSignal,
+    responseType
   } = payload || {}
   const fetchFn = runtime.fetchFn || fetch
   const cfg = await runtime.getConfig()
@@ -217,10 +219,20 @@ export const tldwRequest = async (
     const retryAfterMs = parseRetryAfter(resp.headers?.get?.("retry-after"))
     const contentType = resp.headers.get("content-type") || ""
     let data: any = null
-    if (contentType.includes("application/json")) {
+    const readDefaultBody = async () => {
+      if (contentType.includes("application/json")) {
+        return await resp.json().catch(() => null)
+      }
+      return await resp.text().catch(() => null)
+    }
+    if (responseType === "arrayBuffer") {
+      data = resp.ok ? await resp.arrayBuffer().catch(() => null) : await readDefaultBody()
+    } else if (responseType === "json") {
       data = await resp.json().catch(() => null)
-    } else {
+    } else if (responseType === "text") {
       data = await resp.text().catch(() => null)
+    } else {
+      data = await readDefaultBody()
     }
 
     if (!resp.ok) {

@@ -188,7 +188,7 @@ export const buildContentPayload = (
     format?: string
     position: number
   }>
-  rows: Array<{ row_index: number; row_json: Record<string, any> }>
+  rows: Array<Record<string, any>>
 } => {
   const mappedColumns = columns.map((col, index) => ({
     column_id: col.id,
@@ -198,12 +198,12 @@ export const buildContentPayload = (
     format: col.format,
     position: index
   }))
-  const rowsPayload = rows.map((row, index) => {
+  const rowsPayload = rows.map((row) => {
     const rowJson: Record<string, any> = {}
     for (const column of mappedColumns) {
       rowJson[column.column_id] = row[column.name] ?? null
     }
-    return { row_index: index, row_json: rowJson }
+    return rowJson
   })
   return { columns: mappedColumns, rows: rowsPayload }
 }

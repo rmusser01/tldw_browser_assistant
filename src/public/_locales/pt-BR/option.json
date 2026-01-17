@@ -1804,5 +1804,8 @@
   },
   "quickIngest_downloadJsonAria": {
     "message": "Baixar JSON de {{name}}"
+  },
+  "quickIngest_addFiles": {
+    "message": "Browse files"
   }
 }

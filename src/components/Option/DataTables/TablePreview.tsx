@@ -201,7 +201,10 @@ export const TablePreview: React.FC = () => {
         throw new Error(jobStatus?.error_message || "Generation failed")
       }
 
-      const table = await tldwClient.getDataTable(jobStatus.table_uuid || tableUuid)
+      const rowsLimit = Math.min(Math.max(maxRows, 1), 2000)
+      const table = await tldwClient.getDataTable(jobStatus.table_uuid || tableUuid, {
+        rows_limit: rowsLimit
+      })
       if (!table) {
         throw new Error("No table data in response")
       }

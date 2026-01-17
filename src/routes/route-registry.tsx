@@ -23,7 +23,8 @@ import {
   ClipboardList,
   MicIcon,
   Trash2,
-  Table2
+  Table2,
+  Library
 } from "lucide-react"
 import { ALL_TARGETS, type PlatformTarget } from "@/config/platform"
 import OptionLayout from "~/components/Layouts/Layout"
@@ -152,6 +153,7 @@ const OptionChatbooksPlayground = lazy(() => import("./option-chatbooks-playgrou
 const OptionWatchlists = lazy(() => import("./option-watchlists"))
 const OptionKanbanPlayground = lazy(() => import("./option-kanban-playground"))
 const OptionDataTables = lazy(() => import("./option-data-tables"))
+const OptionCollections = lazy(() => import("./option-collections"))
 
 export const ROUTE_DEFINITIONS: RouteDefinition[] = [
   { kind: "options", path: "/", element: <OptionIndex /> },
@@ -405,6 +407,18 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "option:header.dataTables",
       icon: Table2,
       order: 8,
+      beta: true
+    }
+  },
+  {
+    kind: "options",
+    path: "/collections",
+    element: <OptionCollections />,
+    nav: {
+      group: "workspace",
+      labelToken: "option:header.collections",
+      icon: Library,
+      order: 9,
       beta: true
     }
   },

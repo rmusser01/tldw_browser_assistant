@@ -2815,5 +2815,11 @@
   },
   "header_dataTables": {
     "message": "Data Tables"
+  },
+  "header_modeCollections": {
+    "message": "Collections"
+  },
+  "header_collections": {
+    "message": "Collections"
   }
 }
