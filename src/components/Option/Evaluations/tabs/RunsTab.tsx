@@ -3,7 +3,7 @@
  * Tab for managing evaluation runs - create, list, view details
  */
 
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import {
   Alert,
   Button,
@@ -37,18 +37,22 @@ import { useEvaluationsStore } from "@/store/evaluations"
 import {
   CopyButton,
   JsonEditor,
+  EvaluationsBreadcrumb,
   MetricsChart,
   PollingIndicator,
   RateLimitsWidget,
+  RunComparisonView,
   StatusBadge
 } from "../components"
 
 const { Text } = Typography
 
 export const RunsTab: React.FC = () => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const [runForm] = Form.useForm()
+  const [compareRunAId, setCompareRunAId] = useState<string | null>(null)
+  const [compareRunBId, setCompareRunBId] = useState<string | null>(null)
 
   // Store state
   const {
@@ -65,6 +69,7 @@ export const RunsTab: React.FC = () => {
     quotaSnapshot,
     setQuotaSnapshot,
     isPolling,
+    setIsPolling,
     adhocEndpoint,
     setAdhocEndpoint,
     adhocPayloadText,
@@ -84,6 +89,7 @@ export const RunsTab: React.FC = () => {
     quotaSnapshot: s.quotaSnapshot,
     setQuotaSnapshot: s.setQuotaSnapshot,
     isPolling: s.isPolling,
+    setIsPolling: s.setIsPolling,
     adhocEndpoint: s.adhocEndpoint,
     setAdhocEndpoint: s.setAdhocEndpoint,
     adhocPayloadText: s.adhocPayloadText,
@@ -99,6 +105,14 @@ export const RunsTab: React.FC = () => {
     useRunsList(selectedEvalId)
   const { data: runDetailResp, isLoading: runDetailLoading, isError: runDetailError } =
     useRunDetail(selectedRunId)
+  const { data: compareRunAResp } = useRunDetail(compareRunAId, {
+    enablePolling: false,
+    captureQuota: false
+  })
+  const { data: compareRunBResp } = useRunDetail(compareRunBId, {
+    enablePolling: false,
+    captureQuota: false
+  })
 
   // Mutations
   const createRunMutation = useCreateRun()
@@ -109,6 +123,8 @@ export const RunsTab: React.FC = () => {
   const rateLimits = rateLimitsResp?.data
   const runs = runsListResp?.data?.data || []
   const runDetail = runDetailResp?.data
+  const compareRunA = compareRunAResp?.data
+  const compareRunB = compareRunBResp?.data
 
   const runMetrics = useMemo(
     () => extractMetricsSummary(runDetail?.results),
@@ -118,6 +134,30 @@ export const RunsTab: React.FC = () => {
   const isRunActive = ["running", "pending"].includes(
     String(runDetail?.status || "").toLowerCase()
   )
+
+  const selectedEval = evaluations.find((ev) => ev.id === selectedEvalId)
+  const evalBreadcrumbLabel = selectedEval?.name || selectedEvalId || null
+
+  useEffect(() => {
+    if (!selectedRunId) {
+      setIsPolling(false)
+    }
+  }, [selectedRunId, setIsPolling])
+
+  useEffect(() => {
+    if (selectedRunId && !compareRunAId) {
+      setCompareRunAId(selectedRunId)
+    }
+  }, [selectedRunId, compareRunAId])
+
+  useEffect(() => {
+    if (!compareRunBId && compareRunAId && runs.length > 1) {
+      const candidate = runs.find((run) => run.id !== compareRunAId)
+      if (candidate) {
+        setCompareRunBId(candidate.id)
+      }
+    }
+  }, [compareRunAId, compareRunBId, runs])
 
   const handleStartRun = async () => {
     if (!selectedEvalId) return
@@ -170,19 +210,21 @@ export const RunsTab: React.FC = () => {
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="space-y-3">
+      <EvaluationsBreadcrumb evalName={evalBreadcrumbLabel} runId={selectedRunId} />
+      <div className="grid gap-4 md:grid-cols-2">
       {/* Left Column - Run Form & List */}
       <div className="space-y-4">
         {/* Eval Selector */}
         <Card
           size="small"
-          title={t("settings:evaluations.selectEvaluation", {
+          title={t("evaluations:selectEvaluation", {
             defaultValue: "Select evaluation"
           })}
         >
           <Select
             className="w-full"
-            placeholder={t("settings:evaluations.selectEvaluationPlaceholder", {
+            placeholder={t("evaluations:selectEvaluationPlaceholder", {
               defaultValue: "Choose an evaluation to run"
             })}
             value={selectedEvalId}
@@ -200,12 +242,12 @@ export const RunsTab: React.FC = () => {
 
         {/* Run Form */}
         <Card
-          title={t("settings:evaluations.runsTitle", { defaultValue: "Runs" })}
+          title={t("evaluations:runsTitle", { defaultValue: "Runs" })}
           extra={<PollingIndicator isPolling={isPolling} />}
         >
           {!selectedEvalId ? (
             <Text type="secondary" className="text-xs">
-              {t("settings:evaluations.noEvalSelectedRuns", {
+              {t("evaluations:noEvalSelectedRuns", {
                 defaultValue: "Select an evaluation to see its recent runs."
               })}
             </Text>
@@ -215,14 +257,14 @@ export const RunsTab: React.FC = () => {
                 type="info"
                 showIcon
                 className="mb-2 text-xs"
-                message={t("settings:evaluations.runPollingHint", {
+                message={t("evaluations:runPollingHint", {
                   defaultValue:
                     "Runs execute asynchronously. The UI polls every ~3s until status leaves running/pending."
                 })}
               />
               <Form form={runForm} layout="vertical" size="small">
                 <Form.Item
-                  label={t("settings:evaluations.runModelLabelShort", {
+                  label={t("evaluations:runModelLabelShort", {
                     defaultValue: "Target model"
                   })}
                   name="targetModel"
@@ -231,7 +273,7 @@ export const RunsTab: React.FC = () => {
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  label={t("settings:evaluations.runConfigLabel", {
+                  label={t("evaluations:runConfigLabel", {
                     defaultValue: "Config (JSON)"
                   })}
                   name="configJson"
@@ -252,13 +294,13 @@ export const RunsTab: React.FC = () => {
                   items={[
                     {
                       key: "advanced",
-                      label: t("settings:evaluations.advancedOptions", {
+                      label: t("evaluations:advancedOptions", {
                         defaultValue: "Advanced options"
                       }),
                       children: (
                         <>
                           <Form.Item
-                            label={t("settings:evaluations.datasetOverrideLabel", {
+                            label={t("evaluations:datasetOverrideLabel", {
                               defaultValue: "Dataset override (JSON array of samples)"
                             })}
                             name="datasetOverrideJson"
@@ -275,7 +317,7 @@ export const RunsTab: React.FC = () => {
                             />
                           </Form.Item>
                           <Form.Item
-                            label={t("settings:evaluations.webhookUrlLabel", {
+                            label={t("evaluations:webhookUrlLabel", {
                               defaultValue: "Webhook URL (optional)"
                             })}
                             name="webhookUrl"
@@ -286,7 +328,7 @@ export const RunsTab: React.FC = () => {
                             label={
                               <Tooltip
                                 title={t(
-                                  "settings:evaluations.idempotencyKeyTooltip",
+                                  "evaluations:idempotencyKeyTooltip",
                                   {
                                     defaultValue:
                                       "Prevents duplicate runs if the browser retries the request."
@@ -294,7 +336,7 @@ export const RunsTab: React.FC = () => {
                                 )}
                               >
                                 <span className="cursor-help underline decoration-dotted">
-                                  {t("settings:evaluations.idempotencyKeyLabel", {
+                                  {t("evaluations:idempotencyKeyLabel", {
                                     defaultValue: "Idempotency key"
                                   })}
                                 </span>
@@ -333,7 +375,7 @@ export const RunsTab: React.FC = () => {
                     loading={createRunMutation.isPending}
                     onClick={handleStartRun}
                   >
-                    {t("settings:evaluations.startRunCta", {
+                    {t("evaluations:startRunCta", {
                       defaultValue: "Start run"
                     })}
                   </Button>
@@ -343,7 +385,7 @@ export const RunsTab: React.FC = () => {
                       loading={cancelRunMutation.isPending}
                       onClick={() => cancelRunMutation.mutateAsync(selectedRunId)}
                     >
-                      {t("settings:evaluations.cancelRunCta", {
+                      {t("evaluations:cancelRunCta", {
                         defaultValue: "Cancel run"
                       })}
                     </Button>
@@ -362,13 +404,13 @@ export const RunsTab: React.FC = () => {
                 <Alert
                   type="warning"
                   showIcon
-                  message={t("settings:evaluations.runsErrorTitle", {
+                  message={t("evaluations:runsErrorTitle", {
                     defaultValue: "Unable to load runs"
                   })}
                 />
               ) : runs.length === 0 ? (
                 <Empty
-                  description={t("settings:evaluations.runsEmpty", {
+                  description={t("evaluations:runsEmpty", {
                     defaultValue: "No runs yet for this evaluation."
                   })}
                 />
@@ -396,7 +438,7 @@ export const RunsTab: React.FC = () => {
                       </div>
                       {selectedRunId === run.id && (
                         <Tag color="green" className="text-[11px]">
-                          {t("settings:evaluations.selectedTag", {
+                          {t("evaluations:selectedTag", {
                             defaultValue: "Selected"
                           })}
                         </Tag>
@@ -411,7 +453,7 @@ export const RunsTab: React.FC = () => {
 
         {/* Ad-hoc Evaluator */}
         <Card
-          title={t("settings:evaluations.adhocTitle", {
+          title={t("evaluations:adhocTitle", {
             defaultValue: "Ad-hoc evaluator"
           })}
           extra={
@@ -437,7 +479,7 @@ export const RunsTab: React.FC = () => {
         >
           <Form layout="vertical" size="small">
             <Form.Item
-              label={t("settings:evaluations.runConfigLabel", {
+              label={t("evaluations:runConfigLabel", {
                 defaultValue: "Config (JSON)"
               })}
             >
@@ -452,7 +494,7 @@ export const RunsTab: React.FC = () => {
               loading={adhocMutation.isPending}
               onClick={handleAdhocRun}
             >
-              {t("settings:evaluations.startRunCta", {
+              {t("evaluations:startRunCta", {
                 defaultValue: "Start run"
               })}
             </Button>
@@ -469,7 +511,7 @@ export const RunsTab: React.FC = () => {
       <div className="space-y-4">
         {/* Rate Limits */}
         <Card
-          title={t("settings:evaluations.rateLimitsTitle", {
+          title={t("evaluations:rateLimitsTitle", {
             defaultValue: "Evaluation limits"
           })}
         >
@@ -483,7 +525,7 @@ export const RunsTab: React.FC = () => {
 
         {/* Run Details */}
         <Card
-          title={t("settings:evaluations.runDetailTitle", {
+          title={t("evaluations:runDetailTitle", {
             defaultValue: "Run details"
           })}
           extra={
@@ -506,7 +548,7 @@ export const RunsTab: React.FC = () => {
                     loading={cancelRunMutation.isPending}
                     onClick={() => cancelRunMutation.mutateAsync(selectedRunId)}
                   >
-                    {t("settings:evaluations.cancelRunCta", {
+                    {t("evaluations:cancelRunCta", {
                       defaultValue: "Cancel run"
                     })}
                   </Button>
@@ -517,7 +559,7 @@ export const RunsTab: React.FC = () => {
         >
           {!selectedRunId ? (
             <Text type="secondary" className="text-xs">
-              {t("settings:evaluations.noRunSelected", {
+              {t("evaluations:noRunSelected", {
                 defaultValue: "Select a run to see details."
               })}
             </Text>
@@ -529,7 +571,7 @@ export const RunsTab: React.FC = () => {
             <Alert
               type="warning"
               showIcon
-              message={t("settings:evaluations.runDetailErrorTitle", {
+              message={t("evaluations:runDetailErrorTitle", {
                 defaultValue: "Unable to load run details"
               })}
             />
@@ -537,7 +579,7 @@ export const RunsTab: React.FC = () => {
             <div className="space-y-2 text-xs">
               <div className="flex items-center gap-2">
                 <Text type="secondary">
-                  {t("settings:evaluations.runStatusLabel", {
+                  {t("evaluations:runStatusLabel", {
                     defaultValue: "Status"
                   })}
                   {": "}
@@ -546,7 +588,7 @@ export const RunsTab: React.FC = () => {
               </div>
               <div>
                 <Text type="secondary">
-                  {t("settings:evaluations.runModelLabelShort", {
+                  {t("evaluations:runModelLabelShort", {
                     defaultValue: "Target model"
                   })}
                   {": "}
@@ -555,7 +597,7 @@ export const RunsTab: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Text type="secondary">
-                  {t("settings:evaluations.runEvalIdLabel", {
+                  {t("evaluations:runEvalIdLabel", {
                     defaultValue: "Evaluation"
                   })}
                   {": "}
@@ -573,7 +615,7 @@ export const RunsTab: React.FC = () => {
               {runDetail.error_message && (
                 <div>
                   <Text type="secondary">
-                    {t("settings:evaluations.runErrorLabel", {
+                    {t("evaluations:runErrorLabel", {
                       defaultValue: "Error"
                     })}
                     {": "}
@@ -585,7 +627,7 @@ export const RunsTab: React.FC = () => {
               {runDetail.results && (
                 <div className="mt-2">
                   <Text type="secondary">
-                    {t("settings:evaluations.runResultsLabel", {
+                    {t("evaluations:runResultsLabel", {
                       defaultValue: "Results (snippet)"
                     })}
                   </Text>
@@ -598,7 +640,7 @@ export const RunsTab: React.FC = () => {
               {runDetail.progress && (
                 <div className="mt-2">
                   <Text type="secondary">
-                    {t("settings:evaluations.runProgressLabel", {
+                    {t("evaluations:runProgressLabel", {
                       defaultValue: "Progress"
                     })}
                   </Text>
@@ -611,7 +653,7 @@ export const RunsTab: React.FC = () => {
               {runDetail.usage && (
                 <div className="mt-2">
                   <Text type="secondary">
-                    {t("settings:evaluations.runUsageLabel", {
+                    {t("evaluations:runUsageLabel", {
                       defaultValue: "Usage"
                     })}
                   </Text>
@@ -622,6 +664,43 @@ export const RunsTab: React.FC = () => {
               )}
             </div>
           ) : null}
+        </Card>
+
+        {/* Run Comparison */}
+        <Card
+          title={t("evaluations:compareTitle", {
+            defaultValue: "Compare runs"
+          })}
+        >
+          <Space className="mb-3" size="small" wrap>
+            <Select
+              placeholder={t("evaluations:compareRunAPlaceholder", {
+                defaultValue: "Select Run A"
+              })}
+              value={compareRunAId}
+              onChange={(value) => setCompareRunAId(value)}
+              options={runs.map((run) => ({
+                value: run.id,
+                label: `Run ${run.id}`
+              }))}
+              allowClear
+              style={{ minWidth: 160 }}
+            />
+            <Select
+              placeholder={t("evaluations:compareRunBPlaceholder", {
+                defaultValue: "Select Run B"
+              })}
+              value={compareRunBId}
+              onChange={(value) => setCompareRunBId(value)}
+              options={runs.map((run) => ({
+                value: run.id,
+                label: `Run ${run.id}`
+              }))}
+              allowClear
+              style={{ minWidth: 160 }}
+            />
+          </Space>
+          <RunComparisonView runA={compareRunA} runB={compareRunB} />
         </Card>
       </div>
     </div>

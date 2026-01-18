@@ -6,6 +6,8 @@
 import React, { useState, useCallback } from "react"
 import { Input } from "antd"
 import type { TextAreaProps } from "antd/es/input/TextArea"
+import { Highlight } from "prism-react-renderer"
+import { resolveTheme, safeLanguage } from "@/utils/code-theme"
 
 interface JsonEditorProps extends Omit<TextAreaProps, "onChange"> {
   value: string
@@ -25,8 +27,10 @@ export const JsonEditor: React.FC<JsonEditorProps> = ({
   ...textAreaProps
 }) => {
   const [error, setError] = useState<string | null>(null)
+  const [focused, setFocused] = useState(false)
 
   const handleBlur = useCallback(() => {
+    setFocused(false)
     if (!value || !value.trim()) {
       setError(null)
       onValidationError?.(null)
@@ -62,10 +66,41 @@ export const JsonEditor: React.FC<JsonEditorProps> = ({
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
+        onFocus={() => setFocused(true)}
         className={`font-mono text-sm ${className || ""}`}
         status={error ? "error" : undefined}
       />
       {showError && error && <div className={errorClassName}>{error}</div>}
+      {!focused && value?.trim() && (
+        <div className="mt-2 rounded border border-border bg-surface2 text-xs">
+          <Highlight code={value} language={safeLanguage("json")} theme={resolveTheme("auto")}>
+            {({
+              className: highlightClassName,
+              style,
+              tokens,
+              getLineProps,
+              getTokenProps
+            }) => (
+              <pre
+                className={`${highlightClassName} m-0 overflow-auto px-3 py-2`}
+                style={{
+                  ...style,
+                  background: "transparent",
+                  fontFamily: "var(--font-mono)"
+                }}
+              >
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line, key: i })}>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token, key })} />
+                    ))}
+                  </div>
+                ))}
+              </pre>
+            )}
+          </Highlight>
+        </div>
+      )}
     </div>
   )
 }

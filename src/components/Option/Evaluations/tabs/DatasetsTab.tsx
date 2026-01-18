@@ -27,13 +27,13 @@ import {
   parseSamplesJson
 } from "../hooks/useDatasets"
 import { useEvaluationsStore } from "@/store/evaluations"
-import { CopyButton, JsonEditor } from "../components"
+import { CopyButton, DatasetUpload, JsonEditor } from "../components"
 import type { DatasetResponse, DatasetSample } from "@/services/evaluations"
 
 const { Text } = Typography
 
 export const DatasetsTab: React.FC = () => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const [form] = Form.useForm()
 
   // Store state
@@ -66,6 +66,8 @@ export const DatasetsTab: React.FC = () => {
   const closeViewer = useCloseDatasetViewer()
 
   const datasets: DatasetResponse[] = datasetListResp?.data?.data || []
+  const samplesJsonValue = Form.useWatch("samplesJson", form) || ""
+  const metadataJsonValue = Form.useWatch("metadataJson", form) || ""
 
   const handleSubmitCreate = async () => {
     try {
@@ -110,10 +112,10 @@ export const DatasetsTab: React.FC = () => {
 
   const handleDeleteDataset = (datasetId: string) => {
     Modal.confirm({
-      title: t("settings:evaluations.deleteDatasetConfirmTitle", {
+      title: t("evaluations:deleteDatasetConfirmTitle", {
         defaultValue: "Delete this dataset?"
       }),
-      content: t("settings:evaluations.deleteDatasetConfirmDescription", {
+      content: t("evaluations:deleteDatasetConfirmDescription", {
         defaultValue:
           "This will permanently remove the dataset. Evaluations using it will need a new dataset."
       }),
@@ -125,7 +127,7 @@ export const DatasetsTab: React.FC = () => {
   return (
     <div className="space-y-4">
       <Card
-        title={t("settings:evaluations.datasetsTitle", {
+        title={t("evaluations:datasetsTitle", {
           defaultValue: "Datasets"
         })}
         extra={
@@ -133,7 +135,7 @@ export const DatasetsTab: React.FC = () => {
             onClick={openCreateDataset}
             disabled={createDatasetMutation.isPending}
           >
-            {t("settings:evaluations.newDatasetCta", {
+            {t("evaluations:newDatasetCta", {
               defaultValue: "New dataset"
             })}
           </Button>
@@ -147,13 +149,13 @@ export const DatasetsTab: React.FC = () => {
           <Alert
             type="warning"
             showIcon
-            message={t("settings:evaluations.datasetsErrorTitle", {
+            message={t("evaluations:datasetsErrorTitle", {
               defaultValue: "Unable to load datasets"
             })}
           />
         ) : datasets.length === 0 ? (
           <Empty
-            description={t("settings:evaluations.datasetsEmpty", {
+            description={t("evaluations:datasetsEmpty", {
               defaultValue:
                 "No datasets yet. Create one to attach to evaluations."
             })}
@@ -179,7 +181,7 @@ export const DatasetsTab: React.FC = () => {
                       </span>
                     )}
                     <span className="text-xs text-text-subtle">
-                      {t("settings:evaluations.datasetSampleCount", {
+                      {t("evaluations:datasetSampleCount", {
                         defaultValue: "{{count}} samples",
                         count: ds.sample_count
                       })}
@@ -213,7 +215,7 @@ export const DatasetsTab: React.FC = () => {
 
       {/* Create Dataset Modal */}
       <Modal
-        title={t("settings:evaluations.createDatasetModalTitle", {
+        title={t("evaluations:createDatasetModalTitle", {
           defaultValue: "New dataset"
         })}
         open={createDatasetOpen}
@@ -228,37 +230,60 @@ export const DatasetsTab: React.FC = () => {
       >
         <Form form={form} layout="vertical">
           <Form.Item
-            label={t("settings:evaluations.datasetNameLabel", {
+            label={t("evaluations:datasetNameLabel", {
               defaultValue: "Name"
             })}
             name="name"
             rules={[{ required: true }]}
           >
             <Input
-              placeholder={t("settings:evaluations.datasetNamePlaceholder", {
+              placeholder={t("evaluations:datasetNamePlaceholder", {
                 defaultValue: "my_dataset"
               })}
             />
           </Form.Item>
           <Form.Item
-            label={t("settings:evaluations.datasetDescriptionLabel", {
+            label={t("evaluations:datasetDescriptionLabel", {
               defaultValue: "Description"
             })}
             name="description"
           >
             <Input.TextArea rows={2} />
           </Form.Item>
+          <DatasetUpload
+            onSamplesLoaded={(samples) => {
+              form.setFieldsValue({
+                samplesJson: JSON.stringify(samples, null, 2)
+              })
+            }}
+          />
           <Form.Item
-            label={t("settings:evaluations.sampleInputLabel", {
+            label={t("evaluations:sampleInputLabel", {
               defaultValue: "Sample input"
             })}
             name="sampleInput"
-            rules={[{ required: true }]}
+            dependencies={["samplesJson"]}
+            rules={[
+              {
+                validator: async (_rule, value) => {
+                  const samplesJson = form.getFieldValue("samplesJson")
+                  if (value || samplesJson) return Promise.resolve()
+                  return Promise.reject(
+                    new Error(
+                      t("evaluations:sampleInputRequired", {
+                        defaultValue:
+                          "Provide a sample input or upload samples JSON."
+                      }) as string
+                    )
+                  )
+                }
+              }
+            ]}
           >
             <Input.TextArea rows={3} />
           </Form.Item>
           <Form.Item
-            label={t("settings:evaluations.sampleExpectedLabel", {
+            label={t("evaluations:sampleExpectedLabel", {
               defaultValue: "Expected output (optional)"
             })}
             name="sampleExpected"
@@ -266,32 +291,36 @@ export const DatasetsTab: React.FC = () => {
             <Input.TextArea rows={3} />
           </Form.Item>
           <Form.Item
-            label={t("settings:evaluations.samplesJsonLabel", {
+            label={t("evaluations:samplesJsonLabel", {
               defaultValue: "Samples JSON (optional, overrides fields)"
             })}
             name="samplesJson"
           >
             <JsonEditor
               rows={4}
-              value=""
-              onChange={() => {}}
+              value={samplesJsonValue}
+              onChange={(value) => form.setFieldsValue({ samplesJson: value })}
               placeholder='[{"input": {...}, "expected": {...}}]'
             />
           </Form.Item>
           <Form.Item
-            label={t("settings:evaluations.datasetMetadataLabel", {
+            label={t("evaluations:datasetMetadataLabel", {
               defaultValue: "Metadata (JSON, optional)"
             })}
             name="metadataJson"
           >
-            <Input.TextArea rows={3} className="font-mono text-sm" />
+            <JsonEditor
+              rows={3}
+              value={metadataJsonValue}
+              onChange={(value) => form.setFieldsValue({ metadataJson: value })}
+            />
           </Form.Item>
         </Form>
       </Modal>
 
       {/* View Dataset Modal */}
       <Modal
-        title={t("settings:evaluations.datasetDetailTitle", {
+        title={t("evaluations:datasetDetailTitle", {
           defaultValue: "Dataset details"
         })}
         open={!!viewingDataset}
@@ -321,7 +350,7 @@ export const DatasetsTab: React.FC = () => {
               </div>
               <div>
                 <Text type="secondary" className="text-xs">
-                  {t("settings:evaluations.datasetSampleCountLabel", {
+                  {t("evaluations:datasetSampleCountLabel", {
                     defaultValue: "Samples"
                   })}
                   :{" "}
@@ -333,7 +362,7 @@ export const DatasetsTab: React.FC = () => {
             {viewingDataset.description && (
               <div>
                 <Text type="secondary" className="text-xs">
-                  {t("settings:evaluations.descriptionLabel", {
+                  {t("evaluations:descriptionLabel", {
                     defaultValue: "Description"
                   })}
                   :{" "}
@@ -344,13 +373,13 @@ export const DatasetsTab: React.FC = () => {
 
             <div>
               <Text type="secondary" className="text-xs block mb-1">
-                {t("settings:evaluations.samplesPreviewLabel", {
+                {t("evaluations:samplesPreviewLabel", {
                   defaultValue: "Samples preview"
                 })}
               </Text>
               {datasetSamples.length === 0 ? (
                 <Empty
-                  description={t("settings:evaluations.noSamplesPreview", {
+                  description={t("evaluations:noSamplesPreview", {
                     defaultValue: "No samples to preview"
                   })}
                 />

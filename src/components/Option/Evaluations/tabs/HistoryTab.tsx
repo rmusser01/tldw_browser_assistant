@@ -23,7 +23,7 @@ import { CopyButton } from "../components"
 const { Text } = Typography
 
 export const HistoryTab: React.FC = () => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const [form] = Form.useForm()
 
   // Store state
@@ -40,28 +40,28 @@ export const HistoryTab: React.FC = () => {
   return (
     <div className="space-y-4">
       <Card
-        title={t("settings:evaluations.historyTitle", {
+        title={t("evaluations:historyTitle", {
           defaultValue: "History"
         })}
       >
         <Form form={form} layout="vertical" size="small">
           <div className="grid gap-4 md:grid-cols-2">
             <Form.Item
-              label={t("settings:evaluations.historyTypeLabel", {
+              label={t("evaluations:historyTypeLabel", {
                 defaultValue: "Type"
               })}
               name="type"
             >
               <Select
                 allowClear
-                placeholder={t("settings:evaluations.historyTypePlaceholder", {
+                placeholder={t("evaluations:historyTypePlaceholder", {
                   defaultValue: "Filter by event type"
                 })}
                 options={historyTypePresets}
               />
             </Form.Item>
             <Form.Item
-              label={t("settings:evaluations.historyUserLabel", {
+              label={t("evaluations:historyUserLabel", {
                 defaultValue: "User ID"
               })}
               name="user_id"
@@ -69,7 +69,7 @@ export const HistoryTab: React.FC = () => {
               <Input placeholder="user_123" />
             </Form.Item>
             <Form.Item
-              label={t("settings:evaluations.historyStartLabel", {
+              label={t("evaluations:historyStartLabel", {
                 defaultValue: "Start date (ISO)"
               })}
               name="start_date"
@@ -77,7 +77,7 @@ export const HistoryTab: React.FC = () => {
               <Input placeholder="2024-01-01T00:00:00Z" type="datetime-local" />
             </Form.Item>
             <Form.Item
-              label={t("settings:evaluations.historyEndLabel", {
+              label={t("evaluations:historyEndLabel", {
                 defaultValue: "End date (ISO)"
               })}
               name="end_date"
@@ -90,7 +90,7 @@ export const HistoryTab: React.FC = () => {
             loading={fetchHistoryMutation.isPending}
             onClick={handleFetch}
           >
-            {t("settings:evaluations.historyFetchCta", {
+            {t("evaluations:historyFetchCta", {
               defaultValue: "Fetch history"
             })}
           </Button>
@@ -104,14 +104,14 @@ export const HistoryTab: React.FC = () => {
           </div>
         ) : historyResults.length === 0 ? (
           <Text type="secondary" className="text-xs">
-            {t("settings:evaluations.historyEmpty", {
+            {t("evaluations:historyEmpty", {
               defaultValue: "Run a query to see recent activity."
             })}
           </Text>
         ) : (
           <div className="space-y-2">
             <Text type="secondary" className="text-xs">
-              {t("settings:evaluations.historyResultsCount", {
+              {t("evaluations:historyResultsCount", {
                 defaultValue: "{{count}} results",
                 count: historyResults.length
               })}

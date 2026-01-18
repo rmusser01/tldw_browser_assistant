@@ -34,7 +34,7 @@ import { CopyButton } from "../components"
 const { Text } = Typography
 
 export const WebhooksTab: React.FC = () => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const [form] = Form.useForm()
   const isOnline = useServerOnline()
 
@@ -64,10 +64,10 @@ export const WebhooksTab: React.FC = () => {
 
   const handleDelete = (webhookId: string) => {
     Modal.confirm({
-      title: t("settings:evaluations.deleteWebhookConfirmTitle", {
+      title: t("evaluations:deleteWebhookConfirmTitle", {
         defaultValue: "Delete this webhook?"
       }),
-      content: t("settings:evaluations.deleteWebhookConfirmDescription", {
+      content: t("evaluations:deleteWebhookConfirmDescription", {
         defaultValue:
           "This will stop sending events to this URL. You can re-register it later."
       }),
@@ -79,7 +79,7 @@ export const WebhooksTab: React.FC = () => {
   return (
     <div className="space-y-4">
       <Card
-        title={t("settings:evaluations.webhooksTitle", {
+        title={t("evaluations:webhooksTitle", {
           defaultValue: "Webhooks"
         })}
         extra={
@@ -95,7 +95,7 @@ export const WebhooksTab: React.FC = () => {
         {/* Register Form */}
         <Form form={form} layout="vertical" size="small">
           <Form.Item
-            label={t("settings:evaluations.webhookUrlLabel", {
+            label={t("evaluations:webhookUrlLabel", {
               defaultValue: "URL"
             })}
             name="url"
@@ -107,7 +107,7 @@ export const WebhooksTab: React.FC = () => {
             <Input placeholder="https://example.com/hook" />
           </Form.Item>
           <Form.Item
-            label={t("settings:evaluations.webhookEventsLabel", {
+            label={t("evaluations:webhookEventsLabel", {
               defaultValue: "Events"
             })}
             name="events"
@@ -117,7 +117,7 @@ export const WebhooksTab: React.FC = () => {
             <Select
               mode="multiple"
               options={webhookEventOptions}
-              placeholder={t("settings:evaluations.webhookEventsPlaceholder", {
+              placeholder={t("evaluations:webhookEventsPlaceholder", {
                 defaultValue: "Select events to receive"
               })}
             />
@@ -127,7 +127,7 @@ export const WebhooksTab: React.FC = () => {
             loading={registerMutation.isPending}
             onClick={handleRegister}
           >
-            {t("settings:evaluations.webhookCreateCta", {
+            {t("evaluations:webhookCreateCta", {
               defaultValue: "Register webhook"
             })}
           </Button>
@@ -136,7 +136,7 @@ export const WebhooksTab: React.FC = () => {
             <Alert
               className="mt-3"
               type="success"
-              message={t("settings:evaluations.webhookSecretTitle", {
+              message={t("evaluations:webhookSecretTitle", {
                 defaultValue: "Webhook Secret"
               })}
               description={
@@ -159,13 +159,13 @@ export const WebhooksTab: React.FC = () => {
         ) : webhooksError || webhooksResp?.ok === false ? (
           <Alert
             type="warning"
-            message={t("settings:evaluations.webhookListErrorTitle", {
+            message={t("evaluations:webhookListErrorTitle", {
               defaultValue: "Unable to load webhooks"
             })}
           />
         ) : webhooks.length === 0 ? (
           <Empty
-            description={t("settings:evaluations.webhooksEmpty", {
+            description={t("evaluations:webhooksEmpty", {
               defaultValue: "No webhooks registered yet."
             })}
           />
@@ -225,25 +225,25 @@ export const WebhooksTab: React.FC = () => {
         <Alert
           type="info"
           showIcon
-          message={t("settings:evaluations.webhookInfoTitle", {
+          message={t("evaluations:webhookInfoTitle", {
             defaultValue: "About webhooks"
           })}
           description={
             <ul className="mt-2 space-y-1 text-xs list-disc list-inside">
               <li>
-                {t("settings:evaluations.webhookInfoItem1", {
+                {t("evaluations:webhookInfoItem1", {
                   defaultValue:
                     "Webhooks receive POST requests when evaluation events occur."
                 })}
               </li>
               <li>
-                {t("settings:evaluations.webhookInfoItem2", {
+                {t("evaluations:webhookInfoItem2", {
                   defaultValue:
                     "Use the secret to verify webhook signatures and prevent spoofing."
                 })}
               </li>
               <li>
-                {t("settings:evaluations.webhookInfoItem3", {
+                {t("evaluations:webhookInfoItem3", {
                   defaultValue:
                     "Events include: started, completed, failed, cancelled, and progress updates."
                 })}

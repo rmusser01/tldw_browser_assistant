@@ -9,6 +9,23 @@ type LaunchOptions = {
   allowOffline?: boolean
 }
 
+async function waitForStorageSeed(page: any) {
+  await page.waitForFunction(
+    () =>
+      new Promise<boolean>((resolve) => {
+        if (typeof chrome === 'undefined' || !chrome.storage?.local) {
+          resolve(false)
+          return
+        }
+        chrome.storage.local.get('__e2eSeeded', (items) => {
+          resolve(Boolean(items?.__e2eSeeded))
+        })
+      }),
+    undefined,
+    { timeout: 10000 }
+  )
+}
+
 function makeTempProfileDirs() {
   const root = path.resolve('tmp-playwright-profile')
   fs.mkdirSync(root, { recursive: true })
@@ -40,22 +57,51 @@ export async function launchWithBuiltExtension(
   await context.addInitScript(
     (cfg, allowOfflineFlag) => {
       try {
-        const setLocal = (data: Record<string, any>) =>
+        if (typeof chrome === 'undefined' || !chrome.storage?.local) return
+        const setLocal = (data: Record<string, any>, done?: () => void) => {
           // @ts-ignore
-          chrome?.storage?.local?.set?.(data, () => {})
-        const setSync = (data: Record<string, any>) =>
+          const setter = chrome?.storage?.local?.set
+          if (typeof setter === 'function') {
+            setter(data, () => done?.())
+          } else {
+            done?.()
+          }
+        }
+        const setSync = (data: Record<string, any>, done?: () => void) => {
           // @ts-ignore
-          chrome?.storage?.sync?.set?.(data, () => {})
-        const setBoth = (data: Record<string, any>) => {
-          setLocal(data)
-          setSync(data)
+          const setter = chrome?.storage?.sync?.set
+          if (typeof setter === 'function') {
+            setter(data, () => done?.())
+          } else {
+            done?.()
+          }
         }
-        if (allowOfflineFlag) {
-          setLocal({ __tldw_allow_offline: true })
+        const finalize = () => {
+          setLocal({ __e2eSeeded: true })
         }
-        if (cfg) {
-          setBoth({ tldwConfig: cfg })
-        }
+
+        chrome.storage.local.get('__e2eSeeded', (items) => {
+          if (items?.__e2eSeeded) return
+          let pending = 0
+          const done = () => {
+            pending -= 1
+            if (pending <= 0) finalize()
+          }
+
+          if (allowOfflineFlag) {
+            pending += 1
+            setLocal({ __tldw_allow_offline: true }, done)
+          }
+
+          if (cfg) {
+            pending += 1
+            setLocal({ tldwConfig: cfg }, done)
+            pending += 1
+            setSync({ tldwConfig: cfg }, done)
+          }
+
+          if (pending === 0) finalize()
+        })
       } catch {
         // ignore storage write failures in isolated contexts
       }
@@ -81,6 +127,7 @@ export async function launchWithBuiltExtension(
 
   const page = await context.newPage()
   await page.goto(optionsUrl)
+  await waitForStorageSeed(page)
 
   async function openSidepanel() {
     const p = await context.newPage()

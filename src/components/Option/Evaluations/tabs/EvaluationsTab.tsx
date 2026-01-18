@@ -8,17 +8,12 @@ import {
   Alert,
   Button,
   Card,
-  Checkbox,
-  Collapse,
   Empty,
   Form,
-  Input,
   Modal,
-  Select,
   Space,
   Spin,
   Tag,
-  Tooltip,
   Typography
 } from "antd"
 import { useTranslation } from "react-i18next"
@@ -30,18 +25,17 @@ import {
   useUpdateEvaluation,
   useDeleteEvaluation,
   useEvaluationDefaults,
-  getDefaultEvalSpecForType,
-  evalTypeOptions
+  getDefaultEvalSpecForType
 } from "../hooks/useEvaluations"
 import { useDatasetsList } from "../hooks/useDatasets"
 import { useEvaluationsStore } from "@/store/evaluations"
-import { CopyButton, JsonEditor } from "../components"
+import { CopyButton, CreateEvaluationWizard } from "../components"
 import type { EvaluationSummary } from "@/services/evaluations"
 
 const { Text } = Typography
 
 export const EvaluationsTab: React.FC = () => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const [form] = Form.useForm()
 
@@ -167,10 +161,10 @@ export const EvaluationsTab: React.FC = () => {
   const handleDelete = () => {
     if (!selectedEvalId) return
     Modal.confirm({
-      title: t("settings:evaluations.deleteConfirmTitle", {
+      title: t("evaluations:deleteConfirmTitle", {
         defaultValue: "Delete this evaluation?"
       }),
-      content: t("settings:evaluations.deleteConfirmDescription", {
+      content: t("evaluations:deleteConfirmDescription", {
         defaultValue:
           "This will remove the evaluation definition. Runs already created remain in history."
       }),
@@ -254,13 +248,13 @@ export const EvaluationsTab: React.FC = () => {
     <div className="space-y-4">
       {/* Evaluations List */}
       <Card
-        title={t("settings:evaluations.listTitle", {
+        title={t("evaluations:listTitle", {
           defaultValue: "Recent evaluations"
         })}
         extra={
           <Space>
             <Button onClick={handleOpenCreate} type="primary">
-              {t("settings:evaluations.newEvaluationCta", {
+              {t("evaluations:newEvaluationCta", {
                 defaultValue: "New evaluation"
               })}
             </Button>
@@ -285,17 +279,17 @@ export const EvaluationsTab: React.FC = () => {
         ) : evalsError || evalListResp?.ok === false ? (
           <Alert
             type="error"
-            message={t("settings:evaluations.loadErrorTitle", {
+            message={t("evaluations:loadErrorTitle", {
               defaultValue: "Unable to load evaluations"
             })}
-            description={t("settings:evaluations.loadErrorDescription", {
+            description={t("evaluations:loadErrorDescription", {
               defaultValue:
                 "Check your tldw server connection and API credentials, then try again."
             })}
           />
         ) : evaluations.length === 0 ? (
           <Empty
-            description={t("settings:evaluations.emptyList", {
+            description={t("evaluations:emptyList", {
               defaultValue:
                 "No evaluations yet. Once you create one, it will appear here."
             })}
@@ -332,7 +326,7 @@ export const EvaluationsTab: React.FC = () => {
                   <div className="flex items-center gap-2">
                     {selectedEvalId === ev.id && (
                       <Tag color="green" className="text-xs">
-                        {t("settings:evaluations.selectedTag", {
+                        {t("evaluations:selectedTag", {
                           defaultValue: "Selected"
                         })}
                       </Tag>
@@ -352,7 +346,7 @@ export const EvaluationsTab: React.FC = () => {
 
       {/* Evaluation Details */}
       <Card
-        title={t("settings:evaluations.detailTitle", {
+        title={t("evaluations:detailTitle", {
           defaultValue: "Evaluation details"
         })}
         extra={
@@ -377,7 +371,7 @@ export const EvaluationsTab: React.FC = () => {
       >
         {!selectedEvalId ? (
           <Text type="secondary" className="text-xs">
-            {t("settings:evaluations.noEvalSelectedDetails", {
+            {t("evaluations:noEvalSelectedDetails", {
               defaultValue: "Select an evaluation to inspect its spec."
             })}
           </Text>
@@ -388,7 +382,7 @@ export const EvaluationsTab: React.FC = () => {
         ) : evalDetailError || evalDetailResp?.ok === false ? (
           <Alert
             type="warning"
-            message={t("settings:evaluations.detailErrorTitle", {
+            message={t("evaluations:detailErrorTitle", {
               defaultValue: "Unable to load evaluation details"
             })}
           />
@@ -405,7 +399,7 @@ export const EvaluationsTab: React.FC = () => {
               )}
               {evalDetail.dataset_id && (
                 <Tag color="purple">
-                  {t("settings:evaluations.datasetLabel", {
+                  {t("evaluations:datasetLabel", {
                     defaultValue: "Dataset"
                   })}
                   : {evalDetail.dataset_id}
@@ -415,7 +409,7 @@ export const EvaluationsTab: React.FC = () => {
             {evalDetail.description && (
               <div>
                 <Text type="secondary">
-                  {t("settings:evaluations.descriptionLabel", {
+                  {t("evaluations:descriptionLabel", {
                     defaultValue: "Description"
                   })}
                   {": "}
@@ -435,7 +429,7 @@ export const EvaluationsTab: React.FC = () => {
             )}
             <div>
               <Text type="secondary">
-                {t("settings:evaluations.evalSpecLabel", {
+                {t("evaluations:evalSpecLabel", {
                   defaultValue: "Evaluation spec (snippet)"
                 })}
               </Text>
@@ -451,10 +445,10 @@ export const EvaluationsTab: React.FC = () => {
       <Modal
         title={
           editingEvalId
-            ? t("settings:evaluations.editEvalModalTitle", {
+            ? t("evaluations:editEvalModalTitle", {
                 defaultValue: "Edit evaluation"
               })
-            : t("settings:evaluations.createEvalModalTitle", {
+            : t("evaluations:createEvalModalTitle", {
                 defaultValue: "New evaluation"
               })
         }
@@ -463,202 +457,37 @@ export const EvaluationsTab: React.FC = () => {
           closeCreateEval()
           form.resetFields()
         }}
-        onOk={handleSubmit}
-        confirmLoading={createEvalMutation.isPending || updateEvalMutation.isPending}
-        okText={
-          editingEvalId
-            ? (t("common:save", { defaultValue: "Save" }) as string)
-            : (t("common:create", { defaultValue: "Create" }) as string)
-        }
+        footer={null}
         width={640}
       >
-        <Form form={form} layout="vertical">
-          <Alert
-            type="info"
-            showIcon
-            className="mb-3 text-xs"
-            message={t("settings:evaluations.evalTypesHint", {
-              defaultValue:
-                "Supported: model_graded, response_quality, rag, rag_pipeline, geval, exact_match, includes, fuzzy_match, proposition_extraction, qa3, label_choice, nli_factcheck, ocr."
-            })}
-          />
-          <Form.Item
-            label={t("settings:evaluations.evalNameLabel", {
-              defaultValue: "Name"
-            })}
-            name="name"
-            rules={[
-              { required: true },
-              {
-                pattern: /^[a-zA-Z0-9_-]+$/,
-                message: t("settings:evaluations.evalNameValidation", {
-                  defaultValue:
-                    "Use only letters, numbers, hyphens, and underscores."
-                }) as string
-              }
-            ]}
-          >
-            <Input
-              placeholder={t("settings:evaluations.evalNamePlaceholder", {
-                defaultValue: "my_eval_run"
-              })}
-            />
-          </Form.Item>
-          <Form.Item
-            label={t("settings:evaluations.evalTypeLabel", {
-              defaultValue: "Evaluation type"
-            })}
-            name="evalType"
-            initialValue="response_quality"
-            rules={[{ required: true }]}
-          >
-            <Select
-              onChange={(value) => {
-                setEvalSpecError(null)
-                setEvalSpecText(
-                  JSON.stringify(
-                    getDefaultEvalSpecForType(
-                      value,
-                      evalDefaults?.defaultSpecByType
-                    ),
-                    null,
-                    2
-                  )
-                )
-              }}
-              options={evalTypeOptions}
-            />
-          </Form.Item>
-          <Form.Item
-            label={t("settings:evaluations.datasetLabel", {
-              defaultValue: "Dataset (optional)"
-            })}
-            name="datasetId"
-          >
-            <Select
-              allowClear
-              placeholder={t("settings:evaluations.datasetPlaceholder", {
-                defaultValue: "Select dataset"
-              })}
-              loading={datasetsLoading}
-              options={datasets.map((ds) => ({
-                value: ds.id,
-                label: ds.name
-              }))}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Checkbox
-              checked={inlineDatasetEnabled}
-              onChange={(e) => setInlineDatasetEnabled(e.target.checked)}
-            >
-              {t("settings:evaluations.inlineDatasetCheckbox", {
-                defaultValue:
-                  "Attach inline dataset instead of referencing dataset_id"
-              })}
-            </Checkbox>
-            {inlineDatasetEnabled && (
-              <JsonEditor
-                rows={3}
-                className="mt-2"
-                value={inlineDatasetText}
-                onChange={setInlineDatasetText}
-                placeholder='[{"input": {"question": "Q1", "contexts": ["ctx"], "response": "A"}, "expected": {"answer": "A"}}]'
-              />
-            )}
-          </Form.Item>
-          <Form.Item
-            label={t("settings:evaluations.evalSpecLabel", {
-              defaultValue: "Evaluation spec (JSON)"
-            })}
-          >
-            <JsonEditor
-              rows={6}
-              value={evalSpecText}
-              onChange={setEvalSpecText}
-              onValidationError={setEvalSpecError}
-            />
-            {evalSpecError && (
-              <div className="mt-1 text-xs text-red-600">{evalSpecError}</div>
-            )}
-          </Form.Item>
-
-          {/* Advanced options in collapsible section */}
-          <Collapse
-            ghost
-            items={[
-              {
-                key: "advanced",
-                label: t("settings:evaluations.advancedOptions", {
-                  defaultValue: "Advanced options"
-                }),
-                children: (
-                  <>
-                    <Form.Item
-                      label={t("settings:evaluations.evalMetadataLabel", {
-                        defaultValue: "Metadata (JSON, optional)"
-                      })}
-                      name="evalMetadataJson"
-                    >
-                      <Input.TextArea rows={3} className="font-mono text-sm" />
-                    </Form.Item>
-                    {!editingEvalId && (
-                      <Form.Item
-                        label={
-                          <Tooltip
-                            title={t(
-                              "settings:evaluations.idempotencyKeyTooltip",
-                              {
-                                defaultValue:
-                                  "Prevents duplicate creation if the browser retries the request. Use a unique key per creation attempt."
-                              }
-                            )}
-                          >
-                            <span className="cursor-help underline decoration-dotted">
-                              {t("settings:evaluations.idempotencyKeyLabel", {
-                                defaultValue: "Idempotency key"
-                              })}
-                            </span>
-                          </Tooltip>
-                        }
-                        name="idempotencyKey"
-                        initialValue={evalIdempotencyKey}
-                      >
-                        <Space.Compact className="w-full">
-                          <Input
-                            placeholder={
-                              t(
-                                "settings:evaluations.idempotencyKeyPlaceholder",
-                                {
-                                  defaultValue:
-                                    "Prevents duplicate create on retry"
-                                }
-                              ) as string
-                            }
-                          />
-                          <Button
-                            size="small"
-                            onClick={() => {
-                              regenerateEvalIdempotencyKey()
-                              form.setFieldsValue({
-                                idempotencyKey:
-                                  useEvaluationsStore.getState().evalIdempotencyKey
-                              })
-                            }}
-                          >
-                            {t("common:regenerate", {
-                              defaultValue: "Regenerate"
-                            })}
-                          </Button>
-                        </Space.Compact>
-                      </Form.Item>
-                    )}
-                  </>
-                )
-              }
-            ]}
-          />
-        </Form>
+        <CreateEvaluationWizard
+          key={`${createEvalOpen ? "open" : "closed"}-${editingEvalId || "new"}`}
+          form={form}
+          datasets={datasets}
+          evalDefaults={evalDefaults}
+          editingEvalId={editingEvalId}
+          evalSpecText={evalSpecText}
+          evalSpecError={evalSpecError}
+          inlineDatasetEnabled={inlineDatasetEnabled}
+          inlineDatasetText={inlineDatasetText}
+          evalIdempotencyKey={evalIdempotencyKey}
+          onSpecChange={setEvalSpecText}
+          onSpecError={setEvalSpecError}
+          onInlineDatasetEnabled={setInlineDatasetEnabled}
+          onInlineDatasetText={setInlineDatasetText}
+          onRegenerateIdempotencyKey={() => {
+            regenerateEvalIdempotencyKey()
+            const nextKey = useEvaluationsStore.getState().evalIdempotencyKey
+            form.setFieldsValue({ idempotencyKey: nextKey })
+            return nextKey
+          }}
+          onCancel={() => {
+            closeCreateEval()
+            form.resetFields()
+          }}
+          onSubmit={handleSubmit}
+          submitting={createEvalMutation.isPending || updateEvalMutation.isPending}
+        />
       </Modal>
     </div>
   )

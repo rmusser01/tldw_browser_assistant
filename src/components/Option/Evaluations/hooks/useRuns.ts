@@ -122,32 +122,45 @@ export function useRunsListGlobal(params?: {
   })
 }
 
-export function useRunDetail(runId: string | null) {
+export function useRunDetail(
+  runId: string | null,
+  options?: { enablePolling?: boolean; captureQuota?: boolean }
+) {
   const setQuotaSnapshot = useEvaluationsStore((s) => s.setQuotaSnapshot)
   const setIsPolling = useEvaluationsStore((s) => s.setIsPolling)
+  const enablePolling = options?.enablePolling !== false
+  const captureQuota = options?.captureQuota !== false
 
   return useQuery({
     queryKey: ["evaluations", "run", runId],
     queryFn: async () => {
       const resp = await getRun(runId as string)
       // Parse quota from headers
-      const snapshot = parseQuotaSnapshot(resp?.headers as any)
-      if (snapshot) setQuotaSnapshot(snapshot)
+      if (captureQuota) {
+        const snapshot = parseQuotaSnapshot(resp?.headers as any)
+        if (snapshot) setQuotaSnapshot(snapshot)
+      }
       return resp
     },
     enabled: !!runId,
-    refetchInterval: (query) => {
-      const status = (query?.state?.data as any)?.data?.status
-      if (!status) {
-        setIsPolling(false)
-        return false
+    refetchInterval: enablePolling
+      ? (query) => {
+        const status = (query?.state?.data as any)?.data?.status
+        if (!status) {
+          if (enablePolling) {
+            setIsPolling(false)
+          }
+          return false
+        }
+        const isPolling = ["running", "pending"].includes(
+          String(status).toLowerCase()
+        )
+        if (enablePolling) {
+          setIsPolling(isPolling)
+        }
+        return isPolling ? 3000 : false
       }
-      const isPolling = ["running", "pending"].includes(
-        String(status).toLowerCase()
-      )
-      setIsPolling(isPolling)
-      return isPolling ? 3000 : false
-    }
+      : false
   })
 }
 

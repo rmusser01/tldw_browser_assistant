@@ -58,19 +58,21 @@ function startMediaMockServer(itemCount = 35) {
       return writeJson(200, ["mock/model"])
     }
 
-    if (url.startsWith("/api/v1/media/") && !url.includes("search") && method === "GET") {
-      const idStr = url.split("/").filter(Boolean).pop() || ""
-      const id = Number(idStr)
-      const detail = details[id]
-      if (detail) return writeJson(200, detail)
-      return writeJson(404, { detail: "not found" })
+    if (method === "GET") {
+      const detailMatch = url.match(/^\/api\/v1\/media\/(\d+)(?:\?.*)?$/)
+      if (detailMatch) {
+        const id = Number(detailMatch[1])
+        const detail = details[id]
+        if (detail) return writeJson(200, detail)
+        return writeJson(404, { detail: "not found" })
+      }
     }
 
     if (url.startsWith("/api/v1/media/search") && method === "POST") {
       return writeJson(200, { items, pagination: { total_items: items.length } })
     }
 
-    if (url.startsWith("/api/v1/media") && method === "GET") {
+    if (url.startsWith("/api/v1/media") && !url.startsWith("/api/v1/media/search") && method === "GET") {
       return writeJson(200, { items, pagination: { total_items: items.length } })
     }
 
@@ -96,6 +98,12 @@ async function ensureConnected(page: any, label: string, serverUrl: string) {
   await page.waitForFunction(
     () => Boolean((window as any).__tldw_useConnectionStore?.getState)
   )
+  await page.evaluate(async () => {
+    const enable = (window as any).__tldw_enableOfflineBypass
+    if (typeof enable === 'function') {
+      await enable()
+    }
+  })
   await forceConnected(page, { serverUrl }, label)
   await page.waitForFunction(
     () => (window as any).__tldw_useConnectionStore?.getState?.().state?.isConnected === true
