@@ -1,374 +1,383 @@
 {
   "title": {
-    "message": "Data Tables Studio"
+    "message": "データテーブル・スタジオ"
   },
   "description": {
     "message": "Description"
   },
   "betaNotice": {
-    "message": "Beta Feature"
+    "message": "ベータ機能"
   },
   "betaDescription": {
-    "message": "Data Tables is currently in beta. Table generation requires backend support."
+    "message": "データテーブルは現在ベータ版です。テーブル生成にはバックエンドのサポートが必要です。"
   },
   "offline": {
-    "message": "Server is offline. Please connect to use Data Tables."
+    "message": "サーバーがオフラインです。データテーブルを利用するには接続してください。"
   },
   "tabs_tables": {
-    "message": "My Tables"
+    "message": "マイテーブル"
   },
   "tabs_create": {
-    "message": "Create Table"
+    "message": "テーブルを作成"
   },
   "wizard_sources": {
-    "message": "Select Sources"
+    "message": "ソースを選択"
   },
   "wizard_sourcesDesc": {
-    "message": "Choose data sources"
+    "message": "データソースを選択"
   },
   "wizard_prompt": {
-    "message": "Describe Table"
+    "message": "テーブルを説明"
   },
   "wizard_promptDesc": {
-    "message": "Write your prompt"
+    "message": "プロンプトを入力"
   },
   "wizard_preview": {
-    "message": "Preview"
+    "message": "プレビュー"
   },
   "wizard_previewDesc": {
-    "message": "Review generated table"
+    "message": "生成されたテーブルを確認"
   },
   "wizard_save": {
-    "message": "Save"
+    "message": "保存"
   },
   "wizard_saveDesc": {
-    "message": "Save to library"
+    "message": "ライブラリに保存"
   },
   "wizard_tip": {
-    "message": "Tip"
+    "message": "ヒント"
   },
   "wizard_tipText": {
-    "message": "Select chats, documents, or search your knowledge base to extract structured data. The more specific your sources, the better the results."
+    "message": "チャットやドキュメントを選択するか、ナレッジベースを検索して構造化データを抽出します。ソースが具体的であるほど結果が良くなります。"
   },
   "wizard_reset": {
-    "message": "Start Over"
+    "message": "やり直す"
   },
   "sourceTypes_chat": {
-    "message": "Chats"
+    "message": "チャット"
   },
   "sourceTypes_document": {
-    "message": "Documents"
+    "message": "ドキュメント"
   },
   "sourceTypes_rag": {
-    "message": "RAG Search"
+    "message": "RAG 検索"
   },
   "selectedSources": {
-    "message": "Selected Sources"
+    "message": "選択したソース"
   },
   "sourcesSelected": {
-    "message": "Sources Selected"
+    "message": "選択済みソース"
   },
   "searchPlaceholder": {
-    "message": "Search..."
+    "message": "検索…"
   },
   "ragPlaceholder": {
-    "message": "Enter a search query for your knowledge base..."
+    "message": "ナレッジベースの検索クエリを入力…"
   },
   "ragQuerySnippet": {
-    "message": "Knowledge base search query"
+    "message": "ナレッジベース検索クエリ"
   },
   "ragAdded": {
-    "message": "RAG query added as source"
+    "message": "RAG クエリをソースとして追加しました"
   },
   "ragTip": {
-    "message": "Enter search queries to find relevant content in your knowledge base. Each query will be added as a separate source."
+    "message": "ナレッジベースで関連コンテンツを見つけるための検索クエリを入力してください。各クエリは個別のソースとして追加されます。"
   },
   "fetchError": {
-    "message": "Failed to load items"
+    "message": "項目の読み込みに失敗しました"
   },
   "promptLabel": {
-    "message": "Describe the table you want to create"
+    "message": "作成したいテーブルを説明してください"
   },
   "promptPlaceholder": {
-    "message": "E.g., Create a table comparing the main topics discussed, with columns for topic, key points, and relevance score..."
+    "message": "例: 議論された主要トピックを比較するテーブルを作成し、トピック、要点、関連度スコアの列を含めてください…"
   },
   "examplePrompts": {
-    "message": "Example prompts:"
+    "message": "プロンプト例:"
   },
   "advancedOptions": {
-    "message": "Advanced Options"
+    "message": "詳細オプション"
   },
   "columnHints": {
-    "message": "Column Hints (Optional)"
+    "message": "列のヒント（任意）"
   },
   "columnHintsDesc": {
-    "message": "Suggest column names and types to guide the LLM. If not specified, columns will be inferred from your prompt."
+    "message": "列名と型の候補を示して LLM をガイドします。指定しない場合は、プロンプトから列が推定されます。"
   },
   "newColumnName": {
-    "message": "Column name"
+    "message": "列名"
   },
   "modelSelection": {
-    "message": "Model"
+    "message": "モデル"
   },
   "selectModel": {
-    "message": "Use default model"
+    "message": "既定のモデルを使用"
   },
   "maxRows": {
-    "message": "Maximum Rows"
+    "message": "最大行数"
   },
   "maxRowsHint": {
-    "message": "(1-1000)"
+    "message": "（1〜1000）"
   },
   "generating": {
-    "message": "Generating table from your sources..."
+    "message": "ソースからテーブルを生成しています…"
   },
   "generatingNote": {
-    "message": "This may take a moment depending on the amount of data."
+    "message": "データ量によっては時間がかかる場合があります。"
   },
   "generateSuccess": {
-    "message": "Table generated successfully!"
+    "message": "テーブルを生成しました！"
   },
   "generationFailed": {
-    "message": "Generation Failed"
+    "message": "生成に失敗しました"
   },
   "tryAgain": {
-    "message": "Try Again"
+    "message": "再試行"
   },
   "warnings": {
-    "message": "Warnings"
+    "message": "警告"
   },
   "noPreview": {
-    "message": "No preview available"
+    "message": "プレビューがありません"
   },
   "promptUsed": {
-    "message": "Prompt used:"
+    "message": "使用したプロンプト:"
   },
   "previewModified": {
-    "message": "You've modified the preview. Changes will be saved with the table."
+    "message": "プレビューを変更しました。変更内容はテーブルに保存されます。"
   },
   "addRow": {
-    "message": "Add Row"
+    "message": "行を追加"
   },
   "addColumn": {
-    "message": "Add Column"
+    "message": "列を追加"
   },
   "deleteRow": {
-    "message": "Delete row?"
+    "message": "行を削除しますか？"
   },
   "deleteRowConfirm": {
-    "message": "This action cannot be undone."
+    "message": "この操作は取り消せません。"
   },
   "deleteColumn": {
-    "message": "Delete column?"
+    "message": "列を削除しますか？"
   },
   "deleteColumnConfirm": {
-    "message": "This action cannot be undone."
+    "message": "この操作は取り消せません。"
   },
   "discard": {
-    "message": "Discard"
+    "message": "破棄"
   },
   "changesDiscarded": {
-    "message": "Changes discarded"
+    "message": "変更を破棄しました"
   },
   "save": {
-    "message": "Save"
+    "message": "保存"
   },
   "saveSuccess": {
-    "message": "Changes saved successfully!"
+    "message": "変更を保存しました！"
   },
   "unsavedChanges": {
-    "message": "You have unsaved changes"
+    "message": "未保存の変更があります"
   },
   "columnAdded": {
-    "message": "Column '{{name}}' added"
+    "message": "列「{{name}}」を追加しました"
   },
   "rows": {
-    "message": "rows"
+    "message": "行"
   },
   "columnsLabel": {
-    "message": "columns"
+    "message": "列"
   },
   "showingRows": {
-    "message": "Showing {{total}} rows"
+    "message": "{{total}} 行を表示"
   },
   "tableSummary": {
-    "message": "Table Summary"
+    "message": "テーブル概要"
   },
   "tableName": {
-    "message": "Table Name"
+    "message": "テーブル名"
   },
   "tableNamePlaceholder": {
-    "message": "Enter a name for your table"
+    "message": "テーブル名を入力"
   },
   "tableDescription": {
-    "message": "Description (optional)"
+    "message": "説明（任意）"
   },
   "tableDescPlaceholder": {
-    "message": "Add a description to help you remember what this table contains"
+    "message": "このテーブルの内容を覚えておくための説明を追加してください"
   },
   "saveToLibrary": {
-    "message": "Save to Library"
+    "message": "ライブラリに保存"
   },
   "tableSaved": {
-    "message": "Table Saved!"
+    "message": "テーブルを保存しました！"
   },
   "tableSavedDesc": {
-    "message": "Your table has been saved to the library. You can view and export it anytime."
+    "message": "テーブルをライブラリに保存しました。いつでも閲覧・エクスポートできます。"
   },
   "viewTables": {
-    "message": "View My Tables"
+    "message": "マイテーブルを表示"
   },
   "createAnother": {
-    "message": "Create Another"
+    "message": "別のテーブルを作成"
   },
   "orExport": {
-    "message": "Or export directly:"
+    "message": "または直接エクスポート:"
   },
   "export": {
-    "message": "Export"
+    "message": "エクスポート"
   },
   "exportCSV": {
-    "message": "Export as CSV"
+    "message": "CSVとしてエクスポート"
   },
   "exportExcel": {
-    "message": "Export as Excel"
+    "message": "Excelとしてエクスポート"
   },
   "exportJSON": {
-    "message": "Export as JSON"
+    "message": "JSONとしてエクスポート"
   },
   "exportSuccess": {
-    "message": "Table exported as {{format}}"
+    "message": "テーブルを{{format}}としてエクスポートしました"
   },
   "noTableToSave": {
-    "message": "No table to save"
+    "message": "保存するテーブルがありません"
   },
   "goBackToGenerate": {
-    "message": "Go back to the previous step to generate a table first."
+    "message": "前のステップに戻って、まずテーブルを生成してください。"
   },
   "tableDetails": {
-    "message": "Table Details"
+    "message": "テーブル詳細"
   },
   "tableNotFound": {
-    "message": "Table not found"
+    "message": "テーブルが見つかりません"
   },
   "noData": {
-    "message": "No data"
+    "message": "データがありません"
   },
   "data": {
-    "message": "Data"
+    "message": "データ"
   },
   "editMode": {
-    "message": "Edit Mode"
+    "message": "編集モード"
   },
   "editModeActive": {
-    "message": "Click cells to edit"
+    "message": "セルをクリックして編集"
   },
   "regenerate": {
-    "message": "Regenerate"
+    "message": "再生成"
   },
   "regenerateSuccess": {
-    "message": "Table regenerated successfully!"
+    "message": "テーブルを再生成しました！"
   },
   "model": {
-    "message": "Model"
+    "message": "モデル"
   },
   "prompt": {
-    "message": "Generation Prompt"
+    "message": "生成プロンプト"
   },
   "sources": {
-    "message": "Sources"
+    "message": "ソース"
   },
   "created": {
-    "message": "Created"
+    "message": "作成日"
   },
   "updated": {
-    "message": "Updated"
+    "message": "更新日"
   },
   "noTables": {
-    "message": "No tables yet. Create your first table!"
+    "message": "まだテーブルがありません。最初のテーブルを作成しましょう！"
   },
   "noSearchResults": {
-    "message": "No tables found matching your search"
+    "message": "検索条件に一致するテーブルはありません"
   },
   "totalTables": {
-    "message": "{{total}} tables"
+    "message": "{{total}} 件のテーブル"
   },
   "view": {
-    "message": "View"
+    "message": "表示"
   },
   "delete": {
-    "message": "Delete"
+    "message": "削除"
   },
   "deleteConfirmTitle": {
-    "message": "Delete Table"
+    "message": "テーブルを削除"
   },
   "deleteConfirmMessage": {
-    "message": "Are you sure you want to delete this table? This action cannot be undone."
+    "message": "このテーブルを削除しますか？この操作は取り消せません。"
   },
   "noTable": {
-    "message": "No table data"
+    "message": "テーブルデータがありません"
   },
   "add": {
-    "message": "Add"
+    "message": "追加"
   },
   "columnName": {
-    "message": "Column Name"
+    "message": "列名"
   },
   "columnNamePlaceholder": {
-    "message": "e.g., Price, Status, Date"
+    "message": "例: 価格、ステータス、日付"
   },
   "columnNameRequired": {
-    "message": "Please enter a column name"
+    "message": "列名を入力してください"
   },
   "columnNameTooLong": {
-    "message": "Column name must be 50 characters or less"
+    "message": "列名は50文字以内にしてください"
   },
   "columnNameExists": {
-    "message": "A column with this name already exists"
+    "message": "同じ名前の列がすでに存在します"
   },
   "columnType": {
-    "message": "Column Type"
+    "message": "列の種類"
   },
   "columnTypeRequired": {
-    "message": "Please select a column type"
+    "message": "列の種類を選択してください"
   },
   "columnDescription": {
-    "message": "Description (optional)"
+    "message": "説明（任意）"
   },
   "columnDescriptionHint": {
-    "message": "A brief description of what this column contains"
+    "message": "この列に含まれる内容の簡単な説明"
   },
   "columnDescriptionPlaceholder": {
-    "message": "e.g., The price of the item in USD"
+    "message": "例: 商品の価格（USD）"
   },
   "discardUnsavedChanges": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "未保存の変更があります。閉じてもよろしいですか？"
   },
   "createFromChat": {
-    "message": "Create Table from Chat"
+    "message": "チャットからテーブルを作成"
   },
   "saveFromArtifact": {
-    "message": "Save to Data Tables"
+    "message": "データテーブルに保存"
   },
   "importedPrompt": {
-    "message": "Imported from table artifact"
+    "message": "テーブル成果物からインポート"
   },
   "columns_name": {
-    "message": "Name"
+    "message": "名前"
   },
   "columns_rows": {
-    "message": "Rows"
+    "message": "行数"
   },
   "columns_columns": {
-    "message": "Columns"
+    "message": "列数"
   },
   "columns_sources": {
-    "message": "Sources"
+    "message": "ソース"
   },
   "columns_created": {
-    "message": "Created"
+    "message": "作成日"
   },
   "columns_actions": {
-    "message": "Actions"
+    "message": "操作"
+  },
+  "dataTablesDescription": {
+    "message": "自然言語のプロンプトで、チャット、ドキュメント、ナレッジベースから構造化テーブルを生成します。"
+  },
+  "descriptionLabel": {
+    "message": "Description"
+  },
+  "tableDescriptionLabel": {
+    "message": "説明"
   }
 }

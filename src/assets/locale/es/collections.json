@@ -1,0 +1,262 @@
+{
+  "title": "Colecciones",
+  "description": "Guarda artículos, crea destacados, administra plantillas e importa/exporta tu lista de lectura.",
+  "offline": "El servidor está desconectado. Conéctate para usar Colecciones.",
+  "betaNotice": "Función beta",
+  "betaDescription": "Colecciones está actualmente en beta. Algunas funciones pueden requerir soporte del backend.",
+
+  "tabs": {
+    "reading": "Lista de lectura",
+    "highlights": "Destacados",
+    "templates": "Plantillas",
+    "importExport": "Importar/Exportar"
+  },
+
+  "status": {
+    "all": "Todos",
+    "saved": "Guardados",
+    "reading": "En lectura",
+    "read": "Leídos",
+    "archived": "Archivados"
+  },
+
+  "sort": {
+    "created_at": "Fecha de añadido",
+    "updated_at": "Última actualización",
+    "title": "Título",
+    "relevance": "Relevancia"
+  },
+
+  "colors": {
+    "all": "Todos los colores",
+    "yellow": "Amarillo",
+    "green": "Verde",
+    "blue": "Azul",
+    "pink": "Rosa",
+    "purple": "Morado"
+  },
+
+  "time": {
+    "minutesAgo": "hace {{count}} min",
+    "hoursAgo": "hace {{count}} h",
+    "daysAgo": "hace {{count}} días"
+  },
+
+  "reading": {
+    "addUrl": "Agregar URL",
+    "addUrlTitle": "Agregar a la lista de lectura",
+    "addFirst": "Agrega tu primer artículo",
+    "addSuccess": "Artículo agregado a la lista de lectura",
+    "searchPlaceholder": "Buscar artículos...",
+    "filters": "Filtros",
+    "favorites": "Favoritos",
+    "tagsFilter": "Etiquetas",
+    "domainFilter": "Dominio",
+    "sortBy": "Ordenar",
+    "clearFilters": "Limpiar filtros",
+    "noResults": "No hay artículos que coincidan con tus filtros",
+    "empty": "Tu lista de lectura está vacía",
+    "pagination": "{{start}}-{{end}} de {{total}} elementos",
+
+    "readingTime": "{{count}} min de lectura",
+    "favorite": "Marcar como favorito",
+    "unfavorite": "Quitar de favoritos",
+    "viewDetails": "Ver detalles",
+    "openOriginal": "Abrir original",
+    "changeStatus": "Cambiar estado",
+    "archive": "Archivar",
+    "unarchive": "Desarchivar",
+    "statusUpdated": "Estado actualizado a {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "Ingresa una URL",
+    "urlInvalid": "Ingresa una URL válida",
+    "titleLabel": "Título (opcional)",
+    "titleHint": "Déjalo en blanco para detectar automáticamente desde la página",
+    "titlePlaceholder": "Título del artículo",
+    "tagsLabel": "Etiquetas",
+    "tagsPlaceholder": "Agregar etiquetas...",
+    "notesLabel": "Notas (opcional)",
+    "notesPlaceholderArticle": "Agrega cualquier nota sobre este artículo...",
+    "saveToList": "Guardar en la lista",
+    "addTag": "Agregar etiqueta...",
+
+    "tabs": {
+      "content": "Contenido",
+      "summary": "Resumen",
+      "highlights": "Destacados",
+      "notes": "Notas"
+    },
+
+    "noContent": "Contenido no disponible",
+    "noSummary": "Aún no hay resumen",
+    "noNotes": "Aún no hay notas",
+    "editNotes": "Editar notas",
+    "addNotes": "Agregar notas",
+    "notesSaved": "Notas guardadas",
+    "notesPlaceholder": "Agrega tus notas...",
+
+    "summarize": "Resumir",
+    "generateSummary": "Generar resumen",
+    "summarized": "Resumen generado",
+    "generateTts": "Generar audio",
+    "ttsGenerated": "Audio generado",
+    "downloadAudio": "Descargar audio",
+
+    "deleted": "Artículo eliminado",
+    "deleteConfirm": {
+      "title": "Eliminar artículo",
+      "message": "¿Seguro que quieres eliminar este artículo? Esta acción no se puede deshacer."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "Buscar destacados...",
+    "groupByItem": "Agrupar por artículo",
+    "add": "Agregar destacado",
+    "edit": "Editar destacado",
+    "quoteLabel": "Cita",
+    "quoteRequired": "Ingresa el texto destacado",
+    "quotePlaceholder": "Pega el texto resaltado...",
+    "noteLabel": "Nota (opcional)",
+    "notePlaceholder": "Agrega contexto o por qué es importante...",
+    "colorLabel": "Color de destacado",
+    "noResults": "No hay destacados que coincidan con tus filtros",
+    "empty": "Aún no hay destacados",
+    "emptyForItem": "Aún no hay destacados para este artículo",
+    "emptyHint": "Los destacados que crees mientras lees aparecerán aquí.",
+    "from": "De",
+    "viewArticle": "Ver artículo",
+    "created": "Destacado creado",
+    "updated": "Destacado actualizado",
+    "missingItem": "Selecciona primero un artículo",
+    "deleted": "Destacado eliminado",
+    "deleteConfirm": {
+      "title": "Eliminar destacado",
+      "message": "¿Seguro que quieres eliminar este destacado?"
+    }
+  },
+
+  "templates": {
+    "create": "Crear plantilla",
+    "createFirst": "Crea tu primera plantilla",
+    "searchPlaceholder": "Buscar plantillas...",
+    "noResults": "No hay plantillas que coincidan con tus filtros",
+    "empty": "Aún no hay plantillas",
+    "default": "Predeterminado",
+    "preview": "Vista previa",
+    "duplicate": "Duplicar",
+    "deleted": "Plantilla eliminada",
+    "created": "Plantilla creada",
+    "updated": "Plantilla actualizada",
+
+    "editTitle": "Editar plantilla",
+    "createTitle": "Crear plantilla",
+    "nameLabel": "Nombre de la plantilla",
+    "nameRequired": "Ingresa un nombre",
+    "namePlaceholder": "Mi plantilla de boletín",
+    "descriptionLabel": "Descripción (opcional)",
+    "descriptionPlaceholder": "Breve descripción de esta plantilla",
+    "typeLabel": "Tipo de plantilla",
+    "formatLabel": "Formato de salida",
+    "bodyLabel": "Cuerpo de la plantilla (Jinja2)",
+    "bodyRequired": "Ingresa el contenido de la plantilla",
+    "bodyHint": "Usa sintaxis Jinja2. Variables disponibles: items (array de elementos de lectura), date, tags",
+
+    "previewTitle": "Vista previa de plantilla",
+    "selectItems": "Selecciona al menos un artículo",
+    "selectItemsHint": "Selecciona artículos para incluir en la vista previa:",
+    "selectAll": "Seleccionar todo",
+    "selectedCount": "{{count}} seleccionados",
+    "noItems": "No hay artículos en tu lista de lectura",
+    "generatePreview": "Generar vista previa",
+    "generateOutput": "Generar salida",
+    "audioUnavailable": "Salida de audio no disponible",
+    "noGeneratedContent": "Aún no hay salida generada",
+
+    "deleteConfirm": {
+      "title": "Eliminar plantilla",
+      "message": "¿Seguro que quieres eliminar esta plantilla?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "Todos los tipos",
+    "newsletter_markdown": "Boletín (MD)",
+    "briefing_markdown": "Informe (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "Boletín (HTML)",
+    "tts_audio": "Audio TTS"
+  },
+
+  "import": {
+    "title": "Importar",
+    "sourceRequired": "Selecciona una fuente primero",
+    "selectSource": "Selecciona la fuente de importación:",
+    "sources": {
+      "auto": {
+        "label": "Detección automática",
+        "description": "Sube un archivo de exportación de Pocket o Instapaper y detecta el formato automáticamente"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Importa tus artículos guardados desde una exportación de Pocket"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Importa artículos desde una exportación de Instapaper"
+      }
+    },
+    "methodFile": "Carga de archivo",
+    "methodApiKey": "Clave API",
+    "apiKeyLabel": "Clave API",
+    "apiKeyPlaceholder": "Pega tu clave API",
+    "apiKeyRequired": "Ingresa una clave API",
+    "previewWithKey": "Vista previa de importación",
+    "processing": "Procesando archivo...",
+    "dropzone": "Haz clic o arrastra el archivo para subirlo",
+    "formats": "Soporta Pocket JSON e Instapaper CSV",
+    "previewHint": "{{count}} elementos encontrados",
+    "selectAll": "Seleccionar todo",
+    "selectItems": "Selecciona elementos para importar",
+    "importSelected": "Importar {{count}} elementos",
+    "success": "{{count}} elementos importados",
+    "complete": "Importación completa",
+    "resultSummary": "Importados: {{imported}}, Actualizados: {{updated}}, Omitidos: {{skipped}}",
+    "importMore": "Importar más",
+    "steps": {
+      "source": "Fuente",
+      "upload": "Subir",
+      "preview": "Vista previa",
+      "result": "Resultado"
+    }
+  },
+
+  "export": {
+    "title": "Exportar",
+    "format": "Formato",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "Opciones",
+    "includeContent": "Incluir contenido completo",
+    "includeHighlights": "Incluir destacados",
+    "items": "Elementos a exportar",
+    "searchPlaceholder": "Buscar elementos...",
+    "allItems": "Todos los elementos (dejar vacío)",
+    "itemsHint": "Déjalo vacío para exportar todos los elementos, o selecciona algunos",
+    "selectionHint": "Selecciona elementos para exportar o déjalo vacío para exportar todo.",
+    "selectAll": "Seleccionar todo",
+    "selectedCount": "{{count}} seleccionados",
+    "clearSelection": "Limpiar",
+    "noItems": "No se encontraron elementos",
+    "selectItems": "Selecciona elementos para copiar primero",
+    "copy": "Copiar JSONL",
+    "copied": "Copiado al portapapeles",
+    "zipSelectionUnsupported": "La exportación ZIP aún no admite selección de elementos.",
+    "download": "Descargar exportación",
+    "allItemsHint": "La exportación incluye todos los elementos de tu lista de lectura para tu cuenta.",
+    "success": "Exportación lista para descargar"
+  }
+}

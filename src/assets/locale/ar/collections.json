@@ -1,0 +1,262 @@
+{
+  "title": "المجموعات",
+  "description": "احفظ المقالات، وأنشئ الإبرازات، وأدر القوالب، واستورد/صدّر قائمة القراءة.",
+  "offline": "الخادم غير متصل. يرجى الاتصال لاستخدام المجموعات.",
+  "betaNotice": "ميزة تجريبية",
+  "betaDescription": "المجموعات قيد التجربة حاليًا. قد تتطلب بعض الميزات دعمًا من الخادم.",
+
+  "tabs": {
+    "reading": "قائمة القراءة",
+    "highlights": "الإبرازات",
+    "templates": "القوالب",
+    "importExport": "استيراد/تصدير"
+  },
+
+  "status": {
+    "all": "الكل",
+    "saved": "محفوظة",
+    "reading": "قيد القراءة",
+    "read": "تمت القراءة",
+    "archived": "مؤرشفة"
+  },
+
+  "sort": {
+    "created_at": "تاريخ الإضافة",
+    "updated_at": "آخر تحديث",
+    "title": "العنوان",
+    "relevance": "الصلة"
+  },
+
+  "colors": {
+    "all": "كل الألوان",
+    "yellow": "أصفر",
+    "green": "أخضر",
+    "blue": "أزرق",
+    "pink": "وردي",
+    "purple": "بنفسجي"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}} دقيقة مضت",
+    "hoursAgo": "{{count}} ساعة مضت",
+    "daysAgo": "{{count}} يوم مضت"
+  },
+
+  "reading": {
+    "addUrl": "إضافة رابط",
+    "addUrlTitle": "إضافة إلى قائمة القراءة",
+    "addFirst": "أضف مقالك الأول",
+    "addSuccess": "تمت إضافة المقال إلى قائمة القراءة",
+    "searchPlaceholder": "ابحث في المقالات...",
+    "filters": "عوامل التصفية",
+    "favorites": "المفضلة",
+    "tagsFilter": "الوسوم",
+    "domainFilter": "النطاق",
+    "sortBy": "ترتيب",
+    "clearFilters": "مسح عوامل التصفية",
+    "noResults": "لا توجد مقالات تطابق عوامل التصفية",
+    "empty": "قائمة القراءة فارغة",
+    "pagination": "{{start}}-{{end}} من {{total}} عنصرًا",
+
+    "readingTime": "{{count}} دقيقة قراءة",
+    "favorite": "إضافة إلى المفضلة",
+    "unfavorite": "إزالة من المفضلة",
+    "viewDetails": "عرض التفاصيل",
+    "openOriginal": "فتح المصدر",
+    "changeStatus": "تغيير الحالة",
+    "archive": "أرشفة",
+    "unarchive": "إلغاء الأرشفة",
+    "statusUpdated": "تم تحديث الحالة إلى {{status}}",
+
+    "urlLabel": "الرابط",
+    "urlRequired": "يرجى إدخال رابط",
+    "urlInvalid": "يرجى إدخال رابط صالح",
+    "titleLabel": "العنوان (اختياري)",
+    "titleHint": "اتركه فارغًا لاكتشافه تلقائيًا من الصفحة",
+    "titlePlaceholder": "عنوان المقال",
+    "tagsLabel": "الوسوم",
+    "tagsPlaceholder": "أضف وسومًا...",
+    "notesLabel": "ملاحظات (اختياري)",
+    "notesPlaceholderArticle": "أضف أي ملاحظات حول هذا المقال...",
+    "saveToList": "حفظ في القائمة",
+    "addTag": "أضف وسمًا...",
+
+    "tabs": {
+      "content": "المحتوى",
+      "summary": "الملخص",
+      "highlights": "الإبرازات",
+      "notes": "الملاحظات"
+    },
+
+    "noContent": "المحتوى غير متوفر",
+    "noSummary": "لا يوجد ملخص بعد",
+    "noNotes": "لا توجد ملاحظات بعد",
+    "editNotes": "تعديل الملاحظات",
+    "addNotes": "إضافة ملاحظات",
+    "notesSaved": "تم حفظ الملاحظات",
+    "notesPlaceholder": "أضف ملاحظاتك...",
+
+    "summarize": "لخّص",
+    "generateSummary": "إنشاء ملخص",
+    "summarized": "تم إنشاء الملخص",
+    "generateTts": "إنشاء صوت",
+    "ttsGenerated": "تم إنشاء الصوت",
+    "downloadAudio": "تنزيل الصوت",
+
+    "deleted": "تم حذف المقال",
+    "deleteConfirm": {
+      "title": "حذف المقال",
+      "message": "هل أنت متأكد من حذف هذا المقال؟ لا يمكن التراجع عن هذا الإجراء."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "ابحث في الإبرازات...",
+    "groupByItem": "تجميع حسب المقال",
+    "add": "إضافة إبراز",
+    "edit": "تعديل إبراز",
+    "quoteLabel": "اقتباس",
+    "quoteRequired": "يرجى إدخال نص الإبراز",
+    "quotePlaceholder": "الصق النص المبرز...",
+    "noteLabel": "ملاحظة (اختياري)",
+    "notePlaceholder": "أضف سياقًا أو سبب الأهمية...",
+    "colorLabel": "لون الإبراز",
+    "noResults": "لا توجد إبرازات تطابق عوامل التصفية",
+    "empty": "لا توجد إبرازات بعد",
+    "emptyForItem": "لا توجد إبرازات لهذا المقال بعد",
+    "emptyHint": "ستظهر الإبرازات التي تنشئها أثناء القراءة هنا.",
+    "from": "من",
+    "viewArticle": "عرض المقال",
+    "created": "تم إنشاء الإبراز",
+    "updated": "تم تحديث الإبراز",
+    "missingItem": "اختر مقالًا أولاً",
+    "deleted": "تم حذف الإبراز",
+    "deleteConfirm": {
+      "title": "حذف الإبراز",
+      "message": "هل أنت متأكد من حذف هذا الإبراز؟"
+    }
+  },
+
+  "templates": {
+    "create": "إنشاء قالب",
+    "createFirst": "أنشئ قالبك الأول",
+    "searchPlaceholder": "ابحث في القوالب...",
+    "noResults": "لا توجد قوالب تطابق عوامل التصفية",
+    "empty": "لا توجد قوالب بعد",
+    "default": "افتراضي",
+    "preview": "معاينة",
+    "duplicate": "نسخ",
+    "deleted": "تم حذف القالب",
+    "created": "تم إنشاء القالب",
+    "updated": "تم تحديث القالب",
+
+    "editTitle": "تعديل القالب",
+    "createTitle": "إنشاء قالب",
+    "nameLabel": "اسم القالب",
+    "nameRequired": "يرجى إدخال اسم",
+    "namePlaceholder": "قالب النشرة الإخبارية الخاص بي",
+    "descriptionLabel": "الوصف (اختياري)",
+    "descriptionPlaceholder": "وصف موجز لهذا القالب",
+    "typeLabel": "نوع القالب",
+    "formatLabel": "تنسيق الإخراج",
+    "bodyLabel": "نص القالب (Jinja2)",
+    "bodyRequired": "يرجى إدخال محتوى القالب",
+    "bodyHint": "استخدم صياغة Jinja2. المتغيرات المتاحة: items (مصفوفة عناصر القراءة)، date، tags",
+
+    "previewTitle": "معاينة القالب",
+    "selectItems": "يرجى تحديد مقال واحد على الأقل",
+    "selectItemsHint": "اختر المقالات لتضمينها في المعاينة:",
+    "selectAll": "تحديد الكل",
+    "selectedCount": "{{count}} محددة",
+    "noItems": "لا توجد مقالات في قائمة القراءة",
+    "generatePreview": "إنشاء معاينة",
+    "generateOutput": "إنشاء المخرجات",
+    "audioUnavailable": "المخرجات الصوتية غير متاحة",
+    "noGeneratedContent": "لا توجد مخرجات بعد",
+
+    "deleteConfirm": {
+      "title": "حذف القالب",
+      "message": "هل أنت متأكد من حذف هذا القالب؟"
+    }
+  },
+
+  "templateTypes": {
+    "all": "كل الأنواع",
+    "newsletter_markdown": "نشرة إخبارية (MD)",
+    "briefing_markdown": "إحاطة (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "نشرة إخبارية (HTML)",
+    "tts_audio": "صوت تحويل النص إلى كلام"
+  },
+
+  "import": {
+    "title": "استيراد",
+    "sourceRequired": "اختر مصدرًا أولاً",
+    "selectSource": "اختر مصدر الاستيراد:",
+    "sources": {
+      "auto": {
+        "label": "كشف تلقائي",
+        "description": "ارفع ملف تصدير Pocket أو Instapaper للكشف عن الصيغة تلقائيًا"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "استورد مقالاتك المحفوظة من تصدير Pocket"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "استورد المقالات من تصدير Instapaper"
+      }
+    },
+    "methodFile": "رفع ملف",
+    "methodApiKey": "مفتاح API",
+    "apiKeyLabel": "مفتاح API",
+    "apiKeyPlaceholder": "الصق مفتاح API",
+    "apiKeyRequired": "يرجى إدخال مفتاح API",
+    "previewWithKey": "معاينة الاستيراد",
+    "processing": "جارٍ معالجة الملف...",
+    "dropzone": "انقر أو اسحب الملف للرفع",
+    "formats": "يدعم Pocket JSON وInstapaper CSV",
+    "previewHint": "تم العثور على {{count}} عنصرًا",
+    "selectAll": "تحديد الكل",
+    "selectItems": "يرجى تحديد العناصر للاستيراد",
+    "importSelected": "استيراد {{count}} عنصرًا",
+    "success": "تم استيراد {{count}} عنصرًا",
+    "complete": "اكتمل الاستيراد",
+    "resultSummary": "تم الاستيراد: {{imported}}، تم التحديث: {{updated}}، تم التخطي: {{skipped}}",
+    "importMore": "استيراد المزيد",
+    "steps": {
+      "source": "المصدر",
+      "upload": "رفع",
+      "preview": "معاينة",
+      "result": "النتيجة"
+    }
+  },
+
+  "export": {
+    "title": "تصدير",
+    "format": "التنسيق",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "خيارات",
+    "includeContent": "تضمين المحتوى الكامل",
+    "includeHighlights": "تضمين الإبرازات",
+    "items": "العناصر المراد تصديرها",
+    "searchPlaceholder": "ابحث في العناصر...",
+    "allItems": "كل العناصر (اتركه فارغًا)",
+    "itemsHint": "اتركه فارغًا لتصدير كل العناصر، أو اختر عناصر محددة",
+    "selectionHint": "اختر العناصر للتصدير، أو اتركه فارغًا لتصدير كل شيء.",
+    "selectAll": "تحديد الكل",
+    "selectedCount": "{{count}} محددة",
+    "clearSelection": "مسح",
+    "noItems": "لم يتم العثور على عناصر",
+    "selectItems": "اختر العناصر لنسخها أولاً",
+    "copy": "نسخ JSONL",
+    "copied": "تم النسخ إلى الحافظة",
+    "zipSelectionUnsupported": "تصدير ZIP لا يدعم اختيار العناصر بعد.",
+    "download": "تنزيل التصدير",
+    "allItemsHint": "يشمل التصدير جميع عناصر قائمة القراءة لحسابك.",
+    "success": "التصدير جاهز للتنزيل"
+  }
+}

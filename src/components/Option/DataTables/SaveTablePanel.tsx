@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Alert, Button, Card, Input, message, Result } from "antd"
 import { CheckCircle, Download, Save, Table2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { useQueryClient } from "@tanstack/react-query"
 import { useDataTablesStore } from "@/store/data-tables"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { exportAndDownload } from "@/utils/data-table-export"
@@ -16,6 +17,7 @@ const { TextArea } = Input
  */
 export const SaveTablePanel: React.FC = () => {
   const { t } = useTranslation(["dataTables", "common"])
+  const queryClient = useQueryClient()
 
   // Store state
   const generatedTable = useDataTablesStore((s) => s.generatedTable)
@@ -73,9 +75,15 @@ export const SaveTablePanel: React.FC = () => {
         source_count: generatedTable.sources?.length || 0
       })
 
+      await queryClient.invalidateQueries({ queryKey: ["dataTables"] })
       setSaved(true)
       message.success(t("dataTables:saveSuccess", "Table saved to library!"))
     } catch (error) {
+      console.error("[SaveTablePanel] Save table failed", {
+        error,
+        tableId,
+        serverId
+      })
       const errorMessage = error instanceof Error ? error.message : "Failed to save table"
       message.error(errorMessage)
     } finally {
@@ -87,6 +95,7 @@ export const SaveTablePanel: React.FC = () => {
   const handleExport = async (format: ExportFormat) => {
     if (!generatedTable) return
 
+    const tableId = generatedTable.id ? String(generatedTable.id) : "unknown"
     setIsExporting(true)
     try {
       // Update name before export
@@ -100,6 +109,7 @@ export const SaveTablePanel: React.FC = () => {
         t("dataTables:exportSuccess", "Table exported as {{format}}", { format: format.toUpperCase() })
       )
     } catch (error) {
+      console.error("[SaveTablePanel] Export failed", { error, format, tableId })
       const errorMessage = error instanceof Error ? error.message : "Export failed"
       message.error(errorMessage)
     } finally {

@@ -70,8 +70,22 @@ export const CardDetailPanel = ({
     if (description !== (card.description ?? "")) {
       updates.description = description === "" ? null : description
     }
-    if (dueDate?.toISOString() !== card.due_date)
-      updates.due_date = dueDate?.toISOString() || null
+    const newDueDate = dueDate?.toISOString() ?? null
+    const oldDueDate = card.due_date ?? null
+    let hasDateChanged = false
+    if (dueDate) {
+      if (!oldDueDate) {
+        hasDateChanged = true
+      } else {
+        const oldParsed = dayjs(oldDueDate)
+        hasDateChanged = !oldParsed.isValid() || !oldParsed.isSame(dueDate)
+      }
+    } else {
+      hasDateChanged = oldDueDate !== null
+    }
+    if (hasDateChanged) {
+      updates.due_date = newDueDate
+    }
     if (priority !== (card.priority ?? null)) updates.priority = priority
 
     // Only save if there are changes

@@ -2742,279 +2742,279 @@
     "message": "مقارنة"
   },
   "chunkingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "الإعدادات"
   },
   "chunkingPlayground_tabTemplates": {
-    "message": "Templates"
+    "message": "القوالب"
   },
   "chunkingPlayground_tabCapabilities": {
-    "message": "Capabilities"
+    "message": "الإمكانات"
   },
   "chunkingPlayground_appliedOptionsTitle": {
-    "message": "Applied options"
+    "message": "الخيارات المطبقة"
   },
   "chunkingPlayground_responseMetaTitle": {
-    "message": "Response metadata"
+    "message": "البيانات الوصفية للاستجابة"
   },
   "chunkingPlayground_inlineUnavailable": {
-    "message": "Inline view requires character offsets; switch to Cards to inspect chunks."
+    "message": "يتطلب العرض المضمّن إزاحات الأحرف؛ بدّل إلى البطاقات لفحص الأجزاء."
   },
   "chunkingPlayground_metadataLabel": {
-    "message": "Metadata"
+    "message": "البيانات الوصفية"
   },
   "chunkingPlayground_advanced_title": {
-    "message": "Advanced Options"
+    "message": "خيارات متقدمة"
   },
   "chunkingPlayground_advanced_methodRequiresLlm": {
-    "message": "This method requires an LLM provider on the server."
+    "message": "تتطلب هذه الطريقة مزوّد LLM على الخادم."
   },
   "chunkingPlayground_advanced_templateNameLabel": {
-    "message": "Template name"
+    "message": "اسم القالب"
   },
   "chunkingPlayground_advanced_templateNamePlaceholder": {
-    "message": "Select or type a template name"
+    "message": "اختر اسم قالب أو اكتبه"
   },
   "chunkingPlayground_advanced_templateOverridesHint": {
-    "message": "Template defaults are applied first; form values override them."
+    "message": "تُطبَّق افتراضيات القالب أولاً؛ ثم تُستبدَل بقيم النموذج."
   },
   "chunkingPlayground_advanced_requestModeLabel": {
-    "message": "Request Endpoint"
+    "message": "نقطة نهاية الطلب"
   },
   "chunkingPlayground_advanced_requestModeJson": {
     "message": "JSON (/chunk_text)"
   },
   "chunkingPlayground_advanced_requestModeFile": {
-    "message": "Multipart (/chunk_file)"
+    "message": "متعدد الأجزاء (/chunk_file)"
   },
   "chunkingPlayground_advanced_requestModeHint": {
-    "message": "Use JSON for full option support; multipart matches /chunk_file."
+    "message": "استخدم JSON لدعم جميع الخيارات؛ متعدد الأجزاء يطابق /chunk_file."
   },
   "chunkingPlayground_advanced_tokenizerLabel": {
-    "message": "Tokenizer"
+    "message": "المُجزِّئ"
   },
   "chunkingPlayground_advanced_tokenizerPlaceholder": {
-    "message": "Tokenizer name or path (e.g., gpt2)"
+    "message": "اسم المُجزِّئ أو مساره (مثل gpt2)"
   },
   "chunkingPlayground_advanced_adaptiveLabel": {
-    "message": "Adaptive chunking"
+    "message": "تجزئة تكيفية"
   },
   "chunkingPlayground_advanced_multiLevelLabel": {
-    "message": "Multi-level chunking"
+    "message": "تجزئة متعددة المستويات"
   },
   "chunkingPlayground_advanced_codeModeLabel": {
-    "message": "Code mode"
+    "message": "وضع الشفرة"
   },
   "chunkingPlayground_advanced_codeModeHint": {
-    "message": "Controls how code is parsed when method is 'code'."
+    "message": "يتحكم في كيفية تحليل الشفرة عند استخدام الطريقة «code»."
   },
   "chunkingPlayground_advanced_semanticSimilarityLabel": {
-    "message": "Semantic similarity threshold"
+    "message": "عتبة التشابه الدلالي"
   },
   "chunkingPlayground_advanced_semanticOverlapLabel": {
-    "message": "Semantic overlap sentences"
+    "message": "جمل التداخل الدلالي"
   },
   "chunkingPlayground_advanced_jsonKeyLabel": {
-    "message": "JSON chunkable key"
+    "message": "مفتاح JSON القابل للتجزئة"
   },
   "chunkingPlayground_advanced_frontmatterLabel": {
-    "message": "Enable frontmatter parsing"
+    "message": "تمكين تحليل الـ frontmatter"
   },
   "chunkingPlayground_advanced_frontmatterSentinelLabel": {
-    "message": "Frontmatter sentinel key"
+    "message": "مفتاح مؤشر الـ frontmatter"
   },
   "chunkingPlayground_advanced_customChapterPatternLabel": {
-    "message": "Custom chapter pattern"
+    "message": "نمط الفصل المخصص"
   },
   "chunkingPlayground_advanced_summarizationDetailLabel": {
-    "message": "Summarization detail"
+    "message": "تفاصيل التلخيص"
   },
   "chunkingPlayground_advanced_llmOptionsTitle": {
-    "message": "LLM Options (internal steps)"
+    "message": "خيارات LLM (خطوات داخلية)"
   },
   "chunkingPlayground_advanced_llmTemperatureLabel": {
-    "message": "LLM temperature"
+    "message": "درجة حرارة LLM"
   },
   "chunkingPlayground_advanced_llmSystemPromptLabel": {
-    "message": "LLM system prompt"
+    "message": "موجّه نظام LLM"
   },
   "chunkingPlayground_advanced_llmMaxTokensLabel": {
-    "message": "LLM max tokens"
+    "message": "الحد الأقصى لرموز LLM"
   },
   "chunkingPlayground_advanced_propositionEngineLabel": {
-    "message": "Proposition engine"
+    "message": "محرك المقترحات"
   },
   "chunkingPlayground_advanced_propositionAggressivenessLabel": {
-    "message": "Proposition aggressiveness"
+    "message": "شدة المقترحات"
   },
   "chunkingPlayground_advanced_propositionMinLengthLabel": {
-    "message": "Min proposition length"
+    "message": "الحد الأدنى لطول المقترح"
   },
   "chunkingPlayground_advanced_propositionPromptProfileLabel": {
-    "message": "Proposition prompt profile"
+    "message": "ملف تعريف موجّه المقترح"
   },
   "chunkingPlayground_advanced_resetDefaults": {
-    "message": "Reset to defaults"
+    "message": "إعادة ضبط الإعدادات الافتراضية"
   },
   "chunkingPlayground_templates_title": {
-    "message": "Chunking Templates"
+    "message": "قوالب التجزئة"
   },
   "chunkingPlayground_templates_description": {
-    "message": "Manage, validate, and apply chunking templates."
+    "message": "إدارة قوالب التجزئة والتحقق منها وتطبيقها."
   },
   "chunkingPlayground_templates_tabBrowse": {
-    "message": "Browse"
+    "message": "تصفح"
   },
   "chunkingPlayground_templates_tabEditor": {
-    "message": "Editor"
+    "message": "المحرر"
   },
   "chunkingPlayground_templates_tabApply": {
-    "message": "Apply"
+    "message": "تطبيق"
   },
   "chunkingPlayground_templates_tabValidate": {
-    "message": "Validate"
+    "message": "تحقق"
   },
   "chunkingPlayground_templates_tabMatch": {
-    "message": "Match"
+    "message": "مطابقة"
   },
   "chunkingPlayground_templates_tabLearn": {
-    "message": "Learn"
+    "message": "تعلّم"
   },
   "chunkingPlayground_templates_tabDiagnostics": {
-    "message": "Diagnostics"
+    "message": "تشخيص"
   },
   "chunkingPlayground_templates_filtersTitle": {
-    "message": "Filters"
+    "message": "عوامل التصفية"
   },
   "chunkingPlayground_templates_includeBuiltin": {
-    "message": "Include built-in"
+    "message": "تضمين المدمج"
   },
   "chunkingPlayground_templates_includeCustom": {
-    "message": "Include custom"
+    "message": "تضمين المخصص"
   },
   "chunkingPlayground_templates_tagsLabel": {
-    "message": "Tags"
+    "message": "الوسوم"
   },
   "chunkingPlayground_templates_tagsPlaceholder": {
-    "message": "Add tags"
+    "message": "أضف وسومًا"
   },
   "chunkingPlayground_templates_userIdLabel": {
-    "message": "User ID"
+    "message": "معرّف المستخدم"
   },
   "chunkingPlayground_templates_selectLabel": {
-    "message": "Template"
+    "message": "القالب"
   },
   "chunkingPlayground_templates_selectPlaceholder": {
-    "message": "Select a template"
+    "message": "اختر قالبًا"
   },
   "chunkingPlayground_templates_detailsTitle": {
-    "message": "Template details"
+    "message": "تفاصيل القالب"
   },
   "chunkingPlayground_templates_isBuiltin": {
-    "message": "Built-in"
+    "message": "مدمج"
   },
   "chunkingPlayground_templates_version": {
-    "message": "Version"
+    "message": "الإصدار"
   },
   "chunkingPlayground_templates_updatedAt": {
-    "message": "Updated"
+    "message": "آخر تحديث"
   },
   "chunkingPlayground_templates_loadIntoEditor": {
-    "message": "Load into editor"
+    "message": "تحميل إلى المحرر"
   },
   "chunkingPlayground_templates_deleteConfirm": {
-    "message": "Delete this template?"
+    "message": "حذف هذا القالب؟"
   },
   "chunkingPlayground_templates_hardDeleteLabel": {
-    "message": "Hard delete"
+    "message": "حذف نهائي"
   },
   "chunkingPlayground_templates_noSelection": {
-    "message": "Select a template to view details."
+    "message": "اختر قالبًا لعرض التفاصيل."
   },
   "chunkingPlayground_templates_templateJsonLabel": {
-    "message": "Template JSON"
+    "message": "JSON القالب"
   },
   "chunkingPlayground_templates_overrideOptionsLabel": {
-    "message": "Override options (JSON)"
+    "message": "تجاوز الخيارات (JSON)"
   },
   "chunkingPlayground_templates_includeMetadataLabel": {
-    "message": "Include metadata"
+    "message": "تضمين البيانات الوصفية"
   },
   "chunkingPlayground_templates_applyTextLabel": {
-    "message": "Text to apply template"
+    "message": "النص لتطبيق القالب"
   },
   "chunkingPlayground_templates_applyTextPlaceholder": {
-    "message": "Paste text to chunk with this template"
+    "message": "الصق نصًا لتجزئته بهذا القالب"
   },
   "chunkingPlayground_templates_validateLabel": {
-    "message": "Template JSON to validate"
+    "message": "JSON القالب للتحقق"
   },
   "chunkingPlayground_templates_matchMediaTypeLabel": {
-    "message": "Media type"
+    "message": "نوع الوسائط"
   },
   "chunkingPlayground_templates_matchTitleLabel": {
-    "message": "Title"
+    "message": "العنوان"
   },
   "chunkingPlayground_templates_matchUrlLabel": {
-    "message": "URL"
+    "message": "الرابط"
   },
   "chunkingPlayground_templates_matchFilenameLabel": {
-    "message": "Filename"
+    "message": "اسم الملف"
   },
   "chunkingPlayground_templates_learnNameLabel": {
-    "message": "Template name"
+    "message": "اسم القالب"
   },
   "chunkingPlayground_templates_learnExampleLabel": {
-    "message": "Example text"
+    "message": "نص مثال"
   },
   "chunkingPlayground_templates_learnDescriptionLabel": {
-    "message": "Description"
+    "message": "الوصف"
   },
   "chunkingPlayground_templates_learnSaveLabel": {
-    "message": "Save template"
+    "message": "حفظ القالب"
   },
   "chunkingPlayground_templates_learnClassifierLabel": {
-    "message": "Classifier (JSON)"
+    "message": "المصنّف (JSON)"
   },
   "chunkingPlayground_templates_jsonError": {
-    "message": "Invalid JSON. Please fix and try again."
+    "message": "JSON غير صالح. يرجى الإصلاح ثم المحاولة مرة أخرى."
   },
   "chunkingPlayground_templates_nameRequired": {
-    "message": "Template name is required."
+    "message": "اسم القالب مطلوب."
   },
   "chunkingPlayground_templates_updateAction": {
-    "message": "Update"
+    "message": "تحديث"
   },
   "chunkingPlayground_templates_applyAction": {
-    "message": "Apply"
+    "message": "تطبيق"
   },
   "chunkingPlayground_templates_validateAction": {
-    "message": "Validate"
+    "message": "تحقق"
   },
   "chunkingPlayground_templates_matchAction": {
-    "message": "Match"
+    "message": "مطابقة"
   },
   "chunkingPlayground_templates_learnAction": {
-    "message": "Learn"
+    "message": "تعلّم"
   },
   "chunkingPlayground_templates_diagnosticsAction": {
-    "message": "Run diagnostics"
+    "message": "تشغيل التشخيصات"
   },
   "chunkingPlayground_capabilities_title": {
-    "message": "Chunking Capabilities"
+    "message": "إمكانات التجزئة"
   },
   "chunkingPlayground_capabilities_methodsLabel": {
-    "message": "Methods"
+    "message": "الطرق"
   },
   "chunkingPlayground_capabilities_llmLabel": {
-    "message": "LLM-required methods"
+    "message": "طرق تتطلب LLM"
   },
   "chunkingPlayground_capabilities_defaultsLabel": {
-    "message": "Default options"
+    "message": "الخيارات الافتراضية"
   },
   "chunkingPlayground_capabilities_methodOptionsLabel": {
-    "message": "Method-specific options"
+    "message": "خيارات خاصة بالطريقة"
   },
   "chunkingPlayground_capabilities_notesLabel": {
-    "message": "Notes"
+    "message": "ملاحظات"
   }
 }

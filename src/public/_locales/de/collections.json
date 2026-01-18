@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "Sammlungen"
+  },
+  "description": {
+    "message": "Speichere Artikel, erstelle Markierungen, verwalte Vorlagen und importiere/exportiere deine Leseliste."
+  },
+  "offline": {
+    "message": "Server ist offline. Bitte verbinden, um Sammlungen zu verwenden."
+  },
+  "betaNotice": {
+    "message": "Beta-Funktion"
+  },
+  "betaDescription": {
+    "message": "Sammlungen befinden sich derzeit in der Beta. Einige Funktionen erfordern möglicherweise Backend-Unterstützung."
+  },
+  "tabs_reading": {
+    "message": "Leseliste"
+  },
+  "tabs_highlights": {
+    "message": "Hervorhebungen"
+  },
+  "tabs_templates": {
+    "message": "Vorlagen"
+  },
+  "tabs_importExport": {
+    "message": "Import/Export"
+  },
+  "status_all": {
+    "message": "Alle"
+  },
+  "status_saved": {
+    "message": "Gespeichert"
+  },
+  "status_reading": {
+    "message": "Wird gelesen"
+  },
+  "status_read": {
+    "message": "Gelesen"
+  },
+  "status_archived": {
+    "message": "Archiviert"
+  },
+  "sort_created_at": {
+    "message": "Hinzugefügt"
+  },
+  "sort_updated_at": {
+    "message": "Zuletzt aktualisiert"
+  },
+  "sort_title": {
+    "message": "Titel"
+  },
+  "sort_relevance": {
+    "message": "Relevanz"
+  },
+  "colors_all": {
+    "message": "Alle Farben"
+  },
+  "colors_yellow": {
+    "message": "Gelb"
+  },
+  "colors_green": {
+    "message": "Grün"
+  },
+  "colors_blue": {
+    "message": "Blau"
+  },
+  "colors_pink": {
+    "message": "Pink"
+  },
+  "colors_purple": {
+    "message": "Lila"
+  },
+  "time_minutesAgo": {
+    "message": "vor {{count}} Min."
+  },
+  "time_hoursAgo": {
+    "message": "vor {{count}} Std."
+  },
+  "time_daysAgo": {
+    "message": "vor {{count}} Tagen"
+  },
+  "reading_addUrl": {
+    "message": "URL hinzufügen"
+  },
+  "reading_addUrlTitle": {
+    "message": "Zur Leseliste hinzufügen"
+  },
+  "reading_addFirst": {
+    "message": "Füge deinen ersten Artikel hinzu"
+  },
+  "reading_addSuccess": {
+    "message": "Artikel zur Leseliste hinzugefügt"
+  },
+  "reading_searchPlaceholder": {
+    "message": "Artikel suchen..."
+  },
+  "reading_filters": {
+    "message": "Filter"
+  },
+  "reading_favorites": {
+    "message": "Favoriten"
+  },
+  "reading_tagsFilter": {
+    "message": "Tags"
+  },
+  "reading_domainFilter": {
+    "message": "Domain"
+  },
+  "reading_sortBy": {
+    "message": "Sortieren"
+  },
+  "reading_clearFilters": {
+    "message": "Filter zurücksetzen"
+  },
+  "reading_noResults": {
+    "message": "Keine Artikel entsprechen deinen Filtern"
+  },
+  "reading_empty": {
+    "message": "Deine Leseliste ist leer"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} von {{total}} Einträgen"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} Min. Lesezeit"
+  },
+  "reading_favorite": {
+    "message": "Als Favorit markieren"
+  },
+  "reading_unfavorite": {
+    "message": "Favorit entfernen"
+  },
+  "reading_viewDetails": {
+    "message": "Details anzeigen"
+  },
+  "reading_openOriginal": {
+    "message": "Original öffnen"
+  },
+  "reading_changeStatus": {
+    "message": "Status ändern"
+  },
+  "reading_archive": {
+    "message": "Archivieren"
+  },
+  "reading_unarchive": {
+    "message": "Archivierung aufheben"
+  },
+  "reading_statusUpdated": {
+    "message": "Status aktualisiert zu {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "Bitte eine URL eingeben"
+  },
+  "reading_urlInvalid": {
+    "message": "Bitte eine gültige URL eingeben"
+  },
+  "reading_titleLabel": {
+    "message": "Titel (optional)"
+  },
+  "reading_titleHint": {
+    "message": "Leer lassen, um automatisch von der Seite zu erkennen"
+  },
+  "reading_titlePlaceholder": {
+    "message": "Artikeltitel"
+  },
+  "reading_tagsLabel": {
+    "message": "Tags"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "Tags hinzufügen..."
+  },
+  "reading_notesLabel": {
+    "message": "Notizen (optional)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "Füge beliebige Notizen zu diesem Artikel hinzu..."
+  },
+  "reading_saveToList": {
+    "message": "Zur Liste speichern"
+  },
+  "reading_addTag": {
+    "message": "Tag hinzufügen..."
+  },
+  "reading_tabs_content": {
+    "message": "Inhalt"
+  },
+  "reading_tabs_summary": {
+    "message": "Zusammenfassung"
+  },
+  "reading_tabs_highlights": {
+    "message": "Hervorhebungen"
+  },
+  "reading_tabs_notes": {
+    "message": "Notizen"
+  },
+  "reading_noContent": {
+    "message": "Inhalt nicht verfügbar"
+  },
+  "reading_noSummary": {
+    "message": "Noch keine Zusammenfassung"
+  },
+  "reading_noNotes": {
+    "message": "Noch keine Notizen"
+  },
+  "reading_editNotes": {
+    "message": "Notizen bearbeiten"
+  },
+  "reading_addNotes": {
+    "message": "Notizen hinzufügen"
+  },
+  "reading_notesSaved": {
+    "message": "Notizen gespeichert"
+  },
+  "reading_notesPlaceholder": {
+    "message": "Füge deine Notizen hinzu..."
+  },
+  "reading_summarize": {
+    "message": "Zusammenfassen"
+  },
+  "reading_generateSummary": {
+    "message": "Zusammenfassung erstellen"
+  },
+  "reading_summarized": {
+    "message": "Zusammenfassung erstellt"
+  },
+  "reading_generateTts": {
+    "message": "Audio erzeugen"
+  },
+  "reading_ttsGenerated": {
+    "message": "Audio erzeugt"
+  },
+  "reading_downloadAudio": {
+    "message": "Audio herunterladen"
+  },
+  "reading_deleted": {
+    "message": "Artikel gelöscht"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "Artikel löschen"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "Möchtest du diesen Artikel wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "Markierungen suchen..."
+  },
+  "highlights_groupByItem": {
+    "message": "Nach Artikel gruppieren"
+  },
+  "highlights_add": {
+    "message": "Markierung hinzufügen"
+  },
+  "highlights_edit": {
+    "message": "Markierung bearbeiten"
+  },
+  "highlights_quoteLabel": {
+    "message": "Zitat"
+  },
+  "highlights_quoteRequired": {
+    "message": "Bitte den markierten Text eingeben"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "Markierten Text einfügen..."
+  },
+  "highlights_noteLabel": {
+    "message": "Notiz (optional)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "Kontext hinzufügen oder warum das wichtig ist..."
+  },
+  "highlights_colorLabel": {
+    "message": "Markierungsfarbe"
+  },
+  "highlights_noResults": {
+    "message": "Keine Markierungen entsprechen deinen Filtern"
+  },
+  "highlights_empty": {
+    "message": "Noch keine Markierungen"
+  },
+  "highlights_emptyForItem": {
+    "message": "Noch keine Markierungen für diesen Artikel"
+  },
+  "highlights_emptyHint": {
+    "message": "Markierungen, die du beim Lesen erstellst, erscheinen hier."
+  },
+  "highlights_from": {
+    "message": "Von"
+  },
+  "highlights_viewArticle": {
+    "message": "Artikel anzeigen"
+  },
+  "highlights_created": {
+    "message": "Markierung erstellt"
+  },
+  "highlights_updated": {
+    "message": "Markierung aktualisiert"
+  },
+  "highlights_missingItem": {
+    "message": "Wähle zuerst einen Artikel"
+  },
+  "highlights_deleted": {
+    "message": "Markierung gelöscht"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "Markierung löschen"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "Möchtest du diese Markierung wirklich löschen?"
+  },
+  "templates_create": {
+    "message": "Vorlage erstellen"
+  },
+  "templates_createFirst": {
+    "message": "Erstelle deine erste Vorlage"
+  },
+  "templates_searchPlaceholder": {
+    "message": "Vorlagen suchen..."
+  },
+  "templates_noResults": {
+    "message": "Keine Vorlagen entsprechen deinen Filtern"
+  },
+  "templates_empty": {
+    "message": "Noch keine Vorlagen"
+  },
+  "templates_default": {
+    "message": "Standard"
+  },
+  "templates_preview": {
+    "message": "Vorschau"
+  },
+  "templates_duplicate": {
+    "message": "Duplizieren"
+  },
+  "templates_deleted": {
+    "message": "Vorlage gelöscht"
+  },
+  "templates_created": {
+    "message": "Vorlage erstellt"
+  },
+  "templates_updated": {
+    "message": "Vorlage aktualisiert"
+  },
+  "templates_editTitle": {
+    "message": "Vorlage bearbeiten"
+  },
+  "templates_createTitle": {
+    "message": "Vorlage erstellen"
+  },
+  "templates_nameLabel": {
+    "message": "Vorlagenname"
+  },
+  "templates_nameRequired": {
+    "message": "Bitte einen Namen eingeben"
+  },
+  "templates_namePlaceholder": {
+    "message": "Meine Newsletter-Vorlage"
+  },
+  "templates_descriptionLabel": {
+    "message": "Beschreibung (optional)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "Kurze Beschreibung dieser Vorlage"
+  },
+  "templates_typeLabel": {
+    "message": "Vorlagentyp"
+  },
+  "templates_formatLabel": {
+    "message": "Ausgabeformat"
+  },
+  "templates_bodyLabel": {
+    "message": "Vorlageninhalt (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "Bitte Vorlageninhalt eingeben"
+  },
+  "templates_bodyHint": {
+    "message": "Jinja2-Syntax verwenden. Verfügbare Variablen: items (Array der Leselisteneinträge), date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "Vorlagenvorschau"
+  },
+  "templates_selectItems": {
+    "message": "Bitte mindestens einen Artikel auswählen"
+  },
+  "templates_selectItemsHint": {
+    "message": "Artikel auswählen, die in der Vorschau enthalten sein sollen:"
+  },
+  "templates_selectAll": {
+    "message": "Alle auswählen"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} ausgewählt"
+  },
+  "templates_noItems": {
+    "message": "Keine Artikel in deiner Leseliste"
+  },
+  "templates_generatePreview": {
+    "message": "Vorschau erzeugen"
+  },
+  "templates_generateOutput": {
+    "message": "Ausgabe erzeugen"
+  },
+  "templates_audioUnavailable": {
+    "message": "Audioausgabe nicht verfügbar"
+  },
+  "templates_noGeneratedContent": {
+    "message": "Noch keine Ausgabe erzeugt"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "Vorlage löschen"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "Möchtest du diese Vorlage wirklich löschen?"
+  },
+  "templateTypes_all": {
+    "message": "Alle Typen"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "Newsletter (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "Briefing (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "Newsletter (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS-Audio"
+  },
+  "import_title": {
+    "message": "Import"
+  },
+  "import_sourceRequired": {
+    "message": "Bitte zuerst eine Quelle auswählen"
+  },
+  "import_selectSource": {
+    "message": "Importquelle auswählen:"
+  },
+  "import_sources_auto_label": {
+    "message": "Automatische Erkennung"
+  },
+  "import_sources_auto_description": {
+    "message": "Lade eine Pocket- oder Instapaper-Exportdatei hoch und erkenne das Format automatisch"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Importiere deine gespeicherten Artikel aus einem Pocket-Export"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Importiere Artikel aus einem Instapaper-Export"
+  },
+  "import_methodFile": {
+    "message": "Datei-Upload"
+  },
+  "import_methodApiKey": {
+    "message": "API-Schlüssel"
+  },
+  "import_apiKeyLabel": {
+    "message": "API-Schlüssel"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "API-Schlüssel einfügen"
+  },
+  "import_apiKeyRequired": {
+    "message": "Bitte einen API-Schlüssel eingeben"
+  },
+  "import_previewWithKey": {
+    "message": "Importvorschau"
+  },
+  "import_processing": {
+    "message": "Datei wird verarbeitet..."
+  },
+  "import_dropzone": {
+    "message": "Klicken oder Datei zum Hochladen ziehen"
+  },
+  "import_formats": {
+    "message": "Unterstützt Pocket JSON und Instapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "{{count}} Elemente gefunden"
+  },
+  "import_selectAll": {
+    "message": "Alle auswählen"
+  },
+  "import_selectItems": {
+    "message": "Bitte Elemente zum Import auswählen"
+  },
+  "import_importSelected": {
+    "message": "{{count}} Elemente importieren"
+  },
+  "import_success": {
+    "message": "{{count}} Elemente importiert"
+  },
+  "import_complete": {
+    "message": "Import abgeschlossen"
+  },
+  "import_resultSummary": {
+    "message": "Importiert: {{imported}}, Aktualisiert: {{updated}}, Übersprungen: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "Mehr importieren"
+  },
+  "import_steps_source": {
+    "message": "Quelle"
+  },
+  "import_steps_upload": {
+    "message": "Upload"
+  },
+  "import_steps_preview": {
+    "message": "Vorschau"
+  },
+  "import_steps_result": {
+    "message": "Ergebnis"
+  },
+  "export_title": {
+    "message": "Export"
+  },
+  "export_format": {
+    "message": "Format"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "Optionen"
+  },
+  "export_includeContent": {
+    "message": "Vollständigen Inhalt einschließen"
+  },
+  "export_includeHighlights": {
+    "message": "Hervorhebungen einschließen"
+  },
+  "export_items": {
+    "message": "Zu exportierende Elemente"
+  },
+  "export_searchPlaceholder": {
+    "message": "Elemente suchen..."
+  },
+  "export_allItems": {
+    "message": "Alle Elemente (leer lassen)"
+  },
+  "export_itemsHint": {
+    "message": "Leer lassen, um alle Elemente zu exportieren, oder bestimmte auswählen"
+  },
+  "export_selectionHint": {
+    "message": "Elemente zum Export auswählen oder leer lassen, um alles zu exportieren."
+  },
+  "export_selectAll": {
+    "message": "Alle auswählen"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} ausgewählt"
+  },
+  "export_clearSelection": {
+    "message": "Auswahl löschen"
+  },
+  "export_noItems": {
+    "message": "Keine Elemente gefunden"
+  },
+  "export_selectItems": {
+    "message": "Wähle zuerst Elemente zum Kopieren"
+  },
+  "export_copy": {
+    "message": "JSONL kopieren"
+  },
+  "export_copied": {
+    "message": "In Zwischenablage kopiert"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIP-Export unterstützt die Elementauswahl noch nicht."
+  },
+  "export_download": {
+    "message": "Export herunterladen"
+  },
+  "export_allItemsHint": {
+    "message": "Der Export enthält alle Leselisteneinträge deines Kontos."
+  },
+  "export_success": {
+    "message": "Export bereit zum Herunterladen"
+  }
+}

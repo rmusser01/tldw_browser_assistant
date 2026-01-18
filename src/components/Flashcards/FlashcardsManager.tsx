@@ -51,7 +51,7 @@ export const FlashcardsManager: React.FC = () => {
       setReviewOverrideCard(card)
       setActiveTab("review")
     },
-    [setActiveTab]
+    []
   )
 
   return (
@@ -117,7 +117,7 @@ export const FlashcardsManager: React.FC = () => {
       <KeyboardShortcutsModal
         open={shortcutsModalOpen}
         onClose={() => setShortcutsModalOpen(false)}
-        activeTab={activeTab as "review" | "cards" | "import"}
+        activeTab={activeTab === "importExport" ? "import" : (activeTab as "review" | "cards")}
       />
     </div>
   )

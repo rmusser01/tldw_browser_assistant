@@ -216,6 +216,7 @@ export const FlashcardCreateDrawer: React.FC<FlashcardCreateDrawerProps> = ({
                     {menu}
                     <Divider className="!my-2" />
                     <button
+                      type="button"
                       className="w-full text-left px-3 py-2 text-primary hover:bg-primary/5 flex items-center gap-2"
                       onClick={(e) => {
                         e.preventDefault()

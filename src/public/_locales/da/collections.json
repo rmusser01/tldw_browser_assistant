@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "Samlinger"
+  },
+  "description": {
+    "message": "Gem artikler, opret markeringer, administrer skabeloner og importér/eksportér din læseliste."
+  },
+  "offline": {
+    "message": "Serveren er offline. Opret forbindelse for at bruge Samlinger."
+  },
+  "betaNotice": {
+    "message": "Beta-funktion"
+  },
+  "betaDescription": {
+    "message": "Samlinger er i øjeblikket i beta. Nogle funktioner kræver muligvis backend-understøttelse."
+  },
+  "tabs_reading": {
+    "message": "Læseliste"
+  },
+  "tabs_highlights": {
+    "message": "Markeringer"
+  },
+  "tabs_templates": {
+    "message": "Skabeloner"
+  },
+  "tabs_importExport": {
+    "message": "Import/Eksport"
+  },
+  "status_all": {
+    "message": "Alle"
+  },
+  "status_saved": {
+    "message": "Gemt"
+  },
+  "status_reading": {
+    "message": "Under læsning"
+  },
+  "status_read": {
+    "message": "Læst"
+  },
+  "status_archived": {
+    "message": "Arkiveret"
+  },
+  "sort_created_at": {
+    "message": "Dato tilføjet"
+  },
+  "sort_updated_at": {
+    "message": "Senest opdateret"
+  },
+  "sort_title": {
+    "message": "Titel"
+  },
+  "sort_relevance": {
+    "message": "Relevans"
+  },
+  "colors_all": {
+    "message": "Alle farver"
+  },
+  "colors_yellow": {
+    "message": "Gul"
+  },
+  "colors_green": {
+    "message": "Grøn"
+  },
+  "colors_blue": {
+    "message": "Blå"
+  },
+  "colors_pink": {
+    "message": "Pink"
+  },
+  "colors_purple": {
+    "message": "Lilla"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} min siden"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} t siden"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} dage siden"
+  },
+  "reading_addUrl": {
+    "message": "Tilføj URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "Tilføj til læselisten"
+  },
+  "reading_addFirst": {
+    "message": "Tilføj din første artikel"
+  },
+  "reading_addSuccess": {
+    "message": "Artikel tilføjet til læselisten"
+  },
+  "reading_searchPlaceholder": {
+    "message": "Søg i artikler..."
+  },
+  "reading_filters": {
+    "message": "Filtre"
+  },
+  "reading_favorites": {
+    "message": "Favoritter"
+  },
+  "reading_tagsFilter": {
+    "message": "Tags"
+  },
+  "reading_domainFilter": {
+    "message": "Domæne"
+  },
+  "reading_sortBy": {
+    "message": "Sorter"
+  },
+  "reading_clearFilters": {
+    "message": "Ryd filtre"
+  },
+  "reading_noResults": {
+    "message": "Ingen artikler matcher dine filtre"
+  },
+  "reading_empty": {
+    "message": "Din læseliste er tom"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} af {{total}} elementer"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} min læsning"
+  },
+  "reading_favorite": {
+    "message": "Tilføj til favoritter"
+  },
+  "reading_unfavorite": {
+    "message": "Fjern fra favoritter"
+  },
+  "reading_viewDetails": {
+    "message": "Vis detaljer"
+  },
+  "reading_openOriginal": {
+    "message": "Åbn original"
+  },
+  "reading_changeStatus": {
+    "message": "Skift status"
+  },
+  "reading_archive": {
+    "message": "Arkivér"
+  },
+  "reading_unarchive": {
+    "message": "Fjern arkivering"
+  },
+  "reading_statusUpdated": {
+    "message": "Status opdateret til {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "Indtast en URL"
+  },
+  "reading_urlInvalid": {
+    "message": "Indtast en gyldig URL"
+  },
+  "reading_titleLabel": {
+    "message": "Titel (valgfri)"
+  },
+  "reading_titleHint": {
+    "message": "Lad stå tom for automatisk at registrere fra siden"
+  },
+  "reading_titlePlaceholder": {
+    "message": "Artikeltitel"
+  },
+  "reading_tagsLabel": {
+    "message": "Tags"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "Tilføj tags..."
+  },
+  "reading_notesLabel": {
+    "message": "Noter (valgfri)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "Tilføj eventuelle noter om denne artikel..."
+  },
+  "reading_saveToList": {
+    "message": "Gem på listen"
+  },
+  "reading_addTag": {
+    "message": "Tilføj tag..."
+  },
+  "reading_tabs_content": {
+    "message": "Indhold"
+  },
+  "reading_tabs_summary": {
+    "message": "Resumé"
+  },
+  "reading_tabs_highlights": {
+    "message": "Markeringer"
+  },
+  "reading_tabs_notes": {
+    "message": "Noter"
+  },
+  "reading_noContent": {
+    "message": "Indhold ikke tilgængeligt"
+  },
+  "reading_noSummary": {
+    "message": "Intet resumé endnu"
+  },
+  "reading_noNotes": {
+    "message": "Ingen noter endnu"
+  },
+  "reading_editNotes": {
+    "message": "Redigér noter"
+  },
+  "reading_addNotes": {
+    "message": "Tilføj noter"
+  },
+  "reading_notesSaved": {
+    "message": "Noter gemt"
+  },
+  "reading_notesPlaceholder": {
+    "message": "Tilføj dine noter..."
+  },
+  "reading_summarize": {
+    "message": "Opsummér"
+  },
+  "reading_generateSummary": {
+    "message": "Generér resumé"
+  },
+  "reading_summarized": {
+    "message": "Resumé genereret"
+  },
+  "reading_generateTts": {
+    "message": "Generér lyd"
+  },
+  "reading_ttsGenerated": {
+    "message": "Lyd genereret"
+  },
+  "reading_downloadAudio": {
+    "message": "Download lyd"
+  },
+  "reading_deleted": {
+    "message": "Artikel slettet"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "Slet artikel"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "Er du sikker på, at du vil slette denne artikel? Denne handling kan ikke fortrydes."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "Søg i markeringer..."
+  },
+  "highlights_groupByItem": {
+    "message": "Gruppér efter artikel"
+  },
+  "highlights_add": {
+    "message": "Tilføj markering"
+  },
+  "highlights_edit": {
+    "message": "Redigér markering"
+  },
+  "highlights_quoteLabel": {
+    "message": "Citat"
+  },
+  "highlights_quoteRequired": {
+    "message": "Indtast markeringsteksten"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "Indsæt den markerede tekst..."
+  },
+  "highlights_noteLabel": {
+    "message": "Note (valgfri)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "Tilføj kontekst eller hvorfor det er vigtigt..."
+  },
+  "highlights_colorLabel": {
+    "message": "Markeringsfarve"
+  },
+  "highlights_noResults": {
+    "message": "Ingen markeringer matcher dine filtre"
+  },
+  "highlights_empty": {
+    "message": "Ingen markeringer endnu"
+  },
+  "highlights_emptyForItem": {
+    "message": "Ingen markeringer for denne artikel endnu"
+  },
+  "highlights_emptyHint": {
+    "message": "Markeringer, du opretter under læsning, vises her."
+  },
+  "highlights_from": {
+    "message": "Fra"
+  },
+  "highlights_viewArticle": {
+    "message": "Vis artikel"
+  },
+  "highlights_created": {
+    "message": "Markering oprettet"
+  },
+  "highlights_updated": {
+    "message": "Markering opdateret"
+  },
+  "highlights_missingItem": {
+    "message": "Vælg en artikel først"
+  },
+  "highlights_deleted": {
+    "message": "Markering slettet"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "Slet markering"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "Er du sikker på, at du vil slette denne markering?"
+  },
+  "templates_create": {
+    "message": "Opret skabelon"
+  },
+  "templates_createFirst": {
+    "message": "Opret din første skabelon"
+  },
+  "templates_searchPlaceholder": {
+    "message": "Søg i skabeloner..."
+  },
+  "templates_noResults": {
+    "message": "Ingen skabeloner matcher dine filtre"
+  },
+  "templates_empty": {
+    "message": "Ingen skabeloner endnu"
+  },
+  "templates_default": {
+    "message": "Standard"
+  },
+  "templates_preview": {
+    "message": "Forhåndsvisning"
+  },
+  "templates_duplicate": {
+    "message": "Dupliker"
+  },
+  "templates_deleted": {
+    "message": "Skabelon slettet"
+  },
+  "templates_created": {
+    "message": "Skabelon oprettet"
+  },
+  "templates_updated": {
+    "message": "Skabelon opdateret"
+  },
+  "templates_editTitle": {
+    "message": "Redigér skabelon"
+  },
+  "templates_createTitle": {
+    "message": "Opret skabelon"
+  },
+  "templates_nameLabel": {
+    "message": "Skabelonnavn"
+  },
+  "templates_nameRequired": {
+    "message": "Indtast et navn"
+  },
+  "templates_namePlaceholder": {
+    "message": "Min nyhedsbrevsskabelon"
+  },
+  "templates_descriptionLabel": {
+    "message": "Beskrivelse (valgfri)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "Kort beskrivelse af denne skabelon"
+  },
+  "templates_typeLabel": {
+    "message": "Skabelontype"
+  },
+  "templates_formatLabel": {
+    "message": "Outputformat"
+  },
+  "templates_bodyLabel": {
+    "message": "Skabelonindhold (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "Indtast skabelonindhold"
+  },
+  "templates_bodyHint": {
+    "message": "Brug Jinja2-syntaks. Tilgængelige variabler: items (liste af læseelementer), date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "Forhåndsvisning af skabelon"
+  },
+  "templates_selectItems": {
+    "message": "Vælg mindst én artikel"
+  },
+  "templates_selectItemsHint": {
+    "message": "Vælg artikler, der skal med i forhåndsvisningen:"
+  },
+  "templates_selectAll": {
+    "message": "Vælg alle"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} valgt"
+  },
+  "templates_noItems": {
+    "message": "Ingen artikler i din læseliste"
+  },
+  "templates_generatePreview": {
+    "message": "Generér forhåndsvisning"
+  },
+  "templates_generateOutput": {
+    "message": "Generér output"
+  },
+  "templates_audioUnavailable": {
+    "message": "Lydoutput ikke tilgængeligt"
+  },
+  "templates_noGeneratedContent": {
+    "message": "Ingen output genereret endnu"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "Slet skabelon"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "Er du sikker på, at du vil slette denne skabelon?"
+  },
+  "templateTypes_all": {
+    "message": "Alle typer"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "Nyhedsbrev (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "Briefing (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "Nyhedsbrev (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS-lyd"
+  },
+  "import_title": {
+    "message": "Import"
+  },
+  "import_sourceRequired": {
+    "message": "Vælg en kilde først"
+  },
+  "import_selectSource": {
+    "message": "Vælg importkilde:"
+  },
+  "import_sources_auto_label": {
+    "message": "Automatisk registrering"
+  },
+  "import_sources_auto_description": {
+    "message": "Upload en Pocket- eller Instapaper-eksportfil og registrer formatet automatisk"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Importer dine gemte artikler fra en Pocket-eksport"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Importer artikler fra en Instapaper-eksport"
+  },
+  "import_methodFile": {
+    "message": "Filupload"
+  },
+  "import_methodApiKey": {
+    "message": "API-nøgle"
+  },
+  "import_apiKeyLabel": {
+    "message": "API-nøgle"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "Indsæt din API-nøgle"
+  },
+  "import_apiKeyRequired": {
+    "message": "Indtast en API-nøgle"
+  },
+  "import_previewWithKey": {
+    "message": "Forhåndsvis import"
+  },
+  "import_processing": {
+    "message": "Behandler fil..."
+  },
+  "import_dropzone": {
+    "message": "Klik eller træk filen for at uploade"
+  },
+  "import_formats": {
+    "message": "Understøtter Pocket JSON og Instapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "{{count}} elementer fundet"
+  },
+  "import_selectAll": {
+    "message": "Vælg alle"
+  },
+  "import_selectItems": {
+    "message": "Vælg elementer til import"
+  },
+  "import_importSelected": {
+    "message": "Importér {{count}} elementer"
+  },
+  "import_success": {
+    "message": "Importerede {{count}} elementer"
+  },
+  "import_complete": {
+    "message": "Import fuldført"
+  },
+  "import_resultSummary": {
+    "message": "Importerede: {{imported}}, opdaterede: {{updated}}, sprunget over: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "Importér mere"
+  },
+  "import_steps_source": {
+    "message": "Kilde"
+  },
+  "import_steps_upload": {
+    "message": "Upload"
+  },
+  "import_steps_preview": {
+    "message": "Forhåndsvisning"
+  },
+  "import_steps_result": {
+    "message": "Resultat"
+  },
+  "export_title": {
+    "message": "Eksport"
+  },
+  "export_format": {
+    "message": "Format"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "Indstillinger"
+  },
+  "export_includeContent": {
+    "message": "Medtag fuldt indhold"
+  },
+  "export_includeHighlights": {
+    "message": "Medtag markeringer"
+  },
+  "export_items": {
+    "message": "Elementer til eksport"
+  },
+  "export_searchPlaceholder": {
+    "message": "Søg i elementer..."
+  },
+  "export_allItems": {
+    "message": "Alle elementer (lad stå tomt)"
+  },
+  "export_itemsHint": {
+    "message": "Lad stå tomt for at eksportere alle elementer, eller vælg bestemte"
+  },
+  "export_selectionHint": {
+    "message": "Vælg elementer til eksport, eller lad stå tomt for at eksportere alt."
+  },
+  "export_selectAll": {
+    "message": "Vælg alle"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} valgt"
+  },
+  "export_clearSelection": {
+    "message": "Ryd"
+  },
+  "export_noItems": {
+    "message": "Ingen elementer fundet"
+  },
+  "export_selectItems": {
+    "message": "Vælg elementer for at kopiere først"
+  },
+  "export_copy": {
+    "message": "Kopiér JSONL"
+  },
+  "export_copied": {
+    "message": "Kopieret til udklipsholder"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIP-eksport understøtter ikke elementvalg endnu."
+  },
+  "export_download": {
+    "message": "Download eksport"
+  },
+  "export_allItemsHint": {
+    "message": "Eksporten omfatter alle læselisteelementer for din konto."
+  },
+  "export_success": {
+    "message": "Eksport klar til download"
+  }
+}

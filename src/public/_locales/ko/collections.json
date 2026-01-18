@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "컬렉션"
+  },
+  "description": {
+    "message": "기사 저장, 하이라이트 생성, 템플릿 관리, 읽기 목록 가져오기/내보내기."
+  },
+  "offline": {
+    "message": "서버가 오프라인입니다. 컬렉션을 사용하려면 연결하세요."
+  },
+  "betaNotice": {
+    "message": "베타 기능"
+  },
+  "betaDescription": {
+    "message": "컬렉션은 현재 베타입니다. 일부 기능은 백엔드 지원이 필요할 수 있습니다."
+  },
+  "tabs_reading": {
+    "message": "읽기 목록"
+  },
+  "tabs_highlights": {
+    "message": "하이라이트"
+  },
+  "tabs_templates": {
+    "message": "템플릿"
+  },
+  "tabs_importExport": {
+    "message": "가져오기/내보내기"
+  },
+  "status_all": {
+    "message": "전체"
+  },
+  "status_saved": {
+    "message": "저장됨"
+  },
+  "status_reading": {
+    "message": "읽는 중"
+  },
+  "status_read": {
+    "message": "읽음"
+  },
+  "status_archived": {
+    "message": "보관됨"
+  },
+  "sort_created_at": {
+    "message": "추가 날짜"
+  },
+  "sort_updated_at": {
+    "message": "마지막 업데이트"
+  },
+  "sort_title": {
+    "message": "제목"
+  },
+  "sort_relevance": {
+    "message": "관련성"
+  },
+  "colors_all": {
+    "message": "모든 색상"
+  },
+  "colors_yellow": {
+    "message": "노랑"
+  },
+  "colors_green": {
+    "message": "초록"
+  },
+  "colors_blue": {
+    "message": "파랑"
+  },
+  "colors_pink": {
+    "message": "핑크"
+  },
+  "colors_purple": {
+    "message": "보라"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}}분 전"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}}시간 전"
+  },
+  "time_daysAgo": {
+    "message": "{{count}}일 전"
+  },
+  "reading_addUrl": {
+    "message": "URL 추가"
+  },
+  "reading_addUrlTitle": {
+    "message": "읽기 목록에 추가"
+  },
+  "reading_addFirst": {
+    "message": "첫 번째 기사를 추가하세요"
+  },
+  "reading_addSuccess": {
+    "message": "읽기 목록에 기사가 추가되었습니다"
+  },
+  "reading_searchPlaceholder": {
+    "message": "기사 검색..."
+  },
+  "reading_filters": {
+    "message": "필터"
+  },
+  "reading_favorites": {
+    "message": "즐겨찾기"
+  },
+  "reading_tagsFilter": {
+    "message": "태그"
+  },
+  "reading_domainFilter": {
+    "message": "도메인"
+  },
+  "reading_sortBy": {
+    "message": "정렬"
+  },
+  "reading_clearFilters": {
+    "message": "필터 지우기"
+  },
+  "reading_noResults": {
+    "message": "필터와 일치하는 기사가 없습니다"
+  },
+  "reading_empty": {
+    "message": "읽기 목록이 비어 있습니다"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} / {{total}}개"
+  },
+  "reading_readingTime": {
+    "message": "{{count}}분 읽기"
+  },
+  "reading_favorite": {
+    "message": "즐겨찾기에 추가"
+  },
+  "reading_unfavorite": {
+    "message": "즐겨찾기에서 제거"
+  },
+  "reading_viewDetails": {
+    "message": "세부 정보 보기"
+  },
+  "reading_openOriginal": {
+    "message": "원문 열기"
+  },
+  "reading_changeStatus": {
+    "message": "상태 변경"
+  },
+  "reading_archive": {
+    "message": "보관"
+  },
+  "reading_unarchive": {
+    "message": "보관 해제"
+  },
+  "reading_statusUpdated": {
+    "message": "상태가 {{status}}(으)로 업데이트됨"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "URL을 입력하세요"
+  },
+  "reading_urlInvalid": {
+    "message": "유효한 URL을 입력하세요"
+  },
+  "reading_titleLabel": {
+    "message": "제목(선택)"
+  },
+  "reading_titleHint": {
+    "message": "페이지에서 자동 감지하려면 비워 두세요"
+  },
+  "reading_titlePlaceholder": {
+    "message": "기사 제목"
+  },
+  "reading_tagsLabel": {
+    "message": "태그"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "태그 추가..."
+  },
+  "reading_notesLabel": {
+    "message": "메모(선택)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "이 기사에 대한 메모를 추가하세요..."
+  },
+  "reading_saveToList": {
+    "message": "목록에 저장"
+  },
+  "reading_addTag": {
+    "message": "태그 추가..."
+  },
+  "reading_tabs_content": {
+    "message": "내용"
+  },
+  "reading_tabs_summary": {
+    "message": "요약"
+  },
+  "reading_tabs_highlights": {
+    "message": "하이라이트"
+  },
+  "reading_tabs_notes": {
+    "message": "메모"
+  },
+  "reading_noContent": {
+    "message": "내용을 사용할 수 없습니다"
+  },
+  "reading_noSummary": {
+    "message": "아직 요약이 없습니다"
+  },
+  "reading_noNotes": {
+    "message": "아직 메모가 없습니다"
+  },
+  "reading_editNotes": {
+    "message": "메모 편집"
+  },
+  "reading_addNotes": {
+    "message": "메모 추가"
+  },
+  "reading_notesSaved": {
+    "message": "메모 저장됨"
+  },
+  "reading_notesPlaceholder": {
+    "message": "메모를 추가하세요..."
+  },
+  "reading_summarize": {
+    "message": "요약"
+  },
+  "reading_generateSummary": {
+    "message": "요약 생성"
+  },
+  "reading_summarized": {
+    "message": "요약 생성됨"
+  },
+  "reading_generateTts": {
+    "message": "오디오 생성"
+  },
+  "reading_ttsGenerated": {
+    "message": "오디오 생성됨"
+  },
+  "reading_downloadAudio": {
+    "message": "오디오 다운로드"
+  },
+  "reading_deleted": {
+    "message": "기사 삭제됨"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "기사 삭제"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "이 기사를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "하이라이트 검색..."
+  },
+  "highlights_groupByItem": {
+    "message": "기사별로 그룹화"
+  },
+  "highlights_add": {
+    "message": "하이라이트 추가"
+  },
+  "highlights_edit": {
+    "message": "하이라이트 편집"
+  },
+  "highlights_quoteLabel": {
+    "message": "인용"
+  },
+  "highlights_quoteRequired": {
+    "message": "하이라이트 텍스트를 입력하세요"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "하이라이트한 텍스트를 붙여넣기..."
+  },
+  "highlights_noteLabel": {
+    "message": "메모(선택)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "맥락이나 중요성을 추가하세요..."
+  },
+  "highlights_colorLabel": {
+    "message": "하이라이트 색상"
+  },
+  "highlights_noResults": {
+    "message": "필터와 일치하는 하이라이트가 없습니다"
+  },
+  "highlights_empty": {
+    "message": "아직 하이라이트가 없습니다"
+  },
+  "highlights_emptyForItem": {
+    "message": "이 기사에 하이라이트가 없습니다"
+  },
+  "highlights_emptyHint": {
+    "message": "읽는 동안 만든 하이라이트가 여기에 표시됩니다."
+  },
+  "highlights_from": {
+    "message": "출처"
+  },
+  "highlights_viewArticle": {
+    "message": "기사 보기"
+  },
+  "highlights_created": {
+    "message": "하이라이트 생성됨"
+  },
+  "highlights_updated": {
+    "message": "하이라이트 업데이트됨"
+  },
+  "highlights_missingItem": {
+    "message": "먼저 기사를 선택하세요"
+  },
+  "highlights_deleted": {
+    "message": "하이라이트 삭제됨"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "하이라이트 삭제"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "이 하이라이트를 삭제하시겠습니까?"
+  },
+  "templates_create": {
+    "message": "템플릿 만들기"
+  },
+  "templates_createFirst": {
+    "message": "첫 번째 템플릿을 만드세요"
+  },
+  "templates_searchPlaceholder": {
+    "message": "템플릿 검색..."
+  },
+  "templates_noResults": {
+    "message": "필터와 일치하는 템플릿이 없습니다"
+  },
+  "templates_empty": {
+    "message": "아직 템플릿이 없습니다"
+  },
+  "templates_default": {
+    "message": "기본"
+  },
+  "templates_preview": {
+    "message": "미리보기"
+  },
+  "templates_duplicate": {
+    "message": "복제"
+  },
+  "templates_deleted": {
+    "message": "템플릿 삭제됨"
+  },
+  "templates_created": {
+    "message": "템플릿 생성됨"
+  },
+  "templates_updated": {
+    "message": "템플릿 업데이트됨"
+  },
+  "templates_editTitle": {
+    "message": "템플릿 편집"
+  },
+  "templates_createTitle": {
+    "message": "템플릿 만들기"
+  },
+  "templates_nameLabel": {
+    "message": "템플릿 이름"
+  },
+  "templates_nameRequired": {
+    "message": "이름을 입력하세요"
+  },
+  "templates_namePlaceholder": {
+    "message": "내 뉴스레터 템플릿"
+  },
+  "templates_descriptionLabel": {
+    "message": "설명(선택)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "이 템플릿에 대한 간단한 설명"
+  },
+  "templates_typeLabel": {
+    "message": "템플릿 유형"
+  },
+  "templates_formatLabel": {
+    "message": "출력 형식"
+  },
+  "templates_bodyLabel": {
+    "message": "템플릿 본문(Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "템플릿 내용을 입력하세요"
+  },
+  "templates_bodyHint": {
+    "message": "Jinja2 구문을 사용하세요. 사용 가능한 변수: items(읽기 항목 배열), date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "템플릿 미리보기"
+  },
+  "templates_selectItems": {
+    "message": "최소 한 개의 기사를 선택하세요"
+  },
+  "templates_selectItemsHint": {
+    "message": "미리보기에 포함할 기사를 선택하세요:"
+  },
+  "templates_selectAll": {
+    "message": "전체 선택"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}}개 선택됨"
+  },
+  "templates_noItems": {
+    "message": "읽기 목록에 기사가 없습니다"
+  },
+  "templates_generatePreview": {
+    "message": "미리보기 생성"
+  },
+  "templates_generateOutput": {
+    "message": "출력 생성"
+  },
+  "templates_audioUnavailable": {
+    "message": "오디오 출력 사용 불가"
+  },
+  "templates_noGeneratedContent": {
+    "message": "아직 생성된 출력이 없습니다"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "템플릿 삭제"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "이 템플릿을 삭제하시겠습니까?"
+  },
+  "templateTypes_all": {
+    "message": "모든 유형"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "뉴스레터(MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "브리핑(MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "뉴스레터(HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS 오디오"
+  },
+  "import_title": {
+    "message": "가져오기"
+  },
+  "import_sourceRequired": {
+    "message": "먼저 소스를 선택하세요"
+  },
+  "import_selectSource": {
+    "message": "가져오기 소스를 선택하세요:"
+  },
+  "import_sources_auto_label": {
+    "message": "자동 감지"
+  },
+  "import_sources_auto_description": {
+    "message": "Pocket 또는 Instapaper 내보내기 파일을 업로드하면 형식을 자동으로 감지합니다"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Pocket 내보내기에서 저장된 기사를 가져옵니다"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Instapaper 내보내기에서 기사를 가져옵니다"
+  },
+  "import_methodFile": {
+    "message": "파일 업로드"
+  },
+  "import_methodApiKey": {
+    "message": "API 키"
+  },
+  "import_apiKeyLabel": {
+    "message": "API 키"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "API 키를 붙여넣기"
+  },
+  "import_apiKeyRequired": {
+    "message": "API 키를 입력하세요"
+  },
+  "import_previewWithKey": {
+    "message": "가져오기 미리보기"
+  },
+  "import_processing": {
+    "message": "파일 처리 중..."
+  },
+  "import_dropzone": {
+    "message": "클릭하거나 파일을 끌어다 놓아 업로드"
+  },
+  "import_formats": {
+    "message": "Pocket JSON 및 Instapaper CSV 지원"
+  },
+  "import_previewHint": {
+    "message": "{{count}}개 항목 발견"
+  },
+  "import_selectAll": {
+    "message": "전체 선택"
+  },
+  "import_selectItems": {
+    "message": "가져올 항목을 선택하세요"
+  },
+  "import_importSelected": {
+    "message": "{{count}}개 항목 가져오기"
+  },
+  "import_success": {
+    "message": "{{count}}개 항목 가져옴"
+  },
+  "import_complete": {
+    "message": "가져오기 완료"
+  },
+  "import_resultSummary": {
+    "message": "가져옴: {{imported}}, 업데이트됨: {{updated}}, 건너뜀: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "더 가져오기"
+  },
+  "import_steps_source": {
+    "message": "소스"
+  },
+  "import_steps_upload": {
+    "message": "업로드"
+  },
+  "import_steps_preview": {
+    "message": "미리보기"
+  },
+  "import_steps_result": {
+    "message": "결과"
+  },
+  "export_title": {
+    "message": "내보내기"
+  },
+  "export_format": {
+    "message": "형식"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "옵션"
+  },
+  "export_includeContent": {
+    "message": "전체 콘텐츠 포함"
+  },
+  "export_includeHighlights": {
+    "message": "하이라이트 포함"
+  },
+  "export_items": {
+    "message": "내보낼 항목"
+  },
+  "export_searchPlaceholder": {
+    "message": "항목 검색..."
+  },
+  "export_allItems": {
+    "message": "모든 항목(비워두기)"
+  },
+  "export_itemsHint": {
+    "message": "비워두면 모든 항목을 내보내고, 또는 특정 항목을 선택하세요"
+  },
+  "export_selectionHint": {
+    "message": "내보낼 항목을 선택하거나 비워두면 전체 내보내기."
+  },
+  "export_selectAll": {
+    "message": "전체 선택"
+  },
+  "export_selectedCount": {
+    "message": "{{count}}개 선택됨"
+  },
+  "export_clearSelection": {
+    "message": "지우기"
+  },
+  "export_noItems": {
+    "message": "항목을 찾을 수 없습니다"
+  },
+  "export_selectItems": {
+    "message": "먼저 복사할 항목을 선택하세요"
+  },
+  "export_copy": {
+    "message": "JSONL 복사"
+  },
+  "export_copied": {
+    "message": "클립보드에 복사됨"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIP 내보내기는 아직 항목 선택을 지원하지 않습니다."
+  },
+  "export_download": {
+    "message": "내보내기 다운로드"
+  },
+  "export_allItemsHint": {
+    "message": "내보내기에는 계정의 모든 읽기 목록 항목이 포함됩니다."
+  },
+  "export_success": {
+    "message": "내보내기 다운로드 준비 완료"
+  }
+}

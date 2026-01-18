@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import React, { Suspense, useCallback, useEffect, useMemo, useState } from "react"
 import {
   DndContext,
   closestCenter,
@@ -24,6 +24,7 @@ import {
   message
 } from "antd"
 import type { ColumnsType } from "antd/es/table"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import {
   GripVertical,
   Plus,
@@ -37,12 +38,26 @@ import { useDataTablesStore } from "@/store/data-tables"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { DataTable, DataTableColumn, DataTableRow } from "@/types/data-tables"
 import { EditableCell } from "./EditableCell"
-import { AddColumnModal } from "./AddColumnModal"
+const AddColumnModal = React.lazy(() =>
+  import("./AddColumnModal").then((module) => ({
+    default: module.AddColumnModal
+  }))
+)
 
 interface EditableDataTableProps {
   table: DataTable
   onSaveSuccess?: (table: DataTable) => void
   readOnly?: boolean
+}
+
+const isHttpUrl = (value: string): boolean => {
+  try {
+    const parsed = new URL(value)
+    const protocol = parsed.protocol.toLowerCase()
+    return protocol === "http:" || protocol === "https:"
+  } catch {
+    return false
+  }
 }
 
 // Sortable column header component
@@ -119,12 +134,14 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
   readOnly = false
 }) => {
   const { t } = useTranslation(["dataTables", "common"])
+  const queryClient = useQueryClient()
 
   // Store state
   const editingTable = useDataTablesStore((s) => s.editingTable)
   const editingRows = useDataTablesStore((s) => s.editingRows)
   const editingState = useDataTablesStore((s) => s.editingState)
   const originalTable = useDataTablesStore((s) => s.originalTable)
+  const editingTableId = editingTable?.id
 
   // Store actions
   const startEditing = useDataTablesStore((s) => s.startEditing)
@@ -140,23 +157,24 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
   const getEditedTableData = useDataTablesStore((s) => s.getEditedTableData)
 
   // Local state
-  const [isSaving, setIsSaving] = useState(false)
   const [addColumnModalOpen, setAddColumnModalOpen] = useState(false)
 
   // Initialize editing when entering edit mode or switching tables.
   useEffect(() => {
     if (!table || readOnly) return
-    if (!editingTable || editingTable.id !== table.id) {
+    if (!editingTableId || editingTableId !== table.id) {
       startEditing(table)
     }
-  }, [table?.id, readOnly, editingTable?.id, startEditing])
+  }, [table, readOnly, editingTableId, startEditing])
 
   // Cleanup editing state when the table changes or unmounts.
   useEffect(() => {
     return () => {
-      stopEditing()
+      if (!readOnly) {
+        stopEditing()
+      }
     }
-  }, [table?.id, stopEditing])
+  }, [table?.id, readOnly, stopEditing])
 
   // DnD sensors
   const sensors = useSensors(
@@ -185,30 +203,34 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
   )
 
   // Handle save
-  const handleSave = async () => {
-    if (!editingTable) return
-
-    setIsSaving(true)
-    try {
+  const saveMutation = useMutation({
+    mutationFn: async () => {
+      if (!editingTable) {
+        throw new Error("No table to save")
+      }
       const editedData = getEditedTableData()
-      if (!editedData) throw new Error("No data to save")
-
-      const updatedTable = await tldwClient.saveDataTableContent(
-        editingTable.id,
-        editedData
-      )
-
-      // Reset editing state with new data
+      if (!editedData) {
+        throw new Error("No data to save")
+      }
+      return tldwClient.saveDataTableContent(editingTable.id, editedData)
+    },
+    onSuccess: async (updatedTable) => {
       startEditing(updatedTable)
       message.success(t("dataTables:saveSuccess", "Changes saved successfully!"))
       onSaveSuccess?.(updatedTable)
-    } catch (error) {
+      await queryClient.invalidateQueries({ queryKey: ["dataTables"] })
+    },
+    onError: (error) => {
+      console.error("Failed to save table changes:", error)
       const errorMessage =
         error instanceof Error ? error.message : "Failed to save changes"
       message.error(errorMessage)
-    } finally {
-      setIsSaving(false)
     }
+  })
+
+  const handleSave = () => {
+    if (!editingTable) return
+    saveMutation.mutate()
   }
 
   // Handle discard
@@ -267,6 +289,9 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
             return <span className="text-zinc-400">-</span>
           }
           if (col.type === "url" && typeof value === "string") {
+            if (!isHttpUrl(value)) {
+              return String(value)
+            }
             return (
               <a
                 href={value}
@@ -279,7 +304,7 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
             )
           }
           if (col.type === "boolean") {
-            return value ? "Yes" : "No"
+            return value ? t("common:yes", "Yes") : t("common:no", "No")
           }
           return String(value)
         }
@@ -399,7 +424,7 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
               type="primary"
               icon={<Save className="h-4 w-4" />}
               onClick={handleSave}
-              loading={isSaving}
+              loading={saveMutation.isPending}
               disabled={!editingState.isDirty}
             >
               {t("dataTables:save", "Save")}
@@ -471,12 +496,14 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
       )}
 
       {/* Add Column Modal */}
-      <AddColumnModal
-        open={addColumnModalOpen}
-        onClose={() => setAddColumnModalOpen(false)}
-        onAdd={handleAddColumn}
-        existingColumns={editingTable?.columns || table.columns || []}
-      />
+      <Suspense fallback={null}>
+        <AddColumnModal
+          open={addColumnModalOpen}
+          onClose={() => setAddColumnModalOpen(false)}
+          onAdd={handleAddColumn}
+          existingColumns={editingTable?.columns || table.columns || []}
+        />
+      </Suspense>
     </div>
   )
 }

@@ -2932,5 +2932,17 @@
   },
   "flashcards_nextDueCapped": {
     "message": "Next review is beyond the first {{count}} cards. Narrow filters to improve the estimate."
+  },
+  "flashcards_reviewedThisSession": {
+    "message": "{{count}} cards reviewed this session"
+  },
+  "flashcards_dueNow": {
+    "message": "Due now"
+  },
+  "header_evaluations": {
+    "message": "Evaluations"
+  },
+  "header_chatbooksPlayground": {
+    "message": "Chatbooks Playground"
   }
 }

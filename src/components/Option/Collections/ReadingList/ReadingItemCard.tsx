@@ -40,8 +40,9 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
         favorite: !item.favorite
       })
       updateItemInList(item.id, { favorite: !item.favorite })
-    } catch (error: any) {
-      message.error(error?.message || "Failed to update favorite status")
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : "Failed to update favorite status"
+      message.error(msg)
     } finally {
       setActionLoading(false)
     }
@@ -58,8 +59,9 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
             status: newStatus
           })
         )
-      } catch (error: any) {
-        message.error(error?.message || "Failed to update status")
+      } catch (error: unknown) {
+        const msg = error instanceof Error ? error.message : "Failed to update status"
+        message.error(msg)
       } finally {
         setActionLoading(false)
       }
@@ -78,7 +80,8 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
       key: "open",
       icon: <ExternalLink className="h-4 w-4" />,
       label: t("collections:reading.openOriginal", "Open original"),
-      onClick: () => window.open(item.url, "_blank")
+      onClick: () => item.url && window.open(item.url, "_blank"),
+      disabled: !item.url
     },
     { type: "divider" },
     {
@@ -125,24 +128,29 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
     }
   ]
 
-  const formatTimeAgo = (dateStr: string) => {
-    const date = new Date(dateStr)
-    const now = new Date()
-    const diffMs = now.getTime() - date.getTime()
-    const diffMins = Math.floor(diffMs / (1000 * 60))
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+  const formatTimeAgo = useCallback(
+    (dateStr: string) => {
+      const date = new Date(dateStr)
+      if (Number.isNaN(date.getTime())) {
+        return t("common:noData", "No data")
+      }
+      const now = new Date()
+      const diffMs = now.getTime() - date.getTime()
+      const diffMins = Math.floor(diffMs / (1000 * 60))
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
 
-    if (diffMins < 60) {
-      return t("collections:time.minutesAgo", "{{count}}m ago", { count: diffMins })
-    } else if (diffHours < 24) {
-      return t("collections:time.hoursAgo", "{{count}}h ago", { count: diffHours })
-    } else if (diffDays < 7) {
-      return t("collections:time.daysAgo", "{{count}}d ago", { count: diffDays })
-    } else {
+      if (diffMins < 60) {
+        return t("collections:time.minutesAgo", "{{count}}m ago", { count: diffMins })
+      } else if (diffHours < 24) {
+        return t("collections:time.hoursAgo", "{{count}}h ago", { count: diffHours })
+      } else if (diffDays < 7) {
+        return t("collections:time.daysAgo", "{{count}}d ago", { count: diffDays })
+      }
       return date.toLocaleDateString()
-    }
-  }
+    },
+    [t]
+  )
 
   return (
     <div
@@ -217,12 +225,12 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
           <div className="flex items-center gap-2">
             <StatusBadge status={item.status} />
             <span className="text-xs text-zinc-400 dark:text-zinc-500">
-              {formatTimeAgo(item.updated_at)}
+              {item.updated_at ? formatTimeAgo(item.updated_at) : null}
             </span>
           </div>
 
           <div
-            className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100"
+            className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
             onClick={(e) => e.stopPropagation()}
           >
             <Tooltip title={item.favorite ? t("collections:reading.unfavorite", "Unfavorite") : t("collections:reading.favorite", "Favorite")}>

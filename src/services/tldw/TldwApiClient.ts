@@ -920,15 +920,19 @@ export class TldwApiClient {
     return await bgUpload<any>({ path: '/api/v1/media/add', method: 'POST', fields: normalized, file: { name, type, data } })
   }
 
-  async listMedia(params?: {
-    page?: number
-    results_per_page?: number
-    include_keywords?: boolean
-  }): Promise<any> {
+  async listMedia(
+    params?: {
+      page?: number
+      results_per_page?: number
+      include_keywords?: boolean
+    },
+    options?: { signal?: AbortSignal }
+  ): Promise<any> {
     const query = this.buildQuery(params as Record<string, any>)
     return await bgRequest<any>({
       path: `/api/v1/media${query}`,
-      method: "GET"
+      method: "GET",
+      abortSignal: options?.signal
     })
   }
 
@@ -944,14 +948,16 @@ export class TldwApiClient {
       sort_by?: string
       boost_fields?: Record<string, number>
     },
-    params?: { page?: number; results_per_page?: number }
+    params?: { page?: number; results_per_page?: number },
+    options?: { signal?: AbortSignal }
   ): Promise<any> {
     const query = this.buildQuery(params as Record<string, any>)
     return await bgRequest<any>({
       path: `/api/v1/media/search${query}`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: payload
+      body: payload,
+      abortSignal: options?.signal
     })
   }
 
@@ -1305,11 +1311,15 @@ export class TldwApiClient {
     })
   }
 
-  async listChats(params?: Record<string, any>): Promise<ServerChatSummary[]> {
+  async listChats(
+    params?: Record<string, any>,
+    options?: { signal?: AbortSignal }
+  ): Promise<ServerChatSummary[]> {
     const query = this.buildQuery(params)
     const data = await bgRequest<any>({
       path: `/api/v1/chats/${query}`,
-      method: "GET"
+      method: "GET",
+      abortSignal: options?.signal
     })
 
     let list: any[] = []

@@ -44,10 +44,11 @@ export const EditableCell: React.FC<EditableCellProps> = ({
   useEffect(() => {
     if (isEditing && inputRef.current) {
       // Small delay to ensure the input is rendered
-      setTimeout(() => {
+      const timeoutId = window.setTimeout(() => {
         inputRef.current?.focus?.()
         inputRef.current?.select?.()
       }, 0)
+      return () => clearTimeout(timeoutId)
     }
   }, [isEditing])
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react"
+import React, { Suspense, useCallback, useEffect, useMemo } from "react"
 import {
   Button,
   DatePicker,
@@ -19,7 +19,6 @@ import { useTldwApiClient } from "@/hooks/useTldwApiClient"
 import type { ReadingStatus } from "@/types/collections"
 import { ReadingItemCard } from "./ReadingItemCard"
 import { ReadingItemDetail } from "./ReadingItemDetail"
-import { AddUrlModal } from "./AddUrlModal"
 
 const STATUS_OPTIONS: { value: ReadingStatus | "all"; label: string }[] = [
   { value: "all", label: "All" },
@@ -35,6 +34,10 @@ const SORT_OPTIONS = [
   { value: "title", label: "Title" },
   { value: "relevance", label: "Relevance" }
 ]
+
+const AddUrlModal = React.lazy(() =>
+  import("./AddUrlModal").then((m) => ({ default: m.AddUrlModal }))
+)
 
 export const ReadingItemsList: React.FC = () => {
   const { t } = useTranslation(["collections", "common"])
@@ -392,7 +395,11 @@ export const ReadingItemsList: React.FC = () => {
       )}
 
       {/* Modals */}
-      {addUrlModalOpen && <AddUrlModal onSuccess={fetchItems} />}
+      {addUrlModalOpen && (
+        <Suspense fallback={null}>
+          <AddUrlModal onSuccess={fetchItems} />
+        </Suspense>
+      )}
       {itemDetailOpen && <ReadingItemDetail onRefresh={fetchItems} />}
 
       <Modal

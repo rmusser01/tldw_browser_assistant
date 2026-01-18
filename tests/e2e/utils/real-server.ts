@@ -12,18 +12,16 @@ import type { TestType } from "@playwright/test"
  * - TLDW_E2E_API_KEY     (API key accepted by that server)
  */
 export const requireRealServerConfig = (
-  test: TestType<any, any>
+  _test: TestType<any, any>
 ): { serverUrl: string; apiKey: string } => {
   const serverUrl = process.env.TLDW_E2E_SERVER_URL
   const apiKey = process.env.TLDW_E2E_API_KEY
 
   if (!serverUrl || !apiKey) {
-    test.skip(
-      true,
+    throw new Error(
       "Set TLDW_E2E_SERVER_URL and TLDW_E2E_API_KEY to run real-server E2E tests."
     )
   }
 
   return { serverUrl: serverUrl!, apiKey: apiKey! }
 }
-

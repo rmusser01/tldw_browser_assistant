@@ -27,6 +27,7 @@ import {
   Kanban,
   Table2,
   Library,
+  CombineIcon,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -150,6 +151,12 @@ export function HeaderShortcuts({
       {
         title: t("option:header.groupKnowledge", "Knowledge"),
         items: [
+          {
+            type: "link" as const,
+            to: "/knowledge",
+            icon: CombineIcon,
+            label: t("option:header.modeKnowledge", "Knowledge QA"),
+          },
           {
             type: "link" as const,
             to: "/media",

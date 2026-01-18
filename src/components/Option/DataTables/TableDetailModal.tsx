@@ -12,6 +12,7 @@ import {
 } from "antd"
 import { Download, RefreshCw, X } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { useQueryClient } from "@tanstack/react-query"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { useDataTablesStore } from "@/store/data-tables"
 import { exportAndDownload } from "@/utils/data-table-export"
@@ -36,6 +37,7 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
   onClose
 }) => {
   const { t } = useTranslation(["dataTables", "common"])
+  const queryClient = useQueryClient()
 
   // Store state
   const currentTable = useDataTablesStore((s) => s.currentTable)
@@ -172,6 +174,7 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
         column_count: table.columns?.length || 0,
         updated_at: table.updated_at
       })
+      await queryClient.invalidateQueries({ queryKey: ["dataTables"] })
       message.success(t("dataTables:regenerateSuccess", "Table regenerated successfully!"))
     } catch (err) {
       const errorMessage =
@@ -318,7 +321,7 @@ export const TableDetailModal: React.FC<TableDetailModalProps> = ({
           {currentTable.description && (
             <div>
               <h4 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
-                {t("dataTables:description", "Description")}
+                {t("dataTables:tableDescriptionLabel", "Description")}
               </h4>
               <p className="text-sm text-zinc-600 dark:text-zinc-400">
                 {currentTable.description}

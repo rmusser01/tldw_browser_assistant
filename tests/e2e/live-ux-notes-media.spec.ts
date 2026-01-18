@@ -91,11 +91,11 @@ describeLive('Live server media + notes UX (no mocks)', () => {
       await logConnectionSnapshot(page, 'live-notes-initial')
 
       // Create a new note and type some content.
-      await page
-        .getByRole('button', { name: /New note/i })
-        .click()
+      await page.getByTestId('notes-new-button').click()
 
-      await page.getByPlaceholder('Title').fill('Live E2E note')
+      await page
+        .getByPlaceholder('Title', { exact: true })
+        .fill('Live E2E note')
       await page
         .getByPlaceholder('Write your note here...', { exact: false })
         .fill('This is a live E2E note.')

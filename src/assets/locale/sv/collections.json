@@ -1,0 +1,262 @@
+{
+  "title": "Samlingar",
+  "description": "Spara artiklar, skapa markeringar, hantera mallar och importera/exportera din läslista.",
+  "offline": "Servern är offline. Anslut för att använda Samlingar.",
+  "betaNotice": "Beta-funktion",
+  "betaDescription": "Samlingar är för närvarande i beta. Vissa funktioner kan kräva backendstöd.",
+
+  "tabs": {
+    "reading": "Läslista",
+    "highlights": "Markeringar",
+    "templates": "Mallar",
+    "importExport": "Import/Export"
+  },
+
+  "status": {
+    "all": "Alla",
+    "saved": "Sparade",
+    "reading": "Läser",
+    "read": "Lästa",
+    "archived": "Arkiverade"
+  },
+
+  "sort": {
+    "created_at": "Tillagt datum",
+    "updated_at": "Senast uppdaterad",
+    "title": "Titel",
+    "relevance": "Relevans"
+  },
+
+  "colors": {
+    "all": "Alla färger",
+    "yellow": "Gul",
+    "green": "Grön",
+    "blue": "Blå",
+    "pink": "Rosa",
+    "purple": "Lila"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}} min sedan",
+    "hoursAgo": "{{count}} h sedan",
+    "daysAgo": "{{count}} dagar sedan"
+  },
+
+  "reading": {
+    "addUrl": "Lägg till URL",
+    "addUrlTitle": "Lägg till i läslistan",
+    "addFirst": "Lägg till din första artikel",
+    "addSuccess": "Artikel tillagd i läslistan",
+    "searchPlaceholder": "Sök artiklar...",
+    "filters": "Filter",
+    "favorites": "Favoriter",
+    "tagsFilter": "Taggar",
+    "domainFilter": "Domän",
+    "sortBy": "Sortera",
+    "clearFilters": "Rensa filter",
+    "noResults": "Inga artiklar matchar dina filter",
+    "empty": "Din läslista är tom",
+    "pagination": "{{start}}-{{end}} av {{total}} objekt",
+
+    "readingTime": "{{count}} min läsning",
+    "favorite": "Lägg till i favoriter",
+    "unfavorite": "Ta bort från favoriter",
+    "viewDetails": "Visa detaljer",
+    "openOriginal": "Öppna original",
+    "changeStatus": "Ändra status",
+    "archive": "Arkivera",
+    "unarchive": "Avarkivera",
+    "statusUpdated": "Status uppdaterad till {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "Ange en URL",
+    "urlInvalid": "Ange en giltig URL",
+    "titleLabel": "Titel (valfritt)",
+    "titleHint": "Lämna tomt för att automatiskt upptäcka från sidan",
+    "titlePlaceholder": "Artikelns titel",
+    "tagsLabel": "Taggar",
+    "tagsPlaceholder": "Lägg till taggar...",
+    "notesLabel": "Anteckningar (valfritt)",
+    "notesPlaceholderArticle": "Lägg till anteckningar om den här artikeln...",
+    "saveToList": "Spara i lista",
+    "addTag": "Lägg till tagg...",
+
+    "tabs": {
+      "content": "Innehåll",
+      "summary": "Sammanfattning",
+      "highlights": "Markeringar",
+      "notes": "Anteckningar"
+    },
+
+    "noContent": "Innehåll ej tillgängligt",
+    "noSummary": "Ingen sammanfattning ännu",
+    "noNotes": "Inga anteckningar ännu",
+    "editNotes": "Redigera anteckningar",
+    "addNotes": "Lägg till anteckningar",
+    "notesSaved": "Anteckningar sparade",
+    "notesPlaceholder": "Lägg till dina anteckningar...",
+
+    "summarize": "Sammanfatta",
+    "generateSummary": "Generera sammanfattning",
+    "summarized": "Sammanfattning genererad",
+    "generateTts": "Generera ljud",
+    "ttsGenerated": "Ljud genererat",
+    "downloadAudio": "Ladda ner ljud",
+
+    "deleted": "Artikel raderad",
+    "deleteConfirm": {
+      "title": "Radera artikel",
+      "message": "Är du säker på att du vill radera den här artikeln? Den här åtgärden kan inte ångras."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "Sök markeringar...",
+    "groupByItem": "Gruppera efter artikel",
+    "add": "Lägg till markering",
+    "edit": "Redigera markering",
+    "quoteLabel": "Citat",
+    "quoteRequired": "Ange den markerade texten",
+    "quotePlaceholder": "Klistra in markerad text...",
+    "noteLabel": "Anteckning (valfritt)",
+    "notePlaceholder": "Lägg till kontext eller varför det är viktigt...",
+    "colorLabel": "Markeringsfärg",
+    "noResults": "Inga markeringar matchar dina filter",
+    "empty": "Inga markeringar ännu",
+    "emptyForItem": "Inga markeringar för den här artikeln ännu",
+    "emptyHint": "Markeringar du skapar medan du läser visas här.",
+    "from": "Från",
+    "viewArticle": "Visa artikel",
+    "created": "Markering skapad",
+    "updated": "Markering uppdaterad",
+    "missingItem": "Välj en artikel först",
+    "deleted": "Markering raderad",
+    "deleteConfirm": {
+      "title": "Radera markering",
+      "message": "Är du säker på att du vill radera den här markeringen?"
+    }
+  },
+
+  "templates": {
+    "create": "Skapa mall",
+    "createFirst": "Skapa din första mall",
+    "searchPlaceholder": "Sök mallar...",
+    "noResults": "Inga mallar matchar dina filter",
+    "empty": "Inga mallar ännu",
+    "default": "Standard",
+    "preview": "Förhandsgranskning",
+    "duplicate": "Duplicera",
+    "deleted": "Mall raderad",
+    "created": "Mall skapad",
+    "updated": "Mall uppdaterad",
+
+    "editTitle": "Redigera mall",
+    "createTitle": "Skapa mall",
+    "nameLabel": "Mallnamn",
+    "nameRequired": "Ange ett namn",
+    "namePlaceholder": "Min nyhetsbrevsmall",
+    "descriptionLabel": "Beskrivning (valfritt)",
+    "descriptionPlaceholder": "Kort beskrivning av denna mall",
+    "typeLabel": "Malltyp",
+    "formatLabel": "Utdataformat",
+    "bodyLabel": "Mallinnehåll (Jinja2)",
+    "bodyRequired": "Ange mallinnehåll",
+    "bodyHint": "Använd Jinja2-syntax. Tillgängliga variabler: items (array av läsobjekt), date, tags",
+
+    "previewTitle": "Mallförhandsgranskning",
+    "selectItems": "Välj minst en artikel",
+    "selectItemsHint": "Välj artiklar att inkludera i förhandsgranskningen:",
+    "selectAll": "Välj alla",
+    "selectedCount": "{{count}} valda",
+    "noItems": "Inga artiklar i din läslista",
+    "generatePreview": "Generera förhandsgranskning",
+    "generateOutput": "Generera output",
+    "audioUnavailable": "Ljudutdata inte tillgängligt",
+    "noGeneratedContent": "Ingen output genererad ännu",
+
+    "deleteConfirm": {
+      "title": "Radera mall",
+      "message": "Är du säker på att du vill radera den här mallen?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "Alla typer",
+    "newsletter_markdown": "Nyhetsbrev (MD)",
+    "briefing_markdown": "Briefing (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "Nyhetsbrev (HTML)",
+    "tts_audio": "TTS-ljud"
+  },
+
+  "import": {
+    "title": "Importera",
+    "sourceRequired": "Välj först en källa",
+    "selectSource": "Välj importkälla:",
+    "sources": {
+      "auto": {
+        "label": "Auto-detektera",
+        "description": "Ladda upp en Pocket- eller Instapaper-exportfil och upptäck formatet automatiskt"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Importera dina sparade artiklar från en Pocket-export"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Importera artiklar från en Instapaper-export"
+      }
+    },
+    "methodFile": "Filuppladdning",
+    "methodApiKey": "API-nyckel",
+    "apiKeyLabel": "API-nyckel",
+    "apiKeyPlaceholder": "Klistra in din API-nyckel",
+    "apiKeyRequired": "Ange en API-nyckel",
+    "previewWithKey": "Förhandsgranska import",
+    "processing": "Bearbetar fil...",
+    "dropzone": "Klicka eller dra filen för att ladda upp",
+    "formats": "Stöder Pocket JSON och Instapaper CSV",
+    "previewHint": "{{count}} objekt hittade",
+    "selectAll": "Välj alla",
+    "selectItems": "Välj objekt att importera",
+    "importSelected": "Importera {{count}} objekt",
+    "success": "{{count}} objekt importerade",
+    "complete": "Import slutförd",
+    "resultSummary": "Importerade: {{imported}}, Uppdaterade: {{updated}}, Hoppade över: {{skipped}}",
+    "importMore": "Importera fler",
+    "steps": {
+      "source": "Källa",
+      "upload": "Uppladdning",
+      "preview": "Förhandsgranskning",
+      "result": "Resultat"
+    }
+  },
+
+  "export": {
+    "title": "Exportera",
+    "format": "Format",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "Alternativ",
+    "includeContent": "Inkludera fullständigt innehåll",
+    "includeHighlights": "Inkludera markeringar",
+    "items": "Objekt att exportera",
+    "searchPlaceholder": "Sök objekt...",
+    "allItems": "Alla objekt (lämna tomt)",
+    "itemsHint": "Lämna tomt för att exportera alla objekt eller välj specifika",
+    "selectionHint": "Välj objekt att exportera, eller lämna tomt för att exportera allt.",
+    "selectAll": "Välj alla",
+    "selectedCount": "{{count}} valda",
+    "clearSelection": "Rensa",
+    "noItems": "Inga objekt hittades",
+    "selectItems": "Välj först objekt att kopiera",
+    "copy": "Kopiera JSONL",
+    "copied": "Kopierat till urklipp",
+    "zipSelectionUnsupported": "ZIP-export stöder inte val av objekt ännu.",
+    "download": "Ladda ner export",
+    "allItemsHint": "Exporten inkluderar alla läslistobjekt för ditt konto.",
+    "success": "Export klar för nedladdning"
+  }
+}

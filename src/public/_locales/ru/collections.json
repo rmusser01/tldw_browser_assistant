@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "Коллекции"
+  },
+  "description": {
+    "message": "Сохраняйте статьи, создавайте выделения, управляйте шаблонами и импортируйте/экспортируйте список чтения."
+  },
+  "offline": {
+    "message": "Сервер офлайн. Подключитесь, чтобы использовать Коллекции."
+  },
+  "betaNotice": {
+    "message": "Бета-функция"
+  },
+  "betaDescription": {
+    "message": "Коллекции сейчас в бета-версии. Некоторые функции могут требовать поддержки бэкенда."
+  },
+  "tabs_reading": {
+    "message": "Список чтения"
+  },
+  "tabs_highlights": {
+    "message": "Выделения"
+  },
+  "tabs_templates": {
+    "message": "Шаблоны"
+  },
+  "tabs_importExport": {
+    "message": "Импорт/Экспорт"
+  },
+  "status_all": {
+    "message": "Все"
+  },
+  "status_saved": {
+    "message": "Сохранённые"
+  },
+  "status_reading": {
+    "message": "Читаю"
+  },
+  "status_read": {
+    "message": "Прочитано"
+  },
+  "status_archived": {
+    "message": "Архив"
+  },
+  "sort_created_at": {
+    "message": "Дата добавления"
+  },
+  "sort_updated_at": {
+    "message": "Последнее обновление"
+  },
+  "sort_title": {
+    "message": "Заголовок"
+  },
+  "sort_relevance": {
+    "message": "Релевантность"
+  },
+  "colors_all": {
+    "message": "Все цвета"
+  },
+  "colors_yellow": {
+    "message": "Жёлтый"
+  },
+  "colors_green": {
+    "message": "Зелёный"
+  },
+  "colors_blue": {
+    "message": "Синий"
+  },
+  "colors_pink": {
+    "message": "Розовый"
+  },
+  "colors_purple": {
+    "message": "Фиолетовый"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} мин назад"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} ч назад"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} дн назад"
+  },
+  "reading_addUrl": {
+    "message": "Добавить URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "Добавить в список чтения"
+  },
+  "reading_addFirst": {
+    "message": "Добавьте первую статью"
+  },
+  "reading_addSuccess": {
+    "message": "Статья добавлена в список чтения"
+  },
+  "reading_searchPlaceholder": {
+    "message": "Поиск статей..."
+  },
+  "reading_filters": {
+    "message": "Фильтры"
+  },
+  "reading_favorites": {
+    "message": "Избранное"
+  },
+  "reading_tagsFilter": {
+    "message": "Теги"
+  },
+  "reading_domainFilter": {
+    "message": "Домен"
+  },
+  "reading_sortBy": {
+    "message": "Сортировка"
+  },
+  "reading_clearFilters": {
+    "message": "Сбросить фильтры"
+  },
+  "reading_noResults": {
+    "message": "Нет статей, соответствующих фильтрам"
+  },
+  "reading_empty": {
+    "message": "Список чтения пуст"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} из {{total}} элементов"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} мин чтения"
+  },
+  "reading_favorite": {
+    "message": "Добавить в избранное"
+  },
+  "reading_unfavorite": {
+    "message": "Удалить из избранного"
+  },
+  "reading_viewDetails": {
+    "message": "Просмотреть детали"
+  },
+  "reading_openOriginal": {
+    "message": "Открыть оригинал"
+  },
+  "reading_changeStatus": {
+    "message": "Изменить статус"
+  },
+  "reading_archive": {
+    "message": "Архивировать"
+  },
+  "reading_unarchive": {
+    "message": "Разархивировать"
+  },
+  "reading_statusUpdated": {
+    "message": "Статус обновлён до {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "Введите URL"
+  },
+  "reading_urlInvalid": {
+    "message": "Введите корректный URL"
+  },
+  "reading_titleLabel": {
+    "message": "Заголовок (необязательно)"
+  },
+  "reading_titleHint": {
+    "message": "Оставьте пустым для автоопределения со страницы"
+  },
+  "reading_titlePlaceholder": {
+    "message": "Заголовок статьи"
+  },
+  "reading_tagsLabel": {
+    "message": "Теги"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "Добавить теги..."
+  },
+  "reading_notesLabel": {
+    "message": "Заметки (необязательно)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "Добавьте заметки об этой статье..."
+  },
+  "reading_saveToList": {
+    "message": "Сохранить в список"
+  },
+  "reading_addTag": {
+    "message": "Добавить тег..."
+  },
+  "reading_tabs_content": {
+    "message": "Содержание"
+  },
+  "reading_tabs_summary": {
+    "message": "Кратко"
+  },
+  "reading_tabs_highlights": {
+    "message": "Выделения"
+  },
+  "reading_tabs_notes": {
+    "message": "Заметки"
+  },
+  "reading_noContent": {
+    "message": "Содержимое недоступно"
+  },
+  "reading_noSummary": {
+    "message": "Пока нет краткого содержания"
+  },
+  "reading_noNotes": {
+    "message": "Пока нет заметок"
+  },
+  "reading_editNotes": {
+    "message": "Редактировать заметки"
+  },
+  "reading_addNotes": {
+    "message": "Добавить заметки"
+  },
+  "reading_notesSaved": {
+    "message": "Заметки сохранены"
+  },
+  "reading_notesPlaceholder": {
+    "message": "Добавьте свои заметки..."
+  },
+  "reading_summarize": {
+    "message": "Сжать"
+  },
+  "reading_generateSummary": {
+    "message": "Сгенерировать краткое"
+  },
+  "reading_summarized": {
+    "message": "Краткое сгенерировано"
+  },
+  "reading_generateTts": {
+    "message": "Сгенерировать аудио"
+  },
+  "reading_ttsGenerated": {
+    "message": "Аудио сгенерировано"
+  },
+  "reading_downloadAudio": {
+    "message": "Скачать аудио"
+  },
+  "reading_deleted": {
+    "message": "Статья удалена"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "Удалить статью"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "Вы уверены, что хотите удалить эту статью? Это действие необратимо."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "Поиск выделений..."
+  },
+  "highlights_groupByItem": {
+    "message": "Группировать по статье"
+  },
+  "highlights_add": {
+    "message": "Добавить выделение"
+  },
+  "highlights_edit": {
+    "message": "Редактировать выделение"
+  },
+  "highlights_quoteLabel": {
+    "message": "Цитата"
+  },
+  "highlights_quoteRequired": {
+    "message": "Введите выделенный текст"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "Вставьте выделенный текст..."
+  },
+  "highlights_noteLabel": {
+    "message": "Заметка (необязательно)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "Добавьте контекст или почему это важно..."
+  },
+  "highlights_colorLabel": {
+    "message": "Цвет выделения"
+  },
+  "highlights_noResults": {
+    "message": "Нет выделений, соответствующих фильтрам"
+  },
+  "highlights_empty": {
+    "message": "Пока нет выделений"
+  },
+  "highlights_emptyForItem": {
+    "message": "Для этой статьи пока нет выделений"
+  },
+  "highlights_emptyHint": {
+    "message": "Выделения, созданные во время чтения, появятся здесь."
+  },
+  "highlights_from": {
+    "message": "Из"
+  },
+  "highlights_viewArticle": {
+    "message": "Открыть статью"
+  },
+  "highlights_created": {
+    "message": "Выделение создано"
+  },
+  "highlights_updated": {
+    "message": "Выделение обновлено"
+  },
+  "highlights_missingItem": {
+    "message": "Сначала выберите статью"
+  },
+  "highlights_deleted": {
+    "message": "Выделение удалено"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "Удалить выделение"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "Вы уверены, что хотите удалить это выделение?"
+  },
+  "templates_create": {
+    "message": "Создать шаблон"
+  },
+  "templates_createFirst": {
+    "message": "Создайте первый шаблон"
+  },
+  "templates_searchPlaceholder": {
+    "message": "Поиск шаблонов..."
+  },
+  "templates_noResults": {
+    "message": "Нет шаблонов, соответствующих фильтрам"
+  },
+  "templates_empty": {
+    "message": "Пока нет шаблонов"
+  },
+  "templates_default": {
+    "message": "По умолчанию"
+  },
+  "templates_preview": {
+    "message": "Предпросмотр"
+  },
+  "templates_duplicate": {
+    "message": "Дублировать"
+  },
+  "templates_deleted": {
+    "message": "Шаблон удалён"
+  },
+  "templates_created": {
+    "message": "Шаблон создан"
+  },
+  "templates_updated": {
+    "message": "Шаблон обновлён"
+  },
+  "templates_editTitle": {
+    "message": "Редактировать шаблон"
+  },
+  "templates_createTitle": {
+    "message": "Создать шаблон"
+  },
+  "templates_nameLabel": {
+    "message": "Название шаблона"
+  },
+  "templates_nameRequired": {
+    "message": "Введите название"
+  },
+  "templates_namePlaceholder": {
+    "message": "Мой шаблон рассылки"
+  },
+  "templates_descriptionLabel": {
+    "message": "Описание (необязательно)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "Краткое описание этого шаблона"
+  },
+  "templates_typeLabel": {
+    "message": "Тип шаблона"
+  },
+  "templates_formatLabel": {
+    "message": "Формат вывода"
+  },
+  "templates_bodyLabel": {
+    "message": "Тело шаблона (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "Введите содержимое шаблона"
+  },
+  "templates_bodyHint": {
+    "message": "Используйте синтаксис Jinja2. Доступные переменные: items (массив элементов чтения), date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "Предпросмотр шаблона"
+  },
+  "templates_selectItems": {
+    "message": "Выберите хотя бы одну статью"
+  },
+  "templates_selectItemsHint": {
+    "message": "Выберите статьи для предпросмотра:"
+  },
+  "templates_selectAll": {
+    "message": "Выбрать все"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} выбрано"
+  },
+  "templates_noItems": {
+    "message": "В списке чтения нет статей"
+  },
+  "templates_generatePreview": {
+    "message": "Сгенерировать предпросмотр"
+  },
+  "templates_generateOutput": {
+    "message": "Сгенерировать вывод"
+  },
+  "templates_audioUnavailable": {
+    "message": "Аудиовывод недоступен"
+  },
+  "templates_noGeneratedContent": {
+    "message": "Пока нет сгенерированного вывода"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "Удалить шаблон"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "Вы уверены, что хотите удалить этот шаблон?"
+  },
+  "templateTypes_all": {
+    "message": "Все типы"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "Рассылка (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "Брифинг (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "Рассылка (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS аудио"
+  },
+  "import_title": {
+    "message": "Импорт"
+  },
+  "import_sourceRequired": {
+    "message": "Сначала выберите источник"
+  },
+  "import_selectSource": {
+    "message": "Выберите источник импорта:"
+  },
+  "import_sources_auto_label": {
+    "message": "Автоопределение"
+  },
+  "import_sources_auto_description": {
+    "message": "Загрузите файл экспорта Pocket или Instapaper и автоматически определите формат"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Импортируйте сохранённые статьи из экспорта Pocket"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Импортируйте статьи из экспорта Instapaper"
+  },
+  "import_methodFile": {
+    "message": "Загрузка файла"
+  },
+  "import_methodApiKey": {
+    "message": "API-ключ"
+  },
+  "import_apiKeyLabel": {
+    "message": "API-ключ"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "Вставьте API-ключ"
+  },
+  "import_apiKeyRequired": {
+    "message": "Введите API-ключ"
+  },
+  "import_previewWithKey": {
+    "message": "Предпросмотр импорта"
+  },
+  "import_processing": {
+    "message": "Обработка файла..."
+  },
+  "import_dropzone": {
+    "message": "Нажмите или перетащите файл для загрузки"
+  },
+  "import_formats": {
+    "message": "Поддерживает Pocket JSON и Instapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "Найдено {{count}} элементов"
+  },
+  "import_selectAll": {
+    "message": "Выбрать все"
+  },
+  "import_selectItems": {
+    "message": "Выберите элементы для импорта"
+  },
+  "import_importSelected": {
+    "message": "Импортировать {{count}} элементов"
+  },
+  "import_success": {
+    "message": "Импортировано {{count}} элементов"
+  },
+  "import_complete": {
+    "message": "Импорт завершён"
+  },
+  "import_resultSummary": {
+    "message": "Импортировано: {{imported}}, Обновлено: {{updated}}, Пропущено: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "Импортировать ещё"
+  },
+  "import_steps_source": {
+    "message": "Источник"
+  },
+  "import_steps_upload": {
+    "message": "Загрузка"
+  },
+  "import_steps_preview": {
+    "message": "Предпросмотр"
+  },
+  "import_steps_result": {
+    "message": "Результат"
+  },
+  "export_title": {
+    "message": "Экспорт"
+  },
+  "export_format": {
+    "message": "Формат"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "Параметры"
+  },
+  "export_includeContent": {
+    "message": "Включить полный контент"
+  },
+  "export_includeHighlights": {
+    "message": "Включить выделения"
+  },
+  "export_items": {
+    "message": "Элементы для экспорта"
+  },
+  "export_searchPlaceholder": {
+    "message": "Поиск элементов..."
+  },
+  "export_allItems": {
+    "message": "Все элементы (оставьте пустым)"
+  },
+  "export_itemsHint": {
+    "message": "Оставьте пустым для экспорта всех элементов или выберите конкретные"
+  },
+  "export_selectionHint": {
+    "message": "Выберите элементы для экспорта или оставьте пустым, чтобы экспортировать всё."
+  },
+  "export_selectAll": {
+    "message": "Выбрать все"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} выбрано"
+  },
+  "export_clearSelection": {
+    "message": "Очистить"
+  },
+  "export_noItems": {
+    "message": "Элементы не найдены"
+  },
+  "export_selectItems": {
+    "message": "Сначала выберите элементы для копирования"
+  },
+  "export_copy": {
+    "message": "Копировать JSONL"
+  },
+  "export_copied": {
+    "message": "Скопировано в буфер обмена"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "Экспорт ZIP пока не поддерживает выбор элементов."
+  },
+  "export_download": {
+    "message": "Скачать экспорт"
+  },
+  "export_allItemsHint": {
+    "message": "Экспорт включает все элементы списка чтения вашего аккаунта."
+  },
+  "export_success": {
+    "message": "Экспорт готов к загрузке"
+  }
+}

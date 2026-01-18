@@ -255,7 +255,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
     if (reviewOverrideCard) {
       setLocalOverrideCard(null)
     }
-  }, [reviewOverrideCard?.uuid])
+  }, [reviewOverrideCard])
 
   // Keyboard shortcuts for review
   useFlashcardShortcuts({
@@ -470,7 +470,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                       <Text className="text-4xl">🎉</Text>
                       <div className="mt-2">
                         <Text strong className="text-lg">
-                          {t("option:flashcards.reviewedToday", {
+                          {t("option:flashcards.reviewedThisSession", {
                             defaultValue: "{{count}} cards reviewed this session",
                             count: reviewedCount
                           })}

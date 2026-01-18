@@ -1,6 +1,6 @@
 {
   "title": "Data Tables Studio",
-  "description": "Generate structured tables from your chats, documents, and knowledge base using natural language prompts.",
+  "dataTablesDescription": "Generate structured tables from your chats, documents, and knowledge base using natural language prompts.",
   "betaNotice": "Beta Feature",
   "betaDescription": "Data Tables is currently in beta. Table generation requires backend support.",
   "offline": "Server is offline. Please connect to use Data Tables.",
@@ -97,7 +97,7 @@
   "regenerateSuccess": "Table regenerated successfully!",
   "model": "Model",
   "prompt": "Generation Prompt",
-  "description": "Description",
+  "tableDescriptionLabel": "Description",
   "sources": "Sources",
   "created": "Created",
   "updated": "Updated",

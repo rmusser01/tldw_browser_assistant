@@ -370,5 +370,14 @@
   },
   "columns_actions": {
     "message": "Actions"
+  },
+  "dataTablesDescription": {
+    "message": "Generate structured tables from your chats, documents, and knowledge base using natural language prompts."
+  },
+  "descriptionLabel": {
+    "message": "Description"
+  },
+  "tableDescriptionLabel": {
+    "message": "Description"
   }
 }

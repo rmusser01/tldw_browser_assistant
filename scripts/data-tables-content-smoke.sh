@@ -25,7 +25,7 @@ request() {
   local method=$1
   local path=$2
   shift 2
-  curl -sS -X "$method" "${SERVER_URL}${path}" \
+  curl -sS --max-time 30 -X "$method" "${SERVER_URL}${path}" \
     -H "$AUTH_HEADER" \
     -H "Content-Type: application/json" \
     "$@"

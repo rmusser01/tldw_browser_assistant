@@ -1,0 +1,262 @@
+{
+  "title": "Samlinger",
+  "description": "Gem artikler, opret markeringer, administrer skabeloner og importér/eksportér din læseliste.",
+  "offline": "Serveren er offline. Opret forbindelse for at bruge Samlinger.",
+  "betaNotice": "Beta-funktion",
+  "betaDescription": "Samlinger er i øjeblikket i beta. Nogle funktioner kræver muligvis backend-understøttelse.",
+
+  "tabs": {
+    "reading": "Læseliste",
+    "highlights": "Markeringer",
+    "templates": "Skabeloner",
+    "importExport": "Import/Eksport"
+  },
+
+  "status": {
+    "all": "Alle",
+    "saved": "Gemt",
+    "reading": "Under læsning",
+    "read": "Læst",
+    "archived": "Arkiveret"
+  },
+
+  "sort": {
+    "created_at": "Dato tilføjet",
+    "updated_at": "Senest opdateret",
+    "title": "Titel",
+    "relevance": "Relevans"
+  },
+
+  "colors": {
+    "all": "Alle farver",
+    "yellow": "Gul",
+    "green": "Grøn",
+    "blue": "Blå",
+    "pink": "Pink",
+    "purple": "Lilla"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}} min siden",
+    "hoursAgo": "{{count}} t siden",
+    "daysAgo": "{{count}} dage siden"
+  },
+
+  "reading": {
+    "addUrl": "Tilføj URL",
+    "addUrlTitle": "Tilføj til læselisten",
+    "addFirst": "Tilføj din første artikel",
+    "addSuccess": "Artikel tilføjet til læselisten",
+    "searchPlaceholder": "Søg i artikler...",
+    "filters": "Filtre",
+    "favorites": "Favoritter",
+    "tagsFilter": "Tags",
+    "domainFilter": "Domæne",
+    "sortBy": "Sorter",
+    "clearFilters": "Ryd filtre",
+    "noResults": "Ingen artikler matcher dine filtre",
+    "empty": "Din læseliste er tom",
+    "pagination": "{{start}}-{{end}} af {{total}} elementer",
+
+    "readingTime": "{{count}} min læsning",
+    "favorite": "Tilføj til favoritter",
+    "unfavorite": "Fjern fra favoritter",
+    "viewDetails": "Vis detaljer",
+    "openOriginal": "Åbn original",
+    "changeStatus": "Skift status",
+    "archive": "Arkivér",
+    "unarchive": "Fjern arkivering",
+    "statusUpdated": "Status opdateret til {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "Indtast en URL",
+    "urlInvalid": "Indtast en gyldig URL",
+    "titleLabel": "Titel (valgfri)",
+    "titleHint": "Lad stå tom for automatisk at registrere fra siden",
+    "titlePlaceholder": "Artikeltitel",
+    "tagsLabel": "Tags",
+    "tagsPlaceholder": "Tilføj tags...",
+    "notesLabel": "Noter (valgfri)",
+    "notesPlaceholderArticle": "Tilføj eventuelle noter om denne artikel...",
+    "saveToList": "Gem på listen",
+    "addTag": "Tilføj tag...",
+
+    "tabs": {
+      "content": "Indhold",
+      "summary": "Resumé",
+      "highlights": "Markeringer",
+      "notes": "Noter"
+    },
+
+    "noContent": "Indhold ikke tilgængeligt",
+    "noSummary": "Intet resumé endnu",
+    "noNotes": "Ingen noter endnu",
+    "editNotes": "Redigér noter",
+    "addNotes": "Tilføj noter",
+    "notesSaved": "Noter gemt",
+    "notesPlaceholder": "Tilføj dine noter...",
+
+    "summarize": "Opsummér",
+    "generateSummary": "Generér resumé",
+    "summarized": "Resumé genereret",
+    "generateTts": "Generér lyd",
+    "ttsGenerated": "Lyd genereret",
+    "downloadAudio": "Download lyd",
+
+    "deleted": "Artikel slettet",
+    "deleteConfirm": {
+      "title": "Slet artikel",
+      "message": "Er du sikker på, at du vil slette denne artikel? Denne handling kan ikke fortrydes."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "Søg i markeringer...",
+    "groupByItem": "Gruppér efter artikel",
+    "add": "Tilføj markering",
+    "edit": "Redigér markering",
+    "quoteLabel": "Citat",
+    "quoteRequired": "Indtast markeringsteksten",
+    "quotePlaceholder": "Indsæt den markerede tekst...",
+    "noteLabel": "Note (valgfri)",
+    "notePlaceholder": "Tilføj kontekst eller hvorfor det er vigtigt...",
+    "colorLabel": "Markeringsfarve",
+    "noResults": "Ingen markeringer matcher dine filtre",
+    "empty": "Ingen markeringer endnu",
+    "emptyForItem": "Ingen markeringer for denne artikel endnu",
+    "emptyHint": "Markeringer, du opretter under læsning, vises her.",
+    "from": "Fra",
+    "viewArticle": "Vis artikel",
+    "created": "Markering oprettet",
+    "updated": "Markering opdateret",
+    "missingItem": "Vælg en artikel først",
+    "deleted": "Markering slettet",
+    "deleteConfirm": {
+      "title": "Slet markering",
+      "message": "Er du sikker på, at du vil slette denne markering?"
+    }
+  },
+
+  "templates": {
+    "create": "Opret skabelon",
+    "createFirst": "Opret din første skabelon",
+    "searchPlaceholder": "Søg i skabeloner...",
+    "noResults": "Ingen skabeloner matcher dine filtre",
+    "empty": "Ingen skabeloner endnu",
+    "default": "Standard",
+    "preview": "Forhåndsvisning",
+    "duplicate": "Dupliker",
+    "deleted": "Skabelon slettet",
+    "created": "Skabelon oprettet",
+    "updated": "Skabelon opdateret",
+
+    "editTitle": "Redigér skabelon",
+    "createTitle": "Opret skabelon",
+    "nameLabel": "Skabelonnavn",
+    "nameRequired": "Indtast et navn",
+    "namePlaceholder": "Min nyhedsbrevsskabelon",
+    "descriptionLabel": "Beskrivelse (valgfri)",
+    "descriptionPlaceholder": "Kort beskrivelse af denne skabelon",
+    "typeLabel": "Skabelontype",
+    "formatLabel": "Outputformat",
+    "bodyLabel": "Skabelonindhold (Jinja2)",
+    "bodyRequired": "Indtast skabelonindhold",
+    "bodyHint": "Brug Jinja2-syntaks. Tilgængelige variabler: items (liste af læseelementer), date, tags",
+
+    "previewTitle": "Forhåndsvisning af skabelon",
+    "selectItems": "Vælg mindst én artikel",
+    "selectItemsHint": "Vælg artikler, der skal med i forhåndsvisningen:",
+    "selectAll": "Vælg alle",
+    "selectedCount": "{{count}} valgt",
+    "noItems": "Ingen artikler i din læseliste",
+    "generatePreview": "Generér forhåndsvisning",
+    "generateOutput": "Generér output",
+    "audioUnavailable": "Lydoutput ikke tilgængeligt",
+    "noGeneratedContent": "Ingen output genereret endnu",
+
+    "deleteConfirm": {
+      "title": "Slet skabelon",
+      "message": "Er du sikker på, at du vil slette denne skabelon?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "Alle typer",
+    "newsletter_markdown": "Nyhedsbrev (MD)",
+    "briefing_markdown": "Briefing (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "Nyhedsbrev (HTML)",
+    "tts_audio": "TTS-lyd"
+  },
+
+  "import": {
+    "title": "Import",
+    "sourceRequired": "Vælg en kilde først",
+    "selectSource": "Vælg importkilde:",
+    "sources": {
+      "auto": {
+        "label": "Automatisk registrering",
+        "description": "Upload en Pocket- eller Instapaper-eksportfil og registrer formatet automatisk"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Importer dine gemte artikler fra en Pocket-eksport"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Importer artikler fra en Instapaper-eksport"
+      }
+    },
+    "methodFile": "Filupload",
+    "methodApiKey": "API-nøgle",
+    "apiKeyLabel": "API-nøgle",
+    "apiKeyPlaceholder": "Indsæt din API-nøgle",
+    "apiKeyRequired": "Indtast en API-nøgle",
+    "previewWithKey": "Forhåndsvis import",
+    "processing": "Behandler fil...",
+    "dropzone": "Klik eller træk filen for at uploade",
+    "formats": "Understøtter Pocket JSON og Instapaper CSV",
+    "previewHint": "{{count}} elementer fundet",
+    "selectAll": "Vælg alle",
+    "selectItems": "Vælg elementer til import",
+    "importSelected": "Importér {{count}} elementer",
+    "success": "Importerede {{count}} elementer",
+    "complete": "Import fuldført",
+    "resultSummary": "Importerede: {{imported}}, opdaterede: {{updated}}, sprunget over: {{skipped}}",
+    "importMore": "Importér mere",
+    "steps": {
+      "source": "Kilde",
+      "upload": "Upload",
+      "preview": "Forhåndsvisning",
+      "result": "Resultat"
+    }
+  },
+
+  "export": {
+    "title": "Eksport",
+    "format": "Format",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "Indstillinger",
+    "includeContent": "Medtag fuldt indhold",
+    "includeHighlights": "Medtag markeringer",
+    "items": "Elementer til eksport",
+    "searchPlaceholder": "Søg i elementer...",
+    "allItems": "Alle elementer (lad stå tomt)",
+    "itemsHint": "Lad stå tomt for at eksportere alle elementer, eller vælg bestemte",
+    "selectionHint": "Vælg elementer til eksport, eller lad stå tomt for at eksportere alt.",
+    "selectAll": "Vælg alle",
+    "selectedCount": "{{count}} valgt",
+    "clearSelection": "Ryd",
+    "noItems": "Ingen elementer fundet",
+    "selectItems": "Vælg elementer for at kopiere først",
+    "copy": "Kopiér JSONL",
+    "copied": "Kopieret til udklipsholder",
+    "zipSelectionUnsupported": "ZIP-eksport understøtter ikke elementvalg endnu.",
+    "download": "Download eksport",
+    "allItemsHint": "Eksporten omfatter alle læselisteelementer for din konto.",
+    "success": "Eksport klar til download"
+  }
+}

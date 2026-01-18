@@ -109,7 +109,7 @@ export const DataTablesPage: React.FC = () => {
         </h1>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
           {t(
-            "dataTables:description",
+            "dataTables:dataTablesDescription",
             "Generate structured tables from your chats, documents, and knowledge base using natural language prompts."
           )}
         </p>

@@ -13,6 +13,7 @@ import {
   Microscope,
   Scissors,
   Settings,
+  CombineIcon,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -97,11 +98,14 @@ export function ChatSidebar({
 
   const navigateWithLoading = React.useCallback(
     (path: string) => {
+      if (path === location.pathname) {
+        return
+      }
       void setShortcutsCollapsed(true)
       startRouteTransition(path)
       navigate(path)
     },
-    [navigate, setShortcutsCollapsed, startRouteTransition]
+    [location.pathname, navigate, setShortcutsCollapsed, startRouteTransition]
   )
 
   React.useEffect(() => {
@@ -392,6 +396,13 @@ export function ChatSidebar({
           >
             <UploadCloud className="size-4" />
             <span>{t("common:chatSidebar.ingest", "Quick Ingest")}</span>
+          </button>
+          <button
+            onClick={() => navigateWithLoading("/knowledge")}
+            className="flex items-center gap-2 w-full px-2 py-2 rounded text-sm text-text-muted hover:bg-surface hover:text-text"
+          >
+            <CombineIcon className="size-4" />
+            <span>{t("option:header.modeKnowledge", "Knowledge QA")}</span>
           </button>
           <button
             onClick={() => navigateWithLoading("/media")}

@@ -1,0 +1,262 @@
+{
+  "title": "Collections",
+  "description": "Enregistrez des articles, créez des surlignages, gérez des modèles et importez/exportez votre liste de lecture.",
+  "offline": "Le serveur est hors ligne. Connectez-vous pour utiliser Collections.",
+  "betaNotice": "Fonctionnalité bêta",
+  "betaDescription": "Collections est actuellement en bêta. Certaines fonctionnalités peuvent nécessiter un support backend.",
+
+  "tabs": {
+    "reading": "Liste de lecture",
+    "highlights": "Surlignages",
+    "templates": "Modèles",
+    "importExport": "Import/Export"
+  },
+
+  "status": {
+    "all": "Tous",
+    "saved": "Enregistrés",
+    "reading": "En cours de lecture",
+    "read": "Lus",
+    "archived": "Archivés"
+  },
+
+  "sort": {
+    "created_at": "Date d'ajout",
+    "updated_at": "Dernière mise à jour",
+    "title": "Titre",
+    "relevance": "Pertinence"
+  },
+
+  "colors": {
+    "all": "Toutes les couleurs",
+    "yellow": "Jaune",
+    "green": "Vert",
+    "blue": "Bleu",
+    "pink": "Rose",
+    "purple": "Violet"
+  },
+
+  "time": {
+    "minutesAgo": "il y a {{count}} min",
+    "hoursAgo": "il y a {{count}} h",
+    "daysAgo": "il y a {{count}} j"
+  },
+
+  "reading": {
+    "addUrl": "Ajouter une URL",
+    "addUrlTitle": "Ajouter à la liste de lecture",
+    "addFirst": "Ajoutez votre premier article",
+    "addSuccess": "Article ajouté à la liste de lecture",
+    "searchPlaceholder": "Rechercher des articles...",
+    "filters": "Filtres",
+    "favorites": "Favoris",
+    "tagsFilter": "Tags",
+    "domainFilter": "Domaine",
+    "sortBy": "Trier",
+    "clearFilters": "Effacer les filtres",
+    "noResults": "Aucun article ne correspond à vos filtres",
+    "empty": "Votre liste de lecture est vide",
+    "pagination": "{{start}}-{{end}} sur {{total}} éléments",
+
+    "readingTime": "{{count}} min de lecture",
+    "favorite": "Ajouter aux favoris",
+    "unfavorite": "Retirer des favoris",
+    "viewDetails": "Voir les détails",
+    "openOriginal": "Ouvrir l'original",
+    "changeStatus": "Changer le statut",
+    "archive": "Archiver",
+    "unarchive": "Désarchiver",
+    "statusUpdated": "Statut mis à jour en {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "Veuillez saisir une URL",
+    "urlInvalid": "Veuillez saisir une URL valide",
+    "titleLabel": "Titre (facultatif)",
+    "titleHint": "Laissez vide pour détecter automatiquement depuis la page",
+    "titlePlaceholder": "Titre de l'article",
+    "tagsLabel": "Tags",
+    "tagsPlaceholder": "Ajouter des tags...",
+    "notesLabel": "Notes (facultatif)",
+    "notesPlaceholderArticle": "Ajoutez des notes sur cet article...",
+    "saveToList": "Enregistrer dans la liste",
+    "addTag": "Ajouter un tag...",
+
+    "tabs": {
+      "content": "Contenu",
+      "summary": "Résumé",
+      "highlights": "Surlignages",
+      "notes": "Notes"
+    },
+
+    "noContent": "Contenu non disponible",
+    "noSummary": "Pas encore de résumé",
+    "noNotes": "Pas encore de notes",
+    "editNotes": "Modifier les notes",
+    "addNotes": "Ajouter des notes",
+    "notesSaved": "Notes enregistrées",
+    "notesPlaceholder": "Ajoutez vos notes...",
+
+    "summarize": "Résumer",
+    "generateSummary": "Générer un résumé",
+    "summarized": "Résumé généré",
+    "generateTts": "Générer l'audio",
+    "ttsGenerated": "Audio généré",
+    "downloadAudio": "Télécharger l'audio",
+
+    "deleted": "Article supprimé",
+    "deleteConfirm": {
+      "title": "Supprimer l'article",
+      "message": "Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "Rechercher des surlignages...",
+    "groupByItem": "Regrouper par article",
+    "add": "Ajouter un surlignage",
+    "edit": "Modifier le surlignage",
+    "quoteLabel": "Citation",
+    "quoteRequired": "Veuillez saisir le texte surligné",
+    "quotePlaceholder": "Collez le texte surligné...",
+    "noteLabel": "Note (facultatif)",
+    "notePlaceholder": "Ajoutez du contexte ou pourquoi c'est important...",
+    "colorLabel": "Couleur du surlignage",
+    "noResults": "Aucun surlignage ne correspond à vos filtres",
+    "empty": "Aucun surlignage pour le moment",
+    "emptyForItem": "Aucun surlignage pour cet article",
+    "emptyHint": "Les surlignages que vous créez pendant la lecture apparaîtront ici.",
+    "from": "De",
+    "viewArticle": "Voir l'article",
+    "created": "Surlignage créé",
+    "updated": "Surlignage mis à jour",
+    "missingItem": "Sélectionnez d'abord un article",
+    "deleted": "Surlignage supprimé",
+    "deleteConfirm": {
+      "title": "Supprimer le surlignage",
+      "message": "Êtes-vous sûr de vouloir supprimer ce surlignage ?"
+    }
+  },
+
+  "templates": {
+    "create": "Créer un modèle",
+    "createFirst": "Créez votre premier modèle",
+    "searchPlaceholder": "Rechercher des modèles...",
+    "noResults": "Aucun modèle ne correspond à vos filtres",
+    "empty": "Aucun modèle pour le moment",
+    "default": "Par défaut",
+    "preview": "Aperçu",
+    "duplicate": "Dupliquer",
+    "deleted": "Modèle supprimé",
+    "created": "Modèle créé",
+    "updated": "Modèle mis à jour",
+
+    "editTitle": "Modifier le modèle",
+    "createTitle": "Créer un modèle",
+    "nameLabel": "Nom du modèle",
+    "nameRequired": "Veuillez saisir un nom",
+    "namePlaceholder": "Mon modèle de newsletter",
+    "descriptionLabel": "Description (facultatif)",
+    "descriptionPlaceholder": "Brève description de ce modèle",
+    "typeLabel": "Type de modèle",
+    "formatLabel": "Format de sortie",
+    "bodyLabel": "Corps du modèle (Jinja2)",
+    "bodyRequired": "Veuillez saisir le contenu du modèle",
+    "bodyHint": "Utilisez la syntaxe Jinja2. Variables disponibles : items (tableau d'articles), date, tags",
+
+    "previewTitle": "Aperçu du modèle",
+    "selectItems": "Veuillez sélectionner au moins un article",
+    "selectItemsHint": "Sélectionnez les articles à inclure dans l'aperçu :",
+    "selectAll": "Tout sélectionner",
+    "selectedCount": "{{count}} sélectionnés",
+    "noItems": "Aucun article dans votre liste de lecture",
+    "generatePreview": "Générer l'aperçu",
+    "generateOutput": "Générer la sortie",
+    "audioUnavailable": "Sortie audio non disponible",
+    "noGeneratedContent": "Aucune sortie générée pour le moment",
+
+    "deleteConfirm": {
+      "title": "Supprimer le modèle",
+      "message": "Êtes-vous sûr de vouloir supprimer ce modèle ?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "Tous les types",
+    "newsletter_markdown": "Newsletter (MD)",
+    "briefing_markdown": "Briefing (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "Newsletter (HTML)",
+    "tts_audio": "Audio TTS"
+  },
+
+  "import": {
+    "title": "Importer",
+    "sourceRequired": "Sélectionnez d'abord une source",
+    "selectSource": "Sélectionnez la source d'import :",
+    "sources": {
+      "auto": {
+        "label": "Détection automatique",
+        "description": "Téléversez un fichier d'export Pocket ou Instapaper et détectez automatiquement le format"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Importez vos articles enregistrés depuis un export Pocket"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Importez des articles depuis un export Instapaper"
+      }
+    },
+    "methodFile": "Téléversement de fichier",
+    "methodApiKey": "Clé API",
+    "apiKeyLabel": "Clé API",
+    "apiKeyPlaceholder": "Collez votre clé API",
+    "apiKeyRequired": "Veuillez saisir une clé API",
+    "previewWithKey": "Aperçu de l'import",
+    "processing": "Traitement du fichier...",
+    "dropzone": "Cliquez ou déposez un fichier pour téléverser",
+    "formats": "Prend en charge Pocket JSON et Instapaper CSV",
+    "previewHint": "{{count}} éléments trouvés",
+    "selectAll": "Tout sélectionner",
+    "selectItems": "Sélectionnez les éléments à importer",
+    "importSelected": "Importer {{count}} éléments",
+    "success": "{{count}} éléments importés",
+    "complete": "Import terminé",
+    "resultSummary": "Importés : {{imported}}, Mis à jour : {{updated}}, Ignorés : {{skipped}}",
+    "importMore": "Importer plus",
+    "steps": {
+      "source": "Source",
+      "upload": "Téléverser",
+      "preview": "Aperçu",
+      "result": "Résultat"
+    }
+  },
+
+  "export": {
+    "title": "Exporter",
+    "format": "Format",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "Options",
+    "includeContent": "Inclure le contenu complet",
+    "includeHighlights": "Inclure les surlignages",
+    "items": "Éléments à exporter",
+    "searchPlaceholder": "Rechercher des éléments...",
+    "allItems": "Tous les éléments (laisser vide)",
+    "itemsHint": "Laissez vide pour exporter tous les éléments, ou sélectionnez-en certains",
+    "selectionHint": "Sélectionnez des éléments à exporter, ou laissez vide pour tout exporter.",
+    "selectAll": "Tout sélectionner",
+    "selectedCount": "{{count}} sélectionnés",
+    "clearSelection": "Effacer",
+    "noItems": "Aucun élément trouvé",
+    "selectItems": "Sélectionnez d'abord des éléments à copier",
+    "copy": "Copier JSONL",
+    "copied": "Copié dans le presse-papiers",
+    "zipSelectionUnsupported": "L'export ZIP ne prend pas encore en charge la sélection d'éléments.",
+    "download": "Télécharger l'export",
+    "allItemsHint": "L'export inclut tous les éléments de la liste de lecture de votre compte.",
+    "success": "Export prêt au téléchargement"
+  }
+}

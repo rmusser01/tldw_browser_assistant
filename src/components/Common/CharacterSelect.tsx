@@ -501,12 +501,13 @@ export const CharacterSelect: React.FC<Props> = ({
 
       try {
         setIsImporting(true)
-        const initOk = await tldwClient
-          .initialize()
-          .then(() => true)
-          .catch(() => false)
-        if (!initOk) {
-          throw new Error("Failed to initialize character service.")
+        try {
+          await tldwClient.initialize()
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : String(error)
+          throw new Error(
+            `Failed to initialize character service: ${errorMessage}`
+          )
         }
         const imported = await importCharacter()
         handleImportSuccess(imported)

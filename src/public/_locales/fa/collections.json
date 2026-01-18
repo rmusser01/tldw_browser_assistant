@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "مجموعه‌ها"
+  },
+  "description": {
+    "message": "مقاله‌ها را ذخیره کنید، هایلایت بسازید، قالب‌ها را مدیریت کنید و فهرست مطالعه‌تان را وارد/خارج کنید."
+  },
+  "offline": {
+    "message": "سرور آفلاین است. برای استفاده از مجموعه‌ها متصل شوید."
+  },
+  "betaNotice": {
+    "message": "ویژگی بتا"
+  },
+  "betaDescription": {
+    "message": "مجموعه‌ها در حال حاضر بتا هستند. برخی قابلیت‌ها ممکن است به پشتیبانی بک‌اند نیاز داشته باشند."
+  },
+  "tabs_reading": {
+    "message": "فهرست مطالعه"
+  },
+  "tabs_highlights": {
+    "message": "هایلایت‌ها"
+  },
+  "tabs_templates": {
+    "message": "قالب‌ها"
+  },
+  "tabs_importExport": {
+    "message": "وارد/خارج کردن"
+  },
+  "status_all": {
+    "message": "همه"
+  },
+  "status_saved": {
+    "message": "ذخیره‌شده"
+  },
+  "status_reading": {
+    "message": "در حال خواندن"
+  },
+  "status_read": {
+    "message": "خوانده‌شده"
+  },
+  "status_archived": {
+    "message": "بایگانی‌شده"
+  },
+  "sort_created_at": {
+    "message": "تاریخ افزودن"
+  },
+  "sort_updated_at": {
+    "message": "آخرین به‌روزرسانی"
+  },
+  "sort_title": {
+    "message": "عنوان"
+  },
+  "sort_relevance": {
+    "message": "ارتباط"
+  },
+  "colors_all": {
+    "message": "همه رنگ‌ها"
+  },
+  "colors_yellow": {
+    "message": "زرد"
+  },
+  "colors_green": {
+    "message": "سبز"
+  },
+  "colors_blue": {
+    "message": "آبی"
+  },
+  "colors_pink": {
+    "message": "صورتی"
+  },
+  "colors_purple": {
+    "message": "بنفش"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} دقیقه پیش"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} ساعت پیش"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} روز پیش"
+  },
+  "reading_addUrl": {
+    "message": "افزودن URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "افزودن به فهرست مطالعه"
+  },
+  "reading_addFirst": {
+    "message": "اولین مقاله‌تان را اضافه کنید"
+  },
+  "reading_addSuccess": {
+    "message": "مقاله به فهرست مطالعه اضافه شد"
+  },
+  "reading_searchPlaceholder": {
+    "message": "جستجوی مقاله‌ها..."
+  },
+  "reading_filters": {
+    "message": "فیلترها"
+  },
+  "reading_favorites": {
+    "message": "علاقه‌مندی‌ها"
+  },
+  "reading_tagsFilter": {
+    "message": "برچسب‌ها"
+  },
+  "reading_domainFilter": {
+    "message": "دامنه"
+  },
+  "reading_sortBy": {
+    "message": "مرتب‌سازی"
+  },
+  "reading_clearFilters": {
+    "message": "پاک کردن فیلترها"
+  },
+  "reading_noResults": {
+    "message": "هیچ مقاله‌ای با فیلترهای شما مطابقت ندارد"
+  },
+  "reading_empty": {
+    "message": "فهرست مطالعه شما خالی است"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} از {{total}} مورد"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} دقیقه زمان مطالعه"
+  },
+  "reading_favorite": {
+    "message": "افزودن به علاقه‌مندی‌ها"
+  },
+  "reading_unfavorite": {
+    "message": "حذف از علاقه‌مندی‌ها"
+  },
+  "reading_viewDetails": {
+    "message": "مشاهده جزئیات"
+  },
+  "reading_openOriginal": {
+    "message": "باز کردن منبع"
+  },
+  "reading_changeStatus": {
+    "message": "تغییر وضعیت"
+  },
+  "reading_archive": {
+    "message": "بایگانی"
+  },
+  "reading_unarchive": {
+    "message": "خروج از بایگانی"
+  },
+  "reading_statusUpdated": {
+    "message": "وضعیت به {{status}} به‌روزرسانی شد"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "لطفاً یک URL وارد کنید"
+  },
+  "reading_urlInvalid": {
+    "message": "لطفاً یک URL معتبر وارد کنید"
+  },
+  "reading_titleLabel": {
+    "message": "عنوان (اختیاری)"
+  },
+  "reading_titleHint": {
+    "message": "برای تشخیص خودکار از صفحه خالی بگذارید"
+  },
+  "reading_titlePlaceholder": {
+    "message": "عنوان مقاله"
+  },
+  "reading_tagsLabel": {
+    "message": "برچسب‌ها"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "افزودن برچسب..."
+  },
+  "reading_notesLabel": {
+    "message": "یادداشت‌ها (اختیاری)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "هر یادداشتی درباره این مقاله اضافه کنید..."
+  },
+  "reading_saveToList": {
+    "message": "ذخیره در فهرست"
+  },
+  "reading_addTag": {
+    "message": "افزودن برچسب..."
+  },
+  "reading_tabs_content": {
+    "message": "محتوا"
+  },
+  "reading_tabs_summary": {
+    "message": "خلاصه"
+  },
+  "reading_tabs_highlights": {
+    "message": "هایلایت‌ها"
+  },
+  "reading_tabs_notes": {
+    "message": "یادداشت‌ها"
+  },
+  "reading_noContent": {
+    "message": "محتوا در دسترس نیست"
+  },
+  "reading_noSummary": {
+    "message": "هنوز خلاصه‌ای وجود ندارد"
+  },
+  "reading_noNotes": {
+    "message": "هنوز یادداشتی وجود ندارد"
+  },
+  "reading_editNotes": {
+    "message": "ویرایش یادداشت‌ها"
+  },
+  "reading_addNotes": {
+    "message": "افزودن یادداشت‌ها"
+  },
+  "reading_notesSaved": {
+    "message": "یادداشت‌ها ذخیره شد"
+  },
+  "reading_notesPlaceholder": {
+    "message": "یادداشت‌های خود را اضافه کنید..."
+  },
+  "reading_summarize": {
+    "message": "خلاصه کردن"
+  },
+  "reading_generateSummary": {
+    "message": "تولید خلاصه"
+  },
+  "reading_summarized": {
+    "message": "خلاصه تولید شد"
+  },
+  "reading_generateTts": {
+    "message": "تولید صدا"
+  },
+  "reading_ttsGenerated": {
+    "message": "صدا تولید شد"
+  },
+  "reading_downloadAudio": {
+    "message": "دانلود صدا"
+  },
+  "reading_deleted": {
+    "message": "مقاله حذف شد"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "حذف مقاله"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "آیا از حذف این مقاله مطمئن هستید؟ این اقدام قابل بازگشت نیست."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "جستجوی هایلایت‌ها..."
+  },
+  "highlights_groupByItem": {
+    "message": "گروه‌بندی بر اساس مقاله"
+  },
+  "highlights_add": {
+    "message": "افزودن هایلایت"
+  },
+  "highlights_edit": {
+    "message": "ویرایش هایلایت"
+  },
+  "highlights_quoteLabel": {
+    "message": "نقل‌قول"
+  },
+  "highlights_quoteRequired": {
+    "message": "لطفاً متن هایلایت را وارد کنید"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "متن هایلایت‌شده را بچسبانید..."
+  },
+  "highlights_noteLabel": {
+    "message": "یادداشت (اختیاری)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "زمینه یا دلیل اهمیت را اضافه کنید..."
+  },
+  "highlights_colorLabel": {
+    "message": "رنگ هایلایت"
+  },
+  "highlights_noResults": {
+    "message": "هیچ هایلایتی با فیلترهای شما مطابقت ندارد"
+  },
+  "highlights_empty": {
+    "message": "هنوز هایلایتی وجود ندارد"
+  },
+  "highlights_emptyForItem": {
+    "message": "برای این مقاله هنوز هایلایتی وجود ندارد"
+  },
+  "highlights_emptyHint": {
+    "message": "هایلایت‌هایی که هنگام خواندن ایجاد می‌کنید، اینجا نمایش داده می‌شوند."
+  },
+  "highlights_from": {
+    "message": "از"
+  },
+  "highlights_viewArticle": {
+    "message": "مشاهده مقاله"
+  },
+  "highlights_created": {
+    "message": "هایلایت ایجاد شد"
+  },
+  "highlights_updated": {
+    "message": "هایلایت به‌روزرسانی شد"
+  },
+  "highlights_missingItem": {
+    "message": "ابتدا یک مقاله انتخاب کنید"
+  },
+  "highlights_deleted": {
+    "message": "هایلایت حذف شد"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "حذف هایلایت"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "آیا از حذف این هایلایت مطمئن هستید؟"
+  },
+  "templates_create": {
+    "message": "ایجاد قالب"
+  },
+  "templates_createFirst": {
+    "message": "اولین قالب خود را بسازید"
+  },
+  "templates_searchPlaceholder": {
+    "message": "جستجوی قالب‌ها..."
+  },
+  "templates_noResults": {
+    "message": "هیچ قالبی با فیلترهای شما مطابقت ندارد"
+  },
+  "templates_empty": {
+    "message": "هنوز قالبی وجود ندارد"
+  },
+  "templates_default": {
+    "message": "پیش‌فرض"
+  },
+  "templates_preview": {
+    "message": "پیش‌نمایش"
+  },
+  "templates_duplicate": {
+    "message": "تکثیر"
+  },
+  "templates_deleted": {
+    "message": "قالب حذف شد"
+  },
+  "templates_created": {
+    "message": "قالب ایجاد شد"
+  },
+  "templates_updated": {
+    "message": "قالب به‌روزرسانی شد"
+  },
+  "templates_editTitle": {
+    "message": "ویرایش قالب"
+  },
+  "templates_createTitle": {
+    "message": "ایجاد قالب"
+  },
+  "templates_nameLabel": {
+    "message": "نام قالب"
+  },
+  "templates_nameRequired": {
+    "message": "لطفاً نامی وارد کنید"
+  },
+  "templates_namePlaceholder": {
+    "message": "قالب خبرنامه من"
+  },
+  "templates_descriptionLabel": {
+    "message": "توضیحات (اختیاری)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "توضیح کوتاه درباره این قالب"
+  },
+  "templates_typeLabel": {
+    "message": "نوع قالب"
+  },
+  "templates_formatLabel": {
+    "message": "قالب خروجی"
+  },
+  "templates_bodyLabel": {
+    "message": "بدنه قالب (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "لطفاً محتوای قالب را وارد کنید"
+  },
+  "templates_bodyHint": {
+    "message": "از نحو Jinja2 استفاده کنید. متغیرهای در دسترس: items (آرایه‌ای از آیتم‌های مطالعه)، date، tags"
+  },
+  "templates_previewTitle": {
+    "message": "پیش‌نمایش قالب"
+  },
+  "templates_selectItems": {
+    "message": "حداقل یک مقاله را انتخاب کنید"
+  },
+  "templates_selectItemsHint": {
+    "message": "مقاله‌ها را برای قرار گرفتن در پیش‌نمایش انتخاب کنید:"
+  },
+  "templates_selectAll": {
+    "message": "انتخاب همه"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} انتخاب شد"
+  },
+  "templates_noItems": {
+    "message": "هیچ مقاله‌ای در فهرست مطالعه شما نیست"
+  },
+  "templates_generatePreview": {
+    "message": "تولید پیش‌نمایش"
+  },
+  "templates_generateOutput": {
+    "message": "تولید خروجی"
+  },
+  "templates_audioUnavailable": {
+    "message": "خروجی صوتی در دسترس نیست"
+  },
+  "templates_noGeneratedContent": {
+    "message": "هنوز محتوایی تولید نشده است"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "حذف قالب"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "آیا از حذف این قالب مطمئن هستید؟"
+  },
+  "templateTypes_all": {
+    "message": "همه انواع"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "خبرنامه (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "گزارش کوتاه (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "خبرنامه (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "صدای TTS"
+  },
+  "import_title": {
+    "message": "وارد کردن"
+  },
+  "import_sourceRequired": {
+    "message": "ابتدا یک منبع انتخاب کنید"
+  },
+  "import_selectSource": {
+    "message": "منبع وارد کردن را انتخاب کنید:"
+  },
+  "import_sources_auto_label": {
+    "message": "تشخیص خودکار"
+  },
+  "import_sources_auto_description": {
+    "message": "فایل خروجی Pocket یا Instapaper را بارگذاری کنید تا قالب به‌صورت خودکار تشخیص داده شود"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "مقاله‌های ذخیره‌شده خود را از خروجی Pocket وارد کنید"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "مقاله‌ها را از خروجی Instapaper وارد کنید"
+  },
+  "import_methodFile": {
+    "message": "بارگذاری فایل"
+  },
+  "import_methodApiKey": {
+    "message": "کلید API"
+  },
+  "import_apiKeyLabel": {
+    "message": "کلید API"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "کلید API را بچسبانید"
+  },
+  "import_apiKeyRequired": {
+    "message": "لطفاً کلید API را وارد کنید"
+  },
+  "import_previewWithKey": {
+    "message": "پیش‌نمایش وارد کردن"
+  },
+  "import_processing": {
+    "message": "در حال پردازش فایل..."
+  },
+  "import_dropzone": {
+    "message": "برای بارگذاری کلیک کنید یا فایل را بکشید"
+  },
+  "import_formats": {
+    "message": "از Pocket JSON و Instapaper CSV پشتیبانی می‌کند"
+  },
+  "import_previewHint": {
+    "message": "{{count}} مورد یافت شد"
+  },
+  "import_selectAll": {
+    "message": "انتخاب همه"
+  },
+  "import_selectItems": {
+    "message": "موارد را برای وارد کردن انتخاب کنید"
+  },
+  "import_importSelected": {
+    "message": "وارد کردن {{count}} مورد"
+  },
+  "import_success": {
+    "message": "{{count}} مورد وارد شد"
+  },
+  "import_complete": {
+    "message": "وارد کردن کامل شد"
+  },
+  "import_resultSummary": {
+    "message": "واردشده: {{imported}}، به‌روزرسانی‌شده: {{updated}}، ردشده: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "وارد کردن بیشتر"
+  },
+  "import_steps_source": {
+    "message": "منبع"
+  },
+  "import_steps_upload": {
+    "message": "بارگذاری"
+  },
+  "import_steps_preview": {
+    "message": "پیش‌نمایش"
+  },
+  "import_steps_result": {
+    "message": "نتیجه"
+  },
+  "export_title": {
+    "message": "خارج کردن"
+  },
+  "export_format": {
+    "message": "قالب"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "گزینه‌ها"
+  },
+  "export_includeContent": {
+    "message": "شامل محتوای کامل"
+  },
+  "export_includeHighlights": {
+    "message": "شامل هایلایت‌ها"
+  },
+  "export_items": {
+    "message": "موارد برای خروجی"
+  },
+  "export_searchPlaceholder": {
+    "message": "جستجوی موارد..."
+  },
+  "export_allItems": {
+    "message": "همه موارد (خالی بگذارید)"
+  },
+  "export_itemsHint": {
+    "message": "برای خروجی همه موارد خالی بگذارید، یا موارد مشخص را انتخاب کنید"
+  },
+  "export_selectionHint": {
+    "message": "موارد را برای خروجی انتخاب کنید یا برای خروجی همه موارد خالی بگذارید."
+  },
+  "export_selectAll": {
+    "message": "انتخاب همه"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} انتخاب شد"
+  },
+  "export_clearSelection": {
+    "message": "پاک کردن"
+  },
+  "export_noItems": {
+    "message": "هیچ موردی یافت نشد"
+  },
+  "export_selectItems": {
+    "message": "ابتدا موارد را برای کپی انتخاب کنید"
+  },
+  "export_copy": {
+    "message": "کپی JSONL"
+  },
+  "export_copied": {
+    "message": "در کلیپ‌بورد کپی شد"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "خروجی ZIP هنوز از انتخاب مورد پشتیبانی نمی‌کند."
+  },
+  "export_download": {
+    "message": "دانلود خروجی"
+  },
+  "export_allItemsHint": {
+    "message": "خروجی شامل همه موارد فهرست مطالعه برای حساب شماست."
+  },
+  "export_success": {
+    "message": "خروجی آماده دانلود است"
+  }
+}

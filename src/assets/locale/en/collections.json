@@ -77,7 +77,7 @@
     "tagsLabel": "Tags",
     "tagsPlaceholder": "Add tags...",
     "notesLabel": "Notes (optional)",
-    "notesPlaceholder": "Add any notes about this article...",
+    "notesPlaceholderArticle": "Add any notes about this article...",
     "saveToList": "Save to List",
     "addTag": "Add tag...",
 
@@ -193,6 +193,20 @@
     "title": "Import",
     "sourceRequired": "Select a source first",
     "selectSource": "Select import source:",
+    "sources": {
+      "auto": {
+        "label": "Auto-detect",
+        "description": "Upload a Pocket or Instapaper export file and auto-detect the format"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Import your saved articles from a Pocket export"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Import articles from an Instapaper export"
+      }
+    },
     "methodFile": "File Upload",
     "methodApiKey": "API Key",
     "apiKeyLabel": "API Key",
@@ -221,6 +235,10 @@
   "export": {
     "title": "Export",
     "format": "Format",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
     "options": "Options",
     "includeContent": "Include full content",
     "includeHighlights": "Include highlights",

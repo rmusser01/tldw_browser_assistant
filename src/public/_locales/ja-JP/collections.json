@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "コレクション"
+  },
+  "description": {
+    "message": "記事を保存し、ハイライトを作成し、テンプレートを管理し、読書リストをインポート/エクスポートします。"
+  },
+  "offline": {
+    "message": "サーバーがオフラインです。コレクションを使用するには接続してください。"
+  },
+  "betaNotice": {
+    "message": "ベータ機能"
+  },
+  "betaDescription": {
+    "message": "コレクションは現在ベータ版です。いくつかの機能はバックエンドのサポートが必要です。"
+  },
+  "tabs_reading": {
+    "message": "読書リスト"
+  },
+  "tabs_highlights": {
+    "message": "ハイライト"
+  },
+  "tabs_templates": {
+    "message": "テンプレート"
+  },
+  "tabs_importExport": {
+    "message": "インポート/エクスポート"
+  },
+  "status_all": {
+    "message": "すべて"
+  },
+  "status_saved": {
+    "message": "保存済み"
+  },
+  "status_reading": {
+    "message": "読書中"
+  },
+  "status_read": {
+    "message": "読了"
+  },
+  "status_archived": {
+    "message": "アーカイブ"
+  },
+  "sort_created_at": {
+    "message": "追加日"
+  },
+  "sort_updated_at": {
+    "message": "最終更新"
+  },
+  "sort_title": {
+    "message": "タイトル"
+  },
+  "sort_relevance": {
+    "message": "関連度"
+  },
+  "colors_all": {
+    "message": "すべての色"
+  },
+  "colors_yellow": {
+    "message": "黄色"
+  },
+  "colors_green": {
+    "message": "緑"
+  },
+  "colors_blue": {
+    "message": "青"
+  },
+  "colors_pink": {
+    "message": "ピンク"
+  },
+  "colors_purple": {
+    "message": "紫"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}}分前"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}}時間前"
+  },
+  "time_daysAgo": {
+    "message": "{{count}}日前"
+  },
+  "reading_addUrl": {
+    "message": "URLを追加"
+  },
+  "reading_addUrlTitle": {
+    "message": "読書リストに追加"
+  },
+  "reading_addFirst": {
+    "message": "最初の記事を追加"
+  },
+  "reading_addSuccess": {
+    "message": "記事を読書リストに追加しました"
+  },
+  "reading_searchPlaceholder": {
+    "message": "記事を検索..."
+  },
+  "reading_filters": {
+    "message": "フィルター"
+  },
+  "reading_favorites": {
+    "message": "お気に入り"
+  },
+  "reading_tagsFilter": {
+    "message": "タグ"
+  },
+  "reading_domainFilter": {
+    "message": "ドメイン"
+  },
+  "reading_sortBy": {
+    "message": "並び替え"
+  },
+  "reading_clearFilters": {
+    "message": "フィルターをクリア"
+  },
+  "reading_noResults": {
+    "message": "フィルターに一致する記事はありません"
+  },
+  "reading_empty": {
+    "message": "読書リストは空です"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} / {{total}}件"
+  },
+  "reading_readingTime": {
+    "message": "{{count}}分で読了"
+  },
+  "reading_favorite": {
+    "message": "お気に入りに追加"
+  },
+  "reading_unfavorite": {
+    "message": "お気に入りから削除"
+  },
+  "reading_viewDetails": {
+    "message": "詳細を見る"
+  },
+  "reading_openOriginal": {
+    "message": "元記事を開く"
+  },
+  "reading_changeStatus": {
+    "message": "ステータスを変更"
+  },
+  "reading_archive": {
+    "message": "アーカイブ"
+  },
+  "reading_unarchive": {
+    "message": "アーカイブ解除"
+  },
+  "reading_statusUpdated": {
+    "message": "ステータスを{{status}}に更新しました"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "URLを入力してください"
+  },
+  "reading_urlInvalid": {
+    "message": "有効なURLを入力してください"
+  },
+  "reading_titleLabel": {
+    "message": "タイトル（任意）"
+  },
+  "reading_titleHint": {
+    "message": "空欄にするとページから自動検出します"
+  },
+  "reading_titlePlaceholder": {
+    "message": "記事タイトル"
+  },
+  "reading_tagsLabel": {
+    "message": "タグ"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "タグを追加..."
+  },
+  "reading_notesLabel": {
+    "message": "メモ（任意）"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "この記事に関するメモを追加..."
+  },
+  "reading_saveToList": {
+    "message": "リストに保存"
+  },
+  "reading_addTag": {
+    "message": "タグを追加..."
+  },
+  "reading_tabs_content": {
+    "message": "内容"
+  },
+  "reading_tabs_summary": {
+    "message": "要約"
+  },
+  "reading_tabs_highlights": {
+    "message": "ハイライト"
+  },
+  "reading_tabs_notes": {
+    "message": "メモ"
+  },
+  "reading_noContent": {
+    "message": "内容が利用できません"
+  },
+  "reading_noSummary": {
+    "message": "要約はまだありません"
+  },
+  "reading_noNotes": {
+    "message": "メモはまだありません"
+  },
+  "reading_editNotes": {
+    "message": "メモを編集"
+  },
+  "reading_addNotes": {
+    "message": "メモを追加"
+  },
+  "reading_notesSaved": {
+    "message": "メモを保存しました"
+  },
+  "reading_notesPlaceholder": {
+    "message": "メモを追加..."
+  },
+  "reading_summarize": {
+    "message": "要約する"
+  },
+  "reading_generateSummary": {
+    "message": "要約を生成"
+  },
+  "reading_summarized": {
+    "message": "要約を生成しました"
+  },
+  "reading_generateTts": {
+    "message": "音声を生成"
+  },
+  "reading_ttsGenerated": {
+    "message": "音声を生成しました"
+  },
+  "reading_downloadAudio": {
+    "message": "音声をダウンロード"
+  },
+  "reading_deleted": {
+    "message": "記事を削除しました"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "記事を削除"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "この記事を削除してもよろしいですか？この操作は元に戻せません。"
+  },
+  "highlights_searchPlaceholder": {
+    "message": "ハイライトを検索..."
+  },
+  "highlights_groupByItem": {
+    "message": "記事ごとにグループ化"
+  },
+  "highlights_add": {
+    "message": "ハイライトを追加"
+  },
+  "highlights_edit": {
+    "message": "ハイライトを編集"
+  },
+  "highlights_quoteLabel": {
+    "message": "引用"
+  },
+  "highlights_quoteRequired": {
+    "message": "ハイライトのテキストを入力してください"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "ハイライトしたテキストを貼り付け..."
+  },
+  "highlights_noteLabel": {
+    "message": "メモ（任意）"
+  },
+  "highlights_notePlaceholder": {
+    "message": "背景や重要な理由を追加..."
+  },
+  "highlights_colorLabel": {
+    "message": "ハイライト色"
+  },
+  "highlights_noResults": {
+    "message": "フィルターに一致するハイライトはありません"
+  },
+  "highlights_empty": {
+    "message": "ハイライトはまだありません"
+  },
+  "highlights_emptyForItem": {
+    "message": "この記事のハイライトはまだありません"
+  },
+  "highlights_emptyHint": {
+    "message": "読書中に作成したハイライトがここに表示されます。"
+  },
+  "highlights_from": {
+    "message": "出典"
+  },
+  "highlights_viewArticle": {
+    "message": "記事を見る"
+  },
+  "highlights_created": {
+    "message": "ハイライトを作成しました"
+  },
+  "highlights_updated": {
+    "message": "ハイライトを更新しました"
+  },
+  "highlights_missingItem": {
+    "message": "まず記事を選択してください"
+  },
+  "highlights_deleted": {
+    "message": "ハイライトを削除しました"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "ハイライトを削除"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "このハイライトを削除してもよろしいですか？"
+  },
+  "templates_create": {
+    "message": "テンプレートを作成"
+  },
+  "templates_createFirst": {
+    "message": "最初のテンプレートを作成"
+  },
+  "templates_searchPlaceholder": {
+    "message": "テンプレートを検索..."
+  },
+  "templates_noResults": {
+    "message": "フィルターに一致するテンプレートはありません"
+  },
+  "templates_empty": {
+    "message": "テンプレートはまだありません"
+  },
+  "templates_default": {
+    "message": "デフォルト"
+  },
+  "templates_preview": {
+    "message": "プレビュー"
+  },
+  "templates_duplicate": {
+    "message": "複製"
+  },
+  "templates_deleted": {
+    "message": "テンプレートを削除しました"
+  },
+  "templates_created": {
+    "message": "テンプレートを作成しました"
+  },
+  "templates_updated": {
+    "message": "テンプレートを更新しました"
+  },
+  "templates_editTitle": {
+    "message": "テンプレートを編集"
+  },
+  "templates_createTitle": {
+    "message": "テンプレートを作成"
+  },
+  "templates_nameLabel": {
+    "message": "テンプレート名"
+  },
+  "templates_nameRequired": {
+    "message": "名前を入力してください"
+  },
+  "templates_namePlaceholder": {
+    "message": "私のニュースレターテンプレート"
+  },
+  "templates_descriptionLabel": {
+    "message": "説明（任意）"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "このテンプレートの簡単な説明"
+  },
+  "templates_typeLabel": {
+    "message": "テンプレートタイプ"
+  },
+  "templates_formatLabel": {
+    "message": "出力形式"
+  },
+  "templates_bodyLabel": {
+    "message": "テンプレート本文（Jinja2）"
+  },
+  "templates_bodyRequired": {
+    "message": "テンプレート内容を入力してください"
+  },
+  "templates_bodyHint": {
+    "message": "Jinja2構文を使用してください。利用可能な変数: items（読書アイテムの配列）, date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "テンプレートのプレビュー"
+  },
+  "templates_selectItems": {
+    "message": "少なくとも1件の記事を選択してください"
+  },
+  "templates_selectItemsHint": {
+    "message": "プレビューに含める記事を選択:"
+  },
+  "templates_selectAll": {
+    "message": "すべて選択"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} 件選択"
+  },
+  "templates_noItems": {
+    "message": "読書リストに記事がありません"
+  },
+  "templates_generatePreview": {
+    "message": "プレビューを生成"
+  },
+  "templates_generateOutput": {
+    "message": "出力を生成"
+  },
+  "templates_audioUnavailable": {
+    "message": "音声出力は利用できません"
+  },
+  "templates_noGeneratedContent": {
+    "message": "まだ出力が生成されていません"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "テンプレートを削除"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "このテンプレートを削除してもよろしいですか？"
+  },
+  "templateTypes_all": {
+    "message": "すべてのタイプ"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "ニュースレター (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "ブリーフィング (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "ニュースレター (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS 音声"
+  },
+  "import_title": {
+    "message": "インポート"
+  },
+  "import_sourceRequired": {
+    "message": "最初にソースを選択してください"
+  },
+  "import_selectSource": {
+    "message": "インポート元を選択:"
+  },
+  "import_sources_auto_label": {
+    "message": "自動検出"
+  },
+  "import_sources_auto_description": {
+    "message": "Pocket または Instapaper のエクスポートファイルをアップロードして形式を自動検出"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Pocketのエクスポートから保存した記事をインポート"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Instapaperのエクスポートから記事をインポート"
+  },
+  "import_methodFile": {
+    "message": "ファイルアップロード"
+  },
+  "import_methodApiKey": {
+    "message": "APIキー"
+  },
+  "import_apiKeyLabel": {
+    "message": "APIキー"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "APIキーを貼り付け"
+  },
+  "import_apiKeyRequired": {
+    "message": "APIキーを入力してください"
+  },
+  "import_previewWithKey": {
+    "message": "インポートをプレビュー"
+  },
+  "import_processing": {
+    "message": "ファイルを処理中..."
+  },
+  "import_dropzone": {
+    "message": "クリックまたはドラッグしてファイルをアップロード"
+  },
+  "import_formats": {
+    "message": "Pocket JSON と Instapaper CSV をサポート"
+  },
+  "import_previewHint": {
+    "message": "{{count}} 件見つかりました"
+  },
+  "import_selectAll": {
+    "message": "すべて選択"
+  },
+  "import_selectItems": {
+    "message": "インポートする項目を選択してください"
+  },
+  "import_importSelected": {
+    "message": "{{count}} 件をインポート"
+  },
+  "import_success": {
+    "message": "{{count}} 件をインポートしました"
+  },
+  "import_complete": {
+    "message": "インポート完了"
+  },
+  "import_resultSummary": {
+    "message": "インポート: {{imported}}、更新: {{updated}}、スキップ: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "さらにインポート"
+  },
+  "import_steps_source": {
+    "message": "ソース"
+  },
+  "import_steps_upload": {
+    "message": "アップロード"
+  },
+  "import_steps_preview": {
+    "message": "プレビュー"
+  },
+  "import_steps_result": {
+    "message": "結果"
+  },
+  "export_title": {
+    "message": "エクスポート"
+  },
+  "export_format": {
+    "message": "形式"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "オプション"
+  },
+  "export_includeContent": {
+    "message": "全文を含める"
+  },
+  "export_includeHighlights": {
+    "message": "ハイライトを含める"
+  },
+  "export_items": {
+    "message": "エクスポートする項目"
+  },
+  "export_searchPlaceholder": {
+    "message": "項目を検索..."
+  },
+  "export_allItems": {
+    "message": "すべての項目（空欄でOK）"
+  },
+  "export_itemsHint": {
+    "message": "空欄の場合はすべてをエクスポート、または特定の項目を選択"
+  },
+  "export_selectionHint": {
+    "message": "エクスポートする項目を選択するか、空欄で全件エクスポートします。"
+  },
+  "export_selectAll": {
+    "message": "すべて選択"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} 件選択"
+  },
+  "export_clearSelection": {
+    "message": "クリア"
+  },
+  "export_noItems": {
+    "message": "項目が見つかりません"
+  },
+  "export_selectItems": {
+    "message": "まずコピーする項目を選択してください"
+  },
+  "export_copy": {
+    "message": "JSONLをコピー"
+  },
+  "export_copied": {
+    "message": "クリップボードにコピーしました"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIPエクスポートはまだ項目選択に対応していません。"
+  },
+  "export_download": {
+    "message": "エクスポートをダウンロード"
+  },
+  "export_allItemsHint": {
+    "message": "エクスポートにはアカウントの読書リスト全件が含まれます。"
+  },
+  "export_success": {
+    "message": "エクスポートのダウンロード準備ができました"
+  }
+}

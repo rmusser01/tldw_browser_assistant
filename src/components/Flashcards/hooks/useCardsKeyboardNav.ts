@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react"
 
-interface CardsKeyboardNavOptions {
+export interface CardsKeyboardNavOptions {
   /** Whether navigation is enabled */
   enabled?: boolean
   /** Total number of items in the list */

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import React, { Suspense, useCallback, useEffect, useMemo, useState } from "react"
 import {
   DndContext,
   closestCenter,
@@ -22,11 +22,11 @@ import {
   Space,
   Spin,
   Table,
-  Tag,
   Tooltip,
   message
 } from "antd"
 import type { ColumnsType } from "antd/es/table"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import {
   GripVertical,
   Plus,
@@ -42,7 +42,11 @@ import { tldwClient } from "@/services/tldw/TldwApiClient"
 import { pollDataTableJob } from "@/utils/data-tables-jobs"
 import type { DataTableColumn, DataTableRow } from "@/types/data-tables"
 import { EditableCell } from "./EditableCell"
-import { AddColumnModal } from "./AddColumnModal"
+const AddColumnModal = React.lazy(() =>
+  import("./AddColumnModal").then((module) => ({
+    default: module.AddColumnModal
+  }))
+)
 
 // Sortable column header for preview
 const SortablePreviewHeader: React.FC<{
@@ -105,6 +109,7 @@ const SortablePreviewHeader: React.FC<{
  */
 export const TablePreview: React.FC = () => {
   const { t } = useTranslation(["dataTables", "common"])
+  const queryClient = useQueryClient()
 
   // Store state
   const tableName = useDataTablesStore((s) => s.tableName)
@@ -113,7 +118,6 @@ export const TablePreview: React.FC = () => {
   const columnHints = useDataTablesStore((s) => s.columnHints)
   const selectedModel = useDataTablesStore((s) => s.selectedModel)
   const maxRows = useDataTablesStore((s) => s.maxRows)
-  const isGenerating = useDataTablesStore((s) => s.isGenerating)
   const generatedTable = useDataTablesStore((s) => s.generatedTable)
   const generationError = useDataTablesStore((s) => s.generationError)
   const generationWarnings = useDataTablesStore((s) => s.generationWarnings)
@@ -143,7 +147,11 @@ export const TablePreview: React.FC = () => {
 
   // Local state
   const [addColumnModalOpen, setAddColumnModalOpen] = useState(false)
-  const generationAbortRef = useRef<AbortController | null>(null)
+  const [generationJob, setGenerationJob] = useState<{
+    jobId: number
+    tableUuid: string
+    rowsLimit: number
+  } | null>(null)
 
   // DnD sensors
   const sensors = useSensors(
@@ -153,34 +161,33 @@ export const TablePreview: React.FC = () => {
 
   useEffect(() => {
     return () => {
-      generationAbortRef.current?.abort()
+      queryClient.cancelQueries({ queryKey: ["dataTableGeneration"] })
     }
-  }, [])
+  }, [queryClient])
 
   // Generate table
-  const generateTable = async () => {
-    generationAbortRef.current?.abort()
-    const abortController = new AbortController()
-    generationAbortRef.current = abortController
-    setIsGenerating(true)
-    setGenerationError(null)
-    setGenerationWarnings([])
-    setGeneratedTable(null)
-    stopEditing() // Clear any previous editing state
-
-    try {
+  const generateMutation = useMutation({
+    mutationFn: async (payload: {
+      name: string
+      prompt: string
+      sources: {
+        type: string
+        id: string
+        title: string
+        snippet?: string
+      }[]
+      columnHints?: Partial<DataTableColumn>[]
+      model?: string
+      maxRows: number
+      rowsLimit: number
+    }) => {
       const response = await tldwClient.generateDataTable({
-        name: tableName.trim() || "Untitled Table",
-        prompt,
-        sources: selectedSources.map((s) => ({
-          type: s.type,
-          id: s.id,
-          title: s.title,
-          snippet: s.snippet
-        })),
-        column_hints: columnHints.length > 0 ? columnHints : undefined,
-        model: selectedModel || undefined,
-        max_rows: maxRows
+        name: payload.name,
+        prompt: payload.prompt,
+        sources: payload.sources,
+        column_hints: payload.columnHints,
+        model: payload.model,
+        max_rows: payload.maxRows
       })
 
       const jobId = response?.job_id
@@ -189,45 +196,131 @@ export const TablePreview: React.FC = () => {
         throw new Error("Generation job was not created")
       }
 
-      const jobStatus = await pollDataTableJob({
+      return {
         jobId,
-        fetchJob: (id) => tldwClient.getDataTableJob(id),
-        signal: abortController.signal
-      })
-      if (abortController.signal.aborted) return
+        tableUuid,
+        rowsLimit: payload.rowsLimit
+      }
+    },
+    onSuccess: (job) => {
+      setGenerationJob(job)
+    },
+    onError: (error) => {
+      console.error("Failed to start table generation:", error)
+      const errorMessage =
+        error instanceof Error ? error.message : "Generation failed"
+      setGenerationError(errorMessage)
+      message.error(errorMessage)
+    }
+  })
 
+  const pollQuery = useQuery({
+    queryKey: ["dataTableGeneration", generationJob?.jobId],
+    enabled: Boolean(generationJob?.jobId),
+    queryFn: async ({ signal }) => {
+      if (!generationJob) {
+        throw new Error("No generation job")
+      }
+      const jobStatus = await pollDataTableJob({
+        jobId: generationJob.jobId,
+        fetchJob: (id) => tldwClient.getDataTableJob(id),
+        signal
+      })
       const status = String(jobStatus?.status || "").toLowerCase()
       if (status !== "completed") {
         throw new Error(jobStatus?.error_message || "Generation failed")
       }
 
-      const rowsLimit = Math.min(Math.max(maxRows, 1), 2000)
-      const table = await tldwClient.getDataTable(jobStatus.table_uuid || tableUuid, {
-        rows_limit: rowsLimit
-      })
+      const table = await tldwClient.getDataTable(
+        jobStatus.table_uuid || generationJob.tableUuid,
+        { rows_limit: generationJob.rowsLimit }
+      )
       if (!table) {
         throw new Error("No table data in response")
       }
 
-      const tableWithId = {
-        ...table,
-        id: table.id || `preview-${Date.now()}`
-      }
-      setGeneratedTable(tableWithId)
-      startEditing(tableWithId) // Start editing mode
-      message.success(t("dataTables:generateSuccess", "Table generated successfully!"))
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Generation failed"
-      if (!abortController.signal.aborted) {
-        setGenerationError(errorMessage)
-        message.error(errorMessage)
-      }
-    } finally {
-      if (!abortController.signal.aborted) {
-        setIsGenerating(false)
-      }
+      return table
+    },
+    retry: false
+  })
+
+  const isGenerating = generateMutation.isPending || pollQuery.isFetching
+
+  useEffect(() => {
+    setIsGenerating(isGenerating)
+  }, [isGenerating, setIsGenerating])
+
+  useEffect(() => {
+    if (!pollQuery.data) return
+    const tableWithId = {
+      ...pollQuery.data,
+      id: pollQuery.data.id || `preview-${Date.now()}`
     }
-  }
+    setGenerationError(null)
+    setGeneratedTable(tableWithId)
+    startEditing(tableWithId)
+    setGenerationJob(null)
+    message.success(t("dataTables:generateSuccess", "Table generated successfully!"))
+  }, [
+    pollQuery.data,
+    setGeneratedTable,
+    setGenerationError,
+    setGenerationJob,
+    startEditing,
+    t
+  ])
+
+  useEffect(() => {
+    if (!pollQuery.error) return
+    if (pollQuery.error instanceof Error && pollQuery.error.message === "Polling cancelled") {
+      return
+    }
+    console.error("Table generation failed:", pollQuery.error)
+    const errorMessage =
+      pollQuery.error instanceof Error ? pollQuery.error.message : "Generation failed"
+    setGenerationError(errorMessage)
+    message.error(errorMessage)
+    setGenerationJob(null)
+  }, [pollQuery.error, setGenerationError, setGenerationJob])
+
+  const generateTable = useCallback(() => {
+    const rowsLimit = Math.min(Math.max(maxRows, 1), 2000)
+    void queryClient.cancelQueries({ queryKey: ["dataTableGeneration"] })
+    setGenerationError(null)
+    setGenerationWarnings([])
+    setGeneratedTable(null)
+    setGenerationJob(null)
+    stopEditing() // Clear any previous editing state
+
+    generateMutation.mutate({
+      name: tableName.trim() || "Untitled Table",
+      prompt,
+      sources: selectedSources.map((s) => ({
+        type: s.type,
+        id: s.id,
+        title: s.title,
+        snippet: s.snippet
+      })),
+      columnHints: columnHints.length > 0 ? columnHints : undefined,
+      model: selectedModel || undefined,
+      maxRows,
+      rowsLimit
+    })
+  }, [
+    columnHints,
+    generateMutation,
+    maxRows,
+    prompt,
+    queryClient,
+    selectedModel,
+    selectedSources,
+    setGeneratedTable,
+    setGenerationError,
+    setGenerationWarnings,
+    setGenerationJob,
+    stopEditing,
+    tableName
+  ])
 
   // Generate on mount if not already generated
   useEffect(() => {
@@ -249,7 +342,7 @@ export const TablePreview: React.FC = () => {
 
   // Update generatedTable when editing changes (keep in sync for save step)
   useEffect(() => {
-    if (editingTable && editingState.isDirty) {
+    if (editingTable) {
       // Update the generated table with edited data
       const updatedTable = {
         ...editingTable,
@@ -257,7 +350,7 @@ export const TablePreview: React.FC = () => {
       }
       setGeneratedTable(updatedTable)
     }
-  }, [editingRows, editingTable, editingState.isDirty]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [editingRows, editingTable]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Handle drag end for column reordering
   const handleDragEnd = useCallback(
@@ -527,12 +620,14 @@ export const TablePreview: React.FC = () => {
       </div>
 
       {/* Add Column Modal */}
-      <AddColumnModal
-        open={addColumnModalOpen}
-        onClose={() => setAddColumnModalOpen(false)}
-        onAdd={handleAddColumn}
-        existingColumns={editingTable?.columns || generatedTable?.columns || []}
-      />
+      <Suspense fallback={null}>
+        <AddColumnModal
+          open={addColumnModalOpen}
+          onClose={() => setAddColumnModalOpen(false)}
+          onAdd={handleAddColumn}
+          existingColumns={editingTable?.columns || generatedTable?.columns || []}
+        />
+      </Suspense>
     </div>
   )
 }

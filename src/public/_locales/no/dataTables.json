@@ -1,374 +1,383 @@
 {
   "title": {
-    "message": "Data Tables Studio"
+    "message": "Datatabellstudio"
   },
   "description": {
     "message": "Description"
   },
   "betaNotice": {
-    "message": "Beta Feature"
+    "message": "Betafunksjon"
   },
   "betaDescription": {
-    "message": "Data Tables is currently in beta. Table generation requires backend support."
+    "message": "Datatabeller er for øyeblikket i beta. Tabellgenerering krever støtte i backend."
   },
   "offline": {
-    "message": "Server is offline. Please connect to use Data Tables."
+    "message": "Serveren er frakoblet. Koble til for å bruke Datatabeller."
   },
   "tabs_tables": {
-    "message": "My Tables"
+    "message": "Mine tabeller"
   },
   "tabs_create": {
-    "message": "Create Table"
+    "message": "Opprett tabell"
   },
   "wizard_sources": {
-    "message": "Select Sources"
+    "message": "Velg kilder"
   },
   "wizard_sourcesDesc": {
-    "message": "Choose data sources"
+    "message": "Velg datakilder"
   },
   "wizard_prompt": {
-    "message": "Describe Table"
+    "message": "Beskriv tabell"
   },
   "wizard_promptDesc": {
-    "message": "Write your prompt"
+    "message": "Skriv prompten"
   },
   "wizard_preview": {
-    "message": "Preview"
+    "message": "Forhåndsvisning"
   },
   "wizard_previewDesc": {
-    "message": "Review generated table"
+    "message": "Se gjennom generert tabell"
   },
   "wizard_save": {
-    "message": "Save"
+    "message": "Lagre"
   },
   "wizard_saveDesc": {
-    "message": "Save to library"
+    "message": "Lagre i biblioteket"
   },
   "wizard_tip": {
-    "message": "Tip"
+    "message": "Tips"
   },
   "wizard_tipText": {
-    "message": "Select chats, documents, or search your knowledge base to extract structured data. The more specific your sources, the better the results."
+    "message": "Velg chatter, dokumenter eller søk i kunnskapsbasen for å hente ut strukturert data. Jo mer spesifikke kildene er, desto bedre blir resultatene."
   },
   "wizard_reset": {
-    "message": "Start Over"
+    "message": "Start på nytt"
   },
   "sourceTypes_chat": {
-    "message": "Chats"
+    "message": "Chatter"
   },
   "sourceTypes_document": {
-    "message": "Documents"
+    "message": "Dokumenter"
   },
   "sourceTypes_rag": {
-    "message": "RAG Search"
+    "message": "RAG-søk"
   },
   "selectedSources": {
-    "message": "Selected Sources"
+    "message": "Valgte kilder"
   },
   "sourcesSelected": {
-    "message": "Sources Selected"
+    "message": "Kilder valgt"
   },
   "searchPlaceholder": {
-    "message": "Search..."
+    "message": "Søk..."
   },
   "ragPlaceholder": {
-    "message": "Enter a search query for your knowledge base..."
+    "message": "Skriv inn et søk for kunnskapsbasen..."
   },
   "ragQuerySnippet": {
-    "message": "Knowledge base search query"
+    "message": "Søk i kunnskapsbase"
   },
   "ragAdded": {
-    "message": "RAG query added as source"
+    "message": "RAG-søk lagt til som kilde"
   },
   "ragTip": {
-    "message": "Enter search queries to find relevant content in your knowledge base. Each query will be added as a separate source."
+    "message": "Skriv inn søk for å finne relevant innhold i kunnskapsbasen. Hvert søk legges til som en egen kilde."
   },
   "fetchError": {
-    "message": "Failed to load items"
+    "message": "Kunne ikke laste inn elementer"
   },
   "promptLabel": {
-    "message": "Describe the table you want to create"
+    "message": "Beskriv tabellen du vil opprette"
   },
   "promptPlaceholder": {
-    "message": "E.g., Create a table comparing the main topics discussed, with columns for topic, key points, and relevance score..."
+    "message": "F.eks. lag en tabell som sammenligner hovedtemaene som ble diskutert, med kolonner for tema, nøkkelpunkter og relevansscore..."
   },
   "examplePrompts": {
-    "message": "Example prompts:"
+    "message": "Eksempelprompter:"
   },
   "advancedOptions": {
-    "message": "Advanced Options"
+    "message": "Avanserte alternativer"
   },
   "columnHints": {
-    "message": "Column Hints (Optional)"
+    "message": "Kolonnetips (valgfritt)"
   },
   "columnHintsDesc": {
-    "message": "Suggest column names and types to guide the LLM. If not specified, columns will be inferred from your prompt."
+    "message": "Foreslå kolonnenavn og -typer for å veilede LLM-en. Hvis det ikke er angitt, blir kolonnene utledet fra prompten."
   },
   "newColumnName": {
-    "message": "Column name"
+    "message": "Kolonnenavn"
   },
   "modelSelection": {
-    "message": "Model"
+    "message": "Modell"
   },
   "selectModel": {
-    "message": "Use default model"
+    "message": "Bruk standardmodell"
   },
   "maxRows": {
-    "message": "Maximum Rows"
+    "message": "Maksimalt antall rader"
   },
   "maxRowsHint": {
     "message": "(1-1000)"
   },
   "generating": {
-    "message": "Generating table from your sources..."
+    "message": "Genererer tabell fra kildene dine..."
   },
   "generatingNote": {
-    "message": "This may take a moment depending on the amount of data."
+    "message": "Dette kan ta litt tid avhengig av datamengden."
   },
   "generateSuccess": {
-    "message": "Table generated successfully!"
+    "message": "Tabellen ble generert!"
   },
   "generationFailed": {
-    "message": "Generation Failed"
+    "message": "Generering mislyktes"
   },
   "tryAgain": {
-    "message": "Try Again"
+    "message": "Prøv igjen"
   },
   "warnings": {
-    "message": "Warnings"
+    "message": "Advarsler"
   },
   "noPreview": {
-    "message": "No preview available"
+    "message": "Ingen forhåndsvisning tilgjengelig"
   },
   "promptUsed": {
-    "message": "Prompt used:"
+    "message": "Brukt prompt:"
   },
   "previewModified": {
-    "message": "You've modified the preview. Changes will be saved with the table."
+    "message": "Du har endret forhåndsvisningen. Endringene lagres sammen med tabellen."
   },
   "addRow": {
-    "message": "Add Row"
+    "message": "Legg til rad"
   },
   "addColumn": {
-    "message": "Add Column"
+    "message": "Legg til kolonne"
   },
   "deleteRow": {
-    "message": "Delete row?"
+    "message": "Slette rad?"
   },
   "deleteRowConfirm": {
-    "message": "This action cannot be undone."
+    "message": "Denne handlingen kan ikke angres."
   },
   "deleteColumn": {
-    "message": "Delete column?"
+    "message": "Slette kolonne?"
   },
   "deleteColumnConfirm": {
-    "message": "This action cannot be undone."
+    "message": "Denne handlingen kan ikke angres."
   },
   "discard": {
-    "message": "Discard"
+    "message": "Forkast"
   },
   "changesDiscarded": {
-    "message": "Changes discarded"
+    "message": "Endringer forkastet"
   },
   "save": {
-    "message": "Save"
+    "message": "Lagre"
   },
   "saveSuccess": {
-    "message": "Changes saved successfully!"
+    "message": "Endringene ble lagret!"
   },
   "unsavedChanges": {
-    "message": "You have unsaved changes"
+    "message": "Du har ulagrede endringer"
   },
   "columnAdded": {
-    "message": "Column '{{name}}' added"
+    "message": "Kolonnen '{{name}}' er lagt til"
   },
   "rows": {
-    "message": "rows"
+    "message": "rader"
   },
   "columnsLabel": {
-    "message": "columns"
+    "message": "kolonner"
   },
   "showingRows": {
-    "message": "Showing {{total}} rows"
+    "message": "Viser {{total}} rader"
   },
   "tableSummary": {
-    "message": "Table Summary"
+    "message": "Tabelloppsummering"
   },
   "tableName": {
-    "message": "Table Name"
+    "message": "Tabellnavn"
   },
   "tableNamePlaceholder": {
-    "message": "Enter a name for your table"
+    "message": "Skriv inn et navn på tabellen"
   },
   "tableDescription": {
-    "message": "Description (optional)"
+    "message": "Beskrivelse (valgfritt)"
   },
   "tableDescPlaceholder": {
-    "message": "Add a description to help you remember what this table contains"
+    "message": "Legg til en beskrivelse for å huske hva tabellen inneholder"
   },
   "saveToLibrary": {
-    "message": "Save to Library"
+    "message": "Lagre i biblioteket"
   },
   "tableSaved": {
-    "message": "Table Saved!"
+    "message": "Tabellen er lagret!"
   },
   "tableSavedDesc": {
-    "message": "Your table has been saved to the library. You can view and export it anytime."
+    "message": "Tabellen er lagret i biblioteket. Du kan se og eksportere den når som helst."
   },
   "viewTables": {
-    "message": "View My Tables"
+    "message": "Vis mine tabeller"
   },
   "createAnother": {
-    "message": "Create Another"
+    "message": "Opprett en til"
   },
   "orExport": {
-    "message": "Or export directly:"
+    "message": "Eller eksporter direkte:"
   },
   "export": {
-    "message": "Export"
+    "message": "Eksporter"
   },
   "exportCSV": {
-    "message": "Export as CSV"
+    "message": "Eksporter som CSV"
   },
   "exportExcel": {
-    "message": "Export as Excel"
+    "message": "Eksporter som Excel"
   },
   "exportJSON": {
-    "message": "Export as JSON"
+    "message": "Eksporter som JSON"
   },
   "exportSuccess": {
-    "message": "Table exported as {{format}}"
+    "message": "Tabellen ble eksportert som {{format}}"
   },
   "noTableToSave": {
-    "message": "No table to save"
+    "message": "Ingen tabell å lagre"
   },
   "goBackToGenerate": {
-    "message": "Go back to the previous step to generate a table first."
+    "message": "Gå tilbake til forrige steg for å generere en tabell først."
   },
   "tableDetails": {
-    "message": "Table Details"
+    "message": "Tabelldetaljer"
   },
   "tableNotFound": {
-    "message": "Table not found"
+    "message": "Tabellen ble ikke funnet"
   },
   "noData": {
-    "message": "No data"
+    "message": "Ingen data"
   },
   "data": {
     "message": "Data"
   },
   "editMode": {
-    "message": "Edit Mode"
+    "message": "Redigeringsmodus"
   },
   "editModeActive": {
-    "message": "Click cells to edit"
+    "message": "Klikk på celler for å redigere"
   },
   "regenerate": {
-    "message": "Regenerate"
+    "message": "Regenerer"
   },
   "regenerateSuccess": {
-    "message": "Table regenerated successfully!"
+    "message": "Tabellen ble regenerert!"
   },
   "model": {
-    "message": "Model"
+    "message": "Modell"
   },
   "prompt": {
-    "message": "Generation Prompt"
+    "message": "Genereringsprompt"
   },
   "sources": {
-    "message": "Sources"
+    "message": "Kilder"
   },
   "created": {
-    "message": "Created"
+    "message": "Opprettet"
   },
   "updated": {
-    "message": "Updated"
+    "message": "Oppdatert"
   },
   "noTables": {
-    "message": "No tables yet. Create your first table!"
+    "message": "Ingen tabeller ennå. Opprett din første tabell!"
   },
   "noSearchResults": {
-    "message": "No tables found matching your search"
+    "message": "Fant ingen tabeller som samsvarer med søket ditt"
   },
   "totalTables": {
-    "message": "{{total}} tables"
+    "message": "{{total}} tabeller"
   },
   "view": {
-    "message": "View"
+    "message": "Vis"
   },
   "delete": {
-    "message": "Delete"
+    "message": "Slett"
   },
   "deleteConfirmTitle": {
-    "message": "Delete Table"
+    "message": "Slett tabell"
   },
   "deleteConfirmMessage": {
-    "message": "Are you sure you want to delete this table? This action cannot be undone."
+    "message": "Er du sikker på at du vil slette denne tabellen? Denne handlingen kan ikke angres."
   },
   "noTable": {
-    "message": "No table data"
+    "message": "Ingen tabelldata"
   },
   "add": {
-    "message": "Add"
+    "message": "Legg til"
   },
   "columnName": {
-    "message": "Column Name"
+    "message": "Kolonnenavn"
   },
   "columnNamePlaceholder": {
-    "message": "e.g., Price, Status, Date"
+    "message": "f.eks. Pris, Status, Dato"
   },
   "columnNameRequired": {
-    "message": "Please enter a column name"
+    "message": "Skriv inn et kolonnenavn"
   },
   "columnNameTooLong": {
-    "message": "Column name must be 50 characters or less"
+    "message": "Kolonnenavnet må være 50 tegn eller færre"
   },
   "columnNameExists": {
-    "message": "A column with this name already exists"
+    "message": "En kolonne med dette navnet finnes allerede"
   },
   "columnType": {
-    "message": "Column Type"
+    "message": "Kolonnetype"
   },
   "columnTypeRequired": {
-    "message": "Please select a column type"
+    "message": "Velg en kolonnetype"
   },
   "columnDescription": {
-    "message": "Description (optional)"
+    "message": "Beskrivelse (valgfritt)"
   },
   "columnDescriptionHint": {
-    "message": "A brief description of what this column contains"
+    "message": "En kort beskrivelse av hva denne kolonnen inneholder"
   },
   "columnDescriptionPlaceholder": {
-    "message": "e.g., The price of the item in USD"
+    "message": "f.eks. Prisen på varen i USD"
   },
   "discardUnsavedChanges": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "Du har ulagrede endringer. Er du sikker på at du vil lukke?"
   },
   "createFromChat": {
-    "message": "Create Table from Chat"
+    "message": "Opprett tabell fra chat"
   },
   "saveFromArtifact": {
-    "message": "Save to Data Tables"
+    "message": "Lagre i datatabeller"
   },
   "importedPrompt": {
-    "message": "Imported from table artifact"
+    "message": "Importert fra tabellartefakt"
   },
   "columns_name": {
-    "message": "Name"
+    "message": "Navn"
   },
   "columns_rows": {
-    "message": "Rows"
+    "message": "Rader"
   },
   "columns_columns": {
-    "message": "Columns"
+    "message": "Kolonner"
   },
   "columns_sources": {
-    "message": "Sources"
+    "message": "Kilder"
   },
   "columns_created": {
-    "message": "Created"
+    "message": "Opprettet"
   },
   "columns_actions": {
-    "message": "Actions"
+    "message": "Handlinger"
+  },
+  "dataTablesDescription": {
+    "message": "Generer strukturerte tabeller fra chatter, dokumenter og kunnskapsbasen din ved hjelp av naturlige språkprompter."
+  },
+  "descriptionLabel": {
+    "message": "Description"
+  },
+  "tableDescriptionLabel": {
+    "message": "Beskrivelse"
   }
 }

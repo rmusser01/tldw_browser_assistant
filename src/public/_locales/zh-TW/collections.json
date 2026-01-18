@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "收藏"
+  },
+  "description": {
+    "message": "保存文章、建立重點標示、管理範本，並匯入/匯出閱讀清單。"
+  },
+  "offline": {
+    "message": "伺服器離線。請連線以使用收藏。"
+  },
+  "betaNotice": {
+    "message": "Beta 功能"
+  },
+  "betaDescription": {
+    "message": "收藏目前為 Beta 版本，部分功能可能需要後端支援。"
+  },
+  "tabs_reading": {
+    "message": "閱讀清單"
+  },
+  "tabs_highlights": {
+    "message": "重點標示"
+  },
+  "tabs_templates": {
+    "message": "範本"
+  },
+  "tabs_importExport": {
+    "message": "匯入/匯出"
+  },
+  "status_all": {
+    "message": "全部"
+  },
+  "status_saved": {
+    "message": "已保存"
+  },
+  "status_reading": {
+    "message": "閱讀中"
+  },
+  "status_read": {
+    "message": "已讀"
+  },
+  "status_archived": {
+    "message": "已封存"
+  },
+  "sort_created_at": {
+    "message": "新增日期"
+  },
+  "sort_updated_at": {
+    "message": "最後更新"
+  },
+  "sort_title": {
+    "message": "標題"
+  },
+  "sort_relevance": {
+    "message": "相關性"
+  },
+  "colors_all": {
+    "message": "所有顏色"
+  },
+  "colors_yellow": {
+    "message": "黃色"
+  },
+  "colors_green": {
+    "message": "綠色"
+  },
+  "colors_blue": {
+    "message": "藍色"
+  },
+  "colors_pink": {
+    "message": "粉色"
+  },
+  "colors_purple": {
+    "message": "紫色"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} 分鐘前"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} 小時前"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} 天前"
+  },
+  "reading_addUrl": {
+    "message": "新增 URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "新增到閱讀清單"
+  },
+  "reading_addFirst": {
+    "message": "新增第一篇文章"
+  },
+  "reading_addSuccess": {
+    "message": "文章已新增到閱讀清單"
+  },
+  "reading_searchPlaceholder": {
+    "message": "搜尋文章..."
+  },
+  "reading_filters": {
+    "message": "篩選"
+  },
+  "reading_favorites": {
+    "message": "我的最愛"
+  },
+  "reading_tagsFilter": {
+    "message": "標籤"
+  },
+  "reading_domainFilter": {
+    "message": "網域"
+  },
+  "reading_sortBy": {
+    "message": "排序"
+  },
+  "reading_clearFilters": {
+    "message": "清除篩選"
+  },
+  "reading_noResults": {
+    "message": "沒有符合篩選條件的文章"
+  },
+  "reading_empty": {
+    "message": "閱讀清單為空"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} / {{total}} 筆"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} 分鐘閱讀"
+  },
+  "reading_favorite": {
+    "message": "加入我的最愛"
+  },
+  "reading_unfavorite": {
+    "message": "從我的最愛移除"
+  },
+  "reading_viewDetails": {
+    "message": "查看詳細資料"
+  },
+  "reading_openOriginal": {
+    "message": "開啟原文"
+  },
+  "reading_changeStatus": {
+    "message": "更改狀態"
+  },
+  "reading_archive": {
+    "message": "封存"
+  },
+  "reading_unarchive": {
+    "message": "取消封存"
+  },
+  "reading_statusUpdated": {
+    "message": "狀態已更新為 {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "請輸入 URL"
+  },
+  "reading_urlInvalid": {
+    "message": "請輸入有效的 URL"
+  },
+  "reading_titleLabel": {
+    "message": "標題（選填）"
+  },
+  "reading_titleHint": {
+    "message": "留空以自動從頁面偵測"
+  },
+  "reading_titlePlaceholder": {
+    "message": "文章標題"
+  },
+  "reading_tagsLabel": {
+    "message": "標籤"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "新增標籤..."
+  },
+  "reading_notesLabel": {
+    "message": "備註（選填）"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "新增關於此文章的備註..."
+  },
+  "reading_saveToList": {
+    "message": "儲存到清單"
+  },
+  "reading_addTag": {
+    "message": "新增標籤..."
+  },
+  "reading_tabs_content": {
+    "message": "內容"
+  },
+  "reading_tabs_summary": {
+    "message": "摘要"
+  },
+  "reading_tabs_highlights": {
+    "message": "重點標示"
+  },
+  "reading_tabs_notes": {
+    "message": "備註"
+  },
+  "reading_noContent": {
+    "message": "內容無法使用"
+  },
+  "reading_noSummary": {
+    "message": "尚無摘要"
+  },
+  "reading_noNotes": {
+    "message": "尚無備註"
+  },
+  "reading_editNotes": {
+    "message": "編輯備註"
+  },
+  "reading_addNotes": {
+    "message": "新增備註"
+  },
+  "reading_notesSaved": {
+    "message": "備註已儲存"
+  },
+  "reading_notesPlaceholder": {
+    "message": "新增你的備註..."
+  },
+  "reading_summarize": {
+    "message": "產生摘要"
+  },
+  "reading_generateSummary": {
+    "message": "產生摘要"
+  },
+  "reading_summarized": {
+    "message": "摘要已產生"
+  },
+  "reading_generateTts": {
+    "message": "產生音訊"
+  },
+  "reading_ttsGenerated": {
+    "message": "音訊已產生"
+  },
+  "reading_downloadAudio": {
+    "message": "下載音訊"
+  },
+  "reading_deleted": {
+    "message": "文章已刪除"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "刪除文章"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "確定要刪除此文章嗎？此操作無法復原。"
+  },
+  "highlights_searchPlaceholder": {
+    "message": "搜尋重點標示..."
+  },
+  "highlights_groupByItem": {
+    "message": "依文章分組"
+  },
+  "highlights_add": {
+    "message": "新增重點標示"
+  },
+  "highlights_edit": {
+    "message": "編輯重點標示"
+  },
+  "highlights_quoteLabel": {
+    "message": "引用"
+  },
+  "highlights_quoteRequired": {
+    "message": "請輸入重點標示文字"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "貼上重點標示的文字..."
+  },
+  "highlights_noteLabel": {
+    "message": "備註（選填）"
+  },
+  "highlights_notePlaceholder": {
+    "message": "新增背景或重要原因..."
+  },
+  "highlights_colorLabel": {
+    "message": "重點標示顏色"
+  },
+  "highlights_noResults": {
+    "message": "沒有符合篩選條件的重點標示"
+  },
+  "highlights_empty": {
+    "message": "尚無重點標示"
+  },
+  "highlights_emptyForItem": {
+    "message": "此文章尚無重點標示"
+  },
+  "highlights_emptyHint": {
+    "message": "閱讀時建立的重點標示會顯示在這裡。"
+  },
+  "highlights_from": {
+    "message": "來源"
+  },
+  "highlights_viewArticle": {
+    "message": "查看文章"
+  },
+  "highlights_created": {
+    "message": "重點標示已建立"
+  },
+  "highlights_updated": {
+    "message": "重點標示已更新"
+  },
+  "highlights_missingItem": {
+    "message": "請先選擇文章"
+  },
+  "highlights_deleted": {
+    "message": "重點標示已刪除"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "刪除重點標示"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "確定要刪除此重點標示嗎？"
+  },
+  "templates_create": {
+    "message": "建立範本"
+  },
+  "templates_createFirst": {
+    "message": "建立你的第一個範本"
+  },
+  "templates_searchPlaceholder": {
+    "message": "搜尋範本..."
+  },
+  "templates_noResults": {
+    "message": "沒有符合篩選條件的範本"
+  },
+  "templates_empty": {
+    "message": "尚無範本"
+  },
+  "templates_default": {
+    "message": "預設"
+  },
+  "templates_preview": {
+    "message": "預覽"
+  },
+  "templates_duplicate": {
+    "message": "複製"
+  },
+  "templates_deleted": {
+    "message": "範本已刪除"
+  },
+  "templates_created": {
+    "message": "範本已建立"
+  },
+  "templates_updated": {
+    "message": "範本已更新"
+  },
+  "templates_editTitle": {
+    "message": "編輯範本"
+  },
+  "templates_createTitle": {
+    "message": "建立範本"
+  },
+  "templates_nameLabel": {
+    "message": "範本名稱"
+  },
+  "templates_nameRequired": {
+    "message": "請輸入名稱"
+  },
+  "templates_namePlaceholder": {
+    "message": "我的電子報範本"
+  },
+  "templates_descriptionLabel": {
+    "message": "描述（選填）"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "此範本的簡短描述"
+  },
+  "templates_typeLabel": {
+    "message": "範本類型"
+  },
+  "templates_formatLabel": {
+    "message": "輸出格式"
+  },
+  "templates_bodyLabel": {
+    "message": "範本內容（Jinja2）"
+  },
+  "templates_bodyRequired": {
+    "message": "請輸入範本內容"
+  },
+  "templates_bodyHint": {
+    "message": "使用 Jinja2 語法。可用變數：items（閱讀項目陣列）、date、tags"
+  },
+  "templates_previewTitle": {
+    "message": "範本預覽"
+  },
+  "templates_selectItems": {
+    "message": "請至少選擇一篇文章"
+  },
+  "templates_selectItemsHint": {
+    "message": "選擇要包含在預覽中的文章："
+  },
+  "templates_selectAll": {
+    "message": "全選"
+  },
+  "templates_selectedCount": {
+    "message": "已選擇 {{count}} 項"
+  },
+  "templates_noItems": {
+    "message": "閱讀清單中沒有文章"
+  },
+  "templates_generatePreview": {
+    "message": "產生預覽"
+  },
+  "templates_generateOutput": {
+    "message": "產生輸出"
+  },
+  "templates_audioUnavailable": {
+    "message": "音訊輸出不可用"
+  },
+  "templates_noGeneratedContent": {
+    "message": "尚未產生輸出"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "刪除範本"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "確定要刪除此範本嗎？"
+  },
+  "templateTypes_all": {
+    "message": "所有類型"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "電子報 (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "簡報 (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "電子報 (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS 音訊"
+  },
+  "import_title": {
+    "message": "匯入"
+  },
+  "import_sourceRequired": {
+    "message": "請先選擇來源"
+  },
+  "import_selectSource": {
+    "message": "選擇匯入來源："
+  },
+  "import_sources_auto_label": {
+    "message": "自動偵測"
+  },
+  "import_sources_auto_description": {
+    "message": "上傳 Pocket 或 Instapaper 匯出檔並自動偵測格式"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "從 Pocket 匯出匯入已儲存的文章"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "從 Instapaper 匯出匯入文章"
+  },
+  "import_methodFile": {
+    "message": "檔案上傳"
+  },
+  "import_methodApiKey": {
+    "message": "API 金鑰"
+  },
+  "import_apiKeyLabel": {
+    "message": "API 金鑰"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "貼上 API 金鑰"
+  },
+  "import_apiKeyRequired": {
+    "message": "請輸入 API 金鑰"
+  },
+  "import_previewWithKey": {
+    "message": "預覽匯入"
+  },
+  "import_processing": {
+    "message": "正在處理檔案..."
+  },
+  "import_dropzone": {
+    "message": "點擊或拖曳檔案上傳"
+  },
+  "import_formats": {
+    "message": "支援 Pocket JSON 與 Instapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "找到 {{count}} 項"
+  },
+  "import_selectAll": {
+    "message": "全選"
+  },
+  "import_selectItems": {
+    "message": "選擇要匯入的項目"
+  },
+  "import_importSelected": {
+    "message": "匯入 {{count}} 項"
+  },
+  "import_success": {
+    "message": "已匯入 {{count}} 項"
+  },
+  "import_complete": {
+    "message": "匯入完成"
+  },
+  "import_resultSummary": {
+    "message": "匯入：{{imported}}，更新：{{updated}}，略過：{{skipped}}"
+  },
+  "import_importMore": {
+    "message": "繼續匯入"
+  },
+  "import_steps_source": {
+    "message": "來源"
+  },
+  "import_steps_upload": {
+    "message": "上傳"
+  },
+  "import_steps_preview": {
+    "message": "預覽"
+  },
+  "import_steps_result": {
+    "message": "結果"
+  },
+  "export_title": {
+    "message": "匯出"
+  },
+  "export_format": {
+    "message": "格式"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "選項"
+  },
+  "export_includeContent": {
+    "message": "包含完整內容"
+  },
+  "export_includeHighlights": {
+    "message": "包含重點標示"
+  },
+  "export_items": {
+    "message": "要匯出的項目"
+  },
+  "export_searchPlaceholder": {
+    "message": "搜尋項目..."
+  },
+  "export_allItems": {
+    "message": "所有項目（留空）"
+  },
+  "export_itemsHint": {
+    "message": "留空以匯出所有項目，或選擇特定項目"
+  },
+  "export_selectionHint": {
+    "message": "選擇要匯出的項目，或留空以匯出全部。"
+  },
+  "export_selectAll": {
+    "message": "全選"
+  },
+  "export_selectedCount": {
+    "message": "已選擇 {{count}} 項"
+  },
+  "export_clearSelection": {
+    "message": "清除"
+  },
+  "export_noItems": {
+    "message": "未找到項目"
+  },
+  "export_selectItems": {
+    "message": "請先選擇要複製的項目"
+  },
+  "export_copy": {
+    "message": "複製 JSONL"
+  },
+  "export_copied": {
+    "message": "已複製到剪貼簿"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIP 匯出尚不支援項目選擇。"
+  },
+  "export_download": {
+    "message": "下載匯出"
+  },
+  "export_allItemsHint": {
+    "message": "匯出包含你帳戶下所有閱讀清單項目。"
+  },
+  "export_success": {
+    "message": "匯出已準備好下載"
+  }
+}

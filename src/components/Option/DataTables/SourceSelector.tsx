@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react"
+import React, { useState, useCallback, useMemo, useEffect, useRef } from "react"
 import {
   Button,
   Card,
@@ -10,8 +10,9 @@ import {
   Tag,
   message
 } from "antd"
-import { MessageSquare, FileText, Search, X, Plus } from "lucide-react"
+import { MessageSquare, FileText, Search, Plus } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { useQuery } from "@tanstack/react-query"
 import { useDataTablesStore } from "@/store/data-tables"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 import type { DataTableSource, DataTableSourceType } from "@/types/data-tables"
@@ -25,13 +26,21 @@ const DOCUMENT_MEDIA_TYPES = new Set([
   "html"
 ])
 
-const extractMediaItems = (response: any): any[] => {
+const extractMediaItems = (response: unknown): unknown[] => {
   if (!response) return []
   if (Array.isArray(response)) return response
-  if (Array.isArray(response.items)) return response.items
-  if (Array.isArray(response.results)) return response.results
-  if (Array.isArray(response.data)) return response.data
-  if (Array.isArray(response.media)) return response.media
+  if (Array.isArray((response as { items?: unknown[] }).items)) {
+    return (response as { items: unknown[] }).items
+  }
+  if (Array.isArray((response as { results?: unknown[] }).results)) {
+    return (response as { results: unknown[] }).results
+  }
+  if (Array.isArray((response as { data?: unknown[] }).data)) {
+    return (response as { data: unknown[] }).data
+  }
+  if (Array.isArray((response as { media?: unknown[] }).media)) {
+    return (response as { media: unknown[] }).media
+  }
   return []
 }
 
@@ -55,65 +64,63 @@ export const SourceSelector: React.FC = () => {
   const setActiveSourceType = useDataTablesStore((s) => s.setActiveSourceType)
   const setSourceSearchQuery = useDataTablesStore((s) => s.setSourceSearchQuery)
 
-  // Local state for fetched items
-  const [availableItems, setAvailableItems] = useState<DataTableSource[]>([])
-  const [loading, setLoading] = useState(false)
   const [ragQuery, setRagQuery] = useState("")
 
   // Source type options
-  const sourceTypeOptions = [
-    {
-      value: "chat" as DataTableSourceType,
-      label: (
-        <span className="flex items-center gap-2">
-          <MessageSquare className="h-4 w-4" />
-          {t("dataTables:sourceTypes.chat", "Chats")}
-        </span>
-      )
-    },
-    {
-      value: "document" as DataTableSourceType,
-      label: (
-        <span className="flex items-center gap-2">
-          <FileText className="h-4 w-4" />
-          {t("dataTables:sourceTypes.document", "Documents")}
-        </span>
-      )
-    },
-    {
-      value: "rag_query" as DataTableSourceType,
-      label: (
-        <span className="flex items-center gap-2">
-          <Search className="h-4 w-4" />
-          {t("dataTables:sourceTypes.rag", "RAG Search")}
-        </span>
-      )
-    }
-  ]
+  const sourceTypeOptions = useMemo(
+    () => [
+      {
+        value: "chat" as DataTableSourceType,
+        label: (
+          <span className="flex items-center gap-2">
+            <MessageSquare className="h-4 w-4" />
+            {t("dataTables:sourceTypes.chat", "Chats")}
+          </span>
+        )
+      },
+      {
+        value: "document" as DataTableSourceType,
+        label: (
+          <span className="flex items-center gap-2">
+            <FileText className="h-4 w-4" />
+            {t("dataTables:sourceTypes.document", "Documents")}
+          </span>
+        )
+      },
+      {
+        value: "rag_query" as DataTableSourceType,
+        label: (
+          <span className="flex items-center gap-2">
+            <Search className="h-4 w-4" />
+            {t("dataTables:sourceTypes.rag", "RAG Search")}
+          </span>
+        )
+      }
+    ],
+    [t]
+  )
 
-  // Fetch available items based on source type
-  const fetchItems = useCallback(async () => {
-    if (activeSourceType === "rag_query") {
-      // RAG doesn't have a list, user enters query
-      setAvailableItems([])
-      return
-    }
-
-    setLoading(true)
-    try {
+  const sourcesQuery = useQuery<DataTableSource[]>({
+    queryKey: ["dataTables", "sources", activeSourceType, sourceSearchQuery],
+    enabled: activeSourceType !== "rag_query",
+    staleTime: 30 * 1000,
+    queryFn: async ({ signal }) => {
       if (activeSourceType === "chat") {
-        const chats = await tldwClient.listChats({
-          limit: 50,
-          search: sourceSearchQuery || undefined
-        })
-        const sources: DataTableSource[] = chats.map((chat) => ({
+        const chats = await tldwClient.listChats(
+          {
+            limit: 50,
+            search: sourceSearchQuery || undefined
+          },
+          { signal }
+        )
+        return chats.map((chat) => ({
           type: "chat" as const,
           id: chat.id,
           title: chat.title || `Chat ${chat.id}`,
           snippet: chat.topic_label || undefined
         }))
-        setAvailableItems(sources)
-      } else if (activeSourceType === "document") {
+      }
+      if (activeSourceType === "document") {
         const mediaTypes = Array.from(DOCUMENT_MEDIA_TYPES)
         const response = sourceSearchQuery
           ? await tldwClient.searchMedia(
@@ -122,61 +129,96 @@ export const SourceSelector: React.FC = () => {
                 fields: ["title", "content"],
                 media_types: mediaTypes
               },
-              { page: 1, results_per_page: 50 }
+              { page: 1, results_per_page: 50 },
+              { signal }
             )
-          : await tldwClient.listMedia({ page: 1, results_per_page: 50 })
+          : await tldwClient.listMedia(
+              { page: 1, results_per_page: 50 },
+              { signal }
+            )
 
         const items = extractMediaItems(response)
-        const sources: DataTableSource[] = items
-          .map((item: any) => {
-            const rawType = String(item?.type || item?.media_type || "").toLowerCase()
+        return items
+          .map((item) => {
+            if (!item || typeof item !== "object") return null
+            const record = item as Record<string, unknown>
+            const rawType = String(record.type ?? record.media_type ?? "").toLowerCase()
             if (rawType && !DOCUMENT_MEDIA_TYPES.has(rawType)) {
               return null
             }
-            const title = item?.title || item?.name || `Document ${item?.id ?? ""}`
+            const title =
+              (typeof record.title === "string" && record.title) ||
+              (typeof record.name === "string" && record.name) ||
+              `Document ${record.id ?? ""}`
             const snippet =
-              item?.content_preview ||
-              item?.description ||
-              item?.summary ||
+              (typeof record.content_preview === "string" && record.content_preview) ||
+              (typeof record.description === "string" && record.description) ||
+              (typeof record.summary === "string" && record.summary) ||
               (rawType ? rawType.toUpperCase() : undefined)
             return {
               type: "document" as const,
-              id: String(item?.id ?? ""),
+              id: String(record.id ?? ""),
               title,
               snippet
             }
           })
           .filter(Boolean) as DataTableSource[]
-
-        setAvailableItems(sources)
       }
-    } catch (error) {
-      console.error("Failed to fetch items:", error)
-      message.error(t("dataTables:fetchError", "Failed to load items"))
-    } finally {
-      setLoading(false)
+      return []
     }
-  }, [activeSourceType, sourceSearchQuery, t])
+  })
 
-  // Fetch on mount and when source type changes
+  const lastErrorAtRef = useRef(0)
+
   useEffect(() => {
-    fetchItems()
-  }, [fetchItems])
+    if (!sourcesQuery.isError || !sourcesQuery.error) return
+    if (sourcesQuery.errorUpdatedAt === lastErrorAtRef.current) return
+    lastErrorAtRef.current = sourcesQuery.errorUpdatedAt
+
+    const error = sourcesQuery.error
+    const isAbortError =
+      error instanceof Error &&
+      (error.name === "AbortError" ||
+        error.message.toLowerCase().includes("abort"))
+    if (isAbortError) {
+      return
+    }
+    console.error("[SourceSelector] Failed to fetch items", {
+      error,
+      activeSourceType,
+      sourceSearchQuery
+    })
+    message.error(t("dataTables:fetchError", "Failed to load items"))
+  }, [
+    activeSourceType,
+    sourceSearchQuery,
+    sourcesQuery.error,
+    sourcesQuery.errorUpdatedAt,
+    sourcesQuery.isError,
+    t
+  ])
+
+  const availableItems =
+    activeSourceType === "rag_query" ? [] : sourcesQuery.data ?? []
+  const loading =
+    activeSourceType !== "rag_query" &&
+    (sourcesQuery.isLoading || sourcesQuery.isFetching)
 
   // Handle RAG query submission
-  const handleRagSearch = () => {
-    if (!ragQuery.trim()) return
+  const handleRagSearch = useCallback(() => {
+    const trimmedQuery = ragQuery.trim()
+    if (!trimmedQuery) return
 
     const source: DataTableSource = {
       type: "rag_query",
-      id: ragQuery.trim(),
-      title: `RAG: "${ragQuery.trim()}"`,
+      id: trimmedQuery,
+      title: `RAG: "${trimmedQuery}"`,
       snippet: t("dataTables:ragQuerySnippet", "Knowledge base search query")
     }
     addSource(source)
     setRagQuery("")
     message.success(t("dataTables:ragAdded", "RAG query added as source"))
-  }
+  }, [addSource, ragQuery, setRagQuery, t])
 
   // Check if source is selected
   const isSelected = (id: string) => selectedSources.some((s) => s.id === id)

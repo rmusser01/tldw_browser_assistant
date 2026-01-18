@@ -56,7 +56,7 @@ export const HighlightCard: React.FC<HighlightCardProps> = ({
           )}
         </div>
 
-        <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+        <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
           {onViewArticle && (
             <Tooltip title={t("collections:highlights.viewArticle", "View Article")}>
               <Button
@@ -64,6 +64,7 @@ export const HighlightCard: React.FC<HighlightCardProps> = ({
                 size="small"
                 icon={<ExternalLink className="h-4 w-4" />}
                 onClick={onViewArticle}
+                aria-label={t("collections:highlights.viewArticle", "View Article")}
               />
             </Tooltip>
           )}
@@ -74,6 +75,7 @@ export const HighlightCard: React.FC<HighlightCardProps> = ({
                 size="small"
                 icon={<Edit className="h-4 w-4" />}
                 onClick={() => onEdit(highlight)}
+                aria-label={t("collections:highlights.edit", "Edit")}
               />
             </Tooltip>
           )}
@@ -84,6 +86,7 @@ export const HighlightCard: React.FC<HighlightCardProps> = ({
               danger
               icon={<Trash2 className="h-4 w-4" />}
               onClick={() => onDelete(highlight.id)}
+              aria-label={t("common:delete", "Delete")}
             />
           </Tooltip>
         </div>

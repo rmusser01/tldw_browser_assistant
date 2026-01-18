@@ -1,0 +1,262 @@
+{
+  "title": "컬렉션",
+  "description": "기사 저장, 하이라이트 생성, 템플릿 관리, 읽기 목록 가져오기/내보내기.",
+  "offline": "서버가 오프라인입니다. 컬렉션을 사용하려면 연결하세요.",
+  "betaNotice": "베타 기능",
+  "betaDescription": "컬렉션은 현재 베타입니다. 일부 기능은 백엔드 지원이 필요할 수 있습니다.",
+
+  "tabs": {
+    "reading": "읽기 목록",
+    "highlights": "하이라이트",
+    "templates": "템플릿",
+    "importExport": "가져오기/내보내기"
+  },
+
+  "status": {
+    "all": "전체",
+    "saved": "저장됨",
+    "reading": "읽는 중",
+    "read": "읽음",
+    "archived": "보관됨"
+  },
+
+  "sort": {
+    "created_at": "추가 날짜",
+    "updated_at": "마지막 업데이트",
+    "title": "제목",
+    "relevance": "관련성"
+  },
+
+  "colors": {
+    "all": "모든 색상",
+    "yellow": "노랑",
+    "green": "초록",
+    "blue": "파랑",
+    "pink": "핑크",
+    "purple": "보라"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}}분 전",
+    "hoursAgo": "{{count}}시간 전",
+    "daysAgo": "{{count}}일 전"
+  },
+
+  "reading": {
+    "addUrl": "URL 추가",
+    "addUrlTitle": "읽기 목록에 추가",
+    "addFirst": "첫 번째 기사를 추가하세요",
+    "addSuccess": "읽기 목록에 기사가 추가되었습니다",
+    "searchPlaceholder": "기사 검색...",
+    "filters": "필터",
+    "favorites": "즐겨찾기",
+    "tagsFilter": "태그",
+    "domainFilter": "도메인",
+    "sortBy": "정렬",
+    "clearFilters": "필터 지우기",
+    "noResults": "필터와 일치하는 기사가 없습니다",
+    "empty": "읽기 목록이 비어 있습니다",
+    "pagination": "{{start}}-{{end}} / {{total}}개",
+
+    "readingTime": "{{count}}분 읽기",
+    "favorite": "즐겨찾기에 추가",
+    "unfavorite": "즐겨찾기에서 제거",
+    "viewDetails": "세부 정보 보기",
+    "openOriginal": "원문 열기",
+    "changeStatus": "상태 변경",
+    "archive": "보관",
+    "unarchive": "보관 해제",
+    "statusUpdated": "상태가 {{status}}(으)로 업데이트됨",
+
+    "urlLabel": "URL",
+    "urlRequired": "URL을 입력하세요",
+    "urlInvalid": "유효한 URL을 입력하세요",
+    "titleLabel": "제목(선택)",
+    "titleHint": "페이지에서 자동 감지하려면 비워 두세요",
+    "titlePlaceholder": "기사 제목",
+    "tagsLabel": "태그",
+    "tagsPlaceholder": "태그 추가...",
+    "notesLabel": "메모(선택)",
+    "notesPlaceholderArticle": "이 기사에 대한 메모를 추가하세요...",
+    "saveToList": "목록에 저장",
+    "addTag": "태그 추가...",
+
+    "tabs": {
+      "content": "내용",
+      "summary": "요약",
+      "highlights": "하이라이트",
+      "notes": "메모"
+    },
+
+    "noContent": "내용을 사용할 수 없습니다",
+    "noSummary": "아직 요약이 없습니다",
+    "noNotes": "아직 메모가 없습니다",
+    "editNotes": "메모 편집",
+    "addNotes": "메모 추가",
+    "notesSaved": "메모 저장됨",
+    "notesPlaceholder": "메모를 추가하세요...",
+
+    "summarize": "요약",
+    "generateSummary": "요약 생성",
+    "summarized": "요약 생성됨",
+    "generateTts": "오디오 생성",
+    "ttsGenerated": "오디오 생성됨",
+    "downloadAudio": "오디오 다운로드",
+
+    "deleted": "기사 삭제됨",
+    "deleteConfirm": {
+      "title": "기사 삭제",
+      "message": "이 기사를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "하이라이트 검색...",
+    "groupByItem": "기사별로 그룹화",
+    "add": "하이라이트 추가",
+    "edit": "하이라이트 편집",
+    "quoteLabel": "인용",
+    "quoteRequired": "하이라이트 텍스트를 입력하세요",
+    "quotePlaceholder": "하이라이트한 텍스트를 붙여넣기...",
+    "noteLabel": "메모(선택)",
+    "notePlaceholder": "맥락이나 중요성을 추가하세요...",
+    "colorLabel": "하이라이트 색상",
+    "noResults": "필터와 일치하는 하이라이트가 없습니다",
+    "empty": "아직 하이라이트가 없습니다",
+    "emptyForItem": "이 기사에 하이라이트가 없습니다",
+    "emptyHint": "읽는 동안 만든 하이라이트가 여기에 표시됩니다.",
+    "from": "출처",
+    "viewArticle": "기사 보기",
+    "created": "하이라이트 생성됨",
+    "updated": "하이라이트 업데이트됨",
+    "missingItem": "먼저 기사를 선택하세요",
+    "deleted": "하이라이트 삭제됨",
+    "deleteConfirm": {
+      "title": "하이라이트 삭제",
+      "message": "이 하이라이트를 삭제하시겠습니까?"
+    }
+  },
+
+  "templates": {
+    "create": "템플릿 만들기",
+    "createFirst": "첫 번째 템플릿을 만드세요",
+    "searchPlaceholder": "템플릿 검색...",
+    "noResults": "필터와 일치하는 템플릿이 없습니다",
+    "empty": "아직 템플릿이 없습니다",
+    "default": "기본",
+    "preview": "미리보기",
+    "duplicate": "복제",
+    "deleted": "템플릿 삭제됨",
+    "created": "템플릿 생성됨",
+    "updated": "템플릿 업데이트됨",
+
+    "editTitle": "템플릿 편집",
+    "createTitle": "템플릿 만들기",
+    "nameLabel": "템플릿 이름",
+    "nameRequired": "이름을 입력하세요",
+    "namePlaceholder": "내 뉴스레터 템플릿",
+    "descriptionLabel": "설명(선택)",
+    "descriptionPlaceholder": "이 템플릿에 대한 간단한 설명",
+    "typeLabel": "템플릿 유형",
+    "formatLabel": "출력 형식",
+    "bodyLabel": "템플릿 본문(Jinja2)",
+    "bodyRequired": "템플릿 내용을 입력하세요",
+    "bodyHint": "Jinja2 구문을 사용하세요. 사용 가능한 변수: items(읽기 항목 배열), date, tags",
+
+    "previewTitle": "템플릿 미리보기",
+    "selectItems": "최소 한 개의 기사를 선택하세요",
+    "selectItemsHint": "미리보기에 포함할 기사를 선택하세요:",
+    "selectAll": "전체 선택",
+    "selectedCount": "{{count}}개 선택됨",
+    "noItems": "읽기 목록에 기사가 없습니다",
+    "generatePreview": "미리보기 생성",
+    "generateOutput": "출력 생성",
+    "audioUnavailable": "오디오 출력 사용 불가",
+    "noGeneratedContent": "아직 생성된 출력이 없습니다",
+
+    "deleteConfirm": {
+      "title": "템플릿 삭제",
+      "message": "이 템플릿을 삭제하시겠습니까?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "모든 유형",
+    "newsletter_markdown": "뉴스레터(MD)",
+    "briefing_markdown": "브리핑(MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "뉴스레터(HTML)",
+    "tts_audio": "TTS 오디오"
+  },
+
+  "import": {
+    "title": "가져오기",
+    "sourceRequired": "먼저 소스를 선택하세요",
+    "selectSource": "가져오기 소스를 선택하세요:",
+    "sources": {
+      "auto": {
+        "label": "자동 감지",
+        "description": "Pocket 또는 Instapaper 내보내기 파일을 업로드하면 형식을 자동으로 감지합니다"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Pocket 내보내기에서 저장된 기사를 가져옵니다"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Instapaper 내보내기에서 기사를 가져옵니다"
+      }
+    },
+    "methodFile": "파일 업로드",
+    "methodApiKey": "API 키",
+    "apiKeyLabel": "API 키",
+    "apiKeyPlaceholder": "API 키를 붙여넣기",
+    "apiKeyRequired": "API 키를 입력하세요",
+    "previewWithKey": "가져오기 미리보기",
+    "processing": "파일 처리 중...",
+    "dropzone": "클릭하거나 파일을 끌어다 놓아 업로드",
+    "formats": "Pocket JSON 및 Instapaper CSV 지원",
+    "previewHint": "{{count}}개 항목 발견",
+    "selectAll": "전체 선택",
+    "selectItems": "가져올 항목을 선택하세요",
+    "importSelected": "{{count}}개 항목 가져오기",
+    "success": "{{count}}개 항목 가져옴",
+    "complete": "가져오기 완료",
+    "resultSummary": "가져옴: {{imported}}, 업데이트됨: {{updated}}, 건너뜀: {{skipped}}",
+    "importMore": "더 가져오기",
+    "steps": {
+      "source": "소스",
+      "upload": "업로드",
+      "preview": "미리보기",
+      "result": "결과"
+    }
+  },
+
+  "export": {
+    "title": "내보내기",
+    "format": "형식",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "옵션",
+    "includeContent": "전체 콘텐츠 포함",
+    "includeHighlights": "하이라이트 포함",
+    "items": "내보낼 항목",
+    "searchPlaceholder": "항목 검색...",
+    "allItems": "모든 항목(비워두기)",
+    "itemsHint": "비워두면 모든 항목을 내보내고, 또는 특정 항목을 선택하세요",
+    "selectionHint": "내보낼 항목을 선택하거나 비워두면 전체 내보내기.",
+    "selectAll": "전체 선택",
+    "selectedCount": "{{count}}개 선택됨",
+    "clearSelection": "지우기",
+    "noItems": "항목을 찾을 수 없습니다",
+    "selectItems": "먼저 복사할 항목을 선택하세요",
+    "copy": "JSONL 복사",
+    "copied": "클립보드에 복사됨",
+    "zipSelectionUnsupported": "ZIP 내보내기는 아직 항목 선택을 지원하지 않습니다.",
+    "download": "내보내기 다운로드",
+    "allItemsHint": "내보내기에는 계정의 모든 읽기 목록 항목이 포함됩니다.",
+    "success": "내보내기 다운로드 준비 완료"
+  }
+}

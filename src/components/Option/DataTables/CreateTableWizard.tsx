@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback, useMemo } from "react"
 import { Steps, Card, Button, Alert } from "antd"
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react"
 import { useTranslation } from "react-i18next"
@@ -32,28 +32,31 @@ export const CreateTableWizard: React.FC = () => {
   const resetWizard = useDataTablesStore((s) => s.resetWizard)
 
   // Step configuration
-  const steps = [
-    {
-      key: "sources",
-      title: t("dataTables:wizard.sources", "Select Sources"),
-      description: t("dataTables:wizard.sourcesDesc", "Choose data sources")
-    },
-    {
-      key: "prompt",
-      title: t("dataTables:wizard.prompt", "Describe Table"),
-      description: t("dataTables:wizard.promptDesc", "Write your prompt")
-    },
-    {
-      key: "preview",
-      title: t("dataTables:wizard.preview", "Preview"),
-      description: t("dataTables:wizard.previewDesc", "Review generated table")
-    },
-    {
-      key: "save",
-      title: t("dataTables:wizard.save", "Save"),
-      description: t("dataTables:wizard.saveDesc", "Save to library")
-    }
-  ]
+  const steps = useMemo(
+    () => [
+      {
+        key: "sources",
+        title: t("dataTables:wizard.sources", "Select Sources"),
+        description: t("dataTables:wizard.sourcesDesc", "Choose data sources")
+      },
+      {
+        key: "prompt",
+        title: t("dataTables:wizard.prompt", "Describe Table"),
+        description: t("dataTables:wizard.promptDesc", "Write your prompt")
+      },
+      {
+        key: "preview",
+        title: t("dataTables:wizard.preview", "Preview"),
+        description: t("dataTables:wizard.previewDesc", "Review generated table")
+      },
+      {
+        key: "save",
+        title: t("dataTables:wizard.save", "Save"),
+        description: t("dataTables:wizard.saveDesc", "Save to library")
+      }
+    ],
+    [t]
+  )
 
   const currentStepIndex = steps.findIndex((s) => s.key === wizardStep)
 
@@ -77,19 +80,19 @@ export const CreateTableWizard: React.FC = () => {
     return currentStepIndex > 0
   }
 
-  const goNext = () => {
+  const goNext = useCallback(() => {
     const nextIndex = currentStepIndex + 1
     if (nextIndex < steps.length) {
       setWizardStep(steps[nextIndex].key as typeof wizardStep)
     }
-  }
+  }, [currentStepIndex, setWizardStep, steps, wizardStep])
 
-  const goBack = () => {
+  const goBack = useCallback(() => {
     const prevIndex = currentStepIndex - 1
     if (prevIndex >= 0) {
       setWizardStep(steps[prevIndex].key as typeof wizardStep)
     }
-  }
+  }, [currentStepIndex, setWizardStep, steps, wizardStep])
 
   // Render step content
   const renderStepContent = () => {

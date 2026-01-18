@@ -36,7 +36,7 @@ const resolveStart = (chunk: Chunk): number | null => {
     chunk.metadata.start_index ??
     chunk.metadata.start ??
     chunk.metadata.offset_start
-  return typeof start === "number" ? start : null
+  return typeof start === "number" && Number.isFinite(start) ? start : null
 }
 
 const resolveEnd = (chunk: Chunk): number | null => {
@@ -45,7 +45,7 @@ const resolveEnd = (chunk: Chunk): number | null => {
     chunk.metadata.end_index ??
     chunk.metadata.end ??
     chunk.metadata.offset_end
-  return typeof end === "number" ? end : null
+  return typeof end === "number" && Number.isFinite(end) ? end : null
 }
 
 export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
@@ -58,14 +58,22 @@ export const ChunkInlineView: React.FC<ChunkInlineViewProps> = ({
   const { mode } = useDarkMode()
   const isDark = mode === "dark"
 
-  const hasOffsets = useMemo(
-    () =>
-      chunks.length > 0 &&
-      chunks.every(
-        (chunk) => resolveStart(chunk) != null && resolveEnd(chunk) != null
-      ),
-    [chunks]
-  )
+  const hasOffsets = useMemo(() => {
+    if (!originalText || chunks.length === 0) return false
+    const max = originalText.length
+    return chunks.every((chunk) => {
+      const start = resolveStart(chunk)
+      const end = resolveEnd(chunk)
+      return (
+        start != null &&
+        end != null &&
+        start >= 0 &&
+        end >= 0 &&
+        start <= end &&
+        end <= max
+      )
+    })
+  }, [chunks, originalText])
 
   // Build segments from chunks with proper overlap handling
   const segments = useMemo(() => {

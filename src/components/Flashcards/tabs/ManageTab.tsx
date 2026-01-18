@@ -208,10 +208,10 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     setSelectedIds(new Set([...(selectedIds || new Set()), ...ids]))
   }
 
-  const clearSelection = () => {
+  const clearSelection = React.useCallback(() => {
     setSelectedIds(new Set())
     setSelectAllAcross(false)
-  }
+  }, [])
 
   const selectAllAcrossResults = () => {
     setSelectAllAcross(true)
@@ -304,78 +304,81 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     setMoveOpen(true)
   }
 
-  const executeBulkDelete = async (
-    items: Flashcard[],
-    options?: { showProgress?: boolean; showSuccessMessage?: boolean; clearSelection?: boolean }
-  ) => {
-    const showProgress = options?.showProgress ?? true
-    const showSuccessMessage = options?.showSuccessMessage ?? true
-    const shouldClearSelection = options?.clearSelection ?? true
-    const { deleteFlashcard } = await import("@/services/flashcards")
-    const total = items.length
-    if (showProgress) {
-      setBulkProgress({
-        open: true,
-        current: 0,
-        total,
-        action: t("option:flashcards.bulkProgressDeleting", {
-          defaultValue: "Deleting cards"
+  const executeBulkDelete = React.useCallback(
+    async (
+      items: Flashcard[],
+      options?: { showProgress?: boolean; showSuccessMessage?: boolean; clearSelection?: boolean }
+    ) => {
+      const showProgress = options?.showProgress ?? true
+      const showSuccessMessage = options?.showSuccessMessage ?? true
+      const shouldClearSelection = options?.clearSelection ?? true
+      const { deleteFlashcard } = await import("@/services/flashcards")
+      const total = items.length
+      if (showProgress) {
+        setBulkProgress({
+          open: true,
+          current: 0,
+          total,
+          action: t("option:flashcards.bulkProgressDeleting", {
+            defaultValue: "Deleting cards"
+          })
         })
-      })
-    }
-    try {
-      let processed = 0
-      const failedIds = new Set<string>()
-      await processInChunks(items, BULK_MUTATION_CHUNK_SIZE, async (chunk) => {
-        const results = await Promise.allSettled(
-          chunk.map((c) => deleteFlashcard(c.uuid, c.version))
-        )
-        let chunkFailures = 0
-        results.forEach((result, index) => {
-          if (result.status === "rejected") {
-            failedIds.add(chunk[index].uuid)
-            chunkFailures += 1
+      }
+      try {
+        let processed = 0
+        const failedIds = new Set<string>()
+        await processInChunks(items, BULK_MUTATION_CHUNK_SIZE, async (chunk) => {
+          const results = await Promise.allSettled(
+            chunk.map((c) => deleteFlashcard(c.uuid, c.version))
+          )
+          let chunkFailures = 0
+          results.forEach((result, index) => {
+            if (result.status === "rejected") {
+              failedIds.add(chunk[index].uuid)
+              chunkFailures += 1
+            }
+          })
+          if (chunkFailures > 0) {
+            console.warn(`${chunkFailures} deletions failed in chunk`)
+          }
+          processed += chunk.length
+          if (showProgress) {
+            setBulkProgress((prev) =>
+              prev ? { ...prev, current: Math.min(processed, total) } : null
+            )
           }
         })
-        if (chunkFailures > 0) {
-          console.warn(`${chunkFailures} deletions failed in chunk`)
+        const failedCount = failedIds.size
+        const successCount = Math.max(0, total - failedCount)
+        if (failedCount > 0) {
+          if (showSuccessMessage) {
+            message.warning(
+              t("option:flashcards.bulkDeleteResult", {
+                defaultValue: "{{success}} deleted · {{failed}} failed",
+                success: successCount,
+                failed: failedCount
+              })
+            )
+          }
+          if (shouldClearSelection) clearSelection()
+        } else {
+          if (showSuccessMessage) {
+            message.success(t("common:deleted", { defaultValue: "Deleted" }))
+          }
+          if (shouldClearSelection) clearSelection()
         }
-        processed += chunk.length
+        await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
+      } catch (e: unknown) {
+        const errorMessage = e instanceof Error ? e.message : "Bulk delete failed"
+        message.error(errorMessage)
+      } finally {
         if (showProgress) {
-          setBulkProgress((prev) =>
-            prev ? { ...prev, current: Math.min(processed, total) } : null
-          )
+          setBulkProgress(null)
         }
-      })
-      const failedCount = failedIds.size
-      const successCount = Math.max(0, total - failedCount)
-      if (failedCount > 0) {
-        if (showSuccessMessage) {
-          message.warning(
-            t("option:flashcards.bulkDeleteResult", {
-              defaultValue: "{{success}} deleted · {{failed}} failed",
-              success: successCount,
-              failed: failedCount
-            })
-          )
-        }
-        if (shouldClearSelection) clearSelection()
-      } else {
-        if (showSuccessMessage) {
-          message.success(t("common:deleted", { defaultValue: "Deleted" }))
-        }
-        if (shouldClearSelection) clearSelection()
       }
-      await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-    } catch (e: unknown) {
-      const errorMessage = e instanceof Error ? e.message : "Bulk delete failed"
-      message.error(errorMessage)
-    } finally {
-      if (showProgress) {
-        setBulkProgress(null)
-      }
-    }
-  }
+    },
+    [clearSelection, message, qc, t]
+  )
 
   const removePendingDeletions = React.useCallback(
     (uuids: string[]) => {
@@ -588,8 +591,9 @@ export const ManageTab: React.FC<ManageTabProps> = ({
       a.click()
       a.remove()
       URL.revokeObjectURL(url)
-    } catch (e: any) {
-      message.error(e?.message || "Export failed")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Export failed"
+      message.error(errorMessage)
     }
   }
 
@@ -617,8 +621,9 @@ export const ManageTab: React.FC<ManageTabProps> = ({
       })
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:created", { defaultValue: "Created" }))
-    } catch (e: any) {
-      message.error(e?.message || "Duplicate failed")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Duplicate failed"
+      message.error(errorMessage)
     }
   }
 
@@ -627,8 +632,9 @@ export const ManageTab: React.FC<ManageTabProps> = ({
       setMoveCard(card)
       setMoveDeckId(card.deck_id ?? null)
       setMoveOpen(true)
-    } catch (e: any) {
-      message.error(e?.message || "Failed to load card")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Failed to load card"
+      message.error(errorMessage)
     }
   }
 
@@ -679,8 +685,9 @@ export const ManageTab: React.FC<ManageTabProps> = ({
       setMoveDeckId(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
       message.success(t("common:updated", { defaultValue: "Updated" }))
-    } catch (e: any) {
-      message.error(e?.message || "Move failed")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Move failed"
+      message.error(errorMessage)
     }
   }
 
@@ -724,9 +731,13 @@ export const ManageTab: React.FC<ManageTabProps> = ({
       setEditOpen(false)
       setEditing(null)
       await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
-    } catch (e: any) {
-      if (e?.errorFields) return
-      message.error(e?.message || "Update failed")
+    } catch (e: unknown) {
+      if (typeof e === "object" && e && "errorFields" in e) {
+        const { errorFields } = e as { errorFields?: unknown }
+        if (errorFields) return
+      }
+      const errorMessage = e instanceof Error ? e.message : "Update failed"
+      message.error(errorMessage)
     }
   }
 
@@ -755,8 +766,9 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           ? `${preview}${cardToDelete.front.length > 60 ? "…" : ""} · ${undoHint}`
           : undoHint
       })
-    } catch (e: any) {
-      message.error(e?.message || "Delete failed")
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Delete failed"
+      message.error(errorMessage)
     }
   }
 
@@ -819,13 +831,13 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               className="max-w-64"
               data-testid="flashcards-manage-search"
             />
-            <Select
+            <Select<number>
               placeholder={t("option:flashcards.deck", { defaultValue: "All decks" })}
               allowClear
               loading={decksQuery.isLoading}
-              value={mDeckId as any}
+              value={mDeckId ?? undefined}
               onChange={(v) => {
-                setMDeckId(v)
+                setMDeckId(v ?? undefined)
                 setPage(1)
               }}
               className="min-w-44"
@@ -1069,7 +1081,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                     <div className="flex items-center gap-2">
                       {/* Due status indicator */}
                       {item.due_at && dayjs(item.due_at).isBefore(dayjs()) && (
-                        <Tooltip title={t("option:flashcards.dueSoon", { defaultValue: "Due now" })}>
+                        <Tooltip title={t("option:flashcards.dueNow", { defaultValue: "Due now" })}>
                           <span className="inline-block w-2 h-2 rounded-full bg-green-500" />
                         </Tooltip>
                       )}
@@ -1286,12 +1298,12 @@ export const ManageTab: React.FC<ManageTabProps> = ({
           </div>
         }
       >
-        <Select
+        <Select<number>
           className="w-full"
           allowClear
           loading={decksQuery.isLoading}
-          value={moveDeckId as any}
-          onChange={(v) => setMoveDeckId(v)}
+          value={moveDeckId ?? undefined}
+          onChange={(v) => setMoveDeckId(v ?? null)}
           options={(decksQuery.data || []).map((d) => ({
             label: d.name,
             value: d.id

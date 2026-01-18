@@ -565,5 +565,32 @@
   },
   "export_allItemsHint": {
     "message": "Export includes all reading list items for your account."
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "Add any notes about this article..."
+  },
+  "import_sources_auto_label": {
+    "message": "Auto-detect"
+  },
+  "import_sources_auto_description": {
+    "message": "Upload a Pocket or Instapaper export file and auto-detect the format"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Import your saved articles from a Pocket export"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Import articles from an Instapaper export"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
   }
 }

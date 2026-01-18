@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "ശേഖരങ്ങൾ"
+  },
+  "description": {
+    "message": "ലേഖനങ്ങൾ സംരക്ഷിക്കുക, ഹൈലൈറ്റുകൾ സൃഷ്ടിക്കുക, ടെംപ്ലേറ്റുകൾ നിയന്ത്രിക്കുക, വായനപ്പട്ടിക ഇറക്കുമതി/കയറ്റുമതി ചെയ്യുക."
+  },
+  "offline": {
+    "message": "സർവർ ഓഫ്‌ലൈൻ ആണ്. ശേഖരങ്ങൾ ഉപയോഗിക്കാൻ ബന്ധിപ്പിക്കുക."
+  },
+  "betaNotice": {
+    "message": "ബീറ്റാ ഫീച്ചർ"
+  },
+  "betaDescription": {
+    "message": "ശേഖരങ്ങൾ ഇപ്പോൾ ബീറ്റയിലാണ്. ചില സവിശേഷതകൾക്ക് ബാക്ക്എൻഡ് പിന്തുണ ആവശ്യമാകാം."
+  },
+  "tabs_reading": {
+    "message": "വായനപ്പട്ടിക"
+  },
+  "tabs_highlights": {
+    "message": "ഹൈലൈറ്റുകൾ"
+  },
+  "tabs_templates": {
+    "message": "ടെംപ്ലേറ്റുകൾ"
+  },
+  "tabs_importExport": {
+    "message": "ഇറക്കുമതി/കയറ്റുമതി"
+  },
+  "status_all": {
+    "message": "എല്ലാം"
+  },
+  "status_saved": {
+    "message": "സംരക്ഷിച്ചത്"
+  },
+  "status_reading": {
+    "message": "വായിച്ചുകൊണ്ടിരിക്കുന്നു"
+  },
+  "status_read": {
+    "message": "വായിച്ചു"
+  },
+  "status_archived": {
+    "message": "ആർക്കൈവ് ചെയ്തത്"
+  },
+  "sort_created_at": {
+    "message": "ചേർത്ത തീയതി"
+  },
+  "sort_updated_at": {
+    "message": "അവസാന അപ്‌ഡേറ്റ്"
+  },
+  "sort_title": {
+    "message": "ശീർഷകം"
+  },
+  "sort_relevance": {
+    "message": "പ്രാധാന്യം"
+  },
+  "colors_all": {
+    "message": "എല്ലാ നിറങ്ങളും"
+  },
+  "colors_yellow": {
+    "message": "മഞ്ഞ"
+  },
+  "colors_green": {
+    "message": "പച്ച"
+  },
+  "colors_blue": {
+    "message": "നീല"
+  },
+  "colors_pink": {
+    "message": "പിങ്ക്"
+  },
+  "colors_purple": {
+    "message": "പർപ്പിൾ"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} മിനിറ്റ് മുമ്പ്"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} മണിക്കൂർ മുമ്പ്"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} ദിവസം മുമ്പ്"
+  },
+  "reading_addUrl": {
+    "message": "URL ചേർക്കുക"
+  },
+  "reading_addUrlTitle": {
+    "message": "വായനപ്പട്ടികയിൽ ചേർക്കുക"
+  },
+  "reading_addFirst": {
+    "message": "നിങ്ങളുടെ ആദ്യ ലേഖനം ചേർക്കുക"
+  },
+  "reading_addSuccess": {
+    "message": "ലേഖനം വായനപ്പട്ടികയിൽ ചേർത്തു"
+  },
+  "reading_searchPlaceholder": {
+    "message": "ലേഖനങ്ങൾ തിരയുക..."
+  },
+  "reading_filters": {
+    "message": "ഫിൽട്ടറുകൾ"
+  },
+  "reading_favorites": {
+    "message": "പ്രിയപ്പെട്ടത്"
+  },
+  "reading_tagsFilter": {
+    "message": "ടാഗുകൾ"
+  },
+  "reading_domainFilter": {
+    "message": "ഡൊമെയ്ൻ"
+  },
+  "reading_sortBy": {
+    "message": "ക്രമീകരിക്കുക"
+  },
+  "reading_clearFilters": {
+    "message": "ഫിൽട്ടറുകൾ നീക്കം ചെയ്യുക"
+  },
+  "reading_noResults": {
+    "message": "നിങ്ങളുടെ ഫിൽട്ടറുകൾക്ക് പൊരുത്തപ്പെടുന്ന ലേഖനങ്ങൾ ഇല്ല"
+  },
+  "reading_empty": {
+    "message": "നിങ്ങളുടെ വായനപ്പട്ടിക ശൂന്യമാണ്"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} / {{total}} ഇനങ്ങൾ"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} മിനിറ്റ് വായന"
+  },
+  "reading_favorite": {
+    "message": "പ്രിയപ്പെട്ടതായി അടയാളപ്പെടുത്തുക"
+  },
+  "reading_unfavorite": {
+    "message": "പ്രിയപ്പെട്ടതിൽ നിന്ന് നീക്കം ചെയ്യുക"
+  },
+  "reading_viewDetails": {
+    "message": "വിശദാംശങ്ങൾ കാണുക"
+  },
+  "reading_openOriginal": {
+    "message": "അസൽ തുറക്കുക"
+  },
+  "reading_changeStatus": {
+    "message": "സ്റ്റാറ്റസ് മാറ്റുക"
+  },
+  "reading_archive": {
+    "message": "ആർക്കൈവ് ചെയ്യുക"
+  },
+  "reading_unarchive": {
+    "message": "ആർക്കൈവ് നീക്കം ചെയ്യുക"
+  },
+  "reading_statusUpdated": {
+    "message": "സ്റ്റാറ്റസ് {{status}} ആയി അപ്‌ഡേറ്റ് ചെയ്തു"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "ദയവായി URL നൽകുക"
+  },
+  "reading_urlInvalid": {
+    "message": "ദയവായി സാധുവായ URL നൽകുക"
+  },
+  "reading_titleLabel": {
+    "message": "ശീർഷകം (ഐച്ഛികം)"
+  },
+  "reading_titleHint": {
+    "message": "പേജിൽ നിന്ന് സ്വയം കണ്ടെത്താൻ ഒഴിവാക്കുക"
+  },
+  "reading_titlePlaceholder": {
+    "message": "ലേഖനത്തിന്റെ ശീർഷകം"
+  },
+  "reading_tagsLabel": {
+    "message": "ടാഗുകൾ"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "ടാഗുകൾ ചേർക്കുക..."
+  },
+  "reading_notesLabel": {
+    "message": "കുറിപ്പുകൾ (ഐച്ഛികം)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "ഈ ലേഖനത്തെക്കുറിച്ച് കുറിപ്പുകൾ ചേർക്കുക..."
+  },
+  "reading_saveToList": {
+    "message": "പട്ടികയിൽ സേവ് ചെയ്യുക"
+  },
+  "reading_addTag": {
+    "message": "ടാഗ് ചേർക്കുക..."
+  },
+  "reading_tabs_content": {
+    "message": "ഉള്ളടക്കം"
+  },
+  "reading_tabs_summary": {
+    "message": "സംക്ഷേപം"
+  },
+  "reading_tabs_highlights": {
+    "message": "ഹൈലൈറ്റുകൾ"
+  },
+  "reading_tabs_notes": {
+    "message": "കുറിപ്പുകൾ"
+  },
+  "reading_noContent": {
+    "message": "ഉള്ളടക്കം ലഭ്യമല്ല"
+  },
+  "reading_noSummary": {
+    "message": "ഇനിയും സംക്ഷേപമില്ല"
+  },
+  "reading_noNotes": {
+    "message": "ഇനിയും കുറിപ്പുകളില്ല"
+  },
+  "reading_editNotes": {
+    "message": "കുറിപ്പുകൾ തിരുത്തുക"
+  },
+  "reading_addNotes": {
+    "message": "കുറിപ്പുകൾ ചേർക്കുക"
+  },
+  "reading_notesSaved": {
+    "message": "കുറിപ്പുകൾ സേവ് ചെയ്തു"
+  },
+  "reading_notesPlaceholder": {
+    "message": "നിങ്ങളുടെ കുറിപ്പുകൾ ചേർക്കുക..."
+  },
+  "reading_summarize": {
+    "message": "സംക്ഷേപിക്കുക"
+  },
+  "reading_generateSummary": {
+    "message": "സംക്ഷേപം സൃഷ്ടിക്കുക"
+  },
+  "reading_summarized": {
+    "message": "സംക്ഷേപം സൃഷ്ടിച്ചു"
+  },
+  "reading_generateTts": {
+    "message": "ഓഡിയോ സൃഷ്ടിക്കുക"
+  },
+  "reading_ttsGenerated": {
+    "message": "ഓഡിയോ സൃഷ്ടിച്ചു"
+  },
+  "reading_downloadAudio": {
+    "message": "ഓഡിയോ ഡൗൺലോഡ് ചെയ്യുക"
+  },
+  "reading_deleted": {
+    "message": "ലേഖനം ഇല്ലാതാക്കി"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "ലേഖനം ഇല്ലാതാക്കുക"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "ഈ ലേഖനം ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ? ഈ നടപടി പിന്‍വലിക്കാനാവില്ല."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "ഹൈലൈറ്റുകൾ തിരയുക..."
+  },
+  "highlights_groupByItem": {
+    "message": "ലേഖനം പ്രകാരം ഗ്രൂപ്പ് ചെയ്യുക"
+  },
+  "highlights_add": {
+    "message": "ഹൈലൈറ്റ് ചേർക്കുക"
+  },
+  "highlights_edit": {
+    "message": "ഹൈലൈറ്റ് തിരുത്തുക"
+  },
+  "highlights_quoteLabel": {
+    "message": "ഉദ്ധരണം"
+  },
+  "highlights_quoteRequired": {
+    "message": "ഹൈലൈറ്റ് ചെയ്ത വാചകം നൽകുക"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "ഹൈലൈറ്റ് ചെയ്ത വാചകം പകർത്ത് ചേർക്കുക..."
+  },
+  "highlights_noteLabel": {
+    "message": "കുറിപ്പ് (ഐച്ഛികം)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "പ്രാധാന്യമോ പശ്ചാത്തലമോ ചേർക്കുക..."
+  },
+  "highlights_colorLabel": {
+    "message": "ഹൈലൈറ്റിന്റെ നിറം"
+  },
+  "highlights_noResults": {
+    "message": "നിങ്ങളുടെ ഫിൽട്ടറുകൾക്ക് പൊരുത്തപ്പെടുന്ന ഹൈലൈറ്റുകൾ ഇല്ല"
+  },
+  "highlights_empty": {
+    "message": "ഇനിയും ഹൈലൈറ്റുകൾ ഇല്ല"
+  },
+  "highlights_emptyForItem": {
+    "message": "ഈ ലേഖനത്തിനായി ഹൈലൈറ്റുകൾ ഇല്ല"
+  },
+  "highlights_emptyHint": {
+    "message": "വായിക്കുമ്പോൾ സൃഷ്ടിക്കുന്ന ഹൈലൈറ്റുകൾ ഇവിടെ കാണിക്കും."
+  },
+  "highlights_from": {
+    "message": "നിന്ന്"
+  },
+  "highlights_viewArticle": {
+    "message": "ലേഖനം കാണുക"
+  },
+  "highlights_created": {
+    "message": "ഹൈലൈറ്റ് സൃഷ്ടിച്ചു"
+  },
+  "highlights_updated": {
+    "message": "ഹൈലൈറ്റ് അപ്‌ഡേറ്റ് ചെയ്തു"
+  },
+  "highlights_missingItem": {
+    "message": "ആദ്യം ലേഖനം തിരഞ്ഞെടുക്കുക"
+  },
+  "highlights_deleted": {
+    "message": "ഹൈലൈറ്റ് ഇല്ലാതാക്കി"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "ഹൈലൈറ്റ് ഇല്ലാതാക്കുക"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "ഈ ഹൈലൈറ്റ് ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ?"
+  },
+  "templates_create": {
+    "message": "ടെംപ്ലേറ്റ് സൃഷ്ടിക്കുക"
+  },
+  "templates_createFirst": {
+    "message": "നിങ്ങളുടെ ആദ്യ ടെംപ്ലേറ്റ് സൃഷ്ടിക്കുക"
+  },
+  "templates_searchPlaceholder": {
+    "message": "ടെംപ്ലേറ്റുകൾ തിരയുക..."
+  },
+  "templates_noResults": {
+    "message": "നിങ്ങളുടെ ഫിൽട്ടറുകൾക്ക് പൊരുത്തപ്പെടുന്ന ടെംപ്ലേറ്റുകൾ ഇല്ല"
+  },
+  "templates_empty": {
+    "message": "ഇനിയും ടെംപ്ലേറ്റുകൾ ഇല്ല"
+  },
+  "templates_default": {
+    "message": "ഡിഫോൾട്ട്"
+  },
+  "templates_preview": {
+    "message": "പ്രിവ്യൂ"
+  },
+  "templates_duplicate": {
+    "message": "പകർപ്പ്"
+  },
+  "templates_deleted": {
+    "message": "ടെംപ്ലേറ്റ് ഇല്ലാതാക്കി"
+  },
+  "templates_created": {
+    "message": "ടെംപ്ലേറ്റ് സൃഷ്ടിച്ചു"
+  },
+  "templates_updated": {
+    "message": "ടെംപ്ലേറ്റ് അപ്‌ഡേറ്റ് ചെയ്തു"
+  },
+  "templates_editTitle": {
+    "message": "ടെംപ്ലേറ്റ് തിരുത്തുക"
+  },
+  "templates_createTitle": {
+    "message": "ടെംപ്ലേറ്റ് സൃഷ്ടിക്കുക"
+  },
+  "templates_nameLabel": {
+    "message": "ടെംപ്ലേറ്റിന്റെ പേര്"
+  },
+  "templates_nameRequired": {
+    "message": "ദയവായി പേര് നൽകുക"
+  },
+  "templates_namePlaceholder": {
+    "message": "എന്റെ ന്യൂസ്‌ലെറ്റർ ടെംപ്ലേറ്റ്"
+  },
+  "templates_descriptionLabel": {
+    "message": "വിവരണം (ഐച്ഛികം)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "ഈ ടെംപ്ലേറ്റിന്റെ ചുരുക്ക വിവരണം"
+  },
+  "templates_typeLabel": {
+    "message": "ടെംപ്ലേറ്റ് തരം"
+  },
+  "templates_formatLabel": {
+    "message": "ഔട്ട്പുട്ട് ഫോർമാറ്റ്"
+  },
+  "templates_bodyLabel": {
+    "message": "ടെംപ്ലേറ്റ് ബോഡി (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "ടെംപ്ലേറ്റ് ഉള്ളടക്കം നൽകുക"
+  },
+  "templates_bodyHint": {
+    "message": "Jinja2 സിന്റാക്സ് ഉപയോഗിക്കുക. ലഭ്യമായ വേരിയബിളുകൾ: items (വായന ഇനങ്ങളുടെ അറേ), date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "ടെംപ്ലേറ്റ് പ്രിവ്യൂ"
+  },
+  "templates_selectItems": {
+    "message": "കുറഞ്ഞത് ഒരു ലേഖനം തിരഞ്ഞെടുക്കുക"
+  },
+  "templates_selectItemsHint": {
+    "message": "പ്രിവ്യൂയിൽ ഉൾപ്പെടുത്താനുള്ള ലേഖനങ്ങൾ തിരഞ്ഞെടുക്കുക:"
+  },
+  "templates_selectAll": {
+    "message": "എല്ലാം തിരഞ്ഞെടുക്കുക"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} തിരഞ്ഞെടുത്തു"
+  },
+  "templates_noItems": {
+    "message": "നിങ്ങളുടെ വായനപ്പട്ടികയിൽ ലേഖനങ്ങൾ ഇല്ല"
+  },
+  "templates_generatePreview": {
+    "message": "പ്രിവ്യൂ സൃഷ്ടിക്കുക"
+  },
+  "templates_generateOutput": {
+    "message": "ഔട്ട്പുട്ട് സൃഷ്ടിക്കുക"
+  },
+  "templates_audioUnavailable": {
+    "message": "ഓഡിയോ ഔട്ട്പുട്ട് ലഭ്യമല്ല"
+  },
+  "templates_noGeneratedContent": {
+    "message": "ഇനിയും ഔട്ട്പുട്ട് സൃഷ്ടിച്ചിട്ടില്ല"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "ടെംപ്ലേറ്റ് ഇല്ലാതാക്കുക"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "ഈ ടെംപ്ലേറ്റ് ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ?"
+  },
+  "templateTypes_all": {
+    "message": "എല്ലാ തരങ്ങളും"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "ന്യൂസ്‌ലെറ്റർ (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "ബ്രീഫിംഗ് (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "ന്യൂസ്‌ലെറ്റർ (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS ഓഡിയോ"
+  },
+  "import_title": {
+    "message": "ഇറക്കുമതി"
+  },
+  "import_sourceRequired": {
+    "message": "ആദ്യം ഉറവിടം തിരഞ്ഞെടുക്കുക"
+  },
+  "import_selectSource": {
+    "message": "ഇറക്കുമതി ഉറവിടം തിരഞ്ഞെടുക്കുക:"
+  },
+  "import_sources_auto_label": {
+    "message": "സ്വയമേവ കണ്ടെത്തുക"
+  },
+  "import_sources_auto_description": {
+    "message": "Pocket അല്ലെങ്കിൽ Instapaper എക്സ്പോർട്ട് ഫയൽ അപ്‌ലോഡ് ചെയ്ത് ഫോർമാറ്റ് സ്വയം കണ്ടെത്തുക"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Pocket എക്സ്പോർട്ടിൽ നിന്ന് സംരക്ഷിച്ച ലേഖനങ്ങൾ ഇറക്കുമതി ചെയ്യുക"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Instapaper എക്സ്പോർട്ടിൽ നിന്ന് ലേഖനങ്ങൾ ഇറക്കുമതി ചെയ്യുക"
+  },
+  "import_methodFile": {
+    "message": "ഫയൽ അപ്‌ലോഡ്"
+  },
+  "import_methodApiKey": {
+    "message": "API കീ"
+  },
+  "import_apiKeyLabel": {
+    "message": "API കീ"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "API കീ പേസ്റ്റ് ചെയ്യുക"
+  },
+  "import_apiKeyRequired": {
+    "message": "ദയവായി API കീ നൽകുക"
+  },
+  "import_previewWithKey": {
+    "message": "ഇറക്കുമതി പ്രിവ്യൂ"
+  },
+  "import_processing": {
+    "message": "ഫയൽ പ്രോസസ്സ് ചെയ്യുന്നു..."
+  },
+  "import_dropzone": {
+    "message": "അപ്‌ലോഡ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക അല്ലെങ്കിൽ ഫയൽ ഡ്രാഗ് ചെയ്യുക"
+  },
+  "import_formats": {
+    "message": "Pocket JSON, Instapaper CSV പിന്തുണയ്ക്കുന്നു"
+  },
+  "import_previewHint": {
+    "message": "{{count}} ഇനങ്ങൾ കണ്ടെത്തി"
+  },
+  "import_selectAll": {
+    "message": "എല്ലാം തിരഞ്ഞെടുക്കുക"
+  },
+  "import_selectItems": {
+    "message": "ഇറക്കുമതി ചെയ്യാനുള്ള ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക"
+  },
+  "import_importSelected": {
+    "message": "{{count}} ഇനങ്ങൾ ഇറക്കുമതി ചെയ്യുക"
+  },
+  "import_success": {
+    "message": "{{count}} ഇനങ്ങൾ ഇറക്കുമതി ചെയ്തു"
+  },
+  "import_complete": {
+    "message": "ഇറക്കുമതി പൂർത്തിയായി"
+  },
+  "import_resultSummary": {
+    "message": "ഇറക്കുമതി ചെയ്തത്: {{imported}}, അപ്‌ഡേറ്റ് ചെയ്തത്: {{updated}}, ഒഴിവാക്കിയത്: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "കൂടുതൽ ഇറക്കുമതി"
+  },
+  "import_steps_source": {
+    "message": "ഉറവിടം"
+  },
+  "import_steps_upload": {
+    "message": "അപ്‌ലോഡ്"
+  },
+  "import_steps_preview": {
+    "message": "പ്രിവ്യൂ"
+  },
+  "import_steps_result": {
+    "message": "ഫലം"
+  },
+  "export_title": {
+    "message": "കയറ്റുമതി"
+  },
+  "export_format": {
+    "message": "ഫോർമാറ്റ്"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "ഓപ്ഷനുകൾ"
+  },
+  "export_includeContent": {
+    "message": "പൂർണ്ണ ഉള്ളടക്കം ഉൾപ്പെടുത്തുക"
+  },
+  "export_includeHighlights": {
+    "message": "ഹൈലൈറ്റുകൾ ഉൾപ്പെടുത്തുക"
+  },
+  "export_items": {
+    "message": "കയറ്റുമതി ചെയ്യാനുള്ള ഇനങ്ങൾ"
+  },
+  "export_searchPlaceholder": {
+    "message": "ഇനങ്ങൾ തിരയുക..."
+  },
+  "export_allItems": {
+    "message": "എല്ലാ ഇനങ്ങളും (ശൂന്യം വിടുക)"
+  },
+  "export_itemsHint": {
+    "message": "ശൂന്യം വിട്ടാൽ എല്ലാ ഇനങ്ങളും കയറ്റുമതി ചെയ്യും, അല്ലെങ്കിൽ പ്രത്യേക ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക"
+  },
+  "export_selectionHint": {
+    "message": "കയറ്റുമതി ചെയ്യാൻ ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ എല്ലാം കയറ്റുമതി ചെയ്യാൻ ശൂന്യം വിടുക."
+  },
+  "export_selectAll": {
+    "message": "എല്ലാം തിരഞ്ഞെടുക്കുക"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} തിരഞ്ഞെടുത്തു"
+  },
+  "export_clearSelection": {
+    "message": "ശൂന്യമാക്കുക"
+  },
+  "export_noItems": {
+    "message": "ഇനങ്ങൾ കണ്ടെത്തിയില്ല"
+  },
+  "export_selectItems": {
+    "message": "ആദ്യം പകർപ്പിന് ഇനങ്ങൾ തിരഞ്ഞെടുക്കുക"
+  },
+  "export_copy": {
+    "message": "JSONL പകര്‍ത്തുക"
+  },
+  "export_copied": {
+    "message": "ക്ലിപ്പ്ബോർഡിലേക്ക് പകര്‍ത്തി"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIP കയറ്റുമതി ഇനം തിരഞ്ഞെടുപ്പ് ഇനിയും പിന്തുണയ്ക്കുന്നില്ല."
+  },
+  "export_download": {
+    "message": "കയറ്റുമതി ഡൗൺലോഡ്"
+  },
+  "export_allItemsHint": {
+    "message": "നിങ്ങളുടെ അക്കൗണ്ടിലെ എല്ലാ വായനപ്പട്ടിക ഇനങ്ങളും കയറ്റുമതിയിൽ ഉൾപ്പെടുന്നു."
+  },
+  "export_success": {
+    "message": "കയറ്റുമതി ഡൗൺലോഡ് ചെയ്യാൻ തയ്യാറാണ്"
+  }
+}

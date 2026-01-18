@@ -111,8 +111,8 @@
     "hide": "Hide RAG search",
     "addTagPlaceholder": "Add tag (Enter)",
     "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "noResults": "결과 없음",
+    "initialState": "결과 없음",
     "timeout": {
       "message": "Request timed out.",
       "increase": "Increase timeout",

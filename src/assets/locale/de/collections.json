@@ -1,0 +1,262 @@
+{
+  "title": "Sammlungen",
+  "description": "Speichere Artikel, erstelle Markierungen, verwalte Vorlagen und importiere/exportiere deine Leseliste.",
+  "offline": "Server ist offline. Bitte verbinden, um Sammlungen zu verwenden.",
+  "betaNotice": "Beta-Funktion",
+  "betaDescription": "Sammlungen befinden sich derzeit in der Beta. Einige Funktionen erfordern möglicherweise Backend-Unterstützung.",
+
+  "tabs": {
+    "reading": "Leseliste",
+    "highlights": "Hervorhebungen",
+    "templates": "Vorlagen",
+    "importExport": "Import/Export"
+  },
+
+  "status": {
+    "all": "Alle",
+    "saved": "Gespeichert",
+    "reading": "Wird gelesen",
+    "read": "Gelesen",
+    "archived": "Archiviert"
+  },
+
+  "sort": {
+    "created_at": "Hinzugefügt",
+    "updated_at": "Zuletzt aktualisiert",
+    "title": "Titel",
+    "relevance": "Relevanz"
+  },
+
+  "colors": {
+    "all": "Alle Farben",
+    "yellow": "Gelb",
+    "green": "Grün",
+    "blue": "Blau",
+    "pink": "Pink",
+    "purple": "Lila"
+  },
+
+  "time": {
+    "minutesAgo": "vor {{count}} Min.",
+    "hoursAgo": "vor {{count}} Std.",
+    "daysAgo": "vor {{count}} Tagen"
+  },
+
+  "reading": {
+    "addUrl": "URL hinzufügen",
+    "addUrlTitle": "Zur Leseliste hinzufügen",
+    "addFirst": "Füge deinen ersten Artikel hinzu",
+    "addSuccess": "Artikel zur Leseliste hinzugefügt",
+    "searchPlaceholder": "Artikel suchen...",
+    "filters": "Filter",
+    "favorites": "Favoriten",
+    "tagsFilter": "Tags",
+    "domainFilter": "Domain",
+    "sortBy": "Sortieren",
+    "clearFilters": "Filter zurücksetzen",
+    "noResults": "Keine Artikel entsprechen deinen Filtern",
+    "empty": "Deine Leseliste ist leer",
+    "pagination": "{{start}}-{{end}} von {{total}} Einträgen",
+
+    "readingTime": "{{count}} Min. Lesezeit",
+    "favorite": "Als Favorit markieren",
+    "unfavorite": "Favorit entfernen",
+    "viewDetails": "Details anzeigen",
+    "openOriginal": "Original öffnen",
+    "changeStatus": "Status ändern",
+    "archive": "Archivieren",
+    "unarchive": "Archivierung aufheben",
+    "statusUpdated": "Status aktualisiert zu {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "Bitte eine URL eingeben",
+    "urlInvalid": "Bitte eine gültige URL eingeben",
+    "titleLabel": "Titel (optional)",
+    "titleHint": "Leer lassen, um automatisch von der Seite zu erkennen",
+    "titlePlaceholder": "Artikeltitel",
+    "tagsLabel": "Tags",
+    "tagsPlaceholder": "Tags hinzufügen...",
+    "notesLabel": "Notizen (optional)",
+    "notesPlaceholderArticle": "Füge beliebige Notizen zu diesem Artikel hinzu...",
+    "saveToList": "Zur Liste speichern",
+    "addTag": "Tag hinzufügen...",
+
+    "tabs": {
+      "content": "Inhalt",
+      "summary": "Zusammenfassung",
+      "highlights": "Hervorhebungen",
+      "notes": "Notizen"
+    },
+
+    "noContent": "Inhalt nicht verfügbar",
+    "noSummary": "Noch keine Zusammenfassung",
+    "noNotes": "Noch keine Notizen",
+    "editNotes": "Notizen bearbeiten",
+    "addNotes": "Notizen hinzufügen",
+    "notesSaved": "Notizen gespeichert",
+    "notesPlaceholder": "Füge deine Notizen hinzu...",
+
+    "summarize": "Zusammenfassen",
+    "generateSummary": "Zusammenfassung erstellen",
+    "summarized": "Zusammenfassung erstellt",
+    "generateTts": "Audio erzeugen",
+    "ttsGenerated": "Audio erzeugt",
+    "downloadAudio": "Audio herunterladen",
+
+    "deleted": "Artikel gelöscht",
+    "deleteConfirm": {
+      "title": "Artikel löschen",
+      "message": "Möchtest du diesen Artikel wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "Markierungen suchen...",
+    "groupByItem": "Nach Artikel gruppieren",
+    "add": "Markierung hinzufügen",
+    "edit": "Markierung bearbeiten",
+    "quoteLabel": "Zitat",
+    "quoteRequired": "Bitte den markierten Text eingeben",
+    "quotePlaceholder": "Markierten Text einfügen...",
+    "noteLabel": "Notiz (optional)",
+    "notePlaceholder": "Kontext hinzufügen oder warum das wichtig ist...",
+    "colorLabel": "Markierungsfarbe",
+    "noResults": "Keine Markierungen entsprechen deinen Filtern",
+    "empty": "Noch keine Markierungen",
+    "emptyForItem": "Noch keine Markierungen für diesen Artikel",
+    "emptyHint": "Markierungen, die du beim Lesen erstellst, erscheinen hier.",
+    "from": "Von",
+    "viewArticle": "Artikel anzeigen",
+    "created": "Markierung erstellt",
+    "updated": "Markierung aktualisiert",
+    "missingItem": "Wähle zuerst einen Artikel",
+    "deleted": "Markierung gelöscht",
+    "deleteConfirm": {
+      "title": "Markierung löschen",
+      "message": "Möchtest du diese Markierung wirklich löschen?"
+    }
+  },
+
+  "templates": {
+    "create": "Vorlage erstellen",
+    "createFirst": "Erstelle deine erste Vorlage",
+    "searchPlaceholder": "Vorlagen suchen...",
+    "noResults": "Keine Vorlagen entsprechen deinen Filtern",
+    "empty": "Noch keine Vorlagen",
+    "default": "Standard",
+    "preview": "Vorschau",
+    "duplicate": "Duplizieren",
+    "deleted": "Vorlage gelöscht",
+    "created": "Vorlage erstellt",
+    "updated": "Vorlage aktualisiert",
+
+    "editTitle": "Vorlage bearbeiten",
+    "createTitle": "Vorlage erstellen",
+    "nameLabel": "Vorlagenname",
+    "nameRequired": "Bitte einen Namen eingeben",
+    "namePlaceholder": "Meine Newsletter-Vorlage",
+    "descriptionLabel": "Beschreibung (optional)",
+    "descriptionPlaceholder": "Kurze Beschreibung dieser Vorlage",
+    "typeLabel": "Vorlagentyp",
+    "formatLabel": "Ausgabeformat",
+    "bodyLabel": "Vorlageninhalt (Jinja2)",
+    "bodyRequired": "Bitte Vorlageninhalt eingeben",
+    "bodyHint": "Jinja2-Syntax verwenden. Verfügbare Variablen: items (Array der Leselisteneinträge), date, tags",
+
+    "previewTitle": "Vorlagenvorschau",
+    "selectItems": "Bitte mindestens einen Artikel auswählen",
+    "selectItemsHint": "Artikel auswählen, die in der Vorschau enthalten sein sollen:",
+    "selectAll": "Alle auswählen",
+    "selectedCount": "{{count}} ausgewählt",
+    "noItems": "Keine Artikel in deiner Leseliste",
+    "generatePreview": "Vorschau erzeugen",
+    "generateOutput": "Ausgabe erzeugen",
+    "audioUnavailable": "Audioausgabe nicht verfügbar",
+    "noGeneratedContent": "Noch keine Ausgabe erzeugt",
+
+    "deleteConfirm": {
+      "title": "Vorlage löschen",
+      "message": "Möchtest du diese Vorlage wirklich löschen?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "Alle Typen",
+    "newsletter_markdown": "Newsletter (MD)",
+    "briefing_markdown": "Briefing (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "Newsletter (HTML)",
+    "tts_audio": "TTS-Audio"
+  },
+
+  "import": {
+    "title": "Import",
+    "sourceRequired": "Bitte zuerst eine Quelle auswählen",
+    "selectSource": "Importquelle auswählen:",
+    "sources": {
+      "auto": {
+        "label": "Automatische Erkennung",
+        "description": "Lade eine Pocket- oder Instapaper-Exportdatei hoch und erkenne das Format automatisch"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Importiere deine gespeicherten Artikel aus einem Pocket-Export"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Importiere Artikel aus einem Instapaper-Export"
+      }
+    },
+    "methodFile": "Datei-Upload",
+    "methodApiKey": "API-Schlüssel",
+    "apiKeyLabel": "API-Schlüssel",
+    "apiKeyPlaceholder": "API-Schlüssel einfügen",
+    "apiKeyRequired": "Bitte einen API-Schlüssel eingeben",
+    "previewWithKey": "Importvorschau",
+    "processing": "Datei wird verarbeitet...",
+    "dropzone": "Klicken oder Datei zum Hochladen ziehen",
+    "formats": "Unterstützt Pocket JSON und Instapaper CSV",
+    "previewHint": "{{count}} Elemente gefunden",
+    "selectAll": "Alle auswählen",
+    "selectItems": "Bitte Elemente zum Import auswählen",
+    "importSelected": "{{count}} Elemente importieren",
+    "success": "{{count}} Elemente importiert",
+    "complete": "Import abgeschlossen",
+    "resultSummary": "Importiert: {{imported}}, Aktualisiert: {{updated}}, Übersprungen: {{skipped}}",
+    "importMore": "Mehr importieren",
+    "steps": {
+      "source": "Quelle",
+      "upload": "Upload",
+      "preview": "Vorschau",
+      "result": "Ergebnis"
+    }
+  },
+
+  "export": {
+    "title": "Export",
+    "format": "Format",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "Optionen",
+    "includeContent": "Vollständigen Inhalt einschließen",
+    "includeHighlights": "Hervorhebungen einschließen",
+    "items": "Zu exportierende Elemente",
+    "searchPlaceholder": "Elemente suchen...",
+    "allItems": "Alle Elemente (leer lassen)",
+    "itemsHint": "Leer lassen, um alle Elemente zu exportieren, oder bestimmte auswählen",
+    "selectionHint": "Elemente zum Export auswählen oder leer lassen, um alles zu exportieren.",
+    "selectAll": "Alle auswählen",
+    "selectedCount": "{{count}} ausgewählt",
+    "clearSelection": "Auswahl löschen",
+    "noItems": "Keine Elemente gefunden",
+    "selectItems": "Wähle zuerst Elemente zum Kopieren",
+    "copy": "JSONL kopieren",
+    "copied": "In Zwischenablage kopiert",
+    "zipSelectionUnsupported": "ZIP-Export unterstützt die Elementauswahl noch nicht.",
+    "download": "Export herunterladen",
+    "allItemsHint": "Der Export enthält alle Leselisteneinträge deines Kontos.",
+    "success": "Export bereit zum Herunterladen"
+  }
+}

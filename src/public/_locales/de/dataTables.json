@@ -1,374 +1,383 @@
 {
   "title": {
-    "message": "Data Tables Studio"
+    "message": "Data-Tabellen-Studio"
   },
   "description": {
     "message": "Description"
   },
   "betaNotice": {
-    "message": "Beta Feature"
+    "message": "Beta-Funktion"
   },
   "betaDescription": {
-    "message": "Data Tables is currently in beta. Table generation requires backend support."
+    "message": "Data Tables befindet sich derzeit in der Beta. Die Tabellenerstellung erfordert Backend-Unterstützung."
   },
   "offline": {
-    "message": "Server is offline. Please connect to use Data Tables."
+    "message": "Server ist offline. Bitte verbinde dich, um Data Tables zu verwenden."
   },
   "tabs_tables": {
-    "message": "My Tables"
+    "message": "Meine Tabellen"
   },
   "tabs_create": {
-    "message": "Create Table"
+    "message": "Tabelle erstellen"
   },
   "wizard_sources": {
-    "message": "Select Sources"
+    "message": "Quellen auswählen"
   },
   "wizard_sourcesDesc": {
-    "message": "Choose data sources"
+    "message": "Datenquellen auswählen"
   },
   "wizard_prompt": {
-    "message": "Describe Table"
+    "message": "Tabelle beschreiben"
   },
   "wizard_promptDesc": {
-    "message": "Write your prompt"
+    "message": "Formuliere deinen Prompt"
   },
   "wizard_preview": {
-    "message": "Preview"
+    "message": "Vorschau"
   },
   "wizard_previewDesc": {
-    "message": "Review generated table"
+    "message": "Generierte Tabelle prüfen"
   },
   "wizard_save": {
-    "message": "Save"
+    "message": "Speichern"
   },
   "wizard_saveDesc": {
-    "message": "Save to library"
+    "message": "In Bibliothek speichern"
   },
   "wizard_tip": {
-    "message": "Tip"
+    "message": "Tipp"
   },
   "wizard_tipText": {
-    "message": "Select chats, documents, or search your knowledge base to extract structured data. The more specific your sources, the better the results."
+    "message": "Wähle Chats, Dokumente oder durchsuche deine Wissensbasis, um strukturierte Daten zu extrahieren. Je spezifischer die Quellen, desto besser die Ergebnisse."
   },
   "wizard_reset": {
-    "message": "Start Over"
+    "message": "Neu beginnen"
   },
   "sourceTypes_chat": {
     "message": "Chats"
   },
   "sourceTypes_document": {
-    "message": "Documents"
+    "message": "Dokumente"
   },
   "sourceTypes_rag": {
-    "message": "RAG Search"
+    "message": "RAG-Suche"
   },
   "selectedSources": {
-    "message": "Selected Sources"
+    "message": "Ausgewählte Quellen"
   },
   "sourcesSelected": {
-    "message": "Sources Selected"
+    "message": "Quellen ausgewählt"
   },
   "searchPlaceholder": {
-    "message": "Search..."
+    "message": "Suchen..."
   },
   "ragPlaceholder": {
-    "message": "Enter a search query for your knowledge base..."
+    "message": "Gib eine Suchanfrage für deine Wissensbasis ein..."
   },
   "ragQuerySnippet": {
-    "message": "Knowledge base search query"
+    "message": "Suchanfrage der Wissensbasis"
   },
   "ragAdded": {
-    "message": "RAG query added as source"
+    "message": "RAG-Abfrage als Quelle hinzugefügt"
   },
   "ragTip": {
-    "message": "Enter search queries to find relevant content in your knowledge base. Each query will be added as a separate source."
+    "message": "Gib Suchanfragen ein, um relevante Inhalte in deiner Wissensbasis zu finden. Jede Abfrage wird als eigene Quelle hinzugefügt."
   },
   "fetchError": {
-    "message": "Failed to load items"
+    "message": "Elemente konnten nicht geladen werden"
   },
   "promptLabel": {
-    "message": "Describe the table you want to create"
+    "message": "Beschreibe die Tabelle, die du erstellen möchtest"
   },
   "promptPlaceholder": {
-    "message": "E.g., Create a table comparing the main topics discussed, with columns for topic, key points, and relevance score..."
+    "message": "z. B. Erstelle eine Tabelle, die die besprochenen Hauptthemen vergleicht, mit Spalten für Thema, Kernpunkte und Relevanzbewertung..."
   },
   "examplePrompts": {
-    "message": "Example prompts:"
+    "message": "Beispiel-Prompts:"
   },
   "advancedOptions": {
-    "message": "Advanced Options"
+    "message": "Erweiterte Optionen"
   },
   "columnHints": {
-    "message": "Column Hints (Optional)"
+    "message": "Spaltenhinweise (optional)"
   },
   "columnHintsDesc": {
-    "message": "Suggest column names and types to guide the LLM. If not specified, columns will be inferred from your prompt."
+    "message": "Schlage Spaltennamen und -typen vor, um das LLM zu leiten. Wenn nichts angegeben ist, werden Spalten aus deinem Prompt abgeleitet."
   },
   "newColumnName": {
-    "message": "Column name"
+    "message": "Spaltenname"
   },
   "modelSelection": {
-    "message": "Model"
+    "message": "Modell"
   },
   "selectModel": {
-    "message": "Use default model"
+    "message": "Standardmodell verwenden"
   },
   "maxRows": {
-    "message": "Maximum Rows"
+    "message": "Maximale Zeilen"
   },
   "maxRowsHint": {
     "message": "(1-1000)"
   },
   "generating": {
-    "message": "Generating table from your sources..."
+    "message": "Tabelle wird aus deinen Quellen erstellt..."
   },
   "generatingNote": {
-    "message": "This may take a moment depending on the amount of data."
+    "message": "Dies kann je nach Datenmenge einen Moment dauern."
   },
   "generateSuccess": {
-    "message": "Table generated successfully!"
+    "message": "Tabelle erfolgreich erstellt!"
   },
   "generationFailed": {
-    "message": "Generation Failed"
+    "message": "Erstellung fehlgeschlagen"
   },
   "tryAgain": {
-    "message": "Try Again"
+    "message": "Erneut versuchen"
   },
   "warnings": {
-    "message": "Warnings"
+    "message": "Warnungen"
   },
   "noPreview": {
-    "message": "No preview available"
+    "message": "Keine Vorschau verfügbar"
   },
   "promptUsed": {
-    "message": "Prompt used:"
+    "message": "Verwendeter Prompt:"
   },
   "previewModified": {
-    "message": "You've modified the preview. Changes will be saved with the table."
+    "message": "Du hast die Vorschau geändert. Änderungen werden mit der Tabelle gespeichert."
   },
   "addRow": {
-    "message": "Add Row"
+    "message": "Zeile hinzufügen"
   },
   "addColumn": {
-    "message": "Add Column"
+    "message": "Spalte hinzufügen"
   },
   "deleteRow": {
-    "message": "Delete row?"
+    "message": "Zeile löschen?"
   },
   "deleteRowConfirm": {
-    "message": "This action cannot be undone."
+    "message": "Diese Aktion kann nicht rückgängig gemacht werden."
   },
   "deleteColumn": {
-    "message": "Delete column?"
+    "message": "Spalte löschen?"
   },
   "deleteColumnConfirm": {
-    "message": "This action cannot be undone."
+    "message": "Diese Aktion kann nicht rückgängig gemacht werden."
   },
   "discard": {
-    "message": "Discard"
+    "message": "Verwerfen"
   },
   "changesDiscarded": {
-    "message": "Changes discarded"
+    "message": "Änderungen verworfen"
   },
   "save": {
-    "message": "Save"
+    "message": "Speichern"
   },
   "saveSuccess": {
-    "message": "Changes saved successfully!"
+    "message": "Änderungen erfolgreich gespeichert!"
   },
   "unsavedChanges": {
-    "message": "You have unsaved changes"
+    "message": "Du hast ungespeicherte Änderungen"
   },
   "columnAdded": {
-    "message": "Column '{{name}}' added"
+    "message": "Spalte '{{name}}' hinzugefügt"
   },
   "rows": {
-    "message": "rows"
+    "message": "Zeilen"
   },
   "columnsLabel": {
-    "message": "columns"
+    "message": "Spalten"
   },
   "showingRows": {
-    "message": "Showing {{total}} rows"
+    "message": "{{total}} Zeilen angezeigt"
   },
   "tableSummary": {
-    "message": "Table Summary"
+    "message": "Tabellenübersicht"
   },
   "tableName": {
-    "message": "Table Name"
+    "message": "Tabellenname"
   },
   "tableNamePlaceholder": {
-    "message": "Enter a name for your table"
+    "message": "Gib einen Namen für deine Tabelle ein"
   },
   "tableDescription": {
-    "message": "Description (optional)"
+    "message": "Beschreibung (optional)"
   },
   "tableDescPlaceholder": {
-    "message": "Add a description to help you remember what this table contains"
+    "message": "Füge eine Beschreibung hinzu, um dich daran zu erinnern, was diese Tabelle enthält"
   },
   "saveToLibrary": {
-    "message": "Save to Library"
+    "message": "In Bibliothek speichern"
   },
   "tableSaved": {
-    "message": "Table Saved!"
+    "message": "Tabelle gespeichert!"
   },
   "tableSavedDesc": {
-    "message": "Your table has been saved to the library. You can view and export it anytime."
+    "message": "Deine Tabelle wurde in der Bibliothek gespeichert. Du kannst sie jederzeit ansehen und exportieren."
   },
   "viewTables": {
-    "message": "View My Tables"
+    "message": "Meine Tabellen anzeigen"
   },
   "createAnother": {
-    "message": "Create Another"
+    "message": "Weitere erstellen"
   },
   "orExport": {
-    "message": "Or export directly:"
+    "message": "Oder direkt exportieren:"
   },
   "export": {
-    "message": "Export"
+    "message": "Exportieren"
   },
   "exportCSV": {
-    "message": "Export as CSV"
+    "message": "Als CSV exportieren"
   },
   "exportExcel": {
-    "message": "Export as Excel"
+    "message": "Als Excel exportieren"
   },
   "exportJSON": {
-    "message": "Export as JSON"
+    "message": "Als JSON exportieren"
   },
   "exportSuccess": {
-    "message": "Table exported as {{format}}"
+    "message": "Tabelle als {{format}} exportiert"
   },
   "noTableToSave": {
-    "message": "No table to save"
+    "message": "Keine Tabelle zum Speichern"
   },
   "goBackToGenerate": {
-    "message": "Go back to the previous step to generate a table first."
+    "message": "Gehe zum vorherigen Schritt zurück, um zuerst eine Tabelle zu erstellen."
   },
   "tableDetails": {
-    "message": "Table Details"
+    "message": "Tabellendetails"
   },
   "tableNotFound": {
-    "message": "Table not found"
+    "message": "Tabelle nicht gefunden"
   },
   "noData": {
-    "message": "No data"
+    "message": "Keine Daten"
   },
   "data": {
-    "message": "Data"
+    "message": "Daten"
   },
   "editMode": {
-    "message": "Edit Mode"
+    "message": "Bearbeitungsmodus"
   },
   "editModeActive": {
-    "message": "Click cells to edit"
+    "message": "Klicke auf Zellen zum Bearbeiten"
   },
   "regenerate": {
-    "message": "Regenerate"
+    "message": "Neu generieren"
   },
   "regenerateSuccess": {
-    "message": "Table regenerated successfully!"
+    "message": "Tabelle erfolgreich neu generiert!"
   },
   "model": {
-    "message": "Model"
+    "message": "Modell"
   },
   "prompt": {
-    "message": "Generation Prompt"
+    "message": "Generierungs-Prompt"
   },
   "sources": {
-    "message": "Sources"
+    "message": "Quellen"
   },
   "created": {
-    "message": "Created"
+    "message": "Erstellt"
   },
   "updated": {
-    "message": "Updated"
+    "message": "Aktualisiert"
   },
   "noTables": {
-    "message": "No tables yet. Create your first table!"
+    "message": "Noch keine Tabellen. Erstelle deine erste Tabelle!"
   },
   "noSearchResults": {
-    "message": "No tables found matching your search"
+    "message": "Keine Tabellen gefunden, die deiner Suche entsprechen"
   },
   "totalTables": {
-    "message": "{{total}} tables"
+    "message": "{{total}} Tabellen"
   },
   "view": {
-    "message": "View"
+    "message": "Ansehen"
   },
   "delete": {
-    "message": "Delete"
+    "message": "Löschen"
   },
   "deleteConfirmTitle": {
-    "message": "Delete Table"
+    "message": "Tabelle löschen"
   },
   "deleteConfirmMessage": {
-    "message": "Are you sure you want to delete this table? This action cannot be undone."
+    "message": "Möchtest du diese Tabelle wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
   },
   "noTable": {
-    "message": "No table data"
+    "message": "Keine Tabellendaten"
   },
   "add": {
-    "message": "Add"
+    "message": "Hinzufügen"
   },
   "columnName": {
-    "message": "Column Name"
+    "message": "Spaltenname"
   },
   "columnNamePlaceholder": {
-    "message": "e.g., Price, Status, Date"
+    "message": "z. B. Preis, Status, Datum"
   },
   "columnNameRequired": {
-    "message": "Please enter a column name"
+    "message": "Bitte gib einen Spaltennamen ein"
   },
   "columnNameTooLong": {
-    "message": "Column name must be 50 characters or less"
+    "message": "Der Spaltenname darf höchstens 50 Zeichen lang sein"
   },
   "columnNameExists": {
-    "message": "A column with this name already exists"
+    "message": "Eine Spalte mit diesem Namen existiert bereits"
   },
   "columnType": {
-    "message": "Column Type"
+    "message": "Spaltentyp"
   },
   "columnTypeRequired": {
-    "message": "Please select a column type"
+    "message": "Bitte wähle einen Spaltentyp aus"
   },
   "columnDescription": {
-    "message": "Description (optional)"
+    "message": "Beschreibung (optional)"
   },
   "columnDescriptionHint": {
-    "message": "A brief description of what this column contains"
+    "message": "Eine kurze Beschreibung dessen, was diese Spalte enthält"
   },
   "columnDescriptionPlaceholder": {
-    "message": "e.g., The price of the item in USD"
+    "message": "z. B. Der Preis des Artikels in USD"
   },
   "discardUnsavedChanges": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "Du hast ungespeicherte Änderungen. Möchtest du wirklich schließen?"
   },
   "createFromChat": {
-    "message": "Create Table from Chat"
+    "message": "Tabelle aus Chat erstellen"
   },
   "saveFromArtifact": {
-    "message": "Save to Data Tables"
+    "message": "In Data Tables speichern"
   },
   "importedPrompt": {
-    "message": "Imported from table artifact"
+    "message": "Aus Tabellenartefakt importiert"
   },
   "columns_name": {
     "message": "Name"
   },
   "columns_rows": {
-    "message": "Rows"
+    "message": "Zeilen"
   },
   "columns_columns": {
-    "message": "Columns"
+    "message": "Spalten"
   },
   "columns_sources": {
-    "message": "Sources"
+    "message": "Quellen"
   },
   "columns_created": {
-    "message": "Created"
+    "message": "Erstellt"
   },
   "columns_actions": {
-    "message": "Actions"
+    "message": "Aktionen"
+  },
+  "dataTablesDescription": {
+    "message": "Erstelle strukturierte Tabellen aus deinen Chats, Dokumenten und deiner Wissensbasis mit natürlichsprachlichen Prompts."
+  },
+  "descriptionLabel": {
+    "message": "Beschreibung"
+  },
+  "tableDescriptionLabel": {
+    "message": "Beschreibung"
   }
 }

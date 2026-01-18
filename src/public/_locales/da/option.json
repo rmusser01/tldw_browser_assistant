@@ -2038,5 +2038,11 @@
   },
   "flashcards_reverseCard": {
     "message": "reverse"
+  },
+  "flashcards_reviewedThisSession": {
+    "message": "{{count}} cards reviewed this session"
+  },
+  "flashcards_dueNow": {
+    "message": "Due now"
   }
 }

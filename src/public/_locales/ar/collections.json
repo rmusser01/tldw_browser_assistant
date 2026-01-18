@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "المجموعات"
+  },
+  "description": {
+    "message": "احفظ المقالات، وأنشئ الإبرازات، وأدر القوالب، واستورد/صدّر قائمة القراءة."
+  },
+  "offline": {
+    "message": "الخادم غير متصل. يرجى الاتصال لاستخدام المجموعات."
+  },
+  "betaNotice": {
+    "message": "ميزة تجريبية"
+  },
+  "betaDescription": {
+    "message": "المجموعات قيد التجربة حاليًا. قد تتطلب بعض الميزات دعمًا من الخادم."
+  },
+  "tabs_reading": {
+    "message": "قائمة القراءة"
+  },
+  "tabs_highlights": {
+    "message": "الإبرازات"
+  },
+  "tabs_templates": {
+    "message": "القوالب"
+  },
+  "tabs_importExport": {
+    "message": "استيراد/تصدير"
+  },
+  "status_all": {
+    "message": "الكل"
+  },
+  "status_saved": {
+    "message": "محفوظة"
+  },
+  "status_reading": {
+    "message": "قيد القراءة"
+  },
+  "status_read": {
+    "message": "تمت القراءة"
+  },
+  "status_archived": {
+    "message": "مؤرشفة"
+  },
+  "sort_created_at": {
+    "message": "تاريخ الإضافة"
+  },
+  "sort_updated_at": {
+    "message": "آخر تحديث"
+  },
+  "sort_title": {
+    "message": "العنوان"
+  },
+  "sort_relevance": {
+    "message": "الصلة"
+  },
+  "colors_all": {
+    "message": "كل الألوان"
+  },
+  "colors_yellow": {
+    "message": "أصفر"
+  },
+  "colors_green": {
+    "message": "أخضر"
+  },
+  "colors_blue": {
+    "message": "أزرق"
+  },
+  "colors_pink": {
+    "message": "وردي"
+  },
+  "colors_purple": {
+    "message": "بنفسجي"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} دقيقة مضت"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} ساعة مضت"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} يوم مضت"
+  },
+  "reading_addUrl": {
+    "message": "إضافة رابط"
+  },
+  "reading_addUrlTitle": {
+    "message": "إضافة إلى قائمة القراءة"
+  },
+  "reading_addFirst": {
+    "message": "أضف مقالك الأول"
+  },
+  "reading_addSuccess": {
+    "message": "تمت إضافة المقال إلى قائمة القراءة"
+  },
+  "reading_searchPlaceholder": {
+    "message": "ابحث في المقالات..."
+  },
+  "reading_filters": {
+    "message": "عوامل التصفية"
+  },
+  "reading_favorites": {
+    "message": "المفضلة"
+  },
+  "reading_tagsFilter": {
+    "message": "الوسوم"
+  },
+  "reading_domainFilter": {
+    "message": "النطاق"
+  },
+  "reading_sortBy": {
+    "message": "ترتيب"
+  },
+  "reading_clearFilters": {
+    "message": "مسح عوامل التصفية"
+  },
+  "reading_noResults": {
+    "message": "لا توجد مقالات تطابق عوامل التصفية"
+  },
+  "reading_empty": {
+    "message": "قائمة القراءة فارغة"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} من {{total}} عنصرًا"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} دقيقة قراءة"
+  },
+  "reading_favorite": {
+    "message": "إضافة إلى المفضلة"
+  },
+  "reading_unfavorite": {
+    "message": "إزالة من المفضلة"
+  },
+  "reading_viewDetails": {
+    "message": "عرض التفاصيل"
+  },
+  "reading_openOriginal": {
+    "message": "فتح المصدر"
+  },
+  "reading_changeStatus": {
+    "message": "تغيير الحالة"
+  },
+  "reading_archive": {
+    "message": "أرشفة"
+  },
+  "reading_unarchive": {
+    "message": "إلغاء الأرشفة"
+  },
+  "reading_statusUpdated": {
+    "message": "تم تحديث الحالة إلى {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "الرابط"
+  },
+  "reading_urlRequired": {
+    "message": "يرجى إدخال رابط"
+  },
+  "reading_urlInvalid": {
+    "message": "يرجى إدخال رابط صالح"
+  },
+  "reading_titleLabel": {
+    "message": "العنوان (اختياري)"
+  },
+  "reading_titleHint": {
+    "message": "اتركه فارغًا لاكتشافه تلقائيًا من الصفحة"
+  },
+  "reading_titlePlaceholder": {
+    "message": "عنوان المقال"
+  },
+  "reading_tagsLabel": {
+    "message": "الوسوم"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "أضف وسومًا..."
+  },
+  "reading_notesLabel": {
+    "message": "ملاحظات (اختياري)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "أضف أي ملاحظات حول هذا المقال..."
+  },
+  "reading_saveToList": {
+    "message": "حفظ في القائمة"
+  },
+  "reading_addTag": {
+    "message": "أضف وسمًا..."
+  },
+  "reading_tabs_content": {
+    "message": "المحتوى"
+  },
+  "reading_tabs_summary": {
+    "message": "الملخص"
+  },
+  "reading_tabs_highlights": {
+    "message": "الإبرازات"
+  },
+  "reading_tabs_notes": {
+    "message": "الملاحظات"
+  },
+  "reading_noContent": {
+    "message": "المحتوى غير متوفر"
+  },
+  "reading_noSummary": {
+    "message": "لا يوجد ملخص بعد"
+  },
+  "reading_noNotes": {
+    "message": "لا توجد ملاحظات بعد"
+  },
+  "reading_editNotes": {
+    "message": "تعديل الملاحظات"
+  },
+  "reading_addNotes": {
+    "message": "إضافة ملاحظات"
+  },
+  "reading_notesSaved": {
+    "message": "تم حفظ الملاحظات"
+  },
+  "reading_notesPlaceholder": {
+    "message": "أضف ملاحظاتك..."
+  },
+  "reading_summarize": {
+    "message": "لخّص"
+  },
+  "reading_generateSummary": {
+    "message": "إنشاء ملخص"
+  },
+  "reading_summarized": {
+    "message": "تم إنشاء الملخص"
+  },
+  "reading_generateTts": {
+    "message": "إنشاء صوت"
+  },
+  "reading_ttsGenerated": {
+    "message": "تم إنشاء الصوت"
+  },
+  "reading_downloadAudio": {
+    "message": "تنزيل الصوت"
+  },
+  "reading_deleted": {
+    "message": "تم حذف المقال"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "حذف المقال"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "هل أنت متأكد من حذف هذا المقال؟ لا يمكن التراجع عن هذا الإجراء."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "ابحث في الإبرازات..."
+  },
+  "highlights_groupByItem": {
+    "message": "تجميع حسب المقال"
+  },
+  "highlights_add": {
+    "message": "إضافة إبراز"
+  },
+  "highlights_edit": {
+    "message": "تعديل إبراز"
+  },
+  "highlights_quoteLabel": {
+    "message": "اقتباس"
+  },
+  "highlights_quoteRequired": {
+    "message": "يرجى إدخال نص الإبراز"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "الصق النص المبرز..."
+  },
+  "highlights_noteLabel": {
+    "message": "ملاحظة (اختياري)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "أضف سياقًا أو سبب الأهمية..."
+  },
+  "highlights_colorLabel": {
+    "message": "لون الإبراز"
+  },
+  "highlights_noResults": {
+    "message": "لا توجد إبرازات تطابق عوامل التصفية"
+  },
+  "highlights_empty": {
+    "message": "لا توجد إبرازات بعد"
+  },
+  "highlights_emptyForItem": {
+    "message": "لا توجد إبرازات لهذا المقال بعد"
+  },
+  "highlights_emptyHint": {
+    "message": "ستظهر الإبرازات التي تنشئها أثناء القراءة هنا."
+  },
+  "highlights_from": {
+    "message": "من"
+  },
+  "highlights_viewArticle": {
+    "message": "عرض المقال"
+  },
+  "highlights_created": {
+    "message": "تم إنشاء الإبراز"
+  },
+  "highlights_updated": {
+    "message": "تم تحديث الإبراز"
+  },
+  "highlights_missingItem": {
+    "message": "اختر مقالًا أولاً"
+  },
+  "highlights_deleted": {
+    "message": "تم حذف الإبراز"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "حذف الإبراز"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "هل أنت متأكد من حذف هذا الإبراز؟"
+  },
+  "templates_create": {
+    "message": "إنشاء قالب"
+  },
+  "templates_createFirst": {
+    "message": "أنشئ قالبك الأول"
+  },
+  "templates_searchPlaceholder": {
+    "message": "ابحث في القوالب..."
+  },
+  "templates_noResults": {
+    "message": "لا توجد قوالب تطابق عوامل التصفية"
+  },
+  "templates_empty": {
+    "message": "لا توجد قوالب بعد"
+  },
+  "templates_default": {
+    "message": "افتراضي"
+  },
+  "templates_preview": {
+    "message": "معاينة"
+  },
+  "templates_duplicate": {
+    "message": "نسخ"
+  },
+  "templates_deleted": {
+    "message": "تم حذف القالب"
+  },
+  "templates_created": {
+    "message": "تم إنشاء القالب"
+  },
+  "templates_updated": {
+    "message": "تم تحديث القالب"
+  },
+  "templates_editTitle": {
+    "message": "تعديل القالب"
+  },
+  "templates_createTitle": {
+    "message": "إنشاء قالب"
+  },
+  "templates_nameLabel": {
+    "message": "اسم القالب"
+  },
+  "templates_nameRequired": {
+    "message": "يرجى إدخال اسم"
+  },
+  "templates_namePlaceholder": {
+    "message": "قالب النشرة الإخبارية الخاص بي"
+  },
+  "templates_descriptionLabel": {
+    "message": "الوصف (اختياري)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "وصف موجز لهذا القالب"
+  },
+  "templates_typeLabel": {
+    "message": "نوع القالب"
+  },
+  "templates_formatLabel": {
+    "message": "تنسيق الإخراج"
+  },
+  "templates_bodyLabel": {
+    "message": "نص القالب (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "يرجى إدخال محتوى القالب"
+  },
+  "templates_bodyHint": {
+    "message": "استخدم صياغة Jinja2. المتغيرات المتاحة: items (مصفوفة عناصر القراءة)، date، tags"
+  },
+  "templates_previewTitle": {
+    "message": "معاينة القالب"
+  },
+  "templates_selectItems": {
+    "message": "يرجى تحديد مقال واحد على الأقل"
+  },
+  "templates_selectItemsHint": {
+    "message": "اختر المقالات لتضمينها في المعاينة:"
+  },
+  "templates_selectAll": {
+    "message": "تحديد الكل"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} محددة"
+  },
+  "templates_noItems": {
+    "message": "لا توجد مقالات في قائمة القراءة"
+  },
+  "templates_generatePreview": {
+    "message": "إنشاء معاينة"
+  },
+  "templates_generateOutput": {
+    "message": "إنشاء المخرجات"
+  },
+  "templates_audioUnavailable": {
+    "message": "المخرجات الصوتية غير متاحة"
+  },
+  "templates_noGeneratedContent": {
+    "message": "لا توجد مخرجات بعد"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "حذف القالب"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "هل أنت متأكد من حذف هذا القالب؟"
+  },
+  "templateTypes_all": {
+    "message": "كل الأنواع"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "نشرة إخبارية (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "إحاطة (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "نشرة إخبارية (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "صوت تحويل النص إلى كلام"
+  },
+  "import_title": {
+    "message": "استيراد"
+  },
+  "import_sourceRequired": {
+    "message": "اختر مصدرًا أولاً"
+  },
+  "import_selectSource": {
+    "message": "اختر مصدر الاستيراد:"
+  },
+  "import_sources_auto_label": {
+    "message": "كشف تلقائي"
+  },
+  "import_sources_auto_description": {
+    "message": "ارفع ملف تصدير Pocket أو Instapaper للكشف عن الصيغة تلقائيًا"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "استورد مقالاتك المحفوظة من تصدير Pocket"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "استورد المقالات من تصدير Instapaper"
+  },
+  "import_methodFile": {
+    "message": "رفع ملف"
+  },
+  "import_methodApiKey": {
+    "message": "مفتاح API"
+  },
+  "import_apiKeyLabel": {
+    "message": "مفتاح API"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "الصق مفتاح API"
+  },
+  "import_apiKeyRequired": {
+    "message": "يرجى إدخال مفتاح API"
+  },
+  "import_previewWithKey": {
+    "message": "معاينة الاستيراد"
+  },
+  "import_processing": {
+    "message": "جارٍ معالجة الملف..."
+  },
+  "import_dropzone": {
+    "message": "انقر أو اسحب الملف للرفع"
+  },
+  "import_formats": {
+    "message": "يدعم Pocket JSON وInstapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "تم العثور على {{count}} عنصرًا"
+  },
+  "import_selectAll": {
+    "message": "تحديد الكل"
+  },
+  "import_selectItems": {
+    "message": "يرجى تحديد العناصر للاستيراد"
+  },
+  "import_importSelected": {
+    "message": "استيراد {{count}} عنصرًا"
+  },
+  "import_success": {
+    "message": "تم استيراد {{count}} عنصرًا"
+  },
+  "import_complete": {
+    "message": "اكتمل الاستيراد"
+  },
+  "import_resultSummary": {
+    "message": "تم الاستيراد: {{imported}}، تم التحديث: {{updated}}، تم التخطي: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "استيراد المزيد"
+  },
+  "import_steps_source": {
+    "message": "المصدر"
+  },
+  "import_steps_upload": {
+    "message": "رفع"
+  },
+  "import_steps_preview": {
+    "message": "معاينة"
+  },
+  "import_steps_result": {
+    "message": "النتيجة"
+  },
+  "export_title": {
+    "message": "تصدير"
+  },
+  "export_format": {
+    "message": "التنسيق"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "خيارات"
+  },
+  "export_includeContent": {
+    "message": "تضمين المحتوى الكامل"
+  },
+  "export_includeHighlights": {
+    "message": "تضمين الإبرازات"
+  },
+  "export_items": {
+    "message": "العناصر المراد تصديرها"
+  },
+  "export_searchPlaceholder": {
+    "message": "ابحث في العناصر..."
+  },
+  "export_allItems": {
+    "message": "كل العناصر (اتركه فارغًا)"
+  },
+  "export_itemsHint": {
+    "message": "اتركه فارغًا لتصدير كل العناصر، أو اختر عناصر محددة"
+  },
+  "export_selectionHint": {
+    "message": "اختر العناصر للتصدير، أو اتركه فارغًا لتصدير كل شيء."
+  },
+  "export_selectAll": {
+    "message": "تحديد الكل"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} محددة"
+  },
+  "export_clearSelection": {
+    "message": "مسح"
+  },
+  "export_noItems": {
+    "message": "لم يتم العثور على عناصر"
+  },
+  "export_selectItems": {
+    "message": "اختر العناصر لنسخها أولاً"
+  },
+  "export_copy": {
+    "message": "نسخ JSONL"
+  },
+  "export_copied": {
+    "message": "تم النسخ إلى الحافظة"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "تصدير ZIP لا يدعم اختيار العناصر بعد."
+  },
+  "export_download": {
+    "message": "تنزيل التصدير"
+  },
+  "export_allItemsHint": {
+    "message": "يشمل التصدير جميع عناصر قائمة القراءة لحسابك."
+  },
+  "export_success": {
+    "message": "التصدير جاهز للتنزيل"
+  }
+}

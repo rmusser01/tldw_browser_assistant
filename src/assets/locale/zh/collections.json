@@ -1,0 +1,262 @@
+{
+  "title": "收藏",
+  "description": "保存文章、创建高亮、管理模板，并导入/导出阅读列表。",
+  "offline": "服务器离线。请连接以使用收藏。",
+  "betaNotice": "Beta 功能",
+  "betaDescription": "收藏目前处于 Beta 阶段，部分功能可能需要后端支持。",
+
+  "tabs": {
+    "reading": "阅读列表",
+    "highlights": "高亮",
+    "templates": "模板",
+    "importExport": "导入/导出"
+  },
+
+  "status": {
+    "all": "全部",
+    "saved": "已保存",
+    "reading": "阅读中",
+    "read": "已读",
+    "archived": "已归档"
+  },
+
+  "sort": {
+    "created_at": "添加日期",
+    "updated_at": "最后更新",
+    "title": "标题",
+    "relevance": "相关性"
+  },
+
+  "colors": {
+    "all": "全部颜色",
+    "yellow": "黄色",
+    "green": "绿色",
+    "blue": "蓝色",
+    "pink": "粉色",
+    "purple": "紫色"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}} 分钟前",
+    "hoursAgo": "{{count}} 小时前",
+    "daysAgo": "{{count}} 天前"
+  },
+
+  "reading": {
+    "addUrl": "添加 URL",
+    "addUrlTitle": "添加到阅读列表",
+    "addFirst": "添加第一篇文章",
+    "addSuccess": "文章已添加到阅读列表",
+    "searchPlaceholder": "搜索文章...",
+    "filters": "筛选",
+    "favorites": "收藏夹",
+    "tagsFilter": "标签",
+    "domainFilter": "域名",
+    "sortBy": "排序",
+    "clearFilters": "清除筛选",
+    "noResults": "没有文章符合筛选条件",
+    "empty": "阅读列表为空",
+    "pagination": "{{start}}-{{end}} / {{total}} 条",
+
+    "readingTime": "{{count}} 分钟阅读",
+    "favorite": "加入收藏",
+    "unfavorite": "取消收藏",
+    "viewDetails": "查看详情",
+    "openOriginal": "打开原文",
+    "changeStatus": "更改状态",
+    "archive": "归档",
+    "unarchive": "取消归档",
+    "statusUpdated": "状态已更新为 {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "请输入 URL",
+    "urlInvalid": "请输入有效的 URL",
+    "titleLabel": "标题（可选）",
+    "titleHint": "留空以从页面自动识别",
+    "titlePlaceholder": "文章标题",
+    "tagsLabel": "标签",
+    "tagsPlaceholder": "添加标签...",
+    "notesLabel": "备注（可选）",
+    "notesPlaceholderArticle": "添加关于此文章的备注...",
+    "saveToList": "保存到列表",
+    "addTag": "添加标签...",
+
+    "tabs": {
+      "content": "内容",
+      "summary": "摘要",
+      "highlights": "高亮",
+      "notes": "备注"
+    },
+
+    "noContent": "内容不可用",
+    "noSummary": "暂无摘要",
+    "noNotes": "暂无备注",
+    "editNotes": "编辑备注",
+    "addNotes": "添加备注",
+    "notesSaved": "备注已保存",
+    "notesPlaceholder": "添加你的备注...",
+
+    "summarize": "生成摘要",
+    "generateSummary": "生成摘要",
+    "summarized": "摘要已生成",
+    "generateTts": "生成音频",
+    "ttsGenerated": "音频已生成",
+    "downloadAudio": "下载音频",
+
+    "deleted": "文章已删除",
+    "deleteConfirm": {
+      "title": "删除文章",
+      "message": "确定要删除此文章吗？此操作无法撤销。"
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "搜索高亮...",
+    "groupByItem": "按文章分组",
+    "add": "添加高亮",
+    "edit": "编辑高亮",
+    "quoteLabel": "引用",
+    "quoteRequired": "请输入高亮文本",
+    "quotePlaceholder": "粘贴高亮文本...",
+    "noteLabel": "备注（可选）",
+    "notePlaceholder": "添加背景或重要原因...",
+    "colorLabel": "高亮颜色",
+    "noResults": "没有高亮符合筛选条件",
+    "empty": "暂无高亮",
+    "emptyForItem": "此文章暂无高亮",
+    "emptyHint": "阅读时创建的高亮会显示在这里。",
+    "from": "来自",
+    "viewArticle": "查看文章",
+    "created": "高亮已创建",
+    "updated": "高亮已更新",
+    "missingItem": "请先选择文章",
+    "deleted": "高亮已删除",
+    "deleteConfirm": {
+      "title": "删除高亮",
+      "message": "确定要删除此高亮吗？"
+    }
+  },
+
+  "templates": {
+    "create": "创建模板",
+    "createFirst": "创建你的第一个模板",
+    "searchPlaceholder": "搜索模板...",
+    "noResults": "没有模板符合筛选条件",
+    "empty": "暂无模板",
+    "default": "默认",
+    "preview": "预览",
+    "duplicate": "复制",
+    "deleted": "模板已删除",
+    "created": "模板已创建",
+    "updated": "模板已更新",
+
+    "editTitle": "编辑模板",
+    "createTitle": "创建模板",
+    "nameLabel": "模板名称",
+    "nameRequired": "请输入名称",
+    "namePlaceholder": "我的简报模板",
+    "descriptionLabel": "描述（可选）",
+    "descriptionPlaceholder": "该模板的简要描述",
+    "typeLabel": "模板类型",
+    "formatLabel": "输出格式",
+    "bodyLabel": "模板内容（Jinja2）",
+    "bodyRequired": "请输入模板内容",
+    "bodyHint": "使用 Jinja2 语法。可用变量：items（阅读项数组）、date、tags",
+
+    "previewTitle": "模板预览",
+    "selectItems": "请至少选择一篇文章",
+    "selectItemsHint": "选择要包含在预览中的文章：",
+    "selectAll": "全选",
+    "selectedCount": "已选择 {{count}} 项",
+    "noItems": "阅读列表中没有文章",
+    "generatePreview": "生成预览",
+    "generateOutput": "生成输出",
+    "audioUnavailable": "音频输出不可用",
+    "noGeneratedContent": "尚未生成输出",
+
+    "deleteConfirm": {
+      "title": "删除模板",
+      "message": "确定要删除此模板吗？"
+    }
+  },
+
+  "templateTypes": {
+    "all": "所有类型",
+    "newsletter_markdown": "通讯 (MD)",
+    "briefing_markdown": "简报 (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "通讯 (HTML)",
+    "tts_audio": "TTS 音频"
+  },
+
+  "import": {
+    "title": "导入",
+    "sourceRequired": "请先选择来源",
+    "selectSource": "选择导入来源：",
+    "sources": {
+      "auto": {
+        "label": "自动识别",
+        "description": "上传 Pocket 或 Instapaper 导出文件并自动识别格式"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "从 Pocket 导出导入已保存的文章"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "从 Instapaper 导出导入文章"
+      }
+    },
+    "methodFile": "文件上传",
+    "methodApiKey": "API 密钥",
+    "apiKeyLabel": "API 密钥",
+    "apiKeyPlaceholder": "粘贴 API 密钥",
+    "apiKeyRequired": "请输入 API 密钥",
+    "previewWithKey": "预览导入",
+    "processing": "正在处理文件...",
+    "dropzone": "点击或拖拽文件上传",
+    "formats": "支持 Pocket JSON 和 Instapaper CSV",
+    "previewHint": "找到 {{count}} 项",
+    "selectAll": "全选",
+    "selectItems": "选择要导入的项目",
+    "importSelected": "导入 {{count}} 项",
+    "success": "已导入 {{count}} 项",
+    "complete": "导入完成",
+    "resultSummary": "导入：{{imported}}，更新：{{updated}}，跳过：{{skipped}}",
+    "importMore": "继续导入",
+    "steps": {
+      "source": "来源",
+      "upload": "上传",
+      "preview": "预览",
+      "result": "结果"
+    }
+  },
+
+  "export": {
+    "title": "导出",
+    "format": "格式",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "选项",
+    "includeContent": "包含完整内容",
+    "includeHighlights": "包含高亮",
+    "items": "要导出的项目",
+    "searchPlaceholder": "搜索项目...",
+    "allItems": "所有项目（留空）",
+    "itemsHint": "留空以导出所有项目，或选择特定项目",
+    "selectionHint": "选择要导出的项目，或留空以导出全部。",
+    "selectAll": "全选",
+    "selectedCount": "已选择 {{count}} 项",
+    "clearSelection": "清除",
+    "noItems": "未找到项目",
+    "selectItems": "请先选择要复制的项目",
+    "copy": "复制 JSONL",
+    "copied": "已复制到剪贴板",
+    "zipSelectionUnsupported": "ZIP 导出暂不支持选择项目。",
+    "download": "下载导出",
+    "allItemsHint": "导出包含你账户下所有阅读列表项目。",
+    "success": "导出已准备好下载"
+  }
+}

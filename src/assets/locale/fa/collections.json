@@ -1,0 +1,262 @@
+{
+  "title": "مجموعه‌ها",
+  "description": "مقاله‌ها را ذخیره کنید، هایلایت بسازید، قالب‌ها را مدیریت کنید و فهرست مطالعه‌تان را وارد/خارج کنید.",
+  "offline": "سرور آفلاین است. برای استفاده از مجموعه‌ها متصل شوید.",
+  "betaNotice": "ویژگی بتا",
+  "betaDescription": "مجموعه‌ها در حال حاضر بتا هستند. برخی قابلیت‌ها ممکن است به پشتیبانی بک‌اند نیاز داشته باشند.",
+
+  "tabs": {
+    "reading": "فهرست مطالعه",
+    "highlights": "هایلایت‌ها",
+    "templates": "قالب‌ها",
+    "importExport": "وارد/خارج کردن"
+  },
+
+  "status": {
+    "all": "همه",
+    "saved": "ذخیره‌شده",
+    "reading": "در حال خواندن",
+    "read": "خوانده‌شده",
+    "archived": "بایگانی‌شده"
+  },
+
+  "sort": {
+    "created_at": "تاریخ افزودن",
+    "updated_at": "آخرین به‌روزرسانی",
+    "title": "عنوان",
+    "relevance": "ارتباط"
+  },
+
+  "colors": {
+    "all": "همه رنگ‌ها",
+    "yellow": "زرد",
+    "green": "سبز",
+    "blue": "آبی",
+    "pink": "صورتی",
+    "purple": "بنفش"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}} دقیقه پیش",
+    "hoursAgo": "{{count}} ساعت پیش",
+    "daysAgo": "{{count}} روز پیش"
+  },
+
+  "reading": {
+    "addUrl": "افزودن URL",
+    "addUrlTitle": "افزودن به فهرست مطالعه",
+    "addFirst": "اولین مقاله‌تان را اضافه کنید",
+    "addSuccess": "مقاله به فهرست مطالعه اضافه شد",
+    "searchPlaceholder": "جستجوی مقاله‌ها...",
+    "filters": "فیلترها",
+    "favorites": "علاقه‌مندی‌ها",
+    "tagsFilter": "برچسب‌ها",
+    "domainFilter": "دامنه",
+    "sortBy": "مرتب‌سازی",
+    "clearFilters": "پاک کردن فیلترها",
+    "noResults": "هیچ مقاله‌ای با فیلترهای شما مطابقت ندارد",
+    "empty": "فهرست مطالعه شما خالی است",
+    "pagination": "{{start}}-{{end}} از {{total}} مورد",
+
+    "readingTime": "{{count}} دقیقه زمان مطالعه",
+    "favorite": "افزودن به علاقه‌مندی‌ها",
+    "unfavorite": "حذف از علاقه‌مندی‌ها",
+    "viewDetails": "مشاهده جزئیات",
+    "openOriginal": "باز کردن منبع",
+    "changeStatus": "تغییر وضعیت",
+    "archive": "بایگانی",
+    "unarchive": "خروج از بایگانی",
+    "statusUpdated": "وضعیت به {{status}} به‌روزرسانی شد",
+
+    "urlLabel": "URL",
+    "urlRequired": "لطفاً یک URL وارد کنید",
+    "urlInvalid": "لطفاً یک URL معتبر وارد کنید",
+    "titleLabel": "عنوان (اختیاری)",
+    "titleHint": "برای تشخیص خودکار از صفحه خالی بگذارید",
+    "titlePlaceholder": "عنوان مقاله",
+    "tagsLabel": "برچسب‌ها",
+    "tagsPlaceholder": "افزودن برچسب...",
+    "notesLabel": "یادداشت‌ها (اختیاری)",
+    "notesPlaceholderArticle": "هر یادداشتی درباره این مقاله اضافه کنید...",
+    "saveToList": "ذخیره در فهرست",
+    "addTag": "افزودن برچسب...",
+
+    "tabs": {
+      "content": "محتوا",
+      "summary": "خلاصه",
+      "highlights": "هایلایت‌ها",
+      "notes": "یادداشت‌ها"
+    },
+
+    "noContent": "محتوا در دسترس نیست",
+    "noSummary": "هنوز خلاصه‌ای وجود ندارد",
+    "noNotes": "هنوز یادداشتی وجود ندارد",
+    "editNotes": "ویرایش یادداشت‌ها",
+    "addNotes": "افزودن یادداشت‌ها",
+    "notesSaved": "یادداشت‌ها ذخیره شد",
+    "notesPlaceholder": "یادداشت‌های خود را اضافه کنید...",
+
+    "summarize": "خلاصه کردن",
+    "generateSummary": "تولید خلاصه",
+    "summarized": "خلاصه تولید شد",
+    "generateTts": "تولید صدا",
+    "ttsGenerated": "صدا تولید شد",
+    "downloadAudio": "دانلود صدا",
+
+    "deleted": "مقاله حذف شد",
+    "deleteConfirm": {
+      "title": "حذف مقاله",
+      "message": "آیا از حذف این مقاله مطمئن هستید؟ این اقدام قابل بازگشت نیست."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "جستجوی هایلایت‌ها...",
+    "groupByItem": "گروه‌بندی بر اساس مقاله",
+    "add": "افزودن هایلایت",
+    "edit": "ویرایش هایلایت",
+    "quoteLabel": "نقل‌قول",
+    "quoteRequired": "لطفاً متن هایلایت را وارد کنید",
+    "quotePlaceholder": "متن هایلایت‌شده را بچسبانید...",
+    "noteLabel": "یادداشت (اختیاری)",
+    "notePlaceholder": "زمینه یا دلیل اهمیت را اضافه کنید...",
+    "colorLabel": "رنگ هایلایت",
+    "noResults": "هیچ هایلایتی با فیلترهای شما مطابقت ندارد",
+    "empty": "هنوز هایلایتی وجود ندارد",
+    "emptyForItem": "برای این مقاله هنوز هایلایتی وجود ندارد",
+    "emptyHint": "هایلایت‌هایی که هنگام خواندن ایجاد می‌کنید، اینجا نمایش داده می‌شوند.",
+    "from": "از",
+    "viewArticle": "مشاهده مقاله",
+    "created": "هایلایت ایجاد شد",
+    "updated": "هایلایت به‌روزرسانی شد",
+    "missingItem": "ابتدا یک مقاله انتخاب کنید",
+    "deleted": "هایلایت حذف شد",
+    "deleteConfirm": {
+      "title": "حذف هایلایت",
+      "message": "آیا از حذف این هایلایت مطمئن هستید؟"
+    }
+  },
+
+  "templates": {
+    "create": "ایجاد قالب",
+    "createFirst": "اولین قالب خود را بسازید",
+    "searchPlaceholder": "جستجوی قالب‌ها...",
+    "noResults": "هیچ قالبی با فیلترهای شما مطابقت ندارد",
+    "empty": "هنوز قالبی وجود ندارد",
+    "default": "پیش‌فرض",
+    "preview": "پیش‌نمایش",
+    "duplicate": "تکثیر",
+    "deleted": "قالب حذف شد",
+    "created": "قالب ایجاد شد",
+    "updated": "قالب به‌روزرسانی شد",
+
+    "editTitle": "ویرایش قالب",
+    "createTitle": "ایجاد قالب",
+    "nameLabel": "نام قالب",
+    "nameRequired": "لطفاً نامی وارد کنید",
+    "namePlaceholder": "قالب خبرنامه من",
+    "descriptionLabel": "توضیحات (اختیاری)",
+    "descriptionPlaceholder": "توضیح کوتاه درباره این قالب",
+    "typeLabel": "نوع قالب",
+    "formatLabel": "قالب خروجی",
+    "bodyLabel": "بدنه قالب (Jinja2)",
+    "bodyRequired": "لطفاً محتوای قالب را وارد کنید",
+    "bodyHint": "از نحو Jinja2 استفاده کنید. متغیرهای در دسترس: items (آرایه‌ای از آیتم‌های مطالعه)، date، tags",
+
+    "previewTitle": "پیش‌نمایش قالب",
+    "selectItems": "حداقل یک مقاله را انتخاب کنید",
+    "selectItemsHint": "مقاله‌ها را برای قرار گرفتن در پیش‌نمایش انتخاب کنید:",
+    "selectAll": "انتخاب همه",
+    "selectedCount": "{{count}} انتخاب شد",
+    "noItems": "هیچ مقاله‌ای در فهرست مطالعه شما نیست",
+    "generatePreview": "تولید پیش‌نمایش",
+    "generateOutput": "تولید خروجی",
+    "audioUnavailable": "خروجی صوتی در دسترس نیست",
+    "noGeneratedContent": "هنوز محتوایی تولید نشده است",
+
+    "deleteConfirm": {
+      "title": "حذف قالب",
+      "message": "آیا از حذف این قالب مطمئن هستید؟"
+    }
+  },
+
+  "templateTypes": {
+    "all": "همه انواع",
+    "newsletter_markdown": "خبرنامه (MD)",
+    "briefing_markdown": "گزارش کوتاه (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "خبرنامه (HTML)",
+    "tts_audio": "صدای TTS"
+  },
+
+  "import": {
+    "title": "وارد کردن",
+    "sourceRequired": "ابتدا یک منبع انتخاب کنید",
+    "selectSource": "منبع وارد کردن را انتخاب کنید:",
+    "sources": {
+      "auto": {
+        "label": "تشخیص خودکار",
+        "description": "فایل خروجی Pocket یا Instapaper را بارگذاری کنید تا قالب به‌صورت خودکار تشخیص داده شود"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "مقاله‌های ذخیره‌شده خود را از خروجی Pocket وارد کنید"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "مقاله‌ها را از خروجی Instapaper وارد کنید"
+      }
+    },
+    "methodFile": "بارگذاری فایل",
+    "methodApiKey": "کلید API",
+    "apiKeyLabel": "کلید API",
+    "apiKeyPlaceholder": "کلید API را بچسبانید",
+    "apiKeyRequired": "لطفاً کلید API را وارد کنید",
+    "previewWithKey": "پیش‌نمایش وارد کردن",
+    "processing": "در حال پردازش فایل...",
+    "dropzone": "برای بارگذاری کلیک کنید یا فایل را بکشید",
+    "formats": "از Pocket JSON و Instapaper CSV پشتیبانی می‌کند",
+    "previewHint": "{{count}} مورد یافت شد",
+    "selectAll": "انتخاب همه",
+    "selectItems": "موارد را برای وارد کردن انتخاب کنید",
+    "importSelected": "وارد کردن {{count}} مورد",
+    "success": "{{count}} مورد وارد شد",
+    "complete": "وارد کردن کامل شد",
+    "resultSummary": "واردشده: {{imported}}، به‌روزرسانی‌شده: {{updated}}، ردشده: {{skipped}}",
+    "importMore": "وارد کردن بیشتر",
+    "steps": {
+      "source": "منبع",
+      "upload": "بارگذاری",
+      "preview": "پیش‌نمایش",
+      "result": "نتیجه"
+    }
+  },
+
+  "export": {
+    "title": "خارج کردن",
+    "format": "قالب",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "گزینه‌ها",
+    "includeContent": "شامل محتوای کامل",
+    "includeHighlights": "شامل هایلایت‌ها",
+    "items": "موارد برای خروجی",
+    "searchPlaceholder": "جستجوی موارد...",
+    "allItems": "همه موارد (خالی بگذارید)",
+    "itemsHint": "برای خروجی همه موارد خالی بگذارید، یا موارد مشخص را انتخاب کنید",
+    "selectionHint": "موارد را برای خروجی انتخاب کنید یا برای خروجی همه موارد خالی بگذارید.",
+    "selectAll": "انتخاب همه",
+    "selectedCount": "{{count}} انتخاب شد",
+    "clearSelection": "پاک کردن",
+    "noItems": "هیچ موردی یافت نشد",
+    "selectItems": "ابتدا موارد را برای کپی انتخاب کنید",
+    "copy": "کپی JSONL",
+    "copied": "در کلیپ‌بورد کپی شد",
+    "zipSelectionUnsupported": "خروجی ZIP هنوز از انتخاب مورد پشتیبانی نمی‌کند.",
+    "download": "دانلود خروجی",
+    "allItemsHint": "خروجی شامل همه موارد فهرست مطالعه برای حساب شماست.",
+    "success": "خروجی آماده دانلود است"
+  }
+}

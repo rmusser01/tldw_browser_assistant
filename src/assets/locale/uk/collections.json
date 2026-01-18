@@ -1,0 +1,262 @@
+{
+  "title": "Колекції",
+  "description": "Зберігайте статті, створюйте виділення, керуйте шаблонами та імпортуйте/експортуйте свій список читання.",
+  "offline": "Сервер офлайн. Підключіться, щоб використовувати Колекції.",
+  "betaNotice": "Бета-функція",
+  "betaDescription": "Колекції зараз у бета-версії. Деякі функції можуть вимагати підтримки бекенда.",
+
+  "tabs": {
+    "reading": "Список читання",
+    "highlights": "Виділення",
+    "templates": "Шаблони",
+    "importExport": "Імпорт/Експорт"
+  },
+
+  "status": {
+    "all": "Усі",
+    "saved": "Збережені",
+    "reading": "Читаю",
+    "read": "Прочитано",
+    "archived": "Архів"
+  },
+
+  "sort": {
+    "created_at": "Дата додавання",
+    "updated_at": "Останнє оновлення",
+    "title": "Заголовок",
+    "relevance": "Релевантність"
+  },
+
+  "colors": {
+    "all": "Усі кольори",
+    "yellow": "Жовтий",
+    "green": "Зелений",
+    "blue": "Синій",
+    "pink": "Рожевий",
+    "purple": "Фіолетовий"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}} хв тому",
+    "hoursAgo": "{{count}} год тому",
+    "daysAgo": "{{count}} дн тому"
+  },
+
+  "reading": {
+    "addUrl": "Додати URL",
+    "addUrlTitle": "Додати до списку читання",
+    "addFirst": "Додайте першу статтю",
+    "addSuccess": "Статтю додано до списку читання",
+    "searchPlaceholder": "Пошук статей...",
+    "filters": "Фільтри",
+    "favorites": "Вибране",
+    "tagsFilter": "Теги",
+    "domainFilter": "Домен",
+    "sortBy": "Сортування",
+    "clearFilters": "Очистити фільтри",
+    "noResults": "Немає статей, що відповідають фільтрам",
+    "empty": "Ваш список читання порожній",
+    "pagination": "{{start}}-{{end}} з {{total}} елементів",
+
+    "readingTime": "{{count}} хв читання",
+    "favorite": "Додати у вибране",
+    "unfavorite": "Видалити з вибраного",
+    "viewDetails": "Переглянути деталі",
+    "openOriginal": "Відкрити оригінал",
+    "changeStatus": "Змінити статус",
+    "archive": "Архівувати",
+    "unarchive": "Розархівувати",
+    "statusUpdated": "Статус оновлено до {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "Введіть URL",
+    "urlInvalid": "Введіть коректний URL",
+    "titleLabel": "Заголовок (необов'язково)",
+    "titleHint": "Залиште порожнім для автоматичного визначення зі сторінки",
+    "titlePlaceholder": "Заголовок статті",
+    "tagsLabel": "Теги",
+    "tagsPlaceholder": "Додати теги...",
+    "notesLabel": "Нотатки (необов'язково)",
+    "notesPlaceholderArticle": "Додайте нотатки до цієї статті...",
+    "saveToList": "Зберегти у список",
+    "addTag": "Додати тег...",
+
+    "tabs": {
+      "content": "Вміст",
+      "summary": "Коротко",
+      "highlights": "Виділення",
+      "notes": "Нотатки"
+    },
+
+    "noContent": "Вміст недоступний",
+    "noSummary": "Короткого опису ще немає",
+    "noNotes": "Нотаток ще немає",
+    "editNotes": "Редагувати нотатки",
+    "addNotes": "Додати нотатки",
+    "notesSaved": "Нотатки збережено",
+    "notesPlaceholder": "Додайте свої нотатки...",
+
+    "summarize": "Узагальнити",
+    "generateSummary": "Згенерувати коротко",
+    "summarized": "Коротко згенеровано",
+    "generateTts": "Згенерувати аудіо",
+    "ttsGenerated": "Аудіо згенеровано",
+    "downloadAudio": "Завантажити аудіо",
+
+    "deleted": "Статтю видалено",
+    "deleteConfirm": {
+      "title": "Видалити статтю",
+      "message": "Ви впевнені, що хочете видалити цю статтю? Цю дію неможливо скасувати."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "Пошук виділень...",
+    "groupByItem": "Групувати за статтею",
+    "add": "Додати виділення",
+    "edit": "Редагувати виділення",
+    "quoteLabel": "Цитата",
+    "quoteRequired": "Введіть виділений текст",
+    "quotePlaceholder": "Вставте виділений текст...",
+    "noteLabel": "Нотатка (необов'язково)",
+    "notePlaceholder": "Додайте контекст або чому це важливо...",
+    "colorLabel": "Колір виділення",
+    "noResults": "Немає виділень, що відповідають фільтрам",
+    "empty": "Ще немає виділень",
+    "emptyForItem": "Для цієї статті виділень ще немає",
+    "emptyHint": "Виділення, створені під час читання, з’являться тут.",
+    "from": "З",
+    "viewArticle": "Переглянути статтю",
+    "created": "Виділення створено",
+    "updated": "Виділення оновлено",
+    "missingItem": "Спочатку виберіть статтю",
+    "deleted": "Виділення видалено",
+    "deleteConfirm": {
+      "title": "Видалити виділення",
+      "message": "Ви впевнені, що хочете видалити це виділення?"
+    }
+  },
+
+  "templates": {
+    "create": "Створити шаблон",
+    "createFirst": "Створіть свій перший шаблон",
+    "searchPlaceholder": "Пошук шаблонів...",
+    "noResults": "Немає шаблонів, що відповідають фільтрам",
+    "empty": "Шаблонів ще немає",
+    "default": "За замовчуванням",
+    "preview": "Попередній перегляд",
+    "duplicate": "Дублювати",
+    "deleted": "Шаблон видалено",
+    "created": "Шаблон створено",
+    "updated": "Шаблон оновлено",
+
+    "editTitle": "Редагувати шаблон",
+    "createTitle": "Створити шаблон",
+    "nameLabel": "Назва шаблону",
+    "nameRequired": "Введіть назву",
+    "namePlaceholder": "Мій шаблон розсилки",
+    "descriptionLabel": "Опис (необов'язково)",
+    "descriptionPlaceholder": "Короткий опис цього шаблону",
+    "typeLabel": "Тип шаблону",
+    "formatLabel": "Формат виводу",
+    "bodyLabel": "Тіло шаблону (Jinja2)",
+    "bodyRequired": "Введіть вміст шаблону",
+    "bodyHint": "Використовуйте синтаксис Jinja2. Доступні змінні: items (масив елементів читання), date, tags",
+
+    "previewTitle": "Попередній перегляд шаблону",
+    "selectItems": "Виберіть принаймні одну статтю",
+    "selectItemsHint": "Виберіть статті для включення в попередній перегляд:",
+    "selectAll": "Вибрати все",
+    "selectedCount": "{{count}} вибрано",
+    "noItems": "У вашому списку читання немає статей",
+    "generatePreview": "Згенерувати перегляд",
+    "generateOutput": "Згенерувати вивід",
+    "audioUnavailable": "Аудіовихід недоступний",
+    "noGeneratedContent": "Вивід ще не згенеровано",
+
+    "deleteConfirm": {
+      "title": "Видалити шаблон",
+      "message": "Ви впевнені, що хочете видалити цей шаблон?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "Усі типи",
+    "newsletter_markdown": "Розсилка (MD)",
+    "briefing_markdown": "Брифінг (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "Розсилка (HTML)",
+    "tts_audio": "TTS аудіо"
+  },
+
+  "import": {
+    "title": "Імпорт",
+    "sourceRequired": "Спочатку виберіть джерело",
+    "selectSource": "Виберіть джерело імпорту:",
+    "sources": {
+      "auto": {
+        "label": "Автовизначення",
+        "description": "Завантажте файл експорту Pocket або Instapaper і автоматично визначте формат"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Імпортуйте збережені статті з експорту Pocket"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Імпортуйте статті з експорту Instapaper"
+      }
+    },
+    "methodFile": "Завантаження файлу",
+    "methodApiKey": "API-ключ",
+    "apiKeyLabel": "API-ключ",
+    "apiKeyPlaceholder": "Вставте свій API-ключ",
+    "apiKeyRequired": "Введіть API-ключ",
+    "previewWithKey": "Попередній перегляд імпорту",
+    "processing": "Обробка файлу...",
+    "dropzone": "Клацніть або перетягніть файл для завантаження",
+    "formats": "Підтримує Pocket JSON та Instapaper CSV",
+    "previewHint": "Знайдено {{count}} елементів",
+    "selectAll": "Вибрати все",
+    "selectItems": "Виберіть елементи для імпорту",
+    "importSelected": "Імпортувати {{count}} елементів",
+    "success": "Імпортовано {{count}} елементів",
+    "complete": "Імпорт завершено",
+    "resultSummary": "Імпортовано: {{imported}}, Оновлено: {{updated}}, Пропущено: {{skipped}}",
+    "importMore": "Імпортувати більше",
+    "steps": {
+      "source": "Джерело",
+      "upload": "Завантаження",
+      "preview": "Перегляд",
+      "result": "Результат"
+    }
+  },
+
+  "export": {
+    "title": "Експорт",
+    "format": "Формат",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "Параметри",
+    "includeContent": "Включити повний вміст",
+    "includeHighlights": "Включити виділення",
+    "items": "Елементи для експорту",
+    "searchPlaceholder": "Пошук елементів...",
+    "allItems": "Усі елементи (залиште порожнім)",
+    "itemsHint": "Залиште порожнім, щоб експортувати всі елементи, або виберіть певні",
+    "selectionHint": "Виберіть елементи для експорту або залиште порожнім, щоб експортувати все.",
+    "selectAll": "Вибрати все",
+    "selectedCount": "{{count}} вибрано",
+    "clearSelection": "Очистити",
+    "noItems": "Елементи не знайдено",
+    "selectItems": "Спочатку виберіть елементи для копіювання",
+    "copy": "Копіювати JSONL",
+    "copied": "Скопійовано в буфер обміну",
+    "zipSelectionUnsupported": "Експорт ZIP ще не підтримує вибір елементів.",
+    "download": "Завантажити експорт",
+    "allItemsHint": "Експорт містить усі елементи списку читання вашого облікового запису.",
+    "success": "Експорт готовий до завантаження"
+  }
+}

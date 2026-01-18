@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { Suspense, useCallback, useEffect, useMemo, useState } from "react"
 import {
   Button,
   Empty,
@@ -11,13 +11,19 @@ import {
   Card,
   Modal
 } from "antd"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Search, RefreshCw, ExternalLink, Layers } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { HighlightCard } from "@/components/Option/Collections/Highlights/HighlightCard"
 import { useCollectionsStore } from "@/store/collections"
 import { useTldwApiClient } from "@/hooks/useTldwApiClient"
-import type { Highlight, HighlightColor } from "@/types/collections"
-import { HighlightCard } from "./HighlightCard"
-import { HighlightEditor } from "./HighlightEditor"
+import type { Highlight, HighlightColor, ReadingItemSummary } from "@/types/collections"
+
+const HighlightEditor = React.lazy(() =>
+  import("@/components/Option/Collections/Highlights/HighlightEditor").then((m) => ({
+    default: m.HighlightEditor
+  }))
+)
 
 const COLOR_OPTIONS: { value: HighlightColor | "all"; label: string; color?: string }[] = [
   { value: "all", label: "All Colors" },
@@ -32,11 +38,9 @@ export const HighlightsList: React.FC = () => {
   const { t } = useTranslation(["collections", "common"])
   const api = useTldwApiClient()
 
+  const queryClient = useQueryClient()
+
   // Store state
-  const highlights = useCollectionsStore((s) => s.highlights)
-  const highlightsLoading = useCollectionsStore((s) => s.highlightsLoading)
-  const highlightsError = useCollectionsStore((s) => s.highlightsError)
-  const highlightsTotal = useCollectionsStore((s) => s.highlightsTotal)
   const highlightsPage = useCollectionsStore((s) => s.highlightsPage)
   const highlightsPageSize = useCollectionsStore((s) => s.highlightsPageSize)
   const highlightsSearch = useCollectionsStore((s) => s.highlightsSearch)
@@ -45,71 +49,100 @@ export const HighlightsList: React.FC = () => {
   const highlightEditorOpen = useCollectionsStore((s) => s.highlightEditorOpen)
 
   // Store actions
-  const setHighlights = useCollectionsStore((s) => s.setHighlights)
-  const setHighlightsLoading = useCollectionsStore((s) => s.setHighlightsLoading)
-  const setHighlightsError = useCollectionsStore((s) => s.setHighlightsError)
   const setHighlightsPage = useCollectionsStore((s) => s.setHighlightsPage)
   const setHighlightsSearch = useCollectionsStore((s) => s.setHighlightsSearch)
   const setHighlightsGroupByItem = useCollectionsStore((s) => s.setHighlightsGroupByItem)
   const setFilterColor = useCollectionsStore((s) => s.setFilterColor)
-  const removeHighlight = useCollectionsStore((s) => s.removeHighlight)
   const openItemDetail = useCollectionsStore((s) => s.openItemDetail)
   const openHighlightEditor = useCollectionsStore((s) => s.openHighlightEditor)
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null)
-  const [deleteLoading, setDeleteLoading] = useState(false)
 
-  // Fetch highlights
-  const fetchHighlights = useCallback(async () => {
-    setHighlightsLoading(true)
-    setHighlightsError(null)
-    try {
-      const listResponse = await api.getReadingList({ page: 1, size: 50 })
-      const sourceItems = Array.isArray(listResponse?.items) ? listResponse.items : []
-      const limitedItems = sourceItems.slice(0, 50)
-      const results = await Promise.all(
-        limitedItems.map(async (item) => {
-          const itemHighlights = await api.getHighlights(item.id)
-          return itemHighlights.map((highlight: Highlight) => ({
-            ...highlight,
-            item_title: highlight.item_title || item.title
-          }))
-        })
-      )
-      const allHighlights = results.flat()
-      const q = highlightsSearch.trim().toLowerCase()
-      const filtered = allHighlights.filter((highlight) => {
-        if (filterColor !== "all" && highlight.color !== filterColor) return false
-        if (!q) return true
-        const haystack = `${highlight.quote} ${highlight.note || ""}`.toLowerCase()
-        return haystack.includes(q)
-      })
-      const total = filtered.length
-      const start = (highlightsPage - 1) * highlightsPageSize
-      const paged = filtered.slice(start, start + highlightsPageSize)
-      setHighlights(paged, total)
-    } catch (error: any) {
-      const errorMsg = error?.message || "Failed to fetch highlights"
-      setHighlightsError(errorMsg)
-      message.error(errorMsg)
-    } finally {
-      setHighlightsLoading(false)
+  const fetchHighlights = useCallback(async (): Promise<Highlight[]> => {
+    const allItems: ReadingItemSummary[] = []
+    const pageSize = 200
+    let page = 1
+    let listTotal: number | null = null
+    while (page <= 200) {
+      const listResponse = await api.getReadingList({ page, size: pageSize })
+      const pageItems = Array.isArray(listResponse?.items) ? listResponse.items : []
+      allItems.push(...pageItems)
+      if (listTotal === null && typeof listResponse?.total === "number") {
+        listTotal = listResponse.total
+      }
+      if (pageItems.length === 0) break
+      if (listTotal !== null && allItems.length >= listTotal) break
+      if (pageItems.length < pageSize) break
+      page += 1
     }
-  }, [
-    api,
-    highlightsPage,
-    highlightsPageSize,
-    highlightsSearch,
-    filterColor,
-    setHighlights,
-    setHighlightsLoading,
-    setHighlightsError
-  ])
+    const results = await Promise.all(
+      allItems.map(async (item) => {
+        const itemHighlights = await api.getHighlights(item.id)
+        return itemHighlights.map((highlight: Highlight) => ({
+          ...highlight,
+          item_title: highlight.item_title || item.title
+        }))
+      })
+    )
+    return results.flat()
+  }, [api])
+
+  const highlightsQuery = useQuery({
+    queryKey: ["collections-highlights"],
+    queryFn: fetchHighlights,
+    staleTime: 30_000
+  })
+
+  const highlightsError = highlightsQuery.error
+    ? highlightsQuery.error instanceof Error
+      ? highlightsQuery.error.message
+      : "Failed to fetch highlights"
+    : null
 
   useEffect(() => {
-    fetchHighlights()
-  }, [fetchHighlights])
+    if (!highlightsQuery.error) return
+    const err =
+      highlightsQuery.error instanceof Error
+        ? highlightsQuery.error
+        : new Error(String(highlightsQuery.error))
+    console.error("Failed to fetch highlights", err)
+    message.error(err.message || "Failed to fetch highlights")
+  }, [highlightsQuery.error])
+
+  const filteredHighlights = useMemo(() => {
+    const allHighlights = highlightsQuery.data ?? []
+    const q = highlightsSearch.trim().toLowerCase()
+    return allHighlights.filter((highlight) => {
+      if (filterColor !== "all" && highlight.color !== filterColor) return false
+      if (!q) return true
+      const haystack = `${highlight.quote} ${highlight.note || ""}`.toLowerCase()
+      return haystack.includes(q)
+    })
+  }, [highlightsQuery.data, highlightsSearch, filterColor])
+
+  const highlightsTotal = filteredHighlights.length
+
+  const highlights = useMemo(() => {
+    const start = (highlightsPage - 1) * highlightsPageSize
+    return filteredHighlights.slice(start, start + highlightsPageSize)
+  }, [filteredHighlights, highlightsPage, highlightsPageSize])
+
+  const deleteHighlightMutation = useMutation({
+    mutationFn: async (id: string) => {
+      await api.deleteHighlight(id)
+    }
+  })
+
+  const {
+    refetch: refetchHighlights,
+    isLoading: highlightsLoading,
+    isFetching: highlightsFetching
+  } = highlightsQuery
+
+  const handleRefresh = useCallback(() => {
+    void refetchHighlights()
+  }, [refetchHighlights])
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,22 +165,21 @@ export const HighlightsList: React.FC = () => {
 
   const handleDeleteConfirm = useCallback(async () => {
     if (!deleteTargetId) return
-    setDeleteLoading(true)
     try {
-      await api.deleteHighlight(deleteTargetId)
-      removeHighlight(deleteTargetId)
+      await deleteHighlightMutation.mutateAsync(deleteTargetId)
+      await queryClient.invalidateQueries({ queryKey: ["collections-highlights"] })
       message.success(t("collections:highlights.deleted", "Highlight deleted"))
       setDeleteModalOpen(false)
       setDeleteTargetId(null)
-    } catch (error: any) {
-      message.error(error?.message || "Failed to delete highlight")
-    } finally {
-      setDeleteLoading(false)
+    } catch (error: unknown) {
+      const err = error instanceof Error ? error : new Error(String(error))
+      console.error("Failed to delete highlight", err)
+      message.error(err.message || "Failed to delete highlight")
     }
-  }, [api, deleteTargetId, removeHighlight, t])
+  }, [deleteHighlightMutation, deleteTargetId, queryClient, t])
 
   // Group highlights by item if enabled
-  const groupedHighlights = React.useMemo(() => {
+  const groupedHighlights = useMemo(() => {
     if (!highlightsGroupByItem) return null
     const groups: Record<string, Highlight[]> = {}
     highlights.forEach((h) => {
@@ -165,8 +197,8 @@ export const HighlightsList: React.FC = () => {
         <div className="flex items-center gap-2">
           <Button
             icon={<RefreshCw className="h-4 w-4" />}
-            onClick={fetchHighlights}
-            loading={highlightsLoading}
+            onClick={handleRefresh}
+            loading={highlightsFetching}
           >
             {t("common:refresh", "Refresh")}
           </Button>
@@ -226,7 +258,7 @@ export const HighlightsList: React.FC = () => {
         </div>
       ) : highlightsError ? (
         <Empty description={highlightsError} image={Empty.PRESENTED_IMAGE_SIMPLE}>
-          <Button onClick={fetchHighlights}>{t("common:retry", "Retry")}</Button>
+          <Button onClick={handleRefresh}>{t("common:retry", "Retry")}</Button>
         </Empty>
       ) : highlights.length === 0 ? (
         <Empty
@@ -314,7 +346,7 @@ export const HighlightsList: React.FC = () => {
         onCancel={() => setDeleteModalOpen(false)}
         onOk={handleDeleteConfirm}
         okText={t("common:delete", "Delete")}
-        okButtonProps={{ danger: true, loading: deleteLoading }}
+        okButtonProps={{ danger: true, loading: deleteHighlightMutation.isPending }}
         cancelText={t("common:cancel", "Cancel")}
       >
         <p>
@@ -326,7 +358,9 @@ export const HighlightsList: React.FC = () => {
       </Modal>
 
       {highlightEditorOpen && (
-        <HighlightEditor onSuccess={fetchHighlights} />
+        <Suspense fallback={null}>
+          <HighlightEditor onSuccess={handleRefresh} />
+        </Suspense>
       )}
     </div>
   )

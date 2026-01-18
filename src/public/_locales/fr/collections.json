@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "Collections"
+  },
+  "description": {
+    "message": "Enregistrez des articles, créez des surlignages, gérez des modèles et importez/exportez votre liste de lecture."
+  },
+  "offline": {
+    "message": "Le serveur est hors ligne. Connectez-vous pour utiliser Collections."
+  },
+  "betaNotice": {
+    "message": "Fonctionnalité bêta"
+  },
+  "betaDescription": {
+    "message": "Collections est actuellement en bêta. Certaines fonctionnalités peuvent nécessiter un support backend."
+  },
+  "tabs_reading": {
+    "message": "Liste de lecture"
+  },
+  "tabs_highlights": {
+    "message": "Surlignages"
+  },
+  "tabs_templates": {
+    "message": "Modèles"
+  },
+  "tabs_importExport": {
+    "message": "Import/Export"
+  },
+  "status_all": {
+    "message": "Tous"
+  },
+  "status_saved": {
+    "message": "Enregistrés"
+  },
+  "status_reading": {
+    "message": "En cours de lecture"
+  },
+  "status_read": {
+    "message": "Lus"
+  },
+  "status_archived": {
+    "message": "Archivés"
+  },
+  "sort_created_at": {
+    "message": "Date d'ajout"
+  },
+  "sort_updated_at": {
+    "message": "Dernière mise à jour"
+  },
+  "sort_title": {
+    "message": "Titre"
+  },
+  "sort_relevance": {
+    "message": "Pertinence"
+  },
+  "colors_all": {
+    "message": "Toutes les couleurs"
+  },
+  "colors_yellow": {
+    "message": "Jaune"
+  },
+  "colors_green": {
+    "message": "Vert"
+  },
+  "colors_blue": {
+    "message": "Bleu"
+  },
+  "colors_pink": {
+    "message": "Rose"
+  },
+  "colors_purple": {
+    "message": "Violet"
+  },
+  "time_minutesAgo": {
+    "message": "il y a {{count}} min"
+  },
+  "time_hoursAgo": {
+    "message": "il y a {{count}} h"
+  },
+  "time_daysAgo": {
+    "message": "il y a {{count}} j"
+  },
+  "reading_addUrl": {
+    "message": "Ajouter une URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "Ajouter à la liste de lecture"
+  },
+  "reading_addFirst": {
+    "message": "Ajoutez votre premier article"
+  },
+  "reading_addSuccess": {
+    "message": "Article ajouté à la liste de lecture"
+  },
+  "reading_searchPlaceholder": {
+    "message": "Rechercher des articles..."
+  },
+  "reading_filters": {
+    "message": "Filtres"
+  },
+  "reading_favorites": {
+    "message": "Favoris"
+  },
+  "reading_tagsFilter": {
+    "message": "Tags"
+  },
+  "reading_domainFilter": {
+    "message": "Domaine"
+  },
+  "reading_sortBy": {
+    "message": "Trier"
+  },
+  "reading_clearFilters": {
+    "message": "Effacer les filtres"
+  },
+  "reading_noResults": {
+    "message": "Aucun article ne correspond à vos filtres"
+  },
+  "reading_empty": {
+    "message": "Votre liste de lecture est vide"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} sur {{total}} éléments"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} min de lecture"
+  },
+  "reading_favorite": {
+    "message": "Ajouter aux favoris"
+  },
+  "reading_unfavorite": {
+    "message": "Retirer des favoris"
+  },
+  "reading_viewDetails": {
+    "message": "Voir les détails"
+  },
+  "reading_openOriginal": {
+    "message": "Ouvrir l'original"
+  },
+  "reading_changeStatus": {
+    "message": "Changer le statut"
+  },
+  "reading_archive": {
+    "message": "Archiver"
+  },
+  "reading_unarchive": {
+    "message": "Désarchiver"
+  },
+  "reading_statusUpdated": {
+    "message": "Statut mis à jour en {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "Veuillez saisir une URL"
+  },
+  "reading_urlInvalid": {
+    "message": "Veuillez saisir une URL valide"
+  },
+  "reading_titleLabel": {
+    "message": "Titre (facultatif)"
+  },
+  "reading_titleHint": {
+    "message": "Laissez vide pour détecter automatiquement depuis la page"
+  },
+  "reading_titlePlaceholder": {
+    "message": "Titre de l'article"
+  },
+  "reading_tagsLabel": {
+    "message": "Tags"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "Ajouter des tags..."
+  },
+  "reading_notesLabel": {
+    "message": "Notes (facultatif)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "Ajoutez des notes sur cet article..."
+  },
+  "reading_saveToList": {
+    "message": "Enregistrer dans la liste"
+  },
+  "reading_addTag": {
+    "message": "Ajouter un tag..."
+  },
+  "reading_tabs_content": {
+    "message": "Contenu"
+  },
+  "reading_tabs_summary": {
+    "message": "Résumé"
+  },
+  "reading_tabs_highlights": {
+    "message": "Surlignages"
+  },
+  "reading_tabs_notes": {
+    "message": "Notes"
+  },
+  "reading_noContent": {
+    "message": "Contenu non disponible"
+  },
+  "reading_noSummary": {
+    "message": "Pas encore de résumé"
+  },
+  "reading_noNotes": {
+    "message": "Pas encore de notes"
+  },
+  "reading_editNotes": {
+    "message": "Modifier les notes"
+  },
+  "reading_addNotes": {
+    "message": "Ajouter des notes"
+  },
+  "reading_notesSaved": {
+    "message": "Notes enregistrées"
+  },
+  "reading_notesPlaceholder": {
+    "message": "Ajoutez vos notes..."
+  },
+  "reading_summarize": {
+    "message": "Résumer"
+  },
+  "reading_generateSummary": {
+    "message": "Générer un résumé"
+  },
+  "reading_summarized": {
+    "message": "Résumé généré"
+  },
+  "reading_generateTts": {
+    "message": "Générer l'audio"
+  },
+  "reading_ttsGenerated": {
+    "message": "Audio généré"
+  },
+  "reading_downloadAudio": {
+    "message": "Télécharger l'audio"
+  },
+  "reading_deleted": {
+    "message": "Article supprimé"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "Supprimer l'article"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "Rechercher des surlignages..."
+  },
+  "highlights_groupByItem": {
+    "message": "Regrouper par article"
+  },
+  "highlights_add": {
+    "message": "Ajouter un surlignage"
+  },
+  "highlights_edit": {
+    "message": "Modifier le surlignage"
+  },
+  "highlights_quoteLabel": {
+    "message": "Citation"
+  },
+  "highlights_quoteRequired": {
+    "message": "Veuillez saisir le texte surligné"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "Collez le texte surligné..."
+  },
+  "highlights_noteLabel": {
+    "message": "Note (facultatif)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "Ajoutez du contexte ou pourquoi c'est important..."
+  },
+  "highlights_colorLabel": {
+    "message": "Couleur du surlignage"
+  },
+  "highlights_noResults": {
+    "message": "Aucun surlignage ne correspond à vos filtres"
+  },
+  "highlights_empty": {
+    "message": "Aucun surlignage pour le moment"
+  },
+  "highlights_emptyForItem": {
+    "message": "Aucun surlignage pour cet article"
+  },
+  "highlights_emptyHint": {
+    "message": "Les surlignages que vous créez pendant la lecture apparaîtront ici."
+  },
+  "highlights_from": {
+    "message": "De"
+  },
+  "highlights_viewArticle": {
+    "message": "Voir l'article"
+  },
+  "highlights_created": {
+    "message": "Surlignage créé"
+  },
+  "highlights_updated": {
+    "message": "Surlignage mis à jour"
+  },
+  "highlights_missingItem": {
+    "message": "Sélectionnez d'abord un article"
+  },
+  "highlights_deleted": {
+    "message": "Surlignage supprimé"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "Supprimer le surlignage"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "Êtes-vous sûr de vouloir supprimer ce surlignage ?"
+  },
+  "templates_create": {
+    "message": "Créer un modèle"
+  },
+  "templates_createFirst": {
+    "message": "Créez votre premier modèle"
+  },
+  "templates_searchPlaceholder": {
+    "message": "Rechercher des modèles..."
+  },
+  "templates_noResults": {
+    "message": "Aucun modèle ne correspond à vos filtres"
+  },
+  "templates_empty": {
+    "message": "Aucun modèle pour le moment"
+  },
+  "templates_default": {
+    "message": "Par défaut"
+  },
+  "templates_preview": {
+    "message": "Aperçu"
+  },
+  "templates_duplicate": {
+    "message": "Dupliquer"
+  },
+  "templates_deleted": {
+    "message": "Modèle supprimé"
+  },
+  "templates_created": {
+    "message": "Modèle créé"
+  },
+  "templates_updated": {
+    "message": "Modèle mis à jour"
+  },
+  "templates_editTitle": {
+    "message": "Modifier le modèle"
+  },
+  "templates_createTitle": {
+    "message": "Créer un modèle"
+  },
+  "templates_nameLabel": {
+    "message": "Nom du modèle"
+  },
+  "templates_nameRequired": {
+    "message": "Veuillez saisir un nom"
+  },
+  "templates_namePlaceholder": {
+    "message": "Mon modèle de newsletter"
+  },
+  "templates_descriptionLabel": {
+    "message": "Description (facultatif)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "Brève description de ce modèle"
+  },
+  "templates_typeLabel": {
+    "message": "Type de modèle"
+  },
+  "templates_formatLabel": {
+    "message": "Format de sortie"
+  },
+  "templates_bodyLabel": {
+    "message": "Corps du modèle (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "Veuillez saisir le contenu du modèle"
+  },
+  "templates_bodyHint": {
+    "message": "Utilisez la syntaxe Jinja2. Variables disponibles : items (tableau d'articles), date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "Aperçu du modèle"
+  },
+  "templates_selectItems": {
+    "message": "Veuillez sélectionner au moins un article"
+  },
+  "templates_selectItemsHint": {
+    "message": "Sélectionnez les articles à inclure dans l'aperçu :"
+  },
+  "templates_selectAll": {
+    "message": "Tout sélectionner"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} sélectionnés"
+  },
+  "templates_noItems": {
+    "message": "Aucun article dans votre liste de lecture"
+  },
+  "templates_generatePreview": {
+    "message": "Générer l'aperçu"
+  },
+  "templates_generateOutput": {
+    "message": "Générer la sortie"
+  },
+  "templates_audioUnavailable": {
+    "message": "Sortie audio non disponible"
+  },
+  "templates_noGeneratedContent": {
+    "message": "Aucune sortie générée pour le moment"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "Supprimer le modèle"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "Êtes-vous sûr de vouloir supprimer ce modèle ?"
+  },
+  "templateTypes_all": {
+    "message": "Tous les types"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "Newsletter (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "Briefing (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "Newsletter (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "Audio TTS"
+  },
+  "import_title": {
+    "message": "Importer"
+  },
+  "import_sourceRequired": {
+    "message": "Sélectionnez d'abord une source"
+  },
+  "import_selectSource": {
+    "message": "Sélectionnez la source d'import :"
+  },
+  "import_sources_auto_label": {
+    "message": "Détection automatique"
+  },
+  "import_sources_auto_description": {
+    "message": "Téléversez un fichier d'export Pocket ou Instapaper et détectez automatiquement le format"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Importez vos articles enregistrés depuis un export Pocket"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Importez des articles depuis un export Instapaper"
+  },
+  "import_methodFile": {
+    "message": "Téléversement de fichier"
+  },
+  "import_methodApiKey": {
+    "message": "Clé API"
+  },
+  "import_apiKeyLabel": {
+    "message": "Clé API"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "Collez votre clé API"
+  },
+  "import_apiKeyRequired": {
+    "message": "Veuillez saisir une clé API"
+  },
+  "import_previewWithKey": {
+    "message": "Aperçu de l'import"
+  },
+  "import_processing": {
+    "message": "Traitement du fichier..."
+  },
+  "import_dropzone": {
+    "message": "Cliquez ou déposez un fichier pour téléverser"
+  },
+  "import_formats": {
+    "message": "Prend en charge Pocket JSON et Instapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "{{count}} éléments trouvés"
+  },
+  "import_selectAll": {
+    "message": "Tout sélectionner"
+  },
+  "import_selectItems": {
+    "message": "Sélectionnez les éléments à importer"
+  },
+  "import_importSelected": {
+    "message": "Importer {{count}} éléments"
+  },
+  "import_success": {
+    "message": "{{count}} éléments importés"
+  },
+  "import_complete": {
+    "message": "Import terminé"
+  },
+  "import_resultSummary": {
+    "message": "Importés : {{imported}}, Mis à jour : {{updated}}, Ignorés : {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "Importer plus"
+  },
+  "import_steps_source": {
+    "message": "Source"
+  },
+  "import_steps_upload": {
+    "message": "Téléverser"
+  },
+  "import_steps_preview": {
+    "message": "Aperçu"
+  },
+  "import_steps_result": {
+    "message": "Résultat"
+  },
+  "export_title": {
+    "message": "Exporter"
+  },
+  "export_format": {
+    "message": "Format"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "Options"
+  },
+  "export_includeContent": {
+    "message": "Inclure le contenu complet"
+  },
+  "export_includeHighlights": {
+    "message": "Inclure les surlignages"
+  },
+  "export_items": {
+    "message": "Éléments à exporter"
+  },
+  "export_searchPlaceholder": {
+    "message": "Rechercher des éléments..."
+  },
+  "export_allItems": {
+    "message": "Tous les éléments (laisser vide)"
+  },
+  "export_itemsHint": {
+    "message": "Laissez vide pour exporter tous les éléments, ou sélectionnez-en certains"
+  },
+  "export_selectionHint": {
+    "message": "Sélectionnez des éléments à exporter, ou laissez vide pour tout exporter."
+  },
+  "export_selectAll": {
+    "message": "Tout sélectionner"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} sélectionnés"
+  },
+  "export_clearSelection": {
+    "message": "Effacer"
+  },
+  "export_noItems": {
+    "message": "Aucun élément trouvé"
+  },
+  "export_selectItems": {
+    "message": "Sélectionnez d'abord des éléments à copier"
+  },
+  "export_copy": {
+    "message": "Copier JSONL"
+  },
+  "export_copied": {
+    "message": "Copié dans le presse-papiers"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "L'export ZIP ne prend pas encore en charge la sélection d'éléments."
+  },
+  "export_download": {
+    "message": "Télécharger l'export"
+  },
+  "export_allItemsHint": {
+    "message": "L'export inclut tous les éléments de la liste de lecture de votre compte."
+  },
+  "export_success": {
+    "message": "Export prêt au téléchargement"
+  }
+}

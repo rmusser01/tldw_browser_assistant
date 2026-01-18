@@ -270,7 +270,7 @@
     "message": "Add"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "결과 없음"
   },
   "rag_timeout_message": {
     "message": "Request timed out."
@@ -336,6 +336,6 @@
     "message": "첨부된 컨텍스트"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "결과 없음"
   }
 }

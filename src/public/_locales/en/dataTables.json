@@ -370,5 +370,50 @@
   },
   "columns_actions": {
     "message": "Actions"
+  },
+  "dataTablesDescription": {
+    "message": "Generate structured tables from your chats, documents, and knowledge base using natural language prompts."
+  },
+  "examplePromptCompare": {
+    "message": "Create a table comparing key features, pricing, and ratings from these sources"
+  },
+  "examplePromptEntities": {
+    "message": "Extract all entities mentioned with their type, description, and first appearance"
+  },
+  "examplePromptActions": {
+    "message": "List all action items with assignee, due date, and status"
+  },
+  "examplePromptSummary": {
+    "message": "Create a summary table with topic, key points, and source reference"
+  },
+  "examplePromptProduct": {
+    "message": "Extract product information including name, price, and specifications"
+  },
+  "existingColumnName": {
+    "message": "Column name"
+  },
+  "columnTypes_text": {
+    "message": "Text"
+  },
+  "columnTypes_number": {
+    "message": "Number"
+  },
+  "columnTypes_date": {
+    "message": "Date"
+  },
+  "columnTypes_url": {
+    "message": "URL"
+  },
+  "columnTypes_boolean": {
+    "message": "Boolean"
+  },
+  "columnTypes_currency": {
+    "message": "Currency"
+  },
+  "descriptionLabel": {
+    "message": "Description"
+  },
+  "tableDescriptionLabel": {
+    "message": "Description"
   }
 }

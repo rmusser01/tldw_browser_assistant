@@ -42,7 +42,7 @@ interface ModeSelectorProps {
  * Extracted from Header.tsx for better maintainability.
  */
 export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
-  const { t } = useTranslation(["option", "common", "settings"])
+  const { t, i18n } = useTranslation(["option", "common", "settings"])
   const isOnline = useServerOnline()
   const { shortcuts: shortcutConfig } = useShortcutConfig()
 
@@ -99,58 +99,88 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
     key: CoreMode
     label: string
     shortcut?: KeyboardShortcut
-  }> = [
-    {
-      key: "knowledge",
-      label: t("option:header.modeKnowledge", "Knowledge QA"),
-      shortcut: shortcutConfig.modeKnowledge,
+  }> = React.useMemo(
+    () => [
+      {
+        key: "knowledge",
+        label: t("option:header.modeKnowledge", "Knowledge QA"),
+        shortcut: shortcutConfig.modeKnowledge,
+      },
+      {
+        key: "mediaMulti",
+        label: t("option:header.libraryView", "Multi-Item Review"),
+        shortcut: undefined,
+      },
+      {
+        key: "evaluations",
+        label: t("settings:evaluationsSettingsNav", "Evaluations"),
+        shortcut: undefined,
+      },
+      {
+        key: "documentation",
+        label: t("option:header.modeDocumentation", "Documentation"),
+        shortcut: undefined,
+      },
+      {
+        key: "speech",
+        label: t("option:header.modeSpeech", "Speech"),
+        shortcut: undefined,
+      },
+      {
+        key: "promptStudio",
+        label: t("option:header.modePromptStudio", "Prompt Studio"),
+        shortcut: undefined,
+      },
+      {
+        key: "worldBooks",
+        label: t("option:header.modeWorldBooks", "World Books"),
+        shortcut: shortcutConfig.modeWorldBooks,
+      },
+      {
+        key: "dictionaries",
+        label: t("option:header.modeDictionaries", "Chat dictionaries"),
+        shortcut: shortcutConfig.modeDictionaries,
+      },
+      {
+        key: "characters",
+        label: t("option:header.modeCharacters", "Characters"),
+        shortcut: shortcutConfig.modeCharacters,
+      },
+      {
+        key: "watchlists",
+        label: t("option:header.modeWatchlists", "Watchlists"),
+        shortcut: undefined,
+      },
+    ],
+    [i18n.language, shortcutConfig, t]
+  )
+
+  const dropdownItems = React.useMemo(
+    () =>
+      secondaryModes.map((mode) => ({
+        key: mode.key,
+        label: mode.label,
+        disabled:
+          mode.key === "promptStudio" &&
+          promptStudioCapability.data === false,
+      })),
+    [promptStudioCapability.data, secondaryModes]
+  )
+
+  const handleDropdownClick = React.useCallback(
+    ({ key }: { key: string }) => {
+      onModeChange(key as CoreMode)
     },
-    {
-      key: "mediaMulti",
-      label: t("option:header.libraryView", "Multi-Item Review"),
-      shortcut: undefined,
-    },
-    {
-      key: "evaluations",
-      label: t("settings:evaluationsSettingsNav", "Evaluations"),
-      shortcut: undefined,
-    },
-    {
-      key: "documentation",
-      label: t("option:header.modeDocumentation", "Documentation"),
-      shortcut: undefined,
-    },
-    {
-      key: "speech",
-      label: t("option:header.modeSpeech", "Speech"),
-      shortcut: undefined,
-    },
-    {
-      key: "promptStudio",
-      label: t("option:header.modePromptStudio", "Prompt Studio"),
-      shortcut: undefined,
-    },
-    {
-      key: "worldBooks",
-      label: t("option:header.modeWorldBooks", "World Books"),
-      shortcut: shortcutConfig.modeWorldBooks,
-    },
-    {
-      key: "dictionaries",
-      label: t("option:header.modeDictionaries", "Chat dictionaries"),
-      shortcut: shortcutConfig.modeDictionaries,
-    },
-    {
-      key: "characters",
-      label: t("option:header.modeCharacters", "Characters"),
-      shortcut: shortcutConfig.modeCharacters,
-    },
-    {
-      key: "watchlists",
-      label: t("option:header.modeWatchlists", "Watchlists"),
-      shortcut: undefined,
-    },
-  ]
+    [onModeChange]
+  )
+
+  const dropdownMenu = React.useMemo(
+    () => ({
+      items: dropdownItems,
+      onClick: handleDropdownClick,
+    }),
+    [dropdownItems, handleDropdownClick]
+  )
 
   const renderModeButton = (mode: (typeof primaryModes)[0]) => {
     const promptStudioUnavailable =
@@ -201,18 +231,7 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
         aria-label={t("option:header.modesAriaLabel", "Application modes")}
       >
         {primaryModes.map(renderModeButton)}
-        <Dropdown
-          menu={{
-            items: secondaryModes.map((mode) => ({
-              key: mode.key,
-              label: mode.label,
-              disabled:
-                mode.key === "promptStudio" &&
-                promptStudioCapability.data === false,
-            })),
-            onClick: ({ key }) => onModeChange(key as CoreMode),
-          }}
-        >
+        <Dropdown menu={dropdownMenu}>
           <button
             type="button"
             className={classNames(

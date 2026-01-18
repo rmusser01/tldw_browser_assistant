@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "Колекції"
+  },
+  "description": {
+    "message": "Зберігайте статті, створюйте виділення, керуйте шаблонами та імпортуйте/експортуйте свій список читання."
+  },
+  "offline": {
+    "message": "Сервер офлайн. Підключіться, щоб використовувати Колекції."
+  },
+  "betaNotice": {
+    "message": "Бета-функція"
+  },
+  "betaDescription": {
+    "message": "Колекції зараз у бета-версії. Деякі функції можуть вимагати підтримки бекенда."
+  },
+  "tabs_reading": {
+    "message": "Список читання"
+  },
+  "tabs_highlights": {
+    "message": "Виділення"
+  },
+  "tabs_templates": {
+    "message": "Шаблони"
+  },
+  "tabs_importExport": {
+    "message": "Імпорт/Експорт"
+  },
+  "status_all": {
+    "message": "Усі"
+  },
+  "status_saved": {
+    "message": "Збережені"
+  },
+  "status_reading": {
+    "message": "Читаю"
+  },
+  "status_read": {
+    "message": "Прочитано"
+  },
+  "status_archived": {
+    "message": "Архів"
+  },
+  "sort_created_at": {
+    "message": "Дата додавання"
+  },
+  "sort_updated_at": {
+    "message": "Останнє оновлення"
+  },
+  "sort_title": {
+    "message": "Заголовок"
+  },
+  "sort_relevance": {
+    "message": "Релевантність"
+  },
+  "colors_all": {
+    "message": "Усі кольори"
+  },
+  "colors_yellow": {
+    "message": "Жовтий"
+  },
+  "colors_green": {
+    "message": "Зелений"
+  },
+  "colors_blue": {
+    "message": "Синій"
+  },
+  "colors_pink": {
+    "message": "Рожевий"
+  },
+  "colors_purple": {
+    "message": "Фіолетовий"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} хв тому"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} год тому"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} дн тому"
+  },
+  "reading_addUrl": {
+    "message": "Додати URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "Додати до списку читання"
+  },
+  "reading_addFirst": {
+    "message": "Додайте першу статтю"
+  },
+  "reading_addSuccess": {
+    "message": "Статтю додано до списку читання"
+  },
+  "reading_searchPlaceholder": {
+    "message": "Пошук статей..."
+  },
+  "reading_filters": {
+    "message": "Фільтри"
+  },
+  "reading_favorites": {
+    "message": "Вибране"
+  },
+  "reading_tagsFilter": {
+    "message": "Теги"
+  },
+  "reading_domainFilter": {
+    "message": "Домен"
+  },
+  "reading_sortBy": {
+    "message": "Сортування"
+  },
+  "reading_clearFilters": {
+    "message": "Очистити фільтри"
+  },
+  "reading_noResults": {
+    "message": "Немає статей, що відповідають фільтрам"
+  },
+  "reading_empty": {
+    "message": "Ваш список читання порожній"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} з {{total}} елементів"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} хв читання"
+  },
+  "reading_favorite": {
+    "message": "Додати у вибране"
+  },
+  "reading_unfavorite": {
+    "message": "Видалити з вибраного"
+  },
+  "reading_viewDetails": {
+    "message": "Переглянути деталі"
+  },
+  "reading_openOriginal": {
+    "message": "Відкрити оригінал"
+  },
+  "reading_changeStatus": {
+    "message": "Змінити статус"
+  },
+  "reading_archive": {
+    "message": "Архівувати"
+  },
+  "reading_unarchive": {
+    "message": "Розархівувати"
+  },
+  "reading_statusUpdated": {
+    "message": "Статус оновлено до {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "Введіть URL"
+  },
+  "reading_urlInvalid": {
+    "message": "Введіть коректний URL"
+  },
+  "reading_titleLabel": {
+    "message": "Заголовок (необов'язково)"
+  },
+  "reading_titleHint": {
+    "message": "Залиште порожнім для автоматичного визначення зі сторінки"
+  },
+  "reading_titlePlaceholder": {
+    "message": "Заголовок статті"
+  },
+  "reading_tagsLabel": {
+    "message": "Теги"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "Додати теги..."
+  },
+  "reading_notesLabel": {
+    "message": "Нотатки (необов'язково)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "Додайте нотатки до цієї статті..."
+  },
+  "reading_saveToList": {
+    "message": "Зберегти у список"
+  },
+  "reading_addTag": {
+    "message": "Додати тег..."
+  },
+  "reading_tabs_content": {
+    "message": "Вміст"
+  },
+  "reading_tabs_summary": {
+    "message": "Коротко"
+  },
+  "reading_tabs_highlights": {
+    "message": "Виділення"
+  },
+  "reading_tabs_notes": {
+    "message": "Нотатки"
+  },
+  "reading_noContent": {
+    "message": "Вміст недоступний"
+  },
+  "reading_noSummary": {
+    "message": "Короткого опису ще немає"
+  },
+  "reading_noNotes": {
+    "message": "Нотаток ще немає"
+  },
+  "reading_editNotes": {
+    "message": "Редагувати нотатки"
+  },
+  "reading_addNotes": {
+    "message": "Додати нотатки"
+  },
+  "reading_notesSaved": {
+    "message": "Нотатки збережено"
+  },
+  "reading_notesPlaceholder": {
+    "message": "Додайте свої нотатки..."
+  },
+  "reading_summarize": {
+    "message": "Узагальнити"
+  },
+  "reading_generateSummary": {
+    "message": "Згенерувати коротко"
+  },
+  "reading_summarized": {
+    "message": "Коротко згенеровано"
+  },
+  "reading_generateTts": {
+    "message": "Згенерувати аудіо"
+  },
+  "reading_ttsGenerated": {
+    "message": "Аудіо згенеровано"
+  },
+  "reading_downloadAudio": {
+    "message": "Завантажити аудіо"
+  },
+  "reading_deleted": {
+    "message": "Статтю видалено"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "Видалити статтю"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "Ви впевнені, що хочете видалити цю статтю? Цю дію неможливо скасувати."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "Пошук виділень..."
+  },
+  "highlights_groupByItem": {
+    "message": "Групувати за статтею"
+  },
+  "highlights_add": {
+    "message": "Додати виділення"
+  },
+  "highlights_edit": {
+    "message": "Редагувати виділення"
+  },
+  "highlights_quoteLabel": {
+    "message": "Цитата"
+  },
+  "highlights_quoteRequired": {
+    "message": "Введіть виділений текст"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "Вставте виділений текст..."
+  },
+  "highlights_noteLabel": {
+    "message": "Нотатка (необов'язково)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "Додайте контекст або чому це важливо..."
+  },
+  "highlights_colorLabel": {
+    "message": "Колір виділення"
+  },
+  "highlights_noResults": {
+    "message": "Немає виділень, що відповідають фільтрам"
+  },
+  "highlights_empty": {
+    "message": "Ще немає виділень"
+  },
+  "highlights_emptyForItem": {
+    "message": "Для цієї статті виділень ще немає"
+  },
+  "highlights_emptyHint": {
+    "message": "Виділення, створені під час читання, з’являться тут."
+  },
+  "highlights_from": {
+    "message": "З"
+  },
+  "highlights_viewArticle": {
+    "message": "Переглянути статтю"
+  },
+  "highlights_created": {
+    "message": "Виділення створено"
+  },
+  "highlights_updated": {
+    "message": "Виділення оновлено"
+  },
+  "highlights_missingItem": {
+    "message": "Спочатку виберіть статтю"
+  },
+  "highlights_deleted": {
+    "message": "Виділення видалено"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "Видалити виділення"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "Ви впевнені, що хочете видалити це виділення?"
+  },
+  "templates_create": {
+    "message": "Створити шаблон"
+  },
+  "templates_createFirst": {
+    "message": "Створіть свій перший шаблон"
+  },
+  "templates_searchPlaceholder": {
+    "message": "Пошук шаблонів..."
+  },
+  "templates_noResults": {
+    "message": "Немає шаблонів, що відповідають фільтрам"
+  },
+  "templates_empty": {
+    "message": "Шаблонів ще немає"
+  },
+  "templates_default": {
+    "message": "За замовчуванням"
+  },
+  "templates_preview": {
+    "message": "Попередній перегляд"
+  },
+  "templates_duplicate": {
+    "message": "Дублювати"
+  },
+  "templates_deleted": {
+    "message": "Шаблон видалено"
+  },
+  "templates_created": {
+    "message": "Шаблон створено"
+  },
+  "templates_updated": {
+    "message": "Шаблон оновлено"
+  },
+  "templates_editTitle": {
+    "message": "Редагувати шаблон"
+  },
+  "templates_createTitle": {
+    "message": "Створити шаблон"
+  },
+  "templates_nameLabel": {
+    "message": "Назва шаблону"
+  },
+  "templates_nameRequired": {
+    "message": "Введіть назву"
+  },
+  "templates_namePlaceholder": {
+    "message": "Мій шаблон розсилки"
+  },
+  "templates_descriptionLabel": {
+    "message": "Опис (необов'язково)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "Короткий опис цього шаблону"
+  },
+  "templates_typeLabel": {
+    "message": "Тип шаблону"
+  },
+  "templates_formatLabel": {
+    "message": "Формат виводу"
+  },
+  "templates_bodyLabel": {
+    "message": "Тіло шаблону (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "Введіть вміст шаблону"
+  },
+  "templates_bodyHint": {
+    "message": "Використовуйте синтаксис Jinja2. Доступні змінні: items (масив елементів читання), date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "Попередній перегляд шаблону"
+  },
+  "templates_selectItems": {
+    "message": "Виберіть принаймні одну статтю"
+  },
+  "templates_selectItemsHint": {
+    "message": "Виберіть статті для включення в попередній перегляд:"
+  },
+  "templates_selectAll": {
+    "message": "Вибрати все"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} вибрано"
+  },
+  "templates_noItems": {
+    "message": "У вашому списку читання немає статей"
+  },
+  "templates_generatePreview": {
+    "message": "Згенерувати перегляд"
+  },
+  "templates_generateOutput": {
+    "message": "Згенерувати вивід"
+  },
+  "templates_audioUnavailable": {
+    "message": "Аудіовихід недоступний"
+  },
+  "templates_noGeneratedContent": {
+    "message": "Вивід ще не згенеровано"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "Видалити шаблон"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "Ви впевнені, що хочете видалити цей шаблон?"
+  },
+  "templateTypes_all": {
+    "message": "Усі типи"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "Розсилка (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "Брифінг (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "Розсилка (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS аудіо"
+  },
+  "import_title": {
+    "message": "Імпорт"
+  },
+  "import_sourceRequired": {
+    "message": "Спочатку виберіть джерело"
+  },
+  "import_selectSource": {
+    "message": "Виберіть джерело імпорту:"
+  },
+  "import_sources_auto_label": {
+    "message": "Автовизначення"
+  },
+  "import_sources_auto_description": {
+    "message": "Завантажте файл експорту Pocket або Instapaper і автоматично визначте формат"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Імпортуйте збережені статті з експорту Pocket"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Імпортуйте статті з експорту Instapaper"
+  },
+  "import_methodFile": {
+    "message": "Завантаження файлу"
+  },
+  "import_methodApiKey": {
+    "message": "API-ключ"
+  },
+  "import_apiKeyLabel": {
+    "message": "API-ключ"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "Вставте свій API-ключ"
+  },
+  "import_apiKeyRequired": {
+    "message": "Введіть API-ключ"
+  },
+  "import_previewWithKey": {
+    "message": "Попередній перегляд імпорту"
+  },
+  "import_processing": {
+    "message": "Обробка файлу..."
+  },
+  "import_dropzone": {
+    "message": "Клацніть або перетягніть файл для завантаження"
+  },
+  "import_formats": {
+    "message": "Підтримує Pocket JSON та Instapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "Знайдено {{count}} елементів"
+  },
+  "import_selectAll": {
+    "message": "Вибрати все"
+  },
+  "import_selectItems": {
+    "message": "Виберіть елементи для імпорту"
+  },
+  "import_importSelected": {
+    "message": "Імпортувати {{count}} елементів"
+  },
+  "import_success": {
+    "message": "Імпортовано {{count}} елементів"
+  },
+  "import_complete": {
+    "message": "Імпорт завершено"
+  },
+  "import_resultSummary": {
+    "message": "Імпортовано: {{imported}}, Оновлено: {{updated}}, Пропущено: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "Імпортувати більше"
+  },
+  "import_steps_source": {
+    "message": "Джерело"
+  },
+  "import_steps_upload": {
+    "message": "Завантаження"
+  },
+  "import_steps_preview": {
+    "message": "Перегляд"
+  },
+  "import_steps_result": {
+    "message": "Результат"
+  },
+  "export_title": {
+    "message": "Експорт"
+  },
+  "export_format": {
+    "message": "Формат"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "Параметри"
+  },
+  "export_includeContent": {
+    "message": "Включити повний вміст"
+  },
+  "export_includeHighlights": {
+    "message": "Включити виділення"
+  },
+  "export_items": {
+    "message": "Елементи для експорту"
+  },
+  "export_searchPlaceholder": {
+    "message": "Пошук елементів..."
+  },
+  "export_allItems": {
+    "message": "Усі елементи (залиште порожнім)"
+  },
+  "export_itemsHint": {
+    "message": "Залиште порожнім, щоб експортувати всі елементи, або виберіть певні"
+  },
+  "export_selectionHint": {
+    "message": "Виберіть елементи для експорту або залиште порожнім, щоб експортувати все."
+  },
+  "export_selectAll": {
+    "message": "Вибрати все"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} вибрано"
+  },
+  "export_clearSelection": {
+    "message": "Очистити"
+  },
+  "export_noItems": {
+    "message": "Елементи не знайдено"
+  },
+  "export_selectItems": {
+    "message": "Спочатку виберіть елементи для копіювання"
+  },
+  "export_copy": {
+    "message": "Копіювати JSONL"
+  },
+  "export_copied": {
+    "message": "Скопійовано в буфер обміну"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "Експорт ZIP ще не підтримує вибір елементів."
+  },
+  "export_download": {
+    "message": "Завантажити експорт"
+  },
+  "export_allItemsHint": {
+    "message": "Експорт містить усі елементи списку читання вашого облікового запису."
+  },
+  "export_success": {
+    "message": "Експорт готовий до завантаження"
+  }
+}

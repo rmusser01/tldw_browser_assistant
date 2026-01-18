@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "收藏"
+  },
+  "description": {
+    "message": "保存文章、创建高亮、管理模板，并导入/导出阅读列表。"
+  },
+  "offline": {
+    "message": "服务器离线。请连接以使用收藏。"
+  },
+  "betaNotice": {
+    "message": "Beta 功能"
+  },
+  "betaDescription": {
+    "message": "收藏目前处于 Beta 阶段，部分功能可能需要后端支持。"
+  },
+  "tabs_reading": {
+    "message": "阅读列表"
+  },
+  "tabs_highlights": {
+    "message": "高亮"
+  },
+  "tabs_templates": {
+    "message": "模板"
+  },
+  "tabs_importExport": {
+    "message": "导入/导出"
+  },
+  "status_all": {
+    "message": "全部"
+  },
+  "status_saved": {
+    "message": "已保存"
+  },
+  "status_reading": {
+    "message": "阅读中"
+  },
+  "status_read": {
+    "message": "已读"
+  },
+  "status_archived": {
+    "message": "已归档"
+  },
+  "sort_created_at": {
+    "message": "添加日期"
+  },
+  "sort_updated_at": {
+    "message": "最后更新"
+  },
+  "sort_title": {
+    "message": "标题"
+  },
+  "sort_relevance": {
+    "message": "相关性"
+  },
+  "colors_all": {
+    "message": "全部颜色"
+  },
+  "colors_yellow": {
+    "message": "黄色"
+  },
+  "colors_green": {
+    "message": "绿色"
+  },
+  "colors_blue": {
+    "message": "蓝色"
+  },
+  "colors_pink": {
+    "message": "粉色"
+  },
+  "colors_purple": {
+    "message": "紫色"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} 分钟前"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} 小时前"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} 天前"
+  },
+  "reading_addUrl": {
+    "message": "添加 URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "添加到阅读列表"
+  },
+  "reading_addFirst": {
+    "message": "添加第一篇文章"
+  },
+  "reading_addSuccess": {
+    "message": "文章已添加到阅读列表"
+  },
+  "reading_searchPlaceholder": {
+    "message": "搜索文章..."
+  },
+  "reading_filters": {
+    "message": "筛选"
+  },
+  "reading_favorites": {
+    "message": "收藏夹"
+  },
+  "reading_tagsFilter": {
+    "message": "标签"
+  },
+  "reading_domainFilter": {
+    "message": "域名"
+  },
+  "reading_sortBy": {
+    "message": "排序"
+  },
+  "reading_clearFilters": {
+    "message": "清除筛选"
+  },
+  "reading_noResults": {
+    "message": "没有文章符合筛选条件"
+  },
+  "reading_empty": {
+    "message": "阅读列表为空"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} / {{total}} 条"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} 分钟阅读"
+  },
+  "reading_favorite": {
+    "message": "加入收藏"
+  },
+  "reading_unfavorite": {
+    "message": "取消收藏"
+  },
+  "reading_viewDetails": {
+    "message": "查看详情"
+  },
+  "reading_openOriginal": {
+    "message": "打开原文"
+  },
+  "reading_changeStatus": {
+    "message": "更改状态"
+  },
+  "reading_archive": {
+    "message": "归档"
+  },
+  "reading_unarchive": {
+    "message": "取消归档"
+  },
+  "reading_statusUpdated": {
+    "message": "状态已更新为 {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "请输入 URL"
+  },
+  "reading_urlInvalid": {
+    "message": "请输入有效的 URL"
+  },
+  "reading_titleLabel": {
+    "message": "标题（可选）"
+  },
+  "reading_titleHint": {
+    "message": "留空以从页面自动识别"
+  },
+  "reading_titlePlaceholder": {
+    "message": "文章标题"
+  },
+  "reading_tagsLabel": {
+    "message": "标签"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "添加标签..."
+  },
+  "reading_notesLabel": {
+    "message": "备注（可选）"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "添加关于此文章的备注..."
+  },
+  "reading_saveToList": {
+    "message": "保存到列表"
+  },
+  "reading_addTag": {
+    "message": "添加标签..."
+  },
+  "reading_tabs_content": {
+    "message": "内容"
+  },
+  "reading_tabs_summary": {
+    "message": "摘要"
+  },
+  "reading_tabs_highlights": {
+    "message": "高亮"
+  },
+  "reading_tabs_notes": {
+    "message": "备注"
+  },
+  "reading_noContent": {
+    "message": "内容不可用"
+  },
+  "reading_noSummary": {
+    "message": "暂无摘要"
+  },
+  "reading_noNotes": {
+    "message": "暂无备注"
+  },
+  "reading_editNotes": {
+    "message": "编辑备注"
+  },
+  "reading_addNotes": {
+    "message": "添加备注"
+  },
+  "reading_notesSaved": {
+    "message": "备注已保存"
+  },
+  "reading_notesPlaceholder": {
+    "message": "添加你的备注..."
+  },
+  "reading_summarize": {
+    "message": "生成摘要"
+  },
+  "reading_generateSummary": {
+    "message": "生成摘要"
+  },
+  "reading_summarized": {
+    "message": "摘要已生成"
+  },
+  "reading_generateTts": {
+    "message": "生成音频"
+  },
+  "reading_ttsGenerated": {
+    "message": "音频已生成"
+  },
+  "reading_downloadAudio": {
+    "message": "下载音频"
+  },
+  "reading_deleted": {
+    "message": "文章已删除"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "删除文章"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "确定要删除此文章吗？此操作无法撤销。"
+  },
+  "highlights_searchPlaceholder": {
+    "message": "搜索高亮..."
+  },
+  "highlights_groupByItem": {
+    "message": "按文章分组"
+  },
+  "highlights_add": {
+    "message": "添加高亮"
+  },
+  "highlights_edit": {
+    "message": "编辑高亮"
+  },
+  "highlights_quoteLabel": {
+    "message": "引用"
+  },
+  "highlights_quoteRequired": {
+    "message": "请输入高亮文本"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "粘贴高亮文本..."
+  },
+  "highlights_noteLabel": {
+    "message": "备注（可选）"
+  },
+  "highlights_notePlaceholder": {
+    "message": "添加背景或重要原因..."
+  },
+  "highlights_colorLabel": {
+    "message": "高亮颜色"
+  },
+  "highlights_noResults": {
+    "message": "没有高亮符合筛选条件"
+  },
+  "highlights_empty": {
+    "message": "暂无高亮"
+  },
+  "highlights_emptyForItem": {
+    "message": "此文章暂无高亮"
+  },
+  "highlights_emptyHint": {
+    "message": "阅读时创建的高亮会显示在这里。"
+  },
+  "highlights_from": {
+    "message": "来自"
+  },
+  "highlights_viewArticle": {
+    "message": "查看文章"
+  },
+  "highlights_created": {
+    "message": "高亮已创建"
+  },
+  "highlights_updated": {
+    "message": "高亮已更新"
+  },
+  "highlights_missingItem": {
+    "message": "请先选择文章"
+  },
+  "highlights_deleted": {
+    "message": "高亮已删除"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "删除高亮"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "确定要删除此高亮吗？"
+  },
+  "templates_create": {
+    "message": "创建模板"
+  },
+  "templates_createFirst": {
+    "message": "创建你的第一个模板"
+  },
+  "templates_searchPlaceholder": {
+    "message": "搜索模板..."
+  },
+  "templates_noResults": {
+    "message": "没有模板符合筛选条件"
+  },
+  "templates_empty": {
+    "message": "暂无模板"
+  },
+  "templates_default": {
+    "message": "默认"
+  },
+  "templates_preview": {
+    "message": "预览"
+  },
+  "templates_duplicate": {
+    "message": "复制"
+  },
+  "templates_deleted": {
+    "message": "模板已删除"
+  },
+  "templates_created": {
+    "message": "模板已创建"
+  },
+  "templates_updated": {
+    "message": "模板已更新"
+  },
+  "templates_editTitle": {
+    "message": "编辑模板"
+  },
+  "templates_createTitle": {
+    "message": "创建模板"
+  },
+  "templates_nameLabel": {
+    "message": "模板名称"
+  },
+  "templates_nameRequired": {
+    "message": "请输入名称"
+  },
+  "templates_namePlaceholder": {
+    "message": "我的简报模板"
+  },
+  "templates_descriptionLabel": {
+    "message": "描述（可选）"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "该模板的简要描述"
+  },
+  "templates_typeLabel": {
+    "message": "模板类型"
+  },
+  "templates_formatLabel": {
+    "message": "输出格式"
+  },
+  "templates_bodyLabel": {
+    "message": "模板内容（Jinja2）"
+  },
+  "templates_bodyRequired": {
+    "message": "请输入模板内容"
+  },
+  "templates_bodyHint": {
+    "message": "使用 Jinja2 语法。可用变量：items（阅读项数组）、date、tags"
+  },
+  "templates_previewTitle": {
+    "message": "模板预览"
+  },
+  "templates_selectItems": {
+    "message": "请至少选择一篇文章"
+  },
+  "templates_selectItemsHint": {
+    "message": "选择要包含在预览中的文章："
+  },
+  "templates_selectAll": {
+    "message": "全选"
+  },
+  "templates_selectedCount": {
+    "message": "已选择 {{count}} 项"
+  },
+  "templates_noItems": {
+    "message": "阅读列表中没有文章"
+  },
+  "templates_generatePreview": {
+    "message": "生成预览"
+  },
+  "templates_generateOutput": {
+    "message": "生成输出"
+  },
+  "templates_audioUnavailable": {
+    "message": "音频输出不可用"
+  },
+  "templates_noGeneratedContent": {
+    "message": "尚未生成输出"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "删除模板"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "确定要删除此模板吗？"
+  },
+  "templateTypes_all": {
+    "message": "所有类型"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "通讯 (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "简报 (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "通讯 (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS 音频"
+  },
+  "import_title": {
+    "message": "导入"
+  },
+  "import_sourceRequired": {
+    "message": "请先选择来源"
+  },
+  "import_selectSource": {
+    "message": "选择导入来源："
+  },
+  "import_sources_auto_label": {
+    "message": "自动识别"
+  },
+  "import_sources_auto_description": {
+    "message": "上传 Pocket 或 Instapaper 导出文件并自动识别格式"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "从 Pocket 导出导入已保存的文章"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "从 Instapaper 导出导入文章"
+  },
+  "import_methodFile": {
+    "message": "文件上传"
+  },
+  "import_methodApiKey": {
+    "message": "API 密钥"
+  },
+  "import_apiKeyLabel": {
+    "message": "API 密钥"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "粘贴 API 密钥"
+  },
+  "import_apiKeyRequired": {
+    "message": "请输入 API 密钥"
+  },
+  "import_previewWithKey": {
+    "message": "预览导入"
+  },
+  "import_processing": {
+    "message": "正在处理文件..."
+  },
+  "import_dropzone": {
+    "message": "点击或拖拽文件上传"
+  },
+  "import_formats": {
+    "message": "支持 Pocket JSON 和 Instapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "找到 {{count}} 项"
+  },
+  "import_selectAll": {
+    "message": "全选"
+  },
+  "import_selectItems": {
+    "message": "选择要导入的项目"
+  },
+  "import_importSelected": {
+    "message": "导入 {{count}} 项"
+  },
+  "import_success": {
+    "message": "已导入 {{count}} 项"
+  },
+  "import_complete": {
+    "message": "导入完成"
+  },
+  "import_resultSummary": {
+    "message": "导入：{{imported}}，更新：{{updated}}，跳过：{{skipped}}"
+  },
+  "import_importMore": {
+    "message": "继续导入"
+  },
+  "import_steps_source": {
+    "message": "来源"
+  },
+  "import_steps_upload": {
+    "message": "上传"
+  },
+  "import_steps_preview": {
+    "message": "预览"
+  },
+  "import_steps_result": {
+    "message": "结果"
+  },
+  "export_title": {
+    "message": "导出"
+  },
+  "export_format": {
+    "message": "格式"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "选项"
+  },
+  "export_includeContent": {
+    "message": "包含完整内容"
+  },
+  "export_includeHighlights": {
+    "message": "包含高亮"
+  },
+  "export_items": {
+    "message": "要导出的项目"
+  },
+  "export_searchPlaceholder": {
+    "message": "搜索项目..."
+  },
+  "export_allItems": {
+    "message": "所有项目（留空）"
+  },
+  "export_itemsHint": {
+    "message": "留空以导出所有项目，或选择特定项目"
+  },
+  "export_selectionHint": {
+    "message": "选择要导出的项目，或留空以导出全部。"
+  },
+  "export_selectAll": {
+    "message": "全选"
+  },
+  "export_selectedCount": {
+    "message": "已选择 {{count}} 项"
+  },
+  "export_clearSelection": {
+    "message": "清除"
+  },
+  "export_noItems": {
+    "message": "未找到项目"
+  },
+  "export_selectItems": {
+    "message": "请先选择要复制的项目"
+  },
+  "export_copy": {
+    "message": "复制 JSONL"
+  },
+  "export_copied": {
+    "message": "已复制到剪贴板"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIP 导出暂不支持选择项目。"
+  },
+  "export_download": {
+    "message": "下载导出"
+  },
+  "export_allItemsHint": {
+    "message": "导出包含你账户下所有阅读列表项目。"
+  },
+  "export_success": {
+    "message": "导出已准备好下载"
+  }
+}

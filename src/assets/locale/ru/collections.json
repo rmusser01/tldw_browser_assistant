@@ -1,0 +1,262 @@
+{
+  "title": "Коллекции",
+  "description": "Сохраняйте статьи, создавайте выделения, управляйте шаблонами и импортируйте/экспортируйте список чтения.",
+  "offline": "Сервер офлайн. Подключитесь, чтобы использовать Коллекции.",
+  "betaNotice": "Бета-функция",
+  "betaDescription": "Коллекции сейчас в бета-версии. Некоторые функции могут требовать поддержки бэкенда.",
+
+  "tabs": {
+    "reading": "Список чтения",
+    "highlights": "Выделения",
+    "templates": "Шаблоны",
+    "importExport": "Импорт/Экспорт"
+  },
+
+  "status": {
+    "all": "Все",
+    "saved": "Сохранённые",
+    "reading": "Читаю",
+    "read": "Прочитано",
+    "archived": "Архив"
+  },
+
+  "sort": {
+    "created_at": "Дата добавления",
+    "updated_at": "Последнее обновление",
+    "title": "Заголовок",
+    "relevance": "Релевантность"
+  },
+
+  "colors": {
+    "all": "Все цвета",
+    "yellow": "Жёлтый",
+    "green": "Зелёный",
+    "blue": "Синий",
+    "pink": "Розовый",
+    "purple": "Фиолетовый"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}} мин назад",
+    "hoursAgo": "{{count}} ч назад",
+    "daysAgo": "{{count}} дн назад"
+  },
+
+  "reading": {
+    "addUrl": "Добавить URL",
+    "addUrlTitle": "Добавить в список чтения",
+    "addFirst": "Добавьте первую статью",
+    "addSuccess": "Статья добавлена в список чтения",
+    "searchPlaceholder": "Поиск статей...",
+    "filters": "Фильтры",
+    "favorites": "Избранное",
+    "tagsFilter": "Теги",
+    "domainFilter": "Домен",
+    "sortBy": "Сортировка",
+    "clearFilters": "Сбросить фильтры",
+    "noResults": "Нет статей, соответствующих фильтрам",
+    "empty": "Список чтения пуст",
+    "pagination": "{{start}}-{{end}} из {{total}} элементов",
+
+    "readingTime": "{{count}} мин чтения",
+    "favorite": "Добавить в избранное",
+    "unfavorite": "Удалить из избранного",
+    "viewDetails": "Просмотреть детали",
+    "openOriginal": "Открыть оригинал",
+    "changeStatus": "Изменить статус",
+    "archive": "Архивировать",
+    "unarchive": "Разархивировать",
+    "statusUpdated": "Статус обновлён до {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "Введите URL",
+    "urlInvalid": "Введите корректный URL",
+    "titleLabel": "Заголовок (необязательно)",
+    "titleHint": "Оставьте пустым для автоопределения со страницы",
+    "titlePlaceholder": "Заголовок статьи",
+    "tagsLabel": "Теги",
+    "tagsPlaceholder": "Добавить теги...",
+    "notesLabel": "Заметки (необязательно)",
+    "notesPlaceholderArticle": "Добавьте заметки об этой статье...",
+    "saveToList": "Сохранить в список",
+    "addTag": "Добавить тег...",
+
+    "tabs": {
+      "content": "Содержание",
+      "summary": "Кратко",
+      "highlights": "Выделения",
+      "notes": "Заметки"
+    },
+
+    "noContent": "Содержимое недоступно",
+    "noSummary": "Пока нет краткого содержания",
+    "noNotes": "Пока нет заметок",
+    "editNotes": "Редактировать заметки",
+    "addNotes": "Добавить заметки",
+    "notesSaved": "Заметки сохранены",
+    "notesPlaceholder": "Добавьте свои заметки...",
+
+    "summarize": "Сжать",
+    "generateSummary": "Сгенерировать краткое",
+    "summarized": "Краткое сгенерировано",
+    "generateTts": "Сгенерировать аудио",
+    "ttsGenerated": "Аудио сгенерировано",
+    "downloadAudio": "Скачать аудио",
+
+    "deleted": "Статья удалена",
+    "deleteConfirm": {
+      "title": "Удалить статью",
+      "message": "Вы уверены, что хотите удалить эту статью? Это действие необратимо."
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "Поиск выделений...",
+    "groupByItem": "Группировать по статье",
+    "add": "Добавить выделение",
+    "edit": "Редактировать выделение",
+    "quoteLabel": "Цитата",
+    "quoteRequired": "Введите выделенный текст",
+    "quotePlaceholder": "Вставьте выделенный текст...",
+    "noteLabel": "Заметка (необязательно)",
+    "notePlaceholder": "Добавьте контекст или почему это важно...",
+    "colorLabel": "Цвет выделения",
+    "noResults": "Нет выделений, соответствующих фильтрам",
+    "empty": "Пока нет выделений",
+    "emptyForItem": "Для этой статьи пока нет выделений",
+    "emptyHint": "Выделения, созданные во время чтения, появятся здесь.",
+    "from": "Из",
+    "viewArticle": "Открыть статью",
+    "created": "Выделение создано",
+    "updated": "Выделение обновлено",
+    "missingItem": "Сначала выберите статью",
+    "deleted": "Выделение удалено",
+    "deleteConfirm": {
+      "title": "Удалить выделение",
+      "message": "Вы уверены, что хотите удалить это выделение?"
+    }
+  },
+
+  "templates": {
+    "create": "Создать шаблон",
+    "createFirst": "Создайте первый шаблон",
+    "searchPlaceholder": "Поиск шаблонов...",
+    "noResults": "Нет шаблонов, соответствующих фильтрам",
+    "empty": "Пока нет шаблонов",
+    "default": "По умолчанию",
+    "preview": "Предпросмотр",
+    "duplicate": "Дублировать",
+    "deleted": "Шаблон удалён",
+    "created": "Шаблон создан",
+    "updated": "Шаблон обновлён",
+
+    "editTitle": "Редактировать шаблон",
+    "createTitle": "Создать шаблон",
+    "nameLabel": "Название шаблона",
+    "nameRequired": "Введите название",
+    "namePlaceholder": "Мой шаблон рассылки",
+    "descriptionLabel": "Описание (необязательно)",
+    "descriptionPlaceholder": "Краткое описание этого шаблона",
+    "typeLabel": "Тип шаблона",
+    "formatLabel": "Формат вывода",
+    "bodyLabel": "Тело шаблона (Jinja2)",
+    "bodyRequired": "Введите содержимое шаблона",
+    "bodyHint": "Используйте синтаксис Jinja2. Доступные переменные: items (массив элементов чтения), date, tags",
+
+    "previewTitle": "Предпросмотр шаблона",
+    "selectItems": "Выберите хотя бы одну статью",
+    "selectItemsHint": "Выберите статьи для предпросмотра:",
+    "selectAll": "Выбрать все",
+    "selectedCount": "{{count}} выбрано",
+    "noItems": "В списке чтения нет статей",
+    "generatePreview": "Сгенерировать предпросмотр",
+    "generateOutput": "Сгенерировать вывод",
+    "audioUnavailable": "Аудиовывод недоступен",
+    "noGeneratedContent": "Пока нет сгенерированного вывода",
+
+    "deleteConfirm": {
+      "title": "Удалить шаблон",
+      "message": "Вы уверены, что хотите удалить этот шаблон?"
+    }
+  },
+
+  "templateTypes": {
+    "all": "Все типы",
+    "newsletter_markdown": "Рассылка (MD)",
+    "briefing_markdown": "Брифинг (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "Рассылка (HTML)",
+    "tts_audio": "TTS аудио"
+  },
+
+  "import": {
+    "title": "Импорт",
+    "sourceRequired": "Сначала выберите источник",
+    "selectSource": "Выберите источник импорта:",
+    "sources": {
+      "auto": {
+        "label": "Автоопределение",
+        "description": "Загрузите файл экспорта Pocket или Instapaper и автоматически определите формат"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Импортируйте сохранённые статьи из экспорта Pocket"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Импортируйте статьи из экспорта Instapaper"
+      }
+    },
+    "methodFile": "Загрузка файла",
+    "methodApiKey": "API-ключ",
+    "apiKeyLabel": "API-ключ",
+    "apiKeyPlaceholder": "Вставьте API-ключ",
+    "apiKeyRequired": "Введите API-ключ",
+    "previewWithKey": "Предпросмотр импорта",
+    "processing": "Обработка файла...",
+    "dropzone": "Нажмите или перетащите файл для загрузки",
+    "formats": "Поддерживает Pocket JSON и Instapaper CSV",
+    "previewHint": "Найдено {{count}} элементов",
+    "selectAll": "Выбрать все",
+    "selectItems": "Выберите элементы для импорта",
+    "importSelected": "Импортировать {{count}} элементов",
+    "success": "Импортировано {{count}} элементов",
+    "complete": "Импорт завершён",
+    "resultSummary": "Импортировано: {{imported}}, Обновлено: {{updated}}, Пропущено: {{skipped}}",
+    "importMore": "Импортировать ещё",
+    "steps": {
+      "source": "Источник",
+      "upload": "Загрузка",
+      "preview": "Предпросмотр",
+      "result": "Результат"
+    }
+  },
+
+  "export": {
+    "title": "Экспорт",
+    "format": "Формат",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "Параметры",
+    "includeContent": "Включить полный контент",
+    "includeHighlights": "Включить выделения",
+    "items": "Элементы для экспорта",
+    "searchPlaceholder": "Поиск элементов...",
+    "allItems": "Все элементы (оставьте пустым)",
+    "itemsHint": "Оставьте пустым для экспорта всех элементов или выберите конкретные",
+    "selectionHint": "Выберите элементы для экспорта или оставьте пустым, чтобы экспортировать всё.",
+    "selectAll": "Выбрать все",
+    "selectedCount": "{{count}} выбрано",
+    "clearSelection": "Очистить",
+    "noItems": "Элементы не найдены",
+    "selectItems": "Сначала выберите элементы для копирования",
+    "copy": "Копировать JSONL",
+    "copied": "Скопировано в буфер обмена",
+    "zipSelectionUnsupported": "Экспорт ZIP пока не поддерживает выбор элементов.",
+    "download": "Скачать экспорт",
+    "allItemsHint": "Экспорт включает все элементы списка чтения вашего аккаунта.",
+    "success": "Экспорт готов к загрузке"
+  }
+}

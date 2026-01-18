@@ -19,25 +19,6 @@ import type { ColumnType, DataTableColumn } from "@/types/data-tables"
 const { TextArea } = Input
 const { Panel } = Collapse
 
-// Column type options
-const COLUMN_TYPES: { value: ColumnType; label: string }[] = [
-  { value: "text", label: "Text" },
-  { value: "number", label: "Number" },
-  { value: "date", label: "Date" },
-  { value: "url", label: "URL" },
-  { value: "boolean", label: "Boolean" },
-  { value: "currency", label: "Currency" }
-]
-
-// Example prompts
-const EXAMPLE_PROMPTS = [
-  "Create a table comparing key features, pricing, and ratings from these sources",
-  "Extract all entities mentioned with their type, description, and first appearance",
-  "List all action items with assignee, due date, and status",
-  "Create a summary table with topic, key points, and source reference",
-  "Extract product information including name, price, and specifications"
-]
-
 /**
  * GenerationPanel
  *
@@ -46,6 +27,40 @@ const EXAMPLE_PROMPTS = [
  */
 export const GenerationPanel: React.FC = () => {
   const { t } = useTranslation(["dataTables", "common"])
+
+  // Column type options
+  const columnTypeOptions: { value: ColumnType; label: string }[] = [
+    { value: "text", label: t("dataTables:columnTypes.text", "Text") },
+    { value: "number", label: t("dataTables:columnTypes.number", "Number") },
+    { value: "date", label: t("dataTables:columnTypes.date", "Date") },
+    { value: "url", label: t("dataTables:columnTypes.url", "URL") },
+    { value: "boolean", label: t("dataTables:columnTypes.boolean", "Boolean") },
+    { value: "currency", label: t("dataTables:columnTypes.currency", "Currency") }
+  ]
+
+  // Example prompts
+  const examplePrompts = [
+    t(
+      "dataTables:examplePromptCompare",
+      "Create a table comparing key features, pricing, and ratings from these sources"
+    ),
+    t(
+      "dataTables:examplePromptEntities",
+      "Extract all entities mentioned with their type, description, and first appearance"
+    ),
+    t(
+      "dataTables:examplePromptActions",
+      "List all action items with assignee, due date, and status"
+    ),
+    t(
+      "dataTables:examplePromptSummary",
+      "Create a summary table with topic, key points, and source reference"
+    ),
+    t(
+      "dataTables:examplePromptProduct",
+      "Extract product information including name, price, and specifications"
+    )
+  ]
 
   // Store state
   const tableName = useDataTablesStore((s) => s.tableName)
@@ -148,8 +163,9 @@ export const GenerationPanel: React.FC = () => {
           {t("dataTables:examplePrompts", "Example prompts:")}
         </h5>
         <div className="flex flex-wrap gap-2">
-          {EXAMPLE_PROMPTS.map((example, index) => (
+          {examplePrompts.map((example, index) => (
             <button
+              type="button"
               key={index}
               onClick={() => useExamplePrompt(example)}
               className="text-xs px-2 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors"
@@ -197,7 +213,7 @@ export const GenerationPanel: React.FC = () => {
                         onChange={(e) =>
                           updateColumnHint(index, { ...hint, name: e.target.value })
                         }
-                        placeholder="Column name"
+                        placeholder={t("dataTables:existingColumnName", "Column name")}
                         size="small"
                         className="flex-1"
                       />
@@ -206,7 +222,7 @@ export const GenerationPanel: React.FC = () => {
                         onChange={(value) =>
                           updateColumnHint(index, { ...hint, type: value })
                         }
-                        options={COLUMN_TYPES}
+                        options={columnTypeOptions}
                         size="small"
                         className="w-28"
                       />
@@ -235,7 +251,7 @@ export const GenerationPanel: React.FC = () => {
                 <Select
                   value={newColumnType}
                   onChange={setNewColumnType}
-                  options={COLUMN_TYPES}
+                  options={columnTypeOptions}
                   size="small"
                   className="w-28"
                 />

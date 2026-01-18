@@ -105,20 +105,20 @@ export const FlashcardEditDrawer: React.FC<FlashcardEditDrawerProps> = ({
     }
   }
 
-  const handleAttemptClose = () => {
+  const handleClose = React.useCallback(() => {
+    form.resetFields()
+    setIsDirty(false)
+    setConfirmCloseOpen(false)
+    onClose()
+  }, [form, onClose])
+
+  const handleAttemptClose = React.useCallback(() => {
     if (isDirty) {
       setConfirmCloseOpen(true)
     } else {
       handleClose()
     }
-  }
-
-  const handleClose = () => {
-    form.resetFields()
-    setIsDirty(false)
-    setConfirmCloseOpen(false)
-    onClose()
-  }
+  }, [handleClose, isDirty])
 
   return (
     <>

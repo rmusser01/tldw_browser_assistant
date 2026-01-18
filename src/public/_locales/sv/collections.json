@@ -1,0 +1,596 @@
+{
+  "title": {
+    "message": "Samlingar"
+  },
+  "description": {
+    "message": "Spara artiklar, skapa markeringar, hantera mallar och importera/exportera din läslista."
+  },
+  "offline": {
+    "message": "Servern är offline. Anslut för att använda Samlingar."
+  },
+  "betaNotice": {
+    "message": "Beta-funktion"
+  },
+  "betaDescription": {
+    "message": "Samlingar är för närvarande i beta. Vissa funktioner kan kräva backendstöd."
+  },
+  "tabs_reading": {
+    "message": "Läslista"
+  },
+  "tabs_highlights": {
+    "message": "Markeringar"
+  },
+  "tabs_templates": {
+    "message": "Mallar"
+  },
+  "tabs_importExport": {
+    "message": "Import/Export"
+  },
+  "status_all": {
+    "message": "Alla"
+  },
+  "status_saved": {
+    "message": "Sparade"
+  },
+  "status_reading": {
+    "message": "Läser"
+  },
+  "status_read": {
+    "message": "Lästa"
+  },
+  "status_archived": {
+    "message": "Arkiverade"
+  },
+  "sort_created_at": {
+    "message": "Tillagt datum"
+  },
+  "sort_updated_at": {
+    "message": "Senast uppdaterad"
+  },
+  "sort_title": {
+    "message": "Titel"
+  },
+  "sort_relevance": {
+    "message": "Relevans"
+  },
+  "colors_all": {
+    "message": "Alla färger"
+  },
+  "colors_yellow": {
+    "message": "Gul"
+  },
+  "colors_green": {
+    "message": "Grön"
+  },
+  "colors_blue": {
+    "message": "Blå"
+  },
+  "colors_pink": {
+    "message": "Rosa"
+  },
+  "colors_purple": {
+    "message": "Lila"
+  },
+  "time_minutesAgo": {
+    "message": "{{count}} min sedan"
+  },
+  "time_hoursAgo": {
+    "message": "{{count}} h sedan"
+  },
+  "time_daysAgo": {
+    "message": "{{count}} dagar sedan"
+  },
+  "reading_addUrl": {
+    "message": "Lägg till URL"
+  },
+  "reading_addUrlTitle": {
+    "message": "Lägg till i läslistan"
+  },
+  "reading_addFirst": {
+    "message": "Lägg till din första artikel"
+  },
+  "reading_addSuccess": {
+    "message": "Artikel tillagd i läslistan"
+  },
+  "reading_searchPlaceholder": {
+    "message": "Sök artiklar..."
+  },
+  "reading_filters": {
+    "message": "Filter"
+  },
+  "reading_favorites": {
+    "message": "Favoriter"
+  },
+  "reading_tagsFilter": {
+    "message": "Taggar"
+  },
+  "reading_domainFilter": {
+    "message": "Domän"
+  },
+  "reading_sortBy": {
+    "message": "Sortera"
+  },
+  "reading_clearFilters": {
+    "message": "Rensa filter"
+  },
+  "reading_noResults": {
+    "message": "Inga artiklar matchar dina filter"
+  },
+  "reading_empty": {
+    "message": "Din läslista är tom"
+  },
+  "reading_pagination": {
+    "message": "{{start}}-{{end}} av {{total}} objekt"
+  },
+  "reading_readingTime": {
+    "message": "{{count}} min läsning"
+  },
+  "reading_favorite": {
+    "message": "Lägg till i favoriter"
+  },
+  "reading_unfavorite": {
+    "message": "Ta bort från favoriter"
+  },
+  "reading_viewDetails": {
+    "message": "Visa detaljer"
+  },
+  "reading_openOriginal": {
+    "message": "Öppna original"
+  },
+  "reading_changeStatus": {
+    "message": "Ändra status"
+  },
+  "reading_archive": {
+    "message": "Arkivera"
+  },
+  "reading_unarchive": {
+    "message": "Avarkivera"
+  },
+  "reading_statusUpdated": {
+    "message": "Status uppdaterad till {{status}}"
+  },
+  "reading_urlLabel": {
+    "message": "URL"
+  },
+  "reading_urlRequired": {
+    "message": "Ange en URL"
+  },
+  "reading_urlInvalid": {
+    "message": "Ange en giltig URL"
+  },
+  "reading_titleLabel": {
+    "message": "Titel (valfritt)"
+  },
+  "reading_titleHint": {
+    "message": "Lämna tomt för att automatiskt upptäcka från sidan"
+  },
+  "reading_titlePlaceholder": {
+    "message": "Artikelns titel"
+  },
+  "reading_tagsLabel": {
+    "message": "Taggar"
+  },
+  "reading_tagsPlaceholder": {
+    "message": "Lägg till taggar..."
+  },
+  "reading_notesLabel": {
+    "message": "Anteckningar (valfritt)"
+  },
+  "reading_notesPlaceholderArticle": {
+    "message": "Lägg till anteckningar om den här artikeln..."
+  },
+  "reading_saveToList": {
+    "message": "Spara i lista"
+  },
+  "reading_addTag": {
+    "message": "Lägg till tagg..."
+  },
+  "reading_tabs_content": {
+    "message": "Innehåll"
+  },
+  "reading_tabs_summary": {
+    "message": "Sammanfattning"
+  },
+  "reading_tabs_highlights": {
+    "message": "Markeringar"
+  },
+  "reading_tabs_notes": {
+    "message": "Anteckningar"
+  },
+  "reading_noContent": {
+    "message": "Innehåll ej tillgängligt"
+  },
+  "reading_noSummary": {
+    "message": "Ingen sammanfattning ännu"
+  },
+  "reading_noNotes": {
+    "message": "Inga anteckningar ännu"
+  },
+  "reading_editNotes": {
+    "message": "Redigera anteckningar"
+  },
+  "reading_addNotes": {
+    "message": "Lägg till anteckningar"
+  },
+  "reading_notesSaved": {
+    "message": "Anteckningar sparade"
+  },
+  "reading_notesPlaceholder": {
+    "message": "Lägg till dina anteckningar..."
+  },
+  "reading_summarize": {
+    "message": "Sammanfatta"
+  },
+  "reading_generateSummary": {
+    "message": "Generera sammanfattning"
+  },
+  "reading_summarized": {
+    "message": "Sammanfattning genererad"
+  },
+  "reading_generateTts": {
+    "message": "Generera ljud"
+  },
+  "reading_ttsGenerated": {
+    "message": "Ljud genererat"
+  },
+  "reading_downloadAudio": {
+    "message": "Ladda ner ljud"
+  },
+  "reading_deleted": {
+    "message": "Artikel raderad"
+  },
+  "reading_deleteConfirm_title": {
+    "message": "Radera artikel"
+  },
+  "reading_deleteConfirm_message": {
+    "message": "Är du säker på att du vill radera den här artikeln? Den här åtgärden kan inte ångras."
+  },
+  "highlights_searchPlaceholder": {
+    "message": "Sök markeringar..."
+  },
+  "highlights_groupByItem": {
+    "message": "Gruppera efter artikel"
+  },
+  "highlights_add": {
+    "message": "Lägg till markering"
+  },
+  "highlights_edit": {
+    "message": "Redigera markering"
+  },
+  "highlights_quoteLabel": {
+    "message": "Citat"
+  },
+  "highlights_quoteRequired": {
+    "message": "Ange den markerade texten"
+  },
+  "highlights_quotePlaceholder": {
+    "message": "Klistra in markerad text..."
+  },
+  "highlights_noteLabel": {
+    "message": "Anteckning (valfritt)"
+  },
+  "highlights_notePlaceholder": {
+    "message": "Lägg till kontext eller varför det är viktigt..."
+  },
+  "highlights_colorLabel": {
+    "message": "Markeringsfärg"
+  },
+  "highlights_noResults": {
+    "message": "Inga markeringar matchar dina filter"
+  },
+  "highlights_empty": {
+    "message": "Inga markeringar ännu"
+  },
+  "highlights_emptyForItem": {
+    "message": "Inga markeringar för den här artikeln ännu"
+  },
+  "highlights_emptyHint": {
+    "message": "Markeringar du skapar medan du läser visas här."
+  },
+  "highlights_from": {
+    "message": "Från"
+  },
+  "highlights_viewArticle": {
+    "message": "Visa artikel"
+  },
+  "highlights_created": {
+    "message": "Markering skapad"
+  },
+  "highlights_updated": {
+    "message": "Markering uppdaterad"
+  },
+  "highlights_missingItem": {
+    "message": "Välj en artikel först"
+  },
+  "highlights_deleted": {
+    "message": "Markering raderad"
+  },
+  "highlights_deleteConfirm_title": {
+    "message": "Radera markering"
+  },
+  "highlights_deleteConfirm_message": {
+    "message": "Är du säker på att du vill radera den här markeringen?"
+  },
+  "templates_create": {
+    "message": "Skapa mall"
+  },
+  "templates_createFirst": {
+    "message": "Skapa din första mall"
+  },
+  "templates_searchPlaceholder": {
+    "message": "Sök mallar..."
+  },
+  "templates_noResults": {
+    "message": "Inga mallar matchar dina filter"
+  },
+  "templates_empty": {
+    "message": "Inga mallar ännu"
+  },
+  "templates_default": {
+    "message": "Standard"
+  },
+  "templates_preview": {
+    "message": "Förhandsgranskning"
+  },
+  "templates_duplicate": {
+    "message": "Duplicera"
+  },
+  "templates_deleted": {
+    "message": "Mall raderad"
+  },
+  "templates_created": {
+    "message": "Mall skapad"
+  },
+  "templates_updated": {
+    "message": "Mall uppdaterad"
+  },
+  "templates_editTitle": {
+    "message": "Redigera mall"
+  },
+  "templates_createTitle": {
+    "message": "Skapa mall"
+  },
+  "templates_nameLabel": {
+    "message": "Mallnamn"
+  },
+  "templates_nameRequired": {
+    "message": "Ange ett namn"
+  },
+  "templates_namePlaceholder": {
+    "message": "Min nyhetsbrevsmall"
+  },
+  "templates_descriptionLabel": {
+    "message": "Beskrivning (valfritt)"
+  },
+  "templates_descriptionPlaceholder": {
+    "message": "Kort beskrivning av denna mall"
+  },
+  "templates_typeLabel": {
+    "message": "Malltyp"
+  },
+  "templates_formatLabel": {
+    "message": "Utdataformat"
+  },
+  "templates_bodyLabel": {
+    "message": "Mallinnehåll (Jinja2)"
+  },
+  "templates_bodyRequired": {
+    "message": "Ange mallinnehåll"
+  },
+  "templates_bodyHint": {
+    "message": "Använd Jinja2-syntax. Tillgängliga variabler: items (array av läsobjekt), date, tags"
+  },
+  "templates_previewTitle": {
+    "message": "Mallförhandsgranskning"
+  },
+  "templates_selectItems": {
+    "message": "Välj minst en artikel"
+  },
+  "templates_selectItemsHint": {
+    "message": "Välj artiklar att inkludera i förhandsgranskningen:"
+  },
+  "templates_selectAll": {
+    "message": "Välj alla"
+  },
+  "templates_selectedCount": {
+    "message": "{{count}} valda"
+  },
+  "templates_noItems": {
+    "message": "Inga artiklar i din läslista"
+  },
+  "templates_generatePreview": {
+    "message": "Generera förhandsgranskning"
+  },
+  "templates_generateOutput": {
+    "message": "Generera output"
+  },
+  "templates_audioUnavailable": {
+    "message": "Ljudutdata inte tillgängligt"
+  },
+  "templates_noGeneratedContent": {
+    "message": "Ingen output genererad ännu"
+  },
+  "templates_deleteConfirm_title": {
+    "message": "Radera mall"
+  },
+  "templates_deleteConfirm_message": {
+    "message": "Är du säker på att du vill radera den här mallen?"
+  },
+  "templateTypes_all": {
+    "message": "Alla typer"
+  },
+  "templateTypes_newsletter_markdown": {
+    "message": "Nyhetsbrev (MD)"
+  },
+  "templateTypes_briefing_markdown": {
+    "message": "Briefing (MD)"
+  },
+  "templateTypes_mece_markdown": {
+    "message": "MECE (MD)"
+  },
+  "templateTypes_newsletter_html": {
+    "message": "Nyhetsbrev (HTML)"
+  },
+  "templateTypes_tts_audio": {
+    "message": "TTS-ljud"
+  },
+  "import_title": {
+    "message": "Importera"
+  },
+  "import_sourceRequired": {
+    "message": "Välj först en källa"
+  },
+  "import_selectSource": {
+    "message": "Välj importkälla:"
+  },
+  "import_sources_auto_label": {
+    "message": "Auto-detektera"
+  },
+  "import_sources_auto_description": {
+    "message": "Ladda upp en Pocket- eller Instapaper-exportfil och upptäck formatet automatiskt"
+  },
+  "import_sources_pocket_label": {
+    "message": "Pocket"
+  },
+  "import_sources_pocket_description": {
+    "message": "Importera dina sparade artiklar från en Pocket-export"
+  },
+  "import_sources_instapaper_label": {
+    "message": "Instapaper"
+  },
+  "import_sources_instapaper_description": {
+    "message": "Importera artiklar från en Instapaper-export"
+  },
+  "import_methodFile": {
+    "message": "Filuppladdning"
+  },
+  "import_methodApiKey": {
+    "message": "API-nyckel"
+  },
+  "import_apiKeyLabel": {
+    "message": "API-nyckel"
+  },
+  "import_apiKeyPlaceholder": {
+    "message": "Klistra in din API-nyckel"
+  },
+  "import_apiKeyRequired": {
+    "message": "Ange en API-nyckel"
+  },
+  "import_previewWithKey": {
+    "message": "Förhandsgranska import"
+  },
+  "import_processing": {
+    "message": "Bearbetar fil..."
+  },
+  "import_dropzone": {
+    "message": "Klicka eller dra filen för att ladda upp"
+  },
+  "import_formats": {
+    "message": "Stöder Pocket JSON och Instapaper CSV"
+  },
+  "import_previewHint": {
+    "message": "{{count}} objekt hittade"
+  },
+  "import_selectAll": {
+    "message": "Välj alla"
+  },
+  "import_selectItems": {
+    "message": "Välj objekt att importera"
+  },
+  "import_importSelected": {
+    "message": "Importera {{count}} objekt"
+  },
+  "import_success": {
+    "message": "{{count}} objekt importerade"
+  },
+  "import_complete": {
+    "message": "Import slutförd"
+  },
+  "import_resultSummary": {
+    "message": "Importerade: {{imported}}, Uppdaterade: {{updated}}, Hoppade över: {{skipped}}"
+  },
+  "import_importMore": {
+    "message": "Importera fler"
+  },
+  "import_steps_source": {
+    "message": "Källa"
+  },
+  "import_steps_upload": {
+    "message": "Uppladdning"
+  },
+  "import_steps_preview": {
+    "message": "Förhandsgranskning"
+  },
+  "import_steps_result": {
+    "message": "Resultat"
+  },
+  "export_title": {
+    "message": "Exportera"
+  },
+  "export_format": {
+    "message": "Format"
+  },
+  "export_formats_jsonl": {
+    "message": "JSONL"
+  },
+  "export_formats_zip": {
+    "message": "ZIP"
+  },
+  "export_options": {
+    "message": "Alternativ"
+  },
+  "export_includeContent": {
+    "message": "Inkludera fullständigt innehåll"
+  },
+  "export_includeHighlights": {
+    "message": "Inkludera markeringar"
+  },
+  "export_items": {
+    "message": "Objekt att exportera"
+  },
+  "export_searchPlaceholder": {
+    "message": "Sök objekt..."
+  },
+  "export_allItems": {
+    "message": "Alla objekt (lämna tomt)"
+  },
+  "export_itemsHint": {
+    "message": "Lämna tomt för att exportera alla objekt eller välj specifika"
+  },
+  "export_selectionHint": {
+    "message": "Välj objekt att exportera, eller lämna tomt för att exportera allt."
+  },
+  "export_selectAll": {
+    "message": "Välj alla"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} valda"
+  },
+  "export_clearSelection": {
+    "message": "Rensa"
+  },
+  "export_noItems": {
+    "message": "Inga objekt hittades"
+  },
+  "export_selectItems": {
+    "message": "Välj först objekt att kopiera"
+  },
+  "export_copy": {
+    "message": "Kopiera JSONL"
+  },
+  "export_copied": {
+    "message": "Kopierat till urklipp"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIP-export stöder inte val av objekt ännu."
+  },
+  "export_download": {
+    "message": "Ladda ner export"
+  },
+  "export_allItemsHint": {
+    "message": "Exporten inkluderar alla läslistobjekt för ditt konto."
+  },
+  "export_success": {
+    "message": "Export klar för nedladdning"
+  }
+}

@@ -156,6 +156,15 @@ const BASE_SCREEN_CONFIGS: ScreenConfig[] = [
     icon: "chat"
   },
   {
+    id: "watchlists",
+    route: "/watchlists",
+    labelKey: "option:header.modeWatchlists",
+    defaultLabel: "Watchlists",
+    description: "Monitor sources and watchlist jobs",
+    keywords: ["watchlists", "watchlist", "rss", "monitoring"],
+    icon: "watchlists"
+  },
+  {
     id: "evaluations",
     route: "/evaluations",
     labelKey: "option:header.evaluations",

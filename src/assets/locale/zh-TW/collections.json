@@ -1,0 +1,262 @@
+{
+  "title": "收藏",
+  "description": "保存文章、建立重點標示、管理範本，並匯入/匯出閱讀清單。",
+  "offline": "伺服器離線。請連線以使用收藏。",
+  "betaNotice": "Beta 功能",
+  "betaDescription": "收藏目前為 Beta 版本，部分功能可能需要後端支援。",
+
+  "tabs": {
+    "reading": "閱讀清單",
+    "highlights": "重點標示",
+    "templates": "範本",
+    "importExport": "匯入/匯出"
+  },
+
+  "status": {
+    "all": "全部",
+    "saved": "已保存",
+    "reading": "閱讀中",
+    "read": "已讀",
+    "archived": "已封存"
+  },
+
+  "sort": {
+    "created_at": "新增日期",
+    "updated_at": "最後更新",
+    "title": "標題",
+    "relevance": "相關性"
+  },
+
+  "colors": {
+    "all": "所有顏色",
+    "yellow": "黃色",
+    "green": "綠色",
+    "blue": "藍色",
+    "pink": "粉色",
+    "purple": "紫色"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}} 分鐘前",
+    "hoursAgo": "{{count}} 小時前",
+    "daysAgo": "{{count}} 天前"
+  },
+
+  "reading": {
+    "addUrl": "新增 URL",
+    "addUrlTitle": "新增到閱讀清單",
+    "addFirst": "新增第一篇文章",
+    "addSuccess": "文章已新增到閱讀清單",
+    "searchPlaceholder": "搜尋文章...",
+    "filters": "篩選",
+    "favorites": "我的最愛",
+    "tagsFilter": "標籤",
+    "domainFilter": "網域",
+    "sortBy": "排序",
+    "clearFilters": "清除篩選",
+    "noResults": "沒有符合篩選條件的文章",
+    "empty": "閱讀清單為空",
+    "pagination": "{{start}}-{{end}} / {{total}} 筆",
+
+    "readingTime": "{{count}} 分鐘閱讀",
+    "favorite": "加入我的最愛",
+    "unfavorite": "從我的最愛移除",
+    "viewDetails": "查看詳細資料",
+    "openOriginal": "開啟原文",
+    "changeStatus": "更改狀態",
+    "archive": "封存",
+    "unarchive": "取消封存",
+    "statusUpdated": "狀態已更新為 {{status}}",
+
+    "urlLabel": "URL",
+    "urlRequired": "請輸入 URL",
+    "urlInvalid": "請輸入有效的 URL",
+    "titleLabel": "標題（選填）",
+    "titleHint": "留空以自動從頁面偵測",
+    "titlePlaceholder": "文章標題",
+    "tagsLabel": "標籤",
+    "tagsPlaceholder": "新增標籤...",
+    "notesLabel": "備註（選填）",
+    "notesPlaceholderArticle": "新增關於此文章的備註...",
+    "saveToList": "儲存到清單",
+    "addTag": "新增標籤...",
+
+    "tabs": {
+      "content": "內容",
+      "summary": "摘要",
+      "highlights": "重點標示",
+      "notes": "備註"
+    },
+
+    "noContent": "內容無法使用",
+    "noSummary": "尚無摘要",
+    "noNotes": "尚無備註",
+    "editNotes": "編輯備註",
+    "addNotes": "新增備註",
+    "notesSaved": "備註已儲存",
+    "notesPlaceholder": "新增你的備註...",
+
+    "summarize": "產生摘要",
+    "generateSummary": "產生摘要",
+    "summarized": "摘要已產生",
+    "generateTts": "產生音訊",
+    "ttsGenerated": "音訊已產生",
+    "downloadAudio": "下載音訊",
+
+    "deleted": "文章已刪除",
+    "deleteConfirm": {
+      "title": "刪除文章",
+      "message": "確定要刪除此文章嗎？此操作無法復原。"
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "搜尋重點標示...",
+    "groupByItem": "依文章分組",
+    "add": "新增重點標示",
+    "edit": "編輯重點標示",
+    "quoteLabel": "引用",
+    "quoteRequired": "請輸入重點標示文字",
+    "quotePlaceholder": "貼上重點標示的文字...",
+    "noteLabel": "備註（選填）",
+    "notePlaceholder": "新增背景或重要原因...",
+    "colorLabel": "重點標示顏色",
+    "noResults": "沒有符合篩選條件的重點標示",
+    "empty": "尚無重點標示",
+    "emptyForItem": "此文章尚無重點標示",
+    "emptyHint": "閱讀時建立的重點標示會顯示在這裡。",
+    "from": "來源",
+    "viewArticle": "查看文章",
+    "created": "重點標示已建立",
+    "updated": "重點標示已更新",
+    "missingItem": "請先選擇文章",
+    "deleted": "重點標示已刪除",
+    "deleteConfirm": {
+      "title": "刪除重點標示",
+      "message": "確定要刪除此重點標示嗎？"
+    }
+  },
+
+  "templates": {
+    "create": "建立範本",
+    "createFirst": "建立你的第一個範本",
+    "searchPlaceholder": "搜尋範本...",
+    "noResults": "沒有符合篩選條件的範本",
+    "empty": "尚無範本",
+    "default": "預設",
+    "preview": "預覽",
+    "duplicate": "複製",
+    "deleted": "範本已刪除",
+    "created": "範本已建立",
+    "updated": "範本已更新",
+
+    "editTitle": "編輯範本",
+    "createTitle": "建立範本",
+    "nameLabel": "範本名稱",
+    "nameRequired": "請輸入名稱",
+    "namePlaceholder": "我的電子報範本",
+    "descriptionLabel": "描述（選填）",
+    "descriptionPlaceholder": "此範本的簡短描述",
+    "typeLabel": "範本類型",
+    "formatLabel": "輸出格式",
+    "bodyLabel": "範本內容（Jinja2）",
+    "bodyRequired": "請輸入範本內容",
+    "bodyHint": "使用 Jinja2 語法。可用變數：items（閱讀項目陣列）、date、tags",
+
+    "previewTitle": "範本預覽",
+    "selectItems": "請至少選擇一篇文章",
+    "selectItemsHint": "選擇要包含在預覽中的文章：",
+    "selectAll": "全選",
+    "selectedCount": "已選擇 {{count}} 項",
+    "noItems": "閱讀清單中沒有文章",
+    "generatePreview": "產生預覽",
+    "generateOutput": "產生輸出",
+    "audioUnavailable": "音訊輸出不可用",
+    "noGeneratedContent": "尚未產生輸出",
+
+    "deleteConfirm": {
+      "title": "刪除範本",
+      "message": "確定要刪除此範本嗎？"
+    }
+  },
+
+  "templateTypes": {
+    "all": "所有類型",
+    "newsletter_markdown": "電子報 (MD)",
+    "briefing_markdown": "簡報 (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "電子報 (HTML)",
+    "tts_audio": "TTS 音訊"
+  },
+
+  "import": {
+    "title": "匯入",
+    "sourceRequired": "請先選擇來源",
+    "selectSource": "選擇匯入來源：",
+    "sources": {
+      "auto": {
+        "label": "自動偵測",
+        "description": "上傳 Pocket 或 Instapaper 匯出檔並自動偵測格式"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "從 Pocket 匯出匯入已儲存的文章"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "從 Instapaper 匯出匯入文章"
+      }
+    },
+    "methodFile": "檔案上傳",
+    "methodApiKey": "API 金鑰",
+    "apiKeyLabel": "API 金鑰",
+    "apiKeyPlaceholder": "貼上 API 金鑰",
+    "apiKeyRequired": "請輸入 API 金鑰",
+    "previewWithKey": "預覽匯入",
+    "processing": "正在處理檔案...",
+    "dropzone": "點擊或拖曳檔案上傳",
+    "formats": "支援 Pocket JSON 與 Instapaper CSV",
+    "previewHint": "找到 {{count}} 項",
+    "selectAll": "全選",
+    "selectItems": "選擇要匯入的項目",
+    "importSelected": "匯入 {{count}} 項",
+    "success": "已匯入 {{count}} 項",
+    "complete": "匯入完成",
+    "resultSummary": "匯入：{{imported}}，更新：{{updated}}，略過：{{skipped}}",
+    "importMore": "繼續匯入",
+    "steps": {
+      "source": "來源",
+      "upload": "上傳",
+      "preview": "預覽",
+      "result": "結果"
+    }
+  },
+
+  "export": {
+    "title": "匯出",
+    "format": "格式",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "選項",
+    "includeContent": "包含完整內容",
+    "includeHighlights": "包含重點標示",
+    "items": "要匯出的項目",
+    "searchPlaceholder": "搜尋項目...",
+    "allItems": "所有項目（留空）",
+    "itemsHint": "留空以匯出所有項目，或選擇特定項目",
+    "selectionHint": "選擇要匯出的項目，或留空以匯出全部。",
+    "selectAll": "全選",
+    "selectedCount": "已選擇 {{count}} 項",
+    "clearSelection": "清除",
+    "noItems": "未找到項目",
+    "selectItems": "請先選擇要複製的項目",
+    "copy": "複製 JSONL",
+    "copied": "已複製到剪貼簿",
+    "zipSelectionUnsupported": "ZIP 匯出尚不支援項目選擇。",
+    "download": "下載匯出",
+    "allItemsHint": "匯出包含你帳戶下所有閱讀清單項目。",
+    "success": "匯出已準備好下載"
+  }
+}

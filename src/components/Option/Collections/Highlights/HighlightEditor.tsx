@@ -85,9 +85,11 @@ export const HighlightEditor: React.FC<HighlightEditorProps> = ({ onSuccess }) =
 
       handleCancel()
       onSuccess?.()
-    } catch (error: any) {
-      if (error?.errorFields) return
-      message.error(error?.message || "Failed to save highlight")
+    } catch (error: unknown) {
+      if (typeof error === "object" && error !== null && "errorFields" in error) return
+      const err = error instanceof Error ? error : new Error(String(error))
+      console.error("Failed to save highlight", err)
+      message.error(err.message || "Failed to save highlight")
     } finally {
       setLoading(false)
     }

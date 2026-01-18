@@ -576,7 +576,10 @@ const NotesManagerPage: React.FC = () => {
         path: `/api/v1/notes/${target}?expected_version=${encodeURIComponent(
           String(expectedVersion)
         )}` as any,
-        method: 'DELETE' as any
+        method: 'DELETE' as any,
+        headers: {
+          "expected-version": String(expectedVersion)
+        }
       })
       message.success('Note deleted')
       if (selectedId != null && String(selectedId) === targetId) resetEditor()
@@ -1251,6 +1254,7 @@ const NotesManagerPage: React.FC = () => {
               placeholder={t('option:notesSearch.keywordsEditorPlaceholder', {
                 defaultValue: 'Keywords (tags)'
               })}
+              data-testid="notes-keywords-editor"
               className="w-full"
               value={editorKeywords}
               onSearch={(txt) => {

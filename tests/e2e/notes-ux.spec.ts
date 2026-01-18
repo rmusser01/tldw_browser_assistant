@@ -35,10 +35,9 @@ test.describe('Notes workspace UX', () => {
       name: /Set up server|Open tldw server settings/i
     })
     await settingsCta.click()
-    const card = page.locator('#server-connection-card')
-    await expect(card).toBeVisible()
+    await expect(page).toHaveURL(/#\/settings\/tldw/i)
     await expect(
-      card.getByRole('button', { name: /Back to workspace/i })
+      page.getByRole('heading', { name: /tldw Server Configuration/i })
     ).toBeVisible()
 
     await context.close()
@@ -57,10 +56,10 @@ test.describe('Notes workspace UX', () => {
     const textarea = page.getByPlaceholder('Write your note here...')
     await textarea.fill('Unsaved note content')
 
-    const newNoteButton = page.getByRole('button', { name: /New note/i }).first()
+    const newNoteButton = page.getByTestId('notes-new-button')
     await newNoteButton.click()
 
-    await expect(page.getByText(/Discard changes\?/i)).toBeVisible()
+    await expect(page.getByText(/Discard changes\?/i).first()).toBeVisible()
 
     const cancelButton = page.getByRole('button', { name: /Cancel/i })
     await cancelButton.click()

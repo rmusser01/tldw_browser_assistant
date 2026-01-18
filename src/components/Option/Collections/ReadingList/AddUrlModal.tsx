@@ -19,6 +19,15 @@ interface FormValues {
   notes?: string
 }
 
+const isValidUrl = (url: string): boolean => {
+  try {
+    new URL(url)
+    return true
+  } catch {
+    return false
+  }
+}
+
 export const AddUrlModal: React.FC<AddUrlModalProps> = ({ onSuccess }) => {
   const { t } = useTranslation(["collections", "common"])
   const api = useTldwApiClient()
@@ -66,12 +75,13 @@ export const AddUrlModal: React.FC<AddUrlModalProps> = ({ onSuccess }) => {
       setTags([])
       closeAddUrlModal()
       onSuccess?.()
-    } catch (error: any) {
-      if (error?.errorFields) {
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "errorFields" in error) {
         // Form validation error
         return
       }
-      message.error(error?.message || "Failed to add article")
+      const msg = error instanceof Error ? error.message : "Failed to add article"
+      message.error(msg)
     } finally {
       setLoading(false)
     }
@@ -82,15 +92,6 @@ export const AddUrlModal: React.FC<AddUrlModalProps> = ({ onSuccess }) => {
     setTags([])
     closeAddUrlModal()
   }, [form, closeAddUrlModal])
-
-  const isValidUrl = (url: string) => {
-    try {
-      new URL(url)
-      return true
-    } catch {
-      return false
-    }
-  }
 
   return (
     <Modal
@@ -180,7 +181,7 @@ export const AddUrlModal: React.FC<AddUrlModalProps> = ({ onSuccess }) => {
           <TextArea
             rows={3}
             placeholder={t(
-              "collections:reading.notesPlaceholder",
+              "collections:reading.notesPlaceholderArticle",
               "Add any notes about this article..."
             )}
           />

@@ -35,38 +35,36 @@ import type {
 
 const IMPORT_SOURCES: {
   value: ImportSource
-  label: string
+  labelKey: string
   icon: React.ReactNode
-  description: string
+  descriptionKey: string
 }[] = [
   {
     value: "auto",
-    label: "Auto-detect",
+    labelKey: "collections:import.sources.auto.label",
     icon: <FileText className="h-6 w-6" />,
-    description: "Upload a Pocket or Instapaper export file and auto-detect the format"
+    descriptionKey: "collections:import.sources.auto.description"
   },
   {
     value: "pocket",
-    label: "Pocket",
+    labelKey: "collections:import.sources.pocket.label",
     icon: <Bookmark className="h-6 w-6" />,
-    description: "Import your saved articles from a Pocket export"
+    descriptionKey: "collections:import.sources.pocket.description"
   },
   {
     value: "instapaper",
-    label: "Instapaper",
+    labelKey: "collections:import.sources.instapaper.label",
     icon: <FileText className="h-6 w-6" />,
-    description: "Import articles from an Instapaper export"
+    descriptionKey: "collections:import.sources.instapaper.description"
   }
 ]
 
-const EXPORT_FORMATS: { value: CollectionExportFormat; label: string }[] = [
-  { value: "jsonl", label: "JSONL" },
-  { value: "zip", label: "ZIP" }
+const EXPORT_FORMATS: { value: CollectionExportFormat; labelKey: string }[] = [
+  { value: "jsonl", labelKey: "collections:export.formats.jsonl" },
+  { value: "zip", labelKey: "collections:export.formats.zip" }
 ]
 
 export const ImportExportPanel: React.FC = () => {
-  const { t } = useTranslation(["collections", "common"])
-
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <ImportSection />
@@ -94,17 +92,15 @@ const ImportSection: React.FC = () => {
   const setImportWizardStep = useCollectionsStore((s) => s.setImportWizardStep)
   const resetImportWizard = useCollectionsStore((s) => s.resetImportWizard)
 
-  const activeSource = IMPORT_SOURCES.find((source) => source.value === importSource) || null
-
-  const handleSourceSelect = (source: ImportSource) => {
+  const handleSourceSelect = useCallback((source: ImportSource) => {
     setImportSource(source)
     setImportFile(null)
     setImportError(null)
     setImportResult(null)
     setImportWizardStep("upload")
-  }
+  }, [setImportError, setImportFile, setImportResult, setImportSource, setImportWizardStep])
 
-  const handleFileUpload = async (file: File) => {
+  const handleFileUpload = useCallback(async (file: File) => {
     setImportFile(file)
     if (!importSource) {
       message.error(t("collections:import.sourceRequired", "Select a source first"))
@@ -125,13 +121,23 @@ const ImportSection: React.FC = () => {
           count: result.imported
         })
       )
-    } catch (error: any) {
-      setImportError(error?.message || "Import failed")
-      message.error(error?.message || "Import failed")
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : "Import failed"
+      setImportError(msg)
+      message.error(msg)
     } finally {
       setImportInProgress(false)
     }
-  }
+  }, [
+    api,
+    importSource,
+    setImportFile,
+    setImportInProgress,
+    setImportError,
+    setImportResult,
+    setImportWizardStep,
+    t
+  ])
 
   const stepItems = [
     { title: t("collections:import.steps.source", "Source") },
@@ -172,8 +178,8 @@ const ImportSection: React.FC = () => {
                 {source.icon}
               </div>
               <div>
-                <div className="font-medium">{source.label}</div>
-                <div className="text-sm text-zinc-500">{source.description}</div>
+                <div className="font-medium">{t(source.labelKey)}</div>
+                <div className="text-sm text-zinc-500">{t(source.descriptionKey)}</div>
               </div>
               <ArrowRight className="ml-auto h-5 w-5 text-zinc-400" />
             </button>
@@ -251,6 +257,7 @@ const ImportSection: React.FC = () => {
 const ExportSection: React.FC = () => {
   const { t } = useTranslation(["collections", "common"])
   const api = useTldwApiClient()
+  const MAX_EXPORT_PAGES = 200
 
   const storedItems = useCollectionsStore((s) => s.items)
   const exportFormat = useCollectionsStore((s) => s.exportFormat)
@@ -298,7 +305,11 @@ const ExportSection: React.FC = () => {
       return 0
     }
     win.__tldw_exportSetFormat = (format: string) => {
-      setExportFormat(format as CollectionExportFormat)
+      if (format === "jsonl" || format === "zip") {
+        setExportFormat(format)
+      } else {
+        console.warn(`Invalid export format: ${format}`)
+      }
     }
     win.__tldw_exportFormat = exportFormat
     return () => {
@@ -354,7 +365,7 @@ const ExportSection: React.FC = () => {
         const pageSize = 200
         let page = 1
         let total: number | null = null
-        while (page <= 200) {
+        while (page <= MAX_EXPORT_PAGES) {
           const response = await api.getReadingList({ page, size: pageSize })
           const pageItems = Array.isArray(response?.items) ? response.items : []
           allItems.push(...pageItems)
@@ -372,9 +383,10 @@ const ExportSection: React.FC = () => {
         }
         if (!active) return
         setExportItems(allItems)
-      } catch (error: any) {
+      } catch (error: unknown) {
         if (!active) return
-        setExportItemsError(error?.message || "Failed to load reading items")
+        const msg = error instanceof Error ? error.message : "Failed to load reading items"
+        setExportItemsError(msg)
       } finally {
         if (active) {
           setExportItemsLoading(false)
@@ -464,7 +476,8 @@ const ExportSection: React.FC = () => {
       selected.map(async (item) => {
         try {
           return await api.getReadingItem(item.id)
-        } catch {
+        } catch (error) {
+          console.warn(`Failed to fetch full item ${item.id}, using summary:`, error)
           return item as ReadingItem
         }
       })
@@ -489,19 +502,19 @@ const ExportSection: React.FC = () => {
     URL.revokeObjectURL(url)
   }
 
-  const handleExport = async () => {
+  const handleExport = useCallback(async () => {
+    if (selectedIds.length > 0 && exportFormat === "zip") {
+      message.warning(
+        t(
+          "collections:export.zipSelectionUnsupported",
+          "ZIP export doesn't support item selection yet."
+        )
+      )
+      return
+    }
     setExportInProgress(true)
     try {
       if (selectedIds.length > 0) {
-        if (exportFormat === "zip") {
-          message.warning(
-            t(
-              "collections:export.zipSelectionUnsupported",
-              "ZIP export doesn't support item selection yet."
-            )
-          )
-          return
-        }
         const items = await resolveSelectedItems()
         const payload = buildJsonlPayload(items)
         const blob = new Blob([payload], { type: "application/x-ndjson" })
@@ -512,12 +525,13 @@ const ExportSection: React.FC = () => {
       const response = await api.exportReadingList({ format: exportFormat })
       triggerDownload(response.blob, response.filename)
       message.success(t("collections:export.success", "Export ready for download"))
-    } catch (error: any) {
-      message.error(error?.message || "Export failed")
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : "Export failed"
+      message.error(msg)
     } finally {
       setExportInProgress(false)
     }
-  }
+  }, [api, exportFormat, resolveSelectedItems, selectedIds.length, setExportInProgress, t])
 
   const handleCopy = useCallback(async () => {
     if (selectedIds.length === 0) {
@@ -532,8 +546,9 @@ const ExportSection: React.FC = () => {
       const payload = buildJsonlPayload(items)
       await navigator.clipboard.writeText(payload)
       message.success(t("collections:export.copied", "Copied to clipboard"))
-    } catch (error: any) {
-      message.error(error?.message || "Copy failed")
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : "Copy failed"
+      message.error(msg)
     } finally {
       setCopying(false)
     }
@@ -559,7 +574,7 @@ const ExportSection: React.FC = () => {
           >
             {EXPORT_FORMATS.map((fmt) => (
               <Radio.Button key={fmt.value} value={fmt.value}>
-                {fmt.label}
+                {t(fmt.labelKey)}
               </Radio.Button>
             ))}
           </Radio.Group>
@@ -642,7 +657,6 @@ const ExportSection: React.FC = () => {
                       aria-selected={isSelected}
                     >
                       <Checkbox
-                        key={item.id}
                         checked={isSelected}
                         onClick={(e) => {
                           lastShiftKeyRef.current = e.shiftKey

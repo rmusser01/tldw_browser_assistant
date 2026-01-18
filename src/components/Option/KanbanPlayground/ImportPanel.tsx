@@ -101,6 +101,14 @@ export const ImportPanel = ({ onImported }: ImportPanelProps) => {
   const handleFileRead = useCallback(
     (file: File) => {
       const reader = new FileReader()
+      reader.onerror = () => {
+        const errorMessage = reader.error?.message
+        message.error(
+          errorMessage ? `Failed to read file: ${errorMessage}` : "Failed to read file"
+        )
+        setFileData(null)
+        setPreview(null)
+      }
       reader.onload = (e) => {
         const content = e.target?.result as string
         try {

@@ -25,6 +25,7 @@ import { cn } from "@/libs/utils"
 import { normalizeConversationState } from "@/utils/conversation-state"
 import { useDataTablesStore } from "@/store/data-tables"
 import { queueDataTablesPrefill } from "@/utils/data-tables-prefill"
+import { startCreateTableFromChat } from "@/utils/data-tables-create-flow"
 import { ServerChatRow } from "./ServerChatRow"
 
 const BulkFolderPickerModal = React.lazy(
@@ -279,31 +280,29 @@ export function ServerChatList({
 
   const handleCreateTable = React.useCallback(
     async (chat: ServerChatHistoryItem) => {
-      const source = {
-        type: "chat" as const,
-        id: chat.id,
-        title: chat.title || `Chat ${chat.id}`,
-        snippet: chat.topic_label || undefined
-      }
       const isOptionsPage =
         typeof window !== "undefined" &&
         window.location.pathname.endsWith("options.html")
+      const navigateFn = (window as Window & { __tldwNavigate?: (path: string) => void })
+        .__tldwNavigate
+      const dataTableStore = useDataTablesStore.getState()
 
-      if (isOptionsPage) {
-        const dataTableStore = useDataTablesStore.getState()
-        dataTableStore.resetWizard()
-        dataTableStore.addSource(source)
-        dataTableStore.setWizardStep("prompt")
-        const navigateFn = (window as Window & { __tldwNavigate?: (path: string) => void })
-          .__tldwNavigate
-        if (navigateFn) {
-          navigateFn("/data-tables")
-          return
+      await startCreateTableFromChat(
+        {
+          id: chat.id,
+          title: chat.title,
+          topic_label: chat.topic_label
+        },
+        {
+          isOptionsPage,
+          navigate: navigateFn,
+          resetWizard: dataTableStore.resetWizard,
+          addSource: dataTableStore.addSource,
+          setWizardStep: dataTableStore.setWizardStep,
+          queuePrefill: queueDataTablesPrefill,
+          openOptionsPage: () => openExtensionUrl("/options.html#/data-tables")
         }
-      }
-
-      await queueDataTablesPrefill({ kind: "chat", source })
-      openExtensionUrl("/options.html#/data-tables")
+      )
     },
     []
   )
@@ -474,7 +473,10 @@ export function ServerChatList({
           clearChat()
         }
       } catch (err) {
-        console.error("[ServerChatList] Failed to delete chat:", err)
+        console.error("[ServerChatList] Failed to delete chat", {
+          error: err,
+          chatId: chat.id
+        })
         message.error(
           t("common:deleteChatError", {
             defaultValue: "Failed to delete chat."
@@ -571,7 +573,10 @@ export function ServerChatList({
       queryClient.invalidateQueries({ queryKey: ["serverChatHistory"] })
       setBulkDeleteConfirmOpen(false)
     } catch (error) {
-      console.error("[ServerChatList] Failed to bulk delete chats:", error)
+      console.error("[ServerChatList] Failed to bulk delete chats", {
+        error,
+        selectedCount: selectedConversationIds.length
+      })
       message.error(
         t("sidepanel:multiSelect.deleteFailed", {
           defaultValue: "Unable to move chats to trash."

@@ -117,6 +117,7 @@ const NotesEditorHeader: React.FC<NotesEditorHeaderProps> = ({
               })}
             >
               <Button
+                data-testid="notes-new-button"
                 size="small"
                 onClick={onNewNote}
                 icon={(<PlusIcon className="w-4 h-4" />) as any}

@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect } from "react"
+import React, { Suspense, useEffect } from "react"
 import {
   Button,
   Card,
@@ -13,6 +13,7 @@ import {
   message
 } from "antd"
 import type { ColumnsType } from "antd/es/table"
+import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query"
 import {
   Download,
   Eye,
@@ -39,12 +40,9 @@ const TableDetailModal = React.lazy(() =>
  */
 export const DataTablesList: React.FC = () => {
   const { t } = useTranslation(["dataTables", "common"])
+  const queryClient = useQueryClient()
 
   // Store state
-  const tables = useDataTablesStore((s) => s.tables)
-  const tablesLoading = useDataTablesStore((s) => s.tablesLoading)
-  const tablesError = useDataTablesStore((s) => s.tablesError)
-  const tablesTotal = useDataTablesStore((s) => s.tablesTotal)
   const tablesPage = useDataTablesStore((s) => s.tablesPage)
   const tablesPageSize = useDataTablesStore((s) => s.tablesPageSize)
   const tablesSearch = useDataTablesStore((s) => s.tablesSearch)
@@ -54,42 +52,41 @@ export const DataTablesList: React.FC = () => {
   const deleteTargetId = useDataTablesStore((s) => s.deleteTargetId)
 
   // Store actions
-  const setTables = useDataTablesStore((s) => s.setTables)
-  const setTablesLoading = useDataTablesStore((s) => s.setTablesLoading)
-  const setTablesError = useDataTablesStore((s) => s.setTablesError)
   const setTablesPage = useDataTablesStore((s) => s.setTablesPage)
   const setTablesSearch = useDataTablesStore((s) => s.setTablesSearch)
   const openTableDetail = useDataTablesStore((s) => s.openTableDetail)
   const closeTableDetail = useDataTablesStore((s) => s.closeTableDetail)
   const openDeleteConfirm = useDataTablesStore((s) => s.openDeleteConfirm)
   const closeDeleteConfirm = useDataTablesStore((s) => s.closeDeleteConfirm)
-  const removeTable = useDataTablesStore((s) => s.removeTable)
 
-  // Fetch tables
-  const fetchTables = useCallback(async () => {
-    setTablesLoading(true)
-    setTablesError(null)
-    try {
-      const response = await tldwClient.listDataTables({
+  const {
+    data,
+    isLoading,
+    isFetching,
+    error,
+    refetch
+  } = useQuery({
+    queryKey: ["dataTables", tablesPage, tablesPageSize, tablesSearch],
+    queryFn: () =>
+      tldwClient.listDataTables({
         page: tablesPage,
         page_size: tablesPageSize,
         search: tablesSearch || undefined
-      })
+      }),
+    placeholderData: keepPreviousData,
+    staleTime: 30_000
+  })
 
-      setTables(response.tables, response.total)
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to load tables"
-      setTablesError(errorMessage)
-      message.error(errorMessage)
-    } finally {
-      setTablesLoading(false)
-    }
-  }, [tablesPage, tablesPageSize, tablesSearch, setTables, setTablesLoading, setTablesError])
+  const tables = data?.tables ?? []
+  const tablesTotal = data?.total ?? 0
+  const tablesError =
+    error instanceof Error ? error.message : error ? "Failed to load tables" : null
 
-  // Initial fetch
   useEffect(() => {
-    fetchTables()
-  }, [fetchTables])
+    if (tablesError) {
+      message.error(tablesError)
+    }
+  }, [tablesError])
 
   // Handle delete
   const handleDelete = async () => {
@@ -97,7 +94,7 @@ export const DataTablesList: React.FC = () => {
 
     try {
       await tldwClient.deleteDataTable(deleteTargetId)
-      removeTable(deleteTargetId)
+      await queryClient.invalidateQueries({ queryKey: ["dataTables"] })
       message.success(t("dataTables:deleteSuccess", "Table deleted successfully"))
       closeDeleteConfirm()
     } catch (error) {
@@ -205,8 +202,8 @@ export const DataTablesList: React.FC = () => {
         />
         <Button
           icon={<RefreshCw className="h-4 w-4" />}
-          onClick={fetchTables}
-          loading={tablesLoading}
+          onClick={() => refetch()}
+          loading={isFetching}
         >
           {t("common:refresh", "Refresh")}
         </Button>
@@ -220,14 +217,14 @@ export const DataTablesList: React.FC = () => {
       )}
 
       {/* Loading state */}
-      {tablesLoading && tables.length === 0 && (
+      {isLoading && tables.length === 0 && (
         <div className="flex justify-center py-12">
           <Spin size="large" />
         </div>
       )}
 
       {/* Empty state */}
-      {!tablesLoading && tables.length === 0 && !tablesError && (
+      {!isLoading && tables.length === 0 && !tablesError && (
         <Empty
           image={<FileSpreadsheet className="h-16 w-16 mx-auto text-zinc-300 dark:text-zinc-600" />}
           description={
@@ -247,7 +244,7 @@ export const DataTablesList: React.FC = () => {
             dataSource={tables}
             columns={columns}
             rowKey="id"
-            loading={tablesLoading}
+            loading={isFetching}
             pagination={false}
             size="middle"
           />

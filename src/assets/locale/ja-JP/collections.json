@@ -1,0 +1,262 @@
+{
+  "title": "コレクション",
+  "description": "記事を保存し、ハイライトを作成し、テンプレートを管理し、読書リストをインポート/エクスポートします。",
+  "offline": "サーバーがオフラインです。コレクションを使用するには接続してください。",
+  "betaNotice": "ベータ機能",
+  "betaDescription": "コレクションは現在ベータ版です。いくつかの機能はバックエンドのサポートが必要です。",
+
+  "tabs": {
+    "reading": "読書リスト",
+    "highlights": "ハイライト",
+    "templates": "テンプレート",
+    "importExport": "インポート/エクスポート"
+  },
+
+  "status": {
+    "all": "すべて",
+    "saved": "保存済み",
+    "reading": "読書中",
+    "read": "読了",
+    "archived": "アーカイブ"
+  },
+
+  "sort": {
+    "created_at": "追加日",
+    "updated_at": "最終更新",
+    "title": "タイトル",
+    "relevance": "関連度"
+  },
+
+  "colors": {
+    "all": "すべての色",
+    "yellow": "黄色",
+    "green": "緑",
+    "blue": "青",
+    "pink": "ピンク",
+    "purple": "紫"
+  },
+
+  "time": {
+    "minutesAgo": "{{count}}分前",
+    "hoursAgo": "{{count}}時間前",
+    "daysAgo": "{{count}}日前"
+  },
+
+  "reading": {
+    "addUrl": "URLを追加",
+    "addUrlTitle": "読書リストに追加",
+    "addFirst": "最初の記事を追加",
+    "addSuccess": "記事を読書リストに追加しました",
+    "searchPlaceholder": "記事を検索...",
+    "filters": "フィルター",
+    "favorites": "お気に入り",
+    "tagsFilter": "タグ",
+    "domainFilter": "ドメイン",
+    "sortBy": "並び替え",
+    "clearFilters": "フィルターをクリア",
+    "noResults": "フィルターに一致する記事はありません",
+    "empty": "読書リストは空です",
+    "pagination": "{{start}}-{{end}} / {{total}}件",
+
+    "readingTime": "{{count}}分で読了",
+    "favorite": "お気に入りに追加",
+    "unfavorite": "お気に入りから削除",
+    "viewDetails": "詳細を見る",
+    "openOriginal": "元記事を開く",
+    "changeStatus": "ステータスを変更",
+    "archive": "アーカイブ",
+    "unarchive": "アーカイブ解除",
+    "statusUpdated": "ステータスを{{status}}に更新しました",
+
+    "urlLabel": "URL",
+    "urlRequired": "URLを入力してください",
+    "urlInvalid": "有効なURLを入力してください",
+    "titleLabel": "タイトル（任意）",
+    "titleHint": "空欄にするとページから自動検出します",
+    "titlePlaceholder": "記事タイトル",
+    "tagsLabel": "タグ",
+    "tagsPlaceholder": "タグを追加...",
+    "notesLabel": "メモ（任意）",
+    "notesPlaceholderArticle": "この記事に関するメモを追加...",
+    "saveToList": "リストに保存",
+    "addTag": "タグを追加...",
+
+    "tabs": {
+      "content": "内容",
+      "summary": "要約",
+      "highlights": "ハイライト",
+      "notes": "メモ"
+    },
+
+    "noContent": "内容が利用できません",
+    "noSummary": "要約はまだありません",
+    "noNotes": "メモはまだありません",
+    "editNotes": "メモを編集",
+    "addNotes": "メモを追加",
+    "notesSaved": "メモを保存しました",
+    "notesPlaceholder": "メモを追加...",
+
+    "summarize": "要約する",
+    "generateSummary": "要約を生成",
+    "summarized": "要約を生成しました",
+    "generateTts": "音声を生成",
+    "ttsGenerated": "音声を生成しました",
+    "downloadAudio": "音声をダウンロード",
+
+    "deleted": "記事を削除しました",
+    "deleteConfirm": {
+      "title": "記事を削除",
+      "message": "この記事を削除してもよろしいですか？この操作は元に戻せません。"
+    }
+  },
+
+  "highlights": {
+    "searchPlaceholder": "ハイライトを検索...",
+    "groupByItem": "記事ごとにグループ化",
+    "add": "ハイライトを追加",
+    "edit": "ハイライトを編集",
+    "quoteLabel": "引用",
+    "quoteRequired": "ハイライトのテキストを入力してください",
+    "quotePlaceholder": "ハイライトしたテキストを貼り付け...",
+    "noteLabel": "メモ（任意）",
+    "notePlaceholder": "背景や重要な理由を追加...",
+    "colorLabel": "ハイライト色",
+    "noResults": "フィルターに一致するハイライトはありません",
+    "empty": "ハイライトはまだありません",
+    "emptyForItem": "この記事のハイライトはまだありません",
+    "emptyHint": "読書中に作成したハイライトがここに表示されます。",
+    "from": "出典",
+    "viewArticle": "記事を見る",
+    "created": "ハイライトを作成しました",
+    "updated": "ハイライトを更新しました",
+    "missingItem": "まず記事を選択してください",
+    "deleted": "ハイライトを削除しました",
+    "deleteConfirm": {
+      "title": "ハイライトを削除",
+      "message": "このハイライトを削除してもよろしいですか？"
+    }
+  },
+
+  "templates": {
+    "create": "テンプレートを作成",
+    "createFirst": "最初のテンプレートを作成",
+    "searchPlaceholder": "テンプレートを検索...",
+    "noResults": "フィルターに一致するテンプレートはありません",
+    "empty": "テンプレートはまだありません",
+    "default": "デフォルト",
+    "preview": "プレビュー",
+    "duplicate": "複製",
+    "deleted": "テンプレートを削除しました",
+    "created": "テンプレートを作成しました",
+    "updated": "テンプレートを更新しました",
+
+    "editTitle": "テンプレートを編集",
+    "createTitle": "テンプレートを作成",
+    "nameLabel": "テンプレート名",
+    "nameRequired": "名前を入力してください",
+    "namePlaceholder": "私のニュースレターテンプレート",
+    "descriptionLabel": "説明（任意）",
+    "descriptionPlaceholder": "このテンプレートの簡単な説明",
+    "typeLabel": "テンプレートタイプ",
+    "formatLabel": "出力形式",
+    "bodyLabel": "テンプレート本文（Jinja2）",
+    "bodyRequired": "テンプレート内容を入力してください",
+    "bodyHint": "Jinja2構文を使用してください。利用可能な変数: items（読書アイテムの配列）, date, tags",
+
+    "previewTitle": "テンプレートのプレビュー",
+    "selectItems": "少なくとも1件の記事を選択してください",
+    "selectItemsHint": "プレビューに含める記事を選択:",
+    "selectAll": "すべて選択",
+    "selectedCount": "{{count}} 件選択",
+    "noItems": "読書リストに記事がありません",
+    "generatePreview": "プレビューを生成",
+    "generateOutput": "出力を生成",
+    "audioUnavailable": "音声出力は利用できません",
+    "noGeneratedContent": "まだ出力が生成されていません",
+
+    "deleteConfirm": {
+      "title": "テンプレートを削除",
+      "message": "このテンプレートを削除してもよろしいですか？"
+    }
+  },
+
+  "templateTypes": {
+    "all": "すべてのタイプ",
+    "newsletter_markdown": "ニュースレター (MD)",
+    "briefing_markdown": "ブリーフィング (MD)",
+    "mece_markdown": "MECE (MD)",
+    "newsletter_html": "ニュースレター (HTML)",
+    "tts_audio": "TTS 音声"
+  },
+
+  "import": {
+    "title": "インポート",
+    "sourceRequired": "最初にソースを選択してください",
+    "selectSource": "インポート元を選択:",
+    "sources": {
+      "auto": {
+        "label": "自動検出",
+        "description": "Pocket または Instapaper のエクスポートファイルをアップロードして形式を自動検出"
+      },
+      "pocket": {
+        "label": "Pocket",
+        "description": "Pocketのエクスポートから保存した記事をインポート"
+      },
+      "instapaper": {
+        "label": "Instapaper",
+        "description": "Instapaperのエクスポートから記事をインポート"
+      }
+    },
+    "methodFile": "ファイルアップロード",
+    "methodApiKey": "APIキー",
+    "apiKeyLabel": "APIキー",
+    "apiKeyPlaceholder": "APIキーを貼り付け",
+    "apiKeyRequired": "APIキーを入力してください",
+    "previewWithKey": "インポートをプレビュー",
+    "processing": "ファイルを処理中...",
+    "dropzone": "クリックまたはドラッグしてファイルをアップロード",
+    "formats": "Pocket JSON と Instapaper CSV をサポート",
+    "previewHint": "{{count}} 件見つかりました",
+    "selectAll": "すべて選択",
+    "selectItems": "インポートする項目を選択してください",
+    "importSelected": "{{count}} 件をインポート",
+    "success": "{{count}} 件をインポートしました",
+    "complete": "インポート完了",
+    "resultSummary": "インポート: {{imported}}、更新: {{updated}}、スキップ: {{skipped}}",
+    "importMore": "さらにインポート",
+    "steps": {
+      "source": "ソース",
+      "upload": "アップロード",
+      "preview": "プレビュー",
+      "result": "結果"
+    }
+  },
+
+  "export": {
+    "title": "エクスポート",
+    "format": "形式",
+    "formats": {
+      "jsonl": "JSONL",
+      "zip": "ZIP"
+    },
+    "options": "オプション",
+    "includeContent": "全文を含める",
+    "includeHighlights": "ハイライトを含める",
+    "items": "エクスポートする項目",
+    "searchPlaceholder": "項目を検索...",
+    "allItems": "すべての項目（空欄でOK）",
+    "itemsHint": "空欄の場合はすべてをエクスポート、または特定の項目を選択",
+    "selectionHint": "エクスポートする項目を選択するか、空欄で全件エクスポートします。",
+    "selectAll": "すべて選択",
+    "selectedCount": "{{count}} 件選択",
+    "clearSelection": "クリア",
+    "noItems": "項目が見つかりません",
+    "selectItems": "まずコピーする項目を選択してください",
+    "copy": "JSONLをコピー",
+    "copied": "クリップボードにコピーしました",
+    "zipSelectionUnsupported": "ZIPエクスポートはまだ項目選択に対応していません。",
+    "download": "エクスポートをダウンロード",
+    "allItemsHint": "エクスポートにはアカウントの読書リスト全件が含まれます。",
+    "success": "エクスポートのダウンロード準備ができました"
+  }
+}
