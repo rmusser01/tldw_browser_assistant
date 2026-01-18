@@ -2821,5 +2821,65 @@
   },
   "header_collections": {
     "message": "Collections"
+  },
+  "flashcards_cardDeleted": {
+    "message": "Card deleted"
+  },
+  "flashcards_cardsDeleted": {
+    "message": "{{count}} cards deleted"
+  },
+  "flashcards_nextDueAt": {
+    "message": "Next review: {{time}}"
+  },
+  "flashcards_nextDueCardCount": {
+    "message": "{{count}} cards due"
+  },
+  "flashcards_keyboardShortcutsTitle": {
+    "message": "Keyboard Shortcuts"
+  },
+  "flashcards_keyboardShortcutsHelp": {
+    "message": "Press ? to show shortcuts"
+  },
+  "flashcards_shortcutSpace": {
+    "message": "Flip card"
+  },
+  "flashcards_shortcutRateKeys": {
+    "message": "Rate card"
+  },
+  "flashcards_shortcutJK": {
+    "message": "Navigate cards"
+  },
+  "flashcards_shortcutEnter": {
+    "message": "Edit card"
+  },
+  "flashcards_shortcutDelete": {
+    "message": "Delete card"
+  },
+  "flashcards_modelTypeBasic": {
+    "message": "Standard"
+  },
+  "flashcards_modelTypeBasicReverse": {
+    "message": "Reversible"
+  },
+  "flashcards_modelTypeCloze": {
+    "message": "Fill-in-blank"
+  },
+  "flashcards_unsavedChangesTitle": {
+    "message": "Unsaved changes"
+  },
+  "flashcards_unsavedChangesDescription": {
+    "message": "You have unsaved changes. Are you sure you want to close?"
+  },
+  "flashcards_cardsRemaining": {
+    "message": "cards remaining"
+  },
+  "flashcards_reviewed": {
+    "message": "reviewed"
+  },
+  "flashcards_minutesLeft": {
+    "message": "min left"
+  },
+  "flashcards_progressStatus": {
+    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
   }
 }

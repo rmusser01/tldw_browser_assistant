@@ -828,7 +828,7 @@
     "message": "Search and stack multiple media items to compare them in the viewer on the right."
   },
   "mediaPage_viewerHelp": {
-    "message": "Keyboard: Tab into the results list, use Enter or Space to stack or unstack a media item, then use Prev/Next and layout controls to move through items in the viewer."
+    "message": "Keyboard: j/k to navigate items, o to toggle expand, Escape to clear selection. Tab into results list, Enter/Space to stack items. Shift+click for range selection."
   },
   "mediaPage_viewerHelpLabel": {
     "message": "Multi-Item Review keyboard shortcuts"
@@ -1480,5 +1480,92 @@
   },
   "mediaEmpty_serverOfflineTitle": {
     "message": "Server offline"
+  },
+  "mediaPage_resultsHint": {
+    "message": "Click to stack, Shift+click for range"
+  },
+  "mediaPage_paginationHint": {
+    "message": "Use pagination or open all visible items"
+  },
+  "mediaPage_viewerCount": {
+    "message": "{{count}} open"
+  },
+  "mediaPage_viewerSingle": {
+    "message": "Single item view"
+  },
+  "mediaPage_viewerAll": {
+    "message": "All items (stacked)"
+  },
+  "mediaPage_stackPosition": {
+    "message": "#{{num}}"
+  },
+  "mediaPage_duration": {
+    "message": "{{value}}"
+  },
+  "mediaPage_transcriptLength": {
+    "message": "{{k}}k chars"
+  },
+  "mediaPage_unstack": {
+    "message": "Unstack"
+  },
+  "mediaPage_unstackTooltip": {
+    "message": "Remove from current comparison view"
+  },
+  "mediaPage_analysis": {
+    "message": "Analysis"
+  },
+  "mediaPage_noAnalysis": {
+    "message": "No analysis available"
+  },
+  "mediaPage_expandAllContent": {
+    "message": "Expand all content"
+  },
+  "mediaPage_collapseAllContent": {
+    "message": "Collapse all content"
+  },
+  "mediaPage_expandAllAnalysis": {
+    "message": "Expand all analysis"
+  },
+  "mediaPage_collapseAllAnalysis": {
+    "message": "Collapse all analysis"
+  },
+  "mediaPage_collapseOthers": {
+    "message": "Collapse others on expand"
+  },
+  "mediaPage_openAll": {
+    "message": "Review all on page"
+  },
+  "mediaPage_openAllCapped": {
+    "message": "Showing first {{count}} items to keep things smooth"
+  },
+  "mediaPage_pickItem": {
+    "message": "Pick an item"
+  },
+  "mediaPage_prevItem": {
+    "message": "Prev"
+  },
+  "mediaPage_nextItem": {
+    "message": "Next"
+  },
+  "mediaPage_openMiniMap": {
+    "message": "Open items"
+  },
+  "mediaPage_selectionCount": {
+    "message": "{{selected}} / {{limit}}"
+  },
+  "mediaPage_selectionLimitReached": {
+    "message": "Selection limit reached ({{limit}} items)"
+  },
+  "mediaPage_itemsSelected": {
+    "message": "items selected"
+  },
+  "mediaPage_remaining": {
+    "message": "remaining"
+  },
+  "mediaPage_autoViewMode": {
+    "message": "Auto-select view mode"
+  },
+  "mediaPage_filters": {
+    "message": "Filters"
   }
 }

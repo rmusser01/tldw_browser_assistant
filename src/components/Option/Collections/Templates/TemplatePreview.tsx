@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react"
-import { Button, Modal, Spin, Empty, message, Checkbox, List } from "antd"
-import { Eye, Download, Copy, Check } from "lucide-react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
+import { Button, Modal, Spin, Empty, message, Checkbox, List, Dropdown } from "antd"
+import type { MenuProps } from "antd"
+import { Eye, Download, Copy, Check, MoreHorizontal } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useCollectionsStore } from "@/store/collections"
 import { useTldwApiClient } from "@/hooks/useTldwApiClient"
+import { useSelectionKeyboard } from "@/hooks/useSelectionKeyboard"
 import type { ReadingItemSummary } from "@/types/collections"
 
 interface TemplatePreviewProps {
@@ -27,7 +29,6 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
   const setPreviewLoading = useCollectionsStore((s) => s.setPreviewLoading)
   const setPreviewError = useCollectionsStore((s) => s.setPreviewError)
   const setSelectedItemsForGeneration = useCollectionsStore((s) => s.setSelectedItemsForGeneration)
-  const toggleItemForGeneration = useCollectionsStore((s) => s.toggleItemForGeneration)
 
   const [previewItems, setPreviewItems] = useState<ReadingItemSummary[]>([])
   const [previewItemsLoading, setPreviewItemsLoading] = useState(false)
@@ -230,6 +231,21 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
     }
   }, [previewItems, selectedItemsForGeneration, setSelectedItemsForGeneration])
 
+  // Keyboard navigation and Shift+click range selection
+  const {
+    focusedIndex,
+    handleItemClick,
+    handleItemToggle,
+    handleKeyDown,
+    listRef
+  } = useSelectionKeyboard({
+    items: previewItems,
+    selectedIds: selectedItemsForGeneration,
+    getItemId: (item) => item.id,
+    onSelectionChange: setSelectedItemsForGeneration
+  })
+  const lastShiftKeyRef = useRef(false)
+
   return (
     <Modal
       title={
@@ -240,7 +256,8 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
       }
       open={true}
       onCancel={onClose}
-      width={800}
+      width="90vw"
+      style={{ maxWidth: 800 }}
       footer={
         step === "select"
           ? [
@@ -262,22 +279,32 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
                 <Button key="back" onClick={() => setStep("select")}>
                   {t("common:back", "Back")}
                 </Button>,
-                <Button
-                  key="copy"
-                  icon={copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                  onClick={handleCopy}
-                  disabled={!previewContent}
+                <Dropdown
+                  key="actions"
+                  menu={{
+                    items: [
+                      {
+                        key: "copy",
+                        label: copied ? t("common:copied", "Copied") : t("common:copy", "Copy"),
+                        icon: copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />,
+                        disabled: !previewContent,
+                        onClick: handleCopy
+                      },
+                      {
+                        key: "download",
+                        label: t("common:download", "Download"),
+                        icon: <Download className="h-4 w-4" />,
+                        disabled: !previewContent,
+                        onClick: handleDownload
+                      }
+                    ] as MenuProps["items"]
+                  }}
+                  trigger={["click"]}
                 >
-                  {copied ? t("common:copied", "Copied") : t("common:copy", "Copy")}
-                </Button>,
-                <Button
-                  key="download"
-                  icon={<Download className="h-4 w-4" />}
-                  onClick={handleDownload}
-                  disabled={!previewContent}
-                >
-                  {t("common:download", "Download")}
-                </Button>,
+                  <Button icon={<MoreHorizontal className="h-4 w-4" />}>
+                    {t("common:actions", "Actions")}
+                  </Button>
+                </Dropdown>,
                 <Button
                   key="generate"
                   type="primary"
@@ -321,7 +348,7 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
     >
       {step === "select" ? (
         <div className="space-y-4">
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
             {t(
               "collections:templates.selectItemsHint",
               "Select articles to include in the preview:"
@@ -342,11 +369,22 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
             >
               {t("collections:templates.selectAll", "Select All")}
             </Checkbox>
-            <span className="text-sm text-zinc-500">
-              {t("collections:templates.selectedCount", "{{count}} selected", {
-                count: selectedItemsForGeneration.length
-              })}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-zinc-600 dark:text-zinc-400" aria-live="polite" aria-atomic="true">
+                {t("collections:templates.selectedCount", "{{count}} selected", {
+                  count: selectedItemsForGeneration.length
+                })}
+              </span>
+              {selectedItemsForGeneration.length > 0 && (
+                <Button
+                  type="link"
+                  size="small"
+                  onClick={() => setSelectedItemsForGeneration([])}
+                >
+                  {t("collections:templates.clearSelection", "Clear")}
+                </Button>
+              )}
+            </div>
           </div>
 
           {previewItemsLoading ? (
@@ -363,26 +401,57 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
               )}
             />
           ) : (
-            <List
-              className="max-h-80 overflow-auto"
-              dataSource={previewItems}
-              renderItem={(item) => (
-                <List.Item className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-800">
-                  <Checkbox
-                    checked={selectedItemsForGeneration.includes(item.id)}
-                    onChange={() => toggleItemForGeneration(item.id)}
-                    className="w-full"
-                  >
-                    <div className="ml-2">
-                      <div className="font-medium">{item.title}</div>
-                      {item.domain && (
-                        <div className="text-xs text-zinc-500">{item.domain}</div>
-                      )}
-                    </div>
-                  </Checkbox>
-                </List.Item>
-              )}
-            />
+            <div
+              ref={listRef as React.RefObject<HTMLDivElement>}
+              tabIndex={0}
+              onKeyDownCapture={handleKeyDown}
+              className="max-h-80 overflow-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset rounded-md"
+              role="listbox"
+              aria-label={t("collections:templates.itemList", "Reading list items")}
+            >
+              <List
+                dataSource={previewItems}
+                renderItem={(item, index) => {
+                  const isSelected = selectedItemsForGeneration.includes(item.id)
+                  const isFocused = index === focusedIndex
+                  return (
+                    <List.Item
+                      data-selection-item
+                      className={`cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-800 ${
+                        isFocused ? "ring-2 ring-inset ring-blue-400" : ""
+                      }`}
+                      onClick={(e) => handleItemClick(index, e)}
+                      role="option"
+                      aria-selected={isSelected}
+                    >
+                      <Checkbox
+                        checked={isSelected}
+                        onClick={(e) => {
+                          lastShiftKeyRef.current = e.shiftKey
+                          e.stopPropagation()
+                        }}
+                        onKeyDown={(e) => {
+                          lastShiftKeyRef.current = e.shiftKey
+                        }}
+                        onChange={() => {
+                          const shiftKey = lastShiftKeyRef.current
+                          lastShiftKeyRef.current = false
+                          handleItemToggle(index, { shiftKey })
+                        }}
+                        className="w-full"
+                      >
+                        <div className="ml-2">
+                          <div className="font-medium">{item.title}</div>
+                          {item.domain && (
+                            <div className="text-xs text-zinc-500">{item.domain}</div>
+                          )}
+                        </div>
+                      </Checkbox>
+                    </List.Item>
+                  )
+                }}
+              />
+            </div>
           )}
         </div>
       ) : step === "preview" && previewLoading ? (

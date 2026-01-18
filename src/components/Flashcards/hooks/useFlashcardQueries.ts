@@ -313,5 +313,56 @@ export function useHasCardsQuery(options?: UseFlashcardQueriesOptions) {
   })
 }
 
+/**
+ * Hook to get the next due card info (for showing when the next review is due)
+ */
+export function useNextDueQuery(deckId?: number | null, options?: UseFlashcardQueriesOptions) {
+  const { flashcardsEnabled } = useFlashcardsEnabled()
+
+  return useQuery({
+    queryKey: ["flashcards:next-due", deckId],
+    queryFn: async () => {
+      // Get all cards that are not currently due, ordered by due date
+      const res = await listFlashcards({
+        deck_id: deckId ?? undefined,
+        due_status: "all",
+        order_by: "due_at",
+        limit: 100,
+        offset: 0
+      })
+
+      const now = new Date()
+      // Find the first card that's due in the future
+      const futureCards = (res.items || []).filter(
+        (card) => card.due_at && new Date(card.due_at) > now
+      )
+
+      if (futureCards.length === 0) {
+        return null
+      }
+
+      // Sort by due date and get the earliest
+      futureCards.sort((a, b) =>
+        new Date(a.due_at!).getTime() - new Date(b.due_at!).getTime()
+      )
+
+      const nextCard = futureCards[0]
+      const nextDueDate = new Date(nextCard.due_at!)
+
+      // Count how many cards are due at roughly the same time (within 1 hour)
+      const oneHour = 60 * 60 * 1000
+      const cardsAtSameTime = futureCards.filter(
+        (card) => Math.abs(new Date(card.due_at!).getTime() - nextDueDate.getTime()) < oneHour
+      ).length
+
+      return {
+        nextDueAt: nextCard.due_at,
+        cardsDue: cardsAtSameTime
+      }
+    },
+    enabled: options?.enabled ?? flashcardsEnabled
+  })
+}
+
 // Re-export service functions that are used directly
 export { getFlashcard, exportFlashcards, exportFlashcardsFile }

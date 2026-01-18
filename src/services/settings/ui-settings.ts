@@ -153,6 +153,41 @@ export const MEDIA_REVIEW_ORIENTATION_SETTING = defineSetting(
   }
 )
 
+const VIEW_MODE_VALUES = ["spread", "list", "all"] as const
+export type ViewModeValue = (typeof VIEW_MODE_VALUES)[number]
+
+export const MEDIA_REVIEW_VIEW_MODE_SETTING = defineSetting(
+  "media-review-view-mode",
+  "spread" as ViewModeValue,
+  (value) => {
+    const normalized = String(value || "").toLowerCase()
+    return VIEW_MODE_VALUES.includes(normalized as ViewModeValue)
+      ? (normalized as ViewModeValue)
+      : "spread"
+  },
+  {
+    area: "local"
+  }
+)
+
+export const MEDIA_REVIEW_FILTERS_COLLAPSED_SETTING = defineSetting(
+  "media-review-filters-collapsed",
+  true,
+  (value) => coerceBoolean(value, false),
+  {
+    area: "local"
+  }
+)
+
+export const MEDIA_REVIEW_AUTO_VIEW_MODE_SETTING = defineSetting(
+  "media-review-auto-view-mode",
+  true,
+  (value) => coerceBoolean(value, true),
+  {
+    area: "local"
+  }
+)
+
 export type DiscussMediaPrompt = {
   mediaId?: string
   url?: string

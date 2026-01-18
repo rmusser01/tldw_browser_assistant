@@ -405,18 +405,23 @@ test.describe("Collections playground", () => {
       await basePage.close().catch(() => {})
     })
 
+    const addReadingItem = async (title: string, url: string) => {
+      await page.getByRole("tab", { name: "Reading List" }).click()
+      await page.getByRole("button", { name: "Add URL" }).click()
+      const addDialog = page.getByRole("dialog", { name: "Add to Reading List" })
+      await addDialog.getByLabel("URL").fill(url)
+      await addDialog.getByLabel("Title (optional)").fill(title)
+      await addDialog.getByRole("button", { name: "Save to List" }).click()
+      await expect(addDialog).toBeHidden()
+      await expect(page.getByText(title)).toBeVisible()
+    }
+
     await logStep("assert Collections heading", async () => {
       await expect(page.getByRole("heading", { name: "Collections" })).toBeVisible()
     })
 
     await logStep("add reading list item", async () => {
-      await page.getByRole("button", { name: "Add URL" }).click()
-      const addDialog = page.getByRole("dialog", { name: "Add to Reading List" })
-      await addDialog.getByLabel("URL").fill("https://example.com/article")
-      await addDialog.getByLabel("Title (optional)").fill("Example Article")
-      await addDialog.getByRole("button", { name: "Save to List" }).click()
-      await expect(addDialog).toBeHidden()
-      await expect(page.getByText("Example Article")).toBeVisible()
+      await addReadingItem("Example Article", "https://example.com/article")
     })
 
     const drawer = page.locator(".ant-drawer-content")
@@ -454,6 +459,11 @@ test.describe("Collections playground", () => {
       await editDialog.getByRole("button", { name: "Save" }).click()
       await expect(editDialog).toBeHidden()
       await expect(page.getByText("Updated note")).toBeVisible()
+    })
+
+    await logStep("add extra reading list items", async () => {
+      await addReadingItem("Second Article", "https://example.com/second")
+      await addReadingItem("Third Article", "https://example.com/third")
     })
 
     await logStep("create template + generate preview/output", async () => {
@@ -496,12 +506,36 @@ test.describe("Collections playground", () => {
       const exportCard = page.locator(".ant-card").filter({ hasText: "Export" }).first()
       await expect(exportCard.getByText("Example Article")).toBeVisible()
       log("export card ready")
+      const exportList = exportCard.getByRole("listbox", { name: "Export items list" })
+      const exportOptions = exportList.locator("[role=\"option\"]")
+      const optionCount = await exportOptions.count()
+      expect(optionCount).toBeGreaterThanOrEqual(3)
+
+      const selectedCount = exportCard.locator("[aria-live=\"polite\"]")
+      await exportOptions.nth(0).getByRole("checkbox").click()
+      await exportOptions.nth(2).getByRole("checkbox").click({ modifiers: ["Shift"] })
+      await expect(selectedCount).toHaveText("3 selected")
+
+      await exportCard.getByRole("button", { name: "Clear" }).click()
+      await expect(selectedCount).toHaveText("0 selected")
+
+      await exportList.focus()
+      await page.keyboard.press("j")
+      await page.keyboard.press(" ")
+      await expect(selectedCount).toHaveText("1 selected")
+      await page.keyboard.press("j")
+      await page.keyboard.press(" ")
+      await expect(selectedCount).toHaveText("2 selected")
+
+      await exportCard.getByRole("button", { name: "Clear" }).click()
+      await expect(selectedCount).toHaveText("0 selected")
+
       await page.waitForFunction(() => typeof window.__tldw_exportSelectByTitle === "function")
-      const selectedCount = await page.evaluate(
+      const selectedCountByTitle = await page.evaluate(
         () => window.__tldw_exportSelectByTitle?.("Example Article") ?? 0
       )
-      log("selected count after select", { selectedCount })
-      expect(selectedCount).toBe(1)
+      log("selected count after select", { selectedCount: selectedCountByTitle })
+      expect(selectedCountByTitle).toBe(1)
       await page.waitForFunction(() => window.__tldw_exportSelectedCount === 1)
       const copyButton = page.getByRole("button", { name: "Copy JSONL" })
       await expect(copyButton).toBeEnabled()

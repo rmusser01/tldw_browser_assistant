@@ -27,15 +27,18 @@ import relativeTime from "dayjs/plugin/relativeTime"
 import { useTranslation } from "react-i18next"
 import { useConfirmDanger } from "@/components/Common/confirm-danger"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
+import { useUndoNotification } from "@/hooks/useUndoNotification"
 import { processInChunks } from "@/utils/chunk-processing"
 import {
   useDecksQuery,
   useManageQuery,
   useUpdateFlashcardMutation,
   useDeleteFlashcardMutation,
+  useCardsKeyboardNav,
   type DueStatus
 } from "../hooks"
 import { MarkdownWithBoundary, FlashcardActionsMenu, FlashcardEditDrawer, FlashcardCreateDrawer } from "../components"
+import { formatCardType } from "../utils/model-type-labels"
 import type { Flashcard, FlashcardUpdate } from "@/services/flashcards"
 
 dayjs.extend(relativeTime)
@@ -61,6 +64,13 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   const qc = useQueryClient()
   const message = useAntdMessage()
   const confirmDanger = useConfirmDanger()
+  const { showUndoNotification, contextHolder: undoContextHolder } = useUndoNotification()
+
+  // Track pending deletions for soft-delete with undo
+  const [pendingDeletions, setPendingDeletions] = React.useState<Set<string>>(new Set())
+
+  // Track focused card index for keyboard navigation
+  const [focusedIndex, setFocusedIndex] = React.useState<number>(-1)
 
   // Shared: decks
   const decksQuery = useDecksQuery()
@@ -171,8 +181,10 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     })
   }
 
-  // Selection across results helpers
-  const pageItems = manageQuery.data?.items || []
+  // Selection across results helpers - filter out pending deletions
+  const pageItems = (manageQuery.data?.items || []).filter(
+    (item) => !pendingDeletions.has(item.uuid)
+  )
   const pageCount = pageItems.length
   const selectedOnPageCount = selectAllAcross
     ? pageCount
@@ -185,6 +197,11 @@ export const ManageTab: React.FC<ManageTabProps> = ({
 
   const updateMutation = useUpdateFlashcardMutation()
   const deleteMutation = useDeleteFlashcardMutation()
+
+  // Reset focused index when page or filters change
+  React.useEffect(() => {
+    setFocusedIndex(-1)
+  }, [page, pageSize, mDeckId, mQuery, mTag, mDue])
 
   async function fetchAllItemsAcrossFilters(): Promise<Flashcard[]> {
     const { listFlashcards } = await import("@/services/flashcards")
@@ -467,6 +484,32 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     setEditOpen(true)
   }
 
+  // Keyboard navigation for Cards tab
+  useCardsKeyboardNav({
+    enabled: !editOpen && !createOpen && !moveOpen,
+    itemCount: pageCount,
+    focusedIndex,
+    onFocusChange: setFocusedIndex,
+    onEdit: (index) => {
+      const card = pageItems[index]
+      if (card) openEdit(card)
+    },
+    onToggleSelect: (index) => {
+      const card = pageItems[index]
+      if (card && !selectAllAcross) {
+        toggleSelect(card.uuid, !selectedIds.has(card.uuid))
+      }
+    },
+    onDelete: async (index) => {
+      const card = pageItems[index]
+      if (card) {
+        // Open edit drawer and trigger delete from there for consistency
+        setEditing(card)
+        setEditOpen(true)
+      }
+    }
+  })
+
   const doUpdate = async (values: FlashcardUpdate) => {
     const { updateFlashcard } = await import("@/services/flashcards")
     try {
@@ -483,18 +526,49 @@ export const ManageTab: React.FC<ManageTabProps> = ({
   }
 
   const doDelete = async () => {
-    const { deleteFlashcard } = await import("@/services/flashcards")
     try {
       if (!editing) return
       if (typeof editing.version !== "number") {
         message.error("Missing version; reload and try again")
         return
       }
-      await deleteFlashcard(editing.uuid, editing.version)
-      message.success(t("common:deleted", { defaultValue: "Deleted" }))
+      const cardToDelete = { ...editing }
+
+      // Close drawer and mark as pending deletion (soft-delete)
       setEditOpen(false)
       setEditing(null)
-      await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
+      setPendingDeletions((prev) => new Set([...prev, cardToDelete.uuid]))
+
+      // Show undo notification with 30 second timeout
+      showUndoNotification({
+        title: t("option:flashcards.cardDeleted", { defaultValue: "Card deleted" }),
+        description: cardToDelete.front.slice(0, 60) + (cardToDelete.front.length > 60 ? "…" : ""),
+        duration: 30,
+        onUndo: async () => {
+          // Restore - just remove from pending deletions
+          setPendingDeletions((prev) => {
+            const next = new Set(prev)
+            next.delete(cardToDelete.uuid)
+            return next
+          })
+        },
+        onDismiss: async () => {
+          // Actually delete the card
+          try {
+            const { deleteFlashcard } = await import("@/services/flashcards")
+            await deleteFlashcard(cardToDelete.uuid, cardToDelete.version)
+            await qc.invalidateQueries({ queryKey: ["flashcards:list"] })
+          } catch (e: any) {
+            message.error(e?.message || "Delete failed")
+          } finally {
+            setPendingDeletions((prev) => {
+              const next = new Set(prev)
+              next.delete(cardToDelete.uuid)
+              return next
+            })
+          }
+        }
+      })
     } catch (e: any) {
       message.error(e?.message || "Delete failed")
     }
@@ -502,6 +576,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
 
   return (
     <>
+      {undoContextHolder}
       <div>
         {/* Simplified Filter UI */}
         <div className="mb-3 space-y-3">
@@ -671,7 +746,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
 
         <List
           loading={manageQuery.isFetching}
-          dataSource={manageQuery.data?.items || []}
+          dataSource={pageItems}
           locale={{
             emptyText: (
               <Empty
@@ -725,11 +800,16 @@ export const ManageTab: React.FC<ManageTabProps> = ({
               </Empty>
             )
           }}
-          renderItem={(item) => (
+          renderItem={(item, index) => {
+            const isFocused = index === focusedIndex
+            return (
             <List.Item
               data-testid={`flashcard-item-${item.uuid}`}
-              className="cursor-pointer hover:bg-surface2/50"
-              onClick={() => togglePreview(item.uuid)}
+              className={`cursor-pointer hover:bg-surface2/50 ${isFocused ? "ring-2 ring-primary ring-inset bg-surface2/30" : ""}`}
+              onClick={() => {
+                setFocusedIndex(index)
+                togglePreview(item.uuid)
+              }}
               actions={[
                 <Checkbox
                   key="sel"
@@ -802,10 +882,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                             )?.name || `Deck ${item.deck_id}`}
                           </Tag>
                         )}
-                        <Tag>
-                          {item.model_type}
-                          {item.reverse ? " - reverse" : ""}
-                        </Tag>
+                        <Tag>{formatCardType(item, t)}</Tag>
                         {(item.tags || []).map((tg) => (
                           <Tag key={tg}>{tg}</Tag>
                         ))}
@@ -838,7 +915,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
                 </>
               )}
             </List.Item>
-          )}
+          )}}
         />
 
         <div className="mt-3 flex justify-end">

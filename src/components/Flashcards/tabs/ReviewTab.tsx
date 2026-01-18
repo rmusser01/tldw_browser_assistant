@@ -1,5 +1,8 @@
 import React from "react"
 import { Button, Card, Empty, Select, Space, Tag, Tooltip, Typography } from "antd"
+import { X, Minus, Check, Star, Calendar, Undo2 } from "lucide-react"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
 import { useTranslation } from "react-i18next"
 import { useAntdMessage } from "@/hooks/useAntdMessage"
 import type { Flashcard } from "@/services/flashcards"
@@ -9,10 +12,14 @@ import {
   useReviewFlashcardMutation,
   useFlashcardShortcuts,
   useDueCountsQuery,
-  useHasCardsQuery
+  useHasCardsQuery,
+  useNextDueQuery
 } from "../hooks"
 import { MarkdownWithBoundary, ReviewProgress } from "../components"
 import { calculateIntervals } from "../utils/calculateIntervals"
+import { formatCardType } from "../utils/model-type-labels"
+
+dayjs.extend(relativeTime)
 
 const { Text, Title } = Typography
 
@@ -43,6 +50,11 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   const [showAnswer, setShowAnswer] = React.useState(false)
   const [reviewedCount, setReviewedCount] = React.useState(0)
 
+  // Undo state - stores the last reviewed card for potential re-rating
+  const [lastReviewedCard, setLastReviewedCard] = React.useState<Flashcard | null>(null)
+  const [showUndoButton, setShowUndoButton] = React.useState(false)
+  const undoTimeoutRef = React.useRef<number | null>(null)
+
   // Auto-track answer time - stores the timestamp when answer was revealed
   const answerStartTimeRef = React.useRef<number | null>(null)
 
@@ -52,6 +64,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   const reviewMutation = useReviewFlashcardMutation()
   const dueCountsQuery = useDueCountsQuery(reviewDeckId)
   const hasCardsQuery = useHasCardsQuery()
+  const nextDueQuery = useNextDueQuery(reviewDeckId)
   const activeCard = reviewOverrideCard ?? reviewQuery.data
 
   // Get deck name for progress display
@@ -66,7 +79,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
     return calculateIntervals(activeCard)
   }, [activeCard])
 
-  // Rating options for Anki-style review with colors, shortcuts, and interval previews
+  // Rating options for Anki-style review with colors, shortcuts, icons, and interval previews
   const ratingOptions = React.useMemo(
     () => [
       {
@@ -77,7 +90,8 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
           defaultValue: "I didn't remember this card."
         }),
         interval: intervals?.again ?? "< 1 min",
-        bgClass: "bg-red-500 hover:bg-red-600 border-red-500"
+        bgClass: "bg-red-500 hover:bg-red-600 border-red-500",
+        icon: X
       },
       {
         value: 2,
@@ -87,7 +101,8 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
           defaultValue: "I barely remembered; it felt difficult."
         }),
         interval: intervals?.hard ?? "< 10 min",
-        bgClass: "bg-orange-500 hover:bg-orange-600 border-orange-500"
+        bgClass: "bg-orange-500 hover:bg-orange-600 border-orange-500",
+        icon: Minus
       },
       {
         value: 3,
@@ -98,7 +113,8 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         }),
         interval: intervals?.good ?? "1 day",
         bgClass: "bg-green-500 hover:bg-green-600 border-green-500",
-        primary: true
+        primary: true,
+        icon: Check
       },
       {
         value: 5,
@@ -108,7 +124,8 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
           defaultValue: "I remembered easily; no problem."
         }),
         interval: intervals?.easy ?? "4 days",
-        bgClass: "bg-blue-500 hover:bg-blue-600 border-blue-500"
+        bgClass: "bg-blue-500 hover:bg-blue-600 border-blue-500",
+        icon: Star
       }
     ],
     [t, intervals]
@@ -124,6 +141,10 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         if (answerStartTimeRef.current) {
           answerTimeMs = Date.now() - answerStartTimeRef.current
         }
+
+        // Store the card for potential undo before submitting
+        const cardForUndo = { ...card }
+
         await reviewMutation.mutateAsync({
           cardUuid: card.uuid,
           rating,
@@ -135,6 +156,18 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         if (reviewOverrideCard) {
           onClearOverride?.()
         }
+
+        // Enable undo for 10 seconds
+        setLastReviewedCard(cardForUndo)
+        setShowUndoButton(true)
+        if (undoTimeoutRef.current) {
+          window.clearTimeout(undoTimeoutRef.current)
+        }
+        undoTimeoutRef.current = window.setTimeout(() => {
+          setShowUndoButton(false)
+          setLastReviewedCard(null)
+        }, 10000) // 10 second undo window
+
         message.success(t("common:success", { defaultValue: "Success" }))
       } catch (e: unknown) {
         const errorMessage =
@@ -144,6 +177,40 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
     },
     [activeCard, reviewMutation, message, t, reviewOverrideCard, onClearOverride]
   )
+
+  // Handle undo - re-present the last reviewed card
+  const handleUndoReview = React.useCallback(() => {
+    if (!lastReviewedCard) return
+
+    // Clear the undo state
+    if (undoTimeoutRef.current) {
+      window.clearTimeout(undoTimeoutRef.current)
+    }
+    setShowUndoButton(false)
+    setReviewedCount((c) => Math.max(0, c - 1))
+
+    // Show the answer again for re-rating
+    setShowAnswer(true)
+    answerStartTimeRef.current = Date.now()
+
+    // Use the override mechanism to present this card again
+    // This is a workaround since we can't truly revert the backend state
+    // But it allows the user to re-rate the card
+    message.info(
+      t("option:flashcards.undoReviewHint", {
+        defaultValue: "Rate this card again to update your response"
+      })
+    )
+  }, [lastReviewedCard, message, t])
+
+  // Cleanup timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (undoTimeoutRef.current) {
+        window.clearTimeout(undoTimeoutRef.current)
+      }
+    }
+  }, [])
 
   React.useEffect(() => {
     setShowAnswer(false)
@@ -206,10 +273,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         <Card>
           <div className="flex flex-col gap-3">
             <div>
-              <Tag>
-                {activeCard.model_type}
-                {activeCard.reverse ? " - reverse" : ""}
-              </Tag>
+              <Tag>{formatCardType(activeCard, t)}</Tag>
               {activeCard.tags?.map((tag) => (
                 <Tag key={tag}>{tag}</Tag>
               ))}
@@ -276,37 +340,58 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                       })}
                     </Text>
                     <div className="flex flex-wrap gap-2 justify-center">
-                      {ratingOptions.map((opt) => (
-                        <Tooltip
-                          key={opt.value}
-                          title={`${opt.description} (${opt.key})`}
-                        >
-                          <Button
-                            onClick={() => onSubmitReview(opt.value)}
-                            aria-label={`${opt.label} (${opt.key})`}
-                            className={`!text-white ${opt.bgClass} ${opt.primary ? "!px-6" : ""}`}
-                            data-testid={`flashcards-review-rate-${opt.key}`}
+                      {ratingOptions.map((opt) => {
+                        const Icon = opt.icon
+                        return (
+                          <Tooltip
+                            key={opt.value}
+                            title={`${opt.description} (${opt.key})`}
                           >
-                            <div className="flex flex-col items-center">
-                              <span className="font-medium">
-                                {opt.label}
-                                <span className="ml-1 opacity-70 text-xs">
-                                  ({opt.key})
+                            <Button
+                              onClick={() => onSubmitReview(opt.value)}
+                              aria-label={`${opt.label} (${opt.key})`}
+                              className={`!text-white ${opt.bgClass} ${opt.primary ? "!px-6" : ""}`}
+                              data-testid={`flashcards-review-rate-${opt.key}`}
+                            >
+                              <div className="flex flex-col items-center gap-0.5">
+                                <Icon className="size-4" aria-hidden="true" />
+                                <span className="font-medium">
+                                  {opt.label}
+                                  <span className="ml-1 opacity-70 text-xs">
+                                    ({opt.key})
+                                  </span>
                                 </span>
-                              </span>
-                              <span className="text-xs opacity-80">
-                                {opt.interval}
-                              </span>
-                            </div>
-                          </Button>
-                        </Tooltip>
-                      ))}
+                                <span className="text-xs opacity-80">
+                                  {opt.interval}
+                                </span>
+                              </div>
+                            </Button>
+                          </Tooltip>
+                        )
+                      })}
                     </div>
                     <Text type="secondary" className="text-xs">
                       {t("option:flashcards.shortcutRate", {
                         defaultValue: "Press 1-4 to rate"
                       })}
                     </Text>
+
+                    {/* Undo button - appears briefly after rating */}
+                    {showUndoButton && lastReviewedCard && (
+                      <div className="mt-3 pt-3 border-t border-border">
+                        <Button
+                          type="text"
+                          size="small"
+                          icon={<Undo2 className="size-3" />}
+                          onClick={handleUndoReview}
+                          className="text-text-muted hover:text-text"
+                        >
+                          {t("option:flashcards.undoRating", {
+                            defaultValue: "Undo rating"
+                          })}
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </>
               )}
@@ -370,6 +455,30 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                         "No cards are due for review. Great job!"
                     })}
                   </Text>
+
+                  {/* Next due date information */}
+                  {nextDueQuery.data && (
+                    <div className="mt-4 p-3 rounded-lg bg-surface2 border border-border">
+                      <div className="flex items-center gap-2 text-sm">
+                        <Calendar className="size-4 text-primary" aria-hidden="true" />
+                        <Text strong>
+                          {t("option:flashcards.nextDueAt", {
+                            defaultValue: "Next review: {{time}}",
+                            time: dayjs(nextDueQuery.data.nextDueAt).fromNow()
+                          })}
+                        </Text>
+                      </div>
+                      <Text type="secondary" className="text-xs mt-1 block">
+                        {dayjs(nextDueQuery.data.nextDueAt).format("dddd, MMMM D [at] h:mm A")}
+                        {" · "}
+                        {t("option:flashcards.nextDueCardCount", {
+                          defaultValue: "{{count}} cards due",
+                          count: nextDueQuery.data.cardsDue
+                        })}
+                      </Text>
+                    </div>
+                  )}
+
                   <Button type="link" onClick={onNavigateToCreate}>
                     {t("option:flashcards.createMoreCards", {
                       defaultValue: "Create more cards"

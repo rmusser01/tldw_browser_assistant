@@ -19,25 +19,40 @@ export const ReviewProgress: React.FC<ReviewProgressProps> = ({
   const avgTimePerCard = 15
   const estimatedMinutes = Math.ceil((remaining * avgTimePerCard) / 60)
 
+  // Create accessible status message
+  const statusMessage = t("option:flashcards.progressStatus", {
+    defaultValue: "{{remaining}} cards remaining, {{reviewed}} reviewed",
+    remaining,
+    reviewed: reviewedCount
+  })
+
   if (dueCount === 0) return null
 
   return (
-    <div className="flex items-center gap-4 p-3 rounded-lg bg-surface2 mb-4">
+    <div
+      className="flex items-center gap-4 p-3 rounded-lg bg-surface2 mb-4"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      {/* Screen reader only status */}
+      <span className="sr-only">{statusMessage}</span>
+
       <div className="flex items-center gap-2">
-        <span className="text-2xl font-bold text-primary">{remaining}</span>
-        <span className="text-sm text-text-muted">
+        <span className="text-2xl font-bold text-primary" aria-hidden="true">{remaining}</span>
+        <span className="text-sm text-text-muted" aria-hidden="true">
           {t("option:flashcards.cardsRemaining", { defaultValue: "cards remaining" })}
         </span>
       </div>
-      <div className="h-8 w-px bg-border" />
-      <div className="text-sm text-text-muted">
+      <div className="h-8 w-px bg-border" aria-hidden="true" />
+      <div className="text-sm text-text-muted" aria-hidden="true">
         <span className="font-medium text-text">{reviewedCount}</span>{" "}
         {t("option:flashcards.reviewed", { defaultValue: "reviewed" })}
       </div>
       {remaining > 0 && (
         <>
-          <div className="h-8 w-px bg-border" />
-          <div className="text-sm text-text-muted">
+          <div className="h-8 w-px bg-border" aria-hidden="true" />
+          <div className="text-sm text-text-muted" aria-hidden="true">
             ~{estimatedMinutes}{" "}
             {t("option:flashcards.minutesLeft", { defaultValue: "min left" })}
           </div>

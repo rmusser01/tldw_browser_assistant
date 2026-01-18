@@ -5,6 +5,7 @@ import {
   Drawer,
   Form,
   Input,
+  Modal,
   Select,
   Space,
   Typography
@@ -43,6 +44,8 @@ export const FlashcardEditDrawer: React.FC<FlashcardEditDrawerProps> = ({
   const { t } = useTranslation(["option", "common"])
   const [form] = Form.useForm<FlashcardUpdate & { tags_text?: string[] }>()
   const [showPreview, setShowPreview] = React.useState(false)
+  const [isDirty, setIsDirty] = React.useState(false)
+  const [confirmCloseOpen, setConfirmCloseOpen] = React.useState(false)
 
   const frontPreview = useDebouncedFormField(form, "front")
   const backPreview = useDebouncedFormField(form, "back")
@@ -67,8 +70,14 @@ export const FlashcardEditDrawer: React.FC<FlashcardEditDrawerProps> = ({
         model_type: card.model_type,
         expected_version: card.version
       })
+      setIsDirty(false)
     }
   }, [card, open, form])
+
+  // Track form changes
+  const handleFormChange = React.useCallback(() => {
+    setIsDirty(true)
+  }, [])
 
   const syncTemplateFields = React.useCallback(
     (partial: Partial<Pick<FlashcardUpdate, "model_type" | "reverse" | "is_cloze">>) => {
@@ -96,17 +105,28 @@ export const FlashcardEditDrawer: React.FC<FlashcardEditDrawerProps> = ({
     }
   }
 
+  const handleAttemptClose = () => {
+    if (isDirty) {
+      setConfirmCloseOpen(true)
+    } else {
+      handleClose()
+    }
+  }
+
   const handleClose = () => {
     form.resetFields()
+    setIsDirty(false)
+    setConfirmCloseOpen(false)
     onClose()
   }
 
   return (
+    <>
     <Drawer
       placement="right"
       width={520}
       open={open}
-      onClose={handleClose}
+      onClose={handleAttemptClose}
       title={t("option:flashcards.editCard", { defaultValue: "Edit Flashcard" })}
       footer={
         <div className="flex justify-between">
@@ -114,7 +134,7 @@ export const FlashcardEditDrawer: React.FC<FlashcardEditDrawerProps> = ({
             {t("common:delete", { defaultValue: "Delete" })}
           </Button>
           <Space>
-            <Button onClick={handleClose}>
+            <Button onClick={handleAttemptClose}>
               {t("common:cancel", { defaultValue: "Cancel" })}
             </Button>
             <Button type="primary" loading={isLoading} onClick={handleSave}>
@@ -124,7 +144,7 @@ export const FlashcardEditDrawer: React.FC<FlashcardEditDrawerProps> = ({
         </div>
       }
     >
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" onValuesChange={handleFormChange}>
         {/* Section: Organization */}
         <div className="mb-6">
           <h3 className="text-sm font-medium text-text-muted mb-3">
@@ -293,6 +313,30 @@ export const FlashcardEditDrawer: React.FC<FlashcardEditDrawerProps> = ({
         </Form.Item>
       </Form>
     </Drawer>
+
+    {/* Confirmation modal for unsaved changes */}
+    <Modal
+      open={confirmCloseOpen}
+      title={t("option:flashcards.unsavedChangesTitle", {
+        defaultValue: "Unsaved changes"
+      })}
+      onCancel={() => setConfirmCloseOpen(false)}
+      footer={[
+        <Button key="cancel" onClick={() => setConfirmCloseOpen(false)}>
+          {t("common:cancel", { defaultValue: "Cancel" })}
+        </Button>,
+        <Button key="discard" danger onClick={handleClose}>
+          {t("common:discard", { defaultValue: "Discard" })}
+        </Button>
+      ]}
+    >
+      <p>
+        {t("option:flashcards.unsavedChangesDescription", {
+          defaultValue: "You have unsaved changes. Are you sure you want to close?"
+        })}
+      </p>
+    </Modal>
+    </>
   )
 }
 

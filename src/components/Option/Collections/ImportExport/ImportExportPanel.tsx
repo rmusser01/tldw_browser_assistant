@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
+  Alert,
   Button,
   Card,
   Checkbox,
@@ -24,6 +25,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { useCollectionsStore } from "@/store/collections"
 import { useTldwApiClient } from "@/hooks/useTldwApiClient"
+import { useSelectionKeyboard } from "@/hooks/useSelectionKeyboard"
 import type {
   ImportSource,
   ExportFormat as CollectionExportFormat,
@@ -263,6 +265,11 @@ const ExportSection: React.FC = () => {
   const [exportSearch, setExportSearch] = useState("")
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [copying, setCopying] = useState(false)
+  // Progress tracking for batch loading
+  const [loadProgress, setLoadProgress] = useState<{ loaded: number; total: number | null }>({
+    loaded: 0,
+    total: null
+  })
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -291,7 +298,7 @@ const ExportSection: React.FC = () => {
       return 0
     }
     win.__tldw_exportSetFormat = (format: string) => {
-      setExportFormat(format)
+      setExportFormat(format as CollectionExportFormat)
     }
     win.__tldw_exportFormat = exportFormat
     return () => {
@@ -341,6 +348,7 @@ const ExportSection: React.FC = () => {
     const loadItems = async () => {
       setExportItemsLoading(true)
       setExportItemsError(null)
+      setLoadProgress({ loaded: 0, total: null })
       try {
         const allItems: ReadingItemSummary[] = []
         const pageSize = 200
@@ -353,6 +361,10 @@ const ExportSection: React.FC = () => {
           if (total === null && typeof response?.total === "number") {
             total = response.total
           }
+          // Update progress
+          if (active) {
+            setLoadProgress({ loaded: allItems.length, total })
+          }
           if (pageItems.length === 0) break
           if (total !== null && allItems.length >= total) break
           if (pageItems.length < pageSize) break
@@ -364,7 +376,10 @@ const ExportSection: React.FC = () => {
         if (!active) return
         setExportItemsError(error?.message || "Failed to load reading items")
       } finally {
-        if (active) setExportItemsLoading(false)
+        if (active) {
+          setExportItemsLoading(false)
+          setLoadProgress({ loaded: 0, total: null })
+        }
       }
     }
     loadItems()
@@ -388,15 +403,6 @@ const ExportSection: React.FC = () => {
   const someFilteredSelected =
     filteredItems.length > 0 && filteredItems.some((item) => selectedSet.has(item.id))
 
-  const handleToggleItem = useCallback((id: string) => {
-    setSelectedIds((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return Array.from(next)
-    })
-  }, [])
-
   const handleSelectAll = useCallback(
     (checked: boolean) => {
       if (!checked) {
@@ -415,6 +421,21 @@ const ExportSection: React.FC = () => {
   const handleClearSelection = useCallback(() => {
     setSelectedIds([])
   }, [])
+
+  // Keyboard navigation and Shift+click range selection
+  const {
+    focusedIndex,
+    handleItemClick,
+    handleItemToggle,
+    handleKeyDown,
+    listRef
+  } = useSelectionKeyboard({
+    items: filteredItems,
+    selectedIds,
+    getItemId: (item) => item.id,
+    onSelectionChange: setSelectedIds
+  })
+  const lastShiftKeyRef = useRef(false)
 
   const buildJsonlPayload = (items: ReadingItem[]) =>
     items
@@ -555,7 +576,7 @@ const ExportSection: React.FC = () => {
             size="small"
             allowClear
           />
-          <div className="mt-2 flex items-center justify-between text-xs text-zinc-500">
+          <div className="mt-2 flex items-center justify-between text-xs text-zinc-600 dark:text-zinc-400">
             <Checkbox
               indeterminate={someFilteredSelected && !allFilteredSelected}
               checked={allFilteredSelected}
@@ -564,7 +585,7 @@ const ExportSection: React.FC = () => {
               {t("collections:export.selectAll", "Select all")}
             </Checkbox>
             <div className="flex items-center gap-2">
-              <span>
+              <span aria-live="polite" aria-atomic="true">
                 {t("collections:export.selectedCount", "{{count}} selected", {
                   count: selectedIds.length
                 })}
@@ -576,10 +597,25 @@ const ExportSection: React.FC = () => {
               )}
             </div>
           </div>
-          <div className="mt-2 max-h-48 overflow-auto rounded-md border border-zinc-200 dark:border-zinc-700">
+          <div
+            ref={listRef as React.RefObject<HTMLDivElement>}
+            tabIndex={0}
+            onKeyDownCapture={handleKeyDown}
+            className="mt-2 max-h-48 overflow-auto rounded-md border border-zinc-200 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
+            role="listbox"
+            aria-label={t("collections:export.itemList", "Export items list")}
+          >
             {exportItemsLoading ? (
-              <div className="flex items-center justify-center py-6">
+              <div className="flex flex-col items-center justify-center gap-2 py-6">
                 <Spin size="small" />
+                {loadProgress.total !== null && (
+                  <span className="text-xs text-zinc-500">
+                    {t("collections:export.loadingProgress", "Loading {{loaded}} / {{total}} items...", {
+                      loaded: loadProgress.loaded,
+                      total: loadProgress.total
+                    })}
+                  </span>
+                )}
               </div>
             ) : exportItemsError ? (
               <Empty description={exportItemsError} image={Empty.PRESENTED_IMAGE_SIMPLE} />
@@ -592,17 +628,40 @@ const ExportSection: React.FC = () => {
               <List
                 size="small"
                 dataSource={filteredItems}
-                renderItem={(item) => (
-                  <List.Item className="py-2">
-                    <Checkbox
-                      key={item.id}
-                      checked={selectedSet.has(item.id)}
-                      onChange={() => handleToggleItem(item.id)}
+                renderItem={(item, index) => {
+                  const isSelected = selectedSet.has(item.id)
+                  const isFocused = index === focusedIndex
+                  return (
+                    <List.Item
+                      data-selection-item
+                      className={`cursor-pointer py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800 ${
+                        isFocused ? "ring-2 ring-inset ring-blue-400" : ""
+                      }`}
+                      onClick={(e) => handleItemClick(index, e)}
+                      role="option"
+                      aria-selected={isSelected}
                     >
-                      <span className="text-sm">{item.title}</span>
-                    </Checkbox>
-                  </List.Item>
-                )}
+                      <Checkbox
+                        key={item.id}
+                        checked={isSelected}
+                        onClick={(e) => {
+                          lastShiftKeyRef.current = e.shiftKey
+                          e.stopPropagation()
+                        }}
+                        onKeyDown={(e) => {
+                          lastShiftKeyRef.current = e.shiftKey
+                        }}
+                        onChange={() => {
+                          const shiftKey = lastShiftKeyRef.current
+                          lastShiftKeyRef.current = false
+                          handleItemToggle(index, { shiftKey })
+                        }}
+                      >
+                        <span className="text-sm">{item.title}</span>
+                      </Checkbox>
+                    </List.Item>
+                  )
+                }}
               />
             )}
           </div>
@@ -613,6 +672,34 @@ const ExportSection: React.FC = () => {
             )}
           </p>
         </div>
+
+        {/* Warning when ZIP is selected but items are also selected */}
+        {exportFormat === "zip" && selectedIds.length > 0 && (
+          <Alert
+            type="warning"
+            showIcon
+            message={t(
+              "collections:export.zipSelectionWarning",
+              "ZIP export doesn't support item selection"
+            )}
+            description={
+              <span>
+                {t(
+                  "collections:export.zipSelectionHint",
+                  "To export selected items, switch to JSONL format or clear your selection to export all items as ZIP."
+                )}
+                <Button
+                  type="link"
+                  size="small"
+                  className="ml-1 p-0"
+                  onClick={() => setExportFormat("jsonl")}
+                >
+                  {t("collections:export.switchToJsonl", "Switch to JSONL")}
+                </Button>
+              </span>
+            }
+          />
+        )}
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <Button onClick={handleCopy} disabled={selectedIds.length === 0} loading={copying}>
