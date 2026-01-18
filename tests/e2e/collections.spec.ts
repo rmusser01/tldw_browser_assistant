@@ -519,12 +519,10 @@ test.describe("Collections playground", () => {
       await exportCard.getByRole("button", { name: "Clear" }).click()
       await expect(selectedCount).toHaveText("0 selected")
 
-      await exportList.focus()
-      await page.keyboard.press("j")
-      await page.keyboard.press(" ")
+      await exportOptions.nth(0).getByRole("checkbox").click()
       await expect(selectedCount).toHaveText("1 selected")
-      await page.keyboard.press("j")
-      await page.keyboard.press(" ")
+      await exportList.press("ArrowDown")
+      await exportList.press("Space")
       await expect(selectedCount).toHaveText("2 selected")
 
       await exportCard.getByRole("button", { name: "Clear" }).click()

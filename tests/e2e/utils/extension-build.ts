@@ -40,14 +40,21 @@ export async function launchWithBuiltExtension(
   await context.addInitScript(
     (cfg, allowOfflineFlag) => {
       try {
-        const set = (data: Record<string, any>) =>
+        const setLocal = (data: Record<string, any>) =>
           // @ts-ignore
           chrome?.storage?.local?.set?.(data, () => {})
+        const setSync = (data: Record<string, any>) =>
+          // @ts-ignore
+          chrome?.storage?.sync?.set?.(data, () => {})
+        const setBoth = (data: Record<string, any>) => {
+          setLocal(data)
+          setSync(data)
+        }
         if (allowOfflineFlag) {
-          set({ __tldw_allow_offline: true })
+          setLocal({ __tldw_allow_offline: true })
         }
         if (cfg) {
-          set({ tldwConfig: cfg })
+          setBoth({ tldwConfig: cfg })
         }
       } catch {
         // ignore storage write failures in isolated contexts

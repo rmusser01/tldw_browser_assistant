@@ -92,6 +92,16 @@ function startMediaMockServer(itemCount = 35) {
   return server
 }
 
+async function ensureConnected(page: any, label: string, serverUrl: string) {
+  await page.waitForFunction(
+    () => Boolean((window as any).__tldw_useConnectionStore?.getState)
+  )
+  await forceConnected(page, { serverUrl }, label)
+  await page.waitForFunction(
+    () => (window as any).__tldw_useConnectionStore?.getState?.().state?.isConnected === true
+  )
+}
+
 test.describe("Media multi page", () => {
   let server: ReturnType<typeof startMediaMockServer> | null = null
   let baseUrl = ""
@@ -132,16 +142,12 @@ test.describe("Media multi page", () => {
       }
     })
 
-    // Seed connection as connected so the page renders controls
-    await page.goto(optionsUrl, { waitUntil: "networkidle" })
+    await page.goto(optionsUrl + "#/media-multi", { waitUntil: "networkidle" })
     await waitForConnectionStore(page, "media-multi-connected")
-    await forceConnected(page, { serverUrl: baseUrl }, "media-multi-connected")
-
-    await page.goto(optionsUrl + "#/media-multi")
-    await page.waitForLoadState("networkidle")
+    await ensureConnected(page, "media-multi-connected", baseUrl)
     await expect(page.getByTestId("media-review-results-list")).toBeVisible()
 
-    // Switch to List and assert dropdown appears
+    // Switch to Focus and assert dropdown appears
     const focusToggle = page.getByRole("radio", { name: /Focus/i })
     await focusToggle.click({ force: true })
 
@@ -161,12 +167,9 @@ test.describe("Media multi page", () => {
       }
     })
 
-    await page.goto(optionsUrl, { waitUntil: "networkidle" })
+    await page.goto(optionsUrl + "#/media-multi", { waitUntil: "networkidle" })
     await waitForConnectionStore(page, "media-multi-keyboard")
-    await forceConnected(page, { serverUrl: baseUrl }, "media-multi-keyboard")
-
-    await page.goto(optionsUrl + "#/media-multi")
-    await page.waitForLoadState("networkidle")
+    await ensureConnected(page, "media-multi-keyboard", baseUrl)
     await expect(page.getByTestId("media-review-results-list")).toBeVisible()
 
     const firstRow = page.getByRole("button", { name: /Item 1/i })
@@ -177,6 +180,9 @@ test.describe("Media multi page", () => {
 
     await page.keyboard.press("j")
     await expect(page.getByText(/Item 2 of 35/)).toBeVisible()
+
+    await page.keyboard.press("k")
+    await expect(page.getByText(/Item 1 of 35/)).toBeVisible()
 
     const tailMarker = page.getByText("END_MARKER")
     await expect(tailMarker).toBeHidden()
@@ -200,12 +206,9 @@ test.describe("Media multi page", () => {
       }
     })
 
-    await page.goto(optionsUrl, { waitUntil: "networkidle" })
+    await page.goto(optionsUrl + "#/media-multi", { waitUntil: "networkidle" })
     await waitForConnectionStore(page, "media-multi-persist")
-    await forceConnected(page, { serverUrl: baseUrl }, "media-multi-persist")
-
-    await page.goto(optionsUrl + "#/media-multi")
-    await page.waitForLoadState("networkidle")
+    await ensureConnected(page, "media-multi-persist", baseUrl)
     await expect(page.getByTestId("media-review-results-list")).toBeVisible()
 
     const stackToggle = page.getByRole("radio", { name: /Stack/i })
@@ -214,7 +217,7 @@ test.describe("Media multi page", () => {
 
     await page.reload({ waitUntil: "networkidle" })
     await waitForConnectionStore(page, "media-multi-persist-reload")
-    await forceConnected(page, { serverUrl: baseUrl }, "media-multi-persist-reload")
+    await ensureConnected(page, "media-multi-persist-reload", baseUrl)
     await expect(page.getByTestId("media-review-results-list")).toBeVisible()
     await expect(page.getByRole("radio", { name: /Stack/i })).toBeChecked()
 
@@ -231,12 +234,9 @@ test.describe("Media multi page", () => {
       }
     })
 
-    await page.goto(optionsUrl, { waitUntil: "networkidle" })
+    await page.goto(optionsUrl + "#/media-multi", { waitUntil: "networkidle" })
     await waitForConnectionStore(page, "media-multi-limit")
-    await forceConnected(page, { serverUrl: baseUrl }, "media-multi-limit")
-
-    await page.goto(optionsUrl + "#/media-multi")
-    await page.waitForLoadState("networkidle")
+    await ensureConnected(page, "media-multi-limit", baseUrl)
     await expect(page.getByTestId("media-review-results-list")).toBeVisible()
 
     await page.getByRole("button", { name: /Options/i }).click()

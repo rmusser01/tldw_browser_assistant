@@ -157,7 +157,7 @@ export function useSelectionKeyboard<T>({
       }
 
       // Space or Enter: toggle selection
-      if (key === " " || key === "enter") {
+      if (key === " " || key === "space" || key === "spacebar" || key === "enter") {
         event.preventDefault()
         if (currentFocusedIndex >= 0 && currentFocusedIndex < items.length) {
           const anchorIndex = lastSelectedIndexRef.current

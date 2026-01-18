@@ -20,6 +20,7 @@ import {
   setDefaultSpecForType
 } from "@/services/evaluations-settings"
 import { useEvaluationsStore } from "@/store/evaluations"
+import { EVAL_SPEC_SCHEMAS, EVAL_SPEC_TYPES } from "../utils/evalSpecSchemas"
 
 // Helper to ensure API responses are ok
 const ensureOk = <T,>(resp: any): T => {
@@ -43,112 +44,18 @@ export const getDefaultEvalSpecForType = (
       // fall through to defaults
     }
   }
-  switch (evalType) {
-    case "model_graded":
-      return {
-        sub_type: "response_quality",
-        metrics: ["coherence", "relevance", "groundedness"],
-        threshold: 0.7,
-        evaluator_model: "openai"
-      }
-    case "response_quality":
-      return {
-        metrics: ["coherence", "conciseness", "relevance"],
-        model: "gpt-3.5-turbo",
-        temperature: 0.3,
-        thresholds: { min_score: 0.7 }
-      }
-    case "rag":
-      return {
-        metrics: ["relevance", "faithfulness", "answer_similarity"],
-        model: "gpt-3.5-turbo",
-        temperature: 0.3,
-        thresholds: {
-          min_relevance: 0.7,
-          min_faithfulness: 0.7,
-          min_answer_similarity: 0.7
-        }
-      }
-    case "geval":
-      return {
-        metrics: ["g_eval_score"],
-        model: "gpt-3.5-turbo",
-        temperature: 0
-      }
-    case "exact_match":
-      return {
-        metrics: ["exact_match"],
-        model: "gpt-3.5-turbo",
-        temperature: 0
-      }
-    case "includes":
-      return {
-        metrics: ["includes"],
-        case_sensitive: false
-      }
-    case "fuzzy_match":
-      return {
-        metrics: ["fuzzy_match"],
-        threshold: 0.85
-      }
-    case "rag_pipeline":
-      return {
-        sub_type: "rag_pipeline",
-        metrics: ["retrieval_precision", "faithfulness", "answer_relevancy"],
-        evaluator_model: "openai"
-      }
-    case "proposition_extraction":
-      return {
-        metrics: ["proposition_extraction"],
-        evaluator_model: "openai",
-        proposition_schema: ["claim", "evidence"]
-      }
-    case "qa3":
-      return {
-        metrics: ["qa3"],
-        evaluator_model: "openai",
-        labels: ["good", "borderline", "bad"]
-      }
-    case "label_choice":
-      return {
-        metrics: ["label_choice"],
-        allowed_labels: ["A", "B", "C"]
-      }
-    case "nli_factcheck":
-      return {
-        metrics: ["nli_factcheck"],
-        allowed_labels: ["entailed", "contradicted", "neutral"]
-      }
-    case "ocr":
-      return {
-        metrics: ["cer", "wer", "coverage"],
-        language: "eng"
-      }
-    default:
-      return {
-        metrics: ["accuracy"],
-        model: "gpt-3.5-turbo",
-        temperature: 0.3
-      }
+  return EVAL_SPEC_SCHEMAS[evalType]?.defaultSpec || {
+    metrics: ["accuracy"],
+    model: "gpt-3.5-turbo",
+    temperature: 0.3
   }
 }
 
 // Eval type options for select dropdowns
-export const evalTypeOptions = [
-  { value: "model_graded", label: "model_graded" },
-  { value: "response_quality", label: "response_quality" },
-  { value: "rag", label: "rag" },
-  { value: "rag_pipeline", label: "rag_pipeline" },
-  { value: "geval", label: "geval" },
-  { value: "exact_match", label: "exact_match" },
-  { value: "includes", label: "includes" },
-  { value: "fuzzy_match", label: "fuzzy_match" },
-  { value: "proposition_extraction", label: "proposition_extraction" },
-  { value: "qa3", label: "qa3" },
-  { value: "label_choice", label: "label_choice" },
-  { value: "nli_factcheck", label: "nli_factcheck" },
-  { value: "ocr", label: "ocr" }
-]
+export const evalTypeOptions = EVAL_SPEC_TYPES.map((type) => ({
+  value: type,
+  label: EVAL_SPEC_SCHEMAS[type]?.label || type
+}))
 
 export function useEvaluationDefaults() {
   return useQuery({

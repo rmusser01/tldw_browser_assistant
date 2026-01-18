@@ -17,6 +17,83 @@ interface CardsKeyboardNavOptions {
   onDelete?: (index: number) => void
 }
 
+type CardsKeyboardNavAction =
+  | { type: "focus"; index: number }
+  | { type: "edit"; index: number }
+  | { type: "toggle"; index: number }
+  | { type: "delete"; index: number }
+  | { type: "clear" }
+
+export type CardsKeyboardNavResult = {
+  preventDefault: boolean
+  action: CardsKeyboardNavAction
+}
+
+export function getCardsKeyboardNavResult({
+  key,
+  itemCount,
+  focusedIndex
+}: {
+  key: string
+  itemCount: number
+  focusedIndex: number
+}): CardsKeyboardNavResult | null {
+  switch (key) {
+    case "j":
+    case "ArrowDown": {
+      if (itemCount <= 0) return null
+      const nextIndex =
+        focusedIndex < 0 ? 0 : Math.min(focusedIndex + 1, itemCount - 1)
+      return {
+        preventDefault: true,
+        action: { type: "focus", index: nextIndex }
+      }
+    }
+    case "k":
+    case "ArrowUp": {
+      if (itemCount <= 0) return null
+      const prevIndex =
+        focusedIndex < 0 ? itemCount - 1 : Math.max(focusedIndex - 1, 0)
+      return {
+        preventDefault: true,
+        action: { type: "focus", index: prevIndex }
+      }
+    }
+    case "Enter":
+      if (focusedIndex >= 0 && focusedIndex < itemCount) {
+        return {
+          preventDefault: true,
+          action: { type: "edit", index: focusedIndex }
+        }
+      }
+      return null
+    case " ":
+      if (focusedIndex >= 0 && focusedIndex < itemCount) {
+        return {
+          preventDefault: true,
+          action: { type: "toggle", index: focusedIndex }
+        }
+      }
+      return null
+    case "Delete":
+    case "Backspace":
+      if (focusedIndex >= 0 && focusedIndex < itemCount) {
+        return {
+          preventDefault: true,
+          action: { type: "delete", index: focusedIndex }
+        }
+      }
+      return null
+    case "Escape":
+      return {
+        preventDefault: false,
+        action: { type: "clear" }
+      }
+    default:
+      return null
+  }
+}
+
 /**
  * Hook for keyboard navigation in the Cards tab list.
  *
@@ -48,49 +125,29 @@ export function useCardsKeyboardNav({
         return
       }
 
-      switch (e.key) {
-        case "j":
-        case "ArrowDown":
-          e.preventDefault()
-          if (itemCount > 0) {
-            const nextIndex = focusedIndex < 0 ? 0 : Math.min(focusedIndex + 1, itemCount - 1)
-            onFocusChange(nextIndex)
-          }
+      const result = getCardsKeyboardNavResult({
+        key: e.key,
+        itemCount,
+        focusedIndex
+      })
+      if (!result) return
+      if (result.preventDefault) {
+        e.preventDefault()
+      }
+      switch (result.action.type) {
+        case "focus":
+          onFocusChange(result.action.index)
           break
-
-        case "k":
-        case "ArrowUp":
-          e.preventDefault()
-          if (itemCount > 0) {
-            const prevIndex = focusedIndex < 0 ? itemCount - 1 : Math.max(focusedIndex - 1, 0)
-            onFocusChange(prevIndex)
-          }
+        case "edit":
+          if (onEdit) onEdit(result.action.index)
           break
-
-        case "Enter":
-          if (focusedIndex >= 0 && focusedIndex < itemCount && onEdit) {
-            e.preventDefault()
-            onEdit(focusedIndex)
-          }
+        case "toggle":
+          if (onToggleSelect) onToggleSelect(result.action.index)
           break
-
-        case " ":
-          if (focusedIndex >= 0 && focusedIndex < itemCount && onToggleSelect) {
-            e.preventDefault()
-            onToggleSelect(focusedIndex)
-          }
+        case "delete":
+          if (onDelete) onDelete(result.action.index)
           break
-
-        case "Delete":
-        case "Backspace":
-          if (focusedIndex >= 0 && focusedIndex < itemCount && onDelete) {
-            e.preventDefault()
-            onDelete(focusedIndex)
-          }
-          break
-
-        case "Escape":
-          // Clear focus
+        case "clear":
           onFocusChange(-1)
           break
       }

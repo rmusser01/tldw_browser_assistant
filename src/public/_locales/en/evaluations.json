@@ -1,0 +1,446 @@
+{
+  "title": {
+    "message": "Evaluations playground"
+  },
+  "subtitle": {
+    "message": "Define evaluations against your tldw server and inspect recent runs."
+  },
+  "listTitle": {
+    "message": "Recent evaluations"
+  },
+  "newEvaluationCta": {
+    "message": "New evaluation"
+  },
+  "startRunCta": {
+    "message": "Start run"
+  },
+  "loadErrorTitle": {
+    "message": "Unable to load evaluations"
+  },
+  "loadErrorDescription": {
+    "message": "Check your tldw server connection and API credentials, then try again."
+  },
+  "emptyList": {
+    "message": "No evaluations yet. Once you create one, it will appear here."
+  },
+  "selectedTag": {
+    "message": "Selected"
+  },
+  "rateLimitsTitle": {
+    "message": "Evaluation limits"
+  },
+  "rateLimitsErrorTitle": {
+    "message": "Unable to fetch rate limits"
+  },
+  "rateLimitsErrorDescription": {
+    "message": "We could not retrieve evaluation quotas from the server."
+  },
+  "rateLimitsNoData": {
+    "message": "Rate limit information is not available for this server."
+  },
+  "tierLabel": {
+    "message": "Tier"
+  },
+  "dailyLimitLabel": {
+    "message": "Daily evaluations"
+  },
+  "tokensTodayLabel": {
+    "message": "Tokens today"
+  },
+  "perMinuteLabel": {
+    "message": "Per-minute limit"
+  },
+  "resetAtLabel": {
+    "message": "Resets at"
+  },
+  "runsTitle": {
+    "message": "Runs"
+  },
+  "noEvalSelectedRuns": {
+    "message": "Select an evaluation to see its recent runs."
+  },
+  "runsErrorTitle": {
+    "message": "Unable to load runs"
+  },
+  "runsEmpty": {
+    "message": "No runs yet for this evaluation."
+  },
+  "runDetailTitle": {
+    "message": "Run details"
+  },
+  "noRunSelected": {
+    "message": "Select a run to see details."
+  },
+  "runDetailErrorTitle": {
+    "message": "Unable to load run details"
+  },
+  "runStatusLabel": {
+    "message": "Status"
+  },
+  "runModelLabelShort": {
+    "message": "Target model"
+  },
+  "runEvalIdLabel": {
+    "message": "Evaluation"
+  },
+  "runErrorLabel": {
+    "message": "Error"
+  },
+  "runResultsLabel": {
+    "message": "Results (snippet)"
+  },
+  "runProgressLabel": {
+    "message": "Progress"
+  },
+  "runUsageLabel": {
+    "message": "Usage"
+  },
+  "datasetsTitle": {
+    "message": "Datasets"
+  },
+  "newDatasetCta": {
+    "message": "New dataset"
+  },
+  "datasetsErrorTitle": {
+    "message": "Unable to load datasets"
+  },
+  "datasetsEmpty": {
+    "message": "No datasets yet. Create one to attach to evaluations."
+  },
+  "datasetSampleCount": {
+    "message": "{{count}} samples"
+  },
+  "datasetNameLabel": {
+    "message": "Name"
+  },
+  "datasetNamePlaceholder": {
+    "message": "my_dataset"
+  },
+  "datasetDescriptionLabel": {
+    "message": "Description"
+  },
+  "datasetMetadataLabel": {
+    "message": "Metadata (JSON, optional)"
+  },
+  "sampleInputLabel": {
+    "message": "Sample input"
+  },
+  "sampleExpectedLabel": {
+    "message": "Expected output (optional)"
+  },
+  "samplesJsonLabel": {
+    "message": "Samples JSON (optional, overrides fields)"
+  },
+  "datasetLabel": {
+    "message": "Dataset (optional)"
+  },
+  "datasetPlaceholder": {
+    "message": "Select dataset"
+  },
+  "datasetCreateSuccessTitle": {
+    "message": "Dataset created"
+  },
+  "datasetCreateSuccessDescription": {
+    "message": "Your dataset is ready to use in evaluations."
+  },
+  "datasetCreateErrorTitle": {
+    "message": "Failed to create dataset"
+  },
+  "datasetCreateErrorDescription": {
+    "message": "The server rejected this dataset. Check the fields and try again."
+  },
+  "datasetDeleteSuccessTitle": {
+    "message": "Dataset deleted"
+  },
+  "datasetDeleteErrorTitle": {
+    "message": "Failed to delete dataset"
+  },
+  "datasetLoadErrorTitle": {
+    "message": "Failed to load dataset"
+  },
+  "datasetDetailTitle": {
+    "message": "Dataset details"
+  },
+  "datasetParseErrorTitle": {
+    "message": "Invalid samples JSON"
+  },
+  "createEvalModalTitle": {
+    "message": "New evaluation"
+  },
+  "editEvalModalTitle": {
+    "message": "Edit evaluation"
+  },
+  "evalNameLabel": {
+    "message": "Name"
+  },
+  "evalNamePlaceholder": {
+    "message": "my_eval_run"
+  },
+  "evalNameValidation": {
+    "message": "Use only letters, numbers, hyphens, and underscores."
+  },
+  "evalTypeLabel": {
+    "message": "Evaluation type"
+  },
+  "evalSpecLabel": {
+    "message": "Evaluation spec (JSON)"
+  },
+  "evalSpecParseError": {
+    "message": "Evaluation spec must be valid JSON."
+  },
+  "evalMetadataLabel": {
+    "message": "Metadata (JSON, optional)"
+  },
+  "inlineDatasetCheckbox": {
+    "message": "Attach inline dataset instead of referencing dataset_id"
+  },
+  "inlineDatasetErrorTitle": {
+    "message": "Invalid inline dataset"
+  },
+  "runModelLabel": {
+    "message": "Run model (used for quick runs)"
+  },
+  "createSuccessTitle": {
+    "message": "Evaluation created"
+  },
+  "createErrorTitle": {
+    "message": "Failed to create evaluation"
+  },
+  "createErrorDescription": {
+    "message": "The server rejected this evaluation. Ensure name, type, and spec are valid."
+  },
+  "updateSuccessTitle": {
+    "message": "Evaluation updated"
+  },
+  "updateErrorTitle": {
+    "message": "Failed to update evaluation"
+  },
+  "deleteErrorTitle": {
+    "message": "Failed to delete evaluation"
+  },
+  "deleteConfirmTitle": {
+    "message": "Delete this evaluation?"
+  },
+  "deleteConfirmDescription": {
+    "message": "This will remove the evaluation definition. Runs already created remain in history."
+  },
+  "detailTitle": {
+    "message": "Evaluation details"
+  },
+  "detailErrorTitle": {
+    "message": "Unable to load evaluation details"
+  },
+  "descriptionLabel": {
+    "message": "Description"
+  },
+  "noEvalSelectedDetails": {
+    "message": "Select an evaluation to inspect its spec."
+  },
+  "runCreateSuccessTitle": {
+    "message": "Run started"
+  },
+  "runCreateSuccessDescription": {
+    "message": "Your evaluation run has started. You can monitor it from the server UI."
+  },
+  "runCreateErrorTitle": {
+    "message": "Failed to start run"
+  },
+  "runCreateErrorDescription": {
+    "message": "The server rejected this run request. Check the model and try again."
+  },
+  "runConfigLabel": {
+    "message": "Config (JSON)"
+  },
+  "datasetOverrideLabel": {
+    "message": "Dataset override (JSON array of samples)"
+  },
+  "runConfigParseError": {
+    "message": "Invalid config JSON"
+  },
+  "runCancelSuccessTitle": {
+    "message": "Run cancellation requested"
+  },
+  "runCancelErrorTitle": {
+    "message": "Failed to cancel run"
+  },
+  "cancelRunCta": {
+    "message": "Cancel run"
+  },
+  "historyTitle": {
+    "message": "History"
+  },
+  "historyTypeLabel": {
+    "message": "Type"
+  },
+  "historyUserLabel": {
+    "message": "User ID"
+  },
+  "historyStartLabel": {
+    "message": "Start date (ISO)"
+  },
+  "historyEndLabel": {
+    "message": "End date (ISO)"
+  },
+  "historyFetchCta": {
+    "message": "Fetch history"
+  },
+  "historyEmpty": {
+    "message": "Run a query to see recent activity."
+  },
+  "historyErrorTitle": {
+    "message": "Failed to fetch history"
+  },
+  "webhooksTitle": {
+    "message": "Webhooks"
+  },
+  "webhookUrlLabel": {
+    "message": "URL"
+  },
+  "webhookEventsLabel": {
+    "message": "Events"
+  },
+  "webhookCreateCta": {
+    "message": "Register webhook"
+  },
+  "webhookCreateSuccessTitle": {
+    "message": "Webhook registered"
+  },
+  "webhookCreateErrorTitle": {
+    "message": "Failed to register webhook"
+  },
+  "webhookDeleteErrorTitle": {
+    "message": "Failed to delete webhook"
+  },
+  "webhookListErrorTitle": {
+    "message": "Unable to load webhooks"
+  },
+  "webhooksEmpty": {
+    "message": "No webhooks registered yet."
+  },
+  "webhookSecretTitle": {
+    "message": "Secret"
+  },
+  "idempotencyKeyLabel": {
+    "message": "Idempotency key"
+  },
+  "emptyConnectTitle": {
+    "message": "Connect to use Evaluations"
+  },
+  "emptyConnectDescription": {
+    "message": "To create and run evaluations, first connect to your tldw server."
+  },
+  "emptyConnectExample1": {
+    "message": "Open Settings → tldw server to add your server URL and API key."
+  },
+  "emptyConnectExample2": {
+    "message": "Once connected, you can define evaluations and inspect metrics here."
+  },
+  "datasetSamplesLabel": {
+    "message": "Samples"
+  },
+  "datasetSamplesEmpty": {
+    "message": "No samples returned for this page."
+  },
+  "metricsLabel": {
+    "message": "Metrics"
+  },
+  "noMetrics": {
+    "message": "No metrics available"
+  },
+  "tabEvaluations": {
+    "message": "Evaluations"
+  },
+  "tabRuns": {
+    "message": "Runs"
+  },
+  "tabDatasets": {
+    "message": "Datasets"
+  },
+  "tabWebhooks": {
+    "message": "Webhooks"
+  },
+  "tabHistory": {
+    "message": "History"
+  },
+  "betaNotice": {
+    "message": "Beta Feature"
+  },
+  "betaDescription": {
+    "message": "Evaluations is currently in beta. Some features may be incomplete or change."
+  },
+  "pollingIndicator": {
+    "message": "Auto-refreshing"
+  },
+  "advancedOptions": {
+    "message": "Advanced options"
+  },
+  "idempotencyKeyTooltip": {
+    "message": "Prevents duplicate creation if the browser retries the request. Use a unique key per creation attempt."
+  },
+  "idempotencyKeyPlaceholder": {
+    "message": "Prevents duplicate create on retry"
+  },
+  "evalTypesHint": {
+    "message": "Supported: model_graded, response_quality, rag, rag_pipeline, geval, exact_match, includes, fuzzy_match, proposition_extraction, qa3, label_choice, nli_factcheck, ocr."
+  },
+  "runPollingHint": {
+    "message": "Runs execute asynchronously. The UI polls every ~3s until status leaves running/pending."
+  },
+  "selectEvaluation": {
+    "message": "Select evaluation"
+  },
+  "selectEvaluationPlaceholder": {
+    "message": "Choose an evaluation to run"
+  },
+  "adhocTitle": {
+    "message": "Ad-hoc evaluator"
+  },
+  "deleteDatasetConfirmTitle": {
+    "message": "Delete this dataset?"
+  },
+  "deleteDatasetConfirmDescription": {
+    "message": "This will permanently remove the dataset. Evaluations using it will need a new dataset."
+  },
+  "deleteWebhookConfirmTitle": {
+    "message": "Delete this webhook?"
+  },
+  "deleteWebhookConfirmDescription": {
+    "message": "This will stop sending events to this URL. You can re-register it later."
+  },
+  "webhookEventsPlaceholder": {
+    "message": "Select events to receive"
+  },
+  "webhookInfoTitle": {
+    "message": "About webhooks"
+  },
+  "webhookInfoItem1": {
+    "message": "Webhooks receive POST requests when evaluation events occur."
+  },
+  "webhookInfoItem2": {
+    "message": "Use the secret to verify webhook signatures and prevent spoofing."
+  },
+  "webhookInfoItem3": {
+    "message": "Events include: started, completed, failed, cancelled, and progress updates."
+  },
+  "historyTypePlaceholder": {
+    "message": "Filter by event type"
+  },
+  "historyResultsCount": {
+    "message": "{{count}} results"
+  },
+  "datasetSampleCountLabel": {
+    "message": "Samples"
+  },
+  "samplesPreviewLabel": {
+    "message": "Samples preview"
+  },
+  "noSamplesPreview": {
+    "message": "No samples to preview"
+  },
+  "noEvalSelectedTitle": {
+    "message": "Select an evaluation first"
+  },
+  "createDatasetModalTitle": {
+    "message": "New dataset"
+  }
+}

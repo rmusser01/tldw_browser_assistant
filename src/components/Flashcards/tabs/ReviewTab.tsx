@@ -18,6 +18,7 @@ import {
 import { MarkdownWithBoundary, ReviewProgress } from "../components"
 import { calculateIntervals } from "../utils/calculateIntervals"
 import { formatCardType } from "../utils/model-type-labels"
+import { buildReviewUndoState } from "../utils/review-undo"
 
 dayjs.extend(relativeTime)
 
@@ -30,6 +31,7 @@ interface ReviewTabProps {
   onReviewDeckChange: (deckId: number | null | undefined) => void
   reviewOverrideCard?: Flashcard | null
   onClearOverride?: () => void
+  isActive: boolean
 }
 
 /**
@@ -41,7 +43,8 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   reviewDeckId,
   onReviewDeckChange,
   reviewOverrideCard,
-  onClearOverride
+  onClearOverride,
+  isActive
 }) => {
   const { t } = useTranslation(["option", "common"])
   const message = useAntdMessage()
@@ -49,11 +52,13 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   // State
   const [showAnswer, setShowAnswer] = React.useState(false)
   const [reviewedCount, setReviewedCount] = React.useState(0)
+  const [localOverrideCard, setLocalOverrideCard] = React.useState<Flashcard | null>(null)
 
   // Undo state - stores the last reviewed card for potential re-rating
   const [lastReviewedCard, setLastReviewedCard] = React.useState<Flashcard | null>(null)
   const [showUndoButton, setShowUndoButton] = React.useState(false)
   const undoTimeoutRef = React.useRef<number | null>(null)
+  const autoRevealAnswerRef = React.useRef(false)
 
   // Auto-track answer time - stores the timestamp when answer was revealed
   const answerStartTimeRef = React.useRef<number | null>(null)
@@ -65,7 +70,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   const dueCountsQuery = useDueCountsQuery(reviewDeckId)
   const hasCardsQuery = useHasCardsQuery()
   const nextDueQuery = useNextDueQuery(reviewDeckId)
-  const activeCard = reviewOverrideCard ?? reviewQuery.data
+  const activeCard = localOverrideCard ?? reviewOverrideCard ?? reviewQuery.data
 
   // Get deck name for progress display
   const currentDeckName = React.useMemo(() => {
@@ -156,6 +161,9 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         if (reviewOverrideCard) {
           onClearOverride?.()
         }
+        if (localOverrideCard) {
+          setLocalOverrideCard(null)
+        }
 
         // Enable undo for 10 seconds
         setLastReviewedCard(cardForUndo)
@@ -175,33 +183,37 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
         message.error(errorMessage)
       }
     },
-    [activeCard, reviewMutation, message, t, reviewOverrideCard, onClearOverride]
+    [activeCard, reviewMutation, message, t, reviewOverrideCard, onClearOverride, localOverrideCard]
   )
 
   // Handle undo - re-present the last reviewed card
   const handleUndoReview = React.useCallback(() => {
-    if (!lastReviewedCard) return
+    const undoState = buildReviewUndoState(lastReviewedCard, reviewedCount)
+    if (!undoState) return
 
     // Clear the undo state
     if (undoTimeoutRef.current) {
       window.clearTimeout(undoTimeoutRef.current)
     }
     setShowUndoButton(false)
-    setReviewedCount((c) => Math.max(0, c - 1))
+    setReviewedCount(undoState.nextReviewedCount)
 
-    // Show the answer again for re-rating
-    setShowAnswer(true)
-    answerStartTimeRef.current = Date.now()
+    const shouldRevealOnCurrent = activeCard?.uuid === undoState.overrideCard.uuid
+    if (shouldRevealOnCurrent) {
+      autoRevealAnswerRef.current = false
+      setShowAnswer(true)
+      answerStartTimeRef.current = Date.now()
+    } else {
+      autoRevealAnswerRef.current = true
+    }
+    setLocalOverrideCard(undoState.overrideCard)
 
-    // Use the override mechanism to present this card again
-    // This is a workaround since we can't truly revert the backend state
-    // But it allows the user to re-rate the card
     message.info(
       t("option:flashcards.undoReviewHint", {
         defaultValue: "Rate this card again to update your response"
       })
     )
-  }, [lastReviewedCard, message, t])
+  }, [activeCard?.uuid, lastReviewedCard, reviewedCount, message, t])
 
   // Cleanup timeout on unmount
   React.useEffect(() => {
@@ -213,6 +225,12 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   }, [])
 
   React.useEffect(() => {
+    if (autoRevealAnswerRef.current) {
+      autoRevealAnswerRef.current = false
+      setShowAnswer(true)
+      answerStartTimeRef.current = Date.now()
+      return
+    }
     setShowAnswer(false)
     answerStartTimeRef.current = null
   }, [activeCard?.uuid])
@@ -226,11 +244,21 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   // Reset reviewed count when deck changes
   React.useEffect(() => {
     setReviewedCount(0)
+    setLocalOverrideCard(null)
+    setShowUndoButton(false)
+    setLastReviewedCard(null)
+    autoRevealAnswerRef.current = false
   }, [reviewDeckId])
+
+  React.useEffect(() => {
+    if (reviewOverrideCard) {
+      setLocalOverrideCard(null)
+    }
+  }, [reviewOverrideCard?.uuid])
 
   // Keyboard shortcuts for review
   useFlashcardShortcuts({
-    enabled: !!activeCard,
+    enabled: isActive && !!activeCard,
     showingAnswer: showAnswer,
     onFlip: handleShowAnswer,
     onRate: onSubmitReview
@@ -376,7 +404,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                       })}
                     </Text>
 
-                    {/* Undo button - appears briefly after rating */}
+                    {/* Re-rate button - appears briefly after rating */}
                     {showUndoButton && lastReviewedCard && (
                       <div className="mt-3 pt-3 border-t border-border">
                         <Button
@@ -387,7 +415,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                           className="text-text-muted hover:text-text"
                         >
                           {t("option:flashcards.undoRating", {
-                            defaultValue: "Undo rating"
+                            defaultValue: "Re-rate last card"
                           })}
                         </Button>
                       </div>

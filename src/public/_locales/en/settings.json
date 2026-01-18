@@ -3559,5 +3559,104 @@
   },
   "chunkingPlayground_capabilities_notesLabel": {
     "message": "Notes"
+  },
+  "evaluations_noMetrics": {
+    "message": "No metrics available"
+  },
+  "evaluations_tabEvaluations": {
+    "message": "Evaluations"
+  },
+  "evaluations_tabRuns": {
+    "message": "Runs"
+  },
+  "evaluations_tabDatasets": {
+    "message": "Datasets"
+  },
+  "evaluations_tabWebhooks": {
+    "message": "Webhooks"
+  },
+  "evaluations_tabHistory": {
+    "message": "History"
+  },
+  "evaluations_betaNotice": {
+    "message": "Beta Feature"
+  },
+  "evaluations_betaDescription": {
+    "message": "Evaluations is currently in beta. Some features may be incomplete or change."
+  },
+  "evaluations_pollingIndicator": {
+    "message": "Auto-refreshing"
+  },
+  "evaluations_advancedOptions": {
+    "message": "Advanced options"
+  },
+  "evaluations_idempotencyKeyTooltip": {
+    "message": "Prevents duplicate creation if the browser retries the request. Use a unique key per creation attempt."
+  },
+  "evaluations_idempotencyKeyPlaceholder": {
+    "message": "Prevents duplicate create on retry"
+  },
+  "evaluations_evalTypesHint": {
+    "message": "Supported: model_graded, response_quality, rag, rag_pipeline, geval, exact_match, includes, fuzzy_match, proposition_extraction, qa3, label_choice, nli_factcheck, ocr."
+  },
+  "evaluations_runPollingHint": {
+    "message": "Runs execute asynchronously. The UI polls every ~3s until status leaves running/pending."
+  },
+  "evaluations_selectEvaluation": {
+    "message": "Select evaluation"
+  },
+  "evaluations_selectEvaluationPlaceholder": {
+    "message": "Choose an evaluation to run"
+  },
+  "evaluations_adhocTitle": {
+    "message": "Ad-hoc evaluator"
+  },
+  "evaluations_deleteDatasetConfirmTitle": {
+    "message": "Delete this dataset?"
+  },
+  "evaluations_deleteDatasetConfirmDescription": {
+    "message": "This will permanently remove the dataset. Evaluations using it will need a new dataset."
+  },
+  "evaluations_deleteWebhookConfirmTitle": {
+    "message": "Delete this webhook?"
+  },
+  "evaluations_deleteWebhookConfirmDescription": {
+    "message": "This will stop sending events to this URL. You can re-register it later."
+  },
+  "evaluations_webhookEventsPlaceholder": {
+    "message": "Select events to receive"
+  },
+  "evaluations_webhookInfoTitle": {
+    "message": "About webhooks"
+  },
+  "evaluations_webhookInfoItem1": {
+    "message": "Webhooks receive POST requests when evaluation events occur."
+  },
+  "evaluations_webhookInfoItem2": {
+    "message": "Use the secret to verify webhook signatures and prevent spoofing."
+  },
+  "evaluations_webhookInfoItem3": {
+    "message": "Events include: started, completed, failed, cancelled, and progress updates."
+  },
+  "evaluations_historyTypePlaceholder": {
+    "message": "Filter by event type"
+  },
+  "evaluations_historyResultsCount": {
+    "message": "{{count}} results"
+  },
+  "evaluations_datasetSampleCountLabel": {
+    "message": "Samples"
+  },
+  "evaluations_samplesPreviewLabel": {
+    "message": "Samples preview"
+  },
+  "evaluations_noSamplesPreview": {
+    "message": "No samples to preview"
+  },
+  "evaluations_noEvalSelectedTitle": {
+    "message": "Select an evaluation first"
+  },
+  "evaluations_createDatasetModalTitle": {
+    "message": "New dataset"
   }
 }

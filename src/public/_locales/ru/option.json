@@ -1819,5 +1819,239 @@
   },
   "quickIngest_addFiles": {
     "message": "Browse files"
+  },
+  "flashcards_cards": {
+    "message": "Cards"
+  },
+  "flashcards_offlineTitle": {
+    "message": "Flashcards API not available on this server"
+  },
+  "flashcards_offlineDescription": {
+    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+  },
+  "flashcards_offlineExample1": {
+    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+  },
+  "flashcards_offlineExample2": {
+    "message": "After upgrading, reload the extension and return to Flashcards."
+  },
+  "flashcards_shortcutFlip": {
+    "message": "Press Space to flip"
+  },
+  "flashcards_shortcutRate": {
+    "message": "Press 1-4 to rate"
+  },
+  "flashcards_noCardsYet": {
+    "message": "No flashcards yet"
+  },
+  "flashcards_allCaughtUp": {
+    "message": "You're all caught up!"
+  },
+  "flashcards_allCaughtUpDescription": {
+    "message": "No cards are due for review. Great job!"
+  },
+  "flashcards_reviewedToday": {
+    "message": "{{count}} cards reviewed this session"
+  },
+  "flashcards_createFirstCard": {
+    "message": "Create a flashcard"
+  },
+  "flashcards_createMoreCards": {
+    "message": "Create more cards"
+  },
+  "flashcards_templateBasic": {
+    "message": "Basic (Question - Answer)"
+  },
+  "flashcards_templateReverse": {
+    "message": "Basic + Reverse (Both directions)"
+  },
+  "flashcards_templateCloze": {
+    "message": "Cloze (Fill in the blank)"
+  },
+  "flashcards_filterByTag": {
+    "message": "Filter by tag"
+  },
+  "flashcards_tagPlaceholder": {
+    "message": "Enter tag..."
+  },
+  "flashcards_dueSoon": {
+    "message": "Due now"
+  },
+  "flashcards_compactView": {
+    "message": "Compact view"
+  },
+  "flashcards_expandedView": {
+    "message": "Expanded view"
+  },
+  "flashcards_moreFilters": {
+    "message": "More"
+  },
+  "flashcards_export": {
+    "message": "Export"
+  },
+  "flashcards_reviewCard": {
+    "message": "Review now"
+  },
+  "flashcards_moveToDeck": {
+    "message": "Move to deck"
+  },
+  "flashcards_loadCardFailed": {
+    "message": "Failed to load card"
+  },
+  "flashcards_duplicateFailed": {
+    "message": "Duplicate failed"
+  },
+  "flashcards_moveFailed": {
+    "message": "Move failed"
+  },
+  "flashcards_bulkMoveSelectDeck": {
+    "message": "Select a target deck before moving cards."
+  },
+  "flashcards_bulkProgressTitle": {
+    "message": "Processing"
+  },
+  "flashcards_bulkProgressPleaseWait": {
+    "message": "Please wait..."
+  },
+  "flashcards_bulkProgressDeleting": {
+    "message": "Deleting cards"
+  },
+  "flashcards_bulkDeleteConfirm": {
+    "message": "Delete {{count}} selected cards? This cannot be undone."
+  },
+  "flashcards_bulkDeleteLargeTitle": {
+    "message": "Delete {{count}} cards?"
+  },
+  "flashcards_bulkDeleteLargeWarning": {
+    "message": "You are about to delete a large number of cards."
+  },
+  "flashcards_bulkDeleteLargeContent": {
+    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+  },
+  "flashcards_typeDeleteToConfirm": {
+    "message": "Type DELETE to confirm:"
+  },
+  "flashcards_selectedAcrossAll": {
+    "message": "selected across all results"
+  },
+  "flashcards_selectedOnPage": {
+    "message": "selected on this page"
+  },
+  "flashcards_selected": {
+    "message": "selected"
+  },
+  "flashcards_selectAllCount": {
+    "message": "Select all {{count}}"
+  },
+  "flashcards_clear": {
+    "message": "Clear"
+  },
+  "flashcards_createCard": {
+    "message": "Create Flashcard"
+  },
+  "flashcards_createDescriptionSimple": {
+    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+  },
+  "flashcards_showPreview": {
+    "message": "Show preview"
+  },
+  "flashcards_hidePreview": {
+    "message": "Hide preview"
+  },
+  "flashcards_markdownHint": {
+    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+  },
+  "flashcards_advancedOptions": {
+    "message": "Advanced options (tags, extra, notes)"
+  },
+  "flashcards_cardDeleted": {
+    "message": "Card deleted"
+  },
+  "flashcards_deleteUndoHint": {
+    "message": "Undo within {{seconds}}s to cancel deletion."
+  },
+  "flashcards_cardsDeleted": {
+    "message": "{{count}} cards deleted"
+  },
+  "flashcards_nextDueAt": {
+    "message": "Next review: {{time}}"
+  },
+  "flashcards_nextDueCardCount": {
+    "message": "{{count}} cards due"
+  },
+  "flashcards_keyboardShortcutsTitle": {
+    "message": "Keyboard Shortcuts"
+  },
+  "flashcards_keyboardShortcutsHelp": {
+    "message": "Press ? to show shortcuts"
+  },
+  "flashcards_shortcutSpace": {
+    "message": "Flip card"
+  },
+  "flashcards_shortcutRateKeys": {
+    "message": "Rate card"
+  },
+  "flashcards_shortcutJK": {
+    "message": "Navigate cards"
+  },
+  "flashcards_shortcutEnter": {
+    "message": "Edit card"
+  },
+  "flashcards_shortcutDelete": {
+    "message": "Delete card"
+  },
+  "flashcards_modelTypeBasic": {
+    "message": "Standard"
+  },
+  "flashcards_modelTypeBasicReverse": {
+    "message": "Reversible"
+  },
+  "flashcards_modelTypeCloze": {
+    "message": "Fill-in-blank"
+  },
+  "flashcards_unsavedChangesTitle": {
+    "message": "Unsaved changes"
+  },
+  "flashcards_unsavedChangesDescription": {
+    "message": "You have unsaved changes. Are you sure you want to close?"
+  },
+  "flashcards_cardsRemaining": {
+    "message": "cards remaining"
+  },
+  "flashcards_reviewed": {
+    "message": "reviewed"
+  },
+  "flashcards_minutesLeft": {
+    "message": "min left"
+  },
+  "flashcards_progressStatus": {
+    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+  },
+  "flashcards_undoRating": {
+    "message": "Re-rate last card"
+  },
+  "flashcards_undoReviewHint": {
+    "message": "Rate this card again to update your response"
+  },
+  "flashcards_shortcutDown": {
+    "message": "Move down"
+  },
+  "flashcards_shortcutUp": {
+    "message": "Move up"
+  },
+  "flashcards_shortcutSelectCard": {
+    "message": "Select card"
+  },
+  "flashcards_shortcutEsc": {
+    "message": "Clear focus"
+  },
+  "flashcards_shortcutHelp": {
+    "message": "Show shortcuts"
+  },
+  "flashcards_global": {
+    "message": "Global"
+  },
+  "flashcards_reverseCard": {
+    "message": "reverse"
   }
 }

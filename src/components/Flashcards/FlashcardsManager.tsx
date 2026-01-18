@@ -89,6 +89,7 @@ export const FlashcardsManager: React.FC = () => {
                 onReviewDeckChange={setReviewDeckId}
                 reviewOverrideCard={reviewOverrideCard}
                 onClearOverride={() => setReviewOverrideCard(null)}
+                isActive={activeTab === "review"}
               />
             )
           },
@@ -99,6 +100,7 @@ export const FlashcardsManager: React.FC = () => {
               <ManageTab
                 onNavigateToImport={() => setActiveTab("importExport")}
                 onReviewCard={handleReviewCard}
+                isActive={activeTab === "cards"}
               />
             )
           },

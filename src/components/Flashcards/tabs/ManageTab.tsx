@@ -50,6 +50,7 @@ const BULK_MUTATION_CHUNK_SIZE = 50
 interface ManageTabProps {
   onNavigateToImport: () => void
   onReviewCard: (card: Flashcard) => void
+  isActive: boolean
 }
 
 /**
@@ -58,7 +59,8 @@ interface ManageTabProps {
  */
 export const ManageTab: React.FC<ManageTabProps> = ({
   onNavigateToImport,
-  onReviewCard
+  onReviewCard,
+  isActive
 }) => {
   const { t } = useTranslation(["option", "common"])
   const qc = useQueryClient()
@@ -486,7 +488,7 @@ export const ManageTab: React.FC<ManageTabProps> = ({
 
   // Keyboard navigation for Cards tab
   useCardsKeyboardNav({
-    enabled: !editOpen && !createOpen && !moveOpen,
+    enabled: isActive && !editOpen && !createOpen && !moveOpen,
     itemCount: pageCount,
     focusedIndex,
     onFocusChange: setFocusedIndex,
@@ -540,9 +542,16 @@ export const ManageTab: React.FC<ManageTabProps> = ({
       setPendingDeletions((prev) => new Set([...prev, cardToDelete.uuid]))
 
       // Show undo notification with 30 second timeout
+      const preview = cardToDelete.front.slice(0, 60)
+      const undoHint = t("option:flashcards.deleteUndoHint", {
+        defaultValue: "Undo within {{seconds}}s to cancel deletion.",
+        seconds: 30
+      })
       showUndoNotification({
         title: t("option:flashcards.cardDeleted", { defaultValue: "Card deleted" }),
-        description: cardToDelete.front.slice(0, 60) + (cardToDelete.front.length > 60 ? "…" : ""),
+        description: preview
+          ? `${preview}${cardToDelete.front.length > 60 ? "…" : ""} · ${undoHint}`
+          : undoHint,
         duration: 30,
         onUndo: async () => {
           // Restore - just remove from pending deletions

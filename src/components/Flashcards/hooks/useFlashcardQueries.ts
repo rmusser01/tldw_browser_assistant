@@ -322,42 +322,56 @@ export function useNextDueQuery(deckId?: number | null, options?: UseFlashcardQu
   return useQuery({
     queryKey: ["flashcards:next-due", deckId],
     queryFn: async () => {
-      // Get all cards that are not currently due, ordered by due date
-      const res = await listFlashcards({
-        deck_id: deckId ?? undefined,
-        due_status: "all",
-        order_by: "due_at",
-        limit: 100,
-        offset: 0
-      })
+      const PAGE_SIZE = 200
+      const oneHour = 60 * 60 * 1000
+      const nowMs = Date.now()
 
-      const now = new Date()
-      // Find the first card that's due in the future
-      const futureCards = (res.items || []).filter(
-        (card) => card.due_at && new Date(card.due_at) > now
-      )
+      let offset = 0
+      let nextDueAt: string | null = null
+      let nextDueMs = 0
+      let cardsDue = 0
 
-      if (futureCards.length === 0) {
-        return null
+      while (true) {
+        const res = await listFlashcards({
+          deck_id: deckId ?? undefined,
+          due_status: "all",
+          order_by: "due_at",
+          limit: PAGE_SIZE,
+          offset
+        })
+        const items = res.items || []
+        if (items.length === 0) break
+
+        for (const card of items) {
+          if (!card.due_at) continue
+          const dueMs = new Date(card.due_at).getTime()
+          if (Number.isNaN(dueMs)) continue
+
+          if (!nextDueAt) {
+            if (dueMs > nowMs) {
+              nextDueAt = card.due_at
+              nextDueMs = dueMs
+              cardsDue = 1
+            }
+            continue
+          }
+
+          if (dueMs <= nextDueMs + oneHour) {
+            cardsDue += 1
+          } else {
+            return { nextDueAt, cardsDue }
+          }
+        }
+
+        if (items.length < PAGE_SIZE) break
+        offset += PAGE_SIZE
       }
 
-      // Sort by due date and get the earliest
-      futureCards.sort((a, b) =>
-        new Date(a.due_at!).getTime() - new Date(b.due_at!).getTime()
-      )
-
-      const nextCard = futureCards[0]
-      const nextDueDate = new Date(nextCard.due_at!)
-
-      // Count how many cards are due at roughly the same time (within 1 hour)
-      const oneHour = 60 * 60 * 1000
-      const cardsAtSameTime = futureCards.filter(
-        (card) => Math.abs(new Date(card.due_at!).getTime() - nextDueDate.getTime()) < oneHour
-      ).length
+      if (!nextDueAt) return null
 
       return {
-        nextDueAt: nextCard.due_at,
-        cardsDue: cardsAtSameTime
+        nextDueAt,
+        cardsDue
       }
     },
     enabled: options?.enabled ?? flashcardsEnabled

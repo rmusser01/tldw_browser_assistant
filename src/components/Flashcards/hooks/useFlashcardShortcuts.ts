@@ -7,6 +7,36 @@ const RATING_MAP: Record<string, number> = {
   "4": 5 // Easy
 }
 
+type FlashcardShortcutAction =
+  | { type: "flip" }
+  | { type: "rate"; rating: number }
+
+export type FlashcardShortcutResult = {
+  preventDefault: boolean
+  action?: FlashcardShortcutAction
+}
+
+export function getFlashcardShortcutResult(
+  key: string,
+  showingAnswer: boolean
+): FlashcardShortcutResult | null {
+  if (key === " ") {
+    return {
+      preventDefault: true,
+      action: showingAnswer ? undefined : { type: "flip" }
+    }
+  }
+
+  if (showingAnswer && key in RATING_MAP) {
+    return {
+      preventDefault: true,
+      action: { type: "rate", rating: RATING_MAP[key] }
+    }
+  }
+
+  return null
+}
+
 interface FlashcardShortcutsOptions {
   /** Whether shortcuts are enabled */
   enabled?: boolean
@@ -46,22 +76,17 @@ export function useFlashcardShortcuts({
         return
       }
 
-      // Space to flip
-      if (e.key === " ") {
+      const result = getFlashcardShortcutResult(e.key, showingAnswer)
+      if (!result) return
+      if (result.preventDefault) {
         e.preventDefault()
-        if (!showingAnswer) {
-          onFlip()
-        }
+      }
+      if (!result.action) return
+      if (result.action.type === "flip") {
+        onFlip()
         return
       }
-
-      // Number keys for rating (only when answer is shown)
-      if (showingAnswer) {
-        if (e.key in RATING_MAP) {
-          e.preventDefault()
-          onRate(RATING_MAP[e.key])
-        }
-      }
+      onRate(result.action.rating)
     },
     [showingAnswer, onFlip, onRate]
   )
