@@ -313,7 +313,10 @@ export const RunsTab: React.FC = () => {
                                 setDatasetOverrideText(v)
                                 runForm.setFieldsValue({ datasetOverrideJson: v })
                               }}
-                              placeholder='[{"input": {...}, "expected": {...}}]'
+                              placeholder={t("evaluations:datasetOverridePlaceholder", {
+                                defaultValue:
+                                  '[{\"input\": {\"question\": \"Q1\"}, \"expected\": {\"answer\": \"A\"}}]'
+                              })}
                             />
                           </Form.Item>
                           <Form.Item
@@ -322,7 +325,11 @@ export const RunsTab: React.FC = () => {
                             })}
                             name="webhookUrl"
                           >
-                            <Input placeholder="https://example.com/hook" />
+                            <Input
+                              placeholder={t("evaluations:webhookUrlPlaceholder", {
+                                defaultValue: "https://example.com/hook"
+                              })}
+                            />
                           </Form.Item>
                           <Form.Item
                             label={
@@ -431,7 +438,12 @@ export const RunsTab: React.FC = () => {
                     >
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium">Run {run.id}</span>
+                          <span className="font-medium">
+                            {t("evaluations:runLabel", {
+                              defaultValue: "Run {{id}}",
+                              id: run.id
+                            })}
+                          </span>
                           <CopyButton text={run.id} />
                         </div>
                         {run.status && <StatusBadge status={run.status} />}
@@ -681,7 +693,10 @@ export const RunsTab: React.FC = () => {
               onChange={(value) => setCompareRunAId(value)}
               options={runs.map((run) => ({
                 value: run.id,
-                label: `Run ${run.id}`
+                label: t("evaluations:runLabel", {
+                  defaultValue: "Run {{id}}",
+                  id: run.id
+                }) as string
               }))}
               allowClear
               style={{ minWidth: 160 }}
@@ -694,7 +709,10 @@ export const RunsTab: React.FC = () => {
               onChange={(value) => setCompareRunBId(value)}
               options={runs.map((run) => ({
                 value: run.id,
-                label: `Run ${run.id}`
+                label: t("evaluations:runLabel", {
+                  defaultValue: "Run {{id}}",
+                  id: run.id
+                }) as string
               }))}
               allowClear
               style={{ minWidth: 160 }}

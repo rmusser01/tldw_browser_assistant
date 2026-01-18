@@ -46,7 +46,7 @@ export function useDatasetDetail(
 }
 
 export function useCreateDataset() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
   const { closeCreateDataset, setInlineDatasetEnabled } = useEvaluationsStore(
@@ -73,10 +73,10 @@ export function useCreateDataset() {
         setInlineDatasetEnabled(false)
       }
       notification.success({
-        message: t("settings:evaluations.datasetCreateSuccessTitle", {
+        message: t("evaluations:datasetCreateSuccessTitle", {
           defaultValue: "Dataset created"
         }),
-        description: t("settings:evaluations.datasetCreateSuccessDescription", {
+        description: t("evaluations:datasetCreateSuccessDescription", {
           defaultValue: "Your dataset is ready to use in evaluations."
         })
       })
@@ -84,12 +84,12 @@ export function useCreateDataset() {
     onError: (error: any) => {
       const retryAfter = error?.resp?.retryAfterMs
       notification.error({
-        message: t("settings:evaluations.datasetCreateErrorTitle", {
+        message: t("evaluations:datasetCreateErrorTitle", {
           defaultValue: "Failed to create dataset"
         }),
         description:
           error?.message ||
-          t("settings:evaluations.datasetCreateErrorDescription", {
+          t("evaluations:datasetCreateErrorDescription", {
             defaultValue:
               "The server rejected this dataset. Check the fields and try again."
           }) +
@@ -102,7 +102,7 @@ export function useCreateDataset() {
 }
 
 export function useDeleteDataset() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
 
@@ -114,14 +114,14 @@ export function useDeleteDataset() {
         queryKey: ["evaluations", "datasets"]
       })
       notification.success({
-        message: t("settings:evaluations.datasetDeleteSuccessTitle", {
+        message: t("evaluations:datasetDeleteSuccessTitle", {
           defaultValue: "Dataset deleted"
         })
       })
     },
     onError: () => {
       notification.error({
-        message: t("settings:evaluations.datasetDeleteErrorTitle", {
+        message: t("evaluations:datasetDeleteErrorTitle", {
           defaultValue: "Failed to delete dataset"
         })
       })
@@ -130,7 +130,7 @@ export function useDeleteDataset() {
 }
 
 export function useLoadDatasetSamples() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const notification = useAntdNotification()
   const {
     setViewingDataset,
@@ -169,7 +169,7 @@ export function useLoadDatasetSamples() {
     },
     onError: (error: any) => {
       notification.error({
-        message: t("settings:evaluations.datasetLoadErrorTitle", {
+        message: t("evaluations:datasetLoadErrorTitle", {
           defaultValue: "Failed to load dataset"
         }),
         description: error?.message

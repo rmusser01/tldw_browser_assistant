@@ -6,7 +6,7 @@
  */
 
 import React, { useEffect } from "react"
-import { Alert, Empty, Tabs } from "antd"
+import { Alert, Tabs } from "antd"
 import type { TabsProps } from "antd"
 import { BarChart3, Database, History, Play, Webhook } from "lucide-react"
 import { useTranslation } from "react-i18next"
@@ -22,7 +22,7 @@ import { RunsTab } from "./tabs/RunsTab"
 import { WebhooksTab } from "./tabs/WebhooksTab"
 
 export const EvaluationsPage: React.FC = () => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const isOnline = useServerOnline()
@@ -78,7 +78,7 @@ export const EvaluationsPage: React.FC = () => {
       label: (
         <span className="flex items-center gap-2">
           <BarChart3 className="h-4 w-4" />
-          {t("settings:evaluations.tabEvaluations", "Evaluations")}
+          {t("evaluations:tabEvaluations", "Evaluations")}
         </span>
       ),
       children: <EvaluationsTab />
@@ -88,7 +88,7 @@ export const EvaluationsPage: React.FC = () => {
       label: (
         <span className="flex items-center gap-2">
           <Play className="h-4 w-4" />
-          {t("settings:evaluations.tabRuns", "Runs")}
+          {t("evaluations:tabRuns", "Runs")}
         </span>
       ),
       children: <RunsTab />
@@ -98,7 +98,7 @@ export const EvaluationsPage: React.FC = () => {
       label: (
         <span className="flex items-center gap-2">
           <Database className="h-4 w-4" />
-          {t("settings:evaluations.tabDatasets", "Datasets")}
+          {t("evaluations:tabDatasets", "Datasets")}
         </span>
       ),
       children: <DatasetsTab />
@@ -108,7 +108,7 @@ export const EvaluationsPage: React.FC = () => {
       label: (
         <span className="flex items-center gap-2">
           <Webhook className="h-4 w-4" />
-          {t("settings:evaluations.tabWebhooks", "Webhooks")}
+          {t("evaluations:tabWebhooks", "Webhooks")}
         </span>
       ),
       children: <WebhooksTab />
@@ -118,7 +118,7 @@ export const EvaluationsPage: React.FC = () => {
       label: (
         <span className="flex items-center gap-2">
           <History className="h-4 w-4" />
-          {t("settings:evaluations.tabHistory", "History")}
+          {t("evaluations:tabHistory", "History")}
         </span>
       ),
       children: <HistoryTab />
@@ -128,19 +128,19 @@ export const EvaluationsPage: React.FC = () => {
   if (!isOnline) {
     return (
       <ConnectFeatureBanner
-        title={t("settings:evaluations.emptyConnectTitle", {
+        title={t("evaluations:emptyConnectTitle", {
           defaultValue: "Connect to use Evaluations"
         })}
-        description={t("settings:evaluations.emptyConnectDescription", {
+        description={t("evaluations:emptyConnectDescription", {
           defaultValue:
             "To create and run evaluations, first connect to your tldw server."
         })}
         examples={[
-          t("settings:evaluations.emptyConnectExample1", {
+          t("evaluations:emptyConnectExample1", {
             defaultValue:
               "Open Settings → tldw server to add your server URL and API key."
           }),
-          t("settings:evaluations.emptyConnectExample2", {
+          t("evaluations:emptyConnectExample2", {
             defaultValue:
               "Once connected, you can define evaluations and inspect metrics here."
           })
@@ -153,20 +153,20 @@ export const EvaluationsPage: React.FC = () => {
     <PageShell className="py-6" maxWidthClassName="max-w-6xl">
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
-          {t("settings:evaluations.title", "Evaluations")}
+          {t("evaluations:title", "Evaluations")}
         </h1>
         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
           {t(
-            "settings:evaluations.subtitle",
+            "evaluations:subtitle",
             "Define evaluations against your tldw server and inspect recent runs."
           )}
         </p>
       </div>
 
       <Alert
-        message={t("settings:evaluations.betaNotice", "Beta Feature")}
+        message={t("evaluations:betaNotice", "Beta Feature")}
         description={t(
-          "settings:evaluations.betaDescription",
+          "evaluations:betaDescription",
           "Evaluations is currently in beta. Some features may be incomplete or change."
         )}
         type="info"

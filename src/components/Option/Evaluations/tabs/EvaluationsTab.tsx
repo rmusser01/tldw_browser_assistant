@@ -429,7 +429,7 @@ export const EvaluationsTab: React.FC = () => {
             )}
             <div>
               <Text type="secondary">
-                {t("evaluations:evalSpecLabel", {
+                {t("evaluations:evalSpecSnippetLabel", {
                   defaultValue: "Evaluation spec (snippet)"
                 })}
               </Text>
@@ -464,6 +464,7 @@ export const EvaluationsTab: React.FC = () => {
           key={`${createEvalOpen ? "open" : "closed"}-${editingEvalId || "new"}`}
           form={form}
           datasets={datasets}
+          datasetsLoading={datasetsLoading}
           evalDefaults={evalDefaults}
           editingEvalId={editingEvalId}
           evalSpecText={evalSpecText}

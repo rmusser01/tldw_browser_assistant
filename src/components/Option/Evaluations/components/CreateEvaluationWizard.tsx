@@ -31,6 +31,7 @@ interface DatasetOption {
 interface CreateEvaluationWizardProps {
   form: FormInstance
   datasets: DatasetOption[]
+  datasetsLoading?: boolean
   evalDefaults?: {
     defaultEvalType?: string
     defaultSpecByType?: Record<string, string>
@@ -45,7 +46,7 @@ interface CreateEvaluationWizardProps {
   onSpecError: (error: string | null) => void
   onInlineDatasetEnabled: (enabled: boolean) => void
   onInlineDatasetText: (text: string) => void
-  onRegenerateIdempotencyKey: () => void
+  onRegenerateIdempotencyKey: () => string
   onCancel: () => void
   onSubmit: () => void
   submitting?: boolean
@@ -54,6 +55,7 @@ interface CreateEvaluationWizardProps {
 export const CreateEvaluationWizard: React.FC<CreateEvaluationWizardProps> = ({
   form,
   datasets,
+  datasetsLoading,
   evalDefaults,
   editingEvalId,
   evalSpecText,
@@ -257,12 +259,8 @@ export const CreateEvaluationWizard: React.FC<CreateEvaluationWizardProps> = ({
                             <Button
                               size="small"
                               onClick={() => {
-                                onRegenerateIdempotencyKey()
-                                form.setFieldsValue({
-                                  idempotencyKey:
-                                    (form.getFieldValue("idempotencyKey") as string) ||
-                                    evalIdempotencyKey
-                                })
+                                const nextKey = onRegenerateIdempotencyKey()
+                                form.setFieldsValue({ idempotencyKey: nextKey })
                               }}
                             >
                               {t("common:regenerate", {
@@ -293,6 +291,7 @@ export const CreateEvaluationWizard: React.FC<CreateEvaluationWizardProps> = ({
                 placeholder={t("evaluations:datasetPlaceholder", {
                   defaultValue: "Select dataset"
                 })}
+                loading={datasetsLoading}
                 options={datasets.map((ds) => ({
                   value: ds.id,
                   label: ds.name || ds.id

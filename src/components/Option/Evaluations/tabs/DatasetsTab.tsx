@@ -81,6 +81,7 @@ export const DatasetsTab: React.FC = () => {
       if (values.samplesJson) {
         const { samples: parsed, error } = parseSamplesJson(values.samplesJson)
         if (error) {
+          form.setFields([{ name: "samplesJson", errors: [error] }])
           return
         }
         if (parsed) {
@@ -93,6 +94,16 @@ export const DatasetsTab: React.FC = () => {
         try {
           metadata = JSON.parse(values.metadataJson)
         } catch {
+          form.setFields([
+            {
+              name: "metadataJson",
+              errors: [
+                t("evaluations:invalidJsonError", {
+                  defaultValue: "Invalid JSON"
+                }) as string
+              ]
+            }
+          ])
           return
         }
       }

@@ -33,7 +33,7 @@ export function useWebhooksList(enabled = true) {
 }
 
 export function useRegisterWebhook() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
   const setWebhookSecretText = useEvaluationsStore((s) => s.setWebhookSecretText)
@@ -47,14 +47,14 @@ export function useRegisterWebhook() {
         queryKey: ["evaluations", "webhooks"]
       })
       notification.success({
-        message: t("settings:evaluations.webhookCreateSuccessTitle", {
+        message: t("evaluations:webhookCreateSuccessTitle", {
           defaultValue: "Webhook registered"
         })
       })
     },
     onError: (error: any) => {
       notification.error({
-        message: t("settings:evaluations.webhookCreateErrorTitle", {
+        message: t("evaluations:webhookCreateErrorTitle", {
           defaultValue: "Failed to register webhook"
         }),
         description: error?.message
@@ -64,7 +64,7 @@ export function useRegisterWebhook() {
 }
 
 export function useDeleteWebhook() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
 
@@ -81,7 +81,7 @@ export function useDeleteWebhook() {
     },
     onError: (error: any) => {
       notification.error({
-        message: t("settings:evaluations.webhookDeleteErrorTitle", {
+        message: t("evaluations:webhookDeleteErrorTitle", {
           defaultValue: "Failed to delete webhook"
         }),
         description: error?.message

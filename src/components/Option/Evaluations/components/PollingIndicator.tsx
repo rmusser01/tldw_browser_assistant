@@ -15,7 +15,7 @@ export const PollingIndicator: React.FC<PollingIndicatorProps> = ({
   isPolling,
   className = ""
 }) => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
 
   if (!isPolling) return null
 
@@ -25,7 +25,7 @@ export const PollingIndicator: React.FC<PollingIndicatorProps> = ({
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
         <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
       </span>
-      {t("settings:evaluations.pollingIndicator", {
+      {t("evaluations:pollingIndicator", {
         defaultValue: "Auto-refreshing"
       })}
     </span>

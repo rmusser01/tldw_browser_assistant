@@ -24,7 +24,7 @@ const ensureOk = <T,>(resp: any): T => {
 }
 
 export function useFetchHistory() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const notification = useAntdNotification()
   const setHistoryResults = useEvaluationsStore((s) => s.setHistoryResults)
 
@@ -42,7 +42,7 @@ export function useFetchHistory() {
     },
     onError: (error: any) => {
       notification.error({
-        message: t("settings:evaluations.historyErrorTitle", {
+        message: t("evaluations:historyErrorTitle", {
           defaultValue: "Failed to fetch history"
         }),
         description: error?.message

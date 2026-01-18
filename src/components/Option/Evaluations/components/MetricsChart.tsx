@@ -6,6 +6,7 @@
 import React from "react"
 import { Typography } from "antd"
 import { useTranslation } from "react-i18next"
+import { clamp01, formatMetricValue } from "../utils/metricsFormatter"
 
 const { Text } = Typography
 
@@ -33,12 +34,12 @@ export const MetricsChart: React.FC<MetricsChartProps> = ({
   className = "",
   showLabel = true
 }) => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
 
   if (!metrics || metrics.length === 0) {
     return (
       <Text type="secondary" className="text-xs">
-        {t("settings:evaluations.noMetrics", {
+        {t("evaluations:noMetrics", {
           defaultValue: "No metrics available"
         })}
       </Text>
@@ -49,13 +50,13 @@ export const MetricsChart: React.FC<MetricsChartProps> = ({
     <div className={`space-y-2 ${className}`}>
       {showLabel && (
         <Text type="secondary" className="text-xs">
-          {t("settings:evaluations.metricsLabel", { defaultValue: "Metrics" })}
+          {t("evaluations:metricsLabel", { defaultValue: "Metrics" })}
         </Text>
       )}
       <div className="space-y-1.5">
         {metrics.map((m) => {
           // Normalize value to 0-1 range for display (assuming most metrics are 0-1)
-          const displayValue = Math.min(Math.max(m.value, 0), 1)
+          const displayValue = clamp01(m.value)
           const widthPercent = displayValue * 100
 
           return (
@@ -73,9 +74,7 @@ export const MetricsChart: React.FC<MetricsChartProps> = ({
                 />
               </div>
               <span className="w-14 font-mono text-[11px] text-right">
-                {typeof m.value === "number" && m.value.toFixed
-                  ? m.value.toFixed(3)
-                  : m.value}
+                {typeof m.value === "number" ? formatMetricValue(m.value) : "—"}
               </span>
             </div>
           )

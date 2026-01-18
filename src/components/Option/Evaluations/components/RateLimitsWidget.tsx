@@ -33,7 +33,7 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
   compact = false,
   className = ""
 }) => {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
 
   const quotaText = useMemo(() => {
     if (!quotaSnapshot) return null
@@ -73,7 +73,7 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
       <Alert
         type="warning"
         showIcon
-        message={t("settings:evaluations.rateLimitsErrorTitle", {
+        message={t("evaluations:rateLimitsErrorTitle", {
           defaultValue: "Unable to fetch rate limits"
         })}
         className={className}
@@ -87,7 +87,7 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
       <Alert
         type="info"
         showIcon
-        message={t("settings:evaluations.rateLimitsTitle", {
+        message={t("evaluations:rateLimitsTitle", {
           defaultValue: "Evaluation limits"
         })}
         description={quotaText}
@@ -99,7 +99,7 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
   if (!rateLimits) {
     return (
       <Text type="secondary" className={`text-xs ${className}`}>
-        {t("settings:evaluations.rateLimitsNoData", {
+        {t("evaluations:rateLimitsNoData", {
           defaultValue:
             "Rate limit information is not available for this server."
         })}
@@ -152,14 +152,14 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
     <div className={`space-y-2 text-xs ${className}`}>
       <div>
         <Text type="secondary">
-          {t("settings:evaluations.tierLabel", { defaultValue: "Tier" })}
+          {t("evaluations:tierLabel", { defaultValue: "Tier" })}
           {": "}
         </Text>
         <Text>{rateLimits.tier}</Text>
       </div>
       <div>
         <Text type="secondary">
-          {t("settings:evaluations.dailyLimitLabel", {
+          {t("evaluations:dailyLimitLabel", {
             defaultValue: "Daily evaluations"
           })}
           {": "}
@@ -175,7 +175,7 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
       </div>
       <div>
         <Text type="secondary">
-          {t("settings:evaluations.tokensTodayLabel", {
+          {t("evaluations:tokensTodayLabel", {
             defaultValue: "Tokens today"
           })}
           {": "}
@@ -191,7 +191,7 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
       </div>
       <div>
         <Text type="secondary">
-          {t("settings:evaluations.perMinuteLabel", {
+          {t("evaluations:perMinuteLabel", {
             defaultValue: "Per-minute limit"
           })}
           {": "}
@@ -200,7 +200,7 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
       </div>
       <div>
         <Text type="secondary">
-          {t("settings:evaluations.resetAtLabel", { defaultValue: "Resets at" })}
+          {t("evaluations:resetAtLabel", { defaultValue: "Resets at" })}
           {": "}
         </Text>
         <Text>{rateLimits.reset_at}</Text>

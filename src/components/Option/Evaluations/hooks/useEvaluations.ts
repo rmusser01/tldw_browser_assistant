@@ -84,7 +84,7 @@ export function useEvaluationDetail(evalId: string | null) {
 }
 
 export function useCreateEvaluation() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
   const setSelectedEvalId = useEvaluationsStore((s) => s.setSelectedEvalId)
@@ -108,7 +108,7 @@ export function useCreateEvaluation() {
         setSelectedEvalId(evalId)
       }
       notification.success({
-        message: t("settings:evaluations.createSuccessTitle", {
+        message: t("evaluations:createSuccessTitle", {
           defaultValue: "Evaluation created"
         })
       })
@@ -116,12 +116,12 @@ export function useCreateEvaluation() {
     onError: (error: any) => {
       const retryAfter = error?.resp?.retryAfterMs
       notification.error({
-        message: t("settings:evaluations.createErrorTitle", {
+        message: t("evaluations:createErrorTitle", {
           defaultValue: "Failed to create evaluation"
         }),
         description:
           error?.message ||
-          t("settings:evaluations.createErrorDescription", {
+          t("evaluations:createErrorDescription", {
             defaultValue:
               "The server rejected this evaluation. Ensure name, type, and spec are valid."
           }) +
@@ -134,7 +134,7 @@ export function useCreateEvaluation() {
 }
 
 export function useUpdateEvaluation() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
   const selectedEvalId = useEvaluationsStore((s) => s.selectedEvalId)
@@ -154,14 +154,14 @@ export function useUpdateEvaluation() {
         })
       }
       notification.success({
-        message: t("settings:evaluations.updateSuccessTitle", {
+        message: t("evaluations:updateSuccessTitle", {
           defaultValue: "Evaluation updated"
         })
       })
     },
     onError: (error: any) => {
       notification.error({
-        message: t("settings:evaluations.updateErrorTitle", {
+        message: t("evaluations:updateErrorTitle", {
           defaultValue: "Failed to update evaluation"
         }),
         description: error?.message
@@ -171,7 +171,7 @@ export function useUpdateEvaluation() {
 }
 
 export function useDeleteEvaluation() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
   const { selectedEvalId, setSelectedEvalId, setSelectedRunId, setEditingEvalId } =
@@ -200,7 +200,7 @@ export function useDeleteEvaluation() {
     },
     onError: (error: any) => {
       notification.error({
-        message: t("settings:evaluations.deleteErrorTitle", {
+        message: t("evaluations:deleteErrorTitle", {
           defaultValue: "Failed to delete evaluation"
         }),
         description: error?.message

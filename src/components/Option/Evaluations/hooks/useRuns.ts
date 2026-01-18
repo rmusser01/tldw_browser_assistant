@@ -19,6 +19,7 @@ import {
   type EvaluationRunDetail
 } from "@/services/evaluations"
 import { useEvaluationsStore } from "@/store/evaluations"
+import { metricsFromResults } from "../utils/metricsFormatter"
 
 // Helper to ensure API responses are ok
 const ensureOk = <T,>(resp: any): T => {
@@ -73,27 +74,7 @@ export const parseQuotaSnapshot = (
 export const extractMetricsSummary = (
   results: any
 ): { key: string; value: number }[] => {
-  if (!results) return []
-  const list: { key: string; value: number }[] = []
-  const candidate =
-    results?.metrics && typeof results.metrics === "object"
-      ? results.metrics
-      : results
-
-  const walk = (obj: any, prefix = "") => {
-    if (!obj || typeof obj !== "object" || Array.isArray(obj)) return
-    for (const [k, v] of Object.entries(obj)) {
-      const name = prefix ? `${prefix}.${k}` : k
-      if (typeof v === "number" && Number.isFinite(v)) {
-        list.push({ key: name, value: v })
-      } else if (v && typeof v === "object" && list.length < 20) {
-        walk(v, name)
-      }
-    }
-  }
-
-  walk(candidate)
-  return list.slice(0, 20)
+  return metricsFromResults(results, 20)
 }
 
 export function useRateLimits() {
@@ -165,7 +146,7 @@ export function useRunDetail(
 }
 
 export function useCreateRun() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
   const selectedEvalId = useEvaluationsStore((s) => s.selectedEvalId)
@@ -194,10 +175,10 @@ export function useCreateRun() {
         })
       }
       notification.success({
-        message: t("settings:evaluations.runCreateSuccessTitle", {
+        message: t("evaluations:runCreateSuccessTitle", {
           defaultValue: "Run started"
         }),
-        description: t("settings:evaluations.runCreateSuccessDescription", {
+        description: t("evaluations:runCreateSuccessDescription", {
           defaultValue:
             "Your evaluation run has started. You can monitor it from the server UI."
         })
@@ -206,12 +187,12 @@ export function useCreateRun() {
     onError: (error: any) => {
       const retryAfter = error?.resp?.retryAfterMs
       notification.error({
-        message: t("settings:evaluations.runCreateErrorTitle", {
+        message: t("evaluations:runCreateErrorTitle", {
           defaultValue: "Failed to start run"
         }),
         description:
           error?.message ||
-          t("settings:evaluations.runCreateErrorDescription", {
+          t("evaluations:runCreateErrorDescription", {
             defaultValue:
               "The server rejected this run request. Check the model and try again."
           }) +
@@ -224,7 +205,7 @@ export function useCreateRun() {
 }
 
 export function useCancelRun() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const queryClient = useQueryClient()
   const notification = useAntdNotification()
   const selectedEvalId = useEvaluationsStore((s) => s.selectedEvalId)
@@ -234,7 +215,7 @@ export function useCancelRun() {
     mutationFn: async (runId: string) => ensureOk(await cancelRun(runId)),
     onSuccess: () => {
       notification.success({
-        message: t("settings:evaluations.runCancelSuccessTitle", {
+        message: t("evaluations:runCancelSuccessTitle", {
           defaultValue: "Run cancellation requested"
         })
       })
@@ -251,7 +232,7 @@ export function useCancelRun() {
     },
     onError: (error: any) => {
       notification.error({
-        message: t("settings:evaluations.runCancelErrorTitle", {
+        message: t("evaluations:runCancelErrorTitle", {
           defaultValue: "Failed to cancel run"
         }),
         description: error?.message
@@ -261,7 +242,7 @@ export function useCancelRun() {
 }
 
 export function useAdhocEvaluation() {
-  const { t } = useTranslation(["settings", "common"])
+  const { t } = useTranslation(["evaluations", "common"])
   const notification = useAntdNotification()
   const setAdhocResult = useEvaluationsStore((s) => s.setAdhocResult)
 
@@ -273,10 +254,10 @@ export function useAdhocEvaluation() {
     onSuccess: (resp: any) => {
       setAdhocResult(resp?.data || resp)
       notification.success({
-        message: t("settings:evaluations.runCreateSuccessTitle", {
+        message: t("evaluations:runCreateSuccessTitle", {
           defaultValue: "Run started"
         }),
-        description: t("settings:evaluations.runCreateSuccessDescription", {
+        description: t("evaluations:runCreateSuccessDescription", {
           defaultValue:
             "Your evaluation run has started. You can monitor it from the server UI."
         })
@@ -284,7 +265,7 @@ export function useAdhocEvaluation() {
     },
     onError: (error: any) => {
       notification.error({
-        message: t("settings:evaluations.createErrorTitle", {
+        message: t("evaluations:createErrorTitle", {
           defaultValue: "Failed to create evaluation"
         }),
         description: error?.message
