@@ -1,5 +1,10 @@
 import { DataTablesPage } from "@/components/Option/DataTables"
+import OptionLayout from "@/components/Layouts/Layout"
 
 export default function OptionDataTables() {
-  return <DataTablesPage />
+  return (
+    <OptionLayout>
+      <DataTablesPage />
+    </OptionLayout>
+  )
 }
