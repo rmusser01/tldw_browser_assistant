@@ -5,30 +5,63 @@ import { launchWithExtension } from "./utils/extension"
 
 test.describe("Collections playground", () => {
   test("supports reading list, highlights, templates, and imports", async () => {
-    const extPath = path.resolve("build/chrome-mv3")
-    const { context, page, optionsUrl } = await launchWithExtension(extPath, {
-      seedConfig: {
-        __tldw_first_run_complete: true,
-        __tldw_allow_offline: true
+    const log = (message: string, data?: unknown) => {
+      const suffix =
+        data === undefined ? "" : ` ${typeof data === "string" ? data : JSON.stringify(data)}`
+      console.log(`[collections.e2e] ${new Date().toISOString()} ${message}${suffix}`)
+    }
+    const logStep = async <T>(label: string, fn: () => Promise<T>): Promise<T> => {
+      log(`START ${label}`)
+      try {
+        const result = await fn()
+        log(`END ${label}`)
+        return result
+      } catch (error) {
+        log(`ERROR ${label}`, {
+          message: error instanceof Error ? error.message : String(error)
+        })
+        throw error
       }
-    })
+    }
 
-    await context.addInitScript(() => {
+    const extPath = path.resolve("build/chrome-mv3")
+    log("launching extension", { extPath })
+    const { context, page: basePage, optionsUrl } = await logStep("launchWithExtension", () =>
+      launchWithExtension(extPath, {
+        seedConfig: {
+          __tldw_first_run_complete: true,
+          __tldw_allow_offline: true,
+          tldwConfig: {
+            serverUrl: "http://127.0.0.1:8000",
+            authMode: "single-user",
+            apiKey: "test-key"
+          }
+        }
+      })
+    )
+    log("extension launched", { optionsUrl })
+
+    await logStep("addInitScript", async () => {
+      await context.addInitScript(() => {
       const now = () => new Date().toISOString()
       let nextItemId = 1
       let nextHighlightId = 1
       let nextTemplateId = 1
+      let nextOutputId = 1
 
       const readingItems = []
       const highlights = []
       const templates = []
+      const outputs = new Map()
 
       const findItem = (id) => readingItems.find((item) => String(item.id) === String(id))
+      const findTemplate = (id) => templates.find((template) => String(template.id) === String(id))
 
       const handleRequest = (payload) => {
         const path = payload?.path || ""
         const method = String(payload?.method || "GET").toUpperCase()
         const body = payload?.body || null
+        const fields = payload?.fields || {}
         const [pathname, queryString] = path.split("?")
         const query = new URLSearchParams(queryString || "")
 
@@ -44,9 +77,8 @@ test.describe("Collections playground", () => {
           return {
             items: readingItems,
             total: readingItems.length,
-            page: 1,
-            page_size: 20,
-            pages: 1
+            page: Number(query.get("page") || 1),
+            size: Number(query.get("size") || 20)
           }
         }
 
@@ -61,35 +93,47 @@ test.describe("Collections playground", () => {
             }
           })()
           const item = {
-            id: String(nextItemId++),
+            id: nextItemId++,
             url,
-            title,
+            canonical_url: url,
             domain,
-            excerpt: `${title} excerpt`,
-            status: "saved",
-            is_favorite: false,
+            title,
+            summary: body?.summary || "",
+            notes: body?.notes || "",
+            status: body?.status || "saved",
+            favorite: Boolean(body?.favorite),
             tags: body?.tags || [],
             reading_time_minutes: 5,
             created_at: now(),
-            updated_at: now()
+            updated_at: now(),
+            published_at: now()
           }
           readingItems.unshift(item)
           return item
         }
 
-        if (pathname?.startsWith("/api/v1/reading/items/") && method === "GET") {
+        if (
+          pathname?.startsWith("/api/v1/reading/items/") &&
+          method === "GET" &&
+          pathname.split("/").length === 6
+        ) {
           const itemId = pathname.split("/").pop()
           const item = findItem(itemId)
           if (!item) return {}
           return {
             ...item,
-            content: `<p>${item.title} content</p>`,
+            text: `Full text for ${item.title}`,
+            clean_html: `<p>${item.title} content</p>`,
             notes: item.notes || "",
             summary: item.summary || ""
           }
         }
 
-        if (pathname?.startsWith("/api/v1/reading/items/") && method === "PUT") {
+        if (
+          pathname?.startsWith("/api/v1/reading/items/") &&
+          method === "PATCH" &&
+          pathname.split("/").length === 6
+        ) {
           const itemId = pathname.split("/").pop()
           const item = findItem(itemId)
           if (!item) return {}
@@ -98,53 +142,47 @@ test.describe("Collections playground", () => {
           return item
         }
 
-        if (pathname?.startsWith("/api/v1/reading/items/") && method === "DELETE") {
+        if (
+          pathname?.startsWith("/api/v1/reading/items/") &&
+          method === "DELETE" &&
+          pathname.split("/").length === 6
+        ) {
           const itemId = pathname.split("/").pop()
           const idx = readingItems.findIndex((item) => String(item.id) === String(itemId))
           if (idx >= 0) readingItems.splice(idx, 1)
-          return { ok: true }
+          return { status: "deleted", item_id: Number(itemId), hard: true }
         }
 
-        if (pathname === "/api/v1/reading/highlights" && method === "GET") {
-          const readingItemId = query.get("reading_item_id")
-          const color = query.get("color")
-          const filtered = highlights.filter((highlight) => {
-            if (readingItemId && String(highlight.reading_item_id) !== String(readingItemId)) {
-              return false
-            }
-            if (color && highlight.color !== color) {
-              return false
-            }
-            return true
-          })
-          return { highlights: filtered, total: filtered.length, page: 1, page_size: 20, pages: 1 }
+        if (pathname?.endsWith("/highlights") && pathname.includes("/api/v1/reading/items/") && method === "GET") {
+          const itemId = pathname.split("/")[5]
+          return highlights.filter((highlight) => String(highlight.item_id) === String(itemId))
         }
 
-        if (pathname === "/api/v1/reading/highlights" && method === "POST") {
-          const item = findItem(body?.reading_item_id)
+        if (pathname?.endsWith("/highlight") && pathname.includes("/api/v1/reading/items/") && method === "POST") {
+          const itemId = pathname.split("/")[5]
+          const item = findItem(itemId)
           const highlight = {
-            id: String(nextHighlightId++),
-            reading_item_id: body?.reading_item_id,
-            reading_item_title: item?.title || "Untitled",
+            id: nextHighlightId++,
+            item_id: Number(body?.item_id || itemId),
+            item_title: item?.title || "Untitled",
             quote: body?.quote || "",
             note: body?.note || "",
             color: body?.color || "yellow",
             state: "active",
-            anchoring_strategy: "fuzzy_quote",
-            created_at: now(),
-            updated_at: now()
+            anchor_strategy: body?.anchor_strategy || "fuzzy_quote",
+            created_at: now()
           }
           highlights.unshift(highlight)
           return highlight
         }
 
-        if (pathname?.startsWith("/api/v1/reading/highlights/") && method === "PUT") {
+        if (pathname?.startsWith("/api/v1/reading/highlights/") && method === "PATCH") {
           const highlightId = pathname.split("/").pop()
           const highlight = highlights.find((h) => String(h.id) === String(highlightId))
           if (!highlight) return {}
           if (body?.note !== undefined) highlight.note = body.note
           if (body?.color) highlight.color = body.color
-          highlight.updated_at = now()
+          if (body?.state) highlight.state = body.state
           return highlight
         }
 
@@ -152,20 +190,20 @@ test.describe("Collections playground", () => {
           const highlightId = pathname.split("/").pop()
           const idx = highlights.findIndex((h) => String(h.id) === String(highlightId))
           if (idx >= 0) highlights.splice(idx, 1)
-          return { ok: true }
+          return { success: true }
         }
 
         if (pathname === "/api/v1/outputs/templates" && method === "GET") {
-          return { templates, total: templates.length, page: 1, page_size: 20, pages: 1 }
+          return { items: templates, total: templates.length }
         }
 
         if (pathname === "/api/v1/outputs/templates" && method === "POST") {
           const template = {
-            id: String(nextTemplateId++),
+            id: nextTemplateId++,
             name: body?.name || "Template",
             description: body?.description || "",
-            template_type: body?.template_type || "newsletter_markdown",
-            format: body?.format || "markdown",
+            type: body?.type || "newsletter_markdown",
+            format: body?.format || "md",
             body: body?.body || "",
             is_default: false,
             created_at: now(),
@@ -175,7 +213,7 @@ test.describe("Collections playground", () => {
           return template
         }
 
-        if (pathname?.startsWith("/api/v1/outputs/templates/") && method === "PUT") {
+        if (pathname?.startsWith("/api/v1/outputs/templates/") && method === "PATCH") {
           const templateId = pathname.split("/").pop()
           const template = templates.find((t) => String(t.id) === String(templateId))
           if (!template) return {}
@@ -186,40 +224,81 @@ test.describe("Collections playground", () => {
           return template
         }
 
+        if (pathname?.startsWith("/api/v1/outputs/templates/") && pathname.endsWith("/preview") && method === "POST") {
+          const templateId = pathname.split("/")[5]
+          const template = findTemplate(templateId)
+          const count = Array.isArray(body?.data?.items) ? body.data.items.length : (body?.item_ids || []).length
+          return {
+            rendered: `Preview for ${count} items`,
+            format: template?.format || "md"
+          }
+        }
+
         if (pathname?.startsWith("/api/v1/outputs/templates/") && method === "DELETE") {
           const templateId = pathname.split("/").pop()
           const idx = templates.findIndex((t) => String(t.id) === String(templateId))
           if (idx >= 0) templates.splice(idx, 1)
-          return { ok: true }
+          return { success: true }
         }
 
-        if (pathname === "/api/v1/outputs/templates/preview" && method === "POST") {
-          const count = (body?.reading_item_ids || []).length
-          return { rendered_content: `Preview for ${count} items`, format: "markdown" }
+        if (pathname === "/api/v1/outputs" && method === "POST") {
+          const template = findTemplate(body?.template_id)
+          const count = Array.isArray(body?.data?.items) ? body.data.items.length : (body?.item_ids || []).length
+          const output = {
+            id: Number(nextOutputId++),
+            title: body?.title || template?.name || "Output",
+            type: template?.type || "newsletter_markdown",
+            format: template?.format || "md",
+            storage_path: `output-${Date.now()}.${template?.format || "md"}`,
+            created_at: now()
+          }
+          outputs.set(String(output.id), {
+            content: `Generated output for ${count} items`,
+            format: output.format
+          })
+          return output
         }
 
-        if (pathname === "/api/v1/outputs/generate" && method === "POST") {
-          const count = (body?.reading_item_ids || []).length
-          return { content: `Generated output for ${count} items`, format: "markdown" }
+        if (pathname?.startsWith("/api/v1/outputs/") && pathname.endsWith("/download") && method === "GET") {
+          const outputId = pathname.split("/")[4]
+          const entry = outputs.get(String(outputId))
+          const content = entry?.content || "Generated output"
+          return new TextEncoder().encode(content).buffer
         }
 
-        if (pathname === "/api/v1/reading/import/preview" && method === "POST") {
+        if (pathname === "/api/v1/reading/import" && method === "POST") {
           return {
-            items: [
-              { url: "https://example.com/import-1", title: "Imported One" },
-              { url: "https://example.com/import-2", title: "Imported Two" }
-            ],
-            total: 2
+            source: fields?.source || "auto",
+            imported: 2,
+            updated: 0,
+            skipped: 0,
+            errors: []
           }
         }
 
-        if (pathname === "/api/v1/reading/import/confirm" && method === "POST") {
-          const count = Array.isArray(body?.items) ? body.items.length : 0
-          return { imported: count, skipped: 0, errors: [] }
-        }
-
-        if (pathname === "/api/v1/reading/export" && method === "POST") {
-          return { download_url: "https://example.com/export.json", filename: "export.json" }
+        if (pathname === "/api/v1/reading/export" && method === "GET") {
+          const format = query.get("format") || "jsonl"
+          if (format === "zip") {
+            return {
+              __rawResponse: true,
+              data: new Uint8Array([0x50, 0x4b, 0x03, 0x04]).buffer,
+              headers: {
+                "content-disposition": "attachment; filename=reading_export.zip",
+                "content-type": "application/zip"
+              }
+            }
+          }
+          const payload = readingItems
+            .map((item) => JSON.stringify({ url: item.url, title: item.title }))
+            .join("\n")
+          return {
+            __rawResponse: true,
+            data: new TextEncoder().encode(payload).buffer,
+            headers: {
+              "content-disposition": "attachment; filename=reading_export.jsonl",
+              "content-type": "application/x-ndjson"
+            }
+          }
         }
 
         return {}
@@ -240,16 +319,32 @@ test.describe("Collections playground", () => {
 
           if (message?.type === "tldw:request") {
             try {
-              const data = handleRequest(message.payload || {})
-              return respond({ ok: true, status: 200, data })
+              const result = handleRequest(message.payload || {})
+              if (result?.__rawResponse) {
+                return respond({
+                  ok: true,
+                  status: result.status || 200,
+                  data: result.data,
+                  headers: result.headers || {}
+                })
+              }
+              return respond({ ok: true, status: 200, data: result })
             } catch (error) {
               return respond({ ok: false, status: 500, error: String(error || "") })
             }
           }
           if (message?.type === "tldw:upload") {
             try {
-              const data = handleRequest(message.payload || {})
-              return respond({ ok: true, status: 200, data })
+              const result = handleRequest(message.payload || {})
+              if (result?.__rawResponse) {
+                return respond({
+                  ok: true,
+                  status: result.status || 200,
+                  data: result.data,
+                  headers: result.headers || {}
+                })
+              }
+              return respond({ ok: true, status: 200, data: result })
             } catch (error) {
               return respond({ ok: false, status: 500, error: String(error || "") })
             }
@@ -279,72 +374,158 @@ test.describe("Collections playground", () => {
       if (window.browser?.runtime) {
         patchRuntime(window.browser.runtime)
       }
+
+      window["__clipboard"] = ""
+      const clipboardShim = {
+        writeText: async (text) => {
+          window["__clipboard"] = text
+        }
+      }
+      try {
+        Object.defineProperty(navigator, "clipboard", {
+          value: clipboardShim,
+          configurable: true
+        })
+      } catch {
+        // ignore clipboard override failures
+      }
+
+      window.__collectionsStubbed = true
+      })
     })
 
-    await page.goto(optionsUrl + "#/collections", { waitUntil: "domcontentloaded" })
+    const page = await logStep("context.newPage", () => context.newPage())
+    await logStep("page.goto collections", async () => {
+      await page.goto(optionsUrl + "?e2e=1#/collections", { waitUntil: "domcontentloaded" })
+      await page.waitForFunction(() => window.__collectionsStubbed === true)
+      const url = page.url()
+      log("page loaded", { url })
+    })
+    await logStep("close base page", async () => {
+      await basePage.close().catch(() => {})
+    })
 
-    await expect(page.getByRole("heading", { name: "Collections" })).toBeVisible()
+    await logStep("assert Collections heading", async () => {
+      await expect(page.getByRole("heading", { name: "Collections" })).toBeVisible()
+    })
 
-    await page.getByRole("button", { name: "Add URL" }).click()
-    const addDialog = page.getByRole("dialog", { name: "Add to Reading List" })
-    await addDialog.getByLabel("URL").fill("https://example.com/article")
-    await addDialog.getByLabel("Title (optional)").fill("Example Article")
-    await addDialog.getByRole("button", { name: "Save to List" }).click()
-    await expect(addDialog).toBeHidden()
-    await expect(page.getByText("Example Article")).toBeVisible()
+    await logStep("add reading list item", async () => {
+      await page.getByRole("button", { name: "Add URL" }).click()
+      const addDialog = page.getByRole("dialog", { name: "Add to Reading List" })
+      await addDialog.getByLabel("URL").fill("https://example.com/article")
+      await addDialog.getByLabel("Title (optional)").fill("Example Article")
+      await addDialog.getByRole("button", { name: "Save to List" }).click()
+      await expect(addDialog).toBeHidden()
+      await expect(page.getByText("Example Article")).toBeVisible()
+    })
 
-    await page.getByText("Example Article").first().click()
     const drawer = page.locator(".ant-drawer-content")
-    await expect(drawer.getByText("Example Article")).toBeVisible()
-    await drawer.getByRole("tab", { name: "Highlights" }).click()
-    await drawer.getByLabel("Quote").fill("A useful highlight")
-    await drawer.getByLabel("Note (optional)").fill("Important note")
-    await drawer.getByRole("button", { name: "Add Highlight" }).click()
-    await expect(drawer.getByText("A useful highlight")).toBeVisible()
-    await page.keyboard.press("Escape")
-    await expect(drawer).toBeHidden()
+    await logStep("open reading item drawer + add highlight", async () => {
+      await page.getByText("Example Article").first().click()
+      await expect(drawer.getByRole("heading", { name: "Example Article" })).toBeVisible()
+      await drawer.evaluate((el) => {
+        el.scrollTop = 0
+      })
+      const highlightsTab = drawer.getByRole("tab", { name: "Highlights" })
+      await highlightsTab.waitFor({ state: "attached" })
+      await highlightsTab.evaluate((el) => (el as HTMLElement).click())
+      const quoteField = drawer.getByLabel("Quote")
+      await expect(quoteField).toBeVisible()
+      await quoteField.fill("A useful highlight")
+      await drawer.getByLabel("Note (optional)").fill("Important note")
+      await drawer.getByRole("button", { name: "Add Highlight" }).click()
+      await expect(drawer.getByText("A useful highlight")).toBeVisible()
+      await drawer.locator(".ant-drawer-close").click()
+      await expect(drawer).toBeHidden()
+    })
 
-    await page.getByRole("tab", { name: "Highlights" }).click()
-    await expect(page.getByText("A useful highlight")).toBeVisible()
-    const highlightCard = page
-      .locator("blockquote", { hasText: "A useful highlight" })
-      .locator("..")
-      .locator("..")
-    await highlightCard.hover()
-    await highlightCard.locator("button").nth(1).click()
-    const editDialog = page.getByRole("dialog", { name: "Edit Highlight" })
-    await expect(editDialog).toBeVisible()
-    await editDialog.getByLabel("Note (optional)").fill("Updated note")
-    await editDialog.getByRole("button", { name: "Save" }).click()
-    await expect(editDialog).toBeHidden()
-    await expect(page.getByText("Updated note")).toBeVisible()
+    await logStep("edit highlight in highlights tab", async () => {
+      await page.getByRole("tab", { name: "Highlights" }).click()
+      await expect(page.getByText("A useful highlight")).toBeVisible()
+      const highlightCard = page
+        .locator("blockquote", { hasText: "A useful highlight" })
+        .locator("..")
+        .locator("..")
+      await highlightCard.hover()
+      await highlightCard.locator("button").nth(1).click()
+      const editDialog = page.getByRole("dialog", { name: "Edit Highlight" })
+      await expect(editDialog).toBeVisible()
+      await editDialog.getByLabel("Note (optional)").fill("Updated note")
+      await editDialog.getByRole("button", { name: "Save" }).click()
+      await expect(editDialog).toBeHidden()
+      await expect(page.getByText("Updated note")).toBeVisible()
+    })
 
-    await page.getByRole("tab", { name: "Templates" }).click()
-    await page.getByRole("button", { name: "Create Template" }).click()
-    const templateDialog = page.getByRole("dialog", { name: "Create Template" })
-    await templateDialog.getByLabel("Template Name").fill("Weekly Digest")
-    await templateDialog.getByRole("button", { name: "Create" }).click()
-    await expect(templateDialog).toBeHidden()
-    await expect(page.getByText("Weekly Digest")).toBeVisible()
-    const templateCard = page.locator(".ant-card").filter({ hasText: "Weekly Digest" }).first()
-    await templateCard.locator("button").first().click()
-    const previewDialog = page.getByRole("dialog", { name: "Template Preview" })
-    await expect(previewDialog).toBeVisible()
-    await previewDialog.getByRole("checkbox", { name: "Select All" }).click()
-    await previewDialog.getByRole("button", { name: "Generate Preview" }).click()
-    await expect(previewDialog.getByText("Preview for")).toBeVisible()
-    await previewDialog.getByRole("button", { name: "Generate Output" }).click()
-    await expect(previewDialog.getByText("Generated output")).toBeVisible()
-    await previewDialog.getByRole("button", { name: "Close" }).click()
-    await expect(previewDialog).toBeHidden()
+    await logStep("create template + generate preview/output", async () => {
+      await page.getByRole("tab", { name: "Templates" }).click()
+      await page.getByRole("button", { name: "Create Template" }).click()
+      const templateDialog = page.getByRole("dialog", { name: "Create Template" })
+      await templateDialog.getByLabel("Template Name").fill("Weekly Digest")
+      await templateDialog.getByRole("button", { name: "Create" }).click()
+      await expect(templateDialog).toBeHidden()
+      await expect(page.getByText("Weekly Digest")).toBeVisible()
+      const templateCard = page.locator(".ant-card").filter({ hasText: "Weekly Digest" }).first()
+      await templateCard.locator("button").first().click()
+      const previewDialog = page.getByRole("dialog", { name: "Template Preview" })
+      await expect(previewDialog).toBeVisible()
+      await previewDialog.getByRole("checkbox", { name: "Select All" }).click()
+      await previewDialog.getByRole("button", { name: "Generate Preview" }).click()
+      await expect(previewDialog.getByText("Preview for")).toBeVisible()
+      await previewDialog.getByRole("button", { name: "Generate Output" }).click()
+      await expect(previewDialog.getByText("Generated output")).toBeVisible()
+      await previewDialog
+        .locator(".ant-modal-footer")
+        .getByRole("button", { name: "Close" })
+        .click()
+      await expect(previewDialog).toBeHidden()
+    })
 
-    await page.getByRole("tab", { name: "Import/Export" }).click()
-    await page.getByRole("button", { name: "Pocket" }).click()
-    await page.getByRole("radio", { name: "API Key" }).click()
-    await page.getByLabel("API Key").fill("test-key")
-    await page.getByRole("button", { name: "Preview Import" }).click()
-    await expect(page.getByText("items found")).toBeVisible()
-    await page.getByRole("button", { name: "Import 2 items" }).click()
-    await expect(page.getByText("Import Complete")).toBeVisible()
+    await logStep("import pocket file", async () => {
+      await page.getByRole("tab", { name: "Import/Export" }).click()
+      await page.getByRole("button", { name: /^Pocket/ }).click()
+      await expect(page.getByText("Click or drag file to upload")).toBeVisible()
+      await page.locator("input[type=\"file\"]").setInputFiles({
+        name: "pocket.json",
+        mimeType: "application/json",
+        buffer: Buffer.from(JSON.stringify({ list: {} }))
+      })
+      await expect(page.getByText("Import Complete")).toBeVisible()
+    })
+
+    await logStep("export selection + clipboard + zip", async () => {
+      const exportCard = page.locator(".ant-card").filter({ hasText: "Export" }).first()
+      await expect(exportCard.getByText("Example Article")).toBeVisible()
+      log("export card ready")
+      await page.waitForFunction(() => typeof window.__tldw_exportSelectByTitle === "function")
+      const selectedCount = await page.evaluate(
+        () => window.__tldw_exportSelectByTitle?.("Example Article") ?? 0
+      )
+      log("selected count after select", { selectedCount })
+      expect(selectedCount).toBe(1)
+      await page.waitForFunction(() => window.__tldw_exportSelectedCount === 1)
+      const copyButton = page.getByRole("button", { name: "Copy JSONL" })
+      await expect(copyButton).toBeEnabled()
+      await copyButton.click()
+      const clipboardValue = await page.evaluate(() => window["__clipboard"] || "")
+      log("clipboard length", { length: clipboardValue.length })
+      expect(clipboardValue).toContain("Example Article")
+
+      await page.evaluate(() => window.__tldw_exportClearSelection?.())
+      await page.waitForFunction(() => window.__tldw_exportSelectedCount === 0)
+      log("selection cleared", {
+        selectedCount: await page.evaluate(() => window.__tldw_exportSelectedCount)
+      })
+      await page.waitForFunction(() => typeof window.__tldw_exportSetFormat === "function")
+      await page.evaluate(() => window.__tldw_exportSetFormat?.("zip"))
+      await page.waitForFunction(() => window.__tldw_exportFormat === "zip")
+      log("export format set", {
+        format: await page.evaluate(() => window.__tldw_exportFormat)
+      })
+      await page.getByRole("button", { name: "Download Export" }).click()
+      await page.waitForFunction(() => window.__tldw_lastDownload?.filename?.includes(".zip"))
+      const lastDownload = await page.evaluate(() => window.__tldw_lastDownload)
+      log("last download", lastDownload)
+      expect(lastDownload?.filename).toContain(".zip")
+    })
   })
 })

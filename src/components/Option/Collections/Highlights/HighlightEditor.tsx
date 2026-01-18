@@ -40,7 +40,7 @@ export const HighlightEditor: React.FC<HighlightEditorProps> = ({ onSuccess }) =
   const [loading, setLoading] = useState(false)
 
   const isEditing = Boolean(editingHighlight?.id)
-  const readingItemId = editingHighlight?.reading_item_id
+  const readingItemId = editingHighlight?.item_id
 
   useEffect(() => {
     if (!highlightEditorOpen) return
@@ -74,7 +74,7 @@ export const HighlightEditor: React.FC<HighlightEditorProps> = ({ onSuccess }) =
           return
         }
         const created = await api.createHighlight({
-          reading_item_id: readingItemId,
+          item_id: readingItemId,
           quote: values.quote,
           note: values.note,
           color: values.color

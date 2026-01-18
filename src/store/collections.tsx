@@ -15,7 +15,6 @@ import type {
   TemplateType,
   TemplateFormat,
   ImportSource,
-  ImportPreviewItem,
   ExportFormat as CollectionExportFormat
 } from "@/types/collections"
 
@@ -38,6 +37,9 @@ interface ReadingListState {
   filterStatus: ReadingStatus | "all"
   filterTags: string[]
   filterFavorite: boolean | null
+  filterDomain: string
+  filterDateFrom: string | null
+  filterDateTo: string | null
   sortBy: "created_at" | "updated_at" | "title" | "relevance"
   sortOrder: "asc" | "desc"
   // All available tags for filter dropdown
@@ -82,17 +84,11 @@ interface ImportExportState {
   // Import wizard
   importSource: ImportSource | null
   importFile: File | null
-  importApiKey: string
-  importPreviewItems: ImportPreviewItem[]
-  importPreviewLoading: boolean
-  importPreviewError: string | null
   importInProgress: boolean
-  importResult: { imported: number; skipped: number; errors: string[] } | null
+  importError: string | null
+  importResult: { imported: number; updated: number; skipped: number; errors: string[] } | null
   // Export
   exportFormat: CollectionExportFormat
-  exportSelectedItems: string[]
-  exportIncludeContent: boolean
-  exportIncludeHighlights: boolean
   exportInProgress: boolean
   exportError: string | null
 }
@@ -103,7 +99,7 @@ interface UIState {
   addUrlModalOpen: boolean
   highlightEditorOpen: boolean
   templateEditorOpen: boolean
-  importWizardStep: "source" | "upload" | "preview" | "confirm" | "result"
+  importWizardStep: "source" | "upload" | "result"
   deleteConfirmOpen: boolean
   deleteTargetId: string | null
   deleteTargetType: "item" | "highlight" | "template" | null
@@ -126,6 +122,8 @@ interface ReadingListActions {
   setFilterStatus: (status: ReadingStatus | "all") => void
   setFilterTags: (tags: string[]) => void
   setFilterFavorite: (favorite: boolean | null) => void
+  setFilterDomain: (domain: string) => void
+  setFilterDateRange: (from: string | null, to: string | null) => void
   setSortBy: (sortBy: "created_at" | "updated_at" | "title" | "relevance") => void
   setSortOrder: (order: "asc" | "desc") => void
   setAvailableTags: (tags: string[]) => void
@@ -175,19 +173,12 @@ interface ImportExportActions {
   // Import
   setImportSource: (source: ImportSource | null) => void
   setImportFile: (file: File | null) => void
-  setImportApiKey: (key: string) => void
-  setImportPreviewItems: (items: ImportPreviewItem[]) => void
-  setImportPreviewLoading: (loading: boolean) => void
-  setImportPreviewError: (error: string | null) => void
   setImportInProgress: (inProgress: boolean) => void
-  setImportResult: (result: { imported: number; skipped: number; errors: string[] } | null) => void
+  setImportError: (error: string | null) => void
+  setImportResult: (result: { imported: number; updated: number; skipped: number; errors: string[] } | null) => void
   resetImportWizard: () => void
   // Export
   setExportFormat: (format: CollectionExportFormat) => void
-  setExportSelectedItems: (ids: string[]) => void
-  toggleExportItem: (id: string) => void
-  setExportIncludeContent: (include: boolean) => void
-  setExportIncludeHighlights: (include: boolean) => void
   setExportInProgress: (inProgress: boolean) => void
   setExportError: (error: string | null) => void
   resetExport: () => void
@@ -203,7 +194,7 @@ interface UIActions {
   closeHighlightEditor: () => void
   openTemplateEditor: (template?: OutputTemplate) => void
   closeTemplateEditor: () => void
-  setImportWizardStep: (step: "source" | "upload" | "preview" | "confirm" | "result") => void
+  setImportWizardStep: (step: "source" | "upload" | "result") => void
   openDeleteConfirm: (id: string, type: "item" | "highlight" | "template") => void
   closeDeleteConfirm: () => void
   resetStore: () => void
@@ -242,6 +233,9 @@ const initialReadingListState: ReadingListState = {
   filterStatus: "all",
   filterTags: [],
   filterFavorite: null,
+  filterDomain: "",
+  filterDateFrom: null,
+  filterDateTo: null,
   sortBy: "created_at",
   sortOrder: "desc",
   availableTags: []
@@ -282,16 +276,10 @@ const initialTemplatesState: TemplatesState = {
 const initialImportExportState: ImportExportState = {
   importSource: null,
   importFile: null,
-  importApiKey: "",
-  importPreviewItems: [],
-  importPreviewLoading: false,
-  importPreviewError: null,
   importInProgress: false,
+  importError: null,
   importResult: null,
-  exportFormat: "json",
-  exportSelectedItems: [],
-  exportIncludeContent: false,
-  exportIncludeHighlights: true,
+  exportFormat: "jsonl",
   exportInProgress: false,
   exportError: null
 }
@@ -340,6 +328,9 @@ export const useCollectionsStore = create<CollectionsState>()((set) => ({
   setFilterStatus: (filterStatus) => set({ filterStatus, itemsPage: 1 }),
   setFilterTags: (filterTags) => set({ filterTags, itemsPage: 1 }),
   setFilterFavorite: (filterFavorite) => set({ filterFavorite, itemsPage: 1 }),
+  setFilterDomain: (filterDomain) => set({ filterDomain, itemsPage: 1 }),
+  setFilterDateRange: (filterDateFrom, filterDateTo) =>
+    set({ filterDateFrom, filterDateTo, itemsPage: 1 }),
   setSortBy: (sortBy) => set({ sortBy, itemsPage: 1 }),
   setSortOrder: (sortOrder) => set({ sortOrder, itemsPage: 1 }),
   setAvailableTags: (availableTags) => set({ availableTags }),
@@ -374,6 +365,9 @@ export const useCollectionsStore = create<CollectionsState>()((set) => ({
       filterStatus: "all",
       filterTags: [],
       filterFavorite: null,
+      filterDomain: "",
+      filterDateFrom: null,
+      filterDateTo: null,
       sortBy: "created_at",
       sortOrder: "desc",
       itemsSearch: "",
@@ -486,48 +480,27 @@ export const useCollectionsStore = create<CollectionsState>()((set) => ({
 
   setImportSource: (importSource) => set({ importSource }),
   setImportFile: (importFile) => set({ importFile }),
-  setImportApiKey: (importApiKey) => set({ importApiKey }),
-  setImportPreviewItems: (importPreviewItems) => set({ importPreviewItems }),
-  setImportPreviewLoading: (importPreviewLoading) =>
-    set({ importPreviewLoading }),
-  setImportPreviewError: (importPreviewError) => set({ importPreviewError }),
   setImportInProgress: (importInProgress) => set({ importInProgress }),
+  setImportError: (importError) => set({ importError }),
   setImportResult: (importResult) => set({ importResult }),
 
   resetImportWizard: () =>
     set({
       importSource: null,
       importFile: null,
-      importApiKey: "",
-      importPreviewItems: [],
-      importPreviewLoading: false,
-      importPreviewError: null,
       importInProgress: false,
+      importError: null,
       importResult: null,
       importWizardStep: "source"
     }),
 
   setExportFormat: (exportFormat) => set({ exportFormat }),
-  setExportSelectedItems: (exportSelectedItems) => set({ exportSelectedItems }),
-  toggleExportItem: (id) =>
-    set((state) => ({
-      exportSelectedItems: state.exportSelectedItems.includes(id)
-        ? state.exportSelectedItems.filter((i) => i !== id)
-        : [...state.exportSelectedItems, id]
-    })),
-  setExportIncludeContent: (exportIncludeContent) =>
-    set({ exportIncludeContent }),
-  setExportIncludeHighlights: (exportIncludeHighlights) =>
-    set({ exportIncludeHighlights }),
   setExportInProgress: (exportInProgress) => set({ exportInProgress }),
   setExportError: (exportError) => set({ exportError }),
 
   resetExport: () =>
     set({
-      exportFormat: "json",
-      exportSelectedItems: [],
-      exportIncludeContent: false,
-      exportIncludeHighlights: true,
+      exportFormat: "jsonl",
       exportInProgress: false,
       exportError: null
     }),
@@ -560,7 +533,7 @@ export const useCollectionsStore = create<CollectionsState>()((set) => ({
   openTemplateEditor: (template) =>
     set({
       templateEditorOpen: true,
-      editingTemplate: template ?? {}
+      editingTemplate: template ?? null
     }),
 
   closeTemplateEditor: () =>

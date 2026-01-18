@@ -121,8 +121,8 @@ export async function bgRequest<
   T = any,
   P extends PathOrUrl = AllowedPath,
   M extends AllowedMethodFor<P> = AllowedMethodFor<P>
->(
-  {
+>(init: BgRequestInit<P, M>): Promise<T> {
+  const {
     path,
     method = 'GET' as UpperLower<M>,
     headers = {},
@@ -132,8 +132,11 @@ export async function bgRequest<
     abortSignal,
     responseType,
     returnResponse
-  }: BgRequestInit<P, M>
-): Promise<T> {
+  } = init
+  const isAbsoluteUrl = typeof path === "string" && /^https?:/i.test(path)
+  const noAuthExplicit = Object.prototype.hasOwnProperty.call(init, "noAuth")
+  const resolvedNoAuth = noAuthExplicit ? noAuth : (noAuth || isAbsoluteUrl)
+  const resolvedHeaders = headers
   const recordRequestError = async (entry: {
     method: string
     path: string
@@ -164,7 +167,15 @@ export async function bgRequest<
     if (browser?.runtime?.sendMessage) {
       const payload = {
         type: 'tldw:request',
-        payload: { path, method, headers, body, noAuth, timeoutMs, responseType }
+        payload: {
+          path,
+          method,
+          headers: resolvedHeaders,
+          body,
+          noAuth: resolvedNoAuth,
+          timeoutMs,
+          responseType
+        }
       }
 
       if (!abortSignal) {
@@ -259,7 +270,16 @@ export async function bgRequest<
   // Fallback: direct fetch (web/dev context)
   const storage = createSafeStorage()
   const resp = await tldwRequest(
-    { path, method, headers, body, noAuth, timeoutMs, abortSignal, responseType },
+    {
+      path,
+      method,
+      headers: resolvedHeaders,
+      body,
+      noAuth: resolvedNoAuth,
+      timeoutMs,
+      abortSignal,
+      responseType
+    },
     { getConfig: () => storage.get("tldwConfig").catch(() => null) }
   )
   if (!resp?.ok) {

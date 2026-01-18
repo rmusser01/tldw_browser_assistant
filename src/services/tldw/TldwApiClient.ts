@@ -3,7 +3,7 @@ import { createSafeStorage, safeStorageSerde } from "@/utils/safe-storage"
 import { bgRequest, bgStream, bgUpload } from "@/services/background-proxy"
 import { isPlaceholderApiKey } from "@/utils/api-key"
 import { normalizeChatRole } from "@/utils/normalize-chat-role"
-import type { AllowedPath } from "@/services/tldw/openapi-guard"
+import type { AllowedPath, PathOrUrl } from "@/services/tldw/openapi-guard"
 import { appendPathQuery } from "@/services/tldw/path-utils"
 import {
   buildContentPayload,
@@ -13,6 +13,7 @@ import {
   type ApiDataTableGenerateResponse,
   type ApiDataTableJobStatus
 } from "@/services/tldw/data-tables"
+import type { DataTableColumn } from "@/types/data-tables"
 
 const DEFAULT_SERVER_URL = "http://127.0.0.1:8000"
 const CHARACTER_CACHE_TTL_MS = 5 * 60 * 1000
@@ -479,29 +480,12 @@ export class TldwApiClient {
 
   async healthCheck(): Promise<boolean> {
     try {
-      // Prefer background proxy (extension messaging)
-      const runtime = (
-        globalThis as {
-          browser?: { runtime?: { sendMessage?: (...args: unknown[]) => unknown } }
-        }
-      ).browser?.runtime
-      if (runtime?.sendMessage) {
-        // Use authenticated health check so deployments that protect
-        // /api/v1/health still work. Auth headers are injected by the
-        // background proxy from tldwConfig (API key / access token).
-        await bgRequest<{ status?: string; [k: string]: any }>({
-          path: '/api/v1/health',
-          method: 'GET'
-        })
-        return true
-      }
-    } catch {}
-    // Fallback: direct fetch in dev/non-extension contexts
-    try {
-      if (!this.baseUrl) await this.initialize()
-      const res = await fetch(`${this.baseUrl.replace(/\/$/, '')}/api/v1/health`, { credentials: 'include' })
-      return res.ok
-    } catch (error) {
+      await bgRequest<{ status?: string; [k: string]: any }>({
+        path: '/api/v1/health',
+        method: 'GET'
+      })
+      return true
+    } catch {
       // Swallow errors to avoid noisy console during first-run
       return false
     }
@@ -530,18 +514,12 @@ export class TldwApiClient {
 
   async getOpenAPISpec(): Promise<any | null> {
     try {
-      // Prefer background proxy in extension context. Use absolute URL to satisfy
-      // the OpenAPI path/method guard ("/openapi.json" is not a declared API path).
       if (!this.baseUrl) await this.initialize()
-      if (this.baseUrl) {
-        return await bgRequest<any>({ path: `${this.baseUrl.replace(/\/$/, '')}/openapi.json` as any, method: 'GET' as any })
-      }
-    } catch {}
-    try {
-      if (!this.baseUrl) await this.initialize()
-      const res = await fetch(`${this.baseUrl.replace(/\/$/, '')}/openapi.json`, { credentials: 'include' })
-      if (!res.ok) return null
-      return await res.json()
+      if (!this.baseUrl) return null
+      return await bgRequest<any>({
+        path: `${this.baseUrl.replace(/\/$/, '')}/openapi.json` as any,
+        method: 'GET' as any
+      })
     } catch {
       return null
     }
@@ -885,22 +863,7 @@ export class TldwApiClient {
 
   // RAG Methods
   async ragHealth(): Promise<any> {
-    try {
-      const runtime = (
-        globalThis as {
-          browser?: { runtime?: { sendMessage?: (...args: unknown[]) => unknown } }
-        }
-      ).browser?.runtime
-      if (runtime?.sendMessage) {
-        return await bgRequest<any>({ path: '/api/v1/rag/health', method: 'GET' })
-      }
-    } catch {}
-    // Fallback direct fetch
-    if (!this.baseUrl) await this.initialize().catch(() => null)
-    if (!this.baseUrl) throw new Error('Not configured')
-    const res = await fetch(`${this.baseUrl.replace(/\/$/, '')}/api/v1/rag/health`, { credentials: 'include' })
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    return await res.json()
+    return await this.request<any>({ path: '/api/v1/rag/health', method: 'GET' })
   }
 
   async ragSearch(query: string, options?: any): Promise<any> {
@@ -2052,29 +2015,31 @@ export class TldwApiClient {
   }
 
   async downloadChatbookExport(job_id: string): Promise<{ blob: Blob; filename: string }> {
-    await this.initialize()
-    const cfg = await this.ensureConfigForRequest(true)
-    const base = (this.baseUrl || cfg?.serverUrl || "").replace(/\/$/, "")
-    if (!base) throw new Error("Server not configured")
-    const headers: Record<string, string> = {}
-    if (cfg.authMode === "single-user") {
-      const key = String(cfg.apiKey || "").trim()
-      if (key) headers["X-API-KEY"] = key
-    } else if (cfg.authMode === "multi-user") {
-      const token = String(cfg.accessToken || "").trim()
-      if (token) headers["Authorization"] = `Bearer ${token}`
-    }
-    const url = `${base}/api/v1/chatbooks/download/${encodeURIComponent(job_id)}`
-    const res = await fetch(url, {
+    await this.ensureConfigForRequest(true)
+    const response = await this.request<{
+      ok: boolean
+      status: number
+      data?: ArrayBuffer
+      error?: string
+      headers?: Record<string, string>
+    }>({
+      path: `/api/v1/chatbooks/download/${encodeURIComponent(job_id)}`,
       method: "GET",
-      headers,
-      credentials: "include"
+      headers: { Accept: "application/octet-stream" },
+      responseType: "arrayBuffer",
+      returnResponse: true
     })
-    if (!res.ok) {
-      throw new Error(`Download failed: ${res.status}`)
+    if (!response) {
+      throw new Error("Download failed")
     }
-    const blob = await res.blob()
-    const disposition = res.headers.get("content-disposition")
+    if (!response.ok) {
+      throw new Error(response.error || `Download failed: ${response.status}`)
+    }
+    const headers = new Headers(response.headers || {})
+    const blob = new Blob([response.data ?? new Uint8Array()], {
+      type: headers.get("content-type") || "application/octet-stream"
+    })
+    const disposition = headers.get("content-disposition")
     let filename = `chatbook-${job_id}.zip`
     if (disposition) {
       const utfMatch = disposition.match(/filename\*=UTF-8''([^;]+)/i)
@@ -2168,34 +2133,31 @@ export class TldwApiClient {
     options?: { voice?: string; model?: string; responseFormat?: string; speed?: number }
   ): Promise<ArrayBuffer> {
     await this.ensureConfigForRequest(true)
-    if (!this.baseUrl) await this.initialize()
-    const base = this.baseUrl.replace(/\/$/, '')
-    const url = `${base}/api/v1/audio/speech`
     const body: Record<string, any> = { input: text, text }
     if (options?.voice) body.voice = options.voice
     if (options?.model) body.model = options.model
     if (options?.responseFormat) body.response_format = options.responseFormat
     if (options?.speed != null) body.speed = options.speed
-    const headers: HeadersInit = {
-      ...this.headers,
-      Accept: 'audio/mpeg'
-    }
-    const resp = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body)
+    const response = await this.request<{
+      ok: boolean
+      status: number
+      data?: ArrayBuffer
+      error?: string
+    }>({
+      path: "/api/v1/audio/speech",
+      method: "POST",
+      headers: { Accept: "audio/mpeg" },
+      body,
+      responseType: "arrayBuffer",
+      returnResponse: true
     })
-    if (!resp.ok) {
-      let detail: string | undefined
-      try {
-        const data = await resp.json()
-        detail = data?.detail || data?.error || data?.message
-      } catch {
-        // ignore JSON parse failures; fall back to status text
-      }
-      throw new Error(detail || `TTS failed (HTTP ${resp.status})`)
+    if (!response) {
+      throw new Error("TTS failed")
     }
-    return await resp.arrayBuffer()
+    if (!response.ok) {
+      throw new Error(response.error || `TTS failed (HTTP ${response.status})`)
+    }
+    return response.data ?? new ArrayBuffer(0)
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -2289,7 +2251,7 @@ export class TldwApiClient {
   async saveDataTableContent(
     tableId: string,
     payload: {
-      columns: Array<{ id: string; name: string; type: string; description?: string; format?: string }>
+      columns: DataTableColumn[]
       rows: Record<string, any>[]
     }
   ): Promise<any> {
@@ -2336,10 +2298,7 @@ export class TldwApiClient {
     tableId: string,
     format: "csv" | "xlsx" | "json"
   ): Promise<{ blob: Blob; filename: string }> {
-    await this.initialize()
-    const cfg = await this.ensureConfigForRequest(true)
-    const base = (this.baseUrl || cfg?.serverUrl || "").replace(/\/$/, "")
-    if (!base) throw new Error("Server not configured")
+    await this.ensureConfigForRequest(true)
 
     const fallbackFilename = `data-table-${tableId}.${format}`
     const resolveFilename = (res: Response) => {
@@ -2364,7 +2323,7 @@ export class TldwApiClient {
       }
     }
     const requestWithAuth = async (
-      path: string,
+      path: PathOrUrl,
       options?: {
         method?: "GET" | "POST" | "PUT" | "DELETE"
         body?: unknown
@@ -2377,7 +2336,7 @@ export class TldwApiClient {
         data?: unknown
         error?: string
         headers?: Record<string, string>
-      }>({
+      }, PathOrUrl>({
         path,
         method: options?.method ?? "GET",
         body: options?.body,
@@ -2446,7 +2405,9 @@ export class TldwApiClient {
       throw new Error("Export timed out")
     }
     const downloadFromUrl = async (url: string) => {
-      const resolved = url.startsWith("http") ? url : `${base}${url}`
+      const resolved = url.startsWith("http")
+        ? (url as PathOrUrl)
+        : ((url.startsWith("/") ? url : `/${url}`) as PathOrUrl)
       const fileRes = await requestWithAuth(resolved)
       if (!fileRes.ok) {
         const detail = await readErrorDetail(fileRes)
@@ -2455,9 +2416,10 @@ export class TldwApiClient {
       return await readBlobResponse(fileRes)
     }
     const exportViaArtifact = async () => {
-      const exportUrl = `${base}/api/v1/data-tables/${encodeURIComponent(
-        tableId
-      )}/export?format=${encodeURIComponent(format)}&async_mode=auto&mode=url`
+      const exportUrl =
+        `/api/v1/data-tables/${encodeURIComponent(tableId)}/export?format=${encodeURIComponent(
+          format
+        )}&async_mode=auto&mode=url` as AllowedPath
       const exportRes = await requestWithAuth(exportUrl)
       if (!exportRes.ok) {
         const detail = await readErrorDetail(exportRes)
@@ -2488,9 +2450,10 @@ export class TldwApiClient {
       return await downloadFromUrl(resolvedExport.url)
     }
 
-    const url = `${base}/api/v1/data-tables/${encodeURIComponent(
-      tableId
-    )}/export?format=${encodeURIComponent(format)}&download=true`
+    const url =
+      `/api/v1/data-tables/${encodeURIComponent(tableId)}/export?format=${encodeURIComponent(
+        format
+      )}&download=true` as AllowedPath
     const res = await requestWithAuth(url)
 
     if (!res.ok) {
@@ -2510,31 +2473,70 @@ export class TldwApiClient {
 
   async getReadingList(params?: {
     page?: number
-    page_size?: number
-    search?: string
-    status?: string
+    size?: number
+    q?: string
+    status?: string | string[]
     tags?: string[]
-    is_favorite?: boolean
-    sort_by?: string
-    sort_order?: string
+    favorite?: boolean
+    sort?: string
+    domain?: string
+    date_from?: string
+    date_to?: string
   }): Promise<any> {
     const query = new URLSearchParams()
     if (params?.page) query.set("page", String(params.page))
-    if (params?.page_size) query.set("page_size", String(params.page_size))
-    if (params?.search) query.set("search", params.search)
-    if (params?.status) query.set("status", params.status)
-    if (params?.tags?.length) query.set("tags", params.tags.join(","))
-    if (params?.is_favorite !== undefined) query.set("is_favorite", String(params.is_favorite))
-    if (params?.sort_by) query.set("sort_by", params.sort_by)
-    if (params?.sort_order) query.set("sort_order", params.sort_order)
+    if (params?.size) query.set("size", String(params.size))
+    if (params?.q) query.set("q", params.q)
+    if (params?.status) {
+      const statuses = Array.isArray(params.status) ? params.status : [params.status]
+      statuses.filter(Boolean).forEach((status) => query.append("status", status))
+    }
+    if (params?.tags?.length) params.tags.forEach((tag) => query.append("tags", tag))
+    if (params?.favorite !== undefined) query.set("favorite", String(params.favorite))
+    if (params?.sort) query.set("sort", params.sort)
+    if (params?.domain) query.set("domain", params.domain)
+    if (params?.date_from) query.set("date_from", params.date_from)
+    if (params?.date_to) query.set("date_to", params.date_to)
     const qs = query.toString()
     const path = `/api/v1/reading/items${qs ? `?${qs}` : ""}` as const
-    return await bgRequest<any>({ path, method: "GET" })
+    const data = await bgRequest<any>({ path, method: "GET" })
+    const items = Array.isArray(data?.items)
+      ? data.items.map((item: any) => ({
+          id: String(item.id),
+          title: item.title || item.url || "Untitled",
+          url: item.url,
+          canonical_url: item.canonical_url,
+          domain: item.domain,
+          summary: item.summary ?? undefined,
+          notes: item.notes ?? undefined,
+          status: item.status ?? "saved",
+          favorite: Boolean(item.favorite),
+          tags: Array.isArray(item.tags) ? item.tags : [],
+          reading_time_minutes: item.reading_time_minutes,
+          created_at: item.created_at,
+          updated_at: item.updated_at,
+          published_at: item.published_at
+        }))
+      : []
+    return {
+      ...data,
+      items,
+      total: data?.total ?? items.length,
+      page: data?.page ?? params?.page ?? 1,
+      size: data?.size ?? params?.size ?? items.length
+    }
   }
 
   async getReadingItem(itemId: string): Promise<any> {
     const path = `/api/v1/reading/items/${encodeURIComponent(itemId)}` as const
-    return await bgRequest<any>({ path, method: "GET" })
+    const item = await bgRequest<any>({ path, method: "GET" })
+    return {
+      ...item,
+      id: String(item?.id),
+      media_id: item?.media_id ? String(item.media_id) : undefined,
+      favorite: Boolean(item?.favorite),
+      tags: Array.isArray(item?.tags) ? item.tags : []
+    }
   }
 
   async addReadingItem(data: {
@@ -2542,6 +2544,10 @@ export class TldwApiClient {
     title?: string
     tags?: string[]
     notes?: string
+    status?: string
+    favorite?: boolean
+    summary?: string
+    content?: string
   }): Promise<any> {
     return await bgRequest<any>({
       path: "/api/v1/reading/save",
@@ -2555,7 +2561,7 @@ export class TldwApiClient {
     itemId: string,
     data: {
       status?: string
-      is_favorite?: boolean
+      favorite?: boolean
       tags?: string[]
       notes?: string
       title?: string
@@ -2564,21 +2570,32 @@ export class TldwApiClient {
     const path = `/api/v1/reading/items/${encodeURIComponent(itemId)}` as const
     return await bgRequest<any>({
       path,
-      method: "PUT",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: data
     })
   }
 
-  async deleteReadingItem(itemId: string): Promise<void> {
-    const path = `/api/v1/reading/items/${encodeURIComponent(itemId)}` as const
+  async deleteReadingItem(itemId: string, options?: { hard?: boolean }): Promise<void> {
+    const query = new URLSearchParams()
+    if (options?.hard !== undefined) query.set("hard", String(options.hard))
+    const qs = query.toString()
+    const path = `/api/v1/reading/items/${encodeURIComponent(itemId)}${qs ? `?${qs}` : ""}` as const
     await bgRequest<void>({ path, method: "DELETE" })
   }
 
   async summarizeReadingItem(
     itemId: string,
-    options?: { model?: string; max_length?: number }
-  ): Promise<{ summary: string; model_used: string }> {
+    options?: {
+      provider?: string
+      model?: string
+      prompt?: string
+      system_prompt?: string
+      temperature?: number
+      recursive?: boolean
+      chunked?: boolean
+    }
+  ): Promise<{ summary: string; provider: string; model?: string }> {
     const path = `/api/v1/reading/items/${encodeURIComponent(itemId)}/summarize` as const
     return await bgRequest<any>({
       path,
@@ -2591,62 +2608,90 @@ export class TldwApiClient {
   async generateReadingItemTts(
     itemId: string,
     options?: { voice?: string }
-  ): Promise<{ audio_url: string; duration_seconds: number }> {
+  ): Promise<{ audio_url: string }> {
     const path = `/api/v1/reading/items/${encodeURIComponent(itemId)}/tts` as const
-    return await bgRequest<any>({
+    const data = await bgRequest<ArrayBuffer>({
       path,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: options || {}
+      body: {
+        response_format: "mp3",
+        stream: false,
+        ...(options || {})
+      },
+      responseType: "arrayBuffer"
     })
+    const blob = new Blob([data], { type: "audio/mpeg" })
+    return { audio_url: URL.createObjectURL(blob) }
   }
 
   // Highlights
-  async getHighlights(params?: {
-    page?: number
-    page_size?: number
-    reading_item_id?: string
-    color?: string
-    search?: string
-  }): Promise<any> {
-    const query = new URLSearchParams()
-    if (params?.page) query.set("page", String(params.page))
-    if (params?.page_size) query.set("page_size", String(params.page_size))
-    if (params?.reading_item_id) query.set("reading_item_id", params.reading_item_id)
-    if (params?.color) query.set("color", params.color)
-    if (params?.search) query.set("search", params.search)
-    const qs = query.toString()
-    const path = `/api/v1/reading/highlights${qs ? `?${qs}` : ""}` as const
-    return await bgRequest<any>({ path, method: "GET" })
+  async getHighlights(itemId: string): Promise<any[]> {
+    const path = `/api/v1/reading/items/${encodeURIComponent(itemId)}/highlights` as const
+    const data = await bgRequest<any>({ path, method: "GET" })
+    return Array.isArray(data)
+      ? data.map((highlight) => ({
+          ...highlight,
+          id: String(highlight.id),
+          item_id: String(highlight.item_id),
+          color: highlight.color || "yellow",
+          anchor_strategy: highlight.anchor_strategy || "fuzzy_quote"
+        }))
+      : []
   }
 
   async createHighlight(data: {
-    reading_item_id: string
+    item_id: string
     quote: string
     note?: string
     color?: string
     start_offset?: number
     end_offset?: number
+    anchor_strategy?: string
   }): Promise<any> {
-    return await bgRequest<any>({
-      path: "/api/v1/reading/highlights",
+    const path = `/api/v1/reading/items/${encodeURIComponent(data.item_id)}/highlight` as const
+    const payload = {
+      item_id: Number(data.item_id),
+      quote: data.quote,
+      note: data.note,
+      color: data.color,
+      start_offset: data.start_offset,
+      end_offset: data.end_offset,
+      anchor_strategy: data.anchor_strategy
+    }
+    const highlight = await bgRequest<any>({
+      path,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: data
+      body: payload
     })
+    return {
+      ...highlight,
+      id: String(highlight.id),
+      item_id: String(highlight.item_id),
+      color: highlight.color || "yellow",
+      anchor_strategy: highlight.anchor_strategy || "fuzzy_quote"
+    }
   }
 
   async updateHighlight(
     highlightId: string,
-    data: { note?: string; color?: string }
+    data: { note?: string; color?: string; state?: string }
   ): Promise<any> {
     const path = `/api/v1/reading/highlights/${encodeURIComponent(highlightId)}` as const
-    return await bgRequest<any>({
+    const highlight = await bgRequest<any>({
       path,
-      method: "PUT",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: data
     })
+    return {
+      ...highlight,
+      id: String(highlight.id),
+      item_id: String(highlight.item_id),
+      color: highlight.color || "yellow",
+      anchor_strategy: highlight.anchor_strategy || "fuzzy_quote"
+    }
   }
 
   async deleteHighlight(highlightId: string): Promise<void> {
@@ -2656,43 +2701,66 @@ export class TldwApiClient {
 
   // Output Templates
   async getOutputTemplates(params?: {
-    search?: string
-    template_type?: string
+    q?: string
+    limit?: number
+    offset?: number
   }): Promise<any> {
     const query = new URLSearchParams()
-    if (params?.search) query.set("search", params.search)
-    if (params?.template_type) query.set("template_type", params.template_type)
+    if (params?.q) query.set("q", params.q)
+    if (params?.limit) query.set("limit", String(params.limit))
+    if (params?.offset !== undefined) query.set("offset", String(params.offset))
     const qs = query.toString()
     const path = `/api/v1/outputs/templates${qs ? `?${qs}` : ""}` as const
-    return await bgRequest<any>({ path, method: "GET" })
+    const data = await bgRequest<any>({ path, method: "GET" })
+    const items = Array.isArray(data?.items)
+      ? data.items.map((template: any) => ({
+          ...template,
+          id: String(template.id)
+        }))
+      : []
+    return {
+      ...data,
+      items,
+      total: data?.total ?? items.length
+    }
   }
 
   async createOutputTemplate(data: {
     name: string
     description?: string
-    template_type: string
+    type: string
     format: string
     body: string
+    is_default?: boolean
   }): Promise<any> {
-    return await bgRequest<any>({
+    const template = await bgRequest<any>({
       path: "/api/v1/outputs/templates",
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: data
     })
+    return { ...template, id: String(template.id) }
   }
 
   async updateOutputTemplate(
     templateId: string,
-    data: { name?: string; description?: string; body?: string }
+    data: {
+      name?: string
+      description?: string
+      body?: string
+      is_default?: boolean
+      type?: string
+      format?: string
+    }
   ): Promise<any> {
     const path = `/api/v1/outputs/templates/${encodeURIComponent(templateId)}` as const
-    return await bgRequest<any>({
+    const template = await bgRequest<any>({
       path,
-      method: "PUT",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: data
     })
+    return { ...template, id: String(template.id) }
   }
 
   async deleteOutputTemplate(templateId: string): Promise<void> {
@@ -2701,84 +2769,131 @@ export class TldwApiClient {
   }
 
   async previewTemplate(data: {
-    template_id?: string
-    body?: string
-    reading_item_ids: string[]
-  }): Promise<{ rendered_content: string; format: string }> {
+    template_id: string
+    item_ids?: string[]
+    run_id?: string
+    limit?: number
+    data?: Record<string, unknown>
+  }): Promise<{ rendered: string; format: string }> {
+    const path = `/api/v1/outputs/templates/${encodeURIComponent(data.template_id)}/preview` as const
     return await bgRequest<any>({
-      path: "/api/v1/outputs/templates/preview",
+      path,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: data
+      body: {
+        template_id: Number(data.template_id),
+        item_ids: data.item_ids?.map((id) => Number(id)),
+        run_id: data.run_id ? Number(data.run_id) : undefined,
+        limit: data.limit,
+        data: data.data
+      }
     })
   }
 
   async generateOutput(data: {
     template_id: string
-    reading_item_ids: string[]
-  }): Promise<{ content: string; format: string; download_url?: string }> {
-    return await bgRequest<any>({
-      path: "/api/v1/outputs/generate",
+    item_ids?: string[]
+    run_id?: string
+    title?: string
+    data?: Record<string, unknown>
+  }): Promise<any> {
+    const output = await bgRequest<any>({
+      path: "/api/v1/outputs",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: data
+      body: {
+        template_id: Number(data.template_id),
+        item_ids: data.item_ids?.map((id) => Number(id)),
+        run_id: data.run_id ? Number(data.run_id) : undefined,
+        title: data.title,
+        data: data.data
+      }
     })
+    return { ...output, id: String(output.id) }
+  }
+
+  async downloadOutput(outputId: string, format?: string): Promise<Blob> {
+    const path = `/api/v1/outputs/${encodeURIComponent(outputId)}/download` as const
+    const data = await bgRequest<ArrayBuffer>({
+      path,
+      method: "GET",
+      responseType: "arrayBuffer"
+    })
+    const mime =
+      format === "html"
+        ? "text/html"
+        : format === "md"
+          ? "text/markdown"
+          : format === "mp3"
+            ? "audio/mpeg"
+            : "application/octet-stream"
+    return new Blob([data], { type: mime })
   }
 
   // Import/Export
-  async previewImport(data: {
+  async importReadingList(data: {
     source: string
-    file?: File
-    api_key?: string
+    file: File
+    merge_tags?: boolean
   }): Promise<any> {
-    if (data.file) {
-      const buffer = await data.file.arrayBuffer()
-      const fileData = Array.from(new Uint8Array(buffer))
-      return await this.upload<any>({
-        path: "/api/v1/reading/import/preview",
-        method: "POST",
-        fileFieldName: "file",
-        file: {
-          name: data.file.name,
-          type: data.file.type || "application/octet-stream",
-          data: fileData
-        },
-        fields: { source: data.source }
-      })
-    }
-    return await bgRequest<any>({
-      path: "/api/v1/reading/import/preview",
+    const buffer = await data.file.arrayBuffer()
+    const fileData = Array.from(new Uint8Array(buffer))
+    return await this.upload<any>({
+      path: "/api/v1/reading/import",
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: { source: data.source, api_key: data.api_key }
+      fileFieldName: "file",
+      file: {
+        name: data.file.name,
+        type: data.file.type || "application/octet-stream",
+        data: fileData
+      },
+      fields: {
+        source: data.source,
+        merge_tags: data.merge_tags ?? true
+      }
     })
   }
 
-  async confirmImport(data: {
-    items: Array<{ url: string; title: string; tags?: string[]; notes?: string }>
-    default_status?: string
-    default_tags?: string[]
-  }): Promise<{ imported: number; skipped: number; errors: string[] }> {
-    return await bgRequest<any>({
-      path: "/api/v1/reading/import/confirm",
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: data
-    })
-  }
-
-  async exportReadingList(data: {
+  async exportReadingList(params: {
     format: string
-    item_ids?: string[]
-    include_content?: boolean
-    include_highlights?: boolean
-  }): Promise<{ download_url: string; filename: string }> {
-    return await bgRequest<any>({
-      path: "/api/v1/reading/export",
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: data
+    status?: string[]
+    tags?: string[]
+    favorite?: boolean
+    q?: string
+    domain?: string
+    page?: number
+    size?: number
+  }): Promise<{ blob: Blob; filename: string }> {
+    const query = new URLSearchParams()
+    query.set("format", params.format)
+    if (params?.status?.length) params.status.forEach((status) => query.append("status", status))
+    if (params?.tags?.length) params.tags.forEach((tag) => query.append("tags", tag))
+    if (params?.favorite !== undefined) query.set("favorite", String(params.favorite))
+    if (params?.q) query.set("q", params.q)
+    if (params?.domain) query.set("domain", params.domain)
+    if (params?.page) query.set("page", String(params.page))
+    if (params?.size) query.set("size", String(params.size))
+    const qs = query.toString()
+    const path = `/api/v1/reading/export${qs ? `?${qs}` : ""}` as const
+    const response = await bgRequest<any>({
+      path,
+      method: "GET",
+      responseType: "arrayBuffer",
+      returnResponse: true
     })
+    if (!response) {
+      throw new Error("Export failed")
+    }
+    if (!response.ok) {
+      const msg = response.error || `Export failed: ${response.status}`
+      throw new Error(msg)
+    }
+    const headers = new Headers(response.headers || {})
+    const contentDisposition = headers.get("content-disposition") || ""
+    const filenameMatch = /filename="?([^"]+)"?/i.exec(contentDisposition)
+    const filename = filenameMatch?.[1] || "reading_export.jsonl"
+    const blob = new Blob([response.data], { type: headers.get("content-type") || "application/octet-stream" })
+    return { blob, filename }
   }
 }
 

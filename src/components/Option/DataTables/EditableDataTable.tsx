@@ -143,17 +143,20 @@ export const EditableDataTable: React.FC<EditableDataTableProps> = ({
   const [isSaving, setIsSaving] = useState(false)
   const [addColumnModalOpen, setAddColumnModalOpen] = useState(false)
 
-  // Initialize editing when table changes
+  // Initialize editing when entering edit mode or switching tables.
   useEffect(() => {
-    if (table && !readOnly) {
+    if (!table || readOnly) return
+    if (!editingTable || editingTable.id !== table.id) {
       startEditing(table)
     }
+  }, [table?.id, readOnly, editingTable?.id, startEditing])
+
+  // Cleanup editing state when the table changes or unmounts.
+  useEffect(() => {
     return () => {
-      if (!readOnly) {
-        stopEditing()
-      }
+      stopEditing()
     }
-  }, [table?.id]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [table?.id, stopEditing])
 
   // DnD sensors
   const sensors = useSensors(

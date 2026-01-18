@@ -9,6 +9,33 @@ export default async function globalSetup() {
     process.env.FORCE_BUILD_CHROME === '1' ||
     process.env.FORCE_BUILD_CHROME === 'true'
 
+  const getLatestMtime = (dir: string): number => {
+    let latest = 0
+    try {
+      const entries = fs.readdirSync(dir, { withFileTypes: true })
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name)
+        if (entry.isDirectory()) {
+          latest = Math.max(latest, getLatestMtime(fullPath))
+        } else if (entry.isFile()) {
+          const stat = fs.statSync(fullPath)
+          if (stat.mtimeMs > latest) latest = stat.mtimeMs
+        }
+      }
+    } catch {
+      return latest
+    }
+    return latest
+  }
+
+  const getFileMtime = (filePath: string): number => {
+    try {
+      return fs.statSync(filePath).mtimeMs
+    } catch {
+      return 0
+    }
+  }
+
   const isDevBuild = (dir: string) => {
     const optionsPath = path.join(dir, 'options.html')
     if (!fs.existsSync(optionsPath)) return false
@@ -25,7 +52,18 @@ export default async function globalSetup() {
     !forceBuildChrome &&
     !isDevBuild(builtChromePath)
   ) {
-    return
+    const buildStamp = path.join(builtChromePath, 'manifest.json')
+    const buildMtime = getFileMtime(buildStamp)
+    const latestSourceMtime = Math.max(
+      getLatestMtime(path.resolve('src')),
+      getFileMtime(path.resolve('wxt.config.ts')),
+      getFileMtime(path.resolve('package.json')),
+      getFileMtime(path.resolve('tailwind.config.js')),
+      getFileMtime(path.resolve('tsconfig.json'))
+    )
+    if (buildMtime && latestSourceMtime <= buildMtime) {
+      return
+    }
   }
 
   // Build the extension once before running tests

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import {
   Button,
   Drawer,
@@ -59,6 +59,9 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
   const removeItem = useCollectionsStore((s) => s.removeItem)
   const addHighlight = useCollectionsStore((s) => s.addHighlight)
   const removeHighlight = useCollectionsStore((s) => s.removeHighlight)
+  const openHighlightEditor = useCollectionsStore((s) => s.openHighlightEditor)
+  const highlightEditorOpen = useCollectionsStore((s) => s.highlightEditorOpen)
+  const editingHighlight = useCollectionsStore((s) => s.editingHighlight)
 
   const [actionLoading, setActionLoading] = useState(false)
   const [summarizing, setSummarizing] = useState(false)
@@ -76,6 +79,7 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
   const [highlightDeleteOpen, setHighlightDeleteOpen] = useState(false)
   const [highlightDeleteId, setHighlightDeleteId] = useState<string | null>(null)
   const [highlightDeleteLoading, setHighlightDeleteLoading] = useState(false)
+  const lastEditedItemId = useRef<string | null>(null)
 
   // Fetch item details
   useEffect(() => {
@@ -110,23 +114,38 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
     setItemHighlightsLoading(true)
     setItemHighlightsError(null)
     try {
-      const response = await api.getHighlights({
-        reading_item_id: selectedItemId,
-        page_size: 100
-      })
-      const highlights = response.highlights || response.items || []
-      setItemHighlights(highlights)
+      const highlights = await api.getHighlights(selectedItemId)
+      const enriched = highlights.map((highlight: any) => ({
+        ...highlight,
+        item_title: highlight.item_title || currentItem?.title
+      }))
+      setItemHighlights(enriched)
     } catch (error: any) {
       const errorMsg = error?.message || "Failed to load highlights"
       setItemHighlightsError(errorMsg)
     } finally {
       setItemHighlightsLoading(false)
     }
-  }, [api, selectedItemId, itemDetailOpen])
+  }, [api, selectedItemId, itemDetailOpen, currentItem?.title])
 
   useEffect(() => {
     fetchItemHighlights()
   }, [fetchItemHighlights])
+
+  useEffect(() => {
+    if (highlightEditorOpen && editingHighlight?.item_id) {
+      lastEditedItemId.current = String(editingHighlight.item_id)
+    }
+  }, [highlightEditorOpen, editingHighlight])
+
+  useEffect(() => {
+    if (!highlightEditorOpen && lastEditedItemId.current) {
+      if (currentItem?.id === lastEditedItemId.current) {
+        fetchItemHighlights()
+      }
+      lastEditedItemId.current = null
+    }
+  }, [highlightEditorOpen, currentItem?.id, fetchItemHighlights])
 
   const handleClose = useCallback(() => {
     closeItemDetail()
@@ -138,11 +157,11 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
     setActionLoading(true)
     try {
       await api.updateReadingItem(currentItem.id, {
-        is_favorite: !currentItem.is_favorite
+        favorite: !currentItem.favorite
       })
-      const updated = { ...currentItem, is_favorite: !currentItem.is_favorite }
+      const updated = { ...currentItem, favorite: !currentItem.favorite }
       setCurrentItem(updated)
-      updateItemInList(currentItem.id, { is_favorite: updated.is_favorite })
+      updateItemInList(currentItem.id, { favorite: updated.favorite })
     } catch (error: any) {
       message.error(error?.message || "Failed to update favorite status")
     } finally {
@@ -238,7 +257,7 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
     if (!currentItem) return
     setActionLoading(true)
     try {
-      await api.deleteReadingItem(currentItem.id)
+      await api.deleteReadingItem(currentItem.id, { hard: true })
       removeItem(currentItem.id)
       message.success(t("collections:reading.deleted", "Article deleted"))
       handleClose()
@@ -263,14 +282,14 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
     setHighlightSaving(true)
     try {
       const created = await api.createHighlight({
-        reading_item_id: currentItem.id,
+        item_id: currentItem.id,
         quote,
         note: highlightNote.trim() || undefined,
         color: highlightColor
       })
-      const normalized = created.reading_item_title
+      const normalized = created.item_title
         ? created
-        : { ...created, reading_item_title: currentItem.title }
+        : { ...created, item_title: currentItem.title }
       setItemHighlights((prev) => [normalized, ...prev])
       addHighlight(normalized)
       setHighlightQuote("")
@@ -303,7 +322,7 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
     } finally {
       setHighlightDeleteLoading(false)
     }
-  }, [api, highlightDeleteId, t])
+  }, [api, highlightDeleteId, removeHighlight, t])
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString(undefined, {
@@ -324,8 +343,12 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
       ),
       children: (
         <div className="prose prose-sm dark:prose-invert max-w-none">
-          {currentItem?.content ? (
-            <div dangerouslySetInnerHTML={{ __html: currentItem.content }} />
+          {currentItem?.clean_html ? (
+            <div dangerouslySetInnerHTML={{ __html: currentItem.clean_html }} />
+          ) : currentItem?.text ? (
+            <pre className="whitespace-pre-wrap text-sm text-zinc-700 dark:text-zinc-200">
+              {currentItem.text}
+            </pre>
           ) : (
             <p className="text-zinc-500">
               {t("collections:reading.noContent", "Content not available")}
@@ -461,6 +484,7 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
                   key={highlight.id}
                   highlight={highlight}
                   onDelete={handleHighlightDeleteClick}
+                  onEdit={openHighlightEditor}
                 />
               ))}
             </div>
@@ -554,10 +578,10 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
                         <ExternalLink className="h-3 w-3" />
                       </a>
                     )}
-                    {currentItem.published_date && (
+                    {currentItem.published_at && (
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        {formatDate(currentItem.published_date)}
+                        {formatDate(currentItem.published_at)}
                       </span>
                     )}
                     {currentItem.reading_time_minutes && (
@@ -595,17 +619,17 @@ export const ReadingItemDetail: React.FC<ReadingItemDetailProps> = ({
 
                 <Tooltip
                   title={
-                    currentItem.is_favorite
+                    currentItem.favorite
                       ? t("collections:reading.unfavorite", "Unfavorite")
                       : t("collections:reading.favorite", "Favorite")
                   }
                 >
                   <Button
-                    type={currentItem.is_favorite ? "primary" : "default"}
+                    type={currentItem.favorite ? "primary" : "default"}
                     size="small"
                     icon={
                       <Star
-                        className={`h-4 w-4 ${currentItem.is_favorite ? "fill-current" : ""}`}
+                        className={`h-4 w-4 ${currentItem.favorite ? "fill-current" : ""}`}
                       />
                     }
                     onClick={handleToggleFavorite}

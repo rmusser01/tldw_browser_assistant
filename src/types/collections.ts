@@ -11,39 +11,44 @@ export type ReadingStatus = "saved" | "reading" | "read" | "archived"
 
 export interface ReadingItem {
   id: string
-  url: string
+  media_id?: string
+  media_uuid?: string
   title: string
+  url?: string
+  canonical_url?: string
   domain?: string
-  author?: string
-  published_date?: string
-  excerpt?: string
-  content?: string
-  word_count?: number
-  reading_time_minutes?: number
-  status: ReadingStatus
-  is_favorite: boolean
-  tags: string[]
-  notes?: string
   summary?: string
-  tts_audio_url?: string
-  created_at: string
-  updated_at: string
+  notes?: string
+  published_at?: string
+  status?: ReadingStatus
+  processing_status?: string
+  favorite: boolean
+  tags: string[]
+  created_at?: string
+  updated_at?: string
   read_at?: string
-  archived_at?: string
+  text?: string
+  clean_html?: string
+  metadata?: Record<string, unknown>
+  reading_time_minutes?: number
+  tts_audio_url?: string
 }
 
 export interface ReadingItemSummary {
   id: string
-  url: string
   title: string
+  url?: string
+  canonical_url?: string
   domain?: string
-  excerpt?: string
-  status: ReadingStatus
-  is_favorite: boolean
+  summary?: string
+  notes?: string
+  status?: ReadingStatus
+  favorite: boolean
   tags: string[]
   reading_time_minutes?: number
-  created_at: string
-  updated_at: string
+  created_at?: string
+  updated_at?: string
+  published_at?: string
 }
 
 export interface AddReadingItemRequest {
@@ -51,11 +56,15 @@ export interface AddReadingItemRequest {
   title?: string
   tags?: string[]
   notes?: string
+  status?: ReadingStatus
+  favorite?: boolean
+  summary?: string
+  content?: string
 }
 
 export interface UpdateReadingItemRequest {
   status?: ReadingStatus
-  is_favorite?: boolean
+  favorite?: boolean
   tags?: string[]
   notes?: string
   title?: string
@@ -63,24 +72,24 @@ export interface UpdateReadingItemRequest {
 
 export interface ReadingListParams {
   page?: number
-  page_size?: number
-  search?: string
+  size?: number
+  q?: string
   status?: ReadingStatus | ReadingStatus[]
   tags?: string[]
   domain?: string
-  is_favorite?: boolean
-  sort_by?: "created_at" | "updated_at" | "title" | "relevance"
-  sort_order?: "asc" | "desc"
-  from_date?: string
-  to_date?: string
+  favorite?: boolean
+  sort?: "updated_desc" | "updated_asc" | "created_desc" | "created_asc" | "title_asc" | "title_desc" | "relevance"
+  date_from?: string
+  date_to?: string
 }
 
 export interface ReadingListResponse {
   items: ReadingItemSummary[]
   total: number
   page: number
-  page_size: number
-  pages: number
+  size: number
+  offset?: number
+  limit?: number
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -93,27 +102,26 @@ export type AnchoringStrategy = "fuzzy_quote" | "exact_offset"
 
 export interface Highlight {
   id: string
-  reading_item_id: string
-  reading_item_title?: string
+  item_id: string
+  item_title?: string
   quote: string
   note?: string
-  color: HighlightColor
+  color?: HighlightColor
   state: HighlightState
-  anchoring_strategy: AnchoringStrategy
+  anchor_strategy: AnchoringStrategy
   start_offset?: number
   end_offset?: number
   context_before?: string
   context_after?: string
   created_at: string
-  updated_at: string
 }
 
 export interface CreateHighlightRequest {
-  reading_item_id: string
+  item_id: string
   quote: string
   note?: string
   color?: HighlightColor
-  anchoring_strategy?: AnchoringStrategy
+  anchor_strategy?: AnchoringStrategy
   start_offset?: number
   end_offset?: number
   context_before?: string
@@ -123,26 +131,10 @@ export interface CreateHighlightRequest {
 export interface UpdateHighlightRequest {
   note?: string
   color?: HighlightColor
-}
-
-export interface HighlightsListParams {
-  page?: number
-  page_size?: number
-  reading_item_id?: string
-  color?: HighlightColor
   state?: HighlightState
-  search?: string
-  sort_by?: "created_at" | "updated_at"
-  sort_order?: "asc" | "desc"
 }
 
-export interface HighlightsListResponse {
-  highlights: Highlight[]
-  total: number
-  page: number
-  page_size: number
-  pages: number
-}
+export type HighlightsListResponse = Highlight[]
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Output Templates Types
@@ -155,13 +147,13 @@ export type TemplateType =
   | "newsletter_html"
   | "tts_audio"
 
-export type TemplateFormat = "markdown" | "html" | "mp3"
+export type TemplateFormat = "md" | "html" | "mp3"
 
 export interface OutputTemplate {
   id: string
   name: string
   description?: string
-  template_type: TemplateType
+  type: TemplateType
   format: TemplateFormat
   body: string // Jinja2 template content
   is_default: boolean
@@ -172,9 +164,10 @@ export interface OutputTemplate {
 export interface CreateTemplateRequest {
   name: string
   description?: string
-  template_type: TemplateType
+  type: TemplateType
   format: TemplateFormat
   body: string
+  is_default?: boolean
 }
 
 export interface UpdateTemplateRequest {
@@ -182,97 +175,84 @@ export interface UpdateTemplateRequest {
   description?: string
   body?: string
   is_default?: boolean
+  type?: TemplateType
+  format?: TemplateFormat
 }
 
 export interface TemplatePreviewRequest {
-  template_id?: string
-  body?: string // Raw template body for preview without saving
-  reading_item_ids: string[]
+  template_id: string
+  item_ids?: string[]
+  run_id?: string
+  limit?: number
+  data?: Record<string, object>
 }
 
 export interface TemplatePreviewResponse {
-  rendered_content: string
-  format: TemplateFormat
+  rendered: string
+  format: "md" | "html"
 }
 
 export interface GenerateOutputRequest {
   template_id: string
-  reading_item_ids: string[]
+  item_ids?: string[]
+  run_id?: string
+  title?: string
+  data?: Record<string, object>
 }
 
-export interface GenerateOutputResponse {
-  content: string
+export interface OutputArtifact {
+  id: string
+  title: string
+  type: string
   format: TemplateFormat
-  download_url?: string // For MP3
+  storage_path: string
+  media_item_id?: string
+  created_at: string
 }
 
 export interface TemplatesListParams {
-  page?: number
-  page_size?: number
-  template_type?: TemplateType
-  format?: TemplateFormat
-  search?: string
+  q?: string
+  limit?: number
+  offset?: number
 }
 
 export interface TemplatesListResponse {
-  templates: OutputTemplate[]
+  items: OutputTemplate[]
   total: number
-  page: number
-  page_size: number
-  pages: number
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Import/Export Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type ImportSource = "pocket" | "kindle" | "instapaper" | "json" | "csv"
-export type ExportFormat = "json" | "csv" | "markdown"
+export type ImportSource = "auto" | "pocket" | "instapaper"
+export type ExportFormat = "jsonl" | "zip"
 
 export interface ImportRequest {
   source: ImportSource
-  file?: File
-  api_key?: string // For services that support API import
-}
-
-export interface ImportPreviewItem {
-  url: string
-  title: string
-  tags?: string[]
-  notes?: string
-  status?: ReadingStatus
-}
-
-export interface ImportPreviewResponse {
-  items: ImportPreviewItem[]
-  total: number
-  warnings?: string[]
-}
-
-export interface ImportConfirmRequest {
-  items: ImportPreviewItem[]
-  default_status?: ReadingStatus
-  default_tags?: string[]
+  file: File
 }
 
 export interface ImportResult {
+  source: string
   imported: number
+  updated: number
   skipped: number
   errors: string[]
 }
 
 export interface ExportRequest {
   format: ExportFormat
-  item_ids?: string[] // Specific items, or all if empty
-  filters?: ReadingListParams // Or filter criteria
-  include_content?: boolean
-  include_highlights?: boolean
+  status?: string[]
+  tags?: string[]
+  favorite?: boolean
+  q?: string
+  domain?: string
+  page?: number
+  size?: number
 }
 
-export interface ExportResponse {
-  download_url: string
-  filename: string
-}
+export type ExportResponse = Blob
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Prompt Collections Types (minimal for now)
@@ -307,22 +287,22 @@ export interface CollectionsFilterState {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface SummarizeRequest {
-  reading_item_id: string
+  item_id: string
   model?: string
   max_length?: number
 }
 
 export interface SummarizeResponse {
   summary: string
-  model_used: string
+  provider: string
+  model?: string
 }
 
 export interface GenerateTTSRequest {
-  reading_item_id: string
+  item_id: string
   voice?: string
 }
 
 export interface GenerateTTSResponse {
   audio_url: string
-  duration_seconds: number
 }

@@ -73,6 +73,7 @@ export const ServerChatRow = React.memo((props: ServerChatRowAllProps) => {
     onTogglePinned,
     onOpenSettings,
     onRenameChat,
+    onCreateTable,
     onEditTopic,
     onDeleteChat,
     onUpdateState,

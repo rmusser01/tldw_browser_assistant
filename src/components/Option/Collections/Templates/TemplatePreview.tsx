@@ -4,6 +4,7 @@ import { Eye, Download, Copy, Check } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useCollectionsStore } from "@/store/collections"
 import { useTldwApiClient } from "@/hooks/useTldwApiClient"
+import type { ReadingItemSummary } from "@/types/collections"
 
 interface TemplatePreviewProps {
   templateId: string
@@ -17,7 +18,6 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
   const { t } = useTranslation(["collections", "common"])
   const api = useTldwApiClient()
 
-  const items = useCollectionsStore((s) => s.items)
   const previewContent = useCollectionsStore((s) => s.previewContent)
   const previewLoading = useCollectionsStore((s) => s.previewLoading)
   const previewError = useCollectionsStore((s) => s.previewError)
@@ -29,23 +29,79 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
   const setSelectedItemsForGeneration = useCollectionsStore((s) => s.setSelectedItemsForGeneration)
   const toggleItemForGeneration = useCollectionsStore((s) => s.toggleItemForGeneration)
 
+  const [previewItems, setPreviewItems] = useState<ReadingItemSummary[]>([])
+  const [previewItemsLoading, setPreviewItemsLoading] = useState(false)
+  const [previewItemsError, setPreviewItemsError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [step, setStep] = useState<"select" | "preview" | "output">("select")
+  const [previewFormat, setPreviewFormat] = useState<string | null>(null)
   const [generatedContent, setGeneratedContent] = useState<string | null>(null)
   const [generatedFormat, setGeneratedFormat] = useState<string | null>(null)
   const [generatedDownloadUrl, setGeneratedDownloadUrl] = useState<string | null>(null)
   const [generating, setGenerating] = useState(false)
+
+  useEffect(() => {
+    return () => {
+      if (generatedDownloadUrl) {
+        URL.revokeObjectURL(generatedDownloadUrl)
+      }
+    }
+  }, [generatedDownloadUrl])
 
   // Reset on mount
   useEffect(() => {
     setPreviewContent(null)
     setPreviewError(null)
     setSelectedItemsForGeneration([])
+    setPreviewFormat(null)
     setGeneratedContent(null)
     setGeneratedFormat(null)
     setGeneratedDownloadUrl(null)
     setStep("select")
   }, [templateId, setPreviewContent, setPreviewError, setSelectedItemsForGeneration])
+
+  useEffect(() => {
+    let active = true
+    const loadItems = async () => {
+      setPreviewItemsLoading(true)
+      setPreviewItemsError(null)
+      try {
+        const response = await api.getReadingList({ page: 1, size: 50 })
+        if (!active) return
+        setPreviewItems(response.items || [])
+      } catch (error: any) {
+        if (!active) return
+        const msg = error?.message || "Failed to load reading items"
+        setPreviewItemsError(msg)
+        message.error(msg)
+      } finally {
+        if (active) setPreviewItemsLoading(false)
+      }
+    }
+    loadItems()
+    return () => {
+      active = false
+    }
+  }, [api])
+
+  const buildTemplateContext = useCallback(() => {
+    const selected = previewItems.filter((item) =>
+      selectedItemsForGeneration.includes(item.id)
+    )
+    const date = new Date().toISOString()
+    const contextItems = selected.map((item) => ({
+      id: item.id,
+      title: item.title,
+      url: item.url || item.canonical_url || "",
+      domain: item.domain || "",
+      summary: item.summary || "",
+      notes: item.notes || "",
+      published_at: item.published_at || item.created_at || "",
+      tags: Array.isArray(item.tags) ? item.tags : []
+    }))
+    const tags = Array.from(new Set(contextItems.flatMap((item) => item.tags)))
+    return { items: contextItems, date, tags }
+  }, [previewItems, selectedItemsForGeneration])
 
   const handleGeneratePreview = useCallback(async () => {
     if (selectedItemsForGeneration.length === 0) {
@@ -58,9 +114,10 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
     try {
       const response = await api.previewTemplate({
         template_id: templateId,
-        reading_item_ids: selectedItemsForGeneration
+        data: buildTemplateContext()
       })
-      setPreviewContent(response.rendered_content)
+      setPreviewContent(response.rendered)
+      setPreviewFormat(response.format)
       setStep("preview")
     } catch (error: any) {
       setPreviewError(error?.message || "Failed to generate preview")
@@ -75,6 +132,8 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
     setPreviewLoading,
     setPreviewError,
     setPreviewContent,
+    setPreviewFormat,
+    buildTemplateContext,
     t
   ])
 
@@ -94,7 +153,20 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
 
   const handleDownload = useCallback(() => {
     if (step === "output" && generatedDownloadUrl) {
-      window.open(generatedDownloadUrl, "_blank")
+      const extension =
+        generatedFormat === "html"
+          ? "html"
+          : generatedFormat === "md"
+            ? "md"
+            : generatedFormat === "mp3"
+              ? "mp3"
+              : "txt"
+      const a = document.createElement("a")
+      a.href = generatedDownloadUrl
+      a.download = `template-output-${Date.now()}.${extension}`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
       return
     }
     if (!activeContent) return
@@ -102,10 +174,14 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
       step === "output"
         ? generatedFormat === "html"
           ? "html"
-          : generatedFormat === "markdown"
+          : generatedFormat === "md"
             ? "md"
             : "txt"
-        : "txt"
+        : previewFormat === "html"
+          ? "html"
+          : previewFormat === "md"
+            ? "md"
+            : "txt"
     const blob = new Blob([activeContent], { type: "text/plain" })
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
@@ -115,7 +191,7 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
     a.click()
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
-  }, [step, generatedDownloadUrl, activeContent, generatedFormat])
+  }, [step, generatedDownloadUrl, activeContent, generatedFormat, previewFormat])
 
   const handleGenerateOutput = useCallback(async () => {
     if (selectedItemsForGeneration.length === 0) {
@@ -124,28 +200,35 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
     }
     setGenerating(true)
     try {
-      const response = await api.generateOutput({
+      const output = await api.generateOutput({
         template_id: templateId,
-        reading_item_ids: selectedItemsForGeneration
+        data: buildTemplateContext()
       })
-      setGeneratedContent(response.content || null)
-      setGeneratedFormat(response.format || null)
-      setGeneratedDownloadUrl(response.download_url || null)
+      const blob = await api.downloadOutput(output.id, output.format)
+      const downloadUrl = URL.createObjectURL(blob)
+      setGeneratedFormat(output.format || null)
+      setGeneratedDownloadUrl(downloadUrl)
+      if (output.format === "mp3") {
+        setGeneratedContent(null)
+      } else {
+        const text = await blob.text()
+        setGeneratedContent(text)
+      }
       setStep("output")
     } catch (error: any) {
       message.error(error?.message || "Failed to generate output")
     } finally {
       setGenerating(false)
     }
-  }, [api, templateId, selectedItemsForGeneration, t])
+  }, [api, templateId, selectedItemsForGeneration, buildTemplateContext, t])
 
   const handleSelectAll = useCallback(() => {
-    if (selectedItemsForGeneration.length === items.length) {
+    if (selectedItemsForGeneration.length === previewItems.length) {
       setSelectedItemsForGeneration([])
     } else {
-      setSelectedItemsForGeneration(items.map((i) => i.id))
+      setSelectedItemsForGeneration(previewItems.map((i) => i.id))
     }
-  }, [items, selectedItemsForGeneration, setSelectedItemsForGeneration])
+  }, [previewItems, selectedItemsForGeneration, setSelectedItemsForGeneration])
 
   return (
     <Modal
@@ -247,10 +330,13 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
 
           <div className="flex items-center justify-between border-b border-zinc-200 pb-2 dark:border-zinc-700">
             <Checkbox
-              checked={selectedItemsForGeneration.length === items.length && items.length > 0}
+              checked={
+                selectedItemsForGeneration.length === previewItems.length &&
+                previewItems.length > 0
+              }
               indeterminate={
                 selectedItemsForGeneration.length > 0 &&
-                selectedItemsForGeneration.length < items.length
+                selectedItemsForGeneration.length < previewItems.length
               }
               onChange={handleSelectAll}
             >
@@ -263,7 +349,13 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
             </span>
           </div>
 
-          {items.length === 0 ? (
+          {previewItemsLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <Spin />
+            </div>
+          ) : previewItemsError ? (
+            <Empty description={previewItemsError} />
+          ) : previewItems.length === 0 ? (
             <Empty
               description={t(
                 "collections:templates.noItems",
@@ -273,7 +365,7 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
           ) : (
             <List
               className="max-h-80 overflow-auto"
-              dataSource={items}
+              dataSource={previewItems}
               renderItem={(item) => (
                 <List.Item className="cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-800">
                   <Checkbox
@@ -283,7 +375,9 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
                   >
                     <div className="ml-2">
                       <div className="font-medium">{item.title}</div>
-                      <div className="text-xs text-zinc-500">{item.domain}</div>
+                      {item.domain && (
+                        <div className="text-xs text-zinc-500">{item.domain}</div>
+                      )}
                     </div>
                   </Checkbox>
                 </List.Item>
@@ -303,9 +397,16 @@ export const TemplatePreview: React.FC<TemplatePreviewProps> = ({
         </Empty>
       ) : step === "preview" && previewContent ? (
         <div className="max-h-[60vh] overflow-auto">
-          <pre className="whitespace-pre-wrap rounded-lg bg-zinc-50 p-4 text-sm dark:bg-zinc-900">
-            {previewContent}
-          </pre>
+          {previewFormat === "html" ? (
+            <div
+              className="prose prose-sm dark:prose-invert max-w-none"
+              dangerouslySetInnerHTML={{ __html: previewContent }}
+            />
+          ) : (
+            <pre className="whitespace-pre-wrap rounded-lg bg-zinc-50 p-4 text-sm dark:bg-zinc-900">
+              {previewContent}
+            </pre>
+          )}
         </div>
       ) : step === "output" ? (
         <div className="space-y-4">

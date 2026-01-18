@@ -3,7 +3,7 @@
 ## Design Decisions
 - **Layout**: Reading-Centric Tabs
 - **Scope**: Balanced implementation covering all features equally
-- **Priority Integrations**: Bulk import (Pocket, Kindle, JSON) and export to formats (MD, HTML, newsletter)
+- **Priority Integrations**: Bulk import (Pocket JSON, Instapaper CSV via file upload) and export (JSONL, ZIP).
 
 ---
 
@@ -12,29 +12,29 @@
 The tldw_server Collections API provides these main feature areas:
 
 ### 1. Reading List (`/reading/*`)
-- **CRUD**: Save URLs, list items, get details, update status/tags/notes, delete/archive
+- **CRUD**: Save URLs, list items, get details, update status/tags/notes, delete (hard delete via `DELETE ?hard=true`, otherwise archive)
 - **Search**: Full-text search with BM25 relevance ranking
 - **Filtering**: By status (saved/reading/read/archived), tags, domain, date range, favorites
 - **Sorting**: By updated/created date, title, relevance
 - **Pagination**: Offset/limit up to 200 items per request
 - **AI Features**: Summarize with LLM, generate TTS audio
-- **Import**: Bulk import from Pocket, Kindle, JSON, etc.
+- **Import**: Bulk import from Pocket JSON or Instapaper CSV via file upload (`/reading/import`, `source=auto|pocket|instapaper`)
 
-### 2. Highlights (`/reading/highlights/*`)
+### 2. Highlights (`/reading/items/{item_id}/highlight(s)` + `/reading/highlights/{highlight_id}`)
 - Create highlights with quotes, colors, notes
 - Anchoring strategies (fuzzy quote or exact offset)
 - State tracking (active/stale when content changes)
 - Context preservation for re-anchoring
 
-### 3. Output Templates (`/outputs/templates/*`)
+### 3. Output Templates (`/outputs/templates/*` + `/outputs`)
 - Template types: newsletter_markdown, briefing_markdown, mece_markdown, newsletter_html, tts_audio
 - Jinja2 template syntax
-- Preview rendering before persistence
-- Export to MD, HTML, or MP3
+- Preview rendering via `/outputs/templates/{id}/preview` (supports inline data)
+- Generate outputs via `/outputs`, download via `/outputs/{id}/download`
+- Output formats: md, html, mp3
 
 ### 4. Prompt Collections (`/prompts/collections/*`)
-- Group prompts by collection
-- Basic CRUD operations
+- Out of scope for the Collections Playground UI (server-only capability)
 
 ---
 
@@ -66,7 +66,6 @@ src/
 │   │   ├── ReadingItemCard.tsx       # Card in list view
 │   │   ├── ReadingItemDetail.tsx     # Full detail drawer/modal
 │   │   ├── AddUrlModal.tsx           # Quick add URL
-│   │   └── ImportWizard.tsx          # Multi-step import
 │   ├── Highlights/
 │   │   ├── HighlightsList.tsx        # Browse all highlights
 │   │   ├── HighlightCard.tsx         # Individual highlight
@@ -75,10 +74,11 @@ src/
 │   │   ├── TemplatesList.tsx         # List templates
 │   │   ├── TemplateEditor.tsx        # Create/edit template
 │   │   └── TemplatePreview.tsx       # Preview rendering
+│   ├── ImportExport/
+│   │   └── ImportExportPanel.tsx     # File-based import + export download
 │   └── common/
 │       ├── StatusBadge.tsx           # saved/reading/read/archived
 │       ├── TagSelector.tsx           # Tag management
-│       └── FilterPanel.tsx           # Reusable filters
 ├── store/
 │   └── collections.tsx               # Zustand store
 ├── services/tldw/
@@ -170,6 +170,14 @@ src/
 
 ---
 
+## Current UI Alignment Notes (Post-Refactor)
+- Import uses file upload only (Pocket JSON, Instapaper CSV). No preview/confirm step on the backend.
+- Export supports JSONL/ZIP with optional item selection; clipboard export uses JSONL.
+- Reading list filters include status, favorites, tags, domain, date range, and relevance sort (when searching).
+- Highlights tab aggregates highlights by fetching up to 50 reading items.
+
+---
+
 ## Implementation Phases
 
 ### Phase 1: Foundation & Infrastructure
@@ -194,16 +202,16 @@ src/
 - `src/components/Option/Collections/ReadingList/AddUrlModal.tsx`
 - `src/components/Option/Collections/common/StatusBadge.tsx`
 - `src/components/Option/Collections/common/TagSelector.tsx`
-- `src/components/Option/Collections/common/FilterPanel.tsx`
 
 **Tasks:**
-- [x] List view with search, pagination, status/tag filters
+- [x] List view with search, pagination, status/favorites filters
 - [x] Add URL modal (title, tags, notes)
 - [x] Item detail drawer (view content, metadata)
 - [x] Status update (saved → reading → read → archived)
 - [x] Toggle favorite, manage tags
-- [x] Delete/archive with confirmation
+- [x] Delete (hard delete) with confirmation; archive via status menu
 - [x] LLM summarization action
+- [x] Expose tag/domain/date filters and relevance sort
 
 ### Phase 3: Highlights Tab
 **Files to create:**
@@ -234,17 +242,15 @@ src/
 
 ### Phase 5: Import/Export Tab
 **Files to create:**
-- `src/components/Option/Collections/ImportExport/ImportWizard.tsx`
-- `src/components/Option/Collections/ImportExport/ExportPanel.tsx`
+- `src/components/Option/Collections/ImportExport/ImportExportPanel.tsx`
 
 **Tasks:**
-- [x] Import wizard: Source selection (Pocket, Kindle, Instapaper, JSON)
-- [x] Import wizard: File upload or API key input
-- [x] Import wizard: Preview & confirm import
-- [x] Import wizard: Progress tracking
-- [x] Export: Select items or filter
-- [x] Export: Choose format (JSON, CSV, MD newsletter)
-- [x] Export: Download or copy to clipboard
+- [x] Import: Source selection (auto, Pocket JSON, Instapaper CSV)
+- [x] Import: File upload (JSON/CSV) + progress state
+- [ ] Import: Preview/confirm import (not supported by backend)
+- [x] Export: Choose format (JSONL, ZIP)
+- [x] Export: Download file (all items)
+- [x] Export: Item selection/clipboard export
 
 ### Phase 6: Polish & Integration
 - [x] Add i18n translations (create `src/assets/locale/en/collections.json`)
@@ -262,15 +268,15 @@ src/
    - Change status through all states
    - Create highlight, verify in Highlights tab
    - Create template, preview with items
-   - Import sample JSON, verify items appear
-   - Export items, verify file contents
+   - Import Pocket JSON or Instapaper CSV, verify items appear
+   - Export JSONL/ZIP, verify file contents
 
 2. **E2E Tests (Playwright):**
    - Create `tests/e2e/collections.spec.ts`
    - Test CRUD operations for reading items
    - Test highlight creation
    - Test template preview
-   - Test import/export flows
+   - Test import/export flows (file upload + JSONL/ZIP download)
 
 ---
 
@@ -299,6 +305,6 @@ A 6-phase implementation plan for a Collections Playground with:
 - **4 tabs**: Reading List, Highlights, Templates, Import/Export
 - **~18 new component files** organized by feature
 - **Full CRUD** for reading items, highlights, and templates
-- **Bulk import** from Pocket/Kindle/JSON
-- **Export** to JSON/CSV/MD formats
+- **Bulk import** from Pocket JSON or Instapaper CSV (file upload)
+- **Export** to JSONL or ZIP formats
 - **AI features**: LLM summarization, TTS generation

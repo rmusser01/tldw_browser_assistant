@@ -1,5 +1,17 @@
-import React, { useCallback, useEffect } from "react"
-import { Button, Empty, Input, Modal, Pagination, Select, Spin, message } from "antd"
+import React, { useCallback, useEffect, useMemo } from "react"
+import {
+  Button,
+  DatePicker,
+  Empty,
+  Input,
+  Modal,
+  Pagination,
+  Select,
+  Spin,
+  message
+} from "antd"
+import type { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 import { Plus, Search, Filter, Star, RefreshCw } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useCollectionsStore } from "@/store/collections"
@@ -20,7 +32,8 @@ const STATUS_OPTIONS: { value: ReadingStatus | "all"; label: string }[] = [
 const SORT_OPTIONS = [
   { value: "created_at", label: "Date Added" },
   { value: "updated_at", label: "Last Updated" },
-  { value: "title", label: "Title" }
+  { value: "title", label: "Title" },
+  { value: "relevance", label: "Relevance" }
 ]
 
 export const ReadingItemsList: React.FC = () => {
@@ -37,8 +50,13 @@ export const ReadingItemsList: React.FC = () => {
   const itemsSearch = useCollectionsStore((s) => s.itemsSearch)
   const filterStatus = useCollectionsStore((s) => s.filterStatus)
   const filterFavorite = useCollectionsStore((s) => s.filterFavorite)
+  const filterTags = useCollectionsStore((s) => s.filterTags)
+  const filterDomain = useCollectionsStore((s) => s.filterDomain)
+  const filterDateFrom = useCollectionsStore((s) => s.filterDateFrom)
+  const filterDateTo = useCollectionsStore((s) => s.filterDateTo)
   const sortBy = useCollectionsStore((s) => s.sortBy)
   const sortOrder = useCollectionsStore((s) => s.sortOrder)
+  const availableTags = useCollectionsStore((s) => s.availableTags)
   const itemDetailOpen = useCollectionsStore((s) => s.itemDetailOpen)
   const addUrlModalOpen = useCollectionsStore((s) => s.addUrlModalOpen)
   const deleteConfirmOpen = useCollectionsStore((s) => s.deleteConfirmOpen)
@@ -53,14 +71,27 @@ export const ReadingItemsList: React.FC = () => {
   const setItemsSearch = useCollectionsStore((s) => s.setItemsSearch)
   const setFilterStatus = useCollectionsStore((s) => s.setFilterStatus)
   const setFilterFavorite = useCollectionsStore((s) => s.setFilterFavorite)
+  const setFilterTags = useCollectionsStore((s) => s.setFilterTags)
+  const setFilterDomain = useCollectionsStore((s) => s.setFilterDomain)
+  const setFilterDateRange = useCollectionsStore((s) => s.setFilterDateRange)
   const setSortBy = useCollectionsStore((s) => s.setSortBy)
   const setSortOrder = useCollectionsStore((s) => s.setSortOrder)
   const openAddUrlModal = useCollectionsStore((s) => s.openAddUrlModal)
   const resetFilters = useCollectionsStore((s) => s.resetFilters)
   const closeDeleteConfirm = useCollectionsStore((s) => s.closeDeleteConfirm)
   const removeItem = useCollectionsStore((s) => s.removeItem)
+  const setAvailableTags = useCollectionsStore((s) => s.setAvailableTags)
 
   const [deleteLoading, setDeleteLoading] = React.useState(false)
+
+  const buildSortParam = useCallback(() => {
+    if (sortBy === "relevance") return "relevance"
+    const direction = sortOrder === "asc" ? "asc" : "desc"
+    if (sortBy === "created_at") return `created_${direction}`
+    if (sortBy === "updated_at") return `updated_${direction}`
+    if (sortBy === "title") return `title_${direction}`
+    return undefined
+  }, [sortBy, sortOrder])
 
   // Fetch items
   const fetchItems = useCallback(async () => {
@@ -69,14 +100,22 @@ export const ReadingItemsList: React.FC = () => {
     try {
       const response = await api.getReadingList({
         page: itemsPage,
-        page_size: itemsPageSize,
-        search: itemsSearch || undefined,
+        size: itemsPageSize,
+        q: itemsSearch || undefined,
         status: filterStatus !== "all" ? filterStatus : undefined,
-        is_favorite: filterFavorite ?? undefined,
-        sort_by: sortBy,
-        sort_order: sortOrder
+        favorite: filterFavorite ?? undefined,
+        tags: filterTags.length ? filterTags : undefined,
+        domain: filterDomain || undefined,
+        date_from: filterDateFrom || undefined,
+        date_to: filterDateTo || undefined,
+        sort: buildSortParam()
       })
       setItems(response.items, response.total)
+      const tagSet = new Set<string>()
+      response.items.forEach((item: { tags?: string[] }) => {
+        item.tags?.forEach((tag) => tagSet.add(tag))
+      })
+      setAvailableTags(Array.from(tagSet).sort())
     } catch (error: any) {
       const errorMsg = error?.message || "Failed to fetch reading list"
       setItemsError(errorMsg)
@@ -91,11 +130,15 @@ export const ReadingItemsList: React.FC = () => {
     itemsSearch,
     filterStatus,
     filterFavorite,
-    sortBy,
-    sortOrder,
+    filterTags,
+    filterDomain,
+    filterDateFrom,
+    filterDateTo,
+    buildSortParam,
     setItems,
     setItemsLoading,
-    setItemsError
+    setItemsError,
+    setAvailableTags
   ])
 
   // Fetch on mount and when filters change
@@ -117,11 +160,49 @@ export const ReadingItemsList: React.FC = () => {
     [setItemsPage]
   )
 
+  const handleTagFilterChange = useCallback(
+    (tags: string[]) => {
+      const normalized = tags
+        .map((tag) => tag.trim().toLowerCase())
+        .filter(Boolean)
+      setFilterTags(Array.from(new Set(normalized)))
+    },
+    [setFilterTags]
+  )
+
+  const handleDomainChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilterDomain(e.target.value)
+    },
+    [setFilterDomain]
+  )
+
+  const handleDateRangeChange = useCallback(
+    (dates: null | [Dayjs | null, Dayjs | null]) => {
+      if (!dates) {
+        setFilterDateRange(null, null)
+        return
+      }
+      const [start, end] = dates
+      const from = start ? start.startOf("day").toDate().toISOString() : null
+      const to = end ? end.endOf("day").toDate().toISOString() : null
+      setFilterDateRange(from, to)
+    },
+    [setFilterDateRange]
+  )
+
+  const dateRangeValue = useMemo<[Dayjs | null, Dayjs | null]>(() => {
+    return [
+      filterDateFrom ? dayjs(filterDateFrom) : null,
+      filterDateTo ? dayjs(filterDateTo) : null
+    ]
+  }, [filterDateFrom, filterDateTo])
+
   const handleDeleteConfirm = useCallback(async () => {
     if (!deleteTargetId || deleteTargetType !== "item") return
     setDeleteLoading(true)
     try {
-      await api.deleteReadingItem(deleteTargetId)
+      await api.deleteReadingItem(deleteTargetId, { hard: true })
       removeItem(deleteTargetId)
       message.success(t("collections:reading.deleted", "Article deleted"))
     } catch (error: any) {
@@ -193,6 +274,32 @@ export const ReadingItemsList: React.FC = () => {
           {t("collections:reading.favorites", "Favorites")}
         </Button>
 
+        <Select
+          mode="tags"
+          value={filterTags}
+          onChange={handleTagFilterChange}
+          options={availableTags.map((tag) => ({ value: tag, label: tag }))}
+          className="min-w-40"
+          size="small"
+          placeholder={t("collections:reading.tagsFilter", "Tags")}
+        />
+
+        <Input
+          value={filterDomain}
+          onChange={handleDomainChange}
+          placeholder={t("collections:reading.domainFilter", "Domain")}
+          className="w-40"
+          size="small"
+          allowClear
+        />
+
+        <DatePicker.RangePicker
+          value={dateRangeValue}
+          onChange={handleDateRangeChange}
+          size="small"
+          allowClear
+        />
+
         <div className="ml-auto flex items-center gap-2">
           <span className="text-sm text-gray-500">
             {t("collections:reading.sortBy", "Sort")}:
@@ -202,7 +309,8 @@ export const ReadingItemsList: React.FC = () => {
             onChange={(v) => setSortBy(v as typeof sortBy)}
             options={SORT_OPTIONS.map((opt) => ({
               ...opt,
-              label: t(`collections:sort.${opt.value}`, opt.label)
+              label: t(`collections:sort.${opt.value}`, opt.label),
+              disabled: opt.value === "relevance" && !itemsSearch
             }))}
             className="w-36"
             size="small"
@@ -215,7 +323,13 @@ export const ReadingItemsList: React.FC = () => {
           </Button>
         </div>
 
-        {(filterStatus !== "all" || filterFavorite !== null || itemsSearch) && (
+        {(filterStatus !== "all" ||
+          filterFavorite !== null ||
+          itemsSearch ||
+          filterTags.length > 0 ||
+          filterDomain ||
+          filterDateFrom ||
+          filterDateTo) && (
           <Button size="small" type="link" onClick={resetFilters}>
             {t("collections:reading.clearFilters", "Clear filters")}
           </Button>

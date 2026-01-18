@@ -17,7 +17,7 @@ const TEMPLATE_TYPE_OPTIONS: { value: TemplateType; label: string }[] = [
 ]
 
 const FORMAT_OPTIONS: { value: TemplateFormat; label: string }[] = [
-  { value: "markdown", label: "Markdown" },
+  { value: "md", label: "Markdown" },
   { value: "html", label: "HTML" },
   { value: "mp3", label: "MP3 (Audio)" }
 ]
@@ -68,7 +68,7 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ onSuccess }) => 
         const newTemplate = await api.createOutputTemplate({
           name: values.name,
           description: values.description,
-          template_type: values.template_type,
+          type: values.template_type,
           format: values.format,
           body: values.body
         })
@@ -107,21 +107,23 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ onSuccess }) => 
   const getDefaultBody = (type: TemplateType): string => {
     const templates: Record<TemplateType, string> = {
       newsletter_markdown: `# Weekly Reading Digest
+_Date: {{ date }}_
 
 {% for item in items %}
 ## {{ item.title }}
-*{{ item.domain }} | {{ item.reading_time_minutes }} min read*
+*{{ item.domain }} | {{ item.published_at }}*
 
-{{ item.summary or item.excerpt }}
+{{ item.summary or item.notes or "No summary available." }}
 
 [Read more]({{ item.url }})
 
 ---
 {% endfor %}
 
-*Generated on {{ now.strftime('%B %d, %Y') }}*`,
+*Generated on {{ date }}*`,
 
       briefing_markdown: `# Reading Briefing
+_Date: {{ date }}_
 
 ## Summary
 {{ items | length }} articles reviewed.
@@ -137,6 +139,7 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ onSuccess }) => 
 {% endfor %}`,
 
       mece_markdown: `# MECE Analysis
+_Date: {{ date }}_
 
 ## Categories
 {% for category, category_items in items | groupby('tags[0]') %}
@@ -158,24 +161,25 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ onSuccess }) => 
 </head>
 <body>
   <h1>Weekly Reading Digest</h1>
+  <p style="color:#666;">{{ date }}</p>
   {% for item in items %}
   <div class="item">
     <div class="title">{{ item.title }}</div>
-    <div class="meta">{{ item.domain }} | {{ item.reading_time_minutes }} min read</div>
-    <p>{{ item.summary or item.excerpt }}</p>
+    <div class="meta">{{ item.domain }} | {{ item.published_at }}</div>
+    <p>{{ item.summary or item.notes or "No summary available." }}</p>
     <a href="{{ item.url }}">Read more</a>
   </div>
   {% endfor %}
 </body>
 </html>`,
 
-      tts_audio: `Reading Digest for {{ now.strftime('%B %d, %Y') }}.
+      tts_audio: `Reading Digest for {{ date }}.
 
 {% for item in items %}
 Article {{ loop.index }}: {{ item.title }}.
 From {{ item.domain }}.
 
-{{ item.summary or item.excerpt }}
+{{ item.summary or item.notes or "No summary available." }}
 
 {% endfor %}
 
@@ -186,7 +190,7 @@ This concludes today's reading digest.`
 
   const handleTypeChange = (type: TemplateType) => {
     // Auto-set format based on type
-    let format: TemplateFormat = "markdown"
+    let format: TemplateFormat = "md"
     if (type === "newsletter_html") format = "html"
     else if (type === "tts_audio") format = "mp3"
 
@@ -228,13 +232,13 @@ This concludes today's reading digest.`
             ? {
                 name: editingTemplate.name,
                 description: editingTemplate.description,
-                template_type: editingTemplate.template_type,
+                template_type: editingTemplate.type,
                 format: editingTemplate.format,
                 body: editingTemplate.body
               }
             : {
                 template_type: "newsletter_markdown",
-                format: "markdown",
+                format: "md",
                 body: getDefaultBody("newsletter_markdown")
               }
         }

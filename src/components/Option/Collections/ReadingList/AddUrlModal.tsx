@@ -44,17 +44,19 @@ export const AddUrlModal: React.FC<AddUrlModalProps> = ({ onSuccess }) => {
       })
 
       addItem({
-        id: newItem.id,
+        id: String(newItem.id),
         url: newItem.url,
+        canonical_url: newItem.canonical_url,
         title: newItem.title,
         domain: newItem.domain,
-        excerpt: newItem.excerpt,
+        summary: newItem.summary,
         status: newItem.status,
-        is_favorite: newItem.is_favorite,
-        tags: newItem.tags,
+        favorite: Boolean(newItem.favorite),
+        tags: Array.isArray(newItem.tags) ? newItem.tags : [],
         reading_time_minutes: newItem.reading_time_minutes,
         created_at: newItem.created_at,
-        updated_at: newItem.updated_at
+        updated_at: newItem.updated_at,
+        published_at: newItem.published_at
       })
 
       message.success(

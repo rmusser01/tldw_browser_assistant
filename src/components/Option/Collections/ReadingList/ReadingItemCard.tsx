@@ -37,15 +37,15 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
     setActionLoading(true)
     try {
       await api.updateReadingItem(item.id, {
-        is_favorite: !item.is_favorite
+        favorite: !item.favorite
       })
-      updateItemInList(item.id, { is_favorite: !item.is_favorite })
+      updateItemInList(item.id, { favorite: !item.favorite })
     } catch (error: any) {
       message.error(error?.message || "Failed to update favorite status")
     } finally {
       setActionLoading(false)
     }
-  }, [api, item.id, item.is_favorite, updateItemInList])
+  }, [api, item.id, item.favorite, updateItemInList])
 
   const handleStatusChange = useCallback(
     async (newStatus: ReadingStatus) => {
@@ -161,7 +161,7 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
         <div className="flex-1 min-w-0">
           {/* Title */}
           <div className="flex items-center gap-2">
-            {item.is_favorite && (
+            {item.favorite && (
               <Star className="h-4 w-4 flex-shrink-0 fill-yellow-400 text-yellow-400" />
             )}
             <h3 className="truncate text-base font-medium text-zinc-900 dark:text-zinc-100">
@@ -185,10 +185,10 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
             )}
           </div>
 
-          {/* Excerpt */}
-          {item.excerpt && (
+          {/* Summary */}
+          {item.summary && (
             <p className="mt-2 line-clamp-2 text-sm text-zinc-600 dark:text-zinc-300">
-              {item.excerpt}
+              {item.summary}
             </p>
           )}
 
@@ -225,13 +225,13 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
             className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100"
             onClick={(e) => e.stopPropagation()}
           >
-            <Tooltip title={item.is_favorite ? t("collections:reading.unfavorite", "Unfavorite") : t("collections:reading.favorite", "Favorite")}>
+            <Tooltip title={item.favorite ? t("collections:reading.unfavorite", "Unfavorite") : t("collections:reading.favorite", "Favorite")}>
               <Button
                 type="text"
                 size="small"
                 icon={
                   <Star
-                    className={`h-4 w-4 ${item.is_favorite ? "fill-yellow-400 text-yellow-400" : ""}`}
+                    className={`h-4 w-4 ${item.favorite ? "fill-yellow-400 text-yellow-400" : ""}`}
                   />
                 }
                 onClick={handleToggleFavorite}

@@ -65,13 +65,30 @@ export const HighlightsList: React.FC = () => {
     setHighlightsLoading(true)
     setHighlightsError(null)
     try {
-      const response = await api.getHighlights({
-        page: highlightsPage,
-        page_size: highlightsPageSize,
-        search: highlightsSearch || undefined,
-        color: filterColor !== "all" ? filterColor : undefined
+      const listResponse = await api.getReadingList({ page: 1, size: 50 })
+      const sourceItems = Array.isArray(listResponse?.items) ? listResponse.items : []
+      const limitedItems = sourceItems.slice(0, 50)
+      const results = await Promise.all(
+        limitedItems.map(async (item) => {
+          const itemHighlights = await api.getHighlights(item.id)
+          return itemHighlights.map((highlight: Highlight) => ({
+            ...highlight,
+            item_title: highlight.item_title || item.title
+          }))
+        })
+      )
+      const allHighlights = results.flat()
+      const q = highlightsSearch.trim().toLowerCase()
+      const filtered = allHighlights.filter((highlight) => {
+        if (filterColor !== "all" && highlight.color !== filterColor) return false
+        if (!q) return true
+        const haystack = `${highlight.quote} ${highlight.note || ""}`.toLowerCase()
+        return haystack.includes(q)
       })
-      setHighlights(response.highlights, response.total)
+      const total = filtered.length
+      const start = (highlightsPage - 1) * highlightsPageSize
+      const paged = filtered.slice(start, start + highlightsPageSize)
+      setHighlights(paged, total)
     } catch (error: any) {
       const errorMsg = error?.message || "Failed to fetch highlights"
       setHighlightsError(errorMsg)
@@ -134,7 +151,7 @@ export const HighlightsList: React.FC = () => {
     if (!highlightsGroupByItem) return null
     const groups: Record<string, Highlight[]> = {}
     highlights.forEach((h) => {
-      const key = h.reading_item_id
+      const key = h.item_id
       if (!groups[key]) groups[key] = []
       groups[key].push(h)
     })
@@ -235,7 +252,7 @@ export const HighlightsList: React.FC = () => {
               title={
                 <div className="flex items-center justify-between">
                   <span className="font-medium">
-                    {itemHighlights[0]?.reading_item_title || "Untitled"}
+                    {itemHighlights[0]?.item_title || "Untitled"}
                   </span>
                   <Button
                     type="link"
@@ -271,7 +288,7 @@ export const HighlightsList: React.FC = () => {
               highlight={highlight}
               onDelete={handleDeleteClick}
               onEdit={openHighlightEditor}
-              onViewArticle={() => openItemDetail(highlight.reading_item_id)}
+              onViewArticle={() => openItemDetail(highlight.item_id)}
             />
           ))}
         </div>

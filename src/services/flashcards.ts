@@ -1,6 +1,5 @@
 import { bgRequest } from "@/services/background-proxy"
 import type { AllowedPath } from "@/services/tldw/openapi-guard"
-import { createSafeStorage } from "@/utils/safe-storage"
 import {
   buildQuery,
   createResourceClient
@@ -224,10 +223,6 @@ export async function exportFlashcards(params: FlashcardsExportParams = {}): Pro
 
 // Export binary (APKG). Uses direct fetch to preserve binary payload.
 export async function exportFlashcardsFile(params: FlashcardsExportParams & { format: 'apkg' }): Promise<Blob> {
-  const storage = createSafeStorage()
-  const cfg = await storage.get<any>('tldwConfig').catch(() => null)
-  const base = (cfg?.serverUrl || '').replace(/\/$/, '')
-  if (!base) throw new Error('Server not configured')
   const query = buildQuery({
     deck_id: params.deck_id,
     tag: params.tag,
@@ -239,18 +234,28 @@ export async function exportFlashcardsFile(params: FlashcardsExportParams & { fo
     include_header: params.include_header,
     extended_header: params.extended_header
   })
-  const url = `${base}/api/v1/flashcards/export${query}`
-
-  const headers: Record<string, string> = { Accept: 'application/octet-stream' }
-  // Auth
-  if (cfg?.authMode === 'single-user' && cfg?.apiKey) headers['X-API-KEY'] = String(cfg.apiKey)
-  else if (cfg?.authMode === 'multi-user' && cfg?.accessToken) headers['Authorization'] = `Bearer ${cfg.accessToken}`
-
-  const res = await fetch(url, { method: 'GET', headers, credentials: 'include' })
-  if (!res.ok) {
-    let msg = res.statusText
-    try { const j = await res.json(); msg = j?.detail || j?.error || j?.message || msg } catch {}
-    throw new Error(msg || `Export failed: ${res.status}`)
+  const path = `/api/v1/flashcards/export${query}` as AllowedPath
+  const response = await bgRequest<{
+    ok: boolean
+    status: number
+    data?: ArrayBuffer
+    error?: string
+    headers?: Record<string, string>
+  }>({
+    path,
+    method: "GET",
+    headers: { Accept: "application/octet-stream" },
+    responseType: "arrayBuffer",
+    returnResponse: true
+  })
+  if (!response) {
+    throw new Error("Export failed")
   }
-  return await res.blob()
+  if (!response.ok) {
+    throw new Error(response.error || `Export failed: ${response.status}`)
+  }
+  const headers = new Headers(response.headers || {})
+  return new Blob([response.data ?? new Uint8Array()], {
+    type: headers.get("content-type") || "application/octet-stream"
+  })
 }

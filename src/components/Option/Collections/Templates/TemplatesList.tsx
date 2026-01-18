@@ -39,7 +39,7 @@ const TEMPLATE_TYPE_OPTIONS: { value: TemplateType | "all"; label: string }[] = 
 ]
 
 const FORMAT_COLORS: Record<TemplateFormat, string> = {
-  markdown: "blue",
+  md: "blue",
   html: "green",
   mp3: "purple"
 }
@@ -76,10 +76,9 @@ export const TemplatesList: React.FC = () => {
     setTemplatesError(null)
     try {
       const response = await api.getOutputTemplates({
-        search: searchQuery || undefined,
-        template_type: filterType !== "all" ? filterType : undefined
+        q: searchQuery || undefined
       })
-      setTemplates(response.templates, response.total)
+      setTemplates(response.items, response.total)
     } catch (error: any) {
       const errorMsg = error?.message || "Failed to fetch templates"
       setTemplatesError(errorMsg)
@@ -128,7 +127,7 @@ export const TemplatesList: React.FC = () => {
 
   // Filter templates
   const filteredTemplates = templates.filter((t) => {
-    if (filterType !== "all" && t.template_type !== filterType) return false
+    if (filterType !== "all" && t.type !== filterType) return false
     if (
       searchQuery &&
       !t.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
@@ -318,7 +317,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
               {template.format.toUpperCase()}
             </Tag>
             <span className="text-xs text-zinc-400">
-              {t(`collections:templateTypes.${template.template_type}`, template.template_type)}
+              {t(`collections:templateTypes.${template.type}`, template.type)}
             </span>
           </div>
         </div>

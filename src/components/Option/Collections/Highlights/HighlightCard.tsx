@@ -12,8 +12,8 @@ const HIGHLIGHT_BG: Record<HighlightColor, string> = {
   purple: "bg-purple-100 dark:bg-purple-900/30"
 }
 
-export const getHighlightBgColor = (color: HighlightColor): string => {
-  return HIGHLIGHT_BG[color]
+export const getHighlightBgColor = (color?: HighlightColor): string => {
+  return HIGHLIGHT_BG[color || "yellow"]
 }
 
 interface HighlightCardProps {
@@ -49,9 +49,9 @@ export const HighlightCard: React.FC<HighlightCardProps> = ({
             </p>
           )}
 
-          {!compact && highlight.reading_item_title && (
+          {!compact && highlight.item_title && (
             <p className="mt-2 text-xs text-zinc-500">
-              {t("collections:highlights.from", "From")}: {highlight.reading_item_title}
+              {t("collections:highlights.from", "From")}: {highlight.item_title}
             </p>
           )}
         </div>

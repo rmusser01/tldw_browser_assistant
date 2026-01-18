@@ -330,7 +330,7 @@
     "message": "Please enter template content"
   },
   "templates_bodyHint": {
-    "message": "Use Jinja2 syntax. Available variables: items (array of reading items), now (current datetime)"
+    "message": "Use Jinja2 syntax. Available variables: items (array of reading items), date, tags"
   },
   "templates_previewTitle": {
     "message": "Template Preview"
@@ -390,7 +390,7 @@
     "message": "Click or drag file to upload"
   },
   "import_formats": {
-    "message": "Supports JSON, CSV, HTML"
+    "message": "Supports Pocket JSON and Instapaper CSV"
   },
   "import_previewHint": {
     "message": "{{count}} items found"
@@ -411,7 +411,7 @@
     "message": "Import Complete"
   },
   "import_resultSummary": {
-    "message": "Imported: {{imported}}, Skipped: {{skipped}}"
+    "message": "Imported: {{imported}}, Updated: {{updated}}, Skipped: {{skipped}}"
   },
   "import_importMore": {
     "message": "Import More"
@@ -523,5 +523,47 @@
   },
   "import_previewWithKey": {
     "message": "Preview Import"
+  },
+  "reading_tagsFilter": {
+    "message": "Tags"
+  },
+  "reading_domainFilter": {
+    "message": "Domain"
+  },
+  "import_sourceRequired": {
+    "message": "Select a source first"
+  },
+  "export_searchPlaceholder": {
+    "message": "Search items..."
+  },
+  "export_selectionHint": {
+    "message": "Select items to export, or leave empty to export everything."
+  },
+  "export_selectAll": {
+    "message": "Select all"
+  },
+  "export_selectedCount": {
+    "message": "{{count}} selected"
+  },
+  "export_clearSelection": {
+    "message": "Clear"
+  },
+  "export_noItems": {
+    "message": "No items found"
+  },
+  "export_selectItems": {
+    "message": "Select items to copy first"
+  },
+  "export_copy": {
+    "message": "Copy JSONL"
+  },
+  "export_copied": {
+    "message": "Copied to clipboard"
+  },
+  "export_zipSelectionUnsupported": {
+    "message": "ZIP export doesn't support item selection yet."
+  },
+  "export_allItemsHint": {
+    "message": "Export includes all reading list items for your account."
   }
 }

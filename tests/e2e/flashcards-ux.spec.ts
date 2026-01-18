@@ -898,6 +898,25 @@ test.describe("Flashcards workspace UX", () => {
       mark("export: download complete", download.suggestedFilename())
       expect(download.suggestedFilename()).toBe("flashcards.csv")
 
+      mark("export: switch format to APKG")
+      const exportFormatSelect = exportCard.getByTestId("flashcards-export-format")
+      const apkgSelected = await selectOptionWithTimeout(
+        page,
+        exportFormatSelect,
+        "APKG (Anki)",
+        5000
+      )
+      if (!apkgSelected) {
+        mark("export: apkg format not selectable, skipping")
+      } else {
+        const [apkgDownload] = await Promise.all([
+          page.waitForEvent("download", { timeout: 15000 }),
+          exportButton.click()
+        ])
+        mark("export: apkg download complete", apkgDownload.suggestedFilename())
+        expect(apkgDownload.suggestedFilename()).toBe("flashcards.apkg")
+      }
+
       mark("verify import via api")
       await expect
         .poll(async () => {
