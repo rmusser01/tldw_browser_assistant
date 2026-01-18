@@ -43,7 +43,11 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
       quotaSnapshot.limitDay != null
     ) {
       parts.push(
-        `Day ${quotaSnapshot.remainingDay}/${quotaSnapshot.limitDay} remaining`
+        t("evaluations:rateLimitsDayRemaining", {
+          defaultValue: "Day {{remaining}}/{{limit}} remaining",
+          remaining: quotaSnapshot.remainingDay,
+          limit: quotaSnapshot.limitDay
+        })
       )
     }
     if (
@@ -51,14 +55,23 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
       quotaSnapshot.limitMinute != null
     ) {
       parts.push(
-        `Minute ${quotaSnapshot.remainingMinute}/${quotaSnapshot.limitMinute} remaining`
+        t("evaluations:rateLimitsMinuteRemaining", {
+          defaultValue: "Minute {{remaining}}/{{limit}} remaining",
+          remaining: quotaSnapshot.remainingMinute,
+          limit: quotaSnapshot.limitMinute
+        })
       )
     }
     if (quotaSnapshot.reset) {
-      parts.push(`Resets at ${quotaSnapshot.reset}`)
+      parts.push(
+        t("evaluations:rateLimitsResetAt", {
+          defaultValue: "Resets at {{timestamp}}",
+          timestamp: quotaSnapshot.reset
+        })
+      )
     }
     return parts.join(" • ")
-  }, [quotaSnapshot])
+  }, [quotaSnapshot, t])
 
   if (isLoading) {
     return (
@@ -121,7 +134,12 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
     return (
       <div className={`space-y-1 text-xs ${className}`}>
         <div className="flex items-center gap-2">
-          <span className="w-16 text-text-subtle">Daily:</span>
+          <span className="w-16 text-text-subtle">
+            {t("evaluations:rateLimitsDailyShort", {
+              defaultValue: "Daily"
+            })}
+            :
+          </span>
           <Progress
             percent={dailyPercent}
             size="small"
@@ -133,7 +151,12 @@ export const RateLimitsWidget: React.FC<RateLimitsWidgetProps> = ({
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-16 text-text-subtle">Tokens:</span>
+          <span className="w-16 text-text-subtle">
+            {t("evaluations:rateLimitsTokensShort", {
+              defaultValue: "Tokens"
+            })}
+            :
+          </span>
           <Progress
             percent={tokensPercent}
             size="small"

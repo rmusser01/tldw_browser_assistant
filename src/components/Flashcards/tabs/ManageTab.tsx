@@ -183,6 +183,15 @@ export const ManageTab: React.FC<ManageTabProps> = ({
     setSelectAllAcross(false)
   }, [mDeckId, mQuery, mTag, mDue])
 
+  React.useEffect(() => {
+    return () => {
+      pendingDeletionBatchesRef.current.forEach((batch) => {
+        window.clearTimeout(batch.timeoutId)
+      })
+      pendingDeletionBatchesRef.current.clear()
+    }
+  }, [])
+
   const toggleSelect = (uuid: string, checked: boolean) => {
     if (selectAllAcross) return
     setSelectedIds((prev) => {
@@ -503,8 +512,10 @@ export const ManageTab: React.FC<ManageTabProps> = ({
       const ok = await confirmDanger({
         title: t("common:confirmTitle", { defaultValue: "Please confirm" }),
         content: t("option:flashcards.bulkDeleteConfirm", {
-          defaultValue: "Delete {{count}} selected cards? You can undo for 30 seconds.",
-          count
+          defaultValue:
+            "Delete {{count}} selected cards? You can undo for {{seconds}} seconds.",
+          count,
+          seconds: DELETE_UNDO_SECONDS
         }),
         okText: t("common:delete", { defaultValue: "Delete" }),
         cancelText: t("common:cancel", { defaultValue: "Cancel" })
@@ -783,6 +794,13 @@ export const ManageTab: React.FC<ManageTabProps> = ({
             </Button>
           )}
         </div>
+        {viewMode === "trash" && (
+          <Text type="secondary" className="block text-xs mb-2">
+            {t("option:flashcards.trashEmptyDescription", {
+              defaultValue: "Deleted cards appear here for 30 seconds."
+            })}
+          </Text>
+        )}
 
         {/* Simplified Filter UI */}
         {viewMode === "cards" && (
@@ -1379,14 +1397,16 @@ export const ManageTab: React.FC<ManageTabProps> = ({
             type="warning"
             showIcon
             message={t("option:flashcards.bulkDeleteLargeWarning", {
-              defaultValue: "These cards will move to Trash for 30 seconds."
+              defaultValue: "These cards will move to Trash for {{seconds}} seconds.",
+              seconds: DELETE_UNDO_SECONDS
             })}
           />
           <p className="text-text-muted">
             {t("option:flashcards.bulkDeleteLargeContent", {
               defaultValue:
-                "After 30 seconds, {{count}} cards will be permanently deleted.",
-              count: bulkDeleteCount
+                "After {{seconds}} seconds, {{count}} cards will be permanently deleted.",
+              count: bulkDeleteCount,
+              seconds: DELETE_UNDO_SECONDS
             })}
           </p>
           <div className="pt-2">

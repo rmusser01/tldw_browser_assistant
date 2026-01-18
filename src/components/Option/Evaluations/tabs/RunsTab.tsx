@@ -145,6 +145,11 @@ export const RunsTab: React.FC = () => {
   }, [selectedRunId, setIsPolling])
 
   useEffect(() => {
+    setCompareRunAId(null)
+    setCompareRunBId(null)
+  }, [selectedEvalId])
+
+  useEffect(() => {
     if (selectedRunId && !compareRunAId) {
       setCompareRunAId(selectedRunId)
     }
@@ -381,6 +386,7 @@ export const RunsTab: React.FC = () => {
                     type="primary"
                     loading={createRunMutation.isPending}
                     onClick={handleStartRun}
+                    data-eval-tour="start-run"
                   >
                     {t("evaluations:startRunCta", {
                       defaultValue: "Start run"
@@ -722,6 +728,7 @@ export const RunsTab: React.FC = () => {
         </Card>
       </div>
     </div>
+  </div>
   )
 }
 

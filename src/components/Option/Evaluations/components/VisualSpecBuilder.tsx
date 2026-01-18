@@ -75,6 +75,7 @@ export const VisualSpecBuilder: React.FC<VisualSpecBuilderProps> = ({
 
   const updateSpec = (next: Record<string, any>) => {
     onSpecChange(JSON.stringify(next, null, 2))
+    onValidationError?.(null)
   }
 
   const updateSpecAtPath = (path: string, value: any) => {

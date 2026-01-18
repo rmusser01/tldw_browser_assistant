@@ -26,6 +26,7 @@ export const EvaluationsPage: React.FC = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const isOnline = useServerOnline()
+  const tourActive = searchParams.get("tour") === "1"
 
   const activeTab = useEvaluationsStore((s) => s.activeTab)
   const setActiveTab = useEvaluationsStore((s) => s.setActiveTab)
@@ -61,6 +62,19 @@ export const EvaluationsPage: React.FC = () => {
       resetStore()
     }
   }, [resetStore])
+
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    const root = document.documentElement
+    if (tourActive) {
+      root.dataset.evaluationsTour = "on"
+    } else {
+      delete root.dataset.evaluationsTour
+    }
+    return () => {
+      delete root.dataset.evaluationsTour
+    }
+  }, [tourActive])
 
   // Sync store to URL params
   const handleTabChange = (key: string) => {
@@ -173,6 +187,32 @@ export const EvaluationsPage: React.FC = () => {
         showIcon
         className="mb-6"
       />
+
+      {tourActive && (
+        <Alert
+          type="info"
+          showIcon
+          message={t("evaluations:tourTitle", {
+            defaultValue: "Evaluations tour"
+          })}
+          description={t("evaluations:tourDescription", {
+            defaultValue:
+              "Tour mode highlights key actions. Remove ?tour=1 from the URL to exit."
+          })}
+          className="mb-6"
+        />
+      )}
+
+      {tourActive && (
+        <style>{`
+          [data-evaluations-tour="on"] [data-eval-tour] {
+            outline: 2px dashed rgba(59, 130, 246, 0.8);
+            outline-offset: 4px;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+            border-radius: 8px;
+          }
+        `}</style>
+      )}
 
       <Tabs
         activeKey={activeTab}

@@ -253,7 +253,11 @@ export const EvaluationsTab: React.FC = () => {
         })}
         extra={
           <Space>
-            <Button onClick={handleOpenCreate} type="primary">
+            <Button
+              onClick={handleOpenCreate}
+              type="primary"
+              data-eval-tour="create-evaluation"
+            >
               {t("evaluations:newEvaluationCta", {
                 defaultValue: "New evaluation"
               })}

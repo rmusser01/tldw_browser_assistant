@@ -323,10 +323,13 @@ export function useNextDueQuery(deckId?: number | null, options?: UseFlashcardQu
     queryKey: ["flashcards:next-due", deckId],
     queryFn: async () => {
       const PAGE_SIZE = 200
+      const MAX_PAGES = 10
       const oneHour = 60 * 60 * 1000
       const nowMs = Date.now()
 
       let offset = 0
+      let pagesChecked = 0
+      let scanned = 0
       let nextDueAt: string | null = null
       let nextDueMs = 0
       let cardsDue = 0
@@ -341,6 +344,8 @@ export function useNextDueQuery(deckId?: number | null, options?: UseFlashcardQu
         })
         const items = res.items || []
         if (items.length === 0) break
+        pagesChecked += 1
+        scanned += items.length
 
         for (const card of items) {
           if (!card.due_at) continue
@@ -359,7 +364,16 @@ export function useNextDueQuery(deckId?: number | null, options?: UseFlashcardQu
           if (dueMs <= nextDueMs + oneHour) {
             cardsDue += 1
           } else {
-            return { nextDueAt, cardsDue }
+            return { nextDueAt, cardsDue, isCapped: false, scanned }
+          }
+        }
+
+        if (pagesChecked >= MAX_PAGES) {
+          return {
+            nextDueAt,
+            cardsDue,
+            isCapped: true,
+            scanned
           }
         }
 
@@ -371,7 +385,9 @@ export function useNextDueQuery(deckId?: number | null, options?: UseFlashcardQu
 
       return {
         nextDueAt,
-        cardsDue
+        cardsDue,
+        isCapped: false,
+        scanned
       }
     },
     enabled: options?.enabled ?? flashcardsEnabled

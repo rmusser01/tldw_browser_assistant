@@ -2781,16 +2781,16 @@
     "message": "Deleting cards"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "Delete {{count}} selected cards? You can undo for {{seconds}} seconds."
   },
   "flashcards_bulkDeleteLargeTitle": {
     "message": "Delete {{count}} cards?"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "These cards will move to Trash for {{seconds}} seconds."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "After {{seconds}} seconds, {{count}} cards will be permanently deleted."
   },
   "flashcards_typeDeleteToConfirm": {
     "message": "Type DELETE to confirm:"
@@ -2911,5 +2911,26 @@
   },
   "flashcards_reverseCard": {
     "message": "reverse"
+  },
+  "flashcards_trash": {
+    "message": "Trash"
+  },
+  "flashcards_trashUndoAll": {
+    "message": "Undo all"
+  },
+  "flashcards_trashUndo": {
+    "message": "Undo"
+  },
+  "flashcards_trashEmptyDescription": {
+    "message": "Deleted cards appear here for 30 seconds."
+  },
+  "flashcards_trashExpiresIn": {
+    "message": "Deletes in {{seconds}}s"
+  },
+  "flashcards_nextDueUnavailable": {
+    "message": "Next review estimate unavailable"
+  },
+  "flashcards_nextDueCapped": {
+    "message": "Next review is beyond the first {{count}} cards. Narrow filters to improve the estimate."
   }
 }

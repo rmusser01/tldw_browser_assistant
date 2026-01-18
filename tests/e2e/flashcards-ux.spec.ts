@@ -620,6 +620,33 @@ test.describe("Flashcards workspace UX", () => {
         .toBeGreaterThan(0)
       mark("cards tab: list ready")
 
+      mark("cards tab: keyboard shortcuts")
+      await manageSearchInput
+        .evaluate((el) => (el as HTMLInputElement).blur())
+        .catch(() => {})
+      const cardCount = await managePanel.locator(".ant-list-item").count()
+      if (cardCount === 0) {
+        throw new Error("No flashcards available for keyboard shortcut checks.")
+      }
+      await page.keyboard.press("j")
+      const focusedItem = managePanel.locator(".ant-list-item.ring-2").first()
+      await expect(focusedItem).toBeVisible({ timeout: 3000 })
+      const focusedCheckbox = focusedItem.locator('input[type="checkbox"]').first()
+      await expect(focusedCheckbox).toBeVisible()
+      await expect(focusedCheckbox).not.toBeChecked()
+      await page.keyboard.press("Space")
+      await expect(focusedCheckbox).toBeChecked()
+      await page.keyboard.press("Space")
+      await expect(focusedCheckbox).not.toBeChecked()
+      await page.keyboard.press("Enter")
+      const keyboardEditDrawer = page
+        .locator(".ant-drawer")
+        .filter({ has: page.getByText(/Edit Flashcard/i) })
+        .first()
+      await expect(keyboardEditDrawer).toBeVisible({ timeout: 5000 })
+      await keyboardEditDrawer.locator(".ant-drawer-close").click()
+      await expect(keyboardEditDrawer).toBeHidden({ timeout: 5000 })
+
       const densityToggle = managePanel.getByTestId(
         "flashcards-density-toggle"
       )
@@ -1014,16 +1041,37 @@ test.describe("Flashcards workspace UX", () => {
         })
         await expect(confirmDialog).toBeVisible()
         await confirmDialog.getByRole("button", { name: /^Delete$/i }).click()
+        const undoToast = page
+          .locator(".undo-notification")
+          .filter({ hasText: /deleted/i })
+          .last()
+        await expect(undoToast).toBeVisible({ timeout: 5000 })
 
-        const progressDialog = page.getByRole("dialog", { name: /Processing/i })
-        if ((await progressDialog.count()) > 0) {
-          mark("bulk: waiting for progress modal")
-          await expect(progressDialog).toBeHidden({ timeout: 15000 })
-        }
+        mark("bulk: open trash view")
+        const trashToggle = await pick(
+          bulkPanel.getByRole("radio", { name: /Trash/i }),
+          bulkPanel.getByText(/Trash/i)
+        )
+        await trashToggle.click()
 
-        mark("bulk: confirm empty state")
+        const trashedSeed = bulkPanel.getByTestId(
+          `flashcard-trash-${seedCard.uuid}`
+        )
+        await expect(trashedSeed).toBeVisible({ timeout: 5000 })
+
+        const undoAll = bulkPanel.getByRole("button", { name: /Undo all/i })
+        await expect(undoAll).toBeVisible({ timeout: 5000 })
+        await undoAll.click()
+        await expect(trashedSeed).toBeHidden({ timeout: 5000 })
+
+        mark("bulk: return to cards view")
+        const cardsToggle = await pick(
+          bulkPanel.getByRole("radio", { name: /Cards/i }),
+          bulkPanel.getByText(/Cards/i)
+        )
+        await cardsToggle.click()
         await expect(
-          bulkPanel.getByText(/No cards match your filters|No flashcards yet/i)
+          bulkPanel.getByTestId(`flashcard-item-${seedCard.uuid}`)
         ).toBeVisible({ timeout: 15000 })
       }
     } finally {

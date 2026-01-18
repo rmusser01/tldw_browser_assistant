@@ -77,6 +77,26 @@ export const CreateEvaluationWizard: React.FC<CreateEvaluationWizardProps> = ({
 
   const evalType = Form.useWatch("evalType", form) || "response_quality"
   const evalMetadataValue = Form.useWatch("evalMetadataJson", form) || ""
+  const evalTypeTooltips = useMemo(
+    () => ({
+      model_graded:
+        "Model-graded evaluation using an evaluator model and selected metrics.",
+      response_quality:
+        "Scores response quality on coherence, relevance, and related metrics.",
+      rag: "RAG evaluation for relevance, faithfulness, and answer similarity.",
+      rag_pipeline: "Pipeline evaluation for retrieval + answer scoring.",
+      geval: "G-Eval style rubric scoring.",
+      exact_match: "Exact match comparison (optionally case sensitive).",
+      includes: "Checks if expected substrings are present.",
+      fuzzy_match: "Fuzzy match scoring with a configurable threshold.",
+      proposition_extraction: "Extracts propositions and evaluates schema coverage.",
+      qa3: "QA3 label classification evaluation.",
+      label_choice: "Classify outputs into allowed labels.",
+      nli_factcheck: "NLI fact-checking evaluation.",
+      ocr: "OCR accuracy metrics (CER/WER/coverage)."
+    }),
+    []
+  )
 
   const steps = useMemo(
     () => [
@@ -182,6 +202,17 @@ export const CreateEvaluationWizard: React.FC<CreateEvaluationWizardProps> = ({
                   )
                 }}
                 options={evalTypeOptions}
+                optionRender={(option) => (
+                  <Tooltip
+                    title={t(`evaluations:evalTypeTooltip.${option.value}`, {
+                      defaultValue:
+                        evalTypeTooltips[option.value as string] ||
+                        String(option.label)
+                    })}
+                  >
+                    <span>{option.label}</span>
+                  </Tooltip>
+                )}
               />
             </Form.Item>
           </div>
@@ -312,7 +343,10 @@ export const CreateEvaluationWizard: React.FC<CreateEvaluationWizardProps> = ({
                 rows={4}
                 value={inlineDatasetText}
                 onChange={onInlineDatasetText}
-                placeholder='[{"input": {"question": "Q1"}, "expected": {"answer": "A"}}]'
+                placeholder={t("evaluations:inlineDatasetPlaceholder", {
+                  defaultValue:
+                    '[{\"input\": {\"question\": \"Q1\"}, \"expected\": {\"answer\": \"A\"}}]'
+                })}
               />
             )}
           </div>

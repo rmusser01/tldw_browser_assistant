@@ -33,15 +33,27 @@ export const DatasetUpload: React.FC<DatasetUploadProps> = ({
     try {
       const text = await file.text()
       const isJsonl = file.name.toLowerCase().endsWith(".jsonl")
-      const samples = isJsonl ? parseJsonl(text) : (() => {
-        const parsed = JSON.parse(text)
-        if (Array.isArray(parsed)) return parsed
-        if (parsed?.samples && Array.isArray(parsed.samples)) return parsed.samples
-        throw new Error("Expected an array of samples.")
-      })()
+      const samples = isJsonl
+        ? parseJsonl(text)
+        : (() => {
+            const parsed = JSON.parse(text)
+            if (Array.isArray(parsed)) return parsed
+            if (parsed?.samples && Array.isArray(parsed.samples)) {
+              return parsed.samples
+            }
+            throw new Error(
+              t("evaluations:datasetUploadParseError", {
+                defaultValue: "Expected an array of samples."
+              }) as string
+            )
+          })()
 
       if (!Array.isArray(samples) || samples.length === 0) {
-        throw new Error("No samples found in file.")
+        throw new Error(
+          t("evaluations:datasetUploadEmptyError", {
+            defaultValue: "No samples found in file."
+          }) as string
+        )
       }
       onSamplesLoaded(samples)
     } catch (e: any) {

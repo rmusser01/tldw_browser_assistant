@@ -442,5 +442,185 @@
   },
   "createDatasetModalTitle": {
     "message": "New dataset"
+  },
+  "samplesJsonPlaceholder": {
+    "message": "[{\"input\": {\"question\": \"Q1\"}, \"expected\": {\"answer\": \"A\"}}]"
+  },
+  "evalSpecSnippetLabel": {
+    "message": "Evaluation spec (snippet)"
+  },
+  "inlineDatasetPlaceholder": {
+    "message": "[{\"input\": {\"question\": \"Q1\"}, \"expected\": {\"answer\": \"A\"}}]"
+  },
+  "datasetOverridePlaceholder": {
+    "message": "[{\"input\": {\"question\": \"Q1\"}, \"expected\": {\"answer\": \"A\"}}]"
+  },
+  "historyUserPlaceholder": {
+    "message": "user_123"
+  },
+  "historyStartPlaceholder": {
+    "message": "2024-01-01T00:00:00Z"
+  },
+  "historyEndPlaceholder": {
+    "message": "2024-12-31T23:59:59Z"
+  },
+  "webhookUrlPlaceholder": {
+    "message": "https://example.com/hook"
+  },
+  "webhookUrlValidation": {
+    "message": "Please enter a valid URL"
+  },
+  "runLabel": {
+    "message": "Run {{id}}"
+  },
+  "wizardStepBasic": {
+    "message": "Type & name"
+  },
+  "wizardStepConfig": {
+    "message": "Configuration"
+  },
+  "wizardStepDataset": {
+    "message": "Dataset"
+  },
+  "specBuilderJsonOnly": {
+    "message": "This evaluation type uses JSON configuration. Use the editor below."
+  },
+  "specBuilderParseWarning": {
+    "message": "Spec JSON is invalid. Fix the JSON to use the visual builder."
+  },
+  "specMetricsLabel": {
+    "message": "Metrics"
+  },
+  "specAdvancedLabel": {
+    "message": "Advanced: Edit JSON"
+  },
+  "datasetUploadPrompt": {
+    "message": "Drop JSONL/JSON file here or click to upload"
+  },
+  "datasetUploadHint": {
+    "message": "Accepted: .jsonl or .json containing an array of samples."
+  },
+  "datasetUploadErrorTitle": {
+    "message": "Upload failed"
+  },
+  "breadcrumbRoot": {
+    "message": "Evaluations"
+  },
+  "breadcrumbRun": {
+    "message": "Run {{id}}"
+  },
+  "compareTitle": {
+    "message": "Compare runs"
+  },
+  "compareRunAPlaceholder": {
+    "message": "Select Run A"
+  },
+  "compareRunBPlaceholder": {
+    "message": "Select Run B"
+  },
+  "compareRunLabel": {
+    "message": "Run A"
+  },
+  "compareRunLabelB": {
+    "message": "Run B"
+  },
+  "compareMetricHeader": {
+    "message": "Metric"
+  },
+  "compareRunAHeader": {
+    "message": "Run A"
+  },
+  "compareRunBHeader": {
+    "message": "Run B"
+  },
+  "compareDeltaHeader": {
+    "message": "Delta"
+  },
+  "compareEmpty": {
+    "message": "Select two runs with metrics to compare."
+  },
+  "sampleInputRequired": {
+    "message": "Provide a sample input or upload samples JSON."
+  },
+  "invalidJsonError": {
+    "message": "Invalid JSON"
+  },
+  "errorLabel": {
+    "message": "Error"
+  },
+  "historyEvalLabel": {
+    "message": "Eval"
+  },
+  "historyRunLabel": {
+    "message": "Run"
+  },
+  "historyUserShortLabel": {
+    "message": "User"
+  },
+  "rateLimitsDailyShort": {
+    "message": "Daily"
+  },
+  "rateLimitsTokensShort": {
+    "message": "Tokens"
+  },
+  "rateLimitsDayRemaining": {
+    "message": "Day {{remaining}}/{{limit}} remaining"
+  },
+  "rateLimitsMinuteRemaining": {
+    "message": "Minute {{remaining}}/{{limit}} remaining"
+  },
+  "rateLimitsResetAt": {
+    "message": "Resets at {{timestamp}}"
+  },
+  "tourTitle": {
+    "message": "Evaluations tour"
+  },
+  "tourDescription": {
+    "message": "Tour mode highlights key actions. Remove ?tour=1 from the URL to exit."
+  },
+  "evalTypeTooltip_model_graded": {
+    "message": "Model-graded evaluation using an evaluator model and selected metrics."
+  },
+  "evalTypeTooltip_response_quality": {
+    "message": "Scores response quality on coherence, relevance, and related metrics."
+  },
+  "evalTypeTooltip_rag": {
+    "message": "RAG evaluation for relevance, faithfulness, and answer similarity."
+  },
+  "evalTypeTooltip_rag_pipeline": {
+    "message": "Pipeline evaluation for retrieval + answer scoring."
+  },
+  "evalTypeTooltip_geval": {
+    "message": "G-Eval style rubric scoring."
+  },
+  "evalTypeTooltip_exact_match": {
+    "message": "Exact match comparison (optionally case sensitive)."
+  },
+  "evalTypeTooltip_includes": {
+    "message": "Checks if expected substrings are present."
+  },
+  "evalTypeTooltip_fuzzy_match": {
+    "message": "Fuzzy match scoring with a configurable threshold."
+  },
+  "evalTypeTooltip_proposition_extraction": {
+    "message": "Extracts propositions and evaluates schema coverage."
+  },
+  "evalTypeTooltip_qa3": {
+    "message": "QA3 label classification evaluation."
+  },
+  "evalTypeTooltip_label_choice": {
+    "message": "Classify outputs into allowed labels."
+  },
+  "evalTypeTooltip_nli_factcheck": {
+    "message": "NLI fact-checking evaluation."
+  },
+  "evalTypeTooltip_ocr": {
+    "message": "OCR accuracy metrics (CER/WER/coverage)."
+  },
+  "datasetUploadParseError": {
+    "message": "Expected an array of samples."
+  },
+  "datasetUploadEmptyError": {
+    "message": "No samples found in file."
   }
 }

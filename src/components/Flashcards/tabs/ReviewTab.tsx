@@ -70,6 +70,7 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
   const dueCountsQuery = useDueCountsQuery(reviewDeckId)
   const hasCardsQuery = useHasCardsQuery()
   const nextDueQuery = useNextDueQuery(reviewDeckId)
+  const nextDueInfo = nextDueQuery.data
   const activeCard = localOverrideCard ?? reviewOverrideCard ?? reviewQuery.data
 
   // Get deck name for progress display
@@ -485,25 +486,44 @@ export const ReviewTab: React.FC<ReviewTabProps> = ({
                   </Text>
 
                   {/* Next due date information */}
-                  {nextDueQuery.data && (
+                  {nextDueInfo && (
                     <div className="mt-4 p-3 rounded-lg bg-surface2 border border-border">
-                      <div className="flex items-center gap-2 text-sm">
-                        <Calendar className="size-4 text-primary" aria-hidden="true" />
-                        <Text strong>
-                          {t("option:flashcards.nextDueAt", {
-                            defaultValue: "Next review: {{time}}",
-                            time: dayjs(nextDueQuery.data.nextDueAt).fromNow()
+                      {nextDueInfo.nextDueAt ? (
+                        <>
+                          <div className="flex items-center gap-2 text-sm">
+                            <Calendar className="size-4 text-primary" aria-hidden="true" />
+                            <Text strong>
+                              {t("option:flashcards.nextDueAt", {
+                                defaultValue: "Next review: {{time}}",
+                                time: dayjs(nextDueInfo.nextDueAt).fromNow()
+                              })}
+                            </Text>
+                          </div>
+                          <Text type="secondary" className="text-xs mt-1 block">
+                            {dayjs(nextDueInfo.nextDueAt).format("dddd, MMMM D [at] h:mm A")}
+                            {" · "}
+                            {t("option:flashcards.nextDueCardCount", {
+                              defaultValue: "{{count}} cards due",
+                              count: nextDueInfo.cardsDue
+                            })}
+                          </Text>
+                        </>
+                      ) : (
+                        <Text strong className="text-sm">
+                          {t("option:flashcards.nextDueUnavailable", {
+                            defaultValue: "Next review estimate unavailable"
                           })}
                         </Text>
-                      </div>
-                      <Text type="secondary" className="text-xs mt-1 block">
-                        {dayjs(nextDueQuery.data.nextDueAt).format("dddd, MMMM D [at] h:mm A")}
-                        {" · "}
-                        {t("option:flashcards.nextDueCardCount", {
-                          defaultValue: "{{count}} cards due",
-                          count: nextDueQuery.data.cardsDue
-                        })}
-                      </Text>
+                      )}
+                      {nextDueInfo.isCapped && (
+                        <Text type="secondary" className="text-xs mt-2 block">
+                          {t("option:flashcards.nextDueCapped", {
+                            defaultValue:
+                              "Next review is beyond the first {{count}} cards. Narrow filters to improve the estimate.",
+                            count: nextDueInfo.scanned
+                          })}
+                        </Text>
+                      )}
                     </div>
                   )}
 

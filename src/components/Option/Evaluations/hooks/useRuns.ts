@@ -15,7 +15,6 @@ import {
   listRuns,
   listRunsGlobal,
   type CreateRunPayload,
-  type EvaluationRateLimitStatus,
   type EvaluationRunDetail
 } from "@/services/evaluations"
 import { useEvaluationsStore } from "@/store/evaluations"

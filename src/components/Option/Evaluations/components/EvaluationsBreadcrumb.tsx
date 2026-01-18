@@ -20,7 +20,7 @@ export const EvaluationsBreadcrumb: React.FC<EvaluationsBreadcrumbProps> = ({
 }) => {
   const { t } = useTranslation(["evaluations", "common"])
 
-  const items = [
+  const items: { title: React.ReactNode; href?: string }[] = [
     {
       title: t("evaluations:breadcrumbRoot", { defaultValue: "Evaluations" }),
       href: "#/evaluations"

@@ -66,7 +66,11 @@ export const HistoryTab: React.FC = () => {
               })}
               name="user_id"
             >
-              <Input placeholder="user_123" />
+              <Input
+                placeholder={t("evaluations:historyUserPlaceholder", {
+                  defaultValue: "user_123"
+                })}
+              />
             </Form.Item>
             <Form.Item
               label={t("evaluations:historyStartLabel", {
@@ -74,7 +78,12 @@ export const HistoryTab: React.FC = () => {
               })}
               name="start_date"
             >
-              <Input placeholder="2024-01-01T00:00:00Z" type="datetime-local" />
+              <Input
+                placeholder={t("evaluations:historyStartPlaceholder", {
+                  defaultValue: "2024-01-01T00:00:00Z"
+                })}
+                type="datetime-local"
+              />
             </Form.Item>
             <Form.Item
               label={t("evaluations:historyEndLabel", {
@@ -82,13 +91,19 @@ export const HistoryTab: React.FC = () => {
               })}
               name="end_date"
             >
-              <Input placeholder="2024-12-31T23:59:59Z" type="datetime-local" />
+              <Input
+                placeholder={t("evaluations:historyEndPlaceholder", {
+                  defaultValue: "2024-12-31T23:59:59Z"
+                })}
+                type="datetime-local"
+              />
             </Form.Item>
           </div>
           <Button
             type="primary"
             loading={fetchHistoryMutation.isPending}
             onClick={handleFetch}
+            data-eval-tour="fetch-history"
           >
             {t("evaluations:historyFetchCta", {
               defaultValue: "Fetch history"
@@ -138,7 +153,10 @@ export const HistoryTab: React.FC = () => {
                         {item.eval_id && (
                           <div className="flex items-center gap-1">
                             <Text type="secondary" className="text-[11px]">
-                              Eval:
+                              {t("evaluations:historyEvalLabel", {
+                                defaultValue: "Eval"
+                              })}
+                              :
                             </Text>
                             <code className="text-[11px]">{item.eval_id}</code>
                             <CopyButton text={item.eval_id} />
@@ -147,7 +165,10 @@ export const HistoryTab: React.FC = () => {
                         {item.run_id && (
                           <div className="flex items-center gap-1">
                             <Text type="secondary" className="text-[11px]">
-                              Run:
+                              {t("evaluations:historyRunLabel", {
+                                defaultValue: "Run"
+                              })}
+                              :
                             </Text>
                             <code className="text-[11px]">{item.run_id}</code>
                             <CopyButton text={item.run_id} />
@@ -156,7 +177,10 @@ export const HistoryTab: React.FC = () => {
                         {item.user_id && (
                           <div className="flex items-center gap-1">
                             <Text type="secondary" className="text-[11px]">
-                              User:
+                              {t("evaluations:historyUserShortLabel", {
+                                defaultValue: "User"
+                              })}
+                              :
                             </Text>
                             <code className="text-[11px]">{item.user_id}</code>
                           </div>

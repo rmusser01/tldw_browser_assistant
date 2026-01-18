@@ -86,7 +86,9 @@ export const WebhooksTab: React.FC = () => {
           webhooksLoading ? (
             <Spin size="small" />
           ) : webhooksError || webhooksResp?.ok === false ? (
-            <Tag color="red">Error</Tag>
+            <Tag color="red">
+              {t("evaluations:errorLabel", { defaultValue: "Error" })}
+            </Tag>
           ) : (
             <Tag>{webhooks.length}</Tag>
           )
@@ -101,10 +103,19 @@ export const WebhooksTab: React.FC = () => {
             name="url"
             rules={[
               { required: true },
-              { type: "url", message: "Please enter a valid URL" }
+              {
+                type: "url",
+                message: t("evaluations:webhookUrlValidation", {
+                  defaultValue: "Please enter a valid URL"
+                }) as string
+              }
             ]}
           >
-            <Input placeholder="https://example.com/hook" />
+            <Input
+              placeholder={t("evaluations:webhookUrlPlaceholder", {
+                defaultValue: "https://example.com/hook"
+              })}
+            />
           </Form.Item>
           <Form.Item
             label={t("evaluations:webhookEventsLabel", {
@@ -126,6 +137,7 @@ export const WebhooksTab: React.FC = () => {
             type="primary"
             loading={registerMutation.isPending}
             onClick={handleRegister}
+            data-eval-tour="register-webhook"
           >
             {t("evaluations:webhookCreateCta", {
               defaultValue: "Register webhook"

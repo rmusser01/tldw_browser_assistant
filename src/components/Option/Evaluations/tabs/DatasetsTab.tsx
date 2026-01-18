@@ -145,6 +145,7 @@ export const DatasetsTab: React.FC = () => {
           <Button
             onClick={openCreateDataset}
             disabled={createDatasetMutation.isPending}
+            data-eval-tour="new-dataset"
           >
             {t("evaluations:newDatasetCta", {
               defaultValue: "New dataset"
@@ -311,7 +312,10 @@ export const DatasetsTab: React.FC = () => {
               rows={4}
               value={samplesJsonValue}
               onChange={(value) => form.setFieldsValue({ samplesJson: value })}
-              placeholder='[{"input": {...}, "expected": {...}}]'
+              placeholder={t("evaluations:samplesJsonPlaceholder", {
+                defaultValue:
+                  '[{\"input\": {\"question\": \"Q1\"}, \"expected\": {\"answer\": \"A\"}}]'
+              })}
             />
           </Form.Item>
           <Form.Item

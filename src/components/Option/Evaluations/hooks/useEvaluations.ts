@@ -12,8 +12,7 @@ import {
   getEvaluation,
   listEvaluations,
   updateEvaluation,
-  type CreateEvaluationPayload,
-  type EvaluationDetail
+  type CreateEvaluationPayload
 } from "@/services/evaluations"
 import {
   getEvaluationDefaults,
