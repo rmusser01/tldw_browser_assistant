@@ -3,16 +3,9 @@ import { Steps, Card, Button, Alert, Progress } from "antd"
 import { ArrowLeft, ArrowRight, X, Loader2 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useWorkflowsStore } from "@/store/workflows"
-import type { WorkflowDefinition } from "@/types/workflows"
+import type { WizardShellProps } from "@/types/workflows"
 
 const { Step } = Steps
-
-interface WizardShellProps {
-  workflow: WorkflowDefinition
-  children: React.ReactNode
-  canAdvance?: boolean
-  onComplete?: () => void
-}
 
 /**
  * WizardShell

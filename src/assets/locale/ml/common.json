@@ -111,6 +111,9 @@
   "saveToFlashcards": "Save to Flashcards",
   "generateDocument": "Generate document",
   "documentShort": "Doc",
+  "documentCard": {
+    "removeAria": "{{name}} നീക്കം ചെയ്യുക"
+  },
   "saveNoteShort": "Note",
   "saveFlashcardShort": "Card",
   "savedToNotes": "Saved to Notes",

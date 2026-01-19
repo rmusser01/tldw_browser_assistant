@@ -42,6 +42,28 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
   const hydratedRef = React.useRef(false)
   const timeoutRef = React.useRef<number | undefined>()
 
+  React.useEffect(() => {
+    if (!open || settings) return
+    const base = createDefaultActorSettings()
+    setSettings(base)
+    const baseFields: Record<string, any> = {
+      actorEnabled: base.isEnabled,
+      actorNotes: base.notes,
+      actorNotesGmOnly: base.notesGmOnly ?? false,
+      actorChatPosition: base.chatPosition,
+      actorChatDepth: base.chatDepth,
+      actorChatRole: base.chatRole,
+      actorTemplateMode: base.templateMode ?? "merge"
+    }
+    for (const aspect of base.aspects || []) {
+      baseFields[`actor_${aspect.id}`] = aspect.value
+      baseFields[`actor_key_${aspect.id}`] = aspect.key
+    }
+    form.setFieldsValue(baseFields)
+    const text = buildActorPrompt(base)
+    setPreviewAndTokens(text, estimateActorTokens(text))
+  }, [form, open, setPreviewAndTokens, setSettings, settings])
+
   const hydrate = React.useCallback(async () => {
     if (!open) return
     setLoading(true)
@@ -143,7 +165,7 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
       open={open}
       onClose={() => setOpen(false)}
       title={t("playground:composer.actorTitle", "Scene Director (Actor)")}>
-      {loading || !settings ? (
+      {loading && !settings ? (
         <Skeleton active />
       ) : (
         <Form

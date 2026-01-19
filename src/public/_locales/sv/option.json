@@ -1770,10 +1770,10 @@
     "message": "Import Character"
   },
   "quickIngest_downloadJsonAria": {
-    "message": "Download JSON for {{name}}"
+    "message": "Ladda ner JSON för {{name}}"
   },
   "quickIngest_addFiles": {
-    "message": "Browse files"
+    "message": "Bläddra bland filer"
   },
   "flashcards_cards": {
     "message": "Kort"

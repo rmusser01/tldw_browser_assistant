@@ -17,7 +17,11 @@ export {
 } from "./ContextualSuggestion"
 
 // Workflow Step Components
-export { SummarizePageWorkflow, QuickSaveWorkflow } from "./steps"
+export {
+  SummarizePageWorkflow,
+  QuickSaveWorkflow,
+  AnalyzeBookWorkflow
+} from "./steps"
 
 // Integration Components
 export { WorkflowButton } from "./WorkflowButton"

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback, useEffect, useRef } from "react"
 import { Button, Checkbox } from "antd"
 import { X, Sparkles, MessageSquare } from "lucide-react"
 import { useTranslation } from "react-i18next"
@@ -15,6 +15,16 @@ import type { WorkflowCategory, WorkflowId } from "@/types/workflows"
 interface WorkflowLandingProps {
   onClose?: () => void
   onJustChat?: () => void
+}
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+const getFocusableElements = (container: HTMLElement | null) => {
+  if (!container) return []
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+  ).filter((el) => !el.hasAttribute("aria-hidden"))
 }
 
 /**
@@ -88,7 +98,10 @@ export const WorkflowLanding: React.FC<WorkflowLandingProps> = ({
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-text flex items-center gap-2">
+          <h1
+            id="workflow-landing-title"
+            className="text-xl font-semibold text-text flex items-center gap-2"
+          >
             <Sparkles className="h-5 w-5 text-primary" />
             {t("workflows:landing.title", "Welcome to tldw Assistant")}
           </h1>
@@ -163,6 +176,61 @@ export const WorkflowLanding: React.FC<WorkflowLandingProps> = ({
  */
 export const WorkflowLandingModal: React.FC<WorkflowLandingProps> = (props) => {
   const showLanding = useWorkflowsStore((s) => s.showLanding)
+  const setShowLanding = useWorkflowsStore((s) => s.setShowLanding)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const lastFocusedElementRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    if (!showLanding) return
+
+    lastFocusedElementRef.current = document.activeElement as HTMLElement | null
+    const dialog = dialogRef.current
+    if (!dialog) return
+
+    const focusable = getFocusableElements(dialog)
+    const initialFocus = focusable[0] || dialog
+    initialFocus.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.stopPropagation()
+        setShowLanding(false)
+        props.onClose?.()
+        return
+      }
+
+      if (event.key !== "Tab") return
+
+      const focusableElements = getFocusableElements(dialog)
+      if (focusableElements.length === 0) {
+        event.preventDefault()
+        dialog.focus()
+        return
+      }
+
+      const first = focusableElements[0]
+      const last = focusableElements[focusableElements.length - 1]
+      const active = document.activeElement
+      const isShift = event.shiftKey
+
+      if (isShift && (active === first || !dialog.contains(active))) {
+        event.preventDefault()
+        last.focus()
+        return
+      }
+
+      if (!isShift && active === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+      lastFocusedElementRef.current?.focus()
+    }
+  }, [showLanding, setShowLanding, props.onClose])
 
   if (!showLanding) {
     return null
@@ -170,7 +238,14 @@ export const WorkflowLandingModal: React.FC<WorkflowLandingProps> = (props) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-bg rounded-lg shadow-xl w-full max-w-md max-h-[80vh] overflow-hidden">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="workflow-landing-title"
+        tabIndex={-1}
+        className="bg-bg rounded-lg shadow-xl w-full max-w-md max-h-[80vh] overflow-hidden"
+      >
         <WorkflowLanding {...props} />
       </div>
     </div>

@@ -1,383 +1,383 @@
 {
   "title": {
-    "message": "Data Tables Studio"
+    "message": "Datatabeller Studio"
   },
   "description": {
     "message": "Description"
   },
   "betaNotice": {
-    "message": "Beta Feature"
+    "message": "Betafunktion"
   },
   "betaDescription": {
-    "message": "Data Tables is currently in beta. Table generation requires backend support."
+    "message": "Datatabeller är för närvarande i beta. Tabellgenerering kräver stöd från backend."
   },
   "offline": {
-    "message": "Server is offline. Please connect to use Data Tables."
+    "message": "Servern är offline. Anslut för att använda Datatabeller."
   },
   "tabs_tables": {
-    "message": "My Tables"
+    "message": "Mina tabeller"
   },
   "tabs_create": {
-    "message": "Create Table"
+    "message": "Skapa tabell"
   },
   "wizard_sources": {
-    "message": "Select Sources"
+    "message": "Välj källor"
   },
   "wizard_sourcesDesc": {
-    "message": "Choose data sources"
+    "message": "Välj datakällor"
   },
   "wizard_prompt": {
-    "message": "Describe Table"
+    "message": "Beskriv tabell"
   },
   "wizard_promptDesc": {
-    "message": "Write your prompt"
+    "message": "Skriv din instruktion"
   },
   "wizard_preview": {
-    "message": "Preview"
+    "message": "Förhandsgranskning"
   },
   "wizard_previewDesc": {
-    "message": "Review generated table"
+    "message": "Granska genererad tabell"
   },
   "wizard_save": {
-    "message": "Save"
+    "message": "Spara"
   },
   "wizard_saveDesc": {
-    "message": "Save to library"
+    "message": "Spara i biblioteket"
   },
   "wizard_tip": {
-    "message": "Tip"
+    "message": "Tips"
   },
   "wizard_tipText": {
-    "message": "Select chats, documents, or search your knowledge base to extract structured data. The more specific your sources, the better the results."
+    "message": "Välj chattar, dokument eller sök i din kunskapsbas för att extrahera strukturerade data. Ju mer specifika dina källor är, desto bättre blir resultaten."
   },
   "wizard_reset": {
-    "message": "Start Over"
+    "message": "Börja om"
   },
   "sourceTypes_chat": {
-    "message": "Chats"
+    "message": "Chattar"
   },
   "sourceTypes_document": {
-    "message": "Documents"
+    "message": "Dokument"
   },
   "sourceTypes_rag": {
-    "message": "RAG Search"
+    "message": "RAG-sökning"
   },
   "selectedSources": {
-    "message": "Selected Sources"
+    "message": "Valda källor"
   },
   "sourcesSelected": {
-    "message": "Sources Selected"
+    "message": "Valda källor"
   },
   "searchPlaceholder": {
-    "message": "Search..."
+    "message": "Sök..."
   },
   "ragPlaceholder": {
-    "message": "Enter a search query for your knowledge base..."
+    "message": "Ange en sökfråga för din kunskapsbas..."
   },
   "ragQuerySnippet": {
-    "message": "Knowledge base search query"
+    "message": "Sökfråga för kunskapsbasen"
   },
   "ragAdded": {
-    "message": "RAG query added as source"
+    "message": "RAG-fråga tillagd som källa"
   },
   "ragTip": {
-    "message": "Enter search queries to find relevant content in your knowledge base. Each query will be added as a separate source."
+    "message": "Ange sökfrågor för att hitta relevant innehåll i din kunskapsbas. Varje fråga läggs till som en separat källa."
   },
   "fetchError": {
-    "message": "Failed to load items"
+    "message": "Misslyckades att läsa in objekt"
   },
   "promptLabel": {
-    "message": "Describe the table you want to create"
+    "message": "Beskriv tabellen du vill skapa"
   },
   "promptPlaceholder": {
-    "message": "E.g., Create a table comparing the main topics discussed, with columns for topic, key points, and relevance score..."
+    "message": "T.ex. Skapa en tabell som jämför de viktigaste ämnena som diskuterats, med kolumner för ämne, nyckelpunkter och relevanspoäng..."
   },
   "examplePrompts": {
-    "message": "Example prompts:"
+    "message": "Exempel på instruktioner:"
   },
   "advancedOptions": {
-    "message": "Advanced Options"
+    "message": "Avancerade alternativ"
   },
   "columnHints": {
-    "message": "Column Hints (Optional)"
+    "message": "Kolumnförslag (valfritt)"
   },
   "columnHintsDesc": {
-    "message": "Suggest column names and types to guide the LLM. If not specified, columns will be inferred from your prompt."
+    "message": "Föreslå kolumnnamn och typer för att vägleda LLM. Om inget anges härleds kolumner från din instruktion."
   },
   "newColumnName": {
-    "message": "Column name"
+    "message": "Kolumnnamn"
   },
   "modelSelection": {
-    "message": "Model"
+    "message": "Modell"
   },
   "selectModel": {
-    "message": "Use default model"
+    "message": "Använd standardmodell"
   },
   "maxRows": {
-    "message": "Maximum Rows"
+    "message": "Maximalt antal rader"
   },
   "maxRowsHint": {
     "message": "(1-1000)"
   },
   "generating": {
-    "message": "Generating table from your sources..."
+    "message": "Genererar tabell från dina källor..."
   },
   "generatingNote": {
-    "message": "This may take a moment depending on the amount of data."
+    "message": "Detta kan ta en stund beroende på mängden data."
   },
   "generateSuccess": {
-    "message": "Table generated successfully!"
+    "message": "Tabellen genererades!"
   },
   "generationFailed": {
-    "message": "Generation Failed"
+    "message": "Generering misslyckades"
   },
   "tryAgain": {
-    "message": "Try Again"
+    "message": "Försök igen"
   },
   "warnings": {
-    "message": "Warnings"
+    "message": "Varningar"
   },
   "noPreview": {
-    "message": "No preview available"
+    "message": "Ingen förhandsgranskning tillgänglig"
   },
   "promptUsed": {
-    "message": "Prompt used:"
+    "message": "Använd instruktion:"
   },
   "previewModified": {
-    "message": "You've modified the preview. Changes will be saved with the table."
+    "message": "Du har ändrat förhandsgranskningen. Ändringarna sparas med tabellen."
   },
   "addRow": {
-    "message": "Add Row"
+    "message": "Lägg till rad"
   },
   "addColumn": {
-    "message": "Add Column"
+    "message": "Lägg till kolumn"
   },
   "deleteRow": {
-    "message": "Delete row?"
+    "message": "Ta bort rad?"
   },
   "deleteRowConfirm": {
-    "message": "This action cannot be undone."
+    "message": "Den här åtgärden kan inte ångras."
   },
   "deleteColumn": {
-    "message": "Delete column?"
+    "message": "Ta bort kolumn?"
   },
   "deleteColumnConfirm": {
-    "message": "This action cannot be undone."
+    "message": "Den här åtgärden kan inte ångras."
   },
   "discard": {
-    "message": "Discard"
+    "message": "Kassera"
   },
   "changesDiscarded": {
-    "message": "Changes discarded"
+    "message": "Ändringar kasserade"
   },
   "save": {
-    "message": "Save"
+    "message": "Spara"
   },
   "saveSuccess": {
-    "message": "Changes saved successfully!"
+    "message": "Ändringarna sparades!"
   },
   "unsavedChanges": {
-    "message": "You have unsaved changes"
+    "message": "Du har osparade ändringar"
   },
   "columnAdded": {
-    "message": "Column '{{name}}' added"
+    "message": "Kolumn '{{name}}' lades till"
   },
   "rows": {
-    "message": "rows"
+    "message": "rader"
   },
   "columnsLabel": {
-    "message": "columns"
+    "message": "kolumner"
   },
   "showingRows": {
-    "message": "Showing {{total}} rows"
+    "message": "Visar {{total}} rader"
   },
   "tableSummary": {
-    "message": "Table Summary"
+    "message": "Tabellöversikt"
   },
   "tableName": {
-    "message": "Table Name"
+    "message": "Tabellnamn"
   },
   "tableNamePlaceholder": {
-    "message": "Enter a name for your table"
+    "message": "Ange ett namn för tabellen"
   },
   "tableDescription": {
-    "message": "Description (optional)"
+    "message": "Beskrivning (valfritt)"
   },
   "tableDescPlaceholder": {
-    "message": "Add a description to help you remember what this table contains"
+    "message": "Lägg till en beskrivning för att komma ihåg vad tabellen innehåller"
   },
   "saveToLibrary": {
-    "message": "Save to Library"
+    "message": "Spara i biblioteket"
   },
   "tableSaved": {
-    "message": "Table Saved!"
+    "message": "Tabellen sparades!"
   },
   "tableSavedDesc": {
-    "message": "Your table has been saved to the library. You can view and export it anytime."
+    "message": "Din tabell har sparats i biblioteket. Du kan visa och exportera den när som helst."
   },
   "viewTables": {
-    "message": "View My Tables"
+    "message": "Visa mina tabeller"
   },
   "createAnother": {
-    "message": "Create Another"
+    "message": "Skapa en till"
   },
   "orExport": {
-    "message": "Or export directly:"
+    "message": "Eller exportera direkt:"
   },
   "export": {
-    "message": "Export"
+    "message": "Exportera"
   },
   "exportCSV": {
-    "message": "Export as CSV"
+    "message": "Exportera som CSV"
   },
   "exportExcel": {
-    "message": "Export as Excel"
+    "message": "Exportera som Excel"
   },
   "exportJSON": {
-    "message": "Export as JSON"
+    "message": "Exportera som JSON"
   },
   "exportSuccess": {
-    "message": "Table exported as {{format}}"
+    "message": "Tabellen exporterades som {{format}}"
   },
   "noTableToSave": {
-    "message": "No table to save"
+    "message": "Ingen tabell att spara"
   },
   "goBackToGenerate": {
-    "message": "Go back to the previous step to generate a table first."
+    "message": "Gå tillbaka till föregående steg för att först generera en tabell."
   },
   "tableDetails": {
-    "message": "Table Details"
+    "message": "Tabelldetaljer"
   },
   "tableNotFound": {
-    "message": "Table not found"
+    "message": "Tabellen hittades inte"
   },
   "noData": {
-    "message": "No data"
+    "message": "Ingen data"
   },
   "data": {
     "message": "Data"
   },
   "editMode": {
-    "message": "Edit Mode"
+    "message": "Redigeringsläge"
   },
   "editModeActive": {
-    "message": "Click cells to edit"
+    "message": "Klicka på celler för att redigera"
   },
   "regenerate": {
-    "message": "Regenerate"
+    "message": "Generera igen"
   },
   "regenerateSuccess": {
-    "message": "Table regenerated successfully!"
+    "message": "Tabellen genererades om!"
   },
   "model": {
-    "message": "Model"
+    "message": "Modell"
   },
   "prompt": {
-    "message": "Generation Prompt"
+    "message": "Genereringsinstruktion"
   },
   "sources": {
-    "message": "Sources"
+    "message": "Källor"
   },
   "created": {
-    "message": "Created"
+    "message": "Skapad"
   },
   "updated": {
-    "message": "Updated"
+    "message": "Uppdaterad"
   },
   "noTables": {
-    "message": "No tables yet. Create your first table!"
+    "message": "Inga tabeller ännu. Skapa din första tabell!"
   },
   "noSearchResults": {
-    "message": "No tables found matching your search"
+    "message": "Inga tabeller hittades som matchar din sökning"
   },
   "totalTables": {
-    "message": "{{total}} tables"
+    "message": "{{total}} tabeller"
   },
   "view": {
-    "message": "View"
+    "message": "Visa"
   },
   "delete": {
-    "message": "Delete"
+    "message": "Ta bort"
   },
   "deleteConfirmTitle": {
-    "message": "Delete Table"
+    "message": "Ta bort tabell"
   },
   "deleteConfirmMessage": {
-    "message": "Are you sure you want to delete this table? This action cannot be undone."
+    "message": "Är du säker på att du vill ta bort den här tabellen? Den här åtgärden kan inte ångras."
   },
   "noTable": {
-    "message": "No table data"
+    "message": "Ingen tabelldata"
   },
   "add": {
-    "message": "Add"
+    "message": "Lägg till"
   },
   "columnName": {
-    "message": "Column Name"
+    "message": "Kolumnnamn"
   },
   "columnNamePlaceholder": {
-    "message": "e.g., Price, Status, Date"
+    "message": "t.ex. Pris, Status, Datum"
   },
   "columnNameRequired": {
-    "message": "Please enter a column name"
+    "message": "Ange ett kolumnnamn"
   },
   "columnNameTooLong": {
-    "message": "Column name must be 50 characters or less"
+    "message": "Kolumnnamnet måste vara 50 tecken eller färre"
   },
   "columnNameExists": {
-    "message": "A column with this name already exists"
+    "message": "En kolumn med det här namnet finns redan"
   },
   "columnType": {
-    "message": "Column Type"
+    "message": "Kolumntyp"
   },
   "columnTypeRequired": {
-    "message": "Please select a column type"
+    "message": "Välj en kolumntyp"
   },
   "columnDescription": {
-    "message": "Description (optional)"
+    "message": "Beskrivning (valfritt)"
   },
   "columnDescriptionHint": {
-    "message": "A brief description of what this column contains"
+    "message": "En kort beskrivning av vad den här kolumnen innehåller"
   },
   "columnDescriptionPlaceholder": {
-    "message": "e.g., The price of the item in USD"
+    "message": "t.ex. Priset på varan i USD"
   },
   "discardUnsavedChanges": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "Du har osparade ändringar. Är du säker på att du vill stänga?"
   },
   "createFromChat": {
-    "message": "Create Table from Chat"
+    "message": "Skapa tabell från chatt"
   },
   "saveFromArtifact": {
-    "message": "Save to Data Tables"
+    "message": "Spara till Datatabeller"
   },
   "importedPrompt": {
-    "message": "Imported from table artifact"
+    "message": "Importerad från tabellartefakt"
   },
   "columns_name": {
-    "message": "Name"
+    "message": "Namn"
   },
   "columns_rows": {
-    "message": "Rows"
+    "message": "Rader"
   },
   "columns_columns": {
-    "message": "Columns"
+    "message": "Kolumner"
   },
   "columns_sources": {
-    "message": "Sources"
+    "message": "Källor"
   },
   "columns_created": {
-    "message": "Created"
+    "message": "Skapad"
   },
   "columns_actions": {
-    "message": "Actions"
+    "message": "Åtgärder"
   },
   "dataTablesDescription": {
-    "message": "Generate structured tables from your chats, documents, and knowledge base using natural language prompts."
+    "message": "Generera strukturerade tabeller från dina chattar, dokument och din kunskapsbas med hjälp av instruktioner på naturligt språk."
   },
   "descriptionLabel": {
     "message": "Description"
   },
   "tableDescriptionLabel": {
-    "message": "Description"
+    "message": "Beskrivning"
   }
 }

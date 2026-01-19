@@ -85,7 +85,7 @@ columns = [
 ]
 rows = [
   {"col-qa-name":"Alpha","col-qa-score":1},
-  {"Name":"Beta","Score":2}
+  {"col-qa-name":"Beta","col-qa-score":2}
 ]
 print(json.dumps({"columns": columns, "rows": rows}))
 PY

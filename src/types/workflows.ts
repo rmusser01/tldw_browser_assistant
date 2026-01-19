@@ -3,6 +3,8 @@
  * Type definitions for the guided workflow system
  */
 
+import type { ReactNode } from "react"
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Workflow Definition Types
 // ─────────────────────────────────────────────────────────────────────────────
@@ -95,11 +97,9 @@ export interface ContextualSuggestion {
 
 export interface WizardShellProps {
   workflow: WorkflowDefinition
-  instance: WorkflowInstance
-  onStepChange: (stepIndex: number) => void
-  onComplete: (data: Record<string, unknown>) => void
-  onCancel: () => void
-  onError: (error: string) => void
+  children: ReactNode
+  canAdvance?: boolean
+  onComplete?: () => void
 }
 
 export interface WizardStepProps {

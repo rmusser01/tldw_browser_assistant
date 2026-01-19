@@ -1809,243 +1809,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "カード"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "このサーバーではフラッシュカード API は利用できません"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "この tldw サーバーはフラッシュカードのエンドポイントを公開していません。/api/v1/flashcards… を含むバージョンにアップグレードして、このワークスペースを利用してください。"
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "「ヘルスと診断」でサーバーのバージョンと利用可能な API を確認してください。"
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "アップグレード後、拡張機能を再読み込みしてフラッシュカードに戻ってください。"
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "スペースを押してカードを反転"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "1-4 を押して評価"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "フラッシュカードはまだありません"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "すべて完了です！"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "レビュー対象のカードはありません。お疲れさまでした！"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "フラッシュカードを作成"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "さらにカードを作成"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "基本（質問 - 回答）"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "基本 + 反転（両方向）"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "穴埋め（空欄補充）"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "タグで絞り込む"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "タグを入力..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "コンパクト表示"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "拡張表示"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "さらに絞り込み"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "エクスポート"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "今すぐレビュー"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "デッキに移動"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "カードの読み込みに失敗しました"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "複製に失敗しました"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "移動に失敗しました"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "移動する前に対象デッキを選択してください。"
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "処理中"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "しばらくお待ちください..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "カードを削除中"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "選択した {{count}} 枚のカードを削除しますか？この操作は取り消せません。"
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "{{count}} 枚のカードを削除しますか？"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "多数のカードを削除しようとしています。"
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "{{count}} 枚のカードが完全に削除されます。この操作は取り消せません。"
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "確認のため DELETE と入力:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "全結果で選択中"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "このページで選択中"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "選択済み"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "すべて {{count}} 件を選択"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "クリア"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "フラッシュカードを作成"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "表（質問）と裏（回答）を入力してください。Markdown と LaTeX に対応しています。"
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "プレビューを表示"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "プレビューを非表示"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "Markdown と LaTeX に対応しています ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "詳細オプション（タグ、補足、メモ）"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "カードを削除しました"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "{{seconds}} 秒以内なら削除を取り消せます。"
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "{{count}} 枚のカードを削除しました"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "次のレビュー: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} 枚が期限です"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "キーボードショートカット"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "? を押してショートカットを表示"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "カードを反転"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "カードを評価"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "カード間を移動"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "カードを編集"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "カードを削除"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "標準"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "リバーシブル"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "穴埋め"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "未保存の変更"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "未保存の変更があります。閉じてもよろしいですか？"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "残りのカード"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "レビュー済み"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "残り分"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "残り {{remaining}} 枚、{{reviewed}} 枚をレビュー済み"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "最後のカードを再評価"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "このカードを再評価して回答を更新します"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "下へ移動"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "上へ移動"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "カードを選択"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "フォーカスを解除"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "ショートカットを表示"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "グローバル"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "反転"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "このセッションで {{count}} 枚をレビューしました"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "今すぐ期限"
   }
 }

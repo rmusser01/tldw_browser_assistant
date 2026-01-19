@@ -652,17 +652,17 @@ export const ActorEditor: React.FC<Props> = ({
     ]
   )
 
-  if (!settings) return null
-
   const notesValue: string = Form.useWatch("actorNotes", form) || ""
   const notesGmOnlyValue: boolean =
-    Form.useWatch("actorNotesGmOnly", form) ?? settings.notesGmOnly ?? false
+    Form.useWatch("actorNotesGmOnly", form) ?? settings?.notesGmOnly ?? false
   const chatPositionValue: string =
-    Form.useWatch("actorChatPosition", form) || settings.chatPosition
+    Form.useWatch("actorChatPosition", form) || settings?.chatPosition
   const chatDepthValue: number =
-    Form.useWatch("actorChatDepth", form) ?? settings.chatDepth
+    Form.useWatch("actorChatDepth", form) ?? settings?.chatDepth
   const chatRoleValue: string =
-    Form.useWatch("actorChatRole", form) || settings.chatRole
+    Form.useWatch("actorChatRole", form) || settings?.chatRole
+
+  if (!settings) return null
   const aspectCount = settings.aspects?.length ?? 0
   const tokensOverLimit = actorTokenCount > ACTOR_TOKENS_WARNING_THRESHOLD
   const actorDictionaryTokens = buildActorDictionaryTokens(settings)

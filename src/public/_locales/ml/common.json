@@ -1177,5 +1177,8 @@
   },
   "timeline_actionFailed": {
     "message": "Failed to perform timeline action. Please try again."
+  },
+  "documentCard_removeAria": {
+    "message": "{{name}} നീക്കം ചെയ്യുക"
   }
 }

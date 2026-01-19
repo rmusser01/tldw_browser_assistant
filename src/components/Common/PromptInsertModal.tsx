@@ -1,6 +1,6 @@
 import React from "react"
 import { useQuery } from "@tanstack/react-query"
-import { Empty, Input, List, Modal, Select, Tag } from "antd"
+import { Alert, Empty, Input, List, Modal, Select, Tag } from "antd"
 import { useTranslation } from "react-i18next"
 import { tldwClient } from "@/services/tldw/TldwApiClient"
 
@@ -74,11 +74,16 @@ export const PromptInsertModal: React.FC<Props> = ({
   const [query, setQuery] = React.useState("")
   const [tagFilter, setTagFilter] = React.useState<string[]>([])
 
-  const { data: prompts = [], isLoading } = useQuery({
+  const {
+    data: prompts = [],
+    isLoading,
+    isError,
+    error
+  } = useQuery({
     queryKey: ["promptInsertPrompts"],
     queryFn: async () => {
-      await tldwClient.initialize().catch(() => null)
-      const response = await tldwClient.getPrompts().catch(() => [])
+      await tldwClient.initialize()
+      const response = await tldwClient.getPrompts()
       const list = Array.isArray(response)
         ? response
         : response?.results || response?.prompts || []
@@ -141,6 +146,11 @@ export const PromptInsertModal: React.FC<Props> = ({
     defaultValue: "Quick prompt"
   })
   const noMatches = t("option:noMatchingPrompts", "No matching prompts")
+  const errorTitle = t("option:error", "Error")
+  const errorFallback = t("option:somethingWentWrong", "Something went wrong")
+  const errorDescription =
+    error instanceof Error && error.message ? error.message : errorFallback
+  const showLoadError = isError && prompts.length === 0
 
   return (
     <Modal
@@ -173,7 +183,16 @@ export const PromptInsertModal: React.FC<Props> = ({
           disabled={tagOptions.length === 0}
         />
         <div className="max-h-80 overflow-auto rounded-md border border-border">
-          {filteredPrompts.length === 0 ? (
+          {showLoadError ? (
+            <div className="p-3">
+              <Alert
+                type="error"
+                showIcon
+                message={errorTitle}
+                description={errorDescription}
+              />
+            </div>
+          ) : filteredPrompts.length === 0 ? (
             <div className="py-8">
               <Empty description={isLoading ? undefined : noMatches} />
             </div>

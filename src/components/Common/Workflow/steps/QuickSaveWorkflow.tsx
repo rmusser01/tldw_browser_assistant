@@ -261,7 +261,7 @@ const DetailsStep: React.FC = () => {
       {/* Title */}
       <div>
         <label className="text-sm font-medium text-text block mb-2">
-          {t("workflows:quickSave.title", "Title")}
+          {t("workflows:quickSave.titleLabel", "Title")}
         </label>
         <Input
           value={title}

@@ -1942,6 +1942,46 @@ test.describe("Real server end-to-end workflows", () => {
       ? modelId
       : `tldw:${modelId}`
 
+    const unique = Date.now()
+    const characterName = `E2E Flashcards Character ${unique}`
+    let createdCharacter = false
+    let characterRecord: any | null = null
+    const characterListResponse = await fetchWithKey(
+      `${normalizedServerUrl}/api/v1/characters/?page=1&results_per_page=1`,
+      apiKey
+    ).catch(() => null)
+    if (!characterListResponse?.ok) {
+      const body = await characterListResponse?.text().catch(() => "")
+      skipOrThrow(
+        true,
+        `Characters API preflight failed: ${characterListResponse?.status} ${characterListResponse?.statusText} ${body}`
+      )
+      return
+    }
+    const characterId = await createCharacterByName(
+      normalizedServerUrl,
+      apiKey,
+      characterName
+    )
+    if (!characterId) {
+      skipOrThrow(true, "Unable to create character for flashcards flow.")
+      return
+    }
+    createdCharacter = true
+    characterRecord = await pollForCharacterByName(
+      normalizedServerUrl,
+      apiKey,
+      characterName,
+      30000
+    )
+    if (!characterRecord) {
+      skipOrThrow(
+        true,
+        "Character created but not returned by search; skipping flashcards flow."
+      )
+      return
+    }
+
     const launchResult = await launchWithExtension("", {
       seedConfig: {
         __tldw_first_run_complete: true,
@@ -1971,12 +2011,16 @@ test.describe("Real server end-to-end workflows", () => {
       }
 
       await setSelectedModel(page, selectedModelId)
+      await setSelectedCharacterInStorage(
+        page,
+        normalizeCharacterForStorage(characterRecord)
+      )
 
       const chatPage = await openSidepanel()
       await waitForConnected(chatPage, "workflow-chat-flashcards")
       await ensureServerPersistence(chatPage)
 
-      const userMessage = `E2E flashcards flow ${Date.now()}`
+      const userMessage = `E2E flashcards flow ${unique}`
       await sendChatMessage(chatPage, userMessage)
       await waitForAssistantMessage(chatPage)
       const assistantSnapshot = await chatPage
@@ -2164,6 +2208,13 @@ test.describe("Real server end-to-end workflows", () => {
       await rateButton.click()
     } finally {
       await context.close()
+      if (createdCharacter) {
+        await deleteCharacterByName(
+          normalizedServerUrl,
+          apiKey,
+          characterName
+        )
+      }
     }
   })
 

@@ -51,7 +51,7 @@ export const SUMMARIZE_PAGE_WORKFLOW: WorkflowDefinition = {
 export const QUICK_SAVE_WORKFLOW: WorkflowDefinition = {
   id: "quick-save",
   category: "content-capture",
-  labelToken: "workflows:quickSave.title",
+  labelToken: "workflows:quickSave.workflowTitle",
   descriptionToken: "workflows:quickSave.description",
   icon: "Save",
   steps: [

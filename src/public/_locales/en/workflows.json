@@ -877,5 +877,14 @@
   },
   "editor_messages_clearConfirm": {
     "message": "Clear all nodes from the canvas?"
+  },
+  "quickSave_workflowTitle": {
+    "message": "Quick Save"
+  },
+  "quickSave_titleLabel": {
+    "message": "Title"
+  },
+  "analyzeBook_truncateWarning": {
+    "message": "Long content is truncated to the first {{limit}} characters during analysis."
   }
 }

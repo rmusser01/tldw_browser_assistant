@@ -1821,243 +1821,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "Карточки"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "API карточек недоступен на этом сервере"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "Этот сервер tldw не объявляет эндпойнты карточек. Обновите сервер до версии, которая включает /api/v1/flashcards…, чтобы использовать это рабочее пространство."
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "Проверьте Health & diagnostics, чтобы подтвердить версию сервера и доступные API."
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "После обновления перезагрузите расширение и вернитесь к карточкам."
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "Нажмите пробел, чтобы перевернуть"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "Нажмите 1-4 для оценки"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "Карточек пока нет"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "Вы всё повторили!"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "Нет карточек для повторения. Отличная работа!"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "Создать карточку"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "Создать больше карточек"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "Базовый (Вопрос - Ответ)"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "Базовый + обратный (в обе стороны)"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "Cloze (Заполнение пропусков)"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "Фильтровать по тегу"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "Введите тег..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "Компактный вид"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "Расширенный вид"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "Ещё"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "Экспорт"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "Повторить сейчас"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "Переместить в колоду"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "Не удалось загрузить карточку"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "Не удалось дублировать"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "Не удалось переместить"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "Выберите целевую колоду перед перемещением карточек."
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "Обработка"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "Пожалуйста, подождите..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "Удаление карточек"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "Удалить {{count}} выбранных карточек? Это действие нельзя отменить."
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "Удалить {{count}} карточек?"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "Вы собираетесь удалить большое количество карточек."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "Это навсегда удалит {{count}} карточек. Это действие нельзя отменить."
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "Введите DELETE для подтверждения:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "выбрано во всех результатах"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "выбрано на этой странице"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "выбрано"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "Выбрать все {{count}}"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "Очистить"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "Создать карточку"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "Заполните лицевую сторону (вопрос) и оборот (ответ). Поддерживаются Markdown и LaTeX."
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "Показать предпросмотр"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "Скрыть предпросмотр"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "Поддерживаются Markdown и LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "Расширенные параметры (теги, дополнительное, заметки)"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "Карточка удалена"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "Отменить удаление можно в течение {{seconds}} с."
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "{{count}} карточек удалено"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "Следующее повторение: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} карточек к повторению"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "Сочетания клавиш"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "Нажмите ?, чтобы показать сочетания"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "Перевернуть карточку"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "Оценить карточку"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "Перемещаться по карточкам"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "Редактировать карточку"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "Удалить карточку"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "Стандартный"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "Обратимый"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "Заполнение пропусков"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "Несохранённые изменения"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "У вас есть несохранённые изменения. Вы уверены, что хотите закрыть?"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "карточек осталось"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "повторено"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "мин осталось"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "{{remaining}} карточек осталось, {{reviewed}} повторено"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "Переоценить последнюю карточку"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "Оцените эту карточку снова, чтобы обновить ответ"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "Переместить вниз"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "Переместить вверх"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "Выбрать карточку"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "Снять фокус"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "Показать сочетания"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "Глобальные"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "обратная"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "В этой сессии повторено {{count}} карточек"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "Сейчас к повторению"
   }
 }

@@ -1,5 +1,6 @@
 import { Spin } from "antd"
 import { FileIcon, Loader2, XIcon } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 type Props = {
   name: string
@@ -8,6 +9,8 @@ type Props = {
 }
 
 export const DocumentCard: React.FC<Props> = ({ name, onRemove, loading }) => {
+  const { t } = useTranslation("common")
+
   return (
     <button
       disabled={loading}
@@ -24,7 +27,10 @@ export const DocumentCard: React.FC<Props> = ({ name, onRemove, loading }) => {
       <div className="absolute -top-1 -right-1">
         <button
           onClick={onRemove}
-          aria-label={`Remove ${name}`}
+          aria-label={t("documentCard.removeAria", {
+            defaultValue: "Remove {{name}}",
+            name
+          })}
           className="bg-surface text-text-muted border border-border rounded-full group-hover:visible invisible transition hover:text-text"
           type="button">
           <XIcon className="w-3 h-3" />

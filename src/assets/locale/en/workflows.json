@@ -79,7 +79,7 @@
     }
   },
   "quickSave": {
-    "title": "Quick Save",
+    "workflowTitle": "Quick Save",
     "description": "Save content to your notes with one click",
     "steps": {
       "capture": "Capture",
@@ -92,7 +92,7 @@
     "capturing": "Capturing content...",
     "selectionCaptured": "Selection captured",
     "pageCaptured": "Page captured",
-    "title": "Title",
+    "titleLabel": "Title",
     "titlePlaceholder": "Enter a title",
     "folder": "Folder",
     "folders": {
@@ -245,6 +245,7 @@
       "customDesc": "Use your own analysis prompt"
     },
     "analyzing": "Analyzing book...",
+    "truncateWarning": "Long content is truncated to the first {{limit}} characters during analysis.",
     "analyzingChapter": "Analyzing chapter {{current}} of {{total}}...",
     "analysisComplete": "Analysis Complete",
     "analysisCompleteDesc": "Your book analysis is ready. You can edit, save, or export the results below.",

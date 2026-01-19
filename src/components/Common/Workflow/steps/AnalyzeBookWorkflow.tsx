@@ -30,7 +30,8 @@ import {
   Layers
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { bgRequest } from "@/services/background-proxy"
+import { bgRequest, bgUpload } from "@/services/background-proxy"
+import { getProcessPathForType, inferUploadMediaTypeFromFile } from "@/services/tldw/media-routing"
 import { useWorkflowsStore } from "@/store/workflows"
 import { WizardShell } from "../WizardShell"
 import { ANALYZE_BOOK_WORKFLOW } from "../workflow-definitions"
@@ -97,6 +98,7 @@ const SUPPORTED_FILE_TYPES = [
 ]
 
 const DEFAULT_CHAPTER_PATTERN = /^(?:chapter|part|section)\s*\d*[:\s]*(.*)/im
+const MAX_ANALYSIS_CHARS = 30000
 
 const ANALYSIS_PRESETS: Record<
   Exclude<AnalysisPreset, "custom">,
@@ -354,12 +356,6 @@ const ChunkingStep: React.FC = () => {
   )
   const [isChunking, setIsChunking] = useState(!savedChapters)
 
-  useEffect(() => {
-    if (savedChapters || !bookInfo?.content) return
-
-    chunkContent(bookInfo.content, chapterPattern)
-  }, [])
-
   const chunkContent = useCallback(
     (content: string, pattern: string) => {
       setIsChunking(true)
@@ -439,6 +435,12 @@ const ChunkingStep: React.FC = () => {
     },
     [t, updateWorkflowData, setProcessing]
   )
+
+  useEffect(() => {
+    if (savedChapters || !bookInfo?.content) return
+
+    chunkContent(bookInfo.content, chapterPattern)
+  }, [savedChapters, bookInfo?.content, chapterPattern, chunkContent])
 
   const handleReChunk = () => {
     if (bookInfo?.content) {
@@ -776,14 +778,28 @@ const ProcessStep: React.FC = () => {
           perChapter: {}
         }
 
+        const warnTruncation = () => {
+          message.warning(
+            t(
+              "workflows:analyzeBook.truncateWarning",
+              "Long content is truncated to the first {{limit}} characters during analysis.",
+              { limit: MAX_ANALYSIS_CHARS }
+            )
+          )
+        }
+
         if (config.scope === "whole") {
           // Analyze entire book at once
           setTotalChapters(1)
           setCurrentChapter(1)
 
           const content = chapters.map((c) => c.content).join("\n\n")
+          const { truncatedContent, truncated } = truncateForAnalysis(content)
+          if (truncated) {
+            warnTruncation()
+          }
           const analysis = await analyzeContent(
-            content,
+            truncatedContent,
             config,
             abortControllerRef.current.signal
           )
@@ -793,6 +809,12 @@ const ProcessStep: React.FC = () => {
         } else {
           // Analyze per chapter
           setTotalChapters(chapters.length)
+          const hasTruncatedChapter = chapters.some(
+            (chapter) => chapter.content.length > MAX_ANALYSIS_CHARS
+          )
+          if (hasTruncatedChapter) {
+            warnTruncation()
+          }
 
           for (let i = 0; i < chapters.length; i++) {
             if (abortControllerRef.current.signal.aborted) break
@@ -800,8 +822,9 @@ const ProcessStep: React.FC = () => {
             setCurrentChapter(i + 1)
             setProcessingProgress(Math.round(((i + 1) / chapters.length) * 100))
 
+            const { truncatedContent } = truncateForAnalysis(chapters[i].content)
             const analysis = await analyzeContent(
-              chapters[i].content,
+              truncatedContent,
               config,
               abortControllerRef.current.signal
             )
@@ -1156,16 +1179,91 @@ const AnalysisSection: React.FC<AnalysisSectionProps> = ({
 // Helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-async function readFileContent(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
+const TEXT_FILE_EXTENSIONS = new Set([".txt", ".md"])
+
+const getFileExtension = (file: File) => {
+  const name = file.name.toLowerCase()
+  const dotIndex = name.lastIndexOf(".")
+  return dotIndex >= 0 ? name.slice(dotIndex) : ""
+}
+
+const readTextFile = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
     const reader = new FileReader()
-    reader.onload = () => {
-      const content = reader.result as string
-      resolve(content)
-    }
+    reader.onload = () => resolve(reader.result as string)
     reader.onerror = () => reject(reader.error)
     reader.readAsText(file)
   })
+
+const extractParsedText = (data: any): string | null => {
+  if (!data) return null
+  if (typeof data === "string") return data
+  if (typeof data?.content?.text === "string") return data.content.text
+  if (typeof data?.content === "string") return data.content
+  if (typeof data?.text === "string") return data.text
+  if (typeof data?.result?.content?.text === "string") return data.result.content.text
+  if (typeof data?.result?.text === "string") return data.result.text
+  if (typeof data?.result?.content === "string") return data.result.content
+  if (typeof data?.media?.content?.text === "string") return data.media.content.text
+  if (typeof data?.media?.text === "string") return data.media.text
+  return null
+}
+
+const parseFileRemotely = async (file: File): Promise<string> => {
+  const uploadType = inferUploadMediaTypeFromFile(file.name, file.type)
+  if (!["pdf", "ebook", "document"].includes(uploadType)) {
+    console.error("Unsupported file type for remote parsing:", file.name, file.type)
+    throw new Error("Unsupported file type.")
+  }
+  const path = getProcessPathForType(uploadType)
+
+  try {
+    const buffer = await file.arrayBuffer()
+    const data = new Uint8Array(buffer)
+    const response = await bgUpload<any>({
+      path,
+      method: "POST",
+      file: {
+        name: file.name,
+        type: file.type || "application/octet-stream",
+        data
+      }
+    })
+    const parsed = extractParsedText(response)
+    if (!parsed) {
+      console.error("No parsed content returned for file:", file.name, response)
+      throw new Error("No text content returned from the file parser.")
+    }
+    return parsed
+  } catch (error) {
+    console.error("Failed to parse file with backend:", file.name, error)
+    throw error
+  }
+}
+
+async function readFileContent(file: File): Promise<string> {
+  const extension = getFileExtension(file)
+  if (extension && !SUPPORTED_FILE_TYPES.includes(extension)) {
+    console.error("Unsupported file type:", file.name, file.type)
+    throw new Error("Unsupported file type.")
+  }
+
+  if (TEXT_FILE_EXTENSIONS.has(extension) || file.type.startsWith("text/")) {
+    return await readTextFile(file)
+  }
+
+  return await parseFileRemotely(file)
+}
+
+const truncateForAnalysis = (content: string) => {
+  if (content.length <= MAX_ANALYSIS_CHARS) {
+    return { truncatedContent: content, truncated: false }
+  }
+
+  return {
+    truncatedContent: content.slice(0, MAX_ANALYSIS_CHARS),
+    truncated: true
+  }
 }
 
 async function analyzeContent(
@@ -1191,7 +1289,7 @@ async function analyzeContent(
           },
           {
             role: "user",
-            content: `Please analyze the following content:\n\n${content.slice(0, 30000)}`
+            content: `Please analyze the following content:\n\n${content}`
           }
         ]
       },
@@ -1207,7 +1305,7 @@ async function analyzeContent(
       throw new DOMException("Aborted", "AbortError")
     }
     console.error("Analysis API error:", error)
-    return "Unable to connect to the analysis service. Please ensure your tldw server is running and configured correctly."
+    throw error
   }
 }
 

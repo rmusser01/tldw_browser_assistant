@@ -1788,243 +1788,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "البطاقات"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "واجهة برمجة تطبيقات البطاقات التعليمية غير متاحة على هذا الخادم"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "هذا خادم tldw لا يعلن عن نقاط نهاية البطاقات التعليمية. حدّث خادمك إلى إصدار يتضمن /api/v1/flashcards… لاستخدام مساحة العمل هذه."
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "تحقق من الصحة والتشخيصات لتأكيد إصدار الخادم وواجهات برمجة التطبيقات المتاحة."
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "بعد التحديث، أعد تحميل الإضافة وارجع إلى البطاقات التعليمية."
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "اضغط على المسافة لقلب البطاقة"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "اضغط 1-4 للتقييم"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "لا توجد بطاقات تعليمية بعد"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "لقد أنهيت كل شيء!"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "لا توجد بطاقات مستحقة للمراجعة. أحسنت!"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "أنشئ بطاقة تعليمية"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "أنشئ المزيد من البطاقات"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "أساسي (سؤال - إجابة)"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "أساسي + معكوس (كلا الاتجاهين)"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "Cloze (املأ الفراغ)"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "تصفية حسب الوسم"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "أدخل وسمًا..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "عرض مضغوط"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "عرض موسّع"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "المزيد"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "تصدير"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "راجع الآن"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "نقل إلى المجموعة"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "فشل تحميل البطاقة"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "فشل إنشاء نسخة"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "فشل النقل"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "حدد مجموعة مستهدفة قبل نقل البطاقات."
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "جارٍ المعالجة"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "يرجى الانتظار..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "جارٍ حذف البطاقات"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "حذف {{count}} بطاقة محددة؟ لا يمكن التراجع عن ذلك."
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "حذف {{count}} بطاقة؟"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "أنت على وشك حذف عدد كبير من البطاقات."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "سيؤدي هذا إلى حذف {{count}} بطاقة نهائيًا. لا يمكن التراجع عن ذلك."
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "اكتب DELETE للتأكيد:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "محددة عبر جميع النتائج"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "محددة في هذه الصفحة"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "محددة"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "حدد الكل {{count}}"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "مسح"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "إنشاء بطاقة تعليمية"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "املأ الوجه الأمامي (السؤال) والوجه الخلفي (الإجابة). يدعم Markdown و LaTeX."
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "إظهار المعاينة"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "إخفاء المعاينة"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "يدعم Markdown و LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "خيارات متقدمة (وسوم، إضافات، ملاحظات)"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "تم حذف البطاقة"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "تراجع خلال {{seconds}} ثانية لإلغاء الحذف."
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "تم حذف {{count}} بطاقة"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "المراجعة التالية: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} بطاقات مستحقة"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "اختصارات لوحة المفاتيح"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "اضغط ? لعرض الاختصارات"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "قلب البطاقة"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "تقييم البطاقة"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "التنقل بين البطاقات"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "تحرير البطاقة"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "حذف البطاقة"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "قياسي"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "قابل للعكس"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "املأ الفراغ"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "تغييرات غير محفوظة"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "لديك تغييرات غير محفوظة. هل أنت متأكد من الإغلاق؟"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "بطاقات متبقية"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "تمت مراجعتها"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "دقائق متبقية"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "{{remaining}} بطاقات متبقية، {{reviewed}} تمت مراجعتها"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "أعد تقييم آخر بطاقة"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "قيّم هذه البطاقة مرة أخرى لتحديث إجابتك"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "انتقل لأسفل"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "انتقل لأعلى"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "حدد البطاقة"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "مسح التركيز"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "إظهار الاختصارات"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "عام"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "معكوس"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "تمت مراجعة {{count}} بطاقة في هذه الجلسة"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "مستحقة الآن"
   }
 }

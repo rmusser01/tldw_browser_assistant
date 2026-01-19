@@ -111,6 +111,9 @@
   "saveToFlashcards": "Save to Flashcards",
   "generateDocument": "Generate document",
   "documentShort": "Doc",
+  "documentCard": {
+    "removeAria": "Eliminar {{name}}"
+  },
   "saveNoteShort": "Note",
   "saveFlashcardShort": "Card",
   "savedToNotes": "Saved to Notes",

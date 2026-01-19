@@ -1725,10 +1725,10 @@
     "message": "Import Character"
   },
   "quickIngest_downloadJsonAria": {
-    "message": "Download JSON for {{name}}"
+    "message": "{{name}}ക്കായി JSON ഡൗൺലോഡ് ചെയ്യുക"
   },
   "quickIngest_addFiles": {
-    "message": "Browse files"
+    "message": "ഫയലുകൾ തിരഞ്ഞെടുക്കുക"
   },
   "flashcards_cards": {
     "message": "Cards"
