@@ -1173,13 +1173,14 @@ export const useMessage = () => {
       const normalizedModel = model.replace(/^tldw:/, "").trim()
       const resolvedModel = normalizedModel.length > 0 ? normalizedModel : model
 
+      const shouldPersistToServer = !temporaryChat
       for await (const chunk of tldwClient.streamCharacterChatCompletion(
         chatId,
         {
           include_character_context: true,
           model: resolvedModel,
           provider: resolvedApiProvider,
-          save_to_db: false
+          save_to_db: shouldPersistToServer
         },
         { signal }
       )) {

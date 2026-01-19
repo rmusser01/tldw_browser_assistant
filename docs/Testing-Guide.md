@@ -34,6 +34,15 @@ This document explains how to run and understand the test suite for this repo, a
 - **Build tooling**
   - Global setup prefers `npm run build:chrome`; falls back to `cross-env TARGET=chrome wxt build` and then `bun run build:chrome`.
   - You do not need to build manually for E2E runs, but a local build can speed iteration.
+- **Real server E2E checklist (tldw_server)**
+  - Ensure media/audio routes load: install server deps (`yt_dlp`, `numpy`, `soundfile`) and confirm logs do not show "Media endpoints unavailable" or "Audio endpoints unavailable".
+  - Enable job workers used by E2E flows (env vars on server start):
+    - `CHATBOOKS_CORE_WORKER_ENABLED=true`
+    - `DATA_TABLES_JOBS_WORKER_ENABLED=true`
+    - `AUDIO_JOBS_WORKER_ENABLED=true`
+    - `MEDIA_INGEST_JOBS_WORKER_ENABLED=true`
+    - `PROMPT_STUDIO_JOBS_WORKER_ENABLED=true`
+  - If you still see missing message IDs for save-to-notes/flashcards, set `chat_save_default=true` in the server config.
 
 ---
 

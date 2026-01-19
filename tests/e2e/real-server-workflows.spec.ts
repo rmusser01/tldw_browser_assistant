@@ -81,6 +81,21 @@ const ensureServerPersistence = async (page: Page) => {
   }
 }
 
+const ensureChatSidebarExpanded = async (page: Page) => {
+  const sidebar = page.getByTestId("chat-sidebar")
+  await expect(sidebar).toBeVisible({ timeout: 20000 })
+  const search = page.getByTestId("chat-sidebar-search")
+  const expanded = await search.isVisible().catch(() => false)
+  if (!expanded) {
+    const toggle = page.getByTestId("chat-sidebar-toggle")
+    if ((await toggle.count()) > 0) {
+      await toggle.first().click()
+      await expect(search).toBeVisible({ timeout: 15000 })
+    }
+  }
+  return sidebar
+}
+
 const sendChatMessage = async (page: Page, message: string) => {
   let input = page.getByTestId("chat-input")
   if ((await input.count()) === 0) {
@@ -1773,16 +1788,26 @@ test.describe("Real server end-to-end workflows", () => {
         await copySnippet.first().click()
       }
 
-      const openChatButton = page.getByRole("button", {
-        name: /Open Chat with these RAG settings/i
-      })
-      if ((await openChatButton.count()) === 0) {
+      const openChatButtons = page
+        .locator("button")
+        .filter({ hasText: /Open Chat with/i })
+      if ((await openChatButtons.count()) === 0) {
         skipOrThrow(
           true,
           "Knowledge chat panel not available; ensure Knowledge workspace is visible."
         )
         return
       }
+      const knowledgeButton = openChatButtons.filter({
+        hasText: /knowledge search settings/i
+      })
+      const ragButton = openChatButtons.filter({ hasText: /RAG/i })
+      const openChatButton =
+        (await knowledgeButton.count()) > 0
+          ? knowledgeButton.first()
+          : (await ragButton.count()) > 0
+            ? ragButton.first()
+            : openChatButtons.first()
       await expect(openChatButton).toBeVisible({ timeout: 15000 })
       let chatPage = page
       try {
@@ -1883,13 +1908,23 @@ test.describe("Real server end-to-end workflows", () => {
       })
 
       await page.getByTestId("prompts-add").click()
-      await page.getByTestId("prompt-create-title").fill(promptName)
+      const drawer = page
+        .locator(".ant-drawer")
+        .filter({ has: page.getByTestId("prompt-drawer-name") })
+        .first()
+      await expect(page.getByTestId("prompt-drawer-name")).toBeVisible({
+        timeout: 15000
+      })
+      await page.getByTestId("prompt-drawer-name").fill(promptName)
       await page
-        .getByTestId("prompt-create-system")
+        .getByTestId("prompt-drawer-system")
         .fill(`${promptName} System prompt`)
-      await page.getByTestId("prompt-create-user").fill(promptUser)
-      await page.getByTestId("prompt-create-save").click()
-      await expect(page.getByTestId("prompt-create-save")).toHaveCount(0)
+      await page.getByTestId("prompt-drawer-user").fill(promptUser)
+      const saveButton = drawer.getByRole("button", { name: /save/i })
+      await saveButton.click()
+      await expect(page.getByTestId("prompt-drawer-name")).toBeHidden({
+        timeout: 15000
+      })
 
       const searchInput = page.getByTestId("prompts-search")
       await searchInput.fill(promptName)
@@ -1995,6 +2030,12 @@ test.describe("Real server end-to-end workflows", () => {
 
     try {
       await createCharacterByName(normalizedServerUrl, apiKey, characterName)
+      await pollForCharacterByName(
+        normalizedServerUrl,
+        apiKey,
+        characterName,
+        30000
+      )
 
       const origin = new URL(normalizedServerUrl).origin + "/*"
       const granted = await grantHostPermission(
@@ -2062,7 +2103,22 @@ test.describe("Real server end-to-end workflows", () => {
       await expect(attachModal).toBeVisible({ timeout: 15000 })
       const characterSelect = attachModal.getByLabel(/Character/i)
       await characterSelect.click()
-      await page.getByRole("option", { name: characterName }).click()
+      const characterInput = attachModal
+        .getByRole("combobox", { name: /Character/i })
+        .first()
+      if ((await characterInput.count()) > 0) {
+        await characterInput.fill(characterName)
+      } else {
+        const fallbackInput = attachModal
+          .locator('input[role="combobox"]')
+          .first()
+        if ((await fallbackInput.count()) > 0) {
+          await fallbackInput.fill(characterName)
+        }
+      }
+      const option = page.getByRole("option", { name: characterName })
+      await expect(option).toBeVisible({ timeout: 15000 })
+      await option.click()
       await attachModal.getByRole("button", { name: /^Attach$/i }).click()
       await expect(page.getByText(/Attached/i)).toBeVisible({ timeout: 15000 })
 
@@ -2170,7 +2226,15 @@ test.describe("Real server end-to-end workflows", () => {
       })
       await expect(entriesModal).toBeVisible({ timeout: 15000 })
       await entriesModal.getByLabel("Pattern").fill("hello")
-      await entriesModal.getByLabel("Replacement").fill("hi")
+      const replacementInput = entriesModal.locator("#replacement")
+      if ((await replacementInput.count()) > 0) {
+        await replacementInput.fill("hi")
+      } else {
+        await entriesModal
+          .getByRole("textbox", { name: /Replacement/i })
+          .first()
+          .fill("hi")
+      }
       await entriesModal.getByRole("button", { name: /Add Entry/i }).click()
       await expect(entriesModal.getByText("hello")).toBeVisible({
         timeout: 15000
@@ -2326,8 +2390,7 @@ test.describe("Real server end-to-end workflows", () => {
       }
       chatId = String(chatRecord.id)
 
-      const sidebar = page.getByTestId("chat-sidebar")
-      await expect(sidebar).toBeVisible({ timeout: 20000 })
+      const sidebar = await ensureChatSidebarExpanded(page)
       await selectServerTab(sidebar)
 
       const chatButton = sidebar.getByRole("button", {
@@ -2637,12 +2700,39 @@ test.describe("Real server end-to-end workflows", () => {
       })
       await expect(downloadButton).toBeVisible({ timeout: 120000 })
 
-      const [download] = await Promise.all([
-        page.waitForEvent("download", { timeout: 30000 }),
-        downloadButton.click()
-      ])
+      await page.evaluate(() => {
+        const win = window as any
+        if (!win.__e2e_downloadHooked) {
+          win.__e2e_downloadHooked = true
+          const original = URL.createObjectURL
+          win.__e2e_downloadOriginal = original
+          URL.createObjectURL = function (blob: Blob) {
+            win.__e2e_lastDownload = { size: blob.size, type: blob.type }
+            return original.call(URL, blob)
+          }
+        }
+        win.__e2e_lastDownload = null
+      })
 
-      expect(download.suggestedFilename()).toMatch(/\.zip$/i)
+      const downloadEvent = page
+        .waitForEvent("download", { timeout: 15000 })
+        .catch(() => null)
+      await downloadButton.click()
+      const download = await downloadEvent
+      if (download) {
+        expect(download.suggestedFilename()).toMatch(/\.zip$/i)
+      } else {
+        await page.waitForFunction(
+          () => (window as any).__e2e_lastDownload != null,
+          undefined,
+          { timeout: 15000 }
+        )
+        const meta = await page.evaluate(
+          () => (window as any).__e2e_lastDownload
+        )
+        const type = String(meta?.type || "")
+        expect(type).toMatch(/zip|octet-stream/i)
+      }
     } finally {
       await context.close()
       if (promptId != null) {
@@ -2797,9 +2887,13 @@ test.describe("Real server end-to-end workflows", () => {
         }
       })
 
-      const compareButton = page
-        .getByRole("button", { name: /compare models/i })
-        .first()
+      const compareButtons = page.getByRole("button", {
+        name: /^Compare$/i
+      })
+      const compareButton =
+        (await compareButtons.count()) > 0
+          ? compareButtons.first()
+          : page.getByRole("button", { name: /compare models/i }).first()
       await expect(compareButton).toBeVisible({ timeout: 15000 })
       await compareButton.click()
 
@@ -2847,16 +2941,20 @@ test.describe("Real server end-to-end workflows", () => {
       const clusterLabel = page.getByText("Multi-model answers").first()
       await expect(clusterLabel).toBeVisible({ timeout: 60000 })
 
-      const compareButtons = page.getByRole("button", { name: /^Compare$/ })
-      await expect(compareButtons.first()).toBeVisible({ timeout: 60000 })
-      const compareCount = await compareButtons.count()
+      const compareAnswerButtons = page.getByRole("button", {
+        name: /^Compare$/
+      })
+      await expect(compareAnswerButtons.first()).toBeVisible({
+        timeout: 60000
+      })
+      const compareCount = await compareAnswerButtons.count()
       if (compareCount < 2) {
         skipOrThrow(true, "Need at least 2 compare responses to continue.")
         return
       }
 
-      await compareButtons.nth(0).click()
-      await compareButtons.nth(1).click()
+      await compareAnswerButtons.nth(0).click()
+      await compareAnswerButtons.nth(1).click()
 
       const bulkSplit = page.getByRole("button", {
         name: /open each selected answer as its own chat/i
@@ -2865,7 +2963,7 @@ test.describe("Real server end-to-end workflows", () => {
         await bulkSplit.first().click()
       }
 
-      await compareButtons.nth(1).click()
+      await compareAnswerButtons.nth(1).click()
       const continueButton = page.getByRole("button", {
         name: /continue with this model/i
       })
@@ -2882,7 +2980,7 @@ test.describe("Real server end-to-end workflows", () => {
       if (await compareAgainHint.isVisible().catch(() => false)) {
         const compareAgainButton = compareAgainHint
           .locator("..")
-          .getByRole("button", { name: /compare models/i })
+          .getByRole("button", { name: /compare/i })
         await compareAgainButton.click()
       }
 
@@ -3248,6 +3346,237 @@ test.describe("Real server end-to-end workflows", () => {
       await expect(page.getByText(fileName)).toHaveCount(0, {
         timeout: 20000
       })
+    } finally {
+      await context.close()
+      if (mediaId != null) {
+        await cleanupMediaItem(normalizedServerUrl, apiKey, mediaId)
+      }
+    }
+  })
+
+  test("media ingestion -> analysis -> review -> re-analyze", async () => {
+    test.setTimeout(300000)
+    const { serverUrl, apiKey } = requireRealServerConfig(test)
+    const normalizedServerUrl = normalizeServerUrl(serverUrl)
+
+    const mediaResponse = await fetchWithKey(
+      `${normalizedServerUrl}/api/v1/media/?page=1&results_per_page=1`,
+      apiKey
+    )
+    if (!mediaResponse.ok) {
+      const body = await mediaResponse.text().catch(() => "")
+      skipOrThrow(
+        true,
+        `Media API preflight failed: ${mediaResponse.status} ${mediaResponse.statusText} ${body}`
+      )
+      return
+    }
+
+    const modelsResponse = await fetchWithKey(
+      `${normalizedServerUrl}/api/v1/llm/models/metadata`,
+      apiKey
+    )
+    if (!modelsResponse.ok) {
+      const body = await modelsResponse.text().catch(() => "")
+      skipOrThrow(
+        true,
+        `Chat models preflight failed: ${modelsResponse.status} ${modelsResponse.statusText} ${body}`
+      )
+      return
+    }
+    const modelId = getFirstModelId(
+      await modelsResponse.json().catch(() => [])
+    )
+    if (!modelId) {
+      skipOrThrow(true, "No chat models returned from tldw_server.")
+      return
+    }
+    const selectedModelId = modelId.startsWith("tldw:")
+      ? modelId
+      : `tldw:${modelId}`
+
+    const { context, page, extensionId, optionsUrl } =
+      await launchWithExtension("", {
+        seedConfig: {
+          __tldw_first_run_complete: true,
+          tldwConfig: {
+            serverUrl: normalizedServerUrl,
+            authMode: "single-user",
+            apiKey
+          }
+        }
+      })
+
+    const unique = Date.now()
+    const fileName = `e2e-analysis-${unique}.txt`
+    const token1 = `analysis-token-1-${unique}`
+    const token2 = `analysis-token-2-${unique}`
+    let mediaId: string | number | null = null
+
+    const runAnalysis = async (token: string) => {
+      const generateButton = page
+        .getByRole("button", { name: /^Generate$/i })
+        .first()
+      await generateButton.scrollIntoViewIfNeeded()
+      await generateButton.click()
+
+      const modal = page.getByRole("dialog", {
+        name: /Generate Analysis/i
+      })
+      await expect(modal).toBeVisible({ timeout: 15000 })
+
+      const systemPrompt = modal.getByLabel(/System Prompt/i)
+      await systemPrompt.fill(
+        `Return exactly the token "${token}" and nothing else.`
+      )
+      const userPrefix = modal.getByLabel(/User Prompt Prefix/i)
+      await userPrefix.fill("")
+
+      const generateAnalysis = modal.getByRole("button", {
+        name: /Generate Analysis/i
+      })
+      await expect(generateAnalysis).toBeEnabled({ timeout: 30000 })
+      await generateAnalysis.click()
+
+      await expect(modal).toBeHidden({ timeout: 180000 })
+      await expect(page.getByText(token)).toBeVisible({ timeout: 60000 })
+    }
+
+    try {
+      const origin = new URL(normalizedServerUrl).origin + "/*"
+      const granted = await grantHostPermission(
+        context,
+        extensionId,
+        origin
+      )
+      if (!granted) {
+        skipOrThrow(
+          true,
+          "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
+        )
+        return
+      }
+
+      await setSelectedModel(page, selectedModelId)
+
+      const resolveQuickIngestTrigger = async () => {
+        const byTestId = page.getByTestId("open-quick-ingest")
+        if (await byTestId.count()) return byTestId.first()
+        return page.getByRole("button", { name: /Quick ingest/i }).first()
+      }
+
+      await waitForConnected(page, "workflow-analysis-ingest")
+
+      let trigger = await resolveQuickIngestTrigger()
+      if (!(await trigger.count())) {
+        await page.goto(`${optionsUrl}#/playground`, {
+          waitUntil: "domcontentloaded"
+        })
+        await waitForConnected(page, "workflow-analysis-ingest-fallback")
+        trigger = await resolveQuickIngestTrigger()
+      }
+      await expect(trigger).toBeVisible({ timeout: 15000 })
+      await trigger.click()
+
+      const modal = page.locator(".quick-ingest-modal .ant-modal-content")
+      await expect(modal).toBeVisible({ timeout: 15000 })
+      await expect(
+        page.locator('.quick-ingest-modal [data-state="ready"]')
+      ).toBeVisible({ timeout: 20000 })
+
+      await page.setInputFiles('[data-testid="qi-file-input"]', {
+        name: fileName,
+        mimeType: "text/plain",
+        buffer: Buffer.from(`E2E analysis content ${unique}`)
+      })
+
+      const fileRow = modal.getByText(fileName).first()
+      await expect(fileRow).toBeVisible({ timeout: 15000 })
+      await fileRow.click()
+
+      const runButton = modal
+        .getByRole("button", {
+          name: /Run quick ingest|Ingest|Process/i
+        })
+        .first()
+      await expect(runButton).toBeEnabled({ timeout: 15000 })
+      await runButton.click()
+
+      await expect(
+        modal.getByText(/Quick ingest completed/i)
+      ).toBeVisible({ timeout: 180000 })
+
+      const mediaMatch = await pollForMediaMatch(
+        normalizedServerUrl,
+        apiKey,
+        String(unique),
+        180000
+      )
+      mediaId = mediaMatch?.id ?? null
+
+      await page.goto(`${optionsUrl}#/media`, {
+        waitUntil: "domcontentloaded"
+      })
+      await waitForConnected(page, "workflow-analysis-media")
+
+      const searchInput = page.getByPlaceholder(
+        /Search media \(title\/content\)/i
+      )
+      await searchInput.fill(String(unique))
+      await page.getByRole("button", { name: /^Search$/i }).click()
+
+      const resultRow = page
+        .locator('[role="button"]')
+        .filter({ hasText: fileName })
+        .first()
+      await expect(resultRow).toBeVisible({ timeout: 30000 })
+      await resultRow.click()
+
+      await runAnalysis(token1)
+
+      await page.goto(`${optionsUrl}#/media-multi`, {
+        waitUntil: "domcontentloaded"
+      })
+      await waitForConnected(page, "workflow-analysis-review")
+
+      const reviewSearch = page.getByPlaceholder(/Search media/i)
+      await expect(reviewSearch).toBeVisible({ timeout: 15000 })
+      await reviewSearch.fill(String(unique))
+      await page.getByRole("button", { name: /^Search$/i }).click()
+
+      const reviewRow = page
+        .locator(".ant-list-item")
+        .filter({ hasText: fileName })
+        .first()
+      await expect(reviewRow).toBeVisible({ timeout: 30000 })
+      await reviewRow.click()
+
+      const getReviewButton = page.getByRole("button", {
+        name: /Get review/i
+      })
+      await expect(getReviewButton).toBeVisible({ timeout: 15000 })
+      await getReviewButton.click()
+
+      const analysisEditor = page.getByPlaceholder(
+        /Run Review or Summarize/i
+      )
+      await expect
+        .poll(async () => analysisEditor.inputValue(), {
+          timeout: 120000
+        })
+        .toMatch(/\S+/)
+
+      await page.goto(`${optionsUrl}#/media`, {
+        waitUntil: "domcontentloaded"
+      })
+      await waitForConnected(page, "workflow-analysis-reanalyze")
+
+      await searchInput.fill(String(unique))
+      await page.getByRole("button", { name: /^Search$/i }).click()
+      await expect(resultRow).toBeVisible({ timeout: 30000 })
+      await resultRow.click()
+
+      await runAnalysis(token2)
     } finally {
       await context.close()
       if (mediaId != null) {

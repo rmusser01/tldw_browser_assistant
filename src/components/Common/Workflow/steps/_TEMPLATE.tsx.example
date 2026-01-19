@@ -1,0 +1,437 @@
+/**
+ * _TEMPLATE.tsx.example
+ *
+ * Copy this file as a starting point for new workflows.
+ *
+ * SETUP CHECKLIST (see README.md for details):
+ * 1. [ ] Add "my-workflow" to WorkflowId type in src/types/workflows.ts
+ * 2. [ ] Create workflow definition in workflow-definitions.ts
+ * 3. [ ] Rename this file to MyWorkflow.tsx
+ * 4. [ ] Export from steps/index.ts
+ * 5. [ ] Add switch case in WorkflowContainer.tsx
+ * 6. [ ] Add translations to src/assets/locale/en/workflows.json
+ * 7. [ ] Run `bun run compile` to verify
+ */
+
+import React, { useState, useEffect, useCallback, useRef } from "react"
+import { Button, Alert, Spin, Radio, Space, message } from "antd"
+import { CheckCircle, Copy, Download } from "lucide-react"
+import { useTranslation } from "react-i18next"
+import { useWorkflowsStore } from "@/store/workflows"
+import { WizardShell } from "../WizardShell"
+import { MY_WORKFLOW } from "../workflow-definitions" // Update import
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Types (define any workflow-specific types here)
+// ─────────────────────────────────────────────────────────────────────────────
+
+type MyOption = "option1" | "option2" | "option3"
+
+interface CapturedData {
+  title: string
+  content: string
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Main Workflow Component
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * MyWorkflow
+ *
+ * A template workflow demonstrating common patterns.
+ * Steps:
+ * 1. Capture - Auto-capture data (auto-advances)
+ * 2. Configure - User selects options (optional step)
+ * 3. Process - Run the main operation (shows progress)
+ * 4. Review - Display results with actions
+ */
+export const MyWorkflow: React.FC = () => {
+  const activeWorkflow = useWorkflowsStore((s) => s.activeWorkflow)
+
+  // IMPORTANT: Guard against rendering when not the active workflow
+  // This prevents crashes when switching between workflows
+  if (!activeWorkflow || activeWorkflow.workflowId !== "my-workflow") {
+    return null
+  }
+
+  return (
+    <WizardShell workflow={MY_WORKFLOW}>
+      <StepContent />
+    </WizardShell>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Step Router
+// ─────────────────────────────────────────────────────────────────────────────
+
+const StepContent: React.FC = () => {
+  const activeWorkflow = useWorkflowsStore((s) => s.activeWorkflow)
+  const stepIndex = activeWorkflow?.currentStepIndex ?? 0
+
+  // Route to the appropriate step component
+  switch (stepIndex) {
+    case 0:
+      return <CaptureStep />
+    case 1:
+      return <ConfigureStep />
+    case 2:
+      return <ProcessStep />
+    case 3:
+      return <ReviewStep />
+    default:
+      return null
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Step 1: Capture (Auto-advance pattern)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * CaptureStep - Automatically captures data and advances to next step.
+ *
+ * Pattern: Use useEffect to perform async operation on mount,
+ * then call setWorkflowStep() to auto-advance.
+ *
+ * Mark step with `autoAdvance: true` in workflow definition.
+ */
+const CaptureStep: React.FC = () => {
+  const { t } = useTranslation(["workflows"])
+  const updateWorkflowData = useWorkflowsStore((s) => s.updateWorkflowData)
+  const setWorkflowStep = useWorkflowsStore((s) => s.setWorkflowStep)
+  const setProcessing = useWorkflowsStore((s) => s.setProcessing)
+  const setWorkflowError = useWorkflowsStore((s) => s.setWorkflowError)
+
+  const [captured, setCaptured] = useState<CapturedData | null>(null)
+  const [isCapturing, setIsCapturing] = useState(true)
+
+  useEffect(() => {
+    const captureData = async () => {
+      try {
+        // Show processing state in wizard header
+        setProcessing(true, t("workflows:myWorkflow.capturing", "Capturing..."))
+
+        // TODO: Replace with actual capture logic
+        // Example: Get current tab content, selected text, file contents, etc.
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+
+        const data: CapturedData = {
+          title: "Example Title",
+          content: "Captured content goes here..."
+        }
+
+        // Store captured data for later steps
+        setCaptured(data)
+        updateWorkflowData({ capturedData: data })
+
+        setProcessing(false)
+        setIsCapturing(false)
+
+        // Auto-advance to next step after brief delay for UX
+        setTimeout(() => {
+          setWorkflowStep(1)
+        }, 500)
+      } catch (error) {
+        console.error("Capture error:", error)
+        setProcessing(false)
+        setIsCapturing(false)
+        setWorkflowError(
+          error instanceof Error
+            ? error.message
+            : t("workflows:myWorkflow.errors.captureFailed", "Capture failed")
+        )
+      }
+    }
+
+    captureData()
+  }, [t, updateWorkflowData, setWorkflowStep, setProcessing, setWorkflowError])
+
+  // Show loading state while capturing
+  if (isCapturing) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12">
+        <Spin size="large" />
+        <p className="mt-4 text-textMuted">
+          {t("workflows:myWorkflow.capturing", "Capturing...")}
+        </p>
+      </div>
+    )
+  }
+
+  // Show success state briefly before auto-advance
+  if (captured) {
+    return (
+      <Alert
+        type="success"
+        showIcon
+        icon={<CheckCircle className="h-4 w-4" />}
+        message={t("workflows:myWorkflow.captured", "Captured successfully")}
+        description={captured.title}
+      />
+    )
+  }
+
+  return null
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Step 2: Configure (Options/Settings pattern)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * ConfigureStep - User selects options before processing.
+ *
+ * Pattern: Read/write options via updateWorkflowData().
+ * Provide smart defaults so users can skip this step.
+ *
+ * Mark step with `isOptional: true` in workflow definition.
+ */
+const ConfigureStep: React.FC = () => {
+  const { t } = useTranslation(["workflows"])
+  const activeWorkflow = useWorkflowsStore((s) => s.activeWorkflow)
+  const updateWorkflowData = useWorkflowsStore((s) => s.updateWorkflowData)
+
+  // Read current option from workflow data, with default
+  const currentOption = (activeWorkflow?.data?.selectedOption as MyOption) || "option1"
+
+  const handleOptionChange = (option: MyOption) => {
+    updateWorkflowData({ selectedOption: option })
+  }
+
+  const options = [
+    {
+      value: "option1" as const,
+      label: t("workflows:myWorkflow.options.option1", "Option 1"),
+      description: t("workflows:myWorkflow.options.option1Desc", "Description for option 1")
+    },
+    {
+      value: "option2" as const,
+      label: t("workflows:myWorkflow.options.option2", "Option 2"),
+      description: t("workflows:myWorkflow.options.option2Desc", "Description for option 2")
+    },
+    {
+      value: "option3" as const,
+      label: t("workflows:myWorkflow.options.option3", "Option 3"),
+      description: t("workflows:myWorkflow.options.option3Desc", "Description for option 3")
+    }
+  ]
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-sm font-medium text-text mb-3">
+        {t("workflows:myWorkflow.chooseOption", "Choose an option")}
+      </h3>
+      <Radio.Group
+        value={currentOption}
+        onChange={(e) => handleOptionChange(e.target.value)}
+        className="w-full"
+      >
+        <Space direction="vertical" className="w-full">
+          {options.map((option) => (
+            <Radio
+              key={option.value}
+              value={option.value}
+              className="w-full p-3 border border-border rounded-lg hover:border-primary transition-colors"
+            >
+              <div>
+                <span className="font-medium">{option.label}</span>
+                <p className="text-xs text-textMuted mt-0.5">{option.description}</p>
+              </div>
+            </Radio>
+          ))}
+        </Space>
+      </Radio.Group>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Step 3: Process (Progress tracking pattern with AbortController)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * ProcessStep - Runs the main operation with progress tracking.
+ *
+ * Pattern: Use AbortController for cancellation support.
+ * Update progress via setProcessingProgress(0-100).
+ * Store results in workflow data for the review step.
+ *
+ * Mark step with `autoAdvance: true` in workflow definition.
+ */
+const ProcessStep: React.FC = () => {
+  const { t } = useTranslation(["workflows"])
+  const activeWorkflow = useWorkflowsStore((s) => s.activeWorkflow)
+  const updateWorkflowData = useWorkflowsStore((s) => s.updateWorkflowData)
+  const setWorkflowStep = useWorkflowsStore((s) => s.setWorkflowStep)
+  const setProcessing = useWorkflowsStore((s) => s.setProcessing)
+  const setProcessingProgress = useWorkflowsStore((s) => s.setProcessingProgress)
+  const setWorkflowError = useWorkflowsStore((s) => s.setWorkflowError)
+
+  // Ref for AbortController to support cancellation
+  const abortControllerRef = useRef<AbortController | null>(null)
+
+  useEffect(() => {
+    const runProcess = async () => {
+      // Create AbortController for this operation
+      const controller = new AbortController()
+      abortControllerRef.current = controller
+
+      try {
+        setProcessing(true, t("workflows:myWorkflow.processing", "Processing..."))
+
+        // Get data from previous steps
+        const capturedData = activeWorkflow?.data?.capturedData as CapturedData
+        const selectedOption = (activeWorkflow?.data?.selectedOption as MyOption) || "option1"
+
+        // TODO: Replace with actual processing logic
+        // Example: API call, file processing, AI generation, etc.
+        for (let progress = 0; progress <= 100; progress += 10) {
+          // Check if cancelled
+          if (controller.signal.aborted) {
+            return
+          }
+
+          await new Promise((resolve) => setTimeout(resolve, 200))
+          setProcessingProgress(progress)
+        }
+
+        // Store result for review step
+        const result = {
+          processedAt: Date.now(),
+          option: selectedOption,
+          output: `Processed: ${capturedData?.title || "Unknown"}`
+        }
+        updateWorkflowData({ result })
+
+        setProcessingProgress(100)
+        setProcessing(false)
+
+        // Auto-advance to review step
+        setTimeout(() => {
+          setWorkflowStep(3)
+        }, 300)
+      } catch (error) {
+        // Ignore abort errors
+        if (error instanceof Error && error.name === "AbortError") {
+          return
+        }
+
+        console.error("Process error:", error)
+        setProcessing(false)
+        setWorkflowError(
+          error instanceof Error
+            ? error.message
+            : t("workflows:myWorkflow.errors.processFailed", "Processing failed")
+        )
+      }
+    }
+
+    runProcess()
+
+    // Cleanup: abort on unmount
+    return () => {
+      abortControllerRef.current?.abort()
+    }
+  }, [
+    t,
+    activeWorkflow,
+    updateWorkflowData,
+    setWorkflowStep,
+    setProcessing,
+    setProcessingProgress,
+    setWorkflowError
+  ])
+
+  return (
+    <div className="flex flex-col items-center justify-center py-12">
+      <Spin size="large" />
+      <p className="mt-4 text-textMuted">
+        {t("workflows:myWorkflow.processing", "Processing...")}
+      </p>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Step 4: Review (Results with actions pattern)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * ReviewStep - Displays results and provides action buttons.
+ *
+ * Pattern: Read result from workflow data.
+ * Provide common actions: copy, download, continue to chat, etc.
+ */
+const ReviewStep: React.FC = () => {
+  const { t } = useTranslation(["workflows", "common"])
+  const activeWorkflow = useWorkflowsStore((s) => s.activeWorkflow)
+
+  // Get result from workflow data
+  const result = activeWorkflow?.data?.result as {
+    processedAt: number
+    option: string
+    output: string
+  } | undefined
+
+  const handleCopy = useCallback(async () => {
+    if (!result?.output) return
+    try {
+      await navigator.clipboard.writeText(result.output)
+      message.success(t("common:copied", "Copied to clipboard"))
+    } catch {
+      message.error(t("common:copyFailed", "Failed to copy"))
+    }
+  }, [result, t])
+
+  const handleDownload = useCallback(() => {
+    if (!result?.output) return
+    const blob = new Blob([result.output], { type: "text/plain" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `result-${Date.now()}.txt`
+    a.click()
+    URL.revokeObjectURL(url)
+  }, [result])
+
+  if (!result) {
+    return (
+      <Alert
+        type="warning"
+        message={t("workflows:myWorkflow.errors.noResult", "No result available")}
+      />
+    )
+  }
+
+  return (
+    <div className="space-y-4">
+      <Alert
+        type="success"
+        showIcon
+        icon={<CheckCircle className="h-4 w-4" />}
+        message={t("workflows:myWorkflow.complete", "Complete!")}
+        description={
+          <div className="mt-2">
+            <p className="text-sm">{result.output}</p>
+            <p className="text-xs text-textMuted mt-1">
+              {t("workflows:myWorkflow.processedWith", "Processed with: {{option}}", {
+                option: result.option
+              })}
+            </p>
+          </div>
+        }
+      />
+
+      <div className="flex items-center gap-2">
+        <Button icon={<Copy className="h-4 w-4" />} onClick={handleCopy}>
+          {t("common:copy", "Copy")}
+        </Button>
+        <Button icon={<Download className="h-4 w-4" />} onClick={handleDownload}>
+          {t("common:download", "Download")}
+        </Button>
+      </div>
+    </div>
+  )
+}

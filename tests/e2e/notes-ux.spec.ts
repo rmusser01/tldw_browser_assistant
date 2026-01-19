@@ -55,18 +55,25 @@ test.describe('Notes workspace UX', () => {
 
     const textarea = page.getByPlaceholder('Write your note here...')
     await textarea.fill('Unsaved note content')
+    const unsavedTag = page.locator('.ant-tag', { hasText: 'Unsaved' })
+    await expect(unsavedTag).toBeVisible()
 
     const newNoteButton = page.getByTestId('notes-new-button')
+    await expect(newNoteButton).toBeEnabled()
     await newNoteButton.click()
 
-    await expect(page.getByText(/Discard changes\?/i).first()).toBeVisible()
+    const discardDialog = page.getByRole('dialog', { name: /Discard changes\?/i })
+    await expect(discardDialog).toBeVisible()
 
-    const cancelButton = page.getByRole('button', { name: /Cancel/i })
+    const cancelButton = discardDialog.getByRole('button', { name: /Cancel/i })
     await cancelButton.click()
+    await expect(discardDialog).toBeHidden()
     await expect(textarea).toHaveValue('Unsaved note content')
 
     await newNoteButton.click()
-    const discardButton = page.getByRole('button', { name: /Discard/i })
+    const discardDialogAgain = page.getByRole('dialog', { name: /Discard changes\?/i })
+    await expect(discardDialogAgain).toBeVisible()
+    const discardButton = discardDialogAgain.getByRole('button', { name: /Discard/i })
     await discardButton.click()
     await expect(textarea).toHaveValue('')
 

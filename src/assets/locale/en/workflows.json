@@ -1,0 +1,266 @@
+{
+  "landing": {
+    "title": "Welcome to tldw Assistant",
+    "subtitle": "What would you like to do?",
+    "dontShowAgain": "Don't show this again",
+    "justChat": "Just Chat"
+  },
+  "categories": {
+    "contentCapture": "Content Capture",
+    "knowledgeQA": "Knowledge Q&A",
+    "mediaProcessing": "Media Processing",
+    "learningTools": "Learning Tools"
+  },
+  "error": "Error",
+  "processing": "Processing...",
+  "complete": "Complete",
+  "suggestion": {
+    "start": "Start",
+    "dismiss": "Dismiss"
+  },
+  "suggestions": {
+    "pdfUploaded": {
+      "title": "Document uploaded",
+      "description": "Would you like to add this to your knowledge base and ask questions about it?"
+    },
+    "youtubeUrl": {
+      "title": "Video link detected",
+      "description": "Would you like to transcribe this video?"
+    },
+    "textSelected": {
+      "title": "Save this selection?",
+      "description": "You can save this text to your notes for later reference."
+    },
+    "summaryViewed": {
+      "title": "Test your understanding",
+      "description": "Create a quiz based on this content to reinforce learning."
+    },
+    "onWebpage": {
+      "title": "Summarize this page?",
+      "description": "Get a quick summary of the current webpage."
+    },
+    "documentsAvailable": {
+      "title": "Ready to ask questions",
+      "description": "You have documents in your knowledge base. Ask questions about them!"
+    }
+  },
+  "summarizePage": {
+    "title": "Summarize Page",
+    "description": "Get a quick summary of the current webpage",
+    "steps": {
+      "capture": "Capture",
+      "captureDesc": "Capture page content",
+      "options": "Options",
+      "optionsDesc": "Choose summary style",
+      "result": "Result",
+      "resultDesc": "View your summary"
+    },
+    "capturing": "Capturing page content...",
+    "captured": "Page captured",
+    "contentPreview": "Content length: {{length}} characters",
+    "chooseStyle": "Choose summary style",
+    "styles": {
+      "brief": "Brief",
+      "briefDesc": "2-3 sentence overview",
+      "detailed": "Detailed",
+      "detailedDesc": "Comprehensive summary with key points",
+      "bullets": "Bullet Points",
+      "bulletsDesc": "Key points as a list"
+    },
+    "generating": "Generating summary...",
+    "yourSummary": "Your Summary",
+    "askFollowUp": "Ask Follow-up",
+    "chatComingSoon": "Chat feature coming soon",
+    "demoSummary": "Unable to connect to the summarization service. Please ensure your tldw server is running and configured correctly.",
+    "errors": {
+      "noTab": "No active tab found",
+      "noContent": "Could not extract page content",
+      "captureFailed": "Failed to capture page"
+    }
+  },
+  "quickSave": {
+    "title": "Quick Save",
+    "description": "Save content to your notes with one click",
+    "steps": {
+      "capture": "Capture",
+      "captureDesc": "Capture content",
+      "details": "Details",
+      "detailsDesc": "Add title and tags",
+      "confirm": "Save",
+      "confirmDesc": "Confirm and save"
+    },
+    "capturing": "Capturing content...",
+    "selectionCaptured": "Selection captured",
+    "pageCaptured": "Page captured",
+    "title": "Title",
+    "titlePlaceholder": "Enter a title",
+    "folder": "Folder",
+    "folders": {
+      "default": "Default",
+      "research": "Research",
+      "reading": "Reading List",
+      "work": "Work"
+    },
+    "tags": "Tags",
+    "addTag": "Add a tag and press Enter",
+    "saving": "Saving note...",
+    "saved": "Note saved!",
+    "savedTitle": "Note Saved!",
+    "savedDescription": "Your content has been saved to your notes.",
+    "saveFailed": "Failed to save note",
+    "viewNotes": "View Notes",
+    "errors": {
+      "noTab": "No active tab found",
+      "noContent": "Could not capture content",
+      "captureFailed": "Failed to capture content"
+    }
+  },
+  "uploadAsk": {
+    "title": "Upload & Ask",
+    "description": "Upload documents and ask questions about them",
+    "steps": {
+      "upload": "Upload",
+      "uploadDesc": "Select files to upload",
+      "process": "Process",
+      "processDesc": "Adding to knowledge base",
+      "chat": "Chat",
+      "chatDesc": "Ask questions"
+    },
+    "suggestion": "Add this document to your knowledge base?"
+  },
+  "askDocuments": {
+    "title": "Ask My Documents",
+    "description": "Ask questions about your uploaded documents",
+    "steps": {
+      "check": "Check",
+      "checkDesc": "Checking knowledge base",
+      "chat": "Chat",
+      "chatDesc": "Ask questions"
+    }
+  },
+  "transcribeMedia": {
+    "title": "Transcribe Media",
+    "description": "Transcribe videos and audio files",
+    "steps": {
+      "input": "Input",
+      "inputDesc": "Paste URL or upload file",
+      "options": "Options",
+      "optionsDesc": "Select language and settings",
+      "process": "Transcribe",
+      "processDesc": "Processing media",
+      "result": "Result",
+      "resultDesc": "View transcript"
+    },
+    "suggestion": "Transcribe this video?"
+  },
+  "extractText": {
+    "title": "Extract Text",
+    "description": "Extract text from images using OCR",
+    "steps": {
+      "upload": "Upload",
+      "uploadDesc": "Upload an image",
+      "process": "Extract",
+      "processDesc": "Running OCR",
+      "result": "Result",
+      "resultDesc": "View extracted text"
+    }
+  },
+  "createQuiz": {
+    "title": "Create Quiz",
+    "description": "Generate a quiz from your content",
+    "steps": {
+      "source": "Source",
+      "sourceDesc": "Select source content",
+      "options": "Options",
+      "optionsDesc": "Quiz settings",
+      "generate": "Generate",
+      "generateDesc": "Creating quiz",
+      "take": "Quiz",
+      "takeDesc": "Take the quiz"
+    },
+    "suggestion": "Create a quiz to test your understanding?"
+  },
+  "makeFlashcards": {
+    "title": "Make Flashcards",
+    "description": "Create flashcards for studying",
+    "steps": {
+      "source": "Source",
+      "sourceDesc": "Select source content",
+      "options": "Options",
+      "optionsDesc": "Flashcard settings",
+      "generate": "Generate",
+      "generateDesc": "Creating flashcards",
+      "review": "Review",
+      "reviewDesc": "Review and edit cards"
+    }
+  },
+  "analyzeBook": {
+    "title": "Analyze Book",
+    "description": "Deep analysis of books with chapter detection and AI insights",
+    "suggestion": "Analyze this book?",
+    "steps": {
+      "select": "Select",
+      "selectDesc": "Choose a book to analyze",
+      "chunking": "Chapters",
+      "chunkingDesc": "Review chapter detection",
+      "configure": "Configure",
+      "configureDesc": "Choose analysis options",
+      "process": "Analyze",
+      "processDesc": "Running analysis",
+      "review": "Review",
+      "reviewDesc": "View and edit results"
+    },
+    "uploadBook": "Upload a book",
+    "dropzone": "Click or drag file to upload",
+    "supportedFormats": "Supports PDF, EPUB, TXT, MD, DOC, DOCX",
+    "reading": "Reading book file...",
+    "bookSelected": "Book selected",
+    "selectDifferent": "Select a different book",
+    "chapterDetection": "Chapter Detection",
+    "foundChapters": "Found {{count}} chapters",
+    "entireBook": "Entire Book",
+    "chunkingWarning": "{{count}} chapters may need review",
+    "chunkingWarningDesc": "Some chapters appear too short or too long. You can adjust the chapter pattern below.",
+    "chapterPattern": "Chapter Pattern (RegEx)",
+    "reChunk": "Re-chunk",
+    "detecting": "Detecting chapters...",
+    "tooShort": "Too short - may be incomplete",
+    "tooLong": "Very long - consider splitting",
+    "choosePreset": "Choose analysis type",
+    "customPrompt": "Custom Analysis Prompt",
+    "customPromptPlaceholder": "Enter your analysis prompt...",
+    "analysisScope": "Analysis Scope",
+    "wholeBook": "Whole Book",
+    "perChapter": "Per Chapter",
+    "presets": {
+      "comprehensive": "Comprehensive Analysis",
+      "comprehensiveDesc": "Full themes, insights, and takeaways",
+      "chapterSummaries": "Chapter Summaries",
+      "chapterSummariesDesc": "Summary per chapter",
+      "characterAnalysis": "Character Analysis",
+      "characterAnalysisDesc": "For fiction - character arcs and relationships",
+      "keyConcepts": "Key Concepts",
+      "keyConceptsDesc": "For non-fiction - ideas and frameworks",
+      "custom": "Custom",
+      "customDesc": "Use your own analysis prompt"
+    },
+    "analyzing": "Analyzing book...",
+    "analyzingChapter": "Analyzing chapter {{current}} of {{total}}...",
+    "analysisComplete": "Analysis Complete",
+    "analysisCompleteDesc": "Your book analysis is ready. You can edit, save, or export the results below.",
+    "noAnalysis": "No analysis available",
+    "overallAnalysis": "Overall Analysis",
+    "saveToKB": "Save to Knowledge Base",
+    "exportMD": "Export as Markdown",
+    "sendToChat": "Send to Chat",
+    "whatsNext": "What's next?",
+    "createQuiz": "Create a quiz",
+    "makeFlashcards": "Make flashcards",
+    "askQuestions": "Ask questions",
+    "errors": {
+      "readFailed": "Failed to read file",
+      "invalidPattern": "Invalid chapter pattern",
+      "analysisFailed": "Analysis failed"
+    }
+  }
+}
