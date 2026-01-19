@@ -90,7 +90,17 @@
     "connectionCard.connectedCaption": "Chat og værktøjer er nu tilgængelige i Indstillinger og sidepanelet.",
     "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klik for at gennemgå og behandle",
     "modeSpeech": "Tale",
-    "moreTools": "Mere"
+    "moreTools": "Mere",
+    "writingPlayground": "Writing Playground"
+  },
+  "writingPlayground": {
+    "title": "Writing Playground",
+    "subtitle": "Draft long-form prompts, manage sessions, and generate with your tldw server.",
+    "offlineTitle": "Server required",
+    "offlineBody": "Connect to your tldw server to load writing sessions and generate.",
+    "unavailableTitle": "Playground unavailable",
+    "unavailableBody": "This server does not advertise writing playground support yet.",
+    "emptyState": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   },
   "sidebarTitle": "Chathistorik",
   "error": "Fejl",

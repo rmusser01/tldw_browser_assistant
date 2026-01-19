@@ -89,7 +89,17 @@
     "connectionCard.connectedCaption": "现在可以在选项和侧边栏使用聊天和工具。",
     "quickIngestQueuedAria": "{{label}} — 已排队 {{count}} 个项目 — 单击以查看并处理",
     "modeSpeech": "语音",
-    "moreTools": "更多"
+    "moreTools": "更多",
+    "writingPlayground": "Writing Playground"
+  },
+  "writingPlayground": {
+    "title": "Writing Playground",
+    "subtitle": "Draft long-form prompts, manage sessions, and generate with your tldw server.",
+    "offlineTitle": "Server required",
+    "offlineBody": "Connect to your tldw server to load writing sessions and generate.",
+    "unavailableTitle": "Playground unavailable",
+    "unavailableBody": "This server does not advertise writing playground support yet.",
+    "emptyState": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   },
   "sidebarTitle": "聊天历史",
   "error": "错误",

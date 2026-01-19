@@ -48,76 +48,76 @@
     "message": "使用 {{model}} · {{task}} · {{format}}。可在「設定 → 一般 → 語音轉文字」中設定。"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "這有幫助嗎？"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "有幫助"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "沒有幫助"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "更多回饋"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "感謝你的回饋"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "回饋在回應完成後才可使用。"
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "此訊息無法回饋。"
   },
   "feedback_modalTitle": {
-    "message": "Feedback"
+    "message": "回饋"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "你會如何評價這個回應？"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "問題是什麼？（可複選）"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "補充說明（選填）"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "送出回饋"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "回饋失敗"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "無法送出回饋。"
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "無法送出來源回饋。"
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "資訊不正確"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "與我的問題無關"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "缺少重要細節"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "來源沒有幫助"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "太冗長"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "太簡短"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "其他"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "有幫助的來源"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "沒有幫助的來源"
   },
   "sendWhenEnter": {
     "message": "按 Enter 送出"
@@ -1170,10 +1170,10 @@
     "message": "全部"
   },
   "speech_historyStt": {
-    "message": "STT"
+    "message": "語音轉文字"
   },
   "speech_historyTts": {
-    "message": "TTS"
+    "message": "文字轉語音"
   },
   "speech_historySearch": {
     "message": "搜尋轉寫"
@@ -1224,145 +1224,145 @@
     "message": "錄音進行中；轉寫已鎖定。"
   },
   "actor_uploadedFiles": {
-    "message": "Uploaded Files ({{count}})"
+    "message": "已上傳檔案（{{count}}）"
   },
   "actor_fileRetrieval": {
-    "message": "File Retrieval"
+    "message": "檔案擷取"
   },
   "actor_fileStatusProcessed": {
-    "message": "Processed"
+    "message": "已處理"
   },
   "actor_fileStatusProcessing": {
-    "message": "Processing..."
+    "message": "處理中..."
   },
   "documentGenerator_title": {
-    "message": "Document generator"
+    "message": "文件產生器"
   },
   "documentGenerator_unavailable": {
-    "message": "Document generation is not available on this server."
+    "message": "此伺服器無法使用文件產生功能。"
   },
   "documentGenerator_noConversation": {
-    "message": "Start a server-backed chat to generate documents."
+    "message": "請先開啟由伺服器支援的聊天以產生文件。"
   },
   "documentGenerator_source": {
-    "message": "Source"
+    "message": "來源"
   },
   "documentGenerator_sourceId": {
-    "message": "Conversation {{id}}"
+    "message": "對話 {{id}}"
   },
   "documentGenerator_sourceMissing": {
-    "message": "No active conversation yet."
+    "message": "尚無進行中的對話。"
   },
   "documentGenerator_sourceMessageId": {
-    "message": "Message {{id}}"
+    "message": "訊息 {{id}}"
   },
   "documentGenerator_documentType": {
-    "message": "Document type"
+    "message": "文件類型"
   },
   "documentGenerator_model": {
-    "message": "Model"
+    "message": "模型"
   },
   "documentGenerator_modelPlaceholder": {
-    "message": "Model ID"
+    "message": "模型 ID"
   },
   "documentGenerator_providerPlaceholder": {
-    "message": "Provider name"
+    "message": "提供者名稱"
   },
   "documentGenerator_providerLabel": {
-    "message": "Provider: {{provider}}"
+    "message": "提供者：{{provider}}"
   },
   "documentGenerator_specificMessage": {
-    "message": "Focus on a specific message"
+    "message": "聚焦特定訊息"
   },
   "documentGenerator_specificMessagePlaceholder": {
-    "message": "Optional: paste a message excerpt to focus on."
+    "message": "選填：貼上訊息片段以聚焦。"
   },
   "documentGenerator_customPrompt": {
-    "message": "Custom prompt"
+    "message": "自訂提示詞"
   },
   "documentGenerator_customPromptPlaceholder": {
-    "message": "Optional instructions for the generated document."
+    "message": "用於產生文件的選填指示。"
   },
   "documentGenerator_asyncGeneration": {
-    "message": "Generate asynchronously"
+    "message": "以非同步方式產生"
   },
   "documentGenerator_promptPresetTitle": {
-    "message": "Prompt preset"
+    "message": "提示詞預設"
   },
   "documentGenerator_promptPresetHint": {
-    "message": "Customize the system/user prompts used for this document type."
+    "message": "自訂此文件類型使用的系統/使用者提示詞。"
   },
   "documentGenerator_promptReload": {
-    "message": "Reload from server"
+    "message": "從伺服器重新載入"
   },
   "documentGenerator_systemPrompt": {
-    "message": "System prompt"
+    "message": "系統提示詞"
   },
   "documentGenerator_userPrompt": {
-    "message": "User prompt"
+    "message": "使用者提示詞"
   },
   "documentGenerator_temperature": {
-    "message": "Temperature"
+    "message": "溫度"
   },
   "documentGenerator_maxTokens": {
-    "message": "Max tokens"
+    "message": "最大 token 數"
   },
   "documentGenerator_jobQueued": {
-    "message": "Document generation queued."
+    "message": "文件產生已排入佇列。"
   },
   "documentGenerator_generated": {
-    "message": "Document generated."
+    "message": "文件已產生。"
   },
   "documentGenerator_deleteTitle": {
-    "message": "Delete document?"
+    "message": "刪除文件？"
   },
   "documentGenerator_deleteBody": {
-    "message": "This will permanently remove the generated document."
+    "message": "這會永久刪除已產生的文件。"
   },
   "documentGenerator_jobCancelled": {
-    "message": "Job cancelled."
+    "message": "工作已取消。"
   },
   "documentGenerator_promptSaved": {
-    "message": "Prompt preset saved."
+    "message": "提示詞預設已儲存。"
   },
   "documentGenerator_documentsTitle": {
-    "message": "Generated documents"
+    "message": "已產生的文件"
   },
   "documentGenerator_loading": {
-    "message": "Loading…"
+    "message": "載入中…"
   },
   "documentGenerator_noDocuments": {
-    "message": "No documents yet."
+    "message": "尚無文件。"
   },
   "documentGenerator_jobsTitle": {
-    "message": "Generation jobs"
+    "message": "產生工作"
   },
   "documentGenerator_progress": {
-    "message": "{{percent}}% complete"
+    "message": "{{percent}}% 完成"
   },
   "documentGenerator_noContent": {
-    "message": "No content available."
+    "message": "無可用內容。"
   },
   "documentGenerator_errors_missingModel": {
-    "message": "Select a model and provider first."
+    "message": "請先選擇模型與提供者。"
   },
   "documentGenerator_types_summary": {
-    "message": "Summary"
+    "message": "摘要"
   },
   "documentGenerator_types_timeline": {
-    "message": "Timeline"
+    "message": "時間軸"
   },
   "documentGenerator_types_briefing": {
-    "message": "Briefing"
+    "message": "簡報"
   },
   "documentGenerator_types_study_guide": {
-    "message": "Study guide"
+    "message": "學習指南"
   },
   "documentGenerator_types_q_and_a": {
-    "message": "Q&A"
+    "message": "問答"
   },
   "documentGenerator_types_meeting_notes": {
-    "message": "Meeting notes"
+    "message": "會議紀錄"
   },
   "composer_contextTabsEmpty": {
     "message": "尚未選取分頁。"
@@ -1383,9 +1383,9 @@
     "message": "找不到可用的開啟分頁。"
   },
   "errors_loadLocalHistoryPrefix": {
-    "message": "Failed to load local chat history"
+    "message": "載入本機聊天記錄失敗"
   },
   "errors_loadLocalHistoryDefault": {
-    "message": "Something went wrong while loading local chat history."
+    "message": "載入本機聊天記錄時發生錯誤。"
   }
 }

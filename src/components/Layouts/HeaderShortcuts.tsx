@@ -29,6 +29,7 @@ import {
   Library,
   CombineIcon,
   Headphones,
+  SquarePen,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -199,6 +200,15 @@ export function HeaderShortcuts({
       {
         title: t("option:header.groupWorkspace", "Workspace"),
         items: [
+          {
+            type: "link" as const,
+            to: "/writing-playground",
+            icon: SquarePen,
+            label: t(
+              "option:header.writingPlayground",
+              "Writing Playground"
+            ),
+          },
           {
             type: "link" as const,
             to: "/quiz",

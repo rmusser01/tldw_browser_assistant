@@ -21,6 +21,7 @@ export type ServerCapabilities = {
   hasMetrics: boolean
   hasMcp: boolean
   hasReading: boolean
+  hasWriting: boolean
   hasWebSearch: boolean
   hasFeedbackExplicit: boolean
   hasFeedbackImplicit: boolean
@@ -48,6 +49,7 @@ const defaultCapabilities: ServerCapabilities = {
   hasMetrics: false,
   hasMcp: false,
   hasReading: false,
+  hasWriting: false,
   hasWebSearch: false,
   hasFeedbackExplicit: false,
   hasFeedbackImplicit: false,
@@ -110,6 +112,13 @@ const fallbackSpec = {
       "/api/v1/mcp/health",
       "/api/v1/reading/save",
       "/api/v1/reading/items",
+      "/api/v1/writing/version",
+      "/api/v1/writing/capabilities",
+      "/api/v1/writing/sessions",
+      "/api/v1/writing/templates",
+      "/api/v1/writing/themes",
+      "/api/v1/writing/tokenize",
+      "/api/v1/writing/token-count",
       "/api/v1/research/websearch"
     ].map((p) => [p, {}])
   )
@@ -218,6 +227,10 @@ const computeCapabilities = (spec: any | null | undefined): ServerCapabilities =
     hasMetrics: has("/api/v1/metrics/health") || has("/api/v1/metrics"),
     hasMcp: has("/api/v1/mcp/health"),
     hasReading: has("/api/v1/reading/save") && has("/api/v1/reading/items"),
+    hasWriting:
+      has("/api/v1/writing/sessions") ||
+      has("/api/v1/writing/version") ||
+      has("/api/v1/writing/capabilities"),
     hasWebSearch: has("/api/v1/research/websearch"),
     hasFeedbackExplicit: has("/api/v1/feedback/explicit"),
     hasFeedbackImplicit: has("/api/v1/rag/feedback/implicit"),

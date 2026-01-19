@@ -89,7 +89,17 @@
     "omniSearchStartChat": "Start ny chat \"{{query}}\"",
     "quickIngestQueuedAria": "{{label}} — {{count}} elementer i kø — klikk for å gjennomgå og behandle",
     "modeSpeech": "Tale",
-    "moreTools": "Mer"
+    "moreTools": "Mer",
+    "writingPlayground": "Writing Playground"
+  },
+  "writingPlayground": {
+    "title": "Writing Playground",
+    "subtitle": "Draft long-form prompts, manage sessions, and generate with your tldw server.",
+    "offlineTitle": "Server required",
+    "offlineBody": "Connect to your tldw server to load writing sessions and generate.",
+    "unavailableTitle": "Playground unavailable",
+    "unavailableBody": "This server does not advertise writing playground support yet.",
+    "emptyState": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   },
   "sidebarTitle": "Chathistorikk",
   "error": "Feil",

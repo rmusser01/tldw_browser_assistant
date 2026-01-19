@@ -89,7 +89,17 @@
     "connectionCard.connectedCaption": "オプション画面とサイドパネルでチャットとツールが利用できるようになりました。",
     "quickIngestQueuedAria": "{{label}} — {{count}} 件がキューにあります — クリックして確認および処理します",
     "modeSpeech": "音声",
-    "moreTools": "その他"
+    "moreTools": "その他",
+    "writingPlayground": "Writing Playground"
+  },
+  "writingPlayground": {
+    "title": "Writing Playground",
+    "subtitle": "Draft long-form prompts, manage sessions, and generate with your tldw server.",
+    "offlineTitle": "Server required",
+    "offlineBody": "Connect to your tldw server to load writing sessions and generate.",
+    "unavailableTitle": "Playground unavailable",
+    "unavailableBody": "This server does not advertise writing playground support yet.",
+    "emptyState": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   },
   "sidebarTitle": "チャット履歴",
   "error": "エラー",

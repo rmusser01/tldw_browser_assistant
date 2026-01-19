@@ -89,7 +89,17 @@
     "connectionCard.connectedCaption": "이제 옵션과 사이드패널에서 채팅과 도구를 사용할 수 있습니다.",
     "quickIngestQueuedAria": "{{label}} — {{count}}개 항목이 대기 중 — 검토 및 처리하려면 클릭하세요",
     "modeSpeech": "음성",
-    "moreTools": "더보기"
+    "moreTools": "더보기",
+    "writingPlayground": "Writing Playground"
+  },
+  "writingPlayground": {
+    "title": "Writing Playground",
+    "subtitle": "Draft long-form prompts, manage sessions, and generate with your tldw server.",
+    "offlineTitle": "Server required",
+    "offlineBody": "Connect to your tldw server to load writing sessions and generate.",
+    "unavailableTitle": "Playground unavailable",
+    "unavailableBody": "This server does not advertise writing playground support yet.",
+    "emptyState": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   },
   "sidebarTitle": "채팅 기록",
   "error": "오류",

@@ -26,7 +26,8 @@ import {
   Trash2,
   Table2,
   Library,
-  Headphones
+  Headphones,
+  SquarePen
 } from "lucide-react"
 import { ALL_TARGETS, type PlatformTarget } from "@/config/platform"
 import OptionLayout from "~/components/Layouts/Layout"
@@ -151,6 +152,7 @@ const OptionContentReview = lazy(() => import("./option-content-review"))
 const OptionChunkingPlayground = lazy(() => import("./option-chunking-playground"))
 const OptionDocumentation = lazy(() => import("./option-documentation"))
 const OptionQuiz = lazy(() => import("./option-quiz"))
+const OptionWritingPlayground = lazy(() => import("./option-writing-playground"))
 const OptionChatbooksPlayground = lazy(() => import("./option-chatbooks-playground"))
 const OptionWatchlists = lazy(() => import("./option-watchlists"))
 const OptionKanbanPlayground = lazy(() => import("./option-kanban-playground"))
@@ -396,6 +398,18 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
       labelToken: "option:header.quiz",
       icon: ClipboardList,
       order: 5,
+      beta: true
+    }
+  },
+  {
+    kind: "options",
+    path: "/writing-playground",
+    element: <OptionWritingPlayground />,
+    nav: {
+      group: "workspace",
+      labelToken: "option:header.writingPlayground",
+      icon: SquarePen,
+      order: 6,
       beta: true
     }
   },

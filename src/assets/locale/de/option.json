@@ -89,7 +89,17 @@
     "connectionCard.connectedCaption": "Chat und Tools sind jetzt in den Einstellungen und in der Seitenleiste verfügbar.",
     "quickIngestQueuedAria": "{{label}} — {{count}} Elemente in der Warteschlange — klicken, um zu prüfen und zu verarbeiten",
     "modeSpeech": "Sprache",
-    "moreTools": "Mehr"
+    "moreTools": "Mehr",
+    "writingPlayground": "Writing Playground"
+  },
+  "writingPlayground": {
+    "title": "Writing Playground",
+    "subtitle": "Draft long-form prompts, manage sessions, and generate with your tldw server.",
+    "offlineTitle": "Server required",
+    "offlineBody": "Connect to your tldw server to load writing sessions and generate.",
+    "unavailableTitle": "Playground unavailable",
+    "unavailableBody": "This server does not advertise writing playground support yet.",
+    "emptyState": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   },
   "sidebarTitle": "Chat-Verlauf",
   "error": "Fehler",

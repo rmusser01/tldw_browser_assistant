@@ -89,7 +89,17 @@
     "connectionCard.connectedCaption": "Чат та інструменти тепер доступні в Налаштуваннях і бічній панелі.",
     "quickIngestQueuedAria": "{{label}} — {{count}} елементів у черзі — натисніть, щоб переглянути та обробити",
     "modeSpeech": "Мовлення",
-    "moreTools": "Ще"
+    "moreTools": "Ще",
+    "writingPlayground": "Writing Playground"
+  },
+  "writingPlayground": {
+    "title": "Writing Playground",
+    "subtitle": "Draft long-form prompts, manage sessions, and generate with your tldw server.",
+    "offlineTitle": "Server required",
+    "offlineBody": "Connect to your tldw server to load writing sessions and generate.",
+    "unavailableTitle": "Playground unavailable",
+    "unavailableBody": "This server does not advertise writing playground support yet.",
+    "emptyState": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   },
   "sidebarTitle": "Історія чату",
   "error": "Збій",

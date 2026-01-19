@@ -89,7 +89,17 @@
     "connectionCard.connectedCaption": "ഓപ്ഷൻസിലും സൈഡ്പാനലിലും ചാറ്റും ടൂളുകളും ഇപ്പോൾ ലഭ്യമാണ്.",
     "quickIngestQueuedAria": "{{label}} — {{count}} ഇനം ക്യൂ ചെയ്തിരിക്കുന്നു — പരിശോധിച്ച് പ്രോസസ്സ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
     "modeSpeech": "സ്പീച്ച്",
-    "moreTools": "കൂടുതൽ"
+    "moreTools": "കൂടുതൽ",
+    "writingPlayground": "Writing Playground"
+  },
+  "writingPlayground": {
+    "title": "Writing Playground",
+    "subtitle": "Draft long-form prompts, manage sessions, and generate with your tldw server.",
+    "offlineTitle": "Server required",
+    "offlineBody": "Connect to your tldw server to load writing sessions and generate.",
+    "unavailableTitle": "Playground unavailable",
+    "unavailableBody": "This server does not advertise writing playground support yet.",
+    "emptyState": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   },
   "sidebarTitle": "ചാറ്റ് ചരിത്രം",
   "error": "പിശക്",
