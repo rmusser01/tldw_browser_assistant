@@ -375,9 +375,6 @@
     "message": "Generera strukturerade tabeller från dina chattar, dokument och din kunskapsbas med hjälp av instruktioner på naturligt språk."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "Beskrivning"
   }
 }

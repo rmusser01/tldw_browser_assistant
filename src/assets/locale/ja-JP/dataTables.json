@@ -97,7 +97,7 @@
   "regenerateSuccess": "テーブルを再生成しました！",
   "model": "モデル",
   "prompt": "生成プロンプト",
-  "tableDescriptionLabel": "説明",
+  "descriptionLabel": "説明",
   "sources": "ソース",
   "created": "作成日",
   "updated": "更新日",

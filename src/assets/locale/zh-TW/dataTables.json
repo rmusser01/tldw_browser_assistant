@@ -97,7 +97,7 @@
   "regenerateSuccess": "資料表重新產生成功！",
   "model": "模型",
   "prompt": "產生提示",
-  "tableDescriptionLabel": "描述",
+  "descriptionLabel": "描述",
   "sources": "來源",
   "created": "建立",
   "updated": "更新",

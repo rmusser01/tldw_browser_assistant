@@ -10,6 +10,7 @@ import {
   Clock,
   Eye
 } from "lucide-react"
+import type { TFunction } from "i18next"
 import { useTranslation } from "react-i18next"
 import { useCollectionsStore } from "@/store/collections"
 import { useTldwApiClient } from "@/hooks/useTldwApiClient"
@@ -19,6 +20,27 @@ import { StatusBadge } from "../common/StatusBadge"
 interface ReadingItemCardProps {
   item: ReadingItemSummary
   onRefresh?: () => void
+}
+
+const formatTimeAgo = (t: TFunction, dateStr: string) => {
+  const date = new Date(dateStr)
+  if (Number.isNaN(date.getTime())) {
+    return t("common:noData", "No data")
+  }
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffMins = Math.floor(diffMs / (1000 * 60))
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+
+  if (diffMins < 60) {
+    return t("collections:time.minutesAgo", "{{count}}m ago", { count: diffMins })
+  } else if (diffHours < 24) {
+    return t("collections:time.hoursAgo", "{{count}}h ago", { count: diffHours })
+  } else if (diffDays < 7) {
+    return t("collections:time.daysAgo", "{{count}}d ago", { count: diffDays })
+  }
+  return date.toLocaleDateString()
 }
 
 export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
@@ -40,13 +62,14 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
         favorite: !item.favorite
       })
       updateItemInList(item.id, { favorite: !item.favorite })
+      onRefresh?.()
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : "Failed to update favorite status"
       message.error(msg)
     } finally {
       setActionLoading(false)
     }
-  }, [api, item.id, item.favorite, updateItemInList])
+  }, [api, item.id, item.favorite, onRefresh, updateItemInList])
 
   const handleStatusChange = useCallback(
     async (newStatus: ReadingStatus) => {
@@ -59,6 +82,7 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
             status: newStatus
           })
         )
+        onRefresh?.()
       } catch (error: unknown) {
         const msg = error instanceof Error ? error.message : "Failed to update status"
         message.error(msg)
@@ -66,7 +90,7 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
         setActionLoading(false)
       }
     },
-    [api, item.id, updateItemInList, t]
+    [api, item.id, onRefresh, updateItemInList, t]
   )
 
   const menuItems: MenuProps["items"] = [
@@ -127,30 +151,6 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
       onClick: () => openDeleteConfirm(item.id, "item")
     }
   ]
-
-  const formatTimeAgo = useCallback(
-    (dateStr: string) => {
-      const date = new Date(dateStr)
-      if (Number.isNaN(date.getTime())) {
-        return t("common:noData", "No data")
-      }
-      const now = new Date()
-      const diffMs = now.getTime() - date.getTime()
-      const diffMins = Math.floor(diffMs / (1000 * 60))
-      const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
-      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-
-      if (diffMins < 60) {
-        return t("collections:time.minutesAgo", "{{count}}m ago", { count: diffMins })
-      } else if (diffHours < 24) {
-        return t("collections:time.hoursAgo", "{{count}}h ago", { count: diffHours })
-      } else if (diffDays < 7) {
-        return t("collections:time.daysAgo", "{{count}}d ago", { count: diffDays })
-      }
-      return date.toLocaleDateString()
-    },
-    [t]
-  )
 
   return (
     <div
@@ -225,7 +225,7 @@ export const ReadingItemCard: React.FC<ReadingItemCardProps> = ({
           <div className="flex items-center gap-2">
             <StatusBadge status={item.status} />
             <span className="text-xs text-zinc-400 dark:text-zinc-500">
-              {item.updated_at ? formatTimeAgo(item.updated_at) : null}
+              {item.updated_at ? formatTimeAgo(t, item.updated_at) : null}
             </span>
           </div>
 

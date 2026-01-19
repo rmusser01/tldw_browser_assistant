@@ -64,12 +64,14 @@ export const HighlightsList: React.FC = () => {
     const pageSize = 200
     let page = 1
     let listTotal: number | null = null
-    while (page <= 200) {
+    let maxPages: number | null = null
+    while (maxPages === null || page <= maxPages) {
       const listResponse = await api.getReadingList({ page, size: pageSize })
       const pageItems = Array.isArray(listResponse?.items) ? listResponse.items : []
       allItems.push(...pageItems)
       if (listTotal === null && typeof listResponse?.total === "number") {
         listTotal = listResponse.total
+        maxPages = Math.ceil(listTotal / pageSize)
       }
       if (pageItems.length === 0) break
       if (listTotal !== null && allItems.length >= listTotal) break

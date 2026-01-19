@@ -377,9 +377,6 @@
   "descriptionLabel": {
     "message": "Description"
   },
-  "tableDescriptionLabel": {
-    "message": "Description"
-  },
   "examplePromptCompare": {
     "message": "Create a table comparing key features, pricing, and ratings from these sources"
   },

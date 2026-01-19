@@ -1710,7 +1710,7 @@
     "message": "Les inn din første side"
   },
   "onboarding_nextSteps_ingestBody": {
-    "message": "Bruk Quick ingest i toppfeltet for å lagre den gjeldende fanen på serveren din."
+    "message": "Bruk Hurtiginnhenting i toppfeltet for å lagre den gjeldende fanen på serveren din."
   },
   "onboarding_nextSteps_mediaTitle": {
     "message": "Utforsk medier og notater"

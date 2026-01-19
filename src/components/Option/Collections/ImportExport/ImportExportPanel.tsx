@@ -503,17 +503,18 @@ const ExportSection: React.FC = () => {
   }
 
   const handleExport = useCallback(async () => {
-    if (selectedIds.length > 0 && exportFormat === "zip") {
-      message.warning(
-        t(
-          "collections:export.zipSelectionUnsupported",
-          "ZIP export doesn't support item selection yet."
-        )
-      )
-      return
-    }
     setExportInProgress(true)
     try {
+      if (selectedIds.length > 0 && exportFormat === "zip") {
+        message.warning(
+          t(
+            "collections:export.zipSelectionUnsupported",
+            "ZIP export doesn't support item selection yet."
+          )
+        )
+        setExportInProgress(false)
+        return
+      }
       if (selectedIds.length > 0) {
         const items = await resolveSelectedItems()
         const payload = buildJsonlPayload(items)

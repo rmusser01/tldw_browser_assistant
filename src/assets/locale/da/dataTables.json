@@ -97,7 +97,7 @@
   "regenerateSuccess": "Tabellen blev regenereret!",
   "model": "Model",
   "prompt": "Genereringsprompt",
-  "tableDescriptionLabel": "Beskrivelse",
+  "descriptionLabel": "Beskrivelse",
   "sources": "Kilder",
   "created": "Oprettet",
   "updated": "Opdateret",

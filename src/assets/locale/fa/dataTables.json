@@ -97,7 +97,7 @@
   "regenerateSuccess": "جدول با موفقیت دوباره تولید شد!",
   "model": "مدل",
   "prompt": "پرامپت تولید",
-  "tableDescriptionLabel": "توضیحات",
+  "descriptionLabel": "توضیحات",
   "sources": "منابع",
   "created": "ایجاد شد",
   "updated": "به‌روزرسانی شد",

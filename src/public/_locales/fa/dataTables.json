@@ -375,9 +375,6 @@
     "message": "با استفاده از پرامپت‌های زبان طبیعی، از چت‌ها، اسناد و پایگاه دانش خود جداول ساخت‌یافته تولید کنید."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "توضیحات"
   }
 }

@@ -97,7 +97,7 @@
   "regenerateSuccess": "Tableau régénéré avec succès !",
   "model": "Modèle",
   "prompt": "Prompt de génération",
-  "tableDescriptionLabel": "Description",
+  "descriptionLabel": "Description",
   "sources": "Sources",
   "created": "Créé",
   "updated": "Mis à jour",

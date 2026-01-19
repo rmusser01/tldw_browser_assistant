@@ -33,19 +33,19 @@
     "message": "컨텍스트 지우기"
   },
   "tooltip_speechToTextServer": {
-    "message": "Dictation via your tldw server"
+    "message": "tldw 서버를 통한 받아쓰기"
   },
   "tooltip_speechToTextBrowser": {
-    "message": "Dictation via browser speech recognition"
+    "message": "브라우저 음성 인식으로 받아쓰기"
   },
   "tooltip_speechToTextDetails": {
-    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+    "message": "{{model}} · {{task}} · {{format}} 사용. 설정 → 일반 → 음성-텍스트에서 설정하세요."
   },
   "tooltip_vision": {
-    "message": "[Experimental] Vision Chat"
+    "message": "[실험적] 비전 채팅"
   },
   "tooltip_uploadDocuments": {
-    "message": "Upload Documents (beta)"
+    "message": "문서 업로드(베타)"
   },
   "sendWhenEnter": {
     "message": "Enter 키를 누르면 전송"
@@ -57,16 +57,16 @@
     "message": "이미지에서 텍스트 추출 (OCR)"
   },
   "tips_title": {
-    "message": "Tips"
+    "message": "팁"
   },
   "tips_quickIngest": {
-    "message": "Use Quick ingest to add documents and web pages."
+    "message": "퀵 인제스트로 문서와 웹페이지를 추가하세요."
   },
   "tips_pickModelPrompt": {
-    "message": "Pick a Model and a Prompt from the header."
+    "message": "헤더에서 모델과 프롬프트를 선택하세요."
   },
   "tips_startChatFocus": {
-    "message": "When connected, “Start chatting” focuses the composer."
+    "message": "연결되면 “채팅 시작”이 입력창에 포커스합니다."
   },
   "tldwState_searching": {
     "message": "tldw server 검색 중"
@@ -81,64 +81,64 @@
     "message": "연결 오류가 발생한 것 같습니다. 문제 해결에 대한 자세한 내용은 <anchor>문서</anchor>를 참조하세요."
   },
   "tldwState_errorToast": {
-    "message": "We couldn’t reach {{host}}"
+    "message": "{{host}}에 연결할 수 없습니다"
   },
   "tldwState_missingHelp": {
-    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+    "message": "설정 → tldw 서버에서 URL을 추가하거나 옵션 페이지에 연결하세요."
   },
   "tldwState_troubleshoot": {
-    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+    "message": "서버가 실행 중이고 브라우저가 접근할 수 있는지 확인한 뒤, 옵션 페이지에서 다시 시도하세요."
   },
   "tldwState_openTldwSettings": {
-    "message": "Open tldw Settings"
+    "message": "tldw 설정 열기"
   },
   "tldwState_cancelSearch": {
-    "message": "Cancel search"
+    "message": "검색 취소"
   },
   "tldwState_connectionFailedWithCode": {
-    "message": "Connection failed (HTTP {{code}})"
+    "message": "연결 실패 (HTTP {{code}})"
   },
   "tldwState_connectionFailed": {
-    "message": "Connection failed"
+    "message": "연결 실패"
   },
   "tldwState_errorDetailsLabel": {
-    "message": "Details:"
+    "message": "세부 정보:"
   },
   "tldwState_title": {
-    "message": "Waiting for your tldw server"
+    "message": "tldw 서버를 기다리는 중"
   },
   "tldwState_subtitle": {
-    "message": "We’re pinging {{host}} to verify the connection."
+    "message": "{{host}}에 ping을 보내 연결을 확인 중입니다."
   },
   "tldwState_missing": {
-    "message": "Server URL not configured"
+    "message": "서버 URL이 구성되지 않았습니다"
   },
   "tldwState_noServer": {
-    "message": "Add your tldw server to start chatting."
+    "message": "tldw 서버를 추가하여 채팅을 시작하세요."
   },
   "tldwState_connectedSubtitle": {
-    "message": "Connected to {{host}}. Start chatting when you’re ready."
+    "message": "{{host}}에 연결됨. 준비되면 채팅을 시작하세요."
   },
   "tldwState_errorSubtitle": {
-    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+    "message": "아직 {{host}}에 연결할 수 없습니다. 다시 시도하거나 서버 설정을 업데이트하세요."
   },
   "tldwState_openSettings": {
-    "message": "Open settings"
+    "message": "설정 열기"
   },
   "tldwState_changeServer": {
-    "message": "Change server"
+    "message": "서버 변경"
   },
   "tldwState_elapsed": {
-    "message": "Checking… {{seconds}}s"
+    "message": "확인 중… {{seconds}}초"
   },
   "tldwState_connectedHint": {
-    "message": "Connected to {{host}}."
+    "message": "{{host}}에 연결됨."
   },
   "tldwState_lastChecked": {
-    "message": "Checked {{seconds}}s ago"
+    "message": "{{seconds}}초 전에 확인함"
   },
   "tldwState_recheck": {
-    "message": "Check again"
+    "message": "다시 확인"
   },
   "errors_privateModeDescription": {
     "message": "Firefox 사생활 모드에서는 채팅을 저장할 수 없습니다. 기본적으로 임시 채팅이 활성화되어 있습니다. 곧 개선될 예정입니다."
@@ -306,118 +306,118 @@
     "message": "전사가 노트로 저장되었습니다."
   },
   "empty_title": {
-    "message": "Start a new chat"
+    "message": "새 채팅 시작"
   },
   "empty_description": {
-    "message": "Experiment with different models, prompts, and knowledge sources here."
+    "message": "여기에서 다양한 모델, 프롬프트, 지식 소스를 실험해 보세요."
   },
   "empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "데모 모드입니다 — 질문을 입력해 응답을 확인해 보세요. 나중에 tldw 서버를 연결할 수 있습니다."
   },
   "empty_example1": {
-    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+    "message": "질문을 한 뒤 논의할 문서나 웹 페이지를 끌어다 놓으세요."
   },
   "empty_example2": {
-    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+    "message": "퀵 인제스트로 전사나 노트를 추가한 뒤 채팅에서 참조하세요."
   },
   "empty_example3": {
-    "message": "Try different prompts or models from the header to compare answers."
+    "message": "헤더에서 다른 프롬프트나 모델을 시도해 답변을 비교하세요."
   },
   "empty_primaryCta": {
-    "message": "Start chatting"
+    "message": "채팅 시작"
   },
   "empty_secondaryCta": {
-    "message": "Open server settings"
+    "message": "서버 설정 열기"
   },
   "drop_hint": {
-    "message": "Drop files to attach them to your message"
+    "message": "파일을 드롭하여 메시지에 첨부하세요"
   },
   "drop_readySingle": {
-    "message": "{{name}} ready to send"
+    "message": "{{name}} 전송 준비됨"
   },
   "drop_readyMultiple": {
-    "message": "{{count}} files ready to send"
+    "message": "{{count}}개 파일 전송 준비됨"
   },
   "drop_unsupported": {
-    "message": "That file type isn’t supported. Try images or text-based files."
+    "message": "해당 파일 형식은 지원되지 않습니다. 이미지 또는 텍스트 기반 파일을 사용하세요."
   },
   "drop_defaultFileName": {
-    "message": "File"
+    "message": "파일"
   },
   "drop_imageOnly": {
-    "message": "Only images can be dropped here right now."
+    "message": "현재 여기에는 이미지만 드롭할 수 있습니다."
   },
   "drop_imageHint": {
-    "message": "Drop an image to include it in your message"
+    "message": "이미지를 드롭하여 메시지에 포함"
   },
   "drop_overlayInstruction": {
-    "message": "Drop the image to attach it to your next reply"
+    "message": "이미지를 드롭하여 다음 답변에 첨부"
   },
   "aria_chatTranscript": {
-    "message": "Chat messages"
+    "message": "채팅 메시지"
   },
   "more_history": {
-    "message": "Chat saving"
+    "message": "채팅 저장"
   },
   "more_searchKnowledge": {
-    "message": "Search & RAG"
+    "message": "검색 및 RAG"
   },
   "more_voice": {
-    "message": "More voice options"
+    "message": "추가 음성 옵션"
   },
   "more_uploads": {
-    "message": "Uploads & ingest"
+    "message": "업로드 및 인제스트"
   },
   "fileRetrievalEnabled": {
-    "message": "Enable RAG for Documents"
+    "message": "문서에 대한 RAG 활성화"
   },
   "stt_title": {
-    "message": "STT Playground"
+    "message": "STT 플레이그라운드"
   },
   "stt_subtitle": {
-    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+    "message": "전사 모델을 시험하고 더 긴 받아쓰기 세션을 실행한 뒤 전사를 노트에 저장합니다."
   },
   "stt_currentModelLabel": {
-    "message": "Current transcription model"
+    "message": "현재 전사 모델"
   },
   "stt_defaultModel": {
-    "message": "Default from Settings"
+    "message": "설정의 기본값"
   },
   "stt_settingsNotice": {
-    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+    "message": "언어, 작업, 응답 형식, 분할, 프롬프트는 설정의 음성-텍스트 기본값을 사용합니다."
   },
   "stt_sessionMode": {
-    "message": "Session mode"
+    "message": "세션 모드"
   },
   "stt_modeLong": {
-    "message": "Long-running (chunked recording)"
+    "message": "장시간 (분할 녹음)"
   },
   "stt_modeShort": {
-    "message": "Short dictation (single clip)"
+    "message": "짧은 받아쓰기 (단일 클립)"
   },
   "stt_languageTag": {
-    "message": "Language"
+    "message": "언어"
   },
   "stt_taskTag": {
-    "message": "Task"
+    "message": "작업"
   },
   "stt_formatTag": {
-    "message": "Format"
+    "message": "형식"
   },
   "stt_segmentationEnabled": {
-    "message": "Segmentation enabled"
+    "message": "분할 활성화됨"
   },
   "stt_recordButton": {
-    "message": "Record"
+    "message": "녹음"
   },
   "stt_stopButton": {
-    "message": "Stop"
+    "message": "중지"
   },
   "stt_startTooltip": {
-    "message": "Start recording audio for transcription"
+    "message": "전사를 위해 오디오 녹음을 시작"
   },
   "stt_stopTooltip": {
-    "message": "Stop and send to server"
+    "message": "중지하고 서버로 전송"
   },
   "stt_transcribingButton": {
     "message": "전사 중..."
@@ -429,127 +429,127 @@
     "message": "오디오 전사 중..."
   },
   "stt_historyTitle": {
-    "message": "Transcription history"
+    "message": "전사 기록"
   },
   "stt_clearAll": {
-    "message": "Clear all"
+    "message": "모두 지우기"
   },
   "stt_emptyHistory": {
-    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+    "message": "녹음을 시작하면 여기에서 전사를 볼 수 있습니다. 항목을 노트에 저장할 수 있습니다."
   },
   "stt_saveToNotes": {
-    "message": "Save to Notes"
+    "message": "노트에 저장"
   },
   "stt_delete": {
-    "message": "Delete"
+    "message": "삭제"
   },
   "stt_durationTag": {
-    "message": "Duration"
+    "message": "길이"
   },
   "stt_modelTag": {
-    "message": "Model"
+    "message": "모델"
   },
   "stt_currentTranscriptTitle": {
-    "message": "Current session transcript"
+    "message": "현재 세션 전사"
   },
   "stt_currentTranscriptPlaceholder": {
-    "message": "Live transcript will appear here while recording."
+    "message": "녹음 중에 실시간 전사가 여기에 표시됩니다."
   },
   "actions_temporaryOn": {
-    "message": "Temporary chat (not saved)"
+    "message": "임시 채팅(저장되지 않음)"
   },
   "actions_temporaryOff": {
-    "message": "Save chat to history"
+    "message": "채팅을 기록에 저장"
   },
   "actions_webSearchOn": {
-    "message": "Web search on"
+    "message": "웹 검색 켜짐"
   },
   "actions_webSearchOff": {
-    "message": "Web search off"
+    "message": "웹 검색 꺼짐"
   },
   "actions_speechStart": {
-    "message": "Start dictation"
+    "message": "받아쓰기 시작"
   },
   "actions_speechStop": {
-    "message": "Stop dictation"
+    "message": "받아쓰기 중지"
   },
   "actions_streamStart": {
-    "message": "Live captions"
+    "message": "실시간 자막"
   },
   "actions_streamStop": {
-    "message": "Stop captions"
+    "message": "자막 중지"
   },
   "actions_visionOn": {
-    "message": "Vision on"
+    "message": "비전 켜짐"
   },
   "actions_visionOff": {
-    "message": "Vision off"
+    "message": "비전 꺼짐"
   },
   "actions_upload": {
-    "message": "Attach image"
+    "message": "이미지 첨부"
   },
   "actions_ingest": {
-    "message": "Quick ingest"
+    "message": "퀵 인제스트"
   },
   "actions_ingestDisabled": {
-    "message": "Connect to your tldw server to ingest."
+    "message": "인제스트하려면 tldw 서버에 연결하세요."
   },
   "actions_ingestHint": {
-    "message": "Upload URLs or files with advanced options."
+    "message": "고급 옵션으로 URL 또는 파일을 업로드하세요."
   },
   "actions_ingestSub": {
-    "message": "Use URLs/files; download or store."
+    "message": "URL/파일 사용; 다운로드 또는 저장."
   },
   "actions_streamErrorTitle": {
-    "message": "Live captions unavailable"
+    "message": "실시간 자막을 사용할 수 없음"
   },
   "composer_toolsButton": {
-    "message": "+Tools"
+    "message": "+도구"
   },
   "composer_queuedBanner_title": {
-    "message": "Queued while offline"
+    "message": "오프라인 중 대기열"
   },
   "composer_queuedBanner_body": {
-    "message": "We’ll hold these messages and send them once your tldw server is connected."
+    "message": "tldw 서버가 연결되면 이 메시지를 보내겠습니다."
   },
   "composer_queuedBanner_sendNow": {
-    "message": "Send queued messages"
+    "message": "대기열 메시지 보내기"
   },
   "composer_queuedBanner_clear": {
-    "message": "Clear queue"
+    "message": "대기열 비우기"
   },
   "composer_coreTools": {
-    "message": "Conversation options"
+    "message": "대화 옵션"
   },
   "composer_captureTools": {
-    "message": "Capture and assist tools"
+    "message": "캡처 및 보조 도구"
   },
   "composer_actions": {
-    "message": "Send options"
+    "message": "전송 옵션"
   },
   "composer_moreTools": {
-    "message": "More tools"
+    "message": "추가 도구"
   },
   "composer_scrollToLatest": {
-    "message": "Scroll to latest messages"
+    "message": "최근 메시지로 스크롤"
   },
   "composer_submitAria": {
-    "message": "Send message"
+    "message": "메시지 보내기"
   },
   "composer_openModelSettings": {
-    "message": "Open current chat settings"
+    "message": "현재 채팅 설정 열기"
   },
   "composer_stopStreaming": {
-    "message": "Stop streaming response"
+    "message": "스트리밍 응답 중지"
   },
   "composer_connectionPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "설정에서 tldw 서버에 연결하여 메시지를 보내고 미디어를 보세요."
   },
   "composer_connectNotice": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "설정에서 tldw 서버에 연결하여 메시지를 보내고 미디어를 보세요."
   },
   "composer_connectionChipDisconnected": {
-    "message": "Server: Not connected"
+    "message": "서버: 연결되지 않음"
   },
   "composer_contextLabel": {
     "message": "컨텍스트:"
@@ -603,40 +603,40 @@
     "message": "지식 검색 닫기"
   },
   "composer_persistence_ephemeral": {
-    "message": "Not saved in history; clears when you close this tab."
+    "message": "기록에 저장되지 않으며 이 탭을 닫으면 지워집니다."
   },
   "composer_persistence_local": {
-    "message": "Saved in this browser only."
+    "message": "이 브라우저에만 저장됩니다."
   },
   "composer_persistence_server": {
-    "message": "Saved Locally+Server"
+    "message": "로컬 + 서버에 저장"
   },
   "composer_persistence_ephemeralPill": {
-    "message": "Temporary"
+    "message": "임시"
   },
   "composer_persistence_localPill": {
-    "message": "Local only"
+    "message": "로컬만"
   },
   "composer_persistence_serverPill": {
-    "message": "Locally + Server"
+    "message": "로컬 + 서버"
   },
   "composer_persistence_saveToServer": {
-    "message": "Also save this chat to server"
+    "message": "이 채팅을 서버에도 저장"
   },
   "composer_persistence_connectToSave": {
-    "message": "Connect your server to save chats there."
+    "message": "서버에 연결하여 채팅을 저장하세요."
   },
   "composer_persistence_serverDefaultTitle": {
-    "message": "Extension chat"
+    "message": "확장 프로그램 채팅"
   },
   "composer_persistence_serverSavedTitle": {
-    "message": "Chat now saved on server"
+    "message": "채팅이 서버에 저장됨"
   },
   "composer_persistence_serverSaved": {
-    "message": "Future messages in this chat will sync to your tldw server."
+    "message": "이 채팅의 이후 메시지는 tldw 서버와 동기화됩니다."
   },
   "composer_persistence_serverCharacterRequired": {
-    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+    "message": "서버에서 기본 어시스턴트 캐릭터를 찾거나 만들 수 없습니다. 캐릭터 페이지에서 다시 시도하세요."
   },
   "composer_connectToSend": {
     "message": "메시지를 보내고 미디어를 보려면 설정에서 tldw 서버에 연결하세요."
@@ -780,10 +780,10 @@
     "message": "전체"
   },
   "speech_historyStt": {
-    "message": "STT"
+    "message": "음성-텍스트"
   },
   "speech_historyTts": {
-    "message": "TTS"
+    "message": "텍스트-음성"
   },
   "speech_historySearch": {
     "message": "전사 검색"
@@ -1152,217 +1152,217 @@
     "message": "토큰: {{count}}"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "도움이 되었나요?"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "도움됨"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "도움되지 않음"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "추가 피드백"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "피드백 감사합니다"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "응답이 끝난 뒤에 피드백을 남길 수 있습니다."
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "이 메시지에는 피드백을 남길 수 없습니다."
   },
   "feedback_modalTitle": {
-    "message": "Feedback"
+    "message": "피드백"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "이 답변을 어떻게 평가하시나요?"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "문제가 무엇이었나요? (해당 항목 모두 선택)"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "추가 의견(선택 사항)"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "피드백 제출"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "피드백 실패"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "피드백을 제출할 수 없습니다."
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "출처 피드백을 제출할 수 없습니다."
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "정보가 부정확함"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "질문과 관련 없음"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "중요한 세부 정보가 부족함"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "출처가 도움이 되지 않음"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "너무 장황함"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "너무 간략함"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "기타"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "도움이 되는 출처"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "도움이 되지 않는 출처"
   },
   "actor_uploadedFiles": {
-    "message": "Uploaded Files ({{count}})"
+    "message": "업로드된 파일 ({{count}})"
   },
   "actor_fileRetrieval": {
-    "message": "File Retrieval"
+    "message": "파일 검색"
   },
   "actor_fileStatusProcessed": {
-    "message": "Processed"
+    "message": "처리됨"
   },
   "actor_fileStatusProcessing": {
-    "message": "Processing..."
+    "message": "처리 중..."
   },
   "documentGenerator_title": {
-    "message": "Document generator"
+    "message": "문서 생성기"
   },
   "documentGenerator_unavailable": {
-    "message": "Document generation is not available on this server."
+    "message": "이 서버에서는 문서 생성을 사용할 수 없습니다."
   },
   "documentGenerator_noConversation": {
-    "message": "Start a server-backed chat to generate documents."
+    "message": "문서를 생성하려면 서버 연동 채팅을 시작하세요."
   },
   "documentGenerator_source": {
-    "message": "Source"
+    "message": "소스"
   },
   "documentGenerator_sourceId": {
-    "message": "Conversation {{id}}"
+    "message": "대화 {{id}}"
   },
   "documentGenerator_sourceMissing": {
-    "message": "No active conversation yet."
+    "message": "활성 대화가 아직 없습니다."
   },
   "documentGenerator_sourceMessageId": {
-    "message": "Message {{id}}"
+    "message": "메시지 {{id}}"
   },
   "documentGenerator_documentType": {
-    "message": "Document type"
+    "message": "문서 유형"
   },
   "documentGenerator_model": {
-    "message": "Model"
+    "message": "모델"
   },
   "documentGenerator_modelPlaceholder": {
-    "message": "Model ID"
+    "message": "모델 ID"
   },
   "documentGenerator_providerPlaceholder": {
-    "message": "Provider name"
+    "message": "제공자 이름"
   },
   "documentGenerator_providerLabel": {
-    "message": "Provider: {{provider}}"
+    "message": "제공자: {{provider}}"
   },
   "documentGenerator_specificMessage": {
-    "message": "Focus on a specific message"
+    "message": "특정 메시지에 집중"
   },
   "documentGenerator_specificMessagePlaceholder": {
-    "message": "Optional: paste a message excerpt to focus on."
+    "message": "선택 사항: 집중할 메시지 발췌를 붙여넣으세요."
   },
   "documentGenerator_customPrompt": {
-    "message": "Custom prompt"
+    "message": "사용자 지정 프롬프트"
   },
   "documentGenerator_customPromptPlaceholder": {
-    "message": "Optional instructions for the generated document."
+    "message": "생성 문서에 대한 선택적 지침."
   },
   "documentGenerator_asyncGeneration": {
-    "message": "Generate asynchronously"
+    "message": "비동기 생성"
   },
   "documentGenerator_promptPresetTitle": {
-    "message": "Prompt preset"
+    "message": "프롬프트 프리셋"
   },
   "documentGenerator_promptPresetHint": {
-    "message": "Customize the system/user prompts used for this document type."
+    "message": "이 문서 유형에 사용할 시스템/사용자 프롬프트를 사용자 지정합니다."
   },
   "documentGenerator_promptReload": {
-    "message": "Reload from server"
+    "message": "서버에서 다시 불러오기"
   },
   "documentGenerator_systemPrompt": {
-    "message": "System prompt"
+    "message": "시스템 프롬프트"
   },
   "documentGenerator_userPrompt": {
-    "message": "User prompt"
+    "message": "사용자 프롬프트"
   },
   "documentGenerator_temperature": {
-    "message": "Temperature"
+    "message": "온도"
   },
   "documentGenerator_maxTokens": {
-    "message": "Max tokens"
+    "message": "최대 토큰"
   },
   "documentGenerator_jobQueued": {
-    "message": "Document generation queued."
+    "message": "문서 생성이 대기열에 추가되었습니다."
   },
   "documentGenerator_generated": {
-    "message": "Document generated."
+    "message": "문서가 생성되었습니다."
   },
   "documentGenerator_deleteTitle": {
-    "message": "Delete document?"
+    "message": "문서를 삭제할까요?"
   },
   "documentGenerator_deleteBody": {
-    "message": "This will permanently remove the generated document."
+    "message": "생성된 문서가 영구적으로 삭제됩니다."
   },
   "documentGenerator_jobCancelled": {
-    "message": "Job cancelled."
+    "message": "작업이 취소되었습니다."
   },
   "documentGenerator_promptSaved": {
-    "message": "Prompt preset saved."
+    "message": "프롬프트 프리셋이 저장되었습니다."
   },
   "documentGenerator_documentsTitle": {
-    "message": "Generated documents"
+    "message": "생성된 문서"
   },
   "documentGenerator_loading": {
-    "message": "Loading…"
+    "message": "로딩 중…"
   },
   "documentGenerator_noDocuments": {
-    "message": "No documents yet."
+    "message": "아직 문서가 없습니다."
   },
   "documentGenerator_jobsTitle": {
-    "message": "Generation jobs"
+    "message": "생성 작업"
   },
   "documentGenerator_progress": {
-    "message": "{{percent}}% complete"
+    "message": "{{percent}}% 완료"
   },
   "documentGenerator_noContent": {
-    "message": "No content available."
+    "message": "사용 가능한 콘텐츠가 없습니다."
   },
   "documentGenerator_errors_missingModel": {
-    "message": "Select a model and provider first."
+    "message": "먼저 모델과 제공자를 선택하세요."
   },
   "documentGenerator_types_summary": {
-    "message": "Summary"
+    "message": "요약"
   },
   "documentGenerator_types_timeline": {
-    "message": "Timeline"
+    "message": "타임라인"
   },
   "documentGenerator_types_briefing": {
-    "message": "Briefing"
+    "message": "브리핑"
   },
   "documentGenerator_types_study_guide": {
-    "message": "Study guide"
+    "message": "학습 가이드"
   },
   "documentGenerator_types_q_and_a": {
-    "message": "Q&A"
+    "message": "질의응답"
   },
   "documentGenerator_types_meeting_notes": {
-    "message": "Meeting notes"
+    "message": "회의 메모"
   },
   "composer_contextTabsEmpty": {
     "message": "선택된 탭이 없습니다."
@@ -1383,9 +1383,9 @@
     "message": "사용 가능한 열린 탭이 없습니다."
   },
   "errors_loadLocalHistoryPrefix": {
-    "message": "Failed to load local chat history"
+    "message": "로컬 채팅 기록을 불러오지 못했습니다"
   },
   "errors_loadLocalHistoryDefault": {
-    "message": "Something went wrong while loading local chat history."
+    "message": "로컬 채팅 기록을 불러오는 중 문제가 발생했습니다."
   }
 }

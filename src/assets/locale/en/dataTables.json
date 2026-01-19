@@ -111,7 +111,7 @@
   "regenerateSuccess": "Table regenerated successfully!",
   "model": "Model",
   "prompt": "Generation Prompt",
-  "tableDescriptionLabel": "Description",
+  "descriptionLabel": "Description",
   "sources": "Sources",
   "created": "Created",
   "updated": "Updated",

@@ -97,7 +97,7 @@
   "regenerateSuccess": "تمت إعادة إنشاء الجدول بنجاح!",
   "model": "النموذج",
   "prompt": "مطالبة التوليد",
-  "tableDescriptionLabel": "الوصف",
+  "descriptionLabel": "الوصف",
   "sources": "المصادر",
   "created": "تم الإنشاء",
   "updated": "تم التحديث",

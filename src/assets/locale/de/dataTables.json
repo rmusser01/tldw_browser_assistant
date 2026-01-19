@@ -97,7 +97,7 @@
   "regenerateSuccess": "Tabelle erfolgreich neu generiert!",
   "model": "Modell",
   "prompt": "Generierungs-Prompt",
-  "tableDescriptionLabel": "Beschreibung",
+  "descriptionLabel": "Beschreibung",
   "sources": "Quellen",
   "created": "Erstellt",
   "updated": "Aktualisiert",

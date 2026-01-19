@@ -97,7 +97,7 @@
   "regenerateSuccess": "테이블이 성공적으로 재생성되었습니다!",
   "model": "모델",
   "prompt": "생성 프롬프트",
-  "tableDescriptionLabel": "설명",
+  "descriptionLabel": "설명",
   "sources": "소스",
   "created": "생성일",
   "updated": "수정일",

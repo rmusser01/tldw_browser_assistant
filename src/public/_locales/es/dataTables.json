@@ -375,9 +375,6 @@
     "message": "Genera tablas estructuradas a partir de tus chats, documentos y base de conocimientos usando indicaciones en lenguaje natural."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "Descripción"
   }
 }

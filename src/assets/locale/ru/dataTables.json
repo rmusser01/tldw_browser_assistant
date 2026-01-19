@@ -97,7 +97,7 @@
   "regenerateSuccess": "Таблица успешно сгенерирована заново!",
   "model": "Модель",
   "prompt": "Промпт генерации",
-  "tableDescriptionLabel": "Описание",
+  "descriptionLabel": "Описание",
   "sources": "Источники",
   "created": "Создано",
   "updated": "Обновлено",

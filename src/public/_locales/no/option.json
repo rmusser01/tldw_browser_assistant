@@ -60,7 +60,7 @@
     "message": "Vis diagnostikk"
   },
   "connectionCard_buttonOpenQuickIngest": {
-    "message": "Åpne Quick Ingest"
+    "message": "Åpne Hurtiginnhenting"
   },
   "connectionCard_buttonTryDemo": {
     "message": "Prøv en demo"
@@ -81,7 +81,7 @@
     "message": "Tips: Trenger du ingest-hjelp når du er frakoblet?"
   },
   "connectionCard_quickIngestHint": {
-    "message": "Når serveren er frakoblet, fungerer Quick Ingest som et staging-område. Du kan legge URL-er og filer i kø nå og behandle dem når du kobler til igjen."
+    "message": "Når serveren er frakoblet, fungerer Hurtiginnhenting som et staging-område. Du kan legge URL-er og filer i kø nå og behandle dem når du kobler til igjen."
   },
   "connectionCard_backToWorkspace": {
     "message": "Tilbake til arbeidsområdet"
@@ -90,7 +90,7 @@
     "message": "Innstillinger åpnes i en ny nettleserfane slik at du kan konfigurere tldw-serveren."
   },
   "connectionCard_quickIngestInlineHint": {
-    "message": "Quick Ingest kan legge URL-er og filer i kø mens serveren er frakoblet, så du kan behandle dem når du kobler til igjen."
+    "message": "Hurtiginnhenting kan legge URL-er og filer i kø mens serveren er frakoblet, så du kan behandle dem når du kobler til igjen."
   },
   "connectionCard_connectedCaption": {
     "message": "Chat og verktøy er nå tilgjengelige i Innstillinger og i sidepanelet."
@@ -192,7 +192,7 @@
     "message": "{{shortcut}} for å bytte"
   },
   "header_quickIngest": {
-    "message": "Quick Ingest"
+    "message": "Hurtiginnhenting"
   },
   "header_modelSettings": {
     "message": "Modellinnstillinger"
@@ -495,7 +495,7 @@
     "message": "Kunne ikke lagre prompt"
   },
   "quickIngest_title": {
-    "message": "Quick Ingest-medier"
+    "message": "Medier for hurtiginnhenting"
   },
   "quickIngest_subtitle": {
     "message": "Skriv inn én eller flere URL-er. Tving type per rad ved behov."
@@ -1347,10 +1347,10 @@
     "message": "Tøm utkast"
   },
   "contentReview_emptyDescription": {
-    "message": "Ingen utkast ennå. Bruk Quick Ingest med «Gjennomgå før lagring» for å opprette utkast."
+    "message": "Ingen utkast ennå. Bruk Hurtiginnhenting med «Gjennomgå før lagring» for å opprette utkast."
   },
   "contentReview_openQuickIngest": {
-    "message": "Åpne Quick Ingest"
+    "message": "Åpne Hurtiginnhenting"
   },
   "contentReview_batchLabel": {
     "message": "Bunt"

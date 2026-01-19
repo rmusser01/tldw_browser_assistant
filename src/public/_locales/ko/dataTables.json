@@ -375,9 +375,6 @@
     "message": "자연어 프롬프트로 채팅, 문서, 지식 베이스에서 구조화된 테이블을 생성합니다."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "설명"
   }
 }

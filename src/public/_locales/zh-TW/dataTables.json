@@ -375,9 +375,6 @@
     "message": "使用自然語言提示，從你的聊天、文件和知識庫產生結構化資料表。"
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "描述"
   }
 }

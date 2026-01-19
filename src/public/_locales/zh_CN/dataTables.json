@@ -375,9 +375,6 @@
     "message": "使用自然语言提示从你的聊天、文档和知识库中生成结构化表格。"
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "描述"
   }
 }

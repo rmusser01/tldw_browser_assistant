@@ -375,9 +375,6 @@
     "message": "Gere tabelas estruturadas a partir de chats, documentos e da sua base de conhecimento usando prompts em linguagem natural."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "Descrição"
   }
 }

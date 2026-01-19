@@ -375,9 +375,6 @@
     "message": "Genera tabelle strutturate dalle tue chat, documenti e base di conoscenza usando prompt in linguaggio naturale."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "Descrizione"
   }
 }

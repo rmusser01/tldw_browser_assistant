@@ -375,9 +375,6 @@
     "message": "Створюйте структуровані таблиці з ваших чатів, документів і бази знань за допомогою підказок природною мовою."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "Опис"
   }
 }

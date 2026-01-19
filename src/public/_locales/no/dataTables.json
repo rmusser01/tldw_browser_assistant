@@ -375,9 +375,6 @@
     "message": "Generer strukturerte tabeller fra chatter, dokumenter og kunnskapsbasen din ved hjelp av naturlige språkprompter."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "Beskrivelse"
   }
 }

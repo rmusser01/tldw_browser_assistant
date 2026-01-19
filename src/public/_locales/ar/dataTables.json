@@ -375,9 +375,6 @@
     "message": "أنشئ جداول منظمة من محادثاتك ومستنداتك وقاعدة المعرفة باستخدام مطالبات باللغة الطبيعية."
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "الوصف"
   }
 }

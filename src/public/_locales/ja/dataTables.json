@@ -375,9 +375,6 @@
     "message": "自然言語のプロンプトで、チャット、ドキュメント、ナレッジベースから構造化テーブルを生成します。"
   },
   "descriptionLabel": {
-    "message": "Description"
-  },
-  "tableDescriptionLabel": {
     "message": "説明"
   }
 }

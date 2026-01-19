@@ -945,7 +945,7 @@
     "message": "Åpne Innstillinger → tldw server for å legge til server‑URLen din."
   },
   "mediaEmpty_connectExample2": {
-    "message": "Når du er koblet til, bruk Quick ingest i toppfeltet for å legge til media fra egne opptak og filer."
+    "message": "Når du er koblet til, bruk Hurtiginnhenting i toppfeltet for å legge til media fra egne opptak og filer."
   },
   "mediaEmpty_offlineTitle": {
     "message": "Media API not available on this server"
@@ -1038,10 +1038,10 @@
     "message": "Tøm utkast"
   },
   "contentReview_emptyDescription": {
-    "message": "Ingen utkast ennå. Bruk Quick Ingest med «Gjennomgå før lagring» for å opprette utkast."
+    "message": "Ingen utkast ennå. Bruk Hurtiginnhenting med «Gjennomgå før lagring» for å opprette utkast."
   },
   "contentReview_openQuickIngest": {
-    "message": "Åpne Quick Ingest"
+    "message": "Åpne Hurtiginnhenting"
   },
   "contentReview_storeAfterReview": {
     "message": "Lagre etter gjennomgang"
