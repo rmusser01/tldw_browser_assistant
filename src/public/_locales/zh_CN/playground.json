@@ -36,16 +36,16 @@
     "message": "清除上下文"
   },
   "tooltip_speechToTextServer": {
-    "message": "Dictation via your tldw server"
+    "message": "通过 tldw 服务器听写"
   },
   "tooltip_speechToTextBrowser": {
-    "message": "Dictation via browser speech recognition"
+    "message": "通过浏览器语音识别听写"
   },
   "tooltip_speechToTextDetails": {
-    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+    "message": "使用 {{model}} · {{task}} · {{format}}。在 设置 → 通用 → 语音转文本 中配置。"
   },
   "tooltip_uploadDocuments": {
-    "message": "Upload Documents (beta)"
+    "message": "上传文档（测试版）"
   },
   "sendWhenEnter": {
     "message": "按Enter发送"
@@ -57,16 +57,16 @@
     "message": "从图片中提取文字（OCR）"
   },
   "tips_title": {
-    "message": "Tips"
+    "message": "提示"
   },
   "tips_quickIngest": {
-    "message": "Use Quick ingest to add documents and web pages."
+    "message": "使用快速导入添加文档和网页。"
   },
   "tips_pickModelPrompt": {
-    "message": "Pick a Model and a Prompt from the header."
+    "message": "在页眉选择模型和提示词。"
   },
   "tips_startChatFocus": {
-    "message": "When connected, “Start chatting” focuses the composer."
+    "message": "连接后，“开始聊天”会聚焦输入框。"
   },
   "tldwState_searching": {
     "message": "正在搜索您的 tldw server"
@@ -81,64 +81,64 @@
     "message": "看起来您遇到了连接错误。请参阅这<anchor>文档</anchor>进行故障排除。"
   },
   "tldwState_openTldwSettings": {
-    "message": "Open tldw Settings"
+    "message": "打开 tldw 设置"
   },
   "tldwState_cancelSearch": {
-    "message": "Cancel search"
+    "message": "取消搜索"
   },
   "tldwState_connectionFailedWithCode": {
-    "message": "Connection failed (HTTP {{code}})"
+    "message": "连接失败（HTTP {{code}}）"
   },
   "tldwState_connectionFailed": {
-    "message": "Connection failed"
+    "message": "连接失败"
   },
   "tldwState_errorDetailsLabel": {
-    "message": "Details:"
+    "message": "详情："
   },
   "tldwState_title": {
-    "message": "Waiting for your tldw server"
+    "message": "正在等待你的 tldw 服务器"
   },
   "tldwState_subtitle": {
-    "message": "We’re pinging {{host}} to verify the connection."
+    "message": "正在 ping {{host}} 以验证连接。"
   },
   "tldwState_missing": {
-    "message": "Server URL not configured"
+    "message": "未配置服务器 URL"
   },
   "tldwState_noServer": {
-    "message": "Add your tldw server to start chatting."
+    "message": "添加你的 tldw 服务器以开始聊天。"
   },
   "tldwState_connectedSubtitle": {
-    "message": "Connected to {{host}}. Start chatting when you’re ready."
+    "message": "已连接 {{host}}。准备好后开始聊天。"
   },
   "tldwState_errorSubtitle": {
-    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+    "message": "仍无法连接 {{host}}。请重试或更新服务器设置。"
   },
   "tldwState_openSettings": {
-    "message": "Open settings"
+    "message": "打开设置"
   },
   "tldwState_changeServer": {
-    "message": "Change server"
+    "message": "更换服务器"
   },
   "tldwState_elapsed": {
-    "message": "Checking… {{seconds}}s"
+    "message": "检查中… {{seconds}} 秒"
   },
   "tldwState_connectedHint": {
-    "message": "Connected to {{host}}."
+    "message": "已连接 {{host}}。"
   },
   "tldwState_lastChecked": {
-    "message": "Checked {{seconds}}s ago"
+    "message": "{{seconds}} 秒前检查"
   },
   "tldwState_recheck": {
-    "message": "Check again"
+    "message": "重新检查"
   },
   "tldwState_errorToast": {
-    "message": "We couldn’t reach {{host}}"
+    "message": "无法连接 {{host}}"
   },
   "tldwState_missingHelp": {
-    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+    "message": "打开 设置 → tldw Server 添加 URL，或连接到选项页。"
   },
   "tldwState_troubleshoot": {
-    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+    "message": "确认服务器运行且浏览器可访问后，再从选项页重试。"
   },
   "errors_privateModeDescription": {
     "message": "Firefox 隐私模式不支持保存聊天。临时聊天默认开启。后续会改进。"
@@ -189,67 +189,67 @@
     "message": "生成 TTS 音频时出现问题。"
   },
   "tts_sampleText": {
-    "message": "Insert sample text"
+    "message": "插入示例文本"
   },
   "tts_playHelper": {
-    "message": "Play uses your selected provider, voice, and speed."
+    "message": "播放会使用所选的提供商、音色和语速。"
   },
   "tts_playDisabledNoText": {
-    "message": "Enter text to enable Play."
+    "message": "输入文本以启用播放。"
   },
   "tts_playDisabledTtsOff": {
-    "message": "Enable text-to-speech above to play audio."
+    "message": "请先在上方启用文本转语音以播放音频。"
   },
   "tts_playDisabledElevenLabs": {
     "message": "添加 ElevenLabs API 密钥、音色和模型以启用播放。"
   },
   "tts_stopDisabled": {
-    "message": "Stop activates after audio starts."
+    "message": "音频开始播放后才能停止。"
   },
   "tts_providerChangeHelper": {
     "message": "打开下方的提供商选择器，在浏览器、tldw、OpenAI 或 Supersonic 之间切换。"
   },
   "tts_changeProvider": {
-    "message": "Change provider"
+    "message": "更换提供商"
   },
   "tts_title": {
-    "message": "TTS Playground"
+    "message": "TTS 游乐场"
   },
   "tts_subtitle": {
-    "message": "Try out text-to-speech and tweak providers, models, and voices."
+    "message": "试用文本转语音并调整提供商、模型和音色。"
   },
   "tts_currentProvider": {
-    "message": "Current provider"
+    "message": "当前提供商"
   },
   "tts_settingsIntro": {
-    "message": "Adjust your TTS provider, model, and voice. These settings are reused when you play audio from chat or media."
+    "message": "调整你的 TTS 提供商、模型和音色。这些设置会在从聊天或媒体播放音频时复用。"
   },
   "tts_providerCapabilities": {
-    "message": "Provider capabilities"
+    "message": "提供商能力"
   },
   "tts_voicesPreview": {
-    "message": "Server voices"
+    "message": "服务器音色"
   },
   "tts_providerDetails": {
-    "message": "View raw provider config"
+    "message": "查看提供商原始配置"
   },
   "tts_providerDetailsTitle": {
-    "message": "Provider details"
+    "message": "提供商详情"
   },
   "tts_inputLabel": {
-    "message": "Enter some text to hear it spoken."
+    "message": "输入文本以听到朗读。"
   },
   "tts_inputPlaceholder": {
-    "message": "Type or paste text here, then use Play to listen."
+    "message": "在此输入或粘贴文本，然后点击播放。"
   },
   "tts_play": {
-    "message": "Play"
+    "message": "播放"
   },
   "tts_playing": {
-    "message": "Playing…"
+    "message": "播放中…"
   },
   "tts_stop": {
-    "message": "Stop"
+    "message": "停止"
   },
   "tts_browserSegmentsTitle": {
     "message": "浏览器 TTS 片段"
@@ -279,145 +279,145 @@
     "message": "继续"
   },
   "tts_tldwStatusOnline": {
-    "message": "tldw server audio API detected (audio/speech)"
+    "message": "检测到 tldw 服务器音频 API（audio/speech）"
   },
   "tts_tldwStatusOffline": {
-    "message": "Audio API not detected; check your tldw server version."
+    "message": "未检测到音频 API；请检查 tldw 服务器版本。"
   },
   "tts_tldwWarningTitle": {
-    "message": "tldw audio/speech API not detected"
+    "message": "未检测到 tldw audio/speech API"
   },
   "tts_tldwWarningBody": {
-    "message": "Ensure your tldw_server version includes /api/v1/audio/speech and that your extension is connected with a valid API key."
+    "message": "确保 tldw_server 版本包含 /api/v1/audio/speech，并且扩展已使用有效 API 密钥连接。"
   },
   "tts_speechErrorTitle": {
-    "message": "Dictation failed"
+    "message": "听写失败"
   },
   "tts_speechErrorBody": {
-    "message": "Transcription request failed. Check tldw server health."
+    "message": "转写请求失败。请检查 tldw 服务器状态。"
   },
   "tts_speechNoText": {
-    "message": "The transcription did not return any text."
+    "message": "转写未返回任何文本。"
   },
   "tts_speechMicError": {
-    "message": "Unable to access your microphone. Check browser permissions and try again."
+    "message": "无法访问麦克风。请检查浏览器权限并重试。"
   },
   "tts_savedToNotes": {
-    "message": "Transcription saved as a note."
+    "message": "转写已保存为笔记。"
   },
   "empty_title": {
-    "message": "Start a new chat"
+    "message": "开始新聊天"
   },
   "empty_description": {
-    "message": "Experiment with different models, prompts, and knowledge sources here."
+    "message": "在这里尝试不同模型、提示词和知识来源。"
   },
   "empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "你处于演示模式——试着提问看看助手如何回应。稍后可以连接自己的 tldw 服务器。"
   },
   "empty_example1": {
-    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+    "message": "提问后，把想讨论的文档或网页拖进来。"
   },
   "empty_example2": {
-    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+    "message": "使用快速导入添加转写或笔记，然后在聊天中引用。"
   },
   "empty_example3": {
-    "message": "Try different prompts or models from the header to compare answers."
+    "message": "从页眉尝试不同提示词或模型来比较答案。"
   },
   "empty_primaryCta": {
-    "message": "Start chatting"
+    "message": "开始聊天"
   },
   "empty_secondaryCta": {
-    "message": "Open server settings"
+    "message": "打开服务器设置"
   },
   "drop_hint": {
-    "message": "Drop files to attach them to your message"
+    "message": "拖放文件以附加到消息"
   },
   "drop_readySingle": {
-    "message": "{{name}} ready to send"
+    "message": "{{name}} 已准备发送"
   },
   "drop_readyMultiple": {
-    "message": "{{count}} files ready to send"
+    "message": "{{count}} 个文件已准备发送"
   },
   "drop_unsupported": {
-    "message": "That file type isn’t supported. Try images or text-based files."
+    "message": "该文件类型不受支持。请尝试图片或文本文件。"
   },
   "drop_defaultFileName": {
-    "message": "File"
+    "message": "文件"
   },
   "drop_imageOnly": {
-    "message": "Only images can be dropped here right now."
+    "message": "目前这里只能拖放图片。"
   },
   "drop_imageHint": {
-    "message": "Drop an image to include it in your message"
+    "message": "拖放图片以添加到消息"
   },
   "drop_overlayInstruction": {
-    "message": "Drop the image to attach it to your next reply"
+    "message": "拖放图片以附加到下一条回复"
   },
   "aria_chatTranscript": {
-    "message": "Chat messages"
+    "message": "聊天消息"
   },
   "more_history": {
-    "message": "Chat saving"
+    "message": "聊天保存"
   },
   "more_searchKnowledge": {
     "message": "搜索与 RAG"
   },
   "more_voice": {
-    "message": "More voice options"
+    "message": "更多语音选项"
   },
   "more_uploads": {
-    "message": "Uploads & ingest"
+    "message": "上传与导入"
   },
   "fileRetrievalEnabled": {
-    "message": "Enable RAG for Documents"
+    "message": "为文档启用 RAG"
   },
   "stt_title": {
-    "message": "STT Playground"
+    "message": "STT 游乐场"
   },
   "stt_subtitle": {
-    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+    "message": "试用转写模型，进行更长的听写会话，并将转写保存到笔记。"
   },
   "stt_currentModelLabel": {
-    "message": "Current transcription model"
+    "message": "当前转写模型"
   },
   "stt_defaultModel": {
-    "message": "Default from Settings"
+    "message": "使用设置中的默认值"
   },
   "stt_settingsNotice": {
-    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+    "message": "语言、任务、响应格式、分段与提示词将复用设置中的语音转文本默认值。"
   },
   "stt_sessionMode": {
-    "message": "Session mode"
+    "message": "会话模式"
   },
   "stt_modeLong": {
-    "message": "Long-running (chunked recording)"
+    "message": "长时运行（分段录音）"
   },
   "stt_modeShort": {
-    "message": "Short dictation (single clip)"
+    "message": "短听写（单段录音）"
   },
   "stt_languageTag": {
-    "message": "Language"
+    "message": "语言"
   },
   "stt_taskTag": {
-    "message": "Task"
+    "message": "任务"
   },
   "stt_formatTag": {
-    "message": "Format"
+    "message": "格式"
   },
   "stt_segmentationEnabled": {
-    "message": "Segmentation enabled"
+    "message": "已启用分段"
   },
   "stt_recordButton": {
-    "message": "Record"
+    "message": "录制"
   },
   "stt_stopButton": {
-    "message": "Stop"
+    "message": "停止"
   },
   "stt_startTooltip": {
-    "message": "Start recording audio for transcription"
+    "message": "开始录音进行转写"
   },
   "stt_stopTooltip": {
-    "message": "Stop and send to server"
+    "message": "停止并发送到服务器"
   },
   "stt_transcribingButton": {
     "message": "转写中..."
@@ -429,166 +429,166 @@
     "message": "正在转写音频..."
   },
   "stt_historyTitle": {
-    "message": "Transcription history"
+    "message": "转写历史"
   },
   "stt_clearAll": {
-    "message": "Clear all"
+    "message": "全部清除"
   },
   "stt_emptyHistory": {
-    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+    "message": "开始录音即可在此看到转写。你可以将任何条目保存到笔记。"
   },
   "stt_saveToNotes": {
-    "message": "Save to Notes"
+    "message": "保存到笔记"
   },
   "stt_delete": {
-    "message": "Delete"
+    "message": "删除"
   },
   "stt_durationTag": {
-    "message": "Duration"
+    "message": "时长"
   },
   "stt_modelTag": {
-    "message": "Model"
+    "message": "模型"
   },
   "stt_currentTranscriptTitle": {
-    "message": "Current session transcript"
+    "message": "当前会话转写"
   },
   "stt_currentTranscriptPlaceholder": {
-    "message": "Live transcript will appear here while recording."
+    "message": "录音时会在这里显示实时转写。"
   },
   "actions_temporaryOn": {
-    "message": "Temporary chat (not saved)"
+    "message": "临时聊天（不保存）"
   },
   "actions_temporaryOff": {
-    "message": "Save chat to history"
+    "message": "保存聊天到历史记录"
   },
   "actions_webSearchOn": {
-    "message": "Web search on"
+    "message": "网页搜索已开启"
   },
   "actions_webSearchOff": {
-    "message": "Web search off"
+    "message": "网页搜索已关闭"
   },
   "actions_speechStart": {
-    "message": "Start dictation"
+    "message": "开始听写"
   },
   "actions_speechStop": {
-    "message": "Stop dictation"
+    "message": "停止听写"
   },
   "actions_streamStart": {
-    "message": "Live captions"
+    "message": "实时字幕"
   },
   "actions_streamStop": {
-    "message": "Stop captions"
+    "message": "停止字幕"
   },
   "actions_visionOn": {
-    "message": "Vision on"
+    "message": "视觉模式开启"
   },
   "actions_visionOff": {
-    "message": "Vision off"
+    "message": "视觉模式关闭"
   },
   "actions_upload": {
-    "message": "Attach image"
+    "message": "附加图片"
   },
   "actions_ingest": {
-    "message": "Quick ingest"
+    "message": "快速导入"
   },
   "actions_ingestDisabled": {
-    "message": "Connect to your tldw server to ingest."
+    "message": "连接你的 tldw 服务器以导入。"
   },
   "actions_ingestHint": {
-    "message": "Upload URLs or files with advanced options."
+    "message": "使用高级选项上传 URL 或文件。"
   },
   "actions_ingestSub": {
-    "message": "Use URLs/files; download or store."
+    "message": "使用 URL/文件；下载或存储。"
   },
   "actions_streamErrorTitle": {
-    "message": "Live captions unavailable"
+    "message": "实时字幕不可用"
   },
   "composer_toolsButton": {
-    "message": "+Tools"
+    "message": "+工具"
   },
   "composer_queuedBanner_title": {
-    "message": "Queued while offline"
+    "message": "离线排队"
   },
   "composer_queuedBanner_body": {
-    "message": "We’ll hold these messages and send them once your tldw server is connected."
+    "message": "我们会暂存这些消息，等你的 tldw 服务器连接后再发送。"
   },
   "composer_queuedBanner_sendNow": {
-    "message": "Send queued messages"
+    "message": "发送队列消息"
   },
   "composer_queuedBanner_clear": {
-    "message": "Clear queue"
+    "message": "清空队列"
   },
   "composer_coreTools": {
-    "message": "Conversation options"
+    "message": "对话选项"
   },
   "composer_captureTools": {
-    "message": "Capture and assist tools"
+    "message": "捕获与辅助工具"
   },
   "composer_actions": {
-    "message": "Send options"
+    "message": "发送选项"
   },
   "composer_moreTools": {
-    "message": "More tools"
+    "message": "更多工具"
   },
   "composer_scrollToLatest": {
-    "message": "Scroll to latest messages"
+    "message": "滚动到最新消息"
   },
   "composer_submitAria": {
-    "message": "Send message"
+    "message": "发送消息"
   },
   "composer_openModelSettings": {
-    "message": "Open current chat settings"
+    "message": "打开当前聊天设置"
   },
   "composer_stopStreaming": {
-    "message": "Stop streaming response"
+    "message": "停止流式回复"
   },
   "composer_connectionPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "在设置中连接 tldw 服务器以发送消息并查看媒体。"
   },
   "composer_connectNotice": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "在设置中连接 tldw 服务器以发送消息并查看媒体。"
   },
   "composer_connectionChipDisconnected": {
-    "message": "Server: Not connected"
+    "message": "服务器：未连接"
   },
   "composer_contextLabel": {
-    "message": "Context:"
+    "message": "上下文："
   },
   "composer_contextKnowledgeEmpty": {
-    "message": "No knowledge selected"
+    "message": "未选择知识"
   },
   "composer_contextTabs": {
-    "message": "{{count}} tabs"
+    "message": "{{count}} 个标签页"
   },
   "composer_contextFiles": {
-    "message": "{{count}} files"
+    "message": "{{count}} 个文件"
   },
   "composer_contextMedia": {
-    "message": "Media & Notes"
+    "message": "媒体与笔记"
   },
   "composer_contextMediaHint": {
-    "message": "Attach Media & Notes that should steer the response."
+    "message": "附加会影响回复的媒体与笔记。"
   },
   "composer_contextMediaSelected": {
-    "message": "Media or note"
+    "message": "媒体或笔记"
   },
   "composer_contextMediaEmpty": {
-    "message": "No Media & Notes selected yet."
+    "message": "尚未选择媒体与笔记。"
   },
   "composer_addKnowledge": {
-    "message": "Add Media & Notes"
+    "message": "添加媒体与笔记"
   },
   "composer_contextTabsTitle": {
-    "message": "Tabs in context"
+    "message": "上下文中的标签页"
   },
   "composer_contextTabsHint": {
-    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+    "message": "查看或移除已引用的标签页，或从已打开的标签页中添加更多。"
   },
   "composer_contextManager": {
-    "message": "Context Management"
+    "message": "上下文管理"
   },
   "composer_contextManagerTitle": {
-    "message": "Context Management"
+    "message": "上下文管理"
   },
   "composer_contextKnowledge": {
     "message": "上下文与知识"
@@ -603,43 +603,43 @@
     "message": "关闭知识搜索"
   },
   "composer_persistence_ephemeral": {
-    "message": "Not saved in history; clears when you close this tab."
+    "message": "不保存到历史记录；关闭此标签页后会清除。"
   },
   "composer_persistence_local": {
-    "message": "Saved in this browser only."
+    "message": "仅保存在此浏览器。"
   },
   "composer_persistence_server": {
-    "message": "Saved Locally+Server"
+    "message": "本地+服务器保存"
   },
   "composer_persistence_ephemeralPill": {
-    "message": "Temporary"
+    "message": "临时"
   },
   "composer_persistence_localPill": {
-    "message": "Local only"
+    "message": "仅本地"
   },
   "composer_persistence_serverPill": {
-    "message": "Locally + Server"
+    "message": "本地 + 服务器"
   },
   "composer_persistence_saveToServer": {
-    "message": "Also save this chat to server"
+    "message": "同时将此聊天保存到服务器"
   },
   "composer_persistence_connectToSave": {
-    "message": "Connect your server to save chats there."
+    "message": "连接服务器以在那里保存聊天。"
   },
   "composer_persistence_serverDefaultTitle": {
-    "message": "Extension chat"
+    "message": "扩展聊天"
   },
   "composer_persistence_serverSavedTitle": {
-    "message": "Chat now saved on server"
+    "message": "聊天已保存到服务器"
   },
   "composer_persistence_serverSaved": {
-    "message": "Future messages in this chat will sync to your tldw server."
+    "message": "此聊天后续消息将同步到你的 tldw 服务器。"
   },
   "composer_persistence_serverCharacterRequired": {
-    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+    "message": "无法在服务器上找到或创建默认助手角色。请在角色页面重试。"
   },
   "composer_connectToSend": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "在设置中连接 tldw 服务器以发送消息并查看媒体。"
   },
   "composer_compareTag": {
     "message": "对比"
@@ -780,10 +780,10 @@
     "message": "全部"
   },
   "speech_historyStt": {
-    "message": "STT"
+    "message": "语音转文本"
   },
   "speech_historyTts": {
-    "message": "TTS"
+    "message": "文本转语音"
   },
   "speech_historySearch": {
     "message": "搜索转写"
@@ -1236,133 +1236,133 @@
     "message": "处理中..."
   },
   "documentGenerator_title": {
-    "message": "Document generator"
+    "message": "文档生成器"
   },
   "documentGenerator_unavailable": {
-    "message": "Document generation is not available on this server."
+    "message": "此服务器不支持文档生成。"
   },
   "documentGenerator_noConversation": {
-    "message": "Start a server-backed chat to generate documents."
+    "message": "请先开启一个服务器支持的聊天来生成文档。"
   },
   "documentGenerator_source": {
-    "message": "Source"
+    "message": "来源"
   },
   "documentGenerator_sourceId": {
-    "message": "Conversation {{id}}"
+    "message": "会话 {{id}}"
   },
   "documentGenerator_sourceMissing": {
-    "message": "No active conversation yet."
+    "message": "尚无活动会话。"
   },
   "documentGenerator_sourceMessageId": {
-    "message": "Message {{id}}"
+    "message": "消息 {{id}}"
   },
   "documentGenerator_documentType": {
-    "message": "Document type"
+    "message": "文档类型"
   },
   "documentGenerator_model": {
-    "message": "Model"
+    "message": "模型"
   },
   "documentGenerator_modelPlaceholder": {
-    "message": "Model ID"
+    "message": "模型 ID"
   },
   "documentGenerator_providerPlaceholder": {
-    "message": "Provider name"
+    "message": "提供商名称"
   },
   "documentGenerator_providerLabel": {
-    "message": "Provider: {{provider}}"
+    "message": "提供商：{{provider}}"
   },
   "documentGenerator_specificMessage": {
-    "message": "Focus on a specific message"
+    "message": "聚焦特定消息"
   },
   "documentGenerator_specificMessagePlaceholder": {
-    "message": "Optional: paste a message excerpt to focus on."
+    "message": "可选：粘贴消息片段以聚焦。"
   },
   "documentGenerator_customPrompt": {
-    "message": "Custom prompt"
+    "message": "自定义提示词"
   },
   "documentGenerator_customPromptPlaceholder": {
-    "message": "Optional instructions for the generated document."
+    "message": "生成文档的可选说明。"
   },
   "documentGenerator_asyncGeneration": {
-    "message": "Generate asynchronously"
+    "message": "异步生成"
   },
   "documentGenerator_promptPresetTitle": {
-    "message": "Prompt preset"
+    "message": "提示词预设"
   },
   "documentGenerator_promptPresetHint": {
-    "message": "Customize the system/user prompts used for this document type."
+    "message": "自定义该文档类型使用的系统/用户提示词。"
   },
   "documentGenerator_promptReload": {
-    "message": "Reload from server"
+    "message": "从服务器重新加载"
   },
   "documentGenerator_systemPrompt": {
-    "message": "System prompt"
+    "message": "系统提示词"
   },
   "documentGenerator_userPrompt": {
-    "message": "User prompt"
+    "message": "用户提示词"
   },
   "documentGenerator_temperature": {
-    "message": "Temperature"
+    "message": "温度"
   },
   "documentGenerator_maxTokens": {
-    "message": "Max tokens"
+    "message": "最大 token 数"
   },
   "documentGenerator_jobQueued": {
-    "message": "Document generation queued."
+    "message": "文档生成已排队。"
   },
   "documentGenerator_generated": {
-    "message": "Document generated."
+    "message": "文档已生成。"
   },
   "documentGenerator_deleteTitle": {
-    "message": "Delete document?"
+    "message": "删除文档？"
   },
   "documentGenerator_deleteBody": {
-    "message": "This will permanently remove the generated document."
+    "message": "这将永久删除生成的文档。"
   },
   "documentGenerator_jobCancelled": {
-    "message": "Job cancelled."
+    "message": "任务已取消。"
   },
   "documentGenerator_promptSaved": {
-    "message": "Prompt preset saved."
+    "message": "提示词预设已保存。"
   },
   "documentGenerator_documentsTitle": {
-    "message": "Generated documents"
+    "message": "生成的文档"
   },
   "documentGenerator_loading": {
-    "message": "Loading…"
+    "message": "加载中…"
   },
   "documentGenerator_noDocuments": {
-    "message": "No documents yet."
+    "message": "暂无文档。"
   },
   "documentGenerator_jobsTitle": {
-    "message": "Generation jobs"
+    "message": "生成任务"
   },
   "documentGenerator_progress": {
-    "message": "{{percent}}% complete"
+    "message": "{{percent}}% 完成"
   },
   "documentGenerator_noContent": {
-    "message": "No content available."
+    "message": "无可用内容。"
   },
   "documentGenerator_errors_missingModel": {
-    "message": "Select a model and provider first."
+    "message": "请先选择模型和提供商。"
   },
   "documentGenerator_types_summary": {
-    "message": "Summary"
+    "message": "摘要"
   },
   "documentGenerator_types_timeline": {
-    "message": "Timeline"
+    "message": "时间线"
   },
   "documentGenerator_types_briefing": {
-    "message": "Briefing"
+    "message": "简报"
   },
   "documentGenerator_types_study_guide": {
-    "message": "Study guide"
+    "message": "学习指南"
   },
   "documentGenerator_types_q_and_a": {
-    "message": "Q&A"
+    "message": "问答"
   },
   "documentGenerator_types_meeting_notes": {
-    "message": "Meeting notes"
+    "message": "会议记录"
   },
   "composer_contextTabsEmpty": {
     "message": "尚未选择标签页。"
@@ -1383,9 +1383,9 @@
     "message": "未找到可用的打开标签页。"
   },
   "errors_loadLocalHistoryPrefix": {
-    "message": "Failed to load local chat history"
+    "message": "加载本地聊天记录失败"
   },
   "errors_loadLocalHistoryDefault": {
-    "message": "Something went wrong while loading local chat history."
+    "message": "加载本地聊天记录时出错。"
   }
 }

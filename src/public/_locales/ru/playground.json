@@ -33,19 +33,19 @@
     "message": "Очистить контекст"
   },
   "tooltip_speechToTextServer": {
-    "message": "Dictation via your tldw server"
+    "message": "Диктовка через ваш tldw сервер"
   },
   "tooltip_speechToTextBrowser": {
-    "message": "Dictation via browser speech recognition"
+    "message": "Диктовка через распознавание речи браузера"
   },
   "tooltip_speechToTextDetails": {
-    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+    "message": "Используется {{model}} · {{task}} · {{format}}. Настройте в Настройки → Общие → Speech-to-Text."
   },
   "tooltip_vision": {
-    "message": "[Experimental] Vision Chat"
+    "message": "[Экспериментально] Визуальный чат"
   },
   "tooltip_uploadDocuments": {
-    "message": "Upload Documents (beta)"
+    "message": "Загрузить документы (бета)"
   },
   "sendWhenEnter": {
     "message": "Отправить при нажатии клавиши Enter"
@@ -57,16 +57,16 @@
     "message": "Извлечь текст из изображения (OCR)"
   },
   "tips_title": {
-    "message": "Tips"
+    "message": "Советы"
   },
   "tips_quickIngest": {
-    "message": "Use Quick ingest to add documents and web pages."
+    "message": "Используйте «Быстрый импорт», чтобы добавить документы и веб-страницы."
   },
   "tips_pickModelPrompt": {
-    "message": "Pick a Model and a Prompt from the header."
+    "message": "Выберите модель и промпт в заголовке."
   },
   "tips_startChatFocus": {
-    "message": "When connected, “Start chatting” focuses the composer."
+    "message": "При подключении кнопка «Начать чат» переводит фокус в поле ввода."
   },
   "tldwState_searching": {
     "message": "Поиск вашего tldw server"
@@ -81,64 +81,64 @@
     "message": "Похоже, у вас возникла ошибка соединения. Пожалуйста, обратитесь к этой <anchor>документации</anchor> для устранения неисправностей."
   },
   "tldwState_openTldwSettings": {
-    "message": "Open tldw Settings"
+    "message": "Открыть настройки tldw"
   },
   "tldwState_cancelSearch": {
-    "message": "Cancel search"
+    "message": "Отменить поиск"
   },
   "tldwState_connectionFailedWithCode": {
-    "message": "Connection failed (HTTP {{code}})"
+    "message": "Не удалось подключиться (HTTP {{code}})"
   },
   "tldwState_connectionFailed": {
-    "message": "Connection failed"
+    "message": "Не удалось подключиться"
   },
   "tldwState_errorDetailsLabel": {
-    "message": "Details:"
+    "message": "Детали:"
   },
   "tldwState_title": {
-    "message": "Waiting for your tldw server"
+    "message": "Ожидание tldw сервера"
   },
   "tldwState_subtitle": {
-    "message": "We’re pinging {{host}} to verify the connection."
+    "message": "Отправляем ping на {{host}}, чтобы проверить соединение."
   },
   "tldwState_missing": {
-    "message": "Server URL not configured"
+    "message": "URL сервера не настроен"
   },
   "tldwState_noServer": {
-    "message": "Add your tldw server to start chatting."
+    "message": "Добавьте ваш tldw сервер, чтобы начать чат."
   },
   "tldwState_connectedSubtitle": {
-    "message": "Connected to {{host}}. Start chatting when you’re ready."
+    "message": "Подключено к {{host}}. Начните чат, когда будете готовы."
   },
   "tldwState_errorSubtitle": {
-    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+    "message": "Пока не удалось связаться с {{host}}. Повторите попытку или обновите настройки сервера."
   },
   "tldwState_openSettings": {
-    "message": "Open settings"
+    "message": "Открыть настройки"
   },
   "tldwState_changeServer": {
-    "message": "Change server"
+    "message": "Сменить сервер"
   },
   "tldwState_elapsed": {
-    "message": "Checking… {{seconds}}s"
+    "message": "Проверяем… {{seconds}} с"
   },
   "tldwState_connectedHint": {
-    "message": "Connected to {{host}}."
+    "message": "Подключено к {{host}}."
   },
   "tldwState_lastChecked": {
-    "message": "Checked {{seconds}}s ago"
+    "message": "Проверено {{seconds}} с назад"
   },
   "tldwState_recheck": {
-    "message": "Check again"
+    "message": "Проверить снова"
   },
   "tldwState_errorToast": {
-    "message": "We couldn’t reach {{host}}"
+    "message": "Не удалось связаться с {{host}}"
   },
   "tldwState_missingHelp": {
-    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+    "message": "Откройте Настройки → tldw Server, чтобы добавить URL или перейти на страницу параметров."
   },
   "tldwState_troubleshoot": {
-    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+    "message": "Убедитесь, что сервер запущен и браузеру разрешён доступ, затем повторите попытку на странице параметров."
   },
   "errors_privateModeDescription": {
     "message": "Режим приватного просмотра Firefox не поддерживает сохранение чатов. Временный чат включен по умолчанию. Скоро будут улучшения."
@@ -306,118 +306,118 @@
     "message": "Транскрибация сохранена как заметка."
   },
   "empty_title": {
-    "message": "Start a new chat"
+    "message": "Начать новый чат"
   },
   "empty_description": {
-    "message": "Experiment with different models, prompts, and knowledge sources here."
+    "message": "Здесь можно экспериментировать с разными моделями, промптами и источниками знаний."
   },
   "empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "Вы в демо-режиме — задайте вопрос, чтобы посмотреть, как отвечает ассистент. Позже можно подключить свой tldw сервер."
   },
   "empty_example1": {
-    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+    "message": "Задайте вопрос, затем перетащите документы или веб-страницы, которые хотите обсудить."
   },
   "empty_example2": {
-    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+    "message": "Используйте «Быстрый импорт», чтобы добавить расшифровки или заметки, затем ссылайтесь на них в чате."
   },
   "empty_example3": {
-    "message": "Try different prompts or models from the header to compare answers."
+    "message": "Попробуйте разные промпты или модели в заголовке, чтобы сравнить ответы."
   },
   "empty_primaryCta": {
-    "message": "Start chatting"
+    "message": "Начать чат"
   },
   "empty_secondaryCta": {
-    "message": "Open server settings"
+    "message": "Открыть настройки сервера"
   },
   "drop_hint": {
-    "message": "Drop files to attach them to your message"
+    "message": "Перетащите файлы, чтобы прикрепить их к сообщению"
   },
   "drop_readySingle": {
-    "message": "{{name}} ready to send"
+    "message": "{{name}} готов к отправке"
   },
   "drop_readyMultiple": {
-    "message": "{{count}} files ready to send"
+    "message": "{{count}} файлов готовы к отправке"
   },
   "drop_unsupported": {
-    "message": "That file type isn’t supported. Try images or text-based files."
+    "message": "Этот тип файла не поддерживается. Попробуйте изображения или текстовые файлы."
   },
   "drop_defaultFileName": {
-    "message": "File"
+    "message": "Файл"
   },
   "drop_imageOnly": {
-    "message": "Only images can be dropped here right now."
+    "message": "Сейчас сюда можно перетаскивать только изображения."
   },
   "drop_imageHint": {
-    "message": "Drop an image to include it in your message"
+    "message": "Перетащите изображение, чтобы добавить его в сообщение"
   },
   "drop_overlayInstruction": {
-    "message": "Drop the image to attach it to your next reply"
+    "message": "Перетащите изображение, чтобы прикрепить его к следующему ответу"
   },
   "aria_chatTranscript": {
-    "message": "Chat messages"
+    "message": "Сообщения чата"
   },
   "more_history": {
-    "message": "Chat saving"
+    "message": "Сохранение чатов"
   },
   "more_searchKnowledge": {
-    "message": "Search & RAG"
+    "message": "Поиск и RAG"
   },
   "more_voice": {
-    "message": "More voice options"
+    "message": "Дополнительные опции голоса"
   },
   "more_uploads": {
-    "message": "Uploads & ingest"
+    "message": "Загрузки и импорт"
   },
   "fileRetrievalEnabled": {
-    "message": "Enable RAG for Documents"
+    "message": "Включить поиск знаний по документам"
   },
   "stt_title": {
-    "message": "STT Playground"
+    "message": "Песочница STT"
   },
   "stt_subtitle": {
-    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+    "message": "Пробуйте модели транскрибации, запускайте длительные сессии диктовки и сохраняйте расшифровки в заметках."
   },
   "stt_currentModelLabel": {
-    "message": "Current transcription model"
+    "message": "Текущая модель транскрибации"
   },
   "stt_defaultModel": {
-    "message": "Default from Settings"
+    "message": "По умолчанию из настроек"
   },
   "stt_settingsNotice": {
-    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+    "message": "Язык, задача, формат ответа, сегментация и промпт используют ваши настройки Speech-to-Text по умолчанию."
   },
   "stt_sessionMode": {
-    "message": "Session mode"
+    "message": "Режим сессии"
   },
   "stt_modeLong": {
-    "message": "Long-running (chunked recording)"
+    "message": "Длительный (запись по частям)"
   },
   "stt_modeShort": {
-    "message": "Short dictation (single clip)"
+    "message": "Короткая диктовка (один клип)"
   },
   "stt_languageTag": {
-    "message": "Language"
+    "message": "Язык"
   },
   "stt_taskTag": {
-    "message": "Task"
+    "message": "Задача"
   },
   "stt_formatTag": {
-    "message": "Format"
+    "message": "Формат"
   },
   "stt_segmentationEnabled": {
-    "message": "Segmentation enabled"
+    "message": "Сегментация включена"
   },
   "stt_recordButton": {
-    "message": "Record"
+    "message": "Запись"
   },
   "stt_stopButton": {
-    "message": "Stop"
+    "message": "Остановить"
   },
   "stt_startTooltip": {
-    "message": "Start recording audio for transcription"
+    "message": "Начать запись аудио для транскрибации"
   },
   "stt_stopTooltip": {
-    "message": "Stop and send to server"
+    "message": "Остановить и отправить на сервер"
   },
   "stt_transcribingButton": {
     "message": "Транскрибируется..."
@@ -429,166 +429,166 @@
     "message": "Транскрибируется аудио..."
   },
   "stt_historyTitle": {
-    "message": "Transcription history"
+    "message": "История транскрибаций"
   },
   "stt_clearAll": {
-    "message": "Clear all"
+    "message": "Очистить всё"
   },
   "stt_emptyHistory": {
-    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+    "message": "Начните запись, чтобы увидеть расшифровки здесь. Любой элемент можно сохранить в заметки."
   },
   "stt_saveToNotes": {
-    "message": "Save to Notes"
+    "message": "Сохранить в заметки"
   },
   "stt_delete": {
-    "message": "Delete"
+    "message": "Удалить"
   },
   "stt_durationTag": {
-    "message": "Duration"
+    "message": "Длительность"
   },
   "stt_modelTag": {
-    "message": "Model"
+    "message": "Модель"
   },
   "stt_currentTranscriptTitle": {
-    "message": "Current session transcript"
+    "message": "Расшифровка текущей сессии"
   },
   "stt_currentTranscriptPlaceholder": {
-    "message": "Live transcript will appear here while recording."
+    "message": "Живая расшифровка будет появляться здесь во время записи."
   },
   "actions_temporaryOn": {
-    "message": "Temporary chat (not saved)"
+    "message": "Временный чат (не сохраняется)"
   },
   "actions_temporaryOff": {
-    "message": "Save chat to history"
+    "message": "Сохранить чат в историю"
   },
   "actions_webSearchOn": {
-    "message": "Web search on"
+    "message": "Веб-поиск включен"
   },
   "actions_webSearchOff": {
-    "message": "Web search off"
+    "message": "Веб-поиск выключен"
   },
   "actions_speechStart": {
-    "message": "Start dictation"
+    "message": "Начать диктовку"
   },
   "actions_speechStop": {
-    "message": "Stop dictation"
+    "message": "Остановить диктовку"
   },
   "actions_streamStart": {
-    "message": "Live captions"
+    "message": "Субтитры в реальном времени"
   },
   "actions_streamStop": {
-    "message": "Stop captions"
+    "message": "Остановить субтитры"
   },
   "actions_visionOn": {
-    "message": "Vision on"
+    "message": "Визуальный режим включен"
   },
   "actions_visionOff": {
-    "message": "Vision off"
+    "message": "Визуальный режим выключен"
   },
   "actions_upload": {
-    "message": "Attach image"
+    "message": "Прикрепить изображение"
   },
   "actions_ingest": {
-    "message": "Quick ingest"
+    "message": "Быстрый импорт"
   },
   "actions_ingestDisabled": {
-    "message": "Connect to your tldw server to ingest."
+    "message": "Подключите ваш tldw сервер для импорта."
   },
   "actions_ingestHint": {
-    "message": "Upload URLs or files with advanced options."
+    "message": "Загружайте URL или файлы с расширенными параметрами."
   },
   "actions_ingestSub": {
-    "message": "Use URLs/files; download or store."
+    "message": "Используйте URL/файлы; скачайте или сохраните."
   },
   "actions_streamErrorTitle": {
-    "message": "Live captions unavailable"
+    "message": "Субтитры в реальном времени недоступны"
   },
   "composer_toolsButton": {
-    "message": "+Tools"
+    "message": "+Инструменты"
   },
   "composer_queuedBanner_title": {
-    "message": "Queued while offline"
+    "message": "В очереди (офлайн)"
   },
   "composer_queuedBanner_body": {
-    "message": "We’ll hold these messages and send them once your tldw server is connected."
+    "message": "Мы сохраним эти сообщения и отправим их, когда ваш tldw сервер подключится."
   },
   "composer_queuedBanner_sendNow": {
-    "message": "Send queued messages"
+    "message": "Отправить сообщения из очереди"
   },
   "composer_queuedBanner_clear": {
-    "message": "Clear queue"
+    "message": "Очистить очередь"
   },
   "composer_coreTools": {
-    "message": "Conversation options"
+    "message": "Параметры беседы"
   },
   "composer_captureTools": {
-    "message": "Capture and assist tools"
+    "message": "Инструменты захвата и помощи"
   },
   "composer_actions": {
-    "message": "Send options"
+    "message": "Параметры отправки"
   },
   "composer_moreTools": {
-    "message": "More tools"
+    "message": "Другие инструменты"
   },
   "composer_scrollToLatest": {
-    "message": "Scroll to latest messages"
+    "message": "Прокрутить к последним сообщениям"
   },
   "composer_submitAria": {
-    "message": "Send message"
+    "message": "Отправить сообщение"
   },
   "composer_openModelSettings": {
-    "message": "Open current chat settings"
+    "message": "Открыть настройки текущего чата"
   },
   "composer_stopStreaming": {
-    "message": "Stop streaming response"
+    "message": "Остановить поток ответа"
   },
   "composer_connectionPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Подключите tldw сервер в настройках, чтобы отправлять сообщения и просматривать медиа."
   },
   "composer_connectNotice": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Подключите tldw сервер в настройках, чтобы отправлять сообщения и просматривать медиа."
   },
   "composer_connectionChipDisconnected": {
-    "message": "Server: Not connected"
+    "message": "Сервер: не подключен"
   },
   "composer_contextLabel": {
-    "message": "Context:"
+    "message": "Контекст:"
   },
   "composer_contextKnowledgeEmpty": {
-    "message": "No knowledge selected"
+    "message": "Знания не выбраны"
   },
   "composer_contextTabs": {
-    "message": "{{count}} tabs"
+    "message": "{{count}} вкладок"
   },
   "composer_contextFiles": {
-    "message": "{{count}} files"
+    "message": "{{count}} файлов"
   },
   "composer_contextMedia": {
-    "message": "Media & Notes"
+    "message": "Медиа и заметки"
   },
   "composer_contextMediaHint": {
-    "message": "Attach Media & Notes that should steer the response."
+    "message": "Прикрепите медиа и заметки, которые должны направлять ответ."
   },
   "composer_contextMediaSelected": {
-    "message": "Media or note"
+    "message": "Медиа или заметка"
   },
   "composer_contextMediaEmpty": {
-    "message": "No Media & Notes selected yet."
+    "message": "Медиа и заметки пока не выбраны."
   },
   "composer_addKnowledge": {
-    "message": "Add Media & Notes"
+    "message": "Добавить медиа и заметки"
   },
   "composer_contextTabsTitle": {
-    "message": "Tabs in context"
+    "message": "Вкладки в контексте"
   },
   "composer_contextTabsHint": {
-    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+    "message": "Проверьте или удалите используемые вкладки, или добавьте больше из открытых вкладок."
   },
   "composer_contextManager": {
-    "message": "Context Management"
+    "message": "Управление контекстом"
   },
   "composer_contextManagerTitle": {
-    "message": "Context Management"
+    "message": "Управление контекстом"
   },
   "composer_contextKnowledge": {
     "message": "Контекст и знания"
@@ -603,40 +603,40 @@
     "message": "Закрыть поиск по знаниям"
   },
   "composer_persistence_ephemeral": {
-    "message": "Not saved in history; clears when you close this tab."
+    "message": "Не сохраняется в истории; очищается при закрытии этой вкладки."
   },
   "composer_persistence_local": {
-    "message": "Saved in this browser only."
+    "message": "Сохраняется только в этом браузере."
   },
   "composer_persistence_server": {
-    "message": "Saved Locally+Server"
+    "message": "Сохраняется локально + на сервере"
   },
   "composer_persistence_ephemeralPill": {
-    "message": "Temporary"
+    "message": "Временный"
   },
   "composer_persistence_localPill": {
-    "message": "Local only"
+    "message": "Только локально"
   },
   "composer_persistence_serverPill": {
-    "message": "Locally + Server"
+    "message": "Локально + сервер"
   },
   "composer_persistence_saveToServer": {
-    "message": "Also save this chat to server"
+    "message": "Также сохранить этот чат на сервере"
   },
   "composer_persistence_connectToSave": {
-    "message": "Connect your server to save chats there."
+    "message": "Подключите сервер, чтобы сохранять чаты там."
   },
   "composer_persistence_serverDefaultTitle": {
-    "message": "Extension chat"
+    "message": "Чат расширения"
   },
   "composer_persistence_serverSavedTitle": {
-    "message": "Chat now saved on server"
+    "message": "Чат теперь сохранен на сервере"
   },
   "composer_persistence_serverSaved": {
-    "message": "Future messages in this chat will sync to your tldw server."
+    "message": "Следующие сообщения в этом чате будут синхронизироваться с вашим tldw сервером."
   },
   "composer_persistence_serverCharacterRequired": {
-    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+    "message": "Не удалось найти или создать персонажа-ассистента по умолчанию на сервере. Попробуйте снова на странице Персонажи."
   },
   "composer_connectToSend": {
     "message": "Подключите ваш сервер tldw в настройках, чтобы отправлять сообщения и просматривать медиафайлы."
@@ -1029,10 +1029,10 @@
     "message": "Все"
   },
   "speech_historyStt": {
-    "message": "STT"
+    "message": "Речь→текст"
   },
   "speech_historyTts": {
-    "message": "TTS"
+    "message": "Текст→речь"
   },
   "speech_historySearch": {
     "message": "Поиск по расшифровкам"
@@ -1152,217 +1152,217 @@
     "message": "Токены: {{count}}"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "Это было полезно?"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "Полезно"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "Не полезно"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "Дополнительный отзыв"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "Спасибо за отзыв"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "Отзыв доступен после завершения ответа."
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "Отзыв недоступен для этого сообщения."
   },
   "feedback_modalTitle": {
-    "message": "Feedback"
+    "message": "Отзыв"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "Как бы вы оценили этот ответ?"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "В чем проблема? (выберите все подходящее)"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "Дополнительные комментарии (необязательно)"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "Отправить отзыв"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "Не удалось отправить отзыв"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "Не удалось отправить отзыв."
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "Не удалось отправить отзыв о источнике."
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "Неверная информация"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "Не относится к моему вопросу"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "Не хватает важных деталей"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "Источники были бесполезны"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "Слишком многословно"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "Слишком кратко"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "Другое"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "Полезный источник"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "Бесполезный источник"
   },
   "actor_uploadedFiles": {
-    "message": "Uploaded Files ({{count}})"
+    "message": "Загруженные файлы ({{count}})"
   },
   "actor_fileRetrieval": {
-    "message": "File Retrieval"
+    "message": "Извлечение файлов"
   },
   "actor_fileStatusProcessed": {
-    "message": "Processed"
+    "message": "Обработано"
   },
   "actor_fileStatusProcessing": {
-    "message": "Processing..."
+    "message": "Обработка..."
   },
   "documentGenerator_title": {
-    "message": "Document generator"
+    "message": "Генератор документов"
   },
   "documentGenerator_unavailable": {
-    "message": "Document generation is not available on this server."
+    "message": "Генерация документов недоступна на этом сервере."
   },
   "documentGenerator_noConversation": {
-    "message": "Start a server-backed chat to generate documents."
+    "message": "Начните чат с сервером, чтобы генерировать документы."
   },
   "documentGenerator_source": {
-    "message": "Source"
+    "message": "Источник"
   },
   "documentGenerator_sourceId": {
-    "message": "Conversation {{id}}"
+    "message": "Беседа {{id}}"
   },
   "documentGenerator_sourceMissing": {
-    "message": "No active conversation yet."
+    "message": "Пока нет активной беседы."
   },
   "documentGenerator_sourceMessageId": {
-    "message": "Message {{id}}"
+    "message": "Сообщение {{id}}"
   },
   "documentGenerator_documentType": {
-    "message": "Document type"
+    "message": "Тип документа"
   },
   "documentGenerator_model": {
-    "message": "Model"
+    "message": "Модель"
   },
   "documentGenerator_modelPlaceholder": {
-    "message": "Model ID"
+    "message": "ID модели"
   },
   "documentGenerator_providerPlaceholder": {
-    "message": "Provider name"
+    "message": "Название провайдера"
   },
   "documentGenerator_providerLabel": {
-    "message": "Provider: {{provider}}"
+    "message": "Провайдер: {{provider}}"
   },
   "documentGenerator_specificMessage": {
-    "message": "Focus on a specific message"
+    "message": "Сфокусироваться на конкретном сообщении"
   },
   "documentGenerator_specificMessagePlaceholder": {
-    "message": "Optional: paste a message excerpt to focus on."
+    "message": "Необязательно: вставьте фрагмент сообщения для фокуса."
   },
   "documentGenerator_customPrompt": {
-    "message": "Custom prompt"
+    "message": "Пользовательский промпт"
   },
   "documentGenerator_customPromptPlaceholder": {
-    "message": "Optional instructions for the generated document."
+    "message": "Необязательные инструкции для генерируемого документа."
   },
   "documentGenerator_asyncGeneration": {
-    "message": "Generate asynchronously"
+    "message": "Генерировать асинхронно"
   },
   "documentGenerator_promptPresetTitle": {
-    "message": "Prompt preset"
+    "message": "Пресет промпта"
   },
   "documentGenerator_promptPresetHint": {
-    "message": "Customize the system/user prompts used for this document type."
+    "message": "Настройте системные/пользовательские промпты для этого типа документа."
   },
   "documentGenerator_promptReload": {
-    "message": "Reload from server"
+    "message": "Перезагрузить с сервера"
   },
   "documentGenerator_systemPrompt": {
-    "message": "System prompt"
+    "message": "Системный промпт"
   },
   "documentGenerator_userPrompt": {
-    "message": "User prompt"
+    "message": "Промпт пользователя"
   },
   "documentGenerator_temperature": {
-    "message": "Temperature"
+    "message": "Температура"
   },
   "documentGenerator_maxTokens": {
-    "message": "Max tokens"
+    "message": "Макс. токенов"
   },
   "documentGenerator_jobQueued": {
-    "message": "Document generation queued."
+    "message": "Генерация документа поставлена в очередь."
   },
   "documentGenerator_generated": {
-    "message": "Document generated."
+    "message": "Документ сгенерирован."
   },
   "documentGenerator_deleteTitle": {
-    "message": "Delete document?"
+    "message": "Удалить документ?"
   },
   "documentGenerator_deleteBody": {
-    "message": "This will permanently remove the generated document."
+    "message": "Это навсегда удалит сгенерированный документ."
   },
   "documentGenerator_jobCancelled": {
-    "message": "Job cancelled."
+    "message": "Задание отменено."
   },
   "documentGenerator_promptSaved": {
-    "message": "Prompt preset saved."
+    "message": "Пресет промпта сохранен."
   },
   "documentGenerator_documentsTitle": {
-    "message": "Generated documents"
+    "message": "Сгенерированные документы"
   },
   "documentGenerator_loading": {
-    "message": "Loading…"
+    "message": "Загрузка…"
   },
   "documentGenerator_noDocuments": {
-    "message": "No documents yet."
+    "message": "Документов пока нет."
   },
   "documentGenerator_jobsTitle": {
-    "message": "Generation jobs"
+    "message": "Задания генерации"
   },
   "documentGenerator_progress": {
-    "message": "{{percent}}% complete"
+    "message": "{{percent}}% готово"
   },
   "documentGenerator_noContent": {
-    "message": "No content available."
+    "message": "Контент недоступен."
   },
   "documentGenerator_errors_missingModel": {
-    "message": "Select a model and provider first."
+    "message": "Сначала выберите модель и провайдера."
   },
   "documentGenerator_types_summary": {
-    "message": "Summary"
+    "message": "Сводка"
   },
   "documentGenerator_types_timeline": {
-    "message": "Timeline"
+    "message": "Хронология"
   },
   "documentGenerator_types_briefing": {
-    "message": "Briefing"
+    "message": "Брифинг"
   },
   "documentGenerator_types_study_guide": {
-    "message": "Study guide"
+    "message": "Учебное руководство"
   },
   "documentGenerator_types_q_and_a": {
-    "message": "Q&A"
+    "message": "Вопросы и ответы"
   },
   "documentGenerator_types_meeting_notes": {
-    "message": "Meeting notes"
+    "message": "Заметки встречи"
   },
   "composer_contextTabsEmpty": {
     "message": "Вкладки не выбраны."
@@ -1383,9 +1383,9 @@
     "message": "Подходящих открытых вкладок не найдено."
   },
   "errors_loadLocalHistoryPrefix": {
-    "message": "Failed to load local chat history"
+    "message": "Не удалось загрузить локальную историю чата"
   },
   "errors_loadLocalHistoryDefault": {
-    "message": "Something went wrong while loading local chat history."
+    "message": "Произошла ошибка при загрузке локальной истории чата."
   }
 }
