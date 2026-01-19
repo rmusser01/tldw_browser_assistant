@@ -2,10 +2,8 @@ import React, { useState, useRef, useCallback } from "react"
 import { Button, Tooltip } from "antd"
 import { useTranslation } from "react-i18next"
 import { Play, Square, Loader2 } from "lucide-react"
-import {
-  resolveTtsProviderContext,
-  type TtsProviderOverrides
-} from "@/services/tts-provider"
+import { resolveTtsProviderContext, type TtsProviderOverrides } from "@/services/tts-provider"
+import { applyVoiceSpeedOverrides } from "@/utils/tts-speed"
 
 type ChapterPreviewPlayerProps = {
   content: string
@@ -44,6 +42,9 @@ export const ChapterPreviewPlayer: React.FC<ChapterPreviewPlayerProps> = ({
 
   const handleStop = useCallback(() => {
     cleanup()
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel()
+    }
     setIsPlaying(false)
     setIsLoading(false)
   }, [cleanup])
@@ -57,7 +58,10 @@ export const ChapterPreviewPlayer: React.FC<ChapterPreviewPlayerProps> = ({
     setIsLoading(true)
 
     try {
-      const context = await resolveTtsProviderContext(previewText, voiceConfig)
+      const context = await resolveTtsProviderContext(
+        previewText,
+        applyVoiceSpeedOverrides(voiceConfig)
+      )
 
       if (!context.supported) {
         throw new Error(`TTS provider "${context.provider}" is not supported`)

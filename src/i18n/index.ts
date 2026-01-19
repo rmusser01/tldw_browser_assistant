@@ -17,7 +17,8 @@ const NAMESPACES = [
     "review",
     "dataTables",
     "collections",
-    "evaluations"
+    "evaluations",
+    "audiobook"
 ] as const
 
 type Namespace = typeof NAMESPACES[number]
@@ -27,7 +28,8 @@ const BASE_NAMESPACES: Namespace[] = [
     "sidepanel",
     "settings",
     "playground",
-    "knowledge"
+    "knowledge",
+    "audiobook"
 ]
 
 const LANGUAGE_ALIASES: Record<string, string> = {

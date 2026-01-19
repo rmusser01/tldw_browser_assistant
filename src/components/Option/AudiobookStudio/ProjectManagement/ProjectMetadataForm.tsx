@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
-import { Modal, Form, Input, Typography, Space, Button } from "antd"
+import { Modal, Form, Input, Typography, Space, Button, Upload } from "antd"
+import type { UploadProps } from "antd"
 import { useTranslation } from "react-i18next"
-import { Save, BookOpen, User } from "lucide-react"
+import { Save, BookOpen, User, Image as ImageIcon } from "lucide-react"
 import { useAudiobookStudioStore } from "@/store/audiobook-studio"
 
 const { Text } = Typography
@@ -23,23 +24,48 @@ export const ProjectMetadataForm: React.FC<ProjectMetadataFormProps> = ({
 
   const projectTitle = useAudiobookStudioStore((s) => s.projectTitle)
   const projectAuthor = useAudiobookStudioStore((s) => s.projectAuthor)
+  const projectDescription = useAudiobookStudioStore((s) => s.projectDescription)
+  const projectCoverImageUrl = useAudiobookStudioStore(
+    (s) => s.projectCoverImageUrl
+  )
   const setProjectTitle = useAudiobookStudioStore((s) => s.setProjectTitle)
   const setProjectAuthor = useAudiobookStudioStore((s) => s.setProjectAuthor)
+  const setProjectDescription = useAudiobookStudioStore(
+    (s) => s.setProjectDescription
+  )
+  const setProjectCoverImageUrl = useAudiobookStudioStore(
+    (s) => s.setProjectCoverImageUrl
+  )
+
+  const [coverPreview, setCoverPreview] = useState<string | null>(null)
 
   useEffect(() => {
     if (open) {
       form.setFieldsValue({
         title: projectTitle,
-        author: projectAuthor
+        author: projectAuthor,
+        description: projectDescription
       })
+      setCoverPreview(projectCoverImageUrl || null)
     }
-  }, [open, projectTitle, projectAuthor, form])
+  }, [open, projectTitle, projectAuthor, projectDescription, projectCoverImageUrl, form])
+
+  const handleCoverUpload: UploadProps["beforeUpload"] = (file) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      setCoverPreview(reader.result as string)
+    }
+    reader.readAsDataURL(file)
+    return false
+  }
 
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields()
       setProjectTitle(values.title.trim())
       setProjectAuthor(values.author?.trim() || "")
+      setProjectDescription(values.description?.trim() || "")
+      setProjectCoverImageUrl(coverPreview)
       onSave?.()
       onClose()
     } catch (err) {
@@ -79,7 +105,8 @@ export const ProjectMetadataForm: React.FC<ProjectMetadataFormProps> = ({
         className="py-4"
         initialValues={{
           title: projectTitle,
-          author: projectAuthor
+          author: projectAuthor,
+          description: projectDescription
         }}
       >
         <Form.Item
@@ -116,6 +143,57 @@ export const ProjectMetadataForm: React.FC<ProjectMetadataFormProps> = ({
             prefix={<User className="h-4 w-4 text-text-muted" />}
           />
         </Form.Item>
+
+        <Form.Item
+          name="description"
+          label={t("audiobook:metadata.descriptionLabel", "Description")}
+        >
+          <TextArea
+            rows={3}
+            placeholder={t(
+              "audiobook:metadata.descriptionPlaceholder",
+              "Short description (optional)"
+            )}
+          />
+        </Form.Item>
+
+        <div className="space-y-2">
+          <Text type="secondary" className="text-xs block">
+            {t("audiobook:metadata.coverLabel", "Cover image")}
+          </Text>
+          <div className="flex items-center gap-3">
+            <Upload
+              accept="image/*"
+              showUploadList={false}
+              beforeUpload={handleCoverUpload}
+            >
+              <Button icon={<ImageIcon className="h-4 w-4" />}>
+                {t("audiobook:metadata.coverUpload", "Upload cover")}
+              </Button>
+            </Upload>
+            {coverPreview && (
+              <Button
+                type="text"
+                onClick={() => setCoverPreview(null)}
+              >
+                {t("audiobook:metadata.coverRemove", "Remove cover")}
+              </Button>
+            )}
+          </div>
+          <div className="flex items-center gap-3">
+            {coverPreview ? (
+              <img
+                src={coverPreview}
+                alt={t("audiobook:metadata.coverLabel", "Cover image")}
+                className="h-20 w-20 rounded-md object-cover border border-border"
+              />
+            ) : (
+              <div className="h-20 w-20 rounded-md border border-dashed border-border flex items-center justify-center text-text-muted text-xs">
+                {t("audiobook:metadata.coverHint", "No cover uploaded")}
+              </div>
+            )}
+          </div>
+        </div>
 
         <Text type="secondary" className="text-xs">
           {t(

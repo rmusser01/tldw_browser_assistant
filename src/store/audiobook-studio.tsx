@@ -56,6 +56,10 @@ type AudiobookStudioStore = {
   setProjectTitle: (title: string) => void
   projectAuthor: string
   setProjectAuthor: (author: string) => void
+  projectDescription: string
+  setProjectDescription: (description: string) => void
+  projectCoverImageUrl: string | null
+  setProjectCoverImageUrl: (url: string | null) => void
 
   // Utility
   getTotalDuration: () => number
@@ -121,6 +125,8 @@ export const useAudiobookStudioStore = create<AudiobookStudioStore>(
     defaultVoiceConfig: {},
     projectTitle: "Untitled Audiobook",
     projectAuthor: "",
+    projectDescription: "",
+    projectCoverImageUrl: null,
 
     setCurrentProjectId: (id) => set({ currentProjectId: id }),
 
@@ -242,6 +248,11 @@ export const useAudiobookStudioStore = create<AudiobookStudioStore>(
     setProjectTitle: (title) => set({ projectTitle: title }),
 
     setProjectAuthor: (author) => set({ projectAuthor: author }),
+
+    setProjectDescription: (description) =>
+      set({ projectDescription: description }),
+
+    setProjectCoverImageUrl: (url) => set({ projectCoverImageUrl: url }),
 
     getTotalDuration: () => {
       const state = get()

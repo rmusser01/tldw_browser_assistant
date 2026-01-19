@@ -31,12 +31,14 @@ export type TtsProviderOverrides = {
   provider?: string
   elevenLabsModel?: string
   elevenLabsVoiceId?: string
+  elevenLabsSpeed?: number
   tldwModel?: string
   tldwVoice?: string
   tldwResponseFormat?: string
   tldwSpeed?: number
   openAiModel?: string
   openAiVoice?: string
+  openAiSpeed?: number
 }
 
 export type TtsSynthesisResult = {
@@ -127,6 +129,7 @@ export const resolveTtsProviderContext = async (
     const baseVoice = await getElevenLabsVoiceId()
     const modelId = overrides?.elevenLabsModel || baseModel
     const voiceId = overrides?.elevenLabsVoiceId || baseVoice
+    const speed = overrides?.elevenLabsSpeed
 
     if (!apiKey || !modelId || !voiceId) {
       throw new Error("Missing ElevenLabs configuration")
@@ -138,7 +141,7 @@ export const resolveTtsProviderContext = async (
       playbackSpeed,
       supported: true,
       synthesize: async (segment: string) => ({
-        buffer: await generateSpeech(apiKey, segment, voiceId, modelId),
+        buffer: await generateSpeech(apiKey, segment, voiceId, modelId, speed),
         format: "mp3",
         mimeType: "audio/mpeg"
       })
@@ -155,7 +158,8 @@ export const resolveTtsProviderContext = async (
         buffer: await generateOpenAITTS({
           text: segment,
           model: overrides?.openAiModel,
-          voice: overrides?.openAiVoice
+          voice: overrides?.openAiVoice,
+          speed: overrides?.openAiSpeed
         }),
         format: "mp3",
         mimeType: "audio/mpeg"

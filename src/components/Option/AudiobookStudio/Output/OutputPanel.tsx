@@ -56,9 +56,14 @@ export const OutputPanel: React.FC = () => {
 
   const { downloadChapter, downloadAllChapters } = useAudiobookGeneration()
 
+  const sortedChapters = React.useMemo(
+    () => [...chapters].sort((a, b) => a.order - b.order),
+    [chapters]
+  )
+
   // Combine all chapters into a single audio file
   const handleCombineChapters = useCallback(async () => {
-    const toProcess = chapters.filter(
+    const toProcess = sortedChapters.filter(
       (ch) => ch.status === "completed" && ch.audioBlob
     )
 
@@ -78,7 +83,7 @@ export const OutputPanel: React.FC = () => {
           blob: ch.audioBlob!
         })),
         (index, total) => {
-          setCombineProgress(Math.round((index / total) * 100))
+          setCombineProgress(Math.round(((index + 1) / total) * 100))
         }
       )
 
@@ -100,13 +105,18 @@ export const OutputPanel: React.FC = () => {
       setIsCombining(false)
       setCombineProgress(0)
     }
-  }, [chapters, combinedAudioUrl, t])
+  }, [sortedChapters, combinedAudioUrl, t])
 
   // Download combined audiobook
   const handleDownloadCombined = useCallback(() => {
     if (!combinedAudioBlob) return
 
-    const filename = `${projectTitle.replace(/[^a-zA-Z0-9]/g, "_")}_complete.wav`
+    const extension = combinedAudioBlob.type.includes("wav")
+      ? "wav"
+      : combinedAudioBlob.type.includes("ogg")
+        ? "ogg"
+        : "mp3"
+    const filename = `${projectTitle.replace(/[^a-zA-Z0-9]/g, "_")}_complete.${extension}`
     downloadBlob(combinedAudioBlob, filename)
   }, [combinedAudioBlob, projectTitle])
 
@@ -152,7 +162,7 @@ export const OutputPanel: React.FC = () => {
     }
   }, [combinedAudioUrl])
 
-  const completedChapters = chapters.filter(
+  const completedChapters = sortedChapters.filter(
     (ch) => ch.status === "completed" && ch.audioBlob
   )
   const totalDuration = getTotalDuration()
@@ -224,7 +234,7 @@ export const OutputPanel: React.FC = () => {
       render: (_: any, __: any, index: number) => index + 1
     },
     {
-      title: t("audiobook:output.title", "Title"),
+      title: t("audiobook:output.columnTitle", "Title"),
       dataIndex: "title",
       key: "title",
       render: (title: string, record: AudioChapter) => (
@@ -327,7 +337,7 @@ export const OutputPanel: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
           <div>
             <Title level={5} className="!mb-1">
-              {t("audiobook:output.title", "Output")}
+              {t("audiobook:output.panelTitle", "Output")}
             </Title>
             <div className="flex flex-wrap items-center gap-4 text-sm text-text-muted">
               <span>
@@ -374,7 +384,7 @@ export const OutputPanel: React.FC = () => {
             </Dropdown>
             <Button
               icon={<Download className="h-4 w-4" />}
-              onClick={() => downloadAllChapters(chapters, projectTitle)}
+              onClick={() => downloadAllChapters(sortedChapters, projectTitle)}
               disabled={completedChapters.length === 0}
             >
               {t("audiobook:output.downloadAll", "Download All Chapters")}
@@ -392,7 +402,7 @@ export const OutputPanel: React.FC = () => {
         )}
 
         <Table
-          dataSource={chapters}
+          dataSource={sortedChapters}
           columns={columns}
           rowKey="id"
           size="small"
@@ -429,7 +439,7 @@ export const OutputPanel: React.FC = () => {
             <p>
               {t(
                 "audiobook:output.exportInfoDesc3",
-                "Tip: Use an audio editing tool to combine chapters into a single audiobook file if needed."
+                "Tip: Use Combine All to download a single WAV audiobook file."
               )}
             </p>
           </div>

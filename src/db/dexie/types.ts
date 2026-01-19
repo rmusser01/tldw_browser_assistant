@@ -334,6 +334,7 @@ export type AudiobookProject = {
   author: string
   description?: string
   coverImageAssetId?: string
+  coverImageUrl?: string
   rawContent: string
   chapters: SerializedAudioChapter[]
   chapterAudioAssetIds: Record<string, string> // chapterId -> AudiobookChapterAsset.id

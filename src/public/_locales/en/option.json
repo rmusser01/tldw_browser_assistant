@@ -2944,5 +2944,11 @@
   },
   "header_chatbooksPlayground": {
     "message": "Chatbooks Playground"
+  },
+  "header_audiobookStudio": {
+    "message": "Audiobook Studio"
+  },
+  "header_workflowEditor": {
+    "message": "Workflow Editor"
   }
 }

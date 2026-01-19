@@ -5,17 +5,20 @@ export const generateOpenAITTS: (params: {
   text: string
   model?: string
   voice?: string
+  speed?: number
 }) => Promise<ArrayBuffer> = async ({
   text,
   model: overrideModel,
-  voice: overrideVoice
+  voice: overrideVoice,
+  speed
 }) => {
   const model = overrideModel || (await getOpenAITTSModel())
   const voice = overrideVoice || (await getOpenAITTSVoice())
 
   const audio = await tldwClient.synthesizeSpeech(text, {
     model,
-    voice
+    voice,
+    speed
   })
 
   return audio

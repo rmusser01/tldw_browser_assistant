@@ -1522,5 +1522,26 @@
   },
   "errors_loadLocalHistoryDefault": {
     "message": "Something went wrong while loading local chat history."
+  },
+  "actor_modeSimple": {
+    "message": "Simple"
+  },
+  "actor_modeAdvanced": {
+    "message": "Advanced"
+  },
+  "actor_showAllOptions": {
+    "message": "Show all options"
+  },
+  "actor_quickSetupLabel": {
+    "message": "Quick setup"
+  },
+  "actor_quickSetupHint": {
+    "message": "Click a preset to apply"
+  },
+  "actor_resetConfirmTitle": {
+    "message": "Reset Actor settings?"
+  },
+  "actor_resetConfirmBody": {
+    "message": "This will clear all configured aspects, notes, and placement settings for this chat. This action cannot be undone."
   }
 }

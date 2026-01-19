@@ -3,6 +3,7 @@ import { Select, Space, Typography } from "antd"
 import { useTranslation } from "react-i18next"
 import { Mic } from "lucide-react"
 import { useStorage } from "@plasmohq/storage/hook"
+import { useQuery } from "@tanstack/react-query"
 import {
   useTtsProviderData,
   OPENAI_TTS_MODELS,
@@ -12,6 +13,7 @@ import {
   inferTldwProviderFromModel,
   type TtsProviderOverrides
 } from "@/services/tts-provider"
+import { getTTSSettings } from "@/services/tts"
 
 const { Text } = Typography
 
@@ -28,8 +30,12 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
 }) => {
   const { t } = useTranslation(["audiobook", "playground"])
   const [elevenLabsApiKey] = useStorage<string | null>("elevenLabsApiKey", null)
+  const { data: ttsSettings } = useQuery({
+    queryKey: ["fetchTTSSettings"],
+    queryFn: getTTSSettings
+  })
 
-  const provider = voiceConfig.provider || "tldw"
+  const provider = voiceConfig.provider || ttsSettings?.ttsProvider || "browser"
   // Infer tldw provider key from the selected model
   const inferredProviderKey = inferTldwProviderFromModel(voiceConfig.tldwModel)
 

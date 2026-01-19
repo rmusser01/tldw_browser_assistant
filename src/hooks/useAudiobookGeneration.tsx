@@ -1,9 +1,7 @@
 import { useCallback, useRef } from "react"
 import { useTranslation } from "react-i18next"
-import {
-  resolveTtsProviderContext,
-  type TtsProviderOverrides
-} from "@/services/tts-provider"
+import { resolveTtsProviderContext } from "@/services/tts-provider"
+import { applyVoiceSpeedOverrides, type TtsVoiceConfig } from "@/utils/tts-speed"
 import { useAntdNotification } from "./useAntdNotification"
 import {
   useAudiobookStudioStore,
@@ -12,13 +10,13 @@ import {
 
 type GenerateChapterOptions = {
   chapter: AudioChapter
-  overrides?: TtsProviderOverrides
+  overrides?: TtsVoiceConfig
   onProgress?: (chapterId: string, progress: number) => void
 }
 
 type GenerateAllOptions = {
   chapters: AudioChapter[]
-  overrides?: TtsProviderOverrides
+  overrides?: TtsVoiceConfig
   onChapterStart?: (chapterId: string) => void
   onChapterComplete?: (chapterId: string) => void
   onChapterError?: (chapterId: string, error: Error) => void
@@ -45,10 +43,10 @@ export const useAudiobookGeneration = () => {
       overrides
     }: GenerateChapterOptions): Promise<Blob | null> => {
       try {
-        const effectiveOverrides: TtsProviderOverrides = {
+        const effectiveOverrides = applyVoiceSpeedOverrides({
           ...chapter.voiceConfig,
           ...overrides
-        }
+        })
 
         const context = await resolveTtsProviderContext(
           chapter.content,
@@ -93,7 +91,7 @@ export const useAudiobookGeneration = () => {
   const generateSingleChapter = useCallback(
     async (
       chapter: AudioChapter,
-      overrides?: TtsProviderOverrides
+      overrides?: TtsVoiceConfig
     ): Promise<boolean> => {
       setCurrentGeneratingId(chapter.id)
       updateChapter(chapter.id, { status: "generating", errorMessage: undefined })
@@ -102,11 +100,16 @@ export const useAudiobookGeneration = () => {
         const blob = await generateChapterAudio({ chapter, overrides })
 
         if (!blob) {
-          updateChapter(chapter.id, { status: "error", errorMessage: "No audio generated" })
+          updateChapter(chapter.id, { status: "pending", errorMessage: undefined })
           return false
         }
 
         const url = URL.createObjectURL(blob)
+        if (chapter.audioUrl) {
+          try {
+            URL.revokeObjectURL(chapter.audioUrl)
+          } catch {}
+        }
 
         // Get audio duration
         const duration = await new Promise<number>((resolve) => {
@@ -183,16 +186,16 @@ export const useAudiobookGeneration = () => {
           }
 
           if (!blob) {
-            updateChapter(chapter.id, {
-              status: "error",
-              errorMessage: "No audio generated"
-            })
-            failed++
-            onChapterError?.(chapter.id, new Error("No audio generated"))
+            updateChapter(chapter.id, { status: "pending", errorMessage: undefined })
             continue
           }
 
           const url = URL.createObjectURL(blob)
+          if (chapter.audioUrl) {
+            try {
+              URL.revokeObjectURL(chapter.audioUrl)
+            } catch {}
+          }
 
           const duration = await new Promise<number>((resolve) => {
             const audio = new Audio(url)
@@ -268,7 +271,11 @@ export const useAudiobookGeneration = () => {
         return
       }
 
-      const extension = chapter.audioBlob.type.includes("wav") ? "wav" : "mp3"
+      const extension = chapter.audioBlob.type.includes("wav")
+        ? "wav"
+        : chapter.audioBlob.type.includes("ogg")
+          ? "ogg"
+          : "mp3"
       const name =
         filename ||
         `${chapter.title.replace(/[^a-zA-Z0-9]/g, "_")}.${extension}`
@@ -285,9 +292,9 @@ export const useAudiobookGeneration = () => {
 
   const downloadAllChapters = useCallback(
     (chapters: AudioChapter[], projectTitle?: string) => {
-      const completedChapters = chapters.filter(
-        (ch) => ch.status === "completed" && ch.audioBlob
-      )
+      const completedChapters = chapters
+        .filter((ch) => ch.status === "completed" && ch.audioBlob)
+        .sort((a, b) => a.order - b.order)
 
       if (completedChapters.length === 0) {
         notification.warning({
@@ -303,7 +310,11 @@ export const useAudiobookGeneration = () => {
       const prefix = projectTitle?.replace(/[^a-zA-Z0-9]/g, "_") || "audiobook"
 
       completedChapters.forEach((chapter, idx) => {
-        const extension = chapter.audioBlob?.type.includes("wav") ? "wav" : "mp3"
+        const extension = chapter.audioBlob?.type.includes("wav")
+          ? "wav"
+          : chapter.audioBlob?.type.includes("ogg")
+            ? "ogg"
+            : "mp3"
         const name = `${prefix}_${String(idx + 1).padStart(2, "0")}_${chapter.title.replace(/[^a-zA-Z0-9]/g, "_")}.${extension}`
         downloadChapter(chapter, name)
       })

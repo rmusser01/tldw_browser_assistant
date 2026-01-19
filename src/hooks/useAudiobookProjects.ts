@@ -9,7 +9,6 @@ import {
   markProjectOpened,
   storeChapterAudio,
   getChapterAudioBlob,
-  deleteChapterAssetsByProject,
   serializeChapters,
   createEmptyProject
 } from "@/db/dexie/audiobook-projects"
@@ -82,6 +81,10 @@ export function useCurrentProject() {
   const chapters = useAudiobookStudioStore((s) => s.chapters)
   const projectTitle = useAudiobookStudioStore((s) => s.projectTitle)
   const projectAuthor = useAudiobookStudioStore((s) => s.projectAuthor)
+  const projectDescription = useAudiobookStudioStore((s) => s.projectDescription)
+  const projectCoverImageUrl = useAudiobookStudioStore(
+    (s) => s.projectCoverImageUrl
+  )
   const defaultVoiceConfig = useAudiobookStudioStore((s) => s.defaultVoiceConfig)
   const getTotalDuration = useAudiobookStudioStore((s) => s.getTotalDuration)
 
@@ -91,8 +94,13 @@ export function useCurrentProject() {
   const setChapters = useAudiobookStudioStore((s) => s.setChapters)
   const setProjectTitle = useAudiobookStudioStore((s) => s.setProjectTitle)
   const setProjectAuthor = useAudiobookStudioStore((s) => s.setProjectAuthor)
+  const setProjectDescription = useAudiobookStudioStore(
+    (s) => s.setProjectDescription
+  )
+  const setProjectCoverImageUrl = useAudiobookStudioStore(
+    (s) => s.setProjectCoverImageUrl
+  )
   const setDefaultVoiceConfig = useAudiobookStudioStore((s) => s.setDefaultVoiceConfig)
-  const updateChapter = useAudiobookStudioStore((s) => s.updateChapter)
   const clearChapters = useAudiobookStudioStore((s) => s.clearChapters)
   const revokeAllAudioUrls = useAudiobookStudioStore((s) => s.revokeAllAudioUrls)
 
@@ -109,6 +117,8 @@ export function useCurrentProject() {
       setCurrentProjectId(project.id)
       setProjectTitle(project.title)
       setProjectAuthor(project.author)
+      setProjectDescription(project.description || "")
+      setProjectCoverImageUrl(project.coverImageUrl || null)
       setRawContent(project.rawContent)
       setDefaultVoiceConfig(project.defaultVoiceConfig)
 
@@ -164,12 +174,18 @@ export function useCurrentProject() {
     async (id?: string) => {
       const targetId = id || projectId || crypto.randomUUID()
       const now = Date.now()
+      const existingProject = projectId
+        ? await getAudiobookProjectById(targetId)
+        : undefined
 
       // Store chapter audio blobs
+      const existingAssetIds = existingProject?.chapterAudioAssetIds || {}
       const chapterAudioAssetIds: Record<string, string> = {}
 
       for (const chapter of chapters) {
-        if (chapter.audioBlob && chapter.status === "completed") {
+        if (chapter.status !== "completed") continue
+
+        if (chapter.audioBlob) {
           const result = await storeChapterAudio(
             targetId,
             chapter.id,
@@ -177,7 +193,17 @@ export function useCurrentProject() {
           )
           if (result.assetId) {
             chapterAudioAssetIds[chapter.id] = result.assetId
+          } else if (existingAssetIds[chapter.id]) {
+            chapterAudioAssetIds[chapter.id] = existingAssetIds[chapter.id]
+            console.warn(
+              "Audiobook assets storage cap reached; keeping existing asset."
+            )
           }
+          continue
+        }
+
+        if (existingAssetIds[chapter.id]) {
+          chapterAudioAssetIds[chapter.id] = existingAssetIds[chapter.id]
         }
       }
 
@@ -194,13 +220,15 @@ export function useCurrentProject() {
         id: targetId,
         title: projectTitle,
         author: projectAuthor,
+        description: projectDescription || undefined,
+        coverImageUrl: projectCoverImageUrl || undefined,
         rawContent,
         chapters: serializeChapters(chapters),
         chapterAudioAssetIds,
         defaultVoiceConfig,
         status,
         totalDuration: getTotalDuration(),
-        createdAt: projectId ? (await getAudiobookProjectById(targetId))?.createdAt || now : now,
+        createdAt: existingProject?.createdAt || now,
         updatedAt: now
       }
 
@@ -219,6 +247,8 @@ export function useCurrentProject() {
       chapters,
       projectTitle,
       projectAuthor,
+      projectDescription,
+      projectCoverImageUrl,
       defaultVoiceConfig,
       getTotalDuration,
       setCurrentProjectId,
@@ -235,6 +265,8 @@ export function useCurrentProject() {
       setRawContent("")
       setProjectTitle(title || "Untitled Audiobook")
       setProjectAuthor("")
+      setProjectDescription("")
+      setProjectCoverImageUrl(null)
       setDefaultVoiceConfig({})
 
       // Create new project in DB
@@ -252,6 +284,8 @@ export function useCurrentProject() {
       setRawContent,
       setProjectTitle,
       setProjectAuthor,
+      setProjectDescription,
+      setProjectCoverImageUrl,
       setDefaultVoiceConfig,
       setCurrentProjectId,
       revokeAllAudioUrls,
@@ -271,9 +305,19 @@ export function useCurrentProject() {
     if (saved.chapters.length !== chapters.length) return true
     if (saved.title !== projectTitle) return true
     if (saved.author !== projectAuthor) return true
+    if ((saved.description || "") !== projectDescription) return true
+    if ((saved.coverImageUrl || "") !== (projectCoverImageUrl || "")) return true
 
     return false
-  }, [projectId, rawContent, chapters, projectTitle, projectAuthor])
+  }, [
+    projectId,
+    rawContent,
+    chapters,
+    projectTitle,
+    projectAuthor,
+    projectDescription,
+    projectCoverImageUrl
+  ])
 
   return {
     projectId,

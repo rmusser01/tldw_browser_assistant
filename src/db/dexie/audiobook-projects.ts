@@ -226,6 +226,8 @@ export function createEmptyProject(title?: string): AudiobookProject {
     id: crypto.randomUUID(),
     title: title || "Untitled Audiobook",
     author: "",
+    description: "",
+    coverImageUrl: "",
     rawContent: "",
     chapters: [],
     chapterAudioAssetIds: {},

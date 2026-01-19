@@ -154,7 +154,7 @@ export const ChapterList: React.FC = () => {
                 value={newChapterTitle}
                 onChange={(e) => setNewChapterTitle(e.target.value)}
                 placeholder={t(
-                  "audiobook:chapters.titlePlaceholder",
+                  "audiobook:chapters.titlePlaceholderOptional",
                   "Chapter title (optional)"
                 )}
               />

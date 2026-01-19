@@ -36,7 +36,19 @@ export const AudiobookPlayer: React.FC<AudiobookPlayerProps> = ({
 
   // Initialize audio element
   useEffect(() => {
-    if (!audioUrl) return
+    if (audioRef.current) {
+      audioRef.current.pause()
+    }
+
+    setIsPlaying(false)
+    setCurrentTime(0)
+    setDuration(0)
+    setCurrentChapterIndex(0)
+
+    if (!audioUrl) {
+      audioRef.current = null
+      return
+    }
 
     const audio = new Audio(audioUrl)
     audioRef.current = audio

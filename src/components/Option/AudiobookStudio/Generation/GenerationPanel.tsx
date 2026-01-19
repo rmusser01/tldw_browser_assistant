@@ -153,7 +153,7 @@ export const GenerationPanel: React.FC = () => {
             <Text type="secondary" className="text-sm">
               {t(
                 "audiobook:generation.voiceSettingsDesc",
-                "Configure the default voice for all chapters. Using provider: {{provider}}",
+                "Configure the default voice for new chapters. Existing chapters keep their current settings. Using provider: {{provider}}",
                 { provider: providerLabel }
               )}
             </Text>

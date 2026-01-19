@@ -45,6 +45,13 @@ export const AudiobookStudioPage: React.FC = () => {
   const rawContent = useAudiobookStudioStore((s) => s.rawContent)
   const isGenerating = useAudiobookStudioStore((s) => s.isGenerating)
   const projectTitle = useAudiobookStudioStore((s) => s.projectTitle)
+  const projectAuthor = useAudiobookStudioStore((s) => s.projectAuthor)
+  const projectDescription = useAudiobookStudioStore(
+    (s) => s.projectDescription
+  )
+  const projectCoverImageUrl = useAudiobookStudioStore(
+    (s) => s.projectCoverImageUrl
+  )
   const projectId = useAudiobookStudioStore((s) => s.currentProjectId)
   const setProjectTitle = useAudiobookStudioStore((s) => s.setProjectTitle)
   const revokeAllAudioUrls = useAudiobookStudioStore((s) => s.revokeAllAudioUrls)
@@ -75,7 +82,14 @@ export const AudiobookStudioPage: React.FC = () => {
   // Auto-save when content changes (debounced)
   useEffect(() => {
     // Mark as having unsaved changes
-    if (rawContent || chapters.length > 0) {
+    if (
+      rawContent ||
+      chapters.length > 0 ||
+      projectTitle ||
+      projectAuthor ||
+      projectDescription ||
+      projectCoverImageUrl
+    ) {
       setHasUnsaved(true)
     }
 
@@ -102,7 +116,16 @@ export const AudiobookStudioPage: React.FC = () => {
         clearTimeout(debounceTimerRef.current)
       }
     }
-  }, [rawContent, chapters, projectId, saveProject])
+  }, [
+    rawContent,
+    chapters,
+    projectTitle,
+    projectAuthor,
+    projectDescription,
+    projectCoverImageUrl,
+    projectId,
+    saveProject
+  ])
 
   // Periodic auto-save
   useEffect(() => {

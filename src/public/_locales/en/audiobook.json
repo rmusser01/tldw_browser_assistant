@@ -1,0 +1,557 @@
+{
+  "tabs_content": {
+    "message": "Content"
+  },
+  "tabs_chapters": {
+    "message": "Chapters"
+  },
+  "tabs_generate": {
+    "message": "Generate"
+  },
+  "tabs_output": {
+    "message": "Output"
+  },
+  "generating": {
+    "message": "Generating..."
+  },
+  "title": {
+    "message": "Audiobook Studio"
+  },
+  "subtitle": {
+    "message": "Convert text into professional audiobooks with AI-powered text-to-speech."
+  },
+  "backToEditor": {
+    "message": "Back to Editor"
+  },
+  "projects_myProjects": {
+    "message": "My Projects"
+  },
+  "projects_new": {
+    "message": "New"
+  },
+  "projects_loadError": {
+    "message": "Failed to load project"
+  },
+  "projects_duplicated": {
+    "message": "Project duplicated"
+  },
+  "projects_deleted": {
+    "message": "Project deleted"
+  },
+  "projects_statusCompleted": {
+    "message": "Completed"
+  },
+  "projects_statusInProgress": {
+    "message": "In Progress"
+  },
+  "projects_statusDraft": {
+    "message": "Draft"
+  },
+  "projects_columnTitle": {
+    "message": "Title"
+  },
+  "projects_by": {
+    "message": "by"
+  },
+  "projects_columnStatus": {
+    "message": "Status"
+  },
+  "projects_columnChapters": {
+    "message": "Chapters"
+  },
+  "projects_columnDuration": {
+    "message": "Duration"
+  },
+  "projects_columnModified": {
+    "message": "Modified"
+  },
+  "projects_columnActions": {
+    "message": "Actions"
+  },
+  "projects_open": {
+    "message": "Open"
+  },
+  "projects_deleteConfirm": {
+    "message": "Delete this project?"
+  },
+  "projects_deleteConfirmDesc": {
+    "message": "This will permanently delete the project and all its audio."
+  },
+  "projects_title": {
+    "message": "My Audiobook Projects"
+  },
+  "projects_description": {
+    "message": "Manage your saved audiobook projects"
+  },
+  "projects_search": {
+    "message": "Search projects..."
+  },
+  "projects_createNew": {
+    "message": "New Project"
+  },
+  "projects_noResults": {
+    "message": "No projects found"
+  },
+  "projects_empty": {
+    "message": "No projects yet. Create your first audiobook project!"
+  },
+  "projects_createFirst": {
+    "message": "Create First Project"
+  },
+  "lastSaved": {
+    "message": "Last saved: {{time}}"
+  },
+  "notSavedYet": {
+    "message": "Not saved yet"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "saved": {
+    "message": "Saved"
+  },
+  "saveError": {
+    "message": "Failed to save project"
+  },
+  "projectTitle": {
+    "message": "Project Title"
+  },
+  "projectTitlePlaceholder": {
+    "message": "My Audiobook"
+  },
+  "stats_chapters": {
+    "message": "{{count}} chapters"
+  },
+  "stats_completed": {
+    "message": "{{count}} completed"
+  },
+  "stats_pending": {
+    "message": "{{count}} pending"
+  },
+  "autoSaved": {
+    "message": "Auto-saved {{time}}"
+  },
+  "status_generating": {
+    "message": "Generating..."
+  },
+  "status_completed": {
+    "message": "Completed"
+  },
+  "status_error": {
+    "message": "Error"
+  },
+  "status_pending": {
+    "message": "Pending"
+  },
+  "chapters_titlePlaceholder": {
+    "message": "Chapter title"
+  },
+  "chapters_titlePlaceholderOptional": {
+    "message": "Chapter title (optional)"
+  },
+  "chapters_deleteConfirm": {
+    "message": "Delete this chapter?"
+  },
+  "chapters_showContent": {
+    "message": "Show content"
+  },
+  "chapters_words": {
+    "message": "words"
+  },
+  "chapters_voiceSettings": {
+    "message": "Voice settings"
+  },
+  "chapters_speed": {
+    "message": "Speed"
+  },
+  "chapters_listTitle": {
+    "message": "Chapter List"
+  },
+  "chapters_chaptersCount": {
+    "message": "chapters"
+  },
+  "chapters_add": {
+    "message": "Add chapter"
+  },
+  "chapters_clearConfirmTitle": {
+    "message": "Clear all chapters?"
+  },
+  "chapters_clearConfirmDesc": {
+    "message": "This will delete all chapters and their generated audio."
+  },
+  "chapters_clearAll": {
+    "message": "Clear all"
+  },
+  "chapters_newChapter": {
+    "message": "New Chapter"
+  },
+  "chapters_contentPlaceholder": {
+    "message": "Chapter content..."
+  },
+  "chapters_addButton": {
+    "message": "Add"
+  },
+  "chapters_empty": {
+    "message": "No chapters yet. Split your content in the Content tab or add chapters manually."
+  },
+  "chapters_addFirst": {
+    "message": "Add first chapter"
+  },
+  "download": {
+    "message": "Download"
+  },
+  "generateChapter": {
+    "message": "Generate"
+  },
+  "regenerate": {
+    "message": "Regenerate"
+  },
+  "preview_stop": {
+    "message": "Stop preview"
+  },
+  "preview_play": {
+    "message": "Preview first {{count}} words"
+  },
+  "preview_button": {
+    "message": "Preview"
+  },
+  "voice_selectModel": {
+    "message": "Model"
+  },
+  "voice_selectVoice": {
+    "message": "Voice"
+  },
+  "voice_providerLabel": {
+    "message": "Provider"
+  },
+  "voice_modelLabel": {
+    "message": "Model"
+  },
+  "voice_voiceLabel": {
+    "message": "Voice"
+  },
+  "content_inputLabel": {
+    "message": "Paste or type your content"
+  },
+  "content_inputHint": {
+    "message": "Supports plain text and markdown formatting. Use headings (# H1, ## H2) to define chapters."
+  },
+  "content_edit": {
+    "message": "Edit"
+  },
+  "content_preview": {
+    "message": "Preview"
+  },
+  "content_split": {
+    "message": "Split"
+  },
+  "content_import": {
+    "message": "Import"
+  },
+  "content_insertSample": {
+    "message": "Insert sample"
+  },
+  "content_placeholder": {
+    "message": "Paste your book content here...\n\nUse markdown headings to define chapters:\n# Chapter 1\n\nChapter content goes here..."
+  },
+  "content_noContentPreview": {
+    "message": "No content to preview. Enter text in Edit mode."
+  },
+  "content_chars": {
+    "message": "{{count}} characters"
+  },
+  "content_words": {
+    "message": "{{count}} words"
+  },
+  "content_estimatedTime": {
+    "message": "~{{minutes}} min audio"
+  },
+  "split_title": {
+    "message": "Split into chapters"
+  },
+  "split_description": {
+    "message": "Choose how to divide your content into separate audio chapters."
+  },
+  "split_headings": {
+    "message": "By headings"
+  },
+  "split_headingsDesc": {
+    "message": "Split at markdown headings (# ## ###)"
+  },
+  "split_paragraphs": {
+    "message": "By paragraphs"
+  },
+  "split_paragraphsDesc": {
+    "message": "Split at double line breaks"
+  },
+  "split_custom": {
+    "message": "Custom delimiter"
+  },
+  "split_customDesc": {
+    "message": "Split at a custom text pattern"
+  },
+  "split_delimiterPlaceholder": {
+    "message": "---"
+  },
+  "split_delimiter": {
+    "message": "Delimiter"
+  },
+  "split_existingChapters": {
+    "message": "You have {{count}} chapters. Splitting again will replace them."
+  },
+  "split_button": {
+    "message": "Split into chapters"
+  },
+  "import_title": {
+    "message": "Import from Knowledge Base"
+  },
+  "import_importButton": {
+    "message": "Import Content"
+  },
+  "import_loadMediaListError": {
+    "message": "Failed to load media library"
+  },
+  "import_selectMedia": {
+    "message": "Select media item"
+  },
+  "import_selectPlaceholder": {
+    "message": "Search and select media..."
+  },
+  "import_noMediaFound": {
+    "message": "No media found"
+  },
+  "import_loadingContent": {
+    "message": "Loading content..."
+  },
+  "import_preview": {
+    "message": "Content Preview"
+  },
+  "import_charCount": {
+    "message": "{{count}} characters"
+  },
+  "import_mediaCount": {
+    "message": "{{count}} media items available"
+  },
+  "import_noContentFound": {
+    "message": "No text content found for this media item"
+  },
+  "import_loadContentError": {
+    "message": "Failed to load media content"
+  },
+  "generation_noChapters": {
+    "message": "Add chapters first to generate audio."
+  },
+  "generation_browserWarningTitle": {
+    "message": "Browser TTS cannot export audio"
+  },
+  "generation_browserWarningDesc": {
+    "message": "The browser TTS provider streams audio directly and cannot be saved to files. Please switch to a different TTS provider (tldw, ElevenLabs, or OpenAI) in your settings to generate downloadable audiobook files."
+  },
+  "generation_voiceSettings": {
+    "message": "Voice Settings"
+  },
+  "generation_voiceSettingsDesc": {
+    "message": "Configure the default voice for new chapters. Existing chapters keep their current settings. Using provider: {{provider}}"
+  },
+  "generation_model": {
+    "message": "Model"
+  },
+  "generation_selectModel": {
+    "message": "Select model"
+  },
+  "generation_noModels": {
+    "message": "No models available"
+  },
+  "generation_voice": {
+    "message": "Voice"
+  },
+  "generation_selectVoice": {
+    "message": "Select voice"
+  },
+  "generation_title": {
+    "message": "Generate Audio"
+  },
+  "generation_description": {
+    "message": "Generate audio for all pending chapters sequentially."
+  },
+  "generation_completed": {
+    "message": "Completed:"
+  },
+  "generation_errors": {
+    "message": "Errors:"
+  },
+  "generation_pending": {
+    "message": "Pending:"
+  },
+  "generation_currentlyGenerating": {
+    "message": "Generating chapter {{current}} of {{total}}: {{title}}"
+  },
+  "generation_generateAll": {
+    "message": "Generate all"
+  },
+  "generation_generateRemaining": {
+    "message": "Generate remaining ({{count}})"
+  },
+  "generation_cancel": {
+    "message": "Cancel"
+  },
+  "generation_allComplete": {
+    "message": "All chapters generated successfully!"
+  },
+  "generation_allCompleteDesc": {
+    "message": "Go to the Output tab to download your audiobook files."
+  },
+  "output_noChaptersToCombine": {
+    "message": "No chapters to combine"
+  },
+  "output_combineSuccess": {
+    "message": "Audiobook combined successfully"
+  },
+  "output_combineError": {
+    "message": "Failed to combine chapters"
+  },
+  "output_combineFirst": {
+    "message": "Combine chapters first to export subtitles"
+  },
+  "output_subtitleExported": {
+    "message": "Subtitles exported as {{format}}"
+  },
+  "output_exportSrt": {
+    "message": "Export SRT"
+  },
+  "output_exportVtt": {
+    "message": "Export VTT"
+  },
+  "output_columnTitle": {
+    "message": "Title"
+  },
+  "output_panelTitle": {
+    "message": "Output"
+  },
+  "output_duration": {
+    "message": "Duration"
+  },
+  "output_status": {
+    "message": "Status"
+  },
+  "output_actions": {
+    "message": "Actions"
+  },
+  "output_stop": {
+    "message": "Stop"
+  },
+  "output_play": {
+    "message": "Play"
+  },
+  "output_download": {
+    "message": "Download"
+  },
+  "output_noChapters": {
+    "message": "No chapters to export. Add content and generate audio first."
+  },
+  "output_completedChapters": {
+    "message": "{{count}} chapters ready"
+  },
+  "output_totalDuration": {
+    "message": "Total: {{duration}}"
+  },
+  "output_combining": {
+    "message": "Combining... {{progress}}%"
+  },
+  "output_combine": {
+    "message": "Combine All"
+  },
+  "output_downloadCombined": {
+    "message": "Download Audiobook"
+  },
+  "output_subtitles": {
+    "message": "Subtitles"
+  },
+  "output_downloadAll": {
+    "message": "Download All Chapters"
+  },
+  "output_exportInfo": {
+    "message": "Export Information"
+  },
+  "output_exportInfoDesc1": {
+    "message": "Each chapter is exported as a separate audio file in MP3 format."
+  },
+  "output_exportInfoDesc2": {
+    "message": "Files are named with the project title and chapter number for easy organization."
+  },
+  "output_exportInfoDesc3": {
+    "message": "Tip: Use Combine All to download a single WAV audiobook file."
+  },
+  "player_noAudio": {
+    "message": "No combined audiobook available. Generate and combine chapters first."
+  },
+  "player_title": {
+    "message": "Audiobook Player"
+  },
+  "player_nowPlaying": {
+    "message": "Now playing"
+  },
+  "player_chapter": {
+    "message": "Chapter {{num}}"
+  },
+  "player_chapters": {
+    "message": "Chapters"
+  },
+  "metadata_title": {
+    "message": "Project Details"
+  },
+  "metadata_titleLabel": {
+    "message": "Audiobook Title"
+  },
+  "metadata_titleRequired": {
+    "message": "Please enter a title"
+  },
+  "metadata_titlePlaceholder": {
+    "message": "My Audiobook"
+  },
+  "metadata_authorLabel": {
+    "message": "Author"
+  },
+  "metadata_authorPlaceholder": {
+    "message": "Author name (optional)"
+  },
+  "metadata_descriptionLabel": {
+    "message": "Description"
+  },
+  "metadata_descriptionPlaceholder": {
+    "message": "Short description (optional)"
+  },
+  "metadata_coverLabel": {
+    "message": "Cover image"
+  },
+  "metadata_coverUpload": {
+    "message": "Upload cover"
+  },
+  "metadata_coverRemove": {
+    "message": "Remove cover"
+  },
+  "metadata_coverHint": {
+    "message": "No cover uploaded"
+  },
+  "metadata_hint": {
+    "message": "These details will be used when exporting your audiobook."
+  },
+  "browserTtsWarning": {
+    "message": "Browser TTS cannot export audio"
+  },
+  "browserTtsWarningDesc": {
+    "message": "Browser TTS streams audio directly and cannot be saved. Please switch to a different TTS provider for audiobook generation."
+  },
+  "noAudioToDownload": {
+    "message": "No audio to download"
+  },
+  "generateFirst": {
+    "message": "Generate the chapter audio first."
+  },
+  "noChaptersToDownload": {
+    "message": "No chapters to download"
+  },
+  "generateChaptersFirst": {
+    "message": "Generate chapter audio first."
+  }
+}

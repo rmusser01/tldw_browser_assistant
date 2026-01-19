@@ -96,7 +96,6 @@ export const ActorEditor: React.FC<Props> = ({
     React.useState<ActorPresetId | null>(null)
   const [activeBlade, setActiveBlade] =
     React.useState<ActorBladeId>("aspects")
-  const watchedValues = Form.useWatch([], form)
   const bladeContentRefs = React.useRef<Record<ActorBladeId, HTMLDivElement | null>>({
     aspects: null,
     notes: null,
@@ -312,9 +311,9 @@ export const ActorEditor: React.FC<Props> = ({
         : []
 
       const warning = loreWarnings[aspect.id]
-      const watchedValue = watchedValues?.[fieldName]
+      const liveValue = form.getFieldValue(fieldName)
       const hasValue = Boolean(
-        String(watchedValue ?? aspect.value ?? "").trim()
+        String(liveValue ?? aspect.value ?? "").trim()
       )
 
       const handleSourceChange = (nextSource: ActorSource) => {
@@ -648,7 +647,6 @@ export const ActorEditor: React.FC<Props> = ({
       setSettings,
       settings,
       t,
-      watchedValues,
       worldBooks,
       worldBooksLoading
     ]

@@ -1978,26 +1978,130 @@ test.describe("Real server end-to-end workflows", () => {
 
       const userMessage = `E2E flashcards flow ${Date.now()}`
       await sendChatMessage(chatPage, userMessage)
-      const lastAssistant = await waitForAssistantMessage(chatPage)
-      const assistantTextRaw = await getAssistantText(lastAssistant)
-      const assistantText = assistantTextRaw.replace(/\s+/g, " ").trim()
+      await waitForAssistantMessage(chatPage)
+      const assistantSnapshot = await chatPage
+        .waitForFunction(
+          () => {
+            const store = (window as any).__tldw_useStoreMessageOption
+            const state = store?.getState?.()
+            if (!state?.serverChatId) return null
+            const messages = Array.isArray(state?.messages)
+              ? state.messages
+              : []
+            for (let i = messages.length - 1; i >= 0; i -= 1) {
+              const msg = messages[i]
+              if (!msg?.isBot) continue
+              if (msg?.messageType === "character:greeting") continue
+              const content =
+                typeof msg?.message === "string" ? msg.message : ""
+              const trimmed = content.replace(/\s+/g, " ").trim()
+              if (!trimmed || trimmed.includes("▋")) return null
+              return {
+                text: trimmed,
+                localId: msg?.id != null ? String(msg.id) : null,
+                serverMessageId:
+                  msg?.serverMessageId != null
+                    ? String(msg.serverMessageId)
+                    : null,
+                serverChatId: String(state.serverChatId)
+              }
+            }
+            return null
+          },
+          undefined,
+          { timeout: 90000 }
+        )
+        .then((handle) => handle.jsonValue())
+      if (!assistantSnapshot?.serverChatId || !assistantSnapshot?.text) {
+        skipOrThrow(
+          true,
+          "Assistant server message not available after streaming."
+        )
+        return
+      }
+      const assistantText = normalizeMessageContent(assistantSnapshot.text)
       if (!assistantText) {
         throw new Error("Assistant message did not contain text.")
       }
+      const serverChatId = String(assistantSnapshot.serverChatId)
+      let serverMessageId = assistantSnapshot.serverMessageId
+        ? String(assistantSnapshot.serverMessageId)
+        : null
+      if (!serverMessageId) {
+        serverMessageId = await pollForServerAssistantMessageId(
+          normalizedServerUrl,
+          apiKey,
+          serverChatId,
+          assistantText
+        )
+        if (serverMessageId) {
+          await chatPage.evaluate(
+            ({ localId, serverMessageId }) => {
+              const store = (window as any).__tldw_useStoreMessageOption
+              if (!store?.getState || !store?.setState) return false
+              const state = store.getState?.()
+              const messages = Array.isArray(state?.messages)
+                ? [...state.messages]
+                : []
+              if (messages.length === 0) return false
+              let targetIndex = -1
+              if (localId) {
+                targetIndex = messages.findIndex(
+                  (msg) => String(msg?.id || "") === String(localId)
+                )
+              }
+              if (targetIndex === -1) {
+                for (let i = messages.length - 1; i >= 0; i -= 1) {
+                  const msg = messages[i]
+                  if (!msg?.isBot) continue
+                  if (msg?.messageType === "character:greeting") continue
+                  targetIndex = i
+                  break
+                }
+              }
+              if (targetIndex === -1) return false
+              const target = messages[targetIndex]
+              if (target?.serverMessageId === serverMessageId) return true
+              const updatedVariants = Array.isArray(target?.variants)
+                ? target.variants.map((variant) => ({
+                    ...variant,
+                    serverMessageId:
+                      variant?.serverMessageId ?? serverMessageId
+                  }))
+                : target?.variants
+              messages[targetIndex] = {
+                ...target,
+                serverMessageId,
+                variants: updatedVariants
+              }
+              store.setState({ messages })
+              return true
+            },
+            { localId: assistantSnapshot.localId, serverMessageId }
+          )
+        }
+      }
+      if (!serverMessageId) {
+        skipOrThrow(
+          true,
+          "Assistant server message not available after streaming."
+        )
+        return
+      }
+      const lastAssistant = chatPage.locator(
+        `[data-testid="chat-message"][data-server-message-id="${serverMessageId}"]`
+      )
+      await expect(lastAssistant).toBeVisible({ timeout: 30000 })
       const snippet = assistantText.slice(0, 80)
 
       await lastAssistant.hover().catch(() => {})
       const saveToFlashcards = lastAssistant.getByRole("button", {
         name: /Save to Flashcards/i
       })
-      if ((await saveToFlashcards.count()) === 0) {
-        skipOrThrow(
-          true,
-          "Save to Flashcards action not available on assistant messages."
-        )
-        return
-      }
-      await saveToFlashcards.click()
+      await expect
+        .poll(() => saveToFlashcards.count(), { timeout: 15000 })
+        .toBeGreaterThan(0)
+      await saveToFlashcards.first().click()
       await expect(
         chatPage.getByText(/Saved to Flashcards/i)
       ).toBeVisible({ timeout: 15000 })

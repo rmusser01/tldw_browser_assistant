@@ -29,14 +29,21 @@ export const generateSpeech = async (
   apiKey: string,
   text: string,
   voiceId: string,
-  modelId: string
+  modelId: string,
+  speed?: number
 ): Promise<ArrayBuffer> => {
+  const payload: Record<string, any> = {
+    text,
+    model_id: modelId
+  }
+
+  if (speed != null) {
+    payload.voice_settings = { speed }
+  }
+
   const response = await axios.post(
     `${BASE_URL}/text-to-speech/${voiceId}`,
-    {
-      text,
-      model_id: modelId,
-    },
+    payload,
     {
       headers: {
         'xi-api-key': apiKey,
