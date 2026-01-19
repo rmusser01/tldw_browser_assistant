@@ -1,12 +1,12 @@
 import React from "react"
 import {
+  Checkbox,
   Divider,
   Form,
   Input,
   InputNumber,
   Modal,
   Select,
-  Switch,
   Tooltip
 } from "antd"
 import type { FormInstance } from "antd"
@@ -23,6 +23,7 @@ import {
   ACTOR_ASPECT_SOFT_LIMIT,
   ACTOR_TOKENS_WARNING_THRESHOLD,
   createDefaultActorSettings,
+  normalizeActorAspectKey,
   SIMPLE_MODE_ASPECT_IDS
 } from "@/types/actor"
 import { useActorWorldBooks } from "@/hooks/useActorWorldBooks"
@@ -95,6 +96,7 @@ export const ActorEditor: React.FC<Props> = ({
     React.useState<ActorPresetId | null>(null)
   const [activeBlade, setActiveBlade] =
     React.useState<ActorBladeId>("aspects")
+  const watchedValues = Form.useWatch([], form)
   const bladeContentRefs = React.useRef<Record<ActorBladeId, HTMLDivElement | null>>({
     aspects: null,
     notes: null,
@@ -118,6 +120,12 @@ export const ActorEditor: React.FC<Props> = ({
       focusable?.focus()
     })
   }, [activeBlade])
+
+  React.useEffect(() => {
+    if (isSimpleMode && activeBlade === "placement") {
+      setActiveBlade("aspects")
+    }
+  }, [activeBlade, isSimpleMode])
 
   React.useEffect(() => {
     if (!settings) return
@@ -230,9 +238,10 @@ export const ActorEditor: React.FC<Props> = ({
     const baseId = `${target}_${baseSlug}`
 
     const existingKeys = new Set((settings.aspects || []).map((a) => a.key))
+    const existingIds = new Set((settings.aspects || []).map((a) => a.id))
     let key = baseId
     let suffix = 1
-    while (existingKeys.has(key)) {
+    while (existingKeys.has(key) || existingIds.has(key)) {
       suffix += 1
       key = `${baseId}_${suffix}`
     }
@@ -303,7 +312,10 @@ export const ActorEditor: React.FC<Props> = ({
         : []
 
       const warning = loreWarnings[aspect.id]
-      const hasValue = Boolean(aspect.value?.trim())
+      const watchedValue = watchedValues?.[fieldName]
+      const hasValue = Boolean(
+        String(watchedValue ?? aspect.value ?? "").trim()
+      )
 
       const handleSourceChange = (nextSource: ActorSource) => {
         const base = settings ?? createDefaultActorSettings()
@@ -392,15 +404,31 @@ export const ActorEditor: React.FC<Props> = ({
       const handleKeyChange = (val: string) => {
         const currentKey = aspect.key || ""
         const candidate = (val || "").trim() || currentKey
-        const normalized =
-          candidate
-            .toLowerCase()
-            .replace(/[^a-z0-9_]+/g, "_")
-            .replace(/^_+|_+$/g, "") || currentKey
+        const fallbackKey = currentKey || `${aspect.target}_aspect`
+        const currentNormalized = normalizeActorAspectKey({
+          raw: currentKey,
+          target: aspect.target,
+          fallback: fallbackKey
+        })
+        const normalized = normalizeActorAspectKey({
+          raw: candidate,
+          target: aspect.target,
+          fallback: fallbackKey
+        })
 
-        if (normalized === currentKey) {
-          if (candidate !== currentKey) {
-            form.setFieldsValue({ [keyFieldName]: currentKey })
+        if (normalized === currentNormalized) {
+          if (candidate !== currentNormalized) {
+            form.setFieldsValue({ [keyFieldName]: currentNormalized })
+          }
+          if (currentNormalized !== currentKey) {
+            const base = settings ?? createDefaultActorSettings()
+            const aspects = (base.aspects || []).map((a) =>
+              a.id === aspect.id ? { ...a, key: currentNormalized } : a
+            )
+            setSettings({
+              ...base,
+              aspects
+            })
           }
           return
         }
@@ -408,7 +436,13 @@ export const ActorEditor: React.FC<Props> = ({
         const existingKeys = new Set(
           (settings?.aspects || [])
             .filter((a) => a.id !== aspect.id)
-            .map((a) => a.key)
+            .map((a) =>
+              normalizeActorAspectKey({
+                raw: a.key,
+                target: a.target,
+                fallback: a.key
+              })
+            )
         )
         if (existingKeys.has(normalized)) {
           Modal.error({
@@ -436,7 +470,7 @@ export const ActorEditor: React.FC<Props> = ({
             "playground:actor.keyChangeBody",
             "This will change the token from {{old}} to {{next}}. Prompts using the old token won't update automatically.",
             {
-              old: `[[actor_${currentKey}]]`,
+              old: `[[actor_${currentNormalized}]]`,
               next: `[[actor_${normalized}]]`
             }
           ),
@@ -454,7 +488,7 @@ export const ActorEditor: React.FC<Props> = ({
             form.setFieldsValue({ [keyFieldName]: normalized })
           },
           onCancel: () => {
-            form.setFieldsValue({ [keyFieldName]: currentKey })
+            form.setFieldsValue({ [keyFieldName]: currentNormalized })
           }
         })
       }
@@ -614,6 +648,7 @@ export const ActorEditor: React.FC<Props> = ({
       setSettings,
       settings,
       t,
+      watchedValues,
       worldBooks,
       worldBooksLoading
     ]
@@ -622,6 +657,8 @@ export const ActorEditor: React.FC<Props> = ({
   if (!settings) return null
 
   const notesValue: string = Form.useWatch("actorNotes", form) || ""
+  const notesGmOnlyValue: boolean =
+    Form.useWatch("actorNotesGmOnly", form) ?? settings.notesGmOnly ?? false
   const chatPositionValue: string =
     Form.useWatch("actorChatPosition", form) || settings.chatPosition
   const chatDepthValue: number =
@@ -649,7 +686,7 @@ export const ActorEditor: React.FC<Props> = ({
           {
             chars: notesValue.length,
             gmSuffix:
-              settings.notesGmOnly === true
+              notesGmOnlyValue === true
                 ? t("playground:actor.summaryNotesGmOnly", " · GM-only")
                 : ""
           }
@@ -882,10 +919,13 @@ export const ActorEditor: React.FC<Props> = ({
                           const base = createDefaultActorSettings()
                           setSettings(base)
                           const fieldValues: Record<string, any> = {
+                            actorEnabled: base.isEnabled,
                             actorNotes: base.notes ?? "",
+                            actorNotesGmOnly: base.notesGmOnly ?? false,
                             actorChatPosition: base.chatPosition,
                             actorChatDepth: base.chatDepth,
-                            actorChatRole: base.chatRole
+                            actorChatRole: base.chatRole,
+                            actorTemplateMode: base.templateMode ?? "merge"
                           }
                           for (const aspect of base.aspects || []) {
                             fieldValues[`actor_${aspect.id}`] = aspect.value ?? ""
@@ -1061,15 +1101,12 @@ export const ActorEditor: React.FC<Props> = ({
             name="actorNotesGmOnly"
             valuePropName="checked"
             className="!-mt-3 mb-2">
-            <label className="inline-flex items-center gap-2 text-[11px] text-text-muted">
-              <input type="checkbox" className="h-3 w-3" />
-              <span>
-                {t(
-                  "playground:actor.notesGmOnly",
-                  "GM-only: do not send notes to the model"
-                )}
-              </span>
-            </label>
+            <Checkbox className="text-[11px] text-text-muted">
+              {t(
+                "playground:actor.notesGmOnly",
+                "GM-only: do not send notes to the model"
+              )}
+            </Checkbox>
           </Form.Item>
 
           {notesValue && (
@@ -1108,7 +1145,7 @@ export const ActorEditor: React.FC<Props> = ({
         </div>
       )}
 
-      {activeBlade === "placement" && (
+      {!isSimpleMode && activeBlade === "placement" && (
         <div
           ref={(el) => { bladeContentRefs.current.placement = el }}
           className="space-y-3">

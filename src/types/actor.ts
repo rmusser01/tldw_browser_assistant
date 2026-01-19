@@ -16,6 +16,50 @@ export const SIMPLE_MODE_ASPECT_IDS = [
   "world_tone"
 ] as const
 
+const ACTOR_TARGET_PREFIXES = ["user_", "char_", "world_"] as const
+
+const sanitizeActorKey = (raw: string): string =>
+  (raw || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+
+const ensureActorKeyPrefix = (
+  key: string,
+  target: ActorTarget
+): string => {
+  const targetPrefix = `${target}_`
+  if (key.startsWith(targetPrefix)) {
+    return key
+  }
+
+  const matchedPrefix = ACTOR_TARGET_PREFIXES.find((prefix) =>
+    key.startsWith(prefix)
+  )
+  const stripped = matchedPrefix ? key.slice(matchedPrefix.length) : key
+  return `${targetPrefix}${stripped}`
+}
+
+export const normalizeActorAspectKey = (params: {
+  raw: string
+  target: ActorTarget
+  fallback?: string
+}): string => {
+  const { raw, target, fallback } = params
+  const cleaned = sanitizeActorKey(raw || "")
+  const fallbackKey = fallback ?? `${target}_aspect`
+  if (!cleaned) {
+    const cleanedFallback = sanitizeActorKey(fallbackKey)
+    if (!cleanedFallback) {
+      if (fallbackKey === "") return ""
+      return `${target}_aspect`
+    }
+    return ensureActorKeyPrefix(cleanedFallback, target)
+  }
+  return ensureActorKeyPrefix(cleaned, target)
+}
+
 export type ActorAspect = {
   /**
    * Internal stable identifier for this aspect within a chat.

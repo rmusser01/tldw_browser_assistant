@@ -310,3 +310,47 @@ export type DraftBatch = {
   updatedAt: number
   completedAt?: number
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Audiobook Project Types
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type AudiobookProjectStatus = "draft" | "in_progress" | "completed"
+
+export type SerializedAudioChapter = {
+  id: string
+  title: string
+  content: string
+  order: number
+  voiceConfig: Record<string, any>
+  status: "pending" | "generating" | "completed" | "error"
+  audioDuration?: number
+  errorMessage?: string
+}
+
+export type AudiobookProject = {
+  id: string
+  title: string
+  author: string
+  description?: string
+  coverImageAssetId?: string
+  rawContent: string
+  chapters: SerializedAudioChapter[]
+  chapterAudioAssetIds: Record<string, string> // chapterId -> AudiobookChapterAsset.id
+  defaultVoiceConfig: Record<string, any>
+  status: AudiobookProjectStatus
+  totalDuration?: number
+  createdAt: number
+  updatedAt: number
+  lastOpenedAt?: number
+}
+
+export type AudiobookChapterAsset = {
+  id: string
+  projectId: string
+  chapterId: string
+  mimeType: string
+  sizeBytes: number
+  blob: Blob
+  createdAt: number
+}

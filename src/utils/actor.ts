@@ -3,6 +3,7 @@ import type {
   ActorTarget,
   ActorTemplateInteractionMode
 } from "@/types/actor"
+import { normalizeActorAspectKey } from "@/types/actor"
 import {
   type BaseMessage,
   AIMessage,
@@ -85,13 +86,12 @@ export const buildActorDictionaryTokens = (
   const tokens: ActorDictionaryToken[] = []
 
   for (const aspect of settings.aspects || []) {
-    const keyRaw = aspect.key?.trim()
-    if (!keyRaw) continue
-
-    const targetPrefix = `${aspect.target}_`
-    const normalizedKey = keyRaw.startsWith(targetPrefix)
-      ? keyRaw
-      : `${targetPrefix}${keyRaw}`
+    const normalizedKey = normalizeActorAspectKey({
+      raw: aspect.key || "",
+      target: aspect.target,
+      fallback: ""
+    })
+    if (!normalizedKey) continue
     const token = `[[actor_${normalizedKey}]]`
     const value = aspect.value?.trim() || ""
 

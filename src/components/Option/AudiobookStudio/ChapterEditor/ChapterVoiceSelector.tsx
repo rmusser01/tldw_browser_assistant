@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { Select, Space, Typography, Spin } from "antd"
+import { Select, Space, Typography } from "antd"
 import { useTranslation } from "react-i18next"
 import { Mic } from "lucide-react"
 import { useStorage } from "@plasmohq/storage/hook"
@@ -8,13 +8,16 @@ import {
   OPENAI_TTS_MODELS,
   OPENAI_TTS_VOICES
 } from "@/hooks/useTtsProviderData"
-import type { TtsProviderOverrides } from "@/services/tts-provider"
+import {
+  inferTldwProviderFromModel,
+  type TtsProviderOverrides
+} from "@/services/tts-provider"
 
 const { Text } = Typography
 
 type ChapterVoiceSelectorProps = {
-  voiceConfig: TtsProviderOverrides
-  onChange: (config: TtsProviderOverrides) => void
+  voiceConfig: TtsProviderOverrides & { speed?: number }
+  onChange: (config: TtsProviderOverrides & { speed?: number }) => void
   compact?: boolean
 }
 
@@ -27,7 +30,8 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
   const [elevenLabsApiKey] = useStorage<string | null>("elevenLabsApiKey", null)
 
   const provider = voiceConfig.provider || "tldw"
-  const inferredProviderKey = voiceConfig.tldwProviderKey || null
+  // Infer tldw provider key from the selected model
+  const inferredProviderKey = inferTldwProviderFromModel(voiceConfig.tldwModel)
 
   const {
     hasAudio,
@@ -73,8 +77,8 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
     }
     if (provider === "tldw" && tldwTtsModels) {
       return tldwTtsModels.map((m) => ({
-        value: m.model_id,
-        label: m.name || m.model_id
+        value: m.id,
+        label: m.label || m.id
       }))
     }
     if (provider === "elevenlabs" && elevenLabsData?.models) {
@@ -89,13 +93,13 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
   // Voice options based on provider
   const voiceOptions = useMemo(() => {
     if (provider === "openai") {
-      const model = voiceConfig.modelId || "tts-1"
+      const model = voiceConfig.openAiModel || "tts-1"
       return OPENAI_TTS_VOICES[model] || OPENAI_TTS_VOICES["tts-1"]
     }
     if (provider === "tldw" && tldwVoiceCatalog) {
       return tldwVoiceCatalog.map((v) => ({
-        value: v.id,
-        label: v.name
+        value: v.id || v.name,
+        label: v.name || v.id
       }))
     }
     if (provider === "elevenlabs" && elevenLabsData?.voices) {
@@ -105,50 +109,84 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
       }))
     }
     return []
-  }, [provider, voiceConfig.modelId, tldwVoiceCatalog, elevenLabsData])
+  }, [provider, voiceConfig.openAiModel, tldwVoiceCatalog, elevenLabsData])
 
-  // TLDW provider key options
+  // TLDW provider key options (from providers object)
   const tldwProviderOptions = useMemo(() => {
-    if (!providersInfo?.available) return []
-    return providersInfo.available.map((p) => ({
-      value: p.key,
-      label: p.name
+    if (!providersInfo?.providers) return []
+    return Object.entries(providersInfo.providers).map(([key, info]) => ({
+      value: key,
+      label: info.provider_name || key
     }))
   }, [providersInfo])
 
   const handleProviderChange = (value: string) => {
+    // Clear all provider-specific settings when switching
     onChange({
-      ...voiceConfig,
       provider: value,
-      modelId: undefined,
-      voiceId: undefined,
-      tldwProviderKey: undefined
-    })
-  }
-
-  const handleTldwProviderKeyChange = (value: string) => {
-    onChange({
-      ...voiceConfig,
-      tldwProviderKey: value,
-      modelId: undefined,
-      voiceId: undefined
+      speed: voiceConfig.speed
     })
   }
 
   const handleModelChange = (value: string) => {
-    onChange({
-      ...voiceConfig,
-      modelId: value,
-      voiceId: undefined
-    })
+    if (provider === "openai") {
+      onChange({
+        ...voiceConfig,
+        openAiModel: value,
+        openAiVoice: undefined
+      })
+    } else if (provider === "elevenlabs") {
+      onChange({
+        ...voiceConfig,
+        elevenLabsModel: value,
+        elevenLabsVoiceId: undefined
+      })
+    } else {
+      // tldw
+      onChange({
+        ...voiceConfig,
+        tldwModel: value,
+        tldwVoice: undefined
+      })
+    }
   }
 
   const handleVoiceChange = (value: string) => {
-    onChange({
-      ...voiceConfig,
-      voiceId: value
-    })
+    if (provider === "openai") {
+      onChange({
+        ...voiceConfig,
+        openAiVoice: value
+      })
+    } else if (provider === "elevenlabs") {
+      onChange({
+        ...voiceConfig,
+        elevenLabsVoiceId: value
+      })
+    } else {
+      // tldw
+      onChange({
+        ...voiceConfig,
+        tldwVoice: value
+      })
+    }
   }
+
+  // Get current model value based on provider
+  const getCurrentModel = () => {
+    if (provider === "openai") return voiceConfig.openAiModel
+    if (provider === "elevenlabs") return voiceConfig.elevenLabsModel
+    return voiceConfig.tldwModel
+  }
+
+  // Get current voice value based on provider
+  const getCurrentVoice = () => {
+    if (provider === "openai") return voiceConfig.openAiVoice
+    if (provider === "elevenlabs") return voiceConfig.elevenLabsVoiceId
+    return voiceConfig.tldwVoice
+  }
+
+  const currentModel = getCurrentModel()
+  const currentVoice = getCurrentVoice()
 
   if (compact) {
     return (
@@ -162,21 +200,10 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
           style={{ minWidth: 100 }}
           dropdownStyle={{ minWidth: 120 }}
         />
-        {provider === "tldw" && tldwProviderOptions.length > 0 && (
-          <Select
-            size="small"
-            value={voiceConfig.tldwProviderKey}
-            onChange={handleTldwProviderKeyChange}
-            options={tldwProviderOptions}
-            placeholder={t("audiobook:voice.selectProvider", "Provider")}
-            style={{ minWidth: 100 }}
-            allowClear
-          />
-        )}
         {modelOptions.length > 0 && (
           <Select
             size="small"
-            value={voiceConfig.modelId}
+            value={currentModel}
             onChange={handleModelChange}
             options={modelOptions}
             placeholder={t("audiobook:voice.selectModel", "Model")}
@@ -188,7 +215,7 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
         {voiceOptions.length > 0 && (
           <Select
             size="small"
-            value={voiceConfig.voiceId}
+            value={currentVoice}
             onChange={handleVoiceChange}
             options={voiceOptions}
             placeholder={t("audiobook:voice.selectVoice", "Voice")}
@@ -218,29 +245,13 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
         />
       </div>
 
-      {provider === "tldw" && tldwProviderOptions.length > 0 && (
-        <div>
-          <Text type="secondary" className="text-xs block mb-1">
-            {t("audiobook:voice.tldwProviderLabel", "TTS Backend")}
-          </Text>
-          <Select
-            value={voiceConfig.tldwProviderKey}
-            onChange={handleTldwProviderKeyChange}
-            options={tldwProviderOptions}
-            placeholder={t("audiobook:voice.selectProvider", "Select provider...")}
-            className="w-full"
-            allowClear
-          />
-        </div>
-      )}
-
       {modelOptions.length > 0 && (
         <div>
           <Text type="secondary" className="text-xs block mb-1">
             {t("audiobook:voice.modelLabel", "Model")}
           </Text>
           <Select
-            value={voiceConfig.modelId}
+            value={currentModel}
             onChange={handleModelChange}
             options={modelOptions}
             placeholder={t("audiobook:voice.selectModel", "Select model...")}
@@ -257,7 +268,7 @@ export const ChapterVoiceSelector: React.FC<ChapterVoiceSelectorProps> = ({
             {t("audiobook:voice.voiceLabel", "Voice")}
           </Text>
           <Select
-            value={voiceConfig.voiceId}
+            value={currentVoice}
             onChange={handleVoiceChange}
             options={voiceOptions}
             placeholder={t("audiobook:voice.selectVoice", "Select voice...")}

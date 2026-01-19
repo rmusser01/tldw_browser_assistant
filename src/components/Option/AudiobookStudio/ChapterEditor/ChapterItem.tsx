@@ -239,13 +239,17 @@ export const ChapterItem: React.FC<ChapterItemProps> = ({ chapter, index }) => {
                 <div className="flex items-center gap-2 text-xs text-text-muted">
                   <Settings2 className="h-3 w-3" />
                   {t("audiobook:chapters.voiceSettings", "Voice settings")}
-                  {chapter.voiceConfig.voiceId && (
-                    <Tag size="small" className="ml-1">
-                      {chapter.voiceConfig.voiceId}
+                  {(chapter.voiceConfig.tldwVoice ||
+                    chapter.voiceConfig.openAiVoice ||
+                    chapter.voiceConfig.elevenLabsVoiceId) && (
+                    <Tag className="ml-1 text-xs">
+                      {chapter.voiceConfig.tldwVoice ||
+                        chapter.voiceConfig.openAiVoice ||
+                        chapter.voiceConfig.elevenLabsVoiceId}
                     </Tag>
                   )}
                   {currentSpeed !== 1.0 && (
-                    <Tag size="small">{currentSpeed}x</Tag>
+                    <Tag className="text-xs">{currentSpeed}x</Tag>
                   )}
                 </div>
               ),

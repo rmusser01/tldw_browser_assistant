@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from "react"
-import { Button, Spin, Tooltip } from "antd"
+import { Button, Tooltip } from "antd"
 import { useTranslation } from "react-i18next"
 import { Play, Square, Loader2 } from "lucide-react"
 import {
@@ -9,7 +9,7 @@ import {
 
 type ChapterPreviewPlayerProps = {
   content: string
-  voiceConfig: TtsProviderOverrides
+  voiceConfig: TtsProviderOverrides & { speed?: number }
   maxWords?: number
 }
 

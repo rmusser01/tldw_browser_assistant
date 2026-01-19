@@ -19,6 +19,10 @@ export type AudioChapter = {
 export type SplitMode = "paragraphs" | "headings" | "custom"
 
 type AudiobookStudioStore = {
+  // Current project ID (for persistence)
+  currentProjectId: string | null
+  setCurrentProjectId: (id: string | null) => void
+
   // Raw content input
   rawContent: string
   setRawContent: (content: string) => void
@@ -108,6 +112,7 @@ const splitByCustom = (text: string, delimiter: string): string[] => {
 
 export const useAudiobookStudioStore = create<AudiobookStudioStore>(
   (set, get) => ({
+    currentProjectId: null,
     rawContent: "",
     chapters: [],
     isGenerating: false,
@@ -116,6 +121,8 @@ export const useAudiobookStudioStore = create<AudiobookStudioStore>(
     defaultVoiceConfig: {},
     projectTitle: "Untitled Audiobook",
     projectAuthor: "",
+
+    setCurrentProjectId: (id) => set({ currentProjectId: id }),
 
     setRawContent: (content) => set({ rawContent: content }),
 

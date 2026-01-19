@@ -4,7 +4,8 @@ import {
   ACTOR_SETTINGS_VERSION,
   ActorSettings,
   ActorAspect,
-  createDefaultActorSettings
+  createDefaultActorSettings,
+  normalizeActorAspectKey
 } from "@/types/actor"
 
 const storage = createSafeStorage()
@@ -138,7 +139,32 @@ const migrateSettings = (raw: any): ActorSettings => {
     return createDefaultActorSettings()
   }
 
-  return raw as ActorSettings
+  const settings = raw as ActorSettings
+  let changed = false
+  const aspects = (settings.aspects || []).map((aspect) => {
+    const normalizedKey = normalizeActorAspectKey({
+      raw: aspect.key,
+      target: aspect.target,
+      fallback: aspect.key || undefined
+    })
+    if (!normalizedKey || normalizedKey === aspect.key) {
+      return aspect
+    }
+    changed = true
+    return {
+      ...aspect,
+      key: normalizedKey
+    }
+  })
+
+  if (!changed) {
+    return settings
+  }
+
+  return {
+    ...settings,
+    aspects
+  }
 }
 
 const getActorSettingsForChatOrNull = async (params: {

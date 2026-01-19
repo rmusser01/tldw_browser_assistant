@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useCallback, useRef } from "react"
 import {
   Card,
   Typography,
@@ -7,8 +7,12 @@ import {
   Empty,
   Table,
   Tag,
-  Tooltip
+  Tooltip,
+  Dropdown,
+  Progress,
+  message
 } from "antd"
+import type { MenuProps } from "antd"
 import { useTranslation } from "react-i18next"
 import {
   Download,
@@ -17,23 +21,136 @@ import {
   Check,
   Clock,
   AlertCircle,
-  FileAudio
+  FileAudio,
+  Merge,
+  Subtitles,
+  ChevronDown
 } from "lucide-react"
 import { useAudiobookStudioStore, type AudioChapter } from "@/store/audiobook-studio"
 import { useAudiobookGeneration } from "@/hooks/useAudiobookGeneration"
+import {
+  concatenateAudioChapters,
+  downloadBlob,
+  type ChapterTiming
+} from "@/utils/audio-concat"
+import { exportSubtitles, type SubtitleFormat } from "@/utils/subtitle-generator"
+import { AudiobookPlayer } from "./AudiobookPlayer"
 
 const { Text, Title } = Typography
 
 export const OutputPanel: React.FC = () => {
   const { t } = useTranslation(["audiobook", "common"])
-  const [playingId, setPlayingId] = React.useState<string | null>(null)
-  const audioRef = React.useRef<HTMLAudioElement | null>(null)
+  const [playingId, setPlayingId] = useState<string | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  // Combined audiobook state
+  const [isCombining, setIsCombining] = useState(false)
+  const [combineProgress, setCombineProgress] = useState(0)
+  const [combinedAudioUrl, setCombinedAudioUrl] = useState<string | null>(null)
+  const [combinedAudioBlob, setCombinedAudioBlob] = useState<Blob | null>(null)
+  const [chapterTimings, setChapterTimings] = useState<ChapterTiming[]>([])
 
   const chapters = useAudiobookStudioStore((s) => s.chapters)
   const projectTitle = useAudiobookStudioStore((s) => s.projectTitle)
   const getTotalDuration = useAudiobookStudioStore((s) => s.getTotalDuration)
 
   const { downloadChapter, downloadAllChapters } = useAudiobookGeneration()
+
+  // Combine all chapters into a single audio file
+  const handleCombineChapters = useCallback(async () => {
+    const toProcess = chapters.filter(
+      (ch) => ch.status === "completed" && ch.audioBlob
+    )
+
+    if (toProcess.length === 0) {
+      message.warning(t("audiobook:output.noChaptersToCombine", "No chapters to combine"))
+      return
+    }
+
+    setIsCombining(true)
+    setCombineProgress(0)
+
+    try {
+      const result = await concatenateAudioChapters(
+        toProcess.map((ch) => ({
+          id: ch.id,
+          title: ch.title,
+          blob: ch.audioBlob!
+        })),
+        (index, total) => {
+          setCombineProgress(Math.round((index / total) * 100))
+        }
+      )
+
+      // Revoke previous URL if exists
+      if (combinedAudioUrl) {
+        URL.revokeObjectURL(combinedAudioUrl)
+      }
+
+      const url = URL.createObjectURL(result.blob)
+      setCombinedAudioUrl(url)
+      setCombinedAudioBlob(result.blob)
+      setChapterTimings(result.chapterTimings)
+
+      message.success(t("audiobook:output.combineSuccess", "Audiobook combined successfully"))
+    } catch (error) {
+      console.error("Failed to combine chapters:", error)
+      message.error(t("audiobook:output.combineError", "Failed to combine chapters"))
+    } finally {
+      setIsCombining(false)
+      setCombineProgress(0)
+    }
+  }, [chapters, combinedAudioUrl, t])
+
+  // Download combined audiobook
+  const handleDownloadCombined = useCallback(() => {
+    if (!combinedAudioBlob) return
+
+    const filename = `${projectTitle.replace(/[^a-zA-Z0-9]/g, "_")}_complete.wav`
+    downloadBlob(combinedAudioBlob, filename)
+  }, [combinedAudioBlob, projectTitle])
+
+  // Export subtitles
+  const handleExportSubtitles = useCallback(
+    (format: SubtitleFormat) => {
+      if (chapterTimings.length === 0) {
+        message.warning(
+          t("audiobook:output.combineFirst", "Combine chapters first to export subtitles")
+        )
+        return
+      }
+
+      const filename = projectTitle.replace(/[^a-zA-Z0-9]/g, "_")
+      exportSubtitles(chapterTimings, filename, format)
+      message.success(
+        t("audiobook:output.subtitleExported", "Subtitles exported as {{format}}", { format: format.toUpperCase() })
+      )
+    },
+    [chapterTimings, projectTitle, t]
+  )
+
+  // Subtitle dropdown menu
+  const subtitleMenuItems: MenuProps["items"] = [
+    {
+      key: "srt",
+      label: t("audiobook:output.exportSrt", "Export SRT"),
+      onClick: () => handleExportSubtitles("srt")
+    },
+    {
+      key: "vtt",
+      label: t("audiobook:output.exportVtt", "Export VTT"),
+      onClick: () => handleExportSubtitles("vtt")
+    }
+  ]
+
+  // Cleanup on unmount
+  React.useEffect(() => {
+    return () => {
+      if (combinedAudioUrl) {
+        URL.revokeObjectURL(combinedAudioUrl)
+      }
+    }
+  }, [combinedAudioUrl])
 
   const completedChapters = chapters.filter(
     (ch) => ch.status === "completed" && ch.audioBlob
@@ -227,17 +344,52 @@ export const OutputPanel: React.FC = () => {
               )}
             </div>
           </div>
-          <Space>
+          <Space wrap>
             <Button
-              type="primary"
+              icon={<Merge className="h-4 w-4" />}
+              onClick={handleCombineChapters}
+              loading={isCombining}
+              disabled={completedChapters.length === 0}
+            >
+              {isCombining
+                ? t("audiobook:output.combining", "Combining... {{progress}}%", { progress: combineProgress })
+                : t("audiobook:output.combine", "Combine All")}
+            </Button>
+            {combinedAudioBlob && (
+              <Button
+                type="primary"
+                icon={<Download className="h-4 w-4" />}
+                onClick={handleDownloadCombined}
+              >
+                {t("audiobook:output.downloadCombined", "Download Audiobook")}
+              </Button>
+            )}
+            <Dropdown
+              menu={{ items: subtitleMenuItems }}
+              disabled={chapterTimings.length === 0}
+            >
+              <Button icon={<Subtitles className="h-4 w-4" />}>
+                {t("audiobook:output.subtitles", "Subtitles")} <ChevronDown className="h-3 w-3 ml-1" />
+              </Button>
+            </Dropdown>
+            <Button
               icon={<Download className="h-4 w-4" />}
               onClick={() => downloadAllChapters(chapters, projectTitle)}
               disabled={completedChapters.length === 0}
             >
-              {t("audiobook:output.downloadAll", "Download all")}
+              {t("audiobook:output.downloadAll", "Download All Chapters")}
             </Button>
           </Space>
         </div>
+
+        {isCombining && (
+          <Progress
+            percent={combineProgress}
+            status="active"
+            strokeColor={{ from: "#108ee9", to: "#87d068" }}
+            className="mb-4"
+          />
+        )}
 
         <Table
           dataSource={chapters}
@@ -248,44 +400,12 @@ export const OutputPanel: React.FC = () => {
         />
       </Card>
 
-      {completedChapters.length > 0 && (
-        <Card>
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <FileAudio className="h-5 w-5 text-primary" />
-              <Title level={5} className="!mb-0">
-                {t("audiobook:output.audioPlayer", "Audio Player")}
-              </Title>
-            </div>
-            <Text type="secondary" className="text-sm block">
-              {t(
-                "audiobook:output.audioPlayerDesc",
-                "Listen to your completed chapters. Click a chapter in the table above to play it, or use the combined player below."
-              )}
-            </Text>
-
-            {completedChapters.length > 0 && (
-              <div className="space-y-2">
-                <Text strong className="text-sm">
-                  {t("audiobook:output.nowPlaying", "Now playing:")}
-                </Text>
-                {playingId ? (
-                  <Text>
-                    {chapters.find((ch) => ch.id === playingId)?.title ||
-                      t("audiobook:output.unknownChapter", "Unknown chapter")}
-                  </Text>
-                ) : (
-                  <Text type="secondary">
-                    {t(
-                      "audiobook:output.nothingPlaying",
-                      "Click play on a chapter to start"
-                    )}
-                  </Text>
-                )}
-              </div>
-            )}
-          </div>
-        </Card>
+      {/* Combined Audiobook Player */}
+      {(combinedAudioUrl || completedChapters.length > 0) && (
+        <AudiobookPlayer
+          audioUrl={combinedAudioUrl}
+          chapterTimings={chapterTimings}
+        />
       )}
 
       <Card>
