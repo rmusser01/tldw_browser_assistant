@@ -1809,243 +1809,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "Karten"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "Flashcards-API ist auf diesem Server nicht verfügbar"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "Dieser tldw-Server kündigt die Flashcards-Endpunkte nicht an. Aktualisiere deinen Server auf eine Version mit /api/v1/flashcards…, um diesen Arbeitsbereich zu nutzen."
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "Prüfe Health & diagnostics, um deine Serverversion und verfügbare APIs zu bestätigen."
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "Nach dem Upgrade die Erweiterung neu laden und zu Flashcards zurückkehren."
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "Leertaste drücken, um umzudrehen"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "1-4 drücken, um zu bewerten"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "Noch keine Karteikarten"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "Du bist auf dem neuesten Stand!"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "Keine Karten zur Wiederholung fällig. Gute Arbeit!"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "Karteikarte erstellen"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "Weitere Karten erstellen"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "Basis (Frage - Antwort)"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "Basis + Umkehrung (beide Richtungen)"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "Cloze (Lücken füllen)"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "Nach Tag filtern"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "Tag eingeben..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "Kompakte Ansicht"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "Erweiterte Ansicht"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "Mehr"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "Exportieren"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "Jetzt wiederholen"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "In Deck verschieben"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "Karte konnte nicht geladen werden"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "Duplizieren fehlgeschlagen"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "Verschieben fehlgeschlagen"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "Wähle ein Ziel-Deck, bevor du Karten verschiebst."
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "Verarbeitung"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "Bitte warten..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "Karten werden gelöscht"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "{{count}} ausgewählte Karten löschen? Dies kann nicht rückgängig gemacht werden."
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "{{count}} Karten löschen?"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "Du bist dabei, eine große Anzahl von Karten zu löschen."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "Dies löscht {{count}} Karten dauerhaft. Diese Aktion kann nicht rückgängig gemacht werden."
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "Gib DELETE ein, um zu bestätigen:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "in allen Ergebnissen ausgewählt"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "auf dieser Seite ausgewählt"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "ausgewählt"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "Alle {{count}} auswählen"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "Leeren"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "Karteikarte erstellen"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "Vorderseite (Frage) und Rückseite (Antwort) ausfüllen. Markdown und LaTeX werden unterstützt."
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "Vorschau anzeigen"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "Vorschau ausblenden"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "Unterstützt Markdown und LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "Erweiterte Optionen (Tags, Extra, Notizen)"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "Karte gelöscht"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "Innerhalb von {{seconds}} s rückgängig machen, um die Löschung abzubrechen."
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "{{count}} Karten gelöscht"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "Nächste Wiederholung: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} Karten fällig"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "Tastaturkürzel"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "? drücken, um Kürzel anzuzeigen"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "Karte umdrehen"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "Karte bewerten"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "Zwischen Karten navigieren"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "Karte bearbeiten"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "Karte löschen"
   },
   "flashcards_modelTypeBasic": {
     "message": "Standard"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "Umkehrbar"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "Lückentext"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "Nicht gespeicherte Änderungen"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "Du hast nicht gespeicherte Änderungen. Möchtest du wirklich schließen?"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "Karten übrig"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "wiederholt"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "Min verbleibend"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "{{remaining}} Karten übrig, {{reviewed}} wiederholt"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "Letzte Karte neu bewerten"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "Bewerte diese Karte erneut, um deine Antwort zu aktualisieren"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "Nach unten bewegen"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "Nach oben bewegen"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "Karte auswählen"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "Fokus entfernen"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "Kürzel anzeigen"
   },
   "flashcards_global": {
     "message": "Global"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "umgekehrt"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "{{count}} Karten in dieser Sitzung wiederholt"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "Jetzt fällig"
   }
 }

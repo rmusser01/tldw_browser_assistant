@@ -1479,243 +1479,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "کارت‌ها"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "API فلش‌کارت‌ها روی این سرور در دسترس نیست"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "این سرور tldw اندپوینت‌های فلش‌کارت‌ها را اعلام نمی‌کند. برای استفاده از این فضای کاری، سرور را به نسخه‌ای که شامل /api/v1/flashcards… است ارتقا دهید."
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "برای تأیید نسخه سرور و APIهای موجود، Health & diagnostics را بررسی کنید."
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "پس از ارتقا، افزونه را دوباره بارگذاری کنید و به فلش‌کارت‌ها برگردید."
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "برای برگرداندن، کلید فاصله را فشار دهید"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "برای امتیازدهی 1-4 را فشار دهید"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "هنوز فلش‌کارت ندارید"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "همه را انجام داده‌اید!"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "هیچ کارتِ قابل مرور وجود ندارد. آفرین!"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "ایجاد یک فلش‌کارت"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "ایجاد کارت‌های بیشتر"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "پایه (سؤال - پاسخ)"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "پایه + معکوس (هر دو جهت)"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "Cloze (پر کردن جای خالی)"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "فیلتر بر اساس برچسب"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "برچسب را وارد کنید..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "نمای فشرده"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "نمای گسترده"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "بیشتر"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "خروجی"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "مرور اکنون"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "انتقال به دسته"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "بارگذاری کارت ناموفق بود"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "تکثیر ناموفق بود"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "انتقال ناموفق بود"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "قبل از انتقال کارت‌ها، یک دسته مقصد انتخاب کنید."
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "در حال پردازش"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "لطفاً صبر کنید..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "در حال حذف کارت‌ها"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "حذف {{count}} کارت انتخاب‌شده؟ این اقدام قابل بازگشت نیست."
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "حذف {{count}} کارت؟"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "در حال حذف تعداد زیادی کارت هستید."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "این کار {{count}} کارت را برای همیشه حذف می‌کند. این اقدام قابل بازگشت نیست."
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "برای تأیید، DELETE را تایپ کنید:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "انتخاب‌شده در تمام نتایج"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "انتخاب‌شده در این صفحه"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "انتخاب‌شده"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "انتخاب همه {{count}}"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "پاک کردن"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "ایجاد فلش‌کارت"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "روی کارت (سؤال) و پشت کارت (پاسخ) را پر کنید. Markdown و LaTeX پشتیبانی می‌شوند."
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "نمایش پیش‌نمایش"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "پنهان کردن پیش‌نمایش"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "از Markdown و LaTeX پشتیبانی می‌شود ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "گزینه‌های پیشرفته (برچسب‌ها، اضافی، یادداشت‌ها)"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "کارت حذف شد"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "تا {{seconds}} ثانیه می‌توانید حذف را لغو کنید."
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "{{count}} کارت حذف شد"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "مرور بعدی: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} کارت سررسید"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "میانبرهای صفحه‌کلید"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "برای نمایش میانبرها ? را فشار دهید"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "برگرداندن کارت"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "امتیازدهی کارت"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "جابجایی بین کارت‌ها"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "ویرایش کارت"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "حذف کارت"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "استاندارد"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "برگشت‌پذیر"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "پرکردن جای خالی"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "تغییرات ذخیره‌نشده"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "تغییرات ذخیره‌نشده دارید. مطمئنید می‌خواهید ببندید؟"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "کارت باقی‌مانده"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "مرور شده"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "دقیقه باقیمانده"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "{{remaining}} کارت باقی‌مانده، {{reviewed}} مرور شده"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "امتیازدهی دوباره به آخرین کارت"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "برای به‌روزرسانی پاسخ، این کارت را دوباره امتیاز دهید"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "حرکت به پایین"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "حرکت به بالا"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "انتخاب کارت"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "برداشتن فوکوس"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "نمایش میانبرها"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "سراسری"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "معکوس"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "{{count}} کارت در این نشست مرور شد"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "اکنون سررسید"
   }
 }

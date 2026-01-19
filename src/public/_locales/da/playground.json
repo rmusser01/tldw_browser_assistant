@@ -15,37 +15,37 @@
     "message": "Fra"
   },
   "tooltip_searchInternet": {
-    "message": "Søg Internettet"
+    "message": "Søg internettet"
   },
   "tooltip_speechToText": {
-    "message": "Tal til Tekst"
+    "message": "Tale til tekst"
   },
   "tooltip_uploadImage": {
-    "message": "Upload Billed"
+    "message": "Upload billede"
   },
   "tooltip_stopStreaming": {
-    "message": "Stop Streaming"
+    "message": "Stop streaming"
   },
   "tooltip_knowledge": {
     "message": "Viden"
   },
   "tooltip_clearContext": {
-    "message": "Ryd Kontekst"
+    "message": "Ryd kontekst"
   },
   "tooltip_speechToTextServer": {
-    "message": "Dictation via your tldw server"
+    "message": "Diktering via din tldw-server"
   },
   "tooltip_speechToTextBrowser": {
-    "message": "Dictation via browser speech recognition"
+    "message": "Diktering via browserens talegenkendelse"
   },
   "tooltip_speechToTextDetails": {
-    "message": "Uses {{model}} · {{task}} · {{format}}. Configure in Settings → General → Speech-to-Text."
+    "message": "Bruger {{model}} · {{task}} · {{format}}. Konfigurer i Indstillinger → Generelt → Speech-to-Text."
   },
   "tooltip_vision": {
-    "message": "[Experimental] Vision Chat"
+    "message": "[Eksperimentel] Vision-chat"
   },
   "tooltip_uploadDocuments": {
-    "message": "Upload Documents (beta)"
+    "message": "Upload dokumenter (beta)"
   },
   "sendWhenEnter": {
     "message": "Søg, når Indtast trykkes"
@@ -81,64 +81,64 @@
     "message": "Det lader til, at du har en forbindelsesfejl. Se venligst denne <anchor>dokumentation</anchor> for fejlfinding."
   },
   "tldwState_openTldwSettings": {
-    "message": "Open tldw Settings"
+    "message": "Åbn tldw-indstillinger"
   },
   "tldwState_cancelSearch": {
-    "message": "Cancel search"
+    "message": "Annuller søgning"
   },
   "tldwState_connectionFailedWithCode": {
-    "message": "Connection failed (HTTP {{code}})"
+    "message": "Forbindelsen mislykkedes (HTTP {{code}})"
   },
   "tldwState_connectionFailed": {
-    "message": "Connection failed"
+    "message": "Forbindelsen mislykkedes"
   },
   "tldwState_errorDetailsLabel": {
-    "message": "Details:"
+    "message": "Detaljer:"
   },
   "tldwState_title": {
-    "message": "Waiting for your tldw server"
+    "message": "Venter på din tldw-server"
   },
   "tldwState_subtitle": {
-    "message": "We’re pinging {{host}} to verify the connection."
+    "message": "Vi pinger {{host}} for at bekræfte forbindelsen."
   },
   "tldwState_missing": {
-    "message": "Server URL not configured"
+    "message": "Server-URL ikke konfigureret"
   },
   "tldwState_noServer": {
-    "message": "Add your tldw server to start chatting."
+    "message": "Tilføj din tldw-server for at starte en chat."
   },
   "tldwState_connectedSubtitle": {
-    "message": "Connected to {{host}}. Start chatting when you’re ready."
+    "message": "Forbundet til {{host}}. Start chat, når du er klar."
   },
   "tldwState_errorSubtitle": {
-    "message": "We couldn’t reach {{host}} yet. Retry or update your server settings."
+    "message": "Vi kunne endnu ikke nå {{host}}. Prøv igen eller opdater dine serverindstillinger."
   },
   "tldwState_openSettings": {
-    "message": "Open settings"
+    "message": "Åbn indstillinger"
   },
   "tldwState_changeServer": {
-    "message": "Change server"
+    "message": "Skift server"
   },
   "tldwState_elapsed": {
-    "message": "Checking… {{seconds}}s"
+    "message": "Tjekker… {{seconds}} s"
   },
   "tldwState_connectedHint": {
-    "message": "Connected to {{host}}."
+    "message": "Forbundet til {{host}}."
   },
   "tldwState_lastChecked": {
-    "message": "Checked {{seconds}}s ago"
+    "message": "Tjekket for {{seconds}} s siden"
   },
   "tldwState_recheck": {
-    "message": "Check again"
+    "message": "Tjek igen"
   },
   "tldwState_errorToast": {
-    "message": "We couldn’t reach {{host}}"
+    "message": "Vi kunne ikke nå {{host}}"
   },
   "tldwState_missingHelp": {
-    "message": "Open Settings → tldw Server to add your URL or connect to the Options page."
+    "message": "Åbn Indstillinger → tldw Server for at tilføje din URL eller åbne siden med muligheder."
   },
   "tldwState_troubleshoot": {
-    "message": "Confirm your server is running and that the browser is allowed to reach it, then retry from the Options page."
+    "message": "Bekræft, at din server kører, og at browseren har adgang til den, og prøv igen fra siden med muligheder."
   },
   "errors_privateModeDescription": {
     "message": "Firefox privat tilstand understøtter ikke at gemme chat. Midlertidig chat er slået til som standard. Flere forbedringer er på vej."
@@ -189,64 +189,64 @@
     "message": "Noget gik galt under generering af TTS-lyd."
   },
   "tts_sampleText": {
-    "message": "Insert sample text"
+    "message": "Indsæt eksempeltekst"
   },
   "tts_playHelper": {
-    "message": "Play uses your selected provider, voice, and speed."
+    "message": "Afspil bruger den valgte udbyder, stemme og hastighed."
   },
   "tts_playDisabledNoText": {
-    "message": "Enter text to enable Play."
+    "message": "Indtast tekst for at aktivere Afspil."
   },
   "tts_playDisabledTtsOff": {
-    "message": "Enable text-to-speech above to play audio."
+    "message": "Aktivér tekst-til-tale ovenfor for at afspille lyd."
   },
   "tts_playDisabledElevenLabs": {
     "message": "Tilføj en ElevenLabs API-nøgle, en stemme og en model for at aktivere Play."
   },
   "tts_stopDisabled": {
-    "message": "Stop activates after audio starts."
+    "message": "Stop aktiveres efter lyd starter."
   },
   "tts_providerChangeHelper": {
     "message": "Åbn udbydervælgeren nedenfor for at skifte mellem Browser, tldw, OpenAI eller Supersonic."
   },
   "tts_changeProvider": {
-    "message": "Change provider"
+    "message": "Skift udbyder"
   },
   "tts_title": {
-    "message": "TTS Playground"
+    "message": "TTS-legeplads"
   },
   "tts_subtitle": {
-    "message": "Try out text-to-speech and tweak providers, models, and voices."
+    "message": "Prøv tekst-til-tale og juster udbydere, modeller og stemmer."
   },
   "tts_currentProvider": {
-    "message": "Current provider"
+    "message": "Aktuel udbyder"
   },
   "tts_settingsIntro": {
-    "message": "Adjust your TTS provider, model, and voice. These settings are reused when you play audio from chat or media."
+    "message": "Juster TTS-udbyder, model og stemme. Disse indstillinger bruges igen, når du afspiller lyd fra chat eller medier."
   },
   "tts_providerCapabilities": {
-    "message": "Provider capabilities"
+    "message": "Udbyderfunktioner"
   },
   "tts_voicesPreview": {
-    "message": "Server voices"
+    "message": "Serverstemmer"
   },
   "tts_providerDetails": {
-    "message": "View raw provider config"
+    "message": "Se rå udbyderkonfiguration"
   },
   "tts_providerDetailsTitle": {
-    "message": "Provider details"
+    "message": "Udbyderdetaljer"
   },
   "tts_inputLabel": {
-    "message": "Enter some text to hear it spoken."
+    "message": "Indtast noget tekst for at høre det oplæst."
   },
   "tts_inputPlaceholder": {
-    "message": "Type or paste text here, then use Play to listen."
+    "message": "Skriv eller indsæt tekst her og brug derefter Afspil til at lytte."
   },
   "tts_play": {
-    "message": "Play"
+    "message": "Afspil"
   },
   "tts_playing": {
-    "message": "Playing…"
+    "message": "Afspiller…"
   },
   "tts_stop": {
     "message": "Stop"
@@ -279,145 +279,145 @@
     "message": "Fortsæt"
   },
   "tts_tldwStatusOnline": {
-    "message": "tldw server audio API detected (audio/speech)"
+    "message": "tldw-serverens audio API registreret (audio/speech)"
   },
   "tts_tldwStatusOffline": {
-    "message": "Audio API not detected; check your tldw server version."
+    "message": "Audio API blev ikke fundet; tjek din tldw-serverversion."
   },
   "tts_tldwWarningTitle": {
-    "message": "tldw audio/speech API not detected"
+    "message": "tldw audio/speech API blev ikke fundet"
   },
   "tts_tldwWarningBody": {
-    "message": "Ensure your tldw_server version includes /api/v1/audio/speech and that your extension is connected with a valid API key."
+    "message": "Sørg for, at din tldw_server-version indeholder /api/v1/audio/speech, og at din udvidelse er forbundet med en gyldig API-nøgle."
   },
   "tts_speechErrorTitle": {
-    "message": "Dictation failed"
+    "message": "Diktering mislykkedes"
   },
   "tts_speechErrorBody": {
-    "message": "Transcription request failed. Check tldw server health."
+    "message": "Transskriptionsanmodning mislykkedes. Tjek tldw-serverens status."
   },
   "tts_speechNoText": {
-    "message": "The transcription did not return any text."
+    "message": "Transskriptionen returnerede ingen tekst."
   },
   "tts_speechMicError": {
-    "message": "Unable to access your microphone. Check browser permissions and try again."
+    "message": "Kunne ikke få adgang til din mikrofon. Tjek browserens tilladelser og prøv igen."
   },
   "tts_savedToNotes": {
-    "message": "Transcription saved as a note."
+    "message": "Transskription gemt som en note."
   },
   "empty_title": {
-    "message": "Start a new chat"
+    "message": "Start en ny chat"
   },
   "empty_description": {
-    "message": "Experiment with different models, prompts, and knowledge sources here."
+    "message": "Eksperimentér her med forskellige modeller, prompts og videnskilder."
   },
   "empty_demoDescription": {
-    "message": "You’re in demo mode — try asking a question to see how the assistant responds. You can connect your own tldw server later."
+    "message": "Du er i demotilstand — prøv at stille et spørgsmål for at se, hvordan assistenten svarer. Du kan forbinde din egen tldw-server senere."
   },
   "empty_example1": {
-    "message": "Ask a question, then drag in documents or web pages you want to discuss."
+    "message": "Stil et spørgsmål, og træk derefter dokumenter eller websider ind, som du vil drøfte."
   },
   "empty_example2": {
-    "message": "Use Quick ingest to add transcripts or notes, then reference them in chat."
+    "message": "Brug Quick Ingest til at tilføje transskriptioner eller noter og henvis til dem i chatten."
   },
   "empty_example3": {
-    "message": "Try different prompts or models from the header to compare answers."
+    "message": "Prøv forskellige prompts eller modeller i headeren for at sammenligne svar."
   },
   "empty_primaryCta": {
-    "message": "Start chatting"
+    "message": "Start chat"
   },
   "empty_secondaryCta": {
-    "message": "Open server settings"
+    "message": "Åbn serverindstillinger"
   },
   "drop_hint": {
-    "message": "Drop files to attach them to your message"
+    "message": "Slip filer for at vedhæfte dem til din besked"
   },
   "drop_readySingle": {
-    "message": "{{name}} ready to send"
+    "message": "{{name}} klar til afsendelse"
   },
   "drop_readyMultiple": {
-    "message": "{{count}} files ready to send"
+    "message": "{{count}} filer klar til afsendelse"
   },
   "drop_unsupported": {
-    "message": "That file type isn’t supported. Try images or text-based files."
+    "message": "Den filtype understøttes ikke. Prøv billeder eller tekstbaserede filer."
   },
   "drop_defaultFileName": {
-    "message": "File"
+    "message": "Fil"
   },
   "drop_imageOnly": {
-    "message": "Only images can be dropped here right now."
+    "message": "Kun billeder kan droppes her lige nu."
   },
   "drop_imageHint": {
-    "message": "Drop an image to include it in your message"
+    "message": "Slip et billede for at inkludere det i din besked"
   },
   "drop_overlayInstruction": {
-    "message": "Drop the image to attach it to your next reply"
+    "message": "Slip billedet for at vedhæfte det til dit næste svar"
   },
   "aria_chatTranscript": {
-    "message": "Chat messages"
+    "message": "Chatbeskeder"
   },
   "more_history": {
-    "message": "Chat saving"
+    "message": "Chatgemning"
   },
   "more_searchKnowledge": {
     "message": "Søg & RAG"
   },
   "more_voice": {
-    "message": "More voice options"
+    "message": "Flere stemmeindstillinger"
   },
   "more_uploads": {
-    "message": "Uploads & ingest"
+    "message": "Uploads og ingestion"
   },
   "fileRetrievalEnabled": {
-    "message": "Enable RAG for Documents"
+    "message": "Aktivér RAG for dokumenter"
   },
   "stt_title": {
-    "message": "STT Playground"
+    "message": "STT-legeplads"
   },
   "stt_subtitle": {
-    "message": "Try out transcription models, run longer dictation sessions, and save transcripts into Notes."
+    "message": "Prøv transskriptionsmodeller, kør længere diktationssessioner og gem transskriptioner i Noter."
   },
   "stt_currentModelLabel": {
-    "message": "Current transcription model"
+    "message": "Aktuel transskriptionsmodel"
   },
   "stt_defaultModel": {
-    "message": "Default from Settings"
+    "message": "Standard fra Indstillinger"
   },
   "stt_settingsNotice": {
-    "message": "Language, task, response format, segmentation, and prompt reuse your Speech-to-Text defaults from Settings."
+    "message": "Sprog, opgave, svarformat, segmentering og prompt bruger dine Speech-to-Text-standarder fra Indstillinger."
   },
   "stt_sessionMode": {
-    "message": "Session mode"
+    "message": "Sessionstilstand"
   },
   "stt_modeLong": {
-    "message": "Long-running (chunked recording)"
+    "message": "Lang (optagelse i bidder)"
   },
   "stt_modeShort": {
-    "message": "Short dictation (single clip)"
+    "message": "Kort diktering (enkelt klip)"
   },
   "stt_languageTag": {
-    "message": "Language"
+    "message": "Sprog"
   },
   "stt_taskTag": {
-    "message": "Task"
+    "message": "Opgave"
   },
   "stt_formatTag": {
     "message": "Format"
   },
   "stt_segmentationEnabled": {
-    "message": "Segmentation enabled"
+    "message": "Segmentering aktiveret"
   },
   "stt_recordButton": {
-    "message": "Record"
+    "message": "Optag"
   },
   "stt_stopButton": {
     "message": "Stop"
   },
   "stt_startTooltip": {
-    "message": "Start recording audio for transcription"
+    "message": "Start optagelse af lyd til transskription"
   },
   "stt_stopTooltip": {
-    "message": "Stop and send to server"
+    "message": "Stop og send til server"
   },
   "stt_transcribingButton": {
     "message": "Transskriberer..."
@@ -429,166 +429,166 @@
     "message": "Transskriberer lyd..."
   },
   "stt_historyTitle": {
-    "message": "Transcription history"
+    "message": "Transskriptionshistorik"
   },
   "stt_clearAll": {
-    "message": "Clear all"
+    "message": "Ryd alle"
   },
   "stt_emptyHistory": {
-    "message": "Start a recording to see transcripts here. You can save any item into Notes."
+    "message": "Start en optagelse for at se transskriptioner her. Du kan gemme ethvert element i Noter."
   },
   "stt_saveToNotes": {
-    "message": "Save to Notes"
+    "message": "Gem i Noter"
   },
   "stt_delete": {
-    "message": "Delete"
+    "message": "Slet"
   },
   "stt_durationTag": {
-    "message": "Duration"
+    "message": "Varighed"
   },
   "stt_modelTag": {
     "message": "Model"
   },
   "stt_currentTranscriptTitle": {
-    "message": "Current session transcript"
+    "message": "Aktuel sessionstransskription"
   },
   "stt_currentTranscriptPlaceholder": {
-    "message": "Live transcript will appear here while recording."
+    "message": "Live transskription vises her under optagelse."
   },
   "actions_temporaryOn": {
-    "message": "Temporary chat (not saved)"
+    "message": "Midlertidig chat (ikke gemt)"
   },
   "actions_temporaryOff": {
-    "message": "Save chat to history"
+    "message": "Gem chat i historik"
   },
   "actions_webSearchOn": {
-    "message": "Web search on"
+    "message": "Websøgning til"
   },
   "actions_webSearchOff": {
-    "message": "Web search off"
+    "message": "Websøgning fra"
   },
   "actions_speechStart": {
-    "message": "Start dictation"
+    "message": "Start diktering"
   },
   "actions_speechStop": {
-    "message": "Stop dictation"
+    "message": "Stop diktering"
   },
   "actions_streamStart": {
-    "message": "Live captions"
+    "message": "Live undertekster"
   },
   "actions_streamStop": {
-    "message": "Stop captions"
+    "message": "Stop undertekster"
   },
   "actions_visionOn": {
-    "message": "Vision on"
+    "message": "Vision til"
   },
   "actions_visionOff": {
-    "message": "Vision off"
+    "message": "Vision fra"
   },
   "actions_upload": {
-    "message": "Attach image"
+    "message": "Vedhæft billede"
   },
   "actions_ingest": {
-    "message": "Quick ingest"
+    "message": "Quick Ingest"
   },
   "actions_ingestDisabled": {
-    "message": "Connect to your tldw server to ingest."
+    "message": "Forbind til din tldw-server for at ingest."
   },
   "actions_ingestHint": {
-    "message": "Upload URLs or files with advanced options."
+    "message": "Upload URL'er eller filer med avancerede indstillinger."
   },
   "actions_ingestSub": {
-    "message": "Use URLs/files; download or store."
+    "message": "Brug URL'er/filer; download eller gem."
   },
   "actions_streamErrorTitle": {
-    "message": "Live captions unavailable"
+    "message": "Live undertekster ikke tilgængelige"
   },
   "composer_toolsButton": {
-    "message": "+Tools"
+    "message": "+Værktøjer"
   },
   "composer_queuedBanner_title": {
-    "message": "Queued while offline"
+    "message": "I kø når offline"
   },
   "composer_queuedBanner_body": {
-    "message": "We’ll hold these messages and send them once your tldw server is connected."
+    "message": "Vi holder disse beskeder og sender dem, når din tldw-server er forbundet."
   },
   "composer_queuedBanner_sendNow": {
-    "message": "Send queued messages"
+    "message": "Send beskeder i kø"
   },
   "composer_queuedBanner_clear": {
-    "message": "Clear queue"
+    "message": "Ryd kø"
   },
   "composer_coreTools": {
-    "message": "Conversation options"
+    "message": "Samtaleindstillinger"
   },
   "composer_captureTools": {
-    "message": "Capture and assist tools"
+    "message": "Fangst- og hjælpeværktøjer"
   },
   "composer_actions": {
-    "message": "Send options"
+    "message": "Afsendelsesindstillinger"
   },
   "composer_moreTools": {
-    "message": "More tools"
+    "message": "Flere værktøjer"
   },
   "composer_scrollToLatest": {
-    "message": "Scroll to latest messages"
+    "message": "Rul til seneste beskeder"
   },
   "composer_submitAria": {
-    "message": "Send message"
+    "message": "Send besked"
   },
   "composer_openModelSettings": {
-    "message": "Open current chat settings"
+    "message": "Åbn aktuelle chatindstillinger"
   },
   "composer_stopStreaming": {
-    "message": "Stop streaming response"
+    "message": "Stop streaming af svar"
   },
   "composer_connectionPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Forbind til din tldw-server i Indstillinger for at sende beskeder og se medier."
   },
   "composer_connectNotice": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Forbind til din tldw-server i Indstillinger for at sende beskeder og se medier."
   },
   "composer_connectionChipDisconnected": {
-    "message": "Server: Not connected"
+    "message": "Server: Ikke forbundet"
   },
   "composer_contextLabel": {
-    "message": "Context:"
+    "message": "Kontekst:"
   },
   "composer_contextKnowledgeEmpty": {
-    "message": "No knowledge selected"
+    "message": "Ingen viden valgt"
   },
   "composer_contextTabs": {
-    "message": "{{count}} tabs"
+    "message": "{{count}} faner"
   },
   "composer_contextFiles": {
-    "message": "{{count}} files"
+    "message": "{{count}} filer"
   },
   "composer_contextMedia": {
-    "message": "Media & Notes"
+    "message": "Medier og noter"
   },
   "composer_contextMediaHint": {
-    "message": "Attach Media & Notes that should steer the response."
+    "message": "Vedhæft medier og noter, der skal styre svaret."
   },
   "composer_contextMediaSelected": {
-    "message": "Media or note"
+    "message": "Medie eller note"
   },
   "composer_contextMediaEmpty": {
-    "message": "No Media & Notes selected yet."
+    "message": "Ingen medier eller noter valgt endnu."
   },
   "composer_addKnowledge": {
-    "message": "Add Media & Notes"
+    "message": "Tilføj medier og noter"
   },
   "composer_contextTabsTitle": {
-    "message": "Tabs in context"
+    "message": "Faner i kontekst"
   },
   "composer_contextTabsHint": {
-    "message": "Review or remove referenced tabs, or add more from your open browser tabs."
+    "message": "Gennemgå eller fjern refererede faner, eller tilføj flere fra dine åbne faner."
   },
   "composer_contextManager": {
-    "message": "Context Management"
+    "message": "Konteksthåndtering"
   },
   "composer_contextManagerTitle": {
-    "message": "Context Management"
+    "message": "Konteksthåndtering"
   },
   "composer_contextKnowledge": {
     "message": "Kontekst og viden"
@@ -603,43 +603,43 @@
     "message": "Luk vidensøgning"
   },
   "composer_persistence_ephemeral": {
-    "message": "Not saved in history; clears when you close this tab."
+    "message": "Gemmes ikke i historikken; rydes når du lukker denne fane."
   },
   "composer_persistence_local": {
-    "message": "Saved in this browser only."
+    "message": "Gemmes kun i denne browser."
   },
   "composer_persistence_server": {
-    "message": "Saved Locally+Server"
+    "message": "Gemt lokalt + server"
   },
   "composer_persistence_ephemeralPill": {
-    "message": "Temporary"
+    "message": "Midlertidig"
   },
   "composer_persistence_localPill": {
-    "message": "Local only"
+    "message": "Kun lokalt"
   },
   "composer_persistence_serverPill": {
-    "message": "Locally + Server"
+    "message": "Lokalt + server"
   },
   "composer_persistence_saveToServer": {
-    "message": "Also save this chat to server"
+    "message": "Gem også denne chat på serveren"
   },
   "composer_persistence_connectToSave": {
-    "message": "Connect your server to save chats there."
+    "message": "Forbind din server for at gemme chats der."
   },
   "composer_persistence_serverDefaultTitle": {
-    "message": "Extension chat"
+    "message": "Udvidelseschat"
   },
   "composer_persistence_serverSavedTitle": {
-    "message": "Chat now saved on server"
+    "message": "Chatten gemmes nu på serveren"
   },
   "composer_persistence_serverSaved": {
-    "message": "Future messages in this chat will sync to your tldw server."
+    "message": "Fremtidige beskeder i denne chat synkroniseres til din tldw-server."
   },
   "composer_persistence_serverCharacterRequired": {
-    "message": "Unable to find or create a default assistant character on the server. Try again from the Characters page."
+    "message": "Kunne ikke finde eller oprette en standard-assistentkarakter på serveren. Prøv igen fra siden Karakterer."
   },
   "composer_connectToSend": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Forbind til din tldw-server i Indstillinger for at sende beskeder og se medier."
   },
   "composer_compareTag": {
     "message": "Sammenlign"
@@ -1236,133 +1236,133 @@
     "message": "Behandler..."
   },
   "documentGenerator_title": {
-    "message": "Document generator"
+    "message": "Dokumentgenerator"
   },
   "documentGenerator_unavailable": {
-    "message": "Document generation is not available on this server."
+    "message": "Dokumentgenerering er ikke tilgængelig på denne server."
   },
   "documentGenerator_noConversation": {
-    "message": "Start a server-backed chat to generate documents."
+    "message": "Start en serverunderstøttet chat for at generere dokumenter."
   },
   "documentGenerator_source": {
-    "message": "Source"
+    "message": "Kilde"
   },
   "documentGenerator_sourceId": {
-    "message": "Conversation {{id}}"
+    "message": "Samtale {{id}}"
   },
   "documentGenerator_sourceMissing": {
-    "message": "No active conversation yet."
+    "message": "Ingen aktiv samtale endnu."
   },
   "documentGenerator_sourceMessageId": {
-    "message": "Message {{id}}"
+    "message": "Besked {{id}}"
   },
   "documentGenerator_documentType": {
-    "message": "Document type"
+    "message": "Dokumenttype"
   },
   "documentGenerator_model": {
     "message": "Model"
   },
   "documentGenerator_modelPlaceholder": {
-    "message": "Model ID"
+    "message": "Model-ID"
   },
   "documentGenerator_providerPlaceholder": {
-    "message": "Provider name"
+    "message": "Udbydernavn"
   },
   "documentGenerator_providerLabel": {
-    "message": "Provider: {{provider}}"
+    "message": "Udbyder: {{provider}}"
   },
   "documentGenerator_specificMessage": {
-    "message": "Focus on a specific message"
+    "message": "Fokus på en specifik besked"
   },
   "documentGenerator_specificMessagePlaceholder": {
-    "message": "Optional: paste a message excerpt to focus on."
+    "message": "Valgfrit: indsæt et beskeduddrag for at fokusere."
   },
   "documentGenerator_customPrompt": {
-    "message": "Custom prompt"
+    "message": "Brugerdefineret prompt"
   },
   "documentGenerator_customPromptPlaceholder": {
-    "message": "Optional instructions for the generated document."
+    "message": "Valgfrie instruktioner til det genererede dokument."
   },
   "documentGenerator_asyncGeneration": {
-    "message": "Generate asynchronously"
+    "message": "Generér asynkront"
   },
   "documentGenerator_promptPresetTitle": {
-    "message": "Prompt preset"
+    "message": "Prompt-forudindstilling"
   },
   "documentGenerator_promptPresetHint": {
-    "message": "Customize the system/user prompts used for this document type."
+    "message": "Tilpas system-/brugerprompter for denne dokumenttype."
   },
   "documentGenerator_promptReload": {
-    "message": "Reload from server"
+    "message": "Genindlæs fra server"
   },
   "documentGenerator_systemPrompt": {
-    "message": "System prompt"
+    "message": "Systemprompt"
   },
   "documentGenerator_userPrompt": {
-    "message": "User prompt"
+    "message": "Brugerprompt"
   },
   "documentGenerator_temperature": {
-    "message": "Temperature"
+    "message": "Temperatur"
   },
   "documentGenerator_maxTokens": {
-    "message": "Max tokens"
+    "message": "Maks. tokens"
   },
   "documentGenerator_jobQueued": {
-    "message": "Document generation queued."
+    "message": "Dokumentgenerering i kø."
   },
   "documentGenerator_generated": {
-    "message": "Document generated."
+    "message": "Dokument genereret."
   },
   "documentGenerator_deleteTitle": {
-    "message": "Delete document?"
+    "message": "Slet dokument?"
   },
   "documentGenerator_deleteBody": {
-    "message": "This will permanently remove the generated document."
+    "message": "Dette vil permanent fjerne det genererede dokument."
   },
   "documentGenerator_jobCancelled": {
-    "message": "Job cancelled."
+    "message": "Job annulleret."
   },
   "documentGenerator_promptSaved": {
-    "message": "Prompt preset saved."
+    "message": "Prompt-forudindstilling gemt."
   },
   "documentGenerator_documentsTitle": {
-    "message": "Generated documents"
+    "message": "Genererede dokumenter"
   },
   "documentGenerator_loading": {
-    "message": "Loading…"
+    "message": "Indlæser…"
   },
   "documentGenerator_noDocuments": {
-    "message": "No documents yet."
+    "message": "Ingen dokumenter endnu."
   },
   "documentGenerator_jobsTitle": {
-    "message": "Generation jobs"
+    "message": "Genereringsjob"
   },
   "documentGenerator_progress": {
-    "message": "{{percent}}% complete"
+    "message": "{{percent}}% fuldført"
   },
   "documentGenerator_noContent": {
-    "message": "No content available."
+    "message": "Intet indhold tilgængeligt."
   },
   "documentGenerator_errors_missingModel": {
-    "message": "Select a model and provider first."
+    "message": "Vælg først en model og en udbyder."
   },
   "documentGenerator_types_summary": {
-    "message": "Summary"
+    "message": "Resume"
   },
   "documentGenerator_types_timeline": {
-    "message": "Timeline"
+    "message": "Tidslinje"
   },
   "documentGenerator_types_briefing": {
     "message": "Briefing"
   },
   "documentGenerator_types_study_guide": {
-    "message": "Study guide"
+    "message": "Studieguide"
   },
   "documentGenerator_types_q_and_a": {
-    "message": "Q&A"
+    "message": "Spørgsmål og svar"
   },
   "documentGenerator_types_meeting_notes": {
-    "message": "Meeting notes"
+    "message": "Mødenoter"
   },
   "composer_contextTabsEmpty": {
     "message": "Ingen faner valgt."
@@ -1383,9 +1383,9 @@
     "message": "Ingen egnede åbne faner fundet."
   },
   "errors_loadLocalHistoryPrefix": {
-    "message": "Failed to load local chat history"
+    "message": "Kunne ikke indlæse lokal chathistorik"
   },
   "errors_loadLocalHistoryDefault": {
-    "message": "Something went wrong while loading local chat history."
+    "message": "Noget gik galt under indlæsning af lokal chathistorik."
   }
 }

@@ -1776,243 +1776,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "Kort"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "Flashcards-API er ikke tilgjengelig på denne serveren"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "Denne tldw-serveren annonserer ikke Flashcards-endepunktene. Oppgrader serveren til en versjon som inkluderer /api/v1/flashcards… for å bruke dette arbeidsområdet."
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "Sjekk Health & diagnostics for å bekrefte serverversjonen og tilgjengelige API-er."
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "Etter oppgradering, last inn utvidelsen på nytt og gå tilbake til Flashcards."
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "Trykk mellomrom for å snu"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "Trykk 1-4 for å vurdere"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "Ingen flashcards ennå"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "Du er oppdatert!"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "Ingen kort er klare for gjennomgang. Bra jobbet!"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "Lag et flashcard"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "Lag flere kort"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "Grunnleggende (Spørsmål - Svar)"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "Grunnleggende + omvendt (begge retninger)"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "Cloze (Fyll inn det tomme feltet)"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "Filtrer etter tagg"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "Skriv inn tagg..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "Kompakt visning"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "Utvidet visning"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "Mer"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "Eksporter"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "Gjennomgå nå"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "Flytt til kortstokk"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "Kunne ikke laste kortet"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "Duplisering mislyktes"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "Flytting mislyktes"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "Velg en mål-kortstokk før du flytter kort."
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "Behandler"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "Vennligst vent..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "Sletter kort"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "Slette {{count}} valgte kort? Dette kan ikke angres."
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "Slette {{count}} kort?"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "Du er i ferd med å slette et stort antall kort."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "Dette vil slette {{count}} kort permanent. Denne handlingen kan ikke angres."
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "Skriv DELETE for å bekrefte:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "valgt på tvers av alle resultater"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "valgt på denne siden"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "valgt"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "Velg alle {{count}}"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "Tøm"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "Lag flashcard"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "Fyll ut forsiden (spørsmål) og baksiden (svar). Markdown og LaTeX støttes."
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "Vis forhåndsvisning"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "Skjul forhåndsvisning"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "Støtter Markdown og LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "Avanserte alternativer (tagger, ekstra, notater)"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "Kort slettet"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "Angre innen {{seconds}} s for å avbryte sletting."
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "{{count}} kort slettet"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "Neste gjennomgang: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} kort forfaller"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "Tastatursnarveier"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "Trykk ? for å vise snarveier"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "Snu kort"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "Vurder kort"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "Naviger mellom kort"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "Rediger kort"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "Slett kort"
   },
   "flashcards_modelTypeBasic": {
     "message": "Standard"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "Reverserbar"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "Fyll inn det tomme feltet"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "Ulagrede endringer"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "Du har ulagrede endringer. Er du sikker på at du vil lukke?"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "kort gjenstår"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "gjennomgått"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "min igjen"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "{{remaining}} kort gjenstår, {{reviewed}} gjennomgått"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "Vurder siste kort på nytt"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "Vurder dette kortet på nytt for å oppdatere svaret ditt"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "Flytt ned"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "Flytt opp"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "Velg kort"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "Fjern fokus"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "Vis snarveier"
   },
   "flashcards_global": {
     "message": "Global"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "omvendt"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "{{count}} kort gjennomgått i denne økten"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "Forfaller nå"
   }
 }

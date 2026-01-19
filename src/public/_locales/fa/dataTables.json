@@ -1,383 +1,383 @@
 {
   "title": {
-    "message": "Data Tables Studio"
+    "message": "استودیو جدول‌های داده"
   },
   "description": {
     "message": "Description"
   },
   "betaNotice": {
-    "message": "Beta Feature"
+    "message": "قابلیت بتا"
   },
   "betaDescription": {
-    "message": "Data Tables is currently in beta. Table generation requires backend support."
+    "message": "Data Tables در حال حاضر در نسخهٔ بتا است. تولید جدول به پشتیبانی بک‌اند نیاز دارد."
   },
   "offline": {
-    "message": "Server is offline. Please connect to use Data Tables."
+    "message": "سرور آفلاین است. لطفاً برای استفاده از Data Tables متصل شوید."
   },
   "tabs_tables": {
-    "message": "My Tables"
+    "message": "جداول من"
   },
   "tabs_create": {
-    "message": "Create Table"
+    "message": "ایجاد جدول"
   },
   "wizard_sources": {
-    "message": "Select Sources"
+    "message": "انتخاب منابع"
   },
   "wizard_sourcesDesc": {
-    "message": "Choose data sources"
+    "message": "منابع داده را انتخاب کنید"
   },
   "wizard_prompt": {
-    "message": "Describe Table"
+    "message": "توصیف جدول"
   },
   "wizard_promptDesc": {
-    "message": "Write your prompt"
+    "message": "پرامپت خود را بنویسید"
   },
   "wizard_preview": {
-    "message": "Preview"
+    "message": "پیش‌نمایش"
   },
   "wizard_previewDesc": {
-    "message": "Review generated table"
+    "message": "بررسی جدول تولیدشده"
   },
   "wizard_save": {
-    "message": "Save"
+    "message": "ذخیره"
   },
   "wizard_saveDesc": {
-    "message": "Save to library"
+    "message": "ذخیره در کتابخانه"
   },
   "wizard_tip": {
-    "message": "Tip"
+    "message": "نکته"
   },
   "wizard_tipText": {
-    "message": "Select chats, documents, or search your knowledge base to extract structured data. The more specific your sources, the better the results."
+    "message": "برای استخراج داده‌های ساخت‌یافته، چت‌ها یا اسناد را انتخاب کنید یا در پایگاه دانش خود جست‌وجو کنید. هرچه منابع مشخص‌تر باشند، نتایج بهتر خواهد بود."
   },
   "wizard_reset": {
-    "message": "Start Over"
+    "message": "شروع مجدد"
   },
   "sourceTypes_chat": {
-    "message": "Chats"
+    "message": "چت‌ها"
   },
   "sourceTypes_document": {
-    "message": "Documents"
+    "message": "اسناد"
   },
   "sourceTypes_rag": {
-    "message": "RAG Search"
+    "message": "جست‌وجوی RAG"
   },
   "selectedSources": {
-    "message": "Selected Sources"
+    "message": "منابع انتخاب‌شده"
   },
   "sourcesSelected": {
-    "message": "Sources Selected"
+    "message": "منابع انتخاب شدند"
   },
   "searchPlaceholder": {
-    "message": "Search..."
+    "message": "جست‌وجو..."
   },
   "ragPlaceholder": {
-    "message": "Enter a search query for your knowledge base..."
+    "message": "یک کوئری جست‌وجو برای پایگاه دانش خود وارد کنید..."
   },
   "ragQuerySnippet": {
-    "message": "Knowledge base search query"
+    "message": "کوئری جست‌وجوی پایگاه دانش"
   },
   "ragAdded": {
-    "message": "RAG query added as source"
+    "message": "کوئری RAG به‌عنوان منبع اضافه شد"
   },
   "ragTip": {
-    "message": "Enter search queries to find relevant content in your knowledge base. Each query will be added as a separate source."
+    "message": "کوئری‌های جست‌وجو را وارد کنید تا محتوای مرتبط را در پایگاه دانش خود پیدا کنید. هر کوئری به‌صورت یک منبع جداگانه اضافه می‌شود."
   },
   "fetchError": {
-    "message": "Failed to load items"
+    "message": "بارگذاری موارد ناموفق بود"
   },
   "promptLabel": {
-    "message": "Describe the table you want to create"
+    "message": "جدولی را که می‌خواهید ایجاد کنید توصیف کنید"
   },
   "promptPlaceholder": {
-    "message": "E.g., Create a table comparing the main topics discussed, with columns for topic, key points, and relevance score..."
+    "message": "مثلاً جدولی بسازید که موضوعات اصلی مطرح‌شده را مقایسه کند، با ستون‌هایی برای موضوع، نکات کلیدی و امتیاز مرتبط‌بودن..."
   },
   "examplePrompts": {
-    "message": "Example prompts:"
+    "message": "نمونه پرامپت‌ها:"
   },
   "advancedOptions": {
-    "message": "Advanced Options"
+    "message": "گزینه‌های پیشرفته"
   },
   "columnHints": {
-    "message": "Column Hints (Optional)"
+    "message": "راهنمای ستون‌ها (اختیاری)"
   },
   "columnHintsDesc": {
-    "message": "Suggest column names and types to guide the LLM. If not specified, columns will be inferred from your prompt."
+    "message": "برای راهنمایی مدل زبانی، نام و نوع ستون‌ها را پیشنهاد دهید. اگر مشخص نشود، ستون‌ها از پرامپت شما استنباط می‌شوند."
   },
   "newColumnName": {
-    "message": "Column name"
+    "message": "نام ستون"
   },
   "modelSelection": {
-    "message": "Model"
+    "message": "مدل"
   },
   "selectModel": {
-    "message": "Use default model"
+    "message": "استفاده از مدل پیش‌فرض"
   },
   "maxRows": {
-    "message": "Maximum Rows"
+    "message": "حداکثر ردیف‌ها"
   },
   "maxRowsHint": {
     "message": "(1-1000)"
   },
   "generating": {
-    "message": "Generating table from your sources..."
+    "message": "در حال تولید جدول از منابع شما..."
   },
   "generatingNote": {
-    "message": "This may take a moment depending on the amount of data."
+    "message": "بسته به مقدار داده ممکن است کمی طول بکشد."
   },
   "generateSuccess": {
-    "message": "Table generated successfully!"
+    "message": "جدول با موفقیت تولید شد!"
   },
   "generationFailed": {
-    "message": "Generation Failed"
+    "message": "تولید ناموفق بود"
   },
   "tryAgain": {
-    "message": "Try Again"
+    "message": "دوباره تلاش کنید"
   },
   "warnings": {
-    "message": "Warnings"
+    "message": "هشدارها"
   },
   "noPreview": {
-    "message": "No preview available"
+    "message": "پیش‌نمایشی موجود نیست"
   },
   "promptUsed": {
-    "message": "Prompt used:"
+    "message": "پرامپت استفاده‌شده:"
   },
   "previewModified": {
-    "message": "You've modified the preview. Changes will be saved with the table."
+    "message": "پیش‌نمایش را تغییر داده‌اید. تغییرات همراه جدول ذخیره می‌شوند."
   },
   "addRow": {
-    "message": "Add Row"
+    "message": "افزودن ردیف"
   },
   "addColumn": {
-    "message": "Add Column"
+    "message": "افزودن ستون"
   },
   "deleteRow": {
-    "message": "Delete row?"
+    "message": "ردیف حذف شود؟"
   },
   "deleteRowConfirm": {
-    "message": "This action cannot be undone."
+    "message": "این اقدام قابل بازگشت نیست."
   },
   "deleteColumn": {
-    "message": "Delete column?"
+    "message": "ستون حذف شود؟"
   },
   "deleteColumnConfirm": {
-    "message": "This action cannot be undone."
+    "message": "این اقدام قابل بازگشت نیست."
   },
   "discard": {
-    "message": "Discard"
+    "message": "رد کردن"
   },
   "changesDiscarded": {
-    "message": "Changes discarded"
+    "message": "تغییرات رد شد"
   },
   "save": {
-    "message": "Save"
+    "message": "ذخیره"
   },
   "saveSuccess": {
-    "message": "Changes saved successfully!"
+    "message": "تغییرات با موفقیت ذخیره شد!"
   },
   "unsavedChanges": {
-    "message": "You have unsaved changes"
+    "message": "تغییرات ذخیره‌نشده دارید"
   },
   "columnAdded": {
-    "message": "Column '{{name}}' added"
+    "message": "ستون '{{name}}' اضافه شد"
   },
   "rows": {
-    "message": "rows"
+    "message": "ردیف‌ها"
   },
   "columnsLabel": {
-    "message": "columns"
+    "message": "ستون‌ها"
   },
   "showingRows": {
-    "message": "Showing {{total}} rows"
+    "message": "نمایش {{total}} ردیف"
   },
   "tableSummary": {
-    "message": "Table Summary"
+    "message": "خلاصه جدول"
   },
   "tableName": {
-    "message": "Table Name"
+    "message": "نام جدول"
   },
   "tableNamePlaceholder": {
-    "message": "Enter a name for your table"
+    "message": "برای جدول خود نامی وارد کنید"
   },
   "tableDescription": {
-    "message": "Description (optional)"
+    "message": "توضیحات (اختیاری)"
   },
   "tableDescPlaceholder": {
-    "message": "Add a description to help you remember what this table contains"
+    "message": "برای کمک به یادآوری محتوای این جدول، توضیحی اضافه کنید"
   },
   "saveToLibrary": {
-    "message": "Save to Library"
+    "message": "ذخیره در کتابخانه"
   },
   "tableSaved": {
-    "message": "Table Saved!"
+    "message": "جدول ذخیره شد!"
   },
   "tableSavedDesc": {
-    "message": "Your table has been saved to the library. You can view and export it anytime."
+    "message": "جدول شما در کتابخانه ذخیره شد. هر زمان می‌توانید آن را مشاهده و صادر کنید."
   },
   "viewTables": {
-    "message": "View My Tables"
+    "message": "مشاهده جداول من"
   },
   "createAnother": {
-    "message": "Create Another"
+    "message": "ایجاد یکی دیگر"
   },
   "orExport": {
-    "message": "Or export directly:"
+    "message": "یا مستقیماً صادر کنید:"
   },
   "export": {
-    "message": "Export"
+    "message": "خروجی"
   },
   "exportCSV": {
-    "message": "Export as CSV"
+    "message": "خروجی CSV"
   },
   "exportExcel": {
-    "message": "Export as Excel"
+    "message": "خروجی Excel"
   },
   "exportJSON": {
-    "message": "Export as JSON"
+    "message": "خروجی JSON"
   },
   "exportSuccess": {
-    "message": "Table exported as {{format}}"
+    "message": "جدول به قالب {{format}} صادر شد"
   },
   "noTableToSave": {
-    "message": "No table to save"
+    "message": "جدولی برای ذخیره وجود ندارد"
   },
   "goBackToGenerate": {
-    "message": "Go back to the previous step to generate a table first."
+    "message": "به مرحله قبلی برگردید تا ابتدا جدول تولید شود."
   },
   "tableDetails": {
-    "message": "Table Details"
+    "message": "جزئیات جدول"
   },
   "tableNotFound": {
-    "message": "Table not found"
+    "message": "جدول یافت نشد"
   },
   "noData": {
-    "message": "No data"
+    "message": "داده‌ای نیست"
   },
   "data": {
-    "message": "Data"
+    "message": "داده‌ها"
   },
   "editMode": {
-    "message": "Edit Mode"
+    "message": "حالت ویرایش"
   },
   "editModeActive": {
-    "message": "Click cells to edit"
+    "message": "برای ویرایش روی سلول‌ها کلیک کنید"
   },
   "regenerate": {
-    "message": "Regenerate"
+    "message": "تولید دوباره"
   },
   "regenerateSuccess": {
-    "message": "Table regenerated successfully!"
+    "message": "جدول با موفقیت دوباره تولید شد!"
   },
   "model": {
-    "message": "Model"
+    "message": "مدل"
   },
   "prompt": {
-    "message": "Generation Prompt"
+    "message": "پرامپت تولید"
   },
   "sources": {
-    "message": "Sources"
+    "message": "منابع"
   },
   "created": {
-    "message": "Created"
+    "message": "ایجاد شد"
   },
   "updated": {
-    "message": "Updated"
+    "message": "به‌روزرسانی شد"
   },
   "noTables": {
-    "message": "No tables yet. Create your first table!"
+    "message": "هنوز جدولی نیست. اولین جدول خود را ایجاد کنید!"
   },
   "noSearchResults": {
-    "message": "No tables found matching your search"
+    "message": "هیچ جدولی مطابق جست‌وجوی شما یافت نشد"
   },
   "totalTables": {
-    "message": "{{total}} tables"
+    "message": "{{total}} جدول"
   },
   "view": {
-    "message": "View"
+    "message": "مشاهده"
   },
   "delete": {
-    "message": "Delete"
+    "message": "حذف"
   },
   "deleteConfirmTitle": {
-    "message": "Delete Table"
+    "message": "حذف جدول"
   },
   "deleteConfirmMessage": {
-    "message": "Are you sure you want to delete this table? This action cannot be undone."
+    "message": "آیا مطمئن هستید می‌خواهید این جدول را حذف کنید؟ این اقدام قابل بازگشت نیست."
   },
   "noTable": {
-    "message": "No table data"
+    "message": "داده‌ای برای جدول وجود ندارد"
   },
   "add": {
-    "message": "Add"
+    "message": "افزودن"
   },
   "columnName": {
-    "message": "Column Name"
+    "message": "نام ستون"
   },
   "columnNamePlaceholder": {
-    "message": "e.g., Price, Status, Date"
+    "message": "مثلاً قیمت، وضعیت، تاریخ"
   },
   "columnNameRequired": {
-    "message": "Please enter a column name"
+    "message": "لطفاً نام ستون را وارد کنید"
   },
   "columnNameTooLong": {
-    "message": "Column name must be 50 characters or less"
+    "message": "نام ستون باید حداکثر ۵۰ نویسه باشد"
   },
   "columnNameExists": {
-    "message": "A column with this name already exists"
+    "message": "ستونی با این نام از قبل وجود دارد"
   },
   "columnType": {
-    "message": "Column Type"
+    "message": "نوع ستون"
   },
   "columnTypeRequired": {
-    "message": "Please select a column type"
+    "message": "لطفاً نوع ستون را انتخاب کنید"
   },
   "columnDescription": {
-    "message": "Description (optional)"
+    "message": "توضیحات (اختیاری)"
   },
   "columnDescriptionHint": {
-    "message": "A brief description of what this column contains"
+    "message": "توضیح کوتاهی درباره محتوای این ستون"
   },
   "columnDescriptionPlaceholder": {
-    "message": "e.g., The price of the item in USD"
+    "message": "مثلاً قیمت کالا به دلار آمریکا"
   },
   "discardUnsavedChanges": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "تغییرات ذخیره‌نشده دارید. آیا مطمئنید می‌خواهید ببندید؟"
   },
   "createFromChat": {
-    "message": "Create Table from Chat"
+    "message": "ایجاد جدول از چت"
   },
   "saveFromArtifact": {
-    "message": "Save to Data Tables"
+    "message": "ذخیره در Data Tables"
   },
   "importedPrompt": {
-    "message": "Imported from table artifact"
+    "message": "از آرتیفکت جدول وارد شده است"
   },
   "columns_name": {
-    "message": "Name"
+    "message": "نام"
   },
   "columns_rows": {
-    "message": "Rows"
+    "message": "ردیف‌ها"
   },
   "columns_columns": {
-    "message": "Columns"
+    "message": "ستون‌ها"
   },
   "columns_sources": {
-    "message": "Sources"
+    "message": "منابع"
   },
   "columns_created": {
-    "message": "Created"
+    "message": "ایجاد"
   },
   "columns_actions": {
-    "message": "Actions"
+    "message": "اقدامات"
   },
   "dataTablesDescription": {
-    "message": "Generate structured tables from your chats, documents, and knowledge base using natural language prompts."
+    "message": "با استفاده از پرامپت‌های زبان طبیعی، از چت‌ها، اسناد و پایگاه دانش خود جداول ساخت‌یافته تولید کنید."
   },
   "descriptionLabel": {
     "message": "Description"
   },
   "tableDescriptionLabel": {
-    "message": "Description"
+    "message": "توضیحات"
   }
 }

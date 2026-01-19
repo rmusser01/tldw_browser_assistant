@@ -1731,243 +1731,243 @@
     "message": "ഫയലുകൾ തിരഞ്ഞെടുക്കുക"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "കാർഡുകൾ"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "ഈ സെർവറിൽ ഫ്ലാഷ്‌കാർഡ്സ് API ലഭ്യമല്ല"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "ഈ tldw സെർവർ ഫ്ലാഷ്‌കാർഡ്സ് എൻഡ്‌പോയിന്റുകൾ പ്രഖ്യാപിക്കുന്നില്ല. ഈ വർക്ക്‌സ്പേസ് ഉപയോഗിക്കാൻ /api/v1/flashcards… ഉൾപ്പെടുത്തിയ പതിപ്പിലേക്ക് സെർവർ അപ്‌ഗ്രേഡ് ചെയ്യുക."
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "സെർവറിന്റെ പതിപ്പും ലഭ്യമായ APIകളും സ്ഥിരീകരിക്കാൻ Health & diagnostics പരിശോധിക്കുക."
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "അപ്‌ഗ്രേഡ് ചെയ്ത ശേഷം, എക്സ്റ്റൻഷൻ വീണ്ടും ലോഡ് ചെയ്ത് ഫ്ലാഷ്‌കാർഡുകളിലേക്ക് തിരികെ പോകുക."
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "മറിക്കാൻ Space അമർത്തുക"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "റേറ്റ് ചെയ്യാൻ 1-4 അമർത്തുക"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "ഇതുവരെ ഫ്ലാഷ്‌കാർഡുകൾ ഇല്ല"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "എല്ലാം പൂർത്തിയായി!"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "റിവ്യൂ ചെയ്യാനുള്ള കാർഡുകൾ ഒന്നുമില്ല. നല്ല ജോലി!"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "ഒരു ഫ്ലാഷ്‌കാർഡ് സൃഷ്ടിക്കുക"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "കൂടുതൽ കാർഡുകൾ സൃഷ്ടിക്കുക"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "ബേസിക് (ചോദ്യം - ഉത്തരം)"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "ബേസിക് + റിവേഴ്‌സ് (ഇരുവശങ്ങളും)"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "ക്ലോസ് (ശൂന്യം പൂരിപ്പിക്കുക)"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "ടാഗ് പ്രകാരം ഫിൽട്ടർ ചെയ്യുക"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "ടാഗ് നൽകുക..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "കമ്പാക്റ്റ് കാഴ്ച"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "വിപുലീകരിച്ച കാഴ്ച"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "കൂടുതൽ"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "എക്സ്പോർട്ട്"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "ഇപ്പോൾ റിവ്യൂ ചെയ്യുക"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "ഡെക്കിലേക്കു മാറ്റുക"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "കാർഡ് ലോഡ് ചെയ്യാൻ പരാജയപ്പെട്ടു"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "പകർപ്പ് പരാജയപ്പെട്ടു"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "മാറ്റൽ പരാജയപ്പെട്ടു"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "കാർഡുകൾ മാറ്റുന്നതിന് മുമ്പ് ഒരു ലക്ഷ്യ ഡെക്ക് തിരഞ്ഞെടുക്കുക."
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "പ്രോസസ്സിംഗ്"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "ദയവായി കാത്തിരിക്കുക..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "കാർഡുകൾ ഇല്ലാതാക്കുന്നു"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "{{count}} തിരഞ്ഞെടുക്കപ്പെട്ട കാർഡുകൾ ഇല്ലാതാക്കണോ? ഇത് തിരിച്ചു കൊണ്ടുവരാനാകില്ല."
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "{{count}} കാർഡുകൾ ഇല്ലാതാക്കണോ?"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "നിങ്ങൾ വലിയ തോതിൽ കാർഡുകൾ ഇല്ലാതാക്കാനിരിക്കുകയാണ്."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "ഇത് {{count}} കാർഡുകൾ സ്ഥിരമായി ഇല്ലാതാക്കും. ഇത് തിരിച്ചു കൊണ്ടുവരാനാകില്ല."
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "ഉറപ്പാക്കാൻ DELETE ടൈപ്പ് ചെയ്യുക:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "എല്ലാ ഫലങ്ങളിലും തിരഞ്ഞെടുക്കപ്പെട്ടു"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "ഈ പേജിൽ തിരഞ്ഞെടുക്കപ്പെട്ടു"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "തിരഞ്ഞെടുത്തത്"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "എല്ലാ {{count}} തിരഞ്ഞെടുക്കുക"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "മായ്ക്കുക"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "ഫ്ലാഷ്‌കാർഡ് സൃഷ്ടിക്കുക"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "മുൻഭാഗം (ചോദ്യം)യും പിന്നഭാഗം (ഉത്തരം)യും പൂരിപ്പിക്കുക. Markdown, LaTeX എന്നിവ പിന്തുണയ്ക്കുന്നു."
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "പ്രീവ്യൂ കാണിക്കുക"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "പ്രീവ്യൂ മറയ്ക്കുക"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "Markdown, LaTeX പിന്തുണയ്ക്കുന്നു ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "അഡ്വാൻസ്ഡ് ഓപ്ഷനുകൾ (ടാഗുകൾ, അധികം, നോട്ടുകൾ)"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "കാർഡ് ഇല്ലാതാക്കി"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "ഇല്ലാതാക്കൽ റദ്ദാക്കാൻ {{seconds}} സെക്കൻഡിനുള്ളിൽ അൺഡു ചെയ്യുക."
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "{{count}} കാർഡുകൾ ഇല്ലാതാക്കി"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "അടുത്ത റിവ്യൂ: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} കാർഡുകൾ ഡ്യൂ"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "കീബോർഡ് ഷോർട്ട്കട്ടുകൾ"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "ഷോർട്ട്കട്ടുകൾ കാണിക്കാൻ ? അമർത്തുക"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "കാർഡ് മറിക്കുക"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "കാർഡിന് റേറ്റിംഗ് നൽകുക"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "കാർഡുകൾക്കിടയിൽ നീങ്ങുക"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "കാർഡ് എഡിറ്റ് ചെയ്യുക"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "കാർഡ് ഇല്ലാതാക്കുക"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "സ്റ്റാൻഡേർഡ്"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "റിവേഴ്‌സ് ചെയ്യാവുന്ന"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "ശൂന്യം പൂരിപ്പിക്കൽ"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "സംരക്ഷിക്കാത്ത മാറ്റങ്ങൾ"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "സംരക്ഷിക്കാത്ത മാറ്റങ്ങൾ ഉണ്ട്. അടയ്ക്കണമെന്ന് ഉറപ്പാണോ?"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "കാർഡുകൾ ശേഷിക്കുന്നു"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "റിവ്യൂ ചെയ്തു"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "മിനിറ്റ് ബാക്കി"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "{{remaining}} കാർഡുകൾ ശേഷിക്കുന്നു, {{reviewed}} റിവ്യൂ ചെയ്തു"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "അവസാന കാർഡിന് വീണ്ടും റേറ്റ് ചെയ്യുക"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "നിങ്ങളുടെ പ്രതികരണം പുതുക്കാൻ ഈ കാർഡ് വീണ്ടും റേറ്റ് ചെയ്യുക"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "താഴേക്ക് നീക്കുക"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "മുകളിലേക്ക് നീക്കുക"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "കാർഡ് തിരഞ്ഞെടുക്കുക"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "ഫോക്കസ് ഒഴിവാക്കുക"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "ഷോർട്ട്കട്ടുകൾ കാണിക്കുക"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "ആഗോള"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "റിവേഴ്‌സ്"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "{{count}} കാർഡുകൾ ഈ സെഷനിൽ റിവ്യൂ ചെയ്തു"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "ഇപ്പോൾ ബാക്കി"
   }
 }

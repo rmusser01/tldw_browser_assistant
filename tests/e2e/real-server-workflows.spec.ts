@@ -448,6 +448,248 @@ const createSeedFlashcard = async (
   return { deckId, card }
 }
 
+const clearRequestErrors = async (page: Page) => {
+  await page.evaluate(async () => {
+    const w: any = window as any
+    const area = w?.chrome?.storage?.local
+    if (!area?.set) return
+    await new Promise<void>((resolve) => {
+      area.set({ __tldwLastRequestError: null, __tldwRequestErrors: [] }, () =>
+        resolve()
+      )
+    })
+  })
+}
+
+const readLastRequestError = async (page: Page) =>
+  await page.evaluate(async () => {
+    const w: any = window as any
+    const area = w?.chrome?.storage?.local
+    if (!area?.get) return null
+    return await new Promise<{
+      last: any | null
+      recent: any[] | null
+    }>((resolve) => {
+      area.get(
+        ["__tldwLastRequestError", "__tldwRequestErrors"],
+        (items: any) => {
+          resolve({
+            last: items?.__tldwLastRequestError ?? null,
+            recent: Array.isArray(items?.__tldwRequestErrors)
+              ? items.__tldwRequestErrors.slice(0, 5)
+              : null
+          })
+        }
+      )
+    })
+  })
+
+const logFlashcardsSnapshot = async (
+  serverUrl: string,
+  apiKey: string,
+  label: string
+) => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  const res = await fetchWithKey(
+    `${normalized}/api/v1/flashcards?limit=5&offset=0&due_status=all&order_by=created_at`,
+    apiKey
+  ).catch(() => null)
+  if (!res?.ok) {
+    const body = await res?.text().catch(() => "")
+    console.log(
+      `[e2e] flashcards snapshot ${label} failed: ${res?.status} ${res?.statusText} ${body}`
+    )
+    return
+  }
+  const payload = await res.json().catch(() => null)
+  const items = parseListPayload(payload, ["items", "results", "data"]).slice(
+    0,
+    5
+  )
+  const summary = items.map((item: any) => ({
+    uuid: item?.uuid ?? null,
+    deck_id: item?.deck_id ?? null,
+    due_at: item?.due_at ?? null,
+    front:
+      typeof item?.front === "string"
+        ? item.front.slice(0, 80)
+        : String(item?.front || "").slice(0, 80),
+    back:
+      typeof item?.back === "string"
+        ? item.back.slice(0, 80)
+        : String(item?.back || "").slice(0, 80)
+  }))
+  console.log(
+    `[e2e] flashcards snapshot ${label}`,
+    JSON.stringify({
+      count: payload?.count ?? null,
+      items: summary
+    })
+  )
+}
+
+const logChatMessagesSnapshot = async (
+  serverUrl: string,
+  apiKey: string,
+  chatId: string,
+  label: string
+) => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  const res = await fetchWithKey(
+    `${normalized}/api/v1/chats/${encodeURIComponent(chatId)}/messages`,
+    apiKey
+  ).catch(() => null)
+  if (!res?.ok) {
+    const body = await res?.text().catch(() => "")
+    console.log(
+      `[e2e] chat messages snapshot ${label} failed: ${res?.status} ${res?.statusText} ${body}`
+    )
+    return
+  }
+  const payload = await res.json().catch(() => null)
+  const list: any[] = Array.isArray(payload)
+    ? payload
+    : Array.isArray(payload?.messages)
+      ? payload.messages
+      : Array.isArray(payload?.items)
+        ? payload.items
+        : Array.isArray(payload?.results)
+          ? payload.results
+          : Array.isArray(payload?.data)
+            ? payload.data
+            : []
+  const summary = list.slice(-5).map((item) => ({
+    id: item?.id ?? item?.message_id ?? null,
+    role: item?.role ?? item?.sender ?? item?.author ?? null,
+    content:
+      typeof item?.content === "string"
+        ? item.content.slice(0, 80)
+        : typeof item?.message?.content === "string"
+          ? item.message.content.slice(0, 80)
+          : null
+  }))
+  console.log(
+    `[e2e] chat messages snapshot ${label}`,
+    JSON.stringify({
+      count: list.length,
+      tail: summary
+    })
+  )
+}
+
+const probeSaveChatKnowledge = async (
+  serverUrl: string,
+  apiKey: string,
+  payload: {
+    conversation_id: string
+    message_id: string
+    snippet: string
+    make_flashcard: boolean
+  },
+  label: string
+) => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  const res = await fetchWithKey(
+    `${normalized}/api/v1/chat/knowledge/save`,
+    apiKey,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }
+  ).catch(() => null)
+  if (!res) {
+    console.log(`[e2e] chat knowledge save probe ${label} failed: no response`)
+    return
+  }
+  const bodyText = await res.text().catch(() => "")
+  let parsed: any = null
+  if (bodyText) {
+    try {
+      parsed = JSON.parse(bodyText)
+    } catch {
+      parsed = null
+    }
+  }
+  const bodySnippet =
+    bodyText.length > 500
+      ? `${bodyText.slice(0, 500)}...(truncated)`
+      : bodyText
+  console.log(
+    `[e2e] chat knowledge save probe ${label}`,
+    JSON.stringify({
+      ok: res.ok,
+      status: res.status,
+      statusText: res.statusText,
+      response: parsed ?? bodySnippet,
+      payload: {
+        conversation_id: payload.conversation_id,
+        message_id: payload.message_id,
+        snippet_preview: payload.snippet.slice(0, 120),
+        snippet_length: payload.snippet.length,
+        make_flashcard: payload.make_flashcard
+      }
+    })
+  )
+}
+
+const fetchFlashcardsCount = async (
+  serverUrl: string,
+  apiKey: string
+): Promise<number> => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  const res = await fetchWithKey(
+    `${normalized}/api/v1/flashcards?limit=1&offset=0&due_status=all`,
+    apiKey
+  ).catch(() => null)
+  if (!res?.ok) {
+    const body = await res?.text().catch(() => "")
+    throw new Error(
+      `Flashcards count fetch failed: ${res?.status} ${res?.statusText} ${body}`
+    )
+  }
+  const payload = await res.json().catch(() => null)
+  const count = payload?.count
+  if (typeof count === "number") return count
+  throw new Error("Flashcards count missing from list response.")
+}
+
+const pollForFlashcardsCountIncrease = async (
+  serverUrl: string,
+  apiKey: string,
+  baselineCount: number,
+  timeoutMs = 60000
+): Promise<number> => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  const deadline = Date.now() + timeoutMs
+  let lastCount = baselineCount
+  let lastStatus: number | null = null
+  let lastBody = ""
+  while (Date.now() < deadline) {
+    const res = await fetchWithKey(
+      `${normalized}/api/v1/flashcards?limit=1&offset=0&due_status=all`,
+      apiKey
+    ).catch(() => null)
+    if (res?.ok) {
+      const payload = await res.json().catch(() => null)
+      const count = payload?.count
+      if (typeof count === "number") {
+        lastCount = count
+        if (count > baselineCount) return count
+      }
+    } else if (res) {
+      lastStatus = res.status
+      lastBody = await res.text().catch(() => "")
+    }
+    await new Promise((r) => setTimeout(r, 2000))
+  }
+  throw new Error(
+    `Flashcards count did not increase after saving. Baseline=${baselineCount} last=${lastCount} lastStatus=${String(
+      lastStatus ?? "unknown"
+    )} ${lastBody}`
+  )
+}
+
 const clearReviewDeckSelection = async (page: Page) => {
   const reviewDeckSelect = page.getByTestId("flashcards-review-deck-select")
   if ((await reviewDeckSelect.count()) === 0) return
@@ -2136,7 +2378,10 @@ test.describe("Real server end-to-end workflows", () => {
         `[data-testid="chat-message"][data-server-message-id="${serverMessageId}"]`
       )
       await expect(lastAssistant).toBeVisible({ timeout: 30000 })
-      const snippet = assistantText.slice(0, 80)
+      const baselineFlashcardsCount = await fetchFlashcardsCount(
+        normalizedServerUrl,
+        apiKey
+      )
 
       await lastAssistant.hover().catch(() => {})
       const saveToFlashcards = lastAssistant.getByRole("button", {
@@ -2145,10 +2390,54 @@ test.describe("Real server end-to-end workflows", () => {
       await expect
         .poll(() => saveToFlashcards.count(), { timeout: 15000 })
         .toBeGreaterThan(0)
+      await clearRequestErrors(chatPage)
       await saveToFlashcards.first().click()
       await expect(
         chatPage.getByText(/Saved to Flashcards/i)
       ).toBeVisible({ timeout: 15000 })
+      const requestErrors = await readLastRequestError(chatPage)
+      if (requestErrors?.last || requestErrors?.recent?.length) {
+        console.log(
+          "[e2e] flashcards save request errors",
+          JSON.stringify(requestErrors)
+        )
+      }
+      await logFlashcardsSnapshot(
+        normalizedServerUrl,
+        apiKey,
+        "after-save"
+      )
+      try {
+        await pollForFlashcardsCountIncrease(
+          normalizedServerUrl,
+          apiKey,
+          baselineFlashcardsCount
+        )
+      } catch (error) {
+        await probeSaveChatKnowledge(
+          normalizedServerUrl,
+          apiKey,
+          {
+            conversation_id: serverChatId,
+            message_id: serverMessageId,
+            snippet: assistantText.slice(0, 1000),
+            make_flashcard: true
+          },
+          "after-save-timeout"
+        )
+        await logChatMessagesSnapshot(
+          normalizedServerUrl,
+          apiKey,
+          serverChatId,
+          "after-save-timeout"
+        )
+        await logFlashcardsSnapshot(
+          normalizedServerUrl,
+          apiKey,
+          "after-save-timeout"
+        )
+        throw error
+      }
 
       await page.goto(`${optionsUrl}#/flashcards`, {
         waitUntil: "domcontentloaded"
@@ -2158,13 +2447,8 @@ test.describe("Real server end-to-end workflows", () => {
       const cardsTab = page.getByRole("tab", { name: /Cards/i })
       await cardsTab.click()
 
-      const searchInput = page.getByTestId("flashcards-manage-search")
-      const query = snippet.slice(0, 40)
-      await searchInput.fill(query)
-
       const cardRow = page
         .locator('[data-testid^="flashcard-item-"]')
-        .filter({ hasText: query })
         .first()
       await expect(cardRow).toBeVisible({ timeout: 30000 })
 
@@ -2175,9 +2459,15 @@ test.describe("Real server end-to-end workflows", () => {
       const emptyState = page.getByText(
         /No cards are due for review|Create your first flashcard/i
       )
-      const showAnswerVisible = await showAnswer
-        .isVisible()
-        .catch(() => false)
+      await expect
+        .poll(
+          async () =>
+            (await showAnswer.isVisible().catch(() => false)) ||
+            (await emptyState.isVisible().catch(() => false)),
+          { timeout: 30000 }
+        )
+        .toBe(true)
+      const showAnswerVisible = await showAnswer.isVisible().catch(() => false)
       if (!showAnswerVisible) {
         const emptyVisible = await emptyState.isVisible().catch(() => false)
         if (emptyVisible) {
@@ -2192,17 +2482,11 @@ test.describe("Real server end-to-end workflows", () => {
           await waitForConnected(page, "workflow-flashcards-review-seed")
           await reviewTab.click()
           await clearReviewDeckSelection(page)
-          const seededVisible = await showAnswer
-            .isVisible()
-            .catch(() => false)
-          if (!seededVisible) {
-            throw new Error(
-              "No reviewable flashcards after seeding a new card."
-            )
-          }
+          await expect(showAnswer).toBeVisible({ timeout: 30000 })
         }
       }
 
+      await expect(showAnswer).toBeVisible({ timeout: 15000 })
       await showAnswer.click()
       const rateButton = page.getByTestId("flashcards-review-rate-2")
       await rateButton.click()

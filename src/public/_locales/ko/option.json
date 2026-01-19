@@ -1809,243 +1809,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "카드"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "이 서버에서 플래시카드 API를 사용할 수 없습니다"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "이 tldw 서버는 플래시카드 엔드포인트를 제공하지 않습니다. 이 작업 공간을 사용하려면 /api/v1/flashcards…가 포함된 버전으로 서버를 업그레이드하세요."
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "Health & diagnostics에서 서버 버전과 사용 가능한 API를 확인하세요."
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "업그레이드 후 확장 프로그램을 새로고침하고 플래시카드로 돌아오세요."
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "스페이스를 눌러 뒤집기"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "1-4를 눌러 평가"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "아직 플래시카드가 없습니다"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "모두 완료했어요!"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "복습할 카드가 없습니다. 잘했어요!"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "플래시카드 만들기"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "더 많은 카드 만들기"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "기본 (질문 - 답변)"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "기본 + 역방향 (양방향)"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "Cloze (빈칸 채우기)"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "태그로 필터링"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "태그 입력..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "간단히 보기"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "확장 보기"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "더보기"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "내보내기"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "지금 복습"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "덱으로 이동"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "카드 로드 실패"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "복제 실패"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "이동 실패"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "카드를 이동하기 전에 대상 덱을 선택하세요."
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "처리 중"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "잠시만 기다려 주세요..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "카드 삭제 중"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "선택한 {{count}}개의 카드를 삭제할까요? 이 작업은 되돌릴 수 없습니다."
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "{{count}}개 카드를 삭제할까요?"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "많은 수의 카드를 삭제하려고 합니다."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "{{count}}개 카드가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다."
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "확인하려면 DELETE를 입력하세요:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "전체 결과에서 선택됨"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "이 페이지에서 선택됨"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "선택됨"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "{{count}}개 모두 선택"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "지우기"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "플래시카드 만들기"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "앞면(질문)과 뒷면(답변)을 입력하세요. Markdown과 LaTeX를 지원합니다."
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "미리보기 표시"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "미리보기 숨기기"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "Markdown과 LaTeX 지원 ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "고급 옵션(태그, 추가, 메모)"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "카드 삭제됨"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "{{seconds}}초 이내에 취소하면 삭제를 되돌릴 수 있습니다."
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "{{count}}개 카드 삭제됨"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "다음 복습: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}}개 카드 복습 예정"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "키보드 단축키"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "?를 눌러 단축키 표시"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "카드 뒤집기"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "카드 평가"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "카드 이동"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "카드 편집"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "카드 삭제"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "표준"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "양방향"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "빈칸 채우기"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "저장되지 않은 변경 사항"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "저장되지 않은 변경 사항이 있습니다. 닫으시겠습니까?"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "남은 카드"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "복습함"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "남은 분"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "남은 {{remaining}}개 카드, {{reviewed}}개 복습"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "마지막 카드 다시 평가"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "이 카드를 다시 평가하여 응답을 업데이트하세요"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "아래로 이동"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "위로 이동"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "카드 선택"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "포커스 해제"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "단축키 표시"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "전체"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "역방향"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "이번 세션에서 {{count}}개 카드 복습"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "지금 복습"
   }
 }

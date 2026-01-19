@@ -1788,243 +1788,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "Картки"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "API флеш-карток недоступний на цьому сервері"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "Цей сервер tldw не оголошує кінцеві точки флеш-карток. Оновіть сервер до версії з /api/v1/flashcards… щоб використовувати цей робочий простір."
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "Перевірте Health & diagnostics, щоб підтвердити версію сервера та доступні API."
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "Після оновлення перезавантажте розширення і поверніться до Флеш-карток."
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "Натисніть пробіл, щоб перевернути"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "Натисніть 1-4, щоб оцінити"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "Флеш-карток ще немає"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "Усе повторено!"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "Немає карток для повторення. Гарна робота!"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "Створити флеш-картку"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "Створити більше карток"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "Базова (Питання - Відповідь)"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "Базова + зворотна (обидва напрямки)"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "Cloze (Заповнення пропусків)"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "Фільтрувати за тегом"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "Введіть тег..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "Компактний вигляд"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "Розширений вигляд"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "Більше"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "Експорт"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "Повторити зараз"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "Перемістити в колоду"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "Не вдалося завантажити картку"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "Дублювання не вдалося"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "Переміщення не вдалося"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "Перед переміщенням карток виберіть цільову колоду."
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "Обробка"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "Будь ласка, зачекайте..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "Видалення карток"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "Видалити {{count}} вибраних карток? Цю дію неможливо скасувати."
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "Видалити {{count}} карток?"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "Ви збираєтеся видалити велику кількість карток."
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "{{count}} карток буде видалено назавжди. Цю дію неможливо скасувати."
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "Введіть DELETE для підтвердження:"
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "вибрано серед усіх результатів"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "вибрано на цій сторінці"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "вибрано"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "Вибрати всі {{count}}"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "Очистити"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "Створити флеш-картку"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "Заповніть лицьову сторону (питання) і зворот (відповідь). Підтримуються Markdown і LaTeX."
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "Показати попередній перегляд"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "Сховати попередній перегляд"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "Підтримуються Markdown і LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "Розширені параметри (теги, додаткове, нотатки)"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "Картку видалено"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "Скасуйте протягом {{seconds}} с, щоб відмінити видалення."
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "{{count}} карток видалено"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "Наступне повторення: {{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} карток до повторення"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "Клавіатурні скорочення"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "Натисніть ?, щоб показати скорочення"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "Перевернути картку"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "Оцінити картку"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "Навігація по картках"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "Редагувати картку"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "Видалити картку"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "Стандартний"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "Зворотний"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "Заповнення пропусків"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "Незбережені зміни"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "У вас є незбережені зміни. Ви впевнені, що хочете закрити?"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "карток залишилося"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "повторено"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "хв залишилось"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "Залишилося {{remaining}} карток, повторено {{reviewed}}"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "Переоцінити останню картку"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "Оцініть цю картку ще раз, щоб оновити відповідь"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "Перемістити вниз"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "Перемістити вгору"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "Вибрати картку"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "Зняти фокус"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "Показати скорочення"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "Глобальні"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "зворотна"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "У цій сесії повторено {{count}} карток"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "Зараз до повторення"
   }
 }

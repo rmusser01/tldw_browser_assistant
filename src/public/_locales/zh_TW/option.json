@@ -1776,243 +1776,243 @@
     "message": "Browse files"
   },
   "flashcards_cards": {
-    "message": "Cards"
+    "message": "卡片"
   },
   "flashcards_offlineTitle": {
-    "message": "Flashcards API not available on this server"
+    "message": "此伺服器不支援抽認卡 API"
   },
   "flashcards_offlineDescription": {
-    "message": "This tldw server does not advertise the Flashcards endpoints. Upgrade your server to a version that includes /api/v1/flashcards… to use this workspace."
+    "message": "此 tldw 伺服器未提供抽認卡端點。請升級伺服器到包含 /api/v1/flashcards… 的版本以使用此工作區。"
   },
   "flashcards_offlineExample1": {
-    "message": "Check Health & diagnostics to confirm your server version and available APIs."
+    "message": "在 Health & diagnostics 中確認伺服器版本與可用 API。"
   },
   "flashcards_offlineExample2": {
-    "message": "After upgrading, reload the extension and return to Flashcards."
+    "message": "升級後，重新載入擴充功能並回到抽認卡。"
   },
   "flashcards_shortcutFlip": {
-    "message": "Press Space to flip"
+    "message": "按空白鍵翻面"
   },
   "flashcards_shortcutRate": {
-    "message": "Press 1-4 to rate"
+    "message": "按 1-4 評分"
   },
   "flashcards_noCardsYet": {
-    "message": "No flashcards yet"
+    "message": "尚無抽認卡"
   },
   "flashcards_allCaughtUp": {
-    "message": "You're all caught up!"
+    "message": "全部複習完成！"
   },
   "flashcards_allCaughtUpDescription": {
-    "message": "No cards are due for review. Great job!"
+    "message": "沒有需要複習的卡片。做得好！"
   },
   "flashcards_reviewedToday": {
     "message": "{{count}} cards reviewed this session"
   },
   "flashcards_createFirstCard": {
-    "message": "Create a flashcard"
+    "message": "建立抽認卡"
   },
   "flashcards_createMoreCards": {
-    "message": "Create more cards"
+    "message": "建立更多卡片"
   },
   "flashcards_templateBasic": {
-    "message": "Basic (Question - Answer)"
+    "message": "基本（問題 - 答案）"
   },
   "flashcards_templateReverse": {
-    "message": "Basic + Reverse (Both directions)"
+    "message": "基本 + 反向（雙向）"
   },
   "flashcards_templateCloze": {
-    "message": "Cloze (Fill in the blank)"
+    "message": "填空（Cloze）"
   },
   "flashcards_filterByTag": {
-    "message": "Filter by tag"
+    "message": "依標籤篩選"
   },
   "flashcards_tagPlaceholder": {
-    "message": "Enter tag..."
+    "message": "輸入標籤..."
   },
   "flashcards_dueSoon": {
     "message": "Due now"
   },
   "flashcards_compactView": {
-    "message": "Compact view"
+    "message": "精簡檢視"
   },
   "flashcards_expandedView": {
-    "message": "Expanded view"
+    "message": "展開檢視"
   },
   "flashcards_moreFilters": {
-    "message": "More"
+    "message": "更多"
   },
   "flashcards_export": {
-    "message": "Export"
+    "message": "匯出"
   },
   "flashcards_reviewCard": {
-    "message": "Review now"
+    "message": "立即複習"
   },
   "flashcards_moveToDeck": {
-    "message": "Move to deck"
+    "message": "移至牌組"
   },
   "flashcards_loadCardFailed": {
-    "message": "Failed to load card"
+    "message": "載入卡片失敗"
   },
   "flashcards_duplicateFailed": {
-    "message": "Duplicate failed"
+    "message": "複製失敗"
   },
   "flashcards_moveFailed": {
-    "message": "Move failed"
+    "message": "移動失敗"
   },
   "flashcards_bulkMoveSelectDeck": {
-    "message": "Select a target deck before moving cards."
+    "message": "移動卡片前請先選擇目標牌組。"
   },
   "flashcards_bulkProgressTitle": {
-    "message": "Processing"
+    "message": "處理中"
   },
   "flashcards_bulkProgressPleaseWait": {
-    "message": "Please wait..."
+    "message": "請稍候..."
   },
   "flashcards_bulkProgressDeleting": {
-    "message": "Deleting cards"
+    "message": "正在刪除卡片"
   },
   "flashcards_bulkDeleteConfirm": {
-    "message": "Delete {{count}} selected cards? This cannot be undone."
+    "message": "刪除選取的 {{count}} 張卡片？此操作無法復原。"
   },
   "flashcards_bulkDeleteLargeTitle": {
-    "message": "Delete {{count}} cards?"
+    "message": "刪除 {{count}} 張卡片？"
   },
   "flashcards_bulkDeleteLargeWarning": {
-    "message": "You are about to delete a large number of cards."
+    "message": "你將刪除大量卡片。"
   },
   "flashcards_bulkDeleteLargeContent": {
-    "message": "This will permanently delete {{count}} cards. This action cannot be undone."
+    "message": "這將永久刪除 {{count}} 張卡片。此操作無法復原。"
   },
   "flashcards_typeDeleteToConfirm": {
-    "message": "Type DELETE to confirm:"
+    "message": "輸入 DELETE 以確認："
   },
   "flashcards_selectedAcrossAll": {
-    "message": "selected across all results"
+    "message": "已在所有結果中選取"
   },
   "flashcards_selectedOnPage": {
-    "message": "selected on this page"
+    "message": "已在此頁選取"
   },
   "flashcards_selected": {
-    "message": "selected"
+    "message": "已選取"
   },
   "flashcards_selectAllCount": {
-    "message": "Select all {{count}}"
+    "message": "選取全部 {{count}}"
   },
   "flashcards_clear": {
-    "message": "Clear"
+    "message": "清除"
   },
   "flashcards_createCard": {
-    "message": "Create Flashcard"
+    "message": "建立抽認卡"
   },
   "flashcards_createDescriptionSimple": {
-    "message": "Fill in the front (question) and back (answer). Markdown and LaTeX are supported."
+    "message": "填寫正面（問題）與背面（答案）。支援 Markdown 與 LaTeX。"
   },
   "flashcards_showPreview": {
-    "message": "Show preview"
+    "message": "顯示預覽"
   },
   "flashcards_hidePreview": {
-    "message": "Hide preview"
+    "message": "隱藏預覽"
   },
   "flashcards_markdownHint": {
-    "message": "Supports Markdown and LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
+    "message": "支援 Markdown 與 LaTeX ($x^2$, $$\\sum_{i=1}^n$$)"
   },
   "flashcards_advancedOptions": {
-    "message": "Advanced options (tags, extra, notes)"
+    "message": "進階選項（標籤、附加、備註）"
   },
   "flashcards_cardDeleted": {
-    "message": "Card deleted"
+    "message": "卡片已刪除"
   },
   "flashcards_deleteUndoHint": {
-    "message": "Undo within {{seconds}}s to cancel deletion."
+    "message": "在 {{seconds}} 秒內可取消刪除。"
   },
   "flashcards_cardsDeleted": {
-    "message": "{{count}} cards deleted"
+    "message": "已刪除 {{count}} 張卡片"
   },
   "flashcards_nextDueAt": {
-    "message": "Next review: {{time}}"
+    "message": "下次複習：{{time}}"
   },
   "flashcards_nextDueCardCount": {
-    "message": "{{count}} cards due"
+    "message": "{{count}} 張卡片到期"
   },
   "flashcards_keyboardShortcutsTitle": {
-    "message": "Keyboard Shortcuts"
+    "message": "鍵盤快捷鍵"
   },
   "flashcards_keyboardShortcutsHelp": {
-    "message": "Press ? to show shortcuts"
+    "message": "按 ? 顯示快捷鍵"
   },
   "flashcards_shortcutSpace": {
-    "message": "Flip card"
+    "message": "翻轉卡片"
   },
   "flashcards_shortcutRateKeys": {
-    "message": "Rate card"
+    "message": "評分卡片"
   },
   "flashcards_shortcutJK": {
-    "message": "Navigate cards"
+    "message": "在卡片間移動"
   },
   "flashcards_shortcutEnter": {
-    "message": "Edit card"
+    "message": "編輯卡片"
   },
   "flashcards_shortcutDelete": {
-    "message": "Delete card"
+    "message": "刪除卡片"
   },
   "flashcards_modelTypeBasic": {
-    "message": "Standard"
+    "message": "標準"
   },
   "flashcards_modelTypeBasicReverse": {
-    "message": "Reversible"
+    "message": "可反向"
   },
   "flashcards_modelTypeCloze": {
-    "message": "Fill-in-blank"
+    "message": "填空"
   },
   "flashcards_unsavedChangesTitle": {
-    "message": "Unsaved changes"
+    "message": "尚未儲存的變更"
   },
   "flashcards_unsavedChangesDescription": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "你有未儲存的變更。確定要關閉嗎？"
   },
   "flashcards_cardsRemaining": {
-    "message": "cards remaining"
+    "message": "剩餘卡片"
   },
   "flashcards_reviewed": {
-    "message": "reviewed"
+    "message": "已複習"
   },
   "flashcards_minutesLeft": {
-    "message": "min left"
+    "message": "剩餘分鐘"
   },
   "flashcards_progressStatus": {
-    "message": "{{remaining}} cards remaining, {{reviewed}} reviewed"
+    "message": "剩餘 {{remaining}} 張卡片，已複習 {{reviewed}} 張"
   },
   "flashcards_undoRating": {
-    "message": "Re-rate last card"
+    "message": "重新評分上一張卡片"
   },
   "flashcards_undoReviewHint": {
-    "message": "Rate this card again to update your response"
+    "message": "再次評分以更新你的回答"
   },
   "flashcards_shortcutDown": {
-    "message": "Move down"
+    "message": "往下移動"
   },
   "flashcards_shortcutUp": {
-    "message": "Move up"
+    "message": "往上移動"
   },
   "flashcards_shortcutSelectCard": {
-    "message": "Select card"
+    "message": "選取卡片"
   },
   "flashcards_shortcutEsc": {
-    "message": "Clear focus"
+    "message": "清除焦點"
   },
   "flashcards_shortcutHelp": {
-    "message": "Show shortcuts"
+    "message": "顯示快捷鍵"
   },
   "flashcards_global": {
-    "message": "Global"
+    "message": "全域"
   },
   "flashcards_reverseCard": {
-    "message": "reverse"
+    "message": "反向"
   },
   "flashcards_reviewedThisSession": {
-    "message": "{{count}} cards reviewed this session"
+    "message": "本次工作階段已複習 {{count}} 張卡片"
   },
   "flashcards_dueNow": {
-    "message": "Due now"
+    "message": "現在到期"
   }
 }
