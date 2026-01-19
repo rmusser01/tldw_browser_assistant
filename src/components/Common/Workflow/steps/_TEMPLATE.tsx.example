@@ -32,6 +32,8 @@ interface CapturedData {
   content: string
 }
 
+const WORKFLOW_ID = "my-workflow"
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Main Workflow Component
 // ─────────────────────────────────────────────────────────────────────────────
@@ -51,7 +53,7 @@ export const MyWorkflow: React.FC = () => {
 
   // IMPORTANT: Guard against rendering when not the active workflow
   // This prevents crashes when switching between workflows
-  if (!activeWorkflow || activeWorkflow.workflowId !== "my-workflow") {
+  if (!activeWorkflow || activeWorkflow.workflowId !== WORKFLOW_ID) {
     return null
   }
 
@@ -104,6 +106,8 @@ const CaptureStep: React.FC = () => {
   const setProcessing = useWorkflowsStore((s) => s.setProcessing)
   const setWorkflowError = useWorkflowsStore((s) => s.setWorkflowError)
 
+  const advanceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const [captured, setCaptured] = useState<CapturedData | null>(null)
   const [isCapturing, setIsCapturing] = useState(true)
 
@@ -130,7 +134,12 @@ const CaptureStep: React.FC = () => {
         setIsCapturing(false)
 
         // Auto-advance to next step after brief delay for UX
-        setTimeout(() => {
+        if (advanceTimeoutRef.current) {
+          clearTimeout(advanceTimeoutRef.current)
+        }
+        advanceTimeoutRef.current = setTimeout(() => {
+          const currentId = useWorkflowsStore.getState().activeWorkflow?.workflowId
+          if (currentId !== WORKFLOW_ID) return
           setWorkflowStep(1)
         }, 500)
       } catch (error) {
@@ -146,6 +155,12 @@ const CaptureStep: React.FC = () => {
     }
 
     captureData()
+
+    return () => {
+      if (advanceTimeoutRef.current) {
+        clearTimeout(advanceTimeoutRef.current)
+      }
+    }
   }, [t, updateWorkflowData, setWorkflowStep, setProcessing, setWorkflowError])
 
   // Show loading state while capturing
@@ -174,6 +189,64 @@ const CaptureStep: React.FC = () => {
   }
 
   return null
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Optional Step: Upload (File upload pattern)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * UploadStep - Basic file upload pattern.
+ *
+ * Use this instead of CaptureStep when your workflow starts with a file.
+ * Store metadata (or the File object) in workflow data for later steps.
+ */
+const UploadStep: React.FC = () => {
+  const { t } = useTranslation(["workflows"])
+  const updateWorkflowData = useWorkflowsStore((s) => s.updateWorkflowData)
+  const [fileName, setFileName] = useState<string | null>(null)
+
+  const handleFileChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      if (!file) return
+
+      setFileName(file.name)
+      updateWorkflowData({
+        uploadedFile: file,
+        uploadedFileName: file.name
+      })
+    },
+    [updateWorkflowData]
+  )
+
+  return (
+    <div className="space-y-3">
+      <h3 className="text-sm font-medium text-text">
+        {t("workflows:myWorkflow.uploadTitle", "Upload a file")}
+      </h3>
+      <input
+        type="file"
+        onChange={handleFileChange}
+        className="block w-full text-sm text-textMuted"
+      />
+      {fileName && (
+        <Alert
+          type="success"
+          showIcon
+          icon={<CheckCircle className="h-4 w-4" />}
+          message={t("workflows:myWorkflow.uploaded", "File selected")}
+          description={fileName}
+        />
+      )}
+      <p className="text-xs text-textMuted">
+        {t(
+          "workflows:myWorkflow.uploadHint",
+          "Use the Next button to continue after selecting a file."
+        )}
+      </p>
+    </div>
+  )
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -271,6 +344,7 @@ const ProcessStep: React.FC = () => {
 
   // Ref for AbortController to support cancellation
   const abortControllerRef = useRef<AbortController | null>(null)
+  const advanceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const runProcess = async () => {
@@ -309,7 +383,12 @@ const ProcessStep: React.FC = () => {
         setProcessing(false)
 
         // Auto-advance to review step
-        setTimeout(() => {
+        if (advanceTimeoutRef.current) {
+          clearTimeout(advanceTimeoutRef.current)
+        }
+        advanceTimeoutRef.current = setTimeout(() => {
+          const currentId = useWorkflowsStore.getState().activeWorkflow?.workflowId
+          if (currentId !== WORKFLOW_ID) return
           setWorkflowStep(3)
         }, 300)
       } catch (error) {
@@ -333,6 +412,9 @@ const ProcessStep: React.FC = () => {
     // Cleanup: abort on unmount
     return () => {
       abortControllerRef.current?.abort()
+      if (advanceTimeoutRef.current) {
+        clearTimeout(advanceTimeoutRef.current)
+      }
     }
   }, [
     t,

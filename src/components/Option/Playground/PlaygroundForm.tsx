@@ -196,6 +196,9 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const apiProvider = useStoreChatModelSettings((state) => state.apiProvider)
   const numCtx = useStoreChatModelSettings((state) => state.numCtx)
   const systemPrompt = useStoreChatModelSettings((state) => state.systemPrompt)
+  const setSystemPrompt = useStoreChatModelSettings(
+    (state) => state.setSystemPrompt
+  )
 
   const { phase, isConnected } = useConnectionState()
   const isConnectionReady = isConnected && phase === ConnectionPhase.CONNECTED
@@ -216,6 +219,8 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
   const [documentGeneratorOpen, setDocumentGeneratorOpen] =
     React.useState(false)
   const [promptInsertOpen, setPromptInsertOpen] = React.useState(false)
+  const [promptInsertChoice, setPromptInsertChoice] =
+    React.useState<PromptInsertItem | null>(null)
   const [documentGeneratorSeed, setDocumentGeneratorSeed] = React.useState<{
     conversationId?: string | null
     message?: string | null
@@ -1592,14 +1597,144 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
     textareaRef
   ])
 
+  const applySystemPrompt = React.useCallback(
+    (nextPrompt: string) => {
+      setSelectedSystemPrompt(null)
+      setSystemPrompt(nextPrompt)
+    },
+    [setSelectedSystemPrompt, setSystemPrompt]
+  )
+
+  const insertMessageAtCaret = React.useCallback(
+    (text: string) => {
+      if (!text) return
+      const currentValue = form.values.message || ""
+      if (isMessageCollapsed && collapsedRange) {
+        const meta = getCollapsedDisplayMeta(currentValue, collapsedRange)
+        const textarea = textareaRef.current
+        const rawStart = textarea?.selectionStart ?? meta.labelEnd
+        const rawEnd = textarea?.selectionEnd ?? rawStart
+        const displayStart = Math.min(rawStart, rawEnd)
+        const displayEnd = Math.max(rawStart, rawEnd)
+        const hasSelection = displayStart !== displayEnd
+        const selectionTouchesLabel =
+          displayStart < meta.labelEnd && displayEnd > meta.labelStart
+        if (hasSelection) {
+          const startPrefer =
+            displayStart > meta.labelStart && displayStart < meta.labelEnd
+              ? "before"
+              : undefined
+          const endPrefer =
+            displayEnd > meta.labelStart && displayEnd < meta.labelEnd
+              ? "after"
+              : undefined
+          let editStart = getMessageCaretFromDisplay(displayStart, meta, {
+            prefer: startPrefer
+          })
+          let editEnd = getMessageCaretFromDisplay(displayEnd, meta, {
+            prefer: endPrefer
+          })
+          if (editStart > editEnd) {
+            ;[editStart, editEnd] = [editEnd, editStart]
+          }
+          if (selectionTouchesLabel) {
+            editStart = Math.min(editStart, meta.rangeStart)
+            editEnd = Math.max(editEnd, meta.rangeEnd)
+          }
+          replaceCollapsedRange(currentValue, meta, editStart, editEnd, text)
+          return
+        }
+        const caretPrefer =
+          rawStart > meta.labelStart && rawStart < meta.labelEnd
+            ? (pendingCaretRef.current !== null &&
+              pendingCaretRef.current <= meta.rangeStart
+                ? "before"
+                : "after")
+            : undefined
+        let caret = getMessageCaretFromDisplay(rawStart, meta, {
+          prefer: caretPrefer
+        })
+        if (caret > meta.rangeStart && caret < meta.rangeEnd) {
+          caret = meta.rangeEnd
+        }
+        const insertAt =
+          caret <= meta.rangeStart
+            ? caret
+            : caret >= meta.rangeEnd
+              ? caret
+              : meta.rangeEnd
+        replaceCollapsedRange(currentValue, meta, insertAt, insertAt, text)
+        return
+      }
+      const textarea = textareaRef.current
+      const selectionStart = textarea?.selectionStart ?? currentValue.length
+      const selectionEnd = textarea?.selectionEnd ?? selectionStart
+      const nextValue =
+        currentValue.slice(0, selectionStart) +
+        text +
+        currentValue.slice(selectionEnd)
+      if (nextValue.length > PASTED_TEXT_CHAR_LIMIT) {
+        const blockRange = {
+          start: selectionStart,
+          end: selectionStart + text.length
+        }
+        pendingCaretRef.current = blockRange.end
+        pendingCollapsedStateRef.current = {
+          message: nextValue,
+          range: blockRange,
+          caret: blockRange.end
+        }
+        setMessageValue(nextValue, {
+          collapseLarge: true,
+          forceCollapse: true,
+          collapsedRange: blockRange
+        })
+        return
+      }
+      setMessageValue(nextValue, { collapseLarge: true })
+      requestAnimationFrame(() => {
+        const el = textareaRef.current
+        if (!el) return
+        const nextCaret = selectionStart + text.length
+        el.focus()
+        el.setSelectionRange(nextCaret, nextCaret)
+      })
+    },
+    [
+      collapsedRange,
+      form.values.message,
+      getCollapsedDisplayMeta,
+      getMessageCaretFromDisplay,
+      isMessageCollapsed,
+      replaceCollapsedRange,
+      setMessageValue,
+      textareaRef
+    ]
+  )
+
   const handlePromptInsert = React.useCallback(
     (prompt: PromptInsertItem) => {
       setPromptInsertOpen(false)
-      if (prompt.content) {
-        setSelectedQuickPrompt(prompt.content)
+      const hasSystem = Boolean(prompt.systemPrompt?.trim())
+      const hasUser = Boolean(prompt.userPrompt?.trim())
+      if (hasSystem && hasUser) {
+        setPromptInsertChoice(prompt)
+        return
+      }
+      if (hasSystem && prompt.systemPrompt) {
+        applySystemPrompt(prompt.systemPrompt)
+        return
+      }
+      if (hasUser && prompt.userPrompt) {
+        insertMessageAtCaret(prompt.userPrompt)
       }
     },
-    [setPromptInsertOpen, setSelectedQuickPrompt]
+    [
+      applySystemPrompt,
+      insertMessageAtCaret,
+      setPromptInsertChoice,
+      setPromptInsertOpen
+    ]
   )
 
   const queryClient = useQueryClient()
@@ -4369,6 +4504,60 @@ export const PlaygroundForm = ({ droppedFiles }: Props) => {
         onClose={() => setPromptInsertOpen(false)}
         onInsertPrompt={handlePromptInsert}
       />
+      <Modal
+        title={t("option:promptInsert.confirmTitle", {
+          defaultValue: "Use prompt in chat?"
+        })}
+        open={Boolean(promptInsertChoice)}
+        onCancel={() => setPromptInsertChoice(null)}
+        footer={null}
+        centered
+        destroyOnClose
+      >
+        <div className="space-y-3">
+          <p className="text-sm text-text">
+            {t("option:promptInsert.choiceDescription", {
+              defaultValue:
+                "This prompt includes both a system prompt and a user prompt. Choose how you want to use it."
+            })}
+          </p>
+          {promptInsertChoice?.title && (
+            <div className="rounded-md border border-border bg-surface px-3 py-2 text-sm font-medium">
+              {promptInsertChoice.title}
+            </div>
+          )}
+          <div className="flex flex-wrap justify-end gap-2">
+            <Button onClick={() => setPromptInsertChoice(null)}>
+              {t("common:cancel", "Cancel")}
+            </Button>
+            <Button
+              onClick={() => {
+                if (promptInsertChoice?.userPrompt) {
+                  insertMessageAtCaret(promptInsertChoice.userPrompt)
+                }
+                setPromptInsertChoice(null)
+              }}
+            >
+              {t("option:promptInsert.insertUser", {
+                defaultValue: "Insert user prompt"
+              })}
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                if (promptInsertChoice?.systemPrompt) {
+                  applySystemPrompt(promptInsertChoice.systemPrompt)
+                }
+                setPromptInsertChoice(null)
+              }}
+            >
+              {t("option:promptInsert.applySystem", {
+                defaultValue: "Apply system prompt"
+              })}
+            </Button>
+          </div>
+        </div>
+      </Modal>
       <CurrentChatModelSettings
         open={openModelSettings}
         setOpen={setOpenModelSettings}

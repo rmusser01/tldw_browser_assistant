@@ -28,6 +28,7 @@ import {
   Table2,
   Library,
   CombineIcon,
+  Headphones,
 } from "lucide-react"
 
 const classNames = (...classes: (string | false | null | undefined)[]) =>
@@ -245,6 +246,12 @@ export function HeaderShortcuts({
             to: "/prompt-studio",
             icon: NotebookPen,
             label: t("option:header.modePromptStudio", "Prompt Studio"),
+          },
+          {
+            type: "link" as const,
+            to: "/audiobook-studio",
+            icon: Headphones,
+            label: t("option:header.audiobookStudio", "Audiobook Studio"),
           },
         ],
       },

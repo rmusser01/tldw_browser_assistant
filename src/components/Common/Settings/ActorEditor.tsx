@@ -14,6 +14,7 @@ import { X } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import type {
   ActorAspect,
+  ActorEditorMode,
   ActorSettings,
   ActorSource,
   ActorTarget
@@ -21,13 +22,14 @@ import type {
 import {
   ACTOR_ASPECT_SOFT_LIMIT,
   ACTOR_TOKENS_WARNING_THRESHOLD,
-  createDefaultActorSettings
+  createDefaultActorSettings,
+  SIMPLE_MODE_ASPECT_IDS
 } from "@/types/actor"
 import { useActorWorldBooks } from "@/hooks/useActorWorldBooks"
 import { ActorTokens } from "@/components/Common/Settings/ActorTokens"
 import { buildActorDictionaryTokens } from "@/utils/actor"
 const Markdown = React.lazy(() => import("@/components/Common/Markdown"))
-import { applyActorPresetById } from "@/data/actor-presets"
+import { ACTOR_PRESETS, applyActorPresetById } from "@/data/actor-presets"
 import type { ActorPresetId } from "@/data/actor-presets"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 
@@ -55,6 +57,8 @@ type Props = {
   newAspectName: string
   setNewAspectName: (val: string) => void
   actorPositionValue?: string
+  editorMode: ActorEditorMode
+  onModeChange: (mode: ActorEditorMode) => void
 }
 
 type ActorBladeId = "aspects" | "notes" | "placement" | "tokens"
@@ -70,8 +74,11 @@ export const ActorEditor: React.FC<Props> = ({
   setNewAspectTarget,
   newAspectName,
   setNewAspectName,
-  actorPositionValue
+  actorPositionValue,
+  editorMode,
+  onModeChange
 }) => {
+  const isSimpleMode = editorMode === "simple"
   const { t } = useTranslation(["playground", "common"])
   const {
     worldBooks,
@@ -88,10 +95,29 @@ export const ActorEditor: React.FC<Props> = ({
     React.useState<ActorPresetId | null>(null)
   const [activeBlade, setActiveBlade] =
     React.useState<ActorBladeId>("aspects")
+  const bladeContentRefs = React.useRef<Record<ActorBladeId, HTMLDivElement | null>>({
+    aspects: null,
+    notes: null,
+    placement: null,
+    tokens: null
+  })
 
   // Currently active assistant/character (from CharacterSelect).
   // Used to label per-character defaults and profiles.
   const [selectedCharacter] = useSelectedCharacter<any>(null)
+
+  // Focus management: focus first interactive element when blade changes
+  React.useEffect(() => {
+    const contentEl = bladeContentRefs.current[activeBlade]
+    if (!contentEl) return
+    // Wait for DOM to update, then focus first focusable element
+    requestAnimationFrame(() => {
+      const focusable = contentEl.querySelector<HTMLElement>(
+        'input:not([disabled]), select:not([disabled]), button:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+      focusable?.focus()
+    })
+  }, [activeBlade])
 
   React.useEffect(() => {
     if (!settings) return
@@ -277,6 +303,7 @@ export const ActorEditor: React.FC<Props> = ({
         : []
 
       const warning = loreWarnings[aspect.id]
+      const hasValue = Boolean(aspect.value?.trim())
 
       const handleSourceChange = (nextSource: ActorSource) => {
         const base = settings ?? createDefaultActorSettings()
@@ -436,6 +463,11 @@ export const ActorEditor: React.FC<Props> = ({
         <Form.Item
           key={aspect.id}
           name={fieldName}
+          className={
+            hasValue
+              ? "border-l-2 border-l-primary pl-2 transition-all"
+              : "opacity-60 pl-2 transition-all"
+          }
           label={
             <div className="space-y-1">
               <div className="flex flex-col gap-1">
@@ -479,29 +511,31 @@ export const ActorEditor: React.FC<Props> = ({
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-[11px] text-text-subtle">
-                    {t("playground:actor.tokenLabel", "Token")}
-                  </span>
-                  <div className="flex items-center gap-1">
+                {!isSimpleMode && (
+                  <div className="flex items-center justify-between gap-2">
                     <span className="text-[11px] text-text-subtle">
-                      [[actor_
+                      {t("playground:actor.tokenLabel", "Token")}
                     </span>
-                    <Form.Item
-                      name={keyFieldName}
-                      noStyle
-                      initialValue={aspect.key}>
-                      <Input
-                        size="small"
-                        className="text-[11px] font-mono"
-                        onBlur={(e) => handleKeyChange(e.target.value)}
-                      />
-                    </Form.Item>
-                    <span className="text-[11px] text-text-subtle">
-                      ]]
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-[11px] text-text-subtle">
+                        [[actor_
+                      </span>
+                      <Form.Item
+                        name={keyFieldName}
+                        noStyle
+                        initialValue={aspect.key}>
+                        <Input
+                          size="small"
+                          className="text-[11px] font-mono"
+                          onBlur={(e) => handleKeyChange(e.target.value)}
+                        />
+                      </Form.Item>
+                      <span className="text-[11px] text-text-subtle">
+                        ]]
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {currentSource === "lore" && (
@@ -573,6 +607,7 @@ export const ActorEditor: React.FC<Props> = ({
       entriesByWorldBook,
       entriesLoading,
       form,
+      isSimpleMode,
       loadEntriesForWorldBook,
       loreWarnings,
       onRecompute,
@@ -711,7 +746,7 @@ export const ActorEditor: React.FC<Props> = ({
           t("playground:actor.bladeNotesTitle", "Scene notes"),
           notesSummary
         )}
-        {renderBladeHeader(
+        {!isSimpleMode && renderBladeHeader(
           "placement",
           t("playground:actor.bladePlacementTitle", "Placement & templates"),
           placementSummary
@@ -724,198 +759,208 @@ export const ActorEditor: React.FC<Props> = ({
       </div>
 
       {activeBlade === "aspects" && (
-        <div className="space-y-3">
-          <div className="flex flex-col md:flex-row md:items-center gap-2">
-            <span className="text-xs text-text-muted">
-              {t(
-                "playground:composer.actorAddLabel",
-                "Add or remove aspects to focus the scene."
-              )}
-            </span>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1">
-              <Select
-                size="small"
-                value={newAspectTarget}
-                onChange={(val) => setNewAspectTarget(val as ActorTarget)}
-                style={{ width: 140 }}
-                options={[
-                  {
-                    value: "user",
-                    label: t("playground:composer.actorUser", "User")
-                  },
-                  {
-                    value: "char",
-                    label: t("playground:composer.actorChar", "Character")
-                  },
-                  {
-                    value: "world",
-                    label: t("playground:composer.actorWorld", "World")
-                  }
-                ]}
-              />
-              <Input
-                size="small"
-                value={newAspectName}
-                onChange={(e) => setNewAspectName(e.target.value)}
-                placeholder={t(
-                  "playground:composer.actorNewAspectPlaceholder",
-                  "Aspect name (e.g., Mood, Role, Location)"
-                )}
-              />
-              <button
-                type="button"
-                onClick={() => handleAddAspect()}
-                disabled={!newAspectName.trim()}
-                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
-                {t("playground:composer.actorAddButton", "Add aspect")}
-              </button>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row md:items-center gap-2">
-            <div className="flex items-center gap-2 flex-1">
+        <div
+          ref={(el) => { bladeContentRefs.current.aspects = el }}
+          className="space-y-3">
+          {!isSimpleMode && (
+            <div className="flex flex-col md:flex-row md:items-center gap-2">
               <span className="text-xs text-text-muted">
-                {t("playground:actor.presetLabel", "Presets")}
+                {t(
+                  "playground:composer.actorAddLabel",
+                  "Add or remove aspects to focus the scene."
+                )}
               </span>
-              <Select
-                size="small"
-                value={selectedPreset || undefined}
-                onChange={(val) => setSelectedPreset(val as ActorPresetId)}
-                placeholder={t(
-                  "playground:actor.presetPlaceholder",
-                  "Choose a preset"
-                )}
-                style={{ minWidth: 180 }}
-                allowClear
-                options={[
-                  {
-                    value: "slice_of_life",
-                    label: t(
-                      "playground:actor.preset.sliceOfLife",
-                      "Slice of life"
-                    )
-                  },
-                  {
-                    value: "dungeon_crawl",
-                    label: t(
-                      "playground:actor.preset.dungeonCrawl",
-                      "Dungeon crawl"
-                    )
-                  },
-                  {
-                    value: "romance",
-                    label: t("playground:actor.preset.romance", "Romance")
-                  },
-                  {
-                    value: "work_session",
-                    label: t(
-                      "playground:actor.preset.workSession",
-                      "Work session"
-                    )
-                  }
-                ]}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  if (!selectedPreset || !settings) return
-                  const base = settings ?? createDefaultActorSettings()
-                  const next = applyActorPresetById(base, selectedPreset)
-                  setSettings(next)
-                  const fieldValues: Record<string, any> = {
-                    actorNotes: next.notes ?? ""
-                  }
-                  for (const aspect of next.aspects || []) {
-                    fieldValues[`actor_${aspect.id}`] = aspect.value ?? ""
-                  }
-                  form.setFieldsValue(fieldValues)
-                  onRecompute()
-                }}
-                disabled={!selectedPreset}
-                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
-                {t("playground:actor.applyPreset", "Apply")}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  const base = createDefaultActorSettings()
-                  setSettings(base)
-                  const fieldValues: Record<string, any> = {
-                    actorNotes: base.notes ?? "",
-                    actorChatPosition: base.chatPosition,
-                    actorChatDepth: base.chatDepth,
-                    actorChatRole: base.chatRole
-                  }
-                  for (const aspect of base.aspects || []) {
-                    fieldValues[`actor_${aspect.id}`] = aspect.value ?? ""
-                    fieldValues[`actor_key_${aspect.id}`] = aspect.key
-                  }
-                  form.setFieldsValue(fieldValues)
-                  onRecompute()
-                }}
-                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2">
-                {t("playground:actor.resetChat", "Reset for this chat")}
-              </button>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1">
+                <Select
+                  size="small"
+                  value={newAspectTarget}
+                  onChange={(val) => setNewAspectTarget(val as ActorTarget)}
+                  style={{ width: 140 }}
+                  options={[
+                    {
+                      value: "user",
+                      label: t("playground:composer.actorUser", "User")
+                    },
+                    {
+                      value: "char",
+                      label: t("playground:composer.actorChar", "Character")
+                    },
+                    {
+                      value: "world",
+                      label: t("playground:composer.actorWorld", "World")
+                    }
+                  ]}
+                />
+                <Input
+                  size="small"
+                  value={newAspectName}
+                  onChange={(e) => setNewAspectName(e.target.value)}
+                  placeholder={t(
+                    "playground:composer.actorNewAspectPlaceholder",
+                    "Aspect name (e.g., Mood, Role, Location)"
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleAddAspect()}
+                  disabled={!newAspectName.trim()}
+                  className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
+                  {t("playground:composer.actorAddButton", "Add aspect")}
+                </button>
+              </div>
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-              <button
-                type="button"
-                onClick={async () => {
-                  if (!settings) return
-                  const characterId = selectedCharacter?.id
-                  if (!characterId) return
-                  const { saveActorProfileForCharacter } = await import(
-                    "@/services/actor-settings"
-                  )
-                  await saveActorProfileForCharacter({
-                    characterId,
-                    settings
-                  })
-                }}
-                disabled={!selectedCharacter?.id}
-                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
+          )}
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-medium text-text">
+                {t("playground:actor.quickSetupLabel", "Quick setup")}
+              </span>
+              <span className="text-[11px] text-text-subtle">
                 {t(
-                  "playground:actor.saveAsCharacterDefault",
-                  "Save as {{name}}’s default",
-                  { name: selectedCharacter?.name || "character" }
+                  "playground:actor.quickSetupHint",
+                  "Click a preset to apply"
                 )}
-              </button>
-              <button
-                type="button"
-                onClick={async () => {
-                  const characterId = selectedCharacter?.id
-                  if (!characterId) return
-                  const {
-                    getActorProfileForCharacter
-                  } = await import("@/services/actor-settings")
-                  const profile = await getActorProfileForCharacter(characterId)
-                  if (!profile) return
-                  setSettings(profile)
-                  const fieldValues: Record<string, any> = {
-                    actorNotes: profile.notes ?? "",
-                    actorChatPosition: profile.chatPosition,
-                    actorChatDepth: profile.chatDepth,
-                    actorChatRole: profile.chatRole
-                  }
-                  for (const aspect of profile.aspects || []) {
-                    fieldValues[`actor_${aspect.id}`] = aspect.value ?? ""
-                    fieldValues[`actor_key_${aspect.id}`] = aspect.key
-                  }
-                  form.setFieldsValue(fieldValues)
-                  onRecompute()
-                }}
-                disabled={!selectedCharacter?.id}
-                className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
-                {t(
-                  "playground:actor.applyCharacterDefault",
-                  "Apply {{name}}’s default",
-                  { name: selectedCharacter?.name || "character" }
-                )}
-              </button>
+              </span>
             </div>
+            <div className="grid grid-cols-2 gap-2">
+              {ACTOR_PRESETS.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => {
+                    if (!settings) return
+                    const base = settings ?? createDefaultActorSettings()
+                    const next = applyActorPresetById(base, preset.id)
+                    setSettings(next)
+                    setSelectedPreset(preset.id)
+                    const fieldValues: Record<string, any> = {
+                      actorNotes: next.notes ?? ""
+                    }
+                    for (const aspect of next.aspects || []) {
+                      fieldValues[`actor_${aspect.id}`] = aspect.value ?? ""
+                    }
+                    form.setFieldsValue(fieldValues)
+                    onRecompute()
+                  }}
+                  className={`flex flex-col items-start gap-0.5 rounded-md border p-2 text-left transition-colors ${
+                    selectedPreset === preset.id
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-border-strong hover:bg-surface2"
+                  }`}>
+                  <span className="text-xs font-medium text-text">
+                    {t(
+                      `playground:actor.preset.${preset.id}` as any,
+                      preset.name
+                    )}
+                  </span>
+                  <span className="text-[10px] text-text-subtle line-clamp-2">
+                    {preset.description}
+                  </span>
+                </button>
+              ))}
+            </div>
+            {!isSimpleMode && (
+              <>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      Modal.confirm({
+                        title: t(
+                          "playground:actor.resetConfirmTitle",
+                          "Reset Actor settings?"
+                        ),
+                        content: t(
+                          "playground:actor.resetConfirmBody",
+                          "This will clear all configured aspects, notes, and placement settings for this chat. This action cannot be undone."
+                        ),
+                        okText: t("common:confirm", "Confirm"),
+                        cancelText: t("common:cancel", "Cancel"),
+                        okButtonProps: { danger: true },
+                        onOk: () => {
+                          const base = createDefaultActorSettings()
+                          setSettings(base)
+                          const fieldValues: Record<string, any> = {
+                            actorNotes: base.notes ?? "",
+                            actorChatPosition: base.chatPosition,
+                            actorChatDepth: base.chatDepth,
+                            actorChatRole: base.chatRole
+                          }
+                          for (const aspect of base.aspects || []) {
+                            fieldValues[`actor_${aspect.id}`] = aspect.value ?? ""
+                            fieldValues[`actor_key_${aspect.id}`] = aspect.key
+                          }
+                          form.setFieldsValue(fieldValues)
+                          onRecompute()
+                        }
+                      })
+                    }}
+                    className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2">
+                    {t("playground:actor.resetChat", "Reset for this chat")}
+                  </button>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      if (!settings) return
+                      const characterId = selectedCharacter?.id
+                      if (!characterId) return
+                      const { saveActorProfileForCharacter } = await import(
+                        "@/services/actor-settings"
+                      )
+                      await saveActorProfileForCharacter({
+                        characterId,
+                        settings
+                      })
+                    }}
+                    disabled={!selectedCharacter?.id}
+                    className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
+                    {t(
+                      "playground:actor.saveAsCharacterDefault",
+                      "Save as {{name}}'s default",
+                      { name: selectedCharacter?.name || "character" }
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const characterId = selectedCharacter?.id
+                      if (!characterId) return
+                      const {
+                        getActorProfileForCharacter
+                      } = await import("@/services/actor-settings")
+                      const profile = await getActorProfileForCharacter(characterId)
+                      if (!profile) return
+                      setSettings(profile)
+                      const fieldValues: Record<string, any> = {
+                        actorNotes: profile.notes ?? "",
+                        actorChatPosition: profile.chatPosition,
+                        actorChatDepth: profile.chatDepth,
+                        actorChatRole: profile.chatRole
+                      }
+                      for (const aspect of profile.aspects || []) {
+                        fieldValues[`actor_${aspect.id}`] = aspect.value ?? ""
+                        fieldValues[`actor_key_${aspect.id}`] = aspect.key
+                      }
+                      form.setFieldsValue(fieldValues)
+                      onRecompute()
+                    }}
+                    disabled={!selectedCharacter?.id}
+                    className="inline-flex items-center justify-center rounded-md border border-border-strong px-2 py-1 text-xs text-text hover:bg-surface2 disabled:opacity-50">
+                    {t(
+                      "playground:actor.applyCharacterDefault",
+                      "Apply {{name}}'s default",
+                      { name: selectedCharacter?.name || "character" }
+                    )}
+                  </button>
+                </div>
+              </>
+            )}
           </div>
 
-          {!worldBooksLoading && !worldBooks.length && (
+          {!isSimpleMode && !worldBooksLoading && !worldBooks.length && (
             <div className="rounded-md border border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
               <div className="font-medium">
                 {t(
@@ -932,7 +977,7 @@ export const ActorEditor: React.FC<Props> = ({
             </div>
           )}
 
-          {aspectCount > ACTOR_ASPECT_SOFT_LIMIT && (
+          {!isSimpleMode && aspectCount > ACTOR_ASPECT_SOFT_LIMIT && (
             <div className="rounded-md border border border-warn/30 bg-warn/10 px-3 py-2 text-xs text-warn">
               <div className="font-medium">
                 {t(
@@ -960,6 +1005,7 @@ export const ActorEditor: React.FC<Props> = ({
               </div>
               {settings.aspects
                 .filter((a) => a.target === "user")
+                .filter((a) => !isSimpleMode || SIMPLE_MODE_ASPECT_IDS.includes(a.id as any))
                 .map((aspect) => renderActorAspectField(aspect))}
             </div>
 
@@ -969,6 +1015,7 @@ export const ActorEditor: React.FC<Props> = ({
               </div>
               {settings.aspects
                 .filter((a) => a.target === "char")
+                .filter((a) => !isSimpleMode || SIMPLE_MODE_ASPECT_IDS.includes(a.id as any))
                 .map((aspect) => renderActorAspectField(aspect))}
             </div>
 
@@ -978,14 +1025,28 @@ export const ActorEditor: React.FC<Props> = ({
               </div>
               {settings.aspects
                 .filter((a) => a.target === "world")
+                .filter((a) => !isSimpleMode || SIMPLE_MODE_ASPECT_IDS.includes(a.id as any))
                 .map((aspect) => renderActorAspectField(aspect))}
             </div>
           </div>
+
+          {isSimpleMode && (
+            <div className="text-center pt-2">
+              <button
+                type="button"
+                onClick={() => onModeChange("advanced")}
+                className="text-xs text-primary hover:underline">
+                {t("playground:actor.showAllOptions", "Show all options")}
+              </button>
+            </div>
+          )}
         </div>
       )}
 
       {activeBlade === "notes" && (
-        <div className="space-y-3">
+        <div
+          ref={(el) => { bladeContentRefs.current.notes = el }}
+          className="space-y-3">
           <Form.Item
             name="actorNotes"
             label={t("playground:composer.actorNotes", "Scene notes")}
@@ -1048,7 +1109,9 @@ export const ActorEditor: React.FC<Props> = ({
       )}
 
       {activeBlade === "placement" && (
-        <div className="space-y-3">
+        <div
+          ref={(el) => { bladeContentRefs.current.placement = el }}
+          className="space-y-3">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <Form.Item
               name="actorChatPosition"
@@ -1195,7 +1258,9 @@ export const ActorEditor: React.FC<Props> = ({
       )}
 
       {activeBlade === "tokens" && (
-        <div className="space-y-3">
+        <div
+          ref={(el) => { bladeContentRefs.current.tokens = el }}
+          className="space-y-3">
           <div className="space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase text-text-subtle">

@@ -31,6 +31,7 @@ export type CoreMode =
   | "dictionaries"
   | "characters"
   | "watchlists"
+  | "audiobookStudio"
 
 interface ModeSelectorProps {
   currentMode: CoreMode
@@ -149,6 +150,11 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
       {
         key: "watchlists",
         label: t("option:header.modeWatchlists", "Watchlists"),
+        shortcut: undefined,
+      },
+      {
+        key: "audiobookStudio",
+        label: t("option:header.audiobookStudio", "Audiobook Studio"),
         shortcut: undefined,
       },
     ],

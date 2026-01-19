@@ -1,8 +1,8 @@
 import React from "react"
-import { Button, Drawer, Form, Skeleton, Switch } from "antd"
+import { Button, Drawer, Form, Segmented, Skeleton, Switch } from "antd"
 import { useTranslation } from "react-i18next"
 import { useMessageOption } from "@/hooks/useMessageOption"
-import type { ActorSettings, ActorTarget } from "@/types/actor"
+import type { ActorEditorMode, ActorSettings, ActorTarget } from "@/types/actor"
 import { createDefaultActorSettings } from "@/types/actor"
 import {
   buildActorPrompt,
@@ -10,7 +10,7 @@ import {
   estimateActorTokens
 } from "@/utils/actor"
 import { ActorEditor } from "@/components/Common/Settings/ActorEditor"
-import { useActorStore } from "@/store/actor"
+import { useActorEditorPrefs, useActorStore } from "@/store/actor"
 import type { Character } from "@/types/character"
 import { useSelectedCharacter } from "@/hooks/useSelectedCharacter"
 
@@ -33,6 +33,7 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
     tokenCount,
     setPreviewAndTokens
   } = useActorStore()
+  const { editorMode, setEditorMode } = useActorEditorPrefs()
   const [loading, setLoading] = React.useState(false)
   const [newAspectTarget, setNewAspectTarget] =
     React.useState<ActorTarget>("user")
@@ -189,6 +190,24 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
               </Form.Item>
             </div>
 
+            <div className="flex items-center justify-between pt-2">
+              <Segmented
+                size="small"
+                value={editorMode}
+                onChange={(val) => setEditorMode(val as ActorEditorMode)}
+                options={[
+                  {
+                    value: "simple",
+                    label: t("playground:actor.modeSimple", "Simple")
+                  },
+                  {
+                    value: "advanced",
+                    label: t("playground:actor.modeAdvanced", "Advanced")
+                  }
+                ]}
+              />
+            </div>
+
             <ActorEditor
               form={form}
               settings={settings}
@@ -201,6 +220,8 @@ export const ActorPopout: React.FC<Props> = ({ open, setOpen }) => {
               newAspectName={newAspectName}
               setNewAspectName={setNewAspectName}
               actorPositionValue={actorPositionValue}
+              editorMode={editorMode}
+              onModeChange={setEditorMode}
             />
 
             <div className="pt-2 flex justify-end gap-2">

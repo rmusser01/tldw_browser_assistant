@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react"
+import React, { useState, useCallback, useEffect, useRef } from "react"
 import { Input, Radio, Button, Space, Alert, Spin, message } from "antd"
 import { Copy, Download, MessageSquare, CheckCircle, Globe } from "lucide-react"
 import { useTranslation } from "react-i18next"
@@ -60,6 +60,8 @@ const CaptureStep: React.FC = () => {
   const setWorkflowStep = useWorkflowsStore((s) => s.setWorkflowStep)
   const setProcessing = useWorkflowsStore((s) => s.setProcessing)
   const setWorkflowError = useWorkflowsStore((s) => s.setWorkflowError)
+
+  const advanceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const [pageInfo, setPageInfo] = useState<{
     title: string
@@ -131,7 +133,12 @@ const CaptureStep: React.FC = () => {
         setIsCapturing(false)
 
         // Auto-advance to next step after a brief delay
-        setTimeout(() => {
+        if (advanceTimeoutRef.current) {
+          clearTimeout(advanceTimeoutRef.current)
+        }
+        advanceTimeoutRef.current = setTimeout(() => {
+          const currentId = useWorkflowsStore.getState().activeWorkflow?.workflowId
+          if (currentId !== "summarize-page") return
           setWorkflowStep(1)
         }, 500)
       } catch (error) {
@@ -147,6 +154,12 @@ const CaptureStep: React.FC = () => {
     }
 
     capturePageContent()
+
+    return () => {
+      if (advanceTimeoutRef.current) {
+        clearTimeout(advanceTimeoutRef.current)
+      }
+    }
   }, [t, updateWorkflowData, setWorkflowStep, setProcessing, setWorkflowError])
 
   if (isCapturing) {

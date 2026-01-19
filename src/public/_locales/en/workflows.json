@@ -1,0 +1,881 @@
+{
+  "landing_title": {
+    "message": "Welcome to tldw Assistant"
+  },
+  "landing_subtitle": {
+    "message": "What would you like to do?"
+  },
+  "landing_dontShowAgain": {
+    "message": "Don't show this again"
+  },
+  "landing_justChat": {
+    "message": "Just Chat"
+  },
+  "categories_contentCapture": {
+    "message": "Content Capture"
+  },
+  "categories_knowledgeQA": {
+    "message": "Knowledge Q&A"
+  },
+  "categories_mediaProcessing": {
+    "message": "Media Processing"
+  },
+  "categories_learningTools": {
+    "message": "Learning Tools"
+  },
+  "error": {
+    "message": "Error"
+  },
+  "processing": {
+    "message": "Processing..."
+  },
+  "complete": {
+    "message": "Complete"
+  },
+  "suggestion_start": {
+    "message": "Start"
+  },
+  "suggestion_dismiss": {
+    "message": "Dismiss"
+  },
+  "suggestions_pdfUploaded_title": {
+    "message": "Document uploaded"
+  },
+  "suggestions_pdfUploaded_description": {
+    "message": "Would you like to add this to your knowledge base and ask questions about it?"
+  },
+  "suggestions_youtubeUrl_title": {
+    "message": "Video link detected"
+  },
+  "suggestions_youtubeUrl_description": {
+    "message": "Would you like to transcribe this video?"
+  },
+  "suggestions_textSelected_title": {
+    "message": "Save this selection?"
+  },
+  "suggestions_textSelected_description": {
+    "message": "You can save this text to your notes for later reference."
+  },
+  "suggestions_summaryViewed_title": {
+    "message": "Test your understanding"
+  },
+  "suggestions_summaryViewed_description": {
+    "message": "Create a quiz based on this content to reinforce learning."
+  },
+  "suggestions_onWebpage_title": {
+    "message": "Summarize this page?"
+  },
+  "suggestions_onWebpage_description": {
+    "message": "Get a quick summary of the current webpage."
+  },
+  "suggestions_documentsAvailable_title": {
+    "message": "Ready to ask questions"
+  },
+  "suggestions_documentsAvailable_description": {
+    "message": "You have documents in your knowledge base. Ask questions about them!"
+  },
+  "summarizePage_title": {
+    "message": "Summarize Page"
+  },
+  "summarizePage_description": {
+    "message": "Get a quick summary of the current webpage"
+  },
+  "summarizePage_steps_capture": {
+    "message": "Capture"
+  },
+  "summarizePage_steps_captureDesc": {
+    "message": "Capture page content"
+  },
+  "summarizePage_steps_options": {
+    "message": "Options"
+  },
+  "summarizePage_steps_optionsDesc": {
+    "message": "Choose summary style"
+  },
+  "summarizePage_steps_result": {
+    "message": "Result"
+  },
+  "summarizePage_steps_resultDesc": {
+    "message": "View your summary"
+  },
+  "summarizePage_capturing": {
+    "message": "Capturing page content..."
+  },
+  "summarizePage_captured": {
+    "message": "Page captured"
+  },
+  "summarizePage_contentPreview": {
+    "message": "Content length: {{length}} characters"
+  },
+  "summarizePage_chooseStyle": {
+    "message": "Choose summary style"
+  },
+  "summarizePage_styles_brief": {
+    "message": "Brief"
+  },
+  "summarizePage_styles_briefDesc": {
+    "message": "2-3 sentence overview"
+  },
+  "summarizePage_styles_detailed": {
+    "message": "Detailed"
+  },
+  "summarizePage_styles_detailedDesc": {
+    "message": "Comprehensive summary with key points"
+  },
+  "summarizePage_styles_bullets": {
+    "message": "Bullet Points"
+  },
+  "summarizePage_styles_bulletsDesc": {
+    "message": "Key points as a list"
+  },
+  "summarizePage_generating": {
+    "message": "Generating summary..."
+  },
+  "summarizePage_yourSummary": {
+    "message": "Your Summary"
+  },
+  "summarizePage_askFollowUp": {
+    "message": "Ask Follow-up"
+  },
+  "summarizePage_chatComingSoon": {
+    "message": "Chat feature coming soon"
+  },
+  "summarizePage_demoSummary": {
+    "message": "Unable to connect to the summarization service. Please ensure your tldw server is running and configured correctly."
+  },
+  "summarizePage_errors_noTab": {
+    "message": "No active tab found"
+  },
+  "summarizePage_errors_noContent": {
+    "message": "Could not extract page content"
+  },
+  "summarizePage_errors_captureFailed": {
+    "message": "Failed to capture page"
+  },
+  "quickSave_title": {
+    "message": "Title"
+  },
+  "quickSave_description": {
+    "message": "Save content to your notes with one click"
+  },
+  "quickSave_steps_capture": {
+    "message": "Capture"
+  },
+  "quickSave_steps_captureDesc": {
+    "message": "Capture content"
+  },
+  "quickSave_steps_details": {
+    "message": "Details"
+  },
+  "quickSave_steps_detailsDesc": {
+    "message": "Add title and tags"
+  },
+  "quickSave_steps_confirm": {
+    "message": "Save"
+  },
+  "quickSave_steps_confirmDesc": {
+    "message": "Confirm and save"
+  },
+  "quickSave_capturing": {
+    "message": "Capturing content..."
+  },
+  "quickSave_selectionCaptured": {
+    "message": "Selection captured"
+  },
+  "quickSave_pageCaptured": {
+    "message": "Page captured"
+  },
+  "quickSave_titlePlaceholder": {
+    "message": "Enter a title"
+  },
+  "quickSave_folder": {
+    "message": "Folder"
+  },
+  "quickSave_folders_default": {
+    "message": "Default"
+  },
+  "quickSave_folders_research": {
+    "message": "Research"
+  },
+  "quickSave_folders_reading": {
+    "message": "Reading List"
+  },
+  "quickSave_folders_work": {
+    "message": "Work"
+  },
+  "quickSave_tags": {
+    "message": "Tags"
+  },
+  "quickSave_addTag": {
+    "message": "Add a tag and press Enter"
+  },
+  "quickSave_saving": {
+    "message": "Saving note..."
+  },
+  "quickSave_saved": {
+    "message": "Note saved!"
+  },
+  "quickSave_savedTitle": {
+    "message": "Note Saved!"
+  },
+  "quickSave_savedDescription": {
+    "message": "Your content has been saved to your notes."
+  },
+  "quickSave_saveFailed": {
+    "message": "Failed to save note"
+  },
+  "quickSave_viewNotes": {
+    "message": "View Notes"
+  },
+  "quickSave_errors_noTab": {
+    "message": "No active tab found"
+  },
+  "quickSave_errors_noContent": {
+    "message": "Could not capture content"
+  },
+  "quickSave_errors_captureFailed": {
+    "message": "Failed to capture content"
+  },
+  "uploadAsk_title": {
+    "message": "Upload & Ask"
+  },
+  "uploadAsk_description": {
+    "message": "Upload documents and ask questions about them"
+  },
+  "uploadAsk_steps_upload": {
+    "message": "Upload"
+  },
+  "uploadAsk_steps_uploadDesc": {
+    "message": "Select files to upload"
+  },
+  "uploadAsk_steps_process": {
+    "message": "Process"
+  },
+  "uploadAsk_steps_processDesc": {
+    "message": "Adding to knowledge base"
+  },
+  "uploadAsk_steps_chat": {
+    "message": "Chat"
+  },
+  "uploadAsk_steps_chatDesc": {
+    "message": "Ask questions"
+  },
+  "uploadAsk_suggestion": {
+    "message": "Add this document to your knowledge base?"
+  },
+  "askDocuments_title": {
+    "message": "Ask My Documents"
+  },
+  "askDocuments_description": {
+    "message": "Ask questions about your uploaded documents"
+  },
+  "askDocuments_steps_check": {
+    "message": "Check"
+  },
+  "askDocuments_steps_checkDesc": {
+    "message": "Checking knowledge base"
+  },
+  "askDocuments_steps_chat": {
+    "message": "Chat"
+  },
+  "askDocuments_steps_chatDesc": {
+    "message": "Ask questions"
+  },
+  "transcribeMedia_title": {
+    "message": "Transcribe Media"
+  },
+  "transcribeMedia_description": {
+    "message": "Transcribe videos and audio files"
+  },
+  "transcribeMedia_steps_input": {
+    "message": "Input"
+  },
+  "transcribeMedia_steps_inputDesc": {
+    "message": "Paste URL or upload file"
+  },
+  "transcribeMedia_steps_options": {
+    "message": "Options"
+  },
+  "transcribeMedia_steps_optionsDesc": {
+    "message": "Select language and settings"
+  },
+  "transcribeMedia_steps_process": {
+    "message": "Transcribe"
+  },
+  "transcribeMedia_steps_processDesc": {
+    "message": "Processing media"
+  },
+  "transcribeMedia_steps_result": {
+    "message": "Result"
+  },
+  "transcribeMedia_steps_resultDesc": {
+    "message": "View transcript"
+  },
+  "transcribeMedia_suggestion": {
+    "message": "Transcribe this video?"
+  },
+  "extractText_title": {
+    "message": "Extract Text"
+  },
+  "extractText_description": {
+    "message": "Extract text from images using OCR"
+  },
+  "extractText_steps_upload": {
+    "message": "Upload"
+  },
+  "extractText_steps_uploadDesc": {
+    "message": "Upload an image"
+  },
+  "extractText_steps_process": {
+    "message": "Extract"
+  },
+  "extractText_steps_processDesc": {
+    "message": "Running OCR"
+  },
+  "extractText_steps_result": {
+    "message": "Result"
+  },
+  "extractText_steps_resultDesc": {
+    "message": "View extracted text"
+  },
+  "createQuiz_title": {
+    "message": "Create Quiz"
+  },
+  "createQuiz_description": {
+    "message": "Generate a quiz from your content"
+  },
+  "createQuiz_steps_source": {
+    "message": "Source"
+  },
+  "createQuiz_steps_sourceDesc": {
+    "message": "Select source content"
+  },
+  "createQuiz_steps_options": {
+    "message": "Options"
+  },
+  "createQuiz_steps_optionsDesc": {
+    "message": "Quiz settings"
+  },
+  "createQuiz_steps_generate": {
+    "message": "Generate"
+  },
+  "createQuiz_steps_generateDesc": {
+    "message": "Creating quiz"
+  },
+  "createQuiz_steps_take": {
+    "message": "Quiz"
+  },
+  "createQuiz_steps_takeDesc": {
+    "message": "Take the quiz"
+  },
+  "createQuiz_suggestion": {
+    "message": "Create a quiz to test your understanding?"
+  },
+  "makeFlashcards_title": {
+    "message": "Make Flashcards"
+  },
+  "makeFlashcards_description": {
+    "message": "Create flashcards for studying"
+  },
+  "makeFlashcards_steps_source": {
+    "message": "Source"
+  },
+  "makeFlashcards_steps_sourceDesc": {
+    "message": "Select source content"
+  },
+  "makeFlashcards_steps_options": {
+    "message": "Options"
+  },
+  "makeFlashcards_steps_optionsDesc": {
+    "message": "Flashcard settings"
+  },
+  "makeFlashcards_steps_generate": {
+    "message": "Generate"
+  },
+  "makeFlashcards_steps_generateDesc": {
+    "message": "Creating flashcards"
+  },
+  "makeFlashcards_steps_review": {
+    "message": "Review"
+  },
+  "makeFlashcards_steps_reviewDesc": {
+    "message": "Review and edit cards"
+  },
+  "analyzeBook_title": {
+    "message": "Analyze Book"
+  },
+  "analyzeBook_description": {
+    "message": "Deep analysis of books with chapter detection and AI insights"
+  },
+  "analyzeBook_suggestion": {
+    "message": "Analyze this book?"
+  },
+  "analyzeBook_steps_select": {
+    "message": "Select"
+  },
+  "analyzeBook_steps_selectDesc": {
+    "message": "Choose a book to analyze"
+  },
+  "analyzeBook_steps_chunking": {
+    "message": "Chapters"
+  },
+  "analyzeBook_steps_chunkingDesc": {
+    "message": "Review chapter detection"
+  },
+  "analyzeBook_steps_configure": {
+    "message": "Configure"
+  },
+  "analyzeBook_steps_configureDesc": {
+    "message": "Choose analysis options"
+  },
+  "analyzeBook_steps_process": {
+    "message": "Analyze"
+  },
+  "analyzeBook_steps_processDesc": {
+    "message": "Running analysis"
+  },
+  "analyzeBook_steps_review": {
+    "message": "Review"
+  },
+  "analyzeBook_steps_reviewDesc": {
+    "message": "View and edit results"
+  },
+  "analyzeBook_uploadBook": {
+    "message": "Upload a book"
+  },
+  "analyzeBook_dropzone": {
+    "message": "Click or drag file to upload"
+  },
+  "analyzeBook_supportedFormats": {
+    "message": "Supports PDF, EPUB, TXT, MD, DOC, DOCX"
+  },
+  "analyzeBook_reading": {
+    "message": "Reading book file..."
+  },
+  "analyzeBook_bookSelected": {
+    "message": "Book selected"
+  },
+  "analyzeBook_selectDifferent": {
+    "message": "Select a different book"
+  },
+  "analyzeBook_chapterDetection": {
+    "message": "Chapter Detection"
+  },
+  "analyzeBook_foundChapters": {
+    "message": "Found {{count}} chapters"
+  },
+  "analyzeBook_entireBook": {
+    "message": "Entire Book"
+  },
+  "analyzeBook_chunkingWarning": {
+    "message": "{{count}} chapters may need review"
+  },
+  "analyzeBook_chunkingWarningDesc": {
+    "message": "Some chapters appear too short or too long. You can adjust the chapter pattern below."
+  },
+  "analyzeBook_chapterPattern": {
+    "message": "Chapter Pattern (RegEx)"
+  },
+  "analyzeBook_reChunk": {
+    "message": "Re-chunk"
+  },
+  "analyzeBook_detecting": {
+    "message": "Detecting chapters..."
+  },
+  "analyzeBook_tooShort": {
+    "message": "Too short - may be incomplete"
+  },
+  "analyzeBook_tooLong": {
+    "message": "Very long - consider splitting"
+  },
+  "analyzeBook_choosePreset": {
+    "message": "Choose analysis type"
+  },
+  "analyzeBook_customPrompt": {
+    "message": "Custom Analysis Prompt"
+  },
+  "analyzeBook_customPromptPlaceholder": {
+    "message": "Enter your analysis prompt..."
+  },
+  "analyzeBook_analysisScope": {
+    "message": "Analysis Scope"
+  },
+  "analyzeBook_wholeBook": {
+    "message": "Whole Book"
+  },
+  "analyzeBook_perChapter": {
+    "message": "Per Chapter"
+  },
+  "analyzeBook_presets_comprehensive": {
+    "message": "Comprehensive Analysis"
+  },
+  "analyzeBook_presets_comprehensiveDesc": {
+    "message": "Full themes, insights, and takeaways"
+  },
+  "analyzeBook_presets_chapterSummaries": {
+    "message": "Chapter Summaries"
+  },
+  "analyzeBook_presets_chapterSummariesDesc": {
+    "message": "Summary per chapter"
+  },
+  "analyzeBook_presets_characterAnalysis": {
+    "message": "Character Analysis"
+  },
+  "analyzeBook_presets_characterAnalysisDesc": {
+    "message": "For fiction - character arcs and relationships"
+  },
+  "analyzeBook_presets_keyConcepts": {
+    "message": "Key Concepts"
+  },
+  "analyzeBook_presets_keyConceptsDesc": {
+    "message": "For non-fiction - ideas and frameworks"
+  },
+  "analyzeBook_presets_custom": {
+    "message": "Custom"
+  },
+  "analyzeBook_presets_customDesc": {
+    "message": "Use your own analysis prompt"
+  },
+  "analyzeBook_analyzing": {
+    "message": "Analyzing book..."
+  },
+  "analyzeBook_analyzingChapter": {
+    "message": "Analyzing chapter {{current}} of {{total}}..."
+  },
+  "analyzeBook_analysisComplete": {
+    "message": "Analysis Complete"
+  },
+  "analyzeBook_analysisCompleteDesc": {
+    "message": "Your book analysis is ready. You can edit, save, or export the results below."
+  },
+  "analyzeBook_noAnalysis": {
+    "message": "No analysis available"
+  },
+  "analyzeBook_overallAnalysis": {
+    "message": "Overall Analysis"
+  },
+  "analyzeBook_saveToKB": {
+    "message": "Save to Knowledge Base"
+  },
+  "analyzeBook_exportMD": {
+    "message": "Export as Markdown"
+  },
+  "analyzeBook_sendToChat": {
+    "message": "Send to Chat"
+  },
+  "analyzeBook_whatsNext": {
+    "message": "What's next?"
+  },
+  "analyzeBook_createQuiz": {
+    "message": "Create a quiz"
+  },
+  "analyzeBook_makeFlashcards": {
+    "message": "Make flashcards"
+  },
+  "analyzeBook_askQuestions": {
+    "message": "Ask questions"
+  },
+  "analyzeBook_errors_readFailed": {
+    "message": "Failed to read file"
+  },
+  "analyzeBook_errors_invalidPattern": {
+    "message": "Invalid chapter pattern"
+  },
+  "analyzeBook_errors_analysisFailed": {
+    "message": "Analysis failed"
+  },
+  "editor_title": {
+    "message": "Workflow Editor"
+  },
+  "editor_description": {
+    "message": "Create and edit visual workflows"
+  },
+  "editor_untitled": {
+    "message": "Untitled Workflow"
+  },
+  "editor_toolbar_save": {
+    "message": "Save"
+  },
+  "editor_toolbar_undo": {
+    "message": "Undo"
+  },
+  "editor_toolbar_redo": {
+    "message": "Redo"
+  },
+  "editor_toolbar_zoomIn": {
+    "message": "Zoom In"
+  },
+  "editor_toolbar_zoomOut": {
+    "message": "Zoom Out"
+  },
+  "editor_toolbar_fitView": {
+    "message": "Fit View"
+  },
+  "editor_toolbar_toggleGrid": {
+    "message": "Toggle Grid"
+  },
+  "editor_toolbar_toggleMinimap": {
+    "message": "Toggle Minimap"
+  },
+  "editor_toolbar_newWorkflow": {
+    "message": "New Workflow"
+  },
+  "editor_toolbar_import": {
+    "message": "Import"
+  },
+  "editor_toolbar_export": {
+    "message": "Export"
+  },
+  "editor_toolbar_clearCanvas": {
+    "message": "Clear Canvas"
+  },
+  "editor_sidebar_nodes": {
+    "message": "Nodes"
+  },
+  "editor_sidebar_config": {
+    "message": "Config"
+  },
+  "editor_sidebar_execution": {
+    "message": "Execution"
+  },
+  "editor_palette_title": {
+    "message": "Node Library"
+  },
+  "editor_palette_search": {
+    "message": "Search nodes..."
+  },
+  "editor_palette_noResults": {
+    "message": "No nodes found"
+  },
+  "editor_palette_dragHint": {
+    "message": "Drag nodes onto the canvas to add them"
+  },
+  "editor_categories_ai": {
+    "message": "AI"
+  },
+  "editor_categories_data": {
+    "message": "Data"
+  },
+  "editor_categories_control": {
+    "message": "Control Flow"
+  },
+  "editor_categories_io": {
+    "message": "Input/Output"
+  },
+  "editor_categories_utility": {
+    "message": "Utility"
+  },
+  "editor_steps_prompt_label": {
+    "message": "LLM Prompt"
+  },
+  "editor_steps_prompt_description": {
+    "message": "Generate text using a language model"
+  },
+  "editor_steps_rag_search_label": {
+    "message": "RAG Search"
+  },
+  "editor_steps_rag_search_description": {
+    "message": "Search your knowledge base"
+  },
+  "editor_steps_media_ingest_label": {
+    "message": "Media Ingest"
+  },
+  "editor_steps_media_ingest_description": {
+    "message": "Process videos and audio"
+  },
+  "editor_steps_branch_label": {
+    "message": "Branch"
+  },
+  "editor_steps_branch_description": {
+    "message": "Conditional routing"
+  },
+  "editor_steps_map_label": {
+    "message": "Map"
+  },
+  "editor_steps_map_description": {
+    "message": "Process arrays in parallel"
+  },
+  "editor_steps_wait_for_human_label": {
+    "message": "Human Approval"
+  },
+  "editor_steps_wait_for_human_description": {
+    "message": "Wait for human approval"
+  },
+  "editor_steps_webhook_label": {
+    "message": "Webhook"
+  },
+  "editor_steps_webhook_description": {
+    "message": "Make HTTP requests"
+  },
+  "editor_steps_tts_label": {
+    "message": "Text to Speech"
+  },
+  "editor_steps_tts_description": {
+    "message": "Convert text to audio"
+  },
+  "editor_steps_stt_transcribe_label": {
+    "message": "Transcribe"
+  },
+  "editor_steps_stt_transcribe_description": {
+    "message": "Convert audio to text"
+  },
+  "editor_steps_delay_label": {
+    "message": "Delay"
+  },
+  "editor_steps_delay_description": {
+    "message": "Wait for a duration"
+  },
+  "editor_steps_log_label": {
+    "message": "Log"
+  },
+  "editor_steps_log_description": {
+    "message": "Debug output"
+  },
+  "editor_steps_start_label": {
+    "message": "Start"
+  },
+  "editor_steps_start_description": {
+    "message": "Workflow entry point"
+  },
+  "editor_steps_end_label": {
+    "message": "End"
+  },
+  "editor_steps_end_description": {
+    "message": "Workflow exit point"
+  },
+  "editor_config_title": {
+    "message": "Node Configuration"
+  },
+  "editor_config_noSelection": {
+    "message": "Select a node to configure"
+  },
+  "editor_config_multipleSelection": {
+    "message": "Multiple nodes selected"
+  },
+  "editor_config_nodeLabel": {
+    "message": "Node Label"
+  },
+  "editor_config_duplicate": {
+    "message": "Duplicate"
+  },
+  "editor_config_delete": {
+    "message": "Delete"
+  },
+  "editor_config_inputs": {
+    "message": "Inputs"
+  },
+  "editor_config_outputs": {
+    "message": "Outputs"
+  },
+  "editor_execution_title": {
+    "message": "Execution"
+  },
+  "editor_execution_run": {
+    "message": "Run"
+  },
+  "editor_execution_stop": {
+    "message": "Stop"
+  },
+  "editor_execution_pause": {
+    "message": "Pause"
+  },
+  "editor_execution_resume": {
+    "message": "Resume"
+  },
+  "editor_execution_reset": {
+    "message": "Reset"
+  },
+  "editor_execution_status_idle": {
+    "message": "Idle"
+  },
+  "editor_execution_status_running": {
+    "message": "Running"
+  },
+  "editor_execution_status_paused": {
+    "message": "Paused"
+  },
+  "editor_execution_status_waiting_human": {
+    "message": "Waiting for Approval"
+  },
+  "editor_execution_status_completed": {
+    "message": "Completed"
+  },
+  "editor_execution_status_failed": {
+    "message": "Failed"
+  },
+  "editor_execution_status_cancelled": {
+    "message": "Cancelled"
+  },
+  "editor_execution_stepStatus_idle": {
+    "message": "Idle"
+  },
+  "editor_execution_stepStatus_queued": {
+    "message": "Queued"
+  },
+  "editor_execution_stepStatus_running": {
+    "message": "Running"
+  },
+  "editor_execution_stepStatus_success": {
+    "message": "Success"
+  },
+  "editor_execution_stepStatus_failed": {
+    "message": "Failed"
+  },
+  "editor_execution_stepStatus_skipped": {
+    "message": "Skipped"
+  },
+  "editor_execution_stepStatus_waiting_human": {
+    "message": "Waiting"
+  },
+  "editor_execution_stepStatus_cancelled": {
+    "message": "Cancelled"
+  },
+  "editor_execution_approval_title": {
+    "message": "Approval Required"
+  },
+  "editor_execution_approval_approve": {
+    "message": "Approve"
+  },
+  "editor_execution_approval_reject": {
+    "message": "Reject"
+  },
+  "editor_execution_approval_editAndApprove": {
+    "message": "Edit & Approve"
+  },
+  "editor_execution_runHint": {
+    "message": "Click Run to start the workflow"
+  },
+  "editor_validation_noStart": {
+    "message": "Workflow must have a Start node"
+  },
+  "editor_validation_multipleStart": {
+    "message": "Workflow can only have one Start node"
+  },
+  "editor_validation_noEnd": {
+    "message": "Workflow must have an End node"
+  },
+  "editor_validation_disconnected": {
+    "message": "Node \"{{name}}\" has no incoming connections"
+  },
+  "editor_validation_noOutput": {
+    "message": "Node \"{{name}}\" has no outgoing connections"
+  },
+  "editor_messages_saved": {
+    "message": "Workflow saved"
+  },
+  "editor_messages_exported": {
+    "message": "Workflow exported"
+  },
+  "editor_messages_imported": {
+    "message": "Workflow imported"
+  },
+  "editor_messages_importFailed": {
+    "message": "Failed to import workflow"
+  },
+  "editor_messages_unsavedChanges": {
+    "message": "You have unsaved changes. Create new workflow?"
+  },
+  "editor_messages_clearConfirm": {
+    "message": "Clear all nodes from the canvas?"
+  }
+}

@@ -11,6 +11,7 @@ import {
   CombineIcon,
   CpuIcon,
   Gauge,
+  GitBranch,
   InfoIcon,
   OrbitIcon,
   ServerIcon,
@@ -24,7 +25,8 @@ import {
   MicIcon,
   Trash2,
   Table2,
-  Library
+  Library,
+  Headphones
 } from "lucide-react"
 import { ALL_TARGETS, type PlatformTarget } from "@/config/platform"
 import OptionLayout from "~/components/Layouts/Layout"
@@ -154,6 +156,8 @@ const OptionWatchlists = lazy(() => import("./option-watchlists"))
 const OptionKanbanPlayground = lazy(() => import("./option-kanban-playground"))
 const OptionDataTables = lazy(() => import("./option-data-tables"))
 const OptionCollections = lazy(() => import("./option-collections"))
+const OptionAudiobookStudio = lazy(() => import("./option-audiobook-studio"))
+const OptionWorkflowEditor = lazy(() => import("./option-workflow-editor"))
 
 export const ROUTE_DEFINITIONS: RouteDefinition[] = [
   { kind: "options", path: "/", element: <OptionIndex /> },
@@ -487,6 +491,30 @@ export const ROUTE_DEFINITIONS: RouteDefinition[] = [
   { kind: "options", path: "/stt", element: <OptionStt /> },
   { kind: "options", path: "/speech", element: <OptionSpeech /> },
   { kind: "options", path: "/evaluations", element: <OptionEvaluations /> },
+  {
+    kind: "options",
+    path: "/audiobook-studio",
+    element: <OptionAudiobookStudio />,
+    nav: {
+      group: "workspace",
+      labelToken: "option:header.audiobookStudio",
+      icon: Headphones,
+      order: 10,
+      beta: true
+    }
+  },
+  {
+    kind: "options",
+    path: "/workflow-editor",
+    element: <OptionWorkflowEditor />,
+    nav: {
+      group: "workspace",
+      labelToken: "option:header.workflowEditor",
+      icon: GitBranch,
+      order: 11,
+      beta: true
+    }
+  },
   {
     kind: "options",
     path: "/admin/server",

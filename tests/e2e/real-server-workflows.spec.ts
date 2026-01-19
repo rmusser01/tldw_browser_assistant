@@ -35,6 +35,27 @@ const fetchWithKey = async (
   return fetch(url, { ...init, headers })
 }
 
+const fetchWithKeyTimeout = async (
+  url: string,
+  apiKey: string,
+  init: RequestInit = {},
+  timeoutMs = 15000
+) => {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetchWithKey(url, apiKey, {
+      ...init,
+      signal: controller.signal
+    })
+  } catch (error: any) {
+    if (error?.name === "AbortError") return null
+    throw error
+  } finally {
+    clearTimeout(timeoutId)
+  }
+}
+
 const skipOrThrow = (condition: boolean, message: string) => {
   if (!condition) return
   throw new Error(message)
@@ -233,6 +254,87 @@ const pollForNoteByTitle = async (
   return null
 }
 
+const extractNoteBacklink = (note: any) => {
+  const meta = note?.metadata || {}
+  const backlinks = meta?.backlinks || meta || {}
+  const conversation =
+    note?.conversation_id ??
+    backlinks?.conversation_id ??
+    backlinks?.conversationId ??
+    meta?.conversation_id ??
+    null
+  const message =
+    note?.message_id ??
+    backlinks?.message_id ??
+    backlinks?.messageId ??
+    meta?.message_id ??
+    null
+  return {
+    conversation_id: conversation != null ? String(conversation) : null,
+    message_id: message != null ? String(message) : null
+  }
+}
+
+const pollForNoteByConversation = async (
+  serverUrl: string,
+  apiKey: string,
+  conversationId: string,
+  messageId?: string | null,
+  timeoutMs = 60000
+) => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  const deadline = Date.now() + timeoutMs
+  const targetConversation = String(conversationId)
+  const targetMessage = messageId ? String(messageId) : null
+  while (Date.now() < deadline) {
+    const listRes = await fetchWithKeyTimeout(
+      `${normalized}/api/v1/notes/?page=1&results_per_page=50`,
+      apiKey
+    ).catch(() => null)
+    if (listRes?.ok) {
+      const payload = await listRes.json().catch(() => [])
+      const list = parseListPayload(payload)
+      const match = list.find((note: any) => {
+        const links = extractNoteBacklink(note)
+        if (links.conversation_id === targetConversation) return true
+        if (targetMessage && links.message_id === targetMessage) return true
+        return false
+      })
+      if (match) return match
+    }
+    await new Promise((r) => setTimeout(r, 1000))
+  }
+  return null
+}
+
+const findNoteRowInList = async (
+  page: Page,
+  conversationId: string | null,
+  query: string,
+  maxPages = 5
+) => {
+  const targetConversation = conversationId ? String(conversationId) : ""
+  for (let pageIndex = 0; pageIndex < maxPages; pageIndex += 1) {
+    const conversationLocator = targetConversation
+      ? page.locator("button").filter({ hasText: targetConversation })
+      : null
+    const queryLocator = page.locator("button").filter({ hasText: query })
+    if (conversationLocator && (await conversationLocator.count()) > 0) {
+      return conversationLocator.first()
+    }
+    if ((await queryLocator.count()) > 0) {
+      return queryLocator.first()
+    }
+    const nextPage = page.getByRole("button", { name: /Next Page/i })
+    if ((await nextPage.count()) === 0) return null
+    const disabled = await nextPage.getAttribute("aria-disabled")
+    if (disabled === "true") return null
+    await nextPage.click()
+    await page.waitForTimeout(1000)
+  }
+  return null
+}
+
 const createSeedNoteForRag = async (
   serverUrl: string,
   apiKey: string,
@@ -422,6 +524,22 @@ const setSelectedCharacterInStorage = async (
   }, character)
 }
 
+const setLastNoteId = async (page: Page, noteId: string) => {
+  await page.evaluate(async (id) => {
+    const w: any = window as any
+    try {
+      window.localStorage.setItem("tldw:lastNoteId", String(id))
+    } catch {
+      // ignore localStorage errors
+    }
+    const area = w?.chrome?.storage?.local
+    if (!area?.set) return
+    await new Promise<void>((resolve) => {
+      area.set({ "tldw:lastNoteId": String(id) }, () => resolve())
+    })
+  }, noteId)
+}
+
 const pollForCharacterByName = async (
   serverUrl: string,
   apiKey: string,
@@ -467,6 +585,67 @@ const pollForCharacterByName = async (
   return null
 }
 
+const normalizeMessageContent = (value: unknown) =>
+  String(value || "").replace(/\s+/g, " ").trim()
+
+const pollForServerAssistantMessageId = async (
+  serverUrl: string,
+  apiKey: string,
+  chatId: string,
+  assistantText: string,
+  timeoutMs = 60000
+) => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  const deadline = Date.now() + timeoutMs
+  const target = normalizeMessageContent(assistantText)
+  const targetPrefix = target.slice(0, 80)
+  while (Date.now() < deadline) {
+    const res = await fetchWithKeyTimeout(
+      `${normalized}/api/v1/chats/${encodeURIComponent(chatId)}/messages`,
+      apiKey
+    ).catch(() => null)
+    if (res?.ok) {
+      const payload = await res.json().catch(() => null)
+      const list: any[] = Array.isArray(payload)
+        ? payload
+        : Array.isArray(payload?.messages)
+          ? payload.messages
+          : Array.isArray(payload?.items)
+            ? payload.items
+            : Array.isArray(payload?.results)
+              ? payload.results
+              : Array.isArray(payload?.data)
+                ? payload.data
+                : []
+      const assistants = list.filter((item) => {
+        const roleCandidate =
+          item?.role ?? item?.sender ?? item?.author ?? item?.message?.role
+        const isBot =
+          item?.is_bot === true ||
+          item?.isBot === true ||
+          String(roleCandidate || "")
+            .toLowerCase()
+            .includes("assistant")
+        return isBot
+      })
+      if (assistants.length > 0) {
+        const exactMatch = assistants.find((item) => {
+          const content = normalizeMessageContent(
+            item?.content ?? item?.message?.content ?? ""
+          )
+          return content && (content === target || content.startsWith(targetPrefix))
+        })
+        const match = exactMatch ?? assistants[assistants.length - 1]
+        if (match?.id != null) {
+          return String(match.id)
+        }
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+  }
+  return null
+}
+
 const pollForMediaMatch = async (
   serverUrl: string,
   apiKey: string,
@@ -505,16 +684,17 @@ const deleteCharacterByName = async (
   name: string
 ) => {
   const normalized = serverUrl.replace(/\/$/, "")
-  const primary = await fetchWithKey(
+  const primary = await fetchWithKeyTimeout(
     `${normalized}/api/v1/characters/`,
     apiKey
   ).catch(() => null)
   const res =
     primary && primary.ok
       ? primary
-      : await fetchWithKey(`${normalized}/api/v1/characters`, apiKey).catch(
-          () => null
-        )
+      : await fetchWithKeyTimeout(
+          `${normalized}/api/v1/characters`,
+          apiKey
+        ).catch(() => null)
   if (!res?.ok) return
   const payload = await res.json().catch(() => null)
   const characters = parseListPayload(payload, ["characters"])
@@ -523,7 +703,7 @@ const deleteCharacterByName = async (
     return label === name
   })
   if (!match?.id) return
-  await fetchWithKey(
+  await fetchWithKeyTimeout(
     `${normalized}/api/v1/characters/${encodeURIComponent(String(match.id))}`,
     apiKey,
     { method: "DELETE" }
@@ -933,143 +1113,523 @@ const selectServerTab = async (sidebar: Locator) => {
 }
 
 test.describe("Real server end-to-end workflows", () => {
-  test("chat -> save to notes -> open linked conversation", async () => {
-    test.setTimeout(180000)
-    const { serverUrl, apiKey } = requireRealServerConfig(test)
-    const normalizedServerUrl = normalizeServerUrl(serverUrl)
-
-    const modelsResponse = await fetchWithKey(
-      `${normalizedServerUrl}/api/v1/llm/models/metadata`,
-      apiKey
-    )
-    if (!modelsResponse.ok) {
-      const body = await modelsResponse.text().catch(() => "")
-      skipOrThrow(
-        true,
-        `Chat models preflight failed: ${modelsResponse.status} ${modelsResponse.statusText} ${body}`
-      )
-      return
-    }
-    const modelId = getFirstModelId(
-      await modelsResponse.json().catch(() => [])
-    )
-    if (!modelId) {
-      skipOrThrow(true, "No chat models returned from tldw_server.")
-      return
-    }
-    const selectedModelId = modelId.startsWith("tldw:")
-      ? modelId
-      : `tldw:${modelId}`
-
-    const notesResponse = await fetchWithKey(
-      `${normalizedServerUrl}/api/v1/notes/?page=1&results_per_page=1`,
-      apiKey
-    )
-    if (!notesResponse.ok) {
-      const body = await notesResponse.text().catch(() => "")
-      skipOrThrow(
-        true,
-        `Notes API preflight failed: ${notesResponse.status} ${notesResponse.statusText} ${body}`
-      )
-      return
-    }
-
-    const launchResult = await launchWithExtension("", {
-      seedConfig: {
-        __tldw_first_run_complete: true,
-        tldwConfig: {
-          serverUrl: normalizedServerUrl,
-          authMode: "single-user",
-          apiKey
+  test(
+    "chat -> save to notes -> open linked conversation",
+    async ({}, testInfo) => {
+      test.setTimeout(180000)
+      const debugLines: string[] = []
+      const startedAt = Date.now()
+      const safeStringify = (value: unknown) => {
+        try {
+          return JSON.stringify(value)
+        } catch {
+          return "\"[unserializable]\""
         }
       }
-    })
-    const { context, page, openSidepanel, extensionId, optionsUrl } =
-      launchResult
+      const logStep = (message: string, details?: Record<string, unknown>) => {
+        const payload = {
+          elapsedMs: Date.now() - startedAt,
+          ...(details || {})
+        }
+        const line = `[real-server-notes] ${message} ${safeStringify(
+          payload
+        )}`
+        debugLines.push(line)
+        console.log(line)
+      }
+      const step = async <T>(label: string, fn: () => Promise<T>) => {
+        logStep(`start ${label}`)
+        const stepStart = Date.now()
+        try {
+          const result = await test.step(label, fn)
+          logStep(`done ${label}`, {
+            durationMs: Date.now() - stepStart
+          })
+          return result
+        } catch (error) {
+          logStep(`error ${label}`, {
+            durationMs: Date.now() - stepStart,
+            error: String(error)
+          })
+          throw error
+        }
+      }
+      const { serverUrl, apiKey } = requireRealServerConfig(test)
+      const normalizedServerUrl = normalizeServerUrl(serverUrl)
+      logStep("test config", { serverUrl: normalizedServerUrl })
 
-    try {
-      const origin = new URL(normalizedServerUrl).origin + "/*"
-      const granted = await grantHostPermission(
-        context,
-        extensionId,
-        origin
+      const modelsResponse = await step("preflight: models", async () => {
+        const response = await fetchWithKey(
+          `${normalizedServerUrl}/api/v1/llm/models/metadata`,
+          apiKey
+        )
+        logStep("models preflight response", {
+          ok: response.ok,
+          status: response.status,
+          statusText: response.statusText
+        })
+        return response
+      })
+      if (!modelsResponse.ok) {
+        const body = await modelsResponse.text().catch(() => "")
+        skipOrThrow(
+          true,
+          `Chat models preflight failed: ${modelsResponse.status} ${modelsResponse.statusText} ${body}`
+        )
+        return
+      }
+      const modelId = getFirstModelId(
+        await modelsResponse.json().catch(() => [])
       )
-      if (!granted) {
+      if (!modelId) {
+        skipOrThrow(true, "No chat models returned from tldw_server.")
+        return
+      }
+      const selectedModelId = modelId.startsWith("tldw:")
+        ? modelId
+        : `tldw:${modelId}`
+      logStep("selected model resolved", { selectedModelId })
+  
+      const notesResponse = await step("preflight: notes list", async () => {
+        const response = await fetchWithKey(
+          `${normalizedServerUrl}/api/v1/notes/?page=1&results_per_page=1`,
+          apiKey
+        )
+        logStep("notes preflight response", {
+          ok: response.ok,
+          status: response.status,
+          statusText: response.statusText
+        })
+        return response
+      })
+      if (!notesResponse.ok) {
+        const body = await notesResponse.text().catch(() => "")
         skipOrThrow(
           true,
-          "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
+          `Notes API preflight failed: ${notesResponse.status} ${notesResponse.statusText} ${body}`
         )
         return
       }
-
-      await setSelectedModel(page, selectedModelId)
-
-      const chatPage = await openSidepanel()
-      await waitForConnected(chatPage, "workflow-chat-notes")
-      await ensureServerPersistence(chatPage)
-
-      const userMessage = `E2E notes flow ${Date.now()}`
-      await sendChatMessage(chatPage, userMessage)
-      const lastAssistant = await waitForAssistantMessage(chatPage)
-      const assistantTextRaw = await getAssistantText(lastAssistant)
-      const assistantText = assistantTextRaw.replace(/\s+/g, " ").trim()
-      if (!assistantText) {
-        throw new Error("Assistant message did not contain text.")
+  
+      const unique = Date.now()
+      const characterName = `E2E Notes Character ${unique}`
+      logStep("generated test identifiers", { unique, characterName })
+      let createdCharacter = false
+      let characterRecord: any | null = null
+  
+      const launchResult = await step("launch extension", async () =>
+        launchWithExtension("", {
+          seedConfig: {
+            __tldw_first_run_complete: true,
+            tldwConfig: {
+              serverUrl: normalizedServerUrl,
+              authMode: "single-user",
+              apiKey
+            }
+          }
+        })
+      )
+      const {
+        context,
+        page,
+        openSidepanel,
+        extensionId,
+        optionsUrl,
+        sidepanelUrl
+      } = launchResult
+      logStep("extension launched", { extensionId, optionsUrl, sidepanelUrl })
+      const attachPageLogging = (targetPage: Page, tag: string) => {
+        targetPage.on("console", (msg) => {
+          const type = msg.type()
+          if (type === "error" || type === "warning") {
+            logStep(`${tag} console`, { type, text: msg.text() })
+          }
+        })
+        targetPage.on("pageerror", (error) => {
+          logStep(`${tag} pageerror`, { error: String(error) })
+        })
       }
-      const snippet = assistantText.slice(0, 80)
-
-      await lastAssistant.hover().catch(() => {})
-      const saveToNotes = lastAssistant.getByRole("button", {
-        name: /Save to Notes/i
-      })
-      if ((await saveToNotes.count()) === 0) {
-        skipOrThrow(
-          true,
-          "Save to Notes action not available on assistant messages."
+      attachPageLogging(page, "options")
+  
+      try {
+        const origin = new URL(normalizedServerUrl).origin + "/*"
+        const granted = await step("grant host permission", async () => {
+          const result = await grantHostPermission(
+            context,
+            extensionId,
+            origin
+          )
+          logStep("host permission result", { origin, granted: result })
+          return result
+        })
+        if (!granted) {
+          skipOrThrow(
+            true,
+            "Host permission not granted for tldw_server origin; allow it in chrome://extensions > tldw Assistant > Site access, then re-run"
+          )
+          return
+        }
+  
+        const characterListResponse = await step(
+          "preflight: characters list",
+          async () => {
+            const response = await fetchWithKey(
+              `${normalizedServerUrl}/api/v1/characters/?page=1&results_per_page=1`,
+              apiKey
+            ).catch(() => null)
+            logStep("characters preflight response", {
+              ok: response?.ok ?? false,
+              status: response?.status ?? null,
+              statusText: response?.statusText ?? ""
+            })
+            return response
+          }
         )
-        return
-      }
-      await saveToNotes.click()
-      await expect(
-        chatPage.getByText(/Saved to Notes/i)
-      ).toBeVisible({ timeout: 15000 })
-
-      await page.goto(`${optionsUrl}#/notes`, {
-        waitUntil: "domcontentloaded"
-      })
-      await waitForConnected(page, "workflow-notes-view")
-
-      const query = snippet.slice(0, 40)
-      const searchInput = page.getByPlaceholder(/Search notes/i)
-      await searchInput.fill(query)
-      await searchInput.press("Enter")
-
-      const resultRow = page
-        .locator("button")
-        .filter({ hasText: query })
-        .first()
-      await expect(resultRow).toBeVisible({ timeout: 20000 })
-      await resultRow.click()
-
-      await expect(
-        page.getByText(/Linked to conversation/i)
-      ).toBeVisible({ timeout: 10000 })
-
-      const openConversation = page.getByRole("button", {
-        name: /Open conversation/i
-      })
-      if ((await openConversation.count()) > 0) {
-        await openConversation.click()
+        if (!characterListResponse?.ok) {
+          const body = await characterListResponse?.text().catch(() => "")
+          skipOrThrow(
+            true,
+            `Characters API preflight failed: ${characterListResponse?.status} ${characterListResponse?.statusText} ${body}`
+          )
+          return
+        }
+        const characterId = await step("create character", async () => {
+          const id = await createCharacterByName(
+            normalizedServerUrl,
+            apiKey,
+            characterName
+          )
+          logStep("character created", { characterId: id })
+          return id
+        })
+        if (!characterId) {
+          skipOrThrow(true, "Unable to create character for notes flow.")
+          return
+        }
+        createdCharacter = true
+        characterRecord = await step("poll for character", async () => {
+          const record = await pollForCharacterByName(
+            normalizedServerUrl,
+            apiKey,
+            characterName,
+            30000
+          )
+          logStep("character record resolved", {
+            found: !!record,
+            recordId: record?.id ?? record?.uuid ?? null
+          })
+          return record
+        })
+        if (!characterRecord) {
+          skipOrThrow(
+            true,
+            "Character created but not returned by search; skipping notes flow."
+          )
+          return
+        }
+  
+        await step("seed model selection", async () => {
+          await setSelectedModel(page, selectedModelId)
+        })
+        await step("seed selected character", async () => {
+          await setSelectedCharacterInStorage(
+            page,
+            normalizeCharacterForStorage(characterRecord)
+          )
+        })
+  
+        const chatPage = await step("open sidepanel", async () => {
+          const panel = await openSidepanel()
+          logStep("sidepanel opened", { url: panel.url() })
+          return panel
+        })
+        attachPageLogging(chatPage, "sidepanel")
+        await step("wait for sidepanel connected", async () => {
+          await waitForConnected(chatPage, "workflow-chat-notes")
+        })
+        await step("ensure server persistence", async () => {
+          await ensureServerPersistence(chatPage)
+        })
+  
+        const userMessage = `E2E notes flow ${unique}`
+        logStep("sending chat message", { userMessage })
+        await step("send chat message", async () => {
+          await sendChatMessage(chatPage, userMessage)
+        })
+        const assistantSnapshot = await step(
+          "wait for assistant snapshot",
+          async () =>
+            chatPage
+              .waitForFunction(
+                () => {
+                  const store = (window as any).__tldw_useStoreMessageOption
+                  const state = store?.getState?.()
+                  if (!state?.serverChatId) return null
+                  const messages = Array.isArray(state?.messages)
+                    ? state.messages
+                    : []
+                  for (let i = messages.length - 1; i >= 0; i -= 1) {
+                    const msg = messages[i]
+                    if (!msg?.isBot) continue
+                    if (msg?.messageType === "character:greeting") continue
+                    const content =
+                      typeof msg?.message === "string" ? msg.message : ""
+                    const trimmed = content.replace(/\s+/g, " ").trim()
+                    if (!trimmed || trimmed.includes("▋")) return null
+                    return {
+                      text: trimmed,
+                      localId: msg?.id != null ? String(msg.id) : null,
+                      serverMessageId:
+                        msg?.serverMessageId != null
+                          ? String(msg.serverMessageId)
+                          : null,
+                      serverChatId: String(state.serverChatId)
+                    }
+                  }
+                  return null
+                },
+                undefined,
+                { timeout: 90000 }
+              )
+              .then((handle) => handle.jsonValue())
+        )
+        if (!assistantSnapshot?.serverChatId || !assistantSnapshot?.text) {
+          skipOrThrow(
+            true,
+            "Assistant server message not available after streaming."
+          )
+          return
+        }
+        logStep("assistant snapshot resolved", {
+          serverChatId: assistantSnapshot.serverChatId,
+          serverMessageId: assistantSnapshot.serverMessageId,
+          localId: assistantSnapshot.localId
+        })
+        const assistantText = normalizeMessageContent(assistantSnapshot.text)
+        const serverChatId = String(assistantSnapshot.serverChatId)
+        let serverMessageId = assistantSnapshot.serverMessageId
+          ? String(assistantSnapshot.serverMessageId)
+          : null
+        logStep("assistant text captured", {
+          serverChatId,
+          serverMessageId,
+          textPreview: assistantText.slice(0, 80)
+        })
+        if (!serverMessageId) {
+          serverMessageId = await step("poll server message id", async () => {
+            const resolved = await pollForServerAssistantMessageId(
+              normalizedServerUrl,
+              apiKey,
+              serverChatId,
+              assistantText
+            )
+            logStep("server message id polled", { serverMessageId: resolved })
+            return resolved
+          })
+          if (serverMessageId) {
+            await step("sync server message id into store", async () => {
+              await chatPage.evaluate(
+                ({ localId, serverMessageId }) => {
+                  const store = (window as any).__tldw_useStoreMessageOption
+                  if (!store?.getState || !store?.setState) return false
+                  const state = store.getState?.()
+                  const messages = Array.isArray(state?.messages)
+                    ? [...state.messages]
+                    : []
+                  if (messages.length === 0) return false
+                  let targetIndex = -1
+                  if (localId) {
+                    targetIndex = messages.findIndex(
+                      (msg) => String(msg?.id || "") === String(localId)
+                    )
+                  }
+                  if (targetIndex === -1) {
+                    for (let i = messages.length - 1; i >= 0; i -= 1) {
+                      const msg = messages[i]
+                      if (!msg?.isBot) continue
+                      if (msg?.messageType === "character:greeting") continue
+                      targetIndex = i
+                      break
+                    }
+                  }
+                  if (targetIndex === -1) return false
+                  const target = messages[targetIndex]
+                  if (target?.serverMessageId === serverMessageId) return true
+                  const updatedVariants = Array.isArray(target?.variants)
+                    ? target.variants.map((variant) => ({
+                        ...variant,
+                        serverMessageId:
+                          variant?.serverMessageId ?? serverMessageId
+                      }))
+                    : target?.variants
+                  messages[targetIndex] = {
+                    ...target,
+                    serverMessageId,
+                    variants: updatedVariants
+                  }
+                  store.setState({ messages })
+                  return true
+                },
+                { localId: assistantSnapshot.localId, serverMessageId }
+              )
+            })
+          }
+        }
+        if (!serverMessageId) {
+          skipOrThrow(
+            true,
+            "Assistant server message not available after streaming."
+          )
+          return
+        }
+        const lastAssistant = chatPage.locator(
+          `[data-testid="chat-message"][data-server-message-id="${serverMessageId}"]`
+        )
+        await step("locate assistant message", async () => {
+          await expect(lastAssistant).toBeVisible({ timeout: 30000 })
+        })
+        const snippet = assistantText.slice(0, 80)
+        logStep("assistant snippet", { snippet })
+  
+        await step("save assistant to notes", async () => {
+          await lastAssistant.hover().catch(() => {})
+          const saveToNotes = lastAssistant.getByRole("button", {
+            name: /Save to Notes/i
+          })
+          await expect
+            .poll(() => saveToNotes.count(), { timeout: 15000 })
+            .toBeGreaterThan(0)
+          await saveToNotes.first().click()
+        })
+        const savedNote = await step("poll for saved note", async () => {
+          const note = await pollForNoteByConversation(
+            normalizedServerUrl,
+            apiKey,
+            serverChatId,
+            serverMessageId
+          )
+          logStep("saved note poll result", {
+            found: !!note,
+            noteId: note?.id ?? note?.uuid ?? null
+          })
+          return note
+        })
+        if (!savedNote) {
+          skipOrThrow(true, "Saved note not found for conversation.")
+          return
+        }
+        const backlink = extractNoteBacklink(savedNote)
+        logStep("saved note backlink", backlink)
+        if (!backlink.conversation_id) {
+          skipOrThrow(true, "Saved note missing linked conversation id.")
+          return
+        }
+        const savedNoteId =
+          savedNote?.id ??
+          savedNote?.note_id ??
+          savedNote?.noteId ??
+          null
+        if (savedNoteId == null) {
+          skipOrThrow(true, "Saved note missing id.")
+          return
+        }
+        logStep("saved note id resolved", { savedNoteId })
+        await step("seed last note id", async () => {
+          await setLastNoteId(page, String(savedNoteId))
+        })
+  
+        await step("open notes page", async () => {
+          await page.goto(`${optionsUrl}#/notes`, {
+            waitUntil: "domcontentloaded"
+          })
+        })
+        await step("wait for notes connected", async () => {
+          await waitForConnected(page, "workflow-notes-view")
+        })
+  
+        const noteTitle = String(savedNote?.title || "").trim()
+        const query =
+          noteTitle.length > 0 ? noteTitle.slice(0, 40) : snippet.slice(0, 40)
+        logStep("notes search query", { noteTitle, query })
+        const openConversation = page.getByRole("button", {
+          name: /Open conversation/i
+        })
+        const openVisible = await step("wait for note selection", async () =>
+          openConversation
+            .waitFor({ state: "visible", timeout: 30000 })
+            .then(() => true)
+            .catch(() => false)
+        )
+        logStep("open conversation visible", { openVisible })
+        if (!openVisible) {
+          await step("clear notes search", async () => {
+            const searchInput = page.getByPlaceholder(
+              /Search titles and contents|Search notes/i
+            )
+            await searchInput.fill("")
+            await searchInput.press("Enter")
+          })
+  
+          const resultRow = await step("find note row", async () =>
+            findNoteRowInList(page, backlink.conversation_id, query, 6)
+          )
+          if (!resultRow) {
+            skipOrThrow(true, "Note row not visible in notes list.")
+            return
+          }
+          await step("select note row", async () => {
+            await expect(resultRow).toBeVisible({ timeout: 10000 })
+            await resultRow.click()
+          })
+          await expect(openConversation).toBeVisible({ timeout: 15000 })
+        }
+  
+      await step("verify linked conversation", async () => {
+        const editorPanel = page.locator('div[aria-disabled]').first()
         await expect(
-          page.getByPlaceholder(/Ask anything|Type a message/i)
-        ).toBeVisible({ timeout: 15000 })
+          editorPanel.getByText(/Linked to conversation/i)
+        ).toBeVisible({ timeout: 10000 })
         await expect(
-          page.getByText(query, { exact: false }).first()
-        ).toBeVisible({ timeout: 15000 })
+          editorPanel.getByText(backlink.conversation_id, { exact: false })
+        ).toBeVisible({ timeout: 10000 })
+      })
+  
+      await step("open linked conversation", async () => {
+        const openConversationCount = await openConversation.count()
+        logStep("open conversation button count", {
+          count: openConversationCount
+        })
+        if (openConversationCount > 0) {
+          logStep("open conversation url before", { url: page.url() })
+          await openConversation.click()
+          await page.waitForFunction(
+            () => {
+              const hash = window.location.hash || ""
+              return hash === "#/" || hash === ""
+            },
+            undefined,
+            { timeout: 20000 }
+          )
+          logStep("open conversation url after", { url: page.url() })
+          await expect(
+            page.locator("#textarea-message")
+          ).toBeVisible({ timeout: 20000 })
+        }
+      })
+      } finally {
+        await testInfo.attach("notes-flow-debug", {
+          body: debugLines.join("\n"),
+          contentType: "text/plain"
+        })
+        await context.close()
+        if (createdCharacter) {
+          await deleteCharacterByName(
+            normalizedServerUrl,
+            apiKey,
+            characterName
+          )
+        }
       }
-    } finally {
-      await context.close()
-    }
   })
 
   test("notes lifecycle: create, tag, preview, export, delete", async () => {

@@ -2,6 +2,20 @@ export type ActorTarget = "user" | "char" | "world"
 
 export type ActorSource = "free" | "lore"
 
+export type ActorEditorMode = "simple" | "advanced"
+
+/**
+ * Aspect IDs shown in Simple mode.
+ * These are the 5 most common aspects for new users.
+ */
+export const SIMPLE_MODE_ASPECT_IDS = [
+  "user_role",
+  "char_state",
+  "world_location",
+  "world_weather",
+  "world_tone"
+] as const
+
 export type ActorAspect = {
   /**
    * Internal stable identifier for this aspect within a chat.

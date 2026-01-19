@@ -30,6 +30,7 @@ import {
   Layers
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { bgRequest } from "@/services/background-proxy"
 import { useWorkflowsStore } from "@/store/workflows"
 import { WizardShell } from "../WizardShell"
 import { ANALYZE_BOOK_WORKFLOW } from "../workflow-definitions"
@@ -196,6 +197,8 @@ const SelectStep: React.FC = () => {
   const setWorkflowError = useWorkflowsStore((s) => s.setWorkflowError)
   const activeWorkflow = useWorkflowsStore((s) => s.activeWorkflow)
 
+  const advanceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const [bookInfo, setBookInfo] = useState<BookInfo | null>(
     (activeWorkflow?.data?.book as BookInfo) || null
   )
@@ -226,7 +229,12 @@ const SelectStep: React.FC = () => {
       setIsProcessingLocal(false)
 
       // Auto-advance after a brief delay
-      setTimeout(() => {
+      if (advanceTimeoutRef.current) {
+        clearTimeout(advanceTimeoutRef.current)
+      }
+      advanceTimeoutRef.current = setTimeout(() => {
+        const currentId = useWorkflowsStore.getState().activeWorkflow?.workflowId
+        if (currentId !== "analyze-book") return
         setWorkflowStep(1)
       }, 500)
     } catch (error) {
@@ -242,6 +250,14 @@ const SelectStep: React.FC = () => {
 
     return false // Prevent default upload behavior
   }
+
+  useEffect(() => {
+    return () => {
+      if (advanceTimeoutRef.current) {
+        clearTimeout(advanceTimeoutRef.current)
+      }
+    }
+  }, [])
 
   if (isProcessing) {
     return (
@@ -719,6 +735,7 @@ const ProcessStep: React.FC = () => {
   const [totalChapters, setTotalChapters] = useState(0)
   const [isAnalyzing, setIsAnalyzing] = useState(true)
   const abortControllerRef = useRef<AbortController | null>(null)
+  const advanceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const chapters = activeWorkflow?.data?.chapters as Chapter[] | undefined
   const config = activeWorkflow?.data?.analysisConfig as
@@ -732,7 +749,14 @@ const ProcessStep: React.FC = () => {
     if (savedResult || !chapters || !config) {
       if (savedResult) {
         setIsAnalyzing(false)
-        setTimeout(() => setWorkflowStep(4), 500)
+        if (advanceTimeoutRef.current) {
+          clearTimeout(advanceTimeoutRef.current)
+        }
+        advanceTimeoutRef.current = setTimeout(() => {
+          const currentId = useWorkflowsStore.getState().activeWorkflow?.workflowId
+          if (currentId !== "analyze-book") return
+          setWorkflowStep(4)
+        }, 500)
       }
       return
     }
@@ -791,7 +815,14 @@ const ProcessStep: React.FC = () => {
         setIsAnalyzing(false)
 
         // Auto-advance to review
-        setTimeout(() => setWorkflowStep(4), 500)
+        if (advanceTimeoutRef.current) {
+          clearTimeout(advanceTimeoutRef.current)
+        }
+        advanceTimeoutRef.current = setTimeout(() => {
+          const currentId = useWorkflowsStore.getState().activeWorkflow?.workflowId
+          if (currentId !== "analyze-book") return
+          setWorkflowStep(4)
+        }, 500)
       } catch (error) {
         if ((error as Error).name === "AbortError") return
 
@@ -813,8 +844,21 @@ const ProcessStep: React.FC = () => {
 
     return () => {
       abortControllerRef.current?.abort()
+      if (advanceTimeoutRef.current) {
+        clearTimeout(advanceTimeoutRef.current)
+      }
     }
-  }, [])
+  }, [
+    chapters,
+    config,
+    savedResult,
+    t,
+    updateWorkflowData,
+    setWorkflowStep,
+    setProcessing,
+    setProcessingProgress,
+    setWorkflowError
+  ])
 
   const progress = useWorkflowsStore((s) => s.processingProgress)
 
@@ -1135,11 +1179,11 @@ async function analyzeContent(
       : ANALYSIS_PRESETS[config.preset]?.prompt || ""
 
   try {
-    const response = await fetch("/api/v1/chat/completions", {
+    const data = await bgRequest<any>({
+      path: "/api/v1/chat/completions",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      signal,
-      body: JSON.stringify({
+      body: {
         messages: [
           {
             role: "system",
@@ -1150,20 +1194,18 @@ async function analyzeContent(
             content: `Please analyze the following content:\n\n${content.slice(0, 30000)}`
           }
         ]
-      })
+      },
+      abortSignal: signal
     })
-
-    if (!response.ok) {
-      throw new Error("API request failed")
-    }
-
-    const data = await response.json()
     return (
       data.choices?.[0]?.message?.content ||
       "Analysis could not be generated. Please ensure your tldw server is running."
     )
   } catch (error) {
-    if ((error as Error).name === "AbortError") throw error
+    const message = error instanceof Error ? error.message : ""
+    if (signal.aborted || message === "Aborted" || (error as Error).name === "AbortError") {
+      throw new DOMException("Aborted", "AbortError")
+    }
     console.error("Analysis API error:", error)
     return "Unable to connect to the analysis service. Please ensure your tldw server is running and configured correctly."
   }

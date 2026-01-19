@@ -9,6 +9,14 @@ export type ActorPresetId =
 export type ActorPreset = {
   id: ActorPresetId
   /**
+   * Short user-facing name for the preset.
+   */
+  name: string
+  /**
+   * Brief description of what this preset is best for.
+   */
+  description: string
+  /**
    * Apply this preset on top of a base settings object.
    * Returns a new ActorSettings instance.
    */
@@ -18,6 +26,8 @@ export type ActorPreset = {
 export const ACTOR_PRESETS: ActorPreset[] = [
   {
     id: "slice_of_life",
+    name: "Slice of Life",
+    description: "Everyday routines, casual conversations, and low-stakes character moments.",
     apply: (base: ActorSettings): ActorSettings => {
       const next = base
       const aspects = (next.aspects || []).map((aspect) => {
@@ -84,6 +94,8 @@ export const ACTOR_PRESETS: ActorPreset[] = [
   },
   {
     id: "dungeon_crawl",
+    name: "Dungeon Crawl",
+    description: "Exploration, combat, traps, and tactical party-based adventure.",
     apply: (base: ActorSettings): ActorSettings => {
       const next = base
       const aspects = (next.aspects || []).map((aspect) => {
@@ -166,6 +178,8 @@ export const ACTOR_PRESETS: ActorPreset[] = [
   },
   {
     id: "romance",
+    name: "Romance",
+    description: "Emotional intimacy, relationship building, and heartfelt moments.",
     apply: (base: ActorSettings): ActorSettings => {
       const next = base
       const aspects = (next.aspects || []).map((aspect) => {
@@ -234,6 +248,8 @@ export const ACTOR_PRESETS: ActorPreset[] = [
   },
   {
     id: "work_session",
+    name: "Work Session",
+    description: "Task-focused productivity with clear structure and actionable steps.",
     apply: (base: ActorSettings): ActorSettings => {
       const next = base
       const aspects = (next.aspects || []).map((aspect) => {

@@ -1,6 +1,7 @@
 import { create } from "zustand"
+import { createJSONStorage, persist } from "zustand/middleware"
 
-import type { ActorSettings } from "@/types/actor"
+import type { ActorEditorMode, ActorSettings } from "@/types/actor"
 import { createDefaultActorSettings } from "@/types/actor"
 
 type ActorUiStoreState = {
@@ -52,3 +53,25 @@ export const useActorStore = create<ActorUiStoreState>((set) => ({
       tokenCount: 0
     })
 }))
+
+/**
+ * Persisted editor preferences for the Actor drawer.
+ * Kept separate from runtime state to avoid persisting preview/tokens.
+ */
+type ActorEditorPrefsState = {
+  editorMode: ActorEditorMode
+  setEditorMode: (mode: ActorEditorMode) => void
+}
+
+export const useActorEditorPrefs = create<ActorEditorPrefsState>()(
+  persist(
+    (set) => ({
+      editorMode: "simple", // Default to simple for new users
+      setEditorMode: (mode) => set({ editorMode: mode })
+    }),
+    {
+      name: "tldw-actor-editor-prefs",
+      storage: createJSONStorage(() => localStorage)
+    }
+  )
+)

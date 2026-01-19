@@ -345,7 +345,7 @@ export { MyNewWorkflow } from "./MyNewWorkflow"  // Add this line
 Add to `WorkflowContainer.tsx`:
 
 ```tsx
-import { MyNewWorkflow } from "./steps/MyNewWorkflow"
+import { MyNewWorkflow } from "./steps"
 
 const renderWorkflow = () => {
   switch (activeWorkflow.workflowId) {

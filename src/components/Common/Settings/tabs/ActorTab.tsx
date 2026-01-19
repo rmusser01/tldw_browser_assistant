@@ -1,8 +1,9 @@
-import { Form, Switch } from "antd"
+import { Form, Segmented, Switch } from "antd"
 import type { FormInstance } from "antd"
 import { useTranslation } from "react-i18next"
 import { ActorEditor } from "@/components/Common/Settings/ActorEditor"
-import type { ActorSettings, ActorTarget } from "@/types/actor"
+import { useActorEditorPrefs } from "@/store/actor"
+import type { ActorEditorMode, ActorSettings, ActorTarget } from "@/types/actor"
 
 interface ActorTabProps {
   form: FormInstance
@@ -32,6 +33,7 @@ export function ActorTab({
   actorPositionValue
 }: ActorTabProps) {
   const { t } = useTranslation("playground")
+  const { editorMode, setEditorMode } = useActorEditorPrefs()
 
   return (
     <div className="space-y-3">
@@ -52,6 +54,24 @@ export function ActorTab({
         </Form.Item>
       </div>
 
+      <div className="flex items-center justify-between">
+        <Segmented
+          size="small"
+          value={editorMode}
+          onChange={(val) => setEditorMode(val as ActorEditorMode)}
+          options={[
+            {
+              value: "simple",
+              label: t("actor.modeSimple", "Simple")
+            },
+            {
+              value: "advanced",
+              label: t("actor.modeAdvanced", "Advanced")
+            }
+          ]}
+        />
+      </div>
+
       {actorSettings && (
         <ActorEditor
           form={form}
@@ -65,6 +85,8 @@ export function ActorTab({
           newAspectName={newAspectName}
           setNewAspectName={setNewAspectName}
           actorPositionValue={actorPositionValue}
+          editorMode={editorMode}
+          onModeChange={setEditorMode}
         />
       )}
     </div>

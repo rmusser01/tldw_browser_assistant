@@ -468,7 +468,14 @@
     "fileRetrieval": "File Retrieval",
     "fileStatusProcessed": "Processed",
     "fileStatusProcessing": "Processing...",
-    "sceneTemplateActive": "Scene template active: Actor respects template interaction settings."
+    "sceneTemplateActive": "Scene template active: Actor respects template interaction settings.",
+    "modeSimple": "Simple",
+    "modeAdvanced": "Advanced",
+    "showAllOptions": "Show all options",
+    "quickSetupLabel": "Quick setup",
+    "quickSetupHint": "Click a preset to apply",
+    "resetConfirmTitle": "Reset Actor settings?",
+    "resetConfirmBody": "This will clear all configured aspects, notes, and placement settings for this chat. This action cannot be undone."
   },
   "tts": {
     "title": "TTS Playground",

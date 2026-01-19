@@ -77,6 +77,7 @@
     "modeWatchlists": "Watchlists",
     "modeCollections": "Collections",
     "collections": "Collections",
+    "workflowEditor": "Workflow Editor",
     "modeKanban": "Kanban Playground",
     "modeShortcutHint": "{{shortcut}} to switch",
     "quickIngest": "Quick ingest",

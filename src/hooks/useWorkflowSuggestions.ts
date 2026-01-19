@@ -44,6 +44,7 @@ type TriggerCondition =
 
 interface TriggerConfig {
   workflowId: WorkflowId
+  triggerType: ContextualSuggestion["triggerType"]
   titleToken: string
   descriptionToken: string
   priority: SuggestionPriority
@@ -53,36 +54,42 @@ interface TriggerConfig {
 const TRIGGER_MAP: Record<TriggerCondition, TriggerConfig> = {
   "pdf-uploaded": {
     workflowId: "upload-ask",
+    triggerType: "content-type",
     titleToken: "workflows:suggestions.pdfUploaded.title",
     descriptionToken: "workflows:suggestions.pdfUploaded.description",
     priority: "high"
   },
   "youtube-url-pasted": {
     workflowId: "transcribe-media",
+    triggerType: "content-type",
     titleToken: "workflows:suggestions.youtubeUrl.title",
     descriptionToken: "workflows:suggestions.youtubeUrl.description",
     priority: "high"
   },
   "text-selected": {
     workflowId: "quick-save",
+    triggerType: "user-action",
     titleToken: "workflows:suggestions.textSelected.title",
     descriptionToken: "workflows:suggestions.textSelected.description",
     priority: "medium"
   },
   "summary-viewed": {
     workflowId: "create-quiz",
+    triggerType: "user-action",
     titleToken: "workflows:suggestions.summaryViewed.title",
     descriptionToken: "workflows:suggestions.summaryViewed.description",
     priority: "low"
   },
   "on-webpage": {
     workflowId: "summarize-page",
+    triggerType: "context",
     titleToken: "workflows:suggestions.onWebpage.title",
     descriptionToken: "workflows:suggestions.onWebpage.description",
     priority: "low"
   },
   "documents-available": {
     workflowId: "ask-documents",
+    triggerType: "context",
     titleToken: "workflows:suggestions.documentsAvailable.title",
     descriptionToken: "workflows:suggestions.documentsAvailable.description",
     priority: "medium"
@@ -137,7 +144,7 @@ export const useWorkflowSuggestions = (): UseWorkflowSuggestionsReturn => {
 
       addSuggestion({
         workflowId: config.workflowId,
-        triggerType: "context",
+        triggerType: config.triggerType,
         titleToken: config.titleToken,
         descriptionToken: config.descriptionToken,
         priority: config.priority,

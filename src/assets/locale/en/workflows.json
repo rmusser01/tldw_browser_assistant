@@ -262,5 +262,155 @@
       "invalidPattern": "Invalid chapter pattern",
       "analysisFailed": "Analysis failed"
     }
+  },
+  "editor": {
+    "title": "Workflow Editor",
+    "description": "Create and edit visual workflows",
+    "untitled": "Untitled Workflow",
+    "toolbar": {
+      "save": "Save",
+      "undo": "Undo",
+      "redo": "Redo",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "fitView": "Fit View",
+      "toggleGrid": "Toggle Grid",
+      "toggleMinimap": "Toggle Minimap",
+      "newWorkflow": "New Workflow",
+      "import": "Import",
+      "export": "Export",
+      "clearCanvas": "Clear Canvas"
+    },
+    "sidebar": {
+      "nodes": "Nodes",
+      "config": "Config",
+      "execution": "Execution"
+    },
+    "palette": {
+      "title": "Node Library",
+      "search": "Search nodes...",
+      "noResults": "No nodes found",
+      "dragHint": "Drag nodes onto the canvas to add them"
+    },
+    "categories": {
+      "ai": "AI",
+      "data": "Data",
+      "control": "Control Flow",
+      "io": "Input/Output",
+      "utility": "Utility"
+    },
+    "steps": {
+      "prompt": {
+        "label": "LLM Prompt",
+        "description": "Generate text using a language model"
+      },
+      "rag_search": {
+        "label": "RAG Search",
+        "description": "Search your knowledge base"
+      },
+      "media_ingest": {
+        "label": "Media Ingest",
+        "description": "Process videos and audio"
+      },
+      "branch": {
+        "label": "Branch",
+        "description": "Conditional routing"
+      },
+      "map": {
+        "label": "Map",
+        "description": "Process arrays in parallel"
+      },
+      "wait_for_human": {
+        "label": "Human Approval",
+        "description": "Wait for human approval"
+      },
+      "webhook": {
+        "label": "Webhook",
+        "description": "Make HTTP requests"
+      },
+      "tts": {
+        "label": "Text to Speech",
+        "description": "Convert text to audio"
+      },
+      "stt_transcribe": {
+        "label": "Transcribe",
+        "description": "Convert audio to text"
+      },
+      "delay": {
+        "label": "Delay",
+        "description": "Wait for a duration"
+      },
+      "log": {
+        "label": "Log",
+        "description": "Debug output"
+      },
+      "start": {
+        "label": "Start",
+        "description": "Workflow entry point"
+      },
+      "end": {
+        "label": "End",
+        "description": "Workflow exit point"
+      }
+    },
+    "config": {
+      "title": "Node Configuration",
+      "noSelection": "Select a node to configure",
+      "multipleSelection": "Multiple nodes selected",
+      "nodeLabel": "Node Label",
+      "duplicate": "Duplicate",
+      "delete": "Delete",
+      "inputs": "Inputs",
+      "outputs": "Outputs"
+    },
+    "execution": {
+      "title": "Execution",
+      "run": "Run",
+      "stop": "Stop",
+      "pause": "Pause",
+      "resume": "Resume",
+      "reset": "Reset",
+      "status": {
+        "idle": "Idle",
+        "running": "Running",
+        "paused": "Paused",
+        "waiting_human": "Waiting for Approval",
+        "completed": "Completed",
+        "failed": "Failed",
+        "cancelled": "Cancelled"
+      },
+      "stepStatus": {
+        "idle": "Idle",
+        "queued": "Queued",
+        "running": "Running",
+        "success": "Success",
+        "failed": "Failed",
+        "skipped": "Skipped",
+        "waiting_human": "Waiting",
+        "cancelled": "Cancelled"
+      },
+      "approval": {
+        "title": "Approval Required",
+        "approve": "Approve",
+        "reject": "Reject",
+        "editAndApprove": "Edit & Approve"
+      },
+      "runHint": "Click Run to start the workflow"
+    },
+    "validation": {
+      "noStart": "Workflow must have a Start node",
+      "multipleStart": "Workflow can only have one Start node",
+      "noEnd": "Workflow must have an End node",
+      "disconnected": "Node \"{{name}}\" has no incoming connections",
+      "noOutput": "Node \"{{name}}\" has no outgoing connections"
+    },
+    "messages": {
+      "saved": "Workflow saved",
+      "exported": "Workflow exported",
+      "imported": "Workflow imported",
+      "importFailed": "Failed to import workflow",
+      "unsavedChanges": "You have unsaved changes. Create new workflow?",
+      "clearConfirm": "Clear all nodes from the canvas?"
+    }
   }
 }
