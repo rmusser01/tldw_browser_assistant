@@ -1,416 +1,416 @@
 {
   "title": {
-    "message": "Data Tables Studio"
+    "message": "ഡാറ്റാ ടേബിള്‍സ് സ്റ്റുഡിയോ"
   },
   "description": {
     "message": "Description"
   },
   "betaNotice": {
-    "message": "Beta Feature"
+    "message": "ബീറ്റാ സവിശേഷത"
   },
   "betaDescription": {
-    "message": "Data Tables is currently in beta. Table generation requires backend support."
+    "message": "ഡാറ്റാ ടേബിള്‍സ് ഇപ്പോള്‍ ബീറ്റയിലാണ്. പട്ടിക സൃഷ്ടിക്കാൻ ബാക്ക്‌എൻഡ് പിന്തുണ ആവശ്യമാണ്."
   },
   "offline": {
-    "message": "Server is offline. Please connect to use Data Tables."
+    "message": "സെർവർ ഓഫ്‌ലൈനാണ്. ഡാറ്റാ ടേബിള്‍സ് ഉപയോഗിക്കാൻ ബന്ധിപ്പിക്കുക."
   },
   "tabs_tables": {
-    "message": "My Tables"
+    "message": "എന്റെ പട്ടികകൾ"
   },
   "tabs_create": {
-    "message": "Create Table"
+    "message": "പട്ടിക സൃഷ്ടിക്കുക"
   },
   "wizard_sources": {
-    "message": "Select Sources"
+    "message": "സ്രോതസ്സുകൾ തിരഞ്ഞെടുക്കുക"
   },
   "wizard_sourcesDesc": {
-    "message": "Choose data sources"
+    "message": "ഡാറ്റാ സ്രോതസ്സുകൾ തിരഞ്ഞെടുക്കുക"
   },
   "wizard_prompt": {
-    "message": "Describe Table"
+    "message": "പട്ടികയെ വിശദീകരിക്കുക"
   },
   "wizard_promptDesc": {
-    "message": "Write your prompt"
+    "message": "നിങ്ങളുടെ പ്രോംപ്റ്റ് എഴുതുക"
   },
   "wizard_preview": {
-    "message": "Preview"
+    "message": "പ്രിവ്യൂ"
   },
   "wizard_previewDesc": {
-    "message": "Review generated table"
+    "message": "സൃഷ്ടിച്ച പട്ടിക പരിശോധിക്കുക"
   },
   "wizard_save": {
-    "message": "Save"
+    "message": "സേവ് ചെയ്യുക"
   },
   "wizard_saveDesc": {
-    "message": "Save to library"
+    "message": "ലൈബ്രറിയിൽ സേവ് ചെയ്യുക"
   },
   "wizard_tip": {
-    "message": "Tip"
+    "message": "ടിപ്പ്"
   },
   "wizard_tipText": {
-    "message": "Select chats, documents, or search your knowledge base to extract structured data. The more specific your sources, the better the results."
+    "message": "ഘടനയുള്ള ഡാറ്റ എടുക്കാൻ ചാറ്റുകൾ, ഡോക്യുമെന്റുകൾ തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ നോളജ് ബേസ് തിരയുക. സ്രോതസ്സുകൾ കൂടുതൽ വ്യക്തമാകുമ്പോൾ ഫലവും മികച്ചതാണ്."
   },
   "wizard_reset": {
-    "message": "Start Over"
+    "message": "വീണ്ടും ആരംഭിക്കുക"
   },
   "sourceTypes_chat": {
-    "message": "Chats"
+    "message": "ചാറ്റുകൾ"
   },
   "sourceTypes_document": {
-    "message": "Documents"
+    "message": "ഡോക്യുമെന്റുകൾ"
   },
   "sourceTypes_rag": {
-    "message": "RAG Search"
+    "message": "RAG തിരയൽ"
   },
   "selectedSources": {
-    "message": "Selected Sources"
+    "message": "തിരഞ്ഞെടുത്ത സ്രോതസ്സുകൾ"
   },
   "sourcesSelected": {
-    "message": "Sources Selected"
+    "message": "തിരഞ്ഞെടുത്ത സ്രോതസ്സുകൾ"
   },
   "searchPlaceholder": {
-    "message": "Search..."
+    "message": "തിരയുക..."
   },
   "ragPlaceholder": {
-    "message": "Enter a search query for your knowledge base..."
+    "message": "നിങ്ങളുടെ നോളജ് ബേസിനായി തിരച്ചിൽ ക്വറി നൽകുക..."
   },
   "ragQuerySnippet": {
-    "message": "Knowledge base search query"
+    "message": "നോളജ് ബേസ് തിരച്ചിൽ ക്വറി"
   },
   "ragAdded": {
-    "message": "RAG query added as source"
+    "message": "RAG ക്വറി സ്രോതസായി ചേർത്തു"
   },
   "ragTip": {
-    "message": "Enter search queries to find relevant content in your knowledge base. Each query will be added as a separate source."
+    "message": "നോളജ് ബേസിലെ ബന്ധപ്പെട്ട ഉള്ളടക്കം കണ്ടെത്താൻ തിരച്ചിൽ ക്വറികൾ നൽകുക. ഓരോ ക്വറിയും പ്രത്യേകം സ്രോതസായി ചേർക്കും."
   },
   "fetchError": {
-    "message": "Failed to load items"
+    "message": "ഇനങ്ങൾ ലോഡ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു"
   },
   "promptLabel": {
-    "message": "Describe the table you want to create"
+    "message": "നിങ്ങൾ സൃഷ്ടിക്കാൻ ആഗ്രഹിക്കുന്ന പട്ടികയെ വിവരിക്കുക"
   },
   "promptPlaceholder": {
-    "message": "E.g., Create a table comparing the main topics discussed, with columns for topic, key points, and relevance score..."
+    "message": "ഉദാ., ചർച്ച ചെയ്ത പ്രധാന വിഷയങ്ങളെ താരതമ്യം ചെയ്യുന്ന പട്ടിക സൃഷ്ടിക്കുക; വിഷയം, പ്രധാന പോയിന്റുകൾ, പ്രസക്തി സ്‌കോർ എന്നിവയ്ക്കായി കോളങ്ങൾ ഉൾപ്പെടുത്തുക..."
   },
   "examplePrompts": {
-    "message": "Example prompts:"
+    "message": "ഉദാഹരണ പ്രോംപ്റ്റുകൾ:"
   },
   "advancedOptions": {
-    "message": "Advanced Options"
+    "message": "അഡ്വാൻസ്ഡ് ഓപ്ഷനുകൾ"
   },
   "columnHints": {
-    "message": "Column Hints (Optional)"
+    "message": "കോളം സൂചനകൾ (ഐച്ഛികം)"
   },
   "columnHintsDesc": {
-    "message": "Suggest column names and types to guide the LLM. If not specified, columns will be inferred from your prompt."
+    "message": "LLM നെ നയിക്കാൻ കോളത്തിന്റെ പേരുകളും തരങ്ങളും നിർദ്ദേശിക്കുക. നിർദ്ദേശിച്ചില്ലെങ്കിൽ, നിങ്ങളുടെ പ്രോംപ്റ്റിൽ നിന്ന് കോളങ്ങൾ അനുമാനിക്കും."
   },
   "newColumnName": {
-    "message": "Column name"
+    "message": "കോളം പേര്"
   },
   "modelSelection": {
-    "message": "Model"
+    "message": "മോഡൽ"
   },
   "selectModel": {
-    "message": "Use default model"
+    "message": "ഡീഫാൾട്ട് മോഡൽ ഉപയോഗിക്കുക"
   },
   "maxRows": {
-    "message": "Maximum Rows"
+    "message": "പരമാവധി വരികൾ"
   },
   "maxRowsHint": {
     "message": "(1-1000)"
   },
   "generating": {
-    "message": "Generating table from your sources..."
+    "message": "നിങ്ങളുടെ സ്രോതസ്സുകളിൽ നിന്ന് പട്ടിക സൃഷ്ടിക്കുന്നു..."
   },
   "generatingNote": {
-    "message": "This may take a moment depending on the amount of data."
+    "message": "ഡാറ്റയുടെ അളവിനെ ആശ്രയിച്ച് കുറച്ച് സമയം എടുക്കാം."
   },
   "generateSuccess": {
-    "message": "Table generated successfully!"
+    "message": "പട്ടിക വിജയകരമായി സൃഷ്ടിച്ചു!"
   },
   "generationFailed": {
-    "message": "Generation Failed"
+    "message": "സൃഷ്ടിക്കൽ പരാജയപ്പെട്ടു"
   },
   "tryAgain": {
-    "message": "Try Again"
+    "message": "വീണ്ടും ശ്രമിക്കുക"
   },
   "warnings": {
-    "message": "Warnings"
+    "message": "മുന്നറിയിപ്പുകൾ"
   },
   "noPreview": {
-    "message": "No preview available"
+    "message": "പ്രിവ്യൂ ലഭ്യമല്ല"
   },
   "promptUsed": {
-    "message": "Prompt used:"
+    "message": "ഉപയോഗിച്ച പ്രോംപ്റ്റ്:"
   },
   "previewModified": {
-    "message": "You've modified the preview. Changes will be saved with the table."
+    "message": "നിങ്ങൾ പ്രിവ്യൂ മാറ്റിയിരിക്കുന്നു. മാറ്റങ്ങൾ പട്ടികയ്‌ക്കൊപ്പം സേവ് ചെയ്യും."
   },
   "addRow": {
-    "message": "Add Row"
+    "message": "വരി ചേർക്കുക"
   },
   "addColumn": {
-    "message": "Add Column"
+    "message": "കോളം ചേർക്കുക"
   },
   "deleteRow": {
-    "message": "Delete row?"
+    "message": "വരി ഇല്ലാതാക്കണോ?"
   },
   "deleteRowConfirm": {
-    "message": "This action cannot be undone."
+    "message": "ഈ നടപടി തിരിച്ചു കൊണ്ടുവരാനാകില്ല."
   },
   "deleteColumn": {
-    "message": "Delete column?"
+    "message": "കോളം ഇല്ലാതാക്കണോ?"
   },
   "deleteColumnConfirm": {
-    "message": "This action cannot be undone."
+    "message": "ഈ നടപടി തിരിച്ചു കൊണ്ടുവരാനാകില്ല."
   },
   "discard": {
-    "message": "Discard"
+    "message": "ഉപേക്ഷിക്കുക"
   },
   "changesDiscarded": {
-    "message": "Changes discarded"
+    "message": "മാറ്റങ്ങൾ ഉപേക്ഷിച്ചു"
   },
   "save": {
-    "message": "Save"
+    "message": "സേവ് ചെയ്യുക"
   },
   "saveSuccess": {
-    "message": "Changes saved successfully!"
+    "message": "മാറ്റങ്ങൾ വിജയകരമായി സേവ് ചെയ്തു!"
   },
   "unsavedChanges": {
-    "message": "You have unsaved changes"
+    "message": "സേവ് ചെയ്യാത്ത മാറ്റങ്ങൾ ഉണ്ട്"
   },
   "columnAdded": {
-    "message": "Column '{{name}}' added"
+    "message": "കോളം '{{name}}' ചേർത്തു"
   },
   "rows": {
-    "message": "rows"
+    "message": "വരികൾ"
   },
   "columnsLabel": {
-    "message": "columns"
+    "message": "കോളങ്ങൾ"
   },
   "showingRows": {
-    "message": "Showing {{total}} rows"
+    "message": "{{total}} വരികൾ കാണിക്കുന്നു"
   },
   "tableSummary": {
-    "message": "Table Summary"
+    "message": "പട്ടിക സംഗ്രഹം"
   },
   "tableName": {
-    "message": "Table Name"
+    "message": "പട്ടികയുടെ പേര്"
   },
   "tableNamePlaceholder": {
-    "message": "Enter a name for your table"
+    "message": "നിങ്ങളുടെ പട്ടികയ്ക്ക് പേര് നൽകുക"
   },
   "tableDescription": {
-    "message": "Description (optional)"
+    "message": "വിവരണം (ഐച്ഛികം)"
   },
   "tableDescPlaceholder": {
-    "message": "Add a description to help you remember what this table contains"
+    "message": "ഈ പട്ടികയിൽ എന്താണ് ഉള്ളതെന്ന് ഓർമ്മിക്കാൻ സഹായിക്കുന്ന ഒരു വിവരണം ചേർക്കുക"
   },
   "saveToLibrary": {
-    "message": "Save to Library"
+    "message": "ലൈബ്രറിയിൽ സേവ് ചെയ്യുക"
   },
   "tableSaved": {
-    "message": "Table Saved!"
+    "message": "പട്ടിക സേവ് ചെയ്തു!"
   },
   "tableSavedDesc": {
-    "message": "Your table has been saved to the library. You can view and export it anytime."
+    "message": "നിങ്ങളുടെ പട്ടിക ലൈബ്രറിയിൽ സേവ് ചെയ്തു. നിങ്ങൾക്ക് ഏത് സമയത്തും ഇത് കാണാനും എക്സ്പോർട്ട് ചെയ്യാനും കഴിയും."
   },
   "viewTables": {
-    "message": "View My Tables"
+    "message": "എന്റെ പട്ടികകൾ കാണുക"
   },
   "createAnother": {
-    "message": "Create Another"
+    "message": "മറ്റൊന്ന് സൃഷ്ടിക്കുക"
   },
   "orExport": {
-    "message": "Or export directly:"
+    "message": "അല്ലെങ്കിൽ നേരിട്ട് എക്സ്പോർട്ട് ചെയ്യുക:"
   },
   "export": {
-    "message": "Export"
+    "message": "എക്സ്പോർട്ട്"
   },
   "exportCSV": {
-    "message": "Export as CSV"
+    "message": "CSV ആയി എക്സ്പോർട്ട് ചെയ്യുക"
   },
   "exportExcel": {
-    "message": "Export as Excel"
+    "message": "Excel ആയി എക്സ്പോർട്ട് ചെയ്യുക"
   },
   "exportJSON": {
-    "message": "Export as JSON"
+    "message": "JSON ആയി എക്സ്പോർട്ട് ചെയ്യുക"
   },
   "exportSuccess": {
-    "message": "Table exported as {{format}}"
+    "message": "പട്ടിക {{format}} ആയി എക്സ്പോർട്ട് ചെയ്തു"
   },
   "noTableToSave": {
-    "message": "No table to save"
+    "message": "സേവ് ചെയ്യാനുള്ള പട്ടിക ഇല്ല"
   },
   "goBackToGenerate": {
-    "message": "Go back to the previous step to generate a table first."
+    "message": "ആദ്യം പട്ടിക സൃഷ്ടിക്കാൻ മുൻ ഘട്ടത്തിലേക്ക് തിരികെ പോകുക."
   },
   "tableDetails": {
-    "message": "Table Details"
+    "message": "പട്ടിക വിശദാംശങ്ങൾ"
   },
   "tableNotFound": {
-    "message": "Table not found"
+    "message": "പട്ടിക കണ്ടെത്താനായില്ല"
   },
   "noData": {
-    "message": "No data"
+    "message": "ഡാറ്റ ഇല്ല"
   },
   "data": {
-    "message": "Data"
+    "message": "ഡാറ്റ"
   },
   "editMode": {
-    "message": "Edit Mode"
+    "message": "എഡിറ്റ് മോഡ്"
   },
   "editModeActive": {
-    "message": "Click cells to edit"
+    "message": "എഡിറ്റ് ചെയ്യാൻ സെല്ലുകൾ ക്ലിക്ക് ചെയ്യുക"
   },
   "regenerate": {
-    "message": "Regenerate"
+    "message": "വീണ്ടും സൃഷ്ടിക്കുക"
   },
   "regenerateSuccess": {
-    "message": "Table regenerated successfully!"
+    "message": "പട്ടിക വിജയകരമായി വീണ്ടും സൃഷ്ടിച്ചു!"
   },
   "model": {
-    "message": "Model"
+    "message": "മോഡൽ"
   },
   "prompt": {
-    "message": "Generation Prompt"
+    "message": "സൃഷ്ടിക്കൽ പ്രോംപ്റ്റ്"
   },
   "sources": {
-    "message": "Sources"
+    "message": "സ്രോതസ്സുകൾ"
   },
   "created": {
-    "message": "Created"
+    "message": "സൃഷ്ടിച്ചത്"
   },
   "updated": {
-    "message": "Updated"
+    "message": "അപ്‌ഡേറ്റ് ചെയ്തത്"
   },
   "noTables": {
-    "message": "No tables yet. Create your first table!"
+    "message": "ഇതുവരെ പട്ടികകളില്ല. നിങ്ങളുടെ ആദ്യ പട്ടിക സൃഷ്ടിക്കുക!"
   },
   "noSearchResults": {
-    "message": "No tables found matching your search"
+    "message": "നിങ്ങളുടെ തിരച്ചിലിനൊപ്പം പൊരുത്തപ്പെടുന്ന പട്ടികകൾ കണ്ടെത്താനായില്ല"
   },
   "totalTables": {
-    "message": "{{total}} tables"
+    "message": "{{total}} പട്ടികകൾ"
   },
   "view": {
-    "message": "View"
+    "message": "കാണുക"
   },
   "delete": {
-    "message": "Delete"
+    "message": "ഇല്ലാതാക്കുക"
   },
   "deleteConfirmTitle": {
-    "message": "Delete Table"
+    "message": "പട്ടിക ഇല്ലാതാക്കുക"
   },
   "deleteConfirmMessage": {
-    "message": "Are you sure you want to delete this table? This action cannot be undone."
+    "message": "ഈ പട്ടിക ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ? ഈ നടപടി തിരിച്ച് കൊണ്ടുവരാനാകില്ല."
   },
   "noTable": {
-    "message": "No table data"
+    "message": "പട്ടിക ഡാറ്റ ഇല്ല"
   },
   "add": {
-    "message": "Add"
+    "message": "ചേർക്കുക"
   },
   "columnName": {
-    "message": "Column Name"
+    "message": "കോളം പേര്"
   },
   "columnNamePlaceholder": {
-    "message": "e.g., Price, Status, Date"
+    "message": "ഉദാ., വില, നില, തീയതി"
   },
   "columnNameRequired": {
-    "message": "Please enter a column name"
+    "message": "ദയവായി ഒരു കോളം പേര് നൽകുക"
   },
   "columnNameTooLong": {
-    "message": "Column name must be 50 characters or less"
+    "message": "കോളം പേര് 50 അക്ഷരങ്ങളിലോ അതിൽ കുറവിലോ ആയിരിക്കണം"
   },
   "columnNameExists": {
-    "message": "A column with this name already exists"
+    "message": "ഈ പേരിൽ ഒരു കോളം ഇതിനകം ഉണ്ട്"
   },
   "columnType": {
-    "message": "Column Type"
+    "message": "കോളം തരം"
   },
   "columnTypeRequired": {
-    "message": "Please select a column type"
+    "message": "ദയവായി ഒരു കോളം തരം തിരഞ്ഞെടുക്കുക"
   },
   "columnDescription": {
-    "message": "Description (optional)"
+    "message": "വിവരണം (ഐച്ഛികം)"
   },
   "columnDescriptionHint": {
-    "message": "A brief description of what this column contains"
+    "message": "ഈ കോളത്തിൽ ഉള്ളതിന്റെ ചുരുക്ക വിവരണം"
   },
   "columnDescriptionPlaceholder": {
-    "message": "e.g., The price of the item in USD"
+    "message": "ഉദാ., വസ്തുവിന്റെ വില USD ൽ"
   },
   "discardUnsavedChanges": {
-    "message": "You have unsaved changes. Are you sure you want to close?"
+    "message": "സേവ് ചെയ്യാത്ത മാറ്റങ്ങൾ ഉണ്ട്. അടയ്ക്കണമെന്ന് ഉറപ്പാണോ?"
   },
   "createFromChat": {
-    "message": "Create Table from Chat"
+    "message": "ചാറ്റിൽ നിന്ന് പട്ടിക സൃഷ്ടിക്കുക"
   },
   "saveFromArtifact": {
-    "message": "Save to Data Tables"
+    "message": "ഡാറ്റാ ടേബിള്‍സിലേക്ക് സേവ് ചെയ്യുക"
   },
   "importedPrompt": {
-    "message": "Imported from table artifact"
+    "message": "ടേബിൾ ആർട്ടിഫാക്റ്റിൽ നിന്ന് ഇറക്കുമതി ചെയ്തത്"
   },
   "columns_name": {
-    "message": "Name"
+    "message": "പേര്"
   },
   "columns_rows": {
-    "message": "Rows"
+    "message": "വരികൾ"
   },
   "columns_columns": {
-    "message": "Columns"
+    "message": "കോളങ്ങൾ"
   },
   "columns_sources": {
-    "message": "Sources"
+    "message": "സ്രോതസ്സുകൾ"
   },
   "columns_created": {
-    "message": "Created"
+    "message": "സൃഷ്ടിച്ചത്"
   },
   "columns_actions": {
-    "message": "Actions"
+    "message": "പ്രവർത്തനങ്ങൾ"
   },
   "dataTablesDescription": {
-    "message": "Generate structured tables from your chats, documents, and knowledge base using natural language prompts."
+    "message": "സ്വാഭാവിക ഭാഷയിലെ പ്രോംപ്റ്റുകൾ ഉപയോഗിച്ച് നിങ്ങളുടെ ചാറ്റുകൾ, ഡോക്യുമെന്റുകൾ, നോളജ് ബേസ് എന്നിവയിൽ നിന്ന് ഘടനയുള്ള പട്ടികകൾ സൃഷ്ടിക്കുക."
   },
   "descriptionLabel": {
-    "message": "Description"
+    "message": "വിവരണം"
   },
   "examplePromptCompare": {
-    "message": "Create a table comparing key features, pricing, and ratings from these sources"
+    "message": "ഈ സ്രോതസ്സുകളിൽ നിന്നുള്ള പ്രധാന സവിശേഷതകൾ, വിലനിർണ്ണയം, റേറ്റിങ്ങുകൾ എന്നിവ താരതമ്യം ചെയ്യുന്ന പട്ടിക സൃഷ്ടിക്കുക"
   },
   "examplePromptEntities": {
-    "message": "Extract all entities mentioned with their type, description, and first appearance"
+    "message": "പരാമർശിച്ച എല്ലാ എന്റിറ്റികളും അവയുടെ തരം, വിവരണം, ആദ്യ പ്രത്യക്ഷം എന്നിവയോടെ പുറത്തെടുക്കുക"
   },
   "examplePromptActions": {
-    "message": "List all action items with assignee, due date, and status"
+    "message": "ഏൽപ്പിച്ചയാൾ, അവസാന തീയതി, നില എന്നിവയോടെ എല്ലാ പ്രവർത്തന ഇനങ്ങളും പട്ടികപ്പെടുത്തുക"
   },
   "examplePromptSummary": {
-    "message": "Create a summary table with topic, key points, and source reference"
+    "message": "വിഷയം, പ്രധാന പോയിന്റുകൾ, സ്രോതസ് റഫറൻസ് എന്നിവയോടെ ഒരു സംഗ്രഹ പട്ടിക സൃഷ്ടിക്കുക"
   },
   "examplePromptProduct": {
-    "message": "Extract product information including name, price, and specifications"
+    "message": "പേര്, വില, സവിശേഷതകൾ ഉൾപ്പെടുന്ന ഉൽപ്പന്ന വിവരങ്ങൾ പുറത്തെടുക്കുക"
   },
   "existingColumnName": {
-    "message": "Column name"
+    "message": "കോളം പേര്"
   },
   "columnTypes_text": {
-    "message": "Text"
+    "message": "ടെക്സ്റ്റ്"
   },
   "columnTypes_number": {
-    "message": "Number"
+    "message": "സംഖ്യ"
   },
   "columnTypes_date": {
-    "message": "Date"
+    "message": "തീയതി"
   },
   "columnTypes_url": {
     "message": "URL"
   },
   "columnTypes_boolean": {
-    "message": "Boolean"
+    "message": "ബൂളിയൻ"
   },
   "columnTypes_currency": {
-    "message": "Currency"
+    "message": "കറൻസി"
   }
 }

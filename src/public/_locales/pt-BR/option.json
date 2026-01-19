@@ -2047,5 +2047,29 @@
   },
   "flashcards_dueNow": {
     "message": "Vence agora"
+  },
+  "header_writingPlayground": {
+    "message": "Writing Playground"
+  },
+  "writingPlayground_title": {
+    "message": "Writing Playground"
+  },
+  "writingPlayground_subtitle": {
+    "message": "Draft long-form prompts, manage sessions, and generate with your tldw server."
+  },
+  "writingPlayground_offlineTitle": {
+    "message": "Server required"
+  },
+  "writingPlayground_offlineBody": {
+    "message": "Connect to your tldw server to load writing sessions and generate."
+  },
+  "writingPlayground_unavailableTitle": {
+    "message": "Playground unavailable"
+  },
+  "writingPlayground_unavailableBody": {
+    "message": "This server does not advertise writing playground support yet."
+  },
+  "writingPlayground_emptyState": {
+    "message": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
   }
 }
