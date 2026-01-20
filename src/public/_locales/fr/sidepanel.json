@@ -12,7 +12,7 @@
     "message": "Ouvrir WebUI"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "Recherche RAG"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant ne peut pas enregistrer les données"
@@ -75,85 +75,85 @@
     "message": "Chat temporaire"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "Ingestion"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "Enregistrer la page actuelle sur le serveur"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "Traiter la page actuelle localement"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "Voir les éléments traités"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "Délai d'attente (s)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "Basculer la barre latérale / plein écran"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "Raccourcis"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "Afficher le débogage du flux"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "Masquer le débogage du flux"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "Plus d'options"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "Ingestion et plus"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "Ouvrir l'interface Web"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "Nouveau chat"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "Basculer le chat temporaire"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "Effacer l'historique"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "Ouvrir l'historique"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "Ouvrir les paramètres du modèle"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "Ouvrir les paramètres"
   },
   "header_tempPill": {
     "message": "Temp"
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "Ouvrir les modes dans l'interface Web"
   },
   "header_modePlayground": {
     "message": "Chat"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "Revue multi-éléments"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "Médias"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "Q/R connaissances"
   },
   "header_modeNotes": {
     "message": "Notes"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "Prompts IA"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "Cartes mémoire"
   },
   "controlRow_saveMode": {
     "message": "Mode d'enregistrement"
@@ -198,43 +198,43 @@
     "message": "Plus d'outils"
   },
   "composer_connectHint": {
-    "message": "Connect to your tldw server in Settings to send messages."
+    "message": "Connectez votre serveur tldw dans les paramètres pour envoyer des messages."
   },
   "composer_connectingPlaceholder": {
-    "message": "Connecting..."
+    "message": "Connexion..."
   },
   "composer_disconnectedPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Connectez votre serveur tldw dans les paramètres pour envoyer des messages et voir les médias."
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "Envoyé au serveur tldw"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "La page actuelle a été soumise pour ingestion."
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "Traité localement"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "Le contenu traité est stocké localement dans Paramètres > Traités."
   },
   "notification_transcriptionTitle": {
     "message": "Transcription"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "Transcription + résumé"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "Transcription terminée. Ouvrez Médias dans l'interface Web pour la consulter."
   },
   "notification_sourceLabel": {
     "message": "Source"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "Transcription"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "Résumé"
   },
   "saveStatus_ephemeral": {
     "message": "Temporaire : non enregistré, effacé à la fermeture"
@@ -252,46 +252,46 @@
     "message": "Le chat est maintenant enregistré uniquement en local. Vérifiez votre connexion et réessayez."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "Rechercher dans votre base de connaissances..."
   },
   "rag_search": {
-    "message": "Search"
+    "message": "Rechercher"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "Afficher la recherche RAG"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "Masquer la recherche RAG"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "Ajouter un tag (Entrée)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "Ajouter"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "Aucun résultat"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "Délai d'attente dépassé."
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "Augmenter le délai d'attente"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "Vérifier l'état du serveur"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "Insérer"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "Demander"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "Ouvrir"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "Copier"
   },
   "rag_hint_message": {
     "message": "Recherchez dans votre base de connaissances et insérez les résultats dans votre message."
@@ -309,33 +309,33 @@
     "message": "Fermer l'onglet de chat"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "Personnage"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "Sélectionner un personnage"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "Rechercher des personnages..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "Aucun personnage correspondant"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "Aucun personnage disponible"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "Aucun personnage"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Créer un nouveau personnage+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "Importer un personnage"
   },
   "rag_attachedContext": {
     "message": "Contexte joint"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "Aucun résultat pour l'instant"
   }
 }

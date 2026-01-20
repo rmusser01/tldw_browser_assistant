@@ -2742,43 +2742,43 @@
     "message": "مقایسه"
   },
   "chunkingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "تنظیمات"
   },
   "chunkingPlayground_tabTemplates": {
-    "message": "Templates"
+    "message": "قالب‌ها"
   },
   "chunkingPlayground_tabCapabilities": {
-    "message": "Capabilities"
+    "message": "قابلیت‌ها"
   },
   "chunkingPlayground_appliedOptionsTitle": {
-    "message": "Applied options"
+    "message": "گزینه‌های اعمال‌شده"
   },
   "chunkingPlayground_responseMetaTitle": {
-    "message": "Response metadata"
+    "message": "فرادادهٔ پاسخ"
   },
   "chunkingPlayground_inlineUnavailable": {
-    "message": "Inline view requires character offsets; switch to Cards to inspect chunks."
+    "message": "نمای درون‌خطی به جابه‌جایی نویسه نیاز دارد؛ برای بررسی بخش‌ها به کارت‌ها بروید."
   },
   "chunkingPlayground_metadataLabel": {
-    "message": "Metadata"
+    "message": "فراداده"
   },
   "chunkingPlayground_advanced_title": {
-    "message": "Advanced Options"
+    "message": "گزینه‌های پیشرفته"
   },
   "chunkingPlayground_advanced_methodRequiresLlm": {
-    "message": "This method requires an LLM provider on the server."
+    "message": "این روش به ارائه‌دهندهٔ LLM روی سرور نیاز دارد."
   },
   "chunkingPlayground_advanced_templateNameLabel": {
-    "message": "Template name"
+    "message": "نام قالب"
   },
   "chunkingPlayground_advanced_templateNamePlaceholder": {
-    "message": "Select or type a template name"
+    "message": "نام قالب را انتخاب کنید یا بنویسید"
   },
   "chunkingPlayground_advanced_templateOverridesHint": {
-    "message": "Template defaults are applied first; form values override them."
+    "message": "ابتدا پیش‌فرض‌های قالب اعمال می‌شوند؛ مقادیر فرم آن‌ها را بازنویسی می‌کنند."
   },
   "chunkingPlayground_advanced_requestModeLabel": {
-    "message": "Request Endpoint"
+    "message": "نقطهٔ پایانی درخواست"
   },
   "chunkingPlayground_advanced_requestModeJson": {
     "message": "JSON (/chunk_text)"
@@ -2787,234 +2787,234 @@
     "message": "Multipart (/chunk_file)"
   },
   "chunkingPlayground_advanced_requestModeHint": {
-    "message": "Use JSON for full option support; multipart matches /chunk_file."
+    "message": "برای پشتیبانی کامل از گزینه‌ها از JSON استفاده کنید؛ multipart مطابق /chunk_file است."
   },
   "chunkingPlayground_advanced_tokenizerLabel": {
-    "message": "Tokenizer"
+    "message": "توکنایزر"
   },
   "chunkingPlayground_advanced_tokenizerPlaceholder": {
-    "message": "Tokenizer name or path (e.g., gpt2)"
+    "message": "نام یا مسیر توکنایزر (مثلاً gpt2)"
   },
   "chunkingPlayground_advanced_adaptiveLabel": {
-    "message": "Adaptive chunking"
+    "message": "بخش‌بندی تطبیقی"
   },
   "chunkingPlayground_advanced_multiLevelLabel": {
-    "message": "Multi-level chunking"
+    "message": "بخش‌بندی چندسطحی"
   },
   "chunkingPlayground_advanced_codeModeLabel": {
-    "message": "Code mode"
+    "message": "حالت کد"
   },
   "chunkingPlayground_advanced_codeModeHint": {
-    "message": "Controls how code is parsed when method is 'code'."
+    "message": "نحوهٔ پردازش کد را وقتی روش «code» است کنترل می‌کند."
   },
   "chunkingPlayground_advanced_semanticSimilarityLabel": {
-    "message": "Semantic similarity threshold"
+    "message": "آستانهٔ شباهت معنایی"
   },
   "chunkingPlayground_advanced_semanticOverlapLabel": {
-    "message": "Semantic overlap sentences"
+    "message": "جمله‌های هم‌پوشانی معنایی"
   },
   "chunkingPlayground_advanced_jsonKeyLabel": {
-    "message": "JSON chunkable key"
+    "message": "کلید قابل‌بخش‌بندی JSON"
   },
   "chunkingPlayground_advanced_frontmatterLabel": {
-    "message": "Enable frontmatter parsing"
+    "message": "فعال‌سازی تجزیهٔ frontmatter"
   },
   "chunkingPlayground_advanced_frontmatterSentinelLabel": {
-    "message": "Frontmatter sentinel key"
+    "message": "کلید sentinel برای frontmatter"
   },
   "chunkingPlayground_advanced_customChapterPatternLabel": {
-    "message": "Custom chapter pattern"
+    "message": "الگوی فصل سفارشی"
   },
   "chunkingPlayground_advanced_summarizationDetailLabel": {
-    "message": "Summarization detail"
+    "message": "جزئیات خلاصه‌سازی"
   },
   "chunkingPlayground_advanced_llmOptionsTitle": {
-    "message": "LLM Options (internal steps)"
+    "message": "گزینه‌های LLM (گام‌های داخلی)"
   },
   "chunkingPlayground_advanced_llmTemperatureLabel": {
-    "message": "LLM temperature"
+    "message": "دمای LLM"
   },
   "chunkingPlayground_advanced_llmSystemPromptLabel": {
-    "message": "LLM system prompt"
+    "message": "پرومپت سیستمی LLM"
   },
   "chunkingPlayground_advanced_llmMaxTokensLabel": {
-    "message": "LLM max tokens"
+    "message": "حداکثر توکن‌های LLM"
   },
   "chunkingPlayground_advanced_propositionEngineLabel": {
-    "message": "Proposition engine"
+    "message": "موتور گزاره‌ها"
   },
   "chunkingPlayground_advanced_propositionAggressivenessLabel": {
-    "message": "Proposition aggressiveness"
+    "message": "شدت گزاره‌سازی"
   },
   "chunkingPlayground_advanced_propositionMinLengthLabel": {
-    "message": "Min proposition length"
+    "message": "حداقل طول گزاره"
   },
   "chunkingPlayground_advanced_propositionPromptProfileLabel": {
-    "message": "Proposition prompt profile"
+    "message": "پروفایل پرومپت گزاره‌ها"
   },
   "chunkingPlayground_advanced_resetDefaults": {
-    "message": "Reset to defaults"
+    "message": "بازنشانی به پیش‌فرض‌ها"
   },
   "chunkingPlayground_templates_title": {
-    "message": "Chunking Templates"
+    "message": "قالب‌های بخش‌بندی"
   },
   "chunkingPlayground_templates_description": {
-    "message": "Manage, validate, and apply chunking templates."
+    "message": "قالب‌های بخش‌بندی را مدیریت، اعتبارسنجی و اعمال کنید."
   },
   "chunkingPlayground_templates_tabBrowse": {
-    "message": "Browse"
+    "message": "مرور"
   },
   "chunkingPlayground_templates_tabEditor": {
-    "message": "Editor"
+    "message": "ویرایشگر"
   },
   "chunkingPlayground_templates_tabApply": {
-    "message": "Apply"
+    "message": "اعمال"
   },
   "chunkingPlayground_templates_tabValidate": {
-    "message": "Validate"
+    "message": "اعتبارسنجی"
   },
   "chunkingPlayground_templates_tabMatch": {
-    "message": "Match"
+    "message": "تطبیق"
   },
   "chunkingPlayground_templates_tabLearn": {
-    "message": "Learn"
+    "message": "یادگیری"
   },
   "chunkingPlayground_templates_tabDiagnostics": {
-    "message": "Diagnostics"
+    "message": "عیب‌یابی"
   },
   "chunkingPlayground_templates_filtersTitle": {
-    "message": "Filters"
+    "message": "فیلترها"
   },
   "chunkingPlayground_templates_includeBuiltin": {
-    "message": "Include built-in"
+    "message": "شامل قالب‌های داخلی"
   },
   "chunkingPlayground_templates_includeCustom": {
-    "message": "Include custom"
+    "message": "شامل قالب‌های سفارشی"
   },
   "chunkingPlayground_templates_tagsLabel": {
-    "message": "Tags"
+    "message": "برچسب‌ها"
   },
   "chunkingPlayground_templates_tagsPlaceholder": {
-    "message": "Add tags"
+    "message": "افزودن برچسب"
   },
   "chunkingPlayground_templates_userIdLabel": {
-    "message": "User ID"
+    "message": "شناسه کاربر"
   },
   "chunkingPlayground_templates_selectLabel": {
-    "message": "Template"
+    "message": "قالب"
   },
   "chunkingPlayground_templates_selectPlaceholder": {
-    "message": "Select a template"
+    "message": "یک قالب انتخاب کنید"
   },
   "chunkingPlayground_templates_detailsTitle": {
-    "message": "Template details"
+    "message": "جزئیات قالب"
   },
   "chunkingPlayground_templates_isBuiltin": {
-    "message": "Built-in"
+    "message": "داخلی"
   },
   "chunkingPlayground_templates_version": {
-    "message": "Version"
+    "message": "نسخه"
   },
   "chunkingPlayground_templates_updatedAt": {
-    "message": "Updated"
+    "message": "به‌روزرسانی شد"
   },
   "chunkingPlayground_templates_loadIntoEditor": {
-    "message": "Load into editor"
+    "message": "بارگذاری در ویرایشگر"
   },
   "chunkingPlayground_templates_deleteConfirm": {
-    "message": "Delete this template?"
+    "message": "این قالب حذف شود؟"
   },
   "chunkingPlayground_templates_hardDeleteLabel": {
-    "message": "Hard delete"
+    "message": "حذف دائمی"
   },
   "chunkingPlayground_templates_noSelection": {
-    "message": "Select a template to view details."
+    "message": "برای دیدن جزئیات یک قالب انتخاب کنید."
   },
   "chunkingPlayground_templates_templateJsonLabel": {
-    "message": "Template JSON"
+    "message": "JSON قالب"
   },
   "chunkingPlayground_templates_overrideOptionsLabel": {
-    "message": "Override options (JSON)"
+    "message": "بازنویسی گزینه‌ها (JSON)"
   },
   "chunkingPlayground_templates_includeMetadataLabel": {
-    "message": "Include metadata"
+    "message": "شامل فراداده"
   },
   "chunkingPlayground_templates_applyTextLabel": {
-    "message": "Text to apply template"
+    "message": "متن برای اعمال قالب"
   },
   "chunkingPlayground_templates_applyTextPlaceholder": {
-    "message": "Paste text to chunk with this template"
+    "message": "متن را برای بخش‌بندی با این قالب بچسبانید"
   },
   "chunkingPlayground_templates_validateLabel": {
-    "message": "Template JSON to validate"
+    "message": "JSON قالب برای اعتبارسنجی"
   },
   "chunkingPlayground_templates_matchMediaTypeLabel": {
-    "message": "Media type"
+    "message": "نوع رسانه"
   },
   "chunkingPlayground_templates_matchTitleLabel": {
-    "message": "Title"
+    "message": "عنوان"
   },
   "chunkingPlayground_templates_matchUrlLabel": {
     "message": "URL"
   },
   "chunkingPlayground_templates_matchFilenameLabel": {
-    "message": "Filename"
+    "message": "نام فایل"
   },
   "chunkingPlayground_templates_learnNameLabel": {
-    "message": "Template name"
+    "message": "نام قالب"
   },
   "chunkingPlayground_templates_learnExampleLabel": {
-    "message": "Example text"
+    "message": "متن نمونه"
   },
   "chunkingPlayground_templates_learnDescriptionLabel": {
-    "message": "Description"
+    "message": "توضیح"
   },
   "chunkingPlayground_templates_learnSaveLabel": {
-    "message": "Save template"
+    "message": "ذخیره قالب"
   },
   "chunkingPlayground_templates_learnClassifierLabel": {
-    "message": "Classifier (JSON)"
+    "message": "دسته‌بند (JSON)"
   },
   "chunkingPlayground_templates_jsonError": {
-    "message": "Invalid JSON. Please fix and try again."
+    "message": "JSON نامعتبر است. اصلاح کنید و دوباره تلاش کنید."
   },
   "chunkingPlayground_templates_nameRequired": {
-    "message": "Template name is required."
+    "message": "نام قالب الزامی است."
   },
   "chunkingPlayground_templates_updateAction": {
-    "message": "Update"
+    "message": "به‌روزرسانی"
   },
   "chunkingPlayground_templates_applyAction": {
-    "message": "Apply"
+    "message": "اعمال"
   },
   "chunkingPlayground_templates_validateAction": {
-    "message": "Validate"
+    "message": "اعتبارسنجی"
   },
   "chunkingPlayground_templates_matchAction": {
-    "message": "Match"
+    "message": "تطبیق"
   },
   "chunkingPlayground_templates_learnAction": {
-    "message": "Learn"
+    "message": "یادگیری"
   },
   "chunkingPlayground_templates_diagnosticsAction": {
-    "message": "Run diagnostics"
+    "message": "اجرای عیب‌یابی"
   },
   "chunkingPlayground_capabilities_title": {
-    "message": "Chunking Capabilities"
+    "message": "قابلیت‌های بخش‌بندی"
   },
   "chunkingPlayground_capabilities_methodsLabel": {
-    "message": "Methods"
+    "message": "روش‌ها"
   },
   "chunkingPlayground_capabilities_llmLabel": {
-    "message": "LLM-required methods"
+    "message": "روش‌های نیازمند LLM"
   },
   "chunkingPlayground_capabilities_defaultsLabel": {
-    "message": "Default options"
+    "message": "گزینه‌های پیش‌فرض"
   },
   "chunkingPlayground_capabilities_methodOptionsLabel": {
-    "message": "Method-specific options"
+    "message": "گزینه‌های ویژهٔ هر روش"
   },
   "chunkingPlayground_capabilities_notesLabel": {
-    "message": "Notes"
+    "message": "یادداشت‌ها"
   }
 }

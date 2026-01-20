@@ -2745,43 +2745,43 @@
     "message": "Sammenlign"
   },
   "chunkingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "Indstillinger"
   },
   "chunkingPlayground_tabTemplates": {
-    "message": "Templates"
+    "message": "Skabeloner"
   },
   "chunkingPlayground_tabCapabilities": {
-    "message": "Capabilities"
+    "message": "Funktioner"
   },
   "chunkingPlayground_appliedOptionsTitle": {
-    "message": "Applied options"
+    "message": "Anvendte indstillinger"
   },
   "chunkingPlayground_responseMetaTitle": {
-    "message": "Response metadata"
+    "message": "Svarmetadata"
   },
   "chunkingPlayground_inlineUnavailable": {
-    "message": "Inline view requires character offsets; switch to Cards to inspect chunks."
+    "message": "Indlejret visning kræver tegnpositioner; skift til Kort for at inspicere chunks."
   },
   "chunkingPlayground_metadataLabel": {
     "message": "Metadata"
   },
   "chunkingPlayground_advanced_title": {
-    "message": "Advanced Options"
+    "message": "Avancerede indstillinger"
   },
   "chunkingPlayground_advanced_methodRequiresLlm": {
-    "message": "This method requires an LLM provider on the server."
+    "message": "Denne metode kræver en LLM‑udbyder på serveren."
   },
   "chunkingPlayground_advanced_templateNameLabel": {
-    "message": "Template name"
+    "message": "Skabelonnavn"
   },
   "chunkingPlayground_advanced_templateNamePlaceholder": {
-    "message": "Select or type a template name"
+    "message": "Vælg eller skriv et skabelonnavn"
   },
   "chunkingPlayground_advanced_templateOverridesHint": {
-    "message": "Template defaults are applied first; form values override them."
+    "message": "Skabelonens standardværdier anvendes først; formularværdier overskriver dem."
   },
   "chunkingPlayground_advanced_requestModeLabel": {
-    "message": "Request Endpoint"
+    "message": "Anmodnings-endpoint"
   },
   "chunkingPlayground_advanced_requestModeJson": {
     "message": "JSON (/chunk_text)"
@@ -2790,234 +2790,234 @@
     "message": "Multipart (/chunk_file)"
   },
   "chunkingPlayground_advanced_requestModeHint": {
-    "message": "Use JSON for full option support; multipart matches /chunk_file."
+    "message": "Brug JSON for fuld understøttelse af indstillinger; multipart svarer til /chunk_file."
   },
   "chunkingPlayground_advanced_tokenizerLabel": {
-    "message": "Tokenizer"
+    "message": "Tokeniserer"
   },
   "chunkingPlayground_advanced_tokenizerPlaceholder": {
-    "message": "Tokenizer name or path (e.g., gpt2)"
+    "message": "Tokeniserernavn eller sti (f.eks. gpt2)"
   },
   "chunkingPlayground_advanced_adaptiveLabel": {
-    "message": "Adaptive chunking"
+    "message": "Adaptiv chunking"
   },
   "chunkingPlayground_advanced_multiLevelLabel": {
-    "message": "Multi-level chunking"
+    "message": "Flerniveau‑chunking"
   },
   "chunkingPlayground_advanced_codeModeLabel": {
-    "message": "Code mode"
+    "message": "Kode-tilstand"
   },
   "chunkingPlayground_advanced_codeModeHint": {
-    "message": "Controls how code is parsed when method is 'code'."
+    "message": "Styrer hvordan kode analyseres, når metoden er 'code'."
   },
   "chunkingPlayground_advanced_semanticSimilarityLabel": {
-    "message": "Semantic similarity threshold"
+    "message": "Tærskel for semantisk lighed"
   },
   "chunkingPlayground_advanced_semanticOverlapLabel": {
-    "message": "Semantic overlap sentences"
+    "message": "Semantiske overlappende sætninger"
   },
   "chunkingPlayground_advanced_jsonKeyLabel": {
-    "message": "JSON chunkable key"
+    "message": "JSON‑nøgle til chunking"
   },
   "chunkingPlayground_advanced_frontmatterLabel": {
-    "message": "Enable frontmatter parsing"
+    "message": "Aktivér frontmatter‑parsing"
   },
   "chunkingPlayground_advanced_frontmatterSentinelLabel": {
-    "message": "Frontmatter sentinel key"
+    "message": "Frontmatter‑sentinel‑nøgle"
   },
   "chunkingPlayground_advanced_customChapterPatternLabel": {
-    "message": "Custom chapter pattern"
+    "message": "Tilpasset kapitelmønster"
   },
   "chunkingPlayground_advanced_summarizationDetailLabel": {
-    "message": "Summarization detail"
+    "message": "Opsummeringsdetalje"
   },
   "chunkingPlayground_advanced_llmOptionsTitle": {
-    "message": "LLM Options (internal steps)"
+    "message": "LLM‑indstillinger (interne trin)"
   },
   "chunkingPlayground_advanced_llmTemperatureLabel": {
-    "message": "LLM temperature"
+    "message": "LLM‑temperatur"
   },
   "chunkingPlayground_advanced_llmSystemPromptLabel": {
-    "message": "LLM system prompt"
+    "message": "LLM‑systemprompt"
   },
   "chunkingPlayground_advanced_llmMaxTokensLabel": {
-    "message": "LLM max tokens"
+    "message": "LLM‑maks. tokens"
   },
   "chunkingPlayground_advanced_propositionEngineLabel": {
-    "message": "Proposition engine"
+    "message": "Propositionsmotor"
   },
   "chunkingPlayground_advanced_propositionAggressivenessLabel": {
-    "message": "Proposition aggressiveness"
+    "message": "Propositionsaggressivitet"
   },
   "chunkingPlayground_advanced_propositionMinLengthLabel": {
-    "message": "Min proposition length"
+    "message": "Min. propositionslængde"
   },
   "chunkingPlayground_advanced_propositionPromptProfileLabel": {
-    "message": "Proposition prompt profile"
+    "message": "Propositionsprompt‑profil"
   },
   "chunkingPlayground_advanced_resetDefaults": {
-    "message": "Reset to defaults"
+    "message": "Nulstil til standardværdier"
   },
   "chunkingPlayground_templates_title": {
-    "message": "Chunking Templates"
+    "message": "Chunking‑skabeloner"
   },
   "chunkingPlayground_templates_description": {
-    "message": "Manage, validate, and apply chunking templates."
+    "message": "Administrer, validér og anvend chunking‑skabeloner."
   },
   "chunkingPlayground_templates_tabBrowse": {
-    "message": "Browse"
+    "message": "Gennemse"
   },
   "chunkingPlayground_templates_tabEditor": {
     "message": "Editor"
   },
   "chunkingPlayground_templates_tabApply": {
-    "message": "Apply"
+    "message": "Anvend"
   },
   "chunkingPlayground_templates_tabValidate": {
-    "message": "Validate"
+    "message": "Validér"
   },
   "chunkingPlayground_templates_tabMatch": {
     "message": "Match"
   },
   "chunkingPlayground_templates_tabLearn": {
-    "message": "Learn"
+    "message": "Lær"
   },
   "chunkingPlayground_templates_tabDiagnostics": {
-    "message": "Diagnostics"
+    "message": "Diagnostik"
   },
   "chunkingPlayground_templates_filtersTitle": {
-    "message": "Filters"
+    "message": "Filtre"
   },
   "chunkingPlayground_templates_includeBuiltin": {
-    "message": "Include built-in"
+    "message": "Medtag indbyggede"
   },
   "chunkingPlayground_templates_includeCustom": {
-    "message": "Include custom"
+    "message": "Medtag tilpassede"
   },
   "chunkingPlayground_templates_tagsLabel": {
     "message": "Tags"
   },
   "chunkingPlayground_templates_tagsPlaceholder": {
-    "message": "Add tags"
+    "message": "Tilføj tags"
   },
   "chunkingPlayground_templates_userIdLabel": {
-    "message": "User ID"
+    "message": "Bruger-id"
   },
   "chunkingPlayground_templates_selectLabel": {
-    "message": "Template"
+    "message": "Skabelon"
   },
   "chunkingPlayground_templates_selectPlaceholder": {
-    "message": "Select a template"
+    "message": "Vælg en skabelon"
   },
   "chunkingPlayground_templates_detailsTitle": {
-    "message": "Template details"
+    "message": "Skabelondetaljer"
   },
   "chunkingPlayground_templates_isBuiltin": {
-    "message": "Built-in"
+    "message": "Indbygget"
   },
   "chunkingPlayground_templates_version": {
     "message": "Version"
   },
   "chunkingPlayground_templates_updatedAt": {
-    "message": "Updated"
+    "message": "Opdateret"
   },
   "chunkingPlayground_templates_loadIntoEditor": {
-    "message": "Load into editor"
+    "message": "Indlæs i editoren"
   },
   "chunkingPlayground_templates_deleteConfirm": {
-    "message": "Delete this template?"
+    "message": "Slet denne skabelon?"
   },
   "chunkingPlayground_templates_hardDeleteLabel": {
-    "message": "Hard delete"
+    "message": "Hård sletning"
   },
   "chunkingPlayground_templates_noSelection": {
-    "message": "Select a template to view details."
+    "message": "Vælg en skabelon for at se detaljer."
   },
   "chunkingPlayground_templates_templateJsonLabel": {
-    "message": "Template JSON"
+    "message": "Skabelon‑JSON"
   },
   "chunkingPlayground_templates_overrideOptionsLabel": {
-    "message": "Override options (JSON)"
+    "message": "Tilsidesæt indstillinger (JSON)"
   },
   "chunkingPlayground_templates_includeMetadataLabel": {
-    "message": "Include metadata"
+    "message": "Medtag metadata"
   },
   "chunkingPlayground_templates_applyTextLabel": {
-    "message": "Text to apply template"
+    "message": "Tekst til at anvende skabelonen"
   },
   "chunkingPlayground_templates_applyTextPlaceholder": {
-    "message": "Paste text to chunk with this template"
+    "message": "Indsæt tekst der skal deles op med denne skabelon"
   },
   "chunkingPlayground_templates_validateLabel": {
-    "message": "Template JSON to validate"
+    "message": "Skabelon‑JSON til validering"
   },
   "chunkingPlayground_templates_matchMediaTypeLabel": {
-    "message": "Media type"
+    "message": "Medietype"
   },
   "chunkingPlayground_templates_matchTitleLabel": {
-    "message": "Title"
+    "message": "Titel"
   },
   "chunkingPlayground_templates_matchUrlLabel": {
     "message": "URL"
   },
   "chunkingPlayground_templates_matchFilenameLabel": {
-    "message": "Filename"
+    "message": "Filnavn"
   },
   "chunkingPlayground_templates_learnNameLabel": {
-    "message": "Template name"
+    "message": "Skabelonnavn"
   },
   "chunkingPlayground_templates_learnExampleLabel": {
-    "message": "Example text"
+    "message": "Eksempeltekst"
   },
   "chunkingPlayground_templates_learnDescriptionLabel": {
-    "message": "Description"
+    "message": "Beskrivelse"
   },
   "chunkingPlayground_templates_learnSaveLabel": {
-    "message": "Save template"
+    "message": "Gem skabelon"
   },
   "chunkingPlayground_templates_learnClassifierLabel": {
-    "message": "Classifier (JSON)"
+    "message": "Klassifikator (JSON)"
   },
   "chunkingPlayground_templates_jsonError": {
-    "message": "Invalid JSON. Please fix and try again."
+    "message": "Ugyldig JSON. Ret og prøv igen."
   },
   "chunkingPlayground_templates_nameRequired": {
-    "message": "Template name is required."
+    "message": "Skabelonnavn er påkrævet."
   },
   "chunkingPlayground_templates_updateAction": {
-    "message": "Update"
+    "message": "Opdater"
   },
   "chunkingPlayground_templates_applyAction": {
-    "message": "Apply"
+    "message": "Anvend"
   },
   "chunkingPlayground_templates_validateAction": {
-    "message": "Validate"
+    "message": "Validér"
   },
   "chunkingPlayground_templates_matchAction": {
     "message": "Match"
   },
   "chunkingPlayground_templates_learnAction": {
-    "message": "Learn"
+    "message": "Lær"
   },
   "chunkingPlayground_templates_diagnosticsAction": {
-    "message": "Run diagnostics"
+    "message": "Kør diagnostik"
   },
   "chunkingPlayground_capabilities_title": {
-    "message": "Chunking Capabilities"
+    "message": "Chunking‑funktioner"
   },
   "chunkingPlayground_capabilities_methodsLabel": {
-    "message": "Methods"
+    "message": "Metoder"
   },
   "chunkingPlayground_capabilities_llmLabel": {
-    "message": "LLM-required methods"
+    "message": "Metoder der kræver LLM"
   },
   "chunkingPlayground_capabilities_defaultsLabel": {
-    "message": "Default options"
+    "message": "Standardindstillinger"
   },
   "chunkingPlayground_capabilities_methodOptionsLabel": {
-    "message": "Method-specific options"
+    "message": "Metodespecifikke indstillinger"
   },
   "chunkingPlayground_capabilities_notesLabel": {
-    "message": "Notes"
+    "message": "Noter"
   }
 }

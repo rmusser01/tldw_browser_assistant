@@ -17,8 +17,8 @@
   },
   "selectAModel": "Sélectionner un modèle",
   "modelSelect": {
-    "label": "Model",
-    "tooltip": "Changes model for next message"
+    "label": "Modèle",
+    "tooltip": "Change le modèle pour le prochain message"
   },
   "save": "Enregistrer",
   "saved": "Enregistré",
@@ -67,11 +67,11 @@
   "webSearch": "Recherche sur le Web",
   "regenerate": "Régénérer",
   "edit": "Modifier",
-  "generate": "Generate",
-  "view": "View",
+  "generate": "Générer",
+  "view": "Voir",
   "delete": "Supprimer",
-  "deleteMessageConfirm": "Delete this message?",
-  "deleteFailed": "Delete failed",
+  "deleteMessageConfirm": "Supprimer ce message ?",
+  "deleteFailed": "Suppression échouée",
   "continue": "Continuer la réponse",
   "saveAndSubmit": "Enregistrer et soumettre",
   "editMessage": {
@@ -90,35 +90,35 @@
   "beta": "Bêta",
   "tts": "Synthèse vocale",
   "ttsShort": "Voix",
-  "reply": "Reply",
-  "replyShort": "Reply",
-  "replyingTo": "Replying to",
-  "clearReply": "Clear reply target",
+  "reply": "Répondre",
+  "replyShort": "Répondre",
+  "replyingTo": "Réponse à",
+  "clearReply": "Effacer la cible de réponse",
   "replyTargetFallback": "Message",
-  "artifactsTitle": "Artifact",
+  "artifactsTitle": "Artefact",
   "artifactsDefaultTitle": "Code",
-  "artifactsView": "View code",
-  "artifactsPin": "Pin",
-  "artifactsUnpin": "Unpin",
-  "artifactsClose": "Close",
-  "artifactsCopy": "Copy",
-  "artifactsDownload": "Download",
-  "artifactsRun": "Run",
+  "artifactsView": "Voir le code",
+  "artifactsPin": "Épingler",
+  "artifactsUnpin": "Désépingler",
+  "artifactsClose": "Fermer",
+  "artifactsCopy": "Copier",
+  "artifactsDownload": "Télécharger",
+  "artifactsRun": "Exécuter",
   "copyShort": "Copier",
   "branchShort": "Branche",
   "infoShort": "Infos",
-  "saveToNotes": "Save to Notes",
-  "saveToFlashcards": "Save to Flashcards",
-  "generateDocument": "Generate document",
+  "saveToNotes": "Enregistrer dans les notes",
+  "saveToFlashcards": "Enregistrer dans les cartes mémoire",
+  "generateDocument": "Générer un document",
   "documentShort": "Doc",
   "documentCard": {
     "removeAria": "Supprimer {{name}}"
   },
   "saveNoteShort": "Note",
-  "saveFlashcardShort": "Card",
-  "savedToNotes": "Saved to Notes",
-  "savedToFlashcards": "Saved to Flashcards",
-  "saveToNotesEmpty": "Nothing to save yet.",
+  "saveFlashcardShort": "Carte",
+  "savedToNotes": "Enregistré dans les notes",
+  "savedToFlashcards": "Enregistré dans les cartes mémoire",
+  "saveToNotesEmpty": "Rien à enregistrer pour l’instant.",
   "regenShort": "Relancer",
   "continueShort": "Plus",
   "fileChanges": "Modifications de fichiers",
@@ -213,55 +213,55 @@
         "help": "C'est un moyen rapide de définir le prompt système dans le chat actuel, qui remplacera le prompt système sélectionné si il existe."
       },
       "historyMessageLimit": {
-        "label": "History message limit",
-        "placeholder": "e.g. 10",
-        "help": "Limit how many previous messages are sent with each request."
+        "label": "Limite de messages d’historique",
+        "placeholder": "p. ex. 10",
+        "help": "Limiter le nombre de messages précédents envoyés avec chaque requête."
       },
       "historyMessageOrder": {
-        "label": "History message order",
-        "placeholder": "Select order",
-        "help": "Choose whether the newest or oldest messages are sent first.",
+        "label": "Ordre des messages d’historique",
+        "placeholder": "Sélectionner l’ordre",
+        "help": "Choisissez si les messages les plus récents ou les plus anciens sont envoyés en premier.",
         "options": {
-          "desc": "Newest first",
-          "asc": "Oldest first"
+          "desc": "Les plus récents d’abord",
+          "asc": "Les plus anciens d’abord"
         }
       },
       "slashCommandInjectionMode": {
-        "label": "Slash command injection",
-        "placeholder": "Select injection mode",
-        "help": "Choose how slash commands are inserted into the request.",
+        "label": "Injection de commande slash",
+        "placeholder": "Sélectionner le mode d’injection",
+        "help": "Choisissez comment les commandes slash sont insérées dans la requête.",
         "options": {
-          "system": "System message",
-          "preface": "Preface user message",
-          "replace": "Replace user message"
+          "system": "Message système",
+          "preface": "Préfixer le message utilisateur",
+          "replace": "Remplacer le message utilisateur"
         }
       },
       "apiProvider": {
-        "label": "API provider override",
-        "placeholder": "Select provider (optional)",
-        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+        "label": "Surcharge du fournisseur d’API",
+        "placeholder": "Sélectionner un fournisseur (optionnel)",
+        "help": "Forcer un fournisseur spécifique pour ce chat (p. ex. openai, anthropic)."
       },
       "extraHeaders": {
-        "label": "Extra headers (JSON)",
+        "label": "En-têtes supplémentaires (JSON)",
         "placeholder": "{ \"X-API-Key\": \"...\" }",
-        "help": "JSON object merged into request headers."
+        "help": "Objet JSON fusionné dans les en-têtes de requête."
       },
       "extraBody": {
-        "label": "Extra body (JSON)",
+        "label": "Corps supplémentaire (JSON)",
         "placeholder": "{ \"user\": \"...\" }",
-        "help": "JSON object merged into request body."
+        "help": "Objet JSON fusionné dans le corps de la requête."
       },
       "guardrails": {
-        "invalidJson": "Enter a valid JSON object."
+        "invalidJson": "Saisissez un objet JSON valide."
       }
     },
     "advanced": "Plus de paramètres du modèle",
-    "requestOverrides": "Request overrides",
+    "requestOverrides": "Surcharges de requête",
     "tabs": {
-      "model": "Model",
+      "model": "Modèle",
       "conversation": "Conversation",
-      "advanced": "Advanced",
-      "actor": "Scene Director"
+      "advanced": "Avancé",
+      "actor": "Directeur de scène"
     }
   },
   "copilot": {
@@ -346,7 +346,7 @@
     "friendlyGenericHint": "Réessayez dans un instant ou ouvrez État et diagnostics pour vérifier l'état du serveur.",
     "showDetails": "Afficher les détails techniques",
     "hideDetails": "Masquer les détails techniques",
-    "createFolder": "Failed to create folder"
+    "createFolder": "Échec de la création du dossier"
   },
   "folders": "Dossiers",
   "folderView": "Vue des dossiers",
@@ -362,33 +362,33 @@
   "untitled": "Sans titre",
   "moveToFolder": "Déplacer vers le dossier",
   "timeline": {
-    "title": "Conversation Timeline",
-    "searchPlaceholder": "Search messages... (space = AND)",
-    "searchMatches": "matches",
-    "searchNoMatches": "no matches",
+    "title": "Chronologie de la conversation",
+    "searchPlaceholder": "Rechercher des messages... (espace = ET)",
+    "searchMatches": "correspondances",
+    "searchNoMatches": "aucune correspondance",
     "searchMode": {
       "fragments": "Fragments",
-      "substring": "Substring",
+      "substring": "Sous-chaîne",
       "regex": "Regex"
     },
     "layout": {
-      "horizontal": "horizontal",
-      "vertical": "vertical"
+      "horizontal": "horizontale",
+      "vertical": "verticale"
     },
-    "refreshGraph": "Refresh graph",
-    "switchLayout": "Switch to {{layout}} layout",
-    "expandAllAlternatives": "Expand all alternatives",
-    "collapseAllAlternatives": "Collapse all alternatives",
-    "hideLegend": "Hide legend",
-    "showLegend": "Show legend",
-    "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out",
-    "unableLocateMessage": "Unable to locate the message for this action.",
-    "actionFailed": "Failed to perform timeline action. Please try again."
+    "refreshGraph": "Actualiser le graphe",
+    "switchLayout": "Passer à la disposition {{layout}}",
+    "expandAllAlternatives": "Développer toutes les alternatives",
+    "collapseAllAlternatives": "Réduire toutes les alternatives",
+    "hideLegend": "Masquer la légende",
+    "showLegend": "Afficher la légende",
+    "zoomIn": "Zoomer",
+    "zoomOut": "Dézoomer",
+    "unableLocateMessage": "Impossible de localiser le message pour cette action.",
+    "actionFailed": "Échec de l’action sur la chronologie. Veuillez réessayer."
   },
   "noToolCalls": "Aucun appel d’outil pour le moment",
   "sourceLabel": "Source",
-  "sourceOpen": "Open source",
+  "sourceOpen": "Ouvrir la source",
   "status": {
     "pending": "En attente",
     "running": "En cours",
@@ -473,8 +473,8 @@
     "expand": "Développer la barre latérale",
     "search": "Rechercher des chats...",
     "modeLabel": "Mode",
-    "modeCasual": "Casual",
-    "modePro": "Pro",
+    "modeCasual": "Décontracté",
+    "modePro": "Professionnel",
     "ingest": "Ingérer la page",
     "media": "Médias",
     "notes": "Notes",
@@ -527,9 +527,9 @@
   "hfPullException": "[tldw Assistant] Une erreur s’est produite lors de l’envoi d’une requête de récupération pour « $1 » à votre tldw_server. Assurez-vous que votre tldw_server et l’extension sont en cours d’exécution, puis réessayez.",
   "stepLabel": "Bienvenue",
   "path": "Comment souhaitez-vous commencer ?",
-  "nextSteps": "You’re ready to go",
-  "restartOnboardingLabel": "Restart onboarding from the beginning",
-  "restartOnboardingButton": "Restart onboarding",
-  "restartOnboardingConfirmTitle": "Restart onboarding?",
-  "restartOnboardingConfirmMessage": "This will reset your onboarding state and take you back to the setup flow."
+  "nextSteps": "Vous êtes prêt à commencer",
+  "restartOnboardingLabel": "Relancer l’onboarding depuis le début",
+  "restartOnboardingButton": "Relancer l’onboarding",
+  "restartOnboardingConfirmTitle": "Relancer l’onboarding ?",
+  "restartOnboardingConfirmMessage": "Cela réinitialisera votre état d’onboarding et vous ramènera au flux de configuration."
 }

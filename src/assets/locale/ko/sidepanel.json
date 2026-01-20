@@ -2,11 +2,11 @@
   "tooltip": {
     "embed": "페이지를 임베드하는 데 몇 분이 걸릴 수 있습니다. 잠시만 기다려 주세요...",
     "openwebui": "웹 UI 열기",
-    "clear": "Erase chat history",
-    "history": "Chat history"
+    "clear": "채팅 기록 지우기",
+    "history": "채팅 기록"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "RAG 검색"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant에서 데이터를 저장할 수 없습니다",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "임시 채팅",
-    "label": "Temp",
+    "label": "임시",
     "description": "이 채팅은 저장되지 않습니다. 닫거나 새 채팅을 시작하면 메시지가 삭제됩니다.",
     "clickHint": "클릭하여 비활성화",
     "ariaLabel": "임시 채팅 모드가 활성화되었습니다. 클릭하여 전환합니다.",
@@ -35,33 +35,33 @@
     "indicatorAria": "임시 채팅"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "인제스트",
+    "saveCurrent": "현재 페이지를 서버에 저장",
+    "processLocal": "현재 페이지를 로컬에서 처리",
+    "viewProcessed": "처리된 항목 보기",
+    "timeoutLabel": "시간 제한 (초)",
+    "toggleSidebar": "사이드바 / 전체 화면 전환",
+    "shortcuts": "단축키",
+    "showDebug": "스트림 디버그 표시",
+    "hideDebug": "스트림 디버그 숨기기",
+    "moreOptionsAria": "더 많은 옵션",
+    "moreOptionsTitle": "인제스트 및 기타",
+    "openWebuiAria": "웹 UI 열기",
+    "newChatAria": "새 채팅",
+    "tempChatAria": "임시 채팅 전환",
+    "clearHistoryAria": "기록 지우기",
+    "openHistoryAria": "기록 열기",
+    "openModelSettingsAria": "모델 설정 열기",
+    "openSettingsAria": "설정 열기",
+    "tempPill": "임시",
+    "modesLabel": "Web UI에서 모드 열기",
+    "modePlayground": "채팅",
+    "modeReview": "검토",
+    "modeMedia": "미디어",
+    "modeKnowledge": "지식 Q&A",
+    "modeNotes": "노트",
+    "modePrompts": "프롬프트",
+    "modeFlashcards": "플래시카드"
   },
   "controlRow": {
     "saveMode": "저장 모드",
@@ -80,21 +80,21 @@
     "moreTools": "추가 도구"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "메시지를 보내려면 설정에서 tldw 서버에 연결하세요.",
+    "connectingPlaceholder": "연결 중...",
+    "disconnectedPlaceholder": "메시지를 보내고 미디어를 보려면 설정에서 tldw 서버에 연결하세요."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "tldw 서버로 전송됨",
+    "ingestSentDesc": "현재 페이지가 인제스트용으로 제출되었습니다.",
+    "processedLocal": "로컬에서 처리됨",
+    "processedLocalDesc": "처리된 콘텐츠는 설정 > 처리됨에 로컬로 저장됩니다.",
+    "transcriptionTitle": "전사",
+    "transcriptionSummaryTitle": "전사 + 요약",
+    "transcriptionFallback": "전사가 완료되었습니다. Web UI에서 미디어를 열어 확인하세요.",
+    "sourceLabel": "출처",
+    "transcriptLabel": "전사본",
+    "summaryLabel": "요약"
   },
   "saveStatus": {
     "ephemeral": "임시: 저장되지 않으며 닫으면 삭제됩니다",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "첨부된 컨텍스트",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
+    "searchPlaceholder": "지식 베이스 검색...",
+    "search": "검색",
+    "show": "RAG 검색 표시",
+    "hide": "RAG 검색 숨기기",
+    "addTagPlaceholder": "태그 추가 (Enter)",
+    "add": "추가",
     "noResults": "결과 없음",
     "initialState": "결과 없음",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "요청 시간이 초과되었습니다.",
+      "increase": "시간 제한 늘리기",
+      "checkHealth": "서버 상태 확인"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "삽입",
+      "ask": "질문",
+      "open": "열기",
+      "copy": "복사"
     },
     "hint": {
       "message": "지식 베이스를 검색하고 결과를 메시지에 삽입하세요.",
@@ -135,13 +135,13 @@
     "closeTabAria": "채팅 탭 닫기"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "캐릭터",
+    "tooltip": "캐릭터 선택",
+    "search": "캐릭터 검색...",
+    "noMatches": "일치하는 캐릭터 없음",
+    "noCharacters": "사용 가능한 캐릭터 없음",
+    "none": "캐릭터 없음",
+    "createNewCharacter": "새 캐릭터 만들기+",
+    "importCharacter": "캐릭터 가져오기"
   }
 }

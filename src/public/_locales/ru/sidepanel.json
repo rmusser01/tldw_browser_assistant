@@ -12,7 +12,7 @@
     "message": "Открыть веб-интерфейс"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "Поиск RAG"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant не может сохранить данные"
@@ -57,7 +57,7 @@
     "message": "Временный чат"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "Врем."
   },
   "temporaryBadge_description": {
     "message": "Этот чат не будет сохранен. Сообщения будут удалены при закрытии или начале нового чата."
@@ -75,85 +75,85 @@
     "message": "Временный чат"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "Ингест"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "Сохранить текущую страницу на сервере"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "Обработать текущую страницу локально"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "Просмотреть обработанное"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "Тайм‑аут (с)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "Переключить боковую панель / полный экран"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "Горячие клавиши"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "Показать отладку потока"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "Скрыть отладку потока"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "Больше опций"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "Ингест и другое"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "Открыть Web UI"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "Новый чат"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "Переключить временный чат"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "Очистить историю"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "Открыть историю"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "Открыть настройки модели"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "Открыть настройки"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "Врем."
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "Открыть режимы в Web UI"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "Чат"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "Обзор нескольких элементов"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "Медиа"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "QA по знаниям"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "Заметки"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "Подсказки"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "Карточки"
   },
   "controlRow_saveMode": {
     "message": "Режим сохранения"
@@ -198,43 +198,43 @@
     "message": "Больше инструментов"
   },
   "composer_connectHint": {
-    "message": "Connect to your tldw server in Settings to send messages."
+    "message": "Подключитесь к серверу tldw в настройках, чтобы отправлять сообщения."
   },
   "composer_connectingPlaceholder": {
-    "message": "Connecting..."
+    "message": "Подключение..."
   },
   "composer_disconnectedPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Подключитесь к серверу tldw в настройках, чтобы отправлять сообщения и просматривать медиа."
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "Отправлено на сервер tldw"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "Текущая страница отправлена на ингест."
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "Обработано локально"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "Обработанный контент хранится локально в Настройки > Обработанное."
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "Транскрипция"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "Транскрипция + резюме"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "Транскрипция завершена. Откройте Медиа в Web UI, чтобы посмотреть."
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "Источник"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "Транскрипция"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "Резюме"
   },
   "saveStatus_ephemeral": {
     "message": "Временный: не сохраняется, очищается при закрытии"
@@ -252,46 +252,46 @@
     "message": "Теперь чат сохраняется только локально. Проверьте соединение и попробуйте снова."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "Поиск по базе знаний..."
   },
   "rag_search": {
-    "message": "Search"
+    "message": "Поиск"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "Показать поиск RAG"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "Скрыть поиск RAG"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "Добавить тег (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "Добавить"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "Нет результатов"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "Время ожидания запроса истекло."
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "Увеличить тайм‑аут"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "Проверить состояние сервера"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "Вставить"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "Спросить"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "Открыть"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "Копировать"
   },
   "rag_hint_message": {
     "message": "Ищите в своей базе знаний и вставляйте результаты в сообщение."
@@ -309,33 +309,33 @@
     "message": "Закрыть вкладку чата"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "Персонаж"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "Выберите персонажа"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "Поиск персонажей..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "Нет подходящих персонажей"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "Нет доступных персонажей"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "Без персонажа"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Создать нового персонажа+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "Импортировать персонажа"
   },
   "rag_attachedContext": {
     "message": "Прикрепленный контекст"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "Пока нет результатов"
   }
 }

@@ -6,7 +6,7 @@
     "openwebui": "Åpne WebUI"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "RAG-søk"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant kan ikke lagre data",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "Midlertidig chat",
-    "label": "Temp",
+    "label": "Midl.",
     "description": "Denne chatten blir ikke lagret. Meldinger slettes når du lukker eller starter en ny chat.",
     "clickHint": "Klikk for å deaktivere",
     "ariaLabel": "Midlertidig chatmodus er aktiv. Klikk for å bytte.",
@@ -35,33 +35,33 @@
     "indicatorAria": "Midlertidig chat"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "Innhenting",
+    "saveCurrent": "Lagre gjeldende side på serveren",
+    "processLocal": "Behandle gjeldende side lokalt",
+    "viewProcessed": "Vis behandlet",
+    "timeoutLabel": "Tidsavbrudd (s)",
+    "toggleSidebar": "Veksle sidepanel / fullskjerm",
+    "shortcuts": "Hurtigtaster",
+    "showDebug": "Vis strømdebugg",
+    "hideDebug": "Skjul strømdebugg",
+    "moreOptionsAria": "Flere alternativer",
+    "moreOptionsTitle": "Innhenting og mer",
+    "openWebuiAria": "Åpne Web UI",
+    "newChatAria": "Ny chat",
+    "tempChatAria": "Veksle midlertidig chat",
+    "clearHistoryAria": "Tøm historikk",
+    "openHistoryAria": "Åpne historikk",
+    "openModelSettingsAria": "Åpne modellinnstillinger",
+    "openSettingsAria": "Åpne innstillinger",
+    "tempPill": "Midl.",
+    "modesLabel": "Åpne moduser i Web UI",
+    "modePlayground": "Samtale",
+    "modeReview": "Gjennomgang",
+    "modeMedia": "Medier",
+    "modeKnowledge": "Kunnskap Q&A",
+    "modeNotes": "Notater",
+    "modePrompts": "Prompter",
+    "modeFlashcards": "Flashkort"
   },
   "controlRow": {
     "saveMode": "Lagringsmodus",
@@ -72,29 +72,29 @@
     "uploadImage": "Last opp bilde",
     "quickIngest": "Hurtiginnlasting av side",
     "openInFullUI": "Åpne i fullverdig grensesnitt",
-    "modeChat": "Chat",
-    "modeMedia": "Media",
+    "modeChat": "Samtale",
+    "modeMedia": "Medier",
     "modeNotes": "Notater",
     "modeFlashcards": "Læringskort",
     "ragSearch": "RAG-søk",
     "moreTools": "Flere verktøy"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "Koble til tldw-serveren din i Innstillinger for å sende meldinger.",
+    "connectingPlaceholder": "Kobler til...",
+    "disconnectedPlaceholder": "Koble til tldw-serveren din i Innstillinger for å sende meldinger og se medier."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "Sendt til tldw-serveren",
+    "ingestSentDesc": "Gjeldende side er sendt inn for innhenting.",
+    "processedLocal": "Behandlet lokalt",
+    "processedLocalDesc": "Behandlet innhold lagres lokalt under Innstillinger > Behandlet.",
+    "transcriptionTitle": "Transkripsjon",
+    "transcriptionSummaryTitle": "Transkripsjon + sammendrag",
+    "transcriptionFallback": "Transkripsjon fullført. Åpne Medier i Web UI for å se den.",
+    "sourceLabel": "Kilde",
+    "transcriptLabel": "Transkripsjon",
+    "summaryLabel": "Sammendrag"
   },
   "saveStatus": {
     "ephemeral": "Midlertidig: ikke lagret, slettes ved lukking",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "Vedlagt kontekst",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "Søk i kunnskapsbasen din…",
+    "search": "Søk",
+    "show": "Vis RAG-søk",
+    "hide": "Skjul RAG-søk",
+    "addTagPlaceholder": "Legg til tagg (Enter)",
+    "add": "Legg til",
+    "noResults": "Ingen resultater",
+    "initialState": "Ingen resultater",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "Forespørselen ble tidsavbrutt.",
+      "increase": "Øk tidsavbrudd",
+      "checkHealth": "Sjekk serverstatus"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "Sett inn",
+      "ask": "Spør",
+      "open": "Åpne",
+      "copy": "Kopier"
     },
     "hint": {
       "message": "Søk i kunnskapsbasen din og sett inn resultater i meldingen din.",
@@ -135,13 +135,13 @@
     "closeTabAria": "Lukk chattefane"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "Karakter",
+    "tooltip": "Velg en karakter",
+    "search": "Søk etter karakterer...",
+    "noMatches": "Ingen matchende karakterer",
+    "noCharacters": "Ingen karakterer tilgjengelig",
+    "none": "Ingen karakter",
+    "createNewCharacter": "Opprett ny karakter+",
+    "importCharacter": "Importer karakter"
   }
 }

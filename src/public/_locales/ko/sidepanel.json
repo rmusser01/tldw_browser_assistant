@@ -6,13 +6,13 @@
     "message": "웹 UI 열기"
   },
   "tooltip_clear": {
-    "message": "Erase chat history"
+    "message": "채팅 기록 지우기"
   },
   "tooltip_history": {
-    "message": "Chat history"
+    "message": "채팅 기록"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "RAG 검색"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant에서 데이터를 저장할 수 없습니다"
@@ -57,7 +57,7 @@
     "message": "임시 채팅"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "임시"
   },
   "temporaryBadge_description": {
     "message": "이 채팅은 저장되지 않습니다. 닫거나 새 채팅을 시작하면 메시지가 삭제됩니다."
@@ -75,85 +75,85 @@
     "message": "임시 채팅"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "인제스트"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "현재 페이지를 서버에 저장"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "현재 페이지를 로컬에서 처리"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "처리된 항목 보기"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "시간 제한 (초)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "사이드바 / 전체 화면 전환"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "단축키"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "스트림 디버그 표시"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "스트림 디버그 숨기기"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "더 많은 옵션"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "인제스트 및 기타"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "웹 UI 열기"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "새 채팅"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "임시 채팅 전환"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "기록 지우기"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "기록 열기"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "모델 설정 열기"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "설정 열기"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "임시"
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "Web UI에서 모드 열기"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "채팅"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "검토"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "미디어"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "지식 Q&A"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "노트"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "프롬프트"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "플래시카드"
   },
   "controlRow_saveMode": {
     "message": "저장 모드"
@@ -198,43 +198,43 @@
     "message": "추가 도구"
   },
   "composer_connectHint": {
-    "message": "Connect to your tldw server in Settings to send messages."
+    "message": "메시지를 보내려면 설정에서 tldw 서버에 연결하세요."
   },
   "composer_connectingPlaceholder": {
-    "message": "Connecting..."
+    "message": "연결 중..."
   },
   "composer_disconnectedPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "메시지를 보내고 미디어를 보려면 설정에서 tldw 서버에 연결하세요."
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "tldw 서버로 전송됨"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "현재 페이지가 인제스트용으로 제출되었습니다."
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "로컬에서 처리됨"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "처리된 콘텐츠는 설정 > 처리됨에 로컬로 저장됩니다."
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "전사"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "전사 + 요약"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "전사가 완료되었습니다. Web UI에서 미디어를 열어 확인하세요."
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "출처"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "전사본"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "요약"
   },
   "saveStatus_ephemeral": {
     "message": "임시: 저장되지 않으며 닫으면 삭제됩니다"
@@ -252,46 +252,46 @@
     "message": "이제 채팅이 로컬에만 저장됩니다. 연결을 확인하고 다시 시도하세요."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "지식 베이스 검색..."
   },
   "rag_search": {
-    "message": "Search"
+    "message": "검색"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "RAG 검색 표시"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "RAG 검색 숨기기"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "태그 추가 (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "추가"
   },
   "rag_noResults": {
     "message": "결과 없음"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "요청 시간이 초과되었습니다."
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "시간 제한 늘리기"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "서버 상태 확인"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "삽입"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "질문"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "열기"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "복사"
   },
   "rag_hint_message": {
     "message": "지식 베이스를 검색하고 결과를 메시지에 삽입하세요."
@@ -309,28 +309,28 @@
     "message": "채팅 탭 닫기"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "캐릭터"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "캐릭터 선택"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "캐릭터 검색..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "일치하는 캐릭터 없음"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "사용 가능한 캐릭터 없음"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "캐릭터 없음"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "새 캐릭터 만들기+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "캐릭터 가져오기"
   },
   "rag_attachedContext": {
     "message": "첨부된 컨텍스트"

@@ -135,13 +135,13 @@
     "closeTabAria": "ചാറ്റ് ടാബ് അടയ്ക്കുക"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "കഥാപാത്രം",
+    "tooltip": "ഒരു കഥാപാത്രം തിരഞ്ഞെടുക്കുക",
+    "search": "കഥാപാത്രങ്ങൾ തിരയുക...",
+    "noMatches": "പൊരുത്തമുള്ള കഥാപാത്രങ്ങൾ ഇല്ല",
+    "noCharacters": "കഥാപാത്രങ്ങൾ ലഭ്യമല്ല",
+    "none": "കഥാപാത്രമില്ല",
+    "createNewCharacter": "പുതിയ കഥാപാത്രം സൃഷ്ടിക്കുക+",
+    "importCharacter": "കഥാപാത്രം ഇമ്പോർട്ട് ചെയ്യുക"
   }
 }

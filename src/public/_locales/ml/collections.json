@@ -150,7 +150,7 @@
     "message": "സ്റ്റാറ്റസ് {{status}} ആയി അപ്‌ഡേറ്റ് ചെയ്തു"
   },
   "reading_urlLabel": {
-    "message": "URL"
+    "message": "യുആർഎൽ"
   },
   "reading_urlRequired": {
     "message": "ദയവായി URL നൽകുക"
@@ -426,7 +426,7 @@
     "message": "ബ്രീഫിംഗ് (MD)"
   },
   "templateTypes_mece_markdown": {
-    "message": "MECE (MD)"
+    "message": "എംഇസി (MD)"
   },
   "templateTypes_newsletter_html": {
     "message": "ന്യൂസ്‌ലെറ്റർ (HTML)"
@@ -447,19 +447,19 @@
     "message": "സ്വയമേവ കണ്ടെത്തുക"
   },
   "import_sources_auto_description": {
-    "message": "Pocket അല്ലെങ്കിൽ Instapaper എക്സ്പോർട്ട് ഫയൽ അപ്‌ലോഡ് ചെയ്ത് ഫോർമാറ്റ് സ്വയം കണ്ടെത്തുക"
+    "message": "പോക്കറ്റ് അല്ലെങ്കിൽ ഇൻസ്റ്റാപേപ്പർ എക്സ്പോർട്ട് ഫയൽ അപ്‌ലോഡ് ചെയ്ത് ഫോർമാറ്റ് സ്വയം കണ്ടെത്തുക"
   },
   "import_sources_pocket_label": {
-    "message": "Pocket"
+    "message": "പോക്കറ്റ്"
   },
   "import_sources_pocket_description": {
-    "message": "Pocket എക്സ്പോർട്ടിൽ നിന്ന് സംരക്ഷിച്ച ലേഖനങ്ങൾ ഇറക്കുമതി ചെയ്യുക"
+    "message": "പോക്കറ്റ് എക്സ്പോർട്ടിൽ നിന്ന് സംരക്ഷിച്ച ലേഖനങ്ങൾ ഇറക്കുമതി ചെയ്യുക"
   },
   "import_sources_instapaper_label": {
-    "message": "Instapaper"
+    "message": "ഇൻസ്റ്റാപേപ്പർ"
   },
   "import_sources_instapaper_description": {
-    "message": "Instapaper എക്സ്പോർട്ടിൽ നിന്ന് ലേഖനങ്ങൾ ഇറക്കുമതി ചെയ്യുക"
+    "message": "ഇൻസ്റ്റാപേപ്പർ എക്സ്പോർട്ടിൽ നിന്ന് ലേഖനങ്ങൾ ഇറക്കുമതി ചെയ്യുക"
   },
   "import_methodFile": {
     "message": "ഫയൽ അപ്‌ലോഡ്"
@@ -486,7 +486,7 @@
     "message": "അപ്‌ലോഡ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക അല്ലെങ്കിൽ ഫയൽ ഡ്രാഗ് ചെയ്യുക"
   },
   "import_formats": {
-    "message": "Pocket JSON, Instapaper CSV പിന്തുണയ്ക്കുന്നു"
+    "message": "പോക്കറ്റ് JSON, ഇൻസ്റ്റാപേപ്പർ CSV പിന്തുണയ്ക്കുന്നു"
   },
   "import_previewHint": {
     "message": "{{count}} ഇനങ്ങൾ കണ്ടെത്തി"
@@ -531,10 +531,10 @@
     "message": "ഫോർമാറ്റ്"
   },
   "export_formats_jsonl": {
-    "message": "JSONL"
+    "message": "JSONL ഫോർമാറ്റ്"
   },
   "export_formats_zip": {
-    "message": "ZIP"
+    "message": "ZIP ഫോർമാറ്റ്"
   },
   "export_options": {
     "message": "ഓപ്ഷനുകൾ"

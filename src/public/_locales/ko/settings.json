@@ -2745,43 +2745,43 @@
     "message": "비교"
   },
   "chunkingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "설정"
   },
   "chunkingPlayground_tabTemplates": {
-    "message": "Templates"
+    "message": "템플릿"
   },
   "chunkingPlayground_tabCapabilities": {
-    "message": "Capabilities"
+    "message": "기능"
   },
   "chunkingPlayground_appliedOptionsTitle": {
-    "message": "Applied options"
+    "message": "적용된 옵션"
   },
   "chunkingPlayground_responseMetaTitle": {
-    "message": "Response metadata"
+    "message": "응답 메타데이터"
   },
   "chunkingPlayground_inlineUnavailable": {
-    "message": "Inline view requires character offsets; switch to Cards to inspect chunks."
+    "message": "인라인 보기에는 문자 오프셋이 필요합니다. 청크를 확인하려면 카드로 전환하세요."
   },
   "chunkingPlayground_metadataLabel": {
-    "message": "Metadata"
+    "message": "메타데이터"
   },
   "chunkingPlayground_advanced_title": {
-    "message": "Advanced Options"
+    "message": "고급 옵션"
   },
   "chunkingPlayground_advanced_methodRequiresLlm": {
-    "message": "This method requires an LLM provider on the server."
+    "message": "이 방법에는 서버의 LLM 제공자가 필요합니다."
   },
   "chunkingPlayground_advanced_templateNameLabel": {
-    "message": "Template name"
+    "message": "템플릿 이름"
   },
   "chunkingPlayground_advanced_templateNamePlaceholder": {
-    "message": "Select or type a template name"
+    "message": "템플릿 이름을 선택하거나 입력하세요"
   },
   "chunkingPlayground_advanced_templateOverridesHint": {
-    "message": "Template defaults are applied first; form values override them."
+    "message": "템플릿 기본값이 먼저 적용되며, 폼 값이 이를 덮어씁니다."
   },
   "chunkingPlayground_advanced_requestModeLabel": {
-    "message": "Request Endpoint"
+    "message": "요청 엔드포인트"
   },
   "chunkingPlayground_advanced_requestModeJson": {
     "message": "JSON (/chunk_text)"
@@ -2790,234 +2790,234 @@
     "message": "Multipart (/chunk_file)"
   },
   "chunkingPlayground_advanced_requestModeHint": {
-    "message": "Use JSON for full option support; multipart matches /chunk_file."
+    "message": "전체 옵션 지원을 위해 JSON을 사용하세요. multipart는 /chunk_file과 동일합니다."
   },
   "chunkingPlayground_advanced_tokenizerLabel": {
-    "message": "Tokenizer"
+    "message": "토크나이저"
   },
   "chunkingPlayground_advanced_tokenizerPlaceholder": {
-    "message": "Tokenizer name or path (e.g., gpt2)"
+    "message": "토크나이저 이름 또는 경로 (예: gpt2)"
   },
   "chunkingPlayground_advanced_adaptiveLabel": {
-    "message": "Adaptive chunking"
+    "message": "적응형 청킹"
   },
   "chunkingPlayground_advanced_multiLevelLabel": {
-    "message": "Multi-level chunking"
+    "message": "다단계 청킹"
   },
   "chunkingPlayground_advanced_codeModeLabel": {
-    "message": "Code mode"
+    "message": "코드 모드"
   },
   "chunkingPlayground_advanced_codeModeHint": {
-    "message": "Controls how code is parsed when method is 'code'."
+    "message": "메서드가 'code'일 때 코드가 어떻게 파싱되는지 제어합니다."
   },
   "chunkingPlayground_advanced_semanticSimilarityLabel": {
-    "message": "Semantic similarity threshold"
+    "message": "의미 유사도 임계값"
   },
   "chunkingPlayground_advanced_semanticOverlapLabel": {
-    "message": "Semantic overlap sentences"
+    "message": "의미적 겹침 문장 수"
   },
   "chunkingPlayground_advanced_jsonKeyLabel": {
-    "message": "JSON chunkable key"
+    "message": "JSON 청킹 키"
   },
   "chunkingPlayground_advanced_frontmatterLabel": {
-    "message": "Enable frontmatter parsing"
+    "message": "frontmatter 파싱 활성화"
   },
   "chunkingPlayground_advanced_frontmatterSentinelLabel": {
-    "message": "Frontmatter sentinel key"
+    "message": "frontmatter 센티널 키"
   },
   "chunkingPlayground_advanced_customChapterPatternLabel": {
-    "message": "Custom chapter pattern"
+    "message": "사용자 정의 챕터 패턴"
   },
   "chunkingPlayground_advanced_summarizationDetailLabel": {
-    "message": "Summarization detail"
+    "message": "요약 상세도"
   },
   "chunkingPlayground_advanced_llmOptionsTitle": {
-    "message": "LLM Options (internal steps)"
+    "message": "LLM 옵션(내부 단계)"
   },
   "chunkingPlayground_advanced_llmTemperatureLabel": {
-    "message": "LLM temperature"
+    "message": "LLM 온도"
   },
   "chunkingPlayground_advanced_llmSystemPromptLabel": {
-    "message": "LLM system prompt"
+    "message": "LLM 시스템 프롬프트"
   },
   "chunkingPlayground_advanced_llmMaxTokensLabel": {
-    "message": "LLM max tokens"
+    "message": "LLM 최대 토큰"
   },
   "chunkingPlayground_advanced_propositionEngineLabel": {
-    "message": "Proposition engine"
+    "message": "명제 엔진"
   },
   "chunkingPlayground_advanced_propositionAggressivenessLabel": {
-    "message": "Proposition aggressiveness"
+    "message": "명제 강도"
   },
   "chunkingPlayground_advanced_propositionMinLengthLabel": {
-    "message": "Min proposition length"
+    "message": "최소 명제 길이"
   },
   "chunkingPlayground_advanced_propositionPromptProfileLabel": {
-    "message": "Proposition prompt profile"
+    "message": "명제 프롬프트 프로필"
   },
   "chunkingPlayground_advanced_resetDefaults": {
-    "message": "Reset to defaults"
+    "message": "기본값으로 재설정"
   },
   "chunkingPlayground_templates_title": {
-    "message": "Chunking Templates"
+    "message": "청킹 템플릿"
   },
   "chunkingPlayground_templates_description": {
-    "message": "Manage, validate, and apply chunking templates."
+    "message": "청킹 템플릿을 관리, 검증, 적용합니다."
   },
   "chunkingPlayground_templates_tabBrowse": {
-    "message": "Browse"
+    "message": "찾아보기"
   },
   "chunkingPlayground_templates_tabEditor": {
-    "message": "Editor"
+    "message": "에디터"
   },
   "chunkingPlayground_templates_tabApply": {
-    "message": "Apply"
+    "message": "적용"
   },
   "chunkingPlayground_templates_tabValidate": {
-    "message": "Validate"
+    "message": "검증"
   },
   "chunkingPlayground_templates_tabMatch": {
-    "message": "Match"
+    "message": "일치"
   },
   "chunkingPlayground_templates_tabLearn": {
-    "message": "Learn"
+    "message": "학습"
   },
   "chunkingPlayground_templates_tabDiagnostics": {
-    "message": "Diagnostics"
+    "message": "진단"
   },
   "chunkingPlayground_templates_filtersTitle": {
-    "message": "Filters"
+    "message": "필터"
   },
   "chunkingPlayground_templates_includeBuiltin": {
-    "message": "Include built-in"
+    "message": "기본 포함"
   },
   "chunkingPlayground_templates_includeCustom": {
-    "message": "Include custom"
+    "message": "사용자 정의 포함"
   },
   "chunkingPlayground_templates_tagsLabel": {
-    "message": "Tags"
+    "message": "태그"
   },
   "chunkingPlayground_templates_tagsPlaceholder": {
-    "message": "Add tags"
+    "message": "태그 추가"
   },
   "chunkingPlayground_templates_userIdLabel": {
-    "message": "User ID"
+    "message": "사용자 ID"
   },
   "chunkingPlayground_templates_selectLabel": {
-    "message": "Template"
+    "message": "템플릿"
   },
   "chunkingPlayground_templates_selectPlaceholder": {
-    "message": "Select a template"
+    "message": "템플릿 선택"
   },
   "chunkingPlayground_templates_detailsTitle": {
-    "message": "Template details"
+    "message": "템플릿 세부 정보"
   },
   "chunkingPlayground_templates_isBuiltin": {
-    "message": "Built-in"
+    "message": "기본 제공"
   },
   "chunkingPlayground_templates_version": {
-    "message": "Version"
+    "message": "버전"
   },
   "chunkingPlayground_templates_updatedAt": {
-    "message": "Updated"
+    "message": "업데이트됨"
   },
   "chunkingPlayground_templates_loadIntoEditor": {
-    "message": "Load into editor"
+    "message": "에디터에 불러오기"
   },
   "chunkingPlayground_templates_deleteConfirm": {
-    "message": "Delete this template?"
+    "message": "이 템플릿을 삭제할까요?"
   },
   "chunkingPlayground_templates_hardDeleteLabel": {
-    "message": "Hard delete"
+    "message": "완전 삭제"
   },
   "chunkingPlayground_templates_noSelection": {
-    "message": "Select a template to view details."
+    "message": "세부 정보를 보려면 템플릿을 선택하세요."
   },
   "chunkingPlayground_templates_templateJsonLabel": {
-    "message": "Template JSON"
+    "message": "템플릿 JSON"
   },
   "chunkingPlayground_templates_overrideOptionsLabel": {
-    "message": "Override options (JSON)"
+    "message": "옵션 재정의 (JSON)"
   },
   "chunkingPlayground_templates_includeMetadataLabel": {
-    "message": "Include metadata"
+    "message": "메타데이터 포함"
   },
   "chunkingPlayground_templates_applyTextLabel": {
-    "message": "Text to apply template"
+    "message": "템플릿을 적용할 텍스트"
   },
   "chunkingPlayground_templates_applyTextPlaceholder": {
-    "message": "Paste text to chunk with this template"
+    "message": "이 템플릿으로 청킹할 텍스트를 붙여넣으세요"
   },
   "chunkingPlayground_templates_validateLabel": {
-    "message": "Template JSON to validate"
+    "message": "검증할 템플릿 JSON"
   },
   "chunkingPlayground_templates_matchMediaTypeLabel": {
-    "message": "Media type"
+    "message": "미디어 유형"
   },
   "chunkingPlayground_templates_matchTitleLabel": {
-    "message": "Title"
+    "message": "제목"
   },
   "chunkingPlayground_templates_matchUrlLabel": {
     "message": "URL"
   },
   "chunkingPlayground_templates_matchFilenameLabel": {
-    "message": "Filename"
+    "message": "파일 이름"
   },
   "chunkingPlayground_templates_learnNameLabel": {
-    "message": "Template name"
+    "message": "템플릿 이름"
   },
   "chunkingPlayground_templates_learnExampleLabel": {
-    "message": "Example text"
+    "message": "예시 텍스트"
   },
   "chunkingPlayground_templates_learnDescriptionLabel": {
-    "message": "Description"
+    "message": "설명"
   },
   "chunkingPlayground_templates_learnSaveLabel": {
-    "message": "Save template"
+    "message": "템플릿 저장"
   },
   "chunkingPlayground_templates_learnClassifierLabel": {
-    "message": "Classifier (JSON)"
+    "message": "분류기 (JSON)"
   },
   "chunkingPlayground_templates_jsonError": {
-    "message": "Invalid JSON. Please fix and try again."
+    "message": "잘못된 JSON입니다. 수정 후 다시 시도하세요."
   },
   "chunkingPlayground_templates_nameRequired": {
-    "message": "Template name is required."
+    "message": "템플릿 이름은 필수입니다."
   },
   "chunkingPlayground_templates_updateAction": {
-    "message": "Update"
+    "message": "업데이트"
   },
   "chunkingPlayground_templates_applyAction": {
-    "message": "Apply"
+    "message": "적용"
   },
   "chunkingPlayground_templates_validateAction": {
-    "message": "Validate"
+    "message": "검증"
   },
   "chunkingPlayground_templates_matchAction": {
-    "message": "Match"
+    "message": "일치"
   },
   "chunkingPlayground_templates_learnAction": {
-    "message": "Learn"
+    "message": "학습"
   },
   "chunkingPlayground_templates_diagnosticsAction": {
-    "message": "Run diagnostics"
+    "message": "진단 실행"
   },
   "chunkingPlayground_capabilities_title": {
-    "message": "Chunking Capabilities"
+    "message": "청킹 기능"
   },
   "chunkingPlayground_capabilities_methodsLabel": {
-    "message": "Methods"
+    "message": "방법"
   },
   "chunkingPlayground_capabilities_llmLabel": {
-    "message": "LLM-required methods"
+    "message": "LLM이 필요한 방법"
   },
   "chunkingPlayground_capabilities_defaultsLabel": {
-    "message": "Default options"
+    "message": "기본 옵션"
   },
   "chunkingPlayground_capabilities_methodOptionsLabel": {
-    "message": "Method-specific options"
+    "message": "방법별 옵션"
   },
   "chunkingPlayground_capabilities_notesLabel": {
-    "message": "Notes"
+    "message": "메모"
   }
 }

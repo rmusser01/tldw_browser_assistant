@@ -6,7 +6,7 @@
     "openwebui": "Abrir WebUI"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "Pesquisa RAG"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant não pode salvar dados",
@@ -35,33 +35,33 @@
     "indicatorAria": "Chat temporário"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
+    "ingest": "Ingestão",
+    "saveCurrent": "Salvar a página atual no servidor",
+    "processLocal": "Processar a página atual localmente",
+    "viewProcessed": "Ver processados",
+    "timeoutLabel": "Tempo limite (s)",
+    "toggleSidebar": "Alternar barra lateral / tela cheia",
+    "shortcuts": "Atalhos",
+    "showDebug": "Mostrar depuração de stream",
+    "hideDebug": "Ocultar depuração de stream",
+    "moreOptionsAria": "Mais opções",
+    "moreOptionsTitle": "Ingestão e mais",
+    "openWebuiAria": "Abrir Web UI",
+    "newChatAria": "Nova conversa",
+    "tempChatAria": "Alternar chat temporário",
+    "clearHistoryAria": "Limpar histórico",
+    "openHistoryAria": "Abrir histórico",
+    "openModelSettingsAria": "Abrir configurações do modelo",
+    "openSettingsAria": "Abrir configurações",
     "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
+    "modesLabel": "Abrir modos na Web UI",
     "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "modeReview": "Revisão de vários itens",
+    "modeMedia": "Mídia",
+    "modeKnowledge": "Conhecimento",
+    "modeNotes": "Notas",
+    "modePrompts": "Instruções",
+    "modeFlashcards": "Cartões de estudo"
   },
   "controlRow": {
     "saveMode": "Modo de Salvamento",
@@ -80,21 +80,21 @@
     "moreTools": "Mais ferramentas"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "Conecte-se ao seu servidor tldw nas Configurações para enviar mensagens.",
+    "connectingPlaceholder": "Conectando...",
+    "disconnectedPlaceholder": "Conecte-se ao seu servidor tldw nas Configurações para enviar mensagens e ver mídias."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "Enviado ao servidor tldw",
+    "ingestSentDesc": "A página atual foi enviada para ingestão.",
+    "processedLocal": "Processado localmente",
+    "processedLocalDesc": "Conteúdo processado armazenado localmente em Configurações > Processados.",
+    "transcriptionTitle": "Transcrição",
+    "transcriptionSummaryTitle": "Transcrição + resumo",
+    "transcriptionFallback": "Transcrição concluída. Abra Mídia na Web UI para ver.",
+    "sourceLabel": "Fonte",
+    "transcriptLabel": "Transcrição",
+    "summaryLabel": "Resumo"
   },
   "saveStatus": {
     "ephemeral": "Temporário: não salvo, apagado ao fechar",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "Contexto anexado",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "Pesquise seu conhecimento...",
+    "search": "Pesquisar",
+    "show": "Mostrar pesquisa RAG",
+    "hide": "Ocultar pesquisa RAG",
+    "addTagPlaceholder": "Adicionar tag (Enter)",
+    "add": "Adicionar",
+    "noResults": "Nenhum resultado",
+    "initialState": "Ainda sem resultados",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "A solicitação expirou.",
+      "increase": "Aumentar tempo limite",
+      "checkHealth": "Verificar estado do servidor"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "Inserir",
+      "ask": "Perguntar",
+      "open": "Abrir",
+      "copy": "Copiar"
     },
     "hint": {
       "message": "Pesquise na sua base de conhecimento e insira os resultados na sua mensagem.",
@@ -135,13 +135,13 @@
     "closeTabAria": "Fechar aba de conversa"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "Personagem",
+    "tooltip": "Selecione um personagem",
+    "search": "Pesquisar personagens...",
+    "noMatches": "Nenhum personagem correspondente",
+    "noCharacters": "Nenhum personagem disponível",
+    "none": "Sem personagem",
+    "createNewCharacter": "Criar um novo personagem+",
+    "importCharacter": "Importar personagem"
   }
 }

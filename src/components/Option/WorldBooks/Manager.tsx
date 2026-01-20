@@ -112,7 +112,20 @@ export const WorldBooksManager: React.FC = () => {
           }}>Stats</button>
         </Tooltip>
         <Tooltip title="Delete">
-          <button className="text-danger" disabled={deleting} onClick={async () => { const ok = await confirmDanger({ title: 'Please confirm', content: 'Delete this world book?', okText: 'Delete', cancelText: 'Cancel' }); if (ok) deleteWB(record.id) }}>
+          <button
+            className="text-danger"
+            disabled={deleting}
+            onClick={async () => {
+              const ok = await confirmDanger({
+                title: "Please confirm",
+                content: "Delete this world book?",
+                okText: "Delete",
+                cancelText: "Cancel",
+                autoFocusButton: "ok"
+              })
+              if (ok) deleteWB(record.id)
+            }}
+          >
             <Trash2 className="w-4 h-4" />
           </button>
         </Tooltip>
@@ -212,7 +225,14 @@ export const WorldBooksManager: React.FC = () => {
       <Modal title="Attach to Character" open={!!openAttach} onCancel={() => setOpenAttach(null)} footer={null}>
         <Form layout="vertical" form={attachForm} onFinish={async (v) => { if (openAttach && v.character_id) { await tldwClient.attachWorldBookToCharacter(v.character_id, openAttach); notification.success({ message: 'Attached' }); setOpenAttach(null) } }}>
           <Form.Item name="character_id" label="Character" rules={[{ required: true }]}>
-            <Select showSearch options={(characters||[]).map((c: any) => ({ label: c.name, value: c.id }))} />
+            <Select
+              showSearch
+              optionFilterProp="label"
+              options={(characters || []).map((c: any) => ({
+                label: c.name,
+                value: c.id
+              }))}
+            />
           </Form.Item>
           <Button type="primary" htmlType="submit" className="w-full">Attach</Button>
         </Form>

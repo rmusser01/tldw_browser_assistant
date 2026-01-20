@@ -771,13 +771,13 @@
     "message": "ചാറ്റുകൾ തിരയുക..."
   },
   "chatSidebar_modeLabel": {
-    "message": "Mode"
+    "message": "മോഡ്"
   },
   "chatSidebar_modeCasual": {
-    "message": "Casual"
+    "message": "ക്യാഷ്വൽ"
   },
   "chatSidebar_modePro": {
-    "message": "Pro"
+    "message": "പ്രോ"
   },
   "chatSidebar_ingest": {
     "message": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക"
@@ -939,244 +939,244 @@
     "message": "ഇത് നിങ്ങളുടെ ഓൺബോർഡിംഗ് നില റീസെറ്റ് ചെയ്ത് നിങ്ങളെ സജ്ജീകരണ പ്രവാഹത്തിന്റെ തുടക്കത്തിലേക്ക് തിരികെ കൊണ്ടുപോകും."
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "മോഡൽ"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "അടുത്ത സന്ദേശത്തിനുള്ള മോഡൽ മാറ്റുന്നു"
   },
   "generate": {
-    "message": "Generate"
+    "message": "ജനറേറ്റ് ചെയ്യുക"
   },
   "view": {
-    "message": "View"
+    "message": "കാണുക"
   },
   "deleteMessageConfirm": {
-    "message": "Delete this message?"
+    "message": "ഈ സന്ദേശം ഇല്ലാതാക്കണോ?"
   },
   "deleteFailed": {
-    "message": "Delete failed"
+    "message": "ഇല്ലാതാക്കൽ പരാജയപ്പെട്ടു"
   },
   "reply": {
-    "message": "Reply"
+    "message": "മറുപടി"
   },
   "replyShort": {
-    "message": "Reply"
+    "message": "മറുപടി"
   },
   "replyingTo": {
-    "message": "Replying to"
+    "message": "മറുപടി നൽകുന്നത്"
   },
   "clearReply": {
-    "message": "Clear reply target"
+    "message": "മറുപടി ലക്ഷ്യം നീക്കുക"
   },
   "replyTargetFallback": {
-    "message": "Message"
+    "message": "സന്ദേശം"
   },
   "artifactsTitle": {
-    "message": "Artifact"
+    "message": "ആർട്ടിഫാക്റ്റ്"
   },
   "artifactsDefaultTitle": {
-    "message": "Code"
+    "message": "കോഡ്"
   },
   "artifactsView": {
-    "message": "View code"
+    "message": "കോഡ് കാണുക"
   },
   "artifactsPin": {
-    "message": "Pin"
+    "message": "പിൻ ചെയ്യുക"
   },
   "artifactsUnpin": {
-    "message": "Unpin"
+    "message": "അൺപിൻ ചെയ്യുക"
   },
   "artifactsClose": {
-    "message": "Close"
+    "message": "അടയ്ക്കുക"
   },
   "artifactsCopy": {
-    "message": "Copy"
+    "message": "പകർത്തുക"
   },
   "artifactsDownload": {
-    "message": "Download"
+    "message": "ഡൗൺലോഡ്"
   },
   "artifactsRun": {
-    "message": "Run"
+    "message": "റൺ ചെയ്യുക"
   },
   "saveToNotes": {
-    "message": "Save to Notes"
+    "message": "കുറിപ്പുകളിൽ സേവ് ചെയ്യുക"
   },
   "saveToFlashcards": {
-    "message": "Save to Flashcards"
+    "message": "ഫ്ലാഷ്കാർഡുകളിൽ സേവ് ചെയ്യുക"
   },
   "generateDocument": {
-    "message": "Generate document"
+    "message": "ഡോക്യുമെന്റ് ജനറേറ്റ് ചെയ്യുക"
   },
   "documentShort": {
-    "message": "Doc"
+    "message": "ഡോക്"
   },
   "saveNoteShort": {
-    "message": "Note"
+    "message": "നോട്ട്"
   },
   "saveFlashcardShort": {
-    "message": "Card"
+    "message": "കാർഡ്"
   },
   "savedToNotes": {
-    "message": "Saved to Notes"
+    "message": "കുറിപ്പുകളിൽ സേവ് ചെയ്തു"
   },
   "savedToFlashcards": {
-    "message": "Saved to Flashcards"
+    "message": "ഫ്ലാഷ്കാർഡുകളിൽ സേവ് ചെയ്തു"
   },
   "saveToNotesEmpty": {
-    "message": "Nothing to save yet."
+    "message": "ഇതുവരെ സേവ് ചെയ്യാൻ ഒന്നുമില്ല."
   },
   "timeline_title": {
-    "message": "Conversation Timeline"
+    "message": "സംഭാഷണ ടൈംലൈൻ"
   },
   "timeline_searchPlaceholder": {
-    "message": "Search messages... (space = AND)"
+    "message": "സന്ദേശങ്ങൾ തിരയുക... (സ്പേസ് = AND)"
   },
   "timeline_searchMatches": {
-    "message": "matches"
+    "message": "പൊരുത്തങ്ങൾ"
   },
   "timeline_searchNoMatches": {
-    "message": "no matches"
+    "message": "പൊരുത്തങ്ങൾ ഇല്ല"
   },
   "timeline_searchMode_fragments": {
-    "message": "Fragments"
+    "message": "ഭാഗങ്ങൾ"
   },
   "timeline_searchMode_substring": {
-    "message": "Substring"
+    "message": "ഉപസ്ട്രിംഗ്"
   },
   "timeline_searchMode_regex": {
-    "message": "Regex"
+    "message": "റെഗെക്സ്"
   },
   "timeline_layout_horizontal": {
-    "message": "horizontal"
+    "message": "തിരശ്ചീനം"
   },
   "timeline_layout_vertical": {
-    "message": "vertical"
+    "message": "ലംബം"
   },
   "timeline_refreshGraph": {
-    "message": "Refresh graph"
+    "message": "ഗ്രാഫ് പുതുക്കുക"
   },
   "timeline_switchLayout": {
-    "message": "Switch to {{layout}} layout"
+    "message": "ലെഔട്ട് {{layout}} ആയി മാറ്റുക"
   },
   "timeline_expandAllAlternatives": {
-    "message": "Expand all alternatives"
+    "message": "എല്ലാ ബദലുകളും വികസിപ്പിക്കുക"
   },
   "timeline_collapseAllAlternatives": {
-    "message": "Collapse all alternatives"
+    "message": "എല്ലാ ബദലുകളും ചുരുക്കുക"
   },
   "timeline_hideLegend": {
-    "message": "Hide legend"
+    "message": "ലെജൻഡ് മറയ്ക്കുക"
   },
   "timeline_showLegend": {
-    "message": "Show legend"
+    "message": "ലെജൻഡ് കാണിക്കുക"
   },
   "timeline_zoomIn": {
-    "message": "Zoom in"
+    "message": "സൂം ഇൻ"
   },
   "timeline_zoomOut": {
-    "message": "Zoom out"
+    "message": "സൂം ഔട്ട്"
   },
   "sourceLabel": {
-    "message": "Source"
+    "message": "സ്രോതസ്"
   },
   "sourceOpen": {
-    "message": "Open source"
+    "message": "സ്രോതസ് തുറക്കുക"
   },
   "modelSettings_form_historyMessageLimit_label": {
-    "message": "History message limit"
+    "message": "ചരിത്ര സന്ദേശ പരിധി"
   },
   "modelSettings_form_historyMessageLimit_placeholder": {
-    "message": "e.g. 10"
+    "message": "ഉദാ: 10"
   },
   "modelSettings_form_historyMessageLimit_help": {
-    "message": "Limit how many previous messages are sent with each request."
+    "message": "ഓരോ അഭ്യർത്ഥനയിലും അയക്കുന്ന മുൻ സന്ദേശങ്ങളുടെ എണ്ണം പരിമിതപ്പെടുത്തുക."
   },
   "modelSettings_form_historyMessageOrder_label": {
-    "message": "History message order"
+    "message": "ചരിത്ര സന്ദേശ ക്രമം"
   },
   "modelSettings_form_historyMessageOrder_placeholder": {
-    "message": "Select order"
+    "message": "ക്രമം തിരഞ്ഞെടുക്കുക"
   },
   "modelSettings_form_historyMessageOrder_help": {
-    "message": "Choose whether the newest or oldest messages are sent first."
+    "message": "പുതിയതോ പഴയതോ സന്ദേശങ്ങൾ ആദ്യം അയക്കണമെന്നത് തിരഞ്ഞെടുക്കുക."
   },
   "modelSettings_form_historyMessageOrder_options_desc": {
-    "message": "Newest first"
+    "message": "പുതിയത് ആദ്യം"
   },
   "modelSettings_form_historyMessageOrder_options_asc": {
-    "message": "Oldest first"
+    "message": "പഴയത് ആദ്യം"
   },
   "modelSettings_form_slashCommandInjectionMode_label": {
-    "message": "Slash command injection"
+    "message": "സ്ലാഷ് കമാൻഡ് ഇൻജക്ഷൻ"
   },
   "modelSettings_form_slashCommandInjectionMode_placeholder": {
-    "message": "Select injection mode"
+    "message": "ഇൻജക്ഷൻ മോഡ് തിരഞ്ഞെടുക്കുക"
   },
   "modelSettings_form_slashCommandInjectionMode_help": {
-    "message": "Choose how slash commands are inserted into the request."
+    "message": "റിക്വസ്റ്റിൽ സ്ലാഷ് കമാൻഡുകൾ എങ്ങനെ ചേർക്കണമെന്ന് തിരഞ്ഞെടുക്കുക."
   },
   "modelSettings_form_slashCommandInjectionMode_options_system": {
-    "message": "System message"
+    "message": "സിസ്റ്റം സന്ദേശം"
   },
   "modelSettings_form_slashCommandInjectionMode_options_preface": {
-    "message": "Preface user message"
+    "message": "ഉപയോക്തൃ സന്ദേശത്തിന് മുമ്പിൽ"
   },
   "modelSettings_form_slashCommandInjectionMode_options_replace": {
-    "message": "Replace user message"
+    "message": "ഉപയോക്തൃ സന്ദേശം മാറ്റിസ്ഥാപിക്കുക"
   },
   "modelSettings_form_apiProvider_label": {
-    "message": "API provider override"
+    "message": "API പ്രൊവൈഡർ ഓവർറൈഡ്"
   },
   "modelSettings_form_apiProvider_placeholder": {
-    "message": "Select provider (optional)"
+    "message": "പ്രൊവൈഡർ തിരഞ്ഞെടുക്കുക (ഐച്ഛികം)"
   },
   "modelSettings_form_apiProvider_help": {
-    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+    "message": "ഈ ചാറ്റിനായി പ്രത്യേക പ്രൊവൈഡർ നിർബന്ധമാക്കുക (ഉദാ. openai, anthropic)."
   },
   "modelSettings_form_extraHeaders_label": {
-    "message": "Extra headers (JSON)"
+    "message": "അധിക ഹെഡറുകൾ (JSON)"
   },
   "modelSettings_form_extraHeaders_placeholder": {
     "message": "{ \"X-API-Key\": \"...\" }"
   },
   "modelSettings_form_extraHeaders_help": {
-    "message": "JSON object merged into request headers."
+    "message": "റിക്വസ്റ്റ് ഹെഡറുകളിലേക്ക് ലയിപ്പിക്കുന്ന JSON ഒബ്ജക്ട്."
   },
   "modelSettings_form_extraBody_label": {
-    "message": "Extra body (JSON)"
+    "message": "അധിക ബോഡി (JSON)"
   },
   "modelSettings_form_extraBody_placeholder": {
     "message": "{ \"user\": \"...\" }"
   },
   "modelSettings_form_extraBody_help": {
-    "message": "JSON object merged into request body."
+    "message": "റിക്വസ്റ്റ് ബോഡിയിൽ ലയിപ്പിക്കുന്ന JSON ഒബ്ജക്ട്."
   },
   "modelSettings_form_guardrails_invalidJson": {
-    "message": "Enter a valid JSON object."
+    "message": "സാധുവായ JSON ഒബ്ജക്ട് നൽകുക."
   },
   "modelSettings_requestOverrides": {
-    "message": "Request overrides"
+    "message": "റിക്വസ്റ്റ് ഓവർറൈഡുകൾ"
   },
   "modelSettings_tabs_model": {
-    "message": "Model"
+    "message": "മോഡൽ"
   },
   "modelSettings_tabs_conversation": {
-    "message": "Conversation"
+    "message": "സംഭാഷണം"
   },
   "modelSettings_tabs_advanced": {
-    "message": "Advanced"
+    "message": "അഡ്വാൻസ്ഡ്"
   },
   "modelSettings_tabs_actor": {
-    "message": "Scene Director"
+    "message": "സീൻ ഡയറക്ടർ"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "ഫോൾഡർ സൃഷ്ടിക്കാൻ പരാജയപ്പെട്ടു"
   },
   "timeline_unableLocateMessage": {
-    "message": "Unable to locate the message for this action."
+    "message": "ഈ പ്രവർത്തനത്തിന് സന്ദേശം കണ്ടെത്താനായില്ല."
   },
   "timeline_actionFailed": {
-    "message": "Failed to perform timeline action. Please try again."
+    "message": "ടൈംലൈൻ പ്രവർത്തനം നടത്താൻ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക."
   },
   "documentCard_removeAria": {
     "message": "{{name}} നീക്കം ചെയ്യുക"

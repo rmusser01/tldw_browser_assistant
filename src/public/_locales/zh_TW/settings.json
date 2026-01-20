@@ -2757,43 +2757,43 @@
     "message": "比較"
   },
   "chunkingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "設定"
   },
   "chunkingPlayground_tabTemplates": {
-    "message": "Templates"
+    "message": "模板"
   },
   "chunkingPlayground_tabCapabilities": {
-    "message": "Capabilities"
+    "message": "能力"
   },
   "chunkingPlayground_appliedOptionsTitle": {
-    "message": "Applied options"
+    "message": "已套用的選項"
   },
   "chunkingPlayground_responseMetaTitle": {
-    "message": "Response metadata"
+    "message": "回應中繼資料"
   },
   "chunkingPlayground_inlineUnavailable": {
-    "message": "Inline view requires character offsets; switch to Cards to inspect chunks."
+    "message": "行內檢視需要字元位移；請切換到卡片檢視分塊。"
   },
   "chunkingPlayground_metadataLabel": {
-    "message": "Metadata"
+    "message": "中繼資料"
   },
   "chunkingPlayground_advanced_title": {
-    "message": "Advanced Options"
+    "message": "進階選項"
   },
   "chunkingPlayground_advanced_methodRequiresLlm": {
-    "message": "This method requires an LLM provider on the server."
+    "message": "此方法需要伺服器上的 LLM 供應商。"
   },
   "chunkingPlayground_advanced_templateNameLabel": {
-    "message": "Template name"
+    "message": "模板名稱"
   },
   "chunkingPlayground_advanced_templateNamePlaceholder": {
-    "message": "Select or type a template name"
+    "message": "選擇或輸入模板名稱"
   },
   "chunkingPlayground_advanced_templateOverridesHint": {
-    "message": "Template defaults are applied first; form values override them."
+    "message": "先套用模板預設值，表單值會覆蓋它們。"
   },
   "chunkingPlayground_advanced_requestModeLabel": {
-    "message": "Request Endpoint"
+    "message": "請求端點"
   },
   "chunkingPlayground_advanced_requestModeJson": {
     "message": "JSON (/chunk_text)"
@@ -2802,234 +2802,234 @@
     "message": "Multipart (/chunk_file)"
   },
   "chunkingPlayground_advanced_requestModeHint": {
-    "message": "Use JSON for full option support; multipart matches /chunk_file."
+    "message": "使用 JSON 以完整支援選項；multipart 對應 /chunk_file。"
   },
   "chunkingPlayground_advanced_tokenizerLabel": {
-    "message": "Tokenizer"
+    "message": "分詞器"
   },
   "chunkingPlayground_advanced_tokenizerPlaceholder": {
-    "message": "Tokenizer name or path (e.g., gpt2)"
+    "message": "分詞器名稱或路徑（例如 gpt2）"
   },
   "chunkingPlayground_advanced_adaptiveLabel": {
-    "message": "Adaptive chunking"
+    "message": "自適應分塊"
   },
   "chunkingPlayground_advanced_multiLevelLabel": {
-    "message": "Multi-level chunking"
+    "message": "多層分塊"
   },
   "chunkingPlayground_advanced_codeModeLabel": {
-    "message": "Code mode"
+    "message": "程式碼模式"
   },
   "chunkingPlayground_advanced_codeModeHint": {
-    "message": "Controls how code is parsed when method is 'code'."
+    "message": "控制方法為 'code' 時的程式碼解析方式。"
   },
   "chunkingPlayground_advanced_semanticSimilarityLabel": {
-    "message": "Semantic similarity threshold"
+    "message": "語意相似度閾值"
   },
   "chunkingPlayground_advanced_semanticOverlapLabel": {
-    "message": "Semantic overlap sentences"
+    "message": "語意重疊句數"
   },
   "chunkingPlayground_advanced_jsonKeyLabel": {
-    "message": "JSON chunkable key"
+    "message": "JSON 可分塊鍵"
   },
   "chunkingPlayground_advanced_frontmatterLabel": {
-    "message": "Enable frontmatter parsing"
+    "message": "啟用 frontmatter 解析"
   },
   "chunkingPlayground_advanced_frontmatterSentinelLabel": {
-    "message": "Frontmatter sentinel key"
+    "message": "frontmatter 哨兵鍵"
   },
   "chunkingPlayground_advanced_customChapterPatternLabel": {
-    "message": "Custom chapter pattern"
+    "message": "自訂章節模式"
   },
   "chunkingPlayground_advanced_summarizationDetailLabel": {
-    "message": "Summarization detail"
+    "message": "摘要細節"
   },
   "chunkingPlayground_advanced_llmOptionsTitle": {
-    "message": "LLM Options (internal steps)"
+    "message": "LLM 選項（內部步驟）"
   },
   "chunkingPlayground_advanced_llmTemperatureLabel": {
-    "message": "LLM temperature"
+    "message": "LLM 溫度"
   },
   "chunkingPlayground_advanced_llmSystemPromptLabel": {
-    "message": "LLM system prompt"
+    "message": "LLM 系統提示詞"
   },
   "chunkingPlayground_advanced_llmMaxTokensLabel": {
-    "message": "LLM max tokens"
+    "message": "LLM 最大 tokens"
   },
   "chunkingPlayground_advanced_propositionEngineLabel": {
-    "message": "Proposition engine"
+    "message": "命題引擎"
   },
   "chunkingPlayground_advanced_propositionAggressivenessLabel": {
-    "message": "Proposition aggressiveness"
+    "message": "命題強度"
   },
   "chunkingPlayground_advanced_propositionMinLengthLabel": {
-    "message": "Min proposition length"
+    "message": "最小命題長度"
   },
   "chunkingPlayground_advanced_propositionPromptProfileLabel": {
-    "message": "Proposition prompt profile"
+    "message": "命題提示詞設定檔"
   },
   "chunkingPlayground_advanced_resetDefaults": {
-    "message": "Reset to defaults"
+    "message": "重設為預設值"
   },
   "chunkingPlayground_templates_title": {
-    "message": "Chunking Templates"
+    "message": "分塊模板"
   },
   "chunkingPlayground_templates_description": {
-    "message": "Manage, validate, and apply chunking templates."
+    "message": "管理、驗證並套用分塊模板。"
   },
   "chunkingPlayground_templates_tabBrowse": {
-    "message": "Browse"
+    "message": "瀏覽"
   },
   "chunkingPlayground_templates_tabEditor": {
-    "message": "Editor"
+    "message": "編輯器"
   },
   "chunkingPlayground_templates_tabApply": {
-    "message": "Apply"
+    "message": "套用"
   },
   "chunkingPlayground_templates_tabValidate": {
-    "message": "Validate"
+    "message": "驗證"
   },
   "chunkingPlayground_templates_tabMatch": {
-    "message": "Match"
+    "message": "比對"
   },
   "chunkingPlayground_templates_tabLearn": {
-    "message": "Learn"
+    "message": "學習"
   },
   "chunkingPlayground_templates_tabDiagnostics": {
-    "message": "Diagnostics"
+    "message": "診斷"
   },
   "chunkingPlayground_templates_filtersTitle": {
-    "message": "Filters"
+    "message": "篩選條件"
   },
   "chunkingPlayground_templates_includeBuiltin": {
-    "message": "Include built-in"
+    "message": "包含內建"
   },
   "chunkingPlayground_templates_includeCustom": {
-    "message": "Include custom"
+    "message": "包含自訂"
   },
   "chunkingPlayground_templates_tagsLabel": {
-    "message": "Tags"
+    "message": "標籤"
   },
   "chunkingPlayground_templates_tagsPlaceholder": {
-    "message": "Add tags"
+    "message": "新增標籤"
   },
   "chunkingPlayground_templates_userIdLabel": {
-    "message": "User ID"
+    "message": "使用者 ID"
   },
   "chunkingPlayground_templates_selectLabel": {
-    "message": "Template"
+    "message": "模板"
   },
   "chunkingPlayground_templates_selectPlaceholder": {
-    "message": "Select a template"
+    "message": "選擇模板"
   },
   "chunkingPlayground_templates_detailsTitle": {
-    "message": "Template details"
+    "message": "模板詳情"
   },
   "chunkingPlayground_templates_isBuiltin": {
-    "message": "Built-in"
+    "message": "內建"
   },
   "chunkingPlayground_templates_version": {
-    "message": "Version"
+    "message": "版本"
   },
   "chunkingPlayground_templates_updatedAt": {
-    "message": "Updated"
+    "message": "已更新"
   },
   "chunkingPlayground_templates_loadIntoEditor": {
-    "message": "Load into editor"
+    "message": "載入到編輯器"
   },
   "chunkingPlayground_templates_deleteConfirm": {
-    "message": "Delete this template?"
+    "message": "刪除此模板？"
   },
   "chunkingPlayground_templates_hardDeleteLabel": {
-    "message": "Hard delete"
+    "message": "永久刪除"
   },
   "chunkingPlayground_templates_noSelection": {
-    "message": "Select a template to view details."
+    "message": "選擇模板以查看詳細資訊。"
   },
   "chunkingPlayground_templates_templateJsonLabel": {
-    "message": "Template JSON"
+    "message": "模板 JSON"
   },
   "chunkingPlayground_templates_overrideOptionsLabel": {
-    "message": "Override options (JSON)"
+    "message": "覆寫選項（JSON）"
   },
   "chunkingPlayground_templates_includeMetadataLabel": {
-    "message": "Include metadata"
+    "message": "包含中繼資料"
   },
   "chunkingPlayground_templates_applyTextLabel": {
-    "message": "Text to apply template"
+    "message": "要套用模板的文字"
   },
   "chunkingPlayground_templates_applyTextPlaceholder": {
-    "message": "Paste text to chunk with this template"
+    "message": "貼上要用此模板分塊的文字"
   },
   "chunkingPlayground_templates_validateLabel": {
-    "message": "Template JSON to validate"
+    "message": "要驗證的模板 JSON"
   },
   "chunkingPlayground_templates_matchMediaTypeLabel": {
-    "message": "Media type"
+    "message": "媒體類型"
   },
   "chunkingPlayground_templates_matchTitleLabel": {
-    "message": "Title"
+    "message": "標題"
   },
   "chunkingPlayground_templates_matchUrlLabel": {
     "message": "URL"
   },
   "chunkingPlayground_templates_matchFilenameLabel": {
-    "message": "Filename"
+    "message": "檔名"
   },
   "chunkingPlayground_templates_learnNameLabel": {
-    "message": "Template name"
+    "message": "模板名稱"
   },
   "chunkingPlayground_templates_learnExampleLabel": {
-    "message": "Example text"
+    "message": "範例文字"
   },
   "chunkingPlayground_templates_learnDescriptionLabel": {
-    "message": "Description"
+    "message": "描述"
   },
   "chunkingPlayground_templates_learnSaveLabel": {
-    "message": "Save template"
+    "message": "儲存模板"
   },
   "chunkingPlayground_templates_learnClassifierLabel": {
-    "message": "Classifier (JSON)"
+    "message": "分類器（JSON）"
   },
   "chunkingPlayground_templates_jsonError": {
-    "message": "Invalid JSON. Please fix and try again."
+    "message": "JSON 無效。請修正後再試。"
   },
   "chunkingPlayground_templates_nameRequired": {
-    "message": "Template name is required."
+    "message": "模板名稱為必填。"
   },
   "chunkingPlayground_templates_updateAction": {
-    "message": "Update"
+    "message": "更新"
   },
   "chunkingPlayground_templates_applyAction": {
-    "message": "Apply"
+    "message": "套用"
   },
   "chunkingPlayground_templates_validateAction": {
-    "message": "Validate"
+    "message": "驗證"
   },
   "chunkingPlayground_templates_matchAction": {
-    "message": "Match"
+    "message": "比對"
   },
   "chunkingPlayground_templates_learnAction": {
-    "message": "Learn"
+    "message": "學習"
   },
   "chunkingPlayground_templates_diagnosticsAction": {
-    "message": "Run diagnostics"
+    "message": "執行診斷"
   },
   "chunkingPlayground_capabilities_title": {
-    "message": "Chunking Capabilities"
+    "message": "分塊能力"
   },
   "chunkingPlayground_capabilities_methodsLabel": {
-    "message": "Methods"
+    "message": "方法"
   },
   "chunkingPlayground_capabilities_llmLabel": {
-    "message": "LLM-required methods"
+    "message": "需要 LLM 的方法"
   },
   "chunkingPlayground_capabilities_defaultsLabel": {
-    "message": "Default options"
+    "message": "預設選項"
   },
   "chunkingPlayground_capabilities_methodOptionsLabel": {
-    "message": "Method-specific options"
+    "message": "方法特定選項"
   },
   "chunkingPlayground_capabilities_notesLabel": {
-    "message": "Notes"
+    "message": "備註"
   }
 }

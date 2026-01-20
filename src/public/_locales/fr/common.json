@@ -768,10 +768,10 @@
     "message": "Mode"
   },
   "chatSidebar_modeCasual": {
-    "message": "Casual"
+    "message": "Décontracté"
   },
   "chatSidebar_modePro": {
-    "message": "Pro"
+    "message": "Professionnel"
   },
   "chatSidebar_ingest": {
     "message": "Ingérer la page"
@@ -921,88 +921,88 @@
     "message": "Comment souhaitez-vous commencer ?"
   },
   "nextSteps": {
-    "message": "You’re ready to go"
+    "message": "Vous êtes prêt à commencer"
   },
   "restartOnboardingLabel": {
-    "message": "Restart onboarding from the beginning"
+    "message": "Relancer l’onboarding depuis le début"
   },
   "restartOnboardingButton": {
-    "message": "Restart onboarding"
+    "message": "Relancer l’onboarding"
   },
   "restartOnboardingConfirmTitle": {
-    "message": "Restart onboarding?"
+    "message": "Relancer l’onboarding ?"
   },
   "restartOnboardingConfirmMessage": {
-    "message": "This will reset your onboarding state and take you back to the setup flow."
+    "message": "Cela réinitialisera votre état d’onboarding et vous ramènera au flux de configuration."
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Modèle"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Change le modèle pour le prochain message"
   },
   "generate": {
-    "message": "Generate"
+    "message": "Générer"
   },
   "view": {
-    "message": "View"
+    "message": "Voir"
   },
   "deleteMessageConfirm": {
-    "message": "Delete this message?"
+    "message": "Supprimer ce message ?"
   },
   "deleteFailed": {
-    "message": "Delete failed"
+    "message": "Suppression échouée"
   },
   "reply": {
-    "message": "Reply"
+    "message": "Répondre"
   },
   "replyShort": {
-    "message": "Reply"
+    "message": "Répondre"
   },
   "replyingTo": {
-    "message": "Replying to"
+    "message": "Réponse à"
   },
   "clearReply": {
-    "message": "Clear reply target"
+    "message": "Effacer la cible de réponse"
   },
   "replyTargetFallback": {
     "message": "Message"
   },
   "artifactsTitle": {
-    "message": "Artifact"
+    "message": "Artefact"
   },
   "artifactsDefaultTitle": {
     "message": "Code"
   },
   "artifactsView": {
-    "message": "View code"
+    "message": "Voir le code"
   },
   "artifactsPin": {
-    "message": "Pin"
+    "message": "Épingler"
   },
   "artifactsUnpin": {
-    "message": "Unpin"
+    "message": "Désépingler"
   },
   "artifactsClose": {
-    "message": "Close"
+    "message": "Fermer"
   },
   "artifactsCopy": {
-    "message": "Copy"
+    "message": "Copier"
   },
   "artifactsDownload": {
-    "message": "Download"
+    "message": "Télécharger"
   },
   "artifactsRun": {
-    "message": "Run"
+    "message": "Exécuter"
   },
   "saveToNotes": {
-    "message": "Save to Notes"
+    "message": "Enregistrer dans les notes"
   },
   "saveToFlashcards": {
-    "message": "Save to Flashcards"
+    "message": "Enregistrer dans les cartes mémoire"
   },
   "generateDocument": {
-    "message": "Generate document"
+    "message": "Générer un document"
   },
   "documentShort": {
     "message": "Doc"
@@ -1011,169 +1011,169 @@
     "message": "Note"
   },
   "saveFlashcardShort": {
-    "message": "Card"
+    "message": "Carte"
   },
   "savedToNotes": {
-    "message": "Saved to Notes"
+    "message": "Enregistré dans les notes"
   },
   "savedToFlashcards": {
-    "message": "Saved to Flashcards"
+    "message": "Enregistré dans les cartes mémoire"
   },
   "saveToNotesEmpty": {
-    "message": "Nothing to save yet."
+    "message": "Rien à enregistrer pour l’instant."
   },
   "timeline_title": {
-    "message": "Conversation Timeline"
+    "message": "Chronologie de la conversation"
   },
   "timeline_searchPlaceholder": {
-    "message": "Search messages... (space = AND)"
+    "message": "Rechercher des messages... (espace = ET)"
   },
   "timeline_searchMatches": {
-    "message": "matches"
+    "message": "correspondances"
   },
   "timeline_searchNoMatches": {
-    "message": "no matches"
+    "message": "aucune correspondance"
   },
   "timeline_searchMode_fragments": {
     "message": "Fragments"
   },
   "timeline_searchMode_substring": {
-    "message": "Substring"
+    "message": "Sous-chaîne"
   },
   "timeline_searchMode_regex": {
     "message": "Regex"
   },
   "timeline_layout_horizontal": {
-    "message": "horizontal"
+    "message": "horizontale"
   },
   "timeline_layout_vertical": {
-    "message": "vertical"
+    "message": "verticale"
   },
   "timeline_refreshGraph": {
-    "message": "Refresh graph"
+    "message": "Actualiser le graphe"
   },
   "timeline_switchLayout": {
-    "message": "Switch to {{layout}} layout"
+    "message": "Passer à la disposition {{layout}}"
   },
   "timeline_expandAllAlternatives": {
-    "message": "Expand all alternatives"
+    "message": "Développer toutes les alternatives"
   },
   "timeline_collapseAllAlternatives": {
-    "message": "Collapse all alternatives"
+    "message": "Réduire toutes les alternatives"
   },
   "timeline_hideLegend": {
-    "message": "Hide legend"
+    "message": "Masquer la légende"
   },
   "timeline_showLegend": {
-    "message": "Show legend"
+    "message": "Afficher la légende"
   },
   "timeline_zoomIn": {
-    "message": "Zoom in"
+    "message": "Zoomer"
   },
   "timeline_zoomOut": {
-    "message": "Zoom out"
+    "message": "Dézoomer"
   },
   "sourceLabel": {
     "message": "Source"
   },
   "sourceOpen": {
-    "message": "Open source"
+    "message": "Ouvrir la source"
   },
   "modelSettings_form_historyMessageLimit_label": {
-    "message": "History message limit"
+    "message": "Limite de messages d’historique"
   },
   "modelSettings_form_historyMessageLimit_placeholder": {
-    "message": "e.g. 10"
+    "message": "p. ex. 10"
   },
   "modelSettings_form_historyMessageLimit_help": {
-    "message": "Limit how many previous messages are sent with each request."
+    "message": "Limiter le nombre de messages précédents envoyés avec chaque requête."
   },
   "modelSettings_form_historyMessageOrder_label": {
-    "message": "History message order"
+    "message": "Ordre des messages d’historique"
   },
   "modelSettings_form_historyMessageOrder_placeholder": {
-    "message": "Select order"
+    "message": "Sélectionner l’ordre"
   },
   "modelSettings_form_historyMessageOrder_help": {
-    "message": "Choose whether the newest or oldest messages are sent first."
+    "message": "Choisissez si les messages les plus récents ou les plus anciens sont envoyés en premier."
   },
   "modelSettings_form_historyMessageOrder_options_desc": {
-    "message": "Newest first"
+    "message": "Les plus récents d’abord"
   },
   "modelSettings_form_historyMessageOrder_options_asc": {
-    "message": "Oldest first"
+    "message": "Les plus anciens d’abord"
   },
   "modelSettings_form_slashCommandInjectionMode_label": {
-    "message": "Slash command injection"
+    "message": "Injection de commande slash"
   },
   "modelSettings_form_slashCommandInjectionMode_placeholder": {
-    "message": "Select injection mode"
+    "message": "Sélectionner le mode d’injection"
   },
   "modelSettings_form_slashCommandInjectionMode_help": {
-    "message": "Choose how slash commands are inserted into the request."
+    "message": "Choisissez comment les commandes slash sont insérées dans la requête."
   },
   "modelSettings_form_slashCommandInjectionMode_options_system": {
-    "message": "System message"
+    "message": "Message système"
   },
   "modelSettings_form_slashCommandInjectionMode_options_preface": {
-    "message": "Preface user message"
+    "message": "Préfixer le message utilisateur"
   },
   "modelSettings_form_slashCommandInjectionMode_options_replace": {
-    "message": "Replace user message"
+    "message": "Remplacer le message utilisateur"
   },
   "modelSettings_form_apiProvider_label": {
-    "message": "API provider override"
+    "message": "Surcharge du fournisseur d’API"
   },
   "modelSettings_form_apiProvider_placeholder": {
-    "message": "Select provider (optional)"
+    "message": "Sélectionner un fournisseur (optionnel)"
   },
   "modelSettings_form_apiProvider_help": {
-    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+    "message": "Forcer un fournisseur spécifique pour ce chat (p. ex. openai, anthropic)."
   },
   "modelSettings_form_extraHeaders_label": {
-    "message": "Extra headers (JSON)"
+    "message": "En-têtes supplémentaires (JSON)"
   },
   "modelSettings_form_extraHeaders_placeholder": {
     "message": "{ \"X-API-Key\": \"...\" }"
   },
   "modelSettings_form_extraHeaders_help": {
-    "message": "JSON object merged into request headers."
+    "message": "Objet JSON fusionné dans les en-têtes de requête."
   },
   "modelSettings_form_extraBody_label": {
-    "message": "Extra body (JSON)"
+    "message": "Corps supplémentaire (JSON)"
   },
   "modelSettings_form_extraBody_placeholder": {
     "message": "{ \"user\": \"...\" }"
   },
   "modelSettings_form_extraBody_help": {
-    "message": "JSON object merged into request body."
+    "message": "Objet JSON fusionné dans le corps de la requête."
   },
   "modelSettings_form_guardrails_invalidJson": {
-    "message": "Enter a valid JSON object."
+    "message": "Saisissez un objet JSON valide."
   },
   "modelSettings_requestOverrides": {
-    "message": "Request overrides"
+    "message": "Surcharges de requête"
   },
   "modelSettings_tabs_model": {
-    "message": "Model"
+    "message": "Modèle"
   },
   "modelSettings_tabs_conversation": {
     "message": "Conversation"
   },
   "modelSettings_tabs_advanced": {
-    "message": "Advanced"
+    "message": "Avancé"
   },
   "modelSettings_tabs_actor": {
-    "message": "Scene Director"
+    "message": "Directeur de scène"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Échec de la création du dossier"
   },
   "timeline_unableLocateMessage": {
-    "message": "Unable to locate the message for this action."
+    "message": "Impossible de localiser le message pour cette action."
   },
   "timeline_actionFailed": {
-    "message": "Failed to perform timeline action. Please try again."
+    "message": "Échec de l’action sur la chronologie. Veuillez réessayer."
   },
   "documentCard_removeAria": {
     "message": "Supprimer {{name}}"

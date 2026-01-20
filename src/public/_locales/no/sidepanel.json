@@ -12,7 +12,7 @@
     "message": "Åpne WebUI"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "RAG-søk"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant kan ikke lagre data"
@@ -57,7 +57,7 @@
     "message": "Midlertidig chat"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "Midl."
   },
   "temporaryBadge_description": {
     "message": "Denne chatten blir ikke lagret. Meldinger slettes når du lukker eller starter en ny chat."
@@ -75,85 +75,85 @@
     "message": "Midlertidig chat"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "Innhenting"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "Lagre gjeldende side på serveren"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "Behandle gjeldende side lokalt"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "Vis behandlet"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "Tidsavbrudd (s)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "Veksle sidepanel / fullskjerm"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "Hurtigtaster"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "Vis strømdebugg"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "Skjul strømdebugg"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "Flere alternativer"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "Innhenting og mer"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "Åpne Web UI"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "Ny chat"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "Veksle midlertidig chat"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "Tøm historikk"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "Åpne historikk"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "Åpne modellinnstillinger"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "Åpne innstillinger"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "Midl."
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "Åpne moduser i Web UI"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "Samtale"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "Gjennomgang"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "Medier"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "Kunnskap Q&A"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "Notater"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "Prompter"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "Flashkort"
   },
   "controlRow_saveMode": {
     "message": "Lagringsmodus"
@@ -180,10 +180,10 @@
     "message": "Åpne i fullverdig grensesnitt"
   },
   "controlRow_modeChat": {
-    "message": "Chat"
+    "message": "Samtale"
   },
   "controlRow_modeMedia": {
-    "message": "Media"
+    "message": "Medier"
   },
   "controlRow_modeNotes": {
     "message": "Notater"
@@ -198,43 +198,43 @@
     "message": "Flere verktøy"
   },
   "composer_connectHint": {
-    "message": "Connect to your tldw server in Settings to send messages."
+    "message": "Koble til tldw-serveren din i Innstillinger for å sende meldinger."
   },
   "composer_connectingPlaceholder": {
-    "message": "Connecting..."
+    "message": "Kobler til..."
   },
   "composer_disconnectedPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Koble til tldw-serveren din i Innstillinger for å sende meldinger og se medier."
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "Sendt til tldw-serveren"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "Gjeldende side er sendt inn for innhenting."
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "Behandlet lokalt"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "Behandlet innhold lagres lokalt under Innstillinger > Behandlet."
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "Transkripsjon"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "Transkripsjon + sammendrag"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "Transkripsjon fullført. Åpne Medier i Web UI for å se den."
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "Kilde"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "Transkripsjon"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "Sammendrag"
   },
   "saveStatus_ephemeral": {
     "message": "Midlertidig: ikke lagret, slettes ved lukking"
@@ -252,46 +252,46 @@
     "message": "Chatten lagres nå kun lokalt. Sjekk tilkoblingen og prøv igjen."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "Søk i kunnskapsbasen din…"
   },
   "rag_search": {
-    "message": "Search"
+    "message": "Søk"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "Vis RAG-søk"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "Skjul RAG-søk"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "Legg til tagg (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "Legg til"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "Ingen resultater"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "Forespørselen ble tidsavbrutt."
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "Øk tidsavbrudd"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "Sjekk serverstatus"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "Sett inn"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "Spør"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "Åpne"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "Kopier"
   },
   "rag_hint_message": {
     "message": "Søk i kunnskapsbasen din og sett inn resultater i meldingen din."
@@ -309,33 +309,33 @@
     "message": "Lukk chattefane"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "Karakter"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "Velg en karakter"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "Søk etter karakterer..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "Ingen matchende karakterer"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "Ingen karakterer tilgjengelig"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "Ingen karakter"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Opprett ny karakter+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "Importer karakter"
   },
   "rag_attachedContext": {
     "message": "Vedlagt kontekst"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "Ingen resultater"
   }
 }

@@ -1236,133 +1236,133 @@
     "message": "പ്രോസസ്സിൽ..."
   },
   "documentGenerator_title": {
-    "message": "Document generator"
+    "message": "ഡോക്യുമെന്റ് ജനറേറ്റർ"
   },
   "documentGenerator_unavailable": {
-    "message": "Document generation is not available on this server."
+    "message": "ഈ സർവറിൽ ഡോക്യുമെന്റ് സൃഷ്ടിക്കൽ ലഭ്യമല്ല."
   },
   "documentGenerator_noConversation": {
-    "message": "Start a server-backed chat to generate documents."
+    "message": "ഡോക്യുമെന്റുകൾ സൃഷ്ടിക്കാൻ സർവർ പിന്തുണയുള്ള ചാറ്റ് ആരംഭിക്കുക."
   },
   "documentGenerator_source": {
-    "message": "Source"
+    "message": "സ്രോതസ്"
   },
   "documentGenerator_sourceId": {
-    "message": "Conversation {{id}}"
+    "message": "സംഭാഷണം {{id}}"
   },
   "documentGenerator_sourceMissing": {
-    "message": "No active conversation yet."
+    "message": "ഇതുവരെ സജീവ സംഭാഷണം ഇല്ല."
   },
   "documentGenerator_sourceMessageId": {
-    "message": "Message {{id}}"
+    "message": "സന്ദേശം {{id}}"
   },
   "documentGenerator_documentType": {
-    "message": "Document type"
+    "message": "ഡോക്യുമെന്റ് തരം"
   },
   "documentGenerator_model": {
-    "message": "Model"
+    "message": "മോഡൽ"
   },
   "documentGenerator_modelPlaceholder": {
-    "message": "Model ID"
+    "message": "മോഡൽ ഐഡി"
   },
   "documentGenerator_providerPlaceholder": {
-    "message": "Provider name"
+    "message": "പ്രൊവൈഡർ പേര്"
   },
   "documentGenerator_providerLabel": {
-    "message": "Provider: {{provider}}"
+    "message": "പ്രൊവൈഡർ: {{provider}}"
   },
   "documentGenerator_specificMessage": {
-    "message": "Focus on a specific message"
+    "message": "ഒരു പ്രത്യേക സന്ദേശത്തിൽ ശ്രദ്ധിക്കുക"
   },
   "documentGenerator_specificMessagePlaceholder": {
-    "message": "Optional: paste a message excerpt to focus on."
+    "message": "ഐച്ഛികം: ശ്രദ്ധിക്കാനുള്ള സന്ദേശ ഭാഗം പേസ്റ്റ് ചെയ്യുക."
   },
   "documentGenerator_customPrompt": {
-    "message": "Custom prompt"
+    "message": "കസ്റ്റം പ്രോംപ്റ്റ്"
   },
   "documentGenerator_customPromptPlaceholder": {
-    "message": "Optional instructions for the generated document."
+    "message": "സൃഷ്ടിച്ച ഡോക്യുമെന്റിനുള്ള ഐച്ഛിക നിർദ്ദേശങ്ങൾ."
   },
   "documentGenerator_asyncGeneration": {
-    "message": "Generate asynchronously"
+    "message": "അസിങ്ക്രോണസായി സൃഷ്ടിക്കുക"
   },
   "documentGenerator_promptPresetTitle": {
-    "message": "Prompt preset"
+    "message": "പ്രോംപ്റ്റ് പ്രീസെറ്റ്"
   },
   "documentGenerator_promptPresetHint": {
-    "message": "Customize the system/user prompts used for this document type."
+    "message": "ഈ ഡോക്യുമെന്റ് തരം ഉപയോഗിക്കുന്ന സിസ്റ്റം/ഉപയോക്തൃ പ്രോംപ്റ്റുകൾ ഇഷ്ടാനുസൃതമാക്കുക."
   },
   "documentGenerator_promptReload": {
-    "message": "Reload from server"
+    "message": "സർവറിൽ നിന്ന് വീണ്ടും ലോഡ് ചെയ്യുക"
   },
   "documentGenerator_systemPrompt": {
-    "message": "System prompt"
+    "message": "സിസ്റ്റം പ്രോംപ്റ്റ്"
   },
   "documentGenerator_userPrompt": {
-    "message": "User prompt"
+    "message": "ഉപയോക്തൃ പ്രോംപ്റ്റ്"
   },
   "documentGenerator_temperature": {
-    "message": "Temperature"
+    "message": "താപനില"
   },
   "documentGenerator_maxTokens": {
-    "message": "Max tokens"
+    "message": "പരമാവധി ടോകൺസ്"
   },
   "documentGenerator_jobQueued": {
-    "message": "Document generation queued."
+    "message": "ഡോക്യുമെന്റ് സൃഷ്ടിക്കൽ ക്യൂ ചെയ്തു."
   },
   "documentGenerator_generated": {
-    "message": "Document generated."
+    "message": "ഡോക്യുമെന്റ് സൃഷ്ടിച്ചു."
   },
   "documentGenerator_deleteTitle": {
-    "message": "Delete document?"
+    "message": "ഡോക്യുമെന്റ് ഇല്ലാതാക്കണോ?"
   },
   "documentGenerator_deleteBody": {
-    "message": "This will permanently remove the generated document."
+    "message": "ഇത് സൃഷ്ടിച്ച ഡോക്യുമെന്റ് സ്ഥിരമായി നീക്കം ചെയ്യും."
   },
   "documentGenerator_jobCancelled": {
-    "message": "Job cancelled."
+    "message": "ജോലി റദ്ദാക്കി."
   },
   "documentGenerator_promptSaved": {
-    "message": "Prompt preset saved."
+    "message": "പ്രോംപ്റ്റ് പ്രീസെറ്റ് സേവ് ചെയ്തു."
   },
   "documentGenerator_documentsTitle": {
-    "message": "Generated documents"
+    "message": "സൃഷ്ടിച്ച ഡോക്യുമെന്റുകൾ"
   },
   "documentGenerator_loading": {
-    "message": "Loading…"
+    "message": "ലോഡ് ചെയ്യുന്നു…"
   },
   "documentGenerator_noDocuments": {
-    "message": "No documents yet."
+    "message": "ഇതുവരെ ഡോക്യുമെന്റുകളില്ല."
   },
   "documentGenerator_jobsTitle": {
-    "message": "Generation jobs"
+    "message": "സൃഷ്ടിക്കൽ ജോലികൾ"
   },
   "documentGenerator_progress": {
-    "message": "{{percent}}% complete"
+    "message": "{{percent}}% പൂർത്തിയായി"
   },
   "documentGenerator_noContent": {
-    "message": "No content available."
+    "message": "ഉള്ളടക്കം ലഭ്യമല്ല."
   },
   "documentGenerator_errors_missingModel": {
-    "message": "Select a model and provider first."
+    "message": "ആദ്യം ഒരു മോഡലും പ്രൊവൈഡറും തിരഞ്ഞെടുക്കുക."
   },
   "documentGenerator_types_summary": {
-    "message": "Summary"
+    "message": "സംഗ്രഹം"
   },
   "documentGenerator_types_timeline": {
-    "message": "Timeline"
+    "message": "ടൈംലൈൻ"
   },
   "documentGenerator_types_briefing": {
-    "message": "Briefing"
+    "message": "ബ്രിഫിംഗ്"
   },
   "documentGenerator_types_study_guide": {
-    "message": "Study guide"
+    "message": "പഠന മാർഗ്ഗദർശകം"
   },
   "documentGenerator_types_q_and_a": {
-    "message": "Q&A"
+    "message": "ചോദ്യോത്തരങ്ങൾ"
   },
   "documentGenerator_types_meeting_notes": {
-    "message": "Meeting notes"
+    "message": "യോഗ കുറിപ്പുകൾ"
   },
   "composer_contextTabsEmpty": {
     "message": "ഇതുവരെ ടാബുകൾ തിരഞ്ഞെടുക്കപ്പെട്ടിട്ടില്ല."
@@ -1383,9 +1383,9 @@
     "message": "യോഗ്യമായ തുറന്ന ടാബുകൾ കണ്ടെത്തിയില്ല."
   },
   "errors_loadLocalHistoryPrefix": {
-    "message": "Failed to load local chat history"
+    "message": "ലോക്കൽ ചാറ്റ് ചരിത്രം ലോഡ് ചെയ്യാൻ പരാജയപ്പെട്ടു"
   },
   "errors_loadLocalHistoryDefault": {
-    "message": "Something went wrong while loading local chat history."
+    "message": "ലോക്കൽ ചാറ്റ് ചരിത്രം ലോഡ് ചെയ്യുമ്പോൾ എന്തോ പിശക് സംഭവിച്ചു."
   }
 }

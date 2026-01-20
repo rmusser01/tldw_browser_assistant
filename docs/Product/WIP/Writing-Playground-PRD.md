@@ -83,35 +83,35 @@ Create a Writing Playground page inside extension Options that recreates the mik
 ## Data Model
 ### Session
 ```
-{ id, name, payload_json, schema_version, version, version_parent_id, created_at, updated_at, deleted_at }
+{ id, name, payload, schema_version, version_parent_id, created_at, last_modified, deleted, client_id, version }
 ```
 
 ### Template
 ```
-{ name, payload_json, schema_version, version, version_parent_id, is_default, updated_at, deleted_at }
+{ id, name, payload, schema_version, version_parent_id, is_default, created_at, last_modified, deleted, client_id, version }
 ```
 
 ### Theme
 ```
-{ name, class_name, css, schema_version, version, version_parent_id, is_default, order, updated_at, deleted_at }
+{ id, name, class_name, css, schema_version, version_parent_id, is_default, order, created_at, last_modified, deleted, client_id, version }
 ```
 
 ## API Contract
 - `GET /api/v1/writing/version` -> `{ version: 1 }`
 - `GET /api/v1/writing/capabilities` -> server + provider feature support
-- `GET /api/v1/writing/sessions` -> list sessions (id, name, updated_at)
-- `POST /api/v1/writing/sessions` -> create session
-- `GET /api/v1/writing/sessions/{id}` -> session payload
-- `PATCH /api/v1/writing/sessions/{id}` -> update session payload/name
-- `DELETE /api/v1/writing/sessions/{id}` -> delete session
-- `POST /api/v1/writing/sessions/{id}/clone` -> clone session
-- `GET /api/v1/writing/templates` + CRUD by name
-- `GET /api/v1/writing/themes` + CRUD by name
+- `GET /api/v1/writing/sessions` -> `{ sessions, total }`
+- `POST /api/v1/writing/sessions` -> create session (requires `name`, `payload`)
+- `GET /api/v1/writing/sessions/{session_id}` -> session payload
+- `PATCH /api/v1/writing/sessions/{session_id}` -> update session payload/name (requires `expected-version` header)
+- `DELETE /api/v1/writing/sessions/{session_id}` -> delete session (requires `expected-version` header)
+- `POST /api/v1/writing/sessions/{session_id}/clone` -> clone session (JSON body; optional `name`)
+- `GET /api/v1/writing/templates` -> `{ templates, total }` + CRUD by name
+- `GET /api/v1/writing/themes` -> `{ themes, total }` + CRUD by name
 - `POST /api/v1/writing/tokenize` -> ids + strings (requires `provider` + `model`)
 - `POST /api/v1/writing/token-count` -> integer count (requires `provider` + `model`)
 
 ## Capabilities Handshake
-The client must call `/api/v1/writing/capabilities` at startup and when model/provider changes. The response should include:
+The client must call `/api/v1/writing/capabilities` at startup and when model/provider changes. Default `include_providers=false`; fetch providers on-demand for model pickers. The response should include:
 - Endpoint support: sessions/templates/themes/tokenize/token-count
 - Provider features: logprobs/top_logprobs, grammar, banned_tokens, FIM, etc.
 - Tokenizer availability per provider/model
@@ -127,6 +127,7 @@ The UI disables features when capabilities are missing.
 ## Persistence Model
 - Server-backed only; no offline-only persistence.
 - Session payload includes `schema_version` for migration.
+- UI uses a client-side timestamp for display/sorting (server `last_modified` is still retained for sync).
 - Delete is final in API surface; server retains soft-delete for audit/migration.
 
 ## Security and Privacy

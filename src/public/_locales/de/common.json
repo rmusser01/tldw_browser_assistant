@@ -765,13 +765,13 @@
     "message": "Chats durchsuchen..."
   },
   "chatSidebar_modeLabel": {
-    "message": "Mode"
+    "message": "Modus"
   },
   "chatSidebar_modeCasual": {
-    "message": "Casual"
+    "message": "Locker"
   },
   "chatSidebar_modePro": {
-    "message": "Pro"
+    "message": "Profi"
   },
   "chatSidebar_ingest": {
     "message": "Seite erfassen"
@@ -936,109 +936,109 @@
     "message": "Dadurch wird dein Onboarding-Status zurückgesetzt und du kehrst zum Einrichtungsablauf zurück."
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Modell"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Ändert das Modell für die nächste Nachricht"
   },
   "generate": {
-    "message": "Generate"
+    "message": "Generieren"
   },
   "view": {
-    "message": "View"
+    "message": "Anzeigen"
   },
   "deleteMessageConfirm": {
-    "message": "Delete this message?"
+    "message": "Diese Nachricht löschen?"
   },
   "deleteFailed": {
-    "message": "Delete failed"
+    "message": "Löschen fehlgeschlagen"
   },
   "reply": {
-    "message": "Reply"
+    "message": "Antworten"
   },
   "replyShort": {
-    "message": "Reply"
+    "message": "Antworten"
   },
   "replyingTo": {
-    "message": "Replying to"
+    "message": "Antwort auf"
   },
   "clearReply": {
-    "message": "Clear reply target"
+    "message": "Antwortziel löschen"
   },
   "replyTargetFallback": {
-    "message": "Message"
+    "message": "Nachricht"
   },
   "artifactsTitle": {
-    "message": "Artifact"
+    "message": "Artefakt"
   },
   "artifactsDefaultTitle": {
     "message": "Code"
   },
   "artifactsView": {
-    "message": "View code"
+    "message": "Code anzeigen"
   },
   "artifactsPin": {
-    "message": "Pin"
+    "message": "Anheften"
   },
   "artifactsUnpin": {
-    "message": "Unpin"
+    "message": "Loslösen"
   },
   "artifactsClose": {
-    "message": "Close"
+    "message": "Schließen"
   },
   "artifactsCopy": {
-    "message": "Copy"
+    "message": "Kopieren"
   },
   "artifactsDownload": {
-    "message": "Download"
+    "message": "Herunterladen"
   },
   "artifactsRun": {
-    "message": "Run"
+    "message": "Ausführen"
   },
   "saveToNotes": {
-    "message": "Save to Notes"
+    "message": "In Notizen speichern"
   },
   "saveToFlashcards": {
-    "message": "Save to Flashcards"
+    "message": "In Karteikarten speichern"
   },
   "generateDocument": {
-    "message": "Generate document"
+    "message": "Dokument generieren"
   },
   "documentShort": {
-    "message": "Doc"
+    "message": "Dok."
   },
   "saveNoteShort": {
-    "message": "Note"
+    "message": "Notiz"
   },
   "saveFlashcardShort": {
-    "message": "Card"
+    "message": "Karte"
   },
   "savedToNotes": {
-    "message": "Saved to Notes"
+    "message": "In Notizen gespeichert"
   },
   "savedToFlashcards": {
-    "message": "Saved to Flashcards"
+    "message": "In Karteikarten gespeichert"
   },
   "saveToNotesEmpty": {
-    "message": "Nothing to save yet."
+    "message": "Noch nichts zu speichern."
   },
   "timeline_title": {
-    "message": "Conversation Timeline"
+    "message": "Gesprächs-Zeitleiste"
   },
   "timeline_searchPlaceholder": {
-    "message": "Search messages... (space = AND)"
+    "message": "Nachrichten suchen... (Leerzeichen = UND)"
   },
   "timeline_searchMatches": {
-    "message": "matches"
+    "message": "Treffer"
   },
   "timeline_searchNoMatches": {
-    "message": "no matches"
+    "message": "keine Treffer"
   },
   "timeline_searchMode_fragments": {
-    "message": "Fragments"
+    "message": "Fragmente"
   },
   "timeline_searchMode_substring": {
-    "message": "Substring"
+    "message": "Teilstring"
   },
   "timeline_searchMode_regex": {
     "message": "Regex"
@@ -1047,133 +1047,133 @@
     "message": "horizontal"
   },
   "timeline_layout_vertical": {
-    "message": "vertical"
+    "message": "vertikal"
   },
   "timeline_refreshGraph": {
-    "message": "Refresh graph"
+    "message": "Diagramm aktualisieren"
   },
   "timeline_switchLayout": {
-    "message": "Switch to {{layout}} layout"
+    "message": "Zum {{layout}}-Layout wechseln"
   },
   "timeline_expandAllAlternatives": {
-    "message": "Expand all alternatives"
+    "message": "Alle Alternativen erweitern"
   },
   "timeline_collapseAllAlternatives": {
-    "message": "Collapse all alternatives"
+    "message": "Alle Alternativen einklappen"
   },
   "timeline_hideLegend": {
-    "message": "Hide legend"
+    "message": "Legende ausblenden"
   },
   "timeline_showLegend": {
-    "message": "Show legend"
+    "message": "Legende anzeigen"
   },
   "timeline_zoomIn": {
-    "message": "Zoom in"
+    "message": "Heranzoomen"
   },
   "timeline_zoomOut": {
-    "message": "Zoom out"
+    "message": "Herauszoomen"
   },
   "sourceLabel": {
-    "message": "Source"
+    "message": "Quelle"
   },
   "sourceOpen": {
-    "message": "Open source"
+    "message": "Quelle öffnen"
   },
   "modelSettings_form_historyMessageLimit_label": {
-    "message": "History message limit"
+    "message": "Limit für Verlaufsnachrichten"
   },
   "modelSettings_form_historyMessageLimit_placeholder": {
-    "message": "e.g. 10"
+    "message": "z. B. 10"
   },
   "modelSettings_form_historyMessageLimit_help": {
-    "message": "Limit how many previous messages are sent with each request."
+    "message": "Begrenzt, wie viele vorherige Nachrichten mit jeder Anfrage gesendet werden."
   },
   "modelSettings_form_historyMessageOrder_label": {
-    "message": "History message order"
+    "message": "Reihenfolge der Verlaufsnachrichten"
   },
   "modelSettings_form_historyMessageOrder_placeholder": {
-    "message": "Select order"
+    "message": "Reihenfolge auswählen"
   },
   "modelSettings_form_historyMessageOrder_help": {
-    "message": "Choose whether the newest or oldest messages are sent first."
+    "message": "Wähle, ob die neuesten oder ältesten Nachrichten zuerst gesendet werden."
   },
   "modelSettings_form_historyMessageOrder_options_desc": {
-    "message": "Newest first"
+    "message": "Neueste zuerst"
   },
   "modelSettings_form_historyMessageOrder_options_asc": {
-    "message": "Oldest first"
+    "message": "Älteste zuerst"
   },
   "modelSettings_form_slashCommandInjectionMode_label": {
-    "message": "Slash command injection"
+    "message": "Slash-Command-Injektion"
   },
   "modelSettings_form_slashCommandInjectionMode_placeholder": {
-    "message": "Select injection mode"
+    "message": "Injektionsmodus auswählen"
   },
   "modelSettings_form_slashCommandInjectionMode_help": {
-    "message": "Choose how slash commands are inserted into the request."
+    "message": "Wähle, wie Slash-Commands in die Anfrage eingefügt werden."
   },
   "modelSettings_form_slashCommandInjectionMode_options_system": {
-    "message": "System message"
+    "message": "Systemnachricht"
   },
   "modelSettings_form_slashCommandInjectionMode_options_preface": {
-    "message": "Preface user message"
+    "message": "Benutzernachricht voranstellen"
   },
   "modelSettings_form_slashCommandInjectionMode_options_replace": {
-    "message": "Replace user message"
+    "message": "Benutzernachricht ersetzen"
   },
   "modelSettings_form_apiProvider_label": {
-    "message": "API provider override"
+    "message": "API-Provider überschreiben"
   },
   "modelSettings_form_apiProvider_placeholder": {
-    "message": "Select provider (optional)"
+    "message": "Provider auswählen (optional)"
   },
   "modelSettings_form_apiProvider_help": {
-    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+    "message": "Einen bestimmten Provider für diesen Chat erzwingen (z. B. openai, anthropic)."
   },
   "modelSettings_form_extraHeaders_label": {
-    "message": "Extra headers (JSON)"
+    "message": "Zusätzliche Header (JSON)"
   },
   "modelSettings_form_extraHeaders_placeholder": {
     "message": "{ \"X-API-Key\": \"...\" }"
   },
   "modelSettings_form_extraHeaders_help": {
-    "message": "JSON object merged into request headers."
+    "message": "JSON-Objekt, das in die Anfrage-Header gemischt wird."
   },
   "modelSettings_form_extraBody_label": {
-    "message": "Extra body (JSON)"
+    "message": "Zusätzlicher Body (JSON)"
   },
   "modelSettings_form_extraBody_placeholder": {
     "message": "{ \"user\": \"...\" }"
   },
   "modelSettings_form_extraBody_help": {
-    "message": "JSON object merged into request body."
+    "message": "JSON-Objekt, das in den Anfrage-Body gemischt wird."
   },
   "modelSettings_form_guardrails_invalidJson": {
-    "message": "Enter a valid JSON object."
+    "message": "Gib ein gültiges JSON-Objekt ein."
   },
   "modelSettings_requestOverrides": {
-    "message": "Request overrides"
+    "message": "Anfrage-Überschreibungen"
   },
   "modelSettings_tabs_model": {
-    "message": "Model"
+    "message": "Modell"
   },
   "modelSettings_tabs_conversation": {
-    "message": "Conversation"
+    "message": "Unterhaltung"
   },
   "modelSettings_tabs_advanced": {
-    "message": "Advanced"
+    "message": "Erweitert"
   },
   "modelSettings_tabs_actor": {
-    "message": "Scene Director"
+    "message": "Szenenregie"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Ordner konnte nicht erstellt werden"
   },
   "timeline_unableLocateMessage": {
-    "message": "Unable to locate the message for this action."
+    "message": "Die Nachricht für diese Aktion konnte nicht gefunden werden."
   },
   "timeline_actionFailed": {
-    "message": "Failed to perform timeline action. Please try again."
+    "message": "Zeitleistenaktion fehlgeschlagen. Bitte erneut versuchen."
   },
   "documentCard_removeAria": {
     "message": "Entferne {{name}}"

@@ -6,7 +6,7 @@
     "openwebui": "Открыть веб-интерфейс"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "Поиск RAG"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant не может сохранить данные",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "Временный чат",
-    "label": "Temp",
+    "label": "Врем.",
     "description": "Этот чат не будет сохранен. Сообщения будут удалены при закрытии или начале нового чата.",
     "clickHint": "Нажмите, чтобы отключить",
     "ariaLabel": "Режим временного чата активен. Нажмите, чтобы переключить.",
@@ -35,33 +35,33 @@
     "indicatorAria": "Временный чат"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "Ингест",
+    "saveCurrent": "Сохранить текущую страницу на сервере",
+    "processLocal": "Обработать текущую страницу локально",
+    "viewProcessed": "Просмотреть обработанное",
+    "timeoutLabel": "Тайм‑аут (с)",
+    "toggleSidebar": "Переключить боковую панель / полный экран",
+    "shortcuts": "Горячие клавиши",
+    "showDebug": "Показать отладку потока",
+    "hideDebug": "Скрыть отладку потока",
+    "moreOptionsAria": "Больше опций",
+    "moreOptionsTitle": "Ингест и другое",
+    "openWebuiAria": "Открыть Web UI",
+    "newChatAria": "Новый чат",
+    "tempChatAria": "Переключить временный чат",
+    "clearHistoryAria": "Очистить историю",
+    "openHistoryAria": "Открыть историю",
+    "openModelSettingsAria": "Открыть настройки модели",
+    "openSettingsAria": "Открыть настройки",
+    "tempPill": "Врем.",
+    "modesLabel": "Открыть режимы в Web UI",
+    "modePlayground": "Чат",
+    "modeReview": "Обзор нескольких элементов",
+    "modeMedia": "Медиа",
+    "modeKnowledge": "QA по знаниям",
+    "modeNotes": "Заметки",
+    "modePrompts": "Подсказки",
+    "modeFlashcards": "Карточки"
   },
   "controlRow": {
     "saveMode": "Режим сохранения",
@@ -80,21 +80,21 @@
     "moreTools": "Больше инструментов"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "Подключитесь к серверу tldw в настройках, чтобы отправлять сообщения.",
+    "connectingPlaceholder": "Подключение...",
+    "disconnectedPlaceholder": "Подключитесь к серверу tldw в настройках, чтобы отправлять сообщения и просматривать медиа."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "Отправлено на сервер tldw",
+    "ingestSentDesc": "Текущая страница отправлена на ингест.",
+    "processedLocal": "Обработано локально",
+    "processedLocalDesc": "Обработанный контент хранится локально в Настройки > Обработанное.",
+    "transcriptionTitle": "Транскрипция",
+    "transcriptionSummaryTitle": "Транскрипция + резюме",
+    "transcriptionFallback": "Транскрипция завершена. Откройте Медиа в Web UI, чтобы посмотреть.",
+    "sourceLabel": "Источник",
+    "transcriptLabel": "Транскрипция",
+    "summaryLabel": "Резюме"
   },
   "saveStatus": {
     "ephemeral": "Временный: не сохраняется, очищается при закрытии",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "Прикрепленный контекст",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "Поиск по базе знаний...",
+    "search": "Поиск",
+    "show": "Показать поиск RAG",
+    "hide": "Скрыть поиск RAG",
+    "addTagPlaceholder": "Добавить тег (Enter)",
+    "add": "Добавить",
+    "noResults": "Нет результатов",
+    "initialState": "Пока нет результатов",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "Время ожидания запроса истекло.",
+      "increase": "Увеличить тайм‑аут",
+      "checkHealth": "Проверить состояние сервера"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "Вставить",
+      "ask": "Спросить",
+      "open": "Открыть",
+      "copy": "Копировать"
     },
     "hint": {
       "message": "Ищите в своей базе знаний и вставляйте результаты в сообщение.",
@@ -135,13 +135,13 @@
     "closeTabAria": "Закрыть вкладку чата"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "Персонаж",
+    "tooltip": "Выберите персонажа",
+    "search": "Поиск персонажей...",
+    "noMatches": "Нет подходящих персонажей",
+    "noCharacters": "Нет доступных персонажей",
+    "none": "Без персонажа",
+    "createNewCharacter": "Создать нового персонажа+",
+    "importCharacter": "Импортировать персонажа"
   }
 }

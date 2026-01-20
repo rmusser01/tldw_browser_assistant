@@ -2763,43 +2763,43 @@
     "message": "Confronta"
   },
   "chunkingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "Impostazioni"
   },
   "chunkingPlayground_tabTemplates": {
-    "message": "Templates"
+    "message": "Modelli"
   },
   "chunkingPlayground_tabCapabilities": {
-    "message": "Capabilities"
+    "message": "Capacità"
   },
   "chunkingPlayground_appliedOptionsTitle": {
-    "message": "Applied options"
+    "message": "Opzioni applicate"
   },
   "chunkingPlayground_responseMetaTitle": {
-    "message": "Response metadata"
+    "message": "Metadati della risposta"
   },
   "chunkingPlayground_inlineUnavailable": {
-    "message": "Inline view requires character offsets; switch to Cards to inspect chunks."
+    "message": "La vista in linea richiede offset dei caratteri; passa a Carte per ispezionare i segmenti."
   },
   "chunkingPlayground_metadataLabel": {
-    "message": "Metadata"
+    "message": "Metadati"
   },
   "chunkingPlayground_advanced_title": {
-    "message": "Advanced Options"
+    "message": "Opzioni avanzate"
   },
   "chunkingPlayground_advanced_methodRequiresLlm": {
-    "message": "This method requires an LLM provider on the server."
+    "message": "Questo metodo richiede un provider LLM sul server."
   },
   "chunkingPlayground_advanced_templateNameLabel": {
-    "message": "Template name"
+    "message": "Nome modello"
   },
   "chunkingPlayground_advanced_templateNamePlaceholder": {
-    "message": "Select or type a template name"
+    "message": "Seleziona o digita un nome modello"
   },
   "chunkingPlayground_advanced_templateOverridesHint": {
-    "message": "Template defaults are applied first; form values override them."
+    "message": "I valori predefiniti del modello vengono applicati per primi; i valori del modulo li sovrascrivono."
   },
   "chunkingPlayground_advanced_requestModeLabel": {
-    "message": "Request Endpoint"
+    "message": "Endpoint di richiesta"
   },
   "chunkingPlayground_advanced_requestModeJson": {
     "message": "JSON (/chunk_text)"
@@ -2808,234 +2808,234 @@
     "message": "Multipart (/chunk_file)"
   },
   "chunkingPlayground_advanced_requestModeHint": {
-    "message": "Use JSON for full option support; multipart matches /chunk_file."
+    "message": "Usa JSON per il supporto completo delle opzioni; multipart corrisponde a /chunk_file."
   },
   "chunkingPlayground_advanced_tokenizerLabel": {
-    "message": "Tokenizer"
+    "message": "Tokenizzatore"
   },
   "chunkingPlayground_advanced_tokenizerPlaceholder": {
-    "message": "Tokenizer name or path (e.g., gpt2)"
+    "message": "Nome o percorso del tokenizzatore (es. gpt2)"
   },
   "chunkingPlayground_advanced_adaptiveLabel": {
-    "message": "Adaptive chunking"
+    "message": "Segmentazione adattiva"
   },
   "chunkingPlayground_advanced_multiLevelLabel": {
-    "message": "Multi-level chunking"
+    "message": "Segmentazione multilivello"
   },
   "chunkingPlayground_advanced_codeModeLabel": {
-    "message": "Code mode"
+    "message": "Modalità codice"
   },
   "chunkingPlayground_advanced_codeModeHint": {
-    "message": "Controls how code is parsed when method is 'code'."
+    "message": "Controlla come il codice viene analizzato quando il metodo è 'code'."
   },
   "chunkingPlayground_advanced_semanticSimilarityLabel": {
-    "message": "Semantic similarity threshold"
+    "message": "Soglia di similarità semantica"
   },
   "chunkingPlayground_advanced_semanticOverlapLabel": {
-    "message": "Semantic overlap sentences"
+    "message": "Frasi di sovrapposizione semantica"
   },
   "chunkingPlayground_advanced_jsonKeyLabel": {
-    "message": "JSON chunkable key"
+    "message": "Chiave JSON segmentabile"
   },
   "chunkingPlayground_advanced_frontmatterLabel": {
-    "message": "Enable frontmatter parsing"
+    "message": "Abilita parsing frontmatter"
   },
   "chunkingPlayground_advanced_frontmatterSentinelLabel": {
-    "message": "Frontmatter sentinel key"
+    "message": "Chiave sentinella frontmatter"
   },
   "chunkingPlayground_advanced_customChapterPatternLabel": {
-    "message": "Custom chapter pattern"
+    "message": "Pattern capitolo personalizzato"
   },
   "chunkingPlayground_advanced_summarizationDetailLabel": {
-    "message": "Summarization detail"
+    "message": "Dettaglio di sintesi"
   },
   "chunkingPlayground_advanced_llmOptionsTitle": {
-    "message": "LLM Options (internal steps)"
+    "message": "Opzioni LLM (passaggi interni)"
   },
   "chunkingPlayground_advanced_llmTemperatureLabel": {
-    "message": "LLM temperature"
+    "message": "Temperatura LLM"
   },
   "chunkingPlayground_advanced_llmSystemPromptLabel": {
-    "message": "LLM system prompt"
+    "message": "Prompt di sistema LLM"
   },
   "chunkingPlayground_advanced_llmMaxTokensLabel": {
-    "message": "LLM max tokens"
+    "message": "Token massimi LLM"
   },
   "chunkingPlayground_advanced_propositionEngineLabel": {
-    "message": "Proposition engine"
+    "message": "Motore di proposizioni"
   },
   "chunkingPlayground_advanced_propositionAggressivenessLabel": {
-    "message": "Proposition aggressiveness"
+    "message": "Aggressività delle proposizioni"
   },
   "chunkingPlayground_advanced_propositionMinLengthLabel": {
-    "message": "Min proposition length"
+    "message": "Lunghezza minima proposizione"
   },
   "chunkingPlayground_advanced_propositionPromptProfileLabel": {
-    "message": "Proposition prompt profile"
+    "message": "Profilo prompt delle proposizioni"
   },
   "chunkingPlayground_advanced_resetDefaults": {
-    "message": "Reset to defaults"
+    "message": "Reimposta ai valori predefiniti"
   },
   "chunkingPlayground_templates_title": {
-    "message": "Chunking Templates"
+    "message": "Modelli di segmentazione"
   },
   "chunkingPlayground_templates_description": {
-    "message": "Manage, validate, and apply chunking templates."
+    "message": "Gestisci, valida e applica modelli di segmentazione."
   },
   "chunkingPlayground_templates_tabBrowse": {
-    "message": "Browse"
+    "message": "Sfoglia"
   },
   "chunkingPlayground_templates_tabEditor": {
     "message": "Editor"
   },
   "chunkingPlayground_templates_tabApply": {
-    "message": "Apply"
+    "message": "Applica"
   },
   "chunkingPlayground_templates_tabValidate": {
-    "message": "Validate"
+    "message": "Valida"
   },
   "chunkingPlayground_templates_tabMatch": {
-    "message": "Match"
+    "message": "Corrispondenza"
   },
   "chunkingPlayground_templates_tabLearn": {
-    "message": "Learn"
+    "message": "Apprendi"
   },
   "chunkingPlayground_templates_tabDiagnostics": {
-    "message": "Diagnostics"
+    "message": "Diagnostica"
   },
   "chunkingPlayground_templates_filtersTitle": {
-    "message": "Filters"
+    "message": "Filtri"
   },
   "chunkingPlayground_templates_includeBuiltin": {
-    "message": "Include built-in"
+    "message": "Includi modelli integrati"
   },
   "chunkingPlayground_templates_includeCustom": {
-    "message": "Include custom"
+    "message": "Includi modelli personalizzati"
   },
   "chunkingPlayground_templates_tagsLabel": {
-    "message": "Tags"
+    "message": "Tag"
   },
   "chunkingPlayground_templates_tagsPlaceholder": {
-    "message": "Add tags"
+    "message": "Aggiungi tag"
   },
   "chunkingPlayground_templates_userIdLabel": {
-    "message": "User ID"
+    "message": "ID utente"
   },
   "chunkingPlayground_templates_selectLabel": {
-    "message": "Template"
+    "message": "Modello"
   },
   "chunkingPlayground_templates_selectPlaceholder": {
-    "message": "Select a template"
+    "message": "Seleziona un modello"
   },
   "chunkingPlayground_templates_detailsTitle": {
-    "message": "Template details"
+    "message": "Dettagli del modello"
   },
   "chunkingPlayground_templates_isBuiltin": {
-    "message": "Built-in"
+    "message": "Integrato"
   },
   "chunkingPlayground_templates_version": {
-    "message": "Version"
+    "message": "Versione"
   },
   "chunkingPlayground_templates_updatedAt": {
-    "message": "Updated"
+    "message": "Aggiornato"
   },
   "chunkingPlayground_templates_loadIntoEditor": {
-    "message": "Load into editor"
+    "message": "Carica nell'editor"
   },
   "chunkingPlayground_templates_deleteConfirm": {
-    "message": "Delete this template?"
+    "message": "Eliminare questo modello?"
   },
   "chunkingPlayground_templates_hardDeleteLabel": {
-    "message": "Hard delete"
+    "message": "Eliminazione definitiva"
   },
   "chunkingPlayground_templates_noSelection": {
-    "message": "Select a template to view details."
+    "message": "Seleziona un modello per vedere i dettagli."
   },
   "chunkingPlayground_templates_templateJsonLabel": {
-    "message": "Template JSON"
+    "message": "JSON del modello"
   },
   "chunkingPlayground_templates_overrideOptionsLabel": {
-    "message": "Override options (JSON)"
+    "message": "Sovrascrivi opzioni (JSON)"
   },
   "chunkingPlayground_templates_includeMetadataLabel": {
-    "message": "Include metadata"
+    "message": "Includi metadati"
   },
   "chunkingPlayground_templates_applyTextLabel": {
-    "message": "Text to apply template"
+    "message": "Testo a cui applicare il modello"
   },
   "chunkingPlayground_templates_applyTextPlaceholder": {
-    "message": "Paste text to chunk with this template"
+    "message": "Incolla il testo da segmentare con questo modello"
   },
   "chunkingPlayground_templates_validateLabel": {
-    "message": "Template JSON to validate"
+    "message": "JSON del modello da validare"
   },
   "chunkingPlayground_templates_matchMediaTypeLabel": {
-    "message": "Media type"
+    "message": "Tipo di media"
   },
   "chunkingPlayground_templates_matchTitleLabel": {
-    "message": "Title"
+    "message": "Titolo"
   },
   "chunkingPlayground_templates_matchUrlLabel": {
     "message": "URL"
   },
   "chunkingPlayground_templates_matchFilenameLabel": {
-    "message": "Filename"
+    "message": "Nome file"
   },
   "chunkingPlayground_templates_learnNameLabel": {
-    "message": "Template name"
+    "message": "Nome modello"
   },
   "chunkingPlayground_templates_learnExampleLabel": {
-    "message": "Example text"
+    "message": "Testo di esempio"
   },
   "chunkingPlayground_templates_learnDescriptionLabel": {
-    "message": "Description"
+    "message": "Descrizione"
   },
   "chunkingPlayground_templates_learnSaveLabel": {
-    "message": "Save template"
+    "message": "Salva modello"
   },
   "chunkingPlayground_templates_learnClassifierLabel": {
-    "message": "Classifier (JSON)"
+    "message": "Classificatore (JSON)"
   },
   "chunkingPlayground_templates_jsonError": {
-    "message": "Invalid JSON. Please fix and try again."
+    "message": "JSON non valido. Correggi e riprova."
   },
   "chunkingPlayground_templates_nameRequired": {
-    "message": "Template name is required."
+    "message": "Il nome del modello è obbligatorio."
   },
   "chunkingPlayground_templates_updateAction": {
-    "message": "Update"
+    "message": "Aggiorna"
   },
   "chunkingPlayground_templates_applyAction": {
-    "message": "Apply"
+    "message": "Applica"
   },
   "chunkingPlayground_templates_validateAction": {
-    "message": "Validate"
+    "message": "Valida"
   },
   "chunkingPlayground_templates_matchAction": {
-    "message": "Match"
+    "message": "Corrispondenza"
   },
   "chunkingPlayground_templates_learnAction": {
-    "message": "Learn"
+    "message": "Apprendi"
   },
   "chunkingPlayground_templates_diagnosticsAction": {
-    "message": "Run diagnostics"
+    "message": "Esegui diagnostica"
   },
   "chunkingPlayground_capabilities_title": {
-    "message": "Chunking Capabilities"
+    "message": "Capacità di segmentazione"
   },
   "chunkingPlayground_capabilities_methodsLabel": {
-    "message": "Methods"
+    "message": "Metodi"
   },
   "chunkingPlayground_capabilities_llmLabel": {
-    "message": "LLM-required methods"
+    "message": "Metodi che richiedono LLM"
   },
   "chunkingPlayground_capabilities_defaultsLabel": {
-    "message": "Default options"
+    "message": "Opzioni predefinite"
   },
   "chunkingPlayground_capabilities_methodOptionsLabel": {
-    "message": "Method-specific options"
+    "message": "Opzioni specifiche del metodo"
   },
   "chunkingPlayground_capabilities_notesLabel": {
-    "message": "Notes"
+    "message": "Note"
   }
 }

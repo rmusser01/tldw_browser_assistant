@@ -12,6 +12,17 @@ import { FEATURE_FLAG_KEYS, withFeatures } from "./utils/feature-flags"
 const normalizeServerUrl = (value: string) =>
   value.match(/^https?:\/\//) ? value : `http://${value}`
 
+const normalizePath = (value: string) => {
+  const trimmed = String(value || "").trim().replace(/^\/+|\/+$/g, "")
+  return trimmed ? `/${trimmed}` : ""
+}
+
+const joinUrl = (base: string, path: string) => {
+  const trimmedBase = base.replace(/\/$/, "")
+  const trimmedPath = path.startsWith("/") ? path : `/${path}`
+  return `${trimmedBase}${trimmedPath}`
+}
+
 const getFirstModelId = (payload: any): string | null => {
   const list = Array.isArray(payload)
     ? payload
@@ -54,6 +65,99 @@ const fetchWithKeyTimeout = async (
   } finally {
     clearTimeout(timeoutId)
   }
+}
+
+const resolveMediaApi = async (serverUrl: string, apiKey: string) => {
+  const normalized = serverUrl.replace(/\/$/, "")
+  let apiBase = normalized
+  const override = process.env.TLDW_E2E_MEDIA_BASE
+  let mediaBasePath = normalizePath(override || "/api/v1/media")
+
+  const openApi = await fetchWithKey(
+    `${normalized}/openapi.json`,
+    apiKey
+  ).catch(() => null)
+  if (openApi?.ok) {
+    const payload = await openApi.json().catch(() => null)
+    const servers = Array.isArray(payload?.servers) ? payload.servers : []
+    const serverEntry = servers.find(
+      (entry: any) => typeof entry?.url === "string"
+    )
+    const openApiServerUrl =
+      typeof serverEntry?.url === "string" ? serverEntry.url : ""
+    if (openApiServerUrl && openApiServerUrl !== "/") {
+      if (
+        openApiServerUrl.startsWith("http://") ||
+        openApiServerUrl.startsWith("https://")
+      ) {
+        apiBase = openApiServerUrl.replace(/\/$/, "")
+      } else {
+        apiBase = `${normalized}${openApiServerUrl.startsWith("/") ? "" : "/"}${openApiServerUrl}`.replace(
+          /\/$/,
+          ""
+        )
+      }
+    }
+
+    if (!override) {
+      const paths =
+        payload?.paths && typeof payload.paths === "object"
+          ? Object.keys(payload.paths)
+          : []
+      const candidates = ["/api/v1/media", "/api/media", "/media"]
+      for (const candidate of candidates) {
+        const normalizedCandidate = normalizePath(candidate)
+        if (
+          paths.includes(normalizedCandidate) ||
+          paths.includes(`${normalizedCandidate}/`) ||
+          paths.includes(`${normalizedCandidate}/search`)
+        ) {
+          mediaBasePath = normalizedCandidate
+          break
+        }
+      }
+    }
+  }
+
+  return { apiBase, mediaBasePath }
+}
+
+const preflightMediaApi = async (
+  apiBase: string,
+  mediaBasePath: string,
+  apiKey: string
+) => {
+  const listUrl = joinUrl(
+    apiBase,
+    `${mediaBasePath}?page=1&results_per_page=1`
+  )
+  const listRes = await fetchWithKey(listUrl, apiKey).catch(() => null)
+  if (listRes?.ok) return
+  if (listRes && listRes.status !== 404) {
+    const body = await listRes.text().catch(() => "")
+    throw new Error(
+      `Media API preflight failed: ${listRes.status} ${listRes.statusText} ${body}`
+    )
+  }
+
+  const searchUrl = joinUrl(
+    apiBase,
+    `${mediaBasePath}/search?page=1&results_per_page=1`
+  )
+  const searchRes = await fetchWithKey(searchUrl, apiKey, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: "e2e-preflight",
+      fields: ["title", "content"],
+      sort_by: "relevance"
+    })
+  }).catch(() => null)
+  if (searchRes?.ok) return
+  const body = await searchRes?.text().catch(() => "")
+  throw new Error(
+    `Media API preflight failed: ${searchRes?.status ?? "no response"} ${searchRes?.statusText ?? ""} ${body}`
+  )
 }
 
 const skipOrThrow = (condition: boolean, message: string) => {
@@ -633,61 +737,49 @@ const probeSaveChatKnowledge = async (
   )
 }
 
-const fetchFlashcardsCount = async (
+const fetchRecentFlashcards = async (
   serverUrl: string,
-  apiKey: string
-): Promise<number> => {
+  apiKey: string,
+  limit = 10
+): Promise<any[]> => {
   const normalized = serverUrl.replace(/\/$/, "")
   const res = await fetchWithKey(
-    `${normalized}/api/v1/flashcards?limit=1&offset=0&due_status=all`,
+    `${normalized}/api/v1/flashcards?limit=${limit}&offset=0&due_status=all&order_by=created_at`,
     apiKey
   ).catch(() => null)
   if (!res?.ok) {
     const body = await res?.text().catch(() => "")
     throw new Error(
-      `Flashcards count fetch failed: ${res?.status} ${res?.statusText} ${body}`
+      `Flashcards list fetch failed: ${res?.status} ${res?.statusText} ${body}`
     )
   }
   const payload = await res.json().catch(() => null)
-  const count = payload?.count
-  if (typeof count === "number") return count
-  throw new Error("Flashcards count missing from list response.")
+  return parseListPayload(payload, ["items", "results", "data"])
 }
 
-const pollForFlashcardsCountIncrease = async (
+const pollForNewFlashcard = async (
   serverUrl: string,
   apiKey: string,
-  baselineCount: number,
+  baselineIds: Set<string>,
+  snippet: string,
   timeoutMs = 60000
-): Promise<number> => {
-  const normalized = serverUrl.replace(/\/$/, "")
+) => {
   const deadline = Date.now() + timeoutMs
-  let lastCount = baselineCount
-  let lastStatus: number | null = null
-  let lastBody = ""
+  const target = normalizeMessageContent(snippet).slice(0, 80)
   while (Date.now() < deadline) {
-    const res = await fetchWithKey(
-      `${normalized}/api/v1/flashcards?limit=1&offset=0&due_status=all`,
-      apiKey
-    ).catch(() => null)
-    if (res?.ok) {
-      const payload = await res.json().catch(() => null)
-      const count = payload?.count
-      if (typeof count === "number") {
-        lastCount = count
-        if (count > baselineCount) return count
-      }
-    } else if (res) {
-      lastStatus = res.status
-      lastBody = await res.text().catch(() => "")
-    }
+    const items = await fetchRecentFlashcards(serverUrl, apiKey, 20)
+    const match = items.find((item: any) => {
+      const id = item?.uuid != null ? String(item.uuid) : ""
+      if (!id || baselineIds.has(id)) return false
+      if (!target) return true
+      const front = normalizeMessageContent(item?.front ?? "")
+      const back = normalizeMessageContent(item?.back ?? "")
+      return front.includes(target) || back.includes(target)
+    })
+    if (match) return match
     await new Promise((r) => setTimeout(r, 2000))
   }
-  throw new Error(
-    `Flashcards count did not increase after saving. Baseline=${baselineCount} last=${lastCount} lastStatus=${String(
-      lastStatus ?? "unknown"
-    )} ${lastBody}`
-  )
+  throw new Error("New flashcard did not appear after saving.")
 }
 
 const clearReviewDeckSelection = async (page: Page) => {
@@ -892,13 +984,15 @@ const pollForMediaMatch = async (
   serverUrl: string,
   apiKey: string,
   query: string,
-  timeoutMs = 180000
+  timeoutMs = 180000,
+  mediaBasePath = "/api/v1/media"
 ) => {
   const normalized = serverUrl.replace(/\/$/, "")
+  const basePath = normalizePath(mediaBasePath || "/api/v1/media")
   const deadline = Date.now() + timeoutMs
   while (Date.now() < deadline) {
     const res = await fetchWithKey(
-      `${normalized}/api/v1/media/search?page=1&results_per_page=20`,
+      `${normalized}${basePath}/search?page=1&results_per_page=20`,
       apiKey,
       {
         method: "POST",
@@ -1965,16 +2059,27 @@ test.describe("Real server end-to-end workflows", () => {
       const saveButton = page.getByRole("button", { name: /Save note/i })
       await expect(saveButton).toBeEnabled({ timeout: 15000 })
       await saveButton.click({ timeout: 15000 })
-      await expect(
-        page.getByText(/Note created|Note updated/i)
-      ).toBeVisible({ timeout: 15000 })
-
-      const savedNote = await pollForNoteByTitle(
+      const savedNotePromise = pollForNoteByTitle(
         normalizedServerUrl,
         apiKey,
         title,
         30000
       )
+      try {
+        await expect(
+          page.getByText(/Note created|Note updated/i)
+        ).toBeVisible({ timeout: 15000 })
+      } catch (error: any) {
+        const savedNote = await savedNotePromise
+        const noteHint = savedNote
+          ? `found id=${savedNote?.id ?? "unknown"} title=${savedNote?.title ?? "unknown"}`
+          : "not found"
+        throw new Error(`Save toast missing; note lookup after save: ${noteHint}`, {
+          cause: error
+        })
+      }
+
+      const savedNote = await savedNotePromise
 
       const expandSidebar = page.getByRole("button", {
         name: /Expand sidebar/i
@@ -2378,9 +2483,15 @@ test.describe("Real server end-to-end workflows", () => {
         `[data-testid="chat-message"][data-server-message-id="${serverMessageId}"]`
       )
       await expect(lastAssistant).toBeVisible({ timeout: 30000 })
-      const baselineFlashcardsCount = await fetchFlashcardsCount(
+      const baselineFlashcards = await fetchRecentFlashcards(
         normalizedServerUrl,
-        apiKey
+        apiKey,
+        20
+      )
+      const baselineFlashcardIds = new Set(
+        baselineFlashcards
+          .map((item: any) => (item?.uuid != null ? String(item.uuid) : null))
+          .filter((id: string | null): id is string => Boolean(id))
       )
 
       await lastAssistant.hover().catch(() => {})
@@ -2408,10 +2519,11 @@ test.describe("Real server end-to-end workflows", () => {
         "after-save"
       )
       try {
-        await pollForFlashcardsCountIncrease(
+        await pollForNewFlashcard(
           normalizedServerUrl,
           apiKey,
-          baselineFlashcardsCount
+          baselineFlashcardIds,
+          assistantText
         )
       } catch (error) {
         await probeSaveChatKnowledge(
@@ -2506,26 +2618,18 @@ test.describe("Real server end-to-end workflows", () => {
     test.setTimeout(240000)
     const { serverUrl, apiKey } = requireRealServerConfig(test)
     const normalizedServerUrl = normalizeServerUrl(serverUrl)
-
-    const mediaResponse = await fetchWithKey(
-      `${normalizedServerUrl}/api/v1/media/?page=1&results_per_page=1`,
+    const { apiBase: mediaApiBase, mediaBasePath } = await resolveMediaApi(
+      normalizedServerUrl,
       apiKey
     )
-    if (!mediaResponse.ok) {
-      const body = await mediaResponse.text().catch(() => "")
-      skipOrThrow(
-        true,
-        `Media API preflight failed: ${mediaResponse.status} ${mediaResponse.statusText} ${body}`
-      )
-      return
-    }
+    await preflightMediaApi(mediaApiBase, mediaBasePath, apiKey)
 
     const { context, page, extensionId, optionsUrl } =
       await launchWithExtension("", {
         seedConfig: {
           __tldw_first_run_complete: true,
           tldwConfig: {
-            serverUrl: normalizedServerUrl,
+            serverUrl: mediaApiBase,
             authMode: "single-user",
             apiKey
           }
@@ -2533,7 +2637,7 @@ test.describe("Real server end-to-end workflows", () => {
       })
 
     try {
-      const origin = new URL(normalizedServerUrl).origin + "/*"
+      const origin = new URL(mediaApiBase).origin + "/*"
       const granted = await grantHostPermission(
         context,
         extensionId,
@@ -2609,10 +2713,11 @@ test.describe("Real server end-to-end workflows", () => {
       ).toBeVisible({ timeout: 180000 })
 
       await pollForMediaMatch(
-        normalizedServerUrl,
+        mediaApiBase,
         apiKey,
         String(unique),
-        180000
+        180000,
+        mediaBasePath
       )
 
       await page.goto(`${optionsUrl}#/media`, {
@@ -3115,7 +3220,13 @@ test.describe("Real server end-to-end workflows", () => {
           await fallbackInput.fill(characterName)
         }
       }
-      const option = page.getByRole("option", { name: characterName })
+      const dropdown = page.locator(
+        ".ant-select-dropdown:not(.ant-select-dropdown-hidden)"
+      )
+      await expect(dropdown).toBeVisible({ timeout: 15000 })
+      const option = dropdown.locator(".ant-select-item-option-content", {
+        hasText: characterName
+      })
       await expect(option).toBeVisible({ timeout: 15000 })
       await option.click()
       await attachModal.getByRole("button", { name: /^Attach$/i }).click()
@@ -3128,16 +3239,19 @@ test.describe("Real server end-to-end workflows", () => {
       expect(download.suggestedFilename()).toMatch(/\.json$/i)
 
       await row.getByRole("button", { name: /Stats/i }).click()
-      await expect(
-        page.getByText(/World Book Statistics/i)
-      ).toBeVisible({ timeout: 15000 })
-      await page.keyboard.press("Escape")
+      const statsModal = page.getByRole("dialog", {
+        name: /World Book Statistics/i
+      })
+      await expect(statsModal).toBeVisible({ timeout: 15000 })
+      await statsModal.getByRole("button", { name: /Close/i }).click()
+      await expect(statsModal).toBeHidden({ timeout: 15000 })
 
       const deleteButton = row.locator("button").last()
       await deleteButton.click()
       await page.getByRole("button", { name: /^Delete$/ }).click()
+      const listRows = page.locator(".ant-table-tbody tr")
       await expect(
-        page.locator("tr").filter({ hasText: worldBookName })
+        listRows.filter({ hasText: worldBookName })
       ).toHaveCount(0, { timeout: 20000 })
     } finally {
       await context.close()
@@ -4359,7 +4473,7 @@ test.describe("Real server end-to-end workflows", () => {
     const normalizedServerUrl = normalizeServerUrl(serverUrl)
 
     const mediaResponse = await fetchWithKey(
-      `${normalizedServerUrl}/api/v1/media/?page=1&results_per_page=1`,
+      `${normalizedServerUrl}/api/v1/media?page=1&results_per_page=1`,
       apiKey
     )
     if (!mediaResponse.ok) {

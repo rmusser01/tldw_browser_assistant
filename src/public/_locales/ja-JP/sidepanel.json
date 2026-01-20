@@ -6,13 +6,13 @@
     "message": "WebUIを開く"
   },
   "tooltip_clear": {
-    "message": "Erase chat history"
+    "message": "チャット履歴を消去"
   },
   "tooltip_history": {
-    "message": "Chat history"
+    "message": "チャット履歴"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "RAG検索"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant はデータを保存できません"
@@ -75,85 +75,85 @@
     "message": "一時チャット"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "取り込み"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "現在のページをサーバーに保存"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "現在のページをローカルで処理"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "処理済みを表示"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "タイムアウト (秒)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "サイドバー / 全画面を切り替え"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "ショートカット"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "ストリームデバッグを表示"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "ストリームデバッグを非表示"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "その他のオプション"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "取り込みなど"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "Web UI を開く"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "新しいチャット"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "一時チャットを切り替え"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "履歴を消去"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "履歴を開く"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "モデル設定を開く"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "設定を開く"
   },
   "header_tempPill": {
     "message": "Temp"
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "Web UIでモードを開く"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "チャット"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "複数項目レビュー"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "メディア"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "ナレッジ"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "ノート"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "プロンプト"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "フラッシュカード"
   },
   "controlRow_saveMode": {
     "message": "保存モード"
@@ -198,43 +198,43 @@
     "message": "その他のツール"
   },
   "composer_connectHint": {
-    "message": "Connect to your tldw server in Settings to send messages."
+    "message": "メッセージを送るには設定で tldw サーバーに接続してください。"
   },
   "composer_connectingPlaceholder": {
-    "message": "Connecting..."
+    "message": "接続中..."
   },
   "composer_disconnectedPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "メッセージ送信やメディア表示のため、設定で tldw サーバーに接続してください。"
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "tldw サーバーへ送信済み"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "現在のページを取り込み用に送信しました。"
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "ローカルで処理済み"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "処理済みコンテンツは設定 > 処理済みに保存されます。"
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "文字起こし"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "文字起こし + 要約"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "文字起こしが完了しました。Web UI のメディアで確認してください。"
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "ソース"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "文字起こし"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "要約"
   },
   "saveStatus_ephemeral": {
     "message": "一時的: 保存されず、閉じると消去されます"
@@ -252,46 +252,46 @@
     "message": "チャットは現在ローカルのみに保存されています。接続を確認して再試行してください。"
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "ナレッジを検索..."
   },
   "rag_search": {
-    "message": "Search"
+    "message": "検索"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "RAG 検索を表示"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "RAG 検索を非表示"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "タグを追加 (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "追加"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "結果がありません"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "リクエストがタイムアウトしました。"
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "タイムアウトを延長"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "サーバーの状態を確認"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "挿入"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "質問"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "開く"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "コピー"
   },
   "rag_hint_message": {
     "message": "ナレッジベースを検索して、結果をメッセージに挿入できます。"
@@ -309,33 +309,33 @@
     "message": "チャットタブを閉じる"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "キャラクター"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "キャラクターを選択"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "キャラクターを検索..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "一致するキャラクターがありません"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "利用可能なキャラクターがありません"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "キャラクターなし"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "新しいキャラクターを作成+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "キャラクターをインポート"
   },
   "rag_attachedContext": {
     "message": "添付されたコンテキスト"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "結果はまだありません"
   }
 }

@@ -6,7 +6,7 @@
     "openwebui": "Åbn WebUI"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "RAG-søgning"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant kan ikke gemme data",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "Midlertidig chat",
-    "label": "Temp",
+    "label": "Midl.",
     "description": "Denne chat gemmes ikke. Beskeder ryddes, når du lukker eller starter en ny chat.",
     "clickHint": "Klik for at deaktivere",
     "ariaLabel": "Midlertidig chattilstand er aktiv. Klik for at skifte.",
@@ -35,40 +35,40 @@
     "indicatorAria": "Midlertidig chat"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "Ingestion",
+    "saveCurrent": "Gem den aktuelle side på serveren",
+    "processLocal": "Behandl den aktuelle side lokalt",
+    "viewProcessed": "Vis behandlede",
+    "timeoutLabel": "Tidsudløb (s)",
+    "toggleSidebar": "Skift sidepanel / fuld skærm",
+    "shortcuts": "Genveje",
+    "showDebug": "Vis stream-debug",
+    "hideDebug": "Skjul stream-debug",
+    "moreOptionsAria": "Flere muligheder",
+    "moreOptionsTitle": "Ingestion og mere",
+    "openWebuiAria": "Åbn Web UI",
+    "newChatAria": "Ny chat",
+    "tempChatAria": "Skift midlertidig chat",
+    "clearHistoryAria": "Ryd historik",
+    "openHistoryAria": "Åbn historik",
+    "openModelSettingsAria": "Åbn modelindstillinger",
+    "openSettingsAria": "Åbn indstillinger",
+    "tempPill": "Midl.",
+    "modesLabel": "Åbn tilstande i Web UI",
+    "modePlayground": "Samtale",
+    "modeReview": "Gennemgang",
+    "modeMedia": "Medier",
+    "modeKnowledge": "Knowledge QA-område",
+    "modeNotes": "Noter",
+    "modePrompts": "Prompts-oversigt",
+    "modeFlashcards": "Huskekort"
   },
   "controlRow": {
     "saveMode": "Gem tilstand",
     "ephemeral": "Midlertidig",
-    "searchSection": "Søgning & Vision",
+    "searchSection": "Søgning og visuel analyse",
     "webSearch": "Websøgning",
-    "vision": "Vision",
+    "vision": "Visuel analyse",
     "uploadImage": "Upload billede",
     "quickIngest": "Hurtig overførsel",
     "openInFullUI": "Åbn i fuld UI",
@@ -80,21 +80,21 @@
     "moreTools": "Flere værktøjer"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "Forbind til din tldw-server i Indstillinger for at sende beskeder.",
+    "connectingPlaceholder": "Opretter forbindelse...",
+    "disconnectedPlaceholder": "Forbind til din tldw-server i Indstillinger for at sende beskeder og se medier."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "Sendt til tldw-serveren",
+    "ingestSentDesc": "Den aktuelle side er sendt til ingestion.",
+    "processedLocal": "Behandlet lokalt",
+    "processedLocalDesc": "Behandlet indhold gemmes lokalt under Indstillinger > Behandlet.",
+    "transcriptionTitle": "Transskription",
+    "transcriptionSummaryTitle": "Transskription + resumé",
+    "transcriptionFallback": "Transskription fuldført. Åbn Medier i Web UI for at se den.",
+    "sourceLabel": "Kilde",
+    "transcriptLabel": "Transskription",
+    "summaryLabel": "Resumé"
   },
   "saveStatus": {
     "ephemeral": "Midlertidig: ikke gemt, ryddes ved lukning",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "Vedhæftet kontekst",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "Søg i din vidensbase…",
+    "search": "Søg",
+    "show": "Vis RAG-søgning",
+    "hide": "Skjul RAG-søgning",
+    "addTagPlaceholder": "Tilføj tag (Enter)",
+    "add": "Tilføj",
+    "noResults": "Ingen resultater",
+    "initialState": "Ingen resultater",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "Forespørgslen fik timeout.",
+      "increase": "Forøg tidsudløb",
+      "checkHealth": "Tjek serverstatus"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "Indsæt",
+      "ask": "Spørg",
+      "open": "Åbn",
+      "copy": "Kopiér"
     },
     "hint": {
       "message": "Søg i din vidensbase og indsæt resultater i din besked.",
@@ -135,13 +135,13 @@
     "closeTabAria": "Luk samtale-fanen"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "Karakter",
+    "tooltip": "Vælg en karakter",
+    "search": "Søg efter karakterer...",
+    "noMatches": "Ingen matchende karakterer",
+    "noCharacters": "Ingen karakterer tilgængelige",
+    "none": "Ingen karakter",
+    "createNewCharacter": "Opret ny karakter+",
+    "importCharacter": "Importer karakter"
   }
 }

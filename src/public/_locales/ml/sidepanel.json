@@ -309,28 +309,28 @@
     "message": "ചാറ്റ് ടാബ് അടയ്ക്കുക"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "കഥാപാത്രം"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "ഒരു കഥാപാത്രം തിരഞ്ഞെടുക്കുക"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "കഥാപാത്രങ്ങൾ തിരയുക..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "പൊരുത്തമുള്ള കഥാപാത്രങ്ങൾ ഇല്ല"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "കഥാപാത്രങ്ങൾ ലഭ്യമല്ല"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "കഥാപാത്രമില്ല"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "പുതിയ കഥാപാത്രം സൃഷ്ടിക്കുക+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "കഥാപാത്രം ഇമ്പോർട്ട് ചെയ്യുക"
   },
   "rag_attachedContext": {
     "message": "അറ്റാച്ച് ചെയ്ത കോൺടെക്സ്റ്റ്"

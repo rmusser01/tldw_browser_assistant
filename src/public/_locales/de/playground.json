@@ -363,13 +363,13 @@
     "message": "Chat-Speicherung"
   },
   "more_searchKnowledge": {
-    "message": "Search & RAG"
+    "message": "Suche & RAG"
   },
   "more_voice": {
     "message": "Weitere Sprachoptionen"
   },
   "more_uploads": {
-    "message": "Uploads & Import"
+    "message": "Hochladen & Import"
   },
   "fileRetrievalEnabled": {
     "message": "RAG für Dokumente aktivieren"
@@ -1155,217 +1155,217 @@
     "message": "Tokens: {{count}}"
   },
   "feedback_prompt": {
-    "message": "Was this helpful?"
+    "message": "War das hilfreich?"
   },
   "feedback_thumbsUp": {
-    "message": "Helpful"
+    "message": "Hilfreich"
   },
   "feedback_thumbsDown": {
-    "message": "Not helpful"
+    "message": "Nicht hilfreich"
   },
   "feedback_more": {
-    "message": "More feedback"
+    "message": "Mehr Feedback"
   },
   "feedback_thanks": {
-    "message": "Thanks for the feedback"
+    "message": "Danke für das Feedback"
   },
   "feedback_disabled": {
-    "message": "Feedback is available after the response finishes."
+    "message": "Feedback ist erst verfügbar, wenn die Antwort abgeschlossen ist."
   },
   "feedback_unavailable": {
-    "message": "Feedback is unavailable for this message."
+    "message": "Für diese Nachricht ist Feedback nicht verfügbar."
   },
   "feedback_modalTitle": {
     "message": "Feedback"
   },
   "feedback_modalRatingLabel": {
-    "message": "How would you rate this response?"
+    "message": "Wie würden Sie diese Antwort bewerten?"
   },
   "feedback_modalIssuesLabel": {
-    "message": "What was the issue? (select all that apply)"
+    "message": "Was war das Problem? (Alle zutreffenden auswählen)"
   },
   "feedback_modalNotesLabel": {
-    "message": "Additional comments (optional)"
+    "message": "Zusätzliche Kommentare (optional)"
   },
   "feedback_modalSubmit": {
-    "message": "Submit feedback"
+    "message": "Feedback senden"
   },
   "feedback_errorTitle": {
-    "message": "Feedback failed"
+    "message": "Feedback fehlgeschlagen"
   },
   "feedback_errorBody": {
-    "message": "Unable to submit feedback."
+    "message": "Feedback konnte nicht gesendet werden."
   },
   "feedback_errorSource": {
-    "message": "Unable to submit source feedback."
+    "message": "Quellenfeedback konnte nicht gesendet werden."
   },
   "feedback_issues_incorrect": {
-    "message": "Incorrect information"
+    "message": "Falsche Informationen"
   },
   "feedback_issues_notRelevant": {
-    "message": "Not relevant to my question"
+    "message": "Nicht relevant für meine Frage"
   },
   "feedback_issues_missingDetails": {
-    "message": "Missing important details"
+    "message": "Wichtige Details fehlen"
   },
   "feedback_issues_badSources": {
-    "message": "Sources were unhelpful"
+    "message": "Quellen waren nicht hilfreich"
   },
   "feedback_issues_tooVerbose": {
-    "message": "Too verbose"
+    "message": "Zu ausführlich"
   },
   "feedback_issues_tooBrief": {
-    "message": "Too brief"
+    "message": "Zu knapp"
   },
   "feedback_issues_other": {
-    "message": "Other"
+    "message": "Sonstiges"
   },
   "feedback_sourceHelpful": {
-    "message": "Helpful source"
+    "message": "Hilfreiche Quelle"
   },
   "feedback_sourceUnhelpful": {
-    "message": "Unhelpful source"
+    "message": "Nicht hilfreiche Quelle"
   },
   "actor_uploadedFiles": {
-    "message": "Uploaded Files ({{count}})"
+    "message": "Hochgeladene Dateien ({{count}})"
   },
   "actor_fileRetrieval": {
-    "message": "File Retrieval"
+    "message": "Dateiabruf"
   },
   "actor_fileStatusProcessed": {
-    "message": "Processed"
+    "message": "Verarbeitet"
   },
   "actor_fileStatusProcessing": {
-    "message": "Processing..."
+    "message": "Wird verarbeitet..."
   },
   "documentGenerator_title": {
-    "message": "Document generator"
+    "message": "Dokumentgenerator"
   },
   "documentGenerator_unavailable": {
-    "message": "Document generation is not available on this server."
+    "message": "Dokumenterstellung ist auf diesem Server nicht verfügbar."
   },
   "documentGenerator_noConversation": {
-    "message": "Start a server-backed chat to generate documents."
+    "message": "Starten Sie einen servergestützten Chat, um Dokumente zu erstellen."
   },
   "documentGenerator_source": {
-    "message": "Source"
+    "message": "Quelle"
   },
   "documentGenerator_sourceId": {
-    "message": "Conversation {{id}}"
+    "message": "Unterhaltung {{id}}"
   },
   "documentGenerator_sourceMissing": {
-    "message": "No active conversation yet."
+    "message": "Noch keine aktive Unterhaltung."
   },
   "documentGenerator_sourceMessageId": {
-    "message": "Message {{id}}"
+    "message": "Nachricht {{id}}"
   },
   "documentGenerator_documentType": {
-    "message": "Document type"
+    "message": "Dokumenttyp"
   },
   "documentGenerator_model": {
-    "message": "Model"
+    "message": "Modell"
   },
   "documentGenerator_modelPlaceholder": {
-    "message": "Model ID"
+    "message": "Modell-ID"
   },
   "documentGenerator_providerPlaceholder": {
-    "message": "Provider name"
+    "message": "Anbietername"
   },
   "documentGenerator_providerLabel": {
-    "message": "Provider: {{provider}}"
+    "message": "Anbieter: {{provider}}"
   },
   "documentGenerator_specificMessage": {
-    "message": "Focus on a specific message"
+    "message": "Auf eine bestimmte Nachricht fokussieren"
   },
   "documentGenerator_specificMessagePlaceholder": {
-    "message": "Optional: paste a message excerpt to focus on."
+    "message": "Optional: Einen Nachrichtenauszug einfügen, auf den fokussiert werden soll."
   },
   "documentGenerator_customPrompt": {
-    "message": "Custom prompt"
+    "message": "Benutzerdefinierter Prompt"
   },
   "documentGenerator_customPromptPlaceholder": {
-    "message": "Optional instructions for the generated document."
+    "message": "Optionale Anweisungen für das erzeugte Dokument."
   },
   "documentGenerator_asyncGeneration": {
-    "message": "Generate asynchronously"
+    "message": "Asynchron generieren"
   },
   "documentGenerator_promptPresetTitle": {
-    "message": "Prompt preset"
+    "message": "Prompt-Vorlage"
   },
   "documentGenerator_promptPresetHint": {
-    "message": "Customize the system/user prompts used for this document type."
+    "message": "Passen Sie die System-/Benutzer-Prompts an, die für diesen Dokumenttyp verwendet werden."
   },
   "documentGenerator_promptReload": {
-    "message": "Reload from server"
+    "message": "Vom Server neu laden"
   },
   "documentGenerator_systemPrompt": {
-    "message": "System prompt"
+    "message": "System-Prompt"
   },
   "documentGenerator_userPrompt": {
-    "message": "User prompt"
+    "message": "Benutzer-Prompt"
   },
   "documentGenerator_temperature": {
-    "message": "Temperature"
+    "message": "Temperatur"
   },
   "documentGenerator_maxTokens": {
-    "message": "Max tokens"
+    "message": "Max. Tokens"
   },
   "documentGenerator_jobQueued": {
-    "message": "Document generation queued."
+    "message": "Dokumenterstellung in Warteschlange gestellt."
   },
   "documentGenerator_generated": {
-    "message": "Document generated."
+    "message": "Dokument erstellt."
   },
   "documentGenerator_deleteTitle": {
-    "message": "Delete document?"
+    "message": "Dokument löschen?"
   },
   "documentGenerator_deleteBody": {
-    "message": "This will permanently remove the generated document."
+    "message": "Dies entfernt das erzeugte Dokument dauerhaft."
   },
   "documentGenerator_jobCancelled": {
-    "message": "Job cancelled."
+    "message": "Job abgebrochen."
   },
   "documentGenerator_promptSaved": {
-    "message": "Prompt preset saved."
+    "message": "Prompt-Vorlage gespeichert."
   },
   "documentGenerator_documentsTitle": {
-    "message": "Generated documents"
+    "message": "Erstellte Dokumente"
   },
   "documentGenerator_loading": {
-    "message": "Loading…"
+    "message": "Laden…"
   },
   "documentGenerator_noDocuments": {
-    "message": "No documents yet."
+    "message": "Noch keine Dokumente."
   },
   "documentGenerator_jobsTitle": {
-    "message": "Generation jobs"
+    "message": "Generierungsaufträge"
   },
   "documentGenerator_progress": {
-    "message": "{{percent}}% complete"
+    "message": "{{percent}}% abgeschlossen"
   },
   "documentGenerator_noContent": {
-    "message": "No content available."
+    "message": "Kein Inhalt verfügbar."
   },
   "documentGenerator_errors_missingModel": {
-    "message": "Select a model and provider first."
+    "message": "Wählen Sie zuerst ein Modell und einen Anbieter aus."
   },
   "documentGenerator_types_summary": {
-    "message": "Summary"
+    "message": "Zusammenfassung"
   },
   "documentGenerator_types_timeline": {
-    "message": "Timeline"
+    "message": "Zeitlinie"
   },
   "documentGenerator_types_briefing": {
     "message": "Briefing"
   },
   "documentGenerator_types_study_guide": {
-    "message": "Study guide"
+    "message": "Lernleitfaden"
   },
   "documentGenerator_types_q_and_a": {
-    "message": "Q&A"
+    "message": "Fragen & Antworten"
   },
   "documentGenerator_types_meeting_notes": {
-    "message": "Meeting notes"
+    "message": "Besprechungsnotizen"
   },
   "composer_contextTabsEmpty": {
     "message": "Keine Tabs ausgewählt."
@@ -1386,9 +1386,9 @@
     "message": "Keine geeigneten offenen Tabs gefunden."
   },
   "errors_loadLocalHistoryPrefix": {
-    "message": "Failed to load local chat history"
+    "message": "Lokaler Chatverlauf konnte nicht geladen werden"
   },
   "errors_loadLocalHistoryDefault": {
-    "message": "Something went wrong while loading local chat history."
+    "message": "Beim Laden des lokalen Chatverlaufs ist etwas schiefgelaufen."
   }
 }

@@ -12,7 +12,7 @@
     "message": "Åbn WebUI"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "RAG-søgning"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant kan ikke gemme data"
@@ -57,7 +57,7 @@
     "message": "Midlertidig chat"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "Midl."
   },
   "temporaryBadge_description": {
     "message": "Denne chat gemmes ikke. Beskeder ryddes, når du lukker eller starter en ny chat."
@@ -75,85 +75,85 @@
     "message": "Midlertidig chat"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "Ingestion"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "Gem den aktuelle side på serveren"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "Behandl den aktuelle side lokalt"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "Vis behandlede"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "Tidsudløb (s)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "Skift sidepanel / fuld skærm"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "Genveje"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "Vis stream-debug"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "Skjul stream-debug"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "Flere muligheder"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "Ingestion og mere"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "Åbn Web UI"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "Ny chat"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "Skift midlertidig chat"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "Ryd historik"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "Åbn historik"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "Åbn modelindstillinger"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "Åbn indstillinger"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "Midl."
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "Åbn tilstande i Web UI"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "Samtale"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "Gennemgang"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "Medier"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "Knowledge QA-område"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "Noter"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "Prompts-oversigt"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "Huskekort"
   },
   "controlRow_saveMode": {
     "message": "Gem tilstand"
@@ -162,13 +162,13 @@
     "message": "Midlertidig"
   },
   "controlRow_searchSection": {
-    "message": "Søgning & Vision"
+    "message": "Søgning og visuel analyse"
   },
   "controlRow_webSearch": {
     "message": "Websøgning"
   },
   "controlRow_vision": {
-    "message": "Vision"
+    "message": "Visuel analyse"
   },
   "controlRow_uploadImage": {
     "message": "Upload billede"
@@ -198,43 +198,43 @@
     "message": "Flere værktøjer"
   },
   "composer_connectHint": {
-    "message": "Connect to your tldw server in Settings to send messages."
+    "message": "Forbind til din tldw-server i Indstillinger for at sende beskeder."
   },
   "composer_connectingPlaceholder": {
-    "message": "Connecting..."
+    "message": "Opretter forbindelse..."
   },
   "composer_disconnectedPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "Forbind til din tldw-server i Indstillinger for at sende beskeder og se medier."
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "Sendt til tldw-serveren"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "Den aktuelle side er sendt til ingestion."
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "Behandlet lokalt"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "Behandlet indhold gemmes lokalt under Indstillinger > Behandlet."
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "Transskription"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "Transskription + resumé"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "Transskription fuldført. Åbn Medier i Web UI for at se den."
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "Kilde"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "Transskription"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "Resumé"
   },
   "saveStatus_ephemeral": {
     "message": "Midlertidig: ikke gemt, ryddes ved lukning"
@@ -252,46 +252,46 @@
     "message": "Chatten gemmes nu kun lokalt. Tjek din forbindelse og prøv igen."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "Søg i din vidensbase…"
   },
   "rag_search": {
-    "message": "Search"
+    "message": "Søg"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "Vis RAG-søgning"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "Skjul RAG-søgning"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "Tilføj tag (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "Tilføj"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "Ingen resultater"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "Forespørgslen fik timeout."
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "Forøg tidsudløb"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "Tjek serverstatus"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "Indsæt"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "Spørg"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "Åbn"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "Kopiér"
   },
   "rag_hint_message": {
     "message": "Søg i din vidensbase og indsæt resultater i din besked."
@@ -309,33 +309,33 @@
     "message": "Luk samtale-fanen"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "Karakter"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "Vælg en karakter"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "Søg efter karakterer..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "Ingen matchende karakterer"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "Ingen karakterer tilgængelige"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "Ingen karakter"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Opret ny karakter+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "Importer karakter"
   },
   "rag_attachedContext": {
     "message": "Vedhæftet kontekst"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "Ingen resultater"
   }
 }

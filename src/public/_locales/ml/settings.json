@@ -2745,279 +2745,279 @@
     "message": "താരതമ്യം"
   },
   "chunkingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "ക്രമീകരണങ്ങൾ"
   },
   "chunkingPlayground_tabTemplates": {
-    "message": "Templates"
+    "message": "ടെംപ്ലേറ്റുകൾ"
   },
   "chunkingPlayground_tabCapabilities": {
-    "message": "Capabilities"
+    "message": "ശേഷികൾ"
   },
   "chunkingPlayground_appliedOptionsTitle": {
-    "message": "Applied options"
+    "message": "പ്രയോഗിച്ച ഓപ്ഷനുകൾ"
   },
   "chunkingPlayground_responseMetaTitle": {
-    "message": "Response metadata"
+    "message": "പ്രതികരണ മെറ്റാഡാറ്റ"
   },
   "chunkingPlayground_inlineUnavailable": {
-    "message": "Inline view requires character offsets; switch to Cards to inspect chunks."
+    "message": "ഇൻലൈൻ കാഴ്ചയ്ക്ക് അക്ഷര ഓഫ്‌സെറ്റുകൾ ആവശ്യമാണ്; ചങ്കുകൾ പരിശോധിക്കാൻ കാർഡുകളിലേക്ക് മാറുക."
   },
   "chunkingPlayground_metadataLabel": {
-    "message": "Metadata"
+    "message": "മെറ്റാഡാറ്റ"
   },
   "chunkingPlayground_advanced_title": {
-    "message": "Advanced Options"
+    "message": "അഡ്വാൻസ്ഡ് ഓപ്ഷനുകൾ"
   },
   "chunkingPlayground_advanced_methodRequiresLlm": {
-    "message": "This method requires an LLM provider on the server."
+    "message": "ഈ രീതി സർവറിൽ LLM പ്രൊവൈഡർ ആവശ്യമാണ്."
   },
   "chunkingPlayground_advanced_templateNameLabel": {
-    "message": "Template name"
+    "message": "ടെംപ്ലേറ്റ് പേര്"
   },
   "chunkingPlayground_advanced_templateNamePlaceholder": {
-    "message": "Select or type a template name"
+    "message": "ഒരു ടെംപ്ലേറ്റ് പേര് തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ ടൈപ്പ് ചെയ്യുക"
   },
   "chunkingPlayground_advanced_templateOverridesHint": {
-    "message": "Template defaults are applied first; form values override them."
+    "message": "ടെംപ്ലേറ്റ് ഡിഫോൾട്ടുകൾ ആദ്യം പ്രയോഗിക്കും; ഫോം മൂല്യങ്ങൾ അവയെ ഓവർറൈഡ് ചെയ്യും."
   },
   "chunkingPlayground_advanced_requestModeLabel": {
-    "message": "Request Endpoint"
+    "message": "റിക്വസ്റ്റ് എൻഡ്‌പോയിന്റ്"
   },
   "chunkingPlayground_advanced_requestModeJson": {
     "message": "JSON (/chunk_text)"
   },
   "chunkingPlayground_advanced_requestModeFile": {
-    "message": "Multipart (/chunk_file)"
+    "message": "മൾട്ടിപാർട്ട് (/chunk_file)"
   },
   "chunkingPlayground_advanced_requestModeHint": {
-    "message": "Use JSON for full option support; multipart matches /chunk_file."
+    "message": "പൂർണ്ണ ഓപ്ഷൻ പിന്തുണയ്ക്കാൻ JSON ഉപയോഗിക്കുക; മൾട്ടിപാർട്ട് /chunk_file ന് പൊരുത്തപ്പെടുന്നു."
   },
   "chunkingPlayground_advanced_tokenizerLabel": {
-    "message": "Tokenizer"
+    "message": "ടോക്കനൈസർ"
   },
   "chunkingPlayground_advanced_tokenizerPlaceholder": {
-    "message": "Tokenizer name or path (e.g., gpt2)"
+    "message": "ടോക്കനൈസർ പേര് അല്ലെങ്കിൽ പാത (ഉദാ., gpt2)"
   },
   "chunkingPlayground_advanced_adaptiveLabel": {
-    "message": "Adaptive chunking"
+    "message": "അഡാപ്റ്റീവ് ചങ്കിംഗ്"
   },
   "chunkingPlayground_advanced_multiLevelLabel": {
-    "message": "Multi-level chunking"
+    "message": "മൾട്ടി-ലെവൽ ചങ്കിംഗ്"
   },
   "chunkingPlayground_advanced_codeModeLabel": {
-    "message": "Code mode"
+    "message": "കോഡ് മോഡ്"
   },
   "chunkingPlayground_advanced_codeModeHint": {
-    "message": "Controls how code is parsed when method is 'code'."
+    "message": "രീതി 'code' ആണെങ്കിൽ കോഡ് എങ്ങനെ പാർസ് ചെയ്യണമെന്ന് നിയന്ത്രിക്കുന്നു."
   },
   "chunkingPlayground_advanced_semanticSimilarityLabel": {
-    "message": "Semantic similarity threshold"
+    "message": "സെമാന്റിക് സാമ്യം പരിധി"
   },
   "chunkingPlayground_advanced_semanticOverlapLabel": {
-    "message": "Semantic overlap sentences"
+    "message": "സെമാന്റിക് ഓവർലാപ്പ് വാക്യങ്ങൾ"
   },
   "chunkingPlayground_advanced_jsonKeyLabel": {
-    "message": "JSON chunkable key"
+    "message": "ചങ്ക് ചെയ്യാവുന്ന JSON കീ"
   },
   "chunkingPlayground_advanced_frontmatterLabel": {
-    "message": "Enable frontmatter parsing"
+    "message": "ഫ്രണ്ട്മാറ്റർ പാർസിംഗ് സജ്ജമാക്കുക"
   },
   "chunkingPlayground_advanced_frontmatterSentinelLabel": {
-    "message": "Frontmatter sentinel key"
+    "message": "ഫ്രണ്ട്മാറ്റർ സെന്റിനൽ കീ"
   },
   "chunkingPlayground_advanced_customChapterPatternLabel": {
-    "message": "Custom chapter pattern"
+    "message": "കസ്റ്റം അധ്യായ പാറ്റേൺ"
   },
   "chunkingPlayground_advanced_summarizationDetailLabel": {
-    "message": "Summarization detail"
+    "message": "സംക്ഷേപണ വിശദത"
   },
   "chunkingPlayground_advanced_llmOptionsTitle": {
-    "message": "LLM Options (internal steps)"
+    "message": "LLM ഓപ്ഷനുകൾ (ആന്തരിക ഘട്ടങ്ങൾ)"
   },
   "chunkingPlayground_advanced_llmTemperatureLabel": {
-    "message": "LLM temperature"
+    "message": "LLM ടെംപറേച്ചർ"
   },
   "chunkingPlayground_advanced_llmSystemPromptLabel": {
-    "message": "LLM system prompt"
+    "message": "LLM സിസ്റ്റം പ്രോംപ്റ്റ്"
   },
   "chunkingPlayground_advanced_llmMaxTokensLabel": {
-    "message": "LLM max tokens"
+    "message": "LLM പരമാവധി ടോകൺസ്"
   },
   "chunkingPlayground_advanced_propositionEngineLabel": {
-    "message": "Proposition engine"
+    "message": "പ്രൊപ്പോസിഷൻ എഞ്ചിൻ"
   },
   "chunkingPlayground_advanced_propositionAggressivenessLabel": {
-    "message": "Proposition aggressiveness"
+    "message": "പ്രൊപ്പോസിഷൻ ആഗ്രസിവ്നസ്"
   },
   "chunkingPlayground_advanced_propositionMinLengthLabel": {
-    "message": "Min proposition length"
+    "message": "കുറഞ്ഞ പ്രൊപ്പോസിഷൻ നീളം"
   },
   "chunkingPlayground_advanced_propositionPromptProfileLabel": {
-    "message": "Proposition prompt profile"
+    "message": "പ്രൊപ്പോസിഷൻ പ്രോംപ്റ്റ് പ്രൊഫൈൽ"
   },
   "chunkingPlayground_advanced_resetDefaults": {
-    "message": "Reset to defaults"
+    "message": "ഡിഫോൾട്ടുകളിലേക്ക് റിസെറ്റ് ചെയ്യുക"
   },
   "chunkingPlayground_templates_title": {
-    "message": "Chunking Templates"
+    "message": "ചങ്കിംഗ് ടെംപ്ലേറ്റുകൾ"
   },
   "chunkingPlayground_templates_description": {
-    "message": "Manage, validate, and apply chunking templates."
+    "message": "ചങ്കിംഗ് ടെംപ്ലേറ്റുകൾ മാനേജ് ചെയ്യുക, വാലിഡേറ്റ് ചെയ്യുക, പ്രയോഗിക്കുക."
   },
   "chunkingPlayground_templates_tabBrowse": {
-    "message": "Browse"
+    "message": "ബ്രൗസ്"
   },
   "chunkingPlayground_templates_tabEditor": {
-    "message": "Editor"
+    "message": "എഡിറ്റർ"
   },
   "chunkingPlayground_templates_tabApply": {
-    "message": "Apply"
+    "message": "പ്രയോഗിക്കുക"
   },
   "chunkingPlayground_templates_tabValidate": {
-    "message": "Validate"
+    "message": "വാലിഡേറ്റ്"
   },
   "chunkingPlayground_templates_tabMatch": {
-    "message": "Match"
+    "message": "പൊരുത്തപ്പെടുത്തുക"
   },
   "chunkingPlayground_templates_tabLearn": {
-    "message": "Learn"
+    "message": "പഠിക്കുക"
   },
   "chunkingPlayground_templates_tabDiagnostics": {
-    "message": "Diagnostics"
+    "message": "ഡയഗ്നോസ്റ്റിക്സ്"
   },
   "chunkingPlayground_templates_filtersTitle": {
-    "message": "Filters"
+    "message": "ഫിൽറ്ററുകൾ"
   },
   "chunkingPlayground_templates_includeBuiltin": {
-    "message": "Include built-in"
+    "message": "ബിൽറ്റ്-ഇൻ ഉൾപ്പെടുത്തുക"
   },
   "chunkingPlayground_templates_includeCustom": {
-    "message": "Include custom"
+    "message": "കസ്റ്റം ഉൾപ്പെടുത്തുക"
   },
   "chunkingPlayground_templates_tagsLabel": {
-    "message": "Tags"
+    "message": "ടാഗുകൾ"
   },
   "chunkingPlayground_templates_tagsPlaceholder": {
-    "message": "Add tags"
+    "message": "ടാഗുകൾ ചേർക്കുക"
   },
   "chunkingPlayground_templates_userIdLabel": {
-    "message": "User ID"
+    "message": "ഉപയോക്തൃ ഐഡി"
   },
   "chunkingPlayground_templates_selectLabel": {
-    "message": "Template"
+    "message": "ടെംപ്ലേറ്റ്"
   },
   "chunkingPlayground_templates_selectPlaceholder": {
-    "message": "Select a template"
+    "message": "ഒരു ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക"
   },
   "chunkingPlayground_templates_detailsTitle": {
-    "message": "Template details"
+    "message": "ടെംപ്ലേറ്റ് വിശദാംശങ്ങൾ"
   },
   "chunkingPlayground_templates_isBuiltin": {
-    "message": "Built-in"
+    "message": "ബിൽറ്റ്-ഇൻ"
   },
   "chunkingPlayground_templates_version": {
-    "message": "Version"
+    "message": "പതിപ്പ്"
   },
   "chunkingPlayground_templates_updatedAt": {
-    "message": "Updated"
+    "message": "അപ്‌ഡേറ്റ് ചെയ്തത്"
   },
   "chunkingPlayground_templates_loadIntoEditor": {
-    "message": "Load into editor"
+    "message": "എഡിറ്ററിലേക്ക് ലോഡ് ചെയ്യുക"
   },
   "chunkingPlayground_templates_deleteConfirm": {
-    "message": "Delete this template?"
+    "message": "ഈ ടെംപ്ലേറ്റ് ഇല്ലാതാക്കണോ?"
   },
   "chunkingPlayground_templates_hardDeleteLabel": {
-    "message": "Hard delete"
+    "message": "സ്ഥിരമായി ഇല്ലാതാക്കുക"
   },
   "chunkingPlayground_templates_noSelection": {
-    "message": "Select a template to view details."
+    "message": "വിശദാംശങ്ങൾ കാണാൻ ഒരു ടെംപ്ലേറ്റ് തിരഞ്ഞെടുക്കുക."
   },
   "chunkingPlayground_templates_templateJsonLabel": {
-    "message": "Template JSON"
+    "message": "ടെംപ്ലേറ്റ് JSON"
   },
   "chunkingPlayground_templates_overrideOptionsLabel": {
-    "message": "Override options (JSON)"
+    "message": "ഓപ്ഷനുകൾ ഓവർറൈഡ് ചെയ്യുക (JSON)"
   },
   "chunkingPlayground_templates_includeMetadataLabel": {
-    "message": "Include metadata"
+    "message": "മെറ്റാഡാറ്റ ഉൾപ്പെടുത്തുക"
   },
   "chunkingPlayground_templates_applyTextLabel": {
-    "message": "Text to apply template"
+    "message": "ടെംപ്ലേറ്റ് പ്രയോഗിക്കാനുള്ള ടെക്സ്റ്റ്"
   },
   "chunkingPlayground_templates_applyTextPlaceholder": {
-    "message": "Paste text to chunk with this template"
+    "message": "ഈ ടെംപ്ലേറ്റിൽ ചങ്ക് ചെയ്യാൻ ടെക്സ്റ്റ് പേസ്റ്റ് ചെയ്യുക"
   },
   "chunkingPlayground_templates_validateLabel": {
-    "message": "Template JSON to validate"
+    "message": "വാലിഡേറ്റ് ചെയ്യാനുള്ള ടെംപ്ലേറ്റ് JSON"
   },
   "chunkingPlayground_templates_matchMediaTypeLabel": {
-    "message": "Media type"
+    "message": "മീഡിയ തരം"
   },
   "chunkingPlayground_templates_matchTitleLabel": {
-    "message": "Title"
+    "message": "ശീർഷകം"
   },
   "chunkingPlayground_templates_matchUrlLabel": {
-    "message": "URL"
+    "message": "യുആർഎൽ"
   },
   "chunkingPlayground_templates_matchFilenameLabel": {
-    "message": "Filename"
+    "message": "ഫയൽനാമം"
   },
   "chunkingPlayground_templates_learnNameLabel": {
-    "message": "Template name"
+    "message": "ടെംപ്ലേറ്റ് പേര്"
   },
   "chunkingPlayground_templates_learnExampleLabel": {
-    "message": "Example text"
+    "message": "ഉദാഹരണ ടെക്സ്റ്റ്"
   },
   "chunkingPlayground_templates_learnDescriptionLabel": {
-    "message": "Description"
+    "message": "വിവരണം"
   },
   "chunkingPlayground_templates_learnSaveLabel": {
-    "message": "Save template"
+    "message": "ടെംപ്ലേറ്റ് സേവ് ചെയ്യുക"
   },
   "chunkingPlayground_templates_learnClassifierLabel": {
-    "message": "Classifier (JSON)"
+    "message": "ക്ലാസിഫയർ (JSON)"
   },
   "chunkingPlayground_templates_jsonError": {
-    "message": "Invalid JSON. Please fix and try again."
+    "message": "അസാധുവായ JSON. ദയവായി ശരിയാക്കി വീണ്ടും ശ്രമിക്കുക."
   },
   "chunkingPlayground_templates_nameRequired": {
-    "message": "Template name is required."
+    "message": "ടെംപ്ലേറ്റ് പേര് ആവശ്യമാണ്."
   },
   "chunkingPlayground_templates_updateAction": {
-    "message": "Update"
+    "message": "അപ്‌ഡേറ്റ് ചെയ്യുക"
   },
   "chunkingPlayground_templates_applyAction": {
-    "message": "Apply"
+    "message": "പ്രയോഗിക്കുക"
   },
   "chunkingPlayground_templates_validateAction": {
-    "message": "Validate"
+    "message": "വാലിഡേറ്റ് ചെയ്യുക"
   },
   "chunkingPlayground_templates_matchAction": {
-    "message": "Match"
+    "message": "പൊരുത്തപ്പെടുത്തുക"
   },
   "chunkingPlayground_templates_learnAction": {
-    "message": "Learn"
+    "message": "പഠിക്കുക"
   },
   "chunkingPlayground_templates_diagnosticsAction": {
-    "message": "Run diagnostics"
+    "message": "ഡയഗ്നോസ്റ്റിക്സ് നടത്തുക"
   },
   "chunkingPlayground_capabilities_title": {
-    "message": "Chunking Capabilities"
+    "message": "ചങ്കിംഗ് ശേഷികൾ"
   },
   "chunkingPlayground_capabilities_methodsLabel": {
-    "message": "Methods"
+    "message": "രീതികൾ"
   },
   "chunkingPlayground_capabilities_llmLabel": {
-    "message": "LLM-required methods"
+    "message": "LLM ആവശ്യമായ രീതികൾ"
   },
   "chunkingPlayground_capabilities_defaultsLabel": {
-    "message": "Default options"
+    "message": "ഡിഫോൾട്ട് ഓപ്ഷനുകൾ"
   },
   "chunkingPlayground_capabilities_methodOptionsLabel": {
-    "message": "Method-specific options"
+    "message": "രീതിക്ക് പ്രത്യേകമായ ഓപ്ഷനുകൾ"
   },
   "chunkingPlayground_capabilities_notesLabel": {
-    "message": "Notes"
+    "message": "കുറിപ്പുകൾ"
   }
 }

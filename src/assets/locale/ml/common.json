@@ -17,8 +17,8 @@
   },
   "selectAModel": "ഒരു മോഡല്‍ തിരഞ്ഞെടുക്കുക",
   "modelSelect": {
-    "label": "Model",
-    "tooltip": "Changes model for next message"
+    "label": "മോഡൽ",
+    "tooltip": "അടുത്ത സന്ദേശത്തിനുള്ള മോഡൽ മാറ്റുന്നു"
   },
   "save": "സേവ് ചെയ്യുക",
   "saved": "സേവ് ചെയ്തു",
@@ -67,11 +67,11 @@
   "webSearch": "വെബ് തിരയുന്നു",
   "regenerate": "വീണ്ടും ജനറേറ്റ് ചെയ്യുക",
   "edit": "എഡിറ്റ് ചെയ്യുക",
-  "generate": "Generate",
-  "view": "View",
+  "generate": "ജനറേറ്റ് ചെയ്യുക",
+  "view": "കാണുക",
   "delete": "ഇല്ലാതാക്കുക",
-  "deleteMessageConfirm": "Delete this message?",
-  "deleteFailed": "Delete failed",
+  "deleteMessageConfirm": "ഈ സന്ദേശം ഇല്ലാതാക്കണോ?",
+  "deleteFailed": "ഇല്ലാതാക്കൽ പരാജയപ്പെട്ടു",
   "continue": "പ്രതികരണം തുടരുക",
   "saveAndSubmit": "സേവ് ചെയ്ത് സമര്‍പ്പിക്കുക",
   "editMessage": {
@@ -90,35 +90,35 @@
   "beta": "ബീറ്റ",
   "tts": "ശബ്ദമായി വായിക്കുക",
   "ttsShort": "ശബ്ദം",
-  "reply": "Reply",
-  "replyShort": "Reply",
-  "replyingTo": "Replying to",
-  "clearReply": "Clear reply target",
-  "replyTargetFallback": "Message",
-  "artifactsTitle": "Artifact",
-  "artifactsDefaultTitle": "Code",
-  "artifactsView": "View code",
-  "artifactsPin": "Pin",
-  "artifactsUnpin": "Unpin",
-  "artifactsClose": "Close",
-  "artifactsCopy": "Copy",
-  "artifactsDownload": "Download",
-  "artifactsRun": "Run",
+  "reply": "മറുപടി",
+  "replyShort": "മറുപടി",
+  "replyingTo": "മറുപടി നൽകുന്നത്",
+  "clearReply": "മറുപടി ലക്ഷ്യം നീക്കുക",
+  "replyTargetFallback": "സന്ദേശം",
+  "artifactsTitle": "ആർട്ടിഫാക്റ്റ്",
+  "artifactsDefaultTitle": "കോഡ്",
+  "artifactsView": "കോഡ് കാണുക",
+  "artifactsPin": "പിൻ ചെയ്യുക",
+  "artifactsUnpin": "അൺപിൻ ചെയ്യുക",
+  "artifactsClose": "അടയ്ക്കുക",
+  "artifactsCopy": "പകർത്തുക",
+  "artifactsDownload": "ഡൗൺലോഡ്",
+  "artifactsRun": "റൺ ചെയ്യുക",
   "copyShort": "പകർത്തുക",
   "branchShort": "ബ്രാഞ്ച്",
   "infoShort": "വിവരം",
-  "saveToNotes": "Save to Notes",
-  "saveToFlashcards": "Save to Flashcards",
-  "generateDocument": "Generate document",
-  "documentShort": "Doc",
+  "saveToNotes": "കുറിപ്പുകളിൽ സേവ് ചെയ്യുക",
+  "saveToFlashcards": "ഫ്ലാഷ്കാർഡുകളിൽ സേവ് ചെയ്യുക",
+  "generateDocument": "ഡോക്യുമെന്റ് ജനറേറ്റ് ചെയ്യുക",
+  "documentShort": "ഡോക്",
   "documentCard": {
     "removeAria": "{{name}} നീക്കം ചെയ്യുക"
   },
-  "saveNoteShort": "Note",
-  "saveFlashcardShort": "Card",
-  "savedToNotes": "Saved to Notes",
-  "savedToFlashcards": "Saved to Flashcards",
-  "saveToNotesEmpty": "Nothing to save yet.",
+  "saveNoteShort": "നോട്ട്",
+  "saveFlashcardShort": "കാർഡ്",
+  "savedToNotes": "കുറിപ്പുകളിൽ സേവ് ചെയ്തു",
+  "savedToFlashcards": "ഫ്ലാഷ്കാർഡുകളിൽ സേവ് ചെയ്തു",
+  "saveToNotesEmpty": "ഇതുവരെ സേവ് ചെയ്യാൻ ഒന്നുമില്ല.",
   "regenShort": "വീണ്ടും",
   "continueShort": "കൂടുതൽ",
   "fileChanges": "ഫയൽ മാറ്റങ്ങൾ",
@@ -213,55 +213,55 @@
         "help": "നിലവിലുള്ള ചാറ്റിൽ സിസ്റ്റം പ്രോംപ്റ്റ് സെറ്റ് ചെയ്യാനുള്ള വേഗത്തിലുള്ള മാർഗമാണിത്, ഇത് തിരഞ്ഞെടുത്ത സിസ്റ്റം പ്രോംപ്റ്റ് നിലവിലുണ്ടെങ്കിൽ അതിനെ മറികടക്കും."
       },
       "historyMessageLimit": {
-        "label": "History message limit",
-        "placeholder": "e.g. 10",
-        "help": "Limit how many previous messages are sent with each request."
+        "label": "ചരിത്ര സന്ദേശ പരിധി",
+        "placeholder": "ഉദാ: 10",
+        "help": "ഓരോ അഭ്യർത്ഥനയിലും അയക്കുന്ന മുൻ സന്ദേശങ്ങളുടെ എണ്ണം പരിമിതപ്പെടുത്തുക."
       },
       "historyMessageOrder": {
-        "label": "History message order",
-        "placeholder": "Select order",
-        "help": "Choose whether the newest or oldest messages are sent first.",
+        "label": "ചരിത്ര സന്ദേശ ക്രമം",
+        "placeholder": "ക്രമം തിരഞ്ഞെടുക്കുക",
+        "help": "പുതിയതോ പഴയതോ സന്ദേശങ്ങൾ ആദ്യം അയക്കണമെന്നത് തിരഞ്ഞെടുക്കുക.",
         "options": {
-          "desc": "Newest first",
-          "asc": "Oldest first"
+          "desc": "പുതിയത് ആദ്യം",
+          "asc": "പഴയത് ആദ്യം"
         }
       },
       "slashCommandInjectionMode": {
-        "label": "Slash command injection",
-        "placeholder": "Select injection mode",
-        "help": "Choose how slash commands are inserted into the request.",
+        "label": "സ്ലാഷ് കമാൻഡ് ഇൻജക്ഷൻ",
+        "placeholder": "ഇൻജക്ഷൻ മോഡ് തിരഞ്ഞെടുക്കുക",
+        "help": "റിക്വസ്റ്റിൽ സ്ലാഷ് കമാൻഡുകൾ എങ്ങനെ ചേർക്കണമെന്ന് തിരഞ്ഞെടുക്കുക.",
         "options": {
-          "system": "System message",
-          "preface": "Preface user message",
-          "replace": "Replace user message"
+          "system": "സിസ്റ്റം സന്ദേശം",
+          "preface": "ഉപയോക്തൃ സന്ദേശത്തിന് മുമ്പിൽ",
+          "replace": "ഉപയോക്തൃ സന്ദേശം മാറ്റിസ്ഥാപിക്കുക"
         }
       },
       "apiProvider": {
-        "label": "API provider override",
-        "placeholder": "Select provider (optional)",
-        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+        "label": "API പ്രൊവൈഡർ ഓവർറൈഡ്",
+        "placeholder": "പ്രൊവൈഡർ തിരഞ്ഞെടുക്കുക (ഐച്ഛികം)",
+        "help": "ഈ ചാറ്റിനായി പ്രത്യേക പ്രൊവൈഡർ നിർബന്ധമാക്കുക (ഉദാ. openai, anthropic)."
       },
       "extraHeaders": {
-        "label": "Extra headers (JSON)",
+        "label": "അധിക ഹെഡറുകൾ (JSON)",
         "placeholder": "{ \"X-API-Key\": \"...\" }",
-        "help": "JSON object merged into request headers."
+        "help": "റിക്വസ്റ്റ് ഹെഡറുകളിലേക്ക് ലയിപ്പിക്കുന്ന JSON ഒബ്ജക്ട്."
       },
       "extraBody": {
-        "label": "Extra body (JSON)",
+        "label": "അധിക ബോഡി (JSON)",
         "placeholder": "{ \"user\": \"...\" }",
-        "help": "JSON object merged into request body."
+        "help": "റിക്വസ്റ്റ് ബോഡിയിൽ ലയിപ്പിക്കുന്ന JSON ഒബ്ജക്ട്."
       },
       "guardrails": {
-        "invalidJson": "Enter a valid JSON object."
+        "invalidJson": "സാധുവായ JSON ഒബ്ജക്ട് നൽകുക."
       }
     },
     "advanced": "കൂടുതൽ മോഡൽ ക്രമീകരണങ്ങൾ",
-    "requestOverrides": "Request overrides",
+    "requestOverrides": "റിക്വസ്റ്റ് ഓവർറൈഡുകൾ",
     "tabs": {
-      "model": "Model",
-      "conversation": "Conversation",
-      "advanced": "Advanced",
-      "actor": "Scene Director"
+      "model": "മോഡൽ",
+      "conversation": "സംഭാഷണം",
+      "advanced": "അഡ്വാൻസ്ഡ്",
+      "actor": "സീൻ ഡയറക്ടർ"
     }
   },
   "copilot": {
@@ -346,7 +346,7 @@
     "friendlyGenericHint": "കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുകയോ സർവർ നില പരിശോധിക്കാൻ ആരോഗ്യവും ഡയഗ്നോസ്റ്റിക്സും തുറക്കുകയോ ചെയ്യുക.",
     "showDetails": "സാങ്കേതിക വിശദാംശങ്ങൾ കാണിക്കുക",
     "hideDetails": "സാങ്കേതിക വിശദാംശങ്ങൾ മറയ്ക്കുക",
-    "createFolder": "Failed to create folder"
+    "createFolder": "ഫോൾഡർ സൃഷ്ടിക്കാൻ പരാജയപ്പെട്ടു"
   },
   "folders": "ഫോൾഡറുകൾ",
   "folderView": "ഫോൾഡർ കാഴ്ച",
@@ -362,33 +362,33 @@
   "untitled": "പേരില്ലാത്തത്",
   "moveToFolder": "ഫോൾഡറിലേക്ക് നീക്കുക",
   "timeline": {
-    "title": "Conversation Timeline",
-    "searchPlaceholder": "Search messages... (space = AND)",
-    "searchMatches": "matches",
-    "searchNoMatches": "no matches",
+    "title": "സംഭാഷണ ടൈംലൈൻ",
+    "searchPlaceholder": "സന്ദേശങ്ങൾ തിരയുക... (സ്പേസ് = AND)",
+    "searchMatches": "പൊരുത്തങ്ങൾ",
+    "searchNoMatches": "പൊരുത്തങ്ങൾ ഇല്ല",
     "searchMode": {
-      "fragments": "Fragments",
-      "substring": "Substring",
-      "regex": "Regex"
+      "fragments": "ഭാഗങ്ങൾ",
+      "substring": "ഉപസ്ട്രിംഗ്",
+      "regex": "റെഗെക്സ്"
     },
     "layout": {
-      "horizontal": "horizontal",
-      "vertical": "vertical"
+      "horizontal": "തിരശ്ചീനം",
+      "vertical": "ലംബം"
     },
-    "refreshGraph": "Refresh graph",
-    "switchLayout": "Switch to {{layout}} layout",
-    "expandAllAlternatives": "Expand all alternatives",
-    "collapseAllAlternatives": "Collapse all alternatives",
-    "hideLegend": "Hide legend",
-    "showLegend": "Show legend",
-    "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out",
-    "unableLocateMessage": "Unable to locate the message for this action.",
-    "actionFailed": "Failed to perform timeline action. Please try again."
+    "refreshGraph": "ഗ്രാഫ് പുതുക്കുക",
+    "switchLayout": "ലെഔട്ട് {{layout}} ആയി മാറ്റുക",
+    "expandAllAlternatives": "എല്ലാ ബദലുകളും വികസിപ്പിക്കുക",
+    "collapseAllAlternatives": "എല്ലാ ബദലുകളും ചുരുക്കുക",
+    "hideLegend": "ലെജൻഡ് മറയ്ക്കുക",
+    "showLegend": "ലെജൻഡ് കാണിക്കുക",
+    "zoomIn": "സൂം ഇൻ",
+    "zoomOut": "സൂം ഔട്ട്",
+    "unableLocateMessage": "ഈ പ്രവർത്തനത്തിന് സന്ദേശം കണ്ടെത്താനായില്ല.",
+    "actionFailed": "ടൈംലൈൻ പ്രവർത്തനം നടത്താൻ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക."
   },
   "noToolCalls": "ഇതുവരെ ടൂൾ കോൾ ഒന്നുമില്ല",
-  "sourceLabel": "Source",
-  "sourceOpen": "Open source",
+  "sourceLabel": "സ്രോതസ്",
+  "sourceOpen": "സ്രോതസ് തുറക്കുക",
   "status": {
     "pending": "തീരുമാനിക്കാനുണ്ട്",
     "running": "പ്രോസസ്സിംഗ്",
@@ -472,9 +472,9 @@
     "collapse": "സൈഡ്ബാർ ചുരുക്കുക",
     "expand": "സൈഡ്ബാർ വിപുലീകരിക്കുക",
     "search": "ചാറ്റുകൾ തിരയുക...",
-    "modeLabel": "Mode",
-    "modeCasual": "Casual",
-    "modePro": "Pro",
+    "modeLabel": "മോഡ്",
+    "modeCasual": "ക്യാഷ്വൽ",
+    "modePro": "പ്രോ",
     "ingest": "നിലവിലെ പേജ് ഇൻജെസ്റ്റ് ചെയ്യുക",
     "media": "മീഡിയ",
     "notes": "നോട്ടുകൾ",

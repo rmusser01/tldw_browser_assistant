@@ -2,11 +2,11 @@
   "tooltip": {
     "embed": "ページを埋め込むのに数分かかる場合があります。しばらくお待ちください...",
     "openwebui": "WebUIを開く",
-    "clear": "Erase chat history",
-    "history": "Chat history"
+    "clear": "チャット履歴を消去",
+    "history": "チャット履歴"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "RAG検索"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant はデータを保存できません",
@@ -35,33 +35,33 @@
     "indicatorAria": "一時チャット"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
+    "ingest": "取り込み",
+    "saveCurrent": "現在のページをサーバーに保存",
+    "processLocal": "現在のページをローカルで処理",
+    "viewProcessed": "処理済みを表示",
+    "timeoutLabel": "タイムアウト (秒)",
+    "toggleSidebar": "サイドバー / 全画面を切り替え",
+    "shortcuts": "ショートカット",
+    "showDebug": "ストリームデバッグを表示",
+    "hideDebug": "ストリームデバッグを非表示",
+    "moreOptionsAria": "その他のオプション",
+    "moreOptionsTitle": "取り込みなど",
+    "openWebuiAria": "Web UI を開く",
+    "newChatAria": "新しいチャット",
+    "tempChatAria": "一時チャットを切り替え",
+    "clearHistoryAria": "履歴を消去",
+    "openHistoryAria": "履歴を開く",
+    "openModelSettingsAria": "モデル設定を開く",
+    "openSettingsAria": "設定を開く",
     "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "modesLabel": "Web UIでモードを開く",
+    "modePlayground": "チャット",
+    "modeReview": "複数項目レビュー",
+    "modeMedia": "メディア",
+    "modeKnowledge": "ナレッジ",
+    "modeNotes": "ノート",
+    "modePrompts": "プロンプト",
+    "modeFlashcards": "フラッシュカード"
   },
   "controlRow": {
     "saveMode": "保存モード",
@@ -80,21 +80,21 @@
     "moreTools": "その他のツール"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "メッセージを送るには設定で tldw サーバーに接続してください。",
+    "connectingPlaceholder": "接続中...",
+    "disconnectedPlaceholder": "メッセージ送信やメディア表示のため、設定で tldw サーバーに接続してください。"
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "tldw サーバーへ送信済み",
+    "ingestSentDesc": "現在のページを取り込み用に送信しました。",
+    "processedLocal": "ローカルで処理済み",
+    "processedLocalDesc": "処理済みコンテンツは設定 > 処理済みに保存されます。",
+    "transcriptionTitle": "文字起こし",
+    "transcriptionSummaryTitle": "文字起こし + 要約",
+    "transcriptionFallback": "文字起こしが完了しました。Web UI のメディアで確認してください。",
+    "sourceLabel": "ソース",
+    "transcriptLabel": "文字起こし",
+    "summaryLabel": "要約"
   },
   "saveStatus": {
     "ephemeral": "一時的: 保存されず、閉じると消去されます",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "添付されたコンテキスト",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "ナレッジを検索...",
+    "search": "検索",
+    "show": "RAG 検索を表示",
+    "hide": "RAG 検索を非表示",
+    "addTagPlaceholder": "タグを追加 (Enter)",
+    "add": "追加",
+    "noResults": "結果がありません",
+    "initialState": "結果はまだありません",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "リクエストがタイムアウトしました。",
+      "increase": "タイムアウトを延長",
+      "checkHealth": "サーバーの状態を確認"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "挿入",
+      "ask": "質問",
+      "open": "開く",
+      "copy": "コピー"
     },
     "hint": {
       "message": "ナレッジベースを検索して、結果をメッセージに挿入できます。",
@@ -135,13 +135,13 @@
     "closeTabAria": "チャットタブを閉じる"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "キャラクター",
+    "tooltip": "キャラクターを選択",
+    "search": "キャラクターを検索...",
+    "noMatches": "一致するキャラクターがありません",
+    "noCharacters": "利用可能なキャラクターがありません",
+    "none": "キャラクターなし",
+    "createNewCharacter": "新しいキャラクターを作成+",
+    "importCharacter": "キャラクターをインポート"
   }
 }
