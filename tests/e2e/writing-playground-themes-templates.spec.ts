@@ -8,6 +8,13 @@ import { waitForConnectionStore } from "./utils/connection"
 const normalizeServerUrl = (value: string) =>
   value.match(/^https?:\/\//) ? value.replace(/\/$/, "") : `http://${value}`
 
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, \"\\$&\")
+
+
+const escapeRegex = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+
 const fetchWritingCapabilities = async (serverUrl: string, apiKey: string) => {
   const res = await fetch(
     `${serverUrl}/api/v1/writing/capabilities?include_providers=false`,
@@ -42,6 +49,39 @@ const waitForConnected = async (page: Page, label: string) => {
   )
 }
 
+const ensurePageVisible = async (page: Page) => {
+  try {
+    await page.bringToFront()
+  } catch {
+    // ignore bringToFront failures in headless contexts
+  }
+  try {
+    await page.waitForFunction(
+      () => document.visibilityState === "visible",
+      undefined,
+      { timeout: 5000 }
+    )
+  } catch {
+    // ignore visibility polling failures
+  }
+}
+
+const openWritingPlayground = async (page: Page, optionsUrl: string) => {
+  await ensurePageVisible(page)
+  await page.goto(optionsUrl + "#/writing-playground", {
+    waitUntil: "domcontentloaded"
+  })
+  await page.waitForFunction(() => !!document.querySelector("#root"), undefined, {
+    timeout: 10000
+  })
+  await page.evaluate(() => {
+    const navigate = (window as any).__tldwNavigate
+    if (typeof navigate === "function") {
+      navigate("/writing-playground")
+    }
+  })
+}
+
 const fillLabeledField = async (
   scope: Page | Locator,
   label: string,
@@ -69,6 +109,19 @@ const openSelectOption = async (
   await expect(select).toContainText(optionName)
 }
 
+const getSessionRow = (page: Page, name: string) =>
+  page.getByRole("button", { name: new RegExp(escapeRegex(name)) }).first()
+
+const closeModal = async (modal: Locator) => {
+  await modal.locator(".ant-modal-close").first().click()
+  await expect(modal).toBeHidden()
+}
+
+const sessionRow = (page: Page, name: string) =>
+  page
+    .getByRole("button", { name: new RegExp(`^${escapeRegExp(name)}\b`) })
+    .first()
+
 const createSession = async (page: Page, name: string) => {
   await page.getByRole("button", { name: /New session/i }).click()
   const modal = page.getByRole("dialog", { name: /New session/i })
@@ -78,7 +131,9 @@ const createSession = async (page: Page, name: string) => {
   const okButton = modal.getByRole("button", { name: /OK|Create/i })
   await okButton.click()
   await expect(modal).toBeHidden()
-  await expect(page.getByText(name)).toBeVisible({ timeout: 15000 })
+  const row = getSessionRow(page, name)
+  await expect(row).toBeVisible({ timeout: 15000 })
+  await row.click()
 }
 
 test.describe("Writing Playground themes + templates", () => {
@@ -116,22 +171,19 @@ test.describe("Writing Playground themes + templates", () => {
         )
       }
 
-      await page.goto(optionsUrl + "#/writing-playground", {
-        waitUntil: "domcontentloaded"
-      })
+      await openWritingPlayground(page, optionsUrl)
       await waitForConnected(page, "writing-playground-sessions")
       await expect(
-        page.getByText(/Writing Playground/i).first()
+        page.getByRole("heading", { name: /Writing Playground/i })
       ).toBeVisible()
 
-      const unique = Date.now()
+      const unique = `${Date.now()}-${test.info().workerIndex}-${Math.random()
+        .toString(36)
+        .slice(2, 6)}`
       const sessionName = `E2E Writing Session ${unique}`
       await createSession(page, sessionName)
 
-      const row = page
-        .getByText(sessionName)
-        .first()
-        .locator("xpath=ancestor::li[1]")
+      const row = getSessionRow(page, sessionName)
       await row.scrollIntoViewIfNeeded()
       await row.locator("button").last().click()
 
@@ -154,7 +206,9 @@ test.describe("Writing Playground themes + templates", () => {
       await importInput.setInputFiles(downloadPath)
 
       const importedName = `${sessionName} (imported)`
-      await expect(page.getByText(importedName)).toBeVisible({ timeout: 15000 })
+      await expect(getSessionRow(page, importedName)).toBeVisible({
+        timeout: 15000
+      })
     } finally {
       await context.close()
     }
@@ -194,15 +248,15 @@ test.describe("Writing Playground themes + templates", () => {
         )
       }
 
-      await page.goto(optionsUrl + "#/writing-playground", {
-        waitUntil: "domcontentloaded"
-      })
+      await openWritingPlayground(page, optionsUrl)
       await waitForConnected(page, "writing-playground-templates")
       await expect(
-        page.getByText(/Writing Playground/i).first()
+        page.getByRole("heading", { name: /Writing Playground/i })
       ).toBeVisible()
 
-      const unique = Date.now()
+      const unique = `${Date.now()}-${test.info().workerIndex}-${Math.random()
+        .toString(36)
+        .slice(2, 6)}`
       const sessionName = `E2E Writing Session ${unique}`
       await createSession(page, sessionName)
 
@@ -220,7 +274,7 @@ test.describe("Writing Playground themes + templates", () => {
 
       await modal.getByRole("button", { name: /Create/i }).click()
       await expect(modal.getByText(templateName)).toBeVisible({ timeout: 15000 })
-      await modal.getByLabel("Close").click()
+      await closeModal(modal)
 
       await openSelectOption(page, "Template", templateName)
 
@@ -281,15 +335,15 @@ test.describe("Writing Playground themes + templates", () => {
         )
       }
 
-      await page.goto(optionsUrl + "#/writing-playground", {
-        waitUntil: "domcontentloaded"
-      })
+      await openWritingPlayground(page, optionsUrl)
       await waitForConnected(page, "writing-playground-themes")
       await expect(
-        page.getByText(/Writing Playground/i).first()
+        page.getByRole("heading", { name: /Writing Playground/i })
       ).toBeVisible()
 
-      const unique = Date.now()
+      const unique = `${Date.now()}-${test.info().workerIndex}-${Math.random()
+        .toString(36)
+        .slice(2, 6)}`
       const sessionName = `E2E Writing Theme ${unique}`
       await createSession(page, sessionName)
 
@@ -309,7 +363,7 @@ test.describe("Writing Playground themes + templates", () => {
 
       await modal.getByRole("button", { name: /Create/i }).click()
       await expect(modal.getByText(themeName)).toBeVisible({ timeout: 15000 })
-      await modal.getByLabel("Close").click()
+      await closeModal(modal)
 
       await openSelectOption(page, "Theme", themeName)
 

@@ -399,7 +399,7 @@
     "message": "Rama"
   },
   "infoShort": {
-    "message": "Info"
+    "message": "Info."
   },
   "regenShort": {
     "message": "Repetir"
@@ -750,7 +750,7 @@
     "message": "Ajusta la temperatura, longitud del contexto y otras configuraciones del modelo."
   },
   "chatSidebar_title": {
-    "message": "Chats"
+    "message": "Conversaciones"
   },
   "chatSidebar_newChat": {
     "message": "Nuevo chat"
@@ -765,13 +765,13 @@
     "message": "Buscar chats..."
   },
   "chatSidebar_modeLabel": {
-    "message": "Mode"
+    "message": "Modo"
   },
   "chatSidebar_modeCasual": {
-    "message": "Casual"
+    "message": "Informal"
   },
   "chatSidebar_modePro": {
-    "message": "Pro"
+    "message": "Profesional"
   },
   "chatSidebar_ingest": {
     "message": "Ingerir página"
@@ -936,112 +936,112 @@
     "message": "Esto restablecerá tu estado de incorporación y te llevará de nuevo al flujo de configuración."
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Modelo"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Cambia el modelo para el próximo mensaje"
   },
   "generate": {
-    "message": "Generate"
+    "message": "Generar"
   },
   "view": {
-    "message": "View"
+    "message": "Ver"
   },
   "deleteMessageConfirm": {
-    "message": "Delete this message?"
+    "message": "¿Eliminar este mensaje?"
   },
   "deleteFailed": {
-    "message": "Delete failed"
+    "message": "Error al eliminar"
   },
   "reply": {
-    "message": "Reply"
+    "message": "Responder"
   },
   "replyShort": {
-    "message": "Reply"
+    "message": "Resp."
   },
   "replyingTo": {
-    "message": "Replying to"
+    "message": "Respondiendo a"
   },
   "clearReply": {
-    "message": "Clear reply target"
+    "message": "Borrar respuesta"
   },
   "replyTargetFallback": {
-    "message": "Message"
+    "message": "Mensaje"
   },
   "artifactsTitle": {
-    "message": "Artifact"
+    "message": "Artefacto"
   },
   "artifactsDefaultTitle": {
-    "message": "Code"
+    "message": "Código"
   },
   "artifactsView": {
-    "message": "View code"
+    "message": "Ver código"
   },
   "artifactsPin": {
-    "message": "Pin"
+    "message": "Fijar"
   },
   "artifactsUnpin": {
-    "message": "Unpin"
+    "message": "Desfijar"
   },
   "artifactsClose": {
-    "message": "Close"
+    "message": "Cerrar"
   },
   "artifactsCopy": {
-    "message": "Copy"
+    "message": "Copiar"
   },
   "artifactsDownload": {
-    "message": "Download"
+    "message": "Descargar"
   },
   "artifactsRun": {
-    "message": "Run"
+    "message": "Ejecutar"
   },
   "saveToNotes": {
-    "message": "Save to Notes"
+    "message": "Guardar en notas"
   },
   "saveToFlashcards": {
-    "message": "Save to Flashcards"
+    "message": "Guardar en tarjetas de estudio"
   },
   "generateDocument": {
-    "message": "Generate document"
+    "message": "Generar documento"
   },
   "documentShort": {
-    "message": "Doc"
+    "message": "Doc."
   },
   "saveNoteShort": {
-    "message": "Note"
+    "message": "Nota"
   },
   "saveFlashcardShort": {
-    "message": "Card"
+    "message": "Tarjeta"
   },
   "savedToNotes": {
-    "message": "Saved to Notes"
+    "message": "Guardado en notas"
   },
   "savedToFlashcards": {
-    "message": "Saved to Flashcards"
+    "message": "Guardado en tarjetas de estudio"
   },
   "saveToNotesEmpty": {
-    "message": "Nothing to save yet."
+    "message": "Aún no hay nada que guardar."
   },
   "timeline_title": {
-    "message": "Conversation Timeline"
+    "message": "Línea de tiempo de la conversación"
   },
   "timeline_searchPlaceholder": {
-    "message": "Search messages... (space = AND)"
+    "message": "Buscar mensajes... (espacio = Y)"
   },
   "timeline_searchMatches": {
-    "message": "matches"
+    "message": "coincidencias"
   },
   "timeline_searchNoMatches": {
-    "message": "no matches"
+    "message": "sin coincidencias"
   },
   "timeline_searchMode_fragments": {
-    "message": "Fragments"
+    "message": "Fragmentos"
   },
   "timeline_searchMode_substring": {
-    "message": "Substring"
+    "message": "Subcadena"
   },
   "timeline_searchMode_regex": {
-    "message": "Regex"
+    "message": "Expresión regular"
   },
   "timeline_layout_horizontal": {
     "message": "horizontal"
@@ -1050,130 +1050,130 @@
     "message": "vertical"
   },
   "timeline_refreshGraph": {
-    "message": "Refresh graph"
+    "message": "Actualizar gráfico"
   },
   "timeline_switchLayout": {
-    "message": "Switch to {{layout}} layout"
+    "message": "Cambiar al diseño {{layout}}"
   },
   "timeline_expandAllAlternatives": {
-    "message": "Expand all alternatives"
+    "message": "Expandir todas las alternativas"
   },
   "timeline_collapseAllAlternatives": {
-    "message": "Collapse all alternatives"
+    "message": "Contraer todas las alternativas"
   },
   "timeline_hideLegend": {
-    "message": "Hide legend"
+    "message": "Ocultar leyenda"
   },
   "timeline_showLegend": {
-    "message": "Show legend"
+    "message": "Mostrar leyenda"
   },
   "timeline_zoomIn": {
-    "message": "Zoom in"
+    "message": "Acercar"
   },
   "timeline_zoomOut": {
-    "message": "Zoom out"
+    "message": "Alejar"
   },
   "sourceLabel": {
-    "message": "Source"
+    "message": "Fuente"
   },
   "sourceOpen": {
-    "message": "Open source"
+    "message": "Abrir fuente"
   },
   "modelSettings_form_historyMessageLimit_label": {
-    "message": "History message limit"
+    "message": "Límite de mensajes del historial"
   },
   "modelSettings_form_historyMessageLimit_placeholder": {
-    "message": "e.g. 10"
+    "message": "p. ej. 10"
   },
   "modelSettings_form_historyMessageLimit_help": {
-    "message": "Limit how many previous messages are sent with each request."
+    "message": "Limita cuántos mensajes anteriores se envían con cada solicitud."
   },
   "modelSettings_form_historyMessageOrder_label": {
-    "message": "History message order"
+    "message": "Orden de mensajes del historial"
   },
   "modelSettings_form_historyMessageOrder_placeholder": {
-    "message": "Select order"
+    "message": "Selecciona el orden"
   },
   "modelSettings_form_historyMessageOrder_help": {
-    "message": "Choose whether the newest or oldest messages are sent first."
+    "message": "Elige si se envían primero los mensajes más recientes o los más antiguos."
   },
   "modelSettings_form_historyMessageOrder_options_desc": {
-    "message": "Newest first"
+    "message": "Más recientes primero"
   },
   "modelSettings_form_historyMessageOrder_options_asc": {
-    "message": "Oldest first"
+    "message": "Más antiguos primero"
   },
   "modelSettings_form_slashCommandInjectionMode_label": {
-    "message": "Slash command injection"
+    "message": "Inyección de comandos con barra"
   },
   "modelSettings_form_slashCommandInjectionMode_placeholder": {
-    "message": "Select injection mode"
+    "message": "Selecciona el modo de inyección"
   },
   "modelSettings_form_slashCommandInjectionMode_help": {
-    "message": "Choose how slash commands are inserted into the request."
+    "message": "Elige cómo se insertan los comandos con barra en la solicitud."
   },
   "modelSettings_form_slashCommandInjectionMode_options_system": {
-    "message": "System message"
+    "message": "Mensaje del sistema"
   },
   "modelSettings_form_slashCommandInjectionMode_options_preface": {
-    "message": "Preface user message"
+    "message": "Anteponer al mensaje del usuario"
   },
   "modelSettings_form_slashCommandInjectionMode_options_replace": {
-    "message": "Replace user message"
+    "message": "Reemplazar mensaje del usuario"
   },
   "modelSettings_form_apiProvider_label": {
-    "message": "API provider override"
+    "message": "Anulación del proveedor de API"
   },
   "modelSettings_form_apiProvider_placeholder": {
-    "message": "Select provider (optional)"
+    "message": "Selecciona proveedor (opcional)"
   },
   "modelSettings_form_apiProvider_help": {
-    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+    "message": "Fuerza un proveedor específico para este chat (p. ej. openai, anthropic)."
   },
   "modelSettings_form_extraHeaders_label": {
-    "message": "Extra headers (JSON)"
+    "message": "Encabezados extra (JSON)"
   },
   "modelSettings_form_extraHeaders_placeholder": {
     "message": "{ \"X-API-Key\": \"...\" }"
   },
   "modelSettings_form_extraHeaders_help": {
-    "message": "JSON object merged into request headers."
+    "message": "Objeto JSON que se fusiona en los encabezados de la solicitud."
   },
   "modelSettings_form_extraBody_label": {
-    "message": "Extra body (JSON)"
+    "message": "Cuerpo extra (JSON)"
   },
   "modelSettings_form_extraBody_placeholder": {
     "message": "{ \"user\": \"...\" }"
   },
   "modelSettings_form_extraBody_help": {
-    "message": "JSON object merged into request body."
+    "message": "Objeto JSON que se fusiona en el cuerpo de la solicitud."
   },
   "modelSettings_form_guardrails_invalidJson": {
-    "message": "Enter a valid JSON object."
+    "message": "Introduce un objeto JSON válido."
   },
   "modelSettings_requestOverrides": {
-    "message": "Request overrides"
+    "message": "Anulaciones de solicitud"
   },
   "modelSettings_tabs_model": {
-    "message": "Model"
+    "message": "Modelo"
   },
   "modelSettings_tabs_conversation": {
-    "message": "Conversation"
+    "message": "Conversación"
   },
   "modelSettings_tabs_advanced": {
-    "message": "Advanced"
+    "message": "Avanzado"
   },
   "modelSettings_tabs_actor": {
-    "message": "Scene Director"
+    "message": "Director de escena"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "No se pudo crear la carpeta"
   },
   "timeline_unableLocateMessage": {
-    "message": "Unable to locate the message for this action."
+    "message": "No se pudo localizar el mensaje para esta acción."
   },
   "timeline_actionFailed": {
-    "message": "Failed to perform timeline action. Please try again."
+    "message": "No se pudo realizar la acción de la línea de tiempo. Inténtalo de nuevo."
   },
   "documentCard_removeAria": {
     "message": "Eliminar {{name}}"

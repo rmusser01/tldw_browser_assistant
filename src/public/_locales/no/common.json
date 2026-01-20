@@ -765,19 +765,19 @@
     "message": "Søk i chatter..."
   },
   "chatSidebar_modeLabel": {
-    "message": "Mode"
+    "message": "Modus"
   },
   "chatSidebar_modeCasual": {
-    "message": "Casual"
+    "message": "Uformell"
   },
   "chatSidebar_modePro": {
-    "message": "Pro"
+    "message": "Profesjonell"
   },
   "chatSidebar_ingest": {
     "message": "Innhent side"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "Medier"
   },
   "chatSidebar_notes": {
     "message": "Notater"
@@ -936,244 +936,244 @@
     "message": "Dette tilbakestiller onboarding-statusen din og tar deg tilbake til oppsettflyten."
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Modell"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Bytter modell for neste melding"
   },
   "generate": {
-    "message": "Generate"
+    "message": "Generer"
   },
   "view": {
-    "message": "View"
+    "message": "Vis"
   },
   "deleteMessageConfirm": {
-    "message": "Delete this message?"
+    "message": "Slette denne meldingen?"
   },
   "deleteFailed": {
-    "message": "Delete failed"
+    "message": "Sletting mislyktes"
   },
   "reply": {
-    "message": "Reply"
+    "message": "Svar"
   },
   "replyShort": {
-    "message": "Reply"
+    "message": "Svar"
   },
   "replyingTo": {
-    "message": "Replying to"
+    "message": "Svar til"
   },
   "clearReply": {
-    "message": "Clear reply target"
+    "message": "Fjern svarmål"
   },
   "replyTargetFallback": {
-    "message": "Message"
+    "message": "Melding"
   },
   "artifactsTitle": {
-    "message": "Artifact"
+    "message": "Artefakt"
   },
   "artifactsDefaultTitle": {
-    "message": "Code"
+    "message": "Kode"
   },
   "artifactsView": {
-    "message": "View code"
+    "message": "Vis kode"
   },
   "artifactsPin": {
-    "message": "Pin"
+    "message": "Fest"
   },
   "artifactsUnpin": {
-    "message": "Unpin"
+    "message": "Løsne"
   },
   "artifactsClose": {
-    "message": "Close"
+    "message": "Lukk"
   },
   "artifactsCopy": {
-    "message": "Copy"
+    "message": "Kopier"
   },
   "artifactsDownload": {
-    "message": "Download"
+    "message": "Last ned"
   },
   "artifactsRun": {
-    "message": "Run"
+    "message": "Kjør"
   },
   "saveToNotes": {
-    "message": "Save to Notes"
+    "message": "Lagre i notater"
   },
   "saveToFlashcards": {
-    "message": "Save to Flashcards"
+    "message": "Lagre i huskekort"
   },
   "generateDocument": {
-    "message": "Generate document"
+    "message": "Generer dokument"
   },
   "documentShort": {
-    "message": "Doc"
+    "message": "Dok"
   },
   "saveNoteShort": {
-    "message": "Note"
+    "message": "Notat"
   },
   "saveFlashcardShort": {
-    "message": "Card"
+    "message": "Kort"
   },
   "savedToNotes": {
-    "message": "Saved to Notes"
+    "message": "Lagret i notater"
   },
   "savedToFlashcards": {
-    "message": "Saved to Flashcards"
+    "message": "Lagret i huskekort"
   },
   "saveToNotesEmpty": {
-    "message": "Nothing to save yet."
+    "message": "Ingenting å lagre ennå."
   },
   "timeline_title": {
-    "message": "Conversation Timeline"
+    "message": "Samtaletidslinje"
   },
   "timeline_searchPlaceholder": {
-    "message": "Search messages... (space = AND)"
+    "message": "Søk i meldinger... (mellomrom = OG)"
   },
   "timeline_searchMatches": {
-    "message": "matches"
+    "message": "treff"
   },
   "timeline_searchNoMatches": {
-    "message": "no matches"
+    "message": "ingen treff"
   },
   "timeline_searchMode_fragments": {
-    "message": "Fragments"
+    "message": "Fragmenter"
   },
   "timeline_searchMode_substring": {
-    "message": "Substring"
+    "message": "Delstreng"
   },
   "timeline_searchMode_regex": {
-    "message": "Regex"
+    "message": "Regulære uttrykk"
   },
   "timeline_layout_horizontal": {
-    "message": "horizontal"
+    "message": "horisontal"
   },
   "timeline_layout_vertical": {
-    "message": "vertical"
+    "message": "vertikal"
   },
   "timeline_refreshGraph": {
-    "message": "Refresh graph"
+    "message": "Oppdater graf"
   },
   "timeline_switchLayout": {
-    "message": "Switch to {{layout}} layout"
+    "message": "Bytt til {{layout}}-oppsett"
   },
   "timeline_expandAllAlternatives": {
-    "message": "Expand all alternatives"
+    "message": "Utvid alle alternativer"
   },
   "timeline_collapseAllAlternatives": {
-    "message": "Collapse all alternatives"
+    "message": "Skjul alle alternativer"
   },
   "timeline_hideLegend": {
-    "message": "Hide legend"
+    "message": "Skjul forklaring"
   },
   "timeline_showLegend": {
-    "message": "Show legend"
+    "message": "Vis forklaring"
   },
   "timeline_zoomIn": {
-    "message": "Zoom in"
+    "message": "Zoom inn"
   },
   "timeline_zoomOut": {
-    "message": "Zoom out"
+    "message": "Zoom ut"
   },
   "sourceLabel": {
-    "message": "Source"
+    "message": "Kilde"
   },
   "sourceOpen": {
-    "message": "Open source"
+    "message": "Åpne kilde"
   },
   "modelSettings_form_historyMessageLimit_label": {
-    "message": "History message limit"
+    "message": "Grense for historikkmeldinger"
   },
   "modelSettings_form_historyMessageLimit_placeholder": {
-    "message": "e.g. 10"
+    "message": "f.eks. 10"
   },
   "modelSettings_form_historyMessageLimit_help": {
-    "message": "Limit how many previous messages are sent with each request."
+    "message": "Begrenser hvor mange tidligere meldinger som sendes med hver forespørsel."
   },
   "modelSettings_form_historyMessageOrder_label": {
-    "message": "History message order"
+    "message": "Rekkefølge for historikkmeldinger"
   },
   "modelSettings_form_historyMessageOrder_placeholder": {
-    "message": "Select order"
+    "message": "Velg rekkefølge"
   },
   "modelSettings_form_historyMessageOrder_help": {
-    "message": "Choose whether the newest or oldest messages are sent first."
+    "message": "Velg om de nyeste eller eldste meldingene sendes først."
   },
   "modelSettings_form_historyMessageOrder_options_desc": {
-    "message": "Newest first"
+    "message": "Nyeste først"
   },
   "modelSettings_form_historyMessageOrder_options_asc": {
-    "message": "Oldest first"
+    "message": "Eldste først"
   },
   "modelSettings_form_slashCommandInjectionMode_label": {
-    "message": "Slash command injection"
+    "message": "Injisering av skråstrek-kommandoer"
   },
   "modelSettings_form_slashCommandInjectionMode_placeholder": {
-    "message": "Select injection mode"
+    "message": "Velg injiseringsmodus"
   },
   "modelSettings_form_slashCommandInjectionMode_help": {
-    "message": "Choose how slash commands are inserted into the request."
+    "message": "Velg hvordan skråstrek-kommandoer settes inn i forespørselen."
   },
   "modelSettings_form_slashCommandInjectionMode_options_system": {
-    "message": "System message"
+    "message": "Systemmelding"
   },
   "modelSettings_form_slashCommandInjectionMode_options_preface": {
-    "message": "Preface user message"
+    "message": "Innled bruker­melding"
   },
   "modelSettings_form_slashCommandInjectionMode_options_replace": {
-    "message": "Replace user message"
+    "message": "Erstatt brukermelding"
   },
   "modelSettings_form_apiProvider_label": {
-    "message": "API provider override"
+    "message": "Overstyr API‑leverandør"
   },
   "modelSettings_form_apiProvider_placeholder": {
-    "message": "Select provider (optional)"
+    "message": "Velg leverandør (valgfritt)"
   },
   "modelSettings_form_apiProvider_help": {
-    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+    "message": "Tving en bestemt leverandør for denne chatten (f.eks. openai, anthropic)."
   },
   "modelSettings_form_extraHeaders_label": {
-    "message": "Extra headers (JSON)"
+    "message": "Ekstra headere (JSON)"
   },
   "modelSettings_form_extraHeaders_placeholder": {
     "message": "{ \"X-API-Key\": \"...\" }"
   },
   "modelSettings_form_extraHeaders_help": {
-    "message": "JSON object merged into request headers."
+    "message": "JSON-objekt som flettes inn i forespørselens headere."
   },
   "modelSettings_form_extraBody_label": {
-    "message": "Extra body (JSON)"
+    "message": "Ekstra request-body (JSON)"
   },
   "modelSettings_form_extraBody_placeholder": {
     "message": "{ \"user\": \"...\" }"
   },
   "modelSettings_form_extraBody_help": {
-    "message": "JSON object merged into request body."
+    "message": "JSON-objekt som flettes inn i forespørselens body."
   },
   "modelSettings_form_guardrails_invalidJson": {
-    "message": "Enter a valid JSON object."
+    "message": "Skriv inn et gyldig JSON-objekt."
   },
   "modelSettings_requestOverrides": {
-    "message": "Request overrides"
+    "message": "Overstyringer av forespørsel"
   },
   "modelSettings_tabs_model": {
-    "message": "Model"
+    "message": "Modell"
   },
   "modelSettings_tabs_conversation": {
-    "message": "Conversation"
+    "message": "Samtale"
   },
   "modelSettings_tabs_advanced": {
-    "message": "Advanced"
+    "message": "Avansert"
   },
   "modelSettings_tabs_actor": {
-    "message": "Scene Director"
+    "message": "Scenedirektør"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Kunne ikke opprette mappe"
   },
   "timeline_unableLocateMessage": {
-    "message": "Unable to locate the message for this action."
+    "message": "Fant ikke meldingen for denne handlingen."
   },
   "timeline_actionFailed": {
-    "message": "Failed to perform timeline action. Please try again."
+    "message": "Kunne ikke utføre tidslinjehandlingen. Prøv igjen."
   },
   "documentCard_removeAria": {
     "message": "Fjern {{name}}"

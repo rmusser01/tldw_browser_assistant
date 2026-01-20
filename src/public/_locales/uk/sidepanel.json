@@ -12,7 +12,7 @@
     "message": "Відкрити веб-інтерфейс"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "RAG-пошук"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant не може зберегти дані"
@@ -57,7 +57,7 @@
     "message": "Тимчасовий чат"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "Тимч."
   },
   "temporaryBadge_description": {
     "message": "Цей чат не буде збережено. Повідомлення буде очищено під час закриття або початку нового чату."
@@ -75,85 +75,85 @@
     "message": "Тимчасовий чат"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "Імпортувати"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "Зберегти поточну сторінку на сервері"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "Обробити поточну сторінку локально"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "Переглянути оброблене"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "Тайм‑аут (с)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "Перемкнути бічну панель / повний екран"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "Гарячі клавіші"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "Показати налагодження потоку"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "Сховати налагодження потоку"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "Більше опцій"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "Ingest та інше"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "Відкрити Web UI"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "Новий чат"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "Перемкнути тимчасовий чат"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "Очистити історію"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "Відкрити історію"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "Відкрити налаштування моделі"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "Відкрити налаштування"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "Тимч."
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "Відкрити режими у Web UI"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "Чат"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "Огляд"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "Медіа"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "Знання"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "Нотатки"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "Запити"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "Флеш-картки"
   },
   "controlRow_saveMode": {
     "message": "Режим збереження"
@@ -162,13 +162,13 @@
     "message": "Тимчасовий"
   },
   "controlRow_searchSection": {
-    "message": "Пошук і Vision"
+    "message": "Пошук і візуальний аналіз"
   },
   "controlRow_webSearch": {
     "message": "Пошук в інтернеті"
   },
   "controlRow_vision": {
-    "message": "Vision"
+    "message": "Візуальний аналіз"
   },
   "controlRow_uploadImage": {
     "message": "Завантажити зображення"
@@ -207,34 +207,34 @@
     "message": "Підключіться до свого сервера tldw у налаштуваннях, щоб надсилати повідомлення й переглядати медіа."
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "Надіслано на сервер tldw"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "Поточну сторінку надіслано для обробки."
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "Оброблено локально"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "Оброблений контент збережено локально в Налаштування > Оброблене."
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "Транскрипція"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "Транскрипція + резюме"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "Транскрипцію завершено. Відкрийте Медіа у Web UI, щоб переглянути."
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "Джерело"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "Транскрипт"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "Резюме"
   },
   "saveStatus_ephemeral": {
     "message": "Тимчасовий: не зберігається, очищується при закритті"
@@ -252,46 +252,46 @@
     "message": "Тепер чат зберігається лише локально. Перевірте з'єднання та спробуйте ще раз."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "Пошук у базі знань…"
   },
   "rag_search": {
-    "message": "Search"
+    "message": "Пошук"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "Показати RAG-пошук"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "Сховати RAG-пошук"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "Додати тег (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "Додати"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "Немає результатів"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "Час очікування запиту минув."
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "Збільшити тайм‑аут"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "Перевірити стан сервера"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "Вставити"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "Запитати"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "Відкрити"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "Копіювати"
   },
   "rag_hint_message": {
     "message": "Шукайте у своїй базі знань і вставляйте результати у повідомлення."
@@ -309,33 +309,33 @@
     "message": "Закрити вкладку чату"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "Персонаж"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "Вибрати персонажа"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "Шукати персонажів..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "Немає збігів"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "Персонажів немає"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "Без персонажа"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Створити нового персонажа+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "Імпортувати персонажа"
   },
   "rag_attachedContext": {
     "message": "Прикріплений контекст"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "Немає результатів"
   }
 }

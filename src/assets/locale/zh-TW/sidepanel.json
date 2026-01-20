@@ -6,7 +6,7 @@
     "openwebui": "開啟網頁介面"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "RAG 搜尋"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant 無法儲存資料",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "臨時聊天",
-    "label": "Temp",
+    "label": "臨時",
     "description": "此聊天不會被儲存。關閉或開始新聊天時訊息將被清除。",
     "clickHint": "點擊以停用",
     "ariaLabel": "臨時聊天模式已啟用。點擊切換。",
@@ -35,33 +35,33 @@
     "indicatorAria": "臨時聊天"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "匯入",
+    "saveCurrent": "在伺服器上儲存目前頁面",
+    "processLocal": "在本機處理目前頁面",
+    "viewProcessed": "檢視已處理內容",
+    "timeoutLabel": "逾時 (秒)",
+    "toggleSidebar": "切換側邊欄 / 全螢幕",
+    "shortcuts": "快捷鍵",
+    "showDebug": "顯示串流除錯",
+    "hideDebug": "隱藏串流除錯",
+    "moreOptionsAria": "更多選項",
+    "moreOptionsTitle": "Ingest 及更多",
+    "openWebuiAria": "開啟 Web UI",
+    "newChatAria": "新的對話",
+    "tempChatAria": "切換臨時聊天",
+    "clearHistoryAria": "清除紀錄",
+    "openHistoryAria": "開啟紀錄",
+    "openModelSettingsAria": "開啟模型設定",
+    "openSettingsAria": "開啟設定",
+    "tempPill": "臨時",
+    "modesLabel": "在 Web UI 中開啟模式",
+    "modePlayground": "聊天",
+    "modeReview": "多項審閱",
+    "modeMedia": "媒體",
+    "modeKnowledge": "知識 Q&A",
+    "modeNotes": "筆記",
+    "modePrompts": "提示詞",
+    "modeFlashcards": "抽認卡"
   },
   "controlRow": {
     "saveMode": "儲存模式",
@@ -85,16 +85,16 @@
     "disconnectedPlaceholder": "請在「設定」中連線到您的 tldw 伺服器以傳送訊息並檢視媒體。"
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "已傳送至 tldw 伺服器",
+    "ingestSentDesc": "目前頁面已提交進行匯入。",
+    "processedLocal": "已在本機處理",
+    "processedLocalDesc": "處理後內容已在本機儲存於 設定 > 已處理。",
+    "transcriptionTitle": "轉錄",
+    "transcriptionSummaryTitle": "轉錄 + 摘要",
+    "transcriptionFallback": "轉錄完成。請在 Web UI 中開啟媒體檢視。",
+    "sourceLabel": "來源",
+    "transcriptLabel": "轉錄",
+    "summaryLabel": "摘要"
   },
   "saveStatus": {
     "ephemeral": "臨時：不儲存，關閉時清除",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "附加的脈絡",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "搜尋你的知識庫…",
+    "search": "搜尋",
+    "show": "顯示 RAG 搜尋",
+    "hide": "隱藏 RAG 搜尋",
+    "addTagPlaceholder": "新增標籤 (Enter)",
+    "add": "新增",
+    "noResults": "沒有結果",
+    "initialState": "沒有結果",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "請求逾時。",
+      "increase": "增加逾時",
+      "checkHealth": "檢查伺服器狀態"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "插入",
+      "ask": "提問",
+      "open": "開啟",
+      "copy": "複製"
     },
     "hint": {
       "message": "搜尋你的知識庫，並將結果插入到訊息中。",
@@ -135,13 +135,13 @@
     "closeTabAria": "關閉對話分頁"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "角色",
+    "tooltip": "選擇角色",
+    "search": "搜尋角色...",
+    "noMatches": "沒有符合的角色",
+    "noCharacters": "目前沒有可用角色",
+    "none": "無角色",
+    "createNewCharacter": "建立新角色+",
+    "importCharacter": "匯入角色"
   }
 }

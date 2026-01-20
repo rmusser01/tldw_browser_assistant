@@ -12,7 +12,7 @@
     "message": "開啟網頁介面"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "RAG 搜尋"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant 無法儲存資料"
@@ -57,7 +57,7 @@
     "message": "臨時聊天"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "臨時"
   },
   "temporaryBadge_description": {
     "message": "此聊天不會被儲存。關閉或開始新聊天時訊息將被清除。"
@@ -75,85 +75,85 @@
     "message": "臨時聊天"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "匯入"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "在伺服器上儲存目前頁面"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "在本機處理目前頁面"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "檢視已處理內容"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "逾時 (秒)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "切換側邊欄 / 全螢幕"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "快捷鍵"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "顯示串流除錯"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "隱藏串流除錯"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "更多選項"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "Ingest 及更多"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "開啟 Web UI"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "新的對話"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "切換臨時聊天"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "清除紀錄"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "開啟紀錄"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "開啟模型設定"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "開啟設定"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "臨時"
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "在 Web UI 中開啟模式"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "聊天"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "多項審閱"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "媒體"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "知識 Q&A"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "筆記"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "提示詞"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "抽認卡"
   },
   "controlRow_saveMode": {
     "message": "儲存模式"
@@ -207,34 +207,34 @@
     "message": "請在「設定」中連線到您的 tldw 伺服器以傳送訊息並檢視媒體。"
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "已傳送至 tldw 伺服器"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "目前頁面已提交進行匯入。"
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "已在本機處理"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "處理後內容已在本機儲存於 設定 > 已處理。"
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "轉錄"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "轉錄 + 摘要"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "轉錄完成。請在 Web UI 中開啟媒體檢視。"
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "來源"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "轉錄"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "摘要"
   },
   "saveStatus_ephemeral": {
     "message": "臨時：不儲存，關閉時清除"
@@ -252,46 +252,46 @@
     "message": "聊天目前只會儲存在本機。請檢查連線後再試。"
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "搜尋你的知識庫…"
   },
   "rag_search": {
-    "message": "Search"
+    "message": "搜尋"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "顯示 RAG 搜尋"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "隱藏 RAG 搜尋"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "新增標籤 (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "新增"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "沒有結果"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "請求逾時。"
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "增加逾時"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "檢查伺服器狀態"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "插入"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "提問"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "開啟"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "複製"
   },
   "rag_hint_message": {
     "message": "搜尋你的知識庫，並將結果插入到訊息中。"
@@ -309,33 +309,33 @@
     "message": "關閉對話分頁"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "角色"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "選擇角色"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "搜尋角色..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "沒有符合的角色"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "目前沒有可用角色"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "無角色"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "建立新角色+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "匯入角色"
   },
   "rag_attachedContext": {
     "message": "附加的脈絡"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "沒有結果"
   }
 }

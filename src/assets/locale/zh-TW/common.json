@@ -17,8 +17,8 @@
   },
   "selectAModel": "選擇一個模型",
   "modelSelect": {
-    "label": "Model",
-    "tooltip": "Changes model for next message"
+    "label": "模型",
+    "tooltip": "切換下一則訊息的模型"
   },
   "save": "儲存",
   "saved": "已儲存",
@@ -67,11 +67,11 @@
   "webSearch": "搜尋網絡",
   "regenerate": "重新生成",
   "edit": "編輯",
-  "generate": "Generate",
-  "view": "View",
+  "generate": "生成",
+  "view": "檢視",
   "delete": "刪除",
-  "deleteMessageConfirm": "Delete this message?",
-  "deleteFailed": "Delete failed",
+  "deleteMessageConfirm": "刪除這則訊息？",
+  "deleteFailed": "刪除失敗",
   "continue": "繼續回應",
   "saveAndSubmit": "儲存並送出",
   "editMessage": {
@@ -90,35 +90,35 @@
   "beta": "測試版",
   "tts": "朗讀",
   "ttsShort": "語音",
-  "reply": "Reply",
-  "replyShort": "Reply",
-  "replyingTo": "Replying to",
-  "clearReply": "Clear reply target",
-  "replyTargetFallback": "Message",
-  "artifactsTitle": "Artifact",
-  "artifactsDefaultTitle": "Code",
-  "artifactsView": "View code",
-  "artifactsPin": "Pin",
-  "artifactsUnpin": "Unpin",
-  "artifactsClose": "Close",
-  "artifactsCopy": "Copy",
-  "artifactsDownload": "Download",
-  "artifactsRun": "Run",
+  "reply": "回覆",
+  "replyShort": "回覆",
+  "replyingTo": "回覆中",
+  "clearReply": "清除回覆目標",
+  "replyTargetFallback": "訊息",
+  "artifactsTitle": "產物",
+  "artifactsDefaultTitle": "程式碼",
+  "artifactsView": "檢視程式碼",
+  "artifactsPin": "釘選",
+  "artifactsUnpin": "取消釘選",
+  "artifactsClose": "關閉",
+  "artifactsCopy": "複製",
+  "artifactsDownload": "下載",
+  "artifactsRun": "執行",
   "copyShort": "複製",
   "branchShort": "分支",
   "infoShort": "資訊",
-  "saveToNotes": "Save to Notes",
-  "saveToFlashcards": "Save to Flashcards",
-  "generateDocument": "Generate document",
-  "documentShort": "Doc",
+  "saveToNotes": "儲存到筆記",
+  "saveToFlashcards": "儲存到抽認卡",
+  "generateDocument": "生成文件",
+  "documentShort": "文件",
   "documentCard": {
     "removeAria": "移除 {{name}}"
   },
-  "saveNoteShort": "Note",
-  "saveFlashcardShort": "Card",
-  "savedToNotes": "Saved to Notes",
-  "savedToFlashcards": "Saved to Flashcards",
-  "saveToNotesEmpty": "Nothing to save yet.",
+  "saveNoteShort": "筆記",
+  "saveFlashcardShort": "卡片",
+  "savedToNotes": "已儲存到筆記",
+  "savedToFlashcards": "已儲存到抽認卡",
+  "saveToNotesEmpty": "目前沒有可儲存內容。",
   "regenShort": "重試",
   "continueShort": "更多",
   "fileChanges": "檔案變更",
@@ -154,7 +154,7 @@
         "placeholder": "例如：2048、4096"
       },
       "thinking": {
-        "label": "Thinking Mode"
+        "label": "思考模式"
       },
       "seed": {
         "label": "隨機種子",
@@ -213,55 +213,55 @@
         "help": "這是一種在當前聊天中設置系統提示詞的快捷方法，如果已存在選定的系統提示詞將會覆蓋它。"
       },
       "historyMessageLimit": {
-        "label": "History message limit",
-        "placeholder": "e.g. 10",
-        "help": "Limit how many previous messages are sent with each request."
+        "label": "歷史訊息上限",
+        "placeholder": "例如：10",
+        "help": "限制每次請求傳送的歷史訊息數量。"
       },
       "historyMessageOrder": {
-        "label": "History message order",
-        "placeholder": "Select order",
-        "help": "Choose whether the newest or oldest messages are sent first.",
+        "label": "歷史訊息順序",
+        "placeholder": "選擇順序",
+        "help": "選擇先傳送最新或最舊的訊息。",
         "options": {
-          "desc": "Newest first",
-          "asc": "Oldest first"
+          "desc": "最新優先",
+          "asc": "最舊優先"
         }
       },
       "slashCommandInjectionMode": {
-        "label": "Slash command injection",
-        "placeholder": "Select injection mode",
-        "help": "Choose how slash commands are inserted into the request.",
+        "label": "斜線指令注入",
+        "placeholder": "選擇注入模式",
+        "help": "選擇斜線指令插入請求的方式。",
         "options": {
-          "system": "System message",
-          "preface": "Preface user message",
-          "replace": "Replace user message"
+          "system": "系統訊息",
+          "preface": "前置使用者訊息",
+          "replace": "取代使用者訊息"
         }
       },
       "apiProvider": {
-        "label": "API provider override",
-        "placeholder": "Select provider (optional)",
-        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+        "label": "API 提供者覆寫",
+        "placeholder": "選擇提供者（選填）",
+        "help": "為此聊天強制指定提供者（例如 openai、anthropic）。"
       },
       "extraHeaders": {
-        "label": "Extra headers (JSON)",
+        "label": "額外標頭（JSON）",
         "placeholder": "{ \"X-API-Key\": \"...\" }",
-        "help": "JSON object merged into request headers."
+        "help": "JSON 物件會合併到請求標頭。"
       },
       "extraBody": {
-        "label": "Extra body (JSON)",
+        "label": "額外請求內容（JSON）",
         "placeholder": "{ \"user\": \"...\" }",
-        "help": "JSON object merged into request body."
+        "help": "JSON 物件會合併到請求內容。"
       },
       "guardrails": {
-        "invalidJson": "Enter a valid JSON object."
+        "invalidJson": "請輸入有效的 JSON 物件。"
       }
     },
     "advanced": "更多模型設定",
-    "requestOverrides": "Request overrides",
+    "requestOverrides": "請求覆寫",
     "tabs": {
-      "model": "Model",
-      "conversation": "Conversation",
-      "advanced": "Advanced",
-      "actor": "Scene Director"
+      "model": "模型",
+      "conversation": "對話",
+      "advanced": "進階",
+      "actor": "場景導演"
     }
   },
   "copilot": {
@@ -346,7 +346,7 @@
     "friendlyGenericHint": "請稍後再試，或開啟 Health & diagnostics 檢查伺服器狀態。",
     "showDetails": "顯示技術詳細資訊",
     "hideDetails": "隱藏技術詳細資訊",
-    "createFolder": "Failed to create folder"
+    "createFolder": "建立資料夾失敗"
   },
   "folders": "資料夾",
   "folderView": "資料夾檢視",
@@ -362,33 +362,33 @@
   "untitled": "未命名",
   "moveToFolder": "移至資料夾",
   "timeline": {
-    "title": "Conversation Timeline",
-    "searchPlaceholder": "Search messages... (space = AND)",
-    "searchMatches": "matches",
-    "searchNoMatches": "no matches",
+    "title": "對話時間軸",
+    "searchPlaceholder": "搜尋訊息...（空白鍵 = AND）",
+    "searchMatches": "筆相符",
+    "searchNoMatches": "無相符",
     "searchMode": {
-      "fragments": "Fragments",
-      "substring": "Substring",
-      "regex": "Regex"
+      "fragments": "片段",
+      "substring": "子字串",
+      "regex": "正則"
     },
     "layout": {
-      "horizontal": "horizontal",
-      "vertical": "vertical"
+      "horizontal": "水平",
+      "vertical": "垂直"
     },
-    "refreshGraph": "Refresh graph",
-    "switchLayout": "Switch to {{layout}} layout",
-    "expandAllAlternatives": "Expand all alternatives",
-    "collapseAllAlternatives": "Collapse all alternatives",
-    "hideLegend": "Hide legend",
-    "showLegend": "Show legend",
-    "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out",
-    "unableLocateMessage": "Unable to locate the message for this action.",
-    "actionFailed": "Failed to perform timeline action. Please try again."
+    "refreshGraph": "重新整理圖表",
+    "switchLayout": "切換為 {{layout}} 版面",
+    "expandAllAlternatives": "展開所有替代項目",
+    "collapseAllAlternatives": "收合所有替代項目",
+    "hideLegend": "隱藏圖例",
+    "showLegend": "顯示圖例",
+    "zoomIn": "放大",
+    "zoomOut": "縮小",
+    "unableLocateMessage": "找不到此操作對應的訊息。",
+    "actionFailed": "無法執行時間軸操作，請再試一次。"
   },
   "noToolCalls": "尚未有工具呼叫",
-  "sourceLabel": "Source",
-  "sourceOpen": "Open source",
+  "sourceLabel": "來源",
+  "sourceOpen": "開啟來源",
   "status": {
     "pending": "待處理",
     "running": "處理中",
@@ -472,9 +472,9 @@
     "collapse": "收合側邊欄",
     "expand": "展開側邊欄",
     "search": "搜尋聊天...",
-    "modeLabel": "Mode",
-    "modeCasual": "Casual",
-    "modePro": "Pro",
+    "modeLabel": "模式",
+    "modeCasual": "休閒",
+    "modePro": "專業",
     "ingest": "匯入頁面",
     "media": "媒體",
     "notes": "筆記",

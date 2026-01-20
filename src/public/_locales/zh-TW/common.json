@@ -762,13 +762,13 @@
     "message": "搜尋聊天..."
   },
   "chatSidebar_modeLabel": {
-    "message": "Mode"
+    "message": "模式"
   },
   "chatSidebar_modeCasual": {
-    "message": "Casual"
+    "message": "休閒"
   },
   "chatSidebar_modePro": {
-    "message": "Pro"
+    "message": "專業"
   },
   "chatSidebar_ingest": {
     "message": "匯入頁面"
@@ -933,247 +933,247 @@
     "message": "這將重設你的引導狀態並帶你回到設定流程."
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "模型"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "切換下一則訊息的模型"
   },
   "generate": {
-    "message": "Generate"
+    "message": "生成"
   },
   "view": {
-    "message": "View"
+    "message": "檢視"
   },
   "deleteMessageConfirm": {
-    "message": "Delete this message?"
+    "message": "刪除這則訊息？"
   },
   "deleteFailed": {
-    "message": "Delete failed"
+    "message": "刪除失敗"
   },
   "reply": {
-    "message": "Reply"
+    "message": "回覆"
   },
   "replyShort": {
-    "message": "Reply"
+    "message": "回覆"
   },
   "replyingTo": {
-    "message": "Replying to"
+    "message": "回覆中"
   },
   "clearReply": {
-    "message": "Clear reply target"
+    "message": "清除回覆目標"
   },
   "replyTargetFallback": {
-    "message": "Message"
+    "message": "訊息"
   },
   "artifactsTitle": {
-    "message": "Artifact"
+    "message": "產物"
   },
   "artifactsDefaultTitle": {
-    "message": "Code"
+    "message": "程式碼"
   },
   "artifactsView": {
-    "message": "View code"
+    "message": "檢視程式碼"
   },
   "artifactsPin": {
-    "message": "Pin"
+    "message": "釘選"
   },
   "artifactsUnpin": {
-    "message": "Unpin"
+    "message": "取消釘選"
   },
   "artifactsClose": {
-    "message": "Close"
+    "message": "關閉"
   },
   "artifactsCopy": {
-    "message": "Copy"
+    "message": "複製"
   },
   "artifactsDownload": {
-    "message": "Download"
+    "message": "下載"
   },
   "artifactsRun": {
-    "message": "Run"
+    "message": "執行"
   },
   "saveToNotes": {
-    "message": "Save to Notes"
+    "message": "儲存到筆記"
   },
   "saveToFlashcards": {
-    "message": "Save to Flashcards"
+    "message": "儲存到抽認卡"
   },
   "generateDocument": {
-    "message": "Generate document"
+    "message": "生成文件"
   },
   "documentShort": {
-    "message": "Doc"
+    "message": "文件"
   },
   "saveNoteShort": {
-    "message": "Note"
+    "message": "筆記"
   },
   "saveFlashcardShort": {
-    "message": "Card"
+    "message": "卡片"
   },
   "savedToNotes": {
-    "message": "Saved to Notes"
+    "message": "已儲存到筆記"
   },
   "savedToFlashcards": {
-    "message": "Saved to Flashcards"
+    "message": "已儲存到抽認卡"
   },
   "saveToNotesEmpty": {
-    "message": "Nothing to save yet."
+    "message": "目前沒有可儲存內容。"
   },
   "timeline_title": {
-    "message": "Conversation Timeline"
+    "message": "對話時間軸"
   },
   "timeline_searchPlaceholder": {
-    "message": "Search messages... (space = AND)"
+    "message": "搜尋訊息...（空白鍵 = AND）"
   },
   "timeline_searchMatches": {
-    "message": "matches"
+    "message": "筆相符"
   },
   "timeline_searchNoMatches": {
-    "message": "no matches"
+    "message": "無相符"
   },
   "timeline_searchMode_fragments": {
-    "message": "Fragments"
+    "message": "片段"
   },
   "timeline_searchMode_substring": {
-    "message": "Substring"
+    "message": "子字串"
   },
   "timeline_searchMode_regex": {
-    "message": "Regex"
+    "message": "正則"
   },
   "timeline_layout_horizontal": {
-    "message": "horizontal"
+    "message": "水平"
   },
   "timeline_layout_vertical": {
-    "message": "vertical"
+    "message": "垂直"
   },
   "timeline_refreshGraph": {
-    "message": "Refresh graph"
+    "message": "重新整理圖表"
   },
   "timeline_switchLayout": {
-    "message": "Switch to {{layout}} layout"
+    "message": "切換為 {{layout}} 版面"
   },
   "timeline_expandAllAlternatives": {
-    "message": "Expand all alternatives"
+    "message": "展開所有替代項目"
   },
   "timeline_collapseAllAlternatives": {
-    "message": "Collapse all alternatives"
+    "message": "收合所有替代項目"
   },
   "timeline_hideLegend": {
-    "message": "Hide legend"
+    "message": "隱藏圖例"
   },
   "timeline_showLegend": {
-    "message": "Show legend"
+    "message": "顯示圖例"
   },
   "timeline_zoomIn": {
-    "message": "Zoom in"
+    "message": "放大"
   },
   "timeline_zoomOut": {
-    "message": "Zoom out"
+    "message": "縮小"
   },
   "sourceLabel": {
-    "message": "Source"
+    "message": "來源"
   },
   "sourceOpen": {
-    "message": "Open source"
+    "message": "開啟來源"
   },
   "modelSettings_form_thinking_label": {
-    "message": "Thinking Mode"
+    "message": "思考模式"
   },
   "modelSettings_form_historyMessageLimit_label": {
-    "message": "History message limit"
+    "message": "歷史訊息上限"
   },
   "modelSettings_form_historyMessageLimit_placeholder": {
-    "message": "e.g. 10"
+    "message": "例如：10"
   },
   "modelSettings_form_historyMessageLimit_help": {
-    "message": "Limit how many previous messages are sent with each request."
+    "message": "限制每次請求傳送的歷史訊息數量。"
   },
   "modelSettings_form_historyMessageOrder_label": {
-    "message": "History message order"
+    "message": "歷史訊息順序"
   },
   "modelSettings_form_historyMessageOrder_placeholder": {
-    "message": "Select order"
+    "message": "選擇順序"
   },
   "modelSettings_form_historyMessageOrder_help": {
-    "message": "Choose whether the newest or oldest messages are sent first."
+    "message": "選擇先傳送最新或最舊的訊息。"
   },
   "modelSettings_form_historyMessageOrder_options_desc": {
-    "message": "Newest first"
+    "message": "最新優先"
   },
   "modelSettings_form_historyMessageOrder_options_asc": {
-    "message": "Oldest first"
+    "message": "最舊優先"
   },
   "modelSettings_form_slashCommandInjectionMode_label": {
-    "message": "Slash command injection"
+    "message": "斜線指令注入"
   },
   "modelSettings_form_slashCommandInjectionMode_placeholder": {
-    "message": "Select injection mode"
+    "message": "選擇注入模式"
   },
   "modelSettings_form_slashCommandInjectionMode_help": {
-    "message": "Choose how slash commands are inserted into the request."
+    "message": "選擇斜線指令插入請求的方式。"
   },
   "modelSettings_form_slashCommandInjectionMode_options_system": {
-    "message": "System message"
+    "message": "系統訊息"
   },
   "modelSettings_form_slashCommandInjectionMode_options_preface": {
-    "message": "Preface user message"
+    "message": "前置使用者訊息"
   },
   "modelSettings_form_slashCommandInjectionMode_options_replace": {
-    "message": "Replace user message"
+    "message": "取代使用者訊息"
   },
   "modelSettings_form_apiProvider_label": {
-    "message": "API provider override"
+    "message": "API 提供者覆寫"
   },
   "modelSettings_form_apiProvider_placeholder": {
-    "message": "Select provider (optional)"
+    "message": "選擇提供者（選填）"
   },
   "modelSettings_form_apiProvider_help": {
-    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+    "message": "為此聊天強制指定提供者（例如 openai、anthropic）。"
   },
   "modelSettings_form_extraHeaders_label": {
-    "message": "Extra headers (JSON)"
+    "message": "額外標頭（JSON）"
   },
   "modelSettings_form_extraHeaders_placeholder": {
     "message": "{ \"X-API-Key\": \"...\" }"
   },
   "modelSettings_form_extraHeaders_help": {
-    "message": "JSON object merged into request headers."
+    "message": "JSON 物件會合併到請求標頭。"
   },
   "modelSettings_form_extraBody_label": {
-    "message": "Extra body (JSON)"
+    "message": "額外請求內容（JSON）"
   },
   "modelSettings_form_extraBody_placeholder": {
     "message": "{ \"user\": \"...\" }"
   },
   "modelSettings_form_extraBody_help": {
-    "message": "JSON object merged into request body."
+    "message": "JSON 物件會合併到請求內容。"
   },
   "modelSettings_form_guardrails_invalidJson": {
-    "message": "Enter a valid JSON object."
+    "message": "請輸入有效的 JSON 物件。"
   },
   "modelSettings_requestOverrides": {
-    "message": "Request overrides"
+    "message": "請求覆寫"
   },
   "modelSettings_tabs_model": {
-    "message": "Model"
+    "message": "模型"
   },
   "modelSettings_tabs_conversation": {
-    "message": "Conversation"
+    "message": "對話"
   },
   "modelSettings_tabs_advanced": {
-    "message": "Advanced"
+    "message": "進階"
   },
   "modelSettings_tabs_actor": {
-    "message": "Scene Director"
+    "message": "場景導演"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "建立資料夾失敗"
   },
   "timeline_unableLocateMessage": {
-    "message": "Unable to locate the message for this action."
+    "message": "找不到此操作對應的訊息。"
   },
   "timeline_actionFailed": {
-    "message": "Failed to perform timeline action. Please try again."
+    "message": "無法執行時間軸操作，請再試一次。"
   },
   "documentCard_removeAria": {
     "message": "移除 {{name}}"

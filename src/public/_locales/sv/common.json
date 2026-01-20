@@ -405,7 +405,7 @@
     "message": "Gren"
   },
   "infoShort": {
-    "message": "Info"
+    "message": "Information"
   },
   "regenShort": {
     "message": "Igen"
@@ -633,7 +633,7 @@
     "message": "Stagea filer"
   },
   "tools_git_commit": {
-    "message": "Commit"
+    "message": "Incheckning"
   },
   "tools_exec_run": {
     "message": "Kör kommando"
@@ -765,19 +765,19 @@
     "message": "Sök chattar..."
   },
   "chatSidebar_modeLabel": {
-    "message": "Mode"
+    "message": "Läge"
   },
   "chatSidebar_modeCasual": {
-    "message": "Casual"
+    "message": "Avslappnat"
   },
   "chatSidebar_modePro": {
-    "message": "Pro"
+    "message": "Proffsläge"
   },
   "chatSidebar_ingest": {
     "message": "Importera sida"
   },
   "chatSidebar_media": {
-    "message": "Media"
+    "message": "Medier"
   },
   "chatSidebar_notes": {
     "message": "Anteckningar"
@@ -900,280 +900,280 @@
     "message": "Detta återställer din onboarding‑status och tar dig tillbaka till installationsflödet."
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "Modell"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "Byter modell för nästa meddelande"
   },
   "generate": {
-    "message": "Generate"
+    "message": "Generera"
   },
   "view": {
-    "message": "View"
+    "message": "Visa"
   },
   "deleteMessageConfirm": {
-    "message": "Delete this message?"
+    "message": "Radera det här meddelandet?"
   },
   "deleteFailed": {
-    "message": "Delete failed"
+    "message": "Radering misslyckades"
   },
   "reply": {
-    "message": "Reply"
+    "message": "Svara"
   },
   "replyShort": {
-    "message": "Reply"
+    "message": "Svar"
   },
   "replyingTo": {
-    "message": "Replying to"
+    "message": "Svarar på"
   },
   "clearReply": {
-    "message": "Clear reply target"
+    "message": "Rensa svarsmål"
   },
   "replyTargetFallback": {
-    "message": "Message"
+    "message": "Meddelande"
   },
   "artifactsTitle": {
-    "message": "Artifact"
+    "message": "Artefakt"
   },
   "artifactsDefaultTitle": {
-    "message": "Code"
+    "message": "Kod"
   },
   "artifactsView": {
-    "message": "View code"
+    "message": "Visa kod"
   },
   "artifactsPin": {
-    "message": "Pin"
+    "message": "Fäst"
   },
   "artifactsUnpin": {
-    "message": "Unpin"
+    "message": "Avfäst"
   },
   "artifactsClose": {
-    "message": "Close"
+    "message": "Stäng"
   },
   "artifactsCopy": {
-    "message": "Copy"
+    "message": "Kopiera"
   },
   "artifactsDownload": {
-    "message": "Download"
+    "message": "Ladda ner"
   },
   "artifactsRun": {
-    "message": "Run"
+    "message": "Kör"
   },
   "saveToNotes": {
-    "message": "Save to Notes"
+    "message": "Spara i anteckningar"
   },
   "saveToFlashcards": {
-    "message": "Save to Flashcards"
+    "message": "Spara i flashkort"
   },
   "generateDocument": {
-    "message": "Generate document"
+    "message": "Generera dokument"
   },
   "documentShort": {
-    "message": "Doc"
+    "message": "Dok"
   },
   "saveNoteShort": {
-    "message": "Note"
+    "message": "Anteckn."
   },
   "saveFlashcardShort": {
-    "message": "Card"
+    "message": "Kort"
   },
   "savedToNotes": {
-    "message": "Saved to Notes"
+    "message": "Sparat i anteckningar"
   },
   "savedToFlashcards": {
-    "message": "Saved to Flashcards"
+    "message": "Sparat i flashkort"
   },
   "saveToNotesEmpty": {
-    "message": "Nothing to save yet."
+    "message": "Inget att spara ännu."
   },
   "timeline_title": {
-    "message": "Conversation Timeline"
+    "message": "Samtalstidslinje"
   },
   "timeline_searchPlaceholder": {
-    "message": "Search messages... (space = AND)"
+    "message": "Sök meddelanden... (mellanslag = OCH)"
   },
   "timeline_searchMatches": {
-    "message": "matches"
+    "message": "träffar"
   },
   "timeline_searchNoMatches": {
-    "message": "no matches"
+    "message": "inga träffar"
   },
   "timeline_searchMode_fragments": {
-    "message": "Fragments"
+    "message": "Fragment"
   },
   "timeline_searchMode_substring": {
-    "message": "Substring"
+    "message": "Delsträng"
   },
   "timeline_searchMode_regex": {
-    "message": "Regex"
+    "message": "Reguljära uttryck"
   },
   "timeline_layout_horizontal": {
-    "message": "horizontal"
+    "message": "horisontell"
   },
   "timeline_layout_vertical": {
-    "message": "vertical"
+    "message": "vertikal"
   },
   "timeline_refreshGraph": {
-    "message": "Refresh graph"
+    "message": "Uppdatera graf"
   },
   "timeline_switchLayout": {
-    "message": "Switch to {{layout}} layout"
+    "message": "Växla till {{layout}} layout"
   },
   "timeline_expandAllAlternatives": {
-    "message": "Expand all alternatives"
+    "message": "Expandera alla alternativ"
   },
   "timeline_collapseAllAlternatives": {
-    "message": "Collapse all alternatives"
+    "message": "Fäll ihop alla alternativ"
   },
   "timeline_hideLegend": {
-    "message": "Hide legend"
+    "message": "Dölj teckenförklaring"
   },
   "timeline_showLegend": {
-    "message": "Show legend"
+    "message": "Visa teckenförklaring"
   },
   "timeline_zoomIn": {
-    "message": "Zoom in"
+    "message": "Zooma in"
   },
   "timeline_zoomOut": {
-    "message": "Zoom out"
+    "message": "Zooma ut"
   },
   "sourceLabel": {
-    "message": "Source"
+    "message": "Källa"
   },
   "sourceOpen": {
-    "message": "Open source"
+    "message": "Öppna källa"
   },
   "hfSendPageRejected": {
-    "message": "[tldw] Page send request rejected by tldw_server"
+    "message": "[tldw] Begäran att skicka sidan avvisades av tldw_server"
   },
   "hfSendPageErrorWithDetail": {
-    "message": "[tldw] Failed to send this page to tldw_server: $1. Check Settings → tldw server and try again."
+    "message": "[tldw] Kunde inte skicka den här sidan till tldw_server: $1. Kontrollera Inställningar → tldw-server och försök igen."
   },
   "hfSendPageError": {
-    "message": "[tldw] Failed to send this page to tldw_server. Check Settings → tldw server and try again."
+    "message": "[tldw] Kunde inte skicka den här sidan till tldw_server. Kontrollera Inställningar → tldw-server och försök igen."
   },
   "hfSendPageSuccess": {
-    "message": "[tldw] Sent page to tldw_server for processing"
+    "message": "[tldw] Skickade sidan till tldw_server för bearbetning"
   },
   "hfSendPageException": {
-    "message": "[tldw] Something went wrong while sending this page to tldw_server. Check that your tldw_server and the extension are running, then try again."
+    "message": "[tldw] Något gick fel när sidan skickades till tldw_server. Kontrollera att tldw_server och tillägget körs och försök igen."
   },
   "hfPullInProgress": {
-    "message": "[tldw Assistant] A model pull request is already in progress. Please wait for it to finish before starting another one."
+    "message": "[tldw Assistant] En modellhämtning pågår redan. Vänta tills den är klar innan du startar en ny."
   },
   "hfPullConfirm": {
-    "message": "[tldw Assistant] Do you want to send a request to your tldw_server to pull the \"$1\" model? This is independent of the huggingface.co website. Your server will start pulling the model after you confirm."
+    "message": "[tldw Assistant] Vill du skicka en begäran till din tldw_server om att hämta modellen \"$1\"? Detta är oberoende av webbplatsen huggingface.co. Din server börjar hämta modellen när du bekräftar."
   },
   "hfPullSending": {
-    "message": "[tldw Assistant] Sending a request to your tldw_server to pull \"$1\". Check the extension icon or your tldw_server logs for progress."
+    "message": "[tldw Assistant] Skickar en begäran till din tldw_server om att hämta \"$1\". Kontrollera tilläggsikonen eller tldw_server-loggarna för status."
   },
   "hfPullErrorWithDetail": {
-    "message": "[tldw Assistant] Failed to send a pull request for \"$1\": $2. Check Settings → tldw server and try again."
+    "message": "[tldw Assistant] Kunde inte skicka en hämtningsbegäran för \"$1\": $2. Kontrollera Inställningar → tldw-server och försök igen."
   },
   "hfPullError": {
-    "message": "[tldw Assistant] Failed to send a pull request for \"$1\". Check Settings → tldw server and try again."
+    "message": "[tldw Assistant] Kunde inte skicka en hämtningsbegäran för \"$1\". Kontrollera Inställningar → tldw-server och försök igen."
   },
   "hfPullSuccess": {
-    "message": "[tldw Assistant] Request sent to your tldw_server to pull \"$1\". Monitor the extension icon or tldw_server logs for status."
+    "message": "[tldw Assistant] Begäran skickades till din tldw_server för att hämta \"$1\". Håll koll på tilläggsikonen eller tldw_server-loggarna för status."
   },
   "hfPullException": {
-    "message": "[tldw Assistant] Something went wrong while sending a pull request for \"$1\" to your tldw_server. Check that your tldw_server and the extension are running, then try again."
+    "message": "[tldw Assistant] Något gick fel när en hämtningsbegäran för \"$1\" skickades till din tldw_server. Kontrollera att tldw_server och tillägget körs och försök igen."
   },
   "modelSettings_form_historyMessageLimit_label": {
-    "message": "History message limit"
+    "message": "Gräns för historikmeddelanden"
   },
   "modelSettings_form_historyMessageLimit_placeholder": {
-    "message": "e.g. 10"
+    "message": "t.ex. 10"
   },
   "modelSettings_form_historyMessageLimit_help": {
-    "message": "Limit how many previous messages are sent with each request."
+    "message": "Begränsa hur många tidigare meddelanden som skickas med varje begäran."
   },
   "modelSettings_form_historyMessageOrder_label": {
-    "message": "History message order"
+    "message": "Ordning för historikmeddelanden"
   },
   "modelSettings_form_historyMessageOrder_placeholder": {
-    "message": "Select order"
+    "message": "Välj ordning"
   },
   "modelSettings_form_historyMessageOrder_help": {
-    "message": "Choose whether the newest or oldest messages are sent first."
+    "message": "Välj om de senaste eller äldsta meddelandena skickas först."
   },
   "modelSettings_form_historyMessageOrder_options_desc": {
-    "message": "Newest first"
+    "message": "Nyaste först"
   },
   "modelSettings_form_historyMessageOrder_options_asc": {
-    "message": "Oldest first"
+    "message": "Äldsta först"
   },
   "modelSettings_form_slashCommandInjectionMode_label": {
-    "message": "Slash command injection"
+    "message": "Injektion av snedstreckskommandon"
   },
   "modelSettings_form_slashCommandInjectionMode_placeholder": {
-    "message": "Select injection mode"
+    "message": "Välj injektionsläge"
   },
   "modelSettings_form_slashCommandInjectionMode_help": {
-    "message": "Choose how slash commands are inserted into the request."
+    "message": "Välj hur snedstreckskommandon infogas i begäran."
   },
   "modelSettings_form_slashCommandInjectionMode_options_system": {
-    "message": "System message"
+    "message": "Systemmeddelande"
   },
   "modelSettings_form_slashCommandInjectionMode_options_preface": {
-    "message": "Preface user message"
+    "message": "Inled användarmeddelande"
   },
   "modelSettings_form_slashCommandInjectionMode_options_replace": {
-    "message": "Replace user message"
+    "message": "Ersätt användarmeddelande"
   },
   "modelSettings_form_apiProvider_label": {
-    "message": "API provider override"
+    "message": "Åsidosätt API-leverantör"
   },
   "modelSettings_form_apiProvider_placeholder": {
-    "message": "Select provider (optional)"
+    "message": "Välj leverantör (valfritt)"
   },
   "modelSettings_form_apiProvider_help": {
-    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+    "message": "Tvinga en specifik leverantör för den här chatten (t.ex. openai, anthropic)."
   },
   "modelSettings_form_extraHeaders_label": {
-    "message": "Extra headers (JSON)"
+    "message": "Extra HTTP-huvuden (JSON)"
   },
   "modelSettings_form_extraHeaders_placeholder": {
     "message": "{ \"X-API-Key\": \"...\" }"
   },
   "modelSettings_form_extraHeaders_help": {
-    "message": "JSON object merged into request headers."
+    "message": "JSON-objekt som slås ihop med begärans HTTP-huvuden."
   },
   "modelSettings_form_extraBody_label": {
-    "message": "Extra body (JSON)"
+    "message": "Extra begäranskropp (JSON)"
   },
   "modelSettings_form_extraBody_placeholder": {
     "message": "{ \"user\": \"...\" }"
   },
   "modelSettings_form_extraBody_help": {
-    "message": "JSON object merged into request body."
+    "message": "JSON-objekt som slås ihop med begärans kropp."
   },
   "modelSettings_form_guardrails_invalidJson": {
-    "message": "Enter a valid JSON object."
+    "message": "Ange ett giltigt JSON-objekt."
   },
   "modelSettings_requestOverrides": {
-    "message": "Request overrides"
+    "message": "Åsidosättningar av begäran"
   },
   "modelSettings_tabs_model": {
-    "message": "Model"
+    "message": "Modell"
   },
   "modelSettings_tabs_conversation": {
-    "message": "Conversation"
+    "message": "Konversation"
   },
   "modelSettings_tabs_advanced": {
-    "message": "Advanced"
+    "message": "Avancerat"
   },
   "modelSettings_tabs_actor": {
-    "message": "Scene Director"
+    "message": "Scenregissör"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "Misslyckades med att skapa mapp"
   },
   "timeline_unableLocateMessage": {
-    "message": "Unable to locate the message for this action."
+    "message": "Det gick inte att hitta meddelandet för den här åtgärden."
   },
   "timeline_actionFailed": {
-    "message": "Failed to perform timeline action. Please try again."
+    "message": "Det gick inte att utföra tidslinjeåtgärden. Försök igen."
   },
   "documentCard_removeAria": {
     "message": "Ta bort {{name}}"

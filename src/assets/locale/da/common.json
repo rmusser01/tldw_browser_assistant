@@ -18,7 +18,7 @@
   "selectAModel": "Vælg en Model",
   "modelSelect": {
     "label": "Model",
-    "tooltip": "Changes model for next message"
+    "tooltip": "Skifter model for næste besked"
   },
   "save": "Gem",
   "saved": "Gemt",
@@ -67,11 +67,11 @@
   "webSearch": "Søger på internettet",
   "regenerate": "Regenerer",
   "edit": "Ændre",
-  "generate": "Generate",
-  "view": "View",
+  "generate": "Generer",
+  "view": "Vis",
   "delete": "Slet",
-  "deleteMessageConfirm": "Delete this message?",
-  "deleteFailed": "Delete failed",
+  "deleteMessageConfirm": "Slet denne besked?",
+  "deleteFailed": "Sletning mislykkedes",
   "continue": "Fortsæt svar",
   "saveAndSubmit": "Gem & Indsend",
   "editMessage": {
@@ -90,35 +90,35 @@
   "beta": "Beta-version",
   "tts": "Læs op",
   "ttsShort": "Tale",
-  "reply": "Reply",
-  "replyShort": "Reply",
-  "replyingTo": "Replying to",
-  "clearReply": "Clear reply target",
-  "replyTargetFallback": "Message",
-  "artifactsTitle": "Artifact",
-  "artifactsDefaultTitle": "Code",
-  "artifactsView": "View code",
-  "artifactsPin": "Pin",
-  "artifactsUnpin": "Unpin",
-  "artifactsClose": "Close",
-  "artifactsCopy": "Copy",
+  "reply": "Svar",
+  "replyShort": "Svar",
+  "replyingTo": "Svarer til",
+  "clearReply": "Ryd svarmål",
+  "replyTargetFallback": "Besked",
+  "artifactsTitle": "Artefakt",
+  "artifactsDefaultTitle": "Kode",
+  "artifactsView": "Vis kode",
+  "artifactsPin": "Fastgør",
+  "artifactsUnpin": "Frigør",
+  "artifactsClose": "Luk",
+  "artifactsCopy": "Kopiér",
   "artifactsDownload": "Download",
-  "artifactsRun": "Run",
+  "artifactsRun": "Kør",
   "copyShort": "Kopiér",
   "branchShort": "Gren",
   "infoShort": "Info",
-  "saveToNotes": "Save to Notes",
-  "saveToFlashcards": "Save to Flashcards",
-  "generateDocument": "Generate document",
-  "documentShort": "Doc",
+  "saveToNotes": "Gem i noter",
+  "saveToFlashcards": "Gem i huskekort",
+  "generateDocument": "Generer dokument",
+  "documentShort": "Dok",
   "documentCard": {
     "removeAria": "Fjern {{name}}"
   },
-  "saveNoteShort": "Note",
-  "saveFlashcardShort": "Card",
-  "savedToNotes": "Saved to Notes",
-  "savedToFlashcards": "Saved to Flashcards",
-  "saveToNotesEmpty": "Nothing to save yet.",
+  "saveNoteShort": "Notat",
+  "saveFlashcardShort": "Kort",
+  "savedToNotes": "Gemt i noter",
+  "savedToFlashcards": "Gemt i huskekort",
+  "saveToNotesEmpty": "Intet at gemme endnu.",
   "regenShort": "Gentag",
   "continueShort": "Mere",
   "fileChanges": "Filændringer",
@@ -213,55 +213,55 @@
         "help": "En hurtig måde at sætte systemprompten i den aktuelle chat, som tilsidesætter den valgte systemprompt, hvis den findes."
       },
       "historyMessageLimit": {
-        "label": "History message limit",
-        "placeholder": "e.g. 10",
-        "help": "Limit how many previous messages are sent with each request."
+        "label": "Grænse for historikbeskeder",
+        "placeholder": "f.eks. 10",
+        "help": "Begræns hvor mange tidligere beskeder der sendes med hver forespørgsel."
       },
       "historyMessageOrder": {
-        "label": "History message order",
-        "placeholder": "Select order",
-        "help": "Choose whether the newest or oldest messages are sent first.",
+        "label": "Rækkefølge for historikbeskeder",
+        "placeholder": "Vælg rækkefølge",
+        "help": "Vælg om de nyeste eller ældste beskeder sendes først.",
         "options": {
-          "desc": "Newest first",
-          "asc": "Oldest first"
+          "desc": "Nyeste først",
+          "asc": "Ældste først"
         }
       },
       "slashCommandInjectionMode": {
-        "label": "Slash command injection",
-        "placeholder": "Select injection mode",
-        "help": "Choose how slash commands are inserted into the request.",
+        "label": "Indsættelse af slash-kommandoer",
+        "placeholder": "Vælg indsættelsestilstand",
+        "help": "Vælg hvordan slash-kommandoer indsættes i forespørgslen.",
         "options": {
-          "system": "System message",
-          "preface": "Preface user message",
-          "replace": "Replace user message"
+          "system": "Systemmeddelelse",
+          "preface": "Indled brugermeddelelse",
+          "replace": "Erstat brugermeddelelse"
         }
       },
       "apiProvider": {
-        "label": "API provider override",
-        "placeholder": "Select provider (optional)",
-        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+        "label": "Tilsidesæt API-udbyder",
+        "placeholder": "Vælg udbyder (valgfrit)",
+        "help": "Tving en bestemt udbyder for denne chat (f.eks. openai, anthropic)."
       },
       "extraHeaders": {
-        "label": "Extra headers (JSON)",
+        "label": "Ekstra HTTP-headere (JSON)",
         "placeholder": "{ \"X-API-Key\": \"...\" }",
-        "help": "JSON object merged into request headers."
+        "help": "JSON-objekt der flettes ind i anmodningens headere."
       },
       "extraBody": {
-        "label": "Extra body (JSON)",
+        "label": "Ekstra request-body (JSON)",
         "placeholder": "{ \"user\": \"...\" }",
-        "help": "JSON object merged into request body."
+        "help": "JSON-objekt der flettes ind i anmodningens body."
       },
       "guardrails": {
-        "invalidJson": "Enter a valid JSON object."
+        "invalidJson": "Indtast et gyldigt JSON-objekt."
       }
     },
     "advanced": "Flere modelindstillinger",
-    "requestOverrides": "Request overrides",
+    "requestOverrides": "Tilsidesættelser af anmodning",
     "tabs": {
       "model": "Model",
-      "conversation": "Conversation",
-      "advanced": "Advanced",
-      "actor": "Scene Director"
+      "conversation": "Samtale",
+      "advanced": "Avanceret",
+      "actor": "Sceneregissør"
     }
   },
   "copilot": {
@@ -346,7 +346,7 @@
     "friendlyGenericHint": "Prøv igen om lidt, eller åbn Sundhed og diagnostik for at kontrollere serverens status.",
     "showDetails": "Vis tekniske detaljer",
     "hideDetails": "Skjul tekniske detaljer",
-    "createFolder": "Failed to create folder"
+    "createFolder": "Kunne ikke oprette mappe"
   },
   "folders": "Mapper",
   "folderView": "Mappevisning",
@@ -362,33 +362,33 @@
   "untitled": "Unavngivet",
   "moveToFolder": "Flyt til mappe",
   "timeline": {
-    "title": "Conversation Timeline",
-    "searchPlaceholder": "Search messages... (space = AND)",
-    "searchMatches": "matches",
-    "searchNoMatches": "no matches",
+    "title": "Samtaletidslinje",
+    "searchPlaceholder": "Søg i beskeder... (mellemrum = OG)",
+    "searchMatches": "træffere",
+    "searchNoMatches": "ingen træffere",
     "searchMode": {
-      "fragments": "Fragments",
-      "substring": "Substring",
-      "regex": "Regex"
+      "fragments": "Fragmenter",
+      "substring": "Delstreng",
+      "regex": "Regulære udtryk"
     },
     "layout": {
-      "horizontal": "horizontal",
-      "vertical": "vertical"
+      "horizontal": "vandret",
+      "vertical": "lodret"
     },
-    "refreshGraph": "Refresh graph",
-    "switchLayout": "Switch to {{layout}} layout",
-    "expandAllAlternatives": "Expand all alternatives",
-    "collapseAllAlternatives": "Collapse all alternatives",
-    "hideLegend": "Hide legend",
-    "showLegend": "Show legend",
-    "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out",
-    "unableLocateMessage": "Unable to locate the message for this action.",
-    "actionFailed": "Failed to perform timeline action. Please try again."
+    "refreshGraph": "Opdater graf",
+    "switchLayout": "Skift til {{layout}}-layout",
+    "expandAllAlternatives": "Udvid alle alternativer",
+    "collapseAllAlternatives": "Sammenfold alle alternativer",
+    "hideLegend": "Skjul forklaring",
+    "showLegend": "Vis forklaring",
+    "zoomIn": "Zoom ind",
+    "zoomOut": "Zoom ud",
+    "unableLocateMessage": "Kunne ikke finde beskeden til denne handling.",
+    "actionFailed": "Kunne ikke udføre tidslinjehandling. Prøv igen."
   },
   "noToolCalls": "Ingen værktøjskald endnu",
-  "sourceLabel": "Source",
-  "sourceOpen": "Open source",
+  "sourceLabel": "Kilde",
+  "sourceOpen": "Åbn kilde",
   "status": {
     "pending": "Venter",
     "running": "Processerer",
@@ -444,7 +444,7 @@
     "select": "vælg",
     "toOpen": "for at åbne",
     "categoryActions": "Handlinger",
-    "categoryNavigation": "Navigation",
+    "categoryNavigation": "Navigering",
     "categorySettings": "Indstillinger",
     "categoryRecent": "Seneste"
   },
@@ -467,14 +467,14 @@
     }
   },
   "chatSidebar": {
-    "title": "Chats",
+    "title": "Samtaler",
     "newChat": "Ny chat",
     "collapse": "Skjul sidepanelet",
     "expand": "Vis sidepanelet",
     "search": "Søg i chats...",
-    "modeLabel": "Mode",
-    "modeCasual": "Casual",
-    "modePro": "Pro",
+    "modeLabel": "Tilstand",
+    "modeCasual": "Afslappet",
+    "modePro": "Professionel",
     "ingest": "Indlæs side",
     "media": "Medier",
     "notes": "Noter",

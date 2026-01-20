@@ -991,7 +991,7 @@ const pollForMediaMatch = async (
   const basePath = normalizePath(mediaBasePath || "/api/v1/media")
   const deadline = Date.now() + timeoutMs
   while (Date.now() < deadline) {
-    const res = await fetchWithKey(
+    const res = await fetchWithKeyTimeout(
       `${normalized}${basePath}/search?page=1&results_per_page=20`,
       apiKey,
       {
@@ -2614,8 +2614,28 @@ test.describe("Real server end-to-end workflows", () => {
     }
   })
 
-  test("quick ingest -> media review", async () => {
+  test("quick ingest -> media review", async ({}, testInfo) => {
     test.setTimeout(240000)
+    const debugLines: string[] = []
+    const startedAt = Date.now()
+    const safeStringify = (value: unknown) => {
+      try {
+        return JSON.stringify(value)
+      } catch {
+        return "\"[unserializable]\""
+      }
+    }
+    const logStep = (message: string, details?: Record<string, unknown>) => {
+      const payload = {
+        elapsedMs: Date.now() - startedAt,
+        ...(details || {})
+      }
+      const line = `[real-server-quick-ingest] ${message} ${safeStringify(
+        payload
+      )}`
+      debugLines.push(line)
+      console.log(line)
+    }
     const { serverUrl, apiKey } = requireRealServerConfig(test)
     const normalizedServerUrl = normalizeServerUrl(serverUrl)
     const { apiBase: mediaApiBase, mediaBasePath } = await resolveMediaApi(
@@ -2689,7 +2709,30 @@ test.describe("Real server end-to-end workflows", () => {
 
       const fileRow = modal.getByText(fileName).first()
       await expect(fileRow).toBeVisible({ timeout: 15000 })
-      await fileRow.click()
+      const dismissInspectorIntro = async () => {
+        const drawer = page
+          .locator(".ant-drawer")
+          .filter({ hasText: /Inspector/i })
+          .first()
+        const gotIt = drawer.getByRole("button", { name: /Got it/i })
+        const gotItVisible = await gotIt.isVisible().catch(() => false)
+        if (gotItVisible) {
+          await gotIt.click()
+          await expect(page.locator(".ant-drawer-mask")).toBeHidden({
+            timeout: 5000
+          })
+          return
+        }
+        const closeButton = drawer.getByRole("button", { name: /Close/i })
+        const closeVisible = await closeButton.isVisible().catch(() => false)
+        if (closeVisible) {
+          await closeButton.click()
+          await expect(page.locator(".ant-drawer-mask")).toBeHidden({
+            timeout: 5000
+          })
+        }
+      }
+      await dismissInspectorIntro()
 
       const analysisToggle = page.getByLabel(/Ingestion options .*analysis/i)
       if ((await analysisToggle.count()) > 0) {
@@ -2700,25 +2743,97 @@ test.describe("Real server end-to-end workflows", () => {
         await chunkingToggle.click()
       }
 
-      const runButton = modal
-        .getByRole("button", {
-          name: /Run quick ingest|Ingest|Process/i
-        })
-        .first()
+      const runButton = modal.getByTestId("quick-ingest-run")
       await expect(runButton).toBeEnabled({ timeout: 15000 })
+      logStep("pre-run state", {
+        url: page.url(),
+        connection: await page
+          .evaluate(() => {
+            const store = (window as any).__tldw_useConnectionStore
+            return store?.getState?.().state ?? null
+          })
+          .catch(() => null),
+        quickIngest: await page
+          .evaluate(() => {
+            const store = (window as any).__tldw_useQuickIngestStore
+            return store?.getState?.() ?? null
+          })
+          .catch(() => null),
+        runLabel: await runButton.textContent().catch(() => null)
+      })
+      logStep("run click")
       await runButton.click()
+      try {
+        await expect(runButton).toBeDisabled({ timeout: 15000 })
+      } catch (error) {
+        logStep("run did not start", {
+          runLabel: await runButton.textContent().catch(() => null),
+          runDisabled: await runButton.isDisabled().catch(() => null),
+          connection: await page
+            .evaluate(() => {
+              const store = (window as any).__tldw_useConnectionStore
+              return store?.getState?.().state ?? null
+            })
+            .catch(() => null)
+        })
+        throw error
+      }
 
-      await expect(
-        modal.getByText(/Quick ingest completed/i)
-      ).toBeVisible({ timeout: 180000 })
+      logStep("waiting for completion")
+      try {
+        await expect(
+          modal.getByText(/Quick ingest completed/i)
+        ).toBeVisible({ timeout: 180000 })
+      } catch (error) {
+        logStep("completion timeout", {
+          activeTab: await page
+            .evaluate(() => {
+              const tab = document.querySelector(
+                '[role="tab"][aria-selected="true"]'
+              )
+              return tab?.getAttribute("id") || tab?.textContent || null
+            })
+            .catch(() => null),
+          connection: await page
+            .evaluate(() => {
+              const store = (window as any).__tldw_useConnectionStore
+              return store?.getState?.().state ?? null
+            })
+            .catch(() => null)
+        })
+        throw error
+      }
+      logStep("completion visible")
 
-      await pollForMediaMatch(
+      logStep("polling media", { query: String(unique) })
+      const mediaMatch = await pollForMediaMatch(
         mediaApiBase,
         apiKey,
         String(unique),
         180000,
         mediaBasePath
       )
+      logStep("media found", {
+        id: mediaMatch?.id ?? null,
+        title: mediaMatch?.title ?? null
+      })
+
+      const closeQuickIngestModal = async () => {
+        const modalRoot = page.locator(".quick-ingest-modal")
+        const modalContent = modalRoot.locator(".ant-modal-content")
+        const isOpen = await modalContent.isVisible().catch(() => false)
+        if (!isOpen) return
+        logStep("closing quick ingest modal")
+        const closeButton = modalRoot.locator(".ant-modal-close")
+        const closeVisible = await closeButton.isVisible().catch(() => false)
+        if (closeVisible) {
+          await closeButton.click()
+        } else {
+          await page.keyboard.press("Escape").catch(() => {})
+        }
+        await expect(modalContent).toBeHidden({ timeout: 10000 })
+      }
+      await closeQuickIngestModal()
 
       await page.goto(`${optionsUrl}#/media`, {
         waitUntil: "domcontentloaded"
@@ -2731,11 +2846,16 @@ test.describe("Real server end-to-end workflows", () => {
       await searchInput.fill(String(unique))
       await page.getByRole("button", { name: /^Search$/i }).click()
 
-      const resultsList = page.getByTestId("media-review-results-list")
-      await expect(resultsList).toBeVisible({ timeout: 30000 })
-      const resultsRow = resultsList.locator('[role="button"]').first()
+      const expectedTitle = fileName.replace(/\.txt$/i, "")
+      const resultsRow = page
+        .getByRole("button", { name: new RegExp(expectedTitle, "i") })
+        .first()
       await expect(resultsRow).toBeVisible({ timeout: 30000 })
     } finally {
+      await testInfo.attach("quick-ingest-debug", {
+        body: debugLines.join("\n"),
+        contentType: "text/plain"
+      })
       await context.close()
     }
   })

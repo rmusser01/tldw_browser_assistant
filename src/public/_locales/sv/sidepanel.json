@@ -12,7 +12,7 @@
     "message": "Öppna WebUI"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "RAG-sökning"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant kan inte spara data"
@@ -57,7 +57,7 @@
     "message": "Tillfällig chatt"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "Tillf."
   },
   "temporaryBadge_description": {
     "message": "Den här chatten sparas inte. Meddelanden rensas när du stänger eller startar en ny chatt."
@@ -75,85 +75,85 @@
     "message": "Tillfällig chatt"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "Importera"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "Spara aktuell sida på servern"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "Bearbeta aktuell sida lokalt"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "Visa bearbetat"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "Tidsgräns (s)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "Växla sidopanel / helskärm"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "Genvägar"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "Visa stream-debugg"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "Dölj stream-debugg"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "Fler alternativ"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "Ingest och mer"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "Öppna Web UI"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "Ny chatt"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "Växla tillfällig chatt"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "Rensa historik"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "Öppna historik"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "Öppna modellinställningar"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "Öppna inställningar"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "Tillf."
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "Öppna lägen i Web UI"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "Chatt"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "Granskning"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "Medier"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "Kunskaps‑QA"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "Anteckningar"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "Prompter"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "Flashkort"
   },
   "controlRow_saveMode": {
     "message": "Lagringsläge"
@@ -162,13 +162,13 @@
     "message": "Temporär"
   },
   "controlRow_searchSection": {
-    "message": "Sök & Vision"
+    "message": "Sök och visuell analys"
   },
   "controlRow_webSearch": {
     "message": "Webbsök"
   },
   "controlRow_vision": {
-    "message": "Vision"
+    "message": "Visuell analys"
   },
   "controlRow_uploadImage": {
     "message": "Ladda upp bild"
@@ -183,13 +183,13 @@
     "message": "Chatt"
   },
   "controlRow_modeMedia": {
-    "message": "Media"
+    "message": "Medier"
   },
   "controlRow_modeNotes": {
     "message": "Anteckningar"
   },
   "controlRow_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "Flashkort"
   },
   "controlRow_ragSearch": {
     "message": "RAG-sökning"
@@ -207,34 +207,34 @@
     "message": "Anslut till din tldw-server i Inställningar för att skicka meddelanden och visa media."
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "Skickat till tldw-servern"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "Den aktuella sidan har skickats för ingest."
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "Bearbetat lokalt"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "Bearbetat innehåll lagras lokalt under Inställningar > Bearbetat."
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "Transkription"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "Transkription + sammanfattning"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "Transkription klar. Öppna Medier i Web UI för att se den."
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "Källa"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "Transkript"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "Sammanfattning"
   },
   "saveStatus_ephemeral": {
     "message": "Tillfällig: inte sparad, rensas vid stängning"
@@ -252,46 +252,46 @@
     "message": "Chatten sparas nu bara lokalt. Kontrollera anslutningen och försök igen."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "Sök i din kunskapsbas…"
   },
   "rag_search": {
-    "message": "Search"
+    "message": "Sök"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "Visa RAG-sökning"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "Dölj RAG-sökning"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "Lägg till tagg (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "Lägg till"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "Inga resultat"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "Begäran fick tidsgräns."
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "Öka tidsgräns"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "Kontrollera serverstatus"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "Infoga"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "Fråga"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "Öppna"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "Kopiera"
   },
   "rag_hint_message": {
     "message": "Sök i din kunskapsbas och infoga resultat i ditt meddelande."
@@ -309,33 +309,33 @@
     "message": "Stäng flik för samtal"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "Karaktär"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "Välj en karaktär"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "Sök karaktärer..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "Inga matchande karaktärer"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "Inga karaktärer tillgängliga"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "Ingen karaktär"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Skapa en ny karaktär+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "Importera karaktär"
   },
   "rag_attachedContext": {
     "message": "Bifogat sammanhang"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "Inga resultat"
   }
 }

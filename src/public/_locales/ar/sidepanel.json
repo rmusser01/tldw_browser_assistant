@@ -12,7 +12,7 @@
     "message": "فتح واجهة الويب"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "بحث RAG"
   },
   "errors_privateModeTitle": {
     "message": "يتعذر على tldw Assistant حفظ البيانات"
@@ -57,7 +57,7 @@
     "message": "دردشة مؤقتة"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "مؤقت"
   },
   "temporaryBadge_description": {
     "message": "لن يتم حفظ هذه الدردشة. ستُمسح الرسائل عند الإغلاق أو بدء دردشة جديدة."
@@ -75,85 +75,85 @@
     "message": "دردشة مؤقتة"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "إدخال"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "حفظ الصفحة الحالية على الخادم"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "معالجة الصفحة الحالية محليًا"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "عرض المعالجة"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "المهلة (ث)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "تبديل الشريط الجانبي / ملء الشاشة"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "الاختصارات"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "إظهار تصحيح البث"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "إخفاء تصحيح البث"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "مزيد من الخيارات"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "الإدخال والمزيد"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "فتح واجهة الويب"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "دردشة جديدة"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "تبديل الدردشة المؤقتة"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "مسح السجل"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "فتح السجل"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "فتح إعدادات النموذج"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "فتح الإعدادات"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "مؤقت"
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "فتح الأوضاع في واجهة الويب"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "الدردشة"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "مراجعة متعددة العناصر"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "الوسائط"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "المعرفة"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "الملاحظات"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "الموجهات"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "البطاقات التعليمية"
   },
   "controlRow_saveMode": {
     "message": "وضع الحفظ"
@@ -198,43 +198,43 @@
     "message": "المزيد من الأدوات"
   },
   "composer_connectHint": {
-    "message": "Connect to your tldw server in Settings to send messages."
+    "message": "اتصل بخادم tldw في الإعدادات لإرسال الرسائل."
   },
   "composer_connectingPlaceholder": {
-    "message": "Connecting..."
+    "message": "جارٍ الاتصال..."
   },
   "composer_disconnectedPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "اتصل بخادم tldw في الإعدادات لإرسال الرسائل وعرض الوسائط."
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "تم الإرسال إلى خادم tldw"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "تم إرسال الصفحة الحالية للإدخال."
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "تمت المعالجة محليًا"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "يتم تخزين المحتوى المعالج محليًا ضمن الإعدادات > المعالجة."
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "التفريغ"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "تفريغ + ملخص"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "اكتمل التفريغ. افتح الوسائط في واجهة الويب لعرضه."
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "المصدر"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "التفريغ"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "الملخص"
   },
   "saveStatus_ephemeral": {
     "message": "مؤقت: غير محفوظ، يمسح عند الإغلاق"
@@ -252,46 +252,46 @@
     "message": "يتم الآن حفظ الدردشة محليًا فقط. تحقق من الاتصال وحاول مرة أخرى."
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "ابحث في قاعدة معرفتك…"
   },
   "rag_search": {
-    "message": "Search"
+    "message": "بحث"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "إظهار بحث RAG"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "إخفاء بحث RAG"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "أضف وسمًا (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "إضافة"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "لا توجد نتائج"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "انتهت مهلة الطلب."
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "زيادة المهلة"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "تحقق من حالة الخادم"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "إدراج"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "اسأل"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "فتح"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "نسخ"
   },
   "rag_hint_message": {
     "message": "ابحث في قاعدة معرفتك وأدرِج النتائج في رسالتك."
@@ -309,33 +309,33 @@
     "message": "إغلاق علامة تبويب الدردشة"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "الشخصية"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "اختر شخصية"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "ابحث عن الشخصيات..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "لا توجد شخصيات مطابقة"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "لا توجد شخصيات متاحة"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "بدون شخصية"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "إنشاء شخصية جديدة+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "استيراد شخصية"
   },
   "rag_attachedContext": {
     "message": "السياق المرفق"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "لا توجد نتائج"
   }
 }

@@ -765,13 +765,13 @@
     "message": "搜索聊天..."
   },
   "chatSidebar_modeLabel": {
-    "message": "Mode"
+    "message": "模式"
   },
   "chatSidebar_modeCasual": {
-    "message": "Casual"
+    "message": "休闲"
   },
   "chatSidebar_modePro": {
-    "message": "Pro"
+    "message": "专业"
   },
   "chatSidebar_ingest": {
     "message": "导入页面"
@@ -936,244 +936,244 @@
     "message": "这将重置您的引导状态，并带您返回设置流程的起始步骤。"
   },
   "modelSelect_label": {
-    "message": "Model"
+    "message": "模型"
   },
   "modelSelect_tooltip": {
-    "message": "Changes model for next message"
+    "message": "为下一条消息切换模型"
   },
   "generate": {
-    "message": "Generate"
+    "message": "生成"
   },
   "view": {
-    "message": "View"
+    "message": "查看"
   },
   "deleteMessageConfirm": {
-    "message": "Delete this message?"
+    "message": "删除这条消息？"
   },
   "deleteFailed": {
-    "message": "Delete failed"
+    "message": "删除失败"
   },
   "reply": {
-    "message": "Reply"
+    "message": "回复"
   },
   "replyShort": {
-    "message": "Reply"
+    "message": "回复"
   },
   "replyingTo": {
-    "message": "Replying to"
+    "message": "正在回复"
   },
   "clearReply": {
-    "message": "Clear reply target"
+    "message": "清除回复目标"
   },
   "replyTargetFallback": {
-    "message": "Message"
+    "message": "消息"
   },
   "artifactsTitle": {
-    "message": "Artifact"
+    "message": "产物"
   },
   "artifactsDefaultTitle": {
-    "message": "Code"
+    "message": "代码"
   },
   "artifactsView": {
-    "message": "View code"
+    "message": "查看代码"
   },
   "artifactsPin": {
-    "message": "Pin"
+    "message": "置顶"
   },
   "artifactsUnpin": {
-    "message": "Unpin"
+    "message": "取消置顶"
   },
   "artifactsClose": {
-    "message": "Close"
+    "message": "关闭"
   },
   "artifactsCopy": {
-    "message": "Copy"
+    "message": "复制"
   },
   "artifactsDownload": {
-    "message": "Download"
+    "message": "下载"
   },
   "artifactsRun": {
-    "message": "Run"
+    "message": "运行"
   },
   "saveToNotes": {
-    "message": "Save to Notes"
+    "message": "保存到笔记"
   },
   "saveToFlashcards": {
-    "message": "Save to Flashcards"
+    "message": "保存到抽认卡"
   },
   "generateDocument": {
-    "message": "Generate document"
+    "message": "生成文档"
   },
   "documentShort": {
-    "message": "Doc"
+    "message": "文档"
   },
   "saveNoteShort": {
-    "message": "Note"
+    "message": "笔记"
   },
   "saveFlashcardShort": {
-    "message": "Card"
+    "message": "卡片"
   },
   "savedToNotes": {
-    "message": "Saved to Notes"
+    "message": "已保存到笔记"
   },
   "savedToFlashcards": {
-    "message": "Saved to Flashcards"
+    "message": "已保存到抽认卡"
   },
   "saveToNotesEmpty": {
-    "message": "Nothing to save yet."
+    "message": "暂无可保存内容。"
   },
   "timeline_title": {
-    "message": "Conversation Timeline"
+    "message": "对话时间线"
   },
   "timeline_searchPlaceholder": {
-    "message": "Search messages... (space = AND)"
+    "message": "搜索消息...（空格 = AND）"
   },
   "timeline_searchMatches": {
-    "message": "matches"
+    "message": "条匹配"
   },
   "timeline_searchNoMatches": {
-    "message": "no matches"
+    "message": "无匹配"
   },
   "timeline_searchMode_fragments": {
-    "message": "Fragments"
+    "message": "片段"
   },
   "timeline_searchMode_substring": {
-    "message": "Substring"
+    "message": "子串"
   },
   "timeline_searchMode_regex": {
-    "message": "Regex"
+    "message": "正则"
   },
   "timeline_layout_horizontal": {
-    "message": "horizontal"
+    "message": "水平"
   },
   "timeline_layout_vertical": {
-    "message": "vertical"
+    "message": "垂直"
   },
   "timeline_refreshGraph": {
-    "message": "Refresh graph"
+    "message": "刷新图表"
   },
   "timeline_switchLayout": {
-    "message": "Switch to {{layout}} layout"
+    "message": "切换为{{layout}}布局"
   },
   "timeline_expandAllAlternatives": {
-    "message": "Expand all alternatives"
+    "message": "展开所有备选"
   },
   "timeline_collapseAllAlternatives": {
-    "message": "Collapse all alternatives"
+    "message": "折叠所有备选"
   },
   "timeline_hideLegend": {
-    "message": "Hide legend"
+    "message": "隐藏图例"
   },
   "timeline_showLegend": {
-    "message": "Show legend"
+    "message": "显示图例"
   },
   "timeline_zoomIn": {
-    "message": "Zoom in"
+    "message": "放大"
   },
   "timeline_zoomOut": {
-    "message": "Zoom out"
+    "message": "缩小"
   },
   "sourceLabel": {
-    "message": "Source"
+    "message": "来源"
   },
   "sourceOpen": {
-    "message": "Open source"
+    "message": "打开来源"
   },
   "modelSettings_form_historyMessageLimit_label": {
-    "message": "History message limit"
+    "message": "历史消息数量上限"
   },
   "modelSettings_form_historyMessageLimit_placeholder": {
-    "message": "e.g. 10"
+    "message": "例如：10"
   },
   "modelSettings_form_historyMessageLimit_help": {
-    "message": "Limit how many previous messages are sent with each request."
+    "message": "限制每次请求发送的历史消息数量。"
   },
   "modelSettings_form_historyMessageOrder_label": {
-    "message": "History message order"
+    "message": "历史消息顺序"
   },
   "modelSettings_form_historyMessageOrder_placeholder": {
-    "message": "Select order"
+    "message": "选择顺序"
   },
   "modelSettings_form_historyMessageOrder_help": {
-    "message": "Choose whether the newest or oldest messages are sent first."
+    "message": "选择先发送最新消息还是最旧消息。"
   },
   "modelSettings_form_historyMessageOrder_options_desc": {
-    "message": "Newest first"
+    "message": "最新优先"
   },
   "modelSettings_form_historyMessageOrder_options_asc": {
-    "message": "Oldest first"
+    "message": "最旧优先"
   },
   "modelSettings_form_slashCommandInjectionMode_label": {
-    "message": "Slash command injection"
+    "message": "斜杠命令注入"
   },
   "modelSettings_form_slashCommandInjectionMode_placeholder": {
-    "message": "Select injection mode"
+    "message": "选择注入方式"
   },
   "modelSettings_form_slashCommandInjectionMode_help": {
-    "message": "Choose how slash commands are inserted into the request."
+    "message": "选择斜杠命令插入请求的方式。"
   },
   "modelSettings_form_slashCommandInjectionMode_options_system": {
-    "message": "System message"
+    "message": "系统消息"
   },
   "modelSettings_form_slashCommandInjectionMode_options_preface": {
-    "message": "Preface user message"
+    "message": "前置用户消息"
   },
   "modelSettings_form_slashCommandInjectionMode_options_replace": {
-    "message": "Replace user message"
+    "message": "替换用户消息"
   },
   "modelSettings_form_apiProvider_label": {
-    "message": "API provider override"
+    "message": "API 提供方覆盖"
   },
   "modelSettings_form_apiProvider_placeholder": {
-    "message": "Select provider (optional)"
+    "message": "选择提供方（可选）"
   },
   "modelSettings_form_apiProvider_help": {
-    "message": "Force a specific provider for this chat (e.g. openai, anthropic)."
+    "message": "为此聊天强制使用指定提供方（例如 openai、anthropic）。"
   },
   "modelSettings_form_extraHeaders_label": {
-    "message": "Extra headers (JSON)"
+    "message": "额外请求头（JSON）"
   },
   "modelSettings_form_extraHeaders_placeholder": {
     "message": "{ \"X-API-Key\": \"...\" }"
   },
   "modelSettings_form_extraHeaders_help": {
-    "message": "JSON object merged into request headers."
+    "message": "JSON 对象会合并到请求头中。"
   },
   "modelSettings_form_extraBody_label": {
-    "message": "Extra body (JSON)"
+    "message": "额外请求体（JSON）"
   },
   "modelSettings_form_extraBody_placeholder": {
     "message": "{ \"user\": \"...\" }"
   },
   "modelSettings_form_extraBody_help": {
-    "message": "JSON object merged into request body."
+    "message": "JSON 对象会合并到请求体中。"
   },
   "modelSettings_form_guardrails_invalidJson": {
-    "message": "Enter a valid JSON object."
+    "message": "请输入有效的 JSON 对象。"
   },
   "modelSettings_requestOverrides": {
-    "message": "Request overrides"
+    "message": "请求覆盖项"
   },
   "modelSettings_tabs_model": {
-    "message": "Model"
+    "message": "模型"
   },
   "modelSettings_tabs_conversation": {
-    "message": "Conversation"
+    "message": "对话"
   },
   "modelSettings_tabs_advanced": {
-    "message": "Advanced"
+    "message": "高级"
   },
   "modelSettings_tabs_actor": {
-    "message": "Scene Director"
+    "message": "场景导演"
   },
   "error_createFolder": {
-    "message": "Failed to create folder"
+    "message": "创建文件夹失败"
   },
   "timeline_unableLocateMessage": {
-    "message": "Unable to locate the message for this action."
+    "message": "无法找到此操作对应的消息。"
   },
   "timeline_actionFailed": {
-    "message": "Failed to perform timeline action. Please try again."
+    "message": "执行时间线操作失败。请重试。"
   },
   "documentCard_removeAria": {
     "message": "移除 {{name}}"

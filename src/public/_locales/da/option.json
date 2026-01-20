@@ -1428,10 +1428,10 @@
     "message": "Åbn Indholdsgennemgang"
   },
   "contentReview_batchLabel": {
-    "message": "Batch"
+    "message": "Bunke"
   },
   "contentReview_batchName": {
-    "message": "Batch {{index}}"
+    "message": "Bunke {{index}}"
   },
   "contentReview_draftsLabel": {
     "message": "Kladder"
@@ -1671,7 +1671,7 @@
     "message": "Flashcard-samlinger"
   },
   "omniSearch_filterPrompt": {
-    "message": "Prompts"
+    "message": "Prompter"
   },
   "omniSearch_filteringBy": {
     "message": "Filtrerer efter:"
@@ -1794,16 +1794,16 @@
     "message": "Mere"
   },
   "characters_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "Opret en ny karakter+"
   },
   "characters_importCharacter": {
-    "message": "Import Character"
+    "message": "Importér karakter"
   },
   "quickIngest_downloadJsonAria": {
-    "message": "Download JSON for {{name}}"
+    "message": "Hent JSON for {{name}}"
   },
   "quickIngest_addFiles": {
-    "message": "Browse files"
+    "message": "Gennemse filer"
   },
   "flashcards_cards": {
     "message": "Kort"
@@ -2046,160 +2046,160 @@
     "message": "Forfalder nu"
   },
   "header_writingPlayground": {
-    "message": "Writing Playground"
+    "message": "Skriveværksted"
   },
   "writingPlayground_title": {
-    "message": "Writing Playground"
+    "message": "Skriveværksted"
   },
   "writingPlayground_subtitle": {
-    "message": "Draft long-form prompts, manage sessions, and generate with your tldw server."
+    "message": "Udkast til lange prompts, administrer sessioner og generér med din tldw-server."
   },
   "writingPlayground_offlineTitle": {
-    "message": "Server required"
+    "message": "Server påkrævet"
   },
   "writingPlayground_offlineBody": {
-    "message": "Connect to your tldw server to load writing sessions and generate."
+    "message": "Forbind til din tldw-server for at indlæse skrivesessioner og generere."
   },
   "writingPlayground_unavailableTitle": {
-    "message": "Playground unavailable"
+    "message": "Skriveværksted utilgængeligt"
   },
   "writingPlayground_unavailableBody": {
-    "message": "This server does not advertise writing playground support yet."
+    "message": "Denne server annoncerer endnu ikke understøttelse af skriveværksted."
   },
   "writingPlayground_emptyState": {
-    "message": "Scaffolding is ready. Editor, sessions, and tools land in the next stage."
+    "message": "Stillaset er klar. Editor, sessioner og værktøjer kommer i næste fase."
   },
   "writingPlayground_sessionsTitle": {
-    "message": "Sessions"
+    "message": "Sessioner"
   },
   "writingPlayground_newSession": {
-    "message": "New session"
+    "message": "Ny session"
   },
   "writingPlayground_sessionsError": {
-    "message": "Unable to load sessions."
+    "message": "Kunne ikke indlæse sessioner."
   },
   "writingPlayground_sessionsEmpty": {
-    "message": "Create your first session to start writing."
+    "message": "Opret din første session for at begynde at skrive."
   },
   "writingPlayground_active": {
-    "message": "Active"
+    "message": "Aktiv"
   },
   "writingPlayground_sessionHint": {
-    "message": "Session is ready. Editor scaffolding arrives in the next stage."
+    "message": "Sessionen er klar. Editorstillaset kommer i næste fase."
   },
   "writingPlayground_selectSession": {
-    "message": "Select a session to begin."
+    "message": "Vælg en session for at begynde."
   },
   "writingPlayground_createSessionTitle": {
-    "message": "New session"
+    "message": "Ny session"
   },
   "writingPlayground_createSessionLabel": {
-    "message": "Session name"
+    "message": "Sessionsnavn"
   },
   "writingPlayground_createSessionPlaceholder": {
-    "message": "e.g. Draft ideas"
+    "message": "f.eks. Udkast til idéer"
   },
   "writingPlayground_createSuccess": {
-    "message": "Session created."
+    "message": "Session oprettet."
   },
   "writingPlayground_createError": {
-    "message": "Failed to create session: {{detail}}"
+    "message": "Kunne ikke oprette session: {{detail}}"
   },
   "writingPlayground_lastOpenedLabel": {
-    "message": "Last opened {{time}}"
+    "message": "Sidst åbnet {{time}}"
   },
   "writingPlayground_notOpened": {
-    "message": "Not opened yet"
+    "message": "Ikke åbnet endnu"
   },
   "writingPlayground_renameSessionTitle": {
-    "message": "Rename session"
+    "message": "Omdøb session"
   },
   "writingPlayground_renameSessionLabel": {
-    "message": "Session name"
+    "message": "Sessionsnavn"
   },
   "writingPlayground_renameSessionPlaceholder": {
-    "message": "e.g. Revised draft"
+    "message": "f.eks. Revideret udkast"
   },
   "writingPlayground_renameSuccess": {
-    "message": "Session renamed."
+    "message": "Session omdøbt."
   },
   "writingPlayground_renameError": {
-    "message": "Failed to rename session: {{detail}}"
+    "message": "Kunne ikke omdøbe session: {{detail}}"
   },
   "writingPlayground_deleteSessionTitle": {
-    "message": "Delete session?"
+    "message": "Slet session?"
   },
   "writingPlayground_deleteSessionBody": {
-    "message": "This will permanently delete the session."
+    "message": "Dette sletter sessionen permanent."
   },
   "writingPlayground_deleteSuccess": {
-    "message": "Session deleted."
+    "message": "Session slettet."
   },
   "writingPlayground_deleteError": {
-    "message": "Failed to delete session: {{detail}}"
+    "message": "Kunne ikke slette session: {{detail}}"
   },
   "writingPlayground_cloneSuccess": {
-    "message": "Session cloned."
+    "message": "Session klonet."
   },
   "writingPlayground_cloneError": {
-    "message": "Failed to clone session: {{detail}}"
+    "message": "Kunne ikke klone session: {{detail}}"
   },
   "writingPlayground_cloneSession": {
-    "message": "Clone session"
+    "message": "Klon session"
   },
   "writingPlayground_renameSession": {
-    "message": "Rename session"
+    "message": "Omdøb session"
   },
   "writingPlayground_deleteSession": {
-    "message": "Delete session"
+    "message": "Slet session"
   },
   "writingPlayground_conflictError": {
-    "message": "Session changed on the server."
+    "message": "Sessionen er ændret på serveren."
   },
   "writingPlayground_editorTitle": {
-    "message": "Prompt editor"
+    "message": "Prompt-editor"
   },
   "writingPlayground_editorPlaceholder": {
-    "message": "Start writing your prompt..."
+    "message": "Begynd at skrive din prompt..."
   },
   "writingPlayground_editorError": {
-    "message": "Unable to load this session."
+    "message": "Kunne ikke indlæse denne session."
   },
   "writingPlayground_savingLabel": {
-    "message": "Saving..."
+    "message": "Gemmer..."
   },
   "writingPlayground_savedLabel": {
-    "message": "Saved {{time}}"
+    "message": "Gemt {{time}}"
   },
   "writingPlayground_unsavedLabel": {
-    "message": "Unsaved changes"
+    "message": "Ugemte ændringer"
   },
   "writingPlayground_saveError": {
-    "message": "Failed to save session: {{detail}}"
+    "message": "Kunne ikke gemme session: {{detail}}"
   },
   "writingPlayground_editorModeEdit": {
-    "message": "Edit"
+    "message": "Rediger"
   },
   "writingPlayground_editorModePreview": {
-    "message": "Preview"
+    "message": "Forhåndsvisning"
   },
   "writingPlayground_editorModeSplit": {
-    "message": "Split"
+    "message": "Opdelt"
   },
   "writingPlayground_editorEmptyPreview": {
-    "message": "Nothing to preview yet."
+    "message": "Intet at forhåndsvise endnu."
   },
   "writingPlayground_settingsTitle": {
-    "message": "Settings"
+    "message": "Indstillinger"
   },
   "writingPlayground_settingsEmpty": {
-    "message": "Select a session to edit settings."
+    "message": "Vælg en session for at redigere indstillinger."
   },
   "writingPlayground_settingsError": {
-    "message": "Unable to load session settings."
+    "message": "Kunne ikke indlæse sessionsindstillinger."
   },
   "writingPlayground_temperatureLabel": {
-    "message": "Temperature"
+    "message": "Temperatur"
   },
   "writingPlayground_topPLabel": {
     "message": "Top P"
@@ -2208,381 +2208,381 @@
     "message": "Top K"
   },
   "writingPlayground_maxTokensLabel": {
-    "message": "Max tokens"
+    "message": "Maks. tokens"
   },
   "writingPlayground_presencePenaltyLabel": {
-    "message": "Presence penalty"
+    "message": "Tilstedeværelsesstraf"
   },
   "writingPlayground_frequencyPenaltyLabel": {
-    "message": "Frequency penalty"
+    "message": "Frekvensstraf"
   },
   "writingPlayground_seedLabel": {
     "message": "Seed"
   },
   "writingPlayground_stopStringsLabel": {
-    "message": "Stop strings"
+    "message": "Stopstrenge"
   },
   "writingPlayground_stopStringsPlaceholder": {
-    "message": "One per line"
+    "message": "Én pr. linje"
   },
   "writingPlayground_insertPredict": {
-    "message": "Insert {predict}"
+    "message": "Indsæt {predict}"
   },
   "writingPlayground_insertFill": {
-    "message": "Insert {fill}"
+    "message": "Indsæt {fill}"
   },
   "writingPlayground_searchReplace": {
-    "message": "Search & replace"
+    "message": "Søg og erstat"
   },
   "writingPlayground_searchToggle": {
     "message": "Find"
   },
   "writingPlayground_searchClose": {
-    "message": "Close"
+    "message": "Luk"
   },
   "writingPlayground_searchPlaceholder": {
-    "message": "Find text"
+    "message": "Find tekst"
   },
   "writingPlayground_replacePlaceholder": {
-    "message": "Replace with"
+    "message": "Erstat med"
   },
   "writingPlayground_searchPrev": {
-    "message": "Prev"
+    "message": "Forrige"
   },
   "writingPlayground_searchNext": {
-    "message": "Next"
+    "message": "Næste"
   },
   "writingPlayground_searchReplaceAction": {
-    "message": "Replace"
+    "message": "Erstat"
   },
   "writingPlayground_searchReplaceAll": {
-    "message": "Replace all"
+    "message": "Erstat alle"
   },
   "writingPlayground_searchMatchCase": {
-    "message": "Match case"
+    "message": "Skeln mellem store/små"
   },
   "writingPlayground_searchRegex": {
     "message": "Regex"
   },
   "writingPlayground_searchRegexError": {
-    "message": "Invalid regex"
+    "message": "Ugyldig regex"
   },
   "writingPlayground_searchMatchCount": {
-    "message": "{{current}} of {{total}} matches"
+    "message": "{{current}} af {{total}} træffere"
   },
   "writingPlayground_searchNoMatches": {
-    "message": "No matches"
+    "message": "Ingen træffere"
   },
   "writingPlayground_searchHint": {
-    "message": "Enter text to search"
+    "message": "Indtast tekst for at søge"
   },
   "writingPlayground_promptChunksTitle": {
-    "message": "Prompt chunks ({{count}})"
+    "message": "Promptstykker ({{count}})"
   },
   "writingPlayground_promptChunksEmpty": {
-    "message": "No chunks yet."
+    "message": "Ingen stykker endnu."
   },
   "writingPlayground_promptChunksTruncated": {
-    "message": "Showing first {{count}} chunks."
+    "message": "Viser de første {{count}} stykker."
   },
   "writingPlayground_chunkPlaceholder": {
-    "message": "Placeholder"
+    "message": "Pladsholder"
   },
   "writingPlayground_chunkText": {
-    "message": "Text"
+    "message": "Tekst"
   },
   "writingPlayground_generateAction": {
-    "message": "Generate"
+    "message": "Generér"
   },
   "writingPlayground_stopAction": {
     "message": "Stop"
   },
   "writingPlayground_undoGeneration": {
-    "message": "Undo"
+    "message": "Fortryd"
   },
   "writingPlayground_redoGeneration": {
-    "message": "Redo"
+    "message": "Gentag"
   },
   "writingPlayground_generatingLabel": {
-    "message": "Generating..."
+    "message": "Genererer..."
   },
   "writingPlayground_generateError": {
-    "message": "Generation failed: {{detail}}"
+    "message": "Generering mislykkedes: {{detail}}"
   },
   "writingPlayground_generateUnavailable": {
-    "message": "Chat completions unavailable."
+    "message": "Chat-fuldførelser er ikke tilgængelige."
   },
   "writingPlayground_modelMissing": {
-    "message": "Select a model in Settings to generate."
+    "message": "Vælg en model i Indstillinger for at generere."
   },
   "writingPlayground_generationInProgress": {
-    "message": "Stop generation before switching sessions."
+    "message": "Stop genereringen før du skifter session."
   },
   "writingPlayground_generateShortcutTooltip": {
-    "message": "Ctrl/Cmd+Enter to generate"
+    "message": "Ctrl/Cmd+Enter for at generere"
   },
   "writingPlayground_stopShortcutTooltip": {
-    "message": "Esc to stop"
+    "message": "Esc for at stoppe"
   },
   "writingPlayground_shortcutsHint": {
-    "message": "Shortcuts: Ctrl/Cmd+Enter to generate, Esc to stop."
+    "message": "Genveje: Ctrl/Cmd+Enter for at generere, Esc for at stoppe."
   },
   "writingPlayground_templateLabel": {
-    "message": "Template"
+    "message": "Skabelon"
   },
   "writingPlayground_templatePlaceholder": {
-    "message": "Server default"
+    "message": "Serverstandard"
   },
   "writingPlayground_templateHint": {
-    "message": "Choose an instruct template for chat parsing and FIM."
+    "message": "Vælg en instruct-skabelon til chatparsing og FIM."
   },
   "writingPlayground_templateUnavailable": {
-    "message": "Templates unavailable."
+    "message": "Skabeloner er ikke tilgængelige."
   },
   "writingPlayground_templateError": {
-    "message": "Unable to load templates."
+    "message": "Kunne ikke indlæse skabeloner."
   },
   "writingPlayground_chatModeLabel": {
-    "message": "Chat mode"
+    "message": "Chattilstand"
   },
   "writingPlayground_chatModeHint": {
-    "message": "Parse prompt text into messages using the selected template."
+    "message": "Fortolk promptteksten til beskeder ved hjælp af den valgte skabelon."
   },
   "writingPlayground_fillFallbackNotice": {
-    "message": "Fill template missing; using a basic fill prompt."
+    "message": "Fill-skabelon mangler; bruger en grundlæggende fill-prompt."
   },
   "writingPlayground_templateCreateSuccess": {
-    "message": "Template created."
+    "message": "Skabelon oprettet."
   },
   "writingPlayground_templateCreateError": {
-    "message": "Failed to create template: {{detail}}"
+    "message": "Kunne ikke oprette skabelon: {{detail}}"
   },
   "writingPlayground_templateSaveSuccess": {
-    "message": "Template saved."
+    "message": "Skabelon gemt."
   },
   "writingPlayground_templateSaveError": {
-    "message": "Failed to save template: {{detail}}"
+    "message": "Kunne ikke gemme skabelon: {{detail}}"
   },
   "writingPlayground_templateDeleteSuccess": {
-    "message": "Template deleted."
+    "message": "Skabelon slettet."
   },
   "writingPlayground_templateDeleteError": {
-    "message": "Failed to delete template: {{detail}}"
+    "message": "Kunne ikke slette skabelon: {{detail}}"
   },
   "writingPlayground_templateNameRequired": {
-    "message": "Enter a template name."
+    "message": "Indtast et skabelonnavn."
   },
   "writingPlayground_templateDeleteTitle": {
-    "message": "Delete template?"
+    "message": "Slet skabelon?"
   },
   "writingPlayground_templateDeleteBody": {
-    "message": "This will permanently delete the template."
+    "message": "Dette sletter skabelonen permanent."
   },
   "writingPlayground_templateImportInvalid": {
-    "message": "No templates found in file."
+    "message": "Ingen skabeloner fundet i filen."
   },
   "writingPlayground_templateImportSuccess": {
-    "message": "Templates imported."
+    "message": "Skabeloner importeret."
   },
   "writingPlayground_templateImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "Import mislykkedes: {{detail}}"
   },
   "writingPlayground_templateInsertSystem": {
     "message": "System"
   },
   "writingPlayground_templateInsertUser": {
-    "message": "User"
+    "message": "Bruger"
   },
   "writingPlayground_templateInsertAssistant": {
-    "message": "Assistant"
+    "message": "Assistent"
   },
   "writingPlayground_templateInsertMissing": {
-    "message": "{{label}} markers missing in template."
+    "message": "{{label}}-markører mangler i skabelonen."
   },
   "writingPlayground_templateInsertAction": {
-    "message": "Insert"
+    "message": "Indsæt"
   },
   "writingPlayground_manageTemplates": {
-    "message": "Manage templates"
+    "message": "Administrer skabeloner"
   },
   "writingPlayground_templatesModalTitle": {
-    "message": "Manage templates"
+    "message": "Administrer skabeloner"
   },
   "writingPlayground_templateImportHint": {
-    "message": "Import JSON to add or update templates."
+    "message": "Importér JSON for at tilføje eller opdatere skabeloner."
   },
   "writingPlayground_templateNewAction": {
-    "message": "New"
+    "message": "Ny"
   },
   "writingPlayground_templateImportAction": {
-    "message": "Import"
+    "message": "Importér"
   },
   "writingPlayground_templateExportAction": {
-    "message": "Export"
+    "message": "Eksportér"
   },
   "writingPlayground_templateListTitle": {
-    "message": "Templates"
+    "message": "Skabeloner"
   },
   "writingPlayground_templateListEmpty": {
-    "message": "No templates yet."
+    "message": "Ingen skabeloner endnu."
   },
   "writingPlayground_templateDefaultTag": {
-    "message": "Default"
+    "message": "Standard"
   },
   "writingPlayground_templateNameLabel": {
-    "message": "Template name"
+    "message": "Skabelonnavn"
   },
   "writingPlayground_templateSystemPrefixLabel": {
-    "message": "System prefix"
+    "message": "Systempræfiks"
   },
   "writingPlayground_templateSystemSuffixLabel": {
-    "message": "System suffix"
+    "message": "System-suffiks"
   },
   "writingPlayground_templateUserPrefixLabel": {
-    "message": "User prefix"
+    "message": "Brugerpræfiks"
   },
   "writingPlayground_templateUserSuffixLabel": {
-    "message": "User suffix"
+    "message": "Bruger-suffiks"
   },
   "writingPlayground_templateAssistantPrefixLabel": {
-    "message": "Assistant prefix"
+    "message": "Assistentpræfiks"
   },
   "writingPlayground_templateAssistantSuffixLabel": {
-    "message": "Assistant suffix"
+    "message": "Assistent-suffiks"
   },
   "writingPlayground_templateFimTemplateLabel": {
-    "message": "FIM template"
+    "message": "FIM-skabelon"
   },
   "writingPlayground_templateFimTemplateHint": {
-    "message": "Use {{prefix}} and {{suffix}} placeholders."
+    "message": "Brug pladsholderne {{prefix}} og {{suffix}}."
   },
   "writingPlayground_templateDefaultLabel": {
-    "message": "Default template"
+    "message": "Standardskabelon"
   },
   "writingPlayground_templateCreateAction": {
-    "message": "Create"
+    "message": "Opret"
   },
   "writingPlayground_themeLabel": {
-    "message": "Theme"
+    "message": "Tema"
   },
   "writingPlayground_themePlaceholder": {
-    "message": "Server default"
+    "message": "Serverstandard"
   },
   "writingPlayground_themeHint": {
-    "message": "Apply a theme to style the editor."
+    "message": "Anvend et tema til at style editoren."
   },
   "writingPlayground_themeUnavailable": {
-    "message": "Themes unavailable."
+    "message": "Temaer er ikke tilgængelige."
   },
   "writingPlayground_themeError": {
-    "message": "Unable to load themes."
+    "message": "Kunne ikke indlæse temaer."
   },
   "writingPlayground_manageThemes": {
-    "message": "Manage themes"
+    "message": "Administrer temaer"
   },
   "writingPlayground_themesModalTitle": {
-    "message": "Manage themes"
+    "message": "Administrer temaer"
   },
   "writingPlayground_themeImportHint": {
-    "message": "Import JSON to add or update themes."
+    "message": "Importér JSON for at tilføje eller opdatere temaer."
   },
   "writingPlayground_themeNewAction": {
-    "message": "New"
+    "message": "Ny"
   },
   "writingPlayground_themeImportAction": {
-    "message": "Import"
+    "message": "Importér"
   },
   "writingPlayground_themeExportAction": {
-    "message": "Export"
+    "message": "Eksportér"
   },
   "writingPlayground_themeListTitle": {
-    "message": "Themes"
+    "message": "Temaer"
   },
   "writingPlayground_themeListEmpty": {
-    "message": "No themes yet."
+    "message": "Ingen temaer endnu."
   },
   "writingPlayground_themeDefaultTag": {
-    "message": "Default"
+    "message": "Standard"
   },
   "writingPlayground_themeNameLabel": {
-    "message": "Theme name"
+    "message": "Temanavn"
   },
   "writingPlayground_themeClassLabel": {
-    "message": "Theme class"
+    "message": "Temaklasse"
   },
   "writingPlayground_themeClassPlaceholder": {
-    "message": "e.g. miku-dream"
+    "message": "f.eks. miku-dream"
   },
   "writingPlayground_themeCssLabel": {
-    "message": "Theme CSS"
+    "message": "Tema-CSS"
   },
   "writingPlayground_themeCssHint": {
-    "message": "CSS is scoped to .writing-playground; @import and url() are stripped."
+    "message": "CSS er afgrænset til .writing-playground; @import og url() fjernes."
   },
   "writingPlayground_themeOrderLabel": {
-    "message": "Order"
+    "message": "Rækkefølge"
   },
   "writingPlayground_themeDefaultLabel": {
-    "message": "Default theme"
+    "message": "Standardtema"
   },
   "writingPlayground_themeCreateAction": {
-    "message": "Create"
+    "message": "Opret"
   },
   "writingPlayground_themeCreateSuccess": {
-    "message": "Theme created."
+    "message": "Tema oprettet."
   },
   "writingPlayground_themeCreateError": {
-    "message": "Failed to create theme: {{detail}}"
+    "message": "Kunne ikke oprette tema: {{detail}}"
   },
   "writingPlayground_themeSaveSuccess": {
-    "message": "Theme saved."
+    "message": "Tema gemt."
   },
   "writingPlayground_themeSaveError": {
-    "message": "Failed to save theme: {{detail}}"
+    "message": "Kunne ikke gemme tema: {{detail}}"
   },
   "writingPlayground_themeDeleteSuccess": {
-    "message": "Theme deleted."
+    "message": "Tema slettet."
   },
   "writingPlayground_themeDeleteError": {
-    "message": "Failed to delete theme: {{detail}}"
+    "message": "Kunne ikke slette tema: {{detail}}"
   },
   "writingPlayground_themeNameRequired": {
-    "message": "Enter a theme name."
+    "message": "Indtast et temanavn."
   },
   "writingPlayground_themeDeleteTitle": {
-    "message": "Delete theme?"
+    "message": "Slet tema?"
   },
   "writingPlayground_themeDeleteBody": {
-    "message": "This will permanently delete the theme."
+    "message": "Dette sletter temaet permanent."
   },
   "writingPlayground_themeImportInvalid": {
-    "message": "No themes found in file."
+    "message": "Ingen temaer fundet i filen."
   },
   "writingPlayground_themeImportSuccess": {
-    "message": "Themes imported."
+    "message": "Temaer importeret."
   },
   "writingPlayground_themeImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "Import mislykkedes: {{detail}}"
   },
   "writingPlayground_importSession": {
-    "message": "Import"
+    "message": "Importér"
   },
   "writingPlayground_exportSession": {
-    "message": "Export session"
+    "message": "Eksportér session"
   },
   "writingPlayground_sessionImportInvalid": {
-    "message": "No sessions found in file."
+    "message": "Ingen sessioner fundet i filen."
   },
   "writingPlayground_sessionImportSuccess": {
-    "message": "Sessions imported."
+    "message": "Sessioner importeret."
   },
   "writingPlayground_sessionImportError": {
-    "message": "Import failed: {{detail}}"
+    "message": "Import mislykkedes: {{detail}}"
   },
   "writingPlayground_sessionExportSuccess": {
-    "message": "Session exported."
+    "message": "Session eksporteret."
   },
   "writingPlayground_sessionExportError": {
-    "message": "Failed to export session: {{detail}}"
+    "message": "Kunne ikke eksportere session: {{detail}}"
   }
 }

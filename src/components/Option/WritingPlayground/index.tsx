@@ -540,23 +540,39 @@ const findNextBoundary = (text: string, markers: string[]): number => {
   return earliest
 }
 
+type NonToolRole = Exclude<ChatMessage["role"], "tool">
+type NonToolMessage = Extract<ChatMessage, { role: NonToolRole }>
+
+const buildNonToolMessage = (
+  role: NonToolRole,
+  content: string
+): NonToolMessage => {
+  if (role === "system") {
+    return { role, content }
+  }
+  if (role === "assistant") {
+    return { role, content }
+  }
+  return { role, content }
+}
+
 const extractMessage = (
   text: string,
   prefix: string,
   boundaries: string[],
-  role: ChatMessage["role"]
-): { message: ChatMessage; remaining: string } | null => {
+  role: NonToolRole
+): { message: NonToolMessage; remaining: string } | null => {
   if (!prefix || !text.startsWith(prefix)) return null
   const rest = text.slice(prefix.length)
   const endIndex = findNextBoundary(rest, boundaries)
   if (endIndex === -1) {
     return {
-      message: { role, content: rest.trim() },
+      message: buildNonToolMessage(role, rest.trim()),
       remaining: ""
     }
   }
   return {
-    message: { role, content: rest.slice(0, endIndex).trim() },
+    message: buildNonToolMessage(role, rest.slice(0, endIndex).trim()),
     remaining: rest.slice(endIndex)
   }
 }
@@ -851,6 +867,7 @@ export const WritingPlayground = () => {
   const {
     data: sessionsData,
     isLoading: sessionsLoading,
+    isFetching: sessionsFetching,
     error: sessionsError
   } = useQuery({
     queryKey: ["writing-sessions"],
@@ -858,6 +875,7 @@ export const WritingPlayground = () => {
     enabled: isOnline && hasWriting,
     staleTime: 30 * 1000
   })
+  const sessions = sessionsData?.sessions ?? []
 
   const {
     data: activeSessionDetail,
@@ -1324,7 +1342,6 @@ export const WritingPlayground = () => {
     setCanRedoGeneration(false)
   }, [activeSessionId])
 
-  const sessions = sessionsData?.sessions ?? []
   const templates = templatesData?.templates ?? []
   const themes = themesData?.themes ?? []
   const defaultTemplate =
@@ -1406,12 +1423,19 @@ export const WritingPlayground = () => {
 
   React.useEffect(() => {
     if (!activeSessionId) return
+    if (sessionsFetching) return
     const exists = sessions.some((session) => session.id === activeSessionId)
     if (!exists) {
       setActiveSessionId(null)
       setActiveSessionName(null)
     }
-  }, [activeSessionId, sessions, setActiveSessionId, setActiveSessionName])
+  }, [
+    activeSessionId,
+    sessions,
+    sessionsFetching,
+    setActiveSessionId,
+    setActiveSessionName
+  ])
 
   React.useEffect(() => {
     if (!activeSessionDetail) {

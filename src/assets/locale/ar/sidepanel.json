@@ -6,7 +6,7 @@
     "openwebui": "فتح واجهة الويب"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "بحث RAG"
   },
   "errors": {
     "privateModeTitle": "يتعذر على tldw Assistant حفظ البيانات",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "دردشة مؤقتة",
-    "label": "Temp",
+    "label": "مؤقت",
     "description": "لن يتم حفظ هذه الدردشة. ستُمسح الرسائل عند الإغلاق أو بدء دردشة جديدة.",
     "clickHint": "انقر للتعطيل",
     "ariaLabel": "وضع الدردشة المؤقتة نشط. انقر للتبديل.",
@@ -35,33 +35,33 @@
     "indicatorAria": "دردشة مؤقتة"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "إدخال",
+    "saveCurrent": "حفظ الصفحة الحالية على الخادم",
+    "processLocal": "معالجة الصفحة الحالية محليًا",
+    "viewProcessed": "عرض المعالجة",
+    "timeoutLabel": "المهلة (ث)",
+    "toggleSidebar": "تبديل الشريط الجانبي / ملء الشاشة",
+    "shortcuts": "الاختصارات",
+    "showDebug": "إظهار تصحيح البث",
+    "hideDebug": "إخفاء تصحيح البث",
+    "moreOptionsAria": "مزيد من الخيارات",
+    "moreOptionsTitle": "الإدخال والمزيد",
+    "openWebuiAria": "فتح واجهة الويب",
+    "newChatAria": "دردشة جديدة",
+    "tempChatAria": "تبديل الدردشة المؤقتة",
+    "clearHistoryAria": "مسح السجل",
+    "openHistoryAria": "فتح السجل",
+    "openModelSettingsAria": "فتح إعدادات النموذج",
+    "openSettingsAria": "فتح الإعدادات",
+    "tempPill": "مؤقت",
+    "modesLabel": "فتح الأوضاع في واجهة الويب",
+    "modePlayground": "الدردشة",
+    "modeReview": "مراجعة متعددة العناصر",
+    "modeMedia": "الوسائط",
+    "modeKnowledge": "المعرفة",
+    "modeNotes": "الملاحظات",
+    "modePrompts": "الموجهات",
+    "modeFlashcards": "البطاقات التعليمية"
   },
   "controlRow": {
     "saveMode": "وضع الحفظ",
@@ -80,21 +80,21 @@
     "moreTools": "المزيد من الأدوات"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "اتصل بخادم tldw في الإعدادات لإرسال الرسائل.",
+    "connectingPlaceholder": "جارٍ الاتصال...",
+    "disconnectedPlaceholder": "اتصل بخادم tldw في الإعدادات لإرسال الرسائل وعرض الوسائط."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "تم الإرسال إلى خادم tldw",
+    "ingestSentDesc": "تم إرسال الصفحة الحالية للإدخال.",
+    "processedLocal": "تمت المعالجة محليًا",
+    "processedLocalDesc": "يتم تخزين المحتوى المعالج محليًا ضمن الإعدادات > المعالجة.",
+    "transcriptionTitle": "التفريغ",
+    "transcriptionSummaryTitle": "تفريغ + ملخص",
+    "transcriptionFallback": "اكتمل التفريغ. افتح الوسائط في واجهة الويب لعرضه.",
+    "sourceLabel": "المصدر",
+    "transcriptLabel": "التفريغ",
+    "summaryLabel": "الملخص"
   },
   "saveStatus": {
     "ephemeral": "مؤقت: غير محفوظ، يمسح عند الإغلاق",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "السياق المرفق",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "ابحث في قاعدة معرفتك…",
+    "search": "بحث",
+    "show": "إظهار بحث RAG",
+    "hide": "إخفاء بحث RAG",
+    "addTagPlaceholder": "أضف وسمًا (Enter)",
+    "add": "إضافة",
+    "noResults": "لا توجد نتائج",
+    "initialState": "لا توجد نتائج",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "انتهت مهلة الطلب.",
+      "increase": "زيادة المهلة",
+      "checkHealth": "تحقق من حالة الخادم"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "إدراج",
+      "ask": "اسأل",
+      "open": "فتح",
+      "copy": "نسخ"
     },
     "hint": {
       "message": "ابحث في قاعدة معرفتك وأدرِج النتائج في رسالتك.",
@@ -135,13 +135,13 @@
     "closeTabAria": "إغلاق علامة تبويب الدردشة"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "الشخصية",
+    "tooltip": "اختر شخصية",
+    "search": "ابحث عن الشخصيات...",
+    "noMatches": "لا توجد شخصيات مطابقة",
+    "noCharacters": "لا توجد شخصيات متاحة",
+    "none": "بدون شخصية",
+    "createNewCharacter": "إنشاء شخصية جديدة+",
+    "importCharacter": "استيراد شخصية"
   }
 }

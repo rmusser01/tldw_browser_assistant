@@ -6,7 +6,7 @@
     "openwebui": "Відкрити веб-інтерфейс"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "RAG-пошук"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant не може зберегти дані",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "Тимчасовий чат",
-    "label": "Temp",
+    "label": "Тимч.",
     "description": "Цей чат не буде збережено. Повідомлення буде очищено під час закриття або початку нового чату.",
     "clickHint": "Натисніть, щоб вимкнути",
     "ariaLabel": "Режим тимчасового чату активний. Натисніть, щоб перемкнути.",
@@ -35,40 +35,40 @@
     "indicatorAria": "Тимчасовий чат"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "Імпортувати",
+    "saveCurrent": "Зберегти поточну сторінку на сервері",
+    "processLocal": "Обробити поточну сторінку локально",
+    "viewProcessed": "Переглянути оброблене",
+    "timeoutLabel": "Тайм‑аут (с)",
+    "toggleSidebar": "Перемкнути бічну панель / повний екран",
+    "shortcuts": "Гарячі клавіші",
+    "showDebug": "Показати налагодження потоку",
+    "hideDebug": "Сховати налагодження потоку",
+    "moreOptionsAria": "Більше опцій",
+    "moreOptionsTitle": "Ingest та інше",
+    "openWebuiAria": "Відкрити Web UI",
+    "newChatAria": "Новий чат",
+    "tempChatAria": "Перемкнути тимчасовий чат",
+    "clearHistoryAria": "Очистити історію",
+    "openHistoryAria": "Відкрити історію",
+    "openModelSettingsAria": "Відкрити налаштування моделі",
+    "openSettingsAria": "Відкрити налаштування",
+    "tempPill": "Тимч.",
+    "modesLabel": "Відкрити режими у Web UI",
+    "modePlayground": "Чат",
+    "modeReview": "Огляд",
+    "modeMedia": "Медіа",
+    "modeKnowledge": "Знання",
+    "modeNotes": "Нотатки",
+    "modePrompts": "Запити",
+    "modeFlashcards": "Флеш-картки"
   },
   "controlRow": {
     "saveMode": "Режим збереження",
     "ephemeral": "Тимчасовий",
-    "searchSection": "Пошук і Vision",
+    "searchSection": "Пошук і візуальний аналіз",
     "webSearch": "Пошук в інтернеті",
-    "vision": "Vision",
+    "vision": "Візуальний аналіз",
     "uploadImage": "Завантажити зображення",
     "quickIngest": "Швидко імпортувати сторінку",
     "openInFullUI": "Відкрити у повному інтерфейсі",
@@ -85,16 +85,16 @@
     "disconnectedPlaceholder": "Підключіться до свого сервера tldw у налаштуваннях, щоб надсилати повідомлення й переглядати медіа."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "Надіслано на сервер tldw",
+    "ingestSentDesc": "Поточну сторінку надіслано для обробки.",
+    "processedLocal": "Оброблено локально",
+    "processedLocalDesc": "Оброблений контент збережено локально в Налаштування > Оброблене.",
+    "transcriptionTitle": "Транскрипція",
+    "transcriptionSummaryTitle": "Транскрипція + резюме",
+    "transcriptionFallback": "Транскрипцію завершено. Відкрийте Медіа у Web UI, щоб переглянути.",
+    "sourceLabel": "Джерело",
+    "transcriptLabel": "Транскрипт",
+    "summaryLabel": "Резюме"
   },
   "saveStatus": {
     "ephemeral": "Тимчасовий: не зберігається, очищується при закритті",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "Прикріплений контекст",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "Пошук у базі знань…",
+    "search": "Пошук",
+    "show": "Показати RAG-пошук",
+    "hide": "Сховати RAG-пошук",
+    "addTagPlaceholder": "Додати тег (Enter)",
+    "add": "Додати",
+    "noResults": "Немає результатів",
+    "initialState": "Немає результатів",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "Час очікування запиту минув.",
+      "increase": "Збільшити тайм‑аут",
+      "checkHealth": "Перевірити стан сервера"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "Вставити",
+      "ask": "Запитати",
+      "open": "Відкрити",
+      "copy": "Копіювати"
     },
     "hint": {
       "message": "Шукайте у своїй базі знань і вставляйте результати у повідомлення.",
@@ -135,13 +135,13 @@
     "closeTabAria": "Закрити вкладку чату"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "Персонаж",
+    "tooltip": "Вибрати персонажа",
+    "search": "Шукати персонажів...",
+    "noMatches": "Немає збігів",
+    "noCharacters": "Персонажів немає",
+    "none": "Без персонажа",
+    "createNewCharacter": "Створити нового персонажа+",
+    "importCharacter": "Імпортувати персонажа"
   }
 }

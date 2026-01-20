@@ -12,7 +12,7 @@
     "message": "打开网页界面"
   },
   "toolbar_ragSearch": {
-    "message": "RAG Search"
+    "message": "RAG 搜索"
   },
   "errors_privateModeTitle": {
     "message": "tldw Assistant 无法保存数据"
@@ -57,7 +57,7 @@
     "message": "临时聊天"
   },
   "temporaryBadge_label": {
-    "message": "Temp"
+    "message": "临时"
   },
   "temporaryBadge_description": {
     "message": "此聊天不会被保存。关闭或开始新聊天时消息将被清除。"
@@ -75,85 +75,85 @@
     "message": "临时聊天"
   },
   "header_ingest": {
-    "message": "Ingest"
+    "message": "摄取"
   },
   "header_saveCurrent": {
-    "message": "Save current page on server"
+    "message": "在服务器上保存当前页面"
   },
   "header_processLocal": {
-    "message": "Process current page locally"
+    "message": "本地处理当前页面"
   },
   "header_viewProcessed": {
-    "message": "View processed"
+    "message": "查看已处理内容"
   },
   "header_timeoutLabel": {
-    "message": "Timeout (s)"
+    "message": "超时 (秒)"
   },
   "header_toggleSidebar": {
-    "message": "Toggle Sidebar / Full Screen"
+    "message": "切换侧边栏 / 全屏"
   },
   "header_shortcuts": {
-    "message": "Shortcuts"
+    "message": "快捷键"
   },
   "header_showDebug": {
-    "message": "Show Stream Debug"
+    "message": "显示流调试"
   },
   "header_hideDebug": {
-    "message": "Hide Stream Debug"
+    "message": "隐藏流调试"
   },
   "header_moreOptionsAria": {
-    "message": "More options"
+    "message": "更多选项"
   },
   "header_moreOptionsTitle": {
-    "message": "Ingest and more"
+    "message": "Ingest 及更多"
   },
   "header_openWebuiAria": {
-    "message": "Open Web UI"
+    "message": "打开 Web UI"
   },
   "header_newChatAria": {
-    "message": "New chat"
+    "message": "新聊天"
   },
   "header_tempChatAria": {
-    "message": "Toggle temporary chat"
+    "message": "切换临时聊天"
   },
   "header_clearHistoryAria": {
-    "message": "Clear history"
+    "message": "清除历史"
   },
   "header_openHistoryAria": {
-    "message": "Open history"
+    "message": "打开历史"
   },
   "header_openModelSettingsAria": {
-    "message": "Open model settings"
+    "message": "打开模型设置"
   },
   "header_openSettingsAria": {
-    "message": "Open settings"
+    "message": "打开设置"
   },
   "header_tempPill": {
-    "message": "Temp"
+    "message": "临时"
   },
   "header_modesLabel": {
-    "message": "Open modes in Web UI"
+    "message": "在 Web UI 中打开模式"
   },
   "header_modePlayground": {
-    "message": "Chat"
+    "message": "聊天"
   },
   "header_modeReview": {
-    "message": "Multi-Item Review"
+    "message": "多项审阅"
   },
   "header_modeMedia": {
-    "message": "Media"
+    "message": "媒体"
   },
   "header_modeKnowledge": {
-    "message": "Knowledge"
+    "message": "知识问答"
   },
   "header_modeNotes": {
-    "message": "Notes"
+    "message": "笔记"
   },
   "header_modePrompts": {
-    "message": "Prompts"
+    "message": "提示词"
   },
   "header_modeFlashcards": {
-    "message": "Flashcards"
+    "message": "抽认卡"
   },
   "controlRow_saveMode": {
     "message": "保存模式"
@@ -198,43 +198,43 @@
     "message": "更多工具"
   },
   "composer_connectHint": {
-    "message": "Connect to your tldw server in Settings to send messages."
+    "message": "在设置中连接你的 tldw 服务器以发送消息。"
   },
   "composer_connectingPlaceholder": {
-    "message": "Connecting..."
+    "message": "正在连接..."
   },
   "composer_disconnectedPlaceholder": {
-    "message": "Connect to your tldw server in Settings to send messages and view media."
+    "message": "在设置中连接你的 tldw 服务器以发送消息并查看媒体。"
   },
   "notification_ingestSent": {
-    "message": "Sent to tldw server"
+    "message": "已发送至 tldw 服务器"
   },
   "notification_ingestSentDesc": {
-    "message": "Current page has been submitted for ingestion."
+    "message": "当前页面已提交进行摄取。"
   },
   "notification_processedLocal": {
-    "message": "Processed locally"
+    "message": "已在本地处理"
   },
   "notification_processedLocalDesc": {
-    "message": "Processed content stored locally under Settings > Processed."
+    "message": "处理后的内容已本地存储在 设置 > 已处理 下。"
   },
   "notification_transcriptionTitle": {
-    "message": "Transcription"
+    "message": "转录"
   },
   "notification_transcriptionSummaryTitle": {
-    "message": "Transcription + summary"
+    "message": "转录 + 摘要"
   },
   "notification_transcriptionFallback": {
-    "message": "Transcription completed. Open Media in the Web UI to view it."
+    "message": "转录完成。请在 Web UI 中打开媒体查看。"
   },
   "notification_sourceLabel": {
-    "message": "Source"
+    "message": "来源"
   },
   "notification_transcriptLabel": {
-    "message": "Transcript"
+    "message": "转录"
   },
   "notification_summaryLabel": {
-    "message": "Summary"
+    "message": "摘要"
   },
   "saveStatus_ephemeral": {
     "message": "临时：不保存，关闭时清除"
@@ -252,46 +252,46 @@
     "message": "聊天现在仅保存在本地。请检查连接并重试。"
   },
   "rag_searchPlaceholder": {
-    "message": "Search your knowledge…"
+    "message": "搜索你的知识库…"
   },
   "rag_search": {
-    "message": "Search"
+    "message": "搜索"
   },
   "rag_show": {
-    "message": "Show RAG search"
+    "message": "显示 RAG 搜索"
   },
   "rag_hide": {
-    "message": "Hide RAG search"
+    "message": "隐藏 RAG 搜索"
   },
   "rag_addTagPlaceholder": {
-    "message": "Add tag (Enter)"
+    "message": "添加标签 (Enter)"
   },
   "rag_add": {
-    "message": "Add"
+    "message": "添加"
   },
   "rag_noResults": {
-    "message": "No results"
+    "message": "没有结果"
   },
   "rag_timeout_message": {
-    "message": "Request timed out."
+    "message": "请求超时。"
   },
   "rag_timeout_increase": {
-    "message": "Increase timeout"
+    "message": "增加超时时间"
   },
   "rag_timeout_checkHealth": {
-    "message": "Check server health"
+    "message": "检查服务器状态"
   },
   "rag_actions_insert": {
-    "message": "Insert"
+    "message": "插入"
   },
   "rag_actions_ask": {
-    "message": "Ask"
+    "message": "提问"
   },
   "rag_actions_open": {
-    "message": "Open"
+    "message": "打开"
   },
   "rag_actions_copy": {
-    "message": "Copy"
+    "message": "复制"
   },
   "rag_hint_message": {
     "message": "搜索你的知识库，并将结果插入到消息中。"
@@ -309,33 +309,33 @@
     "message": "关闭对话标签页"
   },
   "characterSelect_label": {
-    "message": "Character"
+    "message": "角色"
   },
   "characterSelect_tooltip": {
-    "message": "Select a character"
+    "message": "选择角色"
   },
   "characterSelect_search": {
-    "message": "Search characters..."
+    "message": "搜索角色..."
   },
   "characterSelect_noMatches": {
-    "message": "No matching characters"
+    "message": "没有匹配的角色"
   },
   "characterSelect_noCharacters": {
-    "message": "No characters available"
+    "message": "暂无可用角色"
   },
   "characterSelect_none": {
-    "message": "No character"
+    "message": "无角色"
   },
   "characterSelect_createNewCharacter": {
-    "message": "Create a New Character+"
+    "message": "创建新角色+"
   },
   "characterSelect_importCharacter": {
-    "message": "Import Character"
+    "message": "导入角色"
   },
   "rag_attachedContext": {
     "message": "附加的上下文"
   },
   "rag_initialState": {
-    "message": "No results"
+    "message": "没有结果"
   }
 }

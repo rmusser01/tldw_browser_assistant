@@ -6,7 +6,7 @@
     "openwebui": "Öppna WebUI"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "RAG-sökning"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant kan inte spara data",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "Tillfällig chatt",
-    "label": "Temp",
+    "label": "Tillf.",
     "description": "Den här chatten sparas inte. Meddelanden rensas när du stänger eller startar en ny chatt.",
     "clickHint": "Klicka för att inaktivera",
     "ariaLabel": "Tillfälligt chattläge är aktivt. Klicka för att växla.",
@@ -35,47 +35,47 @@
     "indicatorAria": "Tillfällig chatt"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "Importera",
+    "saveCurrent": "Spara aktuell sida på servern",
+    "processLocal": "Bearbeta aktuell sida lokalt",
+    "viewProcessed": "Visa bearbetat",
+    "timeoutLabel": "Tidsgräns (s)",
+    "toggleSidebar": "Växla sidopanel / helskärm",
+    "shortcuts": "Genvägar",
+    "showDebug": "Visa stream-debugg",
+    "hideDebug": "Dölj stream-debugg",
+    "moreOptionsAria": "Fler alternativ",
+    "moreOptionsTitle": "Ingest och mer",
+    "openWebuiAria": "Öppna Web UI",
+    "newChatAria": "Ny chatt",
+    "tempChatAria": "Växla tillfällig chatt",
+    "clearHistoryAria": "Rensa historik",
+    "openHistoryAria": "Öppna historik",
+    "openModelSettingsAria": "Öppna modellinställningar",
+    "openSettingsAria": "Öppna inställningar",
+    "tempPill": "Tillf.",
+    "modesLabel": "Öppna lägen i Web UI",
+    "modePlayground": "Chatt",
+    "modeReview": "Granskning",
+    "modeMedia": "Medier",
+    "modeKnowledge": "Kunskaps‑QA",
+    "modeNotes": "Anteckningar",
+    "modePrompts": "Prompter",
+    "modeFlashcards": "Flashkort"
   },
   "controlRow": {
     "saveMode": "Lagringsläge",
     "ephemeral": "Temporär",
-    "searchSection": "Sök & Vision",
+    "searchSection": "Sök och visuell analys",
     "webSearch": "Webbsök",
-    "vision": "Vision",
+    "vision": "Visuell analys",
     "uploadImage": "Ladda upp bild",
     "quickIngest": "Snabbimportera sidan",
     "openInFullUI": "Öppna i fullständigt gränssnitt",
     "modeChat": "Chatt",
-    "modeMedia": "Media",
+    "modeMedia": "Medier",
     "modeNotes": "Anteckningar",
-    "modeFlashcards": "Flashcards",
+    "modeFlashcards": "Flashkort",
     "ragSearch": "RAG-sökning",
     "moreTools": "Fler verktyg"
   },
@@ -85,16 +85,16 @@
     "disconnectedPlaceholder": "Anslut till din tldw-server i Inställningar för att skicka meddelanden och visa media."
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "Skickat till tldw-servern",
+    "ingestSentDesc": "Den aktuella sidan har skickats för ingest.",
+    "processedLocal": "Bearbetat lokalt",
+    "processedLocalDesc": "Bearbetat innehåll lagras lokalt under Inställningar > Bearbetat.",
+    "transcriptionTitle": "Transkription",
+    "transcriptionSummaryTitle": "Transkription + sammanfattning",
+    "transcriptionFallback": "Transkription klar. Öppna Medier i Web UI för att se den.",
+    "sourceLabel": "Källa",
+    "transcriptLabel": "Transkript",
+    "summaryLabel": "Sammanfattning"
   },
   "saveStatus": {
     "ephemeral": "Tillfällig: inte sparad, rensas vid stängning",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "Bifogat sammanhang",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "Sök i din kunskapsbas…",
+    "search": "Sök",
+    "show": "Visa RAG-sökning",
+    "hide": "Dölj RAG-sökning",
+    "addTagPlaceholder": "Lägg till tagg (Enter)",
+    "add": "Lägg till",
+    "noResults": "Inga resultat",
+    "initialState": "Inga resultat",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "Begäran fick tidsgräns.",
+      "increase": "Öka tidsgräns",
+      "checkHealth": "Kontrollera serverstatus"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "Infoga",
+      "ask": "Fråga",
+      "open": "Öppna",
+      "copy": "Kopiera"
     },
     "hint": {
       "message": "Sök i din kunskapsbas och infoga resultat i ditt meddelande.",
@@ -135,13 +135,13 @@
     "closeTabAria": "Stäng flik för samtal"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "Karaktär",
+    "tooltip": "Välj en karaktär",
+    "search": "Sök karaktärer...",
+    "noMatches": "Inga matchande karaktärer",
+    "noCharacters": "Inga karaktärer tillgängliga",
+    "none": "Ingen karaktär",
+    "createNewCharacter": "Skapa en ny karaktär+",
+    "importCharacter": "Importera karaktär"
   }
 }

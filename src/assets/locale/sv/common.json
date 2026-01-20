@@ -17,8 +17,8 @@
   },
   "selectAModel": "Välj en modell",
   "modelSelect": {
-    "label": "Model",
-    "tooltip": "Changes model for next message"
+    "label": "Modell",
+    "tooltip": "Byter modell för nästa meddelande"
   },
   "save": "Spara",
   "saved": "Sparad",
@@ -67,11 +67,11 @@
   "webSearch": "Söker på webben",
   "regenerate": "Återskapa",
   "edit": "Redigera",
-  "generate": "Generate",
-  "view": "View",
+  "generate": "Generera",
+  "view": "Visa",
   "delete": "Radera",
-  "deleteMessageConfirm": "Delete this message?",
-  "deleteFailed": "Delete failed",
+  "deleteMessageConfirm": "Radera det här meddelandet?",
+  "deleteFailed": "Radering misslyckades",
   "continue": "Fortsätt svar",
   "saveAndSubmit": "Spara & Skicka",
   "editMessage": {
@@ -90,35 +90,35 @@
   "beta": "Betaversion",
   "tts": "Läs högt",
   "ttsShort": "Röst",
-  "reply": "Reply",
-  "replyShort": "Reply",
-  "replyingTo": "Replying to",
-  "clearReply": "Clear reply target",
-  "replyTargetFallback": "Message",
-  "artifactsTitle": "Artifact",
-  "artifactsDefaultTitle": "Code",
-  "artifactsView": "View code",
-  "artifactsPin": "Pin",
-  "artifactsUnpin": "Unpin",
-  "artifactsClose": "Close",
-  "artifactsCopy": "Copy",
-  "artifactsDownload": "Download",
-  "artifactsRun": "Run",
+  "reply": "Svara",
+  "replyShort": "Svar",
+  "replyingTo": "Svarar på",
+  "clearReply": "Rensa svarsmål",
+  "replyTargetFallback": "Meddelande",
+  "artifactsTitle": "Artefakt",
+  "artifactsDefaultTitle": "Kod",
+  "artifactsView": "Visa kod",
+  "artifactsPin": "Fäst",
+  "artifactsUnpin": "Avfäst",
+  "artifactsClose": "Stäng",
+  "artifactsCopy": "Kopiera",
+  "artifactsDownload": "Ladda ner",
+  "artifactsRun": "Kör",
   "copyShort": "Kopiera",
   "branchShort": "Gren",
-  "infoShort": "Info",
-  "saveToNotes": "Save to Notes",
-  "saveToFlashcards": "Save to Flashcards",
-  "generateDocument": "Generate document",
-  "documentShort": "Doc",
+  "infoShort": "Information",
+  "saveToNotes": "Spara i anteckningar",
+  "saveToFlashcards": "Spara i flashkort",
+  "generateDocument": "Generera dokument",
+  "documentShort": "Dok",
   "documentCard": {
     "removeAria": "Ta bort {{name}}"
   },
-  "saveNoteShort": "Note",
-  "saveFlashcardShort": "Card",
-  "savedToNotes": "Saved to Notes",
-  "savedToFlashcards": "Saved to Flashcards",
-  "saveToNotesEmpty": "Nothing to save yet.",
+  "saveNoteShort": "Anteckn.",
+  "saveFlashcardShort": "Kort",
+  "savedToNotes": "Sparat i anteckningar",
+  "savedToFlashcards": "Sparat i flashkort",
+  "saveToNotesEmpty": "Inget att spara ännu.",
   "regenShort": "Igen",
   "continueShort": "Mer",
   "fileChanges": "Filändringar",
@@ -213,55 +213,55 @@
         "help": "Detta är ett snabbt sätt att ställa in systemprompten i den nuvarande chatten, vilket kommer att åsidosätta den valda systemprompten om den finns."
       },
       "historyMessageLimit": {
-        "label": "History message limit",
-        "placeholder": "e.g. 10",
-        "help": "Limit how many previous messages are sent with each request."
+        "label": "Gräns för historikmeddelanden",
+        "placeholder": "t.ex. 10",
+        "help": "Begränsa hur många tidigare meddelanden som skickas med varje begäran."
       },
       "historyMessageOrder": {
-        "label": "History message order",
-        "placeholder": "Select order",
-        "help": "Choose whether the newest or oldest messages are sent first.",
+        "label": "Ordning för historikmeddelanden",
+        "placeholder": "Välj ordning",
+        "help": "Välj om de senaste eller äldsta meddelandena skickas först.",
         "options": {
-          "desc": "Newest first",
-          "asc": "Oldest first"
+          "desc": "Nyaste först",
+          "asc": "Äldsta först"
         }
       },
       "slashCommandInjectionMode": {
-        "label": "Slash command injection",
-        "placeholder": "Select injection mode",
-        "help": "Choose how slash commands are inserted into the request.",
+        "label": "Injektion av snedstreckskommandon",
+        "placeholder": "Välj injektionsläge",
+        "help": "Välj hur snedstreckskommandon infogas i begäran.",
         "options": {
-          "system": "System message",
-          "preface": "Preface user message",
-          "replace": "Replace user message"
+          "system": "Systemmeddelande",
+          "preface": "Inled användarmeddelande",
+          "replace": "Ersätt användarmeddelande"
         }
       },
       "apiProvider": {
-        "label": "API provider override",
-        "placeholder": "Select provider (optional)",
-        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+        "label": "Åsidosätt API-leverantör",
+        "placeholder": "Välj leverantör (valfritt)",
+        "help": "Tvinga en specifik leverantör för den här chatten (t.ex. openai, anthropic)."
       },
       "extraHeaders": {
-        "label": "Extra headers (JSON)",
+        "label": "Extra HTTP-huvuden (JSON)",
         "placeholder": "{ \"X-API-Key\": \"...\" }",
-        "help": "JSON object merged into request headers."
+        "help": "JSON-objekt som slås ihop med begärans HTTP-huvuden."
       },
       "extraBody": {
-        "label": "Extra body (JSON)",
+        "label": "Extra begäranskropp (JSON)",
         "placeholder": "{ \"user\": \"...\" }",
-        "help": "JSON object merged into request body."
+        "help": "JSON-objekt som slås ihop med begärans kropp."
       },
       "guardrails": {
-        "invalidJson": "Enter a valid JSON object."
+        "invalidJson": "Ange ett giltigt JSON-objekt."
       }
     },
     "advanced": "Fler modellinställningar",
-    "requestOverrides": "Request overrides",
+    "requestOverrides": "Åsidosättningar av begäran",
     "tabs": {
-      "model": "Model",
-      "conversation": "Conversation",
-      "advanced": "Advanced",
-      "actor": "Scene Director"
+      "model": "Modell",
+      "conversation": "Konversation",
+      "advanced": "Avancerat",
+      "actor": "Scenregissör"
     }
   },
   "copilot": {
@@ -346,7 +346,7 @@
     "friendlyGenericHint": "Försök igen om en stund eller öppna Hälsa & diagnostik för att undersöka serverhälsan.",
     "showDetails": "Visa tekniska detaljer",
     "hideDetails": "Dölj tekniska detaljer",
-    "createFolder": "Failed to create folder"
+    "createFolder": "Misslyckades med att skapa mapp"
   },
   "folders": "Mappar",
   "folderView": "Mappvy",
@@ -362,33 +362,33 @@
   "untitled": "Utan titel",
   "moveToFolder": "Flytta till mapp",
   "timeline": {
-    "title": "Conversation Timeline",
-    "searchPlaceholder": "Search messages... (space = AND)",
-    "searchMatches": "matches",
-    "searchNoMatches": "no matches",
+    "title": "Samtalstidslinje",
+    "searchPlaceholder": "Sök meddelanden... (mellanslag = OCH)",
+    "searchMatches": "träffar",
+    "searchNoMatches": "inga träffar",
     "searchMode": {
-      "fragments": "Fragments",
-      "substring": "Substring",
-      "regex": "Regex"
+      "fragments": "Fragment",
+      "substring": "Delsträng",
+      "regex": "Reguljära uttryck"
     },
     "layout": {
-      "horizontal": "horizontal",
-      "vertical": "vertical"
+      "horizontal": "horisontell",
+      "vertical": "vertikal"
     },
-    "refreshGraph": "Refresh graph",
-    "switchLayout": "Switch to {{layout}} layout",
-    "expandAllAlternatives": "Expand all alternatives",
-    "collapseAllAlternatives": "Collapse all alternatives",
-    "hideLegend": "Hide legend",
-    "showLegend": "Show legend",
-    "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out",
-    "unableLocateMessage": "Unable to locate the message for this action.",
-    "actionFailed": "Failed to perform timeline action. Please try again."
+    "refreshGraph": "Uppdatera graf",
+    "switchLayout": "Växla till {{layout}} layout",
+    "expandAllAlternatives": "Expandera alla alternativ",
+    "collapseAllAlternatives": "Fäll ihop alla alternativ",
+    "hideLegend": "Dölj teckenförklaring",
+    "showLegend": "Visa teckenförklaring",
+    "zoomIn": "Zooma in",
+    "zoomOut": "Zooma ut",
+    "unableLocateMessage": "Det gick inte att hitta meddelandet för den här åtgärden.",
+    "actionFailed": "Det gick inte att utföra tidslinjeåtgärden. Försök igen."
   },
   "noToolCalls": "Inga verktygsanrop ännu",
-  "sourceLabel": "Source",
-  "sourceOpen": "Open source",
+  "sourceLabel": "Källa",
+  "sourceOpen": "Öppna källa",
   "status": {
     "pending": "Väntar",
     "running": "Bearbetar",
@@ -412,7 +412,7 @@
     "git_log": "Git-logg",
     "git_branch": "Git-gren",
     "git_add": "Stagea filer",
-    "git_commit": "Commit",
+    "git_commit": "Incheckning",
     "exec_run": "Kör kommando"
   },
   "markdown": {
@@ -472,11 +472,11 @@
     "collapse": "Fäll ihop sidofält",
     "expand": "Expandera sidofält",
     "search": "Sök chattar...",
-    "modeLabel": "Mode",
-    "modeCasual": "Casual",
-    "modePro": "Pro",
+    "modeLabel": "Läge",
+    "modeCasual": "Avslappnat",
+    "modePro": "Proffsläge",
     "ingest": "Importera sida",
-    "media": "Media",
+    "media": "Medier",
     "notes": "Anteckningar",
     "flashcards": "Minneskort",
     "prompts": "Prompter",
@@ -513,18 +513,18 @@
   "contextSidebarOpening": "Öppnar sidopanelen...",
   "contextSaveToNotesOpeningSidebar": "Öppnar sidopanelen för att spara anteckningen...",
   "contextSaveToNotesDeliveryFailed": "Kunde inte öppna sidopanelen för att spara den här anteckningen. Kontrollera att tldw Assistant-sidopanelen är tillåten på den här sidan och försök igen.",
-  "hfSendPageRejected": "[tldw] Page send request rejected by tldw_server",
-  "hfSendPageErrorWithDetail": "[tldw] Failed to send this page to tldw_server: $1. Check Settings → tldw server and try again.",
-  "hfSendPageError": "[tldw] Failed to send this page to tldw_server. Check Settings → tldw server and try again.",
-  "hfSendPageSuccess": "[tldw] Sent page to tldw_server for processing",
-  "hfSendPageException": "[tldw] Something went wrong while sending this page to tldw_server. Check that your tldw_server and the extension are running, then try again.",
-  "hfPullInProgress": "[tldw Assistant] A model pull request is already in progress. Please wait for it to finish before starting another one.",
-  "hfPullConfirm": "[tldw Assistant] Do you want to send a request to your tldw_server to pull the \"$1\" model? This is independent of the huggingface.co website. Your server will start pulling the model after you confirm.",
-  "hfPullSending": "[tldw Assistant] Sending a request to your tldw_server to pull \"$1\". Check the extension icon or your tldw_server logs for progress.",
-  "hfPullErrorWithDetail": "[tldw Assistant] Failed to send a pull request for \"$1\": $2. Check Settings → tldw server and try again.",
-  "hfPullError": "[tldw Assistant] Failed to send a pull request for \"$1\". Check Settings → tldw server and try again.",
-  "hfPullSuccess": "[tldw Assistant] Request sent to your tldw_server to pull \"$1\". Monitor the extension icon or tldw_server logs for status.",
-  "hfPullException": "[tldw Assistant] Something went wrong while sending a pull request for \"$1\" to your tldw_server. Check that your tldw_server and the extension are running, then try again.",
+  "hfSendPageRejected": "[tldw] Begäran att skicka sidan avvisades av tldw_server",
+  "hfSendPageErrorWithDetail": "[tldw] Kunde inte skicka den här sidan till tldw_server: $1. Kontrollera Inställningar → tldw-server och försök igen.",
+  "hfSendPageError": "[tldw] Kunde inte skicka den här sidan till tldw_server. Kontrollera Inställningar → tldw-server och försök igen.",
+  "hfSendPageSuccess": "[tldw] Skickade sidan till tldw_server för bearbetning",
+  "hfSendPageException": "[tldw] Något gick fel när sidan skickades till tldw_server. Kontrollera att tldw_server och tillägget körs och försök igen.",
+  "hfPullInProgress": "[tldw Assistant] En modellhämtning pågår redan. Vänta tills den är klar innan du startar en ny.",
+  "hfPullConfirm": "[tldw Assistant] Vill du skicka en begäran till din tldw_server om att hämta modellen \"$1\"? Detta är oberoende av webbplatsen huggingface.co. Din server börjar hämta modellen när du bekräftar.",
+  "hfPullSending": "[tldw Assistant] Skickar en begäran till din tldw_server om att hämta \"$1\". Kontrollera tilläggsikonen eller tldw_server-loggarna för status.",
+  "hfPullErrorWithDetail": "[tldw Assistant] Kunde inte skicka en hämtningsbegäran för \"$1\": $2. Kontrollera Inställningar → tldw-server och försök igen.",
+  "hfPullError": "[tldw Assistant] Kunde inte skicka en hämtningsbegäran för \"$1\". Kontrollera Inställningar → tldw-server och försök igen.",
+  "hfPullSuccess": "[tldw Assistant] Begäran skickades till din tldw_server för att hämta \"$1\". Håll koll på tilläggsikonen eller tldw_server-loggarna för status.",
+  "hfPullException": "[tldw Assistant] Något gick fel när en hämtningsbegäran för \"$1\" skickades till din tldw_server. Kontrollera att tldw_server och tillägget körs och försök igen.",
   "stepLabel": "Välkommen",
   "path": "Hur vill du komma igång?",
   "nextSteps": "Du är redo att börja",

@@ -17,8 +17,8 @@
   },
   "selectAModel": "Selecionar um Modelo",
   "modelSelect": {
-    "label": "Model",
-    "tooltip": "Changes model for next message"
+    "label": "Modelo",
+    "tooltip": "Muda o modelo para a próxima mensagem"
   },
   "save": "Salvar",
   "saved": "Salvo",
@@ -67,11 +67,11 @@
   "webSearch": "Pesquisando na web",
   "regenerate": "Gerar Novamente",
   "edit": "Editar",
-  "generate": "Generate",
-  "view": "View",
+  "generate": "Gerar",
+  "view": "Ver",
   "delete": "Excluir",
-  "deleteMessageConfirm": "Delete this message?",
-  "deleteFailed": "Delete failed",
+  "deleteMessageConfirm": "Excluir esta mensagem?",
+  "deleteFailed": "Falha ao excluir",
   "continue": "Continuar resposta",
   "saveAndSubmit": "Salvar & Enviar",
   "editMessage": {
@@ -90,35 +90,35 @@
   "beta": "Versão beta",
   "tts": "Ler em voz alta",
   "ttsShort": "Voz",
-  "reply": "Reply",
-  "replyShort": "Reply",
-  "replyingTo": "Replying to",
-  "clearReply": "Clear reply target",
-  "replyTargetFallback": "Message",
-  "artifactsTitle": "Artifact",
-  "artifactsDefaultTitle": "Code",
-  "artifactsView": "View code",
-  "artifactsPin": "Pin",
-  "artifactsUnpin": "Unpin",
-  "artifactsClose": "Close",
-  "artifactsCopy": "Copy",
-  "artifactsDownload": "Download",
-  "artifactsRun": "Run",
+  "reply": "Responder",
+  "replyShort": "Resp.",
+  "replyingTo": "Respondendo a",
+  "clearReply": "Limpar destino da resposta",
+  "replyTargetFallback": "Mensagem",
+  "artifactsTitle": "Artefato",
+  "artifactsDefaultTitle": "Código",
+  "artifactsView": "Ver código",
+  "artifactsPin": "Fixar",
+  "artifactsUnpin": "Desafixar",
+  "artifactsClose": "Fechar",
+  "artifactsCopy": "Copiar",
+  "artifactsDownload": "Baixar",
+  "artifactsRun": "Executar",
   "copyShort": "Copiar",
   "branchShort": "Ramo",
-  "infoShort": "Info",
-  "saveToNotes": "Save to Notes",
-  "saveToFlashcards": "Save to Flashcards",
-  "generateDocument": "Generate document",
+  "infoShort": "Info.",
+  "saveToNotes": "Salvar em Notas",
+  "saveToFlashcards": "Salvar em cartões de estudo",
+  "generateDocument": "Gerar documento",
   "documentShort": "Doc",
   "documentCard": {
     "removeAria": "Remover {{name}}"
   },
-  "saveNoteShort": "Note",
-  "saveFlashcardShort": "Card",
-  "savedToNotes": "Saved to Notes",
-  "savedToFlashcards": "Saved to Flashcards",
-  "saveToNotesEmpty": "Nothing to save yet.",
+  "saveNoteShort": "Nota",
+  "saveFlashcardShort": "Cartão",
+  "savedToNotes": "Salvo em Notas",
+  "savedToFlashcards": "Salvo em cartões de estudo",
+  "saveToNotesEmpty": "Nada para salvar ainda.",
   "regenShort": "Repetir",
   "continueShort": "Mais",
   "fileChanges": "Alterações de arquivos",
@@ -213,55 +213,55 @@
         "help": "Esta é uma maneira rápida de definir o prompt do sistema no chat atual, que substituirá o prompt do sistema selecionado, se existir."
       },
       "historyMessageLimit": {
-        "label": "History message limit",
-        "placeholder": "e.g. 10",
-        "help": "Limit how many previous messages are sent with each request."
+        "label": "Limite de mensagens do histórico",
+        "placeholder": "ex.: 10",
+        "help": "Limita quantas mensagens anteriores são enviadas em cada solicitação."
       },
       "historyMessageOrder": {
-        "label": "History message order",
-        "placeholder": "Select order",
-        "help": "Choose whether the newest or oldest messages are sent first.",
+        "label": "Ordem das mensagens do histórico",
+        "placeholder": "Selecionar ordem",
+        "help": "Escolha se as mensagens mais recentes ou mais antigas são enviadas primeiro.",
         "options": {
-          "desc": "Newest first",
-          "asc": "Oldest first"
+          "desc": "Mais recentes primeiro",
+          "asc": "Mais antigas primeiro"
         }
       },
       "slashCommandInjectionMode": {
-        "label": "Slash command injection",
-        "placeholder": "Select injection mode",
-        "help": "Choose how slash commands are inserted into the request.",
+        "label": "Injeção de comandos com barra",
+        "placeholder": "Selecionar modo de injeção",
+        "help": "Escolha como os comandos com barra são inseridos na solicitação.",
         "options": {
-          "system": "System message",
-          "preface": "Preface user message",
-          "replace": "Replace user message"
+          "system": "Mensagem do sistema",
+          "preface": "Prefixar mensagem do usuário",
+          "replace": "Substituir mensagem do usuário"
         }
       },
       "apiProvider": {
-        "label": "API provider override",
-        "placeholder": "Select provider (optional)",
-        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+        "label": "Substituição do provedor de API",
+        "placeholder": "Selecionar provedor (opcional)",
+        "help": "Força um provedor específico para este chat (ex.: openai, anthropic)."
       },
       "extraHeaders": {
-        "label": "Extra headers (JSON)",
+        "label": "Cabeçalhos extras (JSON)",
         "placeholder": "{ \"X-API-Key\": \"...\" }",
-        "help": "JSON object merged into request headers."
+        "help": "Objeto JSON mesclado aos cabeçalhos da solicitação."
       },
       "extraBody": {
-        "label": "Extra body (JSON)",
+        "label": "Corpo extra (JSON)",
         "placeholder": "{ \"user\": \"...\" }",
-        "help": "JSON object merged into request body."
+        "help": "Objeto JSON mesclado ao corpo da solicitação."
       },
       "guardrails": {
-        "invalidJson": "Enter a valid JSON object."
+        "invalidJson": "Insira um objeto JSON válido."
       }
     },
     "advanced": "Mais Configurações do Modelo",
-    "requestOverrides": "Request overrides",
+    "requestOverrides": "Substituições de solicitação",
     "tabs": {
-      "model": "Model",
-      "conversation": "Conversation",
-      "advanced": "Advanced",
-      "actor": "Scene Director"
+      "model": "Modelo",
+      "conversation": "Conversa",
+      "advanced": "Avançado",
+      "actor": "Diretor de cena"
     }
   },
   "copilot": {
@@ -346,7 +346,7 @@
     "friendlyGenericHint": "Tente novamente em alguns instantes ou abra Saúde e diagnóstico para verificar o status do servidor.",
     "showDetails": "Mostrar detalhes técnicos",
     "hideDetails": "Ocultar detalhes técnicos",
-    "createFolder": "Failed to create folder"
+    "createFolder": "Falha ao criar pasta"
   },
   "folders": "Pastas",
   "folderView": "Visualização de pastas",
@@ -362,33 +362,33 @@
   "untitled": "Sem título",
   "moveToFolder": "Mover para pasta",
   "timeline": {
-    "title": "Conversation Timeline",
-    "searchPlaceholder": "Search messages... (space = AND)",
-    "searchMatches": "matches",
-    "searchNoMatches": "no matches",
+    "title": "Linha do tempo da conversa",
+    "searchPlaceholder": "Pesquisar mensagens... (espaço = E)",
+    "searchMatches": "correspondências",
+    "searchNoMatches": "sem correspondências",
     "searchMode": {
-      "fragments": "Fragments",
-      "substring": "Substring",
-      "regex": "Regex"
+      "fragments": "Fragmentos",
+      "substring": "Subcadeia",
+      "regex": "Expressão regular"
     },
     "layout": {
       "horizontal": "horizontal",
       "vertical": "vertical"
     },
-    "refreshGraph": "Refresh graph",
-    "switchLayout": "Switch to {{layout}} layout",
-    "expandAllAlternatives": "Expand all alternatives",
-    "collapseAllAlternatives": "Collapse all alternatives",
-    "hideLegend": "Hide legend",
-    "showLegend": "Show legend",
-    "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out",
-    "unableLocateMessage": "Unable to locate the message for this action.",
-    "actionFailed": "Failed to perform timeline action. Please try again."
+    "refreshGraph": "Atualizar gráfico",
+    "switchLayout": "Mudar para layout {{layout}}",
+    "expandAllAlternatives": "Expandir todas as alternativas",
+    "collapseAllAlternatives": "Recolher todas as alternativas",
+    "hideLegend": "Ocultar legenda",
+    "showLegend": "Mostrar legenda",
+    "zoomIn": "Aproximar",
+    "zoomOut": "Afastar",
+    "unableLocateMessage": "Não foi possível localizar a mensagem para esta ação.",
+    "actionFailed": "Falha ao executar a ação da linha do tempo. Tente novamente."
   },
   "noToolCalls": "Ainda não há chamadas de ferramentas",
-  "sourceLabel": "Source",
-  "sourceOpen": "Open source",
+  "sourceLabel": "Fonte",
+  "sourceOpen": "Abrir fonte",
   "status": {
     "pending": "Pendente",
     "running": "Processando",
@@ -467,14 +467,14 @@
     }
   },
   "chatSidebar": {
-    "title": "Chats",
+    "title": "Conversas",
     "newChat": "Novo chat",
     "collapse": "Recolher barra lateral",
     "expand": "Expandir barra lateral",
     "search": "Pesquisar chats...",
-    "modeLabel": "Mode",
-    "modeCasual": "Casual",
-    "modePro": "Pro",
+    "modeLabel": "Modo",
+    "modeCasual": "Informal",
+    "modePro": "Profissional",
     "ingest": "Ingerir página",
     "media": "Mídia",
     "notes": "Notas",

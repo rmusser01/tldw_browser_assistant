@@ -6,7 +6,7 @@
     "openwebui": "打开网页界面"
   },
   "toolbar": {
-    "ragSearch": "RAG Search"
+    "ragSearch": "RAG 搜索"
   },
   "errors": {
     "privateModeTitle": "tldw Assistant 无法保存数据",
@@ -27,7 +27,7 @@
   },
   "temporaryBadge": {
     "title": "临时聊天",
-    "label": "Temp",
+    "label": "临时",
     "description": "此聊天不会被保存。关闭或开始新聊天时消息将被清除。",
     "clickHint": "点击以禁用",
     "ariaLabel": "临时聊天模式已启用。点击切换。",
@@ -35,33 +35,33 @@
     "indicatorAria": "临时聊天"
   },
   "header": {
-    "ingest": "Ingest",
-    "saveCurrent": "Save current page on server",
-    "processLocal": "Process current page locally",
-    "viewProcessed": "View processed",
-    "timeoutLabel": "Timeout (s)",
-    "toggleSidebar": "Toggle Sidebar / Full Screen",
-    "shortcuts": "Shortcuts",
-    "showDebug": "Show Stream Debug",
-    "hideDebug": "Hide Stream Debug",
-    "moreOptionsAria": "More options",
-    "moreOptionsTitle": "Ingest and more",
-    "openWebuiAria": "Open Web UI",
-    "newChatAria": "New chat",
-    "tempChatAria": "Toggle temporary chat",
-    "clearHistoryAria": "Clear history",
-    "openHistoryAria": "Open history",
-    "openModelSettingsAria": "Open model settings",
-    "openSettingsAria": "Open settings",
-    "tempPill": "Temp",
-    "modesLabel": "Open modes in Web UI",
-    "modePlayground": "Chat",
-    "modeReview": "Multi-Item Review",
-    "modeMedia": "Media",
-    "modeKnowledge": "Knowledge",
-    "modeNotes": "Notes",
-    "modePrompts": "Prompts",
-    "modeFlashcards": "Flashcards"
+    "ingest": "摄取",
+    "saveCurrent": "在服务器上保存当前页面",
+    "processLocal": "本地处理当前页面",
+    "viewProcessed": "查看已处理内容",
+    "timeoutLabel": "超时 (秒)",
+    "toggleSidebar": "切换侧边栏 / 全屏",
+    "shortcuts": "快捷键",
+    "showDebug": "显示流调试",
+    "hideDebug": "隐藏流调试",
+    "moreOptionsAria": "更多选项",
+    "moreOptionsTitle": "Ingest 及更多",
+    "openWebuiAria": "打开 Web UI",
+    "newChatAria": "新聊天",
+    "tempChatAria": "切换临时聊天",
+    "clearHistoryAria": "清除历史",
+    "openHistoryAria": "打开历史",
+    "openModelSettingsAria": "打开模型设置",
+    "openSettingsAria": "打开设置",
+    "tempPill": "临时",
+    "modesLabel": "在 Web UI 中打开模式",
+    "modePlayground": "聊天",
+    "modeReview": "多项审阅",
+    "modeMedia": "媒体",
+    "modeKnowledge": "知识问答",
+    "modeNotes": "笔记",
+    "modePrompts": "提示词",
+    "modeFlashcards": "抽认卡"
   },
   "controlRow": {
     "saveMode": "保存模式",
@@ -80,21 +80,21 @@
     "moreTools": "更多工具"
   },
   "composer": {
-    "connectHint": "Connect to your tldw server in Settings to send messages.",
-    "connectingPlaceholder": "Connecting...",
-    "disconnectedPlaceholder": "Connect to your tldw server in Settings to send messages and view media."
+    "connectHint": "在设置中连接你的 tldw 服务器以发送消息。",
+    "connectingPlaceholder": "正在连接...",
+    "disconnectedPlaceholder": "在设置中连接你的 tldw 服务器以发送消息并查看媒体。"
   },
   "notification": {
-    "ingestSent": "Sent to tldw server",
-    "ingestSentDesc": "Current page has been submitted for ingestion.",
-    "processedLocal": "Processed locally",
-    "processedLocalDesc": "Processed content stored locally under Settings > Processed.",
-    "transcriptionTitle": "Transcription",
-    "transcriptionSummaryTitle": "Transcription + summary",
-    "transcriptionFallback": "Transcription completed. Open Media in the Web UI to view it.",
-    "sourceLabel": "Source",
-    "transcriptLabel": "Transcript",
-    "summaryLabel": "Summary"
+    "ingestSent": "已发送至 tldw 服务器",
+    "ingestSentDesc": "当前页面已提交进行摄取。",
+    "processedLocal": "已在本地处理",
+    "processedLocalDesc": "处理后的内容已本地存储在 设置 > 已处理 下。",
+    "transcriptionTitle": "转录",
+    "transcriptionSummaryTitle": "转录 + 摘要",
+    "transcriptionFallback": "转录完成。请在 Web UI 中打开媒体查看。",
+    "sourceLabel": "来源",
+    "transcriptLabel": "转录",
+    "summaryLabel": "摘要"
   },
   "saveStatus": {
     "ephemeral": "临时：不保存，关闭时清除",
@@ -105,24 +105,24 @@
   },
   "rag": {
     "attachedContext": "附加的上下文",
-    "searchPlaceholder": "Search your knowledge…",
-    "search": "Search",
-    "show": "Show RAG search",
-    "hide": "Hide RAG search",
-    "addTagPlaceholder": "Add tag (Enter)",
-    "add": "Add",
-    "noResults": "No results",
-    "initialState": "No results",
+    "searchPlaceholder": "搜索你的知识库…",
+    "search": "搜索",
+    "show": "显示 RAG 搜索",
+    "hide": "隐藏 RAG 搜索",
+    "addTagPlaceholder": "添加标签 (Enter)",
+    "add": "添加",
+    "noResults": "没有结果",
+    "initialState": "没有结果",
     "timeout": {
-      "message": "Request timed out.",
-      "increase": "Increase timeout",
-      "checkHealth": "Check server health"
+      "message": "请求超时。",
+      "increase": "增加超时时间",
+      "checkHealth": "检查服务器状态"
     },
     "actions": {
-      "insert": "Insert",
-      "ask": "Ask",
-      "open": "Open",
-      "copy": "Copy"
+      "insert": "插入",
+      "ask": "提问",
+      "open": "打开",
+      "copy": "复制"
     },
     "hint": {
       "message": "搜索你的知识库，并将结果插入到消息中。",
@@ -135,13 +135,13 @@
     "closeTabAria": "关闭对话标签页"
   },
   "characterSelect": {
-    "label": "Character",
-    "tooltip": "Select a character",
-    "search": "Search characters...",
-    "noMatches": "No matching characters",
-    "noCharacters": "No characters available",
-    "none": "No character",
-    "createNewCharacter": "Create a New Character+",
-    "importCharacter": "Import Character"
+    "label": "角色",
+    "tooltip": "选择角色",
+    "search": "搜索角色...",
+    "noMatches": "没有匹配的角色",
+    "noCharacters": "暂无可用角色",
+    "none": "无角色",
+    "createNewCharacter": "创建新角色+",
+    "importCharacter": "导入角色"
   }
 }

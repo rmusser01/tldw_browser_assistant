@@ -17,8 +17,8 @@
   },
   "selectAModel": "选择一个模型",
   "modelSelect": {
-    "label": "Model",
-    "tooltip": "Changes model for next message"
+    "label": "模型",
+    "tooltip": "为下一条消息切换模型"
   },
   "save": "保存",
   "saved": "已保存",
@@ -67,11 +67,11 @@
   "webSearch": "搜索网络",
   "regenerate": "重新生成",
   "edit": "编辑",
-  "generate": "Generate",
-  "view": "View",
+  "generate": "生成",
+  "view": "查看",
   "delete": "删除",
-  "deleteMessageConfirm": "Delete this message?",
-  "deleteFailed": "Delete failed",
+  "deleteMessageConfirm": "删除这条消息？",
+  "deleteFailed": "删除失败",
   "continue": "继续回答",
   "saveAndSubmit": "保存 & 提交",
   "editMessage": {
@@ -90,35 +90,35 @@
   "beta": "测试版",
   "tts": "朗读",
   "ttsShort": "语音",
-  "reply": "Reply",
-  "replyShort": "Reply",
-  "replyingTo": "Replying to",
-  "clearReply": "Clear reply target",
-  "replyTargetFallback": "Message",
-  "artifactsTitle": "Artifact",
-  "artifactsDefaultTitle": "Code",
-  "artifactsView": "View code",
-  "artifactsPin": "Pin",
-  "artifactsUnpin": "Unpin",
-  "artifactsClose": "Close",
-  "artifactsCopy": "Copy",
-  "artifactsDownload": "Download",
-  "artifactsRun": "Run",
+  "reply": "回复",
+  "replyShort": "回复",
+  "replyingTo": "正在回复",
+  "clearReply": "清除回复目标",
+  "replyTargetFallback": "消息",
+  "artifactsTitle": "产物",
+  "artifactsDefaultTitle": "代码",
+  "artifactsView": "查看代码",
+  "artifactsPin": "置顶",
+  "artifactsUnpin": "取消置顶",
+  "artifactsClose": "关闭",
+  "artifactsCopy": "复制",
+  "artifactsDownload": "下载",
+  "artifactsRun": "运行",
   "copyShort": "复制",
   "branchShort": "分支",
   "infoShort": "信息",
-  "saveToNotes": "Save to Notes",
-  "saveToFlashcards": "Save to Flashcards",
-  "generateDocument": "Generate document",
-  "documentShort": "Doc",
+  "saveToNotes": "保存到笔记",
+  "saveToFlashcards": "保存到抽认卡",
+  "generateDocument": "生成文档",
+  "documentShort": "文档",
   "documentCard": {
     "removeAria": "移除 {{name}}"
   },
-  "saveNoteShort": "Note",
-  "saveFlashcardShort": "Card",
-  "savedToNotes": "Saved to Notes",
-  "savedToFlashcards": "Saved to Flashcards",
-  "saveToNotesEmpty": "Nothing to save yet.",
+  "saveNoteShort": "笔记",
+  "saveFlashcardShort": "卡片",
+  "savedToNotes": "已保存到笔记",
+  "savedToFlashcards": "已保存到抽认卡",
+  "saveToNotesEmpty": "暂无可保存内容。",
   "regenShort": "重试",
   "continueShort": "更多",
   "fileChanges": "文件更改",
@@ -213,55 +213,55 @@
         "help": "这是一种在当前聊天中快速设置系统提示的方法，如果存在已选择的系统提示，它将覆盖该提示。"
       },
       "historyMessageLimit": {
-        "label": "History message limit",
-        "placeholder": "e.g. 10",
-        "help": "Limit how many previous messages are sent with each request."
+        "label": "历史消息数量上限",
+        "placeholder": "例如：10",
+        "help": "限制每次请求发送的历史消息数量。"
       },
       "historyMessageOrder": {
-        "label": "History message order",
-        "placeholder": "Select order",
-        "help": "Choose whether the newest or oldest messages are sent first.",
+        "label": "历史消息顺序",
+        "placeholder": "选择顺序",
+        "help": "选择先发送最新消息还是最旧消息。",
         "options": {
-          "desc": "Newest first",
-          "asc": "Oldest first"
+          "desc": "最新优先",
+          "asc": "最旧优先"
         }
       },
       "slashCommandInjectionMode": {
-        "label": "Slash command injection",
-        "placeholder": "Select injection mode",
-        "help": "Choose how slash commands are inserted into the request.",
+        "label": "斜杠命令注入",
+        "placeholder": "选择注入方式",
+        "help": "选择斜杠命令插入请求的方式。",
         "options": {
-          "system": "System message",
-          "preface": "Preface user message",
-          "replace": "Replace user message"
+          "system": "系统消息",
+          "preface": "前置用户消息",
+          "replace": "替换用户消息"
         }
       },
       "apiProvider": {
-        "label": "API provider override",
-        "placeholder": "Select provider (optional)",
-        "help": "Force a specific provider for this chat (e.g. openai, anthropic)."
+        "label": "API 提供方覆盖",
+        "placeholder": "选择提供方（可选）",
+        "help": "为此聊天强制使用指定提供方（例如 openai、anthropic）。"
       },
       "extraHeaders": {
-        "label": "Extra headers (JSON)",
+        "label": "额外请求头（JSON）",
         "placeholder": "{ \"X-API-Key\": \"...\" }",
-        "help": "JSON object merged into request headers."
+        "help": "JSON 对象会合并到请求头中。"
       },
       "extraBody": {
-        "label": "Extra body (JSON)",
+        "label": "额外请求体（JSON）",
         "placeholder": "{ \"user\": \"...\" }",
-        "help": "JSON object merged into request body."
+        "help": "JSON 对象会合并到请求体中。"
       },
       "guardrails": {
-        "invalidJson": "Enter a valid JSON object."
+        "invalidJson": "请输入有效的 JSON 对象。"
       }
     },
     "advanced": "更多模型设置",
-    "requestOverrides": "Request overrides",
+    "requestOverrides": "请求覆盖项",
     "tabs": {
-      "model": "Model",
-      "conversation": "Conversation",
-      "advanced": "Advanced",
-      "actor": "Scene Director"
+      "model": "模型",
+      "conversation": "对话",
+      "advanced": "高级",
+      "actor": "场景导演"
     }
   },
   "copilot": {
@@ -346,7 +346,7 @@
     "friendlyGenericHint": "请稍后重试，或打开“健康状况与诊断”检查服务器健康状况。",
     "showDetails": "显示技术详情",
     "hideDetails": "隐藏技术详情",
-    "createFolder": "Failed to create folder"
+    "createFolder": "创建文件夹失败"
   },
   "folders": "文件夹",
   "folderView": "文件夹视图",
@@ -362,33 +362,33 @@
   "untitled": "未命名",
   "moveToFolder": "移动到文件夹",
   "timeline": {
-    "title": "Conversation Timeline",
-    "searchPlaceholder": "Search messages... (space = AND)",
-    "searchMatches": "matches",
-    "searchNoMatches": "no matches",
+    "title": "对话时间线",
+    "searchPlaceholder": "搜索消息...（空格 = AND）",
+    "searchMatches": "条匹配",
+    "searchNoMatches": "无匹配",
     "searchMode": {
-      "fragments": "Fragments",
-      "substring": "Substring",
-      "regex": "Regex"
+      "fragments": "片段",
+      "substring": "子串",
+      "regex": "正则"
     },
     "layout": {
-      "horizontal": "horizontal",
-      "vertical": "vertical"
+      "horizontal": "水平",
+      "vertical": "垂直"
     },
-    "refreshGraph": "Refresh graph",
-    "switchLayout": "Switch to {{layout}} layout",
-    "expandAllAlternatives": "Expand all alternatives",
-    "collapseAllAlternatives": "Collapse all alternatives",
-    "hideLegend": "Hide legend",
-    "showLegend": "Show legend",
-    "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out",
-    "unableLocateMessage": "Unable to locate the message for this action.",
-    "actionFailed": "Failed to perform timeline action. Please try again."
+    "refreshGraph": "刷新图表",
+    "switchLayout": "切换为{{layout}}布局",
+    "expandAllAlternatives": "展开所有备选",
+    "collapseAllAlternatives": "折叠所有备选",
+    "hideLegend": "隐藏图例",
+    "showLegend": "显示图例",
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "unableLocateMessage": "无法找到此操作对应的消息。",
+    "actionFailed": "执行时间线操作失败。请重试。"
   },
   "noToolCalls": "尚无工具调用",
-  "sourceLabel": "Source",
-  "sourceOpen": "Open source",
+  "sourceLabel": "来源",
+  "sourceOpen": "打开来源",
   "status": {
     "pending": "待定",
     "running": "处理中",
@@ -472,9 +472,9 @@
     "collapse": "收起侧边栏",
     "expand": "展开侧边栏",
     "search": "搜索聊天...",
-    "modeLabel": "Mode",
-    "modeCasual": "Casual",
-    "modePro": "Pro",
+    "modeLabel": "模式",
+    "modeCasual": "休闲",
+    "modePro": "专业",
     "ingest": "导入页面",
     "media": "媒体",
     "notes": "笔记",
